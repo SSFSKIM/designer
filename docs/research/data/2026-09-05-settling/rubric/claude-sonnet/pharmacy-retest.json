@@ -1,0 +1,152 @@
+{
+  "rater": "claude-sonnet",
+  "brief": "pharmacy",
+  "seed": 2468439978,
+  "order": ["002ea9", "758523", "42b5a3", "f344b7", "122077", "5e2273", "10b239", "3ba9f0"],
+  "pages": {
+    "002ea9": {
+      "a1": 7, "a2": 5, "a3": 6, "a4": 7,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 7, "e1": 4,
+      "evidence": {
+        "b1": "Stock levels by drug table shows On hand, Reorder and Par columns for 9 below-par items.",
+        "b2": "Expiring lots section lists lot, quantity, expiry date and disposition on a 60-day runway chart.",
+        "b3": "Controlled substances table shows System/Counted/Variance per Schedule II-III drug with reconciled status.",
+        "b4": "Purchase orders table carries a Status column per order (In transit, Confirmed, Overdue, Awaiting confirmation).",
+        "c1": "No clipped content across all four captures.",
+        "c2": "Text is legible at full and tile resolution.",
+        "c3": "No placeholder or broken regions seen.",
+        "c4": "Spacing and alignment are consistent across cards and tables.",
+        "c5": "Page fits the 1440 viewport with no horizontal scroll.",
+        "d1": "Comprehensive, polished, internally consistent; no defects found in the captures."
+      }
+    },
+    "758523": {
+      "a1": 5, "a2": 4, "a3": 5, "a4": 6,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 5, "e1": 5,
+      "evidence": {
+        "b1": "Stock by drug table shows On hand, Par, a level bar and Days on hand for 22 items.",
+        "b2": "Expiring lots panel lists Ondansetron, Alteplase, Succinylcholine and Immune globulin, each with lot, quantity and days-left.",
+        "b3": "Controlled substances perpetual count table shows System/Counted/Variance and witness per Schedule II-V drug.",
+        "b4": "Pending orders CSOS-0912 and PO-24819 each carry a status badge (Held-signature, Awaiting approval).",
+        "c1": "In the full-page capture, the fixed footer bar ('Connected WILLOW-PRD...') is captured overlapping mid-page, interrupting the stock table and controlled-substances table.",
+        "c2": "Not seen.",
+        "c3": "Not seen.",
+        "c4": "Not seen.",
+        "c5": "Not seen.",
+        "d1": "The footer-bar overlap seen in the full-page capture needs a positioning/z-index fix; otherwise the page is complete."
+      }
+    },
+    "42b5a3": {
+      "a1": 6, "a2": 6, "a3": 6, "a4": 7,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 7, "e1": 4,
+      "evidence": {
+        "b1": "Stock levels by drug table shows On hand, Par, Daily use, a vs-Par bar and Days columns.",
+        "b2": "Lots expiring within 90 days panel lists lot, quantity, expiry date, days and action per lot.",
+        "b3": "Controlled-substance counts table shows System/Counted/Variance per drug and bin, all witnessed.",
+        "b4": "Pending purchase orders table carries a State badge per order (In transit, Confirmed, Submitted, Backordered).",
+        "c1": "No clipped content seen.",
+        "c2": "Text is legible throughout.",
+        "c3": "No placeholder regions seen.",
+        "c4": "Spacing and alignment are consistent.",
+        "c5": "No horizontal overflow seen.",
+        "d1": "Comprehensive and clean, with a distinctive hero discrepancy card; no defects found in the captures."
+      }
+    },
+    "f344b7": {
+      "a1": 6, "a2": 4, "a3": 4, "a4": 6,
+      "b1": 2, "b2": 1, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 3, "e1": 5,
+      "evidence": {
+        "b1": "Stock by item table shows On hand, Par, Cover-days and State columns for the formulary.",
+        "b2": "No dedicated lot-level expiring section; only an 'Expiring ≤ 90 days' filter tab on the combined stock table, plus one lot's detail inside a handover card.",
+        "b3": "Controlled substances ledger lists filed entries with Qty/Expected/Counted/Var/Signed-Witnessed/State plus a shift-open reconciliation summary.",
+        "b4": "Arriving-this-shift orders each carry a status badge (In transit, Awaiting signature, ETA unavailable, Booked, Received).",
+        "c1": "Row 004's status badge reads 'Variance ope', truncated by the table's right edge in tile-3 and the full-page capture.",
+        "c2": "Not seen.",
+        "c3": "Not seen.",
+        "c4": "Not seen.",
+        "c5": "Not seen.",
+        "d1": "Expiring lots needs its own lot-level region built out and the truncated status badge needs a fix before delivery."
+      }
+    },
+    "122077": {
+      "a1": 6, "a2": 5, "a3": 6, "a4": 6,
+      "b1": 2, "b2": 0, "b3": 2, "b4": 0,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 3, "e1": 5,
+      "evidence": {
+        "b1": "Stock levels by drug table shows On hand, Par and Days on hand columns for the 3 rows visible before the capture cuts off.",
+        "b2": "Only the sidebar nav shows 'Expiring lots 17'; no expiring-lots list or lot detail appears in either capture.",
+        "b3": "Controlled substances panel lists book/count and witness/verified state per Schedule II-IV drug.",
+        "b4": "Only the sidebar nav shows 'Orders & receiving 12'; no purchase-order list or per-order status appears in either capture.",
+        "c1": "The stock table's Piperacillin-Tazobactam row is cut off at the viewport's bottom edge, and the full-page capture is identical to the first-viewport capture, so the rest of the 1,284 items are never shown.",
+        "c2": "Not seen.",
+        "c3": "Not seen.",
+        "c4": "Not seen.",
+        "c5": "Not seen.",
+        "d1": "The page does not appear to scroll past one viewport in the capture, which would need fixing to reach the expiring-lots and orders regions the brief needs; only what's visible here is confirmed built."
+      }
+    },
+    "5e2273": {
+      "a1": 7, "a2": 7, "a3": 6, "a4": 7,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 7, "e1": 3,
+      "evidence": {
+        "b1": "Stock by drug table shows On hand, Par, Days and State (below par etc.) columns.",
+        "b2": "Short-dated lots table lists lot, expiry, days, a 0-90 day window bar, quantity and location, separate from the main stock table.",
+        "b3": "Controlled substances vault ledger table shows Book/Physical/Variance/Last count/Witness/State per Schedule II-IV drug.",
+        "b4": "Pending purchase orders table carries a Status column (Unsigned, Backorder, Confirmed, Shipped) per order line.",
+        "c1": "No clipped content seen.",
+        "c2": "Text is legible throughout, including the dense monospace tables.",
+        "c3": "No placeholder regions seen.",
+        "c4": "Spacing and alignment are consistent across sections.",
+        "c5": "No horizontal overflow seen.",
+        "d1": "Comprehensive, distinctive (deadline-driven triage, look-alike drug warnings) and clean; no defects found in the captures."
+      }
+    },
+    "10b239": {
+      "a1": 7, "a2": 6, "a3": 6, "a4": 7,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 2,
+      "evidence": {
+        "b1": "Stock on hand table shows an on hand/par fraction, a bar and Days-of-cover per item.",
+        "b2": "Expiry horizon panel is a dedicated chart of lots by days-to-expiry plus a summary (value at risk, lots, expired, inside 14 days).",
+        "b3": "Schedule II vault night-count card shows Expected/Counted/Δ per drug, separate from the general stock table.",
+        "b4": "Purchase orders table carries a Status column per order (Past promise, In transit, Confirmed, Backordered).",
+        "c1": "No clipped content seen.",
+        "c2": "Small monospace text remains legible at capture resolution.",
+        "c3": "No placeholder regions seen.",
+        "c4": "Spacing and alignment are consistent.",
+        "c5": "No horizontal overflow seen.",
+        "d1": "Comprehensive and highly polished, distinctive dark terminal styling; no defects found in the captures."
+      }
+    },
+    "3ba9f0": {
+      "a1": 7, "a2": 5, "a3": 6, "a4": 7,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 7, "e1": 5,
+      "evidence": {
+        "b1": "Stock ledger table shows an on hand/par bar and Days of cover per item.",
+        "b2": "Expiring lots and holds table lists lot, expiry, quantity, location, value and status, separate from the stock ledger.",
+        "b3": "Controlled substances shift count panel shows System/Counted/Variance per Schedule II-IV drug.",
+        "b4": "Pending orders panel lists each PO with a status badge (Confirmed, Awaiting signature, No confirmation, In transit).",
+        "c1": "No clipped content seen.",
+        "c2": "Text is legible throughout.",
+        "c3": "No placeholder regions seen.",
+        "c4": "Spacing and alignment are consistent.",
+        "c5": "No horizontal overflow seen.",
+        "d1": "Comprehensive and clean; no defects found in the captures."
+      }
+    }
+  }
+}

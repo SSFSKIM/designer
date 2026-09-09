@@ -1,0 +1,152 @@
+{
+  "rater": "claude-opus",
+  "brief": "rebate",
+  "seed": 3580619237,
+  "order": ["dcf135", "c7de4a", "ea1cfd", "7acb2c", "c78373", "cbd040", "5d884a", "f77261"],
+  "pages": {
+    "dcf135": {
+      "a1": 6, "a2": 5, "a3": 5, "a4": 6,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 5,
+      "evidence": {
+        "b1": "first screen opens 'Who qualifies, and what you would get' with question 1 answered and a determination card reading 'Provisional. 2 conditions are still to confirm'",
+        "b2": "block chart plus 'Schedule B, clause 4.1' table giving $340/$275/$180 per kWh across standard, income-qualified and rental columns with caps and clause footnotes",
+        "b3": "'Installers approved for this program' table with nine contractors, licence numbers, service area, approved date and booking availability",
+        "b4": "full Apply section on the page with property, applicant, system, income and attestation fieldsets and a Submit application button",
+        "c1": "sticky determination card and all tables end inside their rules; nothing truncated in any capture",
+        "c2": "mono metadata (cl. 3.1, chart axis labels) is small but reads cleanly at native resolution in tile-2 and tile-3",
+        "c3": "every region carries real content; the chart, tables and installer roster are all populated",
+        "c4": "question rows, condition rows and table cells keep one rhythm; hero and sidebar share a top edge",
+        "c5": "content stays inside the 1440 frame; header and footer rules end at the same margins",
+        "d1": "complete and rigorous; only the austerity of the clause-heavy tone would be worth a pass before delivery"
+      }
+    },
+    "c7de4a": {
+      "a1": 6, "a2": 5, "a3": 6, "a4": 6,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 5, "e1": 5,
+      "evidence": {
+        "b1": "first screen gives only one condition — 'installed at a home inside city limits' and the estimator's rate R-1/R-1T checkbox; the four rules sit below the fold",
+        "b2": "'What it pays' table lists $500 per kWh, $2,500 income adder, $1,500 medical adder, $9,000 maximum and a 60% cost test, each with its condition",
+        "b3": "'Approved installers' table, seven firms with licence, rebated jobs, median days, service area, languages and phone",
+        "b4": "single Apply form on the page carrying the estimate reference forward to a Submit application button",
+        "c1": "the dark estimator panel is a deliberate right-edge bleed; no text meets a container edge",
+        "c2": "smallest type is the mono resolution and rate-schedule labels, still legible at native resolution",
+        "c3": "no empty slots; the white areas beside the rule columns are column-length differences, not vacancies",
+        "c4": "rule rows, table rows and form fields align to one grid throughout",
+        "c5": "no horizontal overflow; the full-page capture is 1440 wide with flush margins",
+        "d1": "content is complete but the tall right sidebar leaves long empty stretches beside 'Who qualifies' that want spacing work"
+      }
+    },
+    "ea1cfd": {
+      "a1": 6, "a2": 4, "a3": 4, "a4": 5,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 5, "e1": 6,
+      "evidence": {
+        "b1": "first screen only promises 'who qualifies' in the intro and offers a 'Check whether you qualify' button; the five conditions start after the fold",
+        "b2": "'What the rebate is worth' table gives $400 per kWh base to a 13.0 kWh limit, four adders with amounts, a $7,500 household cap and three worked payments",
+        "b3": "'Approved installers' list of eleven firms with licence numbers, standing badges, jobs and last-verified dates plus standing and area filters",
+        "b4": "one Apply form covering property, system, adders, contact and declarations with a 'Review and file' button",
+        "c1": "worksheet card, standing box and tables all close inside their borders",
+        "c2": "body text is dark on near-white throughout; the smallest mono section marks stay readable",
+        "c3": "no placeholder blocks; the standing box carries a real not-yet-decided state rather than dummy text",
+        "c4": "the five condition blocks and the Yes/No/Not sure triads repeat at identical spacing",
+        "c5": "layout is contained; nothing extends past the viewport width",
+        "d1": "answers the brief fully but reads visually flat, and the right column runs empty for most of the qualification section"
+      }
+    },
+    "7acb2c": {
+      "a1": 5, "a2": 4, "a3": 4, "a4": 5,
+      "b1": 0, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 4, "e1": 5,
+      "evidence": {
+        "b1": "first screen carries only the rate headline, the fund panel and the estimate; eligibility appears solely as a 'Who qualifies' jump link",
+        "b2": "'The rebate schedule' table gives $385 and $610 per kWh, three adders, the 16.0 kWh cap and a $9,300 maximum with each line's condition and limit",
+        "b3": "'Approved installers' register, sixteen firms with licence, service area, certified brands, installs and approval date, plus area and availability filters",
+        "b4": "'The application' section holds the whole form, service through payment, ending in a 'File the application' button",
+        "c1": "requirement rows, proof column and register rows all sit inside their rules",
+        "c2": "the mono proof column is small but crisp at native resolution in tile-2 and tile-3",
+        "c3": "no empty or template regions; the register and the returned-applications panel are fully populated",
+        "c4": "requirement blocks, proof entries and schedule rows repeat on one consistent rhythm",
+        "c5": "no sideways scroll; the wide register table stays inside the content column",
+        "d1": "eligibility never reaches the first screen, so the qualification region would have to be raised or summarised before delivery"
+      }
+    },
+    "c78373": {
+      "a1": 7, "a2": 6, "a3": 7, "a4": 7,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 3,
+      "evidence": {
+        "b1": "first screen states the award and an income-qualified rate but no conditions; the five 'Who qualifies' cards begin only in the second viewport",
+        "b2": "award card lists $300/kWh base, $450/kWh income-qualified, 13.5 kWh counted, +$2,100 add-ons and a $7,500 lifetime cap, expanded in the 'What the rebate is worth' section",
+        "b3": "'The ten approved installers' grid, ten cards with licence, languages, availability and a per-firm action",
+        "b4": "'The one form' section runs about you, the property, household, system, add-ons and signature to a Submit application button",
+        "c1": "cards, the self-check panel and the exclusions box all contain their text",
+        "c2": "type sizes hold up at native resolution; the smallest items are the mono section marks, which stay legible",
+        "c3": "no lorem or vacant slots; the last installer row has a single trailing card, which is ordinary grid behaviour",
+        "c4": "card gutters and internal padding repeat across the qualification grid and the installer grid",
+        "c5": "page keeps to the 1440 frame with even margins on both sides",
+        "d1": "distinctive and complete; the only real ask is lifting a plain eligibility line into the first screen"
+      }
+    },
+    "cbd040": {
+      "a1": 5, "a2": 5, "a3": 5, "a4": 5,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 1, "c5": 0,
+      "d1": 5, "e1": 5,
+      "evidence": {
+        "b1": "first screen gives a 'Check if you qualify' button and an income question inside the estimator, but no eligibility rules",
+        "b2": "'How the amount is worked out' schedule gives $300 per kWh from 5.0 kWh capped at 10 kWh, +$1,500 income adder, +$600 peak adder and a $5,100 maximum with conditions",
+        "b3": "'Approved installers' table of seven contractors with service area, licence, availability and rebates paid",
+        "b4": "single Apply form covering property, contact, system, adders and payment with a Submit application button",
+        "c1": "tables and the estimator panel all close inside their frames",
+        "c2": "text is dark purple on light throughout and the reversed band keeps enough contrast",
+        "c3": "all regions carry content; the offset outline behind the estimate is a display treatment, not a broken asset",
+        "c4": "in the hero the right column's paragraph starts about ninety pixels above the headline, and the estimator's left label and right numeral do not share a top edge",
+        "c5": "no horizontal scroll; bands run edge to edge but content stays inside the margins",
+        "d1": "complete, but the hero's unaligned columns and the outlined display numeral want a cosmetic pass"
+      }
+    },
+    "5d884a": {
+      "a1": 6, "a2": 4, "a3": 5, "a4": 6,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 6,
+      "evidence": {
+        "b1": "first screen carries a labelled 'Who:' line — 'owners and renters on a Marston Public Power residential account' — beside how much and how long",
+        "b2": "rate schedule gives $300 per kWh base to a $4,500 cap, a $250 income adder, $1,000 evening-peak, up to $1,200 service upgrade and a $9,400 maximum, with two worked examples",
+        "b3": "'Approved installers' table of ten firms with city licence, service area, certified brands, availability and last-verified date",
+        "b4": "one Apply form, service address through attestations, with a Submit application button and an estimate panel alongside",
+        "c1": "seven-condition list, the conditional-review box and both worked examples end inside their rules",
+        "c2": "leaders and mono figures are small but legible; body copy holds contrast on the textured ground",
+        "c3": "no empty slots; every panel including the estimate sidebar shows real values",
+        "c4": "the seven numbered conditions and both worked-example tables use one row rhythm and one leader style",
+        "c5": "content stays within the frame; no sideways scroll in the full-page capture",
+        "d1": "states all four asks and reads cleanly; only its visual sameness from section to section would prompt any change"
+      }
+    },
+    "f77261": {
+      "a1": 6, "a2": 6, "a3": 6, "a4": 6,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 4,
+      "evidence": {
+        "b1": "first screen offers a 'Check if I qualify' button and the funding panel, but the six eligibility questions appear only further down",
+        "b2": "published rate schedule gives $300, $475 and $850 per usable kWh by income tier with $5,000/$8,500/$14,000 maximums and $2,500 of adders outside the cap",
+        "b3": "'Ten firms are approved to do this work today' grid with per-firm licence, languages, coverage and contact, plus filters",
+        "b4": "'This is the whole application' section holds one numbered form from property to signature with a submit control",
+        "c1": "slider panel, rate cards and form fieldsets all contain their content",
+        "c2": "the dark band keeps light text at readable size; the amber figures are the smallest emphasis and stay clear",
+        "c3": "no lorem or blank slots seen in the captures; the installer grid's trailing row is ordinary",
+        "c4": "the rate cards, adder rows and question blocks each repeat at a single spacing",
+        "c5": "layout holds the 1440 width; the dark section is a full-bleed band, not an overflow",
+        "d1": "complete and well made across light and dark bands; only an eligibility summary in the first screen is missing"
+      }
+    }
+  }
+}

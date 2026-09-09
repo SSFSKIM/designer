@@ -1,0 +1,152 @@
+{
+  "rater": "claude-opus",
+  "brief": "rail",
+  "seed": 29989554,
+  "order": ["8ef70a", "92cba1", "661e66", "e44b85", "8d1d23", "cb9845", "c183ef", "a903f5"],
+  "pages": {
+    "8ef70a": {
+      "a1": 5, "a2": 5, "a3": 5, "a4": 5,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 1,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 1, "c5": 0,
+      "d1": 5, "e1": 4,
+      "evidence": {
+        "b1": "milepost schematic at scroll 0 carries all 11 train tokens with direction and delay, and the roster below repeats MP, speed and next event",
+        "b2": "a standing DELAY EXCEPTIONS rail, Open/All toggle, ranked CRITICAL to LOW, sits apart from and above the TRAINS ON TERRITORY roster",
+        "b3": "HOS LEFT column (11h12, 6h34, 1h27) plus a CREW HOURS OF SERVICE panel with on duty 04:05, expires 16:05 and a remaining bar",
+        "b4": "only a WORK WINDOWS tile (2 on the ground, 1 past release) and hatched Form B bands on the schematic; no window list with limits and start/end times",
+        "c1": "the schematic's right end is cut by the panel edge (Ridgway label and the 138.4 axis tick are sliced), and the crew rail's B7 row is halved at the page bottom",
+        "c2": "mono table text and the desk log sit at a comfortable size against the dark ground",
+        "c3": "every region is filled with real dispatch content",
+        "c4": "the DELAY column is too narrow, so on-time rows wrap to a two-line stack and stand taller than the +18 / +41 rows beside them",
+        "c5": "content stops inside 1440; nothing runs past the right edge",
+        "d1": "widen the schematic and delay column, then add the maintenance-window region the brief names"
+      }
+    },
+    "92cba1": {
+      "a1": 5, "a2": 4, "a3": 5, "a4": 5,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 1, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 4, "e1": 5,
+      "evidence": {
+        "b1": "the header claims 11 of 11 but the roster window shows only four rows; positions otherwise have to be read off the stringline at the 16:42 line",
+        "b2": "an EXCEPTIONS rail runs the full right edge, ordered CRITICAL then WARNING, separate from the trains table lower left",
+        "b3": "CREWS ON DUTY table gives ON DUTY 06:26, REMAINING 1:43 and OUTLAWS 18:26 per crew under a 12-hour limit",
+        "b4": "TRACK AND TIME lists Form B 24-118 MP 104.2-110.6 07:00-17:30 and T&T 24-207 15:15-18:00, both marked IN EFFECT",
+        "c1": "the crews table's last column is sliced mid-header (REL) with Var and Cal cut off, and the exceptions rail cuts an ADVISORY card in half at the bottom",
+        "c2": "the in-chart stringline annotations (17:04 71.6, Form B 24-118, 16:49 108.8) are tiny and low-contrast against the plot",
+        "c3": "all panels carry real train, crew and authority data",
+        "c4": "cards and the KPI strip keep an even rhythm and share gutters",
+        "c5": "the whole board fits 1440 x 900 with no horizontal overflow",
+        "d1": "the roster must be re-formed so 11 trains fit the fixed board, and the crews table needs its truncated column back"
+      }
+    },
+    "661e66": {
+      "a1": 6, "a2": 5, "a3": 5, "a4": 6,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 3,
+      "evidence": {
+        "b1": "the first screen holds only the stringline and one selected train; the TRAINS table with location, speed and STATUS for all 13 sits a full screen down",
+        "b2": "three exception rows with their decisions sit at the very top, under a stated rule that everything else is merely late and lives in the table below",
+        "b3": "TRAINS columns ON DUTY 03:40, ON THE LAW 15:40, LEFT 1:14, echoed in the detail panel's on-duty and law times",
+        "b4": "MAINTENANCE WINDOWS AND WAYSIDE lists gang, authority, limits and IN EFFECT spans 08:00-16:00, 13:00-until further notice, 15:30-16:15",
+        "c1": "the header's territory line is ellipsised mid-phrase (CTC Elk Yard-Sutton, TWC Sutton...)",
+        "c2": "generous type throughout; even the chart annotations hold their weight on the light ground",
+        "c3": "no empty or template regions; the chart, tables and detail panel are all populated",
+        "c4": "exception rows, table columns and the right panel's label/value pairs align consistently",
+        "c5": "the page is a single column inside the viewport width",
+        "d1": "only the truncated header string and small chart-label collisions stand between this and delivery"
+      }
+    },
+    "e44b85": {
+      "a1": 5, "a2": 5, "a3": 4, "a4": 5,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 1, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 3, "e1": 6,
+      "evidence": {
+        "b1": "the territory schematic shows both subdivisions with all 14 trains placed against mileposts and coloured by state, above a train sheet with location and status",
+        "b2": "a DELAY EXCEPTIONS panel with 4 unacknowledged / 10 open and per-item ACKNOWLEDGE sits apart from the ALL/NEEDS ATTENTION train sheet",
+        "b3": "CREW HOURS OF SERVICE shows 0:38 remaining, on duty 08:15, expires 20:15 with a depletion bar; the sheet carries an HOS column",
+        "b4": "MAINTENANCE WINDOWS & TRACK AUTHORITIES is a timeline of EC authorities with limits and spans 18:05-20:35, 19:20-21:50, 21:05-00:05",
+        "c1": "status chips are sliced by the sheet's edge (IN SIDIN, WORKIN), crew names and tonnage end in ellipses, and the gantt bar labels are cut (Cros, Signal cu, Bridge 11)",
+        "c2": "much of the sheet, the schematic's siding numbers and the legend sit at roughly eight pixels of dim grey on navy",
+        "c3": "no placeholder regions; every panel is loaded with data",
+        "c4": "rows, chips and panel gutters keep a consistent grid despite the density",
+        "c5": "everything is inside the 1440 frame",
+        "d1": "the sheet and the authority timeline need their columns re-formed so status and labels stop being sliced, and the type has to come up in size"
+      }
+    },
+    "8d1d23": {
+      "a1": 6, "a2": 5, "a3": 6, "a4": 6,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 5, "e1": 4,
+      "evidence": {
+        "b1": "there is no train roster at all; positions can only be inferred from the territory graph's lines, and the per-train milepost list is a scroll down inside CREW HOURS",
+        "b2": "NEXT FOUR HOURS is the first region on the page, five countdown rows tagged CREW / WINDOW / AUTHORITY with a decision each, ahead of everything routine",
+        "b3": "CREW HOURS table gives REMAINING, ON DUTY 16:15 and EXPIRES 04:15 for ten assignments under the 12-hour rule",
+        "b4": "WORK AUTHORITIES lists limits with OPENS 03:10 / CLOSES 04:30 and states IN EFFECT, OPENS 0:13, SCHEDULED",
+        "c1": "no region is sliced; the graph, ledger and both tables end cleanly",
+        "c2": "the warm dark ground keeps even the chart annotations legible",
+        "c3": "every panel is filled; the graph legend and footnotes are real copy",
+        "c4": "ledger rows, table columns and the right panel's label/value pairs hold one alignment",
+        "c5": "no horizontal overflow at 1440",
+        "d1": "a live position roster has to be added; the rest is ready as it stands"
+      }
+    },
+    "cb9845": {
+      "a1": 6, "a2": 5, "a3": 5, "a4": 6,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 4,
+      "evidence": {
+        "b1": "all seven trains are labelled where they cross the 05:12 line on the graph, but speed, delay and status only appear in the TRAIN SHEET two screens down",
+        "b2": "the single critical exception is the page's headline with its decision, and an EXCEPTION QUEUE of five sits beside it, both far above the train sheet",
+        "b3": "CREW HOURS lists each crew's margin at tie-up (+9:21, -0:42) against an expiry time (exp 14:50, exp 07:20)",
+        "b4": "MAINTENANCE WINDOWS gives Form B and Track & Time limits with 08:30 to 15:00, 22:00 Fri to 04:00 Sat and release times",
+        "c1": "panels end on their own content; nothing is sliced by a container",
+        "c2": "body copy is large and the graph's station labels stay readable",
+        "c3": "no empty or template regions, though the right column simply ends above the train sheet",
+        "c4": "cards, KPI dividers and table columns keep a consistent rhythm",
+        "c5": "the layout stays within the viewport width",
+        "d1": "small chart-axis label collisions aside, this reads as deliverable"
+      }
+    },
+    "c183ef": {
+      "a1": 5, "a2": 5, "a3": 4, "a4": 5,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 1, "c3": 0, "c4": 1, "c5": 0,
+      "d1": 4, "e1": 6,
+      "evidence": {
+        "b1": "the track schematic places all 11 trains on the milepost line as chips carrying state and variance (HELD +19, 24 MPH +47, WORK +4), with a stringline beneath",
+        "b2": "DELAY EXCEPTIONS occupies the right rail, 7 open / 2 acknowledged, ranked CRIT then GRANT then WARN, separate from the crew and train tables",
+        "b3": "CREW HOURS OF SERVICE tabulates ON DUTY, EXPIRES, REMAINING and MARGIN per train under 49 CFR 21103",
+        "b4": "MAINTENANCE WINDOWS lists FB-2209 12:30-14:05, TT-4471 13:35-15:05 and TT-4482 with limits, foreman and remaining time",
+        "c1": "the third exception's text is cut mid-sentence by the rail, the NOTE column ellipsises its values, and the bottom maintenance card is halved by the viewport",
+        "c2": "the schematic's siding footages, station codes and the grey NOTE column are around nine pixels at low contrast",
+        "c3": "all regions carry real data",
+        "c4": "in the schematic the eastward chip row collides with the siding-footage numbers and the station-code row spaces unevenly beneath it",
+        "c5": "the board holds the 1440 width",
+        "d1": "the exception rail and note column need to stop cutting their text, and the schematic band has to be re-formed so chips and footages stop colliding"
+      }
+    },
+    "a903f5": {
+      "a1": 5, "a2": 3, "a3": 5, "a4": 4,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 1, "c4": 1, "c5": 0,
+      "d1": 4, "e1": 4,
+      "evidence": {
+        "b1": "the graph labels all nine trains at the Now line, but location, speed, variance and status only arrive in the Trains and crews table on the third screen",
+        "b2": "an Exceptions column with Crew/Delay/Track/Equipment filters runs the right side, criticals first, well above the routine roster at the page foot",
+        "b3": "Trains and crews gives CREW, ON DUTY (23:05, 05:42) and CREW LEFT (1:23, 8:00) per train, with expiry times spelled out in the crew exceptions",
+        "b4": "Work windows lists TG-3, SG-1 and the signal cutover with authority, limits, restriction, contact and spans 09:00 to 13:00, 07:30 to 15:00, 22:00 to 02:00",
+        "c1": "the Trains and crews table's status column is sliced at the card edge (the header reads ST..) and NEXT EVENT values end in ellipses",
+        "c2": "type is comfortably sized throughout the light layout",
+        "c3": "the train graph card is stretched to the exceptions column, leaving roughly two thirds of it blank white below the plot",
+        "c4": "that stretched card leaves the left column empty for a whole screen beside a full right column, and the roster card overruns its width while the work-windows card fits",
+        "c5": "content stays inside the viewport width",
+        "d1": "the graph card must stop stretching and the roster needs its status column back inside the frame"
+      }
+    }
+  }
+}

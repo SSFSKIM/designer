@@ -1,0 +1,152 @@
+{
+  "rater": "claude-opus",
+  "brief": "pharmacy",
+  "seed": 627321239,
+  "order": ["10b239", "5e2273", "42b5a3", "002ea9", "758523", "3ba9f0", "122077", "f344b7"],
+  "pages": {
+    "10b239": {
+      "a1": 6, "a2": 6, "a3": 6, "a4": 6,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 1, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 4,
+      "evidence": {
+        "b1": "\"Stock on hand\" table with an ON HAND / PAR column (8/12, 44/60) plus NDC, location and nearest lot expiry",
+        "b2": "dedicated \"Expiry horizon\" section: 100-day tick chart, 26 lots, value at risk and inside-14-days summary",
+        "b3": "\"Schedule II vault\" panel listing each drug with expected, counted and delta, 5 of 6 counted",
+        "b4": "\"Purchase orders\" table with a STATUS column: PAST PROMISE, IN TRANSIT, CONFIRMED, BACKORDERED, AWAITING CONFIRMATION",
+        "c1": "every table and card closes on its own content in the full-page capture",
+        "c2": "uppercase mono metadata lines (\"OPENED 03:06 BY M. DUARTE · DEA REPORT CLOCK 41 MIN\", \"2 DAYS LATE · $18,412.60\") are ~10px dim mauve on plum",
+        "c3": "no empty slots; the wholesaler-feed card carries a real stale-feed message",
+        "c4": "row rhythm, card padding and badge placement repeat consistently across the four sections",
+        "c5": "content stays inside 1440 in both viewport and full-page captures",
+        "d1": "complete against all four asks with no defect beyond the faint mono metadata; a contrast pass would finish it"
+      }
+    },
+    "5e2273": {
+      "a1": 5, "a2": 3, "a3": 4, "a4": 5,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 4,
+      "evidence": {
+        "b1": "\"Stock by drug\" table with ON HAND, PAR, DAYS and state chips (42 against a par of 120)",
+        "b2": "\"Short-dated lots\" table: lot, expiry, days, a 0–90 day window plot, quantity and location",
+        "b3": "\"Controlled substances · vault ledger\": 18 lines with schedule, book, physical, variance, witness and state",
+        "b4": "\"On order\" panel, seven orders each with UNSIGNED, BACKORDER, CONFIRMED or SHIPPED",
+        "c1": "the \"Stock by drug\" table cuts the ePHEDrine sulfate row through the middle of its glyphs at the container edge",
+        "c2": "body and mono numerals are dark on near-white and read comfortably at 1440",
+        "c3": "every region holds real lot, NDC and vendor data",
+        "c4": "the stacked deadline bands and the two lower tables share one grid and one row height",
+        "c5": "nothing extends past the viewport width in any capture",
+        "d1": "content is complete and well ordered; the clipped stock table is the one thing to fix"
+      }
+    },
+    "42b5a3": {
+      "a1": 6, "a2": 5, "a3": 5, "a4": 6,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 1, "c5": 0,
+      "d1": 6, "e1": 5,
+      "evidence": {
+        "b1": "\"Stock levels by drug\": ON HAND, PAR, DAILY USE, a vs-par bar, DAYS and a status chip per line",
+        "b2": "\"Lots expiring within 90 days\" card with a 0–14 / 15–30 / 31–90 horizon and a drug-and-lot table with pull or rotate actions",
+        "b3": "\"Controlled-substance counts\" table: schedule chip, bin, system, counted, variance and count time for seven lines",
+        "b4": "\"Pending purchase orders\" table with a STATE column: In transit, Confirmed, Submitted, Received short, Backordered",
+        "c1": "the \"Allocation limited\" chip on the propofol row is sliced by the card's right edge, and the Levetiracetam row is cut by the table's scroll container",
+        "c2": "all table text is dark on white at a readable size",
+        "c3": "no lorem or empty slot; the blank lower half of the controlled-substance card is unfilled height rather than a placeholder",
+        "c4": "the three expiry-horizon tiles are unequal widths, so \"Pull now, 0–14 days\" wraps to five cramped lines beside a mostly empty third tile",
+        "c5": "the page holds 1440 with only in-card overflow",
+        "d1": "structure and coverage are right; the clipped chip, the row cut and the uneven horizon tiles are token and spacing work"
+      }
+    },
+    "002ea9": {
+      "a1": 7, "a2": 5, "a3": 7, "a4": 7,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 7, "e1": 5,
+      "evidence": {
+        "b1": "\"Stock levels by drug\" with On hand, Reorder and Par columns, a coverage-against-par bar and days on hand",
+        "b2": "\"Expiring lots\" card with a 60-day runway, quarantine/pull/monitor legend and a nine-lot table of quantity, expiry and days",
+        "b3": "\"Controlled substances\" shift count sheet: system, an editable counted field, variance and schedule per item",
+        "b4": "\"Purchase orders\" table with a Status column: OVERDUE 2 DAYS, IN TRANSIT, CONFIRMED, AWAITING CONFIRMATION",
+        "c1": "all four regions terminate on their own footnotes in the full-page capture",
+        "c2": "even the smallest caption sits at a comfortable size in warm dark grey",
+        "c3": "every card is filled with named drugs, lots, vendors and times",
+        "c4": "card padding, table row height and badge placement are uniform across all regions",
+        "c5": "layout stays within 1440 in every capture",
+        "d1": "all four asks present and legible with no defect seen; it would go to the client unchanged"
+      }
+    },
+    "758523": {
+      "a1": 5, "a2": 5, "a3": 5, "a4": 5,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 5, "e1": 5,
+      "evidence": {
+        "b1": "\"Stock by drug\" table with ON HAND, PAR, a level bar, days on hand and last count for 22 items",
+        "b2": "\"Expiring lots\" rail: Ondansetron expired, Alteplase 13 days left, Succinylcholine 19, Immune Globulin 25, each with lot, units and a note",
+        "b3": "\"Controlled substances · perpetual count\" table with schedule chip, cabinet, expected, counted, variance, counter and witness",
+        "b4": "\"Pending orders\" panel with HELD · SIGNATURE and AWAITING APPROVAL on each order card",
+        "c1": "the Heparin Sodium row is cut through its NDC line by the stock table's container, and the fixed status bar covers a controlled-substance row in the full capture",
+        "c2": "dense but the numerals and labels stay legible at 1440",
+        "c3": "all panels carry real data; no empty slots",
+        "c4": "the six KPI tiles, the table rows and the rail cards each keep a consistent rhythm",
+        "c5": "no horizontal overflow in either capture",
+        "d1": "coverage is complete but the clipped table row, the two ellipsised KPI tiles and the footer overlapping content need real fixing"
+      }
+    },
+    "3ba9f0": {
+      "a1": 5, "a2": 4, "a3": 4, "a4": 5,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 1, "c5": 0,
+      "d1": 6, "e1": 5,
+      "evidence": {
+        "b1": "\"Stock ledger\" with ON HAND / PAR (31 / 120), a fill bar, days of cover and a status chip per line",
+        "b2": "\"Expiring lots and holds\" table: seven flagged lots with lot number, expiry, quantity, location, value and EXPIRED / EXPIRES chips",
+        "b3": "\"Controlled substances, shift count\" rail with system, counted and variance for each vault position, 8 of 9 counted",
+        "b4": "\"Pending orders\" cards with CONFIRMED, AWAITING SIGNATURE, NO CONFIRMATION and IN TRANSIT",
+        "c1": "both tables and the right rail close on their own content in the full-page capture",
+        "c2": "dark text on white throughout, including the mono NDC and location columns",
+        "c3": "no placeholder or empty region anywhere on the page",
+        "c4": "stock-ledger rows swing between two and four lines and the drug cell is top-aligned while NDC, location and cover are vertically centred, so like rows do not share a baseline",
+        "c5": "content stays inside 1440",
+        "d1": "all four asks are covered and honest; the ragged row heights and cramped drug column are spacing work"
+      }
+    },
+    "122077": {
+      "a1": 6, "a2": 5, "a3": 6, "a4": 6,
+      "b1": 2, "b2": 1, "b3": 2, "b4": 1,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 4, "e1": 6,
+      "evidence": {
+        "b1": "\"Stock levels by drug\" table with ON HAND, PAR and DAYS ON HAND columns, three rows visible",
+        "b2": "only an \"EXPIRING ≤ 30 DAYS 17 lots\" tile and a sidebar count; no lot-level set appears in the captures",
+        "b3": "right rail lists each vault item with schedule chip, book, count, variance and witness state",
+        "b4": "only an \"OPEN PURCHASE ORDERS 12 · 1 late · 1 awaiting approval\" tile; no per-order status list is visible",
+        "c1": "the full-page capture equals the viewport, so the stock table is cut mid-row at the shell's bottom edge and \"Fentanyl Citrate 100 mcg/2…\" is ellipsised in the rail",
+        "c2": "all labels and numerals read clearly at 1440",
+        "c3": "every visible panel carries real drug, cabinet and PO data",
+        "c4": "the five KPI tiles, alert rows and rail cards are consistently spaced",
+        "c5": "nothing extends past the viewport width",
+        "d1": "two of the four asked-for sets are only counts here, so expiring lots and pending orders need to be formed as regions on the delivered page"
+      }
+    },
+    "f344b7": {
+      "a1": 5, "a2": 4, "a3": 4, "a4": 5,
+      "b1": 2, "b2": 1, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 1, "c4": 0, "c5": 0,
+      "d1": 4, "e1": 4,
+      "evidence": {
+        "b1": "\"Stock by item\" table with ON HAND, PAR, a cover-days bar, lots, next expiry and on-order for 26 of 912 items",
+        "b2": "no expiry set of its own: only a NEXT EXPIRY column, an \"Expiring ≤ 90 days\" filter chip and two quarantine cards in the handover queue",
+        "b3": "\"Controlled substances\" ledger with expected, counted, variance, signer and witness per numbered line, plus a file-a-line form",
+        "b4": "\"Arriving this shift\" cards each carry In transit, Awaiting signature, ETA unavailable, Booked or Received",
+        "c1": "the \"Variance ope…\" chip on ledger line 004 is sliced by the table's right edge and the Insulin glargine row is cut mid-glyph by the stock table container",
+        "c2": "mono numerals and labels are dark and legible at 1440",
+        "c3": "ledger rows 011, 012 and 013 are wholly blank ruled rows",
+        "c4": "handover cards, table rows and the arriving rail each hold a steady rhythm",
+        "c5": "the page stays within 1440",
+        "d1": "expiring lots need forming into their own region, and the two clipped tables and blank ledger rows fixed alongside"
+      }
+    }
+  }
+}

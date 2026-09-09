@@ -1,0 +1,152 @@
+{
+  "rater": "claude-sonnet",
+  "brief": "rail",
+  "seed": 1923761800,
+  "order": ["a903f5", "661e66", "cb9845", "92cba1", "c183ef", "e44b85", "8d1d23", "8ef70a"],
+  "pages": {
+    "a903f5": {
+      "a1": 5, "a2": 4, "a3": 4, "a4": 5,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 5, "e1": 3,
+      "evidence": {
+        "b1": "Trains-and-crews table with per-train speed/delay/status sits below the fold; only the stringline graph is in the first viewport.",
+        "b2": "Exceptions panel (Critical/Watch tags, Acknowledge buttons) sits at top right, ahead of the trains table.",
+        "b3": "Trains and crews table lists CREW, ON DUTY and CREW LEFT as names, clock times and countdowns.",
+        "b4": "Work windows panel gives explicit In force/Scheduled ranges, e.g. 09:00 to 13:00.",
+        "c1": "STATUS column header is truncated to 'STA' at the table's right edge.",
+        "c2": "Not seen; graph and table text stay legible at capture size.",
+        "c3": "No placeholder or broken regions seen.",
+        "c4": "Stat tiles, exception cards and table rows keep consistent alignment.",
+        "c5": "Content stays within the 1440px frame in both captures.",
+        "d1": "Needs the trains table pulled above the fold, the large blank gap under the graph closed, and the STATUS column widened before delivery."
+      }
+    },
+    "661e66": {
+      "a1": 6, "a2": 3, "a3": 3, "a4": 6,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 3,
+      "evidence": {
+        "b1": "TRAINS table with per-train speed, delay and status begins on tile-2; only the stringline chart is in the first viewport.",
+        "b2": "Three exception rows (M412 stop, M411/L071 approach) sit above the chart, each with a recommended action button.",
+        "b3": "TRAINS table has ON DUTY and ON THE LAW columns with clock times and countdowns for every train.",
+        "b4": "MAINTENANCE WINDOWS AND WAYSIDE table lists IN EFFECT ranges such as 08:00-16:00 and 13:00-Until further notice.",
+        "c1": "No truncated labels or overflowing text found in the tables.",
+        "c2": "Monospace text is small throughout but legible at capture resolution.",
+        "c3": "No placeholder or broken regions seen.",
+        "c4": "Table columns and exception rows keep consistent alignment.",
+        "c5": "Content stays within the 1440px frame on both captures.",
+        "d1": "Well-organized and complete; would ship after cosmetic polish (accent color, spacing) rather than structural change."
+      }
+    },
+    "cb9845": {
+      "a1": 7, "a2": 5, "a3": 6, "a4": 7,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 3,
+      "evidence": {
+        "b1": "Train Sheet table with per-train status (Running/Held/Switching) only appears on tile-2; the first viewport shows the critical banner, stats and graph.",
+        "b2": "A full-width Critical banner plus a 5-item Exception Queue sit above the stat strip and graph, ahead of the Train Sheet.",
+        "b3": "Crew Hours panel lists on-duty margin and exp (expiry) clock time for every crew, e.g. '+9:21, exp 14:50'.",
+        "b4": "Maintenance Windows panel gives explicit ranges, e.g. Form B 14-2211 '08:30 to 15:00' and Curfew '22:00 Fri to 04:00 Sat'.",
+        "c1": "No cut-off text or truncated columns found.",
+        "c2": "Dark-theme text and numerals are legible at capture size.",
+        "c3": "No placeholder content seen.",
+        "c4": "Cards and table rows keep consistent padding and alignment.",
+        "c5": "Layout stays within the frame in both captures.",
+        "d1": "Near-deliverable; only a column-height imbalance under the graph needs cosmetic tightening."
+      }
+    },
+    "92cba1": {
+      "a1": 5, "a2": 4, "a3": 4, "a4": 5,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 3, "e1": 3,
+      "evidence": {
+        "b1": "Trains on the ground panel header reads '11 of 11' but only 4 rows (M31 06 - L505 06) render in the single, non-scrolling viewport.",
+        "b2": "Delay Exceptions column with CRITICAL/WARNING tags sits at top right, ahead of the train roster.",
+        "b3": "Crews on duty table shows ON DUTY clock time and REMAINING countdown for each crew.",
+        "b4": "Track and Time panel lists explicit windows, e.g. Form B 24-118 '07:00 - 17:30'.",
+        "c1": "Rightmost 'REL' column values are cut off mid-word ('Var', 'Cal') at the panel edge.",
+        "c2": "Not seen; body text is a consistent, legible size.",
+        "c3": "No placeholder content seen.",
+        "c4": "Stat tiles and table rows keep consistent alignment.",
+        "c5": "Content stays within the 1440px frame.",
+        "d1": "The train roster and crew-relief column are both truncated with no scroll available on this single-viewport page; the panel needs resizing or scrolling added."
+      }
+    },
+    "c183ef": {
+      "a1": 7, "a2": 6, "a3": 6, "a4": 7,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 1, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 4,
+      "evidence": {
+        "b1": "Track schematic labels all 11 trains with speed/delay inline, and the Crew Hours of Service table below lists every train's status in the same, non-scrolling viewport.",
+        "b2": "Delay Exceptions column (CRIT/WARN/GRANT tags) sits top right, ahead of the crew and maintenance tables.",
+        "b3": "Crew Hours of Service table gives ON DUTY, EXPIRES and REMAINING as clock times and countdowns for all 11 crews.",
+        "b4": "Maintenance Windows panel lists FB-2209 and TT-4471/4482 with explicit date-time ranges, e.g. '12:30-14:05'.",
+        "c1": "A crew note ('...ETA Sultan 14...') is cut off mid-value inside its column.",
+        "c2": "Siding footage figures on the track schematic (e.g. '8,400', '6,200') are rendered very small.",
+        "c3": "No placeholder content seen.",
+        "c4": "Stat tiles and table rows keep consistent alignment.",
+        "c5": "Content stays within the 1440px frame.",
+        "d1": "The most complete page of the eight; only the clipped note text and tiny schematic labels need cosmetic fixes."
+      }
+    },
+    "e44b85": {
+      "a1": 6, "a2": 5, "a3": 5, "a4": 6,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 3, "e1": 4,
+      "evidence": {
+        "b1": "Train sheet header says '14 of 14 shown' but only 8 rows render, with no scroll available on this single-viewport page.",
+        "b2": "Delay Exceptions column (DLY-60, HOS-12, XING tags) sits at top right, ahead of the train sheet.",
+        "b3": "Crew Hours of Service panel shows on-duty/expiry clock times and countdown values, e.g. '0:38', 'expires 20:15'.",
+        "b4": "Maintenance Windows & Track Authorities gantt gives explicit ranges, e.g. '18:05-20:35' and '21:05-00:05'.",
+        "c1": "Train sheet claims 14 of 14 shown but only 8 rows are visible before the next section begins.",
+        "c2": "Not seen; text remains legible throughout.",
+        "c3": "No placeholder content seen.",
+        "c4": "Stat tiles and table rows keep consistent alignment.",
+        "c5": "Content stays within the 1440px frame.",
+        "d1": "Six of fourteen trains are simply missing from view with no way to reach them; the train-sheet panel needs resizing or a scroll added."
+      }
+    },
+    "8d1d23": {
+      "a1": 6, "a2": 4, "a3": 4, "a4": 6,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 4, "e1": 2,
+      "evidence": {
+        "b1": "The territory graph plots all named movements, but explicit speed/status is only given for the one selected train (AV-12); no full trains-at-a-glance table exists.",
+        "b2": "The 'Next Four Hours' queue (window/crew/authority items, sorted by urgency) leads the page ahead of the graph and crew table.",
+        "b3": "Crew Hours table (tile-2) gives ON DUTY and EXPIRES clock times plus REMAINING countdown for all 9 assignments.",
+        "b4": "Work Authorities table (tile-2) lists OPENS/CLOSES clock times for each authority, e.g. '04:00' to '09:30'.",
+        "c1": "No cut-off text or truncated columns found.",
+        "c2": "Text on the dark theme is small in the graph but legible in the tables.",
+        "c3": "No placeholder content seen.",
+        "c4": "List rows and table columns keep consistent alignment.",
+        "c5": "Content stays within the 1440px frame.",
+        "d1": "Distinctive narrative framing, but lacks a comprehensive per-train status table the brief implies; that region would need to be added."
+      }
+    },
+    "8ef70a": {
+      "a1": 7, "a2": 6, "a3": 5, "a4": 7,
+      "b1": 1, "b2": 2, "b3": 2, "b4": 1,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 3, "e1": 5,
+      "evidence": {
+        "b1": "Track schematic labels all 11 trains, but the Trains on territory table with speed/delay/HOS only shows 8 of 11 rows before the second viewport.",
+        "b2": "Delay Exceptions column with CRITICAL/HIGH/MEDIUM/LOW tags leads the right side, ahead of the trains table.",
+        "b3": "Crew Hours of Service entries (tile-2) give on-duty/expiry clock times and remaining countdowns, e.g. 'On duty 04:05 Expires 16:05'.",
+        "b4": "Maintenance windows are only referenced inline inside exception text (e.g. Form B 26-118 release times); there is no dedicated maintenance-windows panel of its own.",
+        "c1": "No cut-off text or truncated columns found.",
+        "c2": "Not seen; sidebar, header and table text stay legible.",
+        "c3": "No placeholder content seen.",
+        "c4": "Stat tiles and table rows keep consistent alignment.",
+        "c5": "Content stays within the 1440px frame.",
+        "d1": "A required brief category (maintenance windows) has no dedicated region at all; one would need to be added before delivery."
+      }
+    }
+  }
+}

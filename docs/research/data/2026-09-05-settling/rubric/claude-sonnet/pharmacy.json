@@ -1,0 +1,152 @@
+{
+  "rater": "claude-sonnet",
+  "brief": "pharmacy",
+  "seed": 736861350,
+  "order": ["122077", "3ba9f0", "42b5a3", "f344b7", "5e2273", "10b239", "758523", "002ea9"],
+  "pages": {
+    "122077": {
+      "a1": 6, "a2": 5, "a3": 5, "a4": 6,
+      "b1": 2, "b2": 1, "b3": 2, "b4": 1,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 3, "e1": 5,
+      "evidence": {
+        "b1": "Stock levels by drug table lists NDC, on hand, PAR and days-on-hand per row.",
+        "b2": "Expiring lots appears only as a KPI tile ('17 lots, $24,105 at risk'); no itemized lot table is shown in the captures.",
+        "b3": "Right rail lists each controlled substance with book vs. count and witness/verified state.",
+        "b4": "Pending orders appears only as a KPI tile ('12 open orders'); no itemized order list with status is shown.",
+        "c1": "No clipped or cut-off content is visible in the captures.",
+        "c2": "Table and card text is legible at this size throughout.",
+        "c3": "No empty, placeholder or broken regions are visible.",
+        "c4": "Card and table spacing is consistent across the page.",
+        "c5": "Content stays within the 1440 px viewport; no sideways scroll.",
+        "d1": "Two of the four required regions (expiring lots, pending orders) exist only as summary tiles, not itemized sets, so a region would need to be added."
+      }
+    },
+    "3ba9f0": {
+      "a1": 6, "a2": 5, "a3": 4, "a4": 6,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 7, "e1": 5,
+      "evidence": {
+        "b1": "Stock ledger table shows on hand/par and days of cover for 13 line items.",
+        "b2": "'Expiring lots and holds' is a dedicated table (7 of 63 lots) with expiry, qty, value and status.",
+        "b3": "Right column 'Controlled substances, shift count' lists each drug with system/counted/variance and verified time.",
+        "b4": "'Pending orders' panel shows each PO with a status pill (Confirmed, Awaiting signature, No confirmation, In transit).",
+        "c1": "No clipped or cut-off content is visible across the four captures.",
+        "c2": "All table and card text reads clearly at native resolution.",
+        "c3": "No placeholder or broken regions are visible.",
+        "c4": "Card and table rows keep consistent padding and alignment throughout.",
+        "c5": "Layout fits the 1440 px width with no sideways scroll.",
+        "d1": "All four brief regions are present as full itemized sets with no visible defects across the captures."
+      }
+    },
+    "42b5a3": {
+      "a1": 6, "a2": 6, "a3": 5, "a4": 6,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 1, "c5": 0,
+      "d1": 6, "e1": 5,
+      "evidence": {
+        "b1": "'Stock levels by drug' table lists on hand, par, daily use and a vs-par bar per row.",
+        "b2": "'Lots expiring within 90 days' has a bucketed summary plus an itemized table of drug, qty, expiry and days.",
+        "b3": "'Controlled-substance counts' table lists drug & bin with system/counted/variance/counted-at.",
+        "b4": "'Pending purchase orders' table gives each PO a state pill (In transit, Confirmed, Submitted, Received short, Backordered).",
+        "c1": "No clipped or cut-off content is visible in the captures.",
+        "c2": "Text remains legible throughout the dense tables.",
+        "c3": "No placeholder or broken regions are visible.",
+        "c4": "The 'Lots expiring' and 'Controlled-substance counts' cards end at very different heights, leaving a large empty block on the right.",
+        "c5": "Content stays within the viewport width with no sideways scroll.",
+        "d1": "All four brief regions are present and itemized; the mismatched card heights are a cosmetic spacing fix."
+      }
+    },
+    "f344b7": {
+      "a1": 5, "a2": 5, "a3": 4, "a4": 5,
+      "b1": 2, "b2": 1, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 4, "e1": 5,
+      "evidence": {
+        "b1": "'Stock by item' table lists on hand, par, cover-days and next-expiry per row.",
+        "b2": "Expiring lots surface only as status badges ('Lot expiring') and one quarantine card, not as a dedicated itemized set.",
+        "b3": "'Controlled substances' section gives a reconciliation summary and a numbered shift ledger with expected/counted/variance.",
+        "b4": "'Arriving this shift' lists each PO with a status pill (In transit, Awaiting signature, ETA unavailable, Booked, Received).",
+        "c1": "Row 004's status badge reads 'Variance ope', its text cut off by the table cell/panel boundary.",
+        "c2": "Text elsewhere is legible.",
+        "c3": "No placeholder or broken regions are visible.",
+        "c4": "Spacing between rows and cards is otherwise consistent.",
+        "c5": "Content stays within the viewport width.",
+        "d1": "A clipped status badge needs a technical fix, and expiring lots would need to become its own itemized region."
+      }
+    },
+    "5e2273": {
+      "a1": 4, "a2": 6, "a3": 5, "a4": 5,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 4,
+      "evidence": {
+        "b1": "'Stock by drug' table lists on hand, par, days and state per row.",
+        "b2": "'Short-dated lots' is a dedicated table (6 lots) with expiry, days-remaining bar, quantity and location.",
+        "b3": "'Controlled substances · vault ledger' lists 18 lines with book, physical, variance, witness and state, including look-alike hints.",
+        "b4": "'On order' table lists each PO line with expected date and a status pill (Unsigned, Backorder, Confirmed, Shipped).",
+        "c1": "No clipped or cut-off content is visible.",
+        "c2": "Text is legible throughout, dark and light sections alike.",
+        "c3": "No placeholder or broken regions are visible.",
+        "c4": "Row and card spacing is consistent within each section.",
+        "c5": "Content stays within the viewport width.",
+        "d1": "All four regions are present and itemized; the abrupt dark-to-light transition between the top alert stack and the tables below is a cosmetic harmonization item."
+      }
+    },
+    "10b239": {
+      "a1": 7, "a2": 6, "a3": 6, "a4": 7,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 2,
+      "evidence": {
+        "b1": "'Stock on hand' table lists on hand/par, location, nearest lot expiry and status per row.",
+        "b2": "'Expiry horizon' gives a plotted timeline plus a value-at-risk/lots summary broken out by window.",
+        "b3": "'Schedule II vault' table lists each drug with expected/counted and a signed delta.",
+        "b4": "'Purchase orders' table gives each PO a status pill (Past promise, In transit, Confirmed, Backordered, Awaiting confirmation).",
+        "c1": "No clipped or cut-off content is visible.",
+        "c2": "Monospaced text stays legible against the dark background throughout.",
+        "c3": "No placeholder or broken regions are visible.",
+        "c4": "Grid alignment is consistent across all tables.",
+        "c5": "Content stays within the viewport width.",
+        "d1": "All four brief regions are present, itemized and defect-free in the captures."
+      }
+    },
+    "758523": {
+      "a1": 5, "a2": 5, "a3": 5, "a4": 5,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 5, "e1": 5,
+      "evidence": {
+        "b1": "'Stock by drug' table lists on hand, par, a level bar and days on hand per row.",
+        "b2": "Right-rail 'Expiring lots' lists each lot individually with days-left and a status narrative.",
+        "b3": "'Controlled substances · perpetual count' table lists each schedule drug with expected/counted/variance/witness/status.",
+        "b4": "'Pending orders' panel shows each PO with a status pill (Held-signature, Awaiting approval).",
+        "c1": "A fixed status bar ('Connected WILLOW-PRD…') sits mid-page in the full capture, overlapping and obscuring the Fentanyl citrate row beneath it.",
+        "c2": "Text elsewhere is legible.",
+        "c3": "No placeholder or broken regions are visible.",
+        "c4": "Spacing is otherwise consistent between rows.",
+        "c5": "Content stays within the viewport width.",
+        "d1": "The overlapping fixed status bar needs a technical fix (reposition or remove from the scroll flow) before delivery."
+      }
+    },
+    "002ea9": {
+      "a1": 6, "a2": 6, "a3": 6, "a4": 6,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 4,
+      "evidence": {
+        "b1": "'Stock levels by drug' table shows on hand, reorder and par columns explicitly, plus a coverage bar.",
+        "b2": "'Expiring lots' has a plotted disposition timeline plus an itemized table of 9 lots with expiry and days.",
+        "b3": "'Controlled substances' shift count sheet lists each drug with system/counted/variance and an editable count field.",
+        "b4": "'Purchase orders' table gives each PO a status pill (Overdue, In transit, Confirmed, Awaiting confirmation).",
+        "c1": "No clipped or cut-off content is visible.",
+        "c2": "Text is legible throughout, including the narrative alert copy.",
+        "c3": "No placeholder or broken regions are visible.",
+        "c4": "Card and table spacing is consistent across the page.",
+        "c5": "Content stays within the viewport width.",
+        "d1": "All four brief regions are present, itemized and defect-free in the captures."
+      }
+    }
+  }
+}

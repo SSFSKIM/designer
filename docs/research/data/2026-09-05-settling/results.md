@@ -113,6 +113,262 @@ Unanimous on 28 of 78 pairs; the human is outvoted on 18.
 
 Its first run (six raters, one per brief, on a schedule that differed per process) overlaps the batch run on 70 pairs: same winner on 65 (0.93); Cohen's κ 0.85.
 
+## R — reliability of the rubric
+
+Model panel: 4 rater(s) — Claude claude-opus, claude-sonnet; GPT astra-high, astra-medium — over 52 of 52 pages, 26 of them v2.0 or v2.1. Anchor set (pharmacy and library): 16 of 16 pages rated by 4 rater(s); the user has not rated yet.
+
+α is Krippendorff's — ordinal on the 7-point items, on the 0–2 brief-fit items and on the composites built from them, nominal on the 0/1 defect observations — read over three page sets: pooled over every rated page, over the v2.0 and v2.1 pages the grammar reading uses, and per brief averaged with each brief weighted by its pages (briefs at least two raters rated). Pooled α is inflated by between-brief level differences the within-brief comparison never touches. d1 and the composites carry a 1000-resample interval; a b-item is a different statement in every brief and its α pools briefs by item index; t1 exists only where the brief states a tone; the user rates a1, a2, a3, a4, d1, e1 only.
+
+| item | metric | α pooled | raters × pages | α on v2.0+v2.1 | raters × pages | α per brief, weighted | briefs |
+|---|---|---|---|---|---|---|---|
+| a1 | ordinal | 0.43 | 4 × 52 | 0.38 | 4 × 26 | 0.42 | 7 |
+| a2 | ordinal | 0.44 | 4 × 52 | 0.21 | 4 × 26 | 0.42 | 7 |
+| a3 | ordinal | 0.49 | 4 × 52 | 0.23 | 4 × 26 | 0.45 | 7 |
+| a4 | ordinal | 0.48 | 4 × 52 | 0.49 | 4 × 26 | 0.50 | 7 |
+| b1 | ordinal | 0.86 | 4 × 52 | 0.84 | 4 × 26 | 0.84 | 7 |
+| b2 | ordinal | 0.71 | 4 × 52 | 0.92 | 4 × 26 | 0.81 | 7 |
+| b3 | ordinal | 0.33 | 4 × 52 | 1.00 | 4 × 26 | 0.89 | 7 |
+| b4 | ordinal | 0.87 | 4 × 44 | 0.86 | 4 × 22 | 0.89 | 6 |
+| t1 | ordinal | 0.59 | 4 × 16 | 0.68 | 4 × 8 | 0.41 | 2 |
+| c1 | nominal | 0.68 | 4 × 52 | 0.60 | 4 × 26 | 0.48 | 7 |
+| c2 | nominal | 0.49 | 4 × 52 | 0.43 | 4 × 26 | 0.45 | 7 |
+| c3 | nominal | 0.54 | 4 × 52 | -0.02 | 4 × 26 | 0.54 | 7 |
+| c4 | nominal | 0.08 | 4 × 52 | 0.12 | 4 × 26 | 0.13 | 7 |
+| c5 | nominal | 0.48 | 4 × 52 | 0.65 | 4 × 26 | 0.84 | 7 |
+| d1 | ordinal | 0.48 [0.32–0.61] | 4 × 52 | 0.46 [0.21–0.64] | 4 × 26 | 0.42 [0.19–0.48] | 7 |
+| e1 | ordinal | 0.71 | 4 × 52 | 0.67 | 4 × 26 | 0.62 | 7 |
+| e1 (first wording, superseded by the revision) | ordinal | 0.35 | 4 × 52 | 0.25 | 4 × 26 | 0.30 | 7 |
+| aesthetics (VisAWI-S total, a1–a4) | ordinal | 0.57 [0.39–0.69] | 4 × 52 | 0.37 [0.14–0.53] | 4 × 26 | 0.56 [0.30–0.61] | 7 |
+| brief fit (mean of the brief's b-items, 0–2) | ordinal | 0.83 [0.73–0.91] | 4 × 52 | 0.86 [0.69–0.96] | 4 × 26 | 0.72 [0.55–0.80] | 7 |
+| defects (count of c1–c5) | ordinal | 0.56 [0.40–0.68] | 4 × 52 | 0.56 [0.32–0.73] | 4 × 26 | 0.34 [0.16–0.47] | 7 |
+
+### The family split
+
+α within each model family and between the two family means, each family counted once, so a pass carried by one family agreeing with itself shows as a low between-family α. The 7-point items and the composites; the between column is ordinal over the family means.
+
+| item | GPT α | Claude α | between families α | pages (pooled / v2.0+v2.1) |
+|---|---|---|---|---|
+| a1 | 0.64 / 0.45 | 0.55 / 0.88 | 0.48 / 0.36 | 52 / 26 |
+| a2 | 0.79 / 0.65 | 0.34 / 0.08 | 0.49 / 0.21 | 52 / 26 |
+| a3 | 0.77 / 0.74 | 0.52 / 0.47 | 0.50 / 0.04 | 52 / 26 |
+| a4 | 0.81 / 0.85 | 0.40 / 0.47 | 0.49 / 0.48 | 52 / 26 |
+| t1 | 0.94 / 0.91 | 0.24 / 0.29 | 0.71 / 0.73 | 16 / 8 |
+| d1 | 0.87 / 0.77 | 0.34 / 0.32 | 0.45 / 0.43 | 52 / 26 |
+| e1 | 0.92 / 0.87 | 0.70 / 0.73 | 0.72 / 0.63 | 52 / 26 |
+| aesthetics (VisAWI-S total, a1–a4) | 0.82 / 0.72 | 0.57 / 0.56 | 0.61 / 0.34 | 52 / 26 |
+| brief fit (mean of the brief's b-items, 0–2) | 0.94 / 0.93 | 0.78 / 0.86 | 0.89 / 0.91 | 52 / 26 |
+| defects (count of c1–c5) | 0.91 / 0.85 | 0.33 / 0.36 | 0.64 / 0.67 | 52 / 26 |
+(each cell is pooled / v2.0+v2.1.)
+
+### Level or order
+
+α penalises a rater who uses the scale higher or lower than the others as much as one who orders the pages differently. Two readings that separate the two, reported and not gating: each rater's mean level over the pages the panel rated, and the mean pairwise Spearman ρ between raters within a brief (order only, level removed), for pairs from the same family and pairs across families.
+
+| rater | d1 | e1 | aesthetics (VisAWI-S total, a1–a4) | defects (count of c1–c5) | brief fit (mean of the brief's b-items, 0–2) |
+|---|---|---|---|---|---|
+| astra-high | 4.35 | 4.75 | 5.39 | 0.92 | 1.82 |
+| astra-medium | 4.60 | 4.79 | 5.47 | 0.87 | 1.85 |
+| claude-opus | 5.13 | 4.77 | 5.36 | 0.88 | 1.89 |
+| claude-sonnet | 5.58 | 4.37 | 5.62 | 0.33 | 1.84 |
+
+| item | within-brief ρ, same family | within-brief ρ, across families | pairs × briefs (same / across) |
+|---|---|---|---|
+| d1 | 0.67 | 0.64 | 14 / 28 |
+| e1 | 0.77 | 0.61 | 14 / 28 |
+| aesthetics (VisAWI-S total, a1–a4) | 0.73 | 0.59 | 14 / 28 |
+| defects (count of c1–c5) | 0.66 | 0.42 | 11 / 23 |
+| brief fit (mean of the brief's b-items, 0–2) | 0.87 | 0.78 | 11 / 22 |
+
+### The user against the panel, over the anchor pages
+
+The user has not rated yet.
+
+### Retest — the same rater on the same pages a second time
+
+α between the first and the second rating, units = (page, item) over the 7-point items. Chance-corrected, because a rater drawing at random among 4, 5 and 6 passes a within-±1 share of 85 % by arithmetic; the share is printed beside α, not in place of it. The user's second pass is reported the same way and is outside the gate.
+
+| rater | pages repeated | 7-point ratings | retest α | within ±1 | c-item ratings | equal |
+|---|---|---|---|---|---|---|
+| astra-high | 16 | 104 | 0.58 | 0.90 | 80 | 0.96 |
+| astra-medium | 16 | 104 | 0.70 | 0.93 | 80 | 1.00 |
+| claude-opus | 16 | 104 | 0.54 | 0.88 | 80 | 0.90 |
+| claude-sonnet | 16 | 104 | 0.65 | 0.90 | 80 | 0.96 |
+
+### Position in the shuffle
+
+Each rating centred by its (rater, brief) mean and regressed on the page's 1-based position in that rater's recorded order, pooled over raters and briefs; the interval resamples the runs. A slope of 0.1 means a page seen one place later is rated a tenth of a point higher.
+
+| item | slope per position | 95 % CI | runs |
+|---|---|---|---|
+| a1 | -0.011 | -0.047–0.026 | 28 |
+| a2 | 0.036 | -0.009–0.082 | 28 |
+| a3 | 0.006 | -0.040–0.056 | 28 |
+| a4 | -0.001 | -0.040–0.037 | 28 |
+| b1 | -0.005 | -0.026–0.018 | 28 |
+| b2 | -0.011 | -0.041–0.020 | 28 |
+| b3 | -0.005 | -0.012–0.000 | 28 |
+| b4 | 0.006 | -0.019–0.037 | 24 |
+| t1 | 0.083 | -0.036–0.205 | 8 |
+| c1 | -0.011 | -0.032–0.009 | 28 |
+| c2 | -0.023 | -0.043–-0.001 | 28 |
+| c3 | 0.020 | 0.008–0.035 | 28 |
+| c4 | 0.022 | 0.007–0.037 | 28 |
+| c5 | 0.000 | -0.010–0.009 | 28 |
+| d1 | -0.030 | -0.095–0.040 | 28 |
+| e1 | -0.005 | -0.101–0.094 | 28 |
+| e1_v1 | -0.014 | -0.074–0.053 | 28 |
+
+### Against the forced choice
+
+Each rater's implied verdict on the settling run's 78 pairs, taken from its d1 (higher wins, an equal pair undecided), against the forced choices actually recorded. κ is Cohen's over the pairs both sides decided. A rater whose d1 contradicts its own earlier forced choice says pointwise and pairwise elicit different things.
+
+| rater | pairs decided | κ vs the user (n) | κ vs astra-medium forced (n) | κ vs claude-opus forced (n) |
+|---|---|---|---|---|
+| astra-high | 64 of 78 | -0.08 (64) | 0.15 (64) | 0.35 (64) |
+| astra-medium | 65 of 78 | -0.12 (65) | 0.21 (65) | 0.24 (65) |
+| claude-opus | 61 of 78 | 0.28 (61) | 0.29 (61) | 0.67 (61) |
+| claude-sonnet | 59 of 78 | -0.02 (59) | 0.19 (59) | 0.28 (59) |
+
+### The c-items against their mechanical ground truth
+
+c5 (wider than the viewport) against `overflowCapture` and c3 (empty or placeholder region) against the gate's `placeholder`, over the rated pages. The panel row is the strict majority of the raters that rated the page. A dash is a rate with no case in its denominator — with two over-wide pages in 52, recall is read from very few positives — and the mechanical truth is narrower than the item it is held against: `placeholder` matches template text, not every empty region a rater can see, so a false positive here is as likely to be the gate missing something as the rater inventing it.
+
+| rating | rater | pages | truth positives | tp | fp | fn | precision | recall |
+|---|---|---|---|---|---|---|---|---|
+| c5 vs overflowCapture | astra-high | 52 | 2 | 2 | 0 | 0 | 1.00 | 1.00 |
+| c5 vs overflowCapture | astra-medium | 52 | 2 | 2 | 0 | 0 | 1.00 | 1.00 |
+| c5 vs overflowCapture | claude-opus | 52 | 2 | 2 | 1 | 0 | 0.67 | 1.00 |
+| c5 vs overflowCapture | claude-sonnet | 52 | 2 | 0 | 1 | 2 | 0.00 | 0.00 |
+| c5 vs overflowCapture | panel majority | 52 | 2 | 2 | 0 | 0 | 1.00 | 1.00 |
+| c3 vs placeholder | astra-high | 52 | 0 | 0 | 4 | 0 | 0.00 | — |
+| c3 vs placeholder | astra-medium | 52 | 0 | 0 | 3 | 0 | 0.00 | — |
+| c3 vs placeholder | claude-opus | 52 | 0 | 0 | 5 | 0 | 0.00 | — |
+| c3 vs placeholder | claude-sonnet | 52 | 0 | 0 | 2 | 0 | 0.00 | — |
+| c3 vs placeholder | panel majority | 52 | 0 | 0 | 3 | 0 | 0.00 | — |
+
+### Acceptance of the instrument, declared before the run
+
+- α ≥ 0.67 on d1 across the model panel over the 26 v2.0 and v2.1 page(s): not met — α 0.46 [0.21–0.64] over 4 rater(s) (the spec asks for 4 × 26; pooled over 52 pages it is 0.48, which does not gate).
+- α ≥ 0.5 on d1 between the two family means over the same pages: not met — α 0.43 over 26 page(s).
+- Spearman ρ ≥ 0.6 between the user and the panel mean on d1: not met — ρ — over 0 anchor page(s) (the spec asks for 16; the interval is printed, the point estimate gates).
+- retest α ≥ 0.67 on the 7-point items for every model rater: not met — lowest of 4 rater(s) 0.54: astra-high 0.58, astra-medium 0.70, claude-opus 0.54, claude-sonnet 0.65.
+
+**Outcome: Partial.** The items that clear α are usable readings; d1 is not, quality claims about the endpoint stay unclaimable, and the grammar reading runs as exploratory and is labelled so. Provisional: rhoD1 has no data yet, so no reading here can be Accepted until it lands. The spec's Stopped is declared *after* the one permitted wording revision; whether that revision has been spent is a judgement the reader makes, not a fact in these files.
+
+Items that could trip the one pre-registered wording revision (only a1, a2, a3, a4, d1, e1 qualify; the b-, t- and c-items are reported only): a1 α 0.38, a2 α 0.21, a3 α 0.23.
+
+## S — rubric scores per arm
+
+Page scores are the panel mean over the 4 model rater(s) — the user's anchor ratings are not pooled in, since they cover two briefs and six items and would tilt those briefs' arms. 52 page(s) rated of 52. Each cell is the mean over the arm's rated pages with a 2000-resample bootstrap 95 % interval and, in parentheses, the pages it stands on — fewer than the arm's total for an item only some briefs carry.
+
+| score | none (13 pages) | v1.1 (13 pages) | v2.0 (13 pages) | v2.1 (13 pages) |
+|---|---|---|---|---|
+| d1 | 4.71 [4.08–5.33] (13) | 4.96 [4.50–5.44] (13) | 5.15 [4.67–5.65] (13) | 4.83 [4.37–5.23] (13) |
+| aesthetics (VisAWI-S total, a1–a4) | 5.78 [5.46–6.10] (13) | 5.55 [5.21–5.86] (13) | 5.40 [5.18–5.62] (13) | 5.11 [4.88–5.32] (13) |
+| brief fit (mean of the brief's b-items, 0–2) | 1.82 [1.69–1.93] (13) | 1.85 [1.75–1.94] (13) | 1.90 [1.81–1.98] (13) | 1.83 [1.74–1.92] (13) |
+| defects (count of c1–c5) | 1.08 [0.69–1.46] (13) | 0.71 [0.38–1.08] (13) | 0.50 [0.21–0.81] (13) | 0.71 [0.35–1.17] (13) |
+| e1 | 6.08 [5.71–6.37] (13) | 4.29 [3.52–4.92] (13) | 4.79 [4.15–5.40] (13) | 3.52 [2.90–4.23] (13) |
+| a1 | 5.90 [5.58–6.23] (13) | 5.77 [5.46–6.04] (13) | 5.92 [5.71–6.12] (13) | 5.71 [5.48–5.92] (13) |
+| a2 | 5.60 [5.31–5.88] (13) | 5.29 [4.79–5.71] (13) | 4.96 [4.62–5.25] (13) | 4.60 [4.33–4.85] (13) |
+| a3 | 5.85 [5.50–6.19] (13) | 5.54 [5.27–5.81] (13) | 5.02 [4.81–5.21] (13) | 4.71 [4.37–5.04] (13) |
+| a4 | 5.77 [5.35–6.15] (13) | 5.62 [5.25–5.94] (13) | 5.71 [5.44–5.98] (13) | 5.40 [5.12–5.65] (13) |
+| b1 | 1.71 [1.31–2.00] (13) | 1.67 [1.37–1.92] (13) | 1.77 [1.52–2.00] (13) | 1.67 [1.35–1.94] (13) |
+| b2 | 1.83 [1.54–2.00] (13) | 1.92 [1.83–2.00] (13) | 1.83 [1.50–2.00] (13) | 1.85 [1.62–2.00] (13) |
+| b3 | 1.96 [1.88–2.00] (13) | 2.00 [2.00–2.00] (13) | 2.00 [2.00–2.00] (13) | 2.00 [2.00–2.00] (13) |
+| b4 | 1.73 [1.43–1.93] (11) | 1.75 [1.36–2.00] (11) | 2.00 [2.00–2.00] (11) | 1.77 [1.45–2.00] (11) |
+| t1 | 6.38 [5.94–6.69] (4) | 5.44 [4.12–6.19] (4) | 5.56 [4.50–6.62] (4) | 5.88 [5.12–6.62] (4) |
+| c1 | 0.52 [0.27–0.75] (13) | 0.25 [0.06–0.46] (13) | 0.29 [0.10–0.48] (13) | 0.35 [0.15–0.58] (13) |
+| c2 | 0.35 [0.13–0.56] (13) | 0.17 [0.06–0.31] (13) | 0.10 [0.00–0.23] (13) | 0.12 [0.00–0.27] (13) |
+| c3 | 0.13 [0.00–0.33] (13) | 0.08 [0.00–0.19] (13) | 0.04 [0.00–0.10] (13) | 0.02 [0.00–0.06] (13) |
+| c4 | 0.08 [0.00–0.15] (13) | 0.17 [0.08–0.27] (13) | 0.08 [0.00–0.17] (13) | 0.12 [0.02–0.23] (13) |
+| c5 | 0.00 [0.00–0.00] (13) | 0.04 [0.00–0.10] (13) | 0.00 [0.00–0.00] (13) | 0.12 [0.00–0.29] (13) |
+
+### d1 per brief and arm
+
+Panel mean deliverability, pages in parentheses.
+
+| brief | none | v1.1 | v2.0 | v2.1 |
+|---|---|---|---|---|
+| compare | 5.50 (1) | 4.75 (1) | 6.25 (1) | 4.75 (1) |
+| fleet | 3.88 (2) | 4.75 (2) | 5.12 (2) | 4.25 (2) |
+| hardware | 5.62 (2) | 5.88 (2) | 4.38 (2) | 5.25 (2) |
+| library | 6.25 (2) | 5.38 (2) | 5.12 (2) | 4.75 (2) |
+| pharmacy | 3.88 (2) | 5.62 (2) | 6.12 (2) | 4.50 (2) |
+| rail | 3.75 (2) | 3.62 (2) | 4.38 (2) | 5.12 (2) |
+| rebate | 4.50 (2) | 4.62 (2) | 5.25 (2) | 5.12 (2) |
+
+### v2.1 − v2.0, paired by brief and seed
+
+The grammar reading's input (spec, The grammar reading). Paired by brief and seed label — in effect by brief, since the two arms' samplers drew different seeds and the two seeds of one arm are often near-duplicates, so the effective number of pairs is under thirteen.
+
+13 pair(s), 4 model rater(s) a side. A positive difference favours v2.1; a dash is a pair where one side lacks the item.
+
+| score | compare·A | fleet·A | fleet·B | hardware·A | hardware·B | library·A | library·B | pharmacy·A | pharmacy·B | rail·A | rail·B | rebate·A | rebate·B | pairs | mean | 95 % CI |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| d1 | -1.50 | -1.75 | 0.00 | 1.00 | 0.75 | -1.00 | 0.25 | -3.25 | 0.00 | -1.00 | 2.50 | -1.25 | 1.00 | 13 | -0.33 | -1.08–0.46 |
+| aesthetics (VisAWI-S total, a1–a4) | -0.69 | -1.19 | -0.06 | 0.06 | -0.19 | -0.56 | -0.25 | -0.75 | -0.81 | -0.44 | 0.69 | -0.44 | 0.75 | 13 | -0.30 | -0.58–0.01 |
+| brief fit (mean of the brief's b-items, 0–2) | -0.44 | -0.19 | 0.00 | 0.00 | 0.25 | 0.00 | 0.00 | -0.25 | 0.00 | -0.06 | 0.19 | -0.50 | 0.12 | 13 | -0.07 | -0.19–0.04 |
+| defects (count of c1–c5) | 0.50 | 2.00 | 0.25 | -0.75 | 0.25 | 1.00 | -0.25 | 1.00 | -0.50 | 0.50 | -1.25 | 0.00 | 0.00 | 13 | 0.21 | -0.21–0.65 |
+| e1 | 1.25 | -1.50 | -4.50 | 0.25 | 0.75 | 0.75 | -2.25 | -2.25 | -1.50 | -0.75 | -4.00 | -2.00 | -0.75 | 13 | -1.27 | -2.21–-0.37 |
+| a1 | -0.25 | -1.00 | 0.00 | 0.50 | 0.00 | -1.25 | 0.00 | -0.75 | -0.75 | -0.25 | 1.00 | -0.50 | 0.50 | 13 | -0.21 | -0.56–0.13 |
+| a2 | -1.25 | -1.75 | -0.25 | -0.25 | 0.25 | 0.00 | -1.00 | -0.50 | -1.00 | -0.50 | 0.50 | 0.00 | 1.00 | 13 | -0.37 | -0.77–0.02 |
+| a3 | -0.75 | -0.75 | 0.25 | -0.50 | -1.25 | 0.25 | 0.25 | -0.50 | -0.50 | -0.50 | 0.25 | -1.00 | 0.75 | 13 | -0.31 | -0.62–0.00 |
+| a4 | -0.50 | -1.25 | -0.25 | 0.50 | 0.25 | -1.25 | -0.25 | -1.25 | -1.00 | -0.50 | 1.00 | -0.25 | 0.75 | 13 | -0.31 | -0.69–0.10 |
+| b1 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | -0.25 | 0.50 | -2.00 | 0.50 | 13 | -0.10 | -0.46–0.15 |
+| b2 | 0.00 | 0.00 | 0.00 | 0.00 | 1.00 | 0.00 | 0.00 | -1.00 | 0.00 | 0.00 | 0.25 | 0.00 | 0.00 | 13 | 0.02 | -0.21–0.23 |
+| b3 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 13 | 0.00 | 0.00–0.00 |
+| b4 | -1.75 | -0.75 | 0.00 | 0.00 | 0.00 | — | — | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 11 | -0.23 | -0.55–0.00 |
+| t1 | — | — | — | 0.00 | 0.00 | 1.00 | 0.25 | — | — | — | — | — | — | 4 | 0.31 | 0.00–0.75 |
+| c1 | 0.50 | 0.00 | 0.25 | -0.50 | 0.00 | 0.00 | 0.00 | 1.00 | 0.00 | 0.00 | -0.50 | 0.00 | 0.00 | 13 | 0.06 | -0.13–0.25 |
+| c2 | 0.00 | 0.75 | -0.25 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.50 | -0.75 | 0.00 | 0.00 | 13 | 0.02 | -0.15–0.21 |
+| c3 | 0.00 | 0.00 | 0.00 | 0.00 | -0.25 | 0.00 | -0.25 | 0.25 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 13 | -0.02 | -0.08–0.04 |
+| c4 | 0.00 | 0.50 | 0.25 | -0.25 | 0.50 | 0.25 | 0.00 | -0.25 | -0.50 | 0.00 | 0.00 | 0.00 | 0.00 | 13 | 0.04 | -0.12–0.19 |
+| c5 | 0.00 | 0.75 | 0.00 | 0.00 | 0.00 | 0.75 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 13 | 0.12 | 0.00–0.29 |
+
+Per rater, the sign of its own d1 difference on each pair (+ favours v2.1, · a tie, blank not rated), and how many raters carry the sign of the panel's mean difference.
+
+| rater | compare·A | fleet·A | fleet·B | hardware·A | hardware·B | library·A | library·B | pharmacy·A | pharmacy·B | rail·A | rail·B | rebate·A | rebate·B |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| astra-high | − | − | · | + | + | − | + | − | · | · | + | − | + |
+| astra-medium | − | − | · | + | + | − | · | − | · | − | + | − | + |
+| claude-opus | − | − | + | − | · | − | · | − | · | − | + | − | + |
+| claude-sonnet | − | − | − | + | + | · | · | − | · | − | + | + | · |
+| raters on the mean's sign | 4 | 4 | 1 | 1 | 0 | 3 | 0 | 4 | 0 | 3 | 0 | 3 | 0 |
+
+**The confirmation gate.** No difference detectable at 13 pairs: the paired d1 mean is -0.33 [-1.08–0.46] and its interval covers zero; three or more raters carry its sign on only 6 of 13 pairs. Steps 1–4 of the grammar reading run as exploratory and are labelled so. The minimum difference 13 pairs could have detected is 0.81 of a point (1.96·sd/√n).
+
+### The no-skill hold
+
+The settling run's hold (Decision Log 2026-09-09): `none` should not beat `v1.1`. The hold stands unless `none`'s paired d1 difference against `v1.1` is positive with its interval excluding zero; it is confirmed if the difference is negative with its interval excluding zero; between, it is not decided at this sample.
+
+- d1: none 4.71 [4.08–5.33] over 13 page(s); v1.1 4.96 [4.50–5.44] over 13 page(s).
+- defects (count of c1–c5): none 1.08 [0.69–1.46] over 13 page(s); v1.1 0.71 [0.38–1.08] over 13 page(s).
+
+13 pair(s), 4 model rater(s) a side. A positive difference favours none; a dash is a pair where one side lacks the item.
+
+| score | compare·A | fleet·A | fleet·B | hardware·A | hardware·B | library·A | library·B | pharmacy·A | pharmacy·B | rail·A | rail·B | rebate·A | rebate·B | pairs | mean | 95 % CI |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| d1 | 0.75 | -2.25 | 0.50 | -0.25 | -0.25 | -0.50 | 2.25 | -3.00 | -0.50 | 0.75 | -0.50 | 0.25 | -0.50 | 13 | -0.25 | -0.88–0.44 |
+| defects (count of c1–c5) | 0.00 | 0.75 | 0.75 | 0.75 | 0.50 | 0.00 | -0.75 | 1.25 | 0.75 | 1.00 | -0.75 | -0.25 | 0.75 | 13 | 0.37 | 0.00–0.69 |
+
+**The hold is not decided at this sample**: none − v1.1 on d1 is -0.25 [-0.88–0.44] over 13 pair(s) — the interval covers zero. The minimum difference detectable here is 0.72 of a point.
+
+### UIClip
+
+UIClip scored 52 page(s); the correlations are over the 52 of them the panel has rated. It is a reported column, never in α.
+
+| UIClip capture | ρ with d1 | ρ with aesthetics | pages |
+|---|---|---|---|
+| fv | -0.08 | 0.05 | 52 |
+| full | -0.12 | -0.05 | 52 |
+
+| arm | UIClip fv | UIClip full | pages |
+|---|---|---|---|
+| none | 0.616 | 0.746 | 13 |
+| v1.1 | 0.629 | 0.738 | 13 |
+| v2.0 | 0.636 | 0.721 | 13 |
+| v2.1 | 0.513 | 0.696 | 13 |
+
 ## V — validity gate per build
 
 | id | brief | arm | seed | mechanical | judged | gate |
@@ -176,9 +432,9 @@ Its first run (six raters, one per brief, on a schedule that differed per proces
 
 | arm | category | pairs | partition raw / eff | pqgram raw / eff | raster raw / eff | hueEMD raw / eff | familyJaccard raw / eff |
 |---|---|---|---|---|---|---|---|
-| none | console | 12 | 0.247 / 0.0 | 0.688 / 0.0 | 0.712 / 0.0 | 0.142 / 0.0 | 0.667 / 0.0 |
-| none | narrative | 12 | 0.24 / 0.099 | 0.427 / 0.152 | 0.654 / 0.279 | 0.199 / 0.095 | 0.917 / 0.389 |
-| v1.1 | console | 12 | 0.257 / 0.257 | 0.483 / 0.483 | 0.757 / 0.757 | 0.165 / 0.165 | 0.944 / 0.944 |
+| none | console | 12 | 0.247 / 0.0 | 0.688 / 0.0 | 0.712 / 0.0 | 0.135 / 0.0 | 0.667 / 0.0 |
+| none | narrative | 12 | 0.24 / 0.099 | 0.427 / 0.152 | 0.654 / 0.279 | 0.198 / 0.095 | 0.917 / 0.389 |
+| v1.1 | console | 12 | 0.257 / 0.257 | 0.483 / 0.483 | 0.757 / 0.757 | 0.164 / 0.164 | 0.944 / 0.944 |
 | v1.1 | narrative | 12 | 0.254 / 0.254 | 0.59 / 0.59 | 0.752 / 0.752 | 0.254 / 0.254 | 0.903 / 0.903 |
 | v2.0 | console | 12 | 0.308 / 0.134 | 0.616 / 0.264 | 0.813 / 0.342 | 0.089 / 0.047 | 0.75 / 0.333 |
 | v2.0 | narrative | 12 | 0.27 / 0.025 | 0.601 / 0.046 | 0.712 / 0.057 | 0.242 / 0.024 | 0.75 / 0.083 |
@@ -189,9 +445,9 @@ Its first run (six raters, one per brief, on a schedule that differed per proces
 
 | arm | category | pairs | partition raw / eff | pqgram raw / eff | raster raw / eff | hueEMD raw / eff | familyJaccard raw / eff |
 |---|---|---|---|---|---|---|---|
-| none | console | 3 | 0.247 / 0.0 | 0.725 / 0.0 | 0.797 / 0.0 | 0.127 / 0.0 | 1.0 / 0.0 |
-| none | narrative | 3 | 0.2 / 0.05 | 0.4 / 0.133 | 0.498 / 0.098 | 0.213 / 0.031 | 0.778 / 0.222 |
-| v1.1 | console | 3 | 0.257 / 0.257 | 0.442 / 0.442 | 0.623 / 0.623 | 0.172 / 0.172 | 0.667 / 0.667 |
+| none | console | 3 | 0.247 / 0.0 | 0.725 / 0.0 | 0.797 / 0.0 | 0.14 / 0.0 | 1.0 / 0.0 |
+| none | narrative | 3 | 0.2 / 0.05 | 0.4 / 0.133 | 0.498 / 0.098 | 0.212 / 0.031 | 0.778 / 0.222 |
+| v1.1 | console | 3 | 0.257 / 0.257 | 0.442 / 0.442 | 0.623 / 0.623 | 0.173 / 0.173 | 0.667 / 0.667 |
 | v1.1 | narrative | 3 | 0.262 / 0.262 | 0.598 / 0.598 | 0.602 / 0.602 | 0.306 / 0.306 | 1.0 / 1.0 |
 | v2.0 | console | 3 | 0.215 / 0.073 | 0.625 / 0.269 | 0.699 / 0.246 | 0.071 / 0.017 | 0.667 / 0.333 |
 | v2.0 | narrative | 3 | 0.271 / 0.0 | 0.468 / 0.0 | 0.701 / 0.0 | 0.299 / 0.0 | 0.778 / 0.0 |

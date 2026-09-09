@@ -1,0 +1,152 @@
+{
+  "rater": "claude-sonnet",
+  "brief": "fleet",
+  "seed": 2690301568,
+  "order": ["ae0658", "645bc6", "7e71b0", "f8973a", "865572", "49e6cb", "1a63c5", "4e40b0"],
+  "pages": {
+    "ae0658": {
+      "a1": 5, "a2": 5, "a3": 5, "a4": 4,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 1, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 5, "e1": 5,
+      "evidence": {
+        "b1": "Open defects by vehicle table lists vehicle, defect, raised, status, in-bay and waiting-on columns.",
+        "b2": "Overdue Inspections panel shows red 'X DAYS' overdue badges and red 'must not be used' text distinct from due-soon rows.",
+        "b3": "Parts on order table has an ETA column with dates/times and a status flag (e.g. VOR) per line.",
+        "b4": "The workshop's day gantt lists 6 bays with job blocks, times and a legend for in-progress/booked/waiting-on-parts/overrunning.",
+        "c1": "The open defects panel's last visible row (18150, tachograph fault) is cut off mid-row by the panel's fixed height, and the parts table's 'waiting on' text is truncated at the column edge.",
+        "c2": "Crew-on-shift names and the '38 further vehicles have nothing outstanding' footnote render at very small size against the dark background.",
+        "c3": "none seen",
+        "c4": "none seen",
+        "c5": "none seen",
+        "d1": "Structure and data are complete but the fixed single-viewport layout clips a defects row and shrinks footnote text; a taller panel or scroll would fix it — cosmetic."
+      }
+    },
+    "645bc6": {
+      "a1": 6, "a2": 6, "a3": 6, "a4": 6,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 7, "e1": 5,
+      "evidence": {
+        "b1": "Open defects by vehicle table (Fleet/Vehicle/Defect/Cat/Raised/Reported by/Assigned/Status) lists every open defect per vehicle.",
+        "b2": "Inspections due section splits into red 'Overdue' vs amber 'Due' vs blue 'Scheduled' rows with day counts.",
+        "b3": "Parts on order table has a PROMISED date and a STATUS column (Late/In transit/On order/In stores) per line.",
+        "b4": "The workshop's day gantt shows 8 bays across 05:00–19:00 with named jobs and a status legend.",
+        "c1": "none seen",
+        "c2": "none seen",
+        "c3": "none seen",
+        "c4": "none seen",
+        "c5": "none seen",
+        "d1": "No clipped, empty or misaligned regions found across any capture; ready to deliver with at most copy/token polish."
+      }
+    },
+    "7e71b0": {
+      "a1": 6, "a2": 6, "a3": 6, "a4": 6,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 3,
+      "evidence": {
+        "b1": "Open defects by vehicle table lists vehicle, defect, class, reported and status per row.",
+        "b2": "Inspections panel marks 'Overdue X days over' in red versus 'Due in X days' in amber.",
+        "b3": "Parts on order cards show a promised/ships date and a status tag (No ETA, Late, In transit, Received) per part.",
+        "b4": "The workshop's day grid shows 6 bays with named jobs and times, plus a color legend.",
+        "c1": "none seen",
+        "c2": "none seen",
+        "c3": "none seen",
+        "c4": "none seen",
+        "c5": "none seen",
+        "d1": "Every capture shows complete, aligned content; the large editorial hero is a stylistic choice, not a defect — deliverable as is."
+      }
+    },
+    "f8973a": {
+      "a1": 6, "a2": 5, "a3": 6, "a4": 6,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 5,
+      "evidence": {
+        "b1": "Open defects by vehicle table (Vehicle/Type/Depot/Defect/Reported/Open/Status/Part/Next PMI/Odometer) lists every open item.",
+        "b2": "'Needs a decision' items carry red PAST DUE / amber WITHIN WINDOW badges distinct from off-road items, and the table's NEXT PMI column reddens overdue dates.",
+        "b3": "Parts on order table has PROMISED and STATUS columns (Confirmed/Delayed/Unconfirmed/In transit/Received) per line.",
+        "b4": "The bay-by-hour grid on the right shows 8 bays with jobs and times across the shift.",
+        "c1": "The 'Needs a decision' card's fifth row (vehicle 3327) is cut off mid-line where the card's fixed height ends, just above the Fleet Backlog heading.",
+        "c2": "none seen",
+        "c3": "none seen",
+        "c4": "none seen",
+        "c5": "none seen",
+        "d1": "One card clips its last row at a fixed height; extending or scrolling that card is a cosmetic fix, otherwise clean."
+      }
+    },
+    "865572": {
+      "a1": 5, "a2": 5, "a3": 4, "a4": 5,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 5, "e1": 4,
+      "evidence": {
+        "b1": "Open defects by vehicle table lists severity, defect, status and assignment per vehicle.",
+        "b2": "Inspections & compliance splits into a red 'PAST DUE' group and an amber 'DUE WITHIN 7 DAYS' group with day counts.",
+        "b3": "Parts on order entries show a promised date and a status tag (Backorder, Past ETA, OEM lead time, Confirmed, In transit) each holding a named vehicle.",
+        "b4": "The workshop's day shows 7 lanes across 06:00–20:00 with job blocks, a current-time marker and a status legend.",
+        "c1": "Several defect descriptions in the table are hard-truncated with an ellipsis (e.g. 'Air pressure loss — secondary reservoir drop...') with no way to read the rest.",
+        "c2": "none seen",
+        "c3": "none seen",
+        "c4": "none seen",
+        "c5": "none seen",
+        "d1": "Structure and data are solid; the truncated defect text needs wider columns or wrapping — a cosmetic fix."
+      }
+    },
+    "49e6cb": {
+      "a1": 5, "a2": 5, "a3": 6, "a4": 5,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 1, "c5": 0,
+      "d1": 5, "e1": 4,
+      "evidence": {
+        "b1": "Open defects by vehicle table lists type, depot, defect, system, reported, condition and next inspection per vehicle.",
+        "b2": "The decision queue tags each item OVERDUE/DUE TODAY/OFF ROAD/FALLS DUE with a deadline-bar visualization, separate from open defects.",
+        "b3": "Parts on order list shows a due/expected date and a status tag (Due today, Late, No date, At goods-in, On order) per part.",
+        "b4": "The workshop's day grid shows 5 bays 06:00–20:00 with in-progress/done/held/booked blocks and a now-marker.",
+        "c1": "none seen",
+        "c2": "none seen",
+        "c3": "none seen",
+        "c4": "The left column (workshop's day, 5 bays) ends roughly 500px above where the right column (parts on order) ends, leaving a large unbalanced empty gap between the two panels.",
+        "c5": "none seen",
+        "d1": "Content is complete and well organized, but the mismatched column heights leave a large stray gap that needs a structural fix (fill, cap, or reflow)."
+      }
+    },
+    "1a63c5": {
+      "a1": 6, "a2": 6, "a3": 6, "a4": 6,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 1,
+      "d1": 4, "e1": 4,
+      "evidence": {
+        "b1": "Open defects by vehicle table lists vehicle, type, defect, severity, raised, age and where-it-is per row.",
+        "b2": "Inspections table marks overdue items in red ('X days over', RECALLED/HELD tags) versus upcoming ones in green ('in X days'), split from the defects list.",
+        "b3": "Parts on order panel lists a date (today/8 Sep/no date given) and a status tag (On the van, Backorder, No authorisation, Confirmed, Picked) per line, tied to the vehicle it holds.",
+        "b4": "The workshop's day grid shows 6 bays 06:00–19:00 with named jobs, times and a held/in-progress legend.",
+        "c1": "none seen",
+        "c2": "none seen",
+        "c3": "none seen",
+        "c4": "none seen",
+        "c5": "The open-defects table's rightmost column ('WHERE IT IS') is cut off at the browser's right edge in both the tile and full-page captures, indicating the table runs wider than the 1440px viewport.",
+        "d1": "The sidebar, banner, gantt and master-detail panel are all clean, but the defects table overflows the viewport width — a structural fix (narrower columns or horizontal scroll) is needed before delivery."
+      }
+    },
+    "4e40b0": {
+      "a1": 6, "a2": 6, "a3": 6, "a4": 6,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 0, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 6, "e1": 5,
+      "evidence": {
+        "b1": "Open defects table lists fleet, registration, defect, category, age, next step and vehicle status per row.",
+        "b2": "Inspections table marks overdue rows in red text with RECALL NOW/OFF ROAD tags versus due-soon rows with green IN WORKSHOP/AWAITING SUPPLIER tags.",
+        "b3": "Parts on order list shows a due date and status per line (Due today, Delivery date unavailable + Retry, plus an OFF ROAD tag naming the vehicle it holds).",
+        "b4": "The workshop's day grid shows 10 bays 05:00–21:00 with named jobs, times and a five-state legend.",
+        "c1": "none seen",
+        "c2": "none seen",
+        "c3": "none seen",
+        "c4": "none seen",
+        "c5": "none seen",
+        "d1": "All captures show complete, aligned content with no clipping or overflow; deliverable as is."
+      }
+    }
+  }
+}
