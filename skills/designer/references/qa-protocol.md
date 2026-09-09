@@ -16,6 +16,7 @@ Most UI work ships without a live render of the result — there's no guarantee 
 8. **Interactivity.** Buttons do something, even a stub handler; focus-visible rings are present; icon-only controls carry an accessible name.
 9. **Token discipline.** Scan the diff for raw hex values, arbitrary one-off sizes, or ad hoc weights that should be tokens or theme defaults instead, and for values lifted from a worked derivation without a recorded re-derivation.
 10. **Scope.** Confirm only what the request needed was touched, and that protected files and unrelated code were left alone.
+11. **Glass page pass**, only when the material model is glass over planes. Run the twenty-five rules in `references/liquid-glass.md` §9 against the rendered page — every glass surface a control, no glass over glass, one variant, one tinted primary at most, three shape kinds, groups that read as one material, the scroll edge where content passes under a bar, content to the window's edges, no glass over a flat field — and `references/material.md`'s QA additions: label contrast on rendered pixels in both schemes, the CSS tier forced once, the three accessibility modes, zero dev-mode diagnostics, no glass scrolled out from under itself, hints that match the backdrop. A rule tagged layer or material that fails is a rebuild, not a note.
 
 If a real render is reachable in the working environment, don't stop at these ten — see "Seeing your work" below. Blind checks are the fallback for an environment with no rendering path, not the preferred method once one exists.
 
