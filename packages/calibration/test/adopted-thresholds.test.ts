@@ -2107,3 +2107,68 @@ describe("W14 X7 — the shadow axis's pair, adopted at the outer shadow's landi
   }
 });
 
+
+/**
+ * W25's `probe` set, and the one thing this file has to say about it.
+ *
+ * The set is captured by the ordinary harness run, read by fits and cited by
+ * claims — and gated by nothing (W25 Decision Log 3 (e), claims §5.113). That
+ * is a promise about *this file*, because this file is where the gate lives:
+ * the adopted bounds, the regression floors, the conditioning exclusions and
+ * the cross-tier coherence rows are all here, and every one of them is stated
+ * over a cell of the frozen bed. The assertions below are that promise,
+ * written so it fails the moment a probe row starts carrying a number the bed
+ * is judged by — whether because a matrix was rebuilt with `--set probe` in the run, or
+ * because a floor was transcribed against a probe cell's scene id.
+ *
+ * The direction that matters is the one that is silent. A probe row entering a
+ * gated count does not look like a failure; it looks like a bed that grew.
+ *
+ * The cross-tier coherence rows get no assertion of their own: they are gated
+ * from the matrix rather than from prose, so the matrix guard covers them.
+ */
+describe("the probe set is captured, and gated by nothing (W25 Decision Log 3 (e))", () => {
+  const MATRIX_DECLARATION = readJson<{ split: Record<string, readonly string[]> }>(
+    resolve(PACKAGE_ROOT, "..", "..", "apps", "reference-apple", "scenes.json"),
+  );
+  const PROBE = new Set(MATRIX_DECLARATION.split["probe"] ?? []);
+
+  it("declares a probe set, so these assertions are about something", () => {
+    // An empty list would make every assertion below vacuously true, which is
+    // the failure mode a guard test has that the thing it guards does not.
+    expect(PROBE.size).toBeGreaterThan(0);
+  });
+
+  it("puts no probe row in the gated matrix, at any profile or tier", () => {
+    // `cellsOf` filters by profile and tier alone — every count, partition and
+    // bound in this file runs over whatever the matrix holds. So the guard has
+    // to be that the matrix holds no probe row at all, which is also what
+    // `compare`'s default `--set calibration,validation` produces.
+    const intruders = MATRIX.cells.filter(
+      (cell) => cell.fixtureSet === "probe" || PROBE.has(cell.key.sceneId),
+    );
+    expect(intruders.map(name)).toEqual([]);
+  });
+
+  it("names no probe scene in the conditioning predicate's exclusion list", () => {
+    // `PREDICATE_EXCLUDES` must equal the machine's own output over the gated
+    // bed. A probe scene named here would be an exclusion for a cell no gated
+    // count ever reaches — a line that can never be re-derived, and therefore
+    // one nothing could ever remove.
+    const named = PREDICATE_EXCLUDES.filter((line) =>
+      [...PROBE].some((sceneId) => line.includes(` / ${sceneId} / `)),
+    );
+    expect(named).toEqual([]);
+  });
+
+  it("floors no probe row", () => {
+    // A regression floor is a promise that a measured number will not get
+    // worse. Over a probe cell it would be a promise about a bed that is
+    // deliberately allowed to grow and be re-captured — and floors come off by
+    // fix, never by re-pinning without the user.
+    const floored = Object.keys(REGRESSION_FLOORS).filter((key) =>
+      [...PROBE].some((sceneId) => key.includes(` / ${sceneId} / `)),
+    );
+    expect(floored).toEqual([]);
+  });
+});

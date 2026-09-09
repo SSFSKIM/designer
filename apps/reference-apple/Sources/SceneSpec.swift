@@ -163,16 +163,25 @@ struct SplitSpec: Decodable {
   /// Captured and committed, read by nothing. Optional so a spec file written
   /// before the role existed still decodes; absent means the list is empty.
   let recorded: [String]?
+  /// Captured routinely and read by fits and claims, but gated by nothing —
+  /// W25's fifth role (Decision Log 3 (e)). It is the opposite of `recorded` in
+  /// what may read it and the same in what may bind to it: no adopted bound,
+  /// regression floor or conditioning exclusion is stated over a probe cell, so
+  /// the frozen bed's gate does not move when this list grows. Optional for the
+  /// same reason `recorded` is.
+  let probe: [String]?
 
   /// Which role a scene holds. An unassigned scene is a spec bug, not a
   /// default — a scene silently treated as `calibration` is exactly how a
   /// holdout leaks into tuning.
   ///
-  /// `recorded` is checked first because it is the role that *removes* a scene
-  /// from every set, and a scene that has been retired from tuning must not keep
-  /// its old membership by being named twice.
+  /// `recorded` and `probe` are checked first because they are the roles that
+  /// *remove* a scene from the gated sets, and a scene that has been retired
+  /// from tuning — or that was never in the frozen bed to begin with — must not
+  /// keep a gated membership by being named twice.
   func set(for sceneId: String) -> String? {
     if (recorded ?? []).contains(sceneId) { return "recorded" }
+    if (probe ?? []).contains(sceneId) { return "probe" }
     if holdout.contains(sceneId) { return "holdout" }
     if validation.contains(sceneId) { return "validation" }
     if calibration.contains(sceneId) { return "calibration" }
@@ -209,7 +218,9 @@ struct SceneSpecFile: Decodable {
     for s in scenes where split.set(for: s.id) == nil {
       problems.append("scene '\(s.id)' is in no split set")
     }
-    for id in split.holdout + split.validation + split.calibration + (split.recorded ?? []) where !ids.contains(id) {
+    let declared = split.holdout + split.validation + split.calibration
+      + (split.recorded ?? []) + (split.probe ?? [])
+    for id in declared where !ids.contains(id) {
       problems.append("split names '\(id)', which is not a scene")
     }
     // A scene in two lists has two roles, and `set(for:)` would silently return
@@ -219,7 +230,8 @@ struct SceneSpecFile: Decodable {
     // move a scene INTO while its old membership stayed behind.
     var seen: [String: String] = [:]
     for (role, list) in [("calibration", split.calibration), ("validation", split.validation),
-                         ("holdout", split.holdout), ("recorded", split.recorded ?? [])] {
+                         ("holdout", split.holdout), ("recorded", split.recorded ?? []),
+                         ("probe", split.probe ?? [])] {
       for id in list {
         if let already = seen[id] { problems.append("scene '\(id)' is in both '\(already)' and '\(role)'") }
         else { seen[id] = role }

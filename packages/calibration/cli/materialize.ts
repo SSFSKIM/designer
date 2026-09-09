@@ -18,6 +18,15 @@
  * manifest describing the other half is the failure mode the harness's own
  * staging discipline exists to prevent, and this inherits it.
  *
+ * `--set LABEL,...` narrows publication to the scenes the matrix declares in
+ * those roles. It exists because publication is otherwise by whole profile
+ * directory, so a run that adds new cells to a bed republishes every old one
+ * beside them — the sitting's bytes over a frozen bed's, silently, with the
+ * gate then reading a bed nobody meant to re-capture. `--set probe` is the form
+ * W25's sitting uses: capture everything the profile declares, publish only the
+ * cells the amendment added (W25 Decision Log 3 (e)). The default is every
+ * role, which is what every bed before this was built under.
+ *
  * `--frequency-settle` is the freezing mode Decision Log 21 adopted, and it is
  * deliberately a separate flag rather than a fallback. Under it a cell that holds
  * more than one settled state is published at its **majority** state and marked
@@ -34,6 +43,7 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { decodePng } from "../src/image";
+import { FIXTURE_SETS } from "../src/profile";
 import {
   differenceSummary,
   resolveCell,
@@ -65,7 +75,7 @@ function declaredRoles(): Map<string, string> {
     split?: Record<string, readonly string[] | undefined>;
   };
   const roles = new Map<string, string>();
-  for (const role of ["calibration", "validation", "holdout", "recorded"]) {
+  for (const role of ["calibration", "validation", "holdout", "recorded", "probe"]) {
     for (const id of spec.split?.[role] ?? []) roles.set(id, role);
   }
   return roles;
@@ -134,11 +144,13 @@ function variantsOf(
 function parseArgs(argv: readonly string[]): {
   runs: { label: string; dir: string }[];
   profiles: string[];
+  sets: string[];
   apply: boolean;
   frequencySettle: boolean;
 } {
   const runs: { label: string; dir: string }[] = [];
   const profiles: string[] = [];
+  const sets: string[] = [];
   for (let i = 0; i < argv.length; i += 1) {
     if (argv[i] === "--run") {
       const raw = argv[i + 1] ?? "";
@@ -151,12 +163,21 @@ function parseArgs(argv: readonly string[]): {
     } else if (argv[i] === "--profile") {
       profiles.push(...(argv[i + 1] ?? "").split(",").map((s) => s.trim()).filter(Boolean));
       i += 1;
+    } else if (argv[i] === "--set") {
+      sets.push(...(argv[i + 1] ?? "").split(",").map((s) => s.trim()).filter(Boolean));
+      i += 1;
     }
   }
   if (runs.length < 2) throw new Error("materialize: give at least two --run LABEL=DIR snapshots.");
+  for (const set of sets) {
+    if (!(FIXTURE_SETS as readonly string[]).includes(set)) {
+      throw new Error(`materialize: --set takes ${FIXTURE_SETS.join("|")}, not '${set}'`);
+    }
+  }
   return {
     runs,
     profiles,
+    sets,
     apply: argv.includes("--apply"),
     frequencySettle: argv.includes("--frequency-settle"),
   };
@@ -175,6 +196,13 @@ const confidenceAt = (n: number, p: number): number => 1 - Math.pow(1 - p, n);
 function main(): void {
   const options = parseArgs(process.argv.slice(2));
   const runs = options.runs.map((r) => loadRun(r.label, r.dir));
+  /*
+   * Read up front, because the declaration is now both the publication filter
+   * and the role a published entry carries. A cell outside the selected roles
+   * is skipped before its bytes are read, so "not published" means not opened.
+   */
+  const roles = declaredRoles();
+  const selected = options.sets.length > 0 ? new Set(options.sets) : undefined;
   const first = runs[0] as RunSnapshot;
   const profiles =
     options.profiles.length > 0
@@ -193,6 +221,7 @@ function main(): void {
     for (const name of names) {
       const scene = name.slice(0, -4);
       const cell = `${profile}/${scene}`;
+      if (selected !== undefined && !selected.has(roles.get(scene) ?? "")) continue;
       const bytes = new Map<string, Uint8Array>();
       for (const run of runs) {
         const path = resolve(run.dir, profile, name);
@@ -247,6 +276,14 @@ function main(): void {
     }
   }
 
+  if (decisions.length === 0) {
+    throw new Error(
+      `materialize: --set ${options.sets.join(",")} selected no cell of ${profiles.length} ` +
+        `profile(s). A filter that matches nothing publishes nothing, which is indistinguishable ` +
+        `from a run that succeeded.`,
+    );
+  }
+
   const settledCells = new Set(publish.filter((p) => p.entry["frequencySettled"] === true).map((p) => `${p.profile}/${p.scene}`));
   const refused = decisions.filter(
     (d) => d.outcome.kind === "refused" && !settledCells.has(d.cell),
@@ -292,7 +329,6 @@ function main(): void {
     return;
   }
 
-  const roles = declaredRoles();
   const manifestPath = resolve(FIXTURES, "manifest.json");
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as {
     profiles?: { profileKey?: string; fixtures?: { sceneId?: string }[] }[];
@@ -355,7 +391,7 @@ function main(): void {
   const split = (JSON.parse(readFileSync(SCENES, "utf8")) as { split?: Record<string, unknown> }).split ?? {};
   const declaration = manifest as unknown as { split?: Record<string, unknown> };
   if (declaration.split !== undefined) {
-    for (const role of ["calibration", "validation", "holdout", "recorded"]) {
+    for (const role of ["calibration", "validation", "holdout", "recorded", "probe"]) {
       declaration.split[role] = (split[role] as readonly string[] | undefined) ?? [];
     }
   }

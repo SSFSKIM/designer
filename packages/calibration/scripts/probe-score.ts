@@ -173,7 +173,7 @@ const spec = JSON.parse(readFileSync(scenesPath, "utf8")) as {
 const recorded = new Set(spec.split["recorded"] ?? []);
 const calibration = new Set(spec.split["calibration"] ?? []);
 
-const ROLES = ["calibration", "validation", "holdout", "recorded"] as const;
+const ROLES = ["calibration", "validation", "holdout", "recorded", "probe"] as const;
 const readSets = new Set((flag("read-sets") ?? ROLES.join(",")).split(","));
 const roleOf = new Map<string, string>();
 for (const role of ROLES) for (const id of spec.split[role] ?? []) roleOf.set(id, role);

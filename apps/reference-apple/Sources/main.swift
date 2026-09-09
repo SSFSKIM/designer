@@ -544,11 +544,15 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
                    validation: spec.split.validation,
                    holdout: spec.split.holdout,
                    recorded: spec.split.recorded ?? [],
+                   probe: spec.split.probe ?? [],
                    note: """
                      Holdout scene ids are declared here, as data. Tuning code must \
                      read the 'calibration' list; it must never name a holdout scene. \
                      A 'recorded' scene is captured and committed and read by nothing: \
-                     no fit, no self-check, no bound and no claim may cite it.
+                     no fit, no self-check, no bound and no claim may cite it. A \
+                     'probe' scene is the other way round: fits and claims read it, \
+                     and no adopted bound, regression floor or conditioning exclusion \
+                     is stated over it, so the frozen bed's gate does not move with it.
                      """),
       caveats: caveats,
       captureProtocol: .init(

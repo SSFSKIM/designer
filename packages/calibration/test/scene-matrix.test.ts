@@ -38,19 +38,31 @@ interface SceneEntry {
 
 interface Matrix {
   readonly version: number;
+  readonly canvas: { readonly width: number; readonly height: number };
   readonly backgrounds: Record<string, { readonly kind: string; readonly srgb?: readonly number[] }>;
   readonly components: Record<string, { readonly kind: string; readonly size?: readonly number[] }>;
   readonly tints: Record<string, { readonly srgb: readonly number[]; readonly alpha?: number }>;
   readonly scenes: readonly SceneEntry[];
   readonly profiles: readonly { readonly key: string; readonly scenes: "all" | readonly string[] }[];
-  readonly split: Record<"calibration" | "validation" | "holdout" | "recorded", readonly string[]>;
+  readonly split: Record<
+    "calibration" | "validation" | "holdout" | "recorded" | "probe",
+    readonly string[]
+  >;
 }
 
 const MATRIX = JSON.parse(
   readFileSync(resolve(REPO_ROOT, "apps", "reference-apple", "scenes.json"), "utf8"),
 ) as Matrix;
 
-const SETS = ["calibration", "validation", "holdout", "recorded"] as const;
+const SETS = ["calibration", "validation", "holdout", "recorded", "probe"] as const;
+/**
+ * The sets a fidelity number is stated over. `recorded` and `probe` are outside
+ * it for opposite reasons — one is read by nothing, the other is read by fits
+ * and claims but bound by no gate — and every assertion below that is about the
+ * frozen bed's shape is written against these three rather than against all
+ * five (W25 Decision Log 3 (e)).
+ */
+const GATED_SETS: readonly string[] = ["calibration", "validation", "holdout"];
 const IDS = new Set(MATRIX.scenes.map((scene) => scene.id));
 const setOf = (id: string): string | undefined =>
   SETS.find((set) => MATRIX.split[set].includes(id));
@@ -153,7 +165,10 @@ describe("W3's tinted cells", () => {
     const bySet = Object.fromEntries(
       SETS.map((set) => [set, tinted.filter((scene) => setOf(scene.id) === set).length]),
     );
-    expect(bySet).toEqual({ calibration: 7, validation: 2, holdout: 3, recorded: 0 });
+    // The four probe tinted cells are W25's, and they are counted separately
+    // on purpose: this assertion is what would catch a probe cell drifting into
+    // a fitted or checked role, which is the whole risk a non-gated set carries.
+    expect(bySet).toEqual({ calibration: 7, validation: 2, holdout: 3, recorded: 0, probe: 4 });
   });
 
   it("sweep five backdrop levels on the calibration set", () => {
@@ -257,5 +272,123 @@ describe("W7's backdrop-adaptation holdout", () => {
     expect(
       backdropToneAdaptation(luminanceOf("dark-solid"), 1, DEFAULT_MATERIAL_PROFILE),
     ).toBe(0);
+  });
+});
+
+describe("W25's probe set is captured evidence that no gate is stated over", () => {
+  const PROBE = MATRIX.split.probe;
+
+  it("is declared, non-empty, and disjoint from every gated set", () => {
+    // The one property the role exists for. A probe id that also sat in a gated
+    // list would be a cell the gate reads and the fits treat as free ground.
+    expect(PROBE.length).toBeGreaterThan(0);
+    const gated = new Set(GATED_SETS.flatMap((set) => MATRIX.split[set as "calibration"]));
+    expect(PROBE.filter((id) => gated.has(id))).toEqual([]);
+  });
+
+  it("keeps the grids' own scene ids, so a probe row continues a grid row", () => {
+    // W9's and W21's grids ran through VITREA_SCENES into their own fixture
+    // directories and the ledger cites them by id. Folding them into the
+    // canonical matrix under a different name would break every citation, and
+    // re-deriving an id is how two records of the same measurement drift apart.
+    const grid = JSON.parse(
+      readFileSync(resolve(REPO_ROOT, "apps", "reference-apple", "scenes-w9-probe.json"), "utf8"),
+    ) as { scenes: readonly SceneEntry[] };
+    const missing = grid.scenes.map((scene) => scene.id).filter((id) => !IDS.has(id));
+    expect(missing).toEqual([]);
+  });
+
+  it("re-declares the two withdrawn dark-grid cells (claims §5.113)", () => {
+    // Both W21 fixtures' majority byte-state is the W9 LIGHT grid's file, so
+    // both were withdrawn as dark readings. They are back in the matrix to be
+    // re-captured under the dark scheme, and they are probe cells because
+    // nothing on the frozen bed was ever fitted on them.
+    for (const id of ["dark-solid__rrect-sm__rest", "light-solid__rrect-sm__rest"]) {
+      expect(IDS.has(id), id).toBe(true);
+      expect(setOf(id), id).toBe("probe");
+    }
+  });
+
+  it("separates span from canvas clearance at one span", () => {
+    // On this canvas the short-axis clearance falls with span (84 / 52 / 20 CSS
+    // px at 32 / 96 / 160), so "the collapse keys on span" and "the collapse
+    // keys on edge proximity" fit every committed fixture equally well. This
+    // cell holds rrect-md's geometry and moves its clearance to rrect-lg's.
+    const canvas = MATRIX.canvas;
+    const clear = MATRIX.components["rrect-md-clear20"] as {
+      size: readonly number[];
+      offset?: readonly number[];
+    };
+    const plain = MATRIX.components["rrect-md"] as { size: readonly number[] };
+    expect(clear.size).toEqual(plain.size);
+    const height = clear.size[1] ?? 0;
+    const top = Math.round((canvas.height - height) / 2) + (clear.offset?.[1] ?? 0);
+    expect(canvas.height - top - height).toBe(20);
+  });
+
+  it("rides the four standard profiles and none of the accessibility ones", () => {
+    // Both scales in both schemes is the amendment: the grids as they stood on
+    // disk were 1x only, and no fixture identified the reference's kernel width
+    // above span 96 at 2x. The accessibility profiles are excluded because the
+    // question the set asks is about the material, not about a11y policy, and
+    // each such profile costs its own capture session with a System Settings
+    // toggle flipped.
+    const carrying = MATRIX.profiles
+      .filter((profile) => profile.scenes === "all" || PROBE.every((id) => profile.scenes.includes(id)))
+      .map((profile) => profile.key)
+      .sort();
+    expect(carrying).toEqual([
+      "apple-macos-26.5-1x-dark-standard",
+      "apple-macos-26.5-1x-light-standard",
+      "apple-macos-26.5-2x-dark-standard",
+      "apple-macos-26.5-2x-light-standard",
+    ]);
+    for (const key of [
+      "apple-macos-26.5-1x-light-reduced-transparency",
+      "apple-macos-26.5-1x-light-increased-contrast",
+    ]) {
+      const profile = MATRIX.profiles.find((p) => p.key === key);
+      expect(profile?.scenes === "all" ? [] : (profile?.scenes ?? []).filter((id) => PROBE.includes(id)), key)
+        .toEqual([]);
+    }
+  });
+
+  it("keeps the two dark profiles scene-comparable across scale", () => {
+    // The invariant the file states for itself, re-asserted because W25 is the
+    // first change to touch both dark lists at once.
+    const at = (key: string): readonly string[] => {
+      const scenes = MATRIX.profiles.find((profile) => profile.key === key)?.scenes;
+      return scenes === undefined || scenes === "all" ? [] : scenes;
+    };
+    expect(at("apple-macos-26.5-2x-dark-standard")).toEqual(at("apple-macos-26.5-1x-dark-standard"));
+  });
+});
+
+describe("W25's probe backgrounds and shapes cost no new generator", () => {
+  it("declares every probe background in a kind the harness already draws", () => {
+    // A new background KIND is a Swift change, and a Swift change is a rebuild,
+    // and a rebuild re-signs the bundle ad hoc and invalidates the screen
+    // recording grant until a human re-toggles it. Every backdrop this set adds
+    // is an existing generator at another parameter, which costs none of that.
+    const kinds = new Set(["solid", "checkerboard", "impulse", "synthetic-photo", "text-rows"]);
+    for (const [id, background] of Object.entries(MATRIX.backgrounds)) {
+      // No `startsWith("$comment")` escape here on purpose: `backgrounds`
+      // decodes as a map of specs on the native side, so a comment key in it is
+      // a phantom background rather than a comment, and this is where that says
+      // so. The probe set's rationale lives at the root beside `$comment-tints`.
+      expect(kinds.has(background.kind), `${id}: ${background.kind}`).toBe(true);
+    }
+  });
+
+  it("holds the size sweep's aspect ratio and radius fraction across the new spans", () => {
+    // The sweep varies the short side and nothing else. A shape family that
+    // also changed aspect or corner fraction with span would confound the size
+    // law's argument with the two shape axes S2 pins separately.
+    for (const id of ["rrect-48", "rrect-64", "rrect-80", "rrect-ml"]) {
+      const shape = MATRIX.components[id] as { size: readonly number[]; radius?: number };
+      const [long, short] = [shape.size[0] ?? 0, shape.size[1] ?? 0];
+      expect(long / short, `${id}: aspect`).toBeCloseTo(1.75, 2);
+      expect((shape.radius ?? 0) / short, `${id}: radius fraction`).toBeCloseTo(0.211, 2);
+    }
   });
 });
