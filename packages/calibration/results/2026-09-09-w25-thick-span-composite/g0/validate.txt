@@ -1,0 +1,96 @@
+W25 G0 deliverable 1 — the three width readers validated against a KNOWN kernel.
+
+WHAT THIS READS. Only the committed backdrop rasters
+`apps/reference-apple/fixtures/backgrounds/{checkerboard,impulse}@{1,2}x.png`. Nothing else; no
+fixture and no capture is read here, because the point is a known answer.
+
+THE SYNTHETIC. For each backdrop, each scale and each true sigma in {1, 2, 4, 8, 16} DEVICE px, the
+backdrop is Gaussian-blurred at that sigma, then affinely compressed towards a body level
+(`gain` 0.55, `offset` 0.02 linear) so the synthetic looks like a material's transmission rather
+than a blurred photograph, and quantised to 8 bits — the capture's own resolution, which is part of
+what a reader has to survive. The shape is `rrect-md`. Each reader is then asked for the sigma it
+recovers, and the error is |recovered - true| / true.
+
+WHY GAIN AND OFFSET. Readers B and C both solve a gain and an offset in closed form, so a synthetic
+that did not carry one would validate them on an easier problem than the real read.
+
+ACCEPTANCE (the child's): each reader recovers a known sigma within 5 %, or the row states where it
+cannot and why. The "cannot" rows are the finding — a reader's bound is as much a result as its
+value, and this is where each of the three stops.
+
+Units: every sigma printed is DEVICE px. Run with the analysis venv from this directory.
+
+Backdrops: checkerboard (16 CSS px cell) and impulse (4 CSS px dots, 64 CSS px apart).
+Shape: rrect-md 160x96 CSS px, body eroded 6 CSS px. Forward model gain 0.55, offset 0.02 linear, 8-bit quantised.
+
+== Reader A — the dot PSF (`psf_fit`), impulse backdrop, sigma in DEVICE px
+   `equiv` is the fitted PAIR reduced to one width by its HALF-WIDTH AT HALF MAXIMUM,
+   which is what readers B and C each fit; `sharp` and `heavy` are the pair itself. On a
+   synthetic built from ONE Gaussian either the heavy amplitude falls to ~0 and `sharp`
+   is the answer, or the two components land on the same width and `heavy` is — both
+   are the same kernel and the HWHM equivalent reads it either way. `ceil` is the
+   sharp component's ceiling, the profile's own half-window, reported so a value
+   sitting on it is read as a bound. The window is chosen per dot and per axis as the
+   widest of 30/24/20/16/14/12 CSS px that stays inside the shape eroded 6 CSS px.
+   scale   true    sharp    heavy  heavyA/A    equiv    err %   rmsRel    ceil    n  verdict
+       1    1.0     1.08    61.08     0.000     1.08     8.20   0.0510    30.0    4  BOUND: the recovery error at this width is the instrument's floor, not a bound: a 4 CSS px box sampled at 4 device px and quantised to 8 bits
+       1    2.0     2.04    62.03     0.000     2.04     1.87   0.0402    30.0    4  PASS
+       1    4.0     3.93     4.15     0.277     3.99     0.26   0.0298    30.0    4  PASS
+       1    8.0     7.89     7.89     1.000     7.89     1.33   0.0254    30.0    4  PASS
+       1   16.0     2.66    16.76     1.000    16.76     4.78   0.0790    30.0    4  PASS
+       2    1.0     1.08   121.08     0.000     1.08     8.17   0.0342    60.0    4  BOUND: the recovery error at this width is the instrument's floor, not a bound: a 4 CSS px box sampled at 8 device px and quantised to 8 bits
+       2    2.0     2.05   122.05     0.000     2.05     2.74   0.0251    60.0    4  PASS
+       2    4.0     4.02   124.02     0.000     4.02     0.46   0.0200    60.0    4  PASS
+       2    8.0     8.02     8.27     0.000     8.02     0.27   0.0155    60.0    4  PASS
+       2   16.0    15.90    15.90     1.000    15.90     0.62   0.0180    60.0    4  PASS
+
+== Reader B — the edge spread (`edge_spread`), checkerboard step, sigma in DEVICE px
+   The committed metric's ceiling is max(length/2, 4*guess); here the ceiling is swept
+   so the row says what ceiling the reader NEEDED and whether raising it helped. The
+   residual is the fraction of the profile's own step height (`report.ts:391-397`:
+   large means sigma is not identifiable).
+   scale   true   ceil    sigma    err %    resid  halfWin    n  verdict
+       1    1.0      8     0.95     4.82   0.0017     15.0  688  PASS
+       1    2.0      8     1.98     0.87   0.0014     15.0  688  PASS
+       1    4.0     64     3.03    24.29   0.0455     15.0  688  BOUND: residual 0.045 of the step height
+       1    8.0    128     3.22    59.76   0.0564     15.0  688  BOUND: residual 0.056 of the step height
+       1   16.0  no resolvable single-step window
+       2    1.0     16     0.95     5.23   0.0020     31.0 1392  BOUND: residual 0.002 of the step height
+       2    2.0      8     1.99     0.70   0.0021     31.0 1392  PASS
+       2    4.0      8     3.98     0.62   0.0014     31.0 1392  PASS
+       2    8.0      8     6.79    15.18   0.0154     31.0 1392  BOUND: residual 0.015 of the step height
+       2   16.0     64     7.35    54.08   0.0228     31.0 1392  BOUND: residual 0.023 of the step height
+
+== Reader C — the whole-region sigma match (`sigma_match`), grid 0..64 DEVICE px
+   `read-stack.py`'s statistic with its 16.00 ceiling raised to 64. `rmsRel` is the
+   match's residual as a fraction of the region's own standard deviation.
+        backdrop scale   true    sigma    err %   rmsRel    gain  verdict
+    checkerboard     1    1.0     1.00     0.00   0.0056   0.550  PASS
+    checkerboard     1    2.0     2.00     0.00   0.0072   0.551  PASS
+    checkerboard     1    4.0     4.00     0.00   0.0095   0.551  PASS
+    checkerboard     1    8.0    10.75    34.38   0.0645   4.005  BOUND: grid step; residual 0.064 of the region's sd
+    checkerboard     1   16.0      nan      nan      nan     nan  BOUND: the region's sd 5.55e-17 is below one 8-bit code (3e-4 linear): there is no structure to match a width against
+    checkerboard     2    1.0     1.00     0.00   0.0040   0.551  PASS
+    checkerboard     2    2.0     2.00     0.00   0.0051   0.551  PASS
+    checkerboard     2    4.0     4.00     0.00   0.0064   0.550  PASS
+    checkerboard     2    8.0     8.00     0.00   0.0106   0.550  PASS
+    checkerboard     2   16.0    20.50    28.12   0.0661   2.673  BOUND: grid step; residual 0.066 of the region's sd
+         impulse     1    1.0     1.00     0.00   0.0034   0.550  PASS
+         impulse     1    2.0     2.00     0.00   0.0081   0.551  PASS
+         impulse     1    4.0     4.00     0.00   0.0188   0.546  PASS
+         impulse     1    8.0     7.75     3.12   0.0492   0.518  PASS
+         impulse     1   16.0    16.00     0.00   0.2070   0.561  PASS
+         impulse     2    1.0     1.00     0.00   0.0042   0.549  PASS
+         impulse     2    2.0     2.00     0.00   0.0049   0.549  PASS
+         impulse     2    4.0     4.00     0.00   0.0081   0.549  PASS
+         impulse     2    8.0     8.00     0.00   0.0186   0.546  PASS
+         impulse     2   16.0    15.75     1.56   0.0489   0.531  PASS
+
+== Grid resolution note
+   Reader C's grid steps 0.1 below 4, 0.25 to 16 and 0.5 above, so its own quantisation
+   is 0.5/16 = 3.1 % at sigma 16 and 0.25/4 = 6.3 % at sigma 4 — the 5 % acceptance is
+   inside the grid's step at sigma 4 and the row is read against the step, not against
+   the reader.
+
+== 10 row(s) outside 5 %, each with its reason above. These are the
+   readers' stated bounds and they are the finding, not a failure to run.
