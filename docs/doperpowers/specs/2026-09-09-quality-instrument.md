@@ -449,6 +449,13 @@ which this run can raise but not settle.
   revision is fitting the rubric to the answer. Wording only; thresholds never move.
   Date/Author: 2026-09-09, Claude.
 
+- Decision: The user's anchor is dropped for this round on the user's report that pointwise rating
+  of near-equal pages was not possible for them; the acceptance's third line stands as "no data",
+  the outcome stays Partial, and a human's part in any later round is a comparison task.
+  Rationale: the user's direction ("only direct comparison worked"). Forcing twenty ratings the rater
+  cannot make would have produced a ρ that measured fatigue, not agreement.
+  Date/Author: 2026-09-10, the user.
+
 - Decision: The grammar reading uses this run's data on the same 52 builds; no new builds.
   Rationale: the user's order (instrument first, then the diagnosis) and the settling spec's
   premise that the diagnosis, not a doctrine change, comes next.
@@ -495,6 +502,12 @@ which this run can raise but not settle.
   Date/Author: 2026-09-09, Claude, from the doperpowers:critique review.
 
 ## Surprises & Discoveries
+
+- Observation: The user could not rate the anchor pages pointwise — "the difference seems marginal
+  between versions; only direct comparison worked" — and stopped after one page. The panel's
+  per-arm d1 intervals all overlap, so the report is consistent with the measurement: the arms
+  differ marginally on deliverability, and a person sees the margin only side by side.
+  Evidence: `rubric-human.jsonl` (one line); the S table's per-arm intervals.
 
 - Observation: The panel's first pass (28 runs, four raters, 52 pages, 2026-09-10). Brief fit is
   reliable (α 0.83 pooled, 0.86 on the 26 2.x pages); defects 0.56; aesthetics 0.57 pooled but 0.37
@@ -573,11 +586,20 @@ UIClip does not track the panel: ρ −0.08 with d1 and 0.05 with aesthetics ove
 means put `v2.1` lowest on both captures; as a relevance-plus-quality score against the brief's
 text it is reading something else, and it is retired from this instrument.
 
-**The user's anchor — pending.** ρ against the panel mean on d1 over the 16 anchor pages, the
-interval, the mean absolute difference, and the user's own four-page retest, written when the
-ratings land.
+**The user's anchor — not collected.** After one page the user stopped: with a single page in
+front of them the versions differed too little to place on a seven-point scale, and only a direct
+comparison had worked (the settling run's pairwise page). The third acceptance line therefore has no
+data, which changes nothing about the outcome — d1's α had already put it in the Partial band — and
+says something about the instrument: at this level of craft, pointwise rating is a task the model
+panel can do and a person cannot, and the person's own pairwise verdicts (the settling file) agree
+with the panel's d1-implied pairwise verdicts at chance (κ −0.12 to 0.28). The one rating collected
+is filed with the evidence.
 
-**Retrospective.** Three things the settling run lacked made this run readable: items that name a
+**Retrospective.** The user's report closes the loop the settling run opened: the pairs were
+close, and every instrument that has looked — three forced-choice judges, a four-rater rubric panel,
+the user with a rating form — has said so in its own way. A human's role in the next round is a
+comparison task (pairwise, or a page beside a reference), never a scale. Three things the settling
+run lacked made this run readable: items that name a
 fact (brief fit at 0.83 where the forced choice was at chance), one capture set (both over-wide
 pages found by the panel majority), and a pilot (the string-valued numbers were caught on the first
 brief). Two things the design got wrong were caught by the critique before the run — pooled α would
@@ -600,4 +622,4 @@ about 5.5 M subagent tokens; the user under thirty minutes.
   e1 (Decision Log); the level-or-order diagnostic added to the report beside the family split.
 - 2026-09-10 (later): the e1 re-rate in; Outcomes written for the panel side (Partial), the
   grammar reading written as exploratory (Findings); the clause coding in (Findings, step 4); the
-  user's anchor marked pending.
+  user's anchor dropped on the user's report (Decision Log, Surprises) and the Outcomes closed.

@@ -106,14 +106,17 @@ root), and the count of glass surfaces. Then:
    a new item set), α per rule reported, the panel majority per rule per demo.
 2. **The quality reading.** The instrument's a1–a4, d1 and e1 on the same captures by the same
    panel, for the level beside the settling arms.
-3. **The user's eye.** The user opens each demo live, in both schemes and with transparency reduced
-   once, and rates d1 and one item, "this reads as Liquid Glass", 1–7.
+3. **The user's eye, as comparison.** The user opens each demo live, in both schemes and with
+   transparency reduced once, beside a reference capture of the Apple surface it is nearest to, and
+   answers one question per demo — "is this the same system?" yes or no — then ranks the six. No
+   scale: the quality instrument found that a person cannot place near-equal pages on one, and
+   that only direct comparison worked.
 
 A demo **passes** when at least 22 of the 25 rules hold by panel majority and no rule tagged
 `[layer]` or `[material]` fails; the mechanical read shows no group diagnostic; and the page still
 works with transparency reduced. The initiative **meets its purpose** when all six pass, the panel's
-d1 mean over the six is at least 5.0, and the user rates "reads as Liquid Glass" at 5 or above on at
-least five of six.
+d1 mean over the six is at least 5.0, and the user answers "the same system" on at least five of
+six.
 
 **Stop.** If three or more demos fail a `[layer]` or `[material]` rule after one rebuild each, the
 reference is not teaching the language; the result is recorded here and in the skill's spec chain,
