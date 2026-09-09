@@ -253,7 +253,7 @@ G0 → (the user: the amendment, the console) → G1 → G2 (may start on G0 alo
 | G0 — the width instrument, the read, the argument, the along-side reader | CLOSED 2026-09-09 (claims §5.113; `g0/g0-findings.md`; merged `058dd64`; Decision Log 3) |
 | G1 — the bed amendment and the native captures | CAPTURED 2026-09-09 (claims §5.115; `b60706b`: 207 fixtures at both scales, one omitted by ruling; `g1/provenance.json`, `sweep-read.txt`; Decision Log 5) |
 | G2 — the law fitted | CLOSED 2026-09-09 (claims §5.114; merged `17b7af1` inert; the 1x fits as priors; every constant to G3 on the probe set; Decision Log 4) |
-| G3 — declared and dry-run | DISPATCHED 2026-09-09 (every constant fitted on the probe set; Decision Log 5 (e)) |
+| G3 — declared and dry-run | READ 2026-09-09 (`g3/g3-dryrun.md` at `6bfe1ba`, unmerged; one constant landable, four declined; S11b's confound; Decision Log 6) / G3b DISPATCHED (the joint re-fit with W24's exponent) |
 | G4 — the landing | — |
 
 ## Decision Log
@@ -527,6 +527,52 @@ slope — each with its condition and its check off its rows; the declaration; t
 re-recorded once; the goldens under `W25_HASHES`; the dry run on all six profiles and both tiers
 with the holdout read once; the stops; the sheets.
 
+### Decision Log 6 — G3 read: one constant landable and it collides with W24's exponent at the corners; the share, the 2x share, the level term and the 2x sharp width declined on their own checks; a joint re-fit of `rimLitExponent` with `rimAlongSideSlope` ruled, the W24 constant re-opened; the heavy width chartered as the next wave's mechanism (2026-09-09; the parent, on the user's standing instruction)
+
+Evidence `results/2026-09-09-w25-thick-span-composite/g3/` (`g3-dryrun.md` and the files it names),
+on `worktree-agent-a60d759ed0e4373f6` at `6bfe1ba` (not merged: the configuration will not land).
+Verified by the parent: the goldens 33 / 33 at the inert defaults; the per-bin table; the share's
+three-row identification and its off-row checks; the level term's sign flip across row sets.
+
+(a) **The declines stand, and each is a measurement.** The 1x heavy share is identified on three
+rows (implied lift 0.32 / 0.67 / ≈0.51 at spans 128 / 160 / 96) and every check off them runs the
+other way — the coarse checkerboards' width objective 0.2373 → 0.3402, nine probe rows past 0.002
+ΔE at lift 0.45 and five already at 0.18, the probe mean +0.00018 — because vitrea's heavy
+component is 13.3 device px at the reference's share against 19.5 and its width is not a lever
+(`sizeScatterGainMax` 8 → 10.3 leaves 13.29). **The wave's central mechanism waits for a heavy
+width that is a continuous parameter, which is the next wave's** (Decision Log 7 charters it). The
+2x share is arithmetically inert (206 of 206 2x probe captures byte-identical at lift 0.50;
+`sizeScatterFloor2x` = 1 saturates `kDeep`) and its lever reaches span 32 / 44 — X5. The level term
+is not identified: −0.0035 light / −0.0074 dark on the declared rows, +0.0046 / +0.0006 with every
+untinted backdrop counted, the RMS moving less than a twentieth of a code either way — the sweep's
+clean grading over `dark-solid` (Decision Log 5 (d)) is one backdrop, and across backdrops the sign
+is not one thing; recorded, the mechanism inert. A `blurSigma2x` sibling is not added: reader A
+degenerates at 2x above the knee (share pinned 1.000) and a per-scale sharp anchor reaches the
+thin capsule.
+
+(b) **The along-side field lands only jointly with W24's exponent.** At slope 0.45 the field
+grades the thick solids' rim as the reference does on the straight runs and the near-null bins
+(NNE error 0.02837 → 0.00304 on the 1x light `dark-solid__rrect-md`), and OVERSHOOTS the two lit
+corners (NW 0.14220 → 0.20344 against 0.12223): W24's `rimLitExponent` was fitted with the position
+term absent, on 285 bins that include the corner arcs, and the two terms peak on the same
+diagonal. Mean bin error improves on 5 rows (thin) and worsens on 9 (the thick solids the field is
+for); no smaller slope rescues it. **Ruling: a joint re-fit of `rimLitExponent` and
+`rimAlongSideSlope` on the existing fixtures** — the angular bins and the along-side profiles
+together, the thick solids' error at or under the 0.13.0 bed's on every row as the condition to
+land — the exponent re-opened by this decision (W24's spec, Revision Note), the light document
+re-recorded once more, S11b re-read as an error bound, the dry run re-run, the holdout read once
+on the configuration that lands (G3's read belongs to one that does not). G3b on the same branch.
+
+(c) **The gate and the floors.** Fourteen thick floors read, none breached; the predicate moves
+31 → 33 (three 2x light cells in, `checkerboard__toolbar-group` 2x light out) — G4's re-derivation.
+The isolation proof's shadow bound narrowed to one code (premultiplied two-pass rounding) and
+named.
+
+(d) **What the wave will land**: the along-side field with the jointly fitted exponent, the
+mechanisms for the share and the level inert with their constants named, the probe set as a
+harness set, the width readers, and the record. Clauses 2 and 3 are carried to the heavy-width
+wave with their numbers; the recomposition says so.
+
 ## Surprises & Discoveries
 
 - **The haze was never measured on the web side.** The residual that says so was quoted as the
@@ -551,6 +597,10 @@ with the holdout read once; the stops; the sheets.
   light capture as control.
 - **The 2x reference is unstable across runs where the 1x is not**: 70 of 104 cells multi-state
   at 2x against 3 at 1x, one cell with no majority at all.
+- **The field and W24's exponent double-count the lit corners.** Two terms on one diagonal, fitted
+  apart; the near-null bins improve and the corners overshoot until they are fitted together.
+- **The level term's sign depends on which backdrops are counted.** One backdrop grades cleanly;
+  across backdrops the residual is not one thing.
 - **The along-side field is a saddle, not a ramp.** The product of the normalised coordinates has
   the antisymmetry G0 measured; a ramp along the diagonal does not.
 - **The above-knee level residual is not the reference's grading — it is vitrea's own span curve
@@ -596,3 +646,6 @@ with the holdout read once; the stops; the sheets.
 - 2026-09-09: G1 CAPTURED (claims §5.115; `b60706b`); Decision Log 5 — one cell omitted by ruling,
   the two withdrawn cells reinstated, clause 5 answered (span; the level's floor), the level term
   scheme-signed; G3 dispatched.
+- 2026-09-09: G3 READ; Decision Log 6 — four constants declined on their checks, the field's
+  corner confound with W24's exponent diagnosed, a joint re-fit ruled (G3b), the heavy width
+  chartered as the next wave's.
