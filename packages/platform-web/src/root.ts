@@ -163,6 +163,7 @@ import {
   sizeThickness,
   sizeOcclusionAlphaAt,
   sizeThicknessUnderPolicy,
+  sizeToneLevelFar,
   sourceInteriorLight,
   sourceOptics,
   sourceOuterShadow,
@@ -2022,6 +2023,20 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
                 (backdropTonePolicyStrength >= 0.999 ? 1 : 0) *
                   Math.min(1, Math.max(0, backdropToneConstants.max)),
                 backdropToneResponse,
+                // W25's level term above the thickness knee (claims §5.113; W25
+                // Decision Log 3 (b)): the response's thin-to-thick step carried
+                // past the thick row on a curve that is exactly 0 at and below
+                // span 96. Folded like the response it extends, through the same
+                // ratio the thickness gate above takes. 0 at every span on the
+                // landed material.
+                sizeToneLevelFar(
+                  Math.min(bounds.width, bounds.height),
+                  sizeConstants,
+                  devicePixelRatio,
+                  sizeConstants.refractionScale[
+                    accessibilityRefractionCap(accessibility.material)
+                  ],
+                ),
               );
 
         /*

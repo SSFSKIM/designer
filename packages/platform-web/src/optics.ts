@@ -167,6 +167,24 @@ export interface MaterialSourceOptics {
    * on the straight runs and less than 1 on the arcs.
    */
   readonly rimLitExponent: number;
+  /*
+   * W25's along-side field (claims §5.113; W25 Decision Log 3 (c)) is NOT
+   * mirrored here, and the omission is a measurement rather than an oversight.
+   *
+   * The factor is `1 + slope · sizeThickness(span) · (x/hw)(y/hh)`, and that
+   * field is odd under `x → −x` and under `y → −y`, so its integral around the
+   * whole contour — straight runs and corner arcs alike — is exactly zero.
+   * `interiorBandLight` integrates the renderer's band, and a term that
+   * integrates to zero adds nothing to integrate: the derived interior level is
+   * the same number with the field and without it, at every span and every
+   * slope. The exponent above is mirrored precisely because it does NOT
+   * integrate to zero (it is 1 on the straight runs and below 1 on the arcs).
+   *
+   * What this tier cannot carry is the FEATURE — a rim brighter at the top-left
+   * and bottom-right corners than at the other two — because it draws one inset
+   * shadow with one alpha the whole way round. That is X8's residual and it is
+   * recorded in the wave's ledger, not chartered (Decision Log 23 (a)).
+   */
   /**
    * The retired one-sided specular's two constants —
    * `MaterialOptics.specularPower` and `.specularGain` (W24; claims §5.108 §1).
@@ -435,6 +453,7 @@ export function backdropToneResponseLevel(
   encodedInput: number,
   thickness: number,
   response: BackdropToneResponseConstants = BACKDROP_TONE_RESPONSE,
+  levelFar = 0,
 ): number {
   const xs = response.anchorX;
   const tk = clamp01(thickness);
@@ -456,11 +475,16 @@ export function backdropToneResponseLevel(
   const y1 = seg === 0 ? ys[1] : ys[2];
   const s0 = seg === 0 ? d0 : m1;
   const s1 = seg === 0 ? m1 : d1;
+  // W25's level term above the thickness knee (claims §5.113; W25 Decision Log
+  // 3 (b)), mirrored: an OFFSET on the settled level this curve returns, in its
+  // own encoded units. Exactly 0 at and below span 96, and 0 at every span on
+  // the landed material.
   return (
     y0 * (1 + 2 * t) * (1 - t) * (1 - t) +
     s0 * h * t * (1 - t) * (1 - t) +
     y1 * t * t * (3 - 2 * t) +
-    s1 * h * t * t * (t - 1)
+    s1 * h * t * t * (t - 1) +
+    levelFar
   );
 }
 
@@ -481,6 +505,7 @@ export function toneRespondedSourceOptics(
   adaptation: number,
   strength: number,
   response: BackdropToneResponseConstants = BACKDROP_TONE_RESPONSE,
+  levelFar = 0,
 ): MaterialSourceOptics {
   const k = clamp01(adaptation);
   const alpha = source.tintAlpha;
@@ -491,7 +516,7 @@ export function toneRespondedSourceOptics(
   const authorityT = clamp01((encodedInput - anchor * 0.5) / (anchor * 0.5));
   const authority = (authorityT * authorityT * (3 - 2 * authorityT)) * responseStrength;
   if (authority <= 0) return source;
-  const target = backdropToneResponseLevel(encodedInput, thickness, response);
+  const target = backdropToneResponseLevel(encodedInput, thickness, response, levelFar);
   // The collapse's mean pull is toward L(the LINEAR mean colour), not toward
   // the encoded level — the shader's own comment, mirrored.
   const preCollapse = (target - k * sample.linearLuminance) / (1 - k);
@@ -1089,6 +1114,27 @@ export interface MaterialSourceSize {
   readonly sizeScatterRampStartFar2x: number;
   readonly sizeScatterRampReach1xPx: number;
   readonly sizeScatterRampReach2xPx: number;
+  /**
+   * **The heavy share's thick end** (W25; claims §5.113, W25 Decision Log 3
+   * (a)) — the lift `kDeep` takes on `sizeThickness` above the W11c span curve,
+   * read once per scale. This tier carries it through the same
+   * `scatterDeepThickness` the GPU tier evaluates per pixel, so the single
+   * `blur()` σ this tier writes moves with the share the reference's two-component
+   * kernel measures. Mirrored from `@vitrea/renderer-webgpu`'s
+   * `MaterialProfile.sizeScatterHeavyShareThick1x`, where the reasons are.
+   */
+  readonly sizeScatterHeavyShareThick1x: number;
+  readonly sizeScatterHeavyShareThick2x: number;
+  /**
+   * **The body's level above the thickness knee** (W25; claims §5.113, W25
+   * Decision Log 3 (b)) — the offset on the settled interior level a surface
+   * takes at `sizeScatterSpanMax`, in the tone response's own encoded units, on
+   * a curve that is exactly 0 at and below `sizeSpanMax`. It lives on this table rather than
+   * beside the response's anchors because the curve it rides is a span curve and
+   * every span curve in this tier is read from here. Mirrored from
+   * `@vitrea/renderer-webgpu`'s `MaterialProfile.sizeToneLevelFar`.
+   */
+  readonly sizeToneLevelFar: number;
   readonly sizeOcclusionGain: number;
   /**
    * The refraction ladder's scales, carried here because the size law folds under
@@ -1121,6 +1167,10 @@ export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
   sizeScatterRampStartFar2x: 0.21,
   sizeScatterRampReach1xPx: 80,
   sizeScatterRampReach2xPx: 100,
+  // W25's share law, INERT at the default on both tiers (claims §5.113).
+  sizeScatterHeavyShareThick1x: 0,
+  sizeScatterHeavyShareThick2x: 0,
+  sizeToneLevelFar: 0,
   sizeOcclusionGain: 0.05,
   refractionScale: DEFAULT_REFRACTION_SCALE,
 };
@@ -1661,6 +1711,11 @@ export function sourceSize(patch?: RendererMaterialProfile): MaterialSourceSize 
       patch?.sizeScatterRampReach1xPx ?? MATERIAL_SOURCE_SIZE.sizeScatterRampReach1xPx,
     sizeScatterRampReach2xPx:
       patch?.sizeScatterRampReach2xPx ?? MATERIAL_SOURCE_SIZE.sizeScatterRampReach2xPx,
+    sizeScatterHeavyShareThick1x:
+      patch?.sizeScatterHeavyShareThick1x ?? MATERIAL_SOURCE_SIZE.sizeScatterHeavyShareThick1x,
+    sizeScatterHeavyShareThick2x:
+      patch?.sizeScatterHeavyShareThick2x ?? MATERIAL_SOURCE_SIZE.sizeScatterHeavyShareThick2x,
+    sizeToneLevelFar: patch?.sizeToneLevelFar ?? MATERIAL_SOURCE_SIZE.sizeToneLevelFar,
     sizeOcclusionGain: patch?.sizeOcclusionGain ?? MATERIAL_SOURCE_SIZE.sizeOcclusionGain,
     refractionScale: sourceRefractionScale(patch),
   };
@@ -1939,10 +1994,55 @@ export function scatterDeepThickness(
   devicePixelRatio = 1,
 ): number {
   const floor = scatterFloorAtScale(size, devicePixelRatio);
-  return (
+  // W25's share law (claims §5.113), mirrored term for term: the thick end's
+  // lift on `sizeThickness`, added to the W11c curve rather than replacing it,
+  // so the thin end keeps the constants it was fitted with on both tiers.
+  const lift =
+    scatterHeavyShareThickAtScale(size, devicePixelRatio) * sizeThickness(spanPx, size);
+  return clamp01(
     floor
     + (1 - floor)
       * smoothstep(size.sizeSpanMin, scatterSpanMaxAtScale(size, devicePixelRatio), spanPx)
+    + lift,
+  );
+}
+
+/**
+ * The heavy share's thick-end lift at a device scale — the mirror of the
+ * renderer's `scatterHeavyShareThickAtScale` (W25; claims §5.113). Both anchors
+ * are 0 on the landed material, so this is the constant zero until G3 declares
+ * the fit.
+ */
+export function scatterHeavyShareThickAtScale(
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(
+    size.sizeScatterHeavyShareThick1x,
+    size.sizeScatterHeavyShareThick2x,
+    devicePixelRatio,
+  );
+}
+
+/**
+ * The level term above the thickness knee at a span — the mirror of the
+ * renderer's `sizeToneLevelFar` (W25; claims §5.113).
+ *
+ * `sizeToneLevelFar · smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span)`,
+ * exactly 0 at and below `sizeSpanMax` at every value of the constant, and 0 at
+ * every span on the landed material. `fold` is the accessibility fold the
+ * response it offsets already takes.
+ */
+export function sizeToneLevelFar(
+  spanPx: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+  devicePixelRatio = 1,
+  fold = 1,
+): number {
+  return (
+    size.sizeToneLevelFar
+    * smoothstep(size.sizeSpanMax, scatterSpanMaxAtScale(size, devicePixelRatio), spanPx)
+    * fold
   );
 }
 

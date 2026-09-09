@@ -201,8 +201,14 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// the lit edge (W24): the axis the rim's directional factor is symmetric
   /// about, unit, viewport coordinates with y down (xy), and the factor's
   /// exponent (z) — 0 leaves the factor at 1 for every normal and the rim
-  /// exactly as W23 left it. (w) is free.
+  /// exactly as W23 left it. (w) is the along-side field's slope (W25), in the
+  /// slot W24 left free — 0 leaves the factor at 1 at every position.
   rimLit : vec4f,
+  /// the thick-span composite (W25; claims 5.113): the heavy share's thick-end
+  /// lift on 'sizeThickness', resolved at this group's device ratio (x), and the
+  /// level term's gain above the thickness knee (y). Both 0 on the landed
+  /// material, so both terms are one multiplication by zero. (z) and (w) free.
+  thickSpan : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -227,7 +233,7 @@ fn srgb_encode(c : f32) -> f32 {
 /// (Fritsch–Carlson) interpolation through the three anchors, clamped to their
 /// span; smoothstep between the thin and thick rows. Mirrors material.ts's
 /// 'backdropToneResponse' term for term — the constants are authored there.
-fn tone_response(x : f32, sizeK : f32) -> f32 {
+fn tone_response(x : f32, sizeK : f32, levelFar : f32) -> f32 {
   let f = sizeK * sizeK * (3.0 - 2.0 * sizeK);
   let ys = mix(ou.toneRowThin.xyz, ou.toneRowThick.xyz, vec3f(f));
   let xs = ou.toneAnchor.xyz;
@@ -246,10 +252,18 @@ fn tone_response(x : f32, sizeK : f32) -> f32 {
     h = h1; t = (xc - xs.y) / h1;
     y0 = ys.y; y1 = ys.z; s0 = m1; s1 = d1;
   }
+  // 'levelFar' is W25's level term above the thickness knee (claims 5.113; W25
+  // Decision Log 3 (b)) - an OFFSET on the settled level this curve returns, in
+  // its own encoded units, and not a continuation of the thin-to-thick blend
+  // above. The rows chose the shape: the residual against vitrea above span 96
+  // is backdrop-INDEPENDENT where the blend's direction is different at every
+  // backdrop level (G2 'fit-level.txt'). Exactly 0 at and below sizeSpanMax by
+  // the shape of its span curve, and 0 at every span on the landed material.
   return y0 * (1.0 + 2.0 * t) * (1.0 - t) * (1.0 - t)
        + s0 * h * t * (1.0 - t) * (1.0 - t)
        + y1 * t * t * (3.0 - 2.0 * t)
-       + s1 * h * t * t * (t - 1.0);
+       + s1 * h * t * t * (t - 1.0)
+       + levelFar;
 }
 
 /// Rim proximity: 1 exactly on the contour, falling to 0 by 'width' on either
@@ -581,11 +595,27 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    */
   let scatterFloor = clamp(ou.scatter.x, 0.0, 1.0);
   let deepT = clamp((span - ou.scatter.z) / max(ou.lensOval.w - ou.scatter.z, 1e-6), 0.0, 1.0);
-  let kDeep = scatterFloor + (1.0 - scatterFloor) * deepT * deepT * (3.0 - 2.0 * deepT);
+  // W25's share law (claims 5.113; W25 Decision Log 3 (a)): the thick end's lift
+  // on the material's own thin/thick curve, ADDED to the W11c span curve rather
+  // than replacing it, so the thin end keeps the constants it was fitted with and
+  // 'sizeThick' being exactly 0 at sizeSpanMin makes the thin controls
+  // bit-identical whatever the lift says.
+  let kDeep = clamp(
+    scatterFloor + (1.0 - scatterFloor) * deepT * deepT * (3.0 - 2.0 * deepT)
+      + ou.thickSpan.x * sizeThick,
+    0.0,
+    1.0,
+  );
   let sDeep = 1.0 - kDeep;
   let rampT = max(1.0 - max(-d, 0.0) / max(ou.lensOval.z, 1e-6), 0.0);
   let farT = clamp((span - ou.scatter.w) / max(ou.lensOval.w - ou.scatter.w, 1e-6), 0.0, 1.0);
   let farS = farT * farT * (3.0 - 2.0 * farT);
+  // W25's level term rides the very same curve (claims 5.113): one span
+  // statistic, now read three times — the ramp's far decline, the 2x heavy
+  // gain's rise and the body's level above the knee. Folded like the response it
+  // extends, because a preference that has stopped the material transmitting has
+  // no thin-to-thick step left to continue.
+  let toneLevelFar = ou.thickSpan.y * farS * fold;
   let rampStart = ou.scatter.y + (ou.shadowSize.z - ou.scatter.y) * sizeThick
     + (ou.shadowThick.w - ou.shadowSize.z) * farS;
   let sharpShare = clamp(sDeep + max(rampStart - sDeep, 0.0) * rampT, 0.0, 1.0);
@@ -756,7 +786,7 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     let authority =
       smoothstep(anchor * 0.5, anchor, encodedInput) * clamp(ou.toneRowThin.w, 0.0, 1.0);
     if (authority > 0.0) {
-      let response = tone_response(encodedInput, sizeK);
+      let response = tone_response(encodedInput, sizeK, toneLevelFar);
       // The collapse's mean pull is toward L(toneColour.rgb) — the LINEAR
       // mean, which toneAnchor.w carries — not toward the encoded level.
       let preCollapse = (response - toneAdapt * ou.toneAnchor.w) / (1.0 - toneAdapt);
@@ -1058,7 +1088,34 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * does everywhere else, which is what makes this term inert at the defaults.
    */
   let lit = pow(max(abs(dot(normal, ou.rimLit.xy)) * 1.4142135, 1e-6), ou.rimLit.z);
-  let rim = rw * lit * (rimAmplitude * present + rimCollapsed * toneAdapt);
+  /*
+   * The along-side field (W25; claims 5.113, W25 Decision Log 3 (c)) — the
+   * POSITION half of the light whose direction half W24 landed.
+   *
+   * W24's factor is a function of the normal, so it is one number on a whole
+   * straight side. Read by position along the side instead, on flat solid
+   * backdrops where a lens has no gradient to refract, the reference's rim is
+   * graded on every thick cell of both probe grids and flat at spans 32 and 44 —
+   * a term on the thickness curve. Its four slopes are equal and OPPOSITE across
+   * opposite sides, which a field linear in position cannot be and the product of
+   * the two normalised coordinates is exactly: +1 at the top-left and
+   * bottom-right corners, -1 at the other two, the same diagonal 'rimLit.xy' is
+   * symmetric about.
+   *
+   * 'aux2.xy' is the pixel's offset from its own surface's centre in CSS px and
+   * 'aux2.zw' its half-extents, so the field is the surface's own coordinate and
+   * a container of differently sized members grades each of them by its own box
+   * out of one pass. The field's mean over any straight side is exactly zero, so
+   * W23's and W24's straight-span amplitudes keep the meaning they were fitted
+   * with and the CSS tier's single inset needs no counterpart.
+   *
+   * 'sizeThick' is the unfolded thickness curve, exactly 0 at sizeSpanMin, so
+   * rrect-sm and every thinner control are untouched by construction; at slope 0
+   * the factor is exactly 1 everywhere.
+   */
+  let alongSide = clamp((rel.x / halfExt.x) * (rel.y / halfExt.y), -1.0, 1.0);
+  let alongFactor = max(1.0 + ou.rimLit.w * sizeThick * alongSide, 0.0);
+  let rim = rw * lit * alongFactor * (rimAmplitude * present + rimCollapsed * toneAdapt);
   let rimLight = rim * rimTintColour;
   if (ou.flags.x > 0.5) {
     colour = colour + rimLight;

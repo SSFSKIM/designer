@@ -160,6 +160,15 @@ export interface OpticsPassArgs {
    */
   readonly rimLitAxis: readonly [number, number];
   readonly rimLitExponent: number;
+  /**
+   * W25's three mechanisms (claims §5.113; W25 Decision Log 3), each 0 on the
+   * landed material: the along-side field's slope on the rim's amplitude, the
+   * heavy share's thick-end lift on `kDeep` already resolved at this group's
+   * device ratio, and the level term's gain above the thickness knee.
+   */
+  readonly rimAlongSideSlope: number;
+  readonly sizeScatterHeavyShareThick: number;
+  readonly sizeToneLevelFar: number;
   readonly rimTintChroma: number;
   readonly lightDirection: readonly [number, number];
   readonly shadowDepth: number;
@@ -613,7 +622,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.groupId}`, 104);
+      const slot = uniformSlot(`optics:${args.groupId}`, 108);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -765,10 +774,19 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[99] = args.rimTintChroma;
       // The lit edge (W24), in a vec4 of its own because `rimLaw` has been full
       // since W23 G3 and an axis living in the shadow's block is a layout nobody
-      // could read. `d[103]` is free.
+      // could read. `d[103]` is W25's along-side slope, below.
       d[100] = args.rimLitAxis[0];
       d[101] = args.rimLitAxis[1];
       d[102] = args.rimLitExponent;
+      // W25's three mechanisms (claims §5.113). The along-side field's slope
+      // takes the slot W24 left free beside the lit edge it grades; the share
+      // law's lift and the level term open one more vec4, whose (z) and (w) are
+      // the next wave's.
+      d[103] = args.rimAlongSideSlope;
+      d[104] = args.sizeScatterHeavyShareThick;
+      d[105] = args.sizeToneLevelFar;
+      d[106] = 0;
+      d[107] = 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;
