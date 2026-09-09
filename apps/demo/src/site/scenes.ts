@@ -135,6 +135,20 @@ const setOf = (id: string): ReferenceScene["fixtureSet"] =>
       ? "validation"
       : "calibration";
 
+/**
+ * The probe set is captured, and shown by nothing here.
+ *
+ * W25 declared a `probe` fixture set in the same file this module reads (W25
+ * Decision Log 3 (e)): 52 scenes that exist to identify constants, gated by
+ * nothing and free to grow or be re-captured. The pair on this page is evidence
+ * about the frozen bed — every figure beside it is a calibration, validation or
+ * holdout reading — so a probe scene in the picker would offer a visitor a
+ * measurement the project does not stand behind, and the instrument refuses
+ * some of them outright (a 48 px dark square has no contour curvature to read),
+ * which is a scene whose readout would simply be empty.
+ */
+const isProbe = (id: string): boolean => split.probe?.includes(id) === true;
+
 function boxOf(spec: ShapeSpec): SceneBox | null {
   if (spec.size === undefined) return null;
   if (spec.kind !== "capsule" && spec.kind !== "rrect") return null;
@@ -164,6 +178,7 @@ export const REFERENCE_SCENES: readonly ReferenceScene[] = (
   }[]
 )
   .flatMap((scene) => {
+    if (isProbe(scene.id)) return [];
     const spec = components[scene.component];
     const box = spec === undefined ? null : boxOf(spec);
     if (box === null || backgrounds[scene.background] === undefined) return [];

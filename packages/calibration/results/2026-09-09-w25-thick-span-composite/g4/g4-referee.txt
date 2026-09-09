@@ -1,0 +1,771 @@
+canonical: 229 gated cells and 408 probe cells; the 0.13.0 bed: 229; the dry run: 229; the probe rung: 203
+
+(i) X3 — every landed capture reproduces G3b's declared digest, byte for byte:
+    file sha256         602b9fc63cec6f84dde7a7661cc38d30ead37136e09226311231c9fbb1830c93
+    resolvedMaterialSha256  9b7806cdefd1d1d6
+    file sha256         d9be6210c9b5998bda5fc501018bc2ab4de7d56831976bd331b740414f12adda
+    resolvedMaterialSha256  eec7c2ea8dc89cae
+    sha256                                                            capture
+    229 of 229 declared captures found and hashed; 227 identical, 2 MOVED, 0 MISSING
+    MOVED    apple-macos-26.5-1x-dark-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__css.png
+             declared 45f9b57967c2eb78a11cf7363a1fda9e8c28a4e1b6d8adabbff6ee58c261266c
+             landed   f4009cb0f724fa78d63336db31e44cf03166fecba821b3ca9fd59d8d257b244a
+             1 px of 64000, max code delta 1, channels bgr, 0 in the top 8 rows, first at (279,198)
+    MOVED    apple-macos-26.5-1x-light-increased-contrast/photo__toolbar-group__rest/photo__toolbar-group__rest__css.png
+             declared 1a681782afcd9578a84e5c560b4468069cc59078f3c49ea5654adf1eb08a89cb
+             landed   211badd0e063dbdc9d9a6a8de386de8e059c0f5b4fdcceb14237d568d9731ac4
+             17 px of 64000, max code delta 1, channels bgr, 0 in the top 8 rows, first at (207,77), (208,78), (198,79), (199,80), (197,85), (193,91)
+
+(ii) the gated capture tree against the dry run's, alpha renders included:
+    460 landed, 460 in the reference; 457 identical, 3 moved
+    MOVED          apple-macos-26.5-1x-dark-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__css.png
+                   1 px of 64000, max code delta 1, channels bgr, 0 in the top 8 rows, first at (279,198)
+    MOVED          apple-macos-26.5-1x-light-increased-contrast/photo__toolbar-group__rest/photo__toolbar-group__rest__css.png
+                   17 px of 64000, max code delta 1, channels bgr, 0 in the top 8 rows, first at (207,77), (208,78), (198,79), (199,80), (197,85), (193,91)
+    MOVED          apple-macos-26.5-1x-light-increased-contrast/photo__toolbar-group__rest/photo__toolbar-group__rest__css__alpha.png
+                   19 px of 64000, max code delta 4, channels abgr, 0 in the top 8 rows, first at (207,77), (208,78), (198,79), (193,80), (199,80), (197,85)
+
+(iii) the probe capture tree against the landing rung's (`rPAIR`), alpha included — the rung captured the GPU tier only, so its CSS renders have no reference here:
+    828 landed, 414 in the reference; 414 identical, 0 moved
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-32__capsule-button__rest-tint-orange/checkerboard-32__capsule-button__rest-tint-orange__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-32__capsule-button__rest-tint-orange/checkerboard-32__capsule-button__rest-tint-orange__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-32__capsule-button__rest/checkerboard-32__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-32__capsule-button__rest/checkerboard-32__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-lg__rest/checkerboard-32__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-lg__rest/checkerboard-32__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-md__rest/checkerboard-32__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-md__rest/checkerboard-32__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-ml__rest/checkerboard-32__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-ml__rest/checkerboard-32__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-sm__rest/checkerboard-32__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-sm__rest/checkerboard-32__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-4__capsule-button__rest-tint-orange/checkerboard-4__capsule-button__rest-tint-orange__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-4__capsule-button__rest-tint-orange/checkerboard-4__capsule-button__rest-tint-orange__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-4__capsule-button__rest/checkerboard-4__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-4__capsule-button__rest/checkerboard-4__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-lg__rest/checkerboard-4__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-lg__rest/checkerboard-4__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-md__rest/checkerboard-4__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-md__rest/checkerboard-4__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-ml__rest/checkerboard-4__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-ml__rest/checkerboard-4__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-sm__rest/checkerboard-4__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-sm__rest/checkerboard-4__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-64__capsule-button__rest-tint-orange/checkerboard-64__capsule-button__rest-tint-orange__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-64__capsule-button__rest-tint-orange/checkerboard-64__capsule-button__rest-tint-orange__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-64__capsule-button__rest/checkerboard-64__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-64__capsule-button__rest/checkerboard-64__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-lg__rest/checkerboard-64__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-lg__rest/checkerboard-64__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-md__rest/checkerboard-64__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-md__rest/checkerboard-64__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-ml__rest/checkerboard-64__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-ml__rest/checkerboard-64__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-sm__rest/checkerboard-64__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-sm__rest/checkerboard-64__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-8__capsule-button__rest-tint-orange/checkerboard-8__capsule-button__rest-tint-orange__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-8__capsule-button__rest-tint-orange/checkerboard-8__capsule-button__rest-tint-orange__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-8__capsule-button__rest/checkerboard-8__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-8__capsule-button__rest/checkerboard-8__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-lg__rest/checkerboard-8__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-lg__rest/checkerboard-8__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-md__rest/checkerboard-8__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-md__rest/checkerboard-8__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-ml__rest/checkerboard-8__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-ml__rest/checkerboard-8__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-sm__rest/checkerboard-8__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-sm__rest/checkerboard-8__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-lc16__capsule-button__rest/checkerboard-lc16__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-lc16__capsule-button__rest/checkerboard-lc16__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-lc16__rrect-lg__rest/checkerboard-lc16__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-lc16__rrect-lg__rest/checkerboard-lc16__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-lc16__rrect-md__rest/checkerboard-lc16__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-lc16__rrect-md__rest/checkerboard-lc16__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-lc16__rrect-ml__rest/checkerboard-lc16__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-lc16__rrect-ml__rest/checkerboard-lc16__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-lc16__rrect-sm__rest/checkerboard-lc16__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/checkerboard-lc16__rrect-sm__rest/checkerboard-lc16__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/dark-solid__rrect-48__rest/dark-solid__rrect-48__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/dark-solid__rrect-48__rest/dark-solid__rrect-48__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/dark-solid__rrect-64__rest/dark-solid__rrect-64__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/dark-solid__rrect-64__rest/dark-solid__rrect-64__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/dark-solid__rrect-80__rest/dark-solid__rrect-80__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/dark-solid__rrect-80__rest/dark-solid__rrect-80__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/dark-solid__rrect-lg__rest/dark-solid__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/dark-solid__rrect-lg__rest/dark-solid__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/dark-solid__rrect-md-clear20__rest/dark-solid__rrect-md-clear20__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/dark-solid__rrect-md-clear20__rest/dark-solid__rrect-md-clear20__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/dark-solid__rrect-ml__rest/dark-solid__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/dark-solid__rrect-ml__rest/dark-solid__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/hc-text-28__rrect-lg__rest/hc-text-28__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/hc-text-28__rrect-lg__rest/hc-text-28__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/hc-text-28__rrect-md__rest/hc-text-28__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/hc-text-28__rrect-md__rest/hc-text-28__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/hc-text-28__rrect-sm__rest/hc-text-28__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/hc-text-28__rrect-sm__rest/hc-text-28__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/hc-text-7__rrect-lg__rest/hc-text-7__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/hc-text-7__rrect-lg__rest/hc-text-7__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/hc-text-7__rrect-md__rest/hc-text-7__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/hc-text-7__rrect-md__rest/hc-text-7__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/hc-text-7__rrect-sm__rest/hc-text-7__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/hc-text-7__rrect-sm__rest/hc-text-7__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/hc-text__rrect-lg__rest/hc-text__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/hc-text__rrect-lg__rest/hc-text__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/hc-text__rrect-sm__rest/hc-text__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/hc-text__rrect-sm__rest/hc-text__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/impulse__rrect-lg__rest/impulse__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/impulse__rrect-lg__rest/impulse__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/impulse__rrect-ml__rest/impulse__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/impulse__rrect-ml__rest/impulse__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/impulse__rrect-sm__rest/impulse__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/impulse__rrect-sm__rest/impulse__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/light-solid__rrect-lg__rest/light-solid__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/light-solid__rrect-lg__rest/light-solid__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/light-solid__rrect-sm__rest/light-solid__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/light-solid__rrect-sm__rest/light-solid__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/mid-dark-solid__rrect-lg__rest/mid-dark-solid__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/mid-dark-solid__rrect-lg__rest/mid-dark-solid__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/mid-dark-solid__rrect-md__rest/mid-dark-solid__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/mid-dark-solid__rrect-md__rest/mid-dark-solid__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/mid-dark-solid__rrect-sm__rest/mid-dark-solid__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-dark-standard/mid-dark-solid__rrect-sm__rest/mid-dark-solid__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-32__capsule-button__rest-tint-orange/checkerboard-32__capsule-button__rest-tint-orange__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-32__capsule-button__rest-tint-orange/checkerboard-32__capsule-button__rest-tint-orange__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-32__capsule-button__rest/checkerboard-32__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-32__capsule-button__rest/checkerboard-32__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-lg__rest/checkerboard-32__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-lg__rest/checkerboard-32__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-md__rest/checkerboard-32__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-md__rest/checkerboard-32__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-ml__rest/checkerboard-32__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-ml__rest/checkerboard-32__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-sm__rest/checkerboard-32__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-sm__rest/checkerboard-32__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-4__capsule-button__rest-tint-orange/checkerboard-4__capsule-button__rest-tint-orange__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-4__capsule-button__rest-tint-orange/checkerboard-4__capsule-button__rest-tint-orange__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-4__capsule-button__rest/checkerboard-4__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-4__capsule-button__rest/checkerboard-4__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-lg__rest/checkerboard-4__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-lg__rest/checkerboard-4__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-md__rest/checkerboard-4__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-md__rest/checkerboard-4__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-ml__rest/checkerboard-4__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-ml__rest/checkerboard-4__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-sm__rest/checkerboard-4__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-sm__rest/checkerboard-4__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-64__capsule-button__rest-tint-orange/checkerboard-64__capsule-button__rest-tint-orange__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-64__capsule-button__rest-tint-orange/checkerboard-64__capsule-button__rest-tint-orange__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-64__capsule-button__rest/checkerboard-64__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-64__capsule-button__rest/checkerboard-64__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-lg__rest/checkerboard-64__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-lg__rest/checkerboard-64__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-md__rest/checkerboard-64__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-md__rest/checkerboard-64__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-ml__rest/checkerboard-64__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-ml__rest/checkerboard-64__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-sm__rest/checkerboard-64__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-sm__rest/checkerboard-64__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-8__capsule-button__rest-tint-orange/checkerboard-8__capsule-button__rest-tint-orange__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-8__capsule-button__rest-tint-orange/checkerboard-8__capsule-button__rest-tint-orange__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-8__capsule-button__rest/checkerboard-8__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-8__capsule-button__rest/checkerboard-8__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-lg__rest/checkerboard-8__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-lg__rest/checkerboard-8__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-md__rest/checkerboard-8__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-md__rest/checkerboard-8__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-ml__rest/checkerboard-8__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-ml__rest/checkerboard-8__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-sm__rest/checkerboard-8__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-sm__rest/checkerboard-8__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-lc16__capsule-button__rest/checkerboard-lc16__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-lc16__capsule-button__rest/checkerboard-lc16__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-lg__rest/checkerboard-lc16__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-lg__rest/checkerboard-lc16__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-md__rest/checkerboard-lc16__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-md__rest/checkerboard-lc16__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-ml__rest/checkerboard-lc16__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-ml__rest/checkerboard-lc16__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-sm__rest/checkerboard-lc16__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-sm__rest/checkerboard-lc16__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/dark-solid__rrect-48__rest/dark-solid__rrect-48__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/dark-solid__rrect-48__rest/dark-solid__rrect-48__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/dark-solid__rrect-64__rest/dark-solid__rrect-64__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/dark-solid__rrect-64__rest/dark-solid__rrect-64__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/dark-solid__rrect-80__rest/dark-solid__rrect-80__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/dark-solid__rrect-80__rest/dark-solid__rrect-80__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/dark-solid__rrect-lg__rest/dark-solid__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/dark-solid__rrect-lg__rest/dark-solid__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/dark-solid__rrect-md-clear20__rest/dark-solid__rrect-md-clear20__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/dark-solid__rrect-md-clear20__rest/dark-solid__rrect-md-clear20__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/dark-solid__rrect-ml__rest/dark-solid__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/dark-solid__rrect-ml__rest/dark-solid__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/hc-text-28__rrect-lg__rest/hc-text-28__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/hc-text-28__rrect-lg__rest/hc-text-28__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/hc-text-28__rrect-md__rest/hc-text-28__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/hc-text-28__rrect-md__rest/hc-text-28__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/hc-text-28__rrect-sm__rest/hc-text-28__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/hc-text-28__rrect-sm__rest/hc-text-28__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/hc-text-7__rrect-lg__rest/hc-text-7__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/hc-text-7__rrect-lg__rest/hc-text-7__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/hc-text-7__rrect-md__rest/hc-text-7__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/hc-text-7__rrect-md__rest/hc-text-7__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/hc-text-7__rrect-sm__rest/hc-text-7__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/hc-text-7__rrect-sm__rest/hc-text-7__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/hc-text__rrect-lg__rest/hc-text__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/hc-text__rrect-lg__rest/hc-text__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/hc-text__rrect-sm__rest/hc-text__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/hc-text__rrect-sm__rest/hc-text__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/impulse__rrect-lg__rest/impulse__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/impulse__rrect-lg__rest/impulse__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/impulse__rrect-ml__rest/impulse__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/impulse__rrect-ml__rest/impulse__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/impulse__rrect-sm__rest/impulse__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/impulse__rrect-sm__rest/impulse__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/light-solid__rrect-lg__rest/light-solid__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/light-solid__rrect-lg__rest/light-solid__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/light-solid__rrect-sm__rest/light-solid__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/light-solid__rrect-sm__rest/light-solid__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-lg__rest/mid-dark-solid__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-lg__rest/mid-dark-solid__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-md__rest/mid-dark-solid__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-md__rest/mid-dark-solid__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-sm__rest/mid-dark-solid__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-sm__rest/mid-dark-solid__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-32__capsule-button__rest-tint-orange/checkerboard-32__capsule-button__rest-tint-orange__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-32__capsule-button__rest-tint-orange/checkerboard-32__capsule-button__rest-tint-orange__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-32__capsule-button__rest/checkerboard-32__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-32__capsule-button__rest/checkerboard-32__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-32__rrect-lg__rest/checkerboard-32__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-32__rrect-lg__rest/checkerboard-32__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-32__rrect-md__rest/checkerboard-32__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-32__rrect-md__rest/checkerboard-32__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-32__rrect-ml__rest/checkerboard-32__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-32__rrect-ml__rest/checkerboard-32__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-32__rrect-sm__rest/checkerboard-32__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-32__rrect-sm__rest/checkerboard-32__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-4__capsule-button__rest-tint-orange/checkerboard-4__capsule-button__rest-tint-orange__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-4__capsule-button__rest-tint-orange/checkerboard-4__capsule-button__rest-tint-orange__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-4__capsule-button__rest/checkerboard-4__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-4__capsule-button__rest/checkerboard-4__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-4__rrect-lg__rest/checkerboard-4__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-4__rrect-lg__rest/checkerboard-4__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-4__rrect-md__rest/checkerboard-4__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-4__rrect-md__rest/checkerboard-4__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-4__rrect-ml__rest/checkerboard-4__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-4__rrect-ml__rest/checkerboard-4__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-4__rrect-sm__rest/checkerboard-4__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-4__rrect-sm__rest/checkerboard-4__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-64__capsule-button__rest-tint-orange/checkerboard-64__capsule-button__rest-tint-orange__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-64__capsule-button__rest-tint-orange/checkerboard-64__capsule-button__rest-tint-orange__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-64__capsule-button__rest/checkerboard-64__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-64__capsule-button__rest/checkerboard-64__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-64__rrect-lg__rest/checkerboard-64__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-64__rrect-lg__rest/checkerboard-64__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-64__rrect-md__rest/checkerboard-64__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-64__rrect-md__rest/checkerboard-64__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-64__rrect-ml__rest/checkerboard-64__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-64__rrect-ml__rest/checkerboard-64__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-64__rrect-sm__rest/checkerboard-64__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-64__rrect-sm__rest/checkerboard-64__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-8__capsule-button__rest-tint-orange/checkerboard-8__capsule-button__rest-tint-orange__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-8__capsule-button__rest-tint-orange/checkerboard-8__capsule-button__rest-tint-orange__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-8__rrect-lg__rest/checkerboard-8__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-8__rrect-lg__rest/checkerboard-8__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-8__rrect-md__rest/checkerboard-8__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-8__rrect-md__rest/checkerboard-8__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-8__rrect-ml__rest/checkerboard-8__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-8__rrect-ml__rest/checkerboard-8__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-8__rrect-sm__rest/checkerboard-8__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-8__rrect-sm__rest/checkerboard-8__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-lc16__capsule-button__rest/checkerboard-lc16__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-lc16__capsule-button__rest/checkerboard-lc16__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-lc16__rrect-lg__rest/checkerboard-lc16__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-lc16__rrect-lg__rest/checkerboard-lc16__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-lc16__rrect-md__rest/checkerboard-lc16__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-lc16__rrect-md__rest/checkerboard-lc16__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-lc16__rrect-ml__rest/checkerboard-lc16__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-lc16__rrect-ml__rest/checkerboard-lc16__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-lc16__rrect-sm__rest/checkerboard-lc16__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/checkerboard-lc16__rrect-sm__rest/checkerboard-lc16__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/dark-solid__rrect-48__rest/dark-solid__rrect-48__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/dark-solid__rrect-48__rest/dark-solid__rrect-48__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/dark-solid__rrect-64__rest/dark-solid__rrect-64__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/dark-solid__rrect-64__rest/dark-solid__rrect-64__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/dark-solid__rrect-80__rest/dark-solid__rrect-80__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/dark-solid__rrect-80__rest/dark-solid__rrect-80__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/dark-solid__rrect-lg__rest/dark-solid__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/dark-solid__rrect-lg__rest/dark-solid__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/dark-solid__rrect-md-clear20__rest/dark-solid__rrect-md-clear20__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/dark-solid__rrect-md-clear20__rest/dark-solid__rrect-md-clear20__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/dark-solid__rrect-ml__rest/dark-solid__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/dark-solid__rrect-ml__rest/dark-solid__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/hc-text-28__rrect-lg__rest/hc-text-28__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/hc-text-28__rrect-lg__rest/hc-text-28__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/hc-text-28__rrect-md__rest/hc-text-28__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/hc-text-28__rrect-md__rest/hc-text-28__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/hc-text-28__rrect-sm__rest/hc-text-28__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/hc-text-28__rrect-sm__rest/hc-text-28__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/hc-text-7__rrect-lg__rest/hc-text-7__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/hc-text-7__rrect-lg__rest/hc-text-7__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/hc-text-7__rrect-md__rest/hc-text-7__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/hc-text-7__rrect-md__rest/hc-text-7__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/hc-text-7__rrect-sm__rest/hc-text-7__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/hc-text-7__rrect-sm__rest/hc-text-7__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/hc-text__rrect-lg__rest/hc-text__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/hc-text__rrect-lg__rest/hc-text__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/hc-text__rrect-sm__rest/hc-text__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/hc-text__rrect-sm__rest/hc-text__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/impulse__rrect-lg__rest/impulse__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/impulse__rrect-lg__rest/impulse__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/impulse__rrect-ml__rest/impulse__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/impulse__rrect-ml__rest/impulse__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/impulse__rrect-sm__rest/impulse__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/impulse__rrect-sm__rest/impulse__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/light-solid__rrect-lg__rest/light-solid__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/light-solid__rrect-lg__rest/light-solid__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/light-solid__rrect-sm__rest/light-solid__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/light-solid__rrect-sm__rest/light-solid__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/mid-dark-solid__rrect-lg__rest/mid-dark-solid__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/mid-dark-solid__rrect-lg__rest/mid-dark-solid__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/mid-dark-solid__rrect-md__rest/mid-dark-solid__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/mid-dark-solid__rrect-md__rest/mid-dark-solid__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/mid-dark-solid__rrect-sm__rest/mid-dark-solid__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-dark-standard/mid-dark-solid__rrect-sm__rest/mid-dark-solid__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-32__capsule-button__rest-tint-orange/checkerboard-32__capsule-button__rest-tint-orange__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-32__capsule-button__rest-tint-orange/checkerboard-32__capsule-button__rest-tint-orange__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-32__capsule-button__rest/checkerboard-32__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-32__capsule-button__rest/checkerboard-32__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-32__rrect-lg__rest/checkerboard-32__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-32__rrect-lg__rest/checkerboard-32__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-32__rrect-md__rest/checkerboard-32__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-32__rrect-md__rest/checkerboard-32__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-32__rrect-ml__rest/checkerboard-32__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-32__rrect-ml__rest/checkerboard-32__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-32__rrect-sm__rest/checkerboard-32__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-32__rrect-sm__rest/checkerboard-32__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-4__capsule-button__rest-tint-orange/checkerboard-4__capsule-button__rest-tint-orange__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-4__capsule-button__rest-tint-orange/checkerboard-4__capsule-button__rest-tint-orange__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-4__capsule-button__rest/checkerboard-4__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-4__capsule-button__rest/checkerboard-4__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-4__rrect-lg__rest/checkerboard-4__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-4__rrect-lg__rest/checkerboard-4__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-4__rrect-md__rest/checkerboard-4__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-4__rrect-md__rest/checkerboard-4__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-4__rrect-ml__rest/checkerboard-4__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-4__rrect-ml__rest/checkerboard-4__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-4__rrect-sm__rest/checkerboard-4__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-4__rrect-sm__rest/checkerboard-4__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-64__capsule-button__rest-tint-orange/checkerboard-64__capsule-button__rest-tint-orange__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-64__capsule-button__rest-tint-orange/checkerboard-64__capsule-button__rest-tint-orange__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-64__capsule-button__rest/checkerboard-64__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-64__capsule-button__rest/checkerboard-64__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-lg__rest/checkerboard-64__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-lg__rest/checkerboard-64__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-md__rest/checkerboard-64__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-md__rest/checkerboard-64__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-ml__rest/checkerboard-64__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-ml__rest/checkerboard-64__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-sm__rest/checkerboard-64__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-sm__rest/checkerboard-64__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-8__capsule-button__rest-tint-orange/checkerboard-8__capsule-button__rest-tint-orange__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-8__capsule-button__rest-tint-orange/checkerboard-8__capsule-button__rest-tint-orange__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-8__capsule-button__rest/checkerboard-8__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-8__capsule-button__rest/checkerboard-8__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-lg__rest/checkerboard-8__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-lg__rest/checkerboard-8__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-md__rest/checkerboard-8__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-md__rest/checkerboard-8__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-ml__rest/checkerboard-8__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-ml__rest/checkerboard-8__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-sm__rest/checkerboard-8__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-sm__rest/checkerboard-8__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-lc16__capsule-button__rest/checkerboard-lc16__capsule-button__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-lc16__capsule-button__rest/checkerboard-lc16__capsule-button__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-lc16__rrect-lg__rest/checkerboard-lc16__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-lc16__rrect-lg__rest/checkerboard-lc16__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-lc16__rrect-md__rest/checkerboard-lc16__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-lc16__rrect-md__rest/checkerboard-lc16__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-lc16__rrect-ml__rest/checkerboard-lc16__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-lc16__rrect-ml__rest/checkerboard-lc16__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-lc16__rrect-sm__rest/checkerboard-lc16__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/checkerboard-lc16__rrect-sm__rest/checkerboard-lc16__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/dark-solid__rrect-48__rest/dark-solid__rrect-48__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/dark-solid__rrect-48__rest/dark-solid__rrect-48__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/dark-solid__rrect-64__rest/dark-solid__rrect-64__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/dark-solid__rrect-64__rest/dark-solid__rrect-64__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/dark-solid__rrect-80__rest/dark-solid__rrect-80__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/dark-solid__rrect-80__rest/dark-solid__rrect-80__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/dark-solid__rrect-lg__rest/dark-solid__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/dark-solid__rrect-lg__rest/dark-solid__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/dark-solid__rrect-md-clear20__rest/dark-solid__rrect-md-clear20__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/dark-solid__rrect-md-clear20__rest/dark-solid__rrect-md-clear20__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/dark-solid__rrect-ml__rest/dark-solid__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/dark-solid__rrect-ml__rest/dark-solid__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/hc-text-28__rrect-lg__rest/hc-text-28__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/hc-text-28__rrect-lg__rest/hc-text-28__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/hc-text-28__rrect-md__rest/hc-text-28__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/hc-text-28__rrect-md__rest/hc-text-28__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/hc-text-28__rrect-sm__rest/hc-text-28__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/hc-text-28__rrect-sm__rest/hc-text-28__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/hc-text-7__rrect-lg__rest/hc-text-7__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/hc-text-7__rrect-lg__rest/hc-text-7__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/hc-text-7__rrect-md__rest/hc-text-7__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/hc-text-7__rrect-md__rest/hc-text-7__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/hc-text-7__rrect-sm__rest/hc-text-7__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/hc-text-7__rrect-sm__rest/hc-text-7__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/hc-text__rrect-lg__rest/hc-text__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/hc-text__rrect-lg__rest/hc-text__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/hc-text__rrect-sm__rest/hc-text__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/hc-text__rrect-sm__rest/hc-text__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/impulse__rrect-lg__rest/impulse__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/impulse__rrect-lg__rest/impulse__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/impulse__rrect-ml__rest/impulse__rrect-ml__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/impulse__rrect-ml__rest/impulse__rrect-ml__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/impulse__rrect-sm__rest/impulse__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/impulse__rrect-sm__rest/impulse__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/light-solid__rrect-lg__rest/light-solid__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/light-solid__rrect-lg__rest/light-solid__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/light-solid__rrect-sm__rest/light-solid__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/light-solid__rrect-sm__rest/light-solid__rrect-sm__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-lg__rest/mid-dark-solid__rrect-lg__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-lg__rest/mid-dark-solid__rrect-lg__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-md__rest/mid-dark-solid__rrect-md__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-md__rest/mid-dark-solid__rrect-md__rest__css__alpha.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-sm__rest/mid-dark-solid__rrect-sm__rest__css.png
+    ONLY LANDED    apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-sm__rest/mid-dark-solid__rrect-sm__rest__css__alpha.png
+
+(iv) every gated matrix row against the dry run's, to the last decimal:
+    229 landed cells, 229 reference cells, 229 in common; 15322 rows compared; 13 differ
+    ('apple-macos-26.5-1x-light-increased-contrast', 'css', 'photo__toolbar-group__rest') :: perceptual.ssimMin  reference -0.6475297803653554 -> landed -0.6471773162401767  (|Δ| 0.000352464125178642)
+    ('apple-macos-26.5-1x-light-increased-contrast', 'css', 'photo__toolbar-group__rest') :: perceptual.ssimOutside  reference 0.7191928436859825 -> landed 0.7191959946020182  (|Δ| 3.1509160357545696e-06)
+    ('apple-macos-26.5-1x-light-increased-contrast', 'css', 'photo__toolbar-group__rest') :: perceptual.edgeWeightedMean  reference 0.05280022037221782 -> landed 0.05279954095411794  (|Δ| 6.794180998775934e-07)
+    ('apple-macos-26.5-1x-light-increased-contrast', 'css', 'photo__toolbar-group__rest') :: perceptual.ssimMean  reference 0.9126848445244409 -> landed 0.9126854224335688  (|Δ| 5.779091278856896e-07)
+    ('apple-macos-26.5-1x-light-increased-contrast', 'css', 'photo__toolbar-group__rest') :: perceptual.ssimBand  reference 0.5883393734231823 -> landed 0.5883388419754549  (|Δ| 5.31447727381007e-07)
+    ('apple-macos-26.5-1x-light-increased-contrast', 'css', 'photo__toolbar-group__rest') :: perceptual.unweightedMean  reference 0.02527969465751873 -> landed 0.0252795287275264  (|Δ| 1.6592999232956096e-07)
+    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard__glass-over-glass__rest') :: perceptual.unweightedMean  reference 0.012536203056197133 -> landed 0.01253634208592973  (|Δ| 1.3902973259628804e-07)
+    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard__glass-over-glass__rest') :: perceptual.edgeWeightedMean  reference 0.018502606540378858 -> landed 0.018502693551739363  (|Δ| 8.701136050559555e-08)
+    ('apple-macos-26.5-1x-light-increased-contrast', 'css', 'photo__toolbar-group__rest') :: perceptual.oklabDeltaEMean  reference 0.015390397330546781 -> landed 0.0153903111405245  (|Δ| 8.619002228073269e-08)
+    ('apple-macos-26.5-1x-light-increased-contrast', 'css', 'photo__toolbar-group__rest') :: coherence.crossTierOklabDeltaEMean  reference 0.007821280157050234 -> landed 0.007821204325808118  (|Δ| 7.583124211549275e-08)
+    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard__glass-over-glass__rest') :: perceptual.oklabDeltaEMean  reference 0.03196835241363129 -> landed 0.031968398895011275  (|Δ| 4.648137998802815e-08)
+    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard__glass-over-glass__rest') :: coherence.crossTierOklabDeltaEMean  reference 0.029065243645180643 -> landed 0.029065290126560627  (|Δ| 4.64813799845587e-08)
+    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard__glass-over-glass__rest') :: perceptual.ssimMean  reference 0.8727982803306901 -> landed 0.8727982781117788  (|Δ| 2.2189112769410713e-09)
+
+(v) every probe matrix row against the rung's, to the last decimal:
+    408 landed cells, 203 reference cells, 203 in common; 14232 rows compared; 0 differ
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-32__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-32__capsule-button__rest-tint-orange')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-32__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-32__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-32__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-32__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-4__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-4__capsule-button__rest-tint-orange')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-4__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-4__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-4__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-4__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-64__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-64__capsule-button__rest-tint-orange')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-64__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-64__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-64__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-64__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-8__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-8__capsule-button__rest-tint-orange')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-8__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-8__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-8__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-8__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-lc16__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-lc16__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-lc16__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-lc16__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'checkerboard-lc16__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'dark-solid__rrect-48__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'dark-solid__rrect-64__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'dark-solid__rrect-80__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'dark-solid__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'dark-solid__rrect-md-clear20__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'dark-solid__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'dark-solid__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'hc-text-28__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'hc-text-28__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'hc-text-28__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'hc-text-7__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'hc-text-7__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'hc-text-7__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'hc-text__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'hc-text__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'impulse__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'impulse__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'impulse__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'light-solid__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'light-solid__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'mid-dark-solid__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'mid-dark-solid__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-dark-standard', 'css', 'mid-dark-solid__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-32__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-32__capsule-button__rest-tint-orange')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-32__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-32__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-32__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-32__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-4__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-4__capsule-button__rest-tint-orange')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-4__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-4__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-4__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-4__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-64__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-64__capsule-button__rest-tint-orange')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-64__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-64__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-64__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-8__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-8__capsule-button__rest-tint-orange')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-8__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-8__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-8__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-8__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-lc16__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-lc16__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-lc16__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-lc16__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'checkerboard-lc16__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'dark-solid__rrect-48__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'dark-solid__rrect-64__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'dark-solid__rrect-80__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'dark-solid__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'dark-solid__rrect-md-clear20__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'dark-solid__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'dark-solid__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'hc-text-28__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'hc-text-28__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'hc-text-28__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'hc-text-7__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'hc-text-7__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'hc-text-7__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'hc-text__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'hc-text__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'impulse__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'impulse__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'impulse__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'light-solid__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'light-solid__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'mid-dark-solid__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'mid-dark-solid__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-1x-light-standard', 'css', 'mid-dark-solid__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-32__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-32__capsule-button__rest-tint-orange')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-32__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-32__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-32__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-32__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-4__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-4__capsule-button__rest-tint-orange')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-4__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-4__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-4__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-4__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-64__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-64__capsule-button__rest-tint-orange')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-64__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-64__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-64__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-64__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-8__capsule-button__rest-tint-orange')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-8__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-8__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-8__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-8__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-lc16__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-lc16__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-lc16__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-lc16__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'checkerboard-lc16__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'dark-solid__rrect-48__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'dark-solid__rrect-64__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'dark-solid__rrect-80__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'dark-solid__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'dark-solid__rrect-md-clear20__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'dark-solid__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'dark-solid__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'hc-text-28__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'hc-text-28__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'hc-text-28__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'hc-text-7__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'hc-text-7__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'hc-text-7__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'hc-text__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'hc-text__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'impulse__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'impulse__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'impulse__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'light-solid__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'light-solid__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'mid-dark-solid__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'mid-dark-solid__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-dark-standard', 'css', 'mid-dark-solid__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-32__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-32__capsule-button__rest-tint-orange')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-32__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-32__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-32__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-32__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-4__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-4__capsule-button__rest-tint-orange')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-4__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-4__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-4__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-4__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-64__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-64__capsule-button__rest-tint-orange')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-64__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-64__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-64__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-8__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-8__capsule-button__rest-tint-orange')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-8__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-8__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-8__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-8__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-lc16__capsule-button__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-lc16__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-lc16__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-lc16__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'checkerboard-lc16__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'dark-solid__rrect-48__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'dark-solid__rrect-64__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'dark-solid__rrect-80__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'dark-solid__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'dark-solid__rrect-md-clear20__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'dark-solid__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'dark-solid__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'hc-text-28__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'hc-text-28__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'hc-text-28__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'hc-text-7__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'hc-text-7__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'hc-text-7__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'hc-text__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'hc-text__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'impulse__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'impulse__rrect-ml__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'impulse__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'light-solid__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'light-solid__rrect-sm__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'mid-dark-solid__rrect-lg__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'mid-dark-solid__rrect-md__rest')
+    ONLY LANDED    ('apple-macos-26.5-2x-light-standard', 'css', 'mid-dark-solid__rrect-sm__rest')
+
+(vi) the gated bed's shape:
+    229 cells (expected 229); partition MATCHES
+      apple-macos-26.5-1x-dark-standard: 26 (expected 26)
+      apple-macos-26.5-1x-light-increased-contrast: 17 (expected 17)
+      apple-macos-26.5-1x-light-reduced-transparency: 16 (expected 16)
+      apple-macos-26.5-1x-light-standard: 72 (expected 72)
+      apple-macos-26.5-2x-dark-standard: 26 (expected 26)
+      apple-macos-26.5-2x-light-standard: 72 (expected 72)
+    verdict: ok
+
+    per (profile, tier, set), landed against the 0.13.0 bed:
+      apple-macos-26.5-1x-dark-standard            dom      calibration    9 (0.13.0 bed 9)
+      apple-macos-26.5-1x-dark-standard            dom      holdout        3 (0.13.0 bed 3)
+      apple-macos-26.5-1x-dark-standard            dom      probe         52 (0.13.0 bed 0)   <-- new this wave, gated by nothing
+      apple-macos-26.5-1x-dark-standard            dom      validation     1 (0.13.0 bed 1)
+      apple-macos-26.5-1x-dark-standard            texture  calibration    9 (0.13.0 bed 9)
+      apple-macos-26.5-1x-dark-standard            texture  holdout        3 (0.13.0 bed 3)
+      apple-macos-26.5-1x-dark-standard            texture  probe         51 (0.13.0 bed 0)   <-- new this wave, gated by nothing
+      apple-macos-26.5-1x-dark-standard            texture  validation     1 (0.13.0 bed 1)
+      apple-macos-26.5-1x-light-increased-contrast dom      calibration    6 (0.13.0 bed 6)
+      apple-macos-26.5-1x-light-increased-contrast dom      holdout        1 (0.13.0 bed 1)
+      apple-macos-26.5-1x-light-increased-contrast dom      validation     1 (0.13.0 bed 1)
+      apple-macos-26.5-1x-light-increased-contrast texture  calibration    6 (0.13.0 bed 6)
+      apple-macos-26.5-1x-light-increased-contrast texture  holdout        2 (0.13.0 bed 2)
+      apple-macos-26.5-1x-light-increased-contrast texture  validation     1 (0.13.0 bed 1)
+      apple-macos-26.5-1x-light-reduced-transparency dom      calibration    5 (0.13.0 bed 5)
+      apple-macos-26.5-1x-light-reduced-transparency dom      holdout        2 (0.13.0 bed 2)
+      apple-macos-26.5-1x-light-reduced-transparency dom      validation     1 (0.13.0 bed 1)
+      apple-macos-26.5-1x-light-reduced-transparency texture  calibration    5 (0.13.0 bed 5)
+      apple-macos-26.5-1x-light-reduced-transparency texture  holdout        2 (0.13.0 bed 2)
+      apple-macos-26.5-1x-light-reduced-transparency texture  validation     1 (0.13.0 bed 1)
+      apple-macos-26.5-1x-light-standard           dom      calibration   20 (0.13.0 bed 20)
+      apple-macos-26.5-1x-light-standard           dom      holdout       10 (0.13.0 bed 10)
+      apple-macos-26.5-1x-light-standard           dom      probe         51 (0.13.0 bed 0)   <-- new this wave, gated by nothing
+      apple-macos-26.5-1x-light-standard           dom      validation     6 (0.13.0 bed 6)
+      apple-macos-26.5-1x-light-standard           texture  calibration   20 (0.13.0 bed 20)
+      apple-macos-26.5-1x-light-standard           texture  holdout       10 (0.13.0 bed 10)
+      apple-macos-26.5-1x-light-standard           texture  probe         50 (0.13.0 bed 0)   <-- new this wave, gated by nothing
+      apple-macos-26.5-1x-light-standard           texture  validation     6 (0.13.0 bed 6)
+      apple-macos-26.5-2x-dark-standard            dom      calibration    9 (0.13.0 bed 9)
+      apple-macos-26.5-2x-dark-standard            dom      holdout        3 (0.13.0 bed 3)
+      apple-macos-26.5-2x-dark-standard            dom      probe         51 (0.13.0 bed 0)   <-- new this wave, gated by nothing
+      apple-macos-26.5-2x-dark-standard            dom      validation     1 (0.13.0 bed 1)
+      apple-macos-26.5-2x-dark-standard            texture  calibration    9 (0.13.0 bed 9)
+      apple-macos-26.5-2x-dark-standard            texture  holdout        3 (0.13.0 bed 3)
+      apple-macos-26.5-2x-dark-standard            texture  probe         51 (0.13.0 bed 0)   <-- new this wave, gated by nothing
+      apple-macos-26.5-2x-dark-standard            texture  validation     1 (0.13.0 bed 1)
+      apple-macos-26.5-2x-light-standard           dom      calibration   20 (0.13.0 bed 20)
+      apple-macos-26.5-2x-light-standard           dom      holdout       10 (0.13.0 bed 10)
+      apple-macos-26.5-2x-light-standard           dom      probe         51 (0.13.0 bed 0)   <-- new this wave, gated by nothing
+      apple-macos-26.5-2x-light-standard           dom      validation     6 (0.13.0 bed 6)
+      apple-macos-26.5-2x-light-standard           texture  calibration   20 (0.13.0 bed 20)
+      apple-macos-26.5-2x-light-standard           texture  holdout       10 (0.13.0 bed 10)
+      apple-macos-26.5-2x-light-standard           texture  probe         51 (0.13.0 bed 0)   <-- new this wave, gated by nothing
+      apple-macos-26.5-2x-light-standard           texture  validation     6 (0.13.0 bed 6)
+
+(vii) OKLab ΔE mean per profile, tier and set, on the landed bed (the 0.13.0 bed's beside):
+      apple-macos-26.5-1x-dark-standard            dom      calibration  n=  9 0.13.0 0.00633 -> landed 0.00633
+      apple-macos-26.5-1x-dark-standard            dom      holdout      n=  3 0.13.0 0.01735 -> landed 0.01735
+      apple-macos-26.5-1x-dark-standard            dom      probe        n= 52 0.13.0    n/a -> landed 0.01566
+      apple-macos-26.5-1x-dark-standard            dom      validation   n=  1 0.13.0 0.00364 -> landed 0.00364
+      apple-macos-26.5-1x-dark-standard            texture  calibration  n=  9 0.13.0 0.00393 -> landed 0.00393
+      apple-macos-26.5-1x-dark-standard            texture  holdout      n=  3 0.13.0 0.01325 -> landed 0.01325
+      apple-macos-26.5-1x-dark-standard            texture  probe        n= 51 0.13.0    n/a -> landed 0.00937
+      apple-macos-26.5-1x-dark-standard            texture  validation   n=  1 0.13.0 0.00244 -> landed 0.00244
+      apple-macos-26.5-1x-light-increased-contrast dom      calibration  n=  6 0.13.0 0.01301 -> landed 0.01301
+      apple-macos-26.5-1x-light-increased-contrast dom      holdout      n=  1 0.13.0 0.04561 -> landed 0.04561
+      apple-macos-26.5-1x-light-increased-contrast dom      validation   n=  1 0.13.0 0.01538 -> landed 0.01539
+      apple-macos-26.5-1x-light-increased-contrast texture  calibration  n=  6 0.13.0 0.00793 -> landed 0.00793
+      apple-macos-26.5-1x-light-increased-contrast texture  holdout      n=  2 0.13.0 0.02042 -> landed 0.02042
+      apple-macos-26.5-1x-light-increased-contrast texture  validation   n=  1 0.13.0 0.00862 -> landed 0.00862
+      apple-macos-26.5-1x-light-reduced-transparency dom      calibration  n=  5 0.13.0 0.00447 -> landed 0.00447
+      apple-macos-26.5-1x-light-reduced-transparency dom      holdout      n=  2 0.13.0 0.00751 -> landed 0.00751
+      apple-macos-26.5-1x-light-reduced-transparency dom      validation   n=  1 0.13.0 0.00454 -> landed 0.00454
+      apple-macos-26.5-1x-light-reduced-transparency texture  calibration  n=  5 0.13.0 0.00171 -> landed 0.00171
+      apple-macos-26.5-1x-light-reduced-transparency texture  holdout      n=  2 0.13.0 0.00343 -> landed 0.00343
+      apple-macos-26.5-1x-light-reduced-transparency texture  validation   n=  1 0.13.0 0.00110 -> landed 0.00110
+      apple-macos-26.5-1x-light-standard           dom      calibration  n= 20 0.13.0 0.00709 -> landed 0.00709
+      apple-macos-26.5-1x-light-standard           dom      holdout      n= 10 0.13.0 0.01576 -> landed 0.01576
+      apple-macos-26.5-1x-light-standard           dom      probe        n= 51 0.13.0    n/a -> landed 0.01368
+      apple-macos-26.5-1x-light-standard           dom      validation   n=  6 0.13.0 0.00552 -> landed 0.00552
+      apple-macos-26.5-1x-light-standard           texture  calibration  n= 20 0.13.0 0.00321 -> landed 0.00321
+      apple-macos-26.5-1x-light-standard           texture  holdout      n= 10 0.13.0 0.00898 -> landed 0.00898
+      apple-macos-26.5-1x-light-standard           texture  probe        n= 50 0.13.0    n/a -> landed 0.00541
+      apple-macos-26.5-1x-light-standard           texture  validation   n=  6 0.13.0 0.00241 -> landed 0.00241
+      apple-macos-26.5-2x-dark-standard            dom      calibration  n=  9 0.13.0 0.00657 -> landed 0.00657
+      apple-macos-26.5-2x-dark-standard            dom      holdout      n=  3 0.13.0 0.01739 -> landed 0.01739
+      apple-macos-26.5-2x-dark-standard            dom      probe        n= 51 0.13.0    n/a -> landed 0.01758
+      apple-macos-26.5-2x-dark-standard            dom      validation   n=  1 0.13.0 0.00403 -> landed 0.00403
+      apple-macos-26.5-2x-dark-standard            texture  calibration  n=  9 0.13.0 0.00395 -> landed 0.00395
+      apple-macos-26.5-2x-dark-standard            texture  holdout      n=  3 0.13.0 0.01311 -> landed 0.01311
+      apple-macos-26.5-2x-dark-standard            texture  probe        n= 51 0.13.0    n/a -> landed 0.01112
+      apple-macos-26.5-2x-dark-standard            texture  validation   n=  1 0.13.0 0.00297 -> landed 0.00297
+      apple-macos-26.5-2x-light-standard           dom      calibration  n= 20 0.13.0 0.00738 -> landed 0.00738
+      apple-macos-26.5-2x-light-standard           dom      holdout      n= 10 0.13.0 0.01617 -> landed 0.01616
+      apple-macos-26.5-2x-light-standard           dom      probe        n= 51 0.13.0    n/a -> landed 0.01378
+      apple-macos-26.5-2x-light-standard           dom      validation   n=  6 0.13.0 0.00569 -> landed 0.00569
+      apple-macos-26.5-2x-light-standard           texture  calibration  n= 20 0.13.0 0.00326 -> landed 0.00326
+      apple-macos-26.5-2x-light-standard           texture  holdout      n= 10 0.13.0 0.00895 -> landed 0.00895
+      apple-macos-26.5-2x-light-standard           texture  probe        n= 51 0.13.0    n/a -> landed 0.00487
+      apple-macos-26.5-2x-light-standard           texture  validation   n=  6 0.13.0 0.00248 -> landed 0.00248
+
+VERDICT: SEE THE GATED MISMATCHES ABOVE; the probe half SEE ABOVE

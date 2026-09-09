@@ -1,0 +1,67 @@
+W25 G4 — the chain over the canonical bed (the landing at 0.14.0)
+run from the main checkout, 2026-09-10; every command's own tail beneath it.
+
+== pnpm -r build ==
+build exit=0
+
+== pnpm -r lint ==
+lint exit=0
+
+== pnpm -r test ==
+packages/policy test:  Test Files  2 passed (2)
+packages/policy test:       Tests  23 passed (23)
+packages/motion test:  Test Files  9 passed (9)
+packages/motion test:       Tests  162 passed (162)
+packages/geometry test:  Test Files  14 passed (14)
+packages/geometry test:       Tests  170 passed (170)
+packages/renderer-webgpu test:  Test Files  24 passed (24)
+packages/renderer-webgpu test:       Tests  421 passed (421)
+packages/core test:  Test Files  16 passed (16)
+packages/core test:       Tests  302 passed (302)
+packages/platform-web test:  Test Files  33 passed (33)
+packages/platform-web test:       Tests  453 passed (453)
+packages/calibration test:  Test Files  20 passed (20)
+packages/calibration test:       Tests  294 passed (294)
+packages/react test:  Test Files  13 passed (13)
+packages/react test:       Tests  101 passed (101)
+test exit=0
+
+== @vitrea/renderer-webgpu test:golden (foreground) ==
+  33 passed (10.8s)
+goldens exit=0
+
+== @vitreajs/vitrea-web test:e2e:gpu (foreground) ==
+  9 passed (4.4s)
+gpu e2e exit=0
+
+== demo test:e2e (foreground; second run) ==
+  ✘   4 [chromium] › e2e/color-scheme.spec.ts:90:1 › auto follows the system, in both directions, without a reload (6.7s)
+  1 failed
+  38 passed (48.7s)
+demo e2e exit=1
+
+== adopted-thresholds.test.ts over the canonical matrix ==
+ Test Files  1 passed (1)
+      Tests  38 passed (38)
+
+1926 tests over 131 files, re-run after every edit in this landing (`chain-test2.txt` in scratch).
+
+The one red, and it is not this landing's:
+
+  demo e2e / color-scheme.spec.ts:90 "auto follows the system, in both directions, without a
+  reload" — after the page goes light -> dark -> light the material reads occlusion 0.815 /
+  rgba(255,255,255,0.815) where the test recorded 0.667 / rgba(254,254,254,0.667) on the way out,
+  so the runtime does not return to the material it left. REPRODUCED ON CLEAN `main` at 1d7987f
+  with this landing's four files stashed, and Reduce Transparency and Increase Contrast both read
+  0 on this machine, so it is neither the material this wave lands nor the machine's accessibility
+  state. A finding for the parent, and untouched here.
+
+  Two more demo tests failed on the FIRST run of the suite and pass now, and the cause was this
+  landing's: `scenes.json` carries W25's 52 probe scenes, the page's scene picker reads that file,
+  and the rebuilt matrix gave those scenes figures for the first time — one of them from the dark
+  profile, because the instrument refuses two probe cells in the light profiles ("a 0.00px contour
+  sampled 512 times at sigma=3 carries no curvature") and the page's primary-cell rule then fell
+  through to the scheme it does not speak for. The probe set is evidence about nothing the project
+  publishes, so `apps/demo/src/site/scenes.ts` now keeps `split.probe` out of `REFERENCE_SCENES`.
+  Before the rebuild the same test was already red on `main` for the same reason with the readout
+  simply empty, which is why it is a fix and not a revert.

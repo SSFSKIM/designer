@@ -1379,7 +1379,24 @@ const MATRIX_PATH = resolve(
   PACKAGE_ROOT,
   process.env["VITREA_MATRIX_PATH"] ?? resolve(PACKAGE_ROOT, "results", "matrix.json"),
 );
-const MATRIX = readJson<ResultMatrix>(MATRIX_PATH);
+const MATRIX_FILE = readJson<ResultMatrix>(MATRIX_PATH);
+/**
+ * The gated bed, which is the matrix file minus its `probe` rows.
+ *
+ * Since W25 the canonical matrix carries the probe set beside the frozen bed:
+ * the harness captures it routinely and the fits and the claims read it, but it
+ * is gated by nothing (W25 Decision Log 3 (e), claims §5.113). Every count,
+ * partition, bound, floor and conditioning exclusion in this file is stated over
+ * a cell of the frozen bed, so the set the file reads has to be the frozen bed
+ * and the drop has to happen once, here, rather than in each of the two dozen
+ * places that select from it. The guard at the foot of the file is what keeps
+ * this from becoming a hole: it asserts that nothing gated ever sees a probe
+ * row, in both directions.
+ */
+const MATRIX: ResultMatrix = {
+  ...MATRIX_FILE,
+  cells: MATRIX_FILE.cells.filter((cell) => cell.fixtureSet !== "probe"),
+};
 
 /** `tier / set / scene / profile` — every failure message starts with this. */
 function name(cell: Cell): string {
@@ -2139,15 +2156,27 @@ describe("the probe set is captured, and gated by nothing (W25 Decision Log 3 (e
     expect(PROBE.size).toBeGreaterThan(0);
   });
 
-  it("puts no probe row in the gated matrix, at any profile or tier", () => {
+  it("puts no probe row in the gated bed, at any profile or tier", () => {
     // `cellsOf` filters by profile and tier alone — every count, partition and
-    // bound in this file runs over whatever the matrix holds. So the guard has
-    // to be that the matrix holds no probe row at all, which is also what
-    // `compare`'s default `--set calibration,validation` produces.
+    // bound in this file runs over whatever `MATRIX` holds. So the guard is that
+    // `MATRIX` holds no probe row, by either name: neither the set label the
+    // capture wrote nor a scene the declaration lists as probe.
     const intruders = MATRIX.cells.filter(
       (cell) => cell.fixtureSet === "probe" || PROBE.has(cell.key.sceneId),
     );
     expect(intruders.map(name)).toEqual([]);
+  });
+
+  it("drops the file's probe rows by their own label, and by nothing else", () => {
+    // The other direction, and it is the one that could rot silently: the file
+    // on disk now carries the probe set (W25 G4's rebuild), so the guard above
+    // passes both when the drop works and when the rows were never captured.
+    // Every row the drop removes must be a probe row of a declared probe scene,
+    // and the two views must differ by exactly those rows.
+    const dropped = MATRIX_FILE.cells.filter((cell) => !MATRIX.cells.includes(cell));
+    expect(dropped.every((cell) => cell.fixtureSet === "probe")).toBe(true);
+    expect(dropped.every((cell) => PROBE.has(cell.key.sceneId))).toBe(true);
+    expect(MATRIX.cells).toHaveLength(MATRIX_FILE.cells.length - dropped.length);
   });
 
   it("names no probe scene in the conditioning predicate's exclusion list", () => {
