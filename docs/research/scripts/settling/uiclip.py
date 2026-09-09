@@ -22,7 +22,10 @@ sys.path.insert(0, HERE)
 import rate
 
 IMG_SIZE = 224; DEVICE = "cpu"; LOGIT_SCALE = 100
-MODEL = "biglab/uiclip_jitteredwebsites-2-224-paraphrased_webpairs_humanpairs"
+# The hub client's large-file download stalled on this machine (66 MB of 605 MB, then nothing)
+# while a plain curl of the same file ran at 2 MB/s, so UICLIP_PATH may name a local directory
+# holding config.json and model.safetensors fetched by curl; the hub id is the default.
+MODEL = os.environ.get("UICLIP_PATH") or "biglab/uiclip_jitteredwebsites-2-224-paraphrased_webpairs_humanpairs"
 PROCESSOR = "openai/clip-vit-base-patch32"
 Image.MAX_IMAGE_PIXELS = None
 
@@ -30,10 +33,22 @@ model = CLIPModel.from_pretrained(MODEL).eval().to(DEVICE)
 processor = CLIPProcessor.from_pretrained(PROCESSOR)
 
 
+def tensor_of(out, *names):
+    """transformers 5 returns an output object from get_*_features where 4 returned the tensor."""
+    if torch.is_tensor(out):
+        return out
+    for n in names:
+        v = getattr(out, n, None)
+        if v is not None:
+            return v
+    return out[0]
+
+
 def text_emb(descs):
     inp = processor(text=descs, return_tensors="pt", padding=True, truncation=True, max_length=77)
     with torch.no_grad():
-        return model.get_text_features(input_ids=inp["input_ids"].to(DEVICE), attention_mask=inp["attention_mask"].to(DEVICE))
+        out = model.get_text_features(input_ids=inp["input_ids"].to(DEVICE), attention_mask=inp["attention_mask"].to(DEVICE))
+    return tensor_of(out, "text_embeds", "pooler_output")
 
 
 def preresize(im):
@@ -54,7 +69,7 @@ def windows(im):
 def image_emb(im):
     ws = windows(im); inp = processor(images=ws, return_tensors="pt")
     with torch.no_grad():
-        f = model.get_image_features(pixel_values=inp["pixel_values"].to(DEVICE))
+        f = tensor_of(model.get_image_features(pixel_values=inp["pixel_values"].to(DEVICE)), "image_embeds", "pooler_output")
     return f.mean(dim=0, keepdim=True)
 
 
