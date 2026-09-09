@@ -1365,3 +1365,52 @@ cases on the duplication alone before anything about the material was read.
 now — but the run scripts should not need it. Shape of the work: have `g3-dryrun-run.sh` and its
 siblings `rm -f` the matrix they own before the first run, and have `compare` warn when it appends
 a cell whose (profile, scene, tier, renderer) already exists under a different document digest.
+
+## The demo page reads `scenes.json` directly, so any declared set reaches the public scene picker unless filtered there (W25 G4, 2026-09-10)
+
+From G1's declaration to G4's landing the 52 probe scenes were in the demo's reference picker
+(`apps/demo/src/site/scenes.ts` builds `REFERENCE_SCENES` from the split), and the rebuilt matrix
+handed them figures from the wrong profile. G4 filters `split.probe` out. The next declared set
+needs the same line, or the filter inverts to an allow-list of the gated sets — the second is the
+one that does not rot. Closes with the allow-list. `g4/g4-landing.md` §4.
+
+## The CSS tier writes a tone response onto an unpainted texture source for about 120 ms after load, before the stage canvas's first frame (W25 G4's bisect, 2026-09-10)
+
+The demo's untinted plate carries `--vitrea-occlusion` 0.667 / `rgba(254, 254, 254, 0.667)` for
+~120 ms and then settles at 0.815 / `rgba(255, 255, 255, 0.815)` once the rAF-driven stage canvas
+delivers a frame and is analysed. A test that baselined on the transient was green or red by how
+fast the page came up (`color-scheme.spec.ts:90`; fixed in the spec at `19be52f`). An honest
+state of the page, but a visible one: the runtime could withhold the CSS tier's write until a
+registered source has delivered its first frame. Closes with that guard and a pixel test of the
+first 200 ms.
+
+## A second session-flake cell, on the nested pane at 1x dark, whose recheck agrees with the landing rather than the dry run (W25 G4, 2026-09-10)
+
+`1x-dark / checkerboard__glass-over-glass__rest / css`: the landing's render differs from
+G3b's dry-run digest by 1 px / 1 code at (279, 198); re-captured twice to scratch it matches the
+LANDING — the opposite verdict to the toolbar cell's five sightings, where the recheck matches
+the dry run. No shape metric moved. Two cells now, two directions; the toolbar entry's shape of
+work (a capture-time re-read against the cell's own second frame) covers both.
+`g4/g4-referee.txt`.
+
+## The contour instrument refuses a flat-cornered dark square, so eight probe cells and the increased-contrast holdout cell land without shape rows (W25 G4, 2026-09-10)
+
+Six of the eight probe runs exit 1 on "contourCurvature: a 0.00px contour … carries no
+curvature" — the same refusal `hc-text__capsule-button__rest` under increased contrast has exited
+on since W20 — so 408 of 416 probe rows land, the dry run's set exactly. If the probe set is to
+be the fitting ground for a width law, the instrument's refusal on a dark solid whose silhouette
+the extractor cannot round is worth a look in W26: the cells' perceptual rows are intact, and a
+`--write-partial` that records the shape axis absent rather than exiting would keep the run's
+exit code honest. `g4/g4-runs.txt`.
+
+## The material's sharp blur component, the heavy component's width and the level above the knee: what W25 measured and could not move (W25 recomposition, 2026-09-10)
+
+The thick surface's body against Apple's at the 0.14.0 landing, all from the probe set at both
+scales: vitrea's sharp component 1.67 device px against 2.79 at 1x (35–40 % low; it is
+`blurSigma`, the thin capsule's own, X5-entangled); the heavy share 0.23 against 0.47 (1x) and
+the heavy component 13.3 against 19.5 device px at the reference's share, the width not a lever
+on `sizeScatterGainMax` (a mip level saturates); the level above the knee +2 … +4 codes on one
+backdrop and sign-flipping across backdrops; the nested base's σ-match untouched. Chartered as
+W26: a heavy tap whose width is a continuous parameter, fitted on the probe set's coarse
+checkerboards at both scales; then the share per scale (the 2x lever through the floor), the
+level re-read, the CSS mirror. Closes when W25's clauses 2 and 3 are met.

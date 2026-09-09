@@ -1,9 +1,11 @@
 # W25 — the thick-span composite: the thick surface's body, its kernel and its key (2026-09-09)
 
-**Status: CHARTERED 2026-09-09 on the user's word ("the thick-span composite is the larger piece
-after it", at the 0.11.0 bump; "looking good, better fidelity" on the W24 sheets at the 0.13.0
-publish) — the last item of wave Decision Log 23 (c)'s GPU order. G0 dispatched on the fixtures
-already on disk; the bed amendment and every native capture wait on the user (Decision Log 1).**
+**Status: RECOMPOSED 2026-09-10 (claims §5.118) — the nine clauses verified against the landed bed
+(`99a74a0`): the width instrument and the probe harness set landed, the along-side field with the
+jointly re-fitted lit edge landed (0.85, 0.10), the three body mechanisms landed inert with their
+constants declined on measurement; clauses 2 and 3 carried to W26 with their cause (the heavy
+tap's width); the 0.14.0 cut follows, the user's eye before publish. Chartered 2026-09-09 on the
+user's word.**
 
 Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
 tail. Parent: `2026-08-28-post-v1-wave.md` (the W25 row; Decision Log 23 (c)). Grounding dossier:
@@ -254,7 +256,7 @@ G0 → (the user: the amendment, the console) → G1 → G2 (may start on G0 alo
 | G1 — the bed amendment and the native captures | CAPTURED 2026-09-09 (claims §5.115; `b60706b`: 207 fixtures at both scales, one omitted by ruling; `g1/provenance.json`, `sweep-read.txt`; Decision Log 5) |
 | G2 — the law fitted | CLOSED 2026-09-09 (claims §5.114; merged `17b7af1` inert; the 1x fits as priors; every constant to G3 on the probe set; Decision Log 4) |
 | G3 — declared and dry-run | CLOSED 2026-09-10 (claims §5.116; `g3/g3-dryrun.md`; merged `0011bf5`; the pair (0.85, 0.10) declared, four constants declined; Decision Log 6, 7) |
-| G4 — the landing | DISPATCHED 2026-09-10 (the main checkout; Decision Log 7 (d)) |
+| G4 — the landing | LANDED 2026-09-10 (claims §5.117; `99a74a0`; `g4/g4-landing.md`; 227 / 229 + 414 / 414 digests, the gate 38 / 38, fourteen floors identical; the demo spec fix `e2e2345`) |
 
 ## Decision Log
 
@@ -677,7 +679,39 @@ recomposition.
 
 ## Outcomes & Retrospective
 
-(at recomposition)
+Verified 2026-09-10 against the landed bed (`99a74a0`; claims §5.112–§5.118), clause by clause as
+re-declared by Decision Logs 3, 4, 6 and 7:
+
+1. **The haze is measured before it is fitted — MET at 1x, a finding at 2x.** Three readers
+   validated on known kernels; the triple (sharp σ, heavy σ, share) read with residuals on the
+   probe set; at 2x the two components are not separable above the knee on any fixture.
+2. **The thick surface's body matches — NOT MET, each half a declined constant.** Sharp σ 35–40 %
+   low (the thin capsule's own `blurSigma`), share 0.24–0.32 out, level 0.011 linear. The cause is
+   measured: the heavy tap's width saturates at 13.3 against 19.5 device px. Carried to W26.
+3. **The nested base is Apple's — NOT MET, untouched.** The base's haze is the heavy share's.
+   Carried to W26.
+4. **The size law's argument — ANSWERED.** The short side at knee 96 beats every alternative; the
+   level above the knee is not identified across backdrops.
+5. **The collapse's key — ANSWERED.** Span, not clearance; every span to 64 collapses in both
+   schemes; the large dark panel's level is the decline's floor.
+6. **The bed no worse anywhere — MET.** Every GPU group improves or holds; fourteen floors
+   identical; the predicate unmoved; the thin capsule byte-identical on the `rrect-sm` cells.
+7. **The holdout once — MET.** Read at G3b's dry run on the configuration that landed; G4
+   reproduced every holdout capture.
+8. **The CSS tier derives what it can — MET as declared.** The band integral follows the exponent;
+   the field is not drawable by one inset shadow (X8 residual); the coherence pin at 0.033.
+9. **By eye, and the ledger — MET by the parent's eye; the user's OPEN.** The corner strips at 4×:
+   the dim corners carry the faint rim the reference keeps, the lit corners no longer overshoot;
+   0.14.0 cut, unpublished.
+
+Retrospective. The wave was chartered on a haze number that turned out to be half a measurement,
+and its first child replaced the number with an instrument; the instrument then said that every
+width the ledger had was true and the quantity that mattered was a share. The bed amendment it
+needed was captured in one sitting and answered two standing questions on its own (the collapse's
+key; the withdrawn fixtures). What it could not do it said with numbers: three constants declined
+on their own checks, and the one that landed was landed only after it was fitted jointly with the
+term it collided with. Two lessons went to memory: a width read at one pitch is not a kernel, and
+byte identity between two captures needs a same-session control before it means a defect.
 
 ## Revision Notes
 
@@ -709,3 +743,5 @@ recomposition.
   chartered as the next wave's.
 - 2026-09-10: G3b read; Decision Log 7 — the pair (0.85, 0.10) lands, the gain small and real; G4
   dispatched; the heavy width chartered as W26 at recomposition.
+- 2026-09-10: G4 LANDED (claims §5.117; `99a74a0`); the demo colour-scheme spec's load transient
+  fixed (`e2e2345`); the wave RECOMPOSED (claims §5.118); the 0.14.0 cut; W26 the heavy width.

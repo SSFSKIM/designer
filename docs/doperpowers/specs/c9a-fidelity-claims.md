@@ -14737,3 +14737,75 @@ halves (sharp σ 35–40 % low, share 0.24–0.32 out, level 0.011 linear), each
 number; 7 the holdout once; 8 exactly as declared (84 of 85 CSS captures byte-identical at G3, the
 coherence pin worst 0.03268 against 0.05); 9 the sheets, the user's eye open. **G4 opens**
 (Decision Log 7 (d)); the heavy width is W26's (Decision Log 7 (e)).
+
+### 5.117 W25 G4 LANDED: the canonical bed rebuilt at the frozen configuration with the probe set beside it — 227 of 229 gated captures and 414 of 414 probe captures reproduced byte for byte, the two movers one-code session flakes with their rechecks recorded; the gate 38 / 38 with the predicate unmoved at 31 and all fourteen floors held on identical readings; the demo picker sealed against the probe scenes; the changeset cut; one red demo test found to be a load transient older than the wave and fixed (2026-09-10)
+
+**Evidence** `results/2026-09-09-w25-thick-span-composite/g4/` — `g4-landing.md`, `g4-rebuild.sh`,
+`g4-runs.txt`, `g4-verify.py`, `g4-referee.txt`, `g4-gate.txt`, `g4-floors.*`, `g4-chain.txt`,
+`sheets/`; the canonical `results/matrix.json`; commit `99a74a0` on `main` (the demo spec fix
+merged at `e2e2345`). Run from the main checkout at `1d7987f` as W25 Decision Log 7 (d) directs.
+
+**§1 The rebuild and the referee.** Both documents verified against `g3b-digests.txt` (light
+`602b9fc6…` / `9b7806cdefd1d1d6`, dark `d9be6210…` / `eec7c2ea8dc89cae`); `rm results/matrix.json`;
+32 runs in 17 min 33 s — the gated bed (six profiles × two tiers × calibration and validation,
+then holdout) and then the probe set (the four standard profiles × two tiers) into the same
+canonical matrix and captures. The one expected exit 1 on `hc-text__capsule-button__rest` under
+increased contrast; six of eight probe runs exit 1 on the contour instrument's refusal of a
+flat-cornered dark square, landing 408 of 416 probe rows — the dry run's set exactly. **227 of 229
+gated captures and 414 of 414 probe captures byte-identical**; 15 322 gated rows compared, 13
+differ, all on the two movers; 14 232 probe rows identical, although G3b's rung ran on the
+ladder's patched documents — the re-recorded documents resolve to the same material. The holdout
+reproduced, not re-read. The movers: the increased-contrast `photo__toolbar-group` CSS render,
+fifth sighting, 17 px / 1 code, the recheck matching the dry run (the rebuild's capture the
+outlier); and a new one, the 1x dark `checkerboard__glass-over-glass` CSS render, 1 px / 1 code at
+(279, 198), the recheck matching the landing twice. No shape metric moved on either; both landed
+files left as captured.
+
+**§2 The gate.** 38 / 38 over the canonical matrix. `PREDICATE_EXCLUDES` unmoved at 31
+(machine-checked), `UNMET_ROWS` 14, **all fourteen floors read and identical to the 0.13.0 bed's
+and G3b's — none breached, none moved, none re-pinned.** The file moved for the probe set alone:
+Decision Log 7 (d)'s "the gate ignores probe rows by test" contradicted the guard as written ("the
+matrix holds no probe row at all"), so the file now drops `fixtureSet === "probe"` once before any
+view selects from it, keeps the guard against the gated view, and adds the guard for the silent
+direction (every dropped row is a declared probe row, the views differing by exactly those) —
+the thirty-eighth case.
+
+**§3 The demo, the changeset, the sheets, the chain.** The harness fixture re-copied (178 px / max
+5 codes on the capsule's corner arcs, where the re-fitted exponent draws); `apps/demo/src/site/
+scenes.ts` now keeps `split.probe` out of the reference picker — the probe scenes had been reaching
+the public page since G1 and the rebuilt matrix gave them figures from the wrong profile
+(tracker: the page and `scenes.json` are coupled). `.changeset/the-rim-grades-along-the-side.md`,
+`@vitreajs/vitrea-web` minor, consumed to **0.14.0** by the parent. Sheets `g4-1x.png` /
+`g4-2x.png`, four panels, 37 rows each, the 4× corner strips included. The chain: build and lint
+green; 1 926 unit tests over 131 files; goldens 33 / 33; vitrea-web GPU e2e 9 / 9; demo e2e 38 /
+39 at the landing — the red, `color-scheme.spec.ts:90`, bisected by the parent's worker to **no
+first bad commit**: it reproduces at W24's landing commit three runs for three with the same
+numbers (0.667 expected, 0.815 received). The spec compared a light baseline read the instant the
+scheme resolved — about 120 ms of a tone response written onto an unpainted texture source before
+the stage canvas's first frame — against a settled round-trip reading; whether it passed was
+decided by how fast the site came up. Fixed in the spec (`19be52f`, merged `e2e2345`): a settled
+reading (two consecutive agreeing reads) and the light baseline taken after the first crossing;
+38 / 38 three runs running. The runtime's write before a source's first frame is a tracker entry,
+not this wave's.
+
+### 5.118 W25 RECOMPOSED: the thick-span composite — the parent's nine clauses verified against the landed bed; the width instrument, the probe harness set, the along-side field with the jointly re-fitted lit edge and the three inert mechanisms landed; the thick body's kernel, share and level and the nested base's haze carried by name to W26 with their measured cause; the 0.14.0 cut follows, the user's eye before publish (2026-09-10)
+
+The clause-by-clause verdict is the spec's Outcomes & Retrospective
+(`2026-09-09-w25-thick-span-composite.md`), with the evidence §5.112–§5.117. **Met or answered:**
+1 (the haze measured: the triple at 1x with residuals; at 2x the components not separable above
+the knee — a finding), 4 (the short side at knee 96; a level above the knee not identified across
+backdrops), 5 (span keys the collapse; the large dark panel's level is the decline's floor), 6
+(the bed no worse on every number, fourteen floors identical), 7 (the holdout once, reproduced), 8
+(the CSS tier as declared; the field an X8 residual), 9 by the parent's eye. **Missed and
+carried:** 2 (sharp σ 35–40 % low at 1x, the share 0.24–0.32 out, the level 0.011 linear — each a
+declined constant whose cause is measured: the heavy tap's width saturates at a mip level) and 3
+(the nested base's haze, the heavy share's). **Open:** 9's user's eye.
+
+What the wave leaves by name, with numbers: the heavy width (13.3 against 19.5 device px at 1x)
+as W26's mechanism, then the share per scale, the 2x lever through the floor, and the level term
+re-read; the 2x sharp anchor (the reader degenerate above the knee); the rim's arc amplitude
+(W23's law) as a three-term joint fit with the exponent and the field; the size-keyed light
+adaptation of a small surface over a bright backdrop in the dark scheme; the 2x reference's
+run-to-run instability and the one cell with no majority; the contour instrument's refusal on
+flat-cornered dark squares; the demo page's coupling to `scenes.json`; the CSS tier's tone
+response before a source's first frame. All in the tracker.
