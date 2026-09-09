@@ -253,8 +253,8 @@ G0 → (the user: the amendment, the console) → G1 → G2 (may start on G0 alo
 | G0 — the width instrument, the read, the argument, the along-side reader | CLOSED 2026-09-09 (claims §5.113; `g0/g0-findings.md`; merged `058dd64`; Decision Log 3) |
 | G1 — the bed amendment and the native captures | CAPTURED 2026-09-09 (claims §5.115; `b60706b`: 207 fixtures at both scales, one omitted by ruling; `g1/provenance.json`, `sweep-read.txt`; Decision Log 5) |
 | G2 — the law fitted | CLOSED 2026-09-09 (claims §5.114; merged `17b7af1` inert; the 1x fits as priors; every constant to G3 on the probe set; Decision Log 4) |
-| G3 — declared and dry-run | READ 2026-09-09 (`g3/g3-dryrun.md` at `6bfe1ba`, unmerged; one constant landable, four declined; S11b's confound; Decision Log 6) / G3b DISPATCHED (the joint re-fit with W24's exponent) |
-| G4 — the landing | — |
+| G3 — declared and dry-run | CLOSED 2026-09-10 (claims §5.116; `g3/g3-dryrun.md`; merged `0011bf5`; the pair (0.85, 0.10) declared, four constants declined; Decision Log 6, 7) |
+| G4 — the landing | DISPATCHED 2026-09-10 (the main checkout; Decision Log 7 (d)) |
 
 ## Decision Log
 
@@ -573,6 +573,61 @@ mechanisms for the share and the level inert with their constants named, the pro
 harness set, the width readers, and the record. Clauses 2 and 3 are carried to the heavy-width
 wave with their numbers; the recomposition says so.
 
+### Decision Log 7 — G3b read: the pair (0.85, 0.10) lands — the thick solids' angular error at or under the 0.13.0 bed's, the range error down an eighth, the null's floor drawn where the reference keeps one; the landing ruled; the heavy width chartered as the next wave (2026-09-10; the parent, on the user's standing instruction)
+
+Evidence `g3/g3-dryrun.md` (the G3b section), `g3b-fit.txt`, `g3b-bins.txt`, `g3b-stops.txt`,
+`g3b-floors.txt`, `g3b-gate.txt`, `g3b-delta-e.txt`, `g3b-digests.txt`,
+`g3b-goldens-attribution.txt`, `sheets/`; merged `0011bf5`. Verified by the parent: the per-bin
+table, the improve / worsen counts, the sensitivity band, the corner strips by eye on `g3-2x.png`
+— the two dim corners now carry the faint rim the reference keeps at the null where the 0.13.0
+panel draws nothing, and the two lit corners no longer overshoot.
+
+(a) **The pair.** `rimLitExponent` 1.15 → **0.85**, `rimAlongSideSlope` 0.45 → **0.10**, fitted
+together on a rendered grid of 46 points (the two multiply one amplitude and the exponent is a
+power; not separable), on 54 rows / 864 angular bins and 58 rows / 220 straight sides of the
+untinted solids of both beds and the probe set at both scales, the holdout never opened; the two
+readers weighted to contribute equally at the 0.13.0 material, the pick moving one grid step over
+±50 % of that weight. The objective's own minimum (0.55, 0.45) is refused because only 5 of 28
+thick rows improve there; the allowed minimum (0.70, 0.15) is refused because at it the collapsed
+`dark-solid__capsule-button` loses its contour on the GPU tier at 1x and two calibration cells
+drop out of the bed — a material change can remove a cell with no stop to catch it (tracker). At
+(0.85, 0.10): thick bin error 0.17527 → 0.17208, thick range error 0.43269 → 0.37472, 16 thick
+rows improving against 12; on the 1x light `dark-solid__rrect-md` the NW / SE corners 0.203 →
+0.137 / 0.139 against 0.122 / 0.127 and the null 0.004 → 0.010 against 0.037. **The gain is
+small and it is real**; the reader that measures the along-side range still reads 0.375 of the
+reference's grading missing, and the arc's AMPLITUDE (W23's law on the straight spans) is the
+wave's largest remaining rim gap, a three-term joint fit for a later wave.
+
+(b) **The clauses and the stops.** Every stop clear with S11b re-read as an error bound (5 of 8
+canonical thick solid GPU rows improve, 3 worsen, worst +0.00064); fourteen floors read, none
+breached, none moved; the gate 37 / 37 and the predicate unmoved; the holdout read once on this
+configuration, every group holding and one CSS group improving; twelve goldens under
+`W25B_HASHES` with no pixel outside a contour band. Fingerprints light `9b7806cdefd1d1d6`, dark
+`eec7c2ea8dc89cae`; the dark patch unmoved. Clauses 1, 4, 5, 6, 7, 8 met or answered; 2 and 3 not
+met, each miss a declined constant (Decision Log 6 (a)); 9 the sheets and the user's eye.
+
+(c) **Two dry runs in one matrix.** G3 and G3b wrote to the same `--out-matrix` and `compare`
+appended, so the gate read every cell twice (25 of 37 failing on duplication alone) until
+`g3b-reduce.py` kept the rows whose capture path names the documents on disk; the run script now
+removes its own matrix first. Tracker.
+
+(d) **G4 dispatched: the landing.** From the main checkout: `rm results/matrix.json`, the whole
+bed rebuilt — six profiles × two tiers × (calibration, validation, then holdout) AND the probe set
+on the four standard profiles × two tiers (the canonical matrix carries the probe rows under
+`fixtureSet: "probe"`; the gate ignores them by test) — the referee against `g3b-digests.txt`,
+the gate (37 / 37 expected, no re-derivation), every floor re-read, the demo fixture, the
+changeset (`vitrea-web` minor → **0.14.0**: the along-side field, the exponent re-fitted with it,
+the probe harness set, the width readers, the three inert mechanisms named), the sheets, the
+chain; the user's eye before publish; 0.13.0 published stays.
+
+(e) **The next wave, chartered by this decision: the heavy width.** The thick surface's haze is
+the heavy component's share, and the share cannot be raised until the heavy tap's width is a
+continuous parameter (13.3 against 19.5 device px at 1x; the mip level saturates). W26 takes the
+renderer mechanism (a further pyramid level or a separable blur at the tap, the width fitted on
+the probe set's coarse checkerboards at both scales), then the share per scale, the 2x lever
+through the floor, and the level term re-read on those rows; the CSS mirror follows. Charter at
+recomposition.
+
 ## Surprises & Discoveries
 
 - **The haze was never measured on the web side.** The residual that says so was quoted as the
@@ -597,6 +652,9 @@ wave with their numbers; the recomposition says so.
   light capture as control.
 - **The 2x reference is unstable across runs where the 1x is not**: 70 of 104 cells multi-state
   at 2x against 3 at 1x, one cell with no majority at all.
+- **A material change can remove a calibration cell with no stop to catch it.** At (0.70, 0.15)
+  the collapsed dark capsule loses its contour and two cells drop out of the bed.
+- **Two dry runs appended into one matrix read as one bed twice.** The gate failed on duplication.
 - **The field and W24's exponent double-count the lit corners.** Two terms on one diagonal, fitted
   apart; the near-null bins improve and the corners overshoot until they are fitted together.
 - **The level term's sign depends on which backdrops are counted.** One backdrop grades cleanly;
@@ -649,3 +707,5 @@ wave with their numbers; the recomposition says so.
 - 2026-09-09: G3 READ; Decision Log 6 — four constants declined on their checks, the field's
   corner confound with W24's exponent diagnosed, a joint re-fit ruled (G3b), the heavy width
   chartered as the next wave's.
+- 2026-09-10: G3b read; Decision Log 7 — the pair (0.85, 0.10) lands, the gain small and real; G4
+  dispatched; the heavy width chartered as W26 at recomposition.

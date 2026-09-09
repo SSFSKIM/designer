@@ -14669,3 +14669,71 @@ Decision Log 4 (d) resolved). The numbers are identical at 1x and 2x to the four
 
 **G3 opens** (Decision Log 5 (e)): every constant fitted on the probe set on the web captures of
 both tiers at both scales; the declaration; the holdout once.
+
+### 5.116 W25 G3 CLOSED: every constant fitted on the probe set — the along-side field lands jointly re-fitted with W24's exponent (0.85, 0.10), the thick solids' angular error at or under the 0.13.0 bed's and their corner-to-corner range error down an eighth; the heavy share, the 2x share, the level term and a 2x sharp anchor declined on their own checks with the heavy tap's saturated width as the measured cause; the holdout once, the floors held, the predicate unmoved (2026-09-10)
+
+**Evidence** `results/2026-09-09-w25-thick-span-composite/g3/` — `g3-dryrun.md` (G3 above its rule,
+G3b's re-declaration and run beside), `g3-fit-share.txt`, `g3-fit-level.txt`,
+`g3-fit-level-all-backdrops.txt`, `g3-fit-field.txt`, `g3b-fit.txt`, `g3b-bins.txt`,
+`g3b-stops.txt`, `g3b-floors.txt`, `g3b-gate.txt`, `g3b-delta-e.txt`, `g3b-digests.txt`,
+`g3b-goldens-attribution.txt`, `g3b-reduce.py`, `sheets/g3-1x.png` / `g3-2x.png`; merged
+`0011bf5`. Rulings in W25 Decision Log 6 and 7.
+
+**§1 The goldens first.** 33 / 33 byte-identical at the inert defaults after G2's re-form of the
+level term (`+ 0.0` on the GPU as on the CPU).
+
+**§2 The declines, each a measurement** (Decision Log 6 (a)). The 1x heavy share is identified on
+three rows — `impulse__rrect-ml` (0.674 native / 0.354 vitrea, implied lift 0.320),
+`impulse__rrect-lg` (0.727 / 0.492, 0.670), `impulse__rrect-md` (≈ 0.51, G2) — and every check off
+them runs the other way: the coarse checkerboards' width objective 0.2373 → 0.3402 at lift 0.45,
+nine probe rows past 0.002 ΔE and five already at lift 0.18, the probe mean +0.00018 against
+0.0001; the cause is vitrea's heavy component at 13.3 device px against the reference's 19.5, and
+its width is not a lever (`sizeScatterGainMax` 8 → 10.3 leaves 13.29 — the mip level saturates).
+The 2x share: 206 of 206 2x probe captures byte-identical at lift 0.50 (`sizeScatterFloor2x` = 1
+saturates `kDeep`), the constant with headroom reaching span 32 / 44 (X5). The level term:
+−0.0035 light / −0.0074 dark on the declared rows, +0.0046 / +0.0006 with every untinted probe
+backdrop counted, the RMS moving under a twentieth of a code — not identified (C9a §6.2); 32
+control rows at ≤ 96 at a lever of exactly 0.0000. A `blurSigma2x` sibling: reader A degenerates
+at 2x above the knee (sharp 11.80 / heavy 12.03, share pinned 1.000) and a per-scale sharp anchor
+reaches the thin capsule. **All four mechanisms stay at 0 with their rows named.**
+
+**§3 The field alone, and the confound** (Decision Log 6 (b)). At slope 0.45 alone: the near-null
+bins improve sharply (NNE 0.02837 → 0.00304 on the 1x light `dark-solid__rrect-md`) and the two lit
+corners overshoot (NW 0.14220 → 0.20344 against 0.12223); mean bin error improves on 5 rows (thin)
+and worsens on 9 (the thick solids); S11b fires as an error bound. W24's `rimLitExponent` was
+fitted with the position term absent on 285 bins that include the corner arcs, and the two terms
+peak on the same diagonal.
+
+**§4 The joint fit** (Decision Log 7 (a)). `rimLitExponent` 1.15 → 0.85, `rimAlongSideSlope` 0.45
+→ 0.10 on a rendered grid of 46 points over the plane, 54 rows / 864 bins and 58 rows / 220 sides
+(the untinted solids of both beds and the probe set, both scales, both schemes; holdout closed),
+the two readers weighted equal at the 0.13.0 material (w 0.3951) and the pick moving one grid
+step over ±50 % of it. Refused: the objective's minimum (0.55, 0.45), 5 of 28 thick rows improving;
+the allowed minimum (0.70, 0.15), at which the collapsed `dark-solid__capsule-button` loses its
+contour at 1x in both schemes and two calibration cells leave the bed. At the pair: thick bin
+error 0.17527 → 0.17208, range error 0.43269 → 0.37472, 16 thick rows improving / 12 worsening; on
+the named cell NW 0.20344 → 0.13740 (ref 0.12223), SE 0.20347 → 0.13867 (0.12739), the null
+−0.00078 → 0.00952 (0.03661), NNE 0.03902 → 0.07105 (0.03598); the check off the fitted rows
+(checkerboards) 19 improve / 17 worsen, worst +4.5 %. By the parent's eye on the 4× corner strips:
+the dim corners carry the faint rim the reference keeps where the 0.13.0 panel draws nothing, the
+lit corners no longer overshoot.
+
+**§5 The dry run at the pair.** Every stop clear — S1 +0.00003 / −0.00006, S2 0.00006, S7 0, S11a
+0.00276, S11b 5 of 8 canonical thick solid GPU rows improving and worst +0.00064, S12 +0.000009,
+S13 0 pixels outside a band, S14 +0.000009; S6's 33 CSS renders moved derivably (the arc integral
+0.90741 → 0.89686 of 2π); S10's seven held GPU cells the increased-contrast ones. Fourteen floors
+read, none breached, none moved; the gate 37 / 37, the predicate unmoved (G3's pair had moved it to
+33). The holdout, read once on this configuration: every group holds, 2x light CSS 0.01617 →
+0.01616; G3's earlier read is kept as the record of a configuration that did not land. Twelve
+goldens under `W25B_HASHES`, 0 pixels outside any contour band, 2–8 codes inside; the isolation
+proof's shadow bound narrowed to one code and named. Fingerprints light `290f52cb025fce7b` →
+`9b7806cdefd1d1d6`, dark `64ef5c3002d15009` → `eec7c2ea8dc89cae`; the dark patch unmoved. Two dry
+runs appended into one scratch matrix were read as one bed twice until reduced (tracker).
+
+**§6 Clauses.** 1 met at 1x (the triple with residuals; the sharp component span-flat to 6 %), and
+at 2x the reading is that the components are not separable above the knee; 2 not met on all three
+halves (sharp σ 35–40 % low, share 0.24–0.32 out, level 0.011 linear), each a declined constant;
+3 not met, untouched (the base's haze is the heavy share's); 4 and 5 answered; 6 met on every
+number; 7 the holdout once; 8 exactly as declared (84 of 85 CSS captures byte-identical at G3, the
+coherence pin worst 0.03268 against 0.05); 9 the sheets, the user's eye open. **G4 opens**
+(Decision Log 7 (d)); the heavy width is W26's (Decision Log 7 (e)).
