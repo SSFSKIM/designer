@@ -1,0 +1,71 @@
+W26 G0 deliverable 1 — how the heavy sample is taken today
+====================================================================================================
+
+THE ARITHMETIC. `wgsl/optics.ts` takes the body's deep sample as
+
+    gainEff    = size.x + (shadowSize.w - size.x) * farS      (one number at dpr 1)
+    scatterLod = clamp(size.w + log2(gainEff), 0, lens.w)
+
+`size.w` is `bodyChainLod` = `chainLodForSigma(bodySigmaTexels)` and `lens.w` is the
+pyramid plan's `maxLod`. On the bed at dpr 1:
+
+  blurSigma              1.25 device px, and `bodySigmaCssFor` divides by the
+                         ratio, so 1.2500 CSS px at dpr 1
+  texels per CSS px      1.0 — the backdrop raster is 320x200 for a
+                         320x200 CSS canvas, and the plan does not downscale it
+  bodySigmaTexels        1.2500
+  bodyChainLod           1.0589   (= 1 + log2(sigma / 1.2))
+  the chain              5 levels 320x200 -> 160x100 -> 80x50 -> 40x25 -> 20x12
+                         the next would be 10x6, whose
+                         shorter side is under MIN_LEVEL_EXTENT = 8, so the chain stops
+  chainMaxLod            4
+
+    gain  log2(gain)  asked lod  drawn lod  clamped  level sigma
+     4.0      2.0000     3.0589     3.0589    False        6.959
+     8.0      3.0000     4.0589     4.0000     True       13.418
+    10.3      3.3646     4.4235     4.0000     True       13.418
+    16.0      4.0000     5.0589     4.0000     True       13.418
+    32.0      5.0000     6.0589     4.0000     True       13.418
+
+  `level sigma` is the chain's OWN kernel at the drawn level, in level-0 texels (= device
+  px here), by half maximum, from `chain-kernel.txt`'s exact simulation of the 13-tap
+  downsample. It is not a Gaussian: kurtosis -0.23 at every level from 2 on, and the worst
+  deviation from the best-fitting Gaussian is 12% of the peak. Level n's width is
+  [1.542, 3.281, 6.679, 13.418, 26.867] at levels 1..5, NOT the advisory
+  CHAIN_SIGMA_AT_LEVEL_1 = 1.2 the plan inverts, which under-states level 1 by 24%.
+
+THE READING. W25 G0's reader A on the three impulse rows at dpr 1, light standard.
+Sigmas in DEVICE px; `native` is the reference fixture and is the same at every rung.
+
+  scene                          gain     src   sharp    heavy  share  sigmaEq
+  impulse__rrect-md__rest           -  native   2.794   19.520  0.473    5.570
+  impulse__rrect-ml__rest           -  native   2.740   23.269  0.674   15.129
+  impulse__rrect-lg__rest           -  native   2.768   14.672  0.727   10.147
+  impulse__rrect-md__rest         4.0     web   1.729    7.146  0.254    2.153
+  impulse__rrect-ml__rest         4.0     web   1.729    7.614  0.319    2.298
+  impulse__rrect-lg__rest         4.0     web   1.933    8.239  0.452    3.113
+
+  impulse__rrect-md__rest         8.0     web   1.668    9.083  0.233    2.009
+  impulse__rrect-ml__rest         8.0     web   1.662   14.361  0.354    2.395
+  impulse__rrect-lg__rest         8.0     web   1.733   19.782  0.492    4.189
+
+  impulse__rrect-md__rest        10.3     web   1.668    9.083  0.233    2.009
+  impulse__rrect-ml__rest        10.3     web   1.662   14.361  0.354    2.395
+  impulse__rrect-lg__rest        10.3     web   1.733   19.782  0.492    4.189
+
+  impulse__rrect-md__rest        16.0     web   1.668    9.083  0.233    2.009
+  impulse__rrect-ml__rest        16.0     web   1.662   14.361  0.354    2.395
+  impulse__rrect-lg__rest        16.0     web   1.733   19.782  0.492    4.189
+
+  impulse__rrect-md__rest        32.0     web   1.668    9.083  0.233    2.009
+  impulse__rrect-ml__rest        32.0     web   1.662   14.361  0.354    2.395
+  impulse__rrect-lg__rest        32.0     web   1.733   19.782  0.492    4.189
+
+WHY THE WIDTH SATURATES. `bodyChainLod + log2(8)` is 4.0589 and `chainMaxLod` is 4, so the
+clamp has been holding since the material was fitted: gains 8, 10.3, 16 and 32 all draw
+level 4 and the three rows read the same three widths at every one of them, to the
+last digit. Gain 4 asks for level 3.06, which the chain has, and it is the ONLY rung
+that moves. The cause is not the material and not the reader: it is that
+`planPyramid` stops the chain when the shorter side would fall below MIN_LEVEL_EXTENT,
+so a 320x200 backdrop has no level above 4, and the pyramid's widths are octaves — the
+gain can only ask for a level that exists.

@@ -1077,6 +1077,74 @@ export interface MaterialProfile {
   readonly sizeToneLevelFar: number;
 
   /**
+   * **The heavy tap's width, as a parameter** (W26 G0; W26 Decision Log 1, from
+   * the measured cause in claims §5.116 §2) — the three candidate mechanisms the
+   * spike built, each one constant, each inert at its default.
+   *
+   * W25 could not raise the heavy share because vitrea's heavy component is
+   * 13.3 device px at 1x against the reference's 19.5, and raising the share at
+   * the wrong width adds narrow structure the reference does not have. The width
+   * was not a lever: `sizeScatterGainMax` 8 → 10.3 left reader A at 13.29. G0's
+   * measurement of why is `results/2026-09-10-w26-heavy-width/g0/tap-today.txt`
+   * and `chain-kernel.txt`, and it is arithmetic rather than material. The body's
+   * deep sample is
+   *
+   * ```
+   * scatterLod = clamp(bodyChainLod + log2(gain), 0, chainMaxLod)
+   * ```
+   *
+   * `chainMaxLod` is `planPyramid`'s `levelCount − 1`, and the chain stops when
+   * the shorter side would fall below `MIN_LEVEL_EXTENT` = 8. On the bed's
+   * 320 × 200 backdrop raster the chain is five levels, so `chainMaxLod` is **4**
+   * at dpr 1, and `bodyChainLod + log2(8)` is 4.06 — **already past the clamp**.
+   * Every gain at or above 7.5 draws the same level 4, whose own kernel is
+   * 13.4 level-0 texels wide (`CHAIN_LEVEL_SIGMA`) — which is the 13.3 the ledger
+   * recorded. G0's renders read the three impulse rows identical to the last digit
+   * at gains 8, 10.3, 16 and 32, and moved only at gain 4, which asks for level
+   * 3.06 and gets it. So the gain is not a width lever at
+   * dpr 1 because the pyramid has no level above the one it already reads, and
+   * `sizeScatterGainMax`, `sizeScatterGainMax2x` and `sizeScatterGainFar2x` grade
+   * a quantity the clamp then discards.
+   *
+   * **`sizeHeavyLevelOffset`** — candidate (i), a fractional pyramid level: an
+   * offset added to `scatterLod` before the same clamp, so the tap is trilinear
+   * between two mips at a non-integer level. Inert at 0. It cannot move the width
+   * upward at dpr 1 for the reason above: there is no level 5 to interpolate
+   * toward, and the clamp holds. Kept because it is the cheapest of the three
+   * where the chain is deep enough to carry it, and because a NEGATIVE offset is
+   * a real narrowing lever at both scales.
+   *
+   * **`sizeHeavyTapSigma` / `sizeHeavyTapSigma2x`** — candidate (ii), a Gaussian
+   * at the tap, in **device px**, resolved per scale by `rampAtScale` because the
+   * reference's heavy component is a device-px quantity that halves between the
+   * scales (19.52 at 1x, 11.29 at 2x; claims §5.113 §2). At 0 the tap is exactly
+   * the single `textureSampleLevel` the material has always taken, so the default
+   * is byte-identical. Above 0 the CPU resolves the constant into the chain level
+   * whose own blur is nearest below it and the residual σ in that level's texels
+   * (`heavyTapPlan`), and the optics pass convolves a 7 × 7 grid of that level at
+   * one-texel spacing. The width is then a continuous function of the constant
+   * and is bounded only by the level the chain can supply the residual over — not
+   * by `chainMaxLod`, because the Gaussian carries the octave the chain lacks.
+   *
+   * **`sizeHeavySecondShare`** — candidate (iii), a second chain level blended
+   * with the first by a share: the tap at `scatterLod` mixed toward the tap at
+   * `scatterLod + 1` under the same clamp. Inert at 0. Where `scatterLod` is
+   * already at `chainMaxLod` — which is every 1x row on this bed — both taps are
+   * the same level and the constant is a no-op at every value, so it is a width
+   * lever only below the clamp, and then only within one octave.
+   *
+   * All three are **inert at their defaults**, and the goldens and the bed's
+   * `rrect-sm` cells are byte-identical there: the level offset is one addition
+   * of zero, the share one `mix` at zero, and the tap σ gates a branch on a
+   * uniform. G1 fits whichever one G0's verdict names; the other two stay as the
+   * measurement that named it.
+   */
+  readonly sizeHeavyLevelOffset: number;
+  readonly sizeHeavyTapSigma: number;
+  readonly sizeHeavyTapSigma2x: number;
+  readonly sizeHeavySecondShare: number;
+
+  /**
    * The occlusion gain — "a larger size is more opaque. A smaller size is
    * clearer" (S284). The fraction of the *remaining* transparency the size law
    * closes at full size.
@@ -2073,6 +2141,17 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   sizeScatterHeavyShareThick1x: 0,
   sizeScatterHeavyShareThick2x: 0,
   sizeToneLevelFar: 0,
+
+  // W26 G0's three candidate heavy taps, all INERT at the defaults (W26 Decision
+  // Log 1; claims §5.116 §2). The level offset is one addition of zero to
+  // `scatterLod`, the second-level share one `mix` at zero, and the tap σ gates a
+  // branch on a uniform — so the resolved material and every golden are
+  // byte-identical to the 0.14.0 bed. What the ladder read is recorded in
+  // `results/2026-09-10-w26-heavy-width/g0/mapping.txt`.
+  sizeHeavyLevelOffset: 0,
+  sizeHeavyTapSigma: 0,
+  sizeHeavyTapSigma2x: 0,
+  sizeHeavySecondShare: 0,
   sizeOcclusionGain: 0.05,
   sizeShadowGainMax: 1,
 
@@ -2538,6 +2617,10 @@ export interface MaterialProfilePatch {
   readonly sizeScatterHeavyShareThick1x?: number;
   readonly sizeScatterHeavyShareThick2x?: number;
   readonly sizeToneLevelFar?: number;
+  readonly sizeHeavyLevelOffset?: number;
+  readonly sizeHeavyTapSigma?: number;
+  readonly sizeHeavyTapSigma2x?: number;
+  readonly sizeHeavySecondShare?: number;
   readonly sizeOcclusionGain?: number;
   readonly sizeShadowGainMax?: number;
   readonly lensRefractionGain?: number;
@@ -2675,6 +2758,10 @@ export function withMaterialOverrides(
     sizeScatterHeavyShareThick2x:
       patch.sizeScatterHeavyShareThick2x ?? base.sizeScatterHeavyShareThick2x,
     sizeToneLevelFar: patch.sizeToneLevelFar ?? base.sizeToneLevelFar,
+    sizeHeavyLevelOffset: patch.sizeHeavyLevelOffset ?? base.sizeHeavyLevelOffset,
+    sizeHeavyTapSigma: patch.sizeHeavyTapSigma ?? base.sizeHeavyTapSigma,
+    sizeHeavyTapSigma2x: patch.sizeHeavyTapSigma2x ?? base.sizeHeavyTapSigma2x,
+    sizeHeavySecondShare: patch.sizeHeavySecondShare ?? base.sizeHeavySecondShare,
     sizeOcclusionGain: patch.sizeOcclusionGain ?? base.sizeOcclusionGain,
     sizeShadowGainMax: patch.sizeShadowGainMax ?? base.sizeShadowGainMax,
     lensRefractionGain: patch.lensRefractionGain ?? base.lensRefractionGain,
@@ -3660,6 +3747,25 @@ export function scatterHeavyShareThickAtScale(
     profile.sizeScatterHeavyShareThick2x,
     devicePixelRatio,
   );
+}
+
+/**
+ * **The heavy tap's Gaussian σ at a device scale, in device px** (W26 G0;
+ * W26 Decision Log 1) — candidate (ii)'s one constant, resolved per scale.
+ *
+ * Per scale because the reference's heavy component is a device-px quantity that
+ * halves between the scales (19.52 at 1x, 11.29 at 2x; claims §5.113 §2), so one
+ * number cannot serve both. Interpolated by `rampAtScale` on the pattern
+ * `sizeScatterGainMax2x` established, which means a profile naming only the 1x σ
+ * drags the 2x end toward the 2x constant's own default — so a rung that reads
+ * both scales names both ends. On the landed material both are 0 and this is the
+ * constant zero, which is what makes the mechanism inert.
+ */
+export function heavyTapSigmaAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(profile.sizeHeavyTapSigma, profile.sizeHeavyTapSigma2x, devicePixelRatio);
 }
 
 /**

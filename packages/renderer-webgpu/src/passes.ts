@@ -169,6 +169,26 @@ export interface OpticsPassArgs {
   readonly rimAlongSideSlope: number;
   readonly sizeScatterHeavyShareThick: number;
   readonly sizeToneLevelFar: number;
+  /**
+   * W26 G0's three candidate heavy taps (W26 Decision Log 1; the measured cause
+   * in claims §5.116 §2), each 0 or off on the landed material.
+   *
+   * `heavyLevelOffset` is candidate (i), added to `scatterLod` before the same
+   * clamp. `heavySecondShare` is candidate (iii), the share of the next chain
+   * level. Candidate (ii) arrives already planned: the renderer has resolved the
+   * profile's σ in device px through the pyramid into the level to tap, the
+   * residual σ in that level's texels and the uv extent of one of them, because
+   * the CSS-px-to-texel conversion is knowable only where the chain was built —
+   * the same rule `bodyChainLod` and the shadow's lift LOD already follow.
+   * `heavyTapEnabled` is carried separately from the σ because a width that lands
+   * exactly on a chain level has residual σ 0 and is still a width.
+   */
+  readonly heavyLevelOffset: number;
+  readonly heavySecondShare: number;
+  readonly heavyTapEnabled: boolean;
+  readonly heavyTapLevel: number;
+  readonly heavyTapResidualSigmaTexels: number;
+  readonly heavyTapStepUv: readonly [number, number];
   readonly rimTintChroma: number;
   readonly lightDirection: readonly [number, number];
   readonly shadowDepth: number;
@@ -622,7 +642,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.groupId}`, 108);
+      const slot = uniformSlot(`optics:${args.groupId}`, 116);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -787,6 +807,21 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[105] = args.sizeToneLevelFar;
       d[106] = 0;
       d[107] = 0;
+      // W26 G0's three candidate heavy taps (W26 Decision Log 1). Two vec4s of
+      // their own: the tap's plan is four numbers the CPU resolved through the
+      // pyramid and there is no block above with four free slots, and a width
+      // living in the thick-span composite's padding would be a layout nobody
+      // could read. At the inert defaults `d[108]` and `d[111]` are zero — one
+      // addition of zero on `scatterLod` and one `mix` at zero — and `d[114]`
+      // stands the Gaussian tap's branch down, so the pass is the 0.14.0 bytes.
+      d[108] = args.heavyLevelOffset;
+      d[109] = args.heavyTapResidualSigmaTexels;
+      d[110] = args.heavyTapLevel;
+      d[111] = args.heavySecondShare;
+      d[112] = args.heavyTapStepUv[0];
+      d[113] = args.heavyTapStepUv[1];
+      d[114] = args.heavyTapEnabled ? 1 : 0;
+      d[115] = 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

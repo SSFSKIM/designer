@@ -133,8 +133,8 @@ the user's eye; X7 the dark profile a difference document.
 
 | child | status |
 | --- | --- |
-| G0 — the heavy tap as a parameter | DISPATCHED 2026-09-10 |
-| G1 — the width, the share, the lever, the level | — |
+| G0 — the heavy tap as a parameter | CLOSED 2026-09-10 (claims §5.119) |
+| G1 — the width, the share, the lever, the level | READY (Decision Log 2) |
 | G2 — declared and dry-run | — |
 | G3 — the landing | — |
 
@@ -148,7 +148,56 @@ reader is the failure mode W25's share fit found. The share, the 2x lever and th
 only after the width is a lever. The 0.14.0 cut stands unpublished until the user's eye; this wave
 lands as 0.15.0.
 
+### Decision Log 2 — G0's verdict: the Gaussian at the tap, with two conditions (2026-09-10; claims §5.119)
+
+(a) **The mechanism is candidate (ii)**, a Gaussian at the tap over a chosen chain level, and the
+choice is not a judgement between three working options: candidates (i) and (iii) are inert at
+dpr 1 **to the bit** (18 / 18 1x captures byte-identical at every value; 16 / 18 2x captures
+differing), because `scatterLod` is already at `chainMaxLod` and the chain has no level 5 on a
+320 × 200 raster. The saturation §5.116 §2 measured is the clamp, and the clamp is the pyramid's
+own last level.
+
+(b) **The cost is real and the fix is structural.** The 9 × 9 in-shader grid costs +1.1 ms on the
+optics pass (1.416 → 2.528 ms; the frame 134 % → 218 % of the ~2 ms hypothesis). G1 builds the
+width as a **third pyramid texture through the existing separable body blur** — 0.070 ms on the
+same bench row — which is the same width exactly and continuously, at the cost of being one width
+per source rather than per pixel. §5.113 §4 ("the width does not grade above 96 at any pitch") is
+what says the material can afford that; `sizeScatterGainFar2x`'s span grading is then re-expressed
+or retired, and that is a decision for G1's declaration.
+
+(c) **The 1x width is not fitted on the 1x impulse rows.** Reader A's window on `impulse` is half
+the 64 CSS px dot pitch — 30 device px at 1x — and a 19.5 device px heavy component does not fit
+in it; the reader parks on its own bound above σ ≈ 17 and the 1x ladder is non-monotone while the
+2x ladder over the same constant is monotone on an identical drawn kernel. So **clause 1's ladder
+is re-stated onto the 2x rows**, and the 1x constant is carried down by §5.113 §2's halving or
+fitted on a wider-pitch impulse probe fixture. The 1x reading of the reference (19.52) sits at the
+same edge and is quoted with that caveat from here on.
+
+(d) **The coarse checkerboards' single-width objective is retired as the share's off-row check.**
+At the reference's own width it still runs the wrong way, and so does the width alone (§5.119 §7),
+because those readers are dominated by the kernel's core and §5.113 §2 already measured vitrea
+32–46 % too wide there. The residual it carries belongs to the SHARP component. G1's off-row check
+has to separate the two components, and the sharp width becomes a named quantity of this wave
+rather than W25's declined `blurSigma2x` sibling.
+
+(e) **The 2x width is reachable with `sizeScatterFloor2x` = 1 in place** — one constant at 11.3
+device px puts reader A's heavy at 12.22 / 11.95 / 12.04 against the reference's 11.29 / 12.03 /
+16.92 — so the floor question stays what W25 left it as: the SHARE's, not the width's.
+
 ## Surprises & Discoveries
+
+- **The gain was never a width.** `bodyChainLod + log2(8)` = 4.0589 against a `chainMaxLod` of 4:
+  the material has been clamped since W11c fitted it, and W15 G1's 2x re-form fitted two more
+  constants (`sizeScatterGainMax2x`, `sizeScatterGainFar2x`) onto the same axis. They were fitted
+  on a real objective and they moved it — at dpr 2, where the chain is a level deeper and the clamp
+  does not bite. What the ledger read as a material law is partly a property of the backdrop
+  raster's size, and a larger backdrop would give the same profile a different heavy width.
+- **`CHAIN_SIGMA_AT_LEVEL_1` is 24 % low.** The simulated chain reads 1.570 texels at level 1, not
+  1.2. It is declared advisory and the body blur's residual pass absorbs it, so nothing is wrong —
+  but every "the chain's blur is about σ" statement in the codebase inherits it.
+- **Reader A's per-row spread at one known width is ±40 % and its median is exact.** At the 0.14.0
+  material the three 1x impulse rows read 9.08 / 14.36 / 19.78 for a drawn kernel of 13.42; the
+  median is right to 7 %. Any per-row acceptance on this reader at 1x is reading the instrument.
 
 ## Outcomes & Retrospective
 
@@ -157,3 +206,6 @@ lands as 0.15.0.
 ## Revision Notes
 
 - 2026-09-10: chartered; G0 dispatched.
+- 2026-09-10: G0 CLOSED (claims §5.119). Three candidates merged inert, the goldens and the bed's
+  36 rows byte-identical at the defaults; Decision Log 2 records the verdict and re-states clause 1
+  onto the 2x rows. G1 ready.

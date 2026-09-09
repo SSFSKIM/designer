@@ -14809,3 +14809,93 @@ adaptation of a small surface over a bright backdrop in the dark scheme; the 2x 
 run-to-run instability and the one cell with no majority; the contour instrument's refusal on
 flat-cornered dark squares; the demo page's coupling to `scenes.json`; the CSS tier's tone
 response before a source's first frame. All in the tracker.
+
+### 5.119 W26 G0 CLOSED: the heavy tap's saturation is the pyramid's own last level, not the material — the gain has been clamped since it was fitted, and the only one of three candidate mechanisms that widens the sample at dpr 1 is a Gaussian at the tap; the 2x width lands on the reference at one constant with the floor untouched, and the checkerboards' single-width objective is a check on the SHARP component at any width (2026-09-10)
+
+**Evidence** `results/2026-09-10-w26-heavy-width/g0/` — `g0-findings.md`, `chain-kernel.txt`,
+`tap-today.txt`, `mapping.txt`, `share-at-width.txt` and the scripts beside them;
+`packages/renderer-webgpu/test/heavy-width.test.ts`; the bench row `mobile-390x844@3 heavy-tap` in
+`e2e/bench/budget.spec.ts`. A spike: three mechanisms merged inert, nothing fitted. Read-only on
+the fixtures and the canonical captures; every render to scratch.
+
+**§1 The cause, and it is arithmetic.** `scatterLod = clamp(bodyChainLod + log2(gainEff), 0,
+chainMaxLod)`. On the bed's 320 × 200 backdrop raster the chain is five levels — the sixth would be
+10 × 6 and `MIN_LEVEL_EXTENT` is 8 — so `chainMaxLod` is **4** at dpr 1, and `bodyChainLod` is
+**1.0589**, which makes `bodyChainLod + log2(8)` **4.0589**. The clamp has been holding since W11c
+fitted the gain. Rendered at `sizeScatterGainMax` 4 / 8 / 10.3 / 16 / 32, reader A returns the same
+three widths at 8, 10.3, 16 and 32 **to the last digit** (`impulse__rrect-md` / `-ml` / `-lg`:
+9.083 / 14.361 / 19.782 device px) and moves only at gain 4, which asks for level 3.06 and gets it.
+§5.116 §2's "8 → 10.3 leaves 13.29" reproduced with its cause: the gain grades a quantity the clamp
+discards, and so do `sizeScatterGainMax2x` and `sizeScatterGainFar2x` wherever they saturate.
+`tap-today.txt`.
+
+**§2 The chain's own kernel, simulated exactly** (`WGSL_DOWNSAMPLE_PASS` on a level-0 delta, read
+back as `textureSampleLevel` reads it): the 13 taps all land on half-integer positions, so each is
+an exact 2 × 2 box average. Second-moment σ **1.570 / 3.340 / 6.799 / 13.660 / 27.351** level-0
+texels at levels 1…5, doubling from level 2 on, **kurtosis −0.23 at every level** — platykurtic,
+self-similar, 12 % of peak from the best-fitting Gaussian. Level 4 is **13.42 device px** by half
+maximum, which is the 13.3 the ledger recorded, against the reference's 19.52. **`CHAIN_SIGMA_AT_LEVEL_1`
+= 1.2 under-states level 1 by 24 %**; it is advisory and the body blur's residual absorbs it, and
+this wave carries a measured table (`CHAIN_LEVEL_SIGMA`) for the tap, which cannot.
+`chain-kernel.txt`.
+
+**§3 Two of the three candidates are inert at dpr 1 to the bit.** Against the inert default, over
+18 ladder rows per profile: a fractional level offset of +0.5 or +1.0, and a second-level share of
+0.25, 0.50 or 1.00, each leave **18 / 18 1x captures byte-identical and 16 / 18 2x captures
+differing**. There is no level 5 on this chain to interpolate toward and the second tap IS the
+first tap where `scatterLod` is already `chainMaxLod`. The level offset is a real NARROWING lever
+(−1.0 takes the 1x median 14.36 → 7.61) and both reach the 2x material, where the chain is a level
+deeper and the gain has not saturated; neither widens at 1x, which is what the wave needs.
+`mapping.txt`.
+
+**§4 The Gaussian at the tap is the mechanism, and its cost is measured.** The CPU resolves a σ in
+device px into a chain level, a residual σ in that level's texels and a uv step; the pass convolves
+a 9 × 9 grid at one-texel spacing, renormalised, so the clamp is no longer a ceiling on the result.
+Monotone at 2x over σ 10 → 25 (read median 10.5 / 14.2 / 17.9 / 22.9 / 35.3 / 54.3), **within
+11–13 % of the simulated prediction up to σ 16** and outside 10 % above it. **Cost** on
+`apple / metal-3`, 60 interleaved rounds, the mobile 390 × 844 @ 3 bench scene: the optics pass
+**1.416 → 2.528 ms** and the frame **2.684 → 4.356 ms**, 134 % → 218 % of the ~2 ms hypothesis,
+ordering control 2.822. Inherent to an in-shader tap — a fragment pass cannot separate a 2D
+Gaussian — and **not** inherent to the mechanism: the chain already carries a dedicated separable
+body blur at 0.070 ms on the same row, and a third pyramid texture built the same way delivers the
+same width for about that price, at the cost of one width per source rather than per pixel (which
+§5.113 §4's "the width does not grade above 96" says the material can afford). Recorded as G1's
+structural fix.
+
+**§5 The 2x width lands on the reference with `sizeScatterFloor2x` = 1 in place.** At
+`sizeHeavyTapSigma2x` 11.3 reader A reads **12.22 / 11.95 / 12.04** device px on `rrect-md` /
+`-ml` / `-lg` against the reference's 11.29 / 12.03 / 16.92 — within 8 % and 0.7 % on the first two.
+The floor saturates `kDeep`, which is the SHARE; the tap's width is a different mechanism and the
+floor does not reach it. §5.116 §2's 2x share is still inert (the lift-0 and lift-0.45 2x columns
+are identical), and that is unchanged by the width.
+
+**§6 The 1x ladder is not readable with the instrument as it stands.** At 1x reader A returns
+14.66 / 14.84 / 16.99 / 12.91 / 61.75 / 61.75 across σ 10 → 25 — non-monotone, the last two parked
+on its own `delta ≤ 60·scale` bound. The DRAWN kernel is identical in device px at both scales at
+the same σ (same plan, same level, same residual), so the disagreement is the reader: its window on
+`impulse` is half the 64 CSS px dot pitch, 30 device px at 1x against 60 at 2x, and a 19.5 device
+px heavy component does not fit in it. The reference's own 1x reading of 19.52 sits at that edge,
+and vitrea's 1x per-row spread at one true width of 13.42 (9.08 / 14.36 / 19.78, median exact) is
+the same effect. **G1 fits the 1x width on the 2x rows and the halving, or on a wider-pitch impulse
+probe fixture** — not on these rows as they stand.
+
+**§7 The coarse checkerboards' single-width objective is a check on the SHARP component.** W25 G3's
+`share_check` restated over four rungs (mean |log(web/native)|, readers B and C, `checkerboard-32`
+/ `-64`, spans ≥ 96, light standard): 0.14.0 **0.2253 / 0.0964** (1x / 2x); the lift 0.45 at the old
+width **0.3457 / 0.0964**; **the right width alone 0.3438 / 0.2142**; both **0.4340 / 0.2142**. The
+lift's direction is unchanged by the width and the width alone makes it worse at both scales —
+coherent with §5.113 §2's own reading that vitrea is already **32–46 % too wide at 1x** on these
+rows on both readers. A single-Gaussian reader at a 32 or 64 CSS px pitch is dominated by the
+kernel's core. **W25 was right to decline the share on this check and wrong to expect a width to
+reverse it**; an off-row check for the heavy width has to separate the two components.
+`share-at-width.txt`.
+
+**§8 What the spike touched.** `resolvedMaterialSha256` in both profile documents,
+`9b7806cdefd1d1d6 → 4475b4dfa6155ce7` (light) and `eec7c2ea8dc89cae → 25a12c887e5b51cb` (dark),
+with a `$comment-w26-g0` beside each. The digest is over the fully RESOLVED material, so four
+constants added at zero move it while no value and no pixel does: **33 / 33 renderer goldens
+byte-identical** and **36 / 36 re-rendered bed captures byte-identical to the canonical 0.14.0
+bytes**, the four canonical `rrect-sm` cells among them. X5 held at every rung, worst thin-row ΔE
+0.00136 at σ 25 and ≤ 0.00071 inside the range the wave wants.
+
+**G1 opens** on §4's structural fix, §6's instrument question and §7's row set.

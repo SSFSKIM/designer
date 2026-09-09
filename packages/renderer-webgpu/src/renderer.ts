@@ -90,6 +90,7 @@ import {
   scatterFloorAtScale,
   scatterGainAtScale,
   scatterGainFarAtScale,
+  heavyTapSigmaAtScale,
   scatterHeavyShareThickAtScale,
   scatterRampReachDevicePx,
   scatterRampStart,
@@ -103,7 +104,7 @@ import {
 } from "./material";
 import { createPassRunner, type DeviceRect, type PassRunner } from "./passes";
 import { createPyramidStore, type PyramidResources, type PyramidStore } from "./pyramid";
-import { chainLodForSigma, type ResolutionPolicyView } from "./pyramid-plan";
+import { chainLodForSigma, heavyTapPlan, type ResolutionPolicyView } from "./pyramid-plan";
 import type {
   FrameContextView,
   FrameParticipantView,
@@ -444,6 +445,48 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
    * measured term that exists on that source, and the sweep's amplitude absorbs
    * the difference.
    */
+  /**
+   * The heavy tap's plan (W26 G0, candidate (ii); W26 Decision Log 1) — the
+   * profile's σ in DEVICE px turned into the chain level to tap, the residual σ
+   * in that level's own texels and the uv extent of one of them.
+   *
+   * The conversion is knowable only here, for `bodyChainLod`'s reason: it needs
+   * the source's texels per CSS px and the downscale the plan applied, which is
+   * the pyramid's own record of how it was built. The σ is divided by the ratio
+   * for `bodySigmaCssFor`'s reason too — the widths on this tier are device-pixel
+   * quantities (W12 G3, claims §5.56 §1), so the same material asks for half as
+   * many CSS px of haze at dpr 2, and the chain is measured in source texels.
+   *
+   * At σ 0, or with no chain to tap, the tap stands down and the pass takes the
+   * single `textureSampleLevel` it has always taken.
+   */
+  const heavyTapArgs = (
+    sigmaDev: number,
+    pyramid: PyramidResources | undefined,
+  ): {
+    heavyTapEnabled: boolean;
+    heavyTapLevel: number;
+    heavyTapResidualSigmaTexels: number;
+    heavyTapStepUv: readonly [number, number];
+  } => {
+    const off = {
+      heavyTapEnabled: false,
+      heavyTapLevel: 0,
+      heavyTapResidualSigmaTexels: 0,
+      heavyTapStepUv: [0, 0] as const,
+    };
+    if (pyramid === undefined || !(sigmaDev > 0)) return off;
+    const planScale = pyramid.sourceWidth > 0 ? pyramid.plan.width / pyramid.sourceWidth : 1;
+    const sigmaCss = sigmaDev / Math.max(viewport.devicePixelRatio, 1e-3);
+    const plan = heavyTapPlan(sigmaCss * pyramid.texelsPerCss * planScale, pyramid.plan);
+    return {
+      heavyTapEnabled: true,
+      heavyTapLevel: plan.level,
+      heavyTapResidualSigmaTexels: plan.residualSigmaTexels,
+      heavyTapStepUv: plan.stepUv,
+    };
+  };
+
   const liftChainLod = (sigmaCss: number, pyramid: PyramidResources | undefined): number => {
     if (pyramid === undefined || !(sigmaCss > 0)) return 0;
     const planScale = pyramid.sourceWidth > 0 ? pyramid.plan.width / pyramid.sourceWidth : 1;
@@ -989,6 +1032,16 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         rimAlongSideSlope: optics.rimAlongSideSlope,
         sizeScatterHeavyShareThick: scatterHeavyShareThickAtScale(material, dpr),
         sizeToneLevelFar: material.sizeToneLevelFar,
+        // W26 G0's three candidate heavy taps (W26 Decision Log 1). The level
+        // offset and the second-level share are profile constants the shader
+        // reads directly; the Gaussian tap's σ is a DEVICE-px quantity that has
+        // to become a chain level, a residual σ in that level's texels and a uv
+        // step, and only the pyramid that built the chain knows the conversion —
+        // the same reason `bodyChainLod` and the shadow's lift LOD are resolved
+        // here (`heavyTapArgs`).
+        heavyLevelOffset: material.sizeHeavyLevelOffset,
+        heavySecondShare: material.sizeHeavySecondShare,
+        ...heavyTapArgs(heavyTapSigmaAtScale(material, dpr), pyramid),
         shadowDepth: optics.shadowDepth,
         shadowAlpha: optics.shadowAlpha,
         // The size law's gains, per group (W2); the per-pixel factor they

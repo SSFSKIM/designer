@@ -100,6 +100,42 @@ const CONFIGS = [
       },
     },
   },
+  /**
+   * W26 G0's heavy tap ON, at the reference's own 1x width (W26 Decision Log 1).
+   *
+   * `shadow-off`'s row measures a facet by taking it away; this one measures a
+   * facet by switching it on, because the whole question G0 was dispatched with
+   * is what a width that is a parameter COSTS. The mechanism replaces the optics
+   * pass's single `textureSampleLevel` of the backdrop chain with a 9 × 9 grid of
+   * them over one chosen level — 81 reads per covered pixel instead of one — so
+   * the cost is the optics pass's and it scales with the glass's own area rather
+   * than with the viewport.
+   *
+   * **The verdict, recorded rather than asserted, as this file's rule is.** On
+   * `apple / metal-3`, 60 interleaved rounds: the optics pass goes **1.416 →
+   * 2.528 ms** and the frame **2.684 → 4.356 ms**, from 134 % of the ~2 ms
+   * hypothesis to 218 %, with the ordering control at 2.822 so the 5 % drift is
+   * smaller than the effect. That is +1.1 ms on the pass for 80 extra reads of a
+   * 40 × 25-texel level, and it is the mechanism's footprint rather than an
+   * inefficiency in how it is drawn — a fragment pass cannot separate a 2D
+   * Gaussian, so the square grid is what an in-shader tap costs.
+   *
+   * What is NOT inherent is doing it per covered pixel at all. The chain already
+   * carries a dedicated separable body blur — two passes per source per frame,
+   * `body-blur` = 0.070 ms on this row — and a heavy blur built the same way
+   * would deliver the same width for about the same price, at the cost of being
+   * one width per source rather than per pixel. The reference's heavy width does
+   * not grade with the span at 1x (claims §5.113 §4), so that is a trade the
+   * material can afford; it is recorded here as the structural fix for G1 rather
+   * than taken by a spike.
+   */
+  {
+    label: "mobile-390x844@3 heavy-tap",
+    widthCss: 390,
+    heightCss: 844,
+    devicePixelRatio: 3,
+    materialProfile: { sizeHeavyTapSigma: 19.5, sizeHeavyTapSigma2x: 11.3 },
+  },
   // The ordering control: the first config again. Interleaved, it should land on
   // the first row's number; if it does not, nothing else in the table is
   // comparable either.
