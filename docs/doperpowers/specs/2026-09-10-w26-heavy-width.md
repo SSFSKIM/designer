@@ -39,6 +39,10 @@ Binding; the numbers are W25's readers' and the declaring child re-declares them
    of the reference's at both scales, and the coarse checkerboards' single-width objective
    (readers B / C) IMPROVING with the share rather than worsening; the level within 0.002 or the
    read says which backdrops disagree.
+   *Re-stated 2026-09-10 (Decision Log 4 (h)), the original kept:* the thick body's kernel matches
+   the reference's as an MTF over 1/64 → 1/8 cycles per device px within 15 % at every band, both
+   identified by G1b's non-parametric instrument under its control; the share is the kernel's own
+   mass split where the identified kernel has two parts, not a two-Gaussian reader's number.
 3. **The nested base is Apple's** (W25 clause 3): its σ-match within 15 % of the reference's at
    both scales in both schemes, neither side saturated; the overlay's sign held.
 4. **The collapsed dot's width** (W24 clause 2's carried half): the FWHM through
@@ -170,8 +174,9 @@ the user's eye; X7 the dark profile a difference document.
 | child | status |
 | --- | --- |
 | G0 — the heavy tap as a parameter | CLOSED 2026-09-10 (claims §5.119) |
-| G1 — the width, the share, the lever, the level | DELIVERED 2026-09-10 (claims §5.120 DRAFT; Decision Log 3 DRAFT — two rulings open) |
-| G2 — declared and dry-run | — |
+| G1 — the width, the share, the lever, the level | CLOSED 2026-09-10 (claims §5.120; Decision Logs 3–4; merged at `d306214` after the review's two fixes at `d06fe3c`) |
+| G1b — Apple's kernel identified without a shape assumption (spike) | DISPATCHED 2026-09-10 (Decision Log 4 (h)) |
+| G2 — declared and dry-run | blocked-by G1b |
 | G3 — the landing | — |
 
 ## Decision Log
@@ -346,6 +351,21 @@ should have had, and building it is what turned the disagreement from a puzzle i
 The wider-pitch impulse probe scene stays the fallback for the impulse-side reading and drops to
 second priority.
 
+(h) **The parent's ruling on (f) and (g)** (the parent, 2026-09-10). G1 is closed and merged with
+its candidate (`sizeHeavyTapSigma` 13.418 named, `sizeHeavyTapSigma2x` 10.3 fitted, four constants
+declined); the independent review found two real defects in the heavy texture's lifetime (retained
+after the width returned to 0; a tolerance compare that kept a stale texture at σ near 0), both
+fixed with their tests before the merge. (g) is taken as a child of this wave rather than deferred:
+**G1b**, a spike, recovers the reference's point spread non-parametrically (a radial profile fitted
+jointly across every thick untinted probe backdrop of one surface at one scale), with the control
+binding — the pipeline must reproduce vitrea's own known kernel's MTF within 10 % between 1/64 and
+1/8 cycles per device px before it reads the reference. G2 is blocked on its verdict. On (f):
+clause 2's "heavy σ within 15 %" is re-stated for this wave beside the original, not rewritten —
+the thick body's kernel is compared to the reference's as an MTF over 1/64 → 1/8 cycles per device
+px, identified by G1b's instrument, within 15 % at every band; a two-Gaussian σ is quoted only
+with the backdrop it was read through. If G1b's control fails, the 1x width stays named at 13.418
+and W26 lands the mechanism and the 2x width, with the identification carried as the next wave.
+
 ## Surprises & Discoveries
 
 - **A scratch rung is not a rehearsal of a landing.** The dark difference document resolves over
@@ -415,3 +435,7 @@ second priority.
   still declined because the reference's 1x heavy component is not identified — a factor of 3 between
   instruments after each is debiased against vitrea's own known kernel. The dark bed re-captured with
   the candidate in both documents. The candidate is unchanged.
+- 2026-09-10: G1 CLOSED and merged (`d306214`); the review's two lifetime defects fixed at
+  `d06fe3c`. Decision Log 4 (h): G1b (the kernel identified without a shape assumption, a spike
+  with a binding control) dispatched ahead of G2; clause 2 re-stated beside the original as an MTF
+  match.

@@ -15068,3 +15068,14 @@ more backdrops of one surface and **validated first on vitrea's own known kernel
 every reader in this wave should have had and only §7.6 built. The wider-pitch impulse probe of §2
 remains the fallback and is now second priority, because a better fixture does not help an
 unidentified target.
+
+**Addendum (the parent, 2026-09-10; W26 Decision Log 4 (h)).** G1 merged at `d306214` with its
+candidate as recommended; the independent review (GPT frontier, codex out of credits) found two
+real defects in the heavy texture's lifetime — the texture and its scratch retained after the width
+returned to 0 (16 MiB per 1024² source), and a relative-tolerance compare that treated σ 1e-7 and
+0 as equal so a stale unblurred level-0 texture stayed bound where 0 means the chain tap — fixed
+with one fake-GPU test each at `d06fe3c`, the goldens 33 / 33 after. Rulings: S15 as re-stated in
+Decision Log 4 (a); the 1x share lift declined (4 (b)); the reference's kernel unidentified by any
+two-Gaussian reader (4 (e)), so G1b identifies it non-parametrically under a binding control before
+G2 declares, and clause 2 is re-stated beside its original as an MTF match. The wider-pitch impulse
+probe (a sitting) stays second priority.
