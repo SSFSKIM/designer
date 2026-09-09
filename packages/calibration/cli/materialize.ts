@@ -147,10 +147,12 @@ function parseArgs(argv: readonly string[]): {
   sets: string[];
   apply: boolean;
   frequencySettle: boolean;
+  omit: { cell: string; reason: string }[];
 } {
   const runs: { label: string; dir: string }[] = [];
   const profiles: string[] = [];
   const sets: string[] = [];
+  const omit: { cell: string; reason: string }[] = [];
   for (let i = 0; i < argv.length; i += 1) {
     if (argv[i] === "--run") {
       const raw = argv[i + 1] ?? "";
@@ -166,6 +168,22 @@ function parseArgs(argv: readonly string[]): {
     } else if (argv[i] === "--set") {
       sets.push(...(argv[i + 1] ?? "").split(",").map((s) => s.trim()).filter(Boolean));
       i += 1;
+    } else if (argv[i] === "--omit") {
+      /*
+       * A ruling on a cell the runs could not settle: `--omit PROFILE/SCENE=REASON`
+       * leaves that cell OUT of the bed and writes the hole, with its reason and
+       * the states the runs returned, into the provenance block. It is the only
+       * way past a refusal, and it is deliberately loud: the cell is named twice,
+       * once here and once in the manifest, so a bed with a hole never reads as a
+       * bed that was complete.
+       */
+      const raw = argv[i + 1] ?? "";
+      const at = raw.indexOf("=");
+      if (at <= 0 || at === raw.length - 1) {
+        throw new Error(`--omit expects PROFILE/SCENE=REASON, got '${raw}'.`);
+      }
+      omit.push({ cell: raw.slice(0, at), reason: raw.slice(at + 1) });
+      i += 1;
     }
   }
   if (runs.length < 2) throw new Error("materialize: give at least two --run LABEL=DIR snapshots.");
@@ -180,6 +198,7 @@ function parseArgs(argv: readonly string[]): {
     sets,
     apply: argv.includes("--apply"),
     frequencySettle: argv.includes("--frequency-settle"),
+    omit,
   };
 }
 
@@ -317,9 +336,26 @@ function main(): void {
     );
   }
 
-  if (refused.length > 0) {
+  // A refused cell the caller has ruled on by name is omitted, and the omission
+  // travels with the bed (below); one the caller has not ruled on still stops
+  // everything, because a hole the manifest does not mention is a lie.
+  const omissions = refused
+    .map((d) => ({ decision: d, ruling: options.omit.find((o) => o.cell === d.cell) }))
+    .filter((o) => o.ruling !== undefined)
+    .map((o) => ({
+      cell: o.decision.cell,
+      reason: (o.ruling as { reason: string }).reason,
+      observedStates: o.decision.outcome.kind === "refused" ? o.decision.outcome.reason : "",
+    }));
+  const unruled = refused.filter((d) => !omissions.some((o) => o.cell === d.cell));
+  for (const o of omissions) process.stdout.write(`  OMITTED  ${o.cell}\n    ruling: ${o.reason}\n`);
+  const unknownOmit = options.omit.filter((o) => !decisions.some((d) => d.cell === o.cell));
+  if (unknownOmit.length > 0) {
+    throw new Error(`--omit names a cell the runs do not carry: ${unknownOmit.map((o) => o.cell).join(", ")}`);
+  }
+  if (unruled.length > 0) {
     process.stderr.write(
-      `\nmaterialize: nothing written. ${refused.length} cell(s) cannot be published without a ruling, ` +
+      `\nmaterialize: nothing written. ${unruled.length} cell(s) cannot be published without a ruling, ` +
         `and a bed materialised around them would be a bed with a hole the manifest does not mention.\n`,
     );
     process.exit(1);
@@ -371,6 +407,9 @@ function main(): void {
     unanimousOrVoted: publish.length - settledEntries.length,
     frequencySettled: settledEntries.length,
     frequencySettledCells: settledEntries.map((p) => `${p.profile}/${p.scene}`).sort(),
+    // The holes, each with the ruling that left it: a cell the runs returned in
+    // states no majority could settle and the caller declined to publish.
+    omitted: omissions,
     confidenceBought: {
       note:
         "probability a state held by fraction p of draws would have been seen at least once " +
