@@ -251,7 +251,7 @@ G0 → (the user: the amendment, the console) → G1 → G2 (may start on G0 alo
 | child | status |
 | --- | --- |
 | G0 — the width instrument, the read, the argument, the along-side reader | DISPATCHED 2026-09-09 |
-| G1 — the bed amendment and the native captures | — (the user's; Decision Log 1) |
+| G1 — the bed amendment and the native captures | RULED 2026-09-09 (Decision Log 2: the grids as a harness set with structured backdrops; waits on G0's identification table and the console's unlock) |
 | G2 — the law fitted | — |
 | G3 — declared and dry-run | — |
 | G4 — the landing | — |
@@ -282,6 +282,25 @@ identifies them; the along-side term is taken only if G0 reads it as a thickness
 extractor fix only if the floors move on it alone. What the bed cannot identify is recorded with
 the rows that would.
 
+### Decision Log 2 — the bed amendment and the console, both on the parent's recommendation by the user's word (2026-09-09; the user: "both on your recommendation")
+
+(a) **The amendment is (ii):** the probe grids captured as a declared harness set with structured
+backdrops — `impulse` and `checkerboard` over `rrect-sm`, `rrect-md`, `rrect-ml`, `rrect-lg`, with
+`capsule-button` as the thin control — in both schemes at both scales, as calibration rows;
+`rrect-lg` and `glass-over-glass` stay holdout. (i) for `photo__rrect-lg` alone if the grids cannot
+be captured. G1 designs the set on G0's identification table (which spans and backdrops separate
+which constants) and writes `scenes.json` once; the split's new rows are named in the claims
+section before the first capture.
+
+(b) **The console:** the parent runs the harness when the screen is unlocked and asks the user to
+unlock it at that moment. Read now: `CGSSessionScreenIsLocked` true with the user on console and
+a Screen Sharing agent active — W21 G0's blocker exactly (claims §5.17: Screen Sharing does not
+unlock the console session). G1's capture waits on the unlock; G0 and G2 do not.
+
+(c) **The read that settles the collapse's key** (`dark-solid__rrect-sm` / `-md` / `-lg` at one
+sitting) is taken at G1's sitting, in the same session as the harness set, so the grid and the
+key share a session state.
+
 ## Surprises & Discoveries
 
 - **The haze was never measured on the web side.** The residual that says so was quoted as the
@@ -297,3 +316,5 @@ the rows that would.
 ## Revision Notes
 
 - 2026-09-09: chartered; G0 dispatched; the amendment and the console named as the user's.
+- 2026-09-09: Decision Log 2 — the user's word "both on your recommendation": the grids as a
+  harness set (ii), the console unlocked at G1's sitting on the parent's ask; the console read locked.
