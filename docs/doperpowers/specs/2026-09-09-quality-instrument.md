@@ -410,7 +410,14 @@ Pending — written after the diagnosis, once the instrument is accepted.
 
 ## Surprises & Discoveries
 
-(none yet)
+- Observation: Recapturing all 52 builds under the fixed protocol changed no gate verdict and moved
+  one contrast rate by 0.02 (fleet `none` A, 1.0 → 0.979, more text rendered after the font wait);
+  no page scrolled itself on load or after the reset, so the two settling first-viewport artifacts
+  came from the scroll-through, which the new order (first viewport before the walk) removes. Two
+  captures are wider than 1440 and both are `v2.1` pages: library 672565 at 2760 px (the load-time
+  overflow read false) and fleet 49e6cb at 1471 px (already a gate failure). Five short consoles
+  have no tile beyond the first viewport, four have one.
+  Evidence: the diff of `measurements.json` before and after; `captureWidth` per build.
 
 ## Deferred
 
