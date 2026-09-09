@@ -1059,7 +1059,8 @@ first only — `adopted-thresholds.test.ts` stops a profile's test at its first 
 so a parent reading the gate's output alone would have re-pinned one floor and left G3 to find the
 other. Re-pinned by the parent on the standing instruction (W24 Decision Log 3 (d)), W23's numbers
 beside. Shape of the work: a silhouette extractor for nested panes that does not threshold on the
-material's own level (the seven nested-pane floors' entry), and a gate that reports every breach
+material's own level (the W21 G2c entry on the luminance-delta extractor's perforated silhouette,
+above), and a gate that reports every breach
 of a profile rather than the first — collect the failures and assert once. `g2/g2-gate.txt`.
 
 ## The session byte-state on `photo__toolbar-group__rest` under increased contrast has a fourth sighting, the first on the render path (W24 G3, 2026-09-09)
@@ -1094,3 +1095,37 @@ Shape of the work: the extractor's body count is a threshold crossing on a rim t
 around the contour by design; a silhouette extractor that closes the arcs (a morphological close
 at the rim's own width before counting bodies) would keep these two and the nested-pane rows
 honest at once — the same work as the nested pane's extractor entry. `g3/g3-predicate.txt`.
+
+## The nested pane's base is hazier than vitrea's, and the web side's haze has never been identified (W22 finding, entered W25, 2026-09-09)
+
+The user's eye, twice: "Apple's bottom glass is very slightly less transparent" (claims §5.99 §1;
+W23 spec). The numbers on record are two instruments in two units, one saturated and one
+unidentifiable: `blurSigmaNative` 4.8397 at residual 0.3575 on the 2x dark reference base against
+0.6920 at residual 1.8113 on the web (the residual `report.ts` defines as "σ is not
+identifiable"; the CSS sibling 1.2393 at 1.1816); the σ-match 16.00 native at 2x (the grid's
+ceiling) against 8.00 web, and 1.50 against 2.20 at 1x, the opposite sign. Chartered as W25 with
+the instrument first (three readers agreeing; claims §5.112 §3). Closes when the base's σ-match
+is within 15 % of the reference's at both scales in both schemes with neither side saturated
+(W25 clause 3).
+
+## The reference's rim varies along a straight side of a thick panel, and no vitrea number exists for it (W24 G0 finding, entered W25, 2026-09-09)
+
+2x dark `dark-solid__rrect-md`: the top edge's rim runs 0.0442 → 0.0158 along the side with the
+silhouette straight to 0.06 px and the interior uniform; flat on the capsule and `rrect-sm`,
+graded on `rrect-md` and `rrect-lg` (W24 Decision Log 2 and 3 (c); claims §5.108 §1). vitrea's
+rim is constant along a side by construction (the lit factor is exactly 1 on every straight
+side). By shape a thickness term; by quantity a rim term every reader to date read per side or
+per bin. W25 G0 builds the position-along-side reader on the four thick shapes; the term is
+W25's if it grades with span and W12's (the lens refracting the backdrop's gradient) if it does
+not. Closes when the profile is read on both sides and the term is taken or attributed.
+
+## The CSS tier's interior spread is 32–63 % under the reference on the four large spans, and the residual is the encoded space (W16 finding, entered W25, 2026-09-09)
+
+W16's table (`2026-09-04-w16-css-two-layer-body.md:158–193`): interior standard deviation web /
+native on the dom tier, light, checkerboard — `rrect-md` 0.0767 / 0.1131 (1x), `rrect-ml`
+0.0591 / 0.0865, `rrect-lg` 0.0375 / 0.0650, `glass-over-glass` 0.1279 / 0.1321; 39–63 % under at
+2x. The forward-model residual is 2.4–2.8× on the thick spans and "no σ, share or mask can move
+it" (claims §5.60); `backdrop-filter: url(#f)` with linearRGB reads 1.17–1.50× of the GPU law at
+dpr 1 and 0.97–1.03× at dpr 2. Recorded under wave Decision Log 23 (a) as a CSS-only residual,
+not chartered; W25 re-reads it and the coherence pin (≤ 0.05; the checkerboard cells at
+0.023–0.043) as the GPU kernel widens. Closes only with a tier that can encode the space.

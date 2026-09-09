@@ -13125,7 +13125,10 @@ observations, each pinned here with the bed's numbers at `800a04f` and carried i
    Apple's overlay pane is darker than its base; vitrea's overlay is LIGHTER than its base — a flat
    mid grey on the GPU tier, lighter still on the CSS tier. Apple's base blurs the checker to a haze
    (`blurSigmaNative` 4.84 px at 2x against web 0.69 with fit residual 1.81 — the thick-span
-   composite of wave Decision Log 23 (c)). No per-pane number exists on the bed: the matrix's
+   composite of wave Decision Log 23 (c)) [correction 2026-09-09, §5.112: 1.81 is
+   `blurFitResidualWeb`, the WEB side's residual, which `report.ts` defines as "σ is not
+   identifiable"; the native fit's residual is 0.3575. The pair is one identified width and one
+   unidentifiable one]. No per-pane number exists on the bed: the matrix's
    interior rows read the stack as one region (interior 0.0389 / 0.0423 at 1x, GPU), and the declared
    reader refuses composites. On the web the overlay samples the base's rendered output through the
    `dom` backend; a flat grey lighter than its backdrop is not what the response law gives at these
@@ -14425,3 +14428,40 @@ thick-span composite is next, on the user's word (wave Decision Log 23 (c)).
 (registry 03:53–03:54Z; tag `v0.13.0`); the user's eye on `g3-1x.png` / `g3-2x.png`: "looking
 good, better fidelity" — clause 8 closed, the wave's open item none. The cold-install record is
 the wave spec's addendum (`2026-08-28-post-v1-wave.md`).
+
+### 5.112 W25 OPENED: the thick-span composite — the thick surface's body, its kernel and its key; the haze headline found half-unmeasured (the web residual quoted as the pair's, and "not identifiable" by the report's own definition), the size law blind above span 96, the two largest spans never fitting rows; G0 dispatched on the fixtures on disk, the bed amendment and every native capture the user's (2026-09-09)
+
+**Evidence** `results/2026-09-09-w25-thick-span-composite/finding/dossier.md` (read-only, assembled
+from the ledger at `4c6b321`), spec `2026-09-09-w25-thick-span-composite.md` (Decision Log 1).
+
+**§1 The charter.** On the user's word at the 0.11.0 bump and the eye's verdict at 0.13.0's
+publish, the last item of wave Decision Log 23 (c)'s GPU order. Five recorded names, one family:
+the base pane's haze (the eye, twice), the scatter kernel's width (native 2.63 / 1.30 device px at
+1x / 2x through the collapsed capsule, 2.87 / 1.40 through `impulse__rrect-md`; landed 1.68 /
+4.86, the opposite way), the transmitted dot's width (7.57 against 4.99 CSS px at 1x), the
+along-side rim variation (0.0442 → 0.0158 on the 2x dark `dark-solid__rrect-md`; flat on the
+capsule and `rrect-sm`, graded on `rrect-md` and `rrect-lg`), the thick rrect's body (−2.93 codes
+dark). Behind them: `spanPx = min(width, height)` saturating at `sizeSpanMax` 96, so spans 96,
+128, 130 and 160 are one number to `sizeThickness` (the scatter ramp's `far` anchor is the
+workaround on record, `material.ts:847–858`); and `rrect-lg` and `glass-over-glass` wholly holdout.
+
+**§2 Three corrections to the record.** (i) §5.94 §5's "4.84 against 0.69 with fit residual 1.81"
+quoted the web residual as the pair's; the native residual is 0.3575, and 1.81 means the web width
+is not identifiable (`src/report.ts:391–397`) — corrected beside. (ii) The σ-match's native 16.00
+at 2x is `read-stack.py`'s grid ceiling, a lower bound; at 1x it reads 1.50 native against 2.20
+web, the opposite sign. (iii) Three of the composite's items — the base pane's haze, the along-side
+term, the CSS tier's large-span table — were spec-only; entered in the tracker now, and the
+tracker's dangling reference to "the seven nested-pane floors' entry" pointed at the entry that
+exists.
+
+**§3 The rulings** (Decision Log 1): the instrument before the fit — three readers (the dot's PSF,
+the edge-spread with its ceiling raised, the σ-match with its grid extended) validated on a known
+kernel and agreeing on the reference, no constant fitted on a width until they do; the bed
+amendment the user's (it re-partitions the holdout; the parent recommends the probe grids as a
+declared harness set with structured backdrops over moving `rrect-lg` and the stack out of
+holdout; G0's identification table makes it concrete); the console the user's (every native
+capture, and the collapse's key on `rrect-sm` / `-md` / `-lg` at one sitting); scope the five
+items as far as the bed identifies them. **G0 dispatched** on the fixtures on disk: the readers,
+every thick cell's width and level with residuals on both sides, the size law's argument across
+spans 44 → 160, the along-side profile on the four thick shapes with the capsule and `rrect-sm`
+as controls, the dark grid read for a state flip, the amendment's identification table.
