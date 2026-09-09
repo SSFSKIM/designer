@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fast Ice — The Marram Trio — Skerry</title>
+
+<script type="importmap">
+{ "imports": { "@vitreajs/vitrea": "/packages/core/dist/index.js", "@vitreajs/vitrea-web": "/packages/platform-web/dist/index.js" } }
+</script>
+
+<style>
+/* ---------------------------------------------------------------------------
+   Tokens. Every value the page uses lives here; DESIGN.md owns which token does
+   which job. The neutrals are one hue family, slate-blue near h 250 at very low
+   chroma, taken from the photograph so the chrome belongs to the plane rather
+   than sitting on it as foreign grey.
+--------------------------------------------------------------------------- */
+:root {
+  --ink:        #141B23;   /* titles, control labels, glyphs            */
+  --ink-2:      #333B44;   /* artist, durations, meta, secondary labels */
+  --ink-3:      #5D646B;   /* hairlines and inert track, never text     */
+  --sounding:   #9E2F24;   /* status only: this is sounding now         */
+
+  --plate:      rgb(20 27 35 / 7%);    /* fills inside a glass surface  */
+  --plate-2:    rgb(20 27 35 / 12%);   /* the same fill, pressed        */
+  --hairline:   rgb(20 27 35 / 14%);
+  --track:      rgb(20 27 35 / 22%);   /* the inert half of a 2px slider  */
+
+  /* The plane's own mean, so a composited contrast check reads the truth. */
+  --plane-mean: #A6BABF;
+
+  --font-record:  Charter, "Iowan Old Style", Palatino, Georgia, serif;
+  --font-control: -apple-system, "SF Pro Text", system-ui, "Helvetica Neue", sans-serif;
+  --font-time:    ui-monospace, "SF Mono", Menlo, monospace;
+
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
+  --s5: 24px; --s6: 32px; --s7: 48px; --s8: 72px;
+
+  --margin-page: 72px;    /* content on the plane   */
+  --margin-float: 24px;   /* the floating layer     */
+
+  /* The size family. The concentric anchor is the viewport edge read as a
+     macOS 26 window corner of radius 46; every surface sits at the 24px float
+     margin, so the concentric radius there is 46 - 24 = 22. */
+  --r-plate: 22px;
+  --r-bar:   18px;
+  --r-row:   14px;        /* a row inset 8 inside a plate: 22 - 8 */
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;                 /* one screen; only two regions scroll */
+  background: var(--plane-mean);
+  color: var(--ink);
+  font-family: var(--font-control);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  color-scheme: light;
+}
+
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+ol, ul { list-style: none; margin: 0; padding: 0; }
+a { color: inherit; }
+
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 3px; }
+
+.vh {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------------
+   The live plane. One canvas, painted from the album's photograph plus a
+   reading wash and a grain, and handed to vitrea as the backdrop texture.
+--------------------------------------------------------------------------- */
+#plane { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* ---------------------------------------------------------------------------
+   The album column. Content on the plane, with no surface of its own. It
+   reaches the window's top edge and is inset from the transport by that bar's
+   measured height, so nothing sits under a control at rest and the tracklist
+   passes under it only while scrolling.
+--------------------------------------------------------------------------- */
+#album {
+  position: fixed;
+  left: 56px;
+  top: 0;
+  bottom: 0;
+  width: 528px;
+  padding-left: 16px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-top: var(--album-inset, 200px);
+  padding-bottom: var(--s7);
+  /* The scroll edge: a hard, short ramp on the scrolling view's own top edge,
+     which is where content passes under the transport. It is on this container
+     and not on any ancestor of the glass root, which a mask would re-root. */
+  mask-image: linear-gradient(to bottom,
+    transparent 0, transparent var(--edge-start, 112px), #000 var(--edge-end, 148px), #000 100%);
+}
+
+.kicker {
+  font-family: var(--font-time);
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-2); margin: 0 0 var(--s3);
+}
+#album h1 {
+  font-family: var(--font-record);
+  font-size: 58px; line-height: 1.02; letter-spacing: -0.015em;
+  font-weight: 400; margin: 0;
+}
+.artist { font-size: 19px; margin: var(--s3) 0 0; letter-spacing: -0.005em; }
+.meta { font-size: 13px; line-height: 1.55; color: var(--ink-2); margin: var(--s4) 0 0; max-width: 42ch; }
+
+#tracks { margin: var(--s6) 0 0; border-top: 1px solid var(--hairline); }
+#tracks li { border-bottom: 1px solid var(--hairline); }
+.track {
+  display: grid; grid-template-columns: 26px 1fr auto; align-items: center;
+  gap: var(--s3); width: 100%; height: 38px; text-align: left;
+}
+.track .n { font-family: var(--font-time); font-size: 11px; color: var(--ink-2); }
+.track .t { font-size: 14px; letter-spacing: -0.004em; }
+.track .d { font-family: var(--font-time); font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.track:hover .t { text-decoration: underline; text-underline-offset: 3px; }
+
+/* The signature: one 2px rule in --sounding, filling to the same fraction as
+   the scrubber. It is the only red on the page and the only 2px rule. */
+.track[aria-current] { position: relative; }
+.track[aria-current] .t { font-weight: 600; }
+.track[aria-current]::before {
+  content: ""; position: absolute; left: -14px; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(to bottom,
+    var(--sounding) 0 var(--sounding-pos, 0%), var(--track) var(--sounding-pos, 0%) 100%);
+}
+
+.liner {
+  font-family: var(--font-record); font-style: italic;
+  font-size: 16px; line-height: 1.62; max-width: 40ch;
+  margin: var(--s6) 0 0; color: var(--ink);
+}
+.personnel { font-size: 13px; line-height: 1.7; color: var(--ink-2); margin: var(--s5) 0 0; max-width: 44ch; }
+.credits { font-size: 11px; line-height: 1.7; color: var(--ink-2); margin: var(--s5) 0 0; max-width: 46ch; }
+.credits a { text-underline-offset: 2px; }
+
+/* The queue's collapsed home, used only below 1180px. There it is content on
+   the plane, so it takes the column's own hairlines instead of a surface. */
+#album-queue { display: none; margin: var(--s6) 0 0; }
+body.narrow #album-queue { display: block; }
+body.narrow #album-queue .q-head h2 { font-size: 17px; }
+body.narrow #album-queue #queue-list { margin-top: var(--s4); border-top: 1px solid var(--hairline); }
+body.narrow #album-queue .qrow { height: 76px; border-bottom: 1px solid var(--hairline); border-radius: 0; margin-left: 0; padding: 0; }
+body.narrow #album-queue .qrow:hover { background: none; }
+body.narrow #album-queue .qrow:hover .qtitle { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------------------------------------------------------------------------
+   The floating layer. Four surfaces, three groups. A glass host never carries a
+   background, a border, a shadow or a backdrop-filter of its own: the CSS tier
+   rewrites all of them every frame, and on the GPU tier they would sit over the
+   material rather than in it.
+--------------------------------------------------------------------------- */
+.surface { position: fixed; color-scheme: light; color: var(--ink); overflow: hidden; }
+
+/* Transport: 608 x 88 at the top, centred with the volume as one union. */
+#transport {
+  left: calc(50% - 408px); top: var(--margin-float);
+  width: 608px; height: 88px; border-radius: var(--r-bar);
+  display: flex; align-items: center; gap: var(--s3); padding: 0 var(--s4);
+}
+.tbtn {
+  display: grid; place-items: center; width: 40px; height: 40px;
+  border-radius: 20px; color: var(--ink); flex: none;
+}
+.tbtn:hover { background: var(--plate); }
+.tbtn:active { background: var(--plate-2); }
+#play {
+  width: 56px; height: 56px; border-radius: 28px;   /* capsule: the standout action */
+  background: var(--plate);
+}
+#play:hover { background: var(--plate-2); }
+.now { flex: 1; min-width: 0; padding-left: var(--s2); }
+.now-title {
+  font-size: 13px; letter-spacing: -0.002em; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+.now-title .by { color: var(--ink-2); }
+.scrubrow { display: flex; align-items: center; gap: var(--s3); margin-top: 7px; }
+.time {
+  font-family: var(--font-time); font-size: 11px; color: var(--ink-2);
+  font-variant-numeric: tabular-nums; flex: none; width: 38px;
+}
+.time.right { text-align: right; width: 42px; }
+
+/* The scrubber and the volume slider share one shape: a 2px track, an
+   elapsed fill, a knob, and a real range input over the top for the keyboard. */
+.slider { position: relative; flex: 1; height: 20px; display: flex; align-items: center; }
+.slider .track-line { position: absolute; inset: 9px 0 auto; height: 2px; background: var(--track); border-radius: 1px; }
+.slider .fill { position: absolute; inset: 9px auto auto 0; height: 2px; border-radius: 1px; background: var(--sounding); }
+.slider.plain .fill { background: var(--ink-2); }
+.slider .knob {
+  position: absolute; top: 4px; width: 12px; height: 12px; border-radius: 6px;
+  background: var(--ink); margin-left: -6px; pointer-events: none;
+}
+.slider input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.slider:has(input:focus-visible) .knob { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* Volume: 184 x 44 capsule, second member of the transport group. */
+#volume {
+  left: calc(50% + 224px); top: 46px; width: 184px; height: 44px; border-radius: 22px;
+  display: flex; align-items: center; gap: 10px; padding: 0 var(--s3);
+}
+#mute { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 14px; flex: none; }
+#mute:hover { background: var(--plate); }
+.vol-read { font-family: var(--font-time); font-size: 11px; color: var(--ink-2); width: 20px; text-align: right; flex: none; font-variant-numeric: tabular-nums; }
+
+/* Queue: 328 x 644 at the trailing edge. */
+#queue {
+  right: var(--margin-float); top: 208px; width: 328px; height: 620px;
+  border-radius: var(--r-plate); padding: 20px;
+  display: flex; flex-direction: column;
+}
+.q-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); }
+.q-head h2 { font-size: 15px; font-weight: 600; margin: 0; letter-spacing: -0.006em; }
+#playlists-btn {
+  font-size: 13px; color: var(--ink); padding: 4px 8px; margin: -4px -8px 0 0; border-radius: 8px;
+  display: inline-flex; align-items: center; gap: 5px;
+}
+#playlists-btn:hover { background: var(--plate); }
+#playlists-btn svg { opacity: 0.6; }
+.q-sub { font-family: var(--font-time); font-size: 11px; color: var(--ink-2); margin: 6px 0 0; }
+#queue-list { margin-top: var(--s3); overflow-y: auto; overscroll-behavior: contain; }
+.qrow {
+  display: grid; grid-template-columns: 56px 1fr auto; align-items: center;
+  gap: var(--s3); width: 100%; height: 88px; padding: 0 var(--s2); margin-left: calc(var(--s2) * -1);
+  border-radius: var(--r-row); text-align: left;
+}
+.qrow:hover { background: var(--plate); }
+.qrow img { width: 56px; height: 56px; border-radius: 4px; object-fit: cover; display: block; background: var(--plane-mean); }
+.qrow .qt { min-width: 0; display: block; }
+.qmark {
+  font-family: var(--font-time); font-size: 9px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-2); display: block; margin-bottom: 3px;
+}
+.qrow .qtitle { display: block; font-size: 13px; letter-spacing: -0.003em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.qrow .qby { display: block; font-size: 11px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+.qrow .qd { font-family: var(--font-time); font-size: 11px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+/* The playlist platter, on the overlay plane. One host for the pair's whole
+   life: its box springs from the trigger's rect, it never cross-fades. */
+#menu { left: 0; top: 0; width: 0; height: 0; border-radius: var(--r-plate); pointer-events: none; }
+#menu-content { position: absolute; left: 0; top: 0; width: 272px; padding: var(--s2); }
+.m-label {
+  font-family: var(--font-time); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-2); padding: 6px var(--s2) 8px;
+}
+.mrow {
+  display: flex; align-items: center; gap: 10px; width: 100%; height: 36px;
+  padding: 0 var(--s2); border-radius: var(--r-row); text-align: left; font-size: 13px;
+}
+.mrow:hover, .mrow:focus-visible { background: var(--plate); }
+.mrow .mname { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mrow .mcount { font-family: var(--font-time); font-size: 11px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.mrow svg { flex: none; opacity: 0.7; }
+.m-sep { height: 1px; background: var(--hairline); margin: var(--s2) var(--s2); }
+
+/* ---------------------------------------------------------------------------
+   Responsive collapse at 1180px: the queue stops being chrome and becomes
+   content. Its glass host is released and the same nodes move into the album
+   column, so the floating layer drops from four surfaces to three.
+--------------------------------------------------------------------------- */
+@media (max-width: 1179px) {
+  #album { left: 8px; width: min(576px, calc(100vw - 32px)); }
+  #transport { left: var(--margin-float); width: min(608px, calc(100vw - 48px)); }
+  #volume { left: auto; right: var(--margin-float); }
+  #album-queue .q-head h2 { font-size: 17px; }
+}
+@media (max-width: 900px) {
+  #volume { display: none; }
+  #transport { width: calc(100vw - 48px); }
+  #album h1 { font-size: 44px; }
+}
+
+/* Reduced transparency thickens the fills the material stops carrying. */
+@media (prefers-reduced-transparency: reduce) {
+  :root { --plate: rgb(20 27 35 / 12%); --plate-2: rgb(20 27 35 / 18%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto; }
+}
+/* Under forced colours there is no glass at all. What remains is still a
+   player: layout, grouping and type carry the whole hierarchy. */
+@media (forced-colors: active) {
+  .surface { background: Canvas !important; border: 1px solid CanvasText !important; }
+  .slider .fill, .track[aria-current]::before { background: Highlight !important; }
+  .qrow:hover, .mrow:hover, .tbtn:hover, #play { background: Canvas !important; }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="plane" aria-hidden="true"></canvas>
+
+<!-- The album, on the plane, with no surface of its own. First in DOM order and
+     top-left in geometry: it is the declared first read together with the plane. -->
+<main id="album">
+  <p class="kicker">Skerry Editions &middot; SKE&nbsp;041</p>
+  <h1>Fast Ice</h1>
+  <p class="artist">The Marram Trio</p>
+  <p class="meta">
+    Sofienberg kirke, Oslo &middot; 3 to 5 September 2025<br>
+    Released 6 February 2026 &middot; 9 tracks, 46 min
+  </p>
+
+  <ol id="tracks"></ol>
+
+  <p class="liner">
+    Three September afternoons in a church on Sofienbergparken, with the doors open to the
+    street. The trio played every piece twice and kept the second take almost every time.
+  </p>
+
+  <p class="personnel">
+    Eiri Halvorsen, piano &middot; Nadia Röst, double bass &middot; Tomas Lie, drums and bowed
+    cymbal.<br>
+    Recorded and mixed by Ingrid Vang. Mastered at Strandgata, January 2026.
+  </p>
+
+  <div id="album-queue"></div>
+
+  <p class="credits">
+    Sleeve photograph by <a href="https://unsplash.com/@santurbanephotography?utm_source=designer&amp;utm_medium=referral">Abby Santurbane</a>
+    on <a href="https://unsplash.com/?utm_source=designer&amp;utm_medium=referral">Unsplash</a>.
+    <em>Slow Thaw</em> by <a href="https://unsplash.com/@aaronburden?utm_source=designer&amp;utm_medium=referral">Aaron Burden</a>,
+    <em>Groyne Field</em> by <a href="https://unsplash.com/@gabrielmccallin?utm_source=designer&amp;utm_medium=referral">Gabriel McCallin</a>,
+    both on Unsplash.
+  </p>
+</main>
+
+<!-- The four floating surfaces are authored here and moved into vitrea's own
+     plane layers on load; they never live in the page's flow. -->
+<div id="stage" hidden>
+
+  <section id="transport" class="surface" aria-label="Playback">
+    <button class="tbtn" id="prev" aria-label="Previous track">
+      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" d="M6 4h2v12H6zM17 4.6v10.8a.6.6 0 0 1-.93.5l-8.1-5.4a.6.6 0 0 1 0-1l8.1-5.4a.6.6 0 0 1 .93.5z"/></svg>
+    </button>
+    <button class="tbtn" id="play" aria-label="Pause" aria-pressed="true">
+      <svg id="play-glyph" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path fill="currentColor" d="M6.5 4h3.2v14H6.5zM12.3 4h3.2v14h-3.2z"/></svg>
+    </button>
+    <button class="tbtn" id="next" aria-label="Next track">
+      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" d="M12 4h2v12h-2zM3 4.6v10.8a.6.6 0 0 0 .93.5l8.1-5.4a.6.6 0 0 0 0-1L3.93 4.1A.6.6 0 0 0 3 4.6z"/></svg>
+    </button>
+    <div class="now">
+      <div class="now-title" id="now-title"></div>
+      <div class="scrubrow">
+        <span class="time" id="elapsed">0:00</span>
+        <div class="slider" id="scrub">
+          <div class="track-line"></div>
+          <div class="fill"></div>
+          <div class="knob"></div>
+          <input type="range" min="0" max="1000" value="0" aria-label="Seek within the track" id="scrub-input">
+        </div>
+        <span class="time right" id="remaining">0:00</span>
+      </div>
+    </div>
+  </section>
+
+  <div id="volume" class="surface" role="group" aria-label="Volume">
+    <button id="mute" aria-label="Mute" aria-pressed="false">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+        <path fill="currentColor" d="M8.4 2.6 4.9 5.4H2.6a.6.6 0 0 0-.6.6v6c0 .33.27.6.6.6h2.3l3.5 2.8a.6.6 0 0 0 .98-.47V3.07a.6.6 0 0 0-.98-.47z"/>
+        <path stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" d="M12.2 6.2a4 4 0 0 1 0 5.6M14.6 4.2a7.2 7.2 0 0 1 0 9.6"/>
+      </svg>
+    </button>
+    <div class="slider plain" id="vol">
+      <div class="track-line"></div>
+      <div class="fill"></div>
+      <div class="knob"></div>
+      <input type="range" min="0" max="100" value="62" aria-label="Volume" id="vol-input">
+    </div>
+    <span class="vol-read" id="vol-read">62</span>
+  </div>
+
+  <section id="queue" class="surface" aria-label="Up next">
+    <div id="queue-inner">
+      <div class="q-head">
+        <h2>Up next</h2>
+        <button id="playlists-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="menu">
+          Playlists
+          <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 3.5 5 7l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <p class="q-sub" id="q-sub"></p>
+      <ol id="queue-list"></ol>
+    </div>
+  </section>
+
+  <div id="menu" class="surface" role="menu" aria-label="Playlist actions" aria-hidden="true">
+    <div id="menu-content">
+      <div class="m-label" id="m-label">Add 6 tracks to</div>
+      <button class="mrow" role="menuitem" tabindex="-1">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M13 2.2 6.4 3.6v6.8a2.2 2.2 0 1 0 1.3 2v-5.7l5.3-1.1v3.9a2.2 2.2 0 1 0 1.3 2V2.2z" transform="translate(-1)"/></svg>
+        <span class="mname">Winter Rooms</span><span class="mcount">48</span>
+      </button>
+      <button class="mrow" role="menuitem" tabindex="-1">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M13 2.2 6.4 3.6v6.8a2.2 2.2 0 1 0 1.3 2v-5.7l5.3-1.1v3.9a2.2 2.2 0 1 0 1.3 2V2.2z" transform="translate(-1)"/></svg>
+        <span class="mname">Piano, mostly</span><span class="mcount">126</span>
+      </button>
+      <button class="mrow" role="menuitem" tabindex="-1">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M13 2.2 6.4 3.6v6.8a2.2 2.2 0 1 0 1.3 2v-5.7l5.3-1.1v3.9a2.2 2.2 0 1 0 1.3 2V2.2z" transform="translate(-1)"/></svg>
+        <span class="mname">Sunday morning, slow</span><span class="mcount">31</span>
+      </button>
+      <div class="m-sep" role="separator"></div>
+      <button class="mrow" role="menuitem" tabindex="-1">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2v9.6M3.2 8h9.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="mname">New playlist from these tracks</span>
+      </button>
+      <button class="mrow" role="menuitem" tabindex="-1">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.2 4.2 11.8 11.8M11.8 4.2 4.2 11.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="mname">Clear what&rsquo;s next</span>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<p class="vh" id="live" role="status" aria-live="polite"></p>
+
+<script type="module">
+import { createGlassRoot } from "@vitreajs/vitrea-web";
+
+/* ---------------------------------------------------------------------------
+   Content. One album with its tracks, a queue of six, three playlists. Every
+   duration is real and the totals are computed from them rather than typed.
+--------------------------------------------------------------------------- */
+const ART = {
+  fastIce:    { src: "images/icehouse.jpg",     alt: "Cracked lake ice photographed from directly above" },
+  slowThaw:   { src: "images/slow-thaw.jpg",    alt: "An aerial view of a frozen lake, blue and white" },
+  groyneField:{ src: "images/groyne-field.jpg", alt: "A pebble beach with broken groyne timbers in sea haze" },
+};
+
+const ALBUM = {
+  title: "Fast Ice",
+  artist: "The Marram Trio",
+  art: ART.fastIce,
+  tracks: [
+    { n: 1, t: "Fast Ice",           d: 401 },
+    { n: 2, t: "Breakwater",         d: 252 },
+    { n: 3, t: "Sound of Islay",     d: 478 },
+    { n: 4, t: "Marram",             d: 206 },
+    { n: 5, t: "Second Thaw",        d: 344 },
+    { n: 6, t: "Nave",               d: 171 },
+    { n: 7, t: "Low Water, Slack",   d: 499 },
+    { n: 8, t: "Roke",               d: 243 },
+    { n: 9, t: "Fast Ice (Reprise)", d: 217 },
+  ],
+};
+
+const QUEUE = [
+  { t: "Marram",           by: "The Marram Trio", rel: "Fast Ice",     d: 206, art: ART.fastIce,     mark: "Next" },
+  { t: "Second Thaw",      by: "The Marram Trio", rel: "Fast Ice",     d: 344, art: ART.fastIce },
+  { t: "Nave",             by: "The Marram Trio", rel: "Fast Ice",     d: 171, art: ART.fastIce },
+  { t: "Low Water, Slack", by: "The Marram Trio", rel: "Fast Ice",     d: 499, art: ART.fastIce },
+  { t: "Winter Anchorage", by: "Ruth Sandøy",     rel: "Slow Thaw",    d: 312, art: ART.slowThaw,    mark: "From your library" },
+  { t: "Shingle",          by: "Ellis Marren",    rel: "Groyne Field", d: 395, art: ART.groyneField },
+];
+
+const mmss = (s) => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
+
+/* Playback state. The sounding track is track 3; the plane is its release. */
+const state = {
+  trackIndex: 2,
+  elapsed: 187,
+  playing: true,
+  volume: 62,
+  muted: false,
+  art: ALBUM.art,
+  scrubbing: false,
+  /* Set when the sounding track comes from another release rather than from
+     this album, so the transport reads one place for the title and the length. */
+  fromLibrary: null,
+};
+const current = () => state.fromLibrary || ALBUM.tracks[state.trackIndex];
+
+/* ---------------------------------------------------------------------------
+   Markup that depends on the content.
+--------------------------------------------------------------------------- */
+const $ = (id) => document.getElementById(id);
+
+$("tracks").innerHTML = ALBUM.tracks.map((t, i) => `
+  <li><button class="track" data-track="${i}">
+    <span class="n">${t.n}</span><span class="t">${t.t}</span><span class="d">${mmss(t.d)}</span>
+  </button></li>`).join("");
+
+$("queue-list").innerHTML = QUEUE.map((q, i) => `
+  <li><button class="qrow" data-queue="${i}">
+    <img src="${q.art.src}" alt="${q.rel} sleeve" width="56" height="56">
+    <span class="qt">
+      ${q.mark ? `<span class="qmark">${q.mark}</span>` : ""}
+      <span class="qtitle">${q.t}</span>
+      <span class="qby">${q.by} &middot; ${q.rel}</span>
+    </span>
+    <span class="qd">${mmss(q.d)}</span>
+  </button></li>`).join("");
+
+const queueSeconds = QUEUE.reduce((a, q) => a + q.d, 0);
+$("q-sub").textContent = `${QUEUE.length} tracks · ${Math.round(queueSeconds / 60)} min`;
+$("m-label").textContent = `Add ${QUEUE.length} tracks to`;
+
+/* ---------------------------------------------------------------------------
+   The plane. The photograph is painted into a canvas together with the reading
+   wash and a grain, so the lens has both spatial frequencies to work with and
+   bends everything the eye sees. A CSS layer over the canvas would sit above
+   the material instead of behind it.
+--------------------------------------------------------------------------- */
+const canvas = $("plane");
+const ctx = canvas.getContext("2d", { alpha: false });
+const images = new Map();
+let grainTile = null;
+let fade = null;   /* { from, to, t } while a release change dissolves */
+
+function loadImage(src) {
+  if (images.has(src)) return images.get(src);
+  const p = new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => resolve(null);
+    img.src = src;
+  });
+  images.set(src, p);
+  return p;
+}
+
+function makeGrain() {
+  const tile = document.createElement("canvas");
+  tile.width = tile.height = 128;
+  const c = tile.getContext("2d");
+  const d = c.createImageData(128, 128);
+  for (let i = 0; i < d.data.length; i += 4) {
+    const v = 128 + (Math.random() * 2 - 1) * 60;
+    d.data[i] = d.data[i + 1] = d.data[i + 2] = v;
+    d.data[i + 3] = 255;
+  }
+  c.putImageData(d, 0, 0);
+  return tile;
+}
+
+function drawCover(img, w, h) {
+  const scale = Math.max(w / img.naturalWidth, h / img.naturalHeight);
+  const dw = img.naturalWidth * scale, dh = img.naturalHeight * scale;
+  ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
+}
+
+function paintPlane() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const w = window.innerWidth, h = window.innerHeight;
+  if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+  }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = "#A6BABF";
+  ctx.fillRect(0, 0, w, h);
+
+  const a = images.get(state.art.src);
+  const drawFrom = (entry, alpha) => {
+    const img = entry && entry.__img;
+    if (!img) return;
+    ctx.globalAlpha = alpha;
+    drawCover(img, w, h);
+  };
+  if (fade) {
+    drawFrom(fade.from, 1);
+    drawFrom(fade.to, fade.t);
+  } else {
+    drawFrom({ __img: resolved.get(state.art.src) }, 1);
+  }
+  ctx.globalAlpha = 1;
+
+  /* The reading wash. It is anchored to the album column and shaped so it never
+     reaches a glass surface: the transport sits above y = 124 and the queue,
+     the volume and the platter all sit to the right of x = 800. */
+  const gx = ctx.createLinearGradient(0, 0, 800, 0);
+  gx.addColorStop(0, "rgb(255 255 255 / 40%)");
+  gx.addColorStop(0.75, "rgb(255 255 255 / 40%)");
+  gx.addColorStop(1, "rgb(255 255 255 / 0%)");
+  const gy = ctx.createLinearGradient(0, 124, 0, 196);
+  gy.addColorStop(0, "rgb(0 0 0 / 0%)");
+  gy.addColorStop(1, "rgb(0 0 0 / 100%)");
+  const wash = document.createElement("canvas");
+  wash.width = Math.max(1, Math.round(w)); wash.height = Math.max(1, Math.round(h));
+  const wc = wash.getContext("2d");
+  wc.fillStyle = gx; wc.fillRect(0, 0, w, h);
+  wc.globalCompositeOperation = "destination-in";
+  wc.fillStyle = gy; wc.fillRect(0, 0, w, h);
+  ctx.drawImage(wash, 0, 0, w, h);
+
+  /* The grain gives the lens something at the highest frequency everywhere,
+     including the calm parts of the photograph. */
+  if (!grainTile) grainTile = makeGrain();
+  ctx.globalAlpha = 0.035;
+  const pat = ctx.createPattern(grainTile, "repeat");
+  ctx.fillStyle = pat;
+  ctx.fillRect(0, 0, w, h);
+  ctx.globalAlpha = 1;
+}
+
+const resolved = new Map();
+async function ensureArt(src) {
+  if (resolved.has(src)) return resolved.get(src);
+  const img = await loadImage(src);
+  resolved.set(src, img);
+  return img;
+}
+
+async function setArt(next) {
+  if (next.src === state.art.src) return;
+  await ensureArt(next.src);
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const from = { __img: resolved.get(state.art.src) };
+  state.art = next;
+  if (reduceMotion) { fade = null; paintPlane(); return; }
+  fade = { from, to: { __img: resolved.get(next.src) }, t: 0 };
+}
+
+/* ---------------------------------------------------------------------------
+   The glass root. WebGPU is requested explicitly; the CSS tier is the same
+   material without refraction and is a complete design, not a failure.
+--------------------------------------------------------------------------- */
+const root = createGlassRoot({
+  renderer: "webgpu",
+  devMode: true,
+  /* prefers-reduced-transparency is not Baseline, so the explicit override is
+     load-bearing rather than boilerplate. */
+  accessibilityOverrides: { reducedTransparency: "system", reducedMotion: "system", increasedContrast: "system" },
+});
+window.__vitrea = root;
+
+root.registerBackdropSource({
+  id: "stage",
+  kind: "texture",
+  probe: { taint: "clean", textureCompatibility: "compatible" },
+});
+
+/* Each group declares what is honestly behind it as well as naming the texture.
+   The declared luminance is the midpoint of the range measured off the plane
+   under that group's own box across all three artworks (transport 0.27 to 0.49,
+   queue 0.27 to 0.42, platter 0.31 to 0.38), and the ice is structured at both
+   frequencies, so complexity runs high. On the texture tier the runtime still
+   reads the real pixels and resolves analysis "exact"; the declaration is what
+   the CSS tier adapts to, where it resolves "hint" instead of "none". */
+root.registerGroup({ id: "transport", backdropSourceId: "stage", backdrop: { tone: "light", luminance: 0.38, complexity: 0.85 } });
+root.registerGroup({ id: "queue",     backdropSourceId: "stage", backdrop: { tone: "light", luminance: 0.34, complexity: 0.85 } });
+root.registerGroup({ id: "menu",      backdropSourceId: "stage", backdrop: { tone: "light", luminance: 0.34, complexity: 0.85 } });
+
+const elTransport = $("transport");
+const elVolume = $("volume");
+const elQueue = $("queue");
+const elMenu = $("menu");
+const queueInner = $("queue-inner");
+const albumQueueSlot = $("album-queue");
+
+const basePlane = root.plane("base").hostLayer;
+const overlayPlane = root.plane("overlay").hostLayer;
+basePlane.append(elTransport, elVolume, elQueue);
+overlayPlane.append(elMenu);
+$("stage").remove();
+
+const hTransport = root.registerHost({
+  host: elTransport, groupId: "transport", plane: "base",
+  shapeFamily: "fixed-rounded-rect", radii: [18, 18, 18, 18], smoothing: 0.6, thickness: 8,
+});
+const hVolume = root.registerHost({
+  host: elVolume, groupId: "transport", plane: "base",
+  shapeFamily: "capsule", thickness: 8,
+});
+/* The queue's host is registered by syncQueuePlacement below, because the
+   surface exists only at the widths where the queue is chrome rather than
+   content; registering it here as well would put two hosts on one element. */
+let hQueue = null;
+const hMenu = root.registerHost({
+  host: elMenu, groupId: "menu", plane: "overlay",
+  shapeFamily: "fixed-rounded-rect", radii: [22, 22, 22, 22], smoothing: 0.6, thickness: 8,
+});
+
+/* ---------------------------------------------------------------------------
+   The safe-area inset the platform does not give a desktop page: the album
+   column's top padding and its scroll edge are read from the transport's own
+   measured box and recomputed when it changes.
+--------------------------------------------------------------------------- */
+const album = $("album");
+function syncInset() {
+  const bar = elTransport.getBoundingClientRect();
+  const edgeStart = Math.round(bar.bottom);
+  album.style.setProperty("--album-inset", Math.round(bar.bottom + 88) + "px");
+  album.style.setProperty("--edge-start", edgeStart + "px");
+  album.style.setProperty("--edge-end", (edgeStart + 36) + "px");
+}
+new ResizeObserver(syncInset).observe(elTransport);
+
+/* ---------------------------------------------------------------------------
+   Readouts.
+--------------------------------------------------------------------------- */
+function renderNow() {
+  const t = current();
+  $("now-title").innerHTML = `${t.t} <span class="by">&middot; ${t.by || ALBUM.artist}</span>`;
+  document.querySelectorAll("#tracks .track").forEach((el, i) => {
+    if (!state.fromLibrary && i === state.trackIndex) el.setAttribute("aria-current", "true");
+    else el.removeAttribute("aria-current");
+  });
+  $("play").setAttribute("aria-label", state.playing ? "Pause" : "Play");
+  $("play").setAttribute("aria-pressed", String(state.playing));
+  $("play-glyph").innerHTML = state.playing
+    ? '<path fill="currentColor" d="M6.5 4h3.2v14H6.5zM12.3 4h3.2v14h-3.2z"/>'
+    : '<path fill="currentColor" d="M7 3.9v14.2a.6.6 0 0 0 .92.5l11-7.1a.6.6 0 0 0 0-1l-11-7.1a.6.6 0 0 0-.92.5z"/>';
+}
+
+function renderProgress() {
+  const t = current();
+  const frac = Math.min(1, state.elapsed / t.d);
+  $("elapsed").textContent = mmss(state.elapsed);
+  $("remaining").textContent = "-" + mmss(Math.max(0, t.d - state.elapsed));
+  const scrub = $("scrub");
+  scrub.querySelector(".fill").style.width = (frac * 100) + "%";
+  scrub.querySelector(".knob").style.left = (frac * 100) + "%";
+  if (!state.scrubbing) $("scrub-input").value = String(Math.round(frac * 1000));
+  const row = document.querySelector('#tracks .track[aria-current]');
+  if (row) row.style.setProperty("--sounding-pos", (frac * 100).toFixed(1) + "%");
+}
+
+function renderVolume() {
+  const v = state.muted ? 0 : state.volume;
+  const vol = $("vol");
+  vol.querySelector(".fill").style.width = v + "%";
+  vol.querySelector(".knob").style.left = v + "%";
+  $("vol-read").textContent = String(v);
+  $("mute").setAttribute("aria-pressed", String(state.muted));
+  $("mute").setAttribute("aria-label", state.muted ? "Unmute" : "Mute");
+}
+
+const live = $("live");
+function announce(msg) { live.textContent = msg; }
+
+/* ---------------------------------------------------------------------------
+   Transport, queue and volume behaviour.
+--------------------------------------------------------------------------- */
+function playTrack(i, art) {
+  state.fromLibrary = null;
+  state.trackIndex = Math.max(0, Math.min(ALBUM.tracks.length - 1, i));
+  state.elapsed = 0;
+  state.playing = true;
+  if (art) setArt(art);
+  renderNow(); renderProgress();
+  announce(`Playing ${current().t} by ${ALBUM.artist}`);
+}
+
+$("play").addEventListener("click", () => {
+  state.playing = !state.playing;
+  renderNow();
+  announce(state.playing ? "Playing" : "Paused");
+});
+$("prev").addEventListener("click", () => {
+  if (state.elapsed > 4) { state.elapsed = 0; renderProgress(); return; }
+  playTrack(state.trackIndex - 1, ALBUM.art);
+});
+$("next").addEventListener("click", () => playTrack(state.trackIndex + 1, ALBUM.art));
+
+$("scrub-input").addEventListener("input", (e) => {
+  state.scrubbing = true;
+  state.elapsed = (Number(e.target.value) / 1000) * current().d;
+  renderProgress();
+});
+$("scrub-input").addEventListener("change", () => { state.scrubbing = false; });
+
+$("vol-input").addEventListener("input", (e) => {
+  state.volume = Number(e.target.value);
+  state.muted = false;
+  renderVolume();
+});
+$("mute").addEventListener("click", () => { state.muted = !state.muted; renderVolume(); });
+
+document.addEventListener("click", (e) => {
+  const t = e.target.closest("[data-track]");
+  if (t) { playTrack(Number(t.dataset.track), ALBUM.art); return; }
+  const q = e.target.closest("[data-queue]");
+  if (q) {
+    const item = QUEUE[Number(q.dataset.queue)];
+    const inAlbum = ALBUM.tracks.findIndex((x) => x.t === item.t);
+    if (inAlbum >= 0) playTrack(inAlbum, item.art);
+    else {
+      /* A continuation from another release: the plane becomes that release. */
+      state.fromLibrary = { t: item.t, by: item.by, d: item.d };
+      state.elapsed = 0; state.playing = true;
+      setArt(item.art);
+      renderNow(); renderProgress();
+      announce(`Playing ${item.t} by ${item.by}`);
+    }
+  }
+});
+
+/* ---------------------------------------------------------------------------
+   The playlist platter. One host for the pair's whole life: its box springs
+   from the trigger's rect to the open rect, so the material materialises and
+   morphs rather than a second surface cross-fading in.
+--------------------------------------------------------------------------- */
+const trigger = $("playlists-btn");
+const menuContent = $("menu-content");
+const MENU_W = 272;
+let menuOpen = false;
+let menuHeight = 240;
+
+const springs = {
+  x: mkSpring(0), y: mkSpring(0), w: mkSpring(0), h: mkSpring(0), r: mkSpring(8),
+};
+function mkSpring(v) { return { v, target: v, vel: 0 }; }
+function stepSpring(s, dt) {
+  const k = 300, c = 2 * Math.sqrt(300) * 1.05;
+  s.vel += (k * (s.target - s.v) - c * s.vel) * dt;
+  s.v += s.vel * dt;
+  if (Math.abs(s.target - s.v) < 0.02 && Math.abs(s.vel) < 0.05) { s.v = s.target; s.vel = 0; }
+  return s.v;
+}
+function springsSettled() {
+  return Object.values(springs).every((s) => s.v === s.target && s.vel === 0);
+}
+
+function closedBox() {
+  const r = trigger.getBoundingClientRect();
+  return { x: r.right - 16, y: r.bottom - 8, w: 0, h: 0, r: 8 };
+}
+function openBox() {
+  const r = trigger.getBoundingClientRect();
+  const x = Math.max(16, Math.min(window.innerWidth - MENU_W - 16, r.right - MENU_W));
+  const y = Math.min(window.innerHeight - menuHeight - 16, r.bottom + 8);
+  return { x, y, w: MENU_W, h: menuHeight, r: 22 };
+}
+function target(box, jump) {
+  springs.x.target = box.x; springs.y.target = box.y;
+  springs.w.target = box.w; springs.h.target = box.h; springs.r.target = box.r;
+  if (jump) for (const s of Object.values(springs)) { s.v = s.target; s.vel = 0; }
+}
+
+function openMenu() {
+  if (menuOpen) return;
+  menuHeight = Math.round(menuContent.getBoundingClientRect().height) || 240;
+  menuOpen = true;
+  elMenu.setAttribute("aria-hidden", "false");
+  elMenu.style.pointerEvents = "auto";
+  trigger.setAttribute("aria-expanded", "true");
+  target(openBox(), window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  const first = elMenu.querySelector('[role="menuitem"]');
+  if (first) { first.tabIndex = 0; first.focus({ preventScroll: true }); }
+}
+function closeMenu(returnFocus) {
+  if (!menuOpen) return;
+  menuOpen = false;
+  elMenu.setAttribute("aria-hidden", "true");
+  elMenu.style.pointerEvents = "none";
+  trigger.setAttribute("aria-expanded", "false");
+  elMenu.querySelectorAll('[role="menuitem"]').forEach((el) => { el.tabIndex = -1; });
+  target(closedBox(), window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  if (returnFocus) trigger.focus({ preventScroll: true });
+}
+elMenu.style.pointerEvents = "none";
+window.__glassDemo = { openMenu, closeMenu };
+
+trigger.addEventListener("click", () => (menuOpen ? closeMenu(true) : openMenu()));
+document.addEventListener("keydown", (e) => {
+  if (!menuOpen) return;
+  const items = [...elMenu.querySelectorAll('[role="menuitem"]')];
+  const i = items.indexOf(document.activeElement);
+  if (e.key === "Escape") { e.preventDefault(); closeMenu(true); }
+  else if (e.key === "ArrowDown") { e.preventDefault(); items[(i + 1) % items.length].focus(); }
+  else if (e.key === "ArrowUp") { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+});
+document.addEventListener("pointerdown", (e) => {
+  if (menuOpen && !elMenu.contains(e.target) && !trigger.contains(e.target)) closeMenu(false);
+}, true);
+elMenu.addEventListener("click", (e) => {
+  const row = e.target.closest('[role="menuitem"]');
+  if (!row) return;
+  announce(row.querySelector(".mname").textContent + ": done");
+  closeMenu(true);
+});
+
+/* ---------------------------------------------------------------------------
+   Press feedback: a glow from the point of contact, written as the runtime's
+   own channels rather than as a colour swap.
+--------------------------------------------------------------------------- */
+const presses = new Map();
+for (const el of [elTransport, elVolume, elQueue, elMenu]) {
+  presses.set(el, 0);
+  el.addEventListener("pointerdown", (e) => {
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--vitrea-press-x", (e.clientX - r.left).toFixed(1));
+    el.style.setProperty("--vitrea-press-y", (e.clientY - r.top).toFixed(1));
+    presses.set(el, 1);
+  });
+  const release = () => presses.set(el, 0);
+  el.addEventListener("pointerup", release);
+  el.addEventListener("pointercancel", release);
+  el.addEventListener("pointerleave", release);
+}
+
+/* ---------------------------------------------------------------------------
+   The responsive collapse. Below 1180 the queue is not chrome any more: its
+   glass host is released and the same nodes become content in the album column.
+--------------------------------------------------------------------------- */
+let narrow = null;
+function syncQueuePlacement() {
+  const isNarrow = window.innerWidth < 1180;
+  if (isNarrow === narrow) return;
+  narrow = isNarrow;
+  if (isNarrow) {
+    if (hQueue) { hQueue.release(); hQueue = null; }
+    albumQueueSlot.append(queueInner);
+    elQueue.remove();
+    document.body.classList.add("narrow");
+  } else {
+    elQueue.append(queueInner);
+    basePlane.append(elQueue);
+    document.body.classList.remove("narrow");
+    hQueue = root.registerHost({
+      host: elQueue, groupId: "queue", plane: "base",
+      shapeFamily: "fixed-rounded-rect", radii: [22, 22, 22, 22], smoothing: 0.6, thickness: 8,
+    });
+  }
+  if (menuOpen) closeMenu(false);
+}
+
+window.addEventListener("resize", () => { syncQueuePlacement(); syncInset(); paintPlane(); });
+
+/* ---------------------------------------------------------------------------
+   One frame loop, the runtime's own. Playback advances, the plane dissolves on
+   a release change, the platter's springs run, and the press channels decay.
+--------------------------------------------------------------------------- */
+let repaint = true;
+root.subscribe(({ deltaMs }) => {
+  const dt = Math.min(deltaMs, 50) / 1000;
+
+  if (state.playing && !state.scrubbing) {
+    state.elapsed += dt;
+    if (state.elapsed >= current().d) {
+      if (!state.fromLibrary && state.trackIndex < ALBUM.tracks.length - 1) {
+        playTrack(state.trackIndex + 1, ALBUM.art);
+      } else { state.elapsed = current().d; state.playing = false; renderNow(); }
+    }
+    renderProgress();
+  }
+
+  if (fade) {
+    fade.t = Math.min(1, fade.t + dt / 0.52);
+    if (fade.t >= 1) fade = null;
+    repaint = true;
+  }
+  if (repaint) { paintPlane(); repaint = fade !== null; }
+
+  if (!springsSettled()) {
+    const x = stepSpring(springs.x, dt), y = stepSpring(springs.y, dt);
+    const w = stepSpring(springs.w, dt), h = stepSpring(springs.h, dt);
+    const r = stepSpring(springs.r, dt);
+    elMenu.style.left = x.toFixed(2) + "px";
+    elMenu.style.top = y.toFixed(2) + "px";
+    elMenu.style.width = Math.max(0, w).toFixed(2) + "px";
+    elMenu.style.height = Math.max(0, h).toFixed(2) + "px";
+    if (Math.abs(r - (elMenu.__lastR ?? -99)) > 0.25) {
+      elMenu.__lastR = r;
+      elMenu.style.borderRadius = r.toFixed(1) + "px";
+      hMenu.update({ radii: [r, r, r, r] });
+    }
+  }
+
+  for (const [el, v] of presses) {
+    const now = Number(el.style.getPropertyValue("--vitrea-press") || 0);
+    const next = v > 0 ? 1 : Math.max(0, now - dt * 4);
+    if (next !== now) {
+      el.style.setProperty("--vitrea-press", next.toFixed(3));
+      el.style.setProperty("--vitrea-glow", next.toFixed(3));
+    }
+  }
+});
+
+/* ---------------------------------------------------------------------------
+   Start.
+--------------------------------------------------------------------------- */
+renderNow();
+renderProgress();
+renderVolume();
+syncQueuePlacement();
+syncInset();
+target(closedBox(), true);
+elMenu.style.left = springs.x.v.toFixed(2) + "px";
+elMenu.style.top = springs.y.v.toFixed(2) + "px";
+
+await Promise.all(Object.values(ART).map((a) => ensureArt(a.src)));
+paintPlane();
+root.setBackdropTexture("stage", { kind: "canvas", canvas });
+await root.ready();
+</script>
+</body>
+</html>
