@@ -1,0 +1,1310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trails · North Cascades National Park</title>
+<meta name="description" content="Twelve trails in North Cascades National Park with distance, elevation and this morning's conditions, and how the wilderness permit works.">
+
+<script type="importmap">
+{ "imports": {
+    "@vitreajs/vitrea":     "/packages/core/dist/index.js",
+    "@vitreajs/vitrea-web": "/packages/platform-web/dist/index.js"
+} }
+</script>
+
+<style>
+/* ────────────────────────────────────────────────────────────────────────────
+   Tokens. Four printing plates, as DESIGN.md §1 states them. Every colour on
+   the page is one of these; the only literals outside this block are inside the
+   contour texture's data URI and the three status glyphs, both declared
+   exceptions. */
+:root {
+  color-scheme: light;
+
+  /* the three plates that need an alpha somewhere, kept as channels */
+  --sheet-rgb:  237 242 240;
+  --ink-rgb:     29  35  42;
+  --accent-rgb: 166  41  65;
+
+  --sheet:      rgb(var(--sheet-rgb));    /* #edf2f0 — the sheet */
+  --sheet-2:    #e4eae8;   /* sticky head, footer band */
+  --sheet-edge: #d8e0dd;   /* the image's container colour while it loads */
+
+  --ink:        rgb(var(--ink-rgb));      /* #1d232a — black plate: type and rules */
+  --ink-2:      #51575e;
+  --ink-3:      #656b71;   /* 4.77:1 on paper; the smallest ink goes */
+  --rule:       rgb(var(--ink-rgb) / 0.16);
+  --rule-firm:  rgb(var(--ink-rgb) / 0.34);
+  --ink-wash:   rgb(var(--ink-rgb) / 0.07);
+
+  --contour:    #99795e;   /* brown plate — contours and elevation profiles */
+  --water:      #1c628c;   /* blue plate — hydrography, italic */
+  --accent:     rgb(var(--accent-rgb));   /* #a62941 — red plate */
+  --accent-wash: rgb(var(--accent-rgb) / 0.055);
+  --accent-tint: rgb(var(--accent-rgb) / 26%);   /* the one tint seed, read by the script */
+  --on-accent:  #ffffff;
+
+  --sans: "Avenir Next", "Avenir", "Segoe UI", system-ui, sans-serif;
+  --mono: "SF Mono", "Menlo", ui-monospace, "Roboto Mono", monospace;
+
+  --margin: 40px;
+  --measure: 1180px;
+  --bar-top: 24px;
+  --bar-h: 80px;
+
+  /* The desktop web has no safe area — `env(safe-area-inset-*)` resolves to
+     zero — so the page owes the guarantee by hand. `--bar-bottom` is the bar's
+     MEASURED bottom edge, written at boot and on every resize, never a constant
+     typed once; `--scroll-y` is the only thing the frame loop writes. */
+  --bar-bottom: 104px;
+  --scroll-y: 0;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--sheet-edge);
+  font-family: var(--sans);
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--ink); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── the live plane ─────────────────────────────────────────────────────────
+   Viewport-fixed, full-bleed, behind everything. Not an ancestor of the glass
+   root, and carrying no filter, mask or opacity of its own. */
+.plane {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--sheet-edge);
+  overflow: hidden;
+}
+.plane img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 40%;
+  display: block;
+}
+
+/* ── the sheet ──────────────────────────────────────────────────────────────
+   The scrolling document. Its own top edge carries the scroll edge effect: a
+   mask across the bar's footprint, so content dissolves into the plane instead
+   of arriving at the glass as a hard line. The mask is on the sheet and never
+   on an ancestor of the glass root, which would re-root the backdrop. */
+#sheet {
+  position: relative;
+  z-index: 1;
+  --edge-a: calc(var(--scroll-y) * 1px + var(--bar-top) - 4px);
+  --edge-b: calc(var(--scroll-y) * 1px + var(--bar-bottom) + 24px);
+  -webkit-mask-image: linear-gradient(to bottom,
+      transparent 0, transparent var(--edge-a), #000 var(--edge-b), #000 100%);
+          mask-image: linear-gradient(to bottom,
+      transparent 0, transparent var(--edge-a), #000 var(--edge-b), #000 100%);
+}
+
+/* ── the hero band ──────────────────────────────────────────────────────────
+   The paper rising out of the lake. The wash is the full-bleed prior's scrim,
+   tested against the photograph's own region under the copy, and it stops well
+   short of the bar. */
+.hero {
+  min-height: 88vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 var(--margin) 56px;
+  background: linear-gradient(to bottom,
+      rgb(var(--sheet-rgb) / 0) 0%,
+      rgb(var(--sheet-rgb) / 0) 46%,
+      rgb(var(--sheet-rgb) / 0.30) 62%,
+      rgb(var(--sheet-rgb) / 0.76) 75%,
+      rgb(var(--sheet-rgb) / 0.94) 87%,
+      var(--sheet) 100%);
+}
+.hero-inner { width: 100%; max-width: var(--measure); margin: 0 auto; }
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 14px;
+}
+h1 {
+  font-size: 44px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  margin: 0 0 18px;
+  max-width: 20ch;
+}
+.standfirst { margin: 0 0 20px; max-width: 64ch; color: var(--ink-2); }
+.standfirst b { color: var(--ink); font-weight: 600; }
+
+.reading {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: 0.01em;
+  color: var(--ink-2);
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+  max-width: 76ch;
+}
+
+/* ── the paper ──────────────────────────────────────────────────────────────
+   One texture, once, at the root of the sheet: a contour hairline field in the
+   brown plate, painted into the background so the lens has something fine to
+   bend. Nothing else on the page is textured. */
+.quad {
+  background-color: var(--sheet);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Cg fill='none' stroke='%2399795e' stroke-width='1' opacity='0.13'%3E%3Cpath d='M-20 25 C 40 6 110 46 175 25 S 260 6 320 25'/%3E%3Cpath d='M-20 75 C 40 56 110 96 175 75 S 260 56 320 75'/%3E%3Cpath d='M-20 125 C 40 106 110 146 175 125 S 260 106 320 125'/%3E%3Cpath d='M-20 175 C 40 156 110 196 175 175 S 260 156 320 175'/%3E%3C/g%3E%3C/svg%3E");
+  padding: 0 var(--margin) 0;
+}
+.wrap { max-width: var(--measure); margin: 0 auto; }
+
+section > .wrap { border-top: 1px solid var(--rule); padding: 56px 0; }
+section:first-child > .wrap { border-top: 0; }
+
+/* ── the one section heading: a hairline with a figure at its trailing end ── */
+.rule-head {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  margin: 0 0 28px;
+}
+.rule-head h2 {
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+  flex: none;
+}
+.rule-head .fill { flex: 1 1 auto; height: 1px; background: var(--rule-firm); transform: translateY(-4px); }
+.rule-head .tail {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+
+/* ── the matrix ─────────────────────────────────────────────────────────────
+   A real table. It scrolls inside its own container below 900px rather than
+   reflowing into cards. No card exists anywhere on this page. */
+.table-wrap { overflow: visible; }
+table { border-collapse: collapse; width: 100%; min-width: 1040px; }
+
+thead th {
+  position: sticky;
+  top: calc(var(--bar-bottom) + 28px);
+  z-index: 2;
+  background: var(--sheet-2);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--rule-firm);
+  white-space: nowrap;
+}
+thead th.num { text-align: right; }
+
+tbody th, tbody td {
+  padding: 12px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: middle;
+  font-weight: 400;
+  text-align: left;
+}
+tbody td.num { text-align: right; font-family: var(--mono); font-size: 14px; letter-spacing: -0.01em; white-space: nowrap; }
+tbody td.num .unit { color: var(--ink-3); font-size: 11.5px; }
+
+tbody tr.is-selected th, tbody tr.is-selected td { background: var(--accent-wash); }
+tbody tr.is-selected .trail-name { color: var(--accent); }
+.trail-name .pick { color: var(--accent); opacity: 0; margin-right: 7px; font-size: 10px;
+                    vertical-align: 1.5px; }
+tbody tr.is-selected .trail-name .pick { opacity: 1; }
+
+.trail-name {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+}
+.trail-name:hover { color: var(--accent); }
+.trail-meta { display: block; font-size: 12.5px; color: var(--ink-3); font-weight: 400; margin-top: 2px; }
+.trail-meta .mono { font-family: var(--mono); font-size: 12px; }
+
+/* the one elevation glyph: brown plate line, red plate snow line, shared scale */
+.profile { display: block; width: 132px; height: 48px; }
+.p-fill { fill: var(--contour); fill-opacity: 0.16; }
+.p-base { stroke: var(--ink); stroke-opacity: 0.22; stroke-width: 1; fill: none; }
+.p-snow { stroke: var(--accent); stroke-width: 1; stroke-dasharray: 3 3; fill: none; }
+.p-snow.is-below { stroke-opacity: 0.26; }
+.p-line { stroke: var(--contour); stroke-width: 1.6; stroke-linejoin: round; fill: none; }
+
+/* a label that belongs to the accessibility tree and not to the page */
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden;
+      clip-path: inset(50%); white-space: nowrap; }
+
+/* the one status chip: a glyph, a word and a note — never colour alone */
+.status { display: block; font-size: 13.5px; line-height: 1.35; }
+.status .mark { font-size: 10px; margin-right: 6px; vertical-align: 1.5px; }
+.status .word { font-weight: 600; letter-spacing: 0.01em; }
+.status .note { display: block; color: var(--ink-3); font-size: 12.5px; }
+.status.is-open .mark, .status.is-open .word { color: var(--ink-2); }
+.status.is-caution .mark, .status.is-caution .word { color: var(--contour); }
+.status.is-closed .mark, .status.is-closed .word { color: var(--accent); }
+
+.permit-cell { font-size: 13.5px; line-height: 1.35; }
+.permit-cell .req { font-weight: 600; }
+.permit-cell .sub { display: block; color: var(--ink-3); font-size: 12.5px; }
+
+.legend {
+  margin: 16px 0 0;
+  font-size: 12.5px;
+  color: var(--ink-3);
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.legend .key { display: inline-flex; align-items: center; gap: 8px; }
+.legend svg { display: block; }
+
+/* ── the bulletin: a definition list, term 200px, description 1fr ─────────── */
+.bulletin { margin: 0; display: grid; grid-template-columns: 232px 1fr; column-gap: 0; }
+.bulletin dt {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  padding: 18px 32px 18px 0;
+  border-top: 1px solid var(--rule);
+}
+.bulletin dd {
+  margin: 0;
+  padding: 18px 0;
+  border-top: 1px solid var(--rule);
+  max-width: 68ch;
+}
+.bulletin dt:first-of-type, .bulletin dd:first-of-type { border-top: 0; padding-top: 0; }
+.bulletin .mono { font-family: var(--mono); font-size: 14px; }
+.water { font-style: italic; color: var(--water); }
+
+.forecast { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 8px; max-width: 780px; }
+.forecast div { padding: 10px 16px 10px 0; border-left: 1px solid var(--rule); padding-left: 16px; }
+.forecast div:first-child { border-left: 0; padding-left: 0; }
+.forecast .day { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2); }
+.forecast .temp { font-family: var(--mono); font-size: 20px; line-height: 1.3; }
+.forecast .sky { font-size: 12.5px; color: var(--ink-3); }
+.forecast .fl { font-family: var(--mono); font-size: 12px; color: var(--ink-3); }
+
+/* ── the permit sequence: ordered, the date first in each row ─────────────── */
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: step; max-width: 78ch; }
+.steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 40px 200px 1fr;
+  column-gap: 24px;
+  padding: 20px 0;
+  border-top: 1px solid var(--rule);
+}
+.steps li:first-child { border-top: 0; padding-top: 0; }
+.steps li::before {
+  content: counter(step);
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-3);
+  padding-top: 2px;
+}
+.steps .when { font-family: var(--mono); font-size: 14px; color: var(--ink); }
+.steps h3 { margin: 0 0 4px; font-size: 15.5px; font-weight: 600; }
+.steps p { margin: 0; color: var(--ink-2); }
+
+.quota-line {
+  margin: 28px 0 0;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--rule-firm);
+  font-family: var(--mono);
+  font-size: 13.5px;
+}
+.quota-line b { color: var(--ink); font-weight: 600; }
+
+/* ── footer ─────────────────────────────────────────────────────────────── */
+.sheet-foot {
+  background: var(--sheet-2);
+  border-top: 1px solid var(--rule-firm);
+  padding: 40px var(--margin) 56px;
+}
+.sheet-foot .wrap { display: grid; grid-template-columns: 1.6fr 1fr; gap: 40px; }
+.sheet-foot p { margin: 0 0 10px; font-size: 13px; color: var(--ink-2); max-width: 62ch; }
+.sheet-foot .credit { font-size: 12.5px; }
+.sheet-foot h2 {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-2); margin: 0 0 10px;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   THE FLOATING LAYER — three glass surfaces, and nothing else on the page
+   carries the material. No background, no border, no shadow: the runtime owns
+   `background` and `transform` on a host and rewrites them every frame. */
+
+#chrome[hidden] { display: none; }
+
+.planner, .cta, .platter {
+  color-scheme: light;               /* app content inside a plane, memo §6.7 */
+  color: var(--ink);
+}
+
+.planner {
+  position: absolute;
+  left: var(--margin);
+  top: var(--bar-top);
+  width: max-content;
+  max-width: calc(100vw - 300px);
+  height: var(--bar-h);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 10px;
+}
+.field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  padding: 8px 13px;
+  border-radius: 12px;              /* concentric: 22 − 10 */
+  flex: 0 0 auto;
+}
+.field > .label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.field select {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  cursor: pointer;
+}
+.field select:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.readout { padding: 8px 13px; display: flex; flex-direction: column; gap: 1px; flex: 0 0 auto; }
+.readout .label {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--ink-2); white-space: nowrap;
+}
+.readout .value { font-family: var(--mono); font-size: 14px; color: var(--ink); white-space: nowrap; }
+.planner .divider { width: 1px; align-self: stretch; margin: 18px 8px; background: var(--rule); }
+.planner .spring { flex: 1 1 auto; }
+
+.cta {
+  position: absolute;
+  right: var(--margin);
+  top: 40px;
+  width: 190px;
+  height: 48px;
+  appearance: none;
+  background: none;
+  border: 0;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  cursor: pointer;
+}
+.cta-inline { display: none; }
+
+.platter {
+  position: absolute;
+  right: var(--margin);
+  top: 120px;
+  /* Derived from its content at the comfortable rhythm, not from a ceiling:
+     424 wide so the longest zone line sets on one line for every route (the
+     widest measures 380 against a 380 box), and 344 tall, the content's own
+     height at 341 rounded to the spacing step. */
+  width: 424px;
+  height: 344px;
+  padding: 22px;
+  transform-origin: 92% 0%;
+  display: none;
+}
+.platter.is-open { display: block; }
+.platter h2 { margin: 0 0 2px; font-size: 15.5px; font-weight: 600; }
+.platter .zone { margin: 0 0 16px; font-size: 12.5px; color: var(--ink); }
+.platter .rows { display: grid; gap: 0; margin-bottom: 16px; }
+.platter .row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  padding: 10px 12px;
+  border-radius: 20px;              /* concentric: 32 − 12 */
+  border-bottom: 1px solid var(--rule);
+}
+.platter .row:last-child { border-bottom: 0; }
+.platter .row .k { font-size: 13px; color: var(--ink); }
+.platter .row .v { font-family: var(--mono); font-size: 14px; color: var(--ink); }
+.platter .row .v.alert { color: var(--accent); font-weight: 600; }
+.platter .acts { display: flex; gap: 10px; align-items: center; }
+.platter a.go, .platter button.dismiss {
+  appearance: none;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.platter a.go { background: var(--accent); color: var(--on-accent); border: 0; }
+.platter button.dismiss { background: var(--ink-wash); color: var(--ink); border: 0; }
+
+/* ── the collapse ───────────────────────────────────────────────────────────
+   At 900px the planner drops its two readouts, which reappear as a line in the
+   hero. Below 720px the action capsule is released as a glass surface and
+   returns as a filled button inside the platter: one glass surface on a phone,
+   which is the honest inventory at that width. */
+.hero-summary { display: none; }
+
+@media (max-width: 1240px) {
+  #readout-freezing { display: none; }
+}
+@media (max-width: 1100px) {
+  .planner { max-width: calc(100vw - 260px); }
+  #readout-weather { display: none; }
+}
+@media (max-width: 900px) {
+  :root { --margin: 24px; }
+  h1 { font-size: 34px; }
+  .planner { max-width: calc(100vw - 220px); }
+  #readout-route { display: none; }
+  .hero-summary { display: block; }
+  .bulletin { grid-template-columns: 1fr; }
+  .bulletin dd { padding-top: 0; border-top: 0; }
+  .bulletin dt { padding-bottom: 6px; }
+  .table-wrap { overflow-x: auto; }
+  thead th { position: static; }
+  .steps li { grid-template-columns: 28px 1fr; }
+  .steps .when { grid-column: 2; margin-bottom: 4px; }
+  .sheet-foot .wrap { grid-template-columns: 1fr; }
+  .forecast { grid-template-columns: repeat(2, 1fr); }
+  .rule-head { flex-wrap: wrap; gap: 8px 16px; }
+  .rule-head .fill { display: none; }
+  .rule-head .tail { flex-basis: 100%; }
+}
+@media (max-width: 720px) {
+  /* two rows, and the standout action rejoins the platter as a fill: one glass
+     surface on a phone, which is the honest inventory at this width. */
+  .planner {
+    width: calc(100vw - 32px); max-width: none; height: 106px;
+    padding: 6px 6px; flex-wrap: wrap; align-content: center; row-gap: 2px;
+  }
+  .planner .divider, .planner .readout, .planner .spring { display: none; }
+  .cta { display: none; }
+  .cta-inline {
+    display: inline-flex; align-items: center; justify-content: center;
+    appearance: none; border: 0; cursor: pointer;
+    background: var(--accent); color: var(--on-accent);
+    font-family: var(--sans); font-size: 13.5px; font-weight: 600;
+    padding: 10px 16px; border-radius: 12px; margin-left: auto; margin-right: 7px;
+  }
+  .platter { right: 24px; left: 24px; width: auto; top: calc(var(--bar-bottom) + 16px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0ms !important; animation-duration: 0ms !important; }
+}
+
+/* Under forced colours there is no glass at all; what remains is the sheet,
+   which is the whole interface. */
+@media (forced-colors: active) {
+  .planner, .platter { border: 1px solid CanvasText; background: Canvas; }
+  .cta { border: 1px solid CanvasText; background: Canvas; }
+  .plane { display: none; }
+  .hero { background: Canvas; min-height: 0; padding-top: 148px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- The glass root's container, first in the document so the trip planner is
+     first in reading order. The runtime creates its own fixed, z-indexed root
+     inside this element; nothing here carries a filter, mask, opacity or blend
+     mode, which would re-root the backdrop and demote every group. -->
+<div id="glass-root"></div>
+
+<!-- The floating layer, authored here for its semantics and moved into the
+     plane host layers at boot. A host must already be inside
+     `plane(p).hostLayer` when it is registered. -->
+<div id="chrome" hidden>
+
+  <div id="planner" class="planner" role="group" aria-label="Trip planner">
+    <div class="field">
+      <span class="label" id="lb-route">Route</span>
+      <select id="sel-route" aria-labelledby="lb-route"></select>
+    </div>
+    <div class="field">
+      <span class="label" id="lb-date">Start</span>
+      <select id="sel-date" aria-labelledby="lb-date"></select>
+    </div>
+    <div class="field">
+      <span class="label" id="lb-party">Party</span>
+      <select id="sel-party" aria-labelledby="lb-party">
+        <option value="1">1 hiker</option>
+        <option value="2" selected>2 hikers</option>
+        <option value="3">3 hikers</option>
+        <option value="4">4 hikers</option>
+        <option value="6">6 hikers</option>
+      </select>
+    </div>
+    <div class="divider" aria-hidden="true"></div>
+    <div class="readout" id="readout-route">
+      <span class="label">Round trip</span>
+      <span class="value" id="rd-route" aria-live="polite">—</span>
+    </div>
+    <div class="readout" id="readout-weather">
+      <span class="label">At 5,000 ft</span>
+      <span class="value" id="rd-weather" aria-live="polite">—</span>
+    </div>
+    <div class="readout" id="readout-freezing">
+      <span class="label">Freezing</span>
+      <span class="value" id="rd-freezing" aria-live="polite">—</span>
+    </div>
+    <div class="readout">
+      <span class="label">Permit</span>
+      <span class="value" id="rd-permit" aria-live="polite">—</span>
+    </div>
+    <span class="spring" aria-hidden="true"></span>
+    <button id="cta-inline" class="cta-inline" type="button" aria-haspopup="dialog" aria-expanded="false">Check permit</button>
+  </div>
+
+  <button id="cta" class="cta" type="button" aria-haspopup="dialog" aria-expanded="false">Check permit</button>
+
+  <div id="platter" class="platter" role="dialog" aria-label="Wilderness permit for the selected route" aria-hidden="true">
+    <h2 id="pl-title">Cascade Pass – Sahale Arm</h2>
+    <p class="zone" id="pl-zone">Wilderness zone · overnight permit required</p>
+    <div class="rows">
+      <div class="row"><span class="k">Night of</span><span class="v" id="pl-date">—</span></div>
+      <div class="row"><span class="k">Sites open</span><span class="v" id="pl-sites">—</span></div>
+      <div class="row"><span class="k">Party</span><span class="v" id="pl-party">—</span></div>
+      <div class="row"><span class="k">Walk-up desk</span><span class="v" id="pl-walkup">—</span></div>
+    </div>
+    <div class="acts">
+      <a class="go" id="pl-go" href="https://www.recreation.gov/" rel="noreferrer">Reserve</a>
+      <button class="dismiss" id="pl-close" type="button">Close</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- The live plane. -->
+<div class="plane">
+  <img src="images/park-panorama.jpg" width="2560" height="1600"
+       alt="Diablo Lake seen from the overlook on the North Cascades Highway: water green with glacial silt, forested ridges falling to it on both sides, cloud lying on the peaks at the head of the valley.">
+</div>
+
+<main id="sheet">
+
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">North Cascades National Park · Washington</p>
+      <h1>Twelve trails, and where the snow is this morning.</h1>
+      <p class="standfirst">Distances are round trip from the trailhead named. The twelve elevation
+        profiles share one vertical scale, so the dashed line falls in the same place on every one of
+        them: <b>6,000 feet, where Tuesday's front left new snow</b>.</p>
+      <p class="reading">Conditions read 09:40 · Thu 10 Sept 2026 · Wilderness Information Center, Marblemount</p>
+      <p class="reading hero-summary" id="hero-summary">—</p>
+    </div>
+  </header>
+
+  <div class="quad">
+
+    <section id="trails" aria-labelledby="h-trails">
+      <div class="wrap">
+        <div class="rule-head">
+          <h2 id="h-trails">Twelve trails</h2>
+          <span class="fill" aria-hidden="true"></span>
+          <span class="tail">1 closed · 4 with cautions</span>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <caption class="vh">Twelve trails with distance, elevation gain, high
+              point, today's condition and the permit each one needs.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Trail</th>
+                <th scope="col">Profile · 0–8,000 ft</th>
+                <th scope="col" class="num">Miles</th>
+                <th scope="col" class="num">Gain</th>
+                <th scope="col" class="num">High point</th>
+                <th scope="col">Today</th>
+                <th scope="col">Permit</th>
+              </tr>
+            </thead>
+            <tbody id="trail-rows"></tbody>
+          </table>
+        </div>
+
+        <p class="legend">
+          <span class="key">
+            <svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path class="p-line" d="M0 9 C 8 9 12 3 18 3 S 28 1 34 1"/></svg>
+            elevation, one way
+          </span>
+          <span class="key">
+            <svg width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path class="p-snow" d="M0 6 H 34"/></svg>
+            snow line, 6,000 ft
+          </span>
+          <span class="key">Miles and gain are round trip. Times assume a moderate pace with breaks.</span>
+        </p>
+      </div>
+    </section>
+
+    <section id="conditions" aria-labelledby="h-conditions">
+      <div class="wrap">
+        <div class="rule-head">
+          <h2 id="h-conditions">Conditions</h2>
+          <span class="fill" aria-hidden="true"></span>
+          <span class="tail">Read 09:40, Thu 10 Sept 2026</span>
+        </div>
+
+        <dl class="bulletin">
+          <dt>Snow</dt>
+          <dd>Tuesday's front left <span class="mono">2–4 in</span> of new snow above
+            <span class="mono">6,000 ft</span>, deeper on north aspects. Traction and an ice axe are
+            sensible on <b>Sahale Arm</b> above the moraine and on the last switchbacks below
+            <b>Easy Pass</b>. Everything below <span class="mono">5,500 ft</span> is bare.</dd>
+
+          <dt>Water</dt>
+          <dd>The <span class="water">Stehekin River</span> is low and clear. The footlog over
+            <span class="water">Agnes Creek</span> is in place. The <span class="water">Fisher Creek</span>
+            ford at mile 4 is knee-deep and cold before <span class="mono">11:00</span>; cross on the
+            gravel bar <span class="mono">80 yd</span> downstream of the cairn.</dd>
+
+          <dt>Fire</dt>
+          <dd>The Desolation Fire, lightning-caused on the east shore of
+            <span class="water">Ross Lake</span>, is at <span class="mono">340 acres</span> and
+            <span class="mono">0%</span> contained. <b>Desolation Peak Trail and the Lightning Creek
+            camps are closed through 30 September.</b> Smoke settles in the Ross Lake basin overnight
+            and lifts by mid-morning.</dd>
+
+          <dt>Roads and access</dt>
+          <dd>SR 20 is open over both passes. Cascade River Road is open to the Cascade Pass
+            trailhead at mile 22 and is rough past mile 18. Thornton Creek Road wants high clearance.
+            The <span class="water">Ross Lake</span> water taxi is running; last return
+            <span class="mono">17:30</span>.</dd>
+
+          <dt>Wildlife</dt>
+          <dd>Huckleberries are ripe in the Cascade Pass meadows and bears are feeding in them
+            through the day. Approved food storage is required above
+            <span class="mono">4,000 ft</span> everywhere in the park complex.</dd>
+
+          <dt>Forecast · 5,000 ft</dt>
+          <dd>
+            <div class="forecast" id="forecast"></div>
+          </dd>
+        </dl>
+      </div>
+    </section>
+
+    <section id="permits" aria-labelledby="h-permits">
+      <div class="wrap">
+        <div class="rule-head">
+          <h2 id="h-permits">The wilderness permit</h2>
+          <span class="fill" aria-hidden="true"></span>
+          <span class="tail">Four steps</span>
+        </div>
+
+        <ol class="steps">
+          <li>
+            <span class="when">Any night out</span>
+            <div>
+              <h3>Decide whether you need one</h3>
+              <p>Every overnight stay in the wilderness of the park complex needs a permit, including
+                a bivouac on a climb. Day hikes do not, whatever their length.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">1–15 March</span>
+            <div>
+              <h3>Early access lottery</h3>
+              <p>Apply on recreation.gov for a booking window in late March. Results are drawn on
+                25 March and windows open in draw order. The application is $6 and is not refunded.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">15 May · 07:00 PT</span>
+            <div>
+              <h3>Remaining permits go on sale</h3>
+              <p>Everything the lottery did not take opens to anyone, and stays open until 24 hours
+                before the first night of the trip.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">From 08:00, the day before</span>
+            <div>
+              <h3>Walk-up, in person</h3>
+              <p>Forty per cent of sites in every zone are held back for walk-ups. Collect them at
+                the Wilderness Information Center in Marblemount, or at Chelan or Stehekin for the
+                south unit. Bring the party's names and a second route in mind.</p>
+            </div>
+          </li>
+        </ol>
+
+        <p class="quota-line" id="quota-line">—</p>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="sheet-foot">
+    <div class="wrap">
+      <div>
+        <h2>About this page</h2>
+        <p>A design demonstration of Apple's Liquid Glass composition language on the web, built on
+          vitrea. Trail figures are round trip from the trailheads named. Conditions, forecasts and
+          permit availability shown here are illustrative and are not a National Park Service
+          publication.</p>
+        <p class="credit">Photograph: <a href="https://unsplash.com/photos/a-large-body-of-water-surrounded-by-mountains-LtvmhSsLN4k?utm_source=designer&amp;utm_medium=referral">Diablo Lake from the North Cascades Highway overlook</a>
+          by <a href="https://unsplash.com/@pete_a?utm_source=designer&amp;utm_medium=referral">Pete Alexopoulos</a>
+          on <a href="https://unsplash.com/?utm_source=designer&amp;utm_medium=referral">Unsplash</a>.</p>
+      </div>
+      <div>
+        <h2>Wilderness Information Center</h2>
+        <p>7280 Ranger Station Road, Marblemount, Washington<br>
+          Open 08:00–16:30 daily to 30 September, then Friday to Sunday.</p>
+        <p>Emergencies: dial 911. There is no cell service east of Newhalem.</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script type="module">
+import { createGlassRoot, GLASS_CHANNEL_PROPERTIES } from "@vitreajs/vitrea-web";
+
+/* ══════════════════════════════════════════════════════════════════════════
+   1. The content. Twelve trails, one schema, and the day's readings.
+   Profiles are one-way elevation samples in feet, drawn against one shared
+   0–8,000 ft scale so the snow line falls in the same place on every glyph. */
+
+const SNOW_LINE = 6000;
+const SCALE_MAX = 8000;
+
+const TRAILS = [
+  { id: "cedars", name: "Trail of the Cedars", head: "Newhalem", kind: "Loop", time: "15 min",
+    miles: 0.4, gain: 20, high: 520, state: "open", note: "Boardwalk, wheelchair accessible",
+    permit: "None", permitSub: "Day use",
+    profile: [500, 505, 510, 516, 520, 516, 510, 505, 500] },
+
+  { id: "ladder", name: "Ladder Creek Falls", head: "Newhalem", kind: "Loop", time: "25 min",
+    miles: 0.5, gain: 100, high: 620, state: "open", note: "Stairs wet in the morning",
+    permit: "None", permitSub: "Day use",
+    profile: [520, 545, 575, 600, 620, 610, 588, 558, 528] },
+
+  { id: "rossdam", name: "Ross Dam", head: "SR 20, milepost 134", kind: "Out and back", time: "1 h 15",
+    miles: 2.0, gain: 500, high: 1780, state: "open", note: "Gain is on the way back up",
+    permit: "None", permitSub: "Day use",
+    profile: [1780, 1700, 1620, 1545, 1470, 1405, 1355, 1312, 1280] },
+
+  { id: "pyramid", name: "Pyramid Lake", head: "SR 20, milepost 127", kind: "Out and back", time: "3 h",
+    miles: 4.4, gain: 1550, high: 2650, state: "open", note: "Roots and blowdown at mile 1.6",
+    permit: "None", permitSub: "Day use",
+    profile: [1100, 1350, 1600, 1850, 2100, 2300, 2450, 2560, 2650] },
+
+  { id: "agnes", name: "Agnes Gorge", head: "High Bridge, Stehekin", kind: "Out and back", time: "2 h 30",
+    miles: 5.0, gain: 300, high: 1800, state: "open", note: "Shuttle from Stehekin landing, 09:00",
+    permit: "None", permitSub: "Day use",
+    profile: [1550, 1600, 1650, 1700, 1732, 1760, 1780, 1792, 1800] },
+
+  { id: "cascade", name: "Cascade Pass", head: "Cascade River Rd, mi 22", kind: "Out and back", time: "4 h",
+    miles: 7.4, gain: 1800, high: 5400, state: "open", note: "Bears in the meadows all day",
+    permit: "None for the day", permitSub: "Permit to camp at Pelton Basin",
+    profile: [3600, 3800, 4050, 4300, 4550, 4800, 5050, 5250, 5400] },
+
+  { id: "diablo", name: "Diablo Lake Trail", head: "Diablo townsite", kind: "Out and back", time: "4 h",
+    miles: 7.6, gain: 1400, high: 2100, state: "open", note: "Exposed above the powerline cut",
+    permit: "None", permitSub: "Day use",
+    profile: [1200, 1500, 1750, 1910, 2100, 2050, 1900, 1700, 1250] },
+
+  { id: "easy", name: "Easy Pass", head: "SR 20, milepost 151", kind: "Out and back", time: "5 h",
+    miles: 7.4, gain: 2800, high: 6500, state: "caution", note: "New snow and ice on the last switchbacks",
+    permit: "None for the day", permitSub: "Permit to camp at Fisher Creek",
+    profile: [3700, 4000, 4350, 4700, 5050, 5450, 5850, 6200, 6500] },
+
+  { id: "desolation", name: "Desolation Peak", head: "Ross Lake, by boat", kind: "Out and back", time: "7 h",
+    miles: 9.4, gain: 4400, high: 6102, state: "closed", note: "Fire closure through 30 September",
+    permit: "Closed", permitSub: "No permits issued for this zone",
+    profile: [1700, 2200, 2750, 3300, 3850, 4400, 4950, 5550, 6102] },
+
+  { id: "thornton", name: "Thornton Lakes", head: "Thornton Creek Rd", kind: "Out and back", time: "6 h 30",
+    miles: 10.4, gain: 2700, high: 4900, state: "caution", note: "Road needs high clearance",
+    permit: "Permit to camp", permitSub: "Thornton Lakes zone, 3 sites",
+    profile: [2600, 3000, 3400, 3800, 4200, 4600, 4900, 4640, 4400] },
+
+  { id: "sourdough", name: "Sourdough Mountain", head: "Diablo townsite", kind: "Out and back", time: "8 h",
+    miles: 10.4, gain: 5085, high: 5985, state: "caution", note: "No water above 3,000 ft since 2 Sept",
+    permit: "Permit to camp", permitSub: "Sourdough zone, 2 sites",
+    profile: [900, 1600, 2300, 3000, 3700, 4400, 5000, 5520, 5985] },
+
+  { id: "sahale", name: "Sahale Arm", head: "Cascade River Rd, mi 22", kind: "Out and back", time: "9 h",
+    miles: 12.0, gain: 3900, high: 7600, state: "caution", note: "Verglas on the arm above 6,400 ft",
+    permit: "Permit to camp", permitSub: "Sahale Glacier Camp, 6 sites",
+    profile: [3600, 4100, 4700, 5300, 5800, 6300, 6800, 7220, 7600] },
+];
+
+const STATE_LABEL = { open: "Open", caution: "Caution", closed: "Closed" };
+const STATE_MARK  = { open: "●", caution: "▲", closed: "■" };
+
+/* Seven days of the trip window. Sites are per wilderness zone, the way the
+   desk reads them out: what is unclaimed this morning. */
+const DAYS = [
+  { id: "09-10", label: "Thu 10 Sept", short: "Thu", tempF: 46, sky: "Showers",   fl: 7200, gust: 25 },
+  { id: "09-11", label: "Fri 11 Sept", short: "Fri", tempF: 52, sky: "Sun",       fl: 8500, gust: 10 },
+  { id: "09-12", label: "Sat 12 Sept", short: "Sat", tempF: 48, sky: "High cloud", fl: 7800, gust: 15 },
+  { id: "09-13", label: "Sun 13 Sept", short: "Sun", tempF: 39, sky: "Snow showers", fl: 6000, gust: 35 },
+  { id: "09-14", label: "Mon 14 Sept", short: "Mon", tempF: 43, sky: "Cloud",     fl: 6600, gust: 20 },
+  { id: "09-15", label: "Tue 15 Sept", short: "Tue", tempF: 47, sky: "Sun",       fl: 7400, gust: 12 },
+  { id: "09-16", label: "Wed 16 Sept", short: "Wed", tempF: 50, sky: "Sun",       fl: 8000, gust: 10 },
+];
+
+/* Sites unclaimed this morning, by zone and by night. A zone with no entry
+   takes no permit at all. */
+const SITES = {
+  sahale:    [0, 2, 4, 6, 6, 3, 5],
+  thornton:  [1, 1, 0, 2, 3, 3, 3],
+  sourdough: [0, 1, 2, 2, 2, 2, 2],
+  cascade:   [2, 3, 1, 4, 5, 5, 4],
+  easy:      [3, 4, 2, 4, 4, 4, 4],
+};
+const ZONE_NAME = {
+  sahale: "Sahale Glacier Camp · 6 sites",
+  thornton: "Thornton Lakes · 3 sites",
+  sourdough: "Sourdough Camp · 2 sites",
+  cascade: "Pelton Basin · 5 sites",
+  easy: "Fisher Creek · 4 sites",
+};
+
+/* ══════════════════════════════════════════════════════════════════════════
+   2. The sheet. */
+
+const $ = (s) => document.querySelector(s);
+const fmt = (n) => n.toLocaleString("en-US");
+
+/** The one elevation glyph. One shared scale, so the snow line is comparable. */
+function profileSvg(samples) {
+  const w = 132, h = 48, n = samples.length;
+  const x = (i) => (i / (n - 1)) * w;
+  const y = (ft) => h - (Math.min(ft, SCALE_MAX) / SCALE_MAX) * (h - 2) - 1;
+  const line = samples.map((ft, i) => `${i ? "L" : "M"}${x(i).toFixed(1)} ${y(ft).toFixed(1)}`).join(" ");
+  const area = `${line} L${w} ${h} L0 ${h} Z`;
+  const snow = y(SNOW_LINE).toFixed(1);
+  const crosses = Math.max(...samples) > SNOW_LINE;
+  return `<svg class="profile" viewBox="0 0 ${w} ${h}" role="img" aria-label="Elevation from ${fmt(samples[0])} to ${fmt(Math.max(...samples))} feet, ${crosses ? "crossing" : "staying below"} the 6,000 foot snow line">
+    <path class="p-fill" d="${area}"/>
+    <path class="p-base" d="M0 ${h - 0.5} H${w}"/>
+    <path class="p-snow${crosses ? "" : " is-below"}" d="M0 ${snow} H${w}"/>
+    <path class="p-line" d="${line}"/>
+  </svg>`;
+}
+
+function renderTrails() {
+  $("#trail-rows").innerHTML = TRAILS.map((t) => `
+    <tr data-trail="${t.id}">
+      <th scope="row">
+        <button type="button" class="trail-name" data-select="${t.id}"><span class="pick" aria-hidden="true">▶</span>${t.name}</button>
+        <span class="trail-meta">${t.kind} · ${t.time} · <span class="mono">${t.head}</span></span>
+      </th>
+      <td>${profileSvg(t.profile)}</td>
+      <td class="num">${t.miles.toFixed(1)}</td>
+      <td class="num">${fmt(t.gain)} <span class="unit">ft</span></td>
+      <td class="num">${fmt(t.high)} <span class="unit">ft</span></td>
+      <td>
+        <span class="status is-${t.state}">
+          <span class="mark" aria-hidden="true">${STATE_MARK[t.state]}</span><span class="word">${STATE_LABEL[t.state]}</span>
+          <span class="note">${t.note}</span>
+        </span>
+      </td>
+      <td class="permit-cell"><span class="req">${t.permit}</span><span class="sub">${t.permitSub}</span></td>
+    </tr>`).join("");
+}
+
+function renderForecast() {
+  $("#forecast").innerHTML = DAYS.slice(0, 4).map((d) => `
+    <div>
+      <div class="day">${d.short} ${d.label.split(" ")[1]}</div>
+      <div class="temp">${d.tempF}°F</div>
+      <div class="sky">${d.sky}</div>
+      <div class="fl">freezing ${fmt(d.fl)} ft</div>
+      <div class="fl">gusts ${d.gust} mph</div>
+    </div>`).join("");
+}
+
+function fillSelects() {
+  $("#sel-route").innerHTML = TRAILS.map((t) =>
+    `<option value="${t.id}"${t.id === "sahale" ? " selected" : ""}>${t.name}</option>`).join("");
+  $("#sel-date").innerHTML = DAYS.map((d, i) =>
+    `<option value="${d.id}"${i === 2 ? " selected" : ""}>${d.label}</option>`).join("");
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   3. The trip. One state object drives the planner's readouts, the selected
+   row, the platter and the page's own quota line. */
+
+const trip = { route: "sahale", date: "09-12", party: 2 };
+
+const trailOf = (id) => TRAILS.find((t) => t.id === id);
+const dayIndex = (id) => DAYS.findIndex((d) => d.id === id);
+
+function permitReadout() {
+  const t = trailOf(trip.route);
+  if (t.state === "closed") return { text: "Closed", detail: "no permits issued", alert: true };
+  const sites = SITES[t.id];
+  if (!sites) return { text: "Not needed", detail: "day use", alert: false };
+  const open = sites[dayIndex(trip.date)];
+  return {
+    text: `${open} of ${ZONE_NAME[t.id].match(/(\d+) sites/)[1]}`,
+    detail: open === 0 ? "full — try the walk-up desk" : "unclaimed this morning",
+    alert: open === 0,
+  };
+}
+
+function sync() {
+  const t = trailOf(trip.route);
+  const d = DAYS[dayIndex(trip.date)];
+  const p = permitReadout();
+
+  $("#rd-route").textContent = `${t.miles.toFixed(1)} mi · ${fmt(t.gain)} ft`;
+  $("#rd-weather").textContent = `${d.tempF}°F`;
+  $("#rd-freezing").textContent = `${fmt(d.fl)} ft`;
+  $("#rd-permit").textContent = p.text;
+  $("#hero-summary").textContent =
+    `${t.name} · ${t.miles.toFixed(1)} mi · ${fmt(t.gain)} ft · ${d.label} · permit ${p.text.toLowerCase()}`;
+
+  for (const row of document.querySelectorAll("tbody tr")) {
+    const on = row.dataset.trail === trip.route;
+    row.classList.toggle("is-selected", on);
+    if (on) row.setAttribute("aria-current", "true"); else row.removeAttribute("aria-current");
+  }
+
+  $("#quota-line").innerHTML = SITES[t.id] && t.state !== "closed"
+    ? `For <b>${d.label}</b>, ${ZONE_NAME[t.id].split(" · ")[0]} has <b>${p.text}</b> sites unclaimed this morning. Forty per cent are held for the walk-up desk and are not counted here.`
+    : t.state === "closed"
+      ? `<b>${t.name}</b> is inside the Desolation Fire closure. No permits are being issued for that zone before 30 September.`
+      : `<b>${t.name}</b> is a day hike and needs no permit. Park at the trailhead named, and carry the day's forecast with you.`;
+
+  $("#pl-title").textContent = t.name;
+  $("#pl-zone").textContent = SITES[t.id] && t.state !== "closed"
+    ? `${ZONE_NAME[t.id]} · overnight permit required`
+    : t.state === "closed" ? "Fire closure · no permits issued" : "Day use · no permit required";
+  $("#pl-date").textContent = d.label;
+  $("#pl-sites").textContent = p.text;
+  $("#pl-sites").classList.toggle("alert", p.alert);
+  $("#pl-party").textContent = `${trip.party} ${trip.party === 1 ? "hiker" : "hikers"}`;
+  $("#pl-walkup").textContent = "08:00, Marblemount";
+}
+
+renderTrails();
+renderForecast();
+fillSelects();
+
+$("#sel-route").addEventListener("change", (e) => { trip.route = e.target.value; sync(); });
+$("#sel-date").addEventListener("change", (e) => { trip.date = e.target.value; sync(); });
+$("#sel-party").addEventListener("change", (e) => { trip.party = +e.target.value; sync(); });
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-select]");
+  if (!b) return;
+  trip.route = b.dataset.select;
+  $("#sel-route").value = trip.route;
+  sync();
+});
+
+/* ══════════════════════════════════════════════════════════════════════════
+   4. The glass. Three surfaces, two groups, two planes. */
+
+/* The CSS tier is a state of this design, not a degraded copy of it, so the page
+   can be opened at it deliberately: `?tier=css`. Opening from file:// does not
+   force the tier — it stops the module loading at all. */
+const forcedTier = new URLSearchParams(location.search).get("tier") === "css";
+
+const root = createGlassRoot({
+  container: $("#glass-root"),
+  renderer: forcedTier ? "css" : "webgpu",
+  devMode: true,
+  colorScheme: "light",
+  // prefers-reduced-transparency is not Baseline, and where it cannot be
+  // queried "system" silently resolves false — so all three are declared.
+  accessibilityOverrides: {
+    reducedTransparency: "system",
+    reducedMotion: "system",
+    increasedContrast: "system",
+  },
+});
+window.__vitrea = root;
+
+/** The one tint seed, read from the token block so no colour lives twice. */
+const TINT = getComputedStyle(document.documentElement).getPropertyValue("--accent-tint").trim();
+
+const base = root.plane("base").hostLayer;
+const overlay = root.plane("overlay").hostLayer;
+
+const planner = $("#planner");
+const cta = $("#cta");
+const platter = $("#platter");
+base.append(planner, cta);
+overlay.append(platter);
+$("#chrome").remove();
+
+/* The declaration is `backdrop:`, not `hint:` — the vanilla descriptor's field.
+   `hint:` is silently ignored and would leave the group at analysis: "none".
+   Both luminances are measured on rendered pixels; see MEASUREMENTS below. */
+root.registerGroup({ id: "bar",    backdrop: { tone: "light", luminance: 0.86, complexity: 0.55 } });
+root.registerGroup({ id: "action", backdrop: { tone: "mixed", luminance: 0.50, complexity: 0.60 } });
+root.registerGroup({ id: "permit", backdrop: { tone: "mixed", luminance: 0.49, complexity: 0.55 } });
+
+const plannerHost = root.registerHost({
+  host: planner, groupId: "bar", plane: "base",
+  shapeFamily: "fixed-rounded-rect", radii: [22, 22, 22, 22], thickness: 8,
+});
+
+const ctaHost = root.registerHost({
+  host: cta, groupId: "action", plane: "base",
+  shapeFamily: "capsule", radii: [24, 24, 24, 24], thickness: 8,
+  tint: TINT,   // the page's one tinted surface: the primary action
+});
+
+let platterHost = null;
+
+/* ── the transient platter ─────────────────────────────────────────────────
+   It materialises out of the capsule that summoned it — the lens channel and a
+   small owned scale, never a cross-fade — and is released when it closes, so a
+   closed platter draws nothing. */
+let menuOpen = false, lens = 0, lensTarget = 0;
+
+function openMenu() {
+  if (menuOpen) return;
+  menuOpen = true;
+  platter.classList.add("is-open");
+  platter.setAttribute("aria-hidden", "false");
+  cta.setAttribute("aria-expanded", "true");
+  $("#cta-inline").setAttribute("aria-expanded", "true");
+  platterHost = root.registerHost({
+    host: platter, groupId: "permit", plane: "overlay",
+    shapeFamily: "fixed-rounded-rect", radii: [32, 32, 32, 32], thickness: 8,
+  });
+  const reduced = root.accessibility?.reducedMotion === true;
+  lens = reduced ? 0 : 1;
+  lensTarget = 0;
+  platter.style.setProperty(GLASS_CHANNEL_PROPERTIES.lens, lens.toFixed(4));
+  if (reduced) platterHost.setOwnedTransform(undefined);
+  $("#pl-close").focus({ preventScroll: true });
+}
+
+function closeMenu() {
+  if (!menuOpen) return;
+  menuOpen = false;
+  lens = 0;
+  lensTarget = 0;
+  platter.style.removeProperty(GLASS_CHANNEL_PROPERTIES.lens);
+  platterHost?.setOwnedTransform(undefined);
+  platterHost?.release();
+  platterHost = null;
+  platter.classList.remove("is-open");
+  platter.setAttribute("aria-hidden", "true");
+  cta.setAttribute("aria-expanded", "false");
+  $("#cta-inline").setAttribute("aria-expanded", "false");
+}
+
+cta.addEventListener("click", () => (menuOpen ? closeMenu() : openMenu()));
+$("#cta-inline").addEventListener("click", () => (menuOpen ? closeMenu() : openMenu()));
+$("#pl-close").addEventListener("click", () => { closeMenu(); cta.focus({ preventScroll: true }); });
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && menuOpen) { closeMenu(); cta.focus({ preventScroll: true }); }
+});
+
+/* ── press feedback: the runtime's own glow at the pointer, never a colour swap */
+let press = 0, pressTarget = 0;
+cta.addEventListener("pointerdown", (e) => {
+  const r = cta.getBoundingClientRect();
+  cta.style.setProperty(GLASS_CHANNEL_PROPERTIES.pressX, ((e.clientX - r.left) / r.width).toFixed(3));
+  cta.style.setProperty(GLASS_CHANNEL_PROPERTIES.pressY, ((e.clientY - r.top) / r.height).toFixed(3));
+  pressTarget = 1;
+});
+for (const ev of ["pointerup", "pointerleave", "pointercancel"]) {
+  cta.addEventListener(ev, () => (pressTarget = 0));
+}
+
+/* ── the collapse: below 720px the capsule is released and returns as a filled
+   button inside the platter — one glass surface on a phone. */
+const narrow = window.matchMedia("(max-width: 720px)");
+let ctaRegistered = true;
+function applyWidth() {
+  measureBar();
+  if (narrow.matches && ctaRegistered) { ctaHost.release(); ctaRegistered = false; }
+  else if (!narrow.matches && !ctaRegistered) {
+    root.registerHost({
+      host: cta, groupId: "action", plane: "base",
+      shapeFamily: "capsule", radii: [24, 24, 24, 24], thickness: 8,
+      tint: TINT,
+    });
+    ctaRegistered = true;
+  }
+}
+narrow.addEventListener("change", applyWidth);
+applyWidth();
+
+/* ── one frame loop, the runtime's. The scroll edge, the press easing and the
+   platter's materialise all ride it; a second requestAnimationFrame loop would
+   mean two wake-ups per frame with no declared ordering. */
+/* The bar's own height decides where content clears it and where the scroll edge
+   ends. Measured, not typed: at boot, on resize, and once the fonts have settled,
+   since a metric change moves the platter's height. */
+function measureBar() {
+  const b = Math.round(planner.getBoundingClientRect().bottom);
+  document.documentElement.style.setProperty("--bar-bottom", `${b}px`);
+}
+addEventListener("resize", measureBar);
+document.fonts?.ready.then(measureBar);
+measureBar();
+
+let lastScroll = -1;
+root.subscribe(({ deltaMs }) => {
+  const dt = Math.min(1, Math.max(0, deltaMs) / 90);
+
+  const y = Math.round(window.scrollY);
+  if (y !== lastScroll) {
+    lastScroll = y;
+    document.documentElement.style.setProperty("--scroll-y", String(y));
+  }
+
+  if (press !== pressTarget) {
+    press += (pressTarget - press) * dt;
+    if (Math.abs(press - pressTarget) < 0.002) press = pressTarget;
+    cta.style.setProperty(GLASS_CHANNEL_PROPERTIES.press, press.toFixed(4));
+  }
+
+  if (platterHost && lens !== lensTarget) {
+    lens += (lensTarget - lens) * Math.min(1, Math.max(0, deltaMs) / 110);
+    if (Math.abs(lens - lensTarget) < 0.004) lens = lensTarget;
+    platter.style.setProperty(GLASS_CHANNEL_PROPERTIES.lens, lens.toFixed(4));
+    const s = (1 - 0.06 * lens).toFixed(4);
+    platterHost.setOwnedTransform(lens <= 0.001 ? undefined : `scale(${s})`);
+  }
+});
+
+sync();
+
+/* ══════════════════════════════════════════════════════════════════════════
+   5. MEASUREMENTS — the backdrop's two phases and the label contrast over
+   them, read off rendered pixels rather than asserted. The published ink is a
+   two-token pick and promises no ratio, and an automated checker reports
+   "incomplete" over a canvas, so this is the only honest reading available.
+   Printed to the console under devMode and exposed for the audit. */
+
+const srgb = (v) => (v /= 255, v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
+const relLum = ([r, g, b]) => 0.2126 * srgb(r) + 0.7152 * srgb(g) + 0.0722 * srgb(b);
+const ratio = (a, b) => {
+  const x = relLum(a), y = relLum(b);
+  return +(((Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05)).toFixed(2));
+};
+
+/** Mean sRGB of a region of the photograph, in the crop the page actually shows. */
+function planeRegion(x0, y0, x1, y1) {
+  const img = document.querySelector(".plane img");
+  if (!img.complete || !img.naturalWidth) return null;
+  const vw = innerWidth, vh = innerHeight;
+  const scale = Math.max(vw / img.naturalWidth, vh / img.naturalHeight);
+  const dw = img.naturalWidth * scale, dh = img.naturalHeight * scale;
+  const ox = (dw - vw) / 2, oy = (dh - vh) * 0.4;         // object-position: 50% 40%
+  const c = document.createElement("canvas");
+  c.width = 64; c.height = 16;
+  const g = c.getContext("2d", { willReadFrequently: true });
+  g.drawImage(img, (x0 + ox) / scale, (y0 + oy) / scale,
+    (x1 - x0) / scale, (y1 - y0) / scale, 0, 0, 64, 16);
+  const d = g.getImageData(0, 0, 64, 16).data;
+  let r = 0, gg = 0, b = 0;
+  for (let i = 0; i < d.length; i += 4) { r += d[i]; gg += d[i + 1]; b += d[i + 2]; }
+  const n = d.length / 4;
+  return [r / n, gg / n, b / n];
+}
+
+const INK = [29, 35, 42];
+const SHEET = [237, 242, 240];
+
+const MEASUREMENTS = {
+  get phaseRest() {
+    const px = planeRegion(40, 24, 860, 104);
+    return px && { region: "planner platter, at rest", mean: px.map(Math.round),
+      luminance: +relLum(px).toFixed(3), inkOnRaw: ratio(INK, px) };
+  },
+  get phaseRestCta() {
+    const px = planeRegion(innerWidth - 230, 40, innerWidth - 40, 88);
+    return px && { region: "action capsule, at rest", mean: px.map(Math.round),
+      luminance: +relLum(px).toFixed(3), inkOnRaw: ratio(INK, px) };
+  },
+  get phaseRestPlatter() {
+    const px = planeRegion(innerWidth - 464, 120, innerWidth - 40, 440);
+    return px && { region: "permit platter, at rest", mean: px.map(Math.round),
+      luminance: +relLum(px).toFixed(3), inkOnRaw: ratio(INK, px) };
+  },
+  phaseScrolled: { region: "the sheet, once scrolled", mean: SHEET,
+    luminance: +relLum(SHEET).toFixed(3), inkOnRaw: ratio(INK, SHEET) },
+  note: "`inkOnRaw` is ink against the raw backdrop, before the material's own "
+      + "frost and occlusion lift it. The material only ever raises it.",
+};
+window.__measurements = MEASUREMENTS;
+
+root.ready?.().then(() => {
+  console.info("[park-trails] backdrop phases", {
+    rest: MEASUREMENTS.phaseRest,
+    restCta: MEASUREMENTS.phaseRestCta,
+    restPlatter: MEASUREMENTS.phaseRestPlatter,
+    scrolled: MEASUREMENTS.phaseScrolled,
+  });
+  for (const id of ["bar", "permit"]) console.info(`[park-trails] group ${id}`, root.capabilities(id));
+});
+
+window.__glassDemo = { openMenu, closeMenu };
+</script>
+</body>
+</html>
