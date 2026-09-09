@@ -1,0 +1,1031 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sable One — Sable Optical Works</title>
+<meta name="description" content="The Sable One: a 44.2 megapixel full-frame stills camera machined and assembled in Bristol. Three SX lenses, two finishes, £3,290 body only.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&family=Saira:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<style>
+/* ─────────────────────────────────────────────────────────────────────────────
+   Tokens. Every value on this page lives here. DESIGN.md §1 owns which role
+   does which job; this block owns the numbers. The ground is the olive bloom on
+   a multicoated lens element (OKLCH C 0.022, h 122), chosen so the page is not a
+   neutral near-black carrying one hot accent.
+   ───────────────────────────────────────────────────────────────────────────── */
+:root {
+  color-scheme: dark;
+
+  --void:      #1F2216;   /* oklch(0.245 0.022 122) — page ground, behind the stage   */
+  --panel:     #2D3125;   /* oklch(0.305 0.022 122) — the one sheet per section       */
+  --panel-2:   #3B3F32;   /* oklch(0.360 0.022 122) — a table header or selected row  */
+  --ink:       #F4F2EA;   /* oklch(0.960 0.010  95) — 11.9:1 on panel                 */
+  --ink-2:     #C0BEB4;   /* oklch(0.800 0.014 100) —  7.1:1 on panel                 */
+  --ink-3:     #9D9C92;   /* oklch(0.690 0.014 100) —  4.8:1 on panel, never panel-2  */
+  --index:     #E9644C;   /* oklch(0.665 0.170  32) — the mount index mark; marks only*/
+  --index-text:#FE8E6B;   /* oklch(0.760 0.145  38) —  5.9:1 on panel, for words      */
+
+  --line:       rgb(244 242 234 / 14%);
+  --line-firm:  rgb(244 242 234 / 26%);
+  --line-lit:   rgb(244 242 234 / 44%);
+  /* fills, for what sits ON glass: rule 2 allows a fill, never a second material */
+  --fill-hover: rgb(244 242 234 / 8%);
+  --fill-on:    rgb(244 242 234 / 14%);
+  --fill-seg:   rgb(244 242 234 / 16%);
+  --well:       rgb(31 34 22 / 42%);
+  /* the one tinted control's seed, read back by the module and handed to the runtime */
+  --tint-seed:  rgb(196 58 36 / 0.42);
+
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px; --s5: 24px;
+  --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px; --s10: 128px;
+
+  --r1: 4px; --r2: 8px; --r3: 12px; --r4: 16px; --r5: 20px; --r6: 26px;
+
+  --font-display: "Saira Condensed", "Helvetica Neue", Arial, sans-serif;
+  --font-ui:      "Saira", "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "Spline Sans Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+
+  --ease: cubic-bezier(0.32, 0, 0.16, 1);
+  --fast: 140ms; --mid: 260ms; --slow: 420ms;
+
+  /* Measured from the floating bars every layout, never typed once (DESIGN.md §4). */
+  --top-clear: 84px;
+  --bot-clear: 116px;
+
+}
+
+* { box-sizing: border-box; }
+
+html {
+  /* The document is the scroller, so the browser keeps its scrollbar, its scroll
+     restoration, find-in-page and fragment navigation. Only the plane and the
+     glass root are viewport-fixed. */
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--void);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── The live plane ─────────────────────────────────────────────────────────
+   One viewport-filling canvas the page paints from seven same-origin JPEGs,
+   cover-fit and treated in the canvas itself. It is registered as vitrea's
+   texture backdrop source, so the glass samples exactly these pixels. Nothing
+   is laid over it in CSS: anything that were would not be behind the glass and
+   would not be refracted.                                                     */
+#stage {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: var(--void);
+}
+
+/* ── The scrolling column ───────────────────────────────────────────────────
+   The document is the scroller, so the column clears both bars by inset rather
+   than by a hard offset: the padding is derived from the bars' MEASURED boxes
+   and recomputed when they change. At rest nothing sits under a glass control,
+   and the intersection happens only while scrolling, which is the rule.
+
+   The viewport-tracking mask this column used to carry is gone, and DESIGN.md
+   §9 records rule 15 as answered at the two content edges and lost mid-scroll:
+   a mask that follows the viewport can only live on an ANCESTOR of the glass
+   root, where it re-roots the backdrop and demotes every group, or be driven
+   from scroll position, where it masks the whole page out of a full-page
+   capture. Neither is a scroll edge worth having.                              */
+/* The plane is `position: fixed`, which paints above ordinary in-flow content, so
+   the column is positioned too and takes the layer above it. `z-index` and
+   `position` were measured harmless to the backdrop root; a filter, an opacity
+   below 1, a mask or a clip-path here would not be. */
+#column { position: relative; z-index: 1; }
+
+.measure {
+  width: min(44rem, 100% - 4rem);
+  margin-inline: auto;
+  padding-block: calc(var(--top-clear) + 72px) calc(var(--bot-clear) + 72px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s9);
+}
+
+/* A fragment link lands below the floating bar rather than under it. */
+.measure > * { scroll-margin-top: calc(var(--top-clear) + 24px); }
+
+/* ── Type roles ────────────────────────────────────────────────────────────── */
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  line-height: 1.02;
+  margin: 0;
+}
+h1.display { font-size: 68px; }
+h2.display { font-size: 34px; letter-spacing: 0.004em; }
+
+p { margin: 0; max-width: 38rem; }
+.lede { font-size: 18px; color: var(--ink-2); line-height: 1.5; }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.key {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+a { color: var(--index-text); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--ink); }
+
+:focus-visible {
+  outline: 2px solid var(--index);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ── The hero: type set straight on the plane, no sheet, no scrim ─────────── */
+/* The hero fills the first screen, which is what the brief asks and what rule 17
+   needs: at rest no section has reached either bar, and the intersection happens
+   only while scrolling. The height is derived from the measured bars, not typed. */
+.hero {
+  display: flex; flex-direction: column; gap: var(--s5);
+  min-height: calc(100vh - var(--top-clear) - 160px);
+}
+.hero h1 { max-width: 15ch; }
+.hero .lede { max-width: 32rem; }
+.hero .facts {
+  display: flex; gap: var(--s5); flex-wrap: wrap;
+  font-family: var(--font-mono); font-size: 13px; color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.hero .facts b { color: var(--ink); font-weight: 500; }
+
+/* ── The sheet: the one section container. Tonal, hairline, no shadow ─────── */
+.sheet {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r4);
+  padding: var(--s7) var(--s7) var(--s7);
+  display: flex; flex-direction: column; gap: var(--s5);
+}
+.sheet > .lede { color: var(--ink-2); }
+
+/* ── The spec table: ruled, never carded ──────────────────────────────────── */
+table { width: 100%; border-collapse: collapse; }
+caption { text-align: left; }
+.spec td, .spec th { padding: 10px 0; border-top: 1px solid var(--line); text-align: left; vertical-align: baseline; }
+.spec tr:first-child td, .spec tr:first-child th { border-top: 0; }
+.spec th { font-weight: 400; width: 34%; }
+.spec td { font-family: var(--font-mono); font-size: 13px; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* three peers, one axis: the lenses share every row */
+.spec--peers th { width: 22%; }
+.spec--peers td { width: 26%; padding-inline-end: var(--s4); }
+.spec--peers thead th { border-top: 0; padding-bottom: var(--s3); }
+.spec--peers thead .col {
+  font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--ink);
+  letter-spacing: 0.004em;
+}
+.spec--peers td.chosen, .spec--peers th.chosen { background: var(--panel-2); }
+.spec--peers .pick-row td { padding-top: var(--s4); }
+
+/* ── The one selection control ────────────────────────────────────────────── */
+.choice { display: inline-flex; align-items: center; gap: var(--s2); cursor: pointer; }
+.choice input { position: absolute; opacity: 0; width: 0; height: 0; }
+.choice .dot {
+  width: 15px; height: 15px; border-radius: 999px;
+  border: 1px solid var(--line-firm); flex: none; position: relative;
+}
+.choice:has(input:checked) .dot { border-color: var(--index); }
+.choice:has(input:checked) .dot::after {
+  content: ""; position: absolute; inset: 3px; border-radius: 999px; background: var(--index);
+}
+.choice:has(input:focus-visible) .dot { outline: 2px solid var(--index); outline-offset: 3px; }
+.choice .txt { font-size: 15px; color: var(--ink-2); }
+.choice:has(input:checked) .txt { color: var(--ink); font-weight: 500; }
+.choice .state { font-size: 12px; font-family: var(--font-mono); color: var(--ink-3); }
+.choice:has(input:checked) .state { color: var(--index-text); }
+
+/* the signature mark: a 2px accent rule at the leading edge of what is chosen */
+.index-tick { display: block; height: 2px; background: var(--index); border-radius: 1px; }
+.index-tick[hidden] { display: none; }
+
+.finishes { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); }
+.finish { display: flex; flex-direction: column; align-items: stretch; gap: var(--s3); }
+.finish .swatch { height: 3px; background: var(--line-firm); border-radius: 2px; }
+.finish:has(input:checked) .swatch { background: var(--index); }
+.finish .line { display: flex; align-items: center; gap: var(--s2); }
+
+/* ── Price ────────────────────────────────────────────────────────────────── */
+.total { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s4); }
+.total .amount { font-family: var(--font-display); font-size: 40px; font-weight: 600; }
+.notes { display: flex; flex-direction: column; gap: var(--s4); }
+.note { display: grid; grid-template-columns: 8rem 1fr; gap: var(--s4); align-items: baseline; }
+.note p { color: var(--ink-2); font-size: 15px; }
+
+/* ── Credits ──────────────────────────────────────────────────────────────── */
+.credits ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--s2); }
+.credits li { font-size: 14px; color: var(--ink-3); }
+.colophon { font-size: 13px; color: var(--ink-3); }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   THE FLOATING LAYER
+   Five surfaces, all of them navigation or a control. `.g` carries geometry
+   only: no background, no border, no shadow is written onto a registered host,
+   because the CSS tier rewrites the shorthand every frame and a solid fill is
+   the failure Apple names. The radii here match the radii registered with
+   vitrea so the CSS tier clips the same shape the GPU tier draws.
+   ───────────────────────────────────────────────────────────────────────────── */
+.dock { position: absolute; display: flex; align-items: center; pointer-events: none; }
+.dock--nav    { left: 24px; top: 24px; gap: 16px; }
+.dock--commit { left: 0; right: 0; bottom: 28px; justify-content: center; gap: 16px; }
+
+.g {
+  font-family: var(--font-ui);
+  color: var(--ink);
+  border: 0;
+  padding: 0;
+  /* The only background declaration a host carries. It removes the user agent's
+     solid button face, which would be exactly the opaque fill Apple names as the
+     material's failure; the CSS tier's own background is written inline and wins
+     over this rule on that tier. */
+  background: transparent;
+  appearance: none;
+  color-scheme: dark;             /* plane-side content resolves its own scheme */
+}
+.g--44 { height: 44px; border-radius: 14px; }
+.g--64 { height: 64px; border-radius: 20px; }
+
+.nav-mark {
+  display: flex; align-items: center; justify-content: center;
+  padding-inline: 16px; text-decoration: none; color: var(--ink);
+}
+.nav-mark .line { display: flex; align-items: baseline; gap: 8px; }
+.nav-mark .w {
+  font-family: var(--font-display); font-weight: 700; font-size: 17px;
+  letter-spacing: 0.16em;
+}
+.nav-mark .m { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--ink-2); }
+
+.nav-sections { display: flex; align-items: center; gap: 2px; padding-inline: 6px; }
+.nav-sections a {
+  display: flex; align-items: center; height: 32px; padding-inline: 12px;
+  border-radius: 8px;             /* concentric: 14 host radius − 6 gap */
+  font-size: 14px; color: var(--ink-2); text-decoration: none;
+}
+.nav-sections a:hover { color: var(--ink); background: var(--fill-hover); }
+.nav-sections a[aria-current="true"] {
+  color: var(--ink); font-weight: 500; background: var(--fill-on);
+}
+
+.configure { display: flex; align-items: center; gap: 18px; padding-inline: 18px; }
+.configure .grp { display: flex; align-items: center; gap: 10px; }
+.configure .key { font-size: 10px; }
+.seg {
+  display: flex; gap: 2px; padding: 3px; height: 44px; align-items: center;
+  border-radius: 10px;            /* concentric: the host's 20 less the 10px inset */
+  background: var(--well);
+}
+.seg label {
+  position: relative; display: flex; align-items: center; height: 38px; padding-inline: 14px;
+  border-radius: 7px;             /* concentric: 10 − 3 */
+  font-size: 13px; color: var(--ink-2); cursor: pointer; white-space: nowrap;
+}
+.seg input { position: absolute; opacity: 0; width: 0; height: 0; }
+.seg label:has(input:checked) { background: var(--fill-seg); color: var(--ink); }
+.seg label:has(input:focus-visible) { outline: 2px solid var(--index); outline-offset: 2px; }
+.configure .divider { width: 1px; height: 30px; background: var(--line); }
+
+.lens-trigger {
+  display: flex; align-items: center; gap: 10px; height: 44px; padding-inline: 14px;
+  border-radius: 10px;            /* concentric: the host's 20 less the 10px inset */
+  border: 1px solid var(--line-firm); background: transparent;
+  font-family: var(--font-ui); font-size: 13px; color: var(--ink); cursor: pointer;
+}
+.lens-trigger .mono { font-size: 12px; color: var(--ink-2); }
+.lens-trigger:hover { border-color: var(--line-lit); }
+.lens-trigger svg { width: 11px; height: 11px; opacity: 0.75; }
+
+.reserve {
+  display: flex; align-items: center; justify-content: center;
+  padding-inline: 26px; border-radius: 32px;   /* capsule: half of 64 */
+  font-family: var(--font-ui); font-size: 16px; font-weight: 600; color: var(--ink);
+  cursor: pointer; white-space: nowrap;
+}
+.reserve .line { display: flex; align-items: baseline; gap: 12px; }
+.reserve .amount { font-family: var(--font-mono); font-size: 15px; font-weight: 500; }
+
+/* the transient platter, on the overlay plane, present only while open */
+.platter[hidden] { display: none; }
+.platter {
+  position: absolute; overflow: hidden;
+  border-radius: 26px; padding: 10px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.platter .row {
+  display: grid; grid-template-columns: 20px 1fr auto; align-items: center; gap: 12px;
+  height: 76px; padding-inline: 14px;
+  border-radius: 16px;            /* concentric: 26 − 10 */
+  border: 0; background: transparent; text-align: left; cursor: pointer;
+  font-family: var(--font-ui); color: var(--ink);
+}
+.platter .row:hover { background: var(--fill-hover); }
+.platter .row[aria-checked="true"] { background: var(--fill-on); }
+.platter .row svg { width: 18px; height: 18px; opacity: 0.9; }
+.platter .row[aria-checked="true"] svg { opacity: 1; }
+.platter .row[aria-checked="true"] .name { font-weight: 600; }
+.platter .name { font-size: 16px; font-weight: 500; }
+.platter .sub { font-family: var(--font-mono); font-size: 12px; color: var(--ink-2); }
+.platter .price { font-family: var(--font-mono); font-size: 14px; color: var(--ink-2); }
+
+/* ── Responsive collapse: one intentional rearrangement, not a squeeze ─────── */
+@media (max-width: 900px) {
+  .measure { width: calc(100% - 48px); }
+  h1.display { font-size: 44px; }
+  h2.display { font-size: 28px; }
+  .dock--nav { left: 16px; right: 16px; top: 16px; }
+  .nav-sections { overflow-x: auto; scrollbar-width: none; }
+  .dock--commit { flex-direction: column; align-items: stretch; left: 16px; right: 16px; gap: 16px; }
+  .configure { justify-content: space-between; }
+  .reserve { justify-content: center; }
+  .finishes { grid-template-columns: 1fr; }
+  .note { grid-template-columns: 1fr; gap: var(--s1); }
+  .spec--peers, .spec--peers thead, .spec--peers tbody, .spec--peers tr, .spec--peers th, .spec--peers td { display: block; width: auto; }
+  .spec--peers thead { display: none; }
+  .spec--peers tr { border-top: 1px solid var(--line); padding-block: var(--s3); }
+}
+
+@media (max-width: 560px) {
+  .nav-sections { flex: 1; min-width: 0; }
+  .nav-mark { padding-inline: 12px; }
+  .nav-mark .m { display: none; }        /* the model name leaves the mark at phone width */
+  .nav-sections a { padding-inline: 10px; font-size: 13px; }
+  .configure { padding-inline: 12px; gap: 12px; }
+  .configure .key, .configure .divider, .lens-trigger .mono { display: none; }
+  .seg label { padding-inline: 10px; }
+  h1.display { font-size: 36px; }
+}
+
+/* ── Reduced motion: the dissolve and the platter become instantaneous ─────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: 1ms !important; }
+}
+
+/* ── Forced colours: there is no glass at all, so the bars take system colour
+   and the photographic plane is hidden rather than left under system text.   */
+@media (forced-colors: active) {
+  #stage { display: none; }
+  body { background: Canvas; }
+  .sheet, .seg, .lens-trigger, .platter { background: Canvas; border: 1px solid CanvasText; }
+  .g { background: Canvas; border: 1px solid CanvasText; }
+  /* a selected state under forced colours is an outline in a system colour, not a
+     fill: a filled label loses its own text to the same system pair. */
+  .seg label:has(input:checked),
+  .nav-sections a[aria-current="true"],
+  .platter .row[aria-checked="true"] { outline: 2px solid Highlight; outline-offset: -2px; }
+  .choice:has(input:checked) .dot::after,
+  .index-tick, .finish:has(input:checked) .swatch { background: Highlight; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="stage" role="img" aria-label="The Sable One on a workbench, photographed from above"></canvas>
+
+<main id="column">
+  <div class="measure">
+
+    <header class="hero" id="top">
+      <h1 class="display">Forty-four megapixels. Eleven controls. No menu.</h1>
+      <p class="lede">The Sable One is a stills camera machined and assembled in Bristol, forty
+        bodies a week. Every setting it has is a dial your thumb can find without leaving the
+        viewfinder.</p>
+      <p class="facts">
+        <span><b>£3,290</b> body only</span>
+        <span>First batch ships <b>14 November 2026</b></span>
+        <span>SX mount</span>
+      </p>
+    </header>
+
+    <section class="sheet" id="sensor" aria-labelledby="sensor-h">
+      <h2 class="display" id="sensor-h">The sensor</h2>
+      <p class="lede">A 44.2 megapixel back-illuminated full-frame sensor, read out at 14 bits, with
+        no optical low-pass filter in front of it. We tuned the response for one case: a raw file
+        that still holds highlight detail after you have exposed for the shadows.</p>
+      <table class="spec">
+        <tbody>
+          <tr><th scope="row" class="key">Sensor</th><td>44.2 MP BSI CMOS, 35.9 × 24.0 mm</td></tr>
+          <tr><th scope="row" class="key">Pixel pitch</th><td>5.05 µm</td></tr>
+          <tr><th scope="row" class="key">Readout</th><td>14-bit, 6.4 fps mechanical</td></tr>
+          <tr><th scope="row" class="key">Dynamic range</th><td>15.1 stops at base ISO, measured in house</td></tr>
+          <tr><th scope="row" class="key">Sensitivity</th><td>ISO 64 to 51,200; extended 32 to 102,400</td></tr>
+          <tr><th scope="row" class="key">Filter stack</th><td>IR cut only. No OLPF, no AA filter</td></tr>
+          <tr><th scope="row" class="key">Stabilisation</th><td>5-axis in body, 7.0 stops CIPA</td></tr>
+          <tr><th scope="row" class="key">Shutter</th><td>60 s to 1/8000 mechanical; 1/16,000 electronic</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="sheet" id="lenses" aria-labelledby="lenses-h">
+      <h2 class="display" id="lenses-h">Three lenses</h2>
+      <p class="lede">The SX mount takes three lenses at launch. All three focus by hand, all three
+        take a 62 mm filter, and all three focus closer than their marked minimum. Choose one and it
+        goes on the body on screen.</p>
+      <table class="spec spec--peers" id="lens-table">
+        <caption class="sr-only">The three SX lenses compared on eight specifications</caption>
+        <thead>
+          <tr>
+            <th scope="col"><span class="sr-only">Specification</span></th>
+            <th scope="col" data-lens="28"><span class="col">SX 28</span></th>
+            <th scope="col" data-lens="45"><span class="col">SX 45</span></th>
+            <th scope="col" data-lens="90"><span class="col">SX 90</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row" class="key">Focal length</th><td data-lens="28">28 mm</td><td data-lens="45">45 mm</td><td data-lens="90">90 mm</td></tr>
+          <tr><th scope="row" class="key">Max aperture</th><td data-lens="28">f/2</td><td data-lens="45">f/1.4</td><td data-lens="90">f/2.8</td></tr>
+          <tr><th scope="row" class="key">Construction</th><td data-lens="28">9 in 7, one asph</td><td data-lens="45">11 in 8</td><td data-lens="90">13 in 10</td></tr>
+          <tr><th scope="row" class="key">Close focus</th><td data-lens="28">0.22 m</td><td data-lens="45">0.40 m</td><td data-lens="90">0.24 m, 1:1</td></tr>
+          <tr><th scope="row" class="key">Blades</th><td data-lens="28">11, rounded</td><td data-lens="45">11, rounded</td><td data-lens="90">9, straight</td></tr>
+          <tr><th scope="row" class="key">Filter</th><td data-lens="28">62 mm</td><td data-lens="45">62 mm</td><td data-lens="90">62 mm</td></tr>
+          <tr><th scope="row" class="key">Weight</th><td data-lens="28">232 g</td><td data-lens="45">310 g</td><td data-lens="90">424 g</td></tr>
+          <tr><th scope="row" class="key">Price</th><td data-lens="28">£890</td><td data-lens="45">£1,140</td><td data-lens="90">£1,290</td></tr>
+          <tr class="pick-row">
+            <th scope="row" class="key">Fitted</th>
+            <td data-lens="28"><label class="choice"><input type="radio" name="lens-sheet" value="28"><span class="dot"></span><span class="state">Fit</span></label></td>
+            <td data-lens="45"><label class="choice"><input type="radio" name="lens-sheet" value="45" checked><span class="dot"></span><span class="state">Fit</span></label></td>
+            <td data-lens="90"><label class="choice"><input type="radio" name="lens-sheet" value="90"><span class="dot"></span><span class="state">Fit</span></label></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="sheet" id="body" aria-labelledby="body-h">
+      <h2 class="display" id="body-h">The body</h2>
+      <p class="lede">Two blocks of 6061 aluminium, machined and bead blasted, over a magnesium
+        mid-frame. 486 grams with a battery and a card in it. Two finishes, and the finish is the
+        anodising, not a coat of paint.</p>
+      <div class="finishes" role="group" aria-label="Finish">
+        <label class="choice finish">
+          <input type="radio" name="finish-sheet" value="graphite" checked>
+          <span class="swatch"></span>
+          <span class="line"><span class="dot"></span><span class="txt">Graphite</span></span>
+          <span class="state">Anodised, matte. On the stage now</span>
+        </label>
+        <label class="choice finish">
+          <input type="radio" name="finish-sheet" value="nickel">
+          <span class="swatch"></span>
+          <span class="line"><span class="dot"></span><span class="txt">Nickel</span></span>
+          <span class="state">Bead blasted, satin. On the stage now</span>
+        </label>
+      </div>
+      <table class="spec">
+        <tbody>
+          <tr><th scope="row" class="key">Chassis</th><td>6061 aluminium, machined; magnesium mid-frame</td></tr>
+          <tr><th scope="row" class="key">Weight</th><td>486 g with battery and card</td></tr>
+          <tr><th scope="row" class="key">Dimensions</th><td>128 × 79 × 41 mm</td></tr>
+          <tr><th scope="row" class="key">Viewfinder</th><td>3.69 M-dot OLED, 0.78×, 120 Hz</td></tr>
+          <tr><th scope="row" class="key">Screen</th><td>3.0 in, 1.62 M-dot, fixed</td></tr>
+          <tr><th scope="row" class="key">Storage</th><td>One CFexpress Type B, one SD UHS-II</td></tr>
+          <tr><th scope="row" class="key">Battery</th><td>2,200 mAh, 480 frames CIPA</td></tr>
+          <tr><th scope="row" class="key">Sealing</th><td>IP52</td></tr>
+          <tr><th scope="row" class="key">Controls</th><td>Eleven: shutter, ISO, exposure compensation, drive, metering, focus mode, playback, function ring, two custom buttons, power</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="sheet" id="price" aria-labelledby="price-h">
+      <h2 class="display" id="price-h">The price</h2>
+      <table class="spec">
+        <tbody>
+          <tr><th scope="row" class="key">Body</th><td>£3,290</td></tr>
+          <tr><th scope="row" class="key">Lens</th><td id="price-lens">SX 45 mm f/1.4, £1,140</td></tr>
+          <tr><th scope="row" class="key">Finish</th><td id="price-finish">Graphite</td></tr>
+        </tbody>
+      </table>
+      <div class="total">
+        <span class="key">Total, VAT included</span>
+        <span class="amount mono" id="price-total">£4,430</span>
+      </div>
+      <span class="index-tick" style="width: 64px"></span>
+      <div class="notes">
+        <div class="note"><span class="key">In the box</span>
+          <p>The body, a woven strap, two batteries and a charger, a body cap, and the calibration
+            sheet for your serial number.</p></div>
+        <div class="note"><span class="key">Delivery</span>
+          <p>Bodies leave Bristol in the order reservations were placed. The first batch of forty
+            ships on 14 November 2026. Reservations placed after 3 October 2026 fall into the
+            December batch.</p></div>
+        <div class="note"><span class="key">Reservation</span>
+          <p>£250 to hold a place. It is refundable until your batch is cut.</p></div>
+        <div class="note"><span class="key">Warranty</span>
+          <p>Three years, parts and labour, in Bristol. We publish the service manual and sell the
+            parts.</p></div>
+      </div>
+    </section>
+
+    <footer class="sheet credits" aria-labelledby="credits-h">
+      <h2 class="key" id="credits-h">Photography</h2>
+      <ul>
+        <li>Camera on the bench, <a href="https://unsplash.com/photos/black-and-silver-dslr-camera-on-brown-wooden-surface-VZMoJL9C53k?utm_source=designer&amp;utm_medium=referral">photograph</a> by <a href="https://unsplash.com/@wesley_squared?utm_source=designer&amp;utm_medium=referral">Wesley Hilario</a> on <a href="https://unsplash.com/?utm_source=designer&amp;utm_medium=referral">Unsplash</a>.</li>
+        <li>The mount with the lens off, <a href="https://unsplash.com/photos/a-close-up-of-a-camera-lens-EdlPw15eHpE?utm_source=designer&amp;utm_medium=referral">photograph</a> by <a href="https://unsplash.com/@kuaileqie?utm_source=designer&amp;utm_medium=referral">kuaileqie RE</a> on <a href="https://unsplash.com/?utm_source=designer&amp;utm_medium=referral">Unsplash</a>.</li>
+        <li>The SX 28 aperture, <a href="https://unsplash.com/photos/black-camera-lens-in-close-up-photography-7jabkilL0qI?utm_source=designer&amp;utm_medium=referral">photograph</a> by <a href="https://unsplash.com/@koolcreation?utm_source=designer&amp;utm_medium=referral">Kool C</a> on <a href="https://unsplash.com/?utm_source=designer&amp;utm_medium=referral">Unsplash</a>.</li>
+        <li>The SX 45 aperture, <a href="https://unsplash.com/photos/a-close-up-of-a-lens-with-a-blurry-background-9wYdW55NbnY?utm_source=designer&amp;utm_medium=referral">photograph</a> by <a href="https://unsplash.com/@olloweb?utm_source=designer&amp;utm_medium=referral">Agence Olloweb</a> on <a href="https://unsplash.com/?utm_source=designer&amp;utm_medium=referral">Unsplash</a>.</li>
+        <li>The SX 90 contacts, <a href="https://unsplash.com/photos/black-camera-lens-on-brown-wooden-table-ml4he3xUYFg?utm_source=designer&amp;utm_medium=referral">photograph</a> by <a href="https://unsplash.com/@condetatiana?utm_source=designer&amp;utm_medium=referral">Tatiana Conde</a> on <a href="https://unsplash.com/?utm_source=designer&amp;utm_medium=referral">Unsplash</a>.</li>
+        <li>Nickel knurling, <a href="https://unsplash.com/photos/close-up-of-a-textured-metal-surface-im5lgiYl4Ro?utm_source=designer&amp;utm_medium=referral">photograph</a> by <a href="https://unsplash.com/@jcosens?utm_source=designer&amp;utm_medium=referral">Jonathan Cosens Photography</a> on <a href="https://unsplash.com/?utm_source=designer&amp;utm_medium=referral">Unsplash</a>.</li>
+        <li>Graphite leatherette, <a href="https://unsplash.com/photos/close-up-of-a-vintage-camera-lens-with-textured-background-FojZAX9TOQA?utm_source=designer&amp;utm_medium=referral">photograph</a> by <a href="https://unsplash.com/@jcosens?utm_source=designer&amp;utm_medium=referral">Jonathan Cosens Photography</a> on <a href="https://unsplash.com/?utm_source=designer&amp;utm_medium=referral">Unsplash</a>.</li>
+      </ul>
+      <p class="colophon">Sable Optical Works, Unit 7, Brislington, Bristol. Built on vitrea 0.14.0
+        through the workspace build. The navigation and the configure bar are the only glass on this
+        page; every other surface is opaque. Renderer resolved: <span class="mono" id="tier">reading…</span></p>
+    </footer>
+
+  </div>
+</main>
+
+<script type="importmap">
+{ "imports": {
+    "@vitreajs/vitrea":     "/packages/core/dist/index.js",
+    "@vitreajs/vitrea-web": "/packages/platform-web/dist/index.js"
+} }
+</script>
+<script type="module">
+import { createGlassRoot, GLASS_CHANNEL_PROPERTIES as CH } from "@vitreajs/vitrea-web";
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   1. THE LIVE PLANE
+   Seven same-origin photographs, drawn cover-fit into one viewport-sized
+   canvas and treated there. The treatment is a full-frame multiply that
+   normalises exposure across seven photographs by six photographers and pulls
+   them toward the page's olive ground; it is not a scrim, and no part of it is
+   placed under a bar. Two offscreen buffers hold the outgoing and incoming
+   states, so a dissolve is one drawImage plus one alpha drawImage per frame.
+   ═════════════════════════════════════════════════════════════════════════ */
+
+const STATES = {
+  "hero":            { src: "images/hero-body.jpg",       k: 0.42, oy: 0.28, ox: 1.0, zoom: 1.3,
+    label: "The Sable One on a workbench, photographed from above" },
+  "sensor":          { src: "images/sensor.jpg",          k: 1.00, oy: 0.50,
+    label: "The SX mount with the lens off, the sensor exposed" },
+  "lens-28":         { src: "images/lens-28.jpg",         k: 1.00, oy: 0.50,
+    label: "The eleven rounded blades of the SX 28 mm f/2" },
+  "lens-45":         { src: "images/lens-45.jpg",         k: 0.78, oy: 0.50,
+    label: "The SX 45 mm f/1.4 wide open, the coating blooming across the front element" },
+  "lens-90":         { src: "images/lens-90.jpg",         k: 0.74, oy: 0.50,
+    label: "The gold contacts on the rear of the SX 90 mm f/2.8 Macro" },
+  "finish-nickel":   { src: "images/finish-nickel.jpg",   k: 0.38, oy: 0.50,
+    label: "The knurled focus ring of a Nickel body, bead blasted satin" },
+  "finish-graphite": { src: "images/finish-graphite.jpg", k: 1.00, oy: 0.50,
+    label: "The viewfinder window of a Graphite body, set into black leatherette" },
+};
+
+const TOKEN = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+const stage = document.getElementById("stage");
+const sctx = stage.getContext("2d", { alpha: false });
+const buf = [document.createElement("canvas"), document.createElement("canvas")];
+const images = {};
+let bufKey = [null, null];
+let from = "hero", to = "hero", mix = 1, dirty = true;
+
+function loadAll() {
+  return Promise.all(Object.entries(STATES).map(([key, s]) => new Promise((res) => {
+    const img = new Image();
+    img.decoding = "async";
+    img.onload = () => { images[key] = img; res(); };
+    img.onerror = () => res();          // a missing file leaves the state on the ground colour
+    img.src = s.src;                    // same origin, so the canvas is never tainted
+  })));
+}
+
+function sizeCanvases() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const w = Math.round(window.innerWidth * dpr), h = Math.round(window.innerHeight * dpr);
+  for (const c of [stage, ...buf]) { c.width = w; c.height = h; }
+  bufKey = [null, null];
+  dirty = true;
+}
+
+/** Draw one state, cover-fit and treated, into a buffer. */
+function paint(canvas, key) {
+  const ctx = canvas.getContext("2d", { alpha: false });
+  const W = canvas.width, H = canvas.height, s = STATES[key], img = images[key];
+  ctx.globalCompositeOperation = "source-over";
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = TOKEN("--void");
+  ctx.fillRect(0, 0, W, H);
+  if (!img) return;
+  const scale = Math.max(W / img.naturalWidth, H / img.naturalHeight) * (s.zoom ?? 1);
+  const dw = img.naturalWidth * scale, dh = img.naturalHeight * scale;
+  ctx.drawImage(img, -(dw - W) * (s.ox ?? 0.5), -(dh - H) * s.oy, dw, dh);
+  // The treatment, at full frame and inside the texture, so the glass refracts it.
+  ctx.globalCompositeOperation = "multiply";
+  ctx.fillStyle = `rgb(${Math.round(255 * s.k * 0.99)} ${Math.round(255 * s.k)} ${Math.round(255 * s.k * 0.90)})`;
+  ctx.fillRect(0, 0, W, H);
+  ctx.globalCompositeOperation = "source-over";
+}
+
+function buffer(slot, key) {
+  if (bufKey[slot] !== key) { paint(buf[slot], key); bufKey[slot] = key; }
+}
+
+function drawStage() {
+  buffer(0, from); buffer(1, to);
+  sctx.globalAlpha = 1;
+  sctx.drawImage(buf[0], 0, 0);
+  if (mix > 0 && to !== from) { sctx.globalAlpha = mix; sctx.drawImage(buf[1], 0, 0); }
+  sctx.globalAlpha = 1;
+}
+
+function setState(key) {
+  if (key === to) return;
+  from = mix >= 1 ? to : from;
+  to = key;
+  mix = 0;
+  dirty = true;
+  stage.setAttribute("aria-label", STATES[key].label);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   2. THE GLASS ROOT
+   ═════════════════════════════════════════════════════════════════════════ */
+
+// ?tier=css forces the fallback tier, which is how the design is looked at rather
+// than assumed: opening the page from file:// does not force it, it stops the module.
+const forcedTier = new URLSearchParams(location.search).get("tier") === "css" ? "css" : "webgpu";
+
+const root = createGlassRoot({
+  renderer: forcedTier,
+  devMode: true,
+  colorScheme: "dark",
+  // prefers-reduced-transparency is not Baseline, so a root that leaves this to
+  // the media query silently resolves it false. Declared, not assumed.
+  accessibilityOverrides: {
+    reducedMotion: "system",
+    reducedTransparency: "system",
+    increasedContrast: "system",
+  },
+});
+window.__vitrea = root;
+
+// Declare the source before any group names it, then supply the pixels. The
+// canvas is an element in the document, so the root measures its box every read
+// phase and the texture lands exactly where the reader sees it.
+root.registerBackdropSource({
+  id: "stage",
+  kind: "texture",
+  probe: { taint: "clean", textureCompatibility: "compatible" },
+});
+root.setBackdropTexture("stage", { kind: "canvas", canvas: stage });
+
+// Three groups, all reading the same plane. The texture is the adaptation on the
+// WebGPU tier, where the runtime reads these pixels and reports analysis "exact".
+// The hint beside it is for the CSS tier, which has no texture path and would
+// otherwise never adapt at all; it is measured, not guessed — every state's band
+// under a bar sits between relative luminance 0.014 and 0.058, and the plane is
+// photographic, so complexity is high.
+const STAGE_HINT = { tone: "dark", luminance: 0.05, complexity: 0.8 };
+root.registerGroup({ id: "nav",     backdropSourceId: "stage", backdrop: STAGE_HINT });
+root.registerGroup({ id: "commit",  backdropSourceId: "stage", backdrop: STAGE_HINT });
+root.registerGroup({ id: "platter", backdropSourceId: "stage", backdrop: STAGE_HINT });
+
+const base = root.plane("base").hostLayer;
+const overlay = root.plane("overlay").hostLayer;
+
+const html = (markup) => {
+  const t = document.createElement("template");
+  t.innerHTML = markup.trim();
+  return t.content.firstElementChild;
+};
+
+/* ── The navigation, one landmark, two surfaces that merge at 10px ────────── */
+const navDock = html(`<nav class="dock dock--nav" aria-label="Sable One"></nav>`);
+const navMark = html(`
+  <a class="g g--44 nav-mark" href="#top" aria-label="Sable One, back to the top">
+    <span class="line"><span class="w">SABLE</span><span class="m">ONE</span></span>
+  </a>`);
+const navSections = html(`
+  <div class="g g--44 nav-sections">
+    <a href="#sensor">Sensor</a><a href="#lenses">Lenses</a>
+    <a href="#body">Body</a><a href="#price">Price</a>
+  </div>`);
+navDock.append(navMark, navSections);
+base.append(navDock);
+
+/* ── The configure-and-buy bar, one group, two surfaces that merge at 12px ── */
+const aperture = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+  <circle cx="12" cy="12" r="9"/><path d="M12 3v8l7-4M21 12h-8l4 7M12 21v-8l-7 4M3 12h8l-4-7"/></svg>`;
+const chevron = `<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+  <path d="M2.5 7.5 6 4l3.5 3.5"/></svg>`;
+
+const commitDock = html(`<div class="dock dock--commit"></div>`);
+const configure = html(`
+  <section class="g g--64 configure" aria-label="Configure the Sable One">
+    <div class="grp">
+      <span class="key">Finish</span>
+      <div class="seg" role="radiogroup" aria-label="Finish">
+        <label><input type="radio" name="finish-bar" value="graphite" checked>Graphite</label>
+        <label><input type="radio" name="finish-bar" value="nickel">Nickel</label>
+      </div>
+    </div>
+    <span class="divider" aria-hidden="true"></span>
+    <div class="grp">
+      <span class="key">Lens</span>
+      <button class="lens-trigger" type="button" id="lens-trigger"
+              aria-haspopup="menu" aria-expanded="false">
+        <span id="lens-trigger-name">SX 45 mm</span>
+        <span class="mono" id="lens-trigger-price">£1,140</span>
+        ${chevron}
+      </button>
+    </div>
+  </section>`);
+const reserve = html(`
+  <button class="g g--64 reserve" type="button">
+    <span class="line"><span>Reserve</span><span class="amount" id="reserve-total">£4,430</span></span>
+  </button>`);
+commitDock.append(configure, reserve);
+base.append(commitDock);
+
+/* ── Registration. Span 44 / 64 / 268, radii 14 / 20 / 26, thickness 8.
+   Held until the first layout is final. A host measured while its own type
+   metrics are still moving can be reported as overlapping its neighbour for one
+   frame, and `same-plane-overlap` is an error this page has to not raise at all. */
+await Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 1200))]);
+
+const hosts = [
+  root.registerHost({ host: navMark, groupId: "nav", shapeFamily: "fixed-rounded-rect",
+    radii: [14, 14, 14, 14], thickness: 8 }),
+  root.registerHost({ host: navSections, groupId: "nav", shapeFamily: "fixed-rounded-rect",
+    radii: [14, 14, 14, 14], thickness: 8 }),
+  root.registerHost({ host: configure, groupId: "commit", shapeFamily: "fixed-rounded-rect",
+    radii: [20, 20, 20, 20], thickness: 8 }),
+  // The one tinted control on the page, and it is the primary action. The tint
+  // is a seed the runtime tone-maps against the plane, never a fill.
+  root.registerHost({ host: reserve, groupId: "commit", shapeFamily: "capsule",
+    radii: [32, 32, 32, 32], thickness: 8, tint: TOKEN("--tint-seed") }),
+];
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   3. THE SCROLL EDGE, derived from the bars' measured boxes
+   ═════════════════════════════════════════════════════════════════════════ */
+
+let topClear = 84, botClear = 116;
+
+function measureClearance() {
+  const nav = navDock.getBoundingClientRect();
+  const commit = commitDock.getBoundingClientRect();
+  topClear = Math.round(nav.bottom + 8);
+  botClear = Math.round(window.innerHeight - commit.top + 8);
+  document.documentElement.style.setProperty("--top-clear", `${topClear}px`);
+  document.documentElement.style.setProperty("--bot-clear", `${botClear}px`);
+}
+
+new ResizeObserver(measureClearance).observe(navDock);
+new ResizeObserver(measureClearance).observe(commitDock);
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   4. THE CONFIGURATION, which is what the plane answers
+   ═════════════════════════════════════════════════════════════════════════ */
+
+const LENSES = {
+  "28": { name: "SX 28 mm", full: "SX 28 mm f/2 Asph", price: 890,  sub: "f/2 · 232 g" },
+  "45": { name: "SX 45 mm", full: "SX 45 mm f/1.4",    price: 1140, sub: "f/1.4 · 310 g" },
+  "90": { name: "SX 90 mm", full: "SX 90 mm f/2.8 Macro", price: 1290, sub: "f/2.8 · 424 g" },
+};
+const BODY_PRICE = 3290;
+const money = (n) => "£" + n.toLocaleString("en-GB");
+
+let lens = "45", finish = "graphite", section = "hero";
+
+function stateForSection() {
+  if (section === "lenses") return "lens-" + lens;
+  if (section === "body" || section === "price") return "finish-" + finish;
+  if (section === "sensor") return "sensor";
+  return "hero";
+}
+
+function syncConfiguration() {
+  const L = LENSES[lens];
+  document.getElementById("lens-trigger-name").textContent = L.name;
+  document.getElementById("lens-trigger-price").textContent = money(L.price);
+  document.getElementById("reserve-total").textContent = money(BODY_PRICE + L.price);
+  document.getElementById("price-total").textContent = money(BODY_PRICE + L.price);
+  document.getElementById("price-lens").textContent = `${L.full}, ${money(L.price)}`;
+  document.getElementById("price-finish").textContent = finish === "nickel" ? "Nickel" : "Graphite";
+
+  for (const el of document.querySelectorAll("#lens-table [data-lens]")) {
+    el.classList.toggle("chosen", el.dataset.lens === lens);
+  }
+  for (const el of document.querySelectorAll('input[name="lens-sheet"]')) {
+    el.checked = el.value === lens;
+    el.closest(".choice").querySelector(".state").textContent = el.checked ? "Fitted" : "Fit";
+  }
+  for (const el of document.querySelectorAll('input[name="finish-sheet"]')) {
+    el.checked = el.value === finish;
+    const state = el.closest(".choice").querySelector(".state");
+    state.textContent = state.textContent.replace(/\. .*$/, el.checked ? ". On the stage now" : ". Choose to see it");
+  }
+  for (const el of document.querySelectorAll('input[name="finish-bar"]')) el.checked = el.value === finish;
+  for (const el of platter.querySelectorAll(".row")) {
+    el.setAttribute("aria-checked", String(el.dataset.lens === lens));
+  }
+  setState(stateForSection());
+}
+
+function setLens(value) { lens = value; syncConfiguration(); }
+function setFinish(value) { finish = value; syncConfiguration(); }
+
+for (const el of document.querySelectorAll('input[name="lens-sheet"]')) {
+  el.addEventListener("change", () => { lens = el.value; syncConfiguration(); });
+}
+for (const el of document.querySelectorAll('input[name="finish-sheet"], input[name="finish-bar"]')) {
+  el.addEventListener("change", () => setFinish(el.value));
+}
+
+/* Fragment links are left to the browser: `scroll-margin-top` lands them clear of
+   the bar, and the URL, the history entry and find-in-page all keep working. */
+
+/* Which section the reader is in, read off the window, and the nav's own mark. */
+const sections = ["hero", "sensor", "lenses", "body", "price"];
+function readSection() {
+  const mid = window.innerHeight * 0.45;
+  let current = "hero";
+  for (const id of sections) {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= mid) current = id;
+  }
+  if (current !== section) {
+    section = current;
+    for (const a of navSections.querySelectorAll("a")) {
+      a.setAttribute("aria-current", String(a.getAttribute("href") === "#" + section));
+    }
+    syncConfiguration();
+  }
+}
+window.addEventListener("scroll", readSection, { passive: true });
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   5. THE PLATTER
+   One host on the overlay plane, registered when it opens and released when it
+   closes, whose box springs out of the control that summoned it. There is no
+   second surface faded in over a first: the language has one material.
+   ═════════════════════════════════════════════════════════════════════════ */
+
+const platter = html(`
+  <div class="g platter" role="menu" aria-label="Choose a lens" hidden>
+    ${Object.entries(LENSES).map(([id, L]) => `
+      <button class="row" type="button" role="menuitemradio" aria-checked="false" data-lens="${id}">
+        ${aperture}
+        <span><span class="name">${L.full}</span><br><span class="sub">${L.sub}</span></span>
+        <span class="price">${money(L.price)}</span>
+      </button>`).join("")}
+  </div>`);
+overlay.append(platter);
+
+const trigger = document.getElementById("lens-trigger");
+let platterHandle = null, platterOpen = false, platterT = 0, platterBox = null, triggerBox = null;
+
+function platterGeometry() {
+  const t = trigger.getBoundingClientRect();
+  const w = 420, h = 268;
+  const left = Math.min(Math.max(12, t.left + t.width / 2 - w / 2), window.innerWidth - w - 12);
+  platterBox = { left, top: commitDock.getBoundingClientRect().top - 16 - h, width: w, height: h };
+  triggerBox = { left: t.left, top: t.top, width: t.width, height: t.height };
+}
+
+function applyPlatterBox(p) {
+  const b = platterBox, a = triggerBox;
+  const lerp = (x, y) => x + (y - x) * p;
+  platter.style.left = `${lerp(a.left, b.left)}px`;
+  platter.style.top = `${lerp(a.top, b.top)}px`;
+  platter.style.width = `${lerp(a.width, b.width)}px`;
+  platter.style.height = `${lerp(a.height, b.height)}px`;
+  platter.style.setProperty(CH.lensStrength, (0.35 + 0.65 * p).toFixed(3));
+}
+
+function openMenu() {
+  if (platterOpen) return;
+  platterOpen = true;
+  platterGeometry();
+  platter.hidden = false;
+  applyPlatterBox(0);
+  platterHandle = root.registerHost({
+    host: platter, groupId: "platter", plane: "overlay",
+    shapeFamily: "fixed-rounded-rect", radii: [26, 26, 26, 26], thickness: 8,
+  });
+  trigger.setAttribute("aria-expanded", "true");
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { platterT = 1; applyPlatterBox(1); }
+  platter.querySelector(`.row[data-lens="${lens}"]`)?.focus();
+}
+
+function closeMenu() {
+  if (!platterOpen) return;
+  platterOpen = false;
+  platterT = 0;
+  platterHandle?.release();
+  platterHandle = null;
+  platter.hidden = true;
+  trigger.setAttribute("aria-expanded", "false");
+}
+
+trigger.addEventListener("click", () => (platterOpen ? closeMenu() : openMenu()));
+for (const row of platter.querySelectorAll(".row")) {
+  row.addEventListener("click", () => { setLens(row.dataset.lens); closeMenu(); trigger.focus(); });
+}
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && platterOpen) { closeMenu(); trigger.focus(); }
+});
+document.addEventListener("pointerdown", (e) => {
+  if (platterOpen && !platter.contains(e.target) && !trigger.contains(e.target)) closeMenu();
+}, true);
+
+/* The audit's seam: one call that opens the transient platter for a capture. */
+window.__glassDemo = { openMenu, closeMenu };
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   6. ONE FRAME LOOP, the root's own. Press is a glow at the pointer, never a
+   colour swap; nothing here is idle motion.
+   ═════════════════════════════════════════════════════════════════════════ */
+
+const pressed = new Map();
+for (const el of [navMark, navSections, configure, reserve, platter]) {
+  pressed.set(el, { target: 0, value: 0 });
+  el.addEventListener("pointerdown", (e) => {
+    const r = el.getBoundingClientRect();
+    el.style.setProperty(CH.pressX, `${e.clientX - r.left}`);
+    el.style.setProperty(CH.pressY, `${e.clientY - r.top}`);
+    pressed.get(el).target = 1;
+  });
+  for (const type of ["pointerup", "pointerleave", "pointercancel"]) {
+    el.addEventListener(type, () => { pressed.get(el).target = 0; });
+  }
+}
+
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+root.subscribe(({ deltaMs }) => {
+  const dt = Math.min(deltaMs, 50);            // a backgrounded tab returns an arbitrary first step
+
+  if (mix < 1) {
+    mix = reduceMotion.matches ? 1 : Math.min(1, mix + dt / 420);
+    dirty = true;
+  }
+  if (dirty) { drawStage(); dirty = false; }
+
+  for (const [el, s] of pressed) {
+    const next = s.value + (s.target - s.value) * Math.min(1, dt / 90);
+    if (Math.abs(next - s.value) > 0.001) {
+      s.value = next;
+      el.style.setProperty(CH.press, next.toFixed(4));
+      el.style.setProperty(CH.glow, (next * 0.8).toFixed(4));
+    }
+  }
+
+  if (platterOpen && platterT < 1 && !reduceMotion.matches) {
+    platterT = Math.min(1, platterT + dt / 260);
+    applyPlatterBox(1 - Math.pow(1 - platterT, 3));
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   7. BOOT
+   ═════════════════════════════════════════════════════════════════════════ */
+
+window.addEventListener("resize", () => {
+  sizeCanvases();
+  measureClearance();
+  readSection();
+  if (platterOpen) { platterGeometry(); applyPlatterBox(1); }
+});
+
+sizeCanvases();
+measureClearance();
+readSection();
+syncConfiguration();
+drawStage();
+
+loadAll().then(() => { bufKey = [null, null]; dirty = true; drawStage(); });
+
+root.ready().then(() => {
+  const s = root.capabilities("nav");
+  document.getElementById("tier").textContent = s
+    ? `${s.activeRenderer} · ${s.samplingBackend} · refraction ${s.refraction} · analysis ${s.analysis}`
+    : "unresolved";
+});
+</script>
+</body>
+</html>
