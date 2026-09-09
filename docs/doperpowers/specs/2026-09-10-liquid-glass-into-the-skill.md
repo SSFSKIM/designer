@@ -236,6 +236,20 @@ repository root. The builder receives the brief verbatim plus the serving mechan
   the capsule, not in place of it.
   Date/Author: 2026-09-10, the user; written by Claude.
 
+- Decision: Post hoc, flagged as such — in the verdict, r18 (contrast on glass) and r19 (the
+  accessibility modes) are read from the mechanical audit where one exists, r23 (motion) is unread,
+  and the line is applied as "at most three of the rules read failed"; the panel-only count as
+  pre-registered is printed beside it on every demo.
+  Rationale: the prompt tells the panel that a rule it cannot see holding does not hold, and a static
+  capture cannot show contrast in both schemes, the three accessibility modes or a morph — so every
+  rater scored r18, r19 and r23 as 0 on every page, and the first two said so in their reports. Left
+  in, "22 of 25" would have meant "every rule the captures can show", a line the spec never drew.
+  The audit measures two of the three (rendered contrast in the page's scheme; the reduced pass with
+  the override honoured and the material moved) and nothing measures the third. The amendment was
+  made after two of four readings had arrived and before any verdict was written; the panel-only
+  reading stays in the report so the effect of the amendment is visible on every row.
+  Date/Author: 2026-09-10, Claude.
+
 ## Surprises & Discoveries
 
 - Observation: The workspace build fails on this machine because a stray Yarn Plug'n'Play

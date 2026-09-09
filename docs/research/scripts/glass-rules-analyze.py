@@ -45,8 +45,33 @@ FATAL = set(gr.FATAL_TAGS)
 FATAL_KEYS = [k for k in RULE_KEYS if RULE_TAG[k] in FATAL]
 AESTHETIC = ["a1", "a2", "a3", "a4"]
 HOLD_FLOOR = 22                          # of 25, the spec's line
+MAX_FAILED = 25 - HOLD_FLOOR             # the same line as "at most three of the rules read failed"
 D1_FLOOR = 5.0                           # the panel's d1 mean over the six, the initiative's clause
 RULES_DIR = os.path.join(gr.DATA, "rules")
+
+# Three rules a static capture cannot show, and the prompt tells the panel that a rule it cannot see
+# holding does not hold — so every rater scored them 0 on every page, and the four-rater panel's
+# first two readings said so in as many words (2026-09-10). Left in the count they would make the
+# spec's "22 of 25" mean "every rule the captures can show", which is not the line the spec drew.
+# The mechanical audit exists to read what captures cannot, and it measures two of the three:
+#   r18 (text on glass meets the contrast floor) — the audit's rendered-pixel contrast sample, every
+#       pair passing and every pair on glass passing, in the page's own colour scheme (one scheme,
+#       not both; the residual is recorded in the report);
+#   r19 (works with transparency reduced, contrast increased, motion reduced) — the audit's reduced
+#       pass: no page error with reduced motion emulated and reduced transparency asked of the
+#       runtime, the override honoured and the material moved (two of the three modes; increased
+#       contrast is not emulated).
+# r23 (motion: materialise, morph, press feedback) has no measurement and is UNREAD — neither held
+# nor failed — and the line is applied as "at most three of the rules read failed". The panel-only
+# reading, exactly as pre-registered, is printed beside this one so the amendment is visible.
+MECHANICAL_RULES = {
+    "r18": lambda a: (a.get("contrast") or {}).get("rate") == 1
+                     and (a.get("contrast") or {}).get("onGlassPass") == (a.get("contrast") or {}).get("onGlass"),
+    "r19": lambda a: bool((a.get("reduced") or {}).get("ok"))
+                     and bool((a.get("reduced") or {}).get("overrideHonoured"))
+                     and bool((a.get("reduced") or {}).get("materialMoved")),
+}
+UNSHOWABLE_RULES = ["r23"]
 
 
 def _int(v):
@@ -135,10 +160,19 @@ def majority(slug, key):
     return (yes * 2 > len(vs), yes, len(vs))
 
 
-def demo_reading(slug):
+def demo_reading(slug, panel_only=False):
     """One demo's whole reading: the majority per rule, the count held, the rules that failed, the
-    fatal-tag failures, and how much of the rubric was answered at all."""
+    fatal-tag failures, and how much of the rubric was answered at all. With `panel_only` the
+    reading is the pre-registered one, every rule from the panel; otherwise r18 and r19 come from
+    the mechanical audit where one exists and r23 is unread (see MECHANICAL_RULES)."""
     maj = {k: majority(slug, k) for k in RULE_KEYS}
+    if not panel_only:
+        a = audits.get(slug)
+        for k, read_it in MECHANICAL_RULES.items():
+            if a is not None and not a.get("error"):
+                maj[k] = (bool(read_it(a)), None, "audit")
+        for k in UNSHOWABLE_RULES:
+            maj[k] = (None, 0, 0)
     read = [k for k in RULE_KEYS if maj[k][0] is not None]
     held = [k for k in RULE_KEYS if maj[k][0] is True]
     failed = [k for k in RULE_KEYS if maj[k][0] is False]
@@ -186,12 +220,17 @@ def verdict(slug):
     if not d["read"]:
         clauses.append(("at least 22 of 25 held", None, "no rule answers yet"))
     else:
-        # An unread rule can only add to the count, so the clause is already met at 22 whatever it
-        # would have said, and already lost when even holding every unread rule cannot reach 22.
-        n, u = len(d["held"]), len(d["unread"])
-        ok = True if n >= HOLD_FLOOR else (False if n + u < HOLD_FLOOR else None)
-        clauses.append(("at least 22 of 25 held",
-                        ok, f"{n} held, {len(d['failed'])} failed, {u} unread"))
+        # The line as "at most three of the rules read failed": a rule nobody has read yet can still
+        # fail, so the clause is met only once the rules still unread could not push the failures
+        # past three, and lost as soon as they already have. r23 is unread by design (no
+        # measurement) and is counted among neither.
+        n, f = len(d["held"]), len(d["failed"])
+        u = [k for k in d["unread"] if k not in UNSHOWABLE_RULES]
+        ok = True if f <= MAX_FAILED and not u else (False if f > MAX_FAILED else None)
+        clauses.append((f"at most {MAX_FAILED} of the rules read failed (22 of 25)",
+                        ok, f"{n} held, {f} failed, {len(d['read'])} read"
+                        + (f", unread: {', '.join(u)}" if u else "")
+                        + f", not measurable: {', '.join(UNSHOWABLE_RULES)}"))
     if not d["read"]:
         clauses.append(("no [layer] or [material] rule fails", None, "no rule answers yet"))
     else:
@@ -330,9 +369,16 @@ for s in COVERED:
     if not d["raters"]:
         P("No rater has answered the rules for this demo.\n")
     else:
-        P(f"Raters: {len(d['raters'])} ({', '.join(d['raters'])}). Held by panel majority: "
-          f"**{len(d['held'])} of {len(RULE_KEYS)}**"
-          + (f", with {len(d['unread'])} rule(s) unanswered." if d["unread"] else ".")
+        po = demo_reading(s, panel_only=True)
+        mech = [k for k in MECHANICAL_RULES if d["majority"][k][2] == "audit"]
+        P(f"Raters: {len(d['raters'])} ({', '.join(d['raters'])}). Held: "
+          f"**{len(d['held'])} of {len(d['read'])} read**"
+          + (f" ({', '.join(mech)} from the audit; " if mech else " (")
+          + f"{', '.join(UNSHOWABLE_RULES)} not measurable)"
+          + (f", with {len([k for k in d['unread'] if k not in UNSHOWABLE_RULES])} rule(s) "
+             "unanswered" if [k for k in d['unread'] if k not in UNSHOWABLE_RULES] else "")
+          + ". Panel-only, as pre-registered: "
+          f"{len(po['held'])} of {len(RULE_KEYS)}."
           + (" Fatal-tag failures: **" + ", ".join(f"{k} [{RULE_TAG[k]}]" for k in d["fatalFailed"])
              + "**." if d["fatalFailed"] else " No `[layer]` or `[material]` rule failed."))
         P("")
@@ -340,6 +386,9 @@ for s in COVERED:
             P("Rules that failed:\n")
             P("| rule | tag | yes/n | a rater that said no | its evidence |\n|---|---|---|---|---|")
             for k in d["failed"]:
+                if d["majority"][k][2] == "audit":
+                    P(f"| {k} | {RULE_TAG[k]} | audit | — | the mechanical read |")
+                    continue
                 no = [r for r, val in votes(s, k) if val == 0]
                 ev = next((ratings[r][s]["evidence"].get(k) for r in no
                            if ratings[r][s]["evidence"].get(k)), "")
