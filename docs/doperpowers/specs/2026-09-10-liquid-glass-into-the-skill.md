@@ -1,7 +1,7 @@
 # Liquid Glass into the skill: the design language distilled, and six demos on vitrea 0.14.0
 
-Status: design, 2026-09-10; the user's three shape decisions recorded, two inputs open (taste anchors,
-the brief list). Parents: `2026-08-24-vitrea-liquid-glass-design.md` (the material) and the skill's
+Status: pre-registered 2026-09-10; the user's decisions recorded (shape, briefs, home, taste anchors),
+the reference and the audit in progress, no demo built. Parents: `2026-08-24-vitrea-liquid-glass-design.md` (the material) and the skill's
 `references/material.md` (how the skill ships glass today). Research: `docs/research/2026-09-10-
 liquid-glass-design-language.md` (34 sources, 25 checkable rules) and `docs/research/2026-09-10-
 vitrea-authoring-surface.md` (the 0.14.0 authoring surface read from the code).
@@ -128,6 +128,43 @@ The reference and the corrections: a working day. Six builds at about 0.5 M toke
 script a half day; the panel's rule reading and quality reading 6 × 4 × 2 runs at about 0.1 M each,
 5 M tokens; the user about thirty minutes at the demos and ten at the ratings.
 
+## The six briefs
+
+Every brief names a live plane, asks for realistic data, and ends the same way: desktop at 1440
+wide, one HTML file on vitrea 0.14.0 (the workspace build through the import map), served from the
+repository root. The builder receives the brief verbatim plus the serving mechanics.
+
+**Product surfaces**
+
+1. `music-player` — Design a desktop music player for a streaming service's Mac web client. The
+   current album's artwork fills the window; the transport (play, pause, previous, next, a scrubber),
+   the queue and the volume float over it, and a menu opens from the queue control for playlist
+   actions. Realistic data: one album with its tracks, a queue of six, three playlists.
+2. `transit-ops` — Design the desktop operations map for a city bus network's control room. A city
+   map fills the window with live vehicle positions on their routes; a search field, a route-and-
+   status filter toolbar and a selected-vehicle platter float over the map, and a sidebar lists the
+   active alerts. Realistic data: forty vehicles on eight routes, six alerts.
+3. `photo-review` — Design a desktop photo review and adjustment tool for a working photographer
+   culling a shoot. The selected photograph fills the stage; a tool palette, the adjustment controls
+   (exposure, white balance, crop) and a before-and-after compare toggle float over it, and a
+   filmstrip of the shoot runs beneath. Realistic data: a shoot of thirty frames with ratings and
+   flags.
+
+**Narrative pages**
+
+4. `film-festival` — Design the programme page for a city film festival. A full-bleed still from the
+   opening film fills the first screen with the navigation and the date-and-tickets controls floating
+   over it; the schedule by day and venue, the strands and the passes extend beneath. Realistic data:
+   four days, three venues, twenty-four films.
+5. `park-trails` — Design the trails site for a national park. A full-bleed relief map or panoramic
+   photograph of the park fills the window with a floating trip planner (route, distance, weather,
+   permits) over it; the trail list, the conditions and the permit steps extend beneath the floating
+   bar. Realistic data: twelve trails with distance, elevation and current conditions.
+6. `product-launch` — Design the launch page for a mirrorless camera from a small maker. Hero
+   photography of the camera fills the first screen with the navigation floating over it; the sensor,
+   the lenses, the body and the price scroll beneath the floating bar, and a configure-and-buy bar
+   floats at the bottom. Realistic data: three lens options, two body colours, a price.
+
 ## Files
 
 - This spec.
@@ -162,6 +199,18 @@ script a half day; the panel's rule reading and quality reading 6 × 4 × 2 runs
   Publishing the demos is a later decision.
   Date/Author: 2026-09-10, the user.
 
+- Decision: The taste anchors are the macOS Tahoe apps — Finder, Safari, Music, Maps, System
+  Settings on macOS 26: window chrome, sidebars, floating toolbars, menus — and the reference's
+  macOS reading and the demos' reference captures are drawn from them.
+  Rationale: the user's choice; the demos are desktop web pages and macOS is the nearest analogue.
+  iOS 26 remains the source for the strongest expressions (floating tab bars, bottom search) where
+  the guidelines state them.
+  Date/Author: 2026-09-10, the user.
+
+- Decision: The six briefs above stand as drafted.
+  Rationale: the user's approval of the list.
+  Date/Author: 2026-09-10, the user.
+
 - Decision: The audit's rule reading uses the 25 rules from the research memo, as written, with the
   quality instrument's panel; the pass line is 22 of 25 with no layer or material failure.
   Rationale: the rules are sourced one by one to Apple's guidelines and sessions (two to
@@ -178,7 +227,8 @@ script a half day; the panel's rule reading and quality reading 6 × 4 × 2 runs
   manifest, `~/.pnp.cjs` (2025-09-30, 451 KB), sits in the home directory; esbuild finds it walking
   up from every package and then refuses the workspace's own imports. With the file set aside for
   the build's duration, core built in 0.3 s and the full workspace built clean under the Homebrew
-  Node 26 (the shell's default is Node 22; the repo asks for 24).
+  Node 26 (the shell's default is Node 22; the repo asks for 24). On the user's decision the file
+  now lives at `~/.pnp.cjs.disabled`.
   Evidence: the tsup error naming `../../../../../.pnp.cjs`; `BUILD-EXIT 0` with it moved aside.
 
 - Observation: `references/material.md` is stale on four points the code contradicts (research
@@ -201,3 +251,5 @@ Pending — written at finish.
 - 2026-09-10: created from the user's direction ("six demos on vitrea, so the skill masters the
   Liquid Glass aesthetic") after the research round; the three shape decisions recorded; taste
   anchors and the brief list open.
+- 2026-09-10 (later): the taste anchors (macOS Tahoe) and the six briefs recorded; the user's eye
+  made a comparison task on the quality instrument's finding; the manifest moved aside.
