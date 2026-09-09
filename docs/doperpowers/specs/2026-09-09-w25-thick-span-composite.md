@@ -252,7 +252,7 @@ G0 → (the user: the amendment, the console) → G1 → G2 (may start on G0 alo
 | --- | --- |
 | G0 — the width instrument, the read, the argument, the along-side reader | CLOSED 2026-09-09 (claims §5.113; `g0/g0-findings.md`; merged `058dd64`; Decision Log 3) |
 | G1 — the bed amendment and the native captures | DISPATCHED 2026-09-09 (the `probe` set's declaration by a worker; the capture at the user's unlock; Decision Log 3 (e)) |
-| G2 — the law fitted | DISPATCHED 2026-09-09 (three mechanisms; the 1x fit first; Decision Log 3 (f)) |
+| G2 — the law fitted | CLOSED 2026-09-09 (`g2/g2-findings.md`; the three mechanisms landed INERT — 33/33 goldens and 36/36 canonical captures byte-identical — and fitted on a scratch ladder of eight rungs: share lift **0.455**, level offset **0.029** light / **0** dark, along-side slope **0.45**. Two rulings wait on the parent: the level term's SHAPE was re-formed against Decision Log 3 (b) on the rows' own evidence, and the share law's landing trades clause 2 against clause 6. X5 held at 0.000196 ΔE against a stop of 0.001) |
 | G3 — declared and dry-run | — |
 | G4 — the landing | — |
 
@@ -411,6 +411,19 @@ when G1's fixtures land; a thin cell moved by more than 0.001 ΔE stops the ladd
   manifest; and span is confounded with clearance on the canvas.
 - **The edge-spread reader binds on the backdrop's pitch.** No ceiling identifies a kernel wider
   than an eighth of the step.
+- **The above-knee level residual is not the reference's grading — it is vitrea's own span curve
+  continuing where the reference's stops.** G0 read the reference's WIDTH flat above span 96 while
+  vitrea's `kDeep` keeps rising to `sizeScatterSpanMax` 256, so the two gradings largely cancel and
+  what is left is backdrop-INDEPENDENT (+2.2…+4.2 codes at span 160 over eight backdrops of the W9
+  grid spanning 0.012 to 0.89 linear). The term chartered on the tone response's thin-to-thick blend
+  explains 0.3 % of it; an offset on the response's settled level explains 39 % on the grid that
+  identifies it (G2 `fit-level.txt`).
+- **The heavy width is not a lever on `sizeScatterGainMax` at 1x.** Raising it 8 → 10.3 beside the
+  fitted share left reader A's heavy reading unchanged at 13.29 device px against the reference's
+  19.52, and the width objective moved by 0.0001 (G2 rung `rG`). The heavy tap is a mip-chain level
+  and its effective width saturates there.
+- **One row on the canonical bed identifies the 1x heavy share**, `impulse__rrect-md`, and it is a
+  validation row.
 
 ## Outcomes & Retrospective
 
@@ -425,3 +438,13 @@ when G1's fixtures land; a thin cell moved by more than 0.001 ΔE stops the ladd
   triple, the share, the level above the knee), the along-side field taken, two grid fixtures
   withdrawn, the amendment sharpened to the grids whole at both scales with coarse structure as a
   `probe` set; G1 and G2 dispatched.
+- 2026-09-09: G2 CLOSED (`g2/g2-findings.md`). The three mechanisms are in the code at their
+  defaults and draw nothing; the fits are on scratch and the profile documents carry no fitted
+  value, only the fingerprint the three new keys moved. Two items are the parent's to rule and are
+  named in the findings' §9: (i) the level term's shape — Decision Log 3 (b) put it on the tone
+  response's thin-to-thick blend and the rows above the knee refuse that shape, so G2 re-formed it
+  as an offset on the response's settled level and fitted 0.029 on the light grid with the dark
+  grid pinning 0; (ii) the share law's landing, where clause 2 (share within 0.05, needing a lift
+  ≥ 0.39) and clause 6 (calibration ΔE not worse by 0.0001, capping the lift at ≈ 0.31) have an
+  empty window, G2 recommending 0.455 and the ΔE recorded as a claim. The golden re-run after the
+  level term's re-form is deferred to G3 by the parent's capture hold during G1's sitting.

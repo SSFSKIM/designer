@@ -1,0 +1,43 @@
+W25 G2 — rides.txt: the four laws that ride `sizeThickness`, read at every rung of the ladder
+====================================================================================================
+
+WHAT THIS ANSWERS. The wave's risk register names one risk above the others: "moving the knee moves
+four laws (lens depth, occlusion, inner shadow, tone bias). Mitigation: re-read, not re-fit; the
+ladder reads all four at every rung; any that moves against a bound is a stop."
+
+WHAT THE LADDER FOUND, and why it is stronger than a re-read. W25 G0 answered clause 4 in the landed
+law's favour — `sizeThickness(short side)` at knee 96 scores r 0.95–0.998 against 0.68–0.96 for
+every other candidate on both the width and the level — so THE KNEE DOES NOT MOVE IN THIS WAVE, and
+none of W25's three mechanisms touches `sizeSpanMin`, `sizeSpanMax` or any constant the four laws
+read. Each of them ADDS a term riding the curve; none re-expresses the curve.
+
+So the four laws are not merely unmoved at the fitted values: they are unmoved at ANY value of
+W25's three constants, and that is what the table below measures. It is `predict.mjs rides`, which
+evaluates `lensDepthPx`, `sizeOcclusionAlpha`, `sizeShadowDepth` and `backdropToneSizeBias ·
+sizeThickness` from the renderer's own module at the landed material (the `(0)` columns) and at a
+material with all three of W25's constants set to 1 — a value an order of magnitude outside any fit
+this wave produced (the `(1)` columns).
+
+  lensDepth  at an authored thickness of 8 CSS px, `lensDepthPx(8, span)`, in CSS px
+  occl       `sizeOcclusionAlpha(tintAlpha, span)` on the regular variant
+  shadow     `sizeShadowDepth(shadowDepth, span)` on the regular variant
+  bias       `backdropToneSizeBias · sizeThickness(span)`, the collapse's size bias
+
+span  lensDepth(0)  lensDepth(1)  occl(0)   occl(1)   shadow(0)  shadow(1)  bias(0)   bias(1)
+  32        8.0000        8.0000  0.4600  0.4600     0.3500     0.3500  0.0000  0.0000
+  44       11.0000       11.0000  0.4625  0.4625     0.3500     0.3500  0.0046  0.0046
+  96       20.0000       20.0000  0.4870  0.4870     0.3500     0.3500  0.0500  0.0500
+ 128       20.0000       20.0000  0.4870  0.4870     0.3500     0.3500  0.0500  0.0500
+ 130       20.0000       20.0000  0.4870  0.4870     0.3500     0.3500  0.0500  0.0500
+ 160       20.0000       20.0000  0.4870  0.4870     0.3500     0.3500  0.0500  0.0500
+
+Every pair is equal to the last digit printed, at every span of the bed. (The inner shadow's column
+is flat in SPAN as well, at 0.3500: `sizeShadowGainMax` is 1 on the shipped material, which is the
+coupled-by-construction reading `MaterialProfile.sizeShadowGainMax` records — the fixtures cannot
+identify it and the constant is held where the objective is flat. That is W2's state and W25 does
+not touch it.)
+
+The rendered check is beside this file. `deltae.txt` reads the OKLab ΔE of every non-holdout cell of
+the four 1x beds at every rung of the ladder; the thin cells the lens, the occlusion and the inner
+shadow are fitted on move by 0.000000 at span 32 and by at most 0.000188 at span 44 — the latter
+being the capsule's own 0.0923 of the thickness curve reaching the share law, not any of these four.

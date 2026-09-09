@@ -1,0 +1,166 @@
+W25 G2 — condition.txt: which rows separate each constant, before any of them is fitted
+====================================================================================================
+
+THE RULE. W23's lesson, made a wave rule: the condition of a fit is checked BEFORE the fit, and a
+constant no row separates is reported rather than tuned. G0's §6 identification table did this on
+paper for a law that did not exist yet; this does it for the three mechanisms as built, with the
+levers measured through the code that draws them (`predict.mjs`, which differentiates the renderer's
+own functions) and through the renderer itself (the ladder's unit rungs, which render one constant
+at one value and read what moved).
+
+Three kinds of lever appear below and they are not interchangeable:
+
+  ANALYTIC   d(quantity)/d(constant) from the material functions. Says what the law would do.
+  RENDERED   web(unit rung) − web(baseline rung), the same quantity read off two real captures by
+             G0's own instruments. Says what the renderer did. Where the two disagree the rendered
+             one is the fit's, because the composite absorbs part of every term.
+  READER     whether the instrument can see the quantity on that row at all — G0 §1's validated
+             bounds, which are a property of the BACKDROP's step pitch and not of the material.
+
+----------------------------------------------------------------------------------------------------
+1. THE SHARE LAW — `sizeScatterHeavyShareThick1x` / `…2x`
+----------------------------------------------------------------------------------------------------
+
+ANALYTIC (`share-lever.txt`). The constant enters `kDeep` as `lift · sizeThickness(span)`, so
+
+  span   sizeThickness   kDeep(0)   kDeep(+1)   mix(0)   mix(+1)   dσ/dlift (CSS px)
+    32        0.0000      0.4000     0.4000     0.2880   0.2880       0.000
+    44        0.0923      0.4050     0.4973     0.3082   0.3167       0.074
+    96        1.0000      0.5190     1.0000     0.4878   0.5840       0.842
+   128        1.0000      0.6362     1.0000     0.5460   0.6431       0.849
+   130        1.0000      0.6440     1.0000     0.5516   0.6480       0.844
+   160        1.0000      0.7638     1.0000     0.6497   0.7284       0.689
+
+  Span 32 has lever EXACTLY zero and span 44 has 9.2 % of the constant. That is X5 discharged before
+  the ladder ran: no value of this constant can move `rrect-sm` or anything smaller, and the capsule's
+  whole exposure is a tenth of it.
+
+WHICH ROWS SEPARATE IT. The quantity is the heavy component's SHARE, and only one instrument reads a
+share: reader A, the dot's two-component PSF, which needs an `impulse` backdrop. On the bed as it
+stands that is TWO scenes at 1x — `impulse__rrect-md` (span 96, uncollapsed) and
+`impulse__capsule-button` (span 44, collapsed, share 0.000 on both sides) — and only the first has a
+lever. **The 1x share is identified by ONE row, and it is a validation row.** This is G0 §6's finding
+3 arriving in practice: "effectively the uncollapsed heavy share is carried by nothing on the
+canonical bed."
+
+RENDERED (`fit-share.txt`). Reader A on `impulse__rrect-md` at 1x, native (2.79 / 19.52 / 0.473):
+
+  lift   sharp   heavy    share
+  0.00    1.67    9.08    0.233
+  0.24    1.68   11.76    0.325
+  0.30    1.66   12.34    0.363
+  0.48    1.64   15.22    0.491
+
+  The lever is 0.38 share per unit lift near 0 and 0.71 near 0.48 — the constant is well
+  conditioned in the sense that the quantity moves, and badly conditioned in the sense that ONE row
+  is what says so.
+
+THE CHECK OFF ITS OWN ROW, and what it costs. Reader C's single-Gaussian width on the two probe
+grids' structured backdrops is the only other reading that responds. It runs the OTHER way: the
+objective (mean |log σ_web/σ_native| over the thick in-bound rows) is 0.2507 at lift 0, 0.2625 at
+0.24, 0.2694 at 0.30 and 0.2769 at 0.48. That is not a contradiction and G0 named the reason
+(§2c): a single-Gaussian width read at one pitch is a true reading of a DIFFERENT PART of a
+two-component kernel, and vitrea's heavy component is 15.2 device px at the reference's own share
+against the reference's 19.5. Raising the share of a too-narrow heavy component adds structure the
+reference does not have. The co-constant is `sizeScatterGainMax`, which this wave did not charter —
+rung `rG` measures what closing it would buy, and the result is in `g2-findings.md` §2.
+
+  The rows that would condition the share properly are G1's: shape (iii+)/(iv) of the amendment
+  takes it from 4 rows at two spans to 44 rows at five spans over both scales (G0 §6).
+
+----------------------------------------------------------------------------------------------------
+2. THE LEVEL TERM — `sizeToneLevelFar`
+----------------------------------------------------------------------------------------------------
+
+ANALYTIC (`levers.txt`, from the tone response itself). The curve `smoothstep(sizeSpanMax,
+sizeScatterSpanMax, span)` is 0.0000 at every span ≤ 96, 0.1040 at 128, 0.1155 at 130 and 0.3520 at
+160. So on the canonical 1x bed, minus its holdout, the rows with any lever at all are THREE:
+`light-solid__rrect-ml`, `checkerboard__rrect-ml` and `photo__rrect-ml`, all at span 128 and all in
+the light scheme's scene list. The two probe grids add 28 more at spans 128 and 160 over thirteen
+backdrops each.
+
+RENDERED (`fit-level.txt`, baseline `r0` against unit rung `rC2` at 0.02 encoded). The CONTROL is
+the strongest single number in this file: **77 rows at or below span 96 have a rendered lever of
+0.000000 codes per unit.** Not small — zero, to the precision the reader prints. The term cannot
+reach the bed the rest of the material was fitted on, at any value, and that is what made it safe to
+probe against the frozen bed at all.
+
+Above the knee the rendered lever is about 0.98 codes per 0.02 of the constant on `rrect-lg`, which
+is 55 % of the analytic move on the response's target: the composite absorbs the rest.
+
+THE CONDITION, and it is the wave's weakest. Fitting `residual = gain · lever` over the 31 rows
+above the knee:
+
+  bed           n    least-squares gain   median per-row   RMS before → after
+  w9           14        +1.4716              +0.909        1.486 → 0.909 codes
+  canon-light   3        +0.6587              +0.113        1.077 → 1.026 codes
+  w21          14        +0.0444              +0.069        2.469 → 2.462 codes
+  JOINT        31        +0.0994              +0.337        1.965 → 1.945 codes
+
+  (a gain of 1 means the constant is the probe's 0.02.)
+
+  **The light grid identifies it and the dark grid does not.** W9's 14 rows agree on a value and
+  fall 39 % in RMS at it; W21's 14 rows fit it to nothing and do not move. That is not two beds
+  contradicting each other: G0 §5 measured the dark grid's whole collapsed-to-uncollapsed contrast
+  at SIX 8-bit codes where the light grid's is a hundred, and a term worth about two codes at span
+  160 is inside that grid's own noise. X7's rule — a thick constant lands on the light patch unless
+  the dark bed separates it — is the right reading of this table, and G1's probe set at both scales
+  is what would settle it (G0 §6: 118 level rows at 1x, 202–238 with the 2x captures).
+
+THE SHAPE WAS ALSO CONDITIONED, and the wave's chartered shape lost. Decision Log 3 (b) put the term
+on the tone response's thin-to-thick BLEND, on the reading that the residual's "sign follows the
+backdrop". Rung `rC` measured that form on these same rows: it explains 0.3 % of the above-knee
+residual (RMS 2.034 → 2.027) with per-row gains running −1.13 … +0.24 and the two grids disagreeing
+in sign. The offset form explains 11 % jointly and 39 % on the grid that identifies it. The reason is
+stated in `g2-findings.md` §3 and in the constant's own doc comment: G0's "sign follows the backdrop"
+is a reading of the REFERENCE's absolute grading, and the residual against vitrea — whose own deep
+value keeps rising to `sizeScatterSpanMax` over the same spans — is backdrop-independent.
+
+----------------------------------------------------------------------------------------------------
+3. THE ALONG-SIDE FIELD — `optics.regular.rimAlongSideSlope`
+----------------------------------------------------------------------------------------------------
+
+WHICH ROWS SEPARATE IT. The flat solids, and only the flat solids: G0 §4 showed that over
+`checkerboard` the same reader correlates 0.85–0.96 with the backdrop's own level under the body,
+which is the lens and is a much larger signal. That leaves `light-solid`, `dark-solid` and
+`mid-dark-solid` over the thick rrects — 16 thick cells x 4 straight sides = **64 rows**, plus 4 thin
+control sides at span 44 and 16 at span 32.
+
+RENDERED (`fit-field.txt`, baseline `r0` against unit rung `rD` at slope 1). Every row asks
+`(native − web₀) / (web₁ − web₀)`, so no model of the rim's amplitude enters the fit at all — the
+renderer supplies the derivative.
+
+  implied slope over 64 thick sides: median +0.452, mean +0.393, sd 0.235, quartiles +0.247 … +0.597
+  lever-weighted mean +0.437
+
+  by side — the antisymmetry check, and the result that validates the FORM:
+    top    n=16 median +0.404      bottom n=16 median +0.402
+    left   n=16 median +0.470      right  n=16 median +0.469
+
+  Opposite sides agree to 0.002 and 0.001. One field with one constant reproduces four slopes that a
+  field linear in position could not, and the 17 % between the top/bottom pair and the left/right
+  pair is the box's own aspect (160/96 = 1.67 predicted against 1.97 measured by G0), which is the
+  residual the product form leaves and a metric diagonal would have doubled.
+
+  by bed: w9 +0.329, w21 +0.598, canon-dark +0.644, canon-light +0.048 — the last on 12 sides of two
+  low-contrast cells, which is the row set G0 §4 already flagged as the one where the term is
+  smallest (`light-solid` 1x light range 0.0187 against `mid-dark-solid` 1x dark 0.0345).
+
+THE THIN CONTROLS. 4 sides at span 44 with a worst rendered movement of 0.000029 luma per CSS px at
+slope 1, and 16 sides at span 32 whose rendered movement is 0.000000 exactly, which the reader reports as no derivative to divide by. X5 by construction, measured.
+
+----------------------------------------------------------------------------------------------------
+4. WHAT NO ROW ON THIS BED SEPARATES, so that G3 does not spend the effort
+----------------------------------------------------------------------------------------------------
+
+- **Every 2x constant.** `sizeScatterHeavyShareThick2x` has no fixture: G0 §6 finding 1 — every 2x
+  row that identifies a width is at span 32, 44 or 96, and at dpr 2 `sizeScatterFloor2x` is 1, so
+  `kDeep` is already saturated and the lift is clamped away whatever it says. It stays at 0 and waits
+  for G1.
+- **The sharp σ at 1x.** It is `blurSigma`, a whole-bed constant, and the reference's own sharp
+  component is 2.62 device px on the collapsed capsule against 2.79 on the thick rrect — span-flat to
+  6 %. There is no thick-only sharp width to fit, and moving the shared one moves the thin capsule,
+  which X5 forbids. §2 of `g2-findings.md` states this as the wave's answer to "say why the thin
+  capsule cannot move".
+- **The knee.** G0 §6 finding 5: its lever is exactly 0 at span 96 and 0.002 above it in every bed
+  shape. W25 does not move it and does not need to.
