@@ -14420,3 +14420,8 @@ the nested pane's extractor rows (four re-pins on one cell); the along-side vari
 panels (the thickness term); the session byte-state on one cell, now on the render path; two
 passing 2x light calibration cells outside the shape gate. All in the tracker with numbers. The
 thick-span composite is next, on the user's word (wave Decision Log 23 (c)).
+
+**Addendum 2026-09-09 — the cut and the eye.** 0.13.0 published by the user from `812c3ce`
+(registry 03:53–03:54Z; tag `v0.13.0`); the user's eye on `g3-1x.png` / `g3-2x.png`: "looking
+good, better fidelity" — clause 8 closed, the wave's open item none. The cold-install record is
+the wave spec's addendum (`2026-08-28-post-v1-wave.md`).
