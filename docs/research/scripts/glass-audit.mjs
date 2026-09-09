@@ -5,7 +5,8 @@
 //   node docs/research/scripts/glass-audit.mjs <demo-dir> [<demo-dir>…] [--port 8787]
 //
 // Renders each demo in Chromium over http://localhost with WebGPU reachable, captures the first
-// viewport, the full page, two native-resolution tiles and — where the page offers one — the open
+// viewport, the stitched full page, the second and third screens as viewport captures with the
+// window scrolled there, and — where the page offers one — the open
 // menu and a reduced-transparency pass, and reads what actually drew: page errors, overflow taken
 // from the capture's own width, the contrast sample, and the glass root's resolved state through
 // devMode — the renderer and sampling backend per group, every diagnostic the runtime reported,
@@ -463,15 +464,22 @@ async function auditOne(browser, dir) {
   const measured = await page.evaluate(extractContrast);
   const glass = await page.evaluate(readGlass);
   await page.screenshot({ path: path.join(dir, "shot-full.png"), fullPage: true });
+  // The tiles are VIEWPORT captures with the window scrolled, not clips of the stitched full page.
+  // A glass page is a fixed plane with floating bars over a scrolling sheet, and a stitched capture
+  // shows the plane and the bars once at the top and the sheet on the page ground everywhere else
+  // — which is not what anyone scrolling the page sees, and hides exactly what the scroll-edge and
+  // content-under-the-bar rules are about. Each tile is the second or third screen as the reader
+  // meets it: scrolled there, settled, the bars in place over whatever has passed beneath them.
   for (const n of [2, 3]) {
     const y = (n - 1) * 900, tile = path.join(dir, `tile-${n}.png`);
     if (measured.docHeight > y + 100) {
-      await page.screenshot({
-        path: tile, fullPage: true,
-        clip: { x: 0, y, width: 1440, height: Math.min(900, measured.docHeight - y) },
-      });
+      await page.evaluate((top) => window.scrollTo(0, top), y);
+      await page.waitForTimeout(500);
+      await page.screenshot({ path: tile, fullPage: false });
     } else if (fs.existsSync(tile)) fs.unlinkSync(tile);
   }
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForTimeout(400);
 
   // The transient platter, where the page offers a way to open one. A menu that morphs out of the
   // control that opened it is the language's own move, and it is the one state the resting captures

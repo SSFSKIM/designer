@@ -47,9 +47,11 @@ DATA = (os.environ.get("GLASS_DATA")
 # reach the runtime leave some of them absent, and the prompt names only the ones on disk.
 CAPTURES = [
     ("shot-fv.png", "the first viewport, 1440 × 900 at scroll 0"),
-    ("shot-full.png", "the full page"),
-    ("tile-2.png", "the second viewport at native resolution"),
-    ("tile-3.png", "the third viewport at native resolution"),
+    ("shot-full.png", "the full page as one stitched capture — a fixed plane and the floating bars "
+                      "appear once, at the top; read it for the sheet's whole composition"),
+    ("tile-2.png", "the second screen as a viewport capture, the window scrolled to 900 — the bars "
+                   "in place over whatever has passed beneath them"),
+    ("tile-3.png", "the third screen as a viewport capture, the window scrolled to 1800"),
     ("shot-menu.png", "the page with its menu or platter open"),
     ("shot-reduced.png", "the first viewport with reduced transparency asked of the runtime"),
 ]
