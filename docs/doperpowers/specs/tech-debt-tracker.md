@@ -1447,6 +1447,12 @@ vitrea's per-row 1x spread at one true width (9.08 / 14.36 / 19.78, median exact
 effect. W26 G1 extends the reader to a lattice model over the whole tile; a wider-pitch impulse
 probe scene is the fallback and a sitting. `g0/mapping.txt`, claims §5.119 §6.
 
+**Amended (W26 G1, 2026-09-10; claims §5.120 §2).** The window is the smaller half of the cause and
+the entry stands as written. G1 built the window away — reader D fits the whole tile as a lattice
+and is validated exact on the model, within 5.2 % on the chain's own kernel and within a median
+4.5 % of reader A where reader A works — and the 1x rows are still unreadable, because the FIXTURE
+does not carry them. See the entry below.
+
 ## One heavy width per source loses the 2x span grading the reference shows on the largest impulse row (W26 G1's structure, 2026-09-10)
 
 The reference's heavy component at 2x reads 11.29 / 12.03 / 16.92 device px on `impulse__rrect-md`
@@ -1454,3 +1460,37 @@ The reference's heavy component at 2x reads 11.29 / 12.03 / 16.92 device px on `
 third by about 30 % (W26 Decision Log 2 (f)). Recorded as a gap rather than answered with a second
 texture: closes with a per-span width — the residual blur graded by the same ramp the share
 follows, or a second texture blended by span — once the one-width material's floors are known.
+
+
+## The 1x `impulse` fixture cannot carry the heavy component at 8 bits, so no reader can fit the 1x width on this bed (W26 G1, 2026-09-10)
+
+The native 1x `impulse__rrect-lg` interior has a standard deviation of 0.0055 in linear luma at a
+level of 0.4508, where one 8-bit sRGB code IS 0.0059 — the whole surviving modulation is about one
+display code, and the HEAVY component's own peak is 0.08–0.33 codes on every 1x row (2.56 on
+`2x rrect-md`, which is why the 2x rows read). Quantisation is then a deterministic staircase of the
+field rather than noise, concentrated at the dot cores, and a spurious NARROW second component fits
+it better than the true wide one; a matched low-pass scanned 0 → 4 device px quiets the staircase and
+collapses the sharp component into the heavy one instead. Decisively: a heavy component of 13.42
+device px and one of 25.0 device px, each at its own share, are bit-identical on 96.7 % of the tile
+after quantisation. Closes with a probe scene whose transmitted dot peak is many codes rather than a
+fraction of one — the arithmetic puts that at about a 12 CSS px dot on a 128 CSS px pitch, nine times
+the present heavy amplitude — declared in `scenes.json` and captured in a native sitting, which is
+the user's console. `g1/reader-d.txt`, claims §5.120 §2.
+
+## Reader A's fitted SHARP component is a conditioning statistic, and two reference rows fail it (W26 G1, 2026-09-10)
+
+Where reader A's two-component fit returns a sharp σ of 9–12 device px it has split one wide kernel
+into two wide halves and the "heavy" it reports is not the heavy component. The reference's 2x
+`impulse__rrect-ml` and `-lg` do exactly that (sharp 11.80 and 9.67, against `rrect-md`'s 1.40 and
+the 1x rows' 2.74–2.79), so §5.113 §2's 12.03 and 16.92 are not readings of the heavy component.
+Closes by reporting the sharp σ beside every reader-A heavy σ in the ledger and by refusing a fit on
+a row whose reference sharp exceeds a stated bound. `g1/fits.txt` §0, claims §5.120 §3.
+
+## Vitrea's SHARP component is about 40 % narrow at 1x and no constant addresses it (W26 G1, 2026-09-10)
+
+Reader A reads vitrea's sharp σ at 1.65–1.84 device px on every rung of both of W26 G1's ladders,
+against the reference's 2.74–2.79 on all three 1x impulse rows. W26 Decision Log 2 (d) made the
+sharp width a named quantity of the wave because the coarse checkerboards' residual belongs to it;
+this is what it reads, and nothing in the material moves it — `blurSigma` is fitted on other rows and
+was declined as a sibling in W25. Closes with a wave that fits the sharp component on the impulse
+rows with the heavy one held. `g1/fits.txt` §5, claims §5.120 §8.

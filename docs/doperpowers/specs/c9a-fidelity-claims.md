@@ -14908,3 +14908,105 @@ one-width-per-source trade loses the 2x span grading the reference's `-lg` row s
 against 11.29); recorded as a gap, not answered with a second texture. G0 merged at `65474de`;
 the branch's verify chain green (build, lint, unit) and the goldens re-run in the foreground at
 the merge.
+
+### 5.120 W26 G1 DRAFT: the heavy width is a texture built beside the body, free where it is declined and exact where the grid was — and the 1x width cannot be fitted on this bed because the 1x impulse FIXTURE does not carry it at 8 bits; the 2x width lands on the one conditioned reference row, the share is fitted at 1x and costs the bed's ΔE, and the floors all stand (2026-09-10)
+
+DRAFT — G1's reading, for G2 to declare or the parent to amend. Rows, scripts and every table in
+`packages/calibration/results/2026-09-10-w26-heavy-width/g1/` (`g1-findings.md` with `mapping.txt`,
+`reader-d.txt`, `fits.txt`, `inert-1x.txt`, `probe-read.txt` beside it). Executes W26 Decision Log
+2 (a), (b) and (f). Nothing canonical moved except `resolvedMaterialSha256`.
+
+**§1 The mechanism, rebuilt where the chain is built.** G0's 9 × 9 in-shader grid is replaced by a
+third pyramid texture: the chain level `heavyTapPlan` names, blurred up to the profile's σ by the
+two separable passes the pyramid already runs for the body, read once at the refracted uv. At
+σ2x 11.3 it reads **12.22 / 11.95 / 12.04** device px with reader A on `impulse__rrect-md` / `-ml` /
+`-lg` at 2x — the grid's own reading **to the last digit, 0.0 % on all three rows** against an
+acceptance of 5 %. The bench row `mobile-390x844@3 heavy-tap` is **2.366 ms against a control of
+2.186 ms** on `apple / metal-3` over 60 interleaved rounds, +0.180 ms inside the 0.2 ms acceptance,
+with the **optics pass unchanged** (0.989 against 0.999) and the whole cost on `body-blur` (0.083
+against 0.045); G0's grid cost +1.1 ms on the optics pass. Inert at 0: 33 / 33 goldens and 36 / 36
+re-rendered bed captures byte-identical. G0's candidates (i) `sizeHeavyLevelOffset` and (iii)
+`sizeHeavySecondShare` are REMOVED from the material, the uniform and the shader on their own
+measurement (inert to the bit at dpr 1).
+
+**§2 The 1x impulse fixture does not carry the heavy component.** This is the wave's most
+consequential reading and it is about the FIXTURE, not about any reader. The native 1x
+`impulse__rrect-lg` interior has a standard deviation of **0.0055** in linear luma at a level of
+**0.4508**, where one 8-bit sRGB code **is 0.0059**; the HEAVY component's own peak is **0.08–0.33
+display codes** on every 1x row and 2.56 on `2x rrect-md`. Reader D — reader A's two-component
+kernel fitted as a lattice over the WHOLE impulse tile, validated exact on the model, within 5.2 %
+on the chain's own platykurtic level-4 kernel, and within a median 4.5 % of reader A on the 2x rows
+where reader A is monotone — reads a drawn width to **1.6 % where the heavy peak is 2.56 codes and
+misses by 79–90 % where it is under half a code**. Decisively: **a heavy component of 13.42 device
+px and one of 25.0 device px, each at its own share, are bit-identical on 96.7 % of the tile after
+quantisation.** A matched low-pass was built and scanned 0 → 4 device px and does not recover it.
+So §5.119 §3's "reader A's window" is the smaller half of the cause; **the 1x width is not fittable
+on this bed by any instrument**, and the fallback — a probe scene whose transmitted dot peak is many
+codes rather than a fraction of one, which the arithmetic puts at about a 12 CSS px dot on a 128 CSS
+px pitch, captured in a native sitting — is REPORTED and not taken (the user's console).
+
+**§3 The reference's own 2x rows are not all conditioned.** Reader A's fitted SHARP component is the
+conditioning statistic and had not been read as one. On the reference at 1x all three impulse rows
+fit a sharp component of 2.74–2.79 device px. At 2x only `rrect-md` does (**1.40**); `-ml` and `-lg`
+fit **11.80** and **9.67**, which is reader A splitting a single wide kernel into two wide halves.
+§5.113 §2's 12.03 and 16.92 stand as recorded and this reading is recorded beside them; the 2x width
+is fitted on `impulse__rrect-md` alone for that reason.
+
+**§4 The fits.** `sizeHeavyTapSigma2x` = **10.3**, on `impulse__rrect-md` at 2x, reader A's heavy σ:
+the read moves 11.0 → 52.2 device px over σ 10 → 25 and is monotone throughout, and the residual
+|log(web/native)| goes **0.2536 → 0.0143** — the 0.14.0 material draws that row's deep sample 22.4 %
+narrow, the candidate 1.4 % narrow. On `md+ml` the minimum would be 11.0; on all three rows the
+minimum is the INERT material (0.1141 against 0.1419), because the chain's clamped tap grades with
+the span at 2x (8.76 → 16.59) where one width per source cannot. `sizeHeavyTapSigma` = **13.418**,
+NOT fitted but NAMED: it is `CHAIN_LEVEL_SIGMA[4]`, the width the pyramid's clamped tap already
+draws at dpr 1, and naming it is **byte-identical on all 17 1x ladder rows and every 1x and dark
+probe cell** while keeping `rampAtScale` continuous between the anchors and making the 1x heavy
+width a material constant instead of a property of the backdrop raster's size.
+`sizeScatterHeavyShareThick1x` = **0.25** on the three 1x impulse rows' share, mean |Δ| **0.2652 →
+0.0745**, with `-lg` saturating at that value.
+
+**§5 What declines, and on what.** `sizeScatterFloor2x` stays 1: the objective is flat (0.1174 at 1
+against 0.1140 at 0.85, then worse) because the reference's `-ml` share is 1.000, and every value off
+1 moves the thin `impulse__rrect-sm` row (0.337 → 0.244 down the ladder), which X5 forbids — the
+floor has no `sizeThick` factor to make it inert at the thin end the way the lift does.
+`sizeScatterHeavyShareThick2x` stays 0: the 2x share is too HIGH (0.803 / 0.955 / 0.977 against
+0.689 / 1.000 / 0.784), so a lift is the wrong sign and "the lift applied before the floor" is
+answered without a code change. `sizeToneLevelFar` stays 0: the candidate moves **no probe solid by
+more than 0.00001** and W25's sign flip across backdrops is exactly as it was — a solid backdrop has
+no structure a heavy width can act on, so the flip was never a symptom of a narrow heavy component.
+
+**§6 The bed at the candidate.** X5 over all **81 thin probe cells: worst OKLab ΔE move 0.00017**
+against a bound of 0.001, and every 1x and dark cell exactly 0. The frozen bed
+(calibration + validation, both tiers, six profiles) re-captured at the candidate and read through
+`adopted-thresholds.test.ts` on `VITREA_MATRIX_PATH`: **every adopted bound and all fourteen thick
+regression floors PASS**, and `proves every regression floor stands on a genuinely unmet bound`
+passes too, so no floor became removable either. Two assertions fail and they are one event and an
+improvement: the conditioning predicate ADMITS `texture / calibration / checkerboard__rrect-md__rest`
+and `checkerboard__toolbar-group__rest` on `apple-macos-26.5-2x-light-standard`, which the 0.14.0 bed
+excludes as ill-conditioned, and both meet the gate's bounds. `PREDICATE_EXCLUDES` and the 2x-light
+count are G2's edit.
+
+**§7 The two costs, which are rulings and not readings.** (a) `impulse__rrect-lg` at 2x goes
+16.59 → 11.07 against an UNCONDITIONED reference reading of 16.92: G2's stop S15 fires on it as
+stated, and the regression is the direct consequence of one width per source that W26 Decision Log
+2 (f) chose knowingly. The brief's advisory remedy — blending the chain's `scatterLod` sample back by
+the ramp — does not reach it, because the row is at the THICK end of that ramp; not taken, and the
+mid-span rows it was meant for move by 0 at 1x and under 0.0004 ΔE at 2x. (b) The 1x share lift's
+off-row cost: on the 1x light probe set the OKLab ΔE mean WORSENS at span 96 (0.00475 → 0.00516,
+6 / 9 cells), 128 (0.00672 → 0.00767, 5 / 7) and 160 (0.00905 → 0.01038, 7 / 12). Those columns
+isolate the lift exactly, since the 1x width is byte-identical. It improves the identified share by
+72 % and costs 9–15 % on the bed's own perceptual metric at every thick span — W25's shape,
+reproduced with the width in place and the checkerboards out of the argument. The wave's premise was
+that the share could be raised once the width was right; at 1x the width could not be made right, so
+the premise was never tested.
+
+**§8 The sharp component, named and unfitted.** At 1x vitrea reads **1.65–1.84** device px at every
+rung of both ladders against the reference's **2.74–2.79** — about 40 % too narrow, and unmoved by
+everything G1 fitted. Decision Log 2 (d) made the sharp width a named quantity of this wave; this is
+what it reads, and no constant in the material addresses it.
+
+**§9 What this child touched that is committed evidence.** `resolvedMaterialSha256` in both profile
+documents, `4475b4dfa6155ce7 → e6edd84292259f3a` (light) and `25a12c887e5b51cb → 874be66ea501621b`
+(dark), with a `$comment-w26-g1` beside each: two constants left the material's shape, no value and
+no pixel moved, and the 33 goldens and 36 bed captures are the proof. The canonical matrix,
+`web-captures/`, `fixtures/` and `scenes.json` were never written.

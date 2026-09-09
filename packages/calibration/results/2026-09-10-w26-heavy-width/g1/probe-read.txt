@@ -1,0 +1,104 @@
+W26 G1 — the probe set at the candidate against the inert default
+====================================================================================================
+
+1. The level above the knee — the interior-level error on the probe SOLIDS
+
+   web minus native, LINEAR luma, over the eroded interior. W25 declined
+   `sizeToneLevelFar` because the sign of what the solids ask for flips across backdrops;
+   the question here is whether the heavy width in place changes that.
+
+                                        profile        backdrop  span      base      cand      move
+             apple-macos-26.5-1x-light-standard      dark-solid    48   0.00070   0.00070   0.00000
+             apple-macos-26.5-1x-light-standard      dark-solid    64   0.24314   0.24314   0.00000
+             apple-macos-26.5-1x-light-standard      dark-solid    80  -0.01187  -0.01187   0.00000
+             apple-macos-26.5-1x-light-standard      dark-solid   160  -0.00740  -0.00740   0.00000
+             apple-macos-26.5-1x-light-standard      dark-solid    96   0.01094   0.01094   0.00000
+             apple-macos-26.5-1x-light-standard      dark-solid   128   0.00475   0.00475   0.00000
+             apple-macos-26.5-1x-light-standard      dark-solid    32   0.00070   0.00070   0.00000
+             apple-macos-26.5-1x-light-standard     light-solid   160  -0.00067  -0.00067   0.00000
+             apple-macos-26.5-1x-light-standard     light-solid    32   0.00749   0.00749   0.00000
+             apple-macos-26.5-1x-light-standard  mid-dark-solid   160  -0.00800  -0.00799   0.00000
+             apple-macos-26.5-1x-light-standard  mid-dark-solid    96   0.01662   0.01663   0.00000
+             apple-macos-26.5-1x-light-standard  mid-dark-solid    32   0.01675   0.01675   0.00000
+             apple-macos-26.5-2x-light-standard      dark-solid    48   0.00070   0.00070   0.00000
+             apple-macos-26.5-2x-light-standard      dark-solid    64   0.24314   0.24314   0.00000
+             apple-macos-26.5-2x-light-standard      dark-solid    80  -0.01187  -0.01187   0.00000
+             apple-macos-26.5-2x-light-standard      dark-solid   160  -0.00740  -0.00740   0.00000
+             apple-macos-26.5-2x-light-standard      dark-solid    96   0.01117   0.01117   0.00000
+             apple-macos-26.5-2x-light-standard      dark-solid   128   0.00475   0.00475   0.00000
+             apple-macos-26.5-2x-light-standard      dark-solid    32   0.00070   0.00070   0.00000
+             apple-macos-26.5-2x-light-standard     light-solid   160  -0.00066  -0.00067  -0.00001
+             apple-macos-26.5-2x-light-standard     light-solid    32   0.00749   0.00749   0.00000
+             apple-macos-26.5-2x-light-standard  mid-dark-solid   160  -0.00795  -0.00795   0.00000
+             apple-macos-26.5-2x-light-standard  mid-dark-solid    96   0.01671   0.01671   0.00000
+             apple-macos-26.5-2x-light-standard  mid-dark-solid    32   0.01675   0.01675   0.00000
+              apple-macos-26.5-1x-dark-standard      dark-solid    48   0.00070   0.00070   0.00000
+              apple-macos-26.5-1x-dark-standard      dark-solid    64   0.00133   0.00133   0.00000
+              apple-macos-26.5-1x-dark-standard      dark-solid    80  -0.00388  -0.00388   0.00000
+              apple-macos-26.5-1x-dark-standard      dark-solid   160   0.00198   0.00198   0.00000
+              apple-macos-26.5-1x-dark-standard      dark-solid    96  -0.00162  -0.00162   0.00000
+              apple-macos-26.5-1x-dark-standard      dark-solid   128  -0.00005  -0.00005   0.00000
+              apple-macos-26.5-1x-dark-standard      dark-solid    32   0.00070   0.00070   0.00000
+              apple-macos-26.5-1x-dark-standard     light-solid   160  -0.00270  -0.00270   0.00000
+              apple-macos-26.5-1x-dark-standard     light-solid    32  -0.80434  -0.80434   0.00000
+              apple-macos-26.5-1x-dark-standard  mid-dark-solid   160   0.00196   0.00196   0.00000
+              apple-macos-26.5-1x-dark-standard  mid-dark-solid    96  -0.00106  -0.00106   0.00000
+              apple-macos-26.5-1x-dark-standard  mid-dark-solid    32   0.00000   0.00000   0.00000
+              apple-macos-26.5-2x-dark-standard      dark-solid    48   0.00070   0.00070   0.00000
+              apple-macos-26.5-2x-dark-standard      dark-solid    64   0.00133   0.00133   0.00000
+              apple-macos-26.5-2x-dark-standard      dark-solid    80  -0.00388  -0.00388   0.00000
+              apple-macos-26.5-2x-dark-standard      dark-solid   160   0.00198   0.00198   0.00000
+              apple-macos-26.5-2x-dark-standard      dark-solid    96  -0.00164  -0.00164   0.00000
+              apple-macos-26.5-2x-dark-standard      dark-solid   128  -0.00005  -0.00005   0.00000
+              apple-macos-26.5-2x-dark-standard      dark-solid    32   0.00070   0.00070   0.00000
+              apple-macos-26.5-2x-dark-standard     light-solid   160  -0.00270  -0.00270   0.00000
+              apple-macos-26.5-2x-dark-standard     light-solid    32  -0.80434  -0.80434   0.00000
+              apple-macos-26.5-2x-dark-standard  mid-dark-solid   160   0.00197   0.00197   0.00000
+              apple-macos-26.5-2x-dark-standard  mid-dark-solid    96  -0.00105  -0.00105   0.00000
+              apple-macos-26.5-2x-dark-standard  mid-dark-solid    32   0.00000   0.00000   0.00000
+
+   The sign above the knee (span >= 96), per profile per backdrop, at the CANDIDATE:
+                apple-macos-26.5-1x-dark-standard      dark-solid mean  +0.00010  (lower)
+                apple-macos-26.5-1x-dark-standard     light-solid mean  -0.00270  (raise)
+                apple-macos-26.5-1x-dark-standard  mid-dark-solid mean  +0.00045  (lower)
+               apple-macos-26.5-1x-light-standard      dark-solid mean  +0.00276  (lower)
+               apple-macos-26.5-1x-light-standard     light-solid mean  -0.00067  (raise)
+               apple-macos-26.5-1x-light-standard  mid-dark-solid mean  +0.00432  (lower)
+                apple-macos-26.5-2x-dark-standard      dark-solid mean  +0.00010  (lower)
+                apple-macos-26.5-2x-dark-standard     light-solid mean  -0.00270  (raise)
+                apple-macos-26.5-2x-dark-standard  mid-dark-solid mean  +0.00046  (lower)
+               apple-macos-26.5-2x-light-standard      dark-solid mean  +0.00284  (lower)
+               apple-macos-26.5-2x-light-standard     light-solid mean  -0.00067  (raise)
+               apple-macos-26.5-2x-light-standard  mid-dark-solid mean  +0.00438  (lower)
+
+2. One width per source, across the spans — OKLab dE mean, base against candidate
+
+    span    n            1x-light-standard            2x-light-standard             1x-dark-standard             2x-dark-standard
+      32   12  0.00076-> 0.00076  0/11w  0.00078-> 0.00081  6/11w  0.00225-> 0.00225  0/12w  0.00217-> 0.00217  0/12w
+      44    9  0.00183-> 0.00183  4/ 9w  0.00185-> 0.00188  6/ 9w  0.00284-> 0.00284  0/ 9w  0.00278-> 0.00278  0/ 8w
+      48    1                            -  0.00040-> 0.00040  0/ 1w                            -  0.00040-> 0.00040  0/ 1w
+      64    1  0.04542-> 0.04542  0/ 1w  0.04538-> 0.04538  0/ 1w  0.00111-> 0.00111  0/ 1w  0.00113-> 0.00113  0/ 1w
+      80    1  0.00199-> 0.00199  0/ 1w  0.00200-> 0.00200  0/ 1w  0.00415-> 0.00415  0/ 1w  0.00420-> 0.00420  0/ 1w
+      96    9  0.00475-> 0.00516  6/ 9w  0.00395-> 0.00430  5/ 9w  0.00447-> 0.00447  0/ 9w  0.00612-> 0.00612  0/ 9w
+     128    7  0.00672-> 0.00767  5/ 7w  0.00603-> 0.00583  3/ 7w  0.01703-> 0.01703  0/ 7w  0.02116-> 0.02116  0/ 7w
+     160   12  0.00905-> 0.01038  7/12w  0.00812-> 0.00847  7/12w  0.02173-> 0.02173  0/12w  0.02582-> 0.02582  0/12w
+
+   `w` counts the cells whose dE against the reference WORSENED at the candidate.
+
+3. X5 — every probe cell of span <= 44, OKLab dE move against the inert default
+
+   81 thin cells; the ten largest moves:
+        move      base      cand  profile / scene
+     0.00017   0.00114   0.00131  2x-light-standard / checkerboard-lc16__capsule-button__rest
+     0.00013   0.00091   0.00104  2x-light-standard / hc-text-28__rrect-sm__rest
+     0.00011   0.00085   0.00096  2x-light-standard / hc-text__rrect-sm__rest
+     0.00006   0.00061   0.00068  2x-light-standard / checkerboard-lc16__rrect-sm__rest
+     0.00004   0.00212   0.00216  2x-light-standard / checkerboard-32__capsule-button__rest
+     0.00003   0.00222   0.00225  2x-light-standard / checkerboard-64__capsule-button__rest
+     0.00002   0.00085   0.00086  2x-light-standard / checkerboard-32__rrect-sm__rest
+     0.00001   0.00109   0.00108  2x-light-standard / impulse__rrect-sm__rest
+     0.00001   0.00289   0.00290  2x-light-standard / checkerboard-8__capsule-button__rest
+     0.00001   0.00130   0.00131  2x-light-standard / checkerboard-64__capsule-button__rest-tint-orange
+
+   Worst thin-cell move: 0.00017 (X5's bound is 0.001).
+

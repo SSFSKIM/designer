@@ -23,7 +23,7 @@ SCRATCH = "/Users/new/.claude/jobs/5c70e47f/tmp/w26/g1"
 SPANS = ("rrect-md", "rrect-ml", "rrect-lg")
 # Reader A on the REFERENCE fixtures, read by this file so the numbers are this run's own; the
 # ledger's are §5.113 §2 and stand beside them.
-WIDTH_RUNGS = [("r0", 0.0), ("t10", 10.0), ("t11", 11.0), ("t113", 11.3), ("t12", 12.0), ("t13", 13.0),
+WIDTH_RUNGS = [("r0", 0.0), ("t10", 10.0), ("t103", 10.3), ("t11", 11.0), ("t113", 11.3), ("t12", 12.0), ("t13", 13.0),
                ("t16", 16.0), ("t19", 19.0), ("t22", 22.0), ("t25", 25.0)]
 FLOOR_RUNGS = [("r0", -1.0), ("c1", 1.00), ("c1f85", 0.85), ("c1f75", 0.75), ("c1f65", 0.65), ("c1f55", 0.55)]
 LIFT_RUNGS = [("r0", -1.0), ("c1", 0.00), ("c1l15", 0.15), ("c1l25", 0.25), ("c1l35", 0.35), ("c1l45", 0.45)]
