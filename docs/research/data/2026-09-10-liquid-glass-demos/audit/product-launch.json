@@ -1,0 +1,280 @@
+{
+ "dir": "product-launch",
+ "url": "http://127.0.0.1:8798/apps/demos/product-launch/index.html",
+ "auditedAt": "2026-09-09T20:10:56.261Z",
+ "rootFound": true,
+ "readyState": "settled",
+ "errors": [],
+ "consoleErrors": [],
+ "failedRequests": 0,
+ "captureWidth": 1440,
+ "overflowCapture": false,
+ "overflowAtLoad": false,
+ "scrolledOnLoad": 0,
+ "docHeight": 4628,
+ "words": 625,
+ "title": "Sable One — Sable Optical Works",
+ "placeholder": false,
+ "contrast": {
+  "checked": 154,
+  "pass": 154,
+  "unknown": 0,
+  "rate": 1,
+  "onGlass": 14,
+  "onGlassPass": 14,
+  "fails": []
+ },
+ "surfaces": 4,
+ "surfacesInFrame": 4,
+ "planes": [
+  {
+   "plane": "base",
+   "nodes": 4
+  },
+  {
+   "plane": "overlay",
+   "nodes": 0
+  }
+ ],
+ "colorScheme": "dark",
+ "webgpu": {
+  "available": true,
+  "ownership": "vitrea",
+  "deviceHealth": "ok",
+  "reason": null,
+  "hasDevice": true
+ },
+ "groups": [
+  {
+   "id": "nav",
+   "members": 2,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  },
+  {
+   "id": "commit",
+   "members": 2,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  },
+  {
+   "id": "platter",
+   "members": 0,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  }
+ ],
+ "diagnostics": [],
+ "named": {
+  "nestedGlass": false,
+  "samePlaneOverlap": false,
+  "contentLayerHost": false,
+  "demotedBackdropRoot": false,
+  "hostOutsidePlane": false,
+  "nonUniformRadii": false,
+  "tintUnparseable": false
+ },
+ "derivedFindings": [],
+ "menu": "captured",
+ "menuSurfaces": 5,
+ "menuGroups": [
+  {
+   "id": "nav",
+   "members": 2,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  },
+  {
+   "id": "commit",
+   "members": 2,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  },
+  {
+   "id": "platter",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  }
+ ],
+ "menuDiagnostics": [],
+ "reduced": {
+  "rootFound": true,
+  "errors": [],
+  "reducedMotionEmulated": true,
+  "overrideHonoured": true,
+  "materialMoved": true,
+  "material": {
+   "glass": "material",
+   "colorSource": "material",
+   "frost": "increased",
+   "refraction": "reduced",
+   "occlusion": "increased",
+   "border": "nominal",
+   "ambientTint": "nominal",
+   "foreground": "adaptive"
+  },
+  "motion": {
+   "overshoot": "none",
+   "deformation": "none",
+   "shimmer": "none",
+   "morph": "non-elastic",
+   "crossfade": "large-plane-shifts",
+   "positionalContinuity": true
+  },
+  "groups": [
+   {
+    "id": "nav",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   },
+   {
+    "id": "commit",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   }
+  ],
+  "reducedTransparencyUndetectable": false,
+  "ok": true
+ },
+ "captures": [
+  "shot-fv.png",
+  "shot-full.png",
+  "tile-2.png",
+  "tile-3.png",
+  "shot-menu.png",
+  "shot-reduced.png"
+ ],
+ "surfaceDetail": [
+  {
+   "nodeId": "vitrea-node-1",
+   "groupId": "nav",
+   "plane": "base",
+   "tag": "a",
+   "role": null,
+   "rect": [
+    24,
+    24,
+    116,
+    44
+   ],
+   "span": 44,
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    14,
+    14,
+    14,
+    14
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "cssRadius": "14px",
+   "label": "Sable One, back to the top"
+  },
+  {
+   "nodeId": "vitrea-node-2",
+   "groupId": "nav",
+   "plane": "base",
+   "tag": "div",
+   "role": null,
+   "rect": [
+    156,
+    24,
+    271,
+    44
+   ],
+   "span": 44,
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    14,
+    14,
+    14,
+    14
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "cssRadius": "14px",
+   "label": "SensorLenses\n    BodyPrice"
+  },
+  {
+   "nodeId": "vitrea-node-3",
+   "groupId": "commit",
+   "plane": "base",
+   "tag": "section",
+   "role": null,
+   "rect": [
+    382,
+    808,
+    481,
+    64
+   ],
+   "span": 64,
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    20,
+    20,
+    20,
+    20
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "cssRadius": "20px",
+   "label": "Configure the Sable One"
+  },
+  {
+   "nodeId": "vitrea-node-4",
+   "groupId": "commit",
+   "plane": "base",
+   "tag": "button",
+   "role": null,
+   "rect": [
+    879,
+    808,
+    178,
+    64
+   ],
+   "span": 64,
+   "shapeFamily": "capsule",
+   "radii": [
+    32,
+    32,
+    32,
+    32
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "cssRadius": "32px",
+   "label": "Reserve£4,430"
+  }
+ ],
+ "gateMechanical": true
+}
