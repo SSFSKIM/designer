@@ -1,0 +1,475 @@
+W25 G3 — the dry run's captures against the canonical 0.13.0 bed (the W24 landing), byte for byte
+====================================================================================================
+before /Users/new/Developer/GitHub/designer/packages/calibration/web-captures
+after  /Users/new/.claude/jobs/5c70e47f/tmp/w25/g3/dryrun/web-captures
+
+340 captures in both beds: 150 identical, 190 moved.
+  in the canonical bed only: 120
+    apple-macos-26.5-1x-dark-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__css.png
+    apple-macos-26.5-1x-dark-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__css__alpha.png
+    apple-macos-26.5-1x-dark-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__webgpu.png
+    apple-macos-26.5-1x-dark-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__webgpu__alpha.png
+    apple-macos-26.5-1x-dark-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__css.png
+    apple-macos-26.5-1x-dark-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__css__alpha.png
+    apple-macos-26.5-1x-dark-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__webgpu.png
+    apple-macos-26.5-1x-dark-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__webgpu__alpha.png
+    apple-macos-26.5-1x-dark-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__css.png
+    apple-macos-26.5-1x-dark-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__css__alpha.png
+    apple-macos-26.5-1x-dark-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__webgpu.png
+    apple-macos-26.5-1x-dark-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__webgpu__alpha.png
+    apple-macos-26.5-1x-light-increased-contrast/hc-text__capsule-button__rest/hc-text__capsule-button__rest__css.png
+    apple-macos-26.5-1x-light-increased-contrast/hc-text__capsule-button__rest/hc-text__capsule-button__rest__css__alpha.png
+    apple-macos-26.5-1x-light-increased-contrast/hc-text__capsule-button__rest/hc-text__capsule-button__rest__webgpu.png
+    apple-macos-26.5-1x-light-increased-contrast/hc-text__capsule-button__rest/hc-text__capsule-button__rest__webgpu__alpha.png
+    apple-macos-26.5-1x-light-increased-contrast/photo__rrect-lg__rest/photo__rrect-lg__rest__css.png
+    apple-macos-26.5-1x-light-increased-contrast/photo__rrect-lg__rest/photo__rrect-lg__rest__css__alpha.png
+    apple-macos-26.5-1x-light-increased-contrast/photo__rrect-lg__rest/photo__rrect-lg__rest__webgpu.png
+    apple-macos-26.5-1x-light-increased-contrast/photo__rrect-lg__rest/photo__rrect-lg__rest__webgpu__alpha.png
+    apple-macos-26.5-1x-light-reduced-transparency/hc-text__capsule-button__rest/hc-text__capsule-button__rest__css.png
+    apple-macos-26.5-1x-light-reduced-transparency/hc-text__capsule-button__rest/hc-text__capsule-button__rest__css__alpha.png
+    apple-macos-26.5-1x-light-reduced-transparency/hc-text__capsule-button__rest/hc-text__capsule-button__rest__webgpu.png
+    apple-macos-26.5-1x-light-reduced-transparency/hc-text__capsule-button__rest/hc-text__capsule-button__rest__webgpu__alpha.png
+    apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-lg__rest/photo__rrect-lg__rest__css.png
+    apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-lg__rest/photo__rrect-lg__rest__css__alpha.png
+    apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-lg__rest/photo__rrect-lg__rest__webgpu.png
+    apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-lg__rest/photo__rrect-lg__rest__webgpu__alpha.png
+    apple-macos-26.5-1x-light-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__css.png
+    apple-macos-26.5-1x-light-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__css__alpha.png
+    apple-macos-26.5-1x-light-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__webgpu.png
+    apple-macos-26.5-1x-light-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__webgpu__alpha.png
+    apple-macos-26.5-1x-light-standard/checkerboard__rrect-lg__rest/checkerboard__rrect-lg__rest__css.png
+    apple-macos-26.5-1x-light-standard/checkerboard__rrect-lg__rest/checkerboard__rrect-lg__rest__css__alpha.png
+    apple-macos-26.5-1x-light-standard/checkerboard__rrect-lg__rest/checkerboard__rrect-lg__rest__webgpu.png
+    apple-macos-26.5-1x-light-standard/checkerboard__rrect-lg__rest/checkerboard__rrect-lg__rest__webgpu__alpha.png
+    apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest-tint-blue/dark-solid__capsule-button__rest-tint-blue__css.png
+    apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest-tint-blue/dark-solid__capsule-button__rest-tint-blue__css__alpha.png
+    apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest-tint-blue/dark-solid__capsule-button__rest-tint-blue__webgpu.png
+    apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest-tint-blue/dark-solid__capsule-button__rest-tint-blue__webgpu__alpha.png
+    apple-macos-26.5-1x-light-standard/hc-text__capsule-button__rest-tint-orange/hc-text__capsule-button__rest-tint-orange__css.png
+    apple-macos-26.5-1x-light-standard/hc-text__capsule-button__rest-tint-orange/hc-text__capsule-button__rest-tint-orange__css__alpha.png
+    apple-macos-26.5-1x-light-standard/hc-text__capsule-button__rest-tint-orange/hc-text__capsule-button__rest-tint-orange__webgpu.png
+    apple-macos-26.5-1x-light-standard/hc-text__capsule-button__rest-tint-orange/hc-text__capsule-button__rest-tint-orange__webgpu__alpha.png
+    apple-macos-26.5-1x-light-standard/hc-text__capsule-button__rest/hc-text__capsule-button__rest__css.png
+    apple-macos-26.5-1x-light-standard/hc-text__capsule-button__rest/hc-text__capsule-button__rest__css__alpha.png
+    apple-macos-26.5-1x-light-standard/hc-text__capsule-button__rest/hc-text__capsule-button__rest__webgpu.png
+    apple-macos-26.5-1x-light-standard/hc-text__capsule-button__rest/hc-text__capsule-button__rest__webgpu__alpha.png
+    apple-macos-26.5-1x-light-standard/hc-text__rrect-md__rest/hc-text__rrect-md__rest__css.png
+    apple-macos-26.5-1x-light-standard/hc-text__rrect-md__rest/hc-text__rrect-md__rest__css__alpha.png
+    apple-macos-26.5-1x-light-standard/hc-text__rrect-md__rest/hc-text__rrect-md__rest__webgpu.png
+    apple-macos-26.5-1x-light-standard/hc-text__rrect-md__rest/hc-text__rrect-md__rest__webgpu__alpha.png
+    apple-macos-26.5-1x-light-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__css.png
+    apple-macos-26.5-1x-light-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__css__alpha.png
+    apple-macos-26.5-1x-light-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__webgpu.png
+    apple-macos-26.5-1x-light-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__webgpu__alpha.png
+    apple-macos-26.5-1x-light-standard/photo__glass-over-glass__rest/photo__glass-over-glass__rest__css.png
+    apple-macos-26.5-1x-light-standard/photo__glass-over-glass__rest/photo__glass-over-glass__rest__css__alpha.png
+    apple-macos-26.5-1x-light-standard/photo__glass-over-glass__rest/photo__glass-over-glass__rest__webgpu.png
+    apple-macos-26.5-1x-light-standard/photo__glass-over-glass__rest/photo__glass-over-glass__rest__webgpu__alpha.png
+    apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest-tint-orange/photo__rrect-lg__rest-tint-orange__css.png
+    apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest-tint-orange/photo__rrect-lg__rest-tint-orange__css__alpha.png
+    apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest-tint-orange/photo__rrect-lg__rest-tint-orange__webgpu.png
+    apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest-tint-orange/photo__rrect-lg__rest-tint-orange__webgpu__alpha.png
+    apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__css.png
+    apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__css__alpha.png
+    apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__webgpu.png
+    apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__webgpu__alpha.png
+    apple-macos-26.5-2x-dark-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__css.png
+    apple-macos-26.5-2x-dark-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__css__alpha.png
+    apple-macos-26.5-2x-dark-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__webgpu.png
+    apple-macos-26.5-2x-dark-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__webgpu__alpha.png
+    apple-macos-26.5-2x-dark-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__css.png
+    apple-macos-26.5-2x-dark-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__css__alpha.png
+    apple-macos-26.5-2x-dark-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__webgpu.png
+    apple-macos-26.5-2x-dark-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__webgpu__alpha.png
+    apple-macos-26.5-2x-dark-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__css.png
+    apple-macos-26.5-2x-dark-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__css__alpha.png
+    apple-macos-26.5-2x-dark-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__webgpu.png
+    apple-macos-26.5-2x-dark-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__webgpu__alpha.png
+    apple-macos-26.5-2x-light-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__css.png
+    apple-macos-26.5-2x-light-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__css__alpha.png
+    apple-macos-26.5-2x-light-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__webgpu.png
+    apple-macos-26.5-2x-light-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__webgpu__alpha.png
+    apple-macos-26.5-2x-light-standard/checkerboard__rrect-lg__rest/checkerboard__rrect-lg__rest__css.png
+    apple-macos-26.5-2x-light-standard/checkerboard__rrect-lg__rest/checkerboard__rrect-lg__rest__css__alpha.png
+    apple-macos-26.5-2x-light-standard/checkerboard__rrect-lg__rest/checkerboard__rrect-lg__rest__webgpu.png
+    apple-macos-26.5-2x-light-standard/checkerboard__rrect-lg__rest/checkerboard__rrect-lg__rest__webgpu__alpha.png
+    apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest-tint-blue/dark-solid__capsule-button__rest-tint-blue__css.png
+    apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest-tint-blue/dark-solid__capsule-button__rest-tint-blue__css__alpha.png
+    apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest-tint-blue/dark-solid__capsule-button__rest-tint-blue__webgpu.png
+    apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest-tint-blue/dark-solid__capsule-button__rest-tint-blue__webgpu__alpha.png
+    apple-macos-26.5-2x-light-standard/hc-text__capsule-button__rest-tint-orange/hc-text__capsule-button__rest-tint-orange__css.png
+    apple-macos-26.5-2x-light-standard/hc-text__capsule-button__rest-tint-orange/hc-text__capsule-button__rest-tint-orange__css__alpha.png
+    apple-macos-26.5-2x-light-standard/hc-text__capsule-button__rest-tint-orange/hc-text__capsule-button__rest-tint-orange__webgpu.png
+    apple-macos-26.5-2x-light-standard/hc-text__capsule-button__rest-tint-orange/hc-text__capsule-button__rest-tint-orange__webgpu__alpha.png
+    apple-macos-26.5-2x-light-standard/hc-text__capsule-button__rest/hc-text__capsule-button__rest__css.png
+    apple-macos-26.5-2x-light-standard/hc-text__capsule-button__rest/hc-text__capsule-button__rest__css__alpha.png
+    apple-macos-26.5-2x-light-standard/hc-text__capsule-button__rest/hc-text__capsule-button__rest__webgpu.png
+    apple-macos-26.5-2x-light-standard/hc-text__capsule-button__rest/hc-text__capsule-button__rest__webgpu__alpha.png
+    apple-macos-26.5-2x-light-standard/hc-text__rrect-md__rest/hc-text__rrect-md__rest__css.png
+    apple-macos-26.5-2x-light-standard/hc-text__rrect-md__rest/hc-text__rrect-md__rest__css__alpha.png
+    apple-macos-26.5-2x-light-standard/hc-text__rrect-md__rest/hc-text__rrect-md__rest__webgpu.png
+    apple-macos-26.5-2x-light-standard/hc-text__rrect-md__rest/hc-text__rrect-md__rest__webgpu__alpha.png
+    apple-macos-26.5-2x-light-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__css.png
+    apple-macos-26.5-2x-light-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__css__alpha.png
+    apple-macos-26.5-2x-light-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__webgpu.png
+    apple-macos-26.5-2x-light-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__webgpu__alpha.png
+    apple-macos-26.5-2x-light-standard/photo__glass-over-glass__rest/photo__glass-over-glass__rest__css.png
+    apple-macos-26.5-2x-light-standard/photo__glass-over-glass__rest/photo__glass-over-glass__rest__css__alpha.png
+    apple-macos-26.5-2x-light-standard/photo__glass-over-glass__rest/photo__glass-over-glass__rest__webgpu.png
+    apple-macos-26.5-2x-light-standard/photo__glass-over-glass__rest/photo__glass-over-glass__rest__webgpu__alpha.png
+    apple-macos-26.5-2x-light-standard/photo__rrect-lg__rest-tint-orange/photo__rrect-lg__rest-tint-orange__css.png
+    apple-macos-26.5-2x-light-standard/photo__rrect-lg__rest-tint-orange/photo__rrect-lg__rest-tint-orange__css__alpha.png
+    apple-macos-26.5-2x-light-standard/photo__rrect-lg__rest-tint-orange/photo__rrect-lg__rest-tint-orange__webgpu.png
+    apple-macos-26.5-2x-light-standard/photo__rrect-lg__rest-tint-orange/photo__rrect-lg__rest-tint-orange__webgpu__alpha.png
+    apple-macos-26.5-2x-light-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__css.png
+    apple-macos-26.5-2x-light-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__css__alpha.png
+    apple-macos-26.5-2x-light-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__webgpu.png
+    apple-macos-26.5-2x-light-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__webgpu__alpha.png
+
+=== the webgpu tier, render: 78 moved, 7 identical ===
+  moved      apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-1x-dark-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-1x-dark-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-1x-dark-standard/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest/photo__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-1x-dark-standard/photo__rrect-md__rest/photo__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest/photo__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-md__rest/photo__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/photo__toolbar-group__rest/photo__toolbar-group__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-blue/checkerboard__capsule-button__rest-tint-blue__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__rrect-ml__rest/checkerboard__rrect-ml__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__rest/checkerboard__rrect-sm__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__toolbar-group__rest/checkerboard__toolbar-group__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/impulse__capsule-button__rest-tint-orange/impulse__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/impulse__rrect-md__rest/impulse__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/light-solid__capsule-button__rest-tint-orange/light-solid__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/light-solid__capsule-button__rest/light-solid__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/light-solid__rrect-md__rest/light-solid__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/light-solid__rrect-ml__rest/light-solid__rrect-ml__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-blue/photo__capsule-button__rest-tint-blue__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange-half/photo__capsule-button__rest-tint-orange-half__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/photo__capsule-button__rest/photo__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/photo__rrect-md__rest-tint-orange/photo__rrect-md__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/photo__rrect-md__rest/photo__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/photo__rrect-ml__rest/photo__rrect-ml__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/photo__rrect-sm__rest/photo__rrect-sm__rest__webgpu.png
+  moved      apple-macos-26.5-1x-light-standard/photo__toolbar-group__rest/photo__toolbar-group__rest__webgpu.png
+  moved      apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-2x-dark-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-2x-dark-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-2x-dark-standard/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest/photo__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-2x-dark-standard/photo__rrect-md__rest/photo__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest-tint-blue/checkerboard__capsule-button__rest-tint-blue__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/checkerboard__rrect-ml__rest/checkerboard__rrect-ml__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/checkerboard__rrect-sm__rest/checkerboard__rrect-sm__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/checkerboard__toolbar-group__rest/checkerboard__toolbar-group__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/impulse__capsule-button__rest-tint-orange/impulse__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/impulse__rrect-md__rest/impulse__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/light-solid__capsule-button__rest-tint-orange/light-solid__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/light-solid__capsule-button__rest/light-solid__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/light-solid__rrect-md__rest/light-solid__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/light-solid__rrect-ml__rest/light-solid__rrect-ml__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-blue/photo__capsule-button__rest-tint-blue__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-orange-half/photo__capsule-button__rest-tint-orange-half__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/photo__capsule-button__rest/photo__capsule-button__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/photo__rrect-md__rest-tint-orange/photo__rrect-md__rest-tint-orange__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/photo__rrect-md__rest/photo__rrect-md__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/photo__rrect-ml__rest/photo__rrect-ml__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/photo__rrect-sm__rest/photo__rrect-sm__rest__webgpu.png
+  moved      apple-macos-26.5-2x-light-standard/photo__toolbar-group__rest/photo__toolbar-group__rest__webgpu.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__webgpu.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__webgpu.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__webgpu.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__webgpu.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest/photo__capsule-button__rest__webgpu.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/photo__rrect-md__rest/photo__rrect-md__rest__webgpu.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/photo__toolbar-group__rest/photo__toolbar-group__rest__webgpu.png
+
+=== the webgpu tier, alpha: 78 moved, 7 identical ===
+  moved      apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-dark-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-dark-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-dark-standard/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest/photo__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-dark-standard/photo__rrect-md__rest/photo__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest/photo__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-md__rest/photo__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/photo__toolbar-group__rest/photo__toolbar-group__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-blue/checkerboard__capsule-button__rest-tint-blue__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__rrect-ml__rest/checkerboard__rrect-ml__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__rest/checkerboard__rrect-sm__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__toolbar-group__rest/checkerboard__toolbar-group__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/impulse__capsule-button__rest-tint-orange/impulse__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/impulse__rrect-md__rest/impulse__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/light-solid__capsule-button__rest-tint-orange/light-solid__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/light-solid__capsule-button__rest/light-solid__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/light-solid__rrect-md__rest/light-solid__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/light-solid__rrect-ml__rest/light-solid__rrect-ml__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-blue/photo__capsule-button__rest-tint-blue__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange-half/photo__capsule-button__rest-tint-orange-half__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/photo__capsule-button__rest/photo__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/photo__rrect-md__rest-tint-orange/photo__rrect-md__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/photo__rrect-md__rest/photo__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/photo__rrect-ml__rest/photo__rrect-ml__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/photo__rrect-sm__rest/photo__rrect-sm__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-1x-light-standard/photo__toolbar-group__rest/photo__toolbar-group__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-dark-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-dark-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-dark-standard/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest/photo__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-dark-standard/photo__rrect-md__rest/photo__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest-tint-blue/checkerboard__capsule-button__rest-tint-blue__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/checkerboard__rrect-ml__rest/checkerboard__rrect-ml__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/checkerboard__rrect-sm__rest/checkerboard__rrect-sm__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/checkerboard__toolbar-group__rest/checkerboard__toolbar-group__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/impulse__capsule-button__rest-tint-orange/impulse__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/impulse__rrect-md__rest/impulse__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/light-solid__capsule-button__rest-tint-orange/light-solid__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/light-solid__capsule-button__rest/light-solid__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/light-solid__rrect-md__rest/light-solid__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/light-solid__rrect-ml__rest/light-solid__rrect-ml__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-blue/photo__capsule-button__rest-tint-blue__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-orange-half/photo__capsule-button__rest-tint-orange-half__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/photo__capsule-button__rest/photo__capsule-button__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/photo__rrect-md__rest-tint-orange/photo__rrect-md__rest-tint-orange__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/photo__rrect-md__rest/photo__rrect-md__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/photo__rrect-ml__rest/photo__rrect-ml__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/photo__rrect-sm__rest/photo__rrect-sm__rest__webgpu__alpha.png
+  moved      apple-macos-26.5-2x-light-standard/photo__toolbar-group__rest/photo__toolbar-group__rest__webgpu__alpha.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__webgpu__alpha.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__webgpu__alpha.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__webgpu__alpha.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__webgpu__alpha.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest/photo__capsule-button__rest__webgpu__alpha.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/photo__rrect-md__rest/photo__rrect-md__rest__webgpu__alpha.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/photo__toolbar-group__rest/photo__toolbar-group__rest__webgpu__alpha.png
+
+=== the css tier, render: 33 moved, 52 identical ===
+  moved      apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__css.png
+  moved      apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__css.png
+  moved      apple-macos-26.5-1x-dark-standard/photo__rrect-md__rest/photo__rrect-md__rest__css.png
+  moved      apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__css.png
+  moved      apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest/photo__capsule-button__rest__css.png
+  moved      apple-macos-26.5-1x-light-increased-contrast/photo__rrect-md__rest/photo__rrect-md__rest__css.png
+  moved      apple-macos-26.5-1x-light-increased-contrast/photo__toolbar-group__rest/photo__toolbar-group__rest__css.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__css.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__css.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__css.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest/photo__capsule-button__rest__css.png
+  moved      apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-md__rest/photo__rrect-md__rest__css.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__css.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__rest/checkerboard__rrect-sm__rest__css.png
+  moved      apple-macos-26.5-1x-light-standard/checkerboard__toolbar-group__rest/checkerboard__toolbar-group__rest__css.png
+  moved      apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-blue/photo__capsule-button__rest-tint-blue__css.png
+  moved      apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange-half/photo__capsule-button__rest-tint-orange-half__css.png
+  moved      apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__css.png
+  moved      apple-macos-26.5-1x-light-standard/photo__capsule-button__rest/photo__capsule-button__rest__css.png
+  moved      apple-macos-26.5-1x-light-standard/photo__rrect-ml__rest/photo__rrect-ml__rest__css.png
+  moved      apple-macos-26.5-1x-light-standard/photo__rrect-sm__rest/photo__rrect-sm__rest__css.png
+  moved      apple-macos-26.5-1x-light-standard/photo__toolbar-group__rest/photo__toolbar-group__rest__css.png
+  moved      apple-macos-26.5-2x-dark-standard/photo__rrect-md__rest/photo__rrect-md__rest__css.png
+  moved      apple-macos-26.5-2x-light-standard/checkerboard__toolbar-group__rest/checkerboard__toolbar-group__rest__css.png
+  moved      apple-macos-26.5-2x-light-standard/impulse__rrect-md__rest/impulse__rrect-md__rest__css.png
+  moved      apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-blue/photo__capsule-button__rest-tint-blue__css.png
+  moved      apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-orange-half/photo__capsule-button__rest-tint-orange-half__css.png
+  moved      apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__css.png
+  moved      apple-macos-26.5-2x-light-standard/photo__capsule-button__rest/photo__capsule-button__rest__css.png
+  moved      apple-macos-26.5-2x-light-standard/photo__rrect-md__rest/photo__rrect-md__rest__css.png
+  moved      apple-macos-26.5-2x-light-standard/photo__rrect-ml__rest/photo__rrect-ml__rest__css.png
+  moved      apple-macos-26.5-2x-light-standard/photo__rrect-sm__rest/photo__rrect-sm__rest__css.png
+  moved      apple-macos-26.5-2x-light-standard/photo__toolbar-group__rest/photo__toolbar-group__rest__css.png
+  identical  apple-macos-26.5-1x-dark-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__css.png
+  identical  apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__css.png
+  identical  apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__css.png
+  identical  apple-macos-26.5-1x-dark-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__css.png
+  identical  apple-macos-26.5-1x-dark-standard/impulse__capsule-button__rest/impulse__capsule-button__rest__css.png
+  identical  apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__css.png
+  identical  apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest/photo__capsule-button__rest__css.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__css.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__css.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__css.png
+  identical  apple-macos-26.5-1x-light-reduced-transparency/photo__toolbar-group__rest/photo__toolbar-group__rest__css.png
+  identical  apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-blue/checkerboard__capsule-button__rest-tint-blue__css.png
+  identical  apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__css.png
+  identical  apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__css.png
+  identical  apple-macos-26.5-1x-light-standard/checkerboard__rrect-ml__rest/checkerboard__rrect-ml__rest__css.png
+  identical  apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__css.png
+  identical  apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__css.png
+  identical  apple-macos-26.5-1x-light-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__css.png
+  identical  apple-macos-26.5-1x-light-standard/impulse__capsule-button__rest-tint-orange/impulse__capsule-button__rest-tint-orange__css.png
+  identical  apple-macos-26.5-1x-light-standard/impulse__capsule-button__rest/impulse__capsule-button__rest__css.png
+  identical  apple-macos-26.5-1x-light-standard/impulse__rrect-md__rest/impulse__rrect-md__rest__css.png
+  identical  apple-macos-26.5-1x-light-standard/light-solid__capsule-button__rest-tint-orange/light-solid__capsule-button__rest-tint-orange__css.png
+  identical  apple-macos-26.5-1x-light-standard/light-solid__capsule-button__rest/light-solid__capsule-button__rest__css.png
+  identical  apple-macos-26.5-1x-light-standard/light-solid__rrect-md__rest/light-solid__rrect-md__rest__css.png
+  identical  apple-macos-26.5-1x-light-standard/light-solid__rrect-ml__rest/light-solid__rrect-ml__rest__css.png
+  identical  apple-macos-26.5-1x-light-standard/photo__rrect-md__rest-tint-orange/photo__rrect-md__rest-tint-orange__css.png
+  identical  apple-macos-26.5-1x-light-standard/photo__rrect-md__rest/photo__rrect-md__rest__css.png
+  identical  apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__css.png
+  identical  apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__css.png
+  identical  apple-macos-26.5-2x-dark-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__css.png
+  identical  apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__css.png
+  identical  apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__css.png
+  identical  apple-macos-26.5-2x-dark-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__css.png
+  identical  apple-macos-26.5-2x-dark-standard/impulse__capsule-button__rest/impulse__capsule-button__rest__css.png
+  identical  apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__css.png
+  identical  apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest/photo__capsule-button__rest__css.png
+  identical  apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest-tint-blue/checkerboard__capsule-button__rest-tint-blue__css.png
+  identical  apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__css.png
+  identical  apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__css.png
+  identical  apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__css.png
+  identical  apple-macos-26.5-2x-light-standard/checkerboard__rrect-ml__rest/checkerboard__rrect-ml__rest__css.png
+  identical  apple-macos-26.5-2x-light-standard/checkerboard__rrect-sm__rest/checkerboard__rrect-sm__rest__css.png
+  identical  apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__css.png
+  identical  apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__css.png
+  identical  apple-macos-26.5-2x-light-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__css.png
+  identical  apple-macos-26.5-2x-light-standard/impulse__capsule-button__rest-tint-orange/impulse__capsule-button__rest-tint-orange__css.png
+  identical  apple-macos-26.5-2x-light-standard/impulse__capsule-button__rest/impulse__capsule-button__rest__css.png
+  identical  apple-macos-26.5-2x-light-standard/light-solid__capsule-button__rest-tint-orange/light-solid__capsule-button__rest-tint-orange__css.png
+  identical  apple-macos-26.5-2x-light-standard/light-solid__capsule-button__rest/light-solid__capsule-button__rest__css.png
+  identical  apple-macos-26.5-2x-light-standard/light-solid__rrect-md__rest/light-solid__rrect-md__rest__css.png
+  identical  apple-macos-26.5-2x-light-standard/light-solid__rrect-ml__rest/light-solid__rrect-ml__rest__css.png
+  identical  apple-macos-26.5-2x-light-standard/photo__rrect-md__rest-tint-orange/photo__rrect-md__rest-tint-orange__css.png
+
+=== the css tier, alpha: 1 moved, 84 identical ===
+  moved      apple-macos-26.5-1x-light-increased-contrast/photo__toolbar-group__rest/photo__toolbar-group__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-dark-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-dark-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-dark-standard/impulse__capsule-button__rest/impulse__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest/photo__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-dark-standard/photo__rrect-md__rest/photo__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest/photo__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-increased-contrast/photo__rrect-md__rest/photo__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-reduced-transparency/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-reduced-transparency/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest/photo__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-md__rest/photo__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-reduced-transparency/photo__toolbar-group__rest/photo__toolbar-group__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-blue/checkerboard__capsule-button__rest-tint-blue__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/checkerboard__rrect-ml__rest/checkerboard__rrect-ml__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__rest/checkerboard__rrect-sm__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/checkerboard__toolbar-group__rest/checkerboard__toolbar-group__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/impulse__capsule-button__rest-tint-orange/impulse__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/impulse__capsule-button__rest/impulse__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/impulse__rrect-md__rest/impulse__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/light-solid__capsule-button__rest-tint-orange/light-solid__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/light-solid__capsule-button__rest/light-solid__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/light-solid__rrect-md__rest/light-solid__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/light-solid__rrect-ml__rest/light-solid__rrect-ml__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-blue/photo__capsule-button__rest-tint-blue__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange-half/photo__capsule-button__rest-tint-orange-half__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/photo__capsule-button__rest/photo__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/photo__rrect-md__rest-tint-orange/photo__rrect-md__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/photo__rrect-md__rest/photo__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/photo__rrect-ml__rest/photo__rrect-ml__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/photo__rrect-sm__rest/photo__rrect-sm__rest__css__alpha.png
+  identical  apple-macos-26.5-1x-light-standard/photo__toolbar-group__rest/photo__toolbar-group__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-dark-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-dark-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-dark-standard/impulse__capsule-button__rest/impulse__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest/photo__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-dark-standard/photo__rrect-md__rest/photo__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest-tint-blue/checkerboard__capsule-button__rest-tint-blue__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest-tint-orange/checkerboard__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest/checkerboard__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/checkerboard__rrect-ml__rest/checkerboard__rrect-ml__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/checkerboard__rrect-sm__rest/checkerboard__rrect-sm__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/checkerboard__toolbar-group__rest/checkerboard__toolbar-group__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/impulse__capsule-button__rest-tint-orange/impulse__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/impulse__capsule-button__rest/impulse__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/impulse__rrect-md__rest/impulse__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/light-solid__capsule-button__rest-tint-orange/light-solid__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/light-solid__capsule-button__rest/light-solid__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/light-solid__rrect-md__rest/light-solid__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/light-solid__rrect-ml__rest/light-solid__rrect-ml__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-blue/photo__capsule-button__rest-tint-blue__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-orange-half/photo__capsule-button__rest-tint-orange-half__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-orange/photo__capsule-button__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/photo__capsule-button__rest/photo__capsule-button__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/photo__rrect-md__rest-tint-orange/photo__rrect-md__rest-tint-orange__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/photo__rrect-md__rest/photo__rrect-md__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/photo__rrect-ml__rest/photo__rrect-ml__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/photo__rrect-sm__rest/photo__rrect-sm__rest__css__alpha.png
+  identical  apple-macos-26.5-2x-light-standard/photo__toolbar-group__rest/photo__toolbar-group__rest__css__alpha.png

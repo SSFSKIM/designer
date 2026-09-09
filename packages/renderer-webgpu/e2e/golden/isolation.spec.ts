@@ -704,7 +704,111 @@ const W24_HASHES: Readonly<Record<string, string>> = {
   "union-pair": "41f98a289ddcf84dd4743105d6fc04c3",
 };
 
+/**
+ * The bytes `PRE_C9A_PROFILE` renders on W25 G3's landed material — one constant,
+ * `optics.regular.rimAlongSideSlope` 0 → 0.45, the rim's along-side POSITION
+ * field (claims §5.115; W25 Decision Log 5 (e)).
+ *
+ * ## The attribution
+ *
+ * `results/2026-09-09-w25-thick-span-composite/g3/goldens-attribution.txt`, from
+ * `g3-golden-attribution.spec.ts`: every scene rendered at the landed slope and
+ * again with the field declined, compared per pixel inside a contour band (3 px
+ * of a coverage discontinuity, from the landed render's own alpha) and outside
+ * it.
+ *
+ * **The field moved not one pixel outside a contour band, on any scene.** Its
+ * outside delta is 0 on all thirteen; inside, it is 2–23 code values on the
+ * twelve that carry a rim (371–2 972 pixels). That is the mechanism's own
+ * arithmetic seen from the other side: the factor multiplies the rim's amplitude
+ * and nothing else, so its whole delta belongs to a contour.
+ *
+ * **The order of the twelve is the order of their spans**, which is the size law
+ * showing up in a hash table. `union-pair` at span 52 moves 4 codes and
+ * `collapsed-tone` at 44 moves 2, where `field-mask` at 68 moves 23 and
+ * `rim-two-references` at 88 moves 14 on 2 972 pixels — `sizeThickness` is 0.19
+ * at span 44 and 0.65 at 68.
+ *
+ * `highlight-press-glow` is the control and it holds again: **0 pixels**, hash
+ * byte-identical to the 2026-08-25 original through C9a, W8, the post-v1 wave,
+ * W11a, W11c, W12, W14, W15, W22, W23, W24 and now this. It captures the
+ * HIGHLIGHT canvas, and the field lives in the optics pass.
+ *
+ * ## What this suite cannot show, and where the thin claim lives instead
+ *
+ * X5's claim is that a surface at or below `sizeSpanMin` = 32 cannot move at any
+ * slope, and **no golden scene is that thin** — the smallest span here is 44. So
+ * the attribution's thin assertion is vacuous by construction and is not evidence.
+ * What carries the claim is `test/thick-span.test.ts`, where the factor is `toBe`
+ * exactly 1 at spans 0, 8, 16, 31 and 32 at every slope, and the probe set, where
+ * the worst thin cell moved 0.000004 OKLab ΔE against a stop of 0.001.
+ */
+const W25_HASHES: Readonly<Record<string, string>> = {
+  "body-ramp-1x": "7161d572dc50aee1363423c59061f14e",
+  "collapsed-tone": "8531d7d41dac25af0b2b3473b8da682e",
+  "collapsed-tone-textured": "22a4784e88e0cf8a4d939a9ede39ac7b",
+  "concentric-nesting": "852d3ba9f64e91f11796b662f0688e0a",
+  "field-mask": "0a43d18cbc2b63f44cb347e8ce61d667",
+  "lens-size-scaling": "47023dd5272e5b5ee0a9d6db43d7e566",
+  "placed-checkerboard": "34343bfe87dd59790d4b4176cf0d1f2a",
+  "refraction-checkerboard": "b84c9c228bc676347b668777014d0d39",
+  "rim-two-references": "6e5f498abb512d9b8c550cd5490ef372",
+  "tint-adaptation-dark": "7cb8a2eb6fb1569899010ffb1823ffa9",
+  "tint-adaptation-light": "61eb0836218ddb6c198a9adc4f20e28e",
+  "union-pair": "44c572ef7ff1bc9678d20efaf4c7cff2",
+};
+
+/**
+ * The bytes `PRE_C9A_PROFILE` renders on W25 G3b's landed material — the JOINT re-fit of
+ * `optics.regular.rimLitExponent` 1.15 → 0.85 with `optics.regular.rimAlongSideSlope` 0.45 → 0.10
+ * (claims §5.115; W25 Decision Log 6).
+ *
+ * ## Why a second W25 block, and why the first one stays
+ *
+ * `W25_HASHES` above is the bed W25 G3 declared, and it is kept rather than overwritten because it
+ * is what the dry run below the rule in `g3-dryrun.md` was read on: 229 canonical captures, a
+ * holdout read, and the stop that fired. Those numbers belong to a real material and a real
+ * measurement, and the ledger's rule is that a recorded reading is not rewritten to what it should
+ * have been — the correct reading goes beside it. This block is the correct reading.
+ *
+ * ## The attribution
+ *
+ * `results/2026-09-09-w25-thick-span-composite/g3/g3b-goldens-attribution.txt`, taken before any
+ * golden byte was rewritten, declining BOTH constants together — a spec that declined only one
+ * would attribute the movement to a constant that did not move alone.
+ *
+ * **The pair moved not one pixel outside a contour band, on any scene.** Its outside delta is 0 on
+ * all thirteen; inside, it is 2–8 code values on the twelve that carry a rim (403–2 034 pixels).
+ * The reach is wider than the field's alone was, and the reason is the exponent: it rides no size
+ * law, so it reaches every span. `collapsed-tone` and `collapsed-tone-textured` at span 44 move 8
+ * codes where the field alone moved them 2, because the lit factor multiplies the COLLAPSED rim
+ * too — W24 put it outside W23's amplitude bracket for exactly that reason. That is also the
+ * arithmetic that made one grid step further out unlandable: at exponent 0.70 with slope 0.15 the
+ * collapsed `dark-solid__capsule-button` dims below the contour extractor's reach and drops out of
+ * the calibration bed altogether, which is a narrowing of the instrument and not a fidelity gain.
+ *
+ * `highlight-press-glow` is the control and it holds again: **0 pixels**, byte-identical to the
+ * 2026-08-25 original through C9a, W8, the post-v1 wave, W11a, W11c, W12, W14, W15, W22, W23, W24,
+ * W25 G3 and now this.
+ */
+const W25B_HASHES: Readonly<Record<string, string>> = {
+  "body-ramp-1x": "946b34bea49876a54917ea492e3248b8",
+  "collapsed-tone": "85c479fcf34357fb27f7196b8491461a",
+  "collapsed-tone-textured": "98100d009e62791584601112729d5367",
+  "concentric-nesting": "59a074a2f3235d0e7ba79f03127cab2b",
+  "field-mask": "2a8688c67ea2853c7d649e70cb171dcf",
+  "lens-size-scaling": "fd9d9cd4439df97d65d24d0edba6ee5b",
+  "placed-checkerboard": "e1ee5d7e78f707c54e1f77f784b7baf6",
+  "refraction-checkerboard": "3e22b2c4b7eac74c5be2e165d36f3c75",
+  "rim-two-references": "882d529e112c1fdf401e2d7f32adbd53",
+  "tint-adaptation-dark": "06403ee2dbba8aa1920e3072fcd84df8",
+  "tint-adaptation-light": "9b4dbdaaa681fed65b943f9a6592fd08",
+  "union-pair": "6a84d5b24d88ce2b127a688da45ebf9b",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
+  W25B_HASHES[name] ??
+  W25_HASHES[name] ??
   W24_HASHES[name] ??
   W23_G3_HASHES[name] ??
   W23_HASHES[name] ??
@@ -801,22 +905,61 @@ test.describe("@golden the goldens move only through the named profile seam", ()
      * colour on this canvas would be a grey layer over the page rather than a
      * multiplication of it — the very thing Decision Log #32(c) was right to
      * delete — and it would show up here as a moved RGB channel.
+     *
+     * NARROWED 2026-09-09 (W25 G3), from "not one channel moves" to "no channel
+     * moves by more than one code, on fewer than a thousandth of the canvas", and
+     * the narrowing is a measurement rather than an accommodation. The pass
+     * renders PREMULTIPLIED and the readback is not, so an alpha that changes by
+     * less than an eight-bit code still divides a premultiplied colour by a
+     * different number: the unpremultiplied channel can round one code either way
+     * at a partially covered pixel while the alpha beside it reads the same
+     * integer. Measured at this wave's declaration
+     * (`results/2026-09-09-w25-thick-span-composite/g3/`): 45 colour channels
+     * move, all by exactly 1, on 15 pixels lying on the contour at the
+     * checkerboard's own 16 px pitch, with every one of those pixels' alpha
+     * unchanged — six up, two down, which a grey layer over the page cannot be.
+     * At `rimAlongSideSlope` 0 the same fifteen pixels round the other way and the
+     * count is 0, which is why the strict form held for eleven waves. The guard's
+     * content is unchanged: a shadow that put colour on this canvas would move a
+     * large, systematic, one-signed set of channels by more than a code.
      */
     let opaquer = 0;
     let clearer = 0;
+    let worstFall = 0;
     let colourMoved = 0;
+    let worstColour = 0;
     for (let i = 0; i < off.data.length; i += 4) {
       for (let channel = 0; channel < 3; channel += 1) {
-        if (off.data[i + channel] !== on.data[i + channel]) colourMoved += 1;
+        const delta = Math.abs((off.data[i + channel] ?? 0) - (on.data[i + channel] ?? 0));
+        if (delta > 0) colourMoved += 1;
+        worstColour = Math.max(worstColour, delta);
       }
       const before = off.data[i + 3] ?? 0;
       const after = on.data[i + 3] ?? 0;
       if (after > before) opaquer += 1;
-      else if (after < before) clearer += 1;
+      else if (after < before) {
+        clearer += 1;
+        worstFall = Math.max(worstFall, before - after);
+      }
     }
-    expect(colourMoved).toBe(0);
+    expect(worstColour).toBeLessThanOrEqual(1);
+    expect(colourMoved).toBeLessThan(off.data.length / 4 / 1000);
     expect(opaquer).toBeGreaterThan(1000);
-    expect(clearer).toBe(0);
+    /*
+     * `clearer` was pinned to exactly 0 and is now bounded the same way and for
+     * the same reason (W25 G3). Both canvas passes blend premultiplied
+     * source-over into an eight-bit target, so the optics pass composites onto an
+     * ALREADY QUANTISED shadow: where the rim is brighter the two roundings can
+     * differ and the final alpha can land one code below the render that drew no
+     * shadow at all, which the float arithmetic cannot do. Measured at this wave's
+     * declaration: five pixels, all in the canvas's last column, all falling by
+     * exactly 1, with their RGB unchanged — and 0 pixels at
+     * `rimAlongSideSlope` 0. The claim the guard carries is that the shadow adds
+     * OPACITY, which `opaquer` above states on thousands of pixels; a shadow that
+     * had started removing opacity would take many pixels down by many codes.
+     */
+    expect(worstFall).toBeLessThanOrEqual(1);
+    expect(clearer).toBeLessThan(off.data.length / 4 / 1000);
   });
 
   test("the geometry change is confined to the scenes it can reach", () => {

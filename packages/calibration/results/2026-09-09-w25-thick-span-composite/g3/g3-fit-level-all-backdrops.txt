@@ -1,0 +1,96 @@
+
+the level term, light scheme — lever rung at sizeToneLevelFar 0.05
+
+profile   scene                                 span   resid    lever  implied
+1x-light  checkerboard-32__rrect-ml__rest        128   -0.63    14.32  -0.0443
+1x-light  checkerboard-4__rrect-ml__rest         128   -0.14    17.24  -0.0082
+1x-light  checkerboard-64__rrect-ml__rest        128   -0.84    14.60  -0.0573
+1x-light  checkerboard-8__rrect-ml__rest         128   -0.38    14.24  -0.0268
+1x-light  checkerboard-lc16__rrect-ml__rest      128   -0.14    12.01  -0.0116
+1x-light  dark-solid__rrect-ml__rest             128   -0.76    18.64  -0.0407
+1x-light  impulse__rrect-ml__rest                128   -3.97     0.00        —  excluded: the impulse rows' standing deficit
+2x-light  checkerboard-32__rrect-ml__rest        128   -1.17    14.00  -0.0838
+2x-light  checkerboard-4__rrect-ml__rest         128   -3.51    15.06  -0.2329
+2x-light  checkerboard-64__rrect-ml__rest        128   -0.96    14.94  -0.0640
+2x-light  checkerboard-8__rrect-ml__rest         128   -1.94    14.18  -0.1368
+2x-light  checkerboard-lc16__rrect-ml__rest      128   -0.25    13.09  -0.0187
+2x-light  dark-solid__rrect-ml__rest             128   -0.76    18.83  -0.0403
+2x-light  impulse__rrect-ml__rest                128   -4.01     0.00        —  excluded: the impulse rows' standing deficit
+1x-light  checkerboard-32__rrect-lg__rest        160    0.62    48.45   0.0128
+1x-light  checkerboard-4__rrect-lg__rest         160    1.74    47.95   0.0364
+1x-light  checkerboard-64__rrect-lg__rest        160   -0.81    48.18  -0.0167
+1x-light  checkerboard-8__rrect-lg__rest         160    1.44    48.42   0.0297
+1x-light  checkerboard-lc16__rrect-lg__rest      160    1.32    45.61   0.0290
+1x-light  dark-solid__rrect-lg__rest             160    1.28    59.62   0.0215
+1x-light  hc-text-28__rrect-lg__rest             160    1.11    44.82   0.0248
+1x-light  hc-text-7__rrect-lg__rest              160    2.22    45.84   0.0484
+1x-light  hc-text__rrect-lg__rest                160    2.15    44.65   0.0482
+1x-light  impulse__rrect-lg__rest                160   -1.91     0.00        —  excluded: the impulse rows' standing deficit
+1x-light  light-solid__rrect-lg__rest            160    0.08    53.85   0.0015
+1x-light  mid-dark-solid__rrect-lg__rest         160    1.26    44.84   0.0281
+2x-light  checkerboard-32__rrect-lg__rest        160   -0.11    48.44  -0.0022
+2x-light  checkerboard-4__rrect-lg__rest         160   -1.43    51.20  -0.0279
+2x-light  checkerboard-64__rrect-lg__rest        160   -1.16    47.99  -0.0242
+2x-light  checkerboard-8__rrect-lg__rest         160    0.07    47.90   0.0015
+2x-light  checkerboard-lc16__rrect-lg__rest      160    1.11    44.30   0.0252
+2x-light  dark-solid__rrect-lg__rest             160    1.28    59.61   0.0214
+2x-light  hc-text-28__rrect-lg__rest             160    0.79    45.39   0.0175
+2x-light  hc-text-7__rrect-lg__rest              160    1.31    43.79   0.0299
+2x-light  hc-text__rrect-lg__rest                160    1.59    44.45   0.0357
+2x-light  impulse__rrect-lg__rest                160   -1.99     0.00        —  excluded: the impulse rows' standing deficit
+2x-light  light-solid__rrect-lg__rest            160    0.08    54.16   0.0015
+2x-light  mid-dark-solid__rrect-lg__rest         160    1.26    44.71   0.0281
+
+rows fitted           34
+lever-weighted value  +0.0046   median +0.0015
+condition             lever +12.01 … +59.62 codes per unit over 34 rows
+residual RMS          1.278 -> 1.223 codes
+controls (span <= 96) 58 rows, worst rendered lever 0.0000 codes per unit
+
+the level term, dark scheme — lever rung at sizeToneLevelFar -0.05
+
+profile   scene                                 span   resid    lever  implied
+1x-dark   checkerboard-32__rrect-ml__rest        128    1.54    -0.00        —  unidentified: lever under 1 code per unit
+1x-dark   checkerboard-4__rrect-ml__rest         128   -1.44    -0.00        —  unidentified: lever under 1 code per unit
+1x-dark   checkerboard-64__rrect-ml__rest        128    3.37    -0.00        —  unidentified: lever under 1 code per unit
+1x-dark   checkerboard-8__rrect-ml__rest         128   -0.59    -0.00        —  unidentified: lever under 1 code per unit
+1x-dark   checkerboard-lc16__rrect-ml__rest      128   -1.56    55.16  -0.0282
+1x-dark   dark-solid__rrect-ml__rest             128    0.07   160.00   0.0005
+1x-dark   impulse__rrect-ml__rest                128  -38.79    -0.00        —  excluded: the impulse rows' standing deficit
+2x-dark   checkerboard-32__rrect-ml__rest        128    2.55    -0.00        —  unidentified: lever under 1 code per unit
+2x-dark   checkerboard-4__rrect-ml__rest         128   -3.92    46.87  -0.0837
+2x-dark   checkerboard-64__rrect-ml__rest        128    4.20    -0.00        —  unidentified: lever under 1 code per unit
+2x-dark   checkerboard-8__rrect-ml__rest         128   -2.62    19.89  -0.1317
+2x-dark   checkerboard-lc16__rrect-ml__rest      128   -1.61    55.93  -0.0288
+2x-dark   dark-solid__rrect-ml__rest             128    0.07   160.00   0.0005
+2x-dark   impulse__rrect-ml__rest                128  -38.84    -0.00        —  excluded: the impulse rows' standing deficit
+1x-dark   checkerboard-32__rrect-lg__rest        160    1.36    -0.00        —  unidentified: lever under 1 code per unit
+1x-dark   checkerboard-4__rrect-lg__rest         160   -1.26    -0.00        —  unidentified: lever under 1 code per unit
+1x-dark   checkerboard-64__rrect-lg__rest        160    3.17    -0.00        —  unidentified: lever under 1 code per unit
+1x-dark   checkerboard-8__rrect-lg__rest         160   -0.61    -0.00        —  unidentified: lever under 1 code per unit
+1x-dark   checkerboard-lc16__rrect-lg__rest      160   -0.55   200.51  -0.0027
+1x-dark   dark-solid__rrect-lg__rest             160   -2.93   520.00  -0.0056
+1x-dark   hc-text-28__rrect-lg__rest             160    5.14    63.20   0.0813
+1x-dark   hc-text-7__rrect-lg__rest              160    4.06    59.63   0.0682
+1x-dark   hc-text__rrect-lg__rest                160    4.44    56.62   0.0784
+1x-dark   impulse__rrect-lg__rest                160  -43.05    -0.00        —  excluded: the impulse rows' standing deficit
+1x-dark   light-solid__rrect-lg__rest            160    1.15   140.00   0.0082
+1x-dark   mid-dark-solid__rrect-lg__rest         160   -1.94   498.84  -0.0039
+2x-dark   checkerboard-32__rrect-lg__rest        160    2.10    -0.00        —  unidentified: lever under 1 code per unit
+2x-dark   checkerboard-4__rrect-lg__rest         160   -3.78    45.77  -0.0826
+2x-dark   checkerboard-64__rrect-lg__rest        160    3.60    -0.00        —  unidentified: lever under 1 code per unit
+2x-dark   checkerboard-8__rrect-lg__rest         160   -2.38    20.22  -0.1179
+2x-dark   checkerboard-lc16__rrect-lg__rest      160   -0.60   200.26  -0.0030
+2x-dark   dark-solid__rrect-lg__rest             160   -2.93   520.00  -0.0056
+2x-dark   hc-text-28__rrect-lg__rest             160    5.54    69.26   0.0800
+2x-dark   hc-text-7__rrect-lg__rest              160    3.35    75.26   0.0445
+2x-dark   hc-text__rrect-lg__rest                160    3.91    63.88   0.0613
+2x-dark   impulse__rrect-lg__rest                160  -43.24    -0.00        —  excluded: the impulse rows' standing deficit
+2x-dark   light-solid__rrect-lg__rest            160    1.15   139.98   0.0082
+2x-dark   mid-dark-solid__rrect-lg__rest         160   -1.95   499.00  -0.0039
+
+rows fitted           22
+lever-weighted value  +0.0006   median -0.0029
+condition             lever +19.89 … +520.00 codes per unit over 22 rows
+residual RMS          2.978 -> 3.015 codes
+controls (span <= 96) 57 rows, worst rendered lever 0.0000 codes per unit

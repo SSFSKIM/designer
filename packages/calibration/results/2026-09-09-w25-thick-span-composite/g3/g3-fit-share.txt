@@ -1,0 +1,23 @@
+the heavy share — reader A on the impulse rows, lever rung at lift 0.45
+
+profile   scene                       span    nat   web0   web1   lever  implied  verdict
+1x-dark   impulse__rrect-lg__rest      160  0.000  0.003  0.001  -0.003        —  refused: the reference reads one Gaussian here (collapsed)
+1x-dark   impulse__rrect-ml__rest      128  0.743  0.000  0.003   0.006        —  refused: the rendered lever is below 0.05 share per unit lift
+1x-dark   impulse__rrect-sm__rest       32  0.000  0.001  0.001   0.000        —  refused: the reference reads one Gaussian here (collapsed)
+1x-light  impulse__rrect-lg__rest      160  0.727  0.492  0.649   0.351   +0.670  FITTED
+1x-light  impulse__rrect-ml__rest      128  0.674  0.354  0.804   1.002   +0.320  FITTED
+1x-light  impulse__rrect-sm__rest       32  0.000  0.001  0.001   0.000        —  refused: the reference reads one Gaussian here (collapsed)
+2x-dark   impulse__rrect-lg__rest      160  0.531  0.000  0.000   0.000        —  refused: the rendered lever is below 0.05 share per unit lift
+2x-dark   impulse__rrect-ml__rest      128  1.000  0.000  0.000   0.000        —  refused: the rendered lever is below 0.05 share per unit lift
+2x-dark   impulse__rrect-sm__rest       32  0.111  0.338  0.338   0.000        —  refused: the rendered lever is below 0.05 share per unit lift
+2x-light  impulse__rrect-lg__rest      160  0.784  0.589  0.589   0.000        —  refused: the rendered lever is below 0.05 share per unit lift
+2x-light  impulse__rrect-ml__rest      128  1.000  0.591  0.591   0.000        —  refused: the rendered lever is below 0.05 share per unit lift
+2x-light  impulse__rrect-sm__rest       32  0.111  0.338  0.338   0.000        —  refused: the rendered lever is below 0.05 share per unit lift
+
+rows fitted           2
+implied lift          median 0.495  mean 0.495  spread 0.320 … 0.670
+condition             lever 0.351 … 1.002 share per unit lift; well conditioned
+
+the check off the fitted rows — the coarse checkerboards' single-width readers
+  1x  mean |log(web/native)| over 24 rows: 0.2373 at lift 0 -> 0.3402 at lift 0.45   (WORSE)
+  2x  mean |log(web/native)| over 24 rows: 0.0954 at lift 0 -> 0.0954 at lift 0.45   (better)

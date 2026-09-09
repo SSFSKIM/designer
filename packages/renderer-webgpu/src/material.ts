@@ -1778,18 +1778,64 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
        *
        * The `clear` variant keeps 0 below: no scene on either bed declares it, so
        * it has no rows and nothing to be fitted on (C9a §6.2).
+       *
+       * RE-FITTED 1.15 → 0.85 (W25 G3b, on the parent's ruling; claims §5.115,
+       * W25 Decision Log 6), JOINTLY with `rimAlongSideSlope` below and not
+       * separately, because the two multiply the same rim amplitude and both peak
+       * on this same diagonal. W24 fitted this exponent with the position term
+       * ABSENT, over 285 bins that include the corner arcs, so it absorbed part of
+       * a grading that is not a function of the normal at all — and W25 G0's
+       * along-side reader, which walks only the STRAIGHT part of a side where this
+       * factor is exactly 1, could not see the overlap from its side either.
+       * W25 G3's dry run measured the consequence: at slope 0.45 under exponent
+       * 1.15 the NW and SE bins of the 1x light `dark-solid__rrect-md` went 0.142
+       * → 0.203 against a reference of 0.122, and the thick solids' mean bin error
+       * rose on 26 rows of 28.
+       *
+       * The joint fit is a rendered GRID over the plane — 46 points, each a real
+       * render of the solid rows of all four standard profiles, read by W24's
+       * angular reader and W25's along-side reader together
+       * (`results/2026-09-09-w25-thick-span-composite/g3/g3b-fit.txt`). The pair
+       * below is the joint objective's minimum among the pairs that keep the thick
+       * solids' angular error at or under the 0.13.0 bed's — the ruling's own
+       * acceptance condition — AND that leave every cell of the bed measurable:
+       * thick bin error 0.17527 → 0.17208 and thick range error 0.43269 → 0.37472,
+       * on 16 rows improving against 12. The objective's own minimum over the
+       * allowed set is (0.70, 0.15), and it is refused for a reason no metric
+       * carries: at that pair the collapsed `dark-solid__capsule-button` loses its
+       * contour on the GPU tier at 1x in both schemes — the capsule's band is
+       * entirely corner arc, which is where both of these factors dim it, and the
+       * extractor reads a 0.00 px contour and drops two calibration cells out of
+       * the bed. A change that narrows the instrument is not a fidelity gain.
        */
-      rimLitExponent: 1.15,
+      rimLitExponent: 0.85,
       /*
-       * W25's along-side field, INERT at the default (claims §5.113; W25 Decision
-       * Log 3 (c)). The reference's own rows read 0.62–0.73 through this form and
-       * G2's fit on the solids of the two probe grids is recorded in
-       * `results/2026-09-09-w25-thick-span-composite/g2/fit-field.txt`, but the
-       * wave lands the mechanism before the value: G2 is the fitting child and G3 is
-       * the declaring one, so what ships here until G3 is a factor of exactly 1
-       * at every position and every span.
+       * W25's along-side field, FITTED (claims §5.113 and §5.115; W25 Decision
+       * Log 3 (c), landed at G3's declaration).
+       *
+       * Its own readers want more of it: G2 fitted 0.45 on the 64 straight sides
+       * of the two 1x probe grids' flat solids and G3 re-fitted 0.425–0.479 on the
+       * probe set's 64 sides at both scales in both schemes, and at 0.45 the
+       * corner-to-corner range reaches 0.743 of the reference's against 0.227
+       * without it. What the along-side reader cannot see is the corner ARCS,
+       * where this factor multiplies a rim that `rimLitExponent` has already
+       * brightened on the same diagonal — so the value here is not that fit's, it
+       * is the JOINT one (W25 G3b; W25 Decision Log 6): the minimum over a
+       * rendered grid of the two readers' errors together, among the pairs that
+       * keep the thick solids' angular error at or under the 0.13.0 bed's.
+       *
+       * At (0.70, 0.15) the thick solids' bin error falls 0.17527 → 0.17000 and
+       * their range error 0.43269 → 0.34919 — a fifth of the grading, where 0.45
+       * under the old exponent bought three quarters of it and cost half again as
+       * much bin error. The remaining four fifths are not this constant's to buy:
+       * the arcs' amplitude is W23's rim law, fitted on the straight spans both of
+       * these factors leave alone, and until it moves the two of them are trading
+       * against each other rather than against Apple.
+       *
+       * The `clear` variant keeps 0 below, as the lit edge does: no scene on
+       * either bed declares it, so it has no rows (C9a §6.2).
        */
-      rimAlongSideSlope: 0,
+      rimAlongSideSlope: 0.1,
       shadowDepth: 0.35,
       /*
        * REFITTED 0.55 → 0.05 (2026-08-31), and it is the largest single

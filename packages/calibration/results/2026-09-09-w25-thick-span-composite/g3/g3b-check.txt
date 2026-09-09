@@ -1,0 +1,58 @@
+W25 G3b — the angular bin error against the reference, 0.13.0 material -> the pair
+============================================================================================================
+profile   scene                                    backdrop          span    before     after         Δ
+1x-light  checkerboard__capsule-button__rest       checkerboard        44   0.08981   0.08348  -0.00633
+1x-light  checkerboard__rrect-md__rest             checkerboard        96   0.17166   0.17088  -0.00078
+1x-light  checkerboard__rrect-ml__rest             checkerboard       128   0.24182   0.24068  -0.00114
+1x-light  checkerboard__rrect-sm__rest             checkerboard        32   0.08297   0.08260  -0.00037
+1x-light  checkerboard-32__rrect-md__rest          checkerboard-32     96   0.22461   0.21062  -0.01399
+1x-light  checkerboard-32__rrect-ml__rest          checkerboard-32    128   0.24040   0.23975  -0.00064
+1x-light  checkerboard-32__rrect-lg__rest          checkerboard-32    160   0.18327   0.18426  +0.00099
+1x-light  checkerboard-64__rrect-md__rest          checkerboard-64     96   0.10324   0.10152  -0.00171
+1x-light  checkerboard-64__rrect-ml__rest          checkerboard-64    128   0.22723   0.22857  +0.00134
+1x-light  checkerboard-64__rrect-lg__rest          checkerboard-64    160   0.39718   0.39638  -0.00080
+2x-light  checkerboard__capsule-button__rest       checkerboard        44   0.10822   0.10452  -0.00370
+2x-light  checkerboard__rrect-md__rest             checkerboard        96   0.18126   0.18432  +0.00306
+2x-light  checkerboard__rrect-ml__rest             checkerboard       128   0.24503   0.24157  -0.00347
+2x-light  checkerboard__rrect-sm__rest             checkerboard        32   0.09648   0.08829  -0.00819
+2x-light  checkerboard-32__rrect-md__rest          checkerboard-32     96   0.13187   0.12030  -0.01156
+2x-light  checkerboard-32__rrect-ml__rest          checkerboard-32    128   0.24175   0.23971  -0.00204
+2x-light  checkerboard-32__rrect-lg__rest          checkerboard-32    160   0.27410   0.28657  +0.01247
+2x-light  checkerboard-64__rrect-md__rest          checkerboard-64     96   0.13220   0.13048  -0.00172
+2x-light  checkerboard-64__rrect-ml__rest          checkerboard-64    128   0.20106   0.20497  +0.00390
+2x-light  checkerboard-64__rrect-lg__rest          checkerboard-64    160   0.36914   0.36787  -0.00127
+1x-dark   checkerboard__capsule-button__rest       checkerboard        44   0.03123   0.03095  -0.00028
+1x-dark   checkerboard__rrect-md__rest             checkerboard        96   0.01191   0.01304  +0.00113
+1x-dark   checkerboard-32__rrect-md__rest          checkerboard-32     96   0.01441   0.01414  -0.00026
+1x-dark   checkerboard-32__rrect-ml__rest          checkerboard-32    128   0.04540   0.04565  +0.00025
+1x-dark   checkerboard-32__rrect-lg__rest          checkerboard-32    160   0.06573   0.06573  +0.00000
+1x-dark   checkerboard-64__rrect-md__rest          checkerboard-64     96   0.02658   0.02663  +0.00005
+1x-dark   checkerboard-64__rrect-ml__rest          checkerboard-64    128   0.04477   0.04487  +0.00010
+1x-dark   checkerboard-64__rrect-lg__rest          checkerboard-64    160   0.08146   0.08180  +0.00034
+2x-dark   checkerboard__capsule-button__rest       checkerboard        44   0.03237   0.03476  +0.00239
+2x-dark   checkerboard__rrect-md__rest             checkerboard        96   0.01723   0.01848  +0.00125
+2x-dark   checkerboard-32__rrect-md__rest          checkerboard-32     96   0.02290   0.02284  -0.00005
+2x-dark   checkerboard-32__rrect-ml__rest          checkerboard-32    128   0.05179   0.05210  +0.00032
+2x-dark   checkerboard-32__rrect-lg__rest          checkerboard-32    160   0.07258   0.07257  -0.00001
+2x-dark   checkerboard-64__rrect-md__rest          checkerboard-64     96   0.03401   0.03405  +0.00004
+2x-dark   checkerboard-64__rrect-ml__rest          checkerboard-64    128   0.05918   0.05928  +0.00010
+2x-dark   checkerboard-64__rrect-lg__rest          checkerboard-64    160   0.11887   0.12037  +0.00150
+
+rows improved: 19   worsened: 17
+THICK rows (span >= 96) that worsened: 16
+  1x-light  checkerboard-32__rrect-lg__rest          0.18327 -> 0.18426
+  1x-light  checkerboard-64__rrect-ml__rest          0.22723 -> 0.22857
+  2x-light  checkerboard__rrect-md__rest             0.18126 -> 0.18432
+  2x-light  checkerboard-32__rrect-lg__rest          0.27410 -> 0.28657
+  2x-light  checkerboard-64__rrect-ml__rest          0.20106 -> 0.20497
+  1x-dark   checkerboard__rrect-md__rest             0.01191 -> 0.01304
+  1x-dark   checkerboard-32__rrect-ml__rest          0.04540 -> 0.04565
+  1x-dark   checkerboard-32__rrect-lg__rest          0.06573 -> 0.06573
+  1x-dark   checkerboard-64__rrect-md__rest          0.02658 -> 0.02663
+  1x-dark   checkerboard-64__rrect-ml__rest          0.04477 -> 0.04487
+  1x-dark   checkerboard-64__rrect-lg__rest          0.08146 -> 0.08180
+  2x-dark   checkerboard__rrect-md__rest             0.01723 -> 0.01848
+  2x-dark   checkerboard-32__rrect-ml__rest          0.05179 -> 0.05210
+  2x-dark   checkerboard-64__rrect-md__rest          0.03401 -> 0.03405
+  2x-dark   checkerboard-64__rrect-ml__rest          0.05918 -> 0.05928
+  2x-dark   checkerboard-64__rrect-lg__rest          0.11887 -> 0.12037

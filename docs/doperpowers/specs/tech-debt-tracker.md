@@ -1254,3 +1254,114 @@ the bed's provenance). The 2x canonical bed was materialised from five runs (cla
 carries the same instability unread. Shape of the work: read the 2x bed's state shares against
 the probe set's, and give the 2x material's fits the share-weighted variance as an uncertainty
 rather than a byte. `g1/stability-2x.txt`, `g1/materialize-2x.dry.txt`.
+
+## CLOSED by W25 G3b's joint re-fit: W24's lit edge and W25's along-side field grade the SAME diagonal, and the exponent was fitted before the field existed (W25 G3, 2026-09-09)
+
+`optics.regular.rimLitExponent` 1.15 multiplies the rim by `(√2·|n · L|)^p` with `L` the exact
+top-left/bottom-right diagonal, so it is maximal at the NW and SE arcs; `optics.regular
+.rimAlongSideSlope` 0.45 multiplies it again by a saddle that is `+1` at exactly those two corners.
+W24 fitted the exponent with the position term absent, on 285 bins that include the corner arcs, so
+it absorbed part of the position grading — and G0's along-side reader, which walks only the STRAIGHT
+part of a side, could not see the overlap from its side either. The two now double-count on the
+arcs. Measured at G3's dry run on the canonical bed, 1x light `dark-solid__rrect-md`: the NW bin
+goes 0.14220 → 0.20344 against a reference of 0.12223 and SE 0.14384 → 0.20347 against 0.12739,
+while the bins straddling the null improve sharply (NNE 0.06435 → 0.03902 against 0.03598) and the
+straight sides move 0.003. Over the 28 untinted solid rows of both beds the mean bin error improves
+on 5 and worsens on 9, and the nine are the thick solids the field is for. No smaller slope rescues
+it: on that cell the peak bins' error grows at ≈0.136 per unit slope where the near-null bins'
+shrinks at ≈0.056, so the break-even is below zero. Shape of the work: fit `rimLitExponent` and
+`rimAlongSideSlope` JOINTLY on W24's 285-bin row set together with W25's 64 straight sides — the
+fixtures all exist and neither constant needs a new capture. Evidence
+`results/2026-09-09-w25-thick-span-composite/g3/g3-stops.txt` and `canonical-reads/`.
+
+## The heavy share is identified and cannot land until the heavy WIDTH is a lever (W25 G3, 2026-09-09)
+
+The probe set identifies `sizeScatterHeavyShareThick1x` at ≈0.5 on three rows — implied 0.320 at
+span 128 and 0.670 at 160 on the 1x light `impulse` rows, ≈0.51 on the canonical validation row at
+96 — and every check off them runs the other way: the coarse checkerboards' single-width objective
+over 24 thick rows worsens 0.2373 → 0.3402 at a lift of 0.45, five probe rows exceed 0.002 ΔE at a
+lift of only 0.18 and nine at 0.45, and the probe mean rises +0.00018 against the wave's 0.0001
+clause. The measured cause is the width and not the share: vitrea's heavy component is 13.3 device
+px at the reference's own share where the reference's is 19.5, and `sizeScatterGainMax` is not a
+lever on it (8 → 10.3 left the reading at 13.29 — the heavy tap is a mip-chain level whose effective
+width saturates). Shape of the work: give the heavy tap a width that follows a constant, in
+`packages/renderer-webgpu/src/wgsl/`, and re-fit the share on these same rows behind it. Evidence
+`results/2026-09-09-w25-thick-span-composite/g3/g3-dryrun.md` §1.2 and the g2 rung `rG`.
+
+## The 2x heavy share cannot be reached without moving a W15 constant that reaches the thin capsule (W25 G3, 2026-09-09)
+
+`sizeScatterFloor2x` is 1, so `kDeep` is saturated at every 2x span before `sizeScatterHeavyShare
+Thick2x` is added and the clamp absorbs it: measured, not argued — at a 2x lift of 0.50 all 206 of
+the probe set's 2x captures are byte-identical to the inert ones and reader A's rendered lever is
+exactly 0.000 on every 2x row. The constant with headroom is the floor itself, W15's, which enters
+`floor + (1 − floor)·smoothstep(sizeSpanMin, sizeScatterSpanMax, span)` and therefore reaches span
+32 and 44 as well, which X5 forbids. Shape of the work: a 2x body re-fit that treats the floor and
+the thick lift together on the probe set's 2x rows, with the thin capsule's 2x reading (reader A:
+reference share 0.111, vitrea 0.338 at span 32) as its own row rather than as a stop.
+
+## No golden scene is thin enough to test the size law's zero (W25 G3, 2026-09-09)
+
+The renderer's thirteen golden scenes have thickest spans 44 … 92, so every claim of the form "a
+surface at or below `sizeSpanMin` = 32 cannot move" is vacuous in the golden suite and is carried
+only by unit tests and by the calibration bed's `rrect-sm` cells. W25 G3's attribution spec asserts
+it and passes on an empty set. Shape of the work: one golden scene whose surface is 32 CSS px or
+smaller on its short side, which would make every future size-law wave's thin claim a byte check.
+
+## The isolation proof's "the outer shadow moves no colour and takes no alpha down" is now a one-code bound, not zero (W25 G3, 2026-09-09)
+
+Both canvas passes blend premultiplied source-over into an eight-bit target, so the optics pass
+composites onto an already-quantised shadow and the two roundings can differ where the rim is
+brighter. Measured at the declaration: 45 colour channels move by exactly 1 on 15 pixels lying on
+the contour at the checkerboard's own 16 px pitch, and 5 pixels in the canvas's last column take
+alpha down by exactly 1 with their RGB unchanged; at `rimAlongSideSlope` 0 both counts are 0, which
+is why the strict form held for eleven waves. The assertions in
+`packages/renderer-webgpu/e2e/golden/isolation.spec.ts` are now "no channel by more than one code,
+on fewer than a thousandth of the canvas" with the measurement in the doc comment. Shape of the
+work: read the shadow and the optics passes back at float precision, or compare premultiplied
+values, so the guard can go back to zero.
+
+Closed 2026-09-10 by W25 Decision Log 6: the parent re-opened `rimLitExponent` and the two were
+fitted TOGETHER on a rendered grid of 46 points over the plane, landing (0.85, 0.10). The thick
+solids' aggregate bin error goes 0.17527 -> 0.17208 where the field alone under the old exponent
+took it to 0.26311, and the named cell's NW and SE bins come back inside the reference (0.020 ->
+0.015 and 0.016 -> 0.011 against 0.081 and 0.076). What is left is a different object and has its
+own entry below.
+
+## The rim's AMPLITUDE at the corner arcs is too high, and it is what both rim factors now trade against (W25 G3b, 2026-09-10)
+
+With the direction and position halves fitted jointly there is no confound left, and the residual
+that remains is one number in the wrong place: on the 1x light `dark-solid__rrect-md` the reference
+reads 0.189 on its straight sides and 0.122–0.127 on its diagonals, where vitrea reads 0.211 and
+0.137 — brighter everywhere, and brightest where the reference is dimmest relative to its own
+sides. Three of the canonical bed's eight thick solid rows still worsen at the landed pair for that
+reason (worst +0.00064 of normalised bin error, 1.8 %), all of them `dark-solid__rrect-md`, and no
+(exponent, slope) pair on the grid fixes it because neither factor can lower a rim's amplitude
+without also flattening its shape. The amplitude is W23's law (`rimAlpha`, `rimLevelGain`,
+`rimWidth`), fitted on the STRAIGHT spans that both of these factors leave exactly alone, so the
+arcs have never had a row of their own. Shape of the work: give the amplitude law an arc term, or
+re-fit it on the angular reader's bins rather than on the contour reader's spans, and re-run the
+joint fit behind it. Evidence
+`results/2026-09-09-w25-thick-span-composite/g3/g3b-bins.txt` and `g3b-fit.txt`.
+
+## A material change can make a calibration cell unmeasurable, and only the run says so (W25 G3b, 2026-09-10)
+
+At the joint objective's own minimum over the allowed set, (0.70, 0.15), the collapsed
+`dark-solid__capsule-button` loses its contour on the GPU tier at 1x in both schemes: the capsule's
+band is entirely corner arc, both rim factors dim it there, and `contourCurvature` reads a 0.00 px
+contour, so `compare` refuses the cell and two calibration rows drop out of the bed. Nothing in the
+fit's objective, the wave's stops or the adopted gate would have caught it — the gate never sees a
+cell that was not written — and it was found only because the dry run's own group counts fell from
+nine to eight. Shape of the work: make `compare` report a cell it could not measure as a FAILED
+cell in the matrix rather than an absent one, so a coverage loss fires a stop instead of quietly
+shrinking a mean; and give the fidelity gate a pinned cell count per profile and tier.
+
+## A second dry run into the same `--out-matrix` doubles every cell and the gate reads both (W25 G3b, 2026-09-10)
+
+CLAUDE.md warns that a cell's key carries the material document's sha256 and that `compare` appends
+beside the old rows after the profile changes. W25 G3b hit it: two dry runs at two materials into
+one `--out-matrix` left 397 cells where 229 were expected, and the adopted gate failed 25 of 37
+cases on the duplication alone before anything about the material was read.
+`g3b-reduce.py` is the fix used here — keep the rows whose capture path names the documents on disk
+now — but the run scripts should not need it. Shape of the work: have `g3-dryrun-run.sh` and its
+siblings `rm -f` the matrix they own before the first run, and have `compare` warn when it appends
+a cell whose (profile, scene, tier, renderer) already exists under a different document digest.

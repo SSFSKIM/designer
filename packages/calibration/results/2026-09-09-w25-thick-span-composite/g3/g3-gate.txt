@@ -1,0 +1,72 @@
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a60d759ed0e4373f6/packages/calibration
+
+ ❯ test/adopted-thresholds.test.ts (37 tests | 2 failed) 34ms
+     × gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT 4ms
+     × machine-checks the well-conditioned predicate and names every cell it excludes 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT
+AssertionError: texture / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(7) }, …(28) ] to have a length of 31 but got 29
+
+- Expected
++ Received
+
+- 31
++ 29
+
+ ❯ test/adopted-thresholds.test.ts:1554:13
+    1552|             applicable,
+    1553|             `${tier} / ${metric}: the gate must cover every applicable…
+    1554|           ).toHaveLength(expected);
+       |             ^
+    1555|           expect(applicable.length, `${tier} / ${metric}: nothing left…
+    1556|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes
+AssertionError: cells the shape rows skip, per claims §5's predicate: expected [ …(33) ] to deeply equal [ …(31) ]
+
+- Expected
++ Received
+
+@@ -12,17 +12,19 @@
+    "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+    "texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+    "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
+    "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+    "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard",
+-   "texture / calibration / checkerboard__toolbar-group__rest / apple-macos-26.5-2x-light-standard",
++   "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard",
+    "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+    "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-1x-light-standard",
+    "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+    "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+    "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
+    "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
++   "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard",
++   "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard",
+    "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+    "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+    "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
+    "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+    "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+
+ ❯ test/adopted-thresholds.test.ts:1581:78
+    1579|   it("machine-checks the well-conditioned predicate and names every ce…
+    1580|     const excluded = MATRIX.cells.filter((cell) => !isWellConditioned(…
+    1581|     expect(excluded, "cells the shape rows skip, per claims §5's predi…
+       |                                                                              ^
+    1582|       ...PREDICATE_EXCLUDES,
+    1583|     ]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 35 passed (37)
+   Start at  23:13:23
+   Duration  198ms (transform 48ms, setup 0ms, import 76ms, tests 34ms, environment 0ms)
+

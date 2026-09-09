@@ -168,8 +168,9 @@ export interface MaterialSourceOptics {
    */
   readonly rimLitExponent: number;
   /*
-   * W25's along-side field (claims §5.113; W25 Decision Log 3 (c)) is NOT
-   * mirrored here, and the omission is a measurement rather than an oversight.
+   * W25's along-side field (claims §5.113 and §5.115; W25 Decision Log 3 (c),
+   * landed at 0.45 by G3) is NOT mirrored here, and the omission is a
+   * measurement rather than an oversight.
    *
    * The factor is `1 + slope · sizeThickness(span) · (x/hw)(y/hh)`, and that
    * field is odd under `x → −x` and under `y → −y`, so its integral around the
@@ -222,14 +223,19 @@ export const MATERIAL_SOURCE_OPTICS: Readonly<Record<MaterialVariant, MaterialSo
     rimLevelGain: -0.628,
     highlight: [1, 1, 1],
     rimWidth: 1.5,
-    // The lit edge, adopted at 1.15 in W24 (claims §5.108 §1). This tier draws
-    // one border alpha the whole way round and cannot carry the factor as a
-    // FEATURE, but the renderer's band integrates to less light with it than
-    // without — the factor is 1 on the four straight runs by construction and
-    // below 1 on every corner arc — and `interiorBandLight` carries that into
-    // the derived interior level, exactly as it carried the specular it
-    // replaces.
-    rimLitExponent: 1.15,
+    // The lit edge, adopted at 1.15 in W24 (claims §5.108 §1) and re-fitted to
+    // 0.85 in W25 G3b jointly with the along-side field it shares a diagonal with
+    // (claims §5.115; W25 Decision Log 6). This tier draws one border alpha the
+    // whole way round and cannot carry the factor as a FEATURE, but the
+    // renderer's band integrates to less light with it than without — the factor
+    // is 1 on the four straight runs by construction and below 1 on every corner
+    // arc — and `interiorBandLight` carries that into the derived interior level,
+    // exactly as it carried the specular it replaces. The exponent's move is what
+    // this tier feels: the arc integral goes 0.90741 of `2π` at 1.15 to 0.89686
+    // at 0.85, so the derived interior light falls by about a percent of the
+    // band's own contribution and every CSS capture with a rim moves a code or
+    // two. The field itself integrates to zero and is not mirrored at all.
+    rimLitExponent: 0.85,
     specularPower: 6,
     // 0.55 → 0 in W22 G1's fit (claims §5.94 §3): the light reference's rim has
     // no vertical light, and the constant that said it did was fitted beside the

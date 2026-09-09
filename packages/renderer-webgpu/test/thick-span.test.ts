@@ -249,10 +249,41 @@ describe("W25 the along-side field", () => {
     }
   });
 
-  it("is exactly 1 at the default slope and at every span at or below the band", () => {
-    const lit = withMaterialOverrides(P, { optics: { regular: { rimAlongSideSlope: 0.7 } } });
+  it("ships the fitted slope on `regular` and nothing at all on `clear`", () => {
+    /*
+     * W25 G3's declaration (claims §5.115). The value is on the material's
+     * default, so a profile that names no optics still draws the field, and the
+     * `clear` variant keeps 0 for the reason the lit edge does: no scene on
+     * either bed declares it, so it has no rows (C9a §6.2).
+     */
+    expect(P.optics.regular.rimAlongSideSlope).toBe(0.1);
+    expect(P.optics.clear.rimAlongSideSlope).toBe(0);
     for (const span of SPANS) {
-      expect(rimAlongSideFactor(0.8, span, P.optics.regular, P)).toBe(1);
+      expect(rimAlongSideFactor(0.8, span, P.optics.clear, P)).toBe(1);
+    }
+    // On `regular` the factor is the fitted slope through the thickness curve —
+    // exactly 1 at and below the band's start, and 1 + 0.10 · field above the
+    // knee, which is 1.10 at the brightest corner of a thick surface and 0.90 at
+    // the dimmest. The rim is never turned off and never doubled.
+    expect(rimAlongSideFactor(0.8, 32, P.optics.regular, P)).toBe(1);
+    expect(rimAlongSideFactor(1, 160, P.optics.regular, P)).toBeCloseTo(1.1, 12);
+    expect(rimAlongSideFactor(-1, 160, P.optics.regular, P)).toBeCloseTo(0.9, 12);
+    /*
+     * And the pair the joint fit landed together (W25 G3b; Decision Log 6). The
+     * exponent is on the same variant and multiplies the same amplitude, so a
+     * profile that moved one without the other would be a material neither reader
+     * fitted; pinning both here is what makes that visible in a unit test rather
+     * than three hours later on the bed.
+     */
+    expect(P.optics.regular.rimLitExponent).toBe(0.85);
+    expect(P.optics.clear.rimLitExponent).toBe(0);
+  });
+
+  it("is exactly 1 at a zero slope and at every span at or below the band", () => {
+    const lit = withMaterialOverrides(P, { optics: { regular: { rimAlongSideSlope: 0.7 } } });
+    const flat = withMaterialOverrides(P, { optics: { regular: { rimAlongSideSlope: 0 } } });
+    for (const span of SPANS) {
+      expect(rimAlongSideFactor(0.8, span, flat.optics.regular, flat)).toBe(1);
     }
     for (const span of [0, 8, 16, 31, 32]) {
       expect(rimAlongSideFactor(0.8, span, lit.optics.regular, lit)).toBe(1);
