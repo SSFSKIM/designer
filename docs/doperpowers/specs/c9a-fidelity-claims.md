@@ -14532,7 +14532,10 @@ byte-state frequencies; 18 of 56 cells bistable (most 6:1). `dark-solid__rrect-s
 state is byte-identical (SHA-1) to the W9 LIGHT grid's file, and so is `light-solid__rrect-sm`,
 whose body 0.96659 over a 0.8918 backdrop is a light-scheme frame beyond doubt — the only
 cross-directory duplicates among 239 fixture PNGs that are not a grid reusing a canonical cell.
-**Both withdrawn as dark readings.** `rrect-md` (96, body 0.015265, uncollapsed) against
+**Both withdrawn as dark readings.** [Corrected 2026-09-09, §5.115 §3: the W25 sitting reproduced
+the same bytes on both cells in every dark run WITH the same-sitting light capture as control —
+they are dark-scheme readings whose appearance equals the light one (the collapse over
+`dark-solid`; a size-keyed light adaptation over `light-solid`), and the withdrawal is overturned.] `rrect-md` (96, body 0.015265, uncollapsed) against
 `rrect-lg` (160, 0.011007, collapsed) is single-state in all seven runs and survives; on the
 320 × 200 canvas span is confounded with clearance (84 / 52 / 20 CSS px), so nothing on disk
 separates a size-keyed collapse from an edge-proximity one. The dark contrast is six codes where
@@ -14613,3 +14616,56 @@ declaration, one holdout read.
 at 1x, X5-entangled; the field's last quarter in W23's amplitude law; the CSS tier unable to draw
 the field (X8, Decision Log 23 (a)); the above-knee residual as vitrea's own curve continuing (a
 lower `sizeScatterSpanMax` may be the reference's term; Deferred).
+
+### 5.115 W25 G1 CAPTURED: the probe set on the reference — 207 fixtures at both scales in both schemes from seven attested runs per scale, one 2x cell omitted by ruling (three settled appearances, no majority); the two withdrawn cells reinstated (the flip reproduces with the light capture as control: a size-keyed adaptation, not a defect); the collapse keyed on span and not clearance, with the level above the knee grading in the scheme's own direction and identical at 1x and 2x (2026-09-09)
+
+**Evidence** `results/2026-09-09-w25-thick-span-composite/g1/` — `provenance.json`,
+`runs-2x-pass.log`, `runs-1x-pass.log`, `materialize-{2x,1x}.{dry,apply}.txt`,
+`stability-{2x,1x}.txt`, `sweep-read.txt`, `NOTE-labels.txt`, `run-sitting.sh`, `follow-on.sh`;
+`apps/reference-apple/fixtures/` (the four standard profiles, `manifest.json`'s `bedProvenance`
+and `backgrounds`) at `b60706b`; `cli/materialize.ts --omit` at `25f668b`. Rulings in W25 Decision
+Log 5.
+
+**§1 The sitting.** The harness rebuilt for the `probe` role, the grant re-added by the user and
+confirmed through the bundle (ScreenCaptureKit OK, window key), the screen unlocked. The 2x pass
+first, on the virtual display's HiDPI arrangement — the runs written under `1x/` carry the 2x
+keys, the harness filing pixels under the scale it captures at — seven runs: six at 158 / 158, run
+3 at 78 / 158 (80 cells captured while a remote Screen Sharing user held the window's key state;
+per-cell majorities are over the attesting runs). Its rasters were rendered at the requested 1x
+naming: every synthetic backdrop's frozen-bed cell captured alongside is byte-identical to the
+canonical 2x fixture; the photo backdrop (a bitmap) differs by up to 7 codes and no probe scene
+uses it. Then hiDPI off, the bundle's probe reading backingScaleFactor 1.0, and the 1x pass: seven
+runs at 158 / 158. Fourteen rasters byte-identical to the committed ones where both exist; seven
+new at each scale in the manifest.
+
+**§2 Publication.** `materialize --set probe --frequency-settle`: 2x 103 of 104 cells, 70
+majority-settled with shares recorded, one omitted by ruling — `2x-dark /
+checkerboard-8__capsule-button__rest`, three structurally different settled appearances across
+seven runs (3 / 3 / 1, maxDelta 51–58 over 19–38 k px, coherence 1.000), a tie no majority settles;
+`--omit PROFILE/SCENE=REASON` added so the hole is written into the provenance rather than papered
+over. 1x 104 of 104, 3 settled. The stability read: 2x deterministic 48 / noisy 7 / bistable 45;
+1x deterministic 138 / noisy 15 / bistable 5. **The 2x reference is far less stable across runs
+than the 1x**, on the same protocol at one sitting.
+
+**§3 The withdrawn cells, reinstated.** `dark-solid__rrect-sm__rest` and
+`light-solid__rrect-sm__rest`: in every 1x run the dark profile's bytes equal the same run's light
+profile's and the W9 light grid's file (`5bd00ed70c52`, `11eb56b7dd62`). With the same-sitting
+light capture as the control, the flip is the reference's behaviour: over `dark-solid` the collapse
+(every span to 64 collapses in both schemes, 0.0110 against the backdrop's 0.0117, W23's finding);
+over `light-solid` the small surface renders the LIGHT appearance in the dark scheme where `rrect-md`
+and `-lg` render the dark material (0.096 / 0.103) — a size-keyed scheme adaptation, a term for the
+ledger. §5.113 §6 corrected beside; the tracker's entry closed with the reading.
+
+**§4 The collapse's key — clause 5 answered.** `sweep-read.txt` (body = mean linear luma over the
+declared box eroded 6 CSS px). The clearance variant (`rrect-md` at rrect-lg's 20 px margin) reads
+exactly `rrect-md`'s 0.0153 in both schemes at both scales: **the key is span, not edge
+proximity.** Over `dark-solid`, dark scheme: 0.0110 at spans 32 / 44 / 48 / 64, 0.0169 at 80,
+0.0153 at 96, 0.0130 at 128, 0.0110 at 160; light scheme: 0.4739 / 0.4798 / 0.4910 / 0.5022 at 80
+/ 96 / 128 / 160. Above the knee the level grades with span in the direction of the scheme's own
+material — and the 160 px dark panel's "collapse" (the W21 grid's contradiction) is where that
+decline arrives, not a switch. **The level term above the knee is scheme-signed**: G2's 0.029
+light and the dark grid's refusal were the two signs seen through three spans (Decision Log 5 (d);
+Decision Log 4 (d) resolved). The numbers are identical at 1x and 2x to the fourth decimal.
+
+**G3 opens** (Decision Log 5 (e)): every constant fitted on the probe set on the web captures of
+both tiers at both scales; the declaration; the holdout once.

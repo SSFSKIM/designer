@@ -1227,3 +1227,30 @@ which W23 fitted per side and this factor deliberately leaves alone. Closes when
 and the field are fitted jointly on the probe set's solids. The CSS tier cannot draw the field at
 all (one inset shadow, one alpha around the contour) while staying coherent with the GPU tier's
 side mean — an X8 residual under wave Decision Log 23 (a).
+
+## The W21 grid's "collapses `rrect-sm` and `rrect-lg` and not `rrect-md`" is closed: the key is span, the small spans collapse in both schemes, and the large panel's level is the dark decline's floor (W25 G1, 2026-09-09)
+
+Closes the two entries above on this contradiction, and corrects the second: the two fixtures
+byte-identical to the light grid's were not the light grid's files but the reference rendering
+the same appearance in both schemes, reproduced in every run of the W25 sitting with the
+same-sitting light capture as control (claims §5.115 §3). The sweep over `dark-solid` at spans
+32 / 44 / 48 / 64 / 80 / 96 / 128 / 160 and the clearance variant (`g1/sweep-read.txt`): every
+span to 64 collapses in both schemes (0.0110 against the backdrop's 0.0117); the clearance
+variant reads `rrect-md`'s body exactly, so edge proximity is not the key; above the knee the
+level grades in the scheme's own direction (dark 0.0169 → 0.0110, light 0.4739 → 0.5022 from 80
+to 160) and the dark 160 px panel's "collapse" is that decline reaching the collapsed level. What
+remains open is the term itself: a scheme-signed level above the knee (W25 G3's fit) and the
+size-keyed LIGHT adaptation of a small surface over a bright backdrop in the dark scheme
+(`light-solid__rrect-sm` 0.96659 in dark where `rrect-md` reads 0.096) — no vitrea mechanism, no
+number yet. Closes when both are fitted or attributed.
+
+## The 2x reference is unstable across runs where the 1x is not, and one 2x cell has no majority state at all (W25 G1, 2026-09-09)
+
+On W9's protocol at one sitting, seven runs per scale: at 1x 138 of 158 cells deterministic and
+5 bistable; at 2x 48 deterministic and 45 bistable, with 70 of 104 probe cells published at a
+majority state and `2x-dark / checkerboard-8__capsule-button__rest` returning three structurally
+different settled appearances (3 / 3 / 1) — omitted by ruling (`materialize --omit`; the hole in
+the bed's provenance). The 2x canonical bed was materialised from five runs (claims §5.53) and
+carries the same instability unread. Shape of the work: read the 2x bed's state shares against
+the probe set's, and give the 2x material's fits the share-weighted variance as an uncertainty
+rather than a byte. `g1/stability-2x.txt`, `g1/materialize-2x.dry.txt`.

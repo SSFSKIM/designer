@@ -251,9 +251,9 @@ G0 → (the user: the amendment, the console) → G1 → G2 (may start on G0 alo
 | child | status |
 | --- | --- |
 | G0 — the width instrument, the read, the argument, the along-side reader | CLOSED 2026-09-09 (claims §5.113; `g0/g0-findings.md`; merged `058dd64`; Decision Log 3) |
-| G1 — the bed amendment and the native captures | DECLARED 2026-09-09 (merged `0f30529`: 52 probe scenes, the plumbing, `g1/sitting.md`; the harness rebuilt) / SITTING 2026-09-09 from 06:33Z (`g1/run-sitting.sh`; Decision Log 4 (g)) |
+| G1 — the bed amendment and the native captures | CAPTURED 2026-09-09 (claims §5.115; `b60706b`: 207 fixtures at both scales, one omitted by ruling; `g1/provenance.json`, `sweep-read.txt`; Decision Log 5) |
 | G2 — the law fitted | CLOSED 2026-09-09 (claims §5.114; merged `17b7af1` inert; the 1x fits as priors; every constant to G3 on the probe set; Decision Log 4) |
-| G3 — declared and dry-run | — |
+| G3 — declared and dry-run | DISPATCHED 2026-09-09 (every constant fitted on the probe set; Decision Log 5 (e)) |
 | G4 — the landing | — |
 
 ## Decision Log
@@ -465,6 +465,68 @@ idle, seven attested runs), the display held awake, every other capture held (G2
 the runner refuses a running capture). The 2x pass follows; then `materialize --set probe`, the
 two withdrawn cells checked against the light grid's bytes, the bistable shares read; then G3.
 
+### Decision Log 5 — the sitting read: 207 probe fixtures at both scales, one cell omitted by ruling, the two withdrawn cells reinstated as readings, the collapse keyed on span with the level above the knee grading in the scheme's own direction; G3 dispatched to fit every constant on the probe set (2026-09-09; the parent, on the user's standing instruction)
+
+Evidence `results/2026-09-09-w25-thick-span-composite/g1/` (`provenance.json`, `runs-2x-pass.log`,
+`runs-1x-pass.log`, `materialize-*.txt`, `stability-*.txt`, `sweep-read.txt`, `NOTE-labels.txt`),
+`apps/reference-apple/fixtures/` at `b60706b`. The parent ran the sitting.
+
+(a) **The record.** The 2x pass ran FIRST: the virtual display was in its HiDPI arrangement and the
+harness files pixels under the scale it captures at, so the runs written under `1x/` with labels
+`w25-1x-N` carry the 2x profile keys (the manifest's caveat says so; `NOTE-labels.txt`). Seven runs,
+six at 158 / 158 and run 3 at 78 / 158 — its first 80 cells captured while the window was denied
+activation during remote Screen Sharing activity (the tracker's activation-loss entry; the
+per-cell majority is over the runs that attested each cell). Its backdrops were rendered at the
+requested 1x naming; every synthetic backdrop's frozen-bed cell captured alongside is
+byte-identical to the canonical 2x fixture, the photo backdrop differs (max 7 codes, mean 0.88 —
+a bitmap upscaled), and no probe scene uses it. Then `betterdisplaycli set --hiDPI=off`, the
+bundle's probe reading backingScaleFactor 1.0, and the 1x pass: seven runs at 158 / 158. The
+runner's own guard refused the 1x pass once (the probe app still quitting) and it was restarted.
+The fourteen rasters the sitting rendered are byte-identical to the committed ones where both
+exist; the seven new ones enter the manifest at both scales.
+
+(b) **One cell omitted by ruling.** `2x-dark / checkerboard-8__capsule-button__rest` returned three
+structurally different settled appearances across the seven runs (3 / 3 / 1; maxDelta 51–58 over
+19–38 k px, coherence 1.000): a tie no majority settles, and "a majority would publish whichever
+state happened to win two runs, which is a coin flip wearing a reference's name" (the tool's own
+words). `materialize` gained `--omit PROFILE/SCENE=REASON`, which leaves the hole and writes it,
+with the reason and the states, into the bed's provenance. 103 of 104 2x cells published, 70 of
+them majority-settled with their shares recorded; at 1x 104 of 104, 3 settled. **The 2x
+reference is far less stable across runs than the 1x** — recorded for G3's fit, which reads the
+majority states with their shares.
+
+(c) **The two withdrawn cells are reinstated as readings, and §5.113 §6 is corrected beside.** In
+every 1x run the dark profile's `dark-solid__rrect-sm__rest` and `light-solid__rrect-sm__rest`
+are byte-identical to the same run's LIGHT profile's capture and to the W9 light grid's file — the
+flip reproducing under the controlled protocol with the same-sitting light capture as the control
+(`g1/sitting.md` §5 (a) named this outcome). They are dark-scheme readings whose appearance equals
+the light one: over `dark-solid` the collapse (every span to 64 collapses in both schemes, a shade
+below the backdrop, W23's finding); over `light-solid` a small surface renders the LIGHT
+appearance in the dark scheme where `rrect-md` and `-lg` render the dark material (0.096 / 0.103)
+— a size-keyed scheme adaptation of the reference, a term for the ledger, not a fixture defect.
+The withdrawal at Decision Log 3 (d) is overturned on this evidence.
+
+(d) **Clause 5 answered: the collapse keys on span, and the "collapse" of the large panel is the
+level law's floor.** `sweep-read.txt`: the clearance variant (`rrect-md` at rrect-lg's 20 px
+margin) reads exactly `rrect-md`'s body (0.0153) in both schemes at both scales, so edge
+proximity is not the key. Over `dark-solid` in the dark scheme the body reads 0.0110 at spans 32 /
+44 / 48 / 64 (collapsed), 0.0169 at 80, 0.0153 at 96, 0.0130 at 128 and 0.0110 at 160; in the
+light scheme 0.4739 / 0.4798 / 0.4910 / 0.5022 at 80 / 96 / 128 / 160. **Above the knee the level
+grades with span in the direction of the scheme's own material** — darker in dark, lighter in
+light — and the 160 px dark panel's collapsed level is where that decline arrives, not a switch.
+The W21 grid's contradiction closes. Consequence for G3: the level term above the knee is
+SCHEME-SIGNED (G2's 0.029 light and the dark grid's refusal were the two signs seen through three
+spans), and the dark document pins its own value, not 0 — Decision Log 4 (d) resolved. The numbers
+are identical at 1x and 2x to the fourth decimal: the reference's level is scale-invariant.
+
+(e) **G3 dispatched**: the renderer's goldens first (pending since G2); the probe set captured on
+the web on both tiers at both scales to scratch; every constant fitted on the probe set — the
+heavy share per scale (with the 2x lever through the floor, Decision Log 4 (e)), a `blurSigma2x`
+sibling if the 2x coarse checkerboards identify it, the level term per scheme, the along-side
+slope — each with its condition and its check off its rows; the declaration; the documents
+re-recorded once; the goldens under `W25_HASHES`; the dry run on all six profiles and both tiers
+with the holdout read once; the stops; the sheets.
+
 ## Surprises & Discoveries
 
 - **The haze was never measured on the web side.** The residual that says so was quoted as the
@@ -481,6 +543,14 @@ two withdrawn cells checked against the light grid's bytes, the bistable shares 
   manifest; and span is confounded with clearance on the canvas.
 - **The edge-spread reader binds on the backdrop's pitch.** No ceiling identifies a kernel wider
   than an eighth of the step.
+- **The reference's level above the knee grades in the scheme's own direction**, darker in dark
+  and lighter in light, identical at 1x and 2x to the fourth decimal; the large dark panel's
+  "collapse" is where the decline arrives.
+- **A small surface over a bright solid renders the light appearance in the dark scheme.** The
+  two "withdrawn" fixtures were readings: the flip reproduced in every run with the same-sitting
+  light capture as control.
+- **The 2x reference is unstable across runs where the 1x is not**: 70 of 104 cells multi-state
+  at 2x against 3 at 1x, one cell with no majority at all.
 - **The along-side field is a saddle, not a ramp.** The product of the normalised coordinates has
   the antisymmetry G0 measured; a ramp along the diagonal does not.
 - **The above-knee level residual is not the reference's grading — it is vitrea's own span curve
@@ -523,3 +593,6 @@ two withdrawn cells checked against the light grid's bytes, the bistable shares 
 - 2026-09-09: G1 DECLARED (merged `0f30529`) and the sitting started at 06:33Z after the rebuild
   and the user's re-grant; G2 CLOSED by the parent (claims §5.114; merged `17b7af1` inert);
   Decision Log 4 — every constant to G3 on the probe set, the two re-formed shapes accepted.
+- 2026-09-09: G1 CAPTURED (claims §5.115; `b60706b`); Decision Log 5 — one cell omitted by ruling,
+  the two withdrawn cells reinstated, clause 5 answered (span; the level's floor), the level term
+  scheme-signed; G3 dispatched.
