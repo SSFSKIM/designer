@@ -174,8 +174,11 @@ repository root. The builder receives the brief verbatim plus the serving mechan
   command and the import map.
 - `docs/research/scripts/glass-audit.mjs` (new); the rule item set in `docs/research/scripts/
   settling/rubric.py` or beside it.
-- Committed evidence: `docs/research/data/2026-09-10-liquid-glass-demos/` — captures, audit JSON,
-  the panel's rule and quality files, the user's ratings.
+- Committed evidence: `docs/research/data/2026-09-10-liquid-glass-demos/` — each demo's audit
+  JSON, the panel's rule and quality files, the user's comparison answers, `results.md`. The PNG
+  captures are not committed (the settling run's were not either): `glass-audit.mjs` regenerates
+  them from the committed page in one command, and `.gitignore` keeps the copies it writes inside
+  `apps/demos/<slug>/` out of the tree.
 
 ## Decision Log
 
@@ -253,3 +256,6 @@ Pending — written at finish.
   anchors and the brief list open.
 - 2026-09-10 (later): the taste anchors (macOS Tahoe) and the six briefs recorded; the user's eye
   made a comparison task on the quality instrument's finding; the manifest moved aside.
+- 2026-09-10 (builds landing): Files — the audit JSON is the committed evidence and the PNG
+  captures are regenerable, not committed; the copies the audit writes inside a demo directory are
+  gitignored.
