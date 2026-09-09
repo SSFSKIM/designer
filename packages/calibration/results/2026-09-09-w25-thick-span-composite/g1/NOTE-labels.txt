@@ -1,0 +1,6 @@
+The directory `1x/` and the run labels `w25-1x-N` were written while the BetterDisplay virtual
+display ("가상 16:9") was in its HiDPI arrangement (backingScaleFactor 2.0), so every manifest in
+`1x/run-*` carries the 2x profile keys — the harness files pixels under the scale it captures at.
+These runs ARE the 2x pass. The 1x pass is under `pass-1x/` with labels `w25-1x-N` again but the
+display's hiDPI OFF (2560x1440@1x), switched by `betterdisplaycli set --name="가상 16:9" --hiDPI=off`
+after `DONE-1x`, and confirmed by the app's own probe before the first run.

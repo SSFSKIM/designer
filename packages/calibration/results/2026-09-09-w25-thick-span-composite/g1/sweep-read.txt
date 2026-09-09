@@ -1,0 +1,17 @@
+W25 G1 — the collapse-key sweep read off the published probe cells (body = mean linear luma over
+the declared box eroded 6 CSS px; scenes.json sizes; the clear20 variant at its offset). The dark
+backdrop reads 0.0117.
+
+profile   rrect-sm(32) capsule(44) rrect-48 rrect-64 rrect-80 rrect-md(96) rrect-ml(128) rrect-lg(160) rrect-md-clear20(96, 20 px margin)
+1x-dark   0.0110       0.0110      0.0110   0.0110   0.0169   0.0153       0.0130        0.0110        0.0153
+2x-dark   0.0110       0.0110      0.0110   0.0110   0.0169   0.0153       0.0130        0.0110        0.0153
+1x-light  0.0110       0.0110      0.0110   0.0110   0.4739   0.4798       0.4910        0.5022        0.4798
+2x-light  0.0110       0.0110      0.0110   0.0110   0.4739   0.4798       0.4910        0.5023        0.4798
+
+Read: (1) the collapse keys on SPAN — the clearance variant at span 96 with rrect-lg's 20 px margin
+reads exactly rrect-md's 0.0153 in both schemes at both scales; (2) over dark-solid every span up to
+64 collapses in BOTH schemes (0.0110, a shade below the backdrop, byte-identical across schemes —
+the W23 finding), and 80 does not; (3) above the knee the level grades with span in the direction
+of the scheme's own material — dark 0.0169 → 0.0153 → 0.0130 → 0.0110 (80 → 160), light 0.4739 →
+0.4798 → 0.4910 → 0.5022 — so the W21 grid's "rrect-lg collapsed" is the dark decline reaching the
+collapsed level, not a switch; (4) the numbers are identical at 1x and 2x to the fourth decimal.

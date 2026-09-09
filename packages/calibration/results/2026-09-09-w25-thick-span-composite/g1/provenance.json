@@ -1,0 +1,262 @@
+{
+  "sitting": "W25 G1, 2026-09-09",
+  "display": "BetterDisplay virtual display '\uac00\uc0c1 16:9', 2560x1440; hiDPI ON (backingScaleFactor 2.0) for the 2x pass, OFF (1.0) for the 1x pass",
+  "protocol": "W9's: 6 s bare reset before each cell, fixed order, refused unless idle 45 s, seven attested runs per scale, majority byte-state per cell with shares recorded (materialize --set probe --frequency-settle)",
+  "passes": [
+    {
+      "scale": "2x",
+      "note": "captured FIRST, under directory '1x/' with run labels w25-1x-N because VITREA_SCALE=1 was requested on the HiDPI arrangement; the harness filed the pixels under the 2x profile keys it actually captured at (manifest caveat). Backgrounds rendered at the requested 1x naming; every synthetic backdrop's frozen-bed cell captured alongside is byte-identical to the canonical 2x fixture; the photo backdrop differs (max 7 codes, mean 0.88) and no probe scene uses it.",
+      "runs": [
+        {
+          "run": 1,
+          "label": "w25-1x-1",
+          "generatedAt": "2026-09-09T07:00:24Z",
+          "profiles": {
+            "apple-macos-26.5-2x-dark-standard": {
+              "attested": 66,
+              "of": 66,
+              "notKey": 0
+            },
+            "apple-macos-26.5-2x-light-standard": {
+              "attested": 92,
+              "of": 92,
+              "notKey": 0
+            }
+          }
+        },
+        {
+          "run": 2,
+          "label": "w25-1x-2",
+          "generatedAt": "2026-09-09T07:26:04Z",
+          "profiles": {
+            "apple-macos-26.5-2x-dark-standard": {
+              "attested": 66,
+              "of": 66,
+              "notKey": 0
+            },
+            "apple-macos-26.5-2x-light-standard": {
+              "attested": 92,
+              "of": 92,
+              "notKey": 0
+            }
+          }
+        },
+        {
+          "run": 3,
+          "label": "w25-1x-3",
+          "generatedAt": "2026-09-09T07:51:21Z",
+          "profiles": {
+            "apple-macos-26.5-2x-dark-standard": {
+              "attested": 32,
+              "of": 66,
+              "notKey": 34
+            },
+            "apple-macos-26.5-2x-light-standard": {
+              "attested": 46,
+              "of": 92,
+              "notKey": 46
+            }
+          }
+        },
+        {
+          "run": 4,
+          "label": "w25-1x-4",
+          "generatedAt": "2026-09-09T08:17:12Z",
+          "profiles": {
+            "apple-macos-26.5-2x-dark-standard": {
+              "attested": 66,
+              "of": 66,
+              "notKey": 0
+            },
+            "apple-macos-26.5-2x-light-standard": {
+              "attested": 92,
+              "of": 92,
+              "notKey": 0
+            }
+          }
+        },
+        {
+          "run": 5,
+          "label": "w25-1x-5",
+          "generatedAt": "2026-09-09T08:42:57Z",
+          "profiles": {
+            "apple-macos-26.5-2x-dark-standard": {
+              "attested": 66,
+              "of": 66,
+              "notKey": 0
+            },
+            "apple-macos-26.5-2x-light-standard": {
+              "attested": 92,
+              "of": 92,
+              "notKey": 0
+            }
+          }
+        },
+        {
+          "run": 6,
+          "label": "w25-1x-6",
+          "generatedAt": "2026-09-09T09:08:53Z",
+          "profiles": {
+            "apple-macos-26.5-2x-dark-standard": {
+              "attested": 66,
+              "of": 66,
+              "notKey": 0
+            },
+            "apple-macos-26.5-2x-light-standard": {
+              "attested": 92,
+              "of": 92,
+              "notKey": 0
+            }
+          }
+        },
+        {
+          "run": 7,
+          "label": "w25-1x-7",
+          "generatedAt": "2026-09-09T09:34:42Z",
+          "profiles": {
+            "apple-macos-26.5-2x-dark-standard": {
+              "attested": 66,
+              "of": 66,
+              "notKey": 0
+            },
+            "apple-macos-26.5-2x-light-standard": {
+              "attested": 92,
+              "of": 92,
+              "notKey": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "scale": "1x",
+      "note": "captured SECOND after 'betterdisplaycli set --hiDPI=off', the bundle's own probe reading backingScaleFactor 1.0 before the first run.",
+      "runs": [
+        {
+          "run": 1,
+          "label": "w25-1x-1",
+          "generatedAt": "2026-09-09T10:07:11Z",
+          "profiles": {
+            "apple-macos-26.5-1x-dark-standard": {
+              "attested": 66,
+              "of": 66,
+              "notKey": 0
+            },
+            "apple-macos-26.5-1x-light-standard": {
+              "attested": 92,
+              "of": 92,
+              "notKey": 0
+            }
+          }
+        },
+        {
+          "run": 2,
+          "label": "w25-1x-2",
+          "generatedAt": "2026-09-09T10:32:56Z",
+          "profiles": {
+            "apple-macos-26.5-1x-dark-standard": {
+              "attested": 66,
+              "of": 66,
+              "notKey": 0
+            },
+            "apple-macos-26.5-1x-light-standard": {
+              "attested": 92,
+              "of": 92,
+              "notKey": 0
+            }
+          }
+        },
+        {
+          "run": 3,
+          "label": "w25-1x-3",
+          "generatedAt": "2026-09-09T10:58:23Z",
+          "profiles": {
+            "apple-macos-26.5-1x-dark-standard": {
+              "attested": 66,
+              "of": 66,
+              "notKey": 0
+            },
+            "apple-macos-26.5-1x-light-standard": {
+              "attested": 92,
+              "of": 92,
+              "notKey": 0
+            }
+          }
+        },
+        {
+          "run": 4,
+          "label": "w25-1x-4",
+          "generatedAt": "2026-09-09T11:23:58Z",
+          "profiles": {
+            "apple-macos-26.5-1x-dark-standard": {
+              "attested": 66,
+              "of": 66,
+              "notKey": 0
+            },
+            "apple-macos-26.5-1x-light-standard": {
+              "attested": 92,
+              "of": 92,
+              "notKey": 0
+            }
+          }
+        },
+        {
+          "run": 5,
+          "label": "w25-1x-5",
+          "generatedAt": "2026-09-09T11:49:33Z",
+          "profiles": {
+            "apple-macos-26.5-1x-dark-standard": {
+              "attested": 66,
+              "of": 66,
+              "notKey": 0
+            },
+            "apple-macos-26.5-1x-light-standard": {
+              "attested": 92,
+              "of": 92,
+              "notKey": 0
+            }
+          }
+        },
+        {
+          "run": 6,
+          "label": "w25-1x-6",
+          "generatedAt": "2026-09-09T12:15:08Z",
+          "profiles": {
+            "apple-macos-26.5-1x-dark-standard": {
+              "attested": 66,
+              "of": 66,
+              "notKey": 0
+            },
+            "apple-macos-26.5-1x-light-standard": {
+              "attested": 92,
+              "of": 92,
+              "notKey": 0
+            }
+          }
+        },
+        {
+          "run": 7,
+          "label": "w25-1x-7",
+          "generatedAt": "2026-09-09T12:40:51Z",
+          "profiles": {
+            "apple-macos-26.5-1x-dark-standard": {
+              "attested": 66,
+              "of": 66,
+              "notKey": 0
+            },
+            "apple-macos-26.5-1x-light-standard": {
+              "attested": 92,
+              "of": 92,
+              "notKey": 0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "exclusions": [
+    "2x: apple-macos-26.5-2x-dark-standard/checkerboard-8__capsule-button__rest omitted by ruling (three structurally different settled appearances 3/3/1 across the seven runs; W25 Decision Log 5)",
+    "2x run 3: 80 of 158 cells captured while the window was not key (a remote Screen Sharing user was active); those cells are unattested in that run and the per-cell majority is over the runs that attested them"
+  ],
+  "withdrawnCellsCheck": "dark-solid__rrect-sm__rest and light-solid__rrect-sm__rest: in every 1x run the dark profile's bytes equal the light profile's and the W9 light grid's file (sha 5bd00ed70c52 / 11eb56b7dd62). The flip reproduces under the controlled protocol with the same-sitting light capture as control: these are dark-scheme readings whose appearance equals the light one, not light frames."
+}
