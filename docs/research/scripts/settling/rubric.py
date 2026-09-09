@@ -3,6 +3,7 @@
 statements, the rater prompt, and the record shapes every other script reads.
 
     python3 rubric.py prompt <brief> <rater> [<seed>] [--retest]   one rater's prompt for one brief
+    python3 rubric.py prompt <brief> <rater> --only e1             the revised item alone, to <brief>-revised.json
     python3 rubric.py items [<brief>]                              the item list for a brief
     python3 rubric.py anchor                                       the anchor set's page ids
 
@@ -27,7 +28,15 @@ THREE = "0 absent; 1 present but deficient; 2 present and adequate"
 BINARY = "0 not seen, 1 seen"
 D1 = ("7 deliver as it is; 5 cosmetic fixes only (tokens, spacing, copy); 3 structural rework (a region "
       "added, moved or re-formed); 1 start over; 6, 4 and 2 between")
-E1 = "1 this page looks like nothing I have seen for this kind of brief; 7 this is the default page for this kind of brief"
+# e1's first wording (superseded 2026-09-10 by the one pre-registered revision; kept for the record —
+# the first pass's e1 is reported beside the revised one as e1_v1):
+E1_V1 = "1 this page looks like nothing I have seen for this kind of brief; 7 this is the default page for this kind of brief"
+E1_V1_TEXT = "How conventional is this page for its brief?"
+E1 = ("1 departs from the standard layout for its kind in its main structure; 4 the standard shell with one "
+      "departure; 7 the standard layout for its kind throughout")
+E1_TEXT = ("How closely does this page follow the standard layout for its kind of page — for a console, a left "
+           "sidebar or top tabs, a row of summary tiles, then tables or panels; for a public page, a hero, a row "
+           "of three feature cards, then stacked sections? Judge the structure, not the colours or the type.")
 # The brief-independent items in rating order: (key, block, statement, scale). The b-items and the
 # tone item come from BRIEF_FIT per brief and are spliced in by items_for().
 ITEMS = [
@@ -42,7 +51,7 @@ ITEMS = [
     ("c4", "defects", "Spacing or alignment inconsistent between like elements.", BINARY),
     ("c5", "defects", "The layout is wider than the viewport, or scrolls sideways.", BINARY),
     ("d1", "deliverability", "What would this page need before you delivered it to the client who wrote the brief?", D1),
-    ("e1", "conventionality", "How conventional is this page for its brief?", E1),
+    ("e1", "conventionality", E1_TEXT, E1),
 ]
 # Brief fit: one fact per item on the 0–2 presence scale, and where the brief states a tone, one
 # tone item on the 7-point scale (spec, The rubric, B).
@@ -127,11 +136,31 @@ def captures(i):
     return [os.path.join(d, f) for f in CAPTURES if os.path.exists(os.path.join(d, f))]
 
 
-def prompt(brief, rater, seed=None, retest=False):
+def prompt(brief, rater, seed=None, retest=False, only=None):
+    """A rater's prompt for one brief. `only` names the items of a pre-registered wording revision:
+    the same pages in the first pass's order, the first viewport and the full page only (the
+    revised item is a structural read; the tiles serve the c-items), no evidence, written to
+    <brief>-revised.json, and analyze.py swaps the revised value in over the first pass's."""
     seed = seed_for(rater, brief, retest) if seed is None else int(seed)
     order = order_for(brief, seed)
-    out = os.path.join(rate.WS, "rubric", rater, brief + ("-retest" if retest else "") + ".json")
+    out = os.path.join(rate.WS, "rubric", rater, brief + ("-retest" if retest else "-revised" if only else "") + ".json")
     ev = cells_for(brief)[0]["eval"]
+    if only:
+        its = [it for it in items_for(brief) if it[0] in only]
+        L = ["You are a blinded rater for a design experiment. The pages below were built from one brief by different builders; you do not know which builder made which and must not try to find out. Open nothing under the build directories except the capture files named per page. Do not run git.",
+             "", f'Brief (verbatim): "{rate.brief_text(ev)}"', "",
+             "Pages, in the order to read them, each with its first viewport (1440 × 900) and its full page. Read both captures of every page once before rating any page; the eight pages are the frame for every rating.", ""]
+        for i in order:
+            d = os.path.join(rate.WS, "builds", i)
+            L.append(f"- {i}: " + ", ".join(os.path.join(d, f) for f in ("shot-fv.png", "shot-full.png") if os.path.exists(os.path.join(d, f))))
+        L += ["", f"Then rate every page on the item{'s' if len(its) > 1 else ''} below, in the page order above. Use the whole scale.", ""]
+        for k, block, text, scale in its:
+            L.append(f"- {k} ({block}) [{scale}]: {text}")
+        shape = {k: ("<1–7>" if scale_kind(k) == "seven" else "<0–2>" if scale_kind(k) == "three" else "<0|1>") for k, *_ in its}
+        L += ["", "Write the result as JSON to", f"`{out}` (create the directory; overwrite the file), in exactly this shape, numbers as JSON numbers:",
+              json.dumps({"rater": rater, "brief": brief, "seed": seed, "order": order, "revised": [k for k, *_ in its], "pages": {"<id>": shape}}, ensure_ascii=False),
+              "", "Then report in one sentence which pages scored highest and lowest. Do not modify anything else."]
+        return "\n".join(L)
     L = ["You are a blinded rater for a design experiment. The pages below were built from one brief by different builders; you do not know which builder made which and must not try to find out. Open nothing under the build directories except the capture files named per page. Do not run git.",
          "",
          f'Brief (verbatim): "{rate.brief_text(ev)}"',
@@ -177,8 +206,10 @@ def human_retest_ids():
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
     if cmd == "prompt":
-        retest = "--retest" in sys.argv; a = [x for x in sys.argv[2:] if x != "--retest"]
-        print(prompt(a[0], a[1], a[2] if len(a) > 2 else None, retest))
+        retest = "--retest" in sys.argv
+        only = sys.argv[sys.argv.index("--only") + 1].split(",") if "--only" in sys.argv else None
+        a = [x for x in sys.argv[2:] if x not in ("--retest", "--only") and not (only and x == ",".join(only))]
+        print(prompt(a[0], a[1], a[2] if len(a) > 2 else None, retest, only))
     elif cmd == "items":
         b = sys.argv[2] if len(sys.argv) > 2 else "library"
         for k, block, text, scale in items_for(b): print(k, block, "|", text, "|", scale)

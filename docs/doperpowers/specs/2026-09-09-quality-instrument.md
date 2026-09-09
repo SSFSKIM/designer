@@ -389,6 +389,27 @@ Pending — written after the diagnosis, once the instrument is accepted.
   premise that the diagnosis, not a doctrine change, comes next.
   Date/Author: 2026-09-09, the user.
 
+- Decision: The one pre-registered wording revision is spent on e1, and on nothing else. First
+  wording: "How conventional is this page for its brief?" [1 this page looks like nothing I have
+  seen for this kind of brief; 7 this is the default page for this kind of brief], α 0.35 pooled and
+  0.25 on the 2.x pages, and the Claude pair at −0.05 on that set. Revised wording: "How closely
+  does this page follow the standard layout for its kind of page — for a console, a left sidebar
+  or top tabs, a row of summary tiles, then tables or panels; for a public page, a hero, a row of
+  three feature cards, then stacked sections? Judge the structure, not the colours or the type."
+  [1 departs from the standard layout for its kind in its main structure; 4 the standard shell with
+  one departure; 7 the standard layout for its kind throughout]. The panel re-rates every brief on
+  e1 alone, the same pages in the first pass's order, from the first viewport and the full page
+  (a structural read; the tiles serve the c-items); the first pass's e1 is kept as e1_v1 and both
+  α are printed. The user's form carries the revised wording; the user had not rated.
+  Rationale: of the four items under 0.4 on the 2.x pages (a1, a2, a3, e1), the three aesthetics
+  items are the published VisAWI-S wording, their pooled α is 0.43–0.49, and their fall on the 2.x
+  set is range restriction on competent pages plus rater level — not ambiguity a rewrite would
+  cure, and a rewrite would forfeit the validated anchor. e1 was this spec's own wording, is
+  ambiguous between genre-typical structure and visual familiarity, and is the item the grammar
+  reading's third step depends on. Thresholds unchanged; d1 (0.46) could not trip the revision and
+  was not offered it.
+  Date/Author: 2026-09-10, Claude.
+
 - Decision: The independent critique's findings, adopted before any rating (the spec's second
   revision): the reliability gate reads d1's α over the 26 `v2.0` and `v2.1` pages and between the
   two family means, not only pooled over 52; the grammar reading has a confirmation gate and a
@@ -409,6 +430,20 @@ Pending — written after the diagnosis, once the instrument is accepted.
   Date/Author: 2026-09-09, Claude, from the doperpowers:critique review.
 
 ## Surprises & Discoveries
+
+- Observation: The panel's first pass (28 runs, four raters, 52 pages, 2026-09-10). Brief fit is
+  reliable (α 0.83 pooled, 0.86 on the 26 2.x pages); defects 0.56; aesthetics 0.57 pooled but 0.37
+  on the 2.x pages; d1 0.48 pooled and 0.46 [0.21–0.64] on the 2.x pages, under the 0.67 floor;
+  e1 0.35 / 0.25. The GPT pair (one model at two efforts) agrees with itself at 0.87 on d1, the
+  Claude pair at 0.34, the two family means at 0.43. What the α hides: the raters order the pages
+  within a brief alike — mean within-brief Spearman ρ on d1 0.65 for same-family pairs and 0.66
+  across families — and differ in level: mean d1 4.35 (astra-high) to 5.58 (claude-sonnet), and
+  the lenient rater counts a third as many defects. So the d1 disagreement is mostly scale use,
+  not ordering, which the ordinal α charges in full and the pre-registered floor does not forgive.
+  Also: c4 (spacing inconsistency) is unreadable at α 0.08; c3 is too rare to measure on the 2.x
+  pages; retest α per rater 0.63 (claude-opus) to 0.89 (astra-medium), with the 0.67 floor missed
+  by one rater.
+  Evidence: `results.md`, R, the family split and the level-or-order tables.
 
 - Observation: Recapturing all 52 builds under the fixed protocol changed no gate verdict and moved
   one contrast rate by 0.02 (fleet `none` A, 1.0 → 0.979, more text rendered after the font wait);
@@ -442,5 +477,7 @@ Pending — written at finish.
   the rubric, raters, captures, acceptance and stop declared before any rating; the user's three
   choices (anchor set, d1 as endpoint, conventionality reported) recorded.
 - 2026-09-09 (second revision, before any rating): the independent critique's findings adopted —
-  see the Decision Log's last entry; the b-items, d1's anchors, the user's form, the reliability
-  lines, the three outcomes, the grammar reading's gate and coding method all changed.
+  see the Decision Log; the b-items, d1's anchors, the user's form, the reliability lines, the
+  three outcomes, the grammar reading's gate and coding method all changed.
+- 2026-09-10: the panel's first pass and retests in (Surprises); the one wording revision spent on
+  e1 (Decision Log); the level-or-order diagnostic added to the report beside the family split.

@@ -115,10 +115,13 @@ def load_rubric():
             rd = os.path.join(d, rater)
             if not os.path.isdir(rd):
                 continue
+            revised = []
             for f in sorted(os.listdir(rd)):
                 if not f.endswith(".json"):
                     continue
                 rec = json.load(open(os.path.join(rd, f)))
+                if f.endswith("-revised.json"):
+                    revised.append(rec); continue
                 into = retest if f.endswith("-retest.json") else first
                 for pid, page in (rec.get("pages") or {}).items():
                     vals = {k: _num(page.get(k)) for k in ITEM_KEYS}
@@ -127,6 +130,17 @@ def load_rubric():
                         into[rater][pid] = vals
                 if into is first and rec.get("order"):
                     orders[rater][rec.get("brief", f[:-5])] = rec["order"]
+            # The one pre-registered wording revision: the revised value replaces the first pass's
+            # for that item, and the first pass's value is kept as <item>_v1 so both α are printed.
+            for rec in revised:
+                for pid, page in (rec.get("pages") or {}).items():
+                    for k in rec.get("revised", []):
+                        v = _num(page.get(k))
+                        if v is None or pid not in first[rater]:
+                            continue
+                        if k in first[rater][pid]:
+                            first[rater][pid][k + "_v1"] = first[rater][pid][k]
+                        first[rater][pid][k] = v
     # The user's file is one line per (page, pass): pass 2 is her own retest, and a later line for
     # the same slot supersedes an earlier one, as rate.py's queue reads it.
     human = {}
@@ -599,7 +613,11 @@ if sa["n"]:
 # being collected, and α over two raters on one brief is not the number the acceptance floors mean.
 rubric_json = {"raters": PANEL, "families": {r: family_of(r) for r in PANEL}, "human": bool(HUMAN),
                "pages": len(rated), "panelPages": len(panel_rated), "twoXPages": len(two_x_rated)}
-ALPHA_ROWS = ITEM_KEYS + COMPOSITES
+# A superseded wording's first-pass values (<item>_v1) get their own α row when any rater has them.
+SUPERSEDED = [k + "_v1" for k in REVISABLE if any((k + "_v1") in v for r in rub for v in rub[r].values())]
+for _k in SUPERSEDED:
+    ROW_LABEL[_k] = f"{_k[:-3]} (first wording, superseded by the revision)"
+ALPHA_ROWS = ITEM_KEYS + SUPERSEDED + COMPOSITES
 SCHEDULE = rate.schedule() if manifest else []
 
 
