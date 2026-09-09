@@ -253,13 +253,33 @@ const same = (next: number, existing: number): boolean =>
  * comparison is exact for a source whose size held, and a source whose size
  * moved re-dirties through its own epoch anyway.
  */
+/**
+ * Whether two heavy σ would produce the same heavy blur — the ON/OFF state
+ * EXACTLY, and only then the tolerance.
+ *
+ * `same` is a relative tolerance, and a relative tolerance around zero is an
+ * absolute one of 1e-6: it calls σ 1e-7 and σ 0 equal. Those two are not equal
+ * here, because they differ in KIND rather than in width. At 0 there is no heavy
+ * texture and the optics pass takes the chain tap; at 1e-7 there is one, and
+ * `heavyTapPlan` resolves that σ to level 0 with no residual — an unsampled copy
+ * of the backdrop, which is the narrowest thing the mechanism can draw and the
+ * furthest from what σ 0 means. So a material returning to 0 from a tiny positive
+ * width has to REBUILD, and the tolerance applies only between two widths that
+ * are both on.
+ *
+ * Exported because `renderer.ts` asks the same question of a clean source before
+ * it asks the store anything, and the two must not be able to disagree.
+ */
+export const sameHeavySigma = (next: number, existing: number): boolean =>
+  next > 0 === existing > 0 && same(next, existing);
+
 const sameBody = (existing: PyramidResources, request: PyramidBuildRequest): boolean =>
   same(densityOf({ width: existing.sourceWidth, height: existing.sourceHeight }, request), existing.texelsPerCss)
   && same(request.bodySigmaCss, existing.bodySigmaCss)
   // The heavy blur rides the same key: it is built from the same chain at the
   // same density, so a σ that moved makes the texture on the source stale in
   // exactly the way a moved body σ does.
-  && same(request.heavySigmaCss, existing.heavySigmaCss);
+  && sameHeavySigma(request.heavySigmaCss, existing.heavySigmaCss);
 
 export function createPyramidStore(context: GpuContext): PyramidStore {
   const { device, pool, cache } = context;
@@ -403,16 +423,26 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
      * the mechanism cost nothing there: no allocation, no two passes, and the
      * optics pass takes the single `textureSampleLevel` it has always taken.
      */
-    const heavy =
-      heavyLevel === undefined
-        ? undefined
-        : pool.acquire(poolKey.backdropHeavy(sourceId), {
-            width: levelSize(heavyLevel).width,
-            height: levelSize(heavyLevel).height,
-            format: WORKING_TEXTURE_FORMAT,
-            usage: chainUsage(),
-            label: `vitrea:pyramid:${sourceId}:heavy`,
-          });
+    let heavy: GPUTexture | undefined;
+    if (heavyLevel === undefined) {
+      // And RELEASED where it is not, rather than merely dropped from the record.
+      // A material that sets the width back to 0 leaves a source whose pool still
+      // holds the heavy texture and its scratch — two more full-level allocations
+      // that nothing will ever bind and that only `forget` would reclaim, so they
+      // would be held until the source is unregistered. The pool tolerates a
+      // release of a key it does not hold, so this is also the path a source that
+      // never had a heavy blur takes.
+      pool.release(poolKey.backdropHeavy(sourceId));
+      pool.release(poolKey.backdropHeavyScratch(sourceId));
+    } else {
+      heavy = pool.acquire(poolKey.backdropHeavy(sourceId), {
+        width: levelSize(heavyLevel).width,
+        height: levelSize(heavyLevel).height,
+        format: WORKING_TEXTURE_FORMAT,
+        usage: chainUsage(),
+        label: `vitrea:pyramid:${sourceId}:heavy`,
+      });
+    }
 
     let stats = existing?.stats;
     if (stats === undefined) {

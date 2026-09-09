@@ -237,7 +237,14 @@ function opticsUniformWrites(gpu: FakeGpu): Float32Array[] {
 /** The heavy blur's enable lands at d[108] (`heavyTap.x`; see `passes.ts`). */
 const heavyEnabledOf = (write: Float32Array): number => write[108] as number;
 
-function drawOnce(overrides?: MaterialProfilePatch) {
+/**
+ * A renderer with one group over one gradient source, drawn once.
+ *
+ * `size` is the SOURCE's, not the viewport's: the leak below is a per-source
+ * allocation and the review's scenario states it at 1024², where the heavy
+ * texture and its scratch are 16 MiB of rgba16float apiece.
+ */
+function harness(overrides?: MaterialProfilePatch, size = 320) {
   const gpu = createFakeGpu();
   const writes = opticsUniformWrites(gpu);
   const renderer = createWebGPURenderer({
@@ -252,15 +259,69 @@ function drawOnce(overrides?: MaterialProfilePatch) {
       device: gpu.device,
       stops: linearGradientStops([0, 0, 0], [1, 1, 1]),
       generation: 1,
-      width: 320,
-      height: 200,
+      width: size,
+      height: size === 320 ? 200 : size,
     }),
   );
+  return { gpu, renderer, writes };
+}
+
+function drawOnce(overrides?: MaterialProfilePatch) {
+  const { gpu, renderer, writes } = harness(overrides);
   renderer.drawFrame(frameArgs(1));
   const last = writes.at(-1);
   expect(last).toBeDefined();
   return { gpu, write: last as Float32Array };
 }
+
+/** Every heavy texture the fake device ever made for the source, and whether it is still alive. */
+const heavyTextures = (gpu: FakeGpu) =>
+  gpu.textures.filter((t) => t.label.endsWith(":heavy") || t.label.endsWith(":heavy-scratch"));
+
+describe("W26 the heavy blur is given back when the material stops asking for it", () => {
+  it("releases the heavy texture AND its scratch when the width returns to 0", () => {
+    // The review's scenario, and the leak it found: dropping `heavy` from the
+    // record leaves the pool holding both allocations, which nothing will bind
+    // and only `forget` would reclaim — 16 MiB of rgba16float each on a 1024²
+    // source, held until the source is unregistered.
+    const { gpu, renderer } = harness({ sizeHeavyTapSigma: 1, sizeHeavyTapSigma2x: 1 }, 1024);
+    renderer.drawFrame(frameArgs(1));
+    const built = heavyTextures(gpu);
+    expect(built.length).toBe(2);
+    expect(built.every((t) => !t.destroyed)).toBe(true);
+
+    renderer.setMaterialProfile({});
+    renderer.drawFrame(frameArgs(2));
+    expect(
+      heavyTextures(gpu).filter((t) => !t.destroyed),
+      "the heavy texture and its scratch are still held after the width returned to 0",
+    ).toEqual([]);
+  });
+
+  it("rebuilds a source whose width was a hair above 0, rather than calling it unchanged", () => {
+    // The tolerance comparison's blind spot: `same` is relative, so around zero it
+    // is an absolute tolerance of 1e-6 and it calls σ 1e-7 and σ 0 equal. They are
+    // not — at 1e-7 the plan resolves to level 0 with no residual, an unsampled
+    // copy of the backdrop, which is the FURTHEST thing from the chain tap σ 0
+    // means. A clean source would have kept it and the pass would have kept
+    // reading it.
+    const { gpu, renderer, writes } = harness({
+      sizeHeavyTapSigma: 1e-7,
+      sizeHeavyTapSigma2x: 1e-7,
+    });
+    renderer.drawFrame(frameArgs(1));
+    expect(heavyEnabledOf(writes.at(-1) as Float32Array)).toBe(1);
+    expect(heavyTextures(gpu).filter((t) => !t.destroyed).length).toBe(2);
+
+    renderer.setMaterialProfile({});
+    renderer.drawFrame(frameArgs(2));
+    expect(
+      heavyEnabledOf(writes.at(-1) as Float32Array),
+      "the optics pass is still bound to a heavy texture the material stopped asking for",
+    ).toBe(0);
+    expect(heavyTextures(gpu).filter((t) => !t.destroyed)).toEqual([]);
+  });
+});
 
 describe("W26 the slot plumbing", () => {
   it("writes the enable at zero on the landed material", () => {

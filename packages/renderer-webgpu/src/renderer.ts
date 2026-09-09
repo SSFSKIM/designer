@@ -103,7 +103,12 @@ import {
   type MaterialVariant,
 } from "./material";
 import { createPassRunner, type DeviceRect, type PassRunner } from "./passes";
-import { createPyramidStore, type PyramidResources, type PyramidStore } from "./pyramid";
+import {
+  createPyramidStore,
+  sameHeavySigma,
+  type PyramidResources,
+  type PyramidStore,
+} from "./pyramid";
 import { chainLodForSigma, type ResolutionPolicyView } from "./pyramid-plan";
 import type {
   FrameContextView,
@@ -492,10 +497,11 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       // The heavy blur rides the same staleness rule (W26): it is built from the
       // same chain at the same density, so a ratio change that moved the body's
       // σ moved its σ too, and a clean source would otherwise keep the previous
-      // display's heavy width.
-      const heavyCss = heavySigmaCssFor();
-      const sameHeavy =
-        Math.abs(heavyCss - existing.heavySigmaCss) <= 1e-6 * Math.max(1, existing.heavySigmaCss);
+      // display's heavy width. Through `sameHeavySigma` rather than the tolerance
+      // above it, because the width's ON/OFF state is not a small difference in a
+      // number: a tolerance around zero calls σ 1e-7 and σ 0 equal, and those two
+      // are a heavy texture the pass binds and no heavy texture at all.
+      const sameHeavy = sameHeavySigma(heavySigmaCssFor(), existing.heavySigmaCss);
       if (sameDensity && sameSigma && sameHeavy) continue;
       requests.push({
         sourceId,
