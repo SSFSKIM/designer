@@ -37,8 +37,12 @@ def load_dir(name):
                 out += [json.loads(l) for l in open(os.path.join(d, f)) if l.strip()]
     return out
 
-judgm = load_dir("judgments-model")        # the second judge (a blinded model rater), one file per brief
+judgm = load_dir("judgments-model")        # the second judge (a blinded astra-medium rater), one file per brief
 judgm1 = load_dir("judgments-model-run1")  # its first run, fanned out per brief on a pre-fix schedule
+judgb = load_dir("judgments-model-b")      # the third judge (a blinded claude-opus rater), same pairs, same shape
+# Every judge's list by name, in the order the report prints them. The human file stays the
+# primary endpoint and the only one the validity gate's human clause reads.
+JUDGES = [(n, j) for n, j in (("human", judg), ("astra-medium", judgm), ("claude-opus", judgb)) if j]
 fit = {}
 _fitdir = os.path.join(WS, "fit")
 if os.path.isdir(_fitdir):
@@ -108,6 +112,40 @@ def tally(judgments):
 
 H = tally(judg); M = tally(judgm)
 wins, appear, won, armpair, bt = H["wins"], H["appear"], H["won"], H["armpair"], H["bt"]
+
+def majority(judge_lists):
+    """One synthetic judgment per pair every listed judge decided, the winner by majority; with
+    an odd number of judges there is no tie. The human's own tired-day caveat and the
+    chance-level human–model agreement are why the tiebreak is a majority of three and not one
+    judge overruling another (Decision Log, 2026-09-09)."""
+    key = lambda j: frozenset((j["left"], j["right"]))
+    win = lambda j: j["left"] if j["choice"] == "left" else j["right"]
+    votes = defaultdict(list); first = {}
+    for jl in judge_lists:
+        for j in jl:
+            votes[key(j)].append(win(j)); first.setdefault(key(j), j)
+    out = []
+    for k, v in votes.items():
+        if len(v) < len(judge_lists):
+            continue
+        w = max(set(v), key=v.count)
+        if v.count(w) * 2 <= len(v):
+            continue  # an even split: no majority, the pair is left out
+        j = first[k]
+        out.append({"pair": j["pair"], "left": j["left"], "right": j["right"], "choice": "left" if w == j["left"] else "right",
+                    "votes": v.count(w), "of": len(v), "judge": "majority"})
+    return out
+
+judgc = majority([j for _, j in JUDGES]) if len(JUDGES) >= 3 else []
+C = tally(judgc) if judgc else None
+
+def h2_read(T):
+    """H2's two thresholds and the stop rule's quality clause from one judge's arm-pair table:
+    v2.1 against v1.1 (≥ 45 %; the clause fires under 35 %) and v2.1 against none (≥ 60 %)."""
+    k1, n1 = T["armpair"].get(("v1.1", "v2.1"), [0, 0]); k0, n0 = T["armpair"].get(("none", "v2.1"), [0, 0])
+    r1 = (n1 - k1) / n1 if n1 else None; r0 = (n0 - k0) / n0 if n0 else None
+    return {"v21_vs_v11": (n1 - k1, n1, r1), "v21_vs_none": (n0 - k0, n0, r0),
+            "h2": (r1 is not None and r1 >= 0.45 and r0 is not None and r0 >= 0.60), "stop": (r1 is not None and r1 < 0.35)}
 
 def agreement(a, b):
     """Raw agreement and Cohen's kappa between two judges over the pairs both judged, keyed by
@@ -245,7 +283,7 @@ def shapes(i):
 out = []
 P = out.append
 P("# Settling experiment — results\n")
-P(f"Builds measured: {len(built)} of {len(manifest)}. Judgments: {len(judg)} (human), {len(judgm)} (model). Topology: {'yes' if topo else 'no'}. Fit ratings: {len(fit)}.\n")
+P(f"Builds measured: {len(built)} of {len(manifest)}. Judgments: " + ", ".join(f"{len(j)} ({n})" for n, j in JUDGES) + f". Topology: {'yes' if topo else 'no'}. Fit ratings: {len(fit)}.\n")
 
 def q_report(title, T, n):
     P(f"## {title}\n")
@@ -268,16 +306,28 @@ def q_report(title, T, n):
 
 q_report("Q — pairwise quality (human, blinded; the primary endpoint)", H, len(judg))
 q_report("Q2 — the model judge (astra-medium, blinded; secondary)", M, len(judgm))
-ag = agreement(judg, judgm)
+if judgb:
+    q_report("Q3 — the third judge (claude-opus, blinded; secondary)", tally(judgb), len(judgb))
+if C:
+    q_report("Q★ — majority of the three judges (the tiebreak adopted 2026-09-09)", C, len(judgc))
+    P(f"Unanimous on {sum(1 for j in judgc if j['votes'] == j['of'])} of {len(judgc)} pairs; the human is outvoted on "
+      f"{sum(1 for j in judgc if (j['left'] if j['choice'] == 'left' else j['right']) != next((x['left'] if x['choice'] == 'left' else x['right']) for x in judg if frozenset((x['left'], x['right'])) == frozenset((j['left'], j['right']))))}.\n")
+
+P("### H2 and the stop rule's quality clause, per judge\n")
+P("| judge | v2.1 over v1.1 | v2.1 over none | H2 (≥ 45 % and ≥ 60 %) | stop clause (< 35 %) |\n|---|---|---|---|---|")
+for name, T in [(n, tally(j)) for n, j in JUDGES] + ([("majority", C)] if C else []):
+    r = h2_read(T); f = lambda t: f"{t[0]}/{t[1]} ({t[2]:.2f})" if t[2] is not None else "—"
+    P(f"| {name} | {f(r['v21_vs_v11'])} | {f(r['v21_vs_none'])} | {'met' if r['h2'] else 'not met'} | {'fires' if r['stop'] else 'does not fire'} |")
+P("")
+
 P("### Agreement between the judges\n")
-if ag["n"]:
-    P(f"Pairs judged by both: {ag['n']}. Same winner on {ag['agree']} ({ag['po']:.2f}); Cohen's κ {ag['kappa']:.2f}.\n")
-    P("| brief | agree | n |\n|---|---|---|")
-    for b, (k, n) in sorted(ag["per_brief"].items()):
-        P(f"| {b} | {k} | {n} |")
-    P("")
-else:
-    P("No pair judged by both yet.\n")
+agreements = {}
+for (na, ja), (nb, jb) in itertools.combinations(JUDGES, 2):
+    ag = agreement(ja, jb); agreements[f"{na}|{nb}"] = ag
+    if not ag["n"]:
+        P(f"{na} and {nb}: no pair judged by both yet.\n"); continue
+    P(f"**{na} and {nb}.** Pairs judged by both: {ag['n']}. Same winner on {ag['agree']} ({ag['po']:.2f}); Cohen's κ {ag['kappa']:.2f}. "
+      + "Per brief: " + ", ".join(f"{b} {k}/{n}" for b, (k, n) in sorted(ag["per_brief"].items())) + ".\n")
 sa = agreement(judgm1, judgm) if judgm1 else {"n": 0}
 if sa["n"]:
     P("### The model judge against itself\n")
@@ -414,6 +464,8 @@ outp = os.path.join(WS, "results.md")
 if "--out" in sys.argv:
     outp = sys.argv[sys.argv.index("--out") + 1]
 open(outp, "w").write(res)
+_j = lambda T: {"bt": T["bt"], "armpair": {f"{a}|{b}": v for (a, b), v in T["armpair"].items()}, "h2": h2_read(T)}
 json.dump({"bt": bt, "armpair": {f"{a}|{b}": v for (a, b), v in armpair.items()}, "valid": {c["id"]: valid(c["id"]) for c in built},
+           "judges": {n: _j(tally(j)) for n, j in JUDGES}, "majority": (_j(C) if C else None), "agreement": agreements,
            "shapes": {c["id"]: shapes(c["id"]) for c in built}}, open(os.path.join(WS, "results.json"), "w"), indent=1)
 print(res)

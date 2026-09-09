@@ -155,13 +155,15 @@ per build, so this is roughly twelve acceptance runs' worth.
 - `docs/research/scripts/settling/cells.mjs` — manifest and prompts;
   `measure.mjs` — screenshots, tokens, the mechanical gate, the topology run;
   `rate.py` — the blinded pairwise page and its judgment log;
-  `judge.py` — the second judge's prompt per brief, on the same pairs;
+  `judge.py` — a model judge's prompt per brief, on the same pairs (judge name and output
+  directory as arguments);
   `analyze.py` — Bradley–Terry, diversity, effective diversity, the report.
 - `figma-design-workspace/settling/` (gitignored): frozen skills, builds, screenshots,
   `judgments.jsonl`.
 - Committed evidence: `docs/research/data/2026-09-05-settling/` — `manifest.json`,
   `measurements.json`, `topology.json`, `judgments.jsonl`, `judgments-model/<brief>.jsonl`,
-  `judgments-model-run1/<brief>.jsonl`, `fit/<brief>.json`, `results.md`.
+  `judgments-model-run1/<brief>.jsonl`, `judgments-model-b/<brief>.jsonl`, `fit/<brief>.json`,
+  `results.md`.
 
 ## Decision Log
 
@@ -242,6 +244,26 @@ per build, so this is roughly twelve acceptance runs' worth.
   The memos' warning that a vision model is a weak aesthetic judge stands, which is why it is a
   second column and not a replacement.
   Date/Author: 2026-09-08, Claude.
+
+- Decision: The tiebreak for Q. The user finished the 78 pairs and reported that the sitting
+  was long and tiring, that the verdicts may be inaccurate, and that if so the model judge's
+  result is the tiebreaker. Applied as a majority of three blinded judges rather than as the
+  second judge overruling the first: a third judge (`claude-opus`, the same prompt, the same 78
+  pairs, four batches of one or two briefs) was added, and `analyze.py` reports Q per judge, a
+  Q★ majority table, the H2 thresholds and the stop clause per judge, and every pair of judges'
+  agreement. The human file remains the pre-registered primary endpoint and the only one the
+  gate's human clause reads; every claim below is stated under both readings.
+  Rationale: the disagreement is not fatigue-shaped. The human and the astra-medium rater agree
+  on 41 of 78 pairs (κ 0.03), and the rate is the same in the first sitting (3 pairs at 50 s
+  each), the second (14 pairs, 29 s median) and the last (61 pairs, 14 s median): 0.33, 0.50,
+  0.54; verdicts under 8 s agree with the model at 0.58 and slower ones at 0.50. The
+  disagreement sits on the cross-generation pairs (`none` and `v1.1` against 2.x) and on four
+  briefs (pharmacy 3 of 12 agree, compare 2 of 6, library 4 of 12, rebate 5 of 12), and it is a
+  consistent preference, not noise: the human takes the no-skill page over `v2.0` on 10 of 13.
+  Letting one judge overrule the other on that pattern would replace the endpoint with the
+  other judge's taste; a majority of three is the nearest thing to the tiebreak the user asked
+  for in which no judge decides alone.
+  Date/Author: 2026-09-09, Claude, on the user's direction.
 
 ## Surprises & Discoveries
 
@@ -425,6 +447,32 @@ per build, so this is roughly twelve acceptance runs' worth.
   value to the same red border read correctly).
   Evidence: the diff printed at the fix; `measurements.json`.
 
+- Observation: Three blinded judges agree with one another at chance on "which would you
+  deliver": human–astra 41 of 78 (κ 0.03), human–opus 47 (κ 0.17), astra–opus 46 (κ 0.14);
+  unanimous on 28 of 78. Each orders the arms differently: the human puts `v1.1` and `none` a
+  full Bradley–Terry unit above `v2.0` and `v2.1`, astra-medium the reverse, claude-opus `none`
+  first and `v2.1` last. Each stated a criterion the others did not weigh — astra the
+  decision-ordered queue, opus the light high-contrast console and whether the goods are
+  pictured, the human (read from the pairs) the conventional console shell over the editorial
+  one. The astra rater is self-consistent across two runs (κ 0.85), so this is not rater noise:
+  at this level of craft the forced choice is decided by taste, and the arms differ mostly in
+  taste.
+  Evidence: `results.md`, the three Q tables and the agreement section; the raters' reason
+  fields in `judgments-model*/`.
+
+- Observation: Two capture artifacts the judges saw. The first-viewport capture of two no-skill
+  library builds (30f897, which scroll-snaps, and 5c042a) is not the top of the page — the page
+  scrolled itself before the capture — so the model judges, who read both captures, saw a
+  hero-less, half-blank first viewport that the human, who read the full-page capture only,
+  never saw; the astra rater cites it in a reason. The bias runs against `none`, so it cannot
+  rescue H2. And the `v2.1` library build 672565 overflowed to 2760 px wide at capture time while
+  the gate's overflow read at load was false; every judge saw its content in the left half of an
+  over-wide sheet, and the opus rater cites it. The gate reads `scrollWidth` once at load; the
+  full-page capture's width is the better overflow instrument.
+  Evidence: a pixel comparison of every build's first-viewport capture against the top of its
+  full-page capture (8 of 52 differ on more than 7 % of pixels, six of them narrative pages with
+  reveal-on-scroll); the capture's size.
+
 ## Deferred
 
 - The stance memo's hypothetical arms (archetypes with derivable tokens; axes plus one
@@ -432,16 +480,18 @@ per build, so this is roughly twelve acceptance runs' worth.
 - Design Theater's UIClip channel; no local model.
 - The diagnosis initiative the stop rule names: where within-category layout distance is lost
   under 2.1 (the record's composition lines, the grammar's console forms, or the instrument),
-  read against Q once the judging is complete.
+  read against Q — and, now that Q is in, against the quality reading too: why two of three
+  judges prefer the no-skill page to either 2.x arm and `v2.0` to `v2.1`.
+- The overflow gate read from the full-page capture's width, and one capture set for every
+  judge (the first viewport taken at scroll 0 after the page has settled), for the next run.
 - An accent locator that reads the role rather than the colour statistic — the colour of the
   primary action control, falling back to the declared job — for the next rendered-token run.
 
 ## Outcomes & Retrospective
 
-All 52 builds exist, are measured, and are rated for fit; three of the 78 pairwise judgments are
-in. Everything below except Q, H2 and the stop rule's quality clause is final; those three are
-written when the judging finishes (`python3 docs/research/scripts/settling/analyze.py` rebuilds
-`results.md` from `judgments.jsonl`, and the paragraph marked *pending* is replaced then).
+All 52 builds exist, are measured, rated for fit, and judged on all 78 pairs by three blinded
+judges: the user (the primary endpoint), an astra-medium rater and a claude-opus rater. Everything
+below is final (`python3 docs/research/scripts/settling/analyze.py` rebuilds `results.md`).
 
 **H1 (diversity) — the token clause holds, the layout clause does not.** Effective D2 accent
 dispersion rises `v1.1` 0.34 → `v2.0` 0.41 → `v2.1` 0.52, a rise of 0.07 over the 0.05 bar; read by
@@ -455,12 +505,18 @@ narrative rise of 0.016 does not), and `v2.1` is above `v1.1` only on raw consol
 Jaccard is flat and high for every arm (0.75–0.94): family choice was never where convergence
 lived. Distinct display families over thirteen builds: 7 (`none`), 8, 8, 9.
 
-**H2 (quality) — *pending* on the primary judge; met on the secondary.** Three human judgments;
-nothing is claimable from them. The user judges the remaining 75 pairs at the rating page; H2's
-two thresholds (`v2.1` ≥ 45 % against `v1.1`, ≥ 60 % against `none`) and the Bradley–Terry
-pooling are computed by `analyze.py` when they land. The model judge (next paragraph) clears
-both thresholds: `v2.1` wins 8 of 13 direct pairs against `v1.1` (0.62, Wilson 0.36–0.82) and 9
-of 13 against `none` (0.69, 0.42–0.87).
+**H2 (quality) — not met.** On the primary judge `v2.1` wins 4 of 13 direct pairs against
+`v1.1` (0.31, Wilson 0.13–0.58) and 6 of 13 against `none` (0.46, 0.23–0.71), under both
+thresholds (0.45 and 0.60). On the majority of the three judges (the tiebreak, Decision Log
+2026-09-09) it wins 6 of 13 against `v1.1` (0.46, over the bar) and 5 of 13 against `none` (0.38,
+under it). Only the astra-medium rater clears both (8 and 9 of 13). Pooled Bradley–Terry on the
+human's file: `v1.1` −0.49, `none` −0.64, `v2.0` −1.40, `v2.1` −1.59; on the majority: `none`
+−0.55, `v2.0` −0.79, `v1.1` −1.55, `v2.1` −1.82. Two readings are shared by two of the three
+judges and by the majority: `v2.0` beats `v1.1` (majority 9 of 13; the human alone has the
+reverse, 5 of 13), and `v2.1` does not beat `v2.0` (majority 4 of 13; the human alone 7 of 13).
+So derivation is preferred to the menu, the grammar on top of derivation is not preferred to
+derivation, and no skill arm is preferred to no skill by two of three judges (`none` over `v2.0`
+8 of 13, over `v2.1` 8 of 13 on the majority).
 
 **Q2 — the model judge (added 2026-09-08, secondary).** A blinded `astra-medium` rater on the
 same 78 pairs. Pooled Bradley–Terry log-strength: `none` −1.84, `v1.1` −1.81, `v2.0` −0.58,
@@ -470,9 +526,21 @@ cannot tell apart (`none` wins 6 of 13 against `v1.1`), and `v2.0` against `v2.1
 to everything (3 of 3 each) and both `v2.1` pages to nothing (0 of 3 each); on rail and compare
 `v2.1` wins every pair it is in; on fleet `v2.0` does. The rater is stable — its first run, six
 raters on a schedule that differed per process, agrees with the batch run on 65 of the 70 pairs
-they share (κ 0.85) — and its agreement with the human is unmeasured (three shared pairs, one
-agreeing). The memos' warning stands: this is a structural and legibility reading by a vision
-model, the column beside the human's, not the endpoint.
+they share (κ 0.85) — and its agreement with the human is chance (41 of 78, κ 0.03). The memos'
+warning stands: this is a structural and legibility reading by a vision model, the column beside
+the human's, not the endpoint.
+
+**Q3 — the third judge (added 2026-09-09, secondary).** A blinded `claude-opus` rater on the
+same 78 pairs, four batches. Pooled Bradley–Terry: `none` −0.43, `v2.0` −0.74, `v1.1` −1.66,
+`v2.1` −1.88. It prefers the no-skill page to every skill arm (9, 8 and 10 of 13), `v2.0` to
+`v1.1` (9 of 13) and `v2.0` to `v2.1` (9 of 13); its stated criteria were completeness without
+clipping, light high-contrast consoles for all-shift use, and whether a shop page shows the
+goods. It agrees with the human on 47 of 78 (κ 0.17) and with the astra rater on 46 (κ 0.14).
+
+**Q★ — the majority.** One verdict per pair by majority of the three; unanimous on 28 of 78,
+the human outvoted on 18. Pooled Bradley–Terry: `none` −0.55, `v2.0` −0.79, `v1.1` −1.55, `v2.1`
+−1.82. Arm pairs: `none` over `v1.1` 7 of 13, over `v2.0` 8, over `v2.1` 8; `v2.0` over `v1.1` 9;
+`v2.1` over `v1.1` 6; `v2.0` over `v2.1` 9.
 
 **H3 (baseline) — holds for the stat row, half-holds for the three-up.** `none` carries a
 first-viewport stat row on 3 of 6 consoles (the survey's rate was 5 of 17) and a three-up on 5
@@ -509,11 +577,16 @@ overflow). This is the doctrine's least glamorous and most reliable effect: ever
 teaches a contrast check and the fresh agent skips one, so the no-skill arm's effective
 diversity is mostly gate.
 
-**The stop rule.** Its layout clause fires: effective D1 for `v2.1` is not above `v1.1` (consoles
-0.115 against 0.257; narrative 0.273 against 0.254, a rise under the 0.03 bar). Its quality clause
-is *pending* on the human judge; the model judge does not trigger it (`v2.1` wins 62 % of its
-direct pairs against `v1.1`, the clause fires under 35 %). Per the pre-registration this is recorded here and in both parent specs, and the
-next initiative is a diagnosis, not a doctrine change. The reading to carry into that diagnosis:
+**The stop rule.** Both clauses read. The layout clause fires: effective D1 for `v2.1` is not
+above `v1.1` (consoles 0.115 against 0.257; narrative 0.273 against 0.254, a rise under the 0.03
+bar). The quality clause fires on the primary judge (`v2.1` wins 31 % of its direct pairs against
+`v1.1`; the clause fires under 35 %) and does not fire on the majority of three (46 %) or on
+either model judge alone (62 %, 54 %). Under the pre-registration one fired clause is enough,
+and the layout clause fired under every reading, so the consequence is the same: recorded here
+and in both parent specs, and the next initiative is a diagnosis, not a doctrine change. What
+the tiebreak changes is the diagnosis's brief. Read by the human alone the doctrine loses at
+`v1.1` → 2.x; read by the majority, derivation (2.0) is preferred to the menu, the grammar (2.1)
+is not preferred to derivation, and neither is preferred to no skill. The reading to carry into that diagnosis:
 what the grammar did on consoles is converge them onto the brief's form (queue or table first,
 one rail band, no stat row, no side column — 6 of 6), and within-category partition distance is
 exactly the quantity that convergence lowers. The composition spec's C1 had already shown
@@ -528,7 +601,11 @@ menu build did. (2) The grammar, not derivation, removed the console shapes; 2.0
 a stat strip on two seed-B builds. (3) No arm holds the compare brief to its form. (4) Layout
 diversity within a category is not a property any version raised; the honest instrument for
 the grammar is fit, and fit rose with every version. (5) The biggest single difference between
-no skill and any skill is that the skilled page passes contrast.
+no skill and any skill is that the skilled page passes contrast. (6) On "which would you
+deliver", three blinded judges agree at chance and no skill arm is preferred to no skill by two
+of them; the one reading two of three share is that derivation beats the menu and the grammar
+does not beat derivation. Quality, as this experiment could measure it, did not rise with the
+doctrine.
 
 **Retrospective.** Rendered tokens kept four arms on one footing and were worth the two
 instrument faults they cost (the OKLCH serialisation, the alpha division). The accent extractor
@@ -537,8 +614,13 @@ whose caution buttons out-saturate its action colour defeats any colour statisti
 job is the better read where a record exists. Overlapping waves need the `.incomplete` marker
 from the first build, not from the first accident. The blinded fit rater was consistent and
 cheap and its per-brief means track the D4 counts; it should be the acceptance instrument for
-the next grammar change rather than partition distance. Seven waves cost about 15 M subagent
-tokens over roughly nine hours of wall clock, within the declared budget.
+the next grammar change rather than partition distance. Quality was the endpoint the design
+under-provided for: one human judge on a forced choice over 78 pairs, one sitting of 61, and
+the two model judges added afterward agree with the human and with each other at chance. The
+next quality question needs several judges from the start, a criterion-anchored form per brief
+(the fit rating's yes-of-five shape) beside the forced choice, and one capture set for every
+judge. Seven waves cost about 15 M subagent tokens over roughly nine hours of wall clock, within
+the declared budget; the two model judges cost about 0.7 M more.
 
 ## Revision Notes
 
@@ -548,3 +630,6 @@ tokens over roughly nine hours of wall clock, within the declared budget.
   Outcomes written; Q, H2 and the stop rule's quality clause left pending on the user's judging.
 - 2026-09-08: second judge added on the user's direction (Decision Log); schedule determinism fault
   found and fixed (Surprises); Q2 and the model's read of H2 and the stop rule written.
+- 2026-09-09: the user's 78 judgments in; a third judge and the majority tiebreak added on the
+  user's direction (Decision Log); Q, Q3, Q★, H2 and the stop rule's quality clause written; the
+  judges' chance-level agreement and two capture artifacts recorded (Surprises).

@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 """The second judge for the settling experiment: a blinded model rater on one brief's pairs.
 
-    python3 judge.py prompt <brief>[,<brief>…]   print one judge's prompt for those briefs
-    python3 judge.py briefs                       list briefs with their pair counts
+    python3 judge.py prompt <brief>[,<brief>…] [<judge> <dir>]   print one judge's prompt for those briefs
+    python3 judge.py briefs                                      list briefs with their pair counts
+
+<judge> names the rater in every record (default astra-medium) and <dir> is the directory under
+figma-design-workspace/settling/ it writes to (default judgments-model), so a further judge on
+the same 78 pairs gets its own file set and the analysis can compare the judges pairwise.
 
 The pairs are rate.schedule()'s — the same 78 the human judges, same left/right — grouped by
 brief so a rater reads each brief's eight pages once and decides its twelve pairs. One rater can
@@ -17,12 +21,12 @@ import rate
 QUESTION = "Which would you be more likely to deliver to a client?"
 
 
-def section(brief):
+def section(brief, judge="astra-medium", outdir="judgments-model"):
     pairs = [p for p in rate.schedule() if p["brief"] == brief]
     if not pairs:
         raise SystemExit("no pairs for " + brief)
     ids = sorted({p["left"] for p in pairs} | {p["right"] for p in pairs})
-    out = os.path.join(rate.WS, "judgments-model", brief + ".jsonl")
+    out = os.path.join(rate.WS, outdir, brief + ".jsonl")
     shot = lambda i, f: os.path.join(rate.WS, "builds", i, f)
     lines = [f"## Brief `{brief}`", "", f'Brief (verbatim): "{rate.brief_text(pairs[0]["eval"])}"', "",
              "Pages (id, first-viewport screenshot, full-page screenshot). Read both screenshots of every page once, before judging any of this brief's pairs:"]
@@ -30,11 +34,11 @@ def section(brief):
     lines += ["", "Pairs (pair id, left page, right page):"]
     lines += [f"- {p['pair']}: left {p['left']}, right {p['right']}" for p in pairs]
     lines += ["", f"Write one JSON line per pair to `{out}` (create the directory; overwrite the file), in the order above:",
-              '{"pair": "<pair id>", "brief": "' + brief + '", "left": "<left id>", "right": "<right id>", "choice": "left" or "right", "reason": "<one sentence>", "judge": "astra-medium"}', ""]
+              '{"pair": "<pair id>", "brief": "' + brief + '", "left": "<left id>", "right": "<right id>", "choice": "left" or "right", "reason": "<one sentence>", "judge": "' + judge + '"}', ""]
     return "\n".join(lines)
 
 
-def prompt(briefs):
+def prompt(briefs, judge="astra-medium", outdir="judgments-model"):
     head = [
         "You are a blinded visual judge for a design experiment. Pages were built from a brief by different builders; you do not know which builder made which and must not try to find out. Open nothing under the build directories except the two screenshots named per page. Judge as a designer handing work to the client who wrote the brief.",
         "",
@@ -42,13 +46,13 @@ def prompt(briefs):
         "",
     ]
     tail = ["Then report in under 150 words: per brief, how many pairs went left and right, and which page won every pair it was in, if any. Do not modify anything else."]
-    return "\n".join(head + [section(b) for b in briefs] + tail)
+    return "\n".join(head + [section(b, judge, outdir) for b in briefs] + tail)
 
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
     if cmd == "prompt":
-        print(prompt(sys.argv[2].split(",")))
+        print(prompt(sys.argv[2].split(","), *sys.argv[3:5]))
     elif cmd == "briefs":
         from collections import Counter
         for b, n in Counter(p["brief"] for p in rate.schedule()).items():

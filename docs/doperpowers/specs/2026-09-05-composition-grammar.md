@@ -501,9 +501,12 @@ under no arm (a band above the comparison in all four). The pre-registered stop 
 clause fired: effective within-category partition distance for `v2.1` is below `v1.1` on consoles
 (0.115 against 0.257) and flat on narrative pages, which is the convergence the grammar
 prescribes read by an instrument that penalises it — the same blindness C1 recorded. The quality
-clause is pending the user's judging; a blinded model judge, secondary, has `v2.1` winning 8 of 13
-direct pairs against `v1.1`. Fit, not partition distance, is the acceptance instrument for the
-next change to this layer.
+clause (2026-09-09) fires on the primary judge — the user, blinded, has `v2.1` winning 4 of 13
+direct pairs against `v1.1` — and not on the majority of three blinded judges (6 of 13). Two of the
+three prefer `v2.0` to `v2.1` (9 of 13 by majority), so on "which would you deliver" the grammar is
+not preferred to derivation, and the judges agree with one another at chance (κ 0.03–0.17). Fit,
+not partition distance, is the acceptance instrument for the next change to this layer, and the
+diagnosis the settling spec names now carries the quality reading too.
 
 ## Revision Notes
 
