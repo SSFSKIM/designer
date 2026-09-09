@@ -1,0 +1,63 @@
+W26 G0 deliverable 3 — the share law's lift at the reference's own width
+====================================================================================================
+
+The objective is W25 G3's `share_check`, restated: mean |log(web / native)| over readers B
+and C on `checkerboard-32` and `-64` at spans >= 96. LOWER IS BETTER. The reference side is
+the same fixture at every rung and is taken from the baseline read, so the four rungs are
+compared against one native.
+
+  rung       what                                                  1x        2x
+  r0         0.14.0: width 13.4, lift 0                        0.2253    0.0964
+  s45only    W25's declined rung: width 13.4, lift 0.45        0.3457    0.0964
+  w195       the width alone: 19.5 / 11.3 device px, lift 0    0.3438    0.2142
+  w195s45    both: width 19.5 / 11.3, lift 0.45                0.4340    0.2142
+  (over 12 rows at 1x and 12 at 2x, light standard only — W25's own count of 24 is the
+   same rows in both schemes, and this child captured the light bed.)
+
+  THE LIFT'S DIRECTION, at each width:
+    at the 0.14.0 width        1x  0.2253 -> 0.3457 at lift 0.45   WORSE
+    at the 0.14.0 width        2x  0.0964 -> 0.0964 at lift 0.45   better
+    at the reference's width   1x  0.3438 -> 0.4340 at lift 0.45   WORSE
+    at the reference's width   2x  0.2142 -> 0.2142 at lift 0.45   better
+
+  The width alone, against the 0.14.0 material:
+    1x  0.2253 -> 0.3438   WORSE
+    2x  0.0964 -> 0.2142   WORSE
+
+READER A's TRIPLE on the impulse rows, so the share the objective is checking is visible.
+
+  rung       profile   scene                        sharp    heavy   share
+  native     1x-light  impulse__rrect-lg__rest      2.768   14.672   0.727
+  r0         1x-light  impulse__rrect-lg__rest      1.733   19.782   0.492
+  native     1x-light  impulse__rrect-md__rest      2.794   19.520   0.473
+  r0         1x-light  impulse__rrect-md__rest      1.668    9.083   0.233
+  native     1x-light  impulse__rrect-ml__rest      2.740   23.269   0.674
+  r0         1x-light  impulse__rrect-ml__rest      1.662   14.361   0.354
+  native     2x-light  impulse__rrect-lg__rest      9.674   16.918   0.784
+  r0         2x-light  impulse__rrect-lg__rest      8.155   16.589   0.589
+  native     2x-light  impulse__rrect-md__rest      1.397   11.293   0.689
+  r0         2x-light  impulse__rrect-md__rest      3.511    8.761   0.690
+  native     2x-light  impulse__rrect-ml__rest     11.798   12.029   1.000
+  r0         2x-light  impulse__rrect-ml__rest      5.982   11.229   0.591
+
+  s45only    1x-light  impulse__rrect-lg__rest      1.744   26.988   0.649
+  s45only    1x-light  impulse__rrect-md__rest      1.647   13.080   0.429
+  s45only    1x-light  impulse__rrect-ml__rest      1.662   26.549   0.804
+  s45only    2x-light  impulse__rrect-lg__rest      8.155   16.589   0.589
+  s45only    2x-light  impulse__rrect-md__rest      3.511    8.761   0.690
+  s45only    2x-light  impulse__rrect-ml__rest      5.982   11.229   0.591
+
+  w195       1x-light  impulse__rrect-lg__rest      1.607   12.106   0.264
+  w195       1x-light  impulse__rrect-md__rest      1.762   61.760   0.000
+  w195       1x-light  impulse__rrect-ml__rest      1.720   34.162   0.039
+  w195       2x-light  impulse__rrect-lg__rest     11.344   12.040   1.000
+  w195       2x-light  impulse__rrect-md__rest      1.949   12.223   0.798
+  w195       2x-light  impulse__rrect-ml__rest      1.810   11.952   0.964
+
+  w195s45    1x-light  impulse__rrect-lg__rest      1.571   23.754   0.379
+  w195s45    1x-light  impulse__rrect-md__rest      1.763   37.188   0.178
+  w195s45    1x-light  impulse__rrect-ml__rest      1.440   17.511   0.653
+  w195s45    2x-light  impulse__rrect-lg__rest     11.344   12.040   1.000
+  w195s45    2x-light  impulse__rrect-md__rest      1.949   12.223   0.798
+  w195s45    2x-light  impulse__rrect-ml__rest      1.810   11.952   0.964
+

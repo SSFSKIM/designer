@@ -1,0 +1,131 @@
+W26 G0 deliverable 2 — the constant to a Gaussian-equivalent width, per candidate
+====================================================================================================
+
+`predicted` is the simulation of what the renderer draws: the chain level the CPU chose,
+reconstructed as `textureSampleLevel` reconstructs it, convolved with the discrete grid the
+optics pass integrates, reduced by half maximum. `read` is W25 G0's reader A on the rung's
+own captures, heavy component, DEVICE px. `ratio` is read / predicted.
+
+CANDIDATE (ii) — the Gaussian at the tap. Constant: `sizeHeavyTapSigma` in device px,
+written to both scale anchors.
+
+   sigma scale  lvl  resid  predicted   rrect-md   rrect-ml   rrect-lg   median  ratio
+    10.0    1x    3  0.930      9.402     12.265     14.781     14.663   14.663  1.560
+    10.0    2x    3  0.930      9.402     11.036     10.494     10.509   10.509  1.118
+    13.0    1x    3  1.394     12.730     10.053     14.835     19.378   14.835  1.165
+    13.0    2x    3  1.394     12.730     14.187     14.104     14.284   14.187  1.114
+    16.0    1x    4  0.545     16.053     34.756     11.577     16.988   16.988  1.058
+    16.0    2x    4  0.545     16.053     17.843     17.861     18.534   17.861  1.113
+    19.0    1x    4  0.841     18.676     61.760      5.161     12.908   12.908  0.691   1 row(s) AT THE READER'S BOUND
+    19.0    2x    4  0.841     18.676     22.120     22.926     24.410   22.926  1.228
+    22.0    1x    4  1.090     22.147     61.760     61.751     15.556   61.751  2.788   2 row(s) AT THE READER'S BOUND
+    22.0    2x    4  1.090     22.147     32.200     35.250     35.819   35.250  1.592
+    25.0    1x    4  1.318     25.477     61.760     61.751     61.694   61.751  2.424   3 row(s) AT THE READER'S BOUND
+    25.0    2x    4  1.318     25.477     52.164     54.264     57.906   54.264  2.130
+
+  monotone at 1x: False   (14.66, 14.84, 16.99, 12.91, 61.75, 61.75)
+  monotone at 2x: True   (10.51, 14.19, 17.86, 22.93, 35.25, 54.26)
+
+  The 1x column stops being a reading of the material at about 17 device px. Reader A's
+  window on `impulse` is half the dot pitch — 30 CSS px, which is 30 device px at 1x and 60
+  at 2x — and its own delta bound is 60 * scale. The DRAWN kernel is the same in device px
+  at both scales at the same σ (the same plan, the same level, the same residual, because
+  `bodySigmaCssFor` divides by the ratio and the raster's texels per CSS px multiplies it
+  back), so the two columns disagreeing IS the instrument: at 2x the reader follows the
+  constant monotonically over the whole 10–25 range at ratio 1.11–1.13 up to 16, and at 1x
+  it saturates at its bound. This is a limit of reader A on a 64 CSS px dot pitch, not of
+  the tap, and it is what clause 1's ladder has to be read through.
+
+CANDIDATE (i) — the fractional pyramid level. Constant: `sizeHeavyLevelOffset`.
+  `chainMaxLod` is 4 at 1x and 5 at 2x; the gain the level is
+  measured from is 8 at dpr 1 and 4.8 rising to 9.9 with the span at dpr 2, so the level the
+  pass draws is per row. `drawn` and `predicted` are quoted for `rrect-md`.
+
+   offset scale   drawn  predicted   rrect-md   rrect-ml   rrect-lg   median
+    -1.00    1x  3.0589      6.684      7.146      7.614      8.239    7.614
+    -1.00    2x  2.3219      3.281      8.522      8.914      8.911    8.911
+    -0.50    1x  3.5589      8.382      8.958     10.981     11.843   10.981
+    -0.50    2x  2.8219      5.068      7.916      8.402      9.950    8.402
+     0.00    1x  4.0000     14.327      9.083     14.361     19.782   14.361
+     0.00    2x  3.3219      7.533      8.761     11.229     16.589   11.229
+     0.50    1x  4.0000     14.327      9.083     14.361     19.782   14.361
+     0.50    2x  3.8219     10.189     12.955     16.107     17.935   16.107
+     1.00    1x  4.0000     14.327      9.083     14.361     19.782   14.361
+     1.00    2x  4.3219     15.177     17.516     22.102     33.802   22.102
+
+CANDIDATE (iii) — the second chain level's share. Constant: `sizeHeavySecondShare`.
+  `predicted` is quoted for `rrect-md`, whose own `scatterLod` the share mixes from.
+
+   share scale  predicted   rrect-md   rrect-ml   rrect-lg   median
+    0.00    1x     14.327      9.083     14.361     19.782   14.361
+    0.00    2x      7.533      8.761     11.229     16.589   11.229
+    0.25    1x     14.327      9.083     14.361     19.782   14.361
+    0.25    2x      7.533      9.063     12.129     16.345   12.129
+    0.50    1x     14.327      9.083     14.361     19.782   14.361
+    0.50    2x      8.383      9.364     12.210     16.345   12.210
+    1.00    1x     14.327      9.083     14.361     19.782   14.361
+    1.00    2x     15.177      9.783     13.410     17.509   13.410
+
+BYTE IDENTITY, which is the sharpest statement of what (i) and (iii) can reach. Against the
+inert-default rung, over the 18 ladder rows per profile, GPU tier:
+  level offset +0.5      1x: 18 identical /  0 differ    2x:  2 identical / 16 differ
+  level offset +1.0      1x: 18 identical /  0 differ    2x:  2 identical / 16 differ
+  second share 0.25      1x: 18 identical /  0 differ    2x:  2 identical / 16 differ
+  second share 0.50      1x: 18 identical /  0 differ    2x:  2 identical / 16 differ
+  second share 1.00      1x: 18 identical /  0 differ    2x:  2 identical / 16 differ
+
+  Every 1x row is byte-identical at every value of both constants and every 2x row differs.
+  That is the clamp: at dpr 1 `scatterLod` is already `chainMaxLod`, so a positive offset
+  lands on the same level and the second tap IS the first tap, and the two mechanisms are
+  not approximately inert at 1x — they are inert to the bit.
+
+X5 — the thin rows (span <= 44), OKLab ΔE mean against the inert-default rung, worst move
+per rung. More than 0.001 stops the ladder.
+
+      rung     worst                                                        where
+       t10   0.00008       x-light-standard checkerboard-32__capsule-button__rest
+       t13   0.00014       x-light-standard checkerboard-32__capsule-button__rest
+       t16   0.00036       x-light-standard checkerboard-32__capsule-button__rest
+       t19   0.00071       x-light-standard checkerboard-32__capsule-button__rest
+       t22   0.00106       x-light-standard checkerboard-32__capsule-button__rest
+       t25   0.00136       x-light-standard checkerboard-32__capsule-button__rest
+     oM100   0.00018       x-light-standard checkerboard-32__capsule-button__rest
+     oM050   0.00011       x-light-standard checkerboard-32__capsule-button__rest
+     oP050   0.00013       x-light-standard checkerboard-32__capsule-button__rest
+     oP100   0.00046       x-light-standard checkerboard-32__capsule-button__rest
+      s025   0.00001       x-light-standard checkerboard-32__capsule-button__rest
+      s050   0.00001       x-light-standard checkerboard-32__capsule-button__rest
+      s100   0.00003       x-light-standard checkerboard-32__capsule-button__rest
+
+  The sharp component beside it, so a rung that moved the wrong half is visible:
+      rung scale   rrect-md   rrect-ml   rrect-lg
+       t10    1x      1.741      1.717      1.842
+       t10    2x      2.209      2.271      1.948
+       t13    1x      1.682      1.712      1.730
+       t13    2x      1.798      3.257      5.757
+       t16    1x      1.713      1.630      1.731
+       t16    2x      1.899      4.792     12.042
+       t19    1x      1.762      1.577      1.613
+       t19    2x      1.780      1.516      5.758
+       t22    1x      1.762      1.751      1.798
+       t22    2x      1.985      8.368      3.193
+       t25    1x      1.762      1.751      1.796
+       t25    2x      2.067      3.467      3.218
+     oM100    1x      1.729      1.729      1.933
+     oM100    2x      3.512      3.974      4.904
+     oM050    1x      1.744      1.713      1.920
+     oM050    2x      3.715      6.431      7.591
+       r0b    1x      1.668      1.662      1.733
+       r0b    2x      3.511      5.982      8.155
+     oP050    1x      1.668      1.662      1.733
+     oP050    2x      2.742      7.655      8.985
+     oP100    1x      1.668      1.662      1.733
+     oP100    2x      1.821      7.574      7.537
+       r0b    1x      1.668      1.662      1.733
+       r0b    2x      3.511      5.982      8.155
+      s025    1x      1.668      1.662      1.733
+      s025    2x      3.623      6.653      8.054
+      s050    1x      1.668      1.662      1.733
+      s050    2x      3.807      6.432      8.054
+      s100    1x      1.668      1.662      1.733
+      s100    2x      4.089      6.636      7.532

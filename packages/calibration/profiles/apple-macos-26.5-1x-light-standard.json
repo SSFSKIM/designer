@@ -30,7 +30,21 @@
   "colorSpace": "srgb",
   "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
   "identityWithRuntimeDefault": true,
-  "resolvedMaterialSha256": "9b7806cdefd1d1d6",
+  "resolvedMaterialSha256": "4475b4dfa6155ce7",
+  "$comment-w26-g0": [
+    "RE-RECORDED 2026-09-10 (W26 G0, a SPIKE; W26 Decision Log 1). The digest is over the FULLY",
+    "RESOLVED material, so it moves when the SHAPE of MaterialProfile moves and not only when a",
+    "value does. Four constants are added at zero — sizeHeavyLevelOffset, sizeHeavyTapSigma,",
+    "sizeHeavyTapSigma2x and sizeHeavySecondShare — the three candidate heavy taps G0 built to",
+    "find out which one makes the heavy width a parameter, after claims 5.116 section 2 measured",
+    "that sizeScatterGainMax no longer is one.",
+    "",
+    "NO VALUE IN THIS DOCUMENT MOVED, and no pixel moved: the 33 renderer goldens are",
+    "byte-identical at these defaults, and so are all 36 bed captures G0 re-rendered — the four",
+    "canonical rrect-sm cells among them. The width itself is fitted by G1 and declared by G2;",
+    "this entry records only that the material's shape grew, which is what the fingerprint is for.",
+    "The measurement is in results/2026-09-10-w26-heavy-width/g0/g0-findings.md."
+  ],
   "$comment-w22": [
     "RE-RECORDED 2026-09-08 (W22 G1; claims 5.94 section 3, W22 Decision Log 2 (b)).",
     "",

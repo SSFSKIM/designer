@@ -1,0 +1,19 @@
+W26 G0 — the backdrop pyramid's kernel per level, simulated exactly
+====================================================================================================
+`wgsl/backdrop.ts`'s 13-tap progressive downsample applied to a level-0 delta, each
+level read back at level-0 resolution the way `textureSampleLevel` reads it.
+Sigmas in LEVEL-0 texels. sigmaHWHM is the statistic W25 G0's reader A reduces a
+kernel by, so it is the column comparable with a reader-A width.
+
+  level  texel  sigmaRMS  sigmaHWHM   ratio  kurtosis  maxdev
+      1      2     1.570      1.532   1.025    -0.425  0.1717
+      2      4     3.340      3.278   1.019    -0.237  0.1222
+      3      8     6.799      6.684   1.017    -0.230  0.1270
+      4     16    13.660     14.327   0.953    -0.231  0.1202
+      5     32    27.351     29.614   0.924    -0.231  0.1234
+      6     64    54.715     60.188   0.909    -0.232  0.1255
+      7    128   109.435    120.489   0.908    -0.232  0.1284
+
+A Gaussian would read kurtosis 0.000 and ratio 1.000; a box would read -1.2.
+`CHAIN_SIGMA_AT_LEVEL_1` = 1.2, the advisory constant `pyramid-plan.ts` inverts to
+turn a sigma into a level, is to be read against the level-1 row above.

@@ -36,7 +36,21 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "eec7c2ea8dc89cae",
+  "resolvedMaterialSha256": "25a12c887e5b51cb",
+  "$comment-w26-g0": [
+    "RE-RECORDED 2026-09-10 (W26 G0, a SPIKE; W26 Decision Log 1). The digest is over the FULLY",
+    "RESOLVED material, so it moves when the SHAPE of MaterialProfile moves and not only when a",
+    "value does. Four constants are added at zero — sizeHeavyLevelOffset, sizeHeavyTapSigma,",
+    "sizeHeavyTapSigma2x and sizeHeavySecondShare — the three candidate heavy taps G0 built to",
+    "find out which one makes the heavy width a parameter, after claims 5.116 section 2 measured",
+    "that sizeScatterGainMax no longer is one.",
+    "",
+    "NO VALUE IN THIS DOCUMENT MOVED, and no pixel moved: the 33 renderer goldens are",
+    "byte-identical at these defaults, and so are all 36 bed captures G0 re-rendered — the four",
+    "canonical rrect-sm cells among them. The width itself is fitted by G1 and declared by G2;",
+    "this entry records only that the material's shape grew, which is what the fingerprint is for.",
+    "The measurement is in results/2026-09-10-w26-heavy-width/g0/g0-findings.md."
+  ],
   "$comment-w9": [
     "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
     "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
