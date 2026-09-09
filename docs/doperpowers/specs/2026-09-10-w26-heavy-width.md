@@ -103,9 +103,36 @@ the tier's residual is recorded (Decision Log 23 (a)).
 
 ### G1: The width, the share, the 2x lever and the level fitted — controlled
 
-- The width per scale on the probe set's impulse rows and coarse checkerboards; the share per
-  scale on the same rows, checked off them on the checkerboards' single-width objective; the 2x
-  headroom; the level re-read; each with its condition; the thin cells at every rung.
+Re-stated on G0's read (Decision Log 2); the original line is kept below it.
+
+- **(a) The tap built structurally.** Candidate (ii)'s width as a third pyramid texture: the chain
+  level `heavyTapPlan` names, blurred by the residual through the existing separable body-blur
+  passes into a texture of that level's extent, sampled once at the refracted uv. The 9 × 9
+  in-shader grid is the spike's instrument and comes out. Acceptance: reader A's heavy σ on the
+  2x impulse rows at σ 11.3 within 5 % of the grid's read (12.22 / 11.95 / 12.04); the bench row
+  `mobile-390x844@3 heavy-tap` within 0.2 ms of the control; inert at 0 byte-identical (the
+  goldens and the 36 bed rows). One width per source: the mid-span rows (44 → 96) are read at
+  every rung, and where they cross a floor the design blends the chain's `scatterLod` sample back
+  by the ramp rather than adding a second texture (advisory).
+- **(b) The instrument reaches the 1x width.** Reader A extended to a lattice model — the dot
+  lattice convolved with sharp + heavy Gaussians and a share, fitted on the whole tile so the
+  window is the tile and not half a pitch — validated against reader A on the 2x rows where A is
+  monotone (within 10 %) and on synthetic kernels including the chain's own platykurtic level 4.
+  The 64 CSS px pitch's fundamental is modulated 16 % at σ 19.5 device px and 5 % at σ 25, so the
+  lattice reader is expected to resolve the reference's width and not much past it; where it
+  cannot, the fallback is a wider-pitch impulse probe scene declared for a sitting — the user's
+  console, so that fallback is reported, not taken.
+- **(c) The fits, per scale, on the impulse rows.** `sizeHeavyTapSigma2x` on `impulse__rrect-md`
+  / `-ml` / `-lg` at 2x (prior 11–12); `sizeHeavyTapSigma` at 1x on the lattice reader (prior
+  19.5, the reference's 1x read, quoted with G0 §6's caveat); then the share per scale by reader
+  A's own share on the same rows, its off-row check the lattice reader on the second impulse span
+  rather than the checkerboards (Decision Log 2 (d)); the 2x share's headroom, `sizeScatterFloor2x`
+  coming off 1 or the lift applied before the floor; the level re-read on the probe solids; the
+  sharp σ read and recorded at every rung, not fitted. Each fit with its condition and its
+  decline; the thin cells at every rung (X5); the fourteen thick floors re-read at the candidate.
+- *Original:* the width per scale on the probe set's impulse rows and coarse checkerboards; the
+  share per scale on the same rows, checked off them on the checkerboards' single-width objective;
+  the 2x headroom; the level re-read; each with its condition; the thin cells at every rung.
 - **Edges:** blocked-by G0. **Track:** controlled; opus; worktree.
 
 ### G2: Declared and dry-run — controlled
@@ -134,7 +161,7 @@ the user's eye; X7 the dark profile a difference document.
 | child | status |
 | --- | --- |
 | G0 — the heavy tap as a parameter | CLOSED 2026-09-10 (claims §5.119) |
-| G1 — the width, the share, the lever, the level | READY (Decision Log 2) |
+| G1 — the width, the share, the lever, the level | DISPATCHED 2026-09-10 (Decision Log 2 (f)) |
 | G2 — declared and dry-run | — |
 | G3 — the landing | — |
 
@@ -184,6 +211,17 @@ rather than W25's declined `blurSigma2x` sibling.
 device px puts reader A's heavy at 12.22 / 11.95 / 12.04 against the reference's 11.29 / 12.03 /
 16.92 — so the floor question stays what W25 left it as: the SHARE's, not the width's.
 
+(f) **The parent's rulings on (b) and (c)** (the parent, on G0's report). On (c): the 1x width is
+NOT carried down from the 2x fit — the reference's own halving is 15 % off (2 × 11.29 = 22.58
+against its 1x read of 19.52), so a carried-down constant would be fitted on an assumption the
+same ledger already contradicts. The instrument is extended first: reader A as a lattice model
+over the whole impulse tile (G1 (b)), which costs no sitting and is validated where A already
+works. A wider-pitch probe scene is the fallback and is a sitting — the user's console — so G1
+reports it rather than takes it. On (b): one width per source loses the 2x span grading
+`sizeScatterGainFar2x` carried (the reference's `-lg` row reads 16.92 against `-md`'s 11.29 at 2x),
+and that is recorded as a named gap in the tracker at G1's declaration rather than answered with a
+second texture; the mid-span rows are the check that the one width does not cross a floor.
+
 ## Surprises & Discoveries
 
 - **The gain was never a width.** `bodyChainLod + log2(8)` = 4.0589 against a `chainMaxLod` of 4:
@@ -209,3 +247,6 @@ device px puts reader A's heavy at 12.22 / 11.95 / 12.04 against the reference's
 - 2026-09-10: G0 CLOSED (claims §5.119). Three candidates merged inert, the goldens and the bed's
   36 rows byte-identical at the defaults; Decision Log 2 records the verdict and re-states clause 1
   onto the 2x rows. G1 ready.
+- 2026-09-10: the parent's ruling appended as Decision Log 2 (f); G1's section re-stated in three
+  parts (the structural tap, the lattice reader, the fits) with the original line kept beneath.
+  G1 dispatched.

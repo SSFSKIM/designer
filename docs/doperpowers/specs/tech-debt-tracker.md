@@ -1414,3 +1414,43 @@ backdrop and sign-flipping across backdrops; the nested base's σ-match untouche
 W26: a heavy tap whose width is a continuous parameter, fitted on the probe set's coarse
 checkerboards at both scales; then the share per scale (the 2x lever through the floor), the
 level re-read, the CSS mirror. Closes when W25's clauses 2 and 3 are met.
+
+## The heavy tap's gain has been clamped at the pyramid's last level since it was fitted, and three constants grade an axis the clamp discards at 1x (W26 G0, 2026-09-10)
+
+`scatterLod = clamp(bodyChainLod + log2(gain), 0, chainMaxLod)`: on the bed's 320 × 200 backdrop
+the chain has five levels (`MIN_LEVEL_EXTENT` 8), `chainMaxLod` is 4 and `bodyChainLod + log2(8)`
+is 4.06, so every gain from 7.5 up draws level 4 — reader A reads the three 1x impulse rows
+identical to the last digit at gains 8 / 10.3 / 16 / 32. `sizeScatterGainMax`,
+`sizeScatterGainMax2x` and `sizeScatterGainFar2x` were fitted on real objectives and moved them
+at dpr 2 (a level deeper); at dpr 1 they are inert above the clamp, and a larger backdrop raster
+would give the same profile a different heavy width. W26 replaces the width with a Gaussian at the
+tap (claims §5.119 §1, §4); the three gain constants stay as the below-saturation grading until
+the wave's G2 declares what it retires. `g0/tap-today.txt`.
+
+## `CHAIN_SIGMA_AT_LEVEL_1` under-states the chain's level-1 width by 24 %, and the chain's kernel is platykurtic (W26 G0, 2026-09-10)
+
+The downsample pass simulated exactly reads σ 1.570 / 3.340 / 6.799 / 13.660 / 27.351 level-0
+texels at levels 1…5 with kurtosis −0.23 at every level — neither a Gaussian nor a box, 12 % of
+peak from the best Gaussian. The advisory constant is 1.2; the body blur's residual pass absorbs
+the miss, so nothing drawn is wrong, but every "the chain's blur is about σ" statement inherits it.
+W26 carries the measured table as `CHAIN_LEVEL_SIGMA` for the heavy tap, which has no residual to
+absorb with. Closes when `bodyBlurPlan` reads the same table and the goldens attribute the move.
+`g0/chain-kernel.txt`.
+
+## Reader A's window on the 64 CSS px impulse pitch cannot hold a 19.5 device px heavy component at 1x (W26 G0, 2026-09-10)
+
+The reader's window is half the dot pitch — 30 device px at 1x, 60 at 2x — so the 1x ladder over
+σ 10 → 25 reads 14.66 / 14.84 / 16.99 / 12.91 / 61.75 / 61.75 (non-monotone, then parked on its
+own `delta ≤ 60·scale` bound) while the identical drawn kernel reads monotonically at 2x. The
+reference's own 1x read of 19.52 sits at that edge and is quoted with the caveat from here on;
+vitrea's per-row 1x spread at one true width (9.08 / 14.36 / 19.78, median exact) is the same
+effect. W26 G1 extends the reader to a lattice model over the whole tile; a wider-pitch impulse
+probe scene is the fallback and a sitting. `g0/mapping.txt`, claims §5.119 §6.
+
+## One heavy width per source loses the 2x span grading the reference shows on the largest impulse row (W26 G1's structure, 2026-09-10)
+
+The reference's heavy component at 2x reads 11.29 / 12.03 / 16.92 device px on `impulse__rrect-md`
+/ `-ml` / `-lg`; a third pyramid texture at one σ per source lands the first two and misses the
+third by about 30 % (W26 Decision Log 2 (f)). Recorded as a gap rather than answered with a second
+texture: closes with a per-span width — the residual blur graded by the same ramp the share
+follows, or a second texture blended by span — once the one-width material's floors are known.

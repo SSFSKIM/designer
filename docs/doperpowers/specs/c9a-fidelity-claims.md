@@ -14899,3 +14899,12 @@ bytes**, the four canonical `rrect-sm` cells among them. X5 held at every rung, 
 0.00136 at σ 25 and ≤ 0.00071 inside the range the wave wants.
 
 **G1 opens** on §4's structural fix, §6's instrument question and §7's row set.
+
+**Addendum (the parent, 2026-09-10; W26 Decision Log 2 (f)).** §6's "on the 2x rows and the
+halving" is not taken: the reference's own halving is 15 % off on this row (2 × 11.29 = 22.58
+against 19.52), so the 1x width is read through a lattice-model extension of reader A over the
+whole impulse tile before any 1x fit, and the wider-pitch probe is the reported fallback. §4's
+one-width-per-source trade loses the 2x span grading the reference's `-lg` row shows (16.92
+against 11.29); recorded as a gap, not answered with a second texture. G0 merged at `65474de`;
+the branch's verify chain green (build, lint, unit) and the goldens re-run in the foreground at
+the merge.

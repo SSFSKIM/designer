@@ -1121,7 +1121,7 @@ export interface MaterialProfile {
    * the single `textureSampleLevel` the material has always taken, so the default
    * is byte-identical. Above 0 the CPU resolves the constant into the chain level
    * whose own blur is nearest below it and the residual σ in that level's texels
-   * (`heavyTapPlan`), and the optics pass convolves a 7 × 7 grid of that level at
+   * (`heavyTapPlan`), and the optics pass convolves a 9 × 9 grid of that level at
    * one-texel spacing. The width is then a continuous function of the constant
    * and is bounded only by the level the chain can supply the residual over — not
    * by `chainMaxLod`, because the Gaussian carries the octave the chain lacks.
