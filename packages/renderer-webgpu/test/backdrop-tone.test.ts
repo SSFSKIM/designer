@@ -403,9 +403,10 @@ describe("the optics pass's statement of the axis", () => {
     // W24 puts the lit edge's directional factor OUTSIDE that bracket, so it
     // multiplies the collapsed rim exactly as it multiplies the appearance's own
     // — which is what the reference's collapsed cells read — and the trade
-    // itself is untouched.
+    // itself is untouched. W25's along-side field joins it there, for the same
+    // reading and on the same side of the bracket.
     expect(WGSL_OPTICS_PASS).toContain(
-      "rw * lit * (rimAmplitude * present + rimCollapsed * toneAdapt)",
+      "rw * lit * alongFactor * (rimAmplitude * present + rimCollapsed * toneAdapt)",
     );
     // The factor is normalised by `cos 45 deg`, so it is exactly 1 on every
     // straight side and the rim's fitted amplitude keeps its meaning.

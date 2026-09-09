@@ -1,0 +1,602 @@
+W25 G2 — fit-share: the heavy share's thick-end lift
+====================================================================================================
+
+Reader C, the whole-region sigma match, on the two probe grids' structured backdrops.
+A row COUNTS toward the objective when both the native and the web sigma are inside
+reader C's validated bound for that backdrop's own step pitch (pitch/4 device px, G0 §1),
+and the span is above `sizeSpanMin` so the lift can reach it at all.
+
+── rung r0 ─────────────────────────────────────────────────────────────
+bed   scene                                     span  pitch  bound  native     web   ratio  in-bound
+w21   checkerboard-32__capsule-button__rest       44     32    8.0    1.70    1.80   1.059  yes
+w21   checkerboard-32__rrect-lg__rest            160     32    8.0    5.25    3.40   0.648  yes
+w21   checkerboard-32__rrect-md__rest             96     32    8.0    4.75    3.20   0.674  yes
+w21   checkerboard-32__rrect-ml__rest            128     32    8.0    4.00    2.30   0.575  yes
+w21   checkerboard-32__rrect-sm__rest             32     32    8.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w21   checkerboard-4__capsule-button__rest        44      4    1.0    2.60    1.10   0.423   no
+w21   checkerboard-4__rrect-lg__rest             160      4    1.0    3.10    0.80   0.258   no
+w21   checkerboard-4__rrect-md__rest              96      4    1.0    3.10    1.10   0.355   no
+w21   checkerboard-4__rrect-ml__rest             128      4    1.0    3.10    1.30   0.419   no
+w21   checkerboard-4__rrect-sm__rest              32      4    1.0    2.60    0.80   0.308   no   (thin: the lift cannot reach it)
+w21   checkerboard-64__capsule-button__rest       44     64   16.0    2.10    2.40   1.143  yes
+w21   checkerboard-64__rrect-lg__rest            160     64   16.0    6.00    7.50   1.250  yes
+w21   checkerboard-64__rrect-md__rest             96     64   16.0    6.25    7.75   1.240  yes
+w21   checkerboard-64__rrect-ml__rest            128     64   16.0    6.75    7.00   1.037  yes
+w21   checkerboard-64__rrect-sm__rest             32     64   16.0    6.25   37.50   6.000   no   (thin: the lift cannot reach it)
+w21   checkerboard-8__capsule-button__rest        44      8    2.0    1.50    1.80   1.200  yes
+w21   checkerboard-8__rrect-lg__rest             160      8    2.0    1.70    1.80   1.059  yes
+w21   checkerboard-8__rrect-md__rest              96      8    2.0    1.60    1.90   1.188  yes
+w21   checkerboard-8__rrect-ml__rest             128      8    2.0    1.70    1.90   1.118  yes
+w21   checkerboard-8__rrect-sm__rest              32      8    2.0    1.50    1.90   1.267  yes   (thin: the lift cannot reach it)
+w21   checkerboard-lc16__capsule-button__rest     44     16    4.0    1.60    2.00   1.250  yes
+w21   checkerboard-lc16__rrect-lg__rest          160     16    4.0    1.30    2.00   1.538  yes
+w21   checkerboard-lc16__rrect-md__rest           96     16    4.0    1.20    1.90   1.583  yes
+w21   checkerboard-lc16__rrect-ml__rest          128     16    4.0    1.20    1.80   1.500  yes
+w21   checkerboard-lc16__rrect-sm__rest           32     16    4.0    1.40    1.60   1.143  yes   (thin: the lift cannot reach it)
+w21   checkerboard__capsule-button__rest          44     16    4.0    1.60    2.00   1.250  yes
+w21   checkerboard__rrect-lg__rest               160     16    4.0    1.30    1.90   1.462  yes
+w21   checkerboard__rrect-md__rest                96     16    4.0    1.30    1.80   1.385  yes
+w21   checkerboard__rrect-ml__rest               128     16    4.0    1.20    1.80   1.500  yes
+w21   checkerboard__rrect-sm__rest                32     16    4.0    1.30    1.70   1.308  yes   (thin: the lift cannot reach it)
+w21   hc-text-28__rrect-lg__rest                 160     28    7.0    7.50    7.25   0.967   no
+w21   hc-text-28__rrect-md__rest                  96     28    7.0    6.50    6.00   0.923  yes
+w21   hc-text-28__rrect-sm__rest                  32     28    7.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w21   hc-text-7__rrect-lg__rest                  160      7    1.8    6.50    6.50   1.000   no
+w21   hc-text-7__rrect-md__rest                   96      7    1.8    2.70    2.10   0.778   no
+w21   hc-text-7__rrect-sm__rest                   32      7    1.8    2.40    1.70   0.708   no   (thin: the lift cannot reach it)
+w21   hc-text__rrect-lg__rest                    160     16    4.0    4.50    3.70   0.822   no
+w21   hc-text__rrect-md__rest                     96     16    4.0    3.80    3.10   0.816  yes
+w21   hc-text__rrect-sm__rest                     32     16    4.0    4.50    1.60   0.356   no   (thin: the lift cannot reach it)
+w21   photo__rrect-lg__rest                      160      0    nan    7.50    7.50   1.000   no
+w21   photo__rrect-md__rest                       96      0    nan    6.50    6.50   1.000   no
+w21   photo__rrect-sm__rest                       32      0    nan    3.60    3.20   0.889   no   (thin: the lift cannot reach it)
+w9    checkerboard-32__capsule-button__rest       44     32    8.0    1.70    1.80   1.059  yes
+w9    checkerboard-32__rrect-lg__rest            160     32    8.0    5.00    3.40   0.680  yes
+w9    checkerboard-32__rrect-md__rest             96     32    8.0    4.75    3.20   0.674  yes
+w9    checkerboard-32__rrect-ml__rest            128     32    8.0    3.70    2.30   0.622  yes
+w9    checkerboard-32__rrect-sm__rest             32     32    8.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w9    checkerboard-4__capsule-button__rest        44      4    1.0    2.50    0.90   0.360   no
+w9    checkerboard-4__rrect-lg__rest             160      4    1.0    2.60    0.80   0.308   no
+w9    checkerboard-4__rrect-md__rest              96      4    1.0    2.60    1.00   0.385   no
+w9    checkerboard-4__rrect-ml__rest             128      4    1.0    2.60    0.90   0.346   no
+w9    checkerboard-4__rrect-sm__rest              32      4    1.0    2.40    1.00   0.417   no   (thin: the lift cannot reach it)
+w9    checkerboard-64__capsule-button__rest       44     64   16.0    2.00    2.40   1.200  yes
+w9    checkerboard-64__rrect-lg__rest            160     64   16.0    5.25    7.25   1.381  yes
+w9    checkerboard-64__rrect-md__rest             96     64   16.0    6.00    7.75   1.292  yes
+w9    checkerboard-64__rrect-ml__rest            128     64   16.0    6.50    7.00   1.077  yes
+w9    checkerboard-64__rrect-sm__rest             32     64   16.0    8.50   39.50   4.647   no   (thin: the lift cannot reach it)
+w9    checkerboard-8__capsule-button__rest        44      8    2.0    1.50    1.80   1.200  yes
+w9    checkerboard-8__rrect-lg__rest             160      8    2.0    1.70    1.80   1.059  yes
+w9    checkerboard-8__rrect-md__rest              96      8    2.0    1.60    1.90   1.188  yes
+w9    checkerboard-8__rrect-ml__rest             128      8    2.0    1.60    1.90   1.188  yes
+w9    checkerboard-8__rrect-sm__rest              32      8    2.0    1.50    1.90   1.267  yes   (thin: the lift cannot reach it)
+w9    checkerboard-lc16__capsule-button__rest     44     16    4.0    1.60    2.00   1.250  yes
+w9    checkerboard-lc16__rrect-lg__rest          160     16    4.0    1.30    1.90   1.462  yes
+w9    checkerboard-lc16__rrect-md__rest           96     16    4.0    1.30    1.80   1.385  yes
+w9    checkerboard-lc16__rrect-ml__rest          128     16    4.0    1.20    1.80   1.500  yes
+w9    checkerboard-lc16__rrect-sm__rest           32     16    4.0    1.30    1.60   1.231  yes   (thin: the lift cannot reach it)
+w9    checkerboard__capsule-button__rest          44     16    4.0    1.60    2.00   1.250  yes
+w9    checkerboard__rrect-lg__rest               160     16    4.0    1.30    1.90   1.462  yes
+w9    checkerboard__rrect-md__rest                96     16    4.0    1.30    1.80   1.385  yes
+w9    checkerboard__rrect-ml__rest               128     16    4.0    1.20    1.80   1.500  yes
+w9    checkerboard__rrect-sm__rest                32     16    4.0    1.30    1.60   1.231  yes   (thin: the lift cannot reach it)
+w9    hc-text-28__rrect-lg__rest                 160     28    7.0    5.75    7.25   1.261   no
+w9    hc-text-28__rrect-md__rest                  96     28    7.0    6.00    6.00   1.000  yes
+w9    hc-text-28__rrect-sm__rest                  32     28    7.0    1.50    1.80   1.200  yes   (thin: the lift cannot reach it)
+w9    hc-text-7__rrect-lg__rest                  160      7    1.8    6.50    6.50   1.000   no
+w9    hc-text-7__rrect-md__rest                   96      7    1.8    2.50    2.10   0.840   no
+w9    hc-text-7__rrect-sm__rest                   32      7    1.8    2.40    1.70   0.708   no   (thin: the lift cannot reach it)
+w9    hc-text__rrect-lg__rest                    160     16    4.0    3.80    3.70   0.974  yes
+w9    hc-text__rrect-md__rest                     96     16    4.0    3.60    3.10   0.861  yes
+w9    hc-text__rrect-sm__rest                     32     16    4.0    3.60    1.60   0.444  yes   (thin: the lift cannot reach it)
+w9    photo__rrect-lg__rest                      160      0    nan    9.25    7.50   0.811   no
+w9    photo__rrect-md__rest                       96      0    nan    6.50    6.50   1.000   no
+w9    photo__rrect-sm__rest                       32      0    nan    2.60    3.20   1.231   no   (thin: the lift cannot reach it)
+
+  objective (mean |log ratio| over 45 thick in-bound rows): 0.2507   mean log ratio +0.1130
+    span    44: n=10 mean ratio 1.186
+    span    96: n=14 mean ratio 1.114
+    span   128: n=10 mean ratio 1.162
+    span   160: n=11 mean ratio 1.179
+
+  reader A (the dot's own two components) — the CHECK, on validation rows:
+  bed          scene                                             sharp n/w          heavy n/w        share n/w
+  canon-dark   impulse__capsule-button__rest                2.62 /    1.71    62.62 /   61.67   0.000 /  0.001
+  canon-light  impulse__capsule-button__rest                2.62 /    1.71    62.62 /   61.67   0.000 /  0.001
+  canon-light  impulse__rrect-md__rest                      2.79 /    1.67    19.52 /    9.08   0.473 /  0.233
+
+── rung rA ─────────────────────────────────────────────────────────────
+bed   scene                                     span  pitch  bound  native     web   ratio  in-bound
+w21   checkerboard-32__capsule-button__rest       44     32    8.0    1.70    1.80   1.059  yes
+w21   checkerboard-32__rrect-lg__rest            160     32    8.0    5.25    4.25   0.810  yes
+w21   checkerboard-32__rrect-md__rest             96     32    8.0    4.75    3.50   0.737  yes
+w21   checkerboard-32__rrect-ml__rest            128     32    8.0    4.00    2.70   0.675  yes
+w21   checkerboard-32__rrect-sm__rest             32     32    8.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w21   checkerboard-4__capsule-button__rest        44      4    1.0    2.60    1.00   0.385   no
+w21   checkerboard-4__rrect-lg__rest             160      4    1.0    3.10    0.80   0.258   no
+w21   checkerboard-4__rrect-md__rest              96      4    1.0    3.10    1.10   0.355   no
+w21   checkerboard-4__rrect-ml__rest             128      4    1.0    3.10    0.80   0.258   no
+w21   checkerboard-4__rrect-sm__rest              32      4    1.0    2.60    0.80   0.308   no   (thin: the lift cannot reach it)
+w21   checkerboard-64__capsule-button__rest       44     64   16.0    2.10    2.50   1.190  yes
+w21   checkerboard-64__rrect-lg__rest            160     64   16.0    6.00    9.75   1.625  yes
+w21   checkerboard-64__rrect-md__rest             96     64   16.0    6.25    8.75   1.400  yes
+w21   checkerboard-64__rrect-ml__rest            128     64   16.0    6.75    8.25   1.222  yes
+w21   checkerboard-64__rrect-sm__rest             32     64   16.0    6.25   37.50   6.000   no   (thin: the lift cannot reach it)
+w21   checkerboard-8__capsule-button__rest        44      8    2.0    1.50    1.80   1.200  yes
+w21   checkerboard-8__rrect-lg__rest             160      8    2.0    1.70    1.90   1.118  yes
+w21   checkerboard-8__rrect-md__rest              96      8    2.0    1.60    2.00   1.250  yes
+w21   checkerboard-8__rrect-ml__rest             128      8    2.0    1.70    1.90   1.118  yes
+w21   checkerboard-8__rrect-sm__rest              32      8    2.0    1.50    1.90   1.267  yes   (thin: the lift cannot reach it)
+w21   checkerboard-lc16__capsule-button__rest     44     16    4.0    1.60    2.00   1.250  yes
+w21   checkerboard-lc16__rrect-lg__rest          160     16    4.0    1.30   12.00   9.231   no
+w21   checkerboard-lc16__rrect-md__rest           96     16    4.0    1.20    1.80   1.500  yes
+w21   checkerboard-lc16__rrect-ml__rest          128     16    4.0    1.20    1.80   1.500  yes
+w21   checkerboard-lc16__rrect-sm__rest           32     16    4.0    1.40    1.60   1.143  yes   (thin: the lift cannot reach it)
+w21   checkerboard__capsule-button__rest          44     16    4.0    1.60    2.00   1.250  yes
+w21   checkerboard__rrect-lg__rest               160     16    4.0    1.30   12.00   9.231   no
+w21   checkerboard__rrect-md__rest                96     16    4.0    1.30    1.90   1.462  yes
+w21   checkerboard__rrect-ml__rest               128     16    4.0    1.20    1.80   1.500  yes
+w21   checkerboard__rrect-sm__rest                32     16    4.0    1.30    1.70   1.308  yes   (thin: the lift cannot reach it)
+w21   hc-text-28__rrect-lg__rest                 160     28    7.0    7.50    8.75   1.167   no
+w21   hc-text-28__rrect-md__rest                  96     28    7.0    6.50    6.75   1.038  yes
+w21   hc-text-28__rrect-sm__rest                  32     28    7.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w21   hc-text-7__rrect-lg__rest                  160      7    1.8    6.50    8.25   1.269   no
+w21   hc-text-7__rrect-md__rest                   96      7    1.8    2.70    2.20   0.815   no
+w21   hc-text-7__rrect-sm__rest                   32      7    1.8    2.40    1.70   0.708   no   (thin: the lift cannot reach it)
+w21   hc-text__rrect-lg__rest                    160     16    4.0    4.50    4.75   1.056   no
+w21   hc-text__rrect-md__rest                     96     16    4.0    3.80    3.40   0.895  yes
+w21   hc-text__rrect-sm__rest                     32     16    4.0    4.50    1.60   0.356   no   (thin: the lift cannot reach it)
+w21   photo__rrect-lg__rest                      160      0    nan    7.50   11.25   1.500   no
+w21   photo__rrect-md__rest                       96      0    nan    6.50    7.25   1.115   no
+w21   photo__rrect-sm__rest                       32      0    nan    3.60    3.20   0.889   no   (thin: the lift cannot reach it)
+w9    checkerboard-32__capsule-button__rest       44     32    8.0    1.70    1.80   1.059  yes
+w9    checkerboard-32__rrect-lg__rest            160     32    8.0    5.00    4.25   0.850  yes
+w9    checkerboard-32__rrect-md__rest             96     32    8.0    4.75    3.50   0.737  yes
+w9    checkerboard-32__rrect-ml__rest            128     32    8.0    3.70    2.70   0.730  yes
+w9    checkerboard-32__rrect-sm__rest             32     32    8.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w9    checkerboard-4__capsule-button__rest        44      4    1.0    2.50    0.90   0.360   no
+w9    checkerboard-4__rrect-lg__rest             160      4    1.0    2.60    1.00   0.385   no
+w9    checkerboard-4__rrect-md__rest              96      4    1.0    2.60    0.80   0.308   no
+w9    checkerboard-4__rrect-ml__rest             128      4    1.0    2.60    0.80   0.308   no
+w9    checkerboard-4__rrect-sm__rest              32      4    1.0    2.40    1.00   0.417   no   (thin: the lift cannot reach it)
+w9    checkerboard-64__capsule-button__rest       44     64   16.0    2.00    2.40   1.200  yes
+w9    checkerboard-64__rrect-lg__rest            160     64   16.0    5.25    9.75   1.857  yes
+w9    checkerboard-64__rrect-md__rest             96     64   16.0    6.00    8.75   1.458  yes
+w9    checkerboard-64__rrect-ml__rest            128     64   16.0    6.50    8.25   1.269  yes
+w9    checkerboard-64__rrect-sm__rest             32     64   16.0    8.50   39.50   4.647   no   (thin: the lift cannot reach it)
+w9    checkerboard-8__capsule-button__rest        44      8    2.0    1.50    1.80   1.200  yes
+w9    checkerboard-8__rrect-lg__rest             160      8    2.0    1.70    1.90   1.118  yes
+w9    checkerboard-8__rrect-md__rest              96      8    2.0    1.60    2.00   1.250  yes
+w9    checkerboard-8__rrect-ml__rest             128      8    2.0    1.60    1.90   1.188  yes
+w9    checkerboard-8__rrect-sm__rest              32      8    2.0    1.50    1.90   1.267  yes   (thin: the lift cannot reach it)
+w9    checkerboard-lc16__capsule-button__rest     44     16    4.0    1.60    2.00   1.250  yes
+w9    checkerboard-lc16__rrect-lg__rest          160     16    4.0    1.30    2.10   1.615  yes
+w9    checkerboard-lc16__rrect-md__rest           96     16    4.0    1.30    1.80   1.385  yes
+w9    checkerboard-lc16__rrect-ml__rest          128     16    4.0    1.20    1.80   1.500  yes
+w9    checkerboard-lc16__rrect-sm__rest           32     16    4.0    1.30    1.60   1.231  yes   (thin: the lift cannot reach it)
+w9    checkerboard__capsule-button__rest          44     16    4.0    1.60    2.00   1.250  yes
+w9    checkerboard__rrect-lg__rest               160     16    4.0    1.30    2.10   1.615  yes
+w9    checkerboard__rrect-md__rest                96     16    4.0    1.30    1.90   1.462  yes
+w9    checkerboard__rrect-ml__rest               128     16    4.0    1.20    1.80   1.500  yes
+w9    checkerboard__rrect-sm__rest                32     16    4.0    1.30    1.60   1.231  yes   (thin: the lift cannot reach it)
+w9    hc-text-28__rrect-lg__rest                 160     28    7.0    5.75    8.75   1.522   no
+w9    hc-text-28__rrect-md__rest                  96     28    7.0    6.00    6.75   1.125  yes
+w9    hc-text-28__rrect-sm__rest                  32     28    7.0    1.50    1.80   1.200  yes   (thin: the lift cannot reach it)
+w9    hc-text-7__rrect-lg__rest                  160      7    1.8    6.50    8.00   1.231   no
+w9    hc-text-7__rrect-md__rest                   96      7    1.8    2.50    2.20   0.880   no
+w9    hc-text-7__rrect-sm__rest                   32      7    1.8    2.40    1.70   0.708   no   (thin: the lift cannot reach it)
+w9    hc-text__rrect-lg__rest                    160     16    4.0    3.80    4.75   1.250   no
+w9    hc-text__rrect-md__rest                     96     16    4.0    3.60    3.40   0.944  yes
+w9    hc-text__rrect-sm__rest                     32     16    4.0    3.60    1.60   0.444  yes   (thin: the lift cannot reach it)
+w9    photo__rrect-lg__rest                      160      0    nan    9.25   11.25   1.216   no
+w9    photo__rrect-md__rest                       96      0    nan    6.50    7.25   1.115   no
+w9    photo__rrect-sm__rest                       32      0    nan    2.60    3.20   1.231   no   (thin: the lift cannot reach it)
+
+  objective (mean |log ratio| over 42 thick in-bound rows): 0.2625   mean log ratio +0.1739
+    span    44: n=10 mean ratio 1.191
+    span    96: n=14 mean ratio 1.189
+    span   128: n=10 mean ratio 1.220
+    span   160: n= 8 mean ratio 1.326
+
+  reader A (the dot's own two components) — the CHECK, on validation rows:
+  bed          scene                                             sharp n/w          heavy n/w        share n/w
+  canon-dark   impulse__capsule-button__rest                2.62 /    1.71    62.62 /   61.67   0.000 /  0.001
+  canon-light  impulse__capsule-button__rest                2.62 /    1.71    62.62 /   61.67   0.000 /  0.001
+  canon-light  impulse__rrect-md__rest                      2.79 /    1.68    19.52 /   11.76   0.473 /  0.325
+
+── rung rE ─────────────────────────────────────────────────────────────
+bed   scene                                     span  pitch  bound  native     web   ratio  in-bound
+w21   checkerboard-32__capsule-button__rest       44     32    8.0    1.70    1.80   1.059  yes
+w21   checkerboard-32__rrect-lg__rest            160     32    8.0    5.25    4.25   0.810  yes
+w21   checkerboard-32__rrect-md__rest             96     32    8.0    4.75    3.60   0.758  yes
+w21   checkerboard-32__rrect-ml__rest            128     32    8.0    4.00    2.80   0.700  yes
+w21   checkerboard-32__rrect-sm__rest             32     32    8.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w21   checkerboard-4__capsule-button__rest        44      4    1.0    2.60    1.00   0.385   no
+w21   checkerboard-4__rrect-lg__rest             160      4    1.0    3.10    0.80   0.258   no
+w21   checkerboard-4__rrect-md__rest              96      4    1.0    3.10    1.00   0.323   no
+w21   checkerboard-4__rrect-ml__rest             128      4    1.0    3.10    0.80   0.258   no
+w21   checkerboard-4__rrect-sm__rest              32      4    1.0    2.60    0.80   0.308   no   (thin: the lift cannot reach it)
+w21   checkerboard-64__capsule-button__rest       44     64   16.0    2.10    2.50   1.190  yes
+w21   checkerboard-64__rrect-lg__rest            160     64   16.0    6.00    9.75   1.625  yes
+w21   checkerboard-64__rrect-md__rest             96     64   16.0    6.25    9.00   1.440  yes
+w21   checkerboard-64__rrect-ml__rest            128     64   16.0    6.75    8.75   1.296  yes
+w21   checkerboard-64__rrect-sm__rest             32     64   16.0    6.25   37.50   6.000   no   (thin: the lift cannot reach it)
+w21   checkerboard-8__capsule-button__rest        44      8    2.0    1.50    1.80   1.200  yes
+w21   checkerboard-8__rrect-lg__rest             160      8    2.0    1.70    1.90   1.118  yes
+w21   checkerboard-8__rrect-md__rest              96      8    2.0    1.60    2.00   1.250  yes
+w21   checkerboard-8__rrect-ml__rest             128      8    2.0    1.70    2.00   1.176  yes
+w21   checkerboard-8__rrect-sm__rest              32      8    2.0    1.50    1.90   1.267  yes   (thin: the lift cannot reach it)
+w21   checkerboard-lc16__capsule-button__rest     44     16    4.0    1.60    2.00   1.250  yes
+w21   checkerboard-lc16__rrect-lg__rest          160     16    4.0    1.30   12.00   9.231   no
+w21   checkerboard-lc16__rrect-md__rest           96     16    4.0    1.20    1.90   1.583  yes
+w21   checkerboard-lc16__rrect-ml__rest          128     16    4.0    1.20    1.80   1.500  yes
+w21   checkerboard-lc16__rrect-sm__rest           32     16    4.0    1.40    1.60   1.143  yes   (thin: the lift cannot reach it)
+w21   checkerboard__capsule-button__rest          44     16    4.0    1.60    2.00   1.250  yes
+w21   checkerboard__rrect-lg__rest               160     16    4.0    1.30   12.00   9.231   no
+w21   checkerboard__rrect-md__rest                96     16    4.0    1.30    1.90   1.462  yes
+w21   checkerboard__rrect-ml__rest               128     16    4.0    1.20    1.80   1.500  yes
+w21   checkerboard__rrect-sm__rest                32     16    4.0    1.30    1.70   1.308  yes   (thin: the lift cannot reach it)
+w21   hc-text-28__rrect-lg__rest                 160     28    7.0    7.50    8.75   1.167   no
+w21   hc-text-28__rrect-md__rest                  96     28    7.0    6.50    7.00   1.077  yes
+w21   hc-text-28__rrect-sm__rest                  32     28    7.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w21   hc-text-7__rrect-lg__rest                  160      7    1.8    6.50    8.25   1.269   no
+w21   hc-text-7__rrect-md__rest                   96      7    1.8    2.70    2.30   0.852   no
+w21   hc-text-7__rrect-sm__rest                   32      7    1.8    2.40    1.70   0.708   no   (thin: the lift cannot reach it)
+w21   hc-text__rrect-lg__rest                    160     16    4.0    4.50    4.75   1.056   no
+w21   hc-text__rrect-md__rest                     96     16    4.0    3.80    3.40   0.895  yes
+w21   hc-text__rrect-sm__rest                     32     16    4.0    4.50    1.60   0.356   no   (thin: the lift cannot reach it)
+w21   photo__rrect-lg__rest                      160      0    nan    7.50   11.25   1.500   no
+w21   photo__rrect-md__rest                       96      0    nan    6.50    7.50   1.154   no
+w21   photo__rrect-sm__rest                       32      0    nan    3.60    3.20   0.889   no   (thin: the lift cannot reach it)
+w9    checkerboard-32__capsule-button__rest       44     32    8.0    1.70    1.80   1.059  yes
+w9    checkerboard-32__rrect-lg__rest            160     32    8.0    5.00    4.25   0.850  yes
+w9    checkerboard-32__rrect-md__rest             96     32    8.0    4.75    3.60   0.758  yes
+w9    checkerboard-32__rrect-ml__rest            128     32    8.0    3.70    2.80   0.757  yes
+w9    checkerboard-32__rrect-sm__rest             32     32    8.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w9    checkerboard-4__capsule-button__rest        44      4    1.0    2.50    0.90   0.360   no
+w9    checkerboard-4__rrect-lg__rest             160      4    1.0    2.60    1.00   0.385   no
+w9    checkerboard-4__rrect-md__rest              96      4    1.0    2.60    0.80   0.308   no
+w9    checkerboard-4__rrect-ml__rest             128      4    1.0    2.60    0.80   0.308   no
+w9    checkerboard-4__rrect-sm__rest              32      4    1.0    2.40    1.00   0.417   no   (thin: the lift cannot reach it)
+w9    checkerboard-64__capsule-button__rest       44     64   16.0    2.00    2.50   1.250  yes
+w9    checkerboard-64__rrect-lg__rest            160     64   16.0    5.25    9.75   1.857  yes
+w9    checkerboard-64__rrect-md__rest             96     64   16.0    6.00    9.25   1.542  yes
+w9    checkerboard-64__rrect-ml__rest            128     64   16.0    6.50    8.75   1.346  yes
+w9    checkerboard-64__rrect-sm__rest             32     64   16.0    8.50   39.50   4.647   no   (thin: the lift cannot reach it)
+w9    checkerboard-8__capsule-button__rest        44      8    2.0    1.50    1.80   1.200  yes
+w9    checkerboard-8__rrect-lg__rest             160      8    2.0    1.70    1.90   1.118  yes
+w9    checkerboard-8__rrect-md__rest              96      8    2.0    1.60    2.00   1.250  yes
+w9    checkerboard-8__rrect-ml__rest             128      8    2.0    1.60    1.90   1.188  yes
+w9    checkerboard-8__rrect-sm__rest              32      8    2.0    1.50    1.90   1.267  yes   (thin: the lift cannot reach it)
+w9    checkerboard-lc16__capsule-button__rest     44     16    4.0    1.60    2.00   1.250  yes
+w9    checkerboard-lc16__rrect-lg__rest          160     16    4.0    1.30    2.10   1.615  yes
+w9    checkerboard-lc16__rrect-md__rest           96     16    4.0    1.30    1.80   1.385  yes
+w9    checkerboard-lc16__rrect-ml__rest          128     16    4.0    1.20    1.80   1.500  yes
+w9    checkerboard-lc16__rrect-sm__rest           32     16    4.0    1.30    1.60   1.231  yes   (thin: the lift cannot reach it)
+w9    checkerboard__capsule-button__rest          44     16    4.0    1.60    2.00   1.250  yes
+w9    checkerboard__rrect-lg__rest               160     16    4.0    1.30    2.10   1.615  yes
+w9    checkerboard__rrect-md__rest                96     16    4.0    1.30    1.90   1.462  yes
+w9    checkerboard__rrect-ml__rest               128     16    4.0    1.20    1.80   1.500  yes
+w9    checkerboard__rrect-sm__rest                32     16    4.0    1.30    1.60   1.231  yes   (thin: the lift cannot reach it)
+w9    hc-text-28__rrect-lg__rest                 160     28    7.0    5.75    8.75   1.522   no
+w9    hc-text-28__rrect-md__rest                  96     28    7.0    6.00    7.00   1.167  yes
+w9    hc-text-28__rrect-sm__rest                  32     28    7.0    1.50    1.80   1.200  yes   (thin: the lift cannot reach it)
+w9    hc-text-7__rrect-lg__rest                  160      7    1.8    6.50    8.00   1.231   no
+w9    hc-text-7__rrect-md__rest                   96      7    1.8    2.50    2.30   0.920   no
+w9    hc-text-7__rrect-sm__rest                   32      7    1.8    2.40    1.70   0.708   no   (thin: the lift cannot reach it)
+w9    hc-text__rrect-lg__rest                    160     16    4.0    3.80    4.75   1.250   no
+w9    hc-text__rrect-md__rest                     96     16    4.0    3.60    3.40   0.944  yes
+w9    hc-text__rrect-sm__rest                     32     16    4.0    3.60    1.60   0.444  yes   (thin: the lift cannot reach it)
+w9    photo__rrect-lg__rest                      160      0    nan    9.25   11.25   1.216   no
+w9    photo__rrect-md__rest                       96      0    nan    6.50    7.50   1.154   no
+w9    photo__rrect-sm__rest                       32      0    nan    2.60    3.20   1.231   no   (thin: the lift cannot reach it)
+
+  objective (mean |log ratio| over 42 thick in-bound rows): 0.2694   mean log ratio +0.1870
+    span    44: n=10 mean ratio 1.196
+    span    96: n=14 mean ratio 1.212
+    span   128: n=10 mean ratio 1.246
+    span   160: n= 8 mean ratio 1.326
+
+  reader A (the dot's own two components) — the CHECK, on validation rows:
+  bed          scene                                             sharp n/w          heavy n/w        share n/w
+  canon-dark   impulse__capsule-button__rest                2.62 /    1.71    62.62 /   61.67   0.000 /  0.001
+  canon-light  impulse__capsule-button__rest                2.62 /    1.71    62.62 /   61.67   0.000 /  0.001
+  canon-light  impulse__rrect-md__rest                      2.79 /    1.66    19.52 /   12.34   0.473 /  0.363
+
+── rung rB ─────────────────────────────────────────────────────────────
+bed   scene                                     span  pitch  bound  native     web   ratio  in-bound
+w21   checkerboard-32__capsule-button__rest       44     32    8.0    1.70    1.80   1.059  yes
+w21   checkerboard-32__rrect-lg__rest            160     32    8.0    5.25    4.25   0.810  yes
+w21   checkerboard-32__rrect-md__rest             96     32    8.0    4.75    3.90   0.821  yes
+w21   checkerboard-32__rrect-ml__rest            128     32    8.0    4.00    3.00   0.750  yes
+w21   checkerboard-32__rrect-sm__rest             32     32    8.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w21   checkerboard-4__capsule-button__rest        44      4    1.0    2.60    1.00   0.385   no
+w21   checkerboard-4__rrect-lg__rest             160      4    1.0    3.10    0.80   0.258   no
+w21   checkerboard-4__rrect-md__rest              96      4    1.0    3.10    0.80   0.258   no
+w21   checkerboard-4__rrect-ml__rest             128      4    1.0    3.10    0.80   0.258   no
+w21   checkerboard-4__rrect-sm__rest              32      4    1.0    2.60    0.80   0.308   no   (thin: the lift cannot reach it)
+w21   checkerboard-64__capsule-button__rest       44     64   16.0    2.10    2.50   1.190  yes
+w21   checkerboard-64__rrect-lg__rest            160     64   16.0    6.00    9.75   1.625  yes
+w21   checkerboard-64__rrect-md__rest             96     64   16.0    6.25   10.00   1.600  yes
+w21   checkerboard-64__rrect-ml__rest            128     64   16.0    6.75    9.00   1.333  yes
+w21   checkerboard-64__rrect-sm__rest             32     64   16.0    6.25   37.50   6.000   no   (thin: the lift cannot reach it)
+w21   checkerboard-8__capsule-button__rest        44      8    2.0    1.50    1.80   1.200  yes
+w21   checkerboard-8__rrect-lg__rest             160      8    2.0    1.70    1.90   1.118  yes
+w21   checkerboard-8__rrect-md__rest              96      8    2.0    1.60    2.00   1.250  yes
+w21   checkerboard-8__rrect-ml__rest             128      8    2.0    1.70    2.00   1.176  yes
+w21   checkerboard-8__rrect-sm__rest              32      8    2.0    1.50    1.90   1.267  yes   (thin: the lift cannot reach it)
+w21   checkerboard-lc16__capsule-button__rest     44     16    4.0    1.60    2.00   1.250  yes
+w21   checkerboard-lc16__rrect-lg__rest          160     16    4.0    1.30   12.00   9.231   no
+w21   checkerboard-lc16__rrect-md__rest           96     16    4.0    1.20    1.90   1.583  yes
+w21   checkerboard-lc16__rrect-ml__rest          128     16    4.0    1.20    1.80   1.500  yes
+w21   checkerboard-lc16__rrect-sm__rest           32     16    4.0    1.40    1.60   1.143  yes   (thin: the lift cannot reach it)
+w21   checkerboard__capsule-button__rest          44     16    4.0    1.60    2.00   1.250  yes
+w21   checkerboard__rrect-lg__rest               160     16    4.0    1.30   12.00   9.231   no
+w21   checkerboard__rrect-md__rest                96     16    4.0    1.30    1.90   1.462  yes
+w21   checkerboard__rrect-ml__rest               128     16    4.0    1.20    1.80   1.500  yes
+w21   checkerboard__rrect-sm__rest                32     16    4.0    1.30    1.70   1.308  yes   (thin: the lift cannot reach it)
+w21   hc-text-28__rrect-lg__rest                 160     28    7.0    7.50    8.75   1.167   no
+w21   hc-text-28__rrect-md__rest                  96     28    7.0    6.50    7.50   1.154   no
+w21   hc-text-28__rrect-sm__rest                  32     28    7.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w21   hc-text-7__rrect-lg__rest                  160      7    1.8    6.50    8.25   1.269   no
+w21   hc-text-7__rrect-md__rest                   96      7    1.8    2.70    6.25   2.315   no
+w21   hc-text-7__rrect-sm__rest                   32      7    1.8    2.40    1.70   0.708   no   (thin: the lift cannot reach it)
+w21   hc-text__rrect-lg__rest                    160     16    4.0    4.50    4.75   1.056   no
+w21   hc-text__rrect-md__rest                     96     16    4.0    3.80    3.70   0.974  yes
+w21   hc-text__rrect-sm__rest                     32     16    4.0    4.50    1.60   0.356   no   (thin: the lift cannot reach it)
+w21   photo__rrect-lg__rest                      160      0    nan    7.50   11.25   1.500   no
+w21   photo__rrect-md__rest                       96      0    nan    6.50   10.75   1.654   no
+w21   photo__rrect-sm__rest                       32      0    nan    3.60    3.20   0.889   no   (thin: the lift cannot reach it)
+w9    checkerboard-32__capsule-button__rest       44     32    8.0    1.70    1.80   1.059  yes
+w9    checkerboard-32__rrect-lg__rest            160     32    8.0    5.00    4.25   0.850  yes
+w9    checkerboard-32__rrect-md__rest             96     32    8.0    4.75    3.90   0.821  yes
+w9    checkerboard-32__rrect-ml__rest            128     32    8.0    3.70    3.00   0.811  yes
+w9    checkerboard-32__rrect-sm__rest             32     32    8.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w9    checkerboard-4__capsule-button__rest        44      4    1.0    2.50    0.90   0.360   no
+w9    checkerboard-4__rrect-lg__rest             160      4    1.0    2.60    1.00   0.385   no
+w9    checkerboard-4__rrect-md__rest              96      4    1.0    2.60    0.80   0.308   no
+w9    checkerboard-4__rrect-ml__rest             128      4    1.0    2.60    0.90   0.346   no
+w9    checkerboard-4__rrect-sm__rest              32      4    1.0    2.40    1.00   0.417   no   (thin: the lift cannot reach it)
+w9    checkerboard-64__capsule-button__rest       44     64   16.0    2.00    2.50   1.250  yes
+w9    checkerboard-64__rrect-lg__rest            160     64   16.0    5.25    9.75   1.857  yes
+w9    checkerboard-64__rrect-md__rest             96     64   16.0    6.00   10.00   1.667  yes
+w9    checkerboard-64__rrect-ml__rest            128     64   16.0    6.50    9.00   1.385  yes
+w9    checkerboard-64__rrect-sm__rest             32     64   16.0    8.50   39.50   4.647   no   (thin: the lift cannot reach it)
+w9    checkerboard-8__capsule-button__rest        44      8    2.0    1.50    1.90   1.267  yes
+w9    checkerboard-8__rrect-lg__rest             160      8    2.0    1.70    1.90   1.118  yes
+w9    checkerboard-8__rrect-md__rest              96      8    2.0    1.60    2.00   1.250  yes
+w9    checkerboard-8__rrect-ml__rest             128      8    2.0    1.60    2.00   1.250  yes
+w9    checkerboard-8__rrect-sm__rest              32      8    2.0    1.50    1.90   1.267  yes   (thin: the lift cannot reach it)
+w9    checkerboard-lc16__capsule-button__rest     44     16    4.0    1.60    2.00   1.250  yes
+w9    checkerboard-lc16__rrect-lg__rest          160     16    4.0    1.30    2.10   1.615  yes
+w9    checkerboard-lc16__rrect-md__rest           96     16    4.0    1.30    1.90   1.462  yes
+w9    checkerboard-lc16__rrect-ml__rest          128     16    4.0    1.20    1.80   1.500  yes
+w9    checkerboard-lc16__rrect-sm__rest           32     16    4.0    1.30    1.60   1.231  yes   (thin: the lift cannot reach it)
+w9    checkerboard__capsule-button__rest          44     16    4.0    1.60    2.00   1.250  yes
+w9    checkerboard__rrect-lg__rest               160     16    4.0    1.30    2.10   1.615  yes
+w9    checkerboard__rrect-md__rest                96     16    4.0    1.30    1.90   1.462  yes
+w9    checkerboard__rrect-ml__rest               128     16    4.0    1.20    1.80   1.500  yes
+w9    checkerboard__rrect-sm__rest                32     16    4.0    1.30    1.60   1.231  yes   (thin: the lift cannot reach it)
+w9    hc-text-28__rrect-lg__rest                 160     28    7.0    5.75    8.75   1.522   no
+w9    hc-text-28__rrect-md__rest                  96     28    7.0    6.00    7.50   1.250   no
+w9    hc-text-28__rrect-sm__rest                  32     28    7.0    1.50    1.80   1.200  yes   (thin: the lift cannot reach it)
+w9    hc-text-7__rrect-lg__rest                  160      7    1.8    6.50    8.00   1.231   no
+w9    hc-text-7__rrect-md__rest                   96      7    1.8    2.50    6.25   2.500   no
+w9    hc-text-7__rrect-sm__rest                   32      7    1.8    2.40    1.70   0.708   no   (thin: the lift cannot reach it)
+w9    hc-text__rrect-lg__rest                    160     16    4.0    3.80    4.75   1.250   no
+w9    hc-text__rrect-md__rest                     96     16    4.0    3.60    3.70   1.028  yes
+w9    hc-text__rrect-sm__rest                     32     16    4.0    3.60    1.60   0.444  yes   (thin: the lift cannot reach it)
+w9    photo__rrect-lg__rest                      160      0    nan    9.25   11.25   1.216   no
+w9    photo__rrect-md__rest                       96      0    nan    6.50   10.50   1.615   no
+w9    photo__rrect-sm__rest                       32      0    nan    2.60    3.20   1.231   no   (thin: the lift cannot reach it)
+
+  objective (mean |log ratio| over 40 thick in-bound rows): 0.2769   mean log ratio +0.2123
+    span    44: n=10 mean ratio 1.202
+    span    96: n=12 mean ratio 1.282
+    span   128: n=10 mean ratio 1.271
+    span   160: n= 8 mean ratio 1.326
+
+  reader A (the dot's own two components) — the CHECK, on validation rows:
+  bed          scene                                             sharp n/w          heavy n/w        share n/w
+  canon-dark   impulse__capsule-button__rest                2.62 /    1.71    62.62 /   61.67   0.000 /  0.001
+  canon-light  impulse__capsule-button__rest                2.62 /    1.71    62.62 /   61.67   0.000 /  0.001
+  canon-light  impulse__rrect-md__rest                      2.79 /    1.64    19.52 /   15.22   0.473 /  0.491
+
+── rung rG ─────────────────────────────────────────────────────────────
+bed   scene                                     span  pitch  bound  native     web   ratio  in-bound
+w21   checkerboard-32__capsule-button__rest       44     32    8.0    1.70    1.80   1.059  yes
+w21   checkerboard-32__rrect-lg__rest            160     32    8.0    5.25    4.25   0.810  yes
+w21   checkerboard-32__rrect-md__rest             96     32    8.0    4.75    3.80   0.800  yes
+w21   checkerboard-32__rrect-ml__rest            128     32    8.0    4.00    3.00   0.750  yes
+w21   checkerboard-32__rrect-sm__rest             32     32    8.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w21   checkerboard-4__capsule-button__rest        44      4    1.0    2.60    1.00   0.385   no
+w21   checkerboard-4__rrect-lg__rest             160      4    1.0    3.10    0.80   0.258   no
+w21   checkerboard-4__rrect-md__rest              96      4    1.0    3.10    0.90   0.290   no
+w21   checkerboard-4__rrect-ml__rest             128      4    1.0    3.10    0.80   0.258   no
+w21   checkerboard-4__rrect-sm__rest              32      4    1.0    2.60    0.80   0.308   no   (thin: the lift cannot reach it)
+w21   checkerboard-64__capsule-button__rest       44     64   16.0    2.10    2.50   1.190  yes
+w21   checkerboard-64__rrect-lg__rest            160     64   16.0    6.00    9.75   1.625  yes
+w21   checkerboard-64__rrect-md__rest             96     64   16.0    6.25   10.00   1.600  yes
+w21   checkerboard-64__rrect-ml__rest            128     64   16.0    6.75    9.00   1.333  yes
+w21   checkerboard-64__rrect-sm__rest             32     64   16.0    6.25   37.50   6.000   no   (thin: the lift cannot reach it)
+w21   checkerboard-8__capsule-button__rest        44      8    2.0    1.50    1.80   1.200  yes
+w21   checkerboard-8__rrect-lg__rest             160      8    2.0    1.70    1.90   1.118  yes
+w21   checkerboard-8__rrect-md__rest              96      8    2.0    1.60    2.00   1.250  yes
+w21   checkerboard-8__rrect-ml__rest             128      8    2.0    1.70    2.00   1.176  yes
+w21   checkerboard-8__rrect-sm__rest              32      8    2.0    1.50    1.90   1.267  yes   (thin: the lift cannot reach it)
+w21   checkerboard-lc16__capsule-button__rest     44     16    4.0    1.60    2.00   1.250  yes
+w21   checkerboard-lc16__rrect-lg__rest          160     16    4.0    1.30   12.00   9.231   no
+w21   checkerboard-lc16__rrect-md__rest           96     16    4.0    1.20    1.90   1.583  yes
+w21   checkerboard-lc16__rrect-ml__rest          128     16    4.0    1.20    1.80   1.500  yes
+w21   checkerboard-lc16__rrect-sm__rest           32     16    4.0    1.40    1.60   1.143  yes   (thin: the lift cannot reach it)
+w21   checkerboard__capsule-button__rest          44     16    4.0    1.60    2.00   1.250  yes
+w21   checkerboard__rrect-lg__rest               160     16    4.0    1.30   12.00   9.231   no
+w21   checkerboard__rrect-md__rest                96     16    4.0    1.30    1.90   1.462  yes
+w21   checkerboard__rrect-ml__rest               128     16    4.0    1.20    1.80   1.500  yes
+w21   checkerboard__rrect-sm__rest                32     16    4.0    1.30    1.70   1.308  yes   (thin: the lift cannot reach it)
+w21   hc-text-28__rrect-lg__rest                 160     28    7.0    7.50    8.75   1.167   no
+w21   hc-text-28__rrect-md__rest                  96     28    7.0    6.50    7.50   1.154   no
+w21   hc-text-28__rrect-sm__rest                  32     28    7.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w21   hc-text-7__rrect-lg__rest                  160      7    1.8    6.50    8.25   1.269   no
+w21   hc-text-7__rrect-md__rest                   96      7    1.8    2.70    6.25   2.315   no
+w21   hc-text-7__rrect-sm__rest                   32      7    1.8    2.40    1.70   0.708   no   (thin: the lift cannot reach it)
+w21   hc-text__rrect-lg__rest                    160     16    4.0    4.50    4.75   1.056   no
+w21   hc-text__rrect-md__rest                     96     16    4.0    3.80    3.60   0.947  yes
+w21   hc-text__rrect-sm__rest                     32     16    4.0    4.50    1.60   0.356   no   (thin: the lift cannot reach it)
+w21   photo__rrect-lg__rest                      160      0    nan    7.50   11.25   1.500   no
+w21   photo__rrect-md__rest                       96      0    nan    6.50   10.00   1.538   no
+w21   photo__rrect-sm__rest                       32      0    nan    3.60    3.20   0.889   no   (thin: the lift cannot reach it)
+w9    checkerboard-32__capsule-button__rest       44     32    8.0    1.70    1.80   1.059  yes
+w9    checkerboard-32__rrect-lg__rest            160     32    8.0    5.00    4.25   0.850  yes
+w9    checkerboard-32__rrect-md__rest             96     32    8.0    4.75    3.80   0.800  yes
+w9    checkerboard-32__rrect-ml__rest            128     32    8.0    3.70    3.00   0.811  yes
+w9    checkerboard-32__rrect-sm__rest             32     32    8.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w9    checkerboard-4__capsule-button__rest        44      4    1.0    2.50    0.90   0.360   no
+w9    checkerboard-4__rrect-lg__rest             160      4    1.0    2.60    1.00   0.385   no
+w9    checkerboard-4__rrect-md__rest              96      4    1.0    2.60    0.80   0.308   no
+w9    checkerboard-4__rrect-ml__rest             128      4    1.0    2.60    0.90   0.346   no
+w9    checkerboard-4__rrect-sm__rest              32      4    1.0    2.40    1.00   0.417   no   (thin: the lift cannot reach it)
+w9    checkerboard-64__capsule-button__rest       44     64   16.0    2.00    2.50   1.250  yes
+w9    checkerboard-64__rrect-lg__rest            160     64   16.0    5.25    9.75   1.857  yes
+w9    checkerboard-64__rrect-md__rest             96     64   16.0    6.00   10.00   1.667  yes
+w9    checkerboard-64__rrect-ml__rest            128     64   16.0    6.50    9.00   1.385  yes
+w9    checkerboard-64__rrect-sm__rest             32     64   16.0    8.50   39.50   4.647   no   (thin: the lift cannot reach it)
+w9    checkerboard-8__capsule-button__rest        44      8    2.0    1.50    1.80   1.200  yes
+w9    checkerboard-8__rrect-lg__rest             160      8    2.0    1.70    1.90   1.118  yes
+w9    checkerboard-8__rrect-md__rest              96      8    2.0    1.60    2.00   1.250  yes
+w9    checkerboard-8__rrect-ml__rest             128      8    2.0    1.60    2.00   1.250  yes
+w9    checkerboard-8__rrect-sm__rest              32      8    2.0    1.50    1.90   1.267  yes   (thin: the lift cannot reach it)
+w9    checkerboard-lc16__capsule-button__rest     44     16    4.0    1.60    2.00   1.250  yes
+w9    checkerboard-lc16__rrect-lg__rest          160     16    4.0    1.30    2.10   1.615  yes
+w9    checkerboard-lc16__rrect-md__rest           96     16    4.0    1.30    1.90   1.462  yes
+w9    checkerboard-lc16__rrect-ml__rest          128     16    4.0    1.20    1.80   1.500  yes
+w9    checkerboard-lc16__rrect-sm__rest           32     16    4.0    1.30    1.60   1.231  yes   (thin: the lift cannot reach it)
+w9    checkerboard__capsule-button__rest          44     16    4.0    1.60    2.00   1.250  yes
+w9    checkerboard__rrect-lg__rest               160     16    4.0    1.30    2.10   1.615  yes
+w9    checkerboard__rrect-md__rest                96     16    4.0    1.30    1.90   1.462  yes
+w9    checkerboard__rrect-ml__rest               128     16    4.0    1.20    1.80   1.500  yes
+w9    checkerboard__rrect-sm__rest                32     16    4.0    1.30    1.60   1.231  yes   (thin: the lift cannot reach it)
+w9    hc-text-28__rrect-lg__rest                 160     28    7.0    5.75    8.75   1.522   no
+w9    hc-text-28__rrect-md__rest                  96     28    7.0    6.00    7.50   1.250   no
+w9    hc-text-28__rrect-sm__rest                  32     28    7.0    1.50    1.80   1.200  yes   (thin: the lift cannot reach it)
+w9    hc-text-7__rrect-lg__rest                  160      7    1.8    6.50    8.00   1.231   no
+w9    hc-text-7__rrect-md__rest                   96      7    1.8    2.50    6.25   2.500   no
+w9    hc-text-7__rrect-sm__rest                   32      7    1.8    2.40    1.70   0.708   no   (thin: the lift cannot reach it)
+w9    hc-text__rrect-lg__rest                    160     16    4.0    3.80    4.75   1.250   no
+w9    hc-text__rrect-md__rest                     96     16    4.0    3.60    3.60   1.000  yes
+w9    hc-text__rrect-sm__rest                     32     16    4.0    3.60    1.60   0.444  yes   (thin: the lift cannot reach it)
+w9    photo__rrect-lg__rest                      160      0    nan    9.25   11.25   1.216   no
+w9    photo__rrect-md__rest                       96      0    nan    6.50    9.25   1.423   no
+w9    photo__rrect-sm__rest                       32      0    nan    2.60    3.20   1.231   no   (thin: the lift cannot reach it)
+
+  objective (mean |log ratio| over 40 thick in-bound rows): 0.2768   mean log ratio +0.2082
+    span    44: n=10 mean ratio 1.196
+    span    96: n=12 mean ratio 1.273
+    span   128: n=10 mean ratio 1.271
+    span   160: n= 8 mean ratio 1.326
+
+  reader A (the dot's own two components) — the CHECK, on validation rows:
+  bed          scene                                             sharp n/w          heavy n/w        share n/w
+  canon-dark   impulse__capsule-button__rest                2.62 /    1.71    62.62 /   61.67   0.000 /  0.001
+  canon-light  impulse__capsule-button__rest                2.62 /    1.71    62.62 /   61.67   0.000 /  0.001
+  canon-light  impulse__rrect-md__rest                      2.79 /    1.67    19.52 /   13.29   0.473 /  0.434
+
+── rung rF ─────────────────────────────────────────────────────────────
+bed   scene                                     span  pitch  bound  native     web   ratio  in-bound
+w21   checkerboard-32__capsule-button__rest       44     32    8.0    1.70    1.80   1.059  yes
+w21   checkerboard-32__rrect-lg__rest            160     32    8.0    5.25    4.25   0.810  yes
+w21   checkerboard-32__rrect-md__rest             96     32    8.0    4.75    3.80   0.800  yes
+w21   checkerboard-32__rrect-ml__rest            128     32    8.0    4.00    3.00   0.750  yes
+w21   checkerboard-32__rrect-sm__rest             32     32    8.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w21   checkerboard-4__capsule-button__rest        44      4    1.0    2.60    1.00   0.385   no
+w21   checkerboard-4__rrect-lg__rest             160      4    1.0    3.10    0.80   0.258   no
+w21   checkerboard-4__rrect-md__rest              96      4    1.0    3.10    0.90   0.290   no
+w21   checkerboard-4__rrect-ml__rest             128      4    1.0    3.10    0.90   0.290   no
+w21   checkerboard-4__rrect-sm__rest              32      4    1.0    2.60    0.80   0.308   no   (thin: the lift cannot reach it)
+w21   checkerboard-64__capsule-button__rest       44     64   16.0    2.10    2.50   1.190  yes
+w21   checkerboard-64__rrect-lg__rest            160     64   16.0    6.00    9.75   1.625  yes
+w21   checkerboard-64__rrect-md__rest             96     64   16.0    6.25   10.00   1.600  yes
+w21   checkerboard-64__rrect-ml__rest            128     64   16.0    6.75    9.00   1.333  yes
+w21   checkerboard-64__rrect-sm__rest             32     64   16.0    6.25   37.50   6.000   no   (thin: the lift cannot reach it)
+w21   checkerboard-8__capsule-button__rest        44      8    2.0    1.50    1.80   1.200  yes
+w21   checkerboard-8__rrect-lg__rest             160      8    2.0    1.70    1.80   1.059  yes
+w21   checkerboard-8__rrect-md__rest              96      8    2.0    1.60    2.00   1.250  yes
+w21   checkerboard-8__rrect-ml__rest             128      8    2.0    1.70    2.00   1.176  yes
+w21   checkerboard-8__rrect-sm__rest              32      8    2.0    1.50    1.90   1.267  yes   (thin: the lift cannot reach it)
+w21   checkerboard-lc16__capsule-button__rest     44     16    4.0    1.60    2.00   1.250  yes
+w21   checkerboard-lc16__rrect-lg__rest          160     16    4.0    1.30   12.00   9.231   no
+w21   checkerboard-lc16__rrect-md__rest           96     16    4.0    1.20    1.90   1.583  yes
+w21   checkerboard-lc16__rrect-ml__rest          128     16    4.0    1.20    1.80   1.500  yes
+w21   checkerboard-lc16__rrect-sm__rest           32     16    4.0    1.40    1.60   1.143  yes   (thin: the lift cannot reach it)
+w21   checkerboard__capsule-button__rest          44     16    4.0    1.60    2.00   1.250  yes
+w21   checkerboard__rrect-lg__rest               160     16    4.0    1.30   12.00   9.231   no
+w21   checkerboard__rrect-md__rest                96     16    4.0    1.30    1.90   1.462  yes
+w21   checkerboard__rrect-ml__rest               128     16    4.0    1.20    1.90   1.583  yes
+w21   checkerboard__rrect-sm__rest                32     16    4.0    1.30    1.70   1.308  yes   (thin: the lift cannot reach it)
+w21   hc-text-28__rrect-lg__rest                 160     28    7.0    7.50    8.75   1.167   no
+w21   hc-text-28__rrect-md__rest                  96     28    7.0    6.50    7.50   1.154   no
+w21   hc-text-28__rrect-sm__rest                  32     28    7.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w21   hc-text-7__rrect-lg__rest                  160      7    1.8    6.50    8.25   1.269   no
+w21   hc-text-7__rrect-md__rest                   96      7    1.8    2.70    6.25   2.315   no
+w21   hc-text-7__rrect-sm__rest                   32      7    1.8    2.40    1.70   0.708   no   (thin: the lift cannot reach it)
+w21   hc-text__rrect-lg__rest                    160     16    4.0    4.50    4.75   1.056   no
+w21   hc-text__rrect-md__rest                     96     16    4.0    3.80    3.60   0.947  yes
+w21   hc-text__rrect-sm__rest                     32     16    4.0    4.50    1.60   0.356   no   (thin: the lift cannot reach it)
+w21   photo__rrect-lg__rest                      160      0    nan    7.50   11.25   1.500   no
+w21   photo__rrect-md__rest                       96      0    nan    6.50   10.00   1.538   no
+w21   photo__rrect-sm__rest                       32      0    nan    3.60    3.20   0.889   no   (thin: the lift cannot reach it)
+w9    checkerboard-32__capsule-button__rest       44     32    8.0    1.70    1.80   1.059  yes
+w9    checkerboard-32__rrect-lg__rest            160     32    8.0    5.00    4.25   0.850  yes
+w9    checkerboard-32__rrect-md__rest             96     32    8.0    4.75    3.80   0.800  yes
+w9    checkerboard-32__rrect-ml__rest            128     32    8.0    3.70    3.00   0.811  yes
+w9    checkerboard-32__rrect-sm__rest             32     32    8.0    1.60    1.80   1.125  yes   (thin: the lift cannot reach it)
+w9    checkerboard-4__capsule-button__rest        44      4    1.0    2.50    0.90   0.360   no
+w9    checkerboard-4__rrect-lg__rest             160      4    1.0    2.60    0.80   0.308   no
+w9    checkerboard-4__rrect-md__rest              96      4    1.0    2.60    0.80   0.308   no
+w9    checkerboard-4__rrect-ml__rest             128      4    1.0    2.60    0.90   0.346   no
+w9    checkerboard-4__rrect-sm__rest              32      4    1.0    2.40    1.00   0.417   no   (thin: the lift cannot reach it)
+w9    checkerboard-64__capsule-button__rest       44     64   16.0    2.00    2.50   1.250  yes
+w9    checkerboard-64__rrect-lg__rest            160     64   16.0    5.25    9.75   1.857  yes
+w9    checkerboard-64__rrect-md__rest             96     64   16.0    6.00   10.00   1.667  yes
+w9    checkerboard-64__rrect-ml__rest            128     64   16.0    6.50    9.00   1.385  yes
+w9    checkerboard-64__rrect-sm__rest             32     64   16.0    8.50   39.50   4.647   no   (thin: the lift cannot reach it)
+w9    checkerboard-8__capsule-button__rest        44      8    2.0    1.50    1.80   1.200  yes
+w9    checkerboard-8__rrect-lg__rest             160      8    2.0    1.70    1.80   1.059  yes
+w9    checkerboard-8__rrect-md__rest              96      8    2.0    1.60    2.00   1.250  yes
+w9    checkerboard-8__rrect-ml__rest             128      8    2.0    1.60    2.00   1.250  yes
+w9    checkerboard-8__rrect-sm__rest              32      8    2.0    1.50    1.90   1.267  yes   (thin: the lift cannot reach it)
+w9    checkerboard-lc16__capsule-button__rest     44     16    4.0    1.60    2.00   1.250  yes
+w9    checkerboard-lc16__rrect-lg__rest          160     16    4.0    1.30    2.10   1.615  yes
+w9    checkerboard-lc16__rrect-md__rest           96     16    4.0    1.30    1.90   1.462  yes
+w9    checkerboard-lc16__rrect-ml__rest          128     16    4.0    1.20    1.90   1.583  yes
+w9    checkerboard-lc16__rrect-sm__rest           32     16    4.0    1.30    1.60   1.231  yes   (thin: the lift cannot reach it)
+w9    checkerboard__capsule-button__rest          44     16    4.0    1.60    2.00   1.250  yes
+w9    checkerboard__rrect-lg__rest               160     16    4.0    1.30    2.10   1.615  yes
+w9    checkerboard__rrect-md__rest                96     16    4.0    1.30    1.90   1.462  yes
+w9    checkerboard__rrect-ml__rest               128     16    4.0    1.20    1.90   1.583  yes
+w9    checkerboard__rrect-sm__rest                32     16    4.0    1.30    1.60   1.231  yes   (thin: the lift cannot reach it)
+w9    hc-text-28__rrect-lg__rest                 160     28    7.0    5.75    8.75   1.522   no
+w9    hc-text-28__rrect-md__rest                  96     28    7.0    6.00    7.50   1.250   no
+w9    hc-text-28__rrect-sm__rest                  32     28    7.0    1.50    1.80   1.200  yes   (thin: the lift cannot reach it)
+w9    hc-text-7__rrect-lg__rest                  160      7    1.8    6.50    8.00   1.231   no
+w9    hc-text-7__rrect-md__rest                   96      7    1.8    2.50    6.25   2.500   no
+w9    hc-text-7__rrect-sm__rest                   32      7    1.8    2.40    1.70   0.708   no   (thin: the lift cannot reach it)
+w9    hc-text__rrect-lg__rest                    160     16    4.0    3.80    4.75   1.250   no
+w9    hc-text__rrect-md__rest                     96     16    4.0    3.60    3.60   1.000  yes
+w9    hc-text__rrect-sm__rest                     32     16    4.0    3.60    1.60   0.444  yes   (thin: the lift cannot reach it)
+w9    photo__rrect-lg__rest                      160      0    nan    9.25   11.25   1.216   no
+w9    photo__rrect-md__rest                       96      0    nan    6.50    9.25   1.423   no
+w9    photo__rrect-sm__rest                       32      0    nan    2.60    3.20   1.231   no   (thin: the lift cannot reach it)
+
+  objective (mean |log ratio| over 40 thick in-bound rows): 0.2782   mean log ratio +0.2096
+    span    44: n=10 mean ratio 1.196
+    span    96: n=12 mean ratio 1.273
+    span   128: n=10 mean ratio 1.296
+    span   160: n= 8 mean ratio 1.311
+
+  reader A (the dot's own two components) — the CHECK, on validation rows:
+  bed          scene                                             sharp n/w          heavy n/w        share n/w
+  canon-dark   impulse__capsule-button__rest                2.62 /    1.71    62.62 /   61.67   0.000 /  0.001
+  canon-light  impulse__capsule-button__rest                2.62 /    1.71    62.62 /   61.67   0.000 /  0.001
+  canon-light  impulse__rrect-md__rest                      2.79 /    1.67    19.52 /   13.29   0.473 /  0.434
+

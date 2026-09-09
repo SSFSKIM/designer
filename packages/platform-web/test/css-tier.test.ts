@@ -988,6 +988,12 @@ describe("the size law reaches the CSS tier", () => {
     sizeScatterRampStartFar2x: MATERIAL_SOURCE_SIZE.sizeScatterRampStartFar2x,
     sizeScatterRampReach1xPx: MATERIAL_SOURCE_SIZE.sizeScatterRampReach1xPx,
     sizeScatterRampReach2xPx: MATERIAL_SOURCE_SIZE.sizeScatterRampReach2xPx,
+    // W25's share law and level term, inert here as they are on the shipped
+    // material: this fixture is a scale-free size law and neither term has a
+    // reading in it.
+    sizeScatterHeavyShareThick1x: 0,
+    sizeScatterHeavyShareThick2x: 0,
+    sizeToneLevelFar: 0,
     sizeOcclusionGain: 0.4,
     refractionScale: MATERIAL_SOURCE_SIZE.refractionScale,
   } as const;

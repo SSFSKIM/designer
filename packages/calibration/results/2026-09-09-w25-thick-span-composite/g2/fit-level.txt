@@ -1,0 +1,131 @@
+W25 G2 - fit-level: the body's level above the thickness knee
+====================================================================================================
+
+baseline rung r0 (all three constants at 0) against unit rung rC2 (`sizeToneLevelFar` = 1)
+
+`resid` is native - web at the baseline, in 8-bit codes over the body eroded 6 CSS px.
+`lever` is web(unit) - web(baseline) in the same unit: what one unit of the constant
+actually moves this row. `gain` is the value of the constant that would close the row's
+own residual. Rows at or below span 96 have lever 0 EXACTLY and are the control: the
+term cannot reach them at any value, which is what makes the fit safe for the bed.
+
+bed          scene                                     span   native     web0     web1    resid    lever  analytic     gain
+canon-dark   checkerboard__capsule-button__rest          44  0.10557  0.06710  0.06710  +18.141   +0.000    +0.000        -
+canon-dark   checkerboard__rrect-md__rest                96  0.04679  0.04748  0.04748   -0.460   +0.000    +0.000        -
+canon-dark   dark-solid__capsule-button__rest            44  0.01101  0.01171  0.01171   -1.076   +0.000    +0.000        -
+canon-dark   dark-solid__rrect-md__rest                  96  0.01527  0.01298  0.01298   +3.073   +0.000    +0.000        -
+canon-dark   impulse__capsule-button__rest               44  0.00663  0.00373  0.00373   +7.087   +0.000    +0.000        -
+canon-dark   photo__capsule-button__rest                 44  0.09485  0.05216  0.05216  +22.236   +0.000    +0.000        -
+canon-dark   photo__rrect-md__rest                       96  0.04649  0.03883  0.03883   +5.410   +0.000    +0.000        -
+canon-light  checkerboard__capsule-button__rest          44  0.61299  0.67435  0.67435   -8.898   +0.000    +0.000        -
+canon-light  checkerboard__rrect-md__rest                96  0.67915  0.69300  0.69300   -1.933   +0.000    +0.000        -
+canon-light  checkerboard__rrect-ml__rest               128  0.69083  0.69350  0.69566   -0.371   +0.299    -1.394   -1.242
+canon-light  checkerboard__rrect-sm__rest                32  0.61484  0.67310  0.67310   -8.445   +0.000    +0.000        -
+canon-light  checkerboard__toolbar-group__rest           44  0.61393  0.67443  0.67443   -8.769   +0.000    +0.000        -
+canon-light  dark-solid__capsule-button__rest            44  0.01101  0.01171  0.01171   -1.076   +0.000    +0.000        -
+canon-light  dark-solid__rrect-md__rest                  96  0.47974  0.49555  0.49555   -2.695   +0.000    +0.000        -
+canon-light  impulse__capsule-button__rest               44  0.00663  0.00373  0.00373   +7.087   +0.000    +0.000        -
+canon-light  impulse__rrect-md__rest                     96  0.43114  0.46426  0.46426   -5.934   +0.000    +0.000        -
+canon-light  light-solid__capsule-button__rest           44  0.96659  0.97283  0.97283   -0.712   +0.000    +0.000        -
+canon-light  light-solid__rrect-md__rest                 96  0.93443  0.93185  0.93185   +0.301   +0.000    +0.000        -
+canon-light  light-solid__rrect-ml__rest                128  0.93261  0.93188  0.93831   +0.085   +0.749    -0.941   +0.113
+canon-light  photo__capsule-button__rest                 44  0.57434  0.60993  0.60993   -5.417   +0.000    +0.000        -
+canon-light  photo__rrect-md__rest                       96  0.66069  0.65522  0.65522   +0.782   +0.000    +0.000        -
+canon-light  photo__rrect-ml__rest                      128  0.67084  0.65801  0.66005   +1.826   +0.291    -2.052   +6.268
+canon-light  photo__rrect-sm__rest                       32  0.54106  0.58883  0.58883   -7.473   +0.000    +0.000        -
+canon-light  photo__toolbar-group__rest                  44  0.59601  0.63506  0.63506   -5.810   +0.000    +0.000        -
+w21          checkerboard-32__capsule-button__rest       44  0.11203  0.06703  0.06703  +20.819   +0.000    +0.000        -
+w21          checkerboard-32__rrect-lg__rest            160  0.04951  0.04744  0.05375   +1.360   +4.034    -3.948   +0.337
+w21          checkerboard-32__rrect-md__rest             96  0.04956  0.04738  0.04738   +1.426   +0.000    +0.000        -
+w21          checkerboard-32__rrect-ml__rest            128  0.04979  0.04744  0.04879   +1.537   +0.886    -1.394   +1.734
+w21          checkerboard-32__rrect-sm__rest             32  0.11138  0.06762  0.06762  +20.237   +0.000    +0.000        -
+w21          checkerboard-4__capsule-button__rest        44  0.09952  0.06689  0.06689  +15.693   +0.000    +0.000        -
+w21          checkerboard-4__rrect-lg__rest             160  0.04556  0.04743  0.05379   -1.258   +4.068    -3.948   -0.309
+w21          checkerboard-4__rrect-md__rest              96  0.04510  0.04739  0.04739   -1.546   +0.000    +0.000        -
+w21          checkerboard-4__rrect-ml__rest             128  0.04530  0.04744  0.04890   -1.443   +0.957    -1.394   -1.508
+w21          checkerboard-4__rrect-sm__rest              32  0.09938  0.06766  0.06766  +15.215   +0.000    +0.000        -
+w21          checkerboard-64__capsule-button__rest       44  0.13883  0.07682  0.07682  +25.825   +0.000    +0.000        -
+w21          checkerboard-64__rrect-md__rest             96  0.04857  0.04313  0.04313   +3.683   +0.000    +0.000        -
+w21          checkerboard-64__rrect-ml__rest            128  0.05045  0.04535  0.04625   +3.368   +0.612    -1.352   +5.505
+w21          checkerboard-64__rrect-sm__rest             32  0.16117  0.11112  0.11112  +18.047   +0.000    +0.000        -
+w21          checkerboard-lc16__capsule-button__rest     44  0.12517  0.10785  0.10785   +6.810   +0.000    +0.000        -
+w21          checkerboard-lc16__rrect-md__rest           96  0.06574  0.07042  0.07042   -2.519   +0.000    +0.000        -
+w21          checkerboard-lc16__rrect-ml__rest          128  0.06756  0.07048  0.07259   -1.558   +1.102    -1.396   -1.413
+w21          checkerboard-lc16__rrect-sm__rest           32  0.12526  0.10916  0.10916   +6.309   +0.000    +0.000        -
+w21          checkerboard__capsule-button__rest          44  0.10557  0.06710  0.06710  +18.141   +0.000    +0.000        -
+w21          checkerboard__rrect-lg__rest               160  0.04619  0.04740  0.05379   -0.809   +4.082    -3.948   -0.198
+w21          checkerboard__rrect-md__rest                96  0.04679  0.04748  0.04748   -0.460   +0.000    +0.000        -
+w21          checkerboard__rrect-ml__rest               128  0.04636  0.04746  0.04876   -0.734   +0.852    -1.394   -0.861
+w21          checkerboard__rrect-sm__rest                32  0.10699  0.06728  0.06728  +18.631   +0.000    +0.000        -
+w21          dark-solid__rrect-lg__rest                 160  0.01101  0.01298  0.02029   -2.927   +9.000   +43.327   -0.325
+w21          dark-solid__rrect-md__rest                  96  0.01527  0.01298  0.01298   +3.073   +0.000    +0.000        -
+w21          hc-text-28__rrect-md__rest                  96  0.05553  0.05830  0.05830   -1.657   +0.000    +0.000        -
+w21          hc-text-28__rrect-sm__rest                  32  0.11619  0.09089  0.09089  +10.671   +0.000    +0.000        -
+w21          hc-text-7__rrect-lg__rest                  160  0.07813  0.07019  0.07718   +4.064   +3.592    -2.573   +1.131
+w21          hc-text-7__rrect-md__rest                   96  0.05862  0.06360  0.06360   -2.851   +0.000    +0.000        -
+w21          hc-text-7__rrect-sm__rest                   32  0.11605  0.10463  0.10463   +4.632   +0.000    +0.000        -
+w21          hc-text__rrect-lg__rest                    160  0.07861  0.06992  0.07695   +4.438   +3.616    -2.530   +1.228
+w21          hc-text__rrect-md__rest                     96  0.05728  0.06078  0.06078   -2.046   +0.000    +0.000        -
+w21          hc-text__rrect-sm__rest                     32  0.12490  0.10811  0.10811   +6.600   +0.000    +0.000        -
+w21          light-solid__rrect-lg__rest                160  0.10294  0.10024  0.10737   +1.151   +2.997    -3.186   +0.384
+w21          light-solid__rrect-md__rest                 96  0.09598  0.10023  0.10023   -1.847   +0.000    +0.000        -
+w21          mid-dark-solid__rrect-lg__rest             160  0.02217  0.02410  0.03071   -1.942   +6.058   +10.620   -0.321
+w21          mid-dark-solid__rrect-md__rest              96  0.02519  0.02405  0.02405   +1.103   +0.000    +0.000        -
+w21          mid-dark-solid__rrect-sm__rest              32  0.02843  0.02843  0.02843   +0.000   +0.000    +0.000        -
+w21          photo__rrect-lg__rest                      160  0.04490  0.03989  0.04692   +3.549   +4.919    -5.361   +0.722
+w21          photo__rrect-md__rest                       96  0.04649  0.03883  0.03883   +5.410   +0.000    +0.000        -
+w21          photo__rrect-sm__rest                       32  0.08200  0.04853  0.04853  +18.631   +0.000    +0.000        -
+w9           checkerboard-32__capsule-button__rest       44  0.62099  0.67454  0.67454   -7.735   +0.000    +0.000        -
+w9           checkerboard-32__rrect-lg__rest            160  0.69809  0.69363  0.70062   +0.618   +0.968    -3.948   +0.639
+w9           checkerboard-32__rrect-md__rest             96  0.68222  0.69324  0.69324   -1.537   +0.000    +0.000        -
+w9           checkerboard-32__rrect-ml__rest            128  0.68895  0.69351  0.69553   -0.634   +0.279    -1.394   -2.268
+w9           checkerboard-32__rrect-sm__rest             32  0.62014  0.67323  0.67323   -7.676   +0.000    +0.000        -
+w9           checkerboard-4__capsule-button__rest        44  0.60562  0.67455  0.67455  -10.027   +0.000    +0.000        -
+w9           checkerboard-4__rrect-lg__rest             160  0.70659  0.69396  0.70090   +1.743   +0.960    -3.948   +1.816
+w9           checkerboard-4__rrect-md__rest              96  0.67803  0.69302  0.69302   -2.094   +0.000    +0.000        -
+w9           checkerboard-4__rrect-ml__rest             128  0.69236  0.69339  0.69476   -0.142   +0.191    -1.394   -0.744
+w9           checkerboard-4__rrect-sm__rest              32  0.60528  0.67292  0.67292   -9.848   +0.000    +0.000        -
+w9           checkerboard-64__capsule-button__rest       44  0.63818  0.73447  0.73447  -13.454   +0.000    +0.000        -
+w9           checkerboard-64__rrect-md__rest             96  0.65970  0.66964  0.66964   -1.413   +0.000    +0.000        -
+w9           checkerboard-64__rrect-ml__rest            128  0.67583  0.68179  0.68387   -0.837   +0.291    -1.352   -2.874
+w9           checkerboard-64__rrect-sm__rest             32  0.96612  0.91517  0.91517   +5.919   +0.000    +0.000        -
+w9           checkerboard-lc16__capsule-button__rest     44  0.80083  0.80601  0.80601   -0.659   +0.000    +0.000        -
+w9           checkerboard-lc16__rrect-md__rest           96  0.78905  0.79981  0.79981   -1.379   +0.000    +0.000        -
+w9           checkerboard-lc16__rrect-ml__rest          128  0.79961  0.80070  0.80250   -0.139   +0.229    -1.396   -0.608
+w9           checkerboard-lc16__rrect-sm__rest           32  0.80124  0.80576  0.80576   -0.575   +0.000    +0.000        -
+w9           checkerboard__capsule-button__rest          44  0.61299  0.67435  0.67435   -8.898   +0.000    +0.000        -
+w9           checkerboard__rrect-lg__rest               160  0.70458  0.69378  0.70082   +1.492   +0.975    -3.948   +1.530
+w9           checkerboard__rrect-md__rest                96  0.67915  0.69300  0.69300   -1.933   +0.000    +0.000        -
+w9           checkerboard__rrect-ml__rest               128  0.69083  0.69350  0.69566   -0.371   +0.299    -1.394   -1.242
+w9           checkerboard__rrect-sm__rest                32  0.61484  0.67310  0.67310   -8.445   +0.000    +0.000        -
+w9           dark-solid__rrect-lg__rest                 160  0.50376  0.49614  0.50242   +1.279   +1.056   +43.327   +1.211
+w9           dark-solid__rrect-md__rest                  96  0.47974  0.49555  0.49555   -2.695   +0.000    +0.000        -
+w9           dark-solid__rrect-sm__rest                  32  0.01101  0.01171  0.01171   -1.076   +0.000    +0.000        -
+w9           hc-text-28__rrect-md__rest                  96  0.70246  0.72654  0.72654   -3.285   +0.000    +0.000        -
+w9           hc-text-28__rrect-sm__rest                  32  0.71900  0.67533  0.67533   +6.043   +0.000    +0.000        -
+w9           hc-text-7__rrect-lg__rest                  160  0.80983  0.79246  0.79952   +2.217   +0.905    -2.573   +2.450
+w9           hc-text-7__rrect-md__rest                   96  0.74194  0.75660  0.75660   -1.945   +0.000    +0.000        -
+w9           hc-text-7__rrect-sm__rest                   32  0.67085  0.75657  0.75657  -11.704   +0.000    +0.000        -
+w9           hc-text__rrect-lg__rest                    160  0.80925  0.79238  0.79943   +2.153   +0.903    -2.530   +2.384
+w9           hc-text__rrect-md__rest                     96  0.72799  0.74328  0.74328   -2.050   +0.000    +0.000        -
+w9           hc-text__rrect-sm__rest                     32  0.74333  0.78103  0.78103   -4.952   +0.000    +0.000        -
+w9           light-solid__rrect-lg__rest                160  0.93261  0.93190  0.94016   +0.083   +0.963    -3.186   +0.086
+w9           light-solid__rrect-md__rest                 96  0.93443  0.93185  0.93185   +0.301   +0.000    +0.000        -
+w9           light-solid__rrect-sm__rest                 32  0.96659  0.97408  0.97408   -0.854   +0.000    +0.000        -
+w9           mid-dark-solid__rrect-lg__rest             160  0.58408  0.57588  0.58283   +1.262   +1.070   +10.620   +1.179
+w9           mid-dark-solid__rrect-md__rest              96  0.55834  0.57469  0.57469   -2.553   +0.000    +0.000        -
+w9           mid-dark-solid__rrect-sm__rest              32  0.43966  0.45641  0.45641   -3.000   +0.000    +0.000        -
+w9           photo__rrect-lg__rest                      160  0.68407  0.66040  0.66729   +3.345   +0.980    -5.361   +3.414
+w9           photo__rrect-md__rest                       96  0.66069  0.65522  0.65522   +0.782   +0.000    +0.000        -
+w9           photo__rrect-sm__rest                       32  0.54106  0.58883  0.58883   -7.473   +0.000    +0.000        -
+
+  CONTROL: 77 rows at or below span 96, worst |lever| 0.000000 codes per unit - the term is inert there by construction.
+
+  JOINT least-squares gain over 31 rows above the knee: +0.0994
+  residual RMS at that gain 1.945 codes, at gain 0 1.965 codes
+  per-row gains: median +0.337, quartiles -0.676 ... +1.379, sd 1.972
+  by bed (the condition - a constant the beds disagree about is not one constant):
+    canon-light : n=  3 least-squares gain +0.6587, median per-row +0.113, RMS 1.077 -> 1.026 codes
+    w21         : n= 14 least-squares gain +0.0444, median per-row +0.069, RMS 2.469 -> 2.462 codes
+    w9          : n= 14 least-squares gain +1.4716, median per-row +0.909, RMS 1.486 -> 0.909 codes
+

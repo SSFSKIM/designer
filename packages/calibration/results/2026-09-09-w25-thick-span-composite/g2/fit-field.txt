@@ -1,0 +1,114 @@
+W25 G2 - fit-field: the rim's along-side slope
+====================================================================================================
+
+baseline rung r0 (slope 0) against unit rung rD (`rimAlongSideSlope` = 1)
+
+The reader is G0's along-side reader, unchanged: the rim's peak excess over the body beside
+it, indexed by position along the straight part of a side, on the FLAT solids where a lens
+has no gradient to refract. Slopes in luma per CSS px.
+
+bed   scene                            side     span  nat slope       web0       web1  implied
+canon-dark dark-solid__capsule-button__rest bottom     44  -0.000000  -0.000000  +0.000029    0.000
+canon-dark dark-solid__capsule-button__rest top        44  -0.000000  -0.000000  -0.000029   -0.000
+canon-dark dark-solid__rrect-md__rest       bottom     96  +0.000192  +0.000004  +0.000317    0.599
+canon-dark dark-solid__rrect-md__rest       left       96  -0.000379  -0.000019  -0.000540    0.690
+canon-dark dark-solid__rrect-md__rest       right      96  +0.000379  +0.000019  +0.000540    0.690
+canon-dark dark-solid__rrect-md__rest       top        96  -0.000192  -0.000004  -0.000318    0.597
+canon-light dark-solid__capsule-button__rest bottom     44  -0.000000  -0.000000  +0.000029    0.000
+canon-light dark-solid__capsule-button__rest top        44  -0.000000  -0.000000  -0.000029   -0.000
+canon-light dark-solid__rrect-md__rest       bottom     96  +0.001205  +0.000045  +0.002927    0.402
+canon-light dark-solid__rrect-md__rest       left       96  -0.002437  -0.000199  -0.004957    0.470
+canon-light dark-solid__rrect-md__rest       right      96  +0.002429  +0.000199  +0.004957    0.469
+canon-light dark-solid__rrect-md__rest       top        96  -0.001206  -0.000045  -0.002922    0.404
+canon-light light-solid__capsule-button__rest bottom     44  +0.000000  +0.000000  +0.000000        -
+canon-light light-solid__capsule-button__rest top        44  +0.000000  +0.000000  +0.000000        -
+canon-light light-solid__rrect-md__rest      bottom     96  +0.000007  -0.000000  +0.000312    0.024
+canon-light light-solid__rrect-md__rest      left       96  -0.000032  -0.000000  -0.000434    0.074
+canon-light light-solid__rrect-md__rest      right      96  +0.000022  -0.000000  +0.000423    0.052
+canon-light light-solid__rrect-md__rest      top        96  -0.000010  -0.000000  -0.000305    0.032
+canon-light light-solid__rrect-ml__rest      bottom    128  +0.000007  +0.000002  +0.000232    0.023
+canon-light light-solid__rrect-ml__rest      left      128  -0.000014  -0.000000  -0.000323    0.042
+canon-light light-solid__rrect-ml__rest      right     128  +0.000014  -0.000000  +0.000315    0.043
+canon-light light-solid__rrect-ml__rest      top       128  -0.000006  -0.000000  -0.000221    0.026
+w21   dark-solid__rrect-lg__rest       bottom    160  +0.000087  +0.000003  +0.000181    0.472
+w21   dark-solid__rrect-lg__rest       left      160  -0.000179  -0.000013  -0.000325    0.533
+w21   dark-solid__rrect-lg__rest       right     160  +0.000180  +0.000012  +0.000325    0.537
+w21   dark-solid__rrect-lg__rest       top       160  -0.000087  -0.000002  -0.000181    0.474
+w21   dark-solid__rrect-md__rest       bottom     96  +0.000192  +0.000004  +0.000317    0.599
+w21   dark-solid__rrect-md__rest       left       96  -0.000379  -0.000019  -0.000540    0.690
+w21   dark-solid__rrect-md__rest       right      96  +0.000379  +0.000019  +0.000540    0.690
+w21   dark-solid__rrect-md__rest       top        96  -0.000192  -0.000004  -0.000318    0.597
+w21   light-solid__rrect-lg__rest      bottom    160  +0.000472  +0.000013  +0.000866    0.538
+w21   light-solid__rrect-lg__rest      left      160  -0.001185  -0.000076  -0.001663    0.699
+w21   light-solid__rrect-lg__rest      right     160  +0.001166  +0.000072  +0.001658    0.690
+w21   light-solid__rrect-lg__rest      top       160  -0.000484  -0.000014  -0.000871    0.549
+w21   light-solid__rrect-md__rest      bottom     96  +0.000773  +0.000025  +0.001490    0.511
+w21   light-solid__rrect-md__rest      left       96  -0.001718  -0.000100  -0.002633    0.638
+w21   light-solid__rrect-md__rest      right      96  +0.001693  +0.000100  +0.002632    0.629
+w21   light-solid__rrect-md__rest      top        96  -0.000779  -0.000023  -0.001491    0.515
+w21   mid-dark-solid__rrect-lg__rest   bottom    160  +0.000145  +0.000004  +0.000264    0.542
+w21   mid-dark-solid__rrect-lg__rest   left      160  -0.000314  -0.000021  -0.000485    0.630
+w21   mid-dark-solid__rrect-lg__rest   right     160  +0.000314  +0.000019  +0.000482    0.637
+w21   mid-dark-solid__rrect-lg__rest   top       160  -0.000146  -0.000004  -0.000264    0.547
+w21   mid-dark-solid__rrect-md__rest   bottom     96  +0.000277  +0.000007  +0.000460    0.597
+w21   mid-dark-solid__rrect-md__rest   left       96  -0.000563  -0.000032  -0.000792    0.699
+w21   mid-dark-solid__rrect-md__rest   right      96  +0.000563  +0.000032  +0.000792    0.699
+w21   mid-dark-solid__rrect-md__rest   top        96  -0.000278  -0.000007  -0.000460    0.598
+w21   mid-dark-solid__rrect-sm__rest   bottom     32  +0.000176  +0.000019  +0.000019        -
+w21   mid-dark-solid__rrect-sm__rest   left       32  -0.001463  -0.000175  -0.000175        -
+w21   mid-dark-solid__rrect-sm__rest   right      32  +0.001463  +0.000175  +0.000175        -
+w21   mid-dark-solid__rrect-sm__rest   top        32  -0.000176  -0.000019  -0.000019        -
+w9    dark-solid__rrect-lg__rest       bottom    160  +0.000567  +0.000014  +0.001614    0.346
+w9    dark-solid__rrect-lg__rest       left      160  -0.001032  -0.000070  -0.002724    0.362
+w9    dark-solid__rrect-lg__rest       right     160  +0.001030  +0.000070  +0.002720    0.362
+w9    dark-solid__rrect-lg__rest       top       160  -0.000569  -0.000014  -0.001621    0.345
+w9    dark-solid__rrect-md__rest       bottom     96  +0.001205  +0.000045  +0.002927    0.402
+w9    dark-solid__rrect-md__rest       left       96  -0.002437  -0.000199  -0.004957    0.470
+w9    dark-solid__rrect-md__rest       right      96  +0.002429  +0.000199  +0.004957    0.469
+w9    dark-solid__rrect-md__rest       top        96  -0.001206  -0.000045  -0.002922    0.404
+w9    dark-solid__rrect-sm__rest       bottom     32  +0.000094  +0.000008  +0.000008        -
+w9    dark-solid__rrect-sm__rest       left       32  -0.000775  -0.000074  -0.000074        -
+w9    dark-solid__rrect-sm__rest       right      32  +0.000775  +0.000074  +0.000074        -
+w9    dark-solid__rrect-sm__rest       top        32  -0.000094  -0.000008  -0.000008        -
+w9    light-solid__rrect-lg__rest      bottom    160  +0.000004  +0.000005  +0.000186   -0.008
+w9    light-solid__rrect-lg__rest      left      160  -0.000009  -0.000011  -0.000302   -0.005
+w9    light-solid__rrect-lg__rest      right     160  +0.000010  +0.000011  +0.000296   -0.002
+w9    light-solid__rrect-lg__rest      top       160  -0.000004  -0.000000  -0.000180    0.020
+w9    light-solid__rrect-md__rest      bottom     96  +0.000007  -0.000000  +0.000312    0.024
+w9    light-solid__rrect-md__rest      left       96  -0.000032  -0.000000  -0.000434    0.074
+w9    light-solid__rrect-md__rest      right      96  +0.000022  -0.000000  +0.000423    0.052
+w9    light-solid__rrect-md__rest      top        96  -0.000010  -0.000000  -0.000305    0.032
+w9    light-solid__rrect-sm__rest      bottom     32  +0.000000  +0.000000  +0.000000        -
+w9    light-solid__rrect-sm__rest      left       32  +0.000000  +0.000000  +0.000000        -
+w9    light-solid__rrect-sm__rest      right      32  +0.000000  +0.000000  +0.000000        -
+w9    light-solid__rrect-sm__rest      top        32  +0.000000  +0.000000  +0.000000        -
+w9    mid-dark-solid__rrect-lg__rest   bottom    160  +0.000462  +0.000014  +0.001477    0.306
+w9    mid-dark-solid__rrect-lg__rest   left      160  -0.000838  -0.000086  -0.002497    0.312
+w9    mid-dark-solid__rrect-lg__rest   right     160  +0.000841  +0.000086  +0.002495    0.313
+w9    mid-dark-solid__rrect-lg__rest   top       160  -0.000463  -0.000017  -0.001482    0.305
+w9    mid-dark-solid__rrect-md__rest   bottom     96  +0.001002  +0.000037  +0.002661    0.368
+w9    mid-dark-solid__rrect-md__rest   left       96  -0.002080  -0.000163  -0.004563    0.436
+w9    mid-dark-solid__rrect-md__rest   right      96  +0.002080  +0.000163  +0.004561    0.436
+w9    mid-dark-solid__rrect-md__rest   top        96  -0.001004  -0.000037  -0.002670    0.367
+w9    mid-dark-solid__rrect-sm__rest   bottom     32  +0.000806  +0.000107  +0.000107        -
+w9    mid-dark-solid__rrect-sm__rest   left       32  -0.006689  -0.000956  -0.000956        -
+w9    mid-dark-solid__rrect-sm__rest   right      32  +0.006689  +0.000956  +0.000956        -
+w9    mid-dark-solid__rrect-sm__rest   top        32  -0.000808  -0.000107  -0.000107        -
+
+  the thin controls (span <= 44): 4 sides, worst |web1 - web0| 0.000029 luma per CSS px - the capsule's own 0.0923 of the
+  thickness curve, and 0.000000 exactly at span 32.
+
+  implied slope over 64 thick sides: median +0.452, mean +0.393, sd 0.235
+  quartiles +0.247 ... +0.597
+  lever-weighted mean +0.437
+  by side (the antisymmetry check - one field, not four constants):
+    top    : n= 16 median +0.404
+    bottom : n= 16 median +0.402
+    left   : n= 16 median +0.470
+    right  : n= 16 median +0.469
+  by bed:
+    canon-dark  : n=  4 median +0.644
+    canon-light : n= 12 median +0.048
+    w21         : n= 24 median +0.598
+    w9          : n= 24 median +0.329
+

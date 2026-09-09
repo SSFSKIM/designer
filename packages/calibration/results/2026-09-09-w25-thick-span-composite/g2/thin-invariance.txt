@@ -1,0 +1,59 @@
+W25 G2 — thin-invariance.txt: X5's read, at every rung of the ladder
+====================================================================================================
+
+X5 (binding): "The thin capsule does not move: `sizeThickness` 0 below 32 and the ramp's thin anchors
+are re-read at every rung, and a thin cell moved by more than 0.001 ΔE stops the ladder."
+
+THE ANSWER, in one line. **The ladder did not stop. The worst thin-cell movement over all eight
+rungs is 0.000196 OKLab ΔE, five times under the stop, and it happens at the confirmation rung with
+all three constants at their fitted values.**
+
+  worst thin-cell movement over all rungs: 0.000196  at w21 `checkerboard-64__capsule-button__rest`, rung rF
+  X5's stop is 0.001 — PASS
+
+THE READ. `deltae.py` beside this file, over 45 thin cells (span ≤ 44) of the four 1x beds, at every
+rung; the metric is the matrix's own `oklabDeltaEMean` against the reference fixture. The full
+per-cell table is `deltae.txt`. Its aggregate:
+
+  rung   what it carries                                thin-cell mean ΔE     Δ against r0
+  r0     the shipped material                                0.03323            +0.00000
+  rA     share lift 0.24                                     0.03323            −0.00000
+  rE     share lift 0.30                                     0.03322            −0.00001
+  rB     share lift 0.48                                     0.03323            −0.00000
+  rC     level term on the response's BLEND, gain 1           0.03323            +0.00000
+  rC2    level term as an OFFSET, 0.02 encoded               0.03323            +0.00000
+  rD     along-side slope 1                                   0.03324            +0.00001
+  rG     share 0.455 + `sizeScatterGainMax` 10.3 (diagnostic) 0.03323            −0.00000
+  rF     share 0.455, level 0.029, slope 0.45                 0.03323            −0.00000
+
+TWO KINDS OF ZERO, and the difference is the point.
+
+**Exactly zero, by construction, at span 32.** Every one of the 21 `rrect-sm` cells reads +0.00000 at
+every rung — `w9 dark-solid__rrect-sm`, `w21 checkerboard-64__rrect-sm`, `canon-light
+photo__rrect-sm`, all of them. `sizeThickness` returns a hard 0 at and below `sizeSpanMin`, and both
+the share law and the along-side field are multiplications by it, so no value of either constant can
+reach these cells. The level term reaches nothing at or below span 96 for the same kind of reason —
+its curve is a smoothstep whose low edge is `sizeSpanMax` — and `fit-level.txt` measured that on 77
+rows at a rendered lever of 0.000000 codes per unit. This is X5 discharged by the shape of the
+formulas, and `thick-span.test.ts` pins it with `toBe` rather than `toBeCloseTo` in three places.
+
+**Small but not zero, at span 44.** The capsule and the toolbar group take `sizeThickness(44)` =
+0.0923 of the share law and of the along-side field. That is the thin end's whole exposure and it is
+what the table's non-zero entries are: −0.00016 … +0.00020 across every rung, worst 0.000196. The
+sign is not one-way — `canon-light checkerboard__capsule-button` rises 0.00004 at rF while `w21
+checkerboard__capsule-button` falls 0.00012 — which is what a term this small looks like against
+8-bit quantisation rather than a systematic drift.
+
+The four largest thin movements, all at rF:
+
+  w21 checkerboard-64__capsule-button   0.06999 → 0.07019   +0.00020
+  w21 checkerboard-32__capsule-button   0.06556 → 0.06543   −0.00013
+  w21 checkerboard__capsule-button      0.06271 → 0.06259   −0.00012
+  w9  checkerboard-lc16__capsule-button 0.00455 → 0.00463   +0.00008
+
+WHY THIS IS THE READ AND NOT AN ARGUMENT. The wave's rule is that the thin anchors are "re-read at
+every rung", and re-reading a constant is weaker than re-rendering the cell: `sizeScatterFloor`,
+`sizeScatterSpanMax` and the three 1x ramp anchors are untouched by W25 — no rung patched one — so a
+re-read would return the same number by inspection. What the table above does instead is render the
+thin cells at every rung and measure them against Apple's own fixtures. That is what X5 asks for and
+it is what `deltae.txt` records.

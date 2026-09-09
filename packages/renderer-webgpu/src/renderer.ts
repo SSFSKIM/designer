@@ -90,6 +90,7 @@ import {
   scatterFloorAtScale,
   scatterGainAtScale,
   scatterGainFarAtScale,
+  scatterHeavyShareThickAtScale,
   scatterRampReachDevicePx,
   scatterRampStart,
   scatterSpanMaxAtScale,
@@ -978,6 +979,16 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // brightness the whole way round.
         rimLitAxis: material.rimLitAxis,
         rimLitExponent: optics.rimLitExponent,
+        // W25's three mechanisms (claims §5.113; W25 Decision Log 3), each of
+        // them 0 on the landed material. The along-side field's slope is the
+        // variant's under the same accessibility fold as the exponent it grades;
+        // the heavy share's thick lift is resolved at the ratio this group draws
+        // at, on the pattern every second-scale constant already has; the level
+        // term's gain is the profile's, and the span curve it rides is the
+        // shader's own `farS`.
+        rimAlongSideSlope: optics.rimAlongSideSlope,
+        sizeScatterHeavyShareThick: scatterHeavyShareThickAtScale(material, dpr),
+        sizeToneLevelFar: material.sizeToneLevelFar,
         shadowDepth: optics.shadowDepth,
         shadowAlpha: optics.shadowAlpha,
         // The size law's gains, per group (W2); the per-pixel factor they

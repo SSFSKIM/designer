@@ -1,0 +1,64 @@
+W25 G2 — goldens-attribution.txt: what the renderer's golden suite says about the three mechanisms
+====================================================================================================
+
+THE RULE THIS DISCHARGES. The wave's G2 purpose: "Mechanisms inert at the defaults so 33 goldens
+stay byte-identical before the declaration." The stop is that if any golden moves at a default, the
+ladder stops and reports.
+
+THE RUN. `cd packages/renderer-webgpu && npx playwright test --grep @golden`, in the FOREGROUND with
+no capture process alive (X4), on the branch with all three mechanisms in the code and every one of
+them at its default:
+
+  33 passed (10.8s)
+
+  the 11 `isolation.spec.ts` pins that render each scene THROUGH the named profile seam
+  the 3  isolation assertions on the shadow's delta, the geometry's confinement and the 1x depth ramp
+  the 1  vacuity guard ("and the tuned profile is not the old one")
+  the 13 `scenes.spec.ts` sRGB-locked scene goldens
+  the 5  remaining scene assertions (distinguishability, acceptance #2, claims §5.47's placement)
+
+THIRTY-THREE OF THIRTY-THREE, and no golden PNG changed: `git status --porcelain
+packages/renderer-webgpu/e2e/goldens/` is empty after the run, so all thirteen committed images are
+byte-identical to what they were at `16c442e` — the tip this branch left. Nothing is attributed to
+W25, because W25 draws nothing yet.
+
+WHY IT IS INERT, term by term, and where each statement is pinned.
+
+  the share law        `kDeep` gains `+ lift · sizeThickness(span)` with `lift` 0 at both anchors,
+                       so the added term is bit-exactly `0.0 · x` and the clamp around it is the
+                       identity on a value already in [floor, 1].
+                       Pinned: `thick-span.test.ts` "is inert at the default", and
+                       "rides `sizeThickness`, so the thin end cannot move at any lift".
+
+  the level term       the tone response's blend gains `+ levelFar` with `levelFar` resolved to 0 at
+                       every span by `sizeToneLevelFar`, so `f` is the smoothstep W9 fitted.
+                       Pinned: `thick-span.test.ts` "is inert at the default and exactly 0 at and
+                       below `sizeSpanMax`" and "leaves the tone response untouched at every span at
+                       or under the knee".
+
+  the along-side field the rim's amplitude gains a factor `max(1 + slope · sizeThick · field, 0)`
+                       with `slope` 0 on both variants, which is exactly `1.0`; multiplying a float
+                       by exactly 1.0 is bit-exact, so `rw * lit * alongFactor * (…)` is the W24
+                       expression to the bit.
+                       Pinned: `thick-span.test.ts` "is exactly 1 at the default slope and at every
+                       span at or below the band", and `backdrop-tone.test.ts`'s WGSL pin, which was
+                       amended to name the factor's new position OUTSIDE W23's amplitude bracket.
+
+THE CAPTURE-LEVEL PROOF, which is stronger than the goldens for this wave's purpose. The goldens are
+thirteen synthetic scenes; the bed is the reference's own. `ladder.sh`'s rung `r0` re-rendered the
+canonical 1x light and dark beds through `capture:web` with the committed profile documents, into
+scratch, on this branch — and every capture that has a canonical sibling in the main checkout's
+`web-captures/` is byte-identical to it:
+
+  apple-macos-26.5-1x-light-standard: identical=26 differ=0 no-canonical-capture=0
+  apple-macos-26.5-1x-dark-standard:  identical=10 differ=0 no-canonical-capture=16
+
+(The sixteen dark scenes with no canonical capture are the ones the 1x dark profile has no reference
+fixture for; nothing was compared against them.) So the resolved material renders the 0.13.0 bed to
+the byte, on the reference's own scenes and not only on the golden suite's.
+
+WHAT DID MOVE, and it is the only thing that did: `resolvedMaterialSha256`, because three keys
+entered the resolved object. 7968a7f8106b10a4 → 52a633135b9da151 on the light document and
+0d741cd19cd1243b → 2f47777637f8df50 on the dark one, both re-recorded with the reason in the
+profiles' `$comment-w25` and named in `tuned-profiles.test.ts`. That is the same reading W15 G1's
+second-scale constants left twice, and the profiles' own sha history records it as such.

@@ -234,6 +234,50 @@ export interface MaterialOptics {
    * not carry this constant renders the W23 material byte for byte.
    */
   readonly rimLitExponent: number;
+  /**
+   * **The lit edge's along-side field (W25; claims §5.113, W25 Decision Log 3
+   * (c))** — the slope of the position field the rim's amplitude is graded by
+   * across the surface, riding `sizeThickness`.
+   *
+   * W24 gave the rim a factor of the NORMAL, which is one number on a whole
+   * straight side. W25 G0 read the rim's peak excess by POSITION along each
+   * straight side instead and found it graded on every thick cell of both probe
+   * grids, on flat solid backdrops where a lens has no gradient to refract: the
+   * 1x dark `dark-solid__rrect-md` reads slopes of −0.000192 (top), +0.000192
+   * (bottom), −0.000379 (left) and +0.000379 (right) luma per CSS px, and the
+   * corner-to-corner range 0.0187 / 0.0226 / 0.0345 on `light-solid` /
+   * `dark-solid` / `mid-dark-solid` at span 96 falls to 0.0000 / 0.0016 at spans
+   * 32 and 44 and saturates above 96 — the signature of a term on
+   * `sizeThickness` and not of the lens.
+   *
+   * **The field is the product of the two normalised coordinates, and that is
+   * what the four slopes say.** A field linear in position — `a·x + b·y` — gives
+   * the top and the bottom side the SAME slope in x; the reference's are equal
+   * and opposite. `(x / halfWidth) · (y / halfHeight)` gives exactly the measured
+   * antisymmetry, is +1 at the top-left and bottom-right corners and −1 at the
+   * other two — the same diagonal `rimLitAxis` is symmetric about, which is why
+   * this is the position half of one light and not a second one — and predicts
+   * the two sides' slope ratio as the box's aspect: 160/96 = 1.67 against the
+   * measured 0.000379 / 0.000192 = 1.97, where a metric diagonal would predict
+   * 1.0. Reading the reference's two sides through it gives 0.62 (top) and 0.73
+   * (left) for this constant, which is the agreement a 56 CSS px straight side
+   * on a six-code contrast supports.
+   *
+   * The factor is `1 + rimAlongSideSlope · sizeThickness(span) · field`, applied
+   * beside W24's `lit` factor and outside W23's amplitude bracket. Two
+   * consequences are exact rather than approximate. **The field's mean over every
+   * straight side is zero**, because the product is odd in the coordinate that
+   * runs along the side, so W23's and W24's straight-span amplitudes keep their
+   * fitted meaning and the CSS tier — whose one inset shadow cannot vary around a
+   * contour — is coherent with the GPU tier's side mean without carrying the term
+   * at all. **It is exactly 0 at or below `sizeSpanMin`**, so `rrect-sm` and every
+   * thin control are untouched by construction; the capsule's span of 44 takes
+   * 0.0923 of it, which is the thin end's whole exposure.
+   *
+   * At 0 the factor is exactly 1 everywhere, so a profile that does not carry
+   * this constant renders the W24 material byte for byte.
+   */
+  readonly rimAlongSideSlope: number;
   /** Inner-shadow depth (0..1) and how much of it is applied. */
   readonly shadowDepth: number;
   readonly shadowAlpha: number;
@@ -924,6 +968,113 @@ export interface MaterialProfile {
   readonly sizeScatterRampStartFar2x: number;
   readonly sizeScatterRampReach1xPx: number;
   readonly sizeScatterRampReach2xPx: number;
+
+  /**
+   * **The heavy share's thick end** (W25; claims §5.113, W25 Decision Log 3 (a))
+   * — how much heavier the deep value runs on a thick surface than the span
+   * curve above makes it, riding `sizeThickness` and read once per scale.
+   *
+   * W25 G0 measured the reference's kernel as TWO components and found that what
+   * separates the thick surface from the thin one is neither width: read on the
+   * same cell at 1x the reference's single-Gaussian width is 1.30 device px
+   * against a 16 CSS px checkerboard, 4.75 against 32 and 6.25 against 64, where
+   * one Gaussian returns one number at every pitch. The dot's own two-component
+   * fit on `impulse__rrect-md` reads sharp σ 2.79 and heavy σ 19.52 device px at
+   * 1x and 1.40 / 11.29 at 2x — both components HALVING in device px — with the
+   * heavy SHARE moving 0.47 → 0.69 the other way, and 0.00 on the collapsed
+   * capsule. vitrea's own pair on the landed material reaches 0.69 at 2x and
+   * carries 0.23 at 1x. So the share is the quantity, and this is where the wave
+   * puts it.
+   *
+   * ```
+   * kDeep(span, dpr) = floor(dpr) + (1 − floor(dpr))
+   *                    · smoothstep(sizeSpanMin, sizeScatterSpanMax(dpr), span)
+   *                  + heavyShareThick(dpr) · sizeThickness(span)      ← this
+   * ```
+   *
+   * **What stays, and why the thin capsule cannot move.** `sizeScatterFloor`,
+   * `sizeScatterSpanMax` and the ramp's start anchors are NOT re-derived: the
+   * W11c curve stays as the law's thin end and this constant is the lift the
+   * thick end takes above it. That is X5 discharged by the form rather than by a
+   * capture — `sizeThickness` is exactly 0 at and below `sizeSpanMin`, so
+   * `rrect-sm` and every smaller control are bit-identical whatever this says,
+   * and the capsule at span 44 takes 0.0923 of it, which is the whole of the
+   * thin end's exposure and is what the ladder's thin-invariance rung reads. The
+   * alternative — re-expressing the whole curve on a thin/thick anchor pair —
+   * would have made the capsule's own share a fitted quantity of this wave, and
+   * the reference does not ask for that: its sharp σ is 2.62 device px on the
+   * collapsed capsule against 2.79 on the thick rrect, span-flat to 6 %.
+   *
+   * **Inert at 0**, which is what ships until G3 declares the fit: the term is
+   * one multiplication by zero added to the curve W11c fitted, so the resolved
+   * material and every golden are byte-identical to the W24 bed.
+   *
+   * At dpr 2 the 2x anchor is additionally inert on the landed material for a
+   * second reason: `sizeScatterFloor2x` is 1, so `kDeep` is already 1 at every
+   * span and the clamp absorbs any lift. The 2x share is therefore not a
+   * quantity this bed can carry, and it waits for G1's 2x probe fixtures.
+   */
+  readonly sizeScatterHeavyShareThick1x: number;
+  readonly sizeScatterHeavyShareThick2x: number;
+
+  /**
+   * **The body's level above the thickness knee** (W25; claims §5.113, W25
+   * Decision Log 3 (b)) — an OFFSET on the interior level a surface settles at,
+   * in the tone response's own encoded units, reached at `sizeScatterSpanMax`.
+   *
+   * W25 G0 answered clause 4 in the landed law's favour and found one residual
+   * it cannot carry. `sizeThickness(short side)` at knee 96 scores r 0.95–0.998
+   * against 0.68–0.96 for the long side, the area, √area and the radius, on the
+   * width and on the level, in both probe grids and both schemes — so the
+   * argument and the knee stay. But the reference's body LEVEL keeps grading
+   * above 96: on the W9 light grid over `checkerboard` it reads 0.61484 /
+   * 0.61299 / 0.67915 / 0.69083 / 0.70458 across spans 32 / 44 / 96 / 128 / 160,
+   * where `sizeThickness` has been flat since 96. The width does not grade there
+   * on any pitch; only the level does.
+   *
+   * ```
+   * R(x, span, dpr) = R₀(x, sizeK)
+   *                 + sizeToneLevelFar · smoothstep(sizeSpanMax,
+   *                                                sizeScatterSpanMax(dpr), span)
+   * ```
+   *
+   * **Where it enters.** On the tone response's OUTPUT — the settled interior
+   * level `backdropToneResponse` returns, which is the law that owns the
+   * interior mean (claims §5.33) — and not in the blur, not on a gain on the
+   * mix, and not (this is the correction) on the response's own thin-to-thick
+   * blend.
+   *
+   * **Why not on the blend, which is what the wave chartered.** G0's reading
+   * that the residual's "sign follows the backdrop" is a reading of the
+   * REFERENCE's absolute grading, and the quantity a term has to close is the
+   * residual AGAINST vitrea, whose own deep value keeps rising to
+   * `sizeScatterSpanMax` over the same spans. G2's ladder measured both shapes
+   * on the same rows (`fit-level.txt`): carrying the blend past the thick row
+   * explains 0.3 % of the above-knee residual and its per-row gains run
+   * −1.13 … +0.24 with the two grids disagreeing in sign, because the blend's
+   * direction is different at every backdrop level and the residual's is not. An
+   * offset explains 11 % of it and the light grid's rows agree: `resid(160) −
+   * resid(96)` is +2.2 … +4.2 codes over `checkerboard` at four pitches,
+   * `dark-solid`, `mid-dark-solid`, `hc-text` at two pitches and `photo`, over
+   * backdrops spanning 0.012 to 0.89 linear. Backdrop-independent is what the
+   * rows say, so backdrop-independent is the shape.
+   *
+   * The curve is the one the ramp's far anchor declines along and the 2x heavy
+   * gain rises along, so no new span statistic enters the material, and it is
+   * **exactly 0 at and below `sizeSpanMax`** — nothing at or under span 96 moves
+   * at any value of this constant, which is what let G2 probe it against the
+   * frozen bed with 77 control rows reading a lever of 0.000000 codes per unit.
+   *
+   * Folded with `sizeK`, like the response it offsets: under reduced
+   * transparency the material has stopped transmitting and the level it settles
+   * at is the preference's, not the size law's.
+   *
+   * **Inert at 0**, which is what ships until G3 declares the fit. What G2's
+   * ladder read is in `fit-level.txt`; the constant is weakly conditioned on the
+   * bed as it stands and G1's probe set at both scales is what would condition
+   * it (G0 §6: 118 level rows on the 1x grids, 202–238 with the 2x captures).
+   */
+  readonly sizeToneLevelFar: number;
 
   /**
    * The occlusion gain — "a larger size is more opaque. A smaller size is
@@ -1629,6 +1780,16 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
        * it has no rows and nothing to be fitted on (C9a §6.2).
        */
       rimLitExponent: 1.15,
+      /*
+       * W25's along-side field, INERT at the default (claims §5.113; W25 Decision
+       * Log 3 (c)). The reference's own rows read 0.62–0.73 through this form and
+       * G2's fit on the solids of the two probe grids is recorded in
+       * `results/2026-09-09-w25-thick-span-composite/g2/fit-field.txt`, but the
+       * wave lands the mechanism before the value: G2 is the fitting child and G3 is
+       * the declaring one, so what ships here until G3 is a factor of exactly 1
+       * at every position and every span.
+       */
+      rimAlongSideSlope: 0,
       shadowDepth: 0.35,
       /*
        * REFITTED 0.55 → 0.05 (2026-08-31), and it is the largest single
@@ -1663,6 +1824,8 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
       // No scene declares this variant, so the lit edge has no rows here either
       // and the factor stays inert (C9a §6.2, as `rimLevelGain` above).
       rimLitExponent: 0,
+      // Nor does the along-side field have rows here, for the same reason.
+      rimAlongSideSlope: 0,
       shadowDepth: 0.22,
       shadowAlpha: 0.4,
       highlight: srgbToLinear(SRGB_WHITE_TINT),
@@ -1853,6 +2016,17 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   sizeScatterRampStartFar2x: 0.21,
   sizeScatterRampReach1xPx: 80,
   sizeScatterRampReach2xPx: 100,
+
+  // W25's three mechanisms, all INERT at the defaults (claims §5.113; W25
+  // Decision Log 3). The heavy share's thick lift and the level term above the
+  // knee are zero, so `kDeep` and the tone response's blend are the curves W11c
+  // and W9 fitted, to the bit; the along-side field's slope lives on the optics
+  // beside `rimLitExponent` and is zero there. G2 fits them and G3 declares
+  // them; what the fits read is recorded in
+  // `results/2026-09-09-w25-thick-span-composite/g2/`.
+  sizeScatterHeavyShareThick1x: 0,
+  sizeScatterHeavyShareThick2x: 0,
+  sizeToneLevelFar: 0,
   sizeOcclusionGain: 0.05,
   sizeShadowGainMax: 1,
 
@@ -2315,6 +2489,9 @@ export interface MaterialProfilePatch {
   readonly sizeScatterRampStartFar2x?: number;
   readonly sizeScatterRampReach1xPx?: number;
   readonly sizeScatterRampReach2xPx?: number;
+  readonly sizeScatterHeavyShareThick1x?: number;
+  readonly sizeScatterHeavyShareThick2x?: number;
+  readonly sizeToneLevelFar?: number;
   readonly sizeOcclusionGain?: number;
   readonly sizeShadowGainMax?: number;
   readonly lensRefractionGain?: number;
@@ -2447,6 +2624,11 @@ export function withMaterialOverrides(
     sizeScatterRampStartFar2x: patch.sizeScatterRampStartFar2x ?? base.sizeScatterRampStartFar2x,
     sizeScatterRampReach1xPx: patch.sizeScatterRampReach1xPx ?? base.sizeScatterRampReach1xPx,
     sizeScatterRampReach2xPx: patch.sizeScatterRampReach2xPx ?? base.sizeScatterRampReach2xPx,
+    sizeScatterHeavyShareThick1x:
+      patch.sizeScatterHeavyShareThick1x ?? base.sizeScatterHeavyShareThick1x,
+    sizeScatterHeavyShareThick2x:
+      patch.sizeScatterHeavyShareThick2x ?? base.sizeScatterHeavyShareThick2x,
+    sizeToneLevelFar: patch.sizeToneLevelFar ?? base.sizeToneLevelFar,
     sizeOcclusionGain: patch.sizeOcclusionGain ?? base.sizeOcclusionGain,
     sizeShadowGainMax: patch.sizeShadowGainMax ?? base.sizeShadowGainMax,
     lensRefractionGain: patch.lensRefractionGain ?? base.lensRefractionGain,
@@ -2548,6 +2730,10 @@ export function opticsUnderPolicy(
       // for is one brightness the whole way round, and a directional factor
       // would take it to nothing on two of its four corners.
       rimLitExponent: 0,
+      // The along-side field stands down for the same reason (W25): a border a
+      // preference asked for is one brightness the whole way round, and a
+      // position field would grade it corner to corner.
+      rimAlongSideSlope: 0,
     };
   }
 
@@ -2883,6 +3069,7 @@ export function backdropToneResponse(
   encodedInput: number,
   thickness: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  levelFar = 0,
 ): number {
   const xs = profile.backdropToneAnchorX;
   const f = smoothstep(0, 1, thickness);
@@ -2908,11 +3095,18 @@ export function backdropToneResponse(
   const y1 = seg === 0 ? ys[1] : ys[2];
   const s0 = seg === 0 ? d0 : m1;
   const s1 = seg === 0 ? m1 : d1;
+  // `levelFar` is W25's level term above the thickness knee (claims §5.113; W25
+  // Decision Log 3 (b)) — an OFFSET on the settled level this curve returns, in
+  // the curve's own encoded units, and not a continuation of its thin-to-thick
+  // blend. The rows chose the shape: see `MaterialProfile.sizeToneLevelFar`.
+  // It is 0 at and below span 96 by the shape of its span curve, and 0 at every
+  // span on the landed material.
   return (
     y0 * (1 + 2 * t) * (1 - t) * (1 - t) +
     s0 * h * t * (1 - t) * (1 - t) +
     y1 * t * t * (3 - 2 * t) +
     s1 * h * t * t * (t - 1)
+    + levelFar
   );
 }
 
@@ -3387,11 +3581,108 @@ export function scatterDeepThickness(
   devicePixelRatio = 1,
 ): number {
   const floor = scatterFloorAtScale(profile, devicePixelRatio);
-  return (
+  // W25's share law (claims §5.113; W25 Decision Log 3 (a)): the thick end's lift
+  // on the material's OWN thin/thick curve, added to the W11c span curve rather
+  // than replacing it. `sizeThickness` is exactly 0 at and below `sizeSpanMin`,
+  // so the thin controls are bit-identical whatever the lift says, and at 0 the
+  // whole term is one multiplication by zero — see
+  // `MaterialProfile.sizeScatterHeavyShareThick1x` for why the thin end stays.
+  const lift =
+    scatterHeavyShareThickAtScale(profile, devicePixelRatio) * sizeThickness(spanPx, profile);
+  return clampUnit(
     floor
     + (1 - floor)
       * smoothstep(profile.sizeSpanMin, scatterSpanMaxAtScale(profile, devicePixelRatio), spanPx)
+    + lift,
   );
+}
+
+/**
+ * **The heavy share's thick-end lift at a device scale** (W25; claims §5.113).
+ *
+ * Interpolated by `rampAtScale`, so a profile that names only the 1x lift
+ * returns it at every ratio, and on the landed material both anchors are 0 and
+ * this is the constant zero — which is what makes the whole mechanism inert
+ * before G3 declares the fit.
+ */
+export function scatterHeavyShareThickAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(
+    profile.sizeScatterHeavyShareThick1x,
+    profile.sizeScatterHeavyShareThick2x,
+    devicePixelRatio,
+  );
+}
+
+/**
+ * **The level term above the thickness knee** (W25; claims §5.113, W25 Decision
+ * Log 3 (b)) — the offset on the settled interior level a surface of this span
+ * takes, in the tone response's own encoded units, resolved at a device scale.
+ *
+ * `sizeToneLevelFar · smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span)`,
+ * which is **exactly 0 at and below `sizeSpanMax`** at every value of the
+ * constant — a smoothstep is zero at and below its own low edge — so nothing at
+ * or under span 96 can move on this term. The curve is the one the ramp's far
+ * anchor declines along and the 2x heavy gain rises along, so the wave adds no
+ * new span statistic. `fold` is the accessibility fold the response it offsets
+ * already takes.
+ */
+export function sizeToneLevelFar(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+  fold = 1,
+): number {
+  return (
+    profile.sizeToneLevelFar
+    * smoothstep(profile.sizeSpanMax, scatterSpanMaxAtScale(profile, devicePixelRatio), spanPx)
+    * fold
+  );
+}
+
+/**
+ * **The along-side position field** (W25; claims §5.113, W25 Decision Log 3 (c))
+ * — the surface's own normalised diagonal coordinate at a pixel, +1 at the
+ * top-left and bottom-right corners and −1 at the other two, 0 on both axes
+ * through the centre.
+ *
+ * `offset` is the pixel relative to the surface's centre and `half` its
+ * half-extents, both in CSS px, viewport coordinates with y down — the shader's
+ * `aux2`. The product of the two normalised coordinates rather than a projection
+ * onto a metric diagonal, because the reference's four sides read equal and
+ * OPPOSITE slopes and a field linear in position gives the top and the bottom
+ * side the same one; see `MaterialOptics.rimAlongSideSlope`.
+ *
+ * Its mean over any straight side is exactly zero, which is what leaves W23's and
+ * W24's straight-span amplitudes and the CSS tier's single inset alone.
+ */
+export function rimAlongSideField(
+  offset: readonly [number, number],
+  half: readonly [number, number],
+): number {
+  const x = offset[0] / Math.max(Math.abs(half[0]), 1e-6);
+  const y = offset[1] / Math.max(Math.abs(half[1]), 1e-6);
+  return Math.max(-1, Math.min(1, x * y));
+}
+
+/**
+ * **The rim amplitude's along-side factor** (W25; claims §5.113) —
+ * `1 + rimAlongSideSlope · sizeThickness(span) · field`, the position half of the
+ * light whose direction half W24 landed.
+ *
+ * At slope 0 this is exactly 1 at every position and every span, and at span ≤
+ * `sizeSpanMin` it is exactly 1 whatever the slope. The shader's arithmetic, on
+ * the CPU for the tests.
+ */
+export function rimAlongSideFactor(
+  field: number,
+  spanPx: number,
+  optics: MaterialOptics,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return Math.max(0, 1 + optics.rimAlongSideSlope * sizeThickness(spanPx, profile) * field);
 }
 
 /**
