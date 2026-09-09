@@ -1,0 +1,1381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HALFLIGHT 2026 — the programme — Dundee's film festival</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E9E9F1'/%3E%3Crect x='6' y='13' width='20' height='6' rx='3' fill='%23BA1F5A'/%3E%3C/svg%3E">
+<meta name="description" content="HALFLIGHT, Dundee's film festival. Twenty-four films, three venues, four days: Thursday 5 to Sunday 8 November 2026.">
+
+<script type="importmap">
+{ "imports": { "@vitreajs/vitrea": "/packages/core/dist/index.js", "@vitreajs/vitrea-web": "/packages/platform-web/dist/index.js" } }
+</script>
+
+<style>
+/* ---------------------------------------------------------------- tokens
+   DESIGN.md §1 owns the jobs; this block owns the values. Every colour on the
+   page is one of these, with two documented exceptions: the `forced-colors`
+   system keywords, and the canvas painting code, which writes the ground and
+   the wash as literals because a 2D context cannot read a custom property. */
+:root {
+  color-scheme: light;
+
+  --ground:      #E9E9F1;   /* oklch .936 .011 288 — shaded snow, from the still */
+  --ground-sunk: #DFDFE8;
+  --paper:       #F5F5FA;
+  --ink:         #1B1B24;
+  --ink-2:       #5D5C67;
+  --ink-faint:   #878691;   /* rules and ticks only. Never text. */
+  --rule:        rgb(27 27 36 / 14%);
+  --rule-faint:  rgb(27 27 36 / 6%);
+  --rule-strong: rgb(27 27 36 / 26%);
+  --paper-lift:  #FCFCFE;
+  --fill-on-glass: rgb(27 27 36 / 8%);
+  --accent:      #BA1F5A;   /* print-fade magenta */
+  --accent-ink:  #FFFFFF;
+  --glass-ink:   #1B1B24;
+  --glass-ink-2: #3A3945;
+
+  /* The scroll edge's mask uses `transparent` and `#000` as alpha stops. They are
+     a mask channel, not colours, and are the one literal pair outside this block
+     besides the canvas painter's own. */
+
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, "Roboto Mono", monospace;
+  --font-sans: "Avenir Next", Avenir, "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px; --s5: 24px;
+  --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px; --s10: 128px;
+
+  --page:   1280px;
+  --margin: 80px;
+  --slot:   15px;          /* one 15-minute row of the timetable */
+  /* The scroll edge's clear band and the far end of its ramp. These two are the
+     page's safe-area inset, and `env(safe-area-inset-*)` is zero on desktop, so
+     the script measures the bar's box and writes them back — a constant typed
+     once would stop being true the moment the bar's height changed. The values
+     here are only what the first paint uses before that measurement lands. */
+  --edge:   104px;
+  --edge-2: 168px;
+
+  --dur: 240ms;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------------------------------------------------------------- reset */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font: 400 15px/1.55 var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- the live plane
+   Fixed, full bleed, painted once per resize, and registered as the texture
+   backdrop source. It is the only backdrop the floating layer ever sees. */
+#plane {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: 0; background: var(--ground);
+}
+
+/* ---------------------------------------------------------------- the scroll edge
+   One mask on the one scrolling view. Its offset is written from the glass
+   root's own frame loop, so the clear band stays at the top of the WINDOW at
+   every scroll position and the bar never leaves the film. It lives on .stack,
+   a sibling of the glass root — a mask on an ancestor of the root re-roots the
+   backdrop and demotes every group with `probe-failed`. */
+.stack {
+  position: relative; z-index: 1;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent var(--edge), #000 var(--edge-2));
+          mask-image: linear-gradient(to bottom, transparent 0, transparent var(--edge), #000 var(--edge-2));
+  -webkit-mask-repeat: no-repeat;  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 20000px; mask-size: 100% 20000px;
+}
+
+/* ---------------------------------------------------------------- opening band */
+.opening {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, var(--page)) 1fr;
+  align-content: end;
+  padding-inline: var(--margin);
+  padding-bottom: 132px;
+}
+.opening > * { grid-column: 2; }
+
+.hero {
+  justify-self: end;
+  width: 480px;
+  max-width: 100%;
+}
+.hero-kicker {
+  font: 500 11.5px/1.5 var(--font-mono);
+  letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--ink-2);
+  margin-bottom: var(--s4);
+}
+.hero-kicker b { color: var(--ink); font-weight: 500; }
+.hero-title {
+  font: 500 72px/0.95 var(--font-mono);
+  letter-spacing: -0.03em; text-transform: uppercase;
+  margin-bottom: var(--s4);
+}
+.hero-credit {
+  font: 400 15px/1.5 var(--font-sans);
+  color: var(--ink);
+  margin-bottom: var(--s3);
+}
+.hero-note { font-size: 16px; line-height: 1.5; margin-bottom: var(--s5); }
+.hero-lines { border-top: 1px solid var(--rule-strong); padding-top: var(--s3); }
+.hero-lines p { font-size: 13.5px; color: var(--ink-2); }
+.hero-lines p + p { margin-top: 2px; }
+.hero-lines b { color: var(--ink); font-weight: 600; }
+
+.festival-line {
+  font: 500 13px/1.5 var(--font-mono);
+  letter-spacing: 0.11em; text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: var(--s5);
+  padding-bottom: var(--s3);
+  border-bottom: 1px solid var(--rule-strong);
+}
+.festival-line span { display: block; color: var(--ink-2); letter-spacing: 0.07em; margin-top: 3px; }
+
+/* ---------------------------------------------------------------- the sheet */
+.sheet, .foot {
+  background: var(--ground);
+  border-top: 1px solid var(--rule-strong);
+}
+.wrap {
+  max-width: calc(var(--page) + 2 * var(--margin));
+  margin: 0 auto;
+  padding-inline: var(--margin);
+}
+.section { padding-block: var(--s9); }
+.section + .section { border-top: 1px solid var(--rule); }
+
+.section-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--s5);
+  margin-bottom: var(--s7);
+}
+.section-head h2 {
+  font: 500 22px/1.1 var(--font-mono);
+  letter-spacing: 0.07em; text-transform: uppercase;
+}
+.section-head p {
+  font: 400 13px/1.4 var(--font-mono);
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------- timetable */
+.day-title {
+  font: 400 15px/1.4 var(--font-sans);
+  color: var(--ink-2);
+  margin-bottom: var(--s4);
+}
+.day-title b { color: var(--ink); font-weight: 600; }
+
+.tt-scroll { overflow: visible; }
+.tt-head, .tt {
+  display: grid;
+  grid-template-columns: 72px repeat(var(--tracks, 3), minmax(220px, 1fr));
+  column-gap: var(--s3);
+  min-width: 720px;
+}
+.tt-head {
+  /* Sticks at the far edge of the scroll edge's ramp, so the band above it is
+     the fade and never a half-covered row. */
+  position: sticky; top: var(--edge-2); z-index: 3;
+  background: var(--ground);
+  border-bottom: 1px solid var(--rule-strong);
+  padding-top: 10px;
+  padding-bottom: var(--s2);
+  margin-bottom: var(--s2);
+}
+.tt-head span {
+  font: 500 11.5px/1.4 var(--font-mono);
+  letter-spacing: 0.11em; text-transform: uppercase;
+}
+.tt-head span i { display: block; font-style: normal; color: var(--ink-2); letter-spacing: 0.04em; }
+
+.tt { position: relative; }
+.hourline {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--rule);
+  height: 1px; align-self: start;
+}
+.hourline.half { border-top-color: var(--rule-faint); }
+.timelabel {
+  grid-column: 1;
+  font: 400 11.5px/1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+  padding-top: 2px;
+  align-self: start;
+}
+
+.screening {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: var(--s2);
+  align-content: start;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 9px 10px;
+  margin-bottom: 5px;
+  text-decoration: none;
+  overflow: hidden;
+  transition: border-color 120ms linear, background 120ms linear;
+}
+.screening:hover { border-color: var(--rule-strong); background: var(--paper-lift); }
+.screening .s-time {
+  font: 500 13px/1.35 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+.screening .s-title { display: block; font: 600 15px/1.25 var(--font-sans); }
+.screening .s-meta {
+  display: block;
+  font: 400 12px/1.35 var(--font-sans);
+  color: var(--ink-2);
+  margin-top: 3px;
+}
+.screening .s-marks { margin-top: 7px; display: flex; flex-wrap: wrap; gap: var(--s1); }
+.screening.is-out { background: transparent; }
+.screening.is-out .s-title { color: var(--ink-2); }
+
+.mark {
+  font: 500 10px/1 var(--font-mono);
+  letter-spacing: 0.09em; text-transform: uppercase;
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  padding: 3px 5px;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.mark.is-strong { border-color: var(--ink); color: var(--ink); }
+
+.tt-empty {
+  align-self: start;
+  max-width: 52ch;
+  font: 400 13px/1.5 var(--font-sans);
+  color: var(--ink-2);
+  border: 1px dashed var(--rule-strong);
+  border-radius: 2px;
+  padding: var(--s4);
+}
+
+/* ---------------------------------------------------------------- strands */
+.strand { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: var(--s7); align-items: start; }
+.strand > div:first-child { position: sticky; top: 200px; }
+.strand + .strand { margin-top: var(--s8); padding-top: var(--s8); border-top: 1px solid var(--rule); }
+.strand h3 {
+  font: 500 14px/1.3 var(--font-mono);
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.strand-note { font-size: 13.5px; color: var(--ink-2); margin-top: var(--s3); }
+.strand-count {
+  font: 400 12px/1.4 var(--font-mono);
+  letter-spacing: 0.06em;
+  color: var(--ink-2);
+  margin-top: var(--s3);
+  font-variant-numeric: tabular-nums;
+}
+
+.filmrow { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: var(--s5); padding-block: var(--s4); }
+.filmrow + .filmrow { border-top: 1px solid var(--rule); }
+.filmrow:target { background: var(--paper); outline: 1px solid var(--rule-strong); }
+.filmrow h4 { font: 600 17px/1.25 var(--font-sans); margin: 0 0 2px; }
+.filmrow .credit { font: 400 13px/1.4 var(--font-sans); color: var(--ink-2); }
+.filmrow .note { font-size: 14px; margin-top: var(--s2); max-width: 62ch; }
+.filmrow .plays {
+  font: 400 12px/1.6 var(--font-mono);
+  letter-spacing: 0.03em;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.filmrow .plays b { color: var(--ink); font-weight: 500; }
+
+/* ---------------------------------------------------------------- closing band */
+.closing { display: grid; grid-template-columns: 1.72fr 1fr; gap: var(--s7); align-items: center; }
+.closing figure { margin: 0; }
+.closing img {
+  display: block; width: 100%; height: auto; aspect-ratio: 3 / 2;
+  object-fit: cover; background: var(--ground-sunk);
+  filter: saturate(0.94) contrast(1.02);
+}
+.closing figcaption {
+  font: 400 11.5px/1.4 var(--font-mono);
+  letter-spacing: 0.05em;
+  color: var(--ink-2);
+  margin-top: var(--s2);
+}
+.closing h3 {
+  font: 500 40px/1 var(--font-mono);
+  letter-spacing: -0.02em; text-transform: uppercase;
+  margin-bottom: var(--s3);
+}
+.closing .credit { font-size: 14px; color: var(--ink-2); margin-bottom: var(--s4); }
+.closing p.note { font-size: 15px; margin-bottom: var(--s4); }
+.closing dl { font: 400 13px/1.7 var(--font-mono); letter-spacing: 0.03em; border-top: 1px solid var(--rule-strong); padding-top: var(--s3); }
+.closing dl div { display: flex; justify-content: space-between; gap: var(--s4); }
+.closing dt { color: var(--ink-2); }
+
+/* ---------------------------------------------------------------- venues */
+.venues { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s7); }
+.venuecard h3 { font: 600 17px/1.3 var(--font-sans); margin-bottom: var(--s1); }
+.venuecard .code {
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.12em;
+  color: var(--ink-2);
+  display: block; margin-bottom: var(--s2);
+}
+.venuecard dl { margin-top: var(--s4); border-top: 1px solid var(--rule); }
+.venuecard div { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: var(--s3); padding-block: var(--s2); border-bottom: 1px solid var(--rule); }
+.venuecard dt { font: 400 11.5px/1.5 var(--font-mono); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-2); }
+.venuecard dd { margin: 0; font-size: 13.5px; }
+
+/* ---------------------------------------------------------------- passes */
+.passes { border-top: 1px solid var(--rule-strong); }
+.passrow {
+  display: grid; grid-template-columns: 230px minmax(0, 1fr) 150px;
+  gap: var(--s5); align-items: baseline;
+  padding-block: var(--s5);
+  border-bottom: 1px solid var(--rule);
+}
+.passrow h3 { font: 600 17px/1.3 var(--font-sans); }
+.passrow p { font-size: 14px; color: var(--ink-2); }
+.passrow .price {
+  font: 500 20px/1.2 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.passrow .price small { display: block; font-size: 12px; color: var(--ink-2); letter-spacing: 0.03em; margin-top: 3px; }
+.booking { margin-top: var(--s7); display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s7); }
+.booking h3 { font: 500 12px/1.4 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-bottom: var(--s2); }
+.booking p { font-size: 14px; }
+.booking a { color: var(--accent); text-underline-offset: 3px; }
+
+/* ---------------------------------------------------------------- footer */
+.foot { background: var(--ground-sunk); }
+.foot .wrap { padding-block: var(--s8); }
+.foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--s7); }
+.foot h2 { font: 500 15px/1.3 var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: var(--s3); }
+.foot h3 { font: 500 11.5px/1.4 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-bottom: var(--s2); }
+.foot p, .foot li { font-size: 13.5px; color: var(--ink-2); }
+.foot li + li { margin-top: 2px; }
+.foot a { color: var(--ink); text-underline-offset: 3px; }
+.credits { margin-top: var(--s7); padding-top: var(--s4); border-top: 1px solid var(--rule); }
+.credits p { font: 400 12px/1.6 var(--font-sans); }
+
+/* ---------------------------------------------------------------- the floating layer
+   Four surfaces in three groups, on the base plane. The hosts are positioned
+   here; vitrea measures the boxes and paints the material around them. No
+   background, no shadow, no border on a host: the material carries all three. */
+.bar {
+  position: absolute; left: 0; right: 0; top: 24px;
+  height: 68px;
+  display: flex; align-items: center;
+  padding-inline: var(--margin);
+  pointer-events: none;
+  color-scheme: light;
+}
+.bar-spacer { flex: 1 1 auto; min-width: 96px; }
+.cluster { display: flex; align-items: center; gap: 28px; }
+
+.host { display: flex; align-items: center; color: var(--glass-ink); }
+.host span, .host b { color: var(--glass-ink); }
+
+#masthead {
+  height: 68px; gap: 26px; padding-inline: 22px;
+  flex: 0 0 auto;
+}
+.wordmark {
+  font: 500 16px/1 var(--font-mono);
+  letter-spacing: 0.2em; text-transform: uppercase;
+  text-decoration: none; white-space: nowrap;
+}
+.navlinks { display: flex; gap: 22px; }
+.navlinks a {
+  font: 500 13px/1 var(--font-sans);
+  text-decoration: none; white-space: nowrap;
+  border-bottom: 1px solid transparent; padding-bottom: 2px;
+}
+.navlinks a:hover { border-bottom-color: var(--glass-ink); }
+
+#days { height: 40px; padding: 4px; gap: 2px; }
+#days button {
+  height: 32px; padding-inline: 13px;
+  border-radius: 9px;                 /* concentric: track 13 less its 4px inset */
+  font: 500 13px/1 var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  color: var(--glass-ink-2);
+  cursor: pointer;
+  transition: background 120ms linear, color 120ms linear;
+  white-space: nowrap;
+}
+#days button:hover { color: var(--glass-ink); }
+#days button[aria-pressed="true"] { background: var(--ink); }
+#days button[aria-pressed="true"] span { color: var(--ground); }
+
+#venuebtn {
+  height: 40px; padding-inline: 16px; gap: 8px;
+  font: 500 13px/1 var(--font-sans);
+  cursor: pointer; white-space: nowrap;
+}
+#venuebtn .caret { width: 9px; height: 9px; flex: none; }
+
+#book {
+  height: 40px; padding-inline: 22px;
+  font: 600 13.5px/1 var(--font-sans);
+  text-decoration: none; white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+/* the platter, on the overlay plane */
+#venue-menu {
+  position: absolute;
+  overflow: hidden;
+  padding: 10px;
+  color-scheme: light;
+  transition: height var(--dur) var(--ease);
+}
+#venue-menu[hidden] { display: none; }
+.platter-item {
+  display: grid; grid-template-columns: 26px minmax(0, 1fr) auto 12px;
+  align-items: center; gap: 10px;
+  width: 100%; height: 42px; padding-inline: 8px;
+  border-radius: 22px;                /* concentric: platter 28 less its 6px inset */
+  font: 500 13.5px/1 var(--font-sans);
+  color: var(--glass-ink); cursor: pointer;
+  transition: background 120ms linear;
+  text-align: left;
+}
+.platter-item:hover { background: var(--fill-on-glass); }
+.platter-item .lead {
+  font: 500 9.5px/1 var(--font-mono);
+  letter-spacing: 0.06em;
+  border: 1px solid currentColor; border-radius: 2px;
+  padding: 3px 2px; text-align: center;
+  color: var(--glass-ink-2);
+}
+.platter-item .count {
+  font: 400 12px/1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--glass-ink-2);
+}
+.platter-item[aria-checked="true"] .lead,
+.platter-item[aria-checked="true"] { color: var(--glass-ink); }
+.platter-item::after { content: ""; font-size: 12px; line-height: 1; text-align: right; }
+.platter-item[aria-checked="true"]::after { content: "\2713"; }
+
+/* ---------------------------------------------------------------- collapse */
+@media (max-width: 1080px) {
+  :root { --margin: 24px; }
+  .navlinks { display: none; }
+  .hero { width: 100%; justify-self: start; }
+  .hero-title { font-size: 56px; }
+  .dates { display: none; }
+  .closing { grid-template-columns: 1fr; }
+  .venues { grid-template-columns: 1fr; gap: var(--s6); }
+  .strand { grid-template-columns: 1fr; gap: var(--s4); }
+  .strand > div:first-child { position: static; }
+  .filmrow { grid-template-columns: 1fr; gap: var(--s2); }
+  .filmrow .plays { text-align: left; }
+  .passrow { grid-template-columns: 1fr 120px; }
+  .passrow p { grid-column: 1 / -1; }
+  .booking, .foot-grid { grid-template-columns: 1fr; gap: var(--s5); }
+  .tt-head { top: 168px; position: static; }
+  .tt-scroll { overflow-x: auto; }
+}
+@media (max-width: 760px) {
+  .hero-title { font-size: 40px; }
+  #masthead { padding-inline: 16px; gap: 0; }
+  #days button { padding-inline: 9px; }
+  .section { padding-block: var(--s7); }
+}
+@media (max-width: 560px) {
+  :root { --margin: 16px; }
+  .bar-spacer { min-width: 12px; }
+  .bar { padding-inline: var(--margin); }
+  #masthead { padding-inline: 13px; height: 56px; }
+  #days { height: 36px; padding: 3px; }
+  #days button { height: 30px; padding-inline: 8px; }
+  #venuebtn, #book { height: 36px; }
+  #book { padding-inline: 14px; }
+  .wordmark { font-size: 12.5px; letter-spacing: 0.09em; }
+  .hero-title { font-size: 34px; }
+  .festival-line { font-size: 11.5px; }
+}
+
+/* ---------------------------------------------------------------- states */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 1ms !important; animation-duration: 1ms !important; }
+}
+@media (prefers-contrast: more) {
+  :root {
+    --ink-2: #3C3B46;
+    --rule: rgb(27 27 36 / 30%);
+    --rule-strong: rgb(27 27 36 / 55%);
+    --glass-ink-2: #1B1B24;
+  }
+}
+@media (forced-colors: active) {
+  .screening, .mark, .venuecard div, .passrow, .tt-empty { border-color: CanvasText; }
+  .bar .host { border: 1px solid CanvasText; background: Canvas; }
+  #days button[aria-pressed="true"] { background: Highlight; color: HighlightText; }
+  .closing img { filter: none; }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="plane" role="img"
+        aria-label="Still from Ironai: three people cross a snow-covered street in Otaru, past a traffic light and a row of snow-topped buildings."></canvas>
+
+<div class="stack" id="top">
+
+  <header class="opening">
+    <div class="hero">
+      <h1 class="festival-line">Halflight<span>Dundee's film festival · eighth edition · Thursday 5 to Sunday 8 November 2026</span></h1>
+      <p class="hero-kicker">Opening night<br><b>Thursday 5 November, 19:30</b> · Ward Road</p>
+      <h2 class="hero-title">Ironai</h2>
+      <p class="hero-credit">Sae Tsuchiya · Japan · 2026 · 118 min · UK premiere</p>
+      <p class="hero-note">A snow-clearing crew works the last winter of a branch line, and the timetable outlasts them.</p>
+      <div class="hero-lines">
+        <p><b>Sold out.</b> Returns from 18:00 at the box office on the night.</p>
+        <p>Sae Tsuchiya and editor Rin Abe will take questions after the film.</p>
+        <p>Public booking for everything else opens <b>Wednesday 23 September, 10:00</b>.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="sheet">
+
+    <!-- ---------------------------------------------------------- programme -->
+    <section class="section" id="programme">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>The programme</h2>
+          <p id="prog-count">39 screenings · 24 films · 3 venues</p>
+        </div>
+        <p class="day-title" id="day-title"></p>
+        <div class="tt-scroll">
+          <div class="tt-head" id="tt-head" aria-hidden="true"></div>
+          <div class="tt" id="tt" role="group" aria-labelledby="day-title"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------------------------------------------------------- strands -->
+    <section class="section" id="strands">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Five strands</h2>
+          <p>Every film plays at least once. Fifteen play twice.</p>
+        </div>
+        <div id="strand-list"></div>
+      </div>
+    </section>
+
+    <!-- ---------------------------------------------------------- closing -->
+    <section class="section" id="closing">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Closing night</h2>
+          <p>Sunday 8 November · 18:30 · Ward Road</p>
+        </div>
+        <div class="closing">
+          <figure>
+            <img src="images/haar-shore.jpg" width="1800" height="1200"
+                 alt="Still from Haar: a lone figure walks a flat shoreline in thick sea fog, a pier faint behind."
+                 loading="lazy">
+            <figcaption>Haar (Iona Fraser, 2026). Photo by Elin Tabitha on Unsplash.</figcaption>
+          </figure>
+          <div>
+            <h3>Haar</h3>
+            <p class="credit">Iona Fraser · Scotland and Norway · 2026 · 96 min · Scottish premiere</p>
+            <p class="note">Sea fog closes the airfield for six days and a Norwegian ferry crew wait it out in a Fife hotel. Shot on 16mm over two winters in Leven and Bergen.</p>
+            <dl>
+              <div><dt>Closing gala</dt><dd>Sun 8 Nov, 18:30, Ward Road</dd></div>
+              <div><dt>Also plays</dt><dd>Sat 7 Nov, 19:00, Ward Road</dd></div>
+              <div><dt>After the film</dt><dd>Iona Fraser in conversation</dd></div>
+              <div><dt>Tickets</dt><dd>£12, or included in the Full Pass</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------------------------------------------------------- venues -->
+    <section class="section" id="venues">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Three venues</h2>
+          <p>396 seats · all within a mile</p>
+        </div>
+        <div class="venues" id="venue-list"></div>
+      </div>
+    </section>
+
+    <!-- ---------------------------------------------------------- passes -->
+    <section class="section" id="passes">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Passes and tickets</h2>
+          <p>On sale Wed 23 September, 10:00</p>
+        </div>
+        <div class="passes">
+          <div class="passrow">
+            <h3>Full Pass</h3>
+            <p>Every screening including both galas, with a seat held until ten minutes before each film. Priority booking from Monday 21 September.</p>
+            <p class="price">£96<small>£72 concession</small></p>
+          </div>
+          <div class="passrow">
+            <h3>Weekend Pass</h3>
+            <p>Friday 6 to Sunday 8, any venue. The opening and closing galas are not included.</p>
+            <p class="price">£58<small>£44 concession</small></p>
+          </div>
+          <div class="passrow">
+            <h3>Day Pass</h3>
+            <p>Any one day, any venue, subject to seats at the door. Sold from the box office on the day as well as online.</p>
+            <p class="price">£26<small>£20 concession</small></p>
+          </div>
+          <div class="passrow">
+            <h3>Single ticket</h3>
+            <p>One screening. Anyone under 26, and anyone out of work, pays £5 at every screening in the festival.</p>
+            <p class="price">£9.50<small>£7.50 concession</small></p>
+          </div>
+        </div>
+
+        <div class="booking">
+          <div>
+            <h3>Box office</h3>
+            <p>Ward Road Picture House, 18 Ward Road, Dundee DD1 1NJ. Open 10:00 to 20:00 daily from Monday 26 October, and one hour before the first screening at each venue.<br>
+            <a href="tel:+441382000000">01382 000 000</a> · <a href="mailto:boxoffice@halflight.scot">boxoffice@halflight.scot</a></p>
+          </div>
+          <div>
+            <h3>Access</h3>
+            <p>Every venue is step-free to its stalls; the balcony at The Steps is reached by stair only. Captioned screenings are marked <span class="mark">CAP</span> in the timetable. Audio description and a BSL interpreter can be arranged with five days' notice.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <h2>Halflight</h2>
+          <p>Dundee's film festival. Thursday 5 to Sunday 8 November 2026, at Ward Road Picture House, The Steps Theatre and the Verdant Works Screening Room.</p>
+          <p style="margin-top:12px">Halflight is run by Tay Film Society, a registered Scottish charity, SC000000.</p>
+        </div>
+        <div>
+          <h3>The programme</h3>
+          <ul>
+            <li><a href="#programme">Timetable</a></li>
+            <li><a href="#strands">Strands</a></li>
+            <li><a href="#closing">Closing night</a></li>
+            <li><a href="#venues">Venues</a></li>
+            <li><a href="#passes">Passes and tickets</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Practical</h3>
+          <ul>
+            <li>Box office 01382 000 000</li>
+            <li>Doors 20 minutes before each film</li>
+            <li>No admission after the first reel at Nocturne screenings</li>
+            <li>Printed programmes are free at every venue</li>
+          </ul>
+        </div>
+      </div>
+      <div class="credits">
+        <p>Photographs. The still from <i>Ironai</i>: Photo by
+          <a href="https://unsplash.com/@plainery_?utm_source=designer&amp;utm_medium=referral">Plainery n.</a> on
+          <a href="https://unsplash.com/?utm_source=designer&amp;utm_medium=referral">Unsplash</a>.
+          The still from <i>Haar</i>: Photo by
+          <a href="https://unsplash.com/@elintabitha?utm_source=designer&amp;utm_medium=referral">Elin Tabitha</a> on
+          <a href="https://unsplash.com/?utm_source=designer&amp;utm_medium=referral">Unsplash</a>.
+          This is a design demonstration: the festival, its films and its people are invented.</p>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script type="module">
+import { createGlassRoot, GLASS_CHANNEL_PROPERTIES } from "@vitreajs/vitrea-web";
+
+/* ============================================================ the festival */
+
+const VENUES = [
+  { code: "WR", name: "Ward Road Picture House", seats: 240,
+    address: "18 Ward Road, Dundee DD1 1NJ",
+    access: "Step-free to every seat. Hearing loop. Five wheelchair spaces.",
+    formats: "16mm, 35mm and 4K DCP" },
+  { code: "ST", name: "The Steps Theatre", seats: 96,
+    address: "Central Library, The Wellgate, Dundee DD1 1DB",
+    access: "Step-free to the stalls. The balcony is reached by stair only.",
+    formats: "4K DCP" },
+  { code: "VW", name: "Verdant Works Screening Room", seats: 60,
+    address: "West Henderson's Wynd, Dundee DD1 5BT",
+    access: "Step-free throughout. Two wheelchair spaces.",
+    formats: "16mm, 35mm and 4K DCP",
+    note: "Opens on the Friday. Closed on Thursday 5 November." },
+];
+
+const STRANDS = [
+  { id: "new", name: "New Currents",
+    note: "Eight first and second features, seven of them showing in the UK for the first time." },
+  { id: "north", name: "North of the Tay",
+    note: "Four films made in Scotland and the north. Three were shot within an hour of this building." },
+  { id: "nitrate", name: "Nitrate",
+    note: "Four restorations and reissues. Where a print survives we run the print." },
+  { id: "nocturne", name: "Nocturne",
+    note: "Four late screenings. Doors at the stated time, no admission after the first reel." },
+  { id: "long", name: "Long Exposure",
+    note: "Four documentaries that stayed with their subject far longer than a commission would pay for." },
+];
+
+const FILMS = [
+  { id: 1,  t: "Ironai",                       d: "Sae Tsuchiya",      c: "Japan",               y: 2026, m: 118, s: "new",
+    n: "A snow-clearing crew works the last winter of a branch line, and the timetable outlasts them." },
+  { id: 2,  t: "The Salt Road",                d: "Amara Diallo",      c: "Senegal / France",    y: 2026, m: 104, s: "new",
+    n: "Two sisters drive a lorry of salt north through a border they have been crossing illegally for years." },
+  { id: 3,  t: "Quiet Ownership",              d: "Piotr Walerych",    c: "Poland",              y: 2026, m: 96,  s: "new",
+    n: "A housing co-operative in Łódź votes on whether to sell, over one very long evening." },
+  { id: 4,  t: "Sixteen Winters",              d: "Nour Haddad",       c: "Lebanon / Germany",   y: 2026, m: 111, s: "new",
+    n: "A Beirut piano tuner keeps a ledger of every instrument he has touched since the war." },
+  { id: 5,  t: "A Room on Rankeillor Street",  d: "Cal Devine",        c: "Ireland",             y: 2026, m: 89,  s: "new",
+    n: "A landlord, a tenant and a deposit, in nine unbroken takes." },
+  { id: 6,  t: "The Understudy",               d: "Beatriz Sáenz",     c: "Argentina",           y: 2025, m: 102, s: "new",
+    n: "A theatre in Rosario keeps its leading actress on the payroll long after she stops arriving." },
+  { id: 7,  t: "Mothlight County",             d: "Priya Raman",       c: "India / UK",          y: 2026, m: 127, s: "new",
+    n: "A moth surveyor walks the same twelve miles of the Nilgiris for a year, and is followed." },
+  { id: 8,  t: "Barrow",                       d: "Timo Kallio",       c: "Finland",             y: 2026, m: 93,  s: "new",
+    n: "A gravedigger in Karelia is asked to open a grave he dug forty years ago." },
+
+  { id: 9,  t: "Haar",                         d: "Iona Fraser",       c: "Scotland / Norway",   y: 2026, m: 96,  s: "north",
+    n: "Sea fog closes the airfield for six days and a Norwegian ferry crew wait it out in a Fife hotel." },
+  { id: 10, t: "Fifteen Boats",                d: "Ruaridh Beattie",   c: "Scotland",            y: 2026, m: 78,  s: "north",
+    n: "The Arbroath fleet, counted from the harbour wall each morning of one bad season." },
+  { id: 11, t: "The Cementation Furnace",      d: "Hana Sørlie",       c: "Scotland / Denmark",  y: 2025, m: 84,  s: "north",
+    n: "A Danish metallurgist and a Sheffield apprentice rebuild a furnace nobody alive has fired." },
+  { id: 12, t: "Peat and Ash",                 d: "Mairi Gow",         c: "Scotland",            y: 2026, m: 71,  s: "north",
+    n: "A crofting family on Lewis burns the last of its own peat and orders coal." },
+
+  { id: 13, t: "The Frost Fair",               d: "Vera Lindqvist",    c: "Sweden",              y: 1948, m: 101, s: "nitrate",
+    n: "Lindqvist's only feature, thought lost until a print surfaced in a Gothenburg attic in 2023." },
+  { id: 14, t: "Signal Box",                   d: "Desmond Ayling",    c: "United Kingdom",      y: 1962, m: 88,  s: "nitrate",
+    n: "British Transport Films' strangest commission: eleven hours in a Cumbrian box, cut to 88 minutes." },
+  { id: 15, t: "The Long Vacation",            d: "Kenji Onoda",       c: "Japan",               y: 1971, m: 134, s: "nitrate",
+    n: "Onoda's summer film, restored from the original negative for the first time." },
+  { id: 16, t: "Third Class Return",           d: "Aurélie Manet",     c: "France",              y: 1955, m: 92,  s: "nitrate",
+    n: "Manet's boarding-house comedy, in the 35mm print struck for its Paris revival." },
+
+  { id: 17, t: "Cold Rig",                     d: "Sanna Ekholm",      c: "Norway",              y: 2026, m: 99,  s: "nocturne",
+    n: "Something is wrong with the night shift on a decommissioned platform in the North Sea." },
+  { id: 18, t: "The Housekeeper's Room",       d: "Marek Dvořák",      c: "Czechia",             y: 2026, m: 87,  s: "nocturne",
+    n: "A Brno hotel keeps one room permanently made up, and the new housekeeper wants to know why." },
+  { id: 19, t: "Nine Bells",                   d: "Rosalind Achebe",   c: "UK / Nigeria",        y: 2026, m: 95,  s: "nocturne",
+    n: "A Lagos bell-ringer counts a stranger's footsteps up the tower, and gets to nine." },
+  { id: 20, t: "Tenement",                     d: "Ana-Marija Kos",    c: "Croatia",             y: 2025, m: 104, s: "nocturne",
+    n: "Four flats, one stairwell, one very hot week in Zagreb." },
+
+  { id: 21, t: "The Last Jute Shift",          d: "Fiona Lamb",        c: "Scotland",            y: 2026, m: 82,  s: "long",
+    n: "Camperdown Works, filmed on 16mm by an apprentice in 1978 and finished by his daughter." },
+  { id: 22, t: "Sixty Hours in Kotka",         d: "Elias Norrback",    c: "Finland",             y: 2026, m: 74,  s: "long",
+    n: "A container port, in real time, cut to seventy-four minutes." },
+  { id: 23, t: "What the River Took",          d: "Deji Olawale",      c: "Nigeria / UK",        y: 2026, m: 91,  s: "long",
+    n: "The Ogun floods of 2022, told by the people who rebuilt on the same bank." },
+  { id: 24, t: "Copy Number Four",             d: "Lucía Ferrer",      c: "Spain",               y: 2025, m: 68,  s: "long",
+    n: "A projectionist spends eleven years looking for the fourth print of a film nobody else remembers." },
+];
+
+const DAYS = [
+  { key: "thu", short: "Thu 5", num: "5", long: "Thursday 5 November" },
+  { key: "fri", short: "Fri 6", num: "6", long: "Friday 6 November" },
+  { key: "sat", short: "Sat 7", num: "7", long: "Saturday 7 November" },
+  { key: "sun", short: "Sun 8", num: "8", long: "Sunday 8 November" },
+];
+
+/** day index, venue index, start time, film id, marks. */
+const SCHEDULE = [
+  [0, 0, "15:30", 3,  []],
+  [0, 0, "19:30", 1,  ["Opening gala", "Sold out", "Q&A"]],
+  [0, 1, "17:00", 10, ["Q&A"]],
+  [0, 1, "21:00", 17, []],
+
+  [1, 0, "11:00", 15, ["4K restoration"]],
+  [1, 0, "14:30", 4,  ["CAP"]],
+  [1, 0, "17:30", 7,  []],
+  [1, 0, "21:00", 18, []],
+  [1, 1, "12:30", 12, []],
+  [1, 1, "15:00", 6,  []],
+  [1, 1, "18:00", 5,  ["Q&A", "Returns only"]],
+  [1, 1, "20:45", 20, []],
+  [1, 2, "13:00", 21, ["Q&A", "16mm"]],
+  [1, 2, "16:00", 16, ["35mm"]],
+  [1, 2, "19:00", 8,  []],
+  [1, 2, "22:15", 19, []],
+
+  [2, 0, "11:00", 22, []],
+  [2, 0, "13:15", 13, ["4K restoration", "CAP"]],
+  [2, 0, "16:00", 2,  []],
+  [2, 0, "19:00", 9,  ["Scottish premiere", "Sold out", "Q&A"]],
+  [2, 0, "21:45", 17, []],
+  [2, 1, "11:30", 23, ["Q&A"]],
+  [2, 1, "14:00", 3,  []],
+  [2, 1, "16:30", 1,  ["Returns only"]],
+  [2, 1, "20:00", 11, ["Q&A"]],
+  [2, 2, "12:00", 12, []],
+  [2, 2, "14:30", 10, []],
+  [2, 2, "17:00", 24, []],
+  [2, 2, "19:30", 14, ["35mm"]],
+  [2, 2, "22:00", 19, []],
+
+  [3, 0, "12:00", 7,  ["CAP"]],
+  [3, 0, "15:00", 4,  []],
+  [3, 0, "18:30", 9,  ["Closing gala", "Q&A"]],
+  [3, 1, "11:00", 6,  []],
+  [3, 1, "13:30", 8,  []],
+  [3, 1, "16:00", 15, ["4K restoration"]],
+  [3, 2, "12:30", 23, []],
+  [3, 2, "15:00", 20, []],
+  [3, 2, "17:30", 13, ["4K restoration"]],
+];
+
+const byId = new Map(FILMS.map((f) => [f.id, f]));
+const mins = (t) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3));
+const hhmm = (m) => String(Math.floor(m / 60) % 24).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0");
+const STRONG_MARKS = new Set(["Sold out", "Opening gala", "Closing gala"]);
+
+/* ============================================================ the sheet */
+
+let day = 1;            // Friday: the first full day, and the day the page opens on
+let venue = -1;         // -1 = all venues
+
+function renderTimetable() {
+  const rows = SCHEDULE.filter((s) => s[0] === day && (venue < 0 || s[1] === venue));
+  const tracks = venue < 0 ? VENUES : [VENUES[venue]];
+  const trackIndex = (v) => (venue < 0 ? v : 0);
+
+  const dayRows = SCHEDULE.filter((s) => s[0] === day);
+  const span = rows.length > 0 ? rows : dayRows;
+  const from = Math.floor(Math.min(...span.map((r) => mins(r[2]))) / 60) * 60;
+  const to = Math.ceil(Math.max(...span.map((r) => mins(r[2]) + byId.get(r[3]).m)) / 60) * 60;
+  const slots = (to - from) / 15;
+
+  const head = document.getElementById("tt-head");
+  const grid = document.getElementById("tt");
+  head.style.setProperty("--tracks", tracks.length);
+  grid.style.setProperty("--tracks", tracks.length);
+  grid.style.gridTemplateRows = `repeat(${slots}, var(--slot))`;
+
+  head.innerHTML = "<span></span>" + tracks
+    .map((v) => `<span>${v.name}<i>${v.code} · ${v.seats} seats</i></span>`).join("");
+
+  const parts = [];
+  for (let m = from; m < to; m += 30) {
+    const row = (m - from) / 15 + 1;
+    const isHour = m % 60 === 0;
+    parts.push(`<div class="hourline${isHour ? "" : " half"}" style="grid-row:${row}"></div>`);
+    if (isHour) parts.push(`<div class="timelabel" style="grid-row:${row}">${hhmm(m)}</div>`);
+  }
+
+  for (const [, v, t, id, marks] of rows) {
+    const f = byId.get(id);
+    const row = (mins(t) - from) / 15 + 1;
+    const span = Math.max(4, Math.ceil(f.m / 15));
+    const out = marks.includes("Sold out");
+    parts.push(
+      `<a class="screening${out ? " is-out" : ""}" href="#film-${f.id}" style="grid-column:${trackIndex(v) + 2};grid-row:${row} / span ${span}">` +
+        `<span class="s-time">${t}</span>` +
+        `<span><span class="s-title">${f.t}</span>` +
+        `<span class="s-meta">${f.d} · ${f.c} · ${f.m} min</span>` +
+        (marks.length
+          ? `<span class="s-marks">${marks.map((k) => `<span class="mark${STRONG_MARKS.has(k) ? " is-strong" : ""}">${k}</span>`).join("")}</span>`
+          : "") +
+        `</span></a>`,
+    );
+  }
+
+  for (let i = 0; i < tracks.length; i++) {
+    if (!rows.some((r) => trackIndex(r[1]) === i)) {
+      parts.push(
+        `<p class="tt-empty" style="grid-column:${i + 2};grid-row:1 / span 8">` +
+        `No screenings at ${tracks[i].name} on ${DAYS[day].long}. ` +
+        `It opens on the Friday; the other two venues run from ${hhmm(from)} today.</p>`,
+      );
+    }
+  }
+
+  grid.innerHTML = parts.join("");
+
+  const shown = rows.length;
+  document.getElementById("day-title").innerHTML =
+    `<b>${DAYS[day].long}</b> · ${shown === 0 ? "no" : shown} screening${shown === 1 ? "" : "s"}` +
+    (venue < 0 ? " across three venues" : ` at ${VENUES[venue].name}`);
+}
+
+function renderStrands() {
+  document.getElementById("strand-list").innerHTML = STRANDS.map((st) => {
+    const films = FILMS.filter((f) => f.s === st.id);
+    return `<section class="strand">
+      <div>
+        <h3>${st.name}</h3>
+        <p class="strand-note">${st.note}</p>
+        <p class="strand-count">${films.length} films</p>
+      </div>
+      <div>${films.map((f) => {
+        const plays = SCHEDULE.filter((s) => s[3] === f.id)
+          .map((s) => `${DAYS[s[0]].short} ${s[2]} <b>${VENUES[s[1]].code}</b>`).join("<br>");
+        return `<article class="filmrow" id="film-${f.id}">
+          <div>
+            <h4>${f.t}</h4>
+            <p class="credit">${f.d} · ${f.c} · ${f.y} · ${f.m} min</p>
+            <p class="note">${f.n}</p>
+          </div>
+          <p class="plays">${plays}</p>
+        </article>`;
+      }).join("")}</div>
+    </section>`;
+  }).join("");
+}
+
+function renderVenues() {
+  document.getElementById("venue-list").innerHTML = VENUES.map((v) => `
+    <article class="venuecard">
+      <h3>${v.name}</h3>
+      <span class="code">${v.code}</span>
+      <dl>
+        <div><dt>Address</dt><dd>${v.address}</dd></div>
+        <div><dt>Seats</dt><dd>${v.seats}</dd></div>
+        <div><dt>Access</dt><dd>${v.access}</dd></div>
+        <div><dt>Formats</dt><dd>${v.formats}</dd></div>
+        ${v.note ? `<div><dt>Note</dt><dd>${v.note}</dd></div>` : ""}
+      </dl>
+    </article>`).join("");
+}
+
+renderStrands();
+renderVenues();
+renderTimetable();
+
+/* ============================================================ the live plane
+
+   The still is painted into a viewport-sized canvas rather than shown as an
+   <img> for three reasons named in DESIGN.md §3: the crop is chosen here rather
+   than by object-fit, the wash under the hero copy sits INSIDE the plane where
+   the lens can bend it, and the grain is painted into the same pixels so the
+   pale sky under the toolbar carries a high-frequency term. Anything laid over
+   the plane in CSS would not be behind the glass and would not be refracted. */
+
+const plane = document.getElementById("plane");
+const still = new Image();
+let grainTile = null;
+
+function makeGrain(size = 192, cell = 2, amp = 0.055) {
+  const c = document.createElement("canvas");
+  c.width = c.height = size;
+  const x = c.getContext("2d");
+  const d = x.createImageData(size, size);
+  for (let y = 0; y < size; y += cell) {
+    for (let xx = 0; xx < size; xx += cell) {
+      const v = Math.random() < 0.5 ? 0 : 255;
+      const a = Math.round(255 * amp * Math.random());
+      for (let dy = 0; dy < cell; dy++) {
+        for (let dx = 0; dx < cell; dx++) {
+          const i = ((y + dy) * size + (xx + dx)) * 4;
+          d.data[i] = v; d.data[i + 1] = v; d.data[i + 2] = v; d.data[i + 3] = a;
+        }
+      }
+    }
+  }
+  x.putImageData(d, 0, 0);
+  return c;
+}
+
+function paintPlane() {
+  const w = Math.max(1, window.innerWidth);
+  const h = Math.max(1, window.innerHeight);
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  plane.width = Math.round(w * dpr);
+  plane.height = Math.round(h * dpr);
+  const cx = plane.getContext("2d");
+  cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  cx.fillStyle = "#E9E9F1";                       /* --ground, as a literal: §1's canvas exception */
+  cx.fillRect(0, 0, w, h);
+
+  if (still.complete && still.naturalWidth > 0) {
+    const s = Math.max(w / still.naturalWidth, h / still.naturalHeight);
+    const dw = still.naturalWidth * s;
+    const dh = still.naturalHeight * s;
+    cx.drawImage(still, (w - dw) * 0.5, (h - dh) * 0.62, dw, dh);
+  }
+
+  /* The wash the hero copy is read against, painted INSIDE the plane so the lens
+     bends it too. Two parts: a slow diagonal that lifts the whole trailing side,
+     and a soft ellipse over the copy block itself, so the light is spent where a
+     line of type actually falls rather than over the whole photograph. */
+  /* Wide: the copy sits in the trailing third, so the light is a slow diagonal
+     plus a soft ellipse over the block itself. Narrow: the copy fills the lower
+     two thirds, so the light is a bottom lift that starts below the toolbar. */
+  const wide = w > 1080;
+  if (wide) {
+    const g = cx.createLinearGradient(w * 0.30, h * 0.05, w * 0.99, h * 0.95);
+    g.addColorStop(0, "rgba(233,233,241,0)");
+    g.addColorStop(0.60, "rgba(233,233,241,0.34)");
+    g.addColorStop(1, "rgba(233,233,241,0.66)");
+    cx.fillStyle = g;
+    cx.fillRect(0, 0, w, h);
+
+    cx.save();
+    cx.translate(w * 0.78, h * 0.72);
+    cx.scale(1, 0.80);
+    const rg = cx.createRadialGradient(0, 0, 0, 0, 0, w * 0.44);
+    rg.addColorStop(0, "rgba(233,233,241,0.74)");
+    rg.addColorStop(0.55, "rgba(233,233,241,0.48)");
+    rg.addColorStop(1, "rgba(233,233,241,0)");
+    cx.fillStyle = rg;
+    cx.fillRect(-w, -h, 2 * w, 2 * h);
+    cx.restore();
+  } else {
+    const g = cx.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(0, "rgba(233,233,241,0)");
+    g.addColorStop(0.16, "rgba(233,233,241,0)");
+    g.addColorStop(0.32, "rgba(233,233,241,0.66)");
+    g.addColorStop(1, "rgba(233,233,241,0.88)");
+    cx.fillStyle = g;
+    cx.fillRect(0, 0, w, h);
+  }
+
+  if (!grainTile) grainTile = makeGrain();
+  cx.fillStyle = cx.createPattern(grainTile, "repeat");
+  cx.fillRect(0, 0, w, h);
+}
+
+/* ============================================================ the glass root */
+
+/* `?renderer=css` forces the fallback tier so it can be looked at deliberately:
+   the CSS tier is the same material without refraction, and it is a complete
+   design rather than a degraded copy of one. */
+const forceCss = new URLSearchParams(location.search).get("renderer") === "css";
+
+const root = createGlassRoot({
+  renderer: forceCss ? "css" : "webgpu",
+  devMode: true,
+  colorScheme: "light",
+  accessibilityOverrides: {
+    reducedMotion: "system",
+    reducedTransparency: "system",
+    increasedContrast: "system",
+  },
+});
+window.__vitrea = root;
+
+/* Declared before any group names it, and the pixels are handed over separately:
+   core carries no HTMLCanvasElement. The file is same-origin, so the source is
+   clean and the group keeps gpu-texture sampling. */
+root.registerBackdropSource({
+  id: "film",
+  kind: "texture",
+  probe: { taint: "clean", textureCompatibility: "compatible" },
+});
+
+paintPlane();
+root.setBackdropTexture("film", { kind: "canvas", canvas: plane });
+still.src = "images/ironai-crossing.jpg";
+still.decoding = "async";
+still.addEventListener("load", () => { paintPlane(); root.setBackdropTexture("film", { kind: "canvas", canvas: plane }); });
+
+/* Three groups in the bar, all over the texture — the scroll edge guarantees
+   only the still is ever behind them, so they need no hint and the runtime
+   reads the pixels instead. The platter cannot make that claim and declares
+   one. */
+root.registerGroup({ id: "masthead", backdropSourceId: "film" });
+root.registerGroup({ id: "filters",  backdropSourceId: "film" });
+root.registerGroup({ id: "book",     backdropSourceId: "film" });
+root.registerGroup({ id: "venuemenu", backdrop: { tone: "light", luminance: 0.8, complexity: 0.55 } });
+
+/* ============================================================ the floating layer */
+
+const base = root.plane("base").hostLayer;
+const overlay = root.plane("overlay").hostLayer;
+
+const bar = document.createElement("div");
+bar.className = "bar";
+bar.innerHTML = `
+  <nav class="host" id="masthead" role="navigation" aria-label="Halflight">
+    <a class="wordmark" href="#top"><span>Halflight</span></a>
+    <span class="navlinks">
+      <a href="#programme"><span>Programme</span></a>
+      <a href="#strands"><span>Strands</span></a>
+      <a href="#venues"><span>Venues</span></a>
+      <a href="#passes"><span>Passes</span></a>
+    </span>
+  </nav>
+  <span class="bar-spacer"></span>
+  <span class="cluster">
+    <span class="host" id="days" role="group" aria-label="Festival day">
+      ${DAYS.map((d, i) => `<button type="button" data-day="${i}" aria-pressed="${i === day}"><span>${d.short}</span></button>`).join("")}
+    </span>
+    <button type="button" class="host" id="venuebtn"
+            aria-haspopup="menu" aria-expanded="false" aria-controls="venue-menu">
+      <span id="venuebtn-label">All venues</span>
+      <svg class="caret" viewBox="0 0 12 12" aria-hidden="true" fill="none"
+           stroke="currentColor" stroke-width="1.6"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>
+    </button>
+  </span>
+  <span class="bar-spacer"></span>
+  <a class="host" id="book" href="#passes"><span>Book tickets</span></a>`;
+base.append(bar);
+
+const platter = document.createElement("div");
+platter.id = "venue-menu";
+platter.setAttribute("role", "menu");
+platter.setAttribute("aria-label", "Filter the programme by venue");
+platter.hidden = true;
+platter.innerHTML = [{ code: "ALL", short: "All venues" }, ...VENUES.map((v) => ({ ...v, short: v.name.replace(" Picture House", "").replace(" Theatre", "").replace(" Screening Room", "") }))]
+  .map((v, i) => `<button type="button" role="menuitemradio" class="platter-item" data-venue="${i - 1}"
+        aria-checked="${i - 1 === venue}"><span class="lead">${v.code}</span><span>${v.short}</span>
+        <span class="count" data-count="${i - 1}"></span></button>`).join("");
+overlay.append(platter);
+
+const mastheadEl = document.getElementById("masthead");
+const daysEl = document.getElementById("days");
+const venueBtn = document.getElementById("venuebtn");
+const bookEl = document.getElementById("book");
+
+/* The size family: three spans across the law's 32..96 band, one radius each,
+   one thickness of 10. Book is the one capsule and the one tint. */
+const SURFACES = [
+  root.registerHost({ host: mastheadEl, groupId: "masthead",
+    shapeFamily: "fixed-rounded-rect", radii: [22, 22, 22, 22], thickness: 10 }),
+  root.registerHost({ host: daysEl, groupId: "filters",
+    shapeFamily: "fixed-rounded-rect", radii: [13, 13, 13, 13], thickness: 10 }),
+  root.registerHost({ host: venueBtn, groupId: "filters",
+    shapeFamily: "fixed-rounded-rect", radii: [13, 13, 13, 13], thickness: 10 }),
+  root.registerHost({ host: bookEl, groupId: "book",
+    shapeFamily: "capsule", radii: [20, 20, 20, 20], thickness: 10,
+    /* One seed, read from the token so the tint cannot drift from the accent. */
+    tint: `${getComputedStyle(document.documentElement).getPropertyValue("--accent").trim()}76` }),
+];
+
+/* The venue button is released below 1080px rather than hidden: a host with no
+   box is still a registered surface, and the collapse is meant to remove it. */
+let venueBtnHandle = SURFACES[2];
+/** The safe-area inset the platform does not give a desktop page: the bar's own
+ *  measured bottom edge plus its margin, written back as the scroll edge's two
+ *  stops so the sheet clears the chrome at whatever height the chrome resolves to. */
+function syncSafeArea() {
+  const r = bar.getBoundingClientRect();
+  const root_ = document.documentElement;
+  root_.style.setProperty("--edge", `${Math.round(r.bottom + 12)}px`);
+  root_.style.setProperty("--edge-2", `${Math.round(r.bottom + 76)}px`);
+}
+
+function syncCollapse() {
+  const narrow = window.innerWidth <= 1080;
+  if (narrow && venueBtnHandle) {
+    closeMenu(true);
+    venueBtnHandle.release();
+    venueBtnHandle = null;
+    venueBtn.style.display = "none";
+  } else if (!narrow && !venueBtnHandle) {
+    venueBtn.style.display = "";
+    venueBtnHandle = root.registerHost({ host: venueBtn, groupId: "filters",
+      shapeFamily: "fixed-rounded-rect", radii: [13, 13, 13, 13], thickness: 10 });
+  }
+  for (const b of daysEl.querySelectorAll("button")) {
+    const i = Number(b.dataset.day);
+    b.firstElementChild.textContent = window.innerWidth <= 760 ? DAYS[i].num : DAYS[i].short;
+  }
+  bookEl.firstElementChild.textContent = window.innerWidth <= 760 ? "Book" : "Book tickets";
+  syncSafeArea();
+}
+
+/* ============================================================ behaviour */
+
+function setDay(i) {
+  day = i;
+  for (const b of daysEl.querySelectorAll("button")) {
+    b.setAttribute("aria-pressed", String(Number(b.dataset.day) === day));
+  }
+  renderTimetable();
+  refreshCounts();
+}
+
+function setVenue(v) {
+  venue = v;
+  venueBtn.querySelector("#venuebtn-label").textContent =
+    v < 0 ? "All venues" : VENUES[v].name.replace(" Picture House", "").replace(" Theatre", "").replace(" Screening Room", "");
+  for (const item of platter.querySelectorAll(".platter-item")) {
+    item.setAttribute("aria-checked", String(Number(item.dataset.venue) === venue));
+  }
+  renderTimetable();
+}
+
+function refreshCounts() {
+  for (const el of platter.querySelectorAll("[data-count]")) {
+    const v = Number(el.dataset.count);
+    const n = SCHEDULE.filter((s) => s[0] === day && (v < 0 || s[1] === v)).length;
+    el.textContent = String(n);
+  }
+}
+refreshCounts();
+
+daysEl.addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-day]");
+  if (b) setDay(Number(b.dataset.day));
+});
+
+/* --- the platter: registered when it opens, released when it closes, and its
+   box springs out of the control that summoned it rather than fading in. */
+const PLATTER_W = 268;
+const PLATTER_H = 10 * 2 + 4 * 42;
+let platterHandle = null;
+
+function placePlatter() {
+  const r = venueBtn.getBoundingClientRect();
+  platter.style.top = `${Math.round(r.bottom + 10)}px`;
+  platter.style.left = `${Math.round(Math.max(8, r.right - PLATTER_W))}px`;
+  platter.style.width = `${PLATTER_W}px`;
+}
+
+function openMenu() {
+  if (platterHandle || !venueBtnHandle) return;
+  const reduced = root.accessibility?.reducedMotion === true;
+  platter.hidden = false;
+  placePlatter();
+  platter.style.height = reduced ? `${PLATTER_H}px` : "12px";
+  platterHandle = root.registerHost({
+    host: platter, groupId: "venuemenu", plane: "overlay",
+    shapeFamily: "fixed-rounded-rect", radii: [28, 28, 28, 28], thickness: 10,
+  });
+  venueBtn.setAttribute("aria-expanded", "true");
+  refreshCounts();
+  if (!reduced) requestAnimationFrame(() => { platter.style.height = `${PLATTER_H}px`; });
+  platter.querySelector(".platter-item").focus();
+}
+
+function closeMenu(immediate) {
+  if (!platterHandle) return;
+  const handle = platterHandle;
+  platterHandle = null;
+  venueBtn.setAttribute("aria-expanded", "false");
+  const finish = () => { handle.release(); platter.hidden = true; };
+  if (immediate || root.accessibility?.reducedMotion === true) { finish(); return; }
+  platter.style.height = "12px";
+  setTimeout(finish, 260);
+}
+
+venueBtn.addEventListener("click", () => (platterHandle ? closeMenu() : openMenu()));
+platter.addEventListener("click", (e) => {
+  const item = e.target.closest(".platter-item");
+  if (!item) return;
+  setVenue(Number(item.dataset.venue));
+  closeMenu();
+  venueBtn.focus();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && platterHandle) { closeMenu(); venueBtn.focus(); }
+});
+document.addEventListener("pointerdown", (e) => {
+  if (platterHandle && !platter.contains(e.target) && !venueBtn.contains(e.target)) closeMenu();
+});
+
+/* --- press feedback: vitrea's own channels, advanced on the root's frame loop.
+   A second requestAnimationFrame loop would mean two wake-ups per frame with no
+   ordering between them. */
+const pressed = new WeakMap();
+for (const el of [mastheadEl, daysEl, venueBtn, bookEl, platter]) {
+  el.addEventListener("pointerdown", (e) => {
+    const r = el.getBoundingClientRect();
+    /* px relative to the host's border box: that is what channels.ts adds to the
+       measured bounds, and a 0..1 fraction would land the glow in the corner. */
+    el.style.setProperty(GLASS_CHANNEL_PROPERTIES.pressX, `${(e.clientX - r.left).toFixed(1)}px`);
+    el.style.setProperty(GLASS_CHANNEL_PROPERTIES.pressY, `${(e.clientY - r.top).toFixed(1)}px`);
+    pressed.set(el, 1);
+  });
+  for (const ev of ["pointerup", "pointerleave", "pointercancel"]) {
+    el.addEventListener(ev, () => pressed.set(el, 0));
+  }
+}
+
+/* --- the scroll edge, written from the root's loop so the clear band stays at
+   the top of the window at every scroll position. */
+const stack = document.querySelector(".stack");
+let lastY = -1;
+const springs = new WeakMap();
+
+root.subscribe(({ deltaMs }) => {
+  const step = Math.min(1, Math.max(0, deltaMs) / 90);   /* capped: a backgrounded tab returns a huge first delta */
+  const y = Math.round(window.scrollY);
+  if (y !== lastY) {
+    lastY = y;
+    stack.style.maskPosition = `0 ${y}px`;
+    stack.style.webkitMaskPosition = `0 ${y}px`;
+  }
+  for (const el of [mastheadEl, daysEl, venueBtn, bookEl, platter]) {
+    const target = pressed.get(el) ?? 0;
+    const current = springs.get(el) ?? 0;
+    if (Math.abs(target - current) < 0.001 && current === 0) continue;
+    const next = current + (target - current) * step;
+    springs.set(el, next);
+    el.style.setProperty(GLASS_CHANNEL_PROPERTIES.press, next.toFixed(4));
+  }
+});
+
+/* The window's size is compared against the last one the plane was painted for,
+   not against the fact that a resize event fired: a full-page capture and a
+   scrollbar appearing both fire one without changing anything, and repainting a
+   viewport-sized texture for that is wasted work — closing an open platter for
+   it is a visible bug. */
+let resizeTimer = 0;
+let lastW = window.innerWidth;
+let lastH = window.innerHeight;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    if (window.innerWidth === lastW && window.innerHeight === lastH) return;
+    lastW = window.innerWidth;
+    lastH = window.innerHeight;
+    paintPlane();
+    root.setBackdropTexture("film", { kind: "canvas", canvas: plane });
+    syncCollapse();
+    if (platterHandle) placePlatter();
+  }, 160);
+});
+
+syncCollapse();
+
+/* The audit opens the platter for one capture; the page says so in one line. */
+window.__glassDemo = { openMenu };
+</script>
+</body>
+</html>
