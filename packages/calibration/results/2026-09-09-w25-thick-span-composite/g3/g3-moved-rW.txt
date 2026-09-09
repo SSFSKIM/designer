@@ -1,0 +1,19 @@
+captures compared      414  (828 in r0, 414 in rW)
+byte-identical         96
+moved                  318
+  apple-macos-26.5-1x-dark-standard             80 of 104 moved
+  apple-macos-26.5-1x-light-standard            80 of 104 moved
+  apple-macos-26.5-2x-dark-standard             78 of 102 moved
+  apple-macos-26.5-2x-light-standard            80 of 104 moved
+
+ΔE cells compared      205
+
+thin (span <= 44), X5: 81 cells, bound 0.001
+  worst rise   +0.000004  apple-macos-26.5-1x-dark-standard / webgpu / checkerboard-4__capsule-button__rest
+  best fall    -0.000001  apple-macos-26.5-2x-light-standard / webgpu / checkerboard-4__capsule-button__rest-tint-orange
+  over bound   0
+
+thick: 124 cells, bound 0.002
+  worst rise   +0.000056  apple-macos-26.5-2x-dark-standard / webgpu / checkerboard-32__rrect-ml__rest
+  best fall    -0.000086  apple-macos-26.5-2x-dark-standard / webgpu / checkerboard-4__rrect-lg__rest
+  over bound   0

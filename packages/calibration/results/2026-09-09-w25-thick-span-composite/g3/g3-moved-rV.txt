@@ -1,0 +1,31 @@
+captures compared      414  (828 in r0, 414 in rV)
+byte-identical         302
+moved                  112
+  apple-macos-26.5-1x-dark-standard             18 of 104 moved
+  apple-macos-26.5-1x-light-standard            34 of 104 moved
+  apple-macos-26.5-2x-dark-standard             26 of 102 moved
+  apple-macos-26.5-2x-light-standard            34 of 104 moved
+
+ΔE cells compared      205
+
+thin (span <= 44), X5: 81 cells, bound 0.001
+  worst rise   +0.000000  apple-macos-26.5-1x-dark-standard / webgpu / checkerboard-32__capsule-button__rest
+  best fall    +0.000000  apple-macos-26.5-1x-dark-standard / webgpu / checkerboard-32__capsule-button__rest
+  over bound   0
+
+thick: 124 cells, bound 0.002
+  worst rise   +0.069879  apple-macos-26.5-2x-dark-standard / webgpu / dark-solid__rrect-lg__rest
+  best fall    -0.005177  apple-macos-26.5-2x-dark-standard / webgpu / checkerboard-4__rrect-lg__rest
+  over bound   19
+    +0.069879  apple-macos-26.5-2x-dark-standard / webgpu / dark-solid__rrect-lg__rest
+    +0.069717  apple-macos-26.5-1x-dark-standard / webgpu / dark-solid__rrect-lg__rest
+    +0.062196  apple-macos-26.5-1x-dark-standard / webgpu / mid-dark-solid__rrect-lg__rest
+    +0.062085  apple-macos-26.5-2x-dark-standard / webgpu / mid-dark-solid__rrect-lg__rest
+    +0.020957  apple-macos-26.5-2x-dark-standard / webgpu / checkerboard-lc16__rrect-lg__rest
+    +0.020342  apple-macos-26.5-1x-dark-standard / webgpu / checkerboard-lc16__rrect-lg__rest
+    +0.016666  apple-macos-26.5-2x-dark-standard / webgpu / light-solid__rrect-lg__rest
+    +0.016656  apple-macos-26.5-1x-dark-standard / webgpu / light-solid__rrect-lg__rest
+    +0.014384  apple-macos-26.5-2x-dark-standard / webgpu / dark-solid__rrect-ml__rest
+    +0.014330  apple-macos-26.5-1x-dark-standard / webgpu / dark-solid__rrect-ml__rest
+    +0.009722  apple-macos-26.5-2x-dark-standard / webgpu / hc-text-7__rrect-lg__rest
+    +0.009349  apple-macos-26.5-2x-dark-standard / webgpu / hc-text-28__rrect-lg__rest
