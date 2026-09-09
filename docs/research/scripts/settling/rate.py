@@ -2,6 +2,8 @@
 """Blinded pairwise rating for the settling experiment (spec: 2026-09-05-settling-experiment.md, Q).
 
     python3 rate.py                       serve on http://localhost:8765/
+                                          and /rubric — the anchor set, then its retest, on the
+                                          items the user rates (rubric.HUMAN_KEYS)
     SETTLING_REVIEW=1 python3 rate.py     also serve /review — every build unblinded (arm, seed,
                                           gate, each judge's record, links) — for after the judging
 
@@ -18,6 +20,7 @@ REPO = os.path.abspath(os.path.join(HERE, "../../../.."))
 WS = os.environ.get("SETTLING_WS") or os.path.join(REPO, "figma-design-workspace/settling")
 MANIFEST = os.path.join(WS, "manifest.json")
 JUDGMENTS = os.path.join(WS, "judgments.jsonl")
+RUBRIC_HUMAN = os.path.join(WS, "rubric-human.jsonl")
 EVALS = os.path.join(REPO, "evals/evals.json")
 PORT = 8765
 ARMS = ["none", "v1.1", "v2.0", "v2.1"]
@@ -169,6 +172,148 @@ def review_page():
     return "\n".join(out)
 
 
+def _rubric():
+    """rubric.py imports this module for the workspace paths, so it is imported here on first use
+    rather than at load time: which of the two files was run then stops mattering."""
+    import rubric
+    return rubric
+
+
+def scale_spec(key, scale):
+    """One rubric scale as the rating page needs it: the values to offer, the labels for the two
+    ends, and — where the scale names an anchor between them — the scale's own words verbatim,
+    which the row shows under its statement. Every anchor is written as the point it sits on
+    followed by its words, so the ends are read off the points and not off the order the anchors
+    are written in: d1 runs from 7 down to 1 and closes on a clause that names no single point."""
+    kind = _rubric().scale_kind(key)
+    if kind == "binary":
+        return {"values": [0, 1], "low": "not seen", "high": "seen", "anchors": ""}
+    values = [0, 1, 2] if kind == "three" else list(range(1, 8))
+    named = {}
+    for part in scale.replace("…", ";").split(";"):
+        point, _, words = part.strip().partition(" ")
+        if point.isdigit():
+            named[int(point)] = words
+    return {"values": values, "low": named.get(values[0], ""), "high": named.get(values[-1], ""),
+            "anchors": scale if len(named) > 2 else ""}
+
+
+def rubric_rated():
+    """The user's ratings keyed by (page id, pass), so the second pass over a page is a rating of
+    its own and not a repeat of the first. A page rated twice in the same pass keeps the later
+    line, so a correction supersedes rather than duplicates."""
+    out = {}
+    if os.path.exists(RUBRIC_HUMAN):
+        for line in open(RUBRIC_HUMAN):
+            line = line.strip()
+            if line:
+                r = json.loads(line); out[(r["id"], r.get("pass", 1))] = r
+    return out
+
+
+def rubric_queue():
+    """The twenty ratings the user owes, in the order the page serves them: the sixteen anchor
+    pages brief by brief in ANCHOR_BRIEFS order and, within a brief, in the order seeded for the
+    human rater; then the four retest pages in their own seeded order. Pass 2 stands after the
+    whole of pass 1, so it is reached only once pass 1 has been rated through."""
+    R = _rubric()
+    return ([{"id": i, "pass": 1} for b in R.ANCHOR_BRIEFS for i in R.human_order(b)]
+            + [{"id": i, "pass": 2} for i in R.human_retest_ids()])
+
+
+def rubric_state():
+    """What is left of that queue: the ratings already in rubric-human.jsonl are counted done and
+    dropped, so the user can stop at any page and resume there. Done and pending always sum to the
+    twenty, which is what the page's counter reads."""
+    rated = set(rubric_rated())
+    q = rubric_queue()
+    return {"done": sum(1 for p in q if (p["id"], p["pass"]) in rated),
+            "pending": [p for p in q if (p["id"], p["pass"]) not in rated]}
+
+
+def rubric_cell(i):
+    """Everything the rating page may know about one anchor page: its brief's text verbatim, the
+    capture file names, and the items the user rates (HUMAN_KEYS — the taste-bearing ones) with
+    their scales. Never the arm, the seed, the build's directory or its DESIGN.md."""
+    R = _rubric()
+    cell = next((c for c in json.load(open(MANIFEST))["cells"] if c["id"] == i), None)
+    if cell is None:
+        return None
+    return {"id": i, "brief": cell["brief"], "briefText": brief_text(cell["eval"]),
+            "captures": [os.path.basename(p) for p in R.captures(i)],
+            "items": [{"key": k, "block": block, "text": text, **scale_spec(k, scale)}
+                      for k, block, text, scale in R.items_for(cell["brief"], R.HUMAN_KEYS)]}
+
+
+RUBRIC_PAGE = r"""<!doctype html><meta charset=utf-8><title>settling — rubric</title>
+<style>
+body{margin:0;font:14px/1.45 system-ui;color:#222;background:#f4f4f4}
+header{position:sticky;top:0;background:#fff;border-bottom:1px solid #ddd;padding:10px 16px;z-index:5;display:flex;gap:14px;align-items:baseline}
+header b{font-size:15px} header .brief{flex:1;color:#333} header .n{color:#777;white-space:nowrap}
+header .id{font-family:ui-monospace,monospace;color:#777} header button{padding:4px 10px}
+header .pass{color:#a60;font-weight:600;white-space:nowrap}
+main{padding:12px 16px 0}
+.cap{background:#fff;border:1px solid #ccc;margin-bottom:12px}
+.cap .bar{padding:6px 10px;border-bottom:1px solid #e5e5e5;font-weight:600;color:#444}
+.cap .box{overflow-x:auto;background:#eee} .cap img{display:block}
+body.fit .cap img{max-width:100%} body.native .cap img{width:1440px;max-width:none}
+.items{background:#fff;border:1px solid #ccc;margin:16px 0 96px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;padding:8px 12px;border-top:1px solid #eee}
+.row:first-child{border-top:0} .row:focus{outline:2px solid #06c;outline-offset:-2px;background:#f7fbff}
+.row.set{background:#fbfbfb} .row.set:focus{background:#f7fbff}
+.key{font-family:ui-monospace,monospace;color:#777;margin-right:8px} .row.set .key{color:#282}
+.anchors{display:block;color:#777;font-size:12px}
+.opts{display:flex;gap:6px;align-items:center;white-space:nowrap}
+.opts .end{color:#777;font-size:12px;width:20ch;white-space:normal;text-align:right}
+.opts .end.hi{text-align:left}
+.opts label{display:inline-flex;flex-direction:column;align-items:center;width:26px;cursor:pointer;color:#555}
+.opts input{margin:0 0 2px}
+footer{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #ddd;padding:10px 16px;display:flex;gap:12px;align-items:center;justify-content:center}
+button{font:inherit;padding:8px 20px;border:1px solid #888;background:#fff;border-radius:4px;cursor:pointer}
+button:disabled{opacity:.4;cursor:default}
+.hint{color:#777} .done{padding:60px;text-align:center;font-size:18px}
+</style>
+<body class=fit>
+<header><b>rubric</b><span class=brief id=brief></span><span class=id id=pid></span><span class=pass id=pass></span><span class=n id=n></span><button id=fitb>native width</button></header>
+<main><div id=caps></div><div class=items id=items></div></main>
+<footer><span class=hint>a digit sets the focused row, tab moves to the next</span><button id=save disabled>Save and next</button><button id=skip>skip for now</button></footer>
+<script>
+const LABEL={'shot-fv.png':'first viewport (1440 × 900, scroll 0)','tile-2.png':'second viewport','tile-3.png':'third viewport','shot-full.png':'full page'};
+const slot=p=>`${p.id}|${p.pass}`;
+let queue=[], cur=null, t0=0, vals={}, skipped=new Set();
+async function load(){ const s=await (await fetch('/api/rubric-state')).json();
+  document.getElementById('n').textContent=`rated ${s.done} / ${s.done+s.pending.length}`;
+  queue=s.pending.filter(p=>!skipped.has(slot(p))); next(); }
+async function next(){ const p=queue.shift();
+  if(!p){ document.querySelector('main').innerHTML='<div class=done>Nothing left to rate in the anchor set.</div>';
+          document.querySelector('footer').style.display='none'; document.getElementById('brief').textContent='';
+          document.getElementById('pid').textContent=''; document.getElementById('pass').textContent=''; cur=null; return; }
+  cur=await (await fetch('/api/rubric-cell?id='+p.id)).json(); cur.pass=p.pass; render(); }
+function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+function render(){ document.getElementById('brief').textContent=cur.briefText; document.getElementById('pid').textContent=cur.id;
+  document.getElementById('pass').textContent=cur.pass===2?'second pass':'';
+  document.getElementById('caps').innerHTML=cur.captures.map(f=>`<div class=cap><div class=bar>${esc(LABEL[f]||f)}</div><div class=box><img src="/builds/${cur.id}/${f}" alt=""></div></div>`).join('');
+  document.getElementById('items').innerHTML=cur.items.map(it=>{
+    const opts=it.values.map(v=>`<label><input type=radio tabindex=-1 name="${it.key}" value="${v}"><span>${v}</span></label>`).join('');
+    return `<div class=row tabindex=0 data-key="${it.key}" data-values="${it.values.join('')}"><div><span class=key>${it.key}</span>${esc(it.text)}`+
+      (it.anchors?`<span class=anchors>${esc(it.anchors)}</span>`:'')+`</div><div class=opts><span class=end>${esc(it.low)}</span>${opts}<span class="end hi">${esc(it.high)}</span></div></div>`; }).join('');
+  vals={}; t0=Date.now(); upd(); window.scrollTo(0,0); const r=document.querySelector('.row'); if(r) r.focus(); }
+function setv(key,v){ vals[key]=v; const row=document.querySelector(`.row[data-key="${key}"]`); row.classList.add('set');
+  const i=row.querySelector(`input[value="${v}"]`); if(i) i.checked=true; upd(); }
+function upd(){ document.getElementById('save').disabled=!cur||Object.keys(vals).length<cur.items.length; }
+document.getElementById('items').addEventListener('change',e=>{ if(e.target.name) setv(e.target.name,+e.target.value); });
+document.addEventListener('keydown',e=>{ const row=e.target.closest&&e.target.closest('.row'); if(!row) return;
+  if(/^[0-9]$/.test(e.key)&&row.dataset.values.includes(e.key)){ setv(row.dataset.key,+e.key); e.preventDefault(); } });
+document.getElementById('fitb').onclick=()=>{ const b=document.body, f=b.classList.contains('fit');
+  b.classList.toggle('fit',!f); b.classList.toggle('native',f); document.getElementById('fitb').textContent=f?'fit to width':'native width'; };
+document.getElementById('skip').onclick=()=>{ if(cur) skipped.add(slot(cur)); next(); };
+document.getElementById('save').onclick=async()=>{ const body={id:cur.id,brief:cur.brief,pass:cur.pass,...vals,ms:Date.now()-t0,at:new Date().toISOString()};
+  document.getElementById('save').disabled=true;
+  await fetch('/api/rubric',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)}); load(); };
+load();
+</script>"""
+
+
 class H(SimpleHTTPRequestHandler):
     def __init__(self, *a, **k):
         super().__init__(*a, directory=WS, **k)
@@ -176,11 +321,31 @@ class H(SimpleHTTPRequestHandler):
     def log_message(self, format, *args):
         pass
 
+    def send_body(self, body, ctype):
+        self.send_response(200); self.send_header("content-type", ctype)
+        self.send_header("content-length", str(len(body))); self.end_headers(); self.wfile.write(body)
+
+    def send_html(self, html):
+        self.send_body(html.encode(), "text/html; charset=utf-8")
+
+    def send_json(self, obj):
+        self.send_body(json.dumps(obj).encode(), "application/json")
+
     def do_GET(self):
         if self.path == "/" or self.path.startswith("/?"):
-            body = PAGE.encode(); self.send_response(200); self.send_header("content-type", "text/html; charset=utf-8"); self.send_header("content-length", str(len(body))); self.end_headers(); self.wfile.write(body); return
+            self.send_html(PAGE); return
         if self.path.startswith("/review") and REVIEW:
-            body = review_page().encode(); self.send_response(200); self.send_header("content-type", "text/html; charset=utf-8"); self.send_header("content-length", str(len(body))); self.end_headers(); self.wfile.write(body); return
+            self.send_html(review_page()); return
+        if self.path == "/rubric" or self.path.startswith("/rubric?"):
+            self.send_html(RUBRIC_PAGE); return
+        if self.path == "/api/rubric-state":
+            self.send_json(rubric_state()); return
+        if self.path.startswith("/api/rubric-cell"):
+            from urllib.parse import urlparse, parse_qs
+            cell = rubric_cell((parse_qs(urlparse(self.path).query).get("id") or [""])[0])
+            if cell is None:
+                self.send_response(404); self.end_headers(); return
+            self.send_json(cell); return
         if self.path == "/api/state":
             done = judged(); pend = []; unbuilt = 0
             for p in schedule():
@@ -190,8 +355,7 @@ class H(SimpleHTTPRequestHandler):
                     pend.append({**p, "briefText": brief_text(p["eval"])})
                 else:
                     unbuilt += 1
-            body = json.dumps({"done": len(done), "pending": pend, "unbuilt": unbuilt}).encode()
-            self.send_response(200); self.send_header("content-type", "application/json"); self.send_header("content-length", str(len(body))); self.end_headers(); self.wfile.write(body); return
+            self.send_json({"done": len(done), "pending": pend, "unbuilt": unbuilt}); return
         if self.path.startswith("/builds/") and (self.path.endswith("/") or (self.path.endswith("DESIGN.md") and not REVIEW)):
             self.send_response(403); self.end_headers(); return
         super().do_GET()
@@ -200,6 +364,11 @@ class H(SimpleHTTPRequestHandler):
         if self.path == "/api/judge":
             n = int(self.headers.get("content-length", 0)); j = json.loads(self.rfile.read(n))
             with open(JUDGMENTS, "a") as f:
+                f.write(json.dumps(j) + "\n")
+            self.send_response(204); self.end_headers(); return
+        if self.path == "/api/rubric":
+            n = int(self.headers.get("content-length", 0)); j = json.loads(self.rfile.read(n))
+            with open(RUBRIC_HUMAN, "a") as f:
                 f.write(json.dumps(j) + "\n")
             self.send_response(204); self.end_headers(); return
         self.send_response(404); self.end_headers()
@@ -211,5 +380,7 @@ if __name__ == "__main__":
         for p in schedule():
             print(p["brief"], p["left"], p["right"])
         sys.exit()
-    print(f"settling rating → http://localhost:{PORT}/   (judgments → {JUDGMENTS})" + (f"   review → http://localhost:{PORT}/review" if REVIEW else ""))
+    print(f"settling rating → http://localhost:{PORT}/   (judgments → {JUDGMENTS})"
+          f"\nrubric        → http://localhost:{PORT}/rubric   (ratings → {RUBRIC_HUMAN})"
+          + (f"\nreview        → http://localhost:{PORT}/review" if REVIEW else ""))
     ThreadingHTTPServer(("127.0.0.1", PORT), H).serve_forever()
