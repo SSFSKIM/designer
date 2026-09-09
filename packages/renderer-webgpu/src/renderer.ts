@@ -104,7 +104,7 @@ import {
 } from "./material";
 import { createPassRunner, type DeviceRect, type PassRunner } from "./passes";
 import { createPyramidStore, type PyramidResources, type PyramidStore } from "./pyramid";
-import { chainLodForSigma, heavyTapPlan, type ResolutionPolicyView } from "./pyramid-plan";
+import { chainLodForSigma, type ResolutionPolicyView } from "./pyramid-plan";
 import type {
   FrameContextView,
   FrameParticipantView,
@@ -445,48 +445,6 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
    * measured term that exists on that source, and the sweep's amplitude absorbs
    * the difference.
    */
-  /**
-   * The heavy tap's plan (W26 G0, candidate (ii); W26 Decision Log 1) — the
-   * profile's σ in DEVICE px turned into the chain level to tap, the residual σ
-   * in that level's own texels and the uv extent of one of them.
-   *
-   * The conversion is knowable only here, for `bodyChainLod`'s reason: it needs
-   * the source's texels per CSS px and the downscale the plan applied, which is
-   * the pyramid's own record of how it was built. The σ is divided by the ratio
-   * for `bodySigmaCssFor`'s reason too — the widths on this tier are device-pixel
-   * quantities (W12 G3, claims §5.56 §1), so the same material asks for half as
-   * many CSS px of haze at dpr 2, and the chain is measured in source texels.
-   *
-   * At σ 0, or with no chain to tap, the tap stands down and the pass takes the
-   * single `textureSampleLevel` it has always taken.
-   */
-  const heavyTapArgs = (
-    sigmaDev: number,
-    pyramid: PyramidResources | undefined,
-  ): {
-    heavyTapEnabled: boolean;
-    heavyTapLevel: number;
-    heavyTapResidualSigmaTexels: number;
-    heavyTapStepUv: readonly [number, number];
-  } => {
-    const off = {
-      heavyTapEnabled: false,
-      heavyTapLevel: 0,
-      heavyTapResidualSigmaTexels: 0,
-      heavyTapStepUv: [0, 0] as const,
-    };
-    if (pyramid === undefined || !(sigmaDev > 0)) return off;
-    const planScale = pyramid.sourceWidth > 0 ? pyramid.plan.width / pyramid.sourceWidth : 1;
-    const sigmaCss = sigmaDev / Math.max(viewport.devicePixelRatio, 1e-3);
-    const plan = heavyTapPlan(sigmaCss * pyramid.texelsPerCss * planScale, pyramid.plan);
-    return {
-      heavyTapEnabled: true,
-      heavyTapLevel: plan.level,
-      heavyTapResidualSigmaTexels: plan.residualSigmaTexels,
-      heavyTapStepUv: plan.stepUv,
-    };
-  };
-
   const liftChainLod = (sigmaCss: number, pyramid: PyramidResources | undefined): number => {
     if (pyramid === undefined || !(sigmaCss > 0)) return 0;
     const planScale = pyramid.sourceWidth > 0 ? pyramid.plan.width / pyramid.sourceWidth : 1;
@@ -531,7 +489,14 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       const sigmaCss = bodySigmaCssFor(sourceId);
       const sameSigma =
         Math.abs(sigmaCss - existing.bodySigmaCss) <= 1e-6 * Math.max(1, existing.bodySigmaCss);
-      if (sameDensity && sameSigma) continue;
+      // The heavy blur rides the same staleness rule (W26): it is built from the
+      // same chain at the same density, so a ratio change that moved the body's
+      // σ moved its σ too, and a clean source would otherwise keep the previous
+      // display's heavy width.
+      const heavyCss = heavySigmaCssFor();
+      const sameHeavy =
+        Math.abs(heavyCss - existing.heavySigmaCss) <= 1e-6 * Math.max(1, existing.heavySigmaCss);
+      if (sameDensity && sameSigma && sameHeavy) continue;
       requests.push({
         sourceId,
         epoch: existing.builtEpoch,
@@ -585,6 +550,24 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     );
     return optics.blurSigma / Math.max(viewport.devicePixelRatio, 1e-3);
   };
+
+  /**
+   * The heavy blur's σ in CSS px a build for this source would ask for (W26;
+   * `MaterialProfile.sizeHeavyTapSigma`), 0 where the profile declines it.
+   *
+   * `bodySigmaCssFor`'s rule exactly, for the same measured reason: the heavy
+   * width is a device-px quantity (claims §5.113 §2), so the CSS-px σ the pyramid
+   * converts to source texels with is the device σ over the ratio. It is a
+   * property of the SOURCE and not of the group, because the texture is built
+   * once per source per frame before any group is drawn — which is the trade
+   * W26 Decision Log 2 (b) took and `PyramidResources.heavy` records.
+   *
+   * It reads the material rather than the variant's optics: the heavy width is
+   * one number for the material, and no variant restates it.
+   */
+  const heavySigmaCssFor = (): number =>
+    heavyTapSigmaAtScale(material, viewport.devicePixelRatio) /
+    Math.max(viewport.devicePixelRatio, 1e-3);
 
   /**
    * The one tint seed this group's optics pass draws with.
@@ -683,6 +666,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           // scale. At dpr 1 this is `optics.blurSigma` unchanged, which is what
           // leaves the 1x law exactly as landed.
           bodySigmaCss: bodySigmaCssFor(request.sourceId),
+          // The heavy blur's own σ, through the same conversion (W26). At 0 the
+          // pyramid allocates nothing and encodes nothing.
+          heavySigmaCss: heavySigmaCssFor(),
           viewportCss: [viewport.widthCss, viewport.heightCss],
           ...(isUsablePlacement(placement) ? { placement } : {}),
         },
@@ -1032,16 +1018,10 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         rimAlongSideSlope: optics.rimAlongSideSlope,
         sizeScatterHeavyShareThick: scatterHeavyShareThickAtScale(material, dpr),
         sizeToneLevelFar: material.sizeToneLevelFar,
-        // W26 G0's three candidate heavy taps (W26 Decision Log 1). The level
-        // offset and the second-level share are profile constants the shader
-        // reads directly; the Gaussian tap's σ is a DEVICE-px quantity that has
-        // to become a chain level, a residual σ in that level's texels and a uv
-        // step, and only the pyramid that built the chain knows the conversion —
-        // the same reason `bodyChainLod` and the shadow's lift LOD are resolved
-        // here (`heavyTapArgs`).
-        heavyLevelOffset: material.sizeHeavyLevelOffset,
-        heavySecondShare: material.sizeHeavySecondShare,
-        ...heavyTapArgs(heavyTapSigmaAtScale(material, dpr), pyramid),
+        // The heavy blur (W26): whether this group's source carries one. The width
+        // itself is already in the texture, so this pass only chooses which of
+        // two textures the deep sample comes from.
+        heavyTapEnabled: pyramid?.heavy !== undefined,
         shadowDepth: optics.shadowDepth,
         shadowAlpha: optics.shadowAlpha,
         // The size law's gains, per group (W2); the per-pixel factor they
@@ -1173,6 +1153,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
             : {
                 chain: pyramid.chain.createView(),
                 body: pyramid.body.createView(),
+                heavy: pyramid.heavy?.createView(),
               },
       });
 

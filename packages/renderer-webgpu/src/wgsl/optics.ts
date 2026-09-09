@@ -209,22 +209,13 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// level term's gain above the thickness knee (y). Both 0 on the landed
   /// material, so both terms are one multiplication by zero. (z) and (w) free.
   thickSpan : vec4f,
-  /// the heavy tap's width (W26 G0; W26 Decision Log 1, and the measured cause
-  /// in claims 5.116 section 2). Candidate (i)'s fractional level offset on
-  /// 'scatterLod' (x); candidate (ii)'s residual Gaussian sigma in the tap
-  /// level's own texels (y) and that level (z); candidate (iii)'s share of the
-  /// next chain level (w). All 0 on the landed material, where (x) is one
-  /// addition of zero, (w) one mix at zero and (y) gates the Gaussian off — so
-  /// the single 'textureSampleLevel' the material has always taken is what runs.
+  /// the heavy blur's enable (W26; 'MaterialProfile.sizeHeavyTapSigma', and the
+  /// measured cause in claims 5.116 section 2) — 1 where this group's source
+  /// carries a heavy texture, 0 where it does not. The WIDTH is not here: the
+  /// pyramid blurred it into 'backdropHeavy' before any group was drawn, so all
+  /// this pass decides is which of two textures the deep sample comes from.
+  /// (y) (z) (w) free.
   heavyTap : vec4f,
-  /// the heavy tap's step: the uv offset of one tap-level texel (xy), which is
-  /// the only quantity the CPU can supply because only the pyramid knows the
-  /// chain's own extent; and (z) the Gaussian tap's enable — 1 where the profile
-  /// asked for a width, 0 where it did not. The enable is a slot of its own
-  /// rather than a test on the sigma above, because a target width that lands
-  /// exactly on a chain level has a residual sigma of zero and is still a width
-  /// the profile asked for. (w) free.
-  heavyStep : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -237,6 +228,11 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
 /// The owning surface's box per pixel (W12 G2): the pixel's offset from its
 /// centre (xy) and its half-extents (zw), group-local CSS px — the lens's oval.
 @group(0) @binding(7) var aux2Texture : texture_2d<f32>;
+
+/// The heavy blur (W26) — the backdrop taken to the profile's heavy width by the
+/// pyramid's own separable passes, at the extent of the chain level it was built
+/// from. Bound at every draw; read only where 'heavyTap.x' says there is one.
+@group(0) @binding(8) var backdropHeavy : texture_2d<f32>;
 
 /// One encoded sRGB channel from a linear one — the space the backdrop tone
 /// response's anchors live in (W9). Mirrors material.ts's 'linearToSrgbChannel'.
@@ -700,15 +696,14 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // along, computed above with the share. One curve, two quantities.
   let gainEff = ou.size.x + (ou.shadowSize.w - ou.size.x) * farS;
   /*
-   * The heavy tap's width (W26 G0; W26 Decision Log 1). Everything above this
-   * point grades the GAIN, and claims §5.116 §2 measured that the gain stops
-   * being a width: 'ou.lens.w' is the chain's own last level, 4 on the bed's
-   * 320 × 200 backdrop, and 'ou.size.w + log2(8)' is 4.06, so the clamp has been
-   * absorbing the gain since the material was fitted. The offset below is
-   * candidate (i) — a fractional level, which the same clamp holds wherever the
-   * gain already saturates, and which is a narrowing lever below it.
+   * Everything above this point grades the GAIN, and claims §5.116 §2 measured
+   * that the gain stops being a width: 'ou.lens.w' is the chain's own last level,
+   * 4 on the bed's 320 × 200 backdrop, and 'ou.size.w + log2(8)' is 4.06, so the
+   * clamp has been absorbing the gain since the material was fitted. This is the
+   * path a material that names no heavy width still takes, and the heavy blur
+   * below is what replaces it where one is named.
    */
-  let scatterLod = clamp(ou.size.w + log2(max(gainEff, 1e-4)) + ou.heavyTap.x, 0.0, ou.lens.w);
+  let scatterLod = clamp(ou.size.w + log2(max(gainEff, 1e-4)), 0.0, ou.lens.w);
 
   var backdrop = vec3f(0.0);
   if (ou.flags.x > 0.5) {
@@ -717,52 +712,29 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     let bodySample = textureSampleLevel(backdropBody, backdropSampler, refractedUv, 0.0);
     var scatterSample = textureSampleLevel(backdropChain, backdropSampler, refractedUv, scatterLod);
     /*
-     * Candidate (iii): a second chain level blended with the first by a share.
-     * One octave is all it can reach, and it reaches nothing at all where
-     * 'scatterLod' is already at 'ou.lens.w', because both taps are then the same
-     * level. At share 0 this is one 'mix' the branch never enters.
-     */
-    if (ou.heavyTap.w > 0.0) {
-      let secondLod = min(scatterLod + 1.0, ou.lens.w);
-      let second = textureSampleLevel(backdropChain, backdropSampler, refractedUv, secondLod);
-      scatterSample = mix(scatterSample, second, ou.heavyTap.w);
-    }
-    /*
-     * Candidate (ii): a Gaussian at the tap, over one chosen level.
+     * The heavy blur (W26). Where the profile named a heavy width the deep sample
+     * is not a chain level at all: the pyramid took the chain level whose own
+     * blur is nearest below the target up to the target exactly, with the two
+     * separable passes it already runs for the body, and this pass reads the
+     * result at the same refracted uv the chain tap used.
      *
-     * The CPU has already turned the profile's σ in device px into the deepest
-     * level whose own blur is at or below it ('heavyTapPlan'), the residual σ in
-     * that level's texels and the uv extent of one of those texels — the three
-     * things this pass cannot know, because only the pyramid knows the chain's
-     * extent and the source's texels per CSS px. What is left here is quadrature:
-     * a 9 × 9 grid at one-texel spacing, which is at least three residual σ in
-     * every direction because the level was chosen so the residual is never more
-     * than 1.32 of its own texels, and renormalised so the truncation costs the
-     * kernel no mass. The grid is square rather than separable because one
-     * fragment pass cannot separate; the cost is 81 texture reads of a small
-     * level per covered pixel, against the one this replaces.
+     * That is the whole mechanism, and it is here rather than in a grid of taps
+     * for two measured reasons. The width the chain can reach is bounded by
+     * 'chainMaxLod' — the pyramid stops when a level's shorter side would fall
+     * under eight texels — so at dpr 1 on a 320 x 200 backdrop the deep sample
+     * saturates at 13.4 device px against the reference's 19.5, and a residual
+     * Gaussian is the only thing that carries the octave the chain does not have
+     * (claims §5.119). And a 9 x 9 grid at the tap costs +1.1 ms on the optics
+     * pass against 0.070 ms for the separable pair (W26 Decision Log 2 (b)).
      *
-     * Premultiplied in, premultiplied out: the average of premultiplied samples
-     * divided by the average of their alphas is the correct straight colour, so
-     * the unpremultiply below reads this exactly as it reads the single tap.
+     * The price is that the width is one per SOURCE, not one per pixel: the
+     * texture is built before any group is drawn, so the span grading the gain
+     * carried above no longer reaches the deep sample where this is on. The
+     * reference's heavy width does not grade with the span at 1x (claims
+     * §5.113 §4), which is what says the material can afford it.
      */
-    if (ou.heavyStep.z > 0.5) {
-      let s = max(ou.heavyTap.y, 1e-4);
-      let inv = -0.5 / (s * s);
-      var acc = vec4f(0.0);
-      var wsum = 0.0;
-      for (var j = -4; j <= 4; j = j + 1) {
-        for (var i = -4; i <= 4; i = i + 1) {
-          let fi = f32(i);
-          let fj = f32(j);
-          let w = exp((fi * fi + fj * fj) * inv);
-          let tapUv = clamp(refractedUv + vec2f(fi, fj) * ou.heavyStep.xy,
-                            vec2f(0.0), vec2f(1.0));
-          acc = acc + textureSampleLevel(backdropChain, backdropSampler, tapUv, ou.heavyTap.z) * w;
-          wsum = wsum + w;
-        }
-      }
-      scatterSample = acc / wsum;
+    if (ou.heavyTap.x > 0.5) {
+      scatterSample = textureSampleLevel(backdropHeavy, backdropSampler, refractedUv, 0.0);
     }
     // Premultiplied linear in, straight colour out: the material composites over
     // whatever is behind it, so a partially transparent backdrop must not darken

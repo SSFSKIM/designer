@@ -166,6 +166,9 @@ export const poolKey = {
     `backdrop:${sourceId}:chain-scratch:${level}`,
   backdropBody: (sourceId: string): string => `backdrop:${sourceId}:body`,
   backdropBodyScratch: (sourceId: string): string => `backdrop:${sourceId}:body-scratch`,
+  /** The heavy blur and its scratch (W26) — the body's pair, one width deeper. */
+  backdropHeavy: (sourceId: string): string => `backdrop:${sourceId}:heavy`,
+  backdropHeavyScratch: (sourceId: string): string => `backdrop:${sourceId}:heavy-scratch`,
   backdropUpload: (sourceId: string): string => `backdrop:${sourceId}:upload`,
   groupField: (groupId: string): string => `group:${groupId}:field`,
   groupAux: (groupId: string): string => `group:${groupId}:aux`,

@@ -21,6 +21,7 @@
  * import      provider frame  ->  chain mip 0     (premultiplied linear, X5)
  * downsample  mip n-1         ->  chain mip n     (13-tap, one pass per level)
  * blur x2     chain[bodyLvl]  ->  body            (separable, residual sigma)
+ * blur x2     chain[heavyLvl] ->  heavy           (separable, residual sigma; W26)
  * analysis    chain[anaLvl]   ->  stats buffer    (compute, one workgroup)
  * ```
  *
@@ -41,7 +42,13 @@ import type { BackdropFrame, BackdropProvider } from "./backdrop";
 import { texelsPerCssPx, type BackdropPlacement } from "./backdrop-fit";
 import { type GpuContext, createUniformSlot, type UniformSlot } from "./gpu-context";
 import { pipelineKey } from "./pipeline-cache";
-import { bodyBlurPlan, planPyramid, type PyramidPlan, type ResolutionPolicyView } from "./pyramid-plan";
+import {
+  bodyBlurPlan,
+  heavyTapPlan,
+  planPyramid,
+  type PyramidPlan,
+  type ResolutionPolicyView,
+} from "./pyramid-plan";
 import { createRebuildLedger, type RebuildLedger } from "./rebuild-ledger";
 import { poolKey } from "./texture-pool";
 import { PASS_LABEL, type PassTimeline } from "./timing";
@@ -56,6 +63,23 @@ export interface PyramidResources {
   readonly plan: PyramidPlan;
   readonly chain: GPUTexture;
   readonly body: GPUTexture;
+  /**
+   * The **heavy** blur (W26; `MaterialProfile.sizeHeavyTapSigma`) — one more
+   * texture beside the body, built by the same two separable passes from
+   * whichever chain level `heavyTapPlan` names, and `undefined` where the
+   * profile asked for no width.
+   *
+   * It is here rather than in the optics pass because the optics pass is a
+   * fragment shader over the glass's own area: W26 G0 measured a 9 × 9 in-shader
+   * grid at +1.1 ms on the mobile bench row against 0.070 ms for the two
+   * separable passes the chain already runs (W26 Decision Log 2 (b)). The price
+   * of building it here is that the width is **one per source** rather than one
+   * per pixel — every group sampling this source gets the same heavy width,
+   * because the texture is built before any group is drawn. The reference's heavy
+   * width does not grade with the span at 1x (claims §5.113 §4), which is what
+   * says the material can afford that.
+   */
+  readonly heavy: GPUTexture | undefined;
   readonly stats: GPUBuffer;
   /** Source size epoch this allocation was made for. */
   readonly sizeEpoch: number;
@@ -93,6 +117,14 @@ export interface PyramidResources {
    * chain's body and `bodyChainLod` belong to the previous scale.
    */
   readonly bodySigmaCss: number;
+  /**
+   * The heavy blur's σ in **CSS px** the build converted with, for `sameBody`'s
+   * reason and by the same rule: the heavy width is a device-px quantity
+   * (claims §5.113 §2), so `sizeHeavyTapSigma / dpr` is what reaches the source's
+   * texels, and a window dragged between displays asks for a different heavy
+   * texture from the same clean source.
+   */
+  readonly heavySigmaCss: number;
 }
 
 export interface PyramidInstrumentation {
@@ -124,6 +156,12 @@ export interface PyramidBuildRequest {
    * The build resolves it once the frame's real extent is known.
    */
   readonly bodySigmaCss: number;
+  /**
+   * The heavy blur's σ in **CSS px** (W26), 0 where the profile declines the
+   * width — at which point nothing is allocated and nothing is drawn, so a
+   * material that names no heavy width pays for none of this.
+   */
+  readonly heavySigmaCss: number;
   readonly viewportCss: readonly [number, number];
   /**
    * Where the source sits on the plane, in CSS px relative to the viewport, if
@@ -217,7 +255,11 @@ const same = (next: number, existing: number): boolean =>
  */
 const sameBody = (existing: PyramidResources, request: PyramidBuildRequest): boolean =>
   same(densityOf({ width: existing.sourceWidth, height: existing.sourceHeight }, request), existing.texelsPerCss)
-  && same(request.bodySigmaCss, existing.bodySigmaCss);
+  && same(request.bodySigmaCss, existing.bodySigmaCss)
+  // The heavy blur rides the same key: it is built from the same chain at the
+  // same density, so a σ that moved makes the texture on the source stale in
+  // exactly the way a moved body σ does.
+  && same(request.heavySigmaCss, existing.heavySigmaCss);
 
 export function createPyramidStore(context: GpuContext): PyramidStore {
   const { device, pool, cache } = context;
@@ -312,6 +354,9 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     if (target === undefined) return undefined;
     if (pool.peek(poolKey.backdropChain(sourceId)) !== target.chain) return undefined;
     if (pool.peek(poolKey.backdropBody(sourceId)) !== target.body) return undefined;
+    if (target.heavy !== undefined && pool.peek(poolKey.backdropHeavy(sourceId)) !== target.heavy) {
+      return undefined;
+    }
     return target;
   };
 
@@ -327,10 +372,14 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     bodySigmaTexels: number,
     density: { readonly texelsPerCss: number; readonly sourceWidth: number; readonly sourceHeight: number },
     bodySigmaCss: number,
+    heavyLevel: number | undefined,
+    heavySigmaCss: number,
   ): PyramidResources {
     const existing = resources.get(sourceId);
-    const bodyWidth = (plan.levels[bodyLevel] ?? plan.levels[0] as { width: number; height: number }).width;
-    const bodyHeight = (plan.levels[bodyLevel] ?? plan.levels[0] as { width: number; height: number }).height;
+    const levelSize = (level: number): { width: number; height: number } =>
+      plan.levels[level] ?? (plan.levels[0] as { width: number; height: number });
+    const bodyWidth = levelSize(bodyLevel).width;
+    const bodyHeight = levelSize(bodyLevel).height;
 
     const chain = pool.acquire(poolKey.backdropChain(sourceId), {
       width: plan.width,
@@ -348,6 +397,23 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       label: `vitrea:pyramid:${sourceId}:body`,
     });
 
+    /*
+     * The heavy blur's texture (W26), acquired only where the profile named a
+     * width. `undefined` is the landed material's answer, and it is what makes
+     * the mechanism cost nothing there: no allocation, no two passes, and the
+     * optics pass takes the single `textureSampleLevel` it has always taken.
+     */
+    const heavy =
+      heavyLevel === undefined
+        ? undefined
+        : pool.acquire(poolKey.backdropHeavy(sourceId), {
+            width: levelSize(heavyLevel).width,
+            height: levelSize(heavyLevel).height,
+            format: WORKING_TEXTURE_FORMAT,
+            usage: chainUsage(),
+            label: `vitrea:pyramid:${sourceId}:heavy`,
+          });
+
     let stats = existing?.stats;
     if (stats === undefined) {
       stats = device.createBuffer({
@@ -357,7 +423,12 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       });
     }
 
-    if (existing === undefined || existing.chain !== chain || existing.body !== body) {
+    if (
+      existing === undefined ||
+      existing.chain !== chain ||
+      existing.body !== body ||
+      existing.heavy !== heavy
+    ) {
       reallocations += 1;
     }
 
@@ -366,6 +437,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       plan,
       chain,
       body,
+      heavy,
       stats,
       sizeEpoch,
       builtEpoch,
@@ -374,6 +446,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       sourceWidth: density.sourceWidth,
       sourceHeight: density.sourceHeight,
       bodySigmaCss,
+      heavySigmaCss,
     };
     resources.set(sourceId, next);
     return next;
@@ -478,32 +551,45 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     }
   }
 
-  function runBodyBlur(
+  /**
+   * The separable blur that takes one chain level up to an exact σ — two passes,
+   * horizontal into a scratch of the level's own extent and vertical out of it.
+   *
+   * Parameterised by `kind` because W26 gave the pyramid a second one: the body
+   * (`bodyBlurPlan`) and the heavy blur (`heavyTapPlan`) differ only in which
+   * level they start from, which σ they finish at and which texture they land in,
+   * so one function draws both and the pool keys, the uniform slots and the pass
+   * labels are keyed by the kind rather than duplicated.
+   */
+  function runSeparableBlur(
     encoder: GPUCommandEncoder,
     sourceId: string,
+    kind: "body" | "heavy",
     plan: PyramidPlan,
     chain: GPUTexture,
-    body: GPUTexture,
+    target: GPUTexture,
     level: number,
     residualSigmaTexels: number,
   ): void {
     const pipeline = chainPipeline("fs_blur");
     const size = plan.levels[level] ?? (plan.levels[0] as { width: number; height: number });
-    const scratch = pool.acquire(poolKey.backdropBodyScratch(sourceId), {
+    const scratchKey =
+      kind === "body" ? poolKey.backdropBodyScratch(sourceId) : poolKey.backdropHeavyScratch(sourceId);
+    const scratch = pool.acquire(scratchKey, {
       width: size.width,
       height: size.height,
       format: WORKING_TEXTURE_FORMAT,
       usage: chainUsage(),
-      label: `vitrea:pyramid:${sourceId}:body-scratch`,
+      label: `vitrea:pyramid:${sourceId}:${kind}-scratch`,
     });
 
     const stages: { target: GPUTexture; source: GPUTextureView; dir: [number, number]; tag: string }[] = [
       { target: scratch, source: mipView(chain, level), dir: [1, 0], tag: "h" },
-      { target: body, source: scratch.createView(), dir: [0, 1], tag: "v" },
+      { target, source: scratch.createView(), dir: [0, 1], tag: "v" },
     ];
 
     for (const stage of stages) {
-      const slot = uniformSlot(`body:${sourceId}:${stage.tag}`, 8);
+      const slot = uniformSlot(`${kind}:${sourceId}:${stage.tag}`, 8);
       slot.data[0] = 1 / size.width;
       slot.data[1] = 1 / size.height;
       slot.data[2] = 0;
@@ -515,7 +601,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       slot.write();
 
       const pass = encoder.beginRenderPass({
-        label: `vitrea:pass:body-blur-${stage.tag}:${sourceId}`,
+        label: `vitrea:pass:${kind}-blur-${stage.tag}:${sourceId}`,
         ...timedRender(PASS_LABEL.bodyBlur),
         colorAttachments: [
           { view: stage.target.createView(), loadOp: "clear", storeOp: "store", clearValue: { r: 0, g: 0, b: 0, a: 0 } },
@@ -657,6 +743,13 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       const planScale = frame.width > 0 ? plan.width / frame.width : 1;
       const bodySigmaTexels = request.bodySigmaCss * texelsPerCss * planScale;
       const bodyPlan = bodyBlurPlan(bodySigmaTexels, plan);
+      // The heavy blur (W26), through the identical conversion — the same density
+      // and the same plan downscale, because it is the same chain read one or two
+      // levels deeper. At σ 0 there is no plan, no texture and no pass.
+      const heavyPlan =
+        request.heavySigmaCss > 0
+          ? heavyTapPlan(request.heavySigmaCss * texelsPerCss * planScale, plan)
+          : undefined;
       const target = allocate(
         request.sourceId,
         plan,
@@ -666,19 +759,34 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
         bodySigmaTexels,
         { texelsPerCss, sourceWidth: frame.width, sourceHeight: frame.height },
         request.bodySigmaCss,
+        heavyPlan?.level,
+        request.heavySigmaCss,
       );
 
       runImport(encoder, request.sourceId, frame, target.chain);
       runChain(encoder, request.sourceId, plan, target.chain);
-      runBodyBlur(
+      runSeparableBlur(
         encoder,
         request.sourceId,
+        "body",
         plan,
         target.chain,
         target.body,
         bodyPlan.level,
         bodyPlan.residualSigmaTexels,
       );
+      if (heavyPlan !== undefined && target.heavy !== undefined) {
+        runSeparableBlur(
+          encoder,
+          request.sourceId,
+          "heavy",
+          plan,
+          target.chain,
+          target.heavy,
+          heavyPlan.level,
+          heavyPlan.residualSigmaTexels,
+        );
+      }
       runAnalysis(encoder, request.sourceId, plan, target.chain, target.stats);
 
       provider.markImported();
@@ -776,6 +884,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       pool.release(poolKey.backdropChain(sourceId));
       pool.release(poolKey.backdropBody(sourceId));
       pool.release(poolKey.backdropBodyScratch(sourceId));
+      pool.release(poolKey.backdropHeavy(sourceId));
+      pool.release(poolKey.backdropHeavyScratch(sourceId));
       resources.get(sourceId)?.stats.destroy();
       resources.delete(sourceId);
       readbacks.get(sourceId)?.staging.destroy();

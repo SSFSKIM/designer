@@ -1,0 +1,109 @@
+W26 G1 — the structural heavy blur's ladder
+====================================================================================================
+
+1. The third pyramid texture against G0's 9 x 9 in-shader grid, at sigma2x 11.3
+   (part (a)'s acceptance: within 5 %; the grid's reading is claims 5.119 section 4)
+
+          row     grid  texture  delta %    reference
+     rrect-md    12.22    12.22      0.0        11.29
+     rrect-ml    11.95    11.95      0.0        12.03
+     rrect-lg    12.04    12.04      0.0        16.92
+
+2. The 2x ladder — reader A, and reader D beside it
+
+     rung  sigma        row |  A heavy  A share  A sharp  ceil
+     t113   11.3   rrect-md |    12.22    0.798     1.95 False
+     t113   11.3   rrect-ml |    11.95    0.964     1.81 False
+     t113   11.3   rrect-lg |    12.04    1.000    11.34 False
+
+      t11   11.0   rrect-md |    11.84    0.803     2.00 False
+      t11   11.0   rrect-ml |    11.74    0.955     3.74 False
+      t11   11.0   rrect-lg |    11.88    0.977     3.71 False
+
+      t12   12.0   rrect-md |    12.66    0.797     1.82 False
+      t12   12.0   rrect-ml |    12.86    0.972     1.32 False
+      t12   12.0   rrect-lg |    12.86    0.975     1.90 False
+
+      t10   10.0   rrect-md |    11.04    0.801     2.21 False
+      t10   10.0   rrect-ml |    10.44    0.982     0.82 False
+      t10   10.0   rrect-lg |    10.51    0.659     1.95 False
+
+      t13   13.0   rrect-md |    14.19    0.784     1.80 False
+      t13   13.0   rrect-ml |    14.10    0.948     3.26 False
+      t13   13.0   rrect-lg |    14.28    0.945     5.76 False
+
+      t16   16.0   rrect-md |    17.83    0.767     1.88 False
+      t16   16.0   rrect-ml |    17.90    0.966     4.79 False
+      t16   16.0   rrect-lg |    18.53    0.976    12.04 False
+
+      t19   19.0   rrect-md |    22.12    0.763     1.78 False
+      t19   19.0   rrect-ml |    22.93    0.959     1.52 False
+      t19   19.0   rrect-lg |    24.41    0.910     5.46 False
+
+      t22   22.0   rrect-md |    32.20    0.807     1.99 False
+      t22   22.0   rrect-ml |    35.25    0.918     8.37 False
+      t22   22.0   rrect-lg |    35.82    0.933     3.19 False
+
+      t25   25.0   rrect-md |    52.16    0.892     2.07 False
+      t25   25.0   rrect-ml |    54.26    0.982     3.47 False
+      t25   25.0   rrect-lg |    57.91    1.000     3.22 False
+
+
+3. The 1x ladder — reader A, and reader D beside it
+
+     rung  sigma        row |  A heavy  A share  A sharp  ceil
+     t113   11.3   rrect-md |    11.85    0.279     1.69 False
+     t113   11.3   rrect-ml |    14.78    0.358     1.72 False
+     t113   11.3   rrect-lg |    19.16    0.604     1.68 False
+
+      t11   11.0   rrect-md |    12.20    0.278     1.69 False
+      t11   11.0   rrect-ml |    14.78    0.358     1.72 False
+      t11   11.0   rrect-lg |    17.11    0.552     1.68 False
+
+      t12   12.0   rrect-md |    11.55    0.277     1.69 False
+      t12   12.0   rrect-ml |    14.36    0.358     1.71 False
+      t12   12.0   rrect-lg |    19.35    0.672     1.74 False
+
+      t10   10.0   rrect-md |    12.27    0.277     1.74 False
+      t10   10.0   rrect-ml |    14.78    0.358     1.72 False
+      t10   10.0   rrect-lg |    14.66    0.506     1.84 False
+
+      t13   13.0   rrect-md |    10.05    0.252     1.68 False
+      t13   13.0   rrect-ml |    14.84    0.369     1.71 False
+      t13   13.0   rrect-lg |    19.38    0.705     1.73 False
+
+      t16   16.0   rrect-md |    34.76    0.096     1.71 False
+      t16   16.0   rrect-ml |    11.22    0.289     1.63 False
+      t16   16.0   rrect-lg |    19.11    0.408     1.73 False
+
+      t19   19.0   rrect-md |    61.76    0.000     1.76 False
+      t19   19.0   rrect-ml |     3.62    0.545     1.14 False
+      t19   19.0   rrect-lg |    12.91    0.264     1.61 False
+
+      t22   22.0   rrect-md |    61.76    0.000     1.76 False
+      t22   22.0   rrect-ml |    61.75    0.000     1.75 False
+      t22   22.0   rrect-lg |    15.56    0.045     1.80 False
+
+      t25   25.0   rrect-md |    61.76    0.000     1.76 False
+      t25   25.0   rrect-ml |    61.75    0.000     1.75 False
+      t25   25.0   rrect-lg |    61.69    0.000     1.80 False
+
+
+4. X5 — the thin rows (span <= 44), OKLab dE mean against the inert rung, worst move
+
+     rung  sigma  worst dE   where
+     t113   11.3   0.00008   ('apple-macos-26.5-2x-light-standard', 'checkerboard-32__capsule-button__rest')
+      t11   11.0   0.00007   ('apple-macos-26.5-2x-light-standard', 'checkerboard-32__capsule-button__rest')
+      t12   12.0   0.00010   ('apple-macos-26.5-2x-light-standard', 'checkerboard-32__capsule-button__rest')
+      t10   10.0   0.00008   ('apple-macos-26.5-1x-light-standard', 'checkerboard-32__capsule-button__rest')
+      t13   13.0   0.00014   ('apple-macos-26.5-2x-light-standard', 'checkerboard-32__capsule-button__rest')
+      t16   16.0   0.00036   ('apple-macos-26.5-2x-light-standard', 'checkerboard-32__capsule-button__rest')
+      t19   19.0   0.00071   ('apple-macos-26.5-2x-light-standard', 'checkerboard-32__capsule-button__rest')
+      t22   22.0   0.00106   ('apple-macos-26.5-2x-light-standard', 'checkerboard-32__capsule-button__rest')
+      t25   25.0   0.00136   ('apple-macos-26.5-2x-light-standard', 'checkerboard-32__capsule-button__rest')
+
+5. The inert rung against the canonical 0.14.0 captures, per scale
+
+   apple-macos-26.5-1x-light-standard            18 identical,   0 differing,   0 missing
+   apple-macos-26.5-2x-light-standard            18 identical,   0 differing,   0 missing
+
