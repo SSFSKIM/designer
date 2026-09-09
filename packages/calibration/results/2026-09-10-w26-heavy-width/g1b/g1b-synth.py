@@ -41,7 +41,10 @@ EXTENT = {1.0: 64.0, 2.0: 64.0}
 NODES = 40
 CASES = (("rrect-md", 1.0, (16.0, 48.0)), ("rrect-md", 2.0, (16.0, 48.0)),
          ("rrect-lg", 1.0, (16.0, 80.0)), ("rrect-lg", 2.0, (16.0, 80.0)))
-LAMBDAS = (0.0, 1e-4, 3e-4, 1e-3, 3e-3, 1e-2, 3e-2, 1e-1)
+LAMBDAS = (1e-5, 1e-4, 3e-4, 1e-3, 3e-3, 1e-2, 3e-2)
+SHARP_BAND = (1.0 / 64.0, 1.0 / 8.0)
+FULL_BAND = (1.0 / 512.0, 1.0 / 8.0)
+SHAPES = ("gauss-8", "two-gauss", "chain", "vitrea", "exponential")
 
 
 def exp_profile(nodes, scale_len):
@@ -74,14 +77,30 @@ def synth_rows(real_rows, nodes, c_true, seed=0):
         y = a * m + b
         # The 8-bit sRGB step, applied where a capture applies it: on the display signal.
         y = L.linearise(np.round(np.clip(L.encode(y), 0.0, 1.0) * 255.0))
-        out.append({"name": r["name"], "A": r["A"], "y": y})
+        # The QR reduction depends only on the basis columns, which are the real row's; carrying it
+        # across saves re-factoring a 60 000 × 41 block for every kernel and every smoothness
+        # weight in the sweep.
+        out.append({"name": r["name"], "A": r["A"], "y": y,
+                    "QR": r.get("QR"), "Q": r.get("Q")})
     return out
+
+
+def errors(nodes, c, c_true):
+    """The three errors every synthetic is scored by, and the band each MTF error was taken on."""
+    s_rms, s_worst, _, _, _, s_cov = R.rel_mtf_error(nodes, c, c_true, band=SHARP_BAND)
+    h_rms, h_worst, _, _, _, h_cov = R.rel_mtf_error(nodes, c, c_true, band=FULL_BAND)
+    wt = E.widths_of_profile(nodes, c_true)
+    wr = E.widths_of_profile(nodes, c)
+    return {"sharp": s_rms, "sharpCov": s_cov, "full": h_rms, "fullCov": h_cov,
+            "hwhm": abs(wr["sigmaHwhm"] / wt["sigmaHwhm"] - 1.0),
+            "rms": abs(wr["sigmaRms"] / wt["sigmaRms"] - 1.0),
+            "hwhmTrue": wt["sigmaHwhm"], "hwhmRead": wr["sigmaHwhm"],
+            "rmsTrue": wt["sigmaRms"], "rmsRead": wr["sigmaRms"]}
 
 
 def main(argv):
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(HERE, "synth.txt"))
-    ap.add_argument("--profile", default="1x-light")
     args = ap.parse_args(argv)
     comps = L.load_components()
     m = TRUTH.material()
@@ -92,19 +111,20 @@ def main(argv):
     e("")
     e("Every row is the fixture's OWN backdrop raster convolved with the named kernel, gained and")
     e("offset to the level and p2..p98 amplitude the real capture of that row carries, and put")
-    e("through the 8-bit sRGB step. Errors are against the known kernel: `MTF` is the RMS relative")
-    e("error of the recovered modulation transfer over 1/64..1/8 cycles per device px, `HWHM` and")
-    e("`RMS` the two width statistics. The acceptance the brief sets is 10 % on MTF and on HWHM.")
+    e("through the 8-bit sRGB step. So the modulation the reader has to work with is the modulation")
+    e("the real file carries.")
+    e("")
+    e("TWO MTF BANDS, and the second one is the load-bearing one. `S` is the RMS relative error over")
+    e("the brief's band, 1/64..1/8 cycles per device px; `F` is the same over 1/512..1/8, which is")
+    e("where a kernel tens of device px wide actually carries modulation. Both are taken only at the")
+    e("frequencies where the KNOWN kernel's own modulation is at least 1 %, since a relative error")
+    e("against a modulation of 10⁻⁵ is a statement about arithmetic and not about a kernel; the")
+    e("fraction of each band that leaves is printed beside it as `cov`. On the brief's band alone a")
+    e("kernel of σ 13 device px has essentially nothing left to be right or wrong about — which is")
+    e("the first thing this reader has to say about how the wave's earlier widths were compared.")
     e("")
 
-    # ---------------------------------------------------------------- the lambda sweep
-    e("### 1. The smoothness weight, chosen once")
-    e("")
-    e(f"   {'lambda':>8} | " + " | ".join(f"{k:>26}" for k in
-                                          ("gauss-8", "two-gauss", "chain L4", "vitrea", "exp")))
-    e("   " + "-" * 96)
-    tally = {lam: [] for lam in LAMBDAS}
-    detail = {lam: {} for lam in LAMBDAS}
+    cases = []
     for comp, scale, band in CASES:
         pkey = f"{'1x' if scale == 1 else '2x'}-light"
         profile, _, _ = L.PROFILES[pkey]
@@ -113,55 +133,53 @@ def main(argv):
         if len(rows) < 4:
             e(f"   {comp} {scale:.0f}x: only {len(rows)} rows — skipped")
             continue
-        kernels = known_kernels(nodes, comp, scale, band, m)
-        for lam in LAMBDAS:
+        cases.append((comp, scale, band, nodes, rows, known_kernels(nodes, comp, scale, band, m)))
+
+    e("### 1. The smoothness weight, chosen once and frozen")
+    e("")
+    e(f"   {'lambda':>9} | " + " | ".join(f"{k:>21}" for k in SHAPES))
+    e("   " + "-" * 9 + "-+-" + "-+-".join("-" * 21 for _ in SHAPES))
+    score = {}
+    for lam in LAMBDAS:
+        per_shape = {k: [] for k in SHAPES}
+        for comp, scale, band, nodes, rows, kernels in cases:
             for label, c_true in kernels.items():
                 syn = synth_rows(rows, nodes, c_true)
                 fit = E.joint_profile(syn, nodes, lam=lam)
-                rms, worst, *_ = R.rel_mtf_error(nodes, fit["c"], c_true)
-                wt = E.widths_of_profile(nodes, c_true)
-                wr = E.widths_of_profile(nodes, fit["c"])
-                dh = abs(wr["sigmaHwhm"] / wt["sigmaHwhm"] - 1.0)
-                dr = abs(wr["sigmaRms"] / wt["sigmaRms"] - 1.0)
-                tally[lam].append((rms, dh, dr))
-                detail[lam].setdefault(label.split(" ")[0], []).append((rms, dh, dr))
-    for lam in LAMBDAS:
-        if not tally[lam]:
-            continue
+                per_shape[label.split(" ")[0]].append(errors(nodes, fit["c"], c_true))
         cols = []
-        for key in ("gauss-8", "two-gauss", "chain", "vitrea", "exponential"):
-            v = detail[lam].get(key)
-            cols.append(f"MTF {np.mean([x[0] for x in v]) * 100:5.1f}% HWHM "
-                        f"{np.mean([x[1] for x in v]) * 100:5.1f}%" if v else " " * 26)
-        e(f"   {lam:8.4f} | " + " | ".join(cols))
-    best = min((lam for lam in LAMBDAS if tally[lam]),
-               key=lambda lam: np.mean([x[0] + x[1] for x in tally[lam]]))
+        allv = []
+        for k in SHAPES:
+            v = per_shape[k]
+            allv.extend(v)
+            cols.append(f"F{np.mean([x['full'] for x in v]) * 100:5.1f}%"
+                        f" H{np.mean([x['hwhm'] for x in v]) * 100:5.1f}%"
+                        f" R{np.mean([x['rms'] for x in v]) * 100:5.1f}%")
+        score[lam] = float(np.mean([x["full"] + x["hwhm"] + x["rms"] for x in allv]))
+        e(f"   {lam:9.5f} | " + " | ".join(cols))
+    best = min(score, key=lambda k: score[k])
     e("")
-    e(f"   CHOSEN: lambda = {best}, on the mean of MTF + HWHM error over every shape and every")
-    e("   case above. Frozen from here: the control and the reference are read at this value.")
+    e("   `F` is the MTF error over 1/512..1/8, `H` the half-maximum width error, `R` the second")
+    e("   moment's. The weight is chosen on their sum, averaged over every shape and every case:")
+    e("   " + "  ".join(f"λ {lam}: {score[lam] * 100:.1f}%" for lam in LAMBDAS))
+    e("")
+    e(f"   CHOSEN: λ = {best}. Frozen from here — the control and the reference are read at it.")
 
-    # ---------------------------------------------------------------- per case at the chosen lambda
     e("")
-    e("### 2. Per case, at the chosen weight")
+    e("### 2. Per case and per shape, at the chosen weight")
     e("")
-    e(f"   {'surface':>9} {'sc':>3} {'rows':>4} {'kernel':>28} {'MTF':>7} {'worst':>7}"
-      f" {'HWHM true':>9} {'read':>7} {'RMS true':>9} {'read':>7}")
-    for comp, scale, band in CASES:
-        pkey = f"{'1x' if scale == 1 else '2x'}-light"
-        profile, _, _ = L.PROFILES[pkey]
-        nodes = E.radial_nodes(EXTENT[scale], NODES)
-        cell, rows = R.assemble("web", profile, scale, comp, band, nodes, comps)
-        if len(rows) < 4:
-            continue
-        for label, c_true in known_kernels(nodes, comp, scale, band, m).items():
+    e(f"   {'surface':>9} {'sc':>3} {'rows':>4} {'kernel':>26} {'S':>7} {'cov':>5}"
+      f" {'F':>7} {'cov':>5} {'HWHM t/r':>15} {'RMSσ t/r':>15}")
+    for comp, scale, band, nodes, rows, kernels in cases:
+        for label, c_true in kernels.items():
             syn = synth_rows(rows, nodes, c_true)
             fit = E.joint_profile(syn, nodes, lam=best)
-            rms, worst, *_ = R.rel_mtf_error(nodes, fit["c"], c_true)
-            wt = E.widths_of_profile(nodes, c_true)
-            wr = E.widths_of_profile(nodes, fit["c"])
-            e(f"   {comp:>9} {scale:3.0f} {len(rows):4d} {label:>28} {rms * 100:6.1f}%"
-              f" {worst * 100:6.1f}% {wt['sigmaHwhm']:9.3f} {wr['sigmaHwhm']:7.3f}"
-              f" {wt['sigmaRms']:9.3f} {wr['sigmaRms']:7.3f}")
+            x = errors(nodes, fit["c"], c_true)
+            e(f"   {comp:>9} {scale:3.0f} {len(rows):4d} {label:>26}"
+              f" {x['sharp'] * 100:6.1f}% {x['sharpCov']:5.2f}"
+              f" {x['full'] * 100:6.1f}% {x['fullCov']:5.2f}"
+              f" {x['hwhmTrue']:7.3f}/{x['hwhmRead']:7.3f}"
+              f" {x['rmsTrue']:7.3f}/{x['rmsRead']:7.3f}")
     e("")
     e(f"CHOSEN LAMBDA = {best}")
     text = "\n".join(lines)

@@ -173,73 +173,133 @@ def _second_difference(nodes):
     return D
 
 
-def joint_profile(rows, nodes, lam=1e-3, sweeps=12, tol=1e-7):
+def joint_profile(rows, nodes, lam=1e-3, sweeps=600, tol=1e-11):
     """One K over every row at once, with a per-row gain and offset.
 
     `rows` is a list of dicts with `A` (nodes × pixels, the basis columns already masked) and `y`
     (pixels). Returns the profile, the per-row gains and offsets, and the per-row relative residual.
+
+    ROW WEIGHTING IS BY NOISE, NOT BY SIGNAL. Normalising each row by its own standard deviation —
+    what every earlier reader in this wave did, under the name "so the loud tile does not outvote
+    the quiet one" — gives a row that is entirely quantisation staircase exactly as much say as a
+    row carrying seventy display codes. On the 1x `impulse` tile that is not a hypothetical: W26 G1
+    §2 measured its whole surviving interior modulation at about one code. The weight here is
+    1/σ_q with σ_q one 8-bit display code at the row's own level divided by √12, which is the
+    inverse-variance weighting the measurement actually deserves and which lets a noise-dominated
+    row stay in the fit at the influence it has earned instead of being excluded by hand.
+    EVERY SWEEP IS ARITHMETIC ON 41 × 41 MATRICES, not on pixels, and NOT on normal equations.
+    Each row is reduced once by a thin QR of its own design block [Aᵀ | 1]: the objective is then
+    ‖R·[g·c; b] − Qᵀy‖² + ρ exactly, with R upper triangular and ρ the part of the row orthogonal
+    to its own column space. The alternation runs on those, so a sweep costs nothing and the
+    restarts are affordable.
+
+    THE REDUCTION HAS TO BE A QR AND NOT A GRAM MATRIX, and that was measured rather than assumed.
+    The forty basis columns are one backdrop blurred at forty neighbouring radii and are
+    correspondingly collinear; forming A Aᵀ squares that condition number and a Cholesky of it
+    loses exactly the digits the fit needs. Built that way, this reader could not recover a kernel
+    from data it had generated ITSELF with no noise at all — it settled 25 % off in MTF and 35 %
+    off in second moment. The QR keeps A's own conditioning and the same fit returns the
+    generating kernel.
     """
     D = _second_difference(nodes)
     n = nodes.size
-    # Each row is normalised by its own signal so a high-contrast checkerboard cannot outvote a
-    # low-contrast one by loudness alone; the gain is what carries the contrast.
     for r in rows:
         r["sd"] = float(np.std(r["y"])) or 1e-12
-    gains = []
-    for r in rows:
-        # A first gain from the row's own best single-scale match to a mid-width column.
-        m = r["A"][n // 2]
-        gains.append(float(np.std(r["y"]) / (np.std(m) or 1e-12)))
-    offs = [float(np.mean(r["y"])) for r in rows]
-    c = np.zeros(n)
-    c[:] = 1.0 / n
-    prev = None
-    for _ in range(sweeps):
-        # --- c step: stack every row, weighted, with the smoothness rows appended.
-        blocks, targets = [], []
-        for r, g, b in zip(rows, gains, offs):
-            wgt = 1.0 / (r["sd"] * math.sqrt(r["y"].size))
-            blocks.append((g * wgt) * r["A"].T)
-            targets.append(wgt * (r["y"] - b))
-        scale = np.mean([np.linalg.norm(bl) for bl in blocks]) / math.sqrt(n)
-        blocks.append(lam * scale * D)
-        targets.append(np.zeros(D.shape[0]))
-        M = np.vstack(blocks)
-        t = np.concatenate(targets)
-        c, _ = nnls(M, t, maxiter=8 * n)
-        s = float(c.sum())
-        if s <= 0:
-            break
-        # --- gauge: unit mass on the pixel grid, the factor folded into the gains.
-        mass = float(_masses(nodes) @ c)
-        if mass > 0:
+        if "noise" not in r:
+            r["noise"] = code_noise(float(np.mean(r["y"])))
+        if r.get("QR") is None:
+            B = np.concatenate([r["A"].T, np.ones((r["A"].shape[1], 1))], axis=1)
+            r["Q"], r["QR"] = np.linalg.qr(B, mode="reduced")
+        if "q" not in r:
+            y = r["y"]
+            r["q"] = r["Q"].T @ y
+            r["rho"] = max(float(y @ y) - float(r["q"] @ r["q"]), 0.0)
+            r["N"] = float(y.size)
+        r["P"] = r["QR"][:, :n]
+        r["p"] = r["QR"][:, n]
+    weights = [1.0 / (r["noise"] * math.sqrt(r["N"])) for r in rows]
+    masses = _masses(nodes)
+
+    def row_obj(r, c, g, b):
+        res = g * (r["P"] @ c) + b * r["p"] - r["q"]
+        return float(res @ res) + r["rho"]
+
+    def solve_gain(r, c):
+        m = r["P"] @ c
+        X = np.stack([m, r["p"]], axis=1)
+        sol, *_ = np.linalg.lstsq(X, r["q"], rcond=None)
+        return float(sol[0]), float(sol[1])
+
+    def sweep(c0):
+        c = np.asarray(c0, dtype=np.float64).copy()
+        gains, offs = [], []
+        for r in rows:
+            g, b = solve_gain(r, c)
+            gains.append(g)
+            offs.append(b)
+        prev = None
+        for _ in range(sweeps):
+            blocks, targets = [], []
+            for r, g, b, w in zip(rows, gains, offs, weights):
+                blocks.append((w * g) * r["P"])
+                targets.append(w * (r["q"] - b * r["p"]))
+            M = np.vstack(blocks)
+            t = np.concatenate(targets)
+            # λ is dimensionless: the penalty block is normalised to the data block's own scale, so
+            # the same weight means the same thing at either scale and on either surface.
+            scale = float(np.linalg.norm(M)) / max(float(np.linalg.norm(D)), 1e-300)
+            c, _ = nnls(np.vstack([M, (lam * scale) * D]),
+                        np.concatenate([t, np.zeros(D.shape[0])]), maxiter=50 * n)
+            mass = float(masses @ c)
+            if mass <= 0:
+                return None
+            # --- gauge: unit mass on the pixel grid, the factor folded into the gains.
             c = c / mass
             gains = [g * mass for g in gains]
-        # --- gain/offset step: ordinary least squares per row, exactly.
-        new_g, new_o = [], []
-        for r in rows:
-            m = c @ r["A"]
-            X = np.stack([m, np.ones_like(m)], axis=1)
-            sol, *_ = np.linalg.lstsq(X, r["y"], rcond=None)
-            new_g.append(float(sol[0]))
-            new_o.append(float(sol[1]))
-        gains, offs = new_g, new_o
-        obj = 0.0
-        for r, g, b in zip(rows, gains, offs):
-            res = g * (c @ r["A"]) + b - r["y"]
-            obj += float(np.mean(res ** 2)) / (r["sd"] ** 2)
-        if prev is not None and abs(prev - obj) < tol * max(prev, 1e-12):
+            new_g, new_o = [], []
+            for r in rows:
+                gg, bb = solve_gain(r, c)
+                new_g.append(gg)
+                new_o.append(bb)
+            gains, offs = new_g, new_o
+            obj = sum(w * w * row_obj(r, c, g, b)
+                      for r, g, b, w in zip(rows, gains, offs, weights))
+            if prev is not None and abs(prev - obj) < tol * max(abs(prev), 1e-12):
+                prev = obj
+                break
             prev = obj
-            break
-        prev = obj
+        return c, gains, offs, prev
+
+    # Several starts, because the problem is bilinear and one alternation from one start can stall
+    # short of the optimum — measured, not assumed: on the synthetics a single flat start settles
+    # at a data objective ABOVE the one the known kernel itself achieves.
+    best = None
+    starts = [np.full(n, 1.0 / n)] + [gauss_profile(nodes, s) for s in (1.0, 2.0, 4.0, 8.0, 13.0,
+                                                                       20.0, 30.0)]
+    for c0 in starts:
+        out = sweep(c0)
+        if out is None:
+            continue
+        if best is None or out[3] < best[3]:
+            best = out
+    if best is None:
+        return None
+    c, gains, offs, obj = best
     per = []
     for r, g, b in zip(rows, gains, offs):
-        res = g * (c @ r["A"]) + b - r["y"]
+        rms = math.sqrt(max(row_obj(r, c, g, b), 0.0) / r["N"])
         per.append({"name": r.get("name", "?"), "gain": g, "offset": b,
-                    "rmsRel": float(np.sqrt(np.mean(res ** 2))) / r["sd"],
-                    "n": int(r["y"].size)})
-    return {"c": c, "nodes": nodes, "per": per,
-            "rmsRel": float(math.sqrt(prev / len(rows))) if prev is not None else float("nan")}
+                    "rmsRel": rms / r["sd"],
+                    "rmsCodes": rms / (r["noise"] * math.sqrt(12.0)),
+                    "n": int(r["N"])})
+    return {"c": c, "nodes": nodes, "per": per, "obj": obj,
+            "rmsRel": float(np.mean([p["rmsRel"] for p in per]))}
+
+
+def code_noise(level):
+    """One 8-bit display code at `level`, in linear luma, divided by √12 — the quantisation floor."""
+    step = float(L.linearise(np.array([min(L.encode(level) * 255.0 + 1.0, 255.0)]))[0]) - level
+    return max(abs(step), 1e-9) / math.sqrt(12.0)
 
 
 def _masses(nodes, _cache={}):
@@ -276,13 +336,16 @@ def widths_of_profile(nodes, c):
     # Second moment: for a 2D radial kernel, <r²> = 2σ² for a Gaussian.
     m2 = np.trapezoid(w * r * r, r) / max(mass, 1e-300)
     sigma_rms = math.sqrt(max(m2, 0.0) / 2.0)
-    # Half maximum of the PROFILE (the statistic reader A reduces its kernels by).
-    peak = float(k[0])
+    # Half maximum of the PROFILE (the statistic reader A reduces its kernels by), taken from the
+    # profile's own maximum rather than from its value at r = 0: a fitted profile may put its peak
+    # a node out, and a statistic that reads r = 0 would then report a half width of nothing.
+    peak = float(np.max(k))
     sigma_hwhm = float("nan")
     if peak > 0:
-        below = np.nonzero(k <= peak / 2.0)[0]
+        top = int(np.argmax(k))
+        below = np.nonzero(k[top:] <= peak / 2.0)[0]
         if below.size:
-            i = int(below[0])
+            i = int(below[0]) + top
             if i > 0:
                 r0, r1 = r[i - 1], r[i]
                 k0, k1 = k[i - 1], k[i]
@@ -336,18 +399,29 @@ def mtf_of_kernel2d(ker, freqs):
     return np.array(out)
 
 
-def radial_profile_of_kernel2d(ker, nodes):
-    """Bin a 2D kernel onto the same radial nodes, so any kernel can be compared as a profile."""
+def radial_profile_of_kernel2d(ker, nodes, angles=128):
+    """Sample a 2D kernel around each node radius, so any kernel can be compared as a profile.
+
+    Sampled on rays rather than binned into annuli: the inner nodes are a fraction of a texel apart
+    and an annulus that narrow contains no pixel CENTRE at all, so binning returns holes at exactly
+    the radii that decide a half-maximum width. Bilinear interpolation on `angles` rays has no such
+    gap and is what the renderer's own reconstruction does anyway.
+    """
     h, w = ker.shape
     cy, cx = (h - 1) / 2.0, (w - 1) / 2.0
-    yy, xx = np.mgrid[0:h, 0:w]
-    rr = np.hypot(yy - cy, xx - cx)
+    th = (np.arange(angles) + 0.5) * (2.0 * math.pi / angles)
     prof = np.zeros(nodes.size)
     for j, r0 in enumerate(nodes):
-        lo = 0.0 if j == 0 else (nodes[j - 1] + r0) / 2.0
-        hi = float(nodes[-1]) if j + 1 == nodes.size else (r0 + nodes[j + 1]) / 2.0
-        m = (rr >= lo) & (rr < hi)
-        prof[j] = float(ker[m].mean()) if m.any() else 0.0
+        ys = cy + r0 * np.sin(th)
+        xs = cx + r0 * np.cos(th)
+        y0 = np.clip(np.floor(ys).astype(int), 0, h - 2)
+        x0 = np.clip(np.floor(xs).astype(int), 0, w - 2)
+        ty = ys - y0
+        tx = xs - x0
+        v = ((1 - ty) * (1 - tx) * ker[y0, x0] + (1 - ty) * tx * ker[y0, x0 + 1]
+             + ty * (1 - tx) * ker[y0 + 1, x0] + ty * tx * ker[y0 + 1, x0 + 1])
+        prof[j] = float(v.mean())
+    prof = np.maximum(prof, 0.0)
     mass = float(_masses(nodes) @ prof)
     return prof / max(mass, 1e-300)
 

@@ -94,12 +94,24 @@ def summarise(nodes, c, chain_profiles=None, freqs=None):
     return out
 
 
-def rel_mtf_error(nodes, c, ref_c, band=E.MTF_BAND, n=25):
+def rel_mtf_error(nodes, c, ref_c, band=E.MTF_BAND, n=25, floor=1e-2):
+    """Relative MTF error against a reference profile, over the frequencies that carry modulation.
+
+    `floor` is load-bearing and not a fudge. A Gaussian of σ 13 device px has transferred 1.2e-5 of
+    its modulation by 1/16 cycles per px; a relative error taken there divides by a number the
+    8-bit step could never have carried and reports thousands of per cent for a kernel that is
+    right. So the comparison runs only where the reference's own modulation is at least `floor`,
+    and how much of the band that leaves is reported with every reading.
+    """
     f = E.band_freqs(n, band)
     a = E.mtf_of_profile(nodes, c, f)
     b = E.mtf_of_profile(nodes, ref_c, f)
-    return float(np.sqrt(np.mean((a / np.clip(np.abs(b), 1e-9, None) - 1.0) ** 2))), \
-        float(np.max(np.abs(a / np.clip(np.abs(b), 1e-9, None) - 1.0))), f, a, b
+    keep = np.abs(b) >= floor
+    if not keep.any():
+        return float("nan"), float("nan"), f, a, b, 0.0
+    rel = a[keep] / b[keep] - 1.0
+    return (float(np.sqrt(np.mean(rel ** 2))), float(np.max(np.abs(rel))), f, a, b,
+            float(keep.mean()))
 
 
 def fmt_profile(nodes, c, cols=9):
