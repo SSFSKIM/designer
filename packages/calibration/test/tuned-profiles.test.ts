@@ -95,14 +95,18 @@ const FITTED_CONSTANTS = [
   "rimLitAxis",
   "collapseTransmission",
   "collapseTransmission2x",
-  // W25's one landed constant (claims §5.115; W25 Decision Log 5 (e)). The
+  // W25's one landed constant (claims §5.115; W25 Decision Log 5 (e) and 6). The
   // along-side field is the POSITION half of the light whose direction half W24
   // landed above: the rim's amplitude times a saddle in the surface's own
   // normalised coordinates, brightest at the two corners the axis is symmetric
-  // about. Fitted on 64 straight sides of the probe set's thick solids at both
-  // scales in both schemes, and bracketed by G2's independent fit on the two 1x
-  // probe grids. The wave's other three constants are still absent below, and
-  // now by measurement rather than by waiting.
+  // about. It and `optics.regular.rimLitExponent` above are FITTED TOGETHER and
+  // are one entry in the profile for that reason — they multiply the same
+  // amplitude and peak on the same diagonal, so W24's exponent absorbed part of a
+  // position grading that is not a function of the normal, and the pair (0.70,
+  // 0.15) is the joint minimum over a rendered grid among those that keep the
+  // thick solids' angular bin error at or under the 0.13.0 bed's. The wave's
+  // other three constants are still absent below, and now by measurement rather
+  // than by waiting.
   "optics.regular.rimAlongSideSlope",
   "rimCollapsed",
   "rimCollapsedTinted",

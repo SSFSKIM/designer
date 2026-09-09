@@ -256,18 +256,27 @@ describe("W25 the along-side field", () => {
      * `clear` variant keeps 0 for the reason the lit edge does: no scene on
      * either bed declares it, so it has no rows (C9a §6.2).
      */
-    expect(P.optics.regular.rimAlongSideSlope).toBe(0.45);
+    expect(P.optics.regular.rimAlongSideSlope).toBe(0.1);
     expect(P.optics.clear.rimAlongSideSlope).toBe(0);
     for (const span of SPANS) {
       expect(rimAlongSideFactor(0.8, span, P.optics.clear, P)).toBe(1);
     }
     // On `regular` the factor is the fitted slope through the thickness curve —
-    // exactly 1 at and below the band's start, and 1 + 0.45 · field above the
-    // knee, which is 1.36 at the brightest corner of a thick surface and 0.64 at
+    // exactly 1 at and below the band's start, and 1 + 0.10 · field above the
+    // knee, which is 1.10 at the brightest corner of a thick surface and 0.90 at
     // the dimmest. The rim is never turned off and never doubled.
     expect(rimAlongSideFactor(0.8, 32, P.optics.regular, P)).toBe(1);
-    expect(rimAlongSideFactor(1, 160, P.optics.regular, P)).toBeCloseTo(1.45, 12);
-    expect(rimAlongSideFactor(-1, 160, P.optics.regular, P)).toBeCloseTo(0.55, 12);
+    expect(rimAlongSideFactor(1, 160, P.optics.regular, P)).toBeCloseTo(1.1, 12);
+    expect(rimAlongSideFactor(-1, 160, P.optics.regular, P)).toBeCloseTo(0.9, 12);
+    /*
+     * And the pair the joint fit landed together (W25 G3b; Decision Log 6). The
+     * exponent is on the same variant and multiplies the same amplitude, so a
+     * profile that moved one without the other would be a material neither reader
+     * fitted; pinning both here is what makes that visible in a unit test rather
+     * than three hours later on the bed.
+     */
+    expect(P.optics.regular.rimLitExponent).toBe(0.85);
+    expect(P.optics.clear.rimLitExponent).toBe(0);
   });
 
   it("is exactly 1 at a zero slope and at every span at or below the band", () => {

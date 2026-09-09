@@ -105,6 +105,7 @@ const PROBES = [
     bandLight: 0.004619103946700296,
     bandLightW22: 0.002848685486224002,
     bandLightW24: 0.0027802610151692947,
+    bandLightW25: 0.002772465389482721,
   },
   {
     cell: "checkerboard__capsule-button__rest",
@@ -115,6 +116,7 @@ const PROBES = [
     bandLight: 0.009300152791914134,
     bandLightW22: 0.005326032506147461,
     bandLightW24: 0.005093282542136354,
+    bandLightW25: 0.005066765251318812,
   },
   {
     cell: "checkerboard__rrect-ml__rest",
@@ -125,6 +127,7 @@ const PROBES = [
     bandLight: 0.0033885124629982654,
     bandLightW22: 0.002055413984662739,
     bandLightW24: 0.0020090926592363826,
+    bandLightW25: 0.0020038152532328903,
   },
 ] as const;
 
@@ -310,12 +313,18 @@ describe("the band's derived light (W17 G1)", () => {
        * the factor is 1 on the four straight runs and below 1 on the corner
        * arcs, so the band integrates to 0.976 of `bandLightW22` on `rrect-md`,
        * 0.977 on `rrect-ml` and 0.956 on the capsule — whose band is entirely
-       * corner arc, which is exactly where the factor lives. Both readings are
-       * kept: `bandLightW22` is what the unlit band derived and `bandLightW24`
-       * is what the lit one does.
+       * corner arc, which is exactly where the factor lives. Every reading is
+       * kept and none is rewritten: `bandLightW22` is what the unlit band
+       * derived, `bandLightW24` what the lit one did at exponent 1.15, and
+       * `bandLightW25` what it does at 0.85 — W25 G3b's joint re-fit (claims
+       * §5.115; W25 Decision Log 6). The arc integral is not monotone in the
+       * exponent, so the third reading is 0.995–0.997 of the second and 0.951–
+       * 0.975 of the first: the tier follows the material by a fraction of a
+       * percent of the band's own contribution, which is what a derived mirror
+       * doing its job looks like.
        */
-      expect(derived, probe.cell).toBeCloseTo(probe.bandLightW24, 12);
-      expect(probe.bandLightW24 / probe.bandLightW22, probe.cell).toBeLessThan(1);
+      expect(derived, probe.cell).toBeCloseTo(probe.bandLightW25, 12);
+      expect(probe.bandLightW25 / probe.bandLightW22, probe.cell).toBeLessThan(1);
       /*
        * And the band's light is EXACTLY linear in the rim's amplitude, with no
        * intercept once the specular term is off — the property that lets the two

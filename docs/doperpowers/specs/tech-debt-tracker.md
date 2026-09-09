@@ -1255,7 +1255,7 @@ carries the same instability unread. Shape of the work: read the 2x bed's state 
 the probe set's, and give the 2x material's fits the share-weighted variance as an uncertainty
 rather than a byte. `g1/stability-2x.txt`, `g1/materialize-2x.dry.txt`.
 
-## W24's lit edge and W25's along-side field grade the SAME diagonal, and the exponent was fitted before the field existed (W25 G3, 2026-09-09)
+## CLOSED by W25 G3b's joint re-fit: W24's lit edge and W25's along-side field grade the SAME diagonal, and the exponent was fitted before the field existed (W25 G3, 2026-09-09)
 
 `optics.regular.rimLitExponent` 1.15 multiplies the rim by `(√2·|n · L|)^p` with `L` the exact
 top-left/bottom-right diagonal, so it is maximal at the NW and SE arcs; `optics.regular
@@ -1319,3 +1319,49 @@ is why the strict form held for eleven waves. The assertions in
 on fewer than a thousandth of the canvas" with the measurement in the doc comment. Shape of the
 work: read the shadow and the optics passes back at float precision, or compare premultiplied
 values, so the guard can go back to zero.
+
+Closed 2026-09-10 by W25 Decision Log 6: the parent re-opened `rimLitExponent` and the two were
+fitted TOGETHER on a rendered grid of 46 points over the plane, landing (0.85, 0.10). The thick
+solids' aggregate bin error goes 0.17527 -> 0.17208 where the field alone under the old exponent
+took it to 0.26311, and the named cell's NW and SE bins come back inside the reference (0.020 ->
+0.015 and 0.016 -> 0.011 against 0.081 and 0.076). What is left is a different object and has its
+own entry below.
+
+## The rim's AMPLITUDE at the corner arcs is too high, and it is what both rim factors now trade against (W25 G3b, 2026-09-10)
+
+With the direction and position halves fitted jointly there is no confound left, and the residual
+that remains is one number in the wrong place: on the 1x light `dark-solid__rrect-md` the reference
+reads 0.189 on its straight sides and 0.122–0.127 on its diagonals, where vitrea reads 0.211 and
+0.137 — brighter everywhere, and brightest where the reference is dimmest relative to its own
+sides. Three of the canonical bed's eight thick solid rows still worsen at the landed pair for that
+reason (worst +0.00064 of normalised bin error, 1.8 %), all of them `dark-solid__rrect-md`, and no
+(exponent, slope) pair on the grid fixes it because neither factor can lower a rim's amplitude
+without also flattening its shape. The amplitude is W23's law (`rimAlpha`, `rimLevelGain`,
+`rimWidth`), fitted on the STRAIGHT spans that both of these factors leave exactly alone, so the
+arcs have never had a row of their own. Shape of the work: give the amplitude law an arc term, or
+re-fit it on the angular reader's bins rather than on the contour reader's spans, and re-run the
+joint fit behind it. Evidence
+`results/2026-09-09-w25-thick-span-composite/g3/g3b-bins.txt` and `g3b-fit.txt`.
+
+## A material change can make a calibration cell unmeasurable, and only the run says so (W25 G3b, 2026-09-10)
+
+At the joint objective's own minimum over the allowed set, (0.70, 0.15), the collapsed
+`dark-solid__capsule-button` loses its contour on the GPU tier at 1x in both schemes: the capsule's
+band is entirely corner arc, both rim factors dim it there, and `contourCurvature` reads a 0.00 px
+contour, so `compare` refuses the cell and two calibration rows drop out of the bed. Nothing in the
+fit's objective, the wave's stops or the adopted gate would have caught it — the gate never sees a
+cell that was not written — and it was found only because the dry run's own group counts fell from
+nine to eight. Shape of the work: make `compare` report a cell it could not measure as a FAILED
+cell in the matrix rather than an absent one, so a coverage loss fires a stop instead of quietly
+shrinking a mean; and give the fidelity gate a pinned cell count per profile and tier.
+
+## A second dry run into the same `--out-matrix` doubles every cell and the gate reads both (W25 G3b, 2026-09-10)
+
+CLAUDE.md warns that a cell's key carries the material document's sha256 and that `compare` appends
+beside the old rows after the profile changes. W25 G3b hit it: two dry runs at two materials into
+one `--out-matrix` left 397 cells where 229 were expected, and the adopted gate failed 25 of 37
+cases on the duplication alone before anything about the material was read.
+`g3b-reduce.py` is the fix used here — keep the rows whose capture path names the documents on disk
+now — but the run scripts should not need it. Shape of the work: have `g3-dryrun-run.sh` and its
+siblings `rm -f` the matrix they own before the first run, and have `compare` warn when it appends
+a cell whose (profile, scene, tier, renderer) already exists under a different document digest.

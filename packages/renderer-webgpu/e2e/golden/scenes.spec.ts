@@ -147,7 +147,7 @@ test.describe("@golden acceptance #2 — lensing scales with surface size", () =
  * day the placed fit landed, and never regenerated: it is the fail-before
  * record, the render the golden replaced.
  */
-const PLACED_CHECKERBOARD_COVER_HASH = "7533eabdf189d6fd03bd507339f473e8";
+const PLACED_CHECKERBOARD_COVER_HASH = "0802a9ac56dc361aed54d82349b2317c";
 
 /**
  * The cover-fit hash above was `e1383ed6f133d99d19b7e44b73022749` when the
@@ -221,6 +221,18 @@ const PLACED_CHECKERBOARD_COVER_HASH = "7533eabdf189d6fd03bd507339f473e8";
  * this scene's whole delta is 10 code values inside a contour band on 1 248
  * pixels and NOT ONE PIXEL outside any band on any of the thirteen scenes. This
  * constant still says only that the two fits differ by the fit.
+ *
+ * And at W25 G3b (claims §5.115; `7533eabdf189d6fd03bd507339f473e8` → the value
+ * below): the JOINT re-fit, `rimLitExponent` 1.15 → 0.85 with
+ * `rimAlongSideSlope` 0.45 → 0.10 (W25 Decision Log 6), because the two multiply
+ * the same rim amplitude and peak on the same diagonal and neither reader could
+ * see the overlap from its own side. The cover-fit render draws the re-fitted rim
+ * like the placed one does. The attribution is the isolation proof's
+ * `W25B_HASHES` and
+ * `results/2026-09-09-w25-thick-span-composite/g3/g3b-goldens-attribution.txt`,
+ * where this scene's whole delta is 4 code values inside a contour band on 697
+ * pixels and again not one pixel outside any band on any scene. This constant
+ * still says only that the two fits differ by the fit.
  */
 
 test.describe("@golden claims §5.47 — a backdrop is sampled where it sits", () => {

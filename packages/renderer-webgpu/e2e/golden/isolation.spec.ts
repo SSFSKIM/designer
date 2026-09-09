@@ -758,7 +758,56 @@ const W25_HASHES: Readonly<Record<string, string>> = {
   "union-pair": "44c572ef7ff1bc9678d20efaf4c7cff2",
 };
 
+/**
+ * The bytes `PRE_C9A_PROFILE` renders on W25 G3b's landed material — the JOINT re-fit of
+ * `optics.regular.rimLitExponent` 1.15 → 0.85 with `optics.regular.rimAlongSideSlope` 0.45 → 0.10
+ * (claims §5.115; W25 Decision Log 6).
+ *
+ * ## Why a second W25 block, and why the first one stays
+ *
+ * `W25_HASHES` above is the bed W25 G3 declared, and it is kept rather than overwritten because it
+ * is what the dry run below the rule in `g3-dryrun.md` was read on: 229 canonical captures, a
+ * holdout read, and the stop that fired. Those numbers belong to a real material and a real
+ * measurement, and the ledger's rule is that a recorded reading is not rewritten to what it should
+ * have been — the correct reading goes beside it. This block is the correct reading.
+ *
+ * ## The attribution
+ *
+ * `results/2026-09-09-w25-thick-span-composite/g3/g3b-goldens-attribution.txt`, taken before any
+ * golden byte was rewritten, declining BOTH constants together — a spec that declined only one
+ * would attribute the movement to a constant that did not move alone.
+ *
+ * **The pair moved not one pixel outside a contour band, on any scene.** Its outside delta is 0 on
+ * all thirteen; inside, it is 2–8 code values on the twelve that carry a rim (403–2 034 pixels).
+ * The reach is wider than the field's alone was, and the reason is the exponent: it rides no size
+ * law, so it reaches every span. `collapsed-tone` and `collapsed-tone-textured` at span 44 move 8
+ * codes where the field alone moved them 2, because the lit factor multiplies the COLLAPSED rim
+ * too — W24 put it outside W23's amplitude bracket for exactly that reason. That is also the
+ * arithmetic that made one grid step further out unlandable: at exponent 0.70 with slope 0.15 the
+ * collapsed `dark-solid__capsule-button` dims below the contour extractor's reach and drops out of
+ * the calibration bed altogether, which is a narrowing of the instrument and not a fidelity gain.
+ *
+ * `highlight-press-glow` is the control and it holds again: **0 pixels**, byte-identical to the
+ * 2026-08-25 original through C9a, W8, the post-v1 wave, W11a, W11c, W12, W14, W15, W22, W23, W24,
+ * W25 G3 and now this.
+ */
+const W25B_HASHES: Readonly<Record<string, string>> = {
+  "body-ramp-1x": "946b34bea49876a54917ea492e3248b8",
+  "collapsed-tone": "85c479fcf34357fb27f7196b8491461a",
+  "collapsed-tone-textured": "98100d009e62791584601112729d5367",
+  "concentric-nesting": "59a074a2f3235d0e7ba79f03127cab2b",
+  "field-mask": "2a8688c67ea2853c7d649e70cb171dcf",
+  "lens-size-scaling": "fd9d9cd4439df97d65d24d0edba6ee5b",
+  "placed-checkerboard": "e1ee5d7e78f707c54e1f77f784b7baf6",
+  "refraction-checkerboard": "3e22b2c4b7eac74c5be2e165d36f3c75",
+  "rim-two-references": "882d529e112c1fdf401e2d7f32adbd53",
+  "tint-adaptation-dark": "06403ee2dbba8aa1920e3072fcd84df8",
+  "tint-adaptation-light": "9b4dbdaaa681fed65b943f9a6592fd08",
+  "union-pair": "6a84d5b24d88ce2b127a688da45ebf9b",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
+  W25B_HASHES[name] ??
   W25_HASHES[name] ??
   W24_HASHES[name] ??
   W23_G3_HASHES[name] ??

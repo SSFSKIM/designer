@@ -4,14 +4,15 @@
 # What is frozen: G0's, G1's and G2's branches merged into main, plus this gate's one landed
 # constant —
 #
-#   both   optics.regular.rimAlongSideSlope 0.45 (new, on the material's default; the light patch
-#          names it and the dark difference document inherits it)
+#   both   optics.regular.rimLitExponent 1.15 -> 0.85 and optics.regular.rimAlongSideSlope
+#          0.45 -> 0.10 — the JOINT re-fit (W25 G3b; Decision Log 6), both on the material's
+#          default, the light patch naming them and the dark difference document inheriting them
 #   none   sizeScatterHeavyShareThick1x / …2x and sizeToneLevelFar stay at 0, declined on the probe
-#          set's own measurement (`g3-dryrun.md` §1)
+#          set's own measurement and left there by the ruling (`g3-dryrun.md` §1)
 #   css    nothing: the field's integral around the contour is exactly zero
 #
-# resolvedMaterialSha256 290f52cb025fce7b (light, was 52a633135b9da151) and 64ef5c3002d15009
-# (dark, was 2f47777637f8df50).
+# resolvedMaterialSha256 9b7806cdefd1d1d6 (light, was 290f52cb025fce7b) and eec7c2ea8dc89cae
+# (dark, was 64ef5c3002d15009).
 #
 # `g3-dryrun-run.sh`'s twin, and it is run ONCE, LAST, on the constant above and on nothing else.
 # Every clause and every stop was read on the calibration and validation columns before this ran and

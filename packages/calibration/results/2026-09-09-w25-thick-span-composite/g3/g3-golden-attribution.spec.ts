@@ -35,8 +35,14 @@ import { expect, test } from "@playwright/test";
 import { SCENES } from "../fixtures/scenes";
 import { decodeCapture, openHarness, requireHardwareAdapter, type Raster } from "../support";
 
-/** The one point on the ladder: the field declined, whose delta against the shipped render IS it. */
-const DECLINED = { optics: { regular: { rimAlongSideSlope: 0 } } };
+/**
+ * The one point on the ladder: the PAIR declined back to the 0.13.0 material — the along-side field
+ * to 0 and the lit edge's exponent to W24's 1.15 — whose delta against the shipped render is the
+ * joint re-fit and nothing else. W25 G3b declines both together because the two were fitted
+ * together (Decision Log 6): a spec that declined only one would attribute the goldens' movement to
+ * a constant that did not move alone.
+ */
+const DECLINED = { optics: { regular: { rimAlongSideSlope: 0, rimLitExponent: 1.15 } } };
 
 /** The band the size law reads: 0 below `sizeSpanMin`, saturated at `sizeSpanMax`. */
 const SPAN_MIN = 32;

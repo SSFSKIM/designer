@@ -19,12 +19,12 @@
 set -u
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKTREE="$(cd "$HERE/../../../../.." && pwd)"
-OUT="$HERE/goldens-attribution.txt"
+OUT="$HERE/${OUT_NAME:-goldens-attribution.txt}"
 SPEC="$WORKTREE/packages/renderer-webgpu/e2e/golden/w25-g3-attribution.spec.ts"
 REGEN="${1:-}"
 cd "$WORKTREE/packages/renderer-webgpu"
 {
-  echo "W25 G3 — the goldens at the landed constant (optics.regular.rimAlongSideSlope 0.45)"
+  echo "W25 G3b — the goldens at the landed PAIR (rimLitExponent 0.70, rimAlongSideSlope 0.15)"
   echo "HEAD $(git -C "$WORKTREE" rev-parse --short HEAD)"
   echo
   echo "=============================================================================="

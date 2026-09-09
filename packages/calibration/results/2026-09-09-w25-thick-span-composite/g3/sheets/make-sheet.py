@@ -172,6 +172,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--scale', type=int, choices=(1, 2), default=1)
     parser.add_argument('--gpu-after', required=True)
+    # W25 G3b's third GPU column: the pair G3 declared, kept beside the pair G3b declares so the
+    # eye judges the CHANGE OF RULING and not only the change from the shipped bed. Absent, the
+    # sheet is G3's four-panel form.
+    parser.add_argument('--gpu-mid', default=None)
     parser.add_argument('--gpu-before', required=True)
     parser.add_argument('--probe-after', required=True)
     parser.add_argument('--probe-before', required=True)
@@ -202,7 +206,10 @@ def main():
             before = maybe(os.path.join(before_root, profile, scene, f'{scene}__webgpu.png'))
             after = maybe(os.path.join(after_root, profile, scene, f'{scene}__webgpu.png'))
             css = maybe(os.path.join(css_root, profile, scene, f'{scene}__css.png'))
-            panels = [native, before, after, css]
+            mid = (maybe(os.path.join(args.gpu_mid, profile, scene, f'{scene}__webgpu.png'))
+                   if args.gpu_mid else None)
+            panels = ([native, before, mid, after, css] if args.gpu_mid and mid is not None
+                      else [native, before, after, css])
             if any(panel is None for panel in panels):
                 names = ('native', 'GPU before', 'GPU after', 'CSS after')
                 missing = [n for n, p in zip(names, panels) if p is None]
@@ -254,7 +261,8 @@ def main():
         font = None
     banner = ('1 Apple native (the canonical or probe fixture)   2 GPU tier BEFORE (the 0.13.0 bed '
               'at the W24 landing: one rim brightness the whole way round a straight side)   '
-              '3 GPU tier, W25 G3 dry run   4 CSS tier, same document   '
+              '3 GPU tier at the pair W25 G3 declared (exponent 1.15, slope 0.45)   '
+              '4 GPU tier at the pair W25 G3b declares   5 CSS tier, same document   '
               f'-- both schemes at {args.scale}x, whole canvas at zoom {zoom}, the corners, the '
               f'nested base and the centre dot again magnified')
     draw.text((GAP, GAP), banner, fill=(230, 230, 230), font=font)

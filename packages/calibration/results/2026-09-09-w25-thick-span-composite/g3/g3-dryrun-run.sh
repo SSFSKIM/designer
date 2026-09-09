@@ -4,15 +4,18 @@
 # What is frozen: G0's, G1's and G2's branches merged into main, plus this gate's one landed
 # constant —
 #
-#   both   optics.regular.rimAlongSideSlope 0.45 (new, on the material's default; the light patch
-#          names it and the dark difference document inherits it)
+#   both   optics.regular.rimLitExponent 1.15 -> 0.85 and optics.regular.rimAlongSideSlope
+#          0.45 -> 0.10 — the JOINT re-fit (W25 G3b; Decision Log 6), both on the material's
+#          default, the light patch naming them and the dark difference document inheriting them
 #   none   sizeScatterHeavyShareThick1x / …2x and sizeToneLevelFar stay at 0, declined on the probe
-#          set's own measurement (this document's §1)
-#   css    nothing: the field's integral around the contour is exactly zero, so `interiorBandLight`
-#          returns the same number and the mirror carries no new constant
+#          set's own measurement and left there by the ruling (this document's §1)
+#   css    the EXPONENT, and only through the band's arc integral: `interiorBandLight` reads it and
+#          the integral runs 0.90741 of 2pi at 1.15 against 0.89686 at 0.85, so every CSS capture
+#          with a rim moves. The field itself integrates to zero around the contour and is not
+#          mirrored at all — this tier's captures move for the exponent and for nothing else
 #
-# resolvedMaterialSha256 290f52cb025fce7b (light, was 52a633135b9da151) and 64ef5c3002d15009
-# (dark, was 2f47777637f8df50). BOTH documents move this wave, so all six profiles are re-run and
+# resolvedMaterialSha256 9b7806cdefd1d1d6 (light, was 290f52cb025fce7b) and eec7c2ea8dc89cae
+# (dark, was 64ef5c3002d15009). BOTH documents move this wave, so all six profiles are re-run and
 # not one of them rides along as a byte check.
 #
 # THIS SCRIPT RUNS THE CALIBRATION AND VALIDATION COLUMNS ONLY. The holdout is `g3-holdout-run.sh`
@@ -36,6 +39,11 @@ T=/Users/new/.claude/jobs/5c70e47f/tmp/w25/g3/dryrun
 mkdir -p "$T"
 export VITREA_WEB_CAPTURES="$T/web-captures"
 MATRIX="$T/g3-dryrun.json"
+# The matrix is REMOVED, not appended to. A cell's key carries the material document's sha256, so
+# a second run at a second material leaves every cell twice and the gate reads both — W25 G3b did
+# exactly that and failed 25 of 37 gate cases on the duplication alone before anything about the
+# material was read (`g3-dryrun.md` §8; the tracker).
+rm -f "$MATRIX"
 rm -f "$T/DONE-calval"
 LOG="$T/g3-runs.log"
 : > "$LOG"
