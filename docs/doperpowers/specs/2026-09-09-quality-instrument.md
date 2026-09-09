@@ -346,7 +346,21 @@ over the seven briefs. The panel does not penalise leaving the default shell as 
 within a brief the less conventional page rates a little higher. The grammar's loss, where there is
 one, is not the price of its intent.
 
-**4. The clause coding.** Pending — two coders on the six qualifying cells.
+**4. The clause coding.** Six cells qualify (three or more raters moved two or more points in one
+direction on one item): compare·A b4, fleet·A d1, pharmacy·A d1, rail·B d1, rebate·A b1 and d1.
+Two coders from different families (astra-medium, claude-opus), blinded to which page was which
+by a seeded swap, coded each rater's pair of clauses against the frozen list; they share a code on
+19 of 24 rater-cells. What both assign: fleet·A — **D build defect** (3 raters; the 2.1 page's
+over-wide sheet and empty half); pharmacy·A — **F brief-fit miss** and **N1 composition QA** (4
+raters each; the 2.1 page's expiring lots present only as a column, a chip and cards, plus clipped
+records); rail·B — **G4 density** and **N1** (4 raters each; the *2.0* page's fixed-height panels
+holding more than they show, the roster four rows of eleven — the one cell where a grammar code
+appears, and it counts against 2.0); rebate·A b1 and d1 — **F** (4 and 3 raters; the 2.1 page
+states eligibility after the first screen); compare·A b4 — the coders split between **F** and
+"other: selection state", the same fact named twice (the 2.1 page shows no recorded pick). The
+grammar's composition rules — G1 work-first, G2 no side region, G3 no summary tiles — are assigned
+by neither coder in any cell. The evidence is filed under
+`docs/research/data/2026-09-05-settling/rubric-coding/`.
 
 **The no-skill hold** (settling Decision Log 2026-09-09) is not decided at this sample: `none` −
 `v1.1` on d1 is −0.25 [−0.88, 0.44]; on defects `none` carries more, +0.37 [0.00, 0.69]. Per brief,
@@ -355,11 +369,16 @@ library (6.25) and among the best on hardware and compare: the no-skill deficit 
 console deficit.
 
 **What the next grammar wave should be, on this reading.** Not a composition-rule change: the
-composition's intended effect is confirmed and is not penalised. The losses on record are (a) a
-defect class — over-wide sheets and clipped records, two of the three worst 2.1 pages — which is
-composition QA, and (b) two brief-fit misses that a first-screen check would catch (the brief's
-eligibility or pick region placed late or absent). And a token-level question for the stance layer:
-the panel reads each version's colour restraint as a less attractive, less varied page.
+composition's intended effect is confirmed, is not penalised, and no rater's reason for a loss
+points at a composition rule. The losses on record are (a) a defect class — an over-wide sheet and
+clipped records on two of the three worst 2.1 pages — which is composition QA (the N1 and D codes),
+and (b) brief-fit misses a first-screen check would catch: the brief's eligibility region placed
+after the first screen, a briefed set present only as a column and a chip, a pick never shown as
+recorded (the F codes). Both are checks the skill's QA protocol can carry: a capture-width overflow
+read, a clipped-container read, and a "every briefed region is its own set, and the brief's first
+question is answered in the first screen" pass. And a token-level question for the stance layer:
+the panel reads each version's colour restraint as a less attractive, less varied page (a2, a3),
+which this run can raise but not settle.
 
 ## Decision Log
 
@@ -580,5 +599,5 @@ about 5.5 M subagent tokens; the user under thirty minutes.
 - 2026-09-10: the panel's first pass and retests in (Surprises); the one wording revision spent on
   e1 (Decision Log); the level-or-order diagnostic added to the report beside the family split.
 - 2026-09-10 (later): the e1 re-rate in; Outcomes written for the panel side (Partial), the
-  grammar reading written as exploratory (Findings); the user's anchor and the clause coding
-  marked pending.
+  grammar reading written as exploratory (Findings); the clause coding in (Findings, step 4); the
+  user's anchor marked pending.

@@ -645,3 +645,8 @@ the declared budget; the two model judges cost about 0.7 M more.
 - 2026-09-09: the user's 78 judgments in; a third judge and the majority tiebreak added on the
   user's direction (Decision Log); Q, Q3, Q★, H2 and the stop rule's quality clause written; the
   judges' chance-level agreement and two capture artifacts recorded (Surprises).
+- 2026-09-10: the diagnosis initiative ran as `2026-09-09-quality-instrument.md`: a rubric panel
+  finds the 2.0 → 2.1 quality loss not detectable at thirteen pairs and the reasons for the
+  losses on record to be defects and brief-fit misses, not composition rules (its Findings); the
+  no-skill hold is not decided there (`none` − `v1.1` on deliverability −0.25 [−0.88, 0.44]), with
+  `none` the worst arm on every console and the best on the library brief.

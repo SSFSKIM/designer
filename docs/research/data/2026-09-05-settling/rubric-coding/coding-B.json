@@ -1,0 +1,44 @@
+{
+  "compare·A · item b4": {
+    "astra-medium": ["F"],
+    "astra-high": ["F"],
+    "claude-opus": ["F", "N1"],
+    "claude-sonnet": ["F"],
+    "_note": "P shows the award actually made (checked radio, SELECTED head, named award summary) while Q's award region exists only as an empty-state bar reading 'No supplier selected', with claude-opus additionally noting the greyed button as a dead control."
+  },
+  "fleet·A · item d1": {
+    "astra-medium": ["D", "N1"],
+    "astra-high": ["D", "N1"],
+    "claude-opus": ["D", "N1"],
+    "claude-sonnet": ["D"],
+    "_note": "P is faulted for structural build defects — a defect table overflowing past the 1440 frame and a large empty bottom-left half from mismatched column heights — whereas Q's only remaining fault is local clipping at the schedule's right edge, a QA-scale fix."
+  },
+  "pharmacy·A · item d1": {
+    "astra-medium": ["F", "N1"],
+    "astra-high": ["F", "N1"],
+    "claude-opus": ["F", "N1"],
+    "claude-sonnet": ["N1", "F"],
+    "_note": "P lacks the briefed expiring-lots region as its own itemized set (it survives only as a column, a filter chip and cards mixed into the handover queue) and carries clipped table rows/badges, while Q presents all four briefed regions as full tables with no clipping."
+  },
+  "rail·B · item d1": {
+    "astra-medium": ["G4", "N1"],
+    "astra-high": ["G4", "N1"],
+    "claude-opus": ["G4", "N1"],
+    "claude-sonnet": ["G4", "N1"],
+    "_note": "P puts more content into fixed-height, non-scrolling panels than they hold — 4 of 11 roster rows visible, the crew-relief column sliced mid-header — so it needs structural resizing, while Q's defects are a single ellipsised header string and small label collisions."
+  },
+  "rebate·A · item d1": {
+    "astra-medium": ["F"],
+    "astra-high": ["F", "G4"],
+    "claude-opus": ["F"],
+    "claude-sonnet": ["N3"],
+    "_note": "Three raters separate the pages on where the briefed eligibility region lands — first-screen 'Who:' row on P versus a jump link with the section far below on Q — while claude-sonnet instead rewards Q for the fuller conventional site shell (breadcrumbs, secondary nav, proof columns, disclosures)."
+  },
+  "rebate·A · item b1": {
+    "astra-medium": ["F"],
+    "astra-high": ["F"],
+    "claude-opus": ["F"],
+    "claude-sonnet": ["F"],
+    "_note": "P states who qualifies on the first screen; Q's first screen holds only the rate headline, fund panel and estimate, with eligibility present solely as a jump link to a lower section."
+  }
+}

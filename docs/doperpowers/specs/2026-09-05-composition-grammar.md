@@ -508,6 +508,19 @@ not preferred to derivation, and the judges agree with one another at chance (κ
 not partition distance, is the acceptance instrument for the next change to this layer, and the
 diagnosis the settling spec names now carries the quality reading too.
 
+**Quality instrument (2026-09-10, `2026-09-09-quality-instrument.md`, exploratory).** A four-rater
+rubric panel over the same 52 builds finds no detectable deliverability loss from 2.0 to 2.1 at
+thirteen pairs (−0.33 [−1.08, 0.46]; the smallest detectable difference was 0.81), confirms the
+grammar's intended effect (conventionality −1.27 [−2.21, −0.37] on the pairs) and finds that the
+panel does not penalise leaving the shell as such (within brief, less conventional pages rate
+slightly higher). Where 2.1 lost by two or more points for three raters, two blinded coders put the
+reason on a build defect (an over-wide sheet), on composition QA (clipped records) or on a brief-fit
+miss (eligibility after the first screen, a briefed set reduced to a column and a chip, a pick never
+shown as recorded) — never on a composition rule. The next change to this layer is therefore QA and
+brief-fit checks, not a rule. The aesthetics facets for variety and colour fall with every version
+(5.60 → 4.60 and 5.85 → 4.71 from `none` to 2.1), a stance-layer question this run raises but does
+not settle.
+
 ## Revision Notes
 
 - 2026-09-05: created from the layout survey and three research rounds; direction approved by
