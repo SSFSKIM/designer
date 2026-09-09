@@ -67,3 +67,10 @@ packages/calibration/web-captures/
 # search is reproducible from the committed script and its printed grid; the
 # intermediate matrices are not evidence of anything on their own.
 packages/calibration/sweep-work/
+
+# glass-audit.mjs output inside a demo directory (docs/research/scripts/glass-audit.mjs). The
+# audit JSON that counts as evidence is copied under docs/research/data/2026-09-10-liquid-glass-demos/;
+# the captures are regenerable from the committed page with one command and stay out of git, as the
+# settling run's captures did.
+apps/demos/*/shot-*.png
+apps/demos/*/audit.json

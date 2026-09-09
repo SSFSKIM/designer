@@ -1,0 +1,1320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Ashcombe — Smiths' Weekend, card 2</title>
+
+<script type="importmap">
+{ "imports": { "@vitreajs/vitrea": "/packages/core/dist/index.js", "@vitreajs/vitrea-web": "/packages/platform-web/dist/index.js" } }
+</script>
+
+<style>
+/* ------------------------------------------------------------------ tokens
+   DESIGN.md §1. The neutral ramp is achromatic by law: r = g = b in every
+   neutral token, because any hue in the surround biases the frame's apparent
+   colour balance — which is the quantity the white-balance control sets.
+   The four --wb-* values are the page's only chromatic literals, and they are
+   data: on those two tracks the hue IS the value. */
+:root {
+  --ground-0: #1A1A1A;   /* the stage surround, painted into the canvas    */
+  --ground-1: #202020;   /* the filmstrip band and the readout column      */
+  --ground-2: #2C2C2C;   /* a cell well, a slider track, a rest state      */
+  --ground-3: #3A3A3A;   /* hover, and the selected cell's well            */
+  --ink-0:    #F4F4F4;
+  --ink-0-hi: #FFFFFF;   /* the prominent action, pressed */
+  --ink-1:    #C2C2C2;
+  --ink-2:    #9A9A9A;
+  --line-1:   rgb(255 255 255 / 10%);
+  --line-2:   rgb(255 255 255 / 20%);
+
+  /* Washes: the control layer's state language. Achromatic by law — a state is
+     a fill or a rule, never a hue. */
+  --wash-hover: rgb(255 255 255 / 10%);
+  --wash-press: rgb(255 255 255 / 18%);
+  --wash-field: rgb(255 255 255 / 12%);
+  --wash-track: rgb(255 255 255 / 22%);
+  --ink-0-mute: rgb(244 244 244 / 76%);
+  --dot-off:    rgb(244 244 244 / 30%);
+  --scrim:      rgb(26 26 26 / 80%);
+  --focus-halo: rgb(26 26 26 / 70%);
+
+  /* Painted into the plane, so the lens bends them with the frame. */
+  --edge:    rgb(255 255 255 / 14%);
+  --guide:   rgb(244 244 244 / 55%);
+  --divider: rgb(244 244 244 / 85%);
+  --mask:    rgb(0 0 0 / 55%);
+  --hist-ink: rgb(194 194 194 / 75%);
+
+  /* The named chroma exception: the two white-balance ramps, and the two pairs
+     of correction tints the plane multiplies by. On these the hue is the value. */
+  --wb-cool:    #6FA8E8;
+  --wb-warm:    #E8B26F;
+  --wb-green:   #77C97A;
+  --wb-magenta: #C97AC0;
+  --wb-neutral: #8E8E8E;
+  --wb-fix-warm:    #FFECC4;
+  --wb-fix-cool:    #CFE2FF;
+  --wb-fix-magenta: #FFD9F6;
+  --wb-fix-green:   #D9FFDD;
+
+  --font-ui:   ui-sans-serif, -apple-system, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Menlo", "Consolas", monospace;
+
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 24px; --s8: 32px;
+
+  --band: 164px;   /* filmstrip band height */
+  --col:  208px;   /* readout column width  */
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%; margin: 0; overflow: hidden;
+  /* Solid colour only. A background-image, filter, mask or opacity here would
+     re-root the glass proxy's backdrop and demote every group. */
+  background: var(--ground-0);
+  color: var(--ink-0);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ the live plane
+   One canvas, viewport-sized, registered as the glass backdrop texture. It
+   paints the surround and then the frame with exposure, white balance, the
+   compare state and the crop overlay already applied — so the pixels the lens
+   samples are the pixels the photographer is judging. Nothing is laid over it
+   in CSS: an overlay would not be behind the glass and would not be refracted. */
+#stage {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  display: block; z-index: 0; touch-action: none;
+}
+
+/* ------------------------------------------------------------------ readout column */
+.readout {
+  position: fixed; top: 0; right: 0; z-index: 2;
+  width: var(--col); height: calc(100% - var(--band));
+  background: var(--ground-1);
+  border-left: 1px solid var(--line-1);
+  padding: var(--s5) var(--s4) var(--s4);
+  display: flex; flex-direction: column; gap: var(--s4);
+  overflow: hidden;
+}
+.label {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.10em; text-transform: uppercase; color: var(--ink-2);
+  margin: 0 0 var(--s2);
+}
+.frame-id {
+  font-family: var(--font-mono); font-size: 20px; font-weight: 500;
+  letter-spacing: 0.02em; color: var(--ink-0); margin: 0 0 var(--s1);
+}
+.row {
+  display: flex; justify-content: space-between; gap: var(--s2);
+  font-family: var(--font-mono); font-size: 11px; font-variant-numeric: tabular-nums;
+  line-height: 1.6;
+}
+.row > span:first-child { color: var(--ink-2); }
+.row > span:last-child  { color: var(--ink-1); text-align: right; }
+.rule { height: 1px; background: var(--line-1); }
+.block { display: flex; flex-direction: column; }
+.lens {
+  font-family: var(--font-mono); font-size: 11px; color: var(--ink-1);
+  line-height: 1.5; margin: 0 0 var(--s1);
+}
+#hist { display: block; width: 176px; height: 56px; background: var(--ground-2); }
+.clip {
+  font-family: var(--font-mono); font-size: 10px; color: var(--ink-2);
+  margin-top: var(--s1); font-variant-numeric: tabular-nums;
+}
+.credits { margin-top: auto; }
+.credits ul { list-style: none; margin: 0; padding: 0; }
+.credits li { font-family: var(--font-mono); font-size: 10px; line-height: 1.5;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.credits a { color: var(--ink-2); text-decoration: none; border-bottom: 1px solid transparent; }
+.credits a:hover { color: var(--ink-0); border-bottom-color: var(--line-2); }
+
+/* ------------------------------------------------------------------ filmstrip band */
+.strip {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 2;
+  height: var(--band); background: var(--ground-1);
+  border-top: 1px solid var(--line-1);
+  display: flex; flex-direction: column;
+}
+.strip-head {
+  display: flex; align-items: baseline; gap: var(--s4);
+  padding: 10px var(--s4) 8px; flex: 0 0 auto;
+}
+.strip-head h1 { font-size: 13px; font-weight: 600; margin: 0; letter-spacing: -0.005em; }
+.strip-head .meta {
+  font-family: var(--font-mono); font-size: 11px; color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.strip-head .compact { display: none; margin-left: auto; }
+
+/* The hard desktop scroll edge: frames clip against the band's own edge under a
+   hairline. No fade, no scrim — nothing floats over this band. */
+.scroller {
+  flex: 1 1 auto; overflow-x: auto; overflow-y: hidden;
+  padding: 0 var(--s4) var(--s3);
+  scrollbar-width: thin; scrollbar-color: var(--ground-3) transparent;
+}
+.bursts { display: flex; gap: var(--s5); min-width: min-content; height: 100%; }
+.burst { display: flex; flex-direction: column; gap: 5px; }
+.bracket {
+  display: flex; align-items: center; gap: 6px; height: 12px;
+  font-family: var(--font-mono); font-size: 9.5px; color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.bracket i {
+  flex: 1 1 auto; height: 5px; border: 1px solid var(--line-2);
+  border-bottom: 0; display: block;
+}
+.cells { display: flex; gap: 6px; }
+
+.cell {
+  position: relative; padding: 0; margin: 0; border: 0; background: none;
+  display: flex; flex-direction: column; gap: 4px; cursor: pointer;
+  font: inherit; color: inherit; align-items: stretch;
+}
+.well {
+  position: relative; width: 108px; height: 72px; overflow: hidden;
+  background: var(--ground-2); border: 1px solid var(--line-1);
+  transition: transform 140ms ease, border-color 140ms ease;
+}
+.well img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cell .no { font-family: var(--font-mono); font-size: 9.5px; color: var(--ink-2); text-align: left; }
+.cell:hover .well { border-color: var(--line-2); }
+.cell[aria-current="true"] .well {
+  border: 2px solid var(--ink-0); transform: translateY(-4px);
+}
+.cell[aria-current="true"] .no { color: var(--ink-0); }
+.cell[data-flag="reject"] .well { opacity: 0.45; }
+.cell:focus-visible { outline: none; }
+.cell:focus-visible .well { outline: 2px solid var(--ink-0); outline-offset: 2px; }
+
+/* Flag and rating: shape and weight only. There is no accent colour on this page. */
+.mark {
+  position: absolute; left: 0; top: 0; padding: 2px 5px;
+  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.mark[data-flag="pick"]   { background: var(--ink-0); color: var(--ground-0); }
+.mark[data-flag="reject"] { background: var(--scrim); color: var(--ink-0);
+                            text-decoration: line-through; text-decoration-thickness: 1px; }
+.dots { position: absolute; right: 3px; bottom: 3px; display: flex; gap: 2px; }
+.dots i { width: 3px; height: 3px; background: var(--ink-0); display: block; }
+.dots i.off { background: var(--dot-off); }
+
+/* ------------------------------------------------------------------ glass surfaces
+   Registered hosts. No background, no border, no shadow: the material draws all
+   three, and the CSS tier rewrites `background` on every frame anyway. */
+.gbar, .gplatter {
+  position: absolute; display: flex; align-items: center;
+  font-family: var(--font-ui);
+}
+.gbar { justify-content: space-between; }
+
+.seg, .btn, .dg, .ico {
+  font: inherit; color: var(--ink-0); background: transparent; border: 0;
+  cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+}
+.seg:focus-visible, .btn:focus-visible, .dg:focus-visible,
+.ico:focus-visible, .rng:focus-visible, .sel:focus-visible {
+  outline: 2px solid var(--ink-0); outline-offset: 1px;
+  box-shadow: 0 0 0 4px var(--focus-halo);
+}
+
+/* compare — S rung, 260 x 40, fixed radius 12; segments concentric at 12 - 4 = 8 */
+#viewbar { padding: 4px; gap: 2px; }
+.seg {
+  flex: 1 1 0; height: 32px; border-radius: 8px; font-size: 12.5px; font-weight: 500;
+  color: var(--ink-0);
+}
+.seg:hover { background: var(--wash-hover); }
+.seg[aria-pressed="true"] { background: var(--wash-press); color: var(--ink-0); font-weight: 600; }
+
+/* verdict — M rung, 452 x 56, capsule 28; inner row concentric at 28 - 8 = 20 */
+#verdict { padding: 8px 10px; gap: var(--s2); }
+.btn {
+  height: 40px; padding: 0 18px; border-radius: 20px; font-size: 13px; font-weight: 500;
+}
+.btn:hover { background: var(--wash-hover); }
+.btn[aria-pressed="true"] { background: var(--wash-press); font-weight: 600; }
+.btn.prom { background: var(--ink-0); color: var(--ground-0); font-weight: 600; }
+.btn.prom:hover { background: var(--ink-0-hi); }
+.btn.prom[aria-pressed="true"] { background: var(--ink-0); }
+.rate { display: flex; align-items: center; gap: 2px; }
+.dg {
+  width: 30px; height: 40px; border-radius: 20px;
+  font-family: var(--font-mono); font-size: 13px; font-weight: 500;
+  font-variant-numeric: tabular-nums; color: var(--ink-0); position: relative;
+}
+.dg:hover { background: var(--wash-hover); }
+
+.dg[data-on="1"]::after {
+  content: ""; position: absolute; left: 7px; right: 7px; bottom: 8px;
+  height: 2px; background: var(--ink-0);
+}
+.dg[aria-pressed="true"] { background: var(--wash-press); font-weight: 600; }
+
+/* tools — one host, M rung at rest (span 56) growing to the L rung (span 248).
+   Radius 28 throughout; inner views concentric at 28 - 10 = 18. */
+#platter { align-items: stretch; overflow: hidden; padding: 0; }
+.toolcol {
+  flex: 0 0 56px; display: flex; flex-direction: column; justify-content: center;
+  align-items: center; gap: var(--s2); padding: 0 10px;
+}
+.ico {
+  width: 36px; height: 36px; border-radius: 18px; flex: 0 0 auto; color: var(--ink-0);
+}
+.ico:hover { background: var(--wash-hover); }
+.ico[aria-pressed="true"] { background: var(--wash-press); color: var(--ink-0); }
+.ico svg { width: 20px; height: 20px; }
+.ico.sm { width: 26px; height: 26px; border-radius: 13px; }
+.ico.sm svg { width: 15px; height: 15px; }
+
+.panel {
+  flex: 1 1 auto; min-width: 0; padding: 14px 14px 14px 2px;
+  display: flex; flex-direction: column; justify-content: center; gap: 10px;
+  overflow: hidden;
+}
+.panel .asshot {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.02em;
+  color: var(--ink-0-mute); margin: 2px 0 0; font-variant-numeric: tabular-nums;
+}
+.panel h2 {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.10em;
+  text-transform: uppercase; color: var(--ink-0-mute); margin: 0;
+}
+.srow { display: flex; flex-direction: column; gap: 3px; }
+.stop { display: flex; align-items: center; gap: var(--s2); }
+.stop .nm { font-size: 12px; color: var(--ink-0); }
+.stop .vl {
+  margin-left: auto; font-family: var(--font-mono); font-size: 11px;
+  font-variant-numeric: tabular-nums; color: var(--ink-0);
+}
+.rng {
+  -webkit-appearance: none; appearance: none; width: 100%; height: 18px;
+  background: transparent; margin: 0; cursor: pointer;
+}
+.rng::-webkit-slider-runnable-track {
+  height: 3px; border-radius: 0; background: var(--track, var(--wash-track));
+}
+.rng::-moz-range-track { height: 3px; background: var(--track, var(--wash-track)); }
+.rng::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 12px; height: 12px; border-radius: 6px;
+  background: var(--ink-0); margin-top: -4.5px; border: 0;
+}
+.rng::-moz-range-thumb { width: 12px; height: 12px; border-radius: 6px; background: var(--ink-0); border: 0; }
+.sel {
+  font: inherit; font-size: 12px; color: var(--ink-0); background: var(--wash-field);
+  border: 0; border-radius: 6px; padding: 4px 6px; margin-left: auto;
+}
+.sel option { background: var(--ground-1); color: var(--ink-0); }
+.empty { font-size: 12px; color: var(--ink-0-mute); line-height: 1.45; margin: 0; }
+
+/* ------------------------------------------------------------------ collapse
+   Intentional, not a compression: the readout column leaves and its FRAME block
+   becomes one mono line in the strip header, the frame takes the width back,
+   and the compare control leaves the floating layer for the platter — three
+   glass groups become two, so the remaining two keep their separation. */
+@media (max-width: 1180px) {
+  :root { --col: 0px; --band: 152px; }
+  .readout { display: none; }
+  .strip-head .compact { display: block; }
+}
+/* Below 900 px the frame is too small to hold three separated groups — a group
+   needs at least the larger neighbour's sampling padding of clearance — so the
+   compare control and the platter leave the floating layer for an opaque row in
+   the band, and the verdict bar is the only glass left. */
+.docked { display: none; gap: var(--s2); padding: 0 var(--s4) 10px; align-items: stretch; }
+.docked.on { display: flex; }
+.docked #viewbar, .docked #platter {
+  position: static; width: auto; height: auto;
+  background: var(--ground-2); border: 1px solid var(--line-1);
+}
+.docked #viewbar { flex: 0 0 auto; width: 206px; padding: 3px; }
+.docked #viewbar .seg { height: 28px; font-size: 12px; }
+.docked #platter { flex: 1 1 auto; min-width: 0; }
+.docked .toolcol { flex-direction: row; flex: 0 0 auto; gap: 2px; padding: 4px 6px; }
+.docked .ico { width: 32px; height: 32px; }
+.docked .panel { flex-direction: row; align-items: center; gap: var(--s3); padding: 6px 10px 6px 0; }
+.docked .panel h2 { display: none; }
+.docked .srow { flex: 1 1 110px; min-width: 0; }
+
+@media (max-width: 900px) {
+  :root { --band: 214px; }
+  .strip-head .meta:not(.compact) { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+/* Under forced colours the runtime removes the glass entirely. What has to
+   remain is a working interface: system ink, real borders, visible selection. */
+@media (forced-colors: active) {
+  /* The runtime removes the glass; what has to remain is a working interface.
+     State is marked with a Highlight ring rather than a Highlight fill, because
+     Chromium draws a Canvas backplate behind text over an image and a filled
+     pressed state would hide its own label under it. */
+  .gbar, .gplatter { border: 1px solid CanvasText; background: Canvas; }
+  .seg, .btn, .dg, .ico { border: 1px solid CanvasText; color: CanvasText; background: Canvas; }
+  .btn.prom { background: Canvas; color: CanvasText; font-weight: 700; }
+  .seg[aria-pressed="true"], .dg[aria-pressed="true"], .ico[aria-pressed="true"],
+  .btn[aria-pressed="true"], .btn.prom {
+    outline: 2px solid Highlight; outline-offset: -4px;
+  }
+  .dg[data-on="1"]::after { background: CanvasText; }
+  .mark { border: 1px solid CanvasText; background: Canvas; color: CanvasText; }
+  .cell[aria-current="true"] .well { border: 2px solid Highlight; }
+  .well { border: 1px solid CanvasText; }
+}
+</style>
+</head>
+
+<body>
+<canvas id="stage" role="img" aria-label="The selected frame"></canvas>
+
+
+<section class="strip" aria-label="Filmstrip">
+  <div class="strip-head">
+    <h1>Smiths' Weekend — Ashcombe Forge</h1>
+    <span class="meta">6 Sept 2026 · card 2 of 2 · 30 frames</span>
+    <span class="meta compact" id="h-compact">ASH_1210 · 23 of 30</span>
+  </div>
+  <div class="docked" id="docked"></div>
+  <div class="scroller" id="scroller">
+    <div class="bursts" id="bursts"></div>
+  </div>
+</section>
+
+<div id="glass"></div>
+
+<aside class="readout" aria-label="Frame and shoot information">
+  <div class="block">
+    <p class="label">Frame</p>
+    <p class="frame-id" id="r-id">ASH_1210</p>
+    <div class="row"><span>position</span><span id="r-pos">23 of 30</span></div>
+    <div class="row"><span>time</span><span id="r-time">11:06:25.2</span></div>
+    <div class="row"><span>burst</span><span id="r-burst">8 · 2 of 4</span></div>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="block">
+    <p class="label">Capture</p>
+    <p class="lens">Nikon Z 8<br>NIKKOR Z 24–70 mm f/2.8 S</p>
+    <div class="row"><span>focal</span><span id="r-mm">70 mm</span></div>
+    <div class="row"><span>exposure</span><span id="r-exp">1/320 s · f/2.8</span></div>
+    <div class="row"><span>sensitivity</span><span id="r-iso">ISO 3200</span></div>
+    <div class="rule" style="margin:8px 0"></div>
+    <div class="row"><span>adjust</span><span id="r-adj">as shot</span></div>
+  </div>
+
+  <div class="block">
+    <canvas id="hist" width="352" height="112" role="img"
+            aria-label="Luminance histogram of the frame as adjusted"></canvas>
+    <p class="clip" id="r-clip">no clipping</p>
+  </div>
+
+  <div class="block">
+    <p class="label">Shoot</p>
+    <p class="lens">Craft &amp; Anvil, issue 14<br>Ashcombe Forge, Wealden</p>
+    <div class="row"><span>picked</span><span id="t-pick">7</span></div>
+    <div class="row"><span>rejected</span><span id="t-rej">5</span></div>
+    <div class="row"><span>open</span><span id="t-open">18</span></div>
+  </div>
+
+  <div class="block credits">
+    <p class="label">Photographs</p>
+    <ul id="r-credits"></ul>
+  </div>
+</aside>
+
+<p class="sr-only" role="status" aria-live="polite" id="live"></p>
+
+<script type="module">
+import { createGlassRoot, GLASS_CHANNEL_PROPERTIES } from "@vitreajs/vitrea-web";
+
+/* =====================================================================
+   1. The shoot — DESIGN.md §9. Ten setups shot as bursts; thirty frames
+   numbered consecutively, because a card holds every frame that was shot.
+   ===================================================================== */
+
+const CREDITS = [
+  ["s01-shop-interior",  "Jay Kettle-Williams", "jay_kettle_williams"],
+  ["s02-brick-hearth",   "Rusty Watson",        "rustyct1"],
+  ["s03-at-the-forge",   "Chris Bischoff",      "cbischoff"],
+  ["s04-mallet",         "Nicolas Hoizey",      "nhoizey"],
+  ["s05-anvil-hook",     "Albert Stoynov",      "albertstoynov"],
+  ["s06-hammer-strike",  "Maranda Vandergriff", "mkvandergriff"],
+  ["s07-working-metal",  "James Lo",            "olsemaj"],
+  ["s08-hot-rod",        "Raul Barrios",        "lookscanshoot"],
+  ["s09-mask-and-iron",  "Francisco Fernandes", "franciscofernandes"],
+  ["s11-horseshoe",      "Jonathan Bean",       "jonathanbean"],
+];
+
+const ALT = {
+  "s01-shop-interior": "Forge bay with anvil, hearth and hanging tongs",
+  "s02-brick-hearth":  "Two smiths working either side of a brick hearth",
+  "s03-at-the-forge":  "A smith drawing stock out of the fire",
+  "s04-mallet":        "A smith at the anvil in the dark end of the shop",
+  "s05-anvil-hook":    "A hot hook held on the anvil face with tongs",
+  "s06-hammer-strike": "Hammer and chisel over bar stock on the anvil",
+  "s07-working-metal": "Stock worked at the far bench, low light",
+  "s08-hot-rod":       "Hammer landing on a glowing rod at the anvil edge",
+  "s09-mask-and-iron": "Molten iron poured under a raised extraction hood",
+  "s11-horseshoe":     "A horseshoe set on the anvil horn",
+};
+
+const SETUPS = [
+  { key: "s01-shop-interior",  n: 2, mm: 24, sh: "1/50",  ap: "2.8", iso: 1600, k: 3400, t: "09:14:06" },
+  { key: "s02-brick-hearth",   n: 3, mm: 35, sh: "1/80",  ap: "2.8", iso: 3200, k: 3100, t: "09:22:41" },
+  { key: "s03-at-the-forge",   n: 4, mm: 50, sh: "1/125", ap: "2.8", iso: 2500, k: 3600, t: "09:38:12" },
+  { key: "s04-mallet",         n: 3, mm: 35, sh: "1/60",  ap: "2.8", iso: 6400, k: 2900, t: "09:55:30" },
+  { key: "s05-anvil-hook",     n: 3, mm: 70, sh: "1/200", ap: "2.8", iso: 2000, k: 4300, t: "10:11:48" },
+  { key: "s06-hammer-strike",  n: 4, mm: 50, sh: "1/250", ap: "2.8", iso: 4000, k: 3000, t: "10:29:03" },
+  { key: "s07-working-metal",  n: 2, mm: 70, sh: "1/160", ap: "2.8", iso: 6400, k: 3300, t: "10:47:19" },
+  { key: "s08-hot-rod",        n: 4, mm: 70, sh: "1/320", ap: "2.8", iso: 3200, k: 3500, t: "11:05:44" },
+  { key: "s09-mask-and-iron",  n: 3, mm: 35, sh: "1/125", ap: "2.8", iso: 1250, k: 2800, t: "11:26:57" },
+  { key: "s11-horseshoe",      n: 2, mm: 50, sh: "1/200", ap: "2.8", iso: 2500, k: 3800, t: "11:44:22" },
+];
+
+/** A half-finished cull: seven picked, five rejected, eighteen open. */
+const VERDICTS = {
+  0:  { flag: "reject", rate: 0 }, 1:  { flag: null, rate: 2 },
+  2:  { flag: "pick",   rate: 4 }, 3:  { flag: null, rate: 2 }, 4: { flag: null, rate: 0 },
+  5:  { flag: null,     rate: 1 }, 6:  { flag: "pick", rate: 5 }, 7: { flag: null, rate: 3 },
+  8:  { flag: "reject", rate: 0 },
+  9:  { flag: "reject", rate: 0 }, 10: { flag: null, rate: 2 }, 11: { flag: null, rate: 0 },
+  12: { flag: "pick",   rate: 4 }, 13: { flag: null, rate: 3 }, 14: { flag: null, rate: 0 },
+  15: { flag: null,     rate: 0 }, 16: { flag: null, rate: 2 }, 17: { flag: "pick", rate: 5 },
+  18: { flag: "reject", rate: 0 },
+  19: { flag: "reject", rate: 0 }, 20: { flag: null, rate: 1 },
+  21: { flag: "pick",   rate: 4 }, 22: { flag: null, rate: 3 }, 23: { flag: null, rate: 0 },
+  24: { flag: "pick",   rate: 5 },
+  25: { flag: null,     rate: 2 }, 26: { flag: null, rate: 0 }, 27: { flag: "pick", rate: 4 },
+  28: { flag: null,     rate: 3 }, 29: { flag: null, rate: 0 },
+};
+
+const FRAMES = [];
+{
+  let i = 0;
+  SETUPS.forEach((s, bi) => {
+    const [hh, mm, ss] = s.t.split(":").map(Number);
+    for (let j = 0; j < s.n; j++) {
+      const secs = hh * 3600 + mm * 60 + ss + j * 0.4;
+      const h = Math.floor(secs / 3600), m = Math.floor((secs % 3600) / 60);
+      const sec = secs - h * 3600 - m * 60;
+      // Framing drifts through a burst — which is what a burst is, and what
+      // makes a cull necessary. One crop rectangle per frame, honoured by the
+      // stage and the strip alike.
+      const cz = 1 - j * 0.035;
+      FRAMES.push({
+        i, setup: s.key, burst: bi, inBurst: j, ofBurst: s.n,
+        id: "ASH_" + (1188 + i),
+        time: `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:` +
+              sec.toFixed(1).padStart(4, "0"),
+        mm: s.mm, sh: s.sh, ap: s.ap, iso: s.iso, k: s.k,
+        cz, cx: (j - 1) * 0.012, cy: j % 2 ? 0.008 : -0.006,
+        flag: VERDICTS[i].flag, rate: VERDICTS[i].rate,
+        edit: { ev: 0, contrast: 0, k: s.k, tint: 0, aspect: "3:2", angle: 0, scale: 1 },
+      });
+      i++;
+    }
+  });
+}
+
+const state = {
+  sel: 22,               // ASH_1210 — burst 8, frame 2 of 4, still open
+  tool: "loupe",
+  compare: "edit",
+  split: 0.5,
+  open: false,
+};
+
+/* =====================================================================
+   2. Images
+   ===================================================================== */
+
+const full = new Map(), failed = new Set();
+for (const [key] of CREDITS) {
+  const im = new Image();
+  im.decoding = "async";
+  im.addEventListener("load", () => { if (FRAMES[state.sel].setup === key) paint(); });
+  im.addEventListener("error", () => { failed.add(key); paint(); });
+  im.src = `images/${key}.jpg`;
+  full.set(key, im);
+}
+
+/* =====================================================================
+   3. Geometry — everything is placed off one measured rectangle: the frame's.
+   The glass follows the picture, not the window.
+   ===================================================================== */
+
+const PAD_X = 24, PAD_Y = 16, INSET = 20, AR = 3 / 2;
+const px = (n) => Math.round(n) + "px";
+
+function stageBox() {
+  const band = document.querySelector(".strip").offsetHeight;
+  const col = getComputedStyle(document.documentElement)
+    .getPropertyValue("--col").trim() === "0px" ? 0 : 208;
+  return { x: 0, y: 0, w: innerWidth - col, h: innerHeight - band };
+}
+
+function frameBox() {
+  const s = stageBox();
+  const aw = Math.max(160, s.w - PAD_X * 2), ah = Math.max(120, s.h - PAD_Y * 2);
+  const w = Math.min(aw, ah * AR), h = w / AR;
+  return { x: s.x + (s.w - w) / 2, y: s.y + (s.h - h) / 2, w, h };
+}
+
+/* =====================================================================
+   4. Painting the plane
+   ===================================================================== */
+
+const cv = document.getElementById("stage");
+const ctx = cv.getContext("2d", { alpha: false });
+
+/* The plane paints with the page's own tokens — there is one place a colour
+   lives, and the canvas is not a second one. */
+const cssVar = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const T = {};
+for (const n of ["ground-0", "ground-2", "ink-0", "ink-2", "edge", "guide", "divider", "mask",
+                 "hist-ink", "line-1", "line-2", "wb-fix-warm", "wb-fix-cool",
+                 "wb-fix-magenta", "wb-fix-green", "font-mono", "font-ui"]) {
+  T[n] = cssVar("--" + n);
+}
+
+function resizeCanvas() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  cv.width = Math.round(innerWidth * dpr);
+  cv.height = Math.round(innerHeight * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+function sourceRect(im, f) {
+  const sw = im.naturalWidth * f.cz, sh = im.naturalHeight * f.cz;
+  let sx = (im.naturalWidth - sw) / 2 + f.cx * im.naturalWidth;
+  let sy = (im.naturalHeight - sh) / 2 + f.cy * im.naturalHeight;
+  sx = Math.max(0, Math.min(im.naturalWidth - sw, sx));
+  sy = Math.max(0, Math.min(im.naturalHeight - sh, sy));
+  return [sx, sy, sw, sh];
+}
+
+function cropBox(b, aspect) {
+  if (aspect === "3:2") return { ...b };
+  const r = { "4:5": 4 / 5, "1:1": 1, "16:9": 16 / 9 }[aspect] ?? AR;
+  let w = b.w, h = w / r;
+  if (h > b.h) { h = b.h; w = h * r; }
+  return { x: b.x + (b.w - w) / 2, y: b.y + (b.h - h) / 2, w, h };
+}
+
+function drawFrame(b, e, adjusted) {
+  const f = FRAMES[state.sel], im = full.get(f.setup);
+  if (failed.has(f.setup) || !im.complete || !im.naturalWidth) return false;
+  const [sx, sy, sw, sh] = sourceRect(im, f);
+  ctx.save();
+  if (adjusted) {
+    const bri = Math.pow(2, e.ev), con = 1 + e.contrast / 100;
+    try { ctx.filter = `brightness(${bri.toFixed(3)}) contrast(${con.toFixed(3)})`; } catch { /* no filter support */ }
+  }
+  if (adjusted && state.tool === "crop" && (e.angle !== 0 || e.scale !== 1)) {
+    const cx = b.x + b.w / 2, cy = b.y + b.h / 2;
+    ctx.translate(cx, cy); ctx.rotate(e.angle * Math.PI / 180); ctx.scale(e.scale, e.scale);
+    ctx.translate(-cx, -cy);
+  }
+  ctx.drawImage(im, sx, sy, sw, sh, b.x, b.y, b.w, b.h);
+  ctx.restore();
+
+  if (adjusted) {
+    // White balance as two composite passes: the hue the slider names, applied
+    // to the plane itself so the lens samples the corrected frame.
+    const dk = e.k - f.k;
+    if (dk !== 0) {
+      ctx.save();
+      ctx.globalCompositeOperation = "multiply";
+      ctx.globalAlpha = Math.min(0.9, Math.abs(dk) / 3200);
+      ctx.fillStyle = dk > 0 ? T["wb-fix-warm"] : T["wb-fix-cool"];
+      ctx.fillRect(b.x, b.y, b.w, b.h);
+      ctx.restore();
+    }
+    if (e.tint !== 0) {
+      ctx.save();
+      ctx.globalCompositeOperation = "multiply";
+      ctx.globalAlpha = Math.min(0.55, Math.abs(e.tint) / 90);
+      ctx.fillStyle = e.tint > 0 ? T["wb-fix-magenta"] : T["wb-fix-green"];
+      ctx.fillRect(b.x, b.y, b.w, b.h);
+      ctx.restore();
+    }
+  }
+  return true;
+}
+
+function paint() {
+  const f = FRAMES[state.sel], e = f.edit, b = frameBox();
+  ctx.fillStyle = T["ground-0"];
+  ctx.fillRect(0, 0, innerWidth, innerHeight);
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(b.x, b.y, b.w, b.h);
+  ctx.clip();
+
+  const drew = drawFrame(b, e, state.compare !== "before");
+
+  if (drew && state.compare === "split") {
+    const cut = b.x + b.w * state.split;
+    ctx.save();
+    ctx.beginPath(); ctx.rect(b.x, b.y, cut - b.x, b.h); ctx.clip();
+    drawFrame(b, e, false);
+    ctx.restore();
+    ctx.fillStyle = T.divider;
+    ctx.fillRect(cut - 0.5, b.y, 1, b.h);
+    ctx.font = "600 10px " + T["font-mono"];
+    ctx.fillStyle = T.divider;
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText("BEFORE", b.x + 12, b.y + b.h - 12);
+    ctx.textAlign = "right";
+    ctx.fillText("AFTER", b.x + b.w - 12, b.y + b.h - 12);
+    ctx.textAlign = "left";
+  }
+  ctx.restore();
+
+  if (!drew) {
+    ctx.fillStyle = T["ground-2"];
+    ctx.fillRect(b.x, b.y, b.w, b.h);
+    if (failed.has(f.setup)) {
+      ctx.fillStyle = T["ink-2"];
+      ctx.font = "13px " + T["font-ui"];
+      ctx.textAlign = "center";
+      ctx.fillText("Frame unavailable — re-ingest from card",
+        b.x + b.w / 2, b.y + b.h / 2);
+      ctx.textAlign = "left";
+    }
+  }
+
+  if (drew && state.tool === "crop") {
+    const c = cropBox(b, e.aspect);
+    ctx.fillStyle = T.mask;
+    ctx.fillRect(b.x, b.y, b.w, c.y - b.y);
+    ctx.fillRect(b.x, c.y + c.h, b.w, b.y + b.h - (c.y + c.h));
+    ctx.fillRect(b.x, c.y, c.x - b.x, c.h);
+    ctx.fillRect(c.x + c.w, c.y, b.x + b.w - (c.x + c.w), c.h);
+    ctx.strokeStyle = T.guide;
+    ctx.lineWidth = 1;
+    for (let i = 1; i < 3; i++) {
+      ctx.beginPath();
+      ctx.moveTo(Math.round(c.x + c.w * i / 3) + 0.5, c.y);
+      ctx.lineTo(Math.round(c.x + c.w * i / 3) + 0.5, c.y + c.h);
+      ctx.moveTo(c.x, Math.round(c.y + c.h * i / 3) + 0.5);
+      ctx.lineTo(c.x + c.w, Math.round(c.y + c.h * i / 3) + 0.5);
+      ctx.stroke();
+    }
+    ctx.strokeStyle = T["ink-0"];
+    ctx.lineWidth = 2;
+    const t = 18;
+    for (const [ox, oy, dx, dy] of [[c.x, c.y, 1, 1], [c.x + c.w, c.y, -1, 1],
+                                    [c.x, c.y + c.h, 1, -1], [c.x + c.w, c.y + c.h, -1, -1]]) {
+      ctx.beginPath();
+      ctx.moveTo(ox + dx * t, oy); ctx.lineTo(ox, oy); ctx.lineTo(ox, oy + dy * t);
+      ctx.stroke();
+    }
+  }
+
+  // A hairline at the frame's own edge, painted into the plane so the material
+  // has an edge to bend where a surface crosses it.
+  ctx.strokeStyle = T.edge;
+  ctx.lineWidth = 1;
+  ctx.strokeRect(Math.round(b.x) + 0.5, Math.round(b.y) + 0.5,
+                 Math.round(b.w) - 1, Math.round(b.h) - 1);
+}
+
+/* =====================================================================
+   5. The histogram — one instrument, one ink, read off the stage's own pixels
+   ===================================================================== */
+
+const hcv = document.getElementById("hist"), hctx = hcv.getContext("2d");
+let histTimer = 0;
+
+function scheduleHistogram() {
+  clearTimeout(histTimer);
+  histTimer = setTimeout(drawHistogram, 120);
+}
+
+function drawHistogram() {
+  const b = frameBox();
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const bins = new Float32Array(64);
+  let total = 0, low = 0, high = 0;
+  try {
+    const d = ctx.getImageData(
+      Math.round(b.x * dpr), Math.round(b.y * dpr),
+      Math.max(1, Math.round(b.w * dpr)), Math.max(1, Math.round(b.h * dpr))).data;
+    for (let p = 0; p < d.length; p += 4 * 11) {
+      const y = 0.2126 * d[p] + 0.7152 * d[p + 1] + 0.0722 * d[p + 2];
+      bins[Math.min(63, y * 64 / 256 | 0)]++;
+      total++;
+      if (y < 4) low++; else if (y > 251) high++;
+    }
+  } catch { /* a tainted canvas would land here; this one is same-origin */ }
+
+  hctx.setTransform(1, 0, 0, 1, 0, 0);
+  hctx.fillStyle = T["ground-2"];
+  hctx.fillRect(0, 0, hcv.width, hcv.height);
+  const W = hcv.width, H = hcv.height;
+  hctx.strokeStyle = T["line-1"];
+  hctx.lineWidth = 2;
+  for (let i = 1; i < 4; i++) {
+    hctx.beginPath(); hctx.moveTo(W * i / 4, 0); hctx.lineTo(W * i / 4, H); hctx.stroke();
+  }
+  const peak = Math.max(1, ...bins);
+  hctx.fillStyle = T["hist-ink"];
+  hctx.beginPath();
+  hctx.moveTo(0, H);
+  for (let i = 0; i < 64; i++) {
+    hctx.lineTo(i * W / 63, H - (bins[i] / peak) * (H - 6));
+  }
+  hctx.lineTo(W, H);
+  hctx.closePath();
+  hctx.fill();
+  hctx.fillStyle = T["line-2"];
+  hctx.fillRect(0, H - 2, W, 2);
+
+  const pl = total ? low / total * 100 : 0, ph = total ? high / total * 100 : 0;
+  const parts = [];
+  if (pl > 0.5) parts.push(`${pl.toFixed(1)}% shadows`);
+  if (ph > 0.5) parts.push(`${ph.toFixed(1)}% highlights`);
+  document.getElementById("r-clip").textContent =
+    parts.length ? "clipped: " + parts.join(" · ") : "no clipping";
+}
+
+/* =====================================================================
+   6. The filmstrip
+   ===================================================================== */
+
+const burstsEl = document.getElementById("bursts");
+const cellEls = [];
+
+function buildStrip() {
+  const html = [];
+  SETUPS.forEach((s, bi) => {
+    const mem = FRAMES.filter((f) => f.burst === bi);
+    const decided = mem.filter((f) => f.flag).length;
+    html.push(
+      `<div class="burst" data-burst="${bi}">` +
+      `<div class="bracket" aria-hidden="true"><span>${mem[0].id.slice(4)}</span><i></i>` +
+      `<span data-dec="${bi}">${decided}/${mem.length}</span></div><div class="cells">` +
+      mem.map((f) => {
+        const sc = (1 / f.cz).toFixed(3);
+        const tx = (-f.cx * 100 / f.cz).toFixed(2), ty = (-f.cy * 100 / f.cz).toFixed(2);
+        return `<button class="cell" type="button" data-i="${f.i}"
+            aria-label="${f.id}, frame ${f.i + 1} of 30, ${ALT[f.setup]}">
+          <span class="well"><img src="images/${f.setup}-t.jpg" alt=""
+            width="420" height="280" loading="lazy"
+            style="transform:scale(${sc}) translate(${tx}%,${ty}%)"></span>
+          <span class="no">${f.id.slice(4)}</span></button>`;
+      }).join("") + `</div></div>`);
+  });
+  burstsEl.innerHTML = html.join("");
+  burstsEl.querySelectorAll(".cell").forEach((el) => {
+    cellEls[+el.dataset.i] = el;
+    el.addEventListener("click", () => select(+el.dataset.i));
+  });
+}
+
+function paintCell(i) {
+  const f = FRAMES[i], el = cellEls[i];
+  if (!el) return;
+  el.dataset.flag = f.flag ?? "";
+  el.setAttribute("aria-current", i === state.sel ? "true" : "false");
+  const well = el.querySelector(".well");
+  well.querySelectorAll(".mark,.dots").forEach((n) => n.remove());
+  if (f.flag) {
+    const m = document.createElement("span");
+    m.className = "mark";
+    m.dataset.flag = f.flag;
+    m.textContent = f.flag === "pick" ? "PICK" : "REJ";
+    well.append(m);
+  }
+  if (f.rate > 0) {
+    const d = document.createElement("span");
+    d.className = "dots";
+    d.innerHTML = Array.from({ length: 5 },
+      (_, k) => `<i class="${k < f.rate ? "" : "off"}"></i>`).join("");
+    well.append(d);
+  }
+}
+
+function paintBurst(bi) {
+  const mem = FRAMES.filter((f) => f.burst === bi);
+  const el = burstsEl.querySelector(`[data-dec="${bi}"]`);
+  if (el) el.textContent = `${mem.filter((f) => f.flag).length}/${mem.length}`;
+}
+
+/* =====================================================================
+   7. The readout column
+   ===================================================================== */
+
+function fmtEV(v) { return (v > 0 ? "+" : "") + v.toFixed(2) + " EV"; }
+
+function paintReadout() {
+  const f = FRAMES[state.sel], e = f.edit;
+  document.getElementById("r-id").textContent = f.id;
+  document.getElementById("r-pos").textContent = `${f.i + 1} of 30`;
+  document.getElementById("r-time").textContent = f.time;
+  document.getElementById("r-burst").textContent = `${f.burst + 1} · ${f.inBurst + 1} of ${f.ofBurst}`;
+  cv.setAttribute("aria-label",
+    `${f.id}, frame ${f.i + 1} of 30 — ${ALT[f.setup]}` +
+    (state.compare === "split" ? ", shown split against the original"
+      : state.compare === "before" ? ", shown as originally captured" : ""));
+  document.getElementById("r-mm").textContent = `${f.mm} mm`;
+  document.getElementById("r-exp").textContent = `${f.sh} s · f/${f.ap}`;
+  document.getElementById("r-iso").textContent = `ISO ${f.iso}`;
+  const touched = e.ev !== 0 || e.contrast !== 0 || e.k !== f.k || e.tint !== 0;
+  document.getElementById("r-adj").textContent = touched
+    ? `${fmtEV(e.ev)} · ${e.k} K · ${e.tint > 0 ? "+" : ""}${e.tint}`
+    : "as shot";
+  let pick = 0, rej = 0;
+  for (const fr of FRAMES) { if (fr.flag === "pick") pick++; else if (fr.flag === "reject") rej++; }
+  document.getElementById("t-pick").textContent = pick;
+  document.getElementById("t-rej").textContent = rej;
+  document.getElementById("t-open").textContent = 30 - pick - rej;
+  document.getElementById("h-compact").textContent =
+    `${f.id} · ${f.i + 1} of 30 · picked ${pick} · rejected ${rej} · open ${30 - pick - rej}`;
+}
+
+document.getElementById("r-credits").innerHTML = CREDITS.map(([, name, user]) =>
+  `<li><a href="https://unsplash.com/@${user}?utm_source=designer&utm_medium=referral"` +
+  ` rel="noopener">${name}</a></li>`).join("") +
+  `<li><a href="https://unsplash.com/?utm_source=designer&utm_medium=referral" rel="noopener">Unsplash</a></li>`;
+
+/* =====================================================================
+   8. The glass — three groups, one texture, no hint (a texture group lets the
+   runtime read the pixels rather than be told about them).
+   ===================================================================== */
+
+const forceCss = new URLSearchParams(location.search).get("renderer") === "css";
+
+const root = createGlassRoot({
+  // The plane root lands in this container rather than at the end of <body>, so
+  // the tab order runs frame, run, controls, readout — the declared reading order.
+  container: document.getElementById("glass"),
+  renderer: forceCss ? "css" : "webgpu",
+  devMode: true,
+  colorScheme: "dark",
+  // prefers-reduced-transparency is not Baseline, so stating these is
+  // load-bearing rather than boilerplate.
+  accessibilityOverrides: {
+    reducedTransparency: "system", reducedMotion: "system", increasedContrast: "system",
+  },
+});
+window.__vitrea = root;
+
+root.registerBackdropSource({
+  id: "stage", kind: "texture",
+  probe: { taint: "clean", textureCompatibility: "compatible" },
+});
+root.setBackdropTexture("stage", { kind: "canvas", canvas: cv });
+for (const id of ["view", "tools", "verdict"]) {
+  root.registerGroup({ id, backdropSourceId: "stage" });
+}
+
+const ICONS = {
+  loupe: `<circle cx="9" cy="9" r="5.6"/><path d="M13.2 13.2 17 17"/>`,
+  exposure: `<circle cx="10" cy="10" r="6.6"/><path d="M10 3.4a6.6 6.6 0 0 1 0 13.2z" fill="currentColor" stroke="none"/>`,
+  wb: `<path d="M12.6 3.6l3.8 3.8"/><path d="M14.5 5.5 7.2 12.8l-3.6.6.6-3.6z"/><path d="M5.4 10.6l4 4"/>`,
+  crop: `<path d="M5.5 2v12.5H18"/><path d="M2 5.5h12.5V18"/>`,
+  reset: `<path d="M3.2 8a4.9 4.9 0 1 1 1.2 4.6"/><path d="M2 4.6V8h3.4"/>`,
+};
+const svg = (k, sw = 1.5) =>
+  `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="${sw}"
+    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[k]}</svg>`;
+
+function glass(html, id, cls) {
+  const el = document.createElement("div");
+  el.id = id; el.className = cls; el.innerHTML = html;
+  root.plane("base").hostLayer.append(el);   // containment is checked, not adopted
+  return el;
+}
+
+const viewbar = glass(
+  ["edit", "split", "before"].map((v) =>
+    `<button class="seg" type="button" data-cmp="${v}" aria-pressed="${v === "edit"}">` +
+    `${{ edit: "Edit", split: "Split", before: "Before" }[v]}</button>`).join(""),
+  "viewbar", "gbar");
+viewbar.setAttribute("role", "group");
+viewbar.setAttribute("aria-label", "Compare with the original");
+
+const platter = glass(
+  `<div class="toolcol" role="group" aria-label="Tools">` +
+  ["loupe", "exposure", "wb", "crop"].map((t) =>
+    `<button class="ico" type="button" data-tool="${t}" aria-pressed="${t === "loupe"}"` +
+    ` aria-label="${{ loupe: "Loupe", exposure: "Exposure", wb: "White balance", crop: "Crop" }[t]}">` +
+    `${svg(t)}</button>`).join("") +
+  `</div><div class="panel" id="panel"></div>`,
+  "platter", "gplatter");
+platter.setAttribute("role", "toolbar");
+platter.setAttribute("aria-label", "Adjustment tools");
+platter.setAttribute("aria-orientation", "vertical");
+
+const verdict = glass(
+  `<button class="btn" type="button" data-act="reject" aria-pressed="false">Reject</button>` +
+  `<span class="rate" role="group" aria-label="Rating">` +
+  [1, 2, 3, 4, 5].map((n) =>
+    `<button class="dg" type="button" data-rate="${n}" aria-pressed="false"` +
+    ` aria-label="Rate ${n}">${n}</button>`).join("") +
+  `</span>` +
+  `<button class="btn prom" type="button" data-act="pick" aria-pressed="false">Pick</button>`,
+  "verdict", "gbar");
+verdict.setAttribute("role", "toolbar");
+verdict.setAttribute("aria-label", "Frame verdict");
+
+/* The size family, DESIGN.md §3: three rungs by short side, one thickness.
+   The tools host is registered once and morphs from the M rung to the L rung —
+   the size law made visible rather than described. */
+const APPLE_LIKE_SMOOTHING = 0.66;   // APPLE_BEST_FIGMA_SMOOTHING.radiusFixed.smoothing
+const shape = (radius) => ({
+  shapeFamily: "fixed-rounded-rect",
+  radii: [radius, radius, radius, radius],
+  smoothing: APPLE_LIKE_SMOOTHING,
+  reference: "figma-smoothing",
+  thickness: 9,
+});
+
+root.registerHost({ host: verdict, groupId: "verdict", ...shape(28) });
+
+const REST_W = 56, OPEN_W = 328, PLATTER_H = 248;
+const VIEW_W = 260, VIEW_H = 40, VERDICT_W = 452, VERDICT_H = 56;
+let platterW = REST_W, platterTarget = REST_W;
+
+const docked = document.getElementById("docked");
+/* Registered here so the mounted state and the handle agree from the first
+   frame; syncMount below is what releases them when the frame runs out of room. */
+let upperHandles = [
+  root.registerHost({ host: viewbar, groupId: "view", ...shape(12) }),
+  root.registerHost({ host: platter, groupId: "tools", ...shape(28) }),
+];
+
+/** Mount or unmount the two upper surfaces, per the collapse above. */
+function syncMount() {
+  const want = innerWidth <= 900;
+  if (want && upperHandles) {
+    for (const h of upperHandles) h.release();
+    upperHandles = null;
+    docked.classList.add("on");
+    docked.append(viewbar, platter);
+    for (const el of [viewbar, platter]) {
+      for (const k of ["width", "height", "left", "top"]) el.style.removeProperty(k);
+    }
+  } else if (!want && !upperHandles) {
+    docked.classList.remove("on");
+    root.plane("base").hostLayer.append(viewbar, platter);
+    upperHandles = [
+      root.registerHost({ host: viewbar, groupId: "view", ...shape(12) }),
+      root.registerHost({ host: platter, groupId: "tools", ...shape(28) }),
+    ];
+  }
+}
+
+function place() {
+  syncMount();
+  const b = frameBox();
+  const right = b.x + b.w - INSET;
+
+  if (!upperHandles) {
+    const vw0 = Math.min(VERDICT_W, b.w - INSET * 2);
+    verdict.style.width = px(vw0);
+    verdict.style.height = px(VERDICT_H);
+    verdict.style.left = px(b.x + (b.w - vw0) / 2);
+    verdict.style.top = px(b.y + b.h - INSET - VERDICT_H);
+    verdict.querySelector(".rate").style.display = vw0 < 380 ? "none" : "flex";
+    return;
+  }
+
+  viewbar.style.width = px(VIEW_W);
+  viewbar.style.height = px(VIEW_H);
+  viewbar.style.left = px(right - VIEW_W);
+  viewbar.style.top = px(b.y + INSET);
+
+  const ph = Math.min(PLATTER_H, b.h - INSET * 2);
+  platter.style.width = px(platterW);
+  platter.style.height = px(ph);
+  platter.style.left = px(right - platterW);
+  platter.style.top = px(b.y + (b.h - ph) / 2);
+
+  const vw = Math.min(VERDICT_W, b.w - INSET * 2);
+  verdict.style.width = px(vw);
+  verdict.style.height = px(VERDICT_H);
+  verdict.style.left = px(b.x + (b.w - vw) / 2);
+  verdict.style.top = px(b.y + b.h - INSET - VERDICT_H);
+  verdict.querySelector(".rate").style.display = vw < 380 ? "none" : "flex";
+}
+
+/* =====================================================================
+   9. The platter's panel
+   ===================================================================== */
+
+const panel = document.getElementById("panel");
+
+const RANGES = {
+  exposure: [
+    { key: "ev", label: "Exposure", min: -3, max: 3, step: 0.05,
+      fmt: (v) => fmtEV(v), reset: (f) => 0 },
+    { key: "contrast", label: "Contrast", min: -40, max: 40, step: 1,
+      fmt: (v) => (v > 0 ? "+" : "") + v, reset: () => 0 },
+  ],
+  wb: [
+    { key: "k", label: "Temperature", min: 2000, max: 9000, step: 50,
+      fmt: (v) => v + " K", reset: (f) => f.k,
+      track: "linear-gradient(90deg,var(--wb-cool),var(--wb-neutral) 46%,var(--wb-warm))" },
+    { key: "tint", label: "Tint", min: -50, max: 50, step: 1,
+      fmt: (v) => (v > 0 ? "+" : "") + v, reset: () => 0,
+      track: "linear-gradient(90deg,var(--wb-green),var(--wb-neutral) 50%,var(--wb-magenta))" },
+  ],
+  crop: [
+    { key: "angle", label: "Angle", min: -10, max: 10, step: 0.1,
+      fmt: (v) => v.toFixed(1) + "°", reset: () => 0 },
+    { key: "scale", label: "Scale", min: 1, max: 1.6, step: 0.01,
+      fmt: (v) => "×" + v.toFixed(2), reset: () => 1 },
+  ],
+};
+const TITLES = { exposure: "Exposure", wb: "White balance", crop: "Crop" };
+
+function buildPanel() {
+  const t = state.tool, f = FRAMES[state.sel], e = f.edit;
+  if (t === "loupe") { panel.innerHTML = ""; return; }
+  const rows = RANGES[t].map((r) => `
+    <div class="srow" data-key="${r.key}">
+      <div class="stop">
+        <span class="nm">${r.label}</span>
+        <span class="vl" data-vl="${r.key}">${r.fmt(e[r.key])}</span>
+        <button class="ico sm" type="button" data-reset="${r.key}"
+          aria-label="Reset ${r.label.toLowerCase()}">${svg("reset", 1.4)}</button>
+      </div>
+      <input class="rng" type="range" min="${r.min}" max="${r.max}" step="${r.step}"
+        value="${e[r.key]}" data-rng="${r.key}" aria-label="${r.label}"
+        ${r.track ? `style="--track:${r.track}"` : ""}>
+    </div>`).join("");
+  const aspect = t === "crop" ? `
+    <div class="stop">
+      <span class="nm">Aspect</span>
+      <select class="sel" data-aspect aria-label="Crop aspect">
+        ${["3:2", "4:5", "1:1", "16:9"].map((a) =>
+          `<option value="${a}"${a === e.aspect ? " selected" : ""}>${a}</option>`).join("")}
+      </select>
+    </div>` : "";
+  const asShot = {
+    exposure: `as shot ${f.sh} s · f/${f.ap} · ISO ${f.iso}`,
+    wb: `as shot ${f.k} K · tint 0`,
+    crop: `as shot 3:2 · ${f.mm} mm`,
+  }[t];
+  panel.innerHTML = `<h2>${TITLES[t]}</h2>${aspect}${rows}<p class="asshot">${asShot}</p>`;
+}
+
+panel.addEventListener("input", (ev) => {
+  const el = ev.target.closest("[data-rng]");
+  if (!el) return;
+  const key = el.dataset.rng, e = FRAMES[state.sel].edit;
+  e[key] = Number(el.value);
+  const r = RANGES[state.tool].find((x) => x.key === key);
+  panel.querySelector(`[data-vl="${key}"]`).textContent = r.fmt(e[key]);
+  paint(); paintReadout(); scheduleHistogram();
+});
+panel.addEventListener("change", (ev) => {
+  const s = ev.target.closest("[data-aspect]");
+  if (!s) return;
+  FRAMES[state.sel].edit.aspect = s.value;
+  paint(); scheduleHistogram();
+});
+panel.addEventListener("click", (ev) => {
+  const b = ev.target.closest("[data-reset]");
+  if (!b) return;
+  const key = b.dataset.reset, f = FRAMES[state.sel];
+  const r = RANGES[state.tool].find((x) => x.key === key);
+  f.edit[key] = r.reset(f);
+  panel.querySelector(`[data-rng="${key}"]`).value = f.edit[key];
+  panel.querySelector(`[data-vl="${key}"]`).textContent = r.fmt(f.edit[key]);
+  paint(); paintReadout(); scheduleHistogram();
+});
+
+/* =====================================================================
+   10. Behaviour
+   ===================================================================== */
+
+const live = document.getElementById("live");
+
+function setTool(t) {
+  state.tool = t;
+  state.open = t !== "loupe";
+  platterTarget = state.open ? OPEN_W : REST_W;
+  platter.querySelectorAll("[data-tool]").forEach((b) =>
+    b.setAttribute("aria-pressed", String(b.dataset.tool === t)));
+  buildPanel();
+  paint(); scheduleHistogram();
+}
+
+function setCompare(v) {
+  state.compare = v;
+  viewbar.querySelectorAll("[data-cmp]").forEach((b) =>
+    b.setAttribute("aria-pressed", String(b.dataset.cmp === v)));
+  paint(); scheduleHistogram();
+}
+
+function paintVerdict() {
+  const f = FRAMES[state.sel];
+  const rj = verdict.querySelector('[data-act="reject"]');
+  const pk = verdict.querySelector('[data-act="pick"]');
+  rj.setAttribute("aria-pressed", String(f.flag === "reject"));
+  pk.setAttribute("aria-pressed", String(f.flag === "pick"));
+  rj.textContent = f.flag === "reject" ? "Rejected" : "Reject";
+  pk.textContent = f.flag === "pick" ? "Picked" : "Pick";
+  verdict.querySelectorAll("[data-rate]").forEach((b) => {
+    const n = +b.dataset.rate;
+    b.dataset.on = n <= f.rate ? "1" : "0";
+    b.setAttribute("aria-pressed", String(n === f.rate));
+  });
+}
+
+function select(i) {
+  state.sel = Math.max(0, Math.min(FRAMES.length - 1, i));
+  const f = FRAMES[state.sel];
+  cellEls.forEach((el, k) => el.setAttribute("aria-current", k === state.sel ? "true" : "false"));
+  cellEls[state.sel].scrollIntoView({
+    inline: "center", block: "nearest",
+    behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+  });
+  buildPanel();
+  paintVerdict(); paintReadout(); paint(); scheduleHistogram();
+  live.textContent = `${f.id}, frame ${f.i + 1} of 30, ` +
+    (f.flag === "pick" ? "picked" : f.flag === "reject" ? "rejected" : "not flagged") +
+    (f.rate ? `, rated ${f.rate}` : "");
+}
+
+function setFlag(v) {
+  const f = FRAMES[state.sel];
+  f.flag = f.flag === v ? null : v;
+  paintCell(f.i); paintBurst(f.burst); paintVerdict(); paintReadout();
+  live.textContent = `${f.id} ${f.flag ? f.flag === "pick" ? "picked" : "rejected" : "unflagged"}`;
+}
+
+function setRate(n) {
+  const f = FRAMES[state.sel];
+  f.rate = f.rate === n ? 0 : n;
+  paintCell(f.i); paintVerdict();
+  live.textContent = `${f.id} rated ${f.rate}`;
+}
+
+viewbar.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-cmp]"); if (b) setCompare(b.dataset.cmp);
+});
+platter.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-tool]"); if (b) setTool(b.dataset.tool);
+});
+verdict.addEventListener("click", (e) => {
+  const a = e.target.closest("[data-act]"); if (a) { setFlag(a.dataset.act); return; }
+  const r = e.target.closest("[data-rate]"); if (r) setRate(+r.dataset.rate);
+});
+
+addEventListener("keydown", (e) => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const tag = document.activeElement?.tagName;
+  if (tag === "INPUT" || tag === "SELECT") return;
+  const k = e.key.toLowerCase();
+  if (k === "arrowright") { select(state.sel + 1); e.preventDefault(); }
+  else if (k === "arrowleft") { select(state.sel - 1); e.preventDefault(); }
+  else if (k === "p") setFlag("pick");
+  else if (k === "x") setFlag("reject");
+  else if (k === "u") { FRAMES[state.sel].flag = null; paintCell(state.sel); paintBurst(FRAMES[state.sel].burst); paintVerdict(); paintReadout(); }
+  else if (k >= "0" && k <= "5") setRate(+k);
+  else if (k === "\\") setCompare(state.compare === "before" ? "edit" : "before");
+});
+
+/* The split divider is drawn into the plane, so it is dragged on the plane. */
+cv.addEventListener("pointerdown", (e) => {
+  if (state.compare !== "split") return;
+  const b = frameBox();
+  if (e.clientX < b.x || e.clientX > b.x + b.w) return;
+  cv.setPointerCapture(e.pointerId);
+  const move = (ev) => {
+    state.split = Math.max(0.04, Math.min(0.96, (ev.clientX - b.x) / b.w));
+    paint();
+  };
+  move(e);
+  const up = () => { cv.removeEventListener("pointermove", move); cv.removeEventListener("pointerup", up); };
+  cv.addEventListener("pointermove", move);
+  cv.addEventListener("pointerup", up);
+});
+
+/* Press feedback is the runtime's own glow, driven from the one frame callback
+   the root already runs — never a second requestAnimationFrame loop. */
+const P = GLASS_CHANNEL_PROPERTIES;
+const hosts = [viewbar, platter, verdict];
+const press = new Map(hosts.map((h) => [h, { v: 0, t: 0, x: 0.5, y: 0.5 }]));
+for (const h of hosts) {
+  h.addEventListener("pointerdown", (e) => {
+    const s = press.get(h), r = h.getBoundingClientRect();
+    s.t = 1; s.x = (e.clientX - r.x) / r.width; s.y = (e.clientY - r.y) / r.height;
+  });
+  for (const ev of ["pointerup", "pointerleave", "pointercancel"]) {
+    h.addEventListener(ev, () => { press.get(h).t = 0; });
+  }
+}
+
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+root.subscribe(({ deltaMs }) => {
+  const dt = Math.min(64, deltaMs);      // a backgrounded tab returns a huge first step
+  for (const [h, s] of press) {
+    s.v += (s.t - s.v) * Math.min(1, dt / 90);
+    h.style.setProperty(P.press, s.v.toFixed(4));
+    h.style.setProperty(P.pressX, s.x.toFixed(3));
+    h.style.setProperty(P.pressY, s.y.toFixed(3));
+  }
+  if (platterW !== platterTarget && upperHandles) {
+    if (reduceMotion.matches) platterW = platterTarget;
+    else {
+      platterW += (platterTarget - platterW) * Math.min(1, dt / 110);
+      if (Math.abs(platterTarget - platterW) < 0.4) platterW = platterTarget;
+    }
+    place();
+  }
+});
+
+/* =====================================================================
+   11. Boot
+   ===================================================================== */
+
+let resizeTimer = 0;
+function relayout() {
+  resizeCanvas(); place(); paint(); scheduleHistogram();
+}
+addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  relayout();
+  resizeTimer = setTimeout(scheduleHistogram, 200);
+});
+
+buildStrip();
+FRAMES.forEach((f) => paintCell(f.i));
+SETUPS.forEach((_, bi) => paintBurst(bi));
+buildPanel();
+paintVerdict();
+paintReadout();
+relayout();
+cellEls[state.sel].scrollIntoView({ inline: "center", block: "nearest", behavior: "auto" });
+
+window.__glassDemo = { openMenu() { setTool("exposure"); platterW = OPEN_W; place(); } };
+</script>
+</body>
+</html>
