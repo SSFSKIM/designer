@@ -1,0 +1,140 @@
+W26 G1 — the fits, per scale, on the impulse rows
+====================================================================================================
+
+0. The reference, reader A, this run's own reading
+
+     profile        row    heavy    share    sharp
+    1x-light   rrect-md    19.52    0.473     2.79
+    1x-light   rrect-ml    23.27    0.674     2.74
+    1x-light   rrect-lg    14.67    0.727     2.77
+    2x-light   rrect-md    11.29    0.689     1.40
+    2x-light   rrect-ml    12.03    1.000    11.80
+    2x-light   rrect-lg    16.92    0.784     9.67
+
+1. `sizeHeavyTapSigma2x` on the three 2x impulse rows, reader A's heavy sigma
+
+   Condition: the read moves 11.0 -> 52.2 device px over sigma 10 -> 25, and is monotone
+   over the whole range (claims 5.119 section 2). The objective is mean |log(web/native)|
+   over the three rows; `md+ml` drops `-lg`, whose reference reads 16.92 against `-md`'s
+   11.29 — a span grading one width per source cannot follow.
+
+     rung  sigma   rrect-md   rrect-ml   rrect-lg |   all 3   md+ml
+       r0    0.0       8.76      11.23      16.59 |  0.1141  0.1614
+      t10   10.0      11.04      10.44      10.51 |  0.2136  0.0823
+      t11   11.0      11.84      11.74      11.88 |  0.1419  0.0361
+     t113   11.3      12.22      11.95      12.04 |  0.1419  0.0428
+      t12   12.0      12.66      12.86      12.86 |  0.1518  0.0904
+      t13   13.0      14.19      14.10      14.28 |  0.1855  0.1936
+      t16   16.0      17.83      17.90      18.53 |  0.3149  0.4268
+      t19   19.0      22.12      22.93      24.41 |  0.5613  0.6586
+      t22   22.0      32.20      35.25      35.82 |  0.9576  1.0614
+      t25   25.0      52.16      54.26      57.91 |  1.4224  1.5183
+
+   Minimum on `md+ml`: sigma2x = 11.0, objective 0.0361.
+
+2. `sizeHeavyTapSigma` at 1x — DECLINED, and the reading that declines it
+
+     rung  sigma   rrect-md   rrect-ml   rrect-lg   median
+       r0    0.0       9.08      14.36      19.78    14.36
+      t10   10.0      12.27      14.78      14.66    14.66
+      t11   11.0      12.20      14.78      17.11    14.78
+     t113   11.3      11.85      14.78      19.16    14.78
+      t12   12.0      11.55      14.36      19.35    14.36
+      t13   13.0      10.05      14.84      19.38    14.84
+      t16   16.0      34.76      11.22      19.11    19.11
+      t19   19.0      61.76       3.62      12.91    12.91
+      t22   22.0      61.76      61.75      15.56    61.75
+      t25   25.0      61.76      61.75      61.69    61.75
+
+   Reader A's 1x median is FLAT over sigma 10 -> 13 and garbage above it; reader D cannot
+   read these rows at all (`reader-d.txt`). No 1x fit is taken — see g1-findings.md.
+
+3. The share, per scale, on the same rows — reader A's own share
+
+   The two scales want the lever in OPPOSITE directions, which is why they take different
+   constants. The objective is the mean absolute share difference against the reference.
+
+   3a. 2x: `sizeScatterFloor2x` off 1
+
+     rung  floor   rrect-md   rrect-ml   rrect-lg |  mean |d|
+       r0  -1.00      0.690      0.591      0.589 |    0.2018
+       c1   1.00      0.803      0.955      0.977 |    0.1174
+    c1f85   0.85      0.643      0.716      0.796 |    0.1140
+    c1f75   0.75      0.561      0.598      0.716 |    0.1997
+    c1f65   0.65      0.461      0.500      0.633 |    0.2932
+    c1f55   0.55      0.361      0.420      0.558 |    0.3782
+
+   3b. 1x: `sizeScatterHeavyShareThick1x`, the lift on `kDeep`
+
+     rung   lift   rrect-md   rrect-ml   rrect-lg |  mean |d|
+       r0  -1.00      0.233      0.354      0.492 |    0.2652
+       c1   0.00      0.233      0.354      0.492 |    0.2652
+    c1l15   0.15      0.291      0.519      0.629 |    0.1450
+    c1l25   0.25      0.337      0.664      0.649 |    0.0745
+    c1l35   0.35      0.391      0.790      0.649 |    0.0919
+    c1l45   0.45      0.429      0.804      0.649 |    0.0838
+
+4. The share's off-row check — `impulse__rrect-sm`, which no fit above reads
+
+   Decision Log 2 (d) retired the coarse checkerboards' single-width objective as this
+   check: it is dominated by the kernel's CORE and answers about the SHARP component. The
+   off-row check is therefore a fourth impulse span, read the same way.
+
+   2x-light: reference heavy 13.45, share 0.111
+     rung  value    heavy    share    sharp
+       r0  -1.00     8.43    0.338     1.93
+       c1   1.00    12.22    0.337     1.77
+    c1f85   0.85    12.35    0.301     1.73
+    c1f75   0.75    12.29    0.281     1.77
+    c1f65   0.65    12.89    0.257     1.80
+    c1f55   0.55    12.91    0.244     1.75
+
+   1x-light: reference heavy 62.53, share 0.000
+     rung  value    heavy    share    sharp
+       r0  -1.00    61.77    0.001     1.81
+       c1   0.00    61.77    0.001     1.81
+    c1l15   0.15    61.77    0.001     1.81
+    c1l25   0.25    61.77    0.001     1.81
+    c1l35   0.35    61.77    0.001     1.81
+    c1l45   0.45    61.77    0.001     1.81
+
+5. The sharp sigma, read at every rung and NOT fitted (Decision Log 2 (d))
+
+   2x-light  reference sharp: rrect-md=1.40 rrect-ml=11.80 rrect-lg=9.67
+     rung   rrect-md   rrect-ml   rrect-lg
+       r0       3.51       5.98       8.15
+      t10       2.21       0.82       1.95
+      t11       2.00       3.74       3.71
+     t113       1.95       1.81      11.34
+      t12       1.82       1.32       1.90
+      t13       1.80       3.26       5.76
+      t16       1.88       4.79      12.04
+      t19       1.78       1.52       5.46
+      t22       1.99       8.37       3.19
+      t25       2.07       3.47       3.22
+       r0       3.51       5.98       8.15
+       c1       2.00       3.74       3.71
+    c1f85       1.92       2.05       2.30
+    c1f75       1.90       1.87       2.05
+    c1f65       1.85       1.87       1.91
+    c1f55       1.84       1.87       1.89
+
+   1x-light  reference sharp: rrect-md=2.79 rrect-ml=2.74 rrect-lg=2.77
+     rung   rrect-md   rrect-ml   rrect-lg
+       r0       1.67       1.66       1.73
+      t10       1.74       1.72       1.84
+      t11       1.69       1.72       1.68
+     t113       1.69       1.72       1.68
+      t12       1.69       1.71       1.74
+      t13       1.68       1.71       1.73
+      t16       1.71       1.63       1.73
+      t19       1.76       1.14       1.61
+      t22       1.76       1.75       1.80
+      t25       1.76       1.75       1.80
+       r0       1.67       1.66       1.73
+       c1       1.67       1.66       1.73
+    c1l15       1.67       1.66       1.67
+    c1l25       1.67       1.64       1.74
+    c1l35       1.68       1.66       1.74
+    c1l45       1.65       1.66       1.74
+
