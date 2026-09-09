@@ -760,6 +760,51 @@ def r_section():
           f"{row['between|pooled']['pages']} / {row['between|2.x']['pages']} |")
     P("(each cell is pooled / v2.0+v2.1.)\n")
 
+    # α charges a rater who sits higher or lower on the scale than the others as much as one who
+    # orders the pages differently, and the first pass showed one lenient rater. Two readings that
+    # tell the two apart, reported and not gating: each rater's mean level, and the mean pairwise
+    # Spearman ρ between raters within a brief — order only — split by same-family and
+    # cross-family pairs.
+    P("### Level or order\n")
+    P("α penalises a rater who uses the scale higher or lower than the others as much as one who "
+      "orders the pages differently. Two readings that separate the two, reported and not gating: "
+      "each rater's mean level over the pages the panel rated, and the mean pairwise Spearman ρ "
+      "between raters within a brief (order only, level removed), for pairs from the same family "
+      "and pairs across families.\n")
+    lo_keys = ["d1", "e1", "aesthetics", "defects", "brief fit"]
+    P("| rater | " + " | ".join(ROW_LABEL.get(k, k) for k in lo_keys) + " |\n|---|" + "---|" * len(lo_keys))
+    for r in PANEL:
+        cells_ = []
+        for k in lo_keys:
+            xs = [rater_score(rub[r][q], k, q) for q in panel_rated if q in rub[r]]
+            xs = [x for x in xs if x is not None]
+            cells_.append(f"{st.mean(xs):.2f}" if xs else "—")
+        P(f"| {r} | " + " | ".join(cells_) + " |")
+    P("")
+    P("| item | within-brief ρ, same family | within-brief ρ, across families | pairs × briefs (same / across) |\n|---|---|---|---|")
+    lo_briefs = sorted({cell[q]["brief"] for q in panel_rated})
+    level_order = {}
+    for k in lo_keys:
+        same, cross = [], []
+        for a, b in itertools.combinations(PANEL, 2):
+            for brief in lo_briefs:
+                qs = [q for q in panel_rated if cell[q]["brief"] == brief and q in rub.get(a, {}) and q in rub.get(b, {})]
+                prs = [(rater_score(rub[a][q], k, q), rater_score(rub[b][q], k, q)) for q in qs]
+                prs = [(x, y) for x, y in prs if x is not None and y is not None]
+                if len(prs) < 4:
+                    continue
+                try:
+                    rho = rel.spearman([x for x, _ in prs], [y for _, y in prs])
+                except Exception:
+                    rho = None
+                if rho is None or rho != rho:
+                    continue
+                (same if family_of(a) == family_of(b) else cross).append(rho)
+        level_order[k] = {"same": st.mean(same) if same else None, "across": st.mean(cross) if cross else None, "n": [len(same), len(cross)]}
+        P(f"| {ROW_LABEL.get(k, k)} | {_fmt(level_order[k]['same'])} | {_fmt(level_order[k]['across'])} | {len(same)} / {len(cross)} |")
+    P("")
+    rubric_json["levelOrder"] = level_order
+
     P("### The user against the panel, over the anchor pages\n")
     human_panel = {}
     if not HUMAN:
