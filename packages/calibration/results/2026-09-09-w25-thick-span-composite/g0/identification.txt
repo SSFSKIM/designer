@@ -1,0 +1,478 @@
+W25 G0 deliverable 6 — the identification table: which rows separate which thick constant.
+
+THIS IS A DESIGN ANALYSIS, NOT A MEASUREMENT, and every entry in it is a stated rule rather than a
+reading. What it computes is the condition of the fit each bed shape would offer: for a set of rows
+and a set of constants, the design matrix's singular values say whether the rows can tell the
+constants apart at all. A zero singular value is exact collinearity — two constants the rows cannot
+separate however good the instrument is — and that verdict is structural, so it does not depend on
+the magnitudes chosen for the non-zero entries.
+
+WHAT THIS READS: `apps/reference-apple/scenes.json` (the declared split, so the bed's shape is read
+and never assumed), the two probe grids' fixture directories (to enumerate the rows a harness set
+would carry), and `widths.json` / `argument-probe.json` beside this file, for the measured widths
+that decide which rows are INSIDE their reader's identification bound.
+
+THE FIVE CONSTANTS a thick-span law would carry, from the wave's Design:
+  s1  the sharp sigma at 1x            s2  the sharp sigma at 2x
+  hs  the heavy share                  kn  the knee / the size law's argument
+  lv  the body's level term            cb  the collapsed body's level
+
+THE SENSITIVITY RULES, each stated with what it is derived from. A row's entry for a constant is
+how much that row's observable moves when the constant moves; zero means the row says nothing
+about it.
+
+  s1 / s2 — a row informs a width only if its reader can IDENTIFY a width there. `validate.txt`
+      puts reader C's bound at about a quarter of the backdrop's step pitch and reader A's at 16
+      device px on the impulse. So: 1 where the reference's own width at that cell is inside the
+      row's bound, 0 where it is not. The scale selects which of the two constants the row loads.
+  hs  — the heavy component is separable only where the backdrop has structure at a pitch WIDER
+      than the heavy width itself; the reference's heavy sigma is 11-29 device px
+      (dossier section 2b), so a 16 CSS px checkerboard cannot separate it from a level shift at
+      either scale. 1 on `impulse` (dots 64 CSS px apart), 1 on `checkerboard-64`, 0.5 on
+      `checkerboard-32`, 0 otherwise.
+  kn  — the derivative of the LANDED law with respect to the knee, evaluated at the row's span:
+      d/d(sizeSpanMax) of `scatterRampStart`'s span term (material.ts:3140-3188), which is
+      `thin + (thick-thin)*smoothstep(sizeSpanMin, sizeSpanMax, span)
+             + (far-thick)*smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span)`.
+      This is the one entry that is not a judgement: it is the current law differentiated. It is
+      exactly 0 AT span 96 (a smoothstep's derivative vanishes at its own edge) and 0.002 above it,
+      through the `far` decline alone — the anchor `material.ts:847-858` records as the workaround
+      for the saturation.
+  lv  — every row with a body reading carries the level: 1 everywhere.
+  cb  — the collapsed body's level is carried only by rows that are actually collapsed. The tone
+      response's argument is `backdropLuminance + 0.09*sizeThickness(span)` against a smoothstep
+      down with edges 0.14 / 0.02 (`scenes.json:50-68`), so the row's own backdrop luminance and
+      span decide it; the entry is that smoothstep's value, i.e. how collapsed the row is.
+
+WHAT IS COMPARED. Five bed shapes — the three the wave's Design names, plus two variants the
+readings made necessary:
+  (i)    the current bed — the calibration and validation rows of `scenes.json`'s split;
+  (ii)   the same plus `rrect-lg` and `glass-over-glass`'s cells moved from holdout to calibration;
+  (iii)  the same as (i) plus the two probe grids declared as a harness set with their structured
+         backdrops (`checkerboard-{4,8,16,32,64}`, `hc-text{,-7,-28}`, `photo`) over
+         `rrect-sm`/`-md`/`-ml`/`-lg`, keeping `rrect-lg` and the stack as holdout — AS THE GRIDS
+         STAND ON DISK, which is 1x only;
+  (iii+) the same grids captured at BOTH scales, which is the variant the 2x column forces;
+  (iv)   the grids whole, their solid backdrops included, at both scales — the shape that also
+         carries the collapsed body's level.
+
+Usage: identification.py [--out identification.txt]
+
+====================================================================================================
+TABLE 1 — the per-row sensitivity, for the rows that carry a thick span. Every entry is
+the rule stated in the header, evaluated at the row. `kn` is the landed law's own
+derivative and is the only entry that is not a judgement.
+====================================================================================================
+row                                             span     s1     s2     hs     kn     lv     cb
+light-solid__rrect-md @1x                         96  0.000  0.000  0.000  0.000  1.000  0.000
+light-solid__rrect-md @2x                         96  0.000  0.000  0.000  0.000  1.000  0.000
+dark-solid__rrect-md @1x                          96  0.000  0.000  0.000  0.000  1.000  0.240
+dark-solid__rrect-md @2x                          96  0.000  0.000  0.000  0.000  1.000  0.240
+checkerboard__rrect-md @1x                        96  1.000  0.000  0.000  0.000  1.000  0.000
+checkerboard__rrect-md @2x                        96  0.000  1.000  0.000  0.000  1.000  0.000
+photo__rrect-md @1x                               96  0.000  0.000  0.000  0.000  1.000  0.000
+photo__rrect-md @2x                               96  0.000  0.000  0.000  0.000  1.000  0.000
+light-solid__rrect-ml @1x                        128  0.000  0.000  0.000  0.002  1.000  0.000
+light-solid__rrect-ml @2x                        128  0.000  0.000  0.000  0.000  1.000  0.000
+checkerboard__rrect-ml @1x                       128  1.000  0.000  0.000  0.002  1.000  0.000
+checkerboard__rrect-ml @2x                       128  0.000  0.000  0.000  0.000  1.000  0.000
+photo__rrect-ml @1x                              128  0.000  0.000  0.000  0.002  1.000  0.000
+photo__rrect-ml @2x                              128  0.000  0.000  0.000  0.000  1.000  0.000
+impulse__rrect-md @1x                             96  1.000  0.000  1.000  0.000  1.000  0.331
+impulse__rrect-md @2x                             96  0.000  1.000  1.000  0.000  1.000  0.331
+hc-text__rrect-md @1x                             96  0.000  0.000  0.000  0.000  1.000  0.000
+hc-text__rrect-md @2x                             96  0.000  0.000  0.000  0.000  1.000  0.000
+checkerboard__rrect-lg @1x                       160  1.000  0.000  0.000  0.002  1.000  0.000
+checkerboard__rrect-lg @2x                       160  0.000  0.000  0.000  0.000  1.000  0.000
+photo__rrect-lg @1x                              160  0.000  0.000  0.000  0.002  1.000  0.000
+photo__rrect-lg @2x                              160  0.000  0.000  0.000  0.000  1.000  0.000
+checkerboard__glass-over-glass @1x               130  1.000  0.000  0.000  0.002  1.000  0.000
+checkerboard__glass-over-glass @2x               130  0.000  0.000  0.000  0.000  1.000  0.000
+photo__glass-over-glass @1x                      130  0.000  0.000  0.000  0.002  1.000  0.000
+photo__glass-over-glass @2x                      130  0.000  0.000  0.000  0.000  1.000  0.000
+checkerboard-32__rrect-lg @1x                    160  1.000  0.000  0.500  0.002  1.000  0.000
+checkerboard-32__rrect-md @1x                     96  1.000  0.000  0.500  0.000  1.000  0.000
+checkerboard-32__rrect-ml @1x                    128  1.000  0.000  0.500  0.002  1.000  0.000
+checkerboard-4__rrect-lg @1x                     160  0.000  0.000  0.000  0.002  1.000  0.000
+checkerboard-4__rrect-md @1x                      96  0.000  0.000  0.000  0.000  1.000  0.000
+checkerboard-4__rrect-ml @1x                     128  0.000  0.000  0.000  0.002  1.000  0.000
+checkerboard-64__rrect-lg @1x                    160  1.000  0.000  1.000  0.002  1.000  0.000
+checkerboard-64__rrect-md @1x                     96  1.000  0.000  1.000  0.000  1.000  0.000
+checkerboard-64__rrect-ml @1x                    128  1.000  0.000  1.000  0.002  1.000  0.000
+checkerboard-8__rrect-lg @1x                     160  1.000  0.000  0.000  0.002  1.000  0.000
+checkerboard-8__rrect-md @1x                      96  1.000  0.000  0.000  0.000  1.000  0.000
+checkerboard-8__rrect-ml @1x                     128  1.000  0.000  0.000  0.002  1.000  0.000
+checkerboard-lc16__rrect-lg @1x                  160  1.000  0.000  0.000  0.002  1.000  0.000
+checkerboard-lc16__rrect-md @1x                   96  1.000  0.000  0.000  0.000  1.000  0.000
+checkerboard-lc16__rrect-ml @1x                  128  1.000  0.000  0.000  0.002  1.000  0.000
+hc-text-28__rrect-lg @1x                         160  1.000  0.000  0.000  0.002  1.000  0.000
+hc-text-28__rrect-md @1x                          96  1.000  0.000  0.000  0.000  1.000  0.000
+hc-text-7__rrect-lg @1x                          160  0.000  0.000  0.000  0.002  1.000  0.000
+hc-text-7__rrect-md @1x                           96  0.000  0.000  0.000  0.000  1.000  0.000
+hc-text__rrect-lg @1x                            160  0.000  0.000  0.000  0.002  1.000  0.000
+checkerboard-32__rrect-lg @2x                    160  0.000  1.000  0.500  0.000  1.000  0.000
+checkerboard-32__rrect-md @2x                     96  0.000  1.000  0.500  0.000  1.000  0.000
+checkerboard-32__rrect-ml @2x                    128  0.000  1.000  0.500  0.000  1.000  0.000
+checkerboard-4__rrect-lg @2x                     160  0.000  0.000  0.000  0.000  1.000  0.000
+checkerboard-4__rrect-md @2x                      96  0.000  0.000  0.000  0.000  1.000  0.000
+checkerboard-4__rrect-ml @2x                     128  0.000  0.000  0.000  0.000  1.000  0.000
+checkerboard-64__rrect-lg @2x                    160  0.000  1.000  1.000  0.000  1.000  0.000
+checkerboard-64__rrect-md @2x                     96  0.000  1.000  1.000  0.000  1.000  0.000
+checkerboard-64__rrect-ml @2x                    128  0.000  1.000  1.000  0.000  1.000  0.000
+checkerboard-8__rrect-lg @2x                     160  0.000  0.000  0.000  0.000  1.000  0.000
+checkerboard-8__rrect-md @2x                      96  0.000  0.000  0.000  0.000  1.000  0.000
+checkerboard-8__rrect-ml @2x                     128  0.000  0.000  0.000  0.000  1.000  0.000
+checkerboard-lc16__rrect-lg @2x                  160  0.000  1.000  0.000  0.000  1.000  0.000
+checkerboard-lc16__rrect-md @2x                   96  0.000  1.000  0.000  0.000  1.000  0.000
+checkerboard-lc16__rrect-ml @2x                  128  0.000  1.000  0.000  0.000  1.000  0.000
+hc-text-28__rrect-lg @2x                         160  0.000  1.000  0.000  0.000  1.000  0.000
+hc-text-28__rrect-md @2x                          96  0.000  1.000  0.000  0.000  1.000  0.000
+hc-text-7__rrect-lg @2x                          160  0.000  0.000  0.000  0.000  1.000  0.000
+hc-text-7__rrect-md @2x                           96  0.000  0.000  0.000  0.000  1.000  0.000
+hc-text__rrect-lg @2x                            160  0.000  1.000  0.000  0.000  1.000  0.000
+dark-solid__rrect-lg @1x                         160  0.000  0.000  0.000  0.002  1.000  0.240
+light-solid__rrect-lg @1x                        160  0.000  0.000  0.000  0.002  1.000  0.000
+mid-dark-solid__rrect-lg @1x                     160  0.000  0.000  0.000  0.002  1.000  0.000
+mid-dark-solid__rrect-md @1x                      96  0.000  0.000  0.000  0.000  1.000  0.000
+dark-solid__rrect-lg @2x                         160  0.000  0.000  0.000  0.000  1.000  0.240
+light-solid__rrect-lg @2x                        160  0.000  0.000  0.000  0.000  1.000  0.000
+mid-dark-solid__rrect-lg @2x                     160  0.000  0.000  0.000  0.000  1.000  0.000
+mid-dark-solid__rrect-md @2x                      96  0.000  0.000  0.000  0.000  1.000  0.000
+
+READING TABLE 1. `kn` is exactly 0.000 at span 96 — `sizeThickness` saturates there and
+a smoothstep's derivative vanishes at its own edge — and 0.002 at 128, 130 and 160,
+where the only sensitivity left is the `far` decline's shallow lower edge, the
+workaround `material.ts:847-858` records. So the knee is not strictly collinear on the
+thick spans; its lever there is three orders of magnitude below the width levers, and
+it comes entirely through the anchor that exists because the knee saturates. Spans
+BETWEEN 32 and 96 carry the same 0.002 and no thick span carries more, which is the
+bed's real limit: nothing on any of the three shapes moves the knee's own edge.
+
+A CAVEAT THAT BOUNDS TABLE 2. The `kn` column is a derivative in share-per-CSS-px and
+the width columns are 0/1 indicators, so they are not in the same unit and the
+condition number and `sep` below inherit that choice of scale. What does NOT depend on
+it is which entries are ZERO — which rows say nothing about a constant — and every
+verdict this file offers is read off those.
+
+====================================================================================================
+TABLE 2 — the three bed shapes, scored. `cond` is the condition number of the
+column-normalised design matrix over the constants the bed carries at all; `dead` lists
+the constants no row in that bed touches, which is the strongest verdict available —
+those are not ill-conditioned, they are absent.
+====================================================================================================
+-- (i)    the current bed
+   rows 34   carried ['s1', 's2', 'hs', 'kn', 'lv', 'cb']   DEAD none
+   singular values (normalised): 1.6752 1.0430 0.9716 0.7892 0.5626 0.4719
+   condition number: 3.5
+     const   rows  max entry     sep   separated by rows at spans
+     s1         7      1.000   0.789   [32.0, 44.0, 96.0, 128.0]
+     s2         6      1.000   0.799   [32.0, 44.0, 96.0]
+     hs         4      1.000   0.661   [44.0, 96.0]
+     kn        17      0.002   0.753   [44.0, 128.0]
+     lv        34      1.000   0.646   [32.0, 44.0, 96.0, 128.0]
+     cb         8      1.000   0.713   [44.0, 96.0]
+
+-- (ii)   + rrect-lg and glass-over-glass into calibration
+   rows 48   carried ['s1', 's2', 'hs', 'kn', 'lv', 'cb']   DEAD none
+   singular values (normalised): 1.6376 1.0990 0.9508 0.7956 0.5730 0.4952
+   condition number: 3.3
+     const   rows  max entry     sep   separated by rows at spans
+     s1        10      1.000   0.784   [32.0, 44.0, 96.0, 128.0, 130.0, 160.0]
+     s2         7      1.000   0.829   [32.0, 44.0, 96.0]
+     hs         4      1.000   0.707   [44.0, 96.0]
+     kn        25      0.002   0.732   [44.0, 128.0, 130.0, 160.0]
+     lv        48      1.000   0.664   [32.0, 44.0, 96.0, 128.0, 130.0, 160.0]
+     cb        10      1.000   0.747   [44.0, 96.0]
+
+-- (iii)  + the probe grids as a structured harness set, AS CAPTURED (1x only)
+   rows 118   carried ['s1', 's2', 'hs', 'kn', 'lv', 'cb']   DEAD none
+   singular values (normalised): 1.6588 1.1125 0.8831 0.8049 0.6228 0.4417
+   condition number: 3.8
+     const   rows  max entry     sep   separated by rows at spans
+     s1        63      1.000   0.595   [32.0, 44.0, 96.0, 128.0, 160.0]
+     s2         6      1.000   0.910   [32.0, 44.0, 96.0]
+     hs        24      1.000   0.792   [32.0, 44.0, 96.0, 128.0, 160.0]
+     kn        61      0.002   0.747   [44.0, 128.0, 160.0]
+     lv       118      1.000   0.571   [32.0, 44.0, 96.0, 128.0, 160.0]
+     cb         8      1.000   0.908   [44.0, 96.0]
+
+-- (iii+) the same grids captured at BOTH scales
+   rows 202   carried ['s1', 's2', 'hs', 'kn', 'lv', 'cb']   DEAD none
+   singular values (normalised): 1.6199 1.0862 0.9736 0.7898 0.6435 0.4587
+   condition number: 3.5
+     const   rows  max entry     sep   separated by rows at spans
+     s1        63      1.000   0.686   [32.0, 44.0, 96.0, 128.0, 160.0]
+     s2        52      1.000   0.719   [32.0, 44.0, 96.0, 128.0, 160.0]
+     hs        44      1.000   0.788   [32.0, 44.0, 96.0, 128.0, 160.0]
+     kn        73      0.002   0.784   [44.0, 128.0, 160.0]
+     lv       202      1.000   0.611   [32.0, 44.0, 96.0, 128.0, 160.0]
+     cb         8      1.000   0.962   [44.0, 96.0]
+
+-- (iv)   the grids whole, structured and solid, at both scales
+   rows 238   carried ['s1', 's2', 'hs', 'kn', 'lv', 'cb']   DEAD none
+   singular values (normalised): 1.5914 1.0787 0.9848 0.8180 0.6603 0.4786
+   condition number: 3.3
+     const   rows  max entry     sep   separated by rows at spans
+     s1        63      1.000   0.721   [32.0, 44.0, 96.0, 128.0, 160.0]
+     s2        52      1.000   0.747   [32.0, 44.0, 96.0, 128.0, 160.0]
+     hs        44      1.000   0.799   [32.0, 44.0, 96.0, 128.0, 160.0]
+     kn        79      0.002   0.803   [44.0, 128.0, 160.0]
+     lv       238      1.000   0.637   [32.0, 44.0, 96.0, 128.0, 160.0]
+     cb        24      1.000   0.938   [32.0, 44.0, 96.0, 160.0]
+
+====================================================================================================
+TABLE 3 — per constant, the rows that separate it, in each bed.
+====================================================================================================
+-- s1
+   (i)    the current bed                                 7 row(s), spans [32.0, 44.0, 96.0, 128.0]
+        checkerboard__capsule-button @1x                   1.000
+        checkerboard__rrect-md @1x                         1.000
+        checkerboard__rrect-ml @1x                         1.000
+        checkerboard__rrect-sm @1x                         1.000
+        checkerboard__toolbar-group @1x                    1.000
+        impulse__capsule-button @1x                        1.000
+        impulse__rrect-md @1x                              1.000
+   (ii)   + rrect-lg and glass-over-glass into calibration  10 row(s), spans [32.0, 44.0, 96.0, 128.0, 130.0, 160.0]
+        checkerboard__capsule-button @1x                   1.000
+        checkerboard__rrect-md @1x                         1.000
+        checkerboard__rrect-ml @1x                         1.000
+        checkerboard__rrect-sm @1x                         1.000
+        checkerboard__toolbar-group @1x                    1.000
+        impulse__capsule-button @1x                        1.000
+        impulse__rrect-md @1x                              1.000
+        hc-text__capsule-button @1x                        1.000
+        checkerboard__rrect-lg @1x                         1.000
+        checkerboard__glass-over-glass @1x                 1.000
+   (iii)  + the probe grids as a structured harness set, AS CAPTURED (1x only)  63 row(s), spans [32.0, 44.0, 96.0, 128.0, 160.0]
+        checkerboard__capsule-button @1x                   1.000
+        checkerboard__rrect-md @1x                         1.000
+        checkerboard__rrect-ml @1x                         1.000
+        checkerboard__rrect-sm @1x                         1.000
+        checkerboard__toolbar-group @1x                    1.000
+        impulse__capsule-button @1x                        1.000
+        … and 57 more
+   (iii+) the same grids captured at BOTH scales         63 row(s), spans [32.0, 44.0, 96.0, 128.0, 160.0]
+        checkerboard__capsule-button @1x                   1.000
+        checkerboard__rrect-md @1x                         1.000
+        checkerboard__rrect-ml @1x                         1.000
+        checkerboard__rrect-sm @1x                         1.000
+        checkerboard__toolbar-group @1x                    1.000
+        impulse__capsule-button @1x                        1.000
+        … and 57 more
+   (iv)   the grids whole, structured and solid, at both scales  63 row(s), spans [32.0, 44.0, 96.0, 128.0, 160.0]
+        checkerboard__capsule-button @1x                   1.000
+        checkerboard__rrect-md @1x                         1.000
+        checkerboard__rrect-ml @1x                         1.000
+        checkerboard__rrect-sm @1x                         1.000
+        checkerboard__toolbar-group @1x                    1.000
+        impulse__capsule-button @1x                        1.000
+        … and 57 more
+
+-- s2
+   (i)    the current bed                                 6 row(s), spans [32.0, 44.0, 96.0]
+        checkerboard__capsule-button @2x                   1.000
+        checkerboard__rrect-md @2x                         1.000
+        checkerboard__rrect-sm @2x                         1.000
+        checkerboard__toolbar-group @2x                    1.000
+        impulse__capsule-button @2x                        1.000
+        impulse__rrect-md @2x                              1.000
+   (ii)   + rrect-lg and glass-over-glass into calibration   7 row(s), spans [32.0, 44.0, 96.0]
+        checkerboard__capsule-button @2x                   1.000
+        checkerboard__rrect-md @2x                         1.000
+        checkerboard__rrect-sm @2x                         1.000
+        checkerboard__toolbar-group @2x                    1.000
+        impulse__capsule-button @2x                        1.000
+        impulse__rrect-md @2x                              1.000
+        hc-text__capsule-button @2x                        1.000
+   (iii)  + the probe grids as a structured harness set, AS CAPTURED (1x only)   6 row(s), spans [32.0, 44.0, 96.0]
+        checkerboard__capsule-button @2x                   1.000
+        checkerboard__rrect-md @2x                         1.000
+        checkerboard__rrect-sm @2x                         1.000
+        checkerboard__toolbar-group @2x                    1.000
+        impulse__capsule-button @2x                        1.000
+        impulse__rrect-md @2x                              1.000
+   (iii+) the same grids captured at BOTH scales         52 row(s), spans [32.0, 44.0, 96.0, 128.0, 160.0]
+        checkerboard__capsule-button @2x                   1.000
+        checkerboard__rrect-md @2x                         1.000
+        checkerboard__rrect-sm @2x                         1.000
+        checkerboard__toolbar-group @2x                    1.000
+        impulse__capsule-button @2x                        1.000
+        impulse__rrect-md @2x                              1.000
+        … and 46 more
+   (iv)   the grids whole, structured and solid, at both scales  52 row(s), spans [32.0, 44.0, 96.0, 128.0, 160.0]
+        checkerboard__capsule-button @2x                   1.000
+        checkerboard__rrect-md @2x                         1.000
+        checkerboard__rrect-sm @2x                         1.000
+        checkerboard__toolbar-group @2x                    1.000
+        impulse__capsule-button @2x                        1.000
+        impulse__rrect-md @2x                              1.000
+        … and 46 more
+
+-- hs
+   (i)    the current bed                                 4 row(s), spans [44.0, 96.0]
+        impulse__capsule-button @1x                        1.000
+        impulse__capsule-button @2x                        1.000
+        impulse__rrect-md @1x                              1.000
+        impulse__rrect-md @2x                              1.000
+   (ii)   + rrect-lg and glass-over-glass into calibration   4 row(s), spans [44.0, 96.0]
+        impulse__capsule-button @1x                        1.000
+        impulse__capsule-button @2x                        1.000
+        impulse__rrect-md @1x                              1.000
+        impulse__rrect-md @2x                              1.000
+   (iii)  + the probe grids as a structured harness set, AS CAPTURED (1x only)  24 row(s), spans [32.0, 44.0, 96.0, 128.0, 160.0]
+        impulse__capsule-button @1x                        1.000
+        impulse__capsule-button @2x                        1.000
+        impulse__rrect-md @1x                              1.000
+        impulse__rrect-md @2x                              1.000
+        checkerboard-32__capsule-button @1x                0.500
+        checkerboard-32__rrect-lg @1x                      0.500
+        … and 18 more
+   (iii+) the same grids captured at BOTH scales         44 row(s), spans [32.0, 44.0, 96.0, 128.0, 160.0]
+        impulse__capsule-button @1x                        1.000
+        impulse__capsule-button @2x                        1.000
+        impulse__rrect-md @1x                              1.000
+        impulse__rrect-md @2x                              1.000
+        checkerboard-32__capsule-button @1x                0.500
+        checkerboard-32__rrect-lg @1x                      0.500
+        … and 38 more
+   (iv)   the grids whole, structured and solid, at both scales  44 row(s), spans [32.0, 44.0, 96.0, 128.0, 160.0]
+        impulse__capsule-button @1x                        1.000
+        impulse__capsule-button @2x                        1.000
+        impulse__rrect-md @1x                              1.000
+        impulse__rrect-md @2x                              1.000
+        checkerboard-32__capsule-button @1x                0.500
+        checkerboard-32__rrect-lg @1x                      0.500
+        … and 38 more
+
+-- kn
+   (i)    the current bed                                17 row(s), spans [44.0, 128.0]
+        light-solid__capsule-button @1x                    0.001
+        light-solid__capsule-button @2x                    0.001
+        dark-solid__capsule-button @1x                     0.001
+        dark-solid__capsule-button @2x                     0.001
+        checkerboard__capsule-button @1x                   0.001
+        checkerboard__capsule-button @2x                   0.001
+        … and 11 more
+   (ii)   + rrect-lg and glass-over-glass into calibration  25 row(s), spans [44.0, 128.0, 130.0, 160.0]
+        light-solid__capsule-button @1x                    0.001
+        light-solid__capsule-button @2x                    0.001
+        dark-solid__capsule-button @1x                     0.001
+        dark-solid__capsule-button @2x                     0.001
+        checkerboard__capsule-button @1x                   0.001
+        checkerboard__capsule-button @2x                   0.001
+        … and 19 more
+   (iii)  + the probe grids as a structured harness set, AS CAPTURED (1x only)  61 row(s), spans [44.0, 128.0, 160.0]
+        light-solid__capsule-button @1x                    0.001
+        light-solid__capsule-button @2x                    0.001
+        dark-solid__capsule-button @1x                     0.001
+        dark-solid__capsule-button @2x                     0.001
+        checkerboard__capsule-button @1x                   0.001
+        checkerboard__capsule-button @2x                   0.001
+        … and 55 more
+   (iii+) the same grids captured at BOTH scales         73 row(s), spans [44.0, 128.0, 160.0]
+        light-solid__capsule-button @1x                    0.001
+        light-solid__capsule-button @2x                    0.001
+        dark-solid__capsule-button @1x                     0.001
+        dark-solid__capsule-button @2x                     0.001
+        checkerboard__capsule-button @1x                   0.001
+        checkerboard__capsule-button @2x                   0.001
+        … and 67 more
+   (iv)   the grids whole, structured and solid, at both scales  79 row(s), spans [44.0, 128.0, 160.0]
+        light-solid__capsule-button @1x                    0.001
+        light-solid__capsule-button @2x                    0.001
+        dark-solid__capsule-button @1x                     0.001
+        dark-solid__capsule-button @2x                     0.001
+        checkerboard__capsule-button @1x                   0.001
+        checkerboard__capsule-button @2x                   0.001
+        … and 73 more
+
+-- lv
+   (i)    the current bed                                34 row(s), spans [32.0, 44.0, 96.0, 128.0]
+        light-solid__capsule-button @1x                    1.000
+        light-solid__capsule-button @2x                    1.000
+        dark-solid__capsule-button @1x                     1.000
+        dark-solid__capsule-button @2x                     1.000
+        checkerboard__capsule-button @1x                   1.000
+        checkerboard__capsule-button @2x                   1.000
+        … and 28 more
+   (ii)   + rrect-lg and glass-over-glass into calibration  48 row(s), spans [32.0, 44.0, 96.0, 128.0, 130.0, 160.0]
+        light-solid__capsule-button @1x                    1.000
+        light-solid__capsule-button @2x                    1.000
+        dark-solid__capsule-button @1x                     1.000
+        dark-solid__capsule-button @2x                     1.000
+        checkerboard__capsule-button @1x                   1.000
+        checkerboard__capsule-button @2x                   1.000
+        … and 42 more
+   (iii)  + the probe grids as a structured harness set, AS CAPTURED (1x only) 118 row(s), spans [32.0, 44.0, 96.0, 128.0, 160.0]
+        light-solid__capsule-button @1x                    1.000
+        light-solid__capsule-button @2x                    1.000
+        dark-solid__capsule-button @1x                     1.000
+        dark-solid__capsule-button @2x                     1.000
+        checkerboard__capsule-button @1x                   1.000
+        checkerboard__capsule-button @2x                   1.000
+        … and 112 more
+   (iii+) the same grids captured at BOTH scales        202 row(s), spans [32.0, 44.0, 96.0, 128.0, 160.0]
+        light-solid__capsule-button @1x                    1.000
+        light-solid__capsule-button @2x                    1.000
+        dark-solid__capsule-button @1x                     1.000
+        dark-solid__capsule-button @2x                     1.000
+        checkerboard__capsule-button @1x                   1.000
+        checkerboard__capsule-button @2x                   1.000
+        … and 196 more
+   (iv)   the grids whole, structured and solid, at both scales 238 row(s), spans [32.0, 44.0, 96.0, 128.0, 160.0]
+        light-solid__capsule-button @1x                    1.000
+        light-solid__capsule-button @2x                    1.000
+        dark-solid__capsule-button @1x                     1.000
+        dark-solid__capsule-button @2x                     1.000
+        checkerboard__capsule-button @1x                   1.000
+        checkerboard__capsule-button @2x                   1.000
+        … and 232 more
+
+-- cb
+   (i)    the current bed                                 8 row(s), spans [44.0, 96.0]
+        dark-solid__capsule-button @1x                     1.000
+        dark-solid__capsule-button @2x                     1.000
+        dark-solid__rrect-md @1x                           0.240
+        dark-solid__rrect-md @2x                           0.240
+        impulse__capsule-button @1x                        1.000
+        impulse__capsule-button @2x                        1.000
+        impulse__rrect-md @1x                              0.331
+        impulse__rrect-md @2x                              0.331
+   (ii)   + rrect-lg and glass-over-glass into calibration  10 row(s), spans [44.0, 96.0]
+        dark-solid__capsule-button @1x                     1.000
+        dark-solid__capsule-button @2x                     1.000
+        dark-solid__rrect-md @1x                           0.240
+        dark-solid__rrect-md @2x                           0.240
+        impulse__capsule-button @1x                        1.000
+        impulse__capsule-button @2x                        1.000
+        impulse__rrect-md @1x                              0.331
+        impulse__rrect-md @2x                              0.331
+        mid-dark-solid__capsule-button @1x                 0.650
+        mid-dark-solid__capsule-button @2x                 0.650
+   (iii)  + the probe grids as a structured harness set, AS CAPTURED (1x only)   8 row(s), spans [44.0, 96.0]
+        dark-solid__capsule-button @1x                     1.000
+        dark-solid__capsule-button @2x                     1.000
+        dark-solid__rrect-md @1x                           0.240
+        dark-solid__rrect-md @2x                           0.240
+        impulse__capsule-button @1x                        1.000
+        impulse__capsule-button @2x                        1.000
+        impulse__rrect-md @1x                              0.331
+        impulse__rrect-md @2x                              0.331
+   (iii+) the same grids captured at BOTH scales          8 row(s), spans [44.0, 96.0]
+        dark-solid__capsule-button @1x                     1.000
+        dark-solid__capsule-button @2x                     1.000
+        dark-solid__rrect-md @1x                           0.240
+        dark-solid__rrect-md @2x                           0.240
+        impulse__capsule-button @1x                        1.000
+        impulse__capsule-button @2x                        1.000
+        impulse__rrect-md @1x                              0.331
+        impulse__rrect-md @2x                              0.331
+   (iv)   the grids whole, structured and solid, at both scales  24 row(s), spans [32.0, 44.0, 96.0, 160.0]
+        dark-solid__capsule-button @1x                     1.000
+        dark-solid__capsule-button @2x                     1.000
+        dark-solid__rrect-md @1x                           0.240
+        dark-solid__rrect-md @2x                           0.240
+        impulse__capsule-button @1x                        1.000
+        impulse__capsule-button @2x                        1.000
+        … and 18 more
+

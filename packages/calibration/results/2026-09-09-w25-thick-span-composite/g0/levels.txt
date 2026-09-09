@@ -1,0 +1,91 @@
+W25 G0 deliverable 2 (levels) — the body level on every thick cell, reference vs vitrea.
+
+Instrument: the declared shape eroded 6 CSS px (the stack's base on W22's geometry),
+mean linear Rec.709 luma over that mask. `dcode` is the web-minus-native difference
+expressed in 8-bit display codes at that level (the sRGB OETF applied to each side),
+which is the unit W23 and W24 recorded the thick body's miss in.
+Sources: the reference fixtures and the canonical 0.13.0 web captures, read-only.
+
+profile   scene                                       span    native       gpu       css   gpu-nat  dcode gpu   css-nat  dcode css   nat sd   gpu sd
+1x-dark   checkerboard__capsule-button__rest            44   0.10557   0.06710   0.07373  -0.03847     -18.14  -0.03185     -14.65   0.0501   0.0252
+1x-ic     checkerboard__capsule-button__rest            44   0.98214   0.93249   0.95157  -0.04965      -5.71  -0.03058      -3.50   0.0116   0.0283
+1x-light  checkerboard__capsule-button__rest            44   0.61299   0.67435   0.67910   0.06137       8.90   0.06611       9.57   0.1363   0.1360
+1x-rt     checkerboard__capsule-button__rest            44   0.88792   0.93249   0.93108   0.04457       5.28   0.04315       5.11   0.0000   0.0283
+2x-dark   checkerboard__capsule-button__rest            44   0.10709   0.06822   0.07264  -0.03886     -18.16  -0.03444     -15.83   0.0552   0.0257
+2x-light  checkerboard__capsule-button__rest            44   0.61507   0.68056   0.69470   0.06550       9.46   0.07964      11.43   0.1504   0.1387
+1x-dark   checkerboard__glass-over-glass__rest         130   0.04651   0.04682   0.04674   0.00030       0.20   0.00023       0.16   0.0131   0.0170
+1x-light  checkerboard__glass-over-glass__rest         130   0.66617   0.65938   0.66455  -0.00679      -0.97  -0.00162      -0.23   0.0934   0.0949
+2x-dark   checkerboard__glass-over-glass__rest         130   0.04726   0.04732   0.04996   0.00006       0.04   0.00269       1.76   0.0159   0.0185
+2x-light  checkerboard__glass-over-glass__rest         130   0.66586   0.66559   0.67332  -0.00027      -0.04   0.00746       1.06   0.1086   0.1022
+1x-light  checkerboard__rrect-lg__rest                 160   0.70458   0.69378   0.69679  -0.01080      -1.49  -0.00779      -1.07   0.0598   0.0676
+2x-light  checkerboard__rrect-lg__rest                 160   0.70329   0.69975   0.70648  -0.00354      -0.49   0.00319       0.44   0.0781   0.0666
+1x-dark   checkerboard__rrect-md__rest                  96   0.04679   0.04748   0.04783   0.00069       0.46   0.00104       0.69   0.0166   0.0186
+1x-ic     checkerboard__rrect-md__rest                  96   0.98571   0.93318   0.94496  -0.05254      -6.03  -0.04075      -4.66   0.0111   0.0246
+1x-light  checkerboard__rrect-md__rest                  96   0.67915   0.69300   0.69612   0.01384       1.93   0.01696       2.37   0.1104   0.0997
+1x-rt     checkerboard__rrect-md__rest                  96   0.88792   0.93318   0.93332   0.04526       5.36   0.04540       5.37   0.0000   0.0246
+2x-dark   checkerboard__rrect-md__rest                  96   0.04746   0.04783   0.05081   0.00037       0.25   0.00335       2.18   0.0191   0.0203
+2x-light  checkerboard__rrect-md__rest                  96   0.67994   0.69941   0.70693   0.01947       2.71   0.02698       3.74   0.1251   0.1097
+1x-light  checkerboard__rrect-ml__rest                 128   0.69083   0.69350   0.69523   0.00267       0.37   0.00440       0.61   0.0828   0.0873
+2x-light  checkerboard__rrect-ml__rest                 128   0.69038   0.69965   0.70620   0.00927       1.28   0.01581       2.19   0.0988   0.0942
+1x-light  checkerboard__rrect-sm__rest                  32   0.61484   0.67310   0.68290   0.05826       8.45   0.06806       9.82   0.1488   0.1533
+2x-light  checkerboard__rrect-sm__rest                  32   0.61631   0.67976   0.69809   0.06345       9.16   0.08178      11.72   0.1589   0.1550
+1x-light  checkerboard__toolbar-group__rest             44   0.61393   0.67443   0.67684   0.06051       8.77   0.06291       9.11   0.1435   0.1407
+2x-light  checkerboard__toolbar-group__rest             44   0.61578   0.68049   0.69330   0.06471       9.34   0.07751      11.13   0.1554   0.1432
+1x-dark   dark-solid__capsule-button__rest              44   0.01101   0.01171   0.01171   0.00070       1.08   0.00070       1.08   0.0000   0.0000
+1x-light  dark-solid__capsule-button__rest              44   0.01101   0.01171   0.01171   0.00070       1.08   0.00070       1.08   0.0000   0.0000
+2x-dark   dark-solid__capsule-button__rest              44   0.01101   0.01171   0.01171   0.00070       1.08   0.00070       1.08   0.0000   0.0000
+2x-light  dark-solid__capsule-button__rest              44   0.01101   0.01171   0.01171   0.00070       1.08   0.00070       1.08   0.0000   0.0000
+1x-dark   dark-solid__rrect-md__rest                    96   0.01527   0.01298   0.01521  -0.00228      -3.07  -0.00006      -0.07   0.0000   0.0000
+1x-light  dark-solid__rrect-md__rest                    96   0.47974   0.49555   0.50127   0.01581       2.70   0.02153       3.66   0.0000   0.0025
+2x-dark   dark-solid__rrect-md__rest                    96   0.01527   0.01298   0.01521  -0.00228      -3.07  -0.00006      -0.07   0.0000   0.0000
+2x-light  dark-solid__rrect-md__rest                    96   0.47974   0.49556   0.50273   0.01582       2.70   0.02298       3.90   0.0000   0.0025
+1x-ic     hc-text__capsule-button__rest                 44   0.94388   0.94239   0.97032  -0.00149      -0.17   0.02644       3.04   0.0060   0.0226
+1x-light  hc-text__capsule-button__rest                 44   0.65206   0.74413   0.74362   0.09207      12.74   0.09155      12.67   0.1149   0.1247
+1x-rt     hc-text__capsule-button__rest                 44   0.88792   0.94239   0.94484   0.05447       6.43   0.05692       6.71   0.0000   0.0226
+2x-light  hc-text__capsule-button__rest                 44   0.64909   0.74885   0.74820   0.09977      13.79   0.09912      13.71   0.1238   0.1034
+1x-light  hc-text__rrect-md__rest                       96   0.72799   0.74328   0.75664   0.01529       2.05   0.02866       3.82   0.1062   0.0975
+2x-light  hc-text__rrect-md__rest                       96   0.73296   0.75143   0.76460   0.01847       2.46   0.03164       4.20   0.0995   0.0857
+1x-dark   impulse__capsule-button__rest                 44   0.00663   0.00373   0.00368  -0.00290      -7.09  -0.00296      -7.26   0.0007   0.0005
+1x-light  impulse__capsule-button__rest                 44   0.00663   0.00373   0.00368  -0.00290      -7.09  -0.00296      -7.26   0.0007   0.0005
+2x-dark   impulse__capsule-button__rest                 44   0.00668   0.00345   0.00335  -0.00323      -8.04  -0.00333      -8.34   0.0014   0.0018
+2x-light  impulse__capsule-button__rest                 44   0.00668   0.00345   0.00335  -0.00323      -8.04  -0.00333      -8.34   0.0014   0.0018
+1x-light  impulse__rrect-md__rest                       96   0.43114   0.46426   0.46725   0.03312       5.93   0.03611       6.46   0.0088   0.0115
+2x-light  impulse__rrect-md__rest                       96   0.43111   0.46451   0.46932   0.03340       5.98   0.03821       6.82   0.0113   0.0107
+1x-light  light-solid__capsule-button__rest             44   0.96659   0.97283   0.96659   0.00623       0.71   0.00000       0.00   0.0000   0.0029
+2x-light  light-solid__capsule-button__rest             44   0.96659   0.97287   0.96659   0.00628       0.72   0.00000       0.00   0.0000   0.0029
+1x-light  light-solid__rrect-md__rest                   96   0.93443   0.93185   0.93324  -0.00258      -0.30  -0.00119      -0.14   0.0000   0.0004
+2x-light  light-solid__rrect-md__rest                   96   0.93443   0.93187   0.93324  -0.00256      -0.30  -0.00119      -0.14   0.0000   0.0004
+1x-light  light-solid__rrect-ml__rest                  128   0.93261   0.93188   0.93321  -0.00073      -0.09   0.00061       0.07   0.0000   0.0005
+2x-light  light-solid__rrect-ml__rest                  128   0.93261   0.93189   0.93324  -0.00071      -0.08   0.00063       0.07   0.0000   0.0004
+1x-dark   mid-dark-solid__capsule-button__rest          44   0.02843   0.02843   0.03071   0.00000       0.00   0.00229       2.00   0.0000   0.0000
+1x-light  mid-dark-solid__capsule-button__rest          44   0.43966   0.45641   0.46875   0.01675       3.00   0.02909       5.17   0.0000   0.0000
+2x-dark   mid-dark-solid__capsule-button__rest          44   0.02843   0.02843   0.03071   0.00000       0.00   0.00229       2.00   0.0000   0.0000
+2x-light  mid-dark-solid__capsule-button__rest          44   0.43966   0.45641   0.47304   0.01675       3.00   0.03339       5.92   0.0000   0.0000
+1x-dark   photo__capsule-button__rest                   44   0.09485   0.05216   0.05524  -0.04269     -22.24  -0.03961     -20.34   0.0151   0.0067
+1x-ic     photo__capsule-button__rest                   44   0.98571   0.89279   0.91277  -0.09292     -10.81  -0.07294      -8.43   0.0068   0.0090
+1x-light  photo__capsule-button__rest                   44   0.57434   0.60993   0.61856   0.03559       5.42   0.04422       6.70   0.0335   0.0330
+1x-rt     photo__capsule-button__rest                   44   0.89174   0.89279   0.89281   0.00105       0.13   0.00107       0.13   0.0019   0.0090
+2x-dark   photo__capsule-button__rest                   44   0.09531   0.05205   0.05434  -0.04326     -22.51  -0.04097     -21.08   0.0158   0.0072
+2x-light  photo__capsule-button__rest                   44   0.57493   0.60944   0.62027   0.03451       5.25   0.04534       6.86   0.0351   0.0352
+1x-light  photo__glass-over-glass__rest                130   0.64817   0.62960   0.63102  -0.01857      -2.70  -0.01715      -2.50   0.0683   0.0572
+2x-light  photo__glass-over-glass__rest                130   0.64802   0.62948   0.63083  -0.01854      -2.70  -0.01719      -2.50   0.0695   0.0595
+1x-dark   photo__rrect-lg__rest                        160   0.04490   0.03989   0.04007  -0.00501      -3.55  -0.00483      -3.42   0.0112   0.0098
+1x-ic     photo__rrect-lg__rest                        160   0.99063   0.89770   0.90425  -0.09293     -10.78  -0.08638     -10.00   0.0069   0.0143
+1x-light  photo__rrect-lg__rest                        160   0.68407   0.66040   0.65725  -0.02367      -3.35  -0.02682      -3.80   0.0588   0.0451
+1x-rt     photo__rrect-lg__rest                        160   0.89163   0.89770   0.89594   0.00607       0.73   0.00431       0.52   0.0018   0.0143
+2x-dark   photo__rrect-lg__rest                        160   0.04503   0.03995   0.03998  -0.00508      -3.60  -0.00505      -3.57   0.0114   0.0105
+2x-light  photo__rrect-lg__rest                        160   0.68420   0.66063   0.65825  -0.02357      -3.33  -0.02595      -3.67   0.0599   0.0485
+1x-dark   photo__rrect-md__rest                         96   0.04649   0.03883   0.03970  -0.00765      -5.41  -0.00679      -4.77   0.0104   0.0084
+1x-ic     photo__rrect-md__rest                         96   0.99187   0.89581   0.90838  -0.09606     -11.14  -0.08349      -9.65   0.0056   0.0123
+1x-light  photo__rrect-md__rest                         96   0.66069   0.65522   0.65643  -0.00547      -0.78  -0.00426      -0.61   0.0532   0.0388
+1x-rt     photo__rrect-md__rest                         96   0.89201   0.89581   0.89611   0.00381       0.46   0.00410       0.49   0.0019   0.0123
+2x-dark   photo__rrect-md__rest                         96   0.04689   0.03901   0.03955  -0.00788      -5.55  -0.00734      -5.15   0.0108   0.0092
+2x-light  photo__rrect-md__rest                         96   0.66163   0.65599   0.65810  -0.00564      -0.81  -0.00353      -0.50   0.0551   0.0425
+1x-light  photo__rrect-ml__rest                        128   0.67084   0.65801   0.65783  -0.01283      -1.83  -0.01301      -1.85   0.0594   0.0453
+2x-light  photo__rrect-ml__rest                        128   0.67102   0.65809   0.65873  -0.01293      -1.84  -0.01229      -1.75   0.0608   0.0488
+1x-light  photo__rrect-sm__rest                         32   0.54106   0.58883   0.60335   0.04777       7.47   0.06229       9.67   0.0130   0.0104
+2x-light  photo__rrect-sm__rest                         32   0.54076   0.58665   0.60322   0.04589       7.19   0.06245       9.70   0.0143   0.0116
+1x-ic     photo__toolbar-group__rest                    44   0.98308   0.89929   0.90495  -0.08379      -9.73  -0.07813      -9.06   0.0095   0.0169
+1x-light  photo__toolbar-group__rest                    44   0.59601   0.63506   0.63659   0.03905       5.81   0.04058       6.03   0.0563   0.0626
+1x-rt     photo__toolbar-group__rest                    44   0.89231   0.89929   0.91004   0.00698       0.83   0.01773       2.11   0.0016   0.0169
+2x-light  photo__toolbar-group__rest                    44   0.61353   0.63661   0.64865   0.02308       3.40   0.03512       5.15   0.0609   0.0666
