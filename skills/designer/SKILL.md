@@ -1,7 +1,7 @@
 ---
 name: designer
 description: Always invoke this skill for any UI/UX or design work — designing, building, redesigning, reworking, restyling, or improving a user interface or visual artifact.
-version: 2.2.1
+version: 2.3.0
 ---
 
 # Designer
