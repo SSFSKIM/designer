@@ -81,7 +81,9 @@ import {
   cssTierSharpSigmaCssPx,
   scatterHeavyEffectiveRatioAtScale,
   scatterHeavyEffectiveSigmaDevicePx,
+  backdropToneResponseLevel as cssBackdropToneResponseLevel,
   scatterDeepThickness as cssScatterDeepThickness,
+  sizeToneLevelFar as cssSizeToneLevelFar,
   scatterFloorAtScale as cssScatterFloorAtScale,
   scatterGainAt as cssScatterGainAt,
   scatterGainAtScale as cssScatterGainAtScale,
@@ -160,6 +162,7 @@ import {
   sizeScatterSigmaAt as rendererSizeScatterSigmaAt,
   sizeThickness as rendererSizeThickness,
   sizeThicknessUnderPolicy as rendererSizeThicknessUnderPolicy,
+  sizeToneLevelFar as rendererSizeToneLevelFar,
   tintShadeLayer as rendererTintShadeLayer,
   tintToneAdaptation as rendererTintToneAdaptation,
   withMaterialOverrides,
@@ -615,6 +618,16 @@ describe("tier coherence (K5)", () => {
     expect(MATERIAL_SOURCE_SIZE.sizeScatterRampReach2xPx).toBe(
       DEFAULT_MATERIAL_PROFILE.sizeScatterRampReach2xPx,
     );
+    // W25's share law and level term (claims §5.113; W25 Decision Log 3 (a) and
+    // (b)). Both are 0 on the landed material, so these equalities are also the
+    // record that the two tiers are inert in them together.
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterHeavyShareThick1x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterHeavyShareThick1x,
+    );
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterHeavyShareThick2x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterHeavyShareThick2x,
+    );
+    expect(MATERIAL_SOURCE_SIZE.sizeToneLevelFar).toBe(DEFAULT_MATERIAL_PROFILE.sizeToneLevelFar);
     expect(MATERIAL_SOURCE_SIZE.sizeOcclusionGain).toBe(DEFAULT_MATERIAL_PROFILE.sizeOcclusionGain);
 
     const patch = {
@@ -634,6 +647,9 @@ describe("tier coherence (K5)", () => {
       sizeScatterRampStartFar2x: 0.1,
       sizeScatterRampReach1xPx: 90,
       sizeScatterRampReach2xPx: 130,
+      sizeScatterHeavyShareThick1x: 0.22,
+      sizeScatterHeavyShareThick2x: 0.44,
+      sizeToneLevelFar: 0.6,
       sizeOcclusionGain: 0.4,
     };
     const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
@@ -654,10 +670,59 @@ describe("tier coherence (K5)", () => {
     expect(mirrored.sizeScatterRampStartFar2x).toBe(profile.sizeScatterRampStartFar2x);
     expect(mirrored.sizeScatterRampReach1xPx).toBe(profile.sizeScatterRampReach1xPx);
     expect(mirrored.sizeScatterRampReach2xPx).toBe(profile.sizeScatterRampReach2xPx);
+    expect(mirrored.sizeScatterHeavyShareThick1x).toBe(profile.sizeScatterHeavyShareThick1x);
+    expect(mirrored.sizeScatterHeavyShareThick2x).toBe(profile.sizeScatterHeavyShareThick2x);
+    expect(mirrored.sizeToneLevelFar).toBe(profile.sizeToneLevelFar);
     expect(mirrored.sizeOcclusionGain).toBe(profile.sizeOcclusionGain);
     // And the patch really moved them, so none of the equalities above is the
     // default agreeing with itself.
     expect(mirrored.sizeSpanMax).not.toBe(MATERIAL_SOURCE_SIZE.sizeSpanMax);
+  });
+
+  /*
+   * W25's level term above the thickness knee (claims §5.113; W25 Decision Log 3
+   * (b)). The term enters the TONE RESPONSE's own thin-to-thick blend, and the
+   * response is mirrored on both tiers — the shader solves the neutral against it
+   * and `toneRespondedSourceOptics` shifts the CSS tint against the same target —
+   * so a term carried on one side and not the other would put a large surface at
+   * two different levels depending on which tier drew it. Pinned on the shipped
+   * material, where the term is 0 and the two agree because neither has it, and
+   * on a patch that moves it, where they agree because both do.
+   */
+  it("carries the level above the knee into the same response target on both tiers", () => {
+    const patch = { sizeToneLevelFar: 0.65 };
+    const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    const mirrored = sourceSize(patch);
+    const response = {
+      anchorX: profile.backdropToneAnchorX,
+      thin: profile.backdropToneResponseThin,
+      thick: profile.backdropToneResponseThick,
+      strength: profile.backdropToneResponseStrength,
+    };
+    for (const span of [32, 44, 96, 128, 160, 256]) {
+      for (const dpr of [1, 1.5, 2, 3]) {
+        const gpuFar = rendererSizeToneLevelFar(span, profile, dpr);
+        const cssFar = cssSizeToneLevelFar(span, mirrored, dpr);
+        expect(cssFar).toBeCloseTo(gpuFar, 12);
+        // Below and at the knee the term is exactly 0 on both tiers, whatever the
+        // constant says — the property the fit's safety rests on.
+        if (span <= profile.sizeSpanMax) expect(gpuFar).toBe(0);
+        const thickness = rendererSizeThickness(span, profile);
+        for (const x of [0.11, 0.27, 0.5, 0.95]) {
+          expect(
+            cssBackdropToneResponseLevel(x, thickness, response, cssFar),
+            `span ${span} dpr ${dpr} x ${x}`,
+          ).toBeCloseTo(rendererBackdropToneResponse(x, thickness, profile, gpuFar), 12);
+        }
+      }
+    }
+    // And the patch really moved it: at span 160 the response's target is not
+    // where the shipped material puts it.
+    const far = rendererSizeToneLevelFar(160, profile, 1);
+    expect(far).toBeGreaterThan(0);
+    expect(rendererBackdropToneResponse(0.5, 1, profile, far)).not.toBe(
+      rendererBackdropToneResponse(0.5, 1, DEFAULT_MATERIAL_PROFILE, 0),
+    );
   });
 
   /*
@@ -716,6 +781,19 @@ describe("tier coherence (K5)", () => {
         sizeScatterGainFar2x: 9.9,
         sizeScatterFloor2x: 1,
         sizeScatterSpanMax2x: 256,
+      },
+      /*
+       * W25's share law (claims §5.113; W25 Decision Log 3 (a)): the heavy
+       * share's thick-end lift, at both anchors and on a 2x floor low enough
+       * that the lift is not simply clamped away. This is the case where `kDeep`
+       * is the W11c curve PLUS a term on `sizeThickness`, so a mirror that
+       * carried the curve and not the lift would part here — and only here, the
+       * three patches above being inert in it.
+       */
+      {
+        sizeScatterHeavyShareThick1x: 0.28,
+        sizeScatterHeavyShareThick2x: 0.14,
+        sizeScatterFloor2x: 0.5,
       },
     ] as const;
     const SPANS = [32, 44, 96, 128, 160, 256] as const;

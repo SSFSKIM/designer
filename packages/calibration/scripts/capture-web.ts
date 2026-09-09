@@ -390,6 +390,11 @@ const MATERIAL_PATCH_KEYS = new Set([
   "sizeScatterRampStartFar2x",
   "sizeScatterRampReach1xPx",
   "sizeScatterRampReach2xPx",
+  // W25's three mechanisms (claims §5.113; W25 Decision Log 3). The along-side
+  // field's slope is an `optics` leaf and this section does not enumerate those.
+  "sizeScatterHeavyShareThick1x",
+  "sizeScatterHeavyShareThick2x",
+  "sizeToneLevelFar",
   // The lens (W12 G2): the gain on the reference's amount law, the height and
   // amount laws themselves, the thickness they are read at, the profile's
   // extent and exponent, and the direction's ovalization with its knee.

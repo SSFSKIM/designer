@@ -128,6 +128,17 @@ const FITTED_CONSTANTS = [
   "sizeScatterRampStartThick2x",
   "sizeScatterRampStartFar1x",
   "sizeScatterRampStartFar2x",
+  // W25's three mechanisms are deliberately ABSENT from this list. They are on
+  // the material (`sizeScatterHeavyShareThick1x` / `…2x`, `sizeToneLevelFar` and
+  // `optics.*.rimAlongSideSlope`) and every one of them is 0, so no measurement
+  // has chosen a value and the patch rightly does not name one: G2 fitted them
+  // to scratch and G3 declares them, at which point they enter here beside the
+  // profile's `entries`. What DID move is the fingerprint below —
+  // 7968a7f8106b10a4 → 52a633135b9da151 light, 0d741cd19cd1243b →
+  // 2f47777637f8df50 dark — because three keys entered the resolved object while
+  // nothing rendered changed, which is exactly the reading W15 G1's second-scale
+  // constants left twice (claims §5.113; W25 Decision Log 3; the profiles'
+  // `$comment-w25`).
   "sizeScatterRampReach1xPx",
   "sizeScatterRampReach2xPx",
   // W12 G2's lens (claims §5.50–§5.51): the reference's height and amount laws
