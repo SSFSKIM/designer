@@ -251,8 +251,8 @@ G0 → (the user: the amendment, the console) → G1 → G2 (may start on G0 alo
 | child | status |
 | --- | --- |
 | G0 — the width instrument, the read, the argument, the along-side reader | CLOSED 2026-09-09 (claims §5.113; `g0/g0-findings.md`; merged `058dd64`; Decision Log 3) |
-| G1 — the bed amendment and the native captures | DISPATCHED 2026-09-09 (the `probe` set's declaration by a worker; the capture at the user's unlock; Decision Log 3 (e)) |
-| G2 — the law fitted | CLOSED 2026-09-09 (`g2/g2-findings.md`; the three mechanisms landed INERT — 33/33 goldens and 36/36 canonical captures byte-identical — and fitted on a scratch ladder of eight rungs: share lift **0.455**, level offset **0.029** light / **0** dark, along-side slope **0.45**. Two rulings wait on the parent: the level term's SHAPE was re-formed against Decision Log 3 (b) on the rows' own evidence, and the share law's landing trades clause 2 against clause 6. X5 held at 0.000196 ΔE against a stop of 0.001) |
+| G1 — the bed amendment and the native captures | DECLARED 2026-09-09 (merged `0f30529`: 52 probe scenes, the plumbing, `g1/sitting.md`; the harness rebuilt) / SITTING 2026-09-09 from 06:33Z (`g1/run-sitting.sh`; Decision Log 4 (g)) |
+| G2 — the law fitted | CLOSED 2026-09-09 (claims §5.114; merged `17b7af1` inert; the 1x fits as priors; every constant to G3 on the probe set; Decision Log 4) |
 | G3 — declared and dry-run | — |
 | G4 — the landing | — |
 
@@ -395,6 +395,76 @@ along-side field — with the readers of G0 as the ladder's instruments, fitted 
 identify (the 1x sharp σ and share, the level term, the along-side slope) and re-fitted at 2x
 when G1's fixtures land; a thin cell moved by more than 0.001 ΔE stops the ladder (X5).
 
+### Decision Log 4 — G2 read: the three mechanisms merged inert; the share's only identifying row is a validation row and its off-row check runs the other way, so every constant is fitted once at G3 on the probe set; the level term's shape and the field's form re-formed on the rows; the sitting under way (2026-09-09; the parent, on the user's standing instruction)
+
+Evidence `results/2026-09-09-w25-thick-span-composite/g2/` (`g2-findings.md`, `fit-share.txt`,
+`fit-level.txt`, `fit-field.txt`, `condition.txt`, `thin-invariance.txt`, `rides.txt`,
+`goldens-attribution.txt`, `ladder.sh`), merged at `17b7af1` with the constants at their inert
+defaults (fingerprints unchanged at the defaults; the renderer's goldens not yet re-run on the
+GPU because the sitting owns it — G3's first step, expectation 33 / 33). Verified by the parent:
+the chain green on the branch, the thin-invariance table (worst 0.000196 ΔE, 21 `rrect-sm` cells
+at exactly 0), the four riders unmoved, the ladder's ΔE columns.
+
+(a) **The mechanisms stand as landed.** The share law: `kDeep` gains `lift · sizeThickness(span)`
+with `sizeScatterHeavyShareThick1x` / `2x`, the thin end untouched (X5 by construction: 0 at and
+below span 32). The level term: `sizeToneLevelFar` on the tone response's return, on
+`smoothstep(sizeSpanMax, sizeScatterSpanMax, span)`, exactly 0 at and below 96 (77 control rows
+read a rendered lever of 0.000000). The along-side field: the rim's amplitude ×
+`max(1 + slope · sizeThickness · (x/hw)(y/hh), 0)` in `rimLit.w`, `rimAlongSideSlope`. The 1x
+sharp σ is `blurSigma`, the thin capsule's own width (the reference's sharp component is span-flat
+to 6 %: 2.62 collapsed against 2.79 thick), and this wave may not move it.
+
+(b) **Two forms overturned on the rows, accepted** (the worker's Surprises above record them). The
+field is the PRODUCT of the normalised coordinates, +1 at the top-left and bottom-right corners,
+not a ramp along the diagonal: a ramp gives the top and bottom the same slope in x, and G0
+measured them equal and opposite. The level term is an OFFSET above the knee, not the
+thin-to-thick blend continued: Decision Log 3 (b)'s "the sign follows the backdrop" read the
+reference's absolute grading, and the residual against vitrea is backdrop-independent because
+vitrea's own deep value keeps rising to `sizeScatterSpanMax` 256 where the reference's width stops
+at 96. The blend form explains 0.3 % of it, an offset 39 %. Decision Log 3 (b) corrected beside.
+
+(c) **The share is not landed at 0.455, and the reason is the discipline, not the number.** The
+1x share is identified by ONE row on the canonical bed, `impulse__rrect-md`, a validation row
+(the only other impulse cell is collapsed, share 0.00 on both sides). Its check off that row runs
+the other way: reader C's single-width objective over the grids' structured rows worsens
+monotonically with the lift (0.2507 → 0.2769), because vitrea's heavy component is 13.3 device px
+at the reference's own share against 19.5, and `sizeScatterGainMax` is not a lever on it (8 →
+10.3 left the reading at 13.29: the heavy tap is a mip-chain level whose width saturates). And
+the bed cost breaks clause 6 (+0.00041 canonical, +0.00087 on the grids at lift 0.48 against
++0.0001). The worker recommended landing it and recording the cost; the parent rules otherwise:
+a constant fitted on one validation row, contradicted by its off-row check, at a cost above the
+clause, with 44 identifying rows at five spans and both scales arriving from the sitting within
+hours, waits for those rows. **Every constant — the share at both scales, the level term, the
+field — is fitted once at G3 on the probe set**, G2's 1x fits (lift 0.455 → share 0.434 against
+0.473; `sizeToneLevelFar` 0.029 light / 0 dark on 14 rows, RMS 1.486 → 0.977; slope 0.45 on 64
+sides, range 0.743 of the reference's) standing as the priors with their condition recorded. One
+declaration, one holdout read (X3).
+
+(d) **The level term's scheme separation is provisional.** The dark grid fits ~0 and worsens by
+2.5 codes RMS at the light value, and the reason is physical (its collapsed-to-uncollapsed
+contrast is six codes where the light's is a hundred); G3 re-reads it on the probe set's dark rows
+at both scales before the dark document pins anything.
+
+(e) **The 2x anchors need a different lever.** At dpr 2 `sizeScatterFloor2x` = 1 saturates
+`kDeep`, so the 2x lift is clamped away whatever it says, and vitrea's sharp width runs 1.67 →
+3.51 device px across scales where the reference's halves (2.79 → 1.40). G3 fits the 2x share
+through the floor (or the constant that has headroom) and adds a `blurSigma2x` sibling only if
+the 2x coarse checkerboards identify it. Tracker.
+
+(f) **Gaps recorded** (tracker): the heavy tap's saturated width; the sharp component 1.67
+against 2.79 at 1x (X5-entangled with the thin capsule); the field closing three quarters of the
+range (the last quarter in W23's amplitude law); the CSS tier unable to draw the field (X8
+residual, Decision Log 23 (a)); the above-knee residual being vitrea's own span curve continuing
+(a lower `sizeScatterSpanMax` may be the reference's term, X5-entangled; the wave's Deferred list).
+
+(g) **The sitting.** The harness rebuilt for the `probe` role (`build.sh`, 14 backgrounds
+byte-stable against the W21 grid's rasters), the grant re-added by the user and confirmed through
+the bundle's own path (`open … --args probe`: ScreenCaptureKit OK, window key), the screen
+unlocked; the 1x pass started 06:33Z by W9's protocol (`g1/run-sitting.sh`: 6 s reset, 45 s
+idle, seven attested runs), the display held awake, every other capture held (G2 told to hold;
+the runner refuses a running capture). The 2x pass follows; then `materialize --set probe`, the
+two withdrawn cells checked against the light grid's bytes, the bistable shares read; then G3.
+
 ## Surprises & Discoveries
 
 - **The haze was never measured on the web side.** The residual that says so was quoted as the
@@ -411,6 +481,8 @@ when G1's fixtures land; a thin cell moved by more than 0.001 ΔE stops the ladd
   manifest; and span is confounded with clearance on the canvas.
 - **The edge-spread reader binds on the backdrop's pitch.** No ceiling identifies a kernel wider
   than an eighth of the step.
+- **The along-side field is a saddle, not a ramp.** The product of the normalised coordinates has
+  the antisymmetry G0 measured; a ramp along the diagonal does not.
 - **The above-knee level residual is not the reference's grading — it is vitrea's own span curve
   continuing where the reference's stops.** G0 read the reference's WIDTH flat above span 96 while
   vitrea's `kDeep` keeps rising to `sizeScatterSpanMax` 256, so the two gradings largely cancel and
@@ -448,3 +520,6 @@ when G1's fixtures land; a thin cell moved by more than 0.001 ΔE stops the ladd
   ≥ 0.39) and clause 6 (calibration ΔE not worse by 0.0001, capping the lift at ≈ 0.31) have an
   empty window, G2 recommending 0.455 and the ΔE recorded as a claim. The golden re-run after the
   level term's re-form is deferred to G3 by the parent's capture hold during G1's sitting.
+- 2026-09-09: G1 DECLARED (merged `0f30529`) and the sitting started at 06:33Z after the rebuild
+  and the user's re-grant; G2 CLOSED by the parent (claims §5.114; merged `17b7af1` inert);
+  Decision Log 4 — every constant to G3 on the probe set, the two re-formed shapes accepted.

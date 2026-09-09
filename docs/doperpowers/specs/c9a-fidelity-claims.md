@@ -14547,3 +14547,69 @@ grids whole at both scales with coarse structured backdrops, as a `probe` set** 
 (e)). `identification.txt`.
 
 **G1 and G2 open** (Decision Log 3 (f)).
+
+### 5.114 W25 G1 DECLARED and G2 CLOSED: the probe fixture set declared (52 scenes, 208 fixtures at the sitting, the gate blind to it by test), the harness rebuilt and the sitting started under W9's protocol; the three mechanisms merged inert — the heavy share's lift on `sizeThickness`, an offset above the knee, a saddle field on the rim — with the 1x fits recorded as priors because the share's one identifying row is a validation row whose off-row check runs the other way (2026-09-09)
+
+**Evidence** `results/2026-09-09-w25-thick-span-composite/g1/` (`sitting.md`, `run-sitting.sh`),
+`apps/reference-apple/scenes.json` (`$comment-probe`), `packages/calibration/src/profile.ts`
+(`FIXTURE_SETS` + `probe`), `cli/compare.ts --set probe`, `cli/materialize.ts --set`, the guard
+tests in `adopted-thresholds.test.ts` and `scene-matrix.test.ts` — merged `0f30529`; and `g2/`
+(`g2-findings.md`, `fit-share.txt`, `fit-level.txt`, `fit-field.txt`, `condition.txt`,
+`thin-invariance.txt`, `rides.txt`, `goldens-attribution.txt`, `ladder.sh`) — merged `17b7af1`.
+Rulings in W25 Decision Log 4.
+
+**§1 The set.** 52 probe scenes beside `recorded` in the split (W25 Decision Log 3 (e)): the
+W9 / W21 grids whole with their solids (44 new ids; 12 already canonical keep their roles),
+`impulse` over `rrect-sm` / `-ml` / `-lg`, `dark-solid` at spans 48 / 64 / 80 / 128 (three new
+shapes at `rrect-ml`'s aspect and radius fraction), and `dark-solid__rrect-md-clear20` — `rrect-md`
+offset 32 points so its short-axis clearance is `rrect-lg`'s 20 px (the `offset` channel the
+stacked scene already uses; the canvas is one declaration for the whole matrix). The two
+withdrawn cells re-declared under new ids so the dark profiles re-capture them. Per profile: the
+four standard profiles carry 52 each (the light ones through `"all"`, the dark lists kept
+identical), the accessibility profiles none. The sitting produces 208 fixtures inside 316 per
+attested run-pair; the frozen bed's 108 are snapshotted and never republished (`materialize
+--set probe`). A probe row never enters a gated count, `PREDICATE_EXCLUDES` or a floor, by test;
+`compare` refuses to invent a cell for an uncaptured probe scene. Six canonical ids cannot gain
+dark rows without moving the gate (`checkerboard__rrect-sm` / `-ml` / `-lg`, `hc-text__rrect-md`,
+`photo__rrect-sm`, `impulse__rrect-md`): the W21 grid stays their dark reading. **A harness
+rebuild was needed** — the committed binary refused the matrix ("scene … is in no split set") —
+and done by the parent (`build.sh`; the fourteen backgrounds byte-identical to the W21 grid's
+rasters where both carry them); the grant re-added by the user and confirmed through the bundle's
+own path (ScreenCaptureKit OK, window key; `capture.sh probe` from a shell reads BLOCKED by the
+W20 tracker entry's reason). **The sitting started 06:33Z**: seven attested runs per scale, 6 s
+reset, 45 s idle, the first attempt refused for idle as the protocol requires.
+
+**§2 The three mechanisms** (inert at the defaults; every golden and every canonical capture
+byte-identical; thin invariance worst 0.000196 ΔE with the 21 `rrect-sm` cells at exactly 0; the
+four `sizeThickness` riders unmoved at any value). The share law: `sizeScatterHeavyShareThick1x`
+/ `2x` as a lift on `kDeep` × `sizeThickness` — the thin end (`sizeScatterFloor`, the ramp's
+anchors) untouched, and the 1x sharp σ is `blurSigma`, the capsule's own (the reference's sharp
+component 2.62 collapsed / 2.79 thick, span-flat). The level term: `sizeToneLevelFar` on the tone
+response's return, on `smoothstep(sizeSpanMax, sizeScatterSpanMax, span)` — an OFFSET, not the
+blend continued: the residual against vitrea is backdrop-independent (+2.2 … +4.2 codes at span
+160 over eight backdrops, 0.012–0.89 linear) because vitrea's deep value rises to 256 where the
+reference's width stops at 96; the blend form explains 0.3 %, the offset 39 %; 77 control rows
+at ≤ 96 read a lever of 0.000000. The along-side field: the rim's amplitude × `max(1 + slope ·
+sizeThickness · (x/hw)(y/hh), 0)` — the PRODUCT of the normalised coordinates, +1 at the top-left
+and bottom-right corners, which has the antisymmetry G0 measured where a ramp along the diagonal
+does not.
+
+**§3 The 1x fits, as priors.** Share: lift 0.455 puts reader A's share at 0.434 against 0.473 on
+`impulse__rrect-md` — **the one row that identifies it, a validation row**; the lever 0.38 → 0.71
+share per unit lift; the off-row check (reader C over the grids) worsens monotonically (0.2507 →
+0.2769) because vitrea's heavy component is 13.3 device px at the reference's share against 19.5
+and `sizeScatterGainMax` is not a lever on it (8 → 10.3 leaves 13.29: a mip level's width
+saturates); the bed cost +0.00041 canonical / +0.00087 grids at lift 0.48 against clause 6's
++0.0001. Level: 0.029 (encoded) on the W9 light grid's 14 above-knee rows, RMS 1.486 → 0.977; the
+dark grid fits ~0.001 and worsens 2.5 codes at the light value (its whole contrast six codes).
+Field: slope 0.45 on 64 sides, opposite sides agreeing to 0.002, range 0.743 of the reference's,
+residual slope −0.004, cost +0.00003 canonical. The 2x rows on disk identified nothing: at dpr 2
+`sizeScatterFloor2x` = 1 saturates `kDeep` so the lift is clamped away; every 2x width row is at
+span ≤ 96; vitrea's sharp width runs 1.67 → 3.51 across scales where the reference's halves.
+**Ruled (Decision Log 4 (c)): every constant fitted once at G3 on the probe set** — one
+declaration, one holdout read.
+
+**§4 Recorded.** The heavy tap's saturated width (tracker); the sharp component 1.67 against 2.79
+at 1x, X5-entangled; the field's last quarter in W23's amplitude law; the CSS tier unable to draw
+the field (X8, Decision Log 23 (a)); the above-knee residual as vitrea's own curve continuing (a
+lower `sizeScatterSpanMax` may be the reference's term; Deferred).

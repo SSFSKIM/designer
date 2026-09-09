@@ -1195,3 +1195,35 @@ and 4 at 2x; ceilings of 8 → 128 were swept and the best row is usually the sm
 (`g0/validate.txt`). The web residual 1.81 recorded at §5.94 §5 was that bound, not a property of
 vitrea's material. The reading that identifies a thick kernel is reader A on a dot or readers B / C
 on a coarser pitch (32, 64 CSS px), which W25's `probe` set carries. Closes with the set.
+
+## The heavy tap's width does not follow `sizeScatterGainMax`: a mip-chain level saturates at 13.3 device px where the reference's heavy component is 19.5 (W25 G2, 2026-09-09)
+
+Reader A on `impulse__rrect-md` at 1x reads vitrea's heavy component at 13.29 device px at the
+reference's own share, against the reference's 19.52; rung `rG` raised `sizeScatterGainMax` 8 →
+10.3 — the value the mix's arithmetic says should take it to 19.5 — and the reading stayed 13.29
+(`g2/fit-share.txt`, `g2/g2-findings.md` §2). The heavy tap samples a mip-chain level whose
+effective width does not scale with the gain past that level's own. It is why raising the share
+to the reference's costs ΔE on the grids (+0.00087 at lift 0.48): the structure vitrea adds
+comes through a kernel narrower than the reference's. Shape of the work: a heavy tap whose width
+is a continuous parameter (a further pyramid level, or a separable blur at the tap) with the
+width fitted on the probe set's coarse checkerboards at both scales. Closes when reader A's heavy
+σ is within 15 % of the reference's at both scales.
+
+## vitrea's sharp component is 1.67 device px against the reference's 2.79 at 1x and runs the other way across scales, and it is the thin capsule's own `blurSigma` (W25 G2, 2026-09-09)
+
+The reference's sharp component is span-flat (2.62 device px collapsed, 2.79 thick) and halves
+between scales (2.79 → 1.40); vitrea's is `blurSigma` 1.25 CSS px, 1.67 device px at 1x and 3.51
+at 2x (`g2/g2-findings.md` §1, §6, §10). No thick-only sharp width exists to fit, so closing the
+gap re-fits `blurSigma` against a bed where the thin cells are not the constraint — X5-entangled —
+and adds a `blurSigma2x` sibling that the 2x coarse checkerboards of the probe set identify.
+Closes with that fit.
+
+## The along-side field closes three quarters of the reference's range; the last quarter is in W23's amplitude law on the straight spans (W25 G2, 2026-09-09)
+
+At slope 0.45 the field's corner-to-corner range reads 0.743 of the reference's over 64 sides
+(27 inside 20 %), opposite sides agreeing to 0.002 (`g2/fit-field.txt`). The residual is not in
+the field's shape (residual slope −0.004) but in the rim's mean amplitude on the straight spans,
+which W23 fitted per side and this factor deliberately leaves alone. Closes when the amplitude law
+and the field are fitted jointly on the probe set's solids. The CSS tier cannot draw the field at
+all (one inset shadow, one alpha around the contour) while staying coherent with the GPU tier's
+side mean — an X8 residual under wave Decision Log 23 (a).
