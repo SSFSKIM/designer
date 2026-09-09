@@ -227,7 +227,10 @@ function main(): void {
     options.profiles.length > 0
       ? options.profiles
       : readdirSync(first.dir, { withFileTypes: true })
-          .filter((e) => e.isDirectory())
+          // A run snapshot carries its rendered backdrops beside the profile
+          // directories; they are rasters, not a profile, and must not be
+          // counted as one in the provenance block.
+          .filter((e) => e.isDirectory() && e.name !== "backgrounds")
           .map((e) => e.name);
 
   const decisions: { cell: string; profile: string; scene: string; outcome: CellResolution }[] = [];
