@@ -1,15 +1,20 @@
 /**
- * The deep interior of a large surface — the pixels more than ~150 px from
- * every edge, which only a surface over ~307 px in BOTH dimensions has.
+ * The deep interior of a large surface, beyond the outer shadow falloff's
+ * reproduced overflow boundary.
  *
- * On Metal, `tanh` is evaluated as (e^2x − 1) / (e^2x + 1), which is inf / inf
- * = NaN once 2x passes ~88.7. The outer shadow's falloff feeds `tanh` a cubic in
- * depth over sigma, and at the shipped sigma of 15.55 that cubic crossed the
- * line at 10.07 σ ≈ 153 px of depth. The NaN rode the falloff into the pass's
- * alpha as NaN × (1 − coverage) — NaN × 0 is NaN — and the deep interior of
- * every large surface drew an opaque white rectangle inset ~153 px from its
- * edges. The fix clamps the falloff's argument to ±8 σ, where the curve is 1 to
- * f32 exactly, so no pixel a healthy render produced moves.
+ * The Apple GPU failure is consistent with `tanh(t)` evaluated as
+ * (e^2t − 1) / (e^2t + 1), giving inf / inf = NaN past 2t ≈ 88.7; this does
+ * not establish how every Metal compiler implements it. The cubic reaches
+ * that limit at normalized inward shadow distance ≈10.060966: 156.448 px
+ * at sigma 15.55, measured from the shifted, spread shadow silhouette.
+ * Subtracting spread 3.10 gives 153.348 px from the shifted glass contour.
+ * With downward offset 7.95, straight-edge glass insets are about 153.348 px
+ * left/right, 161.298 px top and 145.398 px bottom, not equal on all sides.
+ * Rounded contours depend on their actual field distance.
+ * The NaN rode the falloff into alpha as NaN × (1 − coverage) = NaN × 0,
+ * and the reproduced large surfaces drew a white interior block. The fix
+ * clamps the normalized falloff argument to ±8 before the cubic, where the
+ * curve is 1 to f32 exactly, so no pixel a healthy render produced moves.
  *
  * `lens-size-depth` already holds a 420 × 400 surface, and its own measurement
  * — a DIFFERENCE between a lensed and an unlensed capture — could not see the
@@ -44,7 +49,7 @@ test.describe("@gpu the deep interior of a large surface", () => {
     );
 
     const [cx, cy] = WIDE_CENTRE;
-    // 100 px inside the left edge: the healthy side of the old 153 px line.
+    // 100 px inside the left edge: the healthy side of the old ~153.348 px left-edge line.
     const shallow = pixel(raster, cx - WIDE_HALF[0] + 100, cy);
     // The centre: 210 px from the nearest vertical edge, 200 from the horizontal.
     const deep = pixel(raster, cx, cy);

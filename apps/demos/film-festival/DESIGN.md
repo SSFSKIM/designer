@@ -136,14 +136,16 @@ still is ever behind them. The platter cannot make that claim, so it declares a 
 tint seed, on `book` only.
 
 **Size family.** Three spans across the size law's band (inert below 32, saturated at 96): **40**
-(day control, venue button, Book) radius 13, **68** (masthead) radius 22, **≥190** (the platter)
-radius 28. Below 560px the two smaller spans step down to 36 and 56, which keeps the whole family
-inside the band rather than dropping the small controls under the floor of 32 where the law is
-inert. One thickness of **10** across all four, deeper than the default 8 because a bright
-backdrop needs more occlusion to hold a dark label. Book is the one capsule — radius 20, exactly
-half its height — because §8 of `liquid-glass.md` reserves capsules for the standout action.
-Concentric: the selected-day pill is the track's radius less its 4px inset, 9; a platter item is
-28 less 6, 22.
+(day control, venue button, Book), **68** (masthead), **≥190** (the platter). The one-row floating
+controls are capsules: radius 20 at height 40 and radius 34 at height 68. Below 560px the day track
+and masthead step down to heights 36 and 56, and the capsule geometry follows their short side.
+One thickness of **10** stays unchanged. Book remains the only tinted control.
+
+The user-directed curvature follow-up prefers round capsules to rectangular controls; it does not
+claim Apple requires them. The multirow venue platter keeps radius 28 and the printed content keeps
+its established geometry. The selected-day pill is concentric: 20 − 4 = 16 on desktop, 18 − 3 = 15
+on mobile. The platter items retain their existing radius 22. Layout, imagery, material and behaviour
+remain unchanged.
 
 **Concentricity anchor:** the viewport edge, square, with the page's own 80px margin standing in
 for the window's inset. Every radius above is a fixed radius from the size family or a capsule; the
@@ -300,3 +302,11 @@ platter announced as a menu with its own label because portalled content leaves 
 behind; and `color-scheme: light` declared on the plane's own content, without which a reader whose
 system prefers dark gets dark ink on light glass. The page has one colour scheme, declared at the
 root, because the festival's programme is one printed object.
+
+## User-directed capsule follow-up
+
+The masthead retains its 22px end padding (16px / 13px at the existing narrow breakpoints),
+the venue control its 16px, and the day track its 4px / 3px inset. This preserves the established
+bar footprint while giving the capsule ends and selected segments their existing breathing room. Frozen PNGs and
+`audit.json` remain baseline evidence; follow-up captures and checks live in
+`figma-design-workspace/capsule-followup/film-festival/`.

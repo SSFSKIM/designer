@@ -273,20 +273,19 @@ what vitrea's size law reads, and the family straddles the law's band on purpose
 
 | Surface | Span | Radius | Shape | Thickness |
 |---|---|---|---|---|
-| `nav-mark`, `nav-sections` | 44 | 14 | fixed rounded rect | 8 |
-| `configure` | 64 | 20 | fixed rounded rect | 8 |
+| `nav-mark`, `nav-sections` | 44 | 22 | capsule | 8 |
+| `configure` | 64 | 32 | capsule | 8 |
 | `reserve` | 64 | 32 | capsule (half the height) | 8 |
 | `platter` | 268 | 26 | fixed rounded rect | 8 |
 
 Concentricity. A web page has no bezel, and this page's outer frame is the viewport edge, whose
 corner radius is zero, so no floating surface can be concentric with it. That is recorded as the web
-deviation it is: the three outer radii above are fixed values from the family, and concentricity is
-held **inside** each surface instead, where rule 9 actually bites. A control nested in a host takes
-the host's radius minus its inset: the section links inside `nav-sections` are 32 tall at a 6px inset,
-so 14 − 6 = 8; the segmented track and the lens trigger inside `configure` are 44 tall at a 10px
-inset, so 20 − 10 = 10, and a segment inside that track sits at 3px, so 10 − 3 = 7; a platter row
-inside `platter` sits at 10px, so 26 − 10 = 16. `reserve` is a capsule, because it is the one
-standout action and Apple reserves capsules for exactly that in a dense desktop layout.
+deviation it is: the one-row outer surfaces use half-height radii, while the multirow platter
+retains its fixed radius. Concentricity is held inside each surface: section links are 32 tall at
+a 6px inset, so 22 − 6 = 16; the segmented track and lens trigger are 44 tall at a 10px inset,
+so 32 − 10 = 22; a segment inside that track sits at 3px, so 22 − 3 = 19. A platter row retains
+26 − 10 = 16. These capsules follow the user's requested refinement, not a claim that Apple
+mandates one shape for every desktop control.
 
 Merging. The two members of each bar are spaced **16px, above the merge threshold**, so each reads as
 its own control: the wordmark is a link home and the section list is navigation, and the configure
@@ -454,3 +453,11 @@ Tier expectation: **webgpu** on Chromium over `https` or `http://localhost`, wit
 `samplingBackend: "gpu-texture"`, `refraction: "true"` and `analysis: "exact"`, because the plane is
 a canvas the page owns. Every other engine, and any Chromium without an adapter, gets the CSS tier,
 which is the same material without refraction and is a complete design.
+
+## User-directed capsule follow-up — 2026-09-10
+
+The user requested more actively rounded one-row floating controls. The wordmark, section
+navigation and configuration bar now join the existing Reserve capsule, with related inner
+radii and comfortable existing end padding. The multirow lens platter retains its geometry.
+Layout, imagery, material and behavior are unchanged. Baseline PNGs and audit.json remain
+frozen; follow-up verification is in `figma-design-workspace/capsule-followup/product-launch/`.

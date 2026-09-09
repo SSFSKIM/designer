@@ -1,7 +1,7 @@
 ---
 name: designer
 description: Always invoke this skill for any UI/UX or design work — designing, building, redesigning, reworking, restyling, or improving a user interface or visual artifact.
-version: 2.3.0
+version: 2.3.1
 ---
 
 # Designer
@@ -67,7 +67,7 @@ These rules hold regardless of chosen stance, project, or surface. They are the 
 - Content is realistic, always — real names, metrics, dates, and copy, never lorem ipsum or placeholder filler, in any pass of the build.
 - An image-led brief ships imagery — a photograph the imagery ladder found or an artifact drawn as content — never a coloured block, an empty half, or a guessed URL where a picture belongs.
 - Hierarchy comes before decoration — the primary task and most important information are visually dominant before any material effect is added on top.
-- A glass surface is a control or it is not glass — navigation, an action, a transient platter over live content, never a card, a list, a panel or a hero; a page whose material model is glass over planes composes to `references/liquid-glass.md` before any token is set. Its curvature is active: a one-row glass surface is a capsule, and a rounded rectangle on glass is reserved for the compact controls inside a capsule and for the multi-row surfaces a capsule has no meaning on.
+- A glass surface is a control or it is not glass — navigation, an action, a transient platter over live content, never a card, a list, a panel or a hero; a page whose material model is glass over planes composes to `references/liquid-glass.md` before any token is set. Use curvature actively: prefer capsules for single-row floating controls, with generous concentric curves for larger surfaces; preserve usable padding as the silhouette changes.
 - Borders organize; they do not bully. Thin, low-opacity dividers structure content — heavy outlines and stacked shadow cards are not the default organization system, and shadows are reserved for elevation, temporary overlay, or floating context rather than applied to every panel.
 - Type carries its role, not a single treatment for everything — a display face for expression, a readable face for body copy, and a mono face only where it structures something genuinely tabular such as metrics, timestamps, or code.
 - Whitespace is functional, not incidental — it establishes hierarchy and lowers cognitive load rather than filling gaps with decorative components added merely to make a page look fuller.

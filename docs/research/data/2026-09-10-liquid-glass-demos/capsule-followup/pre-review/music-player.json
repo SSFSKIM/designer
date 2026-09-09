@@ -1,0 +1,284 @@
+{
+ "dir": "music-player",
+ "url": "http://127.0.0.1:8808/figma-design-workspace/capsule-final-audit/music-player/index.html",
+ "auditedAt": "2026-09-09T20:34:56.037Z",
+ "rootFound": true,
+ "readyState": "settled",
+ "errors": [],
+ "consoleErrors": [],
+ "failedRequests": 0,
+ "captureWidth": 1440,
+ "overflowCapture": false,
+ "overflowAtLoad": false,
+ "scrolledOnLoad": 0,
+ "docHeight": 900,
+ "words": 232,
+ "title": "Fast Ice \u2014 The Marram Trio \u2014 Skerry",
+ "placeholder": false,
+ "contrast": {
+  "checked": 68,
+  "pass": 68,
+  "unknown": 0,
+  "rate": 1,
+  "onGlass": 37,
+  "onGlassPass": 37,
+  "fails": []
+ },
+ "surfaces": 4,
+ "surfacesInFrame": 4,
+ "planes": [
+  {
+   "plane": "base",
+   "nodes": 3
+  },
+  {
+   "plane": "overlay",
+   "nodes": 1
+  }
+ ],
+ "colorScheme": "light",
+ "webgpu": {
+  "available": true,
+  "ownership": "vitrea",
+  "deviceHealth": "ok",
+  "reason": null,
+  "hasDevice": true
+ },
+ "groups": [
+  {
+   "id": "transport",
+   "members": 2,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  },
+  {
+   "id": "queue",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  },
+  {
+   "id": "menu",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  }
+ ],
+ "diagnostics": [],
+ "named": {
+  "nestedGlass": false,
+  "samePlaneOverlap": false,
+  "contentLayerHost": false,
+  "demotedBackdropRoot": false,
+  "hostOutsidePlane": false,
+  "nonUniformRadii": false,
+  "tintUnparseable": false
+ },
+ "derivedFindings": [],
+ "menu": "captured",
+ "menuSurfaces": 4,
+ "menuGroups": [
+  {
+   "id": "transport",
+   "members": 2,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  },
+  {
+   "id": "queue",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  },
+  {
+   "id": "menu",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  }
+ ],
+ "menuDiagnostics": [],
+ "reduced": {
+  "rootFound": true,
+  "errors": [],
+  "reducedMotionEmulated": true,
+  "overrideHonoured": true,
+  "materialMoved": true,
+  "material": {
+   "glass": "material",
+   "colorSource": "material",
+   "frost": "increased",
+   "refraction": "reduced",
+   "occlusion": "increased",
+   "border": "nominal",
+   "ambientTint": "nominal",
+   "foreground": "adaptive"
+  },
+  "motion": {
+   "overshoot": "none",
+   "deformation": "none",
+   "shimmer": "none",
+   "morph": "non-elastic",
+   "crossfade": "large-plane-shifts",
+   "positionalContinuity": true
+  },
+  "groups": [
+   {
+    "id": "transport",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   },
+   {
+    "id": "queue",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   },
+   {
+    "id": "menu",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   }
+  ],
+  "reducedTransparencyUndetectable": false,
+  "ok": true
+ },
+ "captures": [
+  "shot-fv.png",
+  "shot-full.png",
+  "shot-menu.png",
+  "shot-reduced.png"
+ ],
+ "surfaceDetail": [
+  {
+   "nodeId": "vitrea-node-1",
+   "groupId": "transport",
+   "plane": "base",
+   "tag": "section",
+   "role": null,
+   "rect": [
+    312,
+    24,
+    608,
+    88
+   ],
+   "span": 88,
+   "shapeFamily": "capsule",
+   "radii": [
+    44,
+    44,
+    44,
+    44
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "cssRadius": "44px",
+   "label": "Playback"
+  },
+  {
+   "nodeId": "vitrea-node-2",
+   "groupId": "transport",
+   "plane": "base",
+   "tag": "div",
+   "role": "group",
+   "rect": [
+    944,
+    46,
+    184,
+    44
+   ],
+   "span": 44,
+   "shapeFamily": "capsule",
+   "radii": [
+    22,
+    22,
+    22,
+    22
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "cssRadius": "22px",
+   "label": "Volume"
+  },
+  {
+   "nodeId": "vitrea-node-4",
+   "groupId": "queue",
+   "plane": "base",
+   "tag": "section",
+   "role": null,
+   "rect": [
+    1088,
+    208,
+    328,
+    620
+   ],
+   "span": 328,
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    22,
+    22,
+    22,
+    22
+   ],
+   "smoothing": 0.6,
+   "thickness": 8,
+   "cssRadius": "22px",
+   "label": "Up next"
+  },
+  {
+   "nodeId": "vitrea-node-3",
+   "groupId": "menu",
+   "plane": "overlay",
+   "tag": "div",
+   "role": "menu",
+   "rect": [
+    1388,
+    241,
+    0,
+    0
+   ],
+   "span": 0,
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    22,
+    22,
+    22,
+    22
+   ],
+   "smoothing": 0.6,
+   "thickness": 8,
+   "cssRadius": "22px",
+   "label": "Playlist actions"
+  }
+ ],
+ "gateMechanical": true
+}

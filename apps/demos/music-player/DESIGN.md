@@ -165,13 +165,14 @@ margin, so the concentric radius at that margin is 46 − 24 = **22**.
 | Size | Short side | Radius | Kind |
 |---|---|---|---|
 | plate | 328 (queue), 272 (menu) | 22 | fixed, concentric with the window corner |
-| bar | 88 (transport) | 18 | fixed |
+| bar | 88 (transport) | 44 | capsule, radius = height / 2 |
 | capsule | 44 (volume) | 22 | capsule, radius = height / 2 |
 
 Thickness **8** across all three. Inside a plate, rows inset 8 take radius 22 − 8 = **14**. Inside
-the bar, the play button is a capsule at 56 and the previous/next hover fills are capsules at 40;
-`liquid-glass.md` §8 gives capsules to the standout action and rounded rectangles to compact
-controls, so nothing else in the bar takes one. Every registered surface is at or above the size
+the bar, the play button is a capsule at 56 and the previous/next hover fills are capsules at 40.
+The transport uses 24px horizontal padding: its 44px outer radius minus that inset equals the
+40px end buttons’ 20px radius. This capsule follows the user’s curvature preference, not a
+requirement attributed to Apple. Every registered surface is at or above the size
 law's floor of 32 and the family straddles the 32–96 band the law grades across.
 
 **What stays out of the material.** The album identity, the tracklist, the liner note, the personnel
@@ -344,6 +345,13 @@ immersive, curated, elevate, transform. Control labels are verbs a listener woul
 
 ## Decision log
 
+- **2026-09-10 — user-directed capsule follow-up.** The listener preferred actively rounded
+  floating controls, naming this player and park-trails as the strongest demos. The transport now
+  has fully rounded 44px ends and 24px horizontal breathing room; the volume’s existing capsule declaration now also supplies explicit 22px renderer radii.
+  The queue and playlist platter retain their larger-panel geometry. Layout, imagery, material,
+  interactions and API are unchanged. Existing PNGs and `audit.json` remain frozen baseline
+  evidence; follow-up captures live in `figma-design-workspace/capsule-followup/music-player/`.
+
 - **2026-09-10 — the volume shares the transport's group.** It is a third surface but sits on the
   same band of the plane, 24px from the bar, and reads as one material with it. Rule 14 asks for
   spacing chosen so two surfaces merge or stay separate on purpose; 24px keeps them separate inside
@@ -384,3 +392,17 @@ immersive, curated, elevate, transform. Control labels are verbs a listener woul
   the overlay plane and travels there from its trigger, which both reference files name as the
   supported case and which is what macOS Music does, but the eye still sees one surface over another
   while it is open. Recorded rather than passed silently.
+
+## Responsive capsule regression fix — 2026-09-10
+
+At 350px the 24px transport ends pushed the remaining-time box to x=332, past the
+capsule's x=326 edge. At widths up to 400px the transport uses 12px ends, 8px control
+gaps, no extra now-playing inset and 6px scrub-row gaps. Both time readouts and a
+usable scrub track remain inside the curved silhouette; the 88px capsule and desktop
+24px ends remain unchanged.
+
+Verified in real Chromium with `node docs/research/scripts/capsule-responsive-regression.mjs`:
+123 layout states across all three demos, including 721/732px, 350px, 1023/1024px and
+three repeated round trips per demo. The assertions read actual runtime shape/radius
+registrations as well as DOM bounds. Before/after captures live only under
+`figma-design-workspace/capsule-responsive-fix/`; frozen captures and audits are untouched.

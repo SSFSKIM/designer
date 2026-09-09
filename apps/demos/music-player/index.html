@@ -44,7 +44,7 @@
      macOS 26 window corner of radius 46; every surface sits at the 24px float
      margin, so the concentric radius there is 46 - 24 = 22. */
   --r-plate: 22px;
-  --r-bar:   18px;
+  --r-bar:   44px;        /* transport capsule: 88 / 2 */
   --r-row:   14px;        /* a row inset 8 inside a plate: 22 - 8 */
 }
 
@@ -168,7 +168,7 @@ body.narrow #album-queue .qrow:hover .qtitle { text-decoration: underline; text-
 #transport {
   left: calc(50% - 408px); top: var(--margin-float);
   width: 608px; height: 88px; border-radius: var(--r-bar);
-  display: flex; align-items: center; gap: var(--s3); padding: 0 var(--s4);
+  display: flex; align-items: center; gap: var(--s3); padding: 0 var(--s5);
 }
 .tbtn {
   display: grid; place-items: center; width: 40px; height: 40px;
@@ -281,6 +281,13 @@ body.narrow #album-queue .qrow:hover .qtitle { text-decoration: underline; text-
   #volume { display: none; }
   #transport { width: calc(100vw - 48px); }
   #album h1 { font-size: 44px; }
+}
+
+/* Keep both time readouts and a usable scrub track inside the capsule on phones. */
+@media (max-width: 400px) {
+  #transport { padding: 0 12px; gap: 8px; }
+  .now { padding-left: 0; }
+  .scrubrow { gap: 6px; }
 }
 
 /* Reduced transparency thickens the fills the material stops carrying. */
@@ -672,11 +679,11 @@ $("stage").remove();
 
 const hTransport = root.registerHost({
   host: elTransport, groupId: "transport", plane: "base",
-  shapeFamily: "fixed-rounded-rect", radii: [18, 18, 18, 18], smoothing: 0.6, thickness: 8,
+  shapeFamily: "capsule", radii: [44, 44, 44, 44], thickness: 8,
 });
 const hVolume = root.registerHost({
   host: elVolume, groupId: "transport", plane: "base",
-  shapeFamily: "capsule", thickness: 8,
+  shapeFamily: "capsule", radii: [22, 22, 22, 22], thickness: 8,
 });
 /* The queue's host is registered by syncQueuePlacement below, because the
    surface exists only at the widths where the queue is chrome rather than

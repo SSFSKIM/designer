@@ -1414,3 +1414,27 @@ backdrop and sign-flipping across backdrops; the nested base's σ-match untouche
 W26: a heavy tap whose width is a continuous parameter, fitted on the probe set's coarse
 checkerboards at both scales; then the share per scale (the 2x lever through the floor), the
 level re-read, the CSS mirror. Closes when W25's clauses 2 and 3 are met.
+
+## Glass-demo responsive layouts still have earlier edge cases (2026-09-10)
+
+The capsule follow-up preserved the desktop compositions but exposed two earlier responsive
+limitations. `photo-review` crowds text in the open adjustment dock at 800px. `film-festival`
+reports overlap diagnostics through resize/re-registration and its existing bar overflows near the
+1080px collapse boundary; the original HTML reproduces those issues. The fixed desktop audit is
+clean, which does not cover either transition. Evidence and reproduction notes are committed in
+`docs/research/data/2026-09-10-liquid-glass-demos/capsule-followup/` under the corresponding
+`*-checks.txt` files. Close by making the dock readable and the full breakpoint round trip clean,
+with a responsive browser regression test. These are separate from the user's curvature preference.
+
+## The glass rule panel cannot establish several rules from static captures (2026-09-10)
+
+The frozen demo panel asks photographs to establish numerical text contrast in both schemes,
+operation in three accessibility modes, and animated materialisation/morph/press behavior.
+The prompt scores an unobservable rule as zero, so those failures mix missing evidence with visual
+noncompliance. The audit samples one appearance and partial accessibility state; it cannot replace
+those complete claims. The original 22-of-25 threshold and raw scores are preserved, with final
+acceptance blocked until the named panel is complete. Before another experiment, separate visually
+rateable rules from live interaction and accessibility checks, and test how content-bearing controls
+such as the explicitly requested queue sidebar are classified. Evidence is in
+`docs/research/data/2026-09-10-liquid-glass-demos/results.md`; do not retroactively improve this
+baseline's score by redefining its rules.

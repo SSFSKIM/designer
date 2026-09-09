@@ -395,7 +395,7 @@ tbody tr.is-selected .trail-name .pick { opacity: 1; }
   display: flex;
   align-items: center;
   gap: 0;
-  padding: 0 10px;
+  padding: 0 16px;
 }
 .field {
   position: relative;
@@ -404,7 +404,7 @@ tbody tr.is-selected .trail-name .pick { opacity: 1; }
   justify-content: center;
   gap: 1px;
   padding: 8px 13px;
-  border-radius: 12px;              /* concentric: 22 − 10 */
+  border-radius: 999px;             /* one-row field follows the planner capsule */
   flex: 0 0 auto;
 }
 .field > .label {
@@ -500,7 +500,7 @@ tbody tr.is-selected .trail-name .pick { opacity: 1; }
 
 /* ── the collapse ───────────────────────────────────────────────────────────
    At 900px the planner drops its two readouts, which reappear as a line in the
-   hero. Below 720px the action capsule is released as a glass surface and
+   hero. Below 748px the action capsule is released as a glass surface and
    returns as a filled button inside the platter: one glass surface on a phone,
    which is the honest inventory at that width. */
 .hero-summary { display: none; }
@@ -531,13 +531,14 @@ tbody tr.is-selected .trail-name .pick { opacity: 1; }
   .rule-head .fill { display: none; }
   .rule-head .tail { flex-basis: 100%; }
 }
-@media (max-width: 720px) {
+@media (max-width: 748px) {
   /* two rows, and the standout action rejoins the platter as a fill: one glass
      surface on a phone, which is the honest inventory at this width. */
   .planner {
     width: calc(100vw - 32px); max-width: none; height: 106px;
     padding: 6px 6px; flex-wrap: wrap; align-content: center; row-gap: 2px;
   }
+  .planner .field { border-radius: 12px; }
   .planner .divider, .planner .readout, .planner .spring { display: none; }
   .cta { display: none; }
   .cta-inline {
@@ -1102,12 +1103,23 @@ root.registerGroup({ id: "bar",    backdrop: { tone: "light", luminance: 0.86, c
 root.registerGroup({ id: "action", backdrop: { tone: "mixed", luminance: 0.50, complexity: 0.60 } });
 root.registerGroup({ id: "permit", backdrop: { tone: "mixed", luminance: 0.49, complexity: 0.55 } });
 
-const plannerHost = root.registerHost({
-  host: planner, groupId: "bar", plane: "base",
-  shapeFamily: "fixed-rounded-rect", radii: [22, 22, 22, 22], thickness: 8,
+// The desktop bar is one row; the phone's two-row layout remains a platter.
+const narrow = window.matchMedia("(max-width: 748px)");
+function registerPlanner() {
+  const radius = narrow.matches ? 22 : 40;
+  return root.registerHost({
+    host: planner, groupId: "bar", plane: "base",
+    shapeFamily: narrow.matches ? "fixed-rounded-rect" : "capsule",
+    radii: [radius, radius, radius, radius], thickness: 8,
+  });
+}
+let plannerHost = registerPlanner();
+narrow.addEventListener("change", () => {
+  plannerHost.release();
+  plannerHost = registerPlanner();
 });
 
-const ctaHost = root.registerHost({
+let ctaHost = root.registerHost({
   host: cta, groupId: "action", plane: "base",
   shapeFamily: "capsule", radii: [24, 24, 24, 24], thickness: 8,
   tint: TINT,   // the page's one tinted surface: the primary action
@@ -1174,15 +1186,14 @@ for (const ev of ["pointerup", "pointerleave", "pointercancel"]) {
   cta.addEventListener(ev, () => (pressTarget = 0));
 }
 
-/* ── the collapse: below 720px the capsule is released and returns as a filled
+/* ── the collapse: below 748px the capsule is released and returns as a filled
    button inside the platter — one glass surface on a phone. */
-const narrow = window.matchMedia("(max-width: 720px)");
 let ctaRegistered = true;
 function applyWidth() {
   measureBar();
   if (narrow.matches && ctaRegistered) { ctaHost.release(); ctaRegistered = false; }
   else if (!narrow.matches && !ctaRegistered) {
-    root.registerHost({
+    ctaHost = root.registerHost({
       host: cta, groupId: "action", plane: "base",
       shapeFamily: "capsule", radii: [24, 24, 24, 24], thickness: 8,
       tint: TINT,

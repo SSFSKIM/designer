@@ -188,20 +188,21 @@ groups, **14 px** for the platter and **28.4 px** for the sidebar. Base-plane gr
 renderer still draws its glass, which is how the first build shipped a 420 × 64 white plate over the
 top-left corner of the map.
 
-**Size family** — three rungs, one radius each, one thickness of **8** across all of them:
+**Size family** — three spans, one thickness of **8** across all of them:
 
-- **s — span 44, radius 14**: route rack, state rack, search field, view stack. Twelve px past the
-  size law's inert floor of 32.
+- **s — span 44**: route rack, state rack and search field are capsules (radius 22); the
+  multirow view stack keeps radius 14. Twelve px past the size law's inert floor of 32.
 - **m — span 64, radius 18**: the vehicle platter. Mid-curve, at 64 of the law's 32 → 96 ramp.
 - **l — span 336, radius 26**: the alerts sidebar. Past the saturation point of 96.
 
-Every floating shape is a **fixed** rounded rectangle: `liquid-glass.md` §8's macOS reading keeps
-compact desktop controls rectangular and reserves capsules for large standout actions, and this page
-has none. The one capsule-shaped thing on it, the alert row's fleet chip, is content, not a control.
+The user-directed curvature follow-up makes the three one-row top controls **capsules**, using
+curvature actively rather than reserving it for a standout action. This is the user's preference,
+not an Apple requirement. The multirow view stack, alerts sidebar and vehicle platter retain their
+fixed rounded rectangles; layout, imagery, material and behaviour remain unchanged.
 
 **Concentricity anchor**: the 20 px window inset against a square viewport edge, so every floating
-radius is fixed rather than derived from a rounded frame. Four shapes *are* concentric, each
-derived from its container's radius less its own inset: the rack segment (14 − 5 = 9), the view
+radius is chosen by its control role rather than derived from a rounded frame. Four shapes *are* concentric, each
+derived from its container's radius less its own inset: the rack segment (22 − 5 = 17), the view
 stack's buttons (14 − 4 = 10), the sidebar's alert row (26 − 10 = 16) and the platter's actions
 (18 − 12 = 6). The camera plate and the fleet chips take a fixed radius and are recorded as fixed:
 they sit inside a container but not at its corners.
@@ -319,7 +320,7 @@ plane itself is **rung 4, drawn** — a map is an artifact, so it is painted as 
   terminus and once mid-corridor. Suppressed inside a floating surface's safe rectangle.
 - **Rack segment** — the one filter control. A plain `<button role="switch">` inside a glass rack;
   unselected is transparent with an `--n8` label, selected is `--n9` fill with an `--n0` label, at
-  radius 9 — concentric with the rack's 14 less its 5 px inset.
+  radius 17 — concentric with the rack's 22 less its 5 px inset.
 - **Roster item** — the keyboard and screen-reader path to a vehicle the map draws in a canvas.
   Visually hidden until it takes focus, when it becomes a readable chip clear of the view stack: a
   control that can take focus and cannot be seen is worse than no control.
@@ -418,3 +419,23 @@ Recorded rather than left implicit, so a later pass knows where to look.
   scrolling region would owe its own edge at the same height.
 - **Reduced transparency was exercised through the runtime's override API,** not through the media
   query, because no browser driver can emulate `prefers-reduced-transparency`.
+
+## User-directed capsule follow-up
+
+The top racks retain a 5px inset and the search gains 16px end padding so labels sit comfortably
+inside the round ends. Frozen PNGs and `audit.json` remain baseline evidence; follow-up captures
+and checks live in `figma-design-workspace/capsule-followup/transit-ops/`.
+
+## Responsive capsule regression fix — 2026-09-10
+
+The view stack already changed from 44 × 140 to 140 × 44 below 1024px, but its registered
+shape stayed a 14px rounded rectangle. Its horizontal row now registers as a 22px
+capsule; the desktop stack keeps its 14px rounded rectangle. A media-query lifecycle
+releases and replaces the current host on each crossing, while press listeners are
+wired once. No map, filter, or material behavior changes.
+
+Verified in real Chromium with `node docs/research/scripts/capsule-responsive-regression.mjs`:
+123 layout states across all three demos, including 721/732px, 350px, 1023/1024px and
+three repeated round trips per demo. The assertions read actual runtime shape/radius
+registrations as well as DOM bounds. Before/after captures live only under
+`figma-design-workspace/capsule-responsive-fix/`; frozen captures and audits are untouched.

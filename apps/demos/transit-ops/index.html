@@ -75,7 +75,8 @@
   --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
   --s5: 20px; --s6: 24px; --s8: 32px; --s12: 48px;
 
-  /* The size family: three rungs, one radius each, one thickness of 8.
+  /* Fixed radii for the multirow surfaces; one-row controls use capsules.
+     The size family has three spans and one thickness of 8.
      s = 44 (12px past the size law's inert floor), m = 64 (mid-curve),
      l = 336 (past saturation at 96). */
   --r-s: 14px;  --r-m: 18px;  --r-l: 26px;
@@ -286,8 +287,8 @@ body {
   flex: 1 1 0; min-width: 0; height: 34px;
   display: inline-flex; align-items: center; justify-content: center;
   gap: 4px;
-  /* concentric with the rack: radius 14 − the rack's 5px inset */
-  border-radius: 9px;
+  /* Concentric with the capsule rack: radius 22 − its 5px inset. */
+  border-radius: 17px;
   border: 0; background: transparent;
   font-family: inherit; font-size: var(--t-ui); font-weight: 700;
   letter-spacing: -0.005em;
@@ -318,7 +319,7 @@ body {
   left: var(--x-find); top: var(--inset);
   width: var(--w-find); height: var(--bar-h);
   display: flex; align-items: center; gap: 8px;
-  padding: 0 12px;
+  padding: 0 16px;
 }
 #find svg { flex: none; color: var(--n7); }
 #find input {
@@ -559,7 +560,7 @@ body {
   }
   #view {
     left: var(--inset); bottom: calc(220px + 52px);
-    width: 140px; height: 44px; flex-direction: row; padding: 0 4px;
+    width: 140px; height: 44px; flex-direction: row; padding: 0 4px; border-radius: 22px;
   }
   #view .divider { width: 1px; height: 22px; }
   .attrib { display: none; }
@@ -578,6 +579,7 @@ body {
    working interface on its own borders. */
 @media (forced-colors: active) {
   .gh { border: 1px solid CanvasText; background: Canvas; border-radius: var(--r-s); }
+  #routes, #state, #find { border-radius: 999px; }
   #alerts { border-radius: var(--r-l); }
   #platter { border-radius: var(--r-m); }
   .seg[aria-checked="true"], .seg[aria-pressed="true"], .btn.primary { forced-color-adjust: none; background: Highlight; color: HighlightText; }
@@ -1278,11 +1280,11 @@ for (const id of ["routes", "state", "find", "view", "alerts", "platter"]) {
 const base = root.plane("base").hostLayer;
 const overlay = root.plane("overlay").hostLayer;
 
-function host(el, groupId, radius, plane) {
+function host(el, groupId, radius, plane, shapeFamily = "fixed-rounded-rect") {
   (plane === "overlay" ? overlay : base).append(el);
   const handle = root.registerHost({
     host: el, groupId, plane: plane || "base",
-    shapeFamily: "fixed-rounded-rect",
+    shapeFamily,
     radii: [radius, radius, radius, radius],
     thickness: 8,
   });
@@ -1325,7 +1327,7 @@ for (const r of ROUTES) {
   });
   routesEl.append(b);
 }
-host(routesEl, "routes", 14);
+host(routesEl, "routes", 22, "base", "capsule");
 
 const stateEl = document.createElement("div");
 stateEl.className = "gh rack"; stateEl.id = "state";
@@ -1362,7 +1364,7 @@ for (const [key, label] of STATE_SEGS) {
   });
   stateEl.append(b);
 }
-host(stateEl, "state", 14);
+host(stateEl, "state", 22, "base", "capsule");
 
 /* ── surface 3: search, at the bar's trailing edge ─────────────────────── */
 const findEl = document.createElement("div");
@@ -1375,7 +1377,7 @@ findEl.innerHTML =
    <label class="sr" for="q">Find a vehicle, block or stop</label>
    <input id="q" type="search" placeholder="Fleet, block or stop" autocomplete="off" spellcheck="false">
    <span class="count" id="findcount">40</span>`;
-host(findEl, "find", 14);
+host(findEl, "find", 22, "base", "capsule");
 const qInput = findEl.querySelector("#q");
 qInput.addEventListener("input", () => {
   filters.query = qInput.value;
@@ -1407,7 +1409,24 @@ viewEl.innerHTML =
              stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
      </svg>
    </button>`;
-host(viewEl, "view", 14);
+// The same controls become one row below the sidebar breakpoint. Register the
+// matching silhouette without wiring another set of press listeners on resize.
+const horizontalView = matchMedia("(max-width: 1023px)");
+base.append(viewEl);
+wirePress(viewEl);
+function registerView() {
+  const radius = horizontalView.matches ? 22 : 14;
+  return root.registerHost({
+    host: viewEl, groupId: "view", plane: "base",
+    shapeFamily: horizontalView.matches ? "capsule" : "fixed-rounded-rect",
+    radii: [radius, radius, radius, radius], thickness: 8,
+  });
+}
+let viewHost = registerView();
+horizontalView.addEventListener("change", () => {
+  viewHost.release();
+  viewHost = registerView();
+});
 viewEl.addEventListener("click", (e) => {
   const a = e.target.closest("button")?.dataset.a;
   if (a === "in") zoomBy(1.28);

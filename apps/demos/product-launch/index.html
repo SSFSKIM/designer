@@ -266,8 +266,8 @@ caption { text-align: left; }
   appearance: none;
   color-scheme: dark;             /* plane-side content resolves its own scheme */
 }
-.g--44 { height: 44px; border-radius: 14px; }
-.g--64 { height: 64px; border-radius: 20px; }
+.g--44 { height: 44px; border-radius: 22px; }
+.g--64 { height: 64px; border-radius: 32px; }
 
 .nav-mark {
   display: flex; align-items: center; justify-content: center;
@@ -283,7 +283,7 @@ caption { text-align: left; }
 .nav-sections { display: flex; align-items: center; gap: 2px; padding-inline: 6px; }
 .nav-sections a {
   display: flex; align-items: center; height: 32px; padding-inline: 12px;
-  border-radius: 8px;             /* concentric: 14 host radius − 6 gap */
+  border-radius: 16px;            /* concentric: 22 host radius − 6 gap */
   font-size: 14px; color: var(--ink-2); text-decoration: none;
 }
 .nav-sections a:hover { color: var(--ink); background: var(--fill-hover); }
@@ -296,12 +296,12 @@ caption { text-align: left; }
 .configure .key { font-size: 10px; }
 .seg {
   display: flex; gap: 2px; padding: 3px; height: 44px; align-items: center;
-  border-radius: 10px;            /* concentric: the host's 20 less the 10px inset */
+  border-radius: 22px;            /* concentric: the host's 32 less the 10px inset */
   background: var(--well);
 }
 .seg label {
   position: relative; display: flex; align-items: center; height: 38px; padding-inline: 14px;
-  border-radius: 7px;             /* concentric: 10 − 3 */
+  border-radius: 19px;            /* concentric: 22 − 3 */
   font-size: 13px; color: var(--ink-2); cursor: pointer; white-space: nowrap;
 }
 .seg input { position: absolute; opacity: 0; width: 0; height: 0; }
@@ -311,7 +311,7 @@ caption { text-align: left; }
 
 .lens-trigger {
   display: flex; align-items: center; gap: 10px; height: 44px; padding-inline: 14px;
-  border-radius: 10px;            /* concentric: the host's 20 less the 10px inset */
+  border-radius: 22px;            /* concentric: the host's 32 less the 10px inset */
   border: 1px solid var(--line-firm); background: transparent;
   font-family: var(--font-ui); font-size: 13px; color: var(--ink); cursor: pointer;
 }
@@ -760,19 +760,19 @@ const reserve = html(`
 commitDock.append(configure, reserve);
 base.append(commitDock);
 
-/* ── Registration. Span 44 / 64 / 268, radii 14 / 20 / 26, thickness 8.
+/* ── Registration. Span 44 / 64 / 268, radii 22 / 32 / 26, thickness 8.
    Held until the first layout is final. A host measured while its own type
    metrics are still moving can be reported as overlapping its neighbour for one
    frame, and `same-plane-overlap` is an error this page has to not raise at all. */
 await Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 1200))]);
 
 const hosts = [
-  root.registerHost({ host: navMark, groupId: "nav", shapeFamily: "fixed-rounded-rect",
-    radii: [14, 14, 14, 14], thickness: 8 }),
-  root.registerHost({ host: navSections, groupId: "nav", shapeFamily: "fixed-rounded-rect",
-    radii: [14, 14, 14, 14], thickness: 8 }),
-  root.registerHost({ host: configure, groupId: "commit", shapeFamily: "fixed-rounded-rect",
-    radii: [20, 20, 20, 20], thickness: 8 }),
+  root.registerHost({ host: navMark, groupId: "nav", shapeFamily: "capsule",
+    radii: [22, 22, 22, 22], thickness: 8 }),
+  root.registerHost({ host: navSections, groupId: "nav", shapeFamily: "capsule",
+    radii: [22, 22, 22, 22], thickness: 8 }),
+  root.registerHost({ host: configure, groupId: "commit", shapeFamily: "capsule",
+    radii: [32, 32, 32, 32], thickness: 8 }),
   // The one tinted control on the page, and it is the primary action. The tint
   // is a seed the runtime tone-maps against the plane, never a fill.
   root.registerHost({ host: reserve, groupId: "commit", shapeFamily: "capsule",

@@ -251,7 +251,8 @@ its numbers.
 | Surface | Span (short side) | Shape | Radius | Concentric children |
 |---|---|---|---|---|
 | Action capsule | 48 | capsule | height / 2 = 24 | none |
-| Planner platter | 80 | fixed rounded rect | 22 | fields at 22 − 10 = 12 |
+| Planner capsule (desktop) | 80 | capsule | height / 2 = 40 | fields are capsules inside the rounded ends |
+| Planner platter (phone) | 106 | fixed rounded rect | 22 | fields retain radius 12 |
 | Permit platter | 344 (424 × 344) | fixed rounded rect | 32 | rows at 32 − 12 = 20 |
 
 48 sits just past the size law's floor of 32, 80 mid-curve, 344 well past its ceiling of 96, so the
@@ -298,7 +299,7 @@ Sheet measure 1180px, page margin 40px, spacing scale 4 · 8 · 12 · 20 · 32 �
 separated by a hairline and 56px, never by a card or a shadow. The collapse is staged, and it is a
 reordering rather than a compression: the planner sheds its readouts one at a time from 1240px down
 as the window takes them (they reappear as one line in the hero), at 900px the matrix becomes its
-own horizontal scroller rather than reflowing and its heads go static, and below 720px the planner
+own horizontal scroller rather than reflowing and its heads go static, and at 748px and below the planner
 wraps to two rows and the action capsule is released as a glass surface, returning as a filled
 button inside it — one glass surface on a phone, which is the honest inventory at that width.
 
@@ -405,3 +406,31 @@ fix, and the next page that sees a band on a large surface should recognise it.
 channel parked at 1 leaves the surface permanently lensed, which is the standing bright band 0.11.0
 removed. The platter materialises by resolving *into* rest — lens 1 → 0 with a 0.94 → 1 owned scale
 — and the capsule's press channel eases back to 0 on release.
+
+## User-directed capsule follow-up — 2026-09-10
+
+The user preferred actively rounded capsules to rectangular floating controls. The one-row
+80px planner now takes a 40px radius with 16px end padding and capsule-shaped fields. The
+106px two-row phone planner retains its 22px platter radius and compact field geometry; the
+permit platter, action capsule, layout, imagery and material are unchanged. This is the user’s
+visual refinement, not a new Apple requirement. Frozen baseline PNGs and audit.json remain
+untouched; new verification belongs in `figma-design-workspace/capsule-followup/park-trails/`.
+
+Verification also exposed a separate lifecycle bug: after returning from phone to desktop,
+the permit action discarded its replacement host handle. The follow-up retains that handle
+so subsequent responsive transitions release the current surface rather than an already
+released node. This changes no interaction or visual intent.
+
+## Responsive capsule regression fix — 2026-09-10
+
+The 16px capsule ends exposed an 11.58px planner/action overlap at 721px. The shared CSS
+and host-lifecycle breakpoint now collapses at 748px, before the collision: the first
+single-row width, 749px, retains just over 16px between the planner and the action.
+The two-row phone platter and inline action are unchanged; repeated crossings release
+and replace the current planner/action handles rather than accumulating surfaces.
+
+Verified in real Chromium with `node docs/research/scripts/capsule-responsive-regression.mjs`:
+123 layout states across all three demos, including 721/732px, 350px, 1023/1024px and
+three repeated round trips per demo. The assertions read actual runtime shape/radius
+registrations as well as DOM bounds. Before/after captures live only under
+`figma-design-workspace/capsule-responsive-fix/`; frozen captures and audits are untouched.

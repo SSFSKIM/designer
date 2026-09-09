@@ -234,10 +234,10 @@ html, body {
   box-shadow: 0 0 0 4px var(--focus-halo);
 }
 
-/* compare — S rung, 260 x 40, fixed radius 12; segments concentric at 12 - 4 = 8 */
+/* compare — S rung, 260 x 40, capsule radius 20; segments concentric at 20 - 4 = 16 */
 #viewbar { padding: 4px; gap: 2px; }
 .seg {
-  flex: 1 1 0; height: 32px; border-radius: 8px; font-size: 12.5px; font-weight: 500;
+  flex: 1 1 0; height: 32px; border-radius: 16px; font-size: 12.5px; font-weight: 500;
   color: var(--ink-0);
 }
 .seg:hover { background: var(--wash-hover); }
@@ -993,7 +993,10 @@ const shape = (radius) => ({
   thickness: 9,
 });
 
-root.registerHost({ host: verdict, groupId: "verdict", ...shape(28) });
+root.registerHost({
+  host: verdict, groupId: "verdict",
+  shapeFamily: "capsule", radii: [28, 28, 28, 28], thickness: 9,
+});
 
 const REST_W = 56, OPEN_W = 328, PLATTER_H = 248;
 const VIEW_W = 260, VIEW_H = 40, VERDICT_W = 452, VERDICT_H = 56;
@@ -1003,7 +1006,8 @@ const docked = document.getElementById("docked");
 /* Registered here so the mounted state and the handle agree from the first
    frame; syncMount below is what releases them when the frame runs out of room. */
 let upperHandles = [
-  root.registerHost({ host: viewbar, groupId: "view", ...shape(12) }),
+  root.registerHost({ host: viewbar, groupId: "view",
+    shapeFamily: "capsule", radii: [20, 20, 20, 20], thickness: 9 }),
   root.registerHost({ host: platter, groupId: "tools", ...shape(28) }),
 ];
 
@@ -1022,7 +1026,8 @@ function syncMount() {
     docked.classList.remove("on");
     root.plane("base").hostLayer.append(viewbar, platter);
     upperHandles = [
-      root.registerHost({ host: viewbar, groupId: "view", ...shape(12) }),
+      root.registerHost({ host: viewbar, groupId: "view",
+        shapeFamily: "capsule", radii: [20, 20, 20, 20], thickness: 9 }),
       root.registerHost({ host: platter, groupId: "tools", ...shape(28) }),
     ];
   }

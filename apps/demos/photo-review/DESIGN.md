@@ -167,7 +167,7 @@ glass and would not be refracted.
   |---|---|---|---|---|
   | L | 248 | 28 | fixed | the adjustment platter, open |
   | M | 56 | 28 | capsule for the bar, fixed for the column | verdict bar; the tool column at rest |
-  | S | 40 | 12 | fixed | compare control |
+  | S | 40 | 20 | capsule | compare control |
 
   Thickness **9** on all three. The L radius is set to 28 precisely so that it equals the M rung's
   capsule radius (56 ÷ 2) and the two read as one material. The family straddles the size law's live
@@ -179,7 +179,7 @@ glass and would not be refracted.
   glass radii are fixed or capsule, and that is recorded rather than left unstated. Concentricity is
   used one level down, inside each surface: an inner view inset by *g* takes the surface's radius
   minus *g* (platter 28 − 10 = 18; verdict bar 28 − 8 = 20, which is also that inner row's own capsule
-  radius; compare control 12 − 4 = 8).
+  radius; compare control 20 − 4 = 16).
 - **Radius in the content layer is 0, everywhere.** Thumbnails, wells, and panels are square-cornered,
   for the same reason the anchor is: a photograph has square corners.
 - **Scroll edge.** No content scrolls under a floating control at rest, so no scroll edge is drawn —
@@ -365,3 +365,15 @@ ISO 6400 in the dark bay, shutter rising to 1/320 s when the hammer is moving. R
 distributed as a half-finished cull — seven picked, five rejected, eighteen open — and one frame
 (`ASH_1207`) is soft, which is why it is rejected. No frame is captioned and no person in a frame is
 named: the photographs carry the world, not the people the copy is about.
+
+
+## 10. User-directed capsule follow-up — 2026-09-10
+
+The user preferred actively rounded floating controls, with music-player and park-trails the most
+convincing demos. The one-row compare control now has capsule ends (20px outer radius) and related
+16px inner segment radii within its existing 4px inset. The verdict bar uses the runtime’s capsule
+shape to match its already rounded 28px geometry and 40px inner buttons. These are this user’s
+curvature preferences, not new Apple mandates. The tool column and its larger adjustment platter
+retain their existing 28px fixed geometry and morph; photographs, square content planes, layout,
+material and behavior are unchanged. Existing PNGs and `audit.json` are frozen baseline evidence;
+new captures live in `figma-design-workspace/capsule-followup/photo-review/`.

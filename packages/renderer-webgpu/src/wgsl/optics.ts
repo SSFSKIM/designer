@@ -283,13 +283,17 @@ fn rim_weight(d : f32, width : f32) -> f32 {
 /// The argument is clamped to ±8 σ before the cubic. Past 8 σ the curve is 1
 /// (or 0) to f32 exactly — tanh(24.6) rounds to 1.0 — so the clamp changes no
 /// pixel the CPU twin evaluates, and the CPU twin's own reach bisection already
-/// stops at 8 σ. What it removes is an overflow: Metal evaluates tanh(x) as
-/// (e^2x − 1) / (e^2x + 1), which is inf / inf = NaN once 2x passes ~88.7, and
-/// this argument passes it at 10.07 σ — 153 px of depth at the shipped sigma
-/// of 15.55. The NaN rode the falloff into the pass's alpha as NaN × 0, and
-/// every surface over ~307 px in BOTH dimensions drew an opaque white
-/// rectangle inset ~153 px from its edges (found by the music-player demo,
-/// 2026-09-10; reproduced on a one-surface page on either sampling backend).
+/// stops at 8 σ. The reproduced Apple GPU failure is consistent with evaluating
+/// tanh(t) as (e^2t − 1) / (e^2t + 1): inf / inf = NaN past 2t ≈ 88.7.
+/// This is not a claim about every Metal compiler's implementation. The cubic
+/// reaches that limit at normalized inward shadow distance ≈10.060966. At
+/// sigma 15.55 this is 156.448 px inside the shifted, spread shadow silhouette,
+/// not the glass contour. Subtracting spread 3.10 gives 153.348 px from the
+/// shifted glass contour; offset 7.95 makes straight-edge glass insets about
+/// 153.348 px left/right, 161.298 px top and 145.398 px bottom.
+/// The NaN rode the falloff into alpha as NaN × 0, producing a white interior
+/// block (music-player demo, 2026-09-10; reproduced on a one-surface page on
+/// either sampling backend). Rounded contours need their actual field distance.
 fn outer_shadow_falloff(signedDistance : f32, sigma : f32) -> f32 {
   let x = clamp(-signedDistance / max(sigma, 1e-4), -8.0, 8.0);
   return 0.5 * (1.0 + tanh(0.7978845608028654 * (x + 0.044715 * x * x * x)));

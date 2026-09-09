@@ -1,7 +1,8 @@
 # Liquid Glass into the skill: the design language distilled, and six demos on vitrea 0.14.0
 
-Status: pre-registered 2026-09-10; the user's decisions recorded (shape, briefs, home, taste anchors),
-the reference and the audit in progress, no demo built. Parents: `2026-08-24-vitrea-liquid-glass-design.md` (the material) and the skill's
+Status: six demos built and mechanically audited; user-directed capsule refinement implemented and mechanically
+verified. The original four-rater panel is incomplete after account rate limits. Its captures
+and audit remain frozen separately from the refinement. Parents: `2026-08-24-vitrea-liquid-glass-design.md` (the material) and the skill's
 `references/material.md` (how the skill ships glass today). Research: `docs/research/2026-09-10-
 liquid-glass-design-language.md` (34 sources, 25 checkable rules) and `docs/research/2026-09-10-
 vitrea-authoring-surface.md` (the 0.14.0 authoring surface read from the code).
@@ -62,7 +63,8 @@ to `glass over planes`, carrying:
 2. **The material's variants and the tint rule** — regular by default, clear only over media with a
    dim layer, one tinted control per view and it is the primary action, monochrome otherwise.
 3. **Geometry** — three shape kinds only (fixed, capsule, concentric); nested radii derived from the
-   container; capsules for bordered floating buttons, rounded rectangles for dense desktop controls.
+   container; prefer capsules for single-row floating controls, with generous rounded rectangles
+   for multi-row surfaces and usable, related inner-control geometry.
 4. **Legibility and accessibility** — contrast 4.5:1 to 17 pt and 3:1 above, in both schemes; the
    honest backdrop hint; the three accessibility modes as first-class states.
 5. **Layout** — content to the window's edges with bars floating over it; safe-area insets; the
@@ -79,7 +81,7 @@ list and the span floor; its shipping section rewritten for the workspace build 
 newest published version, marked unverified until re-checked); `references/qa-protocol.md` gains a
 "glass page" pass that runs the 25 rules; `SKILL.md`'s workflow points to the reference at the
 material step and its taste floor gains one line (a glass surface is a control or it is not glass).
-Plugin version 2.3.0.
+Initial plugin version 2.3.0; the user-directed curvature refinement is 2.3.1.
 
 ### B. The six demos
 
@@ -174,11 +176,15 @@ repository root. The builder receives the brief verbatim plus the serving mechan
   command and the import map.
 - `docs/research/scripts/glass-audit.mjs` (new); the rule item set in `docs/research/scripts/
   settling/rubric.py` or beside it.
-- Committed evidence: `docs/research/data/2026-09-10-liquid-glass-demos/` — each demo's audit
-  JSON, the panel's rule and quality files, the user's comparison answers, `results.md`. The PNG
-  captures are not committed (the settling run's were not either): `glass-audit.mjs` regenerates
-  them from the committed page in one command, and `.gitignore` keeps the copies it writes inside
-  `apps/demos/<slug>/` out of the tree.
+- Committed evidence: `docs/research/data/2026-09-10-liquid-glass-demos/` — frozen baseline audit
+  JSON, raw panel answers, the user's comparison answers, capture hashes and `results.md`.
+  `baseline-captures.json` identifies exactly which images the panel received. These images are
+  preserved locally at `figma-design-workspace/glass-panel-baseline/<slug>/`; fresh captures are
+  not guaranteed byte-identical on animated pages. Legacy tile PNGs already tracked in demo
+  directories remain baseline evidence. Other captures are gitignored.
+- Capsule-refinement captures and interaction notes live separately under
+  `figma-design-workspace/capsule-followup/`; the final mechanical audit uses isolated copies in
+  `figma-design-workspace/capsule-final-audit/` rather than overwriting baseline images or JSON.
 
 ## Decision Log
 
@@ -224,19 +230,16 @@ repository root. The builder receives the brief verbatim plus the serving mechan
   eye alone (one rater, the settling lesson).
   Date/Author: 2026-09-10, Claude.
 
-- Decision: Curvature is written into the reference as the language's signature, used actively: a
-  one-row glass surface is a capsule; rounded rectangles are for the compact controls inside a
-  capsule and for the multi-row surfaces a capsule has no meaning on (platter, sidebar, sheet, a
-  two-row transport). The demos get a capsule pass to match, after the panel has read the as-built
-  captures.
-  Rationale: the user's read of the six beside the Mac's apps — "use more rounded capsules than
-  rectangular ones", and "it uses curvature very actively, preferring round capsules to the
-  rectangular". The reference had said desktop density keeps controls rectangular, and every
-  one-row bar container the builders drew came out at a fixed radius; the density belongs inside
-  the capsule, not in place of it.
-  Date/Author: 2026-09-10, the user; written by Claude.
+- Decision: Use curvature actively and prefer capsules for single-row floating controls; retain
+  generous rounded rectangles where multi-row content needs the space. Apply a focused capsule
+  refinement to the demos while preserving the original panel inputs.
+  Rationale: the user called the demos "a good use", named music-player and park-trails as most
+  convincing, and asked to prefer rounded capsules to rectangles. This is a user-directed design
+  default, not a newly verified universal Apple rule. The user did not identify particular deficient
+  bars, provide a complete ranking, or give per-demo same-system answers.
+  Date/Author: 2026-09-10, the user; implementation interpretation by Claude.
 
-- Decision: Post hoc, flagged as such — in the verdict, r18 (contrast on glass) and r19 (the
+- Decision: Superseded by the correction below; retained as history. Post hoc — in the verdict, r18 (contrast on glass) and r19 (the
   accessibility modes) are read from the mechanical audit where one exists, r23 (motion) is unread,
   and the line is applied as "at most three of the rules read failed"; the panel-only count as
   pre-registered is printed beside it on every demo.
@@ -249,6 +252,25 @@ repository root. The builder receives the brief verbatim plus the serving mechan
   made after two of four readings had arrived and before any verdict was written; the panel-only
   reading stays in the report so the effect of the amendment is visible on every row.
   Date/Author: 2026-09-10, Claude.
+
+
+- Decision: Restore the pre-registered panel-only 22-of-25 criterion as the primary result. Missing
+  evidence is not a pass; all four named raters must be present for a final panel verdict. Read the
+  baseline's committed audit, never current demo output. Preserve partial mechanical checks as facts
+  beside the ratings instead of substituting them for full r18/r19 or dropping r23.
+  Rationale: the preceding amendment wrongly credited one-scheme contrast and partial accessibility
+  checks toward rules requiring more. It also changed the denominator after inspecting outcomes.
+  Static captures cannot establish animation, numerical contrast in both schemes, or operation in
+  all accessibility modes; this is an instrument limitation, not proof the pages passed or failed
+  those behaviors. Existing raw answers remain unchanged.
+  Date/Author: 2026-09-10, Claude.
+
+- Decision: Defer completing the interrupted panel until the user-requested restart time, 08:07
+  local on 2026-09-10, keeping model identities and frozen captures. The user authorized a delay
+  of two hours and forty minutes. The scheduler's own safety classifier was rate-limited, so the
+  attempted one-shot job was not created; the durable resume brief records this as unqueued.
+  Rationale: replacing unavailable raters or rating the newly refined demos would change the panel.
+  Date/Author: 2026-09-10, the user requested the delay; Claude recorded the scheduling blocker.
 
 ## Surprises & Discoveries
 
@@ -277,6 +299,21 @@ repository root. The builder receives the brief verbatim plus the serving mechan
   A demo campaign is a renderer test the calibration bed is not: the bed's largest span is
   under the line, and no scene in it has a surface deep enough to reach 153 px.
 
+
+- Correction to the large-surface discovery above (2026-09-10, review of c62c19c):
+  the original approximate equal-inset description is retained as the recorded observation,
+  not an exact geometric boundary. The cubic's theoretical overflow threshold is normalized
+  inward shadow distance ≈10.060966; × sigma 15.55 = 156.448 px inside the shifted,
+  spread shadow silhouette. Subtracting spread 3.10 gives 153.348 px from the shifted
+  glass contour. With downward offset 7.95, straight-edge insets from the glass are about
+  153.348 px left/right, 161.298 px top and 145.398 px bottom. Rounded contours require
+  their actual field distance, so neither equal insets nor a universal ~307 px cutoff follows.
+  The reproduced Apple GPU overflow is consistent with the exponential quotient explanation;
+  it does not prove that every Metal compiler implements `tanh` that way. This corrects the
+  explanation only, not the recorded captures, clamp, assertions or material constants.
+  Evidence: independent calculation in the correctness review; corrected shader/test comments
+  and `.changeset/large-surfaces-draw-their-whole-interior.md`.
+
 ## Deferred
 
 - Publishing 0.14.0 (the user's `pnpm release`) and re-verifying the esm.sh single-file recipe at
@@ -286,7 +323,34 @@ repository root. The builder receives the brief verbatim plus the serving mechan
 
 ## Outcomes & Retrospective
 
-Pending — written at finish.
+The reference and all six demos are implemented. The user called the work "a good use", named
+music-player and park-trails most convincing, and requested stronger capsule geometry. That
+refinement is now applied to all six without changing their imagery or material profile. The user
+subsequently confirmed that it is "much better With more curvature". Single-row
+floating controls use capsule silhouettes; larger panels retain usable space. The plugin is 2.3.1.
+
+The final follow-up audit passes all six at 1440×900, with zero page/console errors, failed requests,
+resting diagnostics or new menu diagnostics in the latest per-page records. All 798 sampled contrast pairs passed in
+the authored appearance. Reduced-transparency overrides were honoured and changed the material;
+these are bounded smoke checks, not a claim of full accessibility or both colour schemes.
+Interaction and responsive checks are preserved with the follow-up audit. Independent review
+found narrow-boundary overlap/clipping and a missed horizontal view-control shape transition;
+a focused fix wave resolved them, with 123 layout states passing the new regression script. The Park Trails stale
+CTA-handle failure was fixed and verified through repeated layout transitions. Earlier photo-dock
+and festival breakpoint issues remain in the debt tracker.
+
+Formal initiative acceptance is **not established**. Three named raters have complete JSON files;
+the Opus rater is missing and the Sonnet thread ended on a rate-limit error after writing its files.
+The available-panel d1 mean is 4.89, provisional. The user did not give all per-demo same-system
+answers or a full ranking; their qualitative feedback is recorded without inventing those answers.
+Static images also cannot establish several rules as written. The post hoc scoring shortcut has
+been withdrawn, and the pre-registered result remains primary. This is a measurement limitation,
+not a reason to alter the user's preferred designs until a score turns green.
+
+The requested delayed panel resumption is blocked at scheduling: the safety classifier rejected
+CronCreate while rate-limited, so no job is queued. `resume-panel.md` records the original threads,
+frozen inputs and requested time. Remaining panel work is separate from the completed capsule pass.
+The next bounded continuation is to finish that original panel and report it, not another rebuild.
 
 ## Revision Notes
 
@@ -300,3 +364,11 @@ Pending — written at finish.
   gitignored.
 - 2026-09-10 (user's read): the user's comparison answered in part (music-player and park-trails
   most convincing; "a good use"); the curvature decision recorded and the reference revised.
+- 2026-09-10 (capsule refinement): corrected the capsule preference's attribution, froze baseline
+  capture hashes, and restored the original acceptance criterion. Partial accessibility evidence
+  cannot stand in for the complete rules. Recorded the interrupted panel and unqueued restart.
+- 2026-09-10 (follow-up verification): recorded the separate final audit, responsive limitations,
+  user-directed shape changes and incomplete formal acceptance. No raw panel answer was rewritten.
+- 2026-09-10 (review fixes): corrected the planner/transport boundary layouts and responsive view
+  shape; 123 layout states pass. The QA glossary reconciles outer capsule housings with compact
+  inner controls, without changing the frozen panel's numbered rules.

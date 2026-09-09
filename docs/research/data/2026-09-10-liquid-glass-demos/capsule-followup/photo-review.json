@@ -1,0 +1,259 @@
+{
+ "dir": "photo-review",
+ "url": "http://127.0.0.1:8808/figma-design-workspace/capsule-final-audit/photo-review/index.html",
+ "auditedAt": "2026-09-09T20:35:10.276Z",
+ "rootFound": true,
+ "readyState": "settled",
+ "errors": [],
+ "consoleErrors": [],
+ "failedRequests": 0,
+ "captureWidth": 1440,
+ "overflowCapture": false,
+ "overflowAtLoad": false,
+ "scrolledOnLoad": 0,
+ "docHeight": 900,
+ "words": 165,
+ "title": "Ashcombe \u2014 Smiths' Weekend, card 2",
+ "placeholder": false,
+ "contrast": {
+  "checked": 106,
+  "pass": 106,
+  "unknown": 0,
+  "rate": 1,
+  "onGlass": 5,
+  "onGlassPass": 5,
+  "fails": []
+ },
+ "surfaces": 3,
+ "surfacesInFrame": 3,
+ "planes": [
+  {
+   "plane": "base",
+   "nodes": 3
+  },
+  {
+   "plane": "overlay",
+   "nodes": 0
+  }
+ ],
+ "colorScheme": "dark",
+ "webgpu": {
+  "available": true,
+  "ownership": "vitrea",
+  "deviceHealth": "ok",
+  "reason": null,
+  "hasDevice": true
+ },
+ "groups": [
+  {
+   "id": "view",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  },
+  {
+   "id": "tools",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  },
+  {
+   "id": "verdict",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  }
+ ],
+ "diagnostics": [],
+ "named": {
+  "nestedGlass": false,
+  "samePlaneOverlap": false,
+  "contentLayerHost": false,
+  "demotedBackdropRoot": false,
+  "hostOutsidePlane": false,
+  "nonUniformRadii": false,
+  "tintUnparseable": false
+ },
+ "derivedFindings": [],
+ "menu": "captured",
+ "menuSurfaces": 3,
+ "menuGroups": [
+  {
+   "id": "view",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  },
+  {
+   "id": "tools",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  },
+  {
+   "id": "verdict",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  }
+ ],
+ "menuDiagnostics": [],
+ "reduced": {
+  "rootFound": true,
+  "errors": [],
+  "reducedMotionEmulated": true,
+  "overrideHonoured": true,
+  "materialMoved": true,
+  "material": {
+   "glass": "material",
+   "colorSource": "material",
+   "frost": "increased",
+   "refraction": "reduced",
+   "occlusion": "increased",
+   "border": "nominal",
+   "ambientTint": "nominal",
+   "foreground": "adaptive"
+  },
+  "motion": {
+   "overshoot": "none",
+   "deformation": "none",
+   "shimmer": "none",
+   "morph": "non-elastic",
+   "crossfade": "large-plane-shifts",
+   "positionalContinuity": true
+  },
+  "groups": [
+   {
+    "id": "view",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   },
+   {
+    "id": "tools",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   },
+   {
+    "id": "verdict",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   }
+  ],
+  "reducedTransparencyUndetectable": false,
+  "ok": true
+ },
+ "captures": [
+  "shot-fv.png",
+  "shot-full.png",
+  "shot-menu.png",
+  "shot-reduced.png"
+ ],
+ "surfaceDetail": [
+  {
+   "nodeId": "vitrea-node-2",
+   "groupId": "view",
+   "plane": "base",
+   "tag": "div",
+   "role": "group",
+   "rect": [
+    864,
+    36,
+    260,
+    40
+   ],
+   "span": 40,
+   "shapeFamily": "capsule",
+   "radii": [
+    20,
+    20,
+    20,
+    20
+   ],
+   "smoothing": 0,
+   "thickness": 9,
+   "cssRadius": "0px",
+   "label": "Compare with the original"
+  },
+  {
+   "nodeId": "vitrea-node-3",
+   "groupId": "tools",
+   "plane": "base",
+   "tag": "div",
+   "role": "toolbar",
+   "rect": [
+    1068,
+    244,
+    56,
+    248
+   ],
+   "span": 56,
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    28,
+    28,
+    28,
+    28
+   ],
+   "smoothing": 0.66,
+   "thickness": 9,
+   "cssRadius": "0px",
+   "label": "Adjustment tools"
+  },
+  {
+   "nodeId": "vitrea-node-1",
+   "groupId": "verdict",
+   "plane": "base",
+   "tag": "div",
+   "role": "toolbar",
+   "rect": [
+    390,
+    644,
+    452,
+    56
+   ],
+   "span": 56,
+   "shapeFamily": "capsule",
+   "radii": [
+    28,
+    28,
+    28,
+    28
+   ],
+   "smoothing": 0,
+   "thickness": 9,
+   "cssRadius": "0px",
+   "label": "Frame verdict"
+  }
+ ],
+ "gateMechanical": true
+}
