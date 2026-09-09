@@ -26,7 +26,7 @@ secure context and gets the WebGPU tier in Chromium; every other engine gets the
 ```bash
 pnpm -r build
 python3 -m http.server 8788        # from the repository root
-open http://localhost:8788/apps/demos/music-player/index.html
+open http://localhost:8788/apps/demos/         # index.html lists the six
 ```
 
 The audit renders a demo the same way and reads the runtime's own diagnostics:
