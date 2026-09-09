@@ -224,6 +224,18 @@ repository root. The builder receives the brief verbatim plus the serving mechan
   eye alone (one rater, the settling lesson).
   Date/Author: 2026-09-10, Claude.
 
+- Decision: Curvature is written into the reference as the language's signature, used actively: a
+  one-row glass surface is a capsule; rounded rectangles are for the compact controls inside a
+  capsule and for the multi-row surfaces a capsule has no meaning on (platter, sidebar, sheet, a
+  two-row transport). The demos get a capsule pass to match, after the panel has read the as-built
+  captures.
+  Rationale: the user's read of the six beside the Mac's apps — "use more rounded capsules than
+  rectangular ones", and "it uses curvature very actively, preferring round capsules to the
+  rectangular". The reference had said desktop density keeps controls rectangular, and every
+  one-row bar container the builders drew came out at a fixed radius; the density belongs inside
+  the capsule, not in place of it.
+  Date/Author: 2026-09-10, the user; written by Claude.
+
 ## Surprises & Discoveries
 
 - Observation: The workspace build fails on this machine because a stray Yarn Plug'n'Play
@@ -272,3 +284,5 @@ Pending — written at finish.
 - 2026-09-10 (builds landing): Files — the audit JSON is the committed evidence and the PNG
   captures are regenerable, not committed; the copies the audit writes inside a demo directory are
   gitignored.
+- 2026-09-10 (user's read): the user's comparison answered in part (music-player and park-trails
+  most convincing; "a good use"); the curvature decision recorded and the reference revised.

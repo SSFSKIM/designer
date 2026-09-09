@@ -105,6 +105,11 @@ plane, where the colour already is.
 
 ## 3. Geometry
 
+Curvature is the language's signature, and it is used actively: where a surface can be a capsule it
+is one, and where it cannot, the radius is generous and concentric. A glass surface at a small
+fixed radius is the previous system's reflex — the eye reads it as a rounded rectangle from 2019
+with a blur behind it — and it is the first thing a reader who knows the Mac's apps notices.
+
 Shape is derived, not chosen. Apple's curvature descends from the hardware bezel, aligning
 curvature, size and proportion into one rhythm ([WWDC25 356][wwdc356]); a web page has no bezel it
 controls, so the outermost container is the viewport edge or the frame the design draws around the
@@ -119,9 +124,14 @@ measurement: corners reading pinched or flared, usually on a nested container.
 Apple publishes no radius values, deliberately — the concentric shape exists so views adapt without
 hard-coded values. What a page records is the relation: the container's radius, the gap, the
 derivation. The same holds for bar heights and container spacing; there is no number to quote for
-either. Bordered buttons in the floating layer are capsules by default ([WWDC25 323][wwdc323]), but
-in dense desktop layouts capsules are reserved for standout actions and small controls stay rounded
-rectangles.
+either. The glass surface itself defaults to a capsule: a bar group's container, a standalone
+button, a search field, a segmented control's housing — on macOS Tahoe the toolbar's glass groups
+are capsules, and a bar drawn as a rounded rectangle at the same height reads as the previous
+system ([WWDC25 323][wwdc323]). Rounded rectangles belong to three places: the compact controls
+*inside* a glass container, concentric with it (Mini, Small and Medium keep rounded rectangles for
+horizontal density; Large and X-Large take capsules and carry emphasis); the multi-row surfaces a
+capsule has no meaning on — a platter, a sidebar, a sheet, a two-row transport; and the window's own
+corners. The test is the surface's height: one row of controls tall, it is a capsule.
 
 ## 4. Legibility, and the three accessibility modes
 
@@ -222,9 +232,13 @@ Concentricity anchors to the **window** corner: controls nest into the window's 
 near an edge the shape aligns with that edge rather than taking a capsule with extra margin as it
 would on a phone ([WWDC25 356][wwdc356]). For a web page the anchor is whatever the design draws as
 the outer frame — the viewport edge, or the plane's own rounded container — and it has to be named,
-since a page with no stated anchor has no concentricity to derive. Compact controls stay
-rectangular: Mini, Small and Medium keep rounded rectangles for horizontal density while Large and
-X-Large take capsules and carry emphasis. The **hard** scroll edge style is the desktop default,
+since a page with no stated anchor has no concentricity to derive. The toolbar's glass groups and
+its standalone items are capsules; the compact controls inside a group are the rounded rectangles
+(Mini, Small and Medium keep them for horizontal density while Large and X-Large take capsules and
+carry emphasis) — the density lives inside the capsule, not in place of it. The first read of the
+six demos against the Mac's apps (2026-09-10) asked for more capsules and fewer rounded rectangles,
+and every bar container the reader found wanting was a one-row surface drawn at a fixed radius. The
+**hard** scroll edge style is the desktop default,
 soft belonging to iOS, and the two are never mixed or stacked. Sidebars float with content extending
 beneath them in both panes of a split, each pane carrying at most one scroll edge at consistent
 heights ([HIG Sidebars][sidebars]). Menus carry leading-edge icons on macOS now, all items in a
