@@ -238,6 +238,19 @@ repository root. The builder receives the brief verbatim plus the serving mechan
   memo §7), and 0.14.0 is unpublished while the reference pins esm.sh at 0.6.0.
   Evidence: the authoring-surface memo, file and line per point.
 
+- Observation: vitrea 0.14.0's WebGPU tier drew an opaque white rectangle across the interior of
+  any surface over ~307 px in both dimensions, inset ~153 px from every edge — on Apple GPUs, on
+  either sampling backend. Two builders found it independently the same hour (music-player's queue
+  sidebar, park-trails' permit platter) and designed under it; a one-surface repro confirmed it.
+  The outer shadow's falloff feeds `tanh` a cubic in depth over σ, Metal's `tanh` overflows to NaN
+  past ~44, and NaN × (1 − coverage) put NaN in the pass's alpha. Fixed by clamping the argument to
+  ±8 σ (identity to f32 there); a GPU spec now reads the deep interior of the fixture's 420 × 400
+  surface and fails on the old shader with alpha 0. The 44 golden and GPU specs pass unchanged.
+  Evidence: `.changeset/large-surfaces-draw-their-whole-interior.md`;
+  `packages/renderer-webgpu/e2e/gpu/deep-interior.spec.ts`.
+  A demo campaign is a renderer test the calibration bed is not: the bed's largest span is
+  under the line, and no scene in it has a surface deep enough to reach 153 px.
+
 ## Deferred
 
 - Publishing 0.14.0 (the user's `pnpm release`) and re-verifying the esm.sh single-file recipe at

@@ -1532,7 +1532,9 @@ export function outerShadowAlpha(occlusion: number): number {
  * of constants.
  */
 export function outerShadowFalloff(signedDistancePx: number, sigmaPx: number): number {
-  const x = -signedDistancePx / Math.max(sigmaPx, 1e-4);
+  // Clamped to ±8 σ as the renderer's two twins are: identical on either side
+  // of the clamp, and the shader needs it (Metal's tanh overflows to NaN).
+  const x = Math.max(-8, Math.min(8, -signedDistancePx / Math.max(sigmaPx, 1e-4)));
   return 0.5 * (1 + Math.tanh(0.7978845608028654 * (x + 0.044715 * x * x * x)));
 }
 

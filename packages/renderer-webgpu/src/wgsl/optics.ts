@@ -279,8 +279,19 @@ fn rim_weight(d : f32, width : f32) -> f32 {
 /// normal CDF — WGSL has no erf, and this is within 1.8e-4 of it everywhere,
 /// which is 0.015 of one 8-bit code at the shipped occlusion. Mirrors
 /// material.ts's 'outerShadowFalloff' term for term.
+///
+/// The argument is clamped to ±8 σ before the cubic. Past 8 σ the curve is 1
+/// (or 0) to f32 exactly — tanh(24.6) rounds to 1.0 — so the clamp changes no
+/// pixel the CPU twin evaluates, and the CPU twin's own reach bisection already
+/// stops at 8 σ. What it removes is an overflow: Metal evaluates tanh(x) as
+/// (e^2x − 1) / (e^2x + 1), which is inf / inf = NaN once 2x passes ~88.7, and
+/// this argument passes it at 10.07 σ — 153 px of depth at the shipped sigma
+/// of 15.55. The NaN rode the falloff into the pass's alpha as NaN × 0, and
+/// every surface over ~307 px in BOTH dimensions drew an opaque white
+/// rectangle inset ~153 px from its edges (found by the music-player demo,
+/// 2026-09-10; reproduced on a one-surface page on either sampling backend).
 fn outer_shadow_falloff(signedDistance : f32, sigma : f32) -> f32 {
-  let x = -signedDistance / max(sigma, 1e-4);
+  let x = clamp(-signedDistance / max(sigma, 1e-4), -8.0, 8.0);
   return 0.5 * (1.0 + tanh(0.7978845608028654 * (x + 0.044715 * x * x * x)));
 }
 

@@ -4213,7 +4213,10 @@ function flatOuterShadow(shadow: MaterialOuterShadow, amplitude: number): Materi
 export const SRGB_ENCODING_EXPONENT = 2.4;
 
 export function outerShadowFalloff(signedDistancePx: number, sigmaPx: number): number {
-  const x = -signedDistancePx / Math.max(sigmaPx, 1e-4);
+  // Clamped to ±8 σ as the shader's twin is (`outer_shadow_falloff` in
+  // wgsl/optics.ts): identical to f32 on either side of the clamp, and the
+  // shader needs it because Metal's tanh overflows to NaN past ~44.
+  const x = Math.max(-8, Math.min(8, -signedDistancePx / Math.max(sigmaPx, 1e-4)));
   return 0.5 * (1 + Math.tanh(0.7978845608028654 * (x + 0.044715 * x * x * x)));
 }
 
