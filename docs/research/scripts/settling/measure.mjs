@@ -8,7 +8,7 @@
 // shot-fv.png beside the build. Then runs layout-topology.mjs over every measured build so the
 // pairwise matrices cover the whole set. Output: <ws>/measurements.json and <ws>/topology.json.
 //
-//   node measure.mjs [--only id,id] [--skip-topology]
+//   node measure.mjs [--only id,id] [--skip-topology] [--force]   (--force re-measures every build)
 
 import fs from "node:fs";
 import path from "node:path";
@@ -23,6 +23,7 @@ const outPath = path.join(ws, "measurements.json");
 const args = process.argv.slice(2);
 const only = args.includes("--only") ? args[args.indexOf("--only") + 1].split(",") : null;
 const skipTopology = args.includes("--skip-topology");
+const force = args.includes("--force");
 
 // A Playwright module whose Chromium is actually installed: each candidate is test-launched, because
 // an npx cache can hold a newer Playwright than the browser cache has a binary for.
@@ -160,17 +161,33 @@ async function measureOne(chromium, id) {
   page.on("console", (m) => { if (m.type() === "error") consoleErrors.push(m.text().slice(0, 200)); });
   page.on("requestfailed", (r) => failedRequests.push(r.url().slice(0, 120)));
   await page.goto(pathToFileURL(file).href, { waitUntil: "load" });
-  await page.waitForTimeout(1200);
-  // Scroll through to trigger reveal-on-scroll, then return to the top.
+  // The fixed capture protocol (quality-instrument spec, Captures): fonts settled, the first
+  // viewport taken at scroll 0 before any scroll-through — two settling pages scrolled themselves
+  // during the walk and their first-viewport captures showed a hero-less half-blank screen — then
+  // the walk for reveal-on-scroll content, the full page, and two native-resolution tiles.
+  await page.evaluate(() => document.fonts.ready);
+  await page.waitForTimeout(1500);
+  const scrolledOnLoad = await page.evaluate(() => { const y = window.scrollY; window.scrollTo(0, 0); return y; });
+  await page.waitForTimeout(300);
+  const selfScrolled = await page.evaluate(() => window.scrollY);
+  await page.screenshot({ path: path.join(dir, "shot-fv.png"), fullPage: false });
   await page.evaluate(async () => { await new Promise((res) => { let y = 0; const step = () => { window.scrollTo(0, y); y += Math.round(window.innerHeight * 0.75); if (y < document.body.scrollHeight) setTimeout(step, 90); else { window.scrollTo(0, 0); setTimeout(res, 300); } }; step(); }); });
   await page.waitForTimeout(400);
   const data = await page.evaluate(extract);
-  await page.screenshot({ path: path.join(dir, "shot-fv.png"), fullPage: false });
   await page.screenshot({ path: path.join(dir, "shot-full.png"), fullPage: true });
+  for (const n of [2, 3]) {
+    const y = (n - 1) * 900; const tile = path.join(dir, `tile-${n}.png`);
+    if (data.docHeight > y + 100) await page.screenshot({ path: tile, fullPage: true, clip: { x: 0, y, width: 1440, height: Math.min(900, data.docHeight - y) } });
+    else if (fs.existsSync(tile)) fs.unlinkSync(tile);
+  }
   await browser.close();
+  // Overflow read from the capture itself: a page can be 1440 wide at load and wider once its
+  // content has revealed (one settling build was 2760 px at capture with the load-time read false).
+  const png = fs.readFileSync(path.join(dir, "shot-full.png")); const captureWidth = png.readUInt32BE(16);
   const bytes = fs.statSync(file).size;
   const hasDesign = fs.existsSync(path.join(dir, "DESIGN.md"));
   return { id, ...data, errors, consoleErrors, failedRequests: failedRequests.length, bytes, hasDesign, measuredAt: new Date().toISOString(),
+    scrolledOnLoad, selfScrolled, captureWidth, overflowCapture: captureWidth > 1440,
     gateMechanical: errors.length === 0 && !data.overflow && !data.placeholder && (data.contrast.rate == null || data.contrast.rate >= 0.9) };
 }
 
@@ -184,7 +201,7 @@ for (const id of ids) {
   // A builder's own cleanup can delete the measurer's screenshots (a build that finishes as the
   // measurer runs), so a measured build without both shots is measured again.
   const shots = ["shot-fv.png", "shot-full.png"].every((f) => fs.existsSync(path.join(buildsDir, id, f)));
-  if (prev.builds[id] && prev.builds[id].mtimeMs === stamp && !prev.builds[id].error && shots && !only) { continue; }
+  if (prev.builds[id] && prev.builds[id].mtimeMs === stamp && !prev.builds[id].error && shots && !only && !force) { continue; }
   process.stdout.write(`measure ${id} … `);
   try { prev.builds[id] = { ...(await measureOne(chromium, id)), mtimeMs: stamp }; console.log(prev.builds[id].gateMechanical ? "ok" : "gate-fail"); }
   catch (e) { console.log("ERROR " + e.message); prev.builds[id] = { id, error: String(e.message), mtimeMs: stamp, gateMechanical: false }; }
