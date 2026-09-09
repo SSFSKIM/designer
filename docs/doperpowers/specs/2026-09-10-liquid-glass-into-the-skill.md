@@ -1,0 +1,200 @@
+# Liquid Glass into the skill: the design language distilled, and six demos on vitrea 0.14.0
+
+Status: design, 2026-09-10; the user's three shape decisions recorded, two inputs open (taste anchors,
+the brief list). Parents: `2026-08-24-vitrea-liquid-glass-design.md` (the material) and the skill's
+`references/material.md` (how the skill ships glass today). Research: `docs/research/2026-09-10-
+liquid-glass-design-language.md` (34 sources, 25 checkable rules) and `docs/research/2026-09-10-
+vitrea-authoring-surface.md` (the 0.14.0 authoring surface read from the code).
+
+## Purpose
+
+The skill can already say when glass is earned and how to ship it through vitrea. It cannot yet
+compose a page the way Apple's system composes one: content edge to edge with navigation and
+controls floating over it as the only glass; the material on the control, never on a card; capsule
+and concentric geometry; bar items grouped so they read as one material; text on glass that meets
+contrast in both schemes; menus that morph out of the control that opened them; monochrome controls
+with one tinted primary. That is the Liquid Glass aesthetic, and the user's direction is to dissolve
+it into the skill so the skill masters it rather than decorates with it.
+
+After this initiative: a designer hands the skill a brief whose product has a live plane — artwork,
+a map, a photograph, footage — and receives a page that a reader of Apple's guidelines would
+recognise as the system: the plane fills the window, the floating layer is small and load-bearing,
+every glass surface is a control, and the page still works with transparency reduced. Six such pages
+exist under `apps/demos/`, built by the skill on the local vitrea 0.14.0 build, each with the audit
+that says which of the language's rules it holds.
+
+How to see it working: serve the repo root and open `apps/demos/<slug>/index.html` over
+`http://localhost`; run the audit (`node docs/research/scripts/glass-audit.mjs apps/demos/<slug>`)
+and read the rule table it prints; read `apps/demos/<slug>/DESIGN.md` for the plane split, the
+floating-layer inventory and the group plan the page committed to.
+
+## The measured problem
+
+- The skill's material reference (`references/material.md`, 228 lines) covers the material axis,
+  when glass is earned, the plane and group constraints, and two shipping paths. It has no account
+  of the system's composition: which controls float, how bars group, concentric geometry, the scroll
+  edge, the tint rule, the monochrome rule, the anti-patterns. A builder following it can put one
+  correct glass toolbar on a page that otherwise reads as any web page.
+- It is also stale in four places the code contradicts (research memo §7): the esm.sh pin at 0.6.0
+  (npm's newest is 0.13.0, 0.12.0 never published, 0.14.0 unpublished); Gecko's CSS tier reported as
+  verified where the conformance table says unverified; `GlassGroupState` listed with nine fields of
+  eleven; and `file://` offered as a way to force the CSS tier, where a module page will not load
+  over `file://` at all. It omits the backdrop-root trigger list and the size law's span-32 floor.
+- Across the 52 settling builds, zero pages used glass, which is correct for those briefs and says
+  nothing about whether the skill can compose for it.
+
+## Design
+
+### A. The distillation
+
+A new reference, `skills/designer/references/liquid-glass.md`, read when the material axis resolves
+to `glass over planes`, carrying:
+
+1. **The two layers**, and the composition procedure for a glass page: name the live plane (what
+   content fills the window and changes under the controls); inventory the floating layer
+   (navigation, the primary action, transient platters — and nothing else); decide what stays in
+   the content layer opaque; plan the groups (one material read per group, at most three per bar,
+   text and icon buttons never sharing one); design the backdrop (varied, never a flat field —
+   the "ghost glass" failure); choose the size family (vitrea's span floor of 32; a three-step
+   sweep such as the demo's 112 / 68 / 40 with radii 26 / 18 / 12 and one thickness); place the
+   scroll edge where content passes under a bar; write the fallback (the CSS tier, reduced
+   transparency, increased contrast) as part of the design, not after it.
+2. **The material's variants and the tint rule** — regular by default, clear only over media with a
+   dim layer, one tinted control per view and it is the primary action, monochrome otherwise.
+3. **Geometry** — three shape kinds only (fixed, capsule, concentric); nested radii derived from the
+   container; capsules for bordered floating buttons, rounded rectangles for dense desktop controls.
+4. **Legibility and accessibility** — contrast 4.5:1 to 17 pt and 3:1 above, in both schemes; the
+   honest backdrop hint; the three accessibility modes as first-class states.
+5. **Layout** — content to the window's edges with bars floating over it; safe-area insets; the
+   plane fixed to the viewport; no custom background under a bar.
+6. **Motion** — materialise and morph, never cross-fade; press glow and flex at the pointer.
+7. **The anti-patterns**, named: glass on content, glass over glass, translucent everything, heavy
+   tint, a hand-rolled blur, decorative glass cards, glass over a uniform field.
+8. **The macOS reading** for desktop pages: window chrome, the sidebar, the toolbar, menus.
+9. **The 25 checkable rules** from the research memo, each tagged, as the page's QA list.
+
+Alongside: `references/material.md` corrected on the four points and extended with the trigger
+list and the span floor; its shipping section rewritten for the workspace build (an import map to
+`/packages/core/dist` and `/packages/platform-web/dist` served from the repo root; esm.sh at the
+newest published version, marked unverified until re-checked); `references/qa-protocol.md` gains a
+"glass page" pass that runs the 25 rules; `SKILL.md`'s workflow points to the reference at the
+material step and its taste floor gains one line (a glass surface is a control or it is not glass).
+Plugin version 2.3.0.
+
+### B. The six demos
+
+Six briefs written for glass, three product surfaces and three narrative pages (the user's choice;
+the list is in the Decision Log once approved). Each is built by a fresh builder under the updated
+skill, as one `index.html` plus `DESIGN.md` and an `images/` directory under `apps/demos/<slug>/`,
+importing vitrea through the import map above, served from the repo root, WebGPU tier over
+`http://localhost` and the CSS tier otherwise. Backdrops are real: photographs off the imagery
+ladder, or a drawn plane (a map canvas) where the brief's world is drawn. `DESIGN.md` §4 carries
+the plane split, the floating-layer inventory, the group plan, the size family and the backdrop
+design, so the audit can read the page against its own law.
+
+### C. The audit
+
+`docs/research/scripts/glass-audit.mjs` renders a demo in Chromium over `http://localhost` with
+WebGPU, captures the first viewport, the full page, two native tiles, and one capture with the
+page's menu or platter open, and reads: page errors, overflow from the capture width, the contrast
+pass, and the glass root's resolved state through `devMode` — the renderer that drew, every group's
+diagnostics (a nested glass host, a same-plane overlap, a content-layer host, a demoted backdrop
+root), and the count of glass surfaces. Then:
+
+1. **The rule reading.** The 25 rules as a blind yes/no rubric on the captures, rated by the
+   quality instrument's four-rater panel (the rubric machinery of `2026-09-09-quality-instrument.md`,
+   a new item set), α per rule reported, the panel majority per rule per demo.
+2. **The quality reading.** The instrument's a1–a4, d1 and e1 on the same captures by the same
+   panel, for the level beside the settling arms.
+3. **The user's eye.** The user opens each demo live, in both schemes and with transparency reduced
+   once, and rates d1 and one item, "this reads as Liquid Glass", 1–7.
+
+A demo **passes** when at least 22 of the 25 rules hold by panel majority and no rule tagged
+`[layer]` or `[material]` fails; the mechanical read shows no group diagnostic; and the page still
+works with transparency reduced. The initiative **meets its purpose** when all six pass, the panel's
+d1 mean over the six is at least 5.0, and the user rates "reads as Liquid Glass" at 5 or above on at
+least five of six.
+
+**Stop.** If three or more demos fail a `[layer]` or `[material]` rule after one rebuild each, the
+reference is not teaching the language; the result is recorded here and in the skill's spec chain,
+and the next step is a rewrite of the reference from the failures, not a seventh demo.
+
+### Cost, declared
+
+The reference and the corrections: a working day. Six builds at about 0.5 M tokens each; the audit
+script a half day; the panel's rule reading and quality reading 6 × 4 × 2 runs at about 0.1 M each,
+5 M tokens; the user about thirty minutes at the demos and ten at the ratings.
+
+## Files
+
+- This spec.
+- `skills/designer/references/liquid-glass.md` (new), `references/material.md`, `references/
+  qa-protocol.md`, `SKILL.md`, `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`.
+- `apps/demos/<slug>/{index.html,DESIGN.md,images/}` × 6; `apps/demos/README.md` with the serve
+  command and the import map.
+- `docs/research/scripts/glass-audit.mjs` (new); the rule item set in `docs/research/scripts/
+  settling/rubric.py` or beside it.
+- Committed evidence: `docs/research/data/2026-09-10-liquid-glass-demos/` — captures, audit JSON,
+  the panel's rule and quality files, the user's ratings.
+
+## Decision Log
+
+- Decision: Six briefs, three product surfaces and three narrative pages, one build each after the
+  reference is distilled — not three briefs before-and-after, not a twelve-build baseline-then-
+  rebuild.
+  Rationale: the user's choice. Coverage of where glass belongs over a paired comparison; the
+  before state is already known from the settling run (no page used glass) and from the
+  reference's gaps.
+  Date/Author: 2026-09-10, the user.
+
+- Decision: New briefs written for glass, each with a live plane, over the existing eval briefs.
+  Rationale: the user's choice. The skill's own rule earns glass only over a changing plane; the
+  settling briefs are tables and documents.
+  Date/Author: 2026-09-10, the user.
+
+- Decision: The demos live at `apps/demos/<slug>` and load the workspace's 0.14.0 build through an
+  import map over a local server; not the `demos` branch on a published version, not scratch.
+  Rationale: the user's choice, and 0.14.0 is unpublished (npm's newest is 0.13.0). A page that
+  imports from `/packages/*/dist` is one HTML file plus a served repo; `DESIGN.md` says so plainly.
+  Publishing the demos is a later decision.
+  Date/Author: 2026-09-10, the user.
+
+- Decision: The audit's rule reading uses the 25 rules from the research memo, as written, with the
+  quality instrument's panel; the pass line is 22 of 25 with no layer or material failure.
+  Rationale: the rules are sourced one by one to Apple's guidelines and sessions (two to
+  practitioners, marked); a page that fails a layer or material rule is not the language whatever
+  else it does, while three of the finer rules can be lost to a desktop web context (safe-area
+  insets, the scroll edge's exact style, the icon layering) without the page ceasing to read as the
+  system. Rejected: the panel's d1 alone (it measures deliverability, not the language); the user's
+  eye alone (one rater, the settling lesson).
+  Date/Author: 2026-09-10, Claude.
+
+## Surprises & Discoveries
+
+- Observation: The workspace build fails on this machine because a stray Yarn Plug'n'Play
+  manifest, `~/.pnp.cjs` (2025-09-30, 451 KB), sits in the home directory; esbuild finds it walking
+  up from every package and then refuses the workspace's own imports. With the file set aside for
+  the build's duration, core built in 0.3 s and the full workspace built clean under the Homebrew
+  Node 26 (the shell's default is Node 22; the repo asks for 24).
+  Evidence: the tsup error naming `../../../../../.pnp.cjs`; `BUILD-EXIT 0` with it moved aside.
+
+- Observation: `references/material.md` is stale on four points the code contradicts (research
+  memo §7), and 0.14.0 is unpublished while the reference pins esm.sh at 0.6.0.
+  Evidence: the authoring-surface memo, file and line per point.
+
+## Deferred
+
+- Publishing 0.14.0 (the user's `pnpm release`) and re-verifying the esm.sh single-file recipe at
+  the published version, so a demo can be one file with no served repo.
+- React demos on `@vitreajs/vitrea-react`; publishing the demos to the Pages site.
+- The quality instrument's calibration round for d1 (its own Deferred list).
+
+## Outcomes & Retrospective
+
+Pending — written at finish.
+
+## Revision Notes
+
+- 2026-09-10: created from the user's direction ("six demos on vitrea, so the skill masters the
+  Liquid Glass aesthetic") after the research round; the three shape decisions recorded; taste
+  anchors and the brief list open.
