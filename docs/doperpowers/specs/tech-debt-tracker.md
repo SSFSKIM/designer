@@ -1477,6 +1477,11 @@ fraction of one — the arithmetic puts that at about a 12 CSS px dot on a 128 C
 the present heavy amplitude — declared in `scenes.json` and captured in a native sitting, which is
 the user's console. `g1/reader-d.txt`, claims §5.120 §2.
 
+**Amended (W26 G1 §7, 2026-09-10; claims §5.120 §11).** The entry stands for the IMPULSE fixture and
+is narrowed: the coarse `checkerboard-64` rows carry 63-73 display codes and reader D returns the
+drawn 1x heavy width on them to 0.0-1.8 %, so a 1x width IS readable on this bed and the wider-pitch
+probe scene drops to second priority. It is not the blocker any more; the entry below is.
+
 ## Reader A's fitted SHARP component is a conditioning statistic, and two reference rows fail it (W26 G1, 2026-09-10)
 
 Where reader A's two-component fit returns a sharp σ of 9–12 device px it has split one wide kernel
@@ -1494,3 +1499,45 @@ sharp width a named quantity of the wave because the coarse checkerboards' resid
 this is what it reads, and nothing in the material moves it — `blurSigma` is fitted on other rows and
 was declined as a sibling in W25. Closes with a wave that fits the sharp component on the impulse
 rows with the heavy one held. `g1/fits.txt` §5, claims §5.120 §8.
+
+
+## The reference's heavy component is not identified: two backdrops give it a factor of 3 apart, because Apple's kernel is not two Gaussians (W26 G1 §7, 2026-09-10)
+
+The 1x reference `rrect-lg` reads a heavy component of 19.52 device px through the impulse tile
+(reader A) and 8.42 through `checkerboard-64` (reader D), and the two instruments therefore disagree
+on the SIGN of vitrea's error. A joint fit of ONE kernel across both tiles at once does not
+reconcile them and fails its own control — it under-reads vitrea's KNOWN 13.42 device px, the
+chain's level 4 at the inert default, by 14-23 % — and its residual on the impulse tile is 2-7 times
+its residual on the checkerboard for both surfaces. Debiasing each instrument by what it reads
+vitrea's known kernel as leaves the reference at 18.2 (impulse), 6.0-7.1 (checkerboard) and 11.1-12.4
+(joint). Every reader's residual on the real surfaces is 5-7 times its residual on its own
+synthetics. So a two-Gaussian reader recovers whichever two Gaussians the backdrop weights, and W25
+clause 2's "heavy sigma within 15 % of the reference's" is not a well-posed target at 1x. This
+blocks the 1x width fit that W25 and W26 exist to take. Closes with a kernel model of more than two
+components — or two with a shape parameter — fitted jointly across three or more backdrops of one
+surface and validated FIRST on vitrea's own known kernel; no sitting needed. `g1/joint.txt`,
+`g1/checker.txt`, claims §5.120 §12.
+
+## A scratch rung patches the light document only, so its dark captures render the OLD material (W26 G1 §7, 2026-09-10)
+
+`g0-candidate.py`'s `light:` scope writes a constant into the light profile document, and the dark
+profile is a difference document resolved over `DEFAULT_MATERIAL_PROFILE` rather than over the light
+patch (`tuned-profiles.test.ts` resolves both the same way). A dark capture at a scratch rung
+therefore takes any constant the dark patch does not name from the CODE default, which for a wave's
+new constants is inert — while a LANDING, which edits the default, does reach the dark scheme. W26
+G1's first probe table read every dark cell as moving by exactly 0 for this reason and had to be
+re-captured with `both:`. The tell is a column of exact zeros. Closes by making a rung's candidate
+writer default to `both:` for constants the dark patch does not name, or by having a rung refuse to
+capture a dark profile whose resolved material does not carry the constants the rung names.
+`g1/g1-dark.sh`, claims §5.120 §10.
+
+## Vitrea's own drawn kernel is a ground truth no reader was calibrated against until W26 G1 (W26 G1 §7, 2026-09-10)
+
+At the inert default the deep sample is exactly the chain's level 4, whose half-maximum sigma is
+13.42 device px, mixed with a body of 1.25 — so every width reader built since W24 could have been
+calibrated against a known answer at any point. Doing it for the first time in `g1/joint.txt` put a
+bias of +7 % on reader A over the impulse tile, +23 to +39 % on reader D over `checkerboard-64` and
+-14 to -23 % on the joint fit, and turned a disagreement between readers into a measurement. Closes
+by making that calibration a standing part of any width reader's validation, beside the synthetic
+kernels: a reader that has not been read against vitrea's own known kernel has an unmeasured bias.
+`g1/joint.txt`, claims §5.120 §12.

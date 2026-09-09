@@ -1,0 +1,183 @@
+W26 G1 §7 — reader D on the coarse checkerboards
+====================================================================================================
+
+A. The fixtures' interior contrast, in 8-bit display codes
+
+   p2..p98 of the NATIVE interior (eroded 16 CSS px), expressed through the sRGB OETF at
+   that level. The 1x `impulse` rows of §2 carry 9-14 codes of DOT PEAK and a heavy
+   component of a fraction of one code; these carry the numbers below across the whole tile.
+
+     profile                                row       n    body     amp   codes
+    1x-light    checkerboard-64__rrect-lg__rest   31468  0.4621  0.4426    63.0
+    1x-light    checkerboard-64__rrect-ml__rest   18332  0.4452  0.4764    68.0
+    1x-light    checkerboard-64__rrect-md__rest    8180  0.4342  0.5132    73.0
+    1x-light    checkerboard-32__rrect-lg__rest   31468  0.4969  0.3827    54.0
+    1x-light    checkerboard-32__rrect-ml__rest   18332  0.4793  0.4169    59.0
+    1x-light    checkerboard-32__rrect-md__rest    8180  0.4564  0.4567    65.0
+    2x-light    checkerboard-64__rrect-lg__rest  125852  0.4621  0.4426    63.0
+    2x-light    checkerboard-64__rrect-ml__rest   73320  0.4452  0.4764    68.0
+    2x-light    checkerboard-64__rrect-md__rest   32720  0.4342  0.5132    73.0
+    2x-light    checkerboard-32__rrect-lg__rest  125852  0.4678  0.4285    61.0
+    2x-light    checkerboard-32__rrect-ml__rest   73320  0.4452  0.4764    68.0
+    2x-light    checkerboard-32__rrect-md__rest   32720  0.4342  0.5132    73.0
+
+B. Reader D on synthetics at each fixture's own level and transmission, through 8 bits
+
+   The transmission is held FIXED across the kernels of one row — calibrated so that a
+   3.0 / 19.5 / 0.47 kernel reproduces that row's observed contrast — so a wider kernel
+   flattens the checkerboard the way it really would instead of being handed back the codes
+   it destroyed. `float` is the same synthetic unquantised, which isolates the 8-bit step.
+
+   checkerboard-32__rrect-lg__rest (54 codes)
+                       in |              float out |              8-bit out   err %   resid
+       2.00/ 10.00/0.25 |   2.00/ 10.00/0.25 |   1.98/  8.44/0.22    15.6  0.0082
+       2.00/ 13.42/0.23 |   2.00/ 13.42/0.23 |   2.00/ 14.05/0.27     4.7  0.0091
+       3.00/ 19.50/0.47 |   3.00/ 19.50/0.47 |   2.84/  4.29/0.21    78.0  0.0121
+       2.50/ 25.00/0.40 |   2.48/  2.94/0.06 |   2.10/  2.49/1.00    90.1  0.0104
+       2.50/ 30.00/0.40 |   2.46/  2.54/0.48 |   0.44/  2.51/0.99    91.6  0.0103
+
+   checkerboard-32__rrect-md__rest (65 codes)
+                       in |              float out |              8-bit out   err %   resid
+       2.00/ 10.00/0.25 |   2.00/ 10.00/0.25 |   1.98/ 16.76/0.43    67.6  0.0376
+       2.00/ 13.42/0.23 |   2.00/ 13.42/0.23 |   1.96/ 16.67/0.20    24.3  0.0229
+       3.00/ 19.50/0.47 |   3.00/ 15.25/0.18 |   3.02/  6.87/0.04    64.7  0.0109
+       2.50/ 25.00/0.40 |   2.47/  2.88/0.08 |   2.49/ 25.74/0.85     3.0  0.0098
+       2.50/ 30.00/0.40 |   2.47/  2.52/0.66 |   2.47/ 15.23/0.14    49.2  0.0105
+
+   checkerboard-32__rrect-ml__rest (59 codes)
+                       in |              float out |              8-bit out   err %   resid
+       2.00/ 10.00/0.25 |   2.00/ 10.00/0.25 |   2.01/  6.30/0.13    37.0  0.0190
+       2.00/ 13.42/0.23 |   2.00/ 13.42/0.23 |   1.99/  6.89/0.09    48.7  0.0080
+       3.00/ 19.50/0.47 |   3.00/ 19.50/0.47 |   2.96/  5.38/0.08    72.4  0.0118
+       2.50/ 25.00/0.40 |   2.48/  3.13/0.04 |   2.30/  2.49/1.00    90.1  0.0110
+       2.50/ 30.00/0.40 |   2.29/  2.50/0.98 |   0.30/  2.47/1.00    91.8  0.0092
+
+   checkerboard-64__rrect-lg__rest (63 codes)
+                       in |              float out |              8-bit out   err %   resid
+       2.00/ 10.00/0.25 |   2.00/ 10.00/0.25 |   2.02/ 10.18/0.25     1.8  0.0091
+       2.00/ 13.42/0.23 |   2.00/ 13.42/0.23 |   2.02/ 13.38/0.23     0.3  0.0093
+       3.00/ 19.50/0.47 |   3.00/ 19.50/0.47 |   3.01/ 19.60/0.47     0.5  0.0126
+       2.50/ 25.00/0.40 |   2.50/ 25.00/0.40 |   2.49/ 24.99/0.40     0.0  0.0125
+       2.50/ 30.00/0.40 |   2.50/ 30.00/0.40 |   2.49/ 30.03/0.40     0.1  0.0128
+
+   checkerboard-64__rrect-md__rest (73 codes)
+                       in |              float out |              8-bit out   err %   resid
+       2.00/ 10.00/0.25 |   2.00/ 10.00/0.25 |   1.97/  9.33/0.25     6.7  0.0131
+       2.00/ 13.42/0.23 |   2.00/ 13.42/0.23 |   2.00/ 13.48/0.23     0.5  0.0135
+       3.00/ 19.50/0.47 |   3.00/ 19.50/0.47 |   2.99/ 18.82/0.46     3.5  0.0194
+       2.50/ 25.00/0.40 |   2.50/ 25.00/0.40 |   2.52/ 24.95/0.39     0.2  0.0188
+       2.50/ 30.00/0.40 |   2.50/ 30.00/0.40 |   2.50/ 29.62/0.39     1.3  0.0181
+
+   checkerboard-64__rrect-ml__rest (68 codes)
+                       in |              float out |              8-bit out   err %   resid
+       2.00/ 10.00/0.25 |   2.00/ 10.00/0.25 |   2.01/  9.92/0.25     0.8  0.0087
+       2.00/ 13.42/0.23 |   2.00/ 13.42/0.23 |   2.00/ 13.37/0.23     0.3  0.0095
+       3.00/ 19.50/0.47 |   3.00/ 19.50/0.47 |   3.01/ 19.69/0.47     1.0  0.0125
+       2.50/ 25.00/0.40 |   2.50/ 25.00/0.40 |   2.50/ 24.71/0.39     1.2  0.0121
+       2.50/ 30.00/0.40 |   2.50/ 30.00/0.40 |   2.50/ 29.46/0.38     1.8  0.0123
+
+   Worst 8-bit heavy-width error over every 1x checkerboard row and kernel: 91.8 %.
+
+   The chain's own platykurtic level-4 kernel (half maximum 14.33; `chain-kernel.txt`),
+   on `checkerboard-64__rrect-lg` at 1x, through the same 8-bit step:
+
+      share   sharp   heavy  share out   resid
+       0.23    2.01   13.58      0.234  0.0093
+       0.50    1.94   13.47      0.515  0.0111
+       1.00   14.48   23.10      0.000  0.0228
+
+C. Cross-check on 2x `impulse__rrect-md`, where reader A, reader D and this are conditioned
+
+   The same rungs read three ways. Reader A and reader D on the impulse row are §5.120 §1's
+   and §2's instruments; the third column is reader D on `checkerboard-64__rrect-md` at 2x,
+   the row this section adds. Agreement here is what lets the checkerboard read the 1x rows
+   that the impulse tile cannot.
+
+     rung   sigma |    A imp    D imp  D chk-64 |  A share  D chk share  D chk resid
+       r0   inert |     8.76     9.91      8.69 |    0.690        0.873       0.0587
+      t10    10.0 |    11.04    11.06      9.57 |    0.801        0.940       0.0589
+      t13    13.0 |    14.19    14.10     12.57 |    0.784        0.920       0.0577
+      t16    16.0 |    17.83    17.94     16.05 |    0.767        0.900       0.0615
+
+D. The reference read with reader D on the checkerboards, both scales
+
+   The SHARP column is the conditioning statistic (§5.120 §3): a two-component fit whose
+   sharp component comes back at 9-12 device px has split one wide kernel in half. Nothing
+   recorded elsewhere is rewritten; these are new readings on rows nobody has read this way.
+
+     profile                                row   sharp   heavy   share   resid
+    1x-light    checkerboard-32__rrect-lg__rest    1.36   10.57   0.744  0.1034
+    1x-light    checkerboard-32__rrect-md__rest    1.23   26.10   0.997  0.0837
+    1x-light    checkerboard-32__rrect-ml__rest    1.25   14.03   0.813  0.0869
+    1x-light    checkerboard-64__rrect-lg__rest    1.35    8.42   0.648  0.0651
+    1x-light    checkerboard-64__rrect-md__rest    1.41    8.71   0.429  0.0644
+    1x-light    checkerboard-64__rrect-ml__rest    1.21    8.68   0.536  0.0556
+    2x-light    checkerboard-32__rrect-lg__rest    8.79    9.04   1.000  0.1459
+    2x-light    checkerboard-32__rrect-md__rest    0.88    8.39   0.840  0.0816
+    2x-light    checkerboard-32__rrect-ml__rest    0.69    8.64   0.952  0.0913
+    2x-light    checkerboard-64__rrect-lg__rest    8.81   57.90   0.391  0.0755
+    2x-light    checkerboard-64__rrect-md__rest    1.23    7.97   0.824  0.0657
+    2x-light    checkerboard-64__rrect-ml__rest    0.63    8.37   0.925  0.0581
+
+E. Vitrea's 1x ladder, read on the checkerboards — the mapping a fit needs
+
+   checkerboard-64__rrect-lg__rest   reference: sharp 1.35  heavy 8.42  share 0.648  resid 0.0651
+       rung   sigma   sharp   heavy   share   resid
+         r0   inert    1.86   18.71   0.724  0.0371
+        t10   10.00    1.65   10.28   0.682  0.0244
+         c1   13.42    1.86   18.71   0.724  0.0371
+        t16   16.00    1.78   21.34   0.750  0.0390
+        t19   19.00    1.70   24.20   0.768  0.0459
+        t22   22.00    1.68   27.21   0.781  0.0551
+        t25   25.00    1.66   30.03   0.790  0.0672
+
+   checkerboard-64__rrect-ml__rest   reference: sharp 1.21  heavy 8.68  share 0.536  resid 0.0556
+       rung   sigma   sharp   heavy   share   resid
+         r0   inert    1.60   16.44   0.586  0.0496
+        t10   10.00    1.53   10.34   0.555  0.0417
+         c1   13.42    1.60   16.44   0.586  0.0496
+        t16   16.00    1.59   18.99   0.596  0.0507
+        t19   19.00    1.57   22.18   0.605  0.0537
+        t22   22.00    1.57   24.11   0.574  0.0580
+        t25   25.00    1.58   26.93   0.552  0.0613
+
+   checkerboard-64__rrect-md__rest   reference: sharp 1.41  heavy 8.71  share 0.429  resid 0.0644
+       rung   sigma   sharp   heavy   share   resid
+         r0   inert    1.85   16.53   0.501  0.0664
+        t10   10.00    1.79    9.90   0.477  0.0554
+         c1   13.42    1.85   16.53   0.501  0.0664
+        t16   16.00    1.82   19.18   0.516  0.0655
+        t19   19.00    1.80   27.14   0.662  0.0653
+        t22   22.00    1.78   29.42   0.654  0.0647
+        t25   25.00    1.78   31.76   0.637  0.0652
+
+   checkerboard-32__rrect-lg__rest   reference: sharp 1.36  heavy 10.57  share 0.744  resid 0.1034
+       rung   sigma   sharp   heavy   share   resid
+         r0   inert    1.75    5.91   0.339  0.0947
+        t10   10.00    1.74   10.77   0.702  0.0629
+         c1   13.42    1.75    5.91   0.339  0.0947
+        t16   16.00    1.78    6.56   0.190  0.1035
+        t19   19.00    1.77    7.41   0.052  0.1124
+        t22   22.00    0.30    1.80   0.978  0.1202
+        t25   25.00    1.73   35.31   0.617  0.1217
+
+   checkerboard-32__rrect-ml__rest   reference: sharp 1.25  heavy 14.03  share 0.813  resid 0.0869
+       rung   sigma   sharp   heavy   share   resid
+         r0   inert    1.63    7.16   0.233  0.0694
+        t10   10.00    1.61   13.96   0.751  0.0547
+         c1   13.42    1.63    7.16   0.233  0.0694
+        t16   16.00    1.63    9.56   0.168  0.0717
+        t19   19.00    0.30    1.75   0.945  0.0729
+        t22   22.00    0.30    1.70   0.948  0.0744
+        t25   25.00    0.30    1.68   0.949  0.0749
+
+   checkerboard-32__rrect-md__rest   reference: sharp 1.23  heavy 26.10  share 0.997  resid 0.0837
+       rung   sigma   sharp   heavy   share   resid
+         r0   inert    1.59    5.30   0.209  0.0820
+        t10   10.00    1.63   24.06   0.990  0.0718
+         c1   13.42    1.59    5.30   0.209  0.0820
+        t16   16.00    0.39    1.93   0.910  0.0803
+        t19   19.00    0.37    1.82   0.925  0.0805
+        t22   22.00    0.30    1.71   0.944  0.0803
+        t25   25.00    0.30    1.72   0.946  0.0800
+

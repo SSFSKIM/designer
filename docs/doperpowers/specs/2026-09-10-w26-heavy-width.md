@@ -296,8 +296,72 @@ predicate ADMITS two 2x-light texture cells the frozen bed excludes, and both me
 `PREDICATE_EXCLUDES` and the 2x-light count are G2's edit. X5 over 81 thin probe cells: worst move
 0.00017 against 0.001.
 
+### Decision Log 4 — the parent's two rulings, and G1 §7's follow-on: a readable 1x lever and an unidentified target (2026-09-10; claims §5.120 addendum)
+
+(a) **S15 is re-stated** (the parent): "any fitted row, or any row whose reference two-component fit
+is conditioned (sharp under 4 device px)". It does not fire on `impulse__rrect-lg` at 2x — not a
+fitted row, and its reference fit returns a sharp component of 9.67 device px — so Decision Log
+3 (f) (i)'s first choice is taken and the row's move stays the gap Decision Log 2 (f) recorded.
+
+(b) **`sizeScatterHeavyShareThick1x` = 0.25 is DECLINED** at the current 1x width (the parent), on
+the evidence shape W25 declined it on. Re-tested only if the 1x width becomes fittable; (e) says it
+does not, so the decline stands and W25's four declines are joined by this one.
+
+(c) **The dark columns of G1's probe table were the inert material.** A scratch rung writes its
+constants into the LIGHT document only, and the dark difference document is resolved over
+`DEFAULT_MATERIAL_PROFILE` rather than over the light patch — so the dark captures took this wave's
+constants from the code default of 0. Nothing about the dark scheme makes the heavy width inert; a
+LANDED constant reaches it, because landing edits the default. Re-captured with the candidate in
+both documents the dark bed moves and X5 holds at 0.00013 over 41 thin cells. **The lesson
+generalises past this wave: a scratch rung is not a rehearsal of a landing unless every document a
+landing would move is moved in the rung**, and the two differ precisely for constants the dark patch
+does not name.
+
+(d) **The coarse checkerboards are an instrument for the 1x width after all**, and Decision Log 2 (d)
+is not disturbed: what it retired was a SINGLE-Gaussian objective dominated by the kernel's core. A
+two-component lattice reader on `checkerboard-64` — 63–73 display codes where the impulse tile's
+heavy component has 0.08–0.33 — returns the drawn width to 0.0–1.8 % on synthetics at the fixtures'
+own contrast and tracks readers A and D within 10–13 % at 2x, and vitrea's 1x ladder on it is
+monotone at a slope of 0.95 from σ 13.418 up. `checkerboard-32` cannot, and its pitch says so before
+any capture.
+
+(e) **The 1x width is still not fitted, and the reason has changed.** The lever is readable and the
+TARGET is not identified: the reference's 1x heavy component reads 8.4–8.7 through `checkerboard-64`
+and 14.7–23.3 through the impulse tile, a joint fit across both tiles lands at 9.0–9.5 and **fails
+its control** by under-reading vitrea's known 13.42 by 14–23 %, and every reader's residual on the
+real surfaces is 5–7 times its residual on its own synthetics. Apple's kernel is not two Gaussians;
+which two a reader recovers depends on the backdrop. Fitting on either instrument would be fitting
+an instrument, which is the failure mode this wave was chartered to avoid.
+
+(f) **What that puts in question is W25 clause 2**, whose "heavy σ within 15 % of the reference's at
+both scales" presumes the reference's heavy σ is a single number. It is a projection onto a
+two-Gaussian basis and the projection is backdrop-dependent by a factor of 3 at 1x after each
+instrument is debiased against vitrea's known kernel. The parent's clause list is the parent's; G1
+records the measurement and does not amend the clause.
+
+(g) **The next instrument, and it needs no sitting** — a kernel model with more than two components,
+or two with a shape parameter, fitted jointly across three or more backdrops of one surface and
+validated first on VITREA's own known kernel. That control is the one every reader in this wave
+should have had, and building it is what turned the disagreement from a puzzle into a measurement.
+The wider-pitch impulse probe scene stays the fallback for the impulse-side reading and drops to
+second priority.
+
 ## Surprises & Discoveries
 
+- **A scratch rung is not a rehearsal of a landing.** The dark difference document resolves over
+  `DEFAULT_MATERIAL_PROFILE`, not over the light patch, so a rung that patches the light document
+  alone renders the dark scheme at the CODE defaults — which for a wave's new constants is inert.
+  Every dark reading taken that way measures the old material, and the tell is that it moves by
+  exactly zero.
+- **The reference's heavy component is not one number.** Read through the impulse tile it is 19.5
+  device px at 1x; read through `checkerboard-64` it is 8.4; a joint fit across both says 9.4 and
+  under-reads vitrea's KNOWN kernel by a fifth. Apple's kernel is not two Gaussians, and a
+  two-Gaussian reader recovers whichever two the backdrop weights — which means a wave can fit a
+  constant to a target that does not exist.
+- **The control nobody built.** Vitrea's own drawn kernel is known exactly at the inert default
+  (the chain's level 4, half-maximum σ 13.42), so every reader could have been calibrated against a
+  ground truth at any point since W24. Doing it for the first time here put a ±10-40 % bias on each
+  instrument and turned an argument between readers into a measurement.
 - **The impulse fixture's own dynamic range is the wall at 1x, not the reader.** W26 G0 read reader
   A's half-pitch window as the cause of the unreadable 1x ladder. G1 built the window away and found
   the fixture underneath it: the 1x `impulse` interior carries about one 8-bit code of modulation in
@@ -346,3 +410,8 @@ predicate ADMITS two 2x-light texture cells the frozen bed excludes, and both me
   fourteen floors and every bound passing. Decision Log 3 records the read and leaves two rulings —
   S15 on the 2x `-lg` row, and whether the 1x share lift's off-row cost is acceptable — to the
   parent.
+- 2026-09-10: the parent's rulings recorded as Decision Log 4 (a) and (b); G1 §7 delivered on the
+  follow-on. `checkerboard-64` reads the 1x width where the impulse fixture cannot, and the fit is
+  still declined because the reference's 1x heavy component is not identified — a factor of 3 between
+  instruments after each is debiased against vitrea's own known kernel. The dark bed re-captured with
+  the candidate in both documents. The candidate is unchanged.

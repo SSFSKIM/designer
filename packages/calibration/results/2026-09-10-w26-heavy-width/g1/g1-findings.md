@@ -383,3 +383,208 @@ removable either: the candidate moves no floored row past its bound in either di
 - **The 1x share off-row** (§3e), because the law that carries it is inert at the only span left.
 - **The holdout**, deliberately: X3 gives it to G2, once, at the dry run.
 - **The user's eye** (X6): the wave's clause 8 is not this child's.
+
+---
+
+## 7. Follow-on (2026-09-10): the coarse checkerboards read the 1x width, and the reference's 1x heavy component turns out not to be identified
+
+**Two rulings recorded first, both the parent's, both taken as given here.**
+
+**(i) S15 is re-stated.** It reads "any fitted row, or any row whose reference two-component fit is
+conditioned (sharp under 4 device px)". It therefore does **not** fire on `impulse__rrect-lg` at 2x:
+that row is not fitted and its reference fit returns a sharp component of 9.67 device px, which §3a
+measured as one wide kernel split in half. The row's 16.59 → 11.07 move is the gap W26 Decision Log
+2 (f) recorded when it chose one width per source, and it stays recorded rather than blocking.
+§4b (i) is superseded by this and its numbers stand where they are.
+
+**(ii) `sizeScatterHeavyShareThick1x` = 0.25 is DECLINED** at the current 1x width, on the evidence
+shape W25 declined it on: the bed's OKLab ΔE worsens 9–15 % on every 1x thick span (§4b (ii)). It is
+re-tested only if the 1x width becomes fittable. §7.6 is that test, and it does not become fittable.
+
+### 7.1 The dark scheme moved by exactly 0 because the candidate was never in the dark document
+
+`probe-read.txt`'s dark columns are the inert material re-rendered, not the candidate. The cause is
+mechanical and it is mine: `g0-candidate.py`'s `light:` scope writes a constant into the LIGHT
+document only, and the dark profile is a **difference document resolved over
+`DEFAULT_MATERIAL_PROFILE`, not over the light patch** — `tuned-profiles.test.ts` resolves both as
+`withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, doc.patch)`, and the dark patch names only
+`adaptiveTint*`, `backdropTone*`, `tintShadeStrength`, `outerShadow` and five `optics.regular` keys.
+So a dark capture at a scratch rung takes this wave's constants from the CODE default, which is 0,
+and the mechanism is off.
+
+Nothing in the dark difference document makes the heavy width inert. **A landed constant does reach
+the dark scheme**, because landing edits `DEFAULT_MATERIAL_PROFILE` — which is exactly what W15's and
+W25's own entries mean by "the defaults this difference document inherits" and "the dark document's
+resolved material moves with it". Verified by resolving both committed documents:
+`optics.regular.rimAlongSideSlope` is 0.1 in the light patch, 0.1 in the resolved dark material and
+0.1 in the code default. **So G2's declaration WILL move the dark bed**, and the dark bed had to be
+measured before it does.
+
+`g1-dark.sh` re-captures the whole probe set in both dark profiles with the candidate written into
+**both** documents (`both:` scope), which reproduces at capture time what a landing reproduces at
+declaration time. Against the inert `p0`:
+
+| span | 1x dark, inert → candidate | worsened | 2x dark, inert → candidate | worsened |
+| --- | --- | --- | --- | --- |
+| 32 | 0.00225 → 0.00225 | 0 / 12 | 0.00217 → 0.00218 | 5 / 12 |
+| 44 | 0.00284 → 0.00284 | 1 / 9 | 0.00278 → 0.00275 | 0 / 8 |
+| 96 | 0.00447 → 0.00465 | 5 / 9 | 0.00612 → 0.00600 | 2 / 9 |
+| 128 | 0.01703 → 0.01695 | 3 / 7 | 0.02116 → 0.02113 | 2 / 7 |
+| 160 | 0.02173 → 0.02167 | 3 / 12 | 0.02582 → 0.02767 | 7 / 12 |
+
+X5 in the dark scheme over 41 thin cells: worst move **0.00013**, against a bound of 0.001. The 1x
+share lift is roughly NEUTRAL in the dark scheme (128 and 160 improve slightly, 96 worsens) where it
+was clearly negative in light, and the 2x width costs the largest dark span the way it costs the
+largest light one. Neither reading changes ruling (ii), and the light bed remains the one that
+declines the lift.
+
+### 7.2 Reader D on the coarse checkerboards — the codes are there, and `checkerboard-64` reads
+
+§2's finding was about the impulse tile's CONTRAST, and reader D was never specific to it. The
+coarse checkerboards carry, in the native interior eroded 16 CSS px (`checker.txt` §A):
+
+| row | interior level | amplitude p2..p98 | **codes** |
+| --- | --- | --- | --- |
+| 1x `checkerboard-64__rrect-md` | 0.4342 | 0.5132 | **73.0** |
+| 1x `checkerboard-64__rrect-ml` | 0.4452 | 0.4764 | **68.0** |
+| 1x `checkerboard-64__rrect-lg` | 0.4621 | 0.4426 | **63.0** |
+| 1x `checkerboard-32__rrect-md` | 0.4564 | 0.4567 | 65.0 |
+| 1x `checkerboard-32__rrect-lg` | 0.4969 | 0.3827 | 54.0 |
+
+against the 1x impulse tile's heavy component of 0.08–0.33 codes. On synthetics made at each row's
+own level and at a FIXED transmission — calibrated so a 3.0 / 19.5 / 0.47 kernel reproduces that
+row's observed contrast, so a wider kernel flattens the checkerboard the way it really would rather
+than being handed back the codes it destroyed — through the sRGB 8-bit step (`checker.txt` §B):
+
+| row | σh 10.0 | 13.418 | 19.5 | 25.0 | 30.0 |
+| --- | --- | --- | --- | --- | --- |
+| `checkerboard-64__rrect-lg` | **1.8 %** | **0.3 %** | **0.5 %** | **0.0 %** | **0.1 %** |
+| `checkerboard-64__rrect-ml` | 0.8 % | 0.3 % | 1.0 % | 1.2 % | 1.8 % |
+| `checkerboard-64__rrect-md` | 6.7 % | 0.5 % | 3.5 % | 0.2 % | 1.3 % |
+| `checkerboard-32__rrect-lg` | 15.6 % | 4.7 % | 78.0 % | 90.1 % | 91.6 % |
+| `checkerboard-32__rrect-ml` | 37.0 % | 48.7 % | 72.4 % | 90.1 % | 91.8 % |
+
+**`checkerboard-64` is an instrument and `checkerboard-32` is not**, and the split is exactly the
+modulation transfer: a 32 CSS px pitch passes exp(−2π²σ²/32²) of the fundamental, which is 6 × 10⁻⁴
+at σ 19.5 and 6 × 10⁻⁶ at σ 25 — those rows fail in the FLOAT column too, before any quantisation.
+The 64 px pitch passes 16 % at 19.5 and 5 % at 25, and on 63–73 codes that is ten codes and three.
+The chain's own platykurtic level-4 kernel reads **13.58 / 13.47** at shares 0.23 / 0.50 against the
+14.33 its half maximum asks for — 5.2 % low, the same as reader D on the impulse tile.
+
+This does not contradict W26 G0 §7. What G0 retired was a SINGLE-Gaussian objective, which is
+dominated by the kernel's core and answers about the sharp component at any width (Decision Log
+2 (d)). A two-component lattice reader is a different instrument on the same pixels.
+
+### 7.3 The cross-check at 2x, where three instruments are conditioned
+
+`checker.txt` §C, on `rrect-md` at 2x:
+
+| rung | reader A, impulse | reader D, impulse | reader D, `checkerboard-64` |
+| --- | --- | --- | --- |
+| `r0` inert | 8.76 | 9.91 | 8.69 |
+| `t10` | 11.04 | 11.06 | 9.57 |
+| `t13` | 14.19 | 14.10 | 12.57 |
+| `t16` | 17.83 | 17.94 | 16.05 |
+
+Monotone, same ordering, the checkerboard 10–13 % below the impulse readers. That is inside the
+10 % acceptance at the low end and just outside it at the top, and it is what earns the checkerboard
+the right to read the 1x rows the impulse tile cannot.
+
+### 7.4 The 1x ladder — a readable lever, at last
+
+`checker.txt` §E, `checkerboard-64` at 1x:
+
+| rung | σ1x | `rrect-lg` | `rrect-ml` | `rrect-md` |
+| --- | --- | --- | --- | --- |
+| `r0` | inert | 18.71 | 16.44 | 16.53 |
+| `t10` | 10.0 | 10.28 | 10.34 | 9.90 |
+| `c1` | 13.418 | 18.71 | 16.44 | 16.53 |
+| `t16` | 16.0 | 21.34 | 18.99 | 19.18 |
+| `t19` | 19.0 | 24.20 | 22.18 | 27.14 |
+| `t22` | 22.0 | 27.21 | 24.11 | 29.42 |
+| `t25` | 25.0 | 30.03 | 26.93 | 31.76 |
+
+Monotone from 13.418 up, at a slope of about 0.95 device px of reading per device px of constant on
+`-lg` and `-ml`. `c1` reads identically to `r0` on every row, which is §4a's byte-identity seen from
+the instrument side. **This is the 1x lever the wave was chartered to find**, and §2's verdict is
+narrowed accordingly: the impulse FIXTURE cannot carry the 1x heavy component, and the coarse
+checkerboard can.
+
+### 7.5 And then the two instruments disagree about the reference by a factor of 2.3
+
+`checker.txt` §D, the reference at 1x on `checkerboard-64`: heavy **8.42 / 8.68 / 8.71** on `-lg` /
+`-ml` / `-md`, sharp 1.35 / 1.21 / 1.41, share 0.648 / 0.536 / 0.429, residual 0.056–0.065. Reader A
+on the 1x impulse tile reads the same three surfaces at **14.67 / 23.27 / 19.52**.
+
+So the checkerboard says vitrea's inert 1x heavy component (18.71) is more than TWICE as wide as the
+reference's (8.42); the impulse tile says it is 30 % too narrow. **The two instruments do not agree
+on the sign of the error the whole wave exists to close.** The checkerboard's sign is the one
+claims §5.113 §2 already recorded with readers B and C — vitrea 32–46 % too wide on these very rows.
+
+### 7.6 One kernel, two tiles — the joint fit, and its control
+
+If the disagreement were fit noise, one (σ_sharp, σ_heavy, share) fitted across both tiles at once —
+per-tile gain, per-tile polynomial, each tile's residual normalised by its own signal — would
+reconcile them. **The control is vitrea, whose kernel is known**: at `r0` the deep sample is the
+chain's own level 4, half-maximum σ 13.42 device px, mixed with a body of 1.25 (`joint.txt`).
+
+| 1x, `checkerboard-64` + `impulse` | `rrect-lg` | `rrect-ml` | `rrect-md` |
+| --- | --- | --- | --- |
+| joint heavy — **reference** | 9.37 | 9.48 | 9.02 |
+| joint heavy — **vitrea r0** (truth 13.42) | 11.28 | 10.28 | 11.55 |
+| per-tile residual, reference (impulse / checker) | 0.472 / 0.128 | 0.282 / 0.150 | 0.287 / 0.146 |
+| per-tile residual, vitrea r0 | 0.568 / 0.082 | 0.190 / 0.074 | 0.411 / 0.085 |
+
+**The control fails.** The joint fit under-reads vitrea's known 13.42 by 14–23 %, and it lands near
+the checkerboard's answer rather than between the two — because the checkerboard has sixty times the
+codes and wins even after the per-tile normalisation. Its residual on the impulse tile is 2–7 times
+its residual on the checkerboard, for the reference and for vitrea alike: **one two-Gaussian kernel
+does not describe both tiles of the same surface**, and that is true of vitrea, whose kernel really
+is two components.
+
+Every instrument's bias on vitrea's known 13.42, and the reference debiased by it:
+
+| instrument | reads vitrea's 13.42 as | bias | reads the reference as | debiased |
+| --- | --- | --- | --- | --- |
+| reader A, 1x impulse (median) | 14.36 | ×1.07 | 19.52 | **18.2** |
+| reader D, `checkerboard-64` `-lg` | 18.71 | ×1.39 | 8.42 | **6.0** |
+| reader D, `checkerboard-64` `-ml` | 16.44 | ×1.23 | 8.68 | **7.1** |
+| joint, `-lg` | 11.28 | ×0.84 | 9.37 | **11.1** |
+| joint, `-ml` | 10.28 | ×0.77 | 9.48 | **12.4** |
+
+A factor of **3.0** between the extremes, and 1.6 between the joint fit and the impulse tile after
+each is corrected by its own measured bias. The reference's residuals are 5–7 times reader D's
+residual on its own synthetics (0.009–0.013) on every row of every tile, which is the readers saying
+in their own units that **Apple's kernel is not two Gaussians** and that which two Gaussians you
+recover depends on which backdrop you read it through.
+
+### 7.7 Verdict
+
+**The 1x width is not fitted, and the reason is now a better one than §2's.** There is a readable 1x
+lever (§7.4) and there is no identified target for it: fitting `sizeHeavyTapSigma` on
+`checkerboard-64` would take it to about 8 device px, NARROWER than the 13.418 the material already
+draws; fitting it on the impulse tile would take it to about 19.5, wider; the joint fit says 9–12 and
+fails its own control. Fitting any of them is fitting an instrument, which is the failure mode this
+wave was chartered to avoid.
+
+**Ruling (ii) therefore stands unchanged and the share lift is not re-tested at a new width**, there
+being no defensible new width to test it at.
+
+**What this puts in question is larger than the fit.** W25 clause 2 asks for "the heavy σ within
+15 % of the reference's at both scales", and §7.5 and §7.6 say the reference's heavy σ is not a
+single number: it is a projection of a kernel that is not two Gaussians onto a two-Gaussian basis,
+and the projection depends on the backdrop. Claims §5.113 §2's 19.52 / 11.29 are that projection
+through the impulse tile, and the readings here are the same surfaces' projection through
+`checkerboard-64`; both are recorded and neither is rewritten.
+
+**The next instrument, and it needs no sitting.** A kernel model with more than two components — or
+two components with a shape parameter — fitted jointly across three or more backdrops of the same
+surface, and **validated first on vitrea's own known kernel**, which is the control every reader in
+this wave should have had and only §7.6 built. The wider-pitch impulse probe scene of §2 remains the
+fallback for the impulse-side reading and is still a sitting; it is now the second priority, because
+a better fixture does not help an unidentified target.
+
+**What §7 leaves the candidate.** Nothing moves. `sizeHeavyTapSigma` stays at 13.418 on §4a's
+grounds, which are byte-identity and the continuity of `rampAtScale` rather than a fit;
+`sizeHeavyTapSigma2x` stays at 10.3 on §3b's, which is the one conditioned reference row; the share
+lift and the other three constants stay declined.
