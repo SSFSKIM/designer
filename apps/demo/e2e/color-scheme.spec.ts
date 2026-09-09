@@ -42,17 +42,40 @@ async function showSection(page: Page, id: string): Promise<void> {
  * own: what is left in `--vitrea-tint` is the material's own colour and alpha,
  * which is exactly what the colour scheme moves (the dark profile's tint is
  * 0.05 linear where the light one's is white).
+ *
+ * **Settled, and the settling is the measurement's precondition.** The material
+ * stage's group samples a texture source — the stage canvas — so the first
+ * declarations the CSS tier writes are a tone response onto a sample of a canvas
+ * that has not painted its ground yet, and the plate reads 0.667 for the ~120 ms
+ * until the source's first real frame is analysed and it settles on 0.815. That
+ * transient is a reading of the page mid-load, not of the colour scheme, and a
+ * scheme comparison that captures one end of the round trip during it and the
+ * other after it is comparing two different questions. So this waits for two
+ * agreeing consecutive reads rather than for a fixed interval: the settle is a
+ * property of the source, not of a duration this file can guess.
  */
 async function material(page: Page): Promise<{ tint: string; occlusion: string }> {
   await page.locator('[data-testid="untinted-plate"]').waitFor({ state: "attached" });
-  return page.evaluate(() => {
-    const plate = document.querySelector<HTMLElement>('[data-testid="untinted-plate"]');
-    if (plate === null) throw new Error("the material stage has no untinted plate");
-    return {
-      tint: plate.style.getPropertyValue("--vitrea-tint"),
-      occlusion: plate.style.getPropertyValue("--vitrea-occlusion"),
-    };
-  });
+  const read = () =>
+    page.evaluate(() => {
+      const plate = document.querySelector<HTMLElement>('[data-testid="untinted-plate"]');
+      if (plate === null) throw new Error("the material stage has no untinted plate");
+      return {
+        tint: plate.style.getPropertyValue("--vitrea-tint"),
+        occlusion: plate.style.getPropertyValue("--vitrea-occlusion"),
+      };
+    });
+
+  let previous = await read();
+  for (let attempt = 0; attempt < 40; attempt += 1) {
+    await page.waitForTimeout(50);
+    const next = await read();
+    if (next.tint !== "" && next.tint === previous.tint && next.occlusion === previous.occlusion) {
+      return next;
+    }
+    previous = next;
+  }
+  throw new Error(`the material never settled; last read ${JSON.stringify(previous)}`);
 }
 
 const select = (page: Page) => page.getByTestId("color-scheme-select");
@@ -87,13 +110,34 @@ test("dark moves the runtime's material and the page's own ground together", asy
   expect(stage).toBe("rgb(27, 33, 38)");
 });
 
+/**
+ * The scheme's round trip, and the baseline taken after a transition rather than
+ * at load.
+ *
+ * The material the plate settles on in light is one number; the material it draws
+ * while the stage canvas is still coming up is another (see `material` above).
+ * Both are honest states of the page and neither is what this test is about, so
+ * the baseline is read after the page has already crossed into dark and back:
+ * every reading then stands at the same place in the same cycle, and the equality
+ * at the end is a statement about the colour scheme instead of a statement about
+ * how fast this machine happened to load the site. The crossing that establishes
+ * the baseline is itself the first half of the round trip being pinned.
+ */
 test("auto follows the system, in both directions, without a reload", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "light" });
   await gotoSite(page);
 
   await select(page).selectOption("auto");
   await expect(page.locator("html")).toHaveAttribute("data-color-scheme", "light");
+
+  await page.emulateMedia({ colorScheme: "dark" });
+  await expect(page.locator("html")).toHaveAttribute("data-color-scheme", "dark");
+  await page.waitForTimeout(500);
+  await page.emulateMedia({ colorScheme: "light" });
+  await expect(page.locator("html")).toHaveAttribute("data-color-scheme", "light");
+  await page.waitForTimeout(500);
   const asLight = await material(page);
+  expect(asLight.tint).not.toBe("");
 
   await page.emulateMedia({ colorScheme: "dark" });
   await expect(page.locator("html")).toHaveAttribute("data-color-scheme", "dark");
