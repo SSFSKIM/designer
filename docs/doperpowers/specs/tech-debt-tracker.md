@@ -1718,3 +1718,20 @@ replace it. Closes either by gating on the hole counts against the reference's o
 claims §5.14 built, withdrawn at §5.15 for costing 77 cells — re-measurable now that the contour and
 the IoU are both immune to holes), or by an extractor that has no undecidable pixels to begin with,
 which is the W21 G2c entry's charter.
+
+## The dark nested pane's topmost glass does not transmit the checkerboard, and the dark bottom pane and the dark 64-checker rrect are darker than Apple's (the user's eye on W26 G2b, 2026-09-10)
+
+Apple's inner (topmost) dark pane lets the checkerboard show through; vitrea's is opaque. Apple's
+bottom dark pane, and the dark `checkerboard-64__rrect-*` probe rows, read brighter than vitrea's
+by eye. These are the dark scheme's level and transmission at thick spans — the thing the W26 G1c
+entry says 13.418 was masking — and they are what the dark bed's thick-span ΔE (three times the
+light bed's) is measuring. Closes with a dark-scheme wave that reads the dark transmission and level
+per span against the dark reference with the family reader's residual split by level, and the
+nested pane's two layers separately. Evidence: `g2/sheets/g2b-nested-4x.png`, G2c's ring reads.
+
+## Apple's rim reads more three-dimensional than vitrea's on the dark solid rrect — "edgy-glassy" against a hint flat, about 2 % short (the user's eye on W26 G2b, 2026-09-10)
+
+By eye after W24's lit edge and W25's along-side field. The rim's curvature and the lens's band at
+the contour are the mechanisms recorded at W24 (the arc amplitude as a three-term joint fit is in
+W26's Deferred). Closes with the rim's radial profile read against the reference at the contour on
+the dark solids, and a curvature term declared on it.

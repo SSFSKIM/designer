@@ -182,7 +182,7 @@ the user's eye; X7 the dark profile a difference document.
 | G1c — the fits, second reading: both widths on the family reader (controlled) | CLOSED 2026-09-10 (claims §5.122; merged at `5a710ad`) |
 | G2 — declared and dry-run | CLOSED 2026-09-10 (claims §5.123; Decision Log 7 (f)–(g); merged at `69994ff`) |
 | G3a — the silhouette instrument corrected: IoU over the decidable region (controlled) | CLOSED 2026-09-10 (claims §5.124; Decision Log 8; `g3a/recompute.txt` — 613 / 613 cells agreeing with the spike to the last digit, 121 movers all upward, the three `silhouetteIoU` floors off and `UNMET_ROWS` 14 → 11; awaiting the parent's merge) |
-| G3 — the landing | blocked-by G3a |
+| G3 — the landing | blocked-by G2c (the eye's gradient finding, Decision Log 9) |
 
 ## Decision Log
 
@@ -567,10 +567,11 @@ by a hole of EITHER mask — the pixels the extractor cannot decide — while `s
 and rejected.
 
 (c) **The blast radius, on the committed 0.14.0 bed** (613 shape cells reproduced bit-for-bit
-first): 121 cells move, all upward, median +0.0032, max +0.346; only `silhouetteIoU` moves — areas,
+first): 121 cells move, all upward, median +0.0032 [corrected at G3a: the recompute's median is
++0.008384, mean +0.0506; the spike's figure was written, not read], max +0.346; only `silhouetteIoU` moves — areas,
 holes, contour, curvature and the conditioning predicate are untouched, so `PREDICATE_EXCLUDES`
 cannot move; no adopted bound moves; **all three `silhouetteIoU` floors come off** (1x dark dom
-0.90804 → 0.97319 — one of the user's W24 re-pins; 2x dark texture 0.92707 → 0.99980; 2x dark dom
+0.90804 → 0.97319 — one of the user's W24 re-pins; 2x dark texture 0.92707 → 0.99979 [G3a: on the committed bed; 0.99980 is at the candidate]; 2x dark dom
 0.92878 → 0.98289), all clearing the ≥ 0.93 bound; `UNMET_ROWS` 14 → 11. At the candidate the W26
 cell reads 0.99980 against 0.14.0's 0.99979.
 
@@ -586,6 +587,23 @@ every cell (the old readings stay in history and in the ledger's blast table).
 (e) **Not determined, recorded.** Whether the native's 0.02029 transmission is Apple's material or
 ScreenCaptureKit's quantisation (one code decides whether the native's 14 holes are real); and the
 trade — IoU no longer sees a punched interior, the holes metrics do. Tracker.
+
+### Decision Log 9 — the user's eye on the G2b sheets: a haze gradient the metrics did not see, and three dark-scheme gaps named (2026-09-10; the parent; the user's words)
+
+The user read the G2b sheets (X6) and reported: (1) on the black rrect over the checkerboard the
+GPU candidate shows a GRADIENT haze — milkiest at the pane's edges, blackest at its centre — where
+Apple's pane is uniformly milky and 0.14.0's pane is too ("0.14.0 has fidelity on this 뿌연 질감");
+(2) Apple's topmost nested pane transmits the checkerboard through it and ours does not; (3) Apple's
+bottom dark pane and the dark 64-checker rrect are brighter than ours; (4) the dark solid rrect is
+better but Apple's rim is more 입체적 — "edgy-glassy", ours a hint flat — about 2 % short. (1) is a
+regression by eye that no declared stop caught (S12's ΔE moves are ring-blind), and the landing is
+held on it: G2c measures the ring profile edge → centre on those rows for native | 0.14.0 |
+candidate, toggles the width, the scatter ramp, the dark tone response and the lens displacement one
+at a time, and names the mechanism. (2) and (3) are dark-scheme level gaps recorded to the tracker
+beside "the dark bed prefers a width its own reference does not have" — the eye's evidence for what
+13.418 was masking; (4) is the rim's curvature, recorded with W24's gaps. G3a (the silhouette
+instrument corrected) merged at the same time; G3 lands only after G2c's answer and the parent's
+ruling on it.
 
 ## Surprises & Discoveries
 
@@ -741,3 +759,7 @@ wave's to fix**; this records the number and the picture and recommends neither.
   originals**: the movers' median is +0.008384 and not +0.0032 (no statistic over `blast-rows.json`
   reproduces that figure, and `blast.py` never printed a median), and the 2x dark texture cell's
   corrected reading on the COMMITTED bed is 0.99979 — 0.99980 is the reading at the W26 candidate.
+- 2026-09-10: G3a CLOSED and merged (`silhouetteIoU` over the decidable region; 613 / 613 recompute;
+  three floors off; `UNMET_ROWS` 11). Decision Log 9: the user's eye found an edge → centre haze
+  gradient on the dark checkerboard rrects at the candidate; G2c dispatched to measure and name it;
+  G3 held. Two figures in Decision Log 8 (c) corrected beside.
