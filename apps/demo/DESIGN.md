@@ -210,9 +210,23 @@ The dev-mode checks in `vitrea` are part of this page's definition of done,
 so four placement rules are law rather than preference. `pnpm --filter demo dev`
 must report zero diagnostics.
 
-1. **Two-group separation.** Two sampling groups on one plane must sit more than
-   the sum of their `samplingPadding` apart, which at the 24px advisory default
-   means **more than 48px of clear space** between their member bounds.
+1. **Two-group separation.** Two sampling groups on one plane must sit at least
+   one group's effective `samplingPadding` apart, measured between their member
+   bounds. Where the two partitions belong to one `GlassToolbar`, do not write
+   that number: a `GlassToolbarSpacer` opens it, derived from the material under
+   the live accessibility policy, and the toolbar's own `gap` adds to it.
+
+   *Written as "more than the sum of their `samplingPadding`, which at the 24px
+   advisory default means more than 48px of clear space".* Both halves have
+   moved. The predicate is a padded box against the neighbour's **painted**
+   region rather than against its padded box, because over the outer half of a
+   box-against-box test neither group paints and the double filtering provably
+   does not happen (`packages/platform-web/src/backdrop-proxy.ts`; the
+   measurement is `spikes/s1-proxy-topology/overlap-experiment/`). And 24 was 3σ
+   at a blur this tier no longer draws: the effective padding is 3σ of the blur
+   the group is actually drawing with, over its own members, which reads about
+   12px for a row of controls and about 23px under Reduce Transparency. Ask
+   `samplingPaddingFor({ members, material })` rather than a constant.
 2. **The origin corner stays clear.** No glass surface may occupy the top-left
    `160×64` of the viewport, and a morph is always given **its own `groupId`**.
 
