@@ -402,7 +402,7 @@ neighbour glow diffusion; topology-changing morphs.
 | --- | --- | --- |
 | W27a | worktree agent, dispatched 2026-09-10 | in-flight |
 | W27b | — | not-dispatched (blocked-by W27a) |
-| W27c | G0 worktree agent, dispatched 2026-09-10 (claims §5.128 reserved) | G0 in-flight |
+| W27c | G0 CLOSED 2026-09-10 (merged `7312fd0`; claims §5.128: all 121 pairs read; the outer shadow and the bright rim go to zero in every profile at both scales, structure retained falls, an author tint loses its hue entirely while its darkening stays — orange and blue capsules both settle at Y 0.451 against the untinted 0.606 — and no existing field expresses that; dark untinted glass and both accessibility bodies *brighten*; four cells background-identical; the 2x dark photo capsule's active side is the 1-of-17 minority state and is excluded from the fit) / G1 dispatched 2026-09-10 | G1 in-flight |
 | W27d | — | not-dispatched (blocked-by W27a) |
 | W27e | — | not-dispatched (deliberately late) |
 | W27f | G0 worktree agent, dispatched 2026-09-10 (claims §5.129 reserved) | G0 in-flight |
