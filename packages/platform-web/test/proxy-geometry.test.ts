@@ -1,8 +1,19 @@
 import { describe, expect, it } from "vitest";
 
-import { DEFAULT_GROUP_SAMPLING } from "@vitreajs/vitrea";
+import {
+  DEFAULT_GROUP_SAMPLING,
+  resolveAccessibilityPolicy,
+  type ResolvedMaterialPolicy,
+} from "@vitreajs/vitrea";
 
-import { MATERIAL_OPTICS, requiredSamplingPadding, SAMPLING_PADDING_SIGMA_MULTIPLE } from "../src/optics";
+import {
+  MATERIAL_OPTICS,
+  opticsUnderPolicy,
+  proxySamplingSigma,
+  requiredSamplingPadding,
+  samplingPaddingFor,
+  SAMPLING_PADDING_SIGMA_MULTIPLE,
+} from "../src/optics";
 import {
   resolveProxyGeometry,
   resolveSamplingGeometry,
@@ -361,5 +372,100 @@ describe("members their ancestors clip", () => {
 
   it("changes nothing for a member with no clipping ancestor", () => {
     expect(resolved(base)).toEqual(resolved({ ...base, members: [{ ...member(100, 100) }] }));
+  });
+});
+
+/**
+ * `samplingPaddingFor`: the padding a *layout* has to clear (W27b, contract X5).
+ *
+ * `GlassToolbar` opens the gap between two partitions of one toolbar over this
+ * function, and it does so without knowing what its members measure — it passes
+ * its own box, which contains them. That substitution is sound only if the law
+ * is monotone in a member's span and in its extents, so both properties are
+ * asserted here rather than assumed at the call site: they are what turns the
+ * toolbar's gap from an estimate into an upper bound.
+ */
+describe("the sampling padding a layout has to clear", () => {
+  const material = (reducedTransparency: boolean): ResolvedMaterialPolicy =>
+    resolveAccessibilityPolicy(
+      {
+        reducedTransparency,
+        reducedMotion: false,
+        increasedContrast: false,
+        forcedColors: false,
+        reducedTransparencySupported: true,
+      },
+      {},
+    ).material;
+
+  const padding = (
+    members: readonly (readonly [number, number])[],
+    reducedTransparency = false,
+  ): number => samplingPaddingFor({ members, material: material(reducedTransparency) });
+
+  it("is what the runtime resolves for the same members", () => {
+    // The same composition `root.ts` takes each group's geometry over, so a
+    // caller outside the frame loop and the frame loop cannot part company.
+    const members = [[96, 44] as const, [44, 44] as const];
+    for (const reducedTransparency of [false, true]) {
+      const policy = material(reducedTransparency);
+      const sigma = proxySamplingSigma(
+        opticsUnderPolicy(MATERIAL_OPTICS.regular, policy).blurRadius,
+        policy,
+        members,
+      );
+      expect(padding(members, reducedTransparency)).toBe(requiredSamplingPadding(sigma));
+    }
+  });
+
+  it("rises with a member's span", () => {
+    for (const reducedTransparency of [false, true]) {
+      let previous = -1;
+      for (let span = 0; span <= 400; span += 4) {
+        const value = padding([[span, span]], reducedTransparency);
+        expect(value, `span ${span}`).toBeGreaterThanOrEqual(previous);
+        previous = value;
+      }
+    }
+  });
+
+  it("rises with a member's long extent at a fixed span", () => {
+    for (const reducedTransparency of [false, true]) {
+      for (const span of [24, 44, 96, 160, 256]) {
+        let previous = -1;
+        for (let long = span; long <= span * 40; long = Math.round(long * 1.25)) {
+          const value = padding([[long, span]], reducedTransparency);
+          expect(value, `span ${span}, long ${long}`).toBeGreaterThanOrEqual(previous);
+          previous = value;
+        }
+      }
+    }
+  });
+
+  it("so a box that contains the members bounds their padding", () => {
+    // The toolbar's substitution, stated as the assertion it is.
+    const box = [420, 52] as const;
+    for (const reducedTransparency of [false, true]) {
+      for (const one of [[96, 44], [44, 44], [120, 52], [400, 40], [420, 52]] as const) {
+        expect(padding([one], reducedTransparency)).toBeLessThanOrEqual(
+          padding([box], reducedTransparency),
+        );
+      }
+    }
+  });
+
+  it("rises under Reduce Transparency, which is why a constant gap would be wrong", () => {
+    for (const members of [[], [[96, 44] as const], [[420, 52] as const]]) {
+      expect(padding(members, true)).toBeGreaterThan(padding(members, false));
+    }
+  });
+
+  it("takes the empty list as the projection at span 0, the floor every group starts at", () => {
+    for (const reducedTransparency of [false, true]) {
+      expect(padding([], reducedTransparency)).toBeLessThanOrEqual(
+        padding([[44, 44]], reducedTransparency),
+      );
+      expect(padding([], reducedTransparency)).toBeGreaterThan(0);
+    }
   });
 });

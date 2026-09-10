@@ -210,9 +210,25 @@ The dev-mode checks in `vitrea` are part of this page's definition of done,
 so four placement rules are law rather than preference. `pnpm --filter demo dev`
 must report zero diagnostics.
 
-1. **Two-group separation.** Two sampling groups on one plane must sit more than
-   the sum of their `samplingPadding` apart, which at the 24px advisory default
-   means **more than 48px of clear space** between their member bounds.
+1. **Two-group separation.** Two sampling groups on one plane must sit at least
+   one padding apart, measured between their member bounds — and there are two
+   paddings, so it is the larger that governs: what the group actually samples
+   with (3σ of the blur it draws with, about 12px for a row of controls and about
+   23px under Reduce Transparency), and the advisory core's own scene-model check
+   reads off the descriptor (**24px** unless the group declares its own). Where
+   the two groups are partitions of one `GlassToolbar`, do not write the number:
+   a `GlassToolbarSpacer` opens it and the toolbar's own `gap` adds to it.
+
+   *Written as "more than the sum of their `samplingPadding`, which at the 24px
+   advisory default means more than 48px of clear space".* The sum is the half
+   that moved: the predicate is a padded box against the neighbour's **painted**
+   region rather than against its padded box, because over the outer half of a
+   box-against-box test neither group paints and the double filtering provably
+   does not happen (`packages/platform-web/src/backdrop-proxy.ts` and core's
+   `group-proxy-overlap`; the measurement is
+   `spikes/s1-proxy-topology/overlap-experiment/`). The 24 stands, and stands
+   deliberately: it was 3σ at a blur this tier no longer draws, and core keeps it
+   rather than lowering a published default for tidiness.
 2. **The origin corner stays clear.** No glass surface may occupy the top-left
    `160×64` of the viewport, and a morph is always given **its own `groupId`**.
 

@@ -43,6 +43,7 @@ import {
   GlassSegmentedControl,
   GlassSurface,
   GlassToolbar,
+  GlassToolbarSpacer,
   PlanePortal,
 } from "@vitreajs/vitrea-react";
 import { useState, type ReactNode } from "react";
@@ -233,22 +234,25 @@ export function App(): ReactNode {
           Disabled
         </GlassButton>
         {/*
-          The morph gets a sampling group of its own, and a gap wide enough that
-          the two groups' padded proxies do not meet.
+          Apple's canonical toolbar, in the two pieces vitrea now has for it: a
+          flexible spacer, and a trailing item with a background of its own. The
+          spacer's minimum is the sampling padding the material requires, so the
+          two groups' proxies clear each other at any accessibility setting —
+          which the 3.5rem margin that used to sit here could only do at one.
 
-          Both are forced by the same thing: `GlassMorph` leaves its closed platter
-          in the plane host layer's own flow until it has measured itself, so for a
-          frame or two there is a registered box at the plane's origin. Inside the
-          toolbar's group that transient stretches the group's proxy union across
-          the whole viewport, and every other group on the plane then reports an
-          overlap that its settled layout does not have. See `DESIGN.md` §9; this
-          was the source of Decision Log #24's demo-diagnostics item.
+          The menu wants its own group for a second reason worth keeping: it is a
+          `GlassMorph`, and a morph leaves its closed platter in the plane host
+          layer's flow until it has measured itself, so for a frame or two there
+          is a registered box at the plane's origin. In the toolbar's own group
+          that transient would stretch the group's proxy across the viewport
+          (`DESIGN.md` §9).
         */}
-        <div className="toolbar__menu">
-          <GlassGroup id="toolbar-menu">
-            <ActionsMenu onAction={setLastAction} />
-          </GlassGroup>
-        </div>
+        <GlassToolbarSpacer kind="flexible" />
+        <ActionsMenu
+          onAction={setLastAction}
+          sharedBackground="hidden"
+          groupProps={{ id: "toolbar-menu" }}
+        />
       </GlassToolbar>
         </nav>
       </PlanePortal>
