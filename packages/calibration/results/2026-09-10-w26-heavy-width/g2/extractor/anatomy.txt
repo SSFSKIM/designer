@@ -1,0 +1,20 @@
+region area 112416 px; capture 640x400
+
+mask         area  excluded  exc.comps  holes  largest exc
+native     106876      5540         31     14          818
+web0       109698      2718         51     39          135
+webc       107058      5358         57     45          311
+
+IoU native vs 0.14.0   0.92707
+IoU native vs candidate 0.90362
+
+native: excluded depth inside the declared contour (device px) min 0.1 p50 104.5 max 129.5; 53 of 5540 within 1.5 px of the contour
+web0: excluded depth inside the declared contour (device px) min 0.1 p50 41.5 max 79.5; 31 of 2718 within 1.5 px of the contour
+webc: excluded depth inside the declared contour (device px) min 0.1 p50 43.5 max 104.5; 33 of 5358 within 1.5 px of the contour
+
+native     |Δluma| vs background inside region: min 0.00061 p1 0.01850 p5 0.02029 median 0.16670; under 0.02: 5540
+0.14.0     |Δluma| vs background inside region: min 0.00091 p1 0.01850 p5 0.02217 median 0.21953; under 0.02: 2718
+candidate  |Δluma| vs background inside region: min 0.00091 p1 0.01444 p5 0.02029 median 0.22697; under 0.02: 5358
+
+excluded-set overlap native&0.14.0 31, native&candidate 33, 0.14.0&candidate 2718
+symmetric difference native vs candidate 10832

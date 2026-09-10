@@ -1,0 +1,12 @@
+texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard   floor 0.9257
+
+rule            0.14.0   candidate         Δ   verdict at the candidate
+base           0.92707     0.90362  -0.02346   UNDER the floor
+fill           0.99980     0.99982  +0.00002   OVER the floor
+drop           0.99979     0.99980  +0.00001   OVER the floor
+hyst           0.99989     0.99990  +0.00001   OVER the floor
+
+The population `drop` removes, per column (region pixels the extractor
+cannot decide because one side's material coincides with its backdrop):
+  0.14.0     native holes   5487 px, web holes   2687 px, union   8174 px of 112416 (7.27%)
+  candidate  native holes   5487 px, web holes   5325 px, union  10812 px of 112416 (9.62%)
