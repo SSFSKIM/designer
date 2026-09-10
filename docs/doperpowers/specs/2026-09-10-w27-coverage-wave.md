@@ -402,10 +402,10 @@ neighbour glow diffusion; topology-changing morphs.
 | --- | --- | --- |
 | W27a | worktree agent, dispatched 2026-09-10 | in-flight |
 | W27b | — | not-dispatched (blocked-by W27a) |
-| W27c | — | not-dispatched (G0 dispatchable now) |
+| W27c | G0 worktree agent, dispatched 2026-09-10 (claims §5.128 reserved) | G0 in-flight |
 | W27d | — | not-dispatched (blocked-by W27a) |
 | W27e | — | not-dispatched (deliberately late) |
-| W27f | — | not-dispatched (dispatchable now) |
+| W27f | G0 worktree agent, dispatched 2026-09-10 (claims §5.129 reserved) | G0 in-flight |
 
 ## Decision Log
 
