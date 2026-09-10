@@ -19,6 +19,7 @@ import {
   clipFieldRectToCanvas,
   groupFieldRect,
   INSTANCE_FLOATS,
+  LENS_STRENGTH_MAX,
   packInstances,
   resolveSurfaces,
   snapRectToDevicePixels,
@@ -281,6 +282,44 @@ describe("the size-parameterised lens", () => {
     expect(at(1)).toBeCloseTo(thickness, 10);
     // The floor is still a clamp — a negative strength is not a negative depth.
     expect(at(-2)).toBe(0);
+  });
+
+  /**
+   * The ceiling is a guard on the buffer rather than on the optics (W27a,
+   * review fix).
+   *
+   * The channel is read off a host's own custom property, where an app can write
+   * anything `parseFloat` accepts. A non-finite product packed into a
+   * `Float32Array` does not draw a strange lens: it reaches the shader as a
+   * non-finite uniform and blanks the pass that reads it, for the whole group
+   * and without saying why. Every value a driver actually produces is far below
+   * the ceiling, so nothing reachable changes.
+   */
+  it("packs a finite depth for any channel value at all (W27a)", () => {
+    const at = (lensStrength: number): number => {
+      const resolved = resolveSurfaces(group([surface({ channels: { lensStrength } })]), "rsupn");
+      return packInstances(resolved, [0, 0]).data[14] as number;
+    };
+
+    // Infinities order normally, so each saturates at the end it means.
+    for (const pathological of [Infinity, 1e40, Number.MAX_VALUE]) {
+      expect(Number.isFinite(at(pathological)), String(pathological)).toBe(true);
+      expect(at(pathological)).toBe(surface().shape.thickness * LENS_STRENGTH_MAX);
+    }
+    expect(at(-Infinity)).toBe(0);
+
+    // `NaN` does not: it compares false against everything, so a clamp alone
+    // passes it straight through and the guard has a hole the shape of the thing
+    // it guards against. It answers with the idle value — a surface nobody is
+    // driving — rather than with zero, which is the different claim that the
+    // lens is switched off.
+    expect(Number.isFinite(at(Number.NaN))).toBe(true);
+    expect(at(Number.NaN)).toBeCloseTo(surface().shape.thickness, 10);
+
+    // And the ceiling is nowhere near anything the motion table drives, so no
+    // reachable state is capped by it: the whole table is still distinct.
+    expect(LENS_STRENGTH_MAX).toBeGreaterThan(1.14);
+    expect(at(1.14)).toBeLessThan(at(LENS_STRENGTH_MAX));
   });
 });
 
