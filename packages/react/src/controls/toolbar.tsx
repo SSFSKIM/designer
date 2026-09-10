@@ -548,12 +548,16 @@ export function GlassToolbar(props: GlassToolbarProps): ReactNode {
   const gap = ((): number => {
     const material = (accessibility ?? NOMINAL_ACCESSIBILITY_POLICY).material;
     const members = box[0] > 0 && box[1] > 0 ? [box] : [];
-    const registered = [
-      groupProps,
-      ...(slots ?? []).flatMap((slot) =>
-        slot.kind === "partition" && slot.own !== undefined ? [{ ...groupProps, ...slot.own }] : [],
-      ),
-    ];
+    // The groups that will exist, and only those. Folding the toolbar's own
+    // props in as a floor would size the gap for a material nothing draws —
+    // a clear row every one of whose partitions stepped out and declared
+    // `regular` would still be spaced for clear. There is always at least one
+    // partition to read (see `partitionChildren`), and `group={false}` leaves
+    // none at all, which is a toolbar that registers nothing and so has nothing
+    // to hold apart.
+    const registered = (slots ?? []).flatMap((slot) =>
+      slot.kind === "partition" ? [{ ...groupProps, ...slot.own }] : [],
+    );
     return registered.reduce(
       (widest, props) =>
         Math.max(

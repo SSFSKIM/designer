@@ -314,6 +314,33 @@ describe("the gap a spacer opens", () => {
     );
   });
 
+  it("reads the groups that will exist, not the props they all overrode", () => {
+    // The mirror of the case above: a clear row every one of whose partitions
+    // stepped out and declared `regular` draws no clear material anywhere, so a
+    // gap sized for clear would be room reserved for a phantom.
+    const harness = renderGlass(
+      <GlassToolbar
+        aria-label="Actions"
+        groupProps={{ id: "toolbar", variant: "clear", dimming: DEFAULT_CLEAR_DIMMING }}
+      >
+        <GlassButton nodeId="a" sharedBackground="hidden" groupProps={{ variant: "regular" }}>
+          One
+        </GlassButton>
+        <GlassToolbarSpacer />
+        <GlassButton nodeId="b" sharedBackground="hidden" groupProps={{ variant: "regular" }}>
+          Two
+        </GlassButton>
+      </GlassToolbar>,
+    );
+    harness.run(1);
+
+    const material = harness.root().accessibility.material;
+    expect(gapOf(spacers()[0])).toBeCloseTo(wanted(harness), 6);
+    expect(gapOf(spacers()[0])).toBeLessThan(
+      samplingPaddingFor({ members: [], material, variant: "clear" }),
+    );
+  });
+
   it("opens along the toolbar's own axis, so a vertical bar is separated vertically", () => {
     const harness = renderGlass(
       <GlassToolbar aria-label="Actions" orientation="vertical">
