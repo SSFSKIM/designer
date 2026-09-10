@@ -1,6 +1,6 @@
 # W25 — the thick-span composite: the thick surface's body, its kernel and its key (2026-09-09)
 
-**Status: RECOMPOSED 2026-09-10 (claims §5.118) — the nine clauses verified against the landed bed
+**Status: RECOMPOSED 2026-09-10 (claims §5.118); 0.14.0 PUBLISHED 2026-09-10 (tag `v0.14.0` at `57e5c22`; clause 9 closed by the user's eye and `pnpm release`) — the nine clauses verified against the landed bed
 (`99a74a0`): the width instrument and the probe harness set landed, the along-side field with the
 jointly re-fitted lit edge landed (0.85, 0.10), the three body mechanisms landed inert with their
 constants declined on measurement; clauses 2 and 3 carried to W26 with their cause (the heavy
@@ -745,3 +745,6 @@ byte identity between two captures needs a same-session control before it means 
   dispatched; the heavy width chartered as W26 at recomposition.
 - 2026-09-10: G4 LANDED (claims §5.117; `99a74a0`); the demo colour-scheme spec's load transient
   fixed (`e2e2345`); the wave RECOMPOSED (claims §5.118); the 0.14.0 cut; W26 the heavy width.
+- 2026-09-10: 0.14.0 published by the user (`pnpm release`; tag `v0.14.0` at `57e5c22`; registry
+  web 03:55:41Z, react 03:55:44Z, core 03:57:46Z; cold install verified). Clause 9 — the user's
+  eye — closed on the G4 sheets. The post-v1 wave spec's addendum carries the cut record.

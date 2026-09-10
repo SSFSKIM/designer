@@ -14810,6 +14810,12 @@ run-to-run instability and the one cell with no majority; the contour instrument
 flat-cornered dark squares; the demo page's coupling to `scenes.json`; the CSS tier's tone
 response before a source's first frame. All in the tracker.
 
+**Addendum (2026-09-10): 0.14.0 published.** The user's `pnpm release` on `57e5c22` (tag
+`v0.14.0`), the eye's verdict on the G4 sheets "✅ Published package @vitreajs/vitrea@0.14.0";
+registry web 03:55:41Z, react 03:55:44Z, core 03:57:46Z (the release-chain window 125 s, a ninth
+recurrence); a cold install outside the workspace imports all three entry points (core 44, web 215,
+react 34 exports) with the bundle carrying `rimLitExponent` 0.85. W25 clause 9 closed.
+
 ### 5.119 W26 G0 CLOSED: the heavy tap's saturation is the pyramid's own last level, not the material — the gain has been clamped since it was fitted, and the only one of three candidate mechanisms that widens the sample at dpr 1 is a Gaussian at the tap; the 2x width lands on the reference at one constant with the floor untouched, and the checkerboards' single-width objective is a check on the SHARP component at any width (2026-09-10)
 
 **Evidence** `results/2026-09-10-w26-heavy-width/g0/` — `g0-findings.md`, `chain-kernel.txt`,
