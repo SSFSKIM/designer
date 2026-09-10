@@ -4060,8 +4060,9 @@ export interface MaterialAtBackdrop {
  * The outer shadow has its own black occlusion and a lift of the backdrop's
  * light. A DOM group can state that lift only at its measured tone, not at every
  * exterior pixel. With no tone the response and collapse stand down and the lift
- * is unknown, hence absent. The mapping's reference level below is solely an
- * encoded-layer conversion convention; it is never published as a measurement.
+ * is unknown, hence absent. The mapping's reference level is the convention for
+ * expressing the nominal layer, including its shade and rim, in encoded space;
+ * it is never published as a measurement or used to enable response or collapse.
  * A scalar cannot supply RGB or the independent linear mean on a structured
  * page, so neither a variance nor a `hint.complexity` value is invented here.
  */

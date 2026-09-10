@@ -827,7 +827,9 @@ describe("the lift is the backdrop's own light, above the knee", () => {
     expect(WGSL_OPTICS_PASS).toContain(
       "textureSampleLevel(backdropChain, backdropSampler, uv, ou.shadowLift.w)",
     );
-    // And it stands down where the group has no chain to copy.
-    expect(WGSL_OPTICS_PASS).toContain("ou.flags.x <= 0.5 || ou.shadowLift.x <= 0.0");
+    // W27f also evaluates the lift at a known DOM tone. That no-chain case is
+    // now checked through the real renderer's uniforms in unsampled-material
+    // and through whole-image scalar anchors in e2e/gpu/page-material.spec.ts,
+    // rather than pinning a source-string gate that would forbid the feature.
   });
 });

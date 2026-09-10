@@ -73,12 +73,14 @@ import hashlib
 import importlib.util
 import json
 import os
+import shutil
 import socket
 import subprocess
 import time
 from pathlib import Path
 
 import numpy as np
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[3]
 PACKAGE = ROOT / "packages/calibration"
@@ -92,15 +94,27 @@ _spec = importlib.util.spec_from_file_location("w27f_g0", G0_READ)
 g0 = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(g0)
 
-# The sources that decide what the material draws. Digested into every reading's
-# header so a number names the code that produced it, not just the profile
-# document it was asked to apply — G1 edits the unsampled path in these files,
-# and a profile document's `resolvedMaterialSha256` was computed before that.
+# Every source tree that can change what drew, digested into each reading so a
+# number names the code that produced it and not just the profile document it
+# was asked to apply — a document's `resolvedMaterialSha256` was computed before
+# any of this gate's edits.
+#
+# Whole trees, deliberately. The first form of this list named four files —
+# material.ts, the WGSL, optics.ts, css-tier.ts — and missed renderer.ts,
+# passes.ts, root.ts and renderer-bridge.ts, which is exactly where the DOM
+# material and its lift are wired: a fingerprint that omits the file a gate is
+# editing is a fingerprint that certifies the wrong thing. A list of trees
+# cannot go stale the way a list of files does, and the cost is only that an
+# unrelated edit inside one of them shows as a different configuration, which is
+# the safe direction.
+MATERIAL_SOURCES_SCOPE = "runtime-src-trees-2026-09-10"
 MATERIAL_SOURCES = [
-    "packages/renderer-webgpu/src/material.ts",
-    "packages/renderer-webgpu/src/wgsl",
-    "packages/platform-web/src/optics.ts",
-    "packages/platform-web/src/css-tier.ts",
+    "packages/renderer-webgpu/src",
+    "packages/platform-web/src",
+    "packages/core/src",
+    "packages/policy/src",
+    "packages/geometry/src",
+    "packages/motion/src",
 ]
 
 
@@ -193,20 +207,14 @@ def native_manifest():
 def declared_scenes(phase, spec):
     """The scene ids a phase measures, from the declared split and nothing else.
 
-    The calibration phases take the declared calibration set. The holdout phase
-    takes the declared holdout scenes whose component is the stacked one: they
-    are the only native cells on the page-content path (claims §5.129), and
-    naming them here rather than reading them from the split is exactly the
-    hard-coding the split exists to prevent.
+    The whole declared set, either way: the calibration phases take the declared
+    calibration scenes and the holdout phase takes the declared holdout scenes.
+    Nothing narrows the holdout to the two stacked cells, because a holdout read
+    once against a frozen configuration should be the whole held-out bed — the
+    stacks are the only cells with a NATIVE reading of the overlay, which is a
+    statement about what those two answer, not about which cells to look at.
     """
-    split = spec["split"]
-    if phase == "holdout":
-        component = {s["id"]: s["component"] for s in spec["scenes"]}
-        stacked = sorted(i for i in split["holdout"] if "glass-over-glass" in component[i])
-        if not stacked:
-            raise ValueError("no stacked holdout scene in the declared split")
-        return stacked
-    return sorted(split["calibration"])
+    return sorted(spec["split"]["holdout" if phase == "holdout" else "calibration"])
 
 
 def fixtures_for(profile_key, manifest):
@@ -318,9 +326,43 @@ def run_capture(command, cwd, log, env, attempts=3):
     return result.returncode
 
 
-def captured_scenes(out, phase, scheme, arm, scenes):
-    return [s for s in scenes
-            if (capture_dir(out, phase, scheme, arm, s) / f"{s}__{arm.tier}.png").exists()]
+def artefacts_of(arm, scene):
+    """The three files a capture of one scene must leave, all read by this gate."""
+    return (f"{scene}__{arm.tier}.png", f"cell__{arm.tier}.json", f"report__{arm.tier}.json")
+
+
+def clear_scene_outputs(out, phase, scheme, arm, scenes, matrix=None):
+    """Remove what a previous attempt left for exactly these scenes.
+
+    An arm is re-run after a port collision, a demotion or a crash, and the
+    capture commands write per scene: whatever the failed attempt produced for
+    the scenes being re-captured is still on disk under the names the next
+    attempt will be looked for under. Cleared here so that "the file is there"
+    can mean "this invocation wrote it".
+    """
+    for scene in scenes:
+        shutil.rmtree(capture_dir(out, phase, scheme, arm, scene), ignore_errors=True)
+    if matrix is not None:
+        matrix.unlink(missing_ok=True)
+
+
+def stale_or_missing(out, phase, scheme, arm, scenes, since):
+    """Which required artefacts this invocation did not write. Empty is the pass.
+
+    Existence is not the test — modification time against the moment the command
+    started is, because the failure this guards against is a run that produced
+    nothing and left an older file to be read as its result.
+    """
+    faults = []
+    for scene in scenes:
+        directory = capture_dir(out, phase, scheme, arm, scene)
+        for name in artefacts_of(arm, scene):
+            path = directory / name
+            if not path.exists():
+                faults.append(f"{scene}/{name} (absent)")
+            elif path.stat().st_mtime < since:
+                faults.append(f"{scene}/{name} (older than this run)")
+    return faults
 
 
 def run_compare(out, phase, scheme, arm, scenes, levels_path, dry_run):
@@ -349,14 +391,16 @@ def run_compare(out, phase, scheme, arm, scenes, levels_path, dry_run):
     if dry_run:
         print(f"    would run: {' '.join(command)}")
         return {"arm": arm.name, "route": "compare", "dryRun": True, "scenes": list(scenes)}
+    started = time.time()
+    clear_scene_outputs(out, phase, scheme, arm, scenes, matrix)
     code = run_capture(command, ROOT, log, env)
-    captured = captured_scenes(out, phase, scheme, arm, scenes)
-    missing = [s for s in scenes if s not in captured]
-    if missing:
-        raise SystemExit(f"{scheme.name}/{arm.name}: no capture for {missing} (exit {code}); "
-                         f"see {log}")
+    faults = stale_or_missing(out, phase, scheme, arm, scenes, started)
+    if faults:
+        raise SystemExit(f"{scheme.name}/{arm.name}: this run did not write {faults} "
+                         f"(exit {code}); see {log}. A demoted tier writes the other tier's "
+                         "names, which is the usual cause.")
     return {"arm": arm.name, "route": "compare", "exitCode": code, "matrix": str(matrix),
-            "log": str(log), "scenes": captured}
+            "log": str(log), "scenes": list(scenes), "capturedAfter": started}
 
 
 def run_direct(out, phase, scheme, arm, scenes, levels_path, dry_run):
@@ -384,14 +428,16 @@ def run_direct(out, phase, scheme, arm, scenes, levels_path, dry_run):
     if dry_run:
         print(f"    would run: {' '.join(command)}")
         return {"arm": arm.name, "route": "capture-web", "dryRun": True, "scenes": list(scenes)}
+    started = time.time()
+    clear_scene_outputs(out, phase, scheme, arm, scenes)
     code = run_capture(command, PACKAGE, log, env)
-    captured = captured_scenes(out, phase, scheme, arm, scenes)
-    missing = [s for s in scenes if s not in captured]
-    if missing:
-        raise SystemExit(f"{scheme.name}/{arm.name}: no direct capture for {missing} "
-                         f"(exit {code}); see {log}")
+    faults = stale_or_missing(out, phase, scheme, arm, scenes, started)
+    if faults:
+        raise SystemExit(f"{scheme.name}/{arm.name}: this direct run did not write {faults} "
+                         f"(exit {code}); see {log}. A demoted tier writes the other tier's "
+                         "names, which is the usual cause.")
     return {"arm": arm.name, "route": "capture-web", "exitCode": code, "log": str(log),
-            "scenes": captured}
+            "scenes": list(scenes), "capturedAfter": started}
 
 
 def sampled_levels(out, phase, scheme, scenes):
@@ -416,6 +462,65 @@ def sampled_levels(out, phase, scheme, scenes):
             raise ValueError(f"{scene}: texture groups resolved {found} levels, not one")
         levels[scene] = found[0]
     return levels
+
+
+def background_levels(spec, levels):
+    """The measured level per BACKGROUND, from a phase's per-scene levels.
+
+    A texture-sampled group's resolved `backdropTone.level` is a property of the
+    raster and of nothing else: across G0's twenty-two scenes and this gate's two
+    colour schemes, every scene sharing a background resolved the same level to
+    the bit, over five components and four sizes. So a level measured on one
+    scene is a measurement for every scene over the same raster — which is what
+    lets a later phase author the hint without re-drawing the sampled arm. Any
+    disagreement inside a background would falsify that and is refused here
+    rather than averaged away.
+    """
+    background = {s["id"]: s["background"] for s in spec["scenes"]}
+    grouped = {}
+    for scene, level in levels.items():
+        grouped.setdefault(background[scene], []).append((scene, level))
+    out = {}
+    for name, members in grouped.items():
+        values = [level for _, level in members]
+        if max(values) - min(values) > TOLERANCE:
+            raise SystemExit(
+                f"The scenes over background '{name}' resolved different sampled levels "
+                f"({members}). A level is only inheritable because the raster decides it."
+            )
+        out[name] = {"level": values[0], "measuredOn": sorted(s for s, _ in members)}
+    return out
+
+
+def inherited_levels(spec, scenes, sources):
+    """Levels for scenes this phase did not sample, from the same backgrounds.
+
+    Returns the levels and their per-scene provenance, or refuses. A background
+    no earlier phase measured is an INPUT GAP, not an occasion to pick a number:
+    the holdout bed's `hc-text` and `mid-dark-solid` rasters appear in no
+    calibration scene, so a holdout run that authors a hint over them has to
+    capture the texture-sampled arm for those scenes (put `sampled` in --arms)
+    or be given the levels explicitly (--levels).
+    """
+    background = {s["id"]: s["background"] for s in spec["scenes"]}
+    levels, provenance, missing = {}, {}, {}
+    for scene in scenes:
+        name = background[scene]
+        source = next((s for s in sources if name in s["levels"]), None)
+        if source is None:
+            missing.setdefault(name, []).append(scene)
+            continue
+        levels[scene] = source["levels"][name]["level"]
+        provenance[scene] = {"background": name, "from": source["name"],
+                             "measuredOn": source["levels"][name]["measuredOn"]}
+    if missing:
+        named = "; ".join(f"'{name}' ({', '.join(scenes)})" for name, scenes in missing.items())
+        raise SystemExit(
+            f"No measured backdrop level for {named}. These backgrounds appear in no phase "
+            "this run can read, so the hint over them would be invented. Capture the "
+            "texture-sampled arm for those scenes (--arms sampled,...) or pass --levels."
+        )
+    return levels, provenance
 
 
 def check_levels_against_g0(levels):
@@ -499,6 +604,7 @@ def configuration():
                                           "2026-09-08-w23-collapsed-rim/g0/read-contour.py"),
         "g0ReaderSha256": digest(G0_READ),
         "runnerSha256": digest(Path(__file__)),
+        "materialSourcesScope": MATERIAL_SOURCES_SCOPE,
         "materialSourcesSha256": {name: digest(ROOT / name) for name in MATERIAL_SOURCES},
         "materialProfileSha256": {
             scheme.name: digest(scheme.document_path) for scheme in SCHEMES.values()
@@ -510,9 +616,49 @@ def configuration():
     }
 
 
+def level_sources(args, spec):
+    """Where a phase that does not sample may inherit its hint levels from.
+
+    Ordered, and every entry names itself in the reading: an explicit `--levels`
+    file first, then the phase named by `--compare-phase` — for a holdout run
+    that is the candidate calibration phase, whose sampled arm measured the same
+    rasters under the same configuration.
+    """
+    sources = []
+    if args.levels is not None:
+        supplied = json.loads(args.levels.read_text())
+        sources.append({"name": f"--levels {args.levels}",
+                        "levels": background_levels(spec, supplied)})
+    if args.compare_phase is not None:
+        for scheme in args.schemes:
+            path = phase_dir(args.out, args.compare_phase) / scheme / "levels.json"
+            if path.exists():
+                sources.append({"name": f"{args.compare_phase} phase ({scheme})",
+                                "levels": background_levels(spec, json.loads(path.read_text()))})
+    return sources
+
+
+def stacked_scenes(geometry, scenes):
+    """Which of these scenes place a surface above the base plane.
+
+    From the declaration, not from a name. It matters to the arm plan: on a
+    stack the OVERLAY is DOM-backed on every route — it samples rendered glass,
+    not the raster — so a texture-labelled capture of a stack still contains the
+    page-content material this gate is changing. "The sampled path is
+    byte-identical" is a statement about texture-sourced groups and does not
+    reach those composites, which is why the texture controls are captured for
+    stacks even in a phase that skips them everywhere else.
+    """
+    return [scene for scene in scenes
+            if len({s["plane"] for s in geometry["scenes"][scene]["surfaces"]}) > 1]
+
+
 def capture(args):
     out = args.out
     spec, manifest = scene_spec(), native_manifest()
+    geometry = g0.declared_geometry()
+    arms = [ARMS_BY_NAME[name] for name in args.arms]
+    inherit = level_sources(args, spec)
     beds = {}
     for name in args.schemes:
         refereed, unrefereed = bed_for(SCHEMES[name], args.phase, spec, manifest, args.scenes)
@@ -527,32 +673,103 @@ def capture(args):
     # dies halfway has still spent them.
     if args.phase == "holdout" and not args.dry_run:
         holdout_guard(out, {name: sum(beds[name], []) for name in beds})
-    plan = {"phase": args.phase, "capturedWith": configuration(), "schemes": {}}
+    plan = {"phase": args.phase, "schemes": {}}
     for name in args.schemes:
         scheme = SCHEMES[name]
         refereed, unrefereed = beds[name]
         scenes = refereed + unrefereed
+        # Per scheme, not once for the run: schemes are captured in separate
+        # invocations often enough, and a merged manifest that carried one
+        # configuration for all of them would attribute the earlier scheme's
+        # pixels to the later scheme's material.
+        stacks = stacked_scenes(geometry, scenes)
+        # Scenes whose raster no earlier phase measured. Their hint cannot be
+        # inherited, so the texture-sampled arm has to measure it here even in a
+        # run that skips that arm — the holdout bed's hc-text and mid-dark-solid
+        # rasters are in no calibration scene, and this is the difference between
+        # measuring a level and choosing one.
+        background = {s["id"]: s["background"] for s in spec["scenes"]}
+        inheritable = {name for source in inherit for name in source["levels"]}
+        unmeasured = [s for s in scenes if background[s] not in inheritable]
+        # Which scenes each arm covers. An arm the run asked for covers the whole
+        # bed; a texture control the run skipped is still taken over the stacks —
+        # a stack's overlay is DOM-backed on every route, so its composite is not
+        # covered by the sampled path's identity — and the sampled arm is taken
+        # over any scene whose level would otherwise have to be invented.
+        needs_sampling = sorted(set(stacks) | set(unmeasured))
+        coverage = {}
+        for arm in ARMS:
+            if arm in arms:
+                coverage[arm.name] = scenes
+            elif arm.texture and stacks:
+                coverage[arm.name] = stacks
+            elif arm.name == "sampled" and needs_sampling:
+                coverage[arm.name] = needs_sampling
+        if ARMS_BY_NAME["sampled"].name in coverage and unmeasured:
+            coverage["sampled"] = sorted(set(coverage["sampled"]) | set(unmeasured),
+                                         key=scenes.index)
+            print(f"  the texture-sampled arm also covers {len(unmeasured)} scene(s) whose "
+                  f"backdrop raster no earlier phase measured: {', '.join(unmeasured)}")
         record = {"profile": scheme.profile, "materialProfile": scheme.document,
+                  "capturedWith": configuration(),
+                  "armNames": [a.name for a in ARMS if a.name in coverage],
+                  "armCoverage": coverage,
+                  "requestedArms": [a.name for a in arms],
+                  "stackedScenes": stacks,
                   "scenes": scenes, "nativeRefereed": refereed,
                   "capturedWithoutNative": unrefereed, "arms": []}
         levels_path = phase_dir(out, args.phase) / name / "levels.json"
-        for arm in ARMS:
-            print(f"  {arm.name} ({arm.tier}, {arm.mode}, hint={arm.hinted})", flush=True)
-            runs = []
-            if refereed:
-                runs.append(run_compare(out, args.phase, scheme, arm, refereed,
-                                        levels_path, args.dry_run))
-            if unrefereed:
-                runs.append(run_direct(out, args.phase, scheme, arm, unrefereed,
-                                       levels_path, args.dry_run))
-            record["arms"].extend(runs)
-            if arm.name == "sampled" and not args.dry_run:
-                levels = sampled_levels(out, args.phase, scheme, scenes)
-                levels_path.write_text(json.dumps(levels, indent=2) + "\n")
-                record["levels"] = levels
+
+        def take(arm):
+            covered = coverage[arm.name]
+            here = [s for s in refereed if s in covered]
+            there = [s for s in unrefereed if s in covered]
+            print(f"  {arm.name} ({arm.tier}, {arm.mode}, hint={arm.hinted}), "
+                  f"{len(covered)} scene(s)", flush=True)
+            if here:
+                record["arms"].append(run_compare(out, args.phase, scheme, arm, here,
+                                                  levels_path, args.dry_run))
+            if there:
+                record["arms"].append(run_direct(out, args.phase, scheme, arm, there,
+                                                 levels_path, args.dry_run))
+
+        # The texture-sampled arm first wherever it is captured at all: its
+        # resolved tone is the level every hinted arm authors. What it does not
+        # cover is inherited by background raster from a phase that measured the
+        # same raster, and a raster no phase measured stops the run rather than
+        # being given a number.
+        sampled = ARMS_BY_NAME["sampled"]
+        provenance = {}
+        measured = {}
+        if sampled.name in coverage:
+            take(sampled)
+            if not args.dry_run:
+                measured = sampled_levels(out, args.phase, scheme, coverage[sampled.name])
+                provenance["measuredHere"] = {
+                    "source": "this phase's texture-sampled arm", "scenes": sorted(measured)}
                 if name == "light":
-                    record["levelProvenance"] = check_levels_against_g0(levels)
-                print(f"    measured hint levels → {levels_path}")
+                    provenance["measuredHere"].update(check_levels_against_g0(measured))
+        # What the sampled arm covers is measured, not inherited — in a dry run
+        # it has not been measured yet, and inheriting it would report a gap this
+        # plan already closes.
+        sampled_here = set(coverage.get(sampled.name, []))
+        rest = [scene for scene in scenes if scene not in measured and scene not in sampled_here]
+        borrowed, per_scene = ({}, {}) if not rest else inherited_levels(spec, rest, inherit)
+        if borrowed:
+            provenance["inherited"] = {
+                "source": "inherited by background raster from an earlier phase; this phase did "
+                          "not capture the texture-sampled arm over these scenes",
+                "perScene": per_scene}
+        record["levels"] = {**measured, **borrowed}
+        record["levelProvenance"] = provenance
+        if not args.dry_run:
+            levels_path.parent.mkdir(parents=True, exist_ok=True)
+            levels_path.write_text(json.dumps(record["levels"], indent=2) + "\n")
+            print(f"    hint levels → {levels_path} "
+                  f"({len(measured)} measured here, {len(borrowed)} inherited)")
+        for arm in ARMS:
+            if arm.name in coverage and arm is not sampled:
+                take(arm)
         plan["schemes"][name] = record
     manifest_path = phase_dir(out, args.phase) / "capture-manifest.json"
     if not args.dry_run:
@@ -649,17 +866,61 @@ def region(data, native, surfaces, distances, selected):
     return result
 
 
+def changed_pixels(path, other, surfaces, distances, decidable):
+    """WHERE two captures of the same scene differ, counted against the declared masks.
+
+    Equal aggregate terms do not locate a difference: two different sets of
+    pixels can carry the same interior mean, the same rim mean and the same
+    shadow count. So when a digest moves, the pixels themselves are compared and
+    the counts are reported — inside the declared footprint, inside the eroded
+    interior, and outside every declared shape — rather than a spatial claim
+    being inferred from metrics that never made one.
+    """
+    left = np.asarray(Image.open(path).convert("RGB"), dtype=int)
+    right = np.asarray(Image.open(other).convert("RGB"), dtype=int)
+    if left.shape != right.shape:
+        return {"comparable": False, "why": f"{left.shape} against {right.shape}"}
+    difference = np.abs(left - right)
+    differs = difference.max(axis=-1) > 0
+    union = np.minimum.reduce(distances)
+    footprint, interior = union <= 0, union <= -6
+    return {
+        "comparable": True,
+        "changedPixels": int(differs.sum()),
+        "changedInsideDeclaredFootprint": int((differs & footprint).sum()),
+        "changedInsideDeclaredInterior": int((differs & interior).sum()),
+        "changedOutsideEveryDeclaredShape": int((differs & ~footprint).sum()),
+        "changedInsideTheDecidableExterior": int((differs & decidable).sum()),
+        "maxChannelDifference": int(difference.max()),
+    }
+
+
 def read_capture(path, arm, scene, background_id, native, surfaces, distances, decidable,
-                 background_lum, tint, level, structured, overlay_groups):
-    """One arm's PNG under the declared masks, with its report's provenance beside it."""
+                 background_lum, tint, level, structured, overlay_groups, control):
+    """One arm's PNG under the declared masks, with its report's provenance beside it.
+
+    Two distances, not one. `deltaEAgainstNative` is the distance to Apple and is
+    null where this colour scheme has no fixture; `deltaEAgainstSampledToday` is
+    the distance to the texture-sampled render of the same scene, in the same
+    units over the same declared footprint, and it exists wherever that render's
+    PIXELS do. On the dark scenes with no native fixture it is the only ΔE there
+    is, and it is what changes between the phases — which is why it is named
+    apart from any delta of the native error.
+    """
     data = g0.image(path)
     result = region(data, native, surfaces, distances, range(len(surfaces)))
+    result["deltaEAgainstSampledToday"] = None if control is None else region(
+        data, control, surfaces, distances, range(len(surfaces)))["deltaEAgainstNative"]
     result["outerShadowExteriorPixels"] = int((decidable & (
         (background_lum - data[1]) / np.maximum(background_lum, .00001) > .01)).sum())
     result["decidableExteriorPixels"] = int(decidable.sum())
     result["sha256"] = g0.digest(path)
-    result["perSurface"] = {s["nodeId"]: region(data, native, surfaces, distances, [i])
-                            for i, s in enumerate(surfaces)}
+    result["perSurface"] = {}
+    for i, surface in enumerate(surfaces):
+        per = region(data, native, surfaces, distances, [i])
+        per["deltaEAgainstSampledToday"] = None if control is None else region(
+            data, control, surfaces, distances, [i])["deltaEAgainstNative"]
+        result["perSurface"][surface["nodeId"]] = per
     report = json.loads((path.parent / f"report__{arm.tier}.json").read_text())
     where = f"{arm.name}/{scene}"
     result["measuredBoundsExcess"] = g0.check_declared_bounds(
@@ -713,13 +974,113 @@ def delta(after, before, fields):
     return out
 
 
-COMPARED = ("deltaEAgainstNative", "interiorOklabLMean", "interiorOklabLStddev",
-            "rimBandLinearMean", "rimLocalExcessMean", "interiorLinearLuminanceMean",
-            "outerShadowExteriorPixels")
+COMPARED = ("deltaEAgainstNative", "deltaEAgainstSampledToday", "interiorOklabLMean",
+            "interiorOklabLStddev", "rimBandLinearMean", "rimLocalExcessMean",
+            "interiorLinearLuminanceMean", "outerShadowExteriorPixels")
 
 
 def g0_rows():
     return {row["scene"]: row for row in json.loads(G0_EVIDENCE.read_text())["rows"]}
+
+
+def sampled_control_image(out, phase, scheme, scene, g0_scratch, g0_evidence):
+    """The sampled-today PNG this scene's arms are measured against, and its provenance.
+
+    This phase's own texture-sampled arm where it took one. Otherwise G0's
+    scratch snapshot, and only when the file on disk digests to exactly the
+    sha256 the committed G0 evidence recorded for that arm — the evidence
+    carries the number, not the pixels, so a snapshot that cannot prove it is
+    the same capture is not used. Nothing is synthesised: where neither exists
+    the distance is null and the reading says the control is unknown.
+    """
+    own = capture_dir(out, phase, scheme, ARMS_BY_NAME["sampled"], scene) / f"{scene}__webgpu.png"
+    if own.exists():
+        return own, "this phase's texture-sampled arm"
+    recorded = (g0_evidence.get(scene) or {}).get("readings", {}).get("sampledToday")
+    if scheme.name == "light" and recorded is not None and g0_scratch is not None:
+        snapshot = g0_scratch / scheme.profile / scene / f"{scene}__webgpu.png"
+        if snapshot.exists() and g0.digest(snapshot) == recorded["sha256"]:
+            return snapshot, (f"G0 scratch snapshot {snapshot}, digest "
+                              f"{recorded['sha256'][:12]} matching the committed G0 evidence")
+    return None, None
+
+
+# What has to agree for two schemes' captures to be one phase: the commit, the
+# sources that draw, and the material documents they were given. Deliberately not
+# the working tree's dirty paths — an unrelated edit elsewhere in the repo does
+# not change what the renderer drew, and refusing on it would make a two-part
+# capture impossible on a tree anyone is working in.
+FINGERPRINT = ("commit", "materialSourcesScope", "materialSourcesSha256", "materialProfileSha256")
+
+
+def with_legacy_provenance(captured):
+    """A manifest written before per-scheme provenance, read for what it does say.
+
+    The baseline phase cannot be re-captured — its whole point is that it was
+    taken before the runtime changed — so a reader that refused its manifest
+    would destroy the evidence it exists to protect. Instead the phase-level
+    provenance it does carry is attached to each scheme and LABELLED as
+    phase-level: those runs took both schemes in one invocation, which is what
+    makes the attribution true, and the label is what stops it being read as a
+    per-scheme claim it never made. Nothing is upgraded: a fingerprint recorded
+    under the old narrow scope keeps that scope and compares only with itself.
+    """
+    schemes = {}
+    for name, record in captured.get("schemes", {}).items():
+        record = dict(record)
+        if "capturedWith" not in record and "capturedWith" in captured:
+            record["capturedWith"] = {**captured["capturedWith"]}
+            record["provenanceAttribution"] = (
+                "phase-level: this manifest predates per-scheme provenance, and its schemes were "
+                "captured in one invocation")
+        else:
+            record.setdefault("provenanceAttribution", "per-scheme")
+        if "armNames" not in record:
+            record["armNames"] = [arm.name for arm in ARMS]
+            record["armNamesSource"] = (
+                "assumed: this manifest predates the recorded arm set, and every phase written "
+                "under it captured all seven arms")
+        record.setdefault("armCoverage",
+                          {name: record.get("scenes", []) for name in record["armNames"]})
+        schemes[name] = record
+    return schemes
+
+
+def check_one_configuration(schemes):
+    """One phase is one configuration, and a merged manifest has to prove it.
+
+    Schemes are captured in separate invocations often enough — they cannot share
+    the scene server — so the manifest carries each scheme's own provenance and
+    this is where the two are held to being the same material. Without it a
+    reading merged across a runtime change would attribute the earlier scheme's
+    pixels to the later scheme's material and say so nowhere.
+    """
+    seen = {}
+    for name, record in schemes.items():
+        provenance = record.get("capturedWith")
+        if provenance is None:
+            raise SystemExit(
+                f"The capture of scheme '{name}' records no capturedWith provenance. It predates "
+                "per-scheme provenance and cannot be shown to be this phase's configuration; "
+                "re-capture it."
+            )
+        seen[name] = {key: provenance.get(key) for key in FINGERPRINT}
+    if len({json.dumps(f, sort_keys=True) for f in seen.values()}) > 1:
+        scopes = {name: f["materialSourcesScope"] for name, f in seen.items()}
+        if len(set(scopes.values())) > 1:
+            raise SystemExit(
+                f"These schemes record their sources under different fingerprint scopes {scopes}. "
+                "A narrower scope is not a weaker version of a wider one — it digested different "
+                "files — so the two cannot be compared. Re-capture the one on the old scope; a "
+                "reading already written under it stays as it was recorded."
+            )
+        detail = "; ".join(f"{name}: {json.dumps(fingerprint, sort_keys=True)}"
+                           for name, fingerprint in seen.items())
+        raise SystemExit(
+            "The schemes of this phase were captured on different configurations, so they are "
+            f"not one phase: {detail}. Re-capture the stale scheme, or read them separately "
+            "with --schemes."
+        )
 
 
 def read(args):
@@ -728,7 +1089,8 @@ def read(args):
     manifest_path = phase_dir(out, phase) / "capture-manifest.json"
     if not manifest_path.exists():
         raise SystemExit(f"No capture manifest at {manifest_path}. Run `capture --phase {phase}`.")
-    captured = json.loads(manifest_path.read_text())
+    captured = {**json.loads(manifest_path.read_text())}
+    captured["schemes"] = with_legacy_provenance(captured)
     spec = scene_spec()
     scene_specs = {s["id"]: s for s in spec["scenes"]}
     geometry = g0.declared_geometry()
@@ -740,12 +1102,13 @@ def read(args):
             raise SystemExit(f"No reading at {before_path} to compare against.")
         before = json.loads(before_path.read_text())
 
+    check_one_configuration({name: record for name, record in captured["schemes"].items()
+                             if name in args.schemes})
     document = {
         "date": "2026-09-10",
         "gate": "W27f G1",
         "phase": phase,
         "captureRoot": str(phase_dir(out, phase).resolve()),
-        "capturedWith": captured["capturedWith"],
         "comparePhase": args.compare_phase,
         "arms": {arm.name: {"tier": arm.tier, "backdropMode": arm.mode, "authorsHint": arm.hinted,
                             "g0Arm": arm.g0} for arm in ARMS},
@@ -760,6 +1123,13 @@ def read(args):
         scheme = SCHEMES[scheme_name]
         levels = record["levels"]
         refereed = set(record["nativeRefereed"])
+        # Exactly what this phase captured, in the declared order. A phase may
+        # legitimately take fewer arms than the seven — a holdout run whose
+        # texture control is already established elsewhere — and the reading
+        # then describes the arms that exist rather than failing on the ones
+        # that do not.
+        arms = [a for a in ARMS if a.name in record["armNames"]]
+        coverage = record["armCoverage"]
         noisy = []
         before_rows = {} if before is None else {
             row["scene"]: row for row in
@@ -784,10 +1154,15 @@ def read(args):
             # Which sampling group is a stack's overlay, from the declaration: the
             # group of any surface the declaration places above the base plane.
             overlay_groups = {s["groupId"] for s in surfaces if s["plane"] != "base"}
+            control_path, control_source = sampled_control_image(
+                out, phase, scheme, scene, args.g0_scratch, g0_evidence)
+            control = None if control_path is None else g0.image(control_path)
             row = {"scene": scene, "hintedBackdropLevel": levels[scene], "surfaces": surfaces,
                    "backgroundSha256": g0.digest(background_path),
                    "nativeFixture": scene in refereed,
                    "nativeSha256": g0.digest(native_path) if scene in refereed else None,
+                   "sampledTodayControl": None if control_path is None else {
+                       "source": control_source, "sha256": g0.digest(control_path)},
                    "readings": {}}
             if native is None:
                 # Named, not omitted: this scheme's bed holds no fixture for this
@@ -806,12 +1181,14 @@ def read(args):
                 native_reading["decidableExteriorPixels"] = int(decidable.sum())
                 row["readings"]["native"] = native_reading
 
-            for arm in ARMS:
+            for arm in arms:
+                if scene not in coverage[arm.name]:
+                    continue
                 path = (capture_dir(out, phase, scheme, arm, scene) /
                         f"{scene}__{arm.tier}.png")
                 reading = read_capture(path, arm, scene, declared["backgroundId"], native,
                                        surfaces, distances, decidable, background[1], tint,
-                                       levels[scene], structured, overlay_groups)
+                                       levels[scene], structured, overlay_groups, control)
                 if arm.tier == "css":
                     css_excess.add(tuple(reading["measuredBoundsExcess"]))
                 if not reading["deterministic"] or reading["repeatNoise"] != 0:
@@ -821,9 +1198,23 @@ def read(args):
                 # on a scheme with no native fixture this is the whole of the
                 # evidence, and on one with a fixture it is what separates "the
                 # page-content path is wrong" from "the material is wrong".
-                sampled = row["readings"].get("sampled")
-                comparisons = {"vsSampledToday": None if sampled is None or arm.name == "sampled"
-                               else delta(reading, sampled, COMPARED)}
+                #
+                # The control is this phase's own sampled arm where it took one.
+                # Where it did not, the committed G0 evidence supplies it for the
+                # light scenes it read — legitimately, because the sampled path
+                # is proven byte-identical on this configuration by the
+                # calibration phase's identity verdict, and the control names
+                # which of the two it is either way.
+                against, against_source = row["readings"].get("sampled"), "this phase"
+                if against is None and scheme_name == "light" and scene in g0_evidence:
+                    against = g0_evidence[scene]["readings"]["sampledToday"]
+                    against_source = "G0 committed evidence (sampledToday)"
+                comparisons = {
+                    "sampledControl": None if against is None or arm.name == "sampled"
+                    else against_source,
+                    "vsSampledToday": None if against is None or arm.name == "sampled"
+                    else delta(reading, against, COMPARED),
+                }
                 # The committed G0 evidence carries both the numbers and each
                 # arm's PNG digest, so the light "before" needs no re-capture:
                 # identity is decided against the recorded digest, and every
@@ -845,13 +1236,23 @@ def read(args):
                     if prior_row is not None:
                         prior_reading = prior_row["readings"].get(arm.name)
                         if prior_reading is not None:
+                            identical = prior_reading["sha256"] == reading["sha256"]
                             comparisons["vsComparePhase"] = {
                                 "phase": args.compare_phase,
-                                "pixelIdentical":
-                                    prior_reading["sha256"] == reading["sha256"],
+                                "pixelIdentical": identical,
                                 "sha256": prior_reading["sha256"],
                                 **delta(reading, prior_reading, COMPARED),
                             }
+                            # Where the digest moved, WHERE it moved — measured
+                            # against the masks, because equal terms locate
+                            # nothing. Only then, and only when the other
+                            # phase's PNG is still on disk to compare with.
+                            prior_png = (capture_dir(out, args.compare_phase, scheme, arm, scene) /
+                                         f"{scene}__{arm.tier}.png")
+                            if not identical and prior_png.exists():
+                                comparisons["vsComparePhase"]["changedPixelGeometry"] = (
+                                    changed_pixels(path, prior_png, surfaces, distances,
+                                                   decidable))
                 reading["comparisons"] = comparisons
                 row["readings"][arm.name] = reading
 
@@ -874,7 +1275,11 @@ def read(args):
             raise SystemExit(f"{scheme_name}: the CSS arms do not share one measured size "
                              f"excess: {sorted(css_excess)}")
         document["schemes"][scheme_name] = {
+            "capturedWith": record["capturedWith"],
+            "provenanceAttribution": record["provenanceAttribution"],
             "readWith": configuration(),
+            "armNames": record["armNames"],
+            "armNamesSource": record.get("armNamesSource", "recorded by the capture"),
             "profile": scheme.profile,
             "materialProfile": record["materialProfile"],
             "nativeRefereed": record["nativeRefereed"],
@@ -883,7 +1288,8 @@ def read(args):
             "levelProvenance": record.get("levelProvenance"),
             "cssTierMeasuredSizeExcessCssPx": list(sorted(css_excess)[0]),
             "nonDeterministicCaptures": noisy,
-            "textureIdentity": texture_identity(rows),
+            "armCoverage": coverage,
+            "textureIdentity": texture_identity(rows, arms),
             "rows": rows,
         }
 
@@ -896,55 +1302,111 @@ def read(args):
         previous = json.loads(destination.read_text())
         if previous.get("phase") == phase:
             document["schemes"] = {**previous.get("schemes", {}), **document["schemes"]}
+            # The same rule the manifest is held to, at the other door: a merge
+            # across two `read` runs may not quietly join two configurations.
+            check_one_configuration(document["schemes"])
     destination.write_text(json.dumps(g0.clean(document), indent=2, allow_nan=False) + "\n")
     summarise(document)
     print(f"\nreading → {destination}")
 
 
-def texture_identity(rows):
+def texture_identity(rows, arms):
     """Did the texture-sampled arms draw the same pixels as the recorded run?
 
     W27f's acceptance is that the sampled path is byte-identical, so this is a
     verdict and not a metric: per texture-route arm, which scenes matched the
-    digest they are compared against and which moved. `undecided` is reported
-    where there is nothing recorded to compare with — a dark scheme before its
-    own baseline exists — rather than counted as a pass.
+    digest they are compared against and which moved. `moved` is STRICTLY every
+    digest that differs, and nothing is promoted out of it: a capture whose
+    pixels changed is not byte-identical, whatever else is true of it, and a
+    verdict that reclassified such a cell would be reporting an acceptance the
+    evidence does not support. What is added instead is annotation, so a reader
+    can see the difference's character without the verdict having decided it:
+    whether any COMPARED TERM moved with it — which does not locate anything,
+    since equal aggregates can cover different pixels — whether the cell is even
+    byte-deterministic over two loads of the same page, and, where the compared
+    PNG is still on disk, the measured count of changed pixels inside and
+    outside the declared masks, which is the only spatial claim here that is a
+    measurement. `undecided` is nothing recorded to compare against at all, and
+    is never counted as a pass.
     """
     verdict = {}
-    for arm in ARMS:
+    for arm in arms:
         if not arm.texture:
             continue
         identical, moved, undecided = [], [], []
         for row in rows:
-            comparisons = row["readings"][arm.name]["comparisons"]
-            against = comparisons["vsComparePhase"] or comparisons["vsG0"]
+            reading = row["readings"].get(arm.name)
+            if reading is None:
+                continue
+            against = reading["comparisons"]["vsComparePhase"] or reading["comparisons"]["vsG0"]
             if against is None:
                 undecided.append(row["scene"])
             elif against["pixelIdentical"]:
                 identical.append(row["scene"])
             else:
-                moved.append(row["scene"])
+                deltas = {key: value for key, value in against.items()
+                          if key.endswith("Delta") and value is not None}
+                moved.append({
+                    "scene": row["scene"],
+                    "sha256": reading["sha256"],
+                    "comparedWith": against.get("sha256") or against.get("g0Sha256"),
+                    "measuredTermsUnchanged": all(value == 0 for value in deltas.values()),
+                    "movedTerms": {k: v for k, v in deltas.items() if v != 0},
+                    "captureIsByteDeterministic": reading["deterministic"]
+                    and reading["repeatNoise"] == 0,
+                    "repeatNoise": reading["repeatNoise"],
+                    "changedPixelGeometry": against.get("changedPixelGeometry"),
+                })
         verdict[arm.name] = {"identical": identical, "moved": moved, "undecided": undecided}
     return verdict
 
 
 def summarise(document):
-    """The per-scene native ΔE per arm, and the texture-identity verdict."""
+    """Both distances per arm per scene, and the texture-identity verdict.
+
+    Two tables rather than one: the distance to Apple is null on a scene this
+    scheme's bed does not hold, and on exactly those scenes the distance to the
+    texture-sampled render is the whole measurement.
+    """
     for scheme_name, scheme in document["schemes"].items():
-        names = [arm.name for arm in ARMS]
-        print(f"\n{scheme_name} — {scheme['profile']}  (ΔE to the native fixture; "
-              f"'—' where this scheme has none)")
-        print("  " + "scene".ljust(46) + "".join(n[:13].rjust(15) for n in names))
-        for row in scheme["rows"]:
-            cells = "".join(
-                "              —" if row["readings"][n]["deltaEAgainstNative"] is None
-                else f"{row['readings'][n]['deltaEAgainstNative']:15.5f}" for n in names)
-            print("  " + row["scene"].ljust(46) + cells)
+        names = [name for name in scheme["armNames"]]
+        for field, title in (("deltaEAgainstNative", "ΔE to the native fixture"),
+                             ("deltaEAgainstSampledToday", "ΔE to the sampled-today render")):
+            print(f"\n{scheme_name} — {scheme['profile']}  ({title}; '—' where there is none)")
+            print("  " + "scene".ljust(46) + "".join(n[:13].rjust(15) for n in names))
+            for row in scheme["rows"]:
+                cells = ""
+                for name in names:
+                    reading = row["readings"].get(name)
+                    value = None if reading is None else reading[field]
+                    # A blank column is an arm this phase did not take over this
+                    # scene; an em dash is an arm that has no such distance.
+                    cells += (" " * 15 if reading is None else
+                              "              —" if value is None else f"{value:15.5f}")
+                print("  " + row["scene"].ljust(46) + cells)
         for arm, verdict in scheme["textureIdentity"].items():
-            moved = f" — {', '.join(verdict['moved'])}" if verdict["moved"] else ""
+            moved = (" — " + ", ".join(case["scene"] for case in verdict["moved"])
+                     if verdict["moved"] else "")
             print(f"  texture identity {arm}: {len(verdict['identical'])} identical, "
                   f"{len(verdict['moved'])} moved{moved}, "
                   f"{len(verdict['undecided'])} undecided")
+            for case in verdict["moved"]:
+                notes = [f"NOT byte-identical ({(case['comparedWith'] or '?')[:12]} → "
+                         f"{case['sha256'][:12]})"]
+                notes.append("every compared term unchanged" if case["measuredTermsUnchanged"]
+                             else f"moved terms {case['movedTerms']}")
+                if not case["captureIsByteDeterministic"]:
+                    notes.append("this cell is not byte-deterministic over two loads, repeat "
+                                 f"noise {case['repeatNoise']:.3e}")
+                geometry = case["changedPixelGeometry"]
+                if geometry is not None and geometry.get("comparable"):
+                    notes.append(
+                        f"{geometry['changedPixels']} px changed, "
+                        f"{geometry['changedInsideDeclaredFootprint']} inside the declared "
+                        f"footprint, {geometry['changedOutsideEveryDeclaredShape']} outside every "
+                        f"declared shape, max channel difference "
+                        f"{geometry['maxChannelDifference']}")
+                print(f"    {case['scene']}: " + "; ".join(notes))
         if scheme["capturedWithoutNative"]:
             print(f"  captured without a native reference on this profile: "
                   f"{', '.join(scheme['capturedWithoutNative'])}")
@@ -964,9 +1426,29 @@ METHOD = {
                      "configuredSource, samplingBackend and backdropTone. Over a uniform raster "
                      "a sampled tone and a hint taken from it are the same numbers; those groups "
                      "are named undiscriminable rather than asserted.",
-    "hint": "The authored level is the level the texture-sampled arm of the SAME phase "
-            "resolved, and for every light scene G0 read it is checked against the committed "
-            "G0 evidence to the bit.",
+    "hint": "The authored level is the level the texture-sampled arm of the SAME phase resolved, "
+            "and for every light scene G0 read it is checked against the committed G0 evidence to "
+            "the bit. A phase that does not capture that arm inherits the level by BACKGROUND "
+            "RASTER from a phase that did — every scene over one raster resolves one level, to "
+            "the bit, across components, sizes and both schemes — and a raster no phase measured "
+            "stops the run instead of being given a number. levelProvenance names which it was.",
+    "deltaEAgainstSampledToday": "Mean Euclidean OKLab distance to the texture-sampled render of "
+                                 "the same scene, over the same declared footprint as the native "
+                                 "ΔE. It exists wherever that render's pixels do, so it is the "
+                                 "measurement on the scenes a colour scheme has no fixture for, "
+                                 "and it is a distance between images — never a difference of two "
+                                 "native errors. The control is this phase's sampled arm, or G0's "
+                                 "scratch snapshot when its PNG digests to the sha256 the "
+                                 "committed G0 evidence recorded; otherwise null.",
+    "provenance": "Each scheme records the configuration it was CAPTURED with — commit, the "
+                  "digest of every runtime source tree under a named scope, and the material "
+                  "documents — and a phase whose schemes disagree is refused rather than read as "
+                  "one. A reading is never retroactively restated under a wider scope than the "
+                  "one it was recorded with.",
+    "freshness": "Every capture command clears exactly the scenes it is about to take and is then "
+                 "required to have written all three artefacts — PNG, cell and report — after it "
+                 "started. A tolerated non-zero exit from compare (a probe arm missing an adopted "
+                 "bound) can therefore never be a run whose files came from an earlier attempt.",
     "footprint": "Declared circular rounded-box SDF at pixel centres, visible union; the base "
                  "excludes a covering overlay.",
     "interior": "Declared footprint eroded 6 CSS px; mean and population standard deviation of "
@@ -982,13 +1464,21 @@ METHOD = {
               "overlay's own exterior shadow cannot be separated from its base's.",
     "identity": "Texture-route arms are compared by PNG digest against the recorded run — the "
                 "committed G0 evidence for light, the baseline phase for dark — because W27f's "
-                "acceptance is that the sampled path does not move.",
+                "acceptance is that the sampled path does not move. Byte equality is reported "
+                "independently of any attribution: every differing digest is `moved`, and the "
+                "character of the difference travels as annotation — whether any compared term "
+                "moved with it, whether the cell is byte-deterministic at all, and the measured "
+                "count of changed pixels inside and outside the declared masks. Equal aggregate "
+                "terms do not locate a difference and are never read as one; only the absence of "
+                "anything to compare against is undecidable.",
     "determinism": "Every capture is taken twice from two independent page loads. A cell that "
                    "is not byte-identical over them is listed in nonDeterministicCaptures with "
                    "its mean absolute channel difference and keeps its metrics: its digest "
                    "cannot decide identity and its numbers carry that much noise.",
-    "holdout": "The two stacked holdout cells are read by the holdout phase alone, once per "
-               "frozen configuration, and the spend is recorded at the scratch root.",
+    "holdout": "The whole declared holdout set is read by the holdout phase alone, once per "
+               "frozen configuration, and the spend is recorded at the scratch root. The two "
+               "stacked cells are the only ones with a native reading of an overlay; that is what "
+               "they answer, not a reason to narrow the set.",
 }
 
 
@@ -1006,11 +1496,29 @@ def main():
     parser.add_argument("--scenes", default=None,
                         help="comma-separated subset of the phase's declared scenes, for a "
                              "smoke run; a full reading names every scene the bed carries")
+    parser.add_argument("--arms", default=",".join(arm.name for arm in ARMS),
+                        help="comma-separated arms to capture; a phase whose texture control is "
+                             "already established may take fewer, and then authors its hint from "
+                             "levels inherited by background raster")
+    parser.add_argument("--levels", type=Path, default=None,
+                        help="capture: a scene→level file to author hints from, instead of "
+                             "measuring or inheriting them")
     parser.add_argument("--compare-phase", choices=PHASES, default=None,
-                        help="read: also compare every arm against this phase's reading")
+                        help="read: also compare every arm against this phase's reading. "
+                             "capture: the phase to inherit hint levels from")
+    parser.add_argument("--g0-scratch", type=Path, default=Path("/tmp/w27f-g0/sampled"),
+                        help="read: G0's texture-sampled capture tree, used as the sampled-today "
+                             "control on light scenes this phase did not sample, and only when a "
+                             "PNG digests to the committed G0 evidence's recorded sha256")
     parser.add_argument("--reading", type=Path, default=None)
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
+    args.arms = [name.strip() for name in args.arms.split(",") if name.strip()]
+    unknown = [name for name in args.arms if name not in ARMS_BY_NAME]
+    if unknown:
+        raise SystemExit(f"--arms does not know {unknown}; it takes {list(ARMS_BY_NAME)}")
+    if not args.g0_scratch.exists():
+        args.g0_scratch = None
     args.schemes = [s.strip() for s in args.schemes.split(",") if s.strip()]
     unknown = [s for s in args.schemes if s not in SCHEMES]
     if unknown:

@@ -514,6 +514,15 @@ null and route-to-route comparisons remain measurable. The two requested stack s
 until the final frozen candidate and are read once then; the dark photo stack has no native
 fixture either. Scratch only (`/tmp/w27f-g1`), never the canonical matrix or capture tree.
 
+The end read covers **the entire declared holdout membership**, not only the stacks (parent
+clarification before spending it). Light and dark native coverage is read on both DOM-GPU page
+arms with CSS controls; the dark photo stack is also captured with its native result left null.
+Ordinary texture controls need no new capture because their path is byte-identical. The stack
+controls are different: their bases are textures but their overlays are DOM, so the two stacks'
+standard and hinted textured-base arms are captured in the same once-only pass. No holdout
+measurement may change this configuration. The marker records the frozen runtime fingerprint
+before capture; a failed partial holdout capture is still spent, never silently retried as fresh.
+
 Stops are sampled-path byte changes (renderer goldens plus isolation and the scratch texture
 captures), an unexplained departure from the scalar response/collapse/paint/rim/shadow laws,
 or suite regressions. G0's sampled-today errors remain the diagnostic budget; same-hint sampled

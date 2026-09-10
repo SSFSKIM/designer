@@ -77,6 +77,26 @@ describe("the unsampled layer pair reaches the optics uniform (W11a)", () => {
     expect(last[110]).toBeCloseTo(0.02, 6);
   });
 
+  it("gives a DOM shadow its tone-dependent lift only when the tone is known", () => {
+    for (const known of [false, true]) {
+      const gpu = createFakeGpu();
+      const writes = opticsUniformWrites(gpu);
+      const renderer = createWebGPURenderer({ viewport: VIEWPORT });
+      renderer.attachDevice(gpu.device, "vitrea");
+      renderer.setGroup({
+        groupId: "g", surfaces: [surface], refraction: "approximate", analysisExact: false,
+        unsampledMaterial: PAIR,
+        ...(known ? { backdropTone: [0.3, 0.3, 0.3] as const } : {}),
+      });
+      renderer.drawFrame(frameArgs(1));
+      const last = writes.at(-1);
+      expect(last).toBeDefined();
+      expect(last?.[92]).toBeCloseTo(known ? DEFAULT_MATERIAL_PROFILE.outerShadow.liftAmplitude : 0, 8);
+      expect(last?.[109]).toBe(known ? 2 : 1);
+      renderer.destroy();
+    }
+  });
+
   it("writes the profile's own pair where the host resolved none", () => {
     const gpu = createFakeGpu();
     const writes = opticsUniformWrites(gpu);
