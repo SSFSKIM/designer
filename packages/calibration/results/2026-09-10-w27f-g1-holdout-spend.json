@@ -1,0 +1,62 @@
+{
+  "spentAt": "2026-09-10T17:43:13+0900",
+  "spentBy": "2026-09-10-w27f-g1-measure.py capture --phase holdout",
+  "scenes": {
+    "light": [
+      "checkerboard__glass-over-glass__rest",
+      "checkerboard__rrect-lg__rest",
+      "dark-solid__capsule-button__rest-tint-blue",
+      "hc-text__capsule-button__rest",
+      "hc-text__capsule-button__rest-tint-orange",
+      "hc-text__rrect-md__rest",
+      "mid-dark-solid__capsule-button__rest",
+      "photo__glass-over-glass__rest",
+      "photo__rrect-lg__rest",
+      "photo__rrect-lg__rest-tint-orange"
+    ],
+    "dark": [
+      "checkerboard__glass-over-glass__rest",
+      "mid-dark-solid__capsule-button__rest",
+      "photo__rrect-lg__rest",
+      "checkerboard__rrect-lg__rest",
+      "dark-solid__capsule-button__rest-tint-blue",
+      "hc-text__capsule-button__rest",
+      "hc-text__capsule-button__rest-tint-orange",
+      "hc-text__rrect-md__rest",
+      "photo__glass-over-glass__rest",
+      "photo__rrect-lg__rest-tint-orange"
+    ]
+  },
+  "sourceRoot": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a3ae6be8f45857786",
+  "commit": "1fff5e65a9be24133e26556320b1a061cc0c4cc0",
+  "dirtyPaths": [
+    "packages/calibration/results/2026-09-10-w27f-g1-baseline.json",
+    "packages/calibration/results/2026-09-10-w27f-g1-candidate.json",
+    "packages/calibration/results/2026-09-10-w27f-g1-dark.png",
+    "packages/calibration/results/2026-09-10-w27f-g1-light.png",
+    "packages/renderer-webgpu/.w27f-playwright.config.ts"
+  ],
+  "sceneManifestSha256": "87aabd58a3d7a5a4bdeb47d2dc439a33f302c9df964e5ed8e3a66629c4a260df",
+  "nativeManifestSha256": "f1e4c0a7697b7ab2e0d079b0c48b399ae1f7c2dfd3c4781ecc1692eebf2cec68",
+  "declaredGeometryScriptSha256": "d4e266a7eadeeb1fc1c6328dc1c9d9bd745798f1f1d9b7085692af874094bd40",
+  "contourInstrumentSha256": "ed35a49e7f42ce7fdbb49bf7f22e367fedaf771672a07b789ea7b7ac85cdc325",
+  "g0ReaderSha256": "1087092c3af0ecffdaece55e24ba3e8a78850241a2cbac9452a9695622f5ff0f",
+  "runnerSha256": "9055aa4d752d9cf03e220f1f70a8db53580c42b2d8e93f9a1d551a858f455d5d",
+  "materialSourcesScope": "runtime-src-trees-2026-09-10",
+  "materialSourcesSha256": {
+    "packages/renderer-webgpu/src": "643e050159d278b53b50a3857330e9987b22b2a1ea26973761370310654a5450",
+    "packages/platform-web/src": "17a553eadeb62f96392edf57db242e5177d35415c4a9c4f244ce214bd79fbc12",
+    "packages/core/src": "ff2ed6cd4f9694b89316ccf2b236a8a67b0c33da6060bb596772d8b3fca1d293",
+    "packages/policy/src": "56a92419bfa26e1f52dc3366c394f05f855ac3400239b686f62e59b1074947e5",
+    "packages/geometry/src": "e54892df7fd5bc3f0451238a71a5083129b8ae99a06dcf741aa96981cf06c11b",
+    "packages/motion/src": "02f5f2fb5944df1364ef0f9aedcfce9efbd6ad5df3bb1d58df23f6f6811f94d9"
+  },
+  "materialProfileSha256": {
+    "light": "6a9600720477dd433539d7af477b838776410e957d63fa7e63059dab214c5d26",
+    "dark": "950ce1c3e91715ee470dd02d10c589f3ebae0f2b88d6ae85f4a2de6986020e12"
+  },
+  "resolvedMaterialSha256": {
+    "light": "b2b570e4adcea8fb",
+    "dark": "874be66ea501621b"
+  }
+}

@@ -314,7 +314,10 @@ into the ledger rather than chartered.
 - **Design inheritance:** §Where each feature lives (page content gets the material) [binding];
   HTML-in-Canvas stays a seam (Decision Log 3).
 - **Required:** yes — acceptance 1, 2, 3.
-- **Status:** G0 completed on its isolated branch (claims §5.129, 2026-09-10); G1/G2 not dispatched.
+- **Status:** G0 completed (claims §5.129); G1 completed on its isolated branch (claims §5.131,
+  2026-09-10): shared profile-at-tone derivation, sampled-source identity, both schemes and the
+  full once-read holdout recorded. G2 remains pending: no native stack bound adopted and no user
+  acceptance of `/#page` claimed.
 
 ## Cross-Child Contracts
 
@@ -405,7 +408,7 @@ neighbour glow diffusion; topology-changing morphs.
 | W27c | G0 CLOSED 2026-09-10 (merged `7312fd0`; claims §5.128: all 121 pairs read; the outer shadow and the bright rim go to zero in every profile at both scales, structure retained falls, an author tint loses its hue entirely while its darkening stays — orange and blue capsules both settle at Y 0.451 against the untinted 0.606 — and no existing field expresses that; dark untinted glass and both accessibility bodies *brighten*; four cells background-identical; the 2x dark photo capsule's active side is the 1-of-17 minority state and is excluded from the fit) / G1 dispatched 2026-09-10 | G1 in-flight |
 | W27d | worktree agent, dispatched 2026-09-10 after W27a's merge (claims §5.132 reserved) | in-flight |
 | W27e | — | not-dispatched (deliberately late) |
-| W27f | G0 CLOSED 2026-09-10 (merged `730a9d3`; claims §5.129: the unhinted dark capsule misses the collapse by ΔE 0.545 against the sampled path's 0.006, a correct scalar hint repairs it but the dark medium pane still misses by 0.079 (−0.089 L against the same-hint sampled path), the checkerboard rows lose spread and the photo rows keep too much; a scalar hint itself costs the sampled path its structured-backdrop correction, so the evidence keeps sampled-today, same-hint-sampled and hinted-page columns apart; the two stack overlays are the only native cells on this path; the demo gains `/#page`, "Over ordinary page content") / G1 dispatched 2026-09-10 (claims §5.131 reserved) | G1 in-flight |
+| W27f | G0 CLOSED 2026-09-10 (merged `730a9d3`; claims §5.129: the unhinted dark capsule misses the collapse by ΔE 0.545 against the sampled path's 0.006, a correct scalar hint repairs it but the dark medium pane still misses by 0.079 (−0.089 L against the same-hint sampled path), the checkerboard rows lose spread and the photo rows keep too much; a scalar hint itself costs the sampled path its structured-backdrop correction, so the evidence keeps sampled-today, same-hint-sampled and hinted-page columns apart; the two stack overlays are the only native cells on this path; the demo gains `/#page`, "Over ordinary page content") / G1 CLOSED on isolated branch 2026-09-10 (claims §5.131: profile-at-known-tone derivation, scalar CPU/GPU law proof, unchanged sampled-source draws; 20 ordinary scenes plus both stacks in light/dark, full holdout spent at `1fff5e6`; thick-body repair with unknown-tone paint, structured spread/colour and dark-overlay regressions retained) | G2 pending; no bound adopted |
 
 ## Decision Log
 
@@ -531,6 +534,19 @@ linear/encoded means and local pixels, not a fabricated interpretation of `hint.
 G1 records every per-scene miss; G2 alone adopts a native stack bound and re-reads the demo.
 
 ## Revision Notes
+
+- 2026-09-10, W27f G1: `materialAtBackdrop` owns the linear profile-at-known-tone derivation,
+  mirrored per pixel on DOM-backed WebGPU groups so mixed spans retain their own size law. The
+  encoded source-over solve follows rim, coverage and shadow; proxy blur and the texture-source
+  path stay unchanged. No constants fitted. §5.131 records all 22 G0 scenes in light/dark 1x,
+  CSS coherence, the legacy capture-provenance limit, and the full ten-scene holdout per scheme
+  spent at `1fff5e6`, plus separately frozen `bdf0029` dark-stack controls. Existing canonical
+  texture controls were read, never rewritten or recaptured. Thick dark-body repair is measured;
+  unknown-tone paint regressions, structured spread/colour, unhinted stack rim, dark-overlay
+  regressions and missing dark fixtures remain named. 2,009 unit tests, 39 renderer browser tests
+  (one attribution capture deliberately skipped), 35 measurement tests; goldens unchanged. A
+  light/dark `/#page` sanity view is recorded, not the user's acceptance. G2 inherits the envelope
+  and the S0/S1 distinction; it alone adopts a stack bound.
 
 - 2026-09-10, W27f G0: measured 20 light-1x calibration scenes and the two requested stack
   holdout cells in six web configurations, with unhinted and identical-hint controls kept separate;

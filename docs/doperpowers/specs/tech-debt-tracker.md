@@ -1885,3 +1885,15 @@ Shape of the work: a `dark-solid__rrect-md-clear20__rest` probe scene now exists
 declares (a group-level darkening beneath the material, 35 % black by Apple's one published number
 as the seed), and measure it against that cell. Not a W27 child; goes to the next cut with the
 `clear` variant's other absent rows (the three preconditions, the omission and localization rules).
+
+## W27f's scratch provenance drops the first character of the first dirty path (2026-09-10)
+
+The measurement runner `packages/calibration/results/2026-09-10-w27f-g1-measure.py` strips the
+whole porcelain output before taking each line's path at offset 3. A first line whose status
+starts with a space therefore loses the first path character; the ordinary candidate manifest
+records `ackages/platform-web/src/optics.ts`. Commit and source-tree digests are unaffected.
+This is cosmetic, nonblocking provenance debt; the gate's frozen runner and historical evidence
+are not rewritten. Before reusing this runner, preserve porcelain's leading status columns and
+add a test with an unstaged first entry. Keep the recorded path beside the correction, not a
+replacement pretending the historical capture recorded something else. Claims §5.131 separately
+limits the old capture's narrow source fingerprint; this parser issue does not excuse that limit.
