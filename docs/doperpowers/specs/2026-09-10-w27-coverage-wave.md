@@ -400,10 +400,10 @@ neighbour glow diffusion; topology-changing morphs.
 
 | child | where | status |
 | --- | --- | --- |
-| W27a | worktree agent, dispatched 2026-09-10 | in-flight |
-| W27b | — | not-dispatched (blocked-by W27a) |
+| W27a | LANDED 2026-09-10 (merged `bc14af9`; seven commits plus three review fixes): `GlassButton`/`GlassIconButton` forward `tint` and `foreground` (the README's flagship tint example had not compiled); `GlassGroup` gains the `tint` the 0.2.0 changelog promised, parsed per document; the no-hint ink guards removed on both tiers with five assertions re-pinned stricter (tracker entry closed in place); the renderer's `lensStrength` clamp at 1 lifted to a finite guard of 4 with NaN resolving to the idle 1 (goldens 33/33 unmoved); four named ink levels published on both tiers, secondary solved per surface against the actual composite colour over the whole bracket (Decision Log 9). Review: two P1s on the ink floor (chromatic tint, unresolved level) fixed with fail-before tests measuring the real contrast; two P2s (adopted stylesheets, Infinity in the Float32Array) fixed. Two gaps logged, not closed: the dark scheme's primary ink at WCAG 4.945 with nothing watching it; `lensDepthPx` ignoring `lensStrength`. Main after merge: build, lint, all unit suites green (2004 tests), demo e2e 48 | landed |
+| W27b | worktree agent, dispatched 2026-09-10 after W27a's merge | in-flight |
 | W27c | G0 CLOSED 2026-09-10 (merged `7312fd0`; claims §5.128: all 121 pairs read; the outer shadow and the bright rim go to zero in every profile at both scales, structure retained falls, an author tint loses its hue entirely while its darkening stays — orange and blue capsules both settle at Y 0.451 against the untinted 0.606 — and no existing field expresses that; dark untinted glass and both accessibility bodies *brighten*; four cells background-identical; the 2x dark photo capsule's active side is the 1-of-17 minority state and is excluded from the fit) / G1 dispatched 2026-09-10 | G1 in-flight |
-| W27d | — | not-dispatched (blocked-by W27a) |
+| W27d | worktree agent, dispatched 2026-09-10 after W27a's merge (claims §5.132 reserved) | in-flight |
 | W27e | — | not-dispatched (deliberately late) |
 | W27f | G0 CLOSED 2026-09-10 (merged `730a9d3`; claims §5.129: the unhinted dark capsule misses the collapse by ΔE 0.545 against the sampled path's 0.006, a correct scalar hint repairs it but the dark medium pane still misses by 0.079 (−0.089 L against the same-hint sampled path), the checkerboard rows lose spread and the photo rows keep too much; a scalar hint itself costs the sampled path its structured-backdrop correction, so the evidence keeps sampled-today, same-hint-sampled and hinted-page columns apart; the two stack overlays are the only native cells on this path; the demo gains `/#page`, "Over ordinary page content") / G1 dispatched 2026-09-10 (claims §5.131 reserved) | G1 in-flight |
 
@@ -451,6 +451,19 @@ neighbour glow diffusion; topology-changing morphs.
    the semantics (Apple's rule plus the Backdrop Root constraint); the per-instance scalar mechanism
    is advisory. Rejected: lens-only (delivers `.materialize`, splits off `.identity`); element
    opacity (structurally broken: it kills sampling).
+9. **The secondary ink's floor is a promise about the primary's reach (2026-09-10; W27a on the
+   review's finding, accepted by the parent).** The review showed the first version's "secondary
+   holds WCAG 4.5 on every surface" false twice: the solve contrasted a neutral level where a
+   tinted material is chromatic (a full-strength magenta published light ink at 1.75), and the
+   unresolved-level branch emitted Apple's flat 0.6. Fixed by solving against the composite colour
+   the tier draws, over both ends of the material's own bracket, taking the harder answer. The
+   rule that results: *secondary is never worse than the primary, and holds 4.5 wherever the
+   primary can*; on the clear variant, whose bracket runs 0.27–1.0, neither ink holds 4.5 over any
+   useful part, so secondary collapses onto the primary rather than claiming a floor the primary
+   does not have. Tertiary and quaternary keep Apple's 0.3 and 0.18 and carry no floor. Rejected:
+   narrowing the guarantee to "where the level resolves" (the bracket needs no backdrop, so the
+   guarantee was available on every shipped path); a constant alpha (no constant holds 4.5 across
+   the material's range without ceasing to be a secondary).
 
 ## Surprises & Discoveries
 
