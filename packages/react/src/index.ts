@@ -57,11 +57,17 @@ export { GlassMorph, type GlassMorphPlacement, type GlassMorphProps, type GlassM
 export { GlassButton, GlassIconButton, type GlassButtonProps, type GlassIconButtonProps } from "./controls/button";
 export {
   GlassToolbar,
+  GlassToolbarSpacer,
   TOOLBAR_ITEM_ATTRIBUTE,
   useToolbarItem,
+  withoutToolbarItemProps,
+  type GlassToolbarItemProps,
   type GlassToolbarProps,
+  type GlassToolbarSpacerProps,
   type ToolbarItemProps,
   type ToolbarOrientation,
+  type ToolbarSharedBackground,
+  type ToolbarSpacerKind,
 } from "./controls/toolbar";
 export {
   GlassSegmentedControl,

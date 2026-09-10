@@ -23,7 +23,7 @@
 import type { ComponentPropsWithRef, ReactNode } from "react";
 
 import { GlassSurface, type GlassSurfaceOwnProps } from "../surface";
-import { useToolbarItem } from "./toolbar";
+import { useToolbarItem, withoutToolbarItemProps, type GlassToolbarItemProps } from "./toolbar";
 
 /**
  * `ComponentPropsWithRef` rather than `ButtonHTMLAttributes`, so `ref` is part of
@@ -67,7 +67,10 @@ type ForwardedSurfaceProps = Pick<
   | "onHost"
 >;
 
-export interface GlassButtonProps extends ButtonAttributes, ForwardedSurfaceProps {
+export interface GlassButtonProps
+  extends ButtonAttributes,
+    ForwardedSurfaceProps,
+    GlassToolbarItemProps {
   readonly children?: ReactNode | undefined;
 }
 
@@ -93,8 +96,17 @@ export function GlassButton(props: GlassButtonProps): ReactNode {
     children,
     disabled = false,
     type = "button",
-    ...buttonProps
+    ...rest
   } = props;
+
+  /*
+   * `sharedBackground` and `groupProps` are read by the surrounding
+   * `GlassToolbar` off this element and are never the button's own: they say
+   * which sampling group the button belongs to, which is the toolbar's to
+   * decide. Dropped here so a button carrying them outside a toolbar hands the
+   * DOM nothing it cannot use.
+   */
+  const buttonProps = withoutToolbarItemProps(rest);
 
   const toolbar = useToolbarItem();
 

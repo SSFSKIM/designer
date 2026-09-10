@@ -314,10 +314,9 @@ body {
   pointer-events: none;
 }
 
-/* Wide enough that the toolbar group's proxy and the morph group's do not meet. */
-.toolbar__menu {
-  margin-left: 3.5rem;
-}
+/* The gap between the toolbar's two sampling groups is no longer a margin here:
+   `GlassToolbarSpacer` opens the sampling padding the material requires, which
+   follows the blur when an accessibility preference thickens it. */
 
 .segmented-wrap {
   position: absolute;

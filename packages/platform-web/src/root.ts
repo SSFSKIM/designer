@@ -165,8 +165,7 @@ import {
   resolvedPolicyFold,
   resolvedTintShade,
   rimAmplitude,
-  WEBGPU_PROXY_PROJECTION_SCALE,
-  groupScatterSigma,
+  proxySamplingSigma,
   sizeThickness,
   sizeOcclusionAlphaAt,
   sizeThicknessUnderPolicy,
@@ -1833,12 +1832,16 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       // move by a byte. Whether the proxy should follow the device scale the
       // way the renderer's own body does is a GPU-tier question and belongs to
       // a wave that may move it.
-      const groupBlurRadius = groupScatterSigma(
+      //
+      // Composed by `proxySamplingSigma` rather than assembled here, so that a
+      // caller outside the frame loop — `GlassToolbar`, opening the gap between
+      // two partitions of one toolbar (W27b) — takes the same three pieces in
+      // the same order instead of carrying a second reading of them.
+      const groupBlurRadius = proxySamplingSigma(
         optics.blurRadius,
-        sizeConstants.refractionScale[accessibilityRefractionCap(accessibility.material)],
+        accessibility.material,
         measured.map((entry) => [entry.bounds.width, entry.bounds.height] as const),
         sizeConstants,
-        WEBGPU_PROXY_PROJECTION_SCALE,
       );
       const sampling = resolveSamplingGeometry({
         samplingPadding: groupRecord.descriptor.samplingPadding,
