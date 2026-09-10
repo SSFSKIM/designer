@@ -15643,6 +15643,36 @@ active side is not today's frequency-settled active reference either. No frozen 
 exists here; this census includes historical holdout pairs because G0 explicitly requires every
 matched pair. G1 still declares and reads its frozen configuration's holdout once.
 
+**One active endpoint in this census is a minority state, named here (addendum 2026-09-10).**
+`photo__capsule-button__rest` in `apple-macos-26.5-2x-dark-standard` took its historical active
+fixture from SHA-256
+`14147d6dd66aa3c9e539cabb29a83a83501774b36a522c02272c0b3aed7c6e23`. Under the frequency-settled
+record — `apps/reference-apple/fixtures/manifest.json`, the entry keyed by profile
+`apple-macos-26.5-2x-dark-standard` and `file`
+`apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest.png`, `fixtureSet` `calibration`,
+`frequencySettled` true, `observedStates` 2 — that SHA is the **1-of-17 minority state**
+(`runs` 1, `share` 0.0588); the majority state is
+`2fb5bef1bbc06882c31515965a293fd2adb1f845dd71449b98b3bff17851317d` (`runs` 16, `share` 0.9412).
+That entry was frozen by `5a0f723` (“the final bed, frozen under the adopted capture doctrine”),
+where it begins at line 2406; the file has since grown, so cite the entry by its profile/`file`
+key rather than by line number — at this section's date it reads at lines 6128–6161.
+The pair's recorded reading stands as measured — active Y 0.04231208196377767 → inactive
+0.1121267914951955, ΔY +0.06981470953141783 — and **is not recomputed**: it is what those two
+files contain, and the census is a census of the historical files. What it is **not** is the
+canonical active attractor for that cell, so its ΔY is not a clean focus-only effect and cannot
+carry the same meaning as the other 120 rows. Its 1x sibling is the control: the same manifest
+gives that cell's historical active SHA
+`473fc1bb33cce56f8aed5deeed3d19b072a8800d017c0e839759ce7067d0e7c9`
+as its **16-of-17 majority** state, and the pair reads ΔY +0.01068 — the same sign as the rest
+of the dark untinted population and about a sixth the magnitude of the 2x row's +0.06981.
+The distinction that governs every use below: **the 121-row table is the
+census of historical observations; the population eligible to identify a focus-only endpoint is
+the subset whose active side is the settled active state**, and this row is known to be outside
+it. Every aggregate that includes it is flagged where it appears, and G1 must exclude it from
+focus-response fitting unless it is re-paired to an active endpoint matched to the same state.
+G0 checked this one endpoint against the frequency-settled record; it did not re-attest the other
+120, so “outside it” is established for this row and open for the rest.
+
 The machine table and its Markdown rendering are
 `packages/calibration/results/2026-09-10-w27c-g0-recede.{json,md}`. Each cell carries SHA-256s
 for both fixtures and background; the header hashes the scene declaration and the unmodified
@@ -15689,6 +15719,13 @@ in the table's order. The full per-cell table is beside the JSON.
 | apple-macos-26.5-2x-dark-standard | 14 | 0.22697 | 0.13003 → 0.07622 | 0.30192 → 0.27203 | -0.09694 → -0.15075 | 0.16757 → 0.12206 | 0.05999 → 0.02685 | 21285.35714 → 92.85714 | 0.16804 → 0.07515 | 0.07121 → -0.00025 |
 | apple-macos-26.5-2x-light-standard | 37 | 0.33528 | 0.52011 → 0.51533 | 0.69888 → 0.70022 | 0.18483 → 0.18004 | 0.40797 → 0.30733 | 0.06867 → 0.02168 | 35719.91892 → 113.89189 | 0.56525 → 0.49620 | 0.13183 → -0.00875 |
 
+**Footnote to the `apple-macos-26.5-2x-dark-standard` row (added 2026-09-10).** Its n = 14
+includes the minority-active `photo__capsule-button__rest` pair named in §1. The row is the census
+mean and is left as recorded. Beside it, for eligibility only: dropping that one pair leaves n = 13
+with active interior Y 0.13678 → inactive 0.07345, lift −0.09128 → −0.15461, OKLab C
+0.05809 → 0.02392. The direction of every column survives; the magnitudes move, and since the
+excluded pair is not a focus-only observation the two readings are not interchangeable. Read
+this row as a description of the historical 2x dark files, not as a 2x dark focus response.
 
 **3. Per component, the four facets are conditional, not a single direction.** Below, ΔY is
 inactive minus active; structure and OKLab C are active → inactive. Each row averages only that
@@ -15726,13 +15763,28 @@ profile/component's available cells, including its tints. Exterior shadow remova
 | 2x-light-standard | rrect-sm | 2 | -0.01650 | 0.7124 → 0.3623 | 0.0197 → 0.0201 |
 | 2x-light-standard | toolbar-group | 2 | -0.01406 | 0.4022 → 0.3620 | 0.0326 → 0.0334 |
 
+**Footnote to `2x-dark-standard | capsule-button` (added 2026-09-10).** One of those nine cells is
+the minority-active `photo__capsule-button__rest` of §1. The −0.08902 is the census mean and stays.
+Beside it, for eligibility only: the eight remaining cells average ΔY −0.10887. The row is
+therefore not comparable cell-for-cell with its `1x-dark-standard | capsule-button` counterpart
+(−0.09490, none of it minority-active): the raw 1x-vs-2x difference in this component is
+**confounded** with the endpoint contamination, and the two candidate readings straddle the 1x
+figure in opposite directions. This census cannot separate a scale effect from the contamination
+here; it can only refuse to report the raw difference as one.
+
 - **Less backdrop lift:** qualified. Untinted light-standard cells average ΔY −0.02157 at 1x
   and −0.02163 at 2x; rrects and stacks darken on average. But the 1x untinted photo capsule
   and toolbar brighten (+0.00390, +0.00279), and the hc-text capsule brightens at both scales
   (+0.04739/+0.06503). Tinted light capsules can brighten substantially when the hue disappears;
   including them nearly cancels the light profile's mean shift. In dark-standard, **nine of
   eleven untinted cells brighten** at each scale (the dark-solid capsule and impulse capsule
-  do not); the untinted mean shift is +0.00796/+0.01286. The dark profile's negative headline
+  do not); the untinted mean shift is +0.00796 at 1x and +0.01286 at 2x. **Both readings stand;
+  the 2x one is not eligible as a focus response** — its eleven untinted cells include the
+  minority-active pair of §1, and the ten remaining ones average +0.00717, which is the 1x figure
+  to within a thousandth. The raw 1x-vs-2x spread is therefore **confounded** with that pair and
+  cannot be read as a scale effect in the dark material; do not carry +0.008…+0.013 as a measured
+  range across scale.
+  The dark profile's negative headline
   is dominated by its three tinted capsules, not a universal dark-material recede. In both
   accessibility profiles **every matched cell brightens**; the untinted means rise +0.01720
   (increased contrast) and +0.05811 (reduced transparency). There is no global negative lift
@@ -15744,15 +15796,19 @@ profile/component's available cells, including its tints. Exterior shadow remova
   **not proof that its inactive interior is less frosted**: its eroded checkerboard and hc-text
   bodies are constant on both sides; dark edge mixing against a brighter near-white body creates
   footprint variance. Increased contrast's black border similarly produces structure ratios
-  above 1 and negative contour excess; it must not be fitted as blur. Eroded checkerboard
-  light-standard capsule SD falls 0.13633 → 0.10027, rrect-md 0.11039 → 0.06387, while photo
-  rrect-md barely changes (0.05317 → 0.05258). A single variance multiplier cannot describe all
-  three, and the rim's removal contributes to the un-eroded statistic.
+  above 1 and negative contour excess; it must not be fitted as blur. Eroded **1x** light-standard
+  checkerboard capsule SD falls 0.13633 → 0.10027, checkerboard rrect-md 0.11039 → 0.06387, while
+  photo rrect-md barely changes (0.05317 → 0.05258). A single variance multiplier cannot describe
+  all three, and the rim's removal contributes to the un-eroded statistic. **The 2x cells are a
+  separate population and were not measured by the numbers just given** (added 2026-09-10): at 2x
+  the same three read 0.15044 → 0.11476, 0.12513 → 0.03089 and 0.05515 → 0.05128. The capsule and
+  the photo rrect behave similarly across scale; the checkerboard rrect-md does not, collapsing far
+  further at 2x. Neither scale's triple may stand in for the other.
 - **Tint dropped:** the author hue does disappear across the available tint cells, not all
   chroma. Checkerboard orange capsule (1x light) is OKLab C **0.16424 → 0.000662**, while the
   photo counterpart is 0.16323 → 0.03539: the latter retains the backdrop's colour. Untinted
   photo panes can gain chroma when the white or dark body recedes (1x light rrect-md
-  0.06986 → 0.07852; dark rrect-lg 0.08276 → 0.10268). Crucially, **inactive tinted is not
+  0.06986 → 0.07852; 1x dark rrect-lg 0.08276 → 0.10268). Crucially, **inactive tinted is not
   inactive untinted**. Orange and blue give the same inactive level on the checkerboard
   (Y 0.45128), far below untinted 0.60608. On photo, full-strength orange and blue give
   0.43279, orange-half gives 0.50503, untinted gives a different level again. On dark-solid,
@@ -15801,16 +15857,47 @@ not proposed adopted constants; the table cannot identify a blur kernel or a com
 coefficient from one mean and variance. Use calibration pairs for the fit, today's active
 bed for non-regression, and reserve the declared frozen endpoint's holdout read.
 
+**Two conditions bind every number in this table (added 2026-09-10).**
+
+- **Scale is part of the number.** Each estimate below identifies the scale or scales it was
+  measured at, and where 1x and 2x differ the two are given separately rather than averaged or
+  presented as a range. A figure labelled with one scale must not be applied at the other; where
+  a result was measured at both and holds at both, it says so. The two accessibility profiles were
+  captured **at 1x only** (§1: 10 increased-contrast and 9 reduced-transparency cells, all 1x),
+  so every accessibility estimate below is a 1x measurement with **no 2x counterpart in this
+  census at all** — its 2x behaviour is unmeasured here, not assumed equal.
+- **Population is part of the number.** At minimum, exclude the known minority-active
+  `photo__capsule-button__rest` pair of §1 from any focus-only fit; every aggregate below that
+  touches 2x dark standard inherits that exclusion. This is a floor, not a certificate: G0 checked
+  that one row's endpoint against the frequency-settled record and did not re-attest the other 120,
+  so **G1 verifies the eligible active endpoints of whatever cells it fits** rather than assuming
+  the remainder are settled. More generally, an estimate is only as general as the cells it
+  averages: the per-component and per-profile populations here are unequal by design (§1), so a
+  mean over one is not a statement about the material at large.
+
 | facet | existing profile seam | initial estimate / identification limit |
 | --- | --- | --- |
-| Body level / backdrop lift | `backdropToneResponseThin`, `backdropToneResponseThick`, `backdropToneResponseStrength`; where unsaturated, `optics.regular.tintAlpha` / `tint` and the adaptation curve | Light untinted body target about −0.02 Y on average, thick photo about −0.032 Y after erosion, but thin photo +0.014 and hc-text +0.058. Dark untinted +0.008…+0.013 Y on average, not negative. At the available uniform anchors, light rrect-md −0.029 on dark-solid and −0.039 on light-solid; thin dark-solid stays exactly backdrop, mid-dark changes only about −0.001. Move response ordinates by these orders, not one global alpha. There are too few uniform anchors to identify all curve knots or size interpolation. |
-| Structure | `optics.regular.blurSigma`, `sizeScatterGainMax` / `2x`, `sizeScatterFloor` / `2x`, heavy-share / `sizeHeavyTapSigma` fields; `collapseTransmission` / `2x` only where collapse is active | Start from **output SD** ≈0.74× active for light checkerboard capsule, ≈0.58× for checkerboard rrect-md, but ≈0.99× for photo rrect-md on the eroded body. Standard whole-profile footprint ratios are 0.68…0.84×. No σ-in-pixels estimate is identified by this table; do not multiply blur width by these ratios or tune collapse transmission from a non-collapsed scene. Re-read spatial profiles in G1 before assigning a width/share change. |
-| Author tint | `tintShadeStrength`, `tintShadeDark` / `tintShadeLight`, `rimTintChroma` are related but **insufficient** | Hue/chroma contribution on neutral checkerboard needs roughly **99.6% removal** (C 0.16424 → 0.000662), while strength still changes neutral level. `tintedMaterialColour` always mixes the authored seed with its supplied strength; `tintShadeStrength = 0` disables shade, not authored hue. No current patch field independently suppresses seed chroma while retaining the measured strength-dependent neutral body. G1 must settle that expressiveness gap before claiming “one difference document”; simply ignoring tint is falsified by the inactive pairs. |
-| Outer shadow | `outerShadow.thinOcclusionDark/Mid/Bright`, `thickOcclusionAt96/128/160`, `liftAmplitude`, `reducedTransparencyOcclusion` | Set both black and lift amplitudes to **0 (−100%)** at the inactive endpoint as the first candidate, including accessibility overrides. Keep shape parameters unchanged/inert: no inactive shadow identifies their σ, offset or spread. The residual within 2 CSS px is not evidence for nonzero amplitude. |
-| Bright contour, additionally measured | `optics.regular.rimAlpha`, `rimCollapsed`, `rimCollapsedTinted`, rim amplitude law; `strongBorderRim` under increased contrast | Standard and reduced-transparency bright amplitudes start at **0 (approximately −100%)**; do not change width to suppress amplitude. Preserve a separate increased-contrast dark-border treatment; its local integral remains about −0.84, not zero. Structured negative residual is not an amplitude target. |
-| Accessibility body, additionally measured | `reducedTransparencyFrost`, `increasedOcclusionLift`, policy-folded `optics` and response fields | Reduced-transparency eroded untinted body shifts about 0.89 → 0.956 Y (+0.062…0.068), while increased-contrast is near 0.99. The signs contradict “less lift”; fit these policy endpoints separately rather than applying the standard curve delta. |
+| Body level / backdrop lift | `backdropToneResponseThin`, `backdropToneResponseThick`, `backdropToneResponseStrength`; where unsaturated, `optics.regular.tintAlpha` / `tint` and the adaptation curve | Light untinted body target about −0.02 Y on average at **each** scale (§3: 1x −0.02157, 2x −0.02163, footprint mask — the rounded −0.02 happens to hold at both). At **1x**, eroded thick photo rrect-md −0.032 Y, thin photo capsule **+0.014**, hc-text capsule +0.058. **At 2x the same three eroded reads are −0.033, −0.00005 and +0.075** — the thin photo cell's sign does not survive the scale change, so **+0.014 is a 1x-only figure and must not be carried to 2x**. Dark untinted **+0.008 at 1x**; the 2x census reads +0.013 but its eligible subset reads +0.007 (§3), so treat dark untinted as ≈+0.008 at both scales and **not** as a range. Uniform anchors, **1x**, footprint mask: light rrect-md −0.029 on dark-solid and −0.039 on light-solid; thin dark-solid stays exactly backdrop; mid-dark capsule changes only about −0.001 (−0.00171). The **2x** anchors are separate readings, not a tolerance on those: −0.02856 dark-solid, −0.03779 light-solid, −0.00084 mid-dark capsule. Mask matters as much as scale here — under the eroded mask that same mid-dark cell reads **+0.011** at both scales, the opposite sign, so quote every anchor with its mask. Move response ordinates by these orders, not one global alpha. There are too few uniform anchors to identify all curve knots or size interpolation. |
+| Structure | `optics.regular.blurSigma`, `sizeScatterGainMax` / `2x`, `sizeScatterFloor` / `2x`, heavy-share / `sizeHeavyTapSigma` fields; `collapseTransmission` / `2x` only where collapse is active | Start from **output SD** on the eroded body, **one triple per scale, never a scale-free target** — **1x light standard:** checkerboard capsule 0.7355300136×, checkerboard rrect-md 0.5785956373×, photo rrect-md 0.9887780285× of active. **2x light standard:** 0.7628447395×, **0.2468623832×**, 0.9298464949×. The checkerboard rrect-md differs by more than a factor of two between the scales, so the old ≈0.74/≈0.58/≈0.99 shorthand is the 1x triple only and is wrong at 2x. Whole-profile **footprint** ratios (a different mask and a different population, not these) are 0.840× 1x light, 0.753× 2x light, 0.680× 1x dark, 0.728× 2x dark (0.729× over the nine eligible cells — the §1 pair does not move this one) — the “0.68…0.84×” span is across profiles and scales, not a tolerance on any one of them. No σ-in-pixels estimate is identified by this table; do not multiply blur width by these ratios or tune collapse transmission from a non-collapsed scene. Re-read spatial profiles in G1 before assigning a width/share change. |
+| Author tint | `tintShadeStrength`, `tintShadeDark` / `tintShadeLight`, `rimTintChroma` are related but **insufficient** | Hue/chroma contribution on the neutral checkerboard orange capsule needs roughly **99.60% removal at 1x light standard** (C 0.16423511 → 0.00066154) and **99.75% at 2x light standard** (0.16433271 → 0.00041616). The two scales agree that the target is “effectively all of it”, but quote the scale with the figure; the residuals differ by a third. Strength still changes neutral level. `tintedMaterialColour` always mixes the authored seed with its supplied strength; `tintShadeStrength = 0` disables shade, not authored hue. No current patch field independently suppresses seed chroma while retaining the measured strength-dependent neutral body. G1 must settle that expressiveness gap before claiming “one difference document”; simply ignoring tint is falsified by the inactive pairs. |
+| Outer shadow | `outerShadow.thinOcclusionDark/Mid/Bright`, `thickOcclusionAt96/128/160`, `liftAmplitude`, `reducedTransparencyOcclusion` | Set both black and lift amplitudes to **0 (−100%)** at the inactive endpoint as the first candidate, including accessibility overrides. This one holds at both scales and in every profile — §4's zero-beyond-2-CSS-px result is over all 121 cells — and is the only estimate in this table that is genuinely scale-free. `reducedTransparencyOcclusion` and the accessibility overrides are nonetheless supported by **1x evidence only**; there are no 2x accessibility cells. Keep shape parameters unchanged/inert: no inactive shadow identifies their σ, offset or spread. The residual within 2 CSS px is not evidence for nonzero amplitude. |
+| Bright contour, additionally measured | `optics.regular.rimAlpha`, `rimCollapsed`, `rimCollapsedTinted`, rim amplitude law; `strongBorderRim` under increased contrast | Standard and reduced-transparency bright amplitudes start at **0 (approximately −100%)** — from §4, light standard +0.14929 → −0.01627 at **1x** and +0.13183 → −0.00875 at **2x**, dark standard +0.07442 → −0.00113 at 1x and +0.07121 → −0.00025 at 2x, reduced transparency +0.11860 → −0.00004 at **1x only**. Do not change width to suppress amplitude. Preserve a separate increased-contrast dark-border treatment; its local integral remains about −0.84 (−0.83238 → −0.84636), a **1x-only** measurement with no 2x counterpart. Structured negative residual is not an amplitude target. |
+| Accessibility body, additionally measured | `reducedTransparencyFrost`, `increasedOcclusionLift`, policy-folded `optics` and response fields | **Every figure in this row is 1x, and 1x is the whole of the evidence:** the census holds 9 reduced-transparency and 10 increased-contrast cells, all at 1x (§1), and the 2x behaviour of both policies is unmeasured here. Reduced-transparency eroded untinted body shifts about 0.89 → 0.956 Y (+0.062…0.068 across those 1x cells, a spread within one scale, not across scales), while increased-contrast is near 0.99. The signs contradict “less lift”; fit these policy endpoints separately rather than applying the standard curve delta, and do not claim measured 2x accessibility fidelity on the strength of these 1x-only observations. The 2x accessibility gap is recorded here as an evidence gap, not as a capture prerequisite on G1. |
 
 No coefficients, schemas, scene keys or runtime sources change at G0. X7's root pose and two
 frozen endpoints stand; X3's additive inactive scene state remains the landing contract.
 The unresolved work is the tone/structure fit, the achromatic author-tint response, and the
 increased-contrast outline; it is explicitly handed to G1 rather than silently accepted.
+
+**Two conditions G1 carries forward (addendum 2026-09-10, no measurement changed).** First,
+`photo__capsule-button__rest` in `apple-macos-26.5-2x-dark-standard` is **excluded from
+focus-response fitting**: its historical active side is the 1-of-17 minority state (§1), so its
+ΔY is not a focus-only effect. It may re-enter only re-paired to an active endpoint matched to
+the same state, and its exclusion is a fitting condition, not a deletion — the census row and
+every aggregate containing it stay on the record exactly as measured. That exclusion is a floor:
+the remaining rows were not re-attested at G0, so G1 verifies the active endpoints of the cells
+it actually fits. Second, **no estimate in §5 may be quoted without the scale it was measured
+at**, and the two accessibility policies are 1x-only in this census — an evidence gap this
+section records, not a capture G1 is required to perform. Nothing in this section was recomputed
+to fix either problem; the corrections sit beside the readings they qualify, per the ledger's
+rule that a recorded number is never rewritten.
