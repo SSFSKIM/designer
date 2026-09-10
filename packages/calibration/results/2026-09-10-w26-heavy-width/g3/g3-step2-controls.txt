@@ -1,0 +1,61 @@
+=== step 2 control A — the light GPU bed against G2b's declared digests (the LIGHT scheme takes the width)
+root                 /Users/new/.claude/jobs/5c70e47f/tmp/w26/g3/sample/web-captures
+digests              results/2026-09-10-w26-heavy-width/g2/g2b-digests.txt
+only                 1x-light-standard 2x-light-standard
+exclude              __css __alpha
+compared             52
+IDENTICAL            52
+MOVED                0
+in the tree, not recorded   0
+recorded, not in the tree   20
+    - apple-macos-26.5-1x-light-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__webgpu.png
+    - apple-macos-26.5-1x-light-standard/checkerboard__rrect-lg__rest/checkerboard__rrect-lg__rest__webgpu.png
+    - apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest-tint-blue/dark-solid__capsule-button__rest-tint-blue__webgpu.png
+    - apple-macos-26.5-1x-light-standard/hc-text__capsule-button__rest-tint-orange/hc-text__capsule-button__rest-tint-orange__webgpu.png
+    - apple-macos-26.5-1x-light-standard/hc-text__capsule-button__rest/hc-text__capsule-button__rest__webgpu.png
+    - apple-macos-26.5-1x-light-standard/hc-text__rrect-md__rest/hc-text__rrect-md__rest__webgpu.png
+    - apple-macos-26.5-1x-light-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__webgpu.png
+    - apple-macos-26.5-1x-light-standard/photo__glass-over-glass__rest/photo__glass-over-glass__rest__webgpu.png
+    - apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest-tint-orange/photo__rrect-lg__rest-tint-orange__webgpu.png
+    - apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__webgpu.png
+    - apple-macos-26.5-2x-light-standard/checkerboard__glass-over-glass__rest/checkerboard__glass-over-glass__rest__webgpu.png
+    - apple-macos-26.5-2x-light-standard/checkerboard__rrect-lg__rest/checkerboard__rrect-lg__rest__webgpu.png
+    - apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest-tint-blue/dark-solid__capsule-button__rest-tint-blue__webgpu.png
+    - apple-macos-26.5-2x-light-standard/hc-text__capsule-button__rest-tint-orange/hc-text__capsule-button__rest-tint-orange__webgpu.png
+    - apple-macos-26.5-2x-light-standard/hc-text__capsule-button__rest/hc-text__capsule-button__rest__webgpu.png
+    - apple-macos-26.5-2x-light-standard/hc-text__rrect-md__rest/hc-text__rrect-md__rest__webgpu.png
+    - apple-macos-26.5-2x-light-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__webgpu.png
+    - apple-macos-26.5-2x-light-standard/photo__glass-over-glass__rest/photo__glass-over-glass__rest__webgpu.png
+    - apple-macos-26.5-2x-light-standard/photo__rrect-lg__rest-tint-orange/photo__rrect-lg__rest-tint-orange__webgpu.png
+    - apple-macos-26.5-2x-light-standard/photo__rrect-lg__rest/photo__rrect-lg__rest__webgpu.png
+
+=== step 2 control B — the CSS bed against the canonical 0.14.0 bytes (the CSS tier does not take the width)
+root                 /Users/new/.claude/jobs/5c70e47f/tmp/w26/g3/sample/web-captures
+digests              /Users/new/.claude/jobs/5c70e47f/tmp/w26/g3/canonical-digests.txt
+only                 __css
+exclude              __alpha
+compared             36
+IDENTICAL            36
+MOVED                0
+in the tree, not recorded   0
+recorded, not in the tree   286
+    - apple-macos-26.5-1x-dark-standard/checkerboard-32__capsule-button__rest-tint-orange/checkerboard-32__capsule-button__rest-tint-orange__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-32__capsule-button__rest/checkerboard-32__capsule-button__rest__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-lg__rest/checkerboard-32__rrect-lg__rest__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-md__rest/checkerboard-32__rrect-md__rest__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-ml__rest/checkerboard-32__rrect-ml__rest__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-sm__rest/checkerboard-32__rrect-sm__rest__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-4__capsule-button__rest-tint-orange/checkerboard-4__capsule-button__rest-tint-orange__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-4__capsule-button__rest/checkerboard-4__capsule-button__rest__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-lg__rest/checkerboard-4__rrect-lg__rest__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-md__rest/checkerboard-4__rrect-md__rest__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-ml__rest/checkerboard-4__rrect-ml__rest__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-sm__rest/checkerboard-4__rrect-sm__rest__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-64__capsule-button__rest-tint-orange/checkerboard-64__capsule-button__rest-tint-orange__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-64__capsule-button__rest/checkerboard-64__capsule-button__rest__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-lg__rest/checkerboard-64__rrect-lg__rest__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-md__rest/checkerboard-64__rrect-md__rest__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-ml__rest/checkerboard-64__rrect-ml__rest__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-sm__rest/checkerboard-64__rrect-sm__rest__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-8__capsule-button__rest-tint-orange/checkerboard-8__capsule-button__rest-tint-orange__css.png
+    - apple-macos-26.5-1x-dark-standard/checkerboard-8__capsule-button__rest/checkerboard-8__capsule-button__rest__css.png

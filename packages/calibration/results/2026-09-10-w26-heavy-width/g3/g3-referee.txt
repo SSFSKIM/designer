@@ -1,0 +1,138 @@
+W26 G3 — the referee over the canonical rebuild
+====================================================================================================
+before (the 0.14.0 bed)  /Users/new/.claude/jobs/5c70e47f/tmp/w26/g3/before/web-captures  1288 captures
+after  (the landed bed)  web-captures  1288 captures
+G2b's declared digests   results/2026-09-10-w26-heavy-width/g2/g2b-digests.txt  229 captures
+
+====================================================================================================
+1. THE LIGHT SCHEME TAKES THE WIDTH — its GPU rows are G2b's, not the canonical bed's
+
+--- light GPU  vs G2b's declared digests
+    expectation      identical
+    compared         89
+    identical        89
+    different        0
+    not in reference 104
+    verdict          PASS
+
+--- light GPU  vs the canonical 0.14.0 bed
+    expectation      different
+    compared         193
+    identical        62
+    different        131
+    not in reference 0
+    verdict          LOOK
+      UNMOVED apple-macos-26.5-1x-light-standard/checkerboard-4__capsule-button__rest-tint-orange/checkerboard-4__capsule-button__rest-tint-orange__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/checkerboard-4__capsule-button__rest/checkerboard-4__capsule-button__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-lg__rest/checkerboard-4__rrect-lg__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-md__rest/checkerboard-4__rrect-md__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-ml__rest/checkerboard-4__rrect-ml__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-sm__rest/checkerboard-4__rrect-sm__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/checkerboard-8__capsule-button__rest-tint-orange/checkerboard-8__capsule-button__rest-tint-orange__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/checkerboard-8__capsule-button__rest/checkerboard-8__capsule-button__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-lg__rest/checkerboard-8__rrect-lg__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-md__rest/checkerboard-8__rrect-md__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-ml__rest/checkerboard-8__rrect-ml__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-sm__rest/checkerboard-8__rrect-sm__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest-tint-blue/dark-solid__capsule-button__rest-tint-blue__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/dark-solid__rrect-48__rest/dark-solid__rrect-48__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/dark-solid__rrect-64__rest/dark-solid__rrect-64__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/dark-solid__rrect-80__rest/dark-solid__rrect-80__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/dark-solid__rrect-lg__rest/dark-solid__rrect-lg__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/dark-solid__rrect-md-clear20__rest/dark-solid__rrect-md-clear20__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/dark-solid__rrect-ml__rest/dark-solid__rrect-ml__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/impulse__capsule-button__rest-tint-orange/impulse__capsule-button__rest-tint-orange__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/light-solid__capsule-button__rest-tint-orange/light-solid__capsule-button__rest-tint-orange__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/light-solid__capsule-button__rest/light-solid__capsule-button__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/light-solid__rrect-lg__rest/light-solid__rrect-lg__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/light-solid__rrect-md__rest/light-solid__rrect-md__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/light-solid__rrect-ml__rest/light-solid__rrect-ml__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/light-solid__rrect-sm__rest/light-solid__rrect-sm__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-lg__rest/mid-dark-solid__rrect-lg__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-md__rest/mid-dark-solid__rrect-md__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-sm__rest/mid-dark-solid__rrect-sm__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/checkerboard-4__capsule-button__rest-tint-orange/checkerboard-4__capsule-button__rest-tint-orange__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/checkerboard-4__capsule-button__rest/checkerboard-4__capsule-button__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/checkerboard-4__rrect-lg__rest/checkerboard-4__rrect-lg__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/checkerboard-4__rrect-md__rest/checkerboard-4__rrect-md__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/checkerboard-4__rrect-ml__rest/checkerboard-4__rrect-ml__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/checkerboard-4__rrect-sm__rest/checkerboard-4__rrect-sm__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest-tint-blue/dark-solid__capsule-button__rest-tint-blue__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/dark-solid__rrect-48__rest/dark-solid__rrect-48__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/dark-solid__rrect-64__rest/dark-solid__rrect-64__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/dark-solid__rrect-80__rest/dark-solid__rrect-80__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/dark-solid__rrect-lg__rest/dark-solid__rrect-lg__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/dark-solid__rrect-md-clear20__rest/dark-solid__rrect-md-clear20__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/dark-solid__rrect-ml__rest/dark-solid__rrect-ml__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/impulse__capsule-button__rest-tint-orange/impulse__capsule-button__rest-tint-orange__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/light-solid__capsule-button__rest-tint-orange/light-solid__capsule-button__rest-tint-orange__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/light-solid__capsule-button__rest/light-solid__capsule-button__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/light-solid__rrect-lg__rest/light-solid__rrect-lg__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/light-solid__rrect-md__rest/light-solid__rrect-md__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/light-solid__rrect-ml__rest/light-solid__rrect-ml__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/light-solid__rrect-sm__rest/light-solid__rrect-sm__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-lg__rest/mid-dark-solid__rrect-lg__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-md__rest/mid-dark-solid__rrect-md__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-sm__rest/mid-dark-solid__rrect-sm__rest__webgpu.png
+
+====================================================================================================
+2. THE DARK SCHEME DECLINES IT — its GPU rows are the canonical bed's, not G2b's
+
+--- dark GPU   vs the canonical 0.14.0 bed
+    expectation      identical
+    compared         258
+    identical        258
+    different        0
+    not in reference 0
+    verdict          PASS
+
+--- dark GPU   vs G2b's declared digests
+    expectation      different
+    compared         26
+    identical        8
+    different        18
+    not in reference 103
+    verdict          LOOK
+      UNMOVED apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__webgpu.png
+      UNMOVED apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-dark-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__webgpu.png
+      UNMOVED apple-macos-26.5-1x-dark-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest-tint-orange/dark-solid__capsule-button__rest-tint-orange__webgpu.png
+      UNMOVED apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest/dark-solid__capsule-button__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-dark-standard/dark-solid__rrect-md__rest/dark-solid__rrect-md__rest__webgpu.png
+      UNMOVED apple-macos-26.5-2x-dark-standard/mid-dark-solid__capsule-button__rest/mid-dark-solid__capsule-button__rest__webgpu.png
+
+====================================================================================================
+3. THE CSS TIER IS UNMOVED ON BOTH SCHEMES
+
+--- every CSS capture vs the canonical 0.14.0 bed
+    expectation      identical
+    compared         644
+    identical        644
+    different        0
+    not in reference 0
+    verdict          PASS
+
+====================================================================================================
+4. THE BED'S SHAPE
+    cells before 637   cells after 637
+    (profile, tier, set) partitions that differ: 0
+    cells only in the 0.14.0 bed 0, only in the landed bed 0
+
+====================================================================================================
+5. G3a's CORRECTED silhouetteIoU, on the cells whose captures did not move
+   (every dark GPU cell and every CSS cell; the light GPU cells drew a different width)
+    cells checked   423
+    agree with g3a/recompute-rows.json  423
+    DISAGREE                            0
+    landed cells still reading the PRE-correction value  0
