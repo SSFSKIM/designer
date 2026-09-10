@@ -280,6 +280,21 @@ describe("the gap a spacer opens", () => {
     );
   });
 
+  it("opens along the toolbar's own axis, so a vertical bar is separated vertically", () => {
+    const harness = renderGlass(
+      <GlassToolbar aria-label="Actions" orientation="vertical">
+        <GlassButton nodeId="a">One</GlassButton>
+        <GlassToolbarSpacer />
+        <GlassButton nodeId="b">Two</GlassButton>
+      </GlassToolbar>,
+    );
+    harness.run(1);
+
+    const spacer = spacers()[0];
+    expect(spacer?.style.minWidth).toBe("");
+    expect(Number.parseFloat(spacer?.style.minHeight ?? "NaN")).toBeCloseTo(wanted(harness), 6);
+  });
+
   it("takes the flexible kind's free space without giving up its minimum", () => {
     const harness = renderGlass(
       <GlassToolbar aria-label="Actions">
