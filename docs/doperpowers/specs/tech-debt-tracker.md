@@ -1785,3 +1785,20 @@ brighter in what the eye receives, claims §5.125 §5). Opposite signs on two ba
 scheme point at the dark tone response's shape rather than a level offset — the term W26 could not
 model in the dark scheme (the "milk" of Decision Log 10). Belongs to the dark wave; the user rates
 it a minor gap and the next priority is coverage.
+
+## The `clear` variant's dimming layer is painted by no renderer (the coverage re-score, 2026-09-10)
+
+`Glass.clear` requires a dimming policy — the runtime refuses the variant without one
+(`DEFAULT_CLEAR_DIMMING`, `packages/core/src/material.ts`) — and `ResolvedMaterial.dimming` is
+produced for every clear group. Nothing consumes it: `grep -rn dimming packages/renderer-webgpu/src`
+returns zero hits, and `packages/platform-web/src/optics.ts` (around line 257) says so in the code
+("Uncalibrated in either tier: the canonical scene matrix has no clear-variant scene"). The variant
+resolves, warns and tints; its defining layer is not drawn. Found by the 2026-09-10 re-score
+(`2026-09-10-coverage-rescore.md`, §1.1 and §3 "rows wrong at the time"), which moves the matrix's
+`replicated, unmeasured` reading to what it should have been in August: `partial`.
+
+Shape of the work: a `dark-solid__rrect-md-clear20__rest` probe scene now exists in `scenes.json`
+(W25), so one native clear cell is capturable; paint the dimming layer on both tiers as the policy
+declares (a group-level darkening beneath the material, 35 % black by Apple's one published number
+as the seed), and measure it against that cell. Not a W27 child; goes to the next cut with the
+`clear` variant's other absent rows (the three preconditions, the omission and localization rules).

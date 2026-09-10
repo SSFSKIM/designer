@@ -1,0 +1,498 @@
+# W27 — the coverage wave: the material's missing states, transitions and foreground, on the WebGPU tier against Apple (2026-09-10)
+
+> **Parent:** the post-v1 wave (`docs/doperpowers/specs/2026-08-28-post-v1-wave.md`), by its
+> Decision Log 23 (c) — "then the coverage charters" — and its Outcomes' "Handed to the next cut";
+> through it, the root spec `2026-08-24-vitrea-liquid-glass-design.md` (§What remains, item 4,
+> "the post-v1 round … opens per #33(a) with the three coverage absences"). **Consumes:** the
+> coverage matrix (`2026-08-25-coverage-matrix.md`) as re-scored in its §7 and the companion
+> `2026-09-10-coverage-rescore.md`; the grounding of the four candidate children read against
+> `main` at `cc89dd2` (0.15.0), summarised in §Design. Children dispatch per their track hint and
+> open by citing this document (path + child id).
+
+**Status: CHARTERED 2026-09-10.** W27a dispatched the same day (autonomous, worktree). The rest
+dispatch in the order of §Ordering.
+
+## Purpose
+
+Eighteen consecutive waves (W9–W26, 2026-09-01 → 2026-09-10) fitted the optics of one material
+variant on a static bed, and by W26 the instrument had reached the fixtures' own resolution: about
+one display code of Apple's thick interior is not a convolution of the backdrop at all (claims
+§5.121), and the reference every constant was fitted to is macOS 26.5, a version Apple has
+announced it is superseding with a changed material. Over the same ten days the coverage of the
+native *system* moved by six rows out of 174.
+
+This wave turns to the system. Re-scored on 2026-09-10 (matrix §7), 40 native items remain
+absent and never ruled on, and the grounding found that four of the highest-value ones are cheaper
+and better instrumented than the record suggested: the inactive-window material has a complete
+matched reference bed already in git history; Apple's vibrancy operator is a colour matrix already
+sitting unread in 58 committed layer dumps; the toolbar's split is a partition the runtime already
+performs by hand in the demo; and the materialization channel is declared, driven and pinned at 1
+by a test, reaching nothing. The wave lands those, closes the defects the grounding tripped over on
+the way, and gives the WebGPU tier a real material over ordinary page content, which is what an
+adopter meets first and what the demo never shows.
+
+The user's framing, recorded verbatim as the wave's boundary: *"WebGPU is what we compare with
+Apple"* — not that the CSS tier is dropped. And the component question, answered: vitrea stays *a
+material plus reference controls*; it does not grow a widget layer in this wave.
+
+## Parent-Level Acceptance
+
+The wave is closed by recomposition when all of the following hold on `main`, verified against the
+shipped packages and the live demo, not the sum of child gates:
+
+1. **The matrix moves by build, not by ruling.** A re-score of `2026-08-25-coverage-matrix.md`
+   after the last child lands shows, at minimum: toolbar group management (§1.6) and `Glass.tint`
+   on buttons `replicated`; `Glass.identity`, the `materialize` transition kind and the
+   materialize/dematerialize row (§1.1, §1.3, §3.5) `replicated, unmeasured` with the motion axis
+   named as the reason; window focus state (§3.6) `replicated+measured` against the recovered
+   inactive bed; vibrancy and its named levels (§3.9) `replicated+measured` on vitrea's own
+   controls against Apple's operator; and the WebGPU tier over a DOM-sourced group drawing the
+   profile's material rather than an unsampled flat (a row the matrix never enumerated, added
+   under §3.7 by the recomposition). The re-score is appended to the matrix's §7 beside the
+   2026-09-10 one.
+2. **Every feature is reachable and shown.** Each landed feature has a public prop or option on
+   the React binding *and* on the framework-agnostic host entry, a README paragraph in the package
+   that carries it, and a live instance in the demo or the playground that a reader can operate.
+3. **The bed is no worse and the resting material is unchanged where the child promised it.**
+   The enforced floors in `adopted-thresholds.test.ts` are unchanged or come off by fix; the
+   holdout is read once per configuration that changes what draws; W27a, W27b and W27d leave every
+   golden and every calibration digest byte-identical at rest, proven by the isolation spec and a
+   from-empty rebuild at their landings.
+4. **The CSS tier still derives.** `tier-coherence.test.ts` and the dom floors pass unchanged at
+   every landing; a feature the CSS tier cannot carry is recorded in the claims ledger as a named
+   residual, never silently absent.
+5. **Released** as one `@vitreajs/vitrea-web` minor cut (0.16.0 or the next free minor) after the
+   user's eye on the landing sheets, with the wave's changesets in the fixed group.
+
+## Grounding Baseline
+
+From the 2026-09-10 re-score (matrix §7), over 155 scoreable rows: replicated and measured 41
+(26%), replicated unmeasured 25, partial 26, excluded by decision 23, absent and undecided 40
+(26%). The rows this wave targets, with their status at the cut:
+
+| row | matrix | status 2026-09-10 | owner |
+| --- | --- | --- | --- |
+| `Glass.tint` reachable on `GlassButton`; group tint per the 0.2.0 changelog | §1.1, §1.6 | published API that the React binding does not expose (defects) | W27a |
+| The no-hint ink path decided by scheme (tracker, "The untinted material's ink…") | §3.3 | open defect, the 1.24-contrast class | W27a |
+| Lens channel clamped at 1 in the renderer; no interaction reaches the shader | §3.6 | untracked defect found by the grounding | W27a |
+| Vibrancy's named levels and floor | §3.9 | `absent, undecided` | W27a (tokens), W27e (semantics) |
+| `ToolbarSpacer` / `sharedBackgroundVisibility` | §1.6, §2 | `absent, undecided` (a `groupId` lever exists) | W27b |
+| Window / scene focus state | §3.6 | `excluded by decision`, bed preserved | W27c |
+| `Glass.identity`, `GlassEffectTransition.materialize`, materialize-not-fade | §1.1, §1.3, §3.5 | `absent` / `partial` / `partial` | W27d |
+| Vibrancy as the automatic foreground | §3.9 | `absent, undecided` | W27e |
+| The WebGPU tier over a DOM-sourced group | not enumerated (claims §5.77 §4) | flat white unsampled material, `tint [1,1,1]` at α 0.665 | W27f |
+
+Sizes from the grounding, in agent-hours: W27a ≈ 12; W27b 12–16; W27c 28–46 on the recovered bed;
+W27d 20–30 as a behavioural wave; W27e 30–45; W27f not grounded at the cut (its own G0 sizes it).
+
+## Design
+
+Thin by construction: the six children share no design surface beyond the contracts below, so
+this section records what the joint view settled and hands the rest down as advisory inheritance.
+
+### The tier boundary **[binding — the user's ruling, extending the parent's Decision Log 23]**
+
+Every measured acceptance, capture-bed claim and floor in this wave is stated against the WebGPU
+tier. No CSS cell gates a child. Features that are API or composition rather than optics (the
+transitions, the toolbar partition, the activation pose, the foreground tokens) land on whichever
+tier the root resolved to, drawn with what that tier can carry; the CSS tier keeps deriving from
+the shared profile as today, the coherence pin stays, and a CSS-only fidelity residual is written
+into the ledger rather than chartered.
+
+### Where each feature lives
+
+- **Activation is a pose of the root, not a state of a surface** [binding — joint view: a window's
+  activation is one fact per document; `resolveInteractionState` names one state at a time by
+  precedence, so a seventh member would force an answer to "does inactive outrank hover?" that has
+  no correct value, and it trips a published contract (`VITREA_CONTRACTS.interactionStates`) and
+  two deliberate tripwire tests]. It takes the colour-scheme seam: an observer with a
+  read-and-subscribe shape (`window` focus/blur plus `document.hasFocus()` through the supplied
+  `view`; not `visibilitychange`, which stays `visible` for an unfocused window), a
+  `recededMaterialProfile` difference document beside `dark-profile.ts`, `applyMaterialProfile` as
+  the one path, a `windowActivation: "auto" | "active" | "inactive"` option on the root and prop on
+  `<GlassRoot>`. Two frozen endpoint documents, never a blended profile: the cell key embeds the
+  profile SHA, so a blend is not a measurable configuration; the transit is the CSS tier's armed
+  transitions and the GPU tier's per-frame uniforms. Apple's per-element recede ("element overlap
+  and focus state"; the sheet) is not this wave's — it belongs with the excluded sheet.
+- **Presence, not alpha** [binding — Apple's stated rule ("prefer setting the effect property over
+  the alpha"; materialize "by gradually modulating the light bending and lensing") and the
+  runtime's own constraint: any `opacity < 1` on a host or ancestor forms a Backdrop Root and kills
+  the group's proxy sampling]. `materialization ∈ [0, 1]` is a per-surface presence that scales the
+  material's optical terms — lens depth, body mix toward the unblurred backdrop, tint alpha, rim,
+  inner and outer shadow, glow — and never the element's opacity; at 0 the surface reads as if no
+  glass were applied, which is `Glass.identity`. A `getComputedStyle(host).opacity === "1"`
+  assertion on every frame is the machine-checkable form. *Advisory:* the mechanism the grounding
+  found cheapest is one per-instance scalar (the instance struct has one free slot) applied as a
+  multiplier to the group's uniforms in the field and optics passes, rather than promoting the four
+  per-group scalars to per-surface; lens-only was rejected because it delivers `.materialize` while
+  splitting `.identity` off from it, and the matrix records the three Apple items as one capability
+  seen from three angles.
+- **The toolbar partition is a sampling-group partition** [binding — joint view: union and proxies
+  are already per group, `GlassGroup` renders no DOM, and `membersOf` orders the roving tab stop
+  document-wide, so a split changes grouping and nothing else]. A split yields one `role="toolbar"`
+  with N sampling groups, never N toolbars. Both of Apple's shapes ship because they reduce to one
+  rule: children are partitioned at each `GlassToolbarSpacer` and at each item that declares
+  `sharedBackground="hidden"` (which becomes its own group). The gap between adjacent groups'
+  padded proxies must clear the *live* sampling padding (24 CSS px at nominal σ 8, 42 under Reduce
+  Transparency), read from the resolved policy, never a constant.
+- **The foreground: an operator on vitrea's own controls, a token elsewhere** [binding — the
+  user's ruling]. Apple transforms the app's own text colour; vitrea publishes a colour an app opts
+  into, and Decision Log #34(c) of the root spec was won at cost so that an app's own rule beats the
+  runtime. The wave keeps both true: `GlassButton`, `GlassIconButton`, `GlassSegmentedControl` and
+  `GlassToolbar` labels receive the vibrant operator by default (vitrea owns those labels);
+  arbitrary content under `GlassSurface asChild` keeps the token unless the author opts in
+  (`foreground="vibrant"`). The operator is fitted to Apple's `vibrantColorMatrix` as read from the
+  committed layer dumps, not to pixels of text; the no-text fixture rule stands. *Advisory:* the
+  grounding's tier note — on the CSS tier the host is `isolation: isolate` so a blend composites
+  against exactly the material; on the WebGPU tier the host is not a stacking context and would
+  composite against the root's buffer — is the first thing W27e's G0 settles empirically through the
+  probe machinery, and the GPU tier's answer is the one that counts (§The tier boundary).
+- **Page content on the WebGPU tier gets the material, not a flat** [binding — the parent's
+  Decision Log 23 (c)]. Over a DOM-sourced group the renderer resolves `samplingBackend:
+  "css-backdrop"`, `refraction: "approximate"`, `analysis: "none" | "hint"` and paints an
+  `unsampledMaterial` of `tint [1, 1, 1]` at α 0.665 (claims §5.77 §4). W27f replaces the flat with
+  the profile's material at the hinted level: the same body, tint shade, rim and shadow the sampled
+  path draws, evaluated at the group's backdrop tone (the author hint, else the tier's own sampled
+  tone) with no lens. Refraction over DOM stays a seam (HTML-in-Canvas is not opened by this wave;
+  Decision Log 3).
+- **Prominent is held** [decision, W27 Decision Log 6]: Apple's `.glassProminent` differs from a
+  tinted glass button by an accent-colour default and a vibrant label, and vitrea has neither until
+  W27e. W27a makes the tinted button reachable; the *name* waits for the label.
+
+### Delegated unknowns
+
+- The inactive pose's four facets (less backdrop lift, less structure retained, tint dropped, no
+  outer shadow) as one difference document: which profile fields, at what values, fitted on the
+  recovered bed — W27c G1.
+- What `vibrantColorMatrix`'s four variants are a function of (the grounding reads backdrop
+  luminance × element size, flipping for the small element only) and whether one operator with
+  the material's own level as input reproduces all four — W27e G0/G1.
+- The hinted-level material's error against the sampled path on the same scene, and against the
+  native stack cell — W27f G0.
+- Whether the transitions' duration and easing have any reference at all; the wave assumes not and
+  says so — W27d.
+
+## Children
+
+### W27a: The fix batch — autonomous — DISPATCHED 2026-09-10
+
+- **Purpose:** Five items the grounding tripped over, each a defect or an omission the record
+  already names, closed before the features that depend on them: `GlassButton`'s prop allow-list
+  omits `tint` and `foreground`; the group tint the 0.2.0 changelog documents does not exist on
+  `GlassGroupProps`; the no-hint ink path is still decided by the colour scheme (the tracker's
+  1.24-contrast class); the renderer clamps `lensStrength` at 1 so hover, focus and press never
+  reach the shader; and the named foreground levels can be published today from the level vitrea
+  already computes.
+- **Acceptance:** each item closed with a fail-before test and no assertion loosened; the resting
+  material byte-identical (goldens unmoved — a golden that moves stops the item); the tracker entry
+  marked closed in place; changesets in the fixed group; suites and the Chromium e2e green.
+- **Edges:** blocked-by: —; blocks: W27b (the tinted button in the demo), W27d (shares
+  `instances.ts`), W27e (the token names).
+- **Contracts:** X2, X4.
+- **Design inheritance:** §Where each feature lives (prominent held).
+- **Required:** yes — acceptance 1 and 3.
+- **Status:** in-flight (worktree agent, 2026-09-10).
+
+### W27b: The toolbar partition — autonomous
+
+- **Purpose:** Apple's whole vocabulary for a toolbar's shared glass background — `ToolbarSpacer`
+  and `sharedBackgroundVisibility(.hidden)` — as one partition rule on `GlassToolbar`, so an author
+  can put a primary action in its own body and keep the rest merged, the way every system bar does.
+- **Acceptance:** `GlassToolbarSpacer` and a per-item `sharedBackground` prop partition the
+  toolbar's children into N sampling groups under one `role="toolbar"`; the roving tab order is
+  unchanged (test); adjacent groups' proxies never overlap at any accessibility setting (the gap
+  derives from the live sampling padding; a test under `reducedTransparency` proves it and the
+  `proxy-overlap-after-enforcement` diagnostic stays silent); the demo's hand-split toolbar
+  (`apps/demo/src/App.tsx`) is rewritten on the API and the comment that explained the hand
+  partition retired; the resting bed byte-identical; a README paragraph; a react changeset.
+- **Edges:** blocked-by: W27a; blocks: —.
+- **Contracts:** X2, X5.
+- **Design inheritance:** §Where each feature lives (the partition; prominent held).
+- **Required:** yes — acceptance 1, 2.
+- **Status:** not-dispatched (blocked-by W27a).
+
+### W27c: Window activation — controlled
+
+- **Purpose:** "When a window loses focus on the Mac or iPad, Liquid Glass shifts its appearance
+  and visually recedes" (S219). The inactive material is the pose the project's capture history
+  recorded by accident for its first week, and the tree before the re-baseline holds it for all
+  121 fixtures over byte-identical backgrounds. Ship the recede as a pose of the root, measured
+  against that bed.
+- **Acceptance:** four gates. **G0 (measure):** the recede read on the recovered bed for every
+  matched pair as a per-cell table of the four facets, with the recovered bed's provenance written
+  into the claims ledger (schema 2, single run, pose inferred from the DL14 post-mortem, 37 of
+  today's 92 scenes; admitted by Decision Log 5). **G1 (fit):** a `recededMaterialProfile`
+  difference document fitted on the light and dark calibration pairs, holdout read once, declared
+  and dry-run against the active bed byte-identical. **G2 (runtime):** the activation observer,
+  the root option and React prop, `setWindowActivation`, the pose applied through
+  `applyMaterialProfile`, the transit through the existing transitions, tests on three engines
+  that the pose follows `document.hasFocus()` and an explicit override wins. **G3 (land):** the
+  inactive cells enter the matrix as a scene `state` (X3), floors adopted for the inactive rows at
+  the light and dark calibration bounds, the active bed unmoved, the demo showing the recede when
+  its window is backgrounded, the user's eye on the pair sheets.
+- **Edges:** blocked-by: — for G0 and G1 (measurement and fit touch no source the others touch);
+  W27a for G2 onward (shared `root.ts` edits); blocks: —.
+- **Contracts:** X1, X2, X3, X7.
+- **Design inheritance:** §Where each feature lives (activation as a root pose) [binding];
+  the four-facet reading and the `dark-profile.ts` template (advisory).
+- **Required:** yes — acceptance 1, 3.
+- **Status:** not-dispatched (G0 dispatchable now).
+
+### W27d: Identity and materialize — controlled
+
+- **Purpose:** `Glass.identity` is Apple's documented way to animate glass to nothing in place;
+  `GlassEffectTransition.materialize` fades content while the material materializes without
+  matching a neighbour's geometry; and Apple states that materializing is not a fade. vitrea has
+  the channel and no way to reach it. Give a surface a presence and let the material follow it.
+- **Acceptance:** a `present` prop on `GlassSurface` (and option on the host entry) drives
+  `materialization` from 1 to 0 and back through the motion kernel's existing driver; the channel
+  crosses the publication seam and reaches both tiers; on the WebGPU tier one `chromium-gpu` A/B
+  proves a channel value reaches the shader (`maxChannelDelta > 8` at presence 0.35 against 1),
+  the first such proof for any motion channel; on three engines the recorded per-frame trace is
+  monotone, lands exactly on 0 within the driver's duration plus one frame, and
+  `getComputedStyle(host).opacity` is `"1"` on every frame; `GlassMorph` gains a `transition`
+  prop with `matchedGeometry` (today's behaviour) and `materialize` (content crossfade, material
+  presence, no geometry match); the `states.test.ts` doctrine that no *interaction* state may touch
+  materialization is kept and restated (presence is authored, not a state); reduced motion's
+  treatment of the optical channel decided and tested; the resting bed byte-identical; the wave
+  records in the claims ledger that the transition's timing has no reference and is unmeasured.
+- **Edges:** blocked-by: W27a (`instances.ts`); blocks: —.
+- **Contracts:** X2, X6.
+- **Design inheritance:** §Where each feature lives (presence, not alpha) [binding]; the
+  per-instance scalar mechanism (advisory).
+- **Required:** yes — acceptance 1, 2.
+- **Status:** not-dispatched (blocked-by W27a).
+
+### W27e: Vibrancy — controlled
+
+- **Purpose:** "The label automatically becomes vibrant, based on its textColor" (S284). It is the
+  mechanism by which anything on Apple's glass stays legible, it is automatic on the native side,
+  and vitrea's foreground is a threshold between two hexes. Apple's operator is a 5×4 colour
+  matrix on every glass layer, committed in 58 layer dumps. Fit it and apply it where vitrea owns
+  the label.
+- **Acceptance:** four gates. **G0 (mine):** every `vibrantColorMatrix` in the committed dumps
+  tabulated against its cell's backdrop tone, span, scheme and tint; the number of distinct
+  operators and what selects between them, stated; the tier composite question (which buffer a
+  blended label composes against on each tier) settled by the probe machinery. **G1 (fit):** one
+  operator with the material's own level (and, if G0 requires it, span) as input reproducing every
+  dump's matrix within a declared tolerance, holdout dumps read once. **G2 (implement):** the
+  operator applied to vitrea's own controls' labels by default and to `asChild` content under
+  `foreground="vibrant"`, on the WebGPU tier as the reference and on the CSS tier as a derivation
+  with its residual named; the existing token path kept for everything else; the crossfade the
+  `foregroundTone` channel already declares consumed at last; the named levels of W27a re-derived
+  through the operator. **G3 (land):** the demo's contrast harness run on every glass label in the
+  demo and its results recorded, the ~13 ink assertions re-baselined with each move attributed,
+  the claims ledger §3.3 rewritten (it currently says the foreground is not a contrast calculation),
+  the user's eye.
+- **Edges:** blocked-by: W27a (token names); ordered after W27b and W27d land (shared React
+  files); blocks: the "prominent" name (Deferred).
+- **Contracts:** X1, X2, X4.
+- **Design inheritance:** §Where each feature lives (operator on own controls, token elsewhere)
+  [binding]; the layer-dump path over pixels (binding — the no-text fixture rule stands).
+- **Required:** yes — acceptance 1, 2.
+- **Status:** not-dispatched (deliberately late; see Ordering).
+
+### W27f: The material over page content — controlled
+
+- **Purpose:** On the WebGPU tier a group whose backdrop is ordinary page content draws a flat
+  white at α 0.665 over a CSS blur, a different material from the one the CSS tier draws on the
+  same page and from the one the sampled path draws on a texture. That is what a real adopter's
+  first surface looks like, and the demo never shows it because every demo backdrop is a
+  registered texture. Replace the flat with the profile's material at the hinted level.
+- **Acceptance:** three gates. **G0 (measure):** the unsampled path's output against the sampled
+  path's on the same scene at the same hinted tone, per term (body level, tint shade, rim, shadow),
+  and against the native stack cell (`photo__glass-over-glass`'s overlay, claims §5.77 §4), with
+  the CSS tier's reading beside for the record; the demo gains one DOM-backdrop stage so the path
+  is visible. **G1 (derive and declare):** the unsampled material derived from the profile at the
+  hinted level — the body's response, the tint shade at that level, the rim's amplitude law, the
+  outer shadow's two terms — with no lens, declared as one function the CSS tier's mirror can also
+  read, dry-run with the stack cells and holdout read once. **G2 (land):** the stack cells' overlay
+  within a declared bound of the native overlay, the sampled path byte-identical, the CSS tier's
+  coherence on DOM-sourced groups measured and recorded, the user's eye on the demo's DOM stage.
+- **Edges:** blocked-by: —; blocks: —. Parallel-safe with W27c G0/G1 (different files).
+- **Contracts:** X1, X2.
+- **Design inheritance:** §Where each feature lives (page content gets the material) [binding];
+  HTML-in-Canvas stays a seam (Decision Log 3).
+- **Required:** yes — acceptance 1, 2, 3.
+- **Status:** not-dispatched (dispatchable now).
+
+## Cross-Child Contracts
+
+- **X1 — the tier boundary.** Owner: this document (§Design, binding). Binds W27c, W27e, W27f:
+  every measured claim is on the WebGPU tier; the CSS tier derives and its residual is written.
+- **X2 — public surface is a semver event.** Owner: the release checklist (`c9d-release-checklist.md`)
+  and the fixed changeset group. Binds all. Adding a channel, a state, a token name or a prop is a
+  minor on the package that carries it; `VITREA_CONTRACTS` (core) republishes the channel and state
+  tables, so a change there is a core minor. Each child writes its changeset; the wave cuts once.
+- **X3 — scene axes extend the set, never the key grammar.** Owner: `calibration/test/scene-matrix.test.ts`.
+  Binds W27c: the inactive pose is a scene `state` (`checkerboard__rrect-md__inactive`), never a
+  profile-key segment; N scenes → 2N fixtures → 4N cells, additive.
+- **X4 — the foreground token vocabulary.** Owner: W27a for the names (`--vitrea-foreground`,
+  `-secondary`, `-tertiary`, `-quaternary`), W27e for what computes them. W27e keeps every name
+  W27a publishes and changes only their derivation.
+- **X5 — a toolbar split is a sampling-group partition.** Owner: W27b. One `role="toolbar"`, N
+  groups; the inter-group gap clears the live sampling padding. The demo consumes it.
+- **X6 — presence never touches element opacity.** Owner: W27d. `materialization` scales optical
+  terms; `opacity` stays 1 on the host and every ancestor the runtime writes (a sub-1 opacity forms
+  a Backdrop Root). Outlives the wave: promote to the root's rendering contract at close.
+- **X7 — activation is a root pose with two frozen endpoints.** Owner: W27c. Not an interaction
+  state; two profile documents, the transit through existing transitions; the cell key's profile
+  SHA is the active document's, the pose is the scene's `state`.
+- **X8 — what was not measured is written down.** Owner: each child, in `c9a-fidelity-claims.md`.
+  W27d's timing has no reference; W27e is fitted to coefficients, not pixels; W27c's bed is
+  pre-attestation; W27f's stack bound is one cell's. Each is a named line in the ledger at landing.
+
+## Ordering & Dependency Map
+
+```
+W27a ──┬── W27b ──┐
+       ├── W27d ──┼── W27e ── recomposition ── the cut
+       └── W27c G2+ ┘
+W27c G0, G1 ── (parallel from the start)
+W27f ─────────── (parallel from the start)
+```
+
+W27a first: three of its items are the levers the others pull. W27c G0/G1 and W27f run beside it
+from the start; they touch the calibration results and the renderer's unsampled path, not the
+React surface. W27b and W27d follow W27a in parallel (different files: controls versus the
+channel seam). W27e is deliberately last among the features: it is the largest, it re-baselines
+a dozen ink assertions, and it wants W27b's and W27d's React edits landed first. The cut follows
+the recomposition and the user's eye.
+
+## Risks & Mitigations
+
+- *The lens-clamp fix (W27a item 4) changes the GPU tier's hover and press look.* Mitigated: the
+  resting channel is exactly 1, so goldens must stay byte-identical, and the item stops if one
+  moves. The pressed material has no reference (the native pressed fixtures are byte-identical to
+  rest), so the interaction look is by design, not by measurement; recorded under X8.
+- *A recovered, pre-attestation bed as a fidelity reference (W27c).* Mitigated by Decision Log 5's
+  reasoning (the inactive material was found static across runs) and by X8: the provenance is in
+  the ledger, and one attested session can be added later without re-fitting if the user wants
+  the pose attested per cell.
+- *Fitting to Apple's coefficients rather than pixels (W27e) is a first for the project.* Mitigated:
+  the coefficients are Apple's own operator, read from Apple's own layer tree, and the demo's
+  contrast harness measures the pixel outcome at G3.
+- *W27f changes what draws on every DOM-backed WebGPU page.* Mitigated: the sampled path is
+  byte-identical by acceptance, the stack cells bound the change, and the demo gains the stage that
+  shows it.
+- *The reference moves to OS 27 mid-wave.* No child fits against new captures except W27c's
+  inactive bed, which is 26.5 by construction. The recapture is a separate item (Deferred).
+
+## Deferred / Out of Scope
+
+**Deferred (may return):** the name "prominent" (`GlassButton prominent` = accent tint + vibrant
+label; opens when W27e lands); the motion-metrics harness (no native frame sequence has ever been
+captured; the parent's Decision Log 23 (c) charters it after this wave); the OS 27 recapture
+(macOS 27 ships publicly 2026-09-14; captured as new `apple-macos-27.0-…` profile keys beside the
+frozen 26.5 ones, never replacing them; see Revision Notes); Apple's per-element recede
+("element overlap") and the sheet's recede-opacify-grow; an HTML-in-Canvas or element-texture
+spike for real refraction over page content; ambient colour spill from nearby content; transient
+lift-into-glass; touch-versus-pointer intensity; Show Button Shapes and Differentiate Without
+Color; the concentricity distance gradient and the window corner at the top of the chain; the
+component families the root excluded (tab bar, sheet, popover, slider, toggle, search field), by
+the user's answer at this cut ("material plus reference controls").
+
+**Explicitly out of scope (standing exclusions, unchanged):** WebGL2; a widget layer; scroll-edge
+effects (the root's exclusion stands; overturning it is a product decision not taken here);
+neighbour glow diffusion; topology-changing morphs.
+
+## Tracking Map
+
+| child | where | status |
+| --- | --- | --- |
+| W27a | worktree agent, dispatched 2026-09-10 | in-flight |
+| W27b | — | not-dispatched (blocked-by W27a) |
+| W27c | — | not-dispatched (G0 dispatchable now) |
+| W27d | — | not-dispatched (blocked-by W27a) |
+| W27e | — | not-dispatched (deliberately late) |
+| W27f | — | not-dispatched (dispatchable now) |
+
+## Decision Log
+
+1. **The cut turns from fidelity to coverage (2026-09-10; user-decided on the parent's
+   recommendation).** After W26, with the instrument at the fixtures' 8-bit floor and the
+   reference version about to be superseded, the next wave is a coverage wave: re-score the matrix,
+   then transitions, toolbar splitting, vibrancy and window focus. Rejected: scroll-edge effects
+   first (a product decision to overturn a standing exclusion, not taken); the motion harness first
+   (large; deferred to its own wave); staying on the eye-driven optics waves through the three
+   logged dark-scheme gaps (the next code of 26.5 fidelity is worth less than any absent row and
+   may not survive OS 27).
+2. **"WebGPU is what we compare with Apple" (2026-09-10; the user's words).** First stated as "we
+   only care about WebGPU from here", then corrected by the user the same hour: the CSS tier is not
+   dropped; it is not the comparison target. Recorded as §The tier boundary (X1), extending the
+   parent's Decision Log 23. Rejected: dropping the coherence pin (silent regression of the
+   fallback); chartering CSS residuals as work.
+3. **Six children; page content gets the derived material, not a spike (2026-09-10; user-decided).**
+   W27b, W27c, W27d and W27e all in; W27f as the derived material at the hinted level per the
+   parent's Decision Log 23 (c). Rejected: an HTML-in-Canvas spike in this wave (deferred);
+   leaving the flat white and asking adopters to register textures (the demo's practice, not a
+   library's promise).
+4. **Vibrancy is an operator on vitrea's own controls and a token elsewhere (2026-09-10;
+   user-decided on the parent's recommendation).** Rejected: the operator everywhere (Apple's
+   semantics, but it rewrites app-authored colour and overturns the root's Decision Log #34(c));
+   token only with levels (closes one row and leaves vibrancy absent).
+5. **The recovered pre-DL14 inactive bed is admissible for the fit (2026-09-10; user-decided on
+   the parent's recommendation).** 121 matched pairs over byte-identical backgrounds, single run,
+   no per-cell attestation; admitted because the parent's own record found the inactive material
+   static across runs where the active one carried per-instance state, which makes one run
+   defensible for this pose specifically. Provenance goes into the ledger (X8). Rejected: one
+   attested session before landing (available later without a re-fit); fresh captures only (one
+   to two hours of the user's machine for a pose the record already holds).
+6. **Prominent is held; the toolbar ships both of Apple's shapes (2026-09-10; the parent, from
+   the grounding).** `.glassProminent` differs from a tinted button by an accent default and a
+   vibrant label; vitrea has neither until W27e, so the name would arrive meaning nothing. The
+   tinted button is made reachable in W27a. `ToolbarSpacer` (positional) and
+   `sharedBackgroundVisibility` (per item) reduce to one partition rule, so both ship.
+7. **Activation is a pose of the root (2026-09-10; user-decided by selecting the child so
+   worded).** Not a seventh interaction state (§Design, binding). Rejected: a per-group continuous
+   fold beside `backdropAdaptation` (serves Apple's per-element recede, which is the excluded
+   sheet's case, at the price of a per-group scalar constant for nearly every surface).
+8. **Presence, not alpha; whole-material, not lens-only (2026-09-10; the parent).** Binding for
+   the semantics (Apple's rule plus the Backdrop Root constraint); the per-instance scalar mechanism
+   is advisory. Rejected: lens-only (delivers `.materialize`, splits off `.identity`); element
+   opacity (structurally broken: it kills sampling).
+
+## Surprises & Discoveries
+
+- **The eighteen fidelity waves moved six matrix rows; the eight coverage children before them
+  moved twenty-seven** (matrix §7). The number that decided this cut.
+- **The inactive material's bed survived the re-baseline intact** — 121 of 121 paths present in
+  both trees, 0 of 121 unchanged, backgrounds byte-identical — because DL14 overwrote fixtures in
+  place. The retired matrix survives too (`results/2026-08-30-inactive-bed-matrix.json`).
+- **Apple's vibrancy operator has been in the repository since W12**, unread: a `vibrantColorMatrix`
+  `CAFilter` on every glass `CASDFLayer` in 58 layer dumps, four distinct matrices, the high-gain
+  variant on the small dark-solid capsule and not on the medium rrect over the same backdrop.
+- **Three published behaviours did not exist:** the group tint (changelog 0.2.0), the tinted button
+  (prop allow-list), and any interaction reaching the GPU tier's lens (clamped at 1 since the
+  channel landed; only `disabled: 0.5` moved the renderer).
+- **The demo has never shown the page-content path.** Every backdrop in the site, the laws page
+  and the playground is a registered texture.
+- **`Glass.clear`'s dimming layer is painted by no renderer** (re-score §3): the variant resolves,
+  warns and tints; `ResolvedMaterial.dimming` is produced and consumed by nobody. Logged to the
+  tracker at this cut; not a child of this wave.
+
+## Outcomes & Retrospective
+
+Pending — written at recomposition against §Parent-Level Acceptance.
+
+## Revision Notes
+
+- 2026-09-10: chartered. The re-score committed beside the matrix (`aa30022`); the grounding
+  read (scratch, `/tmp/coverage-rescore/grounding.md`, its findings carried into §Design and
+  §Surprises); the user's four decisions and the tier ruling recorded (Decision Log 1–5); W27a
+  dispatched.
+- 2026-09-10 (same day): **the reference moves on 2026-09-14.** The release-status research
+  (web, primary sources: Apple's macOS page, the developer releases feed, the WWDC26 State of the
+  Union) reports macOS 27 "Golden Gate" at RC build `26A428` on 2026-09-09 with public release
+  scheduled for 2026-09-14; the latest public 26.x is 26.6.2 (`25G83`, 2026-08-17) with no
+  documented Liquid Glass change since 26.5. On 27, existing apps inherit stronger diffusion of
+  complex backdrops, a darkened edge, brighter speculars, more uniform refraction and revised
+  window, sidebar and toolbar geometry with no recompile, and a user-facing ultraclear-to-tinted
+  slider becomes a fixture axis; Apple documents no ScreenCaptureKit or Screen Recording consent
+  change. Scheduling, recorded in §Deferred: the 26.5 profiles stay frozen and are never
+  replaced; the OS 27 bed is captured as **new profile keys** (`apple-macos-27.0-…`) beside them
+  on a clean capture machine on or after 2026-09-14, recording the exact GA build, the slider's
+  position, the accessibility toggles including the newly independent Show Borders, and the
+  display state; nothing in W27 fits against it. A one-time 26.5-versus-26.6.2 pixel comparison
+  would turn release-note silence into evidence and is the user's call, since it needs the capture
+  machine.
