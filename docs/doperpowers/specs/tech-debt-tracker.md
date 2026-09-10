@@ -1735,3 +1735,14 @@ By eye after W24's lit edge and W25's along-side field. The rim's curvature and 
 the contour are the mechanisms recorded at W24 (the arc amplitude as a three-term joint fit is in
 W26's Deferred). Closes with the rim's radial profile read against the reference at the contour on
 the dark solids, and a curvature term declared on it.
+
+## The dark scheme's thick body holds at its 0.14.0 draw: the family reader's dark width (9.15) is contradicted by three appearance measures, and Apple's dark pane is milkier AND brighter (W26 Decision Log 10, 2026-09-10)
+
+At σ 9 the dark bed's thick spans worsen, the eye's cell's transmission moves away from Apple's
+(0.0566 → 0.0673 against 0.0477) and the user's eye reads a gradient; Apple's pane has 7.38 codes
+of its own light against vitrea's 4.95 and washes the checker more. The dark difference document
+names the heavy width 0 / 0 (the chain tap, byte-identical to 0.14.0), so the three gain constants
+still draw the dark scheme. Closes with the dark wave: the dark thick body's level, transmission and
+width read together (the family reader with the milk term modelled per ring), the nested pane's
+two layers read separately (Apple's topmost passes 3.1× ours in dark; ours passes 1.9× Apple's in
+light), and the dark panes' 1.3–1.6 codes. `g2/g2c-eye.md`, claims §5.125.

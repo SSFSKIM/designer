@@ -15419,3 +15419,45 @@ reason `silhouetteAreaNative` reads 5 % under the declared region on this cell. 
 whether the native's 0.02029 dark-cell transmission is Apple's material or ScreenCaptureKit's
 quantisation; one 8-bit code decides whether the reference's 14 holes are a property of the material
 or of the capture, and one fixture cannot say. Both are in `specs/tech-debt-tracker.md`.
+
+### 5.125 W26 G2c CLOSED: the eye's edge-to-centre haze is the checkerboard's own depth structure unmasked by the narrower width — no material has a radial ramp; in the dark scheme the width moves vitrea away from Apple, whose pane is both milkier and brighter (2026-09-10)
+
+**Evidence** `results/2026-09-10-w26-heavy-width/g2/g2c-eye.md`, `g2c-rings.py`, `g2c-toggle.py`,
+`sheets/g2c-*.png`. A measurement; nothing changed.
+
+**§1 The ring reader.** The interior in 4 CSS px rings from the pane's signed distance, each ring
+separated into the pane's own light and its transmission of the backdrop (`interior ≈ milk +
+trans × backdrop`). The raw ring mean shows a large apparent gradient in EVERY column including the
+native's — a 64 px checker under a 160 px pane has dark squares at the centre — so the separation
+is load-bearing and the reader's first draft reported exactly that artefact.
+
+**§2 The cell the eye named** (1x dark `checkerboard-64__rrect-lg`; codes):
+
+| | milk | variation | variation ÷ mean | transmission |
+| --- | --- | --- | --- | --- |
+| native | 7.38 | 2.34 | 0.32 | 0.0477 |
+| 0.14.0 | 4.95 | 6.29 | 1.27 | 0.0566 |
+| candidate | 3.58 | 6.87 | 1.92 | 0.0673 |
+
+The raw ring mean is conserved (11.99 → 11.94 at 1x, 11.93 → 11.93 at 2x); the reference's own
+transmission runs 0.0540 (edge) → 0.0537 (centre): no radial ramp anywhere. The candidate trades
+milk for transmitted contrast at a conserved total, and the relative variation rises 51 %.
+
+**§3 The mechanism, one toggle at a time.** The new heavy texture at 13.418 reproduces 0.14.0 on
+every digit (the texture path contributes nothing); the scatter ramp switched off reads 7.19
+against 6.87 (marginally worse — the ramp reading rejected); the lens moves the first ring only;
+the tone response is excluded by the conserved mean. **The width, and only the width.**
+
+**§4 The dark contradiction.** Apple's dark pane washes the checker MORE than vitrea at either
+width (0.0477 against 0.0566 / 0.0673) and is 1.4 codes brighter. If it had vitrea's opacity the
+effective kernel would be near 18 device px, twice §5.122 §2's family-reader dark fit of 9.15 (dark
+residual 2.0 codes, the milk unmodelled). Three signals agree against the narrower dark width: the
+dark bed's ΔE (§5.122 §5), this transmission, and the eye. Ruled in W26 Decision Log 10: the dark
+scheme holds at its 0.14.0 draw.
+
+**§5 The two extras, measured.** The topmost nested pane: Apple passes 3.1–3.2× our checkerboard
+contrast in the dark scheme (0.0022 against 0.0007, at ±0.2 code) and ours passes 1.9× Apple's in
+the light (0.0304 against 0.0164; well conditioned). The dark panes: Apple's 64-checker rrects
+1.3–1.6 codes brighter in what the eye receives and 2.1–4.9 in the pane's own light; the nested
+base 0.78 short in its own light; the nested OVERLAY ours 0.82 codes brighter than Apple's.
+Tracker, the dark wave.

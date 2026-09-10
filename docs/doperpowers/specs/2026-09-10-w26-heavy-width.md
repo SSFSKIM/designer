@@ -182,7 +182,8 @@ the user's eye; X7 the dark profile a difference document.
 | G1c — the fits, second reading: both widths on the family reader (controlled) | CLOSED 2026-09-10 (claims §5.122; merged at `5a710ad`) |
 | G2 — declared and dry-run | CLOSED 2026-09-10 (claims §5.123; Decision Log 7 (f)–(g); merged at `69994ff`) |
 | G3a — the silhouette instrument corrected: IoU over the decidable region (controlled) | CLOSED 2026-09-10 (claims §5.124; Decision Log 8; `g3a/recompute.txt` — 613 / 613 cells agreeing with the spike to the last digit, 121 movers all upward, the three `silhouetteIoU` floors off and `UNMET_ROWS` 14 → 11; awaiting the parent's merge) |
-| G3 — the landing | blocked-by G2c (the eye's gradient finding, Decision Log 9) |
+| G2c — the eye's gradient measured (spike) | CLOSED 2026-09-10 (claims §5.125; merged at `f71132b`) |
+| G3 — the landing | DISPATCHED 2026-09-10 (Decision Log 10: the light scheme takes the width, the dark scheme holds at its 0.14.0 draw) |
 
 ## Decision Log
 
@@ -605,6 +606,45 @@ beside "the dark bed prefers a width its own reference does not have" — the ey
 instrument corrected) merged at the same time; G3 lands only after G2c's answer and the parent's
 ruling on it.
 
+### Decision Log 10 — G2c's read: the "gradient" is the checkerboard's own depth structure unmasked at a narrower width, and in the dark scheme the width moves vitrea AWAY from Apple — the light scheme takes 9 / 9, the dark scheme holds at its 0.14.0 draw (2026-09-10; the parent; claims §5.125)
+
+(a) **What the eye saw, measured.** Per ring from the pane's edge, the interior separated into the
+pane's own light ("milk") and what it transmits (`interior ≈ milk + trans × backdrop`). On 1x dark
+`checkerboard-64__rrect-lg`: native milk 7.38 codes, variation 2.34, transmission 0.0477; 0.14.0
+4.95 / 6.29 / 0.0566; the candidate 3.58 / 6.87 / 0.0673. Neither material has a radial ramp (the
+reference's transmission runs 0.0540 at the edge to 0.0537 at the centre); the raw ring mean is
+conserved to a twentieth of a code. The candidate moves light out of the uniform term into the
+term that follows the checkerboard, and a 64 px checker under a 160 px pane puts dark squares at
+the centre and bright ones at the edges — the depth structure both materials share stops being
+masked. Relative variation +51 %. The mechanism is **the width and only the width**: the new
+texture at 13.418 reproduces 0.14.0 on every digit; the ramp off is marginally worse; the lens
+moves the first ring only; the tone response is excluded by the conserved mean.
+
+(b) **The dark scheme's three signals agree and the family reader's dark fit is contradicted.**
+The dark bed's thick-span ΔE worsens at every span at the candidate (Decision Log 6 (e)); the
+transmission on the eye's cell moves away from Apple's (0.0566 → 0.0673 against 0.0477); the user's
+eye reads it worse. Apple's dark pane washes the checker MORE than vitrea at either width and is
+1.4 codes brighter — if it had vitrea's opacity the effective kernel would be near 18 device px,
+twice the family reader's 9.15, whose dark residual was 2.0 codes with the milk unmodelled. The
+9.15 stands as recorded and is quoted from here on as contradicted by the appearance measures.
+
+(c) **The ruling.** The light scheme takes `sizeHeavyTapSigma` 9 / `sizeHeavyTapSigma2x` 9 (the
+default). The dark difference document names **both at 0** with a `$comment-w26` (X7: a difference
+justified by (b)), which is exactly 0.14.0's dark draw at both scales — the chain tap at
+`scatterLod` — byte-identical, not approximately. Decision Log 6 (b)'s "inert" is thereby narrowed
+to the light scheme: the three gain constants still draw the dark scheme, and their retirement
+wave must carry the dark path. The dark thick body — width, level and transmission together, the
+topmost nested pane's transmission (Apple passes 3.1× ours in dark and ours passes 1.9× Apple's in
+light), the dark panes 1.3–1.6 codes darker — is the dark wave's, chartered in the tracker.
+
+(d) **G3 lands** from the main checkout at this configuration: the dark document's two values and
+its fingerprint, `dark-profile.ts` regenerated, the goldens re-read (a dark scene's hash moves back
+if one drew the candidate), the dark GPU rows proved byte-identical to canonical to scratch first,
+then the canonical rebuild carrying the corrected silhouette IoU for every cell, the referee
+against G2b's light digests and the canonical dark and CSS bytes, the gate with `PREDICATE_EXCLUDES`
+re-derived and G3a's bridging construct deleted, the floors, the demo fixture, the sheets,
+`changeset version` → 0.15.0, the user's eye.
+
 ## Surprises & Discoveries
 
 - **A scratch rung is not a rehearsal of a landing.** The dark difference document resolves over
@@ -763,3 +803,7 @@ wave's to fix**; this records the number and the picture and recommends neither.
   three floors off; `UNMET_ROWS` 11). Decision Log 9: the user's eye found an edge → centre haze
   gradient on the dark checkerboard rrects at the candidate; G2c dispatched to measure and name it;
   G3 held. Two figures in Decision Log 8 (c) corrected beside.
+- 2026-09-10: G2c CLOSED and merged (`f71132b`). Decision Log 10: the eye's gradient is the
+  checkerboard's depth structure unmasked by the width; the dark scheme holds at its 0.14.0 draw by
+  the difference document naming 0 / 0; the light scheme takes 9 / 9. G3 dispatched in the main
+  checkout.
