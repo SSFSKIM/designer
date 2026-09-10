@@ -143,11 +143,18 @@ test.describe("@golden acceptance #2 — lensing scales with surface size", () =
 /**
  * SHA-256 of `placed-checkerboard` rendered with its placement WITHHELD — the
  * texture cover-fit to the viewport, which is what every texture backdrop got
- * before claims §5.47. Recorded on this machine's `apple / metal-3` adapter the
- * day the placed fit landed, and never regenerated: it is the fail-before
- * record, the render the golden replaced.
+ * before claims §5.47. Recorded on this machine's `apple / metal-3` adapter.
+ *
+ * **It is a fail-before record and not a golden**, so what it pins is the
+ * DIFFERENCE from the placed render rather than any particular bytes: it draws the
+ * same material, so every wave that moves the material moves it too, and it is
+ * re-recorded beside the golden it is the counterpart of. W24, W25 G3 and W25 G3b
+ * each moved it through the rim; **W26 moves it through the BODY** — the heavy
+ * component's width goes 13.418 → 9 device px, and a cover-fit checkerboard is
+ * exactly the backdrop a heavy width can be seen on (claims §5.122; the
+ * attribution in `results/2026-09-10-w26-heavy-width/g2/`).
  */
-const PLACED_CHECKERBOARD_COVER_HASH = "0802a9ac56dc361aed54d82349b2317c";
+const PLACED_CHECKERBOARD_COVER_HASH = "9ac0039583c09e433014bcbe13e7a392";
 
 /**
  * The cover-fit hash above was `e1383ed6f133d99d19b7e44b73022749` when the
