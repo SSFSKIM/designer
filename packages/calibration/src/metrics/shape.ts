@@ -33,13 +33,35 @@ import { aggregate } from "../stats";
  * Two empty silhouettes are refused rather than called a perfect match — a
  * scene where neither side rendered anything is a harness failure, and 1.0 is
  * the most misleading number available.
+ *
+ * ## The population, and why it is not simply the grid (claims §5.124)
+ *
+ * `population` restricts both masks before the sets are formed. The measured
+ * bed passes `decidableRegion` — the declared region minus every pixel enclosed
+ * by a hole of either mask — for the reason claims §5.15 gave when it hole-filled
+ * both masks for `contourDistance`: a hole is where the luminance-delta rule
+ * could not decide, and a metric that prices an undecided pixel as a coverage
+ * difference reports the extractor rather than the surface. §5.15 kept IoU on
+ * the raw masks because "a hole is a genuine set difference even when it is not
+ * an outline difference"; W26's spike measured that reading to be a fence rather
+ * than a shape — over a black checker cell the rule degenerates to an absolute
+ * brightness test, and two implementations two thousandths of linear luma apart
+ * fall on opposite sides of it in different zones of one scene — so the same
+ * correction is now made here (W26 Decision Log 8).
+ *
+ * Omitted means the whole grid, the pre-W26 rule byte for byte, which is what
+ * the declaration-conformance row (`declaredIoUWeb`, W20) still wants: it
+ * compares the tier's own drawn alpha against the declaration, with no
+ * background differencing anywhere in it and therefore nothing undecidable.
  */
-export function silhouetteIoU(a: Silhouette, b: Silhouette): number {
+export function silhouetteIoU(a: Silhouette, b: Silhouette, population?: Silhouette): number {
   assertSameGrid(a, b, "silhouetteIoU");
+  if (population !== undefined) assertSameGrid(a, population, "silhouetteIoU");
 
   let intersection = 0;
   let union = 0;
   for (let i = 0; i < a.mask.length; i += 1) {
+    if (population !== undefined && (population.mask[i] ?? 0) === 0) continue;
     const inA = (a.mask[i] ?? 0) !== 0;
     const inB = (b.mask[i] ?? 0) !== 0;
     if (inA && inB) intersection += 1;
@@ -48,7 +70,10 @@ export function silhouetteIoU(a: Silhouette, b: Silhouette): number {
   if (union === 0) {
     throw new CalibrationError(
       "empty-region",
-      "silhouetteIoU: both silhouettes are empty — nothing rendered on either side, which is not a match.",
+      population === undefined
+        ? "silhouetteIoU: both silhouettes are empty — nothing rendered on either side, which is not a match."
+        : "silhouetteIoU: neither silhouette has a pixel inside the population — every pixel either " +
+          "side covers is one the extractor could not decide, which is not a match.",
     );
   }
   return intersection / union;

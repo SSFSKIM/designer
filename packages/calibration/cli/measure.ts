@@ -37,6 +37,7 @@ import {
   contourDistance,
   coherenceAxisReport,
   cornerCurvature,
+  decidableRegion,
   decodePng,
   edgeWeightedDifference,
   extractSilhouette,
@@ -355,6 +356,31 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
       );
     }
   } else {
+    /*
+     * `silhouetteIoU` is taken over the DECIDABLE region: the declared region
+     * minus every pixel enclosed by a hole of either mask (W26 Decision Log 8,
+     * claims §5.124).
+     *
+     * The two masks come out of one luminance-delta rule whose premise —
+     * anything differing from the background is the surface — is false wherever
+     * the material's own level meets the backdrop's, and a hole is exactly where
+     * that happened. W26's spike measured what pricing those pixels costs: over a
+     * black checker cell the rule degenerates to an absolute brightness test at
+     * 0.02 linear, the reference loses ~5 400 px under its inner pane and vitrea
+     * loses ~5 400 elsewhere with 33 px of overlap, and IoU pays for both sets on
+     * a cell where the tier draws the declared shape to a pixel
+     * (`declaredIoUWeb` 0.99915). The threshold scan is not even single-signed,
+     * which is a population crossing a fence rather than a shape difference.
+     *
+     * This is claims §5.15's correction — hole-fill both masks before tracing,
+     * so `contourDistance` measures the outline and not the perforation — applied
+     * to the silhouette, and it is deliberately weaker than filling: the pixels
+     * leave the population instead of being asserted as covered, so a notch open
+     * to the region's edge still costs exactly what it did. What IoU no longer
+     * sees is a genuinely punched interior; `silhouetteHoles{Native,Web}` below
+     * and W20's `declaredIoUWeb` are the rows that still do.
+     */
+    const decidable = decidableRegion(region.silhouette, nativeSil, webSil);
     shape = shapeAxisReport({
       silhouetteAreaNative: nativeArea,
       silhouetteAreaWeb: webArea,
@@ -365,7 +391,7 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
       silhouetteBodiesNative: silhouetteBodyCount(nativeSil),
       silhouetteBodiesWeb: silhouetteBodyCount(webSil),
       componentRegionBodies: silhouetteBodyCount(region.silhouette),
-      silhouetteIoU: silhouetteIoU(nativeSil, webSil),
+      silhouetteIoU: silhouetteIoU(nativeSil, webSil, decidable),
       contourDistance: contourDistance(nativeSil, webSil),
       cornerCurvature: cornerCurvature(nativeSil, webSil),
       ...(conformance === undefined ? {} : { conformance }),
