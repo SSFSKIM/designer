@@ -32,6 +32,9 @@
 
 import { expect, test, type Page } from "@playwright/test";
 
+import { resolveAccessibilityPolicy } from "@vitreajs/vitrea";
+
+import { samplingPaddingFor } from "../../src/optics";
 import {
   expectBox,
   expectedProxyBlur,
@@ -39,7 +42,12 @@ import {
   paddedBox,
 } from "../support";
 
-/** The playground's own gap between the toolbar group and the morph's group. */
+/**
+ * The gap the playground opened by hand before W27b, kept here as the scene's
+ * default: a margin an author picked, comfortably past one padding. What the
+ * playground writes now is a `GlassToolbarSpacer`, whose minimum is derived —
+ * and the last test in this file is that derivation, run against real proxies.
+ */
 const DEMO_GROUP_GAP = 56;
 
 /**
@@ -71,18 +79,26 @@ const ALL_PADDING_CODES = [...DEFAULT_PADDING_CODES, "proxy-overlap-after-enforc
  */
 async function buildDemoShapedScene(
   page: Page,
-  options: { readonly gap?: number; readonly declarePadding?: number } = {},
+  options: {
+    readonly gap?: number;
+    readonly declarePadding?: number;
+    /** The state under test. The scene is built in the other one and flipped into it. */
+    readonly reducedTransparency?: boolean;
+  } = {},
 ): Promise<void> {
   await page.evaluate(
-    async ([gap, declared]) => {
+    async ([gap, declared, reducedTransparency]) => {
       await window.h.createRoot({ renderer: "webgpu", appDevice: true });
-      // The pre-flip state is stated rather than inherited. Chromium answers
+      // The pre-flip state is stated rather than inherited, and it is the
+      // opposite of the one under test. Chromium answers
       // `prefers-reduced-transparency` from the operating system's own setting,
       // so on a machine where a person (or another harness) has it switched on,
       // every "before" frame here would already be the "after" — and since the
       // diagnostics channel dedupes by code and subjects, the findings would all
       // land before the clear and none of these tests would see anything.
-      window.h.requireRoot().setAccessibilityOverrides({ reducedTransparency: false });
+      window.h
+        .requireRoot()
+        .setAccessibilityOverrides({ reducedTransparency: reducedTransparency === false });
       const group = (id: string): void => {
         window.h.addGroup(
           id,
@@ -113,10 +129,12 @@ async function buildDemoShapedScene(
       // Everything before the flip is startup noise; what is under test is what
       // the one prop change produces.
       window.h.clearDiagnostics();
-      window.h.requireRoot().setAccessibilityOverrides({ reducedTransparency: true });
+      window.h
+        .requireRoot()
+        .setAccessibilityOverrides({ reducedTransparency: reducedTransparency !== false });
       window.h.frame(3);
     },
-    [options.gap ?? DEMO_GROUP_GAP, options.declarePadding] as const,
+    [options.gap ?? DEMO_GROUP_GAP, options.declarePadding, options.reducedTransparency] as const,
   );
 }
 
@@ -268,4 +286,49 @@ test("nothing moves at the nominal state, which is where every golden was taken"
   });
   expectBox(result.box, paddedBox({ x: 200, y: 200, width: 140, height: 44 }, padding));
   for (const code of ALL_PADDING_CODES) expect(result.codes).not.toContain(code);
+});
+
+/**
+ * The gap a split toolbar opens is enough, against real proxies (W27b, X5).
+ *
+ * `GlassToolbar` partitions its children at a `GlassToolbarSpacer` and opens
+ * `samplingPaddingFor` at its own box between the two groups. This is that
+ * number, put between the two groups of the demo-shaped scene — whose members
+ * the box contains — under the preference that thickens the frost, which is the
+ * one a constant would have got wrong. The scene is the same one the tests above
+ * use, so the finding this asserts the absence of is one they have already shown
+ * present at a tighter gap.
+ */
+test("the gap a toolbar derives for a split is enough, at either accessibility state", async ({
+  page,
+}) => {
+  for (const reducedTransparency of [false, true]) {
+    const material = resolveAccessibilityPolicy(
+      {
+        reducedTransparency,
+        reducedMotion: false,
+        increasedContrast: false,
+        forcedColors: false,
+        reducedTransparencySupported: true,
+      },
+      { reducedTransparency },
+    ).material;
+
+    // The toolbar's own box: the two partitions and the gap between them, which
+    // is what `GlassToolbar` measures and what contains every member below.
+    const gap = samplingPaddingFor({ members: [[340, TOOLBAR_SPAN]], material });
+
+    // Tighter than the margin the playground used to write by hand, and still
+    // clear of the member padding the runtime resolves for these groups.
+    expect(gap).toBeLessThan(DEMO_GROUP_GAP);
+    expect(gap).toBeGreaterThanOrEqual(
+      expectedProxyBlur({ spanPx: TOOLBAR_SPAN, extentsCssPx: [96, 44], reducedTransparency })
+        .padding,
+    );
+
+    await gotoHarness(page);
+    await buildDemoShapedScene(page, { gap, reducedTransparency });
+    expect(await findingsOf(page, ALL_PADDING_CODES), `reducedTransparency ${reducedTransparency}`)
+      .toEqual([]);
+  }
 });

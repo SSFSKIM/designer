@@ -2535,6 +2535,33 @@ export function groupScatterSigma(
 }
 
 /**
+ * The σ a group's proxy blurs with, over the group's own members and under the
+ * resolved material policy — the scatter law read at the proxy's own scale.
+ *
+ * One home for the composition `root.ts` performs every frame, so that anything
+ * else needing the number a group's sampling geometry will be taken over asks
+ * for it here rather than reassembling the three pieces (the refraction cap, the
+ * projection scale, the per-member maximum) and drifting from the runtime the
+ * first time one of them moves. `blurRadius` is the σ of the material this group
+ * resolved to, already folded by policy; the fold this applies is the
+ * refraction cap, which grades the scatter gain and not the base blur.
+ */
+export function proxySamplingSigma(
+  blurRadius: number,
+  material: ResolvedMaterialPolicy,
+  members: readonly (readonly [number, number])[],
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+): number {
+  return groupScatterSigma(
+    blurRadius,
+    size.refractionScale[accessibilityRefractionCap(material)],
+    members,
+    size,
+    WEBGPU_PROXY_PROJECTION_SCALE,
+  );
+}
+
+/**
  * The tint alpha a surface of this span carries — the occlusion facet.
  *
  * Applied **after** `opticsUnderPolicy`, on this tier's own converted alpha,
@@ -4075,6 +4102,39 @@ export const SAMPLING_PADDING_SIGMA_MULTIPLE = 3;
 /** The floor a group's `samplingPadding` may not sit below, in CSS px. */
 export function requiredSamplingPadding(blurRadius: number): number {
   return blurRadius * SAMPLING_PADDING_SIGMA_MULTIPLE;
+}
+
+/**
+ * The sampling padding a group of these members takes under this policy, in
+ * CSS px — the number a layout has to clear to keep two groups' proxies apart.
+ *
+ * The whole chain in one call: the shipped optics for the variant, folded by
+ * the resolved material policy (so Reduce Transparency's thicker frost moves
+ * it), through the scatter law at the group's own members, times the 3σ rule.
+ * It is the same composition `root.ts` resolves each group's geometry with, and
+ * it is exported because a *layout* now depends on it: `GlassToolbar` opens the
+ * gap between two partitions of one toolbar and cannot ask for a constant, since
+ * the constant would be wrong under the very preference that enlarges the blur.
+ *
+ * The law is monotone in a member's span and in its extents
+ * (`proxy-geometry.test.ts`), which is what lets a caller that does not know its
+ * members pass a box that CONTAINS them and get an upper bound rather than an
+ * estimate. Members are `[width, height]` pairs in CSS px; an empty list is the
+ * projection at span 0, which is the floor every group starts at.
+ *
+ * A profile patch is not read here: this is the shipped material's law, which is
+ * what a caller outside the frame loop has. A group whose descriptor patches the
+ * profile resolves its own σ through `proxySamplingSigma` inside the frame.
+ */
+export function samplingPaddingFor(input: {
+  readonly members: readonly (readonly [number, number])[];
+  readonly material: ResolvedMaterialPolicy;
+  readonly variant?: MaterialVariant;
+}): number {
+  const folded = opticsUnderPolicy(MATERIAL_OPTICS[input.variant ?? "regular"], input.material);
+  return requiredSamplingPadding(
+    proxySamplingSigma(folded.blurRadius, input.material, input.members),
+  );
 }
 
 /**
