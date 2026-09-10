@@ -113,7 +113,10 @@ class Machine implements InteractionMachine {
     this.#state = to;
     const targets = this.profile.stateTargets[to];
     for (const [channel, driver] of this.#drivers) {
-      const target = overrides?.[channel] ?? targets[channel];
+      // The table's presence=1 is an invariant seed, not an interaction target.
+      // An explicitly carried authored channel keeps its target across presses.
+      const target = overrides?.[channel] ??
+        (STATE_DRIVEN_CHANNELS.includes(channel) ? targets[channel] : undefined);
       // A channel neither the state nor the caller names keeps the target it
       // had: geometry follows layout, not interaction state.
       if (target !== undefined) driver.retarget(target);

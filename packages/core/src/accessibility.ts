@@ -144,7 +144,9 @@ export interface ResolvedMotionPolicy {
    * does it — a morph is one continuous material transition, not two surfaces
    * dissolving. Reduced Motion reserves it for large plane shifts. (The
    * foreground light/dark crossfade of §Motion's driver table is a different,
-   * unconditional channel and is not governed here.)
+   * unconditional channel and is not governed here.) An explicitly authored
+   * `materialize` transition crossfades content, not the surface element: its
+   * material follows optical presence and is independent of this plane-shift rule.
    */
   readonly crossfade: "never" | "large-plane-shifts";
   /**

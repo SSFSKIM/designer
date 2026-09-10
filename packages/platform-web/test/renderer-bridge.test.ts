@@ -178,6 +178,7 @@ describe("toRendererGroups", () => {
       sweep: 0.1,
       shimmer: 0.4,
       lensStrength: 1.2,
+      materialization: 0.35,
       pressPoint: [150, 70] as const,
     };
     const [base] = toRendererGroups(
@@ -518,6 +519,32 @@ describe("the dirty set is consumed only where something can build it", () => {
 
     const rebuilds = renderer.drawn.map((args) => (args as { rebuild: unknown[] }).rebuild);
     expect(rebuilds).toEqual([[rebuild], []]);
+    restore();
+  });
+
+  it("names the plane each draw is for, so the renderer can key its resources on it", async () => {
+    // One group id can be registered on two planes at once — `GlassMorph
+    // transition="materialize"` is exactly that (claims §5.132 §5) — and the
+    // renderer sees one `setGroup` per plane against that plane's canvases. It
+    // cannot tell the two apart unless the draw says which plane it is, and
+    // without that both planes' field allocations collide on one key.
+    const { bridge, renderer, restore } = await attachedBridge();
+    bridge.write(
+      frame(
+        [group()],
+        [
+          { plane: "base", nodes: [node()] },
+          { plane: "overlay", nodes: [node({ nodeId: "b", plane: "overlay" })] },
+        ],
+      ),
+      () => [],
+    );
+    bridge.render();
+
+    expect(renderer.drawn.map((args) => (args as { plane: string }).plane)).toEqual([
+      "base",
+      "overlay",
+    ]);
     restore();
   });
 

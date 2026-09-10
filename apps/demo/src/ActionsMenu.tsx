@@ -48,6 +48,7 @@ export interface ActionsMenuProps extends GlassToolbarItemProps {
   readonly onAction: (key: string) => void;
   /** The menu's accessible name. Defaults to the playground's. */
   readonly label?: string | undefined;
+  readonly transition?: "matchedGeometry" | "materialize" | undefined;
 }
 
 /**
@@ -164,6 +165,7 @@ export function ActionsMenu(props: ActionsMenuProps): ReactNode {
   return (
     <GlassMorph
       open={state.isOpen}
+      transition={props.transition}
       // One profile for both ends, on the interpolable axis. `"continuous"` and
       // `"circular"` are separate fits, and a morph across them is refused
       // rather than blended into a corner nobody measured (Decision Log #22a).

@@ -96,13 +96,13 @@ export const NON_OVERSHOOTING_CHANNELS: readonly MotionChannel[] = MOTION_CHANNE
  *
  * The rest are driven from outside it: geometry follows layout and morph
  * targets, `backdropAdaptation` and `foregroundTone` follow the backdrop, and
- * `qualityTier` follows the governor. They still animate through this package's
+ * `materialization` follows authored presence, and `qualityTier` follows the governor.
+ * They still animate through this package's
  * drivers — they are just not a function of interaction state.
  */
 export const STATE_DRIVEN_CHANNELS: readonly MotionChannel[] = [
   "pressCompression",
   "lensStrength",
   "glow",
-  "materialization",
   "disabled",
 ];

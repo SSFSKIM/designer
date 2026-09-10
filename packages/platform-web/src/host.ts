@@ -95,6 +95,12 @@ export interface GlassHostOptions {
   /** Overrides the group's tint seed. See `TintDeclaration`. */
   readonly tint?: TintDeclaration;
   readonly interaction?: InteractionState;
+  /**
+   * Authored optical presence. False is identity in place, not hidden content.
+   * Default true. Semantics and foreground tokens stay; the app owns its content
+   * and contrast over the uncovered backdrop. Never changes element opacity.
+   */
+  readonly present?: boolean;
   readonly foreground?: ForegroundAdaptation;
   /**
    * Take over placement across a cross-plane promotion.
@@ -134,6 +140,8 @@ export interface GlassHostPatch {
   readonly variant?: MaterialVariant | undefined;
   readonly tint?: TintDeclaration | undefined;
   readonly interaction?: InteractionState | undefined;
+  /** Animate the material to identity or back, without changing the host's opacity. */
+  readonly present?: boolean;
   readonly foreground?: ForegroundAdaptation | undefined;
   readonly order?: number;
 }

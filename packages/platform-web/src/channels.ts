@@ -40,6 +40,7 @@ export const GLASS_CHANNEL_PROPERTIES = {
   sweep: "--vitrea-sweep",
   shimmer: "--vitrea-shimmer",
   lensStrength: "--vitrea-lens",
+  materialization: "--vitrea-materialization",
   pressX: "--vitrea-press-x",
   pressY: "--vitrea-press-y",
   state: "--vitrea-state",
@@ -73,6 +74,8 @@ export interface SurfaceChannelValues {
   readonly shimmer: number;
   /** `lensStrength`, 0..1+. Multiplies the resolved refraction scale. */
   readonly lensStrength: number;
+  /** Authored material presence, 0..1. Never the semantic element's opacity. */
+  readonly materialization: number;
   /** Viewport CSS px. Absent means the renderer uses the surface's centre. */
   readonly pressPoint?: readonly [number, number];
 }
@@ -90,6 +93,7 @@ export const IDLE_CHANNELS: SurfaceChannelValues = {
   sweep: 0,
   shimmer: 0,
   lensStrength: 1,
+  materialization: 1,
 };
 
 /** The one thing this module needs from a host. `HTMLElement` satisfies it. */
@@ -128,6 +132,9 @@ export function readHostChannels(host: ChannelSource, bounds: Rect): SurfaceChan
       read(GLASS_CHANNEL_PROPERTIES.lensStrength),
       IDLE_CHANNELS.lensStrength,
     ),
+    materialization: Math.min(1, Math.max(0, numberFrom(
+      read(GLASS_CHANNEL_PROPERTIES.materialization), IDLE_CHANNELS.materialization,
+    ))),
     ...(hasPressPoint
       ? {
           pressPoint: [

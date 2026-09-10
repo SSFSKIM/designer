@@ -72,6 +72,59 @@
  * shadow stays sampled and `sampledOuterShadowFactor` in `optics.ts` is the bound
  * on what that costs.
  *
+ * ## Presence: the widths and the weights (W27d; wave §Presence, not alpha)
+ *
+ * `materialization` is a per-surface presence, and it is this tier's whole
+ * answer to `Glass.identity` and to Apple's rule that a material arrives by
+ * "gradually modulating the light bending and lensing" rather than by fading.
+ * Every optical term the tier paints is multiplied by it — the body's two
+ * widths, the two filtered layers' weight, the tint, the rim, the press glow
+ * and the outer shadow — and no `opacity` is ever written on the host, because
+ * a sub-1 opacity there forms a Backdrop Root and what would go with it is the
+ * group's proxy sampling (contract X6).
+ *
+ * **The body carries it twice, and that is deliberate.** The widths scale
+ * because the light bending is what a materializing surface has less of, and
+ * this tier's widths are the renderer's own device-pixel quantities read
+ * through functions that are linear in them, so a presence multiplies σ_sharp,
+ * σ_heavy, the step between them and the published projection alike. The
+ * weights scale because a `backdrop-filter`'s output composites into the
+ * element's own group: an `opacity` on L1 and L2 mixes the filtered body toward
+ * the raw backdrop, which is the same carrier W16 measured for L2's flat share
+ * (claims §5.71 §1) and the term the wave's design names ("body mix toward the
+ * unblurred backdrop"). The material's own size law couples the two the same
+ * way — a thinner surface both scatters less and occludes less — so the pair is
+ * one fold of thickness rather than a presence counted twice.
+ *
+ * **What a following width costs, and what pays for it.** On this tier's
+ * fidelity path a width is a `<filter>` definition named by its own σ, so a σ
+ * that follows a driver builds a definition per width per frame and the
+ * frame-scoped sweep removes the one before it — bounded by construction, never
+ * accumulating, and the whole of the cost is an element and its two attributes.
+ * What is NOT rebuilt is the tint table those definitions carry: the transfer is
+ * presence-invariant (below), and `css-tier-layers.ts` keeps each solved table
+ * beside its transfer so the bisection runs once per material rather than once
+ * per width.
+ *
+ * Three residuals, named rather than hidden:
+ *
+ *  1. The transit's shape is the product of the terms that carry it and has no
+ *     reference at all — neither its duration nor its curve is measured (X8).
+ *  2. L2 blurs L1's OUTPUT, so at an intermediate presence a `(1 − p)·p` share
+ *     of the composite is the blurred RAW backdrop rather than the material — a
+ *     ghost that vanishes at 0 and at 1.
+ *  3. The sharp filter's table is solved at the floor the material keeps at
+ *     rest while L3 paints that floor at `α₃·p`, so the linear form's identity
+ *     (the floor and the remainder compose to the material) is exact at both
+ *     endpoints and an approximation between them. Solving it at `α₃·p` instead
+ *     would put the driver's value in the definition's own name, which is the
+ *     one thing that turns a rebuild into a re-solve.
+ *
+ * The rim's WIDTH is layout and never scales: an author's content box does not
+ * move because a surface is materializing. And at presence 0 the tier declares
+ * no filter and no heavy layer at all, so a surface held at `Glass.identity`
+ * costs the compositor nothing rather than drawing an invisible body.
+ *
  * **This file holds no optical number of its own** (corrective K5). Every one it
  * paints with arrives on `surface.optics`, which `optics.ts` derives from the
  * material profile the root carries — so retuning the material moves this tier
@@ -599,6 +652,40 @@ export interface CssTierSurface {
     readonly color: Rgb255;
     readonly strength: number;
   };
+  /**
+   * This surface's presence, 0..1 — how much of the material is there (W27d).
+   *
+   * The mechanism and its residuals are §Presence rides the weights, not the
+   * widths, at the head of this file. What a caller owes is the number: absent
+   * is 1, which is a fully materialized surface and exactly the declarations
+   * this function wrote before the channel existed — every term is a
+   * multiplication and 1 is its identity, so nothing at rest moves by a bit.
+   *
+   * At 0 the surface is `Glass.identity`: no filter, no tint, no rim, no glow,
+   * and `outerShadow` comes back `"none"` on every carrier, so a container
+   * painting a member's shadow paints nothing for it either.
+   *
+   * Out-of-range values are clamped rather than refused. The channel is driven
+   * by a motion kernel and read from a custom property an app can write, and a
+   * surface that vanished because a driver overshot to 1.0000001 would be a
+   * failure this function is in a position to simply not have.
+   */
+  readonly materialization?: number;
+  /**
+   * Whether a driver is writing this surface's material every frame (W27d).
+   *
+   * A CSS transition is this tier's own interpolation between two RESTING
+   * states, and a driver is already interpolating. Declared together the
+   * transition chases each frame's value with its own ease, so the curve that
+   * draws is neither the driver's nor the transition's and the material lands
+   * late; while a driver runs the tier therefore declares no transition at all,
+   * on the host and on all three layers.
+   *
+   * It is the caller's flag because only the caller knows a driver is running,
+   * and it is separate from the presence because a presence can be authored and
+   * held: a surface parked at 0.5 transitions like any other.
+   */
+  readonly driven?: boolean;
   /**
    * Which element carries this surface's outer shadow (W18 G1; charter Decision
    * Log 2 (1)). See `css-tier-shadow.ts` for the mechanism and the three values.
@@ -1131,6 +1218,22 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
   const engine = surface.engine ?? CSS_TIER_UNVERIFIED_ENGINE;
   const dpr = Math.max(surface.devicePixelRatio ?? 1, 1e-3);
   /*
+   * A declared presence and a presence of 1 are the same material and not the
+   * same record (W27d). L1 has no weight of its own until this channel exists,
+   * and a caller that has never heard of it must keep the declarations this
+   * function wrote before it did — the same rule `spanPx` follows for the size
+   * law, and the reason the pre-fold declarations W19 recorded still compare.
+   *
+   * What a caller owes in exchange is consistency: a caller that declares a
+   * presence on one frame declares one on every frame, because a property that
+   * stopped being written would leave the driver's last value on the element.
+   * `root.ts` passes the channel's value unconditionally.
+   */
+  const declaredPresence =
+    surface.materialization === undefined ? undefined : clamp01(surface.materialization);
+  const presence = declaredPresence ?? 1;
+  const driven = surface.driven === true;
+  /*
    * The accessibility fold, minus its occlusion arm (W17 G1; Decision Log 2 (b)).
    *
    * The regime's lift and the size law's occlusion both land on the SOURCE alpha
@@ -1144,10 +1247,13 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
    * which the caller now owns exactly one — so the alpha is put back rather than
    * the fold being forked into two functions that could drift.
    */
-  const policyOptics: MaterialOptics = {
-    ...opticsUnderPolicy(surface.optics, policy.material, surface.policyFold),
-    tintAlpha: surface.optics.tintAlpha,
-  };
+  const policyOptics: MaterialOptics = opticsAtPresence(
+    {
+      ...opticsUnderPolicy(surface.optics, policy.material, surface.policyFold),
+      tintAlpha: surface.optics.tintAlpha,
+    },
+    presence,
+  );
   /*
    * The size law's scattering facet, applied after the accessibility fold and
    * before anything is written (W2). Its occlusion facet used to be applied here
@@ -1233,12 +1339,17 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
    * the thin regime, which is what a surface too small for the size law to reach
    * was already getting.
    */
-  const shadowAlpha = cssTierShadowAlpha(
-    shadowSource,
-    surface.backdropLuminance,
-    surface.spanPx ?? 0,
-    sizeK,
-  );
+  /*
+   * The presence scales the compositing alpha and not the shadow's lengths
+   * (W27d). The offset, the blur and the spread are the caster's own geometry —
+   * a materializing surface sits where it sits and is lit from where it is lit —
+   * and what a half-present surface occludes is half of what a present one does.
+   * `outerShadowDeclaration` rounds to a thousandth, so a presence small enough
+   * to round the alpha away resolves `"none"` on every carrier by itself.
+   */
+  const shadowAlpha =
+    cssTierShadowAlpha(shadowSource, surface.backdropLuminance, surface.spanPx ?? 0, sizeK)
+    * presence;
   /*
    * The resolved shadow, and which element paints it (W18 G1).
    *
@@ -1278,7 +1389,11 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
         // class this file argues against everywhere else.
         isolation: "auto",
         "box-shadow": "none",
-        transition: transitionFor(policy, ["background-color", "border-color", "box-shadow"]),
+        transition: transitionFor(
+          policy,
+          ["background-color", "border-color", "box-shadow"],
+          driven,
+        ),
         "--vitrea-tint": "Canvas",
         "--vitrea-occlusion": "1",
         "--vitrea-border-color": "CanvasText",
@@ -1309,6 +1424,7 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
     dpr,
     engine,
     collapsed: surface.collapsed === true,
+    presence,
   });
   const prefix = surface.filterIdPrefix ?? DEFAULT_FILTER_ID_PREFIX;
   const tint = rgba(optics.tint, optics.tintAlpha);
@@ -1381,6 +1497,19 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
     nearerForm === "linear" && body.filter === "reference-filter" ? "linear" : "encoded";
   const floorAlpha = cssTierFloorAlpha(optics);
   /*
+   * The presence is on L3's overlay and NOT on the transfer the filter carries
+   * (W27d; §Presence rides the weights, residual 3).
+   *
+   * The table is solved so that the floor and the remainder compose to the
+   * material, and its parameters are the definition's own name: solving it at
+   * `α₃·p` would make the sharp filter's `id` a function of the driver, which is
+   * a `<filter>` rebuilt and a table re-solved every frame of every transit. So
+   * the definition stays the resting material's, L3's overlay carries the
+   * presence alone, and the identity the two hold together is exact at 1, exact
+   * at 0 and an approximation between.
+   */
+  const overlayFloorAlpha = floorAlpha * presence;
+  /*
    * Which colour the floor overlay is, and what L3 paints over the table (W19 G1;
    * claims §5.80 §7, charter Decision Log 2).
    *
@@ -1425,18 +1554,27 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
           floorOptics.tint[2] / 255,
         ])
       : undefined;
-  const authorLayer = surface.authorLayer;
+  /*
+   * The author's own layer is a term of the material like any other, so the
+   * presence scales its strength and not its colour (W27d): a tinted surface
+   * materializes as the tinted material rather than arriving through a hue the
+   * profile never draws.
+   */
+  const authorLayer =
+    surface.authorLayer === undefined
+      ? undefined
+      : { ...surface.authorLayer, strength: surface.authorLayer.strength * presence };
   const foldedAuthorLayer =
     transfer === undefined || authorLayer === undefined || surface.untintedOptics === undefined
       ? undefined
-      : foldedOverlay({ tint: floorOptics.tint, tintAlpha: floorAlpha }, authorLayer);
+      : foldedOverlay({ tint: floorOptics.tint, tintAlpha: overlayFloorAlpha }, authorLayer);
   const overlayTint =
     transfer === undefined
       ? tint
       : foldedAuthorLayer !== undefined
         ? rgba(foldedAuthorLayer.tint, foldedAuthorLayer.tintAlpha)
         : authorLayer === undefined
-          ? rgba(floorOptics.tint, floorAlpha)
+          ? rgba(floorOptics.tint, overlayFloorAlpha)
           : rgba(authorLayer.color, authorLayer.strength);
 
   /*
@@ -1578,7 +1716,7 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
     // A transition is declared on the element that carries the property, and the
     // host keeps the outer shadow's on every carrier: it is the property this
     // element writes, whether at its value or at `none`, and L3 declares its own.
-    transition: transitionFor(policy, ["box-shadow"]),
+    transition: transitionFor(policy, ["box-shadow"], driven),
     "--vitrea-tint": tint,
     "--vitrea-occlusion": String(Math.round(optics.tintAlpha * 1000) / 1000),
     "--vitrea-border-color": border,
@@ -1587,6 +1725,12 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
      * an app matching the material with its own `blur()` has to keep getting one
      * number, and the body's two widths belong in the readout and the capture
      * cell (`CssTierBody`) rather than in a public token.
+     *
+     * A presence IS folded into it, by the rule this token has always followed:
+     * it publishes the width that is drawn, and at a presence the width drawn is
+     * the presence's own. An app matching a materializing surface with its own
+     * `blur()` therefore tracks it without reading the channel, and at zero the
+     * token is zero because there the body is gone rather than lighter.
      */
     "--vitrea-blur": px(body.projectedSigmaCssPx),
     ...foregroundDeclarations({
@@ -1601,14 +1745,23 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
   return {
     host,
     layers: {
-      sharp: sharpLayerDeclarations(body, optics, prefix, policy, transfer),
-      heavy: heavyLayerDeclarations(body, optics.borderWidth, prefix, policy),
+      sharp: sharpLayerDeclarations(
+        body,
+        optics,
+        prefix,
+        policy,
+        declaredPresence,
+        driven,
+        transfer,
+      ),
+      heavy: heavyLayerDeclarations(body, optics.borderWidth, prefix, policy, presence, driven),
       overlay: overlayLayerDeclarations(
         optics,
         overlayTint,
         border,
         policy,
         shadowCarrier === "layer" ? shadow : "none",
+        driven,
       ),
     },
     body: { ...body, tintForm, ...(transfer === undefined ? {} : { tintTransfer: transfer }) },
@@ -1687,15 +1840,43 @@ function sharpLayerDeclarations(
   optics: MaterialOptics,
   prefix: string,
   policy: ResolvedAccessibilityPolicy,
+  presence: number | undefined,
+  driven: boolean,
   transfer?: CssTierTintTransfer,
 ): StyleDeclarations {
+  const weight = presence ?? 1;
   const blur = blurFunction(body.filter, body.sharpSigmaCssPx, prefix, transfer);
-  const filter = `${blur} saturate(${optics.saturation})`;
+  /*
+   * At zero presence the property is written at `none` rather than at a zero
+   * width (W27d). `blur(0px)` and a `saturate()` still cost a render surface and
+   * a pass over the backdrop to draw a surface the tier has decided draws
+   * nothing, and the layer's own `opacity` below would hide the result either
+   * way — so the honest declaration and the cheap one are the same one.
+   */
+  const filter = weight <= 0 ? "none" : `${blur} saturate(${optics.saturation})`;
   return {
     ...layerFrame(optics.borderWidth, -3),
     "backdrop-filter": filter,
     "-webkit-backdrop-filter": filter,
-    transition: transitionFor(policy, ["backdrop-filter"]),
+    /*
+     * The body's presence, and the reason it is this property rather than the
+     * width (§Presence rides the weights). A `backdrop-filter`'s output
+     * composites into the element's own group, which is what makes an `opacity`
+     * here a mix of the filtered body toward the raw backdrop — the same
+     * mechanism W16 measured for L2's flat share, bit-identical to a uniform
+     * mask (claims §5.71 §1), rather than a second one taken on trust.
+     *
+     * Written at every declared presence including 1, and absent only where the
+     * caller declared none: the property is this layer's, so once it exists it
+     * has to be rewritten every frame or a driver's last value stays on the
+     * element.
+     *
+     * The saturation is deliberately NOT scaled with it. This mix already takes
+     * the saturated body toward the raw backdrop, and a saturation folded toward
+     * 1 on top of it would count the same presence twice.
+     */
+    ...(presence === undefined ? {} : { opacity: String(Math.round(presence * 1000) / 1000) }),
+    transition: transitionFor(policy, ["backdrop-filter"], driven),
   };
 }
 
@@ -1717,16 +1898,27 @@ function heavyLayerDeclarations(
   borderWidth: number,
   prefix: string,
   policy: ResolvedAccessibilityPolicy,
+  presence: number,
+  driven: boolean,
 ): StyleDeclarations {
   if (body.form === "collapsed") return { ...layerFrame(borderWidth, -2), display: "none" };
   const blur = blurFunction(body.filter, body.heavyStepSigmaCssPx, prefix);
   const masked = body.share === "raster-mask";
+  /*
+   * The presence multiplies the share, on both carriers (W27d). This layer
+   * blurs L1's OUTPUT rather than the page, so a heavy layer left at its full
+   * weight over a half-present sharp one would keep blurring the raw backdrop at
+   * that weight — a body that never left, however far the presence fell. Where
+   * the mask carries the share the product is the mask's alpha times this
+   * `opacity`, which is the same scaling by construction.
+   */
+  const share = (masked ? 1 : body.flatShare) * presence;
   return {
     ...layerFrame(borderWidth, -2),
     display: "block",
     "backdrop-filter": blur,
     "-webkit-backdrop-filter": blur,
-    opacity: masked ? "1" : String(Math.round(body.flatShare * 1000) / 1000),
+    opacity: String(Math.round(share * 1000) / 1000),
     ...(masked
       ? {
           "mask-mode": "alpha",
@@ -1736,7 +1928,7 @@ function heavyLayerDeclarations(
           "-webkit-mask-repeat": "no-repeat",
         }
       : {}),
-    transition: transitionFor(policy, ["backdrop-filter", "opacity"]),
+    transition: transitionFor(policy, ["backdrop-filter", "opacity"], driven),
   };
 }
 
@@ -1773,6 +1965,7 @@ function overlayLayerDeclarations(
   border: string,
   policy: ResolvedAccessibilityPolicy,
   outerShadow: string,
+  driven: boolean,
 ): StyleDeclarations {
   const rim =
     optics.borderWidth > 0 && optics.borderAlpha > 0
@@ -1791,7 +1984,7 @@ function overlayLayerDeclarations(
     // then a layer that paints nothing every frame rather than an absent one.
     "background-image": optics.glowGain > 0 ? pressGlowLayer(optics) : "none",
     "box-shadow": shadows.length === 0 ? "none" : shadows.join(", "),
-    transition: transitionFor(policy, ["background-color", "box-shadow"]),
+    transition: transitionFor(policy, ["background-color", "box-shadow"], driven),
   };
 }
 
@@ -1840,8 +2033,32 @@ function resolveCssTierBody(input: {
   readonly dpr: number;
   readonly engine: CssTierEngineCapabilities;
   readonly collapsed: boolean;
+  readonly presence: number;
 }): CssTierBody {
   const { size, dpr, engine, spanPx } = input;
+  /*
+   * A surface at zero presence has no body at all, and the record says so
+   * rather than describing a body drawn at zero weight (W27d).
+   *
+   * It is what the two consumers of this record need to read. `blur` is the
+   * honest answer to "which blur do the layers carry" when they carry none, and
+   * it is also what keeps `referenceFilterSpecs` from asking a root to build a
+   * `<filter>` for a width nothing names; the zeroed widths are what the public
+   * `--vitrea-blur` publishes, so an app matching this surface with its own
+   * `blur()` matches the nothing that is drawn.
+   */
+  if (input.presence <= 0) {
+    return {
+      form: "collapsed",
+      filter: "blur",
+      share: "flat",
+      sharpSigmaCssPx: 0,
+      heavyStepSigmaCssPx: 0,
+      heavySigmaCssPx: 0,
+      flatShare: 0,
+      projectedSigmaCssPx: 0,
+    };
+  }
   const filter: CssTierBody["filter"] = engine.referenceFilterInBackdrop
     ? "reference-filter"
     : "blur";
@@ -1931,6 +2148,38 @@ function scatterFloorFold(
 const clamp01 = (value: number): number => Math.min(1, Math.max(0, value));
 
 /**
+ * The material at one presence — every optical term this tier paints, scaled
+ * (W27d; §Presence: the widths and the weights).
+ *
+ * The blur width is the light bending, and it is the profile's `blurSigma` that
+ * every one of the body's widths is derived from through functions linear in
+ * it, so scaling it here scales L1's σ, L2's composed width, the step between
+ * them and the projection `--vitrea-blur` publishes, all by the same factor and
+ * with no second law. The tint's alpha, the rim's alpha and the press glow's
+ * gain are the strengths L3 paints with; the outer shadow's is scaled where it
+ * is resolved, because it is not carried on this record.
+ *
+ * Two things are deliberately left alone. The rim's WIDTH is layout and would
+ * move the author's content box. The saturation is one operation on the
+ * composite that the layers' own weight already mixes toward the raw backdrop,
+ * and folding it toward 1 as well would count the same presence twice.
+ *
+ * Identity at 1 is exact rather than nearly so: every term is a multiplication,
+ * and a multiplication by 1 returns the same double. The record at rest is
+ * therefore the one this tier wrote before the channel existed, bit for bit.
+ */
+function opticsAtPresence(optics: MaterialOptics, presence: number): MaterialOptics {
+  if (presence >= 1) return optics;
+  return {
+    ...optics,
+    blurRadius: optics.blurRadius * presence,
+    tintAlpha: optics.tintAlpha * presence,
+    borderAlpha: optics.borderAlpha * presence,
+    glowGain: optics.glowGain * presence,
+  };
+}
+
+/**
  * The `box-shadow` value for a resolved outer shadow, from the compositing alpha
  * `cssTierShadowAlpha` resolved.
  *
@@ -1958,11 +2207,20 @@ function outerShadowDeclaration(shadow: MaterialSourceOuterShadow, alpha: number
  * writes that property on every carrier, at its value under the fallback and at
  * `none` otherwise. The duration and the easing are still one decision — the
  * material morphs as one thing, whichever element happens to carry a term of it.
+ *
+ * And it is one decision in the other direction too (W27d): while a driver is
+ * writing this material every frame, no element declares a transition at all.
+ * Suppressing only the properties a presence moves would leave the rest chasing
+ * the same driver's frames through the interaction channels, and a transition
+ * over a value that is already interpolated is a second ease laid over the
+ * first — the material lands late and on neither curve.
  */
 function transitionFor(
   policy: ResolvedAccessibilityPolicy,
   properties: readonly string[],
+  driven = false,
 ): string {
+  if (driven) return "none";
   const elastic = policy.motion.overshoot === "elastic";
   const duration = elastic ? NOMINAL_DURATION_MS : REDUCED_DURATION_MS;
   const easing = elastic ? ELASTIC_EASING : MONOTONIC_EASING;

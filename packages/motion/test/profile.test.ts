@@ -65,14 +65,20 @@ describe("DEFAULT_MOTION_PROFILE — the state target table", () => {
   it("gives every state a target for every state-driven channel", () => {
     for (const state of INTERACTION_STATES) {
       const targets = DEFAULT_MOTION_PROFILE.stateTargets[state];
-      expect(Object.keys(targets).sort()).toEqual([...STATE_DRIVEN_CHANNELS].sort());
+      // The invariant presence seed stays 1 in every state, but is not driven
+      // by interaction: only the host's authored `present` may retarget it.
+      expect(Object.keys(targets).sort()).toEqual([...STATE_DRIVEN_CHANNELS, "materialization"].sort());
     }
   });
 
-  it("names no channel interaction state does not decide", () => {
+  it("names only interaction targets and the invariant presence seed", () => {
     for (const state of INTERACTION_STATES) {
       for (const channel of Object.keys(DEFAULT_MOTION_PROFILE.stateTargets[state])) {
-        expect(STATE_DRIVEN_CHANNELS).toContain(channel);
+        if (channel === "materialization") {
+          expect(DEFAULT_MOTION_PROFILE.stateTargets[state].materialization).toBe(1);
+        } else {
+          expect(STATE_DRIVEN_CHANNELS).toContain(channel);
+        }
       }
     }
   });

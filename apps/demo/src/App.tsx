@@ -96,6 +96,8 @@ export function App(): ReactNode {
   const [range, setRange] = useState<Range>("week");
   const [lastAction, setLastAction] = useState<string | null>(null);
   const [favorite, setFavorite] = useState(false);
+  const [present, setPresent] = useState(true);
+  const [materializeMenu, setMaterializeMenu] = useState(false);
 
   return (
     <GlassRoot
@@ -155,12 +157,38 @@ export function App(): ReactNode {
       <PlanePortal plane="base">
         <div className="overlay-grid" role="region" aria-label="Glass surfaces">
           <div className="overlay-cell">
-            <GlassGroup id="dom-region" hint={{ tone: "dark", luminance: 0.18 }}>
-              <GlassSurface className="plate" radius={22} thickness={10} data-testid="dom-plate">
-                <strong>Regular material</strong>
-                <span>dom backdrop · author hint</span>
-              </GlassSurface>
-            </GlassGroup>
+            {/*
+              The controls that drive presence sit *beside* the surface, never
+              inside it.
+
+              A control inside the plate takes the material's own ink
+              (`--vitrea-foreground`), which is derived from the material — so at
+              presence 0 there is no material to derive from, and on the GPU tier
+              the label went near-black on a dark backdrop while the glass it
+              switches off was gone. The switch for a surface's presence is the
+              one control that has to stay readable when that surface is not
+              there, so it is app-owned page furniture on the page's own `--ink`,
+              in the same cell so the pair still reads as one thing.
+            */}
+            <div className="presence-stack">
+              <GlassGroup id="dom-region" hint={{ tone: "dark", luminance: 0.18 }}>
+                <GlassSurface className="plate" radius={22} thickness={10} present={present} data-testid="dom-plate">
+                  <strong>Regular material</strong>
+                  <span>dom backdrop · author hint</span>
+                </GlassSurface>
+              </GlassGroup>
+              <div className="presence-controls">
+                <button type="button" className="presence-toggle" data-testid="presence-toggle"
+                  onClick={() => setPresent((value) => !value)}>
+                  {present ? "Dismiss glass" : "Bring glass back"}
+                </button>
+                <label className="presence-choice">
+                  <input type="checkbox" checked={materializeMenu}
+                    onChange={(event) => setMaterializeMenu(event.target.checked)} />
+                  Materialize the Actions menu
+                </label>
+              </div>
+            </div>
           </div>
 
           <div className="overlay-cell">
@@ -252,6 +280,7 @@ export function App(): ReactNode {
           onAction={setLastAction}
           sharedBackground="hidden"
           groupProps={{ id: "toolbar-menu" }}
+          transition={materializeMenu ? "materialize" : "matchedGeometry"}
         />
       </GlassToolbar>
         </nav>

@@ -65,6 +65,7 @@ import { createGpuContext, type GpuContext } from "./gpu-context";
 import { createGovernor, type Governor } from "./governor";
 import {
   clipFieldRectToCanvas,
+  drawsMaterial,
   groupFieldRect,
   packInstances,
   resolveSurfaces,
@@ -102,7 +103,7 @@ import {
   type MaterialProfilePatch,
   type MaterialVariant,
 } from "./material";
-import { createPassRunner, type DeviceRect, type PassRunner } from "./passes";
+import { createPassRunner, groupResourceId, type DeviceRect, type PassRunner } from "./passes";
 import {
   createPyramidStore,
   sameHeavySigma,
@@ -176,6 +177,17 @@ export interface DrawFrameArgs {
   readonly timing?: TimingCollector;
   /** Clear the targets first. Default true. */
   readonly clear?: boolean;
+  /**
+   * Which plane these targets are, for a host that draws more than one.
+   *
+   * The renderer treats it as an opaque namespace: it qualifies each group's
+   * pooled resources (`groupResourceId`) so that one group id drawn on two
+   * planes owns two independent sets rather than reallocating one set twice a
+   * frame, and it appears in the resource labels. It names no logical group and
+   * no state. Omitted is the single-plane namespace, which is what a standalone
+   * renderer, the goldens and the calibration harness all draw in.
+   */
+  readonly plane?: string;
 }
 
 export interface DrawFrameResult {
@@ -275,8 +287,11 @@ export interface GlassRenderer {
   readonly materialProfile: MaterialProfile;
 
   drawFrame(args: DrawFrameArgs): DrawFrameResult;
-  /** Targets for the participant path, where core drives the phases. */
-  setTargets(targets: { readonly optics: GPUTextureView; readonly highlight?: GPUTextureView; readonly format?: GPUTextureFormat }): void;
+  /**
+   * Targets for the participant path, where core drives the phases. `plane` is
+   * `DrawFrameArgs.plane` — see it.
+   */
+  setTargets(targets: { readonly optics: GPUTextureView; readonly highlight?: GPUTextureView; readonly format?: GPUTextureFormat; readonly plane?: string }): void;
   frameParticipant(): FrameParticipantView;
 
   /** Resolve any completed analysis readbacks into the adaptation drivers. */
@@ -325,8 +340,22 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   let generations = 0;
   let lastFrameTimeMs: number | undefined;
   let targets:
-    | { optics: GPUTextureView; highlight?: GPUTextureView; format: GPUTextureFormat }
+    | {
+        optics: GPUTextureView;
+        highlight?: GPUTextureView;
+        format: GPUTextureFormat;
+        plane: string;
+      }
     | undefined;
+  /**
+   * Every plane this renderer has drawn a group on, so `removeGroup` can reach
+   * each namespace the group may have allocated in (`groupResourceId`).
+   *
+   * Recorded where the groups are drawn rather than where the targets are set,
+   * because `setTargets` can name a plane no draw ever reaches and a plane
+   * nothing was drawn on holds nothing to forget.
+   */
+  const planesDrawn = new Set<string>();
   let pendingEncoder: GPUCommandEncoder | undefined;
   let pendingRebuilds = 0;
   let pendingUnbuilt: string[] = [];
@@ -603,10 +632,17 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
    * describes (one emphasised control among plain ones) and not enough for two
    * hues in one container, which core reports as `tint-mixing`. The first tinted
    * drawn member wins, deterministically, rather than an average nobody chose.
+   *
+   * DRAWN is `drawsMaterial`'s definition and not a weaker one, which matters
+   * since W27d gave it a second member: a surface at `materialization: 0` is not
+   * in this group's field pass at all, so a group whose emphasised control has
+   * dematerialized has to paint with the colour of a control that is still there.
+   * Reading the first tinted member regardless would hand the pass the absent
+   * one's hue and paint the surviving control with it.
    */
   const groupTintSeed = (input: GroupRenderInput): readonly [number, number, number] | undefined =>
     input.surfaces.find(
-      (surface) => surface.fieldReferenceOnly !== true && (surface.tint?.strength ?? 0) > 0,
+      (surface) => drawsMaterial(surface) && (surface.tint?.strength ?? 0) > 0,
     )?.tint?.color;
 
   const stateOf = (
@@ -743,10 +779,45 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
 
     const skipped: { groupId: string; reason: string }[] = [];
     let drawn = 0;
+    planesDrawn.add(active.plane);
+    const resourceOf = (groupId: string): string => groupResourceId(active.plane, groupId);
+
+    /*
+     * A group that draws nothing on this plane this frame holds nothing for it.
+     *
+     * The group stays REGISTERED — the author has not unregistered it, its
+     * `setGroup` input is still live, and the frame its presence rises again
+     * allocates a fresh set through the ordinary `acquire`. What goes is the
+     * pooled state, which is a group field texture, its aux, aux2 and presence
+     * targets, the instance storage buffer and three uniform buffers: enough to
+     * be worth returning for a surface an author has PARKED (`present={false}`,
+     * claims §5.132 §1), which is an intended steady state and not a transient,
+     * and which under W27d resolves to an empty drawing set that the loop below
+     * bails out of on every subsequent frame.
+     *
+     * `passes.forget` is idempotent, which is what lets one rule cover every way
+     * a group can draw nothing rather than one release site per reason.
+     */
+    const releaseIdle = (groupId: string): void => passes.forget(resourceOf(groupId));
 
     for (const entry of groups.values()) {
       const input = entry.input;
-      if (input.surfaces.length === 0) continue;
+      /*
+       * No surfaces on THIS plane, which is the same case as the ones below and
+       * not a special one — but only because the resources are plane-qualified.
+       *
+       * A host hands every group to every plane's draw and lets the plane's own
+       * node list decide which of them have members there, so this is the
+       * ordinary answer for a base-plane group during the overlay plane's draw.
+       * Keyed on the group id alone, releasing here would have destroyed the
+       * resources the other plane allocated moments earlier; keyed on the plane
+       * too, it releases the namespace of a plane the group is not on, which is
+       * exactly what a cross-plane promotion leaves behind.
+       */
+      if (input.surfaces.length === 0) {
+        releaseIdle(input.groupId);
+        continue;
+      }
 
       // The frame's resolved material policy, read before the surfaces rather
       // than after: the size law folds under it (W2), so surface resolution needs
@@ -761,6 +832,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           groupId: input.groupId,
           reason: error instanceof Error ? error.message : String(error),
         });
+        releaseIdle(input.groupId);
         continue;
       }
 
@@ -849,8 +921,18 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         groupFieldRect(surfaces, union, undefined, shadowReachPx),
         dpr,
       );
+      /*
+       * Nothing left to draw: every member resolved away — the whole group at
+       * `materialization: 0`, or a group of nothing but reference shapes — or
+       * what survived lies entirely off the canvas. `groupFieldRect` over an
+       * empty list yields nothing and `clipFieldRectToCanvas` clips it to
+       * `undefined`, which is the one condition both reach.
+       */
       const rectDevice: DeviceRect | undefined = clipFieldRectToCanvas(snapped, dpr, viewportDevice);
-      if (rectDevice === undefined) continue;
+      if (rectDevice === undefined) {
+        releaseIdle(input.groupId);
+        continue;
+      }
 
       /*
        * The surface's OWN rect — the rect every pass used before W8, and the one
@@ -877,7 +959,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         rectDevice.y * cssPerDevice,
       ]);
       const fields = passes.fieldPass(encoder, {
-        groupId: input.groupId,
+        resourceId: resourceOf(input.groupId),
         family: governor.knobs.fieldFamily,
         rectDevice,
         cssPerDevice,
@@ -939,7 +1021,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       const refractionScale = material.refractionScale[refraction];
 
       passes.opticsPass(encoder, {
-        groupId: input.groupId,
+        resourceId: resourceOf(input.groupId),
         target: active.optics,
         targetFormat: active.format,
         rectDevice,
@@ -1192,7 +1274,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           surfaces[0] as ResolvedSurface,
         );
         passes.highlightPass(encoder, {
-          groupId: input.groupId,
+          resourceId: resourceOf(input.groupId),
           target: active.highlight,
           targetFormat: active.format,
           // The surface's own rect, not the shadow's — see `surfaceRectDevice`.
@@ -1375,7 +1457,11 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
 
     removeGroup(groupId) {
       groups.delete(groupId);
-      runner?.forget(groupId);
+      // Every plane, because a group's resources are per plane and one group can
+      // have drawn on more than one (`groupResourceId`). Forgetting only the
+      // plane drawn most recently would strand the other plane's set for the
+      // life of the renderer.
+      for (const plane of planesDrawn) runner?.forget(groupResourceId(plane, groupId));
     },
 
     setAccessibility(policy) {
@@ -1400,6 +1486,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         optics: next.optics,
         ...(next.highlight === undefined ? {} : { highlight: next.highlight }),
         format: next.format ?? OUTPUT_TEXTURE_FORMAT,
+        plane: next.plane ?? "",
       };
     },
 
@@ -1409,6 +1496,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         optics: args.optics,
         ...(args.highlight === undefined ? {} : { highlight: args.highlight }),
         format: args.format ?? OUTPUT_TEXTURE_FORMAT,
+        plane: args.plane ?? "",
       };
 
       pyramids.beginFrame(args.frame.id);

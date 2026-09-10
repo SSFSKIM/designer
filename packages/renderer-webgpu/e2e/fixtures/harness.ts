@@ -250,6 +250,30 @@ export interface RenderOptions {
    * show the two renders differ and pin what the old one produced.
    */
   readonly ignorePlacement?: boolean;
+  /**
+   * Drive every surface's `materialization` channel to this value (W27d).
+   *
+   * The channel is per surface and reaches the shader per pixel, so a spec can
+   * render one scene at two presences and difference them — which is the only
+   * way to prove a motion channel reaches the shader at all, and the first such
+   * proof for any of them. Absent, the scene's own channels are drawn as
+   * written, which is the idle 1 for every scene here.
+   */
+  readonly materialization?: number;
+  /**
+   * The same channel, per node id — for the mixed case, where one member of a
+   * connected group is materializing and another is already there. A node not
+   * named keeps the scene's own channels.
+   */
+  readonly materializationByNode?: Readonly<Record<string, number>>;
+  /**
+   * Drop these surfaces from their group entirely.
+   *
+   * The reference a presence of 0 is measured against: "the surface reads as if
+   * no glass were applied" is a claim about a render that never had the surface,
+   * and there is no way to state it without being able to produce one.
+   */
+  readonly omitNodes?: readonly string[];
 }
 
 async function setUpScene(
@@ -274,7 +298,27 @@ async function setUpScene(
   if (scene.backdropPlacement !== undefined && options?.ignorePlacement !== true) {
     renderer.setBackdropPlacement("bg", scene.backdropPlacement);
   }
-  for (const group of scene.groups) renderer.setGroup(group);
+  const presence = options?.materialization;
+  const perNode = options?.materializationByNode;
+  const omitted = new Set(options?.omitNodes ?? []);
+  const touched = presence !== undefined || perNode !== undefined || omitted.size > 0;
+  for (const group of scene.groups) {
+    if (!touched) {
+      renderer.setGroup(group);
+      continue;
+    }
+    renderer.setGroup({
+      ...group,
+      surfaces: group.surfaces
+        .filter((surface) => !omitted.has(surface.nodeId))
+        .map((surface) => {
+          const value = perNode?.[surface.nodeId] ?? presence;
+          return value === undefined
+            ? surface
+            : { ...surface, channels: { ...surface.channels, materialization: value } };
+        }),
+    });
+  }
 
   const width = Math.round(scene.widthCss * scene.devicePixelRatio);
   const height = Math.round(scene.heightCss * scene.devicePixelRatio);

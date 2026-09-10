@@ -81,6 +81,21 @@ describe("withReducedMotion — a driver-configuration transform (§Accessibilit
     }
   });
 
+  it("steps authored presence instead of animating blur under Reduced Motion", () => {
+    const regular = createDriver(DEFAULT_MOTION_PROFILE.channels.materialization, 1);
+    const reduced = createDriver(REDUCED.channels.materialization, 1);
+    regular.retarget(0);
+    reduced.retarget(0);
+    regular.advance(16);
+    reduced.advance(16);
+    expect(regular.value).toBeGreaterThan(0);
+    expect(regular.value).toBeLessThan(1);
+    expect(reduced.value).toBe(0);
+    reduced.retarget(1);
+    reduced.advance(16);
+    expect(reduced.value).toBe(1);
+  });
+
   it("shortens the positional channels rather than stopping them", () => {
     const factor = DEFAULT_MOTION_PROFILE.reducedMotion.morphResponseFactor;
     expect(factor).toBeLessThan(1);

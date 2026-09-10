@@ -6,9 +6,11 @@
  * would have been invisible to a golden too, because none of them changes a
  * steady-state pixel: they are a resize that strands a texture handle, a device
  * generation that leaves a provider pointing at a dead device, an encode that
- * throws while a video is held, a rebuild claim spent on nothing. What they have
- * in common is that the evidence is *which object* the next frame reaches for, so
- * the fake device hands out real identities and the assertions are about those.
+ * throws while a video is held, a rebuild claim spent on nothing, a surface an
+ * author parked that goes on holding a frame's worth of allocations, two planes
+ * of one group id destroying each other's field. What they have in common is
+ * that the evidence is *which object* the next frame reaches for, so the fake
+ * device hands out real identities and the assertions are about those.
  *
  * What this file cannot say: whether the bindings are legal, whether the WGSL
  * compiles, or what any of it looks like. `e2e/gpu/` and `e2e/golden/` answer
@@ -90,6 +92,22 @@ function backdropBindings(gpu: FakeGpu): readonly GPUTexture[] {
 
 const labelled = (gpu: FakeGpu, fragment: string) =>
   gpu.textures.filter((texture) => texture.label.includes(fragment));
+
+/**
+ * Every field target a group has ever been allocated, whatever plane it drew on.
+ *
+ * Matched on the label's two ends rather than on the whole string, because the
+ * middle is the group's resource identity and that is exactly what the plane
+ * qualification changes — a test that named `vitrea:group:g:field` outright
+ * would be asserting the key's spelling instead of the count of allocations.
+ */
+const groupTargets = (gpu: FakeGpu, target: string) =>
+  gpu.textures.filter(
+    (texture) => texture.label.startsWith("vitrea:group:") && texture.label.endsWith(`:${target}`),
+  );
+
+const buffersLabelled = (gpu: FakeGpu, fragment: string) =>
+  gpu.buffers.filter((buffer) => buffer.label.includes(fragment));
 
 describe("a resize with a static backdrop", () => {
   it("leaves the pyramid's textures alive for the frame that binds them", () => {
@@ -398,7 +416,7 @@ describe("rebuild claims the renderer could not spend", () => {
 
 describe("the governor's refraction resolution scale", () => {
   const fieldArgs = (renderScale: number) => ({
-    groupId: "g",
+    resourceId: "g",
     family: "rsupn" as const,
     rectDevice: { x: 0, y: 0, width: 400, height: 200 },
     cssPerDevice: 0.5,
@@ -453,5 +471,126 @@ describe("the governor's refraction resolution scale", () => {
     const governor = createGovernor();
     expect(governor.setLevel(0).refractionResolutionScale).toBe(1);
     expect(governor.setLevel(1).refractionResolutionScale).toBe(1);
+  });
+});
+
+/**
+ * W27d's parked surface, from the resource side (claims §5.132 §2).
+ *
+ * `present={false}` is a surface an author has put away, an intended steady
+ * state rather than a transient, and at presence 0 `resolveSurfaces` drops the
+ * member so the group resolves to nothing to draw. The pixels were already
+ * right; what was not is that the group went on owning the whole allocation
+ * — four field targets, an instance storage buffer and three uniform buffers —
+ * for as long as it stayed away, because only `removeGroup` ever reached
+ * `forget`, and an author who parks a surface has not removed it.
+ */
+describe("a group parked at presence 0", () => {
+  const parked: GroupRenderInput = {
+    ...GROUP,
+    surfaces: GROUP.surfaces.map((surface) => ({ ...surface, channels: { materialization: 0 } })),
+  };
+
+  it("releases its pooled resources, and allocates cleanly when presence returns", () => {
+    const gpu = createFakeGpu();
+    const renderer = rendererOn(gpu);
+
+    renderer.drawFrame(frameArgs(1));
+    const drawn = groupTargets(gpu, "field");
+    expect(drawn).toHaveLength(1);
+    const instances = buffersLabelled(gpu, "vitrea:instances:");
+    const uniforms = buffersLabelled(gpu, "vitrea:uniform:optics:");
+    expect(instances).toHaveLength(1);
+    expect(uniforms).toHaveLength(1);
+
+    renderer.setGroup(parked);
+    renderer.drawFrame(frameArgs(2));
+
+    for (const target of ["field", "aux", "aux2", "presence"]) {
+      const targets = groupTargets(gpu, target);
+      expect(targets).toHaveLength(1);
+      expect(targets[0]?.destroyed).toBe(true);
+    }
+    expect(instances[0]?.destroyed).toBe(true);
+    expect(uniforms[0]?.destroyed).toBe(true);
+
+    // Reached again on every frame the surface stays away, so it has to be
+    // idempotent rather than merely correct once.
+    renderer.drawFrame(frameArgs(3));
+    expect(groupTargets(gpu, "field")).toHaveLength(1);
+
+    renderer.setGroup(GROUP);
+    renderer.drawFrame(frameArgs(4));
+
+    const returned = groupTargets(gpu, "field");
+    expect(returned).toHaveLength(2);
+    expect(returned[1]?.destroyed).toBe(false);
+    expect(buffersLabelled(gpu, "vitrea:instances:")[1]?.destroyed).toBe(false);
+  });
+});
+
+/**
+ * One group id, two planes — `GlassMorph transition="materialize"` (claims
+ * §5.132 §5), whose two endpoints are registered under one group and drawn on
+ * `base` and `overlay`.
+ *
+ * A host draws one plane per `drawFrame` against that plane's canvases, so both
+ * endpoints reach the field pass under the same id with the rect their own
+ * measured box gives them. Keyed on the id alone, each plane's `acquire` failed
+ * the other's shape check and destroyed and recreated all four field targets —
+ * twice a frame for the length of the transition, for pixels that were already
+ * correct.
+ */
+describe("one group id drawn on two planes", () => {
+  const sized = (size: readonly [number, number]): GroupRenderInput => ({
+    ...GROUP,
+    surfaces: GROUP.surfaces.map((surface) => ({
+      ...surface,
+      shape: { ...surface.shape, size: [size[0], size[1]] },
+    })),
+  });
+
+  /** One frame of the transition: the source on `base`, the destination on `overlay`. */
+  const transitionFrame = (renderer: GlassRenderer, id: number): void => {
+    renderer.setGroup(sized([160, 80]));
+    renderer.drawFrame({ ...frameArgs(id), plane: "base" });
+    renderer.setGroup(sized([240, 120]));
+    renderer.drawFrame({ ...frameArgs(id), plane: "overlay" });
+  };
+
+  it("gives each plane its own field targets rather than taking the other's", () => {
+    const gpu = createFakeGpu();
+    const renderer = createWebGPURenderer({ viewport: VIEWPORT });
+    renderer.attachDevice(gpu.device, "vitrea");
+
+    transitionFrame(renderer, 1);
+    transitionFrame(renderer, 2);
+
+    // Two allocations, one per plane, both alive: the second frame reused what
+    // the first made. Four, with two of them destroyed, is the churn.
+    for (const target of ["field", "aux", "aux2", "presence"]) {
+      const targets = groupTargets(gpu, target);
+      expect(targets).toHaveLength(2);
+      expect(targets.map((texture) => texture.destroyed)).toEqual([false, false]);
+    }
+    expect(buffersLabelled(gpu, "vitrea:instances:")).toHaveLength(2);
+  });
+
+  it("frees every plane the group allocated in when it goes away", () => {
+    const gpu = createFakeGpu();
+    const renderer = createWebGPURenderer({ viewport: VIEWPORT });
+    renderer.attachDevice(gpu.device, "vitrea");
+
+    transitionFrame(renderer, 1);
+    renderer.removeGroup(GROUP.groupId);
+
+    // Both namespaces, not just the plane drawn most recently — a set left
+    // behind here is stranded for the life of the renderer.
+    for (const target of ["field", "aux", "aux2", "presence"]) {
+      expect(groupTargets(gpu, target).map((texture) => texture.destroyed)).toEqual([true, true]);
+    }
+    for (const buffer of buffersLabelled(gpu, "vitrea:instances:")) {
+      expect(buffer.destroyed).toBe(true);
+    }
   });
 });

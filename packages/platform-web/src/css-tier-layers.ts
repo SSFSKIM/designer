@@ -421,6 +421,13 @@ export interface CssTierFilterDefs {
   dispose(): void;
 }
 
+/**
+ * How many solved tint tables a root keeps beside their transfers. One per
+ * material on screen is the working set; a page with more distinct materials
+ * than this is redrawing them all anyway.
+ */
+const TINT_TABLE_CACHE_LIMIT = 32;
+
 /** One filter definition's whole identity: its width and the tint it carries. */
 export interface CssTierFilterSpec {
   readonly sigmaCssPx: number;
@@ -446,6 +453,47 @@ export function createCssTierFilterDefs(
 
   const built = new Map<string, SVGElement>();
   let live = new Set<string>();
+  /*
+   * The solved tables, kept beside their transfer rather than beside the
+   * definition that carries them (W27d).
+   *
+   * A definition is named by its width AND by its transfer, and since presence
+   * scales the widths a materializing surface builds one definition per width
+   * per frame — cheap, and swept the same frame. What is not cheap is the table:
+   * `cssTierTintTable` bisects on the point count until the interpolation error
+   * is under its bound, three times, and the transfer it is solved from is the
+   * resting material's at every presence. So the strings are cached on the
+   * quantised transfer — the same quantisation the `id` is built from, so two
+   * transfers that share a definition share its table by construction — and a
+   * width that follows a driver costs an element and two attributes.
+   *
+   * A plain FIFO bound, like the mask cache: the working set is the materials on
+   * screen, and a backdrop drifting outside the quantum every frame is a new
+   * material each time rather than a leak.
+   */
+  const tables = new Map<string, readonly string[]>();
+  const tableValuesFor = (transfer: CssTierTintTransfer): readonly string[] => {
+    const key = referenceFilterId("t", 0, transfer);
+    const hit = tables.get(key);
+    if (hit !== undefined) return hit;
+    const values = [0, 1, 2].map((channel) =>
+      cssTierTintTable({
+        tintAlpha: transfer.tintAlpha,
+        tint: transfer.tint[channel]!,
+        addedLight: transfer.addedLight,
+        floorAlpha: transfer.floorAlpha,
+        floorEncoded: transfer.floorEncoded[channel]!,
+      })
+        .map((value) => String(Math.round(value * 1e6) / 1e6))
+        .join(" "),
+    );
+    if (tables.size >= TINT_TABLE_CACHE_LIMIT) {
+      const oldest = tables.keys().next();
+      if (!oldest.done) tables.delete(oldest.value);
+    }
+    tables.set(key, values);
+    return values;
+  };
   return {
     ensure({ sigmaCssPx, transfer }) {
       const id = referenceFilterId(prefix, sigmaCssPx, transfer);
@@ -502,21 +550,11 @@ export function createCssTierFilterDefs(
        */
       if (transfer !== undefined) {
         const componentTransfer = doc.createElementNS(NS, "feComponentTransfer");
+        const values = tableValuesFor(transfer);
         (["feFuncR", "feFuncG", "feFuncB"] as const).forEach((name, channel) => {
           const fn = doc.createElementNS(NS, name);
           fn.setAttribute("type", "table");
-          fn.setAttribute(
-            "tableValues",
-            cssTierTintTable({
-              tintAlpha: transfer.tintAlpha,
-              tint: transfer.tint[channel]!,
-              addedLight: transfer.addedLight,
-              floorAlpha: transfer.floorAlpha,
-              floorEncoded: transfer.floorEncoded[channel]!,
-            })
-              .map((value) => String(Math.round(value * 1e6) / 1e6))
-              .join(" "),
-          );
+          fn.setAttribute("tableValues", values[channel]!);
           componentTransfer.append(fn);
         });
         filter.append(componentTransfer);
@@ -563,6 +601,13 @@ export function filteredAreaDevicePx(
  * step never does: an affine applied at both layers would be applied twice, and
  * `blur(m·b + c) = m·blur(b) + c` is what makes applying it once at L1 the whole
  * composite's conversion (W17 G1; Decision Log 2 (c)).
+ *
+ * A surface's presence reaches the WIDTHS and never the transfer (W27d), so a
+ * materializing surface names a new definition per width per frame and the
+ * frame-scoped sweep takes the previous one with it: bounded by construction,
+ * and the solved table is reused from the cache beside it rather than re-solved
+ * with each. A body at zero presence names none at all — it reports `blur` at
+ * zero width, which is what a body that draws nothing is.
  */
 export function referenceFilterSpecs(body: CssTierBody): readonly CssTierFilterSpec[] {
   if (body.filter !== "reference-filter") return [];

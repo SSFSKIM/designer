@@ -1,7 +1,7 @@
 /**
  * One backdrop proxy per sampling group, constructed the way S1 measured it.
  *
- * Three properties are normative, not stylistic:
+ * Four properties are normative, not stylistic:
  *
  * 1. **Box padded, mask exact.** [Filter Effects 2
  *    §3](https://drafts.csswg.org/filter-effects-2/#BackdropRoot) builds the
@@ -19,6 +19,13 @@
  *    roughly 1.75–3.0 Mpx of device-pixel proxy area while retail Chrome never
  *    does, so a page cannot tell which rasteriser it is on. Silence is the worst
  *    failure mode, so the area is capped rather than probed.
+ * 4. **Presence attenuates, never resizes.** A member's `materialization` decides
+ *    an alpha: the box, the union and the padding are the ones the group's
+ *    measured members give whatever their presence, so one member fading cannot
+ *    move the geometry a sibling is rendered from or the blur input a sibling
+ *    samples. The one thing it does decide is whether the member is painted at
+ *    all — a member at exactly 0 leaves the painted shape, because absence is an
+ *    endpoint rather than a low alpha. See `ProxyPresence`.
  *
  * Everything here is pure arithmetic over measured rects: no DOM, no reads. The
  * element that carries the result is `backdrop-proxy.ts`'s job.
@@ -44,7 +51,94 @@ export interface ProxyMember {
    * in full, outside the box that was supposed to be cropping it.
    */
   readonly clip?: readonly Rect[];
+  /**
+   * The surface's material presence, `[0, 1]`, absent wherever the surface is
+   * fully materialized — which is every surface that never animates one, so the
+   * resting page never carries this at all.
+   *
+   * The proxy is the DOM half of a WebGPU-tier group's material, so presence has
+   * to reach it or it does not exist. The shader can fade one surface's optics to
+   * nothing (§Where each feature lives: presence, not alpha) while the group's
+   * proxy — a *sibling* of the host, one per group per plane — goes on filtering
+   * the page beneath it, leaving a blurred rectangle standing exactly where the
+   * glass was supposed to have gone. `ProxyPresence` is what that value becomes.
+   */
+  readonly materialization?: number;
 }
+
+/**
+ * How the proxy element is to carry its members' presence — the *value*, not the
+ * declaration, which is `backdrop-proxy.ts`'s.
+ *
+ * Three kinds because three cases are genuinely different, and the first of them
+ * is the one the whole resting page is in:
+ *
+ * - **`present`.** Every member fully materialized. Nothing is added to the
+ *   element at all, so a page that never animates presence writes byte-identical
+ *   CSS to the one before this existed.
+ * - **`uniform`.** One alpha across the group — every single-member group in
+ *   transit, which is nearly every group that ever moves. Carried by `opacity`
+ *   on the proxy itself: claims §5.71 §1 measured `opacity: a` and a uniform
+ *   `mask-image` of alpha *a* on a `backdrop-filter` layer bit-identical over the
+ *   material's interior (RMS 0.000000), and `opacity` is the one of the two that
+ *   costs no per-frame image decode and that the CSS tier already ships on every
+ *   engine as its portable carrier.
+ * - **`per-member`.** Members at different alphas, which no element-level property
+ *   can express. Carried by a `mask-image` built from the clip path's own
+ *   subpaths at one `fill-opacity` per distinct alpha — and it *replaces* the
+ *   clip path rather than joining it, which is measured rather than chosen.
+ *
+ * **On a `backdrop-filter` layer, Chromium does not compose a `clip-path` and a
+ * `mask-image`: the clip wins and the mask has no effect on the filtered
+ * backdrop at all.** Measured here on the harness's checkerboard at σ 8, one
+ * member, interior against the unfiltered ground: clip alone Δ31, clip +
+ * `opacity: 0.5` Δ15, clip + a uniform mask at alpha 0.5 Δ**31**, mask alone at
+ * alpha 1 Δ31 with the padding ring byte-identical, mask alone at 0.5 Δ15. So a
+ * mask *alone* carries the silhouette exactly and the alpha exactly, matching
+ * `opacity` at the same value — this extends claims §5.71 §1, which separated ten
+ * carriers on a layer that had no clip path to disagree with.
+ *
+ * That makes the fallback below load-bearing. Where the engine conformance table
+ * does not say `maskOnBackdropFilter: "yes"`, dropping the clip path for a mask
+ * the engine might ignore would leave a full-strength blurred rectangle standing
+ * proud of the glass — the 102.92/255 halo of property 1 above, the worst artifact
+ * S1 measured. So an unverified engine reduces a mixed group to `uniform` at the
+ * group's **maximum** presence: nobody is blanked, nobody loses frost they were
+ * entitled to, and a member part-way through a transit keeps the group's presence
+ * until the group agrees. Same gate, same reason and same table row as the CSS
+ * tier's own raster mask (`css-tier.ts`).
+ *
+ * What that fallback does *not* get to approximate is the endpoint. A member at
+ * exactly 0 is absent on every engine, because it leaves the painted shape
+ * altogether (`paintedSubpaths`) rather than relying on an alpha to hide it — so
+ * `Glass.identity` is identity everywhere, and only the intermediate frost of a
+ * disagreeing group is engine-dependent.
+ *
+ * **Presence is member-local** whichever carrier runs: the group's box, clip union
+ * and padding are computed over every measured member whatever its presence, so a
+ * member at 0 keeps its place in the geometry and a neighbour at 1 renders
+ * byte-identically throughout its neighbour's transit — the proxy's blur input
+ * does not move when a sibling fades.
+ *
+ * The approximation, stated: where two members at *different* alphas overlap,
+ * the mask composites their two paths source-over rather than taking either
+ * alpha, so the shared pixels read fractionally more present than the front
+ * member alone. Members at the same alpha share one `<path>` and are exact under
+ * any overlap, which covers every group at rest and every group in a uniform
+ * transit; and a group whose members overlap at all is one whose merge distance
+ * has already put them in a single shape union.
+ *
+ * The second approximation, the one that comes with changing carrier: the mask's
+ * antialiased contour and the clip path's are the same geometry drawn by two
+ * rasterisers, and §5.71 §1 measured them disagreeing by up to one strong code
+ * value on the single contour pixel. A group crossing into or out of a mixed
+ * presence can therefore move that pixel; nothing inside the shape or in the
+ * padding ring moves with it.
+ */
+export type ProxyPresence =
+  | { readonly kind: "present" }
+  | { readonly kind: "uniform"; readonly alpha: number }
+  | { readonly kind: "per-member"; readonly maskImage: string };
 
 export type ProxyFindingCode =
   | "sampling-padding-below-3-sigma"
@@ -68,6 +162,14 @@ export interface ProxyGeometryInput {
   readonly devicePixelRatio: number;
   /** From the engine conformance table. `Infinity` where the engine is unbounded. */
   readonly maxProxyAreaDevicePx: number;
+  /**
+   * The engine conformance table's `maskOnBackdropFilter` row: whether a
+   * `mask-image` on a `backdrop-filter` layer composes (claims §5.71 §1). Absent
+   * reads as `"unverified"`, which is the conservative answer and the one that
+   * keeps the silhouette on `clip-path` — see `ProxyPresence` for what turns on
+   * it.
+   */
+  readonly maskOnBackdropFilter?: "yes" | "no" | "unverified";
 }
 
 export interface ProxyGeometry {
@@ -89,10 +191,20 @@ export interface ProxyGeometry {
    * tell apart.
    */
   readonly clipUnion: Rect;
-  /** `clip-path` value: the exact member-shape union, in proxy-local px. */
+  /**
+   * `clip-path` value: the exact member-shape union, in proxy-local px, minus any
+   * member at zero presence — see `paintedSubpaths`. Untouched by any other
+   * presence, so a page that never animates one writes the value it always wrote.
+   */
   readonly clipPath: string;
-  /** The mask's sub-rects in proxy-local px — the same geometry the path encodes. */
+  /**
+   * Every member's box in proxy-local px, in the members' own order — the
+   * geometry the subpaths are built from, including any member the painted shape
+   * has dropped.
+   */
   readonly maskBounds: readonly Rect[];
+  /** How the element is to carry the members' presence. */
+  readonly presence: ProxyPresence;
   /** What the padding actually ended up being, after the 3σ floor and the area cap. */
   readonly effectivePadding: number;
   readonly findings: readonly ProxyFinding[];
@@ -241,6 +353,107 @@ export function roundedRectPath(rect: Rect, radii: CornerRadii): string {
 }
 
 /**
+ * A member's presence, clamped and quantised to a thousandth.
+ *
+ * Quantised because the value arrives from a per-frame driver and lands in a
+ * style string: three decimals is the precision the CSS tier already writes its
+ * own share at, it puts a hard floor under how often the carrier changes, and —
+ * the property that matters most — it makes the two endpoints *reachable*. A
+ * driver a ten-thousandth away from 1 has arrived, and must write the resting
+ * page's own CSS rather than an `opacity: 0.9999` that differs from it.
+ *
+ * A value that is absent or not a number is a surface that never declared a
+ * presence, which is full presence.
+ */
+function presenceOf(member: ProxyMember): number {
+  const declared = member.materialization;
+  if (declared === undefined || !Number.isFinite(declared)) return 1;
+  return Math.round(Math.min(1, Math.max(0, declared)) * 1000) / 1000;
+}
+
+/**
+ * The `mask-image` for members that do not share one alpha.
+ *
+ * One `<path>` per *distinct* alpha rather than per member, so members that agree
+ * composite as a single fill and are exact wherever they overlap; a member at
+ * alpha 0 is left out altogether, since an absent path and a path filled at zero
+ * are the same mask and only one of them is carried in the URL. The subpaths are
+ * the clip path's own, which is what keeps the mask from ever disagreeing with
+ * the silhouette by more than the antialiased contour pixel §5.71 §1 measured.
+ *
+ * The SVG is sized in the proxy's own local px, so the declaration's
+ * `mask-size: 100% 100%` maps it onto the border box at scale 1 and no rounding
+ * of an intrinsic size can shift the geometry.
+ */
+function presenceMaskImage(
+  box: Rect,
+  subpaths: readonly string[],
+  alphas: readonly number[],
+): string {
+  const byAlpha = new Map<number, string[]>();
+  subpaths.forEach((subpath, index) => {
+    const alpha = alphas[index] ?? 1;
+    if (alpha === 0 || subpath === "") return;
+    const together = byAlpha.get(alpha);
+    if (together === undefined) byAlpha.set(alpha, [subpath]);
+    else together.push(subpath);
+  });
+
+  const paths = [...byAlpha]
+    .map(
+      ([alpha, together]) =>
+        `<path fill="#fff" fill-opacity="${alpha}" d="${together.join(" ")}"/>`,
+    )
+    .join("");
+  const svg =
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${box.width}" height="${box.height}"` +
+    ` viewBox="0 0 ${box.width} ${box.height}">${paths}</svg>`;
+
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+}
+
+/**
+ * The subpaths the proxy actually paints: every member that has any presence at
+ * all.
+ *
+ * A member at exactly 0 is *absent*, not faint, and that endpoint is not a thing
+ * any carrier gets to approximate. Dropping it from the painted shape is what
+ * delivers it on the one path where the alpha carrier cannot: the fallback for an
+ * engine whose mask on a filtered layer is unverified, which reduces a
+ * disagreeing group to one `opacity` and would otherwise hold a dematerialized
+ * member at the group's presence. The mask carrier omits the same members for the
+ * same reason, and a group where nobody has faded is untouched — the resting page
+ * writes the clip path it always wrote.
+ *
+ * Where *every* member has gone, the shape is unobservable — that group is
+ * `display: none` — and a `path("")` is not a valid CSS value, so the full set
+ * stands in.
+ */
+function paintedSubpaths(
+  subpaths: readonly string[],
+  alphas: readonly number[],
+): readonly string[] {
+  const painted = subpaths.filter((_, index) => (alphas[index] ?? 1) > 0);
+  return painted.length === 0 ? subpaths : painted;
+}
+
+function resolvePresence(
+  box: Rect,
+  subpaths: readonly string[],
+  alphas: readonly number[],
+  maskable: boolean,
+): ProxyPresence {
+  /** Full presence is the absence of a carrier, however the group arrived at it. */
+  const shared = (alpha: number): ProxyPresence =>
+    alpha === 1 ? { kind: "present" } : { kind: "uniform", alpha };
+
+  const first = alphas[0] ?? 1;
+  if (alphas.every((alpha) => alpha === first)) return shared(first);
+  if (!maskable) return shared(Math.max(...alphas));
+  return { kind: "per-member", maskImage: presenceMaskImage(box, subpaths, alphas) };
+}
+
+/**
  * The largest padding in `[floor, wanted]` whose padded union fits the area cap,
  * or `floor` when even that does not. Never returns less than `floor`: a
  * starved blur is a visible artifact at every shape edge, while an over-cap
@@ -323,11 +536,14 @@ export function resolveProxyGeometry(input: ProxyGeometryInput): ProxyGeometry |
     return local === undefined ? "" : roundedRectPath(local, member.radii);
   });
 
+  const alphas = members.map(presenceOf);
+
   return {
     box,
     clipUnion: union,
-    clipPath: `path("${subpaths.join(" ")}")`,
+    clipPath: `path("${paintedSubpaths(subpaths, alphas).join(" ")}")`,
     maskBounds,
+    presence: resolvePresence(box, subpaths, alphas, input.maskOnBackdropFilter === "yes"),
     effectivePadding: capped,
     findings,
   };

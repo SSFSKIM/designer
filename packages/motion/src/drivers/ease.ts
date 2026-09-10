@@ -2,7 +2,7 @@ import type { EaseConfig, MotionDriver } from "../driver";
 import { EASINGS, type Easing } from "../easing";
 
 /**
- * Monotonic time-based ramp (§Motion: opacity/materialization — "no
+ * Monotonic time-based ramp (§Motion: materialization — "no
  * overshoot").
  *
  * Progress is linear in time and the curve is non-decreasing, so the value can
@@ -10,7 +10,7 @@ import { EASINGS, type Easing } from "../easing";
  *
  * A redirect re-anchors on the current value and restarts progress. That is a
  * velocity discontinuity, and it is the right trade here: a materialising
- * surface must not overshoot its opacity, and only a monotone curve over a
+ * surface must not overshoot its presence, and only a monotone curve over a
  * bounded interval guarantees that. Channels that need velocity carried across a
  * redirect are the spring's, per the driver table.
  */
@@ -32,7 +32,7 @@ export class EaseDriver implements MotionDriver {
 
   get value(): number {
     // `from + (to - from) * 1` is not exactly `to` in floating point, and a
-    // finished materialization has to land on its opacity exactly.
+    // finished materialization has to land on its presence exactly.
     if (this.#progress >= 1) return this.#to;
     return this.#from + (this.#to - this.#from) * this.#easing.at(this.#progress);
   }

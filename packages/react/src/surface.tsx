@@ -104,6 +104,12 @@ export interface GlassSurfaceOwnProps {
   /** Wire pointer and keyboard events into the interaction machine. */
   readonly interactive?: boolean | undefined;
   readonly disabled?: boolean | undefined;
+  /**
+   * Animate only the material to identity in place. Default true. The mounted
+   * host keeps its semantics and foreground tokens; the app owns content and
+   * contrast over the uncovered backdrop. This never changes element opacity.
+   */
+  readonly present?: boolean | undefined;
   /** Held true by a morph in flight. */
   readonly morphing?: boolean | undefined;
   /** Called once the host is registered, and with `null` when it is released. */
@@ -140,6 +146,7 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
     nodeId: explicitNodeId,
     interactive = false,
     disabled = false,
+    present = true,
     morphing = false,
     onHost,
     ...rest
@@ -180,8 +187,8 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
    * through `update`, and only the id, the group, the plane, the element and the
    * shape *family* can require a new registration.
    */
-  const patch = useRef({ radii, smoothing, reference, thickness, order, variant, tint, foreground });
-  patch.current = { radii, smoothing, reference, thickness, order, variant, tint, foreground };
+  const patch = useRef({ radii, smoothing, reference, thickness, order, variant, tint, foreground, present });
+  patch.current = { radii, smoothing, reference, thickness, order, variant, tint, foreground, present };
 
   // Held in a ref so a fresh closure each render never re-registers the host.
   const onHostRef = useRef(onHost);
@@ -202,6 +209,7 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
       smoothing: initial.smoothing,
       reference: initial.reference,
       thickness: initial.thickness,
+      present: initial.present,
       ...(initial.order === undefined ? {} : { order: initial.order }),
       ...(initial.variant === undefined ? {} : { variant: initial.variant }),
       ...(initial.tint === undefined ? {} : { tint: initial.tint }),
@@ -246,7 +254,22 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
   // would write the same values forever.
   const foregroundKey = JSON.stringify(foreground);
 
-  useEffect(() => {
+  /**
+   * In the layout phase, because `present` is in this patch (W27d; claims
+   * §5.132 §1).
+   *
+   * Presence and the content it belongs to have to reach the runtime on the same
+   * commit. `GlassMorph`'s materialize crossfade writes its content in a layout
+   * effect, and under Reduced Motion that write is the whole transition — content
+   * jumps to its end on the commit `open` changed. Forwarded from a passive
+   * effect, presence would leave that commit behind: the patch lands after paint
+   * and the root writes the channel on its next frame, so the browser can paint
+   * one frame of destination content over material that is not there yet, and one
+   * frame of source content over material that has already gone. Nothing here
+   * reads the DOM, so the earlier phase costs nothing and the rest of the patch
+   * comes along rather than being split across two writes that could reorder.
+   */
+  useLayoutEffect(() => {
     handle?.update({
       radii,
       smoothing,
@@ -256,8 +279,9 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
       variant,
       tint,
       foreground: patch.current.foreground,
+      present,
     });
-  }, [foregroundKey, handle, order, radii, reference, smoothing, thickness, tint, variant]);
+  }, [foregroundKey, handle, order, present, radii, reference, smoothing, thickness, tint, variant]);
 
   /**
    * A capsule's radius is half its shorter side, and only the measured box knows

@@ -60,8 +60,9 @@ import { IDLE_CHANNELS, type GroupRenderInput, type Rect, type SurfaceChannels, 
  * scalar the fragment stage reads per pixel — the size law's thickness factor and
  * the author tint's strength. 17 is not a legal stride: `centre` and `half` are
  * `vec2f`, which aligns the struct to 8 bytes, so its size has to be a multiple
- * of 8 and 72 is the next one up. The eighteenth float is that padding, written
- * as zero rather than left to whatever the buffer held.
+ * of 8 and 72 is the next one up. The eighteenth float was that padding, written
+ * as zero rather than left to whatever the buffer held; since W27d it carries the
+ * `materialization` channel, so the surface gained a presence at no stride at all.
  */
 export const INSTANCE_FLOATS = 18;
 export const INSTANCE_BYTES = INSTANCE_FLOATS * 4;
@@ -108,6 +109,43 @@ function boundedLensStrength(strength: number): number {
   return Math.min(LENS_STRENGTH_MAX, Math.max(0, strength));
 }
 
+/**
+ * The presence as it may enter the buffer (W27d): clamped into `[0, 1]`, with
+ * `NaN` answered by the idle rather than by either end of it.
+ *
+ * The same two arguments `boundedLensStrength` makes, for the same reasons. The
+ * clamp is closed above here because presence has a top — a surface cannot be
+ * more than present, and the terms it scales are the material's own, already
+ * fitted at their full amount — and `NaN` is the undriven case rather than a
+ * surface asked to disappear, which is the difference between a channel nobody
+ * wrote and a channel written to 0.
+ */
+function boundedMaterialization(value: number): number {
+  if (Number.isNaN(value)) return IDLE_CHANNELS.materialization;
+  return Math.min(1, Math.max(0, value));
+}
+
+/**
+ * Whether this surface draws material at all — the one predicate for it.
+ *
+ * Two kinds of member do not, for one reason: neither has anything for the field
+ * pass to draw. A reference shape (`fieldReferenceOnly`) exists so a concentric
+ * child has a parent field to be a level set of. A surface at `materialization:
+ * 0` is `Glass.identity` — the glass animated to nothing in place — and a surface
+ * with no glass on it contributes no instance, no coverage and no union.
+ *
+ * Exported because the group's own uniforms have to agree with it: the tint seed
+ * is resolved from the first *drawn* tinted member, and a group whose emphasised
+ * control has dematerialized must paint with the colour of one that is still
+ * there. Anything else that reads "which members does this group draw" belongs
+ * here too rather than in a second copy of the rule.
+ */
+export function drawsMaterial(surface: SurfaceInput): boolean {
+  if (surface.fieldReferenceOnly === true) return false;
+  const presence = surface.channels?.materialization ?? IDLE_CHANNELS.materialization;
+  return boundedMaterialization(presence) > 0;
+}
+
 export interface ResolvedSurface {
   readonly nodeId: string;
   /** The surface's own resolved shape — bounds, hit-testing, and the rim's scale. */
@@ -142,6 +180,12 @@ export interface ResolvedSurface {
    * `aux` note.
    */
   readonly sizeThickness: number;
+  /**
+   * The surface's presence, 0…1 (W27d): the `materialization` channel bounded on
+   * its way into the buffer. 1 on a surface nobody drives, which is the material
+   * the calibration bed measures.
+   */
+  readonly materialization: number;
 }
 
 const channelsOf = (input: SurfaceInput): SurfaceChannels => ({
@@ -229,10 +273,21 @@ export function resolveSurfaces(
   const paramsFor = (shape: ResolvedShape): FieldParams =>
     family === "rsup" ? governorFieldParams(shape) : fieldParams(shape);
 
-  // Reference shapes are resolved (a child needs its parent's field) and then
-  // dropped: they contribute no instance, no bounds, and no coverage.
+  /*
+   * Every member is RESOLVED — a concentric child needs its parent's field
+   * whether or not the parent is drawn — and then the ones with no material on
+   * them are dropped (`drawsMaterial`).
+   *
+   * Dropping the absent ones HERE rather than fading their terms in the shader is
+   * what makes W27d's endpoint exact: the group's field rect, its instance buffer
+   * and therefore its pixels become the ones the group would have had without the
+   * member at all, so a surface at `materialization: 0` can neither own a
+   * silhouette nor grow a neck toward a present neighbour. Every value above zero
+   * is a material that is still there, drawn with each optical term scaled by the
+   * channel, and the shader is where that continuum lives.
+   */
   return group.surfaces
-    .filter((surface) => surface.fieldReferenceOnly !== true)
+    .filter(drawsMaterial)
     .map((surface): ResolvedSurface => {
     const channels = channelsOf(surface);
     const shape = resolveShapeOf(surface);
@@ -263,6 +318,7 @@ export function resolveSurfaces(
         profile.refractionScale[accessibilityRefractionCap(policy)],
       ),
       sizeThickness: thickness,
+      materialization: boundedMaterialization(channels.materialization),
       tintStrength: Math.min(1, Math.max(0, surface.tint?.strength ?? 0)),
     };
   });
@@ -441,7 +497,17 @@ export function packInstances(
     // one slot, two curves, and nothing the CPU resolved that the shader has to
     // re-derive from geometry it cannot see.
     data[o + 16] = s.spanPx;
-    data[o + 17] = 0;
+    // The shader's `mat` slot (W27d): the surface's presence, in the float the
+    // struct's 8-byte alignment already required and which was written as zero
+    // until this wave. Presence is per SURFACE and reaches the fragment stages
+    // per pixel, because one group is one field pass and one optics pass while
+    // its members each materialize on their own timeline — a toolbar can
+    // dissolve one item and keep the rest.
+    //
+    // At rest the channel is exactly 1, where every term it multiplies is a
+    // multiplication by one, so the resting material is byte-identical and the
+    // golden bed does not move.
+    data[o + 17] = s.materialization;
   }
 
   return { data, count: surfaces.length };

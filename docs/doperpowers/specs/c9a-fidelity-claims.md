@@ -16738,3 +16738,243 @@ paint or dark-overlay regressions, and does not adopt a stack bound. G2 must dec
 stack envelope using S0 and S1 separately and take the user's eye on the demo. Missing dark
 references, structured colour/spread, unknown-tone collapse, the light unhinted stack rim,
 local exterior-shadow colour and no lens remain explicit work, not accepted parity.
+
+### 5.132 W27d: authored presence, identity in place, and materialize without a geometry match (2026-09-10)
+
+**Scope and reference.** Executes W27 child W27d, Decision Log 8 and contracts X2, X6 and X8.
+The native semantics are the coverage matrix's §1.1 (`Glass.identity`), §1.3
+(`GlassEffectTransition.materialize`), §3.5 (modulating light bending and lensing rather than
+fading an element), and §3.8 (the HIG's caution about animating blur under Reduce Motion).
+**There is no native frame sequence for this transition. Its 220 ms duration, easeOutCubic
+curve, content crossfade and intermediate optical trajectory are authored and unmeasured
+against Apple.** The checks below establish runtime behavior, not native motion fidelity.
+
+**1. The public operation and its ownership.** `GlassSurface present` and the framework-agnostic
+`registerHost({ present })` / `handle.update({ present })` default to true. False retargets the
+motion kernel's existing `materialization` driver to 0, true to 1. A reversal starts from the
+current value; it promises value continuity and monotonic travel, not a spring's velocity
+continuity. The root advances it before either tier reads the inline
+`--vitrea-materialization` channel. It is per surface, bounded to [0, 1], and independent of
+hover, focus, press, disabled and morphing. The state table keeps its invariant presence seed
+at 1, but presence is no longer in `STATE_DRIVEN_CHANNELS`; even an interaction machine
+explicitly carrying it leaves its authored target alone. The driver-family table itself stays
+`monotonic-ease`, including under Reduced Motion.
+
+An initially absent surface starts at identity without an entrance animation. Unmount/release
+remains synchronous: authors animate out with `present`, not by expecting an unmount hook to
+retain the DOM. The node, its declared geometry and semantics stay mounted during presence
+changes. **No host or ancestor opacity is written.** Alpha on an inert optical layer, or a
+transparent optics-canvas result at identity, is not semantic-element opacity and does not
+violate X6. Identity here is optical absence: foreground tokens remain published and the app
+owns its content and contrast over the uncovered backdrop.
+
+**2. What the GPU tier scales.** The old instance padding float (slot 17) carries presence.
+The field pass carries its union-weighted value through a fourth, single-channel `r16float`
+target; the optics and highlight passes read it. It scales lens depth/refraction magnitude,
+the body's mix back toward the unblurred backdrop, material tint alpha, author-tint coverage,
+inner shadow, rim, outer shadow and its lift, and highlight sweep/glow intensity. The outer
+shadow reads the casting surface's presence rather than the receiving pixel's. A strictly
+positive surface retains its field geometry while those terms change. **Exactly 0 leaves the
+resolved drawing set after shape resolution**, so it can still supply a concentric child's
+geometry but contributes no field, hue seed, shadow or pixels. A wholly absent group draws
+nothing. The first implementation retained a raw-backdrop copy and an absent member's union
+neck; the endpoint tests rejected it, and the rendering-set filter fixes it rather than
+renaming it identity. A faded tinted member also cannot seed the surviving member's hue.
+
+The `refraction-checkerboard` A/B on Apple / Metal 3, against presence 1, reads:
+
+| presence | maximum channel delta / 255 | mean channel delta / 255 |
+| --- | ---: | ---: |
+| 0.70 | 42 | 5.06 |
+| 0.35 | **86** | **11.96** |
+
+At 0.35, 47.7% of pixels differ by more than eight codes. This is a shader-reach proof for a
+motion channel, **not an error against Apple**. Explicit presence 1 is SHA-256 identical to an
+undriven render. Presence 0 is SHA-256 identical to omitting the surface, with zero canvas
+alpha everywhere; the connected `union-pair` with [0, 1] is likewise identical to omission of
+the zero member. No golden hash was re-recorded.
+
+The extra field attachment costs two bytes per field texel: 24 → 26 bytes, +8.3% for the field
+attachments, not +8.3% for the entire renderer. It leaves six bytes below the default
+32-byte color-attachment-per-sample limit. It adds a field write and reads in optics/highlight;
+the additional unblurred-backdrop tap is behind `presence < 1`. The timestamp-query bench
+passed, but other wave workers were sharing the GPU, so its wall-clock readings are not an
+attributed performance comparison and no zero-cost claim is made.
+
+**3. What the CSS tier carries.** From the same resolved material, presence scales all four
+body widths (sharp, heavy, heavy step and projected blur), both body layers' optical weights,
+the tint layer's alpha, rim alpha, glow gain and outer-shadow alpha. `--vitrea-blur`,
+`--vitrea-tint` and `--vitrea-occlusion` describe the presence-folded declarations. At 0 the
+sharp filter is `none`, the heavy layer is not displayed, the overlay's alphas are zero and
+every outer-shadow carrier reads `none`. At 1 the old declarations are preserved apart from
+an inert `opacity: 1` on the sharp optical child when presence is explicitly supplied.
+The semantic host never receives that opacity.
+
+The CPU driver owns time. CSS transitions are suppressed on every changed frame, including
+the final step to 0 or 1, and rearmed on the following unchanged frame; otherwise CSS would
+start another animation behind the driver's last step. Reference-filter widths may change
+per frame. Existing mark-and-sweep removes retired definitions, and a 32-entry bounded cache
+of tint-transfer tables avoids re-solving the same transfer just because its blur width moved.
+
+**CSS residuals.** There is no directional refraction/lens field on this tier. Its blur widths
+and layer weights express material thinning, not the GPU's displaced sample. The heavy layer
+blurs the sharp layer's already-composited output, so intermediate presence carries an extra
+`(1 - p) * p` contribution of blurred raw backdrop; it vanishes at both endpoints. The
+linear-filter tint's resting floor-plus-remainder transfer is retained during transit, making
+the intermediate composite an approximation rather than the GPU's exact per-term fold.
+Saturation travels through the body's weight and the rim keeps its layout width. No native
+or cross-tier transient error bound is adopted for these approximations.
+
+**4. The DOM-backed GPU path needs its proxy too.** Shader presence alone cannot remove a
+blurred sibling proxy. A uniform-presence group therefore attenuates that inert proxy's own
+output (and stops displaying it at 0); a mixed group on a verified engine uses an SVG alpha
+mask built from the same clipped member paths. No host or ancestor is faded. Sampling bounds
+**and the group's one blur σ** stay derived from all measured members, so a vanished member
+does not move the blur's mirror edge and does not change the radius its siblings are blurred
+at; zero members leave only the painted path. The all-1 proxy style is byte-identical to the
+pre-channel declaration.
+
+The carrier choice exposed a browser fact not covered by §5.71's isolated-mask measurement:
+**Chromium's `clip-path` wins over `mask-image` on the same backdrop-filter layer.** A mask
+must replace the clip, not accompany it. On the harness checkerboard at sigma 8, maximum
+interior difference from the unfiltered page was:
+
+| carrier | maximum delta / 255 |
+| --- | ---: |
+| no proxy | 0 |
+| clip only | 31 |
+| clip + optical opacity 0.5 | 15 |
+| clip + uniform mask 0.5 | 31 — the mask was inert |
+| mask only, 1 | 31 |
+| mask only, 0.5 | 15 |
+
+The mask-only padding ring stayed byte-identical to the page. The permanent proxy pixel test's
+presence ramp reads maxima **34, 26, 17, 8, 0** at **1, 0.75, 0.5, 0.25, 0**, respectively.
+Mixed [1, 0] preserves the present member and makes the absent member page-identical, with a
+clean padding ring; the same endpoint holds when the mask conformance row is forced to
+`unverified`. Mixed [0.5, 0.25] reads maxima 17 and 11.
+
+**Proxy residuals.** Gecko and WebKit's mask-on-backdrop behavior remains unverified because
+their automatable captures do not expose backdrop-filter output. A mixed group there uses
+the greatest positive member presence, while exactly-zero members still leave the painted
+clip. Only unequal intermediate presences are approximated; zero is not waived. The manual
+oracle is section H of `spikes/s1-proxy-topology/pages/manual-check.html`. On the verified mask
+path, equal alphas share one path; different alphas composite source-over in overlap, so the
+intersection can be more present than the front member alone. Proxy alpha is quantized to
+0.001, and switching raster carriers can move the antialiased contour pixel. These are named
+sampling-carrier limits, not claims of native transition fidelity.
+
+The σ above is a residual of the same shape as the bounds and is stated rather than closed:
+`proxySamplingSigma` takes the widest projected σ over every measured member, so a member at
+presence 0 still sets the radius its siblings' proxy is blurred at, and a group whose only
+large member has parked keeps that member's σ. Deriving σ from positive members only would
+make it a function of presence, which is the fractional union law §6 defers — the σ would
+step as the last member crossed zero and a sibling's frost would jump at the endpoint. The
+carrier is what removes an absent member here; the radius is deliberately left alone.
+
+**5. Materialize, and Reduced Motion.** `GlassMorph transition="matchedGeometry"` keeps the
+existing default. `transition="materialize"` registers two endpoints on their own measured
+boxes and planes, drives source presence out and destination presence in, and crossfades only
+content children. It does not interpolate the endpoints' geometry or require a shared corner
+reference. The render function runs once per endpoint with that endpoint's `open` value.
+Absent content is hidden from hit testing, focus and the accessibility tree; the destination
+releases after dematerializing. Completion waits for both content and the published material
+presence, not merely for a content timer. Reversals redirect instead of restarting at an end.
+The playground exposes both identity and this transition; its switches are app-owned siblings
+so the controls that bring material back stay legible when material-derived ink does not.
+
+**Reduced Motion steps presence on both tiers.** The monotonic driver's duration becomes zero,
+and a preference change mid-flight lands the requested presence on the next root frame.
+Materialize's content also steps. Interaction illumination remains governed by the existing
+optical-channel policy. The distinction is deliberate: hover glow is feedback, whereas whole
+material arrival changes blur and lens depth. This resolves the HIG's general "avoid animating
+into and out of blurs" tension conservatively; it is a vitrea policy, not a measured account
+of Apple's reconciliation of its glass and accessibility guidance.
+
+**6. Remaining work, not regression requirements.**
+
+- A strictly positive GPU member still owns its existing union geometry and can own the
+  nearest field in an overlap, even at a millionth of full presence. A weak source can thus
+  retain a neck or suppress a stronger overlapping neighbor until exactly 0. Scaling the
+  union blend by `min(pA, pB)` removes the bulge only; it does not solve nearest-field
+  ownership. No such partial law was added. The parent explicitly leaves a fractional union
+  law for a measured follow-up: endpoints are exact, the demo's materialize pair is on
+  separate planes, and Apple supplies no half-present-neighbor reference.
+- The stacked-backdrop tone predictor excludes a zero-presence lower surface, so an upper
+  DOM group receives the same input as with that surface omitted or released, including an
+  absent author tint. At fractional presence it still publishes the full material's tone.
+  Closing this means carrying the existing per-term presence fold into that predictor and
+  checking it against GPU output alongside the predictor's existing blur/spread
+  approximations. No new fitted coefficient is needed. The transient reading is recorded,
+  not pinned as a passing test that would prevent a fix. The endpoint is now stated on both
+  sides of that predictor rather than only on the consumer's: independent review found the
+  producer unioning every measured member and taking its back plane from all of them, and the
+  group sort above it doing the same, so a settled materialize pair could hide the base-plane
+  glass its own destination was standing on. Both read the drawing members now (verification
+  record below).
+- **Host presence is always on `DEFAULT_MOTION_PROFILE`, and an author's `profile` does not
+  tune it.** This is stated intent rather than an oversight — presence is driven once by the
+  framework-agnostic root, and React forwards `present` rather than owning a second driver —
+  but it means an app that retunes the `materialization` channel retunes only what the
+  bindings own, which for `GlassMorph transition="materialize"` is the content crossfade and
+  not the material's arrival. Closing it means giving the framework-agnostic root a
+  motion-profile input, which is new public surface on the package that carries it and
+  therefore a wave-owner decision under contract X2. Both READMEs now say so where the ease is
+  named, and `MaterializeMorph` already asks the published material rather than its own driver
+  when the transition is over, so the two halves being different lengths is handled rather
+  than merely tolerated.
+- **X9, for W27e, not implemented here:** Apple's identity leaves content "as if no glass effect
+  was applied". When the vibrant operator lands it must scale with presence and reach the
+  app's own color at 0. The token path W27d leaves in place is where that hook belongs. Until
+  then an app opting into material-derived ink still owns contrast after the glass leaves;
+  the playground's retained GPU plate label demonstrates that limit even though its
+  presence controls remain readable.
+
+**Verification record (2026-09-11, at the landing head).** No material profile, adopted floor,
+canonical calibration matrix or native fixture is changed by this child.
+
+*The bed did not move, measured rather than asserted.* Renderer goldens **34 / 34** and the
+GPU e2e set **21 / 21** at the head, nothing re-recorded — including the isolation proof, the
+scalar-anchor rows (`page-material.spec.ts`, six DOM cells at 0.1104, 0.2706 and 0.9505 in both
+schemes) and the presence rows (`materialization.spec.ts`: explicit 1 SHA-identical to an
+undriven render, 0 identical to omission, 0.35 reaching the shader). platform-web's chromium
+and chromium-gpu e2e **158 / 158**; the three-engine react e2e **128 passed, 3 skipped**, which
+carries the per-frame presence trace on Chromium, Gecko and WebKit; demo e2e **48 / 48**. Unit
+suites **2 160**: policy 23, motion 164, geometry 170, renderer-webgpu 465, core 302,
+platform-web 552, calibration 340, react 141, demo 3. Workspace build and lint clean.
+
+*Composition with the waves that landed beside it.* This child was cut before W27b, W27c G1 and
+W27f G1 and integrated them at landing. The one place they meet is the optics shader, where
+W27f G1's derivation from a known backdrop tone and W27c G1's tint chroma collapse both shape
+terms this child scales. They compose — presence is how much of what the tone derivation
+produced is there — and each factor lands on each term exactly once. Presence also reaches
+W27f's DOM branch, which did not exist on this child's base: it scales the secant's INPUT and
+not its result, so the recovered material neutral and its span stay at what presence 1 solves
+and only the returned coverage travels. Unscaled, that neutral walks toward the backdrop as the
+surface thins, the span falls under the conversion's contrast floor, and the guard hands back
+the full alpha — a flat tone painted over a page the surface has left. At presence 1 every
+added factor is exactly 1.0, which is what the byte-identical goldens above measure.
+
+*Independent review.* A six-lane panel and a binding verifier against the frozen head. Ten
+findings were confirmed and fixed, each with a test that fails before it and passes after,
+verified against the unfixed source rather than assumed: focus lost on a materialize close
+(the returning end was hidden on the commit the app is told the menu shut, so an ordinary
+close-time `focus()` was a silent no-op and focus fell to `<body>`; an end is now hidden by the
+direction of travel, which is what §5 already said); identity surfaces charging the CSS
+two-layer cost budget and collapsing every other surface on the root; a zero-presence member
+notching a sibling's shadow through carrier B's even-odd clip and flipping the carrier choice;
+a parked group holding its field, aux, presence, instance and uniform allocations for as long
+as it stayed parked; the content crossfade replaying whenever the motion profile's identity
+moved; a controlled mount at `open={true}` playing an entrance; both morph endpoints sharing
+one renderer resource identity across two planes and destroying each other's textures twice a
+frame; the footprint observer reading the crossfade's own writes as the app's layout and
+forcing a synchronous layout every transition frame; one frame of content ahead of presence
+under Reduced Motion; and the stacked-tone producer ignoring presence. Two further defects of
+the same shape were found while fixing them and are fixed here: the group sort's back plane,
+which could defeat the stacked-tone fix by registration order, and two more paths that held a
+group's GPU allocations (a `resolveSurfaces` throw, and a group scrolled entirely off canvas).
+
+Three findings the verifier refuted as declared design are recorded rather than fixed: the
+group's proxy σ, now named beside the sampling bounds in §4; host presence always being built
+on `DEFAULT_MOTION_PROFILE`, in §6 above and in both READMEs; and the CSS tint-table cache's
+32-entry bound, in `specs/tech-debt-tracker.md` beside the morph's 1e-3 arrival tolerance.

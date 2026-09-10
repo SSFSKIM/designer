@@ -278,3 +278,117 @@ describe("the cross-group overlap check", () => {
     expect(overlapFindings(proxies)).toEqual([]);
   });
 });
+
+/**
+ * What presence writes on the element (W27d, contract X6).
+ *
+ * The declarations, not the alphas — `proxy-geometry.test.ts` owns which alpha a
+ * member resolves to. What matters here is that the resting page's style
+ * attribute is the one it was before presence existed, that the carrier appears
+ * only while something is fading, and that it disappears again on the way back.
+ */
+describe("the presence carrier on the element", () => {
+  const members = (...alphas: readonly number[]): ProxyRequest["members"] =>
+    alphas.map((materialization, index) => ({
+      nodeId: `n${index}`,
+      bounds: { x: 100 + index * 300, y: 50, width: 200, height: 80 },
+      radii: [22, 22, 22, 22] as const,
+      materialization,
+    }));
+
+  const styleOf = (proxies: ReturnType<typeof manager>): string =>
+    proxies.proxyFor("g1", "base")?.getAttribute("style") ?? "";
+
+  /** An engine whose conformance row says a mask on a filtered layer composes. */
+  const MASKING = { ...ENVIRONMENT, maskOnBackdropFilter: "yes" } as const;
+
+  it("writes the pre-presence style attribute for a fully present group", () => {
+    /** The same member, from a page that has never heard of presence. */
+    const silent: ProxyRequest["members"] = [
+      { nodeId: "n0", bounds: { x: 100, y: 50, width: 200, height: 80 }, radii: [22, 22, 22, 22] },
+    ];
+    const before = manager();
+    before.sync([request({ members: silent })], ENVIRONMENT);
+    const after = manager();
+    after.sync([request({ members: members(1) })], ENVIRONMENT);
+
+    // Byte-identical, not merely equivalent: a page at rest must be indifferent
+    // to whether the runtime knows about presence at all.
+    expect(styleOf(after)).toBe(styleOf(before));
+    expect(styleOf(after)).not.toContain("opacity");
+    expect(styleOf(after)).not.toContain("mask");
+  });
+
+  it("carries one shared alpha as an opacity, leaving the silhouette alone", () => {
+    const proxies = manager();
+    proxies.sync([request({ members: members(0.35, 0.35) })], ENVIRONMENT);
+    const style = styleOf(proxies);
+
+    expect(style).toContain(";opacity:0.35");
+    expect(style).not.toContain("mask-image");
+    // The clip path is the silhouette at every presence and never moves.
+    const whole = manager();
+    whole.sync([request({ members: members(1, 1) })], ENVIRONMENT);
+    const clipOf = (from: string): string => /clip-path:[^;]+/u.exec(from)?.[0] ?? "";
+    expect(clipOf(style)).toBe(clipOf(styleOf(whole)));
+  });
+
+  it("collapses a group that has fully dematerialized, rather than filtering at zero", () => {
+    // A filtered layer at `opacity: 0` still costs a render surface and a
+    // two-pass Gaussian; a proxy that draws nothing should cost neither, and an
+    // element that is not laid out cannot filter.
+    const proxies = manager();
+    proxies.sync([request({ members: members(0, 0) })], ENVIRONMENT);
+
+    expect(styleOf(proxies)).toContain(";display:none");
+    expect(styleOf(proxies)).not.toContain("opacity");
+  });
+
+  it("masks in both spellings, sized to cover the box exactly once", () => {
+    const proxies = manager();
+    proxies.sync([request({ members: members(1, 0.25) })], MASKING);
+    const style = styleOf(proxies);
+
+    expect(style).toContain(';mask-image:url("data:image/svg+xml,');
+    expect(style).toContain(';-webkit-mask-image:url("data:image/svg+xml,');
+    expect(style).toContain(";mask-mode:alpha");
+    expect(style).toContain(";mask-size:100% 100%;mask-repeat:no-repeat");
+    expect(style).toContain(";-webkit-mask-size:100% 100%;-webkit-mask-repeat:no-repeat");
+  });
+
+  it("takes the clip path off where the mask carries the silhouette", () => {
+    // Measured, not chosen: on a backdrop-filter layer Chromium composes the two
+    // by dropping the mask, so leaving the clip path on would leave the group
+    // unfaded. The mask carries both, byte-exactly (`ProxyPresence`).
+    const proxies = manager();
+    proxies.sync([request({ members: members(1, 0.25) })], MASKING);
+
+    expect(styleOf(proxies)).not.toContain("clip-path");
+  });
+
+  it("keeps the clip path where the engine's mask is unverified", () => {
+    const proxies = manager();
+    proxies.sync([request({ members: members(0.6, 0.2) })], ENVIRONMENT);
+    const style = styleOf(proxies);
+
+    expect(style).toContain("clip-path:path(");
+    expect(style).not.toContain("mask-image");
+    // The group's strongest presence: the member that is fading keeps the
+    // group's frost rather than any member losing frost it was entitled to.
+    expect(style).toContain(";opacity:0.6");
+  });
+
+  it("takes the carrier back off when the transit lands at full presence", () => {
+    const proxies = manager();
+    proxies.sync([request({ members: members(1, 0.25) })], MASKING);
+    proxies.sync([request({ members: members(0.6, 0.6) })], MASKING);
+    expect(styleOf(proxies)).toContain(";opacity:0.6");
+    expect(styleOf(proxies)).not.toContain("mask-image");
+
+    proxies.sync([request({ members: members(1, 1) })], MASKING);
+    const rested = manager();
+    rested.sync([request({ members: members(1, 1) })], MASKING);
+
+    expect(styleOf(proxies)).toBe(styleOf(rested));
+  });
+});

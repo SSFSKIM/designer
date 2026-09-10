@@ -52,7 +52,7 @@ export {
 } from "./root";
 export { GlassGroup, type GlassBackdrop, type GlassDomBackdrop, type GlassGroupProps, type GlassTextureBackdrop } from "./group";
 export { GlassSurface, type GlassSurfaceOwnProps, type GlassSurfaceProps } from "./surface";
-export { GlassMorph, type GlassMorphPlacement, type GlassMorphProps, type GlassMorphState } from "./morph";
+export { GlassMorph, type GlassMorphPlacement, type GlassMorphProps, type GlassMorphState, type GlassMorphTransition } from "./morph";
 
 export { GlassButton, GlassIconButton, type GlassButtonProps, type GlassIconButtonProps } from "./controls/button";
 export {

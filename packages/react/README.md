@@ -132,6 +132,56 @@ more. Position and size are never props, because a measured rect is the single
 source of truth that lets press compression and morph deformation be composed
 transforms rather than shape changes.
 
+### Identity in place: `present`
+
+```tsx
+<GlassSurface present={showGlass} radius={20}>
+  <button onClick={() => setShowGlass((value) => !value)}>Toggle the material</button>
+</GlassSurface>
+```
+
+`present` defaults to `true`. Set it to `false` to dematerialize to `Glass.identity`
+without unmounting, changing geometry, or hiding content; set it back to bring the
+material back. A surface initially mounted absent starts at identity, without an
+entrance animation. To animate an entrance, keep it mounted and change `present`.
+Unmount still releases synchronously — there is no delayed-unmount hook.
+
+The per-frame `--vitrea-materialization` channel goes from 1 to 0 in a monotonic
+220 ms ease (and reverses from its current value when interrupted). That ease is
+the built-in default and is **not** tuned by a `profile` passed to `GlassRoot`:
+presence is driven once by the framework-agnostic root, which has no motion-profile
+input of its own, so an app's profile retunes the channels the bindings own and
+leaves this one at its default. It scales the
+material, never the host's `opacity`: fading a host would create a Backdrop Root
+and cut off sampling. Reduced Motion steps presence on both tiers. Timing and
+easing are authored, not measured against a native frame sequence. Identity does
+not hide, disable or remove content from the accessibility tree, and foreground
+tokens remain published. The app still owns its content, interaction, and contrast
+over the now-uncovered backdrop.
+
+### Choosing a morph transition
+
+`GlassMorph transition="matchedGeometry"` is the default, preserving the existing
+geometry-matching behavior. `transition="materialize"` instead materializes the
+destination in its own place while dematerializing the source, and crossfades
+only their content. It never matches the endpoints' positions or sizes. Reduced
+Motion steps that transition too. Keep the accessible trigger, destination and
+focus behavior supplied by the app's menu or other control primitive; changing
+the material transition does not supply those semantics. In materialize mode the
+render function runs once per endpoint, with that endpoint's `open` value (the
+source still receives `false` while the destination is open). Give content IDs
+that are distinct between endpoints.
+
+A materialize pair registers two glass nodes, and it names the second one itself:
+a `nodeId` names the closed endpoint and `` `${nodeId}-open` `` is **reserved** for
+the open one. Do not name another surface with that suffix — a scene may not carry
+two nodes under one id, and the collision surfaces as core's `duplicate-id`
+`GlassSceneError` at registration rather than as anything visual.
+
+The playground's **Dismiss glass / Bring glass back** control demonstrates
+identity. Select **Materialize the Actions menu**, then open **Actions**, to try
+the transition without a geometry match.
+
 ### Colouring a surface: `tint`
 
 ```tsx

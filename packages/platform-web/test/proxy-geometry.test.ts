@@ -376,6 +376,176 @@ describe("members their ancestors clip", () => {
 });
 
 /**
+ * Presence (W27d, contract X6).
+ *
+ * The property under test is *not* "the proxy can fade": it is that fading is an
+ * alpha and never a geometry. A member at 0 has to keep its place in the box, the
+ * union and the clip path, because the group's other members are rendered from
+ * those and a sibling's transit must not move them.
+ */
+describe("member presence, carried as alpha and never as geometry", () => {
+  /** On an engine whose conformance row says a mask on a filtered layer composes. */
+  const withPresence = (...alphas: readonly (number | undefined)[]): ProxyGeometry =>
+    onEngine("yes", alphas);
+
+  const onEngine = (
+    maskOnBackdropFilter: "yes" | "no" | "unverified",
+    alphas: readonly (number | undefined)[],
+  ): ProxyGeometry =>
+    resolved({
+      ...base,
+      maskOnBackdropFilter,
+      members: alphas.map((alpha, index) => ({
+        ...member(100 + index * 200, 100),
+        ...(alpha === undefined ? {} : { materialization: alpha }),
+      })),
+    });
+
+  /** The mask the geometry built, decoded back out of its data URL. */
+  const maskSvg = (geometry: ProxyGeometry): string => {
+    const { presence } = geometry;
+    if (presence.kind !== "per-member") throw new Error(`expected a mask, got ${presence.kind}`);
+    const url = /^url\("data:image\/svg\+xml,(.*)"\)$/u.exec(presence.maskImage);
+    if (url?.[1] === undefined) throw new Error(`not a data URL: ${presence.maskImage}`);
+    return decodeURIComponent(url[1]);
+  };
+
+  it("writes nothing at all for a page that never animates presence", () => {
+    expect(withPresence(undefined).presence).toEqual({ kind: "present" });
+    expect(withPresence(1, 1).presence).toEqual({ kind: "present" });
+  });
+
+  it("treats a declared 1 as the surface that declared nothing — byte-identical geometry", () => {
+    expect(withPresence(1, 1)).toEqual(withPresence(undefined, undefined));
+  });
+
+  it("carries one alpha across the group as a single element-level value", () => {
+    expect(withPresence(0.5, 0.5).presence).toEqual({ kind: "uniform", alpha: 0.5 });
+    expect(withPresence(0.5).presence).toEqual({ kind: "uniform", alpha: 0.5 });
+  });
+
+  it("makes both endpoints reachable from a driver that lands near them", () => {
+    // A ten-thousandth from 1 has arrived: it must write the resting page's own
+    // CSS rather than an opacity that differs from it.
+    expect(withPresence(0.9999).presence).toEqual({ kind: "present" });
+    expect(withPresence(0.0001).presence).toEqual({ kind: "uniform", alpha: 0 });
+    expect(withPresence(0.4567).presence).toEqual({ kind: "uniform", alpha: 0.457 });
+  });
+
+  it("clamps what the channel could not", () => {
+    expect(withPresence(-1).presence).toEqual({ kind: "uniform", alpha: 0 });
+    expect(withPresence(2).presence).toEqual({ kind: "present" });
+    expect(withPresence(Number.NaN).presence).toEqual({ kind: "present" });
+  });
+
+  it("keeps the box, the union and the padding off presence entirely", () => {
+    // The sampling geometry is what a *neighbour* is rendered from — the blur
+    // input and its mirror boundary — so it must not move while a sibling fades.
+    const faded = withPresence(0.5, 1);
+    const whole = withPresence(1, 1);
+
+    expect(faded.box).toEqual(whole.box);
+    expect(faded.clipUnion).toEqual(whole.clipUnion);
+    expect(faded.clipPath).toEqual(whole.clipPath);
+    expect(faded.maskBounds).toEqual(whole.maskBounds);
+    expect(faded.effectivePadding).toEqual(whole.effectivePadding);
+  });
+
+  it("keeps a member at 0 in the sampling geometry and out of the painted shape", () => {
+    const gone = withPresence(0, 1);
+    const whole = withPresence(1, 1);
+
+    expect(gone.box).toEqual(whole.box);
+    expect(gone.clipUnion).toEqual(whole.clipUnion);
+    expect(gone.maskBounds).toEqual(whole.maskBounds);
+    // One subpath, not two: absence is an endpoint, not a low alpha, and it is
+    // delivered by the shape rather than by whichever carrier happens to run.
+    expect(gone.clipPath.match(/M /gu)).toHaveLength(1);
+    expect(whole.clipPath.match(/M /gu)).toHaveLength(2);
+    expect(whole.clipPath).toContain(gone.clipPath.slice('path("'.length, -2));
+  });
+
+  it("masks per member where they disagree, from the clip path's own subpaths", () => {
+    const svg = maskSvg(withPresence(1, 0.25));
+    const subpaths = withPresence(1, 1).maskBounds.map((bounds) =>
+      roundedRectPath(bounds, [22, 22, 22, 22]),
+    );
+
+    expect(svg).toContain(`fill-opacity="1" d="${subpaths[0] ?? ""}"`);
+    expect(svg).toContain(`fill-opacity="0.25" d="${subpaths[1] ?? ""}"`);
+  });
+
+  it("sizes the mask in the proxy's own local px, so nothing has to scale it", () => {
+    const geometry = withPresence(1, 0.25);
+
+    expect(maskSvg(geometry)).toContain(
+      `width="${geometry.box.width}" height="${geometry.box.height}" ` +
+        `viewBox="0 0 ${geometry.box.width} ${geometry.box.height}"`,
+    );
+  });
+
+  it("gives members that agree one fill, so their overlap is exact", () => {
+    // Two of the three share an alpha: two paths, not three, and the pair's
+    // shared pixels composite once at their own value rather than twice.
+    const svg = maskSvg(withPresence(0.5, 0.25, 0.5));
+
+    expect(svg.match(/<path /gu)).toHaveLength(2);
+    expect(svg).toContain('fill-opacity="0.5"');
+    expect(svg).toContain('fill-opacity="0.25"');
+  });
+
+  it("leaves a member at 0 out of the mask rather than filling it at zero", () => {
+    const svg = maskSvg(withPresence(1, 0));
+
+    expect(svg.match(/<path /gu)).toHaveLength(1);
+    expect(svg).not.toContain('fill-opacity="0"');
+  });
+
+  /**
+   * The gate. A mask on a `backdrop-filter` layer suppresses the clip path in
+   * Chromium, so per-member presence has to *replace* the silhouette's carrier —
+   * and an engine whose conformance row does not say the mask composes cannot be
+   * asked to take that trade.
+   */
+  describe("where a mask on a filtered layer is not known to compose", () => {
+    it("reduces a mixed group to its strongest presence, so nobody is blanked", () => {
+      expect(onEngine("unverified", [1, 0]).presence).toEqual({ kind: "present" });
+      expect(onEngine("no", [1, 0]).presence).toEqual({ kind: "present" });
+      expect(onEngine("unverified", [0.6, 0.2]).presence).toEqual({ kind: "uniform", alpha: 0.6 });
+    });
+
+    it("still takes a member at 0 out of the shape — the endpoint is not a residual", () => {
+      // max(alphas) would otherwise hold a dematerialized member at the group's
+      // presence, which is the one thing the fallback may not do.
+      const gone = onEngine("unverified", [1, 0]);
+
+      expect(gone.presence).toEqual({ kind: "present" });
+      expect(gone.clipPath.match(/M /gu)).toHaveLength(1);
+      expect(gone.clipPath).toEqual(onEngine("yes", [1, 0]).clipPath);
+    });
+
+    it("still carries a presence the whole group agrees on", () => {
+      // The fallback is about members disagreeing, not about the channel: a
+      // single surface fading out is a uniform alpha on every engine.
+      expect(onEngine("unverified", [0.4]).presence).toEqual({ kind: "uniform", alpha: 0.4 });
+      expect(onEngine("unverified", [0, 0]).presence).toEqual({ kind: "uniform", alpha: 0 });
+    });
+
+    it("is what an input that says nothing about the engine gets", () => {
+      const silent = resolved({
+        ...base,
+        members: [
+          { ...member(100, 100), materialization: 1 },
+          { ...member(300, 100), materialization: 0 },
+        ],
+      });
+
+      expect(silent.presence).toEqual({ kind: "present" });
+    });
+  });
+});
+
+/**
  * `samplingPaddingFor`: the padding a *layout* has to clear (W27b, contract X5).
  *
  * `GlassToolbar` opens the gap between two partitions of one toolbar over this

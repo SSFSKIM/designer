@@ -267,7 +267,7 @@ into the ledger rather than chartered.
 - **Design inheritance:** §Where each feature lives (presence, not alpha) [binding]; the
   per-instance scalar mechanism (advisory).
 - **Required:** yes — acceptance 1, 2.
-- **Status:** not-dispatched (blocked-by W27a).
+- **Status:** implemented on its worktree; final independent review and landing evidence in progress.
 
 ### W27e: Vibrancy — controlled
 
@@ -408,6 +408,26 @@ Color; the concentricity distance gradient and the window corner at the top of t
 component families the root excluded (tab bar, sheet, popover, slider, toggle, search field), by
 the user's answer at this cut ("material plus reference controls").
 
+**W27d follow-up:** fractional-presence union geometry and nearest-field ownership (a weak
+member still grows a neck and can own an overlap until exactly 0; multiplying the blend by
+`min(pA, pB)` removes only the bulge, so that partial law was not added); fractional
+stacked-backdrop tone prediction (carry the existing per-term presence fold into the predictor
+and check GPU output, with no new fitted coefficient); the CSS transit's two-layer/tint-transfer
+approximation; and unequal fractional proxy presence on engines whose mask-on-backdrop row is
+unverified. Identity endpoints are exact, not deferred. Claims §5.132 records the evidence and
+the W27e handoff: the vibrant operator must scale with presence and reach app-authored color at 0.
+
+**Deferred out of W27d, a wave-owner decision (contract X2):** host presence is always built on
+`DEFAULT_MOTION_PROFILE`, so an author's `profile` retunes the bindings' content crossfade and
+not the material's own arrival. That is the design as landed — presence is driven once by the
+framework-agnostic root, which has no motion-profile input — and giving that root one is new
+public surface on the package that carries it, which is why it is not taken here. Both READMEs
+state the limit at the point where the 220 ms ease is named; claims §5.132 §6 records it. The
+group's proxy σ, likewise derived from every measured member regardless of presence, is
+recorded in §5.132 §4 rather than deferred: deriving it from positive members only would make
+the radius a function of presence and step a sibling's frost at the endpoint, which is the same
+fractional union law already above.
+
 **Explicitly out of scope (standing exclusions, unchanged):** WebGL2; a widget layer; scroll-edge
 effects (the root's exclusion stands; overturning it is a product decision not taken here);
 neighbour glow diffusion; topology-changing morphs.
@@ -419,7 +439,7 @@ neighbour glow diffusion; topology-changing morphs.
 | W27a | LANDED 2026-09-10 (merged `bc14af9`; seven commits plus three review fixes): `GlassButton`/`GlassIconButton` forward `tint` and `foreground` (the README's flagship tint example had not compiled); `GlassGroup` gains the `tint` the 0.2.0 changelog promised, parsed per document; the no-hint ink guards removed on both tiers with five assertions re-pinned stricter (tracker entry closed in place); the renderer's `lensStrength` clamp at 1 lifted to a finite guard of 4 with NaN resolving to the idle 1 (goldens 33/33 unmoved); four named ink levels published on both tiers, secondary solved per surface against the actual composite colour over the whole bracket (Decision Log 9). Review: two P1s on the ink floor (chromatic tint, unresolved level) fixed with fail-before tests measuring the real contrast; two P2s (adopted stylesheets, Infinity in the Float32Array) fixed. Two gaps logged, not closed: the dark scheme's primary ink at WCAG 4.945 with nothing watching it; `lensDepthPx` ignoring `lensStrength`. Main after merge: build, lint, all unit suites green (2004 tests), demo e2e 48 | landed |
 | W27b | worktree agent, dispatched 2026-09-10 after W27a's merge; 14 commits `bc14af9..b59a585` | CLOSED 2026-09-10 (one `role="toolbar"`, N groups; `GlassToolbarSpacer` and `sharedBackground="hidden"` as one partition rule; the gap derived through `samplingPaddingFor` over every group the toolbar registers, not the row's own props; the playground's hand split rewritten on the API; goldens and the resting bed unmoved. Review: two defects fixed before the head — the gap read only the toolbar's own material, then the first fix folded the toolbar's props in as a floor — final head reviewed correct. At the head: 2028 unit tests, platform-web 388, react e2e 114 on three engines, demo e2e 48) |
 | W27c | G0 CLOSED 2026-09-10 (merged `7312fd0`; claims §5.128: all 121 pairs read; the outer shadow and the bright rim go to zero in every profile at both scales, structure retained falls, an author tint loses its hue entirely while its darkening stays — orange and blue capsules both settle at Y 0.451 against the untinted 0.606 — and no existing field expresses that; dark untinted glass and both accessibility bodies *brighten*; four cells background-identical; the 2x dark photo capsule's active side is the 1-of-17 minority state and is excluded from the fit) / G1 declared 2026-09-10, claims §5.130: scheme-indexed endpoint, two identity-default tint fields, 121 recovered fixtures, corrected 62-cell fit and 16-cell validation, one 30-cell holdout spent; all four review findings fixed | G1 ready for parent review; holdout residuals explicit, no inactive floors adopted |
-| W27d | worktree agent, dispatched 2026-09-10 after W27a's merge (claims §5.132 reserved) | in-flight |
+| W27d | worktree agent, `bc14af9..` then main integrated at landing; claims §5.132 with its verification record | CLOSED 2026-09-11 (`present` on `GlassSurface` and on the host entry drives `materialization` through the kernel's existing monotonic driver to both tiers; exactly 0 is `Glass.identity` and leaves the renderer's drawing set, the proxy's painted shape and the root's painted-tone forecast; `GlassMorph transition="materialize"` is two endpoints on their own boxes and planes with only the content crossfading; Reduced Motion steps presence on both tiers. Review: a six-lane panel plus a binding verifier against the frozen head — ten findings confirmed and fixed with fail-before tests (one P1: focus lost on a materialize close), two more of the same shape found while fixing them and fixed, three refuted as declared design and recorded instead (proxy σ in §5.132 §4; host presence on `DEFAULT_MOTION_PROFILE` in §5.132 §6, both READMEs and the Deferred list; the tint-table cache bound and the morph's arrival tolerance in the tracker). At the head: goldens 34/34 and GPU e2e 21/21 with nothing re-recorded, platform-web chromium e2e 158/158, react e2e 128 on three engines, demo e2e 48/48, 2 160 unit tests, build and lint clean) |
 | W27e | — | not-dispatched (deliberately late) |
 | W27f | G0 CLOSED 2026-09-10 (merged `730a9d3`; claims §5.129: the unhinted dark capsule misses the collapse by ΔE 0.545 against the sampled path's 0.006, a correct scalar hint repairs it but the dark medium pane still misses by 0.079 (−0.089 L against the same-hint sampled path), the checkerboard rows lose spread and the photo rows keep too much; a scalar hint itself costs the sampled path its structured-backdrop correction, so the evidence keeps sampled-today, same-hint-sampled and hinted-page columns apart; the two stack overlays are the only native cells on this path; the demo gains `/#page`, "Over ordinary page content") / G1 CLOSED on isolated branch 2026-09-10 (claims §5.131: profile-at-known-tone derivation, scalar CPU/GPU law proof, unchanged sampled-source draws; 20 ordinary scenes plus both stacks in light/dark, full holdout spent at `1fff5e6`; thick-body repair with unknown-tone paint, structured spread/colour and dark-overlay regressions retained) | G2 pending; no bound adopted |
 
@@ -571,6 +591,42 @@ linear/encoded means and local pixels, not a fabricated interpretation of `hint.
 G1 records every per-scene miss; G2 alone adopts a native stack bound and re-reads the demo.
 
 ## Revision Notes
+
+- 2026-09-10, W27d implementation: presence is driven once by the framework-agnostic
+  root, before either tier consumes `--vitrea-materialization`; React forwards `present`
+  rather than owning a second driver. The interaction table keeps its invariant presence
+  seed at 1, but `STATE_DRIVEN_CHANNELS` no longer includes authored presence. Reduced
+  Motion gives the monotonic presence driver zero duration and the root steps to its
+  target on both tiers, including a preference change mid-flight. This deliberately
+  follows the HIG's caution about blur animation rather than extending interaction
+  illumination's exemption to whole-material arrival. Timing/easing remain unmeasured.
+  The DOM-backed GPU path needs one additional carrier: its sibling backdrop proxy must
+  also consume presence, or shader identity would leave blur behind. This does not relax
+  X6: neither host nor any ancestor fades. The instance's free scalar travels through
+  a fourth `r16float` field attachment (+2 bytes per field texel, 24 → 26); all-1
+  goldens remain unchanged. Exactly-zero members leave the renderer's drawing set after
+  shape resolution, and leave the root's painted-tone forecast, so neither an absent
+  union member nor its hue can affect a surviving surface. The proxy retains sampling
+  bounds but removes zero members from its painted shape. Chromium needs a mask in
+  place of its clip, not on top of it; claims §5.132 records the carrier experiment,
+  the fractional residuals, the Reduced Motion rule and the W27e foreground handoff.
+
+- 2026-09-11, **W27d CLOSED at its landing head.** Main was integrated first: the child was cut
+  before W27b, W27c G1 and W27f G1, and the one place they meet is the optics shader, where
+  W27f's derivation at a known backdrop tone and W27c's tint chroma collapse shape the same terms
+  presence scales. They compose and each factor lands once; presence additionally reaches W27f's
+  DOM branch on the secant's input rather than its result, so the recovered neutral stays where
+  presence 1 solves it and only the coverage travels. Independent review (a six-lane panel and a
+  binding verifier against the frozen head) returned ten confirmed findings, all fixed with tests
+  that fail before them — one P1, focus lost on a materialize close, because the returning end was
+  hidden by its instantaneous alpha rather than by the direction of travel. Two further defects of
+  the same shape surfaced while fixing them and are fixed here: the group sort's back plane, which
+  could defeat the stacked-tone fix by registration order, and two more paths holding a parked
+  group's GPU allocations. Three findings were refuted as declared design and recorded instead —
+  the proxy σ, host presence on `DEFAULT_MOTION_PROFILE`, and the tint-table cache bound with the
+  morph's arrival tolerance. The bed did not move: goldens 34/34 and GPU e2e 21/21 with nothing
+  re-recorded, platform-web chromium e2e 158/158, react e2e 128 on three engines, demo e2e 48/48,
+  2 160 unit tests, build and lint clean. Claims §5.132 carries the verification record.
 
 - 2026-09-10, **W27c G1 fitted and declared, pending parent review** (claims §5.130).
   The 121 inactive fixtures are recovered additively with source hashes, schema-2/single-run
