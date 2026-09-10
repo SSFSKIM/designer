@@ -15461,3 +15461,124 @@ the light (0.0304 against 0.0164; well conditioned). The dark panes: Apple's 64-
 1.3–1.6 codes brighter in what the eye receives and 2.1–4.9 in the pane's own light; the nested
 base 0.78 short in its own light; the nested OVERLAY ours 0.82 codes brighter than Apple's.
 Tracker, the dark wave.
+
+### 5.126 W26 G3 LANDED (DRAFT): the canonical bed rebuilt at two schemes with two different answers — 258 of 258 dark GPU captures and 644 of 644 CSS captures byte-identical, 89 of 89 light GPU captures reproducing the declaring child; the gate 38 / 38 with the predicate re-derived to 32, G3a's bridging construct deleted by its own test and the eleven floors read and unmoved; the 0.15.0 cut follows, the user's eye before publish (2026-09-10)
+
+DRAFT, by G3. The parent rules and amends beside.
+
+**Evidence** `results/2026-09-10-w26-heavy-width/g3/` — `g3-landing.md`, `g3-darkproof.sh`,
+`g3-sample.sh`, `g3-rebuild.sh`, `g3-runs.txt`, `g3-identity.py`, `g3-step2-dark.txt`,
+`g3-step2-controls.txt`, `g3-referee.py`, `g3-referee.txt`, `g3-delta-e.*`, `g3-digests.txt`,
+`g3-floors.*`, `g3-gate.txt`, `g3-chain.txt`, `sheets/`; the canonical `results/matrix.json`;
+commits `e2fce94`, `2a235f3`, `8a57e0a`, `34e1d55` on `main`. Run from the main checkout at
+`bfd6489` as W26 Decision Log 10 (d) directs, `git status` clean at the start.
+
+**§1 The two documents, and a fingerprint that is not a new number.** The light document does not
+move (`6a9600720477dd43…` / `b2b570e4adcea8fb`, the heavy width 9 / 9 as G2 declared). The dark
+document names `sizeHeavyTapSigma` 0 and `sizeHeavyTapSigma2x` 0 in its patch for the first time
+(`950ce1c3e91715ee…`) and its `resolvedMaterialSha256` moves `eee7294f409966d7` →
+**`874be66ea501621b`** — which is **exactly this document's W26 G1 fingerprint**, the one it carried
+when the two constants existed on the material at 0 and G1 measured the 33 goldens and all 36
+re-rendered bed captures byte-identical to 0.14.0. The dark scheme's landed material is bit-for-bit
+the material that proof was taken on, so the identity claim has an arithmetic half before a pixel is
+captured. `platform-web/src/dark-profile.ts` regenerated and moves (two lines). **The goldens are
+33 / 33 and `W26_HASHES` does not move, by structure**: `renderer-webgpu` has no edge to
+`platform-web`, the golden harness renders through `DEFAULT_MATERIAL_PROFILE`, and
+`tint-adaptation-dark` is a dark BACKDROP rather than the dark material — nothing to re-record, and
+that is the finding rather than an absence of work.
+
+**§2 The dark draw proved rendered, before anything canonical was touched.** Every dark GPU
+capture — both scales, calibration + validation + holdout + probe, render and alpha — taken to
+scratch and refereed against the canonical 0.14.0 bytes: **258 of 258 IDENTICAL, 0 moved, 0
+missing.** Two controls run at the same time and pointing the other way, because an identity that
+held through a drifted capture path would look the same from one side: the light GPU bed reproduces
+G2b's declared digests **52 of 52**, and the CSS bed reproduces the canonical bytes **36 of 36**.
+Zero movers in any of the three.
+
+**§3 The rebuild.** `rm results/matrix.json` first — both documents' hashes moved, so every cell key
+moves with them. 32 runs, 17 min 58 s: the gated bed (six profiles × two tiers × calibration and
+validation, then holdout, the GPU tier before the CSS tier within each column) and then the probe
+set (four standard profiles × two tiers) into the canonical matrix and captures, `--alpha
+--write-partial`. **The exit pattern is W25 G4's run for run** — the one gated exit 1 on
+`hc-text__capsule-button__rest` under increased contrast, six of eight probe runs exiting 1 on the
+contour instrument's refusal of `checkerboard-64__rrect-sm__rest` and `dark-solid__rrect-48__rest`.
+
+**§4 The referee, each claim checked in both directions** (`g3-referee.txt`):
+
+| column | expectation | result |
+| --- | --- | --- |
+| light GPU vs G2b's declared digests | identical | **89 / 89** |
+| light GPU vs the 0.14.0 bed | different | 131 of 193 differ; the 62 unmoved are the flat backdrops and the 4 / 8 px checker pitches |
+| dark GPU vs the 0.14.0 bed | identical | **258 / 258** |
+| dark GPU vs G2b's declared digests | different | 18 of 26 differ; the 8 unmoved are the flat solids |
+| every CSS capture vs the 0.14.0 bed | identical | **644 / 644** |
+| the bed's shape | unchanged | **637 cells**, every (profile, tier, set) partition equal |
+| `silhouetteIoU` vs `g3a/recompute-rows.json` on the cells whose captures did not move | equal | **423 / 423** to 5e-6; **0** cells reading a pre-correction value |
+
+**Not one capture moved that should not have — no session flake at all**, where W25 G4 landed with
+two and `photo__toolbar-group` under increased contrast has flaked at the one-code level in five of
+the last six waves. **The unmoved cells in the two "different" rows are the mechanism's arithmetic,
+not a leak**: a width is only visible where the backdrop has structure for it to blur, so the flat
+solids and the pitches both kernels wash flat are expected to hold, which reproduces G2's own golden
+attribution on a larger set. **The holdout is reproduced and not re-read** (X3): every holdout
+capture is refereed against a declared digest.
+
+**§5 The bed per group** (`g3-delta-e.txt`). **All twelve dark groups and all eighteen CSS groups
+unchanged to five decimals** — byte identity showing up in the metrics, and G2b's §14.4 table
+reproduced on the bytes that ship. Six light GPU groups rise, by +0.00001 … +0.00035; the worst is
+`2x-light-standard / webgpu / holdout` at **+0.00035**, the 160-span rows at dpr 2 — the span
+grading one width per source gives up (Decision Log 2 (f)). No calibration group rises by more than
++0.00001.
+
+**§6 The gate: 38 / 38** (`g3-gate.txt`), 39 cases before this landing and 38 after, one having been
+written to delete itself.
+
+**`PREDICATE_EXCLUDES` re-derived to 32, and the entering cell is not the dry run's.** The list is
+machine-checked against the predicate's output over the landed bed. The file's own W26 G2 paragraph
+describes `dom / calibration / checkerboard__capsule-button__rest / 1x-light-reduced-transparency`
+joining, which was the reading at the configuration the parent then rejected; it is kept as read,
+and under the ruled configuration the CSS tier does not move at all so that cell never enters. What
+enters is **`texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard`,
+on the BODIES arm**: `silhouetteBodiesWeb` 1 → 3 against a native 1 and a region of 1
+(`silhouetteHolesWeb` 4 → 7 beside it, native 0; the area arm reads 0.9978 against 0.95). The
+largest span on the bed over the coarsest committed checkerboard at the scale where the heavy
+component narrows most: less blur leaves more of the backdrop's structure inside the surface and the
+extractor's 0.02 linear-luminance rule pinches it into two more pieces — **the same degeneracy
+§5.124 corrected on the nested pane, on a different cell and this time excluded rather than
+corrected.** Every row it takes out of the shape gate is met at the landed bed (IoU 0.99807, contour
+mean 0.204, p95 1, max 2); its cost is on its perceptual rows, which stay gated: ΔE mean 0.00795 →
+**0.01145**, the wave's worst single holdout cell (+0.00350).
+
+**G3a's bridging construct deleted, by its own test.** `W26_CORRECTED_SILHOUETTE_IOU`,
+`CORRECTED_READING_ROUNDING`, `gatedReading` and the case *"keeps the stated silhouette readings
+honest, and names them for deletion once the bed carries them"* are gone and the gate loop reads
+`reading` again. That case asserted the entries were STILL NEEDED and went red the moment the
+rebuilt matrix carried the corrected values, which is the only ending §5.124 allowed it; the three
+cells now read 0.97319, 0.99980 and 0.98289 from the matrix. The referee checked the whole column
+(423 of 423) rather than the three.
+
+**§7 The eleven floors, every one re-read** (`g3-floors.txt`): **11 read, 0 breached, 0 re-pinned,
+and not one moved** — every reading identical to the 0.14.0 bed's to five decimals. Eleven, not
+W25's fourteen, because §5.124's correction lifted three off by fix. All eleven are `dom`-tier rows
+and the CSS tier is byte-identical this wave, so that exact identity is what the ruling predicts
+rather than a coincidence. The floor the dry run breached
+(`texture / holdout / checkerboard__glass-over-glass__rest / 2x dark :: silhouetteIoU`, 0.90362
+against 0.9257) no longer exists; the cell reads **0.99980** at the landed bed.
+
+**§8 The demo, the changeset, the sheets, the chain.** The harness fixture re-copied — 1 480 px /
+max 1 code from the landed capture, every moved pixel inside the capsule's own 120 × 44 box, which
+is the heavy component's interior work on a thin surface — with its cell record naming the document
+it was taken at. The changeset amended before the cut to state what the dark scheme does, because a
+note describing only the light fit would read as a claim about the material rather than about one of
+its schemes; `pnpm changeset version` consumed it to **0.15.0** across the three published packages.
+Sheets `g3-1x.png` / `g3-2x.png`, four panels, 29 rows each, the dark rows printing three identical
+panels because that is the claim. The chain: build and lint green; **1 955 unit tests over 132
+files**; goldens 33 / 33; vitrea-web GPU e2e 9 / 9 and the three-engine suite 376 / 376; react e2e
+105 / 105; **demo e2e 39 / 39**, where W25 G4 landed at 38 / 39.
+
+**§9 What this landing did not do, recorded rather than implied.** It did not re-read the holdout;
+it did not touch the CSS tier's heavy width, whose residual against the renderer's (13.800 CSS px at
+dpr 1 and 4.455 → 6.121 across spans 96 → 160 at dpr 2, against 9 device px) stays pinned as an
+assertion in `tier-coherence.test.ts` and chartered in the tracker; it did not answer why the dark
+bed prefers a width its own reference does not have, which is the dark wave's; and it re-pinned no
+floor, none needing it.

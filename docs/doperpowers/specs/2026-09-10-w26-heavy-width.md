@@ -183,7 +183,7 @@ the user's eye; X7 the dark profile a difference document.
 | G2 — declared and dry-run | CLOSED 2026-09-10 (claims §5.123; Decision Log 7 (f)–(g); merged at `69994ff`) |
 | G3a — the silhouette instrument corrected: IoU over the decidable region (controlled) | CLOSED 2026-09-10 (claims §5.124; Decision Log 8; `g3a/recompute.txt` — 613 / 613 cells agreeing with the spike to the last digit, 121 movers all upward, the three `silhouetteIoU` floors off and `UNMET_ROWS` 14 → 11; awaiting the parent's merge) |
 | G2c — the eye's gradient measured (spike) | CLOSED 2026-09-10 (claims §5.125; merged at `f71132b`) |
-| G3 — the landing | DISPATCHED 2026-09-10 (Decision Log 10: the light scheme takes the width, the dark scheme holds at its 0.14.0 draw) |
+| G3 — the landing | CLOSED 2026-09-10 (claims §5.126 DRAFT; Decision Log 11; commits `e2fce94`, `2a235f3`, `8a57e0a`, `34e1d55` on `main` from the main checkout — the canonical bed rebuilt, 258 / 258 dark GPU and 644 / 644 CSS captures byte-identical and 89 / 89 light GPU captures reproducing G2b, the gate 38 / 38 at `PREDICATE_EXCLUDES` 32, the eleven floors unmoved, the cut at 0.15.0; the user's eye on `g3/sheets/` before publish) |
 
 ## Decision Log
 
@@ -645,6 +645,58 @@ against G2b's light digests and the canonical dark and CSS bytes, the gate with 
 re-derived and G3a's bridging construct deleted, the floors, the demo fixture, the sheets,
 `changeset version` → 0.15.0, the user's eye.
 
+### Decision Log 11 — G3's landing: the bed rebuilt at two schemes with two answers, every one of the three identity claims proved in both directions, the gate 38 / 38 at a predicate of 32 and the eleven floors unmoved (2026-09-10; claims §5.126 DRAFT)
+
+DRAFT, by G3. The parent rules (a)–(e) and amends beside; the user's eye on the sheets is what the
+0.15.0 publish waits on.
+
+(a) **The configuration landed is 10 (c)'s, and the dark half of it is a fingerprint rather than a
+hope.** The light document is unmoved at 9 / 9 (`b2b570e4adcea8fb`); the dark document names both
+anchors 0 and its resolved fingerprint moves `eee7294f409966d7` → **`874be66ea501621b`**, which is
+**exactly its own W26 G1 value** — the material it carried when the two constants existed at 0 and
+G1 proved the goldens and 36 bed captures byte-identical to 0.14.0. So "byte-identical, not
+approximately" had an arithmetic proof before a pixel was captured, and then a rendered one: **258 of
+258 dark GPU captures identical to the canonical bed**, taken to scratch before anything canonical
+was touched. `W26_HASHES` did not move and there was nothing to re-record: no golden scene draws the
+dark document at all, `renderer-webgpu` having no edge to `platform-web`.
+
+(b) **Every identity claim was checked in both directions, and that is what makes it evidence.** An
+identity that held because the capture path had drifted is indistinguishable, from one side, from an
+identity that held because the material did not move. So the light GPU column was refereed against
+G2b's declared digests (**89 / 89 identical**) AND against the 0.14.0 bed (131 of 193 differ); the
+dark column against the 0.14.0 bed (**258 / 258**) AND against G2b's (18 of 26 differ); the CSS tier
+against the 0.14.0 bed (**644 / 644**). The cells that hold in the two "different" halves are the
+flat backdrops and the checker pitches both kernels wash flat — the mechanism's own arithmetic,
+reproducing G2's golden attribution on a larger set. **Not one capture moved that should not have:
+no session flake at all, where every recent landing has had one or two.**
+
+(c) **The bed is the shape it was and carries the corrected instrument.** 637 cells, every (profile,
+tier, set) partition equal to the 0.14.0 bed's, none added or lost. On the 423 cells whose captures
+did not move, the landed `silhouetteIoU` equals G3a's independently computed corrected column
+exactly, and no cell anywhere still reads a pre-correction value — which is the check that the
+rebuild carries §5.124's instrument rather than merely running after it. G3a's bridging construct
+was then deleted by its own test going red, the ending §5.124 designed for it.
+
+(d) **The predicate's 32nd cell is not the one the dry run named, and it is the extractor again.**
+Under the ruled configuration the CSS tier does not move, so the reduced-transparency dom capsule G2
+described never enters; what enters is `texture / holdout / checkerboard__rrect-lg__rest / 2x light`
+on the bodies arm (`silhouetteBodiesWeb` 1 → 3 against a native 1). Largest span, coarsest
+checkerboard, the scale where the heavy component narrows most — less blur leaves more of the
+backdrop inside the surface and the 0.02 luminance rule reports it as the silhouette's structure.
+**It is the same degeneracy Decision Log 8 diagnosed on the nested pane**, arriving on a second cell
+one wave later and handled by exclusion rather than by correction, because the correction that fits
+it is a second instrument change. Every row it takes out of the shape gate is met; its cost is on
+its perceptual rows, where it stays gated: ΔE 0.00795 → 0.01145, the wave's worst holdout cell. That
+this class keeps producing cells is the tracker's, and it is now evidence for the instrument work
+rather than a one-off.
+
+(e) **Nothing was re-pinned and nothing was widened.** Eleven floors read, none breached, and not
+one moved by so much as a fifth decimal — all eleven being `dom` rows on a tier that is
+byte-identical this wave, which is what the ruling predicts rather than a coincidence. The gate is
+38 / 38, the chain green including `demo test:e2e` at 39 / 39, and the cut is 0.15.0 with the
+changeset amended to say what the dark scheme does — a release note describing only the light fit
+would have read as a claim about the material rather than about one of its two schemes.
+
 ## Surprises & Discoveries
 
 - **A scratch rung is not a rehearsal of a landing.** The dark difference document resolves over
@@ -686,6 +738,19 @@ re-derived and G3a's bridging construct deleted, the floors, the demo fixture, t
 - **`CHAIN_SIGMA_AT_LEVEL_1` is 24 % low.** The simulated chain reads 1.570 texels at level 1, not
   1.2. It is declared advisory and the body blur's residual pass absorbs it, so nothing is wrong —
   but every "the chain's blur is about σ" statement in the codebase inherits it.
+- **A landing can be asked to prove a NULL, and the proof is worth more than the change's.** The
+  dark scheme's edit is "nothing draws differently", which is the one claim a rebuild cannot show by
+  producing a new number. Proving it took three things and none alone: the resolved fingerprint
+  returning to a value a previous child had already proved byte-identical; the 258 captures taken to
+  scratch before anything canonical moved; and two CONTROLS pointing the other way, because an
+  identity that held through a drifted capture path looks exactly like an identity that held because
+  the material did not move. The direction a check can fail in is part of what it measures.
+- **The extractor's threshold degeneracy produced a second cell one wave after the first.** Decision
+  Log 8 found the 0.02 luminance rule reporting a coarse dark backdrop's structure as the
+  silhouette's, on the nested pane, and corrected the metric. The landing's predicate re-derivation
+  turned up the same mechanism on `checkerboard__rrect-lg` at 2x light — bodies 1 → 3, every gated
+  row still met — and it is handled by exclusion because the fit for it is a second instrument
+  change. One sighting is a cell; two is a class.
 - **Reader A's per-row spread at one known width is ±40 % and its median is exact.** At the 0.14.0
   material the three 1x impulse rows read 9.08 / 14.36 / 19.78 for a drawn kernel of 13.42; the
   median is right to 7 %. Any per-row acceptance on this reader at 1x is reading the instrument.
@@ -807,3 +872,18 @@ wave's to fix**; this records the number and the picture and recommends neither.
   checkerboard's depth structure unmasked by the width; the dark scheme holds at its 0.14.0 draw by
   the difference document naming 0 / 0; the light scheme takes 9 / 9. G3 dispatched in the main
   checkout.
+- 2026-09-10: **G3 CLOSED** (claims §5.126 DRAFT; Decision Log 11). Landed from the main checkout at
+  `bfd6489` in four commits. The dark document names `sizeHeavyTapSigma` / `sizeHeavyTapSigma2x` 0 /
+  0 and its `resolvedMaterialSha256` returns to `874be66ea501621b`, its own W26 G1 value;
+  `dark-profile.ts` regenerated; the goldens 33 / 33 with `W26_HASHES` unmoved because no golden
+  scene draws that document. The dark draw proved byte-identical to scratch FIRST — 258 / 258, with
+  the light GPU bed reproducing G2b 52 / 52 and the CSS bed reproducing canonical 36 / 36 as
+  controls. The canonical rebuild then ran 32 runs in 17 min 58 s in W25 G4's exact exit pattern, and
+  the referee read 89 / 89 light GPU against G2b, 258 / 258 dark GPU and 644 / 644 CSS against the
+  0.14.0 bed, 637 cells with every partition equal, and 423 / 423 agreeing with G3a's corrected
+  `silhouetteIoU` — **no session flake anywhere**. The gate is **38 / 38** with `PREDICATE_EXCLUDES`
+  re-derived to **32** (`texture / holdout / checkerboard__rrect-lg__rest / 2x light` entering on the
+  bodies arm, every gated row still met) and G3a's bridging construct deleted by its own test; the
+  **eleven** floors read, none breached and none moved. Demo fixture re-copied, sheets at
+  `g3/sheets/`, the changeset amended to state the dark scheme's decline, `pnpm changeset version`
+  → **0.15.0**. The user's eye on the sheets is what publish waits on.
