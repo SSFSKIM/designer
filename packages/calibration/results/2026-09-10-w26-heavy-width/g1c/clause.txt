@@ -1,0 +1,35 @@
+W26 G1c — clause 5: the gain's silence, and W25's clauses 3 and 4
+====================================================================================================
+
+### W25 clause 4 — the collapsed dot through `impulse__capsule-button__rest` (validation)
+
+Reader A, W25 G0's own instrument, unedited. FWHM in CSS px of the composed kernel by half
+maximum; `peak` is the fitted amplitude the clause asks to be held.
+
+            source scale  FWHM css   sharp   heavy  share     peak   n
+         reference     1     6.167   2.619  62.619  0.000   0.0132   1
+               c0b     1     4.037   1.713  61.674  0.001   0.0089   1
+               d9b     1     4.262   1.809  61.802  0.000   0.0091   1
+         reference     2     1.638   1.391   1.396  0.000   0.0249   1
+               c0b     2     3.502   1.928   8.202  0.427   0.0366   1
+               d9b     2     3.564   1.821   9.958  0.446   0.0366   1
+
+### W25 clause 3 — the nested pane: NOT READ, and it cannot be
+
+`glass-over-glass` has exactly one scene on this bed, `checkerboard__glass-over-glass__rest`,
+and the split puts it in the HOLDOUT. X3 reads the holdout once, at the declaring child's dry
+run, so this child does not open it. The clause has no non-holdout instance to be checked on
+at any rung, which is a property of the bed rather than of this candidate and is recorded as
+one: a clause that can only be read by spending the holdout cannot gate a ladder.
+
+### What `sizeScatterGainFar2x` still grades
+
+Two captures of the SAME candidate width, differing only in `sizeScatterGainFar2x`
+(`gf99` at the committed 9.9, `gf48` flattened to `sizeScatterGainMax2x` = 4.8). Where the
+heavy texture is bound the constant grades nothing and the two are byte-identical.
+
+         apple-macos-26.5-1x-light-standard   13 identical  SILENT
+         apple-macos-26.5-2x-light-standard   13 identical  SILENT
+          apple-macos-26.5-1x-dark-standard   12 identical  SILENT
+          apple-macos-26.5-2x-dark-standard   12 identical  SILENT
+
