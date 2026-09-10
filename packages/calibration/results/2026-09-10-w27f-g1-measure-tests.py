@@ -223,6 +223,26 @@ class InheritedLevels(unittest.TestCase):
         self.assertIn("hc-text", message)
         self.assertIn("would be invented", message)
 
+    def test_a_level_measured_here_must_equal_the_one_measured_before(self):
+        source = self.source({"checkerboard__rrect-md__rest": 0.21404114048223255})
+        agrees = g1.check_levels_against_sources(
+            self.spec, {"checkerboard__glass-over-glass__rest": 0.21404114048223255}, [source])
+        self.assertEqual(agrees, [{"source": "candidate phase (light)",
+                                   "backgrounds": ["checkerboard"]}])
+
+    def test_a_level_that_moved_between_two_runs_stops_the_later_one(self):
+        source = self.source({"checkerboard__rrect-md__rest": 0.214})
+        with self.assertRaises(SystemExit) as raised:
+            g1.check_levels_against_sources(
+                self.spec, {"checkerboard__glass-over-glass__rest": 0.215}, [source])
+        self.assertIn("sampled analysis has moved", str(raised.exception))
+
+    def test_a_raster_no_earlier_run_measured_is_simply_not_cross_checked(self):
+        source = self.source({"checkerboard__rrect-md__rest": 0.214})
+        self.assertEqual(
+            g1.check_levels_against_sources(self.spec, {"hc-text__rrect-md__rest": 0.5}, [source]),
+            [])
+
     def test_one_raster_with_two_levels_falsifies_the_inheritance_and_is_refused(self):
         with self.assertRaises(SystemExit) as raised:
             g1.background_levels(self.spec, {"checkerboard__rrect-md__rest": 0.21,

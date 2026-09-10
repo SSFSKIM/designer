@@ -259,8 +259,20 @@ def arm_root(out, phase, scheme, arm):
     return phase_dir(out, phase) / scheme.name / arm.name
 
 
+def capture_dir_under(phase_root, scheme, arm, scene):
+    """Where one capture lives beneath a phase's root, wherever that root is.
+
+    Taken apart from `capture_dir` because a comparison is not always inside the
+    same scratch root: a baseline captured on a frozen configuration is a
+    separate run in a separate tree, and the reading it wrote records its own
+    `captureRoot`. Reading that field is what lets the two be compared without
+    either being moved.
+    """
+    return Path(phase_root) / scheme.name / arm.name / scheme.profile / scene
+
+
 def capture_dir(out, phase, scheme, arm, scene):
-    return arm_root(out, phase, scheme, arm) / scheme.profile / scene
+    return capture_dir_under(phase_dir(out, phase), scheme, arm, scene)
 
 
 def fixture_set_for(phase):
@@ -523,6 +535,36 @@ def inherited_levels(spec, scenes, sources):
     return levels, provenance
 
 
+def check_levels_against_sources(spec, measured, sources):
+    """A level measured here against the same raster's level measured elsewhere.
+
+    A run that captures its own texture-sampled arm does not need to inherit,
+    but where an earlier phase measured the same raster the two numbers must be
+    the same number: that is what makes a separately captured run comparable
+    with the phase it sits beside, rather than merely adjacent to it. A
+    disagreement is a stop, because it means the sampled analysis moved between
+    the two runs and every hinted arm in them authored a different backdrop.
+    """
+    if not measured or not sources:
+        return None
+    here = background_levels(spec, measured)
+    agrees = []
+    for source in sources:
+        shared = [name for name in here if name in source["levels"]]
+        for name in shared:
+            theirs = source["levels"][name]["level"]
+            if abs(theirs - here[name]["level"]) > TOLERANCE:
+                raise SystemExit(
+                    f"Over background '{name}' this run's texture-sampled arm resolved "
+                    f"{here[name]['level']!r} where {source['name']} recorded {theirs!r}. The "
+                    "sampled analysis has moved between the two runs, so their hinted arms did "
+                    "not author the same backdrop and cannot be read together."
+                )
+        if shared:
+            agrees.append({"source": source["name"], "backgrounds": sorted(shared)})
+    return agrees
+
+
 def check_levels_against_g0(levels):
     """The light hint levels against the committed G0 evidence, to the bit.
 
@@ -749,6 +791,12 @@ def capture(args):
                     "source": "this phase's texture-sampled arm", "scenes": sorted(measured)}
                 if name == "light":
                     provenance["measuredHere"].update(check_levels_against_g0(measured))
+                # Measured here, and held to the same number an earlier phase
+                # measured over the same raster — the check that lets a
+                # separately captured run be read beside the phase it belongs to.
+                agrees = check_levels_against_sources(spec, measured, inherit)
+                if agrees:
+                    provenance["measuredHere"]["agreesWith"] = agrees
         # What the sampled arm covers is measured, not inherited — in a dry run
         # it has not been measured yet, and inheriting it would report a gap this
         # plan already closes.
@@ -1096,8 +1144,9 @@ def read(args):
     geometry = g0.declared_geometry()
     g0_evidence = g0_rows()
     before = None
-    if args.compare_phase is not None:
-        before_path = phase_dir(out, args.compare_phase) / "reading.json"
+    if args.compare_reading is not None or args.compare_phase is not None:
+        before_path = (args.compare_reading if args.compare_reading is not None
+                       else phase_dir(out, args.compare_phase) / "reading.json")
         if not before_path.exists():
             raise SystemExit(f"No reading at {before_path} to compare against.")
         before = json.loads(before_path.read_text())
@@ -1110,6 +1159,9 @@ def read(args):
         "phase": phase,
         "captureRoot": str(phase_dir(out, phase).resolve()),
         "comparePhase": args.compare_phase,
+        "comparedAgainst": None if before is None else {
+            "reading": str(before_path.resolve()), "phase": before.get("phase"),
+            "captureRoot": before.get("captureRoot")},
         "arms": {arm.name: {"tier": arm.tier, "backdropMode": arm.mode, "authorsHint": arm.hinted,
                             "g0Arm": arm.g0} for arm in ARMS},
         "declaredGeometrySource": geometry["source"],
@@ -1238,17 +1290,21 @@ def read(args):
                         if prior_reading is not None:
                             identical = prior_reading["sha256"] == reading["sha256"]
                             comparisons["vsComparePhase"] = {
-                                "phase": args.compare_phase,
+                                "phase": before.get("phase", args.compare_phase),
+                                "capturedWith": (before["schemes"][scheme_name]
+                                                 .get("capturedWith", {}).get("commit")),
                                 "pixelIdentical": identical,
                                 "sha256": prior_reading["sha256"],
                                 **delta(reading, prior_reading, COMPARED),
                             }
                             # Where the digest moved, WHERE it moved — measured
                             # against the masks, because equal terms locate
-                            # nothing. Only then, and only when the other
-                            # phase's PNG is still on disk to compare with.
-                            prior_png = (capture_dir(out, args.compare_phase, scheme, arm, scene) /
-                                         f"{scene}__{arm.tier}.png")
+                            # nothing. Only then, and only when the compared
+                            # run's PNG is still on disk; its root comes from the
+                            # reading itself, so a comparison across two scratch
+                            # roots resolves as readily as one inside a phase.
+                            prior_png = (capture_dir_under(before["captureRoot"], scheme, arm,
+                                                           scene) / f"{scene}__{arm.tier}.png")
                             if not identical and prior_png.exists():
                                 comparisons["vsComparePhase"]["changedPixelGeometry"] = (
                                     changed_pixels(path, prior_png, surfaces, distances,
@@ -1504,8 +1560,12 @@ def main():
                         help="capture: a scene→level file to author hints from, instead of "
                              "measuring or inheriting them")
     parser.add_argument("--compare-phase", choices=PHASES, default=None,
-                        help="read: also compare every arm against this phase's reading. "
-                             "capture: the phase to inherit hint levels from")
+                        help="read: also compare every arm against this phase's reading under "
+                             "the same --out. capture: the phase to inherit hint levels from")
+    parser.add_argument("--compare-reading", type=Path, default=None,
+                        help="read: compare against this reading instead, wherever it lives — "
+                             "how a run captured in its own scratch root, on its own frozen "
+                             "configuration, is read beside the one it belongs to")
     parser.add_argument("--g0-scratch", type=Path, default=Path("/tmp/w27f-g0/sampled"),
                         help="read: G0's texture-sampled capture tree, used as the sampled-today "
                              "control on light scenes this phase did not sample, and only when a "
