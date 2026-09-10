@@ -442,12 +442,17 @@ which is essentially white, and glass never is: 60% of vitrea's dark ink reaches
 WCAG's 4.5 body-text floor over an encoded level of 1.0 and only 3.21 over the
 shipped regular material's darkest. So vitrea does not copy them flat.
 
-- **`--vitrea-foreground-secondary` holds 4.5** against the level this surface
-  actually resolved at. It is Apple's 60% wherever that already clears the floor
-  — most of the dark appearance — and raised where it does not. On a surface
-  whose *primary* ink cannot hold 4.5 either, secondary collapses onto the
-  primary: there is no second readable level there, and publishing one would be
-  a lie your users would find before you did.
+- **`--vitrea-foreground-secondary` holds 4.5** against the colour this surface
+  is actually drawing — the composite, not a grey of the same brightness, so a
+  saturated tint is measured against the tint. Where the backdrop is not known
+  the floor is solved against both ends of the range the surface can reach and
+  the harder answer taken, so the guarantee does not depend on which backdrop
+  turns up. It is Apple's 60% wherever that already clears the floor — most of
+  the dark appearance — and raised where it does not. On a surface whose
+  *primary* ink cannot hold 4.5 either, secondary collapses onto the primary:
+  there is no second readable level there, and publishing one would be a lie
+  your users would find before you did. Secondary is therefore never worse than
+  primary, and holds 4.5 wherever primary can.
 - **Tertiary and quaternary carry no floor.** They are Apple's supporting and
   decorative tiers, they are not body text, and lifting them to 4.5 would
   collapse the whole scale onto one value. Use tertiary for text a reader may

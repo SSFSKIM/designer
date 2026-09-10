@@ -23,10 +23,19 @@ the platform's ink reaches WCAG's 4.5 body-text floor over the platform's white
 background — and glass is never a white background. Sixty percent of vitrea's
 dark ink reaches 4.49 over an encoded level of 1.0 and 3.21 over the regular
 material's darkest. So **secondary is raised to whatever holds 4.5 against the
-level this surface actually resolved at**, and is Apple's 60% wherever that
-already clears it, which is most of the dark appearance. On a surface whose
-primary ink cannot hold 4.5 either, secondary collapses onto the primary rather
-than publishing a level that is not readable.
+colour this surface is actually drawing**, and is Apple's 60% wherever that
+already clears it, which is most of the dark appearance.
+
+The colour and not a brightness: a ratio is not a function of luminance once
+either side is chromatic, so a tinted surface is measured against its tint. And
+where the backdrop is not known — the `light-dark()` case, where the browser
+picks the ink by colour scheme rather than by level — the floor is solved
+against both ends of the range the surface can reach and the harder answer
+taken, so the guarantee does not turn on which backdrop shows up.
+
+On a surface whose primary ink cannot hold 4.5 either, secondary collapses onto
+the primary rather than publishing a level that is not readable. Secondary is
+never worse than primary, and holds 4.5 wherever primary can.
 
 **Tertiary and quaternary carry no floor**, deliberately: they are Apple's
 supporting and decorative tiers, they are not body text, and lifting them to 4.5

@@ -148,6 +148,8 @@ import {
   cssTierOptics,
   linearChainReaches,
   gpuTierForegroundBounds,
+  gpuTierForegroundColour,
+  gpuTierForegroundColourBounds,
   gpuTierForegroundLevel,
   innerShadowedSourceOptics,
   interiorBandLight,
@@ -2584,10 +2586,26 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
                   gpuTierForegroundBounds(gpuMaterial),
                   cssMapping.foregroundCrossover,
                 );
+          /*
+           * The same two questions as colours, for the named ink levels' floor
+           * (W27a, review fix) — the mirror of what `cssTierDeclarations` passes,
+           * over the renderer's own composite rather than the tier's conversion
+           * of it. The level is enough to choose the ink and is not enough to
+           * choose how far a named level may drop below it: that is a contrast
+           * ratio, and a ratio against a neutral of the same luminance is not the
+           * ratio a reader gets once an author has tinted the surface.
+           */
+          const inkCompositeBounds = gpuTierForegroundColourBounds(gpuMaterial);
+          const inkComposite =
+            hintedBackdrop === undefined
+              ? undefined
+              : gpuTierForegroundColour(gpuMaterial, hintedBackdrop);
           const ink = foregroundDeclarations({
             policy: accessibility,
             mapping: cssMapping,
+            compositeBounds: inkCompositeBounds,
             ...(level === undefined ? {} : { level }),
+            ...(inkComposite === undefined ? {} : { composite: inkComposite }),
           });
           const serialisedInk = JSON.stringify(ink);
           if (record.gpuForegroundApplied !== serialisedInk) {

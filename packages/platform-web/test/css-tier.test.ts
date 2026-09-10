@@ -27,13 +27,17 @@ import {
   MATERIAL_SOURCE_SIZE,
   REDUCED_TRANSPARENCY_FROST,
   adaptedSourceOptics,
+  boundedForegroundLevel,
   cssOpticsFromSource,
+  cssTierForegroundBounds,
   cssTierOptics,
   cssTierForegroundLevel,
+  cssTierForegroundColourBounds,
   cssTierShadowAlpha,
   cssTintAlpha,
   gpuTierForegroundLevel,
   inkAlphaHoldingContrast,
+  neutralComposite,
   occlusionAlphaUnderPolicy,
   OUTER_SHADOW_THIN_L,
   outerShadowAlpha,
@@ -1029,7 +1033,7 @@ describe("the foreground rule, shared across the tiers", () => {
         const holds =
           inkAlphaHoldingContrast(
             clamped >= CSS_TIER_MAPPING.foregroundCrossover ? [0x1c, 0x1c, 0x1e] : [0xf5, 0xf5, 0xf7],
-            clamped,
+            neutralComposite(clamped),
           ) !== undefined;
         // Where the primary itself cannot hold 4.5 there is no second level to
         // give, and secondary collapses onto it rather than publishing a lie.
@@ -1076,6 +1080,72 @@ describe("the foreground rule, shared across the tiers", () => {
       const inks = foregroundLevelInks({ policy: NOMINAL_ACCESSIBILITY_POLICY });
       expect(inks.secondary).toBe("light-dark(rgb(28 28 30 / 0.6), rgb(245 245 247 / 0.6))");
       expect(inks.quaternary).toBe("light-dark(rgb(28 28 30 / 0.18), rgb(245 245 247 / 0.18))");
+    });
+
+    /**
+     * The bracket carries the floor where the backdrop does not (W27a, review
+     * fix).
+     *
+     * Where no level resolves, the primary is `light-dark()` and the browser
+     * picks by colour scheme rather than by level — so *neither* branch has a
+     * known surface, and the first version of this published Apple's flat 0.6 on
+     * both. That number is 4.5 over white and less over everything darker, which
+     * on a `light-dark()` surface is most of what it could be sitting on.
+     *
+     * The surface's own bracket is available without a backdrop, because it is a
+     * function of the material alone. Each branch is solved against both ends and
+     * the harder answer taken, which is a guarantee over every colour the surface
+     * can reach rather than over a representative one: an alpha that holds at
+     * both ends of a ratio monotone in the backdrop holds everywhere between.
+     *
+     * The consequence is that secondary is never worse than the primary. Where
+     * the primary itself cannot hold the floor over the whole bracket — the clear
+     * variant, whose bracket runs from an encoded 0.27 to 1.0 — secondary
+     * collapses onto it rather than claiming a floor the material cannot meet.
+     */
+    it("solves each light-dark() branch against the bracket, not against white", () => {
+      const bounds = cssTierForegroundColourBounds(MATERIAL_OPTICS.clear);
+      const inks = foregroundLevelInks({
+        policy: NOMINAL_ACCESSIBILITY_POLICY,
+        compositeBounds: bounds,
+      });
+
+      // Neither ink holds 4.5 over the whole of the clear variant's range —
+      // pinned through the solve itself, so the assertion below is the rule
+      // rather than a transcription of today's constants.
+      expect(inkAlphaHoldingContrast([0x1c, 0x1c, 0x1e], bounds[0])).toBeUndefined();
+      expect(inkAlphaHoldingContrast([0xf5, 0xf5, 0xf7], bounds[1])).toBeUndefined();
+      expect(inks.secondary).toBe("light-dark(rgb(28 28 30 / 1), rgb(245 245 247 / 1))");
+
+      // The two levels that carry no floor keep their scale regardless: an app
+      // still gets a hierarchy, it just does not get a second *guaranteed* one.
+      expect(inks.tertiary).toBe("light-dark(rgb(28 28 30 / 0.3), rgb(245 245 247 / 0.3))");
+      expect(inks.quaternary).toBe("light-dark(rgb(28 28 30 / 0.18), rgb(245 245 247 / 0.18))");
+    });
+
+    it("holds the floor over the whole bracket when a level resolved without a backdrop", () => {
+      // The regular variant's bracket lands wholly above the crossover, so the
+      // ink is decided — but the backdrop still is not, and the surface can be
+      // anywhere between the bracket's ends. The alpha has to hold at the harder
+      // end, which is the darkest colour the surface reaches, not at whichever
+      // end `boundedForegroundLevel` happened to hand back.
+      const bounds = cssTierForegroundColourBounds(MATERIAL_OPTICS.regular);
+      const level = boundedForegroundLevel(
+        cssTierForegroundBounds(MATERIAL_OPTICS.regular),
+        CSS_TIER_MAPPING.foregroundCrossover,
+      );
+      expect(level).toBeDefined();
+
+      const secondary = foregroundLevelInks({
+        policy: NOMINAL_ACCESSIBILITY_POLICY,
+        level: level as number,
+        compositeBounds: bounds,
+      }).secondary;
+
+      const hardest = inkAlphaHoldingContrast([0x1c, 0x1c, 0x1e], bounds[0]) as number;
+      const easiest = inkAlphaHoldingContrast([0x1c, 0x1c, 0x1e], bounds[1]) as number;
+      expect(hardest).toBeGreaterThan(easiest);
+      expect(parse(secondary).alpha).toBeGreaterThanOrEqual(hardest);
     });
 
     it("collapses the scale under the two preferences that asked for more contrast", () => {
