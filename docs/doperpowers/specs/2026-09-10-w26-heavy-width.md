@@ -1,6 +1,6 @@
 # W26 — the heavy width: the thick surface's haze through a kernel whose width is a parameter (2026-09-10)
 
-**Status: RECOMPOSED 2026-09-10 (claims §5.127) — the eight clauses verified against the landed bed
+**Status: RECOMPOSED 2026-09-10 (claims §5.127); 0.15.0 PUBLISHED 2026-09-10 (tag `v0.15.0` at `34e1d55`; clause 8 closed by the user's eye and `pnpm release`) — the eight clauses verified against the landed bed
 (`8a57e0a`): the width a lever at both scales (clauses 1, 5, 6 met); the light scheme's thick body
 on the family reader within 15 % at both scales with the share within 0.07 (clause 2 met in the
 light scheme; NOT met in the dark scheme, held at its 0.14.0 draw by Decision Log 10); the nested
@@ -798,7 +798,9 @@ at `8a57e0a` (claims §5.126) and the children's reads:**
    twelve dom floors and the eye; the tier keeps its 0.14.0 derivation from the gain constants,
    the gap pinned as a number in `tier-coherence.test.ts` (13.8 CSS px against 9 device px at
    dpr 1), chartered in the tracker.
-8. **The eye — OPEN.** The G3 sheets to the user; 0.15.0 cut, unpublished.
+8. **The eye — MET.** The user published 0.15.0 on the G3 sheets (registry 05:54Z), with one
+   observation recorded to the tracker (black on black: lighter than Apple on the dark impulse,
+   darker on the dark checkerboard; rated unimportant by the user).
 
 **Retrospective.** The wave was chartered on a reading (Apple's heavy component 19.5 device px at
 1x, vitrea 13.3 too narrow) that a controlled, multi-backdrop instrument reversed: Apple's is
@@ -953,3 +955,7 @@ wave's to fix**; this records the number and the picture and recommends neither.
   3, 4 carried; 7 declined and pinned; 8 open on the G3 sheets. The Status re-stated with the
   charter kept beneath; Outcomes & Retrospective written. 0.15.0 cut, the user's eye before
   publish.
+- 2026-09-10: 0.15.0 published by the user (`pnpm release`; tag `v0.15.0` at `34e1d55`; registry
+  web 05:54:03Z, react 05:54:05Z, core 05:54:55Z; cold install verified, the renderer's constants
+  in core's chunk). Clause 8 met. The user's next priority is coverage; their coverage analysis to
+  arrive.

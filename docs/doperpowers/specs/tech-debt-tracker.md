@@ -1776,3 +1776,12 @@ above, and the three should be read together and answered once. Until then, ever
 the body should expect to re-derive the predicate and should check, as this one did, that the rows a
 newly excluded cell takes out of the gate are MET rather than merely unread.
 `results/2026-09-10-w26-heavy-width/g3/g3-landing.md` §5.1; claims §5.126 §6.
+
+## Black on black: vitrea reads lighter than Apple on the dark impulse and darker on the dark checkerboard (the user's eye on the 0.15.0 sheets, 2026-09-10; rated unimportant)
+
+On the dark impulse rows vitrea's black surface over black reads lighter than Apple's; on the dark
+checkerboard rows it reads darker (G2c measured the second half: Apple's dark panes 1.3–1.6 codes
+brighter in what the eye receives, claims §5.125 §5). Opposite signs on two backdrops of one
+scheme point at the dark tone response's shape rather than a level offset — the term W26 could not
+model in the dark scheme (the "milk" of Decision Log 10). Belongs to the dark wave; the user rates
+it a minor gap and the next priority is coverage.

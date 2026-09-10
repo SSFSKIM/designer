@@ -15608,3 +15608,9 @@ section: its numbers are the landing's as read.
 layers (the dark wave); the sharp component; the CSS tier's heavy width; the 2x span grading; the
 gain constants' retirement with the dark path; the no-small-values wart; the rim's depth; the
 ~1 code of Apple's interior no convolution explains; the native's 0.02029 transmission.
+
+**Addendum to §5.127 (2026-09-10): 0.15.0 published.** The user's `pnpm release` on `34e1d55` (tag
+`v0.15.0`) after the G3 sheets; registry web 05:54:03Z, react 05:54:05Z, core 05:54:55Z (the
+release-chain window 52 s, a tenth recurrence); a cold install outside the workspace imports all
+three entry points, and the renderer's material — in core's split chunk — carries
+`sizeHeavyTapSigma` 9 / `2x` 9. Clause 8 met; the eye's black-on-black observation to the tracker.
