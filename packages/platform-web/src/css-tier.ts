@@ -109,7 +109,13 @@ import {
   cssTierHeavySigmaCssPx,
   cssTierHeavyStepSigmaCssPx,
   cssTierSharpSigmaCssPx,
+  cssTierForegroundColour,
+  cssTierForegroundColourBounds,
   foldedOverlay,
+  inkAlphaHoldingContrast,
+  neutralComposite,
+  WCAG_BODY_TEXT_CONTRAST,
+  type EncodedRgb,
   scatterDeepThickness,
   scatterRampReachDevicePx,
   scatterFloorAtScale,
@@ -140,8 +146,89 @@ const CSS_TIER_TINT_FLOOR_ALPHA = 0.2668228970218852;
 /** The two ink tokens the adaptive foreground chooses between. */
 export const FOREGROUND_INK = { dark: "#1c1c1e", light: "#f5f5f7" } as const;
 
+/** The same two inks as channels, so a reduced-alpha level can be written from them. */
+const FOREGROUND_INK_CHANNELS: Readonly<Record<"dark" | "light", Rgb255>> = {
+  dark: [0x1c, 0x1c, 0x1e],
+  light: [0xf5, 0xf5, 0xf7],
+};
+
 /** What a surface with nothing to decide from keeps: `color-scheme` decides instead. */
 const FOREGROUND_DEFAULT = `light-dark(${FOREGROUND_INK.dark}, ${FOREGROUND_INK.light})`;
+
+/**
+ * The three named levels below the primary ink — Apple's `secondaryLabel`,
+ * `tertiaryLabel` and `quaternaryLabel`, on vitrea's material (W27a).
+ *
+ * One foreground level per surface was never the whole of what an interface
+ * needs: a caption, a disabled row, a separator's label all sit *under* the
+ * primary ink, and an app with one token either writes all of them at full
+ * strength or invents its own scale against a material it cannot see. These are
+ * the same ink at reduced alpha, published beside `--vitrea-foreground` on both
+ * tiers, so the scale is derived from the level the runtime resolved rather than
+ * guessed against it.
+ */
+export const FOREGROUND_LEVELS = ["secondary", "tertiary", "quaternary"] as const;
+
+export type ForegroundLevel = (typeof FOREGROUND_LEVELS)[number];
+
+/**
+ * Apple's own label alphas, and why they cannot simply be copied.
+ *
+ * `secondaryLabel` is 60% of the label colour, `tertiaryLabel` 30%,
+ * `quaternaryLabel` 18% (16% in the dark appearance; one number is published
+ * here, because the token's two branches are the two *inks* and the difference
+ * between 0.18 and 0.16 is a quarter of an 8-bit step at this ink's contrast).
+ *
+ * 0.6 is not an arbitrary number: the platform's ink over the platform's white
+ * background reaches WCAG's 4.5 body-text floor at almost exactly that alpha
+ * (`inkAlphaHoldingContrast` says 0.601 on a white surface). **Glass is never a
+ * white background.** The dark ink is chosen where the level runs from
+ * `foregroundCrossover` upward, and 60% of it lands at 4.49 over an encoded 1.0
+ * and 3.21 over the shipped regular material's darkest reachable level of 0.665.
+ * Publishing 0.6 flat would publish a token that fails the floor on the very
+ * material it is published for.
+ *
+ * So **secondary is raised to whatever holds the floor against every colour the
+ * surface can be sitting on**, and is Apple's 0.6 wherever that already does —
+ * which is most of the dark appearance, where the light ink over a level of 0.23
+ * has 4.5 in hand at 0.47. Two things that phrasing is careful about, both of
+ * them W27a's review findings:
+ *
+ *  - **Colour, not level.** A ratio stops being a function of luminance the
+ *    moment either side is chromatic, and this material is chromatic exactly
+ *    when an author tinted it. `foregroundLevelInks` is given the composite the
+ *    tier actually draws, so a full-strength magenta is solved against magenta.
+ *  - **Every colour, not the resolved one.** Where the backdrop is unknown the
+ *    surface's own bracket still is not, so the solve runs at both of its ends
+ *    and takes the harder. That covers the `light-dark()` case, where the
+ *    primary is chosen by colour scheme rather than by level and there is no
+ *    single surface to be right about.
+ *
+ * Where even an opaque ink misses the floor, secondary collapses onto the
+ * primary: a surface whose *first* level cannot carry body text has no second
+ * one to offer, and saying so is better than publishing a level that lies. That
+ * makes the guarantee relative and total at once — secondary is never worse than
+ * the primary, and holds 4.5 wherever the primary can.
+ *
+ * Tertiary and quaternary are **not** raised. WCAG's 4.5 is the body-text floor
+ * and these two are not body text — they are Apple's own supporting and
+ * decorative tiers — so lifting them to it would collapse the whole scale onto
+ * one value and destroy the thing being published. What they get instead is the
+ * floor stated (here, and in the README) and, for quaternary, the diagnostic
+ * Apple's own guidance asks for: it is too low-contrast on a thin material.
+ */
+const FOREGROUND_LEVEL_ALPHA: Readonly<Record<ForegroundLevel, number>> = {
+  secondary: 0.6,
+  tertiary: 0.3,
+  quaternary: 0.18,
+};
+
+/** `--vitrea-foreground-secondary` and its two siblings, in level order. */
+export const FOREGROUND_LEVEL_TOKENS = {
+  secondary: "--vitrea-foreground-secondary",
+  tertiary: "--vitrea-foreground-tertiary",
+  quaternary: "--vitrea-foreground-quaternary",
+} as const satisfies Record<ForegroundLevel, string>;
 
 /**
  * The custom properties the tier publishes. A GPU-tier surface writes the same
@@ -154,6 +241,9 @@ export const CSS_TIER_TOKENS = [
   "--vitrea-border-color",
   "--vitrea-blur",
   "--vitrea-foreground",
+  FOREGROUND_LEVEL_TOKENS.secondary,
+  FOREGROUND_LEVEL_TOKENS.tertiary,
+  FOREGROUND_LEVEL_TOKENS.quaternary,
 ] as const;
 
 export type CssTierToken = (typeof CSS_TIER_TOKENS)[number];
@@ -753,8 +843,200 @@ export function foregroundDeclarations(input: {
   readonly policy: ResolvedAccessibilityPolicy;
   readonly level?: number;
   readonly mapping?: CssTierMapping;
+  /**
+   * The colour behind the glyphs and the pair the surface's bracket reaches —
+   * what the named levels' contrast floor is solved against. The primary ink
+   * does not read either: which ink is readable is a threshold on luminance, and
+   * `level` carries that. See `foregroundLevelInks`.
+   */
+  readonly composite?: EncodedRgb;
+  readonly compositeBounds?: readonly [EncodedRgb, EncodedRgb];
 }): StyleDeclarations {
-  return { "--vitrea-foreground": foregroundInk(input) };
+  const primary = foregroundInk(input);
+  const levels = foregroundLevelInks(input);
+  return {
+    "--vitrea-foreground": primary,
+    [FOREGROUND_LEVEL_TOKENS.secondary]: levels.secondary,
+    [FOREGROUND_LEVEL_TOKENS.tertiary]: levels.tertiary,
+    [FOREGROUND_LEVEL_TOKENS.quaternary]: levels.quaternary,
+  };
+}
+
+/**
+ * `rgb(28 28 30 / 0.6)` — the modern syntax, which every engine vitrea targets
+ * parses. Rounded **up** rather than to nearest: the third decimal is finer than
+ * an 8-bit step, and a value a hair more opaque than the solve is the only side
+ * of it a contrast floor may land on.
+ */
+const inkAtAlpha = (ink: Rgb255, alpha: number): string =>
+  `rgb(${ink[0]} ${ink[1]} ${ink[2]} / ${Math.ceil(Math.min(1, alpha) * 1000) / 1000})`;
+
+/**
+ * The alpha one named level is published at, against every colour the glyphs
+ * could be sitting on.
+ *
+ * `surfaces` is one colour where the backdrop is known and the pair the bracket
+ * reaches where it is not; the alpha taken is the largest any of them needs, so
+ * the published floor holds over all of them rather than over a representative
+ * one. See `FOREGROUND_LEVEL_ALPHA` for where the numbers come from and why only
+ * secondary is raised, and `foregroundLevelInks` for why the bracket is always
+ * available on a shipped path.
+ *
+ * `undefined` from `inkAlphaHoldingContrast` means an opaque ink misses the
+ * floor on that colour too, and there `1` is the honest answer rather than the
+ * largest number below it.
+ */
+function alphaFor(
+  level: ForegroundLevel,
+  ink: Rgb255,
+  surfaces: readonly EncodedRgb[],
+): number {
+  const nominal = FOREGROUND_LEVEL_ALPHA[level];
+  if (level !== "secondary") return nominal;
+
+  let required = nominal;
+  for (const surface of surfaces) {
+    const holding = secondaryFloorAlpha(ink, surface);
+    if (holding === undefined) return 1;
+    required = Math.max(required, holding);
+  }
+  return required;
+}
+
+/**
+ * `inkAlphaHoldingContrast`, memoised on the exact colour asked about.
+ *
+ * These declarations are recomputed for every surface on every frame — the tier
+ * writes its whole material each frame so that nothing can be left stale — and
+ * the solve is thirty halvings over three `Math.pow` each, so it is not
+ * something to run per surface per frame unmemoised.
+ *
+ * Keyed on the colour **exactly** rather than on a quantisation of it. An
+ * earlier form keyed on the level rounded to 1/2048 and had to argue about which
+ * direction to round so that the cached answer could not land under the floor;
+ * that argument was available for a scalar and is not for a triple, where "the
+ * harder colour" is not a direction. The distinct colours a page produces are
+ * the distinct (material, backdrop tone) pairs it draws, which is a small number
+ * that changes when the page does, so an exact key hits in the steady state. The
+ * cap is there for the pathological case — a backdrop tone that jitters every
+ * frame — and clearing wholesale is right for it: the entries a jittering page
+ * accumulated are exactly the ones it will not ask for again.
+ */
+const SECONDARY_FLOOR_CACHE_CAP = 4096;
+
+const secondaryFloorAlphas = new Map<string, number | undefined>();
+
+function secondaryFloorAlpha(ink: Rgb255, surface: EncodedRgb): number | undefined {
+  const key = `${ink === FOREGROUND_INK_CHANNELS.dark ? "d" : "l"}:${String(surface[0])}:${String(surface[1])}:${String(surface[2])}`;
+  if (secondaryFloorAlphas.has(key)) return secondaryFloorAlphas.get(key);
+  const solved = inkAlphaHoldingContrast(ink, surface, WCAG_BODY_TEXT_CONTRAST);
+  if (secondaryFloorAlphas.size >= SECONDARY_FLOOR_CACHE_CAP) secondaryFloorAlphas.clear();
+  secondaryFloorAlphas.set(key, solved);
+  return solved;
+}
+
+/**
+ * The three named levels, in the same four regimes the primary ink resolves in
+ * (W27a). Split out of `foregroundDeclarations` so the arithmetic is testable on
+ * its own, exactly as `foregroundInk` is.
+ *
+ * Two regimes publish the primary ink unchanged at every level, and both are
+ * accessibility rather than aesthetics. Under **forced colours** there is no
+ * glass and the palette is the platform's; a reduced-alpha `CanvasText` is
+ * precisely the thing forced colours exists to prevent. Under **increased
+ * contrast** the preference asked for more contrast, and answering it with three
+ * dimmer inks would be answering the opposite question. In both the scale
+ * collapses, deliberately, and an app that reads a level token gets a legible
+ * colour rather than nothing.
+ *
+ * ## What the floor is solved against
+ *
+ * `composite` is the colour the glyphs sit on where the backdrop is known — a
+ * declared hint or a measured tone. Where it is not, `compositeBounds` is the
+ * pair the surface's own bracket reaches, over the darkest backdrop and the
+ * brightest, and **the floor is solved against both and the harder answer
+ * taken**. That is a real guarantee rather than a representative one: every
+ * colour the surface can reach lies between those two, on a ratio that is
+ * monotone in the backdrop, so an alpha holding at both ends holds everywhere
+ * between them.
+ *
+ * It matters most in exactly the case the primary ink cannot decide. There the
+ * primary is `light-dark()` and the browser picks by colour scheme rather than
+ * by level, so **each branch is solved separately, against the end that is worse
+ * for that branch's ink**. Publishing Apple's flat 0.6 on both — which is what
+ * this did before the review — published 4.49-over-white on a surface that may
+ * be nowhere near white.
+ *
+ * A caller that passes neither falls back to `level` as a neutral, and to
+ * Apple's own alphas where there is no level either. Both are direct-caller
+ * fallbacks and neither is reachable from the runtime: `cssTierDeclarations` and
+ * `root.ts` always pass the bounds, because a surface always has them — they are
+ * a function of its material alone and need no backdrop at all.
+ */
+export function foregroundLevelInks(input: {
+  readonly policy: ResolvedAccessibilityPolicy;
+  readonly level?: number;
+  readonly mapping?: CssTierMapping;
+  /** The colour behind the glyphs, where the backdrop is known. */
+  readonly composite?: EncodedRgb;
+  /** The colours it reaches over the darkest and brightest backdrops. */
+  readonly compositeBounds?: readonly [EncodedRgb, EncodedRgb];
+}): Readonly<Record<ForegroundLevel, string>> {
+  const mapping = input.mapping ?? CSS_TIER_MAPPING;
+  const { material } = input.policy;
+  const flat = (value: string): Readonly<Record<ForegroundLevel, string>> => ({
+    secondary: value,
+    tertiary: value,
+    quaternary: value,
+  });
+
+  if (material.glass === "none") return flat("CanvasText");
+  if (material.foreground === "near-monochrome") return flat("light-dark(#000, #fff)");
+
+  /**
+   * The colours one branch's ink has to hold its floor against. The exact
+   * composite where there is one; otherwise the bracket's two ends, which
+   * between them cover every colour the surface can reach.
+   */
+  const surfacesFor = (fallbackLevel: number | undefined): readonly EncodedRgb[] => {
+    if (input.composite !== undefined) return [input.composite];
+    if (input.compositeBounds !== undefined) return input.compositeBounds;
+    return fallbackLevel === undefined ? [] : [neutralComposite(fallbackLevel)];
+  };
+
+  if (input.level === undefined) {
+    // No level means no single ink: `light-dark()` hands the choice to the colour
+    // scheme, so both branches are published and each has to hold on its own.
+    const surfaces = surfacesFor(undefined);
+    const branch = (level: ForegroundLevel): string => {
+      const dark = inkAtAlpha(
+        FOREGROUND_INK_CHANNELS.dark,
+        alphaFor(level, FOREGROUND_INK_CHANNELS.dark, surfaces),
+      );
+      const light = inkAtAlpha(
+        FOREGROUND_INK_CHANNELS.light,
+        alphaFor(level, FOREGROUND_INK_CHANNELS.light, surfaces),
+      );
+      return `light-dark(${dark}, ${light})`;
+    };
+    return {
+      secondary: branch("secondary"),
+      tertiary: branch("tertiary"),
+      quaternary: branch("quaternary"),
+    };
+  }
+
+  const surfaceLevel = input.level;
+  const ink =
+    surfaceLevel >= mapping.foregroundCrossover
+      ? FOREGROUND_INK_CHANNELS.dark
+      : FOREGROUND_INK_CHANNELS.light;
+  const surfaces = surfacesFor(surfaceLevel);
+  return {
+    secondary: inkAtAlpha(ink, alphaFor("secondary", ink, surfaces)),
+    tertiary: inkAtAlpha(ink, alphaFor("tertiary", ink, surfaces)),
+    quaternary: inkAtAlpha(ink, alphaFor("quaternary", ink, surfaces)),
+  };
 }
 
 /**
@@ -1186,19 +1468,45 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
   const hintedLuminance =
     surface.backdropLuminance ?? hintedBackdropLuminance(surface.foreground, mapping);
   /*
-   * A tinted surface with no hint is not undecidable. The level is monotonic in
-   * the backdrop, so bracketing it over the whole range often decides the ink
-   * outright — and a surface the app declared a colour for is exactly the case
-   * where taking that decision is honouring the declaration rather than guessing.
-   * Where the bracket straddles the crossover the backdrop really does decide,
-   * and the `light-dark()` default stands.
+   * A surface with no hint is not undecidable. The level is monotonic in the
+   * backdrop, so bracketing it over the whole range often decides the ink
+   * outright. Where the bracket straddles the crossover the backdrop really does
+   * decide, and the `light-dark()` default stands.
+   *
+   * **The bracket is taken on every surface, tinted or not** (W27a; closes the
+   * tech-debt entry "The untinted material's ink is still decided by the colour
+   * scheme"). W3 wired this in for author-tinted surfaces only and left the
+   * untinted material where it was, on the reasoning that the profile's neutral
+   * tint is a calibration constant rather than a declaration. That distinction
+   * does not survive the material's measured opacity: what a reader sees behind
+   * the glyphs is `mix(backdrop, tint, α)`, and at this tier's converted alpha
+   * the neutral white tint dominates it just as an author's colour would. The
+   * ink was then chosen by `light-dark()` — that is, by the colour scheme — so a
+   * hintless surface in a dark scheme wore the light ink on a near-white body.
+   * That is K5's failure class reached through the no-hint path, and the bracket
+   * closes it with the same arithmetic on the same monotonicity: nothing is
+   * guessed, because a bracket that lands wholly on one side of the crossover is
+   * the answer the hinted path would have produced for any backdrop whatsoever.
    */
   const level =
     hintedLuminance !== undefined
       ? cssTierForegroundLevel(optics, hintedLuminance)
-      : surface.tint === undefined
-        ? undefined
-        : boundedForegroundLevel(cssTierForegroundBounds(optics), mapping.foregroundCrossover);
+      : boundedForegroundLevel(cssTierForegroundBounds(optics), mapping.foregroundCrossover);
+  /*
+   * The same two questions as colours rather than levels, for the named ink
+   * levels' contrast floor (W27a, review fix). The primary ink needs only the
+   * level, because which ink is readable is a threshold on luminance; a *ratio*
+   * is not a function of luminance once the surface is chromatic, and this
+   * material is chromatic exactly when an author tinted it. `optics` here is the
+   * tinted conversion, so this is the colour the tier actually lays down.
+   *
+   * The bounds are passed unconditionally, including on the hinted path where
+   * they go unused: they cost two multiplies and they are what makes the
+   * bracket's guarantee available wherever the backdrop is not known.
+   */
+  const compositeBounds = cssTierForegroundColourBounds(optics);
+  const composite =
+    hintedLuminance === undefined ? undefined : cssTierForegroundColour(optics, hintedLuminance);
 
   const host: StyleDeclarations = {
     "border-radius": radius,
@@ -1278,7 +1586,9 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
     ...foregroundDeclarations({
       policy,
       mapping,
+      compositeBounds,
       ...(level === undefined ? {} : { level }),
+      ...(composite === undefined ? {} : { composite }),
     }),
   };
 

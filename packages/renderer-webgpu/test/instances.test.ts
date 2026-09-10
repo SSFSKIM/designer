@@ -19,6 +19,7 @@ import {
   clipFieldRectToCanvas,
   groupFieldRect,
   INSTANCE_FLOATS,
+  LENS_STRENGTH_MAX,
   packInstances,
   resolveSurfaces,
   snapRectToDevicePixels,
@@ -251,6 +252,74 @@ describe("the size-parameterised lens", () => {
     );
     const { data } = packInstances(resolved, [0, 0]);
     expect(data[14]).toBeCloseTo((resolved[0]?.shape.channels.thickness as number) * 0.5, 6);
+  });
+
+  /**
+   * The channel's range is `0..1+` (W27a), and every interaction state that
+   * DEEPENS the lens lives above 1: `@vitrea/motion`'s table drives it to 1.03
+   * focused, 1.06 hover, 1.10 morphing and 1.14 pressed. A `min(1, …)` on the
+   * way into this slot meant `disabled` (0.5) was the only state the shader
+   * could see, and the other four arrived indistinguishable from rest.
+   */
+  it("carries a strength above 1, so a press deepens the lens (W27a)", () => {
+    const at = (lensStrength: number): number => {
+      const resolved = resolveSurfaces(group([surface({ channels: { lensStrength } })]), "rsupn");
+      return packInstances(resolved, [0, 0]).data[14] as number;
+    };
+
+    const thickness = surface().shape.thickness;
+    expect(at(1.14)).toBeGreaterThan(at(1));
+    expect(at(1.14)).toBeCloseTo(thickness * 1.14, 6);
+    // Every state the table drives, in the order it drives them: disabled,
+    // rest, focused, hover, morphing, pressed. Strictly increasing, where
+    // before only the first step was.
+    const table = [0.5, 1, 1.03, 1.06, 1.1, 1.14].map(at);
+    expect(table).toEqual([...table].sort((a, b) => a - b));
+    expect(new Set(table).size).toBe(table.length);
+
+    // The resting material is untouched: the channel is exactly 1 at idle and
+    // the two forms agree there, which is what keeps the golden bed still.
+    expect(at(1)).toBeCloseTo(thickness, 10);
+    // The floor is still a clamp — a negative strength is not a negative depth.
+    expect(at(-2)).toBe(0);
+  });
+
+  /**
+   * The ceiling is a guard on the buffer rather than on the optics (W27a,
+   * review fix).
+   *
+   * The channel is read off a host's own custom property, where an app can write
+   * anything `parseFloat` accepts. A non-finite product packed into a
+   * `Float32Array` does not draw a strange lens: it reaches the shader as a
+   * non-finite uniform and blanks the pass that reads it, for the whole group
+   * and without saying why. Every value a driver actually produces is far below
+   * the ceiling, so nothing reachable changes.
+   */
+  it("packs a finite depth for any channel value at all (W27a)", () => {
+    const at = (lensStrength: number): number => {
+      const resolved = resolveSurfaces(group([surface({ channels: { lensStrength } })]), "rsupn");
+      return packInstances(resolved, [0, 0]).data[14] as number;
+    };
+
+    // Infinities order normally, so each saturates at the end it means.
+    for (const pathological of [Infinity, 1e40, Number.MAX_VALUE]) {
+      expect(Number.isFinite(at(pathological)), String(pathological)).toBe(true);
+      expect(at(pathological)).toBe(surface().shape.thickness * LENS_STRENGTH_MAX);
+    }
+    expect(at(-Infinity)).toBe(0);
+
+    // `NaN` does not: it compares false against everything, so a clamp alone
+    // passes it straight through and the guard has a hole the shape of the thing
+    // it guards against. It answers with the idle value — a surface nobody is
+    // driving — rather than with zero, which is the different claim that the
+    // lens is switched off.
+    expect(Number.isFinite(at(Number.NaN))).toBe(true);
+    expect(at(Number.NaN)).toBeCloseTo(surface().shape.thickness, 10);
+
+    // And the ceiling is nowhere near anything the motion table drives, so no
+    // reachable state is capped by it: the whole table is still distinct.
+    expect(LENS_STRENGTH_MAX).toBeGreaterThan(1.14);
+    expect(at(1.14)).toBeLessThan(at(LENS_STRENGTH_MAX));
   });
 });
 

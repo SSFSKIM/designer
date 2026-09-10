@@ -116,6 +116,68 @@ describe("clear without dimming", () => {
   });
 });
 
+/**
+ * A group is one optics pass and carries one seed, so the mixing check has to
+ * keep firing now that the group itself can supply one: a group tint and a
+ * member overriding it are two distinct seeds, exactly as two members with two
+ * colours are.
+ */
+describe("tint mixing (§Material tint)", () => {
+  it("warns when a group's members ask for two different seeds", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    let codes: string[] = [];
+
+    const harness = renderGlass(
+      <>
+        <Diagnostics onRead={(next) => (codes = next)} />
+        <GlassGroup id="two-seeds">
+          <GlassSurface nodeId="orange" tint="rgb(255, 149, 0)" />
+          <GlassSurface nodeId="blue" tint="rgb(0, 122, 255)" />
+        </GlassGroup>
+      </>,
+    );
+    harness.frame();
+
+    expect(codes).toContain("tint-mixing");
+    expect(warn.mock.calls.map((call) => String(call[0])).join("\n")).toContain("two-seeds");
+    warn.mockRestore();
+  });
+
+  it("warns when a member overrides the group's own seed", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    let codes: string[] = [];
+
+    const harness = renderGlass(
+      <>
+        <Diagnostics onRead={(next) => (codes = next)} />
+        <GlassGroup id="group-and-override" tint="rgb(255, 149, 0)">
+          <GlassSurface nodeId="inherits" />
+          <GlassSurface nodeId="overrides" tint="rgb(0, 122, 255)" />
+        </GlassGroup>
+      </>,
+    );
+    harness.frame();
+
+    expect(codes).toContain("tint-mixing");
+    warn.mockRestore();
+  });
+
+  it("stays quiet when one group seed is all every member wears", () => {
+    let codes: string[] = [];
+    const harness = renderGlass(
+      <>
+        <Diagnostics onRead={(next) => (codes = next)} />
+        <GlassGroup id="one-seed" tint="rgb(255, 149, 0)">
+          <GlassSurface nodeId="a" />
+          <GlassSurface nodeId="b" />
+        </GlassGroup>
+      </>,
+    );
+    harness.frame();
+    expect(codes).not.toContain("tint-mixing");
+  });
+});
+
 describe("the diagnostic sink", () => {
   it("hands findings to an app-supplied sink instead of the console", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);

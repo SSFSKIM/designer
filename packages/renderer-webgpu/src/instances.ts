@@ -66,6 +66,48 @@ import { IDLE_CHANNELS, type GroupRenderInput, type Rect, type SurfaceChannels, 
 export const INSTANCE_FLOATS = 18;
 export const INSTANCE_BYTES = INSTANCE_FLOATS * 4;
 
+/**
+ * The ceiling on the `lensStrength` channel, as it enters the instance buffer.
+ *
+ * Not an optical limit — the optics saturate long before it. The fragment stage
+ * clamps the lens depth to `span * 0.5` and scales the magnitude by the same
+ * ratio, so at the shipped `lensThicknessReference` of 8 a strength of 4 has
+ * already pinned every surface in the canonical range against that clamp, and
+ * `@vitrea/motion`'s own table tops out at 1.14. Nothing a driver produces comes
+ * near this, and nothing between 1.14 and here draws differently from 4.
+ *
+ * It is a guard on the **buffer**. The channel is read off a host's own custom
+ * property (`channels.ts`), where an app can write whatever `parseFloat`
+ * accepts, and a profile could in principle carry an absurd thickness beside it.
+ * A non-finite product packed into a `Float32Array` reaches the shader as a
+ * non-finite uniform, which does not draw a strange lens — it blanks the pass
+ * that reads it, silently and for the whole group. A finite ceiling costs one
+ * `Math.min` and makes that unreachable.
+ */
+export const LENS_STRENGTH_MAX = 4;
+
+/**
+ * The channel as it may enter the buffer: clamped into `[0, LENS_STRENGTH_MAX]`,
+ * with `NaN` answered by the idle value rather than by either end of it.
+ *
+ * `NaN` needs saying out loud because a clamp does not catch it: it compares
+ * false against everything, so `Math.min(max, Math.max(0, NaN))` is `NaN` and
+ * the guard the clamp was written to be would have had a hole exactly the shape
+ * of the thing it was guarding against. Infinities need no such care — they
+ * order normally, so `+Infinity` saturates at the ceiling and `-Infinity` at the
+ * floor, which is what each of them means.
+ *
+ * The idle value and not zero, because those are different claims and this
+ * package already draws the distinction (`IDLE_CHANNELS`): zero is a surface
+ * with its lens switched off, which is something a driver can legitimately ask
+ * for, and 1 is a surface nobody is driving. A value that is not a number is the
+ * second of those, not the first.
+ */
+function boundedLensStrength(strength: number): number {
+  if (Number.isNaN(strength)) return IDLE_CHANNELS.lensStrength;
+  return Math.min(LENS_STRENGTH_MAX, Math.max(0, strength));
+}
+
 export interface ResolvedSurface {
   readonly nodeId: string;
   /** The surface's own resolved shape — bounds, hit-testing, and the rim's scale. */
@@ -368,7 +410,28 @@ export function packInstances(
     // the lens off exactly as the resolved depth used to, and neither depth can
     // be rounded through the other. Until W12 G2 this slot carried the resolved
     // lens depth itself; the CPU still resolves it (`lensDepthPx`) for readers.
-    data[o + 14] = Math.max(s.shape.channels.thickness, 0) * Math.min(1, Math.max(0, s.channels.lensStrength));
+    //
+    // **The clamp is `0..LENS_STRENGTH_MAX` rather than `0..1`** (W27a). This
+    // multiplied by `min(1, max(0, lensStrength))`, and the channel's documented
+    // range is `0..1+`: `@vitrea/motion`'s table drives it to 1.03 focused, 1.06
+    // hover, 1.10 morphing and 1.14 pressed, so a clamp at 1 meant `disabled`
+    // (0.5) was the only interaction state that reached the shader at all and
+    // every state that DEEPENS the lens arrived as the resting material.
+    //
+    // The ceiling that replaces it is a **guard on the buffer, not on the
+    // optics**: the fragment stage already clamps the lens depth to `span * 0.5`
+    // and scales the magnitude by the same ratio, so the material saturates far
+    // below it and nothing between the motion table's 1.14 and the ceiling is
+    // reachable by any driver. What the ceiling is for is the value no driver
+    // produces — the channel is read off a host's own custom property, where an
+    // app can write anything a `parseFloat` accepts, and `Infinity` or `1e40`
+    // packed into a `Float32Array` becomes a non-finite uniform that blanks a
+    // whole pass rather than drawing a strange lens.
+    //
+    // At rest the channel is exactly 1, where every form of this arithmetic
+    // agrees, so the resting material is byte-identical and the golden bed does
+    // not move.
+    data[o + 14] = Math.max(s.shape.channels.thickness, 0) * boundedLensStrength(s.channels.lensStrength);
     // The shader's `tintK` slot, and the only per-surface half of the author
     // tint: the seed is a group uniform, this is how much of it this pixel gets.
     data[o + 15] = s.tintStrength;
