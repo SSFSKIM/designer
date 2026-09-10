@@ -1,0 +1,70 @@
+W26 G2c — the two level gaps the eye named, in 8-bit display codes
+========================================================================================================
+  `milk` is the pane's own light with the backdrop regressed out; `trans` the fraction of the
+  backdrop's contrast it passes; `raw` the ring mean the eye sees. Means over the rings.
+
+  profile                            cell                   source          raw     milk     trans
+  1x-dark-standard                   rrect-lg               native        13.34     7.38    0.0477
+  1x-dark-standard                   rrect-lg               0.14.0        11.99     4.95    0.0566
+  1x-dark-standard                   rrect-lg               candidate     11.94     3.58    0.0673
+
+  1x-dark-standard                   rrect-md               native        13.86     6.45    0.0527
+  1x-dark-standard                   rrect-md               0.14.0        12.50     5.10    0.0534
+  1x-dark-standard                   rrect-md               candidate     12.55     4.31    0.0596
+
+  1x-dark-standard                   nested base            native        11.76     9.69    0.0162
+  1x-dark-standard                   nested base            0.14.0        11.88     9.02    0.0224
+  1x-dark-standard                   nested base            candidate     11.90     8.91    0.0235
+
+  1x-dark-standard                   nested over            native         5.27     5.07    0.0016
+  1x-dark-standard                   nested over            0.14.0         6.10     6.03    0.0005
+  1x-dark-standard                   nested over            candidate      6.09     6.03    0.0005
+
+  2x-dark-standard                   rrect-lg               native        13.49     7.37    0.0487
+  2x-dark-standard                   rrect-lg               0.14.0        11.93     3.25    0.0699
+  2x-dark-standard                   rrect-lg               candidate     11.93     2.51    0.0759
+
+  2x-dark-standard                   rrect-md               native        14.12     6.41    0.0549
+  2x-dark-standard                   rrect-md               0.14.0        12.58     4.06    0.0620
+  2x-dark-standard                   rrect-md               candidate     12.58     4.11    0.0616
+
+  2x-dark-standard                   nested base            native        11.87     9.79    0.0163
+  2x-dark-standard                   nested base            0.14.0        11.98     9.27    0.0212
+  2x-dark-standard                   nested base            candidate     11.98     9.09    0.0227
+
+  2x-dark-standard                   nested over            native         5.29     5.01    0.0022
+  2x-dark-standard                   nested over            0.14.0         6.10     6.03    0.0006
+  2x-dark-standard                   nested over            candidate      6.10     6.01    0.0007
+
+  1x-light-standard                  rrect-lg               native       174.74   134.03    0.3275
+  1x-light-standard                  rrect-lg               0.14.0       176.22   138.17    0.3054
+  1x-light-standard                  rrect-lg               candidate    175.90   130.80    0.3630
+
+  1x-light-standard                  rrect-md               native       177.24   130.41    0.3398
+  1x-light-standard                  rrect-md               0.14.0       178.92   139.00    0.2880
+  1x-light-standard                  rrect-md               candidate    179.15   134.72    0.3214
+
+  1x-light-standard                  nested base            native       167.12   153.17    0.1094
+  1x-light-standard                  nested base            0.14.0       164.60   150.19    0.1130
+  1x-light-standard                  nested base            candidate    164.61   149.54    0.1182
+
+  1x-light-standard                  nested over            native       230.71   229.27    0.0113
+  1x-light-standard                  nested over            0.14.0       227.02   224.40    0.0206
+  1x-light-standard                  nested over            candidate    226.99   224.21    0.0218
+
+  2x-light-standard                  rrect-lg               native       174.59   133.07    0.3327
+  2x-light-standard                  rrect-lg               0.14.0       176.31   129.47    0.3772
+  2x-light-standard                  rrect-lg               candidate    176.20   125.48    0.4087
+
+  2x-light-standard                  rrect-md               native       177.62   129.35    0.3511
+  2x-light-standard                  rrect-md               0.14.0       179.68   133.69    0.3343
+  2x-light-standard                  rrect-md               candidate    179.76   134.02    0.3325
+
+  2x-light-standard                  nested base            native       165.88   152.05    0.1085
+  2x-light-standard                  nested base            0.14.0       164.67   150.95    0.1076
+  2x-light-standard                  nested base            candidate    164.63   149.96    0.1150
+
+  2x-light-standard                  nested over            native       230.74   228.65    0.0164
+  2x-light-standard                  nested over            0.14.0       227.61   224.16    0.0271
+  2x-light-standard                  nested over            candidate    227.51   223.63    0.0304
+
