@@ -34,12 +34,14 @@ group needs.
 region around their own shapes, and where one group's padded box covers the
 other's shapes the backdrop filter applies twice over the overlap. A spacer
 therefore opens the sampling padding the material actually requires under the
-resolved accessibility policy: turn *Reduce Transparency* on, the frost thickens,
-and the gap grows with it. Your own `gap`, margin or width adds to it. The same
-number is now exported from `@vitreajs/vitrea-web` as
-`samplingPaddingFor({ members, material })`, which is what a host-level app
-splitting a toolbar over the framework-agnostic entry reaches for — groups are
-already the primitive there, so nothing else was needed.
+resolved accessibility policy, and never less than the advisory the scene model
+checks a layout against: turn *Reduce Transparency* on, the frost thickens, and
+the material's own requirement rises past that advisory on a normal-height bar.
+Your own `gap`, margin or width adds to it, and an explicit `style` of your own
+still wins. The material's half of that number is now exported from
+`@vitreajs/vitrea-web` as `samplingPaddingFor({ members, material })`, which is
+what a host-level app splitting a toolbar over the framework-agnostic entry
+reaches for — groups are already the primitive there, so nothing else was needed.
 
 **Nothing about the material moves.** The frame loop resolves each group's blur
 through the same composition it always did, now named `proxySamplingSigma` and

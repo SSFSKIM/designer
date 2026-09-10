@@ -30,11 +30,12 @@
  * The one thing a partition must buy is room. Two adjacent groups each sample a
  * padded region around their own shapes, and where one group's padded box covers
  * the other's shapes the backdrop filter applies twice over the overlap
- * (`proxy-overlap-after-enforcement`). So a spacer's minimum is the sampling
- * padding the material actually requires, read from the resolved accessibility
- * policy through `samplingPaddingFor` — not a constant, because the constant
- * would be wrong under Reduce Transparency, which is exactly the preference that
- * enlarges the blur.
+ * (`proxy-overlap-after-enforcement`, and core's own `group-proxy-overlap`). So
+ * a spacer's minimum is derived rather than written down: the sampling padding
+ * the material actually requires under the resolved accessibility policy, and
+ * never less than the advisory core checks against. A constant of this file's
+ * own would be wrong under Reduce Transparency, which is exactly the preference
+ * that enlarges the blur.
  *
  * The toolbar is deliberately **not** a glass surface. X1 forbids two glass
  * surfaces overlapping inside one plane — the sandwich cannot put one surface's
@@ -48,7 +49,11 @@
  * registration order, and nothing to keep in sync when children reorder.
  */
 
-import { NOMINAL_ACCESSIBILITY_POLICY, type GlassPlane } from "@vitreajs/vitrea";
+import {
+  DEFAULT_GROUP_SAMPLING,
+  NOMINAL_ACCESSIBILITY_POLICY,
+  type GlassPlane,
+} from "@vitreajs/vitrea";
 import { samplingPaddingFor } from "@vitreajs/vitrea-web";
 import {
   Children,
@@ -500,15 +505,34 @@ export function GlassToolbar(props: GlassToolbarProps): ReactNode {
     return () => observer.disconnect();
   }, [toolbar]);
 
-  const gap = useMemo(
-    () =>
+  /*
+   * ...and it clears BOTH of the paddings a split is checked against, because
+   * there are two and they are allowed to differ.
+   *
+   * `platform-web` resolves what the group actually samples with — the derived
+   * 3σ above, or the author's own number — and `proxy-overlap-after-enforcement`
+   * fires on that. core's scene model runs its own overlap check
+   * (`group-proxy-overlap`) against the *descriptor's* padding, which is the
+   * author's number or core's public advisory of 24, and that advisory
+   * deliberately did not follow σ down when the material was refitted: lowering
+   * a published default for tidiness would change behaviour for every consumer
+   * that never reaches the derivation. So at today's material the advisory is
+   * the larger of the two for a control-sized row, and the material's own
+   * requirement overtakes it on a taller bar or under Reduce Transparency. A
+   * layout with clearance to spare has to satisfy whichever is in front.
+   */
+  const gap = useMemo(() => {
+    const material = (accessibility ?? NOMINAL_ACCESSIBILITY_POLICY).material;
+    const checked = groupProps?.samplingPadding ?? DEFAULT_GROUP_SAMPLING.samplingPadding;
+    return Math.max(
+      checked,
       samplingPaddingFor({
         members: box[0] > 0 && box[1] > 0 ? [box] : [],
-        material: (accessibility ?? NOMINAL_ACCESSIBILITY_POLICY).material,
+        material,
         ...(groupProps?.variant === undefined ? {} : { variant: groupProps.variant }),
       }),
-    [accessibility, box, groupProps?.variant],
-  );
+    );
+  }, [accessibility, box, groupProps?.samplingPadding, groupProps?.variant]);
 
   const scope: ToolbarScope = useMemo(
     () => ({ id: toolbarId, orientation, gap }),

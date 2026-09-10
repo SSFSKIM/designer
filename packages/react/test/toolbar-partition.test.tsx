@@ -30,7 +30,7 @@
 import { fireEvent } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { rectsOverlap, type Rect } from "@vitreajs/vitrea";
+import { DEFAULT_GROUP_SAMPLING, rectsOverlap, type Rect } from "@vitreajs/vitrea";
 import { resolveProxyGeometry, samplingPaddingFor } from "@vitreajs/vitrea-web";
 
 import { GlassButton, GlassToolbar, GlassToolbarSpacer } from "../src/index";
@@ -235,31 +235,47 @@ describe("the gap a spacer opens", () => {
     </GlassToolbar>
   );
 
-  it("is the sampling padding the resolved policy requires, not a constant", () => {
+  /** Both paddings a split is checked against; the layout has to clear each. */
+  const wanted = (harness: Harness): number =>
+    Math.max(
+      DEFAULT_GROUP_SAMPLING.samplingPadding,
+      // The toolbar measured nothing in jsdom, so the members it derives over
+      // are empty — the projection at span 0, which is the floor every group
+      // starts at and the honest answer for a row with no extent.
+      samplingPaddingFor({ members: [], material: harness.root().accessibility.material }),
+    );
+
+  it("clears the padding the material requires and the advisory core checks against", () => {
     const harness = renderGlass(split);
     harness.run(1);
 
-    const material = harness.root().accessibility.material;
-    // The toolbar measured nothing in jsdom, so the members it derives over are
-    // empty — the projection at span 0, which is the floor every group starts
-    // at and the honest answer for a row with no extent.
-    expect(gapOf(spacers()[0])).toBeCloseTo(samplingPaddingFor({ members: [], material }), 6);
+    expect(gapOf(spacers()[0])).toBeCloseTo(wanted(harness), 6);
   });
 
-  it("grows when Reduce Transparency thickens the frost", () => {
+  it("follows the material's own requirement when Reduce Transparency thickens the frost", () => {
+    // The two paddings are allowed to differ, and at today's material core's
+    // published advisory is the larger for a row with no extent — so what this
+    // asserts is the composition, plus the fact that makes it move: the term
+    // that follows the policy rises under the preference that enlarges the blur,
+    // and overtakes the advisory on a bar tall enough to need it.
     const nominal = renderGlass(split, { reducedTransparency: false });
     nominal.run(1);
-    const atNominal = gapOf(spacers()[0]);
+    expect(gapOf(spacers()[0])).toBeCloseTo(wanted(nominal), 6);
+    const atNominalPolicy = nominal.root().accessibility.material;
     nominal.result.unmount();
 
     const reduced = renderGlass(split, { reducedTransparency: true });
     reduced.run(1);
-    const atReduced = gapOf(spacers()[0]);
+    expect(gapOf(spacers()[0])).toBeCloseTo(wanted(reduced), 6);
+    const atReducedPolicy = reduced.root().accessibility.material;
 
-    expect(atReduced).toBeGreaterThan(atNominal);
-    expect(atReduced).toBeCloseTo(
-      samplingPaddingFor({ members: [], material: reduced.root().accessibility.material }),
-      6,
+    const bar = [[420, 52]] as const;
+    expect(samplingPaddingFor({ members: bar, material: atReducedPolicy })).toBeGreaterThan(
+      samplingPaddingFor({ members: bar, material: atNominalPolicy }),
+    );
+    const tall = [[420, 72]] as const;
+    expect(samplingPaddingFor({ members: tall, material: atReducedPolicy })).toBeGreaterThan(
+      DEFAULT_GROUP_SAMPLING.samplingPadding,
     );
   });
 
@@ -316,14 +332,20 @@ describe("the room the gap buys", () => {
       harness.run(1);
       const material = harness.root().accessibility.material;
 
-      // What the toolbar would open for a row of this size: 420 × 52 contains
-      // every member below, so its padding is the larger of the two.
-      const gap = samplingPaddingFor({ members: [[420, 52]], material });
+      // What the toolbar opens for a row of this size: 420 × 52 contains every
+      // member below, and the advisory core checks against is the other term.
+      const gap = Math.max(
+        DEFAULT_GROUP_SAMPLING.samplingPadding,
+        samplingPaddingFor({ members: [[420, 52]], material }),
+      );
 
       const left = partition(0, material);
       const right = partition(204 + gap, material);
 
+      // Both checkers: the padding the proxy is built with, and the descriptor's
+      // padding core's own overlap check reads.
       expect(gap).toBeGreaterThanOrEqual(left.effectivePadding);
+      expect(gap).toBeGreaterThanOrEqual(DEFAULT_GROUP_SAMPLING.samplingPadding);
       expect(rectsOverlap(left.box, right.clipUnion as Rect)).toBe(false);
       expect(rectsOverlap(right.box, left.clipUnion as Rect)).toBe(false);
       expect([...left.findings, ...right.findings]).toEqual([]);

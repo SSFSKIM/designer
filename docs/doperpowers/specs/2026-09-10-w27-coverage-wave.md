@@ -515,6 +515,22 @@ Pending — written at recomposition against §Parent-Level Acceptance.
     its extents (pinned in `proxy-geometry.test.ts`), so a box that contains the members bounds
     their padding rather than estimating it. Before the first measurement the box is empty, which
     is the projection at span 0 — the floor every group starts at.
+  - **There are two paddings, and the gap clears both.** Found by probing rather than by reading:
+    the platform's `proxy-overlap-after-enforcement` fires on what the group actually samples with
+    (the derived 3σ), while **core's own `group-proxy-overlap` fires on the descriptor's padding**,
+    which is `DEFAULT_GROUP_SAMPLING.samplingPadding` = 24 unless the author declared one — and
+    that advisory deliberately did not follow σ down when the material was refitted (W6:
+    "lowering a public default for tidiness rather than for a measurement would change behaviour
+    for every consumer"). At today's material the advisory is the larger for a control-sized row,
+    so a spacer opening only the derived 12.67 px raised `group-proxy-overlap` on every frame.
+    The gap is therefore `max(declared ?? advisory, derived)`. It follows the policy where the
+    material's own requirement is in front — a 420 × 72 bar under Reduce Transparency needs
+    24.9 px — and rests on the advisory below that. **The first version of the e2e proof passed
+    while the finding was really firing**, because the scene was built at the pre-flip state and
+    the diagnostics channel dedupes by code and subjects: the finding landed before
+    `clearDiagnostics()` and was never raised again. The test now declares the state under test
+    before the first frame and reads every code, and it was shown failing at the derived-only gap
+    before being fixed.
   - **Evidence.** `react/test/toolbar-partition.test.tsx` (15 tests: the partition, the ids, the
     merge, the protocol props never reaching the DOM, the roving order across a split, the
     derivation under both policies, and — on the two functions the runtime resolves proxies with

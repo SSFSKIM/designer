@@ -244,17 +244,22 @@ that group needs more than a colour, the item can carry `groupProps` of its own
 free space, which is what puts the last item at the far end). **The gap is a
 minimum you do not choose.** Two adjacent groups each sample a padded region
 around their own shapes, and where one group's padded box covers the other's
-shapes the backdrop filter applies twice over the overlap — so a spacer opens
-the sampling padding the material actually requires, read from the resolved
-accessibility policy. Turn *Reduce Transparency* on, the frost thickens, and the
-gap grows with it; your own `gap`, margin or width adds to it rather than
-fighting it.
+shapes the backdrop filter applies twice over the overlap. So a spacer opens the
+sampling padding the material actually requires under the resolved accessibility
+policy, and never less than the advisory the scene model checks a layout
+against — turn *Reduce Transparency* on, the frost thickens, and the material's
+own requirement rises past that advisory on a normal-height bar. Your own `gap`,
+margin or width adds to it rather than fighting it, and an explicit `style` of
+your own still wins: a number you wrote is a statement about your geometry, and
+the dev-mode overlap warning is the backstop either way.
 
 Nothing new is needed on the framework-agnostic entry: a group is already the
 primitive there, so a host-level app splits a toolbar by registering its members
-in two groups and leaving one padding between them —
+in two groups and leaving one padding between them.
 `samplingPaddingFor({ members, material })` from `@vitreajs/vitrea-web` is the
-same number this spacer opens.
+material's half of the number this spacer opens; the other half is
+`DEFAULT_GROUP_SAMPLING.samplingPadding` (or your group's own
+`samplingPadding`, when you declare one).
 
 ### Where a surface belongs: the controls layer
 
