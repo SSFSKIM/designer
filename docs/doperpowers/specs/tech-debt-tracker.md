@@ -1929,3 +1929,34 @@ requires a native deactivation path with an inactive-presentation attestation an
 check, including preservation of tint and the separate pressed interaction. It is not a change
 to the web runtime's root-pose observer, and making the Swift decoder accept the word is not a
 capture implementation.
+
+## Two bounded W27d limits, real and not worth a change here (W27d review, 2026-09-11)
+
+Both were confirmed by the independent panel and verified as bounded rather than defective. They
+are logged so the next person to touch either mechanism finds the reading rather than rediscovers
+it.
+
+**The CSS tier's tint-table cache cycles above 32 distinct live transfers.**
+`packages/platform-web/src/css-tier-layers.ts` keeps at most `TINT_TABLE_CACHE_LIMIT` (32) solved
+tint tables and evicts the oldest inserted, not the least recently used, so a root with more than
+32 distinct live transfers thrashes: every solve is a miss and every miss evicts a table that is
+still on screen. It is pre-existing and not a W27d regression — the cache key is the quantised
+transfer and never the blur width, so presence moving a width per frame does not multiply the
+keys, and the degraded cost is exactly what the tier paid before the cache existed. The bound is
+documented as deliberate at the constant ("one per material on screen is the working set; a page
+with more distinct materials than this is redrawing them all anyway"). The shape of the work, if a
+page ever appears that holds more than 32 materials at once: make the eviction least-recently-used
+so the working set survives, and measure a real page before raising the number.
+
+**`GlassMorph transition="materialize"` calls presence arrived within 1e-3 of its endpoint.**
+`presenceReached` in `packages/react/src/morph.tsx` compares the published
+`--vitrea-materialization` against its target with a tolerance rather than for equality. Today
+that window cannot open: host presence runs on `DEFAULT_MOTION_PROFILE` and the content fade runs
+on the root's resolved profile, which is the same channel unless an app retunes it, so
+`fade.settled` already gates completion to the exact endpoint. Only a *custom* content channel
+shorter than the host's 220 ms ease opens it, and then by roughly the ramp's last tenth (~22 ms),
+during which the destination could be released and `onMorphEnd(false)` fire at a presence of up to
+0.001 — a material that draws nothing perceptible. No user-visible failure exists today. The shape
+of the fix is comparing the published endpoint exactly, and it belongs with the deferral it
+depends on: the framework-agnostic root taking a motion profile so host presence can be tuned at
+all (claims §5.132 §6).

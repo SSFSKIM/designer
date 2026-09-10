@@ -108,8 +108,11 @@ surface.update({ present: true });  // Reverse from the current material value.
 `present` defaults to `true` and is independent of hover, press, focus and disabled
 state. An initially absent surface starts at identity. Changes use the motion
 kernel's monotonic 220 ms ease; Reduced Motion steps to the destination on both
-tiers. `release()` still tears down synchronously, so animate out by changing
-presence before deciding when to remove your content.
+tiers. That ease is the kernel's built-in default and this root takes no motion
+profile of its own, so it is the same ramp for every app; retuning it means
+publishing the channel yourself, below. `release()` still tears down
+synchronously, so animate out by changing presence before deciding when to remove
+your content.
 
 The root publishes `--vitrea-materialization` in `[0, 1]` on the host, consumed by
 both tiers. A custom motion binding can publish that channel directly instead of

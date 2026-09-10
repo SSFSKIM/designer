@@ -147,7 +147,11 @@ entrance animation. To animate an entrance, keep it mounted and change `present`
 Unmount still releases synchronously — there is no delayed-unmount hook.
 
 The per-frame `--vitrea-materialization` channel goes from 1 to 0 in a monotonic
-220 ms ease (and reverses from its current value when interrupted). It scales the
+220 ms ease (and reverses from its current value when interrupted). That ease is
+the built-in default and is **not** tuned by a `profile` passed to `GlassRoot`:
+presence is driven once by the framework-agnostic root, which has no motion-profile
+input of its own, so an app's profile retunes the channels the bindings own and
+leaves this one at its default. It scales the
 material, never the host's `opacity`: fading a host would create a Backdrop Root
 and cut off sampling. Reduced Motion steps presence on both tiers. Timing and
 easing are authored, not measured against a native frame sequence. Identity does
@@ -167,6 +171,12 @@ the material transition does not supply those semantics. In materialize mode the
 render function runs once per endpoint, with that endpoint's `open` value (the
 source still receives `false` while the destination is open). Give content IDs
 that are distinct between endpoints.
+
+A materialize pair registers two glass nodes, and it names the second one itself:
+a `nodeId` names the closed endpoint and `` `${nodeId}-open` `` is **reserved** for
+the open one. Do not name another surface with that suffix — a scene may not carry
+two nodes under one id, and the collision surfaces as core's `duplicate-id`
+`GlassSceneError` at registration rather than as anything visual.
 
 The playground's **Dismiss glass / Bring glass back** control demonstrates
 identity. Select **Materialize the Actions menu**, then open **Actions**, to try
