@@ -181,7 +181,7 @@ the user's eye; X7 the dark profile a difference document.
 | G1b — Apple's kernel identified without a shape assumption (spike) | CLOSED 2026-09-10 (claims §5.121; merged at `1d541bf`) |
 | G1c — the fits, second reading: both widths on the family reader (controlled) | CLOSED 2026-09-10 (claims §5.122; merged at `5a710ad`) |
 | G2 — declared and dry-run | CLOSED 2026-09-10 (claims §5.123; Decision Log 7 (f)–(g); merged at `69994ff`) |
-| G3a — the silhouette instrument corrected: IoU over the decidable region (controlled) | DISPATCHED 2026-09-10 (Decision Log 8) |
+| G3a — the silhouette instrument corrected: IoU over the decidable region (controlled) | CLOSED 2026-09-10 (claims §5.124; Decision Log 8; `g3a/recompute.txt` — 613 / 613 cells agreeing with the spike to the last digit, 121 movers all upward, the three `silhouetteIoU` floors off and `UNMET_ROWS` 14 → 11; awaiting the parent's merge) |
 | G3 — the landing | blocked-by G3a |
 
 ## Decision Log
@@ -725,3 +725,19 @@ wave's to fix**; this records the number and the picture and recommends neither.
 - 2026-09-10: the extractor spike merged (`g2/extractor/`). Decision Log 8: the floor is a fence on
   black checker cells and comes off by fix — the IoU over the decidable region, §5.15's correction
   applied to the silhouette; G3a dispatched; the re-pin question withdrawn; G3 blocked on G3a.
+- 2026-09-10: **G3a CLOSED** (claims §5.124). The correction landed in `src/silhouette.ts`
+  (`decidableRegion`), `src/metrics/shape.ts` (`silhouetteIoU`'s population) and `cli/measure.ts`'s
+  one call site, with a unit test on a synthetic pair carrying two enclosed holes and an open notch.
+  `g3a/recompute.ts` re-ran the SHIPPED extractor over the canonical captures for all **613**
+  shape-bearing cells of the committed 0.14.0 matrix: the uncorrected column reproduces the matrix
+  bit for bit and the corrected column equals the G2 spike's Python `drop` on **613 of 613 cells,
+  worst |Δ| exactly 0**. 121 cells move, every one of them up; no adopted bound moves;
+  `PREDICATE_EXCLUDES` cannot move because the predicate reads areas. The three `silhouetteIoU`
+  floors are removed with their readings kept beside (0.90804 → 0.97319, 0.92707 → 0.99979,
+  0.92878 → 0.98289) and `UNMET_ROWS` reads **11**; the committed matrix is NOT edited, so the gate
+  states those three inputs as data with a test that deletes the construct once the canonical
+  rebuild carries them. W24's Decision Log records one of its two re-pins off by fix, the
+  `contourDistanceP95` re-pin standing. **Two of Decision Log 8's numbers are corrected beside their
+  originals**: the movers' median is +0.008384 and not +0.0032 (no statistic over `blast-rows.json`
+  reproduces that figure, and `blast.py` never printed a median), and the 2x dark texture cell's
+  corrected reading on the COMMITTED bed is 0.99979 — 0.99980 is the reading at the W26 candidate.

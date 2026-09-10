@@ -207,6 +207,43 @@ export function fillSilhouetteHoles(silhouette: Silhouette): Silhouette {
 }
 
 /**
+ * The part of a declared region where the extractor's answer means something:
+ * the region minus every pixel enclosed by a hole of **either** mask.
+ *
+ * The luminance-delta rule's premise is "anything differing from the background
+ * is the surface", and a hole is precisely where that premise failed — a run of
+ * region pixels the surface certainly covers and the rule could not see, because
+ * the material's own level met the backdrop's there. Neither mask's hole pixels
+ * are evidence about coverage, so a metric that prices them is reporting the
+ * extractor. Taken over BOTH masks and never over one, so the population is a
+ * function of the pair and of nothing keyed to the reference or to the tier.
+ *
+ * "Enclosed" is `fillSilhouetteHoles`'s notion — unreachable from the image
+ * border through the mask's own zeros — intersected with the region, so a notch
+ * open to the region's edge is a genuine coverage difference and stays in. That
+ * asymmetry is the point: an extractor that stops at a surface's edge is
+ * measuring the edge, and an extractor that drops out in the interior is not.
+ *
+ * See `metrics/shape.ts`'s `silhouetteIoU` for the metric this qualifies and
+ * why (claims §5.124, W26 Decision Log 8).
+ */
+export function decidableRegion(region: Silhouette, a: Silhouette, b: Silhouette): Silhouette {
+  assertSameGrid(region, a, "decidableRegion");
+  assertSameGrid(region, b, "decidableRegion");
+  const filledA = fillSilhouetteHoles(a).mask;
+  const filledB = fillSilhouetteHoles(b).mask;
+  const { width, height } = region;
+  const mask = new Uint8Array(width * height);
+  for (let i = 0; i < mask.length; i += 1) {
+    if ((region.mask[i] ?? 0) === 0) continue;
+    const enclosedByA = (filledA[i] ?? 0) !== 0 && (a.mask[i] ?? 0) === 0;
+    const enclosedByB = (filledB[i] ?? 0) !== 0 && (b.mask[i] ?? 0) === 0;
+    mask[i] = enclosedByA || enclosedByB ? 0 : 1;
+  }
+  return { width, height, mask };
+}
+
+/**
  * How many connected bodies a silhouette has, counting a hole-filled mask with
  * 8-connectivity — the same connectivity the contour tracer walks.
  *

@@ -1403,6 +1403,14 @@ the extractor cannot round is worth a look in W26: the cells' perceptual rows ar
 `--write-partial` that records the shape axis absent rather than exiting would keep the run's
 exit code honest. `g4/g4-runs.txt`.
 
+*Amended 2026-09-10 (W26 G3a; claims §5.124):* **the silhouette IoU's correction to the decidable
+region does not touch this entry, and it is not a partial fix of it.** That correction changes what
+population one metric is averaged over; this refusal happens earlier and elsewhere — `contourCurvature`
+exits on a contour it measures as 0.00 px long, on a silhouette the extractor recovers with no
+roundable corner at all — and it takes the whole shape axis with it rather than moving a number.
+The two share only a cause, which is the luminance-delta rule on a dark solid, and that cause is
+untouched. This entry stands exactly as written.
+
 ## The material's sharp blur component, the heavy component's width and the level above the knee: what W25 measured and could not move (W25 recomposition, 2026-09-10)
 
 The thick surface's body against Apple's at the 0.14.0 landing, all from the probe set at both
@@ -1653,7 +1661,7 @@ and because `root.ts`'s own comment names the same class of bug one wave earlier
 padding floor taken over the widest layer the tier will actually write rather than over the
 projection it no longer draws — `cssTierHeavySigmaCssPx` at the group's largest member.
 
-## `checkerboard__glass-over-glass` at 2x dark: a silhouette floor that measures the extractor's threshold, not the material (W26 G2b, Decision Log 7 (f), 2026-09-10)
+## ~~`checkerboard__glass-over-glass` at 2x dark: a silhouette floor that measures the extractor's threshold, not the material~~ (W26 G2b, Decision Log 7 (f), 2026-09-10) — CLOSED 2026-09-10 by W26 G3a
 
 `texture / holdout / … :: silhouetteIoU` 0.92707 → 0.90362 against a floor of 0.9257, with
 `silhouetteHolesWeb` 39 → 45 against a native 0 — the one floor W26 breaches. Measured: the pane's
@@ -1667,3 +1675,46 @@ does not fill vitrea's**; that asymmetry is the thing to fix, and it is the same
 tracker's flat-cornered-dark-squares entry names. Closes with the silhouette recovery made
 symmetric between the two sources, or with the floor re-pinned by the user on this measurement.
 `g2/g2b-nested.txt`, `g2/sheets/g2b-nested-4x.png`.
+
+**CLOSED 2026-09-10 by W26 G3a** (claims §5.124; W26 Decision Log 8), and one sentence of the entry
+above is wrong, kept as written with the correction beside it. **The harness does NOT recover a
+hole-free mask from that native**: the committed matrix records `silhouetteHolesNative` = 14 on this
+very cell, and the native's silhouette is the *smallest* of the three (106 876 px against 0.14.0's
+109 698 and the candidate's 107 058, of a 112 416 px region). The "hole-free native" reading came
+from a proxy that thresholded distance from the checkerboard's mean over a hand-cut rectangle; the
+extractor thresholds against the background raster pixel by pixel, and the two are different
+quantities. There is therefore **no asymmetric rule** — one extractor, both sides, nothing keyed on
+the native. What there is: each side loses ~5 400 pixels over black checker cells with 33 px of
+overlap, the native under its inner pane (transmission 0.02029, one code over the rung) and vitrea on
+the single-glazed base, and IoU was paying for both. The metric is corrected — taken over the
+decidable region, the declared region minus every pixel enclosed by a hole of either mask — the row
+reads 0.92707 → 0.99979 on the committed bed, and the floor is removed rather than re-pinned. The
+extractor itself is unchanged and its own charter stays open in the W21 G2c entry above.
+
+## Two things W26 G3a's silhouette correction left undetermined: whether the reference's dark-cell transmission is real, and what the IoU stopped seeing (W26 G3a, 2026-09-10)
+
+Both are named in claims §5.124 and neither is a defect in what landed; they are the parts of the
+correction that a measurement could not settle.
+
+**Is 0.02029 Apple's material or ScreenCaptureKit's quantisation?** On
+`checkerboard__glass-over-glass__rest` at 2x dark the reference's transmission through its
+double-glazed inner pane over a black checker cell has a median of **0.02029** linear — one 8-bit
+code above the extractor's 0.02 rung, and the reason the reference's silhouette carries 14 interior
+holes there. One code decides whether those holes are a property of the material vitrea is chasing
+or of the capture path it is measured through, and one fixture at one scale cannot say. It matters
+past this metric: a material target read off that pane inherits the same ambiguity. Closes with the
+same surface captured through a second path (a higher bit depth, or a native readback that is not
+ScreenCaptureKit's 8-bit composite), or with the transmission read on a backdrop whose dark level is
+not zero, where the rung is not an absolute brightness test.
+
+**The IoU no longer prices a punched interior, and only two rows still do.** By construction the
+corrected metric drops every pixel enclosed by a hole of either mask, so a tier that genuinely
+perforated its own surface would now score full IoU over the remaining population. What sees it
+instead: `silhouetteHoles{Native,Web}` on every cell, and W20's `declaredIoUWeb` on the tiers whose
+alpha the harness will read. That is a deliberate trade, not an oversight — the alternative rules
+were measured and were worse (hole-filling drags ten cells down; hysteresis moves two thirds of the
+bed) — but it is a real loss of sensitivity in one metric, and nothing gates on the two rows that
+replace it. Closes either by gating on the hole counts against the reference's own (the topology arm
+claims §5.14 built, withdrawn at §5.15 for costing 77 cells — re-measurable now that the contour and
+the IoU are both immune to holes), or by an extractor that has no undecidable pixels to begin with,
+which is the W21 G2c entry's charter.

@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { CalibrationError } from "../src/errors";
 import { contourCurvature, contourDistance, cornerCurvature, silhouetteIoU } from "../src/metrics/shape";
 import {
+  decidableRegion,
   distanceToSeeds,
   extractSilhouette,
   fillSilhouetteHoles,
@@ -128,6 +129,59 @@ describe("silhouetteIoU", () => {
   it("refuses to call two empty silhouettes a perfect match", () => {
     const empty = maskFromPredicate(10, 10, () => false);
     expect(() => silhouetteIoU(empty, empty)).toThrowError(CalibrationError);
+  });
+});
+
+describe("silhouetteIoU over the decidable region (W26 Decision Log 8, claims §5.124)", () => {
+  /*
+   * One 10x10 declared region on a 12x12 grid, and two masks that fail it in the
+   * two ways that must be told apart: the native drops one pixel the surface
+   * encloses, the web drops another one elsewhere plus a three-pixel notch open
+   * to the region's own edge.
+   *
+   * The enclosed pixels are where the luminance-delta rule could not decide, so
+   * they leave the population; the notch is a real coverage difference and stays,
+   * which is what stops this correction from being a hole-fill in disguise.
+   */
+  const WIDTH = 12;
+  const HEIGHT = 12;
+  const region = maskFromPredicate(WIDTH, HEIGHT, rectPredicate(1, 1, 10, 10));
+  const carve = (excluded: readonly (readonly [number, number])[]): Silhouette => {
+    const mask = new Uint8Array(region.mask);
+    for (const [x, y] of excluded) mask[y * WIDTH + x] = 0;
+    return { width: WIDTH, height: HEIGHT, mask };
+  };
+  const native = carve([[5, 5]]);
+  const web = carve([
+    [8, 8],
+    [1, 1],
+    [1, 2],
+    [1, 3],
+  ]);
+
+  it("drops the pixels enclosed by either mask's holes and keeps an open notch", () => {
+    const decidable = decidableRegion(region, native, web);
+    expect(silhouetteArea(region)).toBe(100);
+    expect(silhouetteArea(decidable)).toBe(98);
+    expect(decidable.mask[5 * WIDTH + 5]).toBe(0);
+    expect(decidable.mask[8 * WIDTH + 8]).toBe(0);
+    for (const y of [1, 2, 3]) expect(decidable.mask[y * WIDTH + 1]).toBe(1);
+  });
+
+  it("prices the notch and no longer prices the two holes", () => {
+    const decidable = decidableRegion(region, native, web);
+    // Intersection 95 of a union of 100 before; 95 of 98 after, because both
+    // undecidable pixels leave the union and the notch's three do not.
+    expect(silhouetteIoU(native, web)).toBeCloseTo(95 / 100, 12);
+    expect(silhouetteIoU(native, web, decidable)).toBeCloseTo(95 / 98, 12);
+    expect(silhouetteIoU(native, web, decidable)).toBeGreaterThan(silhouetteIoU(native, web));
+  });
+
+  it("leaves the hole counts saying what the IoU stopped saying", () => {
+    // The artefact is still reported on every cell — the correction changes what
+    // is priced as coverage, not what is visible.
+    expect(silhouetteHoleCount(native, region)).toBe(1);
+    expect(silhouetteHoleCount(web, region)).toBe(1);
   });
 });
 

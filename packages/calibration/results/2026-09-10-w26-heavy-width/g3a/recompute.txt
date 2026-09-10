@@ -1,0 +1,140 @@
+W26 G3a — the shipped harness's corrected `silhouetteIoU` against the G2 spike
+
+shape-bearing cells of the committed matrix   613
+uncorrected IoU exactly equal to the matrix    613   (worst |delta| 0.000e+0)
+corrected IoU exactly equal to the spike's     613   (worst |delta| 0.000e+0)
+
+cells the correction moves                     121
+of which DOWN                                  0
+median move of the movers                      +0.00838
+largest move                                   +0.34606
+
+The three committed `silhouetteIoU` regression floors:
+floor row                                                                                      floor      base  corrected
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard      0.9070   0.90804    0.97319
+texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard  0.9257   0.92707    0.99979
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard      0.9038   0.92878    0.98289
+
+Every cell the correction moves, largest first:
+tier     set         profile                                       scene                                            base  corrected     delta
+dom      calibration apple-macos-26.5-1x-light-increased-contrast  checkerboard__rrect-md__rest                  0.61484    0.96090  +0.34606
+texture  calibration apple-macos-26.5-1x-light-increased-contrast  checkerboard__rrect-md__rest                  0.60534    0.94511  +0.33976
+texture  probe       apple-macos-26.5-2x-dark-standard             checkerboard-64__rrect-ml__rest               0.65891    0.98149  +0.32257
+texture  probe       apple-macos-26.5-2x-dark-standard             checkerboard-64__rrect-lg__rest               0.66732    0.95294  +0.28562
+texture  probe       apple-macos-26.5-2x-dark-standard             checkerboard-64__capsule-button__rest         0.72509    0.99591  +0.27082
+texture  probe       apple-macos-26.5-1x-dark-standard             checkerboard-64__rrect-ml__rest               0.72185    0.99155  +0.26971
+texture  probe       apple-macos-26.5-1x-dark-standard             checkerboard-64__rrect-lg__rest               0.74829    0.99821  +0.24992
+texture  probe       apple-macos-26.5-2x-dark-standard             checkerboard-32__rrect-ml__rest               0.75206    0.99046  +0.23839
+texture  calibration apple-macos-26.5-1x-light-increased-contrast  checkerboard__capsule-button__rest            0.61667    0.84019  +0.22352
+dom      probe       apple-macos-26.5-1x-dark-standard             checkerboard-32__rrect-md__rest               0.75028    0.94286  +0.19259
+dom      probe       apple-macos-26.5-1x-dark-standard             checkerboard-64__rrect-ml__rest               0.61358    0.80368  +0.19009
+dom      calibration apple-macos-26.5-1x-light-increased-contrast  checkerboard__capsule-button__rest            0.66333    0.84857  +0.18525
+dom      probe       apple-macos-26.5-2x-dark-standard             checkerboard-64__rrect-ml__rest               0.63773    0.81877  +0.18104
+texture  probe       apple-macos-26.5-2x-dark-standard             checkerboard-32__rrect-lg__rest               0.82093    0.99823  +0.17730
+dom      probe       apple-macos-26.5-1x-dark-standard             checkerboard-32__rrect-ml__rest               0.72270    0.89225  +0.16955
+dom      probe       apple-macos-26.5-2x-dark-standard             checkerboard-32__rrect-ml__rest               0.73126    0.88297  +0.15170
+dom      probe       apple-macos-26.5-2x-dark-standard             checkerboard-32__rrect-lg__rest               0.78966    0.93608  +0.14642
+dom      calibration apple-macos-26.5-1x-dark-standard             checkerboard__rrect-md__rest                  0.88035    0.97948  +0.09913
+dom      probe       apple-macos-26.5-2x-dark-standard             checkerboard-64__rrect-lg__rest               0.65131    0.74731  +0.09600
+dom      calibration apple-macos-26.5-2x-dark-standard             checkerboard__rrect-md__rest                  0.88143    0.97464  +0.09321
+dom      probe       apple-macos-26.5-1x-dark-standard             checkerboard-32__rrect-lg__rest               0.88993    0.98071  +0.09078
+dom      probe       apple-macos-26.5-1x-dark-standard             checkerboard-64__rrect-lg__rest               0.65272    0.74127  +0.08855
+dom      probe       apple-macos-26.5-1x-dark-standard             checkerboard-64__rrect-md__rest               0.74095    0.82644  +0.08549
+texture  probe       apple-macos-26.5-1x-light-standard            checkerboard-lc16__rrect-md__rest             0.91293    0.99725  +0.08432
+texture  probe       apple-macos-26.5-2x-light-standard            checkerboard-lc16__rrect-md__rest             0.91595    0.99952  +0.08357
+dom      probe       apple-macos-26.5-1x-light-standard            checkerboard-lc16__rrect-md__rest             0.91905    0.99610  +0.07706
+texture  probe       apple-macos-26.5-2x-dark-standard             checkerboard-32__rrect-md__rest               0.91898    0.99577  +0.07679
+dom      probe       apple-macos-26.5-2x-light-standard            checkerboard-lc16__rrect-ml__rest             0.92292    0.99805  +0.07513
+texture  calibration apple-macos-26.5-2x-dark-standard             checkerboard__rrect-md__rest                  0.92517    0.99959  +0.07441
+texture  holdout     apple-macos-26.5-2x-dark-standard             checkerboard__glass-over-glass__rest          0.92707    0.99979  +0.07272
+dom      holdout     apple-macos-26.5-1x-dark-standard             checkerboard__glass-over-glass__rest          0.90804    0.97319  +0.06515
+dom      probe       apple-macos-26.5-2x-light-standard            checkerboard-lc16__rrect-md__rest             0.93396    0.99861  +0.06465
+dom      holdout     apple-macos-26.5-2x-dark-standard             checkerboard__glass-over-glass__rest          0.92878    0.98289  +0.05412
+texture  probe       apple-macos-26.5-1x-dark-standard             checkerboard-64__capsule-button__rest         0.94171    0.99566  +0.05395
+texture  probe       apple-macos-26.5-2x-light-standard            checkerboard-lc16__rrect-ml__rest             0.94739    0.99919  +0.05180
+texture  probe       apple-macos-26.5-2x-dark-standard             checkerboard-32__capsule-button__rest         0.94858    0.99913  +0.05055
+texture  probe       apple-macos-26.5-1x-dark-standard             checkerboard-32__rrect-md__rest               0.94952    0.99956  +0.05004
+texture  probe       apple-macos-26.5-1x-light-standard            checkerboard-lc16__rrect-lg__rest             0.95009    0.99925  +0.04916
+dom      probe       apple-macos-26.5-1x-light-standard            checkerboard-lc16__rrect-lg__rest             0.94814    0.99644  +0.04830
+texture  holdout     apple-macos-26.5-1x-dark-standard             checkerboard__glass-over-glass__rest          0.95245    0.99985  +0.04740
+dom      probe       apple-macos-26.5-1x-light-standard            checkerboard-lc16__rrect-ml__rest             0.95393    0.99739  +0.04346
+dom      probe       apple-macos-26.5-2x-dark-standard             checkerboard-32__rrect-md__rest               0.80068    0.84347  +0.04279
+texture  probe       apple-macos-26.5-2x-dark-standard             checkerboard-32__rrect-sm__rest               0.95865    0.99974  +0.04109
+texture  probe       apple-macos-26.5-2x-light-standard            checkerboard-lc16__rrect-lg__rest             0.96061    0.99941  +0.03880
+texture  probe       apple-macos-26.5-1x-light-standard            checkerboard-lc16__rrect-ml__rest             0.96849    0.99947  +0.03098
+dom      probe       apple-macos-26.5-1x-light-standard            checkerboard-lc16__capsule-button__rest       0.96819    0.99852  +0.03033
+dom      probe       apple-macos-26.5-2x-light-standard            checkerboard-lc16__rrect-lg__rest             0.96846    0.99845  +0.02999
+dom      probe       apple-macos-26.5-2x-light-standard            checkerboard-lc16__capsule-button__rest       0.97138    0.99836  +0.02698
+texture  holdout     apple-macos-26.5-1x-light-reduced-transparencyhc-text__capsule-button__rest                 0.92365    0.94917  +0.02552
+texture  probe       apple-macos-26.5-2x-light-standard            checkerboard-lc16__capsule-button__rest       0.97420    0.99914  +0.02495
+texture  probe       apple-macos-26.5-1x-light-standard            checkerboard-lc16__rrect-sm__rest             0.97941    0.99693  +0.01753
+texture  probe       apple-macos-26.5-1x-light-standard            checkerboard-lc16__capsule-button__rest       0.98052    0.99787  +0.01735
+texture  probe       apple-macos-26.5-2x-dark-standard             checkerboard-lc16__rrect-sm__rest             0.98170    0.99873  +0.01702
+texture  probe       apple-macos-26.5-1x-dark-standard             checkerboard-32__rrect-ml__rest               0.98281    0.99804  +0.01524
+dom      probe       apple-macos-26.5-2x-dark-standard             checkerboard-64__rrect-md__rest               0.80341    0.81774  +0.01434
+texture  probe       apple-macos-26.5-2x-light-standard            checkerboard-lc16__rrect-sm__rest             0.98378    0.99809  +0.01430
+dom      probe       apple-macos-26.5-2x-dark-standard             checkerboard-lc16__rrect-sm__rest             0.98244    0.99669  +0.01425
+texture  probe       apple-macos-26.5-2x-dark-standard             checkerboard-64__rrect-md__rest               0.92516    0.93802  +0.01286
+texture  probe       apple-macos-26.5-2x-dark-standard             hc-text-28__rrect-md__rest                    0.98839    0.99988  +0.01149
+texture  holdout     apple-macos-26.5-1x-light-increased-contrast  hc-text__capsule-button__rest                 0.87477    0.88568  +0.01091
+dom      probe       apple-macos-26.5-2x-light-standard            checkerboard-lc16__rrect-sm__rest             0.99023    0.99861  +0.00838
+texture  probe       apple-macos-26.5-2x-dark-standard             checkerboard-lc16__capsule-button__rest       0.98993    0.99700  +0.00707
+dom      probe       apple-macos-26.5-2x-dark-standard             checkerboard-lc16__capsule-button__rest       0.99281    0.99917  +0.00636
+dom      probe       apple-macos-26.5-2x-dark-standard             checkerboard-32__capsule-button__rest         0.99199    0.99809  +0.00610
+dom      probe       apple-macos-26.5-1x-light-standard            checkerboard-lc16__rrect-sm__rest             0.99000    0.99548  +0.00548
+texture  probe       apple-macos-26.5-1x-dark-standard             checkerboard-64__rrect-md__rest               0.88152    0.88471  +0.00319
+dom      holdout     apple-macos-26.5-1x-light-standard            checkerboard__glass-over-glass__rest          0.99683    1.00000  +0.00317
+texture  holdout     apple-macos-26.5-1x-light-standard            checkerboard__glass-over-glass__rest          0.99641    0.99957  +0.00317
+dom      holdout     apple-macos-26.5-2x-dark-standard             mid-dark-solid__capsule-button__rest          0.96744    0.96981  +0.00237
+texture  probe       apple-macos-26.5-2x-dark-standard             mid-dark-solid__rrect-sm__rest                0.99032    0.99266  +0.00234
+texture  holdout     apple-macos-26.5-2x-dark-standard             mid-dark-solid__capsule-button__rest          0.99165    0.99386  +0.00221
+dom      calibration apple-macos-26.5-2x-dark-standard             photo__capsule-button__rest                   0.99507    0.99707  +0.00200
+texture  calibration apple-macos-26.5-2x-dark-standard             photo__capsule-button__rest                   0.99481    0.99681  +0.00200
+dom      holdout     apple-macos-26.5-2x-light-standard            checkerboard__glass-over-glass__rest          0.99790    0.99983  +0.00193
+texture  holdout     apple-macos-26.5-2x-light-standard            checkerboard__glass-over-glass__rest          0.99573    0.99766  +0.00193
+dom      probe       apple-macos-26.5-2x-dark-standard             mid-dark-solid__rrect-sm__rest                0.95625    0.95797  +0.00172
+dom      probe       apple-macos-26.5-2x-dark-standard             mid-dark-solid__rrect-md__rest                0.97797    0.97944  +0.00147
+dom      probe       apple-macos-26.5-1x-dark-standard             mid-dark-solid__rrect-sm__rest                0.95483    0.95582  +0.00099
+texture  probe       apple-macos-26.5-2x-dark-standard             mid-dark-solid__rrect-md__rest                0.99333    0.99427  +0.00095
+dom      probe       apple-macos-26.5-2x-dark-standard             mid-dark-solid__rrect-lg__rest                0.98581    0.98654  +0.00074
+dom      probe       apple-macos-26.5-1x-dark-standard             checkerboard-8__rrect-ml__rest                0.99897    0.99939  +0.00043
+dom      probe       apple-macos-26.5-1x-light-standard            hc-text-7__rrect-lg__rest                     0.99708    0.99749  +0.00041
+dom      holdout     apple-macos-26.5-1x-dark-standard             mid-dark-solid__capsule-button__rest          0.96642    0.96683  +0.00041
+dom      probe       apple-macos-26.5-1x-dark-standard             mid-dark-solid__rrect-md__rest                0.97277    0.97316  +0.00039
+dom      probe       apple-macos-26.5-2x-light-standard            hc-text-7__rrect-lg__rest                     0.99760    0.99797  +0.00037
+dom      probe       apple-macos-26.5-2x-light-standard            hc-text-28__rrect-lg__rest                    0.99538    0.99572  +0.00034
+texture  probe       apple-macos-26.5-2x-dark-standard             mid-dark-solid__rrect-lg__rest                0.99745    0.99777  +0.00032
+texture  probe       apple-macos-26.5-1x-light-standard            hc-text-7__rrect-lg__rest                     0.99643    0.99675  +0.00032
+dom      probe       apple-macos-26.5-1x-light-standard            hc-text-28__rrect-lg__rest                    0.99306    0.99338  +0.00032
+dom      probe       apple-macos-26.5-2x-light-standard            hc-text-28__rrect-md__rest                    0.99933    0.99962  +0.00028
+texture  probe       apple-macos-26.5-1x-light-standard            hc-text__rrect-lg__rest                       0.99611    0.99636  +0.00025
+dom      probe       apple-macos-26.5-1x-light-standard            hc-text__rrect-lg__rest                       0.99575    0.99601  +0.00025
+texture  probe       apple-macos-26.5-1x-light-standard            hc-text-28__rrect-lg__rest                    0.99354    0.99377  +0.00023
+dom      probe       apple-macos-26.5-2x-light-standard            checkerboard-32__rrect-md__rest               0.99877    0.99898  +0.00022
+texture  probe       apple-macos-26.5-1x-dark-standard             checkerboard-32__rrect-lg__rest               0.99961    0.99982  +0.00021
+texture  probe       apple-macos-26.5-1x-dark-standard             checkerboard-lc16__capsule-button__rest       0.99075    0.99095  +0.00020
+dom      probe       apple-macos-26.5-1x-dark-standard             checkerboard-lc16__capsule-button__rest       0.99179    0.99199  +0.00020
+texture  probe       apple-macos-26.5-2x-light-standard            hc-text__rrect-lg__rest                       0.99421    0.99436  +0.00015
+texture  probe       apple-macos-26.5-2x-light-standard            hc-text-7__rrect-lg__rest                     0.99510    0.99524  +0.00014
+dom      probe       apple-macos-26.5-2x-light-standard            hc-text-7__rrect-md__rest                     0.99947    0.99960  +0.00013
+texture  probe       apple-macos-26.5-2x-light-standard            checkerboard-32__rrect-md__rest               0.99670    0.99684  +0.00013
+texture  probe       apple-macos-26.5-2x-light-standard            hc-text__rrect-sm__rest                       0.99211    0.99223  +0.00012
+dom      probe       apple-macos-26.5-1x-dark-standard             mid-dark-solid__rrect-lg__rest                0.98318    0.98329  +0.00011
+texture  probe       apple-macos-26.5-2x-light-standard            checkerboard-32__rrect-lg__rest               0.99866    0.99876  +0.00010
+dom      probe       apple-macos-26.5-2x-light-standard            hc-text__rrect-lg__rest                       0.99700    0.99709  +0.00009
+texture  probe       apple-macos-26.5-2x-light-standard            hc-text-28__rrect-md__rest                    0.99442    0.99450  +0.00008
+texture  calibration apple-macos-26.5-1x-light-reduced-transparencycheckerboard__rrect-md__rest                  0.98429    0.98436  +0.00007
+dom      holdout     apple-macos-26.5-2x-light-standard            hc-text__capsule-button__rest                 0.99178    0.99183  +0.00005
+texture  probe       apple-macos-26.5-2x-dark-standard             checkerboard-lc16__rrect-lg__rest             0.99775    0.99779  +0.00004
+texture  holdout     apple-macos-26.5-2x-light-standard            checkerboard__rrect-lg__rest                  0.99809    0.99813  +0.00004
+texture  probe       apple-macos-26.5-2x-light-standard            checkerboard-8__rrect-lg__rest                0.99792    0.99796  +0.00004
+texture  probe       apple-macos-26.5-2x-light-standard            hc-text-28__rrect-lg__rest                    0.99526    0.99529  +0.00003
+texture  probe       apple-macos-26.5-2x-light-standard            checkerboard-4__rrect-lg__rest                0.99802    0.99805  +0.00003
+texture  probe       apple-macos-26.5-2x-light-standard            light-solid__rrect-lg__rest                   0.99934    0.99937  +0.00002
+dom      probe       apple-macos-26.5-2x-light-standard            light-solid__rrect-lg__rest                   0.99927    0.99929  +0.00002
+dom      probe       apple-macos-26.5-2x-light-standard            checkerboard-32__rrect-ml__rest               0.99937    0.99939  +0.00002
+dom      probe       apple-macos-26.5-2x-dark-standard             checkerboard-lc16__rrect-ml__rest             0.99885    0.99887  +0.00002
+texture  probe       apple-macos-26.5-2x-light-standard            checkerboard-8__rrect-ml__rest                0.99744    0.99746  +0.00002
+dom      probe       apple-macos-26.5-2x-dark-standard             checkerboard-lc16__rrect-lg__rest             0.99865    0.99867  +0.00002
+texture  probe       apple-macos-26.5-2x-light-standard            hc-text-7__rrect-md__rest                     0.99262    0.99264  +0.00002
+texture  probe       apple-macos-26.5-2x-dark-standard             checkerboard-lc16__rrect-ml__rest             0.99742    0.99743  +0.00001

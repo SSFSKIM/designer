@@ -15298,3 +15298,124 @@ movers). Thirteen of fourteen floors held; the one breached — `texture / holdo
 checkerboard__glass-over-glass / 2x dark :: silhouetteIoU` 0.92707 → 0.90362 (floor 0.9257) — is
 the extractor's threshold fence (the picture moves 0.19 of a code; the level 0.11419 → 0.11418)
 and is put to the user with a recommended re-pin at 0.9030. The landing waits on that word.
+
+### 5.124 W26 G3a LANDED: the silhouette IoU is taken over the decidable region — §5.15's correction, applied to the metric §5.15 deliberately left alone; 121 of 613 cells move and every one of them up, no adopted bound moves, and the three floors this bed called "the extractor's contrast and not the material's" come off by fix (2026-09-10)
+
+**Evidence** `results/2026-09-10-w26-heavy-width/g3a/recompute.txt` and `recompute-rows.json`, the
+shipped harness over the committed 0.14.0 bed; the G2 spike at `g2/extractor/` (`findings.md`,
+`blast.py`, `blast-rows.json`, `scan.txt`, `anatomy.txt`, `zones.txt`, `masks-4x.png`). Controlled:
+`results/matrix.json`, the fixtures, `scenes.json` and `web-captures/` were read and never written.
+W26 Decision Log 8 is the ruling this executes.
+
+**§1 The rule.** `silhouetteIoU` is now intersection over union of the two masks **within the
+decidable region**: the declared component region minus every pixel enclosed by a hole of *either*
+mask. `decidableRegion` in `src/silhouette.ts` computes it, `cli/measure.ts` passes it at the one
+call site, and nothing else changes — `silhouetteArea*`, `silhouetteHoles*`, `silhouetteBodies*`,
+`componentRegionArea`, `contourDistance*`, `cornerCurvature*`, the SSIM windows and W20's
+`declaredIoUWeb` are bit-identical by construction, and the conditioning predicate reads areas, so
+`PREDICATE_EXCLUDES` cannot move. "Enclosed" is `fillSilhouetteHoles`'s own notion, so a notch open
+to the region's edge is still a genuine coverage difference and still costs exactly what it did;
+only the interior pixels the extractor could not decide leave the population.
+
+This is claims §5.15's correction, applied to the metric §5.15 deliberately exempted. §5.15
+hole-filled both masks before tracing because "a hole is not part of an outline", and kept IoU on
+the raw masks because "a hole is a genuine set difference even when it is not an outline
+difference". That sentence is what W26 measured and withdrew — not because a hole stopped being a
+set difference, but because on this bed the holes are not the surface's, they are the threshold's.
+
+**§2 The fence, and why it is a fence and not a shape.** One extractor serves both sides
+(`|Y − Y_background| ≥ 0.02` linear plus an inert chroma arm, no fill, no seed, nothing keyed on the
+native). Over a **black** checker cell that rule degenerates to an absolute brightness test at 0.02,
+and dark glass over black is legitimately that dark. On `texture / holdout /
+checkerboard__glass-over-glass__rest / 2x dark` the native loses 5 540 region pixels — 99 % of them
+under its double-glazed inner pane, whose dark-cell transmission has a median of **0.02029**, one
+8-bit code over the rung — and the web loses 5 358 on the single-glazed base, with **33 px of
+overlap**. IoU pays for both sets: `(112 416 − 5 540 − 5 358 + 33) / (112 416 − 33)` = 0.90362 at the
+W26 candidate, the floor breach to the fifth decimal.
+
+The threshold scan settles what kind of quantity that is (`scan.txt`, the native re-extracted at
+every rung): Δ IoU between the two vitrea columns is 0.00000 at 0.012, **−0.03226 at 0.018**,
+−0.02346 at the adopted 0.020, back inside a thousandth by 0.040 and **+0.00366 at 0.080**. Not
+monotone and not single-signed. A shape difference does not change sign as a segmentation threshold
+sweeps past it; a population crossing a fence does exactly this. On hole-filled masks the same scan
+is flat at 0.9998 ± 0.0002 from 0.002 to 0.035.
+
+Two other symmetric rules were measured and rejected. **Hole-filling both masks** moves 125 cells and
+drags ten DOWN, worst 0.92516 → 0.63859, because the two sides' exclusions differ in *topology*: on
+`texture / probe / checkerboard-64__rrect-md__rest / 2x dark` the native's 19 206 excluded pixels are
+enclosed and the web's 560 are open to the region edge, so filling adds a third of the region to one
+mask and nothing to the other. **Hysteresis at extraction** (`≥ t`, or `≥ t/2` and 4-connected to
+such a pixel) moves 415 of 613 cells and drags 46 down including gated ones, and it changes
+extraction, so it would move areas, hole counts and the conditioning predicate too. Dropping the
+undecidable pixels changes one metric.
+
+**§3 The blast table, over the committed 0.14.0 bed.** All **613** shape-bearing cells recomputed
+twice and independently: by the G2 spike's Python transcription and, at G3a, by the shipped
+`componentRegion` / `extractSilhouette` / `decidableRegion` / `silhouetteIoU` themselves. The two
+agree on **613 of 613 cells to the last digit** (worst |Δ| exactly 0), and both reproduce the
+matrix's own uncorrected column bit for bit — which is what says the inputs and the instrument are
+the ones the matrix was written from.
+
+| | |
+| --- | --- |
+| cells that move | **121 of 613**, and every one of them UP |
+| cells that move down | **0** |
+| median move of the movers | **+0.00838** |
+| mean move of the movers | +0.05060 |
+| largest move | **+0.34606** (`dom / calibration / checkerboard__rrect-md__rest / 1x increased-contrast`, 0.61484 → 0.96090) |
+| adopted bounds that move | **none** |
+| `PREDICATE_EXCLUDES` | unmoved, by construction |
+
+The movers are exactly the artefact class — `checkerboard`, `checkerboard-32`, `checkerboard-64`,
+`checkerboard-lc16`, `hc-text` and two `mid-dark-solid` cells, all of them cells that carry interior
+holes. The worst well-conditioned gated cell per profile and tier, which is the cell each
+`silhouetteIoU ≥ x` bound is actually set against, is unchanged on eleven of the twelve rows and
+rises 0.99481 → 0.99681 on the twelfth (2x dark texture). Margins were 0.06–0.20 before and are no
+smaller after.
+
+*A number corrected beside its original, per this document's discipline:* W26 Decision Log 8 (c) and
+the spike's `findings.md` §6 both quote the movers' median as **+0.0032**. No statistic over
+`blast-rows.json` reproduces that figure — the median of the 121 movers is **+0.008384**, the mean
++0.05060, the 25th percentile +0.00025 — and `blast.py` never printed a median, so the quoted value
+was written rather than read. The table above carries the machine's reading; the original stands in
+the Decision Log with this note beside it. Decision Log 8 (c) likewise quotes the 2x dark texture
+cell's corrected value as 0.99980, which is the reading at the **W26 candidate**; on the committed
+0.14.0 bed it is **0.99979**.
+
+**§4 Three regression floors come off by fix, and `UNMET_ROWS` reads 11.** All three are
+`silhouetteIoU` on the nested pane, the cell whose entry in `adopted-thresholds.test.ts` has said
+for three waves that these rows are "the extractor's contrast and not the material's".
+
+| floor row | floor | 0.14.0 as recorded | corrected |
+| --- | --- | --- | --- |
+| `dom / holdout / checkerboard__glass-over-glass__rest / 1x dark` | 0.9070 | 0.90804 | **0.97319** |
+| `texture / holdout / checkerboard__glass-over-glass__rest / 2x dark` | 0.9257 | 0.92707 | **0.99979** |
+| `dom / holdout / checkerboard__glass-over-glass__rest / 2x dark` | 0.9038 | 0.92878 | **0.98289** |
+
+All three clear ≥ 0.93, the dark profiles' own adopted bound, so they stop being floors rather than
+being re-pinned; `UNMET_ROWS` goes **14 → 11**. One of them is a floor the user re-pinned at W24 on
+the parent's recommendation (W24 Decision Log 3 (d)), and it comes off the way the discipline says a
+floor comes off: by fix. Its two `contourDistance` siblings on the same cell are untouched and stay
+pinned — `contourDistance` has hole-filled since §5.15, so this correction cannot reach them.
+The seven `ssimMean` floors never read this metric.
+
+Until the canonical rebuild carries the corrected column, `adopted-thresholds.test.ts` states these
+three readings as data (`W26_CORRECTED_SILHOUETTE_IOU`) rather than reading them off the committed
+matrix, with the matrix's own value beside each one and a test that deletes the construct the moment
+the two agree. The matrix is not edited: it is evidence, and a capture is re-read by a capture run.
+
+**§5 What the metric no longer sees, and what still sees it.** A tier that genuinely punched a hole
+through its interior now scores full IoU there. That is a real loss and it is priced deliberately:
+the rows built to see exactly that stay on **every** cell — `silhouetteHolesNative` and
+`silhouetteHolesWeb`, which count the perforations on both sides, and W20's `declaredIoUWeb`, which
+reads the tier's own drawn alpha over a transparent page against the declaration with no background
+differencing anywhere in it (0.99915 on the very cell this section is about). `silhouetteBodies*`
+still catches a mask broken into pieces, and `contourDistance` still measures the outline. What is
+gone is the double-counting of one undecided pixel as a coverage difference.
+
+**§6 What this does not fix.** The extractor itself. The tracker's charter — a silhouette rule that
+separates surface from backdrop by something other than luminance — is untouched, and so is the
+reason `silhouetteAreaNative` reads 5 % under the declared region on this cell. Nor is it settled
+whether the native's 0.02029 dark-cell transmission is Apple's material or ScreenCaptureKit's
+quantisation; one 8-bit code decides whether the reference's 14 holes are a property of the material
+or of the capture, and one fixture cannot say. Both are in `specs/tech-debt-tracker.md`.
