@@ -369,6 +369,9 @@ export interface TintShadeConstants {
   readonly light: number;
   readonly strength: number;
   readonly reducedAdaptation: number;
+  /** Seed saturation and shade retention through collapse, from the shared profile. */
+  readonly chromaScale?: number;
+  readonly collapseRetention?: number;
 }
 
 // MEASURED (W10, 2026-09-02): fitted on the W9 probe's five tinted cells,
@@ -751,6 +754,8 @@ export function resolvedTintShade(patch?: RendererMaterialProfile): TintShadeCon
     light: patch?.tintShadeLight ?? TINT_SHADE.light,
     strength: patch?.tintShadeStrength ?? TINT_SHADE.strength,
     reducedAdaptation: patch?.reducedTintAdaptation ?? TINT_SHADE.reducedAdaptation,
+    chromaScale: patch?.tintChromaScale ?? 1,
+    collapseRetention: patch?.tintShadeCollapseRetention ?? 0,
   };
 }
 
@@ -798,7 +803,14 @@ export function tintShadeLayer(
   shade: TintShadeConstants = TINT_SHADE,
 ): LinearRgb {
   const level = tintShade(materialLuminance, grip, shade);
-  return [seed[0] * level, seed[1] * level, seed[2] * level];
+  const chroma = clamp01(shade.chromaScale ?? 1);
+  if (chroma === 1) return [seed[0] * level, seed[1] * level, seed[2] * level];
+  const neutral = Math.max(...seed);
+  return [
+    (neutral + (seed[0] - neutral) * chroma) * level,
+    (neutral + (seed[1] - neutral) * chroma) * level,
+    (neutral + (seed[2] - neutral) * chroma) * level,
+  ];
 }
 
 /** The luminance the untinted material shows over a backdrop of the given luminance. */

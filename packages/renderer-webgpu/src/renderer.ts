@@ -1000,6 +1000,8 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         tintSeed: (policy.glass === "none" ? undefined : groupTintSeed(input)) ?? optics.tint,
         tintToneAdaptation: tintToneAdaptation(policy, material),
         tintShade: [material.tintShadeDark, material.tintShadeLight, material.tintShadeStrength],
+        tintChromaScale: material.tintChromaScale ?? 1,
+        tintShadeCollapseRetention: material.tintShadeCollapseRetention ?? 0,
         // The band's half-width is a per-scale reading since W23: the reference's
         // rim narrows between the scales where vitrea's widened (claims §5.100
         // §5). At dpr 1, and on any variant whose two anchors are equal, this is

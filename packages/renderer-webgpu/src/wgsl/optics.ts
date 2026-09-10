@@ -96,9 +96,8 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// accessibility fold — the refraction ladder read at the preference's cap,
   /// which every facet's span-dependent rise is multiplied by (W11c)
   tone : vec4f,
-  /// rimWidthPx, rimAlpha; (z) and (w) carried specularPower and specularGain
-  /// until W24 retired the one-sided specular from the rim (claims 5.108
-  /// section 1) and are written but unread
+  /// rimWidthPx, rimAlpha; the slots retired by W24 now carry W27c's
+  /// tintChromaScale (z) and tintShadeCollapseRetention (w).
   rim : vec4f,
   /// light direction, unit (xy), shadowDepth (z), shadowAlpha (w)
   light : vec4f,
@@ -1002,9 +1001,16 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     // for the group — zero where nothing was measured, the same reference-level
     // convention the CSS tier's 'materialLuminance' takes (within its 0.02).
     let u = bodyAlpha * dot(colour, vec3f(0.2126, 0.7152, 0.0722)) + (1.0 - bodyAlpha) * ou.toneColour.w;
-    let grip = clamp(ou.seed.w, 0.0, 1.0) * clamp(ou.tone.z, 0.0, 1.0) * (1.0 - toneAdapt);
+    let grip = clamp(ou.seed.w, 0.0, 1.0) * clamp(ou.tone.z, 0.0, 1.0) *
+      (1.0 - toneAdapt * (1.0 - clamp(ou.rim.w, 0.0, 1.0)));
     let shade = mix(1.0, clamp(mix(ou.tone.x, ou.tone.y, clamp(u, 0.0, 1.0)), 0.0, 1.0), grip);
-    let layer = ou.seed.rgb * shade;
+    // The identity branch preserves the active seed's arithmetic bit for bit.
+    var seed = ou.seed.rgb;
+    if (ou.rim.z < 1.0) {
+      let neutral = max(seed.r, max(seed.g, seed.b));
+      seed = mix(vec3f(neutral), seed, clamp(ou.rim.z, 0.0, 1.0));
+    }
+    let layer = seed * shade;
     let s = clamp(aux.w, 0.0, 1.0);
     let layerLuma = max(dot(layer, vec3f(0.2126, 0.7152, 0.0722)), 0.05);
     rimTintColour = mix(vec3f(1.0), layer / layerLuma, clamp(ou.rimLaw.w, 0.0, 1.0) * s);

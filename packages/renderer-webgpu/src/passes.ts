@@ -136,13 +136,15 @@ export interface OpticsPassArgs {
   readonly tintToneAdaptation: number;
   /** `[tintShadeDark, tintShadeLight, tintShadeStrength]`. */
   readonly tintShade: readonly [number, number, number];
+  readonly tintChromaScale?: number;
+  readonly tintShadeCollapseRetention?: number;
   readonly rimWidth: number;
   readonly rimAlpha: number;
   /**
    * The retired one-sided specular's two constants (W24; claims §5.108 §1).
-   * They still travel to the uniform's `rim.zw` so that the buffer's layout and
-   * the profile's shape are one reviewable change rather than two, and the
-   * optics pass no longer reads either of them.
+   * Retained in this private call shape for the historical profile interface;
+   * they are not uploaded. W27c reuses their two uniform slots for tint chroma
+   * and shade retention, and its GPU regression test pins these constants inert.
    */
   readonly specularPower: number;
   readonly specularGain: number;
@@ -676,8 +678,9 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[27] = args.sizeFold;
       d[28] = args.rimWidth;
       d[29] = args.rimAlpha;
-      d[30] = args.specularPower;
-      d[31] = args.specularGain;
+      // W27c reuses the two slots retired with W24's one-sided specular.
+      d[30] = args.tintChromaScale ?? 1;
+      d[31] = args.tintShadeCollapseRetention ?? 0;
       d[32] = args.lightDirection[0];
       d[33] = args.lightDirection[1];
       d[34] = args.shadowDepth;

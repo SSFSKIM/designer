@@ -414,14 +414,13 @@ describe("the optics pass's statement of the axis", () => {
       "let lit = pow(max(abs(dot(normal, ou.rimLit.xy)) * 1.4142135, 1e-6), ou.rimLit.z);",
     );
     // And the one-sided specular the lit edge replaces is gone from the rim's
-    // amplitude rather than left at a gain of zero (W24; claims §5.108 §1): the
-    // amplitude is the law and nothing else, and `ou.rim.z` / `ou.rim.w` are no
-    // longer read anywhere in the pass.
+    // amplitude rather than left at a gain of zero (W24; claims §5.108 §1).
+    // W27c reuses the retired uniform slots for the tint's two independent
+    // controls; receded-tint.spec.ts proves those controls reach tinted pixels
+    // while the retired specular constants remain inert.
     expect(WGSL_OPTICS_PASS).toContain(
       "let rimAmplitude = ou.rim.y + ou.rimLaw.x * rimLuma;",
     );
-    expect(WGSL_OPTICS_PASS).not.toContain("ou.rim.z");
-    expect(WGSL_OPTICS_PASS).not.toContain("ou.rim.w");
   });
 
   it("trades the appearance's rim for the collapsed one, bare and painted", () => {

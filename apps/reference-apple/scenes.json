@@ -288,6 +288,28 @@
     "would be a phantom tint id, not a comment."
   ],
 
+  "$comment-interaction": [
+    "W27c G0/G1's recovered-inactive-bed axis (claims §5.128; X3, X7), declared here",
+    "for the reason '$comment-tints' is at the root: 'interaction' is a plain",
+    "string field on a scene entry, not a registry, and would decode as a phantom",
+    "scene field if a comment sat inside one.",
+    "",
+    "A recovered scene's 'state' carries activation alone ('inactive'), per",
+    "X3 and the 'states' entry above — but four of the 121 recovered fixtures",
+    "were themselves captured over a 'pressed' source scene, and collapsing that",
+    "into 'state' too would repeat the exact trap '$comment-tints' already names:",
+    "'collapsing an orthogonal axis into the state map would make rest x pressed",
+    "x tint unrepresentable the moment anyone wants a pressed tinted cell' — here",
+    "inactive x pressed. So interaction rides its own optional field, exactly as",
+    "tint does, present only on the four scenes it applies to (value 'pressed';",
+    "absent means rest). The scene id's third segment folds it in as a suffix",
+    "after the state and before any tint suffix — 'inactive-pressed', or",
+    "'inactive-pressed-tint-<id>' were a tinted pressed cell ever recovered —",
+    "which is the same suffix convention '-tint-<id>' already uses. Every",
+    "existing scene is unaffected: 'interaction' is absent everywhere but these",
+    "four, and 'pressed' keeps meaning what it always has via 'state'."
+  ],
+
   "tints": {
     "orange": {
       "srgb": [255, 149, 0],
@@ -308,6 +330,9 @@
     "rest": { "$comment": "No interaction." },
     "pressed": {
       "$comment": "Apple's interactive() press response. Scriptable natively by driving the view's press state; on the web by the runtime's pressed interaction state. Motion is C9's axis — this is the settled pressed pose, not a transient."
+    },
+    "inactive": {
+      "$comment": "W27c G0/G1 (claims §5.128; X3, X7): the window-recede pose, recovered from the pre-DL14 tree (973fd7e^) where the harness's borderless window could never become key. X3 rules the pose into the scene `state`, never a profile-key segment; it reads bare, per the wave's own worked example (checkerboard__rrect-md__inactive), because activation is the ONE axis 'state' carries for a recovered scene — the same reason 'rest' reads as the unmarked default everywhere else in this file. Schema 2, single run per cell, pose inferred from the DL14 post-mortem — not attested per cell (W27 Decision Log 5). A recovered scene whose source was 'pressed', not 'rest', carries that separately: see '$comment-interaction'."
     }
   },
 
@@ -426,7 +451,45 @@
     { "id": "dark-solid__rrect-64__rest", "background": "dark-solid", "component": "rrect-64", "state": "rest" },
     { "id": "dark-solid__rrect-80__rest", "background": "dark-solid", "component": "rrect-80", "state": "rest" },
     { "id": "dark-solid__rrect-ml__rest", "background": "dark-solid", "component": "rrect-ml", "state": "rest" },
-    { "id": "dark-solid__rrect-md-clear20__rest", "background": "dark-solid", "component": "rrect-md-clear20", "state": "rest" }
+    { "id": "dark-solid__rrect-md-clear20__rest", "background": "dark-solid", "component": "rrect-md-clear20", "state": "rest" },
+
+    { "id": "checkerboard__capsule-button__inactive", "background": "checkerboard", "component": "capsule-button", "state": "inactive" },
+    { "id": "checkerboard__capsule-button__inactive-tint-blue", "background": "checkerboard", "component": "capsule-button", "state": "inactive", "tint": "blue" },
+    { "id": "checkerboard__capsule-button__inactive-tint-orange", "background": "checkerboard", "component": "capsule-button", "state": "inactive", "tint": "orange" },
+    { "id": "checkerboard__capsule-button__inactive-pressed", "background": "checkerboard", "component": "capsule-button", "state": "inactive", "interaction": "pressed" },
+    { "id": "checkerboard__glass-over-glass__inactive", "background": "checkerboard", "component": "glass-over-glass", "state": "inactive" },
+    { "id": "checkerboard__rrect-lg__inactive", "background": "checkerboard", "component": "rrect-lg", "state": "inactive" },
+    { "id": "checkerboard__rrect-md__inactive", "background": "checkerboard", "component": "rrect-md", "state": "inactive" },
+    { "id": "checkerboard__rrect-md__inactive-pressed", "background": "checkerboard", "component": "rrect-md", "state": "inactive", "interaction": "pressed" },
+    { "id": "checkerboard__rrect-sm__inactive", "background": "checkerboard", "component": "rrect-sm", "state": "inactive" },
+    { "id": "checkerboard__toolbar-group__inactive", "background": "checkerboard", "component": "toolbar-group", "state": "inactive" },
+    { "id": "dark-solid__capsule-button__inactive", "background": "dark-solid", "component": "capsule-button", "state": "inactive" },
+    { "id": "dark-solid__capsule-button__inactive-tint-blue", "background": "dark-solid", "component": "capsule-button", "state": "inactive", "tint": "blue" },
+    { "id": "dark-solid__capsule-button__inactive-tint-orange", "background": "dark-solid", "component": "capsule-button", "state": "inactive", "tint": "orange" },
+    { "id": "dark-solid__rrect-md__inactive", "background": "dark-solid", "component": "rrect-md", "state": "inactive" },
+    { "id": "hc-text__capsule-button__inactive", "background": "hc-text", "component": "capsule-button", "state": "inactive" },
+    { "id": "hc-text__capsule-button__inactive-tint-orange", "background": "hc-text", "component": "capsule-button", "state": "inactive", "tint": "orange" },
+    { "id": "hc-text__rrect-md__inactive", "background": "hc-text", "component": "rrect-md", "state": "inactive" },
+    { "id": "impulse__capsule-button__inactive", "background": "impulse", "component": "capsule-button", "state": "inactive" },
+    { "id": "impulse__capsule-button__inactive-tint-orange", "background": "impulse", "component": "capsule-button", "state": "inactive", "tint": "orange" },
+    { "id": "impulse__rrect-md__inactive", "background": "impulse", "component": "rrect-md", "state": "inactive" },
+    { "id": "light-solid__capsule-button__inactive", "background": "light-solid", "component": "capsule-button", "state": "inactive" },
+    { "id": "light-solid__capsule-button__inactive-tint-orange", "background": "light-solid", "component": "capsule-button", "state": "inactive", "tint": "orange" },
+    { "id": "light-solid__rrect-md__inactive", "background": "light-solid", "component": "rrect-md", "state": "inactive" },
+    { "id": "mid-dark-solid__capsule-button__inactive", "background": "mid-dark-solid", "component": "capsule-button", "state": "inactive" },
+    { "id": "photo__capsule-button__inactive", "background": "photo", "component": "capsule-button", "state": "inactive" },
+    { "id": "photo__capsule-button__inactive-tint-blue", "background": "photo", "component": "capsule-button", "state": "inactive", "tint": "blue" },
+    { "id": "photo__capsule-button__inactive-tint-orange", "background": "photo", "component": "capsule-button", "state": "inactive", "tint": "orange" },
+    { "id": "photo__capsule-button__inactive-tint-orange-half", "background": "photo", "component": "capsule-button", "state": "inactive", "tint": "orange-half" },
+    { "id": "photo__capsule-button__inactive-pressed", "background": "photo", "component": "capsule-button", "state": "inactive", "interaction": "pressed" },
+    { "id": "photo__glass-over-glass__inactive", "background": "photo", "component": "glass-over-glass", "state": "inactive" },
+    { "id": "photo__rrect-lg__inactive", "background": "photo", "component": "rrect-lg", "state": "inactive" },
+    { "id": "photo__rrect-lg__inactive-tint-orange", "background": "photo", "component": "rrect-lg", "state": "inactive", "tint": "orange" },
+    { "id": "photo__rrect-md__inactive", "background": "photo", "component": "rrect-md", "state": "inactive" },
+    { "id": "photo__rrect-md__inactive-tint-orange", "background": "photo", "component": "rrect-md", "state": "inactive", "tint": "orange" },
+    { "id": "photo__rrect-md__inactive-pressed", "background": "photo", "component": "rrect-md", "state": "inactive", "interaction": "pressed" },
+    { "id": "photo__rrect-sm__inactive", "background": "photo", "component": "rrect-sm", "state": "inactive" },
+    { "id": "photo__toolbar-group__inactive", "background": "photo", "component": "toolbar-group", "state": "inactive" }
   ],
 
   "profiles": [
@@ -528,10 +591,27 @@
         "dark-solid__rrect-64__rest",
         "dark-solid__rrect-80__rest",
         "dark-solid__rrect-ml__rest",
-        "dark-solid__rrect-md-clear20__rest"
+        "dark-solid__rrect-md-clear20__rest",
+
+        "checkerboard__capsule-button__inactive-tint-orange",
+        "checkerboard__capsule-button__inactive",
+        "checkerboard__glass-over-glass__inactive",
+        "checkerboard__rrect-md__inactive",
+        "dark-solid__capsule-button__inactive-tint-orange",
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__rrect-md__inactive",
+        "impulse__capsule-button__inactive",
+        "mid-dark-solid__capsule-button__inactive",
+        "photo__capsule-button__inactive-pressed",
+        "photo__capsule-button__inactive-tint-orange",
+        "photo__capsule-button__inactive",
+        "photo__rrect-lg__inactive",
+        "photo__rrect-md__inactive"
       ],
       "$comment": [
         "Wave 1 / G3 adoption: extended past calibration-only so the profile has a declared split (2 validation + 2 holdout; the split is per SCENE, so membership follows automatically). Holdout picks cover the size extreme (rrect-lg) and the stacked case (glass-over-glass) — the families the split comment names as where overfitting hides.",
+        "",
+        "W27c G0/G1 (claims §5.128; X3): the 14 recovered-inactive scenes captured for this profile in the pre-DL14 tree (973fd7e^), listed explicitly because this profile states its scenes rather than inheriting 'all'.",
         "",
         "W7 adds mid-dark-solid here for the reason the axis needs it most: W7's law says the scheme sets only the NEUTRAL the adaptation departs from, so the same constants run in both schemes without double-adapting. A mid-band backdrop under the dark scheme is the one cell that can falsify that.",
         "",
@@ -554,10 +634,22 @@
         "hc-text__capsule-button__rest",
         "photo__rrect-lg__rest",
 
-        "photo__capsule-button__rest-tint-orange"
+        "photo__capsule-button__rest-tint-orange",
+
+        "checkerboard__capsule-button__inactive",
+        "checkerboard__rrect-md__inactive",
+        "hc-text__capsule-button__inactive",
+        "photo__capsule-button__inactive-pressed",
+        "photo__capsule-button__inactive-tint-orange",
+        "photo__capsule-button__inactive",
+        "photo__rrect-lg__inactive",
+        "photo__rrect-md__inactive",
+        "photo__toolbar-group__inactive"
       ],
       "$comment": [
         "Wave 1 / G3 adoption: extended past calibration-only for a declared split (2 validation + 2 holdout). hc-text as holdout is deliberate — legibility is the axis this mode exists for.",
+        "",
+        "W27c G0/G1 (claims §5.128; X3): the 9 recovered-inactive scenes captured for this profile in the pre-DL14 tree (973fd7e^).",
         "",
         "W3 adds ONE tinted cell. Phase 1 claims this axis touches the tint's ALPHA and not its colour; one cell falsifies that if the colour moves, and a second would measure the same claim twice."
       ]
@@ -577,10 +669,23 @@
         "photo__rrect-lg__rest",
 
         "checkerboard__capsule-button__rest-tint-orange",
-        "photo__capsule-button__rest-tint-orange"
+        "photo__capsule-button__rest-tint-orange",
+
+        "checkerboard__capsule-button__inactive-tint-orange",
+        "checkerboard__capsule-button__inactive",
+        "checkerboard__rrect-md__inactive",
+        "hc-text__capsule-button__inactive",
+        "photo__capsule-button__inactive-pressed",
+        "photo__capsule-button__inactive-tint-orange",
+        "photo__capsule-button__inactive",
+        "photo__rrect-lg__inactive",
+        "photo__rrect-md__inactive",
+        "photo__toolbar-group__inactive"
       ],
       "$comment": [
         "Wave 1 / G3 adoption: same extension as reduced-transparency (the profiles must stay scene-comparable — macOS couples the toggles, so this mode's captures embody both).",
+        "",
+        "W27c G0/G1 (claims §5.128; X3): the 10 recovered-inactive scenes captured for this profile in the pre-DL14 tree (973fd7e^).",
         "",
         "W3 adds TWO tinted cells rather than one. Phase 1 collapses the tone range toward the bare seed on this axis (ambientTint: 'reduced'), and whether Apple narrows the range, drops the tint, or leaves it alone is a question about the RANGE — which needs two backdrops to see, not one."
       ]
@@ -664,9 +769,24 @@
         "dark-solid__rrect-64__rest",
         "dark-solid__rrect-80__rest",
         "dark-solid__rrect-ml__rest",
-        "dark-solid__rrect-md-clear20__rest"
+        "dark-solid__rrect-md-clear20__rest",
+
+        "checkerboard__capsule-button__inactive-tint-orange",
+        "checkerboard__capsule-button__inactive",
+        "checkerboard__glass-over-glass__inactive",
+        "checkerboard__rrect-md__inactive",
+        "dark-solid__capsule-button__inactive-tint-orange",
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__rrect-md__inactive",
+        "impulse__capsule-button__inactive",
+        "mid-dark-solid__capsule-button__inactive",
+        "photo__capsule-button__inactive-pressed",
+        "photo__capsule-button__inactive-tint-orange",
+        "photo__capsule-button__inactive",
+        "photo__rrect-lg__inactive",
+        "photo__rrect-md__inactive"
       ],
-      "$comment": "Wave 1 / W1: the 1x dark subset, at 2x — extended with the same split scenes as 1x dark (G3 adoption; the profiles stay scene-comparable across scale). W3's and W7's additions are mirrored here for that same invariant: this list must stay the 1x dark list. W25's `probe` set is mirrored here for the same reason, and at 2x it is the half of the amendment that buys anything new: the grids as they stood on disk were 1x only, and no fixture anywhere identified the reference's kernel width above span 96 at 2x (claims §5.113)."
+      "$comment": "Wave 1 / W1: the 1x dark subset, at 2x — extended with the same split scenes as 1x dark (G3 adoption; the profiles stay scene-comparable across scale). W3's and W7's additions are mirrored here for that same invariant: this list must stay the 1x dark list. W25's `probe` set is mirrored here for the same reason, and at 2x it is the half of the amendment that buys anything new: the grids as they stood on disk were 1x only, and no fixture anywhere identified the reference's kernel width above span 96 at 2x (claims §5.113). W27c G0/G1's 14 recovered-inactive scenes (claims §5.128; X3) are mirrored here too, for the same invariant — this list must stay the 1x dark list."
     }
   ],
 
@@ -713,7 +833,15 @@
       "reasoning as the untinted ones: legibility over high-frequency content",
       "(hc-text), the far end of the size axis where a size-dependent tone would",
       "hide (rrect-lg), and the second hue at the extreme dark end, where a",
-      "per-hue floor would show and nowhere else."
+      "per-hue floor would show and nowhere else.",
+      "",
+      "W27c G0/G1's 37 recovered-inactive scenes (claims §5.128; X3) each mirror",
+      "their active twin's role rather than drawing a fresh judgement: the",
+      "recovered pose is additional evidence about a scene the split already",
+      "placed, not a new axis for overfitting risk to hide on. The four whose",
+      "twin is 'pressed' land in 'recorded' for the same reason their twin does",
+      "(Decision Log 19 ruling 1) — they compound two unattested axes and settle",
+      "no fit either way."
     ],
     "holdout": [
       "hc-text__capsule-button__rest",
@@ -727,7 +855,18 @@
 
       "hc-text__capsule-button__rest-tint-orange",
       "photo__rrect-lg__rest-tint-orange",
-      "dark-solid__capsule-button__rest-tint-blue"
+      "dark-solid__capsule-button__rest-tint-blue",
+
+      "checkerboard__glass-over-glass__inactive",
+      "checkerboard__rrect-lg__inactive",
+      "dark-solid__capsule-button__inactive-tint-blue",
+      "hc-text__capsule-button__inactive",
+      "hc-text__capsule-button__inactive-tint-orange",
+      "hc-text__rrect-md__inactive",
+      "mid-dark-solid__capsule-button__inactive",
+      "photo__glass-over-glass__inactive",
+      "photo__rrect-lg__inactive",
+      "photo__rrect-lg__inactive-tint-orange"
     ],
     "validation": [
       "impulse__capsule-button__rest",
@@ -736,7 +875,14 @@
       "photo__toolbar-group__rest",
 
       "checkerboard__capsule-button__rest-tint-blue",
-      "photo__rrect-md__rest-tint-orange"
+      "photo__rrect-md__rest-tint-orange",
+
+      "checkerboard__capsule-button__inactive-tint-blue",
+      "impulse__capsule-button__inactive",
+      "impulse__rrect-md__inactive",
+      "photo__rrect-md__inactive-tint-orange",
+      "photo__rrect-sm__inactive",
+      "photo__toolbar-group__inactive"
     ],
     "calibration": [
       "light-solid__capsule-button__rest",
@@ -759,13 +905,36 @@
       "photo__capsule-button__rest-tint-orange",
       "light-solid__capsule-button__rest-tint-orange",
       "photo__capsule-button__rest-tint-blue",
-      "photo__capsule-button__rest-tint-orange-half"
+      "photo__capsule-button__rest-tint-orange-half",
+
+      "checkerboard__capsule-button__inactive",
+      "checkerboard__capsule-button__inactive-tint-orange",
+      "checkerboard__rrect-md__inactive",
+      "checkerboard__rrect-sm__inactive",
+      "checkerboard__toolbar-group__inactive",
+      "dark-solid__capsule-button__inactive",
+      "dark-solid__capsule-button__inactive-tint-orange",
+      "dark-solid__rrect-md__inactive",
+      "impulse__capsule-button__inactive-tint-orange",
+      "light-solid__capsule-button__inactive",
+      "light-solid__capsule-button__inactive-tint-orange",
+      "light-solid__rrect-md__inactive",
+      "photo__capsule-button__inactive",
+      "photo__capsule-button__inactive-tint-blue",
+      "photo__capsule-button__inactive-tint-orange",
+      "photo__capsule-button__inactive-tint-orange-half",
+      "photo__rrect-md__inactive"
     ],
     "recorded": [
       "checkerboard__capsule-button__pressed",
       "photo__capsule-button__pressed",
       "checkerboard__rrect-md__pressed",
-      "photo__rrect-md__pressed"
+      "photo__rrect-md__pressed",
+
+      "checkerboard__capsule-button__inactive-pressed",
+      "checkerboard__rrect-md__inactive-pressed",
+      "photo__capsule-button__inactive-pressed",
+      "photo__rrect-md__inactive-pressed"
     ],
     "$comment-probe": [
       "W25's fifth role, declared beside `recorded` on Decision Log 3 (e)'s",

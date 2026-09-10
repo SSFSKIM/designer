@@ -2158,7 +2158,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         // arriving here already carries every one of them.
         const policySource: MaterialSourceOptics = shadowedSource;
         const tintBackdrop = backdropTone?.linearLuminance ?? toneBackdrop;
-        const tintGrip = toneAdaptation * tintShade.strength * (1 - backdropAdaptation);
+        const tintGrip = toneAdaptation * tintShade.strength *
+          (1 - backdropAdaptation * (1 - Math.min(1, Math.max(0, tintShade.collapseRetention ?? 0))));
         const authorLayer = authorTintLayer(
           policySource,
           seed,
