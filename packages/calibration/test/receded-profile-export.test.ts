@@ -11,6 +11,6 @@ it("keeps the exported inactive endpoints equal to the frozen fitting declaratio
   // This is an evidence pin, like dark-profile-export.test.ts: a material change
   // must publish its new declaration rather than silently keeping old claims.
   const declaration = JSON.parse(readFileSync(resolve(import.meta.dirname,
-    "../results/2026-09-10-w27c-g1-declaration.json"), "utf8")) as { patch: unknown };
+    "../results/2026-09-10-w27c-g1-corrected-declaration.json"), "utf8")) as { patch: unknown };
   expect(recededMaterialProfile).toEqual(declaration.patch);
 });

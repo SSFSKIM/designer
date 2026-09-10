@@ -154,7 +154,10 @@ colours as well as passing `"auto"` here.
 appearance. Select the entry for the resolved scheme and merge it over that scheme's material;
 for example, `createGlassRoot({ colorScheme: "dark", materialProfile: recededMaterialProfile.dark })`.
 They remove the outer shadow and bright rim while retaining an author's tint strength as an
-achromatic shade. The recovered native reference is macOS 26.5, with 1x-only accessibility evidence.
+achromatic shade. The recovered native reference is macOS 26.5, with 1x-only light accessibility
+evidence. This is a fitted endpoint, not a pixel-match guarantee: photo chroma, intermediate dark
+levels and large-surface scattering remain measured gaps (claims §5.130). In particular, a
+full-strength neutral tint loses background colour that the native inactive material can retain.
 These documents alone do not observe window focus; activation is a root pose, not an interaction
 state on individual surfaces.
 

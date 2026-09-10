@@ -16276,3 +16276,133 @@ far-span interpolation and activation timing have no inactive evidence here. Sid
 of the 2x light checker rrect and 1x increased-contrast photo capsule confirmed residual lens/band
 shape and outline differences; neither a small ΔE nor the disappearance of the broad shadow is
 an assertion that the native appearance has been exhausted.
+
+**6. Corrected experiment: the unchecked run is replaced, not repaired in place.** The
+first-attempt declaration and all of its web fit/validation/CSS/spatial/facet readings remain
+invalidated. `2026-09-10-w27c-g1-corrected-plan.json` restarts the experiment before the new
+sweep. The browser viewport is now the scene's **320 × 200 CSS px**; a row is refused unless
+reported canvas, requested scale and actual devicePixelRatio agree, `problems` is empty, and
+the decoded web/native/reported pixel dimensions agree. Each admitted row retains the geometry,
+background raster, problems, diagnostics, actual group state, hardware adapter and source hashes.
+A ready page is no longer treated as proof of capture integrity.
+
+The new baseline has **78** calibration/validation rows. **73/78** PNG hashes happen to equal
+the unchecked baseline; the other five have mean-ΔE differences of order **10⁻⁸**. That
+observation does not retroactively admit the old instrument: the newly checked rows, not the
+coincidence of outputs, are the evidence. The old records and numbers above remain unchanged.
+
+The corrected archive is `results/2026-09-10-w27c-g1-corrected/`. `seed` begins with active
+body/scatter parameters, zero broad-shadow/bright-rim amplitudes and neutral retained tint.
+`c1` adjusts response and scatter share; it reuses some old parameters as **hypotheses**, not
+because their old readings were valid. Actual spatial rereading still finds selective excess
+checker modulation: at **2x**, the light rrect-md horizontal eroded-body range is **0.25112
+web / 0.08036 native**, dark **0.05517 / 0.01708**, while the light photo rrect is **0.18707 /
+0.17362**. `c2` tests the **14-device-px 2x heavy width** and a light regular-opacity change
+from **0.46 to 0.37**. The width helps the thick checker; the lower opacity worsens the thin
+structured controls and is declined. `c3` restores opacity 0.46, refines the light thick middle
+response ordinate to **0.518**, and changes dark **1x** thick heavy share from **0.40 to 0.25**.
+Selection uses only the **62 calibration cells**; validation is a check, not a fitting input.
+
+The selected difference is now the exported document, not the invalid first candidate. Relative
+to that candidate's historical table above, light thin response is **[0.0126, 0.4, 0.929]**,
+light thick response **[0.4553, 0.518, 0.9]**, and dark **1x** thick heavy share **0.25**.
+The unmeasured dark accessibility overrides from the first attempt are not carried into the
+corrected document: `increasedOcclusionLift`, `strongBorderRim` and `reducedTintAdaptation` are
+fitted **only in the light entry**. Their dark policy behavior remains inherited and unmeasured.
+All other selected constants are explicit in the corrected declaration; shader defaults,
+active profile documents and recorded active fingerprints stay unchanged.
+
+The four independent-review defects are closed: capture integrity now fails closed; inactive
+orange/blue byte equality no longer condemns active tint evidence; the public demo withholds
+inactive reference scenes until it can apply the pose; and the JSON profile loader admits the
+two new fields while still refusing unknown keys. Bounded re-review found no residual defect
+in those fixes (targeted calibration **20/20**, demo **3/3**). Native capture and layer dumping
+also refuse inactive requests before GUI/output, naming the scene ids and ledger limitation;
+the production Swift scene-spec preflight passes its no-GUI active/inactive fixture test.
+
+Updated main through **38d782c** (W27b) is integrated before the final repeated check and freeze.
+
+**7. The corrected freeze and its one holdout read.** The authoritative file is
+`results/2026-09-10-w27c-g1-corrected-declaration.json`, not the earlier invalid declaration.
+Its resolved inactive SHA-256 is **351976df9bd2a2eca86aca590e6df22f4b0b1eba8cea3aba7602ccbceb9371f9**
+for light and **c8b338b8850da818a2931ad5f2b7da1849c942cd9bef6aefe13bc95c99ccec0b** for dark.
+All **78** post-integration calibration/validation PNGs equal their selected pre-integration
+counterparts, and each is byte-identical across **two independent page captures**. The declaration
+records the checked-run hash, instrument hash and active resolved hashes before holdout.
+
+The table is **full-canvas mean per-pixel OKLab ΔE**, equal cell weight within each named
+profile/set. Before is shipping active material against the inactive native fixture. Holdout
+has **no separately captured active baseline**; none is inferred or invented. The reproducible
+numbers and body tables are `2026-09-10-w27c-g1-corrected-tables.json`.
+
+| profile | calibration n; before → after | validation n; before → after | cal+validation before → after | frozen holdout n; after |
+| --- | --- | --- | --- | --- |
+| 1x light standard | 17; 0.013969 → 0.001796 | 6; 0.015120 → 0.004550 | 0.014269 → 0.002514 | 10; 0.013353 |
+| 2x light standard | 17; 0.014051 → 0.001839 | 6; 0.015170 → 0.004688 | 0.014343 → 0.002583 | 10; 0.013027 |
+| 1x dark standard | 9; 0.015972 → 0.002891 | 1; 0.002799 → 0.002543 | 0.014655 → 0.002856 | 3; 0.022645 |
+| 2x dark standard | 8; 0.017107 → 0.002899 | 1; 0.003221 → 0.003127 | 0.015564 → 0.002924 | 3; 0.022298 |
+| 1x light increased contrast | 6; 0.013713 → 0.002487 | 1; 0.008717 → 0.002394 | 0.012999 → 0.002474 | 2; 0.005182 |
+| 1x light reduced transparency | 5; 0.007659 → 0.001256 | 1; 0.004101 → 0.000883 | 0.007066 → 0.001194 | 2; 0.003171 |
+
+The **30-cell holdout is SPENT**. Its create-only spending marker and `holdout.json` are
+committed beside the checked run. It was captured once on this declared document, with clean
+geometry and no page problems. **No parameter changes follow the reading.** G1 declares an
+endpoint and its limits, not a claim that the unseen-size/response family is closed or a licence
+to adopt G3 floors at its calibration means.
+
+The corrected light-standard **6-CSS-px-eroded output SD** triple is web / native, linear
+Rec.709 Y, separately by scale:
+
+| scale | checker capsule | checker rrect-md | photo rrect-md |
+| --- | --- | --- | --- |
+| 1x | 0.100701 / 0.100271 | 0.060732 / 0.063873 | 0.046567 / 0.052576 |
+| 2x | 0.121922 / 0.114763 | 0.033511 / 0.030890 | 0.047358 / 0.051277 |
+
+Their means are, respectively, **1x 0.619418 / 0.608535, 0.636670 / 0.641582,
+0.597579 / 0.628421** and **2x 0.625890 / 0.610010, 0.642333 / 0.640417,
+0.597926 / 0.628144** (web/native linear Y). Thus the thick checker mean/structure is close,
+but photo mean and chroma remain wrong. The corrected G0-facet reread finds **zero web exterior
+device pixels differing by >1 code beyond 2 CSS px** over the 78 checked cells. That is extinction
+of the broad shadow, not a claim of matching antialiasing or lens-band curvature.
+
+**What holdout exposed, not silently accepted.** The **1x/2x dark mid-dark-solid capsule** is
+**0.08866 web / 0.04092 native Y**, eroded-body ΔE **0.101314** at either scale. The three-anchor
+response selected on the calibration sources does not identify this intermediate level correctly.
+The **1x/2x light checker rrect-lg** retains SD **0.04695 / 0.01742** and **0.03362 / 0.00996**
+(web/native): far-span scattering remains too structured even when its mean is close. The
+**1x/2x dark photo rrect-lg** has full-canvas ΔE **0.047630 / 0.046288** and body ΔE
+**0.069668 / 0.067589** despite near-native mean Y; it is a colour/spatial failure, not a mean
+that can be repaired by retuning one response ordinate. Light photo stacks have full-canvas ΔE
+**0.022814 at 1x**, **0.022698 at 2x**, so the one-plane endpoint does not close stacking.
+
+Most visibly, **full-strength neutral tint removes background chroma as well as authored hue**
+in this opaque-layer family. The native **1x light photo rrect-lg tinted orange** retains the
+photo's coloured haze while web is grey: full-canvas ΔE **0.048488**, body ΔE **0.070551**,
+even though mean Y is **0.46976 web / 0.46301 native**. At **2x**, full-canvas ΔE is **0.048294**.
+Side-by-side inspection confirms that this is not a scalar-level residual. The two new fields
+express the required author-hue extinction and surviving shade, but do not uniquely recover
+Apple's transmission/colour operator. Closing these gaps requires a new declared transfer/scatter
+experiment and an unspent checking bed, not fitting back to this spent holdout. No third field,
+new floor, or widened claim is smuggled into this gate.
+
+The derived CSS run is record-only on the same **78 correctly framed calibration/validation
+cells**. Full-canvas mean ΔE is **0.004571 at 1x light**, **0.004948 at 2x light**, **0.004344
+at 1x dark**, **0.005034 at 2x dark**, **0.007450 at 1x light increased contrast**, **0.003837
+at 1x light reduced transparency**. It uses the same neutral seed and shade-retention law;
+its uniform layer, single blur and unsigned border cannot carry all GPU spatial/outline terms.
+No CSS holdout or CSS-specific fitted document is introduced.
+
+**8. Final proof and handoff.** After main integration, workspace build and lint are green;
+all **2,060 unit tests** pass (policy 23, motion 162, geometry 170, renderer 450, core 302,
+platform-web 484, calibration 340, React 126, demo 3). All **34 hardware renderer golden/isolation
+tests pass** on the private, non-reused server, with no golden PNG or isolation hash re-recorded.
+The active full resolved SHA-256s remain **b2b570e4adcea8fb9281aed4d2556598a1fc95b34ce4b12dd5a50157ac138306**
+(light) and **874be66ea501621be265265424c16d2d98a01c40835d89c02de9473362c0d4dc** (dark).
+The corrected exported-document test pins the built package to the corrected declaration.
+The canonical matrix and active profile documents are untouched.
+
+G2 may wire the two declared endpoints per resolved scheme; that does not upgrade their fidelity
+claim. G3 inherits the active from-empty enforced-matrix rebuild, runtime capture routing,
+inactive row/floor decisions and user-eye landing. Its bound decision must confront the holdout
+residuals above rather than copy the calibration mean. Fresh native inactive capture remains
+separate, unimplemented work; historical schema-2 inferred-pose evidence remains explicitly such.

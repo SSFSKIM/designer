@@ -1,5 +1,6 @@
 /** Freeze the corrected endpoint only after its declared calibration/validation checks. */
 import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { DEFAULT_MATERIAL_PROFILE, withMaterialOverrides } from "../../renderer-webgpu/src/material";
@@ -37,6 +38,13 @@ writeFileSync(process.argv[2]!, JSON.stringify({
   declaredIn: "W27c G1 corrected experiment; claims §5.130; W27 X1/X3/X7/X8",
   supersedesInvalidDeclaration: "2026-09-10-w27c-g1-declaration.json (preserved unchanged)",
   frozenAt: new Date().toISOString(),
+  repositoryHead: execFileSync("git", ["rev-parse", "HEAD"], {
+    cwd: resolve(import.meta.dirname, "../../.."), encoding: "utf8",
+  }).trim(),
+  instrumentSha256: bytesSha(readFileSync(resolve(import.meta.dirname,
+    "2026-09-10-w27c-g1-run.ts"))),
+  integrityHelperSha256: bytesSha(readFileSync(resolve(import.meta.dirname,
+    "../src/capture-integrity.ts"))),
   patch: recededMaterialProfile,
   profiles,
   fit: { calibrationCells: 62, validationCells: 16, independentCaptureRepeats: 2,
