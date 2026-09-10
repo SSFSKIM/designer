@@ -1746,3 +1746,33 @@ still draw the dark scheme. Closes with the dark wave: the dark thick body's lev
 width read together (the family reader with the milk term modelled per ring), the nested pane's
 two layers read separately (Apple's topmost passes 3.1× ours in dark; ours passes 1.9× Apple's in
 light), and the dark panes' 1.3–1.6 codes. `g2/g2c-eye.md`, claims §5.125.
+
+## The 0.02 luminance rule reports a coarse dark backdrop's structure as the silhouette's, and it has now produced a second cell one wave after the first (W26 G3, 2026-09-10)
+
+W26 Decision Log 8 found the extractor's `|Y − Y_background| ≥ 0.02` rule degenerating toward an
+absolute brightness test over a black checker cell, reporting the BACKDROP's structure as the
+surface's, and corrected `silhouetteIoU` for it (claims §5.124). The landing's re-derivation of
+`PREDICATE_EXCLUDES` turned the same mechanism up on a different cell: `texture / holdout /
+checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard` enters the exclusion list on the
+BODIES arm at the landed material, `silhouetteBodiesWeb` **1 → 3** against a native 1 and a region
+of 1, with `silhouetteHolesWeb` 4 → 7 beside it and the area arm nowhere near (0.9978 against 0.95).
+Largest span on the bed, coarsest committed checkerboard, the scale where the heavy component
+narrows most: less blur leaves more of the backdrop inside the surface and the rule pinches it into
+two more pieces. **Every gated row is met on the cell** — IoU 0.99807, contour mean 0.204, p95 1,
+max 2 — so nothing is hidden by the exclusion, and its real cost is recorded where it stays gated
+(ΔE mean 0.00795 → 0.01145).
+
+Why this is an entry rather than a note: one sighting is a cell and two is a class, and the second
+one arrived from a change in the MATERIAL rather than in the instrument. As the body's heavy
+component narrows toward Apple's, more of the backdrop survives inside every thick surface over a
+coarse pattern, so the rule will keep converting fidelity gains into topology exclusions — the shape
+gate quietly covering fewer cells the closer the material gets. `silhouetteIoU` was corrected;
+`silhouetteBodies*` and `silhouetteHoles*` were deliberately left reading the interior, which is
+what makes them the arms that fire.
+
+Closes with an extractor whose rule is relative to the local backdrop rather than to one absolute
+rung — the same charter as the W21 G2c entry and as the "two things W26 G3a left undetermined" entry
+above, and the three should be read together and answered once. Until then, every wave that narrows
+the body should expect to re-derive the predicate and should check, as this one did, that the rows a
+newly excluded cell takes out of the gate are MET rather than merely unread.
+`results/2026-09-10-w26-heavy-width/g3/g3-landing.md` §5.1; claims §5.126 §6.
