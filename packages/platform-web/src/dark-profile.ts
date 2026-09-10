@@ -61,4 +61,6 @@ export const darkMaterialProfile: RendererMaterialProfile = {
     liftBlurSigmaCss: 40,
     reducedTransparencyOcclusion: 0.038,
   },
+  sizeHeavyTapSigma: 0,
+  sizeHeavyTapSigma2x: 0,
 };
