@@ -163,7 +163,10 @@ destination in its own place while dematerializing the source, and crossfades
 only their content. It never matches the endpoints' positions or sizes. Reduced
 Motion steps that transition too. Keep the accessible trigger, destination and
 focus behavior supplied by the app's menu or other control primitive; changing
-the material transition does not supply those semantics.
+the material transition does not supply those semantics. In materialize mode the
+render function runs once per endpoint, with that endpoint's `open` value (the
+source still receives `false` while the destination is open). Give content IDs
+that are distinct between endpoints.
 
 The playground's **Dismiss glass / Bring glass back** control demonstrates
 identity. Select **Materialize the Actions menu**, then open **Actions**, to try

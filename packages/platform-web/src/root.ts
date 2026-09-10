@@ -1946,6 +1946,19 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
       for (const { record, bounds } of measured) {
         const nodeRecord = scene.glassNode(record.nodeId);
+        /*
+         * The surface's channels, read once and read EARLY (W27d).
+         *
+         * An inline-style read: the same declaration block a binding wrote into,
+         * never the cascade. It forces no style recalculation, so the zero-read
+         * steady state survives it (see `channels.ts`).
+         *
+         * It is taken at the head of the loop rather than beside the render
+         * input because the presence decides something upstream of both tiers —
+         * whether this surface is a backdrop for anything stacked on it at all.
+         * The driver advanced before this pass, so the value is this frame's.
+         */
+        const channels = readHostChannels(record.host, bounds);
         // `null` clears an inherited tint and `undefined` inherits, so the two
         // cannot be collapsed with `??` — the same distinction core's own
         // resolution makes.
@@ -2246,8 +2259,32 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
          * Only where a backdrop was measured. A surface over a page nobody
          * measured has no output level to state, and stating one would be the
          * guess this file refuses two rules above.
+         *
+         * **And only where the surface is there at all** (W27d; contract X6).
+         * At `materialization` 0 the surface is `Glass.identity` — both tiers
+         * draw no filter, no tint, no rim and no shadow — so what a group above
+         * it looks through to is the page, exactly as if this host had never
+         * been registered. Publishing a composite tone for it would adapt that
+         * group to a material nothing on the screen is drawing, which is the
+         * failure class `backdrop-tone.ts` refuses by name, arriving through the
+         * one door the presence opened.
+         *
+         * The endpoint is what is fixed here, and the transit is a stated
+         * residual: between 0 and 1 the tone published is still the fully
+         * materialized surface's, so a group standing on a surface that is
+         * halfway there adapts as though it were wholly there, and the reading
+         * steps at the end of the transit rather than sliding. The work that
+         * closes it is the same per-term presence fold both tiers already apply
+         * — `interior`'s alpha and added light, the author layer's strength —
+         * carried into this predictor and checked against what the GPU tier
+         * actually renders at that presence, alongside the approximations this
+         * composite already carries (the body's own blur and the shadow's
+         * spread are not in it). It is deferred rather than guessed for that
+         * reason: the fold is a law the runtime already holds and nothing here
+         * would need a new coefficient, but a predictor is only worth what it
+         * has been checked against, and the endpoint needs no check.
          */
-        if (backdropTone !== undefined) {
+        if (backdropTone !== undefined && channels.materialization > 0) {
           painted.push({
             plane: record.plane,
             order: record.order,
@@ -2366,10 +2403,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             ? {}
             : { concentricOf: nodeRecord.descriptor.concentricOf }),
           thickness: record.thickness,
-          // An inline-style read: the same declaration block a binding wrote
-          // into, never the cascade. It forces no style recalculation, so the
-          // zero-read steady state survives it (see `channels.ts`).
-          channels: readHostChannels(record.host, bounds),
+          // Read once at the head of this loop, because the presence in it also
+          // decides whether this surface is a backdrop for anything above it.
+          channels,
           material,
           foreground: foreground ?? { adaptation: { mode: "fixed" } },
           optics: nodeOptics,

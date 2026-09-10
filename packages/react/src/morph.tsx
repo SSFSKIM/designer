@@ -85,7 +85,7 @@ import { GlassSurface } from "./surface";
 export type GlassMorphPlacement = "below-start" | "below-end" | "above-start" | "above-end";
 
 /**
- * Which of Apple's two transitions the pair performs.
+ * Which supported transition the pair performs.
  *
  * `matchedGeometry` is one surface travelling between the two ends' shapes, and
  * the default because it is the stronger claim: nothing crossfades, so nothing
@@ -112,7 +112,7 @@ export interface GlassMorphProps {
   readonly children: (state: GlassMorphState) => ReactNode;
   /** Defaults to `matchedGeometry`. Not meant to change over a pair's life. */
   readonly transition?: GlassMorphTransition | undefined;
-  /** Corner profile of the closed end. The open end must share its reference. */
+  /** Corner profile of the closed end. Matched geometry requires a shared reference. */
   readonly profile?: GlassCornerProfile | undefined;
   readonly openProfile?: GlassCornerProfile | undefined;
   readonly radius?: number | undefined;
@@ -129,7 +129,7 @@ export interface GlassMorphProps {
   readonly className?: string | undefined;
   readonly style?: CSSProperties | undefined;
   readonly "aria-label"?: string | undefined;
-  /** Fired when the geometry settles, with the end it settled at. */
+  /** Fired after geometry, or both material presence and content, reach the requested end. */
   readonly onMorphEnd?: ((open: boolean) => void) | undefined;
 }
 

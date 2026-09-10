@@ -277,8 +277,32 @@ body {
   font-size: 0.8125rem;
 }
 
+/*
+ * The plate and the controls that switch its presence, as one centred column.
+ *
+ * The controls are a sibling of the surface rather than its content, and the
+ * separation is the point: they are on the page's own ink, so they stay legible
+ * at presence 0, when the material whose foreground they would otherwise inherit
+ * is not being drawn at all. The plane's host layer passes pointers through, so
+ * an app-owned block inside it opts back in explicitly — a registered glass host
+ * gets that from the runtime, and this is not one.
+ */
+.presence-stack {
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+}
+
+.presence-controls {
+  display: grid;
+  gap: 0.4rem;
+  justify-items: center;
+  color: var(--ink);
+  font-size: 0.9375rem;
+  pointer-events: auto;
+}
+
 .presence-toggle {
-  margin-top: 0.5rem;
   padding: 0.4rem 0.65rem;
   border: 1px solid currentColor;
   border-radius: 0.4rem;
@@ -299,7 +323,6 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  margin-top: 0.3rem;
   font-size: 0.8125rem;
 }
 
