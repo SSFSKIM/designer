@@ -9,8 +9,10 @@ import {
   cssTierDeclarations,
   foregroundDeclarations,
   foregroundInk,
+  foregroundLevelInks,
   hintedBackdropLuminance,
   CSS_TIER_TOKENS,
+  FOREGROUND_LEVELS,
   type CssTierLayer,
   type CssTierRender,
   type CssTierSurface,
@@ -31,6 +33,7 @@ import {
   cssTierShadowAlpha,
   cssTintAlpha,
   gpuTierForegroundLevel,
+  inkAlphaHoldingContrast,
   occlusionAlphaUnderPolicy,
   OUTER_SHADOW_THIN_L,
   outerShadowAlpha,
@@ -905,7 +908,15 @@ describe("the foreground rule, shared across the tiers", () => {
         policy: NOMINAL_ACCESSIBILITY_POLICY,
         level,
       });
-      expect(Object.keys(declarations)).toEqual(["--vitrea-foreground"]);
+      // The four ink tokens and nothing else. `color` is the key that must never
+      // appear; the three named levels joined the primary in W27a and are pinned
+      // here by name so a fifth cannot arrive unnoticed either.
+      expect(Object.keys(declarations)).toEqual([
+        "--vitrea-foreground",
+        "--vitrea-foreground-secondary",
+        "--vitrea-foreground-tertiary",
+        "--vitrea-foreground-quaternary",
+      ]);
       expect(declarations["--vitrea-foreground"]).toBe(
         foregroundInk({ policy: NOMINAL_ACCESSIBILITY_POLICY, level }),
       );
@@ -919,7 +930,12 @@ describe("the foreground rule, shared across the tiers", () => {
       resolveAccessibilityPolicy(systemWith({ increasedContrast: true })),
       resolveAccessibilityPolicy(systemWith({ forcedColors: true })),
     ]) {
-      expect(Object.keys(foregroundDeclarations({ policy }))).toEqual(["--vitrea-foreground"]);
+      expect(Object.keys(foregroundDeclarations({ policy }))).toEqual([
+        "--vitrea-foreground",
+        "--vitrea-foreground-secondary",
+        "--vitrea-foreground-tertiary",
+        "--vitrea-foreground-quaternary",
+      ]);
     }
 
     // And the full CSS-tier render, which composes the pair in: the tier writes
@@ -953,6 +969,133 @@ describe("the foreground rule, shared across the tiers", () => {
         level: 0.95,
       })["--vitrea-foreground"],
     ).toBe("CanvasText");
+  });
+
+  /**
+   * The three named levels below the primary ink (W27a).
+   *
+   * Apple names four label levels and vitrea published one, so an app with a
+   * caption or a disabled row either wrote it at full strength or invented a
+   * scale against a material it cannot see. The claim under test is not that the
+   * numbers match Apple's — they cannot, because Apple's are calibrated against
+   * a white background and glass is never one — but that the scale is derived
+   * from the level the runtime resolved, and that secondary holds the body-text
+   * floor wherever the material can carry it.
+   */
+  describe("the named ink levels", () => {
+    /** WCAG 2 contrast, restated here so the assertion does not read the code it checks. */
+    const linear = (channel: number): number =>
+      channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+    const relativeLuminance = (rgb: readonly number[]): number =>
+      0.2126 * linear(rgb[0] as number) +
+      0.7152 * linear(rgb[1] as number) +
+      0.0722 * linear(rgb[2] as number);
+    const contrast = (a: number, b: number): number =>
+      (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+
+    /** `rgb(28 28 30 / 0.6)` back into channels and alpha, as the page would read it. */
+    const parse = (declaration: string): { rgb: number[]; alpha: number } => {
+      const parts = /^rgb\((\d+) (\d+) (\d+) \/ ([\d.]+)\)$/.exec(declaration);
+      if (parts === null) throw new Error(`not a level declaration: ${declaration}`);
+      return {
+        rgb: [Number(parts[1]) / 255, Number(parts[2]) / 255, Number(parts[3]) / 255],
+        alpha: Number(parts[4]),
+      };
+    };
+
+    const contrastOf = (declaration: string, level: number): number => {
+      const { rgb, alpha } = parse(declaration);
+      const composited = rgb.map((channel) => alpha * channel + (1 - alpha) * level);
+      return contrast(relativeLuminance(composited), relativeLuminance([level, level, level]));
+    };
+
+    it("publishes three levels beside the primary, on every surface", () => {
+      const host = hostOf(surface);
+      for (const level of FOREGROUND_LEVELS) {
+        expect(host[`--vitrea-foreground-${level}`]).toBeDefined();
+      }
+    });
+
+    it("keeps secondary at or above the WCAG body-text floor, across the whole level range", () => {
+      // Every level a surface can resolve at, on both sides of the crossover.
+      // Apple's flat 0.6 would fail most of these: at an encoded level of 0.665,
+      // the shipped regular material's darkest, 60% of the dark ink is 3.21.
+      for (let level = 0; level <= 1.0001; level += 0.02) {
+        const clamped = Math.min(1, level);
+        const secondary = foregroundLevelInks({
+          policy: NOMINAL_ACCESSIBILITY_POLICY,
+          level: clamped,
+        }).secondary;
+        const holds =
+          inkAlphaHoldingContrast(
+            clamped >= CSS_TIER_MAPPING.foregroundCrossover ? [0x1c, 0x1c, 0x1e] : [0xf5, 0xf5, 0xf7],
+            clamped,
+          ) !== undefined;
+        // Where the primary itself cannot hold 4.5 there is no second level to
+        // give, and secondary collapses onto it rather than publishing a lie.
+        if (!holds) {
+          expect(parse(secondary).alpha, `level ${clamped.toFixed(2)}`).toBe(1);
+          continue;
+        }
+        expect(contrastOf(secondary, clamped), `level ${clamped.toFixed(2)}`).toBeGreaterThanOrEqual(
+          4.5,
+        );
+      }
+    });
+
+    it("is Apple's own 0.6 wherever the material already carries it, and raised where it does not", () => {
+      // The dark appearance's common case: the light ink over a level of 0.23
+      // has 4.5 in hand well below 60%, so nothing is raised and the token is
+      // the platform's own number.
+      expect(foregroundLevelInks({ policy: NOMINAL_ACCESSIBILITY_POLICY, level: 0.23 }).secondary)
+        .toBe("rgb(245 245 247 / 0.6)");
+      // A bright glass surface: 0.6 lands at 4.15 against the floor, so the
+      // published alpha is above it.
+      expect(parse(
+        foregroundLevelInks({ policy: NOMINAL_ACCESSIBILITY_POLICY, level: 0.9 }).secondary,
+      ).alpha).toBeGreaterThan(0.6);
+    });
+
+    it("does not raise tertiary or quaternary, which are not body text", () => {
+      const inks = foregroundLevelInks({ policy: NOMINAL_ACCESSIBILITY_POLICY, level: 0.9 });
+      expect(inks.tertiary).toBe("rgb(28 28 30 / 0.3)");
+      expect(inks.quaternary).toBe("rgb(28 28 30 / 0.18)");
+      // The scale is a scale: raising them to the floor would collapse it.
+      expect(parse(inks.quaternary).alpha).toBeLessThan(parse(inks.tertiary).alpha);
+      expect(parse(inks.tertiary).alpha).toBeLessThan(parse(inks.secondary).alpha);
+    });
+
+    it("follows the ink the crossover chose", () => {
+      const above = foregroundLevelInks({ policy: NOMINAL_ACCESSIBILITY_POLICY, level: 0.9 });
+      const below = foregroundLevelInks({ policy: NOMINAL_ACCESSIBILITY_POLICY, level: 0.1 });
+      expect(above.tertiary).toContain("28 28 30");
+      expect(below.tertiary).toContain("245 245 247");
+    });
+
+    it("keeps light-dark() on both branches where there is no level to decide from", () => {
+      const inks = foregroundLevelInks({ policy: NOMINAL_ACCESSIBILITY_POLICY });
+      expect(inks.secondary).toBe("light-dark(rgb(28 28 30 / 0.6), rgb(245 245 247 / 0.6))");
+      expect(inks.quaternary).toBe("light-dark(rgb(28 28 30 / 0.18), rgb(245 245 247 / 0.18))");
+    });
+
+    it("collapses the scale under the two preferences that asked for more contrast", () => {
+      // Forced colours takes the platform's palette, and a reduced-alpha
+      // CanvasText is what forced colours exists to prevent.
+      const forced = foregroundLevelInks({
+        policy: resolveAccessibilityPolicy(systemWith({ forcedColors: true })),
+        level: 0.9,
+      });
+      for (const level of FOREGROUND_LEVELS) expect(forced[level]).toBe("CanvasText");
+
+      // Increased contrast asked for more, not for three dimmer answers.
+      const contrasted = foregroundLevelInks({
+        policy: resolveAccessibilityPolicy(systemWith({ increasedContrast: true })),
+        level: 0.9,
+      });
+      for (const level of FOREGROUND_LEVELS) {
+        expect(contrasted[level]).toBe("light-dark(#000, #fff)");
+      }
+    });
   });
 
   it("resolves a hint's backdrop level from its luminance, or from its tone", () => {

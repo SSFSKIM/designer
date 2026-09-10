@@ -3817,6 +3817,72 @@ export function gpuTierForegroundBounds(
   return [gpuTierForegroundLevel(source, 0), gpuTierForegroundLevel(source, 1)];
 }
 
+/** WCAG 2 AA for body text. The floor the CSS tier's own pixel suite holds. */
+export const WCAG_BODY_TEXT_CONTRAST = 4.5;
+
+/** WCAG 2 contrast between two relative luminances, either way round. */
+function wcagContrast(a: number, b: number): number {
+  return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+}
+
+/**
+ * The smallest alpha at which `ink` laid over a surface at `level` still holds
+ * `floor` WCAG contrast against it — or `undefined` where even an opaque ink
+ * does not (W27a).
+ *
+ * This is what makes a *named* ink level honest on glass rather than a copy of a
+ * number that was calibrated somewhere else. Apple's `secondaryLabel` is 60%
+ * alpha, and 0.6 is not arbitrary: the platform's ink over the platform's white
+ * background reaches 4.5 at almost exactly that alpha (0.601 by this function at
+ * `level` 1). Glass is never a white background. The material's level runs from
+ * `foregroundCrossover` upward when the ink is dark, so the same 60% lands at
+ * 4.49 over an encoded 1.0 and at 3.21 over the shipped regular material's
+ * darkest reachable level of 0.665 — a copied constant would publish a token
+ * that fails the floor on the material it is published *for*.
+ *
+ * The composite is taken in the page's own space, which is where the browser
+ * composites text: `α·ink + (1 − α)·level` per channel, encoded, then decoded to
+ * relative luminance for the ratio. `level` is treated as neutral, which it is —
+ * it is one scalar and the quantity it stands for is a level, not a colour.
+ *
+ * Bisection rather than a closed form because the ink is not exactly neutral
+ * (`#1c1c1e`, `#f5f5f7`) and inverting the sRGB transfer per channel through the
+ * luminance sum has no useful analytic answer. The ratio is monotone in α, so 30
+ * halvings resolve it to better than a part in 10⁹ — far finer than the 1/255 the
+ * result is written out at.
+ */
+export function inkAlphaHoldingContrast(
+  ink: Rgb255,
+  level: number,
+  floor: number = WCAG_BODY_TEXT_CONTRAST,
+): number | undefined {
+  const surface = luminance([
+    srgbDecode(level),
+    srgbDecode(level),
+    srgbDecode(level),
+  ]);
+  const contrastAt = (alpha: number): number =>
+    wcagContrast(
+      luminance([
+        srgbDecode(alpha * (ink[0] / 255) + (1 - alpha) * level),
+        srgbDecode(alpha * (ink[1] / 255) + (1 - alpha) * level),
+        srgbDecode(alpha * (ink[2] / 255) + (1 - alpha) * level),
+      ]),
+      surface,
+    );
+
+  if (contrastAt(1) < floor) return undefined;
+
+  let low = 0;
+  let high = 1;
+  for (let step = 0; step < 30; step += 1) {
+    const mid = (low + high) / 2;
+    if (contrastAt(mid) >= floor) high = mid;
+    else low = mid;
+  }
+  return high;
+}
+
 /**
  * The renderer's own per-variant optics under a profile patch — the mirror,
  * merged, before the tier conversion.

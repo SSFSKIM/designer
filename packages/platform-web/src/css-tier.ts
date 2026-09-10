@@ -110,6 +110,8 @@ import {
   cssTierHeavyStepSigmaCssPx,
   cssTierSharpSigmaCssPx,
   foldedOverlay,
+  inkAlphaHoldingContrast,
+  WCAG_BODY_TEXT_CONTRAST,
   scatterDeepThickness,
   scatterRampReachDevicePx,
   scatterFloorAtScale,
@@ -140,8 +142,74 @@ const CSS_TIER_TINT_FLOOR_ALPHA = 0.2668228970218852;
 /** The two ink tokens the adaptive foreground chooses between. */
 export const FOREGROUND_INK = { dark: "#1c1c1e", light: "#f5f5f7" } as const;
 
+/** The same two inks as channels, so a reduced-alpha level can be written from them. */
+const FOREGROUND_INK_CHANNELS: Readonly<Record<"dark" | "light", Rgb255>> = {
+  dark: [0x1c, 0x1c, 0x1e],
+  light: [0xf5, 0xf5, 0xf7],
+};
+
 /** What a surface with nothing to decide from keeps: `color-scheme` decides instead. */
 const FOREGROUND_DEFAULT = `light-dark(${FOREGROUND_INK.dark}, ${FOREGROUND_INK.light})`;
+
+/**
+ * The three named levels below the primary ink — Apple's `secondaryLabel`,
+ * `tertiaryLabel` and `quaternaryLabel`, on vitrea's material (W27a).
+ *
+ * One foreground level per surface was never the whole of what an interface
+ * needs: a caption, a disabled row, a separator's label all sit *under* the
+ * primary ink, and an app with one token either writes all of them at full
+ * strength or invents its own scale against a material it cannot see. These are
+ * the same ink at reduced alpha, published beside `--vitrea-foreground` on both
+ * tiers, so the scale is derived from the level the runtime resolved rather than
+ * guessed against it.
+ */
+export const FOREGROUND_LEVELS = ["secondary", "tertiary", "quaternary"] as const;
+
+export type ForegroundLevel = (typeof FOREGROUND_LEVELS)[number];
+
+/**
+ * Apple's own label alphas, and why they cannot simply be copied.
+ *
+ * `secondaryLabel` is 60% of the label colour, `tertiaryLabel` 30%,
+ * `quaternaryLabel` 18% (16% in the dark appearance; one number is published
+ * here, because the token's two branches are the two *inks* and the difference
+ * between 0.18 and 0.16 is a quarter of an 8-bit step at this ink's contrast).
+ *
+ * 0.6 is not an arbitrary number: the platform's ink over the platform's white
+ * background reaches WCAG's 4.5 body-text floor at almost exactly that alpha
+ * (`inkAlphaHoldingContrast` says 0.601 at level 1). **Glass is never a white
+ * background.** The dark ink is chosen where the level runs from
+ * `foregroundCrossover` upward, and 60% of it lands at 4.49 over an encoded 1.0
+ * and 3.21 over the shipped regular material's darkest reachable level of 0.665.
+ * Publishing 0.6 flat would publish a token that fails the floor on the very
+ * material it is published for.
+ *
+ * So **secondary is raised to whatever holds the floor at this surface's own
+ * level**, and is Apple's 0.6 wherever that already does — which is most of the
+ * dark appearance, where the light ink over a level of 0.23 has 4.5 in hand at
+ * 0.47. Where even an opaque ink misses the floor, secondary collapses onto the
+ * primary: a surface whose *first* level cannot carry body text has no second
+ * one to offer, and saying so is better than publishing a level that lies.
+ *
+ * Tertiary and quaternary are **not** raised. WCAG's 4.5 is the body-text floor
+ * and these two are not body text — they are Apple's own supporting and
+ * decorative tiers — so lifting them to it would collapse the whole scale onto
+ * one value and destroy the thing being published. What they get instead is the
+ * floor stated (here, and in the README) and, for quaternary, the diagnostic
+ * Apple's own guidance asks for: it is too low-contrast on a thin material.
+ */
+const FOREGROUND_LEVEL_ALPHA: Readonly<Record<ForegroundLevel, number>> = {
+  secondary: 0.6,
+  tertiary: 0.3,
+  quaternary: 0.18,
+};
+
+/** `--vitrea-foreground-secondary` and its two siblings, in level order. */
+export const FOREGROUND_LEVEL_TOKENS = {
+  secondary: "--vitrea-foreground-secondary",
+  tertiary: "--vitrea-foreground-tertiary",
+  quaternary: "--vitrea-foreground-quaternary",
+} as const satisfies Record<ForegroundLevel, string>;
 
 /**
  * The custom properties the tier publishes. A GPU-tier surface writes the same
@@ -154,6 +222,9 @@ export const CSS_TIER_TOKENS = [
   "--vitrea-border-color",
   "--vitrea-blur",
   "--vitrea-foreground",
+  FOREGROUND_LEVEL_TOKENS.secondary,
+  FOREGROUND_LEVEL_TOKENS.tertiary,
+  FOREGROUND_LEVEL_TOKENS.quaternary,
 ] as const;
 
 export type CssTierToken = (typeof CSS_TIER_TOKENS)[number];
@@ -754,7 +825,128 @@ export function foregroundDeclarations(input: {
   readonly level?: number;
   readonly mapping?: CssTierMapping;
 }): StyleDeclarations {
-  return { "--vitrea-foreground": foregroundInk(input) };
+  const primary = foregroundInk(input);
+  const levels = foregroundLevelInks(input);
+  return {
+    "--vitrea-foreground": primary,
+    [FOREGROUND_LEVEL_TOKENS.secondary]: levels.secondary,
+    [FOREGROUND_LEVEL_TOKENS.tertiary]: levels.tertiary,
+    [FOREGROUND_LEVEL_TOKENS.quaternary]: levels.quaternary,
+  };
+}
+
+/**
+ * `rgb(28 28 30 / 0.6)` — the modern syntax, which every engine vitrea targets
+ * parses. Rounded **up** rather than to nearest: the third decimal is finer than
+ * an 8-bit step, and a value a hair more opaque than the solve is the only side
+ * of it a contrast floor may land on.
+ */
+const inkAtAlpha = (ink: Rgb255, alpha: number): string =>
+  `rgb(${ink[0]} ${ink[1]} ${ink[2]} / ${Math.ceil(Math.min(1, alpha) * 1000) / 1000})`;
+
+/**
+ * The alpha one named level is published at, against the level it sits on.
+ *
+ * See `FOREGROUND_LEVEL_ALPHA` for where the numbers come from and why only
+ * secondary is raised. `undefined` from `inkAlphaHoldingContrast` means an
+ * opaque ink misses the floor at this level too, and there `1` is the honest
+ * answer rather than the largest number below it.
+ */
+function alphaFor(level: ForegroundLevel, ink: Rgb255, surfaceLevel: number): number {
+  const nominal = FOREGROUND_LEVEL_ALPHA[level];
+  if (level !== "secondary") return nominal;
+  const holding = secondaryFloorAlpha(ink, surfaceLevel);
+  return holding === undefined ? 1 : Math.max(nominal, holding);
+}
+
+/**
+ * `inkAlphaHoldingContrast`, memoised on the level quantised to the precision
+ * the answer is written out at.
+ *
+ * These declarations are recomputed for every surface on every frame — the tier
+ * writes its whole material each frame so that nothing can be left stale — and
+ * the solve is thirty halvings over three `Math.pow` each. The result is rounded
+ * to three decimals in the declaration, so a level finer than 1/2048 cannot
+ * change what is written; keying on that makes the cache bounded (a couple of
+ * thousand entries at the very worst) and the steady state a map lookup.
+ *
+ * The quantisation rounds **toward the harder level**, not to the nearest one:
+ * the required alpha rises as the ink and the surface converge, so the dark ink
+ * is solved at the level below and the light ink at the level above. A cache
+ * that rounded to nearest would publish an alpha a hair under the floor half the
+ * time, which is the one error a contrast floor may not make.
+ */
+const secondaryFloorAlphas = new Map<number, number | undefined>();
+
+function secondaryFloorAlpha(ink: Rgb255, surfaceLevel: number): number | undefined {
+  const clamped = Math.min(1, Math.max(0, surfaceLevel));
+  const dark = ink === FOREGROUND_INK_CHANNELS.dark;
+  const quantised = dark ? Math.floor(clamped * 2048) : Math.ceil(clamped * 2048);
+  // The ink is a function of the level (the crossover decides it), so the level
+  // alone is a complete key — but the two inks are keyed apart anyway, because a
+  // caller reaching this with the other one would otherwise read a wrong answer
+  // rather than an approximate one.
+  const key = dark ? quantised : quantised + 4096;
+  if (secondaryFloorAlphas.has(key)) return secondaryFloorAlphas.get(key);
+  const solved = inkAlphaHoldingContrast(ink, quantised / 2048, WCAG_BODY_TEXT_CONTRAST);
+  secondaryFloorAlphas.set(key, solved);
+  return solved;
+}
+
+/**
+ * The three named levels, in the same four regimes the primary ink resolves in
+ * (W27a). Split out of `foregroundDeclarations` so the arithmetic is testable on
+ * its own, exactly as `foregroundInk` is.
+ *
+ * Two regimes publish the primary ink unchanged at every level, and both are
+ * accessibility rather than aesthetics. Under **forced colours** there is no
+ * glass and the palette is the platform's; a reduced-alpha `CanvasText` is
+ * precisely the thing forced colours exists to prevent. Under **increased
+ * contrast** the preference asked for more contrast, and answering it with three
+ * dimmer inks would be answering the opposite question. In both the scale
+ * collapses, deliberately, and an app that reads a level token gets a legible
+ * colour rather than nothing.
+ *
+ * With **no level to decide from** the primary is `light-dark()`, so these are
+ * too, one branch per ink at Apple's own alphas: there is no resolved level to
+ * check the floor against, and it is stated here that the check does not run.
+ */
+export function foregroundLevelInks(input: {
+  readonly policy: ResolvedAccessibilityPolicy;
+  readonly level?: number;
+  readonly mapping?: CssTierMapping;
+}): Readonly<Record<ForegroundLevel, string>> {
+  const mapping = input.mapping ?? CSS_TIER_MAPPING;
+  const { material } = input.policy;
+  const flat = (value: string): Readonly<Record<ForegroundLevel, string>> => ({
+    secondary: value,
+    tertiary: value,
+    quaternary: value,
+  });
+
+  if (material.glass === "none") return flat("CanvasText");
+  if (material.foreground === "near-monochrome") return flat("light-dark(#000, #fff)");
+
+  if (input.level === undefined) {
+    const branch = (level: ForegroundLevel): string =>
+      `light-dark(${inkAtAlpha(FOREGROUND_INK_CHANNELS.dark, FOREGROUND_LEVEL_ALPHA[level])}, ${inkAtAlpha(FOREGROUND_INK_CHANNELS.light, FOREGROUND_LEVEL_ALPHA[level])})`;
+    return {
+      secondary: branch("secondary"),
+      tertiary: branch("tertiary"),
+      quaternary: branch("quaternary"),
+    };
+  }
+
+  const surfaceLevel = input.level;
+  const ink =
+    surfaceLevel >= mapping.foregroundCrossover
+      ? FOREGROUND_INK_CHANNELS.dark
+      : FOREGROUND_INK_CHANNELS.light;
+  return {
+    secondary: inkAtAlpha(ink, alphaFor("secondary", ink, surfaceLevel)),
+    tertiary: inkAtAlpha(ink, alphaFor("tertiary", ink, surfaceLevel)),
+    quaternary: inkAtAlpha(ink, alphaFor("quaternary", ink, surfaceLevel)),
+  };
 }
 
 /**

@@ -52,6 +52,78 @@ export const INK_RULE = `:where([${HOST_ATTRIBUTES.node}]) { color: var(--vitrea
 /** Marks the element so a second root finds it instead of adding another. */
 export const INK_STYLESHEET_ATTRIBUTE = "data-vitrea-ink-stylesheet";
 
+/**
+ * Whether this document's own CSS names a token — the cheapest honest way to
+ * tell that an app has opted into one of the published ink levels (W27a).
+ *
+ * There is no mechanism that observes a custom property being *read*: a `var()`
+ * resolves during style computation and leaves no trace an author's code, or
+ * ours, can query. What can be observed is the text of the rules the document
+ * carries, and for a dev-mode finding that is enough — the question being asked
+ * is "is this page using the quaternary level anywhere, on a page that also has
+ * a surface too thin to carry it", which is a question about the document.
+ *
+ * What it cannot see, stated rather than implied: a cross-origin stylesheet
+ * (reading `cssRules` throws and the sheet is skipped), a token written into an
+ * inline `style` attribute, and a rule edited in place inside a sheet the page
+ * already had. All three are false negatives, which is the right direction for
+ * an advisory to be wrong in. The one false positive it can produce is a rule
+ * that names the token and never matches a glass surface — and the finding is
+ * phrased as the pair it actually found, not as a claim about one element.
+ *
+ * Cached per document and per token, and the cache is valid exactly while the
+ * sheet **list** is the one the answer was taken over — compared by identity,
+ * element by element, rather than by count. A count would be cheaper and wrong
+ * in the case an app actually produces: one sheet leaving as another arrives is
+ * what a theme swap is, and it holds the count still.
+ *
+ * That comparison is a few object identities per call, against a scan that walks
+ * every rule in the page. Doing it on the way in is why this needs no
+ * `MutationObserver` on the head — a subscription every page would pay for, to
+ * answer a question almost none of them ask.
+ */
+interface TokenScan {
+  readonly sheets: readonly CSSStyleSheet[];
+  readonly found: boolean;
+}
+
+const tokenScans = new WeakMap<Document, Map<string, TokenScan>>();
+
+const sameSheets = (a: readonly CSSStyleSheet[], b: readonly CSSStyleSheet[]): boolean =>
+  a.length === b.length && a.every((sheet, index) => sheet === b[index]);
+
+export function documentStylesNameToken(document: Document, token: string): boolean {
+  const cache = tokenScans.get(document) ?? new Map<string, TokenScan>();
+  tokenScans.set(document, cache);
+  const sheets = Array.from(document.styleSheets);
+  const prior = cache.get(token);
+  if (prior !== undefined && sameSheets(prior.sheets, sheets)) return prior.found;
+
+  let found = false;
+  for (const sheet of sheets) {
+    let rules: CSSRuleList | undefined;
+    try {
+      rules = sheet.cssRules;
+    } catch {
+      // A cross-origin sheet. Not readable, and not this package's to complain
+      // about — the app is entitled to load one.
+      continue;
+    }
+    // A grouping rule's `cssText` carries its children's, so `@media` and
+    // `@supports` blocks need no descent of their own.
+    for (const rule of Array.from(rules)) {
+      if (rule.cssText.includes(token)) {
+        found = true;
+        break;
+      }
+    }
+    if (found) break;
+  }
+
+  cache.set(token, { sheets, found });
+  return found;
+}
+
 export interface InkStylesheetHandle {
   /** The element carrying the rule — exposed so a test can read it back. */
   readonly element: HTMLStyleElement;

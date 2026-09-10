@@ -414,6 +414,9 @@ The properties it publishes, on every host, on **both** tiers:
 | Property | What it carries |
 | --- | --- |
 | `--vitrea-foreground` | The ink the runtime resolved as readable on the material this group is drawing. |
+| `--vitrea-foreground-secondary` | The same ink, reduced — Apple's `secondaryLabel`. Holds WCAG 4.5 against this surface. |
+| `--vitrea-foreground-tertiary` | Apple's `tertiaryLabel`. Supporting text; below the body-text floor. |
+| `--vitrea-foreground-quaternary` | Apple's `quaternaryLabel`. Separators and decoration; **not** for text. |
 | `--vitrea-tint` | The tint colour, with its alpha. |
 | `--vitrea-occlusion` | That alpha on its own, `0`–`1`. |
 | `--vitrea-border-color` | The rim colour. |
@@ -426,7 +429,36 @@ that published nothing degrades to your design rather than to nothing:
 .my-panel__label {
   color: var(--vitrea-foreground, var(--my-ink));
 }
+.my-panel__caption {
+  color: var(--vitrea-foreground-secondary, var(--my-ink-secondary));
+}
 ```
+
+### What the four ink levels guarantee, and what they do not
+
+Apple names four label levels and gives them fixed alphas — 60%, 30%, 18% of the
+label colour. Those numbers are calibrated against the platform's *background*,
+which is essentially white, and glass never is: 60% of vitrea's dark ink reaches
+WCAG's 4.5 body-text floor over an encoded level of 1.0 and only 3.21 over the
+shipped regular material's darkest. So vitrea does not copy them flat.
+
+- **`--vitrea-foreground-secondary` holds 4.5** against the level this surface
+  actually resolved at. It is Apple's 60% wherever that already clears the floor
+  — most of the dark appearance — and raised where it does not. On a surface
+  whose *primary* ink cannot hold 4.5 either, secondary collapses onto the
+  primary: there is no second readable level there, and publishing one would be
+  a lie your users would find before you did.
+- **Tertiary and quaternary carry no floor.** They are Apple's supporting and
+  decorative tiers, they are not body text, and lifting them to 4.5 would
+  collapse the whole scale onto one value. Use tertiary for text a reader may
+  skip, and quaternary for separators, placeholders and decorative glyphs.
+- **Quaternary on a thin surface is what Apple explicitly warns about.** In dev
+  mode, a page whose CSS names `--vitrea-foreground-quaternary` while a surface
+  resolves below the material's thin/thick knee gets a diagnostic naming the
+  pair. It changes nothing — the token is published either way.
+- Under **forced colours** all four are `CanvasText`, and under **increased
+  contrast** all four are the near-monochrome ink. A preference that asked for
+  more contrast does not get three dimmer answers.
 
 **Your own `color` rule on the host wins.** The runtime's ink reaches the host
 through a single zero-specificity rule (`:where([data-vitrea-node])`) installed

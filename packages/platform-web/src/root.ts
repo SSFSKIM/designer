@@ -74,6 +74,7 @@ import {
   cssTierDeclarations,
   foregroundDeclarations,
   hintedBackdropLuminance,
+  FOREGROUND_LEVEL_TOKENS,
   CSS_TIER_TWO_LAYER_AREA_BUDGET_DEVICE_PX,
   type CssTierEngineCapabilities,
   type CssTierInterior,
@@ -117,7 +118,11 @@ import {
   type GlassHostOptions,
   type GlassHostPatch,
 } from "./host";
-import { installInkStylesheet, type InkStylesheetHandle } from "./ink-stylesheet";
+import {
+  documentStylesNameToken,
+  installInkStylesheet,
+  type InkStylesheetHandle,
+} from "./ink-stylesheet";
 import { checkLayerModel } from "./layer-model";
 import { createLayoutReadMeter, flushStyle, type LayoutReadMeter, type ViewportReading } from "./measure";
 import {
@@ -907,6 +912,33 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       severity: "warning",
       subjects: [nodeId],
       message: `Host "${nodeId}" declared four different corner radii ([${radii.join(", ")}]), and v1 renders them differently on each tier: the CSS tier draws all four through border-radius, and the WebGPU tier resolves the shape against ${String(radii[0])} on every corner, because v1's corner algebra is mirror-symmetric by construction (X8 rider 3). Give the surface one radius until per-corner radii land, or accept that the two tiers will not agree on this surface.`,
+    });
+  };
+
+  /**
+   * Apple's floor on the fourth ink level, named where it is reachable (W27a).
+   *
+   * The pair that makes a finding is a surface below the material's thin/thick
+   * knee and a document that styles something with
+   * `--vitrea-foreground-quaternary`. Both halves are checked at the call site's
+   * expense rather than here — the thickness because the caller has it, the
+   * document scan because it is the expensive half and must not run on a page
+   * with no thin glass.
+   *
+   * It reports and changes nothing. The token stays published: an app that has
+   * weighed the trade-off for a separator, a decorative glyph or a placeholder
+   * gets the level it asked for, and a runtime that silently substituted the
+   * tertiary one would be making a design decision it was not asked to make.
+   */
+  const reportQuaternaryOnThinMaterial = (nodeId: string, spanPx: number): void => {
+    if (!documentStylesNameToken(view.document, FOREGROUND_LEVEL_TOKENS.quaternary)) return;
+
+    const knee = (sizeConstants.sizeSpanMin + sizeConstants.sizeSpanMax) / 2;
+    platformDiagnostics.report({
+      code: "quaternary-ink-on-thin-material",
+      severity: "warning",
+      subjects: [nodeId],
+      message: `Surface "${nodeId}" has a span of ${String(Math.round(spanPx))} CSS px, below the material's thin/thick knee at ${String(Math.round(knee))}, and this document styles something with ${FOREGROUND_LEVEL_TOKENS.quaternary}. Apple documents the quaternary label level as too low-contrast to read on a thin material — it carries no WCAG floor, unlike ${FOREGROUND_LEVEL_TOKENS.secondary}, which vitrea raises to hold 4.5 against whatever level this surface resolved at. The token is still published: use ${FOREGROUND_LEVEL_TOKENS.tertiary} for anything a reader has to read here, and keep quaternary for a separator or a decorative glyph. This finding is about the page rather than this element — vitrea can see that a rule names the token, not which element it lands on.`,
     });
   };
 
@@ -2564,6 +2596,32 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             }
             record.gpuForegroundApplied = serialisedInk;
           }
+        }
+
+        /*
+         * Apple's floor on the fourth ink level, on the one surface population it
+         * names (W27a).
+         *
+         * `quaternaryLabel` is documented as too low-contrast to read on a thin
+         * material, and vitrea knows exactly which surfaces those are: the size
+         * law's `sizeThickness` is 0 at and below `sizeSpanMin` and 1 at and
+         * above `sizeSpanMax`, so its midpoint IS the material's thin/thick knee
+         * and `surfaceThickness < 0.5` is "below it" without a second constant.
+         *
+         * Advisory, and the token is published either way. An app that has
+         * weighed the trade-off for a separator, a decorative glyph or a
+         * placeholder is entitled to the level; what it is not entitled to is
+         * finding out from a user. Raised per node and deduped by the channel, so
+         * a page of thin surfaces says it once each rather than once a frame.
+         *
+         * The opt-in is read from the document's own stylesheets rather than from
+         * this element, because a `var()` leaves nothing to observe on the
+         * element — see `documentStylesNameToken` for what that can and cannot
+         * see. The scan runs only once a thin surface exists, so a page with no
+         * thin glass never pays for it.
+         */
+        if (devMode && surfaceThickness < 0.5) {
+          reportQuaternaryOnThinMaterial(record.nodeId, Math.min(bounds.width, bounds.height));
         }
       }
 
