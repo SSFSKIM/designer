@@ -209,7 +209,10 @@ into the ledger rather than chartered.
 - **Contracts:** X2, X5.
 - **Design inheritance:** §Where each feature lives (the partition; prominent held).
 - **Required:** yes — acceptance 1, 2.
-- **Status:** not-dispatched (blocked-by W27a).
+- **Status:** CLOSED 2026-09-10 (worktree agent, on `main` at `bc14af9`). The rule landed as
+  written; the gap's *number* is derived from the material rather than from the two constants
+  §Design names, which were σ = 8's and are no longer the material's — see Surprises and
+  Revision Notes.
 
 ### W27c: Window activation — controlled
 
@@ -401,7 +404,7 @@ neighbour glow diffusion; topology-changing morphs.
 | child | where | status |
 | --- | --- | --- |
 | W27a | worktree agent, dispatched 2026-09-10 | in-flight |
-| W27b | — | not-dispatched (blocked-by W27a) |
+| W27b | worktree agent, 2026-09-10 | CLOSED 2026-09-10 (one `role="toolbar"`, N groups; `GlassToolbarSpacer` and `sharedBackground="hidden"` as one partition rule; the gap derived through `samplingPaddingFor`; the playground's hand split rewritten on the API; goldens and the resting bed unmoved) |
 | W27c | G0 CLOSED 2026-09-10 (merged `7312fd0`; claims §5.128: all 121 pairs read; the outer shadow and the bright rim go to zero in every profile at both scales, structure retained falls, an author tint loses its hue entirely while its darkening stays — orange and blue capsules both settle at Y 0.451 against the untinted 0.606 — and no existing field expresses that; dark untinted glass and both accessibility bodies *brighten*; four cells background-identical; the 2x dark photo capsule's active side is the 1-of-17 minority state and is excluded from the fit) / G1 dispatched 2026-09-10 | G1 in-flight |
 | W27d | — | not-dispatched (blocked-by W27a) |
 | W27e | — | not-dispatched (deliberately late) |
@@ -473,6 +476,18 @@ neighbour glow diffusion; topology-changing morphs.
   both baselines. The unhinted dark capsule misses collapse (0.54523 ΔE); the correctly hinted dark
   medium pane misses the body's level instead (0.07851 against sampled 0.00877). The nominal white
   unsampled pair is subsequently adapted and tinted by the shader, not its final measured colour.
+- **The "24 CSS px at nominal σ 8, 42 under Reduce Transparency" in §Design is a reading of a
+  material the project no longer draws** (W27b). Both numbers are 3σ at σ = 8, which was this
+  tier's blur when S1 wrote the padding rule; the recalibration cascade refitted σ, and W11c G1
+  and W16 G1 moved the proxy's own σ to the scatter law over each group's members. The number a
+  layout has to clear today is **not** a constant of the policy at all: at the shipped profile it
+  reads 11.10 CSS px for a group with nothing measured, 11.84 at a 44 px control's span and 21.45
+  at a 160 px one, and 22.46 / 23.04 / 30.61 for the same three under Reduce Transparency. So the
+  binding sentence's *mechanism* — read it from the resolved policy, never a constant — landed
+  exactly as written, and its parenthetical is history rather than a target. The derivation is
+  `samplingPaddingFor` (`platform-web/src/optics.ts`), which is the frame loop's own composition;
+  §Design's numbers are left standing beside this note rather than rewritten, per the repo's rule
+  about recorded readings.
 - **`Glass.clear`'s dimming layer is painted by no renderer** (re-score §3): the variant resolves,
   warns and tints; `ResolvedMaterial.dimming` is produced and consumed by nobody. Logged to the
   tracker at this cut; not a child of this wave.
@@ -482,6 +497,52 @@ neighbour glow diffusion; topology-changing morphs.
 Pending — written at recomposition against §Parent-Level Acceptance.
 
 ## Revision Notes
+
+- 2026-09-10, **W27b CLOSED**. `GlassToolbar` partitions its children into sampling groups at
+  each `GlassToolbarSpacer` and at each item declaring `sharedBackground="hidden"`; one
+  `role="toolbar"`, N groups (X5). Each partition takes the toolbar's `groupProps`, with the
+  inherited `id` suffixed per partition (`toolbar`, `toolbar-1`, …) so an unsplit toolbar
+  registers exactly the id it always did, and a hidden item may carry its own `groupProps`,
+  whose `id` is taken as written. `GlassToolbarItemProps` is published so a control the library
+  did not write can declare the pair; `GlassButton` drops them rather than handing them to the
+  element. `GlassToolbarSpacer` (`kind="fixed" | "flexible"`) opens a *minimum*, written as
+  `min-width` (or `min-height`) so a container `gap`, a margin or an authored width add to it.
+  - **The gap.** `samplingPaddingFor({ members, material })` is new in `vitrea-web` and is the
+    frame loop's own composition, extracted: `root.ts` now resolves each group's σ through
+    `proxySamplingSigma` and the toolbar reads the padding through the same law, so there is one
+    home for it instead of a second reading in the binding. The toolbar passes **its own measured
+    box** in place of members it has not measured; the law is monotone in a member's span and in
+    its extents (pinned in `proxy-geometry.test.ts`), so a box that contains the members bounds
+    their padding rather than estimating it. Before the first measurement the box is empty, which
+    is the projection at span 0 — the floor every group starts at.
+  - **Evidence.** `react/test/toolbar-partition.test.tsx` (15 tests: the partition, the ids, the
+    merge, the protocol props never reaching the DOM, the roving order across a split, the
+    derivation under both policies, and — on the two functions the runtime resolves proxies with
+    — that neither partition's padded box reaches the other's shapes at either policy).
+    `platform-web/test/proxy-geometry.test.ts` (+6) pins the law and its monotonicity.
+    `platform-web/e2e/shared/accessible-padding.spec.ts` puts the derived gap between the two
+    groups of the demo-shaped scene on **real proxies** at both accessibility states and finds
+    `proxy-overlap-after-enforcement` silent — in the same scene the spec above it shows the
+    finding present at a tighter gap. `react/e2e/toolbar-partition.spec.ts` (three engines)
+    asserts the split on the playground, and `semantics.spec.ts`'s arrow-order tests now measure
+    that order *across* a live split without a line changing.
+  - **The demo.** The playground's hand split — an explicit `GlassGroup` plus a 3.5rem margin —
+    is now a flexible spacer and a hidden item with `groupProps={{ id: "toolbar-menu" }}`, so the
+    capabilities panel keeps the group name it reads. No control was added or renamed: the
+    acceptance suite's pinned arrow order is untouched. The one sentence kept from the retired
+    comment is the morph's pre-measurement transient (DESIGN.md §9), which is a second reason the
+    menu wants its own group.
+  - **Unmoved.** The 33 renderer goldens are byte-identical; the resting bed is unchanged
+    (calibration 313, `tier-coherence` and `adopted-thresholds` unaltered), because the frame
+    loop's σ is the same composition in the same order. Suites: build and lint green across the
+    workspace; unit 2025 across eight packages (policy 23, motion 162, geometry 170,
+    renderer-webgpu 448, core 302, platform-web 484, react 123, calibration 313);
+    `platform-web` Playwright 388; `vitrea-react` e2e 114 (3 skipped); demo e2e 48.
+  - **Deferred (small).** The gap bounds members the toolbar's own box contains. A member that
+    escapes it — absolutely positioned out of the row, or a promoted platter measured in the same
+    plane — is not bounded by the derivation, and is left to the `proxy-overlap-after-enforcement`
+    diagnostic that already names it. A cross-toolbar gap (two `GlassToolbar`s side by side) is
+    likewise the author's, unchanged by this child.
 
 - 2026-09-10, W27f G0: measured 20 light-1x calibration scenes and the two requested stack
   holdout cells in six web configurations, with unhinted and identical-hint controls kept separate;

@@ -14,7 +14,7 @@
  * two partitions is a measured distance.
  */
 
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
 import { gotoPlayground } from "./support";
 
@@ -25,10 +25,13 @@ test.beforeEach(async ({ page }) => {
 });
 
 /** The group a control's own glass host registered in. */
-const groupOf = (page: import("@playwright/test").Page, name: string) =>
+const groupOf = (page: Page, name: string): Promise<string | null | undefined> =>
   page
     .getByRole("button", { name })
-    .evaluate((element, attribute) => element.closest(`[${attribute}]`)?.getAttribute(attribute), GROUP_ATTRIBUTE);
+    .evaluate(
+      (element, attribute) => element.closest(`[${attribute}]`)?.getAttribute(attribute),
+      GROUP_ATTRIBUTE,
+    );
 
 test("one toolbar, two sampling groups", async ({ page }) => {
   await expect(page.getByRole("toolbar")).toHaveCount(1);
