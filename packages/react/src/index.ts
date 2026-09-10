@@ -60,6 +60,7 @@ export {
   GlassToolbarSpacer,
   TOOLBAR_ITEM_ATTRIBUTE,
   useToolbarItem,
+  withoutToolbarItemProps,
   type GlassToolbarItemProps,
   type GlassToolbarProps,
   type GlassToolbarSpacerProps,

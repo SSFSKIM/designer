@@ -413,7 +413,10 @@ both halves moving together.
 
 **Composition helpers** — `renderAsChild`, `composeRefs`, `mergeSlotProps` for
 `asChild` seams; `radiiFor`, `smoothingFor`, `capsuleRadius`,
-`cornerReferenceFor`, `assertSharedCornerReference` for shapes.
+`cornerReferenceFor`, `assertSharedCornerReference` for shapes;
+`withoutToolbarItemProps`, which a control of your own that declares
+`GlassToolbarItemProps` uses to drop the pair before it spreads the rest onto an
+element.
 
 **Types** — `GlassColorScheme` and `ResolvedColorScheme`, re-exported from the
 runtime so a `colorScheme` prop of your own can be typed without installing it;

@@ -556,7 +556,19 @@ Pending — written at recomposition against §Parent-Level Acceptance.
     motion 162, geometry 170, renderer-webgpu 448, core 302, platform-web 484, react 124,
     calibration 313); `platform-web` Playwright 388; `vitrea-react` e2e 114 (3 skipped);
     demo e2e 48.
-  - **Deferred (small).** The gap bounds members the toolbar's own box contains. A member that
+  - **Deferred (small).** A partition boundary that *moves* at runtime — a conditionally
+    rendered spacer, an item flipping `sharedBackground` — moves the affected members between two
+    context providers, and React remounts an element that changes parent. Measured: the groups
+    re-derive correctly (`toolbar`, `toolbar-1`, `toolbar-2` → `toolbar`, `toolbar`, `toolbar-1`)
+    and nothing leaks, but the moved member's DOM node is rebuilt and focus in it is lost. Avoiding
+    it means one provider per child with the group's handle lifted out of `GlassGroup`, which is a
+    change to that component's contract for a case the partition is not meant to serve; the
+    behaviour is documented at the rule instead. `samplingPaddingFor` reads the *shipped*
+    material, so a root whose profile has been patched through `applyMaterialProfile` — the
+    calibration path — derives its gap from constants the renderer is no longer drawing with;
+    the function says so and the frame loop's own `proxySamplingSigma` takes the patch, which is
+    the seam a future caller with a profile in scope would use. The gap also bounds only the
+    members the toolbar's own box contains. A member that
     escapes it — absolutely positioned out of the row, or a promoted platter measured in the same
     plane — is not bounded by the derivation, and is left to the `proxy-overlap-after-enforcement`
     diagnostic that already names it. A cross-toolbar gap (two `GlassToolbar`s side by side) is

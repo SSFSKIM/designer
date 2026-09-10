@@ -27,6 +27,14 @@
  * roving tab stop over the whole document by plane anchors, so it never saw the
  * grouping in the first place. Union and proxies were already per group.
  *
+ * The partition is **structural, not animated**. Moving a boundary at runtime —
+ * rendering a spacer conditionally, flipping an item's `sharedBackground` —
+ * moves the members that changed partition between two providers, and React
+ * remounts an element that changes parent: the groups re-derive correctly and
+ * nothing leaks, but that member's DOM node is rebuilt, so focus and any
+ * uncontrolled DOM state in it do not survive the change. Decide a toolbar's
+ * partition the way its item set is decided, not per frame.
+ *
  * The one thing a partition must buy is room. Two adjacent groups each sample a
  * padded region around their own shapes, and where one group's padded box covers
  * the other's shapes the backdrop filter applies twice over the overlap
@@ -243,6 +251,13 @@ const idAt = (base: string, index: number): string => (index === 0 ? base : `${b
  * with no members would register a proxy over nothing. A toolbar whose children
  * are *all* spacers keeps one partition all the same, so that asking for a group
  * and getting one does not depend on what is in the row this render.
+ *
+ * Boundaries are read off the toolbar's own children, which is what
+ * `Children.toArray` hands back: an array from a `map` is flattened into it and a
+ * `{cond && <GlassToolbarSpacer />}` resolves into it, but a spacer inside a
+ * fragment or a wrapper element is that element's child and not the toolbar's,
+ * so it spaces without splitting. Nesting a boundary is not a way of hiding one;
+ * it is the same rule every toolbar API has about what its items are.
  */
 function partitionChildren(children: ReactNode): readonly ToolbarSlot[] {
   const slots: ToolbarSlot[] = [];
@@ -520,19 +535,39 @@ export function GlassToolbar(props: GlassToolbarProps): ReactNode {
    * the larger of the two for a control-sized row, and the material's own
    * requirement overtakes it on a taller bar or under Reduce Transparency. A
    * layout with clearance to spare has to satisfy whichever is in front.
+   *
+   * And it is taken over **every group this toolbar registers**, not over the
+   * toolbar's own props alone. A hidden item's `groupProps` may name a different
+   * material, and the variants are not close: `clear` samples at σ 4 against the
+   * regular material's 1.25, so a clear partition wants about 40 CSS px where a
+   * regular one wants 12. A gap derived from the row's material would be a third
+   * of what the item beside it needs.
    */
-  const gap = useMemo(() => {
+  const slots = group ? partitionChildren(children) : undefined;
+
+  const gap = ((): number => {
     const material = (accessibility ?? NOMINAL_ACCESSIBILITY_POLICY).material;
-    const checked = groupProps?.samplingPadding ?? DEFAULT_GROUP_SAMPLING.samplingPadding;
-    return Math.max(
-      checked,
-      samplingPaddingFor({
-        members: box[0] > 0 && box[1] > 0 ? [box] : [],
-        material,
-        ...(groupProps?.variant === undefined ? {} : { variant: groupProps.variant }),
-      }),
+    const members = box[0] > 0 && box[1] > 0 ? [box] : [];
+    const registered = [
+      groupProps,
+      ...(slots ?? []).flatMap((slot) =>
+        slot.kind === "partition" && slot.own !== undefined ? [{ ...groupProps, ...slot.own }] : [],
+      ),
+    ];
+    return registered.reduce(
+      (widest, props) =>
+        Math.max(
+          widest,
+          props?.samplingPadding ?? DEFAULT_GROUP_SAMPLING.samplingPadding,
+          samplingPaddingFor({
+            members,
+            material,
+            ...(props?.variant === undefined ? {} : { variant: props.variant }),
+          }),
+        ),
+      0,
     );
-  }, [accessibility, box, groupProps?.samplingPadding, groupProps?.variant]);
+  })();
 
   const scope: ToolbarScope = useMemo(
     () => ({ id: toolbarId, orientation, gap }),
@@ -546,29 +581,30 @@ export function GlassToolbar(props: GlassToolbarProps): ReactNode {
    * wrote is the flex row the browser lays out, split or not.
    */
   let partitionIndex = -1;
-  const body = !group
-    ? children
-    : partitionChildren(children).map((slot) => {
-        if (slot.kind === "spacer") return slot.node;
-        partitionIndex += 1;
-        const merged = { ...groupProps, ...slot.own };
-        // An id the *item* wrote is its own and is taken as written; only the
-        // one inherited from the toolbar has to be made unique per partition.
-        const id =
-          slot.own?.id ??
-          (groupProps?.id === undefined ? undefined : idAt(groupProps.id, partitionIndex));
-        // Keyed by the partition rather than by the slot, so a spacer appearing
-        // or moving does not renumber the groups below it and re-register them.
-        return (
-          <GlassGroup
-            key={`partition-${partitionIndex}`}
-            {...merged}
-            {...(id === undefined ? {} : { id })}
-          >
-            {slot.children}
-          </GlassGroup>
-        );
-      });
+  const body =
+    slots === undefined
+      ? children
+      : slots.map((slot) => {
+          if (slot.kind === "spacer") return slot.node;
+          partitionIndex += 1;
+          const merged = { ...groupProps, ...slot.own };
+          // An id the *item* wrote is its own and is taken as written; only the
+          // one inherited from the toolbar has to be made unique per partition.
+          const id =
+            slot.own?.id ??
+            (groupProps?.id === undefined ? undefined : idAt(groupProps.id, partitionIndex));
+          // Keyed by the partition rather than by the slot, so a spacer appearing
+          // or moving does not renumber the groups below it and re-register them.
+          return (
+            <GlassGroup
+              key={`partition-${partitionIndex}`}
+              {...merged}
+              {...(id === undefined ? {} : { id })}
+            >
+              {slot.children}
+            </GlassGroup>
+          );
+        });
 
   return (
     <PlanePortal plane={plane}>

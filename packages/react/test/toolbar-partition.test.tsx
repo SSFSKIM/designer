@@ -34,7 +34,12 @@ import { describe, expect, it } from "vitest";
 import { DEFAULT_GROUP_SAMPLING, rectsOverlap, type Rect } from "@vitreajs/vitrea";
 import { resolveProxyGeometry, samplingPaddingFor } from "@vitreajs/vitrea-web";
 
-import { GlassButton, GlassToolbar, GlassToolbarSpacer } from "../src/index";
+import {
+  DEFAULT_CLEAR_DIMMING,
+  GlassButton,
+  GlassToolbar,
+  GlassToolbarSpacer,
+} from "../src/index";
 import { renderGlass, type Harness } from "./harness";
 
 const groupOf = (harness: Harness, nodeId: string): string | undefined =>
@@ -277,6 +282,35 @@ describe("the gap a spacer opens", () => {
     const tall = [[420, 72]] as const;
     expect(samplingPaddingFor({ members: tall, material: atReducedPolicy })).toBeGreaterThan(
       DEFAULT_GROUP_SAMPLING.samplingPadding,
+    );
+  });
+
+  it("is taken over every group the toolbar registers, not the row's material alone", () => {
+    // The variants are not close: `clear` samples at σ 4 against the regular
+    // material's 1.25, so a clear partition wants about three times the room.
+    // A gap derived from the row's own material would be a third of what the
+    // item beside it needs.
+    const harness = renderGlass(
+      <GlassToolbar aria-label="Actions" groupProps={{ id: "toolbar" }}>
+        <GlassButton nodeId="a">One</GlassButton>
+        <GlassToolbarSpacer />
+        <GlassButton
+          nodeId="hidden"
+          sharedBackground="hidden"
+          groupProps={{ variant: "clear", dimming: DEFAULT_CLEAR_DIMMING }}
+        >
+          Publish
+        </GlassButton>
+      </GlassToolbar>,
+    );
+    harness.run(1);
+
+    const material = harness.root().accessibility.material;
+    const clear = samplingPaddingFor({ members: [], material, variant: "clear" });
+    expect(clear).toBeGreaterThan(samplingPaddingFor({ members: [], material }));
+    expect(gapOf(spacers()[0])).toBeCloseTo(
+      Math.max(DEFAULT_GROUP_SAMPLING.samplingPadding, clear),
+      6,
     );
   });
 
