@@ -1885,3 +1885,35 @@ Shape of the work: a `dark-solid__rrect-md-clear20__rest` probe scene now exists
 declares (a group-level darkening beneath the material, 35 % black by Apple's one published number
 as the seed), and measure it against that cell. Not a W27 child; goes to the next cut with the
 `clear` variant's other absent rows (the three preconditions, the omission and localization rules).
+
+## Calibration and renderer tests share a fixed port and can reuse the wrong harness (W27c G1, 2026-09-10)
+
+`packages/calibration/web/vite.config.ts` and
+`packages/renderer-webgpu/playwright.config.ts` both hard-code port 5189. The renderer's
+Playwright config also sets `reuseExistingServer: true` outside CI. In parallel worktrees this
+can connect a golden test to a sibling's calibration page rather than its own renderer harness.
+W27c G1 observed the foreign page first, then `ERR_CONNECTION_REFUSED` when that sibling's
+capture driver shut its server down. The failed run was not an optical regression reading.
+
+The isolated rerun used a scratch Playwright config with a verified-free port (5213), an explicit
+worktree-local server cwd, and `reuseExistingServer: false`; the existing goldens and isolation
+pins then passed unchanged. Shape of the work: parameterize the port consistently in both
+configs and their drivers, and verify the harness identity before reusing any listener. Merely
+choosing another shared constant moves the collision; the two independent child tasks both
+initially chose 5198, which the coordinator caught before either reused it.
+
+## The recovered inactive bed has no fresh native capture path (W27c G1, 2026-09-10)
+
+W27c adds 121 historical inactive fixtures under a real scene state, but
+`apps/reference-apple/Sources/main.swift`'s capture and layer-dump paths activate their window
+and attest active presentation. They previously interpreted only `state == "pressed"`; an
+inactive scene id by itself therefore could have produced active pixels under an inactive name.
+The recovered entries are explicitly schema 2, single-run, pose inferred from DL14 (claims
+§5.128 and §5.130), not a substitute for a newly attested native inactive run.
+
+G1's boundary is to refuse unsupported inactive requests before capture output, while leaving
+active-only scratch declarations and historical fixture consumption usable. Closing this gap
+requires a native deactivation path with an inactive-presentation attestation and its own repeat
+check, including preservation of tint and the separate pressed interaction. It is not a change
+to the web runtime's root-pose observer, and making the Swift decoder accept the word is not a
+capture implementation.

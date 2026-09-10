@@ -13,6 +13,7 @@ import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "@playwright/test";
 import { createServer } from "vite";
+import { captureIntegrityRefusal } from "../src/capture-integrity";
 import { componentRegion, type DeclaredComponent } from "../src/component-region";
 import { decodePng, linearLuminance } from "../src/image";
 import { oklabDeltaE } from "../src/metrics/perceptual";
@@ -32,6 +33,8 @@ const json = (file: string): any => JSON.parse(readFileSync(file, "utf8"));
 const sha = (data: string | Buffer): string => createHash("sha256").update(data).digest("hex");
 const out = resolve(arg("out"));
 const label = arg("label");
+const renderer = arg("renderer", "webgpu");
+if (renderer !== "webgpu" && renderer !== "css") throw new Error("Unknown renderer");
 const sets = arg("set", "calibration").split(",");
 const scenePattern = new RegExp(arg("cells", "."));
 const profilePattern = new RegExp(arg("profiles", "."));
@@ -62,6 +65,13 @@ if (sets.includes("holdout")) {
     JSON.stringify({ label, startedAt: new Date().toISOString(), frozenSha256: sha(frozen) }), { flag: "wx" });
 }
 const rows: any[] = [];
+const sourceSha256 = Object.fromEntries([
+  "packages/renderer-webgpu/src/material.ts", "packages/renderer-webgpu/src/wgsl/optics.ts",
+  "packages/platform-web/src/root.ts", "packages/platform-web/src/optics.ts",
+  "packages/platform-web/src/receded-profile.ts", "packages/calibration/web/scene.ts",
+  "packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json",
+  "packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json",
+].map((file) => [file, sha(readFileSync(resolve(repo, file)))]));
 const endpointAudit: any[] = [];
 for (const c of population) {
   const p = manifest.profiles.find((p: any) => p.profileKey === c.profile);
@@ -78,12 +88,16 @@ for (const c of population) {
   if (majority !== undefined && majority.sha256 !== current) throw new Error("Current active file is not majority");
 }
 const record = (): void => writeFileSync(resultFile, JSON.stringify({
-  gate: "W27c G1 / claims §5.130", label, sets, patch,
+  gate: "W27c G1 / claims §5.130", label, renderer, sets, patch,
+  engineVersion: browser.version(), sourceSha256,
   patchSha256: sha(JSON.stringify(patch)), sceneSpecSha256: sha(JSON.stringify(matrix)),
   definitions: { deltaE: "Full-canvas mean per-pixel OKLab distance, canonical oklabDeltaE",
     body: "Declared union eroded 6 CSS px, linear Rec.709 Y, population SD",
     bodyDeltaE: "Mean per-pixel OKLab distance over the same eroded body",
-    scale: "Device pixels per CSS px; accessibility evidence is 1x only" },
+    scale: "Device pixels per CSS px; accessibility evidence is 1x only",
+    geometry: "How the page was actually framed, read back per row: the viewport is the " +
+      "declared matrix canvas, and a row exists only where the page reported no problems " +
+      "and agreed with the declaration on canvas, requested scale and devicePixelRatio" },
   endpointAudit, rows,
 }, null, 2) + "\n");
 const port = Number(arg("port", "5197"));
@@ -102,7 +116,19 @@ try {
       ? "apple-macos-26.5-1x-dark-standard.json" : "apple-macos-26.5-1x-light-standard.json"));
     const a11y = { reducedTransparency: profile.a11yMode !== "standard",
       increasedContrast: profile.a11yMode === "increased-contrast", reducedMotion: false };
-    const context = await browser.newContext({ viewport: { width: 800, height: 600 },
+    /*
+     * The viewport is the declared canvas exactly, never a convenient larger window.
+     *
+     * The renderer cover-fits the backdrop texture to the VIEWPORT (web/scene.ts's
+     * viewport integrity note), so a window of another size maps the raster onto the
+     * screen differently from the `<img>` the page composites and the glass refracts
+     * pixels that are not the ones behind it. This driver's first sweep ran 800x600
+     * around a 320x200 scene and measured a differently framed backdrop throughout;
+     * scripts/capture-web.ts sets the same viewport for the same reason, and fitting
+     * evidence is bound by the production contract rather than a looser one.
+     */
+    const context = await browser.newContext({
+      viewport: { width: matrix.canvas.width, height: matrix.canvas.height },
       deviceScaleFactor: c.scale, colorScheme: profile.colorScheme });
     await context.addInitScript(({ active, receded, accessibility }) => {
       window.__vitreaMaterialProfile = active;
@@ -110,7 +136,11 @@ try {
       window.__vitreaAccessibilityOverrides = accessibility;
     }, { active: materialDoc.patch, receded: selectedPatch, accessibility: a11y });
     const name = inactiveId(c.scene);
-    const native = decodePng(readFileSync(resolve(fixtures, c.profile, `${name}.png`)));
+    const nativeBytes = readFileSync(resolve(fixtures, c.profile, `${name}.png`));
+    if (sha(nativeBytes) !== c.hashes.inactive) throw new Error("Recovered fixture hash changed");
+    const backgroundBytes = readFileSync(resolve(fixtures, "backgrounds", `${scene.background}@${c.scale}x.png`));
+    if (sha(backgroundBytes) !== c.hashes.background) throw new Error("Paired background hash changed");
+    const native = decodePng(nativeBytes);
     const region = componentRegion(matrix.components[scene.component] as DeclaredComponent, {
       canvas: matrix.canvas, scale: c.scale, width: native.width, height: native.height,
     });
@@ -119,18 +149,26 @@ try {
     const count = process.argv.includes("--repeat") ? 2 : 1;
     for (let run = 0; run < count; run++) {
       const page = await context.newPage();
-      await page.goto(`http://localhost:${port}/index.html?scene=${name}&renderer=webgpu&scale=${c.scale}&frames=8`);
+      await page.goto(`http://localhost:${port}/index.html?scene=${name}&renderer=${renderer}&scale=${c.scale}&frames=8`);
       await page.waitForSelector("html[data-scene-ready='1'], html[data-scene-error]", { state: "attached" });
       const failure = await page.getAttribute("html", "data-scene-error");
       if (failure !== null) throw new Error(failure);
       report = await page.evaluate(() => window.__vitreaCalibration.report);
+      /*
+       * A ready page is not a valid capture. The page's own integrity checks — the
+       * viewport against the canvas, devicePixelRatio against the requested scale,
+       * the committed raster against both — are reported rather than thrown, so a
+       * driver that does not read them measures whatever happened to render.
+       */
+      const refusal = captureIntegrityRefusal(report, { canvas: matrix.canvas, scale: c.scale });
+      if (refusal !== undefined) throw new Error(`${c.profile}/${name}: ${refusal}`);
       if (JSON.stringify(report.materialProfile) !==
           JSON.stringify(mergeMaterialProfiles(materialDoc.patch, selectedPatch))) {
         throw new Error("The page did not apply the declared inactive endpoint");
       }
-      if (!report.adapter.ok || report.adapter.isFallback ||
-          report.groups.some((g: any) => g.state?.activeRenderer !== "webgpu")) {
-        throw new Error(`Not a hardware WebGPU capture: ${JSON.stringify(report)}`);
+      if ((renderer === "webgpu" && (!report.adapter.ok || report.adapter.isFallback !== false)) ||
+          report.groups.some((g: any) => g.state?.activeRenderer !== renderer)) {
+        throw new Error(`Capture did not draw on its declared tier: ${JSON.stringify(report)}`);
       }
       const png = await page.locator("#stage").screenshot({ animations: "disabled" });
       if (first !== undefined && !first.equals(png)) throw new Error(`Nondeterministic ${c.profile}/${name}`);
@@ -142,6 +180,17 @@ try {
     mkdirSync(dirname(capture), { recursive: true });
     writeFileSync(capture, first!);
     const web = decodePng(first!);
+    /*
+     * The two images are indexed by the same offsets below, so a size disagreement
+     * would not be a blur — it would silently pair each web pixel with a native one
+     * somewhere else. Checked here rather than assumed from the viewport above.
+     */
+    if (web.width !== native.width || web.height !== native.height ||
+        web.width !== report.pixelSize[0] || web.height !== report.pixelSize[1]) {
+      throw new Error(`${c.profile}/${name}: the capture is ${web.width}x${web.height} px where ` +
+        `the native fixture is ${native.width}x${native.height} and the page reports ` +
+        `${report.pixelSize[0]}x${report.pixelSize[1]}`);
+    }
     const wy = linearLuminance(web), ny = linearLuminance(native);
     let n = 0, w = 0, nY = 0, w2 = 0, n2 = 0, de = 0;
     for (let i = 0; i < wy.length; i++) {
@@ -154,6 +203,13 @@ try {
     const row = { profile: c.profile, scene: name, sourceScene: c.scene, set: role(c.scene), scale: c.scale,
       capture, captureSha256: sha(first!), nativeSha256: c.hashes.inactive,
       adapter: report.adapter, repeats: count, actualGroups: report.groups,
+      // What actually framed this capture, from the page rather than from what the
+      // driver asked for. A row that cannot say how it was framed cannot be read
+      // beside one that can — which is the whole reason the first sweep was void.
+      geometry: { viewport: matrix.canvas, canvas: report.canvas, pixelSize: report.pixelSize,
+        requestedScale: report.requestedScale, devicePixelRatio: report.devicePixelRatio,
+        background: report.background, capturedPixels: [web.width, web.height] },
+      problems: report.problems, diagnostics: report.diagnostics,
       deltaE: oklabDeltaE(web, native),
       body: { n, webY: w/n, nativeY: nY/n, webSD: Math.sqrt(Math.max(0,w2/n-(w/n)**2)),
         nativeSD: Math.sqrt(Math.max(0,n2/n-(nY/n)**2)), deltaE: de/n } };

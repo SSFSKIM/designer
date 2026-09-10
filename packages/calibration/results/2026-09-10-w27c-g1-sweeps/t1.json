@@ -1,0 +1,4413 @@
+{
+  "gate": "W27c G1 / claims §5.130",
+  "label": "t1",
+  "sets": [
+    "calibration"
+  ],
+  "patch": {
+    "light": {
+      "tintChromaScale": 0,
+      "tintShadeCollapseRetention": 1,
+      "tintShadeDark": 0.0288,
+      "tintShadeLight": 0.73,
+      "tintShadeStrength": 1,
+      "reducedTintAdaptation": 0.8,
+      "optics": {
+        "regular": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0
+        },
+        "clear": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0
+        }
+      },
+      "rimCollapsed": 0,
+      "rimCollapsedTinted": 0,
+      "outerShadow": {
+        "thinOcclusionDark": 0,
+        "thinOcclusionMid": 0,
+        "thinOcclusionBright": 0,
+        "thickOcclusionAt96": 0,
+        "thickOcclusionAt128": 0,
+        "thickOcclusionAt160": 0,
+        "liftAmplitude": 0,
+        "reducedTransparencyOcclusion": 0
+      },
+      "increasedOcclusionLift": 0.92,
+      "strongBorderRim": {
+        "rimWidth": 2,
+        "rimAlpha": -0.95
+      },
+      "sizeScatterFloor": 0.7,
+      "sizeScatterRampStartThin1x": 0.55,
+      "sizeScatterRampStartThick1x": 0.3,
+      "sizeScatterRampStartThin2x": 0.35,
+      "sizeScatterRampStartThick2x": 0.04,
+      "sizeScatterRampStartFar2x": 0.04,
+      "backdropToneResponseThin": [
+        0.0126,
+        0.42,
+        0.929
+      ],
+      "backdropToneResponseThick": [
+        0.4553,
+        0.5394,
+        0.9
+      ],
+      "sizeHeavyTapSigma2x": 12
+    },
+    "dark": {
+      "tintChromaScale": 0,
+      "tintShadeCollapseRetention": 1,
+      "tintShadeDark": 0.0202,
+      "tintShadeLight": 1.46,
+      "tintShadeStrength": 1,
+      "reducedTintAdaptation": 0.8,
+      "optics": {
+        "regular": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0,
+          "tintAlpha": 0.85
+        },
+        "clear": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0
+        }
+      },
+      "rimCollapsed": 0,
+      "rimCollapsedTinted": 0,
+      "outerShadow": {
+        "thinOcclusionDark": 0,
+        "thinOcclusionMid": 0,
+        "thinOcclusionBright": 0,
+        "thickOcclusionAt96": 0,
+        "thickOcclusionAt128": 0,
+        "thickOcclusionAt160": 0,
+        "liftAmplitude": 0,
+        "reducedTransparencyOcclusion": 0
+      },
+      "increasedOcclusionLift": 0.92,
+      "strongBorderRim": {
+        "rimWidth": 2,
+        "rimAlpha": -0.95
+      },
+      "sizeScatterFloor": 0.4,
+      "sizeScatterRampStartThin1x": 0.85,
+      "sizeScatterRampStartThick1x": 0.3,
+      "sizeScatterRampStartThin2x": 0.35,
+      "sizeScatterRampStartThick2x": 0.04,
+      "sizeScatterRampStartFar2x": 0.04,
+      "backdropToneResponseThin": [
+        0.011,
+        0.095,
+        0.1611
+      ],
+      "backdropToneResponseThick": [
+        0.0215,
+        0.049,
+        0.1006
+      ],
+      "sizeScatterHeavyShareThick1x": 0.4,
+      "sizeHeavyTapSigma2x": 12
+    }
+  },
+  "patchSha256": "489ff88e5526865fd14cb16973f329f9cb021b728db6ec651581f22352138383",
+  "sceneSpecSha256": "20ace038d8ea252907bfd3669e78143b458c85c163dc809e7b98f08de32b2fe9",
+  "definitions": {
+    "deltaE": "Full-canvas mean per-pixel OKLab distance, canonical oklabDeltaE",
+    "body": "Declared union eroded 6 CSS px, linear Rec.709 Y, population SD",
+    "bodyDeltaE": "Mean per-pixel OKLab distance over the same eroded body",
+    "scale": "Device pixels per CSS px; accessibility evidence is 1x only"
+  },
+  "endpointAudit": [
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard__capsule-button__rest-tint-orange",
+      "scale": 1,
+      "historicalActiveSha256": "524ab8fc6af343b087bc1c6a7316ec41dddbf3a3aadc84254ad59dc363be4945",
+      "currentActiveSha256": "524ab8fc6af343b087bc1c6a7316ec41dddbf3a3aadc84254ad59dc363be4945",
+      "frequencySettled": true,
+      "majoritySha256": "524ab8fc6af343b087bc1c6a7316ec41dddbf3a3aadc84254ad59dc363be4945",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard__capsule-button__rest",
+      "scale": 1,
+      "historicalActiveSha256": "5c2b4fc0ae71d2f58f5395b69923f3d96dc301408a0de2e09d4de49816dee3a3",
+      "currentActiveSha256": "5c2b4fc0ae71d2f58f5395b69923f3d96dc301408a0de2e09d4de49816dee3a3",
+      "frequencySettled": true,
+      "majoritySha256": "5c2b4fc0ae71d2f58f5395b69923f3d96dc301408a0de2e09d4de49816dee3a3",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard__rrect-md__rest",
+      "scale": 1,
+      "historicalActiveSha256": "efae0f1515bc55c7e00c5c1ff1fceb75eaab16706600527494b831b410f1ea80",
+      "currentActiveSha256": "efae0f1515bc55c7e00c5c1ff1fceb75eaab16706600527494b831b410f1ea80",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "dark-solid__capsule-button__rest-tint-orange",
+      "scale": 1,
+      "historicalActiveSha256": "1a7d9b3405202412191f6998e06154c2f250223f7c62c3a45193ff0c535296ea",
+      "currentActiveSha256": "1a7d9b3405202412191f6998e06154c2f250223f7c62c3a45193ff0c535296ea",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "dark-solid__capsule-button__rest",
+      "scale": 1,
+      "historicalActiveSha256": "038e9efd6fd0c9d68bede39cd99939c2e94138357a115935c120b095b99f08ad",
+      "currentActiveSha256": "038e9efd6fd0c9d68bede39cd99939c2e94138357a115935c120b095b99f08ad",
+      "frequencySettled": true,
+      "majoritySha256": "038e9efd6fd0c9d68bede39cd99939c2e94138357a115935c120b095b99f08ad",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "dark-solid__rrect-md__rest",
+      "scale": 1,
+      "historicalActiveSha256": "728894cf444a766462ad196acd73d5a3466c28eb95ae1a49f67e872957d5ae63",
+      "currentActiveSha256": "728894cf444a766462ad196acd73d5a3466c28eb95ae1a49f67e872957d5ae63",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "photo__capsule-button__rest-tint-orange",
+      "scale": 1,
+      "historicalActiveSha256": "5e6d9c30888433de703c17c1ff653d2487e6e92295bb9aeb67b022ea8be32bed",
+      "currentActiveSha256": "5e6d9c30888433de703c17c1ff653d2487e6e92295bb9aeb67b022ea8be32bed",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "photo__capsule-button__rest",
+      "scale": 1,
+      "historicalActiveSha256": "473fc1bb33cce56f8aed5deeed3d19b072a8800d017c0e839759ce7067d0e7c9",
+      "currentActiveSha256": "473fc1bb33cce56f8aed5deeed3d19b072a8800d017c0e839759ce7067d0e7c9",
+      "frequencySettled": true,
+      "majoritySha256": "473fc1bb33cce56f8aed5deeed3d19b072a8800d017c0e839759ce7067d0e7c9",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "photo__rrect-md__rest",
+      "scale": 1,
+      "historicalActiveSha256": "46950d8569a030402aa16dee29f73e69a343bc3853543b31bcecd6a1c3ce2203",
+      "currentActiveSha256": "46950d8569a030402aa16dee29f73e69a343bc3853543b31bcecd6a1c3ce2203",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "checkerboard__capsule-button__rest-tint-orange",
+      "scale": 1,
+      "historicalActiveSha256": "5a1acf1ddc4bfe570b8a61825833e87563dd69109735365454c73622e186e844",
+      "currentActiveSha256": "5a1acf1ddc4bfe570b8a61825833e87563dd69109735365454c73622e186e844",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "checkerboard__capsule-button__rest",
+      "scale": 1,
+      "historicalActiveSha256": "29d246daffb49a4f467eb203f35aed4cddc9162460d5920f93715fc24d99712b",
+      "currentActiveSha256": "6a82e2a818ecef00af7c971ee4cf024baf7ffe80c987e5dbb9ed86b55b30ab12",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": false
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "checkerboard__rrect-md__rest",
+      "scale": 1,
+      "historicalActiveSha256": "3a7cda17a8d23c46df96e8aeddfeb0167de512aaf07ea07fcd9b5c2da855312a",
+      "currentActiveSha256": "3a7cda17a8d23c46df96e8aeddfeb0167de512aaf07ea07fcd9b5c2da855312a",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "photo__capsule-button__rest-tint-orange",
+      "scale": 1,
+      "historicalActiveSha256": "b4a48830c778a2a6517992928c204f32a9e4bd4157514de6a699c81d39f9d2de",
+      "currentActiveSha256": "b4a48830c778a2a6517992928c204f32a9e4bd4157514de6a699c81d39f9d2de",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "photo__capsule-button__rest",
+      "scale": 1,
+      "historicalActiveSha256": "ce218e7e5aba55d3fcb0658cc3e9551126fb79190d4fc7db9bb05e2aba2190ed",
+      "currentActiveSha256": "ce218e7e5aba55d3fcb0658cc3e9551126fb79190d4fc7db9bb05e2aba2190ed",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "photo__rrect-md__rest",
+      "scale": 1,
+      "historicalActiveSha256": "34ca00a10bb1d9cc394de281f3fce367423061a298eeab47ecaa9c73a1cea939",
+      "currentActiveSha256": "34ca00a10bb1d9cc394de281f3fce367423061a298eeab47ecaa9c73a1cea939",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "scene": "checkerboard__capsule-button__rest",
+      "scale": 1,
+      "historicalActiveSha256": "6bf51bf6dcc817a41e2d083d3fad45a640c4f21268abbf1af7245a2f395ba0dd",
+      "currentActiveSha256": "6bf51bf6dcc817a41e2d083d3fad45a640c4f21268abbf1af7245a2f395ba0dd",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "scene": "checkerboard__rrect-md__rest",
+      "scale": 1,
+      "historicalActiveSha256": "e8904e14d47c6d1bb31814fbf1287e3e6b5cfdac5a3167797c1c1c0948d78b2a",
+      "currentActiveSha256": "d9907ed2329696ff488fbbff1d556a4fc823205e47c0a11fea7bed457c7f4a1e",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": false
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "scene": "photo__capsule-button__rest-tint-orange",
+      "scale": 1,
+      "historicalActiveSha256": "7064cbd00d209489b159cce7c76cb494223356a4053e1dab6b33228a32171e32",
+      "currentActiveSha256": "7064cbd00d209489b159cce7c76cb494223356a4053e1dab6b33228a32171e32",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "scene": "photo__capsule-button__rest",
+      "scale": 1,
+      "historicalActiveSha256": "609f9ec8d962b7839a2b6a8eee23983f7054d2148c26bfe3cf6964b2dad0ba79",
+      "currentActiveSha256": "609f9ec8d962b7839a2b6a8eee23983f7054d2148c26bfe3cf6964b2dad0ba79",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "scene": "photo__rrect-md__rest",
+      "scale": 1,
+      "historicalActiveSha256": "3884f3c579feb11d8f6feab64ecd99aa55e5cdf35e2bace0c55221c1bf034ce5",
+      "currentActiveSha256": "3884f3c579feb11d8f6feab64ecd99aa55e5cdf35e2bace0c55221c1bf034ce5",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "checkerboard__capsule-button__rest-tint-orange",
+      "scale": 1,
+      "historicalActiveSha256": "ffcec06f305d52ce19dddd1ee8d5bbd2750ba4f7d699d8f685ef6d937dfbd5e0",
+      "currentActiveSha256": "ffcec06f305d52ce19dddd1ee8d5bbd2750ba4f7d699d8f685ef6d937dfbd5e0",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "checkerboard__capsule-button__rest",
+      "scale": 1,
+      "historicalActiveSha256": "6f94450ebb5059bdeacb3ae03618fbe362b3aaa3359caa5385d0548c38dd459e",
+      "currentActiveSha256": "6f94450ebb5059bdeacb3ae03618fbe362b3aaa3359caa5385d0548c38dd459e",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "checkerboard__rrect-md__rest",
+      "scale": 1,
+      "historicalActiveSha256": "e6699199cfdeab04e58e35f1974437fbbea07131114a5ce923c6d8477c830c1b",
+      "currentActiveSha256": "e6699199cfdeab04e58e35f1974437fbbea07131114a5ce923c6d8477c830c1b",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "checkerboard__rrect-sm__rest",
+      "scale": 1,
+      "historicalActiveSha256": "9b67afa2366b32edd5f922e3ba7487bbf732ede51ae076d7a22c335c7b8b6cb5",
+      "currentActiveSha256": "9b67afa2366b32edd5f922e3ba7487bbf732ede51ae076d7a22c335c7b8b6cb5",
+      "frequencySettled": true,
+      "majoritySha256": "9b67afa2366b32edd5f922e3ba7487bbf732ede51ae076d7a22c335c7b8b6cb5",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "checkerboard__toolbar-group__rest",
+      "scale": 1,
+      "historicalActiveSha256": "db4531e62e09cca967d003599f2521b063f5129d8284502c1f92db2b566ceac1",
+      "currentActiveSha256": "db4531e62e09cca967d003599f2521b063f5129d8284502c1f92db2b566ceac1",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "dark-solid__capsule-button__rest-tint-orange",
+      "scale": 1,
+      "historicalActiveSha256": "1a7d9b3405202412191f6998e06154c2f250223f7c62c3a45193ff0c535296ea",
+      "currentActiveSha256": "1a7d9b3405202412191f6998e06154c2f250223f7c62c3a45193ff0c535296ea",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "dark-solid__capsule-button__rest",
+      "scale": 1,
+      "historicalActiveSha256": "038e9efd6fd0c9d68bede39cd99939c2e94138357a115935c120b095b99f08ad",
+      "currentActiveSha256": "038e9efd6fd0c9d68bede39cd99939c2e94138357a115935c120b095b99f08ad",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "dark-solid__rrect-md__rest",
+      "scale": 1,
+      "historicalActiveSha256": "c065de41be8afede197512c682146f88311614f260628b3950bec8d1ba55309b",
+      "currentActiveSha256": "c065de41be8afede197512c682146f88311614f260628b3950bec8d1ba55309b",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "impulse__capsule-button__rest-tint-orange",
+      "scale": 1,
+      "historicalActiveSha256": "55f47d4b699c9dbc3c030d50ea667442d3b4a94db7f9319828ffb35f4ce962a8",
+      "currentActiveSha256": "55f47d4b699c9dbc3c030d50ea667442d3b4a94db7f9319828ffb35f4ce962a8",
+      "frequencySettled": true,
+      "majoritySha256": "55f47d4b699c9dbc3c030d50ea667442d3b4a94db7f9319828ffb35f4ce962a8",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "light-solid__capsule-button__rest-tint-orange",
+      "scale": 1,
+      "historicalActiveSha256": "479f7d7d54e80802f4a92f942d02695c6ec7a563dac669b2859e3222d18d994d",
+      "currentActiveSha256": "479f7d7d54e80802f4a92f942d02695c6ec7a563dac669b2859e3222d18d994d",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "light-solid__capsule-button__rest",
+      "scale": 1,
+      "historicalActiveSha256": "5566f778fa36579778a7d7370057af10433f1ababdea33c7eb80cb69b856fcbe",
+      "currentActiveSha256": "5566f778fa36579778a7d7370057af10433f1ababdea33c7eb80cb69b856fcbe",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "light-solid__rrect-md__rest",
+      "scale": 1,
+      "historicalActiveSha256": "0ccb59b478192c0d5810d91766abedf6141fc84af80e445042eb8213d5c6bdab",
+      "currentActiveSha256": "0ccb59b478192c0d5810d91766abedf6141fc84af80e445042eb8213d5c6bdab",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "photo__capsule-button__rest-tint-blue",
+      "scale": 1,
+      "historicalActiveSha256": "c31b44032175c6f46fe086de29ce97f4398dc4bd20592d8bcfdc16e81015a3b9",
+      "currentActiveSha256": "c31b44032175c6f46fe086de29ce97f4398dc4bd20592d8bcfdc16e81015a3b9",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "photo__capsule-button__rest-tint-orange-half",
+      "scale": 1,
+      "historicalActiveSha256": "11b7a4613fff0143877feca7225805cdf941475949350db754f0b2251ddef679",
+      "currentActiveSha256": "11b7a4613fff0143877feca7225805cdf941475949350db754f0b2251ddef679",
+      "frequencySettled": true,
+      "majoritySha256": "11b7a4613fff0143877feca7225805cdf941475949350db754f0b2251ddef679",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "photo__capsule-button__rest-tint-orange",
+      "scale": 1,
+      "historicalActiveSha256": "d2ce69eacf2aa17c26f7c7bd1e786dcada1bce236384b568c0937f2b6480b2d6",
+      "currentActiveSha256": "d2ce69eacf2aa17c26f7c7bd1e786dcada1bce236384b568c0937f2b6480b2d6",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "photo__capsule-button__rest",
+      "scale": 1,
+      "historicalActiveSha256": "6a125e3fc28b8a6ddd27bfe94336082c0d127e50903a40691f0c2962273c47f4",
+      "currentActiveSha256": "6a125e3fc28b8a6ddd27bfe94336082c0d127e50903a40691f0c2962273c47f4",
+      "frequencySettled": true,
+      "majoritySha256": "6a125e3fc28b8a6ddd27bfe94336082c0d127e50903a40691f0c2962273c47f4",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "photo__rrect-md__rest",
+      "scale": 1,
+      "historicalActiveSha256": "87034346ff005b5bdf7711fe42482b500d6b20a983ff6a4f3edef24281f96fdc",
+      "currentActiveSha256": "87034346ff005b5bdf7711fe42482b500d6b20a983ff6a4f3edef24281f96fdc",
+      "frequencySettled": true,
+      "majoritySha256": "87034346ff005b5bdf7711fe42482b500d6b20a983ff6a4f3edef24281f96fdc",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "checkerboard__capsule-button__rest-tint-orange",
+      "scale": 2,
+      "historicalActiveSha256": "b7eaf9457e7c457f3e51a299a3d07f3bdf197ab006832aaaf6ea52e764d66eab",
+      "currentActiveSha256": "b7eaf9457e7c457f3e51a299a3d07f3bdf197ab006832aaaf6ea52e764d66eab",
+      "frequencySettled": true,
+      "majoritySha256": "b7eaf9457e7c457f3e51a299a3d07f3bdf197ab006832aaaf6ea52e764d66eab",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "checkerboard__capsule-button__rest",
+      "scale": 2,
+      "historicalActiveSha256": "d03a3ae5996c8d27bbea8ee8b9409c98657aa09dda23edccdcf5453deac44e8c",
+      "currentActiveSha256": "d03a3ae5996c8d27bbea8ee8b9409c98657aa09dda23edccdcf5453deac44e8c",
+      "frequencySettled": true,
+      "majoritySha256": "d03a3ae5996c8d27bbea8ee8b9409c98657aa09dda23edccdcf5453deac44e8c",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "checkerboard__rrect-md__rest",
+      "scale": 2,
+      "historicalActiveSha256": "1055d031634386ac21ea648589847ddd1073c477cf47593ab03686e7bae0e54a",
+      "currentActiveSha256": "39190722b3fc0a6a99893c1341ca69550bb17e52bfac90b1d87e23fd7789f8d2",
+      "frequencySettled": true,
+      "majoritySha256": "39190722b3fc0a6a99893c1341ca69550bb17e52bfac90b1d87e23fd7789f8d2",
+      "currentIsMajority": true,
+      "historicalIsCurrent": false
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "dark-solid__capsule-button__rest-tint-orange",
+      "scale": 2,
+      "historicalActiveSha256": "7c55ad97935c3ea7166da8efc37583ae643a6cf05ec03169c83190ac9ce481bc",
+      "currentActiveSha256": "7c55ad97935c3ea7166da8efc37583ae643a6cf05ec03169c83190ac9ce481bc",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "dark-solid__capsule-button__rest",
+      "scale": 2,
+      "historicalActiveSha256": "0fe148f979c8cbe97a80b9662555618c127caaaa9ceeba99b7f496a0434786d3",
+      "currentActiveSha256": "0fe148f979c8cbe97a80b9662555618c127caaaa9ceeba99b7f496a0434786d3",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "dark-solid__rrect-md__rest",
+      "scale": 2,
+      "historicalActiveSha256": "1c7edb5c7f6ad6061e3f47dc37671c7c69038fefab8ba7b4ab6d63dc3867ab4f",
+      "currentActiveSha256": "1c7edb5c7f6ad6061e3f47dc37671c7c69038fefab8ba7b4ab6d63dc3867ab4f",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "photo__capsule-button__rest-tint-orange",
+      "scale": 2,
+      "historicalActiveSha256": "3af4603acaeef87e857a722617e96e0adfd5fead680a2b3083aa2943de6c1270",
+      "currentActiveSha256": "3af4603acaeef87e857a722617e96e0adfd5fead680a2b3083aa2943de6c1270",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "photo__rrect-md__rest",
+      "scale": 2,
+      "historicalActiveSha256": "5d5554310d929841a42a3a7ea5002dba65156927d54e56a48f06e729f48e279a",
+      "currentActiveSha256": "5d5554310d929841a42a3a7ea5002dba65156927d54e56a48f06e729f48e279a",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "checkerboard__capsule-button__rest-tint-orange",
+      "scale": 2,
+      "historicalActiveSha256": "3a8e082c630641cbc76914eaa923fc28a7fc3e357947e39d0dda3cc5f89452e1",
+      "currentActiveSha256": "3a8e082c630641cbc76914eaa923fc28a7fc3e357947e39d0dda3cc5f89452e1",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "checkerboard__capsule-button__rest",
+      "scale": 2,
+      "historicalActiveSha256": "a46155e557321eded709662a97792181f66a13ad55cb651954184d2f15444d02",
+      "currentActiveSha256": "a46155e557321eded709662a97792181f66a13ad55cb651954184d2f15444d02",
+      "frequencySettled": true,
+      "majoritySha256": "a46155e557321eded709662a97792181f66a13ad55cb651954184d2f15444d02",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "checkerboard__rrect-md__rest",
+      "scale": 2,
+      "historicalActiveSha256": "6917cf7f844ce7042574fd5013253a5ffa6eb782e56b3dcdf22782bb9e96006c",
+      "currentActiveSha256": "6917cf7f844ce7042574fd5013253a5ffa6eb782e56b3dcdf22782bb9e96006c",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "checkerboard__rrect-sm__rest",
+      "scale": 2,
+      "historicalActiveSha256": "711b3920537612f8c4f3553794913981a9f670efc08990bd55d561d8287bb225",
+      "currentActiveSha256": "711b3920537612f8c4f3553794913981a9f670efc08990bd55d561d8287bb225",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "checkerboard__toolbar-group__rest",
+      "scale": 2,
+      "historicalActiveSha256": "b6f6ae6604854347c0f90baee1d9ac2831321b8c1415497ea79a5123e45af1c8",
+      "currentActiveSha256": "b6f6ae6604854347c0f90baee1d9ac2831321b8c1415497ea79a5123e45af1c8",
+      "frequencySettled": true,
+      "majoritySha256": "b6f6ae6604854347c0f90baee1d9ac2831321b8c1415497ea79a5123e45af1c8",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "dark-solid__capsule-button__rest-tint-orange",
+      "scale": 2,
+      "historicalActiveSha256": "7c55ad97935c3ea7166da8efc37583ae643a6cf05ec03169c83190ac9ce481bc",
+      "currentActiveSha256": "7c55ad97935c3ea7166da8efc37583ae643a6cf05ec03169c83190ac9ce481bc",
+      "frequencySettled": true,
+      "majoritySha256": "7c55ad97935c3ea7166da8efc37583ae643a6cf05ec03169c83190ac9ce481bc",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "dark-solid__capsule-button__rest",
+      "scale": 2,
+      "historicalActiveSha256": "0fe148f979c8cbe97a80b9662555618c127caaaa9ceeba99b7f496a0434786d3",
+      "currentActiveSha256": "0fe148f979c8cbe97a80b9662555618c127caaaa9ceeba99b7f496a0434786d3",
+      "frequencySettled": true,
+      "majoritySha256": "0fe148f979c8cbe97a80b9662555618c127caaaa9ceeba99b7f496a0434786d3",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "dark-solid__rrect-md__rest",
+      "scale": 2,
+      "historicalActiveSha256": "2c4c5f3cf90c5e40390a53743a91cbce3ed5c6b547b8f1a69c3259895bb83369",
+      "currentActiveSha256": "2c4c5f3cf90c5e40390a53743a91cbce3ed5c6b547b8f1a69c3259895bb83369",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "impulse__capsule-button__rest-tint-orange",
+      "scale": 2,
+      "historicalActiveSha256": "b40ada0f4194948469edeeed85fd7189b3f176e2726b4b054c9f497b4909900b",
+      "currentActiveSha256": "b40ada0f4194948469edeeed85fd7189b3f176e2726b4b054c9f497b4909900b",
+      "frequencySettled": true,
+      "majoritySha256": "b40ada0f4194948469edeeed85fd7189b3f176e2726b4b054c9f497b4909900b",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "light-solid__capsule-button__rest-tint-orange",
+      "scale": 2,
+      "historicalActiveSha256": "0684bae229dea1e8a35eee437ec22d7233e0ba61b8cae58a5ee853d7cf688704",
+      "currentActiveSha256": "0684bae229dea1e8a35eee437ec22d7233e0ba61b8cae58a5ee853d7cf688704",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "light-solid__capsule-button__rest",
+      "scale": 2,
+      "historicalActiveSha256": "6310c45920bb95ced736f1e193cb472212f2ac32fa3beed4a3b7c94da542b2e4",
+      "currentActiveSha256": "6310c45920bb95ced736f1e193cb472212f2ac32fa3beed4a3b7c94da542b2e4",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "light-solid__rrect-md__rest",
+      "scale": 2,
+      "historicalActiveSha256": "cc54bdcea7b8e979d32660eb19853b58bf7f42aa6f8efc1b3c520c330814a59c",
+      "currentActiveSha256": "cc54bdcea7b8e979d32660eb19853b58bf7f42aa6f8efc1b3c520c330814a59c",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "photo__capsule-button__rest-tint-blue",
+      "scale": 2,
+      "historicalActiveSha256": "41fefb2bbceec7f0d39d82346391e20ac54592f9423bde1ad04387aa8ce45766",
+      "currentActiveSha256": "41fefb2bbceec7f0d39d82346391e20ac54592f9423bde1ad04387aa8ce45766",
+      "frequencySettled": true,
+      "majoritySha256": "41fefb2bbceec7f0d39d82346391e20ac54592f9423bde1ad04387aa8ce45766",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "photo__capsule-button__rest-tint-orange-half",
+      "scale": 2,
+      "historicalActiveSha256": "a299ad53fc645d0bc237774af6d13ad4ddc07d0f10f6c1a5f7dbf6c3b94d25a9",
+      "currentActiveSha256": "a299ad53fc645d0bc237774af6d13ad4ddc07d0f10f6c1a5f7dbf6c3b94d25a9",
+      "frequencySettled": true,
+      "majoritySha256": "a299ad53fc645d0bc237774af6d13ad4ddc07d0f10f6c1a5f7dbf6c3b94d25a9",
+      "currentIsMajority": true,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "photo__capsule-button__rest-tint-orange",
+      "scale": 2,
+      "historicalActiveSha256": "c875b21cc79b9360ec549e72565d692863d9127770f713fd4b68bf1dbd7654ad",
+      "currentActiveSha256": "c875b21cc79b9360ec549e72565d692863d9127770f713fd4b68bf1dbd7654ad",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "photo__capsule-button__rest",
+      "scale": 2,
+      "historicalActiveSha256": "c6bbd8de39b7b0b7b28947bfdac39ed3a39762d1d8189844ef68d4c55a312608",
+      "currentActiveSha256": "c6bbd8de39b7b0b7b28947bfdac39ed3a39762d1d8189844ef68d4c55a312608",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "photo__rrect-md__rest",
+      "scale": 2,
+      "historicalActiveSha256": "55346eb32e332240ee197044dafc7ef23daf7f87822b18daf801185eade34ff5",
+      "currentActiveSha256": "55346eb32e332240ee197044dafc7ef23daf7f87822b18daf801185eade34ff5",
+      "frequencySettled": false,
+      "majoritySha256": null,
+      "currentIsMajority": null,
+      "historicalIsCurrent": true
+    }
+  ],
+  "rows": [
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard__capsule-button__inactive-tint-orange",
+      "sourceScene": "checkerboard__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "e7c10cea02d6f80388a2f3ea3339f2b18647a33e938180bee348a9aa0786c9cc",
+      "nativeSha256": "1900f758cbd5649e757d0e8c4ec80ddcc8c166b71ff7b3737e6393370d7a7b2d",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21404114048223255,
+            "linearLuminance": 0.5,
+            "rgb": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.001334715581621292,
+        "p95": 0.010046597111245899,
+        "max": 0.27053725373867393,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.1968224734865288,
+        "nativeY": 0.19120705581641054,
+        "webSD": 0.06019231541772406,
+        "nativeSD": 0.0480699906816704,
+        "deltaE": 0.013355312552591597
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard__capsule-button__inactive",
+      "sourceScene": "checkerboard__capsule-button__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__inactive.png",
+      "captureSha256": "fe7d80cd7d0ff6dfe2c412e0060844d1f44e505c2cfc7357e5c5ccc8d1a7f1cc",
+      "nativeSha256": "eaf37928219a0c1eae6e255487f5ec91966b2d935dd720c377715eb6500bd14c",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21404114048223255,
+            "linearLuminance": 0.5,
+            "rgb": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0011782100227743023,
+        "p95": 0.010357631694638665,
+        "max": 0.2952363813236166,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.1226951669924222,
+        "nativeY": 0.1169988854215134,
+        "webSD": 0.0418057981472076,
+        "nativeSD": 0.03632562940847994,
+        "deltaE": 0.011616221838808517
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard__rrect-md__inactive",
+      "sourceScene": "checkerboard__rrect-md__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-dark-standard/checkerboard__rrect-md__inactive.png",
+      "captureSha256": "5d58962e16fedf091f0540a4c4d4b9fb4320ab1e11b105471d1cefc1b2f055f7",
+      "nativeSha256": "47335ef40c14b54949aac25375c194c40eed417bb258bf3c6cdf5168e8e9c0e7",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21404114048223255,
+            "linearLuminance": 0.5,
+            "rgb": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.008131114823578842,
+        "p95": 0.04207051022833183,
+        "max": 0.13306942390406842,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 12264,
+        "webY": 0.071250774151901,
+        "nativeY": 0.05607317198335348,
+        "webSD": 0.013025591040646595,
+        "nativeSD": 0.013658265380328027,
+        "deltaE": 0.033064782149106374
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "dark-solid__capsule-button__inactive-tint-orange",
+      "sourceScene": "dark-solid__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "2291ee91c3f01f6b011374e6c318c70c398acf98e43cfbfac604d806bcc55f47",
+      "nativeSha256": "484681ee348d6287f031a8e2db25c16a40e535e418abbbd766140ae1225898ff",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.011711216012856962,
+            "linearLuminance": 0.011711216012873185,
+            "rgb": [
+              0.0116122451797466,
+              0.0116122451797466,
+              0.012983032342164687
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.00015942645329321403,
+        "p95": 0.0017713864806829635,
+        "max": 0.04008597216391387,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.03688945040110217,
+        "nativeY": 0.03698438771132544,
+        "webSD": 0,
+        "nativeSD": 0,
+        "deltaE": 0.0017713864806828336
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "dark-solid__capsule-button__inactive",
+      "sourceScene": "dark-solid__capsule-button__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__inactive.png",
+      "captureSha256": "3a190845d4ae9df53fe5ed3e9bdd2d6c7a301b6f1172f2958de4cb21e4e0bab1",
+      "nativeSha256": "d3094acff8fdbf6fbc2488a427596d143dc337c5805968e74b8b1b9baf49c94f",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.011711216012856962,
+            "linearLuminance": 0.011711216012873185,
+            "rgb": [
+              0.0116122451797466,
+              0.0116122451797466,
+              0.012983032342164687
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0,
+        "p95": 0,
+        "max": 0,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.011711216012870547,
+        "nativeY": 0.011711216012870547,
+        "webSD": 3.136739503896674e-9,
+        "nativeSD": 3.136739503896674e-9,
+        "deltaE": 0
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "dark-solid__rrect-md__inactive",
+      "sourceScene": "dark-solid__rrect-md__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-dark-standard/dark-solid__rrect-md__inactive.png",
+      "captureSha256": "7dcd24a19eb56924c67c30049e1282ed05ad3419e3a2210c6c7c4cd90145b37f",
+      "nativeSha256": "b85fae977b99f6d4dcc5bc8981f2bcfda549f4a7adc54b8dbf37fa9542df4449",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.011711216012856962,
+            "linearLuminance": 0.011711216012873185,
+            "rgb": [
+              0.0116122451797466,
+              0.0116122451797466,
+              0.012983032342164687
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0008743781789286283,
+        "p95": 0.0037174508258091955,
+        "max": 0.008572563247468027,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 12264,
+        "webY": 0.021219010376001237,
+        "nativeY": 0.02135867086491352,
+        "webSD": 0,
+        "nativeSD": 1.336090893987899e-8,
+        "deltaE": 0.0037174508258099263
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "photo__capsule-button__inactive-tint-orange",
+      "sourceScene": "photo__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-dark-standard/photo__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "aaac2e772451cb65efcd1e75ba033fecb233932e870d1cf89047df52cc6924b7",
+      "nativeSha256": "3081e4d0685d6578cacd47570f5661ce12266e006e6fd1b44d01a6503f8b7c25",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15148185804236047,
+            "linearLuminance": 0.2140654342001308,
+            "rgb": [
+              0.202058890978265,
+              0.21890261995801485,
+              0.2015036036589953
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0032578219977572676,
+        "p95": 0.034569533482070994,
+        "max": 0.08514353204020898,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.18364772435517607,
+        "nativeY": 0.18142210358319263,
+        "webSD": 0.014959796065808186,
+        "nativeSD": 0.016700846981017977,
+        "deltaE": 0.042354223823719554
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "photo__capsule-button__inactive",
+      "sourceScene": "photo__capsule-button__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-dark-standard/photo__capsule-button__inactive.png",
+      "captureSha256": "891c67691cef3dd410a2f7cfaf676dff7cd95971ee891e334b4f56ad83ff8d29",
+      "nativeSha256": "1c541715a94f18c528a730aa5beee0a6cc3100fd81fdc003510eca04746ba33f",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15148185804236047,
+            "linearLuminance": 0.2140654342001308,
+            "rgb": [
+              0.202058890978265,
+              0.21890261995801485,
+              0.2015036036589953
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0029895298414732464,
+        "p95": 0.032482604338056685,
+        "max": 0.08643828215326008,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.11351981627453535,
+        "nativeY": 0.1115395643292825,
+        "webSD": 0.010370323841148332,
+        "nativeSD": 0.014041991142281347,
+        "deltaE": 0.03887618681568014
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "photo__rrect-md__inactive",
+      "sourceScene": "photo__rrect-md__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-dark-standard/photo__rrect-md__inactive.png",
+      "captureSha256": "0cdf44fc563a18097123ec495c2ec5cc6d533ea4346568c0e725fa3b8141ad62",
+      "nativeSha256": "7ffc46c449e63a49682da01f2738b4d4d74cee7de1a3dce53bc06dfbbbfb984c",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15148185804236047,
+            "linearLuminance": 0.2140654342001308,
+            "rgb": [
+              0.202058890978265,
+              0.21890261995801485,
+              0.2015036036589953
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.01222488263014122,
+        "p95": 0.06841988886480993,
+        "max": 0.10181055352042497,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 12264,
+        "webY": 0.06373009817640424,
+        "nativeY": 0.05929171873417282,
+        "webSD": 0.011806430658710202,
+        "nativeSD": 0.013693633153639079,
+        "deltaE": 0.05188404017228894
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "checkerboard__capsule-button__inactive-tint-orange",
+      "sourceScene": "checkerboard__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "6ea9846ac0cc6e2dd1433b2e9acd2669e3b0a3e329be5e3518293d262fc9d4dc",
+      "nativeSha256": "fb9d73f4b990e4c6901669b122100f570f1a40576b3f8908c6d34452d76aa9e9",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21404114048223255,
+            "linearLuminance": 0.5,
+            "rgb": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0017927731411434427,
+        "p95": 0,
+        "max": 0.3378025691279085,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.7719843180872962,
+        "nativeY": 0.7758222183174416,
+        "webSD": 0.003835534810634588,
+        "nativeSD": 3.650024149988857e-8,
+        "deltaE": 0.0015202016608908098
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "checkerboard__capsule-button__inactive",
+      "sourceScene": "checkerboard__capsule-button__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__inactive.png",
+      "captureSha256": "a5a2b5c6143b06adbccfab146f81a1a0a069105d6d7ac54ea2e59de2d199ee98",
+      "nativeSha256": "5740b595db13cfb1c084528004904ff96fe87d3366f03d4ef274a721d56904cd",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21404114048223255,
+            "linearLuminance": 0.5,
+            "rgb": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.002382050050547862,
+        "p95": 0.0029770289520025827,
+        "max": 0.4080719713677573,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.97878885594962,
+        "nativeY": 0.9911020971138648,
+        "webSD": 0.0058029234800438985,
+        "nativeSD": 0,
+        "deltaE": 0.004150030528169362
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "checkerboard__rrect-md__inactive",
+      "sourceScene": "checkerboard__rrect-md__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-increased-contrast/checkerboard__rrect-md__inactive.png",
+      "captureSha256": "c8fac16a3bee78515654c6f536f4c1e4bb57492fd63e0a70ab9f369813188aa1",
+      "nativeSha256": "5c560db1d242e3273ec0b6d71187296a3a81dd1eb8588076a563e1631317f1b2",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21404114048223255,
+            "linearLuminance": 0.5,
+            "rgb": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.004611333135205256,
+        "p95": 0.005956288520448276,
+        "max": 0.34600493153525136,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 12264,
+        "webY": 0.9783584014332867,
+        "nativeY": 0.9935195638797862,
+        "webSD": 0.004372934911045428,
+        "nativeSD": 0.003958060002909702,
+        "deltaE": 0.005102161652486763
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "photo__capsule-button__inactive-tint-orange",
+      "sourceScene": "photo__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "d7d31f3e5ca2798a5f2ba664abad7942be81ed379de6692188eb60de7090c93c",
+      "nativeSha256": "7f10c06001d917f5f59c040223cdceb900e041bf44267cd350167abd3a2592e2",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15148185804236047,
+            "linearLuminance": 0.2140654342001308,
+            "rgb": [
+              0.202058890978265,
+              0.21890261995801485,
+              0.2015036036589953
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0015412413235994455,
+        "p95": 0.0030385299987244507,
+        "max": 0.3121280805066377,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.7641168320027316,
+        "nativeY": 0.7758136718362264,
+        "webSD": 0.0038069122607699607,
+        "nativeSD": 0.00011775039995448421,
+        "deltaE": 0.004644414672011391
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "photo__capsule-button__inactive",
+      "sourceScene": "photo__capsule-button__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__inactive.png",
+      "captureSha256": "2bb4776e187cb72ed503034eb3d6e0a613010734ff7bf7ff04758ccb1e588c6d",
+      "nativeSha256": "a09c55e56851fe701bba9f504e9dd04c3079c1598d389003212a3a82c9951e13",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15148185804236047,
+            "linearLuminance": 0.2140654342001308,
+            "rgb": [
+              0.202058890978265,
+              0.21890261995801485,
+              0.2015036036589953
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0023123076882022083,
+        "p95": 0.008246054490804584,
+        "max": 0.3916825852498146,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.9664174982837846,
+        "nativeY": 0.9910008066580215,
+        "webSD": 0.0029760535462022997,
+        "nativeSD": 0.00046868030928837797,
+        "deltaE": 0.008455973730752273
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "photo__rrect-md__inactive",
+      "sourceScene": "photo__rrect-md__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-increased-contrast/photo__rrect-md__inactive.png",
+      "captureSha256": "3a97f790d2c458cb098c1b4ddd3dd3b67350ca55e0acea5af9fa4a76ed0dd763",
+      "nativeSha256": "c6737307afa7086de0b5ae8acb3d1583ee7972cb47e1af47d3234eb2e939fb99",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15148185804236047,
+            "linearLuminance": 0.2140654342001308,
+            "rgb": [
+              0.202058890978265,
+              0.21890261995801485,
+              0.2015036036589953
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0047749048783827614,
+        "p95": 0.011202582179303018,
+        "max": 0.32239996482997835,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 12264,
+        "webY": 0.9671985424115918,
+        "nativeY": 0.9935195638797862,
+        "webSD": 0.004201718213994112,
+        "nativeSD": 0.003958060002909702,
+        "deltaE": 0.009265983077550525
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "scene": "checkerboard__capsule-button__inactive",
+      "sourceScene": "checkerboard__capsule-button__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-reduced-transparency/checkerboard__capsule-button__inactive.png",
+      "captureSha256": "7a06927a82fcc772a335982929dce7782306ea205ab9840d1bb72a670a8659f2",
+      "nativeSha256": "1f1963c3575e4f0eef19a111ffe8f05ad5f1b110392c9d9fe7753e0ec527453a",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21404114048223255,
+            "linearLuminance": 0.5,
+            "rgb": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0007478943859899775,
+        "p95": 0.005965251333074688,
+        "max": 0.3126219832376844,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.97878885594962,
+        "nativeY": 0.9559733532492276,
+        "webSD": 0.0058029234800438985,
+        "nativeSD": 2.8312206268310547e-7,
+        "deltaE": 0.007771509325353699
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "scene": "checkerboard__rrect-md__inactive",
+      "sourceScene": "checkerboard__rrect-md__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-reduced-transparency/checkerboard__rrect-md__inactive.png",
+      "captureSha256": "ae536ba20107ddcc42d08865333e97b2e0982cdf4ec736954b015b311bd324cd",
+      "nativeSha256": "2eaaa66220cec653bacdeba294cb2d4b0cf5bc023b8420d8edd3e6f8b1e49848",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21404114048223255,
+            "linearLuminance": 0.5,
+            "rgb": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0019004973666880247,
+        "p95": 0.00894451090152038,
+        "max": 0.2134225057190218,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 12264,
+        "webY": 0.9783584014332867,
+        "nativeY": 0.9559733532494971,
+        "webSD": 0.004372934911045428,
+        "nativeSD": 0,
+        "deltaE": 0.007627602378970812
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "scene": "photo__capsule-button__inactive-tint-orange",
+      "sourceScene": "photo__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "76da637677cab26204176723c6dfa749b83382aab62770da9ffaa1eec783c3b0",
+      "nativeSha256": "6e5770cb8126a6656ec93e41a6ef64b9a8716aec6acae550bcccf8b94cf40294",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15148185804236047,
+            "linearLuminance": 0.2140654342001308,
+            "rgb": [
+              0.202058890978265,
+              0.21890261995801485,
+              0.2015036036589953
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0014871079403419238,
+        "p95": 0.018049983017860264,
+        "max": 0.13313660005127603,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.7061447322594463,
+        "nativeY": 0.7492350950002264,
+        "webSD": 0.0033542237603608554,
+        "nativeSD": 0.002577936715375081,
+        "deltaE": 0.018647404228034282
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "scene": "photo__capsule-button__inactive",
+      "sourceScene": "photo__capsule-button__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__inactive.png",
+      "captureSha256": "d5850e07449707ddcbb5244092e68ee178c72f4444908b6c65cb1613796ead8f",
+      "nativeSha256": "2c4d5b964a4acbfead46b0a0f6cef9c00b3c2f05d97d28193fbfa14c9c94a40a",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15148185804236047,
+            "linearLuminance": 0.2140654342001308,
+            "rgb": [
+              0.202058890978265,
+              0.21890261995801485,
+              0.2015036036589953
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0007901834566769949,
+        "p95": 0.006562979149772384,
+        "max": 0.17739690865163021,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.9664174982837846,
+        "nativeY": 0.9555653613248204,
+        "webSD": 0.0029760535462022997,
+        "nativeSD": 0.0019068422104750469,
+        "deltaE": 0.008280448207503793
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "scene": "photo__rrect-md__inactive",
+      "sourceScene": "photo__rrect-md__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-md__inactive.png",
+      "captureSha256": "d205f284a534e10d803c6877ae5443a2b0afbe59d346a974009b7ce015390c1f",
+      "nativeSha256": "28e61489b1a1bc2728094f2463d593cdd603a6b610f3392648bdf6f769861bb2",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15148185804236047,
+            "linearLuminance": 0.2140654342001308,
+            "rgb": [
+              0.202058890978265,
+              0.21890261995801485,
+              0.2015036036589953
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.00207310354713666,
+        "p95": 0.010965828420552215,
+        "max": 0.09125567369341611,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 12264,
+        "webY": 0.9671985424115918,
+        "nativeY": 0.9541053847250991,
+        "webSD": 0.004201718213994112,
+        "nativeSD": 0.0029621230152858634,
+        "deltaE": 0.008143083826721903
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "checkerboard__capsule-button__inactive-tint-orange",
+      "sourceScene": "checkerboard__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "62ee222335ac6982e7ed2980afd238e687736a9bda13949693d8551fddd4c6d8",
+      "nativeSha256": "57dcbe829ce977dedd4f7a221500d0d143297f5facec8776386a655cdc9fbc9d",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21404114048223255,
+            "linearLuminance": 0.5,
+            "rgb": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0012216875919691956,
+        "p95": 0.009378445247914764,
+        "max": 0.31772631199146395,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.4732454864557063,
+        "nativeY": 0.4523490053598707,
+        "webSD": 0.07074415560880891,
+        "nativeSD": 0.08405232970028538,
+        "deltaE": 0.013737576062697921
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "checkerboard__capsule-button__inactive",
+      "sourceScene": "checkerboard__capsule-button__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__inactive.png",
+      "captureSha256": "595236a43ea2fd81dbdf79df7a09be55dc781540306558081b86c2def43ca99b",
+      "nativeSha256": "fdc5a4c01e52f690e74a9e9ee40785d4c47fdc743e94f30fb6edcaabd0044787",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21404114048223255,
+            "linearLuminance": 0.5,
+            "rgb": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0011128246802310801,
+        "p95": 0.009185100639172668,
+        "max": 0.34871718200085255,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.6337710705417193,
+        "nativeY": 0.6085353369499223,
+        "webSD": 0.1007755850893743,
+        "nativeSD": 0.10027138452950322,
+        "deltaE": 0.011759884317776397
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "checkerboard__rrect-md__inactive",
+      "sourceScene": "checkerboard__rrect-md__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__inactive.png",
+      "captureSha256": "635bdd2a28350ad6d27625e2f26e4ac9fb0feb62a9323b26f2e3465c88cbfeba",
+      "nativeSha256": "134a8a716af5c67f24fbb4d3d958af7c5d82b37ffc61a5b6dfb45a8878880043",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21404114048223255,
+            "linearLuminance": 0.5,
+            "rgb": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.003107620125346403,
+        "p95": 0.015528395469763822,
+        "max": 0.19573495947946434,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 12264,
+        "webY": 0.6606814222724421,
+        "nativeY": 0.6415819358552268,
+        "webSD": 0.061000983291464236,
+        "nativeSD": 0.0638726860027284,
+        "deltaE": 0.009993133807568142
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "checkerboard__rrect-sm__inactive",
+      "sourceScene": "checkerboard__rrect-sm__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__inactive.png",
+      "captureSha256": "8354f58716f9c12e34d840b33029bdaf0bd43b60eb7a784c9486b8e7ab9ab744",
+      "nativeSha256": "4744b6671ed18a6f6cbadb8b0ec1edf6fc6c7a5ceb581f6aa8196c5ae2f15b59",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21404114048223255,
+            "linearLuminance": 0.5,
+            "rgb": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.00041216983207416943,
+        "p95": 0,
+        "max": 0.22212874192541784,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 1036,
+        "webY": 0.6326519291373831,
+        "nativeY": 0.6095373627522676,
+        "webSD": 0.11718435561305815,
+        "nativeSD": 0.10961591599834299,
+        "deltaE": 0.011102209523289868
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "checkerboard__toolbar-group__inactive",
+      "sourceScene": "checkerboard__toolbar-group__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/checkerboard__toolbar-group__inactive.png",
+      "captureSha256": "436cc206f119c440a2609056882810cd0abfafc4b14531bd26302378981eca90",
+      "nativeSha256": "191ae2e8265acc14c0b4248637bb810187019cdcecb4c4da321204ddd0899c7e",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "mergeDistance": 24,
+          "declaredSpacing": 12,
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21404114048223255,
+            "linearLuminance": 0.5,
+            "rgb": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0011329550161635709,
+        "p95": 0.009146100185275848,
+        "max": 0.1495771155546181,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 2436,
+        "webY": 0.633723235685516,
+        "nativeY": 0.608753151071395,
+        "webSD": 0.10525079685481273,
+        "nativeSD": 0.10216275948606383,
+        "deltaE": 0.011700526555556841
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "dark-solid__capsule-button__inactive-tint-orange",
+      "sourceScene": "dark-solid__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "2291ee91c3f01f6b011374e6c318c70c398acf98e43cfbfac604d806bcc55f47",
+      "nativeSha256": "484681ee348d6287f031a8e2db25c16a40e535e418abbbd766140ae1225898ff",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.011711216012856962,
+            "linearLuminance": 0.011711216012873185,
+            "rgb": [
+              0.0116122451797466,
+              0.0116122451797466,
+              0.012983032342164687
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.00015942645329321403,
+        "p95": 0.0017713864806829635,
+        "max": 0.04008597216391387,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.03688945040110217,
+        "nativeY": 0.03698438771132544,
+        "webSD": 0,
+        "nativeSD": 0,
+        "deltaE": 0.0017713864806828336
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "dark-solid__capsule-button__inactive",
+      "sourceScene": "dark-solid__capsule-button__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__inactive.png",
+      "captureSha256": "3a190845d4ae9df53fe5ed3e9bdd2d6c7a301b6f1172f2958de4cb21e4e0bab1",
+      "nativeSha256": "d3094acff8fdbf6fbc2488a427596d143dc337c5805968e74b8b1b9baf49c94f",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.011711216012856962,
+            "linearLuminance": 0.011711216012873185,
+            "rgb": [
+              0.0116122451797466,
+              0.0116122451797466,
+              0.012983032342164687
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0,
+        "p95": 0,
+        "max": 0,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.011711216012870547,
+        "nativeY": 0.011711216012870547,
+        "webSD": 3.136739503896674e-9,
+        "nativeSD": 3.136739503896674e-9,
+        "deltaE": 0
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "dark-solid__rrect-md__inactive",
+      "sourceScene": "dark-solid__rrect-md__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/dark-solid__rrect-md__inactive.png",
+      "captureSha256": "fe9ea11d7411e82a6d686ecaa4dd79a4bb9a62c7908c2190cfd8ac1b7850e693",
+      "nativeSha256": "f07efce9b8c9cca616483af9a1633aec4a1badd11b29f659522dd19408fd49b5",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.011711216012856962,
+            "linearLuminance": 0.011711216012873185,
+            "rgb": [
+              0.0116122451797466,
+              0.0116122451797466,
+              0.012983032342164687
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0007933527877153958,
+        "p95": 0.0028715758461067644,
+        "max": 0.0777823411379424,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 12264,
+        "webY": 0.4564110231804079,
+        "nativeY": 0.457232137386137,
+        "webSD": 0,
+        "nativeSD": 0,
+        "deltaE": 0.00287157584610734
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "impulse__capsule-button__inactive-tint-orange",
+      "sourceScene": "impulse__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/impulse__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "b691eb1af55fb32bb6a9ca5365f84c326963f26cbd2d2ecc2d7445323b49aeb6",
+      "nativeSha256": "be62179fad5d0a10a36046e0121f343efe1cc130309924747efa3de1213f9543",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.00029024767801857584,
+            "linearLuminance": 0.00375,
+            "rgb": [
+              0.00375,
+              0.00375,
+              0.00375
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0017278628770170993,
+        "p95": 0.02369319976433778,
+        "max": 0.08928244265802884,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.03191404790523543,
+        "nativeY": 0.025912086201482016,
+        "webSD": 0.00019062189684823405,
+        "nativeSD": 0.0017134910408182265,
+        "deltaE": 0.021742709120664713
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "light-solid__capsule-button__inactive-tint-orange",
+      "sourceScene": "light-solid__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/light-solid__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "cc01ed82bca257748aa89b49c823f1cd82f41b595528453b673956f02090d5e3",
+      "nativeSha256": "5a8aef5809a70810a92e93d4784b91b647eab611640a213569bc60377563e369",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.8909690727434563,
+            "linearLuminance": 0.8909690727450716,
+            "rgb": [
+              0.887923117881436,
+              0.887923117881436,
+              0.9301108583750052
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0017019933830887534,
+        "p95": 0.02217097147672081,
+        "max": 0.04603307720398058,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.6795424696331069,
+        "nativeY": 0.7315396585845985,
+        "webSD": 0,
+        "nativeSD": 1.9198803196437845e-7,
+        "deltaE": 0.022170971476720643
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "light-solid__capsule-button__inactive",
+      "sourceScene": "light-solid__capsule-button__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/light-solid__capsule-button__inactive.png",
+      "captureSha256": "2c3c76b0ea08d49ce45bc08871c64558592188add418f502c2ea29c905356ff7",
+      "nativeSha256": "c02f06b4b7f0e899ddd09c811354f8701d82c15730a21c6607e2a7b943dde47f",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.8909690727434563,
+            "linearLuminance": 0.8909690727450716,
+            "rgb": [
+              0.887923117881436,
+              0.887923117881436,
+              0.9301108583750052
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.00020696557378374709,
+        "p95": 0.0027095146221131987,
+        "max": 0.006043259624228913,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.9313523863529174,
+        "nativeY": 0.9326072014987324,
+        "webSD": 0,
+        "nativeSD": 0,
+        "deltaE": 0.002709514622113217
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "light-solid__rrect-md__inactive",
+      "sourceScene": "light-solid__rrect-md__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/light-solid__rrect-md__inactive.png",
+      "captureSha256": "2b79703dda7bba5e5fad144d415760bf0d49abd48ddf7578914b63cd59ee146d",
+      "nativeSha256": "799584fa585a7592fb928edda9c060b00799097c9b2cd97d124cef45f070bc86",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.8909690727434563,
+            "linearLuminance": 0.8909690727450716,
+            "rgb": [
+              0.887923117881436,
+              0.887923117881436,
+              0.9301108583750052
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.000005641379972128244,
+        "p95": 0,
+        "max": 0.0060492827387066805,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 12264,
+        "webY": 0.898096916083886,
+        "nativeY": 0.898096916083886,
+        "webSD": 2.4119636500237356e-7,
+        "nativeSD": 2.4119636500237356e-7,
+        "deltaE": 0
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "photo__capsule-button__inactive-tint-blue",
+      "sourceScene": "photo__capsule-button__rest-tint-blue",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/photo__capsule-button__inactive-tint-blue.png",
+      "captureSha256": "351350da08bd4ece1ad65cab16b94169f2b466d3ce5dffd47fabf610f89bc2dc",
+      "nativeSha256": "d8adce7c6f75ba1e1a32f27171b53cf0565fcb3742ced1f248a4f84fdcd243c9",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15148185804236047,
+            "linearLuminance": 0.2140654342001308,
+            "rgb": [
+              0.202058890978265,
+              0.21890261995801485,
+              0.2015036036589953
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.002725874151774412,
+        "p95": 0.028859768404442335,
+        "max": 0.102332086373627,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.4284658778475361,
+        "nativeY": 0.432917033710262,
+        "webSD": 0.025259034376461945,
+        "nativeSD": 0.02806142728361333,
+        "deltaE": 0.03510074079541147
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "photo__capsule-button__inactive-tint-orange-half",
+      "sourceScene": "photo__capsule-button__rest-tint-orange-half",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/photo__capsule-button__inactive-tint-orange-half.png",
+      "captureSha256": "64f9444a43a8d20df9dc2b6f8754d62194322ceade1d71bfff85ab104424caa3",
+      "nativeSha256": "988c6c5ee8d96f643947176e78103fe5da2475f4f5da1a342aa59d7a1cd40d3c",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15148185804236047,
+            "linearLuminance": 0.2140654342001308,
+            "rgb": [
+              0.202058890978265,
+              0.21890261995801485,
+              0.2015036036589953
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0022069486169888105,
+        "p95": 0.023674864950394937,
+        "max": 0.10951892141078334,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.49587796367821635,
+        "nativeY": 0.5055406756128129,
+        "webSD": 0.030126710168522797,
+        "nativeSD": 0.031176544291045584,
+        "deltaE": 0.02828205802189996
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "photo__capsule-button__inactive-tint-orange",
+      "sourceScene": "photo__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/photo__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "351350da08bd4ece1ad65cab16b94169f2b466d3ce5dffd47fabf610f89bc2dc",
+      "nativeSha256": "d8adce7c6f75ba1e1a32f27171b53cf0565fcb3742ced1f248a4f84fdcd243c9",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15148185804236047,
+            "linearLuminance": 0.2140654342001308,
+            "rgb": [
+              0.202058890978265,
+              0.21890261995801485,
+              0.2015036036589953
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.002725874151774412,
+        "p95": 0.028859768404442335,
+        "max": 0.102332086373627,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.4284658778475361,
+        "nativeY": 0.432917033710262,
+        "webSD": 0.025259034376461945,
+        "nativeSD": 0.02806142728361333,
+        "deltaE": 0.03510074079541147
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "photo__capsule-button__inactive",
+      "sourceScene": "photo__capsule-button__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/photo__capsule-button__inactive.png",
+      "captureSha256": "50124b7161f19bc1ff933fb55c47f8a825d45e4233e2c8785070d7da8618f9c4",
+      "nativeSha256": "ffbbebb1312e01263edaf73250451043f6e9f8fd687f8d708e409b79ea6fc4fb",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15148185804236047,
+            "linearLuminance": 0.2140654342001308,
+            "rgb": [
+              0.202058890978265,
+              0.21890261995801485,
+              0.2015036036589953
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.001787705578604138,
+        "p95": 0.019595440914402292,
+        "max": 0.11808942451494779,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 3244,
+        "webY": 0.5699407916736045,
+        "nativeY": 0.5881617314873225,
+        "webSD": 0.03602171615341131,
+        "nativeSD": 0.034456468002896735,
+        "deltaE": 0.022753148625784137
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "photo__rrect-md__inactive",
+      "sourceScene": "photo__rrect-md__rest",
+      "set": "calibration",
+      "scale": 1,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-1x-light-standard/photo__rrect-md__inactive.png",
+      "captureSha256": "68ef88f117b30454348bd005e42afc2321ec5534817cc9a1c6827ee6c3874e01",
+      "nativeSha256": "5832078af492e4b9f442d9e4ca02693bb8b83e38e8b5c89dd92e8f6990d27c98",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15148185804236047,
+            "linearLuminance": 0.2140654342001308,
+            "rgb": [
+              0.202058890978265,
+              0.21890261995801485,
+              0.2015036036589953
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.011283318357019652,
+        "p95": 0.06416282329528959,
+        "max": 0.10221645851048257,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 12264,
+        "webY": 0.6230450975350884,
+        "nativeY": 0.6284209423405968,
+        "webSD": 0.04373603728114664,
+        "nativeSD": 0.05257561561295419,
+        "deltaE": 0.04738938986139205
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "checkerboard__capsule-button__inactive-tint-orange",
+      "sourceScene": "checkerboard__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "9dfba0ccb05aed8f21936e60f0fc3837d7e8b84b44c30b7eea5fe812753e5ab3",
+      "nativeSha256": "3f3aecf7f81bfa2ac0df8c2c578187466de7af107e76e6c84c02c4ff626c596f",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21392950047651973,
+            "linearLuminance": 0.4878305088075044,
+            "rgb": [
+              0.48783050880750445,
+              0.48783050880750445,
+              0.48783050880750445
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0016075047626286213,
+        "p95": 0.010857402427603314,
+        "max": 0.43860475716398967,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 12956,
+        "webY": 0.1994574357067045,
+        "nativeY": 0.1926247319381353,
+        "webSD": 0.03620659704344185,
+        "nativeSD": 0.055391850992176465,
+        "deltaE": 0.0193594600541391
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "checkerboard__capsule-button__inactive",
+      "sourceScene": "checkerboard__capsule-button__rest",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__inactive.png",
+      "captureSha256": "6d63d13d408cc836c83323bfd1cb38beef8fbbd6010e280c57733502502c4dcd",
+      "nativeSha256": "e520c9844172ee3c2122900e469f33367cf64358e6970c36ce018fd07c4f516c",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21392950047651973,
+            "linearLuminance": 0.4878305088075044,
+            "rgb": [
+              0.48783050880750445,
+              0.48783050880750445,
+              0.48783050880750445
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.001928035606468208,
+        "p95": 0.014172889805807729,
+        "max": 0.3972371700222901,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 12956,
+        "webY": 0.12451969450273055,
+        "nativeY": 0.11798613845930347,
+        "webSD": 0.025150337192381165,
+        "nativeSD": 0.04151696669723346,
+        "deltaE": 0.023668481053669813
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "checkerboard__rrect-md__inactive",
+      "sourceScene": "checkerboard__rrect-md__rest",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-dark-standard/checkerboard__rrect-md__inactive.png",
+      "captureSha256": "ade23e89efeac2107bab5f94359503a3d5e4ceb1863ba1af51721cdf4f97593a",
+      "nativeSha256": "13fd624153fe5b99ca6d405fcf5c26b000430ce0d6cd87e5216b6bac69c149ab",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21392950047651973,
+            "linearLuminance": 0.4878305088075044,
+            "rgb": [
+              0.48783050880750445,
+              0.48783050880750445,
+              0.48783050880750445
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.007823042735718651,
+        "p95": 0.04786667716477336,
+        "max": 0.15566847416766072,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 49064,
+        "webY": 0.07117221462478616,
+        "nativeY": 0.05515318595124494,
+        "webSD": 0.0144481103403683,
+        "nativeSD": 0.006535531467391006,
+        "deltaE": 0.03250114587279155
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "dark-solid__capsule-button__inactive-tint-orange",
+      "sourceScene": "dark-solid__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "d24e36f5105498a2fc67e4323bd897ee8a0963fc97730661ad09ced8802a5620",
+      "nativeSha256": "fe3193f159152aa9e88e42096446bc3159058424625a8c366e43530dbb36b021",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.011711216012858837,
+            "linearLuminance": 0.011711216012889976,
+            "rgb": [
+              0.011612245179764781,
+              0.011612245179764781,
+              0.012983032342163608
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.00016514312427283603,
+        "p95": 0.0017713864806829635,
+        "max": 0.0780126939564706,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 12956,
+        "webY": 0.03688945040109128,
+        "nativeY": 0.03698438771131433,
+        "webSD": 2.6068715382885943e-8,
+        "nativeSD": 3.176410775883702e-8,
+        "deltaE": 0.001771386480683355
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "dark-solid__capsule-button__inactive",
+      "sourceScene": "dark-solid__capsule-button__rest",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__inactive.png",
+      "captureSha256": "f5e7737113f31d22cf63de75710d608af3e35f8747f9f8ea1e973db8b08fb4d1",
+      "nativeSha256": "fad0229d7d04c1c7116ca68959aeac26308adbdd971223531d09d98c4fa70863",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.011711216012858837,
+            "linearLuminance": 0.011711216012889976,
+            "rgb": [
+              0.011612245179764781,
+              0.011612245179764781,
+              0.012983032342163608
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 5.295451275664159e-7,
+        "p95": 0,
+        "max": 0.004341588622091294,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 12956,
+        "webY": 0.01171121601287224,
+        "nativeY": 0.01171121601287224,
+        "webSD": 0,
+        "nativeSD": 0,
+        "deltaE": 0
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "dark-solid__rrect-md__inactive",
+      "sourceScene": "dark-solid__rrect-md__rest",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-dark-standard/dark-solid__rrect-md__inactive.png",
+      "captureSha256": "ce85cf962280c7d67dc8cd4a2afd79fa644b353c8ce70f49fdb8ae4abf10e6fa",
+      "nativeSha256": "c19610eac00be855f6a0fe837ca76e92eb8aae9e3c48cb60269143a9e5468294",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.011711216012858837,
+            "linearLuminance": 0.011711216012889976,
+            "rgb": [
+              0.011612245179764781,
+              0.011612245179764781,
+              0.012983032342163608
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0008766222609806642,
+        "p95": 0.0037174508258091955,
+        "max": 0.012143730950363838,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 49064,
+        "webY": 0.02121901037602795,
+        "nativeY": 0.021358670864939727,
+        "webSD": 0,
+        "nativeSD": 0,
+        "deltaE": 0.003717450825805693
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "photo__capsule-button__inactive-tint-orange",
+      "sourceScene": "photo__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-dark-standard/photo__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "7a5a62d00525354b1d3e061b049943ce115a46caed30128375e7618638b9c549",
+      "nativeSha256": "c22561ee2730df4f908ecb34d2f3194cf1b59ebff0a6abeda37d4e7736a92416",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15014247947202256,
+            "linearLuminance": 0.21253004748422671,
+            "rgb": [
+              0.20064806068626645,
+              0.21730984656033464,
+              0.2001699102822044
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.003423967615309911,
+        "p95": 0.03555527397490409,
+        "max": 0.1269684325677593,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 12956,
+        "webY": 0.1838111718097363,
+        "nativeY": 0.1796323372451326,
+        "webSD": 0.01482828077851468,
+        "nativeSD": 0.01910441996876778,
+        "deltaE": 0.04463231605794635
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "photo__rrect-md__inactive",
+      "sourceScene": "photo__rrect-md__rest",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-dark-standard/photo__rrect-md__inactive.png",
+      "captureSha256": "c1f8b68196d682d7f58748e8de2eb327c36e507c3e142e3e96c214b933db2245",
+      "nativeSha256": "6e33365600f3bb9d6858784230912dc1238d81304fa560b4b22d60639fcc03e9",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15014247947202256,
+            "linearLuminance": 0.21253004748422671,
+            "rgb": [
+              0.20064806068626645,
+              0.21730984656033464,
+              0.2001699102822044
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.011680946494818264,
+        "p95": 0.06280882811018447,
+        "max": 0.10304459406275905,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 49064,
+        "webY": 0.0642348091859446,
+        "nativeY": 0.05908761323885912,
+        "webSD": 0.01339208143677884,
+        "nativeSD": 0.013353673852356732,
+        "deltaE": 0.04936606193196781
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "checkerboard__capsule-button__inactive-tint-orange",
+      "sourceScene": "checkerboard__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "5e48ce551ac655c1cb9f5b36cf7fa1520ecf954a74a8056a85b91bdf437669ff",
+      "nativeSha256": "d72a88a273f218f6c42332d34ca2b40436ddf61fd72a1abc062615da055683ee",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21392950047651973,
+            "linearLuminance": 0.4878305088075044,
+            "rgb": [
+              0.48783050880750445,
+              0.48783050880750445,
+              0.48783050880750445
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0018157140813569114,
+        "p95": 0.015706491798277333,
+        "max": 0.5795099175924083,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 12956,
+        "webY": 0.4776115785193368,
+        "nativeY": 0.45330082494015395,
+        "webSD": 0.06335186406111668,
+        "nativeSD": 0.09621403507125423,
+        "deltaE": 0.022150455641878026
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "checkerboard__capsule-button__inactive",
+      "sourceScene": "checkerboard__capsule-button__rest",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__inactive.png",
+      "captureSha256": "707d894f79ca965961d94018efce8c40dbc3a884b36f545bcc976f7bec3a6afe",
+      "nativeSha256": "fcc7e1b720cf74b8a30e5203822593c6fb8e12f9acaf2d0c92bc1040224097d7",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21392950047651973,
+            "linearLuminance": 0.4878305088075044,
+            "rgb": [
+              0.48783050880750445,
+              0.48783050880750445,
+              0.48783050880750445
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0015482335523615335,
+        "p95": 0.015130576284913665,
+        "max": 0.6367600316401536,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 12956,
+        "webY": 0.6400705762888285,
+        "nativeY": 0.6100102482077946,
+        "webSD": 0.09033692290794053,
+        "nativeSD": 0.11476271154505978,
+        "deltaE": 0.018482587846268696
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "checkerboard__rrect-md__inactive",
+      "sourceScene": "checkerboard__rrect-md__rest",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__inactive.png",
+      "captureSha256": "438b738e0bf81b10bd5e368ea5e03bd0b64fa14b853e52d7c87869f36cbb16eb",
+      "nativeSha256": "8e4f864f6b8002e7f96a7e9fe88c2ea29d4c88f497eb62e9cbf7f46cc4d60fca",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21392950047651973,
+            "linearLuminance": 0.4878305088075044,
+            "rgb": [
+              0.48783050880750445,
+              0.48783050880750445,
+              0.48783050880750445
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0033548803100514678,
+        "p95": 0.0214877999776676,
+        "max": 0.18120192683750916,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 49064,
+        "webY": 0.6666631981435471,
+        "nativeY": 0.6404172770197731,
+        "webSD": 0.0520924988185975,
+        "nativeSD": 0.030890328125246818,
+        "deltaE": 0.012487010270441674
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "checkerboard__rrect-sm__inactive",
+      "sourceScene": "checkerboard__rrect-sm__rest",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/checkerboard__rrect-sm__inactive.png",
+      "captureSha256": "587f9d9dce470fcca54a4c4bb88e3fb321788976a09a2cc15ff8becaf6c82d64",
+      "nativeSha256": "cd3518fd5db24cda1f17bf76bf432e9caf408529b8905bf7797593bbcd7e001d",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21392950047651973,
+            "linearLuminance": 0.4878305088075044,
+            "rgb": [
+              0.48783050880750445,
+              0.48783050880750445,
+              0.48783050880750445
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0005717122858834303,
+        "p95": 0,
+        "max": 0.16402174433939698,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 4148,
+        "webY": 0.639031315636892,
+        "nativeY": 0.6109968358894288,
+        "webSD": 0.10486170901188598,
+        "nativeSD": 0.12315552210842834,
+        "deltaE": 0.016903016759036382
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "checkerboard__toolbar-group__inactive",
+      "sourceScene": "checkerboard__toolbar-group__rest",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/checkerboard__toolbar-group__inactive.png",
+      "captureSha256": "9630fb9ad6b7e4d9568ae139c2e81f05e8de2a9cd68a8a7ce2833e9ace905c4d",
+      "nativeSha256": "d1d7ed86ac9634f2f171036d329a83aeec7248468496db823bae50a24e49cc91",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "mergeDistance": 24,
+          "declaredSpacing": 12,
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21392950047651973,
+            "linearLuminance": 0.4878305088075044,
+            "rgb": [
+              0.48783050880750445,
+              0.48783050880750445,
+              0.48783050880750445
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0013874461993321496,
+        "p95": 0.012416962965559173,
+        "max": 0.23503112361565953,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 9684,
+        "webY": 0.6401220566776818,
+        "nativeY": 0.6099857669734448,
+        "webSD": 0.09414638233871539,
+        "nativeSD": 0.11454917978554875,
+        "deltaE": 0.017636692068781833
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "dark-solid__capsule-button__inactive-tint-orange",
+      "sourceScene": "dark-solid__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "9601e9277f473232d46b5c48d01158ca470ff03c332cb254b0580014d58b2923",
+      "nativeSha256": "fe3193f159152aa9e88e42096446bc3159058424625a8c366e43530dbb36b021",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.011711216012858837,
+            "linearLuminance": 0.011711216012889976,
+            "rgb": [
+              0.011612245179764781,
+              0.011612245179764781,
+              0.012983032342163608
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0001649245678215177,
+        "p95": 0.0017713864806829635,
+        "max": 0.0780126939564706,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 12956,
+        "webY": 0.03688945040109128,
+        "nativeY": 0.03698438771131433,
+        "webSD": 2.6068715382885943e-8,
+        "nativeSD": 3.176410775883702e-8,
+        "deltaE": 0.001771386480683355
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "dark-solid__capsule-button__inactive",
+      "sourceScene": "dark-solid__capsule-button__rest",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__inactive.png",
+      "captureSha256": "f5e7737113f31d22cf63de75710d608af3e35f8747f9f8ea1e973db8b08fb4d1",
+      "nativeSha256": "fad0229d7d04c1c7116ca68959aeac26308adbdd971223531d09d98c4fa70863",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.011711216012858837,
+            "linearLuminance": 0.011711216012889976,
+            "rgb": [
+              0.011612245179764781,
+              0.011612245179764781,
+              0.012983032342163608
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 5.295451275664159e-7,
+        "p95": 0,
+        "max": 0.004341588622091294,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 12956,
+        "webY": 0.01171121601287224,
+        "nativeY": 0.01171121601287224,
+        "webSD": 0,
+        "nativeSD": 0,
+        "deltaE": 0
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "dark-solid__rrect-md__inactive",
+      "sourceScene": "dark-solid__rrect-md__rest",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/dark-solid__rrect-md__inactive.png",
+      "captureSha256": "3f9a9beff7d0bedfb82f1ca3b74dcce67f310111953913534707a1885d5f527b",
+      "nativeSha256": "80afbcf965f7d7ffb6571cbd1d677e881de12cbab9a7889ea726aa215378d043",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.011711216012858837,
+            "linearLuminance": 0.011711216012889976,
+            "rgb": [
+              0.011612245179764781,
+              0.011612245179764781,
+              0.012983032342163608
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0007625270732041071,
+        "p95": 0.0028715758461067644,
+        "max": 0.10043627183216491,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 49064,
+        "webY": 0.4564110231804079,
+        "nativeY": 0.4572321373856066,
+        "webSD": 5.147644902306386e-7,
+        "nativeSD": 7.155273214950572e-7,
+        "deltaE": 0.002871575846104907
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "impulse__capsule-button__inactive-tint-orange",
+      "sourceScene": "impulse__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/impulse__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "2b9b220167e3303e889995446de333d5fd54c4c37a19777aa2e9b6aa4b126fc6",
+      "nativeSha256": "ddd1193844b0186a55c9b928500a99612d6420953c0dbdc195d15de76a66dee5",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.00028878043332271005,
+            "linearLuminance": 0.0033851996632254457,
+            "rgb": [
+              0.003385199663225446,
+              0.003385199663225446,
+              0.003385199663225446
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.001522666327844587,
+        "p95": 0.019737920549033033,
+        "max": 0.24353474066508898,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 12956,
+        "webY": 0.031011667211278127,
+        "nativeY": 0.025813012677112026,
+        "webSD": 0.0009579648860348172,
+        "nativeSD": 0.0018756733289176611,
+        "deltaE": 0.018858938922522845
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "light-solid__capsule-button__inactive-tint-orange",
+      "sourceScene": "light-solid__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/light-solid__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "3a6e678594e57054feaab90e9d35e1ca4b5df7a08c218c5e813cce70b0b9db98",
+      "nativeSha256": "fa961b3c84a0dff5a7317a2b8940370f0702f8614b889d15e60b4ff4fe38c8a4",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.890969072745769,
+            "linearLuminance": 0.8909690727465385,
+            "rgb": [
+              0.8879231178830185,
+              0.8879231178830185,
+              0.930110858374986
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0017040855880075944,
+        "p95": 0.02217097147672081,
+        "max": 0.0656343588468271,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 12956,
+        "webY": 0.6795424696330199,
+        "nativeY": 0.7315396585846871,
+        "webSD": 2.474445388528051e-7,
+        "nativeSD": 2.356080457693621e-7,
+        "deltaE": 0.022170971476724474
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "light-solid__capsule-button__inactive",
+      "sourceScene": "light-solid__capsule-button__rest",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/light-solid__capsule-button__inactive.png",
+      "captureSha256": "b5805e41998a03dc60aefad7affa6da66d3c711f3e0b1259754178063db78c4e",
+      "nativeSha256": "356d548ec6f250cc423c5030c9fbf6fe68ed7a2506d382537136057873dd7edf",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.890969072745769,
+            "linearLuminance": 0.8909690727465385,
+            "rgb": [
+              0.8879231178830185,
+              0.8879231178830185,
+              0.930110858374986
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.00020854286654753328,
+        "p95": 0.0027095146221131987,
+        "max": 0.009062398161867784,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 12956,
+        "webY": 0.9313523863529458,
+        "nativeY": 0.9326072014987307,
+        "webSD": 2.4096610589021784e-7,
+        "nativeSD": 0,
+        "deltaE": 0.0027095146221122516
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "light-solid__rrect-md__inactive",
+      "sourceScene": "light-solid__rrect-md__rest",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/light-solid__rrect-md__inactive.png",
+      "captureSha256": "16155e5ca6059d7ef3d617da2df1e8ebe66d597eea1dd2c105ec9a4bfe71e736",
+      "nativeSha256": "c77e2fb7a8628169271a71c18588084e3e315699e51272e173519b85e3169ca0",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.890969072745769,
+            "linearLuminance": 0.8909690727465385,
+            "rgb": [
+              0.8879231178830185,
+              0.8879231178830185,
+              0.930110858374986
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0000027011689256214866,
+        "p95": 0,
+        "max": 0.0060492827387066805,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 49064,
+        "webY": 0.8980969160838864,
+        "nativeY": 0.8980969160838864,
+        "webSD": 4.185608597155851e-7,
+        "nativeSD": 4.185608597155851e-7,
+        "deltaE": 0
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "photo__capsule-button__inactive-tint-blue",
+      "sourceScene": "photo__capsule-button__rest-tint-blue",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/photo__capsule-button__inactive-tint-blue.png",
+      "captureSha256": "eca769d25f4e50eeb7bac032c15c41161f86055b11199313438679ed30dafd98",
+      "nativeSha256": "df4c0bf04e217a2fc94d4c04d522b444ff79f27d337525792b891556ccdc5a4c",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15014247947202256,
+            "linearLuminance": 0.21253004748422671,
+            "rgb": [
+              0.20064806068626645,
+              0.21730984656033464,
+              0.2001699102822044
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0027072973449593,
+        "p95": 0.027659750952377923,
+        "max": 0.1893942182789191,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 12956,
+        "webY": 0.42813927754465964,
+        "nativeY": 0.4218377146925474,
+        "webSD": 0.025995573624031886,
+        "nativeSD": 0.028468092588799364,
+        "deltaE": 0.03484873030367543
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "photo__capsule-button__inactive-tint-orange-half",
+      "sourceScene": "photo__capsule-button__rest-tint-orange-half",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/photo__capsule-button__inactive-tint-orange-half.png",
+      "captureSha256": "9a485e73204ff60d0f96c47313e25b127c3d0ca34c7b60f5009fd00e24fc4a9b",
+      "nativeSha256": "70d9ee5d9b05511f8a33a7f47abf4379cbfdbae362c23dcb50e7759045c15d05",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15014247947202256,
+            "linearLuminance": 0.21253004748422671,
+            "rgb": [
+              0.20064806068626645,
+              0.21730984656033464,
+              0.2001699102822044
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0021248129723490483,
+        "p95": 0.021547498758445322,
+        "max": 0.21250380742744387,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 12956,
+        "webY": 0.49555916617623613,
+        "nativeY": 0.4934027599855489,
+        "webSD": 0.031029350754227632,
+        "nativeSD": 0.03166795268496015,
+        "deltaE": 0.02715952949278327
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "photo__capsule-button__inactive-tint-orange",
+      "sourceScene": "photo__capsule-button__rest-tint-orange",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/photo__capsule-button__inactive-tint-orange.png",
+      "captureSha256": "eca769d25f4e50eeb7bac032c15c41161f86055b11199313438679ed30dafd98",
+      "nativeSha256": "df4c0bf04e217a2fc94d4c04d522b444ff79f27d337525792b891556ccdc5a4c",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15014247947202256,
+            "linearLuminance": 0.21253004748422671,
+            "rgb": [
+              0.20064806068626645,
+              0.21730984656033464,
+              0.2001699102822044
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0027072973449593,
+        "p95": 0.027659750952377923,
+        "max": 0.1893942182789191,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 12956,
+        "webY": 0.42813927754465964,
+        "nativeY": 0.4218377146925474,
+        "webSD": 0.025995573624031886,
+        "nativeSD": 0.028468092588799364,
+        "deltaE": 0.03484873030367543
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "photo__capsule-button__inactive",
+      "sourceScene": "photo__capsule-button__rest",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/photo__capsule-button__inactive.png",
+      "captureSha256": "d36f05e32bbf1590d5b43317d381f74be899573d94c548bd04d307d13608f558",
+      "nativeSha256": "5fa3ccbb8ccb92f47634372e2efffa66cd7d6925636c0778dd0befa83c291a7b",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15014247947202256,
+            "linearLuminance": 0.21253004748422671,
+            "rgb": [
+              0.20064806068626645,
+              0.21730984656033464,
+              0.2001699102822044
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0016085768683527552,
+        "p95": 0.016273092712559344,
+        "max": 0.23882030793341305,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 12956,
+        "webY": 0.5695667981686026,
+        "nativeY": 0.5748823977520511,
+        "webSD": 0.03706637370489963,
+        "nativeSD": 0.0349591020792432,
+        "deltaE": 0.020330891120553706
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "photo__rrect-md__inactive",
+      "sourceScene": "photo__rrect-md__rest",
+      "set": "calibration",
+      "scale": 2,
+      "capture": "/tmp/w27c-g1/t1/apple-macos-26.5-2x-light-standard/photo__rrect-md__inactive.png",
+      "captureSha256": "baac8ad7f3df138ba6521c05aa3e47874a744bcfa030c434111ec738ede771fa",
+      "nativeSha256": "c9c28d5cf33aed3fe3c56a2f5ad01cf000fd036a9a5713b9479de13f357b9c4f",
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 1,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15014247947202256,
+            "linearLuminance": 0.21253004748422671,
+            "rgb": [
+              0.20064806068626645,
+              0.21730984656033464,
+              0.2001699102822044
+            ]
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.011105153777111585,
+        "p95": 0.062181465715650794,
+        "max": 0.11215145361594261,
+        "sampleCount": 256000
+      },
+      "body": {
+        "n": 49064,
+        "webY": 0.6234363383564963,
+        "nativeY": 0.6281435858089783,
+        "webSD": 0.04530902473957582,
+        "nativeSD": 0.05127707371151518,
+        "deltaE": 0.04670153182161818
+      }
+    }
+  ]
+}

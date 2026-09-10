@@ -19,14 +19,15 @@ test("@golden the inactive tint loses hue without losing its collapsed level", a
   expect(Array.from(identity.data)).toEqual(Array.from(active.data));
   // The neutral-only family exposes the unshaded seed at collapse. Retaining
   // the shade is what makes a grey near Y=.037 instead of white.
-  expect(rgb(neutral, 192, 82)).toEqual([255, 255, 255]);
-  const shaded = rgb(receded, 192, 82);
+  // Centers (148,60) and (56,60) CSS px from the fixture, at its declared DPR 2.
+  expect(rgb(neutral, 296, 120)).toEqual([255, 255, 255]);
+  const shaded = rgb(receded, 296, 120);
   expect(shaded[0]).toBeGreaterThan(35);
   expect(shaded[0]).toBeLessThan(75);
   expect(shaded[1]).toBe(shaded[0]);
   expect(shaded[2]).toBe(shaded[0]);
-  expect(rgb(receded, 100, 82)).toEqual(rgb(active, 100, 82));
-  expect(rgb(active, 192, 82)[0]).toBeGreaterThan(rgb(active, 192, 82)[2]! + 100);
+  expect(rgb(receded, 112, 120)).toEqual(rgb(active, 112, 120));
+  expect(rgb(active, 296, 120)[0]).toBeGreaterThan(rgb(active, 296, 120)[2]! + 100);
 
   const retired = decodeCapture(await page.evaluate((profile) => window.vitrea.renderScene(
     "collapsed-tone", undefined, profile,

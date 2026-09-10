@@ -149,6 +149,14 @@ The page's own background is still the page's: vitrea does not write your tokens
 so an app offering "follow the system" reads `prefers-color-scheme` for its own
 colours as well as passing `"auto"` here.
 
+`recededMaterialProfile.light` and `.dark` are measured differences for a fixed inactive-window
+appearance. Select the entry for the resolved scheme and merge it over that scheme's material;
+for example, `createGlassRoot({ colorScheme: "dark", materialProfile: recededMaterialProfile.dark })`.
+They remove the outer shadow and bright rim while retaining an author's tint strength as an
+achromatic shade. The recovered native reference is macOS 26.5, with 1x-only accessibility evidence.
+These documents alone do not observe window focus; activation is a root pose, not an interaction
+state on individual surfaces.
+
 ---
 
 ## Frames

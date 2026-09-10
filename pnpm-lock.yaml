@@ -156,6 +156,9 @@ importers:
       vite:
         specifier: 'catalog:'
         version: 8.2.2(@types/node@26.2.0)(esbuild@0.27.7)(tsx@4.20.6)(yaml@2.9.0)
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.11(@types/node@26.2.0)(jsdom@30.0.1)(vite@8.2.2(@types/node@26.2.0)(esbuild@0.27.7)(tsx@4.20.6)(yaml@2.9.0))
 
   packages/calibration:
     devDependencies:

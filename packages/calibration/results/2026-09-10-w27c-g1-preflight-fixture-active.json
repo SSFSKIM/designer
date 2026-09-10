@@ -1,0 +1,19 @@
+{
+  "$comment": "W27c G1 preflight proof fixture: every scene is 'rest' or 'pressed', the two states a fresh run can reproduce. scenesUnsupportedForFreshCapture must return nothing for this file — see 2026-09-10-w27c-g1-preflight-check.sh.",
+  "version": 1,
+  "canvas": { "width": 100, "height": 100 },
+  "backgrounds": { "bg": { "kind": "solid", "srgb": [255, 255, 255] } },
+  "components": { "c": { "kind": "capsule", "size": [60, 30] } },
+  "scenes": [
+    { "id": "bg__c__rest", "background": "bg", "component": "c", "state": "rest" },
+    { "id": "bg__c__pressed", "background": "bg", "component": "c", "state": "pressed" }
+  ],
+  "profiles": [
+    { "key": "p1", "colorScheme": "light", "a11y": "standard", "scenes": "all" }
+  ],
+  "split": {
+    "holdout": [],
+    "validation": [],
+    "calibration": ["bg__c__rest", "bg__c__pressed"]
+  }
+}

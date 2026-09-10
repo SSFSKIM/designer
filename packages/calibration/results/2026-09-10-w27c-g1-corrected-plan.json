@@ -1,0 +1,19 @@
+{
+  "gate": "W27c G1 / claims §5.130, corrected experiment",
+  "supersedes": "The first attempt's web fidelity readings are invalidated by 2026-09-10-w27c-g1-invalidation.json and remain unchanged beside this experiment.",
+  "declaredBeforeSweep": "2026-09-10",
+  "geometry": "Viewport must equal matrix.canvas (320 by 200 CSS px). Require reported canvas, requestedScale, actual devicePixelRatio, and all report.problems to agree with the requested capture. Persist diagnostics and integrity facts.",
+  "baseline": "Shipping active document merged with an empty inactive difference, at the corrected viewport. Calibration plus validation baseline is descriptive only; tuning uses calibration rows exclusively.",
+  "startingCandidate": "Restart from active body/scatter/response parameters, zero outer-shadow and bright-rim terms, achromatic tint with retained collapse shade. Initial light shade endpoints 0.03/0.8 and dark 0.02/1.4 are a starting hypothesis, not adopted values. The prior attempt's fitted body/scatter parameters are not reused as an endpoint.",
+  "objective": "Equal-cell mean per-pixel full-canvas OKLab distance, with eroded 6-CSS-px body mean linear Rec.709 Y and population SD. Report every profile and scale separately. Read actual spatial profiles before fitting width or heavy share.",
+  "sets": "Fit 62 eligible calibration cells; check 16 validation cells. Exclude the 2x dark photo capsule rest pair. Do not read 12 recorded copies. Freeze a new declaration before the single 30-cell holdout read.",
+  "acceptance": "Every profile calibration+validation mean improves over corrected active baseline. Bright rim and outer shadow disappear on standard/reduced-transparency; retain and measure increased-contrast outline. Report the checker capsule/checker rrect/photo rrect SD triple separately at 1x and 2x. Preserve active resolved SHA pins and renderer goldens.",
+  "holdout": "UNREAD at this declaration; no fit adjustment may follow its one frozen read.",
+  "limits": [
+    "Historical inactive pixels remain schema-2 single-run data with inferred pose, not fresh attestation.",
+    "No 2x accessibility or dark-accessibility inactive evidence exists.",
+    "Full-strength neutral authored tint may lose background chroma that survives in native photo material; report this rather than claiming hue parity.",
+    "CSS derives from the same document; it cannot carry the GPU spatial shade or scatter family and is record-only.",
+    "G1 declares optical endpoints; G2 supplies web activation state wiring; G3 supplies runtime capture integration, canonical inactive rows and active full-matrix rebuild. Native deactivation capture is separate future work."
+  ]
+}

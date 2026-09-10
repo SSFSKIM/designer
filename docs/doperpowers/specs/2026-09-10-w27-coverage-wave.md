@@ -108,7 +108,8 @@ into the ledger rather than chartered.
   two deliberate tripwire tests]. It takes the colour-scheme seam: an observer with a
   read-and-subscribe shape (`window` focus/blur plus `document.hasFocus()` through the supplied
   `view`; not `visibilitychange`, which stays `visible` for an unfocused window), a
-  `recededMaterialProfile` difference document beside `dark-profile.ts`, `applyMaterialProfile` as
+  `recededMaterialProfile` difference document indexed by the resolved colour scheme beside
+  `dark-profile.ts`, `applyMaterialProfile` as
   the one path, a `windowActivation: "auto" | "active" | "inactive"` option on the root and prop on
   `<GlassRoot>`. Two frozen endpoint documents, never a blended profile: the cell key embeds the
   profile SHA, so a blend is not a measurable configuration; the transit is the CSS tier's armed
@@ -464,6 +465,18 @@ neighbour glow diffusion; topology-changing morphs.
    narrowing the guarantee to "where the level resolves" (the bracket needs no backdrop, so the
    guarantee was available on every shipped path); a constant alpha (no constant holds 4.5 across
    the material's range without ceasing to be a secondary).
+10. **The inactive endpoint needs shade through collapse and a difference per scheme (2026-09-10;
+    W27c G1, approved by the parent after the one-field refutation).** Chroma suppression alone
+    leaves the old shade at 1 on a collapsed body: no constant neutral seed can give both the
+    1x light dark-solid tinted capsule's 0.03678 Y and the checkerboard tint's 0.45128 Y under a
+    shade clamped below that seed. A second identity-default field retains the shade through
+    collapse. The endpoint is indexed by resolved scheme so its light and dark response
+    ordinates can be fitted independently; X7 still means two fixed endpoints per scheme, never
+    a blended profile. The fit is claims §5.130. Rejected: discarding author tint strength;
+    breaking the untinted dark-solid collapse to make tint fit; forcing a flat common patch to
+    compromise opposite scheme responses. The historical-only native capture boundary is guarded
+    in G1: refuse an inactive capture request before writing rather than file active pixels under
+    an inactive id; fresh native deactivation requires a separate capture-path charter.
 
 ## Surprises & Discoveries
 

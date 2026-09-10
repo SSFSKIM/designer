@@ -1,15 +1,13 @@
 import type { RendererMaterialProfile } from "./renderer-bridge";
 
 /**
- * The terms shared by the two frozen inactive-window endpoints (W27c G1,
- * claims §5.130). The outer shadow and bright rim disappear; tint strength
- * survives as an achromatic shade, including on a collapsed body.
+ * The terms shared by the inactive-window endpoints (W27c G1, claims §5.130).
+ * The outer shadow and bright rim disappear; tint strength survives as an
+ * achromatic shade, including on a collapsed body. The corrected fitting run
+ * checks the declared canvas and device scale before admitting any pixels.
  *
- * The increased-contrast outline is a signed, one-pixel dark band. On the 1x
- * photo capsule the native first interior row is about 89/255 and the next is
- * 254/255. A width of one and amplitude -3.5 give that narrow subtraction in
- * the existing quadratic rim law. It is not a negative alpha compositor.
- * Accessibility was measured only at 1x, and only in the light scheme.
+ * The 2x heavy width is in device pixels, selected after reading the actual
+ * checker and photo spatial profiles. It is not a scale-free frost ratio.
  */
 const common: RendererMaterialProfile = {
   tintChromaScale: 0,
@@ -31,8 +29,6 @@ const common: RendererMaterialProfile = {
     liftAmplitude: 0,
     reducedTransparencyOcclusion: 0,
   },
-  increasedOcclusionLift: 0.92,
-  strongBorderRim: { rimWidth: 1, rimAlpha: -3.5 },
   sizeScatterRampStartThick1x: 0.3,
   sizeScatterRampStartThick2x: 0.04,
   sizeScatterRampStartFar2x: 0.04,
@@ -46,9 +42,11 @@ const common: RendererMaterialProfile = {
  * dark one up through their different response curves, so the scheme seam that
  * already chooses the active document also chooses its inactive difference.
  *
- * The fit and its limits, including the pre-attestation native provenance, are
- * in claims §5.130. G2 applies the selected difference through applyMaterialProfile;
- * G1's calibration harness performs the same merge until that runtime path lands.
+ * The corrected declaration and its limits are in claims §5.130. The native bed
+ * predates per-cell pose attestation, photo-body chroma remains too muted, and no
+ * dark-accessibility or 2x-accessibility endpoint is measured here. G2 applies
+ * the selected difference through applyMaterialProfile; G1's calibration harness
+ * performs the same merge until that runtime path lands.
  */
 export const recededMaterialProfile: Readonly<Record<"light" | "dark", RendererMaterialProfile>> = {
   light: {
@@ -59,19 +57,21 @@ export const recededMaterialProfile: Readonly<Record<"light" | "dark", RendererM
     sizeScatterFloor: 0.7,
     sizeScatterRampStartThin1x: 0.55,
     sizeScatterRampStartThin2x: 0.7,
-    backdropToneResponseThin: [0.0126, 0.42, 0.929],
-    backdropToneResponseThick: [0.4553, 0.5394, 0.9],
+    backdropToneResponseThin: [0.0126, 0.4, 0.929],
+    backdropToneResponseThick: [0.4553, 0.518, 0.9],
+    increasedOcclusionLift: 0.92,
+    // The existing signed rim law subtracts light; this is not a negative CSS
+    // alpha. Only the 1x light increased-contrast outline identifies this band.
+    strongBorderRim: { rimWidth: 1, rimAlpha: -3.5 },
   },
   dark: {
     ...common,
     optics: { ...common.optics, regular: { ...common.optics?.regular, tintAlpha: 0.89 } },
     tintShadeDark: 0.0202,
     tintShadeLight: 1.46,
-    reducedTintAdaptation: 0.8,
-    sizeScatterFloor: 0.4,
     sizeScatterRampStartThin1x: 1,
     sizeScatterRampStartThin2x: 1,
-    sizeScatterHeavyShareThick1x: 0.4,
+    sizeScatterHeavyShareThick1x: 0.25,
     backdropToneResponseThin: [0.011, 0.089, 0.1611],
     backdropToneResponseThick: [0.0215, 0.065, 0.02],
   },
