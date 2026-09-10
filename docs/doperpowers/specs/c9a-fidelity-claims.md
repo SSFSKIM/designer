@@ -15614,3 +15614,203 @@ gain constants' retirement with the dark path; the no-small-values wart; the rim
 release-chain window 52 s, a tenth recurrence); a cold install outside the workspace imports all
 three entry points, and the renderer's material — in core's split chunk — carries
 `sizeHeavyTapSigma` 9 / `2x` 9. Clause 8 met; the eye's black-on-black observation to the tracker.
+
+
+### 5.128 W27c G0: the recede loses its shadow and hue, not uniformly its light or structure (2026-09-10)
+
+**Gate:** W27 coverage wave, child W27c G0; Decision Logs 5 and 7; contracts X1, X3, X7 and
+X8. This is the historical native-to-native measurement, not a runtime change, a material fit,
+or a WebGPU acceptance. G1 consumes it as the WebGPU endpoint reference; no CSS fidelity claim
+is made. No fixture, existing matrix, profile or floor was replaced.
+
+**1. The bed and the instrument.** `scripts/recede.ts` under `packages/calibration/` reads
+all fixture paths shared by `973fd7e^` (`0b4b02427243cf89d1c77bcb09241a200132f86a`, inactive)
+and `973fd7e` (`973fd7e8fd99997cb8996f71dc22a58b404a394d`, active), plus the background PNGs
+from git, and refuses a background whose bytes changed. **121 matched cells, 37 distinct scenes,
+zero unchanged fixture files; every paired background byte-identical.** The six profile
+populations are unequal: 37 light-standard cells at each scale, 14 dark-standard at each scale,
+10 increased-contrast and 9 reduced-transparency at 1x. The current declaration has 92 scenes;
+none of the missing 55 is measured by this gate. The applicable component geometries agree with
+the historical declaration (ignoring comments).
+
+**X8 provenance, expressly:** schema 2, **single run per cell**, pose **inferred from the DL14
+post-mortem**, not attested per cell. The old harness's borderless window could never become key;
+DL14 changed activation and re-baselined the fixtures in place. The historical inactive matrix
+is `packages/calibration/results/2026-08-30-inactive-bed-matrix.json`. W27 Decision Log 5 admits
+this recovered bed for the fit because the prior record found inactive captures static across
+runs; it does not turn these 121 files into a repeated, attested experiment. The historical
+active side is not today's frequency-settled active reference either. No frozen G1 configuration
+exists here; this census includes historical holdout pairs because G0 explicitly requires every
+matched pair. G1 still declares and reads its frozen configuration's holdout once.
+
+The machine table and its Markdown rendering are
+`packages/calibration/results/2026-09-10-w27c-g0-recede.{json,md}`. Each cell carries SHA-256s
+for both fixtures and background; the header hashes the scene declaration and the unmodified
+W23 contour instrument. Reproduce with
+`PYTHON=<python-with-numpy-and-Pillow> W27C_OUT=/tmp/<new-prefix> pnpm --filter @vitrea/calibration --fail-if-no-match exec tsx scripts/recede.ts`.
+Outputs are create-only. Five synthetic tests pin sample inclusion under invisible glass,
+linear/encoded arithmetic, per-pixel chroma rather than chroma cancellation, the strict >1-code
+exterior threshold, and a scaled stack's union population.
+
+Interior means use **the same declared rounded-component footprint** on backdrop and both
+poses: `componentRegion`, zero margin, pixel-centre containment. No image-derived silhouette
+is extracted, so an invisible body does not delete its own samples. Groups use the union of
+members; stacks use the union of base and overlay, **not an isolated upper-pane material**.
+The main statistic includes the contour; a supplementary signed-distance erosion by 6 CSS px
+checks the body separately. This matters for contrast borders and near-opaque accessibility
+material. Structure is the population standard deviation divided by that of the backdrop on
+this same mask; uniform backdrops are **null, not zero**. Means of ratios omit nulls.
+Linear Y is Rec.709 after the sRGB EOTF, [0,1]; encoded mean is the mean Rec.709-weighted sRGB
+channels /255, **not** the encoding of mean Y. Chroma is mean per-pixel OKLab `hypot(a,b)`;
+the JSON also carries the existing `tintResponse` reader's chroma of mean light and a separately
+labelled legacy RGB max-minus-min diagnostic in byte codes.
+
+The W23 G3 `read-contour.py` is imported unchanged: 6 CSS px body erosion, 2 CSS px inward band,
+1.6× corner exclusion. Reported band Y is the equal mean of applicable side means; `rimLocal`
+is W23's band excess over neighbouring rows, integrated per CSS px. The JSON retains each side,
+its raw rows, clipping, body-relative excess and colour. Capsule left/right have no straight
+span; groups and stacks have no single-box reading and are inapplicable, not zero. Exterior
+pixels are any RGB channel >1 code different outside the declared union; this count includes
+edge antialiasing, corner-model mismatch and possible inter-member joins. A supplementary count
+beyond 2 CSS px distinguishes immediate-edge residue from the broad shadow. Counts are device
+pixels, truncated by the canvas, not CSS area or a shadow amplitude.
+
+**2. Headline: equal-weight means across each profile's cells (active → inactive).** These are
+census summaries, not a balanced experiment: tinted and pressed variants have their own rows.
+Structure/contour denominators respectively are 10/13, 10/9, 9/8, 29/33, 10/13 and 29/33
+in the table's order. The full per-cell table is beside the JSON.
+
+| profile | n | backdrop Y | interior Y | encoded mean | lift Y | structure × | OKLab C | exterior >1 | contour band Y | local rim |
+| --- | ---: | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
+| apple-macos-26.5-1x-dark-standard | 14 | 0.22673 | 0.13385 → 0.07649 | 0.31183 → 0.27272 | -0.09289 → -0.15024 | 0.16981 → 0.11545 | 0.05847 → 0.02639 | 5341.57143 → 49.57143 | 0.17362 → 0.07529 | 0.07442 → -0.00113 |
+| apple-macos-26.5-1x-light-increased-contrast | 10 | 0.34326 | 0.81842 → 0.89845 | 0.87163 → 0.93987 | 0.47516 → 0.55519 | 1.27759 → 1.26106 | 0.03711 → 0.00112 | 8697.10000 → 367.20000 | 0.44044 → 0.52006 | -0.83238 → -0.84636 |
+| apple-macos-26.5-1x-light-reduced-transparency | 9 | 0.32584 | 0.83888 → 0.92690 | 0.91421 → 0.96592 | 0.51304 → 0.60106 | 0.24154 → 0.32147 | 0.02460 → 0.00627 | 9129.88889 → 71.33333 | 0.88936 → 0.92944 | 0.11860 → -0.00004 |
+| apple-macos-26.5-1x-light-standard | 37 | 0.33504 | 0.51937 → 0.51524 | 0.69872 → 0.70024 | 0.18432 → 0.18019 | 0.38282 → 0.32154 | 0.06844 → 0.02172 | 8949.18919 → 58.18919 | 0.57395 → 0.49517 | 0.14929 → -0.01627 |
+| apple-macos-26.5-2x-dark-standard | 14 | 0.22697 | 0.13003 → 0.07622 | 0.30192 → 0.27203 | -0.09694 → -0.15075 | 0.16757 → 0.12206 | 0.05999 → 0.02685 | 21285.35714 → 92.85714 | 0.16804 → 0.07515 | 0.07121 → -0.00025 |
+| apple-macos-26.5-2x-light-standard | 37 | 0.33528 | 0.52011 → 0.51533 | 0.69888 → 0.70022 | 0.18483 → 0.18004 | 0.40797 → 0.30733 | 0.06867 → 0.02168 | 35719.91892 → 113.89189 | 0.56525 → 0.49620 | 0.13183 → -0.00875 |
+
+
+**3. Per component, the four facets are conditional, not a single direction.** Below, ΔY is
+inactive minus active; structure and OKLab C are active → inactive. Each row averages only that
+profile/component's available cells, including its tints. Exterior shadow removal holds for
+**every component in every profile** under the distance check in §4.
+
+| profile suffix | component | n | ΔY | structure × | OKLab C |
+| --- | --- | ---: | ---: | --- | --- |
+| 1x-dark-standard | capsule-button | 9 | -0.09490 | 0.2157 → 0.1328 | 0.0724 → 0.0193 |
+| 1x-dark-standard | glass-over-glass | 1 | +0.00993 | 0.0467 → 0.0323 | 0.0001 → 0.0000 |
+| 1x-dark-standard | rrect-lg | 1 | +0.01739 | 0.1350 → 0.1541 | 0.0828 → 0.1027 |
+| 1x-dark-standard | rrect-md | 3 | +0.00793 | 0.1112 → 0.0856 | 0.0281 → 0.0309 |
+| 1x-light-increased-contrast | capsule-button | 6 | +0.12621 | 1.2635 → 1.3271 | 0.0598 → 0.0009 |
+| 1x-light-increased-contrast | rrect-lg | 1 | +0.00513 | 1.1497 → 1.0336 | 0.0028 → 0.0006 |
+| 1x-light-increased-contrast | rrect-md | 2 | +0.00872 | 0.9948 → 0.8947 | 0.0010 → 0.0004 |
+| 1x-light-increased-contrast | toolbar-group | 1 | +0.02054 | 2.0553 → 1.8252 | 0.0078 → 0.0041 |
+| 1x-light-reduced-transparency | capsule-button | 5 | +0.11183 | 0.2677 → 0.3459 | 0.0381 → 0.0051 |
+| 1x-light-reduced-transparency | rrect-lg | 1 | +0.06127 | 0.2093 → 0.2676 | 0.0092 → 0.0091 |
+| 1x-light-reduced-transparency | rrect-md | 2 | +0.06081 | 0.1491 → 0.1964 | 0.0050 → 0.0047 |
+| 1x-light-reduced-transparency | toolbar-group | 1 | +0.05018 | 0.3280 → 0.5032 | 0.0117 → 0.0123 |
+| 1x-light-standard | capsule-button | 19 | +0.00938 | 0.3205 → 0.2530 | 0.0952 → 0.0121 |
+| 1x-light-standard | glass-over-glass | 2 | -0.02838 | 0.6601 → 0.5908 | 0.0331 → 0.0407 |
+| 1x-light-standard | rrect-lg | 3 | -0.00983 | 0.2792 → 0.3565 | 0.0806 → 0.0556 |
+| 1x-light-standard | rrect-md | 9 | -0.02136 | 0.3792 → 0.3259 | 0.0347 → 0.0246 |
+| 1x-light-standard | rrect-sm | 2 | -0.01874 | 0.6895 → 0.3846 | 0.0193 → 0.0195 |
+| 1x-light-standard | toolbar-group | 2 | -0.00752 | 0.3720 → 0.3670 | 0.0317 → 0.0332 |
+| 2x-dark-standard | capsule-button | 9 | -0.08902 | 0.2095 → 0.1437 | 0.0746 → 0.0201 |
+| 2x-dark-standard | glass-over-glass | 1 | +0.00899 | 0.0518 → 0.0367 | 0.0001 → 0.0001 |
+| 2x-dark-standard | rrect-lg | 1 | +0.01711 | 0.1364 → 0.1536 | 0.0831 → 0.1023 |
+| 2x-dark-standard | rrect-md | 3 | +0.00722 | 0.1152 → 0.0840 | 0.0284 → 0.0308 |
+| 2x-light-standard | capsule-button | 19 | +0.00802 | 0.3501 → 0.2500 | 0.0954 → 0.0120 |
+| 2x-light-standard | glass-over-glass | 2 | -0.02680 | 0.6685 → 0.5848 | 0.0335 → 0.0407 |
+| 2x-light-standard | rrect-lg | 3 | -0.00878 | 0.2996 → 0.3500 | 0.0807 → 0.0554 |
+| 2x-light-standard | rrect-md | 9 | -0.02094 | 0.4020 → 0.2848 | 0.0349 → 0.0244 |
+| 2x-light-standard | rrect-sm | 2 | -0.01650 | 0.7124 → 0.3623 | 0.0197 → 0.0201 |
+| 2x-light-standard | toolbar-group | 2 | -0.01406 | 0.4022 → 0.3620 | 0.0326 → 0.0334 |
+
+- **Less backdrop lift:** qualified. Untinted light-standard cells average ΔY −0.02157 at 1x
+  and −0.02163 at 2x; rrects and stacks darken on average. But the 1x untinted photo capsule
+  and toolbar brighten (+0.00390, +0.00279), and the hc-text capsule brightens at both scales
+  (+0.04739/+0.06503). Tinted light capsules can brighten substantially when the hue disappears;
+  including them nearly cancels the light profile's mean shift. In dark-standard, **nine of
+  eleven untinted cells brighten** at each scale (the dark-solid capsule and impulse capsule
+  do not); the untinted mean shift is +0.00796/+0.01286. The dark profile's negative headline
+  is dominated by its three tinted capsules, not a universal dark-material recede. In both
+  accessibility profiles **every matched cell brightens**; the untinted means rise +0.01720
+  (increased contrast) and +0.05811 (reduced transparency). There is no global negative lift
+  offset to copy into all endpoint documents.
+- **Less structure retained:** a useful standard-profile tendency, not a law on every scene
+  or component. Standard means fall, but light rrect-lg means rise (including its tinted photo),
+  dark photo rrect-lg rises at both scales, and 7/29 light-1x, 6/29 light-2x and 2/10 dark cells
+  at each scale increase. Reduced-transparency increases on all nine footprint reads. This is
+  **not proof that its inactive interior is less frosted**: its eroded checkerboard and hc-text
+  bodies are constant on both sides; dark edge mixing against a brighter near-white body creates
+  footprint variance. Increased contrast's black border similarly produces structure ratios
+  above 1 and negative contour excess; it must not be fitted as blur. Eroded checkerboard
+  light-standard capsule SD falls 0.13633 → 0.10027, rrect-md 0.11039 → 0.06387, while photo
+  rrect-md barely changes (0.05317 → 0.05258). A single variance multiplier cannot describe all
+  three, and the rim's removal contributes to the un-eroded statistic.
+- **Tint dropped:** the author hue does disappear across the available tint cells, not all
+  chroma. Checkerboard orange capsule (1x light) is OKLab C **0.16424 → 0.000662**, while the
+  photo counterpart is 0.16323 → 0.03539: the latter retains the backdrop's colour. Untinted
+  photo panes can gain chroma when the white or dark body recedes (1x light rrect-md
+  0.06986 → 0.07852; dark rrect-lg 0.08276 → 0.10268). Crucially, **inactive tinted is not
+  inactive untinted**. Orange and blue give the same inactive level on the checkerboard
+  (Y 0.45128), far below untinted 0.60608. On photo, full-strength orange and blue give
+  0.43279, orange-half gives 0.50503, untinted gives a different level again. On dark-solid,
+  the inactive tinted capsule stays visible at 0.03678 against the backdrop's 0.01171,
+  whereas untinted is exactly invisible. Author tint strength survives as an achromatic body
+  change. Dropping the author-tint object would discard measured behaviour.
+
+**4. What the four words leave out.** **The broad outer shadow disappears in all 121 cells**:
+zero inactive >1-code exterior pixels beyond 2 CSS px of the declared contour. Literal “no
+exterior pixels” is false: the profile means leave 49.6–367.2 pixels at 1x and 92.9–113.9 at 2x,
+all immediately beside the edge. The increased-contrast border accounts for a particularly
+large residue. Those must not be fitted as a tiny outer shadow. This instrument cannot claim
+absence below its one-code threshold.
+
+**The bright rim disappears too.** The local contour excess falls from +0.14929/+0.13183 to
+−0.01627/−0.00875 for light-standard and +0.07442/+0.07121 to −0.00113/−0.00025 for
+dark-standard. Reduced transparency goes +0.11860 → −0.00004. This is not a small reduction
+of the existing bright-line amplitude; the inactive endpoint has effectively none. Small
+negative structured reads contain local body/backdrop gradients and the edge itself, not
+“negative rim alpha”. Increased contrast is the exception: its dark outline persists
+(−0.83238 → −0.84636), even as its band and body brighten. The original four-facet list did
+not name either rim extinction or the tint-strength-dependent achromatic body.
+
+**Only four cells are pixel-identical to the background over the entire RGB canvas:**
+`dark-solid__capsule-button__rest` in `apple-macos-26.5-1x-light-standard`,
+`apple-macos-26.5-2x-light-standard`, `apple-macos-26.5-1x-dark-standard` and
+`apple-macos-26.5-2x-dark-standard`. No other inactive cell is identical. Uniform background
+alone does not make the inactive material invisible: dark-solid rrect-md remains at 0.45518
+in light and 0.02133 in dark (1x), light-solid capsule at 0.93234 over 0.89097, and tinted
+dark-solid capsule at 0.03678. These four exact identities constrain the endpoint to do nothing
+there but identify **no shape, kernel, rim width or shadow shape**. All uniform cells lack a
+structure denominator. G1 must condition those fits, not invent variance or a silhouette.
+
+**The grounding's three-cell read, corrected rather than overwritten.** With this declared
+rounded footprint, the 1x light checkerboard capsule reads **0.62071 → 0.60608** and structure
+**0.28479× → 0.21780×**, versus the grounding's 0.6183 → 0.6039 and 0.296× → 0.237×.
+The photo rrect-md reads **0.66489 → 0.62881**, versus 0.6636 → 0.6275. Their directions
+survive; the masks/populations of the earlier scratch readings were not recorded in this
+instrument and the absolute readings are not reproduced. The eroded-body values above further
+show the size of population dependence. “Chroma 231 → 0.40” was **not OKLab**: the corresponding
+legacy mean RGB channel range here is **233.058 → 0.402 codes**, alongside OKLab
+0.164235 → 0.000662. Do not use 231 as a chroma amplitude in the material profile.
+
+**5. Handed to G1 — a first estimate, not a fit.** These are directions and output targets,
+not proposed adopted constants; the table cannot identify a blur kernel or a compositing
+coefficient from one mean and variance. Use calibration pairs for the fit, today's active
+bed for non-regression, and reserve the declared frozen endpoint's holdout read.
+
+| facet | existing profile seam | initial estimate / identification limit |
+| --- | --- | --- |
+| Body level / backdrop lift | `backdropToneResponseThin`, `backdropToneResponseThick`, `backdropToneResponseStrength`; where unsaturated, `optics.regular.tintAlpha` / `tint` and the adaptation curve | Light untinted body target about −0.02 Y on average, thick photo about −0.032 Y after erosion, but thin photo +0.014 and hc-text +0.058. Dark untinted +0.008…+0.013 Y on average, not negative. At the available uniform anchors, light rrect-md −0.029 on dark-solid and −0.039 on light-solid; thin dark-solid stays exactly backdrop, mid-dark changes only about −0.001. Move response ordinates by these orders, not one global alpha. There are too few uniform anchors to identify all curve knots or size interpolation. |
+| Structure | `optics.regular.blurSigma`, `sizeScatterGainMax` / `2x`, `sizeScatterFloor` / `2x`, heavy-share / `sizeHeavyTapSigma` fields; `collapseTransmission` / `2x` only where collapse is active | Start from **output SD** ≈0.74× active for light checkerboard capsule, ≈0.58× for checkerboard rrect-md, but ≈0.99× for photo rrect-md on the eroded body. Standard whole-profile footprint ratios are 0.68…0.84×. No σ-in-pixels estimate is identified by this table; do not multiply blur width by these ratios or tune collapse transmission from a non-collapsed scene. Re-read spatial profiles in G1 before assigning a width/share change. |
+| Author tint | `tintShadeStrength`, `tintShadeDark` / `tintShadeLight`, `rimTintChroma` are related but **insufficient** | Hue/chroma contribution on neutral checkerboard needs roughly **99.6% removal** (C 0.16424 → 0.000662), while strength still changes neutral level. `tintedMaterialColour` always mixes the authored seed with its supplied strength; `tintShadeStrength = 0` disables shade, not authored hue. No current patch field independently suppresses seed chroma while retaining the measured strength-dependent neutral body. G1 must settle that expressiveness gap before claiming “one difference document”; simply ignoring tint is falsified by the inactive pairs. |
+| Outer shadow | `outerShadow.thinOcclusionDark/Mid/Bright`, `thickOcclusionAt96/128/160`, `liftAmplitude`, `reducedTransparencyOcclusion` | Set both black and lift amplitudes to **0 (−100%)** at the inactive endpoint as the first candidate, including accessibility overrides. Keep shape parameters unchanged/inert: no inactive shadow identifies their σ, offset or spread. The residual within 2 CSS px is not evidence for nonzero amplitude. |
+| Bright contour, additionally measured | `optics.regular.rimAlpha`, `rimCollapsed`, `rimCollapsedTinted`, rim amplitude law; `strongBorderRim` under increased contrast | Standard and reduced-transparency bright amplitudes start at **0 (approximately −100%)**; do not change width to suppress amplitude. Preserve a separate increased-contrast dark-border treatment; its local integral remains about −0.84, not zero. Structured negative residual is not an amplitude target. |
+| Accessibility body, additionally measured | `reducedTransparencyFrost`, `increasedOcclusionLift`, policy-folded `optics` and response fields | Reduced-transparency eroded untinted body shifts about 0.89 → 0.956 Y (+0.062…0.068), while increased-contrast is near 0.99. The signs contradict “less lift”; fit these policy endpoints separately rather than applying the standard curve delta. |
+
+No coefficients, schemas, scene keys or runtime sources change at G0. X7's root pose and two
+frozen endpoints stand; X3's additive inactive scene state remains the landing contract.
+The unresolved work is the tone/structure fit, the achromatic author-tint response, and the
+increased-contrast outline; it is explicitly handed to G1 rather than silently accepted.
