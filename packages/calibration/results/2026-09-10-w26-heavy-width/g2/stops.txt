@@ -1,0 +1,24 @@
+W25 G3 — the stops S1, S2, S7 and S11, read with numbers
+================================================================================================================
+
+=== S1 — every row's ΔE mean and ssimMean against the 0.13.0 bed ===
+  bound: ΔE mean +0.001, ssimMean −0.005, on UNTINTED rows
+  profile                                        scene                                        tier           ΔdE      Δssim  verdict
+  apple-macos-26.5-1x-light-standard             checkerboard__rrect-ml__rest                 css       +0.00122   -0.00571    FIRES
+  apple-macos-26.5-2x-light-standard             checkerboard__rrect-ml__rest                 css       +0.00117   -0.00632    FIRES
+  worst ΔE mean rise +0.00122 (bound +0.001); worst ssimMean fall -0.00632 (bound −0.005); rows firing: 2
+
+  the row the last wave watched S1 on, carried forward for continuity:
+
+=== S2 — the tinted cells' bodies (bound 0.002) ===
+  profile                                        scene                                        tier      before     after         Δ  verdict
+  worst |Δ body|: 0.00045 against 0.002; rows firing: 0
+
+=== S7 — the collapsed cells' bodies (bound 0.002) ===
+  profile                                        scene                                        tier      before     after         Δ  verdict
+  worst |Δ body|: 0.00003 against 0.002; rows firing: 0
+
+=== S11 — W23's straight-span contour reads, per solid side (bound 0.005) ===
+  the lit factor is 1 on every straight span by construction; this is that, on the bed.
+  profile                                        scene                                        tier   side      before     after         Δ  verdict
+  worst |Δ straight span|: 0.00113 against 0.005; sides firing: 0

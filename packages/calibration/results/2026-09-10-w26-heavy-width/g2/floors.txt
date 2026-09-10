@@ -1,0 +1,22 @@
+W26 G2 — the fourteen thick regression floors, control against candidate
+======================================================================================================================
+  tier     set         scene                                  profile          metric                  floor    0.14.0      cand   verdict
+  dom      calibration checkerboard__rrect-md__rest           x-light-standard ssimMean               0.9142   0.91539   0.91539      held
+  dom      calibration checkerboard__rrect-ml__rest           x-light-standard ssimMean               0.8748   0.87608   0.87037  BREACHED
+  dom      calibration checkerboard__rrect-ml__rest           x-light-standard ssimMean               0.8779   0.87894   0.87262  BREACHED
+  dom      holdout     checkerboard__glass-over-glass__rest   x-light-standard ssimMean               0.8604   0.86355   0.86005  BREACHED
+  dom      holdout     checkerboard__glass-over-glass__rest   x-light-standard ssimMean               0.8677   0.86870   0.86330  BREACHED
+  dom      holdout     checkerboard__rrect-lg__rest           x-light-standard ssimMean               0.8693   0.87056   0.85993  BREACHED
+  dom      holdout     checkerboard__rrect-lg__rest           x-light-standard ssimMean               0.8712   0.87233   0.84943  BREACHED
+  dom      holdout     checkerboard__glass-over-glass__rest   1x-dark-standard silhouetteIoU          0.9070   0.90804   0.84120  BREACHED
+  dom      holdout     checkerboard__glass-over-glass__rest   1x-dark-standard contourDistanceMean    1.0658   1.03304   1.26287  BREACHED
+  dom      holdout     checkerboard__glass-over-glass__rest   1x-dark-standard contourDistanceP95     8.3500   8.25000   9.00000  BREACHED
+  texture  holdout     checkerboard__glass-over-glass__rest   2x-dark-standard silhouetteIoU          0.9257   0.92707   0.90362  BREACHED
+  dom      holdout     checkerboard__glass-over-glass__rest   2x-dark-standard silhouetteIoU          0.9038   0.92878   0.85742  BREACHED
+  dom      holdout     checkerboard__glass-over-glass__rest   2x-dark-standard contourDistanceMean    1.8602   1.28921   2.14273  BREACHED
+  dom      holdout     checkerboard__glass-over-glass__rest   2x-dark-standard contourDistanceP95    13.1000  10.00000  16.00000  BREACHED
+
+  breached 13, held 1, of 14
+  A floor whose CELL has left the shape gate is still read here and still counted: the
+  gate's own `every regression floor stands on a genuinely unmet bound` case fails on it,
+  and a floor nothing reaches is not a floor that held.

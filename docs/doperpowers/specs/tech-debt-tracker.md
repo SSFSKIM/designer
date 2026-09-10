@@ -1602,3 +1602,32 @@ Three of the eight backdrops G1b's reader was validated on are holdout scenes. G
 fitted on the rest; G2's holdout read therefore checks the constants and not the reader that
 produced them. A future instrument built on this bed should exclude the holdout scenes from its
 validation set from the start — the probe set exists for that.
+
+## The accessibility frost no longer reaches the heavy component, on either tier (W26 G2, Decision Log 7 (d), 2026-09-10)
+
+`frost: "increased"` multiplies `blurSigma`, and until W26 both tiers' heavy components were
+multiples of it — so an increased frost widened the whole body. A heavy width named in device px is
+not a multiple of anything, so the fold now reaches the SHARP component alone. Measured cost: on
+`apple-macos-26.5-1x-light-reduced-transparency` the CSS tier's heavy layer goes 24.15 → 9.000 CSS
+px, `dom / calibration / checkerboard__capsule-button__rest` reads `silhouetteHolesWeb` 0 → 6 against
+a native 0 and leaves the shape gate (`PREDICATE_EXCLUDES` 31 → 32), and that profile's CSS
+calibration ΔE rises 0.00447 → 0.00464. **The tiers AGREE for the first time here**: at dpr 1
+`scatterLod` was clamped at `chainMaxLod`, so the frost could not widen the GPU tier's heavy tap at
+all and the mirror was drawing nearly twice the renderer's width under this preference. Closes with
+a reading of Apple's own reduced-transparency thick body on the family reader and a decision on
+whether the fold multiplies `sizeHeavyTapSigma`; it is a material change and needs its own rung.
+`g2/g2-dryrun.md` §5, `g2/gate-calval.txt`.
+
+## The CSS tier's large-span structural similarity is what a coherent heavy width costs (W26 G2, Decision Log 7 (b), 2026-09-10)
+
+Deriving the CSS tier's heavy layer from the profile's own width — one quantity across the seam for
+the first time — takes twelve of the fourteen thick regression floors under, all of them `dom` rows
+at spans above 96, while the GPU tier's canonical groups move by less than 0.00001. The
+counterfactual is measured: without clause 7 the same constants breach ONE floor. Whichever way the
+parent rules, the residual is real and belongs in the ledger — either the CSS tier keeps a heavy
+width derived from three constants that grade nothing on the tier it must agree with, or it draws
+the right width and reads worse on every large-span checkerboard. Closes with a CSS-tier wave that
+asks why a two-layer body with the correct component widths loses structure the mip-tap projection
+kept: the suspects are the series-with-mask composition against the renderer's per-pixel mix, and
+the collapsed single-`blur()` projection, which still runs off the gain constants.
+`g2/floors.txt`, `g2/floors-gpuonly.txt`.

@@ -168,6 +168,9 @@ the user's eye; X7 the dark profile a difference document.
 - The size-keyed light adaptation of a small surface over a bright backdrop in the dark scheme.
 - The contour instrument's refusal on flat-cornered dark squares; the 2x reference's run-to-run
   instability; the demo page's coupling to `scenes.json` (tracker).
+- **Whether the accessibility frost should reach the heavy width** (Decision Log 7 (d)) — measured
+  at G2 as reaching the sharp component alone on both tiers, at the price of one CSS calibration
+  cell leaving the shape gate; not declared and not fitted by this wave.
 
 ## Tracking Map
 
@@ -177,7 +180,7 @@ the user's eye; X7 the dark profile a difference document.
 | G1 — the width, the share, the lever, the level | CLOSED 2026-09-10 (claims §5.120; Decision Logs 3–4; merged at `d306214` after the review's two fixes at `d06fe3c`) |
 | G1b — Apple's kernel identified without a shape assumption (spike) | CLOSED 2026-09-10 (claims §5.121; merged at `1d541bf`) |
 | G1c — the fits, second reading: both widths on the family reader (controlled) | CLOSED 2026-09-10 (claims §5.122; merged at `5a710ad`) |
-| G2 — declared and dry-run | DISPATCHED 2026-09-10 (Decision Log 6) |
+| G2 — declared and dry-run | DELIVERED 2026-09-10 (claims §5.123 DRAFT; Decision Log 7 — the parent rules (a)–(d)) |
 | G3 — the landing | — |
 
 ## Decision Log
@@ -464,6 +467,49 @@ isolation proof, the stops (W25 G3's set; S15 as re-stated in Decision Log 4 (a)
 reader), the dry run of the frozen bed and the probe set to scratch, the holdout once, the sheets;
 `PREDICATE_EXCLUDES` equal to the machine's output.
 
+### Decision Log 7 — G2's read: the width lands on the GPU tier, clause 7 costs twelve floors, and the two are separable (2026-09-10; claims §5.123 DRAFT)
+
+DRAFT, by G2. The parent rules (a)–(d) and amends beside; G3 lands whatever survives.
+
+(a) **The two constants are right and the GPU tier says so quietly.** 9 and 9, declared before the
+run at `6f901f0`, fingerprints b2b570e4adcea8fb and eee7294f409966d7 computed before the edit and
+reproduced after it. S15 fires on exactly the two cells the declaration named in advance and the
+objective falls 0.275 → 0.069; the canonical bed's GPU groups do not move by as much as 0.00001;
+W24's angular bins are identical to five decimals on every GPU row; the 22 GPU captures that hold
+byte for byte are exactly the flat-solid backdrops; X5 is a fifth of its bound on both tiers; the
+goldens move on seven scenes by 1–3 codes and **not one pixel off a surface**. The per-span probe
+table reproduces claims §5.122 §5c to the digit, which is the check that the landing draws what the
+rung drew.
+
+(b) **Clause 7 is where the cost is, and it is twelve of the fourteen thick floors.** Deriving the
+CSS tier's heavy layer from the profile's own width takes it 13.800 → 9.000 CSS px at dpr 1 and
+6.121 → 4.500 at dpr 2 on a 160 span, and the six large-span `dom` `ssimMean` floors and the six
+dark nested-pane `dom` rows all go under; four of those cells leave the shape gate besides. **The
+counterfactual is measured rather than argued** (claims §5.123 §5): the two tiers render
+independently and the constants reach the CSS tier only through clause 7's code, so the bed a
+landing without it would produce is this run's texture rows beside the 0.14.0 bed's dom rows — and
+it breaches **one** floor instead of thirteen. The one that survives either way is the GPU tier's own
+dark nested pane, on a cell whose web silhouette already carried 39 holes against a native 0.
+
+(c) **The choice, and why it is not this child's.** Landing both gives the two tiers one heavy width
+for the first time and asks the user to re-pin twelve floors that already miss their adopted bounds
+and are held by decision. Declining clause 7 costs one floor and leaves the CSS tier deriving its
+heavy width from three constants that grade nothing on the tier it has to agree with — an
+incoherence to record and charter rather than to hide. Re-opening the width is contradicted by (a).
+**The holdout was read once at the configuration WITH clause 7** and a ruling that declines it voids
+that read.
+
+(d) **Two things the run measured that nobody declared, and both are the same shape.** A heavy width
+named in device px does not inherit the rules a multiple of `blurSigma` inherited for free. Under
+`frost: "none"` it would have gone on frosting a surface the preference asked not to frost, and the
+gate for that is in the code with its test. Under `frost: "increased"` it no longer widens at all —
+on EITHER tier, and before this wave the GPU tier could not widen there either because `scatterLod`
+was clamped, so the mirror was drawing 24.15 CSS px where the renderer drew 13.418. The tiers agree
+now and the reduced-transparency CSS capsule leaves the shape gate for it (`silhouetteHolesWeb`
+0 → 6); `PREDICATE_EXCLUDES` is edited 31 → 32 for that cell with the mechanism written into it.
+**Whether the accessibility fold should reach the heavy width is a material question this wave did
+not declare and did not fit**, and it is the tracker's.
+
 ## Surprises & Discoveries
 
 - **A scratch rung is not a rehearsal of a landing.** The dark difference document resolves over
@@ -544,3 +590,12 @@ reader), the dry run of the frozen bed and the probe set to scratch, the holdout
 - 2026-09-10: G1c CLOSED and merged (`5a710ad`). Decision Log 6: the candidate 9 / 9 declared to
   G2; the gain constants inert and kept; the mechanism's no-small-values wart, the holdout's
   contamination by G1b's instrument, and the dark bed's preference recorded. G2 dispatched.
+- 2026-09-10: G2 DELIVERED (claims §5.123 DRAFT). The declaration committed before the run
+  (`6f901f0`), the two constants landed on both documents and both tiers, the goldens re-recorded
+  behind their attribution under `W26_HASHES`, and the bed, the probe set and the holdout run to
+  scratch. The width lands: S15 fires on exactly the two cells the declaration named, the objective
+  falls 0.275 → 0.069, the GPU tier's canonical groups do not move by 0.00001 and X5 is a fifth of
+  its bound on both tiers. Clause 7 is the cost: **thirteen of the fourteen thick floors are
+  breached and twelve are `dom` rows**, and the counterfactual measures the split at **1 against
+  13**. Decision Log 7 leaves the choice to the parent and records two undeclared findings about the
+  accessibility fold and a heavy width named in device px.

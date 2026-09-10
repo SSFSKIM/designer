@@ -1,0 +1,31 @@
+W25 G3 — OKLab ΔE mean, per profile, per set, per tier, before → after
+====================================================================================================
+before = the canonical matrix at the 0.13.0 landing (the W24 bed); after = the dry run.
+Clause 6 is stated on the GPU tier; the CSS tier, which this wave cannot reach, is beside it.
+
+  profile                                        tier    set           cells     before      after      delta
+  apple-macos-26.5-1x-dark-standard              css     holdout           3    0.01735    0.01802   +0.00067
+  apple-macos-26.5-1x-dark-standard              webgpu  holdout           3    0.01325    0.01330   +0.00005
+  apple-macos-26.5-1x-light-increased-contrast   css     holdout           1    0.04561    0.04503   -0.00058
+  apple-macos-26.5-1x-light-increased-contrast   webgpu  holdout           2    0.02042    0.02043   +0.00001
+  apple-macos-26.5-1x-light-reduced-transparency css     holdout           2    0.00751    0.00804   +0.00054
+  apple-macos-26.5-1x-light-reduced-transparency webgpu  holdout           2    0.00343    0.00351   +0.00008
+  apple-macos-26.5-1x-light-standard             css     holdout          10    0.01576    0.01599   +0.00023
+  apple-macos-26.5-1x-light-standard             webgpu  holdout          10    0.00898    0.00900   +0.00002
+  apple-macos-26.5-2x-dark-standard              css     holdout           3    0.01739    0.01896   +0.00157
+  apple-macos-26.5-2x-dark-standard              webgpu  holdout           3    0.01311    0.01338   +0.00027
+  apple-macos-26.5-2x-light-standard             css     holdout          10    0.01616    0.01706   +0.00089
+  apple-macos-26.5-2x-light-standard             webgpu  holdout          10    0.00895    0.00930   +0.00035
+
+  worse anywhere? (a positive delta is worse)
+    apple-macos-26.5-1x-dark-standard / css / holdout: 0.01735 → 0.01802 (+0.00067)
+    apple-macos-26.5-1x-dark-standard / webgpu / holdout: 0.01325 → 0.01330 (+0.00005)
+    apple-macos-26.5-1x-light-increased-contrast / webgpu / holdout: 0.02042 → 0.02043 (+0.00001)
+    apple-macos-26.5-1x-light-reduced-transparency / css / holdout: 0.00751 → 0.00804 (+0.00054)
+    apple-macos-26.5-1x-light-reduced-transparency / webgpu / holdout: 0.00343 → 0.00351 (+0.00008)
+    apple-macos-26.5-1x-light-standard / css / holdout: 0.01576 → 0.01599 (+0.00023)
+    apple-macos-26.5-1x-light-standard / webgpu / holdout: 0.00898 → 0.00900 (+0.00002)
+    apple-macos-26.5-2x-dark-standard / css / holdout: 0.01739 → 0.01896 (+0.00157)
+    apple-macos-26.5-2x-dark-standard / webgpu / holdout: 0.01311 → 0.01338 (+0.00027)
+    apple-macos-26.5-2x-light-standard / css / holdout: 0.01616 → 0.01706 (+0.00089)
+    apple-macos-26.5-2x-light-standard / webgpu / holdout: 0.00895 → 0.00930 (+0.00035)
