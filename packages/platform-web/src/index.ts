@@ -20,6 +20,7 @@ export * from "./color-scheme";
 export * from "./css-tier";
 export * from "./css-tier-shadow";
 export * from "./dark-profile";
+export * from "./receded-profile";
 export * from "./diagnostics";
 export * from "./geometry-sync";
 export * from "./group-state";

@@ -224,7 +224,7 @@ describe("toRendererGroups", () => {
   });
 
   it("hands an unsampled group the host's layer pair, and a sampled group none (W11a)", () => {
-    const pair = { tint: [1, 1, 1] as const, tintAlpha: 0.66 };
+    const pair = { referenceBackdropLuminance: 0.02, minimumTintContrast: 1e-3 };
 
     // A dom-mode group draws over its proxy: the pair goes with it.
     const [dom] = toRendererGroups(

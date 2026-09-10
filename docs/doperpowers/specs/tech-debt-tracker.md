@@ -1885,3 +1885,47 @@ Shape of the work: a `dark-solid__rrect-md-clear20__rest` probe scene now exists
 declares (a group-level darkening beneath the material, 35 % black by Apple's one published number
 as the seed), and measure it against that cell. Not a W27 child; goes to the next cut with the
 `clear` variant's other absent rows (the three preconditions, the omission and localization rules).
+
+## W27f's scratch provenance drops the first character of the first dirty path (2026-09-10)
+
+The measurement runner `packages/calibration/results/2026-09-10-w27f-g1-measure.py` strips the
+whole porcelain output before taking each line's path at offset 3. A first line whose status
+starts with a space therefore loses the first path character; the ordinary candidate manifest
+records `ackages/platform-web/src/optics.ts`. Commit and source-tree digests are unaffected.
+This is cosmetic, nonblocking provenance debt; the gate's frozen runner and historical evidence
+are not rewritten. Before reusing this runner, preserve porcelain's leading status columns and
+add a test with an unstaged first entry. Keep the recorded path beside the correction, not a
+replacement pretending the historical capture recorded something else. Claims §5.131 separately
+limits the old capture's narrow source fingerprint; this parser issue does not excuse that limit.
+
+## Calibration and renderer tests share a fixed port and can reuse the wrong harness (W27c G1, 2026-09-10)
+
+`packages/calibration/web/vite.config.ts` and
+`packages/renderer-webgpu/playwright.config.ts` both hard-code port 5189. The renderer's
+Playwright config also sets `reuseExistingServer: true` outside CI. In parallel worktrees this
+can connect a golden test to a sibling's calibration page rather than its own renderer harness.
+W27c G1 observed the foreign page first, then `ERR_CONNECTION_REFUSED` when that sibling's
+capture driver shut its server down. The failed run was not an optical regression reading.
+
+The isolated rerun used a scratch Playwright config with a verified-free port (5213), an explicit
+worktree-local server cwd, and `reuseExistingServer: false`; the existing goldens and isolation
+pins then passed unchanged. Shape of the work: parameterize the port consistently in both
+configs and their drivers, and verify the harness identity before reusing any listener. Merely
+choosing another shared constant moves the collision; the two independent child tasks both
+initially chose 5198, which the coordinator caught before either reused it.
+
+## The recovered inactive bed has no fresh native capture path (W27c G1, 2026-09-10)
+
+W27c adds 121 historical inactive fixtures under a real scene state, but
+`apps/reference-apple/Sources/main.swift`'s capture and layer-dump paths activate their window
+and attest active presentation. They previously interpreted only `state == "pressed"`; an
+inactive scene id by itself therefore could have produced active pixels under an inactive name.
+The recovered entries are explicitly schema 2, single-run, pose inferred from DL14 (claims
+§5.128 and §5.130), not a substitute for a newly attested native inactive run.
+
+G1's boundary is to refuse unsupported inactive requests before capture output, while leaving
+active-only scratch declarations and historical fixture consumption usable. Closing this gap
+requires a native deactivation path with an inactive-presentation attestation and its own repeat
+check, including preservation of tint and the separate pressed interaction. It is not a change
+to the web runtime's root-pose observer, and making the Swift decoder accept the word is not a
+capture implementation.

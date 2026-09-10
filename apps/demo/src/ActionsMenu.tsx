@@ -25,14 +25,26 @@
  * menu needs, and each is one line.
  */
 
-import { APPLE_LIKE_SMOOTHING, GlassMorph, useToolbarItem } from "@vitreajs/vitrea-react";
+import {
+  APPLE_LIKE_SMOOTHING,
+  GlassMorph,
+  useToolbarItem,
+  type GlassToolbarItemProps,
+} from "@vitreajs/vitrea-react";
 import { useButton, useMenu, useMenuItem, useMenuTrigger } from "react-aria";
 import { Item, useMenuTriggerState, useTreeState } from "react-stately";
 import { useEffect, useRef, type Key, type ReactNode, type RefObject } from "react";
 import type { AriaMenuProps } from "react-aria";
 import type { Node as CollectionNode, TreeState } from "react-stately";
 
-export interface ActionsMenuProps {
+/**
+ * `GlassToolbarItemProps` comes along because this menu is a toolbar item that
+ * the library did not write: the surrounding `GlassToolbar` reads
+ * `sharedBackground` and `groupProps` off whichever child declares them, and a
+ * custom control opts in by carrying the published type. The menu itself never
+ * reads either — the partition is the toolbar's to decide.
+ */
+export interface ActionsMenuProps extends GlassToolbarItemProps {
   readonly onAction: (key: string) => void;
   /** The menu's accessible name. Defaults to the playground's. */
   readonly label?: string | undefined;

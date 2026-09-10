@@ -34,6 +34,13 @@ interface SceneEntry {
   readonly component: string;
   readonly state: string;
   readonly tint?: string;
+  /**
+   * W27c G0/G1's recovered-inactive axis (claims §5.128; X3). Present only on
+   * the four recovered scenes whose source was `pressed`, not `rest` — see
+   * `$comment-interaction` in scenes.json for why this rides its own field
+   * rather than folding into `state` the way the pose itself does.
+   */
+  readonly interaction?: string;
 }
 
 interface Matrix {
@@ -158,8 +165,19 @@ describe("the pressed cells are recorded, not fitted (Decision Log 19 ruling 1)"
   });
 });
 
+/**
+ * W27c G0/G1's recovered-inactive pose (claims §5.128; X3, X7): `state`
+ * carries activation alone for a recovered scene ("inactive"), so it is not
+ * one of W3's tinted-cell population even where `tint` is also set — that
+ * population is defined by the ACTIVE bed's capture plan (7/2/3/0/4), which
+ * the recovered scenes are additional to, not members of. Filtering them out
+ * here is what keeps that plan's counts a live invariant instead of a number
+ * that silently drifts every time a new axis adds a tinted cell.
+ */
+const isRecoveredInactive = (scene: SceneEntry): boolean => scene.state === "inactive";
+
 describe("W3's tinted cells", () => {
-  const tinted = MATRIX.scenes.filter((scene) => scene.tint !== undefined);
+  const tinted = MATRIX.scenes.filter((scene) => scene.tint !== undefined && !isRecoveredInactive(scene));
 
   it("are sized as the capture plan states: 7 calibration, 2 validation, 3 holdout", () => {
     const bySet = Object.fromEntries(
@@ -181,18 +199,75 @@ describe("W3's tinted cells", () => {
     expect(backdrops.size).toBe(5);
   });
 
-  it("keep the three-segment scene id grammar, with the tint as a state suffix", () => {
-    // X2: new axes extend the scene set, never the key grammar. Every consumer
-    // that keys on an id assumes three `__` segments.
+  it("keep the three-segment scene id grammar, with the tint and the recovered pose's interaction as state suffixes", () => {
+    // X2/X3: new axes extend the scene set, never the key grammar. Every
+    // consumer that keys on an id assumes three `__` segments. `interaction`
+    // is W27c's, folded in the same way `tint` already is: a suffix on the
+    // state segment, present only on the recovered scenes it names.
     for (const scene of MATRIX.scenes) {
       const segments = scene.id.split("__");
       expect(segments.length, scene.id).toBe(3);
       expect(segments[0], scene.id).toBe(scene.background);
       expect(segments[1], scene.id).toBe(scene.component);
-      expect(segments[2], scene.id).toBe(
-        scene.tint === undefined ? scene.state : `${scene.state}-tint-${scene.tint}`,
-      );
+      let expected = scene.state;
+      if (scene.interaction !== undefined) expected += `-${scene.interaction}`;
+      if (scene.tint !== undefined) expected += `-tint-${scene.tint}`;
+      expect(segments[2], scene.id).toBe(expected);
     }
+  });
+});
+
+describe("W27c G0/G1's recovered-inactive bed (claims §5.128; X3, X7)", () => {
+  const recovered = MATRIX.scenes.filter(isRecoveredInactive);
+
+  it("has exactly the 37 scenes G0 matched (claims §5.128 §1: 121 cells, 37 distinct scenes)", () => {
+    expect(recovered.length).toBe(37);
+  });
+
+  it("gives every recovered scene a real active twin, reachable by undoing the suffix", () => {
+    // The recovered bed is additional evidence about an EXISTING scene's
+    // window, not a new background/component/tint combination — so undoing
+    // the pose suffix must land back on a scene the active bed already
+    // declares, or the id encodes a combination nothing else measures.
+    for (const scene of recovered) {
+      const interactionState = scene.interaction === "pressed" ? "pressed" : "rest";
+      const twinId =
+        scene.tint === undefined
+          ? `${scene.background}__${scene.component}__${interactionState}`
+          : `${scene.background}__${scene.component}__${interactionState}-tint-${scene.tint}`;
+      expect(IDS.has(twinId), `${scene.id} -> ${twinId}`).toBe(true);
+    }
+  });
+
+  it("mirrors each twin's split assignment (the recovered pose is additional evidence, not a new judgement about overfitting risk)", () => {
+    for (const scene of recovered) {
+      const interactionState = scene.interaction === "pressed" ? "pressed" : "rest";
+      const twinId =
+        scene.tint === undefined
+          ? `${scene.background}__${scene.component}__${interactionState}`
+          : `${scene.background}__${scene.component}__${interactionState}-tint-${scene.tint}`;
+      expect(setOf(scene.id), scene.id).toBe(setOf(twinId));
+    }
+  });
+
+  it("marks every pressed-sourced recovered scene 'recorded', never fitted or checked (Decision Log 19 ruling 1)", () => {
+    const pressedSourced = recovered.filter((scene) => scene.interaction === "pressed");
+    expect(pressedSourced.length).toBe(4);
+    for (const scene of pressedSourced) {
+      expect(setOf(scene.id), scene.id).toBe("recorded");
+    }
+  });
+
+  it("declares `interaction` on no scene but the four recovered pressed-sourced ones", () => {
+    const withInteraction = MATRIX.scenes.filter((scene) => scene.interaction !== undefined);
+    expect(withInteraction.map((scene) => scene.id).sort()).toEqual(
+      [
+        "checkerboard__capsule-button__inactive-pressed",
+        "checkerboard__rrect-md__inactive-pressed",
+        "photo__capsule-button__inactive-pressed",
+        "photo__rrect-md__inactive-pressed",
+      ].sort(),
+    );
   });
 });
 

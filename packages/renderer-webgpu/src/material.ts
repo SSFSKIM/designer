@@ -1360,6 +1360,27 @@ export interface MaterialProfile {
   readonly tintShadeStrength: number;
 
   /**
+   * The fraction of the author's seed saturation retained before the shade law.
+   * The neutral endpoint is the seed's maximum linear channel, not its luminance:
+   * W27c's orange and blue checkerboard capsules at both 1x and 2x lose their hue
+   * to the SAME grey, despite the seeds having different luminances (§5.130).
+   * Strength still composites the resulting layer; it is not discarded.
+   * Absence means 1, the identity. Identity values are omitted from resolved
+   * documents so the frozen active profiles keep their existing fingerprints.
+   */
+  readonly tintChromaScale?: number;
+
+  /**
+   * The fraction of the tint shade retained when backdrop adaptation collapses
+   * the body. W27c's 1x light dark-solid tinted capsule requires Y 0.03678 while
+   * its checkerboard counterpart requires Y 0.45128. A chroma-only seed change
+   * cannot supply both: collapse forces the old shade to 1. Retention lets the
+   * same shade law follow the collapsed body's level instead of exposing the
+   * unshaded seed. Absence means 0, preserving the active law and its fingerprint.
+   */
+  readonly tintShadeCollapseRetention?: number;
+
+  /**
    * **Backdrop tone adaptation (W7)** — the axis Apple's material has and this
    * one did not: over a dark enough backdrop the material stops being a lighter
    * thing in front of it and takes the backdrop's own tone.
@@ -2715,6 +2736,8 @@ export interface MaterialProfilePatch {
   readonly tintShadeDark?: number;
   readonly tintShadeLight?: number;
   readonly tintShadeStrength?: number;
+  readonly tintChromaScale?: number;
+  readonly tintShadeCollapseRetention?: number;
   readonly backdropToneMax?: number;
   readonly backdropToneLow?: number;
   readonly backdropToneHigh?: number;
@@ -2854,6 +2877,12 @@ export function withMaterialOverrides(
     tintShadeDark: patch.tintShadeDark ?? base.tintShadeDark,
     tintShadeLight: patch.tintShadeLight ?? base.tintShadeLight,
     tintShadeStrength: patch.tintShadeStrength ?? base.tintShadeStrength,
+    ...((patch.tintChromaScale ?? base.tintChromaScale ?? 1) === 1 ? {} : {
+      tintChromaScale: patch.tintChromaScale ?? base.tintChromaScale,
+    }),
+    ...((patch.tintShadeCollapseRetention ?? base.tintShadeCollapseRetention ?? 0) === 0 ? {} : {
+      tintShadeCollapseRetention: patch.tintShadeCollapseRetention ?? base.tintShadeCollapseRetention,
+    }),
     backdropToneMax: patch.backdropToneMax ?? base.backdropToneMax,
     backdropToneLow: patch.backdropToneLow ?? base.backdropToneLow,
     backdropToneHigh: patch.backdropToneHigh ?? base.backdropToneHigh,
@@ -3056,7 +3085,14 @@ export function tintShadeLayer(
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
 ): Rgb {
   const shade = tintShade(materialLuminance, grip, profile);
-  return [seed[0] * shade, seed[1] * shade, seed[2] * shade];
+  const chroma = Math.min(1, Math.max(0, profile.tintChromaScale ?? 1));
+  if (chroma === 1) return [seed[0] * shade, seed[1] * shade, seed[2] * shade];
+  const neutral = Math.max(...seed);
+  return [
+    (neutral + (seed[0] - neutral) * chroma) * shade,
+    (neutral + (seed[1] - neutral) * chroma) * shade,
+    (neutral + (seed[2] - neutral) * chroma) * shade,
+  ];
 }
 
 /**

@@ -32,6 +32,9 @@
 
 import { expect, test, type Page } from "@playwright/test";
 
+import { DEFAULT_GROUP_SAMPLING, resolveAccessibilityPolicy } from "@vitreajs/vitrea";
+
+import { samplingPaddingFor } from "../../src/optics";
 import {
   expectBox,
   expectedProxyBlur,
@@ -39,7 +42,12 @@ import {
   paddedBox,
 } from "../support";
 
-/** The playground's own gap between the toolbar group and the morph's group. */
+/**
+ * The gap the playground opened by hand before W27b, kept here as the scene's
+ * default: a margin an author picked, comfortably past one padding. What the
+ * playground writes now is a `GlassToolbarSpacer`, whose minimum is derived —
+ * and the last test in this file is that derivation, run against real proxies.
+ */
 const DEMO_GROUP_GAP = 56;
 
 /**
@@ -71,18 +79,26 @@ const ALL_PADDING_CODES = [...DEFAULT_PADDING_CODES, "proxy-overlap-after-enforc
  */
 async function buildDemoShapedScene(
   page: Page,
-  options: { readonly gap?: number; readonly declarePadding?: number } = {},
+  options: {
+    readonly gap?: number;
+    readonly declarePadding?: number;
+    /** The state under test. The scene is built in the other one and flipped into it. */
+    readonly reducedTransparency?: boolean;
+  } = {},
 ): Promise<void> {
   await page.evaluate(
-    async ([gap, declared]) => {
+    async ([gap, declared, reducedTransparency]) => {
       await window.h.createRoot({ renderer: "webgpu", appDevice: true });
-      // The pre-flip state is stated rather than inherited. Chromium answers
+      // The pre-flip state is stated rather than inherited, and it is the
+      // opposite of the one under test. Chromium answers
       // `prefers-reduced-transparency` from the operating system's own setting,
       // so on a machine where a person (or another harness) has it switched on,
       // every "before" frame here would already be the "after" — and since the
       // diagnostics channel dedupes by code and subjects, the findings would all
       // land before the clear and none of these tests would see anything.
-      window.h.requireRoot().setAccessibilityOverrides({ reducedTransparency: false });
+      window.h
+        .requireRoot()
+        .setAccessibilityOverrides({ reducedTransparency: reducedTransparency === false });
       const group = (id: string): void => {
         window.h.addGroup(
           id,
@@ -113,10 +129,12 @@ async function buildDemoShapedScene(
       // Everything before the flip is startup noise; what is under test is what
       // the one prop change produces.
       window.h.clearDiagnostics();
-      window.h.requireRoot().setAccessibilityOverrides({ reducedTransparency: true });
+      window.h
+        .requireRoot()
+        .setAccessibilityOverrides({ reducedTransparency: reducedTransparency !== false });
       window.h.frame(3);
     },
-    [options.gap ?? DEMO_GROUP_GAP, options.declarePadding] as const,
+    [options.gap ?? DEMO_GROUP_GAP, options.declarePadding, options.reducedTransparency] as const,
   );
 }
 
@@ -268,4 +286,79 @@ test("nothing moves at the nominal state, which is where every golden was taken"
   });
   expectBox(result.box, paddedBox({ x: 200, y: 200, width: 140, height: 44 }, padding));
   for (const code of ALL_PADDING_CODES) expect(result.codes).not.toContain(code);
+});
+
+/**
+ * The gap a split toolbar opens is enough, against real proxies (W27b, X5).
+ *
+ * `GlassToolbar` partitions its children at a `GlassToolbarSpacer` and opens the
+ * larger of two paddings between the groups: `samplingPaddingFor` at its own
+ * box, which is what the proxy is actually built with, and the advisory core's
+ * own scene-model check reads off the descriptor. The two are allowed to differ
+ * — core's 24 deliberately did not follow σ down when the material was refitted
+ * — and a layout has to clear whichever is in front, so both codes are asserted
+ * here. The scene is the tests' above, with the two groups the same size, one
+ * gap apart, and the state under test declared before the first frame rather
+ * than flipped into: the diagnostics channel dedupes by code and subjects, so a
+ * finding raised by the pre-flip layout and then cleared would never be raised
+ * again and this assertion would pass on a gap that was not enough. (That is not
+ * hypothetical: it is how the first version of this test passed while
+ * `group-proxy-overlap` was really firing.)
+ */
+test("the gap a toolbar derives for a split is enough, at either accessibility state", async ({
+  page,
+}) => {
+  for (const reducedTransparency of [false, true]) {
+    const material = resolveAccessibilityPolicy(
+      {
+        reducedTransparency,
+        reducedMotion: false,
+        increasedContrast: false,
+        forcedColors: false,
+        reducedTransparencySupported: true,
+      },
+      { reducedTransparency },
+    ).material;
+
+    // The toolbar's own box: the two partitions and the gap between them, which
+    // is what `GlassToolbar` measures and what contains every member below.
+    const gap = Math.max(
+      DEFAULT_GROUP_SAMPLING.samplingPadding,
+      samplingPaddingFor({ members: [[340, TOOLBAR_SPAN]], material }),
+    );
+
+    // Tighter than the margin the playground used to write by hand, and clear of
+    // the member padding the runtime resolves for these groups.
+    expect(gap).toBeLessThan(DEMO_GROUP_GAP);
+    expect(gap).toBeGreaterThanOrEqual(
+      expectedProxyBlur({ spanPx: TOOLBAR_SPAN, extentsCssPx: [96, 44], reducedTransparency })
+        .padding,
+    );
+
+    await gotoHarness(page);
+    const codes = await page.evaluate(
+      async ([separation, reduced]) => {
+        await window.h.createRoot({ renderer: "webgpu", appDevice: true });
+        window.h.requireRoot().setAccessibilityOverrides({ reducedTransparency: reduced });
+        window.h.addGroup("toolbar");
+        window.h.addSurface({ groupId: "toolbar", left: 200, top: 400, width: 96, height: 44 });
+        window.h.addSurface({ groupId: "toolbar", left: 308, top: 400, width: 96, height: 44 });
+        window.h.addGroup("toolbar-menu");
+        window.h.addSurface({
+          groupId: "toolbar-menu",
+          left: 404 + separation,
+          top: 400,
+          width: 110,
+          height: 44,
+        });
+        window.h.frame(3);
+        return window.h.diagnosticCodes();
+      },
+      [gap, reducedTransparency] as const,
+    );
+
+    for (const code of [...ALL_PADDING_CODES, "group-proxy-overlap"]) {
+      expect(codes, `reducedTransparency ${reducedTransparency}`).not.toContain(code);
+    }
+  }
 });

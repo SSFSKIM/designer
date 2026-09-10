@@ -1,0 +1,15 @@
+{
+  "gate": "W27c G1 / claims §5.130, corrected calibration selection before validation",
+  "selected": "c3",
+  "runs": [
+    { "label": "baseline", "purpose": "Shipping active material, 78 calibration/validation rows, now admitted only with matching320x200 viewport/canvas, requestedScale/DPR and empty page problems." },
+    { "label": "seed", "purpose": "Restart at active body/scatter response with only zero outer/bright-rim amplitudes and neutral retained tint; 62 calibration rows." },
+    { "label": "c1", "purpose": "Fit body response and scatter share to the corrected baseline/seed and native controls. Several first-attempt parameters are reused as hypotheses, not accepted because of invalid earlier readings. Light thin middle ordinate is0.40, not the prior0.42. Keep active heavy-width path initially." },
+    { "label": "c2", "purpose": "After spatial-c1 shows2x checker rrect horizontal modulation0.25112 vs native0.08036 (light) and0.05517 vs0.01708 (dark), test14-device-px heavy width at2x. Separately perturb light regular tintAlpha from0.46 to0.37. Width improves thick checker; lower opacity worsens thin structured light controls and is declined." },
+    { "label": "c3", "purpose": "Retain the14-device-px2x width, restore light regular tintAlpha0.46, lower light thick middle ordinate0.5394 to0.518 to correct checker body level, and change dark1x thick heavy-share0.40 to0.25. This is the selected calibration endpoint; photo chroma and some levels remain residuals." }
+  ],
+  "selectionBasis": "Equal-cell full-canvas OKLab mean, checked beside eroded-body Y/SD and spatial profiles; each profile/scale separate. c3 improves light calibration means overc1/c2 and dark1x overc1/c2, retains dark2x width improvement, and preservesc1 light accessibility. No validation or holdout value drove this selection.",
+  "baselineCrossCheck": "73of78 corrected baseline PNG hashes equal the old unchecked baseline. The remaining5 differ at only approximately1e-8 meanDeltaE. This does not rehabilitate the invalidated experiment; the corrected rows are new evidence with the missing integrity checks.",
+  "bounds": "No new fidelity floor is adopted inG1. No lens or tone-anchor abscissa is fitted. Dark far response ordinates, far-span continuation, clear variant and unmeasured accessibility combinations remain underidentified.",
+  "holdoutAtSelection": "UNREAD. Updated main must be integrated, the exported selected endpoint checked on calibration/validation and independently repeated, then a new declaration frozen before the30-cell one-shot holdout."
+}

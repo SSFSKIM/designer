@@ -369,6 +369,9 @@ export interface TintShadeConstants {
   readonly light: number;
   readonly strength: number;
   readonly reducedAdaptation: number;
+  /** Seed saturation and shade retention through collapse, from the shared profile. */
+  readonly chromaScale?: number;
+  readonly collapseRetention?: number;
 }
 
 // MEASURED (W10, 2026-09-02): fitted on the W9 probe's five tinted cells,
@@ -751,6 +754,8 @@ export function resolvedTintShade(patch?: RendererMaterialProfile): TintShadeCon
     light: patch?.tintShadeLight ?? TINT_SHADE.light,
     strength: patch?.tintShadeStrength ?? TINT_SHADE.strength,
     reducedAdaptation: patch?.reducedTintAdaptation ?? TINT_SHADE.reducedAdaptation,
+    chromaScale: patch?.tintChromaScale ?? 1,
+    collapseRetention: patch?.tintShadeCollapseRetention ?? 0,
   };
 }
 
@@ -798,7 +803,14 @@ export function tintShadeLayer(
   shade: TintShadeConstants = TINT_SHADE,
 ): LinearRgb {
   const level = tintShade(materialLuminance, grip, shade);
-  return [seed[0] * level, seed[1] * level, seed[2] * level];
+  const chroma = clamp01(shade.chromaScale ?? 1);
+  if (chroma === 1) return [seed[0] * level, seed[1] * level, seed[2] * level];
+  const neutral = Math.max(...seed);
+  return [
+    (neutral + (seed[0] - neutral) * chroma) * level,
+    (neutral + (seed[1] - neutral) * chroma) * level,
+    (neutral + (seed[2] - neutral) * chroma) * level,
+  ];
 }
 
 /** The luminance the untinted material shows over a backdrop of the given luminance. */
@@ -2535,6 +2547,33 @@ export function groupScatterSigma(
 }
 
 /**
+ * The σ a group's proxy blurs with, over the group's own members and under the
+ * resolved material policy — the scatter law read at the proxy's own scale.
+ *
+ * One home for the composition `root.ts` performs every frame, so that anything
+ * else needing the number a group's sampling geometry will be taken over asks
+ * for it here rather than reassembling the three pieces (the refraction cap, the
+ * projection scale, the per-member maximum) and drifting from the runtime the
+ * first time one of them moves. `blurRadius` is the σ of the material this group
+ * resolved to, already folded by policy; the fold this applies is the
+ * refraction cap, which grades the scatter gain and not the base blur.
+ */
+export function proxySamplingSigma(
+  blurRadius: number,
+  material: ResolvedMaterialPolicy,
+  members: readonly (readonly [number, number])[],
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+): number {
+  return groupScatterSigma(
+    blurRadius,
+    size.refractionScale[accessibilityRefractionCap(material)],
+    members,
+    size,
+    WEBGPU_PROXY_PROJECTION_SCALE,
+  );
+}
+
+/**
  * The tint alpha a surface of this span carries — the occlusion facet.
  *
  * Applied **after** `opticsUnderPolicy`, on this tier's own converted alpha,
@@ -4024,36 +4063,130 @@ export function cssTierOptics(
   return resolved;
 }
 
-/** The pair a GPU-tier group that samples nothing writes as its layer (W11a). */
-export interface UnsampledMaterial {
-  /** The profile's tint, linear light — the renderer encodes it on the way out. */
-  readonly tint: LinearRgb;
-  /** The CSS tier's alpha for the same material: `cssTintAlpha` at the mapping's reference level. */
-  readonly tintAlpha: number;
+export interface MaterialBackdropTone {
+  readonly rgb: LinearRgb;
+  readonly luminance: number;
+  readonly linearLuminance: number;
+}
+
+/** The scalar material before contour geometry adds its inner shadow and rim. */
+export interface MaterialAtBackdrop {
+  readonly tone: MaterialBackdropTone | undefined;
+  readonly thickness: number;
+  readonly foldedThickness: number;
+  readonly adaptation: number;
+  readonly responded: MaterialSourceOptics;
+  readonly adapted: MaterialSourceOptics;
+  readonly level: number;
+  readonly shade: number;
+  readonly shadow: { readonly occlusion: number; readonly lift: number };
 }
 
 /**
- * The material as a GPU-tier group writes it when it has NO backdrop to sample
- * (W11a): a `css-backdrop` group, whose frost is a DOM proxy under the canvas,
- * or a `none` group over the page. The optics pass writes such a surface as a
- * premultiplied layer and the browser composites it in encoded sRGB — the same
- * space this tier's `rgba()` lands in, and the same reason `cssTintAlpha`
- * exists. So the pair is this tier's: the renderer's own tint (linear, encoded
- * once on output) at the alpha the mapping solved for the CSS tier, so a
- * nested surface reads the same on both tiers by construction rather than by
- * two fits. The renderer folds the accessibility policy over it exactly as
- * `cssTierDeclarations` folds it over the CSS tier's copy.
+ * The profile's material at a backdrop tone and a member's span (W27f G1).
+ *
+ * This is the owner of the DOM material's scalar derivation. The host's CSS
+ * mirror and DOM-GPU reading both call it; `wgsl/optics.ts` mirrors the same law
+ * per pixel because one union may contain members of different spans. The GPU
+ * scalar-anchor tests pin that mirror to this function, not to a second fit.
+ * Policy and size first set the LINEAR occlusion, the response solves its neutral
+ * to R(E(tone), thickness), and the collapse mixes that material toward the
+ * measured mean while retaining the profile's transmission. Paint shades at the
+ * resulting level, and the rim's amplitude reads that level before paint. The
+ * contour geometry still owns the inner shadow and the rim's shape; this function
+ * states their scalar input rather than pretending a group has one contour.
+ *
+ * The outer shadow has its own black occlusion and a lift of the backdrop's
+ * light. A DOM group can state that lift only at its measured tone, not at every
+ * exterior pixel. With no tone the response and collapse stand down and the lift
+ * is unknown, hence absent. The mapping's reference level is the convention for
+ * expressing the nominal layer, including its shade and rim, in encoded space;
+ * it is never published as a measurement or used to enable response or collapse.
+ * A scalar cannot supply RGB or the independent linear mean on a structured
+ * page, so neither a variance nor a `hint.complexity` value is invented here.
  */
-export function unsampledMaterials(
-  patch?: RendererMaterialProfile,
+export function materialAtBackdrop(
+  profile: RendererMaterialProfile | undefined,
+  variant: MaterialVariant,
+  tone: MaterialBackdropTone | undefined,
+  span: number,
+  policy: ResolvedMaterialPolicy,
+  devicePixelRatio = 1,
+  tintStrength = 0,
   mapping: CssTierMapping = CSS_TIER_MAPPING,
-): Readonly<Record<MaterialVariant, UnsampledMaterial>> {
-  const resolved = {} as Record<MaterialVariant, UnsampledMaterial>;
-  for (const variant of ["regular", "clear"] as const) {
-    const source = sourceOptics(patch)[variant];
-    resolved[variant] = { tint: source.tint, tintAlpha: cssTintAlpha(source, mapping) };
-  }
-  return resolved;
+): MaterialAtBackdrop {
+  const source = sourceOptics(profile)[variant];
+  const size = sourceSize(profile);
+  const shade = resolvedTintShade(profile);
+  const toneConstants = resolvedBackdropTone(profile);
+  const fold = resolvedPolicyFold(profile);
+  const thickness = sizeThickness(span, size);
+  const foldedThickness = sizeThicknessUnderPolicy(span, policy, size);
+  const strength = backdropToneUnderPolicy(policy, shade, size.refractionScale);
+  const adaptation = tone === undefined ? 0
+    : backdropToneAdaptation(tone.luminance, thickness, toneConstants) * strength;
+  const occluded = {
+    ...source,
+    tintAlpha: sizeOcclusionAlphaAt(
+      occlusionAlphaUnderPolicy(source.tintAlpha, policy.occlusion, fold.increasedOcclusionLift),
+      foldedThickness,
+      size,
+    ),
+  };
+  const responded = tone === undefined ? occluded : toneRespondedSourceOptics(
+    occluded, tone, thickness, adaptation,
+    (strength >= 0.999 ? 1 : 0) * clamp01(toneConstants.max),
+    resolvedBackdropToneResponse(profile),
+    sizeToneLevelFar(span, size, devicePixelRatio,
+      size.refractionScale[accessibilityRefractionCap(policy)]),
+  );
+  const collapsed = adaptedSourceOptics(
+    responded, tone?.rgb, adaptation,
+    collapsedRim(tintStrength, resolvedCollapsedRim(profile)),
+    mapping.referenceBackdropLuminance,
+    strength >= 0.999
+      ? collapseTransmissionAtScale(resolvedCollapseTransmission(profile), devicePixelRatio) : 0,
+  );
+  const level = materialLuminance(collapsed,
+    tone?.linearLuminance ?? mapping.referenceBackdropLuminance);
+  const adapted = {
+    ...collapsed,
+    rimAlpha: (source.rimAlpha + source.rimLevelGain * level) * (1 - adaptation)
+      + collapsedRim(tintStrength, resolvedCollapsedRim(profile)) * adaptation,
+  };
+  const shadow = outerShadowUnderPolicy(sourceOuterShadow(profile), policy);
+  return {
+    tone, thickness, foldedThickness, adaptation, responded, adapted, level,
+    shade: tintShade(level,
+      tintToneAdaptation(policy.ambientTint, shade) * shade.strength * (1 - adaptation), shade),
+    shadow: {
+      occlusion: outerShadowOcclusionAt(shadow, tone?.luminance, span, foldedThickness),
+      lift: tone === undefined ? 0
+        : tone.linearLuminance * shadow.liftAmplitude * outerShadowLiftRise(span, shadow),
+    },
+  };
+}
+
+/** The encoded-layer solve's reference convention, never a claimed backdrop tone. */
+export interface DomMaterialReference {
+  readonly referenceBackdropLuminance: number;
+  readonly minimumTintContrast: number;
+}
+
+/**
+ * The DOM canvas no longer receives a pre-converted tint/alpha pair (W27f G1).
+ * Its response, size, paint and rim laws read the profile in linear light; only
+ * the final layer is converted for the browser. These are that solve's two
+ * conventions, shared with the CSS mirror. An actual backdrop tone always wins
+ * over the reference level, and the reference never enables tone adaptation.
+ */
+export function domMaterialReference(
+  mapping: CssTierMapping = CSS_TIER_MAPPING,
+): DomMaterialReference {
+  return {
+    referenceBackdropLuminance: mapping.referenceBackdropLuminance,
+    minimumTintContrast: mapping.minimumTintContrast,
+  };
 }
 
 /**
@@ -4075,6 +4208,39 @@ export const SAMPLING_PADDING_SIGMA_MULTIPLE = 3;
 /** The floor a group's `samplingPadding` may not sit below, in CSS px. */
 export function requiredSamplingPadding(blurRadius: number): number {
   return blurRadius * SAMPLING_PADDING_SIGMA_MULTIPLE;
+}
+
+/**
+ * The sampling padding a group of these members takes under this policy, in
+ * CSS px — the number a layout has to clear to keep two groups' proxies apart.
+ *
+ * The whole chain in one call: the shipped optics for the variant, folded by
+ * the resolved material policy (so Reduce Transparency's thicker frost moves
+ * it), through the scatter law at the group's own members, times the 3σ rule.
+ * It is the same composition `root.ts` resolves each group's geometry with, and
+ * it is exported because a *layout* now depends on it: `GlassToolbar` opens the
+ * gap between two partitions of one toolbar and cannot ask for a constant, since
+ * the constant would be wrong under the very preference that enlarges the blur.
+ *
+ * The law is monotone in a member's span and in its extents
+ * (`proxy-geometry.test.ts`), which is what lets a caller that does not know its
+ * members pass a box that CONTAINS them and get an upper bound rather than an
+ * estimate. Members are `[width, height]` pairs in CSS px; an empty list is the
+ * projection at span 0, which is the floor every group starts at.
+ *
+ * A profile patch is not read here: this is the shipped material's law, which is
+ * what a caller outside the frame loop has. A group whose descriptor patches the
+ * profile resolves its own σ through `proxySamplingSigma` inside the frame.
+ */
+export function samplingPaddingFor(input: {
+  readonly members: readonly (readonly [number, number])[];
+  readonly material: ResolvedMaterialPolicy;
+  readonly variant?: MaterialVariant;
+}): number {
+  const folded = opticsUnderPolicy(MATERIAL_OPTICS[input.variant ?? "regular"], input.material);
+  return requiredSamplingPadding(
+    proxySamplingSigma(folded.blurRadius, input.material, input.members),
+  );
 }
 
 /**

@@ -135,14 +135,9 @@ import {
   type MediaMatcher,
 } from "./media-policy";
 import {
-  adaptedSourceOptics,
   authorTintLayer,
-  backdropToneAdaptation,
-  backdropToneUnderPolicy,
   boundedForegroundLevel,
   CSS_TIER_MAPPING,
-  collapsedRim,
-  collapseTransmissionAtScale,
   cssOpticsFromSource,
   cssShadowBlurRadius,
   cssTierCompositeLevel,
@@ -156,22 +151,13 @@ import {
   interiorBandLight,
   interiorShadowKeep,
   linearTint,
-  occlusionAlphaUnderPolicy,
+  materialAtBackdrop,
   opticsUnderPolicy,
-  resolvedBackdropTone,
-  resolvedBackdropToneResponse,
-  resolvedCollapsedRim,
-  resolvedCollapseTransmission,
   resolvedRimTintChroma,
   resolvedPolicyFold,
   resolvedTintShade,
   rimAmplitude,
-  WEBGPU_PROXY_PROJECTION_SCALE,
-  groupScatterSigma,
-  sizeThickness,
-  sizeOcclusionAlphaAt,
-  sizeThicknessUnderPolicy,
-  sizeToneLevelFar,
+  proxySamplingSigma,
   sourceInteriorLight,
   sourceOptics,
   sourceOuterShadow,
@@ -179,13 +165,11 @@ import {
   tintedCssOptics,
   tintedSourceOptics,
   tintToneAdaptation,
-  toneRespondedSourceOptics,
-  unsampledMaterials,
+  domMaterialReference,
   weakestCssTintForm,
-  type UnsampledMaterial,
+  type DomMaterialReference,
   type CssTierMapping,
   type InteriorSurfaceGeometry,
-  type LinearRgb,
   type MaterialOptics,
   type MaterialSourceOptics,
 } from "./optics";
@@ -412,13 +396,12 @@ export interface GlassGroupRenderInput {
    */
   readonly backdropToneLinearLuminance?: number;
   /**
-   * The material a GPU-tier group writes as a LAYER when it samples nothing
-   * (W11a): the renderer's tint at the CSS tier's alpha, because the browser
-   * composites that layer in the same encoded space the CSS tier's `rgba()`
-   * lands in. Present exactly where the WebGPU tier is drawing over a DOM
-   * proxy or over the page; never on a group sampling a texture.
+   * The final encoded-layer solve for a host DOM group (W27f G1). The profile
+   * stays linear until its response, collapse, paint and rim are evaluated;
+   * this descriptor carries only the conversion convention, not a flat tint.
+   * Absent on a group sampling a texture, whose compositor is the shader.
    */
-  readonly unsampledMaterial?: UnsampledMaterial;
+  readonly unsampledMaterial?: DomMaterialReference;
 }
 
 export interface GlassPlaneRenderInput {
@@ -1026,6 +1009,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   const activeProfile = (): RendererMaterialProfile | undefined =>
     mergeMaterialProfiles(colorSchemeMaterialProfile(resolvedScheme()), hostProfile);
   const initialProfile = activeProfile();
+  let resolvedProfile = initialProfile;
 
   const cssMapping: CssTierMapping = { ...CSS_TIER_MAPPING, ...options.cssTierMapping };
   let cssOptics = cssTierOptics(initialProfile, cssMapping);
@@ -1037,10 +1021,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    */
   let gpuOptics = sourceOptics(initialProfile);
   /**
-   * The pair a GPU-tier group writes when it has no texture to sample (W11a):
-   * the renderer's tint at this tier's alpha, one number for both tiers.
+   * The DOM canvas's conversion convention, shared with the CSS mirror.
+   * It does not depend on the profile: the profile is evaluated before conversion.
    */
-  let unsampled = unsampledMaterials(initialProfile, cssMapping);
+  const unsampled = domMaterialReference(cssMapping);
   /**
    * The renderer's light direction and the two size gains its inner shadow
    * rides — the profile block the interior derivations read (W17 G1).
@@ -1075,33 +1059,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * this tier's `box-shadow` and the renderer's field rect from a single document.
    */
   let outerShadowConstants = sourceOuterShadow(initialProfile);
-  /**
-   * The backdrop tone adaptation's curve (W7), from the same profile. The GPU
-   * tier evaluates it per pixel; this tier evaluates it once per surface against
-   * whatever it knows of the backdrop — see `backdropTone` below.
-   */
-  let backdropToneConstants = resolvedBackdropTone(initialProfile);
-  /*
-   * The two absolute rims a collapsed surface keeps, off the SAME profile the
-   * renderer reads them from (W23 G1's review fix). Held beside the tone's
-   * constants and re-resolved with them, because a tier that read the mirrored
-   * defaults would diverge from its twin the moment an app named either.
-   */
-  let collapsedRimConstants = resolvedCollapsedRim(initialProfile);
-  /*
-   * And how much of what is beneath a collapsed surface still comes through it
-   * (W24; claims §5.108 §2), off that same profile. Two anchors rather than one
-   * number, because the scale they are resolved at is the frame's and not the
-   * profile's.
-   */
-  let collapseTransmissionConstants = resolvedCollapseTransmission(initialProfile);
   let rimTintChromaConstant = resolvedRimTintChroma(initialProfile);
-  /**
-   * The backdrop tone response's anchors (W9), from the same profile — the law
-   * that owns the interior mean, where the collapse constants above own
-   * texture. See the renderer's `MaterialProfile.backdropToneAnchorX`.
-   */
-  let backdropToneResponse = resolvedBackdropToneResponse(initialProfile);
   /**
    * Re-derive every one of the bindings above, on both tiers, from one profile.
    *
@@ -1117,19 +1075,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * lands on the next frame, on whichever tier is drawing.
    */
   const applyMaterialProfile = (profile: RendererMaterialProfile | undefined): void => {
+    resolvedProfile = profile;
     cssOptics = cssTierOptics(profile, cssMapping);
     gpuOptics = sourceOptics(profile);
-    unsampled = unsampledMaterials(profile, cssMapping);
     interiorLight = sourceInteriorLight(profile);
     policyFold = resolvedPolicyFold(profile);
     tintShade = resolvedTintShade(profile);
     sizeConstants = sourceSize(profile);
     outerShadowConstants = sourceOuterShadow(profile);
-    backdropToneConstants = resolvedBackdropTone(profile);
-    collapsedRimConstants = resolvedCollapsedRim(profile);
-    collapseTransmissionConstants = resolvedCollapseTransmission(profile);
     rimTintChromaConstant = resolvedRimTintChroma(profile);
-    backdropToneResponse = resolvedBackdropToneResponse(profile);
     /*
      * The renderer's own patch takes the *resolved* profile too, so the GPU tier
      * and this one are always drawing the same material.
@@ -1856,12 +1810,16 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       // move by a byte. Whether the proxy should follow the device scale the
       // way the renderer's own body does is a GPU-tier question and belongs to
       // a wave that may move it.
-      const groupBlurRadius = groupScatterSigma(
+      //
+      // Composed by `proxySamplingSigma` rather than assembled here, so that a
+      // caller outside the frame loop — `GlassToolbar`, opening the gap between
+      // two partitions of one toolbar (W27b) — takes the same three pieces in
+      // the same order instead of carrying a second reading of them.
+      const groupBlurRadius = proxySamplingSigma(
         optics.blurRadius,
-        sizeConstants.refractionScale[accessibilityRefractionCap(accessibility.material)],
+        accessibility.material,
         measured.map((entry) => [entry.bounds.width, entry.bounds.height] as const),
         sizeConstants,
-        WEBGPU_PROXY_PROJECTION_SCALE,
       );
       const sampling = resolveSamplingGeometry({
         samplingPadding: groupRecord.descriptor.samplingPadding,
@@ -1902,7 +1860,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         // The layer pair travels only where the GPU tier is the one drawing and
         // has nothing to sample — over its proxy, or over the page (W11a).
         ...(state.activeRenderer === "webgpu" && state.samplingBackend !== "gpu-texture"
-          ? { unsampledMaterial: unsampled[variant] }
+          ? { unsampledMaterial: unsampled }
           : {}),
       };
 
@@ -2020,135 +1978,16 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
          * and it takes the UNFOLDED thickness — the gate is geometric, and the
          * policy has its own fold on the strength beside it.
          */
-        const surfaceThickness = sizeThickness(
-          Math.min(bounds.width, bounds.height),
-          sizeConstants,
+        // One scalar derivation for the CSS reading and the DOM-GPU material.
+        // The renderer mirrors it per pixel so mixed-span unions keep their law.
+        const atBackdrop = materialAtBackdrop(
+          resolvedProfile, variant, backdropTone, Math.min(bounds.width, bounds.height),
+          accessibility.material, devicePixelRatio, material.tint?.strength ?? 0, cssMapping,
         );
-        const backdropTonePolicyStrength = backdropToneUnderPolicy(
-          accessibility.material,
-          tintShade,
-          sizeConstants.refractionScale,
-        );
-        const backdropAdaptation =
-          backdropTone === undefined
-            ? 0
-            : backdropToneAdaptation(
-                backdropTone.luminance,
-                surfaceThickness,
-                backdropToneConstants,
-              ) * backdropTonePolicyStrength;
-
-        /*
-         * The response solve (W9) runs whenever a backdrop tone was measured —
-         * it is not gated on the collapse being non-zero, because the law it
-         * lands (the interior mean tracking the backdrop's encoded mean) is
-         * exactly the behaviour the collapse's narrow band no longer carries.
-         */
-        /*
-         * The size law's occlusion and the regime's lift, applied to the alpha
-         * BEFORE the response solve — the shader's own order (W17 Decision
-         * Log 2 (b); claims §5.74 §3).
-         *
-         * The shader computes `sizedAlpha = tint.w + sizeOcclusionGain·sizeK·
-         * (1 − tint.w)` and then runs the solve, whose whole purpose is to land
-         * the composite's mean AT THAT ALPHA on the reference's measured
-         * response. This tier used to solve at the unsized alpha and raise it
-         * afterwards, in `cssTierDeclarations`, which lands the mean above the
-         * response by the raise times the tint's excess over the backdrop:
-         * +0.0147 on `checkerboard__rrect-md` at 1x, +0.0209 on `photo__rrect-md`
-         * and +0.0268 on `dark-solid__rrect-md`, one-signed on 15 of the 44
-         * untinted cells of the calibration bed. The two facets compose as
-         * `1 − (1 − α)(1 − c₁)(1 − c₂)` and so commute with each other; what does
-         * not commute is either of them with the solve, which is why both move
-         * here and neither is applied again downstream.
-         */
-        const foldedThickness = sizeThicknessUnderPolicy(
-          Math.min(bounds.width, bounds.height),
-          accessibility.material,
-          sizeConstants,
-        );
-        const occludedSource: MaterialSourceOptics = {
-          ...gpuOptics[variant],
-          tintAlpha: sizeOcclusionAlphaAt(
-            occlusionAlphaUnderPolicy(
-              gpuOptics[variant].tintAlpha,
-              accessibility.material.occlusion,
-              policyFold.increasedOcclusionLift,
-            ),
-            foldedThickness,
-            sizeConstants,
-          ),
-        };
-        const respondedSource =
-          backdropTone === undefined
-            ? occludedSource
-            : toneRespondedSourceOptics(
-                occludedSource,
-                backdropTone,
-                surfaceThickness,
-                backdropAdaptation,
-                // The response law rides only the UN-DEGRADED regime — the
-                // renderer's own gate, mirrored: its anchors are
-                // standard-reference measurements, and a policy fold on the
-                // tone axis means a reference this law was never measured on.
-                (backdropTonePolicyStrength >= 0.999 ? 1 : 0) *
-                  Math.min(1, Math.max(0, backdropToneConstants.max)),
-                backdropToneResponse,
-                // W25's level term above the thickness knee (claims §5.113; W25
-                // Decision Log 3 (b)): the response's thin-to-thick step carried
-                // past the thick row on a curve that is exactly 0 at and below
-                // span 96. Folded like the response it extends, through the same
-                // ratio the thickness gate above takes. 0 at every span on the
-                // landed material.
-                sizeToneLevelFar(
-                  Math.min(bounds.width, bounds.height),
-                  sizeConstants,
-                  devicePixelRatio,
-                  sizeConstants.refractionScale[
-                    accessibilityRefractionCap(accessibility.material)
-                  ],
-                ),
-              );
-
-        /*
-         * The author tint (W10) composites LAST, over the converted material:
-         * an opaque layer of the seed at its shade, at the author's opacity,
-         * folded into this tier's one `rgba()` in the encoded space it actually
-         * composites in. The shade reads the material's luminance at one level
-         * per source — the measured backdrop where the host sampled one, the
-         * hint or the mapping's reference otherwise — and its grip is the
-         * regime's, the profile's provenance gate's, and `(1 − collapse)`: a
-         * collapsed material is a dark body, and the reference paints the pure
-         * seed on one.
-         */
-        const adaptedSource = adaptedSourceOptics(
-          respondedSource,
-          backdropTone?.rgb as LinearRgb | undefined,
-          backdropAdaptation,
-          // The collapsed rim this surface keeps, which is the author tint's
-          // (W23): a painted surface over black keeps a brighter rim than a bare
-          // one, and the strength is per surface where the adaptation is per
-          // group, so the caller is the only place the two meet.
-          // The strong-border regime is NOT folded in here, unlike the renderer's
-          // `collapsedRimUnderPolicy`: on this tier `opticsUnderPolicy` replaces
-          // `borderAlpha` and `borderWidth` last of all (`css-tier.ts`), so the
-          // substitution already reaches a collapsed surface's border and folding
-          // it twice would put the policy's alpha into the author tint's fold and
-          // the foreground decision, which read this source too.
-          collapsedRim(material.tint?.strength ?? 0, collapsedRimConstants),
-          undefined,
-          // The transmission a collapsed surface keeps (W24; claims §5.108 §2),
-          // at this root's live device ratio because the two anchors differ by
-          // the kernel the transmission arrives through. Gated on the
-          // UN-DEGRADED regime, the renderer's own gate mirrored: the constant
-          // is fitted on the standard reference, and an accessibility fold means
-          // a material whose collapsed appearance was never read over a textured
-          // backdrop. Under any fold the target is the mean, which is W7's
-          // behaviour and what those profiles were fitted on.
-          backdropTonePolicyStrength >= 0.999
-            ? collapseTransmissionAtScale(collapseTransmissionConstants, devicePixelRatio)
-            : 0,
-        );
+        const surfaceThickness = atBackdrop.thickness;
+        const foldedThickness = atBackdrop.foldedThickness;
+        const backdropAdaptation = atBackdrop.adaptation;
+        const adaptedSource = atBackdrop.adapted;
         /*
          * The inner shadow, folded into the (colour, alpha) pair (W17 Decision
          * Log 2 (b)).
@@ -2229,7 +2068,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         // arriving here already carries every one of them.
         const policySource: MaterialSourceOptics = shadowedSource;
         const tintBackdrop = backdropTone?.linearLuminance ?? toneBackdrop;
-        const tintGrip = toneAdaptation * tintShade.strength * (1 - backdropAdaptation);
+        const tintGrip = toneAdaptation * tintShade.strength *
+          (1 - backdropAdaptation * (1 - Math.min(1, Math.max(0, tintShade.collapseRetention ?? 0))));
         const authorLayer = authorTintLayer(
           policySource,
           seed,

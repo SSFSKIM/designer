@@ -158,13 +158,15 @@ export interface OpticsPassArgs {
   readonly tintToneAdaptation: number;
   /** `[tintShadeDark, tintShadeLight, tintShadeStrength]`. */
   readonly tintShade: readonly [number, number, number];
+  readonly tintChromaScale?: number;
+  readonly tintShadeCollapseRetention?: number;
   readonly rimWidth: number;
   readonly rimAlpha: number;
   /**
    * The retired one-sided specular's two constants (W24; claims §5.108 §1).
-   * They still travel to the uniform's `rim.zw` so that the buffer's layout and
-   * the profile's shape are one reviewable change rather than two, and the
-   * optics pass no longer reads either of them.
+   * Retained in this private call shape for the historical profile interface;
+   * they are not uploaded. W27c reuses their two uniform slots for tint chroma
+   * and shade retention, and its GPU regression test pins these constants inert.
    */
   readonly specularPower: number;
   readonly specularGain: number;
@@ -204,6 +206,12 @@ export interface OpticsPassArgs {
    * is what runs — the 0.14.0 path, to the bit.
    */
   readonly heavyTapEnabled: boolean;
+  /** DOM-layer mode: 0 is off, 1 is unknown tone, and 2 has a measured tone. */
+  readonly domMaterial?: {
+    readonly mode: number;
+    readonly referenceBackdropLuminance: number;
+    readonly minimumTintContrast: number;
+  };
   readonly rimTintChroma: number;
   readonly lightDirection: readonly [number, number];
   readonly shadowDepth: number;
@@ -716,8 +724,9 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[27] = args.sizeFold;
       d[28] = args.rimWidth;
       d[29] = args.rimAlpha;
-      d[30] = args.specularPower;
-      d[31] = args.specularGain;
+      // W27c reuses the two slots retired with W24's one-sided specular.
+      d[30] = args.tintChromaScale ?? 1;
+      d[31] = args.tintShadeCollapseRetention ?? 0;
       d[32] = args.lightDirection[0];
       d[33] = args.lightDirection[1];
       d[34] = args.shadowDepth;
@@ -854,9 +863,11 @@ export function createPassRunner(context: GpuContext): PassRunner {
       // and the pass takes the chain tap it has always taken, so the bytes are
       // the 0.14.0 bed's.
       d[108] = args.heavyTapEnabled ? 1 : 0;
-      d[109] = 0;
-      d[110] = 0;
-      d[111] = 0;
+      // The DOM solve uses the otherwise idle lanes only on a host DOM group.
+      // Texture draws keep all three padding words zero, including their bytes.
+      d[109] = args.domMaterial?.mode ?? 0;
+      d[110] = args.domMaterial?.referenceBackdropLuminance ?? 0;
+      d[111] = args.domMaterial?.minimumTintContrast ?? 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

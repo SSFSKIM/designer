@@ -1,0 +1,146 @@
+{
+  "declaredIn": "W27c G1; claims §5.130; W27 X1/X3/X7/X8",
+  "frozenAt": "2026-09-10T08:22:39.418Z",
+  "patch": {
+    "light": {
+      "tintChromaScale": 0,
+      "tintShadeCollapseRetention": 1,
+      "tintShadeStrength": 1,
+      "optics": {
+        "regular": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0
+        },
+        "clear": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0
+        }
+      },
+      "rimCollapsed": 0,
+      "rimCollapsedTinted": 0,
+      "outerShadow": {
+        "thinOcclusionDark": 0,
+        "thinOcclusionMid": 0,
+        "thinOcclusionBright": 0,
+        "thickOcclusionAt96": 0,
+        "thickOcclusionAt128": 0,
+        "thickOcclusionAt160": 0,
+        "liftAmplitude": 0,
+        "reducedTransparencyOcclusion": 0
+      },
+      "increasedOcclusionLift": 0.92,
+      "strongBorderRim": {
+        "rimWidth": 1,
+        "rimAlpha": -3.5
+      },
+      "sizeScatterRampStartThick1x": 0.3,
+      "sizeScatterRampStartThick2x": 0.04,
+      "sizeScatterRampStartFar2x": 0.04,
+      "sizeHeavyTapSigma2x": 14,
+      "tintShadeDark": 0.0288,
+      "tintShadeLight": 0.76,
+      "reducedTintAdaptation": 0.88,
+      "sizeScatterFloor": 0.7,
+      "sizeScatterRampStartThin1x": 0.55,
+      "sizeScatterRampStartThin2x": 0.7,
+      "backdropToneResponseThin": [
+        0.0126,
+        0.42,
+        0.929
+      ],
+      "backdropToneResponseThick": [
+        0.4553,
+        0.5394,
+        0.9
+      ]
+    },
+    "dark": {
+      "tintChromaScale": 0,
+      "tintShadeCollapseRetention": 1,
+      "tintShadeStrength": 1,
+      "optics": {
+        "regular": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0,
+          "tintAlpha": 0.89
+        },
+        "clear": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0
+        }
+      },
+      "rimCollapsed": 0,
+      "rimCollapsedTinted": 0,
+      "outerShadow": {
+        "thinOcclusionDark": 0,
+        "thinOcclusionMid": 0,
+        "thinOcclusionBright": 0,
+        "thickOcclusionAt96": 0,
+        "thickOcclusionAt128": 0,
+        "thickOcclusionAt160": 0,
+        "liftAmplitude": 0,
+        "reducedTransparencyOcclusion": 0
+      },
+      "increasedOcclusionLift": 0.92,
+      "strongBorderRim": {
+        "rimWidth": 1,
+        "rimAlpha": -3.5
+      },
+      "sizeScatterRampStartThick1x": 0.3,
+      "sizeScatterRampStartThick2x": 0.04,
+      "sizeScatterRampStartFar2x": 0.04,
+      "sizeHeavyTapSigma2x": 14,
+      "tintShadeDark": 0.0202,
+      "tintShadeLight": 1.46,
+      "reducedTintAdaptation": 0.8,
+      "sizeScatterFloor": 0.4,
+      "sizeScatterRampStartThin1x": 1,
+      "sizeScatterRampStartThin2x": 1,
+      "sizeScatterHeavyShareThick1x": 0.4,
+      "backdropToneResponseThin": [
+        0.011,
+        0.089,
+        0.1611
+      ],
+      "backdropToneResponseThick": [
+        0.0215,
+        0.065,
+        0.02
+      ]
+    }
+  },
+  "profiles": {
+    "light": {
+      "activeSha256": "b2b570e4adcea8fb9281aed4d2556598a1fc95b34ce4b12dd5a50157ac138306",
+      "activeRecordedFingerprint": "b2b570e4adcea8fb",
+      "inactiveSha256": "40bf99c0d97577061f72875332d6dfa636b7e6e8a3f64226353fca6910fe6e13"
+    },
+    "dark": {
+      "activeSha256": "874be66ea501621be265265424c16d2d98a01c40835d89c02de9473362c0d4dc",
+      "activeRecordedFingerprint": "874be66ea501621b",
+      "inactiveSha256": "83006365d0bffa2ef89ad0d91b36b28ab4c0f326b6036684cb714b6fc02d70e1"
+    }
+  },
+  "fit": {
+    "calibrationCells": 62,
+    "validationCells": 16,
+    "independentCaptureRepeats": 2,
+    "selection": "t3 light standard/reduced transparency, t5 dark standard/increased contrast; final module repeated on all 78 cells after main integration, all 62 fitted PNGs byte-identical",
+    "knownExcludedPair": "apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest",
+    "recordedInteractionCopies": "12 rows preserved in the bed and not fitted or checked"
+  },
+  "holdout": {
+    "statusAtDeclaration": "unread",
+    "declaredCells": 30,
+    "rule": "Read once on this fixed document, record as spent, never fit to the reading"
+  },
+  "identityProof": {
+    "activePinsUnchanged": true,
+    "rendererGoldensUnchanged": true,
+    "method": "tuned-profiles.test.ts plus the full 34-test renderer golden/isolation suite on a private server; no from-empty canonical matrix rebuild in G1"
+  }
+}

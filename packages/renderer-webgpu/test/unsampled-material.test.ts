@@ -1,11 +1,7 @@
 /**
- * W11a — the optics uniform a group with no pyramid is handed.
- *
- * The shader's unsampled path writes the material as a layer at `tint.w`; the
- * host resolves that alpha in the compositing space (`unsampledMaterial`) and
- * the renderer must put it, and only it, into the uniform — never the profile's
- * linear alpha, and never onto a group that samples a backdrop. Read off the
- * fake device's `writeBuffer`, since the uniform's bytes are the claim.
+ * W27f G1 — an encoded canvas must not feed encoded opacity into the linear
+ * response solve. The fake device observes the real renderer's uniform boundary;
+ * GPU scalar-anchor tests separately check the shader's resulting composite.
  */
 
 import { describe, expect, it } from "vitest";
@@ -47,7 +43,7 @@ function opticsUniformWrites(gpu: FakeGpu): Float32Array[] {
   return writes;
 }
 
-const PAIR = { tint: [0.2, 0.4, 0.6] as const, tintAlpha: 0.66 };
+const PAIR = { referenceBackdropLuminance: 0.02, minimumTintContrast: 1e-3 };
 
 /** `tint` lands at d[12..14] and `tintAlpha` at d[15] (see `passes.ts`). */
 const tintOf = (write: Float32Array) => ({
@@ -56,7 +52,7 @@ const tintOf = (write: Float32Array) => ({
 });
 
 describe("the unsampled layer pair reaches the optics uniform (W11a)", () => {
-  it("replaces the profile's tint and alpha on a group with no backdrop", () => {
+  it("keeps the response solve in linear light on a group with no backdrop", () => {
     const gpu = createFakeGpu();
     const writes = opticsUniformWrites(gpu);
     const renderer = createWebGPURenderer({ viewport: VIEWPORT });
@@ -75,8 +71,30 @@ describe("the unsampled layer pair reaches the optics uniform (W11a)", () => {
     expect(last).toBeDefined();
     if (last === undefined) return;
     const { tint, tintAlpha } = tintOf(last);
-    expect(tint.map((v) => Number(v?.toFixed(5)))).toEqual([0.2, 0.4, 0.6]);
-    expect(tintAlpha).toBeCloseTo(0.66, 5);
+    expect(tint.map((v) => Number(v?.toFixed(5)))).toEqual([1, 1, 1]);
+    expect(tintAlpha).toBeCloseTo(DEFAULT_MATERIAL_PROFILE.optics.regular.tintAlpha, 5);
+    expect(last[109]).toBe(1);
+    expect(last[110]).toBeCloseTo(0.02, 6);
+  });
+
+  it("gives a DOM shadow its tone-dependent lift only when the tone is known", () => {
+    for (const known of [false, true]) {
+      const gpu = createFakeGpu();
+      const writes = opticsUniformWrites(gpu);
+      const renderer = createWebGPURenderer({ viewport: VIEWPORT });
+      renderer.attachDevice(gpu.device, "vitrea");
+      renderer.setGroup({
+        groupId: "g", surfaces: [surface], refraction: "approximate", analysisExact: false,
+        unsampledMaterial: PAIR,
+        ...(known ? { backdropTone: [0.3, 0.3, 0.3] as const } : {}),
+      });
+      renderer.drawFrame(frameArgs(1));
+      const last = writes.at(-1);
+      expect(last).toBeDefined();
+      expect(last?.[92]).toBeCloseTo(known ? DEFAULT_MATERIAL_PROFILE.outerShadow.liftAmplitude : 0, 8);
+      expect(last?.[109]).toBe(known ? 2 : 1);
+      renderer.destroy();
+    }
   });
 
   it("writes the profile's own pair where the host resolved none", () => {

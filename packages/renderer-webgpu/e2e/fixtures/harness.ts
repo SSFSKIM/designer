@@ -399,7 +399,7 @@ const api = {
    * is what makes byte-identity under a patch an attribution rather than a hope.
    */
   async renderScene(
-    name: string,
+    name: string | Scene,
     family?: "rsupn" | "rsup",
     materialProfile?: MaterialProfilePatch,
     options?: RenderOptions,
@@ -408,7 +408,7 @@ const api = {
     readonly height: number;
     readonly pixels: string;
   }> {
-    const scene = sceneByName(name);
+    const scene = typeof name === "string" ? sceneByName(name) : name;
     const run = await runScene(scene, family, materialProfile, undefined, options);
     try {
       const target = scene.capture === "highlight" ? run.highlight : run.optics;

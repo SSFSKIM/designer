@@ -19,5 +19,5 @@
       "@vitreajs/vitrea-react": ["../../packages/react/src/index.ts"],
     }
   },
-  "include": ["src", "vite.config.ts", "../reference-apple/scenes.json", "../../packages/calibration/results/matrix.json"]
+  "include": ["src", "test", "vite.config.ts", "vitest.config.ts", "../reference-apple/scenes.json", "../../packages/calibration/results/matrix.json"]
 }

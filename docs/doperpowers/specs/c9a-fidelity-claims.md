@@ -16063,6 +16063,682 @@ phone-sized span assertions; calibration **308 tests**. Both packages' lint and 
 all **132 final web cells** had no diagnostics and were byte-identical over their two loads.
 No published API changed in G0, so X2's public-surface changeset belongs to a later gate.
 
+### 5.130 W27c G1: the inactive endpoint is a scheme-conditioned difference; hue disappears, shade survives collapse, and the active material stays unchanged (2026-09-10)
+
+> **Metrology correction before holdout, 2026-09-10.** The first-attempt web fit and
+> validation numbers in §§1–5 below are **INVALID AS FIDELITY EVIDENCE**. Independent review
+> found that `2026-09-10-w27c-g1-run.ts` created an 800×600 viewport for a 320×200 scene, so
+> WebGPU cover-fitted a differently framed texture, and the driver ignored the page's explicit
+> `problems` report. Repeatability did not make that the declared experiment. The old numbers
+> and `2026-09-10-w27c-g1-declaration.json` are retained as recorded, with the invalidation
+> beside them; they do not authorize an endpoint landing. The native census, fixture recovery,
+> two-field expressiveness refutation and active SHA/golden identity proofs remain valid.
+> **No holdout was read.** Corrected framing, fail-closed report checks, a new fit and a new
+> declaration must precede its single read. The corrected declaration will be appended below,
+> not substituted into these historical tables.
+
+**Gate and declaration.** W27 coverage wave, child W27c G1; Decision Logs 5 and 7; X1, X3,
+X7 and X8. The comparison is the **WebGPU tier**. This declares the fitted endpoint, not the
+activation observer, the final inactive floors or a new attested native session. The frozen
+file is `packages/calibration/results/2026-09-10-w27c-g1-declaration.json`; its `patch` is the
+exported `recededMaterialProfile` in `packages/platform-web/src/receded-profile.ts`, indexed by
+resolved scheme (`light`, `dark`). Each entry is a `RendererMaterialProfile` difference over
+that scheme's active document. Thus each scheme has two fixed endpoints; no continuous profile
+blend or seventh interaction state is introduced. A flat common patch could not independently
+move the two schemes' response ordinates in opposite directions, so the existing scheme seam
+selects the inactive difference as well as the active material.
+
+**1. The recovered bed, eligibility and measurement.** All **121** historical inactive PNGs
+are added under **37** new scene ids, beside rather than over the active fixtures. The scene
+set is now **129**, its key grammar still three segments. `state` is `inactive`; tint keeps
+its existing suffix, and a separate `interaction: "pressed"` preserves the four pressed-source
+scene ids as `inactive-pressed`, still in `recorded`. All original scenes, split memberships,
+fixture entries and PNG bytes are unchanged. The manifest diff is additive (the histogram
+reading is **2,662 added lines, zero removed**; default Myers misaligns the repetitive entries).
+Each new manifest entry carries `recoveredProvenance`: source commit
+`0b4b02427243cf89d1c77bcb09241a200132f86a`, source path and SHA-256, **schema 2**, **single run**,
+and pose **inferred from DL14, not attested per cell**. This is Decision Log 5's admitted bed,
+not a claim that historical captures meet today's attestation doctrine.
+
+The fit uses **62 calibration cells**, checks **16 validation cells**, and reserves **30
+holdout cells**. The **12 recorded interaction copies** are preserved but read by neither fit
+nor check. The known minority-active `photo__capsule-button__rest` at **2x dark standard** is
+excluded, not re-paired or silently restored. Every used endpoint is audited against the current
+manifest: current active SHA, historical active SHA, frequency-settled status and majority SHA
+where one exists travel in each run's `endpointAudit`. The fit is to the **absolute inactive
+pixels**, not a regression on contaminated historical focus deltas.
+
+Three other calibration endpoints differ from their historical active SHA: **1x increased
+contrast checkerboard capsule**, **1x reduced-transparency checkerboard rrect-md**, and **2x
+dark-standard checkerboard rrect-md**. The last current file is its recorded majority; the two
+accessibility entries have no frequency table, and are not certified settled by this gate.
+That uncertainty is kept visible rather than treating the other 120 G0 rows as re-attested.
+
+`2026-09-10-w27c-g1-run.ts` captures the actual runtime on hardware Chromium, not a paper model:
+real adapter required, eight stepped frames plus two presentation callbacks, resolved group
+state checked, and the applied profile compared with the declared merge. Scratch output goes
+to `/tmp/w27c-g1`; **the canonical `results/matrix.json` is never written**. The immutable run
+records are under `results/2026-09-10-w27c-g1-sweeps/` (baseline, seed, s1/s2, t1–t5, validation
+and CSS derivation); PNG paths and their SHA-256s remain in those records. The initial one-cell
+instrument bring-up before the inactive flag was wired is **not** a fit point and is not in
+that archive. The driver now refuses a page that did not apply the endpoint.
+
+The fitting objective is equal-cell mean of full-canvas per-pixel **OKLab ΔE**, with declared
+union **6-CSS-px-eroded body** luminance and population SD beside it. The full-canvas mean is
+not an interior bound: a small body can have a material error that its surrounding identical
+background dilutes. All Y below is **linear Rec.709**, and scales are never pooled. Spatial
+rereading precedes the width fit: `2026-09-10-w27c-g1-spatial.ts` records central stripe profiles
+in CSS coordinates. At **2x light standard**, after the share-only s2 point, the checker rrect's
+horizontal body range was **0.2492 web against 0.0804 native**, while its photo counterpart was
+**0.1701 against 0.1736**. A width/share change must account for that selective attenuation;
+no G0 SD ratio was multiplied into a blur sigma.
+
+**2. Why two fields, and what is fitted.** A chroma-only seed control is insufficient. For any
+constant neutral seed N, the old collapse forces shade to 1, so the collapsed tinted layer has
+Y=N. The **1x light dark-solid tinted capsule** requires about **0.03678 Y** (G0 footprint),
+while the **1x light checkerboard tinted capsule** requires **0.45128 Y**. A shade clamped at
+or below its seed cannot make the second from a seed fixed by the first. Disabling collapse to
+evade this would break the untinted dark-solid cell's exact invisibility. The second field was
+authorized after this refutation, not introduced silently.
+
+- `tintChromaScale` defaults to **1** and is **0** at both inactive endpoints. It scales the
+  seed's saturation toward its maximum linear channel before the shade law. It does **not**
+  preserve luminance: orange and blue have different luminances but the reference gives them
+  the same grey. This is not an OKLab-chroma multiplier. The two available full-strength seeds
+  both peak at 1, so the bed does not identify how another authored peak level should recede.
+- `tintShadeCollapseRetention` defaults to **0** and is **1** inactive. Shade grip becomes
+  `policyGrip × shadeStrength × (1 − collapse × (1 − retention))`, letting the same shade
+  continue to follow the collapsed body's level. Author strength still composites the opaque
+  shaded layer in encoded sRGB. It is never replaced with an absent tint.
+
+Both identities are represented by **absence** in a resolved document; an explicitly supplied
+identity is canonicalized to absence too. This keeps the existing resolved active fingerprints,
+not merely approximate active pixels. Full-sentence field comments name the forcing cells;
+CPU/mirror tests and a hardware GPU test prove hue neutralization, surviving shade, independent
+strength and unchanged untinted pixels. The two retired specular uniform slots carry these
+fields; changing the retired specular profile constants still changes no pixels.
+
+The values below are the endpoint's fitted data, not fresh runtime defaults. Unless a row names
+one scale, it was checked on both **1x and 2x standard**. Accessibility support in this bed is
+**1x light only**; dark accessibility, 2x accessibility and the clear variant have no native
+inactive evidence here.
+
+| field or family | light inactive | dark inactive | identifying cells / limits |
+| --- | --- | --- | --- |
+| `tintChromaScale`, `tintShadeCollapseRetention`, `tintShadeStrength` | 0, 1, 1 | 0, 1, 1 | tinted calibration capsules on checker/photo/dark-solid; hue and collapse endpoints, not a fitted transit |
+| `tintShadeDark`, `tintShadeLight` | 0.0288, 0.76 | 0.0202, 1.46 | the available tinted calibration rows in each scheme at each scale; the dark light-end is extrapolated and the existing shade clamp remains |
+| `backdropToneResponseThin` | [0.0126, 0.42, 0.929] | [0.011, 0.089, 0.1611] | untinted thin calibration solids, checkerboard and photo; dark has no bright-solid calibration anchor |
+| `backdropToneResponseThick` | [0.4553, 0.5394, 0.9] | [0.0215, 0.065, 0.02] | rrect-md calibration solids/checker/photo; the dark far ordinate is an extrapolation of this selected family, not a measured bright-background level |
+| `optics.regular.tintAlpha` | inherited active 0.46 | 0.89 | dark checker body's transmission floor; light 0.37 perturbation was worse on the structured controls and declined |
+| `sizeScatterFloor` | 0.7 | inherited 0.4 | 1x checker capsule/rrect-md and photo check; not a scale-free frost ratio |
+| `sizeScatterRampStartThin1x`, `…Thick1x` | 0.55, 0.3 | 1, 0.3 | 1x thin versus thick calibration bodies |
+| `sizeScatterRampStartThin2x`, `…Thick2x`, `…Far2x` | 0.7, 0.04, 0.04 | 1, 0.04, 0.04 | 2x capsule versus rrect-md; far equals thick by continuation, not a fit on holdout |
+| `sizeScatterHeavyShareThick1x` | inherited 0 | 0.4 | 1x dark checker rrect-md versus its thin sibling |
+| `sizeHeavyTapSigma2x` | 14 device px | 14 device px | actual runtime ladder 9/12/14 device px at 2x; 1x widths remain inherited (light 9 device px, dark chain path) |
+| outer black amplitudes and lift | all 0 | all 0 | every recovered profile has no broad inactive shadow; lengths are retained and unidentifiable at zero amplitude |
+| regular/clear `rimAlpha`, `rimLevelGain`, `shadowAlpha`; `rimCollapsed`, `rimCollapsedTinted` | all 0 | all 0 | appearance declined in the candidate; bright-rim extinction is identified, but the bed does not separately identify an inactive inner-shadow law or the clear variant |
+| `increasedOcclusionLift` | 0.92 | 0.92, unmeasured under dark accessibility | 1x light accessibility body controls; their different native levels are not fully expressible by this shared policy fold |
+| `strongBorderRim` | width 1 CSS px, signed amplitude −3.5 | same, unmeasured under dark accessibility | 1x increased-contrast outline: native first interior row about 89/255, next 254/255, versus the old two-pixel candidate's 175/255 and 244/255 |
+| `reducedTintAdaptation` | 0.88 | 0.8, unmeasured under dark accessibility | 1x light increased-contrast tinted calibration pair; dark value has no fitted accessibility claim |
+
+The signed outline uses the existing quadratic rim's **subtracted light**, not a negative CSS
+compositing alpha. Standard and reduced-transparency bright rims are zero. No lens, shadow
+length, tone-anchor abscissa or new size law was fitted. These constants are a selected family,
+not a unique inversion of Apple's kernel: there are too few uniform anchors and pitches to
+identify every interpolation knot, kernel width/share pair or far-span continuation independently.
+
+**3. Calibration and validation, before → after.** Before is the **shipping active material
+against the inactive fixture**, not the historical active PNG. After is the declared inactive
+endpoint. Every one of the **78** final cells is byte-identical across **two independent page
+loads**. Main was integrated before this check; all **62** final calibration PNGs also match
+their selected pre-integration sweep PNG byte-for-byte.
+
+| profile suffix | calibration n | calibration ΔE | validation n | validation ΔE |
+| --- | ---: | --- | ---: | --- |
+| 1x light standard | 17 | 0.013969 → 0.001887 | 6 | 0.015120 → 0.004609 |
+| 2x light standard | 17 | 0.014051 → 0.001968 | 6 | 0.015170 → 0.004726 |
+| 1x dark standard | 9 | 0.015972 → 0.002968 | 1 | 0.002799 → 0.002543 |
+| 2x dark standard | 8 | 0.017107 → 0.002899 | 1 | 0.003221 → 0.003127 |
+| 1x light increased contrast | 6 | 0.013713 → 0.002487 | 1 | 0.008717 → 0.002394 |
+| 1x light reduced transparency | 5 | 0.007659 → 0.001256 | 1 | 0.004101 → 0.000883 |
+
+The light-standard eroded-body triples are **output SD**, web / native, each at its own scale:
+
+| scale | checker capsule | checker rrect-md | photo rrect-md |
+| --- | --- | --- | --- |
+| 1x | 0.100776 / 0.100271 | 0.061001 / 0.063873 | 0.043736 / 0.052576 |
+| 2x | 0.121860 / 0.114763 | 0.033426 / 0.030890 | 0.044503 / 0.051277 |
+
+The level is not exact: **1x light** checker capsule/rrect-md/photo rrect-md are respectively
+**0.633771 / 0.608535**, **0.660681 / 0.641582**, **0.623045 / 0.628421** Y (web/native);
+at **2x light** they are **0.640076 / 0.610010**, **0.666610 / 0.640417**,
+**0.623274 / 0.628144**. The checker level remains high while the photo body's structure is
+still low. In **1x dark**, the checker capsule reaches **0.118413 / 0.116999** and rrect-md
+**0.056450 / 0.056073** Y, but photo rrect-md's eroded-body ΔE remains **0.060388**; at **2x
+dark** that photo reading is **0.058373**. A good full-canvas mean does not close those colour
+and spatial residuals.
+
+The G0 facet functions are reused unchanged by `2026-09-10-w27c-g1-facets.ts`. Over the final
+78-cell population, **zero web exterior pixels differ by >1 code beyond 2 CSS px**. The two
+**1x** untinted dark-solid capsules are exactly background-identical; their **2x** counterparts
+each leave **40 edge pixels at one code**, with no >1-code residue. Those two are not claimed
+byte-identical to the native invisible fixture. The same contour limits as G0 apply: immediately
+adjacent antialiasing is not fitted as an outer shadow.
+
+**4. Active identity and the derived CSS tier.** The active documents resolve to their existing
+recorded fingerprints, **light `b2b570e4adcea8fb`** and **dark `874be66ea501621b`**. The full
+SHA-256s and inactive resolved SHA-256s are in the declaration. `tuned-profiles.test.ts` passes
+without changing either document, and **all 34 renderer golden/isolation tests pass with no
+PNG or pinned hash re-recorded**. This gate takes the expressly permitted **isolation-spec
+proof**, not a from-empty enforced-matrix rebuild; G3 inherits that rebuild. Workspace build,
+lint and unit suites passed after main integration.
+
+The first golden invocation hit a sibling's page because both default harness configs use
+5189 and the renderer config reuses a listener. It later got connection-refused when that
+capture exited. That is a failed environmental run, not an optical measurement; the successful
+run uses the committed private-server recipe `2026-09-10-w27c-g1-gpu.config.ts` on a checked-free
+port with reuse disabled. The shared-port defect is in the tracker.
+
+CSS derives the same neutral seed and collapse-retaining shade through `optics.ts` and the
+existing authored-layer fold in `css-tier.ts`. Its 78 calibration/validation cells are recorded
+separately, **not gating**: mean full-canvas ΔE to native is **0.004576 at 1x light**, **0.004929
+at 2x light**, **0.004357 at 1x dark**, **0.005034 at 2x dark**, **0.007450 at 1x increased
+contrast**, **0.003837 at 1x reduced transparency**. The neutral collapsed tint reaches
+**0.036889 Y at 1x and 2x** in either standard scheme, against native eroded **0.036984**.
+Its one uniform authored layer cannot follow per-pixel shaded body luminance, its blur cannot
+carry the GPU sharp/heavy mixture and scale-specific heavy tap, and its contrast border is not
+the shader's signed one-pixel light subtraction. Those are named CSS residuals, not new gates.
+
+**5. Holdout and handoff.** At the declaration above the **30-cell holdout is reserved and
+unread**. Its one frozen read and spending record will be appended here; no fitted value may
+change in response to that reading.
+
+G2 inherits the scheme-indexed difference, its two identity-default tint fields and the existing
+`applyMaterialProfile` path. It selects `recededMaterialProfile[resolvedScheme]` for the inactive
+root pose, independently of hover/press/focus, and supplies the observer, root option, setter
+and React prop. G3 replaces the calibration-only scene-state merge with that runtime root option,
+adds the inactive rows and their floors to the enforced matrix, proves the active bed from empty,
+and presents the demo and native/web pair sheets to the user's eye. No inactive floor is adopted
+by this gate.
+
+A fresh **native inactive capture path is still absent**: the Swift harness activates and
+attests its window, so merely adding a scene id would otherwise file active pixels under an
+inactive name. G1 guards that boundary before native capture/layer-dump output rather than
+silently fabricating deactivation support. Historical fixtures remain usable; a native recapture
+requires an explicitly implemented and attested inactive pose. This limitation is also tracked.
+
+**Unclosed material gaps, explicitly.** The light checker body remains too bright, photo-body
+colour/structure and the lens curvature remain different, and the light checker tint's neutral
+level remains high despite losing its hue. The 1x accessibility bodies have different native
+levels but share vitrea's occlusion fold, so their fitted compromise is not two exact body
+endpoints. Dark accessibility, 2x accessibility, non-unit-peak authored colours, the clear variant,
+far-span interpolation and activation timing have no inactive evidence here. Side-by-side reads
+of the 2x light checker rrect and 1x increased-contrast photo capsule confirmed residual lens/band
+shape and outline differences; neither a small ΔE nor the disappearance of the broad shadow is
+an assertion that the native appearance has been exhausted.
+
+**6. Corrected experiment: the unchecked run is replaced, not repaired in place.** The
+first-attempt declaration and all of its web fit/validation/CSS/spatial/facet readings remain
+invalidated. `2026-09-10-w27c-g1-corrected-plan.json` restarts the experiment before the new
+sweep. The browser viewport is now the scene's **320 × 200 CSS px**; a row is refused unless
+reported canvas, requested scale and actual devicePixelRatio agree, `problems` is empty, and
+the decoded web/native/reported pixel dimensions agree. Each admitted row retains the geometry,
+background raster, problems, diagnostics, actual group state, hardware adapter and source hashes.
+A ready page is no longer treated as proof of capture integrity.
+
+The new baseline has **78** calibration/validation rows. **73/78** PNG hashes happen to equal
+the unchecked baseline; the other five have mean-ΔE differences of order **10⁻⁸**. That
+observation does not retroactively admit the old instrument: the newly checked rows, not the
+coincidence of outputs, are the evidence. The old records and numbers above remain unchanged.
+
+The corrected archive is `results/2026-09-10-w27c-g1-corrected/`. `seed` begins with active
+body/scatter parameters, zero broad-shadow/bright-rim amplitudes and neutral retained tint.
+`c1` adjusts response and scatter share; it reuses some old parameters as **hypotheses**, not
+because their old readings were valid. Actual spatial rereading still finds selective excess
+checker modulation: at **2x**, the light rrect-md horizontal eroded-body range is **0.25112
+web / 0.08036 native**, dark **0.05517 / 0.01708**, while the light photo rrect is **0.18707 /
+0.17362**. `c2` tests the **14-device-px 2x heavy width** and a light regular-opacity change
+from **0.46 to 0.37**. The width helps the thick checker; the lower opacity worsens the thin
+structured controls and is declined. `c3` restores opacity 0.46, refines the light thick middle
+response ordinate to **0.518**, and changes dark **1x** thick heavy share from **0.40 to 0.25**.
+Selection uses only the **62 calibration cells**; validation is a check, not a fitting input.
+
+The selected difference is now the exported document, not the invalid first candidate. Relative
+to that candidate's historical table above, light thin response is **[0.0126, 0.4, 0.929]**,
+light thick response **[0.4553, 0.518, 0.9]**, and dark **1x** thick heavy share **0.25**.
+The unmeasured dark accessibility overrides from the first attempt are not carried into the
+corrected document: `increasedOcclusionLift`, `strongBorderRim` and `reducedTintAdaptation` are
+fitted **only in the light entry**. Their dark policy behavior remains inherited and unmeasured.
+All other selected constants are explicit in the corrected declaration; shader defaults,
+active profile documents and recorded active fingerprints stay unchanged.
+
+The four independent-review defects are closed: capture integrity now fails closed; inactive
+orange/blue byte equality no longer condemns active tint evidence; the public demo withholds
+inactive reference scenes until it can apply the pose; and the JSON profile loader admits the
+two new fields while still refusing unknown keys. Bounded re-review found no residual defect
+in those fixes (targeted calibration **20/20**, demo **3/3**). Native capture and layer dumping
+also refuse inactive requests before GUI/output, naming the scene ids and ledger limitation;
+the production Swift scene-spec preflight passes its no-GUI active/inactive fixture test.
+
+Updated main through **38d782c** (W27b) is integrated before the final repeated check and freeze.
+
+**7. The corrected freeze and its one holdout read.** The authoritative file is
+`results/2026-09-10-w27c-g1-corrected-declaration.json`, not the earlier invalid declaration.
+Its resolved inactive SHA-256 is **351976df9bd2a2eca86aca590e6df22f4b0b1eba8cea3aba7602ccbceb9371f9**
+for light and **c8b338b8850da818a2931ad5f2b7da1849c942cd9bef6aefe13bc95c99ccec0b** for dark.
+All **78** post-integration calibration/validation PNGs equal their selected pre-integration
+counterparts, and each is byte-identical across **two independent page captures**. The declaration
+records the checked-run hash, instrument hash and active resolved hashes before holdout.
+
+The table is **full-canvas mean per-pixel OKLab ΔE**, equal cell weight within each named
+profile/set. Before is shipping active material against the inactive native fixture. Holdout
+has **no separately captured active baseline**; none is inferred or invented. The reproducible
+numbers and body tables are `2026-09-10-w27c-g1-corrected-tables.json`.
+
+| profile | calibration n; before → after | validation n; before → after | cal+validation before → after | frozen holdout n; after |
+| --- | --- | --- | --- | --- |
+| 1x light standard | 17; 0.013969 → 0.001796 | 6; 0.015120 → 0.004550 | 0.014269 → 0.002514 | 10; 0.013353 |
+| 2x light standard | 17; 0.014051 → 0.001839 | 6; 0.015170 → 0.004688 | 0.014343 → 0.002583 | 10; 0.013027 |
+| 1x dark standard | 9; 0.015972 → 0.002891 | 1; 0.002799 → 0.002543 | 0.014655 → 0.002856 | 3; 0.022645 |
+| 2x dark standard | 8; 0.017107 → 0.002899 | 1; 0.003221 → 0.003127 | 0.015564 → 0.002924 | 3; 0.022298 |
+| 1x light increased contrast | 6; 0.013713 → 0.002487 | 1; 0.008717 → 0.002394 | 0.012999 → 0.002474 | 2; 0.005182 |
+| 1x light reduced transparency | 5; 0.007659 → 0.001256 | 1; 0.004101 → 0.000883 | 0.007066 → 0.001194 | 2; 0.003171 |
+
+The **30-cell holdout is SPENT**. Its create-only spending marker and `holdout.json` are
+committed beside the checked run. It was captured once on this declared document, with clean
+geometry and no page problems. **No parameter changes follow the reading.** G1 declares an
+endpoint and its limits, not a claim that the unseen-size/response family is closed or a licence
+to adopt G3 floors at its calibration means.
+
+The corrected light-standard **6-CSS-px-eroded output SD** triple is web / native, linear
+Rec.709 Y, separately by scale:
+
+| scale | checker capsule | checker rrect-md | photo rrect-md |
+| --- | --- | --- | --- |
+| 1x | 0.100701 / 0.100271 | 0.060732 / 0.063873 | 0.046567 / 0.052576 |
+| 2x | 0.121922 / 0.114763 | 0.033511 / 0.030890 | 0.047358 / 0.051277 |
+
+Their means are, respectively, **1x 0.619418 / 0.608535, 0.636670 / 0.641582,
+0.597579 / 0.628421** and **2x 0.625890 / 0.610010, 0.642333 / 0.640417,
+0.597926 / 0.628144** (web/native linear Y). Thus the thick checker mean/structure is close,
+but photo mean and chroma remain wrong. The corrected G0-facet reread finds **zero web exterior
+device pixels differing by >1 code beyond 2 CSS px** over the 78 checked cells. That is extinction
+of the broad shadow, not a claim of matching antialiasing or lens-band curvature.
+
+**What holdout exposed, not silently accepted.** The **1x/2x dark mid-dark-solid capsule** is
+**0.08866 web / 0.04092 native Y**, eroded-body ΔE **0.101314** at either scale. The three-anchor
+response selected on the calibration sources does not identify this intermediate level correctly.
+The **1x/2x light checker rrect-lg** retains SD **0.04695 / 0.01742** and **0.03362 / 0.00996**
+(web/native): far-span scattering remains too structured even when its mean is close. The
+**1x/2x dark photo rrect-lg** has full-canvas ΔE **0.047630 / 0.046288** and body ΔE
+**0.069668 / 0.067589** despite near-native mean Y; it is a colour/spatial failure, not a mean
+that can be repaired by retuning one response ordinate. Light photo stacks have full-canvas ΔE
+**0.022814 at 1x**, **0.022698 at 2x**, so the one-plane endpoint does not close stacking.
+
+Most visibly, **full-strength neutral tint removes background chroma as well as authored hue**
+in this opaque-layer family. The native **1x light photo rrect-lg tinted orange** retains the
+photo's coloured haze while web is grey: full-canvas ΔE **0.048488**, body ΔE **0.070551**,
+even though mean Y is **0.46976 web / 0.46301 native**. At **2x**, full-canvas ΔE is **0.048294**.
+Side-by-side inspection confirms that this is not a scalar-level residual. The two new fields
+express the required author-hue extinction and surviving shade, but do not uniquely recover
+Apple's transmission/colour operator. Closing these gaps requires a new declared transfer/scatter
+experiment and an unspent checking bed, not fitting back to this spent holdout. No third field,
+new floor, or widened claim is smuggled into this gate.
+
+The derived CSS run is record-only on the same **78 correctly framed calibration/validation
+cells**. Full-canvas mean ΔE is **0.004571 at 1x light**, **0.004948 at 2x light**, **0.004344
+at 1x dark**, **0.005034 at 2x dark**, **0.007450 at 1x light increased contrast**, **0.003837
+at 1x light reduced transparency**. It uses the same neutral seed and shade-retention law;
+its uniform layer, single blur and unsigned border cannot carry all GPU spatial/outline terms.
+No CSS holdout or CSS-specific fitted document is introduced.
+
+**8. Final proof and handoff.** After main integration, workspace build and lint are green;
+all **2,060 unit tests** pass (policy 23, motion 162, geometry 170, renderer 450, core 302,
+platform-web 484, calibration 340, React 126, demo 3). All **34 hardware renderer golden/isolation
+tests pass** on the private, non-reused server, with no golden PNG or isolation hash re-recorded.
+The active full resolved SHA-256s remain **b2b570e4adcea8fb9281aed4d2556598a1fc95b34ce4b12dd5a50157ac138306**
+(light) and **874be66ea501621be265265424c16d2d98a01c40835d89c02de9473362c0d4dc** (dark).
+The corrected exported-document test pins the built package to the corrected declaration.
+The canonical matrix and active profile documents are untouched.
+
+G2 may wire the two declared endpoints per resolved scheme; that does not upgrade their fidelity
+claim. G3 inherits the active from-empty enforced-matrix rebuild, runtime capture routing,
+inactive row/floor decisions and user-eye landing. Its bound decision must confront the holdout
+residuals above rather than copy the calibration mean. Fresh native inactive capture remains
+separate, unimplemented work; historical schema-2 inferred-pose evidence remains explicitly such.
+
+### 5.131 W27f G1: page material derived at the known backdrop — thick-body repair, scalar-law proof, and the information limits retained (2026-09-10)
+
+**A material derivation, not a stack-bound adoption.** Executes W27 child W27f G1 and its dry-run
+declaration. §5.130 belongs to W27c. The shared light and dark material documents are unchanged;
+no constants were fitted, no floor moved, and neither the canonical matrix nor `web-captures/`
+was written. G2 still owns adopting a native stack bound and the user's eye on `/#page`.
+
+**1. One CPU owner, a per-pixel mirror, and an encoded compositing solve.**
+`materialAtBackdrop` in `platform-web/src/optics.ts` derives policy, thickness, response,
+transmission/collapse, body level, paint shade, rim amplitude and both shadow terms from the
+shared linear profile and the actual backdrop tone. The CSS/host reading calls it. The GPU
+mirror evaluates the size law at each pixel's member span; a merged 32/96 px group does not
+become one flat material. The former pre-converted `unsampledMaterial` pair is now only a DOM
+conversion descriptor. Feeding its encoded alpha into the linear response was the thick-body
+error. The shader now evaluates the linear material, then solves a premultiplied encoded source
+layer whose browser source-over composite gives that target at the stated backdrop. Coverage,
+rim and exterior shadow precede the gamut solve: clamping a bright rim before antialias coverage
+would darken its edge. Known DOM tone enables shadow lift without a texture pyramid; unknown
+tone does not. The direct renderer with no host descriptor retains its raw no-backdrop draw.
+
+An author hint wins, otherwise an existing measured tone is used, otherwise tone remains
+unknown. The mapping's nominal **0.02** is a conversion reference, not a reading. At that
+reference the nominal shade and rim are evaluated, but unknown input does not enable response
+or collapse. This gate invents neither pixels nor `hint.complexity`. Proxy blur is unchanged;
+there is still **no lens over page content**. Exterior lift uses the known group tone, not
+unavailable exterior-pixel colour.
+
+Six real-GPU anchor tests cover light/dark × three backdrop levels, each with tint strengths
+0, 0.5 and 1 and a mixed-span union. They compare the body to the CPU owner and the full composite
+(including rim, inner shadow, exterior shadow and antialiasing) to an identically hinted scalar
+texture within two display codes. That is a law-equivalence proof, **not** permission to replace
+sampled-today's native error budget with the poorer same-hint sampled result on structure.
+
+**2. The ordinary-scene read and its provenance.** The same 20 G0 calibration scenes were captured
+in both 1x schemes on seven arms: sampled-today, same-hint sampled, unhinted/hinted DOM GPU,
+CSS-today, and unhinted/hinted CSS page. Each configuration has **280 captures**; all 280 final
+candidate captures repeat byte-for-byte with no diagnostics. Frozen source `bdf0029` reproduces
+every shared G0 light metric and texture digest. Its archive was checked against 103 runtime
+source files with zero mismatches. Light has 20 native fixtures, dark nine; the other 11 dark
+rows remain native-null and carry a direct image ΔE to sampled-today instead. This is an actual
+pixel distance, not subtraction of two errors against native.
+
+The authoritative ordinary readings are `2026-09-10-w27f-g1-baseline.json` and
+`2026-09-10-w27f-g1-candidate.json` under `packages/calibration/results/`. They retain the original
+capture provenance separately from the later reader provenance. The candidate was captured
+with working-tree runtime changes later checkpointed at `d247346`; its old manifest names
+`02b21a4` plus dirty paths and a narrower material-source fingerprint. It is **not** retroactively
+restamped as a clean `1fff5e6` capture. Later runtime-source edits only changed comments/types:
+emitted-JS SHA-256 for `platform-web/src/optics.ts` is
+`d04fbdccf558c6b6585b22cf5a0ddc0d1fb6308048589e507b7183247596e44a` on both sides, and for
+`calibration/web/scene.ts` is
+`38aece0f2b6b94b79b0c1d9d27e9fa3e09fd561a4c52999aad8a8149ebbcf03d` (ES2022/ESNext,
+comments removed). The final runner records full runtime source trees and per-scheme provenance,
+rejects mixed configurations and stale rerun outputs, and checks independently measured hint
+levels against the earlier same raster. Historical manifest hashes and readings are preserved,
+not repaired in place.
+
+**3. What improved, and what did not.** The light hinted dark medium pane's native ΔE falls
+**0.07851 → 0.00667**, inside sampled-today's **0.00877** whole-footprint error. Its body L is
+**0.789217** against native **0.782900** and sampled **0.791344**. Dark-scheme hinted dark medium
+moves **0.01338 → 0.01040** against sampled **0.01336**. This is the missing thick-body response,
+not a general solution to unknown content. The unhinted dark capsule remains wrong:
+light **0.54523 → 0.54430**, dark **0.13481 → 0.13500**; a correct hint gives **0.00487** in both.
+Unknown light full-orange paint also regresses against native: dark solid **0.03888 → 0.06639**,
+impulse **0.03909 → 0.06662**, light solid **0.03787 → 0.06589**. The nominal profile shade is
+not the old ad hoc layer's shade. These are real unknown-input regressions, not hidden successes.
+
+The inherited sampled-today **term** budgets do not all hold:
+
+| light medium-pane term | native | sampled today | G1 hinted DOM |
+| --- | ---: | ---: | ---: |
+| dark body OKLab L | 0.782900 | 0.791344 | 0.789217 |
+| dark rim local excess (linear) | 0.229953 | 0.229387 | 0.241354 |
+| checker body OKLab L | 0.876385 | 0.882803 | 0.885024 |
+| checker body L spread | 0.047915 | 0.044533 | 0.028486 |
+| checker rim local excess | 0.175208 | 0.179529 | 0.181916 |
+| photo body OKLab L | 0.872074 | 0.868967 | 0.879264 |
+| photo body L spread | 0.016712 | 0.015127 | 0.019915 |
+| photo rim local excess | 0.126940 | 0.177829 | 0.162785 |
+
+The dark rim's excess improves from G0's 0.323081, but its remaining native error about 0.0114
+still exceeds sampled-today's 0.000566. Checker retains too little spread; photo retains too
+much. The light photo medium's whole ΔE improves **0.03475 → 0.01896**, smaller than sampled
+**0.04310**, while its body-level error still exceeds the sampled budget. These terms are
+separate obligations. The light/dark contact sheets `2026-09-10-w27f-g1-{light,dark}.png` were
+inspected next to native: the light thick-body repair is visible, unknown capsule opacity remains,
+checker curvature/structure is plainly unlike native, and photo colour/structure remains different.
+The dark hinted photo is closer than the unhinted grey but still not native spatial material.
+
+`hint.complexity` is currently a 0..1 **busyness field for foreground difficulty**, not a specified
+variance statistic. Closing structured tone/colour needs independent encoded and linear means,
+local spatial information, or a measured new input contract; an invented mapping from busyness
+to variance would merely conceal the information gap. Refraction/HTML-in-Canvas remains outside
+this gate. Unknown-tone adaptation likewise requires a real measured or authored input, not a
+coefficient fit that guesses the page.
+
+**4. Shadow and CSS remain bounded observations.** On light checker/photo medium panes,
+exterior counts are native **8210 / 16628**, sampled **8741 / 20751**, hinted DOM
+**9108 / 20968**. Counts use G0's declared union, background luminance ≥0.05 and relative
+occlusion >0.01; zero on dark solid means no decidable background, not no shadow. A composite
+cannot isolate overlay shadow on the base; no separate overlay-shadow bound is claimed.
+
+CSS is record-only under X1. Hinted CSS body L for light dark/checker/photo medium remains
+**0.794364 / 0.931087 / 0.881006**, compared to DOM GPU
+**0.789217 / 0.885024 / 0.879264**. CSS rims remain substantially weaker; its existing **2 × 2
+CSS px host size excess** is recorded on declared geometry, not fixed or used to relax the GPU
+comparison. Every CSS arm and both schemes' full body/spread/rim/shadow readings travel with the
+JSON. CSS-today is byte-identical on all 20 light cells and 19 dark cells. The dark checker
+`toolbar-group` digest changed **625742f5a2af… → 8689d9ef6fc9…**: five pixels, all outside every
+declared shape, maximum one channel code, all reported measured terms equal. It is explicitly
+**not byte-identical**; unchanged terms and exterior location annotate, never erase, that fact.
+
+**5. Per-scene before/after.** `S` is sampled-today, `U0` the unhinted DOM page, `Uh` the page at
+the measured hint. Before is frozen `bdf0029`, after the candidate. `N` is ΔE to native;
+`S*` is direct ΔE to sampled-today **only where native is missing**, with S=0 by construction.
+The two stack scenes complete G0's 22-scene set in the separate table below: their textured-base
+control changes because its overlay is DOM, so old S0 and new S1 must not be pooled.
+
+Light (`apple-macos-26.5-1x-light-standard`, all 20 ordinary native fixtures):
+
+| Scene | Ref | S | U0 before | U0 after | Uh before | Uh after |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| `checkerboard__capsule-button__rest` | N | 0.02783 | 0.04602 | 0.04574 | 0.03943 | 0.04886 |
+| `checkerboard__capsule-button__rest-tint-orange` | N | 0.01181 | 0.02119 | 0.02440 | 0.02129 | 0.02139 |
+| `checkerboard__rrect-md__rest` | N | 0.01236 | 0.03168 | 0.03191 | 0.03632 | 0.03259 |
+| `checkerboard__rrect-ml__rest` | N | 0.00959 | 0.02283 | 0.02289 | 0.03313 | 0.02271 |
+| `checkerboard__rrect-sm__rest` | N | 0.02548 | 0.03856 | 0.03766 | 0.03205 | 0.04133 |
+| `checkerboard__toolbar-group__rest` | N | 0.02680 | 0.04846 | 0.04798 | 0.04298 | 0.05065 |
+| `dark-solid__capsule-button__rest` | N | 0.00552 | 0.54523 | 0.54430 | 0.00489 | 0.00487 |
+| `dark-solid__capsule-button__rest-tint-orange` | N | 0.00435 | 0.03888 | 0.06639 | 0.00416 | 0.00435 |
+| `dark-solid__rrect-md__rest` | N | 0.00877 | 0.00488 | 0.00185 | 0.07851 | 0.00667 |
+| `impulse__capsule-button__rest-tint-orange` | N | 0.00441 | 0.03909 | 0.06662 | 0.00436 | 0.00442 |
+| `light-solid__capsule-button__rest` | N | 0.00362 | 0.00181 | 0.00428 | 0.00153 | 0.00290 |
+| `light-solid__capsule-button__rest-tint-orange` | N | 0.00537 | 0.03787 | 0.06589 | 0.00540 | 0.00537 |
+| `light-solid__rrect-md__rest` | N | 0.00299 | 0.01028 | 0.01119 | 0.00349 | 0.00285 |
+| `light-solid__rrect-ml__rest` | N | 0.00213 | 0.01115 | 0.01181 | 0.00249 | 0.00207 |
+| `photo__capsule-button__rest` | N | 0.02765 | 0.03969 | 0.03866 | 0.02047 | 0.03856 |
+| `photo__capsule-button__rest-tint-blue` | N | 0.00929 | 0.01483 | 0.01642 | 0.01020 | 0.01046 |
+| `photo__capsule-button__rest-tint-orange` | N | 0.00815 | 0.01576 | 0.01656 | 0.00971 | 0.00982 |
+| `photo__capsule-button__rest-tint-orange-half` | N | 0.01804 | 0.02666 | 0.01633 | 0.01106 | 0.02383 |
+| `photo__rrect-md__rest` | N | 0.04310 | 0.01641 | 0.01633 | 0.03475 | 0.01896 |
+| `photo__rrect-ml__rest` | N | 0.04574 | 0.01845 | 0.01789 | 0.03730 | 0.01692 |
+
+Dark (`apple-macos-26.5-1x-dark-standard`, nine ordinary native fixtures):
+
+| Scene | Ref | S | U0 before | U0 after | Uh before | Uh after |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| `checkerboard__capsule-button__rest` | N | 0.06268 | 0.08323 | 0.08314 | 0.07813 | 0.07053 |
+| `checkerboard__capsule-button__rest-tint-orange` | N | 0.01041 | 0.01054 | 0.01061 | 0.01023 | 0.01025 |
+| `checkerboard__rrect-md__rest` | N | 0.01419 | 0.04057 | 0.04059 | 0.03682 | 0.03198 |
+| `checkerboard__rrect-ml__rest` | S* | 0.00000 | 0.03891 | 0.03891 | 0.03783 | 0.03176 |
+| `checkerboard__rrect-sm__rest` | S* | 0.00000 | 0.04793 | 0.04782 | 0.04599 | 0.03684 |
+| `checkerboard__toolbar-group__rest` | S* | 0.00000 | 0.04700 | 0.04695 | 0.04556 | 0.04005 |
+| `dark-solid__capsule-button__rest` | N | 0.00552 | 0.13481 | 0.13500 | 0.00489 | 0.00487 |
+| `dark-solid__capsule-button__rest-tint-orange` | N | 0.00435 | 0.00525 | 0.00518 | 0.00416 | 0.00435 |
+| `dark-solid__rrect-md__rest` | N | 0.01336 | 0.10862 | 0.10871 | 0.01338 | 0.01040 |
+| `impulse__capsule-button__rest-tint-orange` | S* | 0.00000 | 0.00425 | 0.00388 | 0.00101 | 0.00001 |
+| `light-solid__capsule-button__rest` | S* | 0.00000 | 0.12534 | 0.12516 | 0.04229 | 0.00154 |
+| `light-solid__capsule-button__rest-tint-orange` | S* | 0.00000 | 0.00212 | 0.00248 | 0.00010 | 0.00002 |
+| `light-solid__rrect-md__rest` | S* | 0.00000 | 0.04961 | 0.04953 | 0.08099 | 0.00301 |
+| `light-solid__rrect-ml__rest` | S* | 0.00000 | 0.04915 | 0.04909 | 0.08113 | 0.00315 |
+| `photo__capsule-button__rest` | N | 0.09539 | 0.09139 | 0.09125 | 0.10053 | 0.08466 |
+| `photo__capsule-button__rest-tint-blue` | S* | 0.00000 | 0.00063 | 0.00062 | 0.00059 | 0.00045 |
+| `photo__capsule-button__rest-tint-orange` | N | 0.00993 | 0.01006 | 0.01016 | 0.00996 | 0.01001 |
+| `photo__capsule-button__rest-tint-orange-half` | S* | 0.00000 | 0.00808 | 0.00814 | 0.00580 | 0.00556 |
+| `photo__rrect-md__rest` | N | 0.05113 | 0.07016 | 0.07017 | 0.07143 | 0.04642 |
+| `photo__rrect-ml__rest` | S* | 0.00000 | 0.05147 | 0.05151 | 0.02654 | 0.01597 |
+
+**6. The two stacks, with S0 kept separate from S1.** A textured-base stack's overlay resolves
+`css-backdrop` on both configurations. S0 is §5.129's old textured-base composite (light) or the
+separately frozen `bdf0029` dark baseline; S1 is the new textured-base composite. They are not
+byte-identical, nor is either a new native bound. Whole-declared-footprint ΔE:
+
+| scheme / stack | ref | S0 | S1 | U0 before | U0 after | Uh before | Uh after |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| light checker | N | 0.00989 | 0.00935 | 0.02329 | 0.02362 | 0.03279 | 0.02151 |
+| light photo | N | 0.04260 | 0.04240 | 0.02041 | 0.02037 | 0.03653 | 0.01784 |
+| dark checker | N | 0.01510 | 0.01578 | 0.04664 | 0.04669 | 0.02477 | 0.02185 |
+| dark photo | S* | 0.00000 | 0.00000 | 0.06012 | 0.06000 | 0.02255 | 0.01346 |
+
+On dark photo, S* means distance to **each configuration's own** textured-base composite. That
+control moved; before/after is not distance to one fixed reference, and the zeros are identities,
+not native fidelity. The two cross-configuration readings and all PNG digests are preserved.
+
+The overlay's eroded interior, in **linear luminance** (not OKLab L), against §5.129:
+
+| scheme / stack | native | old textured S0 | new textured S1 | U0 before → after | Uh before → after |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| light checker | 0.904655 | 0.890113 | 0.895571 | 0.884637 → 0.885517 | 0.866897 → 0.896252 |
+| light photo | 0.893533 | 0.873339 | 0.880533 | 0.872080 → 0.873010 | 0.849239 → 0.886175 |
+| dark checker | 0.020698 | 0.023909 | 0.024857 | 0.049707 → 0.049707 | 0.023311 → 0.023673 |
+| dark photo | — | 0.021413 | 0.021612 | 0.050100 → 0.050100 | 0.021414 → 0.021984 |
+
+Overlay-local ΔE and rim distinguish a body repair from an acceptance claim:
+
+| scheme / stack | S0 overlay ΔE | S1 overlay ΔE | Uh overlay ΔE | native rim excess | S0 rim | S1 rim | Uh rim |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| light checker | 0.007735 | 0.005438 | 0.004662 | 0.111642 | 0.042743 | 0.111347 | 0.109977 |
+| light photo | 0.019478 | 0.018619 | 0.009126 | 0.084228 | 0.047788 | 0.114151 | 0.109090 |
+| dark checker | 0.013765 | 0.016702 | 0.013059 | 0.031990 | 0.035140 | 0.037864 | 0.036194 |
+| dark photo | — | — | — | — | 0.032367 | 0.033665 | 0.033604 |
+
+The light hinted overlays improve from §5.129's **0.015833 / 0.020678** native errors and are
+closer than S1 on these two cells. The light photo rim nevertheless overshoots native. The dark
+checker hinted overlay **regresses 0.011332 → 0.013059** despite the whole footprint improving;
+S1's overlay also regresses **0.013765 → 0.016702**. Neither may disappear behind the base's
+larger footprint. Dark photo has no native fixture: its new hinted overlay is **0.00263** from
+S1, not measured native fidelity. The unhinted page remains visibly wrong; its light overlay rim
+excess is **−0.065296 / −0.059579** against native **+0.111642 / +0.084228**, an inverted local
+contrast not repaired here. Dark unhinted overlay L/luminance is likewise much too high.
+
+CSS textured-base overlay luminance remains §5.129's **0.901282 / 0.885039** in light and the
+frozen dark baseline's **0.02649 / 0.02330**. Its new hinted-page values are
+**0.939657 / 0.894362** (light checker/photo) and **0.028322 / 0.023616** (dark). Hinted CSS rim
+excess is **0.006629 / 0.010772 / 0.007680 / 0.005866** in that order: still not native rim.
+CSS stack captures themselves are byte-identical; dark-photo distance-to-S changes only because
+S changed. These are coherence readings, not a CSS target.
+
+`2026-09-10-w27f-g1-stacks.png` was inspected beside native. The stronger light overlay rim and
+brighter hinted body are visible. The checker page base still has blur without native lens
+structure, photo base colours still differ, and dark unhinted overlay brightness remains obvious.
+The missing dark-photo native is labelled in-frame rather than substituted from light.
+
+**7. The final holdout is spent, not a fit source.** The entire declared ten-scene membership
+was captured once on candidate **`1fff5e65a9be24133e26556320b1a061cc0c4cc0`**, both schemes,
+**100 captures**, all byte-repeatable and no diagnostics. This includes four page arms on every
+scene, six sampled controls per scheme (the two stacks and the four scenes over previously unseen
+backgrounds), and same-hint-sampled/CSS-today controls on the two stacks. The independent dark
+baseline is **`bdf0029e248ceeb4f12b83ac36f5a7cbe6504b6a`**, two dark stacks × seven arms,
+**14 captures**, separately spent. Both used Chromium 151.0.7922.34, Apple/Metal-3 hardware,
+320 × 200 at scale 1, and the unchanged profiles: light document **6a9600720477** / resolved
+**b2b570e4adcea8fb**, dark document **950ce1c3e917** / resolved **874be66ea501621b**.
+
+The spend markers were written **before** first capture: baseline **2026-09-10T17:41:20+0900**,
+candidate **2026-09-10T17:43:13+0900**. Both are committed as
+`2026-09-10-w27f-g1-{baseline-stack,holdout}-spend.json`. Full runtime trees are fingerprinted
+under `runtime-src-trees-2026-09-10`; no source fitting or runtime changes followed these reads.
+`2026-09-10-w27f-g1-holdout.json` and `-holdout-vs-baseline-stack.json` read the **same captured
+images** with two comparison sources; they are not a second capture or a second configuration.
+The baseline stack reading is `-baseline-stack.json`. All files are under calibration `results/`;
+all captures/matrices were scratch, never canonical output.
+
+The eight other holdout scenes are reported below alongside the two stacks above. `N` is native
+ΔE, `S*` direct distance to the sampled control when no native exists, `—` no comparable image.
+Light has all ten native fixtures; dark three. The three dark rows with neither a native nor an
+existing sampled control remain unrefereed: they were still captured, and their body/rim/shadow
+readings are retained in JSON, not replaced by a light fixture or an invented zero.
+
+| scheme / other holdout scene | ref | U0 | Uh | CSS unhinted | CSS hinted |
+| --- | --- | ---: | ---: | ---: | ---: |
+| light `checkerboard__rrect-lg__rest` | N | 0.01854 | 0.01624 | 0.02258 | 0.04226 |
+| light `dark-solid__capsule-button__rest-tint-blue` | N | 0.05559 | 0.00497 | 0.05867 | 0.00754 |
+| light `hc-text__capsule-button__rest` | N | 0.03746 | 0.04478 | 0.05978 | 0.08493 |
+| light `hc-text__capsule-button__rest-tint-orange` | N | 0.02804 | 0.02610 | 0.03124 | 0.02654 |
+| light `hc-text__rrect-md__rest` | N | 0.02991 | 0.02978 | 0.03522 | 0.05262 |
+| light `mid-dark-solid__capsule-button__rest` | N | 0.04925 | 0.01226 | 0.03575 | 0.01780 |
+| light `photo__rrect-lg__rest` | N | 0.01911 | 0.01582 | 0.04375 | 0.02767 |
+| light `photo__rrect-lg__rest-tint-orange` | N | 0.02669 | 0.00784 | 0.02779 | 0.00874 |
+| dark `checkerboard__rrect-lg__rest` | — | — | — | — | — |
+| dark `dark-solid__capsule-button__rest-tint-blue` | — | — | — | — | — |
+| dark `hc-text__capsule-button__rest` | S* | 0.07001 | 0.02631 | 0.02595 | 0.04953 |
+| dark `hc-text__capsule-button__rest-tint-orange` | S* | 0.00123 | 0.00136 | 0.00290 | 0.00274 |
+| dark `hc-text__rrect-md__rest` | S* | 0.03413 | 0.03077 | 0.08051 | 0.05675 |
+| dark `mid-dark-solid__capsule-button__rest` | N | 0.06230 | 0.00062 | 0.06769 | 0.01157 |
+| dark `photo__rrect-lg__rest` | N | 0.07191 | 0.03870 | 0.07402 | 0.01900 |
+| dark `photo__rrect-lg__rest-tint-orange` | — | — | — | — | — |
+
+The newly sampled light `hc-text` controls' native errors are **0.03621 / 0.01464 / 0.01318**
+(capsule / orange capsule / medium); all corresponding hinted page errors exceed those controls.
+The mid-dark capsule is **0.01065** sampled versus **0.01226** hinted page in light, and
+**0.00062 / 0.00062** in dark (direct route distance **0.00004**). No failing cell was fitted,
+recaptured, excluded from membership or promoted into a passing budget.
+
+A separate **read-only control supplement**, `2026-09-10-w27f-g1-holdout-controls.json`, pairs
+five existing canonical texture PNGs (captured **2026-09-10T05:22–05:23Z**) with these fixed
+holdout page images. Each control matches the candidate's profile document (light
+**6a9600720477**, dark **950ce1c3e917**), resolved WebGPU/gpu-texture route, 320 × 200 viewport,
+hardware Apple/Metal-3 adapter and deterministic zero-repeat-noise record. Profile equality alone
+cannot identify runtime code: the supplement additionally verifies canonical-versus-candidate
+texture PNG identity on **20/20 light and 9/9 available dark ordinary calibration cells**. PNG,
+cell and report hashes and absolute source paths are retained. No canonical file was written,
+no new capture was taken, and the earlier reading's null controls were not rewritten in place.
+
+| scheme / existing control | sampled ΔE native | U0 direct ΔE to sampled | Uh direct ΔE to sampled |
+| --- | ---: | ---: | ---: |
+| light checker large | 0.01011 | 0.02013 | 0.01999 |
+| light dark-solid blue capsule | 0.00497 | 0.05574 | 0.00001 |
+| light photo large | 0.04585 | 0.04676 | 0.04361 |
+| light photo large orange | 0.00484 | 0.02465 | 0.00515 |
+| dark photo large | 0.04245 | 0.05119 | 0.01493 |
+
+The large photo page's native error is smaller than the texture control in both schemes; that
+matches the ordinary photo-pane pattern, not a claim of general page-route superiority. The
+hinted dark-solid blue capsule converges to the flat-background texture route, but that is also
+a less discriminating spatial case. The three missing dark controls remain null in the supplement.
+
+**8. Identity, checks, and the boundary handed to G2.** The `gpu-texture` material path retains
+its uniform bytes and old shader branch. `domMaterial` occupies previously zero padding and is
+zero on texture draws. The formal renderer golden/isolation suite passes unchanged, and the
+ordinary clean-scratch texture captures are **20/20 sampled + 20/20 same-hint sampled identical
+in each scheme**. Do not extend that statement to whole stack composites. Their S0→S1 PNGs
+changed on **4666 / 6530 / 5050 / 6133** pixels (light checker/photo, dark checker/photo):
+**4636 / 6498 / 5034 / 6106** lie in the overlay, the remaining **30 / 32 / 16 / 27** in the
+base beneath its edge/shadow, and none outside the scene union. These are changed composites
+because the overlay is DOM, not a rewritten texture-source material. Every changed digest stays
+marked moved in the reader.
+
+The exact required command `pnpm -r build && pnpm -r lint && pnpm -r test` passed after merging
+W27a: **2,009 unit tests** (policy 23, motion 162, geometry 170, renderer 449, core 302,
+platform-web 482, calibration 313, react 108). Renderer browser verification passed **39** tests
+(33 golden/isolation plus six scalar anchors), with **one deliberately skipped attribution
+capture** (`w15-attribution.spec.ts`), no golden regeneration. The final Python runner suite passed
+**35** tests. Independent high review found no remaining material/sampled-path defect; its two
+provenance findings were fixed by a dispatched worker and re-reviewed correct, followed by a
+narrow correct verdict on the cross-root comparison follow-up. The cosmetic first-dirty-path
+truncation is logged in `tech-debt-tracker.md`, not silently rewritten in evidence.
+
+A live **sanity check, not G2 acceptance**, opened the isolated demo `/#page` in Chrome in light
+and dark. After activating the stage its resolved readout is **webgpu / css-backdrop /
+approximate / analysis: none / health: ok**, with zero console warnings/errors. The committed
+`2026-09-10-w27f-g1-demo-{light,dark}.png` show all three spans over real paragraph text: text blur
+is visible through the light panes, while the unknown-tone dark panes retain the flat grey
+appearance the calibration exposes. These are different backdrop pixels from the harness,
+not a controlled native comparison. The browser and isolated server were closed after the check.
+
+G1 completes the no-fit profile-at-known-tone derivation and records its measured envelope.
+It does **not** assert that every sampled-today error budget holds, does not erase unknown-tone
+paint or dark-overlay regressions, and does not adopt a stack bound. G2 must decide the native
+stack envelope using S0 and S1 separately and take the user's eye on the demo. Missing dark
+references, structured colour/spread, unknown-tone collapse, the light unhinted stack rim,
+local exterior-shadow colour and no lens remain explicit work, not accepted parity.
+
 ### 5.132 W27d: authored presence, identity in place, and materialize without a geometry match (2026-09-10)
 
 **Scope and reference.** Executes W27 child W27d, Decision Log 8 and contracts X2, X6 and X8.

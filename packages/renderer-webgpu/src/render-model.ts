@@ -220,21 +220,16 @@ export interface GroupRenderInput {
    */
   readonly backdropToneLinearLuminance?: number;
   /**
-   * The material's tint and alpha for a group that samples NOTHING (W11a) — a
-   * `css-backdrop` group whose blurred backdrop is a DOM proxy beneath the
-   * canvas, or a `none` group over the page itself. Such a group's body is
-   * not composited in the shader: the optics pass writes the material as a
-   * premultiplied layer and the browser composites it over the DOM, in
-   * encoded sRGB. A linear-light alpha written into that composite lands the
-   * surface darker than the same material sampled on the GPU — the gap
-   * `cssTintAlpha` closes for the CSS tier, at a declared reference level —
-   * so the host, which owns that mapping, resolves the pair once and hands
-   * the same numbers to both tiers. Linear light; the renderer folds the
-   * accessibility policy over it exactly as over the profile's own. Ignored
-   * wherever the group samples a backdrop; absent, the profile's pair is
-   * written as it is (the golden harness, which has no host).
+   * Enables the profile-at-tone material for a DOM layer (W27f G1).
+   * The reference is an encoded-compositing convention only, never a measured
+   * tone or permission to collapse. The profile itself stays in linear light.
+   * Absent preserves the renderer-only harness's legacy no-backdrop drawing;
+   * texture groups ignore this descriptor entirely.
    */
-  readonly unsampledMaterial?: { readonly tint: Rgb; readonly tintAlpha: number };
+  readonly unsampledMaterial?: {
+    readonly referenceBackdropLuminance: number;
+    readonly minimumTintContrast: number;
+  };
   readonly variant?: MaterialVariant;
   /** Overrides the calibration-delegated union defaults. */
   readonly union?: GroupUnionParams;

@@ -101,7 +101,7 @@ import {
   sourceGlow,
   sourceInteriorLight,
   sourceOptics,
-  unsampledMaterials,
+  materialAtBackdrop,
   sourceSize,
   cssTierCompositeLevel,
   cssTierFloorAlpha,
@@ -277,22 +277,18 @@ describe("tier coherence (K5)", () => {
     }
   });
 
-  it("writes an unsampled GPU-tier surface at the CSS tier's alpha and the renderer's tint (W11a)", () => {
-    // A group with nothing to sample leaves the shader as a layer the browser
-    // composites in encoded sRGB — the CSS tier's space — so its pair is the
-    // CSS tier's alpha on the renderer's own linear tint: one number, two
-    // tiers, for a nested surface. Pinned on the shipped profile and on a
-    // patched one, so a recalibration cannot move one tier's layer alone.
-    for (const patch of [undefined, { optics: { regular: { tintAlpha: 0.3 } } }] as const) {
-      const layer = unsampledMaterials(patch);
-      const css = cssTierOptics(patch);
-      const source = sourceOptics(patch);
-      for (const variant of ["regular", "clear"] as const) {
-        expect(layer[variant].tintAlpha).toBe(css[variant].tintAlpha);
-        expect(layer[variant].tint).toEqual(source[variant].tint);
+  it("derives the DOM body at the renderer's response anchors, before encoded conversion (W27f)", () => {
+    for (const span of [32, 96, 128]) {
+      for (const encoded of [0.2706, 0.9505]) {
+        const level = ((encoded + 0.055) / 1.055) ** 2.4;
+        const material = materialAtBackdrop(undefined, "regular", {
+          rgb: [level, level, level], luminance: level, linearLuminance: level,
+        }, span, NOMINAL_ACCESSIBILITY_POLICY.material);
+        expect(material.level).toBeCloseTo(rendererBackdropToneResponse(
+          encoded, rendererSizeThickness(span, DEFAULT_MATERIAL_PROFILE), DEFAULT_MATERIAL_PROFILE,
+        ), 10);
       }
     }
-    expect(unsampledMaterials().regular.tint).toEqual(DEFAULT_MATERIAL_PROFILE.optics.regular.tint);
   });
 
   it("derives a different alpha from the same profile, in the direction the composites imply", () => {

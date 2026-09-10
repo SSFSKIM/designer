@@ -22,6 +22,15 @@ have one, so the Xcode toolchain stays out of the JavaScript graph.
 ./capture.sh dump-layers --settle 8   # Apple's own material parameters, read from the layer tree
 ```
 
+The canonical declaration now also contains W27c's recovered **inactive-window** scenes. They
+are valid historical reference data, but this native harness still activates its window and
+cannot freshly reproduce that pose. `capture` therefore refuses a selected profile containing
+inactive scenes before opening a window or staging files; use an active-only `VITREA_SCENES`
+scratch declaration for a fresh active run. `dump-layers` similarly refuses explicitly requested
+inactive ids; its existing active-only default remains usable. Claims §5.130 records the missing
+native deactivation/attestation path. The web runtime's activation observer does not implement
+that native capture capability.
+
 Two launch facts that cost a session each to learn. A rebuild re-signs the
 bundle ad hoc, and the Screen Recording grant is keyed to that signature, so
 every `build.sh` invalidates TCC until the user toggles the harness off and on

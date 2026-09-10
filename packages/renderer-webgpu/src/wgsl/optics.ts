@@ -96,9 +96,8 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// accessibility fold — the refraction ladder read at the preference's cap,
   /// which every facet's span-dependent rise is multiplied by (W11c)
   tone : vec4f,
-  /// rimWidthPx, rimAlpha; (z) and (w) carried specularPower and specularGain
-  /// until W24 retired the one-sided specular from the rim (claims 5.108
-  /// section 1) and are written but unread
+  /// rimWidthPx, rimAlpha; the slots retired by W24 now carry W27c's
+  /// tintChromaScale (z) and tintShadeCollapseRetention (w).
   rim : vec4f,
   /// light direction, unit (xy), shadowDepth (z), shadowAlpha (w)
   light : vec4f,
@@ -214,7 +213,9 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// carries a heavy texture, 0 where it does not. The WIDTH is not here: the
   /// pyramid blurred it into 'backdropHeavy' before any group was drawn, so all
   /// this pass decides is which of two textures the deep sample comes from.
-  /// (y) (z) (w) free.
+  /// (y) is the DOM material mode (0 off, 1 unknown tone, 2 measured tone);
+  /// (z) and (w) carry its reference level and minimum tint contrast.
+  /// Texture draws keep those lanes zero, so their input bytes do not move.
   heavyTap : vec4f,
 };
 
@@ -443,7 +444,8 @@ fn outer_shadow(uv : vec2f, upsampled : f32, fieldSize : vec2f) -> ShadowSample 
 /// zero where the group has no backdrop to copy — so 'dark-solid', 'impulse',
 /// every thin cell and every unsampled group stay byte-for-byte what they were.
 fn outer_shadow_lift(viewport01 : vec2f, shadow : ShadowSample) -> vec3f {
-  if (ou.flags.x <= 0.5 || ou.shadowLift.x <= 0.0 || shadow.falloff <= 0.0) {
+  if ((ou.flags.x <= 0.5 && ou.heavyTap.y < 1.5) ||
+      ou.shadowLift.x <= 0.0 || shadow.falloff <= 0.0) {
     return vec3f(0.0);
   }
   // Written out rather than through WGSL's 'smoothstep', which is undefined
@@ -459,6 +461,11 @@ fn outer_shadow_lift(viewport01 : vec2f, shadow : ShadowSample) -> vec3f {
   if (rise <= 0.0) {
     return vec3f(0.0);
   }
+  if (ou.flags.x <= 0.5) {
+    // A DOM page has no exterior texture: this is the law at the stated tone,
+    // not a claim to reproduce the colour or structure beyond the silhouette.
+    return ou.toneColour.rgb * (ou.shadowLift.x * rise * shadow.falloff);
+  }
   let uv = clamp(viewport01 * ou.fit.xy + ou.fit.zw, vec2f(0.0), vec2f(1.0));
   let chainSample = textureSampleLevel(backdropChain, backdropSampler, uv, ou.shadowLift.w);
   // Premultiplied linear in, straight colour out — the same unpremultiply the
@@ -468,6 +475,39 @@ fn outer_shadow_lift(viewport01 : vec2f, shadow : ShadowSample) -> vec3f {
   // The black term's presence, on the shadow's second term: the two are one
   // shadow with one falloff (W14 G0), so one channel fades both.
   return v * (ou.shadowLift.x * rise * shadow.falloff * shadow.castMat);
+}
+
+/// The DOM branch is the per-pixel mirror of platform-web's materialAtBackdrop.
+/// It evaluates the linear response, collapse, paint and rim at the stated tone,
+/// then solves the encoded layer the browser composites. A union's span stays
+/// per pixel, and the conversion reference never enables an unknown tone.
+fn dom_material_backdrop() -> vec3f {
+  if (ou.heavyTap.y > 1.5) { return ou.toneColour.rgb; }
+  return vec3f(ou.heavyTap.z);
+}
+
+/// The cssTintAlpha secant, at the actual tone rather than before the response.
+fn dom_material_alpha(composite : vec3f, backdrop : vec3f, alpha : f32) -> f32 {
+  if (alpha <= 1e-6) { return 0.0; }
+  let weights = vec3f(0.2126, 0.7152, 0.0722);
+  let neutral = max((composite - backdrop * (1.0 - alpha)) / alpha, vec3f(0.0));
+  let b = srgb_encode(dot(backdrop, weights));
+  let span = srgb_encode(dot(neutral, weights)) - b;
+  if (abs(span) < ou.heavyTap.w) { return alpha; }
+  return clamp((srgb_encode(dot(composite, weights)) - b) / span, 0.0, 1.0);
+}
+
+/// The final encoded solve, including paint and contour light. The least opacity
+/// needed to keep every channel in gamut is an algebraic constraint, not a fit.
+/// At the reference B this returns E(C) exactly after browser source-over; away
+/// from B the scalar layer cannot reproduce the sampled path's local structure.
+fn dom_material_output(encodedComposite : vec3f, encodedBackdrop : vec3f, alpha : f32) -> vec4f {
+  let c = clamp(encodedComposite, vec3f(0.0), vec3f(1.0));
+  let b = clamp(encodedBackdrop, vec3f(0.0), vec3f(1.0));
+  let need = select((b - c) / max(b, vec3f(1e-6)),
+    (c - b) / max(vec3f(1.0) - b, vec3f(1e-6)), c >= b);
+  let a = clamp(max(alpha, max(need.x, max(need.y, need.z))), 0.0, 1.0);
+  return vec4f(clamp(c - b * (1.0 - a), vec3f(0.0), vec3f(a)), a);
 }
 
 @fragment
@@ -761,6 +801,8 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   let scatterLod = clamp(ou.size.w + log2(max(gainEff, 1e-4)), 0.0, ou.lens.w);
 
   var backdrop = vec3f(0.0);
+  let domMaterial = ou.heavyTap.y > 0.5;
+  if (domMaterial) { backdrop = dom_material_backdrop(); }
   if (ou.flags.x > 0.5) {
     // Both components at the refracted position (W11c G2): the band and the
     // interior are one body, and the displacement alone is the lens.
@@ -966,7 +1008,7 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * There the CSS tier's own 'backdrop-filter' is what carries the transmission.
    */
   var toneTarget = ou.toneColour.rgb;
-  if (ou.flags.x > 0.5) {
+  if (ou.flags.x > 0.5 || domMaterial) {
     toneTarget = mix(toneTarget, backdrop, clamp(ou.toneRowThick.w, 0.0, 1.0));
   }
 
@@ -1014,7 +1056,30 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * in encoded sRGB, so the alpha is the CSS tier's, not the linear profile's.
    */
   var bodyAlpha = 1.0;
-  if (ou.flags.x <= 0.5) {
+  var domAlpha = 1.0;
+  if (domMaterial) {
+    // The collapse transmits k*c of the DOM proxy as well. Solve the secant
+    // after the linear material, never feed its encoded alpha back into R.
+    /*
+     * Times the presence (W27d), on the same factor 'presentAlpha' carries into
+     * 'colour' just above — this branch's body is a SOLVED layer rather than a
+     * composite, so the secant's own input is where the channel reaches it.
+     *
+     * It has to be here rather than on the result. The secant divides the
+     * composite by this alpha to recover the material's own neutral, so scaling
+     * both together leaves that neutral (and the span it spans) at exactly what
+     * presence 1 solves, and only the returned coverage travels. Left unscaled,
+     * the neutral would walk toward the backdrop as the surface thins, the span
+     * would fall under 'heavyTap.w', and the guard would hand back the FULL
+     * alpha — a flat tone painted over a page the surface has left.
+     *
+     * At presence 1 the factor is exactly 1.0 and the expression is bit-identical
+     * to the resting one; at 0 the secant's own '<= 1e-6' guard returns 0.
+     */
+    let transmission = toneAdapt * clamp(ou.toneRowThick.w, 0.0, 1.0);
+    domAlpha = dom_material_alpha(colour, backdrop,
+      clamp(adaptedAlpha - transmission, 0.0, 1.0) * mat);
+  } else if (ou.flags.x <= 0.5) {
     colour = adapted;
     bodyAlpha = presentAlpha;
   }
@@ -1101,10 +1166,26 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     // for the group — zero where nothing was measured, the same reference-level
     // convention the CSS tier's 'materialLuminance' takes (within its 0.02).
     let u = bodyAlpha * dot(colour, vec3f(0.2126, 0.7152, 0.0722)) + (1.0 - bodyAlpha) * ou.toneColour.w;
-    let grip = clamp(ou.seed.w, 0.0, 1.0) * clamp(ou.tone.z, 0.0, 1.0) * (1.0 - toneAdapt);
+    let grip = clamp(ou.seed.w, 0.0, 1.0) * clamp(ou.tone.z, 0.0, 1.0) *
+      (1.0 - toneAdapt * (1.0 - clamp(ou.rim.w, 0.0, 1.0)));
     let shade = mix(1.0, clamp(mix(ou.tone.x, ou.tone.y, clamp(u, 0.0, 1.0)), 0.0, 1.0), grip);
-    let layer = ou.seed.rgb * shade;
+    // The identity branch preserves the active seed's arithmetic bit for bit.
+    var seed = ou.seed.rgb;
+    if (ou.rim.z < 1.0) {
+      let neutral = max(seed.r, max(seed.g, seed.b));
+      seed = mix(vec3f(neutral), seed, clamp(ou.rim.z, 0.0, 1.0));
+    }
+    let layer = seed * shade;
+    /*
+     * The recede's chroma collapse (W27c) shapes WHAT the paint is; presence
+     * (W27d) is how much of it is there. They compose on this one strength and
+     * each reaches it once: the collapse through 'seed', the presence through
+     * 'tintK'. 's' is the coverage every consumer below reads — the rim's tint
+     * mix, the encoded fold, and the DOM branch's own alpha — so folding the
+     * presence in here is what keeps it from being applied twice downstream.
+     */
     let s = tintK;
+    if (domMaterial) { domAlpha = 1.0 - (1.0 - s) * (1.0 - domAlpha); }
     let layerLuma = max(dot(layer, vec3f(0.2126, 0.7152, 0.0722)), 0.05);
     rimTintColour = mix(vec3f(1.0), layer / layerLuma, clamp(ou.rimLaw.w, 0.0, 1.0) * s);
     let encodedMaterial = linear_to_srgb(clamp(colour, vec3f(0.0), vec3f(1.0)));
@@ -1151,6 +1232,7 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // already shallowed through 'lensThick': the occlusion is the material's own,
   // and a material that is half there occludes half as much of what is behind it.
   let shadowKeep = 1.0 - shadowProfile * shadowDepth * ou.light.w * present * mat;
+  if (domMaterial) { domAlpha = 1.0 - shadowKeep * (1.0 - domAlpha); }
   let shadowedAlpha = 1.0 - shadowKeep * (1.0 - bodyAlpha);
   colour = colour * (shadowKeep * bodyAlpha / max(shadowedAlpha, 1e-6));
   bodyAlpha = shadowedAlpha;
@@ -1268,8 +1350,9 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // argument the collapse's 'present' makes, from the author's side.
   let rim = rw * lit * alongFactor * (rimAmplitude * present + rimCollapsed * toneAdapt) * mat;
   let rimLight = rim * rimTintColour;
-  if (ou.flags.x > 0.5) {
+  if (ou.flags.x > 0.5 || domMaterial) {
     colour = colour + rimLight;
+    if (domMaterial) { domAlpha = clamp(domAlpha + rim, 0.0, 1.0); }
   } else {
     // Added light has no premultiplied form of its own — a canvas colour may
     // not exceed its alpha — so the layer carries the light in its opacity:
@@ -1297,6 +1380,17 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // translucent surface shows the page through it, not its own shadow. (With
   // an opaque body the two are the same quantity, which is how the shadow was
   // first written and why the difference only surfaced with the layer form.)
+  if (domMaterial) {
+    // Coverage precedes the gamut solve. The sampled rim may exceed white
+    // before antialiasing; clipping it first would dim the half-covered edge.
+    // Include the exterior shadow in the same target so its light and opacity
+    // remain one valid premultiplied layer at that edge too.
+    let b = linear_to_srgb(backdrop);
+    let compositeEncoded = linear_to_srgb(max(colour, vec3f(0.0))) * coverage
+      + (b * (1.0 - shadowAlpha) + liftEncoded) * (1.0 - coverage);
+    let alpha = domAlpha * coverage + shadowAlpha * (1.0 - coverage);
+    return dom_material_output(compositeEncoded, b, alpha);
+  }
   let body = encode_output(max(colour, vec3f(0.0)), coverage * bodyAlpha);
   return vec4f(
     body.rgb + liftEncoded * (1.0 - coverage),

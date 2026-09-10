@@ -269,4 +269,40 @@ struct SceneSpecFile: Decodable {
     try spec.validate()
     return spec
   }
+
+  /// The `state` values a fresh run of this harness can put on screen and
+  /// capture: the two interaction poses `SceneView` and `Capture` actually
+  /// reach. `"inactive"` names the window-recede pose (W27c; claims §5.128,
+  /// §5.130) — a real scene state, not a capture technique, and this harness
+  /// has no way to put its OWN window into it: `Capture.present` activates and
+  /// key-focuses the window on every path, and nothing here can ask AppKit for
+  /// the opposite. W27c G2 lands vitrea's WEB runtime activation observer
+  /// (`setWindowActivation`, the root option, the React prop) — it implements
+  /// no native, capture-side deactivation, and no gate for one is chartered
+  /// yet; that is separate work this harness does not do today. The 121
+  /// inactive fixtures already on disk are recovered from the tree before the
+  /// harness's window could ever become key (973fd7e^) — historical reference
+  /// data, not something this run could reproduce by capturing again.
+  static let freshlyCapturableStates: Set<String> = ["rest", "pressed"]
+
+  /// Which of `ids` name a scene whose declared `state` a fresh run cannot
+  /// reproduce, per `freshlyCapturableStates`. An id this spec does not
+  /// recognize is left out — that is `validate()`'s failure to report, not
+  /// this one's.
+  ///
+  /// Pure: reads only the already-decoded spec, touches no disk and opens no
+  /// window, so a capture or layer-dump path can call it before either does
+  /// anything a refusal would need to undo. General scene lookups — the
+  /// calibration package's own loaders, `probe`, `tint-doctor` — read every
+  /// state as valid reference data and must not call this; `validate()` above
+  /// is the only gate they need to pass.
+  func scenesUnsupportedForFreshCapture<S: Sequence>(_ ids: S) -> [String] where S.Element == String {
+    let byId = Dictionary(uniqueKeysWithValues: scenes.map { ($0.id, $0) })
+    return ids
+      .filter { id in
+        guard let scene = byId[id] else { return false }
+        return !SceneSpecFile.freshlyCapturableStates.contains(scene.state)
+      }
+      .sorted()
+  }
 }

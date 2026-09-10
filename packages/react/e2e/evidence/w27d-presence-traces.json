@@ -1,0 +1,2156 @@
+{
+  "schema": 1,
+  "claim": "5.132",
+  "capturedAt": "2026-09-10T08:46:12.839021+00:00",
+  "sourceCommit": "313fa2b685713e0493424ae8e1a9fa405e32159f",
+  "configuration": {
+    "renderer": "css",
+    "durationMs": 220,
+    "easing": "easeOutCubic",
+    "workers": 1,
+    "serverIsolation": "Unchanged React Playwright config, except private port 5276 and server reuse disabled."
+  },
+  "suite": {
+    "passed": 123,
+    "skipped": 3,
+    "skipReason": "Existing engine limits on forced-colors and prefers-contrast emulation."
+  },
+  "records": [
+    {
+      "engine": "chromium",
+      "reducedMotion": true,
+      "traces": [
+        {
+          "target": 0,
+          "elapsed": 12.300000000000011,
+          "oneFrame": 12.300000000000011,
+          "samples": [
+            {
+              "time": 268.2,
+              "value": 1,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "1"
+            },
+            {
+              "time": 280.5,
+              "value": 0,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0"
+            }
+          ],
+          "checks": {
+            "monotone": true,
+            "exactEndpoint": true,
+            "stableNode": true,
+            "hostOpacityOne": true,
+            "ancestorOpacityOne": true,
+            "withinDurationPlusFrame": true,
+            "maxCssBodyChannelError": 0.0
+          }
+        },
+        {
+          "target": 1,
+          "elapsed": 11,
+          "oneFrame": 11,
+          "samples": [
+            {
+              "time": 290.1,
+              "value": 0,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0"
+            },
+            {
+              "time": 301.1,
+              "value": 1,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "1"
+            }
+          ],
+          "checks": {
+            "monotone": true,
+            "exactEndpoint": true,
+            "stableNode": true,
+            "hostOpacityOne": true,
+            "ancestorOpacityOne": true,
+            "withinDurationPlusFrame": true,
+            "maxCssBodyChannelError": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "reducedMotion": true,
+      "traces": [
+        {
+          "target": 0,
+          "elapsed": 17.639999999999986,
+          "oneFrame": 17.639999999999986,
+          "samples": [
+            {
+              "time": 256.64,
+              "value": 1,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "1"
+            },
+            {
+              "time": 274.28,
+              "value": 0,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0"
+            }
+          ],
+          "checks": {
+            "monotone": true,
+            "exactEndpoint": true,
+            "stableNode": true,
+            "hostOpacityOne": true,
+            "ancestorOpacityOne": true,
+            "withinDurationPlusFrame": true,
+            "maxCssBodyChannelError": 0.0
+          }
+        },
+        {
+          "target": 1,
+          "elapsed": 16.680000000000007,
+          "oneFrame": 16.680000000000007,
+          "samples": [
+            {
+              "time": 290.94,
+              "value": 0,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0"
+            },
+            {
+              "time": 307.62,
+              "value": 1,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "1"
+            }
+          ],
+          "checks": {
+            "monotone": true,
+            "exactEndpoint": true,
+            "stableNode": true,
+            "hostOpacityOne": true,
+            "ancestorOpacityOne": true,
+            "withinDurationPlusFrame": true,
+            "maxCssBodyChannelError": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "reducedMotion": true,
+      "traces": [
+        {
+          "target": 0,
+          "elapsed": 16,
+          "oneFrame": 16,
+          "samples": [
+            {
+              "time": 299,
+              "value": 1,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "1"
+            },
+            {
+              "time": 315,
+              "value": 0,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0"
+            }
+          ],
+          "checks": {
+            "monotone": true,
+            "exactEndpoint": true,
+            "stableNode": true,
+            "hostOpacityOne": true,
+            "ancestorOpacityOne": true,
+            "withinDurationPlusFrame": true,
+            "maxCssBodyChannelError": 0.0
+          }
+        },
+        {
+          "target": 1,
+          "elapsed": 16,
+          "oneFrame": 16,
+          "samples": [
+            {
+              "time": 332,
+              "value": 0,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0"
+            },
+            {
+              "time": 348,
+              "value": 1,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "1"
+            }
+          ],
+          "checks": {
+            "monotone": true,
+            "exactEndpoint": true,
+            "stableNode": true,
+            "hostOpacityOne": true,
+            "ancestorOpacityOne": true,
+            "withinDurationPlusFrame": true,
+            "maxCssBodyChannelError": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "reducedMotion": false,
+      "traces": [
+        {
+          "target": 0,
+          "elapsed": 224.5,
+          "oneFrame": 27.19999999999999,
+          "samples": [
+            {
+              "time": 254.5,
+              "value": 1,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "1"
+            },
+            {
+              "time": 268.3,
+              "value": 0.8233755003756573,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.823"
+            },
+            {
+              "time": 278,
+              "value": 0.7125570177498122,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.713"
+            },
+            {
+              "time": 290.5,
+              "value": 0.5850398196844478,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.585"
+            },
+            {
+              "time": 299.4,
+              "value": 0.5041855513711497,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.504"
+            },
+            {
+              "time": 311,
+              "value": 0.41047359832832453,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.41"
+            },
+            {
+              "time": 331.8,
+              "value": 0.2729002144064612,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.273"
+            },
+            {
+              "time": 341.2,
+              "value": 0.22244487575131489,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.222"
+            },
+            {
+              "time": 368.4,
+              "value": 0.11217035884673188,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.112"
+            },
+            {
+              "time": 385,
+              "value": 0.06732882935762585,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.067"
+            },
+            {
+              "time": 396.8,
+              "value": 0.04405498055972956,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.044"
+            },
+            {
+              "time": 411.7,
+              "value": 0.023260063110443263,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.023"
+            },
+            {
+              "time": 422.7,
+              "value": 0.01305332757325317,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.013"
+            },
+            {
+              "time": 436.2,
+              "value": 0.005276285405710013,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.005"
+            },
+            {
+              "time": 446.4,
+              "value": 0.0020837754507888606,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.002"
+            },
+            {
+              "time": 458,
+              "value": 0.000421875000000016,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0"
+            },
+            {
+              "time": 479,
+              "value": 0,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0"
+            }
+          ],
+          "checks": {
+            "monotone": true,
+            "exactEndpoint": true,
+            "stableNode": true,
+            "hostOpacityOne": true,
+            "ancestorOpacityOne": true,
+            "withinDurationPlusFrame": true,
+            "maxCssBodyChannelError": 0.00047359832832455373
+          }
+        },
+        {
+          "target": 1,
+          "elapsed": 220.70000000000005,
+          "oneFrame": 43.89999999999998,
+          "samples": [
+            {
+              "time": 523.4,
+              "value": 0,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0"
+            },
+            {
+              "time": 539.3,
+              "value": 0.2015256460368141,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.202"
+            },
+            {
+              "time": 552,
+              "value": 0.3414970000000003,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.341"
+            },
+            {
+              "time": 565.9,
+              "value": 0.47479720370022527,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.475"
+            },
+            {
+              "time": 577.2,
+              "value": 0.5688533501126978,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.569"
+            },
+            {
+              "time": 589.6,
+              "value": 0.6583346288504887,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.658"
+            },
+            {
+              "time": 601.4,
+              "value": 0.7310961682945154,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.731"
+            },
+            {
+              "time": 612.1,
+              "value": 0.7874181727084901,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.787"
+            },
+            {
+              "time": 622.9,
+              "value": 0.8356789890120211,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.836"
+            },
+            {
+              "time": 632.9,
+              "value": 0.8732876948722765,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.873"
+            },
+            {
+              "time": 643,
+              "value": 0.9049541637866267,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.905"
+            },
+            {
+              "time": 651.9,
+              "value": 0.9280558907776109,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.928"
+            },
+            {
+              "time": 662.6,
+              "value": 0.9504588549962435,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.95"
+            },
+            {
+              "time": 671.4,
+              "value": 0.964946656649136,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.965"
+            },
+            {
+              "time": 681.5,
+              "value": 0.9777257082081142,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.978"
+            },
+            {
+              "time": 700.2,
+              "value": 0.9924284778362135,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.992"
+            },
+            {
+              "time": 744.1,
+              "value": 1,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "1"
+            }
+          ],
+          "checks": {
+            "monotone": true,
+            "exactEndpoint": true,
+            "stableNode": true,
+            "hostOpacityOne": true,
+            "ancestorOpacityOne": true,
+            "withinDurationPlusFrame": true,
+            "maxCssBodyChannelError": 0.0004970000000002472
+          }
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "reducedMotion": false,
+      "traces": [
+        {
+          "target": 0,
+          "elapsed": 233.89999999999998,
+          "oneFrame": 18.620000000000005,
+          "samples": [
+            {
+              "time": 250.3,
+              "value": 1,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "1"
+            },
+            {
+              "time": 267.54,
+              "value": 0.7828504493403454,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.783"
+            },
+            {
+              "time": 284.2,
+              "value": 0.6053005617017281,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.605"
+            },
+            {
+              "time": 300.88,
+              "value": 0.4566947190916606,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.457"
+            },
+            {
+              "time": 317.54,
+              "value": 0.3347810804447783,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.335"
+            },
+            {
+              "time": 334.2,
+              "value": 0.23675891068745303,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.237"
+            },
+            {
+              "time": 348.92,
+              "value": 0.16794742788054084,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.168"
+            },
+            {
+              "time": 367.54,
+              "value": 0.10190705339744544,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.102"
+            },
+            {
+              "time": 384.2,
+              "value": 0.059943405428249386,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.06"
+            },
+            {
+              "time": 400.86,
+              "value": 0.03144568748910592,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.031"
+            },
+            {
+              "time": 417.54,
+              "value": 0.013792605613824116,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.014"
+            },
+            {
+              "time": 434.2,
+              "value": 0.0044182833395942644,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.004"
+            },
+            {
+              "time": 450.86,
+              "value": 0.0006899549571750541,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.001"
+            },
+            {
+              "time": 467.54,
+              "value": 1.974509391433621e-06,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0"
+            },
+            {
+              "time": 484.2,
+              "value": 0,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0"
+            }
+          ],
+          "checks": {
+            "monotone": true,
+            "exactEndpoint": true,
+            "stableNode": true,
+            "hostOpacityOne": true,
+            "ancestorOpacityOne": true,
+            "withinDurationPlusFrame": true,
+            "maxCssBodyChannelError": 0.0004456874891059226
+          }
+        },
+        {
+          "target": 1,
+          "elapsed": 233.32000000000005,
+          "oneFrame": 17.120000000000005,
+          "samples": [
+            {
+              "time": 517.54,
+              "value": 0,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0"
+            },
+            {
+              "time": 534.2,
+              "value": 0.2104122257978972,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.21"
+            },
+            {
+              "time": 550.86,
+              "value": 0.38902233530879093,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.389"
+            },
+            {
+              "time": 567.56,
+              "value": 0.5387616262216377,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.539"
+            },
+            {
+              "time": 584.2,
+              "value": 0.6613911270000006,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.661"
+            },
+            {
+              "time": 600.42,
+              "value": 0.7578779338722764,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.758"
+            },
+            {
+              "time": 617.54,
+              "value": 0.8377160030052593,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.838"
+            },
+            {
+              "time": 634.2,
+              "value": 0.896357631507889,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.896"
+            },
+            {
+              "time": 650.88,
+              "value": 0.9388793433230654,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.939"
+            },
+            {
+              "time": 667.54,
+              "value": 0.9677873779113448,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.968"
+            },
+            {
+              "time": 684.2,
+              "value": 0.9857475019060857,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.986"
+            },
+            {
+              "time": 700.86,
+              "value": 0.99536531802855,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.995"
+            },
+            {
+              "time": 717.54,
+              "value": 0.9992486851990984,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.999"
+            },
+            {
+              "time": 734.2,
+              "value": 0.9999965007791134,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "1"
+            },
+            {
+              "time": 750.86,
+              "value": 1,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "1"
+            }
+          ],
+          "checks": {
+            "monotone": true,
+            "exactEndpoint": true,
+            "stableNode": true,
+            "hostOpacityOne": true,
+            "ancestorOpacityOne": true,
+            "withinDurationPlusFrame": true,
+            "maxCssBodyChannelError": 0.0004122257978972088
+          }
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "reducedMotion": false,
+      "traces": [
+        {
+          "target": 0,
+          "elapsed": 234,
+          "oneFrame": 26,
+          "samples": [
+            {
+              "time": 288,
+              "value": 1,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "1"
+            },
+            {
+              "time": 305,
+              "value": 0.7856336401202104,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.786"
+            },
+            {
+              "time": 321,
+              "value": 0.6141249999999999,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.614"
+            },
+            {
+              "time": 338,
+              "value": 0.4614012021036814,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.461"
+            },
+            {
+              "time": 355,
+              "value": 0.3363614763335838,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.336"
+            },
+            {
+              "time": 371,
+              "value": 0.24148694590533426,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.241"
+            },
+            {
+              "time": 388,
+              "value": 0.16228399699474072,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.162"
+            },
+            {
+              "time": 405,
+              "value": 0.10262274605559729,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.103"
+            },
+            {
+              "time": 422,
+              "value": 0.05973478587528169,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.06"
+            },
+            {
+              "time": 439,
+              "value": 0.030851709241172087,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.031"
+            },
+            {
+              "time": 455,
+              "value": 0.013981686701728058,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.014"
+            },
+            {
+              "time": 472,
+              "value": 0.004381667918857968,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.004"
+            },
+            {
+              "time": 498,
+              "value": 9.391435011274485e-05,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0"
+            },
+            {
+              "time": 505,
+              "value": 2.535687453009139e-06,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0"
+            },
+            {
+              "time": 522,
+              "value": 0,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0"
+            }
+          ],
+          "checks": {
+            "monotone": true,
+            "exactEndpoint": true,
+            "stableNode": true,
+            "hostOpacityOne": true,
+            "ancestorOpacityOne": true,
+            "withinDurationPlusFrame": true,
+            "maxCssBodyChannelError": 0.0004869459053342684
+          }
+        },
+        {
+          "target": 1,
+          "elapsed": 233,
+          "oneFrame": 24,
+          "samples": [
+            {
+              "time": 555,
+              "value": 0,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0"
+            },
+            {
+              "time": 572,
+              "value": 0.21436635987978958,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.214"
+            },
+            {
+              "time": 588,
+              "value": 0.3858750000000001,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.386"
+            },
+            {
+              "time": 605,
+              "value": 0.5385987978963186,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.539"
+            },
+            {
+              "time": 622,
+              "value": 0.6636385236664162,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.664"
+            },
+            {
+              "time": 638,
+              "value": 0.7585130540946657,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.759"
+            },
+            {
+              "time": 655,
+              "value": 0.8377160030052593,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.838"
+            },
+            {
+              "time": 672,
+              "value": 0.8973772539444027,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.897"
+            },
+            {
+              "time": 688,
+              "value": 0.9381571187077385,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.938"
+            },
+            {
+              "time": 705,
+              "value": 0.9677873779113448,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.968"
+            },
+            {
+              "time": 722,
+              "value": 0.9860183132982719,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.986"
+            },
+            {
+              "time": 739,
+              "value": 0.995618332081142,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "0.996"
+            },
+            {
+              "time": 763,
+              "value": 0.9998377160030053,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "1"
+            },
+            {
+              "time": 772,
+              "value": 0.999997464312547,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "1"
+            },
+            {
+              "time": 788,
+              "value": 1,
+              "node": "vitrea-node_r_1_",
+              "opacity": "1",
+              "ancestors": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ],
+              "bodyOpacity": "1"
+            }
+          ],
+          "checks": {
+            "monotone": true,
+            "exactEndpoint": true,
+            "stableNode": true,
+            "hostOpacityOne": true,
+            "ancestorOpacityOne": true,
+            "withinDurationPlusFrame": true,
+            "maxCssBodyChannelError": 0.0004869459053342684
+          }
+        }
+      ]
+    }
+  ]
+}

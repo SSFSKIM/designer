@@ -131,6 +131,7 @@ reference; the tier-specific optical limits are recorded in claims §5.132.
 | interaction channels | `GLASS_CHANNEL_PROPERTIES` — write 0..1, the material reads |
 | findings | `root.diagnostics`, `consoleDiagnosticSink()`, `VitreaDiagnostic` |
 | capability answers | `root.capabilities(groupId)`, `root.accessibility`, `root.webgpu`, `root.colorScheme` |
+| how far apart two groups must sit | `samplingPaddingFor({ members, material })` |
 | colour scheme | `colorScheme: "light" \| "dark" \| "auto"`, `root.setColorScheme`, `darkMaterialProfile` |
 | WebGPU | `renderer: "webgpu"`, `root.ready()`, `root.replaceDevice(device)` |
 
@@ -169,9 +170,29 @@ is what the adaptation and the foreground decision read; the scheme states which
 material the surface is made of. A dark page can legitimately hand a light hint
 to a surface sitting over a white card.
 
+**Ordinary page content uses the profile material too.** A WebGPU group over DOM content resolves
+`samplingBackend: "css-backdrop"`: its proxy supplies the browser's blur and the canvas draws
+the profile's body, tint shade, rim and shadow at the group's known backdrop tone, with each
+member's own size law. This is approximate refraction, not texture sampling or a lens. A real
+`hint: { tone: "dark", luminance: measuredLevel }` can supply the tone; without a hint or another
+measured tone, vitrea does not guess what arbitrary page content looks like, so tone response
+and dark-backdrop collapse remain unavailable. A scalar level cannot describe a page's local
+colour or texture either. Registered image, canvas and video backdrops retain the sampled path.
+
 The page's own background is still the page's: vitrea does not write your tokens,
 so an app offering "follow the system" reads `prefers-color-scheme` for its own
 colours as well as passing `"auto"` here.
+
+`recededMaterialProfile.light` and `.dark` are measured differences for a fixed inactive-window
+appearance. Select the entry for the resolved scheme and merge it over that scheme's material;
+for example, `createGlassRoot({ colorScheme: "dark", materialProfile: recededMaterialProfile.dark })`.
+They remove the outer shadow and bright rim while retaining an author's tint strength as an
+achromatic shade. The recovered native reference is macOS 26.5, with 1x-only light accessibility
+evidence. This is a fitted endpoint, not a pixel-match guarantee: photo chroma, intermediate dark
+levels and large-surface scattering remain measured gaps (claims §5.130). In particular, a
+full-strength neutral tint loses background colour that the native inactive material can retain.
+These documents alone do not observe window focus; activation is a root pose, not an interaction
+state on individual surfaces.
 
 ---
 

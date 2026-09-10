@@ -1,0 +1,52 @@
+{
+  "gate": "W27c G1 / claims §5.130, corrected declaration",
+  "integratedMain": "38d782c3fcfc561e14630f03f1f2959e39d5ad46",
+  "integrationCommit": "06f4ceb",
+  "workspace": {
+    "build": { "command": "pnpm -r build", "exitCode": 0 },
+    "lint": { "command": "pnpm -r lint", "exitCode": 0 },
+    "test": { "command": "pnpm -r test", "exitCode": 0, "total": 2060,
+      "byPackage": { "policy": 23, "motion": 162, "geometry": 170,
+        "renderer-webgpu": 450, "core": 302, "platform-web": 484,
+        "calibration": 340, "react": 126, "demo": 3 } }
+  },
+  "rendererIdentity": {
+    "command": "pnpm --filter @vitrea/renderer-webgpu exec playwright test --config ../calibration/results/2026-09-10-w27c-g1-gpu.config.ts --grep @golden",
+    "privatePort": 5213,
+    "reuseExistingServer": false,
+    "exitCode": 0,
+    "passed": 34,
+    "goldenPngsRerecorded": false,
+    "isolationHashesRerecorded": false,
+    "activeLightSha256": "b2b570e4adcea8fb9281aed4d2556598a1fc95b34ce4b12dd5a50157ac138306",
+    "activeDarkSha256": "874be66ea501621be265265424c16d2d98a01c40835d89c02de9473362c0d4dc",
+    "method": "Permitted renderer isolation proof, not a from-empty canonical matrix rebuild; G3 inherits the latter."
+  },
+  "correctedCaptureIntegrity": {
+    "viewportCssPx": [320, 200],
+    "checkedRows": 78,
+    "cleanReports": 78,
+    "independentCapturesPerCheckedCell": 2,
+    "byteIdenticalRepeatedCells": 78,
+    "byteIdenticalToPreintegrationSelection": 78,
+    "holdoutRows": 30,
+    "holdoutReads": 1,
+    "holdoutStatus": "spent",
+    "refitAfterHoldout": false,
+    "cssRecordOnlyRows": 78,
+    "canonicalMatrixWritten": false
+  },
+  "nativePreflight": {
+    "command": "bash packages/calibration/results/2026-09-10-w27c-g1-preflight-check.sh",
+    "exitCode": 0,
+    "productionSource": "apps/reference-apple/Sources/SceneSpec.swift",
+    "activeOnlyFixturePasses": true,
+    "inactiveFixtureRefusesNamedScene": "bg__c__inactive",
+    "guiLaunchedByThisCheck": false
+  },
+  "independentReview": {
+    "initial": "Four actionable findings: misframed/unchecked capture, inactive tint-guard poisoning, inactive demo picker leakage, missing profile-loader keys.",
+    "boundedFixVerification": "No material findings; targeted calibration20/20, demo3/3. The corrected candidate values were not represented as independently reviewed optical fidelity."
+  },
+  "limits": "The frozen holdout exposes photo-chroma, intermediate dark-response, stack and far-span scattering residuals. No inactive floor is adopted, no extra field is added, and the spent holdout is not fitted back into this endpoint."
+}

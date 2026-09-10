@@ -1,0 +1,33 @@
+{
+  "invalidates": [
+    "2026-09-10-w27c-g1-declaration.json",
+    "2026-09-10-w27c-g1-sweeps/baseline.json",
+    "2026-09-10-w27c-g1-sweeps/seed.json",
+    "2026-09-10-w27c-g1-sweeps/s1.json",
+    "2026-09-10-w27c-g1-sweeps/s2.json",
+    "2026-09-10-w27c-g1-sweeps/t1.json",
+    "2026-09-10-w27c-g1-sweeps/t2.json",
+    "2026-09-10-w27c-g1-sweeps/t3.json",
+    "2026-09-10-w27c-g1-sweeps/t4.json",
+    "2026-09-10-w27c-g1-sweeps/t5.json",
+    "2026-09-10-w27c-g1-sweeps/validation.json",
+    "2026-09-10-w27c-g1-sweeps/css-derivation.json",
+    "2026-09-10-w27c-g1-sweeps/spatial-s2.json",
+    "2026-09-10-w27c-g1-sweeps/facets-validation.json"
+  ],
+  "reason": "Independent correctness review found that the custom fitting driver created an 800x600 viewport for a 320x200 scene. The renderer cover-fits the registered texture to the viewport. scene.ts explicitly reported the mismatch, but the driver did not refuse report.problems. All prior web fit/validation fidelity comparisons therefore measured a differently framed backdrop, not the declared experiment.",
+  "preservation": "All recorded numbers and hashes remain unchanged. This invalidation sits beside them; they are not adopted fitting evidence.",
+  "stillValid": [
+    "Historical native census and fixture bytes/provenance",
+    "The one-field tint expressiveness refutation and need for shade retention through collapse",
+    "Identity-default active resolved SHA pins",
+    "The separately executed renderer golden/isolation proof (34 tests on its own declared fixture viewports)"
+  ],
+  "holdout": "UNREAD: discovered before any holdout capture or fit, so no holdout configuration was spent",
+  "requiredCorrection": [
+    "Use matrix.canvas as the browser viewport",
+    "Refuse report.problems and any mismatch in requested scale, canvas or actual devicePixelRatio",
+    "Record actual problems and diagnostics, never assume a ready page is a valid capture",
+    "Rerun baseline and fitting candidates, then validation and a new declaration; read holdout once only after that"
+  ]
+}
