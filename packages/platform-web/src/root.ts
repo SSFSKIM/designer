@@ -1541,6 +1541,24 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     const cap = accessibilityRefractionCap(accessibility.material);
 
     /*
+     * One surface's presence for this frame, for the decisions the root takes
+     * ACROSS its members rather than inside a member's own render (W27d; claims
+     * §5.132). `present={false}` is a steady state a surface is parked in, so
+     * every such decision has to see what identity draws, which is nothing.
+     *
+     * Read off the inline channel rather than off the driver's own
+     * `record.presence`, because the channel is what the member loop below draws
+     * from and it is a documented styling surface an app can drive itself: a
+     * decision taken on a number the surfaces are not drawing at would charge a
+     * root for a filter that is not running, or plan a shadow around a body
+     * nobody paints. The driver advanced and published a few lines above, so the
+     * inline value is this frame's; the read is of the inline declaration block
+     * and forces no style recalculation (see `channels.ts`).
+     */
+    const presenceOf = (record: HostRecord, bounds: Rect): number =>
+      readHostChannels(record.host, bounds).materialization;
+
+    /*
      * The root's cost budget, decided once for the frame (W16 G1; charter
      * Decision Log 2's question 1, the user's constant).
      *
@@ -1570,6 +1588,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         if (record.groupId !== resolved.groupId) continue;
         const bounds = scene.glassNode(record.nodeId)?.bounds;
         if (bounds === undefined) continue;
+        // Only a surface that is THERE spends the budget (W27d; claims §5.132
+        // §3). At presence 0 the sharp filter is `none` and the heavy layer is
+        // not displayed, so a parked host asks the compositor for no filtered
+        // pixel at all, and charging it would collapse every other CSS surface
+        // on this root for an area nothing sampled. Anything positive pays in
+        // full: a thinned filter is still a render-surface readback and still
+        // two Gaussians over the host's whole box, which is what this area
+        // counts.
+        if (presenceOf(record, bounds) <= 0) continue;
         cssTierFilteredArea += filteredAreaDevicePx(
           bounds.width,
           bounds.height,
@@ -1619,12 +1646,33 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
      * registration order there is what leaves every single-plane page — which is
      * every page that is not a stack — resolving in exactly the sequence it
      * always did. A group with nothing measured paints nothing and sorts first.
+     *
+     * The plane a group sorts by is the plane it is PAINTING on, so a member at
+     * `materialization` 0 is not one of its planes (W27d; claims §5.132 §6).
+     * This serves the back-to-front law rather than bending it: the law exists
+     * so that whatever a group is standing on is already resolved when the
+     * group's own backdrop is decided, and a surface at identity draws no
+     * filter, no tint, no rim and no shadow, so nothing is standing on it and
+     * it puts the group on no plane. A settled `materialize` pair is the case
+     * that names it: both endpoints are in one group, and the parked source
+     * would otherwise hold the pair on the base plane and sort it with — and,
+     * on registration order, possibly ahead of — the card its destination is
+     * plainly drawing over, which is precisely the surface that then would not
+     * be resolved yet when the destination asks what it stands on.
+     *
+     * A group whose members have all parked falls through to the `-1` branch,
+     * which is already the right answer for a group that paints nothing. Every
+     * group that IS drawing keeps the plane it drew on and its registration
+     * index, so the sort's tie-break and its stability are untouched and no
+     * resting page reorders.
      */
     const backPlaneOf = (groupId: string): number => {
       let index = Number.POSITIVE_INFINITY;
       for (const record of hosts.values()) {
         if (record.groupId !== groupId) continue;
-        if (scene.glassNode(record.nodeId)?.bounds === undefined) continue;
+        const bounds = scene.glassNode(record.nodeId)?.bounds;
+        if (bounds === undefined) continue;
+        if (presenceOf(record, bounds) <= 0) continue;
         index = Math.min(index, GLASS_PLANES.indexOf(record.plane));
       }
       return Number.isFinite(index) ? index : -1;
@@ -1670,10 +1718,20 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
        * member with no box yet paints nothing at all, so counting it would name a
        * host that is not painting last as the one that is. The clipping read is
        * cached per host and invalidated with the probe's.
+       *
+       * On the same rule, a member at presence 0 is not one of them either
+       * (W27d; claims §5.132 §3). It writes no filter, no body and no shadow, so
+       * it is neither a neighbour whose filters could sample a sibling's shadow
+       * nor a body a shadow has to be kept out of — and counting it put a group
+       * holding one drawing surface onto carrier B, named a host that paints
+       * nothing as the carrier, and cut a hole out of a live sibling's shadow
+       * for a silhouette nobody can see. The member loop skips the cast of such
+       * a member on the same reading, so the plan and the casts stay one list.
        */
       const ordered =
         state.activeRenderer === "css"
           ? measured
+              .filter((entry) => presenceOf(entry.record, entry.bounds) > 0)
               .map((entry) => entry.record)
               .sort((a, b) =>
                 a.host === b.host
@@ -1745,16 +1803,36 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
        * where nothing underneath answers, nothing is adapted.
        */
       const stackedTone = (): BackdropToneSample | undefined => {
-        if (state.samplingBackend !== "css-backdrop" || measured.length === 0) return undefined;
-        // The group's own VISIBLE footprint, on the same rule the painted side
-        // uses: the part of this group an ancestor is not cropping away is the
-        // part that has to be standing on something.
-        const footprint = measured
+        if (state.samplingBackend !== "css-backdrop") return undefined;
+        /*
+         * The members that are actually DRAWING, on the two filters this side
+         * has always applied and one W27d adds.
+         *
+         * The clip is the first: the part of a member an ancestor is not
+         * cropping away is the part that has to be standing on something, which
+         * is the same rule `PaintedSurface` records its bounds under.
+         *
+         * The presence is the second (claims §5.132 §6). The consumer already
+         * keeps a surface at 0 out of `painted`, because identity looks through
+         * to the page exactly as an unregistered host would; a group's own
+         * absent member has to leave this side by the same rule, or the group
+         * asks what it is standing on with a footprint it does not cover and a
+         * back plane it does not reach. A settled `materialize` pair is the case
+         * that names it: the parked source holds the base plane while the
+         * destination draws on the overlay, and the search went looking beneath
+         * the base plane for glass the destination could plainly see. A group
+         * with nothing drawing stands on nothing at all.
+         */
+        const drawing = measured.filter((entry) => presenceOf(entry.record, entry.bounds) > 0);
+        if (drawing.length === 0) return undefined;
+        const footprint = drawing
           .map((entry) => clipRect(entry.bounds, scene.glassNode(entry.record.nodeId)?.clip))
           .reduce(unionRect);
         let backPlane: GlassPlane = "overlay";
-        for (const plane of planesMeasured) {
-          if (GLASS_PLANES.indexOf(plane) < GLASS_PLANES.indexOf(backPlane)) backPlane = plane;
+        for (const { record } of drawing) {
+          if (GLASS_PLANES.indexOf(record.plane) < GLASS_PLANES.indexOf(backPlane)) {
+            backPlane = record.plane;
+          }
         }
         return toneBeneath(footprint, backPlane, painted);
       };
@@ -2343,14 +2421,21 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // paint from (W18 G1). Collected on every carrier and used only by
           // carrier B, so the container's value is the surface's own rather than
           // a second derivation of the profile's numbers beside it.
-          shadowCasts.push({
-            nodeId: record.nodeId,
-            bounds,
-            radii: record.radii,
-            shadow: declarations.outerShadow,
-          });
-          if (record.nodeId === shadowPlan.groupHostNodeId) {
-            shadowHostBorderWidth = nodeOptics.borderWidth;
+          //
+          // Except from a surface that is not there (W27d; claims §5.132 §3):
+          // its shadow reads `none` and its box would still be punched out of
+          // every sibling's. The plan above dropped it on the same reading, and
+          // the two lists have to agree or carrier B declines to write at all.
+          if (channels.materialization > 0) {
+            shadowCasts.push({
+              nodeId: record.nodeId,
+              bounds,
+              radii: record.radii,
+              shadow: declarations.outerShadow,
+            });
+            if (record.nodeId === shadowPlan.groupHostNodeId) {
+              shadowHostBorderWidth = nodeOptics.borderWidth;
+            }
           }
           /*
            * Forced colors is a different surface rather than a dimmer material,
