@@ -270,6 +270,9 @@ export {
   scatterGainAtScale,
   scatterGainFarAtScale,
   scatterHeavyShareThickAtScale,
+  // W26's heavy width, exported so the calibration harness can pin the CSS tier's
+  // own heavy layer against the width this tier actually blurs to.
+  heavyTapSigmaAtScale,
   scatterRampAreaMean,
   scatterRampReachDevicePx,
   scatterRampStart,

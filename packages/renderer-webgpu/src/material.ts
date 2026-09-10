@@ -645,6 +645,17 @@ export interface MaterialProfile {
    * σ 10 device px against a body σ of 1.25, and the gain sweep has a clear
    * minimum at 8 (RMS 0.0164 against 0.0180 at 6 and 0.0191 at 10 on the probe
    * bed).
+   *
+   * **INERT on the GPU tier at any material that names a heavy width** (W26;
+   * claims §5.122 §6a). This constant reaches the deep sample only through
+   * `scatterLod`, and where `sizeHeavyTapSigma` is non-zero the optics pass
+   * overwrites that sample with the heavy texture — measured, not argued: fifty
+   * rows byte-identical between `sizeScatterGainFar2x` 9.9 and 4.8 at the landed
+   * width. It is KEPT and not retired because retiring it means deciding what a
+   * profile naming NO heavy width draws, which is a code-removal wave with no
+   * fidelity content (W26 Decision Log 6 (b)); the tracker carries it. The CSS
+   * tier still reads it for the same reason — the collapsed single-`blur()` form
+   * and the sampling-padding projection, where no heavy width applies.
    */
   readonly sizeScatterGainMax: number;
 
@@ -767,6 +778,11 @@ export interface MaterialProfile {
    * **The span top, 256** — the 1x value, unchanged, because a floor of 1
    * leaves the deep value nothing to rise to and the top has no work at this
    * ratio. Stage 1 swept it against 128 and the bed did not ask for the change.
+   *
+   * **The gain is INERT on the GPU tier at any material that names a heavy
+   * width** (W26; claims §5.122 §6a), for `sizeScatterGainMax`'s reason and with
+   * the same measurement behind it. The floor and the span top above are NOT —
+   * they grade the deep value's SHARE, which the heavy texture does not touch.
    */
   readonly sizeScatterGainMax2x: number;
   readonly sizeScatterFloor2x: number;
@@ -817,6 +833,19 @@ export interface MaterialProfile {
    * 0.1125 → 0.0993 against native 0.1018 at 9.9, which is the sweep's best on
    * its own objective. The confirmation's holdout `rrect-lg` rose 0.9661 →
    * 0.9762 with its interior spread 0.0721 against native 0.0810.
+   *
+   * **INERT on the GPU tier at any material that names a heavy width**, and this
+   * is the one of the three whose silence costs something (W26; claims §5.122
+   * §§3, 6a). It is the constant that graded the 2x heavy width with the span,
+   * and the heavy texture is one width per SOURCE, so where a heavy width is
+   * named there is nothing left for it to grade: fifty rows byte-identical
+   * between 9.9 and 4.8 at the landed width. What that gives up is measured on
+   * the instrument of record rather than estimated — the reference wants **1.66
+   * device px more heavy width at span 160 than at span 96 at dpr 2**, 20 % of
+   * the smaller, and W26 lands one number inside 11 % of each instead. That is
+   * W26 Decision Log 2 (f)'s recorded gap, now with a size; the constant is kept
+   * against the profile that names no heavy width and against the wave that
+   * makes the width per surface.
    */
   readonly sizeScatterGainFar2x: number;
 
@@ -1136,6 +1165,42 @@ export interface MaterialProfile {
    * says the material can afford that; at 2x it does (the `-lg` row reads 16.92
    * against `-md`'s 11.29), and that is a recorded gap rather than an answered
    * one (W26 Decision Log 2 (f)).
+   *
+   * ---
+   *
+   * **WHAT WAS THEN MEASURED, and it moved the target as well as the width**
+   * (W26 G1b and G1c; claims §5.121 and §5.122; W26 Decision Log 5 and 6 (a)).
+   * The readings quoted above — 19.52 at 1x, 11.29 and 16.92 at 2x — are
+   * two-Gaussian fits to ONE backdrop each, and the same reference reads 8.4
+   * through `checkerboard-64` where it reads 19.5 through the impulse tile. They
+   * stand as recorded, with these beside them.
+   *
+   * The instrument of record is the family reader: the composite this renderer
+   * actually computes, fitted to the pixels jointly across every thick untinted
+   * backdrop of one surface, with a per-backdrop gain. It is the only reader in
+   * this wave that was held against a control — it returns vitrea's OWN drawn
+   * width to 0.6 % — and on it **Apple's heavy width is 8.6–9.2 device px at
+   * dpr 1 and 8.7–9.6 at dpr 2**, on both surfaces and in both schemes, with the
+   * share already right to 0.07. So the 13.418 the clamped tap drew at dpr 1 was
+   * half again too wide, and the reason two waves could not raise the share is
+   * that more of a too-wide heavy component is more of the wrong thing.
+   *
+   * **The landed 9 and 9**, fitted through a ladder the reader sees one for one
+   * (slope 0.995–1.111, rms 0.03–0.06 device px over seven rungs from 8 to
+   * 13.418), inverted per cell: 9.48 / 8.63 / 9.19 at dpr 1 and 8.13 / 9.79 /
+   * 8.37 at dpr 2. At dpr 1 the spread is 9.8 % and one number serves both spans;
+   * at dpr 2 it is 20.4 % and one number does not, which is the span grading of
+   * the paragraph above, now measured at 1.66 device px.
+   *
+   * **The mechanism has no small values** (W26 Decision Log 6 (c)). The paragraph
+   * above says the mechanism does not exist at 0; the counterpart is that it does
+   * exist at 0.001, where `heavyTapPlan` selects chain level 0 with a residual of
+   * a thousandth of a texel and the deep sample becomes the UNBLURRED backdrop.
+   * A near-zero σ is therefore the opposite of "almost off" — it is the widest
+   * possible departure from the material — and a profile must name 0 or a real
+   * width and nothing between. The domain is 0 or at least the chain's level-1
+   * width; a floor in `heavyTapPlan` would make it continuous, and the tracker
+   * carries it.
    */
   readonly sizeHeavyTapSigma: number;
   readonly sizeHeavyTapSigma2x: number;
@@ -2138,13 +2203,31 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   sizeScatterHeavyShareThick2x: 0,
   sizeToneLevelFar: 0,
 
-  // The heavy blur, INERT at the default (W26; claims §5.116 §2 for the cause and
-  // §5.119 for the mechanism). At σ 0 the pyramid allocates no heavy texture and
-  // encodes no pass, so the resolved material and every golden are byte-identical
-  // to the 0.14.0 bed. What the ladder read is in
-  // `results/2026-09-10-w26-heavy-width/g0/mapping.txt`.
-  sizeHeavyTapSigma: 0,
-  sizeHeavyTapSigma2x: 0,
+  // The heavy blur, FITTED (W26; claims §5.121 for the identification and §5.122
+  // for the fit; W26 Decision Log 6 (a)). Apple's heavy width is 8.6–9.5 device px
+  // at BOTH scales, read by the family reader — the one instrument in this wave
+  // that passed a control, reproducing vitrea's own drawn width to 0.6 % — and
+  // inverted through a ladder whose slope is 0.995–1.111 at an rms of 0.03–0.06
+  // device px. What the 0.14.0 material drew at dpr 1 was `CHAIN_LEVEL_SIGMA[4]` =
+  // 13.418, the pyramid's LAST level, because `scatterLod` was clamped there: half
+  // again too wide, and the share the two previous waves tried to raise was already
+  // right to within 0.07. The reference asks 9.48 / 8.63 / 9.19 at dpr 1 (spread
+  // 9.8 %, so one number serves both spans) and 8.13 / 9.79 / 8.37 at dpr 2 (spread
+  // 20.4 %, so one number does not — the 1.66 device px between spans 96 and 160 is
+  // the grading `sizeScatterGainFar2x` used to carry, and one width per source
+  // cannot; W26 Decision Log 2 (f) chose that knowingly). Nine is within 1.1 % of
+  // the 1x mean and 0.4 % of the 2x light pair's, and it takes
+  // |log(read / reference)| from 0.275 to 0.069 over six cells.
+  //
+  // THE MECHANISM HAS NO SMALL VALUES (W26 Decision Log 6 (c)). `pyramid.ts` builds
+  // the heavy texture whenever `heavySigmaCss > 0`, and at σ 0.001 `heavyTapPlan`
+  // selects chain level 0 with a residual of a thousandth of a texel — which makes
+  // the deep sample the RAW backdrop and moves every 2x row. So 0.001 is not
+  // "almost off"; it is the opposite of off. The inert value is exactly 0, and
+  // neither anchor may ever carry a small non-zero. The domain is 0 or at least the
+  // chain's level-1 width, and the tracker carries the floor that would close it.
+  sizeHeavyTapSigma: 9,
+  sizeHeavyTapSigma2x: 9,
   sizeOcclusionGain: 0.05,
   sizeShadowGainMax: 1,
 
@@ -3747,8 +3830,16 @@ export function scatterHeavyShareThickAtScale(
  * §5.113 §2), so one number cannot serve both. Interpolated by `rampAtScale` on
  * the pattern `sizeScatterGainMax2x` established, which means a profile naming
  * only the 1x σ drags the 2x end toward the 2x constant's own default — so a
- * document that means both names both. On the landed material both are 0 and this
- * is the constant zero, which is what makes the mechanism inert.
+ * document that means both names both.
+ *
+ * **On the landed material both anchors are 9** (W26; claims §5.122 §4), so this
+ * is the constant 9 device px at every ratio and the ramp between the anchors is
+ * flat. That the two scales agree is a reading and not a simplification: the
+ * family reader asks 9.48 / 8.63 / 9.19 at dpr 1 and 8.13 / 9.79 / 8.37 at dpr 2,
+ * and one number is within 11 % of every one of the six. It stays a per-scale pair
+ * because the two scales are separately measured and separately movable — the two
+ * off-diagonal rungs of W26 G1c's ladder read each scale's anchor and nothing of
+ * the other's — not because they happen to be equal today.
  */
 export function heavyTapSigmaAtScale(
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,

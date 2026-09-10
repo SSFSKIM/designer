@@ -32,6 +32,7 @@ import {
 } from "../src/css-tier";
 import {
   cssTierHeavyShareAt,
+  cssTierHeavySigmaCssPx,
   cssTierTintTable,
   scatterHeavyEffectiveRatioAtScale,
   MATERIAL_OPTICS,
@@ -204,10 +205,29 @@ describe("the body's two widths", () => {
       12,
     );
     expect(at2.sharpSigmaCssPx).toBeGreaterThan(at1.sharpSigmaCssPx / 2);
-    // And the heavy component follows the renderer's own 2x gain rather than the
-    // ratio alone, so it is NOT simply halved — which is the whole content of
-    // the second scale.
-    expect(at2.heavySigmaCssPx).not.toBeCloseTo(at1.heavySigmaCssPx / 2, 6);
+    /*
+     * The heavy component IS simply halved, and since W26 that is the reading
+     * rather than an oversight. Until this wave it followed the renderer's 2x
+     * GAIN through the effective conversion and so was not halved — the gain
+     * differed per scale (8 against 4.8) and graded with the span besides. The
+     * renderer's heavy component is now a Gaussian of `sizeHeavyTapSigma` device
+     * px, fitted at 9 at BOTH anchors on the family reader (claims §5.122 §4), so
+     * one device width divided by the live ratio is the whole of it. The anchor
+     * pair is what would break the halving again, and the case below is the one
+     * that would see it move.
+     */
+    expect(at2.heavySigmaCssPx).toBeCloseTo(at1.heavySigmaCssPx / 2, 12);
+  });
+
+  it("halves the heavy width only because both anchors carry one number today", () => {
+    // The per-scale pair is not decorative: name a different 2x anchor and the
+    // tier stops halving, exactly as it did before W26 for a different reason.
+    // This is the guard on the claim above, so that "the heavy width halves"
+    // cannot silently become a law of the tier rather than a fact about a fitted
+    // pair (W26 Decision Log 6 (a)).
+    const size = { ...MATERIAL_SOURCE_SIZE, sizeHeavyTapSigma: 9, sizeHeavyTapSigma2x: 12 };
+    expect(cssTierHeavySigmaCssPx(1.25, 96, size, 1)).toBeCloseTo(9, 12);
+    expect(cssTierHeavySigmaCssPx(1.25, 96, size, 2)).toBeCloseTo(6, 12);
   });
 
   it("publishes the single-σ projection as the token, and never a layer's width", () => {

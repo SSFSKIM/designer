@@ -79,6 +79,7 @@ import {
   cssTierHeavySigmaCssPx,
   cssTierHeavyStepSigmaCssPx,
   cssTierSharpSigmaCssPx,
+  heavyTapSigmaAtScale as cssHeavyTapSigmaAtScale,
   scatterHeavyEffectiveRatioAtScale,
   scatterHeavyEffectiveSigmaDevicePx,
   backdropToneResponseLevel as cssBackdropToneResponseLevel,
@@ -152,6 +153,7 @@ import {
   scatterGainAt as rendererScatterGainAt,
   scatterGainAtScale as rendererScatterGainAtScale,
   scatterGainFarAtScale as rendererScatterGainFarAtScale,
+  heavyTapSigmaAtScale as rendererHeavyTapSigmaAtScale,
   scatterRampAreaMean as rendererScatterRampAreaMean,
   scatterRampReachDevicePx as rendererScatterRampReachDevicePx,
   scatterRampStart as rendererScatterRampStart,
@@ -418,28 +420,43 @@ describe("tier coherence (K5)", () => {
       cssTierOpticsUnderPolicy(cssTierOptics(patch).regular, policy.material).blurRadius,
     );
     /*
-     * **The per-layer rule (W16 G1).** The frost multiplies the BASE σ, which is
-     * the one number both of the CSS tier's layers are built from — L1 is it
-     * divided by the ratio and L2 is it times the renderer's gain — so a frosted
-     * surface widens both components by the same multiplier and the composed body
-     * is the frosted body. That is the fold applying once on the composed mix,
-     * which is what the charter's accessibility advisory asks for, and it is why
-     * this case did not have to grow a branch per layer.
+     * **The per-layer rule (W16 G1), and what W26 changed about it.** The frost
+     * multiplies the BASE σ. Until W26 that was the one number both of this tier's
+     * layers were built from — L1 the base divided by the ratio, L2 the base times
+     * the renderer's gain — so a frosted surface widened BOTH components by the
+     * same multiplier, on both tiers, because the renderer's own heavy tap was a
+     * chain level chosen from the folded body σ.
+     *
+     * Since W26 the renderer's heavy component is a Gaussian of
+     * `sizeHeavyTapSigma`, a constant of the MATERIAL rather than a multiple of
+     * the body, and no accessibility fold reaches it. So the frost widens the
+     * sharp component alone — on the GPU tier and on this one identically, which
+     * is what this case is for. It is a real change in what an increased frost
+     * draws, it is measured on the bed's `reduced-transparency` column rather than
+     * asserted here, and the ledger carries it.
      *
      * The occlusion lift is the other half and it does NOT reach either filter:
      * it lifts the tint's alpha, which lives on L3 above them both.
      */
+    const declinedPatch = { ...patch, sizeHeavyTapSigma: 0, sizeHeavyTapSigma2x: 0 };
+    const declinedProfileHere = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, declinedPatch);
     for (const dpr of [1, 2]) {
       expect(
         cssTierSharpSigmaCssPx(painted.blurRadius, dpr) * dpr,
         `frosted L1 at dpr ${dpr}`,
       ).toBeCloseTo(scatterHeavyEffectiveSigmaDevicePx(rendered.blurSigma, dpr), 12);
+      // The landed material: L2 is the profile's own width, frost or no frost.
       expect(
         cssTierHeavySigmaCssPx(painted.blurRadius, 96, sourceSize(patch), dpr) * dpr,
         `frosted L2 at dpr ${dpr}`,
+      ).toBeCloseTo(rendererHeavyTapSigmaAtScale(profile, dpr), 12);
+      // The declining material: the pre-W26 law, where the frost reached both.
+      expect(
+        cssTierHeavySigmaCssPx(painted.blurRadius, 96, sourceSize(declinedPatch), dpr) * dpr,
+        `frosted L2 declined at dpr ${dpr}`,
       ).toBeCloseTo(
         scatterHeavyEffectiveSigmaDevicePx(
-          rendered.blurSigma * rendererScatterGainAt(96, profile, dpr),
+          rendered.blurSigma * rendererScatterGainAt(96, declinedProfileHere, dpr),
           dpr,
         ),
         12,
@@ -1057,12 +1074,18 @@ describe("tier coherence (K5)", () => {
    *  1. **L1 is the profile's σ as a DEVICE-pixel width.** `sharpσ · dpr` is the
    *     renderer's `blurSigma` at every ratio. A tier that forgot the division
    *     would draw a sharp component twice as wide at dpr 2 as the renderer's.
-   *  2. **L2's composed width is the renderer's kernel's effective one.** The
-   *     nominal is `blurSigma · scatterGainAt(span, dpr)` in device px through
-   *     the renderer's own span-graded gain; the conversion to what the mip chain
-   *     really draws is `scatterHeavyEffectiveSigmaDevicePx`, and it is measured
-   *     rather than fitted (claims §5.71 §5). A ratio, a gain or a grading that
-   *     reached one tier and not the other shows up here at one span.
+   *  2. **L2's composed width is the renderer's heavy component's own.** Since
+   *     W26 that is one number rather than a derivation: where the profile names
+   *     `sizeHeavyTapSigma` the renderer blurs a texture to exactly that σ in
+   *     device px and samples it in place of the chain tap, and this tier writes
+   *     the same σ in CSS px. Where the profile DECLINES the mechanism — both
+   *     anchors 0 — the renderer takes its chain tap at `scatterLod` and the
+   *     pre-W26 derivation is what agrees with it: the nominal
+   *     `blurSigma · scatterGainAt(span, dpr)` through
+   *     `scatterHeavyEffectiveSigmaDevicePx`, the measured conversion of claims
+   *     §5.71 §5. **Both branches are pinned below**, the second on a profile
+   *     with the anchors zeroed, because a tier that took the right branch for
+   *     the wrong material would be exactly as wrong as one that took neither.
    *  3. **L2's own step composes to that width.** Two Gaussians in series add in
    *     quadrature and the heavy layer blurs the sharp layer's output, so
    *     `√(sharpσ² + stepσ²)` has to be the composed width exactly — the arithmetic
@@ -1090,10 +1113,16 @@ describe("tier coherence (K5)", () => {
 
       for (const span of [0, 32, 44, 96, 128, 160, 256, 400]) {
         const label = `dpr ${dpr}, span ${span}`;
-        const nominalDevicePx = base * rendererScatterGainAt(span, DEFAULT_MATERIAL_PROFILE, dpr);
         const heavy = cssTierHeavySigmaCssPx(base, span, MATERIAL_SOURCE_SIZE, dpr);
         expect(heavy * dpr, `L2 composed at ${label}`).toBeCloseTo(
-          scatterHeavyEffectiveSigmaDevicePx(nominalDevicePx, dpr),
+          rendererHeavyTapSigmaAtScale(DEFAULT_MATERIAL_PROFILE, dpr),
+          12,
+        );
+        // And the two tiers resolve the same σ from the same anchors, which is the
+        // mirror rather than the width: a profile that moved one anchor and not
+        // the other would part the tiers here before it parted a capture.
+        expect(cssHeavyTapSigmaAtScale(MATERIAL_SOURCE_SIZE, dpr), `heavy σ at ${label}`).toBeCloseTo(
+          rendererHeavyTapSigmaAtScale(DEFAULT_MATERIAL_PROFILE, dpr),
           12,
         );
         // The gain the width is a multiple of is one law across the seam.
@@ -1140,20 +1169,43 @@ describe("tier coherence (K5)", () => {
     }
 
     /*
-     * The second scale, stated. At dpr 1 the tier's composed heavy width is the
-     * 1x law's 10 CSS px through the effective conversion; at dpr 2 it is the 2x
-     * gain's, halved into CSS px — which is the whole of what W15 Decision Log 3
-     * held back and W16 G1 released.
+     * The second scale, stated — and since W26 what it states is that the scale
+     * reaches the width only through the ratio into CSS px. The landed anchors are
+     * 9 and 9 device px, so the tier writes 9.000 CSS px at dpr 1 and 4.500 at
+     * dpr 2 at EVERY span, where the pre-W26 derivation wrote 13.800 flat at dpr 1
+     * and 4.455 → 6.121 → 9.188 across spans 96 → 160 → 256 at dpr 2. The span
+     * grading is gone from both tiers together, which is the point: it graded
+     * `scatterLod`, and `scatterLod` no longer reaches the deep sample.
      */
-    expect(cssTierHeavySigmaCssPx(1.25, 96, MATERIAL_SOURCE_SIZE, 1)).toBeCloseTo(
-      scatterHeavyEffectiveSigmaDevicePx(1.25 * 8, 1),
-      12,
-    );
-    expect(cssTierHeavySigmaCssPx(1.25, 96, MATERIAL_SOURCE_SIZE, 2)).toBeCloseTo(
+    expect(cssTierHeavySigmaCssPx(1.25, 96, MATERIAL_SOURCE_SIZE, 1)).toBeCloseTo(9, 12);
+    expect(cssTierHeavySigmaCssPx(1.25, 96, MATERIAL_SOURCE_SIZE, 2)).toBeCloseTo(4.5, 12);
+    expect(cssTierHeavySigmaCssPx(1.25, 256, MATERIAL_SOURCE_SIZE, 2)).toBeCloseTo(4.5, 12);
+    /*
+     * THE DECLINED BRANCH, on a profile whose anchors are 0 — the material both
+     * tiers drew before W26 and the one they still draw where the mechanism is not
+     * named. The old derivation is pinned here, at the same three points, so that
+     * retiring it later has to be a decision rather than a deletion nobody notices.
+     */
+    const declinedSize = { ...MATERIAL_SOURCE_SIZE, sizeHeavyTapSigma: 0, sizeHeavyTapSigma2x: 0 };
+    const declinedProfile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+      sizeHeavyTapSigma: 0,
+      sizeHeavyTapSigma2x: 0,
+    });
+    for (const dpr of [1, 1.5, 2, 3]) {
+      for (const span of [0, 32, 44, 96, 128, 160, 256, 400]) {
+        const nominalDevicePx = 1.25 * rendererScatterGainAt(span, declinedProfile, dpr);
+        expect(
+          cssTierHeavySigmaCssPx(1.25, span, declinedSize, dpr) * dpr,
+          `declined L2 composed at dpr ${dpr}, span ${span}`,
+        ).toBeCloseTo(scatterHeavyEffectiveSigmaDevicePx(nominalDevicePx, dpr), 12);
+      }
+    }
+    expect(cssTierHeavySigmaCssPx(1.25, 96, declinedSize, 1)).toBeCloseTo(13.8, 12);
+    expect(cssTierHeavySigmaCssPx(1.25, 96, declinedSize, 2)).toBeCloseTo(
       scatterHeavyEffectiveSigmaDevicePx(1.25 * 4.8, 2) / 2,
       12,
     );
-    expect(cssTierHeavySigmaCssPx(1.25, 256, MATERIAL_SOURCE_SIZE, 2)).toBeCloseTo(
+    expect(cssTierHeavySigmaCssPx(1.25, 256, declinedSize, 2)).toBeCloseTo(
       scatterHeavyEffectiveSigmaDevicePx(1.25 * 9.9, 2) / 2,
       12,
     );
@@ -1171,9 +1223,12 @@ describe("tier coherence (K5)", () => {
     expect(scatterHeavyEffectiveRatioAtScale(2)).toBeCloseTo(1.485, 12);
     expect(scatterHeavyEffectiveRatioAtScale(1.5)).toBeCloseTo(1.4325, 12);
     expect(scatterHeavyEffectiveRatioAtScale(3)).toBeCloseTo(1.485, 12);
-    // And it really reaches the width the tier writes: the 1x heavy component is
-    // the profile's 10 device px carried to 13.8 by the conversion.
-    expect(cssTierHeavySigmaCssPx(1.25, 96, MATERIAL_SOURCE_SIZE, 1)).toBeCloseTo(13.8, 12);
+    // And it really reaches the width the tier writes WHERE IT APPLIES: on the
+    // declined profile the 1x heavy component is the profile's 10 device px
+    // carried to 13.8 by the conversion. On the landed one it does not apply, and
+    // the pin above says 9.000 instead — the conversion described a mip tap and
+    // W26 replaced the mip tap with a Gaussian (claims §5.122 §6a).
+    expect(cssTierHeavySigmaCssPx(1.25, 96, declinedSize, 1)).toBeCloseTo(13.8, 12);
   });
 
   it("resolves one span to the same thickness, scatter and occlusion on both tiers", () => {

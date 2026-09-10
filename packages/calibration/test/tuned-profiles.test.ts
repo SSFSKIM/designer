@@ -155,6 +155,17 @@ const FITTED_CONSTANTS = [
   // stays short.
   "sizeScatterRampReach1xPx",
   "sizeScatterRampReach2xPx",
+  // W26's heavy width (claims §5.121–§5.122; W26 Decision Log 6 (a)) — the first
+  // constant of this material to state the WIDTH of its own heavy component
+  // rather than a gain on a mip level, and the first fitted by a reader held
+  // against a control. Both anchors, because the two scales were separately read
+  // and are separately movable: the ladder's off-diagonal rungs move one scale's
+  // reading and not the other's. W25's three declined constants are still absent
+  // above, and W26 adds nothing to their number — its own share lift is declined
+  // on the same evidence, now with an instrument that reproduces vitrea's own
+  // drawn kernel to 0.6 %.
+  "sizeHeavyTapSigma",
+  "sizeHeavyTapSigma2x",
   // W12 G2's lens (claims §5.50–§5.51): the reference's height and amount laws
   // and the ovalization's knee read from its layer tree; the gain, extent,
   // exponent and ovalization fitted on the pixels

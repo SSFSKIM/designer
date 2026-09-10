@@ -8,12 +8,15 @@
  * `chainMaxLod`, which is exactly where the gain already saturates — so G1 removed
  * them and built the third structurally. What this file pins:
  *
- *  1. **Inert at the default.** At σ 0 the pyramid allocates no heavy texture and
- *     encodes no heavy pass, the optics uniform's new slot is zero and the pass
- *     takes the single `textureSampleLevel` of the chain the material has always
- *     taken. The pins here are on the arithmetic, on the passes and on the
- *     uniform's bytes; the 33 renderer goldens and the bed's `rrect-sm` cells are
- *     the pin on the pixels.
+ *  1. **Inert where a material declines it.** At σ 0 the pyramid allocates no
+ *     heavy texture and encodes no heavy pass, the optics uniform's new slot is
+ *     zero and the pass takes the single `textureSampleLevel` of the chain the
+ *     material has always taken. The pins here are on the arithmetic, on the
+ *     passes and on the uniform's bytes. **The landed default is no longer that
+ *     material** — W26 G2 declared 9 device px at both anchors (claims §5.122) —
+ *     so the cases below name the declining profile explicitly, and what pins the
+ *     landed width on the pixels is the isolation proof's `W26_HASHES` and the
+ *     bed.
  *  2. **The chain's own width is measured, not assumed.** `CHAIN_LEVEL_SIGMA` is
  *     the simulation's reading of `WGSL_DOWNSAMPLE_PASS` and is what
  *     `heavyTapPlan` subtracts in quadrature. It is deliberately NOT
@@ -64,15 +67,40 @@ const P = DEFAULT_MATERIAL_PROFILE;
 /** The bed's own backdrop: a 320 × 200 raster, whose chain is five levels deep. */
 const BED = planPyramid(320, 200, { scale: 1, maxDimension: 2048 });
 
-describe("W26 the heavy blur is inert at its default", () => {
-  it("names both constants at zero", () => {
-    expect(P.sizeHeavyTapSigma).toBe(0);
-    expect(P.sizeHeavyTapSigma2x).toBe(0);
+/**
+ * The material that DECLINES the mechanism, which is what these cases were written
+ * against when the landed default was still 0 (W26 G1). Since G2's declaration the
+ * default names 9 at both anchors, so "inert" is a property of a profile rather
+ * than of the shipped material, and the cases below say which profile. What they
+ * assert has not changed: at exactly 0 there is no texture, no pass and no
+ * uniform, and that is what makes the mechanism free where it is not asked for.
+ */
+const DECLINED = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+  sizeHeavyTapSigma: 0,
+  sizeHeavyTapSigma2x: 0,
+});
+const DECLINE: MaterialProfilePatch = { sizeHeavyTapSigma: 0, sizeHeavyTapSigma2x: 0 };
+
+describe("W26 the heavy blur is inert where a material declines it", () => {
+  it("names the fitted width at both anchors on the landed material", () => {
+    // W26 G2's declaration (claims §5.122 §4): 9 device px at both scales, fitted
+    // on the family reader against a control. The two anchors are equal by
+    // measurement rather than by construction — the reference asks 9.48 / 8.63 /
+    // 9.19 at dpr 1 and 8.13 / 9.79 / 8.37 at dpr 2 — so this pins the values and
+    // the case below pins that the ramp still has two ends.
+    expect(P.sizeHeavyTapSigma).toBe(9);
+    expect(P.sizeHeavyTapSigma2x).toBe(9);
   });
 
-  it("resolves the tap σ to zero at every ratio, so no scale can switch it on", () => {
+  it("resolves the tap σ to zero at every ratio where both anchors are 0", () => {
     for (const dpr of [0.5, 1, 1.5, 2, 3]) {
-      expect(heavyTapSigmaAtScale(P, dpr)).toBe(0);
+      expect(heavyTapSigmaAtScale(DECLINED, dpr)).toBe(0);
+    }
+  });
+
+  it("resolves the landed width at every ratio, since both anchors carry it", () => {
+    for (const dpr of [0.5, 1, 1.5, 2, 3]) {
+      expect(heavyTapSigmaAtScale(P, dpr)).toBeCloseTo(9, 12);
     }
   });
 
@@ -290,7 +318,7 @@ describe("W26 the heavy blur is given back when the material stops asking for it
     expect(built.length).toBe(2);
     expect(built.every((t) => !t.destroyed)).toBe(true);
 
-    renderer.setMaterialProfile({});
+    renderer.setMaterialProfile(DECLINE);
     renderer.drawFrame(frameArgs(2));
     expect(
       heavyTextures(gpu).filter((t) => !t.destroyed),
@@ -313,7 +341,7 @@ describe("W26 the heavy blur is given back when the material stops asking for it
     expect(heavyEnabledOf(writes.at(-1) as Float32Array)).toBe(1);
     expect(heavyTextures(gpu).filter((t) => !t.destroyed).length).toBe(2);
 
-    renderer.setMaterialProfile({});
+    renderer.setMaterialProfile(DECLINE);
     renderer.drawFrame(frameArgs(2));
     expect(
       heavyEnabledOf(writes.at(-1) as Float32Array),
@@ -324,8 +352,12 @@ describe("W26 the heavy blur is given back when the material stops asking for it
 });
 
 describe("W26 the slot plumbing", () => {
-  it("writes the enable at zero on the landed material", () => {
-    expect(heavyEnabledOf(drawOnce().write)).toBe(0);
+  it("writes the enable at zero where the material declines the width", () => {
+    expect(heavyEnabledOf(drawOnce(DECLINE).write)).toBe(0);
+  });
+
+  it("writes the enable at one on the landed material, which names a width", () => {
+    expect(heavyEnabledOf(drawOnce().write)).toBe(1);
   });
 
   it("switches the enable on when the profile names a width", () => {
@@ -344,7 +376,7 @@ describe("W26 the heavy blur is the pyramid's, not the fragment shader's", () =>
   it("encodes no heavy pass and allocates no heavy texture at σ 0", () => {
     // What makes the mechanism free where it is declined, and what the goldens'
     // byte-identity rests on: not a pass that writes the same pixels, but no pass.
-    const { gpu } = drawOnce();
+    const { gpu } = drawOnce(DECLINE);
     expect(blurPasses(gpu, "body")).toHaveLength(2);
     expect(blurPasses(gpu, "heavy")).toHaveLength(0);
     expect(gpu.textures.filter((t) => t.label.endsWith(":heavy"))).toHaveLength(0);
