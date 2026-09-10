@@ -749,39 +749,63 @@ describe("the CSS tier (the fallback is the design)", () => {
       expect(host["--vitrea-foreground"]).toBe("#1c1c1e");
     });
 
-    it("leaves an unhinted group byte-identical to today's light-dark() default", () => {
+    /*
+     * The four shapes that carry no usable tone — no hint, a `mixed` tone, a
+     * `fixed` mode, a `sampled-async` one — reach the token as one case, and the
+     * property worth pinning is that they are indistinguishable from each other.
+     *
+     * What each *resolves* to moved in W27a. Until then a surface with no usable
+     * tone got `light-dark()` and the colour scheme decided its ink; now the
+     * material's own bracket is taken first, and for the regular variant it
+     * lands wholly above the crossover — at this alpha the white tint is what a
+     * reader sees behind the glyphs over every backdrop there is, so the dark
+     * token is the answer for all of them and the scheme has nothing to decide.
+     */
+    it("leaves an unhinted group on the ink its own material decides", () => {
       const unhinted = cssTierDeclarations(surface);
       const noHintAvailable = cssTierDeclarations({ ...surface, foreground: { mode: "fixed" } });
 
-      expect(unhinted.host["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
+      expect(unhinted.host["--vitrea-foreground"]).toBe("#1c1c1e");
+      expect(unhinted.host["--vitrea-foreground"]).not.toContain("light-dark");
       // The whole render, so a hint that changed a layer or the resolved body
       // rather than the token would not slip past either.
       expect(noHintAvailable).toEqual(unhinted);
     });
 
-    it("keeps light-dark() for a mixed tone — there is no single explicit answer", () => {
+    it("reads a mixed tone as no tone at all — there is no single explicit answer", () => {
       const host = hostOf({
         ...surface,
         foreground: { mode: "author-hint", tone: "mixed" },
       });
 
-      expect(host["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
+      expect(host["--vitrea-foreground"]).toBe("#1c1c1e");
+      expect(cssTierDeclarations({ ...surface, foreground: { mode: "author-hint", tone: "mixed" } }))
+        .toEqual(cssTierDeclarations(surface));
     });
 
-    it("keeps light-dark() for a fixed mode, even if a tone somehow rode along", () => {
-      const host = hostOf({
-        ...surface,
-        foreground: { mode: "fixed", tone: "dark" },
-      });
+    it("ignores a tone that rode along on a fixed mode", () => {
+      const hinted = { ...surface, foreground: { mode: "fixed", tone: "dark" } as const };
 
-      expect(host["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
+      expect(hostOf(hinted)["--vitrea-foreground"]).toBe("#1c1c1e");
+      expect(cssTierDeclarations(hinted)).toEqual(cssTierDeclarations(surface));
     });
 
-    it("keeps light-dark() for a sampled-async mode — the CSS tier never gets exact analysis", () => {
-      const host = hostOf({
-        ...surface,
-        foreground: { mode: "sampled-async", tone: "dark" },
-      });
+    it("ignores a sampled-async tone — the CSS tier never gets exact analysis", () => {
+      const hinted = { ...surface, foreground: { mode: "sampled-async", tone: "dark" } as const };
+
+      expect(hostOf(hinted)["--vitrea-foreground"]).toBe("#1c1c1e");
+      expect(cssTierDeclarations(hinted)).toEqual(cssTierDeclarations(surface));
+    });
+
+    /**
+     * The W27a change is the *material's* answer and not a blanket one, which is
+     * what this pair shows: the regular variant's bracket lands wholly above the
+     * crossover and decides the ink for every backdrop; the clear variant's
+     * straddles it, because at its alpha the backdrop really does still decide —
+     * and there `light-dark()` is the honest answer rather than a default.
+     */
+    it("keeps light-dark() where the material genuinely cannot decide", () => {
+      const host = hostOf({ ...surface, optics: MATERIAL_OPTICS.clear });
 
       expect(host["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
     });

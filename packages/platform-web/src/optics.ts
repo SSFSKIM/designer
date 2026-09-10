@@ -3784,16 +3784,17 @@ export function gpuTierForegroundLevel(
  * answer the hinted path would have produced, established from the material
  * alone.
  *
- * **Used only where the material carries an author tint**, deliberately. A tint
- * is the app declaring what colour this surface is, and taking the ink decision
- * from a declaration is honouring it — the alternative is a saturated surface
- * wearing `light-dark()` ink chosen by a colour scheme that knows nothing about
- * it. The profile's own neutral tint is a different thing: a calibration
- * constant, on the material the measured bed describes, and the same bracket
- * would silently re-decide the ink on every untinted surface in the library.
- * That change is real and probably right — an untinted surface at the measured
- * 0.62 is already too opaque for the scheme to be deciding — but it belongs with
- * the adaptation work that owns the untinted material's behaviour, not here.
+ * **Used on every surface, tinted or not** (W27a). W3 wired it in for
+ * author-tinted surfaces alone, on the reasoning that a tint is a declaration
+ * the runtime should honour while the profile's neutral tint is a calibration
+ * constant the runtime should not read as one. The distinction is real and it is
+ * not the one that matters here: this bracket does not ask who chose the colour,
+ * it asks whether the level behind the glyphs can reach the other side of the
+ * crossover — and at the material's measured alpha the neutral tint dominates
+ * that level exactly as an author's colour does. Leaving the untinted case out
+ * left it to `light-dark()`, which is the colour scheme deciding the ink on a
+ * body the scheme knows nothing about: K5's failure class, reached through the
+ * no-hint path rather than through a hint.
  */
 export function boundedForegroundLevel(
   bounds: readonly [number, number],

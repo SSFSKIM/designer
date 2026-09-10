@@ -149,7 +149,7 @@ accessibility specs already `expect.poll` — and then put the suite in CI, beca
 a flake visible only locally will keep being triaged as "probably pre-existing"
 by everyone who meets it.
 
-## The untinted material's ink is still decided by the colour scheme
+## ~~The untinted material's ink is still decided by the colour scheme~~ — CLOSED 2026-09-10 by W27a
 
 *Found 2026-08-30, building the tint API (W3).*
 
@@ -175,6 +175,34 @@ axis.
 guard in the GPU tier's ink in `root.ts`, then re-baseline whatever pins
 `light-dark(` for a hintless surface. Worth doing with W7's measurements in hand,
 not before.
+
+**CLOSED 2026-09-10 by W27a** (commit *"platform-web: the untinted material's ink
+is decided by the material, on both tiers"*), as the fix shape above described it
+and with two corrections to what it predicted.
+
+Both guards are gone and `boundedForegroundLevel` is now one rule over every
+surface; its own docblock in `optics.ts`, which named the tinted-only scope as
+deliberate, was rewritten rather than left to contradict the code.
+
+What the re-baseline actually cost was **five** assertions, not the "whatever pins
+`light-dark(`" the entry expected, and four of them were not about the untinted
+material at all: `css-tier.test.ts`'s block on X6 hint shapes that carry no usable
+tone (`mixed`, `fixed`, `sampled-async`, and no hint) pinned `light-dark()` as
+each one's *outcome* where the property being tested is that the four are
+indistinguishable from each other. They now pin the material's own answer and the
+indistinguishability directly (`toEqual` over the whole render), which is the
+stronger claim and the one those cases were always about. The fifth is
+`tint.test.ts`'s "leaves an untinted hintless surface on the scheme's own answer",
+which pinned the defect by name.
+
+The regular variant's bracket lands wholly above the crossover, so a hintless
+untinted surface now takes `#1c1c1e` for every backdrop there is. The **clear**
+variant's still straddles it and still resolves to `light-dark()` — at its alpha
+the backdrop genuinely does decide — so this is the material answering rather than
+a blanket flip, and a new case in `css-tier.test.ts` pins that pair.
+
+Not re-measured against the reference: this moves a token, not a pixel, and no
+calibration cell reads `--vitrea-foreground`.
 
 ---
 

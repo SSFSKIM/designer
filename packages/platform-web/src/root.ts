@@ -2538,18 +2538,20 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
            * against a material the tier stopped drawing.
            */
           const gpuMaterial = tintedSourceOptics(policySource, seed, tintBackdrop, tintGrip, tintShade);
-          // Same rule as the CSS tier's: a declared tint can decide the ink with
-          // no hint at all, wherever the level's whole range lands on one side of
-          // the crossover. See `boundedForegroundLevel`.
+          // Same rule as the CSS tier's, and on every surface rather than only a
+          // tinted one (W27a): the level's whole range can land on one side of
+          // the crossover with no hint at all, and where it does the ink is
+          // decided for any backdrop whatsoever. The material's own neutral tint
+          // dominates the level at its measured alpha exactly as an author's
+          // colour does, so leaving the untinted case to `light-dark()` was
+          // leaving it to the colour scheme. See `boundedForegroundLevel`.
           const level =
             hintedBackdrop !== undefined
               ? gpuTierForegroundLevel(gpuMaterial, hintedBackdrop)
-              : seed === undefined
-                ? undefined
-                : boundedForegroundLevel(
-                    gpuTierForegroundBounds(gpuMaterial),
-                    cssMapping.foregroundCrossover,
-                  );
+              : boundedForegroundLevel(
+                  gpuTierForegroundBounds(gpuMaterial),
+                  cssMapping.foregroundCrossover,
+                );
           const ink = foregroundDeclarations({
             policy: accessibility,
             mapping: cssMapping,

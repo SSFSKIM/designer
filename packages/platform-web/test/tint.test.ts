@@ -303,13 +303,24 @@ describe("the ink, against a tinted surface", () => {
     ).toBe(FOREGROUND_INK.light);
   });
 
-  it("leaves an untinted hintless surface on the scheme's own answer", () => {
+  /**
+   * The untinted material takes the same bracket (W27a; the tech-debt entry
+   * "The untinted material's ink is still decided by the colour scheme").
+   *
+   * W3 wired the bracket to author-tinted surfaces only, which left the untinted
+   * material's ink to `light-dark()` — that is, to the colour scheme — on a body
+   * whose own white tint dominates the level behind the glyphs at the measured
+   * alpha. A dark scheme then put the light ink on a near-white surface, which
+   * is K5's failure class through the no-hint path. It is one rule now.
+   */
+  it("decides an untinted hintless surface from its own material, not from the scheme", () => {
     const host = hostOf({
       radii: [12, 12, 12, 12],
       optics: base,
       policy: policy(),
     });
-    expect(host["--vitrea-foreground"]).toContain("light-dark(");
+    expect(host["--vitrea-foreground"]).toBe(FOREGROUND_INK.dark);
+    expect(host["--vitrea-foreground"]).not.toContain("light-dark(");
   });
 });
 

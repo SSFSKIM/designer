@@ -1186,19 +1186,30 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
   const hintedLuminance =
     surface.backdropLuminance ?? hintedBackdropLuminance(surface.foreground, mapping);
   /*
-   * A tinted surface with no hint is not undecidable. The level is monotonic in
-   * the backdrop, so bracketing it over the whole range often decides the ink
-   * outright — and a surface the app declared a colour for is exactly the case
-   * where taking that decision is honouring the declaration rather than guessing.
-   * Where the bracket straddles the crossover the backdrop really does decide,
-   * and the `light-dark()` default stands.
+   * A surface with no hint is not undecidable. The level is monotonic in the
+   * backdrop, so bracketing it over the whole range often decides the ink
+   * outright. Where the bracket straddles the crossover the backdrop really does
+   * decide, and the `light-dark()` default stands.
+   *
+   * **The bracket is taken on every surface, tinted or not** (W27a; closes the
+   * tech-debt entry "The untinted material's ink is still decided by the colour
+   * scheme"). W3 wired this in for author-tinted surfaces only and left the
+   * untinted material where it was, on the reasoning that the profile's neutral
+   * tint is a calibration constant rather than a declaration. That distinction
+   * does not survive the material's measured opacity: what a reader sees behind
+   * the glyphs is `mix(backdrop, tint, α)`, and at this tier's converted alpha
+   * the neutral white tint dominates it just as an author's colour would. The
+   * ink was then chosen by `light-dark()` — that is, by the colour scheme — so a
+   * hintless surface in a dark scheme wore the light ink on a near-white body.
+   * That is K5's failure class reached through the no-hint path, and the bracket
+   * closes it with the same arithmetic on the same monotonicity: nothing is
+   * guessed, because a bracket that lands wholly on one side of the crossover is
+   * the answer the hinted path would have produced for any backdrop whatsoever.
    */
   const level =
     hintedLuminance !== undefined
       ? cssTierForegroundLevel(optics, hintedLuminance)
-      : surface.tint === undefined
-        ? undefined
-        : boundedForegroundLevel(cssTierForegroundBounds(optics), mapping.foregroundCrossover);
+      : boundedForegroundLevel(cssTierForegroundBounds(optics), mapping.foregroundCrossover);
 
   const host: StyleDeclarations = {
     "border-radius": radius,
