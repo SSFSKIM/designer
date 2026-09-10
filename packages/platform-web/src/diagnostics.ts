@@ -119,6 +119,22 @@ export const PLATFORM_DIAGNOSTIC_CODES = [
    * measured cost of that mapping. Raised once per source, at supply.
    */
   "backdrop-texture-unplaced",
+  /**
+   * This document styles something with `--vitrea-foreground-quaternary`, and a
+   * surface resolved below the material's thin/thick knee — where Apple's own
+   * guidance names that level too low-contrast to read. Advisory, and it changes
+   * nothing: the token is published either way, because an app that has weighed
+   * the trade-off for a separator or a decorative glyph is entitled to it.
+   *
+   * The detection is a scan of the document's own readable stylesheets, so it is
+   * a statement about the *document* rather than about this element: it cannot
+   * see a cross-origin sheet, an inline `style` attribute, or a sheet inserted
+   * after the first thin surface drew, and it cannot tell whether the rule it
+   * found applies here. It errs toward silence on the first three and toward
+   * naming a pair worth looking at on the last — which is what a dev-mode
+   * finding is for.
+   */
+  "quaternary-ink-on-thin-material",
 ] as const;
 
 export type PlatformDiagnosticCode = (typeof PLATFORM_DIAGNOSTIC_CODES)[number];

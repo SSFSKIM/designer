@@ -465,6 +465,67 @@ code {
   display: block;
 }
 
+/*
+ * The one stage whose ground is page content rather than a registered texture.
+ *
+ * It stands in the same box the canvas does, and it carries the same two halves of
+ * a backdrop the canvas carries: text where the graticule would be (the
+ * high-frequency detail a blur has something to do with) and a gradient where the
+ * chromatic field would be (the low-frequency drift that shows whether the material
+ * is adapting or painting a constant). `DESIGN.md` §3 allows the page exactly one
+ * texture, the graticule, and this is not a second one: it is a depiction of an
+ * adopter's own page, inside the instrument, and it is what the stage beside it is
+ * a claim about.
+ *
+ * The gradient is achromatic and gentle, and that is a taste call rather than a
+ * measurement. This stage's group declares nothing — it is the unhinted case, drawn
+ * at whatever the runtime resolves with no pixels to read and no statement to read
+ * instead — so no number on this page is held against the ground's mean level and
+ * none is claimed for it. What the wash must not do is dominate: a strong one would
+ * make the stage a demonstration of the gradient rather than of the path, and would
+ * put the plates' labels on a backdrop the contrast suite could not hold.
+ */
+.page-doc {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-7) var(--space-6);
+  overflow: hidden;
+  background-image: linear-gradient(
+    148deg,
+    rgb(255 255 255 / 0.1) 0%,
+    rgb(255 255 255 / 0) 50%,
+    rgb(0 0 0 / 0.1) 100%
+  );
+}
+
+.page-doc__label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--type-label-size);
+  line-height: var(--type-label-line);
+  letter-spacing: var(--type-label-track);
+  text-transform: uppercase;
+  color: var(--stage-ink-dim);
+}
+
+/*
+ * Ordinary body copy, at the page's own body role and measure. It is real text
+ * rather than filler because the claim the stage makes is about real page content:
+ * a lorem block would be the page illustrating the case instead of standing in it.
+ */
+.page-doc__body {
+  margin: 0;
+  max-width: 46ch;
+  font-family: var(--font-ui);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  letter-spacing: var(--type-body-track);
+  color: var(--stage-ink);
+}
+
 .stage__legend {
   position: absolute;
   right: var(--space-5);
@@ -1004,6 +1065,32 @@ code {
     max-width: 100%;
   }
 
+  /*
+   * The band is short, so the document is what gives way rather than the glass:
+   * the copy keeps its body role at every width (§2 admits no second body size)
+   * and `.page-doc`'s own `overflow: hidden` takes whatever does not fit. It is a
+   * backdrop; a clipped last line costs the reader nothing.
+   */
+  .page-doc {
+    padding: var(--space-5);
+    gap: var(--space-3);
+  }
+
+  /*
+   * And the glass keeps its spans, which the group-separated stages cannot.
+   * §9's 48px of clear space is a rule about two sampling groups' proxies and
+   * this stage has one group, so its surfaces may sit as close as the band needs.
+   * That matters because each plate's label states its own span: a plate flex-shrunk
+   * to fit the band would print 112px while measuring 92. The three plates plus
+   * these gaps and this padding come to 284px, which the collapsed band clears at
+   * every viewport the reflow cases cover; in a band shorter than that they
+   * compress, as the sweep stages do at any width.
+   */
+  .stage--mirror[data-mode="page"] .stage__stack {
+    gap: var(--space-4);
+    padding: var(--space-4);
+  }
+
   .section__marker {
     left: calc(-1 * var(--space-4));
   }
@@ -1079,5 +1166,11 @@ code {
   .stage {
     background: Canvas;
     color: CanvasText;
+  }
+
+  /* The document's text stays: it is content. Its gradient is decoration and goes
+     with the rest of the page's own painting. */
+  .page-doc {
+    background-image: none;
   }
 }

@@ -314,7 +314,7 @@ into the ledger rather than chartered.
 - **Design inheritance:** §Where each feature lives (page content gets the material) [binding];
   HTML-in-Canvas stays a seam (Decision Log 3).
 - **Required:** yes — acceptance 1, 2, 3.
-- **Status:** not-dispatched (dispatchable now).
+- **Status:** G0 completed on its isolated branch (claims §5.129, 2026-09-10); G1/G2 not dispatched.
 
 ## Cross-Child Contracts
 
@@ -400,12 +400,12 @@ neighbour glow diffusion; topology-changing morphs.
 
 | child | where | status |
 | --- | --- | --- |
-| W27a | worktree agent, dispatched 2026-09-10 | in-flight |
-| W27b | — | not-dispatched (blocked-by W27a) |
+| W27a | LANDED 2026-09-10 (merged `bc14af9`; seven commits plus three review fixes): `GlassButton`/`GlassIconButton` forward `tint` and `foreground` (the README's flagship tint example had not compiled); `GlassGroup` gains the `tint` the 0.2.0 changelog promised, parsed per document; the no-hint ink guards removed on both tiers with five assertions re-pinned stricter (tracker entry closed in place); the renderer's `lensStrength` clamp at 1 lifted to a finite guard of 4 with NaN resolving to the idle 1 (goldens 33/33 unmoved); four named ink levels published on both tiers, secondary solved per surface against the actual composite colour over the whole bracket (Decision Log 9). Review: two P1s on the ink floor (chromatic tint, unresolved level) fixed with fail-before tests measuring the real contrast; two P2s (adopted stylesheets, Infinity in the Float32Array) fixed. Two gaps logged, not closed: the dark scheme's primary ink at WCAG 4.945 with nothing watching it; `lensDepthPx` ignoring `lensStrength`. Main after merge: build, lint, all unit suites green (2004 tests), demo e2e 48 | landed |
+| W27b | worktree agent, dispatched 2026-09-10 after W27a's merge | in-flight |
 | W27c | G0 CLOSED 2026-09-10 (merged `7312fd0`; claims §5.128: all 121 pairs read; the outer shadow and the bright rim go to zero in every profile at both scales, structure retained falls, an author tint loses its hue entirely while its darkening stays — orange and blue capsules both settle at Y 0.451 against the untinted 0.606 — and no existing field expresses that; dark untinted glass and both accessibility bodies *brighten*; four cells background-identical; the 2x dark photo capsule's active side is the 1-of-17 minority state and is excluded from the fit) / G1 dispatched 2026-09-10 | G1 in-flight |
-| W27d | — | not-dispatched (blocked-by W27a) |
+| W27d | worktree agent, dispatched 2026-09-10 after W27a's merge (claims §5.132 reserved) | in-flight |
 | W27e | — | not-dispatched (deliberately late) |
-| W27f | G0 worktree agent, dispatched 2026-09-10 (claims §5.129 reserved) | G0 in-flight |
+| W27f | G0 CLOSED 2026-09-10 (merged `730a9d3`; claims §5.129: the unhinted dark capsule misses the collapse by ΔE 0.545 against the sampled path's 0.006, a correct scalar hint repairs it but the dark medium pane still misses by 0.079 (−0.089 L against the same-hint sampled path), the checkerboard rows lose spread and the photo rows keep too much; a scalar hint itself costs the sampled path its structured-backdrop correction, so the evidence keeps sampled-today, same-hint-sampled and hinted-page columns apart; the two stack overlays are the only native cells on this path; the demo gains `/#page`, "Over ordinary page content") / G1 dispatched 2026-09-10 (claims §5.131 reserved) | G1 in-flight |
 
 ## Decision Log
 
@@ -451,6 +451,19 @@ neighbour glow diffusion; topology-changing morphs.
    the semantics (Apple's rule plus the Backdrop Root constraint); the per-instance scalar mechanism
    is advisory. Rejected: lens-only (delivers `.materialize`, splits off `.identity`); element
    opacity (structurally broken: it kills sampling).
+9. **The secondary ink's floor is a promise about the primary's reach (2026-09-10; W27a on the
+   review's finding, accepted by the parent).** The review showed the first version's "secondary
+   holds WCAG 4.5 on every surface" false twice: the solve contrasted a neutral level where a
+   tinted material is chromatic (a full-strength magenta published light ink at 1.75), and the
+   unresolved-level branch emitted Apple's flat 0.6. Fixed by solving against the composite colour
+   the tier draws, over both ends of the material's own bracket, taking the harder answer. The
+   rule that results: *secondary is never worse than the primary, and holds 4.5 wherever the
+   primary can*; on the clear variant, whose bracket runs 0.27–1.0, neither ink holds 4.5 over any
+   useful part, so secondary collapses onto the primary rather than claiming a floor the primary
+   does not have. Tertiary and quaternary keep Apple's 0.3 and 0.18 and carry no floor. Rejected:
+   narrowing the guarantee to "where the level resolves" (the bracket needs no backdrop, so the
+   guarantee was available on every shipped path); a constant alpha (no constant holds 4.5 across
+   the material's range without ceasing to be a secondary).
 
 ## Surprises & Discoveries
 
@@ -467,6 +480,12 @@ neighbour glow diffusion; topology-changing morphs.
   channel landed; only `disabled: 0.5` moved the renderer).
 - **The demo has never shown the page-content path.** Every backdrop in the site, the laws page
   and the playground is a registered texture.
+- **W27f G0: a correct scalar hint is not a texture analysis result.** It overrides both RGB
+  and the independent linear mean, disabling the structured-backdrop correction; checker medium's
+  sampled ΔE becomes 0.05196 from 0.01236 at the same measured scalar level. Claims §5.129 keeps
+  both baselines. The unhinted dark capsule misses collapse (0.54523 ΔE); the correctly hinted dark
+  medium pane misses the body's level instead (0.07851 against sampled 0.00877). The nominal white
+  unsampled pair is subsequently adapted and tinted by the shader, not its final measured colour.
 - **`Glass.clear`'s dimming layer is painted by no renderer** (re-score §3): the variant resolves,
   warns and tints; `ResolvedMaterial.dimming` is produced and consumed by nobody. Logged to the
   tracker at this cut; not a child of this wave.
@@ -476,6 +495,15 @@ neighbour glow diffusion; topology-changing morphs.
 Pending — written at recomposition against §Parent-Level Acceptance.
 
 ## Revision Notes
+
+- 2026-09-10, W27f G0: measured 20 light-1x calibration scenes and the two requested stack
+  holdout cells in six web configurations, with unhinted and identical-hint controls kept separate;
+  claims §5.129 records body, paint, contour and exterior-shadow readings and their limits. The
+  demo now shows ordinary page content at `#page`, beside the textured stage, with honest resolved
+  readouts and GPU-specific state/contrast tests. Calibration 308 tests, demo 48 (none skipped),
+  both lint/build checks passed. Review fixes enforce declared geometry, probe identity and scratch
+  output; the CSS-only 2 × 2 px host excess is recorded, not changed. No material, profile, floor
+  or canonical matrix moved; G1 is the next gate, not opened by this measurement.
 
 - 2026-09-10: chartered. The re-score committed beside the matrix (`aa30022`); the grounding
   read (scratch, `/tmp/coverage-rescore/grounding.md`, its findings carried into §Design and

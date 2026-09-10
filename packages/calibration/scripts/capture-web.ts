@@ -49,6 +49,14 @@ import { basename, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { chromium, type Browser, type BrowserContext } from "@playwright/test";
+import {
+  BACKDROP_LEVELS_ENV,
+  BACKDROP_MODE_ENV,
+  backdropProbeLabel,
+  backdropProbeRequested,
+  parseBackdropLevel,
+  probeCanonicalOutputRefusal,
+} from "../src/backdrop-probe.ts";
 import { PNG } from "pngjs";
 import { createServer, type ViteDevServer } from "vite";
 
@@ -319,6 +327,15 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
   if (unknown.length > 0) {
     throw new Error(`These are not in the scene matrix: ${unknown.join(", ")}`);
   }
+
+  // `cli/compare.ts` refuses the same destination, but it is not the only door:
+  // this script is a command of its own (`capture:web`), and run directly with a
+  // probe environment inherited from the shell it would drop probe PNGs into the
+  // canonical capture directory. Its default output is the whole risk.
+  const refusal = probeCanonicalOutputRefusal(backdropProbeRequested(process.env), [
+    { what: "capture directory", path: resolve(outDir), canonical: DEFAULT_OUT, tree: true },
+  ]);
+  if (refusal !== undefined) throw new Error(`${refusal} Pass --out <scratch directory>.`);
 
   return {
     sceneIds,
@@ -629,7 +646,24 @@ async function capture(
 ): Promise<Capture> {
   const page = await context.newPage();
   try {
+    // Probe-only route/tone axes travel through compare's inherited environment.
+    // Keep each run in its own scratch capture directory and matrix: these are
+    // not new canonical scene identities. What the page does with them comes back
+    // in its report, and it is the report — not this environment — that names the
+    // axes in the cell.
+    const backdrop = process.env[BACKDROP_MODE_ENV];
+    const levelsPath = process.env[BACKDROP_LEVELS_ENV];
+    const levels = levelsPath === undefined ? undefined :
+      JSON.parse(readFileSync(levelsPath, "utf8")) as Record<string, unknown>;
+    const level = levels === undefined ? null : parseBackdropLevel(
+      levels[sceneId] === undefined ? undefined : String(levels[sceneId]),
+    );
+    if (levels !== undefined && level === null) {
+      throw new Error(`Missing or invalid measured backdrop level for ${sceneId}`);
+    }
     const query = new URLSearchParams({
+      ...(backdrop === undefined ? {} : { backdrop }),
+      ...(level === null ? {} : { "backdrop-level": String(level) }),
       scene: sceneId,
       renderer,
       scale: `${scale}`,
@@ -809,7 +843,12 @@ async function captureScene(
       `deviceScaleFactor=${options.scale}, colorScheme=${options.colorScheme}, ` +
       `animations=disabled, frames=${first.report.frames}, ` +
       `${accessibilityLabel(options.accessibility)}, ` +
-      materialProfileLabel(options.materialProfile),
+      materialProfileLabel(options.materialProfile) +
+      // From what the page reported it was asked for, not from this process's
+      // environment — the same rule the renderer and the adapter follow. Empty
+      // for the canonical texture-sampled, unhinted request, so a shipped cell's
+      // key is unchanged.
+      backdropProbeLabel(first.report.requestedBackdropMode, first.report.requestedBackdropLevel),
     sceneId,
     pixelSize: [decoded.width, decoded.height],
     deterministic: identical,

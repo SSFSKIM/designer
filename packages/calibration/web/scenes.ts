@@ -13,8 +13,7 @@
  * implicitly (a `ZStack` centres its children) and the DOM does not.
  */
 
-import { DEFAULT_GROUP_SAMPLING } from "@vitreajs/vitrea";
-import type { ShapeFamily } from "@vitrea/geometry";
+import { DEFAULT_GROUP_SAMPLING, type ShapeFamily } from "@vitreajs/vitrea";
 import type { GlassPlane } from "@vitreajs/vitrea-web";
 
 // Placement is the calibration library's, not a second copy of it: the
@@ -75,8 +74,9 @@ export interface PlacedSurface {
  * honest description of these scenes: the raster *is* the entire content behind
  * the glass, and the app owns it.
  *
- * `dom` is reserved for the one surface that must sample something the app does
- * not own a texture of — see `glass-over-glass` below.
+ * In canonical scenes `dom` is reserved for the surface that must sample content
+ * the app does not own a texture of — see `glass-over-glass` below. The G0 probe
+ * mode also supplies the ordinary raster-backed groups as unregistered page content.
  */
 export type GroupSource = "texture" | "dom";
 
@@ -154,7 +154,8 @@ const isGroup = (spec: ComponentSpec): spec is Extract<ComponentSpec, { kind: "g
 const isStack = (spec: ComponentSpec): spec is Extract<ComponentSpec, { kind: "stack" }> =>
   spec.kind === "stack";
 
-export function resolveScene(sceneId: string): PlacedScene {
+/** The DOM mode keeps the same raster on the page but never registers it as a texture. */
+export function resolveScene(sceneId: string, backdropMode: GroupSource = "texture"): PlacedScene {
   const scene = scenes.find((entry) => entry.id === sceneId);
   if (scene === undefined) {
     throw new Error(
@@ -233,7 +234,7 @@ export function resolveScene(sceneId: string): PlacedScene {
       groups: [
         {
           id: "component",
-          source: "texture",
+          source: backdropMode,
           mergeDistance,
           ...(mergeDistance === component.spacing ? {} : { declaredSpacing: component.spacing }),
         },
@@ -264,7 +265,7 @@ export function resolveScene(sceneId: string): PlacedScene {
     return {
       ...common,
       groups: [
-        { id: "component", source: "texture" },
+        { id: "component", source: backdropMode },
         { id: "component-over", source: "dom" },
       ],
       surfaces: [
@@ -276,7 +277,7 @@ export function resolveScene(sceneId: string): PlacedScene {
 
   return {
     ...common,
-    groups: [{ id: "component", source: "texture" }],
+    groups: [{ id: "component", source: backdropMode }],
     surfaces: [surfaceAt(0, "body", "component", "base")],
   };
 }

@@ -223,3 +223,71 @@ describe("the tint prop", () => {
     expect(harness.root().scene.glassNode("one")?.descriptor.groupId).toBe("g");
   });
 });
+
+/**
+ * The group seed, which core has carried since W3 (`MaterialProfile.tint`,
+ * resolved per member in `scene.ts`) and the CHANGELOG's 0.2.0 entry has
+ * documented since — "Set it on a `GlassGroup` to tint its members" — while
+ * `GlassGroupProps` had no such prop and the policy object the binding built
+ * was variant and dimming only.
+ *
+ * Asserted on the *resolved* material off the frame's render input rather than
+ * on the descriptor, because inheritance is core's resolution step: a member's
+ * own descriptor stays empty and is meant to.
+ */
+describe("a group's tint", () => {
+  const resolvedTintOf = (harness: ReturnType<typeof renderGlass>, nodeId: string) =>
+    harness
+      .root()
+      .renderInput()
+      ?.planes.flatMap((plane) => plane.nodes)
+      .find((node) => node.nodeId === nodeId)?.material.tint;
+
+  it("reaches members that declare none, and not one that clears it", () => {
+    const harness = renderGlass(
+      <GlassGroup id="g" tint="rgba(255, 149, 0, 0.5)">
+        <GlassSurface nodeId="inherits" />
+        <GlassSurface nodeId="clears" tint={null} />
+      </GlassGroup>,
+    );
+    harness.frame();
+
+    expect(harness.root().scene.glassGroup("g")?.descriptor.material?.tint?.color[1]).toBeCloseTo(
+      149 / 255,
+      6,
+    );
+
+    const inherited = resolvedTintOf(harness, "inherits");
+    expect(inherited?.color[0]).toBeCloseTo(1, 6);
+    expect(inherited?.color[1]).toBeCloseTo(149 / 255, 6);
+    expect(inherited?.strength).toBeCloseTo(0.5, 6);
+
+    // `tint={null}` is `Glass.tint(nil)`: the member opts out of what the group
+    // gave it, rather than inheriting it anyway.
+    expect(resolvedTintOf(harness, "clears")).toBeUndefined();
+  });
+
+  it("is patched in place when the prop changes", () => {
+    function Recolourable(): ReactNode {
+      const [tint, setTint] = useState<string | null>("rgb(255, 0, 0)");
+      return (
+        <GlassGroup id="g" tint={tint}>
+          <button type="button" onClick={() => setTint("rgb(0, 0, 255)")}>
+            recolour
+          </button>
+          <GlassSurface nodeId="one" />
+        </GlassGroup>
+      );
+    }
+
+    const harness = renderGlass(<Recolourable />);
+    harness.frame();
+    expect(resolvedTintOf(harness, "one")?.color).toEqual([1, 0, 0]);
+
+    act(() => {
+      harness.result.getByText("recolour").click();
+    });
+    harness.frame();
+    expect(resolvedTintOf(harness, "one")?.color).toEqual([0, 0, 1]);
+  });
+});

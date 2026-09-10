@@ -26,11 +26,17 @@ import type {
   BackdropResolutionPolicy,
   DimmingPolicy,
   ForegroundAdaptation,
+  GlassTint,
   MaterialProfile,
   MaterialVariant,
   SourceProbe,
 } from "@vitreajs/vitrea";
-import { DEFAULT_DOM_SOURCE_ID, type GlassRoot as PlatformGlassRoot } from "@vitreajs/vitrea-web";
+import {
+  createTintParser,
+  DEFAULT_DOM_SOURCE_ID,
+  resolveTintDeclaration,
+  type GlassRoot as PlatformGlassRoot,
+} from "@vitreajs/vitrea-web";
 import { useCallback, useId, useLayoutEffect, useMemo, useRef, type ReactNode } from "react";
 
 import { GlassGroupContext, useGlassRoot, type GlassGroupHandle } from "./context";
@@ -125,6 +131,31 @@ function retainBackdropSource(
   };
 }
 
+/**
+ * One tint parser per document, shared by every group in it.
+ *
+ * Parsing a CSS colour is platform-web's job — it owns the browser probe and the
+ * `tint-unparseable` diagnostic — and a *surface*'s tint is parsed inside the
+ * root, once, at registration. A group's descriptor does not go through that
+ * seam: `registerGroup` and `updateGlassGroup` both take core's `MaterialProfile`,
+ * whose `tint` is the already-parsed seed. So the same parser runs here instead
+ * of a second one being written.
+ *
+ * Keyed by document rather than held per group so the memo inside it is shared.
+ * Its keys are the distinct tint colours an app declares, which is a
+ * design-system-sized number rather than a frame-sized one, and a `WeakMap` lets
+ * a torn-down document take its cache with it.
+ */
+const tintParsers = new WeakMap<Document, (value: string) => GlassTint | undefined>();
+
+function tintParserFor(doc: Document): (value: string) => GlassTint | undefined {
+  const existing = tintParsers.get(doc);
+  if (existing !== undefined) return existing;
+  const created = createTintParser(doc);
+  tintParsers.set(doc, created);
+  return created;
+}
+
 export interface GlassGroupProps {
   readonly children?: ReactNode | undefined;
   /** Generated from `useId` when absent, so a group is never accidentally shared. */
@@ -136,6 +167,22 @@ export interface GlassGroupProps {
   readonly estimator?: BackdropEstimatorProvider | undefined;
   /** Group-wide material. A surface may override `variant`; `dimming` lives here. */
   readonly variant?: MaterialVariant | undefined;
+  /**
+   * Colour every member that does not declare a colour of its own — any CSS
+   * colour, read exactly as `GlassSurface`'s `tint` is, with the colour's own
+   * alpha as the tint's strength.
+   *
+   * A group is one sampling region and one optics pass, so it carries one seed:
+   * this is where a whole toolbar or panel takes a colour, and a member clears
+   * it with `tint={null}` or replaces it with its own. Two *different* seeds in
+   * one group is outside what the pass can carry — the group tint and a member
+   * that overrides it are two — and raises the dev-mode `tint-mixing` warning
+   * naming the fix.
+   *
+   * Apple's guidance is one emphasised control rather than a coloured toolbar,
+   * so `GlassSurface`'s own `tint` is usually the one you want.
+   */
+  readonly tint?: string | null | undefined;
   /** Required for any `clear` surface in this group — core refuses to invent one. */
   readonly dimming?: DimmingPolicy | undefined;
   readonly foreground?: ForegroundAdaptation | undefined;
@@ -178,6 +225,7 @@ export function GlassGroup(props: GlassGroupProps): ReactNode {
     hint,
     estimator,
     variant,
+    tint,
     dimming,
     foreground,
     morphNamespace,
@@ -188,6 +236,23 @@ export function GlassGroup(props: GlassGroupProps): ReactNode {
   const root = useGlassRoot();
   const generatedId = useId();
   const groupId = id ?? `vitrea-group${generatedId}`;
+
+  /**
+   * The group's seed, parsed.
+   *
+   * `null` collapses to "no group tint" rather than being carried as a value:
+   * `null` on a *surface* means "clear what the group gave me", and a group has
+   * nothing above it to clear. An unparseable colour resolves to `null` too,
+   * with the `tint-unparseable` diagnostic naming it, so a colour the author got
+   * wrong leaves the group untinted instead of silently taking a guess.
+   */
+  const groupTint = useMemo((): GlassTint | undefined => {
+    if (tint === undefined || root === null) return undefined;
+    const doc = root.layers.root.ownerDocument;
+    return (
+      resolveTintDeclaration(tint, tintParserFor(doc), groupId, root.diagnostics) ?? undefined
+    );
+  }, [groupId, root, tint]);
 
   const leases = useRef(0);
   const disposed = useRef(false);
@@ -215,16 +280,29 @@ export function GlassGroup(props: GlassGroupProps): ReactNode {
   const policy: GroupPolicy = useMemo(
     () => ({
       material:
-        variant === undefined && dimming === undefined
+        variant === undefined && dimming === undefined && groupTint === undefined
           ? undefined
-          : { variant: variant ?? "regular", ...(dimming === undefined ? {} : { dimming }) },
+          : {
+              variant: variant ?? "regular",
+              ...(dimming === undefined ? {} : { dimming }),
+              ...(groupTint === undefined ? {} : { tint: groupTint }),
+            },
       backdrop: hint,
       foreground,
       morphNamespace,
       mergeDistance,
       samplingPadding,
     }),
-    [dimming, foreground, hint, mergeDistance, morphNamespace, samplingPadding, variant],
+    [
+      dimming,
+      foreground,
+      groupTint,
+      hint,
+      mergeDistance,
+      morphNamespace,
+      samplingPadding,
+      variant,
+    ],
   );
   // `JSON.stringify` drops undefined values, so an absent prop and an explicitly
   // undefined one produce the same key — which is what they mean here.

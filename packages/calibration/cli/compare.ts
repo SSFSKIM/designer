@@ -88,6 +88,7 @@ import {
   type FixtureSet,
   type ResultMatrix,
 } from "../src/index";
+import { backdropProbeRequested, probeCanonicalOutputRefusal } from "../src/backdrop-probe";
 import { isCaptureFresh, matrixSchemaRefusal, shouldWriteMatrix } from "./gates";
 import { DEFAULT_SILHOUETTE_THRESHOLD, DEFAULT_SILHOUETTE_CHROMA_THRESHOLD, measureCell } from "./measure";
 import { declaredComponentOf, readSceneGeometry } from "./scene-geometry";
@@ -367,6 +368,26 @@ function parseOptions(argv: readonly string[]): Options {
     const raw = flag(name);
     return raw === undefined ? undefined : raw.split(",").map((s) => s.trim()).filter(Boolean);
   };
+
+  // Both of this command's outputs, checked before anything is captured.
+  const captures = process.env["VITREA_WEB_CAPTURES"];
+  const matrix = flag("out-matrix");
+  const refusal = probeCanonicalOutputRefusal(backdropProbeRequested(process.env), [
+    {
+      what: "VITREA_WEB_CAPTURES",
+      path: captures === undefined ? undefined : resolve(captures),
+      canonical: resolve(PACKAGE_ROOT, "web-captures"),
+      // A profile directory under it is where the PNGs land; the matrix below is
+      // one file and stays an exact refusal.
+      tree: true,
+    },
+    {
+      what: "--out-matrix",
+      path: matrix === undefined ? undefined : resolve(PACKAGE_ROOT, matrix),
+      canonical: resolve(PACKAGE_ROOT, "results/matrix.json"),
+    },
+  ]);
+  if (refusal !== undefined) throw new Error(refusal);
 
   const renderer = flag("renderer") ?? "webgpu";
   if (renderer !== "webgpu" && renderer !== "css") {

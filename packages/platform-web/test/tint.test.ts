@@ -31,6 +31,8 @@ import {
 import {
   boundedForegroundLevel,
   cssTierForegroundBounds,
+  cssTierForegroundColour,
+  cssTierForegroundLevel,
   cssTierOptics,
   CSS_TIER_MAPPING,
   cssTintAlpha,
@@ -303,13 +305,111 @@ describe("the ink, against a tinted surface", () => {
     ).toBe(FOREGROUND_INK.light);
   });
 
-  it("leaves an untinted hintless surface on the scheme's own answer", () => {
+  /**
+   * The untinted material takes the same bracket (W27a; the tech-debt entry
+   * "The untinted material's ink is still decided by the colour scheme").
+   *
+   * W3 wired the bracket to author-tinted surfaces only, which left the untinted
+   * material's ink to `light-dark()` — that is, to the colour scheme — on a body
+   * whose own white tint dominates the level behind the glyphs at the measured
+   * alpha. A dark scheme then put the light ink on a near-white surface, which
+   * is K5's failure class through the no-hint path. It is one rule now.
+   */
+  it("decides an untinted hintless surface from its own material, not from the scheme", () => {
     const host = hostOf({
       radii: [12, 12, 12, 12],
       optics: base,
       policy: policy(),
     });
-    expect(host["--vitrea-foreground"]).toContain("light-dark(");
+    expect(host["--vitrea-foreground"]).toBe(FOREGROUND_INK.dark);
+    expect(host["--vitrea-foreground"]).not.toContain("light-dark(");
+  });
+});
+
+/**
+ * The named ink levels against a **chromatic** surface (W27a, review fix).
+ *
+ * The level is enough to decide which ink is readable, because that decision is
+ * a threshold on luminance. It is not enough to decide how far a named level may
+ * drop below it: that is a contrast ratio, and a ratio taken against a neutral
+ * stand-in for a saturated tint is not the ratio a reader gets. The first
+ * version of this solved against `[level, level, level]` and published a
+ * secondary ink on full-strength magenta whose real contrast was 1.82 while the
+ * token claimed 4.5.
+ */
+describe("the named ink levels over a saturated tint", () => {
+  /** Full-strength magenta: the tier draws an opaque shade of the seed (W10). */
+  const magentaSeed = glassTint([1, 0, 1]);
+  const magenta = tintedCssOptics(base, source, linearTint(magentaSeed), 0.5, 1);
+
+  const linear = (channel: number): number =>
+    channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+  const relativeLuminance = (rgb: readonly number[]): number =>
+    0.2126 * linear(rgb[0] as number) +
+    0.7152 * linear(rgb[1] as number) +
+    0.0722 * linear(rgb[2] as number);
+  const contrast = (a: number, b: number): number =>
+    (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+
+  const parseLevel = (declaration: string): { rgb: number[]; alpha: number } => {
+    const parts = /^rgb\((\d+) (\d+) (\d+) \/ ([\d.]+)\)$/.exec(declaration);
+    if (parts === null) throw new Error(`not a level declaration: ${declaration}`);
+    return {
+      rgb: [Number(parts[1]) / 255, Number(parts[2]) / 255, Number(parts[3]) / 255],
+      alpha: Number(parts[4]),
+    };
+  };
+
+  it("is chromatic, and its level alone understates how dark it reads", () => {
+    // The reading the defect turned on, pinned so the case below cannot quietly
+    // stop being the case: an opaque, strongly saturated surface whose luminance
+    // is low while two of its channels are near the top of the range.
+    const drawn = cssTierForegroundColour(magenta, 0.5);
+    expect(magenta.tintAlpha).toBeCloseTo(1, 6);
+    expect(drawn[1]).toBeLessThan(0.05);
+    expect(drawn[0]).toBeGreaterThan(0.8);
+    expect(cssTierForegroundLevel(magenta, 0.5)).toBeLessThan(
+      CSS_TIER_MAPPING.foregroundCrossover,
+    );
+  });
+
+  it("never publishes a secondary ink whose real contrast is under the floor", () => {
+    const host = hostOf({
+      radii: [12, 12, 12, 12],
+      optics: magenta,
+      tint: magentaSeed,
+      backdropLuminance: 0.5,
+      policy: policy(),
+    });
+
+    const surface = cssTierForegroundColour(magenta, 0.5);
+    const { rgb, alpha } = parseLevel(host["--vitrea-foreground-secondary"] as string);
+    const composited = rgb.map((channel, index) => alpha * channel + (1 - alpha) * (surface[index] as number));
+    const real = contrast(relativeLuminance(composited), relativeLuminance([...surface]));
+
+    // Either the floor holds against the colour the tier actually draws, or the
+    // level collapsed onto the primary because no alpha could hold it. What is
+    // not allowed is the third thing: an alpha that holds against a neutral of
+    // the same luminance and fails against the magenta.
+    if (alpha < 1) expect(real).toBeGreaterThanOrEqual(4.5);
+    else expect(real).toBeLessThan(4.5);
+
+    // On this surface it is the collapse: the light ink is at 3.39 even opaque,
+    // so there is no second readable level to give and 0.601 was a claim the
+    // material could not meet.
+    expect(alpha).toBe(1);
+  });
+
+  it("leaves the two levels that carry no floor at Apple's own alphas", () => {
+    const host = hostOf({
+      radii: [12, 12, 12, 12],
+      optics: magenta,
+      tint: magentaSeed,
+      backdropLuminance: 0.5,
+      policy: policy(),
+    });
+    expect(parseLevel(host["--vitrea-foreground-tertiary"] as string).alpha).toBe(0.3);
+    expect(parseLevel(host["--vitrea-foreground-quaternary"] as string).alpha).toBe(0.18);
   });
 });
 

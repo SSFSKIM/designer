@@ -50,7 +50,7 @@ import {
 } from "./StageBackdrop";
 import { CANVAS, nativeCaptureFor, nativeProfileFor, type ReferenceScene } from "./scenes";
 
-export type StageMode = "material" | "tone" | "reference" | "behavior" | "access";
+export type StageMode = "material" | "page" | "tone" | "reference" | "behavior" | "access";
 
 export const TEXTURE_SOURCE_ID = "vitrea.site.stage";
 export const RASTER_SOURCE_ID = "vitrea.site.raster";
@@ -58,6 +58,7 @@ export const RASTER_SOURCE_ID = "vitrea.site.raster";
 /** The groups each mode puts on the base plane, for the runtime readout. */
 export const GROUPS_BY_MODE: Record<StageMode, readonly { id: string; label: string }[]> = {
   material: [{ id: "material", label: "material (registered texture)" }],
+  page: [{ id: "page", label: "page (ordinary DOM, nothing declared)" }],
   tone: [{ id: "tone", label: "tone (registered texture, declared level)" }],
   reference: [{ id: "reference", label: "reference (fixture raster as texture)" }],
   behavior: [
@@ -373,7 +374,11 @@ export function StageGround(props: StageProps): ReactNode {
         </div>
       ) : (
         <>
-          <StageBackdrop sourceId={TEXTURE_SOURCE_ID} animate={props.animate} ground={ground} />
+          {mode === "page" ? (
+            <PageDocument />
+          ) : (
+            <StageBackdrop sourceId={TEXTURE_SOURCE_ID} animate={props.animate} ground={ground} />
+          )}
           {/*
             No caption on the tone stage, and it is the same rule that keeps prose
             off the glass: this is the one ground on the page whose lightness the
@@ -386,9 +391,11 @@ export function StageGround(props: StageProps): ReactNode {
             <p className="stage__legend">
               {mode === "material"
                 ? "One sampling group, three surfaces, one authored thickness. Only the size differs — and the larger a surface gets, the harder it lenses and the deeper it sits."
-                : mode === "behavior"
-                  ? "Three sampling groups over arbitrary DOM. Press any control, slide the range, open the menu."
-                  : "One surface, under whatever the accessibility controls beside it resolve to."}
+                : mode === "page"
+                  ? "The same three surfaces, over this page's own text and gradient. Nothing here is registered with the runtime."
+                  : mode === "behavior"
+                    ? "Three sampling groups over arbitrary DOM. Press any control, slide the range, open the menu."
+                    : "One surface, under whatever the accessibility controls beside it resolve to."}
             </p>
           )}
           <p className="visually-hidden" role="status">
@@ -396,6 +403,49 @@ export function StageGround(props: StageProps): ReactNode {
           </p>
         </>
       )}
+    </div>
+  );
+}
+
+/**
+ * The one stage whose backdrop is not a registered texture: ordinary page content.
+ *
+ * Every other stage hands the runtime pixels it owns, which is the path that
+ * lenses. An app's first surface almost never sits over one of those; it sits over
+ * the app's own markup, which vitrea does not rasterise into a texture (the
+ * HTML-in-Canvas seam stays closed). This stage is that case, drawn from the same
+ * three surfaces the size sweep uses so the two stages can be read one after the
+ * other. Geometry-matched rather than controlled: the backdrops are different
+ * pixels and the sweep also carries the tint, so what the pair supports is a look,
+ * not a difference measurement.
+ *
+ * Text and a gradient rather than one or the other, because the two halves of a
+ * backdrop are not interchangeable: the paragraphs are the high-frequency detail
+ * the proxy's blur has something to do with, and the gradient is the low-frequency
+ * drift that shows whether the material is adapting to what is behind it or
+ * painting a constant. It is the same argument the graticule and the field make on
+ * the texture stages, made in DOM, which is the whole point of the stage.
+ *
+ * The gradient is achromatic and gentle, which is a taste call and not a
+ * measurement: nothing here declares a level, so no number this page writes has to
+ * hold against it. What it must not do is dominate, since a strong wash would make
+ * the stage a demonstration of the gradient rather than of the path.
+ */
+function PageDocument(): ReactNode {
+  return (
+    <div className="page-doc" data-testid="page-doc">
+      <p className="page-doc__label">Ordinary page content</p>
+      <p className="page-doc__body">
+        This is the page&rsquo;s own markup, laid out by the page: a heading line, two
+        paragraphs of text and a gradient behind them. None of it is registered with
+        the runtime, and vitrea does not rasterise page content into a texture.
+      </p>
+      <p className="page-doc__body">
+        The surfaces over it are therefore reading it the only way a browser allows,
+        as a backdrop filter: through a masked proxy per group on the WebGPU tier,
+        and in place on each surface on the CSS tier. The readout beside this stage
+        says which of those drew, in the runtime&rsquo;s own words.
+      </p>
     </div>
   );
 }
@@ -502,6 +552,45 @@ export function StageGlass(props: StageProps): ReactNode {
                 <strong>
                   {step.spanPx}px{step.tinted && props.tint !== null ? ", tinted" : ""}
                 </strong>
+              </GlassSurface>
+            ))}
+          </GlassGroup>
+        ) : null}
+
+        {mode === "page" ? (
+          /*
+           * The unsampled path, on the same three plates as the size sweep.
+           *
+           * No `backdrop` prop, and that absence is the stage: `configuredSource`
+           * resolves to `dom`, the sampling backend to `css-backdrop` where the
+           * engine has one, and refraction to `approximate` at best. The plates are
+           * `SIZE_SWEEP` for the same reason the tone stage's are — identical spans
+           * and one identical authored thickness, so a reader who scrolls between
+           * the two stages is looking at one changed variable rather than at two
+           * different pictures.
+           *
+           * And no hint, unlike every other group on this page that cannot sample.
+           *
+           * That absence is the second half of the stage rather than an oversight.
+           * The toolbar and the menu below declare the window's level because this
+           * page paints that ground and can state it; an adopter dropping a surface
+           * onto their own page states nothing, and what they get is this — the
+           * runtime's default for a group with no pixels to read and no declaration
+           * to read instead. A hinted stage would be showing the path this page is
+           * able to take rather than the one it is a claim about, and the readout
+           * beside it would say `analysis: hint` where an adopter's says `none`.
+           */
+          <GlassGroup id="page">
+            {SIZE_SWEEP.map((step) => (
+              <GlassSurface
+                key={step.step}
+                className={`plate plate--sweep plate--sweep-${step.step}`}
+                radius={step.radius}
+                thickness={SWEEP_THICKNESS}
+                data-sweep-thickness={SWEEP_THICKNESS}
+                data-testid={`page-plate-${step.step}`}
+              >
+                <strong>{step.spanPx}px</strong>
               </GlassSurface>
             ))}
           </GlassGroup>

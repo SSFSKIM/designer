@@ -114,7 +114,8 @@ test.describe("the layout is legal", () => {
     // The readout is the page's own claim; assert the claim and the channel agree.
     await expect(page.getByTestId("authoring-clean")).toBeVisible();
 
-    for (const id of ["material", "tone", "reference", "behavior", "access", "tiers", "install"]) {
+    const ids = ["material", "page", "tone", "reference", "behavior", "access", "tiers", "install"];
+    for (const id of ids) {
       await showSection(page, id);
     }
     // Back to a section that shows the readout, so a late finding would be visible.
@@ -176,6 +177,9 @@ test.describe("the layout is legal", () => {
     // the backdrop adaptation directly.
     await showSection(page, "behavior");
     await showSection(page, "tone");
+    // The one group whose proxy stands alone over page content, at the 42px
+    // padding this preference derives.
+    await showSection(page, "page");
     await showSection(page, "material");
 
     await expect(page.getByTestId("authoring-findings")).toHaveCount(0);
@@ -389,6 +393,193 @@ test.describe("the size sweep is a controlled comparison", () => {
     const thicknesses = new Set(boxes.map((box) => box.thickness));
     expect(thicknesses.size).toBe(1);
   });
+});
+
+/*
+ * The stage over ordinary page content (W27f G0).
+ *
+ * The page's claim there is a claim about a *path*: the surfaces sit over this
+ * page's own markup, no texture is registered, and what draws is therefore the
+ * unsampled one. Two things make that checkable without a pixel, and both are read
+ * from the runtime's own readout rather than from what the page authored:
+ *
+ *  - The resolved state. `configuredSource` is `dom`, sampling never reaches
+ *    `gpu-texture`, refraction never reads `true`, and the analysis is `none`
+ *    because this stage declares no hint — it is the case an adopter starts in.
+ *    Those hold on every engine and on either tier, which is why they are the
+ *    assertions rather than one engine's answer.
+ *  - The geometry the two stages share. They carry the same three spans at the same
+ *    authored thickness, which is what lets a reader put one after the other; it is
+ *    not a controlled experiment, since the backdrops are different pixels and the
+ *    sweep also carries the tint. What is asserted is the geometry and the resolved
+ *    state, never that a difference between the two pictures is attributable.
+ */
+test.describe("the material over ordinary page content", () => {
+  /** One row of a section's runtime readout, by the label the page prints. */
+  const readoutRow = (page: Page, section: string, label: string): Locator =>
+    page.locator(`#${section} .readout__row`, { hasText: label }).locator("dd");
+
+  test("the stage's backdrop is this page's own DOM, and nothing is registered", async ({
+    page,
+  }) => {
+    await gotoSite(page);
+    await showSection(page, "page");
+
+    // No texture canvas on this stage at all: the ground IS the document. Its
+    // absence is what the readout below is a consequence of.
+    await expect(page.locator(".stage__canvas")).toHaveCount(0);
+
+    const doc = page.getByTestId("page-doc");
+    await expect(doc).toBeVisible();
+    // Real text, and enough of it to be a backdrop rather than a caption.
+    expect((await doc.innerText()).trim().length).toBeGreaterThan(200);
+
+    // And the glass is actually over it, rather than beside it: every plate's box
+    // lies inside the document's.
+    const ground = await doc.boundingBox();
+    if (ground === null) throw new Error("the page document has no box");
+    const plates = page.locator(".stage--mirror[data-mode='page'] .plate--sweep");
+    await expect(plates).toHaveCount(3);
+    for (const plate of await plates.all()) {
+      const box = await plate.boundingBox();
+      if (box === null) throw new Error("a plate has no box");
+      expect(box.x).toBeGreaterThanOrEqual(ground.x - 1);
+      expect(box.y).toBeGreaterThanOrEqual(ground.y - 1);
+      expect(box.x + box.width).toBeLessThanOrEqual(ground.x + ground.width + 1);
+      expect(box.y + box.height).toBeLessThanOrEqual(ground.y + ground.height + 1);
+    }
+  });
+
+  test("the runtime names the unsampled path, on whatever tier this browser gives it", async ({
+    page,
+  }) => {
+    await gotoSite(page);
+    await showSection(page, "page");
+
+    await expect(readoutRow(page, "page", "What the page declared")).toHaveText("dom");
+
+    // What the machine happens to offer, read once and then held to.
+    const renderer = await readoutRow(page, "page", "What is drawing").innerText();
+    const sampling = await readoutRow(page, "page", "Where the backdrop comes from").innerText();
+    const refraction = await readoutRow(page, "page", "Refraction").innerText();
+
+    expect(["webgpu", "css"]).toContain(renderer);
+    // The two facts the page states in prose, on either tier: the pixels of
+    // arbitrary DOM never reach the GPU, so this group cannot sample a texture and
+    // cannot bend what it does sample.
+    expect(sampling).not.toBe("gpu-texture");
+    expect(refraction).not.toBe("true");
+    if (renderer === "webgpu") expect(refraction).toBe("approximate");
+    else expect(refraction).toBe("none");
+
+    // And nothing is declared, which is the case the stage exists to show: an app
+    // that has written no hint gets `none` here, and the material is drawn at
+    // whatever the runtime resolves with neither pixels nor a statement. The
+    // hinted path is the toolbar's, one section down.
+    await expect(readoutRow(page, "page", "Backdrop analysis")).toHaveText("none");
+
+    // The contrast that makes that reading mean something: the toolbar is the same
+    // DOM-sourced path with a hint written, and it reports one. Read on its own
+    // section, because a group only resolves while its stage is mounted.
+    await showSection(page, "behavior");
+    await expect(readoutRow(page, "behavior", "Backdrop analysis").first()).toHaveText("hint");
+
+    // Choosing this path is not a fault. A DOM-sourced group on a working engine
+    // is `ok` with no reason, exactly as the tiers section says.
+    if (renderer === "webgpu") {
+      await expect(readoutRow(page, "page", "Health")).toHaveText("ok");
+      await expect(readoutRow(page, "page", "Demotion reason")).toHaveText("none");
+    }
+  });
+
+  test("it is the same three plates as the sweep, over a different backdrop", async ({ page }) => {
+    await gotoSite(page);
+
+    const spansOf = async (mode: string): Promise<readonly { span: number; thickness: number }[]> =>
+      page.locator(`.stage--mirror[data-mode='${mode}'] .plate--sweep`).evaluateAll((elements) =>
+        elements.map((element) => {
+          const rect = element.getBoundingClientRect();
+          return {
+            span: Math.round(Math.min(rect.width, rect.height)),
+            thickness: Number(element.getAttribute("data-sweep-thickness") ?? 0),
+          };
+        }),
+      );
+
+    await showSection(page, "material");
+    const sweep = await spansOf("material");
+    await showSection(page, "page");
+    const over = await spansOf("page");
+
+    expect(over).toHaveLength(3);
+    expect(over).toEqual(sweep);
+  });
+
+  test("on a texture and on page content, the runtime gives two different answers", async ({
+    page,
+  }) => {
+    await gotoSite(page);
+
+    await showSection(page, "material");
+    const textureSampling = await readoutRow(
+      page,
+      "material",
+      "Where the backdrop comes from",
+    ).innerText();
+    await expect(readoutRow(page, "material", "What the page declared")).toHaveText("texture");
+
+    await showSection(page, "page");
+    const domSampling = await readoutRow(page, "page", "Where the backdrop comes from").innerText();
+
+    // On a runner with an adapter the two stages are the two paths, in the same
+    // page and the same frame budget. Without one both resolve to the CSS tier and
+    // the page says so on both stages rather than claiming a difference it is not
+    // drawing — which is the honest half of this assertion and the reason it is
+    // written as a conditional rather than as a fixed pair.
+    if (textureSampling === "gpu-texture") expect(domSampling).toBe("css-backdrop");
+    else expect(domSampling).toBe(textureSampling);
+  });
+
+  /*
+   * Each plate prints its own span, so at any width where the page shows a plate it
+   * is making a claim about that plate's size. In the collapsed band the stack is
+   * shorter than three plates plus the wide layout's gaps, and a flex item with a
+   * definite height shrinks silently to fit: the label would keep saying 112px on a
+   * surface measuring 92. The page stage is one sampling group and therefore free to
+   * close its gaps instead, which is what `site.css` does — this is the check that
+   * it still adds up at the two widths the reflow cases cover.
+   */
+  for (const size of [
+    { width: 375, height: 812, label: "a phone" },
+    { width: 320, height: 640, label: "the reflow floor" },
+  ]) {
+    test(`the plates keep the spans they print at ${size.label}`, async ({ page }) => {
+      await page.setViewportSize({ width: size.width, height: size.height });
+      await gotoSite(page);
+      await showSection(page, "page");
+
+      const plates = page.locator(".stage--mirror[data-mode='page'] .plate--sweep");
+      await expect(plates).toHaveCount(3);
+
+      for (const plate of await plates.all()) {
+        const printed = Number((await plate.innerText()).replace("px", "").trim());
+        const box = await plate.boundingBox();
+        if (box === null) throw new Error("a plate has no box");
+        expect(Math.round(Math.min(box.width, box.height))).toBe(printed);
+      }
+
+      // And the whole stack is still inside the band, which is the other way the
+      // arithmetic can come out wrong: glass painting over the narrative column.
+      const stage = await page.locator(".stage").first().boundingBox();
+      if (stage === null) throw new Error("the stage has no box");
+      for (const plate of await plates.all()) {
+        const box = await plate.boundingBox();
+        if (box === null) throw new Error("a plate has no box");
+        expect(box.y + box.height).toBeLessThanOrEqual(stage.y + stage.height + 1);
+        expect(box.x + box.width).toBeLessThanOrEqual(stage.x + stage.width + 1);
+      }
+    });
+  }
 });
 
 /*
@@ -622,12 +813,19 @@ test.describe("the reference pair is a comparison", () => {
     const rasters = page.locator(".pair img.pair__raster");
     await expect(rasters).toHaveCount(2);
     for (const raster of await rasters.all()) {
-      const size = await raster.evaluate((element: HTMLImageElement) => ({
-        natural: element.naturalWidth,
-        complete: element.complete,
-      }));
-      expect(size.complete).toBe(true);
-      expect(size.natural).toBe(CANVAS.width);
+      /*
+       * Polled rather than read once. The fixtures are served by the dev server's
+       * own middleware from outside this app's root, and on a cold server under a
+       * parallel run the first request for one can outlast the section's settle;
+       * a single `complete` read taken then reports the server's warmth rather
+       * than whether the page shows a real capture. What is being asserted is the
+       * end state, so the wait belongs in the assertion.
+       */
+      await expect
+        .poll(() => raster.evaluate((element: HTMLImageElement) => element.complete))
+        .toBe(true);
+      const natural = await raster.evaluate((element: HTMLImageElement) => element.naturalWidth);
+      expect(natural).toBe(CANVAS.width);
     }
   });
 

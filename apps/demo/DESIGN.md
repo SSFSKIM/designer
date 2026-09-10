@@ -110,6 +110,14 @@ over: it is the instrument's coordinate reference, and it is high-frequency
 backdrop detail without which refraction has nothing to bend. It is never
 animated, never repeated per component, and never sits behind body copy.
 
+One stage is deliberately outside that count, and it is not a second texture: the
+page-content stage (`.page-doc`) replaces the graticule canvas with an ordinary
+document — real body copy and a neutral gradient — because the claim that stage
+makes is about what an app's own markup looks like under glass, and a page cannot
+depict arbitrary DOM with the one texture it reserved for its instrument. The
+gradient is achromatic and gentle so the stage stays about the material rather than
+about the wash; the copy is real prose at the body role, not filler.
+
 ## 4. Layout system
 
 Asymmetric split, 45/55, and the split is load-bearing rather than decorative:
