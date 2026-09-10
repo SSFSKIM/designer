@@ -38,6 +38,7 @@ const matcher: MediaMatcher = () => ({
 let roots: GlassRoot[] = [];
 let containers: HTMLElement[] = [];
 let sheets: HTMLStyleElement[] = [];
+let adopted: CSSStyleSheet[] = [];
 let restoreCanvasContexts: (() => void) | undefined;
 let reported: PlatformDiagnostic[] = [];
 
@@ -101,9 +102,13 @@ afterEach(() => {
   for (const instance of roots) instance.destroy();
   for (const container of containers) container.remove();
   for (const sheet of sheets) sheet.remove();
+  if (adopted.length > 0) {
+    (document as { adoptedStyleSheets: CSSStyleSheet[] }).adoptedStyleSheets = [];
+  }
   roots = [];
   containers = [];
   sheets = [];
+  adopted = [];
 });
 
 describe("the named ink levels on the host", () => {
@@ -194,5 +199,55 @@ describe("Apple's floor on the quaternary level", () => {
     // `--vitrea-foreground` is a prefix of all three level tokens, so a scan that
     // matched loosely would answer yes to everything vitrea publishes.
     expect(documentStylesNameToken(document, FOREGROUND_LEVEL_TOKENS.secondary)).toBe(false);
+  });
+
+  /**
+   * A document has two sheet lists and the scan reads both (W27a, review fix).
+   *
+   * `adoptedStyleSheets` is where a constructed `CSSStyleSheet` goes, and that
+   * is how a framework shipping CSS-in-JS through `replaceSync` puts its rules
+   * on the page — so a scan of `document.styleSheets` alone was silent on
+   * exactly the apps most likely to be styling against a token vocabulary.
+   *
+   * jsdom implements neither the constructor nor the property, so the list is
+   * installed by hand here and carries the one shape the scan reads: an object
+   * with `cssRules`, each with `cssText`. That is enough to exercise the whole
+   * of the branch under test — the concatenation, the scan and the cache key —
+   * and `e2e/shared/ink-levels.spec.ts` runs the same claim in a real engine
+   * against a real `CSSStyleSheet`, which is where the property's own semantics
+   * belong.
+   */
+  const adoptSheet = (css: string): void => {
+    const stub = { cssRules: [{ cssText: css }] } as unknown as CSSStyleSheet;
+    adopted.push(stub);
+    (document as { adoptedStyleSheets: CSSStyleSheet[] }).adoptedStyleSheets = [...adopted];
+  };
+
+  it("reads adoptedStyleSheets as well as the parsed ones", () => {
+    adoptSheet(`.caption { color: var(${FOREGROUND_LEVEL_TOKENS.quaternary}); }`);
+
+    expect(documentStylesNameToken(document, FOREGROUND_LEVEL_TOKENS.quaternary)).toBe(true);
+    // Nothing was added to the parsed list: the answer came from the other one.
+    expect(
+      Array.from(document.styleSheets).some((sheet) =>
+        Array.from(sheet.cssRules).some((rule) =>
+          rule.cssText.includes(FOREGROUND_LEVEL_TOKENS.quaternary),
+        ),
+      ),
+    ).toBe(false);
+
+    const instance = root({ devMode: true });
+    withHost(instance);
+    instance.runFrame(16);
+    expect(reported.map((entry) => entry.code)).toContain("quaternary-ink-on-thin-material");
+  });
+
+  it("re-scans when an adopted sheet arrives after a negative answer", () => {
+    // The cache is keyed on the sheet list by identity, and the adopted list is
+    // part of it — so a sheet adopted later invalidates a cached `no` rather
+    // than being invisible behind it for the life of the document.
+    expect(documentStylesNameToken(document, FOREGROUND_LEVEL_TOKENS.quaternary)).toBe(false);
+    adoptSheet(`.late { color: var(${FOREGROUND_LEVEL_TOKENS.quaternary}); }`);
+    expect(documentStylesNameToken(document, FOREGROUND_LEVEL_TOKENS.quaternary)).toBe(true);
   });
 });

@@ -63,6 +63,15 @@ export const INK_STYLESHEET_ATTRIBUTE = "data-vitrea-ink-stylesheet";
  * is "is this page using the quaternary level anywhere, on a page that also has
  * a surface too thin to carry it", which is a question about the document.
  *
+ * **Both sheet lists**, because a document has two. `document.styleSheets` is
+ * the parsed `<style>` and `<link>` elements; `document.adoptedStyleSheets` is
+ * where a constructed `CSSStyleSheet` goes, and that is how every framework
+ * shipping CSS-in-JS with `CSSStyleSheet.replaceSync` puts its rules on the
+ * page. Reading only the first would have made the finding silent on exactly the
+ * apps most likely to be styling against a token vocabulary. (The property is
+ * absent in some non-browser DOM implementations, so it is read defensively —
+ * a missing list is an empty one, not a throw.)
+ *
  * What it cannot see, stated rather than implied: a cross-origin stylesheet
  * (reading `cssRules` throws and the sheet is skipped), a token written into an
  * inline `style` attribute, and a rule edited in place inside a sheet the page
@@ -72,10 +81,10 @@ export const INK_STYLESHEET_ATTRIBUTE = "data-vitrea-ink-stylesheet";
  * phrased as the pair it actually found, not as a claim about one element.
  *
  * Cached per document and per token, and the cache is valid exactly while the
- * sheet **list** is the one the answer was taken over — compared by identity,
- * element by element, rather than by count. A count would be cheaper and wrong
- * in the case an app actually produces: one sheet leaving as another arrives is
- * what a theme swap is, and it holds the count still.
+ * sheet **list** is the one the answer was taken over — both lists, concatenated,
+ * compared by identity element by element rather than by count. A count would be
+ * cheaper and wrong in the case an app actually produces: one sheet leaving as
+ * another arrives is what a theme swap is, and it holds the count still.
  *
  * That comparison is a few object identities per call, against a scan that walks
  * every rule in the page. Doing it on the way in is why this needs no
@@ -95,7 +104,12 @@ const sameSheets = (a: readonly CSSStyleSheet[], b: readonly CSSStyleSheet[]): b
 export function documentStylesNameToken(document: Document, token: string): boolean {
   const cache = tokenScans.get(document) ?? new Map<string, TokenScan>();
   tokenScans.set(document, cache);
-  const sheets = Array.from(document.styleSheets);
+  const sheets = [
+    ...Array.from(document.styleSheets),
+    // Absent in some non-browser DOM implementations, and an absent list is an
+    // empty one rather than a reason to throw inside a dev-mode advisory.
+    ...(document.adoptedStyleSheets ?? []),
+  ];
   const prior = cache.get(token);
   if (prior !== undefined && sameSheets(prior.sheets, sheets)) return prior.found;
 
