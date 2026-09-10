@@ -182,6 +182,12 @@ export interface OpticsPassArgs {
    * is what runs — the 0.14.0 path, to the bit.
    */
   readonly heavyTapEnabled: boolean;
+  /** DOM-layer mode: 0 is off, 1 is unknown tone, and 2 has a measured tone. */
+  readonly domMaterial?: {
+    readonly mode: number;
+    readonly referenceBackdropLuminance: number;
+    readonly minimumTintContrast: number;
+  };
   readonly rimTintChroma: number;
   readonly lightDirection: readonly [number, number];
   readonly shadowDepth: number;
@@ -814,9 +820,11 @@ export function createPassRunner(context: GpuContext): PassRunner {
       // and the pass takes the chain tap it has always taken, so the bytes are
       // the 0.14.0 bed's.
       d[108] = args.heavyTapEnabled ? 1 : 0;
-      d[109] = 0;
-      d[110] = 0;
-      d[111] = 0;
+      // The DOM solve uses the otherwise idle lanes only on a host DOM group.
+      // Texture draws keep all three padding words zero, including their bytes.
+      d[109] = args.domMaterial?.mode ?? 0;
+      d[110] = args.domMaterial?.referenceBackdropLuminance ?? 0;
+      d[111] = args.domMaterial?.minimumTintContrast ?? 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

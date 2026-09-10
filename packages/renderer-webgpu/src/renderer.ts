@@ -897,24 +897,13 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       const adapt =
         sourceId === undefined ? undefined : adaptationFor(sourceId).values;
       /*
-       * A group with no pyramid to sample writes its material as a layer the
-       * browser composites (W11a; see `GroupRenderInput.unsampledMaterial`), so
-       * where the host resolved the compositing-space pair it replaces the
-       * profile's — before the policy fold, which then lands on it exactly as
-       * the CSS tier's fold lands on the same numbers.
+       * The response and size laws always read the LINEAR profile (W27f G1).
+       * DOM groups convert only their final layer, after evaluating the material
+       * at the measured tone; feeding an encoded alpha into the response solve
+       * made the thick dark pane 0.089 OKLab L too dark (claims §5.129).
        */
       const nominalOptics = material.optics[variant];
-      const optics = opticsUnderPolicy(
-        pyramid === undefined && input.unsampledMaterial !== undefined
-          ? {
-              ...nominalOptics,
-              tint: input.unsampledMaterial.tint,
-              tintAlpha: input.unsampledMaterial.tintAlpha,
-            }
-          : nominalOptics,
-        policy,
-        material,
-      );
+      const optics = opticsUnderPolicy(nominalOptics, policy, material);
 
       /*
        * Backdrop tone adaptation (W7). Both policy folds resolve here, on the
@@ -1048,6 +1037,12 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // itself is already in the texture, so this pass only chooses which of
         // two textures the deep sample comes from.
         heavyTapEnabled: pyramid?.heavy !== undefined,
+        ...(pyramid === undefined && input.unsampledMaterial !== undefined
+          ? { domMaterial: {
+              ...input.unsampledMaterial,
+              mode: input.backdropTone === undefined ? 1 : 2,
+            } }
+          : {}),
         shadowDepth: optics.shadowDepth,
         shadowAlpha: optics.shadowAlpha,
         // The size law's gains, per group (W2); the per-pixel factor they

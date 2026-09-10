@@ -481,6 +481,33 @@ neighbour glow diffusion; topology-changing morphs.
 
 Pending — written at recomposition against §Parent-Level Acceptance.
 
+## W27f G1 dry-run declaration (2026-09-10)
+
+The candidate fits no constants. `materialAtBackdrop` in `platform-web/src/optics.ts` owns the
+profile-at-tone law; the host's CSS reading calls it and the GPU optics shader mirrors it per
+pixel so a merged group keeps each member's span. The response and size laws read the linear
+profile, never an already encoded alpha. Over a DOM proxy the shader evaluates that material at
+the stated tone, shades paint there, applies the inner shadow and the rim's amplitude law there,
+and only then solves the encoded canvas layer. Both outer-shadow terms follow the same tone;
+the lift cannot reproduce the exterior's local colour without exterior pixels. No lens or proxy
+blur change is included. The absent-tone branch does not enable response or collapse; the CSS
+mapping's 0.02 is solely the no-reading conversion convention, not an inferred backdrop.
+
+Before the dry run, the frozen `bdf0029` source reproduced every shared G0 light calibration
+reading and texture digest. The same 20 calibration scenes are captured in light and dark 1x,
+unhinted and hinted DOM GPU, sampled-today and same-hint sampled controls, and CSS readings.
+All 20 dark scenes are captured, but only nine have native fixtures: missing native ΔE stays
+null and route-to-route comparisons remain measurable. The two requested stack scenes are held
+until the final frozen candidate and are read once then; the dark photo stack has no native
+fixture either. Scratch only (`/tmp/w27f-g1`), never the canonical matrix or capture tree.
+
+Stops are sampled-path byte changes (renderer goldens plus isolation and the scratch texture
+captures), an unexplained departure from the scalar response/collapse/paint/rim/shadow laws,
+or suite regressions. G0's sampled-today errors remain the diagnostic budget; same-hint sampled
+is a control, not a relaxed comparator. Structured-backdrop spread and colour need independent
+linear/encoded means and local pixels, not a fabricated interpretation of `hint.complexity`.
+G1 records every per-scene miss; G2 alone adopts a native stack bound and re-reads the demo.
+
 ## Revision Notes
 
 - 2026-09-10, W27f G0: measured 20 light-1x calibration scenes and the two requested stack

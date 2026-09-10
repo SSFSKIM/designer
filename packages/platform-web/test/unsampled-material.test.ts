@@ -110,22 +110,20 @@ describe("the unsampled layer pair (W11a)", () => {
     expect(forwarded?.unsampledMaterial).toEqual(unsampledMaterials().regular);
   });
 
-  it("follows the profile the root was given, not the module constant", async () => {
+  it("forwards the root's conversion reference without treating it as a measured tone", async () => {
     stubCanvasContexts();
     const instance = root({
       renderer: "webgpu",
       webgpu: { device: idleDevice() },
-      materialProfile: { optics: { regular: { tintAlpha: 0.3 } } },
+      cssTierMapping: { referenceBackdropLuminance: 0.13 },
     });
     withHost(instance);
     await instance.ready();
     instance.runFrame(16);
 
     const group = instance.renderInput()?.groups.find((entry) => entry.groupId === "g1");
-    expect(group?.unsampledMaterial).toEqual(
-      unsampledMaterials({ optics: { regular: { tintAlpha: 0.3 } } }).regular,
-    );
-    expect(group?.unsampledMaterial?.tintAlpha).not.toBe(unsampledMaterials().regular.tintAlpha);
+    expect(group?.unsampledMaterial?.referenceBackdropLuminance).toBe(0.13);
+    expect(group?.backdropTone).toBeUndefined();
   });
 
   it("is absent on a CSS-tier root, which paints in place", () => {

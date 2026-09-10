@@ -3878,36 +3878,131 @@ export function cssTierOptics(
   return resolved;
 }
 
-/** The pair a GPU-tier group that samples nothing writes as its layer (W11a). */
-export interface UnsampledMaterial {
-  /** The profile's tint, linear light — the renderer encodes it on the way out. */
-  readonly tint: LinearRgb;
-  /** The CSS tier's alpha for the same material: `cssTintAlpha` at the mapping's reference level. */
-  readonly tintAlpha: number;
+export interface MaterialBackdropTone {
+  readonly rgb: LinearRgb;
+  readonly luminance: number;
+  readonly linearLuminance: number;
+}
+
+/** The scalar material before contour geometry adds its inner shadow and rim. */
+export interface MaterialAtBackdrop {
+  readonly tone: MaterialBackdropTone | undefined;
+  readonly thickness: number;
+  readonly foldedThickness: number;
+  readonly adaptation: number;
+  readonly responded: MaterialSourceOptics;
+  readonly adapted: MaterialSourceOptics;
+  readonly level: number;
+  readonly shade: number;
+  readonly shadow: { readonly occlusion: number; readonly lift: number };
 }
 
 /**
- * The material as a GPU-tier group writes it when it has NO backdrop to sample
- * (W11a): a `css-backdrop` group, whose frost is a DOM proxy under the canvas,
- * or a `none` group over the page. The optics pass writes such a surface as a
- * premultiplied layer and the browser composites it in encoded sRGB — the same
- * space this tier's `rgba()` lands in, and the same reason `cssTintAlpha`
- * exists. So the pair is this tier's: the renderer's own tint (linear, encoded
- * once on output) at the alpha the mapping solved for the CSS tier, so a
- * nested surface reads the same on both tiers by construction rather than by
- * two fits. The renderer folds the accessibility policy over it exactly as
- * `cssTierDeclarations` folds it over the CSS tier's copy.
+ * The profile's material at a backdrop tone and a member's span (W27f G1).
+ *
+ * This is the owner of the DOM material's scalar derivation. The host's CSS
+ * mirror and DOM-GPU reading both call it; `wgsl/optics.ts` mirrors the same law
+ * per pixel because one union may contain members of different spans. The GPU
+ * scalar-anchor tests pin that mirror to this function, not to a second fit.
+ * Policy and size first set the LINEAR occlusion, the response solves its neutral
+ * to R(E(tone), thickness), and the collapse mixes that material toward the
+ * measured mean while retaining the profile's transmission. Paint shades at the
+ * resulting level, and the rim's amplitude reads that level before paint. The
+ * contour geometry still owns the inner shadow and the rim's shape; this function
+ * states their scalar input rather than pretending a group has one contour.
+ *
+ * The outer shadow has its own black occlusion and a lift of the backdrop's
+ * light. A DOM group can state that lift only at its measured tone, not at every
+ * exterior pixel. With no tone the response and collapse stand down and the lift
+ * is unknown, hence absent. The mapping's reference level below is solely an
+ * encoded-layer conversion convention; it is never published as a measurement.
+ * A scalar cannot supply RGB or the independent linear mean on a structured
+ * page, so neither a variance nor a `hint.complexity` value is invented here.
+ */
+export function materialAtBackdrop(
+  profile: RendererMaterialProfile | undefined,
+  variant: MaterialVariant,
+  tone: MaterialBackdropTone | undefined,
+  span: number,
+  policy: ResolvedMaterialPolicy,
+  devicePixelRatio = 1,
+  tintStrength = 0,
+  mapping: CssTierMapping = CSS_TIER_MAPPING,
+): MaterialAtBackdrop {
+  const source = sourceOptics(profile)[variant];
+  const size = sourceSize(profile);
+  const shade = resolvedTintShade(profile);
+  const toneConstants = resolvedBackdropTone(profile);
+  const fold = resolvedPolicyFold(profile);
+  const thickness = sizeThickness(span, size);
+  const foldedThickness = sizeThicknessUnderPolicy(span, policy, size);
+  const strength = backdropToneUnderPolicy(policy, shade, size.refractionScale);
+  const adaptation = tone === undefined ? 0
+    : backdropToneAdaptation(tone.luminance, thickness, toneConstants) * strength;
+  const occluded = {
+    ...source,
+    tintAlpha: sizeOcclusionAlphaAt(
+      occlusionAlphaUnderPolicy(source.tintAlpha, policy.occlusion, fold.increasedOcclusionLift),
+      foldedThickness,
+      size,
+    ),
+  };
+  const responded = tone === undefined ? occluded : toneRespondedSourceOptics(
+    occluded, tone, thickness, adaptation,
+    (strength >= 0.999 ? 1 : 0) * clamp01(toneConstants.max),
+    resolvedBackdropToneResponse(profile),
+    sizeToneLevelFar(span, size, devicePixelRatio,
+      size.refractionScale[accessibilityRefractionCap(policy)]),
+  );
+  const collapsed = adaptedSourceOptics(
+    responded, tone?.rgb, adaptation,
+    collapsedRim(tintStrength, resolvedCollapsedRim(profile)),
+    mapping.referenceBackdropLuminance,
+    strength >= 0.999
+      ? collapseTransmissionAtScale(resolvedCollapseTransmission(profile), devicePixelRatio) : 0,
+  );
+  const level = materialLuminance(collapsed,
+    tone?.linearLuminance ?? mapping.referenceBackdropLuminance);
+  const adapted = {
+    ...collapsed,
+    rimAlpha: (source.rimAlpha + source.rimLevelGain * level) * (1 - adaptation)
+      + collapsedRim(tintStrength, resolvedCollapsedRim(profile)) * adaptation,
+  };
+  const shadow = outerShadowUnderPolicy(sourceOuterShadow(profile), policy);
+  return {
+    tone, thickness, foldedThickness, adaptation, responded, adapted, level,
+    shade: tintShade(level,
+      tintToneAdaptation(policy.ambientTint, shade) * shade.strength * (1 - adaptation), shade),
+    shadow: {
+      occlusion: outerShadowOcclusionAt(shadow, tone?.luminance, span, foldedThickness),
+      lift: tone === undefined ? 0
+        : tone.linearLuminance * shadow.liftAmplitude * outerShadowLiftRise(span, shadow),
+    },
+  };
+}
+
+/** The encoded-layer solve's reference convention, never a claimed backdrop tone. */
+export interface UnsampledMaterial {
+  readonly referenceBackdropLuminance: number;
+  readonly minimumTintContrast: number;
+}
+
+/**
+ * The DOM canvas no longer receives a pre-converted tint/alpha pair (W27f G1).
+ * Its response, size, paint and rim laws read the profile in linear light; only
+ * the final layer is converted for the browser. These are that solve's two
+ * conventions, shared with the CSS mirror. An actual backdrop tone always wins
+ * over the reference level, and the reference never enables tone adaptation.
  */
 export function unsampledMaterials(
-  patch?: RendererMaterialProfile,
+  _patch?: RendererMaterialProfile,
   mapping: CssTierMapping = CSS_TIER_MAPPING,
 ): Readonly<Record<MaterialVariant, UnsampledMaterial>> {
-  const resolved = {} as Record<MaterialVariant, UnsampledMaterial>;
-  for (const variant of ["regular", "clear"] as const) {
-    const source = sourceOptics(patch)[variant];
-    resolved[variant] = { tint: source.tint, tintAlpha: cssTintAlpha(source, mapping) };
-  }
-  return resolved;
+  const reference = {
+    referenceBackdropLuminance: mapping.referenceBackdropLuminance,
+    minimumTintContrast: mapping.minimumTintContrast,
+  };
+  return { regular: reference, clear: reference };
 }
 
 /**
