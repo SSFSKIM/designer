@@ -184,7 +184,9 @@ Three things worth knowing before you reach for it:
   optics pass, which is exactly enough for the composition above (one coloured
   control among plain ones) and not enough for two different hues in one group.
   Asking for two raises a dev-mode warning naming the fix, which is to give the
-  second surface its own group.
+  second surface its own group. That one seed can be declared on the group
+  itself — `<GlassGroup tint="#ff9500">` colours every member that declares no
+  colour of its own, and a member opts out with `tint={null}`.
 - **The ink follows the tint.** vitrea publishes `--vitrea-foreground` against
   the material it is actually drawing, so a dark tint gets the light ink without
   you declaring anything — including on a group with no backdrop hint at all,
