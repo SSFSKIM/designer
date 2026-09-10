@@ -338,6 +338,13 @@ into the ledger rather than chartered.
 - **X7 — activation is a root pose with two frozen endpoints.** Owner: W27c. Not an interaction
   state; two profile documents, the transit through existing transitions; the cell key's profile
   SHA is the active document's, the pose is the scene's `state`.
+- **X9 — identity leaves content as the app wrote it.** Owner: W27d for the rule, W27e for the
+  hook (added 2026-09-10 from W27d's flow-back). At presence 0 the host's semantics and the
+  published ink token stay (identity is optical absence, not unmount), and the app owns its content
+  over the uncovered backdrop. When the vibrant operator lands it scales with presence and reaches
+  the app's own colour at 0, because Apple's identity leaves content "as if no glass effect was
+  applied"; the token path W27d leaves untouched is where that hook goes. Never an opacity side
+  effect (X6).
 - **X8 — what was not measured is written down.** Owner: each child, in `c9a-fidelity-claims.md`.
   W27d's timing has no reference; W27e is fitted to coefficients, not pixels; W27c's bed is
   pre-attestation; W27f's stack bound is one cell's. Each is a named line in the ledger at landing.
