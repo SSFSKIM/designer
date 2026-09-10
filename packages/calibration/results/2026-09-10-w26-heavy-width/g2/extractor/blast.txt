@@ -1,0 +1,48 @@
+How far each rule moves the committed bed's `silhouetteIoU`:
+  fill        moves  125 of 613 cells   Δ min -0.28657  max +0.35514  down  10  up 115
+  drop        moves  121 of 613 cells   Δ min +0.00000  max +0.34606  down   0  up 121
+  hyst        moves  415 of 613 cells   Δ min -0.34167  max +0.75300  down  46  up 369
+
+Cells that move DOWN under a rule, and by how much (a rule that only ever
+raises IoU is a rule that has stopped measuring something):
+  fill: 4 cells under -0.001
+      texture probe       apple-macos-26.5-2x-dark-standard           checkerboard-64__rrect-md__rest         holes    2/1     0.92516 -> 0.63859   -0.28657
+      dom     probe       apple-macos-26.5-2x-dark-standard           checkerboard-64__rrect-md__rest         holes    2/0     0.80341 -> 0.56838   -0.23502
+      texture probe       apple-macos-26.5-1x-dark-standard           checkerboard-64__rrect-md__rest         holes    2/1     0.88152 -> 0.65298   -0.22854
+      dom     probe       apple-macos-26.5-1x-dark-standard           checkerboard-64__rrect-md__rest         holes    2/1     0.74095 -> 0.63678   -0.10417
+  drop: 0 cells under -0.001
+  hyst: 32 cells under -0.001
+      texture calibration apple-macos-26.5-1x-dark-standard           dark-solid__capsule-button__rest        holes    0/0     0.58333 -> 0.24167   -0.34167
+      texture calibration apple-macos-26.5-1x-light-standard          dark-solid__capsule-button__rest        holes    0/0     0.58333 -> 0.24167   -0.34167
+      texture probe       apple-macos-26.5-2x-dark-standard           dark-solid__rrect-48__rest              holes    0/0     0.87582 -> 0.54524   -0.33057
+      texture probe       apple-macos-26.5-2x-light-standard          dark-solid__rrect-48__rest              holes    0/0     0.87582 -> 0.54524   -0.33057
+      texture probe       apple-macos-26.5-2x-dark-standard           dark-solid__rrect-64__rest              holes    0/0     0.84628 -> 0.54932   -0.29696
+      texture probe       apple-macos-26.5-2x-dark-standard           dark-solid__rrect-sm__rest              holes    0/0     0.81657 -> 0.54341   -0.27316
+      texture probe       apple-macos-26.5-2x-light-standard          dark-solid__rrect-sm__rest              holes    0/0     0.81657 -> 0.54341   -0.27316
+      texture probe       apple-macos-26.5-2x-dark-standard           checkerboard-64__rrect-md__rest         holes    2/1     0.92516 -> 0.67923   -0.24592
+
+The adopted `silhouetteIoU >=` bounds. Worst WELL-CONDITIONED cell of the
+gated sets (calibration + validation) per profile and tier — the cell the
+bound is actually set against. The conditioning predicate reads areas, which
+`fill` and `drop` do not touch, so membership is identical under both.
+profile                                       tier       bound      base      fill      drop      hyst
+apple-macos-26.5-1x-light-standard            texture     0.82   0.99215   0.99215   0.99215   0.99280
+apple-macos-26.5-1x-light-standard            dom         0.85   0.99840   0.99840   0.99840   0.99894
+apple-macos-26.5-2x-light-standard            texture     0.85   0.99037   0.99037   0.99037   0.99119
+apple-macos-26.5-2x-light-standard            dom         0.85   0.99913   0.99913   0.99913   0.99938
+apple-macos-26.5-1x-light-reduced-transparencytexture     0.87   0.97373   0.97373   0.97373   0.97537
+apple-macos-26.5-1x-light-reduced-transparencydom         0.89   0.99672   0.99672   0.99672   1.00000
+apple-macos-26.5-1x-light-increased-contrast  texture     0.85   0.99713   0.99713   0.99713   0.99795
+apple-macos-26.5-1x-light-increased-contrast  dom         0.80   1.00000   1.00000   1.00000   1.00000
+apple-macos-26.5-1x-dark-standard             texture     0.93   0.99548   0.99548   0.99548   0.99856
+apple-macos-26.5-1x-dark-standard             dom         0.93   0.99548   0.99548   0.99548   0.99856
+apple-macos-26.5-2x-dark-standard             texture     0.93   0.99481   0.99682   0.99681   0.99753
+apple-macos-26.5-2x-dark-standard             dom         0.93   0.99507   0.99707   0.99707   0.99759
+
+The three committed `silhouetteIoU` regression floors on the 0.14.0 bed:
+floor row                                                                    floor      base      fill      drop      hyst
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard  0.9070   0.90804   0.97498   0.97319   0.99993
+texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard  0.9257   0.92707   0.99980   0.99979   0.99989
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard  0.9038   0.92878   0.98384   0.98289   0.99972
+
+per-cell rows written to blast-rows.json

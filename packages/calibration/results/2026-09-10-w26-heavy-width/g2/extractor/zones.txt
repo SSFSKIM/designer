@@ -1,0 +1,13 @@
+the background raster's cells: 128000 px at linear 0, 128000 px at linear 1, 0 px between (the cells' antialiased seams)
+the declared region: 112416 px, of which 26012 px are under the inner overlay pane
+
+mask          excluded  over a dark cell  under the inner pane
+native            5540      5540 (100.0%)          5487 ( 99.0%)
+0.14.0            2718      2718 (100.0%)             0 (  0.0%)
+candidate         5358      5358 (100.0%)             0 (  0.0%)
+
+and what the three columns transmit over a dark cell, deep inside each zone
+(median linear luma; the rule keeps a pixel only at >= 0.02):
+  native     under the inner pane 0.02029   on the base alone 0.03689
+  0.14.0     under the inner pane 0.02315   on the base alone 0.03434
+  candidate  under the inner pane 0.02315   on the base alone 0.03434
