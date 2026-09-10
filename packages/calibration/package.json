@@ -23,7 +23,8 @@
     "diff": "tsx cli/diff.ts",
     "compare": "tsx cli/compare.ts",
     "tier-delta": "tsx cli/tier-delta.ts",
-    "capture:web": "tsx scripts/capture-web.ts"
+    "capture:web": "tsx scripts/capture-web.ts",
+    "declared-geometry": "tsx scripts/declared-geometry.ts"
   },
   "devDependencies": {
     "@playwright/test": "catalog:",

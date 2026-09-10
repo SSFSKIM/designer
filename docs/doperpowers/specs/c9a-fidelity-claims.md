@@ -15901,3 +15901,164 @@ at**, and the two accessibility policies are 1x-only in this census — an evide
 section records, not a capture G1 is required to perform. Nothing in this section was recomputed
 to fix either problem; the corrections sit beside the readings they qualify, per the ledger's
 rule that a recorded number is never rewritten.
+### 5.129 W27f G0: page content measured — the unhinted capsule misses collapse, a correct scalar hint still misses the thick body, and the stack remains a DOM overlay (2026-09-10)
+
+**Measurement, not a material landing.** Executes W27's Design, child W27f G0 and Decision Log 3.
+No material constant, profile, floor or canonical matrix moved. The 20 light-1x calibration scenes
+and the two explicitly requested stack holdout cells were captured on Chromium 151.0.7922.34,
+Apple/Metal-3, hardware adapter, at 320 × 200, eight settled frames, twice per capture: every final
+pair byte-identical. The material document is `6a9600720477` (resolved material `b2b570e4adcea8fb`).
+Evidence: `packages/calibration/results/2026-09-10-w27f-g0-unsampled.json`, its numeric markdown
+rendering beside it, and `2026-09-10-w27f-g0-read.py`. Capture outputs and compare matrices stayed
+under `/tmp/w27f-g0/`; the final hinted configurations are under its `final/` directory. Exploratory
+captures with a missing required coarse hint classification were excluded; the final inputs carry
+`tone` and the measured `luminance` through the public API.
+
+**1. The controls matter.** Six web configurations are recorded, not silently pooled:
+`sampledToday` is the existing registered texture, without an author hint; `unsampled-nohint` is
+that same image element on the page, unregistered and without a hint; `sampled-hint` and
+`unsampled` use the same measured scalar backdrop level on texture and page respectively;
+`css-today` and `css` record the existing and hinted CSS derivations. A group's resolved state,
+backdrop tone, nominal unsampled pair, adapter, capture time and PNG digest accompany every row.
+The hint is the baseline's actual `backdropTone.level`, never a convenient dark/light constant.
+The frozen captures predate explicit requested-axis fields: their arm identity was configured by
+the recorded run's environment and is now cross-checked against resolved source, backend and tone,
+not retroactively stamped into their reports. New captures carry the requested mode and scalar in
+the page report and probe-only `capturePath`; canonical keys are unchanged. Both `compare` and
+direct `capture:web` refuse probe output anywhere inside the canonical capture tree.
+
+A scalar hint is **not equivalent to texture analysis even when its level is exact**. The hint
+wins over sampling and is achromatic; `root.ts` makes its linear mean equal to its tone level.
+The sampled route normally carries the mean in encoded space decoded to linear, the independent
+linear-light mean, and RGB. Replacing those with one scalar removes the structured-backdrop
+correction and colour. On the checkerboard medium pane, merely supplying that hint moves the
+sampled interior OKLab L from **0.882803 to 0.928926**, and its ΔE against native from **0.01236
+to 0.05196**. Those losses are not charged to the DOM material. Both controls are retained so G1
+cannot purchase an easy bound by degrading its comparator.
+
+**2. Body level and spread.** The measurement footprint is the declared rounded-box region at
+pixel centres, not a silhouette extracted from the material being judged. The interior is eroded
+6 CSS px; spread is population standard deviation of per-pixel OKLab L. Stack bases exclude the
+visible overlay. ΔE is mean Euclidean OKLab distance over the visible declared footprint, not the
+full-canvas score. All scenes and terms are in the table; representative discriminating rows:
+
+| scene | native interior L / spread | sampled today L / spread | page, no hint L / spread | page, measured hint L / spread | sampled today ΔE / hinted page ΔE |
+| --- | --- | --- | --- | --- | --- |
+| dark capsule | 0.222540 / 0 | 0.227280 / 0 | 0.767053 / 0 | 0.226450 / 0 | 0.00552 / 0.00489 |
+| dark medium pane | 0.782900 / 0 | 0.791344 / 0.001310 | 0.779737 / 0 | 0.702816 / 0 | 0.00877 / 0.07851 |
+| checker medium pane | 0.876385 / 0.047915 | 0.882803 / 0.044533 | 0.877513 / 0.030451 | 0.855935 / 0.030641 | 0.01236 / 0.03632 |
+| photo medium pane | 0.872074 / 0.016712 | 0.868967 / 0.015127 | 0.871775 / 0.021360 | 0.844131 / 0.021559 | 0.04310 / 0.03475 |
+
+The first adopter's most decisive miss is not a slight haze: without a hint the dark capsule
+fails to collapse, **+0.53977 L** against the sampled route and **0.54523 ΔE** against native.
+A correct hint repairs that collapse, but it is not the promised material: the dark medium pane
+then sits **0.08853 L below the identically hinted sampled pane**. The unhinted capsule also
+names an information limit, not just a coefficient error: an ordinary DOM group with neither
+pixels nor a declared/estimated tone cannot distinguish a dark page from a light one. A
+profile-derived layer alone cannot promise tone adaptation in that case; G1 must keep the
+unknown-tone residual explicit rather than invent a backdrop level. On checker medium, the body
+loses structure (spread 0.030641 versus native 0.047915); on photo medium it retains too much
+(0.021559 versus 0.016712). A universal extra blur or white-alpha adjustment cannot close both.
+The photo page can nevertheless have a *smaller* whole-footprint ΔE than the sampled route:
+that is recorded, not forced into a claim that every unsampled term is worse.
+
+**3. Tint shade and rim are not absent; their input is wrong.** The reported untinted unsampled
+pair is still `[1, 1, 1]` at alpha `0.6649600815626966`. The shader subsequently adapts the layer,
+paints author tint and draws rim/shadow; that nominal pair is not the final body's measured colour.
+For full-opacity paint the table identifies an **apparent shade** by projecting the interior's
+linear RGB onto the declared linear seed. It does not identify the half-tint cell's shade (body and
+paint are mixed there). Orange over the dark solid, impulse and light solid reads **0.855329** on
+the unhinted page where the sampled path reads **1.0**, a 0.144671 loss of seed intensity; the real
+hint returns all three to 1.0. Over the photo the orange shade is native **0.809622**, sampled
+**0.826883**, unhinted page **0.855329**, hinted page **0.830901**. Over checker it is native
+0.828678, sampled 0.858072 and hinted page 0.855329: a flat shade can land near the mean while
+losing the spatially varying paint. Shade, colour and body structure remain separate obligations.
+
+W23's unchanged contour instrument reads the first two CSS pixels on each straight span,
+excluding 1.6 radii at the continuous corners. The table records the raw linear-luminance band
+mean **and** the integrated local excess over adjacent rows; neither is OKLab L. On the dark
+medium pane the local excess is native **0.229953**, sampled **0.229387**, hinted page
+**0.323081**: a **+0.093128** native error despite a dimmer raw band (0.508593 versus native
+0.594717), because its body is too dark. On checker medium it is 0.175208 / 0.179529 / 0.168776;
+on photo medium 0.126940 / 0.177829 / 0.173577. The rim is not solved by restoring its band mean
+alone. The circular toolbar members have no straight span; W23 correctly returns no rim reading
+there, and the table leaves it null rather than inventing one across the arcs.
+
+**4. The outer shadow and the record-only CSS comparison.** Exterior counts use the declared
+scene union, background linear luminance at least 0.05, and relative occlusion above 0.01. They
+are pixel counts, not a fitted extent or shadow-only intervention. Native / sampled / hinted page
+counts are **8210 / 8741 / 9108** on checker medium and **16628 / 20751 / 20969** on photo
+medium. The page has 367 and 218 additional qualifying exterior pixels beyond the sampled path;
+its shadow is not missing. Zero on a dark-solid cell means **no decidable backdrop pixels** at
+this threshold, not proof of no shadow. The overlay shadow falling on a stack base cannot be
+isolated from that base with these composites; only the whole scene's exterior count is identified.
+
+Under **X1**, CSS is recorded and never gates the child. On the same hinted page its medium-pane
+body L is dark **0.794364**, checker **0.931087**, photo **0.881006**, versus the GPU page's
+0.702816 / 0.855935 / 0.844131. Its local rim excess is **0.074234 / 0.022578 / 0.041884**,
+well below native 0.229953 / 0.175208 / 0.126940. This is a body derivation plus a rim residual,
+not an alternative fidelity target or a CSS work charter.
+
+The declaration cross-check also exposed a pre-existing CSS geometry residual: **every CSS host
+in both arms measures 2 × 2 CSS px larger than its declared size, with the same origin**, because
+its 1 px border is added to a content-box-sized host. Every GPU host matches the declaration
+exactly. The reader uses the declaration on all tiers and records the CSS excess as
+`cssTierMeasuredSizeExcessCssPx: [2, 2]`; switching to declared geometry changed no metric in this
+read because the original baseline GPU bounds already matched it. This CSS-only residual is
+recorded under X1, not fixed or folded into a new comparison target in G0.
+
+**5. The stack, against §5.77 §4 without rewriting its units.** A sampled-labelled stack has a
+textured **base**, but its overlay already resolves `css-backdrop`, `approximate`, `analysis: none`.
+It never samples the raw raster as a substitute for already-rendered glass. Its current derived
+stack tone is retained; the raw-backdrop hint is applied only to the base. The numbers below are
+**linear interior luminance**, on this gate's declared eroded overlay, not OKLab L:
+
+| overlay | native now | GPU, existing textured base | GPU, unhinted page base | GPU, hinted page base | CSS, existing base | §5.77 GPU / CSS |
+| --- | --- | --- | --- | --- | --- | --- |
+| checker | 0.904655 | 0.890113 | 0.884637 | 0.866897 | 0.901282 | 0.8899 / 0.8435 |
+| photo | 0.893533 | 0.873339 | 0.872080 | 0.849239 | 0.885039 | 0.8739 / 0.8166 |
+
+§5.77's **0.898 was a predicted linear composite**, not its measured interior and not OKLab L.
+Its measured GPU overlays survive close to the current readings (checker +0.000213, photo
+−0.000561); the current CSS readings are +0.057782 / +0.068439 above the older ones. Those are
+new observations on the current material and declared eroded mask, not a historical causal
+attribution to this gate. Native now resolves the older section's missing direct overlay reading:
+it is above both current GPU overlay levels. The existing GPU overlays' ΔE is **0.007735 /
+0.019478** (checker/photo); with a hinted page base it is **0.015833 / 0.020678**. Their local
+rim excess is native 0.111642 / 0.084228, existing GPU 0.042743 / 0.047788: the overlay still
+lacks rim even when its body is close.
+
+**6. What G1 must reproduce; no bound adopted at G0.** The profile-at-level derivation must carry
+the body response and its size dependence, transmission/structure, paint shade, rim on that body's
+level, and both outer-shadow terms into a layer that the browser composites in encoded sRGB.
+Its no-lens constraint remains. To be within the *existing sampled path's own native error*, dark
+medium body L must be within **0.008444** of 0.782900 (hinted page currently misses by 0.080084);
+checker medium within **0.006418** of 0.876385 and spread within **0.003382** of 0.047915;
+photo medium within **0.003107** of 0.872074 and spread within **0.001585** of 0.016712.
+Dark medium's local rim must reproduce 0.229953 within **0.000566**, rather than today's 0.323081.
+These are diagnostic budgets inherited from measured sampled errors, **not newly adopted floors**.
+The checker hinted-sampled ΔE of 0.05196 must not replace the actual sampled baseline of 0.01236.
+The colour and structure a scalar hint cannot carry, and refraction over page content, stay named
+limitations rather than being hidden behind that looser comparator.
+
+**X8 — the limit of the native evidence.** The **two stack overlays are the only native cells in
+this read that exercise the composed-glass analogue of the DOM-sourced path**. The 20 ordinary
+cells supply matched pixel references and route controls, not a native browser-page sampling
+implementation. A native CSS-backdrop backend does not exist. No arbitrary-text native bed was
+captured, no temporal claim was measured, no separate stack-overlay shadow was identified, and
+no curved-rim amplitude was inferred where W23 has no straight span. The visible contact sheet
+confirms the absent dark-capsule collapse, the hinted thick pane's dark body, the checker page's
+missing lens and different structure, and the photo's colour differences; scalar ΔE is not the
+whole verdict. G1 owns those gaps, with HTML-in-Canvas/refraction still outside this wave.
+
+**The public view and checks.** The site's `#page` section, **“Over ordinary page content”**,
+now follows `#material`. It carries the same three authored plate sizes over actual text and a
+CSS gradient, with no registered texture and no author hint. The existing readouts expose the
+resolved state rather than promising a requested tier. A full-Chromium live check on this machine
+reads **webgpu / css-backdrop / approximate / analysis: none / health: ok**, with no console
+warnings or errors. The stages illustrate the
+routes, while the calibration table supplies the controlled same-raster comparisons. The demo
+suite passed **48 tests with none skipped**, including two new GPU page-state/contrast cases and
+phone-sized span assertions; calibration **308 tests**. Both packages' lint and builds passed, and
+all **132 final web cells** had no diagnostics and were byte-identical over their two loads.
+No published API changed in G0, so X2's public-surface changeset belongs to a later gate.

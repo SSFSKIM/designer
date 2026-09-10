@@ -64,6 +64,7 @@ interface SectionSpec {
 
 const SECTIONS: readonly SectionSpec[] = [
   { id: "material", title: "The material", mode: "material" },
+  { id: "page", title: "Over ordinary page content", mode: "page" },
   { id: "tone", title: "Taking the tone of the backdrop", mode: "tone" },
   { id: "reference", title: "Measured against the real thing", mode: "reference" },
   { id: "behavior", title: "Behaviour", mode: "behavior" },
@@ -244,7 +245,7 @@ export function Site(props: SiteProps): ReactNode {
           </nav>
         </header>
 
-        <Section spec={SECTIONS[0]} active={active}>
+        <Section id="material" active={active}>
           <p className="body">
             Liquid Glass is not a blur preset. It is size-parameterised lensing,
             per-element adaptation of tint and foreground to whatever is actually
@@ -309,7 +310,55 @@ export function Site(props: SiteProps): ReactNode {
           <DiagnosticsReadout />
         </Section>
 
-        <Section spec={SECTIONS[1]} active={active}>
+        <Section id="page" active={active}>
+          <p className="body">
+            Every other stage on this page hands the runtime pixels the page owns: a
+            canvas, or the fixture raster. An app&rsquo;s first surface almost never
+            sits over one of those. It sits over the app&rsquo;s own markup, and the
+            window is showing exactly that now: the same three plates as the sweep
+            above, at the same authored thickness, over a paragraph of this
+            page&rsquo;s text and a gradient behind it. Nothing there is registered
+            with the runtime.
+          </p>
+          <p className="body">
+            vitrea does not rasterise page DOM into a texture, so this path is not
+            the lensing one. The blur is the engine&rsquo;s own{" "}
+            <code>backdrop-filter</code> either way, and where it runs depends on the
+            tier: on the WebGPU tier it runs on one masked proxy per sampling group
+            and the GPU draws the rim, the tint and the shadow over that blur; on the
+            CSS tier there is no proxy, and the filter runs in place on each surface.
+            The readout below is the runtime saying which happened, in its own words:{" "}
+            <code>configuredSource: dom</code>, a sampling backend of{" "}
+            <code>css-backdrop</code> where the engine has one, and refraction that
+            never reads better than <code>approximate</code>.
+          </p>
+          <p className="body">
+            This group also declares nothing about its backdrop, which the toolbar
+            and the menu under Behaviour both do. That is deliberate, and it is the
+            other half of what the stage shows: an app dropping a surface onto its
+            own page states nothing, so what it gets is the default for a group with
+            no pixels to read and no declaration to read instead. The readout says{" "}
+            <code>analysis: none</code> where a declaring group says{" "}
+            <code>hint</code>. A hint is available and it outranks any reading, and
+            the stage below shows what one buys; this stage is the case before
+            anybody has written one.
+          </p>
+          <p className="note">
+            The two stages carry the same three spans at the same authored thickness,
+            which is what makes them worth looking at one after the other. It is not
+            a controlled experiment and this page will not call it one: the backdrops
+            are different pixels, and the stage above also carries the tint control.
+            The measurement is happening elsewhere, against the sampled path over the
+            same backdrop and against Apple&rsquo;s own stacked capture. Until it
+            lands, what the unsampled path puts inside a surface is a recorded
+            fidelity gap rather than something this page styles away.
+          </p>
+          {GROUPS_BY_MODE.page.map((group) => (
+            <GroupReadout key={group.id} id={group.id} label={group.label} />
+          ))}
+        </Section>
+
+        <Section id="tone" active={active}>
           <p className="body">
             Liquid Glass does not always sit in front of what is behind it. Over a
             dark enough backdrop it takes that backdrop&rsquo;s tone and settles
@@ -366,7 +415,7 @@ export function Site(props: SiteProps): ReactNode {
             argument, not its result.
           </p>
           <p className="body">
-            Every other stage here lets the runtime read the ground for itself:
+            The texture stages here let the runtime read the ground for itself:
             their groups sample the window&rsquo;s texture, so the plates above are
             adapted to what is actually behind them, and a declared hint would only
             override that reading. The groups that sit over ordinary DOM &mdash; the
@@ -398,7 +447,7 @@ export function Site(props: SiteProps): ReactNode {
           ))}
         </Section>
 
-        <Section spec={SECTIONS[2]} active={active}>
+        <Section id="reference" active={active}>
           <p className="body">
             The left panel is this browser rendering the scene now. The right panel
             is a screen capture of Apple&rsquo;s own <code>glassEffect</code> on
@@ -462,7 +511,7 @@ export function Site(props: SiteProps): ReactNode {
           </ul>
         </Section>
 
-        <Section spec={SECTIONS[3]} active={active}>
+        <Section id="behavior" active={active}>
           <p className="body">
             Press any control in the window. Pointer-down produces a glow at the
             press point and about one per cent of compression on a spring; release
@@ -490,7 +539,7 @@ export function Site(props: SiteProps): ReactNode {
           ))}
         </Section>
 
-        <Section spec={SECTIONS[4]} active={active}>
+        <Section id="access" active={active}>
           <p className="body">
             Reduced motion removes overshoot, deformation and shimmer travel while
             keeping positional continuity. Reduced transparency frosts the material
@@ -558,7 +607,7 @@ export function Site(props: SiteProps): ReactNode {
           </p>
         </Section>
 
-        <Section spec={SECTIONS[5]} active={active}>
+        <Section id="tiers" active={active}>
           <p className="body">
             There are two renderers, and the difference between them is stated rather
             than smoothed over.
@@ -631,7 +680,7 @@ export function Site(props: SiteProps): ReactNode {
           </ul>
         </Section>
 
-        <Section spec={SECTIONS[6]} active={active}>
+        <Section id="install" active={active}>
           <pre className="code" tabIndex={0}>
             <code>{"npm install @vitreajs/vitrea @vitreajs/vitrea-react"}</code>
           </pre>
@@ -688,12 +737,18 @@ export function Site(props: SiteProps): ReactNode {
   );
 }
 
+/*
+ * Addressed by id rather than by position in `SECTIONS`. The two lists have to
+ * agree, and an index is the one way of saying so that goes wrong silently when a
+ * section is inserted: every section after the insertion point would keep rendering
+ * under its neighbour's title and drive the stage into its neighbour's mode.
+ */
 function Section(props: {
-  readonly spec: SectionSpec | undefined;
+  readonly id: string;
   readonly active: string;
   readonly children: ReactNode;
 }): ReactNode {
-  const { spec } = props;
+  const spec = SECTIONS.find((entry) => entry.id === props.id);
   if (spec === undefined) return null;
   const current = props.active === spec.id;
   return (
