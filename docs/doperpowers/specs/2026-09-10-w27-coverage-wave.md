@@ -240,9 +240,12 @@ into the ledger rather than chartered.
 - **Design inheritance:** §Where each feature lives (activation as a root pose) [binding];
   the four-facet reading and the `dark-profile.ts` template (advisory).
 - **Required:** yes — acceptance 1, 3.
-- **Status:** G0 closed; G1 fitted and declared 2026-09-10 (claims §5.130), ready for parent
-  review. The corrected 30-cell holdout is spent; photo chroma, mid-dark response and far-span
-  scatter remain explicit gaps, so G1 does not establish G3's inactive floors. G2/G3 pending.
+- **Status:** G0 closed; G1 fitted and declared 2026-09-10 (claims §5.130), reviewed by the
+  parent and merged (`f8c38a2`). The corrected 30-cell holdout is spent; photo chroma, mid-dark
+  response and far-span scatter remain explicit gaps, so G1 does not establish G3's inactive
+  floors. G2 (the activation observer and `windowActivation`) and G3 (the landing, with the
+  demo's inactive rows) were not dispatched: the wave stopped here (Revision Notes,
+  2026-09-11).
 
 ### W27d: Identity and materialize — controlled
 
@@ -267,7 +270,9 @@ into the ledger rather than chartered.
 - **Design inheritance:** §Where each feature lives (presence, not alpha) [binding]; the
   per-instance scalar mechanism (advisory).
 - **Required:** yes — acceptance 1, 2.
-- **Status:** implemented on its worktree; final independent review and landing evidence in progress.
+- **Status:** CLOSED 2026-09-11, merged `108b40d` after two review rounds (the six-lane panel
+  against `313fa2b`, then a single reviewer over the merge and the fixes alone, which returned
+  no findings). See the Tracking Map row and claims §5.132's verification record.
 
 ### W27e: Vibrancy — controlled
 
@@ -320,10 +325,11 @@ into the ledger rather than chartered.
 - **Design inheritance:** §Where each feature lives (page content gets the material) [binding];
   HTML-in-Canvas stays a seam (Decision Log 3).
 - **Required:** yes — acceptance 1, 2, 3.
-- **Status:** G0 completed (claims §5.129); G1 completed on its isolated branch (claims §5.131,
-  2026-09-10): shared profile-at-tone derivation, sampled-source identity, both schemes and the
-  full once-read holdout recorded. G2 remains pending: no native stack bound adopted and no user
-  acceptance of `/#page` claimed.
+- **Status:** G0 completed (claims §5.129); G1 completed (claims §5.131, 2026-09-10) and merged
+  (`6ae37c1`): shared profile-at-tone derivation, sampled-source identity, both schemes and the
+  full once-read holdout recorded. G2 (the landing: a native stack bound and the user's
+  acceptance of `/#page`) was not dispatched: the wave stopped here (Revision Notes,
+  2026-09-11). No native stack bound is adopted and no user acceptance of `/#page` is claimed.
 
 ## Cross-Child Contracts
 
@@ -437,11 +443,11 @@ neighbour glow diffusion; topology-changing morphs.
 | child | where | status |
 | --- | --- | --- |
 | W27a | LANDED 2026-09-10 (merged `bc14af9`; seven commits plus three review fixes): `GlassButton`/`GlassIconButton` forward `tint` and `foreground` (the README's flagship tint example had not compiled); `GlassGroup` gains the `tint` the 0.2.0 changelog promised, parsed per document; the no-hint ink guards removed on both tiers with five assertions re-pinned stricter (tracker entry closed in place); the renderer's `lensStrength` clamp at 1 lifted to a finite guard of 4 with NaN resolving to the idle 1 (goldens 33/33 unmoved); four named ink levels published on both tiers, secondary solved per surface against the actual composite colour over the whole bracket (Decision Log 9). Review: two P1s on the ink floor (chromatic tint, unresolved level) fixed with fail-before tests measuring the real contrast; two P2s (adopted stylesheets, Infinity in the Float32Array) fixed. Two gaps logged, not closed: the dark scheme's primary ink at WCAG 4.945 with nothing watching it; `lensDepthPx` ignoring `lensStrength`. Main after merge: build, lint, all unit suites green (2004 tests), demo e2e 48 | landed |
-| W27b | worktree agent, dispatched 2026-09-10 after W27a's merge; 14 commits `bc14af9..b59a585` | CLOSED 2026-09-10 (one `role="toolbar"`, N groups; `GlassToolbarSpacer` and `sharedBackground="hidden"` as one partition rule; the gap derived through `samplingPaddingFor` over every group the toolbar registers, not the row's own props; the playground's hand split rewritten on the API; goldens and the resting bed unmoved. Review: two defects fixed before the head — the gap read only the toolbar's own material, then the first fix folded the toolbar's props in as a floor — final head reviewed correct. At the head: 2028 unit tests, platform-web 388, react e2e 114 on three engines, demo e2e 48) |
-| W27c | G0 CLOSED 2026-09-10 (merged `7312fd0`; claims §5.128: all 121 pairs read; the outer shadow and the bright rim go to zero in every profile at both scales, structure retained falls, an author tint loses its hue entirely while its darkening stays — orange and blue capsules both settle at Y 0.451 against the untinted 0.606 — and no existing field expresses that; dark untinted glass and both accessibility bodies *brighten*; four cells background-identical; the 2x dark photo capsule's active side is the 1-of-17 minority state and is excluded from the fit) / G1 declared 2026-09-10, claims §5.130: scheme-indexed endpoint, two identity-default tint fields, 121 recovered fixtures, corrected 62-cell fit and 16-cell validation, one 30-cell holdout spent; all four review findings fixed | G1 ready for parent review; holdout residuals explicit, no inactive floors adopted |
-| W27d | worktree agent, `bc14af9..` then main integrated at landing; claims §5.132 with its verification record | CLOSED 2026-09-11 (`present` on `GlassSurface` and on the host entry drives `materialization` through the kernel's existing monotonic driver to both tiers; exactly 0 is `Glass.identity` and leaves the renderer's drawing set, the proxy's painted shape and the root's painted-tone forecast; `GlassMorph transition="materialize"` is two endpoints on their own boxes and planes with only the content crossfading; Reduced Motion steps presence on both tiers. Review: a six-lane panel plus a binding verifier against the frozen head — ten findings confirmed and fixed with fail-before tests (one P1: focus lost on a materialize close), two more of the same shape found while fixing them and fixed, three refuted as declared design and recorded instead (proxy σ in §5.132 §4; host presence on `DEFAULT_MOTION_PROFILE` in §5.132 §6, both READMEs and the Deferred list; the tint-table cache bound and the morph's arrival tolerance in the tracker). At the head: goldens 34/34 and GPU e2e 21/21 with nothing re-recorded, platform-web chromium e2e 158/158, react e2e 128 on three engines, demo e2e 48/48, 2 160 unit tests, build and lint clean) |
-| W27e | — | not-dispatched (deliberately late) |
-| W27f | G0 CLOSED 2026-09-10 (merged `730a9d3`; claims §5.129: the unhinted dark capsule misses the collapse by ΔE 0.545 against the sampled path's 0.006, a correct scalar hint repairs it but the dark medium pane still misses by 0.079 (−0.089 L against the same-hint sampled path), the checkerboard rows lose spread and the photo rows keep too much; a scalar hint itself costs the sampled path its structured-backdrop correction, so the evidence keeps sampled-today, same-hint-sampled and hinted-page columns apart; the two stack overlays are the only native cells on this path; the demo gains `/#page`, "Over ordinary page content") / G1 CLOSED on isolated branch 2026-09-10 (claims §5.131: profile-at-known-tone derivation, scalar CPU/GPU law proof, unchanged sampled-source draws; 20 ordinary scenes plus both stacks in light/dark, full holdout spent at `1fff5e6`; thick-body repair with unknown-tone paint, structured spread/colour and dark-overlay regressions retained) | G2 pending; no bound adopted |
+| W27b | worktree agent, dispatched 2026-09-10 after W27a's merge; 14 commits `bc14af9..b59a585`; merged `38d782c` | CLOSED 2026-09-10 (one `role="toolbar"`, N groups; `GlassToolbarSpacer` and `sharedBackground="hidden"` as one partition rule; the gap derived through `samplingPaddingFor` over every group the toolbar registers, not the row's own props; the playground's hand split rewritten on the API; goldens and the resting bed unmoved. Review: two defects fixed before the head — the gap read only the toolbar's own material, then the first fix folded the toolbar's props in as a floor — final head reviewed correct. At the head: 2028 unit tests, platform-web 388, react e2e 114 on three engines, demo e2e 48) |
+| W27c | G0 CLOSED 2026-09-10 (merged `7312fd0`; claims §5.128: all 121 pairs read; the outer shadow and the bright rim go to zero in every profile at both scales, structure retained falls, an author tint loses its hue entirely while its darkening stays — orange and blue capsules both settle at Y 0.451 against the untinted 0.606 — and no existing field expresses that; dark untinted glass and both accessibility bodies *brighten*; four cells background-identical; the 2x dark photo capsule's active side is the 1-of-17 minority state and is excluded from the fit) / G1 declared 2026-09-10, claims §5.130: scheme-indexed endpoint, two identity-default tint fields, 121 recovered fixtures, corrected 62-cell fit and 16-cell validation, one 30-cell holdout spent; all four review findings fixed | G1 LANDED (merged `f8c38a2` after the parent's review; holdout residuals explicit, no inactive floors adopted). G2 and G3 not dispatched: the wave's stopping point (Revision Notes, 2026-09-11) |
+| W27d | worktree agent, `bc14af9..31988e6` with main integrated at landing; merged `108b40d`; claims §5.132 with its verification record | CLOSED 2026-09-11 (`present` on `GlassSurface` and on the host entry drives `materialization` through the kernel's existing monotonic driver to both tiers; exactly 0 is `Glass.identity` and leaves the renderer's drawing set, the proxy's painted shape and the root's painted-tone forecast; `GlassMorph transition="materialize"` is two endpoints on their own boxes and planes with only the content crossfading; Reduced Motion steps presence on both tiers. Review: a six-lane panel plus a binding verifier against the frozen head — ten findings confirmed and fixed with fail-before tests (one P1: focus lost on a materialize close), two more of the same shape found while fixing them and fixed, three refuted as declared design and recorded instead (proxy σ in §5.132 §4; host presence on `DEFAULT_MOTION_PROFILE` in §5.132 §6, both READMEs and the Deferred list; the tint-table cache bound and the morph's arrival tolerance in the tracker). At the head: goldens 34/34 and GPU e2e 21/21 with nothing re-recorded, platform-web chromium e2e 158/158, react e2e 128 on three engines, demo e2e 48/48, 2 160 unit tests, build and lint clean) |
+| W27e | — | not-dispatched: deliberately last in the ordering, then held at the wave's stopping point (Revision Notes, 2026-09-11). Its design inheritance stands as written, and X9 names what the operator must do with presence now that W27d has landed |
+| W27f | G0 CLOSED 2026-09-10 (merged `730a9d3`; claims §5.129: the unhinted dark capsule misses the collapse by ΔE 0.545 against the sampled path's 0.006, a correct scalar hint repairs it but the dark medium pane still misses by 0.079 (−0.089 L against the same-hint sampled path), the checkerboard rows lose spread and the photo rows keep too much; a scalar hint itself costs the sampled path its structured-backdrop correction, so the evidence keeps sampled-today, same-hint-sampled and hinted-page columns apart; the two stack overlays are the only native cells on this path; the demo gains `/#page`, "Over ordinary page content") / G1 CLOSED on isolated branch 2026-09-10 (claims §5.131: profile-at-known-tone derivation, scalar CPU/GPU law proof, unchanged sampled-source draws; 20 ordinary scenes plus both stacks in light/dark, full holdout spent at `1fff5e6`; thick-body repair with unknown-tone paint, structured spread/colour and dark-overlay regressions retained) | G1 LANDED (merged `6ae37c1`); G2 not dispatched: the wave's stopping point (Revision Notes, 2026-09-11); no bound adopted |
 
 ## Decision Log
 
@@ -591,6 +597,31 @@ linear/encoded means and local pixels, not a fabricated interpretation of `hint.
 G1 records every per-scene miss; G2 alone adopts a native stack bound and re-reads the demo.
 
 ## Revision Notes
+
+- 2026-09-11, **stopping point, on the user's instruction:** "Keep the thing that's working to
+  continue and finish, but don't dispatch the next wave; get to a good stopping point once works
+  being done right now are done." The four children in flight when that was said were finished,
+  reviewed, merged and verified, and nothing new was dispatched. On `main` at this note: W27a
+  `bc14af9`, W27b `38d782c`, W27f G1 `6ae37c1`, W27c G1 `f8c38a2`, W27d `108b40d`. Main verified
+  after the last merge, one suite after another: build and lint clean; 2 160 unit tests across
+  the nine packages (motion 164, policy 23, geometry 170, renderer-webgpu 465, core 302,
+  platform-web 552, calibration 340, react 141, demo 3); renderer goldens 34/34 with nothing
+  re-recorded; demo e2e 47/48 in the full run. The one miss is `contrast.spec.ts` "the plates'
+  labels hold the large-text floor", which timed out at Playwright's element-stable check with
+  another session active on this repository and passed alone at 24.1 s against its 30 s budget
+  (13 s of which are the helper's fixed phase waits): a test-budget flake, now in the tracker,
+  not a material reading. Every demo test has passed on `108b40d`; not all in one run.
+  Not dispatched, each with its design inheritance standing as written: W27e (vibrancy; X9 now
+  names what its operator must do with presence); W27c G2 (the activation observer and
+  `windowActivation`) and G3 (the landing, with the demo's inactive rows and any inactive
+  floors); W27f G2 (a native stack bound and the user's acceptance of `/#page`). Parent
+  acceptance clause 5, the release, is not met at this point by design: nine changesets sit in
+  `.changeset/` for the fixed group, and the minor is cut only after the user's eye on the
+  landing sheets. The reference moves on 2026-09-14; the 26.5 bed stays frozen per §Deferred and
+  nothing here fits against 27. W27d's review ran as the six-lane panel against its frozen head
+  with the binding verifier on Opus (GPT capacity was constrained), then one reviewer over the
+  merge and the fixes alone, which returned nothing; the outcome is in W27d's note below and in
+  claims §5.132.
 
 - 2026-09-10, W27d implementation: presence is driven once by the framework-agnostic
   root, before either tier consumes `--vitrea-materialization`; React forwards `present`

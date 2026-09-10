@@ -1960,3 +1960,19 @@ during which the destination could be released and `onMorphEnd(false)` fire at a
 of the fix is comparing the published endpoint exactly, and it belongs with the deferral it
 depends on: the framework-agnostic root taking a motion profile so host presence can be tuned at
 all (claims §5.132 §6).
+
+## The demo's material-stage contrast test runs at 80% of its timeout on an idle machine (W27 stopping point, 2026-09-11)
+
+`apps/demo/e2e/contrast.spec.ts` "the plates' labels hold the large-text floor" took 24.1 s alone
+against Playwright's default 30 s test timeout when it was re-run by itself on `108b40d`, and it
+passed. In the full serial verification of the same commit it timed out at the element-stable
+check before its first screenshot, with another Claude session active on the repository. The
+budget is structural: `worstRatio` in `glass-contrast.ts` sleeps through `SAMPLE_DELAYS`
+(400 + 2 200 + 4 200 + 6 200 = 13 s of fixed waiting) and screenshots every `.plate strong` at each
+phase on a GPU page, while the suite runs `fullyParallel` with its GPU specs beside it. The same
+suite showed five failures under concurrent load at W27d's landing head and 48/48 serially, and
+the port-sharing entry above is a separate cause with the same symptom. Nothing in the material
+moved: every demo test has passed on `108b40d`, just not all in one run. The fix is one line —
+`test.slow()` or a per-test timeout proportional to `SAMPLE_DELAYS` on the phase-sampled
+contrast tests — and it was left out of the stopping-point commit so that commit changes no test
+configuration; take it with the next demo e2e change and re-run the suite once, serially.
