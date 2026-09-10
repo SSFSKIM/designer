@@ -726,3 +726,92 @@ transcripts as cited per row. vitrea side: `main` at 24c4a7d, with K5 (CSS-tier
 opacity coherence) and C9d (release gates) in flight — neither changes any row's
 status, and K5's landing is what would move the dom tier's rows in §3 out of
 "more than 2× out of step with the texture tier."*
+
+---
+
+## 7. Re-scored 2026-09-10, beside the August reading
+
+Every row above was scored again against `main` at `c5b3320` (W26 recomposed,
+0.15.0), sixteen days and twenty-six waves after §4 was written. The per-row
+tables with their citations are in
+[`2026-09-10-coverage-rescore.md`](./2026-09-10-coverage-rescore.md); the
+August column there is reconstructed from git so that the in-place annotations
+W2 and W7 left in §3.2 and §3.3 do not contaminate it, and it reproduces §4's
+counts exactly. The tables above are left as written.
+
+| layer | rows | `replicated+measured` | `replicated, unmeasured` | `partial` | `excluded by decision` | `absent, undecided` | n/a |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| §1 Material API surface | 52 | 10 → **14** | 5 → 4 | 10 → 8 | 4 → 4 | 13 → **12** | 10 → 10 |
+| §2 Component families | 26 | 1 → 1 | 2 → **3** | 3 → 3 | 7 → 7 | 10 → 10 | 3 → 2 |
+| §3 Behavioral system | 96 | 14 → **26** | 16 → 18 | 17 → 15 | 7 → **12** | 35 → **18** | 7 → 7 |
+| **total** | **174** | **25 → 41** | **23 → 25** | **30 → 26** | **18 → 23** | **58 → 40** | **20 → 19** |
+
+As proportions of the 155 scoreable rows: replicated and measured 16% → **26%**;
+replicated, unmeasured 15% → 16%; partial 19% → 17%; excluded by decision 12% →
+15%; absent and never ruled on 38% → **26%**.
+
+**Where the movement came from.** Thirty-three rows moved, thirty-two of them
+toward a build or a ruling and one away. Most trace to the post-v1 wave's first
+eight children (W1–W8, closed 2026-09-01) and the tint waves: the author tint
+(W3, W10, W19) closed §5's second absence and four §3.4 rows; the size law and
+tone adaptation (W2, W7, W9) closed §5's first absence and four of §3.2's five
+facets; the content-layer contract (W4) turned Apple's prohibition into two
+diagnostics and, by refusing three others with reasons, moved three `absent`
+rows to `excluded by decision`; the outer shadow (W8) and the capture campaign
+(W1, fixtures behind both accessibility profiles and both scales) did the rest.
+The eighteen fidelity waves since 2026-09-01 (W9–W26) moved six rows between
+them — W14's light-bleed and content-aware-shadow pair, W18's measurement of
+the rest-state blending rule, W21's scheme-selection pair, and W22's one move
+downward (§1.1's `interactive`, when the resting specular was found to be the
+sweep's parked idle phase) — and strengthened the evidence under a dozen
+others without changing a verdict.
+
+**The forty rows still `absent, undecided`,** grouped by what would close them:
+
+- *The material's missing transitions and identities* — `Glass.identity`, the
+  `materialize` transition kind, `glassEffectUnion` by shared id. The motion
+  kernel's `materialization` channel exists with nothing public reaching it.
+- *The foreground* — vibrancy as the automatic legibility model, its named
+  levels and floor, label/background colour collision. Still a token path; the
+  word appears in two doc comments and no runtime.
+- *Chrome the material sits in* — `safeAreaBar`, `backgroundExtensionEffect`,
+  toolbar minimization, toolbar group splitting (a `groupId` lever exists; the
+  declarative spacer and ergonomics do not), navigation bars, sidebars, text
+  fields, steppers, alerts, action sheets, windows, widgets, icons, keyboard
+  accessories.
+- *States the material has and vitrea does not* — ambient colour spill from
+  nearby content, transient lift-into-glass, device-motion speculars, the
+  clear variant's three preconditions, dimming that may be omitted, localized,
+  or used as a modality signal. (Window focus moved to `excluded by decision`
+  with its reference bed preserved; it is a decision, not a gap.)
+- *Concentricity's outer end* — hardware and window corners at the top of the
+  chain, the pinched/flared diagnostic, the read-back accessors.
+- *Accessibility inputs* — Differentiate Without Color, Show Button Shapes.
+- *The reference's own drift* — the OS 27 material and its user-facing slider.
+
+**Five August readings that were wrong on the day, not stale** (the companion
+file argues each): `Glass.clear` credited a dimming layer no renderer paints;
+`Glass.interactive` credited a shimmer that was the sweep's idle phase;
+`glassEffectID` credited a `morphNamespace` that nothing reads; the concentric
+read-back was already reachable internally; toolbar splitting already had a
+`groupId` lever. Two §3 rows earned their unchanged status through different
+code than the one credited (the control-not-inner-views check, which W4 built
+after the geometric one was found blind; the capsule, which W20 found clamped
+since v1).
+
+**Native behaviors the matrix never enumerated,** found by measuring rather
+than reading: Apple's rendered layer tree as a source (the container blends at
+`smoothness == spacing` with no separation threshold, which no document states
+and vitrea diverges from above 16); the tint's strength axis and its
+encoded-space law; the corner saturation rule (radius kept, shoulder
+compressed); material selection by appearance as distinct from backdrop tone;
+the outer shadow's two terms; the body as a depth-graded sharp/heavy mixture;
+the rim's diagonal and along-side fields; the collapsed rim's absolute floor;
+two settled appearances under identical attested conditions; and a thin dark
+appearance selected by scene content beyond the surface's footprint.
+
+Two of §4's three cross-cutting facts changed. The accessibility profiles and
+the 2x keys have captures now, and every claim on them is against Apple. The
+component layer is still one measured row of 26, by the same deliberate trade.
+The third, that the reference has already moved, is unchanged: after
+twenty-six waves every profile key still reads `apple-macos-26.5`.
