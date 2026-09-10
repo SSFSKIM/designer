@@ -204,6 +204,61 @@ a blanket flip, and a new case in `css-tier.test.ts` pins that pair.
 Not re-measured against the reference: this moves a token, not a pixel, and no
 calibration cell reads `--vitrea-foreground`.
 
+## The dark scheme's own material leaves the primary ink at 4.95 over a bright backdrop
+
+*Found 2026-09-10, deriving the named ink levels' alphas (W27a).*
+
+Solving `inkAlphaHoldingContrast` across the material's reachable level range to
+choose `--vitrea-foreground-secondary`'s alpha turned up a reading about the
+**primary** ink that nobody had taken. The dark profile's GPU-tier level runs
+`[0.2348, 0.4169]` (`gpuTierForegroundBounds(sourceOptics(darkMaterialProfile).regular)`),
+and the top of that range — the dark material over a white backdrop — puts the
+light ink `#f5f5f7` at a WCAG contrast of **4.945** against a 4.5 floor. The
+light scheme has room to spare on the same instrument (7.29 at its darkest
+reachable level of 0.665, 8.26 on the GPU tier); the dark scheme has 0.445 of
+headroom, which is roughly one 8-bit step of the level.
+
+Two consequences, one of them already visible. W27a's secondary level is
+therefore raised to 0.924 on exactly that surface — the token is honest, but the
+scale it belongs to has collapsed onto the primary there, and an app reading
+`--vitrea-foreground-secondary` on dark glass over a photo gets no visible second
+level. The other is that the primary itself is one profile tweak away from
+failing AA, and nothing currently watches it: the adopted-threshold suite
+measures fidelity to Apple, not legibility, so a retune could take the ink under
+4.5 with every bound still green.
+
+**The fix shape:** the same instrument the alphas are chosen with, run as a
+guard. A test that walks both schemes' and both tiers' reachable level ranges and
+asserts the *primary* ink holds 4.5 would fail today, which is why it is recorded
+here rather than added — landing it is a decision about the ink tokens or the
+dark profile, not a test. The two candidate resolutions are a darker light ink
+(`#f5f5f7` is 0.898 linear; pure white would buy about 0.24 of contrast on this
+cell) and moving `foregroundCrossover`, which is derived rather than chosen and
+would have to be re-derived from whatever pair replaced it. Worth doing with the
+dark profile's next re-fit in hand.
+
+## The renderer's CPU-side `lensDepthPx` readout ignores the lens channel
+
+*Found 2026-09-10, lifting the channel's upper clamp (W27a).*
+
+`resolveSurfaces` in `packages/renderer-webgpu/src/instances.ts` publishes
+`lensDepthPx` per surface — documented there as "the CPU's reading of" the depth
+the shader evaluates — and computes it from `shape.channels.thickness` alone,
+with no `lensStrength` term. Before W27a that was wrong only for a disabled
+surface (0.5, the one value the old clamp let through). It is now wrong for every
+interaction state: hover, focus, press and morph all scale the shader's depth and
+none of them moves the readout.
+
+Nothing reads it in anger today, which is why W27a left it alone — the shader
+evaluates both depths from the `lensThick` slot and the span, and the readout is
+a reporting field. But the honesty core's rule is that a readout says what
+actually drew, and this one says what would have drawn at rest.
+
+**The fix shape:** fold the same `max(0, lensStrength)` into the `lensDepthOf`
+call, and check whether any capture cell or readout consumer was silently relying
+on the resting value — a cell that samples a pressed surface would start
+reporting a different number, which is the point.
+
 ---
 
 ## ~~The renderer's eight GPU goldens are stale, and have been since W2~~ — CLOSED 2026-09-01
