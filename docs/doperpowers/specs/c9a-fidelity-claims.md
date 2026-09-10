@@ -15582,3 +15582,29 @@ dpr 1 and 4.455 → 6.121 across spans 96 → 160 at dpr 2, against 9 device px)
 assertion in `tier-coherence.test.ts` and chartered in the tracker; it did not answer why the dark
 bed prefers a width its own reference does not have, which is the dark wave's; and it re-pinned no
 floor, none needing it.
+
+### 5.127 W26 RECOMPOSED: the heavy width — the parent's eight clauses verified against the landed bed; the width a lever at both scales, the light scheme's thick body on Apple's within 15 % with the share within 0.07, the dark scheme held at its 0.14.0 draw on three appearance signals, the CSS derivation declined and pinned, the nested base and the collapsed dot carried by name; 0.15.0 cut, the user's eye before publish (2026-09-10)
+
+**Verdict per clause** (W26 spec, Outcomes & Retrospective): 1 met (the Gaussian at the tap as a
+third pyramid texture, +0.18 ms, the family reader returning the named width to +0.2 %, X5 worst
+0.00021); 2 met in the light scheme (σ 9 against 9.48 / 8.63 / 8.13 / 9.79, the share within
+0.07) and NOT met in the dark (Decision Log 10: three appearance measures against the family
+reader's 9.15; held byte-identical to 0.14.0); 3 not met (the nested base 2.20 against 1.50);
+4 not met (the dot 4.26 against 6.17, not met at the control either); 5 met (eleven floors
+unmoved, every CSS and dark group unchanged, the light GPU worst +0.00035); 6 met (the holdout
+read once at G2b and reproduced byte for byte at G3); 7 declined (twelve dom floors and the eye;
+the gap pinned at 13.8 CSS px against 9 device px); 8 open.
+
+**What the wave established, for the ledger.** The pyramid's last level was the heavy width
+(§5.119); Apple's heavy component is 8.6–9.5 device px at both scales and two Gaussians describe
+it as well as forty free parameters (§5.121); the share was already right and the lift declined
+by measurement (§5.121, §5.122); the impulse tile carries the heavy component at a fraction of a
+code and single-backdrop two-Gaussian reads are projections (§5.120 §2, §5.121 §5); the
+silhouette IoU is taken over the decidable region (§5.124); the eye's gradient is the
+checkerboard's depth structure unmasked (§5.125). §5.126's DRAFT marking is lifted by this
+section: its numbers are the landing's as read.
+
+**Carried by name** to the tracker and the next waves: the dark thick body and the nested pane's
+layers (the dark wave); the sharp component; the CSS tier's heavy width; the 2x span grading; the
+gain constants' retirement with the dark path; the no-small-values wart; the rim's depth; the
+~1 code of Apple's interior no convolution explains; the native's 0.02029 transmission.

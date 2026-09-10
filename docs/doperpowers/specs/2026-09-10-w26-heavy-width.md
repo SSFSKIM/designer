@@ -1,8 +1,16 @@
 # W26 — the heavy width: the thick surface's haze through a kernel whose width is a parameter (2026-09-10)
 
-**Status: CHARTERED 2026-09-10 by W25 Decision Log 7 (e) at W25's recomposition (claims §5.118) —
+**Status: RECOMPOSED 2026-09-10 (claims §5.127) — the eight clauses verified against the landed bed
+(`8a57e0a`): the width a lever at both scales (clauses 1, 5, 6 met); the light scheme's thick body
+on the family reader within 15 % at both scales with the share within 0.07 (clause 2 met in the
+light scheme; NOT met in the dark scheme, held at its 0.14.0 draw by Decision Log 10); the nested
+base (3) and the collapsed dot (4) missed and carried by name; the CSS derivation (7) declined on
+twelve floors and the eye, its residual pinned as a number; the user's eye (8) open on the G3
+sheets; 0.15.0 cut, unpublished. The originally chartered status is kept beneath.**
+
+*Originally:* CHARTERED 2026-09-10 by W25 Decision Log 7 (e) at W25's recomposition (claims §5.118) —
 the continuation of the thick-span composite on the user's word ("the larger piece"); the 0.14.0
-cut unpublished pending the user's eye. G0 dispatched.**
+cut unpublished pending the user's eye. G0 dispatched.
 
 Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
 tail. Parent: `2026-08-28-post-v1-wave.md` (the W26 row; Decision Log 23 (c)'s thick-span item,
@@ -757,7 +765,61 @@ would have read as a claim about the material rather than about one of its two s
 
 ## Outcomes & Retrospective
 
-(at recomposition)
+**Verified at recomposition (2026-09-10) against the Parent-Level Acceptance, on the landed bed
+at `8a57e0a` (claims §5.126) and the children's reads:**
+
+1. **The width is a lever — MET.** The Gaussian at the tap, built as a third pyramid texture at
+   +0.18 ms, moves the heavy σ monotonically at both scales; the family reader returns the named
+   width to +0.2 % (G1c); X5 held at every rung (worst 0.00021 on the ladder, 0.00019 at the
+   landing); the goldens attributable (`W26_HASHES`, seven scenes).
+2. **The thick body matches — MET in the light scheme, NOT MET in the dark.** Light: heavy σ 9
+   against the reference's 9.48 / 8.63 (1x) and 8.13 / 9.79 (2x) — within 15 % on every cell; the
+   share within 0.07 (0.436 / 0.499, 0.648 / 0.678; the 0.05 bound missed by 0.013 on one cell,
+   recorded); the coarse checkerboards' single-width objective retired as a check (Decision Log
+   2 (d)), the eye's verdict on those rows "visibly closer" in the light. Dark: three appearance
+   measures against the family reader's 9.15 (Decision Log 10); held at 0.14.0 byte for byte;
+   the dark thick body chartered.
+3. **The nested base — NOT MET, carried.** Reader C at the G2 holdout read: 2.10 → 2.20 device px
+   against 1.50; the topmost pane's transmission reversed between schemes (§5.125 §5). The nested
+   pane's two layers are the dark wave's.
+4. **The collapsed dot — NOT MET, carried.** 6.167 CSS px (reference) against 4.037 (0.14.0) and
+   4.262 (landed); not met at the control either, so neither met nor regressed.
+5. **The bed no worse — MET.** Eleven floors unmoved to the digit; every CSS and dark group
+   unchanged to five decimals; the light GPU groups' worst rise +0.00035 (the 2x holdout); the
+   light bed's thick spans improve at every span at dpr 1; W24's angular and W25's along-side
+   reads untouched (the rim constants unchanged). One cell entered `PREDICATE_EXCLUDES` (2x light
+   holdout `checkerboard__rrect-lg`, the span grading given up), its cost on its perceptual rows
+   recorded.
+6. **The holdout once — MET.** G2b's read (the GPU rows once, the CSS rows byte-identical);
+   the landing reproduced every byte (89 / 89 light GPU against the declared digests, 258 / 258
+   dark, 644 / 644 CSS). G1b's instrument had been validated on three holdout scenes; the fit was
+   redone without them (Decision Log 6 (d)).
+7. **The CSS tier — DECLINED, recorded.** Deriving its one `blur()` from the heavy width cost
+   twelve dom floors and the eye; the tier keeps its 0.14.0 derivation from the gain constants,
+   the gap pinned as a number in `tier-coherence.test.ts` (13.8 CSS px against 9 device px at
+   dpr 1), chartered in the tracker.
+8. **The eye — OPEN.** The G3 sheets to the user; 0.15.0 cut, unpublished.
+
+**Retrospective.** The wave was chartered on a reading (Apple's heavy component 19.5 device px at
+1x, vitrea 13.3 too narrow) that a controlled, multi-backdrop instrument reversed: Apple's is
+about 9 and vitrea's 13.4 was the pyramid's last level, half again too wide — three gain
+constants had been fitted over four waves onto a clamp. What carried the wave was building the
+control before the fit (G1b: the renderer's own draw as the known kernel), reading across
+backdrops jointly, and measuring the eye's finding per ring instead of arguing it. What it could
+not do: identify a kernel's SHAPE at 8 bits; move the dark scheme, whose three appearance
+signals outvoted one reader; carry the width to the CSS tier's single blur; or fit the 2x span
+grading one width per source gives up (1.66 device px, the wave's worst holdout cell). Two
+instrument corrections landed on the way (the silhouette IoU over the decidable region; the
+lattice and family readers), and one honest accounting: a spike's instrument touched the holdout,
+and the fit was redone without it.
+
+**Deferred, by name:** the dark thick body (level, transmission, width together; the nested
+pane's layers; the dark panes 1.3–1.6 codes darker); the sharp component (1.29–1.40 against
+1.64–1.75, `blurSigma`'s body, X5-entangled); the CSS tier's heavy width; the 2x span grading;
+the three gain constants' retirement (a code-removal wave carrying the dark path); the
+mechanism's no-small-values wart; the rim's depth by eye; the ~1 display code of Apple's
+interior no convolution explains; the native's 0.02029 transmission (material or capture
+quantisation).
 
 ## Revision Notes
 
@@ -887,3 +949,7 @@ wave's to fix**; this records the number and the picture and recommends neither.
   **eleven** floors read, none breached and none moved. Demo fixture re-copied, sheets at
   `g3/sheets/`, the changeset amended to state the dark scheme's decline, `pnpm changeset version`
   → **0.15.0**. The user's eye on the sheets is what publish waits on.
+- 2026-09-10: RECOMPOSED (claims §5.127). Clauses 1, 5, 6 met; 2 met in the light scheme only;
+  3, 4 carried; 7 declined and pinned; 8 open on the G3 sheets. The Status re-stated with the
+  charter kept beneath; Outcomes & Retrospective written. 0.15.0 cut, the user's eye before
+  publish.
