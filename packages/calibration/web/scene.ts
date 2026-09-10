@@ -12,7 +12,9 @@
  * 1. **The background is the committed raster, composited — never redrawn.** The
  *    `<img>` the page shows is `apps/reference-apple/fixtures/backgrounds/…`
  *    itself, served in place, and the *same element* is handed to the renderer as
- *    the GPU tier's backdrop texture. Both tiers therefore sample the exact
+ *    the GPU tier's backdrop texture in the canonical mode. The page-content
+ *    probe leaves that same visible element unregistered; it changes the sampling
+ *    route, never the backdrop pixels. Both tiers therefore sample the exact
  *    pixels the native harness composited. The spec's rule is that rasterisation
  *    differences must never reach the diff; one decode of one file is the
  *    strongest available form of that.
@@ -62,6 +64,11 @@ import type {
   ResolvedAccessibilityPolicy,
 } from "@vitreajs/vitrea";
 
+import {
+  parseBackdropLevel,
+  parseBackdropMode,
+  type BackdropMode,
+} from "../src/backdrop-probe";
 import { CANVAS, SCENE_IDS, resolveScene, type PlacedScene } from "./scenes";
 
 const REFERENCE_MOUNT = "/reference-fixtures";
@@ -145,6 +152,20 @@ export interface SceneReport {
   readonly sceneId: string;
   readonly requestedRenderer: "css" | "webgpu";
   readonly requestedScale: number;
+  /**
+   * The sampling ROUTE this capture asked its raster-backed groups for, and the
+   * author backdrop level it was asked to state (`null` for none).
+   *
+   * Requests, and named as such — `groups[].configuredSource` and
+   * `groups[].backdropTone` remain the answers. They are reported because these
+   * two axes are otherwise nowhere in the evidence: the page composites the same
+   * raster either way, so a hinted page-content capture and the canonical
+   * texture-sampled one are two different material inputs that produce one
+   * indistinguishable-looking cell. A capture that cannot say which of them it is
+   * cannot be filed beside the other.
+   */
+  readonly requestedBackdropMode: BackdropMode;
+  readonly requestedBackdropLevel: number | null;
   readonly devicePixelRatio: number;
   readonly frames: number;
   readonly canvas: { width: number; height: number };
@@ -422,7 +443,14 @@ async function build(): Promise<SceneReport> {
   const requestedScale = Number.parseFloat(query.get("scale") ?? "1");
   const frames = Number.parseInt(query.get("frames") ?? `${DEFAULT_FRAMES}`, 10);
 
-  const placed: PlacedScene = resolveScene(sceneId);
+  const backdropMode = parseBackdropMode(query.get("backdrop"));
+  const placed: PlacedScene = resolveScene(sceneId, backdropMode);
+  // A probe may hold both routes at the same measured author tone. The caller
+  // supplies the actual level, not a guessed dark/light classification.
+  const authoredBackdropLevel = parseBackdropLevel(query.get("backdrop-level"));
+  const backdropLevel = authoredBackdropLevel ?? undefined;
+  const backdropTone = placed.backgroundId === "light-solid" ? "light" as const :
+    placed.backgroundId === "dark-solid" ? "dark" as const : "mixed" as const;
   const problems: string[] = [];
 
   /*
@@ -545,6 +573,10 @@ async function build(): Promise<SceneReport> {
       });
       root.registerGroup({
         id: group.id,
+        // The overlay sees rendered glass, not the raw raster whose level this
+        // probe declares. Leave its existing stacked-tone derivation intact.
+        ...(backdropLevel === undefined || group.id === "component-over"
+          ? {} : { backdrop: { tone: backdropTone, luminance: backdropLevel } }),
         backdropSourceId: sourceId,
         ...(group.mergeDistance === undefined ? {} : { mergeDistance: group.mergeDistance }),
       });
@@ -556,6 +588,10 @@ async function build(): Promise<SceneReport> {
     } else {
       root.registerGroup({
         id: group.id,
+        // The overlay sees rendered glass, not the raw raster whose level this
+        // probe declares. Leave its existing stacked-tone derivation intact.
+        ...(backdropLevel === undefined || group.id === "component-over"
+          ? {} : { backdrop: { tone: backdropTone, luminance: backdropLevel } }),
         ...(group.mergeDistance === undefined ? {} : { mergeDistance: group.mergeDistance }),
       });
     }
@@ -703,6 +739,8 @@ async function build(): Promise<SceneReport> {
     sceneId,
     requestedRenderer,
     requestedScale,
+    requestedBackdropMode: backdropMode,
+    requestedBackdropLevel: authoredBackdropLevel,
     devicePixelRatio: window.devicePixelRatio,
     frames,
     canvas: CANVAS,
