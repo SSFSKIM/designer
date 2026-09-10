@@ -5,7 +5,7 @@
 
 import { APPLE_CONTINUOUS_SMOOTHING_SEED, APPLE_BEST_FIGMA_SMOOTHING } from "@vitrea/geometry";
 import { describe, expect, it } from "vitest";
-import { act, useState, type ReactNode } from "react";
+import { act, useEffect, useLayoutEffect, useState, type ReactNode } from "react";
 
 import {
   APPLE_LIKE_SMOOTHING,
@@ -16,6 +16,8 @@ import {
   radiiFor,
   smoothingFor,
 } from "../src/index";
+import type { GlassHostHandle } from "@vitreajs/vitrea-web";
+
 import { renderGlass } from "./harness";
 
 describe("X8's public sugar", () => {
@@ -289,5 +291,76 @@ describe("a group's tint", () => {
     });
     harness.frame();
     expect(resolvedTintOf(harness, "one")?.color).toEqual([0, 0, 1]);
+  });
+});
+
+/**
+ * `present` — the authored presence W27d gives every surface (claims §5.132 §1).
+ *
+ * The phase it is forwarded in is a property of the runtime and not of React
+ * trivia, because the material and the content it belongs to have to reach the
+ * runtime on one commit. `GlassMorph`'s materialize crossfade writes its content
+ * in the layout phase, and under Reduced Motion that write IS the transition, so
+ * a presence that arrives from the passive phase lands after the browser painted
+ * that commit — one frame of content over material that is not there.
+ *
+ * Layout effects run child-first and in tree order, so a probe rendered after the
+ * surface can say which phase the forward happened in without knowing anything
+ * about how it is implemented: before the probe's own layout effect, or after it.
+ */
+describe("a surface's presence", () => {
+  it("reaches the runtime in the layout phase, ahead of any passive effect", () => {
+    const order: string[] = [];
+
+    function Probe(): ReactNode {
+      useLayoutEffect(() => {
+        order.push("layout-phase-ended");
+      });
+      useEffect(() => {
+        order.push("passive-phase-ended");
+      });
+      return null;
+    }
+
+    function Fixture(): ReactNode {
+      const [present, setPresent] = useState(true);
+      const [handle, setHandle] = useState<GlassHostHandle | null>(null);
+
+      // Wrapped once, on the commit the handle arrives, so the recorded calls are
+      // the surface's own patches and nothing the test provoked.
+      useLayoutEffect(() => {
+        if (handle === null) return;
+        const update = handle.update.bind(handle);
+        handle.update = (patch) => {
+          if (patch.present !== undefined) order.push(`present:${String(patch.present)}`);
+          update(patch);
+        };
+      }, [handle]);
+
+      return (
+        <GlassGroup id="g">
+          <button type="button" onClick={() => setPresent(false)}>
+            park
+          </button>
+          <GlassSurface nodeId="one" present={present} onHost={setHandle} />
+          <Probe />
+        </GlassGroup>
+      );
+    }
+
+    const harness = renderGlass(<Fixture />);
+    harness.frame();
+
+    order.length = 0;
+    act(() => {
+      harness.result.getByText("park").click();
+    });
+
+    const forwarded = order.indexOf("present:false");
+    expect(forwarded, "the surface never forwarded the prop").toBeGreaterThanOrEqual(0);
+    expect(
+      forwarded,
+      "presence reached the runtime after the layout phase had ended",
+    ).toBeLessThan(order.indexOf("layout-phase-ended"));
   });
 });

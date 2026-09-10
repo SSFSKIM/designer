@@ -133,6 +133,13 @@ export interface GlassMorphProps {
   readonly onMorphEnd?: ((open: boolean) => void) | undefined;
 }
 
+/**
+ * The wrapper each end's `children` are rendered into, named because two
+ * independent readers need it: the crossfade writes to it, and the footprint
+ * watch has to know those writes are the runtime's own and not the app's layout.
+ */
+const MORPH_CONTENT_ATTRIBUTE = "data-vitrea-morph-content";
+
 const CLOSED_RADIUS = 14;
 const OPEN_RADIUS = 20;
 const CLOSED_THICKNESS = 8;
@@ -202,11 +209,21 @@ function useFootprintWatch(
     const mutations = new MutationObserver((records) => {
       // vitrea's own per-frame writes land on host elements' `style`, this
       // platter's included. They are the frame loop, not the app's layout.
+      //
+      // And on this component's own content nodes, which is the same fact one
+      // level in: `MaterializeMorph` writes `opacity`, `visibility` and
+      // `pointer-events` to them on every frame of a crossfade, and a source end
+      // parked on the base plane sits inside the very subtree observed here. Read
+      // as layout, those writes call back into `anchorRect` and `sizeOf` — a
+      // `getBoundingClientRect` and two offset reads — and force a synchronous
+      // layout on every transition frame, in the package whose batched read
+      // protocol exists to prevent exactly that.
+      const runtime = (target: Node | null): boolean =>
+        target instanceof HTMLElement &&
+        (target.hasAttribute(HOST_ATTRIBUTES.node) ||
+          target.hasAttribute(MORPH_CONTENT_ATTRIBUTE));
       const layout = records.some(
-        (record) =>
-          record.type !== "attributes" ||
-          !(record.target instanceof HTMLElement) ||
-          !record.target.hasAttribute(HOST_ATTRIBUTES.node),
+        (record) => record.type !== "attributes" || !runtime(record.target),
       );
       if (layout) reflow();
     });
@@ -639,7 +656,7 @@ function MatchedGeometryMorph(props: GlassMorphProps): ReactNode {
       >
         <div
           ref={setContent}
-          data-vitrea-morph-content=""
+          {...{ [MORPH_CONTENT_ATTRIBUTE]: "" }}
           style={{
             width: "max-content",
             /*
@@ -702,6 +719,13 @@ function MatchedGeometryMorph(props: GlassMorphProps): ReactNode {
  * `PLANE_ANCHOR_ATTRIBUTE`, because both were hoisted out of the same place in
  * the app's layout and the spacer is still the element that says where.
  *
+ * That suffix is therefore RESERVED, and it is published as such in the README:
+ * a scene may not carry two nodes under one id, so an app that names another
+ * surface `${nodeId}-open` gets core's `duplicate-id` `GlassSceneError` at
+ * registration. The alternative — deriving an id nobody could collide with —
+ * would cost the readable node id that every capture cell, readout and test
+ * identifies this pair's two ends by.
+ *
  * ## Reduced Motion
  *
  * Presence steps to its target in the host (the root's resolved policy), and the
@@ -745,8 +769,16 @@ function MaterializeMorph(props: GlassMorphProps): ReactNode {
   const [openHandle, setOpenHandle] = useState<GlassHostHandle | null>(null);
   const [closedSize, setClosedSize] = useState<Size | null>(null);
   const [openSize, setOpenSize] = useState<Size | null>(null);
-  /** The open end exists from the first `open` until its crossfade has landed. */
-  const [mounted, setMounted] = useState(false);
+  /**
+   * The open end exists from the first `open` until its crossfade has landed.
+   *
+   * Seeded from `open` rather than false, so that a controlled mount at
+   * `open={true}` — a menu restored from a URL, a panel an app opens with the
+   * page — renders both ends on its first commit instead of committing the
+   * closed end alone and then mounting the other from a passive effect one
+   * commit later.
+   */
+  const [mounted, setMounted] = useState(open);
   const [morphing, setMorphing] = useState(false);
 
   /**
@@ -772,12 +804,33 @@ function MaterializeMorph(props: GlassMorphProps): ReactNode {
    * *next frame*.
    */
   const instant = motionProfile.reducedMotionApplied;
+  /**
+   * The driver in flight, so that replacing it is a change of TUNING and never a
+   * change of state.
+   *
+   * Both of this memo's inputs move without the transition moving. Reduced
+   * Motion is a media query the user can flip mid-flight, and `motionProfile` is
+   * an identity: an app that hands `GlassRoot` an inline `profile` object hands
+   * it a new one on every render of the root. Seeding the replacement at 0 makes
+   * either of those retarget to 1 from nothing and replay the whole crossfade
+   * while the material's own presence — which lives in the root and is not
+   * reseeded — never moved. So the outgoing driver's value and target are carried
+   * across, and only the ramp between them is retuned.
+   */
+  const outgoingFade = useRef<MotionDriver | null>(null);
   const fade = useMemo(() => {
     const config = motionProfile.channels.materialization;
-    return createDriver(
+    const previous = outgoingFade.current;
+    const next = createDriver(
       instant && config.kind === "monotonic-ease" ? { ...config, durationMs: 0 } : config,
-      0,
+      previous?.value ?? 0,
     );
+    // `createDriver` starts settled, so a driver caught mid-ramp needs its target
+    // put back; one that was already settled is left settled rather than pointed
+    // at the value it is standing on, which would be a ramp of length zero.
+    if (previous !== null && previous.target !== previous.value) next.retarget(previous.target);
+    outgoingFade.current = next;
+    return next;
   }, [instant, motionProfile]);
 
   const openRef = useRef(open);
@@ -851,9 +904,9 @@ function MaterializeMorph(props: GlassMorphProps): ReactNode {
    */
   const writeContent = useCallback(() => {
     const alpha = fade.value;
-    writeContentAlpha(sourceContent, 1 - alpha);
-    writeContentAlpha(openContent, alpha);
-  }, [fade, openContent, sourceContent]);
+    writeContentAlpha(sourceContent, 1 - alpha, !materialized);
+    writeContentAlpha(openContent, alpha, materialized);
+  }, [fade, materialized, openContent, sourceContent]);
 
   /**
    * Take the absent end out of the hit test.
@@ -900,15 +953,36 @@ function MaterializeMorph(props: GlassMorphProps): ReactNode {
    * mid-flight continues from where the content actually is rather than
    * restarting — the same interruption rule the matched morph's springs keep,
    * in the one family §Motion allows opacity to use.
+   *
+   * **Place once, then only ever animate** — the matched path's rule (§Place
+   * once, `MatchedMorph`), for the same reason: a mount is the only moment a
+   * transition has no history to be continuous with, and `jumpTo` is the one
+   * operation that breaks continuity. It matters more here than there, because
+   * `materialized` cannot be true on a first commit however `open` arrives: the
+   * open end has to be laid out before it can be measured, so a controlled mount
+   * at `open={true}` reaches the materialized state one frame late and would
+   * otherwise ramp a crossfade the author never asked for on a platter they
+   * declared already open.
+   *
+   * Placement is asked of `open` and not of `materialized`, which is the whole
+   * distinction: a closed mount is placed on its first commit because the driver
+   * already sits at the end `open` names, and an open one is not placed until the
+   * measurement it is waiting for arrives.
    */
+  const placedFade = useRef(false);
   useLayoutEffect(() => {
     const target = materialized ? 1 : 0;
-    if (fade.target === target) return;
-    if (instant) fade.jumpTo(target);
+    if (fade.target === target) {
+      if (open === (target === 1)) placedFade.current = true;
+      return;
+    }
+    const first = !placedFade.current;
+    placedFade.current = true;
+    if (instant || first) fade.jumpTo(target);
     else fade.retarget(target);
     setMorphing(!arrived());
     writeContent();
-  }, [arrived, fade, instant, materialized, writeContent]);
+  }, [arrived, fade, instant, materialized, open, writeContent]);
 
   /**
    * Measure each end once, on a frame.
@@ -1047,7 +1121,7 @@ function MaterializeMorph(props: GlassMorphProps): ReactNode {
           data-vitrea-morph-present={materialized ? undefined : ""}
           onHost={setSourceHandle}
         >
-          <div ref={setSourceContent} data-vitrea-morph-content="" style={CONTENT_STYLE}>
+          <div ref={setSourceContent} {...{ [MORPH_CONTENT_ATTRIBUTE]: "" }} style={CONTENT_STYLE}>
             {children({ open: false, morphing })}
           </div>
         </GlassSurface>
@@ -1067,7 +1141,7 @@ function MaterializeMorph(props: GlassMorphProps): ReactNode {
             data-vitrea-morph-present={materialized ? "" : undefined}
             onHost={setOpenHandle}
           >
-            <div ref={setOpenContent} data-vitrea-morph-content="" style={CONTENT_STYLE}>
+            <div ref={setOpenContent} {...{ [MORPH_CONTENT_ATTRIBUTE]: "" }} style={CONTENT_STYLE}>
               {children({ open: true, morphing })}
             </div>
           </GlassSurface>
@@ -1133,10 +1207,28 @@ function writeBox(host: HTMLElement, box: Rect): void {
  * Content in flight is not an activation target, for the reason the matched
  * morph gives: a menu activates on pointer *up*, and a platter still arriving
  * slides its items under a cursor that has not moved.
+ *
+ * `arriving` is the end the transition is travelling TOWARD, and it is what
+ * decides `visibility` — not this end's instantaneous alpha. The two differ for
+ * exactly one commit at each reversal, and that commit is the one that matters:
+ * `materialized` flips on the layout pass while the driver is still at the value
+ * it had, so on a close the SOURCE is written at alpha 0 on the same commit the
+ * app is told the menu shut. Hidden there, it is out of the tab order and out of
+ * the accessibility tree, and an app's close-time `focus()` on it — the ordinary
+ * way a menu returns focus to its trigger — is a silent no-op; focus then falls
+ * to `<body>` when the open end unmounts. Reading the direction instead is also
+ * what this component's own contract says (§Two ends: an end is hidden "once the
+ * fade has landed", not the moment it is pointed away from) and what claims
+ * §5.132 §5 says: absent content is hidden from hit testing, focus and the
+ * accessibility tree, and the end a transition is arriving at is not absent.
+ *
+ * An arriving end at alpha 0 is transparent, focusable and readable, which is
+ * what a return of focus needs and is not element opacity in X6's sense: it is
+ * app content inside the platter, never the host or an ancestor of one.
  */
-function writeContentAlpha(content: HTMLElement | null, alpha: number): void {
+function writeContentAlpha(content: HTMLElement | null, alpha: number, arriving: boolean): void {
   if (content === null) return;
   content.style.opacity = num(alpha);
-  content.style.visibility = alpha <= 0 ? "hidden" : "";
+  content.style.visibility = alpha <= 0 && !arriving ? "hidden" : "";
   content.style.pointerEvents = alpha >= 1 ? "" : "none";
 }

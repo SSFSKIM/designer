@@ -206,6 +206,37 @@ test("the end that is absent is inert, and is released when it has gone", async 
   await expect(page.locator(SOURCE)).toHaveCount(1);
 });
 
+/**
+ * Focus comes back, on the ordinary dismissal an app writes.
+ *
+ * The engine is what this needs rather than jsdom, and specifically: a
+ * `visibility: hidden` element is not focusable, and `focus()` on one is a
+ * silent no-op that no jsdom assertion feels. The playground's menu returns
+ * focus to its trigger the way any app would — one `focus()` in the effect that
+ * sees the menu close — and the trigger lives inside the source end's content,
+ * whose alpha is 0 on exactly that commit. If that end is hidden rather than
+ * merely transparent, the call does nothing and focus falls to `<body>` when the
+ * open end unmounts, which is a keyboard user losing their place in the page.
+ */
+test("returns focus to the trigger when the menu is dismissed", async ({ page }) => {
+  const trigger = page.getByRole("button", { name: "Actions" });
+
+  await press(page, trigger);
+  await settled(page, DESTINATION);
+  const inPlatter = await page.evaluate(() =>
+    document.querySelector('[data-vitrea-morph-end="destination"]')?.contains(document.activeElement),
+  );
+  expect(inPlatter, "focus never entered the open platter").toBe(true);
+
+  await page.keyboard.press("Escape");
+  await expect(trigger).toBeFocused();
+
+  // And it is still there once the transition has finished, rather than having
+  // been taken by the destination's release on its way out.
+  await expect(page.locator(DESTINATION)).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+});
+
 test.describe("under Reduced Motion", () => {
   test("presence and content both land without travelling", async ({ page }) => {
     const recording = recordCrossfade(page);

@@ -18,8 +18,9 @@
 import { describe, expect, it, vi, afterEach, beforeEach } from "vitest";
 import { act, useState } from "react";
 import type { ReactNode } from "react";
+import { DEFAULT_MOTION_PROFILE } from "@vitrea/motion";
 
-import { GlassGroup, GlassMorph } from "../src/index";
+import { GlassGroup, GlassMorph, type GlassRootProps } from "../src/index";
 import { renderGlass, type Harness } from "./harness";
 
 /** The closed footprint, in viewport coordinates. Mutable: a reflow moves it. */
@@ -37,6 +38,16 @@ const OPEN_BOX = { x: 10, y: 108, width: 240, height: 160 };
 const ZERO = { x: 0, y: 0, width: 0, height: 0 };
 
 const offsets = new Map<"offsetWidth" | "offsetHeight", PropertyDescriptor | undefined>();
+
+/**
+ * How many times the closed footprint has been measured.
+ *
+ * The one layout read this component makes, counted so that a test can assert it
+ * does *not* happen: `anchorRect` is the entry to `place`, and everything that
+ * calls it either follows a real reflow or is a per-frame layout read the
+ * runtime's batched read protocol exists to prevent.
+ */
+let anchorReads = 0;
 
 const declared = (value: string): number | null =>
   value === "" ? null : Number.parseFloat(value);
@@ -65,10 +76,12 @@ function platterBox(element: HTMLElement): typeof ZERO {
 
 beforeEach(() => {
   anchor = { x: 10, y: 60, width: 120, height: 40 };
+  anchorReads = 0;
 
   vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (
     this: HTMLElement,
   ) {
+    if (this.hasAttribute("data-vitrea-morph-anchor")) anchorReads += 1;
     const box = this.hasAttribute("data-vitrea-morph-anchor")
       ? anchor
       : this.hasAttribute("data-vitrea-morph")
@@ -127,22 +140,32 @@ const boxOf = (element: HTMLElement): typeof ZERO => platterBox(element);
 const opacityOf = (end: "source" | "destination"): number =>
   Number.parseFloat(contentOf(end).style.opacity || "1");
 
+/** Whatever the end's content is at, or `null` while that end does not exist. */
+const opacityOrAbsent = (end: "source" | "destination"): number | null =>
+  endEl(end) === null ? null : opacityOf(end);
+
 interface Fixture {
   readonly harness: Harness;
   setOpen(open: boolean): void;
+  /** Re-render under the same root, picking up whatever `rootProps` now says. */
+  rerender(): void;
 }
 
 interface FixtureOptions {
   readonly nodeId?: string;
   readonly reducedMotion?: boolean;
   readonly onMorphEnd?: (open: boolean) => void;
+  /** Renders the pair already open, the controlled mount an app can write. */
+  readonly initiallyOpen?: boolean;
+  /** Mutated between renders to give the root a new profile identity. */
+  readonly rootProps?: Omit<GlassRootProps, "children">;
 }
 
 function mount(options: FixtureOptions = {}): Fixture {
   let setOpen: ((open: boolean) => void) | null = null;
 
   function Fixture(): ReactNode {
-    const [open, set] = useState(false);
+    const [open, set] = useState(options.initiallyOpen === true);
     setOpen = set;
     return (
       <GlassGroup id="g">
@@ -162,7 +185,7 @@ function mount(options: FixtureOptions = {}): Fixture {
 
   const harness = renderGlass(
     <Fixture />,
-    options.reducedMotion === true ? { reducedMotion: true } : {},
+    options.rootProps ?? (options.reducedMotion === true ? { reducedMotion: true } : {}),
   );
   // Two frames: the closed end is measured on a frame, then placed.
   harness.run(2);
@@ -171,6 +194,9 @@ function mount(options: FixtureOptions = {}): Fixture {
     harness,
     setOpen(open) {
       act(() => setOpen?.(open));
+    },
+    rerender() {
+      act(() => harness.rerender(<Fixture />));
     },
   };
 }
@@ -361,6 +387,165 @@ describe("GlassMorph transition=materialize", () => {
 
     expect(boxOf(required("source"))).toMatchObject(anchor);
     expect(boxOf(required("destination"))).toMatchObject({ ...OPEN_BOX, y: 248 });
+  });
+
+  /**
+   * The end a transition is arriving at is not the end that is absent.
+   *
+   * `materialized` flips on the layout pass while the crossfade's driver is still
+   * standing at the value it had, so for exactly one commit each end's
+   * instantaneous alpha names the wrong end. Hiding on that alpha takes the
+   * RETURNING end out of the tab order and the accessibility tree on the very
+   * commit the app is told the menu shut — and an app's close-time `focus()` on
+   * its trigger, which is how a menu returns focus, is then a silent no-op.
+   */
+  it("leaves the returning end focusable on the commit that closes it", () => {
+    const fixture = mount();
+
+    fixture.setOpen(true);
+    fixture.harness.run(24);
+    expect(opacityOf("destination")).toBe(1);
+    // At rest the end that is genuinely absent IS hidden; that is the rule this
+    // test narrows rather than removes.
+    expect(contentOf("source").style.visibility).toBe("hidden");
+
+    // No frame yet: this is the commit an app's own close handler runs on.
+    fixture.setOpen(false);
+
+    const content = contentOf("source");
+    expect(content.style.visibility, "the returning end was hidden as the close landed").not.toBe(
+      "hidden",
+    );
+    const trigger = content.querySelector("button");
+    trigger?.focus();
+    expect(document.activeElement, "focus could not return to the trigger").toBe(trigger);
+
+    // And the end that is leaving is hidden once its fade has landed, which is
+    // what §Two ends says and what the rule above now means.
+    fixture.harness.run(24);
+    expect(contentOf("source").style.visibility).toBe("");
+  });
+
+  /**
+   * A change of tuning is not a change of state.
+   *
+   * Both of the driver memo's inputs move without the transition moving: an app
+   * that hands `GlassRoot` an inline `profile` object hands it a new identity on
+   * every root render, and Reduced Motion is a preference the user can flip
+   * mid-flight. Seeded fresh, either replays the whole crossfade while the
+   * material's presence — which lives in the root — never moved.
+   */
+  it("retunes the crossfade rather than replaying it when the profile identity changes", () => {
+    const rootProps = { profile: { ...DEFAULT_MOTION_PROFILE } };
+    const fixture = mount({ rootProps });
+
+    fixture.setOpen(true);
+    fixture.harness.run(24);
+    expect(opacityOf("destination")).toBe(1);
+    expect(opacityOf("source")).toBe(0);
+
+    // The same profile by value, a new one by identity — an inline object.
+    rootProps.profile = { ...DEFAULT_MOTION_PROFILE };
+    fixture.rerender();
+
+    expect(opacityOf("destination"), "a settled crossfade replayed").toBe(1);
+    expect(opacityOf("source")).toBe(0);
+    fixture.harness.run(1);
+    expect(opacityOf("destination")).toBe(1);
+  });
+
+  it("carries a crossfade in flight across a profile identity change", () => {
+    const rootProps = { profile: { ...DEFAULT_MOTION_PROFILE } };
+    const fixture = mount({ rootProps });
+
+    fixture.setOpen(true);
+    fixture.harness.run(6);
+    const midFlight = opacityOf("destination");
+    expect(midFlight).toBeGreaterThan(0);
+    expect(midFlight).toBeLessThan(1);
+
+    rootProps.profile = { ...DEFAULT_MOTION_PROFILE };
+    fixture.rerender();
+
+    expect(opacityOf("destination"), "the crossfade restarted").toBeGreaterThanOrEqual(midFlight);
+    fixture.harness.run(24);
+    expect(opacityOf("destination")).toBe(1);
+  });
+
+  /**
+   * A controlled mount at `open={true}` is a placement, not an entrance.
+   *
+   * `materialized` cannot be true on a first commit however `open` arrives — the
+   * open end has to be laid out before it can be measured — so without a
+   * first-placement jump a pair the author declared already open ramps a
+   * crossfade nobody asked for. The matched path has kept this rule since it
+   * shipped; this is the same rule on the other transition.
+   */
+  it("places a pair mounted at open={true} without playing an entrance", () => {
+    const onMorphEnd = vi.fn();
+    const fixture = mount({ initiallyOpen: true, onMorphEnd });
+
+    for (let frame = 0; frame < 8; frame += 1) {
+      expect([null, 0, 1], `frame ${String(frame)} animated`).toContain(
+        opacityOrAbsent("destination"),
+      );
+      expect([null, 0, 1]).toContain(opacityOrAbsent("source"));
+      fixture.harness.run(1);
+    }
+
+    expect(opacityOf("destination")).toBe(1);
+    expect(opacityOf("source")).toBe(0);
+    expect(required("destination").hasAttribute("data-vitrea-morph-present")).toBe(true);
+    // A placement owes no report: `open` never changed.
+    expect(onMorphEnd).not.toHaveBeenCalled();
+
+    // And it still animates from there, which is what "place once" means.
+    fixture.setOpen(false);
+    fixture.harness.run(6);
+    const travelling = opacityOf("destination");
+    expect(travelling).toBeGreaterThan(0);
+    expect(travelling).toBeLessThan(1);
+  });
+
+  /**
+   * The crossfade's own writes are not the app's layout.
+   *
+   * They land on this component's content nodes, and a source end parked on the
+   * base plane sits inside the very subtree the footprint watch observes. Read as
+   * layout they call straight back into `anchorRect` and `sizeOf` — a
+   * `getBoundingClientRect` and two offset reads — on every frame of a
+   * transition, in the package whose batched read protocol exists to prevent
+   * exactly that.
+   */
+  it("does not read its own crossfade writes as the app's layout", async () => {
+    const fixture = mount();
+
+    fixture.setOpen(true);
+    fixture.harness.run(24);
+    // A `MutationObserver` queues its records and delivers them on a microtask,
+    // so a synchronous run leaves a whole transition's worth undelivered. Drain
+    // them, or the batch under test would be everything the frames also wrote.
+    await act(async () => {});
+
+    // Exactly the three properties the crossfade writes, on exactly the node it
+    // writes them to, delivered through the real observer.
+    const before = anchorReads;
+    await act(async () => {
+      const source = contentOf("source");
+      source.style.opacity = "0.5";
+      source.style.visibility = "";
+      source.style.pointerEvents = "none";
+    });
+    expect(anchorReads - before, "the crossfade's own writes were read as layout").toBe(0);
+
+    // The watch is still live, and still says where both ends belong: what it
+    // exempts is the runtime's own writes, not the app's DOM.
+    anchor = { ...anchor, y: 200 };
+    await act(async () => {
+      fixture.harness.result.container.prepend(document.createElement("div"));
+    });
+    expect(anchorReads).toBeGreaterThan(before);
+    expect(boxOf(required("source"))).toMatchObject(anchor);
   });
 
   it("leaves the matched-geometry morph as the default", () => {

@@ -254,7 +254,22 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
   // would write the same values forever.
   const foregroundKey = JSON.stringify(foreground);
 
-  useEffect(() => {
+  /**
+   * In the layout phase, because `present` is in this patch (W27d; claims
+   * §5.132 §1).
+   *
+   * Presence and the content it belongs to have to reach the runtime on the same
+   * commit. `GlassMorph`'s materialize crossfade writes its content in a layout
+   * effect, and under Reduced Motion that write is the whole transition — content
+   * jumps to its end on the commit `open` changed. Forwarded from a passive
+   * effect, presence would leave that commit behind: the patch lands after paint
+   * and the root writes the channel on its next frame, so the browser can paint
+   * one frame of destination content over material that is not there yet, and one
+   * frame of source content over material that has already gone. Nothing here
+   * reads the DOM, so the earlier phase costs nothing and the rest of the patch
+   * comes along rather than being split across two writes that could reorder.
+   */
+  useLayoutEffect(() => {
     handle?.update({
       radii,
       smoothing,
