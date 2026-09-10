@@ -65,6 +65,7 @@ import { createGpuContext, type GpuContext } from "./gpu-context";
 import { createGovernor, type Governor } from "./governor";
 import {
   clipFieldRectToCanvas,
+  drawsMaterial,
   groupFieldRect,
   packInstances,
   resolveSurfaces,
@@ -603,10 +604,17 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
    * describes (one emphasised control among plain ones) and not enough for two
    * hues in one container, which core reports as `tint-mixing`. The first tinted
    * drawn member wins, deterministically, rather than an average nobody chose.
+   *
+   * DRAWN is `drawsMaterial`'s definition and not a weaker one, which matters
+   * since W27d gave it a second member: a surface at `materialization: 0` is not
+   * in this group's field pass at all, so a group whose emphasised control has
+   * dematerialized has to paint with the colour of a control that is still there.
+   * Reading the first tinted member regardless would hand the pass the absent
+   * one's hue and paint the surviving control with it.
    */
   const groupTintSeed = (input: GroupRenderInput): readonly [number, number, number] | undefined =>
     input.surfaces.find(
-      (surface) => surface.fieldReferenceOnly !== true && (surface.tint?.strength ?? 0) > 0,
+      (surface) => drawsMaterial(surface) && (surface.tint?.strength ?? 0) > 0,
     )?.tint?.color;
 
   const stateOf = (

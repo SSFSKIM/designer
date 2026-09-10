@@ -173,4 +173,6 @@ export const poolKey = {
   groupField: (groupId: string): string => `group:${groupId}:field`,
   groupAux: (groupId: string): string => `group:${groupId}:aux`,
   groupAux2: (groupId: string): string => `group:${groupId}:aux2`,
+  /** The surface's presence per pixel (W27d) — the field pass's fourth target. */
+  groupPresence: (groupId: string): string => `group:${groupId}:presence`,
 } as const;

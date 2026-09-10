@@ -261,7 +261,7 @@ into the ledger rather than chartered.
 - **Design inheritance:** §Where each feature lives (presence, not alpha) [binding]; the
   per-instance scalar mechanism (advisory).
 - **Required:** yes — acceptance 1, 2.
-- **Status:** not-dispatched (blocked-by W27a).
+- **Status:** implemented on its worktree; final independent review and landing evidence in progress.
 
 ### W27e: Vibrancy — controlled
 
@@ -392,6 +392,15 @@ Color; the concentricity distance gradient and the window corner at the top of t
 component families the root excluded (tab bar, sheet, popover, slider, toggle, search field), by
 the user's answer at this cut ("material plus reference controls").
 
+**W27d follow-up:** fractional-presence union geometry and nearest-field ownership (a weak
+member still grows a neck and can own an overlap until exactly 0; multiplying the blend by
+`min(pA, pB)` removes only the bulge, so that partial law was not added); fractional
+stacked-backdrop tone prediction (carry the existing per-term presence fold into the predictor
+and check GPU output, with no new fitted coefficient); the CSS transit's two-layer/tint-transfer
+approximation; and unequal fractional proxy presence on engines whose mask-on-backdrop row is
+unverified. Identity endpoints are exact, not deferred. Claims §5.132 records the evidence and
+the W27e handoff: the vibrant operator must scale with presence and reach app-authored color at 0.
+
 **Explicitly out of scope (standing exclusions, unchanged):** WebGL2; a widget layer; scroll-edge
 effects (the root's exclusion stands; overturning it is a product decision not taken here);
 neighbour glow diffusion; topology-changing morphs.
@@ -403,7 +412,7 @@ neighbour glow diffusion; topology-changing morphs.
 | W27a | worktree agent, dispatched 2026-09-10 | in-flight |
 | W27b | — | not-dispatched (blocked-by W27a) |
 | W27c | G0 CLOSED 2026-09-10 (merged `7312fd0`; claims §5.128: all 121 pairs read; the outer shadow and the bright rim go to zero in every profile at both scales, structure retained falls, an author tint loses its hue entirely while its darkening stays — orange and blue capsules both settle at Y 0.451 against the untinted 0.606 — and no existing field expresses that; dark untinted glass and both accessibility bodies *brighten*; four cells background-identical; the 2x dark photo capsule's active side is the 1-of-17 minority state and is excluded from the fit) / G1 dispatched 2026-09-10 | G1 in-flight |
-| W27d | — | not-dispatched (blocked-by W27a) |
+| W27d | identity/presence and materialize implemented; claims §5.132 | final review and landing evidence in progress |
 | W27e | — | not-dispatched (deliberately late) |
 | W27f | G0 CLOSED 2026-09-10 (merged `730a9d3`; claims §5.129: the unhinted dark capsule misses the collapse by ΔE 0.545 against the sampled path's 0.006, a correct scalar hint repairs it but the dark medium pane still misses by 0.079 (−0.089 L against the same-hint sampled path), the checkerboard rows lose spread and the photo rows keep too much; a scalar hint itself costs the sampled path its structured-backdrop correction, so the evidence keeps sampled-today, same-hint-sampled and hinted-page columns apart; the two stack overlays are the only native cells on this path; the demo gains `/#page`, "Over ordinary page content") / G1 dispatched 2026-09-10 (claims §5.131 reserved) | G1 in-flight |
 
@@ -482,6 +491,25 @@ neighbour glow diffusion; topology-changing morphs.
 Pending — written at recomposition against §Parent-Level Acceptance.
 
 ## Revision Notes
+
+- 2026-09-10, W27d implementation: presence is driven once by the framework-agnostic
+  root, before either tier consumes `--vitrea-materialization`; React forwards `present`
+  rather than owning a second driver. The interaction table keeps its invariant presence
+  seed at 1, but `STATE_DRIVEN_CHANNELS` no longer includes authored presence. Reduced
+  Motion gives the monotonic presence driver zero duration and the root steps to its
+  target on both tiers, including a preference change mid-flight. This deliberately
+  follows the HIG's caution about blur animation rather than extending interaction
+  illumination's exemption to whole-material arrival. Timing/easing remain unmeasured.
+  The DOM-backed GPU path needs one additional carrier: its sibling backdrop proxy must
+  also consume presence, or shader identity would leave blur behind. This does not relax
+  X6: neither host nor any ancestor fades. The instance's free scalar travels through
+  a fourth `r16float` field attachment (+2 bytes per field texel, 24 → 26); all-1
+  goldens remain unchanged. Exactly-zero members leave the renderer's drawing set after
+  shape resolution, and leave the root's painted-tone forecast, so neither an absent
+  union member nor its hue can affect a surviving surface. The proxy retains sampling
+  bounds but removes zero members from its painted shape. Chromium needs a mask in
+  place of its clip, not on top of it; claims §5.132 records the carrier experiment,
+  the fractional residuals, the Reduced Motion rule and the W27e foreground handoff.
 
 - 2026-09-10, W27f G0: measured 20 light-1x calibration scenes and the two requested stack
   holdout cells in six web configurations, with unhinted and identical-hint controls kept separate;

@@ -75,6 +75,10 @@ export const WGSL_HIGHLIGHT_PASS = `struct HighlightUniforms {
 @group(0) @binding(1) var fieldTexture : texture_2d<f32>;
 @group(0) @binding(2) var auxTexture : texture_2d<f32>;
 @group(0) @binding(3) var fieldSampler : sampler;
+/// The surface's presence per pixel (W27d) — the field pass's fourth target,
+/// bound here for the same reason the optics pass binds it: a highlight is the
+/// material catching light, and a material that is not there catches none.
+@group(0) @binding(4) var presenceTexture : texture_2d<f32>;
 
 const TAU = 6.283185307179586;
 
@@ -93,14 +97,18 @@ fn fs_highlight(in : FullscreenOut) -> @location(0) vec4f {
   let fieldUv = in.uv * hu.fieldFit.xy + hu.fieldFit.zw;
   var field : vec4f;
   var aux : vec4f;
+  var presence : vec4f;
   if (hu.flags.z > 0.5) {
     field = textureSampleLevel(fieldTexture, fieldSampler, fieldUv, 0.0);
     aux = textureSampleLevel(auxTexture, fieldSampler, fieldUv, 0.0);
+    presence = textureSampleLevel(presenceTexture, fieldSampler, fieldUv, 0.0);
   } else {
     let texel = vec2i(fieldUv * hu.flags.xy);
     field = textureLoad(fieldTexture, texel, 0);
     aux = textureLoad(auxTexture, texel, 0);
+    presence = textureLoad(presenceTexture, texel, 0);
   }
+  let mat = clamp(presence.x, 0.0, 1.0);
   let d = field.x;
   let normal = field.yz;
   let coverage = field.w;
@@ -158,7 +166,15 @@ fn fs_highlight(in : FullscreenOut) -> @location(0) vec4f {
     toneAdapt = clamp(hu.toneAdapt.w, 0.0, 1.0) * (1.0 - toneT * toneT * (3.0 - 2.0 * toneT));
   }
 
-  let intensity = clamp(sweep + press, 0.0, 1.0) * coverage * (1.0 - toneAdapt);
+  /*
+   * The presence (W27d) fades both lights on one factor, exactly as the collapse
+   * above fades them: the sweep is the material's own rim catching a travelling
+   * light and the glow is the material lit from a press, so neither survives a
+   * surface that is not there. It is applied to the composed intensity rather
+   * than to each term, because a highlight that fades on two statements of one
+   * rule is a highlight that will one day fade on one of them.
+   */
+  let intensity = clamp(sweep + press, 0.0, 1.0) * coverage * (1.0 - toneAdapt) * mat;
   if (intensity <= 0.0) {
     return vec4f(0.0);
   }

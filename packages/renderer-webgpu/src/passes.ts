@@ -38,6 +38,26 @@ import { fieldModule, highlightModule, opticsModule } from "./wgsl";
 const fieldUsage = (): GPUTextureUsageFlags =>
   GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.TEXTURE_BINDING;
 
+/**
+ * The field pass's fourth target (W27d): one channel, carrying the surface's
+ * presence per pixel.
+ *
+ * Not `WORKING_TEXTURE_FORMAT`, and the reason is arithmetic rather than taste.
+ * The working format carries COLOUR, and this target carries none — it is a
+ * per-pixel scalar in `[0, 1]` — so three of four `rgba16float` channels would be
+ * bandwidth and memory nothing reads, on a texture allocated per group per frame.
+ * The default `maxColorAttachmentBytesPerSample` limit is 32 and the three
+ * `rgba16float` targets already spend 24 of it, so a fourth of the same format
+ * would also sit the field pass exactly on the limit with no room for the next
+ * per-pixel quantity; at two bytes this leaves six.
+ *
+ * `r16float` is renderable in WebGPU core, and the fragment stage writes a
+ * `vec4f` to it — a wider output than the format is valid and the extra
+ * components are dropped, while a narrower one is not — so the shader's own
+ * declaration stays uniform with the other three targets.
+ */
+const PRESENCE_TEXTURE_FORMAT: GPUTextureFormat = "r16float";
+
 /** Premultiplied source-over. See the module note. */
 const PREMULTIPLIED_OVER: GPUBlendState = {
   color: { srcFactor: "one", dstFactor: "one-minus-src-alpha", operation: "add" },
@@ -78,6 +98,8 @@ export interface FieldTargets {
   readonly aux: GPUTexture;
   /** The owning surface's centre and half-extents per pixel (W12 G2) — the lens's oval. */
   readonly aux2: GPUTexture;
+  /** The owning surface's presence per pixel (W27d) — one channel, `r16float`. */
+  readonly presence: GPUTexture;
   /** The field textures' extent in texels — the group's rect times `renderScale`. */
   readonly width: number;
   readonly height: number;
@@ -470,6 +492,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
             { format: WORKING_TEXTURE_FORMAT },
             { format: WORKING_TEXTURE_FORMAT },
             { format: WORKING_TEXTURE_FORMAT },
+            { format: PRESENCE_TEXTURE_FORMAT },
           ],
         },
         primitive: { topology: "triangle-list" },
@@ -560,6 +583,13 @@ export function createPassRunner(context: GpuContext): PassRunner {
         usage: fieldUsage(),
         label: `vitrea:group:${args.groupId}:aux2`,
       });
+      const presence = pool.acquire(poolKey.groupPresence(args.groupId), {
+        width,
+        height,
+        format: PRESENCE_TEXTURE_FORMAT,
+        usage: fieldUsage(),
+        label: `vitrea:group:${args.groupId}:presence`,
+      });
 
       // Twelve floats: screen, unionP, counts. The group's origin is deliberately
       // absent — instance centres are packed relative to it, so the shader works
@@ -615,6 +645,15 @@ export function createPassRunner(context: GpuContext): PassRunner {
             storeOp: "store",
             clearValue: { r: 0, g: 0, b: 0, a: 0 },
           },
+          {
+            view: presence.createView(),
+            loadOp: "clear",
+            // Cleared to the IDLE presence rather than to zero: a texel the
+            // fullscreen triangle never wrote must not read as a material that
+            // has been asked to disappear.
+            storeOp: "store",
+            clearValue: { r: 1, g: 0, b: 0, a: 0 },
+          },
         ],
       });
       pass.setPipeline(pipeline);
@@ -635,6 +674,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
         field,
         aux,
         aux2,
+        presence,
         width,
         height,
         upsampled: width !== rectWidth || height !== rectHeight,
@@ -850,6 +890,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
             { binding: 6, resource: context.flatSampler },
             { binding: 7, resource: args.fields.aux2.createView() },
             { binding: 8, resource: heavy },
+            { binding: 9, resource: args.fields.presence.createView() },
           ],
         }),
       );
@@ -920,6 +961,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
             { binding: 1, resource: args.fields.field.createView() },
             { binding: 2, resource: args.fields.aux.createView() },
             { binding: 3, resource: context.flatSampler },
+            { binding: 4, resource: args.fields.presence.createView() },
           ],
         }),
       );
@@ -954,6 +996,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
       pool.release(poolKey.groupField(groupId));
       pool.release(poolKey.groupAux(groupId));
       pool.release(poolKey.groupAux2(groupId));
+      pool.release(poolKey.groupPresence(groupId));
       storages.get(groupId)?.destroy();
       storages.delete(groupId);
       for (const key of [`field:${groupId}`, `optics:${groupId}`, `highlight:${groupId}`]) {

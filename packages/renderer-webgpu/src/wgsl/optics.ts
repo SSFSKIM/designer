@@ -234,6 +234,11 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
 /// from. Bound at every draw; read only where 'heavyTap.x' says there is one.
 @group(0) @binding(8) var backdropHeavy : texture_2d<f32>;
 
+/// The surface's PRESENCE per pixel (W27d; contract X6): the 'materialization'
+/// channel, unioned in the field pass like every other per-surface scalar. One
+/// channel, in the field pass's fourth target — see 'wgsl/field.ts'.
+@group(0) @binding(9) var presenceTexture : texture_2d<f32>;
+
 /// One encoded sRGB channel from a linear one — the space the backdrop tone
 /// response's anchors live in (W9). Mirrors material.ts's 'linearToSrgbChannel'.
 fn srgb_encode(c : f32) -> f32 {
@@ -308,6 +313,12 @@ struct ShadowSample {
   alpha : f32,
   falloff : f32,
   castSpanCss : f32,
+  /// The presence of the surface that CAST the shadow (W27d), read at the offset
+  /// position beside its span. A shadow belongs to the surface above it, so it
+  /// fades with that surface's materialization and not with the one under this
+  /// pixel — which is a real difference wherever a dissolving surface's shadow
+  /// falls across a present one.
+  castMat : f32,
 };
 
 /// The composite's peak linear occlusion above the knee, at a casting span —
@@ -338,6 +349,7 @@ fn outer_shadow(uv : vec2f, upsampled : f32, fieldSize : vec2f) -> ShadowSample 
   out.alpha = 0.0;
   out.falloff = 0.0;
   out.castSpanCss = 0.0;
+  out.castMat = 1.0;
   if (ou.shadow.x <= 0.0 && ou.shadowThick.x <= 0.0) {
     return out;
   }
@@ -365,14 +377,18 @@ fn outer_shadow(uv : vec2f, upsampled : f32, fieldSize : vec2f) -> ShadowSample 
   let shadowUv = clamp(vec2f(uv.x, shiftedY), vec2f(0.0), vec2f(1.0));
   var shadowField : vec4f;
   var shadowAux : vec4f;
+  var shadowPresence : vec4f;
   if (upsampled > 0.5) {
     shadowField = textureSampleLevel(fieldTexture, fieldSampler, shadowUv, 0.0);
     shadowAux = textureSampleLevel(auxTexture, fieldSampler, shadowUv, 0.0);
+    shadowPresence = textureSampleLevel(presenceTexture, fieldSampler, shadowUv, 0.0);
   } else {
     let texel = clamp(vec2i(shadowUv * fieldSize), vec2i(0), vec2i(fieldSize) - vec2i(1));
     shadowField = textureLoad(fieldTexture, texel, 0);
     shadowAux = textureLoad(auxTexture, texel, 0);
+    shadowPresence = textureLoad(presenceTexture, texel, 0);
   }
+  let castMat = clamp(shadowPresence.x, 0.0, 1.0);
 
   // The size law reaches the amplitude and nothing else — the reference's three
   // lengths are span-invariant across 32…160 px. Every span-keyed quantity here
@@ -402,9 +418,12 @@ fn outer_shadow(uv : vec2f, upsampled : f32, fieldSize : vec2f) -> ShadowSample 
   // LINEAR light; then the one conversion to the canvas's compositing space,
   // which is where the black term is actually composited.
   let occ = clamp(regime + ou.shadowSize.x * sizeK * (1.0 - regime), 0.0, 1.0);
-  out.alpha = 1.0 - pow(1.0 - occ, 1.0 / 2.4);
+  // Times the casting surface's presence (W27d): a material that is not there
+  // occludes nothing. At presence 1 this is the alpha the bed measures.
+  out.alpha = (1.0 - pow(1.0 - occ, 1.0 / 2.4)) * castMat;
   out.falloff = outer_shadow_falloff(shadowField.x + clampedOffCss - ou.shadow.z, ou.shadow.y);
   out.castSpanCss = shadowAux.z;
+  out.castMat = castMat;
   return out;
 }
 
@@ -446,7 +465,9 @@ fn outer_shadow_lift(viewport01 : vec2f, shadow : ShadowSample) -> vec3f {
   // body's own samples take, for the same reason: a partially transparent
   // backdrop must not darken what the material adds back.
   let v = chainSample.rgb / max(chainSample.a, 1e-6);
-  return v * (ou.shadowLift.x * rise * shadow.falloff);
+  // The black term's presence, on the shadow's second term: the two are one
+  // shadow with one falloff (W14 G0), so one channel fades both.
+  return v * (ou.shadowLift.x * rise * shadow.falloff * shadow.castMat);
 }
 
 @fragment
@@ -459,20 +480,48 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   var field : vec4f;
   var aux : vec4f;
   var aux2 : vec4f;
+  var presence : vec4f;
   if (ou.flags.w > 0.5) {
     field = textureSampleLevel(fieldTexture, fieldSampler, in.uv, 0.0);
     aux = textureSampleLevel(auxTexture, fieldSampler, in.uv, 0.0);
     aux2 = textureSampleLevel(aux2Texture, fieldSampler, in.uv, 0.0);
+    presence = textureSampleLevel(presenceTexture, fieldSampler, in.uv, 0.0);
   } else {
     let texel = vec2i(in.uv * ou.flags.yz);
     field = textureLoad(fieldTexture, texel, 0);
     aux = textureLoad(auxTexture, texel, 0);
     aux2 = textureLoad(aux2Texture, texel, 0);
+    presence = textureLoad(presenceTexture, texel, 0);
   }
 
   let d = field.x;
   let normal = field.yz;
   let coverage = field.w;
+  /*
+   * The surface's PRESENCE at this pixel (W27d; contract X6) — the
+   * 'materialization' channel, 1 on a surface nobody is driving.
+   *
+   * It multiplies every term the material ADDS to what is behind it: the lens's
+   * depth and magnitude, the body's mix away from the unblurred backdrop, the
+   * material's own alpha, the author tint's coverage, the inner shadow, the rim,
+   * the outer shadow and the highlight pass's light. It does NOT multiply the
+   * coverage: a presence spent there would be a crossfade of the whole composite,
+   * which is the alpha Apple's rule rules out ("prefer setting the effect
+   * property over the alpha") and which the runtime cannot afford either — the
+   * host that wrote it would form a Backdrop Root and lose the group's sampling.
+   *
+   * Not to be confused with 'present' below, which is what survives the backdrop
+   * COLLAPSE. The two multiply many of the same terms and mean different things:
+   * one is the author's presence, the other is the material having taken its
+   * backdrop's tone. Both are one multiplication by one on the resting bed.
+   *
+   * The channel is strictly ABOVE zero here. Exactly 0 is 'Glass.identity' and is
+   * resolved on the CPU by dropping the member before this pass ever runs
+   * ('instances.ts'), so a surface that is not there has no silhouette to draw a
+   * faded material into and no shape to union with its neighbours. What this
+   * shader owns is the continuum between the endpoints.
+   */
+  let mat = clamp(presence.x, 0.0, 1.0);
 
   /*
    * The outer shadow (W8) sits UNDER the material, so it is resolved before the
@@ -528,7 +577,13 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // Per-pixel, unioned through the field pass. See the module note. 'aux.x' is
   // the authored thickness times the lensStrength channel (W12 G2); the lens's
   // depth and the inner shadow's are both evaluated from it and the span below.
-  let lensThick = max(aux.x, 0.0);
+  //
+  // Times the presence (W27d), because this is the one number Apple's own
+  // description of materializing names — "by gradually modulating the light
+  // bending and lensing" — and both depths are functions of it, so the lens
+  // shallows and weakens together and the inner shadow's depth follows the same
+  // channel rather than a second statement of it.
+  let lensThick = max(aux.x, 0.0) * mat;
   // The thickness curve off the span of whichever surface owns this pixel
   // (W11c). 'sizeK' is the thickness factor, 0..1: zero on anything at or below
   // the profile's 'sizeSpanMin', saturated at 'sizeSpanMax', folded under the
@@ -741,6 +796,26 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     // the glass.
     let scatterColour = scatterSample.rgb / max(scatterSample.a, 1e-6);
     backdrop = mix(bodySample.rgb / max(bodySample.a, 1e-6), scatterColour, kScatter);
+    /*
+     * The body's own half of the presence (W27d): a material at half presence
+     * shows half the BLUR, not half the surface. What a surface at presence 0
+     * stands over is the page as it is, so the two components' composite lerps
+     * back to the unblurred backdrop — the chain's own level 0, which is the
+     * texture before any of the pyramid's widths were applied.
+     *
+     * Read at 'refractedUv' rather than at this pixel's own position: the lens is
+     * scaled by the same channel, so the sample walks back to the pixel as the
+     * presence falls and arrives exactly there at 0. One uv, one read, and no
+     * discontinuity between the two ends.
+     *
+     * The branch is what keeps the resting material byte-identical — at presence
+     * 1 the extra tap is not taken at all — and it is also what keeps a present
+     * surface from paying for a channel it is not using.
+     */
+    if (mat < 1.0) {
+      let sharpSample = textureSampleLevel(backdropChain, backdropSampler, refractedUv, 0.0);
+      backdrop = mix(sharpSample.rgb / max(sharpSample.a, 1e-6), backdrop, mat);
+    }
   }
 
   // Adaptive tint. 'adapt.w' is the strength the accessibility policy and the
@@ -909,7 +984,15 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // opaque" is a statement about how much material there is), and the backdrop
   // adaptation moved it above. The author's colour never touches it — but not
   // for the reason the composition contract first gave (claims §5.36).
-  var colour = mix(backdrop, adapted, adaptedAlpha);
+  /*
+   * The material's alpha, times the presence (W27d) — and applied HERE rather
+   * than to 'adaptedAlpha' above, which is load-bearing: that alpha is the
+   * divisor the collapse's own composite is un-premultiplied by, so scaling it
+   * there would move the adapted COLOUR as well as the amount of it. Presence is
+   * how much of the material is there, not what the material is.
+   */
+  let presentAlpha = adaptedAlpha * mat;
+  var colour = mix(backdrop, adapted, presentAlpha);
   /*
    * How much of this pixel the SURFACE owns, as the canvas will composite it.
    *
@@ -933,8 +1016,16 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   var bodyAlpha = 1.0;
   if (ou.flags.x <= 0.5) {
     colour = adapted;
-    bodyAlpha = adaptedAlpha;
+    bodyAlpha = presentAlpha;
   }
+  /*
+   * One gap this tier cannot close from here, named rather than left to be
+   * discovered (W27d): on an unsampled group the blurred backdrop is a DOM proxy
+   * beneath this canvas, so the body's mix toward the unblurred backdrop above
+   * has no texture to mix with. A layer that fades to alpha 0 there reveals the
+   * PROXY's blur rather than the page — presence takes the tint, the rim and the
+   * shadows out, and the blur is the host's to fade with it.
+   */
 
   // The author tint (W10). 'aux.w' is the per-pixel strength, unioned in the
   // field pass, so a toolbar can carry one tinted control among plain ones; the
@@ -996,7 +1087,15 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * reach painted pixels only (W23 S10).
    */
   var rimTintColour = vec3f(1.0);
-  if (aux.w > 0.0) {
+  /*
+   * The author tint's coverage at this pixel, times the presence (W27d). The
+   * paint is part of the material and not a thing painted onto the page, so a
+   * dissolving surface takes its colour with it — at presence 0 the pixel is the
+   * backdrop and not a flat orange over it. At presence 1 this is
+   * 'clamp(aux.w, 0, 1)' exactly, which is what the tint's own law was fitted on.
+   */
+  let tintK = clamp(aux.w, 0.0, 1.0) * mat;
+  if (tintK > 0.0) {
     // The untinted material's luminance at this pixel. Over a backdrop that is
     // the composite; as a layer it is the layer over the tone the host measured
     // for the group — zero where nothing was measured, the same reference-level
@@ -1005,7 +1104,7 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     let grip = clamp(ou.seed.w, 0.0, 1.0) * clamp(ou.tone.z, 0.0, 1.0) * (1.0 - toneAdapt);
     let shade = mix(1.0, clamp(mix(ou.tone.x, ou.tone.y, clamp(u, 0.0, 1.0)), 0.0, 1.0), grip);
     let layer = ou.seed.rgb * shade;
-    let s = clamp(aux.w, 0.0, 1.0);
+    let s = tintK;
     let layerLuma = max(dot(layer, vec3f(0.2126, 0.7152, 0.0722)), 0.05);
     rimTintColour = mix(vec3f(1.0), layer / layerLuma, clamp(ou.rimLaw.w, 0.0, 1.0) * s);
     let encodedMaterial = linear_to_srgb(clamp(colour, vec3f(0.0), vec3f(1.0)));
@@ -1048,7 +1147,10 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // A multiplicative occlusion of the whole composite. As a layer that is the
   // colour scaled and the alpha raised — (k·a·c, 1 − k·(1 − a)) composites to
   // k times what (a·c, a) would — and at bodyAlpha 1 it is the plain product.
-  let shadowKeep = 1.0 - shadowProfile * shadowDepth * ou.light.w * present;
+  // Times the presence (W27d) on the AMPLITUDE, beside the depth the same channel
+  // already shallowed through 'lensThick': the occlusion is the material's own,
+  // and a material that is half there occludes half as much of what is behind it.
+  let shadowKeep = 1.0 - shadowProfile * shadowDepth * ou.light.w * present * mat;
   let shadowedAlpha = 1.0 - shadowKeep * (1.0 - bodyAlpha);
   colour = colour * (shadowKeep * bodyAlpha / max(shadowedAlpha, 1e-6));
   bodyAlpha = shadowedAlpha;
@@ -1100,7 +1202,7 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   let rimLuma = materialAlpha * dot(materialColour, vec3f(0.2126, 0.7152, 0.0722))
     + (1.0 - materialAlpha) * ou.toneColour.w;
   let rimAmplitude = ou.rim.y + ou.rimLaw.x * rimLuma;
-  let rimCollapsed = mix(ou.rimLaw.y, ou.rimLaw.z, clamp(aux.w, 0.0, 1.0));
+  let rimCollapsed = mix(ou.rimLaw.y, ou.rimLaw.z, tintK);
   /*
    * The lit edge (W24; claims §5.107) — the directional factor the whole rim is
    * multiplied by, symmetric about 'rimLit.xy'.
@@ -1160,7 +1262,11 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    */
   let alongSide = clamp((rel.x / halfExt.x) * (rel.y / halfExt.y), -1.0, 1.0);
   let alongFactor = max(1.0 + ou.rimLit.w * sizeThick * alongSide, 0.0);
-  let rim = rw * lit * alongFactor * (rimAmplitude * present + rimCollapsed * toneAdapt);
+  // The whole rim — both the appearance's own and the one the collapse keeps —
+  // times the presence (W27d). The rim is the mark that says a surface is HERE,
+  // which is the first thing a surface that is not there stops saying; the same
+  // argument the collapse's 'present' makes, from the author's side.
+  let rim = rw * lit * alongFactor * (rimAmplitude * present + rimCollapsed * toneAdapt) * mat;
   let rimLight = rim * rimTintColour;
   if (ou.flags.x > 0.5) {
     colour = colour + rimLight;

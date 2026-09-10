@@ -66,7 +66,7 @@ export const WGSL_INSTANCE_STRUCT = `struct Instance {
   lensThick : f32,  // 56  authored thickness in CSS px times the lensStrength channel (W12 G2): both depths are evaluated from it per pixel
   tintK  : f32,     // 60  author tint strength, 0..1 — the seed itself is a group uniform
   span   : f32,     // 64  the surface's shorter extent, CSS px — the size law's input, both curves (W11c)
-  _pad   : f32,     // 68  stride padding: vec2f aligns the struct to 8, so 72 is the next legal size
+  mat    : f32,     // 68  presence, 0..1 (W27d): the slot the 8-byte alignment already required
 };`;
 
 /** `FieldSample` mirrors geometry's, minus `kink`: the shader has no use for it. */
@@ -324,6 +324,17 @@ export const WGSL_FIELD_PASS = `struct FieldUniforms {
 // two merged members share one oval there — a value nothing measured either.
 // For a concentric child the box is the parent's (the child is the parent's
 // level set), which is the same centre and a slightly larger oval.
+//
+// 'presence' (W27d) is the fourth target and carries one number: the surface's
+// materialization, blended through the union on the same weight as everything
+// else. It is a target of its own rather than a component of one of the three
+// above because all three are full — the field carries the distance, the normal
+// and the coverage, 'aux' the four optical scalars, 'aux2' the surface's own box
+// — and repurposing a component would mean re-deriving a value the fragment
+// stages read, which is how a golden moves for a reason nobody named. It is
+// r16float rather than the working rgba16float for the same honesty: one scalar
+// costs one channel, and a wave that needs a second widens the format in the one
+// place it is declared ('passes.ts').
 
 @group(0) @binding(0) var<uniform> fu : FieldUniforms;
 @group(0) @binding(1) var<storage, read> instances : array<Instance>;
@@ -333,6 +344,7 @@ struct Member {
   g    : vec2f,
   aux  : vec4f,
   aux2 : vec4f,
+  mat  : f32,
 };
 
 fn eval_instance(i : u32, p : vec2f) -> Member {
@@ -349,6 +361,7 @@ fn eval_instance(i : u32, p : vec2f) -> Member {
   // The pixel relative to the surface's centre, and the half-extents: what the
   // oval's gradient needs, written here where the group-local position is exact.
   m.aux2 = vec4f(p - s.centre, s.half);
+  m.mat = s.mat;
   return m;
 }
 
@@ -356,6 +369,7 @@ struct FieldOut {
   @location(0) field : vec4f,
   @location(1) aux   : vec4f,
   @location(2) aux2  : vec4f,
+  @location(3) presence : vec4f,
 };
 
 @fragment
@@ -374,6 +388,10 @@ fn fs_field(in : FullscreenOut) -> FieldOut {
     out.field = vec4f(65000.0, 0.0, -1.0, 0.0);
     out.aux = vec4f(0.0);
     out.aux2 = vec4f(0.0);
+    // The idle, not zero: no surface here means nothing to be absent, and a
+    // reader that walks off the instances (the outer shadow's offset read) must
+    // not find a material it has to fade.
+    out.presence = vec4f(1.0, 0.0, 0.0, 0.0);
     return out;
   }
 
@@ -387,6 +405,7 @@ fn fs_field(in : FullscreenOut) -> FieldOut {
     acc.g = mix(s.g, acc.g, h);
     acc.aux = mix(s.aux, acc.aux, h);
     acc.aux2 = mix(s.aux2, acc.aux2, h);
+    acc.mat = mix(s.mat, acc.mat, h);
     nearest = min(nearest, s.d);
   }
   // One clamp at the end of the fold, so |union - min| <= maxBulge holds for any
@@ -400,6 +419,7 @@ fn fs_field(in : FullscreenOut) -> FieldOut {
   out.field = vec4f(acc.d, normal.x, normal.y, coverage);
   out.aux = acc.aux;
   out.aux2 = acc.aux2;
+  out.presence = vec4f(acc.mat, 0.0, 0.0, 0.0);
   return out;
 }`;
 

@@ -78,6 +78,37 @@ export interface SurfaceChannels {
    * above 1 deepens the lens without pushing it through the surface.
    */
   readonly lensStrength: number;
+  /**
+   * `materialization`, 0..1 — the surface's PRESENCE (W27d; contract X6).
+   *
+   * Apple's `Glass.identity` animates glass to nothing in place and
+   * `GlassEffectTransition.materialize` brings it back, and Apple states the
+   * mechanism twice: "prefer setting the effect property over the alpha", and a
+   * surface materializes "by gradually modulating the light bending and
+   * lensing". The runtime states it a third time from the other side — an
+   * `opacity` below 1 on a host or one of its ancestors forms a Backdrop Root
+   * and kills the group's proxy sampling — so presence is a scalar on the
+   * material's own optical terms and never on the element.
+   *
+   * It scales the lens's depth and magnitude, the body's mix away from the
+   * unblurred backdrop, the material's alpha, the author tint's coverage, the
+   * inner and outer shadows, the rim and the highlight. At 1 every one of those
+   * is a multiplication by exactly one, so the resting material is byte-identical
+   * to the material that had no channel.
+   *
+   * **Exactly 0 is not the bottom of that ramp but the absence of the surface**
+   * (`Glass.identity`). The member is dropped before the field pass
+   * (`resolveSurfaces`), so it owns no coverage and joins no union: a group whose
+   * members are all at 0 draws nothing at all, and one absent member of a
+   * connected group leaves its neighbours the pixels they would have had alone.
+   * A material scaled to nothing would still have been a silhouette, and a
+   * silhouette that eroded as it faded would be a geometric transition, which is
+   * what Apple says materializing is not.
+   *
+   * The renderer takes a value and never a time: the transit is the motion
+   * kernel's `monotonic-ease` driver, on the CPU, like every other channel here.
+   */
+  readonly materialization: number;
   /** Press point in viewport CSS px. Defaults to the surface's centre. */
   readonly pressPoint?: readonly [number, number];
 }
@@ -88,6 +119,9 @@ export const IDLE_CHANNELS: SurfaceChannels = {
   sweep: 0,
   shimmer: 0,
   lensStrength: 1,
+  // 1 rather than 0, for `lensStrength`'s reason: a surface nobody is driving is
+  // a surface that is fully there, and 0 is a distinct claim a driver can make.
+  materialization: 1,
 };
 
 /** An author tint as this package takes it: a seed in linear light, and a strength. */
