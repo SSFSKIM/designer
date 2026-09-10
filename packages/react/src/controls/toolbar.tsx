@@ -12,6 +12,30 @@
  *   arrows move within it. A row of ten buttons that each take a tab stop is the
  *   thing this pattern exists to prevent.
  *
+ * ## Splitting the shared background
+ *
+ * Apple gives a toolbar two ways to break its glass into separate bodies —
+ * `ToolbarSpacer`, a gap at a position, and `sharedBackgroundVisibility(.hidden)`,
+ * a single item stepping out — and both reduce to one rule here: **the children
+ * are partitioned into sampling groups at each `GlassToolbarSpacer` and at each
+ * item that declares `sharedBackground="hidden"`.** The result is one
+ * `role="toolbar"` with N groups, never N toolbars (W27 §Design, X5).
+ *
+ * That the split changes grouping and *nothing else* is a property of what a
+ * group is, not a promise this file keeps by hand: `GlassGroup` renders no DOM,
+ * so the toolbar's flex row is untouched, and `membersOf` below orders the
+ * roving tab stop over the whole document by plane anchors, so it never saw the
+ * grouping in the first place. Union and proxies were already per group.
+ *
+ * The one thing a partition must buy is room. Two adjacent groups each sample a
+ * padded region around their own shapes, and where one group's padded box covers
+ * the other's shapes the backdrop filter applies twice over the overlap
+ * (`proxy-overlap-after-enforcement`). So a spacer's minimum is the sampling
+ * padding the material actually requires, read from the resolved accessibility
+ * policy through `samplingPaddingFor` — not a constant, because the constant
+ * would be wrong under Reduce Transparency, which is exactly the preference that
+ * enlarges the blur.
+ *
  * The toolbar is deliberately **not** a glass surface. X1 forbids two glass
  * surfaces overlapping inside one plane — the sandwich cannot put one surface's
  * body above another surface's label — so a glass platter wrapping glass buttons
@@ -24,15 +48,19 @@
  * registration order, and nothing to keep in sync when children reorder.
  */
 
-import type { GlassPlane } from "@vitreajs/vitrea";
+import { NOMINAL_ACCESSIBILITY_POLICY, type GlassPlane } from "@vitreajs/vitrea";
+import { samplingPaddingFor } from "@vitreajs/vitrea-web";
 import {
+  Children,
   createContext,
+  isValidElement,
   useCallback,
   useContext,
   useEffect,
   useId,
   useMemo,
   useState,
+  type CSSProperties,
   type FocusEvent as ReactFocusEvent,
   type HTMLAttributes,
   type KeyboardEvent as ReactKeyboardEvent,
@@ -41,6 +69,7 @@ import {
 
 import { GlassGroup, type GlassGroupProps } from "../group";
 import { PlanePortal, PLANE_ANCHOR_ATTRIBUTE } from "../plane-portal";
+import { useGlassAccessibility } from "../root";
 
 /**
  * The attribute a toolbar item marks itself with, carrying its toolbar's id.
@@ -56,18 +85,185 @@ export const TOOLBAR_ITEM_ATTRIBUTE = "data-vitrea-toolbar-item";
 
 export type ToolbarItemProps = { readonly "data-vitrea-toolbar-item"?: string };
 
-const ToolbarContext = createContext<string | null>(null);
+export type ToolbarOrientation = "horizontal" | "vertical";
+
+/**
+ * What the surrounding toolbar tells its items and its spacers.
+ *
+ * The gap is here rather than on the spacer because it is a property of the
+ * toolbar's material and layout, not of any one spacer: every spacer in one
+ * toolbar opens the same minimum, and it moves for all of them at once when an
+ * accessibility preference moves the blur.
+ */
+interface ToolbarScope {
+  readonly id: string;
+  readonly orientation: ToolbarOrientation;
+  /** The minimum a spacer opens between two partitions, in CSS px. */
+  readonly gap: number;
+}
+
+const ToolbarContext = createContext<ToolbarScope | null>(null);
 
 /** Props that opt a control into the toolbar's roving tab order. `{}` outside one. */
 export function useToolbarItem(): ToolbarItemProps {
-  const toolbarId = useContext(ToolbarContext);
+  const toolbarId = useContext(ToolbarContext)?.id ?? null;
   return useMemo(
     () => (toolbarId === null ? {} : { [TOOLBAR_ITEM_ATTRIBUTE]: toolbarId }),
     [toolbarId],
   );
 }
 
-export type ToolbarOrientation = "horizontal" | "vertical";
+/** Apple's `sharedBackgroundVisibility`: whether this item joins the toolbar's glass. */
+export type ToolbarSharedBackground = "shared" | "hidden";
+
+/**
+ * The two props `GlassToolbar` reads off its own children, and never passes on.
+ *
+ * They are declared on the controls rather than on the toolbar because that is
+ * where Apple puts them and where an author looks for them: a primary action
+ * says it is not part of the shared background, in place, beside its label.
+ * Outside a toolbar — or on a child that is not a *direct* child of one — both
+ * are inert, and the control that declares them drops them rather than passing
+ * an unknown attribute to the DOM.
+ */
+export interface GlassToolbarItemProps {
+  /**
+   * `"hidden"` gives this item a sampling group of its own, so its glass is a
+   * separate body from the toolbar's — Apple's `sharedBackgroundVisibility(.hidden)`.
+   * Put a `GlassToolbarSpacer` beside it: the split is what separates the two
+   * bodies logically, and the spacer is what leaves room for the two proxies.
+   */
+  readonly sharedBackground?: ToolbarSharedBackground | undefined;
+  /**
+   * The group props for *this item's* own group, merged over the toolbar's.
+   * Only read on a `sharedBackground="hidden"` item, which is the only partition
+   * that is one item's to configure.
+   *
+   * This is how two tints coexist in one toolbar: one group carries one seed
+   * (`tint-mixing` fires on two), so a tinted primary action is a tinted group
+   * of one — `groupProps={{ tint: "…" }}` on the item that stepped out. An `id`
+   * here is taken as written, since it names one group and not a series.
+   */
+  readonly groupProps?: Omit<GlassGroupProps, "children"> | undefined;
+}
+
+/** The keys above, as data: what a control has to drop before it reaches an element. */
+const TOOLBAR_ITEM_KEYS = ["sharedBackground", "groupProps"] as const;
+
+/**
+ * A control's props with the toolbar-protocol pair removed.
+ *
+ * A control declaring them has to drop them — `sharedBackground` would reach the
+ * DOM as an unknown attribute and `groupProps` as `[object Object]` — and the
+ * removal lives here, beside the declaration, so a second control does not
+ * arrive at its own spelling of the same list.
+ */
+export function withoutToolbarItemProps<T extends GlassToolbarItemProps>(
+  props: T,
+): Omit<T, keyof GlassToolbarItemProps> {
+  const rest = { ...props } as Record<string, unknown>;
+  for (const key of TOOLBAR_ITEM_KEYS) delete rest[key];
+  return rest as Omit<T, keyof GlassToolbarItemProps>;
+}
+
+/** `.fixed` holds the minimum; `.flexible` also takes whatever room is going. */
+export type ToolbarSpacerKind = "fixed" | "flexible";
+
+export interface GlassToolbarSpacerProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+  readonly kind?: ToolbarSpacerKind | undefined;
+}
+
+/**
+ * `GlassToolbarSpacer` — Apple's `ToolbarSpacer`: a gap that is also a split.
+ *
+ * The gap is a **minimum**, written as `min-width` (or `min-height` in a
+ * vertical toolbar) so that the toolbar's own `gap`, or a margin, or a width the
+ * author gives it, all add to it rather than fight it. The number is the
+ * sampling padding the surrounding toolbar derived — see `GlassToolbar` — and it
+ * is what keeps the two partitions' padded proxies off each other's shapes.
+ *
+ * Outside a toolbar the element is still a spacer, with no minimum: there is no
+ * partition to separate, so there is no padding to clear.
+ */
+export function GlassToolbarSpacer(props: GlassToolbarSpacerProps): ReactNode {
+  const { kind = "fixed", style, ...rest } = props;
+  const scope = useContext(ToolbarContext);
+  const gap = scope?.gap ?? 0;
+
+  const sizing: CSSProperties =
+    scope?.orientation === "vertical" ? { minHeight: gap } : { minWidth: gap };
+
+  return (
+    <div
+      aria-hidden="true"
+      data-vitrea-toolbar-spacer={kind}
+      {...rest}
+      style={{ flex: kind === "flexible" ? "1 1 auto" : "0 0 auto", ...sizing, ...style }}
+    />
+  );
+}
+
+/**
+ * One partition of a toolbar's children: the run that shares a sampling group.
+ *
+ * `own` is the group props of a `sharedBackground="hidden"` item, which is the
+ * only partition whose configuration belongs to a single child.
+ */
+interface ToolbarPartition {
+  readonly kind: "partition";
+  readonly children: readonly ReactNode[];
+  readonly own: Omit<GlassGroupProps, "children"> | undefined;
+}
+
+type ToolbarSlot = ToolbarPartition | { readonly kind: "spacer"; readonly node: ReactNode };
+
+const itemPropsOf = (child: ReactNode): GlassToolbarItemProps | undefined =>
+  isValidElement<GlassToolbarItemProps>(child) ? child.props : undefined;
+
+/** The id partition `index` registers: the base as written, then `-1`, `-2`, … */
+const idAt = (base: string, index: number): string => (index === 0 ? base : `${base}-${index}`);
+
+/**
+ * The children, cut into partitions at the two boundaries Apple names.
+ *
+ * A boundary that would produce an empty partition produces none: two spacers in
+ * a row, or a spacer at either end, are layout and nothing more, and a group
+ * with no members would register a proxy over nothing. A toolbar whose children
+ * are *all* spacers keeps one partition all the same, so that asking for a group
+ * and getting one does not depend on what is in the row this render.
+ */
+function partitionChildren(children: ReactNode): readonly ToolbarSlot[] {
+  const slots: ToolbarSlot[] = [];
+  let run: ReactNode[] = [];
+
+  const flush = (): void => {
+    if (run.length === 0) return;
+    slots.push({ kind: "partition", children: run, own: undefined });
+    run = [];
+  };
+
+  for (const child of Children.toArray(children)) {
+    if (isValidElement(child) && child.type === GlassToolbarSpacer) {
+      flush();
+      slots.push({ kind: "spacer", node: child });
+      continue;
+    }
+    if (itemPropsOf(child)?.sharedBackground === "hidden") {
+      flush();
+      slots.push({ kind: "partition", children: [child], own: itemPropsOf(child)?.groupProps });
+      continue;
+    }
+    run.push(child);
+  }
+  flush();
+
+  if (!slots.some((slot) => slot.kind === "partition")) {
+    slots.push({ kind: "partition", children: [], own: undefined });
+  }
+
+  return slots;
+}
 
 export interface GlassToolbarProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "role" | "onKeyDown"> {
@@ -77,9 +273,20 @@ export interface GlassToolbarProps
   readonly plane?: GlassPlane | undefined;
   /**
    * Create a `GlassGroup` for the members. `false` puts them in the group already
-   * in scope, which is what two adjacent toolbars sharing one proxy would want.
+   * in scope, which is what two adjacent toolbars sharing one proxy would want —
+   * and it switches the partition off with it: a spacer in such a toolbar is a
+   * gap, because there is one group and nothing to split.
    */
   readonly group?: boolean | undefined;
+  /**
+   * The props every partition's group takes. A `sharedBackground="hidden"` item
+   * merges its own over these for its own group.
+   *
+   * `id` is the one that cannot simply be shared, since two groups cannot carry
+   * one id: the first partition takes it as written and each later partition
+   * takes it suffixed with its index — `toolbar`, `toolbar-1`, `toolbar-2` — so
+   * an unsplit toolbar keeps exactly the id it has always registered.
+   */
   readonly groupProps?: Omit<GlassGroupProps, "children"> | undefined;
 }
 
@@ -254,7 +461,83 @@ export function GlassToolbar(props: GlassToolbarProps): ReactNode {
     [orientation, roveTo, toolbar, toolbarId],
   );
 
-  const content = (
+  /*
+   * The minimum a spacer opens, derived rather than chosen.
+   *
+   * `samplingPaddingFor` is the runtime's own composition — the shipped optics
+   * for this group's variant, folded by the resolved policy, through the scatter
+   * law, times 3σ — so this number moves with Reduce Transparency the moment the
+   * policy does, and it is the same number `root.ts` will resolve for these
+   * groups. The toolbar's own box stands in for the members it has not measured:
+   * the law is monotone in a member's span and extents, and no member of a
+   * toolbar is larger than the toolbar, so a box that contains them yields an
+   * upper bound on their padding rather than a guess at it.
+   *
+   * Before the first measurement — the first render, and a jsdom tree that lays
+   * nothing out — the box is empty, which is the projection at span 0: the floor
+   * every group starts at, and the honest answer for a toolbar with no extent.
+   */
+  const accessibility = useGlassAccessibility();
+  const [box, setBox] = useState<readonly [number, number]>([0, 0]);
+
+  useEffect(() => {
+    if (toolbar === null) return;
+    const observer = new ResizeObserver(() => {
+      const rect = toolbar.getBoundingClientRect();
+      setBox((current) =>
+        current[0] === rect.width && current[1] === rect.height
+          ? current
+          : [rect.width, rect.height],
+      );
+    });
+    observer.observe(toolbar);
+    return () => observer.disconnect();
+  }, [toolbar]);
+
+  const gap = useMemo(
+    () =>
+      samplingPaddingFor({
+        members: box[0] > 0 && box[1] > 0 ? [box] : [],
+        material: (accessibility ?? NOMINAL_ACCESSIBILITY_POLICY).material,
+        ...(groupProps?.variant === undefined ? {} : { variant: groupProps.variant }),
+      }),
+    [accessibility, box, groupProps?.variant],
+  );
+
+  const scope: ToolbarScope = useMemo(
+    () => ({ id: toolbarId, orientation, gap }),
+    [gap, orientation, toolbarId],
+  );
+
+  /*
+   * The partitions, each wrapped in its own group — and the groups are INSIDE
+   * the toolbar element, which is the whole shape of X5: one `role="toolbar"`,
+   * N sampling groups. `GlassGroup` renders no DOM, so the flex row the author
+   * wrote is the flex row the browser lays out, split or not.
+   */
+  const slots = partitionChildren(children);
+  const partitioned = group ? slots : undefined;
+  let partitionIndex = -1;
+  const body =
+    partitioned === undefined
+      ? children
+      : partitioned.map((slot, index) => {
+          if (slot.kind === "spacer") return slot.node;
+          partitionIndex += 1;
+          const merged = { ...groupProps, ...slot.own };
+          // An id the *item* wrote is its own and is taken as written; only the
+          // one inherited from the toolbar has to be made unique per partition.
+          const id =
+            slot.own?.id ??
+            (groupProps?.id === undefined ? undefined : idAt(groupProps.id, partitionIndex));
+          return (
+            <GlassGroup key={`partition-${index}`} {...merged} {...(id === undefined ? {} : { id })}>
+              {slot.children}
+            </GlassGroup>
+          );
+        });
+
+  return (
     <PlanePortal plane={plane}>
       <div
         {...rest}
@@ -264,10 +547,8 @@ export function GlassToolbar(props: GlassToolbarProps): ReactNode {
         onFocus={onFocus}
         onKeyDown={onKeyDown}
       >
-        <ToolbarContext.Provider value={toolbarId}>{children}</ToolbarContext.Provider>
+        <ToolbarContext.Provider value={scope}>{body}</ToolbarContext.Provider>
       </div>
     </PlanePortal>
   );
-
-  return group ? <GlassGroup {...groupProps}>{content}</GlassGroup> : content;
 }
