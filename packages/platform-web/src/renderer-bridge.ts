@@ -756,6 +756,14 @@ export function createGlassRendererBridge(
         rebuild: first ? frame.rebuilds : [],
         resolution,
         clear: true,
+        // Which plane these canvases are. The renderer keys a group's pooled
+        // GPU resources on the group id qualified by this, and it has to be
+        // told because the draw is per plane while the group registry is not:
+        // `GlassMorph transition="materialize"` puts both endpoints on one
+        // group id and different planes (claims §5.132 §5), and without the
+        // qualification each plane's field allocation would destroy and
+        // reallocate the other's for the length of the transition.
+        plane: plane.plane,
       });
       first = false;
     }

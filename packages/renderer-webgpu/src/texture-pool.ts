@@ -170,9 +170,15 @@ export const poolKey = {
   backdropHeavy: (sourceId: string): string => `backdrop:${sourceId}:heavy`,
   backdropHeavyScratch: (sourceId: string): string => `backdrop:${sourceId}:heavy-scratch`,
   backdropUpload: (sourceId: string): string => `backdrop:${sourceId}:upload`,
-  groupField: (groupId: string): string => `group:${groupId}:field`,
-  groupAux: (groupId: string): string => `group:${groupId}:aux`,
-  groupAux2: (groupId: string): string => `group:${groupId}:aux2`,
+  /*
+   * The four field targets. Their key is a group's RESOURCE identity — the id
+   * qualified by the plane it draws on (`groupResourceId`) — and not the group
+   * id, because one group can draw on two planes in one frame and each plane's
+   * field is its own size.
+   */
+  groupField: (resourceId: string): string => `group:${resourceId}:field`,
+  groupAux: (resourceId: string): string => `group:${resourceId}:aux`,
+  groupAux2: (resourceId: string): string => `group:${resourceId}:aux2`,
   /** The surface's presence per pixel (W27d) — the field pass's fourth target. */
-  groupPresence: (groupId: string): string => `group:${groupId}:presence`,
+  groupPresence: (resourceId: string): string => `group:${resourceId}:presence`,
 } as const;

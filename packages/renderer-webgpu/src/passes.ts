@@ -73,7 +73,8 @@ export interface DeviceRect {
 }
 
 export interface FieldPassArgs {
-  readonly groupId: string;
+  /** The group's resource identity on this plane — see `groupResourceId`. */
+  readonly resourceId: string;
   readonly family: FieldFamily;
   readonly rectDevice: DeviceRect;
   /** CSS px per device px. */
@@ -112,7 +113,8 @@ export interface FieldTargets {
 }
 
 export interface OpticsPassArgs {
-  readonly groupId: string;
+  /** The group's resource identity on this plane — see `groupResourceId`. */
+  readonly resourceId: string;
   readonly target: GPUTextureView;
   readonly targetFormat: GPUTextureFormat;
   readonly rectDevice: DeviceRect;
@@ -375,7 +377,8 @@ export interface OpticsPassArgs {
 }
 
 export interface HighlightPassArgs {
-  readonly groupId: string;
+  /** The group's resource identity on this plane — see `groupResourceId`. */
+  readonly resourceId: string;
   readonly target: GPUTextureView;
   readonly targetFormat: GPUTextureFormat;
   readonly rectDevice: DeviceRect;
@@ -447,9 +450,40 @@ export interface PassRunner {
   clearPass(encoder: GPUCommandEncoder, target: GPUTextureView): void;
   /** Attach a timing collector for this frame, or `undefined` to time nothing. */
   setTimeline(timeline: PassTimeline | undefined): void;
-  forget(groupId: string): void;
+  /**
+   * Release everything allocated under one resource identity — the four field
+   * textures, the instance storage buffer and the three uniform buffers.
+   *
+   * Idempotent, because it is reached on every frame a group draws nothing on
+   * a plane and not only when the group goes away: the pool and both slot maps
+   * treat a key that is not there as nothing to do.
+   */
+  forget(resourceId: string): void;
   destroy(): void;
 }
+
+/**
+ * A group's resource identity, which is its id qualified by the plane it is
+ * being drawn on.
+ *
+ * Every pooled texture, uniform buffer and storage buffer in this file is keyed
+ * on this rather than on the group id, and the reason is that one group id can
+ * legitimately draw on two planes at once. `GlassMorph transition="materialize"`
+ * registers both endpoints under one group (claims §5.132 §5) and the host draws
+ * one plane per `drawFrame` against that plane's canvases, so the two endpoints
+ * reach `fieldPass` with the same id and different rects. Keyed on the id alone
+ * each plane's `acquire` failed the other's `sameShape` check and destroyed and
+ * reallocated all four field textures — twice a frame for the length of the
+ * transition, for pixels that were already correct.
+ *
+ * Only the resource namespace splits. The LOGICAL group — what `setGroup`,
+ * `removeGroup`, the resolved-state readouts and the skipped-group reports name,
+ * and the id an author sees — is one group on one id, and nothing here changes
+ * that. The empty plane is the whole namespace for a host that draws one set of
+ * canvases, so a standalone renderer and every golden key exactly as before.
+ */
+export const groupResourceId = (plane: string, groupId: string): string =>
+  plane === "" ? groupId : `${plane}/${groupId}`;
 
 export function createPassRunner(context: GpuContext): PassRunner {
   const { device, pool, cache } = context;
@@ -570,33 +604,33 @@ export function createPassRunner(context: GpuContext): PassRunner {
       const width = Math.max(1, Math.round(args.rectDevice.width * args.renderScale));
       const height = Math.max(1, Math.round(args.rectDevice.height * args.renderScale));
 
-      const field = pool.acquire(poolKey.groupField(args.groupId), {
+      const field = pool.acquire(poolKey.groupField(args.resourceId), {
         width,
         height,
         format: WORKING_TEXTURE_FORMAT,
         usage: fieldUsage(),
-        label: `vitrea:group:${args.groupId}:field`,
+        label: `vitrea:group:${args.resourceId}:field`,
       });
-      const aux = pool.acquire(poolKey.groupAux(args.groupId), {
+      const aux = pool.acquire(poolKey.groupAux(args.resourceId), {
         width,
         height,
         format: WORKING_TEXTURE_FORMAT,
         usage: fieldUsage(),
-        label: `vitrea:group:${args.groupId}:aux`,
+        label: `vitrea:group:${args.resourceId}:aux`,
       });
-      const aux2 = pool.acquire(poolKey.groupAux2(args.groupId), {
+      const aux2 = pool.acquire(poolKey.groupAux2(args.resourceId), {
         width,
         height,
         format: WORKING_TEXTURE_FORMAT,
         usage: fieldUsage(),
-        label: `vitrea:group:${args.groupId}:aux2`,
+        label: `vitrea:group:${args.resourceId}:aux2`,
       });
-      const presence = pool.acquire(poolKey.groupPresence(args.groupId), {
+      const presence = pool.acquire(poolKey.groupPresence(args.resourceId), {
         width,
         height,
         format: PRESENCE_TEXTURE_FORMAT,
         usage: fieldUsage(),
-        label: `vitrea:group:${args.groupId}:presence`,
+        label: `vitrea:group:${args.resourceId}:presence`,
       });
 
       // Twelve floats: screen, unionP, counts. The group's origin is deliberately
@@ -607,7 +641,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
       // the shader multiplies it by `screen.z` to recover group-local CSS. Under
       // the resolution knob the target shrinks while the group does not, and it
       // is the group the geometry is expressed in.
-      const slot = uniformSlot(`field:${args.groupId}`, 12);
+      const slot = uniformSlot(`field:${args.resourceId}`, 12);
       slot.data[0] = rectWidth;
       slot.data[1] = rectHeight;
       slot.data[2] = args.cssPerDevice;
@@ -626,13 +660,13 @@ export function createPassRunner(context: GpuContext): PassRunner {
       new Uint32Array(slot.data.buffer, slot.data.byteOffset + 32, 1)[0] = args.instanceCount;
       slot.write();
 
-      const instances = storageSlot(args.groupId);
+      const instances = storageSlot(args.resourceId);
       instances.ensure(Math.max(args.instanceCount, 1) * INSTANCE_BYTES);
       instances.write(args.instances, Math.max(args.instanceCount, 1) * (INSTANCE_BYTES / 4));
 
       const pipeline = fieldPipeline(args.family);
       const pass = encoder.beginRenderPass({
-        label: `vitrea:pass:field:${args.groupId}`,
+        label: `vitrea:pass:field:${args.resourceId}`,
         ...timed(PASS_LABEL.field),
         colorAttachments: [
           {
@@ -690,7 +724,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.groupId}`, 112);
+      const slot = uniformSlot(`optics:${args.resourceId}`, 112);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -879,7 +913,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
 
       const pipeline = opticsPipeline(args.targetFormat);
       const pass = encoder.beginRenderPass({
-        label: `vitrea:pass:optics:${args.groupId}`,
+        label: `vitrea:pass:optics:${args.resourceId}`,
         ...timed(PASS_LABEL.optics),
         colorAttachments: [{ view: args.target, loadOp: "load", storeOp: "store" }],
       });
@@ -910,7 +944,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     highlightPass(encoder, args) {
-      const slot = uniformSlot(`highlight:${args.groupId}`, 32);
+      const slot = uniformSlot(`highlight:${args.resourceId}`, 32);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -957,7 +991,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
 
       const pipeline = highlightPipeline(args.targetFormat);
       const pass = encoder.beginRenderPass({
-        label: `vitrea:pass:highlight:${args.groupId}`,
+        label: `vitrea:pass:highlight:${args.resourceId}`,
         ...timed(PASS_LABEL.highlight),
         colorAttachments: [{ view: args.target, loadOp: "load", storeOp: "store" }],
       });
@@ -1003,14 +1037,15 @@ export function createPassRunner(context: GpuContext): PassRunner {
       timeline = next;
     },
 
-    forget(groupId) {
-      pool.release(poolKey.groupField(groupId));
-      pool.release(poolKey.groupAux(groupId));
-      pool.release(poolKey.groupAux2(groupId));
-      pool.release(poolKey.groupPresence(groupId));
-      storages.get(groupId)?.destroy();
-      storages.delete(groupId);
-      for (const key of [`field:${groupId}`, `optics:${groupId}`, `highlight:${groupId}`]) {
+    forget(resourceId) {
+      pool.release(poolKey.groupField(resourceId));
+      pool.release(poolKey.groupAux(resourceId));
+      pool.release(poolKey.groupAux2(resourceId));
+      pool.release(poolKey.groupPresence(resourceId));
+      storages.get(resourceId)?.destroy();
+      storages.delete(resourceId);
+      for (const pass of ["field", "optics", "highlight"]) {
+        const key = `${pass}:${resourceId}`;
         uniforms.get(key)?.buffer.destroy();
         uniforms.delete(key);
       }

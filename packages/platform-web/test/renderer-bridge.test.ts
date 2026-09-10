@@ -522,6 +522,32 @@ describe("the dirty set is consumed only where something can build it", () => {
     restore();
   });
 
+  it("names the plane each draw is for, so the renderer can key its resources on it", async () => {
+    // One group id can be registered on two planes at once — `GlassMorph
+    // transition="materialize"` is exactly that (claims §5.132 §5) — and the
+    // renderer sees one `setGroup` per plane against that plane's canvases. It
+    // cannot tell the two apart unless the draw says which plane it is, and
+    // without that both planes' field allocations collide on one key.
+    const { bridge, renderer, restore } = await attachedBridge();
+    bridge.write(
+      frame(
+        [group()],
+        [
+          { plane: "base", nodes: [node()] },
+          { plane: "overlay", nodes: [node({ nodeId: "b", plane: "overlay" })] },
+        ],
+      ),
+      () => [],
+    );
+    bridge.render();
+
+    expect(renderer.drawn.map((args) => (args as { plane: string }).plane)).toEqual([
+      "base",
+      "overlay",
+    ]);
+    restore();
+  });
+
   it("hands back the sources the renderer could not build", async () => {
     const { bridge, renderer, restore } = await attachedBridge();
     renderer.unbuiltSources = ["src"];
