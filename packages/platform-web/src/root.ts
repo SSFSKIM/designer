@@ -60,7 +60,8 @@ import {
 
 import { createBackdropProxyManager, type ProxyRequest } from "./backdrop-proxy";
 import { compositeToneOver, toneBeneath, type PaintedSurface } from "./backdrop-stack";
-import { readHostChannels, type SurfaceChannelValues } from "./channels";
+import { GLASS_CHANNEL_PROPERTIES, readHostChannels, type SurfaceChannelValues } from "./channels";
+import { createDriver, clampFrameDelta, DEFAULT_MOTION_PROFILE, type MotionDriver } from "@vitrea/motion";
 import {
   colorSchemeMaterialProfile,
   mergeMaterialProfiles,
@@ -594,6 +595,9 @@ interface HostRecord {
    * materialization (§Motion gives materialization its own monotonic driver).
    */
   cssMaterialized: boolean;
+  /** Presence is authored independently of the interaction machine (W27d, X6). */
+  readonly presence: MotionDriver;
+  presencePublished: number;
   /**
    * The CSS-tier declarations currently on this host, serialised.
    *
@@ -1561,6 +1565,23 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     }
 
     const accessibility = resolution.accessibility;
+    // The root owns presence for every binding. Advance before either tier reads
+    // the inline channel, so a frame has one value from publication to pixels.
+    // Reduced Motion steps the whole material on BOTH tiers: unlike hover glow,
+    // materialization changes blur and lens depth (the HIG's blur-motion caution).
+    const presenceDelta = clampFrameDelta(
+      lastFrameTimeMs === undefined ? 0 : frame.timeMs - lastFrameTimeMs,
+      DEFAULT_MOTION_PROFILE.frame,
+    );
+    for (const record of hosts.values()) {
+      if (accessibility.reducedMotion) record.presence.jumpTo(record.presence.target);
+      else record.presence.advance(presenceDelta);
+      const value = record.presence.value;
+      if (value !== record.presencePublished) {
+        record.host.style.setProperty(GLASS_CHANNEL_PROPERTIES.materialization, String(value));
+        record.presencePublished = value;
+      }
+    }
     const cap = accessibilityRefractionCap(accessibility.material);
 
     /*
@@ -1902,6 +1923,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
               const clip = scene.glassNode(entry.record.nodeId)?.clip;
               return {
                 nodeId: entry.record.nodeId,
+                materialization: readHostChannels(entry.record.host, entry.bounds).materialization,
                 bounds: entry.bounds,
                 radii: [
                   entry.record.radii[0],
@@ -2981,6 +3003,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         ownedTransform: undefined,
         onPlaneChange: hostOptions.onPlaneChange,
         cssMaterialized: false,
+        presence: createDriver(DEFAULT_MOTION_PROFILE.channels.materialization,
+          hostOptions.present === false ? 0 : 1),
+        presencePublished: hostOptions.present === false ? 0 : 1,
         cssGroupShadow: undefined,
         cssClipsChildren: undefined,
         cssApplied: undefined,
@@ -2988,6 +3013,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         cssLayers: undefined,
       };
       hosts.set(nodeId, record);
+      record.host.style.setProperty(GLASS_CHANNEL_PROPERTIES.materialization,
+        String(record.presencePublished));
 
       hostOptions.host.setAttribute(HOST_ATTRIBUTES.node, nodeId);
       hostOptions.host.setAttribute(HOST_ATTRIBUTES.group, hostOptions.groupId);
@@ -3051,6 +3078,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           if (patch.smoothing !== undefined) record.smoothing = patch.smoothing;
           if (patch.thickness !== undefined) record.thickness = patch.thickness;
           if (patch.order !== undefined) record.order = patch.order;
+          if (patch.present !== undefined) record.presence.retarget(patch.present ? 1 : 0);
 
           scene.updateGlassNode(nodeId, {
             shape: {
@@ -3160,6 +3188,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             record.host.removeAttribute(attribute);
           }
           record.host.style.removeProperty("pointer-events");
+          record.host.style.removeProperty(GLASS_CHANNEL_PROPERTIES.materialization);
           record.host.style.removeProperty("transform");
           if (record.cssApplied !== undefined) {
             clearDeclarations(

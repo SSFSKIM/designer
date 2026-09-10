@@ -131,7 +131,7 @@ describe("channelsMovedBy — the per-transition view of the state table", () =>
   });
 
   it("never fades a surface on an interaction change", () => {
-    // materialization is mount/unmount, not interaction: no state change may
+    // Materialization is authored presence, not interaction: no state change may
     // touch it, or every hover would re-run the appear animation.
     for (const from of INTERACTION_STATES) {
       for (const to of INTERACTION_STATES) {

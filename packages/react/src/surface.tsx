@@ -104,6 +104,8 @@ export interface GlassSurfaceOwnProps {
   /** Wire pointer and keyboard events into the interaction machine. */
   readonly interactive?: boolean | undefined;
   readonly disabled?: boolean | undefined;
+  /** Animate only the material to identity in place. Content stays visible. Default true. */
+  readonly present?: boolean | undefined;
   /** Held true by a morph in flight. */
   readonly morphing?: boolean | undefined;
   /** Called once the host is registered, and with `null` when it is released. */
@@ -140,6 +142,7 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
     nodeId: explicitNodeId,
     interactive = false,
     disabled = false,
+    present = true,
     morphing = false,
     onHost,
     ...rest
@@ -180,8 +183,8 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
    * through `update`, and only the id, the group, the plane, the element and the
    * shape *family* can require a new registration.
    */
-  const patch = useRef({ radii, smoothing, reference, thickness, order, variant, tint, foreground });
-  patch.current = { radii, smoothing, reference, thickness, order, variant, tint, foreground };
+  const patch = useRef({ radii, smoothing, reference, thickness, order, variant, tint, foreground, present });
+  patch.current = { radii, smoothing, reference, thickness, order, variant, tint, foreground, present };
 
   // Held in a ref so a fresh closure each render never re-registers the host.
   const onHostRef = useRef(onHost);
@@ -202,6 +205,7 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
       smoothing: initial.smoothing,
       reference: initial.reference,
       thickness: initial.thickness,
+      present: initial.present,
       ...(initial.order === undefined ? {} : { order: initial.order }),
       ...(initial.variant === undefined ? {} : { variant: initial.variant }),
       ...(initial.tint === undefined ? {} : { tint: initial.tint }),
@@ -256,8 +260,9 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
       variant,
       tint,
       foreground: patch.current.foreground,
+      present,
     });
-  }, [foregroundKey, handle, order, radii, reference, smoothing, thickness, tint, variant]);
+  }, [foregroundKey, handle, order, present, radii, reference, smoothing, thickness, tint, variant]);
 
   /**
    * A capsule's radius is half its shorter side, and only the measured box knows

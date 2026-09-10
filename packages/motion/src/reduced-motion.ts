@@ -23,10 +23,14 @@ import type { MotionProfile } from "./tunables";
  *   than becoming steps or crossfades, so a morph still travels; its response
  *   time is scaled by `morphResponseFactor`, which is "shortens morphs to
  *   non-elastic interpolation".
- * - **Optical response stays.** Glow, lensing and tint are illumination, not
+ * - **Interaction optical response stays.** Glow, lensing and tint are illumination, not
  *   motion. Removing them would leave a reduced-motion control with no feedback
  *   at all; reducing them is `prefers-reduced-transparency` and
  *   `prefers-contrast`, which are separate policies on separate queries.
+ * - **Authored presence steps.** Materialization changes the whole material,
+ *   including blur and lens depth; unlike interaction illumination it is not
+ *   essential feedback. Its monotonic driver has zero duration under Reduced
+ *   Motion on both tiers (W27d; the HIG cautions against animating blur).
  *
  * Shimmer travel, which §Motion also names, has no channel in v1 — the specular
  * sweep is the renderer's, so C6 removes it there against this same flag.
@@ -60,6 +64,9 @@ export function withReducedMotion(profile: MotionProfile): MotionProfile {
 
 function reduceDriverConfig(profile: MotionProfile, channel: MotionChannel): DriverConfig {
   const config = profile.channels[channel];
+  if (channel === "materialization" && config.kind === "monotonic-ease") {
+    return { ...config, durationMs: 0 };
+  }
   if (config.kind !== "interruptible-spring" && config.kind !== "critically-damped") {
     return config;
   }

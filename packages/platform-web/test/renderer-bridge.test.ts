@@ -178,6 +178,7 @@ describe("toRendererGroups", () => {
       sweep: 0.1,
       shimmer: 0.4,
       lensStrength: 1.2,
+      materialization: 0.35,
       pressPoint: [150, 70] as const,
     };
     const [base] = toRendererGroups(
