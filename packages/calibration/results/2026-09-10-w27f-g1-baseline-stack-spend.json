@@ -1,0 +1,37 @@
+{
+  "spentAt": "2026-09-10T17:41:20+0900",
+  "spentBy": "2026-09-10-w27f-g1-measure.py capture --phase holdout",
+  "scenes": {
+    "dark": [
+      "checkerboard__glass-over-glass__rest",
+      "photo__glass-over-glass__rest"
+    ]
+  },
+  "sourceRoot": "/private/tmp/w27f-g1/baseline-source",
+  "commit": "bdf0029",
+  "dirtyPaths": null,
+  "note": "Not a git checkout: a frozen source copy. The commit is whatever W27F_G1_SOURCE_COMMIT stated, and null where it stated nothing.",
+  "sceneManifestSha256": "87aabd58a3d7a5a4bdeb47d2dc439a33f302c9df964e5ed8e3a66629c4a260df",
+  "nativeManifestSha256": "f1e4c0a7697b7ab2e0d079b0c48b399ae1f7c2dfd3c4781ecc1692eebf2cec68",
+  "declaredGeometryScriptSha256": "d4e266a7eadeeb1fc1c6328dc1c9d9bd745798f1f1d9b7085692af874094bd40",
+  "contourInstrumentSha256": "ed35a49e7f42ce7fdbb49bf7f22e367fedaf771672a07b789ea7b7ac85cdc325",
+  "g0ReaderSha256": "1087092c3af0ecffdaece55e24ba3e8a78850241a2cbac9452a9695622f5ff0f",
+  "runnerSha256": "9055aa4d752d9cf03e220f1f70a8db53580c42b2d8e93f9a1d551a858f455d5d",
+  "materialSourcesScope": "runtime-src-trees-2026-09-10",
+  "materialSourcesSha256": {
+    "packages/renderer-webgpu/src": "ea37279866e89c48dd08865db114dbcbb1e33828bc948cc5ef4424278489f757",
+    "packages/platform-web/src": "c8da2f7f05dc79a575b77da5299a2c413bb8b94c93a833787f07d406bd3815c2",
+    "packages/core/src": "ff2ed6cd4f9694b89316ccf2b236a8a67b0c33da6060bb596772d8b3fca1d293",
+    "packages/policy/src": "56a92419bfa26e1f52dc3366c394f05f855ac3400239b686f62e59b1074947e5",
+    "packages/geometry/src": "e54892df7fd5bc3f0451238a71a5083129b8ae99a06dcf741aa96981cf06c11b",
+    "packages/motion/src": "02f5f2fb5944df1364ef0f9aedcfce9efbd6ad5df3bb1d58df23f6f6811f94d9"
+  },
+  "materialProfileSha256": {
+    "light": "6a9600720477dd433539d7af477b838776410e957d63fa7e63059dab214c5d26",
+    "dark": "950ce1c3e91715ee470dd02d10c589f3ebae0f2b88d6ae85f4a2de6986020e12"
+  },
+  "resolvedMaterialSha256": {
+    "light": "b2b570e4adcea8fb",
+    "dark": "874be66ea501621b"
+  }
+}

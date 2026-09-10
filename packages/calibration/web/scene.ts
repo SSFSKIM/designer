@@ -51,7 +51,7 @@ import { DEFAULT_MOTION_PROFILE } from "@vitrea/motion";
 import {
   GLASS_CHANNEL_PROPERTIES,
   createGlassRoot,
-  type UnsampledMaterial,
+  type DomMaterialReference,
   type CssTierMapping,
   type GlassHostHandle,
   type GlassRoot,
@@ -115,8 +115,8 @@ export interface GroupReport {
   readonly declaredSpacing?: number;
   readonly state: GlassGroupState | undefined;
   readonly probeVerdict: string | undefined;
-  /** The layer pair an unsampled GPU-tier group composited at (W11a); `null` where none. */
-  readonly unsampledMaterial: UnsampledMaterial | null;
+  /** The DOM layer's encoded-solve convention (W27f); `null` on a sampled group. */
+  readonly unsampledMaterial: DomMaterialReference | null;
   /**
    * The backdrop tone this group was actually handed, or `null` where it was
    * handed none (W22 G3).

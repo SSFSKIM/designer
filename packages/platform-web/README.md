@@ -146,6 +146,15 @@ is what the adaptation and the foreground decision read; the scheme states which
 material the surface is made of. A dark page can legitimately hand a light hint
 to a surface sitting over a white card.
 
+**Ordinary page content uses the profile material too.** A WebGPU group over DOM content resolves
+`samplingBackend: "css-backdrop"`: its proxy supplies the browser's blur and the canvas draws
+the profile's body, tint shade, rim and shadow at the group's known backdrop tone, with each
+member's own size law. This is approximate refraction, not texture sampling or a lens. A real
+`hint: { tone: "dark", luminance: measuredLevel }` can supply the tone; without a hint or another
+measured tone, vitrea does not guess what arbitrary page content looks like, so tone response
+and dark-backdrop collapse remain unavailable. A scalar level cannot describe a page's local
+colour or texture either. Registered image, canvas and video backdrops retain the sampled path.
+
 The page's own background is still the page's: vitrea does not write your tokens,
 so an app offering "follow the system" reads `prefers-color-scheme` for its own
 colours as well as passing `"auto"` here.

@@ -1,18 +1,18 @@
 /**
- * W11a — the layer pair a GPU-tier group carries when it samples nothing.
+ * W27f — the encoded-layer convention only a DOM GPU group carries.
  *
  * jsdom cannot paint, so nothing here is a pixel: the claim is about what the
  * root hands the bridge. A dom-mode group on a live GPU tier draws its material
- * as a layer the browser composites over its proxy, and that layer's alpha is
- * the CSS tier's (`unsampledMaterials`) — one number for both tiers. A group
- * sampling a texture composites in the shader and must carry no pair; a
+ * as a layer the browser composites over its proxy. It shares the conversion
+ * convention with the CSS mirror, never a pre-converted profile alpha. A group
+ * sampling a texture composites in the shader and must carry no descriptor; a
  * CSS-tier root paints in place and must carry none either.
  */
 
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import type { MediaMatcher } from "../src/media-policy";
-import { unsampledMaterials } from "../src/optics";
+import { domMaterialReference } from "../src/optics";
 import { toRendererGroups } from "../src/renderer-bridge";
 import { createGlassRoot, type GlassRoot, type GlassRootOptions } from "../src/root";
 
@@ -100,32 +100,30 @@ describe("the unsampled layer pair (W11a)", () => {
     const group = instance.renderInput()?.groups.find((entry) => entry.groupId === "g1");
     expect(group?.state.activeRenderer).toBe("webgpu");
     expect(group?.state.samplingBackend).toBe("css-backdrop");
-    expect(group?.unsampledMaterial).toEqual(unsampledMaterials().regular);
+    expect(group?.unsampledMaterial).toEqual(domMaterialReference());
 
     const input = instance.renderInput();
     expect(input).toBeDefined();
     if (input === undefined) return;
     const forwarded = toRendererGroups(input, () => false)[0]?.groups.find((entry) => entry.groupId === "g1");
     expect(forwarded?.backdropSourceId).toBeUndefined();
-    expect(forwarded?.unsampledMaterial).toEqual(unsampledMaterials().regular);
+    expect(forwarded?.unsampledMaterial).toEqual(domMaterialReference());
   });
 
-  it("follows the profile the root was given, not the module constant", async () => {
+  it("forwards the root's conversion reference without treating it as a measured tone", async () => {
     stubCanvasContexts();
     const instance = root({
       renderer: "webgpu",
       webgpu: { device: idleDevice() },
-      materialProfile: { optics: { regular: { tintAlpha: 0.3 } } },
+      cssTierMapping: { referenceBackdropLuminance: 0.13 },
     });
     withHost(instance);
     await instance.ready();
     instance.runFrame(16);
 
     const group = instance.renderInput()?.groups.find((entry) => entry.groupId === "g1");
-    expect(group?.unsampledMaterial).toEqual(
-      unsampledMaterials({ optics: { regular: { tintAlpha: 0.3 } } }).regular,
-    );
-    expect(group?.unsampledMaterial?.tintAlpha).not.toBe(unsampledMaterials().regular.tintAlpha);
+    expect(group?.unsampledMaterial?.referenceBackdropLuminance).toBe(0.13);
+    expect(group?.backdropTone).toBeUndefined();
   });
 
   it("is absent on a CSS-tier root, which paints in place", () => {
