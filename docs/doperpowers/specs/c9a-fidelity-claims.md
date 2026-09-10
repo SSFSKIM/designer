@@ -15256,3 +15256,10 @@ evidence. Also open and newly measured: the accessibility frost reaches the SHAR
 both tiers now, and the reduced-transparency CSS capsule leaves the shape gate for it
 (`silhouetteHolesWeb` 0 → 6, the heavy layer 24.15 → 9.000 CSS px on that profile).
 `PREDICATE_EXCLUDES` moves 31 → **32** for that cell.
+
+**§8 The review's one defect, fixed.** The base-σ gate the landing added to the CSS tier fires on
+`optics.regular.blurSigma` 0 from any cause, and the renderer had no counterpart — its heavy texture
+is keyed on the material's width and reads no variant's optics — so on that supported override the
+two tiers drew different pictures. `heavySigmaCssFor` now takes the source's own body σ. No bed
+capture and no golden moves (every profile names `blurSigma` 1.25; 33 / 33 after the fix), so §§1–7
+stand as read.

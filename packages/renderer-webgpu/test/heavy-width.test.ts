@@ -382,6 +382,26 @@ describe("W26 the heavy blur is the pyramid's, not the fragment shader's", () =>
     expect(gpu.textures.filter((t) => t.label.endsWith(":heavy"))).toHaveLength(0);
   });
 
+  it("encodes no heavy pass for a material whose body σ is 0, width named or not", () => {
+    /*
+     * A source with no body has no heavy component either (W26 G2's review). The
+     * heavy sample is one component of the BODY — `kScatter` mixes the two and
+     * nothing else reads it — so a material asking for no blur must get none, and
+     * a width named in device px does not inherit that the way a multiple of
+     * `blurSigma` did. The CSS tier states the same rule in
+     * `cssTierHeavySigmaCssPx`; before this pin the two tiers disagreed on exactly
+     * this material, one drawing an unblurred body with a 9 device px deep sample
+     * mixed into it and the other drawing nothing.
+     */
+    const { gpu } = drawOnce({ optics: { regular: { blurSigma: 0 } } });
+    expect(blurPasses(gpu, "heavy")).toHaveLength(0);
+    expect(gpu.textures.filter((t) => t.label.endsWith(":heavy"))).toHaveLength(0);
+    // And the uniform agrees with the allocation, which is the half a texture
+    // count cannot carry: the pass must not be told to read a texture that is not
+    // there.
+    expect(heavyEnabledOf(drawOnce({ optics: { regular: { blurSigma: 0 } } }).write)).toBe(0);
+  });
+
   it("encodes the same two separable passes as the body when a width is named", () => {
     // Two passes per source per frame — the structure G0 measured at 0.070 ms
     // against +1.1 ms for a 9 × 9 grid per covered pixel (W26 Decision Log 2 (b)).

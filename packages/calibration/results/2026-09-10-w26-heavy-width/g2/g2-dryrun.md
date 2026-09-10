@@ -335,7 +335,29 @@ still changes the bed the holdout's group means are taken over.
 - **What no convolution explains**: about one display code RMS of Apple's interior, unchanged by any
   width fitted on this bed (claims §5.121 §6).
 
-## 12. The digests
+## 12. The independent review, and the one defect it found
+
+Run against `217523d..2e07886` after the dry run, on the code rather than on the rulings.
+
+**One real defect, fixed with its test and moving no capture.** The `sigmaDevicePx > 0` gate this
+landing added to `cssTierHeavySigmaCssPx` was written for `frost: "none"` and fires on a base σ of 0
+from any cause — including `optics.regular.blurSigma` 0, which is a supported material override. The
+renderer had no such rule: the heavy texture is keyed on the material's width and read no variant's
+optics, so on that material the two tiers drew different pictures — an unblurred body with a 9
+device px deep sample mixed into it here, nothing at all on the mirror. `heavySigmaCssFor` now takes
+the source's own body σ and returns 0 where it is 0, and `heavy-width.test.ts` pins it on both the
+pass count and the uniform. **Nothing on the bed moves** — every profile names `blurSigma` 1.25 —
+and the goldens are 33 / 33 unmoved after it, so §§1–11 stand as read.
+
+The review confirmed the rest of what this gate leaned on: the device-px width over the live ratio
+is the right conversion and matches the renderer's own source-density path; no sampling-padding
+starvation is introduced (the proxy's padding sizes the WebGPU tier's own gain-derived filter, which
+this wave does not touch — the pre-existing gap is in the tracker); increased frost genuinely leaves
+the heavy width alone on **both** tiers and multiplies the sharp one only; and the recorded-snapshot
+normaliser in `author-tint-fold.test.ts` does not assert less, because the case beside it walks every
+field of every recorded declaration and pins the moved set exactly.
+
+## 13. The digests
 
 `g2-digests.txt` — both profile documents' file digests
 (`ceeeb3863d3f5fce…` light, `e89110b46797b0c8…` dark), their resolved fingerprints

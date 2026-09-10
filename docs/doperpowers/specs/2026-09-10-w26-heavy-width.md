@@ -510,6 +510,20 @@ now and the reduced-transparency CSS capsule leaves the shape gate for it (`silh
 **Whether the accessibility fold should reach the heavy width is a material question this wave did
 not declare and did not fit**, and it is the tracker's.
 
+(e) **The independent review found the other half of (d)'s first sentence, and it is fixed with its
+test.** The gate written for `frost: "none"` was on the CSS tier only, and it fires on a base σ of 0
+from ANY cause — including `optics.regular.blurSigma` 0, which is a supported material override. On
+that material the two tiers drew different pictures: the mirror drew nothing and the renderer drew
+an unblurred body with a 9 device px deep sample mixed into it, because the heavy texture is keyed
+on the material's width and read no variant's optics. `heavySigmaCssFor` now takes the source's own
+body σ and returns 0 where it is 0, `heavy-width.test.ts` pins it, and the doc comments on both
+tiers say the rule once each. **No capture moves**: every profile on the bed names `blurSigma` 1.25,
+and on the shipped accessibility path the case is unreachable rather than merely unused — core
+couples `frost: "none"` to `glass: "none"` and the renderer disconnects backdrop sampling entirely.
+The goldens are 33 / 33 unmoved after it. The review found nothing else: the device-px-over-ratio
+conversion is right, no sampling-padding starvation is introduced, and the recorded-snapshot
+normaliser is covered by the case that walks every field.
+
 ## Surprises & Discoveries
 
 - **A scratch rung is not a rehearsal of a landing.** The dark difference document resolves over

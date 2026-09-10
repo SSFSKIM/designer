@@ -2454,14 +2454,22 @@ export function cssTierSharpSigmaCssPx(sigmaDevicePx: number, devicePixelRatio =
  * `packages/calibration/test/tier-coherence.test.ts`.
  *
  * **A material with no body has no heavy component either**, and the width does
- * not escape that. `blurSigma` 0 is what an accessibility regime of `frost:
- * "none"` resolves to (`opticsUnderPolicy`), and the gain-derived form carried the
- * rule for free because the heavy width was a MULTIPLE of the sharp one. A width
- * named in device px does not, so the gate is explicit: at a base σ of 0 this
- * returns 0, the heavy step rounds below the quantum and `css-tier.ts` collapses
- * the body to a single layer that draws nothing. A tier that frosted a surface the
- * preference asked not to frost would be an accessibility defect wearing a
- * fidelity constant.
+ * not escape that. The heavy sample is one component of the BODY — both tiers mix
+ * it with the sharp one by the same share and nothing else consumes it — so a
+ * material whose resolved `blurSigma` is 0 asks for no blur and must get none.
+ * The gain-derived form carried that for free, because the heavy width was a
+ * MULTIPLE of the sharp one; a width named in device px inherits nothing, so the
+ * gate is explicit here and **the renderer states the same rule** in
+ * `heavySigmaCssFor`. Below a base σ of 0 this returns 0, the heavy step rounds
+ * under the quantum and `css-tier.ts` collapses the body to a single layer that
+ * draws nothing.
+ *
+ * Two materials reach it and they are not the same case. `optics.regular.blurSigma`
+ * 0 is a supported override, and until both tiers stated this rule they drew
+ * different pictures for it (W26 G2's review). An accessibility regime of
+ * `frost: "none"` also resolves the base σ to 0 (`opticsUnderPolicy`), and there
+ * the rule is belt and braces rather than the mechanism: core couples that regime
+ * to `glass: "none"` and the renderer disconnects backdrop sampling entirely.
  *
  * **What this tier gives up in taking the width, and it is recorded rather than
  * chartered** (wave Decision Log 23 (a)). The gain-derived width GRADED with the
