@@ -205,6 +205,57 @@ capture harness, not something this release measured. When those land, the curve
 becomes a data change and the claim below gains a tint section; until then, treat
 the tint's *appearance* as designed rather than as calibrated.
 
+### Splitting a toolbar's background
+
+A system toolbar rarely has one piece of glass in it. Apple gives you two ways to
+break the shared background up — `ToolbarSpacer`, a gap at a position, and
+`sharedBackgroundVisibility(.hidden)`, one item stepping out — and vitrea ships
+both, because both are the same thing: **`GlassToolbar`'s children are
+partitioned into sampling groups at each `GlassToolbarSpacer` and at each item
+that declares `sharedBackground="hidden"`.**
+
+```tsx
+<GlassToolbar aria-label="Document actions" groupProps={{ id: "bar" }}>
+  <GlassButton onClick={share}>Share</GlassButton>
+  <GlassButton onClick={duplicate}>Duplicate</GlassButton>
+
+  <GlassToolbarSpacer kind="flexible" />
+
+  <GlassButton onClick={publish} sharedBackground="hidden" tint="#ff9500">
+    Publish
+  </GlassButton>
+</GlassToolbar>
+```
+
+That is one `role="toolbar"` with two sampling groups — never two toolbars. The
+row keeps its single tab stop and its arrow-key order across the split, because
+the roving order is over the items and never saw the grouping; the flex layout is
+untouched, because a group renders no DOM. What changes is what shares a proxy,
+a blur and a union: the first two buttons read as one body of material, the
+tinted one as its own.
+
+This is also the answer to *"a group carries one seed"* above. A tinted primary
+action beside a tinted toolbar is two seeds, which one group cannot carry — so
+the item that steps out takes its own group, and the tint goes with it. Where
+that group needs more than a colour, the item can carry `groupProps` of its own
+(`groupProps={{ id: "primary", hint: … }}`), merged over the toolbar's.
+
+`kind` is `"fixed"` (the default: hold the gap) or `"flexible"` (also take the
+free space, which is what puts the last item at the far end). **The gap is a
+minimum you do not choose.** Two adjacent groups each sample a padded region
+around their own shapes, and where one group's padded box covers the other's
+shapes the backdrop filter applies twice over the overlap — so a spacer opens
+the sampling padding the material actually requires, read from the resolved
+accessibility policy. Turn *Reduce Transparency* on, the frost thickens, and the
+gap grows with it; your own `gap`, margin or width adds to it rather than
+fighting it.
+
+Nothing new is needed on the framework-agnostic entry: a group is already the
+primitive there, so a host-level app splits a toolbar by registering its members
+in two groups and leaving one padding between them —
+`samplingPaddingFor({ members, material })` from `@vitreajs/vitrea-web` is the
+same number this spacer opens.
+
 ### Where a surface belongs: the controls layer
 
 `GlassSurface` will glass whatever element you hand it, and there is one place it
@@ -348,8 +399,8 @@ both halves moving together.
 ## What this package exports
 
 **Components** — `GlassRoot`, `GlassGroup`, `GlassSurface`, `GlassMorph`,
-`GlassButton`, `GlassIconButton`, `GlassToolbar`, `GlassSegmentedControl`,
-`PlanePortal`.
+`GlassButton`, `GlassIconButton`, `GlassToolbar`, `GlassToolbarSpacer`,
+`GlassSegmentedControl`, `PlanePortal`.
 
 **Hooks** — `useGlassCapabilities`, `useGlassAccessibility`,
 `useGlassDiagnostics`, `useGlassMotionProfile`, `useGlassTicker`, `useGlassRoot`,
@@ -360,7 +411,9 @@ both halves moving together.
 `cornerReferenceFor`, `assertSharedCornerReference` for shapes.
 
 **Types** — `GlassColorScheme` and `ResolvedColorScheme`, re-exported from the
-runtime so a `colorScheme` prop of your own can be typed without installing it.
+runtime so a `colorScheme` prop of your own can be typed without installing it;
+`GlassToolbarItemProps`, the `sharedBackground` / `groupProps` pair a toolbar
+reads off its children, so a control your app wrote can declare them too.
 
 **Frames** — `createGlassTicker`, the rAF loop the bindings drive their motion
 from. One per tree, whatever the surface count; its `advance()` steps time by
