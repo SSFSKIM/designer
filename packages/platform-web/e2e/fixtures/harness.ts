@@ -675,7 +675,17 @@ const api = {
    * assertions in its own right — independently of whether a group happened to
    * resolve to the tier that asks for one.
    */
-  mountProxies(requests: readonly Omit<ProxyRequest, "blurRadius" | "saturation">[]): void {
+  mountProxies(
+    requests: readonly Omit<ProxyRequest, "blurRadius" | "saturation">[],
+    /**
+     * The conformance row a spec wants the proxy to believe. Stated by the caller
+     * rather than probed, because it is the gate itself that some of them are
+     * about: per-member presence is carried by a mask on the filtered layer only
+     * where that row says `"yes"`, and a spec asserting either side of that has to
+     * be able to say which side it is on.
+     */
+    maskOnBackdropFilter: "yes" | "no" | "unverified" = "unverified",
+  ): void {
     standaloneLayers ??= createGlassLayerManager({ zIndex: 1200 });
     standaloneProxies ??= createBackdropProxyManager({
       plane: (plane) => {
@@ -701,7 +711,11 @@ const api = {
         blurRadius: MATERIAL_OPTICS.regular.blurRadius,
         saturation: MATERIAL_OPTICS.regular.saturation,
       })),
-      { devicePixelRatio: window.devicePixelRatio, maxProxyAreaDevicePx: 1_750_000 },
+      {
+        devicePixelRatio: window.devicePixelRatio,
+        maxProxyAreaDevicePx: 1_750_000,
+        maskOnBackdropFilter,
+      },
     );
   },
 

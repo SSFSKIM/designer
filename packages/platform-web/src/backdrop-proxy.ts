@@ -19,16 +19,37 @@
  *   insertion order. Proxies are therefore re-sequenced by a stable key on every
  *   sync, not appended as groups arrive.
  *
- * The proxy element itself carries no other style. In particular it never gets
- * `opacity`, `mask-image`, `mix-blend-mode` or a `will-change` — the mask is
- * `clip-path`, which S1 measured equivalent to an SVG mask (A_edge 0.01/4) and
- * which is the one of the two that does not also need a second element.
+ * The proxy element carries one other thing, and only where a surface asked for
+ * it: its members' **presence**. The silhouette is `clip-path`'s — S1 measured it
+ * equivalent to an SVG mask (A_edge 0.01/4) and it is the one of the two that
+ * does not also need a second element — and it stays `clip-path`'s at every
+ * presence a single `opacity` can express, which is every group whose members
+ * agree. Where they do not, the two swap: a mask carries silhouette and alpha
+ * together, because a clip and a mask do not compose on a filtered layer.
+ * `shapeDeclarations` writes it and `proxy-geometry.ts`'s `ProxyPresence` holds
+ * the measurement.
+ *
+ * That an *element-level* alpha is allowed here at all is worth stating, because
+ * it is exactly what contract X6 forbids on a host: a sub-1 `opacity` forms a
+ * Backdrop Root, and a host that forms one stops its own group sampling. The
+ * proxy is not a host. It has no children to re-root, its own `backdrop-filter`
+ * reads the nearest *ancestor* backdrop root and is unaffected by what the
+ * element itself forms, and the audit in `probe/backdrop-root.ts` starts its walk
+ * at `parentElement` for that reason. Nothing the runtime writes here touches a
+ * host or an ancestor of one.
+ *
+ * `mix-blend-mode` and `will-change` are still never written.
  */
 
 import { GLASS_PLANES, rectsOverlap, type GlassPlane, type Rect } from "@vitreajs/vitrea";
 
 import type { PlaneLayers } from "./planes";
-import { resolveProxyGeometry, type ProxyGeometryInput, type ProxyMember } from "./proxy-geometry";
+import {
+  resolveProxyGeometry,
+  type ProxyGeometryInput,
+  type ProxyMember,
+  type ProxyPresence,
+} from "./proxy-geometry";
 import type { PlatformDiagnostic, PlatformDiagnosticsChannel } from "./diagnostics";
 
 /** One group's proxy request: where it lives, what it covers, how it filters. */
@@ -83,6 +104,18 @@ export interface ProxyEnvironment {
   readonly devicePixelRatio: number;
   /** From the engine conformance table's row for this engine. */
   readonly maxProxyAreaDevicePx: number;
+  /**
+   * Also from this engine's conformance row: whether a `mask-image` on a
+   * `backdrop-filter` layer composes (claims §5.71 §1).
+   *
+   * Optional, and absent reads as `"unverified"` — the answer that keeps the
+   * silhouette on `clip-path` and reduces a mixed-presence group to one alpha.
+   * A caller that never passes it gets a correct picture on every engine and
+   * per-member presence on none, which is a degradation and not a fault; what it
+   * must never do is guess `"yes"`, because that trades the clip path for a mask
+   * the engine may ignore. `ProxyPresence` carries the measurement.
+   */
+  readonly maskOnBackdropFilter?: "yes" | "no" | "unverified";
 }
 
 const PROXY_STYLE = "position:absolute;pointer-events:none";
@@ -96,6 +129,45 @@ const PROXY_STYLE = "position:absolute;pointer-events:none";
  * so one plane's surfaces sampled the other plane's box.
  */
 const keyOf = (groupId: string, plane: GlassPlane): string => `${plane}␟${groupId}`;
+
+/**
+ * The declarations that state the silhouette and carry the members' presence —
+ * for a fully present group, exactly the clip path and nothing else, which is
+ * what the whole page at rest writes.
+ *
+ * The two are one function because on a `backdrop-filter` layer they are one
+ * choice: `proxy-geometry.ts` measured that Chromium does not compose a
+ * `clip-path` with a `mask-image` — the clip wins and the mask is inert — while a
+ * mask alone carries the silhouette byte-exactly *and* the alpha. So a group with
+ * members at different presences swaps carrier rather than layering one on the
+ * other, and only ever where the conformance table says that engine composes a
+ * mask on a filtered layer at all.
+ *
+ * A group whose every member has faded out is `display: none` rather than
+ * `opacity: 0`. The two are the same picture, and the CSS tier's collapsed body
+ * settled the difference between them (`css-tier.ts`): a filtered layer at
+ * `opacity: 0` still costs a render surface and a two-pass Gaussian, and a proxy
+ * that draws nothing should cost neither. It also makes the endpoint provable
+ * rather than merely measured — an element that is not laid out cannot filter.
+ *
+ * Both spellings of the mask, and the same four sizing declarations the CSS
+ * tier's own raster mask carries: an image mask defaults to `repeat` at its
+ * intrinsic size, and this one is written to cover the border box exactly once.
+ */
+function shapeDeclarations(clipPath: string, presence: ProxyPresence): string {
+  if (presence.kind === "per-member") {
+    const { maskImage } = presence;
+    return (
+      `;mask-image:${maskImage};-webkit-mask-image:${maskImage}` +
+      ";mask-mode:alpha;mask-size:100% 100%;mask-repeat:no-repeat" +
+      ";-webkit-mask-size:100% 100%;-webkit-mask-repeat:no-repeat"
+    );
+  }
+
+  const clip = `;clip-path:${clipPath};-webkit-clip-path:${clipPath}`;
+  if (presence.kind === "present") return clip;
+  return presence.alpha === 0 ? `${clip};display:none` : `${clip};opacity:${presence.alpha}`;
+}
 
 interface ProxyEntry {
   readonly element: HTMLElement;
@@ -147,6 +219,7 @@ export function createBackdropProxyManager(
           blurRadius: request.blurRadius,
           devicePixelRatio: environment.devicePixelRatio,
           maxProxyAreaDevicePx: environment.maxProxyAreaDevicePx,
+          maskOnBackdropFilter: environment.maskOnBackdropFilter ?? "unverified",
         } satisfies ProxyGeometryInput);
 
         if (geometry === undefined) continue;
@@ -180,7 +253,7 @@ export function createBackdropProxyManager(
         entry.element.setAttribute(
           "style",
           `${PROXY_STYLE};left:${box.x}px;top:${box.y}px;width:${box.width}px;height:${box.height}px` +
-            `;clip-path:${geometry.clipPath};-webkit-clip-path:${geometry.clipPath}` +
+            shapeDeclarations(geometry.clipPath, geometry.presence) +
             `;backdrop-filter:${filter};-webkit-backdrop-filter:${filter}`,
         );
       }

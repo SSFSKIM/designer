@@ -97,6 +97,30 @@ into), the per-group backdrop proxies, the batched layout read — the steady st
 performs no layout reads at all — the tier decision, and everything the material
 writes.
 
+## Material presence without a framework
+
+```js
+const surface = root.registerHost({ host: button, groupId: "controls", present: true });
+surface.update({ present: false }); // Animate the glass to identity; the button stays.
+surface.update({ present: true });  // Reverse from the current material value.
+```
+
+`present` defaults to `true` and is independent of hover, press, focus and disabled
+state. An initially absent surface starts at identity. Changes use the motion
+kernel's monotonic 220 ms ease; Reduced Motion steps to the destination on both
+tiers. `release()` still tears down synchronously, so animate out by changing
+presence before deciding when to remove your content.
+
+The root publishes `--vitrea-materialization` in `[0, 1]` on the host, consumed by
+both tiers. A custom motion binding can publish that channel directly instead of
+using `present`. It scales optical material terms, **not element opacity**: at 0
+the glass is absent while your element, geometry, semantics and published
+foreground tokens remain. Never fade
+the host or its ancestors as a substitute — doing so cuts off backdrop sampling.
+Content visibility, pointer handling and contrast over the uncovered page remain
+the app's responsibility. The timing is authored and has no measured native
+reference; the tier-specific optical limits are recorded in claims §5.132.
+
 ## The pieces
 
 | What | Where |

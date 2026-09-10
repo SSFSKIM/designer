@@ -598,6 +598,8 @@ interface HostRecord {
   /** Presence is authored independently of the interaction machine (W27d, X6). */
   readonly presence: MotionDriver;
   presencePublished: number;
+  /** Last consumed value, including direct custom-property writes by other bindings. */
+  materializationDrawn: number;
   /**
    * The CSS-tier declarations currently on this host, serialised.
    *
@@ -2383,8 +2385,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         list.push(input);
         nodesByPlane.set(record.plane, list);
 
+        // The CPU driver owns time, including the final changed frame. Rearm
+        // CSS transitions only on the following unchanged frame; otherwise the
+        // last step to identity/full presence starts a second CSS animation.
+        const presenceDriven = input.channels.materialization !== record.materializationDrawn;
+        record.materializationDrawn = input.channels.materialization;
         // The CSS tier paints if and only if it is the active renderer.
         const declarations = cssTierDeclarations({
+          materialization: input.channels.materialization,
+          driven: presenceDriven,
           radii: record.radii,
           optics: nodeBaseOptics,
           untintedOptics: nodeUntintedOptics,
@@ -2747,6 +2756,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     const freshProxies = proxies.sync(proxyRequests, {
       devicePixelRatio: viewport?.devicePixelRatio ?? 1,
+      maskOnBackdropFilter: platformProbe.conformance.maskOnBackdropFilter,
       maxProxyAreaDevicePx: platformProbe.conformance.maxProxyAreaDevicePx,
     });
     if (staleProbes !== "all") for (const groupId of freshProxies) staleProbes.add(groupId);
@@ -3006,6 +3016,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         presence: createDriver(DEFAULT_MOTION_PROFILE.channels.materialization,
           hostOptions.present === false ? 0 : 1),
         presencePublished: hostOptions.present === false ? 0 : 1,
+        materializationDrawn: hostOptions.present === false ? 0 : 1,
         cssGroupShadow: undefined,
         cssClipsChildren: undefined,
         cssApplied: undefined,
@@ -3194,6 +3205,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             clearDeclarations(
               record.host,
               cssTierDeclarations({
+                materialization: 1,
                 radii: record.radii,
                 optics: cssOptics.regular,
                 mapping: cssMapping,

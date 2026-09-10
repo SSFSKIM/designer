@@ -95,7 +95,11 @@ export interface GlassHostOptions {
   /** Overrides the group's tint seed. See `TintDeclaration`. */
   readonly tint?: TintDeclaration;
   readonly interaction?: InteractionState;
-  /** Authored optical presence. False is identity in place, not hidden content. Default true. */
+  /**
+   * Authored optical presence. False is identity in place, not hidden content.
+   * Default true. Semantics and foreground tokens stay; the app owns its content
+   * and contrast over the uncovered backdrop. Never changes element opacity.
+   */
   readonly present?: boolean;
   readonly foreground?: ForegroundAdaptation;
   /**
