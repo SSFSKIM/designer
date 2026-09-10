@@ -531,11 +531,11 @@ Pending — written at recomposition against §Parent-Level Acceptance.
     `clearDiagnostics()` and was never raised again. The test now declares the state under test
     before the first frame and reads every code, and it was shown failing at the derived-only gap
     before being fixed.
-  - **Evidence.** `react/test/toolbar-partition.test.tsx` (16 tests: the partition, the ids, the
+  - **Evidence.** `react/test/toolbar-partition.test.tsx` (18 tests: the partition, the ids, the
     merge, the protocol props never reaching the DOM, the roving order across a split, the
-    derivation under both policies and along both axes, and — on the two functions the runtime
-    resolves proxies with — that neither partition's padded box reaches the other's shapes at
-    either policy).
+    derivation under both policies, along both axes and over each partition's own material, and
+    — on the two functions the runtime resolves proxies with — that neither partition's padded box
+    reaches the other's shapes at either policy).
     `platform-web/test/proxy-geometry.test.ts` (+6) pins the law and its monotonicity.
     `platform-web/e2e/shared/accessible-padding.spec.ts` puts the derived gap between the two
     groups of the demo-shaped scene on **real proxies** at both accessibility states and finds
@@ -552,10 +552,19 @@ Pending — written at recomposition against §Parent-Level Acceptance.
   - **Unmoved.** The 33 renderer goldens are byte-identical; the resting bed is unchanged
     (calibration 313, `tier-coherence` and `adopted-thresholds` unaltered), because the frame
     loop's σ is the same composition in the same order. Suites: build and lint green across the
-    workspace (`pnpm run ci` green end to end); unit 2026 across eight packages (policy 23,
-    motion 162, geometry 170, renderer-webgpu 448, core 302, platform-web 484, react 124,
+    workspace (`pnpm run ci` green end to end); unit 2028 across eight packages (policy 23,
+    motion 162, geometry 170, renderer-webgpu 448, core 302, platform-web 484, react 126,
     calibration 313); `platform-web` Playwright 388; `vitrea-react` e2e 114 (3 skipped);
-    demo e2e 48.
+    demo e2e 48. The partition file is 18 of react's own.
+  - **Reviewed.** An independent cross-model review of the whole change found one qualifying
+    defect and then a follow-on in its own fix, both in the same place — the gap's fold over
+    materials. (1) The derivation read the toolbar's `variant` alone, so a hidden item declaring
+    `variant: "clear"` got a third of the room it needs, `clear` sampling at σ 4 against the
+    regular material's 1.25. (2) The fix then folded the toolbar's own props in as a floor, so a
+    clear row whose partitions all declared `regular` was spaced for a material nothing drew. The
+    fold now maps the partitions themselves. Fragment semantics (boundaries are direct children),
+    the dynamic-boundary remount and the profile patch were reviewed and left as contract scope or
+    recorded deferrals. Verdict at the landing: correct, no material findings.
   - **Deferred (small).** A partition boundary that *moves* at runtime — a conditionally
     rendered spacer, an item flipping `sharedBackground` — moves the affected members between two
     context providers, and React remounts an element that changes parent. Measured: the groups
