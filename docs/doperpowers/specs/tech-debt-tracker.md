@@ -1618,19 +1618,28 @@ a reading of Apple's own reduced-transparency thick body on the family reader an
 whether the fold multiplies `sizeHeavyTapSigma`; it is a material change and needs its own rung.
 `g2/g2-dryrun.md` §5, `g2/gate-calval.txt`.
 
-## The CSS tier's large-span structural similarity is what a coherent heavy width costs (W26 G2, Decision Log 7 (b), 2026-09-10)
+## The two tiers' heavy widths are different numbers as of W26, and the CSS tier's is derived from constants the GPU tier no longer reads (W26 Decision Log 7 (b) and (f), 2026-09-10)
 
-Deriving the CSS tier's heavy layer from the profile's own width — one quantity across the seam for
-the first time — takes twelve of the fourteen thick regression floors under, all of them `dom` rows
-at spans above 96, while the GPU tier's canonical groups move by less than 0.00001. The
-counterfactual is measured: without clause 7 the same constants breach ONE floor. Whichever way the
-parent rules, the residual is real and belongs in the ledger — either the CSS tier keeps a heavy
-width derived from three constants that grade nothing on the tier it must agree with, or it draws
-the right width and reads worse on every large-span checkerboard. Closes with a CSS-tier wave that
-asks why a two-layer body with the correct component widths loses structure the mip-tap projection
-kept: the suspects are the series-with-mask composition against the renderer's per-pixel mix, and
-the collapsed single-`blur()` projection, which still runs off the gain constants.
-`g2/floors.txt`, `g2/floors-gpuonly.txt`.
+**RULED, and this is the residual the ruling leaves.** Deriving the CSS tier's heavy layer from the
+profile's own width — one quantity across the seam for the first time — took twelve of the fourteen
+thick regression floors under, all `dom` rows at spans above 96, while the GPU tier's canonical
+groups moved by less than 0.00001; the same constants without it breach ONE floor, measured on
+captures rather than inferred. By eye the 1x dark nested pane at that configuration showed the
+checkerboard through the inner glass where neither the native capture nor the GPU candidate does. The
+user ruled the derivation declined for this wave.
+
+So the CSS tier goes on deriving its heavy layer from `sizeScatterGainMax` / `…Max2x` /
+`…GainFar2x`, which the GPU tier no longer reads at all — **13.800 CSS px here against 9 device px
+there at dpr 1, and 4.455 → 6.121 across spans 96 → 160 against a flat 4.500 at dpr 2**: 53 % wide,
+36 % wide, and 1 % narrow respectively. `tier-coherence.test.ts` pins those three ratios so the gap
+cannot widen quietly and cannot be closed by accident.
+
+Closes with a CSS-tier wave that asks the question this one could not: why a two-layer body at the
+CORRECT component widths loses structure the mip-tap projection kept. The suspects are named — the
+series-with-mask composition against the renderer's per-pixel mix, and the collapsed
+single-`blur()` projection, which runs off the same gain constants — and the bed to answer it on is
+the large-span checkerboards, where the whole cost landed. `g2/floors.txt`, `g2/floors-gpuonly.txt`,
+`g2/g2b-floors.txt`, `g2/g2b-css-identity.txt`.
 
 ## The CSS tier's sampling padding is derived from the PROJECTED sigma and the heavy layer is wider than it at the thin end (checked at W26 G2, pre-existing and improved, 2026-09-10)
 
@@ -1643,3 +1652,18 @@ projection is 4.75 CSS px, so the padding floor is 14.25 px against a 27 px (was
 and because `root.ts`'s own comment names the same class of bug one wave earlier. Closes with a
 padding floor taken over the widest layer the tier will actually write rather than over the
 projection it no longer draws — `cssTierHeavySigmaCssPx` at the group's largest member.
+
+## `checkerboard__glass-over-glass` at 2x dark: a silhouette floor that measures the extractor's threshold, not the material (W26 G2b, Decision Log 7 (f), 2026-09-10)
+
+`texture / holdout / … :: silhouetteIoU` 0.92707 → 0.90362 against a floor of 0.9257, with
+`silhouetteHolesWeb` 39 → 45 against a native 0 — the one floor W26 breaches. Measured: the pane's
+interior level moves 0.11419 → 0.11418 and its standard deviation 0.24677 → 0.24685, and the picture
+moves by a mean of 0.19 of an 8-bit code. What moves is a population on a fence — 21 290 of 135 200
+pixels sit within 0.005 of a 0.02 luminance-delta probe and 2 640 cross under it with none coming
+back — and it crosses TOWARD the native, whose own under-threshold count (17 010) is above the
+candidate's (16 970) and far above 0.14.0's (14 330). The harness nevertheless recovers a hole-free
+mask from that native, so its rule does more than threshold and **whatever fills the native's holes
+does not fill vitrea's**; that asymmetry is the thing to fix, and it is the same instrument the
+tracker's flat-cornered-dark-squares entry names. Closes with the silhouette recovery made
+symmetric between the two sources, or with the floor re-pinned by the user on this measurement.
+`g2/g2b-nested.txt`, `g2/sheets/g2b-nested-4x.png`.

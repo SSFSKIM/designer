@@ -42,43 +42,6 @@ const RECORDED = JSON.parse(
   readFileSync(resolve(import.meta.dirname, "w19-pre-fold-declarations.json"), "utf8"),
 ) as Record<string, unknown>;
 
-/**
- * The recorded declarations, with the two quantities W26 moved taken out of both
- * sides of the comparison.
- *
- * `w19-pre-fold-declarations.json` is the tree as it stood before W19's fold, and
- * it is COMMITTED EVIDENCE: it is not re-recorded to whatever the material draws
- * today, because a recorded reading is not rewritten to what it should have been.
- * What these cases assert is a DIFFERENTIAL claim — that passing `untintedOptics`
- * changes nothing — and until W26 the file could carry it directly, because no
- * wave since had moved anything the encoded and plain-`blur()` paths declare.
- *
- * W26 moves exactly one thing in them, and it is a material change rather than a
- * fold change: the CSS tier's heavy layer now takes its width from the profile's
- * own `sizeHeavyTapSigma` instead of from `blurSigma × gain` through the mip
- * chain's effective ratio, so the composed heavy width goes 13.800 → 9.000 CSS px
- * at dpr 1, its step 13.6918 → 8.8331, and the reference filter's id follows the
- * step (`w19-b1369` → `w19-b883`). The sharp width, the share, the mask, the
- * projection, the overlay and every colour are untouched — which is why removing
- * these three fields leaves an assertion that still says what it always said.
- * The movement itself is pinned below rather than left implicit.
- */
-const W26_MOVED = ["heavySigmaCssPx", "heavyStepSigmaCssPx"] as const;
-
-function withoutW26Width(render: unknown): unknown {
-  const clone = structuredClone(render) as {
-    body?: Record<string, unknown>;
-    layers?: { heavy?: Record<string, unknown> };
-  };
-  for (const key of W26_MOVED) delete clone.body?.[key];
-  const heavy = clone.layers?.heavy;
-  if (heavy !== undefined) {
-    delete heavy["backdrop-filter"];
-    delete heavy["-webkit-backdrop-filter"];
-  }
-  return clone;
-}
-
 const encode = (l: number): number =>
   l <= 0.0031308 ? l * 12.92 : 1.055 * l ** (1 / 2.4) - 0.055;
 const clamp01 = (v: number): number => Math.min(1, Math.max(0, v));
@@ -249,10 +212,7 @@ describe("the author tint folded over the contrast floor (W19 G1)", () => {
     // declarations are still the recorded ones.
     for (const c of CASES.filter((entry) => entry.form !== "linear")) {
       const render = cssTierDeclarations({ ...c.args, untintedOptics: c.untinted });
-      expect(withoutW26Width(render), c.name).toEqual(withoutW26Width(RECORDED[c.name]));
-      // And the field really changes nothing, on the whole declaration and at
-      // today's material: this is the claim the recorded file was standing in for.
-      expect(render, c.name).toEqual(cssTierDeclarations(c.args));
+      expect(render, c.name).toEqual(RECORDED[c.name]);
     }
   });
 
@@ -262,9 +222,7 @@ describe("the author tint folded over the contrast floor (W19 G1)", () => {
     // the behaviour it had. Every case on the bed, all three forms, tinted and
     // untinted.
     for (const c of CASES) {
-      expect(withoutW26Width(cssTierDeclarations(c.args)), c.name).toEqual(
-        withoutW26Width(RECORDED[c.name]),
-      );
+      expect(cssTierDeclarations(c.args), c.name).toEqual(RECORDED[c.name]);
     }
   });
 
@@ -274,52 +232,7 @@ describe("the author tint folded over the contrast floor (W19 G1)", () => {
     // overlay are the ones the tier already wrote.
     for (const c of CASES.filter((entry) => entry.seed === "none")) {
       const render = cssTierDeclarations({ ...c.args, untintedOptics: c.untinted });
-      expect(withoutW26Width(render), c.name).toEqual(withoutW26Width(RECORDED[c.name]));
-      expect(render, c.name).toEqual(cssTierDeclarations(c.args));
+      expect(render, c.name).toEqual(RECORDED[c.name]);
     }
-  });
-
-  it("names what W26 moved in the recorded declarations, and nothing else", () => {
-    /*
-     * The other half of `withoutW26Width`, and the reason removing three fields
-     * from a comparison is not a way of not looking. Every recorded case is
-     * compared to today's render FIELD BY FIELD, and the set of paths that differ
-     * has to be exactly the three the heavy width reaches. A future wave that
-     * moved a fourth would land here rather than in a silently narrowed
-     * assertion.
-     */
-    const moved = new Set<string>();
-    for (const c of CASES) {
-      const now = cssTierDeclarations(c.args) as unknown as Record<string, unknown>;
-      const then = RECORDED[c.name] as Record<string, unknown>;
-      const walk = (a: unknown, b: unknown, path: string): void => {
-        if (a !== null && b !== null && typeof a === "object" && typeof b === "object") {
-          const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
-          for (const key of keys) {
-            walk(
-              (a as Record<string, unknown>)[key],
-              (b as Record<string, unknown>)[key],
-              path === "" ? key : `${path}.${key}`,
-            );
-          }
-          return;
-        }
-        if (a !== b) moved.add(path);
-      };
-      walk(now, then, "");
-    }
-    expect([...moved].sort()).toEqual([
-      "body.heavySigmaCssPx",
-      "body.heavyStepSigmaCssPx",
-      "layers.heavy.-webkit-backdrop-filter",
-      "layers.heavy.backdrop-filter",
-    ]);
-
-    // And the value, so the direction is in the file too: 13.800 CSS px through
-    // the mip chain's effective ratio, 9.000 as the profile's own width.
-    const tinted = cssTierDeclarations(CASES[0]!.args);
-    expect(tinted.body.heavySigmaCssPx).toBeCloseTo(9, 12);
-    expect((RECORDED[CASES[0]!.name] as { body: { heavySigmaCssPx: number } }).body
-      .heavySigmaCssPx).toBeCloseTo(13.8, 12);
   });
 });

@@ -365,3 +365,128 @@ field of every recorded declaration and pins the moved set exactly.
 every one of the **229** canonical captures at the frozen configuration, none missing.
 `g2-digests-probe.txt` carries the **408** probe captures the same way. G3 reproduces both sets from
 the main checkout.
+
+---
+
+## 14. G2b — the parent's ruling executed, and the configuration re-run (2026-09-10)
+
+**§§1–13 above stand as the record of what G2 declared and ran. They are not rewritten.** The parent
+ruled §10's option 2 on the evidence of §4 and §9 and on the eye: the two constants land on the GPU
+tier and **clause 7's CSS derivation is DECLINED this wave**, the twelve dom floors and the 1x dark
+nested pane — where the CSS tier at clause 7 showed the checkerboard straight through the inner pane
+that neither the native capture nor the GPU candidate does — being the measurement it was ruled on.
+This section is what that configuration reads. It is not the counterfactual of §9 any more: every
+cell of it was rendered.
+
+### 14.1 What the revert is
+
+`platform-web/src/optics.ts` goes back to the 0.14.0 derivation **exactly** — the diff against
+`217523d` on that file is doc comments and nothing else, and the mirror of `sizeHeavyTapSigma` is
+removed rather than left present and unread (C9a §6.2). What is KEPT from the landing is the
+renderer's side entire: the two constants, and the review's fix in `heavySigmaCssFor` with its test,
+which is where the `frost: "none"` rule now lives for both tiers.
+
+`tier-coherence.test.ts` returns to pinning the CSS tier against its own law, and **gains a case that
+pins the gap**: the renderer's heavy component is 9 device px at every ratio while this tier's is
+13.800 CSS px at dpr 1 and 4.455 → 6.121 across spans 96 → 160 at dpr 2 — 53 % wide at dpr 1, 36 %
+wide on a 160 span at dpr 2, and 1 % NARROW on a 96 span at dpr 2. A residual that is only prose gets
+lost; that case is the residual as an assertion.
+
+### 14.2 The CSS tier is byte-identical to 0.14.0 at the landed documents — proved, not argued
+
+`g2b-css-identity.txt`. The documents now NAME two constants, so the claim had to be rendered rather
+than reasoned: the CSS bed, probe set and holdout re-captured at the landed documents against the
+canonical committed `web-captures/` (read-only).
+
+**640 of 644 CSS captures byte-identical.** Four movers, all measured and all run-to-run noise:
+
+| capture | codes | pixels | what it is |
+| --- | --- | --- | --- |
+| 1x light `checkerboard-lc16__rrect-ml` (render) | 1 | 2 | **identical** to this session's own 0.14.0-code capture (`c0css`) — a difference against the canonical column and not against the material |
+| increased-contrast `photo__toolbar-group` (render) | 1 | 17 | the cell W25 G3 §8 measured at 17 pixels × 1 code on its fifth sighting; this is its sixth |
+| increased-contrast `photo__toolbar-group` (alpha) | 4 | 19 | the same cell |
+| 1x dark `checkerboard__glass-over-glass` (alpha) | 1 | 2 | a straight REPEAT of that capture on the same code reproduces the canonical bytes exactly, and its render channel differs between two runs of the same code — the cell is non-deterministic at the one-code level |
+
+### 14.3 The GPU tier is unmoved by the revert
+
+`g2b-gpu-identity.txt`: two profiles re-captured (1x light and 2x dark, calibration and validation,
+both scales and both schemes represented) — **72 of 72 captures byte-identical** to W26 G2's dry run.
+That is the empirical half; the arithmetic half is that the only GPU-side change since the dry run is
+`heavySigmaCssFor` returning 0 where the source's body σ is 0, and every profile on this bed names
+`blurSigma` 1.25.
+
+### 14.4 The gate, the floors, and the holdout at the ruled configuration
+
+The matrix is `g2b-matrix.py`'s: the dry run's texture rows beside G2b's own dom rows, captured with
+the GPU column already on disk so that **every dom cell's cross-tier coherence is measured against
+the GPU capture that actually sits beside it** — the canonical rebuild's order, and the difference
+from §9's counterfactual, whose coherence rows were stale by construction.
+
+- **The gate: 35 of 38 pass** (`g2b-gate-whole.txt`), against 30 of 38 at the rejected
+  configuration.
+- **The fourteen thick floors: 1 breached, 13 held** (`g2b-floors.txt`), against 13 breached. The one
+  is `texture / holdout / checkerboard__glass-over-glass__rest / 2x dark :: silhouetteIoU`,
+  0.92707 → **0.90362** against a floor of 0.9257 — §14.5.
+- **`PREDICATE_EXCLUDES` reads 32**, one more than the file names, and it is a DIFFERENT cell from
+  the rejected configuration's: `texture / holdout / checkerboard__rrect-lg__rest / 2x light` enters,
+  and the reduced-transparency dom capsule does not, because the CSS tier no longer moves. As before
+  the entry is described and **not committed**: the list is read against the committed 0.14.0
+  matrix, and re-deriving it belongs to the canonical rebuild.
+- **The group means** (`g2b-delta-e.txt`): **every CSS group is unchanged to five decimals** on all
+  eighteen — byte-identity showing up in the metrics — and every GPU group is W26 G2's own reading.
+  **S3 is now clear on every group of both tiers**: the worst calibration rise anywhere is +0.00001.
+
+**The holdout at this configuration**, per cell in `g2b-holdout-cells.txt` and by group here. X3 is
+respected by construction: the GPU rows are W26 G2's one read reused rather than re-taken, and the
+CSS rows are byte-identical to the 0.14.0 bed, so nothing that moved is read twice.
+
+| profile | GPU before | GPU after | CSS before | CSS after |
+| --- | --- | --- | --- | --- |
+| 1x light | 0.00898 | 0.00900 | 0.01576 | **0.01576** |
+| 2x light | 0.00895 | 0.00930 | 0.01616 | **0.01616** |
+| 1x dark | 0.01325 | 0.01330 | 0.01735 | **0.01735** |
+| 2x dark | 0.01311 | 0.01338 | 0.01739 | **0.01739** |
+| 1x light reduced-transparency | 0.00343 | 0.00351 | 0.00751 | **0.00751** |
+| 1x light increased-contrast | 0.02042 | 0.02043 | 0.04561 | **0.04561** |
+
+Six CSS groups unchanged exactly; six GPU groups worse by +0.00001 … +0.00035. Worst single cell
++0.00350 (2x light `checkerboard__rrect-lg`, GPU) — the 160-span row at dpr 2, which is the span
+grading one width per source gives up (§2.1).
+
+### 14.5 The one floor that remains: it is the extractor, and the numbers say so
+
+`g2b-nested.txt` and `sheets/g2b-nested-4x.png` (native | 0.14.0 | candidate at 4× per CSS px). The
+parent asked whether the holes are a too-transparent dark pane exposed by the narrower blur, or the
+instrument. The two hypotheses predict different things about quantities that can be measured
+without knowing the harness's silhouette internals, and the measurement is one-sided:
+
+**The pane did not move.** Its interior level is 0.11419 → **0.11418** and its standard deviation
+0.24677 → **0.24685** in linear luma — four decimal places of nothing — against a native 0.11090 /
+0.23869. Both vitrea columns pass slightly MORE structure than Apple's and the candidate passes
+0.03 % more than 0.14.0 did. Over the whole base pane the picture moved by a mean of **0.000727
+luma, 0.19 of an 8-bit code**, with a maximum of 3.63 codes.
+
+**What moved is a threshold population.** At a 0.02 luminance-delta probe the pane carries **21 290
+pixels sitting within 0.005 of it**, and between the two materials **2 640 cross under it and 0 come
+back** — a fifth of the population on the fence, re-crossing on a picture that moved by a fifth of a
+code. And the direction is toward the reference, not away: under-threshold pixels read native
+17 010, 0.14.0 14 330, candidate **16 970**.
+
+**So: the extractor.** A silhouette metric on this cell is reading which side of a threshold a large
+near-threshold population happens to fall on, and the candidate falls where the native falls while
+scoring worse for it. One thing is left explicitly unexplained rather than guessed: the harness
+recovers a hole-free mask from a native whose interior carries MORE under-threshold pixels than
+either vitrea column, so its rule is doing something beyond a bare threshold and whatever fills the
+native's holes does not fill vitrea's. That asymmetry, not the material, is what a fix would go
+after; the tracker already carries "the contour instrument's refusal on flat-cornered dark squares".
+
+**The floor is the user's to re-pin or the wave after this one's to fix**, and this section is the
+number and the picture it should be ruled on. Nothing here is a recommendation to lower it silently.
+
+### 14.6 The rest
+
+The sheets are remade with the CSS panel at this configuration and their banner says what panel 4 now
+is — byte-identical to what panel 2's material drew. `g2b-digests.txt` carries the 229 captures of
+the ruled configuration. The goldens do not move and the hashes say so: `W26_HASHES` is unchanged and
+`test:golden` is **33 of 33** after the revert, which is what it should be — the revert touches no
+renderer pixel. Verify chain green: build, lint, 1 952 tests.

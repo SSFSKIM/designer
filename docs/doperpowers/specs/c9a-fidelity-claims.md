@@ -15263,3 +15263,23 @@ is keyed on the material's width and reads no variant's optics — so on that su
 two tiers drew different pictures. `heavySigmaCssFor` now takes the source's own body σ. No bed
 capture and no golden moves (every profile names `blurSigma` 1.25; 33 / 33 after the fix), so §§1–7
 stand as read.
+
+**§9 The parent's ruling, and the configuration re-run (2026-09-10; W26 Decision Log 7 (f)).**
+Option 2 of §7: the two constants land on the GPU tier and **clause 7's CSS derivation is declined**,
+on twelve dom floors against one and on the 1x dark nested pane, where the CSS tier at clause 7 shows
+the checkerboard through the inner glass that neither the native capture nor the GPU candidate does.
+G2b re-ran the configuration rather than inferring it. **The CSS tier is byte-identical to 0.14.0 at
+the LANDED documents — 640 of 644 captures**, the four movers each measured as run-to-run noise (one
+identical to this session's own 0.14.0 capture, two the `photo__toolbar-group` cell on its sixth
+sighting, one whose straight repeat reproduces the canonical bytes). The GPU tier is unmoved by the
+revert, 72 of 72 on a two-profile sample. **The gate reads 35 of 38 and the fourteen floors 1
+breached against 13**; every CSS group is unchanged to five decimals and every GPU group is §3's own
+reading, so S3 is clear on every group of both tiers. `PREDICATE_EXCLUDES` reads 32 with
+`texture / holdout / checkerboard__rrect-lg__rest / 2x light` entering instead of the
+reduced-transparency dom capsule. **The residual is that the two tiers' heavy widths are now
+different numbers** — 53 % apart at dpr 1, 36 % on a 160 span at dpr 2 — pinned as an assertion in
+`tier-coherence.test.ts` and chartered in the tracker. **The one remaining floor is the extractor**:
+on `checkerboard__glass-over-glass` at 2x dark the pane's level moves 0.11419 → 0.11418 and its sd
+0.24677 → 0.24685 while 2 640 of the 21 290 pixels within 0.005 of a 0.02 probe cross under it with
+none coming back — toward the native, whose own under-threshold count is higher than either vitrea
+column's. Left to the user to re-pin or to the next wave to fix.

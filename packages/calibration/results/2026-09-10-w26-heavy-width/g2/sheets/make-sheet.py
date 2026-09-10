@@ -259,7 +259,9 @@ def main():
               '2 GPU tier at 0.14.0 (the heavy component the chain\'s clamped level 4 drew: '
               '13.418 device px at dpr 1, half again wider than Apple\'s)   '
               '3 GPU tier at the candidate (sizeHeavyTapSigma 9 / 9)   '
-              '4 CSS tier at the candidate, whose own heavy layer moves 13.800 -> 9.000 CSS px   '
+              '4 CSS tier at the candidate, UNCHANGED from 0.14.0 by the ruling of W26 Decision '
+              'Log 7 (f) -- its heavy layer stays on the gain constants, which is the wave\'s '
+              'recorded residual: panel 4 is byte-identical to what panel 2\'s material drew   '
               f'-- both schemes at {args.scale}x, whole canvas at zoom {zoom}, the nested base at '
               f'2x and the centre dot at {zoom4}x again')
     draw.text((GAP, GAP), banner, fill=(230, 230, 230), font=font)

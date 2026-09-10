@@ -613,3 +613,47 @@ normaliser is covered by the case that walks every field.
   breached and twelve are `dom` rows**, and the counterfactual measures the split at **1 against
   13**. Decision Log 7 leaves the choice to the parent and records two undeclared findings about the
   accessibility fold and a heavy width named in device px.
+
+### Decision Log 7 (f) — the parent's ruling on §10, and G2b (2026-09-10; the parent; claims §5.123 §9)
+
+Appended beside (a)–(e), which stand as G2 drafted them.
+
+**Option 2 of claims §5.123 §7 / `g2-dryrun.md` §10 is taken.** The two constants land on the GPU
+tier; **clause 7's CSS derivation is DECLINED this wave**, on the measurement and on the eye: twelve
+dom floors against one, two of them the user's own W24 re-pins, and at 1x dark the CSS tier at
+clause 7 shows the checkerboard straight through the nested pane's inner glass where neither the
+native capture nor the GPU candidate does. Clause 7 asks the CSS tier to derive what it CAN; on this
+evidence it cannot carry this one yet.
+
+**What that leaves, and it is a gap to macOS recorded rather than hidden.** The CSS tier goes on
+deriving its heavy layer from `sizeScatterGainMax` / `…Max2x` / `…GainFar2x`, which the GPU tier no
+longer reads (Decision Log 6 (b)) — so the two tiers' heavy widths are different numbers as of this
+wave, by 53 % at dpr 1 and 36 % on a 160 span at dpr 2. It is the X residual of W26, it is pinned as
+a number by `tier-coherence.test.ts` rather than left as prose, and the tracker carries the charter:
+the wave that closes it has to answer why a two-layer body at the CORRECT component widths loses
+structure the mip-tap projection kept.
+
+**G2b re-ran the ruled configuration rather than inferring it** (`g2-dryrun.md` §14). The CSS tier is
+byte-identical to 0.14.0 at the LANDED documents — 640 of 644 captures, the four movers each measured
+as run-to-run noise — which had to be rendered because the documents now name two constants the
+mirror no longer reads. The GPU tier is unmoved by the revert on a 72-capture sample. The gate reads
+35 of 38 against 30, the fourteen floors 1 breached against 13, every CSS group unchanged to five
+decimals and every GPU group W26 G2's own reading; S3 is clear on every group of both tiers.
+`PREDICATE_EXCLUDES` reads 32 with a DIFFERENT cell entering than at the rejected configuration, and
+is described rather than committed against the wrong matrix, as before.
+
+**The one floor that remains is the extractor and the numbers are one-sided.** On
+`checkerboard__glass-over-glass` at 2x dark the pane's interior level moves 0.11419 → 0.11418 and its
+standard deviation 0.24677 → 0.24685; the picture moves by a mean of 0.19 of an 8-bit code. What
+moves is a threshold population: 21 290 pixels sit within 0.005 of a 0.02 luminance-delta probe and
+2 640 cross under it with none coming back — **toward the native**, whose own under-threshold count
+(17 010) is above the candidate's (16 970) and well above 0.14.0's (14 330). The harness nevertheless
+recovers a hole-free mask from that native, so its rule does more than threshold and the asymmetry —
+not the material — is what a fix would go after. **The floor is the user's to re-pin or the next
+wave's to fix**; this records the number and the picture and recommends neither.
+- 2026-09-10: the parent's ruling recorded as Decision Log 7 (f) and executed as G2b. Option 2:
+  the two constants land, clause 7 is declined, and the CSS tier is proved byte-identical to 0.14.0
+  at the landed documents (640 of 644, the four movers run-to-run noise). The gate 35 of 38, the
+  fourteen floors 1 breached against 13, every CSS group unchanged to five decimals, the goldens
+  unmoved by hash. The tier gap is pinned as a number in `tier-coherence.test.ts` and chartered in
+  the tracker. The one remaining floor is measured to be the extractor and is left to the user.

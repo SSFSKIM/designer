@@ -994,11 +994,6 @@ describe("the size law reaches the CSS tier", () => {
     sizeScatterHeavyShareThick1x: 0,
     sizeScatterHeavyShareThick2x: 0,
     sizeToneLevelFar: 0,
-    // W26's heavy width, DECLINED here for the same reason: this fixture's whole
-    // point is a scale-free size law read through the gain, and a width named in
-    // device px would replace the quantity the cases below are about.
-    sizeHeavyTapSigma: 0,
-    sizeHeavyTapSigma2x: 0,
     sizeOcclusionGain: 0.4,
     refractionScale: MATERIAL_SOURCE_SIZE.refractionScale,
   } as const;

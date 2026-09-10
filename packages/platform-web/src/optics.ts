@@ -1102,24 +1102,18 @@ export interface MaterialSourceSize {
    * `scatterGainAt` at the live ratio, so this grading reaches its output.
    */
   readonly sizeScatterGainFar2x: number;
-  /**
-   * **The heavy component's own width, in device px per scale** (W26; claims
-   * §5.121–§5.122) — and since this wave the thing this tier's heavy layer is
-   * actually made of.
-   *
-   * The three gain constants above are what the heavy width USED to be derived
-   * from on both tiers, and on the GPU tier they are now inert at any material
-   * that names this one: that tier's deep sample is a texture blurred to exactly
-   * this σ rather than a level of the backdrop pyramid. So this tier reads the
-   * same number, and `cssTierHeavySigmaCssPx` is where the two meet. The gain
-   * path is kept for the profile that names no heavy width, which is the same
-   * material the GPU tier draws there.
-   *
-   * Mirrored from `@vitrea/renderer-webgpu`'s `MaterialProfile.sizeHeavyTapSigma`,
-   * where the measurement and the mechanism's lack of small values are recorded.
+  /*
+   * **`MaterialProfile.sizeHeavyTapSigma` is deliberately NOT mirrored here**
+   * (W26 G2b; Decision Log 7 (f)). W26 gives the renderer's heavy component a
+   * width of its own — 9 device px — and makes the three gain constants above
+   * inert on THAT tier, where they now grade a chain tap the heavy texture
+   * overwrites. This tier goes on deriving its heavy layer from them, so the two
+   * tiers' heavy widths are different numbers as of this wave, and that is a
+   * recorded residual rather than an oversight: the measurement is in
+   * `cssTierHeavySigmaCssPx` and the charter to close it is in the tracker.
+   * A constant nothing on this tier reads is not carried (C9a §6.2), which is why
+   * the field is absent rather than present and unused.
    */
-  readonly sizeHeavyTapSigma: number;
-  readonly sizeHeavyTapSigma2x: number;
   /**
    * The body's depth ramp (W13 G1, claims §5.61 §2, §5.64 §5): the sharp
    * component's share at the contour — graded from the thin anchor to the thick
@@ -1183,11 +1177,6 @@ export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
   sizeScatterFloor2x: 1,
   sizeScatterSpanMax2x: 256,
   sizeScatterGainFar2x: 9.9,
-  // W26's heavy width, FITTED on the family reader at 9 device px at both scales
-  // (claims §5.122 §4). The reasons are where the numbers are authored — the
-  // renderer's `DEFAULT_MATERIAL_PROFILE` — because this is a mirror.
-  sizeHeavyTapSigma: 9,
-  sizeHeavyTapSigma2x: 9,
   sizeScatterRampStartThin1x: 0.72,
   sizeScatterRampStartThick1x: 0.52,
   sizeScatterRampStartFar1x: 0.2,
@@ -1724,8 +1713,6 @@ export function sourceSize(patch?: RendererMaterialProfile): MaterialSourceSize 
       patch?.sizeScatterSpanMax2x ?? MATERIAL_SOURCE_SIZE.sizeScatterSpanMax2x,
     sizeScatterGainFar2x:
       patch?.sizeScatterGainFar2x ?? MATERIAL_SOURCE_SIZE.sizeScatterGainFar2x,
-    sizeHeavyTapSigma: patch?.sizeHeavyTapSigma ?? MATERIAL_SOURCE_SIZE.sizeHeavyTapSigma,
-    sizeHeavyTapSigma2x: patch?.sizeHeavyTapSigma2x ?? MATERIAL_SOURCE_SIZE.sizeHeavyTapSigma2x,
     sizeScatterRampStartThin1x:
       patch?.sizeScatterRampStartThin1x ?? MATERIAL_SOURCE_SIZE.sizeScatterRampStartThin1x,
     sizeScatterRampStartThick1x:
@@ -2053,25 +2040,6 @@ export function scatterHeavyShareThickAtScale(
     size.sizeScatterHeavyShareThick2x,
     devicePixelRatio,
   );
-}
-
-/**
- * The heavy component's own Gaussian σ at a device scale, in device px — the
- * mirror of the renderer's `heavyTapSigmaAtScale` (W26; claims §5.122 §4).
- *
- * 9 device px at every ratio on the landed material, and **0 is the material that
- * declines the mechanism**, not a small value of it: the renderer builds no heavy
- * texture at 0 and takes its chain tap instead, so this tier reads 0 as "derive
- * the heavy width from the gain, the way both tiers did before W26" and never as
- * "a very narrow heavy component". A near-zero value is the widest possible
- * departure from the material on the other tier, which is why the profile's own
- * doc forbids one.
- */
-export function heavyTapSigmaAtScale(
-  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
-  devicePixelRatio = 1,
-): number {
-  return rampAtScale(size.sizeHeavyTapSigma, size.sizeHeavyTapSigma2x, devicePixelRatio);
 }
 
 /**
@@ -2434,51 +2402,40 @@ export function cssTierSharpSigmaCssPx(sigmaDevicePx: number, devicePixelRatio =
  * L2's **composed** width in CSS px — what the sharp layer's output must end up
  * blurred to where the mask is opaque.
  *
- * **Where the profile names a heavy width, that width IS the answer** (W26;
- * claims §5.121–§5.122; the parent wave's clause 7). The renderer's heavy
- * component is no longer a level of the backdrop pyramid: it is a texture blurred
- * by the separable pair to exactly `heavyTapSigmaAtScale` device px, with the
- * residual carrying whatever octave the chain lacks. `backdrop-filter`'s blur is a
- * true Gaussian too, so the two tiers can carry the same number and the whole
- * conversion is the ratio into CSS px. This is the first wave in which the tiers'
- * heavy components are one quantity rather than one law read through a
- * measurement of the other tier's kernel.
+ * The renderer's nominal heavy width is `blurSigma · gain(span, dpr)` in device
+ * px, through the span-graded gain W15 G1 landed; the effective conversion turns
+ * that into the width the mip chain really draws, and the ratio turns it into
+ * CSS px.
  *
- * **The gain path below is kept, and it is not a fallback for a value out of
- * range** — it is what a profile that DECLINES the mechanism draws, on this tier
- * as on the other. At `sizeHeavyTapSigma` 0 the renderer allocates no heavy
- * texture and samples the chain at `scatterLod`, which is the mip tap
- * `scatterHeavyEffectiveSigmaDevicePx` was measured on (claims §5.71 §5), so the
- * old derivation is exactly right there and exactly wrong beside a real width.
- * The two branches are pinned against their own tier separately in
- * `packages/calibration/test/tier-coherence.test.ts`.
+ * ---
  *
- * **A material with no body has no heavy component either**, and the width does
- * not escape that. The heavy sample is one component of the BODY — both tiers mix
- * it with the sharp one by the same share and nothing else consumes it — so a
- * material whose resolved `blurSigma` is 0 asks for no blur and must get none.
- * The gain-derived form carried that for free, because the heavy width was a
- * MULTIPLE of the sharp one; a width named in device px inherits nothing, so the
- * gate is explicit here and **the renderer states the same rule** in
- * `heavySigmaCssFor`. Below a base σ of 0 this returns 0, the heavy step rounds
- * under the quantum and `css-tier.ts` collapses the body to a single layer that
- * draws nothing.
+ * **THIS IS NO LONGER THE WIDTH THE OTHER TIER DRAWS, and that is the recorded
+ * residual of W26** (Decision Log 7 (f), on the user's ruling; claims §5.123 §9).
+ * W26 gives the renderer's heavy component a width of its own —
+ * `MaterialProfile.sizeHeavyTapSigma`, 9 device px at both scales, fitted on the
+ * family reader against a control — and the three gain constants this function
+ * reads grade a chain tap that tier's heavy texture now overwrites, byte for byte,
+ * on every group whose source carries a pyramid. So the two tiers' heavy widths
+ * are different numbers as of this wave: **13.800 CSS px here against 9 device px
+ * there at dpr 1**, and 4.455 → 6.121 across spans 96 → 160 here against a flat
+ * 4.500 there at dpr 2.
  *
- * Two materials reach it and they are not the same case. `optics.regular.blurSigma`
- * 0 is a supported override, and until both tiers stated this rule they drew
- * different pictures for it (W26 G2's review). An accessibility regime of
- * `frost: "none"` also resolves the base σ to 0 (`opticsUnderPolicy`), and there
- * the rule is belt and braces rather than the mechanism: core couples that regime
- * to `glass: "none"` and the renderer disconnects backdrop sampling entirely.
+ * **The derivation was moved to the shared width and then moved back, on
+ * measurement.** Drawing the renderer's own width put twelve of the fourteen
+ * thick regression floors under — every CSS large-span `ssimMean` floor and the
+ * whole dark nested pane — where the same constants without it put ONE under, and
+ * by eye the 1x dark nested pane showed the checkerboard straight through the
+ * inner pane where neither the native capture nor the GPU candidate does. The
+ * evidence for both configurations is `results/2026-09-10-w26-heavy-width/g2/`
+ * (`floors.txt` against `floors-gpuonly.txt`); the ruling was the user's.
  *
- * **What this tier gives up in taking the width, and it is recorded rather than
- * chartered** (wave Decision Log 23 (a)). The gain-derived width GRADED with the
- * span at dpr 2 — 4.455 CSS px at span 96 rising to 6.121 at 160 — and one width
- * per source does not. The reference does grade there, by 1.66 device px between
- * those spans, so the grading this tier loses was real; it was three times too
- * large and derived from constants that grade nothing on the tier this one has to
- * agree with, which is why the width wins. The residual is a difference to macOS
- * and it is in the ledger.
+ * **What that leaves is a real gap to macOS and it is chartered, not hidden.**
+ * This tier's heavy layer is now derived from constants no measurement of the
+ * reference's kernel supports any more — they were fitted as a gain on a mip level
+ * and the mip level is gone from the tier they were fitted against. Closing it is
+ * a CSS-tier wave: the question it has to answer is why a two-layer body at the
+ * CORRECT component widths loses structure that the mip-tap projection kept, and
+ * the suspects are named in `specs/tech-debt-tracker.md`.
  */
 export function cssTierHeavySigmaCssPx(
   sigmaDevicePx: number,
@@ -2486,11 +2443,11 @@ export function cssTierHeavySigmaCssPx(
   size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
   devicePixelRatio = 1,
 ): number {
-  const ratio = Math.max(devicePixelRatio, 1e-3);
-  const heavy = heavyTapSigmaAtScale(size, devicePixelRatio);
-  if (heavy > 0 && sigmaDevicePx > 0) return heavy / ratio;
   const nominal = sigmaDevicePx * scatterGainAt(spanPx, size, devicePixelRatio);
-  return scatterHeavyEffectiveSigmaDevicePx(nominal, devicePixelRatio) / ratio;
+  return (
+    scatterHeavyEffectiveSigmaDevicePx(nominal, devicePixelRatio)
+    / Math.max(devicePixelRatio, 1e-3)
+  );
 }
 
 /**

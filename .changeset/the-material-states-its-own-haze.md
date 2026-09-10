@@ -14,8 +14,15 @@ with the fit held against vitrea's own known kernel as a control — the first r
 material that had one. So the heavy component was half again too wide, which is also why two earlier
 attempts to raise its share made things worse: more of a too-wide component is more of the wrong
 thing. The material now states the width directly (`sizeHeavyTapSigma`, `sizeHeavyTapSigma2x`, both
-**9**), the renderer builds it as a real Gaussian rather than a chain level, and the CSS tier draws
-the same number instead of deriving one from a gain — the first time the two tiers' heavy components
-are one quantity rather than two derivations that had to be reconciled. Against Apple's own captures
-the width's error over six independently read surfaces falls by three quarters, and a thick surface
-over a coarse pattern now washes it flat by about as much as macOS does rather than noticeably more.
+**9**) and the renderer builds it as a real Gaussian rather than a chain level. Against Apple's own
+captures the width's error over six independently read surfaces falls by three quarters, and a thick
+surface over a coarse pattern now washes it flat by about as much as macOS does rather than
+noticeably more.
+
+**This is a WebGPU-tier change, and the CSS fallback tier deliberately does not follow it yet.** Its
+own frosted layer is unchanged — byte for byte, on 640 of 644 captures of the calibration bed — so a
+page that falls back to `backdrop-filter` looks exactly as it did. Giving that tier the same width
+was tried and measured, and it cost structure on every large surface over a patterned backdrop,
+badly enough to show as a checkerboard through the inner pane of nested glass. The two tiers'
+frosted widths therefore differ for now, which is a known gap with its own measurements recorded
+rather than a difference nobody noticed.

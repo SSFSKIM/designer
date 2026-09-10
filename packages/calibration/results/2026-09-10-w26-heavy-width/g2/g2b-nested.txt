@@ -1,0 +1,22 @@
+W26 G2b — the nested pane's base, 2x dark, GPU tier: what the holes are
+========================================================================================================
+  Region: the stack's BASE pane, its whole declared box. Levels are linear Rec.709 luma.
+
+  source         level        sd   the pane's own interior
+  native       0.11090   0.23869
+  0.14.0       0.11419   0.24677
+  candidate    0.11418   0.24685
+  backdrop     0.50000   0.50000   what it is passing
+
+  How far the PICTURE moved, 0.14.0 → candidate, over 135200 pixels:
+    mean |Δluma| 0.000727 (0.19 of an 8-bit code), max 0.014253 (3.63 codes)
+
+  Pixels under a |luma − backdrop| threshold, and how many re-cross it:
+     threshold    native    0.14.0  candidate  newly under  newly over
+          0.01     11395     11425      11427            2           0
+          0.02     17010     14330      16970         2640           0
+          0.03     33186     40576      41061          537          52
+          0.05     59627     61020      61031           13           2
+    pixels sitting within 0.005 of the 0.02 probe at 0.14.0: 21290
+
+  native | 0.14.0 | candidate, the base pane at 4× per CSS px -> /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a0b3ec5c627c98ae9/packages/calibration/results/2026-09-10-w26-heavy-width/g2/sheets/g2b-nested-4x.png
