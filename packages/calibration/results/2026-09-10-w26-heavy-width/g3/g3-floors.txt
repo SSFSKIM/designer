@@ -1,0 +1,16 @@
+W26 G3 — the regression floors, the 0.14.0 bed -> the landed bed
+====================================================================================================================
+cell                                                                               metric                     floor    before     after   verdict
+dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard ssimMean                 0.91420   0.91539   0.91539        ok  >= pinned at 0.91521
+dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard ssimMean                 0.87480   0.87608   0.87608        ok  >= pinned at 0.87585
+dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard ssimMean                 0.87790   0.87894   0.87894        ok  >= pinned at 0.87893
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard contourDistanceMean      1.06580   1.03304   1.03304        ok  <= pinned at 0.96579
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard contourDistanceP95       8.35000   8.25000   8.25000        ok  <= pinned at 8.25000
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard ssimMean                 0.86040   0.86355   0.86355        ok  >= pinned at 0.86141
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard contourDistanceMean      1.86020   1.28921   1.28921        ok  <= pinned at 1.76018
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard contourDistanceP95      13.10000  10.00000  10.00000        ok  <= pinned at 13.00000
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard ssimMean                 0.86770   0.86870   0.86870        ok  >= pinned at 0.86811
+dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard  ssimMean                 0.86930   0.87056   0.87056        ok  >= pinned at 0.87039
+dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard  ssimMean                 0.87120   0.87233   0.87233        ok  >= pinned at 0.87220
+
+11 floors read, 0 breached

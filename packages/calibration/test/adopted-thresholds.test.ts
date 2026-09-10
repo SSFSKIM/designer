@@ -1346,6 +1346,41 @@ const NO_SHAPE_AXIS_SCENES: Readonly<
  *   is a material question this wave did not declare and did not fit; it is
  *   recorded in the wave's Decision Log and in the tracker with this cell as its
  *   evidence, and the exclusion is what the machine reads meanwhile.
+ *
+ * W26 G3 (claims §5.126; W26 Decision Log 7 (f) and 10) — **31 → 32 at the
+ * LANDED bed, one joins and none leaves, and it is a DIFFERENT cell from the one
+ * the paragraph above describes.** That paragraph is the reading at the
+ * configuration the parent then REJECTED, in which the CSS tier also took the
+ * profile's heavy width; it is kept as read. Under the ruled configuration the
+ * CSS tier is byte-identical to 0.14.0 on all 644 captures, so the
+ * reduced-transparency dom capsule does not move at all and never enters. What
+ * enters instead is a GPU cell, and it is re-derived here from the machine's own
+ * output over the rebuilt matrix rather than carried over from the dry run.
+ *
+ * - **`texture / holdout / checkerboard__rrect-lg__rest /
+ *   apple-macos-26.5-2x-light-standard` — JOINS on the BODIES arm.**
+ *   `silhouetteBodiesWeb` goes **1 → 3** against a native 1 and a region of 1,
+ *   which is the arm firing exactly as designed: a silhouette in more pieces than
+ *   the reference's is not one to gate a contour on. `silhouetteHolesWeb` goes
+ *   4 → 7 beside it (the native's is 0), and the AREA arm never comes near — the
+ *   web silhouette is 174 847 px² of a 175 240 px² region, 0.9978 against a bound
+ *   of 0.95.
+ *   The mechanism is the wave's one constant and nothing else. This is the
+ *   largest span on the bed (160 CSS px) over the coarsest committed
+ *   checkerboard, at the scale where the heavy component narrows most in device
+ *   px; less blur leaves more of the backdrop's own structure inside the surface,
+ *   and the extractor's 0.02 linear-luminance rule pinches that structure into
+ *   two more pieces. It is the same reading, on the same instrument, that
+ *   Decision Log 8 diagnosed on the nested pane: over a coarse dark pattern the
+ *   rule degenerates toward an absolute brightness test and reports the
+ *   BACKDROP's structure as the silhouette's.
+ *   **Every row it takes out of the shape gate is met at the landed bed**:
+ *   `silhouetteIoU` 0.99807 (≥ 0.93), contour mean 0.204 (≤ 0.5), p95 1 (≤ 3.0),
+ *   max 2. Its fidelity is read on its perceptual rows as always, and those are
+ *   where this cell's real cost is recorded rather than hidden: ΔE mean 0.00795 →
+ *   0.01145, the worst single holdout cell of the wave (+0.00350) and the price
+ *   of one heavy width per source at the 2x span grading the reference has and
+ *   vitrea does not (W26 Decision Log 2 (f), 7 (g); the tracker).
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
@@ -1370,6 +1405,7 @@ const PREDICATE_EXCLUDES = [
   "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-light-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
   "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
@@ -1477,76 +1513,20 @@ function reading(
   return entry.value;
 }
 
-/**
- * The one place this file states a gate's input instead of reading it, and the
- * only cells where the committed matrix and the shipped instrument disagree.
- *
- * W26 G3a corrected `silhouetteIoU` to the decidable region (claims §5.124; W26
- * Decision Log 8) and removed the three floors that correction lifts. The metric
- * changed in `cli/measure.ts`; the matrix is a CAPTURE, and a capture is only
- * re-read by a capture run. So until the canonical rebuild at the W26 landing,
- * `results/matrix.json` carries the 0.14.0 bed's PRE-correction readings on these
- * three cells and reading them against ≥ 0.93 would gate an instrument that no
- * longer exists. Editing the committed matrix is forbidden — it is evidence —
- * and re-pinning the floors would be exactly the widening the fidelity discipline
- * forbids, so the corrected readings are named here as data instead.
- *
- * `corrected` is not asserted from memory: it is `g3a/recompute.txt`, produced by
- * running the shipped `componentRegion` / `extractSilhouette` / `decidableRegion`
- * / `silhouetteIoU` over the canonical captures for all 613 shape-bearing cells
- * of this same committed matrix, agreeing with the G2 spike's independent Python
- * replica on every one of them and reproducing the matrix's own uncorrected
- * column bit for bit.
- *
- * `matrix` is what the file on disk still says, and the test below is what makes
- * this construct temporary: when the rebuild lands and the matrix carries the
- * corrected reading, every entry here goes inert and is named for deletion.
+/*
+ * W26 G3a's `W26_CORRECTED_SILHOUETTE_IOU` stood here and is DELETED (W26 G3, the
+ * landing; claims §5.126). It named the three cells where the committed matrix
+ * and the shipped instrument disagreed, because G3a corrected `silhouetteIoU` to
+ * the decidable region in `cli/measure.ts` while the matrix was still the 0.14.0
+ * bed's capture (claims §5.124; W26 Decision Log 8). Its own test asserted the
+ * entries were STILL NEEDED and went red the moment the canonical rebuild carried
+ * the corrected reading, which is the only ending the construct was allowed to
+ * have; that rebuild is this landing's and the three cells now read 0.97319,
+ * 0.99980 and 0.98289 from the matrix itself. The referee checked the whole
+ * column rather than the three: 423 of 423 cells whose captures did not move
+ * agree with `g3a/recompute-rows.json` to five decimals, and none reads a
+ * pre-correction value.
  */
-const W26_CORRECTED_SILHOUETTE_IOU: Readonly<
-  Record<string, { readonly matrix: number; readonly corrected: number }>
-> = {
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard": {
-    matrix: 0.90804,
-    corrected: 0.97319,
-  },
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard": {
-    matrix: 0.92707,
-    corrected: 0.99979,
-  },
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard": {
-    matrix: 0.92878,
-    corrected: 0.98289,
-  },
-};
-
-/** How far a stated reading may sit from the matrix row it replaces before the entry is stale. */
-const CORRECTED_READING_ROUNDING = 5e-6;
-
-/**
- * What a gated row is asserted against: the matrix, except on the three rows
- * above, where it is the recompute — and where the matrix must still say what
- * the entry claims it says, so a bed that moved under this file cannot pass.
- *
- * No other cell needs one. The correction only ever raises an IoU (121 of 613
- * cells move, none down), so every other gated row passes at its corrected value
- * exactly because it passes at the matrix's lower one.
- */
-function gatedReading(
-  cell: Cell,
-  axis: "shape" | "perceptual" | "material" | "coherence",
-  field: string,
-): number {
-  const value = reading(cell, axis, field);
-  if (axis !== "shape" || field !== "silhouetteIoU") return value;
-  const stated = W26_CORRECTED_SILHOUETTE_IOU[name(cell)];
-  if (stated === undefined) return value;
-  expect(
-    Math.abs(value - stated.matrix),
-    `${name(cell)}: the matrix's silhouetteIoU is no longer ${stated.matrix}, so the stated ` +
-      `correction beside it is stale — re-run results/2026-09-10-w26-heavy-width/g3a/recompute.ts`,
-  ).toBeLessThan(CORRECTED_READING_ROUNDING);
-  return stated.corrected;
-}
 
 // ---------------------------------------------------------------------------
 // The conditioning predicate
@@ -1701,7 +1681,7 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
           expect(applicable.length, `${tier} / ${metric}: nothing left to gate`).toBeGreaterThan(0);
 
           for (const cell of applicable) {
-            const measured = gatedReading(cell, axis, metric);
+            const measured = reading(cell, axis, metric);
             const pinned = REGRESSION_FLOORS[`${name(cell)} :: ${metric}`];
 
             // An UNMET row: the adopted bound stands as a claim in §5.27 and CI
@@ -1849,48 +1829,6 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
     // commit, beside a §5.27 row saying what stopped being claimed.
     expect(Object.keys(REGRESSION_FLOORS)).toHaveLength(UNMET_ROWS);
     expect(seen.size).toBe(UNMET_ROWS);
-  });
-
-  it("keeps the stated silhouette readings honest, and names them for deletion once the bed carries them", () => {
-    /*
-     * The construct in `W26_CORRECTED_SILHOUETTE_IOU` exists for exactly as long
-     * as the committed matrix predates the correction, and the checks that keep
-     * it from outliving that are the same four the dissolved defect class was
-     * built on: every entry names a real gated cell, every entry is still NEEDED,
-     * every entry carries a reason, and the set cannot grow quietly.
-     */
-    const gated = new Map(
-      GATED_PROFILES.flatMap((profile) =>
-        (["texture", "dom"] as const).flatMap((tier) =>
-          cellsOf(profile.profileKey, tier).map((cell) => [name(cell), cell] as const),
-        ),
-      ),
-    );
-
-    for (const [key, stated] of Object.entries(W26_CORRECTED_SILHOUETTE_IOU)) {
-      const cell = gated.get(key);
-      expect(cell, `${key}: a stated reading over a cell no gate reaches`).toBeDefined();
-      if (cell === undefined) continue;
-      expect(isWellConditioned(cell), `${key}: a stated reading over a cell the predicate excludes`).toBe(true);
-
-      // STILL NEEDED. When the canonical rebuild carries the corrected reading,
-      // the matrix and the statement agree, this fails, and the entry is deleted
-      // — which is the only way this construct is allowed to end.
-      expect(
-        Math.abs(reading(cell, "shape", "silhouetteIoU") - stated.corrected),
-        `${key}: the matrix now carries the corrected silhouetteIoU — delete this entry`,
-      ).toBeGreaterThan(CORRECTED_READING_ROUNDING);
-
-      // And it must not be hiding a floor: a stated reading that still missed the
-      // adopted bound would be a floor written somewhere floors are not checked.
-      expect(
-        REGRESSION_FLOORS[`${key} :: silhouetteIoU`],
-        `${key}: floored AND stated — one of the two is wrong`,
-      ).toBeUndefined();
-      expect(stated.corrected, `${key}: stated but still under its adopted bound`).toBeGreaterThanOrEqual(0.93);
-    }
-
-    expect(Object.keys(W26_CORRECTED_SILHOUETTE_IOU)).toHaveLength(3);
   });
 
   // -------------------------------------------------------------------------

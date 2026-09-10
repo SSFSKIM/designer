@@ -1,0 +1,56 @@
+W26 G3 — the verify chain and the e2e suites at the landing
+
+=== pnpm -r build / lint / test ===
+=== build ===
+apps/demo build: - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+apps/demo build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+apps/demo build: Done
+build=0
+=== lint ===
+packages/calibration lint: Done
+apps/demo lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+apps/demo lint: Done
+lint=0
+=== test ===
+packages/policy test:  Test Files  2 passed (2)
+packages/policy test:       Tests  23 passed (23)
+packages/motion test:  Test Files  9 passed (9)
+packages/motion test:       Tests  162 passed (162)
+packages/geometry test:  Test Files  14 passed (14)
+packages/geometry test:       Tests  170 passed (170)
+packages/renderer-webgpu test:  Test Files  25 passed (25)
+packages/renderer-webgpu test:       Tests  446 passed (446)
+packages/core test:  Test Files  16 passed (16)
+packages/core test:       Tests  302 passed (302)
+packages/platform-web test:  Test Files  33 passed (33)
+packages/platform-web test:       Tests  453 passed (453)
+packages/calibration test:  Test Files  20 passed (20)
+packages/calibration test:       Tests  298 passed (298)
+packages/react test:  Test Files  13 passed (13)
+packages/react test:       Tests  101 passed (101)
+test-done
+
+=== the e2e suites, foreground, one at a time behind g3-guard.sh ===
+=== 14:39:42 renderer goldens ===
+GUARD: clear at 14:39:42
+  33 passed (10.8s)
+    exit=0
+=== 14:39:54 vitrea-web e2e:gpu ===
+GUARD: clear at 14:39:54
+  9 passed (4.3s)
+    exit=0
+=== 14:39:59 vitrea-web e2e ===
+GUARD: clear at 14:39:59
+  ✓  108 [chromium] › e2e/shared/probe.spec.ts:192:3 › the probe-demotion path (X2) › demotes a failing group to the CSS tier naming probe-failed, then recovers (231ms)
+  ✓  221 [firefox] › e2e/shared/probe.spec.ts:192:3 › the probe-demotion path (X2) › demotes a failing group to the CSS tier naming probe-failed, then recovers (583ms)
+  ✓  334 [webkit] › e2e/shared/probe.spec.ts:192:3 › the probe-demotion path (X2) › demotes a failing group to the CSS tier naming probe-failed, then recovers (428ms)
+  376 passed (42.4s)
+    exit=0
+=== 14:40:42 react e2e ===
+GUARD: clear at 14:40:42
+  105 passed (30.4s)
+    exit=0
+=== 14:41:14 demo e2e ===
+GUARD: clear at 14:41:14
+  39 passed (49.4s)
+    exit=0
