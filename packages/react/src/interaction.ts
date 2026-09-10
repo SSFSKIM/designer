@@ -29,10 +29,10 @@
  *
  * That publication is also the data path to the GPU. `platform-web`'s renderer
  * bridge reads these properties back in the frame's write phase and hands them
- * to the WebGPU renderer as `SurfaceChannels` — `press`, `glow`, `sweep`,
- * `lensStrength`, `pressPoint`, exactly this set. Nothing here calls the
- * renderer, and nothing here knows whether one is attached: a binding publishes
- * values, and the tier that is drawing consumes them.
+ * to the WebGPU renderer as `SurfaceChannels`. Authored material presence uses
+ * the same seam, but the framework-agnostic root drives it independently of this
+ * interaction machine. Nothing here calls the renderer or knows whether one is
+ * attached: a binding publishes values, and the tier that is drawing consumes them.
  */
 
 import { GLASS_CHANNEL_PROPERTIES, type GlassHostHandle } from "@vitreajs/vitrea-web";

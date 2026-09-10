@@ -104,7 +104,11 @@ export interface GlassSurfaceOwnProps {
   /** Wire pointer and keyboard events into the interaction machine. */
   readonly interactive?: boolean | undefined;
   readonly disabled?: boolean | undefined;
-  /** Animate only the material to identity in place. Content stays visible. Default true. */
+  /**
+   * Animate only the material to identity in place. Default true. The mounted
+   * host keeps its semantics and foreground tokens; the app owns content and
+   * contrast over the uncovered backdrop. This never changes element opacity.
+   */
   readonly present?: boolean | undefined;
   /** Held true by a morph in flight. */
   readonly morphing?: boolean | undefined;

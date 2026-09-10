@@ -95,6 +95,8 @@ export function App(): ReactNode {
   const [range, setRange] = useState<Range>("week");
   const [lastAction, setLastAction] = useState<string | null>(null);
   const [favorite, setFavorite] = useState(false);
+  const [present, setPresent] = useState(true);
+  const [materializeMenu, setMaterializeMenu] = useState(false);
 
   return (
     <GlassRoot
@@ -155,9 +157,18 @@ export function App(): ReactNode {
         <div className="overlay-grid" role="region" aria-label="Glass surfaces">
           <div className="overlay-cell">
             <GlassGroup id="dom-region" hint={{ tone: "dark", luminance: 0.18 }}>
-              <GlassSurface className="plate" radius={22} thickness={10} data-testid="dom-plate">
+              <GlassSurface className="plate" radius={22} thickness={10} present={present} data-testid="dom-plate">
                 <strong>Regular material</strong>
                 <span>dom backdrop · author hint</span>
+                <button type="button" className="presence-toggle" data-testid="presence-toggle"
+                  onClick={() => setPresent((value) => !value)}>
+                  {present ? "Dismiss glass" : "Bring glass back"}
+                </button>
+                <label className="presence-choice">
+                  <input type="checkbox" checked={materializeMenu}
+                    onChange={(event) => setMaterializeMenu(event.target.checked)} />
+                  Materialize the Actions menu
+                </label>
               </GlassSurface>
             </GlassGroup>
           </div>
@@ -246,7 +257,8 @@ export function App(): ReactNode {
         */}
         <div className="toolbar__menu">
           <GlassGroup id="toolbar-menu">
-            <ActionsMenu onAction={setLastAction} />
+            <ActionsMenu onAction={setLastAction}
+              transition={materializeMenu ? "materialize" : "matchedGeometry"} />
           </GlassGroup>
         </div>
       </GlassToolbar>
