@@ -183,6 +183,12 @@ export interface GlassToolbarSpacerProps
  * sampling padding the surrounding toolbar derived — see `GlassToolbar` — and it
  * is what keeps the two partitions' padded proxies off each other's shapes.
  *
+ * An author's own `style` still wins, and deliberately: a number someone wrote
+ * is a statement about their geometry, and the runtime overruling it would be a
+ * worse defect than the one this prevents — the same reading `resolveSamplingGeometry`
+ * takes of an authored `samplingPadding`. `proxy-overlap-after-enforcement` is
+ * the backstop either way, and it names the fix.
+ *
  * Outside a toolbar the element is still a spacer, with no minimum: there is no
  * partition to separate, so there is no padding to clear.
  */
@@ -515,27 +521,30 @@ export function GlassToolbar(props: GlassToolbarProps): ReactNode {
    * N sampling groups. `GlassGroup` renders no DOM, so the flex row the author
    * wrote is the flex row the browser lays out, split or not.
    */
-  const slots = partitionChildren(children);
-  const partitioned = group ? slots : undefined;
   let partitionIndex = -1;
-  const body =
-    partitioned === undefined
-      ? children
-      : partitioned.map((slot, index) => {
-          if (slot.kind === "spacer") return slot.node;
-          partitionIndex += 1;
-          const merged = { ...groupProps, ...slot.own };
-          // An id the *item* wrote is its own and is taken as written; only the
-          // one inherited from the toolbar has to be made unique per partition.
-          const id =
-            slot.own?.id ??
-            (groupProps?.id === undefined ? undefined : idAt(groupProps.id, partitionIndex));
-          return (
-            <GlassGroup key={`partition-${index}`} {...merged} {...(id === undefined ? {} : { id })}>
-              {slot.children}
-            </GlassGroup>
-          );
-        });
+  const body = !group
+    ? children
+    : partitionChildren(children).map((slot) => {
+        if (slot.kind === "spacer") return slot.node;
+        partitionIndex += 1;
+        const merged = { ...groupProps, ...slot.own };
+        // An id the *item* wrote is its own and is taken as written; only the
+        // one inherited from the toolbar has to be made unique per partition.
+        const id =
+          slot.own?.id ??
+          (groupProps?.id === undefined ? undefined : idAt(groupProps.id, partitionIndex));
+        // Keyed by the partition rather than by the slot, so a spacer appearing
+        // or moving does not renumber the groups below it and re-register them.
+        return (
+          <GlassGroup
+            key={`partition-${partitionIndex}`}
+            {...merged}
+            {...(id === undefined ? {} : { id })}
+          >
+            {slot.children}
+          </GlassGroup>
+        );
+      });
 
   return (
     <PlanePortal plane={plane}>
