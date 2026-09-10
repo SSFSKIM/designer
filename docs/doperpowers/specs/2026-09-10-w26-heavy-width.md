@@ -181,7 +181,8 @@ the user's eye; X7 the dark profile a difference document.
 | G1b — Apple's kernel identified without a shape assumption (spike) | CLOSED 2026-09-10 (claims §5.121; merged at `1d541bf`) |
 | G1c — the fits, second reading: both widths on the family reader (controlled) | CLOSED 2026-09-10 (claims §5.122; merged at `5a710ad`) |
 | G2 — declared and dry-run | CLOSED 2026-09-10 (claims §5.123; Decision Log 7 (f)–(g); merged at `69994ff`) |
-| G3 — the landing | blocked-by the user's word on one floor (Decision Log 7 (g)) |
+| G3a — the silhouette instrument corrected: IoU over the decidable region (controlled) | DISPATCHED 2026-09-10 (Decision Log 8) |
+| G3 — the landing | blocked-by G3a |
 
 ## Decision Log
 
@@ -546,6 +547,46 @@ at 0.9030** with 0.9257 / 0.92707 / 0.90362 beside it and the mechanism named, b
 an instrument change that would move every silhouette row on the bed and belongs to its own wave.
 G3 lands on the user's word (re-pin, or hold the landing for the extractor fix).
 
+### Decision Log 8 — the floor comes off by fix: the silhouette IoU is a fence on black checker cells, and it is corrected the way §5.15 corrected the contour (2026-09-10; the parent; the spike at `g2/extractor/findings.md`)
+
+(a) **The premise of 7 (g) was wrong and the ruling changes.** The native mask is not hole-free —
+the committed matrix records `silhouetteHolesNative` 14 on that cell and the native silhouette is
+the smallest of the three. The extractor is one rule applied to both sides (`|Y − Y_background| ≥
+0.02` linear, plus an inert chroma arm), with no fill, no seed, nothing keyed on the native. Over a
+black checker cell the rule degenerates to an absolute brightness test at 0.02, and each side
+loses ~5 400 pixels there — the native under its double-glazed inner pane (transmission 0.02029,
+one code over the rung), vitrea out on the single-glazed base — with 33 px of overlap; IoU pays for
+both sets. The threshold scan is not monotone (Δ IoU −0.032 at 0.018, +0.004 at 0.080): a fence,
+not a shape.
+
+(b) **The correction.** `silhouetteIoU` is taken over the declared region minus every pixel enclosed
+by a hole of EITHER mask — the pixels the extractor cannot decide — while `silhouetteHoles*` and
+`declaredIoUWeb` keep reporting the interior. It is the correction claims §5.15 made for
+`contourDistance`, applied to the silhouette. Hole-filling both masks (drags ten cells down, worst
+0.925 → 0.639) and a hysteresis arm at extraction (moves 415 of 613 cells, 46 down) were measured
+and rejected.
+
+(c) **The blast radius, on the committed 0.14.0 bed** (613 shape cells reproduced bit-for-bit
+first): 121 cells move, all upward, median +0.0032, max +0.346; only `silhouetteIoU` moves — areas,
+holes, contour, curvature and the conditioning predicate are untouched, so `PREDICATE_EXCLUDES`
+cannot move; no adopted bound moves; **all three `silhouetteIoU` floors come off** (1x dark dom
+0.90804 → 0.97319 — one of the user's W24 re-pins; 2x dark texture 0.92707 → 0.99980; 2x dark dom
+0.92878 → 0.98289), all clearing the ≥ 0.93 bound; `UNMET_ROWS` 14 → 11. At the candidate the W26
+cell reads 0.99980 against 0.14.0's 0.99979.
+
+(d) **G3a lands the correction as a controlled child ahead of the landing** — the rule in
+`cli/measure.ts`, a unit test on a synthetic pair with holes, the recompute of the committed
+matrix's 613 shape cells against the spike's `blast-rows.json`, the three floors removed with their
+readings beside, `UNMET_ROWS` 11, the claims section adopting the corrected metric beside §5.15,
+W24's Decision Log noted (one re-pin off by fix), the tracker entries closed or amended. The
+7 (g) re-pin question to the user is withdrawn: the floor comes off by fix. G3 then lands from the
+main checkout on the corrected instrument, the canonical rebuild carrying the corrected IoU for
+every cell (the old readings stay in history and in the ledger's blast table).
+
+(e) **Not determined, recorded.** Whether the native's 0.02029 transmission is Apple's material or
+ScreenCaptureKit's quantisation (one code decides whether the native's 14 holes are real); and the
+trade — IoU no longer sees a punched interior, the holes metrics do. Tracker.
+
 ## Surprises & Discoveries
 
 - **A scratch rung is not a rehearsal of a landing.** The dark difference document resolves over
@@ -681,3 +722,6 @@ wave's to fix**; this records the number and the picture and recommends neither.
   the tracker. The one remaining floor is measured to be the extractor and is left to the user.
 - 2026-09-10: G2 CLOSED and merged (`69994ff`) at the ruled configuration. Decision Log 7 (g): one
   floor, the extractor's, left to the user with a recommended re-pin; G3 blocked on that word.
+- 2026-09-10: the extractor spike merged (`g2/extractor/`). Decision Log 8: the floor is a fence on
+  black checker cells and comes off by fix — the IoU over the decidable region, §5.15's correction
+  applied to the silhouette; G3a dispatched; the re-pin question withdrawn; G3 blocked on G3a.
