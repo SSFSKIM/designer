@@ -13,11 +13,12 @@
  *     rather than assumed, because it is the property that makes the partition
  *     free.
  *  3. **The gap is derived.** A spacer's minimum is the sampling padding the
- *     material requires under the *resolved* policy, so it moves when Reduce
- *     Transparency thickens the frost. A constant would be wrong under exactly
- *     the preference that enlarges the blur.
- *  4. **The room is enough.** At the derived gap, neither partition's padded
- *     proxy box reaches the other partition's shapes — which is the predicate
+ *     material requires under the *resolved* policy — which moves when Reduce
+ *     Transparency thickens the frost — and never less than the advisory core's
+ *     own overlap check reads off the descriptor. A constant of the toolbar's
+ *     own would be wrong under exactly the preference that enlarges the blur.
+ *  4. **The room is enough.** At that gap, neither partition's padded proxy box
+ *     reaches the other partition's shapes — which is the predicate
  *     `proxy-overlap-after-enforcement` fires on.
  *
  * Claim 4 is asserted here over the *geometry*, on the same two functions the
