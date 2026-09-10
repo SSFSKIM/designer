@@ -368,7 +368,19 @@ export function packInstances(
     // the lens off exactly as the resolved depth used to, and neither depth can
     // be rounded through the other. Until W12 G2 this slot carried the resolved
     // lens depth itself; the CPU still resolves it (`lensDepthPx`) for readers.
-    data[o + 14] = Math.max(s.shape.channels.thickness, 0) * Math.min(1, Math.max(0, s.channels.lensStrength));
+    //
+    // **Only the floor is a clamp** (W27a). This multiplied by
+    // `min(1, max(0, lensStrength))`, and the channel's documented range is
+    // `0..1+`: `@vitrea/motion`'s table drives it to 1.03 focused, 1.06 hover,
+    // 1.10 morphing and 1.14 pressed, so the upper clamp meant `disabled` (0.5)
+    // was the only interaction state that reached the shader at all and every
+    // state that DEEPENS the lens arrived as the resting material. Nothing above
+    // is now unbounded: the fragment stage clamps the lens depth to `span * 0.5`
+    // and scales the magnitude by the same ratio, so a larger strength deepens
+    // the lens up to the surface's half span and no further. At rest the channel
+    // is exactly 1, where both forms are identical, so the resting material is
+    // byte-identical and the golden bed does not move.
+    data[o + 14] = Math.max(s.shape.channels.thickness, 0) * Math.max(0, s.channels.lensStrength);
     // The shader's `tintK` slot, and the only per-surface half of the author
     // tint: the seed is a group uniform, this is how much of it this pixel gets.
     data[o + 15] = s.tintStrength;

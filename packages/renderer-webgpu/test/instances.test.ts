@@ -252,6 +252,36 @@ describe("the size-parameterised lens", () => {
     const { data } = packInstances(resolved, [0, 0]);
     expect(data[14]).toBeCloseTo((resolved[0]?.shape.channels.thickness as number) * 0.5, 6);
   });
+
+  /**
+   * The channel's range is `0..1+` (W27a), and every interaction state that
+   * DEEPENS the lens lives above 1: `@vitrea/motion`'s table drives it to 1.03
+   * focused, 1.06 hover, 1.10 morphing and 1.14 pressed. A `min(1, …)` on the
+   * way into this slot meant `disabled` (0.5) was the only state the shader
+   * could see, and the other four arrived indistinguishable from rest.
+   */
+  it("carries a strength above 1, so a press deepens the lens (W27a)", () => {
+    const at = (lensStrength: number): number => {
+      const resolved = resolveSurfaces(group([surface({ channels: { lensStrength } })]), "rsupn");
+      return packInstances(resolved, [0, 0]).data[14] as number;
+    };
+
+    const thickness = surface().shape.thickness;
+    expect(at(1.14)).toBeGreaterThan(at(1));
+    expect(at(1.14)).toBeCloseTo(thickness * 1.14, 6);
+    // Every state the table drives, in the order it drives them: disabled,
+    // rest, focused, hover, morphing, pressed. Strictly increasing, where
+    // before only the first step was.
+    const table = [0.5, 1, 1.03, 1.06, 1.1, 1.14].map(at);
+    expect(table).toEqual([...table].sort((a, b) => a - b));
+    expect(new Set(table).size).toBe(table.length);
+
+    // The resting material is untouched: the channel is exactly 1 at idle and
+    // the two forms agree there, which is what keeps the golden bed still.
+    expect(at(1)).toBeCloseTo(thickness, 10);
+    // The floor is still a clamp — a negative strength is not a negative depth.
+    expect(at(-2)).toBe(0);
+  });
 });
 
 describe("the field pass's rect", () => {
