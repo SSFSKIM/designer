@@ -1,0 +1,86 @@
+=== gate c0b ===
+170 candidate calibration/validation cells + 59 canonical holdout cells -> /Users/new/.claude/jobs/5c70e47f/tmp/w26/g1c/c0b/gate.json
+    vitest exit=0
+ Test Files  1 passed (1)
+      Tests  38 passed (38)
+=== gate d8b ===
+170 candidate calibration/validation cells + 59 canonical holdout cells -> /Users/new/.claude/jobs/5c70e47f/tmp/w26/g1c/d8b/gate.json
+    vitest exit=1
+     × gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT 5ms
+     × machine-checks the well-conditioned predicate and names every cell it excludes 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes
+ Test Files  1 failed (1)
+      Tests  2 failed | 36 passed (38)
+=== gate d9b ===
+170 candidate calibration/validation cells + 59 canonical holdout cells -> /Users/new/.claude/jobs/5c70e47f/tmp/w26/g1c/d9b/gate.json
+    vitest exit=0
+ Test Files  1 passed (1)
+      Tests  38 passed (38)
+=== gate d10b ===
+170 candidate calibration/validation cells + 59 canonical holdout cells -> /Users/new/.claude/jobs/5c70e47f/tmp/w26/g1c/d10b/gate.json
+    vitest exit=1
+     × gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT 5ms
+     × gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK 0ms
+     × machine-checks the well-conditioned predicate and names every cell it excludes 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes
+ Test Files  1 failed (1)
+      Tests  3 failed | 35 passed (38)
+=== gate d11b ===
+170 candidate calibration/validation cells + 59 canonical holdout cells -> /Users/new/.claude/jobs/5c70e47f/tmp/w26/g1c/d11b/gate.json
+    vitest exit=1
+     × gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT 5ms
+     × gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK 0ms
+     × machine-checks the well-conditioned predicate and names every cell it excludes 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes
+ Test Files  1 failed (1)
+      Tests  3 failed | 35 passed (38)
+=== gate x98b ===
+170 candidate calibration/validation cells + 59 canonical holdout cells -> /Users/new/.claude/jobs/5c70e47f/tmp/w26/g1c/x98b/gate.json
+    vitest exit=1
+     × gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT 4ms
+     × machine-checks the well-conditioned predicate and names every cell it excludes 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes
+ Test Files  1 failed (1)
+      Tests  2 failed | 36 passed (38)
+=== gate x910b ===
+170 candidate calibration/validation cells + 59 canonical holdout cells -> /Users/new/.claude/jobs/5c70e47f/tmp/w26/g1c/x910b/gate.json
+    vitest exit=1
+     × gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT 5ms
+     × gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK 0ms
+     × machine-checks the well-conditioned predicate and names every cell it excludes 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes
+ Test Files  1 failed (1)
+      Tests  3 failed | 35 passed (38)
+=== c0b
+=== d8b
+    AssertionError: texture / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(7) }, …(29) ] to have a length of 31 but got 30
+    AssertionError: cells the shape rows skip, per claims §5's predicate: expected [ …(32) ] to deeply equal [ …(31) ]
+=== d9b
+=== d10b
+    AssertionError: texture / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(7) }, …(32) ] to have a length of 31 but got 33
+    AssertionError: texture / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(7) }, …(8) ] to have a length of 8 but got 9
+    AssertionError: cells the shape rows skip, per claims §5's predicate: expected [ …(28) ] to deeply equal [ …(31) ]
+=== d11b
+    AssertionError: texture / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(7) }, …(32) ] to have a length of 31 but got 33
+    AssertionError: texture / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(7) }, …(8) ] to have a length of 8 but got 9
+    AssertionError: cells the shape rows skip, per claims §5's predicate: expected [ …(28) ] to deeply equal [ …(31) ]
+=== x98b
+    AssertionError: texture / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(7) }, …(29) ] to have a length of 31 but got 30
+    AssertionError: cells the shape rows skip, per claims §5's predicate: expected [ …(32) ] to deeply equal [ …(31) ]
+=== x910b
+    AssertionError: texture / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(7) }, …(32) ] to have a length of 31 but got 33
+    AssertionError: texture / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(7) }, …(8) ] to have a length of 8 but got 9
+    AssertionError: cells the shape rows skip, per claims §5's predicate: expected [ …(28) ] to deeply equal [ …(31) ]

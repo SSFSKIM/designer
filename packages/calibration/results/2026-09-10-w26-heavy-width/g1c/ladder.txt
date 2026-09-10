@@ -1,0 +1,129 @@
+W26 G1c — the ladder, the control at every rung, and the reference re-read holdout-free
+====================================================================================================
+
+Family reader, λ = 0.003, 40 radial nodes to 96 device px. Widths in
+DEVICE px. Rows are holdout-free: `rrect-md` reads seven backdrops and `rrect-lg` six.
+
+### 1. The reference, re-read on the holdout-free rows
+
+    surface  sc    sch rows        σ   share   resid      2-gauss sharp/heavy@share   G1b σ
+   rrect-md   1  light    7    9.300   0.400   1.936      1.30 /   9.00 @0.450    9.11
+   rrect-lg   1  light    6    8.050   0.645   1.556      1.55 /   8.75 @0.660    8.55
+   rrect-md   2  light    7    7.550   0.815   2.020      1.35 /   8.25 @0.835    7.92
+   rrect-lg   2  light    6    9.200   0.965   1.799      4.00 /  10.25 @0.925    8.97
+   rrect-md   1   dark    6    9.150   0.420   2.002      1.30 /   9.00 @0.470    9.18
+   rrect-md   2   dark    6    7.800   0.835   2.266      1.40 /   8.50 @0.850     nan
+
+`G1b σ` is the same surface read over EIGHT backdrops including the three holdout rows
+(claims §5.121 §4). The difference between the two columns is what the holdout was worth.
+
+### 2. The ladder, and the control at every rung
+
+`σ named` is the anchor the rung's documents carry at this scale — `heavyTapSigmaAtScale`
+is the 1x anchor at dpr 1 and the 2x anchor at dpr 2. `σ read` is the family reader on the
+rung's own captures and `Δ` is the control: the drawn width read back. `k drawn` is
+`kScatter` over the band's own pixels and `k read` the fitted share.
+
+   rung   surface  sc    sch  σ named   σ read        Δ  k drawn  k read   resid
+     c0  rrect-md   1  light   13.418   13.450     0.2%    0.494   0.520   1.032
+     c0  rrect-lg   1  light   13.418   13.400    -0.1%    0.684   0.680   0.869
+     c0  rrect-md   2  light    0.000    8.050     nan%    0.913   0.865   1.155
+     c0  rrect-lg   2  light    0.000   12.300     nan%    0.950   0.915   1.046
+     c0  rrect-md   1   dark   13.418   13.450     0.2%    0.494   0.520   0.989
+     c0  rrect-md   2   dark    0.000    8.050     nan%    0.913   0.865   1.105
+
+     d8  rrect-md   1  light    8.000    7.650    -4.4%    0.494   0.485   1.073
+     d8  rrect-lg   1  light    8.000    7.300    -8.8%    0.684   0.675   0.757
+     d8  rrect-md   2  light    8.000    7.400    -7.5%    0.913   0.900   1.188
+     d8  rrect-lg   2  light    8.000    7.400    -7.5%    0.950   0.945   1.018
+     d8  rrect-md   1   dark    8.000    7.800    -2.5%    0.494   0.485   1.024
+     d8  rrect-md   2   dark    8.000    7.400    -7.5%    0.913   0.900   1.127
+
+     d9  rrect-md   1  light    9.000    8.800    -2.2%    0.494   0.490   1.045
+     d9  rrect-lg   1  light    9.000    8.500    -5.6%    0.684   0.675   0.762
+     d9  rrect-md   2  light    9.000    8.500    -5.6%    0.913   0.905   1.123
+     d9  rrect-lg   2  light    9.000    8.500    -5.6%    0.950   0.955   1.021
+     d9  rrect-md   1   dark    9.000    9.000     0.0%    0.494   0.490   0.996
+     d9  rrect-md   2   dark    9.000    8.550    -5.0%    0.913   0.905   1.075
+
+    d10  rrect-md   1  light   10.000    9.850    -1.5%    0.494   0.495   1.031
+    d10  rrect-lg   1  light   10.000    9.550    -4.5%    0.684   0.675   0.766
+    d10  rrect-md   2  light   10.000    9.450    -5.5%    0.913   0.910   1.083
+    d10  rrect-lg   2  light   10.000    9.400    -6.0%    0.950   0.960   1.013
+    d10  rrect-md   1   dark   10.000   10.000     0.0%    0.494   0.490   0.980
+    d10  rrect-md   2   dark   10.000    9.450    -5.5%    0.913   0.910   1.034
+
+    d11  rrect-md   1  light   11.000   11.050     0.5%    0.494   0.495   1.016
+    d11  rrect-lg   1  light   11.000   10.600    -3.6%    0.684   0.675   0.772
+    d11  rrect-md   2  light   11.000   10.450    -5.0%    0.913   0.910   1.049
+    d11  rrect-lg   2  light   11.000   10.400    -5.5%    0.950   0.960   1.017
+    d11  rrect-md   1   dark   11.000   11.000     0.0%    0.494   0.495   0.967
+    d11  rrect-md   2   dark   11.000   10.500    -4.5%    0.913   0.910   0.999
+
+    x98  rrect-md   1  light    9.000    8.800    -2.2%    0.494   0.490   1.045
+    x98  rrect-lg   1  light    9.000    8.500    -5.6%    0.684   0.675   0.762
+    x98  rrect-md   2  light    8.000    7.400    -7.5%    0.913   0.900   1.188
+    x98  rrect-lg   2  light    8.000    7.400    -7.5%    0.950   0.945   1.018
+    x98  rrect-md   1   dark    9.000    9.000     0.0%    0.494   0.490   0.996
+    x98  rrect-md   2   dark    8.000    7.400    -7.5%    0.913   0.900   1.127
+
+   x910  rrect-md   1  light    9.000    8.800    -2.2%    0.494   0.490   1.045
+   x910  rrect-lg   1  light    9.000    8.500    -5.6%    0.684   0.675   0.762
+   x910  rrect-md   2  light   10.000    9.450    -5.5%    0.913   0.910   1.083
+   x910  rrect-lg   2  light   10.000    9.400    -6.0%    0.950   0.960   1.013
+   x910  rrect-md   1   dark    9.000    9.000     0.0%    0.494   0.490   0.996
+   x910  rrect-md   2   dark   10.000    9.450    -5.5%    0.913   0.910   1.034
+
+   z001  rrect-md   1  light   13.418   13.450     0.2%    0.494   0.520   1.032
+   z001  rrect-lg   1  light   13.418   13.400    -0.1%    0.684   0.680   0.869
+   z001  rrect-md   2  light    0.001    3.000     nan%    0.913   0.000   9.410
+   z001  rrect-lg   2  light    0.001    3.000     nan%    0.950   0.000  10.520
+   z001  rrect-md   1   dark   13.418   13.450     0.2%    0.494   0.520   0.989
+   z001  rrect-md   2   dark    0.001    3.000     nan%    0.913   0.000   8.788
+
+At `c0` the 2x anchor is 0: the pyramid builds no heavy texture there and the pass takes the
+chain tap it has always taken, so `σ named` is not a width and Δ is not defined. At `z001`
+it is 0.001, which does NOT decline the mechanism — the gate is `heavySigmaCss > 0` — and
+builds a heavy texture at chain level 0, making the deep sample the raw backdrop.
+
+### 3. The mapping from the named constant to the read width, and the two fits
+
+One line per (surface, scale, scheme) over the rungs that name a width at that scale, then
+the reference's own reading inverted through it. `slope` is device px of reading per device
+px of constant and is the condition: a slope near 1 is a lever the reader sees one-for-one.
+
+    surface  sc    sch rungs   slope intercept    rms σ ref read   FITTED
+   rrect-md   1  light     7   1.070    -0.840  0.059      9.300    9.476
+   rrect-lg   1  light     7   1.111    -1.541  0.047      8.050    8.631
+   rrect-md   2  light     6   1.016    -0.707  0.030      7.550    8.128
+   rrect-lg   2  light     6   0.995    -0.541  0.037      9.200    9.785
+   rrect-md   1   dark     7   1.025    -0.274  0.059      9.150    9.192
+   rrect-md   2   dark     6   1.025    -0.775  0.046      7.800    8.366
+
+   dpr 1: rrect-md light 9.48  rrect-lg light 8.63  rrect-md dark 9.19   spread 9.8 %  — one number serves both spans within 15 %
+   dpr 2: rrect-md light 8.13  rrect-lg light 9.79  rrect-md dark 8.37   spread 20.4 %  — WIDER than 15 %: one number does not serve both spans
+
+### 4. The objective, before and after
+
+The fit's objective is the family reader's width against the reference's, as |log(read /
+reference)| averaged over the cells — a ratio rather than a difference, because a width is a
+scale. `before` is the 0.14.0 control rung `c0`; `after` is the candidate rung. The share is
+carried beside it as the mean |Δ|, unfitted, to show what the width's move costs it.
+
+    rung   surface  sc    sch   σ read    σ ref   |log|  k read   k ref   |Δk|
+      c0  rrect-md   1  light   13.450    9.300  0.3690   0.520   0.400  0.120
+      c0  rrect-lg   1  light   13.400    8.050  0.5096   0.680   0.645  0.035
+      c0  rrect-md   2  light    8.050    7.550  0.0641   0.865   0.815  0.050
+      c0  rrect-lg   2  light   12.300    9.200  0.2904   0.915   0.965  0.050
+      c0  rrect-md   1   dark   13.450    9.150  0.3852   0.520   0.420  0.100
+      c0  rrect-md   2   dark    8.050    7.800  0.0315   0.865   0.835  0.030
+      c0      MEAN                               0.2750                  0.064
+
+      d9  rrect-md   1  light    8.800    9.300  0.0553   0.490   0.400  0.090
+      d9  rrect-lg   1  light    8.500    8.050  0.0544   0.675   0.645  0.030
+      d9  rrect-md   2  light    8.500    7.550  0.1185   0.905   0.815  0.090
+      d9  rrect-lg   2  light    8.500    9.200  0.0791   0.955   0.965  0.010
+      d9  rrect-md   1   dark    9.000    9.150  0.0165   0.490   0.420  0.070
+      d9  rrect-md   2   dark    8.550    7.800  0.0918   0.905   0.835  0.070
+      d9      MEAN                               0.0693                  0.060
+
