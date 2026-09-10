@@ -180,8 +180,8 @@ the user's eye; X7 the dark profile a difference document.
 | G1 — the width, the share, the lever, the level | CLOSED 2026-09-10 (claims §5.120; Decision Logs 3–4; merged at `d306214` after the review's two fixes at `d06fe3c`) |
 | G1b — Apple's kernel identified without a shape assumption (spike) | CLOSED 2026-09-10 (claims §5.121; merged at `1d541bf`) |
 | G1c — the fits, second reading: both widths on the family reader (controlled) | CLOSED 2026-09-10 (claims §5.122; merged at `5a710ad`) |
-| G2 — declared and dry-run | DELIVERED 2026-09-10 (claims §5.123 DRAFT; Decision Log 7 — the parent rules (a)–(d)) |
-| G3 — the landing | — |
+| G2 — declared and dry-run | CLOSED 2026-09-10 (claims §5.123; Decision Log 7 (f)–(g); merged at `69994ff`) |
+| G3 — the landing | blocked-by the user's word on one floor (Decision Log 7 (g)) |
 
 ## Decision Log
 
@@ -524,6 +524,28 @@ The goldens are 33 / 33 unmoved after it. The review found nothing else: the dev
 conversion is right, no sampling-padding starvation is introduced, and the recorded-snapshot
 normaliser is covered by the case that walks every field.
 
+### Decision Log 7 (g) — G2 closed; the one floor is the user's; G3 waits on that word (2026-09-10; the parent)
+
+The ruled configuration (Decision Log 7 (f): the two constants on the GPU tier, the CSS tier
+byte-identical to 0.14.0) is what G3 lands. Its bed: the gate 35 / 38 with `PREDICATE_EXCLUDES` to
+be re-derived at the canonical rebuild (32, `texture / holdout / checkerboard__rrect-lg__rest / 2x
+light` entering); thirteen of fourteen thick floors held; every CSS group unchanged to five
+decimals; the holdout's GPU rows read once, worst cell +0.00350 on the 2x light 160-span row (the
+span grading one width per source gives up, Decision Log 2 (f)). The eye's sheets: on every coarse
+checkerboard the candidate is visibly closer to native than 0.14.0 at both scales; the nested pane
+unchanged by eye on the GPU tier.
+
+**One floor is breached and it is the extractor's, not the material's**: `texture / holdout /
+checkerboard__glass-over-glass / 2x dark :: silhouetteIoU` 0.92707 → 0.90362 against 0.9257. The
+pane's interior level moves 0.11419 → 0.11418, its spread 0.24677 → 0.24685, the picture by 0.19 of
+a code; 2 640 of 21 290 fence-sitting pixels cross a 0.02 luminance-delta probe toward the native,
+whose own under-threshold count (17 010) is above the candidate's (16 970). The harness recovers a
+hole-free mask from the native and not from vitrea — the asymmetry a fix would go after; tracker.
+Floors come off by fix and re-pinning is the user's: **the parent recommends re-pinning this floor
+at 0.9030** with 0.9257 / 0.92707 / 0.90362 beside it and the mechanism named, because the fix is
+an instrument change that would move every silhouette row on the bed and belongs to its own wave.
+G3 lands on the user's word (re-pin, or hold the landing for the extractor fix).
+
 ## Surprises & Discoveries
 
 - **A scratch rung is not a rehearsal of a landing.** The dark difference document resolves over
@@ -657,3 +679,5 @@ wave's to fix**; this records the number and the picture and recommends neither.
   fourteen floors 1 breached against 13, every CSS group unchanged to five decimals, the goldens
   unmoved by hash. The tier gap is pinned as a number in `tier-coherence.test.ts` and chartered in
   the tracker. The one remaining floor is measured to be the extractor and is left to the user.
+- 2026-09-10: G2 CLOSED and merged (`69994ff`) at the ruled configuration. Decision Log 7 (g): one
+  floor, the extractor's, left to the user with a recommended re-pin; G3 blocked on that word.

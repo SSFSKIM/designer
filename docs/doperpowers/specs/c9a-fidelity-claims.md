@@ -15283,3 +15283,12 @@ on `checkerboard__glass-over-glass` at 2x dark the pane's level moves 0.11419 �
 0.24677 → 0.24685 while 2 640 of the 21 290 pixels within 0.005 of a 0.02 probe cross under it with
 none coming back — toward the native, whose own under-threshold count is higher than either vitrea
 column's. Left to the user to re-pin or to the next wave to fix.
+
+**Addendum to §5.123 (the parent, 2026-09-10; W26 Decision Log 7 (g)).** G2 merged at `69994ff` at the
+ruled configuration: the two constants on the GPU tier, the CSS derivation declined on twelve dom
+floors and the eye (the nested pane's inner base showing the checkerboard through it on the CSS
+candidate at both schemes), the CSS tier proven byte-identical to 0.14.0 (640 / 644, four session
+movers). Thirteen of fourteen floors held; the one breached — `texture / holdout /
+checkerboard__glass-over-glass / 2x dark :: silhouetteIoU` 0.92707 → 0.90362 (floor 0.9257) — is
+the extractor's threshold fence (the picture moves 0.19 of a code; the level 0.11419 → 0.11418)
+and is put to the user with a recommended re-pin at 0.9030. The landing waits on that word.
