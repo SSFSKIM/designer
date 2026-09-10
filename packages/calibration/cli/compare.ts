@@ -73,7 +73,6 @@
  */
 
 import { spawnSync } from "node:child_process";
-import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -89,7 +88,16 @@ import {
   type ResultMatrix,
 } from "../src/index";
 import { backdropProbeRequested, probeCanonicalOutputRefusal } from "../src/backdrop-probe";
-import { isCaptureFresh, matrixSchemaRefusal, shouldWriteMatrix } from "./gates";
+import {
+  colourlessTintEvidence,
+  isCaptureFresh,
+  matrixSchemaRefusal,
+  shouldWriteMatrix,
+  type ColourlessTintEvidence,
+  type FixtureEntry,
+  type Manifest,
+  type SceneSpec,
+} from "./gates";
 import { DEFAULT_SILHOUETTE_THRESHOLD, DEFAULT_SILHOUETTE_CHROMA_THRESHOLD, measureCell } from "./measure";
 import { declaredComponentOf, readSceneGeometry } from "./scene-geometry";
 
@@ -119,43 +127,12 @@ const FIXTURE_SETS = ["calibration", "validation", "holdout", "recorded", "probe
  */
 const DEFAULT_SETS: readonly FixtureSet[] = ["calibration", "validation"];
 
-interface SceneEntry {
-  readonly id: string;
-  readonly background: string;
-  readonly component: string;
-  readonly state: string;
-  /** A key into the matrix's `tints` registry (W3). Absent on an untinted scene. */
-  readonly tint?: string;
-}
-
-interface SceneSpec {
-  readonly scenes: readonly SceneEntry[];
-  readonly split: Readonly<Record<FixtureSet, readonly string[]>>;
-}
-
-interface FixtureEntry {
-  readonly sceneId: string;
-  readonly file: string;
-  readonly fixtureSet: FixtureSet;
-  readonly captureMethod: string;
-  readonly materialRendered: boolean;
-  readonly identicalToBackground?: boolean;
-}
-
-interface ManifestProfile {
-  readonly profileKey: string;
-  readonly colorScheme: "light" | "dark";
-  /** The System Settings state the fixtures were captured under. */
-  readonly a11yMode: string;
-  readonly display?: { readonly actualBackingScale?: number };
-  readonly fixtures: readonly FixtureEntry[];
-}
-
-interface Manifest {
-  readonly backgrounds: Readonly<Record<string, string>>;
-  readonly profiles: readonly ManifestProfile[];
-  readonly caveats: readonly string[];
-}
+// `SceneEntry`, `SceneSpec`, `FixtureEntry`, `ManifestProfile`, `Manifest` and
+// `ColourlessTintEvidence` live in `./gates` beside `colourlessTintEvidence`
+// itself, which needs them and is imported from there for the same reason every
+// other pure predicate in this file is (see that module's header). Only the
+// names this file uses directly (`SceneSpec`, `FixtureEntry`, `Manifest`,
+// `ColourlessTintEvidence`) are imported; the rest are structural.
 
 function readJson<T>(path: string): T {
   if (!existsSync(path)) {
@@ -230,76 +207,6 @@ function webAccessibilityVariant(a11yMode: string, mode: WebAccessibilityMode): 
   const chosen = webAccessibilityFlags(a11yMode, mode);
   const asCaptured = webAccessibilityFlags(a11yMode, "as-captured");
   return String(chosen) === String(asCaptured) ? "" : `__web-${mode}`;
-}
-
-// ---------------------------------------------------------------------------
-// The tint axis: admitted only by a bed that demonstrably carried colour
-// ---------------------------------------------------------------------------
-
-/**
- * Evidence that this bed's capture session did not carry the author tint's
- * COLOUR into the material — or `undefined` when it did.
- *
- * The test is byte-identity and nothing else, which is what makes it
- * unarguable: two scenes that share a background, a component and a state and
- * differ only in *which* tint they declare cannot render to the same bytes if
- * the seed reached the material. `systemOrange` and `systemBlue` are not the
- * same colour. When they produce the same file, the seed was dropped somewhere
- * between the registry and the composite, and every number measured over a
- * tinted fixture is a measurement of the UNTINTED material wearing a tinted
- * scene id — the exact failure the tint plan's "refuse rather than guess" rule
- * at the harness's own load step was written to prevent, one level deeper.
- *
- * **Why one duplicate condemns the whole tint axis rather than the pair.** A
- * manifest is written by one binary in one capture session. A tint path that
- * dropped the seed for `photo__capsule-button__rest-tint-blue` dropped it for
- * every other tinted scene in that same session too; the pairs are merely where
- * the drop is *visible*, because they are the only places the bed declares two
- * seeds over one scene. Admitting `light-solid__capsule-button__rest-tint-orange`
- * on the grounds that nothing contradicts it would be filing the untinted
- * material under a tinted key with no duplicate left to expose it.
- *
- * No threshold and no colour model on purpose. A chroma-response floor would be
- * a number that a bed could meet by accident, and this question does not need
- * one to be answered.
- */
-interface ColourlessTintEvidence {
-  readonly profileKey: string;
-  readonly scenes: readonly [string, string];
-}
-
-function colourlessTintEvidence(
-  spec: SceneSpec,
-  manifest: Manifest,
-): ColourlessTintEvidence | undefined {
-  const sceneById = new Map(spec.scenes.map((scene) => [scene.id, scene]));
-  const digest = (file: string): string =>
-    createHash("sha256").update(readFileSync(resolve(FIXTURES, file))).digest("hex");
-
-  for (const profile of manifest.profiles) {
-    // Grouped by everything a tint is orthogonal to, so the only difference
-    // left inside a group is the declared seed.
-    const groups = new Map<string, FixtureEntry[]>();
-    for (const fixture of profile.fixtures) {
-      const scene = sceneById.get(fixture.sceneId);
-      if (scene?.tint === undefined) continue;
-      const base = `${scene.background}|${scene.component}|${scene.state}`;
-      groups.set(base, [...(groups.get(base) ?? []), fixture]);
-    }
-    for (const group of groups.values()) {
-      if (group.length < 2) continue;
-      const byDigest = new Map<string, string>();
-      for (const fixture of group) {
-        const hash = digest(fixture.file);
-        const twin = byDigest.get(hash);
-        if (twin !== undefined) {
-          return { profileKey: profile.profileKey, scenes: [twin, fixture.sceneId] };
-        }
-        byDigest.set(hash, fixture.sceneId);
-      }
-    }
-  }
-  return undefined;
 }
 
 /**
@@ -673,7 +580,7 @@ function main(): void {
 
   const colourlessTints = options.allowColourlessTints
     ? undefined
-    : colourlessTintEvidence(spec, manifest);
+    : colourlessTintEvidence(spec, manifest, FIXTURES);
 
   const planned = plan(spec, manifest, options, colourlessTints);
   if (planned.length === 0) {

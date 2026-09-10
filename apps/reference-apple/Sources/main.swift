@@ -46,6 +46,34 @@ func loadSpec() -> SceneSpecFile {
   catch { fail("cannot load \(path): \(error.localizedDescription)") }
 }
 
+/// The preflight `capture` and `dump-layers` both run before either does
+/// anything a refusal would need to undo — writing a fixture, presenting a
+/// window, activating the app. `ids` is every scene id this invocation would
+/// actually attempt.
+///
+/// `SceneSpecFile.scenesUnsupportedForFreshCapture` is the pure check; this is
+/// just where its answer becomes a refusal, worded once so both call sites say
+/// the same thing about the same limitation.
+func refuseUnsupportedInactiveScenes(_ ids: some Sequence<String>, in spec: SceneSpecFile, remediation: String) {
+  let unsupported = spec.scenesUnsupportedForFreshCapture(ids)
+  guard !unsupported.isEmpty else { return }
+  fail("""
+    \(unsupported.count) of the requested scenes declare a state this harness \
+    cannot freshly reproduce: \(unsupported.joined(separator: ", ")).
+
+    These are the window-recede pose W27c recovered as historical reference data \
+    (claims §5.128, §5.130) from the tree before this harness's window could ever \
+    become key (973fd7e^) — not something a fresh run can capture again. \
+    Capture.present activates and key-focuses this harness's window on every \
+    path, and nothing here can ask AppKit for the opposite. W27c G2 lands \
+    vitrea's WEB runtime activation observer, not a native, capture-side \
+    deactivation control — no native path to the inactive pose is chartered \
+    yet. Fresh inactive capture is not implemented.
+
+    Nothing was captured and no window was opened. \(remediation)
+    """)
+}
+
 /// Capture scale. 1 by default because that is what this machine's display is;
 /// overridable so a Retina machine can produce the spec's canonical 2x profiles
 /// without editing anything.
@@ -1077,6 +1105,11 @@ struct Harness {
         }
         settle = parsed
       }
+      refuseUnsupportedInactiveScenes(ids, in: loadSpec(), remediation: """
+        Pass --scenes naming only scenes this harness can reproduce (the \
+        default ten-scene set is all 'rest' or 'pressed'), or point \
+        VITREA_SCENES at a spec with none of these.
+        """)
       runGUI { runDumpLayers(sceneIds: ids, outDir: out, settleSeconds: settle) }
 
     case "capture":
@@ -1115,6 +1148,20 @@ struct Harness {
         fail("--reset-glass needs --reset-interstitial <s>: a reset with no dwell is not a reset.")
       }
       options.minIdleSeconds = number("--min-idle-seconds")
+
+      // `capture` takes no --scenes: it attempts every profile whose a11y
+      // matches this machine's, exactly as `runCapture`'s own gate does below —
+      // read here without a window because `NSWorkspace`'s accessibility
+      // properties don't need one, so this can refuse before opening one.
+      let captureSpec = loadSpec()
+      let systemA11yPreflight = SystemAccessibility.current
+      let candidateIds = Set(captureSpec.profiles
+        .filter { $0.a11y == systemA11yPreflight }
+        .flatMap { captureSpec.scenes(for: $0).map(\.id) })
+      refuseUnsupportedInactiveScenes(candidateIds, in: captureSpec, remediation: """
+        Point VITREA_SCENES at a spec with no inactive scenes for this a11y \
+        mode; no native capture path to the inactive pose exists yet.
+        """)
       runGUI { runCapture(method: method, allowColourlessTints: allow, options: options) }
 
     default:

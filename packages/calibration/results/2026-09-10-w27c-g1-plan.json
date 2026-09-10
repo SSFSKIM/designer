@@ -1,0 +1,23 @@
+{
+  "gate": "W27c G1, claims §5.130",
+  "declaredBeforeSweep": "2026-09-10",
+  "instrument": "2026-09-10-w27c-g1-run.ts: hardware Chromium, fresh page, 8 stepped frames plus two presentation callbacks; final reads repeated from independent pages",
+  "target": "Historical inactive absolute pixels, recovered under state=inactive; current shipping active material is the before configuration. The historical active-to-inactive deltas are directions, not the fitting objective.",
+  "sets": "Scene-declared calibration only for fitting, validation for checking, one final frozen holdout read. Recorded pressed copies are not read. The 2x dark photo capsule rest pair is excluded.",
+  "endpointAudit": "Record historical and current active SHA and current frequency-settled majority for every used cell. Refuse a current file that is not its recorded majority; unmatched single-run endpoints remain explicitly unattested.",
+  "objective": "Minimize equal-cell mean of per-pixel full-canvas OKLab ΔE, with eroded-body Y and SD beside it to prevent the exterior from concealing body errors. Keep each profile and each scale separate in reporting.",
+  "checks": [
+    "Every profile's calibration+validation mean ΔE improves against the active-material baseline.",
+    "Standard and reduced-transparency bright rim and both outer-shadow amplitudes are zero; increased-contrast outline retained and measured.",
+    "The light-standard eroded-body checker capsule, checker rrect-md and photo rrect-md SD triple is reported separately at 1x and 2x, never a pooled target.",
+    "Author tint loses seed hue while strength remains an achromatic level change; a second field is restricted to shade retention through collapse after the one-field refutation.",
+    "No active profile document, recorded SHA, canonical matrix or renderer golden is re-recorded. Prove identity through profile pin tests and renderer isolation/golden tests."
+  ],
+  "unmeasured": [
+    "2x accessibility: no recovered fixtures exist.",
+    "Inactive capture pose is inferred, schema 2, one run per cell; not newly attested.",
+    "CSS is a derived tier, not the fitting target; its missing spatial shade and scatter degrees of freedom remain a named residual."
+  ],
+  "oneFieldRefutation": "With a constant neutral seed N and the existing shade clamped to [0,1], a fully collapsed tint has shade=1 and therefore Y=N. The 1x light dark-solid tinted capsule requires N≈0.03678 while the 1x light checker tint requires Y≈0.45128>N, impossible for a shade. Preserving the body's exact dark-solid collapse is necessary (its untinted fixture is byte-identical to the background); changing collapse to evade this changes the untinted target. The authorized second field retains the shade through collapse; it introduces no second tint colour or strength channel.",
+  "identityEncoding": "New optional fields omit their identity in resolved profiles: tintChromaScale absent=1, tintShadeCollapseRetention absent=0. The stable resolved profile fingerprints therefore stay exactly the pre-gate values."
+}

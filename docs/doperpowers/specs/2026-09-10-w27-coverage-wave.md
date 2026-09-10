@@ -108,7 +108,8 @@ into the ledger rather than chartered.
   two deliberate tripwire tests]. It takes the colour-scheme seam: an observer with a
   read-and-subscribe shape (`window` focus/blur plus `document.hasFocus()` through the supplied
   `view`; not `visibilitychange`, which stays `visible` for an unfocused window), a
-  `recededMaterialProfile` difference document beside `dark-profile.ts`, `applyMaterialProfile` as
+  `recededMaterialProfile` difference document indexed by the resolved colour scheme beside
+  `dark-profile.ts`, `applyMaterialProfile` as
   the one path, a `windowActivation: "auto" | "active" | "inactive"` option on the root and prop on
   `<GlassRoot>`. Two frozen endpoint documents, never a blended profile: the cell key embeds the
   profile SHA, so a blend is not a measurable configuration; the transit is the CSS tier's armed
@@ -239,7 +240,9 @@ into the ledger rather than chartered.
 - **Design inheritance:** §Where each feature lives (activation as a root pose) [binding];
   the four-facet reading and the `dark-profile.ts` template (advisory).
 - **Required:** yes — acceptance 1, 3.
-- **Status:** not-dispatched (G0 dispatchable now).
+- **Status:** G0 closed; G1 fitted and declared 2026-09-10 (claims §5.130), ready for parent
+  review. The corrected 30-cell holdout is spent; photo chroma, mid-dark response and far-span
+  scatter remain explicit gaps, so G1 does not establish G3's inactive floors. G2/G3 pending.
 
 ### W27d: Identity and materialize — controlled
 
@@ -415,7 +418,7 @@ neighbour glow diffusion; topology-changing morphs.
 | --- | --- | --- |
 | W27a | LANDED 2026-09-10 (merged `bc14af9`; seven commits plus three review fixes): `GlassButton`/`GlassIconButton` forward `tint` and `foreground` (the README's flagship tint example had not compiled); `GlassGroup` gains the `tint` the 0.2.0 changelog promised, parsed per document; the no-hint ink guards removed on both tiers with five assertions re-pinned stricter (tracker entry closed in place); the renderer's `lensStrength` clamp at 1 lifted to a finite guard of 4 with NaN resolving to the idle 1 (goldens 33/33 unmoved); four named ink levels published on both tiers, secondary solved per surface against the actual composite colour over the whole bracket (Decision Log 9). Review: two P1s on the ink floor (chromatic tint, unresolved level) fixed with fail-before tests measuring the real contrast; two P2s (adopted stylesheets, Infinity in the Float32Array) fixed. Two gaps logged, not closed: the dark scheme's primary ink at WCAG 4.945 with nothing watching it; `lensDepthPx` ignoring `lensStrength`. Main after merge: build, lint, all unit suites green (2004 tests), demo e2e 48 | landed |
 | W27b | worktree agent, dispatched 2026-09-10 after W27a's merge; 14 commits `bc14af9..b59a585` | CLOSED 2026-09-10 (one `role="toolbar"`, N groups; `GlassToolbarSpacer` and `sharedBackground="hidden"` as one partition rule; the gap derived through `samplingPaddingFor` over every group the toolbar registers, not the row's own props; the playground's hand split rewritten on the API; goldens and the resting bed unmoved. Review: two defects fixed before the head — the gap read only the toolbar's own material, then the first fix folded the toolbar's props in as a floor — final head reviewed correct. At the head: 2028 unit tests, platform-web 388, react e2e 114 on three engines, demo e2e 48) |
-| W27c | G0 CLOSED 2026-09-10 (merged `7312fd0`; claims §5.128: all 121 pairs read; the outer shadow and the bright rim go to zero in every profile at both scales, structure retained falls, an author tint loses its hue entirely while its darkening stays — orange and blue capsules both settle at Y 0.451 against the untinted 0.606 — and no existing field expresses that; dark untinted glass and both accessibility bodies *brighten*; four cells background-identical; the 2x dark photo capsule's active side is the 1-of-17 minority state and is excluded from the fit) / G1 dispatched 2026-09-10 | G1 in-flight |
+| W27c | G0 CLOSED 2026-09-10 (merged `7312fd0`; claims §5.128: all 121 pairs read; the outer shadow and the bright rim go to zero in every profile at both scales, structure retained falls, an author tint loses its hue entirely while its darkening stays — orange and blue capsules both settle at Y 0.451 against the untinted 0.606 — and no existing field expresses that; dark untinted glass and both accessibility bodies *brighten*; four cells background-identical; the 2x dark photo capsule's active side is the 1-of-17 minority state and is excluded from the fit) / G1 declared 2026-09-10, claims §5.130: scheme-indexed endpoint, two identity-default tint fields, 121 recovered fixtures, corrected 62-cell fit and 16-cell validation, one 30-cell holdout spent; all four review findings fixed | G1 ready for parent review; holdout residuals explicit, no inactive floors adopted |
 | W27d | worktree agent, dispatched 2026-09-10 after W27a's merge (claims §5.132 reserved) | in-flight |
 | W27e | — | not-dispatched (deliberately late) |
 | W27f | G0 CLOSED 2026-09-10 (merged `730a9d3`; claims §5.129: the unhinted dark capsule misses the collapse by ΔE 0.545 against the sampled path's 0.006, a correct scalar hint repairs it but the dark medium pane still misses by 0.079 (−0.089 L against the same-hint sampled path), the checkerboard rows lose spread and the photo rows keep too much; a scalar hint itself costs the sampled path its structured-backdrop correction, so the evidence keeps sampled-today, same-hint-sampled and hinted-page columns apart; the two stack overlays are the only native cells on this path; the demo gains `/#page`, "Over ordinary page content") / G1 CLOSED on isolated branch 2026-09-10 (claims §5.131: profile-at-known-tone derivation, scalar CPU/GPU law proof, unchanged sampled-source draws; 20 ordinary scenes plus both stacks in light/dark, full holdout spent at `1fff5e6`; thick-body repair with unknown-tone paint, structured spread/colour and dark-overlay regressions retained) | G2 pending; no bound adopted |
@@ -477,6 +480,18 @@ neighbour glow diffusion; topology-changing morphs.
    narrowing the guarantee to "where the level resolves" (the bracket needs no backdrop, so the
    guarantee was available on every shipped path); a constant alpha (no constant holds 4.5 across
    the material's range without ceasing to be a secondary).
+10. **The inactive endpoint needs shade through collapse and a difference per scheme (2026-09-10;
+    W27c G1, approved by the parent after the one-field refutation).** Chroma suppression alone
+    leaves the old shade at 1 on a collapsed body: no constant neutral seed can give both the
+    1x light dark-solid tinted capsule's 0.03678 Y and the checkerboard tint's 0.45128 Y under a
+    shade clamped below that seed. A second identity-default field retains the shade through
+    collapse. The endpoint is indexed by resolved scheme so its light and dark response
+    ordinates can be fitted independently; X7 still means two fixed endpoints per scheme, never
+    a blended profile. The fit is claims §5.130. Rejected: discarding author tint strength;
+    breaking the untinted dark-solid collapse to make tint fit; forcing a flat common patch to
+    compromise opposite scheme responses. The historical-only native capture boundary is guarded
+    in G1: refuse an inactive capture request before writing rather than file active pixels under
+    an inactive id; fresh native deactivation requires a separate capture-path charter.
 
 ## Surprises & Discoveries
 
@@ -556,6 +571,33 @@ linear/encoded means and local pixels, not a fabricated interpretation of `hint.
 G1 records every per-scene miss; G2 alone adopts a native stack bound and re-reads the demo.
 
 ## Revision Notes
+
+- 2026-09-10, **W27c G1 fitted and declared, pending parent review** (claims §5.130).
+  The 121 inactive fixtures are recovered additively with source hashes, schema-2/single-run
+  provenance and inferred pose. `recededMaterialProfile.light/.dark` supplies two fixed endpoints
+  per resolved scheme; the new identity-default `tintChromaScale` and
+  `tintShadeCollapseRetention` express author-hue extinction without deleting its strength or
+  forcing a collapsed white layer. GPU and CSS derive the same seed/shade law.
+  - **The first fit is invalidated, not erased.** Independent review caught an 800×600 viewport
+    around the 320×200 scene and ignored page problems. The old numbers remain beside an explicit
+    invalidation. A corrected instrument now refuses geometry/scale/problem mismatches, records
+    them, restarts from an active-body seed and fits only 62 calibration rows. The selected
+    endpoint is checked on 16 validation rows; all 78 repeat twice and remain byte-identical after
+    integrating main through 38d782c. Three further review findings — inactive tint-guard poisoning,
+    demo picker leakage and missing JSON profile keys — are fixed and independently rechecked.
+  - **The holdout is spent, and limits matter.** Thirty cells read once on the new frozen document,
+    with no subsequent fit. Full-canvas holdout mean OKLab ΔE: light 1x/2x 0.013353/0.013027,
+    dark 1x/2x 0.022645/0.022298, light 1x IC/RT 0.005182/0.003171. Large photo surfaces expose
+    desaturation, full-strength neutral tint loses native background colour, the dark mid-dark
+    response is too bright, and far-span checker structure remains too strong. These are future
+    transfer/scatter work with a newly declared experiment and unspent check bed, not silently
+    accepted matches or G3 floors. Calibration/validation means improve in every profile.
+  - **Unmoved and bounded.** Active resolved SHA pins and all 34 renderer golden/isolation tests
+    pass without re-recording; workspace build/lint and 2,060 unit tests pass after integration.
+    G1 takes the permitted isolation proof, leaving the active from-empty matrix rebuild to G3.
+    The canonical matrix is untouched. Native fresh inactive capture is still absent and now
+    refuses before GUI/output; G2 is web activation wiring, not a promise of native deactivation.
+    G3 inherits runtime capture integration, floor decisions and the user's eye on the pairs.
 
 - 2026-09-10, **W27b CLOSED**. `GlassToolbar` partitions its children into sampling groups at
   each `GlassToolbarSpacer` and at each item declaring `sharedBackground="hidden"`; one

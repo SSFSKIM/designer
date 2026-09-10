@@ -1409,6 +1409,12 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
    * rounds to `Rgb255`, worth 2.85e−3 of linear luminance in the identity — the
    * same quantum `rgba(L, s)` carried in the same measure, so nothing is spent
    * that the previous form was not already spending.
+   *
+   * W27c's inactive endpoint arrives through the same `authorLayer`: optics.ts
+   * neutralizes the seed before shading it, and root.ts retains that shade
+   * through collapse when the profile requests it. This fold still preserves
+   * author strength. Its one uniform colour cannot follow the WebGPU shade's
+   * per-pixel body luminance; that spatial residual is recorded in claims §5.130.
    */
   const floorOptics = surface.untintedOptics ?? optics;
   const transfer =

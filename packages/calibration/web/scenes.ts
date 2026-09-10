@@ -37,6 +37,7 @@ export interface SceneEntry {
   readonly background: string;
   readonly component: string;
   readonly state: string;
+  readonly interaction?: "pressed";
   /** A key into the matrix's `tints` registry. Absent on every untinted scene. */
   readonly tint?: string;
 }
@@ -99,6 +100,8 @@ export interface PlacedScene {
   readonly canvas: CanvasSize;
   readonly backgroundId: string;
   readonly pressed: boolean;
+  /** Window activation is independent of the surface's interaction. */
+  readonly inactive: boolean;
   /**
    * The scene's author tint as a CSS colour, or absent for an untinted scene.
    *
@@ -184,7 +187,8 @@ export function resolveScene(sceneId: string, backdropMode: GroupSource = "textu
     scene,
     canvas,
     backgroundId: scene.background,
-    pressed: scene.state === "pressed",
+    pressed: scene.state === "pressed" || scene.interaction === "pressed",
+    inactive: scene.state === "inactive",
     ...(tint === undefined ? {} : { tint }),
   } as const;
 

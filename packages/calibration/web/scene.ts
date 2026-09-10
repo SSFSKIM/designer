@@ -51,6 +51,8 @@ import { DEFAULT_MOTION_PROFILE } from "@vitrea/motion";
 import {
   GLASS_CHANNEL_PROPERTIES,
   createGlassRoot,
+  mergeMaterialProfiles,
+  recededMaterialProfile,
   type DomMaterialReference,
   type CssTierMapping,
   type GlassHostHandle,
@@ -269,6 +271,8 @@ declare global {
      * defaults, which is what an uncalibrated capture must be.
      */
     __vitreaMaterialProfile?: RendererMaterialProfile;
+    /** Scratch fitting override. Absence selects the declared inactive endpoint. */
+    __vitreaRecededMaterialProfile?: RendererMaterialProfile;
     /**
      * The CSS tier's half of the same document, injected the same way. Absent
      * means the shipped mapping, which is what an untuned dom-tier capture must
@@ -531,7 +535,13 @@ async function build(): Promise<SceneReport> {
   // Forwarded, never interpreted: the page has no opinion about an optical
   // number, and reading one here to "check" it would put a second copy of the
   // material's constants in the harness.
-  const materialProfile = window.__vitreaMaterialProfile;
+  // G1's measurement seam. G3 replaces this merge with the runtime root pose;
+  // the active document and its cell-key SHA remain the active endpoint (X7).
+  const materialProfile = placed.inactive
+    ? mergeMaterialProfiles(window.__vitreaMaterialProfile,
+        window.__vitreaRecededMaterialProfile ?? recededMaterialProfile[
+          window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"])
+    : window.__vitreaMaterialProfile;
   const cssTierMapping = window.__vitreaCssTierMapping;
   const accessibilityOverrides = window.__vitreaAccessibilityOverrides;
   const root = createGlassRoot({

@@ -1,0 +1,292 @@
+{
+  "declaration": "2026-09-10-w27c-g1-corrected-declaration.json",
+  "definitions": {
+    "deltaE": "Full-canvas mean per-pixel OKLab distance, canonical oklabDeltaE",
+    "body": "Declared union eroded 6 CSS px, linear Rec.709 Y, population SD",
+    "bodyDeltaE": "Mean per-pixel OKLab distance over the same eroded body",
+    "scale": "Device pixels per CSS px; accessibility evidence is 1x only",
+    "geometry": "How the page was actually framed, read back per row: the viewport is the declared matrix canvas, and a row exists only where the page reported no problems and agreed with the declaration on canvas, requested scale and devicePixelRatio"
+  },
+  "sources": [
+    {
+      "path": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-ab89571d24efc500e/packages/calibration/results/2026-09-10-w27c-g1-corrected/baseline.json",
+      "sha256": "33d071858eef2e1c7e706c3c858fd06fd08882262564b748fc81a15916e50313"
+    },
+    {
+      "path": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-ab89571d24efc500e/packages/calibration/results/2026-09-10-w27c-g1-corrected/checked.json",
+      "sha256": "7c47310c9bded42114acf54c10d042440c47ff6d74b3672eedda3863ec72a3ec"
+    },
+    {
+      "path": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-ab89571d24efc500e/packages/calibration/results/2026-09-10-w27c-g1-corrected/holdout.json",
+      "sha256": "d6d31aea97c2bc39754a7f96d9bdaac9e5fdddc47f823984e6b2a5d78ea32415"
+    }
+  ],
+  "tables": [
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scale": 1,
+      "set": "calibration",
+      "n": 9,
+      "activeBaselineMeanDeltaE": 0.01597220800779241,
+      "inactiveMeanDeltaE": 0.002890563232902467,
+      "inactiveMaxCellMeanDeltaE": 0.014143456424489788,
+      "inactiveMeanBodyDeltaE": 0.0192608998835427
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scale": 1,
+      "set": "holdout",
+      "n": 3,
+      "activeBaselineMeanDeltaE": null,
+      "inactiveMeanDeltaE": 0.02264504424818636,
+      "inactiveMaxCellMeanDeltaE": 0.047630191489818924,
+      "inactiveMeanBodyDeltaE": 0.06690920681474961
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scale": 1,
+      "set": "validation",
+      "n": 1,
+      "activeBaselineMeanDeltaE": 0.0027988018005225164,
+      "inactiveMeanDeltaE": 0.002542889524935436,
+      "inactiveMaxCellMeanDeltaE": 0.002542889524935436,
+      "inactiveMeanBodyDeltaE": 0.03346582343301582
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scale": 1,
+      "set": "calibration",
+      "n": 6,
+      "activeBaselineMeanDeltaE": 0.013712817619153508,
+      "inactiveMeanDeltaE": 0.002487125675895334,
+      "inactiveMaxCellMeanDeltaE": 0.0034545328754011567,
+      "inactiveMeanBodyDeltaE": 0.005217589984706145
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scale": 1,
+      "set": "holdout",
+      "n": 2,
+      "activeBaselineMeanDeltaE": null,
+      "inactiveMeanDeltaE": 0.005181767266433378,
+      "inactiveMaxCellMeanDeltaE": 0.008637820876764695,
+      "inactiveMeanBodyDeltaE": 0.00636824808620701
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scale": 1,
+      "set": "validation",
+      "n": 1,
+      "activeBaselineMeanDeltaE": 0.008716726311509304,
+      "inactiveMeanDeltaE": 0.0023939003936340603,
+      "inactiveMaxCellMeanDeltaE": 0.0023939003936340603,
+      "inactiveMeanBodyDeltaE": 0.0077156990266654835
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "scale": 1,
+      "set": "calibration",
+      "n": 5,
+      "activeBaselineMeanDeltaE": 0.007658824267593711,
+      "inactiveMeanDeltaE": 0.0012558941004375526,
+      "inactiveMaxCellMeanDeltaE": 0.00207310354713666,
+      "inactiveMeanBodyDeltaE": 0.00807343934696675
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "scale": 1,
+      "set": "holdout",
+      "n": 2,
+      "activeBaselineMeanDeltaE": null,
+      "inactiveMeanDeltaE": 0.0031707174761437433,
+      "inactiveMaxCellMeanDeltaE": 0.005667181819245498,
+      "inactiveMeanBodyDeltaE": 0.008161142297292838
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "scale": 1,
+      "set": "validation",
+      "n": 1,
+      "activeBaselineMeanDeltaE": 0.0041005383420588465,
+      "inactiveMeanDeltaE": 0.000882702686379292,
+      "inactiveMaxCellMeanDeltaE": 0.000882702686379292,
+      "inactiveMeanBodyDeltaE": 0.010442034105009414
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scale": 1,
+      "set": "calibration",
+      "n": 17,
+      "activeBaselineMeanDeltaE": 0.013968922538875921,
+      "inactiveMeanDeltaE": 0.001795873689841687,
+      "inactiveMaxCellMeanDeltaE": 0.011345934653862487,
+      "inactiveMeanBodyDeltaE": 0.015112425827926816
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scale": 1,
+      "set": "holdout",
+      "n": 10,
+      "activeBaselineMeanDeltaE": null,
+      "inactiveMeanDeltaE": 0.013353173467853757,
+      "inactiveMaxCellMeanDeltaE": 0.048488185683742475,
+      "inactiveMeanBodyDeltaE": 0.026274374125535006
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scale": 1,
+      "set": "validation",
+      "n": 6,
+      "activeBaselineMeanDeltaE": 0.01512035899146559,
+      "inactiveMeanDeltaE": 0.004550369230619613,
+      "inactiveMaxCellMeanDeltaE": 0.013426502934236546,
+      "inactiveMeanBodyDeltaE": 0.03102420061424938
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scale": 2,
+      "set": "calibration",
+      "n": 8,
+      "activeBaselineMeanDeltaE": 0.01710687659787653,
+      "inactiveMeanDeltaE": 0.0028985637769687266,
+      "inactiveMaxCellMeanDeltaE": 0.013732834082045425,
+      "inactiveMeanBodyDeltaE": 0.01857253878126091
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scale": 2,
+      "set": "holdout",
+      "n": 3,
+      "activeBaselineMeanDeltaE": null,
+      "inactiveMeanDeltaE": 0.022297677212935223,
+      "inactiveMaxCellMeanDeltaE": 0.04628765691365089,
+      "inactiveMeanBodyDeltaE": 0.06684424350592388
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scale": 2,
+      "set": "validation",
+      "n": 1,
+      "activeBaselineMeanDeltaE": 0.0032213699114510726,
+      "inactiveMeanDeltaE": 0.003126688087918918,
+      "inactiveMaxCellMeanDeltaE": 0.003126688087918918,
+      "inactiveMeanBodyDeltaE": 0.04043364566383079
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scale": 2,
+      "set": "calibration",
+      "n": 17,
+      "activeBaselineMeanDeltaE": 0.014050844366317886,
+      "inactiveMeanDeltaE": 0.0018393725616084049,
+      "inactiveMaxCellMeanDeltaE": 0.011210308402377139,
+      "inactiveMeanBodyDeltaE": 0.016663403767297722
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scale": 2,
+      "set": "holdout",
+      "n": 10,
+      "activeBaselineMeanDeltaE": null,
+      "inactiveMeanDeltaE": 0.013027081099936439,
+      "inactiveMaxCellMeanDeltaE": 0.0482942753280908,
+      "inactiveMeanBodyDeltaE": 0.02690786300818867
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scale": 2,
+      "set": "validation",
+      "n": 6,
+      "activeBaselineMeanDeltaE": 0.015170112687470242,
+      "inactiveMeanDeltaE": 0.004688147205978178,
+      "inactiveMaxCellMeanDeltaE": 0.013356641638429515,
+      "inactiveMeanBodyDeltaE": 0.033093751831932985
+    }
+  ],
+  "lightStandardBodyTriples": [
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scale": 1,
+      "scene": "checkerboard__capsule-button__inactive",
+      "body": {
+        "n": 3244,
+        "webY": 0.6194179645361381,
+        "nativeY": 0.6085353369499223,
+        "webSD": 0.10070073761446881,
+        "nativeSD": 0.10027138452950322,
+        "deltaE": 0.006829614931197907
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scale": 1,
+      "scene": "checkerboard__rrect-md__inactive",
+      "body": {
+        "n": 12264,
+        "webY": 0.6366702541571646,
+        "nativeY": 0.6415819358552268,
+        "webSD": 0.06073161804709652,
+        "nativeSD": 0.0638726860027284,
+        "deltaE": 0.0059330879928091934
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scale": 1,
+      "scene": "photo__rrect-md__inactive",
+      "body": {
+        "n": 12264,
+        "webY": 0.5975792696028823,
+        "nativeY": 0.6284209423405968,
+        "webSD": 0.04656726053575508,
+        "nativeSD": 0.05257561561295419,
+        "deltaE": 0.04771317146221961
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scale": 2,
+      "scene": "checkerboard__capsule-button__inactive",
+      "body": {
+        "n": 12956,
+        "webY": 0.6258901260702245,
+        "nativeY": 0.6100102482077946,
+        "webSD": 0.12192218826101615,
+        "nativeSD": 0.11476271154505978,
+        "deltaE": 0.016425663559910448
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scale": 2,
+      "scene": "checkerboard__rrect-md__inactive",
+      "body": {
+        "n": 49064,
+        "webY": 0.6423333499776629,
+        "nativeY": 0.6404172770197731,
+        "webSD": 0.033511051481264945,
+        "nativeSD": 0.030890328125246818,
+        "deltaE": 0.0039755236719895394
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scale": 2,
+      "scene": "photo__rrect-md__inactive",
+      "body": {
+        "n": 49064,
+        "webY": 0.5979262697719014,
+        "nativeY": 0.6281435858089783,
+        "webSD": 0.04735809212582081,
+        "nativeSD": 0.05127707371151518,
+        "deltaE": 0.04721363379357379
+      }
+    }
+  ],
+  "holdout": {
+    "status": "spent",
+    "rows": 30,
+    "baseline": "Not separately captured on holdout; no before-value invented.",
+    "selection": "No refit follows the frozen holdout reading."
+  }
+}
