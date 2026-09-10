@@ -1288,6 +1288,37 @@ const NO_SHAPE_AXIS_SCENES: Readonly<
  *   0.00235). Two calibration cells leave the shape gate meeting every row it
  *   would have asked of them; that is coverage lost to the extractor's
  *   topology, recorded here rather than recovered by touching the predicate.
+ *
+ * W26 G2 (claims §5.123; W26 Decision Log 7) — **31 → 32 at the candidate, one
+ * joins and none leaves**, and unlike the four above this one is a fidelity
+ * signal rather than an artefact of an extractor. **The entry is described here
+ * and NOT yet in the list**, because this list is read against the COMMITTED
+ * `results/matrix.json`, which is still the 0.14.0 bed: adding it now would make
+ * the file disagree with the only matrix CI has. Re-deriving it belongs to the
+ * canonical rebuild, as it did at W25 G3 → G4, and the cell and its mechanism are
+ * written down here so that the rebuild has to reproduce a stated reading rather
+ * than discover one.
+ *
+ * - **`dom / calibration / checkerboard__capsule-button__rest /
+ *   apple-macos-26.5-1x-light-reduced-transparency` — JOINS on the HOLES arm.**
+ *   `silhouetteHolesWeb` goes **0 → 6** with the native's still 0, the web
+ *   silhouette's area 4 856 → 4 541 px² of a native 4 872, IoU 0.99672 → 0.93206
+ *   and the contour's max distance 1 → 6 px. The mechanism is one number: this
+ *   wave gives the CSS tier the profile's own heavy width, 9 device px, in place
+ *   of `blurSigma × gain` through the mip chain's effective ratio — and under
+ *   `frost: "increased"` the old form was multiplied by the frost as well, so on
+ *   THIS profile the heavy layer goes 24.15 → 9.000 CSS px. Less blur leaves more
+ *   of the checkerboard's own structure inside the surface, and the extractor's
+ *   luminance threshold reads six of its dark squares as holes.
+ *   **The two tiers agree for the first time here, which is why the reading
+ *   moved.** At dpr 1 `scatterLod` was clamped at `chainMaxLod` before this wave
+ *   (claims §5.116 §2), so the frost could not widen the GPU tier's heavy tap at
+ *   all — it drew 13.418 device px frosted or not — while the mirror drew 24.15.
+ *   W26 makes both draw 9, and the accessibility fold now reaches the SHARP
+ *   component alone on both tiers. Whether the fold should reach the heavy width
+ *   is a material question this wave did not declare and did not fit; it is
+ *   recorded in the wave's Decision Log and in the tracker with this cell as its
+ *   evidence, and the exclusion is what the machine reads meanwhile.
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",

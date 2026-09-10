@@ -152,6 +152,8 @@ import {
   scatterGainAt as rendererScatterGainAt,
   scatterGainAtScale as rendererScatterGainAtScale,
   scatterGainFarAtScale as rendererScatterGainFarAtScale,
+  // W26's heavy width, imported to pin the tier GAP rather than a tier agreement.
+  heavyTapSigmaAtScale as rendererHeavyTapSigmaAtScale,
   scatterRampAreaMean as rendererScatterRampAreaMean,
   scatterRampReachDevicePx as rendererScatterRampReachDevicePx,
   scatterRampStart as rendererScatterRampStart,
@@ -1052,6 +1054,17 @@ describe("tier coherence (K5)", () => {
    * sweep retired above: it constrains the two components rather than their
    * average, which is exactly the difference the wave landed.
    *
+   * **Statement 2 stopped being true of the HEAVY component at W26, by decision**
+   * (W26 Decision Log 7 (f); claims §5.123 §9). That wave gave the renderer's
+   * heavy component a width of its own and left this tier deriving one from the
+   * gain constants, which the renderer no longer reads — so the two tiers' heavy
+   * widths are now different numbers, and this case pins each against its own law
+   * plus the SIZE of the gap between them. The alternative was measured and
+   * rejected: drawing the renderer's width here put twelve of the fourteen thick
+   * regression floors under against one without it. `heavyTierGap` below is the
+   * residual as a number, so that a wave which closes it has to move this file and
+   * a wave which widens it cannot do so quietly.
+   *
    * Four statements, and each one is a way the tiers could silently part:
    *
    *  1. **L1 is the profile's σ as a DEVICE-pixel width.** `sharpσ · dpr` is the
@@ -1174,6 +1187,52 @@ describe("tier coherence (K5)", () => {
     // And it really reaches the width the tier writes: the 1x heavy component is
     // the profile's 10 device px carried to 13.8 by the conversion.
     expect(cssTierHeavySigmaCssPx(1.25, 96, MATERIAL_SOURCE_SIZE, 1)).toBeCloseTo(13.8, 12);
+  });
+
+  /**
+   * **The heavy component's tier gap, as a number** (W26 G2b; Decision Log 7 (f);
+   * claims §5.123 §9) — the one quantity in this file that pins a DISAGREEMENT
+   * rather than an agreement, and it is here for exactly that reason.
+   *
+   * Every other case above says the two tiers resolve one law to one number. This
+   * one says they do not, on the heavy component, and says by how much. W26 landed
+   * `sizeHeavyTapSigma` on the renderer — 9 device px at both scales, the width
+   * Apple's own heavy component has on the instrument of record — and left this
+   * tier on `blurSigma × scatterGainAt × effectiveRatio`, because taking the
+   * renderer's width here cost twelve of the fourteen thick regression floors
+   * against one without it and showed a checkerboard through a dark nested pane
+   * the reference draws opaque.
+   *
+   * A residual that is only prose gets lost. This is the residual as an assertion:
+   * it fails if the renderer's width moves, if this tier's derivation moves, or if
+   * either tier's heavy width is quietly re-pointed at the other's — which is what
+   * the wave that closes this gap will have to do deliberately.
+   */
+  it("records the heavy component's tier gap, which W26 left open by decision", () => {
+    const base = DEFAULT_MATERIAL_PROFILE.optics.regular.blurSigma;
+    // The renderer's heavy component is a Gaussian of the profile's own constant,
+    // flat in the span because the texture is one per SOURCE.
+    for (const dpr of [1, 1.5, 2, 3]) {
+      expect(rendererHeavyTapSigmaAtScale(DEFAULT_MATERIAL_PROFILE, dpr), `dpr ${dpr}`)
+        .toBeCloseTo(9, 12);
+    }
+    // This tier's is the gain's multiple of the sharp width, and it still grades
+    // with the span at dpr 2 — which the renderer's, since W26, does not.
+    const gap = (dpr: number, span: number): readonly [number, number] => [
+      cssTierHeavySigmaCssPx(base, span, MATERIAL_SOURCE_SIZE, dpr) * dpr,
+      rendererHeavyTapSigmaAtScale(DEFAULT_MATERIAL_PROFILE, dpr),
+    ];
+    expect(gap(1, 96)).toEqual([expect.closeTo(13.8, 10), expect.closeTo(9, 10)]);
+    expect(gap(1, 160)).toEqual([expect.closeTo(13.8, 10), expect.closeTo(9, 10)]);
+    expect(gap(2, 96)).toEqual([expect.closeTo(8.91, 10), expect.closeTo(9, 10)]);
+    expect(gap(2, 160)).toEqual([expect.closeTo(12.2423, 4), expect.closeTo(9, 10)]);
+    // The gap's shape, stated so a reader does not have to divide: this tier is
+    // 53 % wide at dpr 1 and 36 % wide on a 160 span at dpr 2, and it is 1 % NARROW
+    // on a 96 span at dpr 2 — which is why the one CSS floor that held under the
+    // rejected configuration was the 2x span-96 cell.
+    expect(gap(1, 96)[0] / gap(1, 96)[1]).toBeCloseTo(1.5333, 3);
+    expect(gap(2, 160)[0] / gap(2, 160)[1]).toBeCloseTo(1.3603, 3);
+    expect(gap(2, 96)[0] / gap(2, 96)[1]).toBeCloseTo(0.99, 2);
   });
 
   it("resolves one span to the same thickness, scatter and occlusion on both tiers", () => {

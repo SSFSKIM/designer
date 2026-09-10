@@ -501,7 +501,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       // above it, because the width's ON/OFF state is not a small difference in a
       // number: a tolerance around zero calls σ 1e-7 and σ 0 equal, and those two
       // are a heavy texture the pass binds and no heavy texture at all.
-      const sameHeavy = sameHeavySigma(heavySigmaCssFor(), existing.heavySigmaCss);
+      const sameHeavy = sameHeavySigma(heavySigmaCssFor(sourceId), existing.heavySigmaCss);
       if (sameDensity && sameSigma && sameHeavy) continue;
       requests.push({
         sourceId,
@@ -568,12 +568,32 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
    * once per source per frame before any group is drawn — which is the trade
    * W26 Decision Log 2 (b) took and `PyramidResources.heavy` records.
    *
-   * It reads the material rather than the variant's optics: the heavy width is
-   * one number for the material, and no variant restates it.
+   * It reads the material rather than the variant's optics for the WIDTH: the
+   * heavy width is one number for the material, and no variant restates it.
+   *
+   * **But a source with no body has no heavy component either** (W26 G2's review;
+   * Decision Log 7 (d)). The heavy sample is one component of the BODY — the two
+   * are mixed by `kScatter` and nothing else consumes it — so a material whose
+   * resolved `blurSigma` is 0 asks for no blur at all and must get none. That was
+   * free while the heavy width was a multiple of the sharp one, on this tier
+   * through `scatterLod`'s dependence on `bodyChainLod` and on the CSS tier
+   * through `blurSigma × gain`; a width named in device px inherits nothing, so
+   * both tiers state it. `cssTierHeavySigmaCssPx` carries the same rule.
+   *
+   * On the shipped accessibility path this is unreachable rather than merely
+   * unused: core couples `frost: "none"` to `glass: "none"` and the renderer then
+   * disconnects backdrop sampling entirely. What it covers is a MATERIAL that
+   * names `optics.regular.blurSigma` 0 — a supported override — which would
+   * otherwise have drawn an unblurred body with a 9 device px deep sample mixed
+   * into it here and nothing at all on the mirror.
    */
-  const heavySigmaCssFor = (): number =>
-    heavyTapSigmaAtScale(material, viewport.devicePixelRatio) /
-    Math.max(viewport.devicePixelRatio, 1e-3);
+  const heavySigmaCssFor = (sourceId: string): number => {
+    if (bodySigmaCssFor(sourceId) <= 0) return 0;
+    return (
+      heavyTapSigmaAtScale(material, viewport.devicePixelRatio) /
+      Math.max(viewport.devicePixelRatio, 1e-3)
+    );
+  };
 
   /**
    * The one tint seed this group's optics pass draws with.
@@ -674,7 +694,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           bodySigmaCss: bodySigmaCssFor(request.sourceId),
           // The heavy blur's own σ, through the same conversion (W26). At 0 the
           // pyramid allocates nothing and encodes nothing.
-          heavySigmaCss: heavySigmaCssFor(),
+          heavySigmaCss: heavySigmaCssFor(request.sourceId),
           viewportCss: [viewport.widthCss, viewport.heightCss],
           ...(isUsablePlacement(placement) ? { placement } : {}),
         },

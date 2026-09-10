@@ -1102,6 +1102,18 @@ export interface MaterialSourceSize {
    * `scatterGainAt` at the live ratio, so this grading reaches its output.
    */
   readonly sizeScatterGainFar2x: number;
+  /*
+   * **`MaterialProfile.sizeHeavyTapSigma` is deliberately NOT mirrored here**
+   * (W26 G2b; Decision Log 7 (f)). W26 gives the renderer's heavy component a
+   * width of its own — 9 device px — and makes the three gain constants above
+   * inert on THAT tier, where they now grade a chain tap the heavy texture
+   * overwrites. This tier goes on deriving its heavy layer from them, so the two
+   * tiers' heavy widths are different numbers as of this wave, and that is a
+   * recorded residual rather than an oversight: the measurement is in
+   * `cssTierHeavySigmaCssPx` and the charter to close it is in the tracker.
+   * A constant nothing on this tier reads is not carried (C9a §6.2), which is why
+   * the field is absent rather than present and unused.
+   */
   /**
    * The body's depth ramp (W13 G1, claims §5.61 §2, §5.64 §5): the sharp
    * component's share at the contour — graded from the thin anchor to the thick
@@ -2394,6 +2406,36 @@ export function cssTierSharpSigmaCssPx(sigmaDevicePx: number, devicePixelRatio =
  * px, through the span-graded gain W15 G1 landed; the effective conversion turns
  * that into the width the mip chain really draws, and the ratio turns it into
  * CSS px.
+ *
+ * ---
+ *
+ * **THIS IS NO LONGER THE WIDTH THE OTHER TIER DRAWS, and that is the recorded
+ * residual of W26** (Decision Log 7 (f), on the user's ruling; claims §5.123 §9).
+ * W26 gives the renderer's heavy component a width of its own —
+ * `MaterialProfile.sizeHeavyTapSigma`, 9 device px at both scales, fitted on the
+ * family reader against a control — and the three gain constants this function
+ * reads grade a chain tap that tier's heavy texture now overwrites, byte for byte,
+ * on every group whose source carries a pyramid. So the two tiers' heavy widths
+ * are different numbers as of this wave: **13.800 CSS px here against 9 device px
+ * there at dpr 1**, and 4.455 → 6.121 across spans 96 → 160 here against a flat
+ * 4.500 there at dpr 2.
+ *
+ * **The derivation was moved to the shared width and then moved back, on
+ * measurement.** Drawing the renderer's own width put twelve of the fourteen
+ * thick regression floors under — every CSS large-span `ssimMean` floor and the
+ * whole dark nested pane — where the same constants without it put ONE under, and
+ * by eye the 1x dark nested pane showed the checkerboard straight through the
+ * inner pane where neither the native capture nor the GPU candidate does. The
+ * evidence for both configurations is `results/2026-09-10-w26-heavy-width/g2/`
+ * (`floors.txt` against `floors-gpuonly.txt`); the ruling was the user's.
+ *
+ * **What that leaves is a real gap to macOS and it is chartered, not hidden.**
+ * This tier's heavy layer is now derived from constants no measurement of the
+ * reference's kernel supports any more — they were fitted as a gain on a mip level
+ * and the mip level is gone from the tier they were fitted against. Closing it is
+ * a CSS-tier wave: the question it has to answer is why a two-layer body at the
+ * CORRECT component widths loses structure that the mip-tap projection kept, and
+ * the suspects are named in `specs/tech-debt-tracker.md`.
  */
 export function cssTierHeavySigmaCssPx(
   sigmaDevicePx: number,

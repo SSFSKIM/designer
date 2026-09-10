@@ -1,0 +1,79 @@
+W25 G3 — S11's angular family, S12, S13 and S14, read with numbers
+================================================================================================================
+
+=== S11 (angular) — W24's per-bin rim reads on every untinted solid row (bound 0.005) ===
+  profile                                        scene                                    tier   bin      before     after         Δ
+  apple-macos-26.5-1x-light-standard             dark-solid__rrect-md__rest               css        1   0.06199   0.05252  -0.00947
+  apple-macos-26.5-1x-light-standard             dark-solid__rrect-md__rest               css        2   0.06171   0.03662  -0.02509
+  apple-macos-26.5-1x-light-standard             dark-solid__rrect-md__rest               css        3   0.06612   0.05093  -0.01519
+  apple-macos-26.5-1x-light-standard             dark-solid__rrect-md__rest               css        6  -0.02394  -0.03060  -0.00666
+  apple-macos-26.5-1x-light-standard             dark-solid__rrect-md__rest               css        7  -0.00745  -0.01251  -0.00506
+  apple-macos-26.5-1x-light-standard             dark-solid__rrect-md__rest               css        9   0.06523   0.04959  -0.01564
+  apple-macos-26.5-1x-light-standard             dark-solid__rrect-md__rest               css       10   0.06081   0.03577  -0.02504
+  apple-macos-26.5-1x-light-standard             dark-solid__rrect-md__rest               css       11   0.05955   0.05167  -0.00788
+  apple-macos-26.5-1x-light-standard             dark-solid__rrect-md__rest               css       13   0.07065   0.05744  -0.01321
+  apple-macos-26.5-1x-light-standard             dark-solid__rrect-md__rest               css       14   0.05840   0.03280  -0.02560
+  apple-macos-26.5-1x-light-standard             dark-solid__rrect-md__rest               css       15   0.07045   0.05649  -0.01395
+  28 rows read; worst |Δ bin| 0.02560 against 0.005; bins firing: 11
+
+  the same bins as ERROR against the reference, |web − native|, before -> after:
+  profile                                        scene                                    tier   mean|e| before      after  worst before      after
+  apple-macos-26.5-1x-light-standard             dark-solid__capsule-button__rest         webgpu        0.00147    0.00147       0.00239    0.00239
+  apple-macos-26.5-1x-light-standard             dark-solid__rrect-md__rest               webgpu        0.03545    0.03545       0.06477    0.06477
+  apple-macos-26.5-1x-light-standard             light-solid__capsule-button__rest        webgpu        0.01228    0.01228       0.03489    0.03489
+  apple-macos-26.5-1x-light-standard             light-solid__rrect-md__rest              webgpu        0.01639    0.01639       0.06250    0.06250
+  apple-macos-26.5-1x-light-standard             light-solid__rrect-ml__rest              webgpu        0.01654    0.01654       0.06274    0.06274
+  apple-macos-26.5-1x-light-standard             dark-solid__capsule-button__rest         css           0.01204    0.01204       0.02024    0.02024
+  apple-macos-26.5-1x-light-standard             dark-solid__rrect-md__rest               css           0.05690    0.05505       0.15133    0.15799
+  apple-macos-26.5-1x-light-standard             light-solid__capsule-button__rest        css           0.03009    0.03117       0.03323    0.03323
+  apple-macos-26.5-1x-light-standard             light-solid__rrect-md__rest              css           0.05535    0.05540       0.06092    0.06092
+  apple-macos-26.5-1x-light-standard             light-solid__rrect-ml__rest              css           0.05730    0.05838       0.06249    0.06361
+  apple-macos-26.5-2x-light-standard             dark-solid__capsule-button__rest         webgpu        0.00307    0.00307       0.00695    0.00695
+  apple-macos-26.5-2x-light-standard             dark-solid__rrect-md__rest               webgpu        0.05020    0.05020       0.08220    0.08220
+  apple-macos-26.5-2x-light-standard             light-solid__capsule-button__rest        webgpu        0.00850    0.00850       0.02749    0.02749
+  apple-macos-26.5-2x-light-standard             light-solid__rrect-md__rest              webgpu        0.01131    0.01131       0.04671    0.04671
+  apple-macos-26.5-2x-light-standard             light-solid__rrect-ml__rest              webgpu        0.01019    0.01019       0.05120    0.05120
+  apple-macos-26.5-2x-light-standard             dark-solid__capsule-button__rest         css           0.01836    0.01836       0.03326    0.03326
+  apple-macos-26.5-2x-light-standard             dark-solid__rrect-md__rest               css           0.12986    0.12986       0.30291    0.30291
+  apple-macos-26.5-2x-light-standard             light-solid__capsule-button__rest        css           0.03166    0.03166       0.03334    0.03334
+  apple-macos-26.5-2x-light-standard             light-solid__rrect-md__rest              css           0.05747    0.05747       0.06150    0.06150
+  apple-macos-26.5-2x-light-standard             light-solid__rrect-ml__rest              css           0.05860    0.05873       0.06347    0.06350
+  apple-macos-26.5-1x-dark-standard              dark-solid__capsule-button__rest         webgpu        0.00147    0.00147       0.00239    0.00239
+  apple-macos-26.5-1x-dark-standard              dark-solid__rrect-md__rest               webgpu        0.00442    0.00442       0.00960    0.00960
+  apple-macos-26.5-1x-dark-standard              dark-solid__capsule-button__rest         css           0.01204    0.01204       0.02024    0.02024
+  apple-macos-26.5-1x-dark-standard              dark-solid__rrect-md__rest               css           0.01305    0.01305       0.02361    0.02361
+  apple-macos-26.5-2x-dark-standard              dark-solid__capsule-button__rest         webgpu        0.00307    0.00307       0.00695    0.00695
+  apple-macos-26.5-2x-dark-standard              dark-solid__rrect-md__rest               webgpu        0.00549    0.00549       0.01213    0.01213
+  apple-macos-26.5-2x-dark-standard              dark-solid__capsule-button__rest         css           0.01836    0.01836       0.03326    0.03326
+  apple-macos-26.5-2x-dark-standard              dark-solid__rrect-md__rest               css           0.02148    0.02148       0.04192    0.04192
+  rows whose mean bin error IMPROVED: 1; worsened: 4
+
+=== S12 — every THIN cell (span <= 44) against the 0.13.0 bed (bound 0.001) ===
+  114 thin cells; worst rise +0.000190 on apple-macos-26.5-1x-light-standard / photo__toolbar-group__rest / css; cells firing: 0
+
+=== S13 — a golden moved outside a thick surface's body or rim ===
+  read out of goldens-attribution.txt: the largest delta OUTSIDE a contour band.
+  largest movement outside any contour band, over every scene: None
+
+=== S14 — every PROBE row, inert -> fitted (bound 0.002) ===
+  apple-macos-26.5-1x-dark-standard              checkerboard-32__rrect-lg__rest          webgpu  +0.008710 FIRES
+  apple-macos-26.5-1x-dark-standard              checkerboard-32__rrect-ml__rest          webgpu  +0.004950 FIRES
+  apple-macos-26.5-1x-dark-standard              checkerboard-64__rrect-lg__rest          webgpu  +0.015900 FIRES
+  apple-macos-26.5-1x-dark-standard              checkerboard-64__rrect-md__rest          webgpu  +0.005148 FIRES
+  apple-macos-26.5-1x-dark-standard              checkerboard-64__rrect-ml__rest          webgpu  +0.008042 FIRES
+  apple-macos-26.5-2x-dark-standard              checkerboard-32__rrect-lg__rest          webgpu  +0.015641 FIRES
+  apple-macos-26.5-2x-dark-standard              checkerboard-32__rrect-ml__rest          webgpu  +0.004186 FIRES
+  apple-macos-26.5-2x-dark-standard              checkerboard-64__rrect-lg__rest          webgpu  +0.015301 FIRES
+  apple-macos-26.5-2x-dark-standard              checkerboard-64__rrect-ml__rest          webgpu  +0.005435 FIRES
+  apple-macos-26.5-2x-dark-standard              checkerboard-lc16__rrect-lg__rest        webgpu  +0.003872 FIRES
+  apple-macos-26.5-2x-dark-standard              hc-text-28__rrect-lg__rest               webgpu  +0.005232 FIRES
+  apple-macos-26.5-2x-light-standard             checkerboard-32__rrect-lg__rest          webgpu  +0.004913 FIRES
+  apple-macos-26.5-2x-light-standard             checkerboard-64__rrect-lg__rest          webgpu  +0.003640 FIRES
+  apple-macos-26.5-2x-light-standard             hc-text-28__rrect-lg__rest               webgpu  +0.002004 FIRES
+  203 probe cells; worst rise +0.015900 on apple-macos-26.5-1x-dark-standard / checkerboard-64__rrect-lg__rest; cells firing: 14
+
+summary
+  S11 (angular)  worst |Δ bin| 0.02560 / 0.005      FIRES
+  S12            worst rise +0.000190 / 0.001   clear
+  S13            worst outside a band None            clear
+  S14            worst rise +0.015900 / 0.002   FIRES

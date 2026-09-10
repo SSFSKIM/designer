@@ -1,0 +1,39 @@
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a0b3ec5c627c98ae9/packages/calibration
+
+ ❯ test/adopted-thresholds.test.ts (38 tests | 2 failed) 33ms
+     × gates the dom-tier apple-macos-26.5-1x-light-standard cells against DOM_TIER_LIGHT 5ms
+     × gates the dom-tier apple-macos-26.5-2x-light-standard cells against DOM_TIER_2X_LIGHT 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-standard cells against DOM_TIER_LIGHT
+AssertionError: dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard: ssimMean = 0.87037, UNMET against ≥ 0.9, regression floor ≥ 0.8748: expected 0.870370715499767 to be greater than or equal to 0.8748
+ ❯ test/adopted-thresholds.test.ts:1608:65
+    1606|             if (pinned !== undefined) {
+    1607|               const because = `${name(cell)}: ${metric} = ${measured.t…
+    1608|               if (comparison === "≥") expect(measured, because).toBeGr…
+       |                                                                 ^
+    1609|               else expect(measured, because).toBeLessThanOrEqual(pinne…
+    1610|               continue;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-2x-light-standard cells against DOM_TIER_2X_LIGHT
+AssertionError: dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard: ssimMean = 0.87262, UNMET against ≥ 0.92, regression floor ≥ 0.8779: expected 0.872619035491406 to be greater than or equal to 0.8779
+ ❯ test/adopted-thresholds.test.ts:1608:65
+    1606|             if (pinned !== undefined) {
+    1607|               const because = `${name(cell)}: ${metric} = ${measured.t…
+    1608|               if (comparison === "≥") expect(measured, because).toBeGr…
+       |                                                                 ^
+    1609|               else expect(measured, because).toBeLessThanOrEqual(pinne…
+    1610|               continue;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 36 passed (38)
+   Start at  11:33:45
+   Duration  194ms (transform 54ms, setup 0ms, import 79ms, tests 33ms, environment 0ms)
+

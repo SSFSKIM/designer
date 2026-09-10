@@ -806,7 +806,71 @@ const W25B_HASHES: Readonly<Record<string, string>> = {
   "union-pair": "6a84d5b24d88ce2b127a688da45ebf9b",
 };
 
+/**
+ * The bytes `PRE_C9A_PROFILE` renders on W26 G2's landed material — TWO constants,
+ * `sizeHeavyTapSigma` and `sizeHeavyTapSigma2x`, both 0 → 9 device px: the width of the material's
+ * own heavy component, stated for the first time (claims §5.121–§5.122; W26 Decision Log 6 (a)).
+ *
+ * ## Why a third W25-era block, and why both of the earlier ones stay
+ *
+ * `W25_HASHES` is the material W25 G3 declared and ran a holdout against; `W25B_HASHES` is the
+ * joint re-fit that actually landed. Both are readings of real materials taken at real gates and
+ * neither is rewritten — the correct reading goes beside the record, never over it. This block is
+ * the third such reading and it supersedes only what it names.
+ *
+ * ## What moved, and why it is not a rim
+ *
+ * Until this wave the deep sample was a level of the backdrop pyramid, and at dpr 1 `scatterLod`
+ * was clamped at `chainMaxLod`, so vitrea drew `CHAIN_LEVEL_SIGMA[4]` = 13.418 device px however
+ * the gain was set. Apple's heavy component is 8.6–9.2 device px there, so the landing NARROWS
+ * vitrea's heavy width by a third; the goldens move because the body they draw is a different
+ * kernel, not because anything about the contour changed.
+ *
+ * ## The attribution
+ *
+ * `results/2026-09-10-w26-heavy-width/g2/g2-goldens-attribution.txt`, from
+ * `g2-golden-attribution.spec.ts`, taken before any golden byte was rewritten: every scene rendered
+ * at the landed width and again with BOTH anchors declined to 0, compared per pixel inside and
+ * outside the set of pixels a surface actually draws on.
+ *
+ * **The width moved not one pixel off a surface, on any scene** — `off` is 0 on all thirteen, which
+ * is the shape of a body mechanism seen from the outside. Inside, it is 1–3 code values on seven of
+ * them, and the seven are exactly the scenes whose surfaces have a sampled backdrop with structure
+ * in it: `placed-checkerboard` moves 3 codes over 10 649 pixels and `refraction-checkerboard` 1
+ * over 1 663, where `tint-adaptation-light`, `tint-adaptation-dark`, `lens-size-scaling`,
+ * `field-mask` and `collapsed-tone` move **0** because a flat or nearly flat backdrop reads the same
+ * through a 13.4 px kernel and a 9 px one. That is the mechanism's own arithmetic: a width can only
+ * be seen where the backdrop has something for it to blur.
+ *
+ * **The delta is small because the two widths are both large.** Three code values over a
+ * checkerboard is what a third off a heavy component buys once the kernel is already wider than the
+ * pitch — which is also, read the other way, why the 1x heavy width could not be fitted on the
+ * impulse fixture at all (claims §5.120 §2) and why it took a reader fitted jointly across eight
+ * backdrops to see it.
+ *
+ * **The thin claim, and how it differs from W25's.** W25's field carried `sizeThickness` and was
+ * exactly 0 below span 32, so its attribution could assert that a thin scene does not move. This
+ * mechanism has no such factor — the heavy share's floor is 0.4 — so a thin scene is EXPECTED to
+ * move, and the spec asserts nothing about it. Measured, the thinnest scenes move by 0 or 1 code
+ * (`collapsed-tone` 0 at span 44, `collapsed-tone-textured` 1 on 25 pixels, `union-pair` 1 on 281),
+ * and what carries the thin claim is the bed's X5 on both tiers rather than a golden.
+ *
+ * `highlight-press-glow` is the control and it holds again: **0 pixels**, byte-identical to its
+ * 2026-08-25 original through C9a, W8, the post-v1 wave, W11a, W11c, W12, W14, W15, W22, W23, W24,
+ * W25 G3, W25 G3b and now this. It captures the HIGHLIGHT canvas, and the width lives in the body.
+ */
+const W26_HASHES: Readonly<Record<string, string>> = {
+  "body-ramp-1x": "bc7356a16478ae783c043d768fe1e015",
+  "collapsed-tone-textured": "5278f6c2c45dfe4f02b8d4103f7dc573",
+  "concentric-nesting": "7a241d260a7dbe8d42f570556382405e",
+  "placed-checkerboard": "f94e061cd524c9cf0c3fc807696fe283",
+  "refraction-checkerboard": "a600d9e51dd282d6bd1d78e9c1ecd2b6",
+  "rim-two-references": "28cbd567d9aae4fb6ff9e25d5343986c",
+  "union-pair": "b8db5adfb4d13c6a5fafe6c425ca4bfc",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
+  W26_HASHES[name] ??
   W25B_HASHES[name] ??
   W25_HASHES[name] ??
   W24_HASHES[name] ??

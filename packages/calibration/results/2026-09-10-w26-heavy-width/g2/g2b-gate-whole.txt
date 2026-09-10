@@ -1,0 +1,76 @@
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a0b3ec5c627c98ae9/packages/calibration
+
+ ❯ test/adopted-thresholds.test.ts (38 tests | 3 failed) 35ms
+     × gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT 5ms
+     × gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK 0ms
+     × machine-checks the well-conditioned predicate and names every cell it excludes 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT
+AssertionError: texture / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(7) }, …(29) ] to have a length of 31 but got 30
+
+- Expected
++ Received
+
+- 31
++ 30
+
+ ❯ test/adopted-thresholds.test.ts:1602:13
+    1600|             applicable,
+    1601|             `${tier} / ${metric}: the gate must cover every applicable…
+    1602|           ).toHaveLength(expected);
+       |             ^
+    1603|           expect(applicable.length, `${tier} / ${metric}: nothing left…
+    1604|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK
+AssertionError: texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard: silhouetteIoU = 0.90362, UNMET against ≥ 0.93, regression floor ≥ 0.9257: expected 0.9036153154836586 to be greater than or equal to 0.9257
+ ❯ test/adopted-thresholds.test.ts:1613:65
+    1611|             if (pinned !== undefined) {
+    1612|               const because = `${name(cell)}: ${metric} = ${measured.t…
+    1613|               if (comparison === "≥") expect(measured, because).toBeGr…
+       |                                                                 ^
+    1614|               else expect(measured, because).toBeLessThanOrEqual(pinne…
+    1615|               continue;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes
+AssertionError: cells the shape rows skip, per claims §5's predicate: expected [ …(32) ] to deeply equal [ …(31) ]
+
+- Expected
++ Received
+
+@@ -19,10 +19,11 @@
+    "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-1x-light-standard",
+    "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+    "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+    "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
+    "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
++   "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard",
+    "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+    "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+    "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
+    "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+    "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+
+ ❯ test/adopted-thresholds.test.ts:1629:78
+    1627|   it("machine-checks the well-conditioned predicate and names every ce…
+    1628|     const excluded = MATRIX.cells.filter((cell) => !isWellConditioned(…
+    1629|     expect(excluded, "cells the shape rows skip, per claims §5's predi…
+       |                                                                              ^
+    1630|       ...PREDICATE_EXCLUDES,
+    1631|     ]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 35 passed (38)
+   Start at  12:20:02
+   Duration  198ms (transform 53ms, setup 0ms, import 78ms, tests 35ms, environment 0ms)
+

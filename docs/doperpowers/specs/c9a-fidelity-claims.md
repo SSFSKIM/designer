@@ -15196,3 +15196,90 @@ component 1.30–1.55 (1x) / 1.35–1.40 (2x) device px, recorded, not fitted.
 their retirement deferred; no small values; the holdout's contamination by G1b's instrument
 recorded (the fit is holdout-free; G2's once-read checks the fit, not the instrument); the dark
 bed's preference to the tracker.
+
+### 5.123 W26 G2 DECLARED AND DRY-RUN: the heavy width lands cleanly on the GPU tier and thirteen of the fourteen thick floors go under on the CSS one — the two are separable and the counterfactual measures it (2026-09-10)
+
+**Evidence** `results/2026-09-10-w26-heavy-width/g2/` — `g2-declaration.md` (committed at `6f901f0`
+before a pixel was rendered), `g2-dryrun.md` and the readings beside them. Controlled; three columns
+to scratch, the holdout once (X3); no canonical write. DRAFT: the parent rules §7 and G3 lands
+whatever survives.
+
+**§1 What was declared and landed.** `sizeHeavyTapSigma` 0 → 9 and `sizeHeavyTapSigma2x` 0 → 9 on
+`DEFAULT_MATERIAL_PROFILE`, named in the light document with a `$comment-w26` and inherited by the
+dark difference document (X7). `resolvedMaterialSha256` e6edd84292259f3a → **b2b570e4adcea8fb**
+(light) and 874be66ea501621b → **eee7294f409966d7** (dark), both computed before the edit and
+reproduced after it; `dark-profile.ts` regenerates byte-identical. The three gain constants are kept
+with their docs recording that they are inert on the GPU tier at any material naming a heavy width.
+
+**§2 S15, the stop the mechanism is answerable to.** On the family reader, per cell,
+|log(read / reference)|: 0.3690 → **0.0553**, 0.5096 → **0.0544**, 0.0641 → 0.1185, 0.2904 →
+**0.0791**, 0.3852 → **0.0165**, 0.0315 → 0.0918; mean over six cells **0.2750 → 0.0693**. It fires
+on exactly the two cells the declaration named in advance — `rrect-md` at dpr 2 in both schemes — and
+the cause is the 20.4 % spread across the 2x spans that one width per source cannot serve (§5.122
+§3). The reference is re-read on this run's own captures and reproduces §5.122 §4 to the digit.
+
+**§3 The GPU tier does not move the canonical bed and improves the probe set at dpr 1.** No
+calibration group moves by as much as 0.00001 (2x dark improves 0.00005); W24's angular bins are
+identical to five decimals on every GPU row; 63 of 85 GPU captures move and **the 22 that hold are
+exactly the flat-solid backdrops**, which is the mechanism seen from the outside. The per-span probe
+table reproduces §5.122 §5c on all twelve GPU entries. X5 worst 0.00021 (GPU) and 0.00033 (CSS) over
+81 thin probe cells each, against 0.001. The goldens: seven of thirteen move by 1–3 codes and **not
+one pixel off a surface**, 33 / 33 after regeneration under `W26_HASHES`.
+
+**§4 Thirteen of the fourteen thick regression floors are BREACHED, and twelve are `dom` rows.**
+`floors.txt`: the six CSS large-span `ssimMean` floors (`checkerboard__rrect-ml` 1x/2x light,
+`glass-over-glass` 1x/2x light, `rrect-lg` 1x/2x light) fall 0.0035–0.0229 under; the seven dark
+nested-pane rows fall on both tiers, the `texture` one 0.92707 → 0.90362 against 0.9257. The one that
+holds is `dom / checkerboard__rrect-md / 2x light`, the only CSS cell at a span where the width moves
+1 % at that scale. Four of the breached cells LEAVE the shape gate, orphaning six pinned floors, so
+the gate reports 30 of 38 over the whole bed and no exclusion list makes it green.
+
+**§5 The counterfactual, measured.** The two tiers render independently and the constants reach the
+CSS tier only through clause 7's code change, so the bed a landing without clause 7 would produce is
+this run's texture rows beside the 0.14.0 bed's dom rows. Gated: **1 floor breached instead of 13**,
+and the one that survives either way is the GPU tier's own dark nested pane — a cell whose web
+silhouette already carried 39 holes against a native 0 at 0.14.0.
+
+**§6 The holdout, once.** Eleven of twelve groups worse, one better: GPU +0.00001 … +0.00035, CSS
++0.00023 … +0.00157, `increased-contrast / css` 0.04561 → 0.04503. The holdout carries the bed's
+large spans, which is the same reading as §4. It belongs to the configuration with clause 7 in and
+would have to be re-taken without it. W25 clause 3, read once here because the cell is holdout-only:
+the nested base 2.10 → **2.20** device px against a reference of 1.50 at 1x — missed, and the miss
+grows; at 2x the reference is past reader C's bound, as W25 recorded.
+
+**§7 What is open, and it is the parent's.** Three courses, with their prices: land both and re-pin
+twelve dom floors by user decision (every one of those rows already misses its adopted bound and is
+held by decision, the rim band the mechanism); land the two constants and decline clause 7, at one
+floor and a recorded incoherence — the CSS tier deriving its heavy width from constants that grade
+nothing on the tier it must agree with; or re-open the width, against which §2 and §3 are the
+evidence. Also open and newly measured: the accessibility frost reaches the SHARP component alone on
+both tiers now, and the reduced-transparency CSS capsule leaves the shape gate for it
+(`silhouetteHolesWeb` 0 → 6, the heavy layer 24.15 → 9.000 CSS px on that profile).
+`PREDICATE_EXCLUDES` moves 31 → **32** for that cell.
+
+**§8 The review's one defect, fixed.** The base-σ gate the landing added to the CSS tier fires on
+`optics.regular.blurSigma` 0 from any cause, and the renderer had no counterpart — its heavy texture
+is keyed on the material's width and reads no variant's optics — so on that supported override the
+two tiers drew different pictures. `heavySigmaCssFor` now takes the source's own body σ. No bed
+capture and no golden moves (every profile names `blurSigma` 1.25; 33 / 33 after the fix), so §§1–7
+stand as read.
+
+**§9 The parent's ruling, and the configuration re-run (2026-09-10; W26 Decision Log 7 (f)).**
+Option 2 of §7: the two constants land on the GPU tier and **clause 7's CSS derivation is declined**,
+on twelve dom floors against one and on the 1x dark nested pane, where the CSS tier at clause 7 shows
+the checkerboard through the inner glass that neither the native capture nor the GPU candidate does.
+G2b re-ran the configuration rather than inferring it. **The CSS tier is byte-identical to 0.14.0 at
+the LANDED documents — 640 of 644 captures**, the four movers each measured as run-to-run noise (one
+identical to this session's own 0.14.0 capture, two the `photo__toolbar-group` cell on its sixth
+sighting, one whose straight repeat reproduces the canonical bytes). The GPU tier is unmoved by the
+revert, 72 of 72 on a two-profile sample. **The gate reads 35 of 38 and the fourteen floors 1
+breached against 13**; every CSS group is unchanged to five decimals and every GPU group is §3's own
+reading, so S3 is clear on every group of both tiers. `PREDICATE_EXCLUDES` reads 32 with
+`texture / holdout / checkerboard__rrect-lg__rest / 2x light` entering instead of the
+reduced-transparency dom capsule. **The residual is that the two tiers' heavy widths are now
+different numbers** — 53 % apart at dpr 1, 36 % on a 160 span at dpr 2 — pinned as an assertion in
+`tier-coherence.test.ts` and chartered in the tracker. **The one remaining floor is the extractor**:
+on `checkerboard__glass-over-glass` at 2x dark the pane's level moves 0.11419 → 0.11418 and its sd
+0.24677 → 0.24685 while 2 640 of the 21 290 pixels within 0.005 of a 0.02 probe cross under it with
+none coming back — toward the native, whose own under-threshold count is higher than either vitrea
+column's. Left to the user to re-pin or to the next wave to fix.

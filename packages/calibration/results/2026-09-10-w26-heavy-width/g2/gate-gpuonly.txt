@@ -1,0 +1,157 @@
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a0b3ec5c627c98ae9/packages/calibration
+
+ ❯ test/adopted-thresholds.test.ts (38 tests | 8 failed) 33ms
+     × gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT 4ms
+     × gates the dom-tier apple-macos-26.5-1x-light-reduced-transparency cells against DOM_TIER_REDUCED_TRANSPARENCY 0ms
+     × gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK 0ms
+     × machine-checks the well-conditioned predicate and names every cell it excludes 1ms
+     × cross-checks apple-macos-26.5-1x-light-standard's recorded ratio against the two tiers' own levels 0ms
+     × cross-checks apple-macos-26.5-2x-light-standard's recorded ratio against the two tiers' own levels 0ms
+     × cross-checks apple-macos-26.5-1x-dark-standard's recorded ratio against the two tiers' own levels 0ms
+     × cross-checks apple-macos-26.5-2x-dark-standard's recorded ratio against the two tiers' own levels 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT
+AssertionError: texture / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(7) }, …(29) ] to have a length of 31 but got 30
+
+- Expected
++ Received
+
+- 31
++ 30
+
+ ❯ test/adopted-thresholds.test.ts:1597:13
+    1595|             applicable,
+    1596|             `${tier} / ${metric}: the gate must cover every applicable…
+    1597|           ).toHaveLength(expected);
+       |             ^
+    1598|           expect(applicable.length, `${tier} / ${metric}: nothing left…
+    1599|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-reduced-transparency cells against DOM_TIER_REDUCED_TRANSPARENCY
+AssertionError: dom / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(8) }, …(6) ] to have a length of 6 but got 7
+
+- Expected
++ Received
+
+- 6
++ 7
+
+ ❯ test/adopted-thresholds.test.ts:1597:13
+    1595|             applicable,
+    1596|             `${tier} / ${metric}: the gate must cover every applicable…
+    1597|           ).toHaveLength(expected);
+       |             ^
+    1598|           expect(applicable.length, `${tier} / ${metric}: nothing left…
+    1599|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK
+AssertionError: texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard: silhouetteIoU = 0.90362, UNMET against ≥ 0.93, regression floor ≥ 0.9257: expected 0.9036153154836586 to be greater than or equal to 0.9257
+ ❯ test/adopted-thresholds.test.ts:1608:65
+    1606|             if (pinned !== undefined) {
+    1607|               const because = `${name(cell)}: ${metric} = ${measured.t…
+    1608|               if (comparison === "≥") expect(measured, because).toBeGr…
+       |                                                                 ^
+    1609|               else expect(measured, because).toBeLessThanOrEqual(pinne…
+    1610|               continue;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes
+AssertionError: cells the shape rows skip, per claims §5's predicate: expected [ …(32) ] to deeply equal [ …(32) ]
+
+- Expected
++ Received
+
+@@ -1,8 +1,7 @@
+  [
+    "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+-   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+    "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
+    "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
+    "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+    "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+    "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+@@ -20,10 +19,11 @@
+    "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-1x-light-standard",
+    "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+    "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+    "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
+    "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
++   "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard",
+    "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+    "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+    "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
+    "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+    "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+
+ ❯ test/adopted-thresholds.test.ts:1624:78
+    1622|   it("machine-checks the well-conditioned predicate and names every ce…
+    1623|     const excluded = MATRIX.cells.filter((cell) => !isWellConditioned(…
+    1624|     expect(excluded, "cells the shape rows skip, per claims §5's predi…
+       |                                                                              ^
+    1625|       ...PREDICATE_EXCLUDES,
+    1626|     ]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-1x-light-standard's recorded ratio against the two tiers' own levels
+AssertionError: dom / validation / checkerboard__capsule-button__rest-tint-blue / apple-macos-26.5-1x-light-standard: the recorded ratio must be the two tiers' own levels, divided: expected 1.025118811010623 to be close to 1.0248328328722531, received difference is 0.0002859781383699467, but expected 5e-10
+ ❯ test/adopted-thresholds.test.ts:1872:11
+    1870|           reading(cell, "coherence", "interiorLevelRatioGpuOverCss"),
+    1871|           `${name(cell)}: the recorded ratio must be the two tiers' ow…
+    1872|         ).toBeCloseTo(derived, 9);
+       |           ^
+    1873|         checked += 1;
+    1874|       }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-2x-light-standard's recorded ratio against the two tiers' own levels
+AssertionError: dom / validation / checkerboard__capsule-button__rest-tint-blue / apple-macos-26.5-2x-light-standard: the recorded ratio must be the two tiers' own levels, divided: expected 1.0260396901451987 to be close to 1.025974820533295, received difference is 0.0000648696119036618, but expected 5e-10
+ ❯ test/adopted-thresholds.test.ts:1872:11
+    1870|           reading(cell, "coherence", "interiorLevelRatioGpuOverCss"),
+    1871|           `${name(cell)}: the recorded ratio must be the two tiers' ow…
+    1872|         ).toBeCloseTo(derived, 9);
+       |           ^
+    1873|         checked += 1;
+    1874|       }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-1x-dark-standard's recorded ratio against the two tiers' own levels
+AssertionError: dom / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-26.5-1x-dark-standard: the recorded ratio must be the two tiers' own levels, divided: expected 1.0019698846076384 to be close to 1.0019737210250241, received difference is 0.000003836417385771895, but expected 5e-10
+ ❯ test/adopted-thresholds.test.ts:1872:11
+    1870|           reading(cell, "coherence", "interiorLevelRatioGpuOverCss"),
+    1871|           `${name(cell)}: the recorded ratio must be the two tiers' ow…
+    1872|         ).toBeCloseTo(derived, 9);
+       |           ^
+    1873|         checked += 1;
+    1874|       }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-2x-dark-standard's recorded ratio against the two tiers' own levels
+AssertionError: dom / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-26.5-2x-dark-standard: the recorded ratio must be the two tiers' own levels, divided: expected 1.0019415896460155 to be close to 1.0019343220265169, received difference is 0.000007267619498652067, but expected 5e-10
+ ❯ test/adopted-thresholds.test.ts:1872:11
+    1870|           reading(cell, "coherence", "interiorLevelRatioGpuOverCss"),
+    1871|           `${name(cell)}: the recorded ratio must be the two tiers' ow…
+    1872|         ).toBeCloseTo(derived, 9);
+       |           ^
+    1873|         checked += 1;
+    1874|       }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed | 30 passed (38)
+   Start at  11:43:27
+   Duration  203ms (transform 52ms, setup 0ms, import 77ms, tests 33ms, environment 0ms)
+

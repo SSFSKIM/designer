@@ -168,6 +168,9 @@ the user's eye; X7 the dark profile a difference document.
 - The size-keyed light adaptation of a small surface over a bright backdrop in the dark scheme.
 - The contour instrument's refusal on flat-cornered dark squares; the 2x reference's run-to-run
   instability; the demo page's coupling to `scenes.json` (tracker).
+- **Whether the accessibility frost should reach the heavy width** (Decision Log 7 (d)) — measured
+  at G2 as reaching the sharp component alone on both tiers, at the price of one CSS calibration
+  cell leaving the shape gate; not declared and not fitted by this wave.
 
 ## Tracking Map
 
@@ -177,7 +180,7 @@ the user's eye; X7 the dark profile a difference document.
 | G1 — the width, the share, the lever, the level | CLOSED 2026-09-10 (claims §5.120; Decision Logs 3–4; merged at `d306214` after the review's two fixes at `d06fe3c`) |
 | G1b — Apple's kernel identified without a shape assumption (spike) | CLOSED 2026-09-10 (claims §5.121; merged at `1d541bf`) |
 | G1c — the fits, second reading: both widths on the family reader (controlled) | CLOSED 2026-09-10 (claims §5.122; merged at `5a710ad`) |
-| G2 — declared and dry-run | DISPATCHED 2026-09-10 (Decision Log 6) |
+| G2 — declared and dry-run | DELIVERED 2026-09-10 (claims §5.123 DRAFT; Decision Log 7 — the parent rules (a)–(d)) |
 | G3 — the landing | — |
 
 ## Decision Log
@@ -464,6 +467,63 @@ isolation proof, the stops (W25 G3's set; S15 as re-stated in Decision Log 4 (a)
 reader), the dry run of the frozen bed and the probe set to scratch, the holdout once, the sheets;
 `PREDICATE_EXCLUDES` equal to the machine's output.
 
+### Decision Log 7 — G2's read: the width lands on the GPU tier, clause 7 costs twelve floors, and the two are separable (2026-09-10; claims §5.123 DRAFT)
+
+DRAFT, by G2. The parent rules (a)–(d) and amends beside; G3 lands whatever survives.
+
+(a) **The two constants are right and the GPU tier says so quietly.** 9 and 9, declared before the
+run at `6f901f0`, fingerprints b2b570e4adcea8fb and eee7294f409966d7 computed before the edit and
+reproduced after it. S15 fires on exactly the two cells the declaration named in advance and the
+objective falls 0.275 → 0.069; the canonical bed's GPU groups do not move by as much as 0.00001;
+W24's angular bins are identical to five decimals on every GPU row; the 22 GPU captures that hold
+byte for byte are exactly the flat-solid backdrops; X5 is a fifth of its bound on both tiers; the
+goldens move on seven scenes by 1–3 codes and **not one pixel off a surface**. The per-span probe
+table reproduces claims §5.122 §5c to the digit, which is the check that the landing draws what the
+rung drew.
+
+(b) **Clause 7 is where the cost is, and it is twelve of the fourteen thick floors.** Deriving the
+CSS tier's heavy layer from the profile's own width takes it 13.800 → 9.000 CSS px at dpr 1 and
+6.121 → 4.500 at dpr 2 on a 160 span, and the six large-span `dom` `ssimMean` floors and the six
+dark nested-pane `dom` rows all go under; four of those cells leave the shape gate besides. **The
+counterfactual is measured rather than argued** (claims §5.123 §5): the two tiers render
+independently and the constants reach the CSS tier only through clause 7's code, so the bed a
+landing without it would produce is this run's texture rows beside the 0.14.0 bed's dom rows — and
+it breaches **one** floor instead of thirteen. The one that survives either way is the GPU tier's own
+dark nested pane, on a cell whose web silhouette already carried 39 holes against a native 0.
+
+(c) **The choice, and why it is not this child's.** Landing both gives the two tiers one heavy width
+for the first time and asks the user to re-pin twelve floors that already miss their adopted bounds
+and are held by decision. Declining clause 7 costs one floor and leaves the CSS tier deriving its
+heavy width from three constants that grade nothing on the tier it has to agree with — an
+incoherence to record and charter rather than to hide. Re-opening the width is contradicted by (a).
+**The holdout was read once at the configuration WITH clause 7** and a ruling that declines it voids
+that read.
+
+(d) **Two things the run measured that nobody declared, and both are the same shape.** A heavy width
+named in device px does not inherit the rules a multiple of `blurSigma` inherited for free. Under
+`frost: "none"` it would have gone on frosting a surface the preference asked not to frost, and the
+gate for that is in the code with its test. Under `frost: "increased"` it no longer widens at all —
+on EITHER tier, and before this wave the GPU tier could not widen there either because `scatterLod`
+was clamped, so the mirror was drawing 24.15 CSS px where the renderer drew 13.418. The tiers agree
+now and the reduced-transparency CSS capsule leaves the shape gate for it (`silhouetteHolesWeb`
+0 → 6); `PREDICATE_EXCLUDES` is edited 31 → 32 for that cell with the mechanism written into it.
+**Whether the accessibility fold should reach the heavy width is a material question this wave did
+not declare and did not fit**, and it is the tracker's.
+
+(e) **The independent review found the other half of (d)'s first sentence, and it is fixed with its
+test.** The gate written for `frost: "none"` was on the CSS tier only, and it fires on a base σ of 0
+from ANY cause — including `optics.regular.blurSigma` 0, which is a supported material override. On
+that material the two tiers drew different pictures: the mirror drew nothing and the renderer drew
+an unblurred body with a 9 device px deep sample mixed into it, because the heavy texture is keyed
+on the material's width and read no variant's optics. `heavySigmaCssFor` now takes the source's own
+body σ and returns 0 where it is 0, `heavy-width.test.ts` pins it, and the doc comments on both
+tiers say the rule once each. **No capture moves**: every profile on the bed names `blurSigma` 1.25,
+and on the shipped accessibility path the case is unreachable rather than merely unused — core
+couples `frost: "none"` to `glass: "none"` and the renderer disconnects backdrop sampling entirely.
+The goldens are 33 / 33 unmoved after it. The review found nothing else: the device-px-over-ratio
+conversion is right, no sampling-padding starvation is introduced, and the recorded-snapshot
+normaliser is covered by the case that walks every field.
+
 ## Surprises & Discoveries
 
 - **A scratch rung is not a rehearsal of a landing.** The dark difference document resolves over
@@ -544,3 +604,56 @@ reader), the dry run of the frozen bed and the probe set to scratch, the holdout
 - 2026-09-10: G1c CLOSED and merged (`5a710ad`). Decision Log 6: the candidate 9 / 9 declared to
   G2; the gain constants inert and kept; the mechanism's no-small-values wart, the holdout's
   contamination by G1b's instrument, and the dark bed's preference recorded. G2 dispatched.
+- 2026-09-10: G2 DELIVERED (claims §5.123 DRAFT). The declaration committed before the run
+  (`6f901f0`), the two constants landed on both documents and both tiers, the goldens re-recorded
+  behind their attribution under `W26_HASHES`, and the bed, the probe set and the holdout run to
+  scratch. The width lands: S15 fires on exactly the two cells the declaration named, the objective
+  falls 0.275 → 0.069, the GPU tier's canonical groups do not move by 0.00001 and X5 is a fifth of
+  its bound on both tiers. Clause 7 is the cost: **thirteen of the fourteen thick floors are
+  breached and twelve are `dom` rows**, and the counterfactual measures the split at **1 against
+  13**. Decision Log 7 leaves the choice to the parent and records two undeclared findings about the
+  accessibility fold and a heavy width named in device px.
+
+### Decision Log 7 (f) — the parent's ruling on §10, and G2b (2026-09-10; the parent; claims §5.123 §9)
+
+Appended beside (a)–(e), which stand as G2 drafted them.
+
+**Option 2 of claims §5.123 §7 / `g2-dryrun.md` §10 is taken.** The two constants land on the GPU
+tier; **clause 7's CSS derivation is DECLINED this wave**, on the measurement and on the eye: twelve
+dom floors against one, two of them the user's own W24 re-pins, and at 1x dark the CSS tier at
+clause 7 shows the checkerboard straight through the nested pane's inner glass where neither the
+native capture nor the GPU candidate does. Clause 7 asks the CSS tier to derive what it CAN; on this
+evidence it cannot carry this one yet.
+
+**What that leaves, and it is a gap to macOS recorded rather than hidden.** The CSS tier goes on
+deriving its heavy layer from `sizeScatterGainMax` / `…Max2x` / `…GainFar2x`, which the GPU tier no
+longer reads (Decision Log 6 (b)) — so the two tiers' heavy widths are different numbers as of this
+wave, by 53 % at dpr 1 and 36 % on a 160 span at dpr 2. It is the X residual of W26, it is pinned as
+a number by `tier-coherence.test.ts` rather than left as prose, and the tracker carries the charter:
+the wave that closes it has to answer why a two-layer body at the CORRECT component widths loses
+structure the mip-tap projection kept.
+
+**G2b re-ran the ruled configuration rather than inferring it** (`g2-dryrun.md` §14). The CSS tier is
+byte-identical to 0.14.0 at the LANDED documents — 640 of 644 captures, the four movers each measured
+as run-to-run noise — which had to be rendered because the documents now name two constants the
+mirror no longer reads. The GPU tier is unmoved by the revert on a 72-capture sample. The gate reads
+35 of 38 against 30, the fourteen floors 1 breached against 13, every CSS group unchanged to five
+decimals and every GPU group W26 G2's own reading; S3 is clear on every group of both tiers.
+`PREDICATE_EXCLUDES` reads 32 with a DIFFERENT cell entering than at the rejected configuration, and
+is described rather than committed against the wrong matrix, as before.
+
+**The one floor that remains is the extractor and the numbers are one-sided.** On
+`checkerboard__glass-over-glass` at 2x dark the pane's interior level moves 0.11419 → 0.11418 and its
+standard deviation 0.24677 → 0.24685; the picture moves by a mean of 0.19 of an 8-bit code. What
+moves is a threshold population: 21 290 pixels sit within 0.005 of a 0.02 luminance-delta probe and
+2 640 cross under it with none coming back — **toward the native**, whose own under-threshold count
+(17 010) is above the candidate's (16 970) and well above 0.14.0's (14 330). The harness nevertheless
+recovers a hole-free mask from that native, so its rule does more than threshold and the asymmetry —
+not the material — is what a fix would go after. **The floor is the user's to re-pin or the next
+wave's to fix**; this records the number and the picture and recommends neither.
+- 2026-09-10: the parent's ruling recorded as Decision Log 7 (f) and executed as G2b. Option 2:
+  the two constants land, clause 7 is declined, and the CSS tier is proved byte-identical to 0.14.0
+  at the landed documents (640 of 644, the four movers run-to-run noise). The gate 35 of 38, the
+  fourteen floors 1 breached against 13, every CSS group unchanged to five decimals, the goldens
+  unmoved by hash. The tier gap is pinned as a number in `tier-coherence.test.ts` and chartered in
+  the tracker. The one remaining floor is measured to be the extractor and is left to the user.

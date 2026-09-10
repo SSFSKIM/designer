@@ -1,0 +1,19 @@
+W26 G2 — S15 on the family reader: the control, the candidate and the reference
+================================================================================================================
+  control   /Users/new/.claude/jobs/5c70e47f/tmp/w26/g1c/c0/web-captures
+  candidate /Users/new/.claude/jobs/5c70e47f/tmp/w26/g2/cand/web-captures
+
+  surface    dpr scheme    ref σ   sharp   0.14.0     cand  |log| c0  |log| d9      S15
+  rrect-md     1 light     9.300    1.30   13.450    8.800    0.3690    0.0553    clear
+  rrect-lg     1 light     8.050    1.55   13.400    8.500    0.5096    0.0544    clear
+  rrect-md     2 light     7.550    1.35    8.050    8.500    0.0641    0.1185    FIRES
+  rrect-lg     2 light     9.200    4.00   12.300    8.500    0.2904    0.0791    clear
+  rrect-md     1 dark      9.150    1.30   13.450    9.000    0.3852    0.0165    clear
+  rrect-md     2 dark      7.800    1.40    8.050    8.550    0.0315    0.0918    FIRES
+
+  MEAN |log(read / reference)| over 6 cells: 0.2750 → 0.0693
+  cells firing S15: 2
+
+  A cell whose reference sharp component is at or above 4 device px is UNCONDITIONED and
+  S15 does not apply to it (Decision Log 4 (a)); its objective is still printed, because a
+  stop that does not fire on a row is not the same thing as a row nobody read.

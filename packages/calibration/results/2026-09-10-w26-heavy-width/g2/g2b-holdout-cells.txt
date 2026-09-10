@@ -1,0 +1,68 @@
+W26 G2b — the holdout, PER CELL, at the configuration the parent ruled for
+================================================================================================================
+  The GPU rows are W26 G2's one holdout read (X3) reused, not re-taken; the CSS rows are
+  G2b's own capture and are byte-identical to the 0.14.0 bed, so nothing that moved is read
+  twice. `dE` is oklabDeltaEMean and `ssim` ssimMean; 0.14.0 is the canonical matrix.
+
+  profile                                        scene                                  tier     dE 0.14.0    dE now         Δ  ssim 0.14.0  ssim now
+  apple-macos-26.5-1x-dark-standard              checkerboard__glass-over-glass__rest   css        0.03197   0.03197  +0.00000      0.87280   0.87280
+  apple-macos-26.5-1x-light-standard             checkerboard__glass-over-glass__rest   css        0.03123   0.03123  +0.00000      0.86355   0.86355
+  apple-macos-26.5-2x-dark-standard              checkerboard__glass-over-glass__rest   css        0.03130   0.03130  +0.00000      0.89521   0.89521
+  apple-macos-26.5-2x-light-standard             checkerboard__glass-over-glass__rest   css        0.03289   0.03289  +0.00000      0.86870   0.86870
+  apple-macos-26.5-1x-light-standard             checkerboard__rrect-lg__rest           css        0.03257   0.03257  +0.00000      0.87056   0.87056
+  apple-macos-26.5-2x-light-standard             checkerboard__rrect-lg__rest           css        0.03420   0.03420  +0.00000      0.87233   0.87233
+  apple-macos-26.5-1x-light-standard             dark-solid__capsule-button__rest-tint-blue css        0.00299   0.00299  +0.00000      0.97584   0.97584
+  apple-macos-26.5-2x-light-standard             dark-solid__capsule-button__rest-tint-blue css        0.00309   0.00309  +0.00000      0.98317   0.98317
+  apple-macos-26.5-1x-light-reduced-transparency hc-text__capsule-button__rest          css        0.00254   0.00254  +0.00000      0.99224   0.99224
+  apple-macos-26.5-1x-light-standard             hc-text__capsule-button__rest          css        0.00494   0.00494  +0.00000      0.97816   0.97816
+  apple-macos-26.5-2x-light-standard             hc-text__capsule-button__rest          css        0.00538   0.00538  +0.00000      0.97608   0.97608
+  apple-macos-26.5-1x-light-standard             hc-text__capsule-button__rest-tint-orange css        0.00400   0.00400  +0.00000      0.97953   0.97953
+  apple-macos-26.5-2x-light-standard             hc-text__capsule-button__rest-tint-orange css        0.00409   0.00409  +0.00000      0.98324   0.98324
+  apple-macos-26.5-1x-light-standard             hc-text__rrect-md__rest                css        0.01519   0.01519  +0.00000      0.93985   0.93985
+  apple-macos-26.5-2x-light-standard             hc-text__rrect-md__rest                css        0.01490   0.01490  +0.00000      0.94731   0.94731
+  apple-macos-26.5-1x-dark-standard              mid-dark-solid__capsule-button__rest   css        0.00123   0.00123  +0.00000      0.98659   0.98659
+  apple-macos-26.5-1x-light-standard             mid-dark-solid__capsule-button__rest   css        0.00389   0.00389  +0.00000      0.97453   0.97453
+  apple-macos-26.5-2x-dark-standard              mid-dark-solid__capsule-button__rest   css        0.00122   0.00122  +0.00000      0.99082   0.99082
+  apple-macos-26.5-2x-light-standard             mid-dark-solid__capsule-button__rest   css        0.00412   0.00412  +0.00000      0.98230   0.98230
+  apple-macos-26.5-1x-light-standard             photo__glass-over-glass__rest          css        0.01946   0.01946  +0.00000      0.92845   0.92845
+  apple-macos-26.5-2x-light-standard             photo__glass-over-glass__rest          css        0.01965   0.01965  +0.00000      0.95035   0.95035
+  apple-macos-26.5-1x-dark-standard              photo__rrect-lg__rest                  css        0.01886   0.01886  +0.00000      0.94303   0.94303
+  apple-macos-26.5-1x-light-increased-contrast   photo__rrect-lg__rest                  css        0.04561   0.04561  +0.00000      0.83859   0.83859
+  apple-macos-26.5-1x-light-reduced-transparency photo__rrect-lg__rest                  css        0.01248   0.01248  +0.00000      0.93570   0.93570
+  apple-macos-26.5-1x-light-standard             photo__rrect-lg__rest                  css        0.02832   0.02832  +0.00000      0.93211   0.93211
+  apple-macos-26.5-2x-dark-standard              photo__rrect-lg__rest                  css        0.01966   0.01966  +0.00000      0.95859   0.95859
+  apple-macos-26.5-2x-light-standard             photo__rrect-lg__rest                  css        0.02828   0.02828  +0.00000      0.95248   0.95248
+  apple-macos-26.5-1x-light-standard             photo__rrect-lg__rest-tint-orange      css        0.01497   0.01497  +0.00000      0.94228   0.94228
+  apple-macos-26.5-2x-light-standard             photo__rrect-lg__rest-tint-orange      css        0.01506   0.01506  +0.00000      0.95726   0.95726
+  apple-macos-26.5-1x-dark-standard              checkerboard__glass-over-glass__rest   webgpu     0.00951   0.01018  +0.00068      0.98049   0.97777
+  apple-macos-26.5-1x-light-standard             checkerboard__glass-over-glass__rest   webgpu     0.00618   0.00641  +0.00023      0.98285   0.98209
+  apple-macos-26.5-2x-dark-standard              checkerboard__glass-over-glass__rest   webgpu     0.00946   0.01032  +0.00087      0.98377   0.98125
+  apple-macos-26.5-2x-light-standard             checkerboard__glass-over-glass__rest   webgpu     0.00609   0.00578  -0.00031      0.98499   0.98634
+  apple-macos-26.5-1x-light-standard             checkerboard__rrect-lg__rest           webgpu     0.00794   0.00878  +0.00084      0.97500   0.97077
+  apple-macos-26.5-2x-light-standard             checkerboard__rrect-lg__rest           webgpu     0.00795   0.01145  +0.00350      0.97622   0.97278
+  apple-macos-26.5-1x-light-standard             dark-solid__capsule-button__rest-tint-blue webgpu     0.00046   0.00046  +0.00000      0.99884   0.99884
+  apple-macos-26.5-2x-light-standard             dark-solid__capsule-button__rest-tint-blue webgpu     0.00054   0.00054  +0.00000      0.99834   0.99834
+  apple-macos-26.5-1x-light-increased-contrast   hc-text__capsule-button__rest          webgpu     0.00588   0.00588  +0.00001      0.96327   0.96326
+  apple-macos-26.5-1x-light-reduced-transparency hc-text__capsule-button__rest          webgpu     0.00147   0.00147  -0.00000      0.99687   0.99684
+  apple-macos-26.5-1x-light-standard             hc-text__capsule-button__rest          webgpu     0.00294   0.00291  -0.00003      0.99582   0.99584
+  apple-macos-26.5-2x-light-standard             hc-text__capsule-button__rest          webgpu     0.00330   0.00331  +0.00001      0.99535   0.99494
+  apple-macos-26.5-1x-light-standard             hc-text__capsule-button__rest-tint-orange webgpu     0.00130   0.00129  -0.00001      0.99867   0.99868
+  apple-macos-26.5-2x-light-standard             hc-text__capsule-button__rest-tint-orange webgpu     0.00141   0.00142  +0.00001      0.99845   0.99835
+  apple-macos-26.5-1x-light-standard             hc-text__rrect-md__rest                webgpu     0.00412   0.00395  -0.00017      0.97677   0.97700
+  apple-macos-26.5-2x-light-standard             hc-text__rrect-md__rest                webgpu     0.00366   0.00407  +0.00041      0.98734   0.98697
+  apple-macos-26.5-1x-dark-standard              mid-dark-solid__capsule-button__rest   webgpu     0.00011   0.00011  +0.00000      0.99959   0.99959
+  apple-macos-26.5-1x-light-standard             mid-dark-solid__capsule-button__rest   webgpu     0.00098   0.00098  +0.00000      0.99898   0.99898
+  apple-macos-26.5-2x-dark-standard              mid-dark-solid__capsule-button__rest   webgpu     0.00015   0.00015  +0.00000      0.99908   0.99908
+  apple-macos-26.5-2x-light-standard             mid-dark-solid__capsule-button__rest   webgpu     0.00103   0.00103  +0.00000      0.99850   0.99850
+  apple-macos-26.5-1x-light-standard             photo__glass-over-glass__rest          webgpu     0.02191   0.02171  -0.00020      0.99436   0.99439
+  apple-macos-26.5-2x-light-standard             photo__glass-over-glass__rest          webgpu     0.02187   0.02184  -0.00003      0.99583   0.99581
+  apple-macos-26.5-1x-dark-standard              photo__rrect-lg__rest                  webgpu     0.03013   0.02961  -0.00052      0.99581   0.99545
+  apple-macos-26.5-1x-light-increased-contrast   photo__rrect-lg__rest                  webgpu     0.03495   0.03497  +0.00001      0.86444   0.86440
+  apple-macos-26.5-1x-light-reduced-transparency photo__rrect-lg__rest                  webgpu     0.00539   0.00555  +0.00016      0.99819   0.99815
+  apple-macos-26.5-1x-light-standard             photo__rrect-lg__rest                  webgpu     0.03621   0.03578  -0.00043      0.99416   0.99413
+  apple-macos-26.5-2x-dark-standard              photo__rrect-lg__rest                  webgpu     0.02972   0.02966  -0.00006      0.99525   0.99491
+  apple-macos-26.5-2x-light-standard             photo__rrect-lg__rest                  webgpu     0.03591   0.03579  -0.00012      0.99520   0.99505
+  apple-macos-26.5-1x-light-standard             photo__rrect-lg__rest-tint-orange      webgpu     0.00772   0.00773  +0.00001      0.99571   0.99570
+  apple-macos-26.5-2x-light-standard             photo__rrect-lg__rest-tint-orange      webgpu     0.00773   0.00777  +0.00004      0.99690   0.99686
+
+  worst per-cell ΔE rise: +0.00350 on apple-macos-26.5-2x-light-standard / checkerboard__rrect-lg__rest / texture

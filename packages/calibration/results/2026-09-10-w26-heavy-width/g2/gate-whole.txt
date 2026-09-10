@@ -1,0 +1,164 @@
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a0b3ec5c627c98ae9/packages/calibration
+
+ ❯ test/adopted-thresholds.test.ts (38 tests | 8 failed) 31ms
+     × gates the dom-tier apple-macos-26.5-1x-light-standard cells against DOM_TIER_LIGHT 5ms
+     × gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT 2ms
+     × gates the dom-tier apple-macos-26.5-2x-light-standard cells against DOM_TIER_2X_LIGHT 1ms
+     × gates the dom-tier apple-macos-26.5-1x-dark-standard cells against DOM_TIER_DARK 0ms
+     × gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK 0ms
+     × gates the dom-tier apple-macos-26.5-2x-dark-standard cells against DOM_TIER_2X_DARK 0ms
+     × machine-checks the well-conditioned predicate and names every cell it excludes 1ms
+     × proves every regression floor stands on a genuinely unmet bound 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-standard cells against DOM_TIER_LIGHT
+AssertionError: dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard: ssimMean = 0.87037, UNMET against ≥ 0.9, regression floor ≥ 0.8748: expected 0.870370715499767 to be greater than or equal to 0.8748
+ ❯ test/adopted-thresholds.test.ts:1608:65
+    1606|             if (pinned !== undefined) {
+    1607|               const because = `${name(cell)}: ${metric} = ${measured.t…
+    1608|               if (comparison === "≥") expect(measured, because).toBeGr…
+       |                                                                 ^
+    1609|               else expect(measured, because).toBeLessThanOrEqual(pinne…
+    1610|               continue;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT
+AssertionError: texture / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(7) }, …(29) ] to have a length of 31 but got 30
+
+- Expected
++ Received
+
+- 31
++ 30
+
+ ❯ test/adopted-thresholds.test.ts:1597:13
+    1595|             applicable,
+    1596|             `${tier} / ${metric}: the gate must cover every applicable…
+    1597|           ).toHaveLength(expected);
+       |             ^
+    1598|           expect(applicable.length, `${tier} / ${metric}: nothing left…
+    1599|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-2x-light-standard cells against DOM_TIER_2X_LIGHT
+AssertionError: dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard: ssimMean = 0.87262, UNMET against ≥ 0.92, regression floor ≥ 0.8779: expected 0.872619035491406 to be greater than or equal to 0.8779
+ ❯ test/adopted-thresholds.test.ts:1608:65
+    1606|             if (pinned !== undefined) {
+    1607|               const because = `${name(cell)}: ${metric} = ${measured.t…
+    1608|               if (comparison === "≥") expect(measured, because).toBeGr…
+       |                                                                 ^
+    1609|               else expect(measured, because).toBeLessThanOrEqual(pinne…
+    1610|               continue;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-dark-standard cells against DOM_TIER_DARK
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-2x-dark-standard cells against DOM_TIER_2X_DARK
+AssertionError: dom / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(8) }, …(6) ] to have a length of 8 but got 7
+
+- Expected
++ Received
+
+- 8
++ 7
+
+ ❯ test/adopted-thresholds.test.ts:1597:13
+    1595|             applicable,
+    1596|             `${tier} / ${metric}: the gate must cover every applicable…
+    1597|           ).toHaveLength(expected);
+       |             ^
+    1598|           expect(applicable.length, `${tier} / ${metric}: nothing left…
+    1599|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK
+AssertionError: texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard: silhouetteIoU = 0.90362, UNMET against ≥ 0.93, regression floor ≥ 0.9257: expected 0.9036153154836586 to be greater than or equal to 0.9257
+ ❯ test/adopted-thresholds.test.ts:1608:65
+    1606|             if (pinned !== undefined) {
+    1607|               const because = `${name(cell)}: ${metric} = ${measured.t…
+    1608|               if (comparison === "≥") expect(measured, because).toBeGr…
+       |                                                                 ^
+    1609|               else expect(measured, because).toBeLessThanOrEqual(pinne…
+    1610|               continue;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes
+AssertionError: cells the shape rows skip, per claims §5's predicate: expected [ …(35) ] to deeply equal [ …(32) ]
+
+- Expected
++ Received
+
+@@ -2,10 +2,12 @@
+    "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+    "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+    "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
+    "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
+    "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
++   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard",
++   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard",
+    "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+    "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+    "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+    "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+    "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
+@@ -20,10 +22,11 @@
+    "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-1x-light-standard",
+    "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+    "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+    "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
+    "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
++   "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard",
+    "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+    "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+    "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
+    "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+    "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+
+ ❯ test/adopted-thresholds.test.ts:1624:78
+    1622|   it("machine-checks the well-conditioned predicate and names every ce…
+    1623|     const excluded = MATRIX.cells.filter((cell) => !isWellConditioned(…
+    1624|     expect(excluded, "cells the shape rows skip, per claims §5's predi…
+       |                                                                              ^
+    1625|       ...PREDICATE_EXCLUDES,
+    1626|     ]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > proves every regression floor stands on a genuinely unmet bound
+AssertionError: floors that no gated row reaches: expected [ …(6) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard :: silhouetteIoU",
++   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard :: contourDistanceMean",
++   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard :: contourDistanceP95",
++   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: silhouetteIoU",
++   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: contourDistanceMean",
++   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: contourDistanceP95",
++ ]
+
+ ❯ test/adopted-thresholds.test.ts:1743:7
+    1741|       Object.keys(REGRESSION_FLOORS).filter((key) => !seen.has(key)),
+    1742|       "floors that no gated row reaches",
+    1743|     ).toEqual([]);
+       |       ^
+    1744|
+    1745|     // And the set is pinned. Growth is allowed — by editing this numb…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed | 30 passed (38)
+   Start at  11:36:30
+   Duration  197ms (transform 53ms, setup 0ms, import 78ms, tests 31ms, environment 0ms)
+
