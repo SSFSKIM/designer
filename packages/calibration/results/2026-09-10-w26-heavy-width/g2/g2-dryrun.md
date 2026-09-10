@@ -252,6 +252,26 @@ pixels for the thirteenth wave running. `W26_HASHES` records the seven with that
 `W25B_HASHES` and `W25_HASHES` stay beside it. `PLACED_CHECKERBOARD_COVER_HASH` moves with them.
 `test:golden` **33 of 33** before and after the regeneration, in the foreground, GPU guard clear.
 
+### 8.1 And what the sheets actually show, which the metrics do not agree with everywhere
+
+`sheets/g2-1x.png` and `sheets/g2-2x.png`, four panels: native | GPU at 0.14.0 | GPU at the
+candidate | CSS at the candidate, on the canonical thick cells and on the coarse-checkerboard probe
+rows the width was fitted on, with the nested base at 2× and the impulse dot at 4× again beneath
+them.
+
+**On the coarse checkerboards the candidate is visibly closer to Apple, at both scales.** The native
+panel shows the pattern still legible through a 160-span surface; 0.14.0 washes it appreciably
+flatter; the candidate shows it about as legibly as the native does. That is the fit, in a picture,
+and it is the same direction on both tiers.
+
+**And it is worth writing down that the CSS panel does not look wrong on the rows whose floors it
+breaks.** On the 2x `checkerboard-32__rrect-lg` row the CSS tier passes slightly more structure than
+the GPU tier does and sits, by eye, no further from the native than the GPU panel; its `ssimMean`
+nevertheless falls 0.87233 → 0.84943. SSIM on a checkerboard interior is sensitive to exactly the
+structure this wave restores, so the floors of §4 measure a real change and are not, on their own, a
+statement that the picture got worse. **This is the user's to rule (S8, X6)** and it is the reason
+the eye's row is on the sheet next to the number.
+
 ## 9. The counterfactual, because the floors' verdict asks for one
 
 `g2-gpuonly.py`, `floors-gpuonly.txt`, `gate-gpuonly.txt`. The two tiers render independently and a
