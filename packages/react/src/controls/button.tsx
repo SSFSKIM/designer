@@ -33,12 +33,41 @@ import { useToolbarItem } from "./toolbar";
  */
 type ButtonAttributes = Omit<ComponentPropsWithRef<"button">, "color">;
 
-export interface GlassButtonProps
-  extends ButtonAttributes,
-    Pick<
-      GlassSurfaceOwnProps,
-      "plane" | "order" | "variant" | "profile" | "radius" | "capsule" | "thickness" | "groupId" | "nodeId" | "morphing" | "onHost"
-    > {
+/**
+ * The surface props a button forwards.
+ *
+ * An explicit list rather than the whole of `GlassSurfaceOwnProps`, because a
+ * button owns some of them itself: `asChild` and `interactive` are what makes it
+ * a button, and `disabled` reaches the element as well as the material. What is
+ * left is material and placement, and all of it belongs to the author —
+ * including `tint` and `foreground`, which were missing until W27a. A tinted
+ * emphasised control is the *canonical* use of Apple's `Glass.tint(_:)` ("apply
+ * color to the background… one emphasised control"), and it was the one surface
+ * in the library that could not be tinted.
+ *
+ * Each is forwarded only when it is not `undefined`, and for `tint` that
+ * distinction is load-bearing: `null` is a value — the author clearing a tint
+ * inherited from the group, the way `Glass.tint(nil)` does — while `undefined`
+ * is the inheritance the surface must not be told about.
+ */
+type ForwardedSurfaceProps = Pick<
+  GlassSurfaceOwnProps,
+  | "plane"
+  | "order"
+  | "variant"
+  | "tint"
+  | "profile"
+  | "radius"
+  | "capsule"
+  | "thickness"
+  | "foreground"
+  | "groupId"
+  | "nodeId"
+  | "morphing"
+  | "onHost"
+>;
+
+export interface GlassButtonProps extends ButtonAttributes, ForwardedSurfaceProps {
   readonly children?: ReactNode | undefined;
 }
 
@@ -51,10 +80,12 @@ export function GlassButton(props: GlassButtonProps): ReactNode {
     plane,
     order,
     variant,
+    tint,
     profile,
     radius = BUTTON_RADIUS,
     capsule,
     thickness = BUTTON_THICKNESS,
+    foreground,
     groupId,
     nodeId,
     morphing,
@@ -77,8 +108,10 @@ export function GlassButton(props: GlassButtonProps): ReactNode {
       {...(plane === undefined ? {} : { plane })}
       {...(order === undefined ? {} : { order })}
       {...(variant === undefined ? {} : { variant })}
+      {...(tint === undefined ? {} : { tint })}
       {...(profile === undefined ? {} : { profile })}
       {...(capsule === undefined ? {} : { capsule })}
+      {...(foreground === undefined ? {} : { foreground })}
       {...(groupId === undefined ? {} : { groupId })}
       {...(nodeId === undefined ? {} : { nodeId })}
       {...(morphing === undefined ? {} : { morphing })}

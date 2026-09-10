@@ -67,6 +67,43 @@ describe("GlassButton", () => {
     });
     expect(onSubmit).toHaveBeenCalledTimes(1);
   });
+
+  /**
+   * The emphasised control is the case Apple's tint guidance is *about*, and
+   * until W27a the button's prop list omitted `tint` and `foreground` while the
+   * surface underneath carried both. Asserted on the registered scene node
+   * rather than on a style, because the seed is what the material draws from.
+   */
+  it("registers a tinted surface when the author tints it", () => {
+    const harness = renderGlass(
+      <GlassGroup id="g">
+        <GlassButton nodeId="emphasised" tint="rgba(255, 149, 0, 0.5)">
+          Send
+        </GlassButton>
+      </GlassGroup>,
+    );
+
+    const tint = harness.root().scene.glassNode("emphasised")?.descriptor.tint;
+    expect(tint?.color[0]).toBeCloseTo(1, 6);
+    expect(tint?.color[1]).toBeCloseTo(149 / 255, 6);
+    expect(tint?.color[2]).toBeCloseTo(0, 6);
+    expect(tint?.strength).toBeCloseTo(0.5, 6);
+  });
+
+  it("clears an inherited tint with null, and forwards a foreground adaptation", () => {
+    const harness = renderGlass(
+      <GlassGroup id="g">
+        <GlassButton nodeId="plain" tint={null} foreground={{ mode: "fixed" }}>
+          Cancel
+        </GlassButton>
+      </GlassGroup>,
+    );
+
+    const descriptor = harness.root().scene.glassNode("plain")?.descriptor;
+    // `null` is a value the author wrote, not the absence `undefined` means.
+    expect(descriptor?.tint).toBeNull();
+    expect(descriptor?.foreground).toEqual({ mode: "fixed" });
+  });
 });
 
 describe("GlassIconButton", () => {

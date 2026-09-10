@@ -34,13 +34,37 @@ import { resolve } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
-import { cssTierDeclarations } from "../src/css-tier";
+import {
+  cssTierDeclarations,
+  FOREGROUND_LEVELS,
+  FOREGROUND_LEVEL_TOKENS,
+} from "../src/css-tier";
 import { cssTierTintTable } from "../src/optics";
 import { FLOOR_ALPHA, foldCases } from "./w19-fold-cases";
 
 const RECORDED = JSON.parse(
   readFileSync(resolve(import.meta.dirname, "w19-pre-fold-declarations.json"), "utf8"),
 ) as Record<string, unknown>;
+
+/** The three host tokens W27a added, which the recording predates. */
+const W27A_LEVEL_TOKENS = FOREGROUND_LEVELS.map((level) => FOREGROUND_LEVEL_TOKENS[level]);
+
+/**
+ * One render with W27a's named ink levels dropped from the host.
+ *
+ * `w19-pre-fold-declarations.json` is committed evidence and is not rewritten.
+ * What it records is "the W19 field changes nothing", which is a claim about the
+ * fold and not about the tier's token vocabulary, and W27a grew that vocabulary
+ * by three names on a different axis entirely. Dropping exactly those three
+ * keeps the claim strict rather than loosening it: every key the recording holds
+ * is still compared byte for byte, and the case below pins that the three are
+ * the *only* difference, so a fourth would fail rather than be absorbed here.
+ */
+function withoutNamedLevels(render: ReturnType<typeof cssTierDeclarations>): unknown {
+  const host: Record<string, string> = { ...render.host };
+  for (const token of W27A_LEVEL_TOKENS) delete host[token];
+  return { ...render, host };
+}
 
 const encode = (l: number): number =>
   l <= 0.0031308 ? l * 12.92 : 1.055 * l ** (1 / 2.4) - 0.055;
@@ -212,7 +236,7 @@ describe("the author tint folded over the contrast floor (W19 G1)", () => {
     // declarations are still the recorded ones.
     for (const c of CASES.filter((entry) => entry.form !== "linear")) {
       const render = cssTierDeclarations({ ...c.args, untintedOptics: c.untinted });
-      expect(render, c.name).toEqual(RECORDED[c.name]);
+      expect(withoutNamedLevels(render), c.name).toEqual(RECORDED[c.name]);
     }
   });
 
@@ -222,7 +246,7 @@ describe("the author tint folded over the contrast floor (W19 G1)", () => {
     // the behaviour it had. Every case on the bed, all three forms, tinted and
     // untinted.
     for (const c of CASES) {
-      expect(cssTierDeclarations(c.args), c.name).toEqual(RECORDED[c.name]);
+      expect(withoutNamedLevels(cssTierDeclarations(c.args)), c.name).toEqual(RECORDED[c.name]);
     }
   });
 
@@ -232,7 +256,21 @@ describe("the author tint folded over the contrast floor (W19 G1)", () => {
     // overlay are the ones the tier already wrote.
     for (const c of CASES.filter((entry) => entry.seed === "none")) {
       const render = cssTierDeclarations({ ...c.args, untintedOptics: c.untinted });
-      expect(render, c.name).toEqual(RECORDED[c.name]);
+      expect(withoutNamedLevels(render), c.name).toEqual(RECORDED[c.name]);
+    }
+  });
+
+  it("differs from the recording by W27a's three named levels and by nothing else", () => {
+    // What `withoutNamedLevels` is allowed to drop, pinned. Without this the
+    // helper would be a hole: a fourth token, or a moved value on an existing
+    // one, would need only to be added to the drop list to disappear from all
+    // three cases above.
+    for (const c of CASES) {
+      const render = cssTierDeclarations(c.args);
+      const recorded = RECORDED[c.name] as { host: Record<string, string> };
+      const added = Object.keys(render.host).filter((key) => !(key in recorded.host));
+      expect(added.sort(), c.name).toEqual([...W27A_LEVEL_TOKENS].sort());
+      expect(Object.keys(recorded.host).filter((key) => !(key in render.host)), c.name).toEqual([]);
     }
   });
 });

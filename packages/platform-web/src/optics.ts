@@ -3784,16 +3784,17 @@ export function gpuTierForegroundLevel(
  * answer the hinted path would have produced, established from the material
  * alone.
  *
- * **Used only where the material carries an author tint**, deliberately. A tint
- * is the app declaring what colour this surface is, and taking the ink decision
- * from a declaration is honouring it — the alternative is a saturated surface
- * wearing `light-dark()` ink chosen by a colour scheme that knows nothing about
- * it. The profile's own neutral tint is a different thing: a calibration
- * constant, on the material the measured bed describes, and the same bracket
- * would silently re-decide the ink on every untinted surface in the library.
- * That change is real and probably right — an untinted surface at the measured
- * 0.62 is already too opaque for the scheme to be deciding — but it belongs with
- * the adaptation work that owns the untinted material's behaviour, not here.
+ * **Used on every surface, tinted or not** (W27a). W3 wired it in for
+ * author-tinted surfaces alone, on the reasoning that a tint is a declaration
+ * the runtime should honour while the profile's neutral tint is a calibration
+ * constant the runtime should not read as one. The distinction is real and it is
+ * not the one that matters here: this bracket does not ask who chose the colour,
+ * it asks whether the level behind the glyphs can reach the other side of the
+ * crossover — and at the material's measured alpha the neutral tint dominates
+ * that level exactly as an author's colour does. Leaving the untinted case out
+ * left it to `light-dark()`, which is the colour scheme deciding the ink on a
+ * body the scheme knows nothing about: K5's failure class, reached through the
+ * no-hint path rather than through a hint.
  */
 export function boundedForegroundLevel(
   bounds: readonly [number, number],
@@ -3814,6 +3815,151 @@ export function gpuTierForegroundBounds(
   source: MaterialSourceOptics,
 ): readonly [number, number] {
   return [gpuTierForegroundLevel(source, 0), gpuTierForegroundLevel(source, 1)];
+}
+
+/**
+ * A colour in the page's own space, encoded sRGB 0..1 per channel — what a
+ * reader is presented with, and the space a WCAG ratio is defined over.
+ *
+ * `Rgb255` is the same space at the quantisation a CSS declaration takes.
+ * This one is continuous, because it is an intermediate rather than a
+ * declaration.
+ */
+export type EncodedRgb = readonly [number, number, number];
+
+/**
+ * The colour the glyphs actually sit on, per channel — `cssTierForegroundLevel`
+ * without the collapse to one number (W27a).
+ *
+ * The level is enough to decide *which* ink is readable, because that decision
+ * is a threshold on luminance. It is not enough to decide *how much* of it a
+ * named level may drop, because that is a contrast ratio and a ratio taken
+ * against a neutral stand-in for a chromatic surface is not the surface's ratio:
+ * a full-strength magenta tint draws an opaque `rgb(232 0 232)` whose level is
+ * 0.259, and light ink at the alpha 0.259 justifies has a real contrast of 1.82
+ * against the magenta it is actually on.
+ *
+ * `luminance` of what this returns is exactly `cssTierForegroundLevel` — the
+ * encoded mix is per channel and luminance is a linear combination of channels,
+ * so the two cannot disagree about the surface even in principle.
+ */
+export function cssTierForegroundColour(
+  optics: MaterialOptics,
+  backdropLuminance: number,
+): EncodedRgb {
+  const backdrop = srgbEncode(backdropLuminance);
+  const mix = (channel: number): number =>
+    (1 - optics.tintAlpha) * backdrop + optics.tintAlpha * (channel / 255);
+  return [mix(optics.tint[0]), mix(optics.tint[1]), mix(optics.tint[2])];
+}
+
+/**
+ * The same colour on the renderer's composite: the lerp per channel in linear
+ * light, encoded for display.
+ *
+ * Here the relation to `gpuTierForegroundLevel` is the other way round and just
+ * as exact: this encodes the linear mix per channel, and the level encodes the
+ * linear mix's luminance. Decoding what this returns and taking its luminance
+ * gives back that same linear mix, so the ratio below is computed on the colour
+ * the renderer draws rather than on a re-derivation of it.
+ */
+export function gpuTierForegroundColour(
+  source: MaterialSourceOptics,
+  backdropLuminance: number,
+): EncodedRgb {
+  const mix = (channel: number): number =>
+    srgbEncode((1 - source.tintAlpha) * backdropLuminance + source.tintAlpha * channel);
+  return [mix(source.tint[0]), mix(source.tint[1]), mix(source.tint[2])];
+}
+
+/** Every colour this tier's surface can reach, over the darkest and brightest backdrops. */
+export function cssTierForegroundColourBounds(
+  optics: MaterialOptics,
+): readonly [EncodedRgb, EncodedRgb] {
+  return [cssTierForegroundColour(optics, 0), cssTierForegroundColour(optics, 1)];
+}
+
+/** The same bracket on the renderer's composite. */
+export function gpuTierForegroundColourBounds(
+  source: MaterialSourceOptics,
+): readonly [EncodedRgb, EncodedRgb] {
+  return [gpuTierForegroundColour(source, 0), gpuTierForegroundColour(source, 1)];
+}
+
+/** A level with no colour behind it, as the neutral it stands for. */
+export function neutralComposite(level: number): EncodedRgb {
+  return [level, level, level];
+}
+
+/** WCAG 2 AA for body text. The floor the CSS tier's own pixel suite holds. */
+export const WCAG_BODY_TEXT_CONTRAST = 4.5;
+
+/** WCAG 2 contrast between two relative luminances, either way round. */
+function wcagContrast(a: number, b: number): number {
+  return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+}
+
+/**
+ * The smallest alpha at which `ink` laid over `surface` still holds `floor` WCAG
+ * contrast against it — or `undefined` where even an opaque ink does not (W27a).
+ *
+ * This is what makes a *named* ink level honest on glass rather than a copy of a
+ * number that was calibrated somewhere else. Apple's `secondaryLabel` is 60%
+ * alpha, and 0.6 is not arbitrary: the platform's ink over the platform's white
+ * background reaches 4.5 at almost exactly that alpha (0.601 by this function on
+ * a white surface). Glass is never a white background. The material's level runs
+ * from `foregroundCrossover` upward when the ink is dark, so the same 60% lands
+ * at 4.49 over an encoded 1.0 and at 3.21 over the shipped regular material's
+ * darkest reachable level of 0.665 — a copied constant would publish a token
+ * that fails the floor on the material it is published *for*.
+ *
+ * **`surface` is a colour and not a level**, which is the whole of the fix in
+ * W27a's review. A ratio is not a function of luminance alone once either side
+ * is chromatic: the ink's own composite over a saturated tint lands somewhere
+ * the neutral of the same luminance never does, and it lands on the wrong side
+ * of the floor rather than a rounding away from it. `neutralComposite` is how a
+ * caller that genuinely has only a level says so.
+ *
+ * The composite is taken in the page's own space, which is where the browser
+ * composites text: `α·ink + (1 − α)·surface` per channel, encoded, then decoded
+ * to relative luminance for the ratio.
+ *
+ * Bisection rather than a closed form because neither side is neutral and
+ * inverting the sRGB transfer per channel through the luminance sum has no
+ * useful analytic answer. The ratio is monotone in α, so 30 halvings resolve it
+ * to better than a part in 10⁹ — far finer than the 1/255 the result is written
+ * out at.
+ */
+export function inkAlphaHoldingContrast(
+  ink: Rgb255,
+  surface: EncodedRgb,
+  floor: number = WCAG_BODY_TEXT_CONTRAST,
+): number | undefined {
+  const surfaceLuminance = luminance([
+    srgbDecode(surface[0]),
+    srgbDecode(surface[1]),
+    srgbDecode(surface[2]),
+  ]);
+  const contrastAt = (alpha: number): number =>
+    wcagContrast(
+      luminance([
+        srgbDecode(alpha * (ink[0] / 255) + (1 - alpha) * surface[0]),
+        srgbDecode(alpha * (ink[1] / 255) + (1 - alpha) * surface[1]),
+        srgbDecode(alpha * (ink[2] / 255) + (1 - alpha) * surface[2]),
+      ]),
+      surfaceLuminance,
+    );
+
+  if (contrastAt(1) < floor) return undefined;
+
+  let low = 0;
+  let high = 1;
+  for (let step = 0; step < 30; step += 1) {
+    const mid = (low + high) / 2;
+    if (contrastAt(mid) >= floor) high = mid;
+    else low = mid;
+  }
+  return high;
 }
 
 /**

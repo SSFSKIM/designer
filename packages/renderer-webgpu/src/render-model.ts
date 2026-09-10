@@ -65,7 +65,18 @@ export interface SurfaceChannels {
    * when v1 gains one.
    */
   readonly shimmer: number;
-  /** `lensStrength`, 0..1. Multiplies the resolved refraction scale. */
+  /**
+   * `lensStrength`, 0..1+. Multiplies the resolved refraction scale.
+   *
+   * **The range is open above 1** (W27a), which is the range `@vitreajs/vitrea-web`'s
+   * `channels.ts` has always documented and the range the motion table has always
+   * driven: 1 at rest, 1.03 focused, 1.06 hover, 1.10 morphing, 1.14 pressed, and
+   * 0.5 disabled. The instance builder used to clamp the channel at 1 on its way
+   * into the shader, which left `disabled` as the only interaction state the lens
+   * could see and silently discarded every one that deepens it. The lens depth is
+   * still clamped to the surface's half span in the fragment stage, so a strength
+   * above 1 deepens the lens without pushing it through the surface.
+   */
   readonly lensStrength: number;
   /** Press point in viewport CSS px. Defaults to the surface's centre. */
   readonly pressPoint?: readonly [number, number];
