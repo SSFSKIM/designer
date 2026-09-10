@@ -4128,7 +4128,7 @@ export function materialAtBackdrop(
 }
 
 /** The encoded-layer solve's reference convention, never a claimed backdrop tone. */
-export interface UnsampledMaterial {
+export interface DomMaterialReference {
   readonly referenceBackdropLuminance: number;
   readonly minimumTintContrast: number;
 }
@@ -4140,15 +4140,13 @@ export interface UnsampledMaterial {
  * conventions, shared with the CSS mirror. An actual backdrop tone always wins
  * over the reference level, and the reference never enables tone adaptation.
  */
-export function unsampledMaterials(
-  _patch?: RendererMaterialProfile,
+export function domMaterialReference(
   mapping: CssTierMapping = CSS_TIER_MAPPING,
-): Readonly<Record<MaterialVariant, UnsampledMaterial>> {
-  const reference = {
+): DomMaterialReference {
+  return {
     referenceBackdropLuminance: mapping.referenceBackdropLuminance,
     minimumTintContrast: mapping.minimumTintContrast,
   };
-  return { regular: reference, clear: reference };
 }
 
 /**

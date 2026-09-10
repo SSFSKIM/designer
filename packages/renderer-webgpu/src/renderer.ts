@@ -1159,9 +1159,12 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           shadow.thickOcclusionAt160,
         ],
         outerShadowLift: [
-          // The lift needs a chain to copy; without one there is nothing to add,
-          // and `hasBackdrop` in the shader says the same thing a second time.
-          pyramid === undefined || policy.glass === "none" ? 0 : shadow.liftAmplitude,
+          // A DOM layer can evaluate the lift at its stated tone, but not at
+          // unknown exterior pixels. No tone still means no light to add.
+          policy.glass === "none" ||
+            (pyramid === undefined &&
+              (input.unsampledMaterial === undefined || input.backdropTone === undefined))
+            ? 0 : shadow.liftAmplitude,
           shadow.liftSpanMin,
           shadow.liftSpanFull,
           liftChainLod(shadow.liftBlurSigmaCss, pyramid),

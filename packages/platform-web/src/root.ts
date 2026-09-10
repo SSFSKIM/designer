@@ -165,9 +165,9 @@ import {
   tintedCssOptics,
   tintedSourceOptics,
   tintToneAdaptation,
-  unsampledMaterials,
+  domMaterialReference,
   weakestCssTintForm,
-  type UnsampledMaterial,
+  type DomMaterialReference,
   type CssTierMapping,
   type InteriorSurfaceGeometry,
   type MaterialOptics,
@@ -396,13 +396,12 @@ export interface GlassGroupRenderInput {
    */
   readonly backdropToneLinearLuminance?: number;
   /**
-   * The material a GPU-tier group writes as a LAYER when it samples nothing
-   * (W11a): the renderer's tint at the CSS tier's alpha, because the browser
-   * composites that layer in the same encoded space the CSS tier's `rgba()`
-   * lands in. Present exactly where the WebGPU tier is drawing over a DOM
-   * proxy or over the page; never on a group sampling a texture.
+   * The final encoded-layer solve for a host DOM group (W27f G1). The profile
+   * stays linear until its response, collapse, paint and rim are evaluated;
+   * this descriptor carries only the conversion convention, not a flat tint.
+   * Absent on a group sampling a texture, whose compositor is the shader.
    */
-  readonly unsampledMaterial?: UnsampledMaterial;
+  readonly unsampledMaterial?: DomMaterialReference;
 }
 
 export interface GlassPlaneRenderInput {
@@ -1017,10 +1016,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    */
   let gpuOptics = sourceOptics(initialProfile);
   /**
-   * The pair a GPU-tier group writes when it has no texture to sample (W11a):
-   * the renderer's tint at this tier's alpha, one number for both tiers.
+   * The DOM canvas's conversion convention, shared with the CSS mirror.
+   * It does not depend on the profile: the profile is evaluated before conversion.
    */
-  let unsampled = unsampledMaterials(initialProfile, cssMapping);
+  const unsampled = domMaterialReference(cssMapping);
   /**
    * The renderer's light direction and the two size gains its inner shadow
    * rides — the profile block the interior derivations read (W17 G1).
@@ -1074,7 +1073,6 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     resolvedProfile = profile;
     cssOptics = cssTierOptics(profile, cssMapping);
     gpuOptics = sourceOptics(profile);
-    unsampled = unsampledMaterials(profile, cssMapping);
     interiorLight = sourceInteriorLight(profile);
     policyFold = resolvedPolicyFold(profile);
     tintShade = resolvedTintShade(profile);
@@ -1836,7 +1834,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         // The layer pair travels only where the GPU tier is the one drawing and
         // has nothing to sample — over its proxy, or over the page (W11a).
         ...(state.activeRenderer === "webgpu" && state.samplingBackend !== "gpu-texture"
-          ? { unsampledMaterial: unsampled[variant] }
+          ? { unsampledMaterial: unsampled }
           : {}),
       };
 
@@ -1946,6 +1944,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           resolvedProfile, variant, backdropTone, Math.min(bounds.width, bounds.height),
           accessibility.material, devicePixelRatio, material.tint?.strength ?? 0, cssMapping,
         );
+        const surfaceThickness = atBackdrop.thickness;
         const foldedThickness = atBackdrop.foldedThickness;
         const backdropAdaptation = atBackdrop.adaptation;
         const adaptedSource = atBackdrop.adapted;

@@ -303,10 +303,10 @@ export function toRendererGroups(
           variant: group.variant,
           union: groupUnionFromMergeDistance(group.declaredMergeDistance),
           ...(sampled ? { backdropSourceId: sourceId } : {}),
-          // With nothing bound the optics pass writes the material as a layer
-          // the browser composites (W11a), and the host's compositing-space
-          // pair is what it writes. Never beside a bound source: a sampled
-          // group composites in the shader and the pair would be a lie there.
+          // Only a DOM layer needs the encoded solve (W27f G1). This carries
+          // its conversion convention, not a pre-converted material: the
+          // profile's response and size laws still run in linear light.
+          // A bound texture keeps the sampled branch and carries no descriptor.
           ...(!sampled && group.unsampledMaterial !== undefined
             ? { unsampledMaterial: group.unsampledMaterial }
             : {}),

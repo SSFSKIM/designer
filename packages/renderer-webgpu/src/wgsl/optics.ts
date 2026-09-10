@@ -481,9 +481,9 @@ fn dom_material_alpha(composite : vec3f, backdrop : vec3f, alpha : f32) -> f32 {
 /// needed to keep every channel in gamut is an algebraic constraint, not a fit.
 /// At the reference B this returns E(C) exactly after browser source-over; away
 /// from B the scalar layer cannot reproduce the sampled path's local structure.
-fn dom_material_output(composite : vec3f, backdrop : vec3f, alpha : f32) -> vec4f {
-  let c = linear_to_srgb(clamp(composite, vec3f(0.0), vec3f(1.0)));
-  let b = linear_to_srgb(clamp(backdrop, vec3f(0.0), vec3f(1.0)));
+fn dom_material_output(encodedComposite : vec3f, encodedBackdrop : vec3f, alpha : f32) -> vec4f {
+  let c = clamp(encodedComposite, vec3f(0.0), vec3f(1.0));
+  let b = clamp(encodedBackdrop, vec3f(0.0), vec3f(1.0));
   let need = select((b - c) / max(b, vec3f(1e-6)),
     (c - b) / max(vec3f(1.0) - b, vec3f(1e-6)), c >= b);
   let a = clamp(max(alpha, max(need.x, max(need.y, need.z))), 0.0, 1.0);
@@ -1244,8 +1244,18 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // translucent surface shows the page through it, not its own shadow. (With
   // an opaque body the two are the same quantity, which is how the shadow was
   // first written and why the difference only surfaced with the layer form.)
-  var body = encode_output(max(colour, vec3f(0.0)), coverage * bodyAlpha);
-  if (domMaterial) { body = dom_material_output(colour, backdrop, domAlpha) * coverage; }
+  if (domMaterial) {
+    // Coverage precedes the gamut solve. The sampled rim may exceed white
+    // before antialiasing; clipping it first would dim the half-covered edge.
+    // Include the exterior shadow in the same target so its light and opacity
+    // remain one valid premultiplied layer at that edge too.
+    let b = linear_to_srgb(backdrop);
+    let compositeEncoded = linear_to_srgb(max(colour, vec3f(0.0))) * coverage
+      + (b * (1.0 - shadowAlpha) + liftEncoded) * (1.0 - coverage);
+    let alpha = domAlpha * coverage + shadowAlpha * (1.0 - coverage);
+    return dom_material_output(compositeEncoded, b, alpha);
+  }
+  let body = encode_output(max(colour, vec3f(0.0)), coverage * bodyAlpha);
   return vec4f(
     body.rgb + liftEncoded * (1.0 - coverage),
     body.a + shadowAlpha * (1.0 - coverage),
