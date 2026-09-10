@@ -1570,3 +1570,35 @@ vitrea's grades by half. With the heavy texture in place the thick body no longe
 `scatterLod`, so the constant is expected to fall silent above the knee; G1c states what it still
 grades and G2 declares whether it is retired. Supersedes the direction of the W26 G1 entry "one
 heavy width per source loses the 2x span grading", which is kept beside as recorded.
+
+## The heavy width has no small values: a σ just above 0 draws the raw backdrop, not "almost the chain tap" (W26 G1c, 2026-09-10)
+
+`heavyTapPlan` at σ 0.001 selects chain level 0 with no residual, so the deep sample becomes the
+unblurred backdrop — the opposite of the σ 0 meaning (the chain at `scatterLod`). Both anchors are
+declared at 9 and `rampAtScale` never visits a small value, but a profile author could. Closes with
+a floor in the plan (a σ below the chain's level-1 width reads as the level-1 kernel) or a
+validation that rejects 0 < σ < `CHAIN_LEVEL_SIGMA[1]`. `g1c/ladder.txt` §1.
+
+## `sizeScatterGainMax`, `sizeScatterGainMax2x` and `sizeScatterGainFar2x` are inert at any material naming a heavy width; their retirement is a code-removal wave (W26 Decision Log 6 (b), 2026-09-10)
+
+Fifty rows byte-identical between 9.9 and 4.8 at the candidate: the heavy texture overwrites the
+tap `scatterLod` feeds on every group whose source has a pyramid. They still define what a profile
+naming NO heavy width draws. Closes with a wave that removes `scatterLod` and the three constants
+and defines the σ 0 path (the chain's last level, today's dpr 1 draw), with the goldens attributing
+the move and the fingerprints re-recorded. `g1c/clause.txt`.
+
+## The dark bed's thick-span ΔE prefers a heavy width its own reference does not have (W26 G1c, 2026-09-10)
+
+At the candidate the dark reference reads 9.15 (1x) / 7.80 (2x) and the dark bed's thick spans
+worsen (1x: 128 0.01703 → 0.01892, 160 0.02173 → 0.02404) — errors three times the light bed's
+before and after. The 0.14.0 width of 13.418 was masking something in the dark scheme's thick body
+(a level, a tone response, or the W25 size-keyed adaptation), not describing its kernel. Closes with
+the dark thick body read with the family reader's residual split by backdrop and by level, against
+the dark difference document's own constants. `g1c/bed.txt`.
+
+## The holdout scenes' fixtures were read by W26 G1b's instrument; the fit is holdout-free and the once-read checks the fit, not the instrument (W26 Decision Log 6 (d), 2026-09-10)
+
+Three of the eight backdrops G1b's reader was validated on are holdout scenes. G1c dropped them and
+fitted on the rest; G2's holdout read therefore checks the constants and not the reader that
+produced them. A future instrument built on this bed should exclude the holdout scenes from its
+validation set from the start — the probe set exists for that.

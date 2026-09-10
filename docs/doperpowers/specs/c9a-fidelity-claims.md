@@ -15148,3 +15148,51 @@ not a convolution; unresolved, and the bound on every width fitted on this bed. 
 (10.3 on reader A) withdrawn beside its record; G1c re-fits both widths on rendered rungs with the
 control at every rung and the bed cost with both documents patched; clause 2 narrowed to the
 identified quantities; the sharp component the named gap for the wave after.
+
+### 5.122 W26 G1c CLOSED: both heavy widths fitted on the family reader with the control at every rung — the candidate is 9 and 9 device px, the light bed improves at every thick span at dpr 1, the gain constants are silent byte for byte, and the dark bed prefers a width its own reference does not have (2026-09-10)
+
+**Evidence** `results/2026-09-10-w26-heavy-width/g1c/` — `g1c-findings.md`, `ladder.txt`,
+`bed.txt`, `clause.txt` and the scripts beside them. Controlled; rungs rendered to scratch with both
+documents patched (Decision Log 4 (c)); no canonical write.
+
+**§1 The control rung is (13.418, 0), not (13.418, 0.001).** A heavy σ of 0.001 builds the texture
+at chain level 0 with no residual — the raw backdrop as the deep sample — and every 2x row moves
+(8.8–10.5 display codes of residual). At exactly 0 all fifty rows are byte-identical to the canonical
+captures. The mechanism has no small values.
+
+**§2 The reference re-read holdout-free** (three of G1b's eight backdrops are holdout scenes;
+dropped from every reading here): σ 9.30 / 8.05 (1x light, spans 96 / 160), 7.55 / 9.20 (2x light),
+9.15 / 7.80 (dark, span 96, 1x / 2x); 0.2–0.5 device px from §5.121 §4, recorded beside it.
+
+**§3 The ladder and the control.** Rungs (13.418, 0), (8, 8), (9, 9), (10, 10), (11, 11), (9, 8),
+(9, 10). The family reader returns the named width at +0.2 % on the control and within −8.8 % at
+every rung; the mapping's slope 0.995–1.111 with rms 0.03–0.06 device px; the off-diagonal rungs
+read identically to their diagonal neighbours at the other scale, so the anchors are separable.
+G1b's 5–10 % narrow bias at 2x is gone: the heavy texture is a member of the family.
+
+**§4 The fits.** Through the mapping, the reference asks **9.48 / 8.63 / 9.19** at dpr 1 (spread
+9.8 %, mean 9.10) and **8.13 / 9.79 / 8.37** at dpr 2 (spread 20.4 %, mean 8.76 — one number does
+not serve both spans; the 1.66 device px between them is the 2x span grading). The candidate **9 / 9**
+takes |log(read / reference)| 0.275 → 0.069 over six cells; the share is not fitted and moves
+0.064 → 0.060.
+
+**§5 The bed.** X5 worst thin move 0.00021 (0.00029 worst on the ladder) against 0.001; the gate
+38 / 38 at the candidate with `PREDICATE_EXCLUDES` untouched (the only rung besides the control);
+every failure elsewhere on the ladder is the conditioning census, never a bound or a floor. Per-span
+OKLab ΔE, both documents: 1x light 0.00475 → 0.00420 / 0.00672 → 0.00583 / 0.00905 → 0.00855 at
+96 / 128 / 160; 2x light 0.00395 → 0.00395 / 0.00603 → 0.00590 / 0.00812 → 0.00934; **1x dark
+0.00447 → 0.00520 / 0.01703 → 0.01892 / 0.02173 → 0.02404; 2x dark 0.00612 → 0.00628 /
+0.02116 → 0.02242 / 0.02582 → 0.02923.** The dark scheme's own reference reads 9.15 / 7.80, which
+is what the candidate draws, so the dark bed's thick-span error (three times the light bed's,
+before and after) prefers a width the dark reference does not have: 13.418 masked something else.
+
+**§6 The gain constants are silent.** `sizeScatterGainFar2x` 9.9 against 4.8 at the candidate:
+fifty rows, not one bit — the heavy texture overwrites the tap `scatterLod` feeds, and `scatterLod`
+is the only consumer of `gainEff`. W25 clause 4's dot reads 6.167 CSS px (reference) against 4.037
+(control) / 4.262 (candidate): not met at the control either. Clause 3 is holdout-only. The sharp
+component 1.30–1.55 (1x) / 1.35–1.40 (2x) device px, recorded, not fitted.
+
+**§7 The ruling** (W26 Decision Log 6): 9 / 9 declared to G2; the gain constants inert and kept with
+their retirement deferred; no small values; the holdout's contamination by G1b's instrument
+recorded (the fit is holdout-free; G2's once-read checks the fit, not the instrument); the dark
+bed's preference to the tracker.

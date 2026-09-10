@@ -176,8 +176,8 @@ the user's eye; X7 the dark profile a difference document.
 | G0 — the heavy tap as a parameter | CLOSED 2026-09-10 (claims §5.119) |
 | G1 — the width, the share, the lever, the level | CLOSED 2026-09-10 (claims §5.120; Decision Logs 3–4; merged at `d306214` after the review's two fixes at `d06fe3c`) |
 | G1b — Apple's kernel identified without a shape assumption (spike) | CLOSED 2026-09-10 (claims §5.121; merged at `1d541bf`) |
-| G1c — the fits, second reading: both widths on the family reader (controlled) | DISPATCHED 2026-09-10 (Decision Log 5) |
-| G2 — declared and dry-run | blocked-by G1c |
+| G1c — the fits, second reading: both widths on the family reader (controlled) | CLOSED 2026-09-10 (claims §5.122; merged at `5a710ad`) |
+| G2 — declared and dry-run | DISPATCHED 2026-09-10 (Decision Log 6) |
 | G3 — the landing | — |
 
 ## Decision Log
@@ -415,6 +415,55 @@ and the share on the family reader, within 15 % and 0.05, per surface per scale.
 thin capsule's own and X5-entangled (W25); recorded for the wave after this with the family
 reader's number beside W25's.
 
+### Decision Log 6 — G1c's candidate declared to G2: 9 and 9, the gain constants inert and kept, the holdout's contamination recorded (2026-09-10; the parent; claims §5.122)
+
+(a) **The candidate is `sizeHeavyTapSigma` 9, `sizeHeavyTapSigma2x` 9**, every other constant at
+0.14.0. The control held at every rung and closed at 2x (the heavy texture is a member of the
+family, so the reader returns the named width: +0.2 % on 13.418, slope 0.995–1.111, rms ≤ 0.06
+device px over seven rungs). The reference, re-read holdout-free (X3), asks 9.48 / 8.63 / 9.19 at
+dpr 1 (spread 9.8 %, one number serves both spans within 15 %) and 8.13 / 9.79 / 8.37 at dpr 2
+(spread 20.4 %: one number does NOT serve both spans; 9 is within 11 % of each). The objective
+|log(read / reference)| 0.275 → 0.069 over six cells; the share unmoved (0.064 → 0.060); X5 worst
+0.00021; the gate 38 / 38 with `PREDICATE_EXCLUDES` untouched; the light bed's thick spans improve
+at every span at dpr 1 and two of three at dpr 2.
+
+(b) **The three gain constants are inert at any material naming a heavy width and are KEPT this
+wave**, their docs saying so: `sizeScatterGainMax`, `sizeScatterGainMax2x` and
+`sizeScatterGainFar2x` feed only `scatterLod`, which the heavy texture overwrites on every group
+whose source has a pyramid — fifty rows byte-identical between 9.9 and 4.8 at the candidate.
+Retiring them means deciding what a profile that names NO heavy width draws (today: the chain at
+`scatterLod`); that is a code-removal wave with no fidelity content and it is deferred to the
+tracker rather than folded into a declaration. The 2x span grading they carried (1.66 device px
+between spans 96 and 160) is the recorded gap of Decision Log 2 (f), now measured.
+
+(c) **The mechanism has no small values, and the declaration says so.** A heavy σ of 0.001 builds
+the texture at chain level 0 with no residual — the raw backdrop — so it is the opposite of "almost
+off". The inert control is exactly 0; both anchors are declared at 9 and neither anchor may be a
+small non-zero; the profile documents carry the sentence. Tracker: the constant's domain is 0 or at
+least the chain's level-1 width, and a floor in `heavyTapPlan` would make it continuous.
+
+(d) **The holdout's contamination is recorded.** G1b, a spike, read eight backdrops per surface and
+three were holdout scenes (`checkerboard__rrect-lg`, `hc-text__rrect-md`, `photo__rrect-lg`); it
+fitted nothing, but its instrument was validated on them. G1c dropped them from every reading, so
+the candidate is fitted holdout-free and G2's once-read of the holdout stands as the check of the
+FIT. It is not an untouched check of the INSTRUMENT, and clause 6 is read with that sentence beside
+it. `glass-over-glass` is holdout-only, so W25 clause 3 is read at G2's holdout read and nowhere
+else.
+
+(e) **The dark bed worsens on a candidate its own reference asks for** (1x dark span 128
+0.01703 → 0.01892, 160 0.02173 → 0.02404; the dark reference reads 9.15 / 7.80). The 13.418 was
+masking something in the dark scheme whose thick-span error is three times the light bed's before
+and after; not a reason to move the width; tracker. W25 clause 4 (the collapsed dot, 6.167 CSS px
+against 4.04 / 4.26) is not met at the control either, so the candidate neither meets nor regresses
+it; carried.
+
+(f) **G2 declares**: the two constants in the code default and the light patch, the fingerprints
+re-recorded, the CSS tier's `blur()` derived from the heavy width where the width is one number
+(clause 7; `platform-web/src/optics.ts` reads the gain constants today), `W26_HASHES` behind the
+isolation proof, the stops (W25 G3's set; S15 as re-stated in Decision Log 4 (a), on the family
+reader), the dry run of the frozen bed and the probe set to scratch, the holdout once, the sheets;
+`PREDICATE_EXCLUDES` equal to the machine's output.
+
 ## Surprises & Discoveries
 
 - **A scratch rung is not a rehearsal of a landing.** The dark difference document resolves over
@@ -492,3 +541,6 @@ reader's number beside W25's.
   instrument of record; Apple's heavy width 8.6–9.2 / 8.7–9.6 device px, vitrea's 1x half again too
   wide; the share right; the sharp component reversed; G1's 2x fit withdrawn beside its record;
   G1c dispatched to re-fit both widths; clause 2 narrowed to the identified quantities.
+- 2026-09-10: G1c CLOSED and merged (`5a710ad`). Decision Log 6: the candidate 9 / 9 declared to
+  G2; the gain constants inert and kept; the mechanism's no-small-values wart, the holdout's
+  contamination by G1b's instrument, and the dark bed's preference recorded. G2 dispatched.
