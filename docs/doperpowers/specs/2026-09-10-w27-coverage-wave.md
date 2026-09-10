@@ -405,7 +405,7 @@ neighbour glow diffusion; topology-changing morphs.
 | W27c | G0 CLOSED 2026-09-10 (merged `7312fd0`; claims §5.128: all 121 pairs read; the outer shadow and the bright rim go to zero in every profile at both scales, structure retained falls, an author tint loses its hue entirely while its darkening stays — orange and blue capsules both settle at Y 0.451 against the untinted 0.606 — and no existing field expresses that; dark untinted glass and both accessibility bodies *brighten*; four cells background-identical; the 2x dark photo capsule's active side is the 1-of-17 minority state and is excluded from the fit) / G1 dispatched 2026-09-10 | G1 in-flight |
 | W27d | — | not-dispatched (blocked-by W27a) |
 | W27e | — | not-dispatched (deliberately late) |
-| W27f | G0 isolated branch, completed 2026-09-10 (claims §5.129) | G0 complete; G1/G2 not dispatched |
+| W27f | G0 CLOSED 2026-09-10 (merged `730a9d3`; claims §5.129: the unhinted dark capsule misses the collapse by ΔE 0.545 against the sampled path's 0.006, a correct scalar hint repairs it but the dark medium pane still misses by 0.079 (−0.089 L against the same-hint sampled path), the checkerboard rows lose spread and the photo rows keep too much; a scalar hint itself costs the sampled path its structured-backdrop correction, so the evidence keeps sampled-today, same-hint-sampled and hinted-page columns apart; the two stack overlays are the only native cells on this path; the demo gains `/#page`, "Over ordinary page content") / G1 dispatched 2026-09-10 (claims §5.131 reserved) | G1 in-flight |
 
 ## Decision Log
 
