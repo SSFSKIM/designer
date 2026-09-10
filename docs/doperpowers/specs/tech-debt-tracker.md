@@ -1631,3 +1631,15 @@ asks why a two-layer body with the correct component widths loses structure the 
 kept: the suspects are the series-with-mask composition against the renderer's per-pixel mix, and
 the collapsed single-`blur()` projection, which still runs off the gain constants.
 `g2/floors.txt`, `g2/floors-gpuonly.txt`.
+
+## The CSS tier's sampling padding is derived from the PROJECTED sigma and the heavy layer is wider than it at the thin end (checked at W26 G2, pre-existing and improved, 2026-09-10)
+
+A group's `samplingPadding` floor is `3 x groupScatterSigma(...)` at dpr 1 — the ramp's area-average
+projection, which is `blurSigma x (1 + (gain - 1) x mix)`. The two-layer body's HEAVY layer has never
+been a function of that mix: before W26 it was `blurSigma x gain x effectiveRatio` = 13.8 CSS px at
+every span, and since W26 it is the profile's own 9.000 CSS px. At the size law's thin end the
+projection is 4.75 CSS px, so the padding floor is 14.25 px against a 27 px (was 41.4 px) reach.
+**W26 does not introduce this and strictly reduces it**; it is recorded because the wave checked it
+and because `root.ts`'s own comment names the same class of bug one wave earlier. Closes with a
+padding floor taken over the widest layer the tier will actually write rather than over the
+projection it no longer draws — `cssTierHeavySigmaCssPx` at the group's largest member.
