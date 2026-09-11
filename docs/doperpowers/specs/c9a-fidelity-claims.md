@@ -17527,10 +17527,13 @@ one to invert. Calibration 340/340 and lint green at the fixed head.
 
 **A landing gate, not a fitting one.** Executes W27's child W27f G2, the §Design clause *Page
 content on the WebGPU tier gets the material, not a flat* (binding), Decision Log 3 and 12, and
-contracts X1 and X2. No material constant, profile document, fixture, `scenes.json` entry, golden or
-canonical matrix row moved. The gate had two outcomes available to it — adopt the declared bound as
-a floor, or adopt nothing and stop — and no third. Head **`8cf6a89`**, which is `2b47bda` plus one
-documentation-only commit, so the runtime, profiles, fixtures and scene set are `2b47bda`'s exactly.
+contracts X1 and X2. **No material constant, profile document, fixture, `scenes.json` entry or
+golden moved.** Twelve canonical matrix rows did, and only because they were found to be stale — a
+re-capture of the two stack scenes at the material that has shipped since 0.16.0, changing no
+bound, no floor, no cell count and no key (§8). The gate had two outcomes available to it — adopt
+the declared bound as a floor, or adopt nothing and stop — and no third. Head **`8cf6a89`**, which
+is `2b47bda` plus one documentation-only commit, so the runtime, profiles, fixtures and scene set
+are `2b47bda`'s exactly.
 
 Evidence: `packages/calibration/results/2026-09-11-w27f-g2/`, containing the declaration, the
 runner, both readings and their capture manifests, the holdout spend marker, the verdict, the
