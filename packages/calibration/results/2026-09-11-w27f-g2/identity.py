@@ -100,9 +100,21 @@ def compare(before, after):
         arms, not_read, truncated = {}, {}, []
         for scene in sorted(set(old) | set(new)):
             recorded_arms, read_arms = old.get(scene, {}), new.get(scene)
-            if read_arms is None or not any(sha is not None for sha in read_arms.values()):
+            if read_arms is None:
+                # Absent from the read entirely: a scope decision, and the only
+                # shape of absence that is one. This gate reads two of the ten
+                # holdout scenes on purpose (`declaration.md` §0).
                 if recorded_arms:
                     not_read[scene] = sorted(recorded_arms)
+                continue
+            if not any(sha is not None for sha in read_arms.values()):
+                # Present in the read and carrying nothing. The read claimed this
+                # scene and delivered no digest for any arm of it, which is the
+                # truncation this function exists to catch — filing it beside a
+                # scene nobody asked for would let a wholly failed capture pass
+                # as a scope decision, and the docstring above promises it stops.
+                truncated.append({"scene": scene, "arm": None,
+                                  "why": "the read carries this scene with no digest on any arm"})
                 continue
             for arm in sorted(set(recorded_arms) | set(read_arms)):
                 recorded, sha = recorded_arms.get(arm), read_arms.get(arm)

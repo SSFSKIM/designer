@@ -469,5 +469,57 @@ class PorcelainPaths(unittest.TestCase):
         self.assertEqual(g1.porcelain_paths("\n"), [])
 
 
+_ispec = importlib.util.spec_from_file_location(
+    "w27f_g2_identity", Path(__file__).with_name("identity.py"))
+identity = importlib.util.module_from_spec(_ispec)
+_ispec.loader.exec_module(identity)
+
+
+class AbsenceIsNotAgreement(unittest.TestCase):
+    """The digest comparison must not read absence as a match.
+
+    `compare` walks the *after* set, so every shape of missing data defaults to
+    silence unless it is caught deliberately. Absence has two shapes and only one
+    of them is benign: a scene the read never claimed is a scope decision — this
+    gate reads two of the ten holdout scenes on purpose — while a scene the read
+    claimed and did not deliver is a truncated capture. The second must stop.
+    """
+
+    def report(self, before, after):
+        return identity.compare(before, after)["light"]
+
+    def test_a_scene_the_read_never_claimed_is_a_scope_decision(self):
+        out = self.report({"light": {"skipped": {"sampled": "a"}}}, {"light": {}})
+        self.assertEqual(out["notRead"], {"skipped": ["sampled"]})
+        self.assertEqual(out["truncated"], [])
+
+    def test_a_scene_read_with_no_digest_on_any_arm_is_truncated(self):
+        # The case the first version filed as `notRead`: the read claimed this
+        # scene and produced nothing at all for it, which is indistinguishable
+        # from a capture that died halfway if absence is read as scope.
+        out = self.report({"light": {"s": {"sampled": "a", "css-today": "b"}}},
+                          {"light": {"s": {"sampled": None, "css-today": None}}})
+        self.assertEqual(out["notRead"], {})
+        self.assertEqual([t["scene"] for t in out["truncated"]], ["s"])
+        self.assertIsNone(out["truncated"][0]["arm"])
+
+    def test_one_surviving_arm_still_names_the_arm_that_went_missing(self):
+        out = self.report({"light": {"s": {"sampled": "a", "css-today": "b"}}},
+                          {"light": {"s": {"sampled": "a", "css-today": None}}})
+        self.assertEqual([t["arm"] for t in out["truncated"]], ["css-today"])
+        self.assertEqual(out["arms"]["sampled"]["identical"], ["s"])
+
+    def test_an_arm_the_record_has_and_the_read_lacks_is_truncated(self):
+        out = self.report({"light": {"s": {"sampled": "a", "css-today": "b"}}},
+                          {"light": {"s": {"sampled": "a"}}})
+        self.assertEqual([t["arm"] for t in out["truncated"]], ["css-today"])
+
+    def test_a_moved_digest_is_still_moved(self):
+        out = self.report({"light": {"s": {"sampled": "a"}}},
+                          {"light": {"s": {"sampled": "z"}}})
+        self.assertEqual([m["scene"] for m in out["arms"]["sampled"]["moved"]], ["s"])
+        self.assertEqual(out["truncated"], [])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

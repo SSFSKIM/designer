@@ -2127,7 +2127,7 @@ overlay alone — and the overlay is the only part of those cells that is a `css
 which is what makes them the native evidence for the page-content path (claims §5.129 X8).
 
 The consequence is concrete. W27f G2 adopted a bound on that overlay (claims §5.135) and could not
-express it as a `GateRow`: it is six assertions over a committed reading instead, which catches the
+express it as a `GateRow`: it is seven assertions over a committed reading instead, which catches the
 ledger and the evidence drifting apart but not a material change, because nothing regenerates that
 reading in CI. Claims §5.131 §6 forbids the obvious shortcut — a whole-footprint floor on these
 cells would let the overlay's residual disappear behind the base's larger footprint, which is the

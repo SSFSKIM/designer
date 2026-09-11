@@ -17893,6 +17893,17 @@ that would fit anything on the stack path must treat them as spent and re-freeze
 marker names `2026-09-10-w27f-g1-measure.py` because the literal was baked into the runner G1
 wrote; the copy now names the file that runs, and the recorded marker is left as it was written.
 
+**The `runnerSha256` these readings carry is not the digest of the runner beside them, and that is
+provenance rather than drift.** Thirteen places across `stack-reading.json`, `ordinary-reading.json`,
+both capture manifests and `holdout-spend.json` record **`e3ddd666a262…`**, which is `measure.py`
+exactly as it stood at **`7b2e03c`** — the commit the captures were taken at, which is what a
+capture's provenance must name. The committed file now digests **`fb3ef78c6da4…`**, because the two
+commits that followed the read edited it: the `GATE_DATE` / `GATE` constants and the `spentBy`
+expression described in this section, and two docstrings. No metric, threshold, arm definition,
+freshness rule or holdout guard moved, and the recorded digests are left exactly as written — a
+reading names the file that produced it, and a later correction to that file is disclosed here
+rather than back-stamped into evidence that could not have known about it.
+
 **Two more inherited literals of the same class, found in review and disclosed here.** This gate's
 own readings, `stack-reading.json` and `ordinary-reading.json`, open `"date": "2026-09-10"` and
 `"gate": "W27f G1"` — they were written by a copied runner whose stamp was a literal, exactly as
@@ -17925,8 +17936,8 @@ console warnings or errors. **The user's eye is the parent's to take; no accepta
 claimed here.**
 
 **11. Checks.** The exact required command `pnpm -r build && pnpm -r lint && pnpm -r test` passed on
-the corrected tree: **2 182 unit tests** (policy 23, motion 164, geometry 170, renderer 465, core
-302, platform-web 552, calibration 362, react 141, demo 3). The renderer browser suite passed
+the corrected tree: **2 183 unit tests** (policy 23, motion 164, geometry 170, renderer 465, core
+302, platform-web 552, calibration 363 over 26 files, react 141, demo 3). The renderer browser suite passed
 **34/34** across `scenes.spec.ts`, `isolation.spec.ts` and `receded-tint.spec.ts` with **no golden
 regenerated** and a clean working tree afterwards. The demo e2e passed **48/48 in a single serial
 run**, including the two `page-stage.gpu.spec.ts` cases on a real adapter and the
