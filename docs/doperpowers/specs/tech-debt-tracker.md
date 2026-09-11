@@ -1978,3 +1978,18 @@ moved: every demo test has passed on `108b40d`, just not all in one run. The fix
 `test.slow()` or a per-test timeout proportional to `SAMPLE_DELAYS` on the phase-sampled
 contrast tests — and it was left out of the stopping-point commit so that commit changes no test
 configuration; take it with the next demo e2e change and re-run the suite once, serially.
+
+## Three W27a features have a prop and a README paragraph and no live instance (0.16.0 eye sheet, 2026-09-11)
+
+`GlassButton tint` / `foreground`, `GlassGroup tint` and the four named ink levels
+(`--vitrea-foreground{,-secondary,-tertiary,-quaternary}`) landed in W27a and shipped in 0.16.0
+with nothing in `apps/` using them: every `tint=` in the demo is on a `GlassSurface`, and no file
+under `apps/` passes `foreground` or names the three lower tokens (they occur only inside a built
+bundle). The W27 wave's acceptance clause 2 requires "a live instance in the demo or the playground
+that a reader can operate", and it was checked at each landing by prop and README, not by reading
+the demo. Two pieces of work: (1) the instance — one playground plate showing a tinted button, a
+tinted group and all four levels, chartered into W27e G2 because that gate re-derives the levels
+and touches the playground anyway; (2) the check — a demo-side test that maps each README-documented
+prop on the three public packages to at least one live site under `apps/`, so the clause fails at
+the landing rather than on a release sheet. Until (2) exists, a landing's clause-2 review must grep
+`apps/` for the prop, not the README.
