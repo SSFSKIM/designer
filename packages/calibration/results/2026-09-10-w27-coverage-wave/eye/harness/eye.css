@@ -1,0 +1,349 @@
+/*
+ * The harness's geometry, written once and read by both trees.
+ *
+ * Every box is a viewport number, because the ground is `fixed` page DOM and the
+ * glass is `absolute` inside a plane layer that is itself `fixed; inset: 0`. The
+ * capture script clips on `[data-eye-clip]`, so these numbers are also the
+ * panels' native pixel sizes (doubled, at device pixel ratio 2).
+ *
+ * No `opacity`, `filter` or `transform` on anything above a glass host: each
+ * forms a Backdrop Root and would kill the proxies the GPU tier samples through.
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+}
+
+html[data-eye-scheme="dark"] {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  background: #eef1f4;
+  color: #16191c;
+}
+
+html[data-eye-scheme="dark"] body {
+  background: #101214;
+  color: #eceff2;
+}
+
+/* ── ground ──────────────────────────────────────────────────────────────── */
+
+.eye-ground {
+  position: fixed;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+/*
+ * Structure, not a wash. Each ground carries a hard-edged repeat *and* a large
+ * soft field, because the two answer different questions about the material: the
+ * repeat shows the blur radius and the lens displacement, the field shows the
+ * tone response and where a tint takes its shade from.
+ */
+.eye-ground--a {
+  left: 40px;
+  top: 32px;
+  width: 1200px;
+  height: 200px;
+  background:
+    repeating-linear-gradient(
+      66deg,
+      rgb(255 255 255 / 0.85) 0 14px,
+      rgb(255 255 255 / 0) 14px 34px
+    ),
+    linear-gradient(100deg, #1d6fd1 0%, #17a3a3 38%, #f2b134 68%, #d94f5c 100%);
+}
+
+.eye-ground--b {
+  left: 40px;
+  top: 272px;
+  width: 1200px;
+  height: 420px;
+  background:
+    repeating-conic-gradient(
+      from 15deg at 22% 34%,
+      rgb(0 0 0 / 0.24) 0deg 9deg,
+      rgb(255 255 255 / 0.2) 9deg 18deg
+    ),
+    linear-gradient(160deg, #f7f3ea 0%, #b9c9d6 42%, #46617a 78%, #22303d 100%);
+}
+
+.eye-ground--c {
+  left: 40px;
+  top: 732px;
+  width: 1200px;
+  height: 300px;
+  background:
+    repeating-linear-gradient(
+      -24deg,
+      rgb(0 0 0 / 0.26) 0 10px,
+      rgb(255 255 255 / 0.16) 10px 26px
+    ),
+    radial-gradient(120% 160% at 18% 20%, #ffd479 0%, #e2703a 36%, #3a4f9c 72%, #101a33 100%);
+}
+
+/*
+ * The left half of row D is ordinary DOM (sampled through a proxy, refraction
+ * `approximate`); the right half is the registered canvas below (a GPU texture,
+ * refraction `true`). The same repeat on both, so the row compares the lens on
+ * the two sampling backends rather than two backdrops.
+ */
+.eye-ground--d {
+  left: 40px;
+  top: 1072px;
+  width: 600px;
+  height: 200px;
+  border-radius: 18px 0 0 18px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgb(255 255 255 / 0.92) 0 8px,
+      rgb(10 12 16 / 0.92) 8px 20px
+    ),
+    linear-gradient(90deg, #2f6ee0 0%, #7c4bd0 50%, #1d9f7a 100%);
+}
+
+.eye-texture {
+  position: fixed;
+  left: 640px;
+  top: 1072px;
+  width: 600px;
+  height: 200px;
+  border-radius: 0 18px 18px 0;
+}
+
+.eye-controls {
+  position: fixed;
+  left: 40px;
+  top: 1296px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 12px;
+}
+
+.eye-probes {
+  position: fixed;
+  left: 40px;
+  top: 1340px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ── row A: the toolbars ─────────────────────────────────────────────────── */
+
+.eye-bar {
+  position: absolute;
+  top: 104px;
+  height: 56px;
+}
+
+.eye-bar--split {
+  left: 90px;
+}
+
+.eye-bar--plain {
+  left: 690px;
+}
+
+/*
+ * `gap: 0`, so that members of one sampling group are *adjacent* and their union
+ * is one continuous background — which is what makes the split legible: the
+ * unsplit bar is one body, the split bar is two, and the distance between them
+ * is the spacer's derived minimum rather than a number written here.
+ */
+.eye-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 56px;
+}
+
+.eye-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  margin: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--vitrea-foreground, currentcolor);
+  cursor: pointer;
+  isolation: isolate;
+}
+
+.eye-control--wide {
+  min-width: 130px;
+}
+
+/* ── row B ───────────────────────────────────────────────────────────────── */
+
+.eye-tints {
+  position: absolute;
+  left: 90px;
+  top: 320px;
+  display: flex;
+  gap: 60px;
+}
+
+.eye-group-tint {
+  position: absolute;
+  left: 880px;
+  top: 310px;
+  display: flex;
+  gap: 60px;
+}
+
+.eye-ink {
+  position: absolute;
+  left: 90px;
+  top: 450px;
+}
+
+.eye-plate {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+  padding: 16px 20px;
+  color: var(--vitrea-foreground, currentcolor);
+  font-size: 14px;
+}
+
+.eye-plate strong {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.eye-plate--small {
+  width: 140px;
+  height: 100px;
+}
+
+.eye-plate--ink {
+  width: 560px;
+  height: 200px;
+  gap: 10px;
+  justify-content: center;
+}
+
+.eye-plate--presence {
+  width: 300px;
+  height: 140px;
+}
+
+.ink {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+.ink--primary {
+  color: var(--vitrea-foreground);
+  font-weight: 600;
+}
+
+.ink--secondary {
+  color: var(--vitrea-foreground-secondary);
+}
+
+.ink--tertiary {
+  color: var(--vitrea-foreground-tertiary);
+}
+
+.ink--quaternary {
+  color: var(--vitrea-foreground-quaternary);
+}
+
+.ink-rule {
+  width: 100%;
+  margin: 2px 0 0;
+  border: 0;
+  border-top: 2px solid var(--vitrea-foreground-quaternary);
+}
+
+/* ── row C ───────────────────────────────────────────────────────────────── */
+
+.eye-presence {
+  position: absolute;
+  left: 90px;
+  top: 790px;
+}
+
+.eye-morph {
+  position: absolute;
+  top: 772px;
+}
+
+.eye-morph--materialize {
+  left: 470px;
+}
+
+.eye-morph--matched {
+  left: 830px;
+}
+
+.eye-platter {
+  display: block;
+}
+
+.eye-platter__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 280px;
+  height: 120px;
+  padding: 18px 20px;
+  color: var(--vitrea-foreground, currentcolor);
+  font-size: 14px;
+}
+
+.eye-platter__body strong {
+  font-size: 16px;
+}
+
+/* ── row D ───────────────────────────────────────────────────────────────── */
+
+.eye-lens {
+  position: absolute;
+  left: 90px;
+  top: 1136px;
+}
+
+.eye-lens--texture {
+  left: 700px;
+}
+
+.eye-capsule {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+  height: 72px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--vitrea-foreground, currentcolor);
+  cursor: pointer;
+  isolation: isolate;
+}
