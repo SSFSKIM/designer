@@ -214,8 +214,16 @@ def main():
         "source": "claims §5.131 §6 for every recorded value; the read is the runner's reading.json",
         "scratch": str(args.scratch),
         "cells": cells,
-        "stops": stops,
-        "landing": "the bound holds" if not stops else "the bound is missed; adopt nothing",
+        # Named for what it covers. This file decides the bound's own stops and
+        # nothing else; S3 and S4 are questions about the instrument and are
+        # decided in identity.json, which reached a different answer. An
+        # unqualified "stops: []" beside an S4 that tripped is how two pieces of
+        # evidence in one gate came to contradict each other in silence.
+        "stopsScope": "S1 (Clause A) and S2 (Clause B) only. S3 and S4 — the sampled path's "
+                      "digests and the instrument's repeatability — are decided in identity.json.",
+        "boundStops": stops,
+        "landing": "the bound's clauses hold" if not stops
+                   else "the bound is missed; adopt nothing",
     }
     args.out.write_text(f"{json.dumps(verdict, indent=1)}\n")
 

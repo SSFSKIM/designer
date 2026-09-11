@@ -664,8 +664,15 @@ def porcelain_paths(stdout):
     The historical reading keeps what it recorded; this copy does not repeat it.
 
     Renames print `R  old -> new`; the new path is the one that exists, so it is
-    the one reported. Quoted paths (non-ASCII, under `core.quotePath`) are left
-    exactly as git printed them rather than half-decoded here.
+    the one reported. Quoted paths are left exactly as git printed them rather
+    than half-decoded here — and git quotes any path containing a space whatever
+    `core.quotePath` says, which this repository reaches on `Figma Design/`. The
+    bound on that: a quoted path whose own text contains a literal " -> " would
+    be split at the wrong place and reported truncated. Nothing downstream
+    breaks, because these paths feed `dirtyPaths` in a reading's provenance and
+    no fingerprint, digest or measured number is taken from them; a
+    misreported dirty path would misdescribe the tree a reading was taken from,
+    which is worth knowing and is not worth a quoted-string parser here.
     """
     paths = []
     for line in stdout.split("\n"):

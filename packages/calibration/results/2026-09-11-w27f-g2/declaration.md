@@ -205,6 +205,13 @@ it:
    0.020019 against 0.014542 — and the 0.029009 dark checker luminance figure is U0's at the
    landing head. The clause is not vacuous; the attribution was wrong. Claims §5.135 §1 carries the
    corrected list with each figure's arm and head named.
+4. **The rounding convention this file works in.** Every error in §4 is a difference of §3's
+   already-six-decimal values — a difference of rounded numbers, not a rounded difference — so that
+   the arithmetic can be checked against claims §5.131 §6 without opening a capture. Seven figures
+   therefore sit one ulp from the raw difference: 0.068899 (raw 0.068898), 0.176938 (0.176937),
+   0.002937 (0.002936), 0.001727 (0.001726), 0.001665 (0.001664), 0.007358 (0.007357) and 0.002613
+   (raw 0.002614). Re-evaluating every clause on the raw readings flips no verdict; the narrowest
+   Clause A margin is dark checker luminance at 0.001184.
 
 ## 5. The regressions §5.131 §6 records, confronted
 

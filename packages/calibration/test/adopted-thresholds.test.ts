@@ -2369,13 +2369,20 @@ describe("the stack overlay bound (W27f G2, claims §5.135)", () => {
   }
   interface Verdict {
     readonly cells: readonly OverlayCell[];
-    readonly stops: readonly string[];
+    readonly stopsScope: string;
+    readonly boundStops: readonly string[];
     readonly landing: string;
   }
+  interface Identity {
+    readonly sampledPathStops: readonly string[];
+    readonly coverageStops: readonly string[];
+    readonly instrumentStops: readonly string[];
+    readonly unresolvedStops: readonly { stop: string; ruling: string }[];
+  }
 
-  const VERDICT = readJson<Verdict>(
-    resolve(PACKAGE_ROOT, "results", "2026-09-11-w27f-g2", "verdict.json"),
-  );
+  const EVIDENCE = resolve(PACKAGE_ROOT, "results", "2026-09-11-w27f-g2");
+  const VERDICT = readJson<Verdict>(resolve(EVIDENCE, "verdict.json"));
+  const IDENTITY = readJson<Identity>(resolve(EVIDENCE, "identity.json"));
   const METRICS = ["de", "lum", "rim"] as const;
   /** The three cells with a native fixture; the dark photo stack has none. */
   const REFEREED = VERDICT.cells.filter((cell) => cell.nativeFixture);
@@ -2496,8 +2503,31 @@ describe("the stack overlay bound (W27f G2, claims §5.135)", () => {
     expect(dark?.envelope["de"]?.upperFrom).toBe("s1");
   });
 
-  it("landed with no stop outstanding", () => {
-    expect(VERDICT.stops).toEqual([]);
-    expect(VERDICT.landing).toBe("the bound holds");
+  it("landed with none of the bound's own stops outstanding", () => {
+    // Scoped deliberately. `verdict.json` decides S1 and S2, the two clauses,
+    // and those are empty: this is what the adoption rests on. It does not
+    // decide S3 or S4, and an unqualified "no stop outstanding" over this file
+    // would assert something about the instrument that this file never
+    // measured — which is how the gate's two evidence files came to disagree
+    // with nothing reconciling them.
+    expect(VERDICT.boundStops).toEqual([]);
+    expect(VERDICT.landing).toBe("the bound's clauses hold");
+    expect(VERDICT.stopsScope).toContain("S1");
+  });
+
+  it("carries the instrument's stops apart, with S4 recorded as tripped and unresolved", () => {
+    // S3 held: no sampled digest moved, and no capture the record has went
+    // missing from the read. S4, as `declaration.md` §6 worded it, did not: one
+    // record-only CSS capture is not byte-repeatable. The gate's reading of
+    // that — X1 makes the CSS tier a record, so a record-only arm cannot gate a
+    // WebGPU bound — is a recommendation and not a ruling, because narrowing a
+    // declared stop after the read is the user's decision (W27 Decision Log 13).
+    // This asserts that the evidence still says so, rather than that the
+    // question was settled.
+    expect(IDENTITY.sampledPathStops).toEqual([]);
+    expect(IDENTITY.coverageStops).toEqual([]);
+    expect(IDENTITY.instrumentStops.length).toBeGreaterThan(0);
+    expect(IDENTITY.unresolvedStops.map((entry) => entry.stop)).toEqual(["S4"]);
+    expect(IDENTITY.unresolvedStops[0]?.ruling).toContain("Unresolved");
   });
 });

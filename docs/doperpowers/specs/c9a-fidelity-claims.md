@@ -17523,7 +17523,7 @@ floor at spans 32–44 holds in light only; the footprint ratio is 3.08–3.68×
 present on all 121 recovered entries, so nine fields are restorable and `presentedActive` is the
 one to invert. Calibration 340/340 and lint green at the fixed head.
 
-### 5.135 W27f G2 LANDED: the native stack envelope decided from S0 and S1 apart, the bound declared before the read and met in every clause, and the sampled path byte-identical at the landing head (2026-09-11)
+### 5.135 W27f G2 LANDED: the native stack envelope decided from S0 and S1 apart, the bound declared before the read and met in both its clauses, the sampled path byte-identical at the landing head, and instrument stop S4 tripped and left for the user's ruling (2026-09-11)
 
 **A landing gate, not a fitting one.** Executes W27's child W27f G2, the §Design clause *Page
 content on the WebGPU tier gets the material, not a flat* (binding), Decision Log 3 and 12, and
@@ -17601,6 +17601,19 @@ it **freezes the cell at its regressed value**: nothing there is bounded by a be
 held at the worse one so it cannot widen unseen. `declaration.md` §4 carries the same note, dated
 and marked as written after the read.
 
+**The rounding convention, stated because seven figures in this section depend on it.** Every error
+here is a *difference of rounded values*, not a rounded difference: §5.131 §6 prints its readings to
+six decimal places and the declaration was written from those printed values, so that the
+arithmetic can be checked against the ledger without opening a capture. Seven figures therefore sit
+one unit in the last place from the raw difference — 0.068899 raw 0.068898, 0.176938 raw 0.176937,
+0.002937 raw 0.002936, 0.001727 raw 0.001726, 0.001665 raw 0.001664, 0.007358 raw 0.007357, and
+0.002613, which raw is 0.002614. The published figures are the ledger-derived ones. Every clause was
+re-evaluated on the raw readings to check that the convention decides nothing: **no verdict flips**.
+Clause A's nine caps hold at full precision (light checker ΔE 0.004661728 ≤ 0.007734863 through
+dark checker rim 0.004204054 ≤ 0.005874110), the narrowest margin being dark checker luminance at
+0.004159129 − 0.002975006 = 0.001184, three orders of magnitude above an ulp; and Clause B's
+eighteen pins hold as exact equalities, because the read reproduces the record byte for byte.
+
 **2. The read: eighteen readings, all reproducing the ledger exactly.** 308 captures at this head —
 the 20 ordinary calibration `__rest` scenes §5.131 §5 measured, plus the two stack cells, on all
 seven arms in both 1x schemes, Chromium 151.0.7922.34, Apple/Metal-3 hardware, 320 × 200 at scale 1,
@@ -17650,7 +17663,18 @@ from the dark checkerboard one. Closing it needs a native dark `photo__glass-ove
 byte-identical to its §5.131 §8 record — **sampled 20/20 and same-hint sampled 20/20 on the ordinary
 cells in each scheme, and 2/2 each on the stacks**. Both DOM arms are byte-identical too, on all 22
 scenes in both schemes, as are all CSS arms but one. The renderer golden and isolation suite is
-green with nothing re-recorded (§8). `identity.json` carries the per-arm comparison.
+green with nothing re-recorded (§8). `identity.json` carries the per-arm comparison, and it
+answers S3 and S4 in separate fields: they are different questions about different things, and a
+single verdict over both reported "moved" at a head where no sampled digest had moved at all.
+
+The comparison also states what it did **not** read, which it previously could not. It used to walk
+the read and score what it found, so a scene, an arm or a digest that went missing produced no
+entry and no stop — absence scored as agreement. It now walks the record: a scene this gate
+deliberately left alone is `notRead` (the eight holdout scenes outside its scope, `declaration.md`
+§0), while a scene it did read that is missing an arm the record has, or whose arm came back with
+no digest, is `truncated` and stops. This read is unaffected either way, and that is now measured
+rather than assumed: 280 of 280 arm readings on the ordinary cells and 28 of 28 over the two stack
+scenes, both directions, with no null digest anywhere.
 
 **6. A correction to §5.131 §4: that CSS digest is bistable, not changed.** §5.131 §4 recorded the
 dark checker `toolbar-group` CSS digest as changing `625742f5a2af… → 8689d9ef6fc9…` — five pixels,
@@ -17673,13 +17697,33 @@ therefore covers `css-today` only, and `css-bistability.json`'s finding says so.
 for both arms is the magnitude: a within-run mean absolute channel difference of 5.859375e-05,
 which over this bed's 320 × 200 RGBA capture is exactly 15 channel codes of one.
 
-**On stop S4, stated against the gate rather than quietly.** `declaration.md` §6 worded S4 as "any
-capture is not byte-repeatable over its two loads", without scoping it, and that capture is not.
-Read literally it would stop the landing. It does not, and the reason is a binding contract rather
-than convenience: **X1 makes every measured claim a WebGPU-tier claim and the CSS tier a record**,
-so a record-only CSS reading cannot gate a WebGPU bound. Every capture the bound is stated on is
-byte-repeatable and byte-identical to G1's. S4's wording is the defect, not the landing; a future
-gate scopes an instrument stop to the arms its bound is stated on.
+**Stop S4 was tripped as declared, and this gate does not resolve it.** `declaration.md` §6 worded
+S4 as "any capture is not byte-repeatable over its two loads", with no scope, and one capture at
+this head is not: the dark `checkerboard__toolbar-group__rest` `css-hint` arm, at 5.859375e-05.
+Read as declared, S4 is tripped, and the same section says a bound is not re-interpreted after it
+is declared.
+
+This gate's reading of it is recorded as a **recommendation and not a ruling**: contract X1 makes
+every measured claim a WebGPU-tier claim and the CSS tier a record, so a record-only CSS arm on one
+cell arguably cannot gate a WebGPU bound, and every capture the bound is stated on is
+byte-repeatable and byte-identical to G1's. That is an argument for how a future gate should word
+an instrument stop — scoped to the arms its bound is stated on — and it was first written here as
+though the gate had already applied it, which is the move **W27 Decision Log 13 refuses**. Narrowing
+a declared stop after the read is the user's decision, not a landing gate's.
+
+So the evidence now says which stop each file speaks for instead of disagreeing in silence.
+`verdict.json` carries `boundStops` — S1 and S2, empty — with `stopsScope` naming what it does not
+decide; `identity.json` carries the sampled path's stops (S3, empty, over a coverage check that
+also fails on a truncated capture) apart from the instrument's (S4, tripped), and its
+`unresolvedStops` records S4 as tripped, carries the recommendation above, and states that the
+ruling is the user's. The adopted test asserts both halves.
+
+**What that leaves open, stated plainly.** The adoption in this section is made on the bound's
+clauses with an instrument stop outstanding. Two rulings are available to the user: scope S4 to the
+arms the bound is stated on, which leaves this landing exactly as recorded; or hold the gate to S4
+as written, which means the landing adopts nothing until that CSS capture is stable and this
+section is rewritten as a miss. The gate's preference is the recommendation above and carries no
+more weight than that.
 
 **7. The CSS tier's coherence on DOM-sourced groups — a record, never a target (X1).** This is the
 clause W27f's charter asks for, and neither existing instrument could supply it.
@@ -17758,8 +17802,9 @@ not stated over this mask. What is being recorded is the size and the shape of a
 measured on DOM-sourced groups, not a verdict against a threshold.
 
 **8. What landed, and what the adoption is worth.** The bound is adopted in
-`packages/calibration/test/adopted-thresholds.test.ts` as *the stack overlay bound (W27f G2)*, six
-assertions over the committed `verdict.json`. The three that carry the bound — Clause A, Clause B
+`packages/calibration/test/adopted-thresholds.test.ts` as *the stack overlay bound (W27f G2)*,
+seven assertions over the committed `verdict.json` and `identity.json` (the seventh is §6's, holding
+S4 on the record as tripped and unresolved). The three that carry the bound — Clause A, Clause B
 and the reproduction — compare the reading's own arithmetic against the declared magnitude
 (`errorToNative` against the envelope's endpoint and against §5.131 §6's pin, `read` against
 `recorded`), and each was verified to fail on a `verdict.json` whose reading was perturbed while
@@ -17784,10 +17829,11 @@ file and repeated here because they matter:
 reasoned that a canonical write would be a no-op, on the ground that its `sampled` arm *is* the
 canonical configuration and its digests reproduce §5.131 §8. That reasoning was wrong and the
 check that caught it is worth recording: the two stack scenes' canonical rows were captured
-**2026-09-10T05:22–05:23Z**, which is before W27f G1 merged, so they recorded the **pre-G1
-flat-white overlay** — S0, not the material that has shipped since 0.16.0. A stack is the one
-family where that can happen on the texture tier at all, because its overlay is a DOM-sourced group
-whatever the base is (§5.131 §6); no ordinary texture-sourced cell was affected, and none moved.
+**2026-09-10T05:22:40.870Z to 05:24:22.032Z**, which is before W27f G1 merged, so they recorded
+the **pre-G1 flat-white overlay** — S0, not the material that has shipped since 0.16.0. A stack is
+the one family where that can happen on the texture tier at all, because its overlay is a
+DOM-sourced group whatever the base is (§5.131 §6); no ordinary texture-sourced cell was affected,
+and none moved.
 
 All twelve rows were therefore re-captured canonically and written: `{checkerboard,photo}__glass-
 over-glass__rest` at 1x and 2x, light and dark where a fixture exists, on both tiers, with `--alpha`
@@ -17838,13 +17884,14 @@ that holdout once at `1fff5e6`. This gate read them again. The reasons are in `d
 and were written before the read: G2 fits nothing, so there is no fit for holdout to steer; the
 bound was published before the read, so no reading could change what passing means; and the claim
 that this is the same frozen configuration is not assumed but made a stop and checked on the
-`gpu-texture` digests, which are not stack cells. The eight other holdout scenes were not read. The
-spend marker is committed (`holdout-spend.json`, written 21:46:06, two seconds before the first
-capture). **Consequence for whoever comes next: these two cells have now been read twice on this
-material configuration, and any later work that would fit anything on the stack path must treat them
-as spent and re-freeze the bed.** That marker names `2026-09-10-w27f-g1-measure.py` because the
-literal was baked into the runner G1 wrote; the copy now names the file that runs, and the recorded
-marker is left as it was written.
+`gpu-texture` digests, which are not stack cells. The eight other holdout scenes were not read.
+The spend marker is committed (`holdout-spend.json`, written 21:46:06.175 local, 36 ms before the
+capture run created its output tree and 2.5 s before the first capture the reading records —
+`stack-reading.json`'s earliest `capturedAt` is 12:46:08.707Z). **Consequence for whoever comes
+next: these two cells have now been read twice on this material configuration, and any later work
+that would fit anything on the stack path must treat them as spent and re-freeze the bed.** That
+marker names `2026-09-10-w27f-g1-measure.py` because the literal was baked into the runner G1
+wrote; the copy now names the file that runs, and the recorded marker is left as it was written.
 
 **Two more inherited literals of the same class, found in review and disclosed here.** This gate's
 own readings, `stack-reading.json` and `ordinary-reading.json`, open `"date": "2026-09-10"` and

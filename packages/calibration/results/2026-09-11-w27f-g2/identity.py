@@ -41,6 +41,24 @@ SOURCES = {
 # the same breath not to extend the statement to whole stack composites.
 SAMPLED_ARMS = ("sampled", "sampled-hint")
 
+# What this gate may say about a stop it trips, and what it may not. The
+# declaration worded S4 without scoping it and forbade re-interpreting a bound
+# after it is declared; W27 Decision Log 13 is the user's own precedent on that
+# move. So a tripped S4 is recorded here as tripped and unresolved, with the
+# gate's reading of it carried as a recommendation. An evidence file that
+# silently resolved its own stop would be the thing the rule exists to prevent.
+S4_AS_DECLARED = ('declaration.md §6: "Any capture is not byte-repeatable over its two loads, or '
+                  'any capture reports a diagnostic." The wording is unscoped, and the same '
+                  'section forbids narrowing a clause after the read.')
+S4_RECOMMENDATION = (
+    "The gate recommends, and does not rule, that an instrument stop be read as scoped to the arms "
+    "the bound is stated on: contract X1 makes every measured claim a WebGPU-tier claim and the "
+    "CSS tier a record, and the capture that tripped this is a record-only CSS arm on one cell, "
+    "byte-repeatable on every arm the bound touches. That is an argument for a future gate's "
+    "wording, not a licence to narrow this one's.")
+S4_RULING = ("Unresolved. Narrowing a declared stop after the read is the user's decision under "
+             "W27 Decision Log 13 — a bound is not re-interpreted after it is declared.")
+
 
 def digests(reading):
     """`{scheme: {scene: {arm: sha256}}}` out of a reading, ignoring the native rows.
@@ -163,6 +181,9 @@ def main():
         "sampledPathIdentity": "unmoved" if not (sampled_stops or coverage_stops) else "moved",
         "instrumentRepeatability": "byte-repeatable" if not instrument_stops
                                    else "one or more captures are not byte-repeatable",
+        "unresolvedStops": [] if not instrument_stops else [
+            {"stop": "S4", "declaredAs": S4_AS_DECLARED, "tripped": instrument_stops,
+             "gateRecommendation": S4_RECOMMENDATION, "ruling": S4_RULING}],
     }
     args.out.write_text(f"{json.dumps(result, indent=1)}\n")
 
