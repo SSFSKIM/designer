@@ -1,0 +1,27 @@
+{
+  "name": "gyre-demo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Gyre: a live ocean-current instrument, built on the published @vitreajs/vitrea-react 0.6.0.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@vitreajs/vitrea": "0.6.0",
+    "@vitreajs/vitrea-react": "0.6.0",
+    "@vitreajs/vitrea-web": "0.6.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
+    "@vitejs/plugin-react": "6.1.1",
+    "typescript": "7.0.2",
+    "vite": "8.2.2"
+  }
+}
