@@ -36,8 +36,11 @@ from PIL import Image, ImageDraw, ImageFont
 
 HERE = Path(__file__).resolve().parent
 PANELS = HERE / "panels"
-REPO = HERE.parents[5]
+# eye → 2026-09-11-w27f-g2 → results → calibration → packages → the repository.
+REPO = HERE.parents[4]
 FIXTURES = REPO / "apps" / "reference-apple" / "fixtures"
+if not FIXTURES.is_dir():  # a wrong depth here silently turns every fixture into
+    raise SystemExit(f"no fixtures at {FIXTURES}")  # a "no native fixture" panel.
 
 WIDTH = 4720
 MARGIN = 72
