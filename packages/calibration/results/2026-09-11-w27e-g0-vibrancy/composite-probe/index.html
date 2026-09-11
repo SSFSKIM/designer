@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>W27e G0 — foreground composite probe</title>
+    <style>
+      /*
+       * Nothing here may form a Backdrop Root above the glass planes: no
+       * opacity, filter, mask, clip-path or mix-blend-mode on html/body or on
+       * #page. The Q3 cases put such a style on deliberately, one at a time,
+       * and undo it — that is the measurement, not an accident.
+       */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: #000;
+      }
+
+      /*
+       * The page ground the glass samples: a hard 24px checkerboard. Sharp cells
+       * are the whole instrument. A buffer that still carries the checker at
+       * full contrast is the RAW page; a buffer that carries it smoothed has
+       * been through the material's blur. Variance separates them without any
+       * appeal to an absolute level.
+       */
+      #page {
+        position: absolute;
+        inset: 0;
+        background: repeating-conic-gradient(#1040c0 0% 25%, #f0e000 0% 50%) 0 0 / 48px 48px;
+      }
+
+      .glass-host {
+        position: absolute;
+        margin: 0;
+        border: 0;
+        padding: 0;
+        background: transparent;
+        color: var(--vitrea-foreground, #fff);
+        font: 600 13px/1 system-ui, sans-serif;
+      }
+
+      /* The foreground patches. Each is a stand-in for a label's ink slab. */
+      .patch {
+        position: absolute;
+        pointer-events: none;
+      }
+
+      /* The feColorMatrix bench: flat grounds, no glass, no blending. */
+      #matrix-bench {
+        position: absolute;
+        left: 0;
+        top: 520px;
+        width: 1000px;
+        height: 240px;
+      }
+
+      #matrix-bench .ground {
+        position: absolute;
+        top: 0;
+        height: 240px;
+      }
+
+      #matrix-bench .swatch {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="page"></div>
+    <div id="matrix-bench"></div>
+    <svg id="defs" width="0" height="0" style="position: absolute" aria-hidden="true"></svg>
+    <script type="module" src="./probe.js"></script>
+  </body>
+</html>

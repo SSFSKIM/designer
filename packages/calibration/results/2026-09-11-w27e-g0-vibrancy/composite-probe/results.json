@@ -1,0 +1,8962 @@
+{
+  "generatedAt": "2026-09-11T08:25:54.088Z",
+  "engine": "chromium/151.0.7922.34",
+  "viewport": {
+    "width": 1000,
+    "height": 760
+  },
+  "deviceScaleFactor": 1,
+  "cases": {
+    "bench": {
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            127.51,
+            143.65,
+            96.42
+          ],
+          "sd": [
+            112,
+            80,
+            96
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 112
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        },
+        "on-black__plain__black": {
+          "id": "on-black__plain__black",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "plain",
+          "color": "black",
+          "authored": "#000000",
+          "x": 28,
+          "y": 543,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            0,
+            0,
+            0
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            0,
+            0,
+            0
+          ],
+          "sdMax": 0
+        },
+        "on-black__plain__white": {
+          "id": "on-black__plain__white",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "plain",
+          "color": "white",
+          "authored": "#ffffff",
+          "x": 88,
+          "y": 543,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-black__plain__grey50": {
+          "id": "on-black__plain__grey50",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "plain",
+          "color": "grey50",
+          "authored": "#808080",
+          "x": 148,
+          "y": 543,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            128,
+            128,
+            128
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            128,
+            128,
+            128
+          ],
+          "max": [
+            128,
+            128,
+            128
+          ],
+          "sdMax": 0
+        },
+        "on-black__plain__red": {
+          "id": "on-black__plain__red",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "plain",
+          "color": "red",
+          "authored": "#ff3b30",
+          "x": 208,
+          "y": 543,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            59,
+            48
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            59,
+            48
+          ],
+          "max": [
+            255,
+            59,
+            48
+          ],
+          "sdMax": 0
+        },
+        "on-black__plain__blue": {
+          "id": "on-black__plain__blue",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "plain",
+          "color": "blue",
+          "authored": "#0a84ff",
+          "x": 268,
+          "y": 543,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            10,
+            132,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            10,
+            132,
+            255
+          ],
+          "max": [
+            10,
+            132,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-black__plain__black-a50": {
+          "id": "on-black__plain__black-a50",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "plain",
+          "color": "black-a50",
+          "authored": "rgba(0, 0, 0, 0.5)",
+          "x": 328,
+          "y": 543,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            0,
+            0,
+            0
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            0,
+            0,
+            0
+          ],
+          "sdMax": 0
+        },
+        "on-black__plain__white-a50": {
+          "id": "on-black__plain__white-a50",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "plain",
+          "color": "white-a50",
+          "authored": "rgba(255, 255, 255, 0.5)",
+          "x": 388,
+          "y": 543,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            128,
+            128,
+            128
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            128,
+            128,
+            128
+          ],
+          "max": [
+            128,
+            128,
+            128
+          ],
+          "sdMax": 0
+        },
+        "on-black__default__black": {
+          "id": "on-black__default__black",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "default",
+          "color": "black",
+          "authored": "#000000",
+          "x": 28,
+          "y": 598,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "on-black__default__white": {
+          "id": "on-black__default__white",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "default",
+          "color": "white",
+          "authored": "#ffffff",
+          "x": 88,
+          "y": 598,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-black__default__grey50": {
+          "id": "on-black__default__grey50",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "default",
+          "color": "grey50",
+          "authored": "#808080",
+          "x": 148,
+          "y": 598,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            242,
+            242,
+            242
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            242,
+            242,
+            242
+          ],
+          "max": [
+            242,
+            242,
+            242
+          ],
+          "sdMax": 0
+        },
+        "on-black__default__red": {
+          "id": "on-black__default__red",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "default",
+          "color": "red",
+          "authored": "#ff3b30",
+          "x": 208,
+          "y": 598,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            178,
+            162
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            178,
+            162
+          ],
+          "max": [
+            255,
+            178,
+            162
+          ],
+          "sdMax": 0
+        },
+        "on-black__default__blue": {
+          "id": "on-black__default__blue",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "default",
+          "color": "blue",
+          "authored": "#0a84ff",
+          "x": 268,
+          "y": 598,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            84,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            84,
+            255,
+            255
+          ],
+          "max": [
+            84,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-black__default__black-a50": {
+          "id": "on-black__default__black-a50",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "default",
+          "color": "black-a50",
+          "authored": "rgba(0, 0, 0, 0.5)",
+          "x": 328,
+          "y": 598,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            115,
+            115,
+            115
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            115,
+            115,
+            115
+          ],
+          "max": [
+            115,
+            115,
+            115
+          ],
+          "sdMax": 0
+        },
+        "on-black__default__white-a50": {
+          "id": "on-black__default__white-a50",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "default",
+          "color": "white-a50",
+          "authored": "rgba(255, 255, 255, 0.5)",
+          "x": 388,
+          "y": 598,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            128,
+            128,
+            128
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            128,
+            128,
+            128
+          ],
+          "max": [
+            128,
+            128,
+            128
+          ],
+          "sdMax": 0
+        },
+        "on-black__dark-glass__black": {
+          "id": "on-black__dark-glass__black",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "dark-glass",
+          "color": "black",
+          "authored": "#000000",
+          "x": 28,
+          "y": 653,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            38,
+            38,
+            38
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            38,
+            38,
+            38
+          ],
+          "max": [
+            38,
+            38,
+            38
+          ],
+          "sdMax": 0
+        },
+        "on-black__dark-glass__white": {
+          "id": "on-black__dark-glass__white",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "dark-glass",
+          "color": "white",
+          "authored": "#ffffff",
+          "x": 88,
+          "y": 653,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-black__dark-glass__grey50": {
+          "id": "on-black__dark-glass__grey50",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "dark-glass",
+          "color": "grey50",
+          "authored": "#808080",
+          "x": 148,
+          "y": 653,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            211,
+            211,
+            211
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            211,
+            211,
+            211
+          ],
+          "max": [
+            211,
+            211,
+            211
+          ],
+          "sdMax": 0
+        },
+        "on-black__dark-glass__red": {
+          "id": "on-black__dark-glass__red",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "dark-glass",
+          "color": "red",
+          "authored": "#ff3b30",
+          "x": 208,
+          "y": 653,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            50,
+            17
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            50,
+            17
+          ],
+          "max": [
+            255,
+            50,
+            17
+          ],
+          "sdMax": 0
+        },
+        "on-black__dark-glass__blue": {
+          "id": "on-black__dark-glass__blue",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "dark-glass",
+          "color": "blue",
+          "authored": "#0a84ff",
+          "x": 268,
+          "y": 653,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            0,
+            245,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            0,
+            245,
+            255
+          ],
+          "max": [
+            0,
+            245,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-black__dark-glass__black-a50": {
+          "id": "on-black__dark-glass__black-a50",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "dark-glass",
+          "color": "black-a50",
+          "authored": "rgba(0, 0, 0, 0.5)",
+          "x": 328,
+          "y": 653,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            19,
+            19,
+            19
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            19,
+            19,
+            19
+          ],
+          "max": [
+            19,
+            19,
+            19
+          ],
+          "sdMax": 0
+        },
+        "on-black__dark-glass__white-a50": {
+          "id": "on-black__dark-glass__white-a50",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "dark-glass",
+          "color": "white-a50",
+          "authored": "rgba(255, 255, 255, 0.5)",
+          "x": 388,
+          "y": 653,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            128,
+            128,
+            128
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            128,
+            128,
+            128
+          ],
+          "max": [
+            128,
+            128,
+            128
+          ],
+          "sdMax": 0
+        },
+        "on-black__backdrop-default__black": {
+          "id": "on-black__backdrop-default__black",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "backdrop-default",
+          "color": "black",
+          "authored": "#000000",
+          "x": 28,
+          "y": 708,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "on-black__backdrop-default__white": {
+          "id": "on-black__backdrop-default__white",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "backdrop-default",
+          "color": "white",
+          "authored": "#ffffff",
+          "x": 88,
+          "y": 708,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "on-black__backdrop-default__grey50": {
+          "id": "on-black__backdrop-default__grey50",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "backdrop-default",
+          "color": "grey50",
+          "authored": "#808080",
+          "x": 148,
+          "y": 708,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "on-black__backdrop-default__red": {
+          "id": "on-black__backdrop-default__red",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "backdrop-default",
+          "color": "red",
+          "authored": "#ff3b30",
+          "x": 208,
+          "y": 708,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "on-black__backdrop-default__blue": {
+          "id": "on-black__backdrop-default__blue",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "backdrop-default",
+          "color": "blue",
+          "authored": "#0a84ff",
+          "x": 268,
+          "y": 708,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "on-black__backdrop-default__black-a50": {
+          "id": "on-black__backdrop-default__black-a50",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "backdrop-default",
+          "color": "black-a50",
+          "authored": "rgba(0, 0, 0, 0.5)",
+          "x": 328,
+          "y": 708,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "on-black__backdrop-default__white-a50": {
+          "id": "on-black__backdrop-default__white-a50",
+          "kind": "bench",
+          "ground": "on-black",
+          "variant": "backdrop-default",
+          "color": "white-a50",
+          "authored": "rgba(255, 255, 255, 0.5)",
+          "x": 388,
+          "y": 708,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "on-white__plain__black": {
+          "id": "on-white__plain__black",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "plain",
+          "color": "black",
+          "authored": "#000000",
+          "x": 528,
+          "y": 543,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            0,
+            0,
+            0
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            0,
+            0,
+            0
+          ],
+          "sdMax": 0
+        },
+        "on-white__plain__white": {
+          "id": "on-white__plain__white",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "plain",
+          "color": "white",
+          "authored": "#ffffff",
+          "x": 588,
+          "y": 543,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-white__plain__grey50": {
+          "id": "on-white__plain__grey50",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "plain",
+          "color": "grey50",
+          "authored": "#808080",
+          "x": 648,
+          "y": 543,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            128,
+            128,
+            128
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            128,
+            128,
+            128
+          ],
+          "max": [
+            128,
+            128,
+            128
+          ],
+          "sdMax": 0
+        },
+        "on-white__plain__red": {
+          "id": "on-white__plain__red",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "plain",
+          "color": "red",
+          "authored": "#ff3b30",
+          "x": 708,
+          "y": 543,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            59,
+            48
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            59,
+            48
+          ],
+          "max": [
+            255,
+            59,
+            48
+          ],
+          "sdMax": 0
+        },
+        "on-white__plain__blue": {
+          "id": "on-white__plain__blue",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "plain",
+          "color": "blue",
+          "authored": "#0a84ff",
+          "x": 768,
+          "y": 543,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            10,
+            132,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            10,
+            132,
+            255
+          ],
+          "max": [
+            10,
+            132,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-white__plain__black-a50": {
+          "id": "on-white__plain__black-a50",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "plain",
+          "color": "black-a50",
+          "authored": "rgba(0, 0, 0, 0.5)",
+          "x": 828,
+          "y": 543,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            127,
+            127,
+            127
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            127,
+            127,
+            127
+          ],
+          "max": [
+            127,
+            127,
+            127
+          ],
+          "sdMax": 0
+        },
+        "on-white__plain__white-a50": {
+          "id": "on-white__plain__white-a50",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "plain",
+          "color": "white-a50",
+          "authored": "rgba(255, 255, 255, 0.5)",
+          "x": 888,
+          "y": 543,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-white__default__black": {
+          "id": "on-white__default__black",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "default",
+          "color": "black",
+          "authored": "#000000",
+          "x": 528,
+          "y": 598,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "on-white__default__white": {
+          "id": "on-white__default__white",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "default",
+          "color": "white",
+          "authored": "#ffffff",
+          "x": 588,
+          "y": 598,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-white__default__grey50": {
+          "id": "on-white__default__grey50",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "default",
+          "color": "grey50",
+          "authored": "#808080",
+          "x": 648,
+          "y": 598,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            242,
+            242,
+            242
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            242,
+            242,
+            242
+          ],
+          "max": [
+            242,
+            242,
+            242
+          ],
+          "sdMax": 0
+        },
+        "on-white__default__red": {
+          "id": "on-white__default__red",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "default",
+          "color": "red",
+          "authored": "#ff3b30",
+          "x": 708,
+          "y": 598,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            178,
+            162
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            178,
+            162
+          ],
+          "max": [
+            255,
+            178,
+            162
+          ],
+          "sdMax": 0
+        },
+        "on-white__default__blue": {
+          "id": "on-white__default__blue",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "default",
+          "color": "blue",
+          "authored": "#0a84ff",
+          "x": 768,
+          "y": 598,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            84,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            84,
+            255,
+            255
+          ],
+          "max": [
+            84,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-white__default__black-a50": {
+          "id": "on-white__default__black-a50",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "default",
+          "color": "black-a50",
+          "authored": "rgba(0, 0, 0, 0.5)",
+          "x": 828,
+          "y": 598,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            242,
+            242,
+            242
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            242,
+            242,
+            242
+          ],
+          "max": [
+            242,
+            242,
+            242
+          ],
+          "sdMax": 0
+        },
+        "on-white__default__white-a50": {
+          "id": "on-white__default__white-a50",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "default",
+          "color": "white-a50",
+          "authored": "rgba(255, 255, 255, 0.5)",
+          "x": 888,
+          "y": 598,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-white__dark-glass__black": {
+          "id": "on-white__dark-glass__black",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "dark-glass",
+          "color": "black",
+          "authored": "#000000",
+          "x": 528,
+          "y": 653,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            38,
+            38,
+            38
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            38,
+            38,
+            38
+          ],
+          "max": [
+            38,
+            38,
+            38
+          ],
+          "sdMax": 0
+        },
+        "on-white__dark-glass__white": {
+          "id": "on-white__dark-glass__white",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "dark-glass",
+          "color": "white",
+          "authored": "#ffffff",
+          "x": 588,
+          "y": 653,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-white__dark-glass__grey50": {
+          "id": "on-white__dark-glass__grey50",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "dark-glass",
+          "color": "grey50",
+          "authored": "#808080",
+          "x": 648,
+          "y": 653,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            211,
+            211,
+            211
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            211,
+            211,
+            211
+          ],
+          "max": [
+            211,
+            211,
+            211
+          ],
+          "sdMax": 0
+        },
+        "on-white__dark-glass__red": {
+          "id": "on-white__dark-glass__red",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "dark-glass",
+          "color": "red",
+          "authored": "#ff3b30",
+          "x": 708,
+          "y": 653,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            50,
+            17
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            50,
+            17
+          ],
+          "max": [
+            255,
+            50,
+            17
+          ],
+          "sdMax": 0
+        },
+        "on-white__dark-glass__blue": {
+          "id": "on-white__dark-glass__blue",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "dark-glass",
+          "color": "blue",
+          "authored": "#0a84ff",
+          "x": 768,
+          "y": 653,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            0,
+            245,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            0,
+            245,
+            255
+          ],
+          "max": [
+            0,
+            245,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-white__dark-glass__black-a50": {
+          "id": "on-white__dark-glass__black-a50",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "dark-glass",
+          "color": "black-a50",
+          "authored": "rgba(0, 0, 0, 0.5)",
+          "x": 828,
+          "y": 653,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            146,
+            146,
+            146
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            146,
+            146,
+            146
+          ],
+          "max": [
+            146,
+            146,
+            146
+          ],
+          "sdMax": 0
+        },
+        "on-white__dark-glass__white-a50": {
+          "id": "on-white__dark-glass__white-a50",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "dark-glass",
+          "color": "white-a50",
+          "authored": "rgba(255, 255, 255, 0.5)",
+          "x": 888,
+          "y": 653,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-white__backdrop-default__black": {
+          "id": "on-white__backdrop-default__black",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "backdrop-default",
+          "color": "black",
+          "authored": "#000000",
+          "x": 528,
+          "y": 708,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-white__backdrop-default__white": {
+          "id": "on-white__backdrop-default__white",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "backdrop-default",
+          "color": "white",
+          "authored": "#ffffff",
+          "x": 588,
+          "y": 708,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-white__backdrop-default__grey50": {
+          "id": "on-white__backdrop-default__grey50",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "backdrop-default",
+          "color": "grey50",
+          "authored": "#808080",
+          "x": 648,
+          "y": 708,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-white__backdrop-default__red": {
+          "id": "on-white__backdrop-default__red",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "backdrop-default",
+          "color": "red",
+          "authored": "#ff3b30",
+          "x": 708,
+          "y": 708,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-white__backdrop-default__blue": {
+          "id": "on-white__backdrop-default__blue",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "backdrop-default",
+          "color": "blue",
+          "authored": "#0a84ff",
+          "x": 768,
+          "y": 708,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-white__backdrop-default__black-a50": {
+          "id": "on-white__backdrop-default__black-a50",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "backdrop-default",
+          "color": "black-a50",
+          "authored": "rgba(0, 0, 0, 0.5)",
+          "x": 828,
+          "y": 708,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "on-white__backdrop-default__white-a50": {
+          "id": "on-white__backdrop-default__white-a50",
+          "kind": "bench",
+          "ground": "on-white",
+          "variant": "backdrop-default",
+          "color": "white-a50",
+          "authored": "rgba(255, 255, 255, 0.5)",
+          "x": 888,
+          "y": 708,
+          "width": 24,
+          "height": 24,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        }
+      }
+    },
+    "css--baseline": {
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            231.88,
+            227.69,
+            224.98
+          ],
+          "sd": [
+            3.49,
+            2.5,
+            3.58
+          ],
+          "min": [
+            222,
+            221,
+            217
+          ],
+          "max": [
+            238,
+            232,
+            231
+          ],
+          "sdMax": 3.58
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "css--pair-host": {
+      "mount": {
+        "mount": "host",
+        "over": "glass"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "host--white-multiply": {
+          "id": "host--white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 169,
+          "y": 139,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "host--black-pluslighter": {
+          "id": "host--black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 169,
+          "y": 219,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            175,
+            175,
+            175
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            175,
+            175,
+            175
+          ],
+          "max": [
+            175,
+            175,
+            175
+          ],
+          "sdMax": 0
+        },
+        "host--ctrl-white-plain": {
+          "id": "host--ctrl-white-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 169,
+          "y": 299,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "css--pair-host-layer": {
+      "mount": {
+        "mount": "host-layer",
+        "over": "glass"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "host-layer--white-multiply": {
+          "id": "host-layer--white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "host-layer--black-pluslighter": {
+          "id": "host-layer--black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 168,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            175,
+            175,
+            175
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            175,
+            175,
+            175
+          ],
+          "max": [
+            175,
+            175,
+            175
+          ],
+          "sdMax": 0
+        },
+        "host-layer--ctrl-white-plain": {
+          "id": "host-layer--ctrl-white-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "css--pair-plane-root": {
+      "mount": {
+        "mount": "plane-root",
+        "over": "page"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "plane-root--white-multiply": {
+          "id": "plane-root--white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "plane-root--black-pluslighter": {
+          "id": "plane-root--black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 768,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            0,
+            0,
+            0
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            0,
+            0,
+            0
+          ],
+          "sdMax": 0
+        },
+        "plane-root--ctrl-white-plain": {
+          "id": "plane-root--ctrl-white-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "css--pair-glass-root": {
+      "mount": {
+        "mount": "glass-root",
+        "over": "page"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "glass-root--white-multiply": {
+          "id": "glass-root--white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "glass-root--black-pluslighter": {
+          "id": "glass-root--black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 768,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            0,
+            0,
+            0
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            0,
+            0,
+            0
+          ],
+          "sdMax": 0
+        },
+        "glass-root--ctrl-white-plain": {
+          "id": "glass-root--ctrl-white-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "css--pair-body": {
+      "mount": {
+        "mount": "body",
+        "over": "page"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "body--white-multiply": {
+          "id": "body--white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            128.93,
+            144.66,
+            95.21
+          ],
+          "sd": [
+            112,
+            80,
+            96
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 112
+        },
+        "body--black-pluslighter": {
+          "id": "body--black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 768,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            128,
+            144,
+            96
+          ],
+          "sd": [
+            112,
+            80,
+            96
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 112
+        },
+        "body--ctrl-white-plain": {
+          "id": "body--ctrl-white-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            231.88,
+            227.69,
+            224.98
+          ],
+          "sd": [
+            3.49,
+            2.5,
+            3.58
+          ],
+          "min": [
+            222,
+            221,
+            217
+          ],
+          "max": [
+            238,
+            232,
+            231
+          ],
+          "sdMax": 3.58
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "css--labels": {
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "slab": {
+          "id": "slab",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(0, 128, 255)",
+          "x": 159,
+          "y": 289,
+          "width": 284,
+          "height": 44,
+          "mean": [
+            0,
+            112.47,
+            224.35
+          ],
+          "sd": [
+            0,
+            24.88,
+            49.39
+          ],
+          "min": [
+            0,
+            64,
+            128
+          ],
+          "max": [
+            0,
+            128,
+            255
+          ],
+          "sdMax": 49.39
+        },
+        "label-white-multiply": {
+          "id": "label-white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 159,
+          "y": 129,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "label-black-pluslighter": {
+          "id": "label-black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 249,
+          "y": 129,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            175,
+            175,
+            175
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            175,
+            175,
+            175
+          ],
+          "max": [
+            175,
+            175,
+            175
+          ],
+          "sdMax": 0
+        },
+        "label-black-vib-plain": {
+          "id": "label-black-vib-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "url(\"#vib-default\")",
+          "background": "rgb(0, 0, 0)",
+          "x": 339,
+          "y": 129,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "label-black-vib-multiply": {
+          "id": "label-black-vib-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "url(\"#vib-default\")",
+          "background": "rgb(0, 0, 0)",
+          "x": 429,
+          "y": 129,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "slab-white-multiply": {
+          "id": "slab-white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 179,
+          "y": 299,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            11.59,
+            133.77,
+            255
+          ],
+          "sd": [
+            53.12,
+            26.45,
+            0
+          ],
+          "min": [
+            0,
+            128,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 53.12
+        },
+        "slab-grey-multiply": {
+          "id": "slab-grey-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(128, 128, 128)",
+          "x": 269,
+          "y": 299,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            5.82,
+            66.91,
+            128
+          ],
+          "sd": [
+            26.66,
+            13.33,
+            0
+          ],
+          "min": [
+            0,
+            64,
+            128
+          ],
+          "max": [
+            128,
+            128,
+            128
+          ],
+          "sdMax": 26.66
+        },
+        "slab-black-vib-multiply": {
+          "id": "slab-black-vib-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "url(\"#vib-default\")",
+          "background": "rgb(0, 0, 0)",
+          "x": 359,
+          "y": 299,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            10.45,
+            120.23,
+            230
+          ],
+          "sd": [
+            47.91,
+            23.95,
+            0
+          ],
+          "min": [
+            0,
+            115,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 47.91
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            205.01,
+            215.75,
+            207.28
+          ],
+          "sd": [
+            56.84,
+            31.2,
+            31.14
+          ],
+          "min": [
+            0,
+            128,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            255
+          ],
+          "sdMax": 56.84
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "css--solo-plain": {
+      "spec": {
+        "id": "solo-plain",
+        "color": "#ffffff"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "solo-plain": {
+          "id": "solo-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 169,
+          "y": 139,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            231.88,
+            227.69,
+            224.98
+          ],
+          "sd": [
+            3.49,
+            2.5,
+            3.58
+          ],
+          "min": [
+            222,
+            221,
+            217
+          ],
+          "max": [
+            238,
+            232,
+            231
+          ],
+          "sdMax": 3.58
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "css--solo-filter": {
+      "spec": {
+        "id": "solo-filter",
+        "color": "#000000",
+        "filter": "url(#vib-default)"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "solo-filter": {
+          "id": "solo-filter",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "url(\"#vib-default\")",
+          "background": "rgb(0, 0, 0)",
+          "x": 169,
+          "y": 139,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            231.88,
+            227.69,
+            224.98
+          ],
+          "sd": [
+            3.49,
+            2.5,
+            3.58
+          ],
+          "min": [
+            222,
+            221,
+            217
+          ],
+          "max": [
+            238,
+            232,
+            231
+          ],
+          "sdMax": 3.58
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "css--solo-blend": {
+      "spec": {
+        "id": "solo-blend",
+        "color": "#ffffff",
+        "blend": "multiply"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "solo-blend": {
+          "id": "solo-blend",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 169,
+          "y": 139,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "css--solo-bg-blend": {
+      "spec": {
+        "id": "solo-bg-blend",
+        "backgrounds": [
+          "#000000",
+          "#cfd8e0"
+        ],
+        "backgroundBlend": "multiply"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "solo-bg-blend": {
+          "id": "solo-bg-blend",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "x": 169,
+          "y": 139,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            0,
+            0,
+            0
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            0,
+            0,
+            0
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            231.88,
+            227.69,
+            224.98
+          ],
+          "sd": [
+            3.49,
+            2.5,
+            3.58
+          ],
+          "min": [
+            222,
+            221,
+            217
+          ],
+          "max": [
+            238,
+            232,
+            231
+          ],
+          "sdMax": 3.58
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "css--solo-filter-blend": {
+      "spec": {
+        "id": "solo-filter-blend",
+        "color": "#000000",
+        "filter": "url(#vib-default)",
+        "blend": "multiply"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "solo-filter-blend": {
+          "id": "solo-filter-blend",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "url(\"#vib-default\")",
+          "background": "rgb(0, 0, 0)",
+          "x": 169,
+          "y": 139,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "css--isolation-host-blend": {
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "solo-blend": {
+          "id": "solo-blend",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 169,
+          "y": 139,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "css--contain-host-blend": {
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "solo-blend": {
+          "id": "solo-blend",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 169,
+          "y": 139,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "css--reversible": {
+      "during": {
+        "id": "bare-material",
+        "kind": "bare",
+        "x": 430,
+        "y": 300,
+        "width": 230,
+        "height": 80,
+        "mean": [
+          214.85,
+          219.89,
+          205.13
+        ],
+        "sd": [
+          35,
+          25,
+          30
+        ],
+        "min": [
+          180,
+          195,
+          175
+        ],
+        "max": [
+          250,
+          245,
+          235
+        ],
+        "sdMax": 35
+      },
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            231.88,
+            227.69,
+            224.98
+          ],
+          "sd": [
+            3.49,
+            2.5,
+            3.58
+          ],
+          "min": [
+            222,
+            221,
+            217
+          ],
+          "max": [
+            238,
+            232,
+            231
+          ],
+          "sdMax": 3.58
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-dom--baseline": {
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            212.83,
+            221.88,
+            195.07
+          ],
+          "sd": [
+            8,
+            4.73,
+            12.59
+          ],
+          "min": [
+            197,
+            213,
+            175
+          ],
+          "max": [
+            229,
+            231,
+            220
+          ],
+          "sdMax": 12.59
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-dom--pair-host": {
+      "mount": {
+        "mount": "host",
+        "over": "glass"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "host--white-multiply": {
+          "id": "host--white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "host--black-pluslighter": {
+          "id": "host--black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 168,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            175,
+            175,
+            175
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            175,
+            175,
+            175
+          ],
+          "max": [
+            175,
+            175,
+            175
+          ],
+          "sdMax": 0
+        },
+        "host--ctrl-white-plain": {
+          "id": "host--ctrl-white-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-dom--pair-host-layer": {
+      "mount": {
+        "mount": "host-layer",
+        "over": "glass"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "host-layer--white-multiply": {
+          "id": "host-layer--white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "host-layer--black-pluslighter": {
+          "id": "host-layer--black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 168,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            175,
+            175,
+            175
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            175,
+            175,
+            175
+          ],
+          "max": [
+            175,
+            175,
+            175
+          ],
+          "sdMax": 0
+        },
+        "host-layer--ctrl-white-plain": {
+          "id": "host-layer--ctrl-white-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-dom--pair-plane-root": {
+      "mount": {
+        "mount": "plane-root",
+        "over": "page"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "plane-root--white-multiply": {
+          "id": "plane-root--white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "plane-root--black-pluslighter": {
+          "id": "plane-root--black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 768,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            0,
+            0,
+            0
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            0,
+            0,
+            0
+          ],
+          "sdMax": 0
+        },
+        "plane-root--ctrl-white-plain": {
+          "id": "plane-root--ctrl-white-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-dom--pair-glass-root": {
+      "mount": {
+        "mount": "glass-root",
+        "over": "page"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "glass-root--white-multiply": {
+          "id": "glass-root--white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "glass-root--black-pluslighter": {
+          "id": "glass-root--black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 768,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            0,
+            0,
+            0
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            0,
+            0,
+            0
+          ],
+          "sdMax": 0
+        },
+        "glass-root--ctrl-white-plain": {
+          "id": "glass-root--ctrl-white-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-dom--pair-body": {
+      "mount": {
+        "mount": "body",
+        "over": "page"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "body--white-multiply": {
+          "id": "body--white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            128.93,
+            144.66,
+            95.21
+          ],
+          "sd": [
+            112,
+            80,
+            96
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 112
+        },
+        "body--black-pluslighter": {
+          "id": "body--black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 768,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            128,
+            144,
+            96
+          ],
+          "sd": [
+            112,
+            80,
+            96
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 112
+        },
+        "body--ctrl-white-plain": {
+          "id": "body--ctrl-white-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            212.83,
+            221.88,
+            195.07
+          ],
+          "sd": [
+            8,
+            4.73,
+            12.59
+          ],
+          "min": [
+            197,
+            213,
+            175
+          ],
+          "max": [
+            229,
+            231,
+            220
+          ],
+          "sdMax": 12.59
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-dom--labels": {
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "slab": {
+          "id": "slab",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(0, 128, 255)",
+          "x": 158,
+          "y": 288,
+          "width": 284,
+          "height": 44,
+          "mean": [
+            0,
+            112.47,
+            224.35
+          ],
+          "sd": [
+            0,
+            24.88,
+            49.39
+          ],
+          "min": [
+            0,
+            64,
+            128
+          ],
+          "max": [
+            0,
+            128,
+            255
+          ],
+          "sdMax": 49.39
+        },
+        "label-white-multiply": {
+          "id": "label-white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 158,
+          "y": 128,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "label-black-pluslighter": {
+          "id": "label-black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 248,
+          "y": 128,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            175,
+            175,
+            175
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            175,
+            175,
+            175
+          ],
+          "max": [
+            175,
+            175,
+            175
+          ],
+          "sdMax": 0
+        },
+        "label-black-vib-plain": {
+          "id": "label-black-vib-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "url(\"#vib-default\")",
+          "background": "rgb(0, 0, 0)",
+          "x": 338,
+          "y": 128,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "label-black-vib-multiply": {
+          "id": "label-black-vib-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "url(\"#vib-default\")",
+          "background": "rgb(0, 0, 0)",
+          "x": 428,
+          "y": 128,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "slab-white-multiply": {
+          "id": "slab-white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 178,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            11.59,
+            133.77,
+            255
+          ],
+          "sd": [
+            53.12,
+            26.45,
+            0
+          ],
+          "min": [
+            0,
+            128,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 53.12
+        },
+        "slab-grey-multiply": {
+          "id": "slab-grey-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(128, 128, 128)",
+          "x": 268,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            5.82,
+            66.91,
+            128
+          ],
+          "sd": [
+            26.66,
+            13.33,
+            0
+          ],
+          "min": [
+            0,
+            64,
+            128
+          ],
+          "max": [
+            128,
+            128,
+            128
+          ],
+          "sdMax": 26.66
+        },
+        "slab-black-vib-multiply": {
+          "id": "slab-black-vib-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "url(\"#vib-default\")",
+          "background": "rgb(0, 0, 0)",
+          "x": 358,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            10.45,
+            120.23,
+            230
+          ],
+          "sd": [
+            47.91,
+            23.95,
+            0
+          ],
+          "min": [
+            0,
+            115,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 47.91
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            205.74,
+            216.07,
+            207.1
+          ],
+          "sd": [
+            55.64,
+            30.83,
+            31.07
+          ],
+          "min": [
+            0,
+            128,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            255
+          ],
+          "sdMax": 55.64
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-dom--solo-plain": {
+      "spec": {
+        "id": "solo-plain",
+        "color": "#ffffff"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "solo-plain": {
+          "id": "solo-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            212.83,
+            221.88,
+            195.07
+          ],
+          "sd": [
+            8,
+            4.73,
+            12.59
+          ],
+          "min": [
+            197,
+            213,
+            175
+          ],
+          "max": [
+            229,
+            231,
+            220
+          ],
+          "sdMax": 12.59
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-dom--solo-filter": {
+      "spec": {
+        "id": "solo-filter",
+        "color": "#000000",
+        "filter": "url(#vib-default)"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "solo-filter": {
+          "id": "solo-filter",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "url(\"#vib-default\")",
+          "background": "rgb(0, 0, 0)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            212.83,
+            221.88,
+            195.07
+          ],
+          "sd": [
+            8,
+            4.73,
+            12.59
+          ],
+          "min": [
+            197,
+            213,
+            175
+          ],
+          "max": [
+            229,
+            231,
+            220
+          ],
+          "sdMax": 12.59
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-dom--solo-blend": {
+      "spec": {
+        "id": "solo-blend",
+        "color": "#ffffff",
+        "blend": "multiply"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "solo-blend": {
+          "id": "solo-blend",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-dom--solo-bg-blend": {
+      "spec": {
+        "id": "solo-bg-blend",
+        "backgrounds": [
+          "#000000",
+          "#cfd8e0"
+        ],
+        "backgroundBlend": "multiply"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "solo-bg-blend": {
+          "id": "solo-bg-blend",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            0,
+            0,
+            0
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            0,
+            0,
+            0
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            212.83,
+            221.88,
+            195.07
+          ],
+          "sd": [
+            8,
+            4.73,
+            12.59
+          ],
+          "min": [
+            197,
+            213,
+            175
+          ],
+          "max": [
+            229,
+            231,
+            220
+          ],
+          "sdMax": 12.59
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-dom--solo-filter-blend": {
+      "spec": {
+        "id": "solo-filter-blend",
+        "color": "#000000",
+        "filter": "url(#vib-default)",
+        "blend": "multiply"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "solo-filter-blend": {
+          "id": "solo-filter-blend",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "url(\"#vib-default\")",
+          "background": "rgb(0, 0, 0)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-dom--isolation-host-blend": {
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "solo-blend": {
+          "id": "solo-blend",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            212.83,
+            221.88,
+            195.07
+          ],
+          "sd": [
+            8,
+            4.73,
+            12.59
+          ],
+          "min": [
+            197,
+            213,
+            175
+          ],
+          "max": [
+            229,
+            231,
+            220
+          ],
+          "sdMax": 12.59
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-dom--contain-host-blend": {
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "solo-blend": {
+          "id": "solo-blend",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            212.83,
+            221.88,
+            195.07
+          ],
+          "sd": [
+            8,
+            4.73,
+            12.59
+          ],
+          "min": [
+            197,
+            213,
+            175
+          ],
+          "max": [
+            229,
+            231,
+            220
+          ],
+          "sdMax": 12.59
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-dom--reversible": {
+      "during": {
+        "id": "bare-material",
+        "kind": "bare",
+        "x": 430,
+        "y": 300,
+        "width": 230,
+        "height": 80,
+        "mean": [
+          214.85,
+          219.89,
+          205.13
+        ],
+        "sd": [
+          35,
+          25,
+          30
+        ],
+        "min": [
+          180,
+          195,
+          175
+        ],
+        "max": [
+          250,
+          245,
+          235
+        ],
+        "sdMax": 35
+      },
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            212.83,
+            221.88,
+            195.07
+          ],
+          "sd": [
+            8,
+            4.73,
+            12.59
+          ],
+          "min": [
+            197,
+            213,
+            175
+          ],
+          "max": [
+            229,
+            231,
+            220
+          ],
+          "sdMax": 12.59
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-texture--baseline": {
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "gpu-texture",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": [
+          "backdrop-texture-unplaced"
+        ]
+      },
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-texture--pair-host": {
+      "mount": {
+        "mount": "host",
+        "over": "glass"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "gpu-texture",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": [
+          "backdrop-texture-unplaced"
+        ]
+      },
+      "readings": {
+        "host--white-multiply": {
+          "id": "host--white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "host--black-pluslighter": {
+          "id": "host--black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 168,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "host--ctrl-white-plain": {
+          "id": "host--ctrl-white-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-texture--pair-host-layer": {
+      "mount": {
+        "mount": "host-layer",
+        "over": "glass"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "gpu-texture",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": [
+          "backdrop-texture-unplaced"
+        ]
+      },
+      "readings": {
+        "host-layer--white-multiply": {
+          "id": "host-layer--white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "host-layer--black-pluslighter": {
+          "id": "host-layer--black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 168,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "host-layer--ctrl-white-plain": {
+          "id": "host-layer--ctrl-white-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-texture--pair-plane-root": {
+      "mount": {
+        "mount": "plane-root",
+        "over": "page"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "gpu-texture",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": [
+          "backdrop-texture-unplaced"
+        ]
+      },
+      "readings": {
+        "plane-root--white-multiply": {
+          "id": "plane-root--white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "plane-root--black-pluslighter": {
+          "id": "plane-root--black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 768,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            0,
+            0,
+            0
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            0,
+            0,
+            0
+          ],
+          "sdMax": 0
+        },
+        "plane-root--ctrl-white-plain": {
+          "id": "plane-root--ctrl-white-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-texture--pair-glass-root": {
+      "mount": {
+        "mount": "glass-root",
+        "over": "page"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "gpu-texture",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": [
+          "backdrop-texture-unplaced"
+        ]
+      },
+      "readings": {
+        "glass-root--white-multiply": {
+          "id": "glass-root--white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "glass-root--black-pluslighter": {
+          "id": "glass-root--black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 768,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            0,
+            0,
+            0
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            0,
+            0,
+            0
+          ],
+          "sdMax": 0
+        },
+        "glass-root--ctrl-white-plain": {
+          "id": "glass-root--ctrl-white-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-texture--pair-body": {
+      "mount": {
+        "mount": "body",
+        "over": "page"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "gpu-texture",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": [
+          "backdrop-texture-unplaced"
+        ]
+      },
+      "readings": {
+        "body--white-multiply": {
+          "id": "body--white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            128.93,
+            144.66,
+            95.21
+          ],
+          "sd": [
+            112,
+            80,
+            96
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 112
+        },
+        "body--black-pluslighter": {
+          "id": "body--black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 768,
+          "y": 218,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            128,
+            144,
+            96
+          ],
+          "sd": [
+            112,
+            80,
+            96
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 112
+        },
+        "body--ctrl-white-plain": {
+          "id": "body--ctrl-white-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 768,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-texture--labels": {
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "gpu-texture",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": [
+          "backdrop-texture-unplaced"
+        ]
+      },
+      "readings": {
+        "slab": {
+          "id": "slab",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(0, 128, 255)",
+          "x": 158,
+          "y": 288,
+          "width": 284,
+          "height": 44,
+          "mean": [
+            0,
+            112.47,
+            224.35
+          ],
+          "sd": [
+            0,
+            24.88,
+            49.39
+          ],
+          "min": [
+            0,
+            64,
+            128
+          ],
+          "max": [
+            0,
+            128,
+            255
+          ],
+          "sdMax": 49.39
+        },
+        "label-white-multiply": {
+          "id": "label-white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 158,
+          "y": 128,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "label-black-pluslighter": {
+          "id": "label-black-pluslighter",
+          "kind": "probe",
+          "blend": "plus-lighter",
+          "filter": "none",
+          "background": "rgb(0, 0, 0)",
+          "x": 248,
+          "y": 128,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "label-black-vib-plain": {
+          "id": "label-black-vib-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "url(\"#vib-default\")",
+          "background": "rgb(0, 0, 0)",
+          "x": 338,
+          "y": 128,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "label-black-vib-multiply": {
+          "id": "label-black-vib-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "url(\"#vib-default\")",
+          "background": "rgb(0, 0, 0)",
+          "x": 428,
+          "y": 128,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            178,
+            181,
+            207
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            178,
+            181,
+            207
+          ],
+          "max": [
+            178,
+            181,
+            207
+          ],
+          "sdMax": 0
+        },
+        "slab-white-multiply": {
+          "id": "slab-white-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 178,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            8.95,
+            131.32,
+            253.86
+          ],
+          "sd": [
+            41.03,
+            15.21,
+            5.21
+          ],
+          "min": [
+            0,
+            128,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            255
+          ],
+          "sdMax": 41.03
+        },
+        "slab-grey-multiply": {
+          "id": "slab-grey-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(128, 128, 128)",
+          "x": 268,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            4.5,
+            65.68,
+            127.41
+          ],
+          "sd": [
+            20.62,
+            7.71,
+            2.71
+          ],
+          "min": [
+            0,
+            64,
+            115
+          ],
+          "max": [
+            99,
+            101,
+            128
+          ],
+          "sdMax": 20.62
+        },
+        "slab-black-vib-multiply": {
+          "id": "slab-black-vib-multiply",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "url(\"#vib-default\")",
+          "background": "rgb(0, 0, 0)",
+          "x": 358,
+          "y": 298,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            8.09,
+            118,
+            228.95
+          ],
+          "sd": [
+            37.08,
+            13.75,
+            4.79
+          ],
+          "min": [
+            0,
+            115,
+            207
+          ],
+          "max": [
+            178,
+            181,
+            230
+          ],
+          "sdMax": 37.08
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            188.43,
+            197.83,
+            231.09
+          ],
+          "sd": [
+            40.17,
+            14.89,
+            5.1
+          ],
+          "min": [
+            0,
+            128,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            255
+          ],
+          "sdMax": 40.17
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-texture--solo-plain": {
+      "spec": {
+        "id": "solo-plain",
+        "color": "#ffffff"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "gpu-texture",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": [
+          "backdrop-texture-unplaced"
+        ]
+      },
+      "readings": {
+        "solo-plain": {
+          "id": "solo-plain",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-texture--solo-filter": {
+      "spec": {
+        "id": "solo-filter",
+        "color": "#000000",
+        "filter": "url(#vib-default)"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "gpu-texture",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": [
+          "backdrop-texture-unplaced"
+        ]
+      },
+      "readings": {
+        "solo-filter": {
+          "id": "solo-filter",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "url(\"#vib-default\")",
+          "background": "rgb(0, 0, 0)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            230,
+            230,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            230,
+            230,
+            230
+          ],
+          "max": [
+            230,
+            230,
+            230
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-texture--solo-blend": {
+      "spec": {
+        "id": "solo-blend",
+        "color": "#ffffff",
+        "blend": "multiply"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "gpu-texture",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": [
+          "backdrop-texture-unplaced"
+        ]
+      },
+      "readings": {
+        "solo-blend": {
+          "id": "solo-blend",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-texture--solo-bg-blend": {
+      "spec": {
+        "id": "solo-bg-blend",
+        "backgrounds": [
+          "#000000",
+          "#cfd8e0"
+        ],
+        "backgroundBlend": "multiply"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "gpu-texture",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": [
+          "backdrop-texture-unplaced"
+        ]
+      },
+      "readings": {
+        "solo-bg-blend": {
+          "id": "solo-bg-blend",
+          "kind": "probe",
+          "blend": "normal",
+          "filter": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            0,
+            0,
+            0
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            0,
+            0,
+            0
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-texture--solo-filter-blend": {
+      "spec": {
+        "id": "solo-filter-blend",
+        "color": "#000000",
+        "filter": "url(#vib-default)",
+        "blend": "multiply"
+      },
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "gpu-texture",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": [
+          "backdrop-texture-unplaced"
+        ]
+      },
+      "readings": {
+        "solo-filter-blend": {
+          "id": "solo-filter-blend",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "url(\"#vib-default\")",
+          "background": "rgb(0, 0, 0)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            178,
+            181,
+            207
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            178,
+            181,
+            207
+          ],
+          "max": [
+            178,
+            181,
+            207
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-texture--isolation-host-blend": {
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "gpu-texture",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": [
+          "backdrop-texture-unplaced"
+        ]
+      },
+      "readings": {
+        "solo-blend": {
+          "id": "solo-blend",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-texture--contain-host-blend": {
+      "state": {
+        "activeRenderer": "webgpu",
+        "samplingBackend": "gpu-texture",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": [
+          "backdrop-texture-unplaced"
+        ]
+      },
+      "readings": {
+        "solo-blend": {
+          "id": "solo-blend",
+          "kind": "probe",
+          "blend": "multiply",
+          "filter": "none",
+          "background": "rgb(255, 255, 255)",
+          "x": 168,
+          "y": 138,
+          "width": 44,
+          "height": 44,
+          "mean": [
+            255,
+            255,
+            255
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            255,
+            255,
+            255
+          ],
+          "max": [
+            255,
+            255,
+            255
+          ],
+          "sdMax": 0
+        },
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "gpu-texture--reversible": {
+      "during": {
+        "id": "bare-material",
+        "kind": "bare",
+        "x": 430,
+        "y": 300,
+        "width": 230,
+        "height": 80,
+        "mean": [
+          197,
+          201,
+          230
+        ],
+        "sd": [
+          0,
+          0,
+          0
+        ],
+        "min": [
+          197,
+          201,
+          230
+        ],
+        "max": [
+          197,
+          201,
+          230
+        ],
+        "sdMax": 0
+      },
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            197,
+            201,
+            230
+          ],
+          "sd": [
+            0,
+            0,
+            0
+          ],
+          "min": [
+            197,
+            201,
+            230
+          ],
+          "max": [
+            197,
+            201,
+            230
+          ],
+          "sdMax": 0
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "q3--host--mix-blend-mode": {
+      "trigger": {
+        "target": "host",
+        "property": "mix-blend-mode",
+        "value": "multiply",
+        "computed": "multiply"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "q3--host--opacity": {
+      "trigger": {
+        "target": "host",
+        "property": "opacity",
+        "value": "0.99",
+        "computed": "0.99"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            213.84,
+            219.39,
+            204.13
+          ],
+          "sd": [
+            36,
+            25.5,
+            31
+          ],
+          "min": [
+            178,
+            194,
+            173
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 36
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "q3--host--filter": {
+      "trigger": {
+        "target": "host",
+        "property": "filter",
+        "value": "blur(0px)",
+        "computed": "blur(0px)"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "q3--host--isolation": {
+      "trigger": {
+        "target": "host",
+        "property": "isolation",
+        "value": "isolate",
+        "computed": "isolate"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            231.88,
+            227.69,
+            224.98
+          ],
+          "sd": [
+            3.49,
+            2.5,
+            3.58
+          ],
+          "min": [
+            222,
+            221,
+            217
+          ],
+          "max": [
+            238,
+            232,
+            231
+          ],
+          "sdMax": 3.58
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "q3--host--contain": {
+      "trigger": {
+        "target": "host",
+        "property": "contain",
+        "value": "paint",
+        "computed": "paint"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            231.87,
+            227.69,
+            224.95
+          ],
+          "sd": [
+            3.49,
+            2.5,
+            3.59
+          ],
+          "min": [
+            222,
+            221,
+            216
+          ],
+          "max": [
+            237,
+            232,
+            231
+          ],
+          "sdMax": 3.59
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "q3--glass-root--opacity": {
+      "trigger": {
+        "target": "glass-root",
+        "property": "opacity",
+        "value": "0.99",
+        "computed": "0.99"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            213.84,
+            219.39,
+            204.13
+          ],
+          "sd": [
+            36,
+            25.5,
+            31
+          ],
+          "min": [
+            178,
+            194,
+            173
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 36
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "q3--glass-root--filter": {
+      "trigger": {
+        "target": "glass-root",
+        "property": "filter",
+        "value": "blur(0px)",
+        "computed": "blur(0px)"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            214.85,
+            219.89,
+            205.13
+          ],
+          "sd": [
+            35,
+            25,
+            30
+          ],
+          "min": [
+            180,
+            195,
+            175
+          ],
+          "max": [
+            250,
+            245,
+            235
+          ],
+          "sdMax": 35
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "q3--glass-root--mix-blend-mode": {
+      "trigger": {
+        "target": "glass-root",
+        "property": "mix-blend-mode",
+        "value": "multiply",
+        "computed": "multiply"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": null,
+        "probe": "pass",
+        "diagnostics": []
+      },
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            127.51,
+            143.65,
+            96.42
+          ],
+          "sd": [
+            112,
+            80,
+            96
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 112
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    },
+    "q3--body--opacity": {
+      "trigger": {
+        "target": "body",
+        "property": "opacity",
+        "value": "0.99",
+        "computed": "0.99"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": "probe-failed",
+        "probe": "fail",
+        "diagnostics": [
+          "backdrop-root-broken"
+        ]
+      },
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            229.88,
+            225.69,
+            222.98
+          ],
+          "sd": [
+            3.49,
+            2.5,
+            3.58
+          ],
+          "min": [
+            220,
+            219,
+            215
+          ],
+          "max": [
+            236,
+            230,
+            229
+          ],
+          "sdMax": 3.58
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            131.44,
+            145.68,
+            91.2
+          ],
+          "sd": [
+            110.91,
+            79.44,
+            94.92
+          ],
+          "min": [
+            16,
+            63,
+            0
+          ],
+          "max": [
+            238,
+            222,
+            190
+          ],
+          "sdMax": 110.91
+        }
+      }
+    },
+    "q3--body--filter": {
+      "trigger": {
+        "target": "body",
+        "property": "filter",
+        "value": "blur(0px)",
+        "computed": "blur(0px)"
+      },
+      "state": {
+        "activeRenderer": "css",
+        "samplingBackend": "css-backdrop",
+        "demotion": "probe-failed",
+        "probe": "fail",
+        "diagnostics": [
+          "backdrop-root-broken"
+        ]
+      },
+      "readings": {
+        "bare-material": {
+          "id": "bare-material",
+          "kind": "bare",
+          "x": 430,
+          "y": 300,
+          "width": 230,
+          "height": 80,
+          "mean": [
+            231.88,
+            227.69,
+            224.98
+          ],
+          "sd": [
+            3.49,
+            2.5,
+            3.58
+          ],
+          "min": [
+            222,
+            221,
+            217
+          ],
+          "max": [
+            238,
+            232,
+            231
+          ],
+          "sdMax": 3.58
+        },
+        "page-ground": {
+          "id": "page-ground",
+          "kind": "page",
+          "x": 900,
+          "y": 130,
+          "width": 60,
+          "height": 60,
+          "mean": [
+            132.48,
+            147.2,
+            92.16
+          ],
+          "sd": [
+            111.91,
+            79.94,
+            95.92
+          ],
+          "min": [
+            16,
+            64,
+            0
+          ],
+          "max": [
+            240,
+            224,
+            192
+          ],
+          "sdMax": 111.91
+        }
+      }
+    }
+  },
+  "matrices": {
+    "default": [
+      1.20236,
+      -1.00128,
+      -0.10108,
+      0,
+      0.9,
+      -0.29764,
+      0.49872000000000005,
+      -0.10108,
+      0,
+      0.9,
+      -0.29764,
+      -1.00128,
+      1.39892,
+      0,
+      0.9,
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    "dark-glass": [
+      2.64921,
+      -1.1800799999999998,
+      -0.11913000000000001,
+      0,
+      0.15,
+      -0.35079,
+      1.8199200000000002,
+      -0.11913000000000001,
+      0,
+      0.15,
+      -0.35079,
+      -1.1800799999999998,
+      2.88087,
+      0,
+      0.15,
+      0,
+      0,
+      0,
+      1,
+      0
+    ]
+  },
+  "operators": {
+    "default": {
+      "b": 0.9,
+      "a": 0.1,
+      "m": 1.5
+    },
+    "dark-glass": {
+      "b": 0.15,
+      "a": 1.35,
+      "m": 3
+    }
+  },
+  "adapter": {
+    "ok": true,
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "isFallback": false
+  }
+}
