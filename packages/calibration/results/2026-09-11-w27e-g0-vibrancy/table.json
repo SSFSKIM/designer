@@ -36,7 +36,7 @@
     "role": "From the carrying layer's SDF effect class, which is the tree's own statement of what the layer draws: CASDFKeyFillHighlightEffect is the surface's key/fill specular, CASDFGradientEffect is the author tint's gradient.",
     "input": "From inputBackdropAware: 1 means the filter reads the backdrop beneath the layer, null means it reads the layer's own content.",
     "span": "The minor dimension of the surface's CASDFElementLayer rects, read from the dump, cross-checked against every committed scene spec that declares the component.",
-    "tone": "shadow.backdropMeanLuminance from results/matrix.json at the 1x light standard profile — the scene's own recorded backdrop level. Where the scene has no cell, the mean over cells of the same background id, flagged as background-aggregate.",
+    "tone": "Mean linear luminance of the committed background fixture over the DECLARED component region, read with the harness's own decodePng/componentRegion/interiorLevel. The matrix's two backdrop statistics are recorded beside it and are not the same quantity: shadow.backdropMeanLuminance is the exterior level, and material.interiorMeanBackdrop is taken over the extracted silhouette, which over a high-contrast backdrop is punched out.",
     "vitrea": "backdropToneAdaptation(tone, sizeThickness(span)) at the shipped material profile. A prediction recorded beside the reading, never a fit."
   },
   "summary": {
@@ -127,9 +127,9 @@
     ],
     "spanDisagreements": [],
     "separation": {
-      "predicate": "backdropToneAdaptation(shadow.backdropMeanLuminance, sizeThickness(span))",
+      "predicate": "backdropToneAdaptation(fixture tone over the declared region, sizeThickness(span))",
       "minOnDarkOperator": 1,
-      "maxOnDefaultOperator": 0.0027962565843927534,
+      "maxOnDefaultOperator": 0.007705454363029163,
       "unevaluated": 0
     }
   },
@@ -930,11 +930,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.5,
         "cellInteriorMeanBackdrop": 0.5,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -1100,11 +1105,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.5,
         "cellInteriorMeanBackdrop": 0.50004565,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -1270,11 +1280,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -1440,11 +1455,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.5,
         "cellInteriorMeanBackdrop": 0.5,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -1610,11 +1630,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.5,
         "cellInteriorMeanBackdrop": 0.5,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -1780,11 +1805,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.5,
         "cellInteriorMeanBackdrop": 0.5,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -1966,11 +1996,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.5,
         "cellInteriorMeanBackdrop": 0.5,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -2136,11 +2171,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.890969073,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.890969072745567,
+        "fixture": {
+          "region": 0.890969072745567,
+          "canvas": 0.8909690727451649,
+          "source": "apps/reference-apple/fixtures/backgrounds/light-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.890969073,
         "cellInteriorMeanBackdrop": 0.890969073,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0.8909690727451681,
           "max": 0.8909690727453812,
@@ -2306,11 +2346,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.890969073,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.8909690727454895,
+        "fixture": {
+          "region": 0.8909690727454895,
+          "canvas": 0.8909690727451649,
+          "source": "apps/reference-apple/fixtures/backgrounds/light-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.890969073,
         "cellInteriorMeanBackdrop": 0.890969073,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0.8909690727451681,
           "max": 0.8909690727453812,
@@ -2476,11 +2521,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.890969073,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.8909690727452926,
+        "fixture": {
+          "region": 0.8909690727452926,
+          "canvas": 0.8909690727451649,
+          "source": "apps/reference-apple/fixtures/backgrounds/light-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.890969073,
         "cellInteriorMeanBackdrop": 0.890969073,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0.8909690727451681,
           "max": 0.8909690727453812,
@@ -2646,11 +2696,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.214240679,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.21193860947873128,
+        "fixture": {
+          "region": 0.21193860947873128,
+          "canvas": 0.2140654342001348,
+          "source": "apps/reference-apple/fixtures/backgrounds/photo@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.214240679,
         "cellInteriorMeanBackdrop": 0.211938609,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 24,
           "min": 0.18858570162839272,
           "max": 0.21554489479793612,
@@ -2816,11 +2871,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.214240679,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.21193860947873128,
+        "fixture": {
+          "region": 0.21193860947873128,
+          "canvas": 0.2140654342001348,
+          "source": "apps/reference-apple/fixtures/backgrounds/photo@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.214240679,
         "cellInteriorMeanBackdrop": 0.211938609,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 24,
           "min": 0.18858570162839272,
           "max": 0.21554489479793612,
@@ -2986,11 +3046,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.214240679,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.21193860947873128,
+        "fixture": {
+          "region": 0.21193860947873128,
+          "canvas": 0.2140654342001348,
+          "source": "apps/reference-apple/fixtures/backgrounds/photo@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.214240679,
         "cellInteriorMeanBackdrop": 0.211938609,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 24,
           "min": 0.18858570162839272,
           "max": 0.21554489479793612,
@@ -3156,11 +3221,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.214240679,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.21193860947873128,
+        "fixture": {
+          "region": 0.21193860947873128,
+          "canvas": 0.2140654342001348,
+          "source": "apps/reference-apple/fixtures/backgrounds/photo@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.214240679,
         "cellInteriorMeanBackdrop": 0.211938609,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 24,
           "min": 0.18858570162839272,
           "max": 0.21554489479793612,
@@ -3326,11 +3396,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.214240679,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.21193860947873128,
+        "fixture": {
+          "region": 0.21193860947873128,
+          "canvas": 0.2140654342001348,
+          "source": "apps/reference-apple/fixtures/backgrounds/photo@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.214240679,
         "cellInteriorMeanBackdrop": 0.211938609,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 24,
           "min": 0.18858570162839272,
           "max": 0.21554489479793612,
@@ -3497,11 +3572,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.210225578,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.21897115746955534,
+        "fixture": {
+          "region": 0.21897115746955534,
+          "canvas": 0.2140654342001348,
+          "source": "apps/reference-apple/fixtures/backgrounds/photo@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.210225578,
         "cellInteriorMeanBackdrop": 0.218962505,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 24,
           "min": 0.18858570162839272,
           "max": 0.21554489479793612,
@@ -3668,11 +3748,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.210225578,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.21897115746955534,
+        "fixture": {
+          "region": 0.21897115746955534,
+          "canvas": 0.2140654342001348,
+          "source": "apps/reference-apple/fixtures/backgrounds/photo@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.210225578,
         "cellInteriorMeanBackdrop": 0.218962505,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 24,
           "min": 0.18858570162839272,
           "max": 0.21554489479793612,
@@ -3838,11 +3923,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
-        "tone": 0.5,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.49979633401221996,
+        "fixture": {
+          "region": 0.49979633401221996,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -4008,11 +4098,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
-        "tone": 0.5,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.5011074197120708,
+        "fixture": {
+          "region": 0.5011074197120708,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -4178,11 +4273,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -4348,11 +4448,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -4518,11 +4623,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
-        "tone": 0.5,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.5002465483234714,
+        "fixture": {
+          "region": 0.5002465483234714,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -4688,11 +4798,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -4858,11 +4973,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
-        "tone": 0.5,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.49967029343883945,
+        "fixture": {
+          "region": 0.49967029343883945,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -5028,11 +5148,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -5198,11 +5323,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.5,
         "cellInteriorMeanBackdrop": 0.5,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -5368,11 +5498,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.5,
         "cellInteriorMeanBackdrop": 0.5,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -5533,11 +5668,16 @@
         "faceFillIsDark": true
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.011711216,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.01171121601287031,
+        "fixture": {
+          "region": 0.01171121601287031,
+          "canvas": 0.011711216012863646,
+          "source": "apps/reference-apple/fixtures/backgrounds/dark-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.011711216,
         "cellInteriorMeanBackdrop": 0.011711216,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 21,
           "min": 0.011711216012864822,
           "max": 0.011711216012879794,
@@ -5703,11 +5843,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.011711216,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.011711216012873867,
+        "fixture": {
+          "region": 0.011711216012873867,
+          "canvas": 0.011711216012863646,
+          "source": "apps/reference-apple/fixtures/backgrounds/dark-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.011711216,
         "cellInteriorMeanBackdrop": 0.011711216,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 21,
           "min": 0.011711216012864822,
           "max": 0.011711216012879794,
@@ -5873,11 +6018,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.751352997,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.6026272577996716,
+        "fixture": {
+          "region": 0.6026272577996716,
+          "canvas": 0.74003125,
+          "source": "apps/reference-apple/fixtures/backgrounds/hc-text@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.751352997,
         "cellInteriorMeanBackdrop": 0.602627258,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 10,
           "min": 0.7474193548387097,
           "max": 0.8345719381688466,
@@ -6043,11 +6193,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.7811377,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.6060303514376997,
+        "fixture": {
+          "region": 0.6060303514376997,
+          "canvas": 0.74003125,
+          "source": "apps/reference-apple/fixtures/backgrounds/hc-text@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.7811377,
         "cellInteriorMeanBackdrop": 0.606030351,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 10,
           "min": 0.7474193548387097,
           "max": 0.8345719381688466,
@@ -6208,11 +6363,16 @@
         "faceFillIsDark": true
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.003788391,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.003284072249589491,
+        "fixture": {
+          "region": 0.003284072249589491,
+          "canvas": 0.00375,
+          "source": "apps/reference-apple/fixtures/backgrounds/impulse@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.003788391,
         "cellInteriorMeanBackdrop": 0.112676056,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0,
           "max": 0.004005340453938585,
@@ -6378,11 +6538,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.003920287,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.003194888178913738,
+        "fixture": {
+          "region": 0.003194888178913738,
+          "canvas": 0.00375,
+          "source": "apps/reference-apple/fixtures/backgrounds/impulse@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.003920287,
         "cellInteriorMeanBackdrop": 0.003194888,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0,
           "max": 0.004005340453938585,
@@ -6391,7 +6556,7 @@
       },
       "vitrea": {
         "sizeThickness": 1,
-        "backdropToneAdaptation": 0.0027962565843927534
+        "backdropToneAdaptation": 0.007705454363029163
       },
       "operatorId": 0
     },
@@ -6548,11 +6713,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.890969073,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.890969072745567,
+        "fixture": {
+          "region": 0.890969072745567,
+          "canvas": 0.8909690727451649,
+          "source": "apps/reference-apple/fixtures/backgrounds/light-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.890969073,
         "cellInteriorMeanBackdrop": 0.890969073,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0.8909690727451681,
           "max": 0.8909690727453812,
@@ -6718,11 +6888,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.890969073,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.8909690727454895,
+        "fixture": {
+          "region": 0.8909690727454895,
+          "canvas": 0.8909690727451649,
+          "source": "apps/reference-apple/fixtures/backgrounds/light-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.890969073,
         "cellInteriorMeanBackdrop": 0.890969073,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0.8909690727451681,
           "max": 0.8909690727453812,
@@ -6888,11 +7063,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.059511238,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.05951123816297829,
+        "fixture": {
+          "region": 0.05951123816297829,
+          "canvas": 0.05951123816294676,
+          "source": "apps/reference-apple/fixtures/backgrounds/mid-dark-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.059511238,
         "cellInteriorMeanBackdrop": 0.059511238,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 8,
           "min": 0.05951123816294696,
           "max": 0.05951123816296018,
@@ -7058,11 +7238,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.214240679,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.21193860947873128,
+        "fixture": {
+          "region": 0.21193860947873128,
+          "canvas": 0.2140654342001348,
+          "source": "apps/reference-apple/fixtures/backgrounds/photo@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.214240679,
         "cellInteriorMeanBackdrop": 0.211938609,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 24,
           "min": 0.18858570162839272,
           "max": 0.21554489479793612,
@@ -7228,11 +7413,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
-        "tone": 0.213858713,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.21473931462649856,
+        "fixture": {
+          "region": 0.21473931462649856,
+          "canvas": 0.2140654342001348,
+          "source": "apps/reference-apple/fixtures/backgrounds/photo@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.213858713,
         "cellInteriorMeanBackdrop": 0.214739315,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 24,
           "min": 0.18858570162839272,
           "max": 0.21554489479793612,
@@ -7414,11 +7604,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -7600,11 +7795,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "cell",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": 0.5,
         "cellInteriorMeanBackdrop": 0.5,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -7770,11 +7970,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -7940,11 +8145,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -8110,11 +8320,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -8280,11 +8495,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -8450,11 +8670,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -8620,11 +8845,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -8790,11 +9020,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -8960,11 +9195,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -9130,11 +9370,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -9300,11 +9545,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
+        "toneSource": "declared-region-of-fixture",
         "tone": 0.5,
+        "fixture": {
+          "region": 0.5,
+          "canvas": 0.5,
+          "source": "apps/reference-apple/fixtures/backgrounds/checkerboard@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 18,
           "min": 0.5,
           "max": 0.5,
@@ -9470,11 +9720,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
-        "tone": 0.8909690727452224,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.890969072745567,
+        "fixture": {
+          "region": 0.890969072745567,
+          "canvas": 0.8909690727451649,
+          "source": "apps/reference-apple/fixtures/backgrounds/light-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0.8909690727451681,
           "max": 0.8909690727453812,
@@ -9640,11 +9895,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
-        "tone": 0.8909690727452224,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.8909690727455882,
+        "fixture": {
+          "region": 0.8909690727455882,
+          "canvas": 0.8909690727451649,
+          "source": "apps/reference-apple/fixtures/backgrounds/light-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0.8909690727451681,
           "max": 0.8909690727453812,
@@ -9810,11 +10070,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
-        "tone": 0.8909690727452224,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.8909690727455861,
+        "fixture": {
+          "region": 0.8909690727455861,
+          "canvas": 0.8909690727451649,
+          "source": "apps/reference-apple/fixtures/backgrounds/light-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0.8909690727451681,
           "max": 0.8909690727453812,
@@ -9980,11 +10245,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
-        "tone": 0.8909690727452224,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.8909690727455828,
+        "fixture": {
+          "region": 0.8909690727455828,
+          "canvas": 0.8909690727451649,
+          "source": "apps/reference-apple/fixtures/backgrounds/light-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0.8909690727451681,
           "max": 0.8909690727453812,
@@ -10150,11 +10420,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
-        "tone": 0.8909690727452224,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.8909690727455778,
+        "fixture": {
+          "region": 0.8909690727455778,
+          "canvas": 0.8909690727451649,
+          "source": "apps/reference-apple/fixtures/backgrounds/light-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0.8909690727451681,
           "max": 0.8909690727453812,
@@ -10320,11 +10595,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
-        "tone": 0.8909690727452224,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.8909690727455729,
+        "fixture": {
+          "region": 0.8909690727455729,
+          "canvas": 0.8909690727451649,
+          "source": "apps/reference-apple/fixtures/backgrounds/light-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0.8909690727451681,
           "max": 0.8909690727453812,
@@ -10490,11 +10770,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
-        "tone": 0.8909690727452224,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.890969072745567,
+        "fixture": {
+          "region": 0.890969072745567,
+          "canvas": 0.8909690727451649,
+          "source": "apps/reference-apple/fixtures/backgrounds/light-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0.8909690727451681,
           "max": 0.8909690727453812,
@@ -10660,11 +10945,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
-        "tone": 0.8909690727452224,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.890969072745579,
+        "fixture": {
+          "region": 0.890969072745579,
+          "canvas": 0.8909690727451649,
+          "source": "apps/reference-apple/fixtures/backgrounds/light-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0.8909690727451681,
           "max": 0.8909690727453812,
@@ -10830,11 +11120,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
-        "tone": 0.8909690727452224,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.8909690727455828,
+        "fixture": {
+          "region": 0.8909690727455828,
+          "canvas": 0.8909690727451649,
+          "source": "apps/reference-apple/fixtures/backgrounds/light-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0.8909690727451681,
           "max": 0.8909690727453812,
@@ -11000,11 +11295,16 @@
         "faceFillIsDark": false
       },
       "backdrop": {
-        "toneSource": "background-aggregate",
-        "tone": 0.8909690727452224,
+        "toneSource": "declared-region-of-fixture",
+        "tone": 0.8909690727455882,
+        "fixture": {
+          "region": 0.8909690727455882,
+          "canvas": 0.8909690727451649,
+          "source": "apps/reference-apple/fixtures/backgrounds/light-solid@1x.png"
+        },
         "cellShadowBackdropMeanLuminance": null,
         "cellInteriorMeanBackdrop": null,
-        "backgroundAggregate": {
+        "backgroundShadowAggregate": {
           "cells": 12,
           "min": 0.8909690727451681,
           "max": 0.8909690727453812,

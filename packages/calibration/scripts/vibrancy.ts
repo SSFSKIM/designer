@@ -28,6 +28,9 @@ import {
   backdropToneAdaptation,
   sizeThickness,
 } from "@vitrea/renderer-webgpu";
+import { componentRegion, type DeclaredComponent } from "../src/component-region";
+import { decodePng } from "../src/image";
+import { interiorLevel } from "../src/metrics/material";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const OUT = "packages/calibration/results/2026-09-11-w27e-g0-vibrancy";
@@ -123,8 +126,42 @@ interface Component {
   readonly items?: readonly Component[];
 }
 interface SceneSpec {
+  readonly canvas: { width: number; height: number };
   readonly components: Record<string, Component>;
   readonly scenes: readonly { id: string; component: string }[];
+}
+
+/**
+ * The backdrop level under a cell, read from the committed background fixture over
+ * the *declared* region — not from the extracted silhouette.
+ *
+ * The matrix already carries two backdrop statistics and neither is quite this.
+ * `shadow.backdropMeanLuminance` is the scene's exterior level, and
+ * `material.interiorMeanBackdrop` is the backdrop over the silhouette the
+ * luminance-delta extractor recovered, which `src/report.ts` documents as losing
+ * "any part of the material whose level coincides with the backdrop's" — over the
+ * impulse train that leaves 71 pixels weighted to the bright ones and reads
+ * 0.11268 where the region is 0.00303. Both are recorded here beside this one so a
+ * reader can see the disagreement, and the predicate below is evaluated on the
+ * declared-region reading, which is the closest the committed evidence comes to
+ * what Apple's `tracksLuma` samples.
+ */
+const backgrounds = new Map<string, { region: number; canvas: number }>();
+function fixtureTone(background: string, scale: number, component: DeclaredComponent,
+  canvas: { width: number; height: number }) {
+  const path = `apps/reference-apple/fixtures/backgrounds/${background}@${scale}x.png`;
+  const key = `${path}|${JSON.stringify(component)}`;
+  const cached = backgrounds.get(key);
+  if (cached) return { ...cached, source: path };
+  const image = decodePng(readFileSync(join(ROOT, path)));
+  const region = componentRegion(component,
+    { canvas, scale, width: image.width, height: image.height });
+  const value = {
+    region: interiorLevel(image, { interior: region.silhouette }).mean,
+    canvas: interiorLevel(image).mean,
+  };
+  backgrounds.set(key, value);
+  return { ...value, source: path };
 }
 
 /**
@@ -342,7 +379,21 @@ export interface Row extends Record<string, unknown> {
   readonly input: string;
   readonly matrix: readonly number[];
   readonly operator: Decomposition;
-  readonly surface: { readonly spanFromDump: number | null; readonly spanAgrees: boolean };
+  readonly surface: {
+    readonly spanFromDump: number | null;
+    readonly spanAgrees: boolean;
+    readonly tracksLuma: unknown;
+  };
+  readonly body: {
+    readonly faceColorMatrixBlack: unknown;
+    readonly faceColorMatrixWhite: unknown;
+    readonly faceFill: readonly number[] | null;
+  };
+  readonly backdrop: {
+    readonly tone: number;
+    readonly cellShadowBackdropMeanLuminance: number | null;
+    readonly cellInteriorMeanBackdrop: number | null;
+  };
   readonly vitrea: { readonly backdropToneAdaptation: number | null };
 }
 
@@ -368,6 +419,9 @@ export function read() {
     if (declaring.length === 0) throw new Error(`${dump.scene}: declared in no committed spec`);
     if (declared.length !== 1) throw new Error(`${dump.scene}: specs disagree on span`);
     const declaredSpans = JSON.parse(declared[0] as string) as number[];
+    const component = (declaring[0] as { spec: SceneSpec }).spec.components[dump.component];
+    const fixture = fixtureTone(dump.background, dump.backingScaleFactor,
+      component as unknown as DeclaredComponent, dump.canvas);
 
     const scene = cellsAt.filter((c) => c.key.sceneId === dump.scene);
     const interiorBackdrop = unique(scene
@@ -382,9 +436,7 @@ export function read() {
       max: Math.max(...sameBackground),
       mean: sameBackground.reduce((a, b) => a + b, 0) / sameBackground.length,
     };
-    const toneSource = shadowBackdrop != null ? "cell"
-      : aggregate != null ? "background-aggregate" : "absent";
-    const tone = shadowBackdrop ?? aggregate?.mean ?? null;
+    const tone = fixture.region;
 
     return found.map((occurrence) => {
       const surface = surfaceOf(layers, occurrence.layerPath);
@@ -458,11 +510,12 @@ export function read() {
           faceFillIsDark: (colour("inputFaceColorMatrixFillColor") ?? [1])[0] === 0,
         },
         backdrop: {
-          toneSource,
+          toneSource: "declared-region-of-fixture",
           tone,
+          fixture,
           cellShadowBackdropMeanLuminance: shadowBackdrop,
           cellInteriorMeanBackdrop: interiorBackdrop,
-          backgroundAggregate: aggregate,
+          backgroundShadowAggregate: aggregate,
         },
         // vitrea's own fitted collapse predicate, evaluated at the shipped profile
         // on the harness's recorded backdrop level. Not a fit: a prediction the
@@ -525,7 +578,7 @@ function main(): void {
       role: "From the carrying layer's SDF effect class, which is the tree's own statement of what the layer draws: CASDFKeyFillHighlightEffect is the surface's key/fill specular, CASDFGradientEffect is the author tint's gradient.",
       input: "From inputBackdropAware: 1 means the filter reads the backdrop beneath the layer, null means it reads the layer's own content.",
       span: "The minor dimension of the surface's CASDFElementLayer rects, read from the dump, cross-checked against every committed scene spec that declares the component.",
-      tone: "shadow.backdropMeanLuminance from results/matrix.json at the 1x light standard profile — the scene's own recorded backdrop level. Where the scene has no cell, the mean over cells of the same background id, flagged as background-aggregate.",
+      tone: "Mean linear luminance of the committed background fixture over the DECLARED component region, read with the harness's own decodePng/componentRegion/interiorLevel. The matrix's two backdrop statistics are recorded beside it and are not the same quantity: shadow.backdropMeanLuminance is the exterior level, and material.interiorMeanBackdrop is taken over the extracted silhouette, which over a high-contrast backdrop is punched out.",
       vitrea: "backdropToneAdaptation(tone, sizeThickness(span)) at the shipped material profile. A prediction recorded beside the reading, never a fit.",
     },
     summary: {
@@ -552,7 +605,7 @@ function main(): void {
         const rest = foreground.filter((r) => r.operatorId === foreground[0]?.operatorId);
         const values = (rows: Row[]) => rows.map(value).filter((v): v is number => v != null);
         return {
-          predicate: "backdropToneAdaptation(shadow.backdropMeanLuminance, sizeThickness(span))",
+          predicate: "backdropToneAdaptation(fixture tone over the declared region, sizeThickness(span))",
           minOnDarkOperator: Math.min(...values(dark)),
           maxOnDefaultOperator: Math.max(...values(rest)),
           unevaluated: foreground.length - values(dark).length - values(rest).length,
@@ -600,26 +653,27 @@ function main(): void {
     "",
     "## The cells",
     "",
-    "Backdrop tone is `shadow.backdropMeanLuminance` from `results/matrix.json` at",
-    `\`${PROFILE_KEY}\`; \`bg\` in the source column means the mean over cells of the same`,
-    "background id, used where the scene itself has no cell. `adapt` is",
+    "`tone` is the mean linear luminance of the committed background fixture over the declared",
+    "component region; `matrix tone` is `shadow.backdropMeanLuminance` / `material.interiorMeanBackdrop`",
+    `from \`results/matrix.json\` at \`${PROFILE_KEY}\`, recorded beside it because neither is the same`,
+    "quantity and they disagree on the impulse background. `adapt` is",
     "`backdropToneAdaptation(tone, sizeThickness(span))` at the shipped profile — a prediction",
     "recorded beside the reading, not a fit.",
     "",
     "| tree | scene | role | layer | effect | input | op | span | tracksLuma "
-      + "| tone | src | adapt | face black / white | face fill |",
+      + "| tone | matrix tone | adapt | face black / white | face fill |",
     "| --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- | ---: | --- | --- |",
     ...reading.rows.map((r) => {
-      const s = r.surface as { spanFromDump: number | null; tracksLuma: unknown };
-      const b = r.body as { faceColorMatrixBlack: number | null;
-        faceColorMatrixWhite: number | null; faceFill: number[] | null };
-      const d = r.backdrop as { tone: number | null; toneSource: string };
+      const num = (x: unknown) => typeof x === "number" ? n(x, 4) : "—";
       return `| ${tree(r.dump)} | ${r.scene} | ${r.role} | ${r.layerPath} `
         + `| ${(r.layerEffect ?? "—").replace("CASDF", "")} | ${r.input} | ${r.operatorId} `
-        + `| ${n(s.spanFromDump, 0)} | ${String(s.tracksLuma)} | ${n(d.tone)} `
-        + `| ${d.toneSource === "cell" ? "cell" : "bg"} | ${n(r.vitrea.backdropToneAdaptation)} `
-        + `| ${n(b.faceColorMatrixBlack, 4)} / ${n(b.faceColorMatrixWhite, 4)} `
-        + `| ${b.faceFill ? vec(b.faceFill, 3) : "—"} |`;
+        + `| ${n(r.surface.spanFromDump, 0)} | ${String(r.surface.tracksLuma)} `
+        + `| ${n(r.backdrop.tone)} `
+        + `| ${n(r.backdrop.cellShadowBackdropMeanLuminance)} `
+        + `/ ${n(r.backdrop.cellInteriorMeanBackdrop)} `
+        + `| ${n(r.vitrea.backdropToneAdaptation)} `
+        + `| ${num(r.body.faceColorMatrixBlack)} / ${num(r.body.faceColorMatrixWhite)} `
+        + `| ${r.body.faceFill ? vec(r.body.faceFill, 3) : "—"} |`;
     }),
     "",
   ].join("\n");
