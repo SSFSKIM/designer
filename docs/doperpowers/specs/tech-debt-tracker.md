@@ -2140,3 +2140,27 @@ surface selection and the W27f runners call it per surface. The decisions are sc
 a per-surface axis is a new axis or a nesting of the existing ones, how the cell count assertions
 in `adopted-thresholds.test.ts` change, and whether the coherence axis follows. Worth taking with
 the next wave that touches stacked material; not worth a wave of its own.
+
+## Nothing checks the canonical matrix against a fresh capture (W27f G2, 2026-09-11)
+
+W27f G2 found the canonical `results/matrix.json` carrying **pre-W27f-G1 rows for the two
+`glass-over-glass` scenes through the whole 0.16.0 release** (claims §5.135 §8). The rows were
+captured 2026-09-10T05:22–05:23Z, before G1 merged, so the committed bed described the flat-white
+overlay the wave had replaced. Twelve rows across 1x/2x and both tiers were affected. They are
+corrected; no bound, floor, cell count or partition moved.
+
+The miss is instructive and the shape of it will recur. G1 made two correct statements — the
+`gpu-texture` material path is byte-identical, and the DOM material changed — and the stack cells
+fall between them: they are **texture-tier cells whose overlay is a DOM-sourced group**, so a change
+to the DOM material reaches a canonical cell that every "the sampled path did not move" check
+correctly reports as unmoved. Nothing caught it for a day, because **no test compares the canonical
+matrix against a fresh capture of the same configuration.** The adopted gate reads the committed
+numbers and asks whether they are inside their bounds; it cannot ask whether they are current.
+
+Shape of the work, cheapest first: (1) a landing checklist item — when a change alters what any
+group draws, name the canonical cells it reaches and re-capture them, and remember that a stacked
+cell's overlay is DOM on every route; (2) a staleness signal — record in each cell the runtime
+fingerprint that drew it (the material-source digest the W27f runners already compute) and fail
+when a cell's fingerprint is older than the head's, which turns this from a thing someone must
+remember into a thing the bed reports; (3) a periodic re-capture of the frozen bed, which is
+expensive and catches it only late. (2) is the one worth designing.

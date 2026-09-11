@@ -17690,11 +17690,51 @@ perturbed. Its limits are stated in the file and repeated here because they matt
   that would make it a real floor is per-surface metrics in the matrix schema**, so a stack cell's
   overlay carries adopted rows like any other cell. That is named here and not done.
 
-**No canonical matrix row was written, deliberately.** The two stack scenes' existing rows are the
-canonical texture and CSS arms, and this gate's `sampled` arm *is* the canonical configuration —
-the runner sets no probe variable for it, which is why its digests are comparable at all — so those
-rows' numbers cannot move, and a rewrite would add no evidence while costing another read of a spent
-holdout. The DOM page cells have no slot in the schema to be written into (§7).
+**The canonical matrix was stale for these twelve rows, and is corrected here.** This gate first
+reasoned that a canonical write would be a no-op, on the ground that its `sampled` arm *is* the
+canonical configuration and its digests reproduce §5.131 §8. That reasoning was wrong and the
+check that caught it is worth recording: the two stack scenes' canonical rows were captured
+**2026-09-10T05:22–05:23Z**, which is before W27f G1 merged, so they recorded the **pre-G1
+flat-white overlay** — S0, not the material that has shipped since 0.16.0. A stack is the one
+family where that can happen on the texture tier at all, because its overlay is a DOM-sourced group
+whatever the base is (§5.131 §6); no ordinary texture-sourced cell was affected, and none moved.
+
+All twelve rows were therefore re-captured canonically and written: `{checkerboard,photo}__glass-
+over-glass__rest` at 1x and 2x, light and dark where a fixture exists, on both tiers, with `--alpha`
+so the declaration-conformance metrics are not dropped. **229-cell partitioning and the 637-cell
+total are unchanged, no key was added or removed**, and the adopted gate — every bound, all eleven
+regression floors and `PREDICATE_EXCLUDES` — passes over the corrected matrix unchanged. Only the
+six `texture` rows' perceptual/shape/material axes moved, plus the six `dom` rows' **coherence**
+axis, which is computed against the texture twin; the CSS captures themselves did not move, which
+is §5.131 §4's byte-identity holding.
+
+The correction carries the same light/dark split the overlay does, now visible in the canonical bed
+at both scales:
+
+| profile | scene | whole-footprint ΔE mean | SSIM mean |
+| --- | --- | --- | --- |
+| 1x light | checker stack | 0.006407 → **0.006170** | 0.982094 → 0.982158 |
+| 2x light | checker stack | 0.005775 → **0.005586** | 0.986341 → 0.986408 |
+| 1x light | photo stack | 0.021715 → **0.021625** | 0.994394 → 0.993812 |
+| 2x light | photo stack | 0.021841 → **0.021753** | 0.995807 → 0.995506 |
+| 1x dark | checker stack | 0.009509 → **0.009807** | 0.980492 → 0.980160 |
+| 2x dark | checker stack | 0.009456 → **0.009651** | 0.983775 → 0.983504 |
+
+Light improves at both scales, dark worsens at both — the same direction as the overlay-local
+regression §3 pins, reaching the whole footprint. The dark 1x checker row also gained
+`blurSigmaWeb` and `blurFitResidualWeb`, which the pre-G1 composite could not fit.
+
+**The DOM page cells still have no slot in the schema to be written into** (§7): the matrix's `dom`
+tier is the CSS *renderer*, not a DOM-sourced backdrop, so the 20 ordinary page readings live only
+in this gate's evidence.
+
+**The general lesson, which is bigger than these rows.** A landing that changes what a group draws
+must ask which *canonical* cells its change reaches, not only which cells its own gate measures.
+W27f G1 changed the DOM material and correctly proved the `gpu-texture` path byte-identical; the
+stack cells are texture-tier cells whose overlay is nonetheless DOM, so they fell between the two
+statements and the canonical bed kept a superseded material for a full release. Nothing detected it
+for a day because no test compares the canonical matrix against a fresh capture — which is the same
+gap §8's floor discussion names from the other side.
 
 **9. The holdout, spent a second time, deliberately and on the record.** The two
 `glass-over-glass` rest cells are `split.holdout` members in `apps/reference-apple/scenes.json` —
