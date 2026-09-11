@@ -17522,3 +17522,203 @@ two; the machine-time range did not follow from its own 1.3–2.5× multiplier; 
 floor at spans 32–44 holds in light only; the footprint ratio is 3.08–3.68×; and `capturedAt` is
 present on all 121 recovered entries, so nine fields are restorable and `presentedActive` is the
 one to invert. Calibration 340/340 and lint green at the fixed head.
+
+### 5.135 The 26.5 run declared: the inactive capture path built and proved, the labelled probe taken, and the bed's run declared before it is spent (2026-09-11)
+
+**Gate:** W27 coverage wave, Decision Log 13; W27c G1b's capture half and W27e's §5.133 §7 run;
+X1, X3, X7, X8, X9. **This section captures no fixture, fits no constant and adopts no bound.**
+No profile field, floor, golden, canonical matrix row or existing fixture moved. Two things did
+change and both are declarations rather than measurements: `scenes.json` gained one background and
+35 scene ids, all `probe`, and the harness gained a capture pose it did not have. One measurement
+was taken — a `dump-layers` pass, which reads a Core Animation configuration and captures no pixels.
+
+Evidence: `packages/calibration/results/2026-09-11-w27e-probe/` (50 dumps in two schemes, plus
+`table.json` and `table.md` from `scripts/vibrancy.ts --corpus probe`) and
+`packages/calibration/results/2026-09-11-w27-26.5-run/` (`RUNBOOK.md`, `run-sitting.sh`, and the
+bed's two scene-id lists generated from `checking-bed.json`).
+
+**1. The native inactive capture path, and the mechanism chosen by measurement.** §5.134 §5 named
+the blocker: "there is no native inactive capture path at all … no AppKit mechanism for the inverse
+is recorded anywhere in the repository." There is one now, and which one is a reading rather than
+an argument. `deactivate-probe` walks the candidates and reports what this machine does with each;
+on macOS 26.5.2 (25F84), Mac14,12, launched as `capture.sh` launches the harness:
+
+| mechanism | `isKeyWindow` | `NSApp.isActive` | on screen | pose |
+| --- | --- | --- | --- | --- |
+| `.accessory` policy + a window that cannot become key + `orderFrontRegardless`, never activated | false | false | yes | **inactive** |
+| `Capture.present` under `.regular` — the active bed | true | true | yes | active |
+| `NSApplication.deactivate()` from the active pose | false | **true** | yes | **neither** |
+| activating another application from the active pose | false | false | yes | inactive |
+
+**`NSApplication.deactivate()` does not reach the pose on this OS.** The window resigns key and the
+application stays active, still after two further seconds of its own event loop. That refutes the
+obvious candidate. Activating another application — the "second helper process" `checking-bed.json`
+offered as its unverified candidate — does reach it, and is rejected anyway: it leaves the run under
+`.regular`, so the pose becomes a fact about what happens to hold focus for the next several hours
+rather than about how the capture was built.
+
+The adopted mechanism is the exact inverse of the three DL14 changes, and it holds the pose **by
+construction**: an `.accessory` application is not activated by having a window ordered front and
+has no Dock tile or menu bar to be activated through, a window whose `canBecomeKey` is false cannot
+be promoted by AppKit, the window ignores mouse events, and nothing on the path calls `activate`.
+Both halves were tested rather than quoted — an explicit `window.makeKey()` against this
+configuration left the reading at `key=false active=false`, and re-entering `.accessory` after a
+deliberate activation recovered the pose, so a disturbed session does not start over. It is also the
+configuration the 121 recovered fixtures were taken under, which is what makes group E of the bed a
+re-attestation of the same pose rather than a comparison against a differently-produced one.
+
+*A measured requirement, recorded because it cost a probe run to find:* the check must **await**.
+The first version polled with `RunLoop.run(mode:before:)` and read `key=false active=true` however
+long it waited — activation arrives as an AppKit event, so `NSApplication.run` is what updates
+`isActive`, and a bare CFRunLoop spin pumps the window server's compositing (`occlusionState` moved)
+while leaving the flag stale.
+
+**2. The attestation, which is the inversion §5.134 §5 asked for.** `FixtureEntry` gains an optional
+`presentation`: the declared and observed pose, `isKeyWindow` and `appIsActive` **separately**, the
+activation policy, `canBecomeKey`, the mechanism's name, and the moment it was read — sampled
+immediately before each cell's capture and before the settle loop, because the pose has to have held
+for the frames that produced the bytes. `presentedActive` is written **false** rather than left
+absent. The predicate is `!isKeyWindow && !NSApp.isActive` and deliberately **not** `!isActivelyPresented`,
+whose negation would also admit a key window in an inactive application. An inactive id is written
+only when it holds; otherwise the run fails before the capture, with nothing published. The active
+path's behaviour on the same question — record it, add a run caveat — is unchanged, because the
+whole active bed's provenance is compared against it.
+
+**The active path is behaviour-identical, proved rather than asserted.** `manifest-doctor` decodes
+the committed manifest with today's types, re-encodes and diffs: across all **455** entries **no
+value changed and no field was added**, so a nil `presentation` encodes to nothing. A one-scene
+active dry run presents `active`; the plain no-flag run refuses inactive ids exactly as before.
+
+**3. What `manifest-doctor` also found, and the guard it forced.** The round trip **drops four
+fields** the committed manifest holds and `FixtureEntry` does not declare: `recoveredProvenance` on
+121 entries, and `stateFrequencies`, `observedStates` and `frequencySettled` on 102 each. Since
+`capture` carries untouched profiles forward by decoding and re-encoding them, and publishes each
+captured profile *wholesale*, a narrowed run against the committed bundle would both delete every
+cell it did not capture and strip those fields from the rest. Pre-existing, and newly reachable
+because `--scenes` and `--inactive` exist — so both refuse a fixture root that already holds a
+manifest. §5.134 §5's stop condition, "a checking-bed cell whose id already exists", then holds by
+construction: in a fresh root no id exists.
+
+**4. The labelled probe — the one measurement here, and it answers §5.133 §8 (c).** 50 dumps, 25 per
+scheme, 26 labelled, at 2x, from a separate probe spec through `dump-layers`. The no-text fixture
+rule is unweakened and now has three locks: no scene in `scenes.json` declares a label, `capture`
+refuses a labelled scene in either pose before opening a window, and `dump-layers` refuses an
+`--out` inside the fixture directory.
+
+- **A label carries the operator.** SwiftUI commits the text as a `CGDrawingLayer` inside the
+  `glassEffect`, and on **24 of the 26** labelled dumps that layer carries a `vibrantColorMatrix`.
+  §5.133 §2's "the committed dumps do not contain a label's vibrancy operator" was a statement about
+  a corpus rendered with `Color.clear`; it is answered, not corrected.
+- **The two that carry nothing are the two that name their own colour.** The `-label-hot` scenes
+  declare an explicit sRGB label colour; their label layer is present with an **empty filter list**,
+  in both schemes. Apple installs the operator on the automatic label colour and installs nothing
+  over an app-authored one. That is S284 read literally, and it is the root spec's Decision Log
+  #34(c) arriving as a reading of Apple's configuration rather than as a vitrea design decision —
+  W27e G2 can now cite Apple for leaving authored colour alone.
+- **The matrices.** Two distinct, split exactly by colour scheme, and **not** the affine-luma form
+  the highlight's operators take — chroma gain exactly 1, no luma term, zero residual:
+
+  | scheme | n | matrix | reads as |
+  | --- | ---: | --- | --- |
+  | light | 12 | `[1,0,0,0,−1, 0,1,0,0,−1, 0,0,1,0,−1, 0,0,0,1,0]` | identity, offset −1 on RGB, alpha untouched |
+  | dark | 12 | `[1,0,0,0,+1, 0,1,0,0,+1, 0,0,1,0,+1, 0,0,0,0.95,0]` | identity, offset +1 on RGB, alpha ×0.95 |
+
+  The dark alpha coefficient is `0.949999988079071`, which is 0.95 in float32.
+- **It reads the backdrop, which the surface's operator does not.** All 24 carry
+  `inputBackdropAware` **1** and `inputClamp` 1, with `inputClampPreserveHue` declared and unset.
+  §5.133 §2 records `inputBackdropAware` as *unset* on all 58 highlight occurrences. A unit offset
+  over a backdrop-aware input is an operator that resolves against what is underneath at draw time,
+  which is why its configuration-time selector can be as coarse as it is.
+- **The selector is the colour scheme, and nothing else the probe moved.** The probe was built to
+  refute this: a `dark-solid` span ladder at **44 / 48 / 64 / 80 / 96** — the interval §5.133 §4 says
+  the corpus holds no cell in, and where its two candidate selector laws disagree — crossed with
+  seven backdrops from linear 0.0033 to 0.891. Each scheme carries exactly **one** label operator
+  across all of it.
+- **The author tint does not enter it.** The tinted labelled cell carries its untinted twin's
+  operator in both schemes. §5.133 §9 said what W27e publishes for a tinted control's label "cannot
+  cite Apple for it"; it can now.
+
+**5. What the probe says about the SURFACE operator, which was not what it was for.** Read beside
+the label because it is the same 50 trees. Both of G0's foreground operators appear, to the
+coefficient — but **one per scheme, on every cell**: light carries the default (m 1.5, a 0.1,
+b 0.9) on all 25, dark carries the one G0 named dark-glass (m 3.0, a 1.35, b 0.15) on all 25,
+including `light-solid` at linear 0.891. **Both of §5.133 §8's candidate selector laws are refuted
+on the cells they disagree about.** In light at 2x, `dark-solid__capsule-button__rest` and
+`impulse__capsule-button__rest` — the two cells that switch at 1x — carry the **default** operator,
+while vitrea's own `backdropToneAdaptation` reads exactly **1.0** and Apple's `tracksLuma` reads
+**1** on both; and in dark, `light-solid__capsule-button__rest` carries the high-gain operator where
+the predicate reads **0**.
+
+**This is a refutation, not a replacement.** G0's corpus is 1x-only and this run is 2x-only, so
+scale and scheme are confounded in the light comparison and **whether the 1x/2x difference is the
+scale cannot be settled from here**. What is settled: neither candidate law is the whole selector,
+and W27e G1 would otherwise have been fitted on one of them. The run that closes it is two minutes
+of the same `dump-layers` pass at 1x, which the runbook schedules against the bed's 1x pass.
+
+**6. The bed's run, declared before it is spent.** W27 Decision Log 13 takes it at the **probe bar**,
+seven runs, so **no inactive regression floor is adopted from it** and W27c G3 stays a later gate.
+The whole bed is declared `probe` in the split, which is what keeps the frozen bed's gate from
+moving with it.
+
+*What will be captured.* `mid-chroma-solid` is sRGB **(213, 2, 255)** — the integer triple of
+greatest OKLab chroma whose linear Rec.709 luminance is within 5e-4 of `photo`'s, searched over the
+whole cube: **0.214096** against photo@1x's canvas mean **0.214065**, OKLab chroma **0.3089** at hue
+**318.7°**, which is 104° from systemOrange so the tinted cell separates transmitted backdrop chroma
+from a surviving author hue. Its two rasters are generated and every other background raster is
+proved byte-identical to what was committed. The bed is the 38 inactive ids and the 4 active ones
+`checking-bed.json` names, now all declared: **42 light + 38 dark = 80** cells on a standard pass at
+each scale, and **14** on each accessibility pass.
+
+*What would stop it.* The run is refused, per cell or per pass, on: macOS not being 26.5; a fixture
+root that already holds a manifest; a scene whose state the pass's pose cannot reproduce; a scene
+declaring a label; a background raster that differs from what the run composites; a display whose
+`backingScaleFactor` does not match the profile key; a machine idle under 45 s; a tint that did not
+reach the material; and — the new one — any cell whose inactive pose does not attest, which fails
+the run rather than publishing the cell with a note. Nothing is published on any of them.
+
+**7. X8 — what this did not measure, and what the record turned out not to hold.**
+
+Nothing here is a measurement of Apple's *material*: the one measurement is a configuration read,
+and no pixel was captured. No cell of the checking bed exists and §5.134's bound has not been read
+against anything. Four corrections sit beside the readings they qualify rather than replacing them.
+
+**First**, `checking-bed.json` says `mid-chroma-solid` should match "photo's footprint mean (0.2141
+at the capsule footprint, 0.2258 at rrect-lg)". Measured on the committed raster, **0.214065 is
+photo's whole-canvas mean**; its capsule footprint reads **0.218314** and its `rrect-lg` footprint
+**0.224536** (0.227318 eroded 6 px). No single luminance matches every footprint, and the number the
+specification names is the canvas mean, which is what the new background is matched to. The quoted
+figures are left where they were written.
+
+**Second**, §5.134 §5 lists nine restorable attestation fields. **Three of them — `stateFrequencies`,
+`observedStates`, `frequencySettled` — the Swift harness has never written**, and cannot: they are
+written by `cli/materialize.ts` when it banks several runs into one bundle. A capture session
+restores **six**; the other three arrive at materialisation. The count of nine is right about the
+manifest and wrong about who writes them.
+
+**Third**, §5.134 §5 costs the probe bar at **3.4 h** and **4.4–8.5 h** with attempt loss. Against
+the declarations as they now stand the passes are **3.5 h** and **4.5–8.7 h**, because each
+accessibility pass carries 14 cells rather than 12 — the bed's 12-cell checking group plus two
+attestation cells those profiles already declared. A free improvement in coverage, and the wider
+number is the one to plan against.
+
+**Fourth**, `checking-bed.json`'s `candidateMechanismUnverified` proposed a second helper process
+and said "the record names NO mechanism; this is a candidate for the implementing charter to
+verify". Verified and **not adopted** — it works and is the weaker of the two (§1).
+
+Three things remain unread. **Whether ScreenCaptureKit returns pixels for an inactive window** was
+not measured: Screen Recording is denied to this build, TCC is keyed per bundle path, and every
+rebuild needs a fresh grant. The window is `occlusionState.visible` in the pose and the 121 recovered
+fixtures are SCK captures taken in exactly this configuration, so the inference is strong — but it is
+inference plus history, and the runbook makes `./capture.sh probe` the session's first step.
+**Whether the surface operator's 1x/2x difference is the scale** (§5) needs the 1x dump pass.
+And the activation transition's **timing** still has no reference of any kind; no bed of still
+captures can give it one.
+
+**Verification record.** `pnpm --filter @vitrea/calibration test` 371/371 (from 356: four
+scene-matrix pins moved to the invariants this change alters, four new checking-bed pins, eleven new
+probe pins) and lint green; the Swift package builds. Re-running the G0 reading reproduces
+`table.md` byte-for-byte and `table.json` with **no recorded value moved** — it differs only by
+`scenes.json`'s own sha256, which this wave legitimately changed, the added probe spec in the spec
+list, and two documentation strings; the committed file is untouched on disk. No product code
+outside the calibration reader was touched, and no golden, canonical matrix row, material profile or
+existing fixture moved.

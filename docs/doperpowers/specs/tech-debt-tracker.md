@@ -1930,6 +1930,26 @@ check, including preservation of tint and the separate pressed interaction. It i
 to the web runtime's root-pose observer, and making the Swift decoder accept the word is not a
 capture implementation.
 
+**CLOSED 2026-09-11 (claims §5.135; W27 Decision Log 13).** `capture --inactive` presents under
+the `.accessory` activation policy through a window that cannot become key, ordered front and
+never activated, and attests `!isKeyWindow && !NSApp.isActive` per cell into a new `presentation`
+manifest field before it captures; a cell that does not attest fails the run. The tint axis and
+the separate `pressed` interaction are untouched, `--scenes` narrows a run to the cells a session
+asked for, and `--dry-run` rehearses every refusal without capturing. Two caveats travel with it,
+neither blocking:
+
+- **ScreenCaptureKit was never asked for an inactive window's pixels.** Screen Recording is TCC-
+  denied to the build the mechanism was proved on, and TCC is keyed per bundle path, so every
+  rebuild — and every worktree — needs a fresh grant. The window is `occlusionState.visible` in
+  the pose and the 121 recovered fixtures are SCK output from exactly this configuration, so the
+  inference is strong, but it is inference plus history. `./capture.sh probe` settles it in
+  seconds and the runbook makes it the session's first step. If it ever turns out that SCK will
+  not serve an inactive window, the pose is unreachable by this harness and the shape of the work
+  is a second process holding the capture while the harness holds the window.
+- **The repeat check is the settle loop, not a second pose.** A run proves the pose held for the
+  frames that produced its bytes; it does not prove that two independent inactive *sessions* agree,
+  which is what the seven-run probe bar and `materialize`'s plurality resolution are for.
+
 ## Two bounded W27d limits, real and not worth a change here (W27d review, 2026-09-11)
 
 Both were confirmed by the independent panel and verified as bounded rather than defective. They
