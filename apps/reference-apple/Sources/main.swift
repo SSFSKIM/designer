@@ -142,7 +142,7 @@ func runProbe() {
   }
   let bg = Backgrounds.render(bgSpec, canvas: canvas, scale: scale)
   let entry = SceneEntry(id: "probe", background: "checkerboard", component: "capsule-button",
-                         state: "rest", tint: nil)
+                         state: "rest", tint: nil, label: nil)
   let view = SceneView(scene: entry, component: component, backgroundImage: bg,
                        canvas: canvas, pressed: false, tint: nil)
 
@@ -332,7 +332,7 @@ func runDeactivateProbe() {
   }
   let bg = Backgrounds.render(bgSpec, canvas: canvas, scale: scale)
   let entry = SceneEntry(id: "probe", background: "checkerboard", component: "capsule-button",
-                         state: "rest", tint: nil)
+                         state: "rest", tint: nil, label: nil)
   let view = SceneView(scene: entry, component: component, backgroundImage: bg,
                        canvas: canvas, pressed: false, tint: nil)
     .profileEnvironment(colorScheme: "light", a11y: "standard")
@@ -515,10 +515,26 @@ let DUMP_LAYER_DEFAULT_SCENES = [
 /// is read exactly as `capture` reads it so the scene ids mean the same thing in
 /// both places.
 @MainActor
-func runDumpLayers(sceneIds: [String], outDir: String, settleSeconds: Double) {
+func runDumpLayers(sceneIds: [String], outDir: String, settleSeconds: Double, scheme: String?) {
   let spec = loadSpec()
   let scale = captureScale()
   let canvas = spec.canvas.cgSize
+
+  // A dump never lands under `fixtures/`. It cannot today — the default is
+  // `build/layer-dumps` and `--out` is a path the caller names — but `--out` is a
+  // path the caller names, and the one rule that makes the fixture bed
+  // trustworthy is worth a check rather than a convention. A labelled probe
+  // scene is exactly the case where a mistyped `--out` would matter.
+  let fixtures = URL(fileURLWithPath: fixturesDir()).standardizedFileURL.path
+  let resolved = URL(fileURLWithPath: outDir).standardizedFileURL.path
+  if resolved == fixtures || resolved.hasPrefix(fixtures + "/") {
+    fail("""
+      --out \(outDir) is inside the fixture directory \(fixtures). A layer dump is \
+      not a fixture and nothing this subcommand writes may live beside the bed — \
+      see SceneViews.swift's rule 2, which is why a labelled scene can be dumped \
+      at all. Nothing was written and no window was opened.
+      """)
+  }
 
   let byId = Dictionary(uniqueKeysWithValues: spec.scenes.map { ($0.id, $0) })
   var wanted: [SceneEntry] = []
@@ -538,8 +554,16 @@ func runDumpLayers(sceneIds: [String], outDir: String, settleSeconds: Double) {
   // is no reason to walk both schemes unless a question asks for it — and a
   // `--scenes` list is free to name a scene of either kind, which then gets this
   // same environment and says so in the file it writes.
-  let profile = spec.profiles.first { $0.colorScheme == "light" && $0.a11y == "standard" }
-  let colorScheme = profile?.colorScheme ?? "light"
+  // `--scheme` exists because claims §5.133 §6 records scheme, scale and
+  // accessibility as FULLY CONFOUNDED in the committed corpus — 57 of 57 dumps are
+  // light, 1x, standard — so "does the dark scheme carry a third operator" is a
+  // question no amount of re-reading the corpus can answer and one flag can.
+  let wantedScheme = scheme ?? "light"
+  guard wantedScheme == "light" || wantedScheme == "dark" else {
+    fail("--scheme takes 'light' or 'dark', not '\(wantedScheme)'")
+  }
+  let profile = spec.profiles.first { $0.colorScheme == wantedScheme && $0.a11y == "standard" }
+  let colorScheme = profile?.colorScheme ?? wantedScheme
   let a11y = profile?.a11y ?? "standard"
 
   // Line-buffered: this subcommand is normally run through `open --stdout <log>`,
@@ -565,7 +589,8 @@ func runDumpLayers(sceneIds: [String], outDir: String, settleSeconds: Double) {
       let bg = Backgrounds.render(bgSpec, canvas: canvas, scale: scale)
       let tint = scene.tint.flatMap { spec.tints?[$0]?.color }
       let view = SceneView(scene: scene, component: component, backgroundImage: bg,
-                           canvas: canvas, pressed: scene.state == "pressed", tint: tint)
+                           canvas: canvas, pressed: scene.state == "pressed", tint: tint,
+                           label: scene.label)
         .profileEnvironment(colorScheme: colorScheme, a11y: a11y)
       window.contentView = NSHostingView(rootView: view)
       window.displayIfNeeded()
@@ -587,6 +612,14 @@ func runDumpLayers(sceneIds: [String], outDir: String, settleSeconds: Double) {
         "component": scene.component,
         "state": scene.state,
         "tint": scene.tint ?? NSNull(),
+        // Recorded so a reader can tell a labelled dump from its bare twin
+        // without re-deriving it from the scene id, and so the label's declared
+        // colour travels with the matrices it may or may not have produced.
+        "label": scene.label.map { label -> [String: Any] in
+          var out: [String: Any] = ["text": label.text, "fontSize": label.fontSize ?? 15]
+          out["srgb"] = label.srgb ?? NSNull()
+          return out
+        } ?? NSNull(),
         "colorScheme": colorScheme,
         "a11y": a11y,
         "canvas": ["width": canvas.width, "height": canvas.height],
@@ -791,7 +824,7 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
     fail("--reset-glass needs a 'capsule-button' component in scenes.json to reset onto; the spec declares none.")
   }
   let resetScene = SceneEntry(id: "__reset__", background: "__neutral__",
-                              component: "capsule-button", state: "rest", tint: nil)
+                              component: "capsule-button", state: "rest", tint: nil, label: nil)
 
   var profileManifests: [ProfileManifest] = []
   var caveats: [String] = []
@@ -1588,7 +1621,8 @@ struct Harness {
         default twelve-scene set is all 'rest' or 'pressed'), or point \
         VITREA_SCENES at a spec with none of these.
         """)
-      runGUI { runDumpLayers(sceneIds: ids, outDir: out, settleSeconds: settle) }
+      let scheme = value(of: "--scheme", in: args)
+      runGUI { runDumpLayers(sceneIds: ids, outDir: out, settleSeconds: settle, scheme: scheme) }
 
     case "capture":
       let raw = value(of: "--method", in: args) ?? "screencapturekit"
@@ -1650,6 +1684,28 @@ struct Harness {
         .filter { $0.a11y == systemA11yPreflight }
         .flatMap { captureSpec.scenes(for: $0).map(\.id) })
       if let wanted = options.onlyScenes { candidateIds.formIntersection(wanted) }
+      // The no-text rule, enforced before anything else and in either pose. A
+      // labelled scene is not capturable in the way an inactive scene is
+      // capturable in the other pose — it is not capturable at all, because the
+      // fixture bed's whole claim to measure the material rests on there being no
+      // glyph rasteriser inside the region being measured (SceneViews.swift
+      // rule 2). Only `dump-layers` renders one, and it captures no pixels.
+      let labelled = captureSpec.scenesDeclaringALabel(candidateIds)
+      if !labelled.isEmpty {
+        fail("""
+          \(labelled.count) of the requested scenes declare a label: \
+          \(labelled.joined(separator: ", ")).
+
+          No capture path renders text inside the glass, in either pose, at any \
+          scale. A label would put a glyph rasteriser inside the region the \
+          fixture exists to measure, which is the rule the whole bed's \
+          trustworthiness rests on. Labelled scenes are for './capture.sh \
+          dump-layers', which reads Apple's configuration and captures no pixels \
+          (claims §5.133 §7).
+
+          Nothing was captured and no window was opened.
+          """)
+      }
       refuseScenesUnreachableInPose(candidateIds, in: captureSpec, pose: options.pose,
                                     remediation: options.pose == .inactive ? """
         Pass --scenes naming only 'inactive' ids — the checking bed's list is in \
@@ -1678,6 +1734,7 @@ struct Harness {
           --scenes <id,id,...>        which scenes to dump; default is the ten-scene set
           --out <dir>                 where the per-scene JSON goes (default build/layer-dumps)
           --settle <s>                seconds to wait after presenting each scene (default 1.5)
+          --scheme <light|dark>       the colour scheme to present under (default light)
 
         capture options:
           --method <m>                swiftui-image-renderer | nsview-cachedisplay | screencapturekit

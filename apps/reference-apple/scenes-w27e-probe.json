@@ -1,0 +1,542 @@
+{
+  "$comment": [
+    "W27e's labelled probe scene matrix \u2014 claims \u00a75.133 \u00a77's run, and NOTHING but",
+    "`dump-layers` reads this file. It is a SEPARATE spec, run through VITREA_SCENES,",
+    "so scenes.json and the frozen bed stay untouched.",
+    "",
+    "WHY IT EXISTS. \u00a75.133 \u00a72: 58 of the 60 committed `vibrantColorMatrix`",
+    "occurrences sit on the surface's own highlight layer, 2 on an author tint's",
+    "gradient layer, and NONE on a label \u2014 because the reference harness renders",
+    "`Color.clear` inside every `glassEffect` by rule. So the corpus cannot say",
+    "whether Apple installs a vibrancy operator on a LABEL at all, which is the",
+    "whole of S284 ('the label automatically becomes vibrant, based on its",
+    "textColor') and \u00a75.133 \u00a78 (c), the one thing W27e G1 cannot fit around.",
+    "",
+    "WHY IT BREACHES NOTHING. `dump-layers` reads a Core Animation configuration",
+    "and captures no pixels; its own doc comment says so and it writes nothing",
+    "under `fixtures/`. Three separate things keep a label away from the bed: no",
+    "scene in scenes.json declares one, `capture` refuses a labelled scene in",
+    "either pose before it opens a window, and `dump-layers` refuses an --out",
+    "inside the fixture directory. The no-text fixture rule is unchanged and",
+    "unweakened (SceneViews.swift, rule 2).",
+    "",
+    "WHAT IT COVERS, against \u00a75.133 \u00a77 and \u00a74:",
+    "  - the THREE BRACKET CELLS at span 44 \u2014 impulse (linear 0.003750),",
+    "    dark-solid (0.011711) and mid-dark-solid (0.059511). Two of the three",
+    "    carry the dark-glass operator on the highlight and the third does not, so",
+    "    they are where a label's operator would switch if it switches with the",
+    "    glass.",
+    "  - BOTH SIDES OF THE JOINT SELECTOR `backdropToneAdaptation(tone,",
+    "    sizeThickness(span))`. Above it: the two span-44 dark cells. Below it:",
+    "    dark-solid at span 96 (same backdrop, same tone, does not switch \u2014 the",
+    "    cell that refutes a tone-only threshold), and checkerboard, light-solid",
+    "    and photo, which never switch at any span.",
+    "  - THE SPAN LADDER RE-POINTED AT dark-solid: 44 / 48 / 64 / 80 / 96. \u00a75.133",
+    "    \u00a74 records that the two candidate selector laws differ only in where",
+    "    between spans 44 and 96 the switch crosses at a dark backdrop, and that",
+    "    'the corpus holds no cell there'. These five are that interval. They also",
+    "    bracket Apple's own `tracksLuma`, which the corpus shows as 1 for every",
+    "    span \u2264 64 and 0 for every span \u2265 72.",
+    "  - THE NEW BACKGROUND, `mid-chroma-solid`, with a saturated label beside the",
+    "    automatic one: the operator's chroma gain is 1.5 on the default and 3.0 on",
+    "    the dark-glass variant, so a saturated label is where a chroma gain would",
+    "    be visible in the configuration at all.",
+    "  - ONE TINTED CELL. \u00a75.133 \u00a79: the author tint does not enter the highlight",
+    "    operator, and 'whatever W27e publishes for a tinted control's label cannot",
+    "    cite Apple for it'. Whether it enters a LABEL's operator is unasked.",
+    "  - A BARE TWIN for every labelled scene, so the label's own layer is",
+    "    identified by difference against the same cell without it rather than by",
+    "    recognising a class name.",
+    "",
+    "Run BOTH schemes (`--scheme light`, `--scheme dark`): \u00a75.133 \u00a76 records scheme,",
+    "scale and accessibility as fully confounded in the committed corpus \u2014 57 of 57",
+    "dumps are light, 1x, standard \u2014 so whether the dark scheme carries a third",
+    "operator is unanswerable from it.",
+    "",
+    "NOT COVERED: \u00a75.133 \u00a77's fourth solid tone rung strictly between linear 0.0117",
+    "and 0.0595. It needs a background that does not exist, and a background needs a",
+    "committed raster before the reader can state its tone. The three rungs above",
+    "are the declared bracket's own ends (0.011711, 0.059511], which is what the",
+    "selector's threshold is bracketed by today."
+  ],
+  "version": 1,
+  "canvas": {
+    "width": 320,
+    "height": 200
+  },
+  "backgrounds": {
+    "impulse": {
+      "kind": "impulse",
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "foreground": [
+        255,
+        255,
+        255
+      ],
+      "size": 4,
+      "spacing": 64,
+      "$comment": "Spec-mandated. A grid of small bright squares on black approximates a 2-D impulse train: the material's response to it IS the blur kernel, and the spacing keeps neighbouring responses from overlapping at any plausible sigma. A literal single pixel is too little energy to measure at 1x."
+    },
+    "dark-solid": {
+      "kind": "solid",
+      "srgb": [
+        28,
+        28,
+        30
+      ],
+      "$comment": "System dark. Pairs with the dark-scheme profiles."
+    },
+    "mid-dark-solid": {
+      "kind": "solid",
+      "srgb": [
+        69,
+        69,
+        69
+      ],
+      "$comment": [
+        "W7's missing holdout backdrop, and the ONLY reason this background exists.",
+        "W7's measured tone-adaptation law is a smoothstep DOWN over a curve",
+        "argument of backdropLuminance + 0.09*sizeThickness(span), with edges at",
+        "0.14 and 0.02 \u2014 so the whole axis lives between those two luminances, and",
+        "every backdrop the bed already had sits OUTSIDE that band: dark-solid at",
+        "linear 0.0117 is below the lower edge (fully adapted), and every other one",
+        "\u2014 hc-text, checkerboard, photo, light-solid \u2014 is above the upper edge",
+        "(not adapting at all). The axis therefore landed with a holdout that",
+        "proves no regression and cannot validate the mechanism (W7 Surprise,",
+        "2026-08-30: 'a bed gap, not a discipline breach').",
+        "",
+        "Measured, not asserted. Each committed 1x raster's linear-light mean by",
+        "Rec.709 \u2014 the same rule the runtime samples a backdrop with \u2014 evaluated",
+        "against the landed constants at a capsule-button's 44px span",
+        "(sizeThickness = smoothstep(32, 96, 44) = 0.09229, so the size term adds",
+        "+0.00831 to the curve's argument):",
+        "",
+        "  impulse         0.003750  ->  1.000000   pinned at the ceiling",
+        "  dark-solid      0.011711  ->  0.999999   pinned at the ceiling",
+        "  mid-dark-solid  0.059511  ->  0.650196   ON THE SLOPE",
+        "  photo           0.214065  ->  0.000000   off the curve",
+        "  checkerboard    0.500000  ->  0.000000   off the curve",
+        "  hc-text         0.740031  ->  0.000000   off the curve",
+        "  light-solid     0.890969  ->  0.000000   off the curve",
+        "",
+        "For a capsule the curve saturates at 1 at or below linear 0.011694 and",
+        "reaches 0 at or above 0.131694. Every backdrop the bed had was outside",
+        "that window, so every dark cell was pinned flat against a rail and",
+        "carried no gradient at all: a refit could reshape the curve freely",
+        "without moving a single committed pixel. That is the gap, measured, and",
+        "mid-dark-solid at 0.650196 is the one point on the slope that closes it.",
+        "",
+        "A neutral 69/255 grey is linear 0.059511 by Rec.709 \u2014 squarely inside the",
+        "transition, and far enough from both edges that the size term (up to",
+        "+0.09 for a maximally thick span) cannot push it out of the band. Neutral",
+        "rather than tinted on purpose: the axis is a function of LUMINANCE, so a",
+        "chromatic backdrop would confound the one thing this scene measures."
+      ]
+    },
+    "mid-chroma-solid": {
+      "kind": "solid",
+      "srgb": [
+        213,
+        2,
+        255
+      ],
+      "$comment": [
+        "W27c G1b's missing chroma anchor, and the ONLY reason this background",
+        "exists. Same argument, same shape, as mid-dark-solid above: an axis the",
+        "bed identifies only where it cannot be isolated, and one purpose-built",
+        "uniform patch that puts a point on it.",
+        "",
+        "The axis is CHROMA TRANSFER \u2014 how much of a backdrop's colour the",
+        "material transmits. Claims \u00a75.134 \u00a73 (c)/(e) classify the inactive",
+        "endpoint's two colour residuals as one model-form gap: the reference's",
+        "inactive material transmits MORE of a chromatic backdrop's chroma than",
+        "its active one, rising with span, and the one declared field that governs",
+        "chroma transmission is the body lerp's alpha, which neither scheme's",
+        "recede moves. Every chroma observation in the bed today comes from",
+        "`photo`, a broadband field whose chroma, luminance and spatial structure",
+        "all vary together \u2014 so a chroma error there is confounded with a level",
+        "error and with the far-span scatter residual at the same time. Every",
+        "backdrop that is uniform (light-solid, dark-solid, mid-dark-solid) is",
+        "NEUTRAL. The bed therefore has no cell at which transmitted chroma can be",
+        "read on its own, and experiment arm A1's (level, chroma) reachability",
+        "test is an inference rather than a measurement.",
+        "",
+        "Measured, not asserted. The level is matched to `photo` so that level and",
+        "chroma vary independently across the pair, and the hue and saturation are",
+        "chosen to be the most chroma sRGB can carry at that level:",
+        "",
+        "  photo@1x, mean linear Rec.709 over the canvas   0.214065",
+        "  mid-chroma-solid (213, 2, 255)                  0.214096   (+3.1e-5)",
+        "  OKLab chroma                                    0.3089",
+        "  OKLab hue                                       318.7 deg",
+        "",
+        "(213, 2, 255) is the integer sRGB triple of greatest OKLab chroma whose",
+        "luminance is within 5e-4 of photo's, searched over the whole cube. A",
+        "zero-variance backdrop at photo's own level means the untinted pair",
+        "photo/mid-chroma-solid differs in chroma and spatial structure and NOT in",
+        "level, which is what makes transmitted chroma separable from the level",
+        "target the recede actually moves.",
+        "",
+        "The hue is 318.7 deg and systemOrange's is 62.6 deg \u2014 104 deg apart in",
+        "OKLab, the widest practical separation at this level. That is deliberate:",
+        "the tinted cell here has to separate 'the author's hue survives' from",
+        "'the backdrop's chroma is transmitted', which claims \u00a75.134 \u00a73 (e) shows",
+        "the checkerboard could not, and a backdrop sharing the tint's hue would",
+        "confound exactly those two.",
+        "",
+        "Not a substitute for photo. A saturated patch is where the transfer is",
+        "READ; photo is where it has to hold with structure present."
+      ]
+    },
+    "checkerboard": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ],
+      "$comment": "Spec-mandated. Every cell edge is a step edge, so one capture yields many edge-spread samples for blur system identification."
+    },
+    "light-solid": {
+      "kind": "solid",
+      "srgb": [
+        242,
+        242,
+        247
+      ],
+      "$comment": "System light grey. The flat case: no backdrop detail, so tint and rim read alone."
+    },
+    "photo": {
+      "kind": "synthetic-photo",
+      "seed": 20260825,
+      "$comment": "A deterministic multi-frequency colour field rather than a real photograph: it carries broadband detail and saturated hue transitions (what a photo contributes to a glass diff) with no licensed asset and no decode differences between the two renderers."
+    }
+  },
+  "components": {
+    "capsule-button": {
+      "kind": "capsule",
+      "size": [
+        120,
+        44
+      ],
+      "$comment": "The canonical control. Capsules are exact in vitrea's field family (S2), so this scene isolates material error from corner error."
+    },
+    "rrect-48": {
+      "kind": "rrect",
+      "size": [
+        84,
+        48
+      ],
+      "radius": 10
+    },
+    "rrect-64": {
+      "kind": "rrect",
+      "size": [
+        112,
+        64
+      ],
+      "radius": 13.5
+    },
+    "rrect-80": {
+      "kind": "rrect",
+      "size": [
+        140,
+        80
+      ],
+      "radius": 17
+    },
+    "rrect-md": {
+      "kind": "rrect",
+      "size": [
+        160,
+        96
+      ],
+      "radius": 20
+    }
+  },
+  "tints": {
+    "orange": {
+      "srgb": [
+        255,
+        149,
+        0
+      ],
+      "$comment": "systemOrange. Warm, far from the material's neutral white, and the hue Apple's own tinting examples use."
+    }
+  },
+  "scenes": [
+    {
+      "id": "dark-solid__capsule-button__rest",
+      "background": "dark-solid",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "dark-solid__capsule-button__rest-label",
+      "background": "dark-solid",
+      "component": "capsule-button",
+      "state": "rest",
+      "label": {
+        "text": "Vibrancy",
+        "fontSize": 15
+      }
+    },
+    {
+      "id": "dark-solid__rrect-48__rest",
+      "background": "dark-solid",
+      "component": "rrect-48",
+      "state": "rest"
+    },
+    {
+      "id": "dark-solid__rrect-48__rest-label",
+      "background": "dark-solid",
+      "component": "rrect-48",
+      "state": "rest",
+      "label": {
+        "text": "Vibrancy",
+        "fontSize": 15
+      }
+    },
+    {
+      "id": "dark-solid__rrect-64__rest",
+      "background": "dark-solid",
+      "component": "rrect-64",
+      "state": "rest"
+    },
+    {
+      "id": "dark-solid__rrect-64__rest-label",
+      "background": "dark-solid",
+      "component": "rrect-64",
+      "state": "rest",
+      "label": {
+        "text": "Vibrancy",
+        "fontSize": 15
+      }
+    },
+    {
+      "id": "dark-solid__rrect-80__rest",
+      "background": "dark-solid",
+      "component": "rrect-80",
+      "state": "rest"
+    },
+    {
+      "id": "dark-solid__rrect-80__rest-label",
+      "background": "dark-solid",
+      "component": "rrect-80",
+      "state": "rest",
+      "label": {
+        "text": "Vibrancy",
+        "fontSize": 15
+      }
+    },
+    {
+      "id": "dark-solid__rrect-md__rest",
+      "background": "dark-solid",
+      "component": "rrect-md",
+      "state": "rest"
+    },
+    {
+      "id": "dark-solid__rrect-md__rest-label",
+      "background": "dark-solid",
+      "component": "rrect-md",
+      "state": "rest",
+      "label": {
+        "text": "Vibrancy",
+        "fontSize": 15
+      }
+    },
+    {
+      "id": "impulse__capsule-button__rest",
+      "background": "impulse",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "impulse__capsule-button__rest-label",
+      "background": "impulse",
+      "component": "capsule-button",
+      "state": "rest",
+      "label": {
+        "text": "Vibrancy",
+        "fontSize": 15
+      }
+    },
+    {
+      "id": "mid-dark-solid__capsule-button__rest",
+      "background": "mid-dark-solid",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "mid-dark-solid__capsule-button__rest-label",
+      "background": "mid-dark-solid",
+      "component": "capsule-button",
+      "state": "rest",
+      "label": {
+        "text": "Vibrancy",
+        "fontSize": 15
+      }
+    },
+    {
+      "id": "checkerboard__rrect-md__rest",
+      "background": "checkerboard",
+      "component": "rrect-md",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__rrect-md__rest-label",
+      "background": "checkerboard",
+      "component": "rrect-md",
+      "state": "rest",
+      "label": {
+        "text": "Vibrancy",
+        "fontSize": 15
+      }
+    },
+    {
+      "id": "light-solid__capsule-button__rest",
+      "background": "light-solid",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "light-solid__capsule-button__rest-label",
+      "background": "light-solid",
+      "component": "capsule-button",
+      "state": "rest",
+      "label": {
+        "text": "Vibrancy",
+        "fontSize": 15
+      }
+    },
+    {
+      "id": "photo__capsule-button__rest",
+      "background": "photo",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "photo__capsule-button__rest-label",
+      "background": "photo",
+      "component": "capsule-button",
+      "state": "rest",
+      "label": {
+        "text": "Vibrancy",
+        "fontSize": 15
+      }
+    },
+    {
+      "id": "mid-chroma-solid__capsule-button__rest",
+      "background": "mid-chroma-solid",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "mid-chroma-solid__capsule-button__rest-label",
+      "background": "mid-chroma-solid",
+      "component": "capsule-button",
+      "state": "rest",
+      "label": {
+        "text": "Vibrancy",
+        "fontSize": 15
+      }
+    },
+    {
+      "id": "mid-chroma-solid__capsule-button__rest-label-hot",
+      "background": "mid-chroma-solid",
+      "component": "capsule-button",
+      "state": "rest",
+      "label": {
+        "text": "Vibrancy",
+        "fontSize": 15,
+        "srgb": [
+          255,
+          59,
+          48
+        ]
+      }
+    },
+    {
+      "id": "photo__capsule-button__rest-tint-orange",
+      "background": "photo",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange"
+    },
+    {
+      "id": "photo__capsule-button__rest-label-tint-orange",
+      "background": "photo",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange",
+      "label": {
+        "text": "Vibrancy",
+        "fontSize": 15
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "key": "apple-macos-26.5-1x-light-standard",
+      "colorScheme": "light",
+      "a11y": "standard",
+      "scenes": "all",
+      "$comment": "Present only so `dump-layers` can resolve a colour scheme. No profile here is ever captured: every scene declares a label or is the bare twin of one, and `capture` refuses the whole file."
+    },
+    {
+      "key": "apple-macos-26.5-1x-dark-standard",
+      "colorScheme": "dark",
+      "a11y": "standard",
+      "scenes": "all"
+    }
+  ],
+  "split": {
+    "$comment": [
+      "Every scene is `recorded`: captured and committed and read by nothing \u2014 no fit,",
+      "no self-check, no bound and no claim may cite a pixel of it. Nothing here is",
+      "ever captured in the first place, and the role is what says so mechanically",
+      "rather than in prose. `validate()` requires every scene to hold one."
+    ],
+    "calibration": [],
+    "validation": [],
+    "holdout": [],
+    "probe": [],
+    "recorded": [
+      "dark-solid__capsule-button__rest",
+      "dark-solid__capsule-button__rest-label",
+      "dark-solid__rrect-48__rest",
+      "dark-solid__rrect-48__rest-label",
+      "dark-solid__rrect-64__rest",
+      "dark-solid__rrect-64__rest-label",
+      "dark-solid__rrect-80__rest",
+      "dark-solid__rrect-80__rest-label",
+      "dark-solid__rrect-md__rest",
+      "dark-solid__rrect-md__rest-label",
+      "impulse__capsule-button__rest",
+      "impulse__capsule-button__rest-label",
+      "mid-dark-solid__capsule-button__rest",
+      "mid-dark-solid__capsule-button__rest-label",
+      "checkerboard__rrect-md__rest",
+      "checkerboard__rrect-md__rest-label",
+      "light-solid__capsule-button__rest",
+      "light-solid__capsule-button__rest-label",
+      "photo__capsule-button__rest",
+      "photo__capsule-button__rest-label",
+      "mid-chroma-solid__capsule-button__rest",
+      "mid-chroma-solid__capsule-button__rest-label",
+      "mid-chroma-solid__capsule-button__rest-label-hot",
+      "photo__capsule-button__rest-tint-orange",
+      "photo__capsule-button__rest-label-tint-orange"
+    ]
+  }
+}

@@ -12,11 +12,26 @@ import AppKit
 ///    differences never pollute the diff"), and it is also what makes the native
 ///    and web sides comparable at all.
 ///
-/// 2. **No text inside the glass.** The components are bare material bodies. A
-///    label would put a glyph rasteriser — two different ones — inside the region
-///    being measured, and the material axis is exactly where that noise would
-///    land. Labels are a semantics concern the web side proves separately
-///    (parent acceptance #1); they are not part of a material measurement.
+/// 2. **No text inside the glass — in every fixture, in both poses, at every
+///    scale.** The components are bare material bodies. A label would put a glyph
+///    rasteriser — two different ones — inside the region being measured, and the
+///    material axis is exactly where that noise would land. Labels are a semantics
+///    concern the web side proves separately (parent acceptance #1); they are not
+///    part of a material measurement.
+///
+///    Rule 2 is the reason the fixtures are trustworthy, and it is also the reason
+///    the committed layer dumps hold no label's vibrancy operator at all (claims
+///    §5.133 §2: "the corpus contains none, because the reference harness renders
+///    `Color.clear` inside every `glassEffect` by an explicit rule"). §5.133 §7
+///    names the one run that answers that question and shows why it breaches
+///    nothing: `dump-layers` reads a *configuration* and captures no pixels.
+///
+///    So `label` exists, and three separate things keep it away from `fixtures/`:
+///    it is declared only in a probe spec and on no scene in `scenes.json`;
+///    `capture` refuses any scene that declares one before it opens a window, in
+///    either pose; and this view renders text only when a caller hands it one,
+///    which only `dump-layers` does. A capture with a label in it is not a thing
+///    that can be produced by passing the wrong flag.
 
 struct RasterBackground: View {
   let image: CGImage
@@ -64,6 +79,10 @@ struct SceneView: View {
   /// Resolved from `scenes.json`'s `tints` registry by the caller; nil for every
   /// scene that declares none.
   let tint: Color?
+  /// Text to render INSIDE the glass. Nil everywhere but `dump-layers` — see
+  /// rule 2 above. Defaulted so that every capture call site says `nil` by not
+  /// saying anything, and the one path that passes a label has to name it.
+  var label: LabelSpec? = nil
 
   var body: some View {
     ZStack {
@@ -87,12 +106,31 @@ struct SceneView: View {
     return glass
   }
 
+  /// What goes inside the `glassEffect` — `Color.clear` for every fixture ever
+  /// captured, and a `Text` only on the layer-dump path.
+  ///
+  /// The label is laid out to the component's own frame rather than sized to its
+  /// text, so the glass body is the same geometry with the label and without it
+  /// and a dump of the pair differs in the content layer alone. `Color.primary` is
+  /// the default on purpose: S284's claim is about the AUTOMATIC label colour, so
+  /// the scene that asks the question has to be the one that does not name one.
+  @ViewBuilder
+  private func glassContent(_ size: CGSize) -> some View {
+    if let label {
+      Text(label.text)
+        .font(.system(size: label.fontSize ?? 15))
+        .foregroundStyle(label.color ?? Color.primary)
+        .frame(width: size.width, height: size.height)
+    } else {
+      Color.clear.frame(width: size.width, height: size.height)
+    }
+  }
+
   @ViewBuilder
   private var componentBody: some View {
     switch component {
     case .shape(let s):
-      Color.clear
-        .frame(width: s.cgSize.width, height: s.cgSize.height)
+      glassContent(s.cgSize)
         .glassEffect(material(), in: glassShape(s))
         .offset(x: s.cgOffset.width, y: s.cgOffset.height)
 

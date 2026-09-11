@@ -120,6 +120,38 @@ struct TintSpec: Decodable {
   }
 }
 
+/// A text label rendered INSIDE the glass — for the layer dump only.
+///
+/// The no-text rule in `SceneViews.swift` is why the fixtures are trustworthy: a
+/// glyph rasteriser inside the region being measured puts two different renderers'
+/// antialiasing on the material axis. Nothing here weakens it. A label is declared
+/// only in a probe spec, `capture` refuses any scene that declares one before a
+/// window opens, and `dump-layers` — which reads a configuration and captures no
+/// pixels — is the only path that renders it.
+///
+/// It exists because claims §5.133 §2 found that the committed corpus contains no
+/// label's vibrancy operator at all, for exactly this reason: "the reference
+/// harness renders `Color.clear` inside every `glassEffect` by an explicit rule".
+/// §5.133 §7 names the one run that would answer it, and §8 (c) makes it the open
+/// question W27e G1 cannot fit around.
+struct LabelSpec: Decodable {
+  let text: String
+  /// sRGB 0…255. Absent means `Color.primary` — the AUTOMATIC label colour, which
+  /// is the case S284 describes ("the label automatically becomes vibrant, based
+  /// on its textColor") and the one the dump is being taken to read.
+  let srgb: [Int]?
+  /// Point size. Declared rather than defaulted in the view, because a dump that
+  /// is compared across scenes must not have a font size that varies with
+  /// anything; 15 is the system body size Apple's own controls use.
+  let fontSize: Double?
+
+  var color: Color? {
+    guard let srgb, srgb.count == 3 else { return nil }
+    return Color(.sRGB, red: Double(srgb[0]) / 255, green: Double(srgb[1]) / 255,
+                 blue: Double(srgb[2]) / 255, opacity: 1)
+  }
+}
+
 struct SceneEntry: Decodable {
   let id: String
   let background: String
@@ -128,6 +160,9 @@ struct SceneEntry: Decodable {
   /// Absent on every scene that predates W3, which is what keeps the existing
   /// bed byte-identical: no tint declared, no `.tint(_:)` applied.
   let tint: String?
+  /// Absent on every scene in `scenes.json`, and on every scene any capture path
+  /// will accept. See `LabelSpec`.
+  let label: LabelSpec?
 }
 
 /// Which scenes a profile captures: every scene, or a named subset.
@@ -250,6 +285,20 @@ struct SceneSpecFile: Decodable {
     for (id, t) in (tints ?? [:]) where t.srgb.count != 3 {
       problems.append("tint '\(id)': srgb must have 3 components, got \(t.srgb.count)")
     }
+    for s in scenes {
+      guard let label = s.label else { continue }
+      if label.text.isEmpty { problems.append("scene '\(s.id)': label.text is empty") }
+      if let srgb = label.srgb, srgb.count != 3 {
+        problems.append("scene '\(s.id)': label.srgb must have 3 components, got \(srgb.count)")
+      }
+      // Only a single shape carries one. `SceneView` puts the label inside the
+      // `glassEffect`, and for a group or a stack "inside" names several
+      // surfaces — a dump of which would not say which one the operator sat on,
+      // which is the entire question. Refused rather than silently dropped.
+      if case .shape = components[s.component] {} else {
+        problems.append("scene '\(s.id)': a label may only be declared on a single-shape component")
+      }
+    }
     for p in profiles {
       if case .some(let want) = p.scenes {
         for id in want where !ids.contains(id) {
@@ -298,6 +347,18 @@ struct SceneSpecFile: Decodable {
     case .active: return ["rest", "pressed"]
     case .inactive: return ["inactive"]
     }
+  }
+
+  /// Which of `ids` declare a label, and so may never be captured at all.
+  ///
+  /// Separate from the pose check, and checked separately, because it is a
+  /// different rule with a different reason. A pose is reproducible in the right
+  /// run; a labelled scene is reproducible in NO capture run, in either pose, at
+  /// any scale, ever — the no-text fixture rule is what makes the material
+  /// measurement a measurement of the material.
+  func scenesDeclaringALabel<S: Sequence>(_ ids: S) -> [String] where S.Element == String {
+    let byId = Dictionary(uniqueKeysWithValues: scenes.map { ($0.id, $0) })
+    return ids.filter { byId[$0]?.label != nil }.sorted()
   }
 
   /// Which of `ids` name a scene whose declared `state` a fresh run in this pose
