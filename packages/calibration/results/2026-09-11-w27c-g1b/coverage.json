@@ -1,0 +1,191 @@
+{
+ "provenance": {
+  "gate": "W27c G1b / claims §5.134",
+  "declaredIn": "docs/doperpowers/specs/2026-09-10-w27-coverage-wave.md (child W27c, gate G1b; Decision Log 12)",
+  "reads": "committed evidence only; no capture, no compare run, no holdout re-read",
+  "sources": {
+   "checked": {
+    "path": "packages/calibration/results/2026-09-10-w27c-g1-corrected/checked.json",
+    "sha256": "7c47310c9bded42114acf54c10d042440c47ff6d74b3672eedda3863ec72a3ec"
+   },
+   "darkProfile": {
+    "path": "packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json",
+    "sha256": "950ce1c3e91715ee470dd02d10c589f3ebae0f2b88d6ae85f4a2de6986020e12"
+   },
+   "declaration": {
+    "path": "packages/calibration/results/2026-09-10-w27c-g1-corrected-declaration.json",
+    "sha256": "af768723f4e586e3fead62c854b20273afaf7a58fcc0d8048b159fbf6831461f"
+   },
+   "holdout": {
+    "path": "packages/calibration/results/2026-09-10-w27c-g1-corrected/holdout.json",
+    "sha256": "d6d31aea97c2bc39754a7f96d9bdaac9e5fdddc47f823984e6b2a5d78ea32415"
+   },
+   "lightProfile": {
+    "path": "packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json",
+    "sha256": "6a9600720477dd433539d7af477b838776410e957d63fa7e63059dab214c5d26"
+   },
+   "recede": {
+    "path": "packages/calibration/results/2026-09-10-w27c-g0-recede.json",
+    "sha256": "11561110f5388c82272ce030ab15f9e49e76882e602733b96cea2146ffcccb16"
+   },
+   "scenes": {
+    "path": "apps/reference-apple/scenes.json",
+    "sha256": "d04eb3c494cf029ec75f7b556a2ac152957c32b9c36d180ed32d25d7ab5639a4"
+   },
+   "tables": {
+    "path": "packages/calibration/results/2026-09-10-w27c-g1-corrected-tables.json",
+    "sha256": "06f9458e32d4d18a230c2d5cf6e454aeb5b872a6c4bb95b83bd4f3712a4b5d07"
+   }
+  },
+  "spentHoldout": {
+   "status": "holdout / spent",
+   "patchSha256": "a5fad05c2898fe1a8af83740c0138893e5fd17cbb1460f190f2492474908e427",
+   "n": 30,
+   "$comment": "read from the record; never re-measured, never fitted back"
+  }
+ },
+ "$comment": [
+  "Inactive scene membership by background and by component. A family",
+  "with inFittingSets 0 was never seen by the fit or its check: no",
+  "setting of any declared field was identified on it, so the frozen",
+  "endpoint extrapolates there. Three such families exist and they are",
+  "exactly where four of the five §5.130 §7 residuals live."
+ ],
+ "byBackground": [
+  {
+   "key": "checkerboard",
+   "counts": {
+    "calibration": 5,
+    "validation": 1,
+    "recorded": 2,
+    "holdout": 2
+   },
+   "inFittingSets": 6,
+   "holdoutOnly": false
+  },
+  {
+   "key": "dark-solid",
+   "counts": {
+    "calibration": 3,
+    "holdout": 1
+   },
+   "inFittingSets": 3,
+   "holdoutOnly": false
+  },
+  {
+   "key": "hc-text",
+   "counts": {
+    "holdout": 3
+   },
+   "inFittingSets": 0,
+   "holdoutOnly": true
+  },
+  {
+   "key": "impulse",
+   "counts": {
+    "validation": 2,
+    "calibration": 1
+   },
+   "inFittingSets": 3,
+   "holdoutOnly": false
+  },
+  {
+   "key": "light-solid",
+   "counts": {
+    "calibration": 3
+   },
+   "inFittingSets": 3,
+   "holdoutOnly": false
+  },
+  {
+   "key": "mid-dark-solid",
+   "counts": {
+    "holdout": 1
+   },
+   "inFittingSets": 0,
+   "holdoutOnly": true
+  },
+  {
+   "key": "photo",
+   "counts": {
+    "calibration": 5,
+    "recorded": 2,
+    "holdout": 3,
+    "validation": 3
+   },
+   "inFittingSets": 8,
+   "holdoutOnly": false
+  }
+ ],
+ "byComponent": [
+  {
+   "key": "capsule-button",
+   "counts": {
+    "calibration": 11,
+    "validation": 2,
+    "recorded": 2,
+    "holdout": 4
+   },
+   "inFittingSets": 13,
+   "holdoutOnly": false
+  },
+  {
+   "key": "glass-over-glass",
+   "counts": {
+    "holdout": 2
+   },
+   "inFittingSets": 0,
+   "holdoutOnly": true
+  },
+  {
+   "key": "rrect-lg",
+   "counts": {
+    "holdout": 3
+   },
+   "inFittingSets": 0,
+   "holdoutOnly": true
+  },
+  {
+   "key": "rrect-md",
+   "counts": {
+    "calibration": 4,
+    "recorded": 2,
+    "holdout": 1,
+    "validation": 2
+   },
+   "inFittingSets": 6,
+   "holdoutOnly": false
+  },
+  {
+   "key": "rrect-sm",
+   "counts": {
+    "calibration": 1,
+    "validation": 1
+   },
+   "inFittingSets": 2,
+   "holdoutOnly": false
+  },
+  {
+   "key": "toolbar-group",
+   "counts": {
+    "calibration": 1,
+    "validation": 1
+   },
+   "inFittingSets": 2,
+   "holdoutOnly": false
+  }
+ ],
+ "componentSpanCssPx": {
+  "capsule-button": 44,
+  "rrect-sm": 32,
+  "rrect-md": 96,
+  "rrect-ml": 128,
+  "rrect-lg": 160,
+  "toolbar-group": null,
+  "glass-over-glass": null,
+  "rrect-48": 48,
+  "rrect-64": 64,
+  "rrect-80": 80,
+  "rrect-md-clear20": 96
+ }
+}

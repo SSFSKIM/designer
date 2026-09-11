@@ -1,0 +1,769 @@
+{
+ "provenance": {
+  "gate": "W27c G1b / claims §5.134",
+  "declaredIn": "docs/doperpowers/specs/2026-09-10-w27-coverage-wave.md (child W27c, gate G1b; Decision Log 12)",
+  "reads": "committed evidence only; no capture, no compare run, no holdout re-read",
+  "sources": {
+   "checked": {
+    "path": "packages/calibration/results/2026-09-10-w27c-g1-corrected/checked.json",
+    "sha256": "7c47310c9bded42114acf54c10d042440c47ff6d74b3672eedda3863ec72a3ec"
+   },
+   "darkProfile": {
+    "path": "packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json",
+    "sha256": "950ce1c3e91715ee470dd02d10c589f3ebae0f2b88d6ae85f4a2de6986020e12"
+   },
+   "declaration": {
+    "path": "packages/calibration/results/2026-09-10-w27c-g1-corrected-declaration.json",
+    "sha256": "af768723f4e586e3fead62c854b20273afaf7a58fcc0d8048b159fbf6831461f"
+   },
+   "holdout": {
+    "path": "packages/calibration/results/2026-09-10-w27c-g1-corrected/holdout.json",
+    "sha256": "d6d31aea97c2bc39754a7f96d9bdaac9e5fdddc47f823984e6b2a5d78ea32415"
+   },
+   "lightProfile": {
+    "path": "packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json",
+    "sha256": "6a9600720477dd433539d7af477b838776410e957d63fa7e63059dab214c5d26"
+   },
+   "recede": {
+    "path": "packages/calibration/results/2026-09-10-w27c-g0-recede.json",
+    "sha256": "11561110f5388c82272ce030ab15f9e49e76882e602733b96cea2146ffcccb16"
+   },
+   "scenes": {
+    "path": "apps/reference-apple/scenes.json",
+    "sha256": "d04eb3c494cf029ec75f7b556a2ac152957c32b9c36d180ed32d25d7ab5639a4"
+   },
+   "tables": {
+    "path": "packages/calibration/results/2026-09-10-w27c-g1-corrected-tables.json",
+    "sha256": "06f9458e32d4d18a230c2d5cf6e454aeb5b872a6c4bb95b83bd4f3712a4b5d07"
+   }
+  },
+  "spentHoldout": {
+   "status": "holdout / spent",
+   "patchSha256": "a5fad05c2898fe1a8af83740c0138893e5fd17cbb1460f190f2492474908e427",
+   "n": 30,
+   "$comment": "read from the record; never re-measured, never fitted back"
+  }
+ },
+ "$comment": [
+  "Model-form: no setting of the declared fields can express it.",
+  "Bed: the evidence for that cell is absent or suspect.",
+  "Metrology: the comparison itself is the limit.",
+  "Where a residual's own family has calibration cells that agree with",
+  "the holdout cell, that is evidence against 'bed', and it is quoted."
+ ],
+ "residuals": [
+  {
+   "id": "a",
+   "name": "the mid-dark-solid capsule the three-anchor response misidentifies",
+   "classification": "bed",
+   "subtype": "evidence absent, not fixture suspect",
+   "expressibleInDeclaredFields": true,
+   "field": "backdropToneResponseThin[1] / backdropToneResponseThick[1]",
+   "why": [
+    "`backdropToneAnchorX` is [0.1104, 0.2706, 0.9505] — the three",
+    "SOLID backgrounds' encoded-space means. 0.2706 is 69/255, which is",
+    "mid-dark-solid exactly. The middle ordinate of the response is",
+    "therefore not a shape parameter fitted through this cell: it IS",
+    "this cell's predicted level, and a capsule at span 44 takes",
+    "smoothstep(0.09229) = 0.024 of the thick row, so its output is the",
+    "thin ordinate to within 0.0006.",
+    "The fitted dark thin[1] is 0.089 and the web body reads 0.08866;",
+    "the fitted light thin[1] is 0.4 and the web body reads 0.40198.",
+    "The field is exactly the right field and it is set to the wrong",
+    "number, so this is not model-form.",
+    "It is not the fixture either. mid-dark-solid is a uniform 69/255",
+    "patch; the 1x and 2x native inactive readings agree to 1e-4 in",
+    "both schemes across two independently captured files, and the",
+    "active side of the same census reproduces the same agreement.",
+    "What is missing is the EVIDENCE the active profile had and the",
+    "inactive endpoint did not: the active middle anchors are direct",
+    "probe-bed measurements (W9 in light, W21 G0 in dark, the latter",
+    "reading `mid-dark-solid encoded mean 0.2706 thin 0.0284 thick",
+    "0.0238` off results/2026-09-06-w21-dark-scheme/probe/). The",
+    "recovered inactive bed has 37 scenes and no probe grid, and the",
+    "one mid-dark cell it does have is holdout. The middle ordinate was",
+    "consequently fitted as a shape knob for cells at other abscissas."
+   ],
+   "decidingCells": [
+    {
+     "scene": "mid-dark-solid__capsule-button__inactive",
+     "profile": "1x-dark-standard",
+     "set": "holdout",
+     "fullCanvasDeltaE": 0.0076886428216975475,
+     "bodyDeltaE": 0.10131401898572505,
+     "bodyWebY": 0.08865558628576893,
+     "bodyNativeY": 0.040915196906852455,
+     "bodyWebSD": 3.2261960349397314e-08,
+     "bodyNativeSD": 0,
+     "bodyPixels": 3244
+    },
+    {
+     "scene": "mid-dark-solid__capsule-button__inactive",
+     "profile": "2x-dark-standard",
+     "set": "holdout",
+     "fullCanvasDeltaE": 0.007688669771676286,
+     "bodyDeltaE": 0.10131401898570928,
+     "bodyWebY": 0.08865558628576797,
+     "bodyNativeY": 0.04091519690684982,
+     "bodyWebSD": 3.553700452361053e-08,
+     "bodyNativeSD": 1.673143750356667e-08,
+     "bodyPixels": 12956
+    },
+    {
+     "scene": "mid-dark-solid__capsule-button__inactive",
+     "profile": "1x-light-standard",
+     "set": "holdout",
+     "fullCanvasDeltaE": 0.002218395514451121,
+     "bodyDeltaE": 0.028736540998508236,
+     "bodyWebY": 0.4019777798321941,
+     "bodyNativeY": 0.45078578283823467,
+     "bodyWebSD": 1.044410896962597e-07,
+     "bodyNativeSD": 0,
+     "bodyPixels": 3244
+    },
+    {
+     "scene": "mid-dark-solid__capsule-button__inactive",
+     "profile": "2x-light-standard",
+     "set": "holdout",
+     "fullCanvasDeltaE": 0.002244072126550977,
+     "bodyDeltaE": 0.028736540998508014,
+     "bodyWebY": 0.4019777798321407,
+     "bodyNativeY": 0.4507857828382257,
+     "bodyWebSD": 9.584933765432691e-08,
+     "bodyNativeSD": 0,
+     "bodyPixels": 12956
+    },
+    {
+     "scene": "dark-solid__capsule-button__inactive",
+     "profile": "1x-dark-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0,
+     "bodyDeltaE": 0,
+     "bodyWebY": 0.011711216012870547,
+     "bodyNativeY": 0.011711216012870547,
+     "bodyWebSD": 3.136739503896674e-09,
+     "bodyNativeSD": 3.136739503896674e-09,
+     "bodyPixels": 3244
+    },
+    {
+     "scene": "light-solid__capsule-button__inactive",
+     "profile": "1x-light-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0.00020696557378374709,
+     "bodyDeltaE": 0.002709514622113217,
+     "bodyWebY": 0.9313523863529174,
+     "bodyNativeY": 0.9326072014987324,
+     "bodyWebSD": 0,
+     "bodyNativeSD": 0,
+     "bodyPixels": 3244
+    },
+    {
+     "scene": "dark-solid__rrect-md__inactive",
+     "profile": "1x-light-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0.0007933527877153958,
+     "bodyDeltaE": 0.00287157584610734,
+     "bodyWebY": 0.4564110231804079,
+     "bodyNativeY": 0.457232137386137,
+     "bodyWebSD": 0,
+     "bodyNativeSD": 0,
+     "bodyPixels": 12264
+    }
+   ],
+   "fittedOrdinates": {
+    "backdropToneAnchorX": [
+     0.1104,
+     0.2706,
+     0.9505
+    ],
+    "lightInactiveThin": [
+     0.0126,
+     0.4,
+     0.929
+    ],
+    "lightInactiveThick": [
+     0.4553,
+     0.518,
+     0.9
+    ],
+    "darkInactiveThin": [
+     0.011,
+     0.089,
+     0.1611
+    ],
+    "darkInactiveThick": [
+     0.0215,
+     0.065,
+     0.02
+    ]
+   },
+   "nativeCensusCrossCheck": {
+    "$comment": "footprint mask; the inactive fixture's credibility, independent of the fit",
+    "1x-dark active Y": 0.030788652592394845,
+    "1x-dark inactive Y": 0.041046097279535135,
+    "2x-dark inactive Y": 0.04100778002022163,
+    "1x-light active Y": 0.44844002961706725,
+    "1x-light inactive Y": 0.44673236982148995,
+    "2x-light inactive Y": 0.4481344864118193
+   },
+   "candidateModelForm": null,
+   "whatWouldCloseIt": "One uniform mid-dark-solid cell per scheme, per scale, at a thin and a thick span, captured fresh and read into the middle ordinate directly. No new field and no new law. It cannot come from the spent holdout."
+  },
+  {
+   "id": "b",
+   "name": "the light checker rrect-lg's far-span scatter, too structured at a near-native mean",
+   "classification": "model-form",
+   "subtype": "partly expressible; the declared ramp is not demonstrated to reach it",
+   "expressibleInDeclaredFields": false,
+   "field": "sizeScatterRampStartFar1x (inherited, unfitted) / sizeScatterRampStartFar2x (set by continuation)",
+   "why": [
+    "The inactive patch sets sizeScatterRampStartFar2x = 0.04 'by",
+    "continuation' with the thick anchor and does not set",
+    "sizeScatterRampStartFar1x at all, so 1x keeps the ACTIVE 0.2. The",
+    "cell those two fields exist for is rrect-lg, which is holdout — the",
+    "active material's own doc comment says so ('The cell the constant",
+    "exists for is holdout').",
+    "So part of this is the same missing evidence as (a). What makes it",
+    "model-form rather than bed is the active bed's own answer: on the",
+    "ACTIVE material, where far1x = 0.20 and far2x = 0.21 WERE fitted,",
+    "the canonical matrix still reads checkerboard__rrect-lg interior SD",
+    "1.206x native at 1x and 1.325x at 2x, against 0.87-1.07x on every",
+    "span the bed does anchor. A fitted far anchor buys some authority",
+    "and demonstrably does not close span 160 even in the pose it was",
+    "fitted for.",
+    "The reference's demand is larger inactive than active: native SD",
+    "falls 0.06387 (span 96) -> 0.01742 (span 160) on the eroded body at",
+    "1x light, a 3.7x step, while web falls 0.06073 -> 0.04695, a 1.29x",
+    "step. The inactive/active native SD ratio in the census is 0.76-0.79",
+    "at spans 32 and 44, 0.614 at 96 and 0.457 at 160: the recede's own",
+    "scatter is a function of span that the ramp's three fixed anchors",
+    "are not shaped to carry.",
+    "Not metrology: the difference is 0.0295 of linear Y in SD, two",
+    "orders above the 8-bit floor, and the cell's mean is within 0.0026",
+    "of native so framing is not implicated.",
+    "Not bed: the same family's calibration siblings (rrect-sm 32,",
+    "capsule 44, rrect-md 96) read web/native SD 1.07, 1.00 and 0.95 at",
+    "1x on the SAME recovered fixtures, so the fixtures are not suspect."
+   ],
+   "decidingCells": [
+    {
+     "scene": "checkerboard__rrect-lg__inactive",
+     "profile": "1x-light-standard",
+     "set": "holdout",
+     "fullCanvasDeltaE": 0.009138701011700851,
+     "bodyDeltaE": 0.012134160366051592,
+     "bodyWebY": 0.6365745607739485,
+     "bodyNativeY": 0.6391306049300631,
+     "bodyWebSD": 0.046948771032039184,
+     "bodyNativeSD": 0.017416858056011682,
+     "bodyPixels": 39000
+    },
+    {
+     "scene": "checkerboard__rrect-lg__inactive",
+     "profile": "2x-light-standard",
+     "set": "holdout",
+     "fullCanvasDeltaE": 0.007090899187601736,
+     "bodyDeltaE": 0.009724567736929144,
+     "bodyWebY": 0.6423005705635733,
+     "bodyNativeY": 0.6399951328567007,
+     "bodyWebSD": 0.033621358075211945,
+     "bodyNativeSD": 0.00996287407756575,
+     "bodyPixels": 155968
+    },
+    {
+     "scene": "checkerboard__rrect-md__inactive",
+     "profile": "1x-light-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0.002288859385316213,
+     "bodyDeltaE": 0.0059330879928091934,
+     "bodyWebY": 0.6366702541571646,
+     "bodyNativeY": 0.6415819358552268,
+     "bodyWebSD": 0.06073161804709652,
+     "bodyNativeSD": 0.0638726860027284,
+     "bodyPixels": 12264
+    },
+    {
+     "scene": "checkerboard__rrect-md__inactive",
+     "profile": "2x-light-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0.0014050925663457222,
+     "bodyDeltaE": 0.0039755236719895394,
+     "bodyWebY": 0.6423333499776629,
+     "bodyNativeY": 0.6404172770197731,
+     "bodyWebSD": 0.033511051481264945,
+     "bodyNativeSD": 0.030890328125246818,
+     "bodyPixels": 49064
+    },
+    {
+     "scene": "checkerboard__capsule-button__inactive",
+     "profile": "1x-light-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0.0007826319789763197,
+     "bodyDeltaE": 0.006829614931197907,
+     "bodyWebY": 0.6194179645361381,
+     "bodyNativeY": 0.6085353369499223,
+     "bodyWebSD": 0.10070073761446881,
+     "bodyNativeSD": 0.10027138452950322,
+     "bodyPixels": 3244
+    },
+    {
+     "scene": "checkerboard__rrect-sm__inactive",
+     "profile": "1x-light-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0.0003024854218892324,
+     "bodyDeltaE": 0.007038503960077127,
+     "bodyWebY": 0.6187187757836886,
+     "bodyNativeY": 0.6095373627522676,
+     "bodyWebSD": 0.1169797677789807,
+     "bodyNativeSD": 0.10961591599834299,
+     "bodyPixels": 1036
+    }
+   ],
+   "activeBedControl": {
+    "$comment": "canonical results/matrix.json, WebGPU tier, latest row per key; interiorStdDev web/native",
+    "1x-light checkerboard__rrect-lg__rest": {
+     "native": 0.06495,
+     "web": 0.07832,
+     "ratio": 1.206
+    },
+    "2x-light checkerboard__rrect-lg__rest": {
+     "native": 0.08096,
+     "web": 0.10727,
+     "ratio": 1.325
+    },
+    "1x-light checkerboard__rrect-md__rest": {
+     "native": 0.11307,
+     "web": 0.10967,
+     "ratio": 0.97
+    },
+    "1x-light checkerboard__rrect-sm__rest": {
+     "native": 0.15489,
+     "web": 0.16521,
+     "ratio": 1.067
+    }
+   },
+   "candidateModelForm": "A span-continued scatter law rather than three fixed span anchors: the heavy share (or the heavy tap's width) as a monotone function of span that keeps rising past sizeSpanMax, where today sizeThickness saturates at span 96 and every span above it is described by one far anchor. Named, not fitted, and not fitted by this gate.",
+   "whatWouldCloseIt": "A span ladder on one structured backdrop — spans 32, 44, 96, 128, 160 — at both scales in both schemes, inactive, so the scatter's span dependence is measured rather than anchored at three points."
+  },
+  {
+   "id": "c",
+   "name": "the dark photo rrect-lg's colour/spatial miss at near-native mean Y",
+   "classification": "model-form",
+   "expressibleInDeclaredFields": false,
+   "field": "optics.regular.tintAlpha (dark, 0.46 -> 0.89) and tintChromaScale",
+   "why": [
+    "This one is decided against 'bed' by its own calibration siblings.",
+    "The dark photo rrect-md at span 96 is a CALIBRATION cell and reads",
+    "body ΔE 0.06018 at 1x and 0.05837 at 2x with mean Y within 0.0018",
+    "of native — the same failure, at the same magnitude, inside the",
+    "fitted set. The holdout's rrect-lg reads 0.06967 / 0.06759. The",
+    "holdout did not reveal this; it re-measured it one span up.",
+    "The cause is directional and it is in the declared fields' shape.",
+    "The G0 census shows the reference's inactive material retaining",
+    "MORE backdrop chroma than its active one on photo, rising with",
+    "span: OKLab C ratio inactive/active is 1.01-1.04 at spans 32-44,",
+    "1.07-1.12 at 96 and 1.23-1.29 at 160, in both schemes. The fitted",
+    "endpoint reaches the recede's darker, greyer level by making the",
+    "body layer more opaque (dark optics.regular.tintAlpha 0.46 -> 0.89)",
+    "and its tint seed neutral (tintChromaScale 0). Both of those remove",
+    "chroma. No setting of an opacity-and-neutral-paint parameterisation",
+    "lowers level while RAISING chroma transmission, so the declared",
+    "family cannot express what the reference does."
+   ],
+   "decidingCells": [
+    {
+     "scene": "photo__rrect-lg__inactive",
+     "profile": "1x-dark-standard",
+     "set": "holdout",
+     "fullCanvasDeltaE": 0.047630191489818924,
+     "bodyDeltaE": 0.06966825455900025,
+     "bodyWebY": 0.06224619915154953,
+     "bodyNativeY": 0.06341855183676927,
+     "bodyWebSD": 0.010402808332197625,
+     "bodyNativeSD": 0.018030492692617344,
+     "bodyPixels": 39000
+    },
+    {
+     "scene": "photo__rrect-lg__inactive",
+     "profile": "2x-dark-standard",
+     "set": "holdout",
+     "fullCanvasDeltaE": 0.04628765691365089,
+     "bodyDeltaE": 0.06758866182894609,
+     "bodyWebY": 0.06263734437034832,
+     "bodyNativeY": 0.06322461744011666,
+     "bodyWebSD": 0.011358895717199016,
+     "bodyNativeSD": 0.01782533980728714,
+     "bodyPixels": 155968
+    },
+    {
+     "scene": "photo__rrect-md__inactive",
+     "profile": "1x-dark-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0.014143456424489788,
+     "bodyDeltaE": 0.060181342714940286,
+     "bodyWebY": 0.06106334134702555,
+     "bodyNativeY": 0.05929171873417282,
+     "bodyWebSD": 0.008731217474234793,
+     "bodyNativeSD": 0.013693633153639079,
+     "bodyPixels": 12264
+    },
+    {
+     "scene": "photo__rrect-md__inactive",
+     "profile": "2x-dark-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0.013732834082045425,
+     "bodyDeltaE": 0.058373362743745,
+     "bodyWebY": 0.06157538970554995,
+     "bodyNativeY": 0.05908761323885912,
+     "bodyWebSD": 0.009653590726029745,
+     "bodyNativeSD": 0.013353673852356732,
+     "bodyPixels": 49064
+    },
+    {
+     "scene": "photo__capsule-button__inactive",
+     "profile": "1x-dark-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0.00341727062306086,
+     "bodyDeltaE": 0.04440217543246761,
+     "bodyWebY": 0.10928133780970882,
+     "bodyNativeY": 0.1115395643292825,
+     "bodyWebSD": 0.007950270034973374,
+     "bodyNativeSD": 0.014041991142281347,
+     "bodyPixels": 3244
+    },
+    {
+     "scene": "photo__rrect-md__inactive",
+     "profile": "1x-light-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0.011345934653862487,
+     "bodyDeltaE": 0.04771317146221961,
+     "bodyWebY": 0.5975792696028823,
+     "bodyNativeY": 0.6284209423405968,
+     "bodyWebSD": 0.04656726053575508,
+     "bodyNativeSD": 0.05257561561295419,
+     "bodyPixels": 12264
+    },
+    {
+     "scene": "photo__rrect-lg__inactive",
+     "profile": "1x-light-standard",
+     "set": "holdout",
+     "fullCanvasDeltaE": 0.04069407186682693,
+     "bodyDeltaE": 0.05921300845917049,
+     "bodyWebY": 0.6030644054256341,
+     "bodyNativeY": 0.6297210063571768,
+     "bodyWebSD": 0.05480433858906617,
+     "bodyNativeSD": 0.06665879768879042,
+     "bodyPixels": 39000
+    }
+   ],
+   "candidateModelForm": "A transmission term with a chroma channel: the inactive body as a neutral-density absorber over a transmitted backdrop (level down, chroma scaled by its own coefficient that may exceed the level's), rather than an opaque neutral layer whose alpha sets both at once. Named, not fitted.",
+   "whatWouldCloseIt": "A chromatic-backdrop span ladder in both schemes, inactive, read on chroma as well as level — the experiment in experiment.json."
+  },
+  {
+   "id": "d",
+   "name": "the light photo stacks — 'the one-plane endpoint does not close stacking'",
+   "classification": "metrology",
+   "subtype": "the measured plane is not the endpoint's plane, and the runtime has since changed",
+   "expressibleInDeclaredFields": null,
+   "field": "not applicable — the overlay resolves css-backdrop / analysis: none",
+   "why": [
+    "The two stack cells' recorded `actualGroups` settle this without",
+    "any new capture. Their overlay is not a sampled surface: it resolves",
+    "configuredSource dom, samplingBackend css-backdrop, refraction",
+    "approximate, analysis none, and paints the UNSAMPLED material. In",
+    "the light scheme that material is recorded in the holdout rows as",
+    "tint [1, 1, 1] at tintAlpha 0.6649600815626966 — the flat white of",
+    "claims §5.129 §3, byte-for-byte the ACTIVE value, because the light",
+    "inactive patch changes no field that feeds it. The inactive endpoint",
+    "does not reach the second plane at all, so these cells cannot be",
+    "evidence about it.",
+    "Second, the rows are stale. holdout.json's own sourceSha256 block",
+    "names packages/platform-web/src/optics.ts, packages/platform-web/",
+    "src/root.ts and packages/renderer-webgpu/src/wgsl/optics.ts, and all",
+    "three differ from main today: W27f G1 (claims §5.131, merged",
+    "6ae37c1) replaced exactly that flat with a profile-at-tone",
+    "derivation, and it landed AFTER this holdout was captured (§5.130 §6",
+    "records integration only through 38d782c). The two profile documents",
+    "and receded-profile.ts are unchanged and the goldens did not move,",
+    "so the other 28 texture-sourced holdout rows still describe today's",
+    "runtime; these two do not.",
+    "Third, what is left after the overlay is set aside is the photo",
+    "family's own residual, not a stacking term. The light photo stack's",
+    "body underlifts by 0.0329 Y where photo rrect-md underlifts by",
+    "0.0308 and photo rrect-lg by 0.0267, and its body ΔE 0.05075 sits",
+    "between rrect-md's 0.04771 and rrect-lg's 0.05921. The checker stack,",
+    "whose backdrop is achromatic, reads body ΔE 0.01063 against checker",
+    "rrect-md's 0.00593 — a +0.005 stack-specific excess, which is the",
+    "only part of this residual that is about stacking."
+   ],
+   "decidingCells": [
+    {
+     "scene": "photo__glass-over-glass__inactive",
+     "profile": "1x-light-standard",
+     "set": "holdout",
+     "fullCanvasDeltaE": 0.02281351375595753,
+     "bodyDeltaE": 0.05074544491466812,
+     "bodyWebY": 0.6566032517958748,
+     "bodyNativeY": 0.6895305161669465,
+     "bodyWebSD": 0.10096164806013509,
+     "bodyNativeSD": 0.11670703842245568,
+     "bodyPixels": 24268
+    },
+    {
+     "scene": "photo__glass-over-glass__inactive",
+     "profile": "2x-light-standard",
+     "set": "holdout",
+     "fullCanvasDeltaE": 0.022697791809639642,
+     "bodyDeltaE": 0.05050765649245861,
+     "bodyWebY": 0.6565572017227249,
+     "bodyNativeY": 0.6896009340358236,
+     "bodyWebSD": 0.10132421102583715,
+     "bodyNativeSD": 0.11647302850160496,
+     "bodyPixels": 97052
+    },
+    {
+     "scene": "checkerboard__glass-over-glass__inactive",
+     "profile": "1x-light-standard",
+     "set": "holdout",
+     "fullCanvasDeltaE": 0.005450637441576768,
+     "bodyDeltaE": 0.010632249233538183,
+     "bodyWebY": 0.6881667023095425,
+     "bodyNativeY": 0.7012884977441238,
+     "bodyWebSD": 0.09931193611853475,
+     "bodyNativeSD": 0.1066437050300935,
+     "bodyPixels": 24268
+    },
+    {
+     "scene": "checkerboard__glass-over-glass__inactive",
+     "profile": "1x-dark-standard",
+     "set": "holdout",
+     "fullCanvasDeltaE": 0.012616298433042603,
+     "bodyDeltaE": 0.029745346899523562,
+     "bodyWebY": 0.06329078690901144,
+     "bodyNativeY": 0.051213092813451454,
+     "bodyWebSD": 0.014214624967529054,
+     "bodyNativeSD": 0.0100847339774015,
+     "bodyPixels": 24268
+    },
+    {
+     "scene": "photo__rrect-md__inactive",
+     "profile": "1x-light-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0.011345934653862487,
+     "bodyDeltaE": 0.04771317146221961,
+     "bodyWebY": 0.5975792696028823,
+     "bodyNativeY": 0.6284209423405968,
+     "bodyWebSD": 0.04656726053575508,
+     "bodyNativeSD": 0.05257561561295419,
+     "bodyPixels": 12264
+    },
+    {
+     "scene": "photo__rrect-lg__inactive",
+     "profile": "1x-light-standard",
+     "set": "holdout",
+     "fullCanvasDeltaE": 0.04069407186682693,
+     "bodyDeltaE": 0.05921300845917049,
+     "bodyWebY": 0.6030644054256341,
+     "bodyNativeY": 0.6297210063571768,
+     "bodyWebSD": 0.05480433858906617,
+     "bodyNativeSD": 0.06665879768879042,
+     "bodyPixels": 39000
+    },
+    {
+     "scene": "checkerboard__rrect-md__inactive",
+     "profile": "1x-light-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0.002288859385316213,
+     "bodyDeltaE": 0.0059330879928091934,
+     "bodyWebY": 0.6366702541571646,
+     "bodyNativeY": 0.6415819358552268,
+     "bodyWebSD": 0.06073161804709652,
+     "bodyNativeSD": 0.0638726860027284,
+     "bodyPixels": 12264
+    }
+   ],
+   "recordedOverlayState": {
+    "light": {
+     "samplingBackend": "css-backdrop",
+     "analysis": "none",
+     "unsampledMaterial": {
+      "tint": [
+       1,
+       1,
+       1
+      ],
+      "tintAlpha": 0.6649600815626966
+     }
+    },
+    "dark": {
+     "samplingBackend": "css-backdrop",
+     "analysis": "none",
+     "unsampledMaterial": {
+      "tint": [
+       0.05,
+       0.05,
+       0.05
+      ],
+      "tintAlpha": 0.9116188858455282
+     }
+    }
+   },
+   "candidateModelForm": null,
+   "whatWouldCloseIt": "Re-read the two stack scenes against the current runtime once W27f G2 has landed the page material, on the checking bed and not on the spent holdout. Until then §5.130 §7's sentence about stacking is withdrawn rather than carried."
+  },
+  {
+   "id": "e",
+   "name": "full-strength neutral tint removing the photo's background chroma where native keeps it",
+   "classification": "model-form",
+   "expressibleInDeclaredFields": false,
+   "field": "tintChromaScale (0 inactive), tintShadeCollapseRetention (1 inactive), tintShadeStrength",
+   "why": [
+    "Decided against 'bed' by its own calibration and validation",
+    "siblings, and the span trend runs straight through all three sets:",
+    "photo capsule tint-orange (span 44, CALIBRATION) body ΔE 0.03483,",
+    "photo rrect-md tint-orange (span 96, VALIDATION) 0.05689, photo",
+    "rrect-lg tint-orange (span 160, holdout) 0.07055. The same three at",
+    "2x read 0.03517 / 0.05667 / 0.07026. The holdout is the third point",
+    "on a line the fitted bed already drew.",
+    "The G0 census names the model-form error precisely. `tintChromaScale",
+    "= 0` was identified on the CHECKERBOARD tinted capsules, where the",
+    "backdrop is achromatic and the reference's inactive tinted body",
+    "really does read OKLab C 0.000662 (§5.128). Over the photo the same",
+    "reference keeps 0.03539 on the capsule and 0.07027 on rrect-lg —",
+    "which is as much chroma as the UNTINTED active photo rrect-lg has",
+    "(0.07488). So the facet is not 'the author hue is removed'; it is",
+    "'the author hue is removed AND the backdrop's chroma is transmitted',",
+    "and the second half grows with span exactly as in residual (c).",
+    "A full-strength authored layer is opaque in the declared family, so",
+    "no value of tintChromaScale, tintShadeStrength, tintShadeDark or",
+    "tintShadeLight lets backdrop chroma through it. §5.130 §2 records",
+    "that tintChromaScale 'scales the seed's saturation toward its maximum",
+    "linear channel before the shade law' — it acts on the seed, and the",
+    "backdrop's chroma is lost to the layer's opacity, not to the seed."
+   ],
+   "decidingCells": [
+    {
+     "scene": "photo__capsule-button__inactive-tint-orange",
+     "profile": "1x-light-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0.0027084337887139597,
+     "bodyDeltaE": 0.034831867137182074,
+     "bodyWebY": 0.4335617600682638,
+     "bodyNativeY": 0.432917033710262,
+     "bodyWebSD": 0.026341362450798236,
+     "bodyNativeSD": 0.02806142728361333,
+     "bodyPixels": 3244
+    },
+    {
+     "scene": "photo__rrect-md__inactive-tint-orange",
+     "profile": "1x-light-standard",
+     "set": "validation",
+     "fullCanvasDeltaE": 0.013426502934236546,
+     "bodyDeltaE": 0.05688525882146347,
+     "bodyWebY": 0.4657181733654977,
+     "bodyNativeY": 0.46439362514294785,
+     "bodyWebSD": 0.03409465325451332,
+     "bodyNativeSD": 0.04222083198221736,
+     "bodyPixels": 12264
+    },
+    {
+     "scene": "photo__rrect-lg__inactive-tint-orange",
+     "profile": "1x-light-standard",
+     "set": "holdout",
+     "fullCanvasDeltaE": 0.048488185683742475,
+     "bodyDeltaE": 0.07055108912975293,
+     "bodyWebY": 0.4697644910566953,
+     "bodyNativeY": 0.4630074192561916,
+     "bodyWebSD": 0.04008997492969865,
+     "bodyNativeSD": 0.05272464620928082,
+     "bodyPixels": 39000
+    },
+    {
+     "scene": "photo__capsule-button__inactive-tint-orange",
+     "profile": "2x-light-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0.0027328251390449335,
+     "bodyDeltaE": 0.03517250248180327,
+     "bodyWebY": 0.43330970402937813,
+     "bodyNativeY": 0.4218377146925474,
+     "bodyWebSD": 0.027574455012768517,
+     "bodyNativeSD": 0.028468092588799364,
+     "bodyPixels": 12956
+    },
+    {
+     "scene": "photo__rrect-md__inactive-tint-orange",
+     "profile": "2x-light-standard",
+     "set": "validation",
+     "fullCanvasDeltaE": 0.013356641638429515,
+     "bodyDeltaE": 0.056665759017752754,
+     "bodyWebY": 0.4659831152059262,
+     "bodyNativeY": 0.4642028275586326,
+     "bodyWebSD": 0.034650541865494766,
+     "bodyNativeSD": 0.04117309520335686,
+     "bodyPixels": 49064
+    },
+    {
+     "scene": "photo__rrect-lg__inactive-tint-orange",
+     "profile": "2x-light-standard",
+     "set": "holdout",
+     "fullCanvasDeltaE": 0.0482942753280908,
+     "bodyDeltaE": 0.07026334811471673,
+     "bodyWebY": 0.4697975316558478,
+     "bodyNativeY": 0.4628853697666151,
+     "bodyWebSD": 0.0407676173215131,
+     "bodyNativeSD": 0.05206972354642815,
+     "bodyPixels": 155968
+    },
+    {
+     "scene": "checkerboard__capsule-button__inactive-tint-orange",
+     "profile": "1x-light-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0.0015017004023063995,
+     "bodyDeltaE": 0.017419729696037577,
+     "bodyWebY": 0.48168266879444976,
+     "bodyNativeY": 0.4523490053598707,
+     "bodyWebSD": 0.07371784354749215,
+     "bodyNativeSD": 0.08405232970028538,
+     "bodyPixels": 3244
+    },
+    {
+     "scene": "dark-solid__capsule-button__inactive-tint-orange",
+     "profile": "1x-light-standard",
+     "set": "calibration",
+     "fullCanvasDeltaE": 0.00015956617136205363,
+     "bodyDeltaE": 0.0017713864806828336,
+     "bodyWebY": 0.03688945040110217,
+     "bodyNativeY": 0.03698438771132544,
+     "bodyWebSD": 0,
+     "bodyNativeSD": 0,
+     "bodyPixels": 3244
+    }
+   ],
+   "nativeTintedChroma": {
+    "$comment": "G0 census, footprint mask, 1x light standard, active -> inactive OKLab C",
+    "checkerboard capsule tint-orange": [
+     0.16424,
+     0.00066
+    ],
+    "photo capsule tint-orange": [
+     0.16323,
+     0.03539
+    ],
+    "photo rrect-md tint-orange": [
+     0.16611,
+     0.05688
+    ],
+    "photo rrect-lg tint-orange": [
+     0.16676,
+     0.07027
+    ],
+    "photo rrect-lg untinted (for scale)": [
+     0.07488,
+     0.09654
+    ]
+   },
+   "candidateModelForm": "The same transfer term as (c), with the authored paint applied as an absorbing filter on the transmitted backdrop rather than as an opaque shaded layer: the hue goes to neutral and the transmission stays, so a chromatic backdrop's haze survives a full-strength tint. One term would then serve (c) and (e). Named, not fitted.",
+   "whatWouldCloseIt": "The same chromatic-backdrop span ladder as (c), run tinted and untinted, so the tint's effect on transmitted chroma is separable from the body's."
+  }
+ ]
+}
