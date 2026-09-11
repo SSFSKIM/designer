@@ -17772,8 +17772,13 @@ each shot: `dom / webgpu / css-backdrop / approximate / none / ok / none` in bot
 console warnings or errors. **The user's eye is the parent's to take; no acceptance of `/#page` is
 claimed here.**
 
-**11. Checks.** `pnpm -r build && pnpm -r lint && pnpm -r test` green at the landing head; the
-renderer golden and isolation suite green with no golden regenerated; the demo e2e green. The G2
+**11. Checks.** The exact required command `pnpm -r build && pnpm -r lint && pnpm -r test` passed on
+the corrected tree: **2 182 unit tests** (policy 23, motion 164, geometry 170, renderer 465, core
+302, platform-web 552, calibration 362, react 141, demo 3). The renderer browser suite passed
+**34/34** across `scenes.spec.ts`, `isolation.spec.ts` and `receded-tint.spec.ts` with **no golden
+regenerated** and a clean working tree afterwards. The demo e2e passed **48/48 in a single serial
+run**, including the two `page-stage.gpu.spec.ts` cases on a real adapter and the
+`contrast.spec.ts` material-stage test the tracker records as timing out under load. The G2
 runner's own suite is 41 cases, five of them new for the porcelain parser the tracker required
 fixing before this runner could be reused, the first of which fails against the G1 parser. Two
 mechanical repairs travelled with the gate and are recorded in the tracker rather than folded into
