@@ -17522,3 +17522,225 @@ two; the machine-time range did not follow from its own 1.3–2.5× multiplier; 
 floor at spans 32–44 holds in light only; the footprint ratio is 3.08–3.68×; and `capturedAt` is
 present on all 121 recovered entries, so nine fields are restorable and `presentedActive` is the
 one to invert. Calibration 340/340 and lint green at the fixed head.
+
+### 5.135 W27f G2 LANDED: the native stack envelope decided from S0 and S1 apart, the bound declared before the read and met in every clause, and the sampled path byte-identical at the landing head (2026-09-11)
+
+**A landing gate, not a fitting one.** Executes W27's child W27f G2, the §Design clause *Page
+content on the WebGPU tier gets the material, not a flat* (binding), Decision Log 3 and 12, and
+contracts X1 and X2. No material constant, profile document, fixture, `scenes.json` entry, golden or
+canonical matrix row moved. The gate had two outcomes available to it — adopt the declared bound as
+a floor, or adopt nothing and stop — and no third. Head **`8cf6a89`**, which is `2b47bda` plus one
+documentation-only commit, so the runtime, profiles, fixtures and scene set are `2b47bda`'s exactly.
+
+Evidence: `packages/calibration/results/2026-09-11-w27f-g2/`, containing the declaration, the
+runner, both readings and their capture manifests, the holdout spend marker, the verdict, the
+identity comparison, the coherence record, the bistability experiment and the eye sheet.
+
+**1. The bound, declared before any capture of this gate ran.** `declaration.md` is committed at
+`9edaa0b`; the first capture ran at `7b2e03c`, two commits later. Every number in it was taken from
+claims §5.131 §6, and each was verified against the committed G1 evidence JSONs
+(`2026-09-10-w27f-g1-{holdout,baseline-stack}.json`, `2026-09-10-w27f-g0-unsampled.json`) rather
+than transcribed from this document's prose.
+
+The **native stack envelope** is the interval the composed-glass path has actually occupied against
+Apple's overlay on this bed. Its two endpoints are kept apart and never averaged: **S0**, the old
+textured-base composite, whose overlay was the flat white of §5.77 §4 and which *cannot be
+re-measured at this head* because the material that produced it is gone from the runtime; and
+**S1**, the same sampled base under G1's derived overlay. Per scheme × stack, distances to native:
+
+| scheme / stack | metric | S0 error | S1 error | envelope [min, max] | upper from |
+| --- | --- | ---: | ---: | --- | --- |
+| light checker | overlay ΔE | 0.007735 | 0.005438 | [0.005438, 0.007735] | S0 |
+| light checker | overlay luminance | 0.014542 | 0.009084 | [0.009084, 0.014542] | S0 |
+| light checker | overlay rim excess | 0.068899 | 0.000295 | [0.000295, 0.068899] | S0 |
+| light photo | overlay ΔE | 0.019478 | 0.018619 | [0.018619, 0.019478] | S0 |
+| light photo | overlay luminance | 0.020194 | 0.013000 | [0.013000, 0.020194] | S0 |
+| light photo | overlay rim excess | 0.036440 | 0.029923 | [0.029923, 0.036440] | S0 |
+| dark checker | overlay ΔE | 0.013765 | 0.016702 | [0.013765, **0.016702**] | **S1** |
+| dark checker | overlay luminance | 0.003211 | 0.004159 | [0.003211, **0.004159**] | **S1** |
+| dark checker | overlay rim excess | 0.003150 | 0.005874 | [0.003150, **0.005874**] | **S1** |
+| dark photo | — | — | — | **no envelope: no native fixture** | — |
+
+**Clause A** bounds the DOM-base hinted overlay (Uh) at the envelope's upper endpoint on all nine
+rows. Its reason is the wave's own claim: a stack's overlay resolves `css-backdrop` in *every*
+configuration, so the only thing the page path changes for it is the pixels underneath; if a DOM
+base costs the overlay more than the two textured-base configurations already differ from Apple,
+the page path is not carrying the material. The clause is not vacuous — the pre-G1 unhinted page
+fails it by 0.176938 against a 0.068899 rim bound on light checker and by 0.029009 against 0.004159
+on dark checker luminance, and the pre-G1 *hinted* page fails it on light checker luminance at
+0.037758 against 0.014542.
+
+**Clause B** pins all twelve S1 and Uh readings at §5.131 §6's recorded magnitudes: no overlay
+reading may be worse than the ledger records. Clause A is weak on exactly one row — dark checker,
+where the upper endpoint is S1's own regression, so taking it would let the material be bounded by
+its own regression — and that is named in the declaration rather than smoothed. **Clause B is what
+carries that cell.** The adopted bound is Clause A ∧ Clause B: the envelope is why G1's measured
+position is adoptable at all, and the pin is the requirement that the landing head is at it.
+
+**2. The read: eighteen readings, all reproducing the ledger exactly.** 308 captures at this head —
+the 20 ordinary calibration `__rest` scenes §5.131 §5 measured, plus the two stack cells, on all
+seven arms in both 1x schemes, Chromium 151.0.7922.34, Apple/Metal-3 hardware, 320 × 200 at scale 1,
+profiles unchanged (light `6a9600720477` / resolved `b2b570e4adcea8fb`, dark `950ce1c3e917` /
+resolved `874be66ea501621b`). Captures and matrices stayed under `/tmp/w27f-g2`; nothing canonical
+was written.
+
+Every one of the eighteen overlay readings the bound is stated on — S1 and Uh, on overlay ΔE,
+eroded-interior linear luminance and rim local excess, over the three cells with a native fixture —
+**reproduces §5.131 §6 to six decimal places**:
+
+| scheme / stack | S1 ΔE | S1 lum err | S1 rim err | Uh ΔE | Uh lum err | Uh rim err |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| light checker | 0.005438 | 0.009084 | 0.000295 | 0.004662 | 0.008403 | 0.001665 |
+| light photo | 0.018619 | 0.013000 | 0.029923 | 0.009126 | 0.007358 | 0.024862 |
+| dark checker | 0.016702 | 0.004159 | 0.005874 | 0.013059 | 0.002975 | 0.004204 |
+
+Clause A's nine rows and Clause B's twelve pins therefore hold with nothing to weigh. The
+distinction between *reproducing* and *merely passing* is recorded on purpose and asserted in the
+gate: a reading inside the bound but somewhere new would mean the material moved and happened to
+stay in range.
+
+**3. The two regressions, pinned and not closed.** §5.131 §6 records both in the **dark checker**
+cell, and W27f G2 repairs neither. The hinted DOM overlay's ΔE went **0.011332 → 0.013059** when
+G1's material replaced the flat, and the textured-base overlay's went **0.013765 → 0.016702**; the
+same cell's overlay luminance error widened 0.002613 → 0.002975. The whole footprint improved over
+the same change (0.02477 → 0.02185) because the base improved, which is exactly why this gate's
+bound is stated only on overlay-local metrics. Both are pinned at their recorded magnitudes so they
+cannot widen unobserved, and both remain **open gaps**: in the dark scheme the derived overlay
+material is measurably further from Apple's overlay than the flat it replaced, on the one dark cell
+that has a native fixture. A third is recorded and not bounded — light photo's overlay rim
+**overshoots** native in both configurations (S1 0.114151, Uh 0.109090 against native 0.084228),
+passing Clause A only because S0's undershoot at 0.047788 was larger. Closing any of the three is a
+material change, which is a fidelity change with its own declared stop; this gate is a landing gate
+and did not fit.
+
+**4. The dark photo stack is unbounded, and nothing is inferred for it.**
+`apple-macos-26.5-1x-dark-standard` carries no `photo__glass-over-glass` at 1x or 2x — the dark
+profiles' explicit scene lists never asked for one, so it was not lost. That cell has no envelope,
+no clause and no adopted number. Its readings are reported (S1 overlay luminance 0.021612, Uh
+0.021984, rim 0.033665 / 0.033604) as distances to its own control, which are identities and not
+native fidelity. No native value for it is interpolated from the light photo stack or substituted
+from the dark checkerboard one. Closing it needs a native dark `photo__glass-over-glass` capture.
+
+**5. Identity: the sampled path has not moved (stop S3).** Every `gpu-texture` capture is
+byte-identical to its §5.131 §8 record — **sampled 20/20 and same-hint sampled 20/20 on the ordinary
+cells in each scheme, and 2/2 each on the stacks**. Both DOM arms are byte-identical too, on all 22
+scenes in both schemes, as are all CSS arms but one. The renderer golden and isolation suite is
+green with nothing re-recorded (§8). `identity.json` carries the per-arm comparison.
+
+**6. A correction to §5.131 §4: that CSS digest is bistable, not changed.** §5.131 §4 recorded the
+dark checker `toolbar-group` CSS digest as changing `625742f5a2af… → 8689d9ef6fc9…` — five pixels,
+all outside every declared shape, one channel code at most, every measured term equal — and could
+not tell a change from a flip with one run on each side. This gate's read came back to
+**`625742f5a2af…`**, so six further independent capture invocations were taken: `css-today` landed
+on `625742f5` **twice** and `8689d9ef` **four times**, and on no third value. The `css-hint` arm is
+bistable as well, on two further digests, with within-run repeat noise 5.859375e-05 in five runs of
+six and exactly 0 in one. **§5.131 §4's pair is the two states of an unstable capture, not a
+one-way change produced by G1's material edit.** §5.131 §4's numbers stand as recorded; this is the
+reading beside them, with `css-bistability.json` as its evidence. The instability is CSS-tier, one
+cell, outside every declared shape, and cannot reach any number in this gate's bound.
+
+**On stop S4, stated against the gate rather than quietly.** `declaration.md` §6 worded S4 as "any
+capture is not byte-repeatable over its two loads", without scoping it, and that capture is not.
+Read literally it would stop the landing. It does not, and the reason is a binding contract rather
+than convenience: **X1 makes every measured claim a WebGPU-tier claim and the CSS tier a record**,
+so a record-only CSS reading cannot gate a WebGPU bound. Every capture the bound is stated on is
+byte-repeatable and byte-identical to G1's. S4's wording is the defect, not the landing; a future
+gate scopes an instrument stop to the arms its bound is stated on.
+
+**7. The CSS tier's coherence on DOM-sourced groups — a record, never a target (X1).** This is the
+clause W27f's charter asks for, and neither existing instrument could supply it.
+`tier-coherence.test.ts` reads no files at all: it is a code-against-code mirror of the renderer's
+optics against the CSS tier's derivation, with no notion of a sampling backend. The matrix's
+coherence axis cannot carry it either — its `dom` **tier** means the CSS *renderer*, not a
+DOM-sourced backdrop, so a WebGPU group over page content has no cell in that schema. `coherence.py`
+therefore computes the same two statistics the adopted coherence rows use, over the page-sourced
+arms, and `coherence.json` is the record: 44 cells per arm pair, GPU against CSS on the same page
+request.
+
+| set / scheme | arm pair | n | cross-tier OKLab ΔE | GPU/CSS interior ratio |
+| --- | --- | ---: | --- | --- |
+| ordinary light | hinted page | 20 | 0.0004–0.0368 | 0.8467–1.0070 |
+| ordinary light | unhinted page | 20 | 0.0018–0.0216 | 0.9005–1.1106 |
+| ordinary dark | hinted page | 20 | 0.0004–0.0265 | **0.6211**–1.0000 |
+| ordinary dark | unhinted page | 20 | 0.0016–0.0257 | **0.5214**–1.0127 |
+| stacks light | hinted page | 2 | 0.0156–0.0350 | 0.8755–0.9823 |
+| stacks dark | hinted page | 2 | 0.0152–0.0251 | **0.7897**–0.9088 |
+
+Cross-tier ΔE stays inside the adopted row's ≤ 0.05 everywhere. The interior ratio does not: **six
+of the 20 ordinary dark cells and the dark checker stack fall outside the 0.8–1.25 band**, all on
+checkerboard backgrounds, the GPU tier's interior as low as **0.6211** of the CSS tier's on
+`checkerboard__toolbar-group__rest` and **0.5214** unhinted. That band was adopted over
+texture-sourced cells of the frozen bed and **is not applied here** — applying it would make the CSS
+tier a target on a path where X1 says it is a record. It is written down because the gap is real,
+larger in the dark scheme than in the light, and concentrated where the backdrop has structure.
+
+**8. What landed, and what the adoption is worth.** The bound is adopted in
+`packages/calibration/test/adopted-thresholds.test.ts` as *the stack overlay bound (W27f G2)*, six
+assertions over the committed `verdict.json`, each verified to fail when the reading it checks is
+perturbed. Its limits are stated in the file and repeated here because they matter:
+
+* **It is not a `GateRow` over `matrix.json`, and cannot be.** The matrix carries no overlay-local
+  metric. A stack cell's footprint is the union of both placed shapes and every perceptual, shape
+  and material row is stated over that union, while §5.131 §6 is explicit that the overlay's
+  residual must not disappear behind the base's larger footprint. A whole-footprint floor on these
+  cells would gate the wrong number.
+* **It is therefore weaker than a matrix floor.** It fails when the ledger and the committed
+  evidence drift apart — the failure W27c G1b found three instances of (§5.134) — and it does not
+  catch a material change on its own, because nothing regenerates this reading in CI. **The work
+  that would make it a real floor is per-surface metrics in the matrix schema**, so a stack cell's
+  overlay carries adopted rows like any other cell. That is named here and not done.
+
+**No canonical matrix row was written, deliberately.** The two stack scenes' existing rows are the
+canonical texture and CSS arms, and this gate's `sampled` arm *is* the canonical configuration —
+the runner sets no probe variable for it, which is why its digests are comparable at all — so those
+rows' numbers cannot move, and a rewrite would add no evidence while costing another read of a spent
+holdout. The DOM page cells have no slot in the schema to be written into (§7).
+
+**9. The holdout, spent a second time, deliberately and on the record.** The two
+`glass-over-glass` rest cells are `split.holdout` members in `apps/reference-apple/scenes.json` —
+this child's dispatch described them as calibration cells and they are not — and §5.131 §7 spent
+that holdout once at `1fff5e6`. This gate read them again. The reasons are in `declaration.md` §0
+and were written before the read: G2 fits nothing, so there is no fit for holdout to steer; the
+bound was published before the read, so no reading could change what passing means; and the claim
+that this is the same frozen configuration is not assumed but made a stop and checked on the
+`gpu-texture` digests, which are not stack cells. The eight other holdout scenes were not read. The
+spend marker is committed (`holdout-spend.json`, written 21:46:06, two seconds before the first
+capture). **Consequence for whoever comes next: these two cells have now been read twice on this
+material configuration, and any later work that would fit anything on the stack path must treat them
+as spent and re-freeze the bed.** That marker names `2026-09-10-w27f-g1-measure.py` because the
+literal was baked into the runner G1 wrote; the copy now names the file that runs, and the recorded
+marker is left as it was written.
+
+**10. The eye, prepared and not claimed.** `results/2026-09-11-w27f-g2/eye/` carries two sheets,
+4720 × 6108 and 4720 × 6082, and `index.md` describing them. Each row puts Apple's fixture beside the
+same scene drawn three ways — the sampled texture path, the page path at its measured level, and the
+page path with no hint — over the two stacks and four ordinary cells, and a final row is the shipped
+site at `/#page` over its own paragraph text. The rows were chosen for §5.131 §6's three unsettled
+residuals: the light overlay's rim, the photo base's colour, and the dark unhinted overlay's
+brightness, which needs no measurement once the panels are adjacent (overlay luminance 0.049707
+against native 0.020698). The dark photo stack's native panel is a labelled hole and nothing is
+substituted into it. The 320 × 200 panels are magnified ×2 by nearest neighbour — exact, reversible,
+labelled on every panel — and the demo panel alone is native device pixels at dpr 2.
+
+The demo capture refuses anything but measured hardware: Chromium 151.0.7922.34 headed with
+`channel: "chromium"`, adapter `apple`/`metal-3`, `isFallbackAdapter` read off **`GPUAdapterInfo`**
+and kept tri-state so only a measured `false` passes. That matters because the 0.16.0 sheet's
+harness read the flag off `GPUAdapter`, where it is `undefined`, and defaulted it with `?? false` —
+so its recorded `isFallbackAdapter: false` was never measured and its guard could not fire (its
+vendor/architecture pair is what established hardware there). The site's own readout was scraped at
+each shot: `dom / webgpu / css-backdrop / approximate / none / ok / none` in both schemes, with zero
+console warnings or errors. **The user's eye is the parent's to take; no acceptance of `/#page` is
+claimed here.**
+
+**11. Checks.** `pnpm -r build && pnpm -r lint && pnpm -r test` green at the landing head; the
+renderer golden and isolation suite green with no golden regenerated; the demo e2e green. The G2
+runner's own suite is 41 cases, five of them new for the porcelain parser the tracker required
+fixing before this runner could be reused, the first of which fails against the G1 parser. Two
+mechanical repairs travelled with the gate and are recorded in the tracker rather than folded into
+this claim: the calibration scene server and the renderer's golden server now read
+`VITREA_SCENE_SERVER_PORT` and `VITREA_GOLDEN_SERVER_PORT` (both defaulting to 5189, so no recorded
+capture changes meaning), because this gate was forbidden 5189 and no override existed anywhere;
+and the frozen `2026-09-10-w27f-g1-measure-tests.py` fails one case at this head because W27c G1
+added both `glass-over-glass` `__inactive` twins to `split.holdout` while that test pins the
+holdout bed's stacks at two — the runner reads the split and is correct, only the expectation aged,
+and the frozen suite is left failing rather than edited into describing a bed G1 never measured.

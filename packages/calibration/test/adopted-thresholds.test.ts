@@ -2310,3 +2310,157 @@ describe("the probe set is captured, and gated by nothing (W25 Decision Log 3 (e
     expect(floored).toEqual([]);
   });
 });
+
+/**
+ * ## The stack overlay bound: W27f G2 (2026-09-11)
+ *
+ * W27f replaced the flat white a WebGPU group drew over ordinary page content
+ * with the profile's material at the group's backdrop level. Its landing gate
+ * had to bound the one thing on this bed that has a native reading of a
+ * `css-backdrop` group: a stack's overlay, which resolves `css-backdrop` on
+ * every route and is therefore the composed-glass analogue of the page path
+ * (claims §5.129 X8). The bound was declared before the read, in
+ * `results/2026-09-11-w27f-g2/declaration.md` §4, and the read met it in every
+ * clause; claims §5.135 is the adoption.
+ *
+ * **Why this is not a `GateRow` over `matrix.json` like every bound above it.**
+ * The matrix carries no overlay-local metric, and cannot: a stack cell's
+ * footprint is the union of both placed shapes, and every perceptual, shape and
+ * material row is stated over that union. Claims §5.131 §6 is explicit that the
+ * overlay's residual must not be allowed to disappear behind the base's larger
+ * footprint, so a whole-footprint floor on these cells would gate the wrong
+ * number. The metric exists only in the gate's own reader, and its reading is
+ * committed beside it.
+ *
+ * **What this therefore is, stated plainly.** It is weaker than a matrix floor.
+ * A matrix floor fails when a re-capture moves a number; this fails when the
+ * committed reading no longer satisfies the bound the ledger says it satisfies.
+ * It catches the ledger and the evidence drifting apart — which W27c G1b found
+ * three instances of (claims §5.134) — and it does not catch a material change
+ * on its own, because nothing regenerates this reading in CI. What would make it
+ * a real floor is per-surface metrics in the matrix schema, so a stack cell's
+ * overlay carries adopted rows like any other cell; that is named as the work in
+ * claims §5.135 and is not done here.
+ *
+ * The dark `photo__glass-over-glass__rest` cell is absent from the table on
+ * purpose: `apple-macos-26.5-1x-dark-standard` has no such fixture, so the cell
+ * has no envelope and nothing about it is adopted.
+ */
+describe("the stack overlay bound (W27f G2, claims §5.135)", () => {
+  interface OverlayArm {
+    readonly read: Record<string, number | null>;
+    readonly recorded?: Record<string, number | null>;
+    readonly reproducesRecord?: boolean;
+    readonly errorToNative?: Record<string, number | null>;
+    readonly clauseA?: Record<string, { bound: number; from: string; holds: boolean }>;
+    readonly clauseB?: Record<string, { pin: number; holds: boolean }>;
+  }
+  interface OverlayCell {
+    readonly scheme: string;
+    readonly stack: string;
+    readonly scene: string;
+    readonly nativeFixture: boolean;
+    readonly envelope: Record<string, { min: number; max: number; upperFrom: string } | null>;
+    readonly arms: Record<string, OverlayArm>;
+  }
+  interface Verdict {
+    readonly cells: readonly OverlayCell[];
+    readonly stops: readonly string[];
+    readonly landing: string;
+  }
+
+  const VERDICT = readJson<Verdict>(
+    resolve(PACKAGE_ROOT, "results", "2026-09-11-w27f-g2", "verdict.json"),
+  );
+  const METRICS = ["de", "lum", "rim"] as const;
+  /** The three cells with a native fixture; the dark photo stack has none. */
+  const REFEREED = VERDICT.cells.filter((cell) => cell.nativeFixture);
+
+  it("reads the three cells that have a native overlay, and only those", () => {
+    expect(VERDICT.cells).toHaveLength(4);
+    expect(REFEREED.map((cell) => `${cell.scheme} / ${cell.stack}`)).toEqual([
+      "light / checkerboard",
+      "light / photo",
+      "dark / checkerboard",
+    ]);
+    const unrefereed = VERDICT.cells.filter((cell) => !cell.nativeFixture);
+    expect(unrefereed.map((cell) => `${cell.scheme} / ${cell.stack}`)).toEqual(["dark / photo"]);
+    // Nothing is adopted over the cell with no native fixture. If a dark
+    // `photo__glass-over-glass` is ever captured, this is where it stops being
+    // true and the cell gains an envelope of its own.
+    for (const cell of unrefereed) {
+      for (const arm of Object.values(cell.arms)) {
+        expect(arm.clauseA).toBeUndefined();
+        expect(arm.clauseB).toBeUndefined();
+      }
+    }
+  });
+
+  it("holds clause A: the DOM-base overlay is inside the native stack envelope", () => {
+    // The envelope's endpoints are S0 (the old textured-base composite, which
+    // the runtime can no longer produce) and S1 (the same base under the landed
+    // material), kept apart and never averaged. The bound is the upper endpoint.
+    for (const cell of REFEREED) {
+      const uh = cell.arms["uh"];
+      expect(uh, `${cell.scheme} / ${cell.stack} has no hinted DOM arm`).toBeDefined();
+      for (const metric of METRICS) {
+        const clause = uh?.clauseA?.[metric];
+        expect(clause, `${cell.scheme} / ${cell.stack} :: ${metric}`).toBeDefined();
+        expect(
+          clause?.holds,
+          `${cell.scheme} / ${cell.stack} :: ${metric} left the envelope at ${clause?.bound}`,
+        ).toBe(true);
+      }
+    }
+  });
+
+  it("holds clause B: no overlay reading is worse than claims §5.131 §6 recorded", () => {
+    for (const cell of REFEREED) {
+      for (const which of ["s1", "uh"]) {
+        for (const metric of METRICS) {
+          const pin = cell.arms[which]?.clauseB?.[metric];
+          expect(pin, `${cell.scheme} / ${cell.stack} / ${which} :: ${metric}`).toBeDefined();
+          expect(
+            pin?.holds,
+            `${cell.scheme} / ${cell.stack} / ${which} :: ${metric} widened past ${pin?.pin}`,
+          ).toBe(true);
+        }
+      }
+    }
+  });
+
+  it("records that the read reproduced the ledger exactly, rather than merely passing", () => {
+    // The distinction matters. A reading that is inside the bound but somewhere
+    // new would mean the material moved and happened to stay in range; every one
+    // of these reproduced claims §5.131 §6 to the printed precision, which is
+    // why the landing head could be certified as the configuration G1 measured.
+    for (const cell of REFEREED) {
+      for (const which of ["s1", "uh"]) {
+        expect(
+          cell.arms[which]?.reproducesRecord,
+          `${cell.scheme} / ${cell.stack} / ${which} did not reproduce §5.131 §6`,
+        ).toBe(true);
+      }
+    }
+  });
+
+  it("carries the two dark-checker regressions the ledger names, pinned and unclosed", () => {
+    // Claims §5.131 §6 records both: the hinted DOM overlay's ΔE went
+    // 0.011332 → 0.013059 and the textured-base overlay's 0.013765 → 0.016702
+    // when G1's material replaced the flat. Neither is repaired by W27f G2, and
+    // the point of pinning them is that they cannot widen unobserved. A gate
+    // that quietly improved these numbers would also fail here, which is
+    // correct: it would mean the material moved.
+    const dark = REFEREED.find((cell) => cell.scheme === "dark" && cell.stack === "checkerboard");
+    expect(dark?.arms["uh"]?.clauseB?.["de"]?.pin).toBe(0.013059);
+    expect(dark?.arms["s1"]?.clauseB?.["de"]?.pin).toBe(0.016702);
+    // And the one row where clause A's upper endpoint is S1's own regression,
+    // which is why clause B is what carries this cell.
+    expect(dark?.envelope["de"]?.upperFrom).toBe("s1");
+  });
+
+  it("landed with no stop outstanding", () => {
+    expect(VERDICT.stops).toEqual([]);
+    expect(VERDICT.landing).toBe("the bound holds");
+  });
+});

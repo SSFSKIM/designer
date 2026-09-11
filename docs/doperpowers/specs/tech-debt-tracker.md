@@ -2089,3 +2089,54 @@ condition the probe's verdict on whether the new backdrop root contains the samp
 than on a root existing above the proxy — the probe already paints and reads its own patch, so the
 discriminating case is one more sample outside the root. Contract X6 is unchanged by this: a sub-1
 opacity on the host or on the root still kills sampling, and that was re-measured here.
+
+## One dark CSS calibration capture is bistable between runs (W27f G2, 2026-09-11)
+
+`checkerboard__toolbar-group__rest`, dark scheme, CSS tier, lands on one of two digests depending
+on the run. Six independent capture invocations at a fixed head put `css-today` on
+`625742f5a2af…` twice and `8689d9ef6fc9…` four times and on no third value; the `css-hint` arm is
+bistable on two further digests, and its within-run repeat noise is 5.859375e-05 in five runs of
+six and exactly 0 in one. The difference is five pixels, all outside every declared shape, at most
+one channel code, with every measured term equal. Evidence:
+`packages/calibration/results/2026-09-11-w27f-g2/css-bistability.json`.
+
+This resolves an open reading rather than creating one: claims §5.131 §4 recorded the same two
+digests as a change, `625742f5 → 8689d9ef`, because it had one run on each side and could not tell
+a change from a flip. §5.135 §6 records the correction; §5.131 §4's numbers stand as written.
+
+Why it is not urgent: the cell is CSS-tier, the pixels are outside every declared shape, and no
+adopted bound or floor reads a digest. Why it is not nothing: a byte-identity check is a real
+instrument on this bed — it is how W27f G2 certified that the sampled path had not moved — and a
+capture that flips makes that check report a change where there is none. The shape of the work is
+to find the source (a compositing or rasterisation race in the CSS tier's proxy on this one
+geometry is the obvious candidate, and the cell is a toolbar group, the one component with several
+members) and to decide whether the settle protocol needs another frame for it. Until then, treat a
+digest change on this one cell as unproven until it is repeated.
+
+A general lesson, worth more than the cell: **an instrument stop written as "any capture is
+byte-repeatable" will eventually be tripped by something the claim it guards does not depend on.**
+W27f G2's declaration did exactly that and had to resolve it against contract X1 at landing time.
+Scope an instrument stop to the arms the bound is stated on.
+
+## The matrix schema has no per-surface metric, so a stack's overlay cannot carry a floor (W27f G2, 2026-09-11)
+
+`results/matrix.json` states every perceptual, shape and material row over a cell's whole declared
+footprint. For `{checkerboard,photo}__glass-over-glass__*` that footprint is the union of the base
+and the overlay (`placeComponent` returns both), so there is no way to express a bound on the
+overlay alone — and the overlay is the only part of those cells that is a `css-backdrop` group,
+which is what makes them the native evidence for the page-content path (claims §5.129 X8).
+
+The consequence is concrete. W27f G2 adopted a bound on that overlay (claims §5.135) and could not
+express it as a `GateRow`: it is six assertions over a committed reading instead, which catches the
+ledger and the evidence drifting apart but not a material change, because nothing regenerates that
+reading in CI. Claims §5.131 §6 forbids the obvious shortcut — a whole-footprint floor on these
+cells would let the overlay's residual disappear behind the base's larger footprint, which is the
+specific error that section warns about.
+
+The shape of the work: carry per-surface readings into the matrix for cells whose declaration has
+more than one plane, so a stack cell's overlay has adopted rows like any other cell. The reader
+already exists and is not the hard part — `read_region` in `2026-09-10-w27f-g0-read.py` takes a
+surface selection and the W27f runners call it per surface. The decisions are schema ones: whether
+a per-surface axis is a new axis or a nesting of the existing ones, how the cell count assertions
+in `adopted-thresholds.test.ts` change, and whether the coherence axis follows. Worth taking with
+the next wave that touches stacked material; not worth a wave of its own.
