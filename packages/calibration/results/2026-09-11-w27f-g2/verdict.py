@@ -113,6 +113,23 @@ def read_cell(reading, scene, arm):
     return None
 
 
+def native_ordinates(reading, scene):
+    """Apple's own overlay level and rim for a cell, as the read itself carries them.
+
+    `RECORD` above transcribes these from claims §5.131 §6, and every luminance
+    and rim error in this file is a distance from them — so a transcription slip
+    would move all six of that cell's errors together and none of the clause
+    arithmetic would notice. The reading carries the same two ordinates, measured
+    from the native fixture at this head, so the transcription can be checked
+    against the instrument instead of trusted. A disagreement is a stop: it means
+    the bound was stated against a native position the bed does not have.
+    """
+    over = read_cell(reading, scene, "native")
+    if over is None:
+        return None
+    return {"lum": over["lum"], "rim": over["rim"]}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--scratch", type=Path, default=Path("/tmp/w27f-g2"))
@@ -129,6 +146,24 @@ def main():
         env = envelope((scheme, stack))
         entry = {"scheme": scheme, "stack": stack, "scene": scene,
                  "nativeFixture": native is not None, "envelope": env, "arms": {}}
+
+        if native is not None:
+            measured = native_ordinates(reading, scene)
+            if measured is None:
+                stops.append(f"{scheme}/{stack}: the read carries no native overlay reading to "
+                             "check the transcribed ordinates against")
+            else:
+                agrees = {kind: round(measured[kind], PRECISION) == round(native[kind], PRECISION)
+                          for kind in ("lum", "rim")}
+                entry["nativeOrdinates"] = {
+                    "transcribed": {kind: native[kind] for kind in ("lum", "rim")},
+                    "read": {kind: round(measured[kind], PRECISION) for kind in ("lum", "rim")},
+                    "agrees": agrees}
+                for kind, ok in agrees.items():
+                    if not ok:
+                        stops.append(f"S2 {scheme}/{stack}/native/{kind}: claims §5.131 §6's "
+                                     f"transcribed ordinate {native[kind]} is not the "
+                                     f"{round(measured[kind], PRECISION)} the read measures")
 
         for which in ("s1", "uh", "u0"):
             got = read_cell(reading, scene, ARM_OF[which])

@@ -3,11 +3,11 @@
  "what": "the CSS tier's coherence on DOM-sourced groups, recorded under contract X1",
  "neverATarget": "These are readings, not bounds. No CSS floor is adopted and no CSS target is set; the WebGPU tier is the fidelity target (wave Decision Log 2, X1).",
  "adoptedRowShapeForReference": {
-  "crossTierOklabDeltaEMean": "<= 0.05",
+  "crossTierOklabDeltaEMeanWholeCanvas": "<= 0.05",
   "interiorLevelRatioGpuOverCss": "0.8 .. 1.25"
  },
  "definitions": {
-  "crossTierOklabDeltaEMean": "mean OKLab distance over the whole canvas \u2014 exactly cli/measure.ts:591's definition for the adopted row",
+  "crossTierOklabDeltaEMeanWholeCanvas": "mean OKLab distance over the whole canvas \u2014 exactly cli/measure.ts:591's definition for the adopted row. Written once per arm pair because it has no mask: it is not a reading of the declared footprint or of the overlay.",
   "interiorLevelRatioGpuOverCss": "GPU over CSS mean linear luminance on the DECLARED interior, eroded 6 CSS px, visible union. NOT the adopted row's mask, which is the silhouette extracted from the native fixture (cli/measure.ts:465,598) and cannot be formed on the 11 dark ordinary cells with no dark fixture. A different statistic, comparable within itself only."
  },
  "phases": {
@@ -20,8 +20,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.006574,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.006574,
          "gpuInteriorLinearLuminanceMean": 0.682286,
          "cssInteriorLinearLuminanceMean": 0.799765,
          "interiorLevelRatioGpuOverCss": 0.853108,
@@ -30,8 +30,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.005115,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.005115,
          "gpuInteriorLinearLuminanceMean": 0.669481,
          "cssInteriorLinearLuminanceMean": 0.739206,
          "interiorLevelRatioGpuOverCss": 0.905676,
@@ -45,8 +45,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003295,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003295,
          "gpuInteriorLinearLuminanceMean": 0.366424,
          "cssInteriorLinearLuminanceMean": 0.366424,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -55,8 +55,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003346,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003346,
          "gpuInteriorLinearLuminanceMean": 0.324014,
          "cssInteriorLinearLuminanceMean": 0.324014,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -70,8 +70,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.02137,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.02137,
          "gpuInteriorLinearLuminanceMean": 0.695365,
          "cssInteriorLinearLuminanceMean": 0.809513,
          "interiorLevelRatioGpuOverCss": 0.858992,
@@ -80,8 +80,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.011157,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.011157,
          "gpuInteriorLinearLuminanceMean": 0.680847,
          "cssInteriorLinearLuminanceMean": 0.746413,
          "interiorLevelRatioGpuOverCss": 0.912159,
@@ -95,8 +95,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.036772,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.036772,
          "gpuInteriorLinearLuminanceMean": 0.69473,
          "cssInteriorLinearLuminanceMean": 0.806023,
          "interiorLevelRatioGpuOverCss": 0.861923,
@@ -105,8 +105,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.019163,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.019163,
          "gpuInteriorLinearLuminanceMean": 0.680214,
          "cssInteriorLinearLuminanceMean": 0.745945,
          "interiorLevelRatioGpuOverCss": 0.911883,
@@ -120,8 +120,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003606,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003606,
          "gpuInteriorLinearLuminanceMean": 0.681114,
          "cssInteriorLinearLuminanceMean": 0.804463,
          "interiorLevelRatioGpuOverCss": 0.84667,
@@ -130,8 +130,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.00303,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.00303,
          "gpuInteriorLinearLuminanceMean": 0.671057,
          "cssInteriorLinearLuminanceMean": 0.745173,
          "interiorLevelRatioGpuOverCss": 0.900539,
@@ -145,8 +145,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.007831,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.007831,
          "gpuInteriorLinearLuminanceMean": 0.682095,
          "cssInteriorLinearLuminanceMean": 0.793407,
          "interiorLevelRatioGpuOverCss": 0.859704,
@@ -155,8 +155,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.006546,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.006546,
          "gpuInteriorLinearLuminanceMean": 0.66961,
          "cssInteriorLinearLuminanceMean": 0.736967,
          "interiorLevelRatioGpuOverCss": 0.908601,
@@ -170,8 +170,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.000362,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.000362,
          "gpuInteriorLinearLuminanceMean": 0.011612,
          "cssInteriorLinearLuminanceMean": 0.011612,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -180,8 +180,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.00458,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.00458,
          "gpuInteriorLinearLuminanceMean": 0.451192,
          "cssInteriorLinearLuminanceMean": 0.479822,
          "interiorLevelRatioGpuOverCss": 0.940331,
@@ -195,8 +195,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003145,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003145,
          "gpuInteriorLinearLuminanceMean": 0.427549,
          "cssInteriorLinearLuminanceMean": 0.427549,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -205,8 +205,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003238,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003238,
          "gpuInteriorLinearLuminanceMean": 0.324014,
          "cssInteriorLinearLuminanceMean": 0.324014,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -220,8 +220,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.006982,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.006982,
          "gpuInteriorLinearLuminanceMean": 0.491448,
          "cssInteriorLinearLuminanceMean": 0.501267,
          "interiorLevelRatioGpuOverCss": 0.980411,
@@ -230,8 +230,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.008522,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.008522,
          "gpuInteriorLinearLuminanceMean": 0.479133,
          "cssInteriorLinearLuminanceMean": 0.501267,
          "interiorLevelRatioGpuOverCss": 0.955844,
@@ -245,8 +245,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.004273,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.004273,
          "gpuInteriorLinearLuminanceMean": 0.427549,
          "cssInteriorLinearLuminanceMean": 0.427549,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -255,8 +255,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.004194,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.004194,
          "gpuInteriorLinearLuminanceMean": 0.324014,
          "cssInteriorLinearLuminanceMean": 0.324014,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -270,8 +270,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.000788,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.000788,
          "gpuInteriorLinearLuminanceMean": 0.973391,
          "cssInteriorLinearLuminanceMean": 0.966593,
          "interiorLevelRatioGpuOverCss": 1.007032,
@@ -280,8 +280,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.001814,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.001814,
          "gpuInteriorLinearLuminanceMean": 0.966593,
          "cssInteriorLinearLuminanceMean": 0.950469,
          "interiorLevelRatioGpuOverCss": 1.016965,
@@ -295,8 +295,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.001735,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.001735,
          "gpuInteriorLinearLuminanceMean": 0.427549,
          "cssInteriorLinearLuminanceMean": 0.427549,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -305,8 +305,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.002318,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.002318,
          "gpuInteriorLinearLuminanceMean": 0.324014,
          "cssInteriorLinearLuminanceMean": 0.324014,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -320,8 +320,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.001614,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.001614,
          "gpuInteriorLinearLuminanceMean": 0.931762,
          "cssInteriorLinearLuminanceMean": 0.93324,
          "interiorLevelRatioGpuOverCss": 0.998417,
@@ -330,8 +330,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.004413,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.004413,
          "gpuInteriorLinearLuminanceMean": 0.965352,
          "cssInteriorLinearLuminanceMean": 0.949829,
          "interiorLevelRatioGpuOverCss": 1.016342,
@@ -345,8 +345,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003068,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003068,
          "gpuInteriorLinearLuminanceMean": 0.932164,
          "cssInteriorLinearLuminanceMean": 0.933215,
          "interiorLevelRatioGpuOverCss": 0.998874,
@@ -355,8 +355,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.009296,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.009296,
          "gpuInteriorLinearLuminanceMean": 0.965683,
          "cssInteriorLinearLuminanceMean": 0.942433,
          "interiorLevelRatioGpuOverCss": 1.024671,
@@ -370,8 +370,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003761,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003761,
          "gpuInteriorLinearLuminanceMean": 0.642221,
          "cssInteriorLinearLuminanceMean": 0.647569,
          "interiorLevelRatioGpuOverCss": 0.991742,
@@ -380,8 +380,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.004441,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.004441,
          "gpuInteriorLinearLuminanceMean": 0.645773,
          "cssInteriorLinearLuminanceMean": 0.581953,
          "interiorLevelRatioGpuOverCss": 1.109666,
@@ -395,8 +395,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.002248,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.002248,
          "gpuInteriorLinearLuminanceMean": 0.197245,
          "cssInteriorLinearLuminanceMean": 0.197245,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -405,8 +405,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.00226,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.00226,
          "gpuInteriorLinearLuminanceMean": 0.180334,
          "cssInteriorLinearLuminanceMean": 0.180334,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -420,8 +420,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.002093,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.002093,
          "gpuInteriorLinearLuminanceMean": 0.355535,
          "cssInteriorLinearLuminanceMean": 0.355535,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -430,8 +430,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.002075,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.002075,
          "gpuInteriorLinearLuminanceMean": 0.324014,
          "cssInteriorLinearLuminanceMean": 0.324014,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -445,8 +445,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.002811,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.002811,
          "gpuInteriorLinearLuminanceMean": 0.465753,
          "cssInteriorLinearLuminanceMean": 0.467774,
          "interiorLevelRatioGpuOverCss": 0.99568,
@@ -455,8 +455,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003164,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003164,
          "gpuInteriorLinearLuminanceMean": 0.449241,
          "cssInteriorLinearLuminanceMean": 0.421696,
          "interiorLevelRatioGpuOverCss": 1.065319,
@@ -470,8 +470,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.008753,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.008753,
          "gpuInteriorLinearLuminanceMean": 0.677434,
          "cssInteriorLinearLuminanceMean": 0.682372,
          "interiorLevelRatioGpuOverCss": 0.992763,
@@ -480,8 +480,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.011653,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.011653,
          "gpuInteriorLinearLuminanceMean": 0.662994,
          "cssInteriorLinearLuminanceMean": 0.59852,
          "interiorLevelRatioGpuOverCss": 1.107722,
@@ -495,8 +495,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.015567,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.015567,
          "gpuInteriorLinearLuminanceMean": 0.68033,
          "cssInteriorLinearLuminanceMean": 0.683403,
          "interiorLevelRatioGpuOverCss": 0.995503,
@@ -505,8 +505,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.021589,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.021589,
          "gpuInteriorLinearLuminanceMean": 0.666131,
          "cssInteriorLinearLuminanceMean": 0.599793,
          "interiorLevelRatioGpuOverCss": 1.110602,
@@ -522,8 +522,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.006695,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.006695,
          "gpuInteriorLinearLuminanceMean": 0.067673,
          "cssInteriorLinearLuminanceMean": 0.10068,
          "interiorLevelRatioGpuOverCss": 0.672155,
@@ -532,8 +532,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.007785,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.007785,
          "gpuInteriorLinearLuminanceMean": 0.058093,
          "cssInteriorLinearLuminanceMean": 0.099055,
          "interiorLevelRatioGpuOverCss": 0.586472,
@@ -547,8 +547,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003036,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003036,
          "gpuInteriorLinearLuminanceMean": 0.427549,
          "cssInteriorLinearLuminanceMean": 0.427549,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -557,8 +557,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003019,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003019,
          "gpuInteriorLinearLuminanceMean": 0.427549,
          "cssInteriorLinearLuminanceMean": 0.427549,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -572,8 +572,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.021282,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.021282,
          "gpuInteriorLinearLuminanceMean": 0.047733,
          "cssInteriorLinearLuminanceMean": 0.075903,
          "interiorLevelRatioGpuOverCss": 0.62887,
@@ -582,8 +582,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.019735,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.019735,
          "gpuInteriorLinearLuminanceMean": 0.057054,
          "cssInteriorLinearLuminanceMean": 0.093669,
          "interiorLevelRatioGpuOverCss": 0.6091,
@@ -597,8 +597,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.000363,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.000363,
          "gpuInteriorLinearLuminanceMean": 0.011612,
          "cssInteriorLinearLuminanceMean": 0.011612,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -607,8 +607,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.00163,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.00163,
          "gpuInteriorLinearLuminanceMean": 0.045186,
          "cssInteriorLinearLuminanceMean": 0.047765,
          "interiorLevelRatioGpuOverCss": 0.946011,
@@ -622,8 +622,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003145,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003145,
          "gpuInteriorLinearLuminanceMean": 0.427549,
          "cssInteriorLinearLuminanceMean": 0.427549,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -632,8 +632,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.00308,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.00308,
          "gpuInteriorLinearLuminanceMean": 0.427549,
          "cssInteriorLinearLuminanceMean": 0.427549,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -647,8 +647,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003195,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003195,
          "gpuInteriorLinearLuminanceMean": 0.013602,
          "cssInteriorLinearLuminanceMean": 0.015209,
          "interiorLevelRatioGpuOverCss": 0.894364,
@@ -657,8 +657,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003814,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003814,
          "gpuInteriorLinearLuminanceMean": 0.045186,
          "cssInteriorLinearLuminanceMean": 0.048095,
          "interiorLevelRatioGpuOverCss": 0.939512,
@@ -672,8 +672,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003073,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003073,
          "gpuInteriorLinearLuminanceMean": 0.056321,
          "cssInteriorLinearLuminanceMean": 0.061481,
          "interiorLevelRatioGpuOverCss": 0.916078,
@@ -682,8 +682,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.004267,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.004267,
          "gpuInteriorLinearLuminanceMean": 0.05672,
          "cssInteriorLinearLuminanceMean": 0.069115,
          "interiorLevelRatioGpuOverCss": 0.820663,
@@ -697,8 +697,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.001576,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.001576,
          "gpuInteriorLinearLuminanceMean": 0.427549,
          "cssInteriorLinearLuminanceMean": 0.427549,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -707,8 +707,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.001569,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.001569,
          "gpuInteriorLinearLuminanceMean": 0.427549,
          "cssInteriorLinearLuminanceMean": 0.427549,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -722,8 +722,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.00888,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.00888,
          "gpuInteriorLinearLuminanceMean": 0.041271,
          "cssInteriorLinearLuminanceMean": 0.045739,
          "interiorLevelRatioGpuOverCss": 0.902311,
@@ -732,8 +732,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.012049,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.012049,
          "gpuInteriorLinearLuminanceMean": 0.055895,
          "cssInteriorLinearLuminanceMean": 0.066362,
          "interiorLevelRatioGpuOverCss": 0.842274,
@@ -747,8 +747,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.026505,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.026505,
          "gpuInteriorLinearLuminanceMean": 0.047597,
          "cssInteriorLinearLuminanceMean": 0.061211,
          "interiorLevelRatioGpuOverCss": 0.777587,
@@ -757,8 +757,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.012309,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.012309,
          "gpuInteriorLinearLuminanceMean": 0.057018,
          "cssInteriorLinearLuminanceMean": 0.063195,
          "interiorLevelRatioGpuOverCss": 0.902244,
@@ -772,8 +772,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003268,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003268,
          "gpuInteriorLinearLuminanceMean": 0.067873,
          "cssInteriorLinearLuminanceMean": 0.10264,
          "interiorLevelRatioGpuOverCss": 0.661276,
@@ -782,8 +782,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003657,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003657,
          "gpuInteriorLinearLuminanceMean": 0.058151,
          "cssInteriorLinearLuminanceMean": 0.100311,
          "interiorLevelRatioGpuOverCss": 0.57971,
@@ -797,8 +797,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.008719,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.008719,
          "gpuInteriorLinearLuminanceMean": 0.067697,
          "cssInteriorLinearLuminanceMean": 0.109002,
          "interiorLevelRatioGpuOverCss": 0.621066,
@@ -807,8 +807,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.009637,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.009637,
          "gpuInteriorLinearLuminanceMean": 0.058096,
          "cssInteriorLinearLuminanceMean": 0.106663,
          "interiorLevelRatioGpuOverCss": 0.544675,
@@ -822,8 +822,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.004272,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.004272,
          "gpuInteriorLinearLuminanceMean": 0.427549,
          "cssInteriorLinearLuminanceMean": 0.427549,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -832,8 +832,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.004194,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.004194,
          "gpuInteriorLinearLuminanceMean": 0.427549,
          "cssInteriorLinearLuminanceMean": 0.427549,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -847,8 +847,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.003353,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.003353,
          "gpuInteriorLinearLuminanceMean": 0.159406,
          "cssInteriorLinearLuminanceMean": 0.171364,
          "interiorLevelRatioGpuOverCss": 0.930219,
@@ -857,8 +857,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.009891,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.009891,
          "gpuInteriorLinearLuminanceMean": 0.074356,
          "cssInteriorLinearLuminanceMean": 0.142603,
          "interiorLevelRatioGpuOverCss": 0.521421,
@@ -872,8 +872,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.001828,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.001828,
          "gpuInteriorLinearLuminanceMean": 0.427549,
          "cssInteriorLinearLuminanceMean": 0.427549,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -882,8 +882,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.001675,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.001675,
          "gpuInteriorLinearLuminanceMean": 0.427549,
          "cssInteriorLinearLuminanceMean": 0.427549,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -897,8 +897,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.006344,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.006344,
          "gpuInteriorLinearLuminanceMean": 0.10234,
          "cssInteriorLinearLuminanceMean": 0.106531,
          "interiorLevelRatioGpuOverCss": 0.96066,
@@ -907,8 +907,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.025743,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.025743,
          "gpuInteriorLinearLuminanceMean": 0.072412,
          "cssInteriorLinearLuminanceMean": 0.13208,
          "interiorLevelRatioGpuOverCss": 0.548242,
@@ -922,8 +922,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.009304,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.009304,
          "gpuInteriorLinearLuminanceMean": 0.102408,
          "cssInteriorLinearLuminanceMean": 0.106373,
          "interiorLevelRatioGpuOverCss": 0.96272,
@@ -932,8 +932,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.007524,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.007524,
          "gpuInteriorLinearLuminanceMean": 0.072412,
          "cssInteriorLinearLuminanceMean": 0.072412,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -947,8 +947,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.001816,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.001816,
          "gpuInteriorLinearLuminanceMean": 0.237871,
          "cssInteriorLinearLuminanceMean": 0.237871,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -957,8 +957,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.001804,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.001804,
          "gpuInteriorLinearLuminanceMean": 0.237871,
          "cssInteriorLinearLuminanceMean": 0.237871,
          "interiorLevelRatioGpuOverCss": 1.0,
@@ -972,8 +972,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.001912,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.001912,
          "gpuInteriorLinearLuminanceMean": 0.1825,
          "cssInteriorLinearLuminanceMean": 0.188544,
          "interiorLevelRatioGpuOverCss": 0.967947,
@@ -982,8 +982,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.002303,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.002303,
          "gpuInteriorLinearLuminanceMean": 0.186196,
          "cssInteriorLinearLuminanceMean": 0.195745,
          "interiorLevelRatioGpuOverCss": 0.951216,
@@ -997,8 +997,8 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.015596,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.015596,
          "gpuInteriorLinearLuminanceMean": 0.041708,
          "cssInteriorLinearLuminanceMean": 0.046094,
          "interiorLevelRatioGpuOverCss": 0.904841,
@@ -1007,8 +1007,8 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.006305,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.006305,
          "gpuInteriorLinearLuminanceMean": 0.056026,
          "cssInteriorLinearLuminanceMean": 0.055326,
          "interiorLevelRatioGpuOverCss": 1.012655,
@@ -1029,15 +1029,14 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.034999,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.034999,
          "gpuInteriorLinearLuminanceMean": 0.702556,
          "cssInteriorLinearLuminanceMean": 0.802442,
          "interiorLevelRatioGpuOverCss": 0.875522,
          "interiorPixels": 22428
         },
         "stackOverlay": {
-         "crossTierOklabDeltaEMean": 0.034999,
          "gpuInteriorLinearLuminanceMean": 0.896252,
          "cssInteriorLinearLuminanceMean": 0.939657,
          "interiorLevelRatioGpuOverCss": 0.953808,
@@ -1046,15 +1045,14 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.018306,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.018306,
          "gpuInteriorLinearLuminanceMean": 0.689451,
          "cssInteriorLinearLuminanceMean": 0.744709,
          "interiorLevelRatioGpuOverCss": 0.9258,
          "interiorPixels": 22428
         },
         "stackOverlay": {
-         "crossTierOklabDeltaEMean": 0.018306,
          "gpuInteriorLinearLuminanceMean": 0.885517,
          "cssInteriorLinearLuminanceMean": 0.87721,
          "interiorLevelRatioGpuOverCss": 1.00947,
@@ -1068,15 +1066,14 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.015555,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.015555,
          "gpuInteriorLinearLuminanceMean": 0.690781,
          "cssInteriorLinearLuminanceMean": 0.703223,
          "interiorLevelRatioGpuOverCss": 0.982308,
          "interiorPixels": 22428
         },
         "stackOverlay": {
-         "crossTierOklabDeltaEMean": 0.015555,
          "gpuInteriorLinearLuminanceMean": 0.886175,
          "cssInteriorLinearLuminanceMean": 0.894362,
          "interiorLevelRatioGpuOverCss": 0.990846,
@@ -1085,15 +1082,14 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.021509,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.021509,
          "gpuInteriorLinearLuminanceMean": 0.67762,
          "cssInteriorLinearLuminanceMean": 0.619229,
          "interiorLevelRatioGpuOverCss": 1.094297,
          "interiorPixels": 22428
         },
         "stackOverlay": {
-         "crossTierOklabDeltaEMean": 0.021509,
          "gpuInteriorLinearLuminanceMean": 0.87301,
          "cssInteriorLinearLuminanceMean": 0.79019,
          "interiorLevelRatioGpuOverCss": 1.104811,
@@ -1109,15 +1105,14 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.025138,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.025138,
          "gpuInteriorLinearLuminanceMean": 0.042079,
          "cssInteriorLinearLuminanceMean": 0.053284,
          "interiorLevelRatioGpuOverCss": 0.789711,
          "interiorPixels": 22428
         },
         "stackOverlay": {
-         "crossTierOklabDeltaEMean": 0.025138,
          "gpuInteriorLinearLuminanceMean": 0.023673,
          "cssInteriorLinearLuminanceMean": 0.028322,
          "interiorLevelRatioGpuOverCss": 0.835862,
@@ -1126,15 +1121,14 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.012125,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.012125,
          "gpuInteriorLinearLuminanceMean": 0.054742,
          "cssInteriorLinearLuminanceMean": 0.06033,
          "interiorLevelRatioGpuOverCss": 0.907369,
          "interiorPixels": 22428
         },
         "stackOverlay": {
-         "crossTierOklabDeltaEMean": 0.012125,
          "gpuInteriorLinearLuminanceMean": 0.049707,
          "cssInteriorLinearLuminanceMean": 0.052861,
          "interiorLevelRatioGpuOverCss": 0.940332,
@@ -1148,15 +1142,14 @@
       "pairs": {
        "unsampled-hint / css-hint": {
         "why": "the page at its measured backdrop level",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.015177,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.015177,
          "gpuInteriorLinearLuminanceMean": 0.037406,
          "cssInteriorLinearLuminanceMean": 0.041159,
          "interiorLevelRatioGpuOverCss": 0.908804,
          "interiorPixels": 22428
         },
         "stackOverlay": {
-         "crossTierOklabDeltaEMean": 0.015177,
          "gpuInteriorLinearLuminanceMean": 0.021984,
          "cssInteriorLinearLuminanceMean": 0.023616,
          "interiorLevelRatioGpuOverCss": 0.930894,
@@ -1165,15 +1158,14 @@
        },
        "unsampled-nohint / css-nohint": {
         "why": "the page with no hint \u2014 unknown tone on both tiers",
+        "crossTierOklabDeltaEMeanWholeCanvas": 0.007346,
         "declaredFootprint": {
-         "crossTierOklabDeltaEMean": 0.007346,
          "gpuInteriorLinearLuminanceMean": 0.054139,
          "cssInteriorLinearLuminanceMean": 0.054167,
          "interiorLevelRatioGpuOverCss": 0.999483,
          "interiorPixels": 22428
         },
         "stackOverlay": {
-         "crossTierOklabDeltaEMean": 0.007346,
          "gpuInteriorLinearLuminanceMean": 0.0501,
          "cssInteriorLinearLuminanceMean": 0.052099,
          "interiorLevelRatioGpuOverCss": 0.961632,

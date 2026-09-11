@@ -17,10 +17,14 @@ and writes them as evidence.
 
 The two statistics, and exactly how far each one matches `cli/measure.ts`:
 
-* `crossTierOklabDeltaEMean` — mean OKLab distance over the **whole canvas**
-  between the two tiers' captures of the same scene and arm. This is
+* `crossTierOklabDeltaEMeanWholeCanvas` — mean OKLab distance over the **whole
+  canvas** between the two tiers' captures of the same scene and arm. This is
   `measure.ts:591`'s definition exactly: `oklabDeltaE(twin, web).mean`, which
-  aggregates over every pixel with no mask.
+  aggregates over every pixel with no mask. It is a property of the *pair*, not
+  of a region, and it is written at the pair level for that reason: an earlier
+  form of this file repeated the identical whole-canvas value inside both the
+  `declaredFootprint` and the `stackOverlay` block, where a reader had every
+  reason to take the second one for an overlay-local distance.
 * `interiorLevelRatioGpuOverCss` — the GPU tier's mean interior linear luminance
   over the CSS tier's. **The mask is not the same one `measure.ts` uses.** It
   computes the ratio over `nativeSil` (`measure.ts:465`, `:598`), the silhouette
@@ -57,7 +61,6 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 RESULTS = HERE.parent
-ROOT = RESULTS.parents[2]
 
 _spec = importlib.util.spec_from_file_location("w27f_g0", RESULTS / "2026-09-10-w27f-g0-read.py")
 g0 = importlib.util.module_from_spec(_spec)
@@ -71,7 +74,7 @@ PAIRS = [("unsampled-hint", "css-hint", "the page at its measured backdrop level
          ("unsampled-nohint", "css-nohint", "the page with no hint — unknown tone on both tiers")]
 
 # The shape of the adopted coherence rows, for reference only (X1).
-ADOPTED_SHAPE = {"crossTierOklabDeltaEMean": "<= 0.05",
+ADOPTED_SHAPE = {"crossTierOklabDeltaEMeanWholeCanvas": "<= 0.05",
                  "interiorLevelRatioGpuOverCss": "0.8 .. 1.25"}
 
 PHASES = {"candidate": "the 20 ordinary page cells", "holdout": "the two stack cells"}
@@ -95,12 +98,13 @@ def interior_mask(surfaces, shape, selected):
     return interior
 
 
-def pair_reading(gpu_path, css_path, surfaces, selected):
-    gpu_rgb, gpu_lum, gpu_lab = g0.image(gpu_path)
-    css_rgb, css_lum, css_lab = g0.image(css_path)
-    if gpu_lum.shape != css_lum.shape:
-        return {"error": f"different sizes: {gpu_lum.shape} against {css_lum.shape}"}
-    delta = float(np.sqrt(((gpu_lab - css_lab) ** 2).sum(axis=2)).mean())
+def whole_canvas_delta_e(gpu_lab, css_lab):
+    """The adopted row's statistic: mean OKLab distance over every pixel, no mask."""
+    return float(np.sqrt(((gpu_lab - css_lab) ** 2).sum(axis=2)).mean())
+
+
+def region_reading(gpu_lum, css_lum, surfaces, selected):
+    """The two tiers' mean interior level over one declared region, and their ratio."""
     mask = interior_mask(surfaces, gpu_lum.shape, selected)
     gpu_level = float(gpu_lum[mask].mean()) if mask.any() else None
     css_level = float(css_lum[mask].mean()) if mask.any() else None
@@ -108,7 +112,6 @@ def pair_reading(gpu_path, css_path, surfaces, selected):
     if gpu_level is not None and css_level not in (None, 0.0):
         ratio = gpu_level / css_level
     return {
-        "crossTierOklabDeltaEMean": round(delta, 6),
         "gpuInteriorLinearLuminanceMean": None if gpu_level is None else round(gpu_level, 6),
         "cssInteriorLinearLuminanceMean": None if css_level is None else round(css_level, 6),
         "interiorLevelRatioGpuOverCss": None if ratio is None else round(ratio, 6),
@@ -131,8 +134,11 @@ def main():
                         "Log 2, X1).",
         "adoptedRowShapeForReference": ADOPTED_SHAPE,
         "definitions": {
-            "crossTierOklabDeltaEMean": "mean OKLab distance over the whole canvas — exactly "
-                                        "cli/measure.ts:591's definition for the adopted row",
+            "crossTierOklabDeltaEMeanWholeCanvas": "mean OKLab distance over the whole canvas — "
+                                                   "exactly cli/measure.ts:591's definition for "
+                                                   "the adopted row. Written once per arm pair "
+                                                   "because it has no mask: it is not a reading "
+                                                   "of the declared footprint or of the overlay.",
             "interiorLevelRatioGpuOverCss": "GPU over CSS mean linear luminance on the DECLARED "
                                             "interior, eroded 6 CSS px, visible union. NOT the "
                                             "adopted row's mask, which is the silhouette "
@@ -162,10 +168,20 @@ def main():
                         entry["pairs"][f"{gpu_arm} / {css_arm}"] = {
                             "note": "one of the two arms was not captured"}
                         continue
-                    pair = {"why": why,
-                            "declaredFootprint": pair_reading(gpu_path, css_path, surfaces, whole)}
+                    gpu_lum, gpu_lab = g0.image(gpu_path)[1:]
+                    css_lum, css_lab = g0.image(css_path)[1:]
+                    if gpu_lum.shape != css_lum.shape:
+                        entry["pairs"][f"{gpu_arm} / {css_arm}"] = {
+                            "error": f"different sizes: {gpu_lum.shape} against {css_lum.shape}"}
+                        continue
+                    pair = {
+                        "why": why,
+                        "crossTierOklabDeltaEMeanWholeCanvas":
+                            round(whole_canvas_delta_e(gpu_lab, css_lab), 6),
+                        "declaredFootprint": region_reading(gpu_lum, css_lum, surfaces, whole),
+                    }
                     if overlay:
-                        pair["stackOverlay"] = pair_reading(gpu_path, css_path, surfaces, overlay)
+                        pair["stackOverlay"] = region_reading(gpu_lum, css_lum, surfaces, overlay)
                     entry["pairs"][f"{gpu_arm} / {css_arm}"] = pair
                 cells.append(entry)
             schemes[scheme] = cells
@@ -175,19 +191,21 @@ def main():
 
     for phase, block in record["phases"].items():
         for scheme, cells in block["schemes"].items():
-            deltas, ratios = [], []
-            for cell in cells:
-                pair = cell["pairs"].get("unsampled-hint / css-hint", {}).get("declaredFootprint")
-                if not pair or "error" in pair:
+            for gpu_arm, css_arm, _ in PAIRS:
+                deltas, ratios = [], []
+                for cell in cells:
+                    pair = cell["pairs"].get(f"{gpu_arm} / {css_arm}", {})
+                    footprint = pair.get("declaredFootprint")
+                    if not footprint:
+                        continue
+                    deltas.append(pair["crossTierOklabDeltaEMeanWholeCanvas"])
+                    if footprint["interiorLevelRatioGpuOverCss"] is not None:
+                        ratios.append(footprint["interiorLevelRatioGpuOverCss"])
+                if not deltas or not ratios:
                     continue
-                deltas.append(pair["crossTierOklabDeltaEMean"])
-                if pair["interiorLevelRatioGpuOverCss"] is not None:
-                    ratios.append(pair["interiorLevelRatioGpuOverCss"])
-            if not deltas:
-                continue
-            print(f"{phase:9s} {scheme:5s} hinted page, {len(deltas)} cells: "
-                  f"cross-tier ΔE {min(deltas):.4f}–{max(deltas):.4f}, "
-                  f"GPU/CSS interior ratio {min(ratios):.4f}–{max(ratios):.4f}")
+                print(f"{phase:9s} {scheme:5s} {gpu_arm:17s} {len(deltas):2d} cells: "
+                      f"cross-tier ΔE {min(deltas):.4f}–{max(deltas):.4f}, "
+                      f"GPU/CSS interior ratio {min(ratios):.4f}–{max(ratios):.4f}")
     print(f"\nwrote {args.out}")
 
 

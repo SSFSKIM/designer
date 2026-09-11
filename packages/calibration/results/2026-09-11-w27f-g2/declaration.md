@@ -174,6 +174,38 @@ The bound this gate would adopt is **Clause A ∧ Clause B**: the envelope is th
 measured position is adoptable at all, and the pin is the requirement that the landing head is
 actually at that position.
 
+---
+
+**Note written after the read (2026-09-12, in review of the landing).** Everything above this line
+is the declaration as committed before any capture ran and is not edited. What the read and an
+independent review of it showed the declared text to mean, recorded here rather than by changing
+it:
+
+1. **Clause A is subsumed by Clause B on all nine rows, not weak on one.** The paragraph above
+   names dark checker as the single weak row. Compare the two clauses row by row and Clause B's pin
+   is strictly tighter than Clause A's cap on *every* one of the nine: 0.004662 against 0.007735,
+   0.008403 against 0.014542, 0.001665 against 0.068899, 0.009126 against 0.019478, 0.007358
+   against 0.020194, 0.024862 against 0.036440, 0.013059 against 0.016702, 0.002975 against
+   0.004159, 0.004204 against 0.005874. B ⟹ A, so S1 cannot fire without S2 having fired first, and
+   the conjunction's operative half is Clause B alone. This is not a defect in the declaration's
+   reasoning; it follows from the fact that Uh's recorded position is already better than both
+   textured-base composites on every metric of every cell. Clause A's rationale stands and is why
+   the pinned position is adoptable at all rather than merely reproducible — but it does no
+   stopping work, and on dark checker the cell is *frozen at its regressed value* by Clause B, not
+   bounded by anything.
+2. **Clause B pins eighteen readings, not twelve.** Two arms (S1 and Uh) × three metrics × the
+   three cells with a native fixture is eighteen. `verdict.py` evaluates eighteen pins and §2's
+   table above prints eighteen; "twelve" here and in §6's S2 is an arithmetic slip in the prose,
+   not in the clause.
+3. **The non-vacuity example in the paragraph above cites the wrong arm.** 0.176938 is the rim
+   error of the unhinted arm U0 *at the landing head*, not of the pre-G1 page: it is
+   |0.111642 − (−0.065296)|. The genuine pre-G1 U0, in `2026-09-10-w27f-g0-unsampled.json`, has rim
+   +0.058576 on light checker, an error of 0.053065, which **passes** the 0.068899 bound. Pre-G1 U0
+   does fail Clause A on that cell's other two metrics — ΔE 0.008603 against 0.007735 and luminance
+   0.020019 against 0.014542 — and the 0.029009 dark checker luminance figure is U0's at the
+   landing head. The clause is not vacuous; the attribution was wrong. Claims §5.135 §1 carries the
+   corrected list with each figure's arm and head named.
+
 ## 5. The regressions §5.131 §6 records, confronted
 
 Two are named in §5.131 §6's prose, and both are in the **dark checker** cell. (The dispatch brief
@@ -221,6 +253,10 @@ cell, or reinterpret the envelope.
   reports a diagnostic.
 - **S5 — the route.** Any DOM arm resolves to something other than `webgpu` / `css-backdrop` /
   `approximate` / `analysis: none`, or the WebGPU adapter reports `isFallbackAdapter: true`.
+
+**Note written after the read (2026-09-12).** S2's "twelve readings" is eighteen, for the reason
+§4's note gives; the clause itself is unchanged, and nothing in it was decided by the count. S4 as
+worded above was tripped by the read and is **not** resolved by this gate — see claims §5.135 §6.
 
 ## 7. What will be read, and what is recorded but not bounded
 

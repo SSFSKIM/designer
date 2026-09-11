@@ -109,6 +109,16 @@ GEOMETRY = PACKAGE / "scripts/declared-geometry.ts"
 G0_READ = PACKAGE / "results/2026-09-10-w27f-g0-read.py"
 G0_EVIDENCE = PACKAGE / "results/2026-09-10-w27f-g0-unsampled.json"
 
+# Who this runner is, stamped into every reading it writes. It is a constant
+# because it is the one thing a copied runner must change and the easiest thing
+# to miss: this copy inherited `2026-09-10` / `W27f G1` from the file it was
+# copied out of, so `stack-reading.json` and `ordinary-reading.json` — this
+# gate's own evidence — open by naming the gate that did not take them. Those two
+# files are left as they were written and the misattribution is disclosed in
+# claims §5.135 §9; from here the stamp travels with the runner.
+GATE_DATE = "2026-09-11"
+GATE = "W27f G2"
+
 _spec = importlib.util.spec_from_file_location("w27f_g0", G0_READ)
 g0 = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(g0)
@@ -1210,8 +1220,8 @@ def read(args):
     check_one_configuration({name: record for name, record in captured["schemes"].items()
                              if name in args.schemes})
     document = {
-        "date": "2026-09-10",
-        "gate": "W27f G1",
+        "date": GATE_DATE,
+        "gate": GATE,
         "phase": phase,
         "captureRoot": str(phase_dir(out, phase).resolve()),
         "comparePhase": args.compare_phase,
