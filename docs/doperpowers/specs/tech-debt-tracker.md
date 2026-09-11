@@ -2007,3 +2007,45 @@ material dominates and the max does real work. Retiring the constant means core'
 taking the padding as an input from the platform that resolved it — core is pure and cannot import
 the derivation — with `DEFAULT_GROUP_SAMPLING` kept only as the value a host without a resolved
 policy is checked against. A W27b-scale change; not chartered.
+
+## `interiorMeanBackdrop` is not a backdrop level on a sparse high-contrast backdrop (W27e G0, 2026-09-11)
+
+The canonical matrix's `material.interiorMeanBackdrop` is the backdrop's mean over the **extracted
+native silhouette** (`cli/measure.ts`, `const interior = nativeSil`), not over the declared region.
+`src/report.ts` already documents what the luminance-delta extractor does over a high-contrast
+backdrop — it "necessarily loses any part of the material whose level coincides with the
+backdrop's" — but the consequence for this *backdrop* figure was not written anywhere, and it is
+larger than the holes warning suggests. On `impulse__capsule-button__rest` the surviving population
+is 71 pixels weighted to the bright impulses: the cell records **0.112676** where the same fixture
+over the declared capsule region reads **0.003284**, a miss of 0.109392, and the recorded
+`interiorStdDevBackdrop` 0.316196 is exactly `√(p(1−p))` at `p = 8/71`, which is how the population
+size is recoverable at all. Every other dumped scene agrees with the declared region to 4.6e-5
+(29 of 30 checked), so this is one cell, not a systematic bias — which is what makes it dangerous:
+it reads plausibly. W27e G0 would have reported the vibrancy operator's selector as non-monotone in
+backdrop luminance had it taken this figure; `packages/calibration/scripts/vibrancy.ts` reads the
+fixture over the declared region instead and records both matrix statistics beside it.
+
+Shape of the fix: report the backdrop level over the **declared** region rather than the extracted
+silhouette (the declared region is already computed for `componentRegionArea`), and keep the
+silhouette-scoped figure beside it under a name that says which population it has, plus the
+population size so a reader can see 71 without reverse-engineering a Bernoulli standard deviation.
+Recorded numbers stay as they are: the corrected reading goes beside them, never over them.
+
+## The backdrop-root probe fails on an ancestor opacity that costs sampling nothing (W27e G0, 2026-09-11)
+
+Measured in the W27e G0 composite probe
+(`packages/calibration/results/2026-09-11-w27e-g0-vibrancy/composite-probe/`, cases
+`q3--body--opacity` and `q3--body--filter`). With `opacity: 0.99` or `filter: blur(0px)` on
+`document.body`, the runtime reports `probe: "fail"`, the diagnostic `backdrop-root-broken` and
+`demotion: "probe-failed"` — while the material measures **unaffected**: 230,226,223 sd 3.58 against
+a baseline of 232,228,225 sd 3.58, the difference being exactly the 0.99 dimming. The same
+declarations on the *glass root* do break it, and there the diagnostic is right.
+
+The rule the pixels support is narrower than the one the probe applies: an ancestor's backdrop root
+costs sampling only when the content the proxy needs ends up outside it. `body` contains the page,
+so nothing is lost; the glass root does not, so everything is. A page that sets an animation-time
+`opacity` on `body` therefore loses the WebGPU tier for no optical reason. Shape of the fix:
+condition the probe's verdict on whether the new backdrop root contains the sampled content rather
+than on a root existing above the proxy — the probe already paints and reads its own patch, so the
+discriminating case is one more sample outside the root. Contract X6 is unchanged by this: a sub-1
+opacity on the host or on the root still kills sampling, and that was re-measured here.

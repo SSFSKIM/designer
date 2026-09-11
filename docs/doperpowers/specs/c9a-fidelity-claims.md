@@ -16978,3 +16978,249 @@ Three findings the verifier refuted as declared design are recorded rather than 
 group's proxy σ, now named beside the sampling bounds in §4; host presence always being built
 on `DEFAULT_MOTION_PROFILE`, in §6 above and in both READMEs; and the CSS tint-table cache's
 32-entry bound, in `specs/tech-debt-tracker.md` beside the morph's 1e-3 arrival tolerance.
+
+### 5.133 W27e G0: Apple's vibrancy operator read from the committed dumps — two operators, one law, and not one of them on a label (2026-09-11)
+
+**A read of committed evidence, not a measurement of pixels.** Executes W27's §Design ("the
+foreground: an operator on vitrea's own controls, a token elsewhere"), child W27e G0 and Decision
+Log 12, under X1, X2, X4 and X9. Nothing was captured, no constant was fitted, and no golden,
+canonical matrix, material profile or fixture moved. Evidence:
+`packages/calibration/results/2026-09-11-w27e-g0-vibrancy/` — `table.json` (the whole record),
+`table.md` (the same table rendered) and `reading.md` (the prose reading, which carries the
+per-axis working this section summarises). The reader is
+`packages/calibration/scripts/vibrancy.ts`, reproducible to a scratch directory through `W27E_OUT`
+and byte-identical on re-run; `packages/calibration/test/vibrancy.test.ts` pins how much of the
+corpus it read.
+
+**1. Scope, and the first correction.** The five committed layer-dump trees hold **57 dumps, not
+58**. The wave's 58 is the count of files matching `vibrantColorMatrix`, which includes
+`results/2026-09-03-w12-lens/g1/g1-layer-dump.md`, the W12 report that quotes one. All 57 dumps
+carry at least one matrix; three carry two (`photo__glass-over-glass__rest` has two independent
+surfaces, and each tinted capsule adds the tint's branch), so 57 + 3 = **60 occurrences in 4
+distinct matrices**. The recorded "58 layer dumps" in the wave's Surprises is left standing beside this
+reading rather than rewritten.
+
+**2. Where the filter is, and where it is not.** 58 of the 60 occurrences sit on the surface's own
+highlight layer — the `CASDFLayer` named `@2` (`@3` when a tint inserts a branch) whose effect is
+`CASDFKeyFillHighlightEffect` — with `inputBackdropAware` unset and `inputClamp` 1. The other 2 sit
+on the author tint's `CASDFGradientEffect` layer with `inputBackdropAware` 1 and no clamp.
+`inputClampPreserveHue` is declared on all 60 and set on none. **No occurrence is on a content
+layer, because the corpus contains none**: the reference harness renders `Color.clear` inside every
+`glassEffect` by an explicit rule in `apps/reference-apple/Sources/SceneViews.swift` ("No text
+inside the glass"), and the corpus's whole class inventory is the eight backdrop/SDF/portal
+classes. **The committed dumps therefore do not contain a label's vibrancy operator.** They contain
+the operator Apple installs on the material's own highlight, and the one it installs on the tint.
+
+**3. What the matrices do, exactly.** A `CAColorMatrix` is four rows of five columns. Every one of
+the four factors through Rec.709 luma as `out = m·c + g ⊙ Y(c) + b`, alpha untouched (identity row,
+zero column), with a worst reproduction residual of **2.49e-4** over all twenty coefficients of the
+worst matrix and 9e-10 on the two tints. The two highlight operators are achromatic in `g` and `b`;
+writing `a = m + g` for the gain on an achromatic input's level:
+
+| operator | n | `m` chroma gain | `a` level gain | `b` offset | black → | mid grey → | white → |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| default | 56 | 1.5000 | 0.1000 | 0.9000 | 0.900 | 0.950 | 1.000 |
+| dark-glass | 2 | 3.0000 | 1.3500 | 0.1500 | 0.150 | 0.825 | 1.500 → clamp 1 |
+
+So the operator is **an affine level map on luminance plus a saturation about that level** — not a
+desaturation, and not a contrast stretch about mid grey. The default operator compresses the whole
+input range into `[0.9, 1.0]`, a 10× crush toward white, and multiplies chroma by 1.5; the
+dark-glass operator expands it to `[0.15, 1.5]`, a 1.35× stretch with a 0.15 lift, and multiplies
+chroma by 3.0, with its own `inputClamp` = 1 catching the white end. Both are the identity on pure
+white (the second after its clamp), so the operator acts only on what the key/fill effect emits
+*below* white. The two author-tint matrices are a different thing wearing the same filter class:
+`m` = 0 to 1e-5, so no identity part at all and the whole output is `g_i·Y + b_i`, a rank-one
+colorize landing exactly on systemBlue and systemOrange at `Y` = 1 (W12 §5's reading, now in the
+unified form). **The distinct-operator count for the foreground is 2, not the grounding's 4.**
+
+**4. What selects between them.** **Backdrop tone and span jointly — neither alone.** Interaction
+state (the one `pressed` dump), author tint (orange and blue capsules), corner radius (14…22) and
+aspect (44×44 against 120×44) all leave the operator at its default. Two occurrences out of 58 carry
+the dark-glass operator: `dark-solid__capsule-button__rest` and `impulse__capsule-button__rest`,
+both span 44. **Tone alone is refuted** by `dark-solid__rrect-md__rest`, which sits at the *same
+backdrop and the same tone* (0.011711) as a switching cell at span 96 and does not switch; **span
+alone is refuted** by the whole 32…160 span range over every backdrop lighter than mid-dark-solid,
+which never switches. `mid-dark-solid` at span 44 does not switch either. So the threshold W27e G1
+declares must be on a joint form in tone and span, and a threshold on tone alone is already
+falsified by the corpus.
+
+The selector is not a threshold on backdrop luminance as such, and **which backdrop reading is used
+decides whether it even looks monotone**. The table's tone is the committed background fixture's
+mean linear luminance over the *declared* component region, read with the harness's own
+`decodePng` / `componentRegion` / `interiorLevel`, because neither statistic the matrix carries is
+that quantity: `shadow.backdropMeanLuminance` is the exterior level, and
+`material.interiorMeanBackdrop` is taken over the *extracted native silhouette*
+(`cli/measure.ts`, `const interior = nativeSil`), which `src/report.ts` documents as losing "any
+part of the material whose level coincides with the backdrop's". Over an impulse train that leaves
+71 pixels weighted to the bright ones — the cell's own `interiorStdDevBackdrop` 0.316196 is exactly
+`√(p(1−p))` at `p = 8/71` — and the impulse capsule reads **0.112676** where its declared region is
+**0.003284**. Measured across the corpus, the interior axis reproduces the declared-region reading
+to within **4.6e-5 on 29 of the 30** occurrences that have a matrix cell and misses by **0.109392**
+on exactly one: the impulse capsule, which is the cell the selector turns on. On the fixture
+reading, **vitrea's own fitted texture-collapse predicate separates all 58 occurrences
+completely**: `backdropToneAdaptation(tone, sizeThickness(span))` at the shipped profile is
+**exactly 1.0** on the two dark-glass cells and **at most 0.007705** on the other 56 — a margin of
+0.9923, with the size dependence falling out of the predicate's own `+ 0.05·sizeThickness` argument
+rather than needing a second rule. Apple's configuration says the same thing in its own numbers:
+the two switching cells are exactly the two where the body's `inputFaceColorMatrixFillColor` flips
+from white to black, `inputFaceColorMatrixBlack` sits on its floor of 0.1 and
+`inputShadowColorMatrixFillColor` becomes `nil`. **The vibrancy operator switches with the glass,
+not beside it** — which is what `backdropToneAdaptation`'s own doc comment already anticipated
+("the foreground decision has to be taken against the material the surface actually shows").
+
+This is agreement, not confirmation, and a **second joint law fits the same 58 rows exactly**:
+Apple's own `tracksLuma` is 1 for every span ≤ 64 in the corpus and 0 for every span ≥ 72, so
+"`tracksLuma` = 1 **and** tone below a threshold in (0.011711, 0.059511]" classifies every
+occurrence identically. The two models differ only in where between spans 44 and 96 the switch
+crosses at a dark backdrop, and the corpus holds no cell there. Two positive examples also cannot
+distinguish a step from the two ends of a continuum. The bracket is a statement about the joint
+argument, not about tone: at span 44 (`sizeThickness` 0.09229, a bias of 0.004614) the switch lies
+in `tone + 0.05·sizeThickness(span) ∈ (0.016325, 0.064125]`, which at that one span reads
+`tone ∈ (0.011711, 0.059511]`, and vitrea's fitted `[0.02, 0.055]` smoothstep falls inside it.
+
+**5. The tier composite question, settled in Chromium.** Evidence: `.../composite-probe/` —
+`results.json` with the resolved `GlassGroupState` and adapter report for every case, the page and
+driver beside it, one PNG per case. Real Chromium (`channel: "chromium"`), Apple metal-3,
+`isFallbackAdapter: false`, 1000 × 760 at dpr 1, port 5231 (verified free, `strictPort`,
+worktree-local server — the tracker's shared-port entry), scene built through
+`platform-web/e2e/fixtures/harness.ts` so the DOM under test is the shipped plane sandwich; every
+reading is a compositor screenshot, never a canvas readback. The instrument is a **pair** of blend
+identities on one spot, because either alone is degenerate against a near-white material: white
+under `multiply` gives `M = (1−α) + α·C`, black under `plus-lighter` gives `P = α·C`, so
+`α = 1 + P − M` and `C = P/α` — colour *and* alpha in code values, over a hard 24 px checkerboard
+page ground that identifies itself by variance (sd ≈ 112).
+
+**Which buffer: the material's composite, on both tiers. The page never enters it.** Mounted on
+`document.body` the pair reads the raw page (α 0.996, C 128,144,96, sd 112); mounted at the glass
+root, the plane root, the host layer or inside the host it never sees the page again. The isolation
+boundary is vitrea's own **glass root**, which `ROOT_STYLE` makes a stacking context
+(`position: fixed; z-index: 1000`), and a stacking context is an isolated group for blending. On
+`gpu-texture` the label reads **α 1.000, C 197,201,230**, byte-equal to the bare material beside it,
+and a 50 % grey `multiply` reads 99,101,115 = 0.502 × [197,201,230] exactly — so the optics canvas
+*is* in the label's group. On the CSS tier `css-tier.ts`'s `isolation: isolate` on the host is a
+second, tighter boundary, isolated as a variable on `gpu-dom`: adding it to the host drives the
+label's blend to α 0 while leaving the canvas untouched. §Design's advisory tier note is therefore
+right about the mechanism on both tiers and wrong about the consequence on the WebGPU tier — the
+root's buffer is not the page, it is the material.
+
+**The catch that dominates it: a `mix-blend-mode` inside the host collapses `backdrop-filter`
+sampling for a group whose proxy lives outside that element's subtree.** Against the bare-material band: with no
+declaration 232,228,225 sd 3.58 (css) and 213,222,195 sd 12.59 (gpu-dom); with
+`filter: url(#vib-default)` on the label, unchanged to the code on both; with
+`background-blend-mode`, unchanged; with `mix-blend-mode: multiply`, **215,220,205 sd 35** on both.
+The collapsed picture is a flat white veil at α 0.686 over the raw page, which the arithmetic
+closes: 0.686 × 255 + 0.314 × 132.5 = 216.6 against 215, and sd 0.314 × 112 = 35.2 against 35.0.
+Causal and reversible — removing the element restores the material byte-identically on the same
+page. Blending forces the enclosing group to isolate and a render-surface boundary above a
+`backdrop-filter` re-roots it; a `filter` on the label is safe because a filter re-roots only its
+own descendants and the tier's material layers are the label's siblings. `gpu-texture` is immune
+(197,201,230 in every row). **Every case builds exactly one group**, so the reach that is *measured*
+is cross-subtree — the blend in the host layer collapses the sibling `backdrop-proxy` layer's
+sampling under the same plane root; "every group under the glass root" follows from the mechanism
+and is an extrapolation, listed among the probe's limits below. Above the label: host `opacity: 0.99`, host `filter: blur(0px)`, host
+`mix-blend-mode`, glass-root `opacity` and glass-root `filter` all collapse — X6 confirmed — while
+host `isolation: isolate` is byte-identical to baseline (capture digest `61578937…`, the baseline's
+own) and host `contain: paint` does not collapse but is not byte-identical: digest `805be1c5…`,
+231.87, 227.69, 224.95 sd 3.59 against baseline 231.88, 227.69, 224.98 sd 3.58 — a hundredth of a
+code, a paint-containment rounding difference rather than a sampling one. One row sharpens
+X6: the same `opacity: 0.99` on `document.body` does **not** collapse (230,226,223 sd 3.58, just the
+dimming), because an ancestor's backdrop root costs sampling only when the content the proxy needs
+ends up outside it, and `body` contains the page while the glass root does not.
+
+**The operator is exactly expressible as a CSS `filter`.** `filter: url(#m)` with an
+`feColorMatrix` and `color-interpolation-filters: sRGB` reproduces the `CAColorMatrix` to the code
+value on both operators and on every colour tried — default on black 230,230,230, on `#ff3b30`
+255,178,162, on `#0a84ff` 84,255,255; dark-glass on black 38,38,38, on `#ff3b30` 255,50,17, on
+`#0a84ff` 0,245,255 (−0.4761 before the clamp) — a 0.0 difference against hand computation in every
+opaque case. Clamping is plain `[0, 1]` on the encoded channel after the matrix, which is what
+`inputClamp` = 1 does, and alpha is non-premultiplied with the identity row, which is what
+antialiased glyph edges need (50 %-alpha black under the default operator over black reads 115 =
+round(0.9 × 0.5 × 255)). **`color-interpolation-filters: sRGB` is load-bearing**: the SVG default is
+`linearRGB` and the same twenty numbers there are a different operator. Measured alternatives:
+`backdrop-filter: url(#m)` works but has the wrong semantics and forms a Backdrop Root;
+`mix-blend-mode` cannot express a per-channel affine map with luma coupling at all;
+`background-blend-mode` is safe and creates no stacking context.
+
+**So, per tier, for G2:** the colour transform is a `filter` with `feColorMatrix` on both tiers. The
+compositing half **must not be `mix-blend-mode` on a `css-backdrop` group** — the CSS tier and the
+WebGPU tier over a DOM proxy, between them almost every real surface; there the darkening is folded
+into the ink in closed form on the CPU, which both tiers can do because both already compute the
+composite the ink sits on, or carried by `background-blend-mode` inside the label. The composite is
+not optional: the operator alone at source-over renders a 230 grey on a 232 material. On a
+`gpu-texture` group the literal Apple pipeline works and is exact — filter then
+`mix-blend-mode: multiply` reads 178,181,207 against a material of 197,201,230, and
+0.902 × [197,201,230] = [177.7, 181.3, 207.5]. **Limits:** one engine and one machine, since Gecko
+and WebKit render `backdrop-filter` as a no-op in every automatable capture path; flat slabs rather
+than glyphs; one group per case, so the blend's blast radius beyond its own group's proxy is
+extrapolated rather than read, and a two-group page would settle it; and whether a CSS-tier label's blend group would contain L1's *filtered* output is
+unanswerable in principle, because any blend inside the host kills L1 and L2 so the two states never
+coexist.
+
+**6. What G0 could not settle.** Scheme, backing scale and accessibility are **fully confounded**:
+57 of 57 dumps are light, 1x, standard accessibility, key window, 8 s settle, so nothing here can
+say whether the dark scheme carries a third operator or whether Increased Contrast moves one.
+Whether the switch is a step or a continuum, and where its threshold lies inside the bracket above,
+is unresolved. Which backdrop statistic Apple's own `tracksLuma` reads is unresolved, and the two
+recorded levels disagree about it on exactly the scene that matters. What the key/fill effect emits
+before the operator acts is unreadable from configuration, so the operator's visible amplitude is
+unknown from the dumps alone. And, above all, **the label question is not confounded but absent**.
+
+**7. The declared partition for G1, and the holdout that has to be captured.** G0 was chartered to
+tabulate every occurrence, so every matrix is now published and a holdout drawn from these dumps is
+spent by construction; it would also be powerless, since 58 occurrences carry 2 distinct values.
+The partition is therefore a **reading discipline**, recorded here so G1 is held to it, and it
+covers all 60 occurrences as 55 + 3 + 2: fit against the **55 highlight** occurrences that are not
+the three span-44 solid-backdrop cells, declare and freeze the selector, and only then read the
+**3 bracket cells** (`impulse__capsule-button__rest`, `dark-solid__capsule-button__rest`,
+`mid-dark-solid__capsule-button__rest`) once, against a bound declared before the read. The
+remaining **2 occurrences are the author-tint colorize matrices and are outside G1's scope
+altogether** — a different operator family on a different layer, already fitted as the tint pathway
+in W10 and W19; G1 neither fits nor validates against them. The real unspent check is a native run that does not exist: one
+`dump-layers` pass on macOS 26.5 covering a labelled scene, the dark scheme, 2x, a four-rung solid
+tone ladder between linear 0.004 and 0.060 at span 44, and the W12 span ladder re-pointed at
+`dark-solid`. `dump-layers` captures no pixels and writes nothing under `fixtures/` (its own doc
+comment says so), so a labelled **probe** scene does not breach the no-text fixture rule; it costs
+one optional label field on a `scenes-w27e-probe.json` and the branch in
+`SceneViews.componentBody` that renders it instead of `Color.clear`, never an edit to
+`scenes.json`. macOS 27 ships publicly on 2026-09-14, so that run is taken on 26.5 before then or
+keyed as `apple-macos-27.0-…` beside the frozen bed, never in place of it.
+
+**8. What G1 must fit.** The operator's *form* needs no fit — it is Apple's own coefficients, exact
+to 2.5e-4. What is left is (a) the selector, **declared on a joint form in tone and span** since a
+tone-only threshold is already falsified, with `backdropToneAdaptation` (margin 0.9923) and a
+`tracksLuma`-style span gate crossed with a tone threshold as the two standing candidates the
+corpus cannot separate, and a bound declared before the bracket is read; (b) the endpoints' pixel
+meaning, from
+evidence already in git: `dark-solid__capsule-button__rest` and `dark-solid__rrect-md__rest` are
+committed native fixtures over the same background that differ *in the operator* as well as in the
+size law, so any rim-tone difference beyond the size law's prediction is the operator's signature
+and its absence would say the highlight is too near white for the operator to act; (c) whether a
+label carries this operator at all, which needs §7's run; (d) X4 — the four published token names
+keep their names and change only their derivation; and (e) X9 — how the operator scales with
+presence.
+
+**9. X8 — what is not measured.** All 57 dumps are at full presence and the one interaction-state
+dump carries the same operator as its rest twin, so the operator is not a function of interaction
+state and **nothing in Apple's committed configuration bears on presence at all**. X9's requirement
+— that the operator scale with presence and reach the app's own colour at 0 — therefore has no
+reference and is vitrea's own design decision, recorded here rather than claimed as fidelity. The
+author tint does not enter the highlight operator (both tinted capsules carry the default), so
+whatever W27e publishes for a tinted control's label cannot cite Apple for it. §3.3's statement
+that the foreground is not a contrast calculation stands unchanged at this gate; W27e G3 owns it.
+
+**10. Verification record.** Independently reviewed against `fcff5ea`: the census was reproduced
+from the raw dumps, and the machinery, the decompositions, the bracket, the composite probe's
+isolation of `mix-blend-mode` and the `interiorMeanBackdrop` finding all held — no number moved.
+Six wording defects were corrected in place before this declaration landed, the first of which G1
+would have built on wrongly. **The selector was recorded as "the backdrop, and only the backdrop"
+and is backdrop tone and span *jointly*** — `dark-solid` switches at span 44 and not at span 96 at
+one tone, so a tone-only threshold is falsified by the corpus and §4 and §8 now require the joint
+form (and name the `tracksLuma`-gated alternative that fits the same rows). The others: three dumps
+carry two occurrences, not four (57 + 3 = 60); host `contain: paint` does not collapse sampling but
+is *not* byte-identical to baseline, and its digest and reading are recorded rather than the claim
+of identity; the blend's reach beyond its own group's proxy is an extrapolation, since every probe
+case builds one group, and is now listed among the probe's limits; the separation margin is 0.9923,
+not 0.997; and the declared partition now covers all 60 occurrences as 55 + 3 + 2 with the two tint
+matrices explicitly outside G1's scope. `pnpm --filter @vitrea/calibration test` 356/356 and lint
+clean after the pass; no prior gate's numbers, no recorded reading and no product code were
+touched.

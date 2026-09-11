@@ -314,7 +314,30 @@ into the ledger rather than chartered.
 - **Design inheritance:** §Where each feature lives (operator on own controls, token elsewhere)
   [binding]; the layer-dump path over pixels (binding — the no-text fixture rule stands).
 - **Required:** yes — acceptance 1, 2.
-- **Status:** not-dispatched (deliberately late; see Ordering).
+- **Status:** G0 CLOSED 2026-09-11 (claims §5.133). The corpus is 57 dumps and 60 occurrences in 4
+  distinct matrices, and the reading changes the gate's premise: **58 occurrences are on the
+  surface's own highlight layer and 2 on the author tint's gradient layer; none is on a label**,
+  because the reference harness renders `Color.clear` inside every `glassEffect` by rule. The
+  foreground operators number **2**, not the grounding's 4 (the other two matrices are the tint's
+  backdrop-aware colorize). Both factor exactly as `out = m·c + g·Y(c) + b` on Rec.709 luma —
+  an affine level map plus a saturation — at (m 1.5, a 0.1, b 0.9) and (m 3.0, a 1.35, b 0.15).
+  The selector is backdrop tone and span **jointly** — neither alone: the same dark-solid backdrop
+  switches at span 44 and does not at span 96, and no span switches over a lighter backdrop — and
+  the switch is binary. `backdropToneAdaptation(tone, sizeThickness(span))` at the
+  shipped profile reads exactly 1.0 on the two switching cells and ≤ 0.0077 on the other 56, and
+  Apple's own face fill flips white→black on exactly those two. The tier composite question is
+  settled in real Chromium: on **both** tiers a blended label composes against the material's
+  composite and never the page, because vitrea's glass root is a stacking context — but a
+  `mix-blend-mode` inside the host collapses `backdrop-filter` sampling for a group whose proxy is
+  outside that element's subtree (one group per probe case, so the "every group under the root"
+  universal is an extrapolation), so on a `css-backdrop` group the operator's darkening has to be
+  folded into the ink on the CPU, while on a `gpu-texture` group Apple's literal pipeline works and
+  is exact. The colour
+  transform itself is exactly a CSS `filter: url(#m)` with `feColorMatrix` and
+  `color-interpolation-filters: sRGB`, reproduced to the code value on both operators. G1's premise
+  moves with all this: the operator's form needs no fit, the selector does, and whether a *label*
+  carries this operator at all needs one `dump-layers` run on a labelled probe scene — which
+  breaches no fixture rule, because a dump captures no pixels. G1 is not dispatched at this gate.
 
 ### W27f: The material over page content — controlled
 
@@ -460,7 +483,7 @@ neighbour glow diffusion; topology-changing morphs.
 | W27b | worktree agent, dispatched 2026-09-10 after W27a's merge; 14 commits `bc14af9..b59a585`; merged `38d782c` | CLOSED 2026-09-10 (one `role="toolbar"`, N groups; `GlassToolbarSpacer` and `sharedBackground="hidden"` as one partition rule; the gap derived through `samplingPaddingFor` over every group the toolbar registers, not the row's own props; the playground's hand split rewritten on the API; goldens and the resting bed unmoved. Review: two defects fixed before the head — the gap read only the toolbar's own material, then the first fix folded the toolbar's props in as a floor — final head reviewed correct. At the head: 2028 unit tests, platform-web 388, react e2e 114 on three engines, demo e2e 48) |
 | W27c | G0 CLOSED 2026-09-10 (merged `7312fd0`; claims §5.128: all 121 pairs read; the outer shadow and the bright rim go to zero in every profile at both scales, structure retained falls, an author tint loses its hue entirely while its darkening stays — orange and blue capsules both settle at Y 0.451 against the untinted 0.606 — and no existing field expresses that; dark untinted glass and both accessibility bodies *brighten*; four cells background-identical; the 2x dark photo capsule's active side is the 1-of-17 minority state and is excluded from the fit) / G1 declared 2026-09-10, claims §5.130: scheme-indexed endpoint, two identity-default tint fields, 121 recovered fixtures, corrected 62-cell fit and 16-cell validation, one 30-cell holdout spent; all four review findings fixed | G1 LANDED (merged `f8c38a2` after the parent's review; holdout residuals explicit, no inactive floors adopted). G2 and G3 HELD by the user (Decision Log 12): the spent holdout's mean is seven to eight times the calibration mean on the standard profiles, so a measurement gate, G1b, precedes any runtime hook |
 | W27d | worktree agent, `bc14af9..31988e6` with main integrated at landing; merged `108b40d`; claims §5.132 with its verification record | CLOSED 2026-09-11 (`present` on `GlassSurface` and on the host entry drives `materialization` through the kernel's existing monotonic driver to both tiers; exactly 0 is `Glass.identity` and leaves the renderer's drawing set, the proxy's painted shape and the root's painted-tone forecast; `GlassMorph transition="materialize"` is two endpoints on their own boxes and planes with only the content crossfading; Reduced Motion steps presence on both tiers. Review: a six-lane panel plus a binding verifier against the frozen head — ten findings confirmed and fixed with fail-before tests (one P1: focus lost on a materialize close), two more of the same shape found while fixing them and fixed, three refuted as declared design and recorded instead (proxy σ in §5.132 §4; host presence on `DEFAULT_MOTION_PROFILE` in §5.132 §6, both READMEs and the Deferred list; the tint-table cache bound and the morph's arrival tolerance in the tracker). At the head: goldens 34/34 and GPU e2e 21/21 with nothing re-recorded, platform-web chromium e2e 158/158, react e2e 128 on three engines, demo e2e 48/48, 2 160 unit tests, build and lint clean) |
-| W27e | G0 dispatched 2026-09-11, first after the 0.16.0 release (Decision Log 12) | in-flight: G0, the 58 committed dumps' operators tabulated and the tier composite question settled. Design inheritance stands as written; X9 names what the operator must do with presence |
+| W27e | G0 dispatched 2026-09-11, first after the 0.16.0 release (Decision Log 12); worktree agent, claims §5.133, evidence `packages/calibration/results/2026-09-11-w27e-g0-vibrancy/` | G0 CLOSED 2026-09-11: 57 dumps (not 58), 60 occurrences, 4 distinct matrices — **2** foreground operators on the surface's highlight layer plus 2 author-tint colorize matrices, and **no occurrence on a label**, the harness having rendered no text inside the glass by rule. Both foreground operators factor exactly through Rec.709 luma as an affine level map plus a saturation (m 1.5 / a 0.1 / b 0.9 and m 3.0 / a 1.35 / b 0.15, residual ≤ 2.5e-4). The selector is backdrop tone and span jointly, neither alone (the same dark backdrop switches at span 44 and not at span 96), so G1's threshold must be declared on a joint form; `backdropToneAdaptation(tone, sizeThickness(span))` at the shipped profile separates the two operators by 0.9923, a `tracksLuma`-gated rule fits the same 58 rows equally well, and Apple's own face fill flips white→black on exactly the two switching cells. Composite, settled in real Chromium (`composite-probe/`): on both tiers a blended label composes against the material, never the page, because the glass root isolates — but a `mix-blend-mode` inside the host collapses `backdrop-filter` sampling for a group whose proxy is outside that element's subtree (measured on one group per case; the "every group under the root" universal is an extrapolation), so only a `gpu-texture` group can run Apple's literal pipeline; the colour transform is exactly a CSS `feColorMatrix` at `color-interpolation-filters: sRGB`. G1 is not dispatched: its premise moved, and the one capture that would close the label question is named in §5.133 §7 |
 | W27f | G0 CLOSED 2026-09-10 (merged `730a9d3`; claims §5.129: the unhinted dark capsule misses the collapse by ΔE 0.545 against the sampled path's 0.006, a correct scalar hint repairs it but the dark medium pane still misses by 0.079 (−0.089 L against the same-hint sampled path), the checkerboard rows lose spread and the photo rows keep too much; a scalar hint itself costs the sampled path its structured-backdrop correction, so the evidence keeps sampled-today, same-hint-sampled and hinted-page columns apart; the two stack overlays are the only native cells on this path; the demo gains `/#page`, "Over ordinary page content") / G1 CLOSED on isolated branch 2026-09-10 (claims §5.131: profile-at-known-tone derivation, scalar CPU/GPU law proof, unchanged sampled-source draws; 20 ordinary scenes plus both stacks in light/dark, full holdout spent at `1fff5e6`; thick-body repair with unknown-tone paint, structured spread/colour and dark-overlay regressions retained) | G1 LANDED (merged `6ae37c1`); G2 is next after W27e G0 (Decision Log 12); no bound adopted |
 
 ## Decision Log
@@ -575,6 +598,14 @@ neighbour glow diffusion; topology-changing morphs.
 - **Apple's vibrancy operator has been in the repository since W12**, unread: a `vibrantColorMatrix`
   `CAFilter` on every glass `CASDFLayer` in 58 layer dumps, four distinct matrices, the high-gain
   variant on the small dark-solid capsule and not on the medium rrect over the same backdrop.
+  *Corrected by W27e G0 (2026-09-11, claims §5.133), the reading left standing beside it per the
+  repo's rule about recorded numbers:* the trees hold **57** dumps (the 58th file is W12's own
+  report, which quotes a matrix); the four distinct matrices are **two operators of one kind and
+  two of another** — 58 occurrences on the surface's highlight layer in 2 distinct operators, and
+  2 on the author tint's gradient layer, which is a colorize rather than a variant of the
+  foreground operator; the high-gain variant appears on the `impulse` capsule as well as the
+  `dark-solid` one; and **no occurrence is on a label**, because the harness renders no text inside
+  the glass by rule.
 - **Three published behaviours did not exist:** the group tint (changelog 0.2.0), the tinted button
   (prop allow-list), and any interaction reaching the GPU tier's lens (clamped at 1 since the
   channel landed; only `disabled: 0.5` moved the renderer).
@@ -651,6 +682,19 @@ linear/encoded means and local pixels, not a fabricated interpretation of `hint.
 G1 records every per-scene miss; G2 alone adopts a native stack bound and re-reads the demo.
 
 ## Revision Notes
+
+- 2026-09-11, **W27e G0 closed, and the child's premise moved.** The 58 committed dumps are 57,
+  and the "four distinct matrices" the grounding found are two operators of one kind and two of
+  another. More consequentially, none of them is on a label: the reference harness renders
+  `Color.clear` inside every `glassEffect`, so the corpus holds the operator Apple installs on the
+  *material's own highlight* and the one it installs on the *tint*, and says nothing about what it
+  installs on an app's text. §Design's "the operator is fitted to Apple's `vibrantColorMatrix` as
+  read from the committed layer dumps" therefore cannot be executed as written from this corpus
+  alone; the sentence is left standing and claims §5.133 §7 names the one run that closes it — a
+  `dump-layers` pass on a labelled probe scene, which breaches no fixture rule because a dump
+  captures no pixels and writes nothing under `fixtures/`. Whether to take that run on 26.5 before
+  macOS 27 ships on 2026-09-14, and whether G1 should proceed to fit the highlight operator's
+  selector in the meantime, is the user's call; G1 was not dispatched at this gate.
 
 - 2026-09-11 (**the 0.16.0 cut record**, the session that ran W24–W26, by agreement with the
   session that owns W27): the user's `pnpm release` on `ad4266d`, tag `v0.16.0`. Registry: web
