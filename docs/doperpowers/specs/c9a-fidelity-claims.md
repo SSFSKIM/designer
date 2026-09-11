@@ -17568,10 +17568,17 @@ re-measured at this head* because the material that produced it is gone from the
 rows. Its reason is the wave's own claim: a stack's overlay resolves `css-backdrop` in *every*
 configuration, so the only thing the page path changes for it is the pixels underneath; if a DOM
 base costs the overlay more than the two textured-base configurations already differ from Apple,
-the page path is not carrying the material. The clause is not vacuous — the pre-G1 unhinted page
-fails it by 0.176938 against a 0.068899 rim bound on light checker and by 0.029009 against 0.004159
-on dark checker luminance, and the pre-G1 *hinted* page fails it on light checker luminance at
-0.037758 against 0.014542.
+the page path is not carrying the material. The clause is not vacuous, and each failing figure is
+named here with the arm and the head it comes from, because the first draft of this section
+attributed one of them to the wrong arm. **Pre-G1, at W27f G0's head**
+(`2026-09-10-w27f-g0-unsampled.json`, light profile): the *unhinted* page overlay fails light
+checker on ΔE, **0.008603 against 0.007735**, and on luminance, **0.020019 against 0.014542** — its
+rim error there, 0.053065, passes — and the *hinted* page overlay fails the same cell's luminance
+at **0.037758 against 0.014542** (its ΔE, 0.015833, fails too). **At this head**, the unhinted arm
+U0, which §2 of the declaration puts outside the bound because it is an information limit rather
+than a coefficient error, fails much wider: **0.029009 against 0.004159** on dark checker luminance,
+and **0.176938 against 0.068899** on light checker rim, that last because U0's rim excess inverts to
+−0.065296 where Apple's is +0.111642.
 
 **Clause B** pins all twelve S1 and Uh readings at §5.131 §6's recorded magnitudes: no overlay
 reading may be worse than the ledger records. Clause A is weak on exactly one row — dark checker,
@@ -17684,11 +17691,26 @@ Cross-tier ΔE is the comparable statistic, and it stays inside the adopted row'
 of the 44 cells, the worst being 0.0368 on light `checkerboard__rrect-ml__rest`.
 
 The interior ratio is the gate's own statistic, and read within itself it carries the finding: the
-two tiers diverge **much further in the dark scheme than in the light**, and the divergence is
-concentrated where the backdrop has structure. Every light cell sits between 0.8467 and 1.1106;
-the dark cells reach **0.6211** hinted and **0.5214** unhinted, both on
-`checkerboard__toolbar-group__rest`, and six of the 20 ordinary dark cells plus the dark checker
-stack (0.7897) sit below 0.8 — all of them checkerboard backgrounds. The 0.8–1.25 figures quoted
+two tiers diverge **much further in the dark scheme than in the light** — every light cell,
+ordinary or stack, sits between 0.8467 and 1.1106, while the dark cells reach 0.5214 — and the two
+arms disagree about *where* the divergence lives, which is the part worth keeping.
+
+**With a hint it tracks backdrop structure.** Five of the 20 ordinary dark cells sit below 0.8,
+plus the dark checker stack at 0.7897, and every one of them is a checkerboard:
+`toolbar-group` **0.6211**, `rrect-md` 0.6289, `rrect-sm` 0.6613, `capsule-button` 0.6722,
+`rrect-ml` 0.7776.
+
+**With no hint it does not.** Six ordinary dark cells sit below 0.8, and the deepest of them is on
+a *solid* backdrop: `light-solid__capsule-button__rest` at **0.5214**, then
+`checkerboard__toolbar-group__rest` 0.5447, `light-solid__rrect-md__rest` 0.5482,
+`checkerboard__rrect-sm__rest` 0.5797, `checkerboard__capsule-button__rest` 0.5865,
+`checkerboard__rrect-md__rest` 0.6091 — two solids interleaved with four checkerboards, and the
+dark stacks both above 0.9. That is the unknown-tone case: with no hint neither tier knows the
+backdrop's level, the two guess differently, and the resulting gap is an information limit
+surfacing as a tier gap rather than a structure effect. The hinted arm's concentration on
+structured backdrops is a statement about the hinted arm only, and is not extended to the other.
+
+The 0.8–1.25 figures quoted
 above are the adopted row's band and are shown for shape only; **they are not applied**, both
 because X1 makes the CSS tier a record rather than a target on this path, and because the band is
 not stated over this mask. What is being recorded is the size and the shape of a gap nobody had
@@ -17696,8 +17718,15 @@ measured on DOM-sourced groups, not a verdict against a threshold.
 
 **8. What landed, and what the adoption is worth.** The bound is adopted in
 `packages/calibration/test/adopted-thresholds.test.ts` as *the stack overlay bound (W27f G2)*, six
-assertions over the committed `verdict.json`, each verified to fail when the reading it checks is
-perturbed. Its limits are stated in the file and repeated here because they matter:
+assertions over the committed `verdict.json`. The three that carry the bound — Clause A, Clause B
+and the reproduction — compare the reading's own arithmetic against the declared magnitude
+(`errorToNative` against the envelope's endpoint and against §5.131 §6's pin, `read` against
+`recorded`), and each was verified to fail on a `verdict.json` whose reading was perturbed while
+the runner's `holds` booleans were left exactly as written. Those booleans are asserted beside the
+arithmetic, so a runner that disagreed with its own inputs would fail too. This is recorded because
+the first form of the block asserted only the booleans: it could not have failed on any perturbed
+reading, and the sentence claiming otherwise was false for one commit. Its limits are stated in the
+file and repeated here because they matter:
 
 * **It is not a `GateRow` over `matrix.json`, and cannot be.** The matrix carries no overlay-local
   metric. A stack cell's footprint is the union of both placed shapes and every perceptual, shape

@@ -2334,13 +2334,17 @@ describe("the probe set is captured, and gated by nothing (W25 Decision Log 3 (e
  *
  * **What this therefore is, stated plainly.** It is weaker than a matrix floor.
  * A matrix floor fails when a re-capture moves a number; this fails when the
- * committed reading no longer satisfies the bound the ledger says it satisfies.
- * It catches the ledger and the evidence drifting apart — which W27c G1b found
- * three instances of (claims §5.134) — and it does not catch a material change
- * on its own, because nothing regenerates this reading in CI. What would make it
- * a real floor is per-surface metrics in the matrix schema, so a stack cell's
- * overlay carries adopted rows like any other cell; that is named as the work in
- * claims §5.135 and is not done here.
+ * committed reading's own arithmetic no longer satisfies the bound the ledger
+ * says it satisfies. Each clause below is asserted twice over: once on the
+ * measured error against the declared bound, which is what makes a perturbed
+ * reading fail, and once on the boolean the runner wrote, which is what catches
+ * the runner disagreeing with its own inputs. It catches the ledger and the
+ * evidence drifting apart — which W27c G1b found three instances of (claims
+ * §5.134) — and it does not catch a material change on its own, because nothing
+ * regenerates this reading in CI. What would make it a real floor is per-surface
+ * metrics in the matrix schema, so a stack cell's overlay carries adopted rows
+ * like any other cell; that is named as the work in claims §5.135 and is not
+ * done here.
  *
  * The dark `photo__glass-over-glass__rest` cell is absent from the table on
  * purpose: `apple-macos-26.5-1x-dark-standard` has no such fixture, so the cell
@@ -2400,33 +2404,55 @@ describe("the stack overlay bound (W27f G2, claims §5.135)", () => {
     // The envelope's endpoints are S0 (the old textured-base composite, which
     // the runtime can no longer produce) and S1 (the same base under the landed
     // material), kept apart and never averaged. The bound is the upper endpoint.
+    // The comparison is made here rather than read off `holds`, so that a
+    // reading which drifts out of the envelope fails this test even if the
+    // runner's own verdict still says it passed.
     for (const cell of REFEREED) {
       const uh = cell.arms["uh"];
       expect(uh, `${cell.scheme} / ${cell.stack} has no hinted DOM arm`).toBeDefined();
       for (const metric of METRICS) {
         const clause = uh?.clauseA?.[metric];
         expect(clause, `${cell.scheme} / ${cell.stack} :: ${metric}`).toBeDefined();
+        const error = uh?.errorToNative?.[metric];
         expect(
-          clause?.holds,
+          error,
+          `${cell.scheme} / ${cell.stack} :: ${metric} has no measured error to native`,
+        ).toBeTypeOf("number");
+        expect(
+          error as number,
           `${cell.scheme} / ${cell.stack} :: ${metric} left the envelope at ${clause?.bound}`,
-        ).toBe(true);
+        ).toBeLessThanOrEqual(clause?.bound as number);
+        expect(clause?.holds, `${cell.scheme} / ${cell.stack} :: ${metric}`).toBe(true);
       }
     }
   });
 
   it("holds clause B: no overlay reading is worse than claims §5.131 §6 recorded", () => {
+    // Eighteen pins: two arms × three metrics × the three cells with a native
+    // fixture. Each is the measured error against the magnitude claims §5.131 §6
+    // recorded for the same configuration and metric, compared here rather than
+    // taken on trust from the runner's boolean.
+    let pinned = 0;
     for (const cell of REFEREED) {
       for (const which of ["s1", "uh"]) {
         for (const metric of METRICS) {
           const pin = cell.arms[which]?.clauseB?.[metric];
           expect(pin, `${cell.scheme} / ${cell.stack} / ${which} :: ${metric}`).toBeDefined();
+          const error = cell.arms[which]?.errorToNative?.[metric];
           expect(
-            pin?.holds,
+            error,
+            `${cell.scheme} / ${cell.stack} / ${which} :: ${metric} has no measured error`,
+          ).toBeTypeOf("number");
+          expect(
+            error as number,
             `${cell.scheme} / ${cell.stack} / ${which} :: ${metric} widened past ${pin?.pin}`,
-          ).toBe(true);
+          ).toBeLessThanOrEqual(pin?.pin as number);
+          expect(pin?.holds, `${cell.scheme} / ${cell.stack} / ${which} :: ${metric}`).toBe(true);
+          pinned += 1;
         }
       }
     }
+    expect(pinned).toBe(18);
   });
 
   it("records that the read reproduced the ledger exactly, rather than merely passing", () => {
@@ -2434,10 +2460,21 @@ describe("the stack overlay bound (W27f G2, claims §5.135)", () => {
     // new would mean the material moved and happened to stay in range; every one
     // of these reproduced claims §5.131 §6 to the printed precision, which is
     // why the landing head could be certified as the configuration G1 measured.
+    // The equality is asserted on the readings themselves, so that a reading
+    // which moves fails here whatever `reproducesRecord` was written as.
     for (const cell of REFEREED) {
       for (const which of ["s1", "uh"]) {
+        const arm = cell.arms[which];
+        for (const metric of METRICS) {
+          const recorded = arm?.recorded?.[metric];
+          if (recorded === undefined || recorded === null) continue;
+          expect(
+            arm?.read?.[metric],
+            `${cell.scheme} / ${cell.stack} / ${which} :: ${metric} left §5.131 §6's value`,
+          ).toBe(recorded);
+        }
         expect(
-          cell.arms[which]?.reproducesRecord,
+          arm?.reproducesRecord,
           `${cell.scheme} / ${cell.stack} / ${which} did not reproduce §5.131 §6`,
         ).toBe(true);
       }
