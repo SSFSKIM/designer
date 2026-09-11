@@ -592,6 +592,22 @@ neighbour glow diffusion; topology-changing morphs.
     fit later (the runtime would publish a pose whose fidelity claim the ledger limits to where
     it was fitted); W27f G2 before vibrancy (a landing gate and a bound, worth less than the
     absent row).
+13. **The 26.5 run before the capture machine updates: the labelled vibrancy probe and the
+    inactive checking bed at the probe bar; `mid-chroma-solid` added; the hold stays on every
+    profile (2026-09-11; user-decided on the parent's recommendation).** macOS 27 ships
+    2026-09-14 and an updated capture machine can never produce 26.5 evidence again. Two gates
+    converged on one run: W27e G0 found no label operator in the committed dumps (§5.133) and
+    needs a `dump-layers` pass on a labelled probe scene — minutes, no pixels, no fixture; W27c
+    G1b (§5.134) specified an unspent checking bed that needs an inactive-capture path the
+    harness does not have, 4.4–8.5 h at the probe bar or 11–21 h at the freeze bar. The user
+    takes both at the probe bar, which answers "does the fit hold" and can unblock G2, and not
+    the freeze bar, so no inactive floor is adopted from this run (G3 stays a later gate). The
+    one new background the bed proposed is added, as `mid-dark-solid` was in W7. The hold on
+    W27c G2/G3 is kept as the declared bound reads it — on every profile, including light
+    standard, where one cell family fails the single-cell cap — because a bound is not
+    re-interpreted after it is declared. Rejected: the probe alone (leaves W27c held on evidence
+    it cannot improve); neither (loses the 26.5 endpoint's check for good); dark-only or
+    accessibility-only unblocking (relaxes a declared clause to ship a pose).
 
 ## Surprises & Discoveries
 
@@ -697,6 +713,16 @@ linear/encoded means and local pixels, not a fabricated interpretation of `hint.
 G1 records every per-scene miss; G2 alone adopts a native stack bound and re-reads the demo.
 
 ## Revision Notes
+
+- 2026-09-11, **the 26.5 run decided (Decision Log 13); two gates merged.** W27e G0 landed at
+  `335249d` and W27c G1b at `2b47bda`, each after an independent review (six and eight findings,
+  all fixed before landing; the reviews are in §5.133 §10 and §5.134's verification record).
+  Both reviews confirmed the claims the decision turned on and refuted none. Dispatched the same
+  day: one worker on the Swift harness for the run's preparation — the inactive-capture path
+  with its `presentedActive` attestation, `mid-chroma-solid`, the labelled probe scene, the
+  reader for label layers and a runbook for the user's machine — and W27f G2 in parallel on
+  the web side. W27e G1 waits for the probe's label data; W27c G2 stays held until a
+  checking-bed read holds the declared bound.
 
 - 2026-09-11, **W27c G1b's analysis half closed, and three recorded figures it could not
   confirm.** Claims §5.134 and `packages/calibration/results/2026-09-11-w27c-g1b/`. The gate
