@@ -17577,7 +17577,11 @@ while leaving the flag stale.
 `presentation`: the declared and observed pose, `isKeyWindow` and `appIsActive` **separately**, the
 activation policy, `canBecomeKey`, the mechanism's name, and the moment it was read — sampled
 immediately before each cell's capture and before the settle loop, because the pose has to have held
-for the frames that produced the bytes. `presentedActive` is written **false** rather than left
+for the frames that produced the bytes — **and re-read at the moment `presentedActive` is sampled**,
+which the settle loop puts up to ten seconds later. Both readings must hold or the cell is refused;
+without the second, a pose lost inside that window would be written as `presentedActive: true`
+beside an attestation saying `inactive`, and caught only at the next cell, after this one was
+filed. `presentedActive` is written **false** rather than left
 absent. The predicate is `!isKeyWindow && !NSApp.isActive` and deliberately **not** `!isActivelyPresented`,
 whose negation would also admit a key window in an inactive application. An inactive id is written
 only when it holds; otherwise the run fails before the capture, with nothing published. The active
@@ -17585,8 +17589,10 @@ path's behaviour on the same question — record it, add a run caveat — is unc
 whole active bed's provenance is compared against it.
 
 **The active path is behaviour-identical, proved rather than asserted.** `manifest-doctor` decodes
-the committed manifest with today's types, re-encodes and diffs: across all **455** entries **no
-value changed and no field was added**, so a nil `presentation` encodes to nothing. A one-scene
+the committed manifest with today's types, re-encodes and diffs **parsed values**: across all
+**455** entries **no field was lost and no value changed**, so a nil `presentation` encodes to
+nothing. It is not a byte comparison of the two encodings — key order and number formatting are
+normalised away by the parse — and the subcommand now says so where it prints its verdict. A one-scene
 active dry run presents `active`; the plain no-flag run refuses inactive ids exactly as before.
 
 **3. What `manifest-doctor` also found, and the guard it forced.** The round trip **drops four
@@ -17649,11 +17655,17 @@ while vitrea's own `backdropToneAdaptation` reads exactly **1.0** and Apple's `t
 **1** on both; and in dark, `light-solid__capsule-button__rest` carries the high-gain operator where
 the predicate reads **0**.
 
-**This is a refutation, not a replacement.** G0's corpus is 1x-only and this run is 2x-only, so
-scale and scheme are confounded in the light comparison and **whether the 1x/2x difference is the
-scale cannot be settled from here**. What is settled: neither candidate law is the whole selector,
-and W27e G1 would otherwise have been fitted on one of them. The run that closes it is two minutes
-of the same `dump-layers` pass at 1x, which the runbook schedules against the bed's 1x pass.
+**This is a refutation, not a replacement — and the axis it leaves open is the window pose, not
+only the scale.** All 57 G0 dumps record `isKeyWindow: true`; all 50 of these record
+`isKeyWindow: false`. In the light arm the scheme is constant, so what varies between the corpora is
+the backing scale **and the pose this wave exists to measure**. A reading in which §5.133's
+tone-and-span selector holds in the ACTIVE pose and the recede collapses the operator to one per
+scheme fits these rows exactly as well as a scale dependence, and nothing here separates them. What
+is settled: neither candidate law is the whole selector under every pose and scale, and W27e G1
+would otherwise have been fitted on one of them. The run that closes it is the same `dump-layers`
+pass at 1x **in both poses** — the active one is `dump-layers`' existing path and the recede is the
+same `.accessory` launch the capture uses, each dump recording its own `isKeyWindow` — which the
+runbook schedules against the bed's 1x pass.
 
 **6. The bed's run, declared before it is spent.** W27 Decision Log 13 takes it at the **probe bar**,
 seven runs, so **no inactive regression floor is adopted from it** and W27c G3 stays a later gate.
@@ -17666,8 +17678,13 @@ whole cube: **0.214096** against photo@1x's canvas mean **0.214065**, OKLab chro
 **318.7°**, which is 104° from systemOrange so the tinted cell separates transmitted backdrop chroma
 from a surviving author hue. Its two rasters are generated and every other background raster is
 proved byte-identical to what was committed. The bed is the 38 inactive ids and the 4 active ones
-`checking-bed.json` names, now all declared: **42 light + 38 dark = 80** cells on a standard pass at
-each scale, and **14** on each accessibility pass.
+`checking-bed.json` names, now all declared. §5.134 §5 sizes a standard pass at **80** per scale; that
+figure counts the four active cells inside it, and they are a separate pass here — a different pose
+and a different command — so an **inactive** standard pass is **38 light + 38 dark = 76** and the
+active pass is **4**, light only. Each accessibility pass is **14**. The bed is the same 42 ids
+either way, counted once rather than twice: **188 cells per full round**, which is what the machine
+time below is computed on and what the dry run presents. The declared 80 is left where it was
+written.
 
 *What would stop it.* The run is refused, per cell or per pass, on: macOS not being 26.5; a fixture
 root that already holds a manifest; a scene whose state the pass's pose cannot reproduce; a scene
@@ -17710,11 +17727,64 @@ not measured: Screen Recording is denied to this build, TCC is keyed per bundle 
 rebuild needs a fresh grant. The window is `occlusionState.visible` in the pose and the 121 recovered
 fixtures are SCK captures taken in exactly this configuration, so the inference is strong — but it is
 inference plus history, and the runbook makes `./capture.sh probe` the session's first step.
-**Whether the surface operator's 1x/2x difference is the scale** (§5) needs the 1x dump pass.
+**Whether the surface operator's difference across the two corpora is the scale or the window pose**
+(§5) needs the 1x dump pass taken in both poses; scale and pose are confounded across the corpora as
+they stand, and the pose is the axis W27c is about.
 And the activation transition's **timing** still has no reference of any kind; no bed of still
 captures can give it one.
 
-**Verification record.** `pnpm --filter @vitrea/calibration test` 371/371 (from 356: four
+**8. Review record, and two things the fixes found.** Independently reviewed at `9b38eaa`, which
+confirmed the capture path, the attestation, the pose predicate, the no-text locks, the rasters
+decoded from the PNGs, X3 on `scenes.json`, and reproduced the probe's 24/26, both label matrices,
+`inputBackdropAware: 1` and the one-operator-per-scheme surface reading from the raw dumps. It
+returned **eight defects**, all fixed in one pass, each with a proof that would have caught it.
+
+**The P0 is the one worth carrying forward.** Both inactive standard passes contain
+`mid-chroma-solid__capsule-button__inactive-tint-orange` and its untinted twin, and `attestTints()`
+runs the ACTIVE pose's RESPONSE rule — which the recede is measured to destroy. The run would have
+captured **every cell** and then refused the whole bundle at the end, the most expensive place a
+run can fail, with `DRY=1` unable to surface it because the check runs over an empty `byProfile`
+when nothing is recorded. Measured by `rehearse-tints`, which applies the real rule to bytes already
+on disk: over the committed bed, **19 inactive tinted cells across all six profiles** would refuse
+the run — `checkerboard__capsule-button__inactive-tint-orange` reads chroma 0.3978 against its
+twin's 0.0146 (response +0.3831, floor 1.0) where its active twin reads 115.5264 against 0.0133
+(+115.5131). The fix is the exemption `checking-bed.json`'s own `caution` asked for and
+`cli/gates.ts` already applies on the consumer side: the recede does not condemn on an attestation
+that asks an active-pose question. The numbers are still measured and recorded on every entry — they
+are evidence of the recede — only the refusal is withheld, and the pre-render half of the
+attestation still runs in both poses. `rehearse-tints --pose active` exits 8 on the same bytes that
+`--pose inactive` publishes, which is the proof, permanently re-runnable.
+
+**A locked screen is now a refusal, and this is new.** Re-running `deactivate-probe` under the
+corrected launch policy produced a reading in which *every* arm, including the active pose, read
+`inactive` — because the session's screen was locked (`CGSSessionScreenIsLocked`). On a locked
+screen nothing can become active or key, so an active pass would capture the unfocused material
+under active ids; and an **inactive pass is worse**, because both halves of its attestation are
+false for the wrong reason and every cell would attest while the window server composites nothing
+the bed is about. The idle gate cannot catch it — a locked machine is maximally idle. `capture` now
+refuses outright in either pose; a `--dry-run` prints `WOULD REFUSE` and continues, because it
+captures nothing and this is the check a rehearsal most wants to report. **Consequence for the
+reading in §1:** `occlusionState.visible` reads **false** for the harness window while the screen is
+locked, where the first measurement (unlocked) read true, so that column is a property of the
+session rather than of the pose and the pose's own evidence is `isVisible` plus the recovered bed's
+own history. It also makes the unread SCK question (§7) sharper rather than softer.
+
+**The probe is now two passes, one per launch policy.** Arm A certifies "the policy was never
+`.regular`", and the first version launched `.regular` and flipped — structurally the recovery arm.
+Measured after the fix: a process launched `.accessory` **cannot be made `.regular` and active again**
+on this OS, so the contrast arms cannot share a launch with the adopted one. `--launch accessory`
+measures arm A; `--launch regular` measures the active pose and the two rejected candidates. The
+table in §1 stands: it was taken under the `.regular` launch, on an unlocked session, which is the
+configuration arms B–D belong to.
+
+The other four: a run that failed its attestation audit stayed banked under a name the script's own
+resume branch skips, so the documented recovery would have stepped over it and handed it to
+`materialize` — failed runs are now **quarantined** to a name carrying no `manifest.json`, and the
+audit's four real conditions are stated; the standard pass is **76** cells, not 80 (§6); the
+runbook's probe re-read command needed `W27E_OUT` against a create-only writer; and
+`manifest-doctor` printed BYTE-IDENTICAL for a parsed-value comparison.
+
+**Verification record.** `pnpm --filter @vitrea/calibration test` 372/372 (from 356: four
 scene-matrix pins moved to the invariants this change alters, four new checking-bed pins, eleven new
 probe pins) and lint green; the Swift package builds. Re-running the G0 reading reproduces
 `table.md` byte-for-byte and `table.json` with **no recorded value moved** — it differs only by

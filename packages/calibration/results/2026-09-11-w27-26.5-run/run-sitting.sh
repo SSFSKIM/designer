@@ -54,6 +54,18 @@ DRY_ARG=""
 POSE_ARG=""
 [ "$MODE" = "inactive" ] && POSE_ARG="--inactive"
 
+# The tint attestation is the LAST thing a run does, so a bundle that will fail it
+# fails after every cell is captured. It is decidable from bytes already on disk,
+# so it is decided here, once, before the pass starts — over the committed bed,
+# under the rule this pass's pose will apply.
+if [ "${DRY:-0}" != "1" ]; then
+  "$HARNESS" rehearse-tints --pose "$MODE" > "$T-rehearsal.out" 2>&1 || {
+    echo "REFUSED: the tint attestation would refuse a $MODE bundle. See $T-rehearsal.out" >&2
+    tail -6 "$T-rehearsal.out" >&2
+    exit 9
+  }
+fi
+
 mkdir -p "$T"
 echo "pass: $MODE ${SCALE}x runs $FIRST..$LAST  scenes=$(tr ',' '\n' <<<"$SCENES" | wc -l | tr -d ' ')  dry=${DRY:-0}"
 echo "sitting dir: $T"
@@ -82,7 +94,14 @@ for N in $(seq "$FIRST" "$LAST"); do
       --args capture ${POSE_ARG} ${DRY_ARG} \
       --run-label "w27-26.5-$MODE-${SCALE}x-$N" \
       --reset-interstitial 6 --min-idle-seconds 45 --scenes "$SCENES"
-    [ "${DRY:-0}" = "1" ] && { grep -c "dry-run" "$D.out" | sed 's/^/  cells presented: /'; break; }
+    if [ "${DRY:-0}" = "1" ]; then
+      # Anything the rehearsal REFUSED or would refuse goes to this terminal, not
+      # into a log nobody opens. A rehearsal whose only visible output is a count
+      # is a rehearsal that cannot warn.
+      grep -E "WOULD REFUSE|^error:" "$D.out" "$D.err" 2>/dev/null | sed 's/^/  /'
+      grep -c "dry-run" "$D.out" | sed 's/^/  cells presented: /'
+      break
+    fi
     if [ -f "$D/manifest.json" ]; then echo "run $N: complete $(date -u +%H:%M:%SZ)"; break; fi
     if grep -q -i "idle" "$D.err" "$D.out" 2>/dev/null; then
       echo "run $N attempt $A: refused for idle — leave the machine alone"; sleep 90; continue
@@ -92,10 +111,14 @@ for N in $(seq "$FIRST" "$LAST"); do
   [ "${DRY:-0}" = "1" ] && continue
   [ -f "$D/manifest.json" ] || { echo "run $N: gave up"; exit 4; }
 
-  # The attestation audit, per run. For an inactive pass `presentedActive` is
-  # FALSE on every cell by design, so the active bed's audit line would read this
-  # bed as a total failure; what is checked instead is the inversion claims
-  # §5.134 §5 asks for — the pose observed, and both halves of it false.
+  # The attestation audit, per run. It requires FOUR things of every cell, not
+  # only the pose: `deterministic` (the settle loop converged), `materialRendered`
+  # (the capture path can see Liquid Glass at all), and — for an inactive pass —
+  # `presentedActive: false` plus a `presentation` block whose `observedPose` is
+  # `inactive` with `isKeyWindow` and `appIsActive` both false. For an inactive
+  # pass `presentedActive` is false on every cell BY DESIGN, so the active bed's
+  # audit line would score a correct inactive bed at zero; this is the inversion
+  # claims §5.134 §5 asks for.
   ATTESTED=$(MODE="$MODE" python3 -c '
 import json, os, sys
 m = json.load(open(sys.argv[1]))
@@ -112,8 +135,18 @@ print(f"{len(ok)} {len(f)}")' "$D/manifest.json")
   echo "run $MODE-${SCALE}x-$N: attested $ATTESTED"
   set -- $ATTESTED
   if [ "$1" -lt "$2" ]; then
-    echo "STOPPING: run $N attested $1 of $2. A cell that did not attest its pose is not"
-    echo "evidence; report the session state rather than spending the remaining runs."
+    # QUARANTINE, not just stop. The run's manifest.json is already on disk, and
+    # the resume branch above skips any run that has one — so leaving a failed run
+    # in place would make the documented recovery ("re-run the same command") step
+    # silently OVER it and hand it to `materialize` as banked evidence. Renaming
+    # the directory is what makes the failure survive the recovery.
+    Q="$T/$MODE-${SCALE}x/QUARANTINE-run-$N-$(date -u +%Y%m%dT%H%M%SZ)"
+    mv "$D" "$Q"
+    echo "STOPPING: run $N attested $1 of $2 — it is not evidence."
+    echo "Quarantined to $Q (no manifest.json under the run name, so re-running this"
+    echo "pass re-takes run $N rather than stepping over it). Keep it: what failed to"
+    echo "attest is the finding. Report the session state rather than spending the"
+    echo "remaining runs."
     exit 6
   fi
 done

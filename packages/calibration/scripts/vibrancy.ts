@@ -61,8 +61,14 @@ export const DUMP_DIRS = [
  * corpus and not a sixth G0 tree: G0's reading is published evidence about the five
  * trees above, and this run answers the question that reading could not reach —
  * whether Apple installs a vibrancy operator on a label at all — under a different
- * configuration (both schemes, 2x, the inactive window pose). Merging the two would
- * confound the two readings and silently move a recorded count.
+ * configuration. Merging the two would confound the readings and silently move a
+ * recorded count.
+ *
+ * THREE axes differ between the corpora and every cross-corpus statement has to
+ * carry all of them: colour scheme (G0 is light-only), backing scale (G0 is 1x,
+ * this is 2x) and the WINDOW POSE — all 57 G0 dumps record `isKeyWindow: true`
+ * and all 50 of these record `isKeyWindow: false`. The pose is the variable this
+ * wave exists to measure, so it is never the one to leave out of a comparison.
  */
 export const PROBE_DUMP_DIRS = [
   "packages/calibration/results/2026-09-11-w27e-probe/light",

@@ -341,11 +341,12 @@ describe("W27c G1b's checking bed, declared before the capture (claims §5.134 �
     }
   });
 
-  it("sizes the standard pass at the 80 cells the cost model was computed on", () => {
-    // claims §5.134 §5 costs the run at 80 fixtures per standard pass per scale.
-    // That number is the profile declarations' own arithmetic — the light
-    // profiles are "all" so they carry the 4 active cells too — and if it drifts,
-    // the machine-time estimate the user approved drifts with it.
+  it("sizes the standard pass at the 76 inactive cells it captures, beside the 4 active ones", () => {
+    // claims §5.134 §5 sizes a standard pass at 80 per scale, counting the four
+    // active cells inside it. They are a separate pass — a different pose and a
+    // different command — so the INACTIVE pass is 38 + 38 = 76 and the active one
+    // is 4, which is what the dry run presents and what the machine-time estimate
+    // is computed on. Same 42 ids either way; counted once, not twice.
     const declared = (key: string): readonly string[] => {
       const profile = MATRIX.profiles.find((p) => p.key === key);
       if (!profile) throw new Error(`no profile ${key}`);
@@ -353,10 +354,20 @@ describe("W27c G1b's checking bed, declared before the capture (claims §5.134 �
     };
     const bed = new Set([...bedInactive, ...bedNewBackground]);
     const cells = (key: string): number => declared(key).filter((id) => bed.has(id)).length;
+    const inactiveBed = new Set(bedInactive);
+    const inactiveCells = (key: string): number =>
+      declared(key).filter((id) => inactiveBed.has(id)).length;
     for (const scale of ["1x", "2x"]) {
+      // What each profile declares of the whole bed, active cells included.
       expect(cells(`apple-macos-26.5-${scale}-light-standard`)).toBe(42);
       expect(cells(`apple-macos-26.5-${scale}-dark-standard`)).toBe(38);
+      // What an INACTIVE pass at that scale actually captures.
+      expect(inactiveCells(`apple-macos-26.5-${scale}-light-standard`)
+        + inactiveCells(`apple-macos-26.5-${scale}-dark-standard`)).toBe(76);
     }
+    // And the active pass, which the light profiles alone declare.
+    expect(cells(`apple-macos-26.5-1x-light-standard`)
+      - inactiveCells(`apple-macos-26.5-1x-light-standard`)).toBe(4);
     // The accessibility passes carry the 12-cell checking group plus the two
     // attestation cells those profiles already declared — 14, not the
     // specification's 12, and the extra two are free re-attestation.

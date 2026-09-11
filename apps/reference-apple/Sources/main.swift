@@ -205,6 +205,107 @@ func runProbe() {
   }
 }
 
+// MARK: - rehearse-tints
+
+/// Run the producer-side tint attestation over a fixture bundle that already
+/// exists, and report whether a run that produced it would have been refused.
+///
+/// The check `attestTints` performs is the last thing a capture run does and the
+/// most expensive place it can fail: every cell is captured, and then the bundle
+/// is thrown away. Whether it will pass is decidable from pixels that are already
+/// on disk, so it should never be discovered by spending a session — and it was:
+/// the inactive checking bed carries a tinted cell and its untinted twin, and the
+/// recede is measured to remove exactly the response the active pose's rule
+/// requires.
+///
+/// This rehearses that rule against a committed bundle with no window, no TCC and
+/// no capture. `--pose active` applies the rule as the active bed is held to;
+/// `--pose inactive` applies the exemption `TintResolver.attestationMayCondemn`
+/// makes. Running both over the recovered inactive fixtures is the proof that the
+/// exemption is load-bearing rather than decorative: the first refuses, the second
+/// publishes, on the same bytes.
+///
+/// `Capture.chromaShift` is called here exactly as a run calls it, so this is the
+/// same measurement and not a model of it.
+func runRehearseTints(pose: CapturePose) {
+  let spec = loadSpec()
+  let root = fixturesDir()
+  let scale = captureScale()
+  guard let data = try? Data(contentsOf: URL(fileURLWithPath: "\(root)/manifest.json")),
+        let manifest = try? JSONDecoder().decode(FixtureManifest.self, from: data) else {
+    fail("rehearse-tints: cannot read \(root)/manifest.json")
+  }
+  let stateById = Dictionary(uniqueKeysWithValues: spec.scenes.map { ($0.id, $0.state) })
+  let backgroundOf = Dictionary(uniqueKeysWithValues: spec.scenes.map { ($0.id, $0.background) })
+  // Which scenes DECLARE a tint, from the spec — not which entries recorded an
+  // attestation. The recovered inactive bed carries no `tint` field at all (it is
+  // 49/334 on the active side and 0/121 on the recovered one), so gating on the
+  // recorded field would skip exactly the cells this rehearsal exists to check.
+  // A real run attests every scene the spec declares a tint on, so that is the
+  // population to rehearse over.
+  let tintById = Dictionary(uniqueKeysWithValues:
+    spec.scenes.compactMap { scene in scene.tint.map { (scene.id, $0) } })
+  func untintedTwinId(of sceneId: String) -> String? {
+    let parts = sceneId.components(separatedBy: "__")
+    guard parts.count == 3, let marker = parts[2].range(of: "-tint-") else { return nil }
+    return "\(parts[0])__\(parts[1])__\(parts[2][..<marker.lowerBound])"
+  }
+
+  print("== rehearse-tints ==")
+  print("fixtures: \(root)")
+  print("pose:     \(pose.rawValue)  (the \(pose == .active ? "active bed's rule" : "recede's exemption"))")
+  print("floor:    \(TintResolver.chromaResponseFloor)")
+  print("")
+
+  var wouldRefuse: [String] = []
+  var checked = 0, exempt = 0
+  var cache: [String: CGImage] = [:]
+  func image(_ path: String) -> CGImage? {
+    if let hit = cache[path] { return hit }
+    guard let img = try? Backgrounds.readPNG(from: path) else { return nil }
+    cache[path] = img
+    return img
+  }
+
+  for profile in manifest.profiles.sorted(by: { $0.profileKey < $1.profileKey }) {
+    let ids = Set(profile.fixtures.map(\.sceneId))
+    for entry in profile.fixtures.sorted(by: { $0.sceneId < $1.sceneId }) {
+      guard tintById[entry.sceneId] != nil, let twinId = untintedTwinId(of: entry.sceneId),
+            ids.contains(twinId), let background = backgroundOf[entry.sceneId] else { continue }
+      let scaleToken = profile.display.actualBackingScale
+      guard let bg = image("\(root)/backgrounds/\(background)@\(Int(scaleToken))x.png"),
+            let tinted = image("\(root)/\(profile.profileKey)/\(entry.sceneId).png"),
+            let plain = image("\(root)/\(profile.profileKey)/\(twinId).png"),
+            let own = (try? Capture.chromaShift(tinted, background: bg)) ?? nil,
+            let twin = (try? Capture.chromaShift(plain, background: bg)) ?? nil else { continue }
+      checked += 1
+      let reached = TintResolver.colourReachedMaterial(own: own, untintedTwin: twin)
+      // The pose the rehearsal is run under decides which rule applies, so a
+      // bundle can be asked both questions. A run applies the scene's own state.
+      let condemns = pose == .active ? true
+        : TintResolver.attestationMayCondemn(state: stateById[entry.sceneId] ?? "rest")
+      if !condemns { exempt += 1 }
+      let verdict = reached ? "reached" : (condemns ? "REFUSES THE RUN" : "did not reach — exempt")
+      print(String(format: "  %@/%-52@ %9.4f vs twin %9.4f -> %+9.4f  %@",
+                   profile.profileKey, entry.sceneId as NSString, own, twin, own - twin, verdict))
+      if !reached && condemns { wouldRefuse.append("\(profile.profileKey)/\(entry.sceneId)") }
+    }
+  }
+
+  print("")
+  print("\(checked) tinted cells with an untinted twin; \(exempt) exempt by pose.")
+  if wouldRefuse.isEmpty {
+    print("This bundle PUBLISHES: no tinted cell condemns the run.")
+  } else {
+    print("This bundle is REFUSED — \(wouldRefuse.count) cell(s) would fail attestTints():")
+    for id in wouldRefuse { print("  \(id)") }
+    print("")
+    print("A capture run reaching this verdict has already captured every cell.")
+    exit(8)
+  }
+  _ = scale
+}
+
 // MARK: - manifest-doctor
 
 /// Decode the committed manifest with today's types, re-encode it, and report
@@ -281,7 +382,15 @@ func runManifestDoctor() {
     if !differs { identical += 1 }
   }
 
-  print("\n\(identical) of \(old.count) entries round-trip BYTE-IDENTICAL.")
+  // "Round-trips with no field lost and no value changed" — NOT byte-identity.
+  // The comparison is over parsed values, so key order and float formatting are
+  // normalised away by construction. That is the right comparison for the two
+  // questions this asks (did a schema change move an entry; what would a merge
+  // drop), and claiming more than it checks would be the same class of error it
+  // exists to catch.
+  print("\n\(identical) of \(old.count) entries round-trip with NO FIELD LOST AND NO VALUE")
+  print("CHANGED. Parsed values are compared, so key order and number formatting are")
+  print("normalised away; this is not a byte comparison of the two encodings.")
   if lostFields.isEmpty {
     print("No field is dropped: today's types describe everything in this file.")
   } else {
@@ -341,6 +450,15 @@ func runDeactivateProbe() {
   print("hardware: \(Environment.hardware().model), \(Environment.hardware().osVersion) " +
         "(\(Environment.hardware().osBuild))")
   print("launch activation policy: \(NSApp.activationPolicy() == .accessory ? "accessory" : "regular")")
+  let locked = Environment.screenIsLocked()
+  print("screen locked: \(locked.map(String.init(describing:)) ?? "unreadable")")
+  if locked != false {
+    print("")
+    print("NOTE: on a locked screen nothing can become active or key, so EVERY arm below")
+    print("reads `inactive` and the contrast arms measure nothing. `onscreen` (the window's")
+    print("occlusionState) also reads false while locked. Unlock the console session before")
+    print("believing any row here.")
+  }
   print("")
 
   /// One reading of the state the attestation is made of.
@@ -388,76 +506,86 @@ func runDeactivateProbe() {
       }
     }
 
-    // ARM A — the adopted mechanism, measured FIRST, from the state the process
-    // launched in. Order matters and cannot be recovered: once anything has
-    // activated this application, "what does an application that never activated
-    // look like" is no longer a question this run can ask.
-    let ok = NSApp.setActivationPolicy(.accessory)
-    await settle(0.6)
-    let inactive = Capture.makeWindow(canvas: canvas, keyCapable: false)
-    inactive.contentView = NSHostingView(rootView: view)
-    print("A. .accessory + !canBecomeKey + orderFrontRegardless, never activated  [ADOPTED]")
-    print("     setActivationPolicy(.accessory) -> \(ok)")
-    inactive.orderFrontRegardless()
-    await settle(1.2)
-    print(state("after orderFrontRegardless", inactive))
-    await settle(3.0)
-    print(state("3s later (does it hold?)", inactive))
-    print("     \(await shareable(inactive, arm: "inactive"))")
-    // The one call that could break it, asked for on purpose, because "cannot
-    // become key" has to be tested rather than quoted from a header.
-    inactive.makeKey()
-    await settle(0.8)
-    print(state("after an explicit makeKey()", inactive))
-    inactive.orderOut(nil)
-
-    // ARM B — the active pose, as every committed active fixture was taken. This
-    // is also what spoils the pristine state for everything after it.
-    _ = NSApp.setActivationPolicy(.regular)
-    let active = Capture.makeWindow(canvas: canvas)
-    active.contentView = NSHostingView(rootView: view)
-    Capture.present(active)
-    await settle(1.2)
-    print("B. present() under .regular  [the active pose, DL14's three changes]")
-    print(state("after present", active))
-    print("     \(await shareable(active, arm: "active"))")
-
-    // ARM C — NSApp.deactivate() from that state.
-    NSApp.deactivate()
-    await settle(1.2)
-    print("C. NSApp.deactivate()        [candidate: documented as 'do not normally call']")
-    print(state("after deactivate", active))
-    await settle(2.0)
-    print(state("2s later (does it hold?)", active))
-
-    // ARM D — activate another application, the candidate checking-bed.json names.
-    Capture.present(active)
-    await settle(0.8)
-    let other = NSWorkspace.shared.runningApplications.first {
-      $0.activationPolicy == .regular && $0.processIdentifier != ProcessInfo.processInfo.processIdentifier
-        && $0.bundleIdentifier != nil
-    }
-    if let other {
-      _ = other.activate(options: [])
-      await settle(1.5)
-      print("D. activate another app      [candidate: 'a second helper process', \(other.bundleIdentifier ?? "?")]")
-      print(state("after other.activate", active))
+    // Each arm is measured under the activation policy it describes, and a
+    // process has exactly one launch policy — so the probe runs twice. Under
+    // `.accessory` it measures the ADOPTED mechanism, which is defined by the
+    // policy never having been `.regular`; under `.regular` it measures the
+    // active pose and the two rejected candidates, which all start from it.
+    //
+    // Measured 2026-09-12, after a first version flipped the policy mid-run: a
+    // process launched `.accessory` cannot be made `.regular` and active again on
+    // this OS, so the contrast arms read `inactive` there and would have reported
+    // the active pose as the recede. An arm measured under the wrong launch
+    // configuration is worse than an arm not measured.
+    let launched = NSApp.activationPolicy()
+    if launched == .accessory {
+      let inactive = Capture.makeWindow(canvas: canvas, keyCapable: false)
+      inactive.contentView = NSHostingView(rootView: view)
+      print("A. .accessory + !canBecomeKey + orderFrontRegardless, never activated  [ADOPTED]")
+      print("     policy set before NSApplication.run, as `capture --inactive` sets it")
+      inactive.orderFrontRegardless()
+      await settle(1.2)
+      print(state("after orderFrontRegardless", inactive))
+      await settle(3.0)
+      print(state("3s later (does it hold?)", inactive))
+      print("     \(await shareable(inactive, arm: "inactive"))")
+      // The one call that could break it, asked for on purpose, because "cannot
+      // become key" has to be tested rather than quoted from a header.
+      inactive.makeKey()
+      await settle(0.8)
+      print(state("after an explicit makeKey()", inactive))
+      print("")
+      print("Arms B-E start from the active pose and need the other launch policy:")
+      print("  ./capture.sh deactivate-probe --launch regular")
     } else {
-      print("D. activate another app      — no other .regular application is running to activate")
-    }
-    active.orderOut(nil)
+      // ARM B — the active pose, as every committed active fixture was taken.
+      let active = Capture.makeWindow(canvas: canvas)
+      active.contentView = NSHostingView(rootView: view)
+      Capture.present(active)
+      await settle(1.2)
+      print("B. present() under .regular  [the active pose, DL14's three changes]")
+      print(state("after present", active))
+      print("     \(await shareable(active, arm: "active"))")
 
-    // ARM E — can the adopted mechanism RECOVER the pose after an activation?
-    // This is the case a mid-run mistake lands in, and the answer decides whether
-    // a session that was disturbed has to start over.
-    _ = NSApp.setActivationPolicy(.accessory)
-    await settle(1.5)
-    let again = Capture.makeWindow(canvas: canvas, keyCapable: false)
-    again.contentView = NSHostingView(rootView: view)
-    again.orderFrontRegardless()
-    await settle(2.0)
-    print("E. back to .accessory after an activation  [is the pose recoverable?]")
-    print(state("after re-entering accessory", again))
+      // ARM C — NSApp.deactivate() from that state.
+      NSApp.deactivate()
+      await settle(1.2)
+      print("C. NSApp.deactivate()        [candidate: documented as 'do not normally call']")
+      print(state("after deactivate", active))
+      await settle(2.0)
+      print(state("2s later (does it hold?)", active))
+
+      // ARM D — activate another application, the candidate checking-bed.json names.
+      Capture.present(active)
+      await settle(0.8)
+      let other = NSWorkspace.shared.runningApplications.first {
+        $0.activationPolicy == .regular
+          && $0.processIdentifier != ProcessInfo.processInfo.processIdentifier
+          && $0.bundleIdentifier != nil
+      }
+      if let other {
+        _ = other.activate(options: [])
+        await settle(1.5)
+        print("D. activate another app      [candidate: 'a second helper process', "
+              + "\(other.bundleIdentifier ?? "?")]")
+        print(state("after other.activate", active))
+      } else {
+        print("D. activate another app      — no other .regular application is running")
+      }
+      active.orderOut(nil)
+
+      // ARM E — can the pose be RECOVERED after an activation? This is the case a
+      // mid-run mistake lands in, and the answer decides whether a disturbed
+      // session has to start over.
+      _ = NSApp.setActivationPolicy(.accessory)
+      await settle(1.5)
+      let again = Capture.makeWindow(canvas: canvas, keyCapable: false)
+      again.contentView = NSHostingView(rootView: view)
+      again.orderFrontRegardless()
+      await settle(2.0)
+      print("E. back to .accessory after an activation  [is the pose recoverable?]")
+      print(state("after re-entering accessory", again))
+    }
 
     if let a = images["active"], let b = images["inactive"], let cmp = try? Capture.compare(a, b) {
       print("")
@@ -703,6 +831,35 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
   // The idle gate, before anything is rendered. A capture taken while somebody
   // is using the machine is not a measurement of the material, and on 2026-08-31
   // a chain ran through exactly that without anything in the record saying so.
+  // The lock gate, before the idle gate, because a locked machine passes the idle
+  // gate by definition. Both poses: an active run cannot become key on a locked
+  // screen, and an inactive run's attestation would pass for the wrong reason.
+  if Environment.screenIsLocked() != false && options.dryRun {
+    // A dry run captures nothing, so the gate is protecting nothing — and this is
+    // the check a session most wants to rehearse from wherever it happens to be.
+    // Said loudly rather than silently skipped, because "the real pass will refuse
+    // here" is the single most useful thing a rehearsal can tell you.
+    print("""
+      WOULD REFUSE: the login session's screen is LOCKED. A real pass stops here. \
+      Unlock the console session before the sitting; everything below is the \
+      rehearsal continuing because it captures nothing.
+      """)
+  } else if Environment.screenIsLocked() != false {
+    fail("""
+      the login session's screen is LOCKED\
+      \(Environment.screenIsLocked() == nil ? " (or the session could not be read, which is not the same as unlocked)" : "").
+
+      No application can become active and no window can become key on a locked \
+      screen, so an active run would capture the unfocused material under active \
+      ids — and an INACTIVE run is worse, because both halves of its attestation \
+      are false for the wrong reason and every cell would attest while the window \
+      server composites nothing the bed is about. The idle gate cannot catch this: \
+      a locked machine is maximally idle.
+
+      Unlock the console session, disable the screen saver and display sleep for \
+      the length of the sitting, and re-run. Nothing was captured.
+      """)
+  }
   let idleAtStart = Environment.hidIdleSeconds()
   let userActive = Environment.userIsActiveAsserted()
   if let bar = options.minIdleSeconds {
@@ -1217,6 +1374,14 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
   func attestTints() {
     var colourless: [String] = []
     var identicalPairs: [String] = []
+    // The declared state of a captured cell, read from the spec rather than
+    // re-derived from its id: the id's third segment carries the tint and the
+    // interaction as suffixes too, so parsing it here would be a second, weaker
+    // copy of a rule `SceneEntry` already holds.
+    let stateById = Dictionary(uniqueKeysWithValues: spec.scenes.map { ($0.id, $0.state) })
+    func mayCondemn(_ sceneId: String) -> Bool {
+      TintResolver.attestationMayCondemn(state: stateById[sceneId] ?? "rest")
+    }
 
     // Over a snapshot of the keys, not over the dictionary: the body mutates
     // `byProfile`, and iterating the collection being mutated is a subtlety this
@@ -1231,10 +1396,12 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
         guard let twinId = untintedTwinId(of: id),
               let twinChroma = chromaById[twinId] ?? nil,
               let own = entries[i].chromaShift else { continue }
-        let reached = (own - twinChroma) > TintResolver.chromaResponseFloor
+        let reached = TintResolver.colourReachedMaterial(own: own, untintedTwin: twinChroma)
         byProfile[profileKey]?[i].tint?.untintedTwinChromaShift = twinChroma
         byProfile[profileKey]?[i].tint?.colourReachedMaterial = reached
-        if !reached {
+        // Measured and recorded either way; only the refusal is withheld in the
+        // recede, where "the colour did not reach the material" is the finding.
+        if !reached && mayCondemn(id) {
           colourless.append(String(
             format: "%@/%@: chroma %.4f vs untinted twin %.4f (+%.4f, floor %.1f)",
             profileKey, id, own, twinChroma, own - twinChroma, TintResolver.chromaResponseFloor))
@@ -1252,6 +1419,11 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
         for a in members.indices {
           for b in (a + 1)..<members.count {
             guard members[a].tint?.tintId != members[b].tint?.tintId else { continue }
+            // The recede is where two seeds legitimately produce one picture, so
+            // a byte-identical pair there is the expected reading rather than a
+            // lost tint — the same exemption `gates.ts` makes on the consumer
+            // side. Skipped before the file read, because the read is the cost.
+            guard mayCondemn(members[a].sceneId), mayCondemn(members[b].sceneId) else { continue }
             // Read back what was actually written, so this compares the published
             // artefact rather than an in-memory value that could differ from it.
             guard let da = try? Data(contentsOf: URL(fileURLWithPath: "\(staging)/\(members[a].file)")),
@@ -1400,6 +1572,28 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
       catch { fail("writing \(file): \(error.localizedDescription)") }
 
       colorSpaceByProfile[profile.key] = (image.colorSpace?.name).map { $0 as String } ?? "sRGB"
+
+      // The pose, re-read HERE, at the moment `presentedActive` is sampled.
+      //
+      // `attestPose` runs before the dwell, because the pose has to have held for
+      // the frames that produced these bytes; but the settle loop is up to ten
+      // seconds long, and a pose lost inside that window would be written as
+      // `presentedActive: true` beside an attestation saying `inactive`, and
+      // refused only at the NEXT cell — after this one was already filed. The two
+      // readings bracket the capture, and a cell is written only if both hold.
+      if pose == .inactive, let w = window, !Capture.isInactivelyPresented(w) {
+        fail("""
+          scene '\(scene.id)': the inactive pose held when this cell was attested \
+          and was LOST before its bytes were recorded — the window is \
+          \(w.isKeyWindow ? "KEY" : "not key") and the application is \
+          \(NSApp.isActive ? "ACTIVE" : "not active") now.
+
+          The settle loop is seconds long and something activated this process \
+          inside it, so this cell's pixels are not all of one pose. Nothing was \
+          published; the fixtures and manifest under \(root) are unchanged. \
+          Re-run the pass and leave the machine alone while it runs.
+          """)
+      }
 
       // Measure how much the component actually contributed, rather than assuming
       // it contributed anything.
@@ -1585,11 +1779,30 @@ struct Harness {
       runGUI { runProbe() }
 
     case "deactivate-probe":
+      // `--launch` picks which half is measured; see runDeactivateProbe.
       // Measures the candidate deactivation mechanisms and reports what this
       // machine does with each. A window, no TCC-free promise (it asks
       // ScreenCaptureKit whether an inactive window is still capturable) and no
       // fixture directory: it writes nothing anywhere.
-      runGUI { runDeactivateProbe() }
+      //
+      // `.accessory` BEFORE `app.run()`, exactly as `capture --inactive` sets it.
+      // The adopted mechanism is "the policy was never `.regular`", so a probe
+      // that launched `.regular` and flipped afterwards would be measuring the
+      // recovery case (arm E) and reporting it as the adopted one.
+      let launch = value(of: "--launch", in: args) ?? "accessory"
+      guard launch == "accessory" || launch == "regular" else {
+        fail("--launch takes 'accessory' or 'regular', not '\(launch)'")
+      }
+      runGUI(policy: launch == "accessory" ? .accessory : .regular) { runDeactivateProbe() }
+
+    case "rehearse-tints":
+      // No window, no TCC, no capture: it reads a bundle that already exists and
+      // says whether a run that produced it would have been refused.
+      let rehearsalPose = value(of: "--pose", in: args) ?? "active"
+      guard let p = CapturePose(rawValue: rehearsalPose) else {
+        fail("--pose takes 'active' or 'inactive', not '\(rehearsalPose)'")
+      }
+      runRehearseTints(pose: p)
 
     case "manifest-doctor":
       // Reads the committed manifest and writes nothing. No window, no TCC.
@@ -1728,7 +1941,13 @@ struct Harness {
 
     default:
       fail("""
-        usage: harness [backgrounds|probe|deactivate-probe|manifest-doctor|tint-doctor|dump-layers|capture [options]]
+        usage: harness [backgrounds|probe|deactivate-probe|manifest-doctor|rehearse-tints|tint-doctor|dump-layers|capture [options]]
+
+        rehearse-tints options:
+          --pose <active|inactive>    which pose's tint-attestation rule to apply (default active)
+
+        deactivate-probe options:
+          --launch <accessory|regular>  which launch policy's arms to measure (default accessory)
 
         dump-layers options:
           --scenes <id,id,...>        which scenes to dump; default is the ten-scene set

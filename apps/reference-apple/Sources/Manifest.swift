@@ -280,6 +280,25 @@ enum Environment {
     return level.intValue > 0
   }
 
+  /// Whether the login session's screen is LOCKED right now.
+  ///
+  /// Measured 2026-09-12, and the reason it is a gate rather than a note: on a
+  /// locked screen no application can become active and no window can become key,
+  /// so `Capture.present` silently fails to reach the active pose — and the
+  /// INACTIVE pose's attestation passes, because both of its halves are false for
+  /// the wrong reason. A locked-screen inactive run would therefore attest every
+  /// cell while the window server is not compositing the material the bed exists
+  /// to photograph. The idle gate does not catch it: a locked machine is maximally
+  /// idle.
+  ///
+  /// `nil` means the query failed, which is not the same as "unlocked" and must
+  /// never be read as one.
+  static func screenIsLocked() -> Bool? {
+    guard let session = CGSessionCopyCurrentDictionary() as? [String: Any] else { return nil }
+    guard let locked = session["CGSSessionScreenIsLocked"] as? NSNumber else { return false }
+    return locked.boolValue
+  }
+
   static func hardware() -> HardwareInfo {
     HardwareInfo(
       model: sysctl("hw.model"),

@@ -28,7 +28,8 @@ What needs your machine is §Step 4 and §Step 5.
 | **Display scale** | 2x is this machine's native panel. 1x needs the BetterDisplay virtual display, switched by hand between passes. | A profile is captured only on a display whose `backingScaleFactor` matches its key. At the wrong scale the pass captures the other scale's profiles, or nothing. |
 | **Screen Recording consent** | `cd apps/reference-apple && ./capture.sh probe` → must print `ScreenCaptureKit: OK` | **It is currently DENIED to this build.** TCC is granted per bundle path, and every rebuild — and every worktree — is a new path. Grant it in System Settings → Privacy & Security → Screen & System Audio Recording, then re-run `probe`. Without it every capture fails on the first cell. |
 | **Nothing else on the GPU** | close browsers, stop other agents' Playwright suites | `run-sitting.sh` refuses while a capture process is running, and names what it found. |
-| **Console session, unlocked, left alone** | no screen saver, no sleep, no remote login | Each run refuses unless the machine has been idle 45 s, and idle is sampled per cell. A disturbed run retries rather than filing a disturbed cell. |
+| **Console session UNLOCKED** | no screen saver, no display sleep, no lock during the sitting | **The harness now refuses a locked screen outright** (`CGSSessionScreenIsLocked`), and the reason is measured: on a locked screen nothing can become active or key, so an active pass would capture the unfocused material under active ids — and an inactive pass is *worse*, because both halves of its attestation are false for the wrong reason and every cell would attest while the window server composites nothing. The idle gate cannot catch it: a locked machine is maximally idle. A `--dry-run` prints `WOULD REFUSE` and continues. |
+| **Left alone** | no typing, no other GUI work | Each run refuses unless the machine has been idle 45 s, and idle is sampled per cell. A disturbed run retries rather than filing a disturbed cell. |
 
 Build the harness once, before anything (the Screen Recording grant is against what you build):
 
@@ -67,14 +68,33 @@ done
 touch the bed. Re-reading the dumps costs nothing and needs no machine state:
 
 ```bash
-pnpm --filter @vitrea/calibration --fail-if-no-match exec tsx scripts/vibrancy.ts --corpus probe
+W27E_OUT=/tmp/w27e-reread \
+  pnpm --filter @vitrea/calibration --fail-if-no-match exec tsx scripts/vibrancy.ts --corpus probe
 ```
 
-**Worth doing while the display is at 1x for Step 4's 1x pass** — two minutes, and it closes a
-question this run opened. The probe was taken at 2x. At 2x nothing switches the surface's highlight
-operator inside a colour scheme, while at 1x §5.133 found two cells that do; the same dumps at 1x
-would say whether that difference is the scale or the scheme. Write them to a NEW directory
-(`.../2026-09-11-w27e-probe-1x/`) — never over the 2x trees, which are committed evidence.
+`W27E_OUT` is not optional: the reader writes create-only (`wx`), so without a scratch directory it
+fails with `EEXIST` against the committed table. It reproduces both files byte-for-byte there.
+
+**Worth doing while the display is at 1x for Step 4's 1x pass**, and it needs BOTH window poses.
+The probe was taken at 2x through a window that was **not key**; §5.133's corpus is 1x through a
+window that **was** key. So two axes differ between the corpora, not one: the scale *and the window
+pose this whole wave exists to measure*. A reading in which §5.133's tone-and-span selector holds in
+the active pose and the recede collapses to one operator per scheme fits the data just as well as a
+scale dependence. The 1x re-run settles it only if it takes both poses — the active one is
+`dump-layers`' existing path, and the recede needs the same `.accessory` launch the capture uses:
+
+```bash
+# active pose, 1x — dump-layers as it already runs
+VITREA_SCENES="$PWD/scenes-w27e-probe.json" ./capture.sh dump-layers --scenes "$IDS" \
+  --scheme light --settle 8 --out /tmp/w27e-probe-1x-active/light
+# recede, 1x — same scenes, non-key window
+VITREA_ACTIVATION_POLICY=accessory VITREA_SCENES="$PWD/scenes-w27e-probe.json" \
+  ./capture.sh dump-layers --scenes "$IDS" --scheme light --settle 8 \
+  --out /tmp/w27e-probe-1x-inactive/light
+```
+
+Each dump records `isKeyWindow`, so the two are told apart by the file rather than by the directory
+name. Write them to NEW directories — never over the committed 2x trees.
 
 ## 4. Step 3 — prove the path before spending the machine (2 minutes)
 
@@ -118,16 +138,23 @@ $R/run-sitting.sh active 2 1 7
 $R/run-sitting.sh active 1 1 7
 ```
 
-The script resumes: a run whose `manifest.json` already exists is skipped, so an interrupted pass
-is restarted with the same command. Each run goes to its own directory under
+The script resumes: a run whose `manifest.json` already exists is skipped, so an interrupted pass is
+restarted with the same command. A run that FAILS its attestation audit is quarantined under a name
+that carries no `manifest.json`, so the same command re-takes it instead of stepping over it — the
+resume is safe precisely because a tainted run stops looking like a banked one. Each run goes to its own directory under
 `~/vitrea-w27-26.5-run/` (override with `VITREA_SITTING_DIR`), which is what
 `cli/materialize.ts` expects — one whole snapshot per run, with nothing decided yet.
 
 **The exact cells** are `bed-inactive.txt` (38 ids) and `bed-active.txt` (4 ids) beside this file,
 generated from `results/2026-09-11-w27c-g1b/checking-bed.json`. Per pass, from the profile
-declarations: **42 light + 38 dark = 80** cells on a standard pass at each scale, and **14** on each
-accessibility pass (the bed's 12-cell checking group plus the two attestation cells those profiles
-already declared). The active passes are 4 cells, light only.
+declarations and confirmed by the dry run: an inactive standard pass is **38 light + 38 dark = 76**
+cells at each scale; each accessibility pass is **14** (the bed's 12-cell checking group plus the
+two attestation cells those profiles already declared); each active pass is **4**, light only.
+
+`checking-bed.json` sizes a standard pass at 80, and that figure counts the four active cells
+inside it. They are a separate pass here — a different pose, a different command — so they are
+counted once, beside it, rather than twice. The bed is the same 42 ids either way; **188 cells per
+full round** (76 + 76 + 14 + 14 + 4 + 4), which is what the time below is computed on.
 
 ### Expected machine time
 
@@ -205,3 +232,6 @@ Leave the raw runs in place and report that they are banked.
 | `--inactive refuses to publish into …: a manifest.json is already there` | The fixture root is not fresh. Never point it at the committed bundle. |
 | `N of the requested scenes declare a state this run's presentation pose cannot reproduce` | An active id in an inactive pass or the reverse. The lists beside this file are the right ones. |
 | `Profiles not captured because this display renders at Nx` | The display scale does not match the pass. Switch it and re-run. |
+| `the login session's screen is LOCKED` | Unlock the console session and disable display sleep for the sitting. Nothing was captured. |
+| `The author tint did not reach the material in this run` | Should not happen on an inactive pass — the recede is exempt from that attestation, because it is measured to remove exactly that response. If it fires on an inactive pass, the exemption did not apply: stop and report. On an **active** pass it means what it says. Rehearse either pose against a bundle with `./capture.sh rehearse-tints --pose <active\|inactive>`. |
+| `STOPPING: run N attested X of Y` | A cell failed the four-part audit. The run is **quarantined** to `QUARANTINE-run-N-<timestamp>/`, so re-running the pass re-takes it rather than stepping over it. Keep the quarantined run — what failed to attest is the finding. |

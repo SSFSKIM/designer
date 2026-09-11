@@ -188,6 +188,16 @@ const inScheme = (rows: typeof probe.rows, scheme: string) =>
   rows.filter((r) => r.colorScheme === scheme);
 
 describe("W27e's labelled probe: does a label carry the operator at all", () => {
+  it("differs from the G0 corpus in scale AND in window pose, which every comparison must carry", () => {
+    // The pose is not a detail of how the probe was taken; it is the axis W27c is
+    // measuring. Pinned here so that any later reading across the two corpora has
+    // to acknowledge it rather than compare "1x against 2x".
+    expect(new Set(probe.rows.map((r) => r.isKeyWindow))).toEqual(new Set([false]));
+    expect(new Set(reading.rows.map((r) => r.isKeyWindow))).toEqual(new Set([true]));
+    expect(new Set(probe.rows.map((r) => r.scale))).toEqual(new Set([2]));
+    expect(new Set(reading.rows.map((r) => r.scale))).toEqual(new Set([1]));
+  });
+
   it("reads both schemes of the run, and nothing else", () => {
     // The corpus is the run, so a dump added to it later has to come here and say
     // so — the same discipline the G0 trees are held to above.
@@ -345,10 +355,17 @@ describe("W27e's labelled probe: what it says about the SURFACE operator", () =>
   it("refutes both of §5.133 §8's candidate selectors on the cells they disagree about", () => {
     // Both candidates predict the high-gain operator on light `dark-solid` at span
     // 44: vitrea's own predicate reads exactly 1.0 there, and Apple's `tracksLuma`
-    // is 1. At 2x, in light, the cell carries the DEFAULT operator. Whether that is
-    // the scale or the scheme cannot be settled from here — G0 is 1x-only and this
-    // run is 2x-only — but it is settled that neither candidate law is the whole
-    // selector, which is what W27e G1 would otherwise have been fitted on.
+    // is 1. At 2x, in light, the cell carries the DEFAULT operator.
+    //
+    // WHAT THAT DOES NOT SETTLE. Two axes differ between the corpora, not one:
+    // G0 is 1x through a KEY window, this run is 2x through a NON-KEY one (every
+    // G0 dump records `isKeyWindow: true`; all 50 here record false). So "the
+    // selector depends on scale" and "§5.133's selector holds in the active pose
+    // and the recede collapses it to one operator per scheme" fit these rows
+    // equally well — and the second is the variable this wave exists to measure.
+    // What IS settled is that neither candidate law is the whole selector under
+    // every pose and scale, which is what W27e G1 would otherwise have been
+    // fitted on. The 1x re-run has to take BOTH poses to separate them.
     const light = inScheme(highlights, "light");
     const switching = light.filter((r) => r.scene === "dark-solid__capsule-button__rest"
       || r.scene === "impulse__capsule-button__rest");
