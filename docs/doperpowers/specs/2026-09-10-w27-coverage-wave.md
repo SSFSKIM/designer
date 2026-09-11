@@ -632,6 +632,35 @@ G1 records every per-scene miss; G2 alone adopts a native stack bound and re-rea
 
 ## Revision Notes
 
+- 2026-09-11 (**the 0.16.0 cut record**, the session that ran W24–W26, by agreement with the
+  session that owns W27): the user's `pnpm release` on `ad4266d`, tag `v0.16.0`. Registry: web
+  07:48:03Z, react 07:48:58Z, core 07:50:56Z — **the release-chain window recurred, an eleventh
+  time, at 173 s** (against 53, 70, 73, 248, 267, 246, 124, 73, 125 and 52 s); for that window a
+  fresh install of the dependents could not resolve core `^0.16.0`, and no install was attempted
+  inside it. Verified by a cold install outside the workspace after all three were listed: all
+  three at 0.16.0, ranges `^0.16.0`, all three entry points import (core 44 exports, web 229,
+  react 36), `GlassToolbarSpacer` exported from the React binding and `recededMaterialProfile`
+  from the web package, the renderer's material in core's split chunk carrying `sizeHeavyTapSigma`
+  9, no private package installed, LICENSE / NOTICE / README in each (installed 1 772 / 1 672 /
+  608 kB against 1 712 / 1 480 / 508 at 0.15.0). The chain the release must show green is
+  `c9d-release-checklist.md`'s; on `12e90ad` the owning session ran build, lint, 2 160 unit
+  tests, goldens 34 / 34 and the demo suite 47 / 48 (the one miss a timeout, tracked). **The eye
+  record for this cut** is `packages/calibration/results/2026-09-10-w27-coverage-wave/eye/`
+  (`eye-sheet-light.png`, `eye-sheet-dark.png`, `index.md`): the landed features captured at 2×
+  in headed Chromium 151 on `apple / metal-3` (no fallback adapter, every group `webgpu`), five
+  rows per scheme — the toolbar split beside the unsplit row, tints and the four ink levels, the
+  page-content material beside the texture path and the native stack fixture, presence and both
+  morphs as six-frame strips with `--vitrea-materialization` and the host's computed opacity
+  (`1` on every frame) printed, and the lens at rest / hover / press with ×8 difference panels.
+  Produced after the publish, so it is the record of what shipped rather than the veto before
+  it. **One finding for the wave's acceptance:** three of W27a's features — the tinted
+  `GlassButton`, `GlassGroup tint` and the four ink levels — have a prop and a README paragraph
+  but no live instance in the demo or the playground (`grep -rn 'tint=' apps/` hits two
+  `GlassSurface` sites and nothing names the secondary/tertiary/quaternary tokens), so
+  Parent-Level Acceptance 2 is unmet for them; the sheet's panels for those rows come from the
+  committed scratch harness. Also recorded by the sheet: `tint-mixing` does not fire on a group
+  with no seed and one tinted member (checked, 0 of 12 diagnostics), and the spacer measured
+  `min-width: 24px` on this run through `samplingPaddingFor`.
 - 2026-09-11, **0.16.0 released; the stop lifted.** The user published the three packages at
   0.16.0 (`ad4266d`; tag `v0.16.0` pushed by the parent), so parent acceptance clause 5 is met.
   The cut record itself (registry, cold install, the c9d chain, the eye sheet) is written by the
