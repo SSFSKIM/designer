@@ -1,0 +1,103 @@
+{
+ "gate": "W27f G2",
+ "what": "Is the dark checkerboard toolbar-group CSS capture unstable between runs, or did G1's material edit change it? Claims \u00a75.131 \u00a74 recorded the digest as changing 625742f5a2af\u2026 \u2192 8689d9ef6fc9\u2026 and could not tell the two apart from one run each.",
+ "method": "Six independent capture invocations of the one scene, dark scheme, CSS tier, on the css-today (texture, no hint) and css-hint (dom, measured level) arms. Nothing else was changed between runs; the material, the profile and the head are fixed.",
+ "scene": "checkerboard__toolbar-group__rest",
+ "scheme": "dark",
+ "tier": "css",
+ "recordedByG1": {
+  "baseline": "625742f5a2afc9b98d3d81b78245a28f256a8617f0c960a633fb67caed1e3a6f",
+  "candidate": "8689d9ef6fc9bda8cc65a7a5b5f3a4071d26410e13e2e2b6f4b6acc71d87151c"
+ },
+ "runs": [
+  {
+   "run": 1,
+   "css-today": {
+    "sha256": "625742f5a2afc9b98d3d81b78245a28f256a8617f0c960a633fb67caed1e3a6f",
+    "repeatNoise": 0,
+    "deterministic": true
+   },
+   "css-hint": {
+    "sha256": "ea84d4ac25003886c99fb857930e9e5b5eae6f791aa7c0fc25df09a00b3b0e8f",
+    "repeatNoise": 5.859375e-05,
+    "deterministic": false
+   }
+  },
+  {
+   "run": 2,
+   "css-today": {
+    "sha256": "8689d9ef6fc9bda8cc65a7a5b5f3a4071d26410e13e2e2b6f4b6acc71d87151c",
+    "repeatNoise": 5.859375e-05,
+    "deterministic": false
+   },
+   "css-hint": {
+    "sha256": "ea84d4ac25003886c99fb857930e9e5b5eae6f791aa7c0fc25df09a00b3b0e8f",
+    "repeatNoise": 5.859375e-05,
+    "deterministic": false
+   }
+  },
+  {
+   "run": 3,
+   "css-today": {
+    "sha256": "8689d9ef6fc9bda8cc65a7a5b5f3a4071d26410e13e2e2b6f4b6acc71d87151c",
+    "repeatNoise": 5.859375e-05,
+    "deterministic": false
+   },
+   "css-hint": {
+    "sha256": "30a015cd1925b0ade28871c170406a18a8f5fe42d02cd32f15807290e9a3b8d3",
+    "repeatNoise": 5.859375e-05,
+    "deterministic": false
+   }
+  },
+  {
+   "run": 4,
+   "css-today": {
+    "sha256": "8689d9ef6fc9bda8cc65a7a5b5f3a4071d26410e13e2e2b6f4b6acc71d87151c",
+    "repeatNoise": 0,
+    "deterministic": true
+   },
+   "css-hint": {
+    "sha256": "ea84d4ac25003886c99fb857930e9e5b5eae6f791aa7c0fc25df09a00b3b0e8f",
+    "repeatNoise": 5.859375e-05,
+    "deterministic": false
+   }
+  },
+  {
+   "run": 5,
+   "css-today": {
+    "sha256": "8689d9ef6fc9bda8cc65a7a5b5f3a4071d26410e13e2e2b6f4b6acc71d87151c",
+    "repeatNoise": 5.859375e-05,
+    "deterministic": false
+   },
+   "css-hint": {
+    "sha256": "30a015cd1925b0ade28871c170406a18a8f5fe42d02cd32f15807290e9a3b8d3",
+    "repeatNoise": 0,
+    "deterministic": true
+   }
+  },
+  {
+   "run": 6,
+   "css-today": {
+    "sha256": "625742f5a2afc9b98d3d81b78245a28f256a8617f0c960a633fb67caed1e3a6f",
+    "repeatNoise": 0,
+    "deterministic": true
+   },
+   "css-hint": {
+    "sha256": "ea84d4ac25003886c99fb857930e9e5b5eae6f791aa7c0fc25df09a00b3b0e8f",
+    "repeatNoise": 5.859375e-05,
+    "deterministic": false
+   }
+  }
+ ],
+ "distinctDigests": {
+  "css-today": {
+   "625742f5a2afc9b98d3d81b78245a28f256a8617f0c960a633fb67caed1e3a6f": 2,
+   "8689d9ef6fc9bda8cc65a7a5b5f3a4071d26410e13e2e2b6f4b6acc71d87151c": 4
+  },
+  "css-hint": {
+   "ea84d4ac25003886c99fb857930e9e5b5eae6f791aa7c0fc25df09a00b3b0e8f": 4,
+   "30a015cd1925b0ade28871c170406a18a8f5fe42d02cd32f15807290e9a3b8d3": 2
+  }
+ },
+ "finding": "The capture is bistable between runs. css-today lands on exactly the two digests claims \u00a75.131 \u00a74 records and on no third value, so that section's 625742f5 \u2192 8689d9ef is a flip of an unstable capture and not a one-way change produced by G1's material edit. css-hint is bistable too, on two further digests, and its within-run repeat noise is 5.859375e-05 in five runs of six and exactly 0 in one. Every measured term is unchanged and every differing pixel lies outside every declared shape (\u00a75.131 \u00a74)."
+}

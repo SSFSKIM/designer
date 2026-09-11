@@ -1,0 +1,410 @@
+{
+ "gate": "W27f G2",
+ "declaration": "packages/calibration/results/2026-09-11-w27f-g2/declaration.md",
+ "source": "claims \u00a75.131 \u00a76 for every recorded value; the read is the runner's reading.json",
+ "scratch": "/tmp/w27f-g2",
+ "cells": [
+  {
+   "scheme": "light",
+   "stack": "checkerboard",
+   "scene": "checkerboard__glass-over-glass__rest",
+   "nativeFixture": true,
+   "envelope": {
+    "de": {
+     "min": 0.005438,
+     "max": 0.007735,
+     "upperFrom": "s0"
+    },
+    "lum": {
+     "min": 0.009084,
+     "max": 0.014542,
+     "upperFrom": "s0"
+    },
+    "rim": {
+     "min": 0.000295,
+     "max": 0.068899,
+     "upperFrom": "s0"
+    }
+   },
+   "arms": {
+    "s1": {
+     "read": {
+      "de": 0.005438,
+      "lum": 0.895571,
+      "rim": 0.111347
+     },
+     "recorded": {
+      "de": 0.005438,
+      "lum": 0.895571,
+      "rim": 0.111347
+     },
+     "reproducesRecord": true,
+     "errorToNative": {
+      "de": 0.005438,
+      "lum": 0.009084,
+      "rim": 0.000295
+     },
+     "clauseB": {
+      "de": {
+       "pin": 0.005438,
+       "holds": true
+      },
+      "lum": {
+       "pin": 0.009084,
+       "holds": true
+      },
+      "rim": {
+       "pin": 0.000295,
+       "holds": true
+      }
+     }
+    },
+    "uh": {
+     "read": {
+      "de": 0.004662,
+      "lum": 0.896252,
+      "rim": 0.109977
+     },
+     "recorded": {
+      "de": 0.004662,
+      "lum": 0.896252,
+      "rim": 0.109977
+     },
+     "reproducesRecord": true,
+     "errorToNative": {
+      "de": 0.004662,
+      "lum": 0.008403,
+      "rim": 0.001665
+     },
+     "clauseB": {
+      "de": {
+       "pin": 0.004662,
+       "holds": true
+      },
+      "lum": {
+       "pin": 0.008403,
+       "holds": true
+      },
+      "rim": {
+       "pin": 0.001665,
+       "holds": true
+      }
+     },
+     "clauseA": {
+      "de": {
+       "bound": 0.007735,
+       "from": "s0",
+       "holds": true
+      },
+      "lum": {
+       "bound": 0.014542,
+       "from": "s0",
+       "holds": true
+      },
+      "rim": {
+       "bound": 0.068899,
+       "from": "s0",
+       "holds": true
+      }
+     }
+    },
+    "u0": {
+     "read": {
+      "de": 0.010363,
+      "lum": 0.885517,
+      "rim": -0.065296
+     },
+     "errorToNative": {
+      "de": 0.010363,
+      "lum": 0.019138,
+      "rim": 0.176938
+     }
+    }
+   }
+  },
+  {
+   "scheme": "light",
+   "stack": "photo",
+   "scene": "photo__glass-over-glass__rest",
+   "nativeFixture": true,
+   "envelope": {
+    "de": {
+     "min": 0.018619,
+     "max": 0.019478,
+     "upperFrom": "s0"
+    },
+    "lum": {
+     "min": 0.013,
+     "max": 0.020194,
+     "upperFrom": "s0"
+    },
+    "rim": {
+     "min": 0.029923,
+     "max": 0.03644,
+     "upperFrom": "s0"
+    }
+   },
+   "arms": {
+    "s1": {
+     "read": {
+      "de": 0.018619,
+      "lum": 0.880533,
+      "rim": 0.114151
+     },
+     "recorded": {
+      "de": 0.018619,
+      "lum": 0.880533,
+      "rim": 0.114151
+     },
+     "reproducesRecord": true,
+     "errorToNative": {
+      "de": 0.018619,
+      "lum": 0.013,
+      "rim": 0.029923
+     },
+     "clauseB": {
+      "de": {
+       "pin": 0.018619,
+       "holds": true
+      },
+      "lum": {
+       "pin": 0.013,
+       "holds": true
+      },
+      "rim": {
+       "pin": 0.029923,
+       "holds": true
+      }
+     }
+    },
+    "uh": {
+     "read": {
+      "de": 0.009126,
+      "lum": 0.886175,
+      "rim": 0.10909
+     },
+     "recorded": {
+      "de": 0.009126,
+      "lum": 0.886175,
+      "rim": 0.10909
+     },
+     "reproducesRecord": true,
+     "errorToNative": {
+      "de": 0.009126,
+      "lum": 0.007358,
+      "rim": 0.024862
+     },
+     "clauseB": {
+      "de": {
+       "pin": 0.009126,
+       "holds": true
+      },
+      "lum": {
+       "pin": 0.007358,
+       "holds": true
+      },
+      "rim": {
+       "pin": 0.024862,
+       "holds": true
+      }
+     },
+     "clauseA": {
+      "de": {
+       "bound": 0.019478,
+       "from": "s0",
+       "holds": true
+      },
+      "lum": {
+       "bound": 0.020194,
+       "from": "s0",
+       "holds": true
+      },
+      "rim": {
+       "bound": 0.03644,
+       "from": "s0",
+       "holds": true
+      }
+     }
+    },
+    "u0": {
+     "read": {
+      "de": 0.013676,
+      "lum": 0.87301,
+      "rim": -0.059579
+     },
+     "errorToNative": {
+      "de": 0.013676,
+      "lum": 0.020523,
+      "rim": 0.143807
+     }
+    }
+   }
+  },
+  {
+   "scheme": "dark",
+   "stack": "checkerboard",
+   "scene": "checkerboard__glass-over-glass__rest",
+   "nativeFixture": true,
+   "envelope": {
+    "de": {
+     "min": 0.013765,
+     "max": 0.016702,
+     "upperFrom": "s1"
+    },
+    "lum": {
+     "min": 0.003211,
+     "max": 0.004159,
+     "upperFrom": "s1"
+    },
+    "rim": {
+     "min": 0.00315,
+     "max": 0.005874,
+     "upperFrom": "s1"
+    }
+   },
+   "arms": {
+    "s1": {
+     "read": {
+      "de": 0.016702,
+      "lum": 0.024857,
+      "rim": 0.037864
+     },
+     "recorded": {
+      "de": 0.016702,
+      "lum": 0.024857,
+      "rim": 0.037864
+     },
+     "reproducesRecord": true,
+     "errorToNative": {
+      "de": 0.016702,
+      "lum": 0.004159,
+      "rim": 0.005874
+     },
+     "clauseB": {
+      "de": {
+       "pin": 0.016702,
+       "holds": true
+      },
+      "lum": {
+       "pin": 0.004159,
+       "holds": true
+      },
+      "rim": {
+       "pin": 0.005874,
+       "holds": true
+      }
+     }
+    },
+    "uh": {
+     "read": {
+      "de": 0.013059,
+      "lum": 0.023673,
+      "rim": 0.036194
+     },
+     "recorded": {
+      "de": 0.013059,
+      "lum": 0.023673,
+      "rim": 0.036194
+     },
+     "reproducesRecord": true,
+     "errorToNative": {
+      "de": 0.013059,
+      "lum": 0.002975,
+      "rim": 0.004204
+     },
+     "clauseB": {
+      "de": {
+       "pin": 0.013059,
+       "holds": true
+      },
+      "lum": {
+       "pin": 0.002975,
+       "holds": true
+      },
+      "rim": {
+       "pin": 0.004204,
+       "holds": true
+      }
+     },
+     "clauseA": {
+      "de": {
+       "bound": 0.016702,
+       "from": "s1",
+       "holds": true
+      },
+      "lum": {
+       "bound": 0.004159,
+       "from": "s1",
+       "holds": true
+      },
+      "rim": {
+       "bound": 0.005874,
+       "from": "s1",
+       "holds": true
+      }
+     }
+    },
+    "u0": {
+     "read": {
+      "de": 0.093499,
+      "lum": 0.049707,
+      "rim": 0.057219
+     },
+     "errorToNative": {
+      "de": 0.093499,
+      "lum": 0.029009,
+      "rim": 0.025229
+     }
+    }
+   }
+  },
+  {
+   "scheme": "dark",
+   "stack": "photo",
+   "scene": "photo__glass-over-glass__rest",
+   "nativeFixture": false,
+   "envelope": {
+    "de": null,
+    "lum": null,
+    "rim": null
+   },
+   "arms": {
+    "s1": {
+     "read": {
+      "de": null,
+      "lum": 0.021612,
+      "rim": 0.033665
+     },
+     "recorded": {
+      "de": null,
+      "lum": 0.021612,
+      "rim": 0.033665
+     },
+     "reproducesRecord": true
+    },
+    "uh": {
+     "read": {
+      "de": null,
+      "lum": 0.021984,
+      "rim": 0.033604
+     },
+     "recorded": {
+      "de": null,
+      "lum": 0.021984,
+      "rim": 0.033604
+     },
+     "reproducesRecord": true
+    },
+    "u0": {
+     "read": {
+      "de": null,
+      "lum": 0.0501,
+      "rim": 0.057363
+     }
+    }
+   }
+  }
+ ],
+ "stops": [],
+ "landing": "the bound holds"
+}

@@ -632,7 +632,12 @@ def holdout_guard(out, scenes):
     marker.parent.mkdir(parents=True, exist_ok=True)
     marker.write_text(json.dumps(
         {"spentAt": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
-         "spentBy": "2026-09-10-w27f-g1-measure.py capture --phase holdout",
+         # The file that actually ran, not a name baked in when it was written:
+         # this runner is a copy, and a spend marker naming the wrong program is
+         # exactly the provenance the marker exists to supply. The marker this
+         # gate's own run wrote still carries the inherited literal, and stays
+         # that way — claims §5.135 records it rather than rewriting evidence.
+         "spentBy": f"{Path(__file__).name} capture --phase holdout",
          "scenes": scenes, **configuration()}, indent=2) + "\n")
     return marker
 
