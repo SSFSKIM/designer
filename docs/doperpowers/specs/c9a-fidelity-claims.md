@@ -17010,7 +17010,8 @@ mean OKLab ΔE, and §5.130 §1 says of that statistic that it "is not an interi
 body can have a material error that its surrounding identical background dilutes". A capsule's
 eroded body is 5% of the canvas and an `rrect-lg`'s is 61%. Calibration and validation have
 near-equal footprint composition (mean fraction 0.081 against 0.090 at 1x light), so their
-comparison is fair; the holdout's is **3.4–3.7× larger**, because the active split reserved the
+comparison is fair; the holdout's is **3.08–3.68× larger** (per profile 3.677, 3.678, 3.547,
+3.346, 3.379, 3.083), because the active split reserved the
 largest components. Equal-cell means, calibration → validation → holdout, full-canvas and then
 on the declared union eroded 6 CSS px:
 
@@ -17059,39 +17060,61 @@ siblings: the dark `photo__rrect-md__inactive` is a **calibration** cell reading
 0.06018 / 0.05837 with mean Y within 0.0018 of native, and the tinted photo span ladder runs
 0.03483 (span 44, calibration) → 0.05689 (96, validation) → 0.07055 (160, holdout), with
 0.03517 / 0.05667 / 0.07026 at 2x. The holdout is the third point on a line the fitted bed
-already drew. The cause is a directional contradiction: from the G0 census the reference's
-inactive material retains **more** of a chromatic backdrop's chroma than its active one, and the
-excess grows with span — OKLab C ratio inactive/active on untinted photo 1.01–1.04 at spans
-32–44, 1.07–1.12 at 96 and **1.23–1.29** at 160 in both schemes — while the endpoint reaches the
-recede's darker level by making the body layer more opaque (dark `optics.regular.tintAlpha`
-0.46 → 0.89) and its seed neutral (`tintChromaScale` 0), both of which remove chroma. The tint
-half is sharper: `tintChromaScale = 0` was identified on the **checkerboard** tinted capsules,
-where the reference's inactive tinted body really does read OKLab C 0.000662 (§5.128), but over
-the photo the same reference keeps **0.03539** on the capsule and **0.07027** on `rrect-lg` — as
-much chroma as the *untinted active* photo `rrect-lg` has (0.07488). The facet is not "the
-author hue is removed"; it is "the author hue is removed **and** the backdrop's chroma is
-transmitted", and the checkerboard could not see the second half. *Candidate model form, named
-and unfitted:* the inactive body as a neutral-density absorber over a transmitted backdrop, with
-separate level and chroma coefficients, and the authored paint as an absorbing filter on that
-transmission rather than an opaque shaded layer. One term would serve both.
+already drew. The cause is a **missing degree of freedom**, and it must be stated per scheme
+because the two schemes' alphas are different numbers moving in different directions. From the G0
+census the reference's inactive material retains **more** of a chromatic backdrop's chroma than
+its active one, and the excess grows with span — OKLab C ratio inactive/active on untinted photo
+**1.07–1.12 at span 96 and 1.23–1.29 at span 160 in both schemes**, and **1.01–1.04 at spans
+32–44 in LIGHT only**: the dark scheme has no span-32 rung, and its span-44 capsule reads 0.94 at
+1x and 0.77 at 2x, the second being the minority-active pair §5.128 §1 excludes from
+focus-response reading. The renderer's body is a **lerp**, `mix(backdrop, tint, tintAlpha)`, so
+that one alpha sets how much of the backdrop survives — its level *and* its chroma together — and
+**neither scheme's recede closes it**. In **light** the inactive patch does not set the field at
+all: it inherits the active **0.46**, which §5.130's own table records as "inherited active 0.46"
+beside the declined 0.37 perturbation. In **dark** the active profile is already at **0.9** (a
+difference over `DEFAULT_MATERIAL_PROFILE`, W21 G1's fitted passthrough) and the inactive patch
+moves it to **0.89** — marginally *less* opaque, not more. Both schemes reach the recede's level
+through `backdropToneResponseThin`/`Thick` instead, a **scalar interior-level target with no
+chroma channel**. So the one declared field that governs chroma transmission is left where the
+active pose put it and the field that does move sets a level: the declared family has no lever
+that raises chroma transmission in either scheme, which is what makes this model-form rather than
+a mis-set value. The tint half is sharper still: `tintChromaScale = 0` was identified on the
+**checkerboard** tinted capsules, where the reference's inactive tinted body really does read
+OKLab C 0.000662 (§5.128), but over the photo the same reference keeps **0.03539** on the capsule
+and **0.07027** on `rrect-lg` — as much chroma as the *untinted active* photo `rrect-lg` has
+(0.07488). The facet is not "the author hue is removed"; it is "the author hue is removed **and**
+the backdrop's chroma is transmitted", and the checkerboard could not see the second half. The
+opacity that removes it there is the **author strength's**, at 1 on those cells, a different
+quantity from the body lerp's alpha above; on a tinted cell the two remove chroma in series,
+which is why the tinted span ladder sits above the untinted one at every span. *Candidate model
+form, named and unfitted:* the inactive body as a neutral-density absorber over a transmitted
+backdrop, with separate level and chroma coefficients, and the authored paint as an absorbing
+filter on that transmission rather than an opaque shaded layer. One term would serve both.
 
-(d) **metrology.** The two stack cells' own recorded `actualGroups` settle it: the overlay
+(d) **metrology.** The stack cells' own recorded `actualGroups` settle it: the overlay
 resolves `configuredSource: dom`, `samplingBackend: css-backdrop`, `analysis: none` and paints
 the **unsampled** material, recorded in the light rows as `tint [1, 1, 1]` at `tintAlpha
 0.6649600815626966` — the flat white of §5.129 §3, byte-for-byte the **active** value, because
 the light inactive patch changes no field that feeds it. The endpoint never reached the second
-plane. The rows are also stale: `holdout.json`'s own `sourceSha256` names
-`platform-web/src/optics.ts`, `platform-web/src/root.ts` and `renderer-webgpu/src/wgsl/optics.ts`,
-all three of which differ from `main` today because W27f G1 (§5.131, merged `6ae37c1`) replaced
-exactly that flat, landing **after** this holdout was captured (§5.130 §6 integrates only through
-`38d782c`). The profile documents, `receded-profile.ts` and every golden are unchanged, so the
-other **28** texture-sourced holdout rows still describe today's runtime; these two do not. What
-remains once the overlay is set aside is the photo family's own residual — the light photo
-stack's body underlifts 0.0329 Y where photo `rrect-md` underlifts 0.0308 and `rrect-lg` 0.0267,
-and its body ΔE 0.05075 sits between theirs — with the achromatic control bounding the genuinely
-stack-specific part at **+0.005** (checker stack 0.01063 against checker `rrect-md` 0.00593).
-**§5.130 §7's sentence "the one-plane endpoint does not close stacking" is withdrawn rather than
-carried**, and this section stands beside it rather than rewriting it.
+plane. **This is six holdout rows, not the two the residual is named for:** every row carrying a
+`css-backdrop` group — both light photo stacks and all four checkerboard stacks, 1x and 2x light
+at the same flat white and 1x and 2x dark at `tint [0.05, 0.05, 0.05]` / `0.9116188858455282`.
+W27f G1 replaced this path in **both** schemes. The rows are also stale: `holdout.json`'s own
+`sourceSha256` names `platform-web/src/optics.ts`, `platform-web/src/root.ts` and
+`renderer-webgpu/src/wgsl/optics.ts`, all three of which differ from `main` today because W27f G1
+(§5.131, merged `6ae37c1`) replaced exactly that flat, landing **after** this holdout was captured
+(§5.130 §6 integrates only through `38d782c`). The profile documents, `receded-profile.ts` and
+every golden are unchanged, so **24** of the thirty holdout rows are texture-sourced and still
+describe today's runtime; **six** do not. What remains once the overlay is set aside is the photo
+family's own residual — the light photo stack's body underlifts 0.0329 Y where photo `rrect-md`
+underlifts 0.0308 and `rrect-lg` 0.0267, and its body ΔE 0.05075 sits between theirs. **No
+stack-specific excess is quoted in either direction:** the achromatic control that would bound it
+is `checkerboard__glass-over-glass__inactive`, which carries the same replaced overlay and so
+inherits exactly the staleness that sets the photo stacks aside, and every stack scene in the bed
+is a DOM-overlay scene, so no unaffected row exists to re-derive it from. The stack-specific term
+is **unmeasured** at this gate, not small; experiment arm A4 on the checking bed is what would
+measure it. **§5.130 §7's sentence "the one-plane endpoint does not close stacking" is withdrawn
+rather than carried**, and this section stands beside it rather than rewriting it.
 
 **4. The declared experiment** (`experiment.json`, declared before it runs). Four arms, each
 reporting a **reachable interval** of the declared fields and selecting nothing; no new field is
@@ -17120,18 +17143,25 @@ exactly as `mid-dark-solid` was in W7, because every chroma observation in the b
 from `photo` where chroma, luminance and structure co-vary, and every uniform backdrop is neutral.
 Both scales, both schemes, the two 1x light accessibility profiles required and the same two at
 2x recommended (§5.128 §5 records the accessibility evidence as 1x-only "with no 2x counterpart
-in this census at all"). Per-cell attestation means restoring the ten fields the recovered entries
-lack — `capturedAt`, `orderIndex`, `hidIdleSeconds`, `settleIterations`, `settleSeconds`,
-`chromaShift`, `tint`, `stateFrequencies`, `observedStates`, `frequencySettled` — **and adding
-one the manifest schema does not have**: the inactive-presentation attestation, the negation of
-`Capture.isActivelyPresented`, proven per cell rather than `presentedActive` merely being absent
-as it is on all 121 recovered entries.
+in this census at all"). Per-cell attestation means restoring **nine** fields — `orderIndex`,
+`hidIdleSeconds`, `settleIterations`, `settleSeconds`, `chromaShift`, `tint`, `stateFrequencies`,
+`observedStates`, `frequencySettled` — four of which are conditional on the active side too
+(`chromaShift` 231/334, `tint` 49/334 on tinted scenes, the three frequency fields 102/334 on the
+settled subset), so a session restores each where its condition applies. `capturedAt` is **not**
+among them: all 121 recovered entries already carry it. The tenth name in the set difference is
+`presentedActive`, on 334/334 active entries and 0/121 recovered, and it must not be restored but
+**inverted** — `Capture.isActivelyPresented` is `window.isKeyWindow && NSApp.isActive`, and an
+inactive capture has to prove that **false** per cell. The manifest schema has no field for that,
+and the field merely being absent is what the recovered entries do and is exactly what must stop
+being acceptable.
 
 **Cost, measured rather than quoted.** At the harness's own 9.5 s per cell and 80 cells per
 standard pass: **3.4 h** of machine time at the 7-run probe bar and **8.3 h** at the 17-run
-freeze bar, 9.4 h with 2x accessibility, and **11–15 h** at the freeze bar once attempt loss is
-budgeted at 1.3–2.5× (W25 banked six of seven runs at one scale; W21's probe cost eighteen runs
-to bank seven). **W27 Decision Log 5's "one to two hours of the user's machine" does not hold at
+freeze bar, 9.4 h with 2x accessibility, and — once attempt loss is budgeted at 1.3–2.5×, the
+record's own spread (W25 banked six of seven runs at one scale, 1.17×; W21's probe cost eighteen
+runs to bank seven, 2.57×) — **11–21 h at the freeze bar and 4.4–8.5 h at the probe bar**. Those
+are the multiplier's own arithmetic rather than a narrowing of it, and they are the numbers the
+user is asked to approve. **W27 Decision Log 5's "one to two hours of the user's machine" does not hold at
 this bed's size** — no recorded session matches it; W25 G1's two seven-run passes ran 07:00Z →
 12:41Z, 5 h 40 min at 158 fixtures per run, and the ledger's only "about two hours" is ten runs
 at eleven minutes on a 56-cell bed. That figure is left standing where it was written, per this
@@ -17157,33 +17187,52 @@ Contrast, which the `a11yMode` enum cannot express. It is the vehicle for a deci
 retargeting the project's reference, which is larger than W27c and is the user's.
 
 **6. The bound, declared before the read** (`bound.json`), on the WebGPU tier, against the frozen
-G1 endpoint, with no parameter permitted to change in response. **Clause 1, the ceiling:** every
-checking-bed cell at or below its profile's already-adopted active-bed WebGPU
-`oklabDeltaEMean` — 0.07 / 0.07 / 0.09 / 0.09 / 0.06 / 0.04 — because that is the bar the active
-material is held to on the same tier, profile and metric, and the inactive pose ships into the
-same product; the spent holdout already clears it, so this is named as a non-regression clause
-rather than presented as the test. **Clause 2, the discriminating clause:** the checking set's
-equal-cell mean **body** ΔE at or below that profile's **validation** mean body ΔE from the
+G1 endpoint, with no parameter permitted to change in response.
+
+**Scope, stated once for all three scoring clauses:** they score **the checking set and nothing
+else** — group D of the bed (12 scene ids) plus `checkerboard__rrect-ml__inactive`, which groups B
+and D share. Groups A, B, C and E are **read and published under clause 4 but not scored**: A, B
+and C are supplying cells that measure the reference (one of them is a spent-holdout id), and four
+of E's six are calibration ids that can bound nothing. Scoring any of them would let a cell the
+fit was selected on, or a cell whose answer is already on the record, decide whether G2 unblocks.
+
+**Clause 1, the ceiling:** every cell of the checking set at or below its profile's
+already-adopted active-bed WebGPU `oklabDeltaEMean` — 0.07 / 0.07 / 0.09 / 0.09 / 0.06 / 0.04 —
+because that is the bar the active material is held to on the same tier, profile and metric, and
+the inactive pose ships into the same product; the spent holdout already clears it, so this is
+named as a non-regression clause rather than presented as the test. **Clause 2:** the checking
+set's equal-cell mean **body** ΔE at or below that profile's **validation** mean body ΔE from the
 frozen read, rounded up to two significant figures — **0.032 / 0.034 / 0.034 / 0.041 / 0.0078 /
 0.011**. Validation is the frozen experiment's own measured performance on cells the fit never
-selected on; it is 1.29–2.18× the calibration mean, which is the gap §5.130 §8 forbids copying
-away; and it is discriminating rather than decorative — applied to the 30 spent holdout cells it
-would **pass** the two light and the two accessibility profiles and **fail** the two dark ones,
-which is the verdict the per-cell evidence supports. **Clause 3, the per-cell floor:** no cell
-above 2× its profile's clause-2 threshold, that being the smallest multiple that admits every
-validation cell of the frozen read with margin (worst 1.78×) while still catching both dark
-residuals (mid-dark 2.98×, dark photo `rrect-lg` 2.05×); a cell that exceeds it is named and
-blocks G3 from adopting an inactive floor for the regime it identifies. **Clause 4:** both
-metrics are published per cell with the resolved state, backdrop tone, geometry read-back and
-attestation, the per-profile comparison is stated on body ΔE, and the full-canvas ratio to
-calibration is reported and explicitly **not** a gate quantity. **Clause 5:** a row is refused
+selected on, and it is 1.29–2.18× the calibration mean, which is the gap §5.130 §8 forbids copying
+away. Applied **on its own** to the 30 spent holdout cells this clause would pass the two light
+and the two accessibility profiles and fail the two dark ones — but that is the clause's verdict,
+not the bound's. **Clause 3, the per-cell floor:** no cell of the checking set above 2× its
+profile's clause-2 threshold, that being the smallest multiple that admits every validation cell
+of the frozen read with margin (worst 1.78×) while still catching the bed's own known failures; a
+cell that exceeds it is named and blocks G3 from adopting an inactive floor for the regime it
+identifies. Retro-applied to the 30 spent holdout cells, **five exceed it across four profiles**:
+`mid-dark-solid__capsule-button__inactive` at 2.98× (1x dark) and 2.47× (2x dark),
+`photo__rrect-lg__inactive` at 2.05× (1x dark), and `photo__rrect-lg__inactive-tint-orange` at
+2.20× (1x light) and 2.07× (2x light). The 2x dark `photo__rrect-lg` reads 1.65× and is **not**
+caught, that profile's threshold being the widest in the table, so the dark photo residual is
+caught at one scale and not the other — named rather than smoothed over. **Clause 4:** both
+metrics are published per cell — for every cell of the bed, scored or not — with the resolved
+state, backdrop tone, geometry read-back and attestation; the per-profile comparison is stated on
+body ΔE, and the full-canvas ratio to calibration is reported and explicitly **not** a gate
+quantity. **Clause 5:** a row is refused
 before it is written on geometry disagreement, non-empty `problems`, a differing resolved state,
 a fallback adapter or a missing inactive attestation; it is **spent** once written and compared;
 the read is **suspended** if the re-attestation cells fail to reproduce the recovered fixtures,
 which would make Decision Log 5's admissibility the finding; and it is **stopped** if a golden,
-an isolation hash or an active fingerprint moves. Holding means clauses 1–3 on every profile the
-bed covers; if only some hold, G2 stays blocked by default and shipping the pose in one colour
-scheme and not the other is a user decision, not this gate's.
+an isolation hash or an active fingerprint moves.
+
+**Holding is clauses 1–3 jointly** on every profile the checking set covers; a profile that passes
+clause 2's mean and fails clause 3 on one cell has not held the bound. On the spent holdout that
+joint reading fails **four of six profiles** — both dark on clauses 2 and 3, both light standard
+on clause 3 alone through residual (e)'s tinted photo `rrect-lg` — and only the two accessibility
+profiles hold all three. If only some profiles hold, G2 stays blocked by default, and shipping the
+pose in one colour scheme and not the other is a user decision, not this gate's.
 
 **7. X8 — what this gate did not measure, and what the record turned out not to hold.** Nothing
 here is a new measurement of Apple's material: every number is a re-reading of §5.128's census,
@@ -17191,16 +17240,39 @@ here is a new measurement of Apple's material: every number is a re-reading of �
 has run, no cell of the checking bed exists, and the bound has not been read against anything.
 Four corrections sit beside the readings they qualify rather than replacing them. **First**, the
 "seven to eight times" of §5.130 §7 and W27 Decision Log 12 is real on the metric it was computed
-on and is **not a like-for-like comparison**: the sets differ 3.4–3.7× in footprint by
+on and is **not a like-for-like comparison**: the sets differ 3.08–3.68× in footprint by
 construction, and on the interior mask the light standard holdout is below its own validation
-level while every spent holdout cell clears the active material's adopted ceiling. The record
-therefore supports a **narrower** hold than the one in force — the dark endpoint unproven, no
-inactive floor adoptable anywhere, four named model-form gaps open — but not "a pose proven on 23
-cells only" as a description of the light and accessibility readings. That is a finding; the
-ruling remains the user's and no gate is unblocked here. **Second**, §5.130 §7's stacking
-sentence is withdrawn (§3 (d) above). **Third**, Decision Log 5's one-to-two-hour capture
-estimate does not match any recorded session (§5). **Fourth**, the corrected run's 2x dark
-calibration set has 8 cells against 1x's 9 — §5.128's minority-active exclusion working as
-recorded — which is why the two dark calibration means are not computed over the same cells.
-G2 and G3 remain held. The activation transition's timing still has no reference of any kind,
-and no bed of still captures can give it one.
+level while every spent holdout cell clears the active material's adopted *ceiling*. What that
+narrows is **what** is unproven rather than how much. It does not support "a pose proven on 23
+cells only" as a description of the light standard **means**; it does **not** clear those profiles
+either, because applied jointly this gate's own bound fails them on clause 3 through residual
+(e)'s tinted photo `rrect-lg` at 2.20× and 2.07×, so four of six profiles fail and only the two
+accessibility profiles hold all three clauses. What survives is that the dark endpoint's level and
+colour, and transmitted chroma at large span in every scheme, are unproven; that no inactive floor
+is adoptable anywhere; and that the four named model-form gaps are open. The hold's direction
+stands; the aggregate magnitude quoted for it is not what the interior metric measures. That is a
+finding; the ruling remains the user's and no gate is unblocked here. **Second**, §5.130 §7's
+stacking sentence is withdrawn, and it is **six** holdout rows that carry the replaced overlay,
+not two (§3 (d) above), which also leaves the stack-specific term unmeasured rather than small.
+**Third**, Decision Log 5's one-to-two-hour capture estimate does not match any recorded session
+(§5). **Fourth**, the corrected run's 2x dark calibration set has 8 cells against 1x's 9 —
+§5.128's minority-active exclusion working as recorded — which is why the two dark calibration
+means are not computed over the same cells. G2 and G3 remain held. The activation transition's
+timing still has no reference of any kind, and no bed of still captures can give it one.
+
+**Verification record.** An independent review of the gate at `4f90e05` confirmed all four
+load-bearing claims against the record — the middle anchor's identity with `mid-dark-solid`, the
+footprint confound behind the "seven to eight times", the stale DOM overlay on the stack rows, and
+the span-rising chroma retention — and that nothing in the repository moved. It returned **eight
+defects in the gate's own artifacts**, all fixed in one pass before the declaration landed and
+each corrected **in place**, none of them being committed evidence of a measurement: residual
+(c)/(e)'s mechanism was stated for the wrong scheme's alpha (0.46 is light's; dark moves 0.9 →
+0.89, marginally less opaque, and neither scheme's recede touches the lerp at all, which is what
+makes the gap a missing degree of freedom); the bound's clauses 1 and 3 said "every checking-bed
+cell" where the bed excludes supplying and attestation cells; six holdout rows carry the replaced
+overlay rather than two, which also withdrew a +0.005 stack excess derived from one of them;
+clause 3's retro-application was one-sided and the joint verdict is four failing profiles, not
+two; the machine-time range did not follow from its own 1.3–2.5× multiplier; the chroma-retention
+floor at spans 32–44 holds in light only; the footprint ratio is 3.08–3.68×; and `capturedAt` is
+present on all 121 recovered entries, so nine fields are restorable and `presentedActive` is the
+one to invert. Calibration 340/340 and lint green at the fixed head.
