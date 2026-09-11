@@ -183,10 +183,14 @@ describe("W3's tinted cells", () => {
     const bySet = Object.fromEntries(
       SETS.map((set) => [set, tinted.filter((scene) => setOf(scene.id) === set).length]),
     );
-    // The four probe tinted cells are W25's, and they are counted separately
-    // on purpose: this assertion is what would catch a probe cell drifting into
-    // a fitted or checked role, which is the whole risk a non-gated set carries.
-    expect(bySet).toEqual({ calibration: 7, validation: 2, holdout: 3, recorded: 0, probe: 4 });
+    // The five probe tinted cells are counted separately on purpose: this
+    // assertion is what would catch a probe cell drifting into a fitted or
+    // checked role, which is the whole risk a non-gated set carries. Four are
+    // W25's; the fifth is `mid-chroma-solid__capsule-button__rest-tint-orange`,
+    // the active reference the W27c G1b checking bed's tinted chroma cell needs
+    // (scene spec 4, W27 Decision Log 13) — a recede is a difference, and a new
+    // background has no active side until one is captured.
+    expect(bySet).toEqual({ calibration: 7, validation: 2, holdout: 3, recorded: 0, probe: 5 });
   });
 
   it("sweep five backdrop levels on the calibration set", () => {
@@ -217,8 +221,26 @@ describe("W3's tinted cells", () => {
   });
 });
 
+/**
+ * Two populations wear `state: "inactive"` since scene spec 4, and they must not
+ * be read as one: the 37 scenes W27c G0 RECOVERED, which have committed fixtures
+ * and mirror their active twin's split role, and the 31 W27c G1b declared as the
+ * CHECKING BED, which have no fixtures at all until the 26.5 run takes them.
+ *
+ * The discriminator is the split role, and that is W27 Decision Log 13 written
+ * into the matrix: the whole checking bed is `probe` because it is read at the
+ * probe bar and no inactive regression floor is adopted from it, while no
+ * recovered cell is `probe` — each inherited its twin's gated role. So "not
+ * probe" is the recovered bed exactly, without either population having to be
+ * listed by hand in two places.
+ */
+const isCheckingBedInactive = (scene: SceneEntry): boolean =>
+  scene.state === "inactive" && setOf(scene.id) === "probe";
+
 describe("W27c G0/G1's recovered-inactive bed (claims §5.128; X3, X7)", () => {
-  const recovered = MATRIX.scenes.filter(isRecoveredInactive);
+  const recovered = MATRIX.scenes.filter(
+    (scene) => isRecoveredInactive(scene) && !isCheckingBedInactive(scene),
+  );
 
   it("has exactly the 37 scenes G0 matched (claims §5.128 §1: 121 cells, 37 distinct scenes)", () => {
     expect(recovered.length).toBe(37);
@@ -268,6 +290,78 @@ describe("W27c G0/G1's recovered-inactive bed (claims §5.128; X3, X7)", () => {
         "photo__rrect-md__inactive-pressed",
       ].sort(),
     );
+  });
+});
+
+describe("W27c G1b's checking bed, declared before the capture (claims §5.134 §5; W27 Decision Log 13)", () => {
+  const DECLARATION = JSON.parse(
+    readFileSync(
+      resolve(REPO_ROOT, "packages", "calibration", "results", "2026-09-11-w27c-g1b", "checking-bed.json"),
+      "utf8",
+    ),
+  ) as {
+    groups: readonly { id: string; role: string; scenes: readonly string[] }[];
+    newScenesRequired: readonly { background: string; scenes: readonly string[] }[];
+  };
+  const bedInactive = [...new Set(DECLARATION.groups.flatMap((group) => group.scenes))];
+  const bedNewBackground = DECLARATION.newScenesRequired.flatMap((entry) => entry.scenes);
+
+  it("declares every id the specification names, at the size it states", () => {
+    // The specification is the contract this run executes, and a bed captured
+    // against a scene set that drifted from it would answer a question nobody
+    // declared. 38 inactive ids plus the 4 `rest` cells the new background needs.
+    expect(bedInactive.length).toBe(38);
+    expect(bedInactive.filter((id) => !IDS.has(id))).toEqual([]);
+    expect(bedNewBackground.filter((id) => !IDS.has(id))).toEqual([]);
+    expect(bedNewBackground.filter((id) => id.includes("__rest")).length).toBe(4);
+  });
+
+  it("adds 31 new inactive ids and leaves the recovered 7 in their existing roles", () => {
+    // Seven of the 38 already existed — group A's mid-dark anchor, group E's
+    // six attestation cells — and they keep the gated role their active twin
+    // gave them. Re-capturing an already-gated cell is the attestation; moving
+    // its role would be a change to the frozen bed, which this gate does not make.
+    const added = MATRIX.scenes.filter(isCheckingBedInactive).map((scene) => scene.id);
+    expect(added.length).toBe(31);
+    const alreadyRecovered = bedInactive.filter((id) => !added.includes(id));
+    expect(alreadyRecovered.length).toBe(7);
+    for (const id of alreadyRecovered) expect(setOf(id), id).not.toBe("probe");
+  });
+
+  it("gives every added cell an active twin the matrix already declares (X3)", () => {
+    // X3: states extend the set, never the grammar. Undoing the pose suffix has
+    // to land on a declared scene, or the id encodes a background x component
+    // pair nothing else in the bed measures.
+    for (const scene of MATRIX.scenes.filter(isCheckingBedInactive)) {
+      const twinId =
+        scene.tint === undefined
+          ? `${scene.background}__${scene.component}__rest`
+          : `${scene.background}__${scene.component}__rest-tint-${scene.tint}`;
+      expect(IDS.has(twinId), `${scene.id} -> ${twinId}`).toBe(true);
+    }
+  });
+
+  it("sizes the standard pass at the 80 cells the cost model was computed on", () => {
+    // claims §5.134 §5 costs the run at 80 fixtures per standard pass per scale.
+    // That number is the profile declarations' own arithmetic — the light
+    // profiles are "all" so they carry the 4 active cells too — and if it drifts,
+    // the machine-time estimate the user approved drifts with it.
+    const declared = (key: string): readonly string[] => {
+      const profile = MATRIX.profiles.find((p) => p.key === key);
+      if (!profile) throw new Error(`no profile ${key}`);
+      return profile.scenes === "all" ? MATRIX.scenes.map((s) => s.id) : profile.scenes;
+    };
+    const bed = new Set([...bedInactive, ...bedNewBackground]);
+    const cells = (key: string): number => declared(key).filter((id) => bed.has(id)).length;
+    for (const scale of ["1x", "2x"]) {
+      expect(cells(`apple-macos-26.5-${scale}-light-standard`)).toBe(42);
+      expect(cells(`apple-macos-26.5-${scale}-dark-standard`)).toBe(38);
+    }
+    // The accessibility passes carry the 12-cell checking group plus the two
+    // attestation cells those profiles already declared — 14, not the
+    // specification's 12, and the extra two are free re-attestation.
+    expect(cells("apple-macos-26.5-1x-light-increased-contrast")).toBe(14);
+    expect(cells("apple-macos-26.5-1x-light-reduced-transparency")).toBe(14);
   });
 });
 
@@ -351,14 +445,22 @@ describe("W7's backdrop-adaptation holdout", () => {
 });
 
 describe("W25's probe set is captured evidence that no gate is stated over", () => {
-  const PROBE = MATRIX.split.probe;
+  // The role now holds two populations — W25's span/pitch grids and W27c G1b's
+  // checking bed (scene spec 4) — and the assertions below are about the grids.
+  // The two are separated by the state segment plus the one background the
+  // checking bed brought with it, never by re-listing either set here.
+  const PROBE = MATRIX.split.probe.filter(
+    (id) => !id.includes("__inactive") && !id.startsWith("mid-chroma-solid__"),
+  );
 
   it("is declared, non-empty, and disjoint from every gated set", () => {
     // The one property the role exists for. A probe id that also sat in a gated
     // list would be a cell the gate reads and the fits treat as free ground.
-    expect(PROBE.length).toBeGreaterThan(0);
+    // Over the WHOLE role, both populations, because this is the property the
+    // role exists for rather than a statement about either grid.
+    expect(MATRIX.split.probe.length).toBeGreaterThan(0);
     const gated = new Set(GATED_SETS.flatMap((set) => MATRIX.split[set as "calibration"]));
-    expect(PROBE.filter((id) => gated.has(id))).toEqual([]);
+    expect(MATRIX.split.probe.filter((id) => gated.has(id))).toEqual([]);
   });
 
   it("keeps the grids' own scene ids, so a probe row continues a grid row", () => {
@@ -407,7 +509,10 @@ describe("W25's probe set is captured evidence that no gate is stated over", () 
     // above span 96 at 2x. The accessibility profiles are excluded because the
     // question the set asks is about the material, not about a11y policy, and
     // each such profile costs its own capture session with a System Settings
-    // toggle flipped.
+    // toggle flipped. W27c G1b's checking cells DO ride the two accessibility
+    // profiles — the endpoint's accessibility fields were fitted in the light
+    // entry only (claims §5.134 §5) — and they are outside `PROBE` above for
+    // exactly that reason: the two populations answer different questions.
     const carrying = MATRIX.profiles
       .filter((profile) => profile.scenes === "all" || PROBE.every((id) => profile.scenes.includes(id)))
       .map((profile) => profile.key)
