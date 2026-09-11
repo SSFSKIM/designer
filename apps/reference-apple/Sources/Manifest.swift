@@ -38,6 +38,40 @@ struct DisplayInfo: Codable {
   let displayColorProfile: String?
 }
 
+/// The inactive pose's per-cell attestation — the inversion claims §5.134 §5 asks
+/// for, written as evidence rather than as an absence.
+///
+/// Every field is sampled at the moment the pose is checked, immediately before the
+/// capture of the cell it is attached to, and the cell is refused if the pose is not
+/// the one the run declared. The three state readings are recorded separately rather
+/// than reduced to one Boolean because they fail separately: a window that is not key
+/// in an application that IS active is a different fault from a `.regular` process
+/// that was never deactivated, and a bed that recorded only their conjunction could
+/// not say which happened.
+struct PresentationAttestation: Codable {
+  /// The pose this run declared, and the pose observed. They are equal in every
+  /// written entry — a mismatch fails the cell before it is captured — and both are
+  /// recorded so that equality is a fact in the file rather than a property of code
+  /// nobody can see from the bundle.
+  let declaredPose: String
+  let observedPose: String
+  let isKeyWindow: Bool
+  let appIsActive: Bool
+  /// `regular` or `accessory`, read from `NSApp.activationPolicy()`. The policy is
+  /// half the mechanism, so a bundle that cannot state it cannot say how its pose
+  /// was produced.
+  let activationPolicy: String
+  /// Whether AppKit was allowed to promote the window to key — `canBecomeKey`.
+  let windowCanBecomeKey: Bool
+  /// A short, stable name for how the pose was reached, so two beds produced by
+  /// different mechanisms are never silently pooled.
+  let mechanism: String
+  /// When the three state readings above were taken. Distinct from `capturedAt`:
+  /// the pose is checked before the settle loop starts and the capture ends after
+  /// it, and a pose that changed in between is what the two timestamps expose.
+  let attestedAt: String
+}
+
 struct FixtureEntry: Codable {
   let sceneId: String
   let file: String
@@ -103,6 +137,21 @@ struct FixtureEntry: Codable {
   /// claim, and `nil` also covers the offscreen `swiftui-image-renderer` path,
   /// which has no window to be key.
   let presentedActive: Bool?
+  /// The pose this cell was captured in, proved rather than absent.
+  ///
+  /// `presentedActive` alone cannot carry an inactive bed. On the 121 recovered
+  /// fixtures the field is simply MISSING, and a missing field is indistinguishable
+  /// from a bundle written before the field existed — which is exactly what claims
+  /// §5.134 §5 says must stop being acceptable: "the field merely being absent is
+  /// what the recovered entries do". So an inactive capture records the two halves
+  /// of the attestation separately, beside the mechanism that produced them and the
+  /// moment they were read, and `presentedActive` is written `false` as the
+  /// inversion it is rather than left out.
+  ///
+  /// Absent on the active path, where `presentedActive: true` already says
+  /// everything and where adding a field would change bytes the existing bed's
+  /// provenance is compared against.
+  let presentation: PresentationAttestation?
   /// What this capture handed to `Glass.tint(_:)`, and whether any of it came out
   /// the other side. nil on every scene that declares no tint.
   ///

@@ -39,6 +39,23 @@ struct CaptureError: LocalizedError {
   var errorDescription: String? { message }
 }
 
+/// Which activation pose a run presents its window in.
+///
+/// Liquid Glass has two appearances and the window server picks between them from
+/// the window's key state and the application's active state. Every fidelity claim
+/// on the active bed means `.active`. `.inactive` is the window recede W27c
+/// measures, and it is a property of the PRESENTATION rather than of the scene:
+/// the same view hierarchy, the same raster backdrop and the same `glassEffect`
+/// render either pose, so nothing about a scene's content says which one a capture
+/// holds. That is exactly why it has to be attested per cell rather than inferred
+/// from the scene id — the 121 recovered fixtures are inactive because of how the
+/// harness happened to be built in the week they were taken, and no field in the
+/// bundle they were written into records it.
+enum CapturePose: String, Codable {
+  case active
+  case inactive
+}
+
 /// The result of capturing one scene, with the honesty fields attached.
 struct CaptureOutcome {
   let image: CGImage
@@ -80,18 +97,30 @@ enum Capture {
   /// Measured 2026-08-30: before this override the capture window reported
   /// `canBecomeKey: false, isKeyWindow: false, isMainWindow: false,
   /// NSApp.isActive: false`, through every capture of every committed fixture.
+  /// Measured 2026-09-11 (macOS 26.5.2 / 25F84): with `keyCapable` false the
+  /// window reports exactly the state the recovered bed was taken in, and the
+  /// active path is unchanged because `true` is the default and every existing
+  /// call site takes it.
   final class CaptureWindow: NSWindow {
-    override var canBecomeKey: Bool { true }
-    override var canBecomeMain: Bool { true }
+    /// Whether AppKit may promote this window to key and main.
+    ///
+    /// `true` is the active capture pose. `false` is half of the inactive one —
+    /// see `presentInactive` — and it is a stored property rather than a second
+    /// subclass because the pose has to be a decision the run makes, in one
+    /// place, and not a type the rest of the harness has to know about.
+    var keyCapable = true
+    override var canBecomeKey: Bool { keyCapable }
+    override var canBecomeMain: Bool { keyCapable }
   }
 
   /// A borderless window sized exactly to the canvas, so a window capture needs
   /// no cropping and no titlebar subtraction — both of which are places a
   /// one-pixel offset creeps into every fixture at once.
   @MainActor
-  static func makeWindow(canvas: CGSize) -> NSWindow {
+  static func makeWindow(canvas: CGSize, keyCapable: Bool = true) -> NSWindow {
     let w = CaptureWindow(contentRect: NSRect(origin: .zero, size: canvas),
                           styleMask: [.borderless], backing: .buffered, defer: false)
+    w.keyCapable = keyCapable
     w.isOpaque = true
     w.backgroundColor = .black
     w.hasShadow = false
@@ -119,11 +148,139 @@ enum Capture {
     window.makeKey()
   }
 
+  /// Put the capture window on screen with the application INACTIVE.
+  ///
+  /// The exact inverse of `present`, and the three things it inverts are the three
+  /// DL14 changes that moved this harness onto the active pose in the first place:
+  ///
+  ///   1. the process runs under `NSApplication.ActivationPolicy.accessory`
+  ///      rather than `.regular` (set before `NSApplication.run`, in `runGUI`);
+  ///   2. the capture window answers `false` to `canBecomeKey`/`canBecomeMain`;
+  ///   3. nothing on this path calls `activate` — the window is put on screen with
+  ///      `orderFrontRegardless()`, which shows a window without activating its
+  ///      application, and `makeKey` is never sent.
+  ///
+  /// **Why this mechanism and not another — measured, not argued.** Run
+  /// `./capture.sh deactivate-probe` to reproduce; this is its reading on macOS
+  /// 26.5.2 (25F84), Mac14,12, 2026-09-11, with the harness launched the way
+  /// `capture.sh` launches it:
+  ///
+  /// | mechanism | isKeyWindow | NSApp.isActive | on screen | pose |
+  /// | --- | --- | --- | --- | --- |
+  /// | `.accessory` + `!canBecomeKey` + `orderFrontRegardless`, never activated | false | false | yes | **inactive** |
+  /// | `present()` under `.regular` (the active bed) | true | true | yes | active |
+  /// | `NSApplication.deactivate()` from the active pose | false | **true** | yes | neither |
+  /// | activating another application from the active pose | false | false | yes | inactive |
+  ///
+  /// `NSApplication.deactivate()` **does not reach the pose on this OS**: the
+  /// window resigns key and the application stays active, still after two further
+  /// seconds of its own event loop. That is a refutation of the obvious candidate
+  /// and not a preference — it is documented as something an application should
+  /// not normally call, and here it does half the job.
+  ///
+  /// Activating some OTHER application — the "second helper process" candidate
+  /// `checking-bed.json` names — does reach the pose, and is rejected anyway: it
+  /// leaves the run under `.regular`, so the pose is a fact about what happened to
+  /// have focus for the next several hours rather than about how the capture was
+  /// built, and anything that activates this process puts it back.
+  ///
+  /// The adopted mechanism holds the pose BY CONSTRUCTION. An `.accessory`
+  /// application is not activated by having a window ordered front and has no Dock
+  /// tile or menu bar to be activated through; a window whose `canBecomeKey` is
+  /// false cannot be promoted by AppKit, and this one ignores mouse events too, so
+  /// a stray click reaches neither. Both halves were tested rather than quoted: an
+  /// explicit `window.makeKey()` against this configuration left the reading at
+  /// `key=false active=false`, and re-entering `.accessory` after a deliberate
+  /// activation recovered the pose, so a disturbed session does not have to start
+  /// over. It is also the configuration the 121 recovered fixtures were taken
+  /// under (the tree before `973fd7e`), which is what makes group E of the
+  /// checking bed a re-attestation of the same pose rather than a comparison
+  /// against a second, differently-produced one.
+  ///
+  /// **What the probe could not close.** Whether ScreenCaptureKit returns the
+  /// window's pixels while the application is inactive was not read: Screen
+  /// Recording is denied to this build on this machine, and TCC is granted per
+  /// bundle path, so every fresh build needs it re-granted. The window is
+  /// `occlusionState.visible` in the pose, which is the precondition, and the 121
+  /// recovered fixtures are SCK captures taken in exactly this configuration —
+  /// but that is inference plus history, not a reading. `./capture.sh probe`
+  /// answers it in seconds once the grant is in place, and the runbook makes it
+  /// the first step of the session.
+  ///
+  /// Deterministic, but never assumed: the caller attests `isInactivelyPresented`
+  /// per cell and refuses to write a fixture without it. This returns after the
+  /// state is observed, or throws — a run that cannot reach the pose must stop
+  /// before it files a single active pixel under an inactive id.
+  /// Asynchronous, and that is a measured requirement rather than a style. The
+  /// application's active state is updated by `NSApplication.run` when it
+  /// processes an activation EVENT, so a synchronous poll that spins a bare
+  /// CFRunLoop reads the state the process started in however long it waits —
+  /// measured 2026-09-11 by `deactivate-probe`'s first version, which watched
+  /// `occlusionState` change while `NSApp.isActive` stayed stale. Awaiting yields
+  /// to AppKit's own loop, which is the only place the answer arrives.
+  @MainActor
+  static func presentInactive(_ window: NSWindow, settleSeconds: Double = 4.0) async throws {
+    if let capture = window as? CaptureWindow, capture.keyCapable {
+      throw CaptureError(message: """
+        presentInactive: the window was built key-capable. Build it with \
+        makeWindow(canvas:keyCapable: false) — a window AppKit may promote to key \
+        cannot hold the inactive pose by construction, and this path does not \
+        claim a pose it only hopes for.
+        """)
+    }
+    window.orderFrontRegardless()
+
+    // Read after AppKit has had its loop, not on the line after the order-front:
+    // activation is the window server's answer, and a reading taken before it
+    // answers is a reading of the previous state. Polled so the common case costs
+    // one tick and the failure case still ends.
+    let deadline = Date().addingTimeInterval(max(0, settleSeconds))
+    while !isInactivelyPresented(window) && Date() < deadline {
+      try? await Task.sleep(nanoseconds: 100_000_000)
+    }
+    guard isInactivelyPresented(window) else {
+      throw CaptureError(message: """
+        presentInactive: the window is \(window.isKeyWindow ? "KEY" : "not key") and \
+        the application is \(NSApp.isActive ? "ACTIVE" : "not active") \
+        (activation policy \(NSApp.activationPolicy() == .accessory ? "accessory" : "regular")), \
+        which is not the inactive pose.
+
+        Both must be false. The usual cause is the process running under the \
+        .regular activation policy — `capture --inactive` sets .accessory before \
+        NSApplication.run and nothing may call activate afterwards. Run \
+        './capture.sh deactivate-probe' to see what this machine does with each \
+        mechanism.
+        """)
+    }
+  }
+
   /// Whether the material is being rendered in its ACTIVE appearance, which is the
   /// one every fidelity claim means. Sampled at capture time rather than assumed.
   @MainActor
   static func isActivelyPresented(_ window: NSWindow) -> Bool {
     window.isKeyWindow && NSApp.isActive
+  }
+
+  /// Whether the material is being rendered in its INACTIVE appearance.
+  ///
+  /// Deliberately NOT `!isActivelyPresented`. That negation is "not (key and
+  /// active)", which a window that is key in an inactive app satisfies — and the
+  /// recede is the state where BOTH are false. claims §5.134 §5 states the
+  /// attestation in exactly those terms, and writing it as a negation of the
+  /// active predicate would quietly widen it by one case.
+  @MainActor
+  static func isInactivelyPresented(_ window: NSWindow) -> Bool {
+    !window.isKeyWindow && !NSApp.isActive
+  }
+
+  /// The pose a window is in right now, or `nil` when it is in neither — key in an
+  /// inactive application, or not key in an active one. `nil` is a refusal, not a
+  /// default: a capture taken in a half-state belongs to no bed.
+  @MainActor
+  static func observedPose(_ window: NSWindow) -> CapturePose? {
+    if isActivelyPresented(window) { return .active }
+    if isInactivelyPresented(window) { return .inactive }
+    return nil
   }
 
   @MainActor

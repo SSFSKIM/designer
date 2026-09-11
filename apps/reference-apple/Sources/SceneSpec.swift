@@ -271,24 +271,38 @@ struct SceneSpecFile: Decodable {
   }
 
   /// The `state` values a fresh run of this harness can put on screen and
-  /// capture: the two interaction poses `SceneView` and `Capture` actually
-  /// reach. `"inactive"` names the window-recede pose (W27c; claims §5.128,
-  /// §5.130) — a real scene state, not a capture technique, and this harness
-  /// has no way to put its OWN window into it: `Capture.present` activates and
-  /// key-focuses the window on every path, and nothing here can ask AppKit for
-  /// the opposite. W27c G2 lands vitrea's WEB runtime activation observer
-  /// (`setWindowActivation`, the root option, the React prop) — it implements
-  /// no native, capture-side deactivation, and no gate for one is chartered
-  /// yet; that is separate work this harness does not do today. The 121
-  /// inactive fixtures already on disk are recovered from the tree before the
-  /// harness's window could ever become key (973fd7e^) — historical reference
-  /// data, not something this run could reproduce by capturing again.
-  static let freshlyCapturableStates: Set<String> = ["rest", "pressed"]
+  /// capture, PER PRESENTATION POSE.
+  ///
+  /// The two sets are disjoint, and that is the point: a run presents one pose
+  /// for its whole length, so the states it can reach are decided once, and a
+  /// scene whose state belongs to the other pose is refused before a window
+  /// opens rather than captured under the wrong appearance.
+  ///
+  /// `.active` reaches `"rest"` and `"pressed"` — the two interaction poses
+  /// `SceneView` renders, under `Capture.present`, which activates and
+  /// key-focuses. `.inactive` reaches `"inactive"` alone, the window-recede pose
+  /// W27c measures (claims §5.128, §5.130), under `Capture.presentInactive`.
+  /// The recede is a pose of the PRESENTATION, not of the scene's content, so
+  /// nothing in the view hierarchy differs between the two and only the
+  /// per-cell attestation can tell a bed which one it holds.
+  ///
+  /// Until 2026-09-11 the inactive side did not exist: `Capture.present`
+  /// activated on every path and the 121 inactive fixtures on disk were
+  /// recovered from the tree before this harness's window could ever become key
+  /// (`973fd7e^`) rather than captured. `presentInactive` is that path, built
+  /// for the checking bed of claims §5.134 §5 under W27 Decision Log 13. It is
+  /// still not vitrea's WEB runtime activation observer, which is W27c G2 and
+  /// is held.
+  static func freshlyCapturableStates(for pose: CapturePose) -> Set<String> {
+    switch pose {
+    case .active: return ["rest", "pressed"]
+    case .inactive: return ["inactive"]
+    }
+  }
 
-  /// Which of `ids` name a scene whose declared `state` a fresh run cannot
-  /// reproduce, per `freshlyCapturableStates`. An id this spec does not
-  /// recognize is left out — that is `validate()`'s failure to report, not
-  /// this one's.
+  /// Which of `ids` name a scene whose declared `state` a fresh run in this pose
+  /// cannot reproduce. An id this spec does not recognize is left out — that is
+  /// `validate()`'s failure to report, not this one's.
   ///
   /// Pure: reads only the already-decoded spec, touches no disk and opens no
   /// window, so a capture or layer-dump path can call it before either does
@@ -296,12 +310,15 @@ struct SceneSpecFile: Decodable {
   /// calibration package's own loaders, `probe`, `tint-doctor` — read every
   /// state as valid reference data and must not call this; `validate()` above
   /// is the only gate they need to pass.
-  func scenesUnsupportedForFreshCapture<S: Sequence>(_ ids: S) -> [String] where S.Element == String {
+  func scenesUnsupportedForFreshCapture<S: Sequence>(
+    _ ids: S, pose: CapturePose = .active
+  ) -> [String] where S.Element == String {
+    let reachable = SceneSpecFile.freshlyCapturableStates(for: pose)
     let byId = Dictionary(uniqueKeysWithValues: scenes.map { ($0.id, $0) })
     return ids
       .filter { id in
         guard let scene = byId[id] else { return false }
-        return !SceneSpecFile.freshlyCapturableStates.contains(scene.state)
+        return !reachable.contains(scene.state)
       }
       .sorted()
   }
