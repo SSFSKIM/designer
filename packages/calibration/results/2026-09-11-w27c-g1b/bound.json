@@ -1,0 +1,195 @@
+{
+ "gate": "W27c G1b / claims §5.134",
+ "kind": "declaration — stated before the read, and before the bed that the read needs exists",
+ "declaredOn": "2026-09-11",
+ "tier": "WebGPU (X1). The CSS tier derives and is recorded beside; it gates nothing.",
+ "readAgainst": "the frozen G1 endpoint, `packages/calibration/results/2026-09-10-w27c-g1-corrected-declaration.json`, resolved inactive SHA-256 351976df9bd2a2eca86aca590e6df22f4b0b1eba8cea3aba7602ccbceb9371f9 (light) and c8b338b8850da818a2931ad5f2b7da1849c942cd9bef6aefe13bc95c99ccec0b (dark). No parameter may change in response to the read.",
+
+ "$comment": [
+  "W27 Decision Log 12 holds G2 until 'a read holds' a bound 'declared before the",
+  "read', and claims §5.130 §8 says that bound 'must confront the holdout",
+  "residuals rather than copy the calibration mean'. This is that bound.",
+  "",
+  "Two things about it are deliberate. It is stated on the INTERIOR metric, not",
+  "on the full-canvas mean the hold's own 'seven to eight times' was computed on,",
+  "because that statistic mixes material error with footprint area and the",
+  "checking bed's footprint composition differs from the calibration set's by",
+  "design (decomposition.json; and claims §5.130 §1's own sentence, 'The full-",
+  "canvas mean is not an interior bound'). And its levels come from two places",
+  "outside the calibration mean: the bar the ACTIVE material is already held to,",
+  "and the frozen experiment's own VALIDATION reading — the honest measured",
+  "expectation for cells the fit never selected on."
+ ],
+
+ "scope": {
+  "$comment": [
+   "Every clause below scores THE CHECKING SET and nothing else — group D of",
+   "checking-bed.json, plus `checkerboard__rrect-ml__inactive` which groups B",
+   "and D share. This is stated once here and referenced by each clause so that",
+   "a later session executes it without deciding anything.",
+   "",
+   "Excluded by name, and why: group A's supplying cells (they measure the",
+   "response anchors and one of them, mid-dark-solid__capsule-button__inactive,",
+   "is a spent-holdout id); group B's supplying cells (they feed the scatter",
+   "sweep); group C's supplying cells (they feed the transfer sweep); and group",
+   "E's attestation and regression cells, four of which are calibration ids and",
+   "so can bound nothing. Scoring any of them would let a cell the fit was",
+   "selected on, or a cell whose answer is already on the record, decide whether",
+   "G2 unblocks.",
+   "",
+   "Every supplying and attestation cell is still READ and PUBLISHED under",
+   "clause 4. They are outside the pass/fail arithmetic, not outside the record."
+  ],
+  "scored": "checking-bed.json group D (12 scene ids), across every profile that declares each id",
+  "readAndPublishedButNotScored": "checking-bed.json groups A, B, C and E"
+ },
+
+ "metrics": {
+  "fullCanvasDeltaE": "whole-image mean per-pixel OKLab distance, the canonical `oklabDeltaE` of packages/calibration/src/metrics/perceptual.ts — the same quantity `adopted-thresholds.test.ts` gates and claims §5.130 §7 tabulates",
+  "bodyDeltaE": "the same distance over the declared union eroded 6 CSS px — the mask the material occupies"
+ },
+
+ "clauses": [
+  {
+   "id": "1",
+   "name": "the ceiling — per cell, full-canvas",
+   "rule": "Every cell OF THE CHECKING SET (`scope` above) reads `oklabDeltaEMean` at or below its profile's adopted WebGPU-tier bound.",
+   "thresholds": {
+    "apple-macos-26.5-1x-light-standard": 0.07,
+    "apple-macos-26.5-2x-light-standard": 0.07,
+    "apple-macos-26.5-1x-dark-standard": 0.09,
+    "apple-macos-26.5-2x-dark-standard": 0.09,
+    "apple-macos-26.5-1x-light-increased-contrast": 0.06,
+    "apple-macos-26.5-1x-light-reduced-transparency": 0.04
+   },
+   "reason": "These are not new numbers and they are not derived from the inactive bed at all. They are transcribed from the TEXTURE_TIER_* tables of packages/calibration/test/adopted-thresholds.test.ts — the bar the ACTIVE material has been held to on the same tier, the same profile and the same metric since the frozen active bed was adopted. The inactive pose ships into the same product through the same root, so it may not be held to a weaker one.",
+   "whatTheRecordAlreadySays": "All 30 spent holdout cells clear this, at 14%-69% of the bound; the worst is `photo__rrect-lg__inactive-tint-orange` at 0.048488 against 0.07. Clause 1 is therefore a non-regression clause, not the discriminating one — which is the honest way to say it rather than presenting a bar the endpoint already passes as if it were the test."
+  },
+  {
+   "id": "2",
+   "name": "the discriminating clause — per profile, interior",
+   "rule": "The checking set's (`scope` above) equal-cell mean `bodyDeltaE` for each profile is at or below the threshold below.",
+   "thresholds": {
+    "apple-macos-26.5-1x-light-standard": 0.032,
+    "apple-macos-26.5-2x-light-standard": 0.034,
+    "apple-macos-26.5-1x-dark-standard": 0.034,
+    "apple-macos-26.5-2x-dark-standard": 0.041,
+    "apple-macos-26.5-1x-light-increased-contrast": 0.0078,
+    "apple-macos-26.5-1x-light-reduced-transparency": 0.011
+   },
+   "reason": [
+    "Each threshold is that profile's VALIDATION mean body ΔE from the frozen",
+    "G1 read, rounded up to two significant figures: 0.031024, 0.033094,",
+    "0.033466, 0.040434, 0.007716, 0.010442 (decomposition.json, computed from",
+    "results/2026-09-10-w27c-g1-corrected/checked.json).",
+    "",
+    "Validation is the right level for three reasons. It is the frozen",
+    "experiment's own measured performance on cells the fit never selected on,",
+    "so it is what the endpoint's authors would have predicted for unseen cells",
+    "had they been asked. It is NOT the calibration mean — it is 1.29x to 2.18x",
+    "larger, which is the gap §5.130 §8 forbids copying away. And it is a number",
+    "the frozen bed produced, not one invented for this gate, so it cannot be",
+    "accused of having been chosen to be passable.",
+    "",
+    "It is also discriminating rather than decorative, which is the property a",
+    "declared bound most needs and most often lacks. Applied ON ITS OWN to the",
+    "30 spent holdout cells THIS CLAUSE would PASS four profiles (1x light",
+    "0.026274, 2x light 0.026908, increased contrast 0.006368, reduced",
+    "transparency 0.008161) and FAIL the two dark ones (0.066909 and 0.066844",
+    "against 0.034 and 0.041).",
+    "",
+    "That is this clause's verdict and NOT the bound's. Holding is clauses 1, 2",
+    "and 3 jointly, and clause 3 fails two further profiles on single cells, so",
+    "the spent holdout fails the bound on FOUR of six profiles. What generalises",
+    "on the light standard profiles is the MEAN; one light cell family does not.",
+    "See clause 3 for the five cells and `theHoldsOwnPremise` for the joint",
+    "reading."
+   ]
+  },
+  {
+   "id": "3",
+   "name": "the per-cell floor on a named residual",
+   "rule": "No cell OF THE CHECKING SET (`scope` above) exceeds twice its profile's clause-2 threshold. A cell that does is named in the ledger, and no inactive floor may be adopted at G3 for the regime that cell identifies, even if its profile's mean holds.",
+   "reason": [
+    "A mean over a large bed absorbs one bad cell, and every residual §5.130 §7",
+    "names is concentrated in one or two cells. 2x is the smallest multiple that",
+    "admits every VALIDATION cell of the frozen read with margin — the worst are",
+    "1.78x (1x light `photo__rrect-md__inactive-tint-orange`, 0.05689) and 1.67x",
+    "at 2x — while still catching the bed's own known failures."
+   ],
+   "retroApplicationToTheSpentHoldout": {
+    "$comment": [
+     "Stated in full rather than by example, because this clause is what makes",
+     "the bound fail two profiles that clause 2 passes. Five cells exceed 2x,",
+     "across FOUR profiles; the two accessibility profiles have none."
+    ],
+    "exceedances": [
+     {"profile": "1x-dark-standard", "scene": "mid-dark-solid__capsule-button__inactive", "bodyDeltaE": 0.10131, "multipleOfThreshold": 2.98},
+     {"profile": "2x-dark-standard", "scene": "mid-dark-solid__capsule-button__inactive", "bodyDeltaE": 0.10131, "multipleOfThreshold": 2.47},
+     {"profile": "1x-dark-standard", "scene": "photo__rrect-lg__inactive", "bodyDeltaE": 0.06967, "multipleOfThreshold": 2.05},
+     {"profile": "1x-light-standard", "scene": "photo__rrect-lg__inactive-tint-orange", "bodyDeltaE": 0.07055, "multipleOfThreshold": 2.20},
+     {"profile": "2x-light-standard", "scene": "photo__rrect-lg__inactive-tint-orange", "bodyDeltaE": 0.07026, "multipleOfThreshold": 2.07}
+    ],
+    "notCaught": "The 2x dark photo rrect-lg reads 0.06759, which is 1.65x its profile's threshold of 0.041 and inside this clause. Its 1x sibling at 2.05x is caught, so the dark photo residual is caught at one scale and not the other — a consequence of the 2x dark threshold being the widest in the table, and named rather than smoothed over.",
+    "verdict": "Four of six profiles fail the bound on the spent holdout: both dark profiles on clauses 2 and 3, both light standard profiles on clause 3 alone via the tinted photo rrect-lg. Only the two accessibility profiles hold all three clauses."
+   }
+  },
+  {
+   "id": "4",
+   "name": "what is reported whether or not it gates",
+   "rule": "The read publishes, per cell: both metrics, the resolved group state, the backdrop tone the group actually read, the geometry read-back, the native fixture's per-cell attestation including the inactive-presentation attestation, and the eroded-body level, chroma and standard deviation beside the distances. The per-profile comparison is stated on `bodyDeltaE`; the full-canvas ratio to the calibration set is reported and is explicitly NOT a gate quantity, with decomposition.json's reason cited.",
+   "reason": "The statistic that produced 'seven to eight times' is a fair comparison between sets of equal footprint composition and an unfair one between sets that differ 3.08x-3.68x in it (decomposition.json, per profile: 3.677, 3.678, 3.547, 3.346, 3.379, 3.083). The checking bed differs by design — it is deliberately weighted toward the large components the fit never saw — so quoting that ratio again without the footprint beside it would repeat the error this gate found."
+  },
+  {
+   "id": "5",
+   "name": "what stops or refuses the read",
+   "rule": [
+    "REFUSED BEFORE IT IS WRITTEN, and the scene may be recaptured inside the same session: any row whose reported canvas, requested scale and devicePixelRatio disagree; whose `problems` is non-empty; whose resolved group state differs from the declaration; whose adapter is a fallback; or whose native fixture lacks the inactive-presentation attestation. This is the corrected G1 instrument's fail-closed integrity gate, inherited.",
+    "SPENT once written and compared. A failed partial read is spent, never silently retried as fresh (W27f G1's rule, taken).",
+    "SUSPENDED if group E's re-attestation cells do not reproduce the recovered fixtures within the settle protocol's noise. That would make the recovered bed's admissibility — Decision Log 5 — the finding, and the rest of the read waits on it rather than being interpreted against a bed that has just been called into question.",
+    "STOPPED if any renderer golden, isolation hash, or either active resolved fingerprint moves. The endpoint is applied as a patch through `applyMaterialProfile`; the active material must be byte-identical throughout."
+   ]
+  }
+ ],
+
+ "whatHoldingMeans": {
+  "g2Unblocks": "when clauses 1, 2 and 3 hold JOINTLY on every profile the checking set covers. A profile that passes clause 2's mean and fails clause 3 on one cell has not held the bound.",
+  "ifOnlySomeProfilesHold": "G2 stays blocked by default. Shipping the pose on the profiles that hold and withholding it on the others is a coherent alternative and it is a USER decision, not this gate's: it would mean a runtime whose activation pose is published in one colour scheme and not the other, which is a product question about what the library promises.",
+  "noFloorIsAdoptedHere": "G1b adopts nothing. Clause 1's thresholds are the active bed's existing adopted bounds quoted for comparison; clause 2's and clause 3's are gate conditions for a read that has not happened. G3 still owns every inactive floor, and clause 3 constrains which of them it may adopt."
+ },
+
+ "theHoldsOwnPremise": {
+  "$comment": [
+   "Recorded because a bound declared against a premise should say what it found",
+   "when it checked the premise. This is a finding, not a recommendation to",
+   "reverse anything; the ruling is the user's.",
+   "",
+   "W27 Decision Log 12 holds G2 because 'today the inactive endpoint is seven to",
+   "eight times worse [on holdout] than on calibration'. That ratio is real on",
+   "the metric it was computed on and it is not a like-for-like comparison: the",
+   "holdout set's mean footprint is 3.08x-3.68x the calibration set's, because",
+   "the active split reserved exactly the largest components. On the interior",
+   "mask the ratio is 1.74x and 1.61x on the light standard profiles — BELOW",
+   "those profiles' own validation ratio of 2.05x and 1.99x — 1.01x and 1.22x on",
+   "the two accessibility profiles, and 3.47x and 3.60x on the two dark ones,",
+   "where it is carried by two cells.",
+   "",
+   "What that narrows, precisely, and what it does not. It does not support",
+   "'proven on 23 cells only' as a description of the light standard MEANS,",
+   "which clear both the active bed's adopted ceiling and their own validation",
+   "level on cells the fit never saw. It does NOT clear the light standard",
+   "profiles as a whole: applied jointly, this bound fails them on clause 3,",
+   "because photo__rrect-lg__inactive-tint-orange reads 2.20x and 2.07x its",
+   "threshold — residual (e), the model-form one. So the spent holdout fails",
+   "four of six profiles, and only the two accessibility profiles hold all three",
+   "clauses.",
+   "",
+   "The narrowing that survives is therefore about WHAT is unproven rather than",
+   "about how much: the dark endpoint's level and colour, and the chromatic",
+   "backdrop's transmitted chroma at large span in every scheme, are unproven;",
+   "no inactive floor is adoptable anywhere; the four named model-form gaps are",
+   "open. The aggregate magnitude that was quoted for the hold is not what the",
+   "interior metric measures, and the hold's direction stands regardless."
+  ]
+ }
+}

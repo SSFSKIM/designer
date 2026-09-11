@@ -1,0 +1,290 @@
+{
+ "gate": "W27c G1b / claims §5.134",
+ "kind": "specification — nothing here has been captured",
+ "declaredOn": "2026-09-11",
+
+ "$comment": [
+  "One capture session's worth of unspent native inactive evidence, specified so",
+  "that a later session can execute it without re-deciding anything.",
+  "",
+  "The bed has two roles and they must not be confused. The SUPPLYING cells",
+  "measure the reference (an anchor ordinate, a scatter ladder, a chroma",
+  "transfer) and feed the declared experiment; knowing their answer in advance",
+  "is fine, because their job is to be read, not to surprise. The CHECKING cells",
+  "decide the bound, and their vitrea-against-native comparison must never have",
+  "been read before — which is why they are drawn from the 55 declared scenes",
+  "that have no inactive counterpart at all (claims §5.128 §1: 'The current",
+  "declaration has 92 scenes; none of the missing 55 is measured by this gate').",
+  "",
+  "Every id below is an existing declared background and component given an",
+  "`__inactive` counterpart, with one deliberate exception justified in",
+  "`newScenesRequired`. X3 holds by construction: the set extends, the three-",
+  "segment key grammar does not change, and no profile key segment is added."
+ ],
+
+ "prerequisite": {
+  "blocker": "There is no native inactive capture path. The harness refuses inactive scene ids before opening a window (apps/reference-apple/Sources/SceneSpec.swift `freshlyCapturableStates = [\"rest\", \"pressed\"]`; the refusal at Sources/main.swift), and `Capture.present` activates the application and key-focuses the window on every path — the refusal text says it plainly: 'nothing here can ask AppKit for the opposite'.",
+  "tracker": "docs/doperpowers/specs/tech-debt-tracker.md, 'The recovered inactive bed has no fresh native capture path (W27c G1, 2026-09-10)'",
+  "whatItNeeds": [
+   "a capture-side way to leave the harness window visible to ScreenCaptureKit while it is neither key nor in the active application — the inverse of the three DL14 changes (CaptureWindow.canBecomeKey/canBecomeMain, Capture.present's activate-then-makeKey order, the .regular activation policy), each of which is unconditional today",
+   "an INACTIVE-PRESENTATION ATTESTATION: the negation of `Capture.isActivelyPresented` (`window.isKeyWindow && NSApp.isActive`) proven per cell and written per entry, not the `presentedActive` field merely being absent as it is on all 121 recovered entries",
+   "its own repeat check on the same frequency protocol as the active bed",
+   "preservation of the tint axis and of the separate `pressed` interaction",
+   "a scene-state filter on `capture`, which today takes no `--scenes` and attempts every scene of every profile whose accessibility matches the machine — without one, a session that wants 41 inactive cells captures 129 active ones alongside them and costs three times as much"
+  ],
+  "candidateMechanismUnverified": "A second helper process that activates itself after the harness orders its window front would leave the harness window on screen, not key, and its application not active — which is the state to be attested. The record names NO mechanism; this is a candidate for the implementing charter to verify, not a finding.",
+  "caution": "The tint identity check would condemn a correct inactive run: on the recovered pairs an author hue disappears entirely (claims §5.128, orange and blue capsules both settling at Y 0.45128 on the checkerboard), so orange and blue inactive fixtures are legitimately byte-identical there. `packages/calibration/cli/gates.ts` already exempts `state === \"inactive\"` from the colourless-tint duplicate scan on the consumer side; the producer side needs the same exemption."
+ },
+
+ "newScenesRequired": [
+  {
+   "background": "mid-chroma-solid",
+   "kind": "solid",
+   "requirement": "a uniform patch with substantial OKLab chroma at a linear Rec.709 luminance matching `photo`'s footprint mean (0.2141 at the capsule footprint, 0.2258 at rrect-lg), so the level and the chroma can be varied independently",
+   "whyItIsNeeded": [
+    "Residuals (c) and (e) are about how much of a backdrop's CHROMA the inactive",
+    "material transmits. Every chroma observation in the bed today comes from",
+    "`photo`, a broadband field whose chroma, luminance and spatial structure all",
+    "vary together — so a chroma error there is confounded with a level error and",
+    "with the scatter residual (b) at the same time. Every backdrop that is",
+    "uniform (dark-solid, mid-dark-solid, light-solid) is NEUTRAL, so the whole",
+    "bed identifies chroma transfer only where it cannot be isolated.",
+    "This is the same argument, with the same shape, that justified",
+    "`mid-dark-solid` in W7: the axis existed, every existing backdrop sat off it,",
+    "and one purpose-built uniform patch put a point on the slope. A saturated",
+    "uniform patch at photo's own luminance gives the chroma transfer a zero-",
+    "variance anchor and makes the (level, chroma) reachability test of experiment",
+    "arm A1 a measurement rather than an inference."
+   ],
+   "scenes": [
+    "mid-chroma-solid__capsule-button__rest",
+    "mid-chroma-solid__capsule-button__rest-tint-orange",
+    "mid-chroma-solid__rrect-md__rest",
+    "mid-chroma-solid__rrect-lg__rest",
+    "mid-chroma-solid__capsule-button__inactive",
+    "mid-chroma-solid__capsule-button__inactive-tint-orange",
+    "mid-chroma-solid__rrect-md__inactive",
+    "mid-chroma-solid__rrect-lg__inactive"
+   ],
+   "count": 8
+  }
+ ],
+ "noOtherNewSceneIsRequired": "Every other id below is an existing declared background × component pair. The bed needs no new component: `rrect-ml` (224 × 128, span 128) already exists and is fully fixtured on the active side, which is what makes the span ladder 32 / 44 / 96 / 128 / 160 available without inventing anything.",
+
+ "groups": [
+  {
+   "id": "A",
+   "role": "supplying",
+   "name": "the middle tone anchor and its neighbours",
+   "decides": "residual (a); experiment arm A3",
+   "why": "`backdropToneAnchorX[1]` is 0.2706, mid-dark-solid's encoded mean exactly. The response has a THIN row and a THICK row, so one thin cell identifies half of the middle knot. Three spans give the thin ordinate, the thick ordinate and the far-span continuation of the same knot; the outer anchors' thin and far spans keep the curve's ends honest while the middle knot moves.",
+   "scenes": [
+    "mid-dark-solid__capsule-button__inactive",
+    "mid-dark-solid__rrect-sm__inactive",
+    "mid-dark-solid__rrect-md__inactive",
+    "mid-dark-solid__rrect-lg__inactive",
+    "dark-solid__rrect-sm__inactive",
+    "dark-solid__rrect-lg__inactive",
+    "light-solid__rrect-sm__inactive",
+    "light-solid__rrect-lg__inactive"
+   ],
+   "note": "`mid-dark-solid__capsule-button__inactive` is the one spent-holdout id in the bed. It is here as a SUPPLYING cell and as the attestation of a fixture the record holds only as a single recovered run; it is excluded by name from the checking set and from the bound."
+  },
+  {
+   "id": "B",
+   "role": "supplying",
+   "name": "the scatter ladder — span crossed with pitch, and the kernel itself",
+   "decides": "residual (b); experiment arm A2",
+   "why": "The endpoint's far-span scatter anchors were never fitted (`sizeScatterRampStartFar1x` inherits the active 0.2; `Far2x` was set to 0.04 by continuation with the thick anchor), because the only span-160 cell in the bed is holdout. A ladder at one pitch identifies a per-cell number; a ladder crossed with pitch identifies a kernel, which is what a span-continued scatter law would have to be fitted on. `impulse` at the far spans is the direct reading of that kernel — the material's response to an impulse train IS the kernel, which is why the background exists.",
+   "scenes": [
+    "checkerboard__rrect-ml__inactive",
+    "checkerboard-8__rrect-md__inactive",
+    "checkerboard-8__rrect-lg__inactive",
+    "checkerboard-32__rrect-lg__inactive",
+    "checkerboard-64__rrect-md__inactive",
+    "checkerboard-64__rrect-lg__inactive",
+    "impulse__rrect-ml__inactive",
+    "impulse__rrect-lg__inactive"
+   ]
+  },
+  {
+   "id": "C",
+   "role": "supplying",
+   "name": "the chroma transfer",
+   "decides": "residuals (c) and (e); experiment arm A1",
+   "why": "A level-matched, zero-variance chromatic anchor at three spans, untinted and tinted, separates 'how much backdrop chroma survives' from 'how much authored hue survives' and from the scatter residual. `photo__rrect-ml` adds the span-128 rung on the structured chromatic backdrop so the span trend the census already shows (chroma retention 1.01 → 1.29 from span 32 to 160) has a fourth point that is unspent.",
+   "scenes": [
+    "mid-chroma-solid__capsule-button__inactive",
+    "mid-chroma-solid__capsule-button__inactive-tint-orange",
+    "mid-chroma-solid__rrect-md__inactive",
+    "mid-chroma-solid__rrect-lg__inactive",
+    "photo__rrect-ml__inactive"
+   ],
+   "alsoCaptureActive": [
+    "mid-chroma-solid__capsule-button__rest",
+    "mid-chroma-solid__capsule-button__rest-tint-orange",
+    "mid-chroma-solid__rrect-md__rest",
+    "mid-chroma-solid__rrect-lg__rest"
+   ],
+   "note": "The four `rest` cells are needed because a new background has no active reference at all, and the recede is a difference. They are ordinary active captures on the path that works today."
+  },
+  {
+   "id": "D",
+   "role": "checking",
+   "name": "the unspent checking set",
+   "decides": "the bound",
+   "why": "Drawn entirely from the 55 declared scenes with no inactive counterpart, so no vitrea-against-native inactive comparison on any of them has ever been read. They span the response curve's whole abscissa (dark-solid 0.1104 → mid-dark 0.2706 → photo 0.4415 → checker 0.5 → hc-text 0.7400 → light-solid 0.9505), three text pitches, a low-contrast checker, four spans and the clear variant, so a failure localises rather than merely happening.",
+   "scenes": [
+    "hc-text__rrect-sm__inactive",
+    "hc-text__rrect-lg__inactive",
+    "hc-text-7__rrect-md__inactive",
+    "hc-text-28__rrect-md__inactive",
+    "checkerboard-lc16__capsule-button__inactive",
+    "checkerboard-lc16__rrect-md__inactive",
+    "checkerboard-4__rrect-md__inactive",
+    "dark-solid__rrect-48__inactive",
+    "dark-solid__rrect-80__inactive",
+    "light-solid__rrect-ml__inactive",
+    "dark-solid__rrect-md-clear20__inactive",
+    "checkerboard__rrect-ml__inactive"
+   ],
+   "note": "`dark-solid__rrect-md-clear20__inactive` is the clear variant, which claims §5.130 names as having no inactive evidence at all. It is a checking cell and not a supplying one: the endpoint sets the clear variant's rim and shadow amplitudes to zero without any cell identifying that, and this is where that shows or does not. `checkerboard__rrect-ml__inactive` appears in group B as well — it is read once and reported under both roles, and it is scored in the checking set."
+  },
+  {
+   "id": "E",
+   "role": "attestation",
+   "name": "the stack and the recovered bed's own re-attestation",
+   "decides": "residual (d), and the X8 provenance caveat the whole endpoint carries",
+   "why": "The two stack cells' recorded overlay state shows they measured the unsampled DOM path, not the inactive endpoint, and three of the runtime sources they were captured against have changed on main since. They are re-read, not re-argued. The four calibration cells beside them are the minimum re-attestation that turns 'schema 2, single run, pose inferred from DL14' into a per-cell attested reading on at least a sample of the bed the endpoint was fitted on — Decision Log 5's 'available later without a re-fit', taken.",
+   "scenes": [
+    "checkerboard__glass-over-glass__inactive",
+    "photo__glass-over-glass__inactive",
+    "checkerboard__rrect-md__inactive",
+    "photo__rrect-md__inactive",
+    "dark-solid__capsule-button__inactive",
+    "light-solid__capsule-button__inactive"
+   ],
+   "note": "These six are attestation and regression, NOT checking cells: four of them are calibration, so they cannot bound anything. Their role is to prove the fresh session reproduces the recovered fixtures within the settle protocol's own noise. If they do not, the recovered bed's admissibility (Decision Log 5) is the finding and the rest of the read is suspended."
+  }
+ ],
+
+ "axes": {
+  "scales": "both. 1x and 2x are separate passes — the scale is switched by hand on a BetterDisplay virtual display — and claims §5.128 §5 binds every estimate to the scale it was measured at.",
+  "schemes": "both. The endpoint is scheme-indexed (Decision Log 10), the two schemes' response ordinates move in opposite directions, and the dark scheme is where the spent holdout's body ΔE is 3.5x calibration.",
+  "accessibility": {
+   "required": "1x light increased-contrast and 1x light reduced-transparency, on the subset of the bed those profiles declare — the endpoint's accessibility fields (`increasedOcclusionLift`, `strongBorderRim`, `reducedTintAdaptation`) are fitted in the LIGHT entry only and inherited unmeasured in the dark one.",
+   "recommended": "the same two at 2x, which closes a gap claims §5.128 §5 records in terms: the two accessibility policies are '1x only in this census' with 'no 2x counterpart at all'. It costs two more hand-toggled passes.",
+   "notInThisBed": "dark accessibility. macOS force-couples Increase Contrast with Reduce Transparency, the dark accessibility profiles are not declared in scenes.json at all, and adding them is a bed extension rather than a checking session."
+  },
+  "attestationPerCell": {
+   "$comment": [
+    "What Decision Log 5 said a later session could add, named as fields and",
+    "counted against the manifest. Ten field names appear on some active entry",
+    "and on no recovered one; `capturedAt` is NOT among them — all 121 recovered",
+    "entries carry it. So NINE are capture and attestation fields to restore,",
+    "and the tenth, `presentedActive`, is the one that must not be restored but",
+    "inverted."
+   ],
+   "restoreNine": ["orderIndex", "hidIdleSeconds", "settleIterations", "settleSeconds", "chromaShift", "tint", "stateFrequencies", "observedStates", "frequencySettled"],
+   "alreadyPresentOnAllRecovered": ["capturedAt"],
+   "conditionalOnTheActiveSide": "Four of the nine are not on every active entry either: `chromaShift` 231/334, `tint` 49/334 (tinted scenes only), and `frequencySettled`/`observedStates`/`stateFrequencies` 102/334 (the frequency-settled subset). A session restores each where its own condition applies, not unconditionally.",
+   "invertOne": "`presentedActive` is on 334/334 active entries and 0/121 recovered. For an inactive pose the field must not be restored: its NEGATION has to be attested — `Capture.isActivelyPresented` is `window.isKeyWindow && NSApp.isActive`, and an inactive capture must prove that false per cell. The manifest schema has no field for that, and `presentedActive` merely being absent is what the recovered entries do and is exactly what must stop being acceptable."
+  }
+ },
+
+ "size": {
+  "inactiveSceneIds": 38,
+  "activeSceneIdsForTheNewBackground": 4,
+  "totalSceneIds": 42,
+  "$comment": [
+   "A 8 + B 8 + C 5 + D 12 + E 6 = 39 listed entries, 38 distinct:",
+   "`checkerboard__rrect-ml__inactive` is shared by groups B and D, read once and",
+   "reported under both roles. Fixtures per run depend on which profiles declare",
+   "each id; the arithmetic below assumes all 38 are declared in both standard",
+   "schemes at each scale — which means adding them to the dark profile's",
+   "explicit 80-scene list, not only to the two `\"all\"` light ones — and 12 of",
+   "them in each accessibility profile."
+  ],
+  "fixturesPerRun": {
+   "1x standard pass (light + dark), plus the four new active cells": 80,
+   "2x standard pass (light + dark), plus the four new active cells": 80,
+   "1x increased-contrast pass": 12,
+   "1x reduced-transparency pass": 12
+  }
+ },
+
+ "cost": {
+  "perCellSeconds": 9.5,
+  "$comment": [
+   "9.5 s/cell is the harness's own measured cadence under the adopted reset",
+   "doctrine: 0.25 s layout, 1.75 s dwell, up to seven 1 s settle comparisons,",
+   "with the 6 s interstitial reset. Source: W25 G1's sitting record,",
+   "results/2026-09-09-w25-thick-span-composite/g1/sitting.md ('158 fixtures per",
+   "run … each run about 25 minutes at the grids' 9.5 s per cell'), corroborated",
+   "by that session's provenance.json timestamps at 25.3-25.9 min per run."
+  ],
+  "runsPerScale": {
+   "probeBar": 7,
+   "freezeBar": 17,
+   "which": "17. This bed is read once and G3 adopts inactive floors from it, so it is a bed that freezes into the enforced suite, and the ledger's freeze bar is seventeen runs for 95% confidence against a one-in-six minority state (claims §5, the adopted capture doctrine). Seven is the probe-bed bar and would leave the inactive rows unable to carry a floor."
+  },
+  "machineHours": {
+   "$arithmetic": "80 cells x 9.5 s = 12.7 min per standard pass per run; 12 cells x 9.5 s = 1.9 min per accessibility pass per run.",
+   "at7Runs": {"standardPasses": 3.0, "accessibilityPasses": 0.44, "total": 3.4},
+   "at17Runs": {"standardPasses": 7.2, "accessibilityPasses": 1.1, "total": 8.3},
+   "at17RunsWith2xAccessibilityAdded": 9.4,
+   "attemptLoss": "budget 1.3x-2.5x on top. The multiplier is the record's own spread: W25 banked six of seven runs at one scale (1.17x) and W21's probe cost eighteen runs to bank seven (2.57x), so 1.3-2.5 brackets both.",
+   "realisticRange": "11-21 hours of the user's machine at the freeze bar (8.3 x 1.3-2.5), and 4.4-8.5 at the probe bar (3.4 x 1.3-2.5).",
+   "$rangeNote": "Quoted as the multiplier's own arithmetic rather than narrowed. An earlier draft of this file said 11-15 and 4-6, which was the 1.3x end stretched a little and did not follow from the 2.5x end the record supports; the wider range is the one to plan against and the one the user is asked to approve."
+  },
+  "theRecordDoesNotHold": {
+   "quoted": "W27 Decision Log 5 rejects 'fresh captures only (one to two hours of the user's machine for a pose the record already holds)'.",
+   "measured": "No recorded session matches one to two hours. W25 G1's two seven-run passes ran 07:00Z to 12:41Z — 5 h 40 min of machine time for 158 fixtures per run. The only 'about two hours' in the ledger is ten runs at eleven minutes on a 56-cell bed. At this bed's size the freeze bar is eight hours before attempt loss.",
+   "consequence": "The one-to-two-hour figure should not be quoted as this session's cost. It is left standing where it was written, per the ledger's rule about recorded readings, with this measurement beside it."
+  },
+  "notCounted": "The harness work. The native inactive path does not exist, no AppKit mechanism for it is recorded anywhere, and it must land before a single cell of this bed can be captured. That, not the capture, is the schedule."
+ },
+
+ "twoPaths": [
+  {
+   "path": "a fresh inactive session on the user's machine, macOS 26.5",
+   "canDecide": [
+    "everything this gate asks. It is the only path that reads the 26.5 reference the frozen endpoint was fitted to, so it is the only one whose reading is a check of that endpoint rather than a comparison against a different material.",
+    "residual (a) outright: the middle ordinates are a direct measurement at the anchor's own abscissa.",
+    "residuals (b), (c) and (e) through the declared experiment's arms.",
+    "residual (d), once the stack's overlay is re-read against current main.",
+    "the X8 provenance caveat: per-cell attestation and an inactive-presentation attestation turn 'schema 2, single run, pose inferred' into an attested bed without any re-fit."
+   ],
+   "cannotDecide": [
+    "anything about macOS 27, which ships three days after this gate is written and which changes the material.",
+    "dark accessibility, which is not declared in scenes.json at all.",
+    "activation TIMING, which no bed of still captures can carry."
+   ],
+   "blockedBy": "the native deactivation path (see `prerequisite`). The machine time is the smaller half of this.",
+   "risk": "macOS 26.5 must still be installed and capturable when the session runs. 27 ships 2026-09-14. A machine that has updated cannot produce this bed at all."
+  },
+  {
+   "path": "the macOS 27 bed after 2026-09-14, captured as new `apple-macos-27.0-…` profile keys",
+   "canDecide": [
+    "what Apple's 27 inactive material does, as a new reference bed beside the frozen 26.5 one.",
+    "nothing about it is cheaper: it needs the SAME native deactivation path, the same attestation and the same run count. The prerequisite is not avoided by waiting."
+   ],
+   "cannotDecide": [
+    "the 26.5 endpoint, which is what G1b's bound is about. macOS 27 changes the material with no recompile — the research on file (docs/research/2026-09-10-macos-27-release-status.md) records stronger diffusion of complex backdrops, a darkened edge, brighter speculars, more uniform refraction and revised window, sidebar and toolbar geometry. A read of the frozen 26.5 endpoint against 27 pixels confounds the recede with the version change, and a miss could not be attributed to either.",
+    "the residuals as classified. (b), (c) and (e) are statements about how 26.5's inactive material scatters and transmits; 27's diffusion and edge are documented to differ, so a 27 reading neither confirms nor refutes them."
+   ],
+   "alsoCosts": [
+    "the profile key grammar parses `apple-macos-27.0-…` with no code change (packages/calibration/src/profile.ts), but two axes do not fit it: 27 exposes a user-facing ultraclear-to-tinted slider that becomes a required fixture axis the key does not carry, and it decouples Show Borders from Increase Contrast, which the `a11yMode` enum (`standard|reduced-transparency|increased-contrast`) cannot express.",
+    "a full active 27 bed as well, since the recede is a difference and 27 has no active reference in this repository."
+   ],
+   "verdict": "Not a substitute for path 1 at this gate. It is the right vehicle for a decision about retargeting the project's reference, which is a larger question than W27c and belongs to the user."
+  }
+ ],
+
+ "whatTheCaptureHalfNeedsFromTheUser": [
+  "A decision on the prerequisite: whether to charter the native deactivation path (the tracker entry already names it) before 2026-09-14, after which a 26.5 bed may become uncapturable on an updated machine.",
+  "If chartered: 11-21 hours of the machine at the freeze bar (4.4-8.5 at the probe bar), in unlocked console sessions, with Screen Recording re-granted after each build, the display scale switched by hand between passes, and the two accessibility toggles flipped per pass.",
+  "A ruling on whether the bed freezes into the enforced suite (17 runs) or is read as a probe bed (7 runs, and no inactive floor may be adopted at G3).",
+  "A ruling on the new `mid-chroma-solid` background: it is the one new scene this specification asks for, and it is the only cell in the design that can separate transmitted chroma from level."
+ ]
+}

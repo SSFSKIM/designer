@@ -1,0 +1,151 @@
+{
+ "gate": "W27c G1b / claims §5.134",
+ "kind": "declaration — nothing here has been run",
+ "declaredOn": "2026-09-11",
+ "declaredIn": "docs/doperpowers/specs/2026-09-10-w27-coverage-wave.md, child W27c gate G1b; Decision Log 12",
+ "$comment": [
+  "The transfer/scatter experiment §5.130 §7 names, made concrete enough to run",
+  "once. It is declared BEFORE it runs, per the wave discipline, and it fits",
+  "nothing: every arm reports a REACHABLE INTERVAL of the declared fields and",
+  "selects no value. Selection belongs to a later gate with an unspent bed.",
+  "",
+  "The doctrine this experiment must not cross, restated so a later session",
+  "cannot mistake it: the 30-cell holdout of claims §5.130 is SPENT. Its",
+  "recorded per-cell numbers may be read, and are quoted below as the prior",
+  "expectation. They are never the decision input of any arm. No arm compares a",
+  "swept configuration against a holdout cell to choose between configurations."
+ ],
+
+ "whatIsVaried": {
+  "$comment": [
+   "Only fields the frozen endpoint already declares. No new field is",
+   "introduced by this experiment; where a residual needs one, the candidate",
+   "model form is NAMED in classification.json and left unfitted."
+  ],
+  "transfer": [
+   "optics.regular.tintAlpha (the body layer's opacity; dark inactive is 0.89, light inherits 0.46)",
+   "tintChromaScale (0 at both inactive endpoints; 1 is identity)",
+   "tintShadeStrength, tintShadeDark, tintShadeLight (the authored paint's shade law)",
+   "tintShadeCollapseRetention (1 at both inactive endpoints)"
+  ],
+  "scatter": [
+   "sizeScatterRampStartFar1x (NOT set by the inactive patch; inherits the active 0.2)",
+   "sizeScatterRampStartFar2x (set to 0.04 'by continuation' with the thick anchor, not fitted)",
+   "sizeScatterRampStartThick1x / Thick2x (0.3 / 0.04 at the endpoint)",
+   "sizeScatterHeavyShareThick1x / Thick2x",
+   "sizeHeavyTapSigma1x / 2x (14 device px at 2x in the endpoint)",
+   "sizeScatterFloor (0.7 light inactive, 0.4 dark inherited)"
+  ],
+  "response": [
+   "backdropToneResponseThin[1], backdropToneResponseThick[1] — the MIDDLE ordinates, whose abscissa backdropToneAnchorX[1] = 0.2706 is mid-dark-solid's encoded mean exactly"
+  ]
+ },
+
+ "arms": [
+  {
+   "id": "A1",
+   "name": "the transfer reachability sweep — level against chroma",
+   "decides": ["c", "e"],
+   "runsOn": "cells the frozen bed already fitted or checked: photo capsule-button (span 44), photo rrect-md (span 96), photo capsule-button tint-orange, photo rrect-md tint-orange, with checkerboard capsule-button and checkerboard rrect-md as the achromatic controls, in both schemes at both scales. No holdout membership. No new capture.",
+   "measured": [
+    "interior mean linear Rec.709 Y on the declared union eroded 6 CSS px",
+    "interior mean per-pixel OKLab chroma hypot(a, b) on the same mask",
+    "interior mean per-pixel OKLab ΔE against the committed native fixture, recorded but not used to select"
+   ],
+   "procedure": [
+    "Sweep the transfer fields over a declared grid, applied as a patch through",
+    "applyMaterialProfile so the active documents are untouched. For each swept",
+    "configuration record the (level, chroma) pair each cell produces. The",
+    "declared family's reachable set is the locus those pairs trace.",
+    "Then place the committed native fixture's (level, chroma) pair on the same",
+    "plane."
+   ],
+   "decisionRule": {
+    "modelForm": "Confirmed if, on any chromatic-backdrop cell, the native (level, chroma) pair lies outside the convex hull of the reachable locus by more than the bed's repeat noise, i.e. the fields can produce the native level or the native chroma but not both at once.",
+    "bedOrUnfitted": "Refuted — reclassified as an unfitted field — if the native pair is inside the reachable locus on every chromatic cell, which would mean the endpoint simply chose the wrong point on a curve that passes through the right one.",
+    "metrology": "Refuted for these two residuals already: the errors are 0.03–0.07 OKLab ΔE, two orders above the 8-bit floor, and the cells' mean levels are within 0.002–0.003 Y of native, so framing is not implicated."
+   },
+   "priorExpectation": "Model-form confirmed. The reference's inactive material retains MORE chroma than its active one on photo (OKLab C ratio 1.01–1.04 at spans 32–44, 1.07–1.12 at 96, 1.23–1.29 at 160), while both transfer levers that lower the level — a more opaque body layer and a neutral seed — lower the chroma. That is a directional contradiction, and this arm's job is to measure its size rather than to assert it.",
+   "capacity": "runnable today on the existing fixtures; no user machine, no native capture"
+  },
+  {
+   "id": "A2",
+   "name": "the scatter reachability sweep — how far the far anchors can carry span-160 structure",
+   "decides": ["b"],
+   "runsOn": "the web side only, on the declared checkerboard span ladder 32 / 44 / 96 / 128 / 160 at both scales in both schemes. The span-128 and span-160 members have no admissible native inactive comparator in this gate — rrect-ml has never had committed fixtures and rrect-lg is spent holdout — which is exactly why this arm is a reachability measurement and not a comparison.",
+   "measured": [
+    "interior population standard deviation of linear Rec.709 Y on the declared union eroded 6 CSS px, web only",
+    "the attainable interval [min, max] of that SD at each span, over the declared sweep grid"
+   ],
+   "procedure": [
+    "Sweep the scatter fields over a declared grid. At each span record the",
+    "attainable web SD interval. Report the interval; select nothing.",
+    "The spent holdout's recorded native span-160 SD (1x light 0.01742, 2x",
+    "0.00996) is quoted in the report as the prior expectation and is MARKED",
+    "NOT A DECISION INPUT. No configuration is chosen by its distance to it."
+   ],
+   "decisionRule": {
+    "modelForm": "Confirmed if the attainable interval at span 160 does not contain the checking bed's fresh native SD when that is read — a decision this arm prepares and the checking bed's read makes.",
+    "bedOrUnfitted": "Refuted if the interval contains it, which would mean the far anchors were merely never fitted.",
+    "secondary": "If the interval contains the fresh native SD at span 160 but only at a setting that moves span 96 or span 44 outside its own bound, the three fixed span anchors are the limit and the candidate model form in classification.json (a span-continued scatter law past sizeSpanMax) is the named successor."
+   },
+   "priorExpectation": "Model-form, weakly held. The ACTIVE material, whose far anchors WERE fitted (far1x 0.20 on the W14 bed, far2x 0.21), still reads checkerboard rrect-lg interior SD 1.206× native at 1x and 1.325× at 2x in the canonical matrix, against 0.87–1.07× on every span the bed anchors. A fitted far anchor buys authority and does not close span 160 even for the pose it was fitted for.",
+   "capacity": "runnable today; web-only, no native capture"
+  },
+  {
+   "id": "A3",
+   "name": "the middle-anchor read",
+   "decides": ["a"],
+   "runsOn": "the checking bed's fresh mid-dark-solid cells only. NOT runnable before the bed exists.",
+   "measured": [
+    "the fresh native inactive interior level at backdropToneAnchorX[1] = 0.2706, at a thin span and a thick span, per scheme, per scale"
+   ],
+   "procedure": [
+    "Read the two ordinates directly off the fresh cells — this is a",
+    "measurement, not a fit; the abscissa is the anchor's own and the capsule at",
+    "span 44 takes 0.024 of the thick row, so the thin ordinate is the thin",
+    "cell's level to within 0.0006.",
+    "Then set backdropToneResponseThin[1] and Thick[1] to the readings and",
+    "re-evaluate EVERY cell whose backdrop abscissa lies between the anchors."
+   ],
+   "decisionRule": {
+    "bed": "Confirmed if the fresh ordinates bring the mid-dark cells inside the declared bound AND every cell at an intermediate abscissa (checkerboard 0.5, photo 0.44, hc-text 0.74) stays inside it. The field is then simply the right field with the wrong number, and the missing thing was evidence.",
+    "modelForm": "Confirmed instead if moving the middle knot to its measured value pushes an intermediate-abscissa cell outside the bound. Fritsch–Carlson interpolation propagates a knot's ordinate into its neighbouring segments' slopes, so this is a real risk and not a formality: the middle ordinate today carries error from cells at other abscissas, and taking that load off it has to go somewhere."
+   },
+   "priorExpectation": "Bed. The fitted dark thin[1] is 0.089 against a fresh-native expectation near 0.041, and the fitted light thin[1] is 0.4 against an expectation near 0.451; the active profile's own middle anchors are direct probe-bed measurements (W9 in light, W21 G0 in dark) and the inactive endpoint had no probe grid to read.",
+   "capacity": "needs the checking bed"
+  },
+  {
+   "id": "A4",
+   "name": "the stack re-read",
+   "decides": ["d"],
+   "runsOn": "the checking bed's two glass-over-glass scenes, against main at the time of the read.",
+   "measured": ["the overlay group's resolved state and unsampledMaterial, recorded per cell before any pixel comparison", "interior level, chroma and ΔE on the declared union"],
+   "procedure": [
+    "Record the overlay's resolved state first. If it still resolves",
+    "samplingBackend css-backdrop with analysis none, the cell measures the",
+    "unsampled DOM path and not the inactive endpoint, and it is recorded as a",
+    "W27f reading rather than a W27c one."
+   ],
+   "decisionRule": {
+    "metrology": "Already confirmed from the record and not in doubt: the light stack's overlay painted tint [1, 1, 1] at tintAlpha 0.6649600815626966 — the active flat of claims §5.129 §3 — so the inactive endpoint never reached the second plane, and three of the runtime sources the holdout was captured against have since changed on main (W27f G1, merged 6ae37c1, after the holdout's integration point 38d782c).",
+    "whatTheReReadAdds": "Whether the stack has a term of its own once the overlay draws the profile's material. The achromatic control already bounds it at +0.005 body ΔE over the same backdrop's single-plane cell."
+   },
+   "capacity": "needs the checking bed, and is best ordered after W27f G2 lands"
+  }
+ ],
+
+ "whatWouldStopTheChange": [
+  "A swept row whose reported canvas, requested scale and devicePixelRatio disagree, whose `problems` is non-empty, or whose resolved group state differs from the declared one, is REFUSED at capture time and never written. This is the corrected G1 instrument's fail-closed behaviour and it is inherited, not re-invented.",
+  "A fallback (software) adapter stops the arm outright: VITREA_ALLOW_FALLBACK_ADAPTER is not set for any arm here.",
+  "Any sweep configuration that moves a renderer golden, an isolation hash, or either active resolved fingerprint (light b2b570e4adcea8fb…, dark 874be66ea501621b…) stops the experiment: the sweep is a patch through applyMaterialProfile and the active documents must be byte-identical throughout.",
+  "A reachability interval that brackets native on every cell of an arm REFUTES that arm's model-form hypothesis, and the gate reports the refutation rather than looking for a second reason to keep it.",
+  "If the checking bed cannot be captured, A3 and A4 do not run and G2 stays blocked. The spent holdout is not substituted for the bed, and the classification of (a) and (d) stands as recorded with its evidence, not as a verdict."
+ ],
+
+ "whatIsNotVaried": [
+  "No new material field, no new law, no new anchor abscissa. The candidate model forms in classification.json are named and left unfitted.",
+  "The lens, the shadow lengths, the tone anchors' abscissas and the rim's width are untouched: the frozen endpoint sets every bright-rim and outer-shadow amplitude to 0 and nothing in these residuals is about them.",
+  "The CSS tier. Under X1 it derives and is recorded beside, never a gate."
+ ]
+}
