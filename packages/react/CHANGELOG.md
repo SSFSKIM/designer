@@ -1,5 +1,162 @@
 # @vitreajs/vitrea-react
 
+## 0.16.0
+
+### Minor Changes
+
+- 9bb6beb: A `GlassGroup` can carry the tint its members inherit.
+  
+  ```tsx
+  <GlassGroup id="panel" tint="#ff9500">
+    <GlassSurface>Inherits the group's colour</GlassSurface>
+    <GlassSurface tint={null}>Opts out of it</GlassSurface>
+  </GlassGroup>
+  ```
+  
+  The 0.2.0 release notes said "Set it on a `GlassGroup` to tint its members", and
+  the runtime has resolved a group seed since that release — a member declaring no
+  tint inherits the group's, and `null` clears it, the way `Glass.tint(nil)` does.
+  What was missing was the prop: `GlassGroupProps` had no `tint`, so there was no
+  way to set the thing the notes described.
+  
+  It takes any CSS colour, with the colour's own alpha as the tint's strength, and
+  it is parsed once per colour per document rather than per group. A group is one
+  sampling region and one optics pass and so carries one seed: a group tint plus a
+  member that overrides it is two, and raises the same dev-mode `tint-mixing`
+  warning two differently tinted members always have.
+- 1ed0a24: A toolbar can split its shared glass background, the way every system bar does.
+  
+  **What is new.** `GlassToolbar`'s children are now partitioned into sampling
+  groups at each `<GlassToolbarSpacer />` and at each item that declares
+  `sharedBackground="hidden"` — Apple's `ToolbarSpacer` and
+  `sharedBackgroundVisibility(.hidden)`, which turn out to be one rule. The result
+  is one `role="toolbar"` with N groups, never N toolbars: the row keeps its single
+  tab stop and its arrow-key order across the split, and the flex layout is
+  untouched, because a group renders no DOM. What changes is what shares a proxy,
+  a blur and a union.
+  
+  ```tsx
+  <GlassToolbar aria-label="Document actions">
+    <GlassButton onClick={share}>Share</GlassButton>
+    <GlassButton onClick={duplicate}>Duplicate</GlassButton>
+    <GlassToolbarSpacer kind="flexible" />
+    <GlassButton onClick={publish} sharedBackground="hidden" tint="#ff9500">
+      Publish
+    </GlassButton>
+  </GlassToolbar>
+  ```
+  
+  This is also how two tints coexist in one toolbar. A group carries one seed, so a
+  tinted primary action beside a tinted bar is two groups by construction — and the
+  item that steps out can carry `groupProps` of its own for anything else that
+  group needs.
+  
+  **The gap is derived, not chosen.** Two adjacent groups each sample a padded
+  region around their own shapes, and where one group's padded box covers the
+  other's shapes the backdrop filter applies twice over the overlap. A spacer
+  therefore opens the sampling padding the material actually requires under the
+  resolved accessibility policy, and never less than the advisory the scene model
+  checks a layout against: turn *Reduce Transparency* on, the frost thickens, and
+  the material's own requirement rises past that advisory on a normal-height bar.
+  Your own `gap`, margin or width adds to it, and an explicit `style` of your own
+  still wins. The material's half of that number is now exported from
+  `@vitreajs/vitrea-web` as `samplingPaddingFor({ members, material })`, which is
+  what a host-level app splitting a toolbar over the framework-agnostic entry
+  reaches for — groups are already the primitive there, so nothing else was needed.
+  
+  **Nothing about the material moves.** The frame loop resolves each group's blur
+  through the same composition it always did, now named `proxySamplingSigma` and
+  shared with the derivation above rather than written out twice.
+- 9bb6beb: `GlassButton` and `GlassIconButton` accept `tint` and `foreground`.
+  
+  ```tsx
+  <GlassToolbar aria-label="Document actions">
+    <GlassButton onClick={publish} tint="#ff9500">Publish</GlassButton>
+    <GlassButton onClick={duplicate}>Duplicate</GlassButton>
+  </GlassToolbar>
+  ```
+  
+  That example has been in the README since the tint API shipped, and it did not
+  compile. `GlassButtonProps` built its surface half from an explicit list of
+  eleven props and both of these were missing from it, so the one control Apple's
+  tint guidance is actually about — "apply color to the background… one emphasised
+  control" — was the only surface in the library that could not be tinted. The
+  material carried the colour end to end the whole time; the prop list stopped
+  short of it.
+  
+  `tint={null}` on a button clears a tint inherited from its group, exactly as it
+  does on a `GlassSurface`, and `foreground` takes the same `ForegroundAdaptation`
+  the surface takes. Nothing else about the buttons moves.
+- 9bb6beb: Four named ink levels on every glass host, on both tiers.
+  
+  ```css
+  .panel__title   { color: var(--vitrea-foreground); }
+  .panel__caption { color: var(--vitrea-foreground-secondary); }
+  .panel__meta    { color: var(--vitrea-foreground-tertiary); }
+  .panel__rule    { border-color: var(--vitrea-foreground-quaternary); }
+  ```
+  
+  `--vitrea-foreground-secondary`, `-tertiary` and `-quaternary` join
+  `--vitrea-foreground`: Apple's four label levels, as reduced-alpha versions of
+  the ink the runtime resolved for this surface. Until now there was one token, so
+  an app with a caption or a disabled row either wrote it at full strength or
+  invented a scale against a material it cannot see.
+  
+  **The alphas are not Apple's copied flat, and that is the point.** 60% is where
+  the platform's ink reaches WCAG's 4.5 body-text floor over the platform's white
+  background — and glass is never a white background. Sixty percent of vitrea's
+  dark ink reaches 4.49 over an encoded level of 1.0 and 3.21 over the regular
+  material's darkest. So **secondary is raised to whatever holds 4.5 against the
+  colour this surface is actually drawing**, and is Apple's 60% wherever that
+  already clears it, which is most of the dark appearance.
+  
+  The colour and not a brightness: a ratio is not a function of luminance once
+  either side is chromatic, so a tinted surface is measured against its tint. And
+  where the backdrop is not known — the `light-dark()` case, where the browser
+  picks the ink by colour scheme rather than by level — the floor is solved
+  against both ends of the range the surface can reach and the harder answer
+  taken, so the guarantee does not turn on which backdrop shows up.
+  
+  On a surface whose primary ink cannot hold 4.5 either, secondary collapses onto
+  the primary rather than publishing a level that is not readable. Secondary is
+  never worse than primary, and holds 4.5 wherever primary can.
+  
+  **Tertiary and quaternary carry no floor**, deliberately: they are Apple's
+  supporting and decorative tiers, they are not body text, and lifting them to 4.5
+  would collapse the scale onto one value. Quaternary is the one Apple warns about
+  by name — too low-contrast on a thin material — and in dev mode a page whose CSS
+  uses it while a surface resolves below the material's thin/thick knee now gets a
+  diagnostic saying so. It changes nothing: the token is published either way.
+  
+  Under forced colours all four are `CanvasText`, and under increased contrast all
+  four are the near-monochrome ink. A preference that asked for more contrast does
+  not get three dimmer answers.
+- 736c7cd: Add authored material presence and the materialize transition (W27d).
+  
+  `GlassSurface present={false}` and `GlassHostHandle.update({ present: false })`
+  animate the material to identity without fading or replacing the host. The
+  `--vitrea-materialization` channel reaches both renderers; presence is independent
+  of interaction state. `GlassMorph transition="materialize"` crossfades content
+  while the two materials leave and arrive in their own geometry. The existing
+  matched-geometry behavior remains the default.
+  
+  Reduced Motion steps material presence on both tiers rather than animating blur.
+  The channel's timing and easing are authored, not measured against native motion.
+  The core minor accompanies the published motion contract's authored-presence
+  semantics; all three packages remain in the fixed release group.
+
+### Patch Changes
+
+- Updated dependencies [1ed0a24]
+- Updated dependencies [9bb6beb]
+- Updated dependencies [d247346]
+- Updated dependencies [b86eb83]
+- Updated dependencies [9bb6beb]
+- Updated dependencies [736c7cd]
+- Updated dependencies [9bb6beb]
+  - @vitreajs/vitrea-web@0.16.0
+  - @vitreajs/vitrea@0.16.0
+
 ## 0.15.0
 
 ### Patch Changes

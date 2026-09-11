@@ -1,5 +1,173 @@
 # @vitreajs/vitrea-web
 
+## 0.16.0
+
+### Minor Changes
+
+- 1ed0a24: A toolbar can split its shared glass background, the way every system bar does.
+  
+  **What is new.** `GlassToolbar`'s children are now partitioned into sampling
+  groups at each `<GlassToolbarSpacer />` and at each item that declares
+  `sharedBackground="hidden"` — Apple's `ToolbarSpacer` and
+  `sharedBackgroundVisibility(.hidden)`, which turn out to be one rule. The result
+  is one `role="toolbar"` with N groups, never N toolbars: the row keeps its single
+  tab stop and its arrow-key order across the split, and the flex layout is
+  untouched, because a group renders no DOM. What changes is what shares a proxy,
+  a blur and a union.
+  
+  ```tsx
+  <GlassToolbar aria-label="Document actions">
+    <GlassButton onClick={share}>Share</GlassButton>
+    <GlassButton onClick={duplicate}>Duplicate</GlassButton>
+    <GlassToolbarSpacer kind="flexible" />
+    <GlassButton onClick={publish} sharedBackground="hidden" tint="#ff9500">
+      Publish
+    </GlassButton>
+  </GlassToolbar>
+  ```
+  
+  This is also how two tints coexist in one toolbar. A group carries one seed, so a
+  tinted primary action beside a tinted bar is two groups by construction — and the
+  item that steps out can carry `groupProps` of its own for anything else that
+  group needs.
+  
+  **The gap is derived, not chosen.** Two adjacent groups each sample a padded
+  region around their own shapes, and where one group's padded box covers the
+  other's shapes the backdrop filter applies twice over the overlap. A spacer
+  therefore opens the sampling padding the material actually requires under the
+  resolved accessibility policy, and never less than the advisory the scene model
+  checks a layout against: turn *Reduce Transparency* on, the frost thickens, and
+  the material's own requirement rises past that advisory on a normal-height bar.
+  Your own `gap`, margin or width adds to it, and an explicit `style` of your own
+  still wins. The material's half of that number is now exported from
+  `@vitreajs/vitrea-web` as `samplingPaddingFor({ members, material })`, which is
+  what a host-level app splitting a toolbar over the framework-agnostic entry
+  reaches for — groups are already the primitive there, so nothing else was needed.
+  
+  **Nothing about the material moves.** The frame loop resolves each group's blur
+  through the same composition it always did, now named `proxySamplingSigma` and
+  shared with the derivation above rather than written out twice.
+- 9bb6beb: Four named ink levels on every glass host, on both tiers.
+  
+  ```css
+  .panel__title   { color: var(--vitrea-foreground); }
+  .panel__caption { color: var(--vitrea-foreground-secondary); }
+  .panel__meta    { color: var(--vitrea-foreground-tertiary); }
+  .panel__rule    { border-color: var(--vitrea-foreground-quaternary); }
+  ```
+  
+  `--vitrea-foreground-secondary`, `-tertiary` and `-quaternary` join
+  `--vitrea-foreground`: Apple's four label levels, as reduced-alpha versions of
+  the ink the runtime resolved for this surface. Until now there was one token, so
+  an app with a caption or a disabled row either wrote it at full strength or
+  invented a scale against a material it cannot see.
+  
+  **The alphas are not Apple's copied flat, and that is the point.** 60% is where
+  the platform's ink reaches WCAG's 4.5 body-text floor over the platform's white
+  background — and glass is never a white background. Sixty percent of vitrea's
+  dark ink reaches 4.49 over an encoded level of 1.0 and 3.21 over the regular
+  material's darkest. So **secondary is raised to whatever holds 4.5 against the
+  colour this surface is actually drawing**, and is Apple's 60% wherever that
+  already clears it, which is most of the dark appearance.
+  
+  The colour and not a brightness: a ratio is not a function of luminance once
+  either side is chromatic, so a tinted surface is measured against its tint. And
+  where the backdrop is not known — the `light-dark()` case, where the browser
+  picks the ink by colour scheme rather than by level — the floor is solved
+  against both ends of the range the surface can reach and the harder answer
+  taken, so the guarantee does not turn on which backdrop shows up.
+  
+  On a surface whose primary ink cannot hold 4.5 either, secondary collapses onto
+  the primary rather than publishing a level that is not readable. Secondary is
+  never worse than primary, and holds 4.5 wherever primary can.
+  
+  **Tertiary and quaternary carry no floor**, deliberately: they are Apple's
+  supporting and decorative tiers, they are not body text, and lifting them to 4.5
+  would collapse the scale onto one value. Quaternary is the one Apple warns about
+  by name — too low-contrast on a thin material — and in dev mode a page whose CSS
+  uses it while a surface resolves below the material's thin/thick knee now gets a
+  diagnostic saying so. It changes nothing: the token is published either way.
+  
+  Under forced colours all four are `CanvasText`, and under increased contrast all
+  four are the near-monochrome ink. A preference that asked for more contrast does
+  not get three dimmer answers.
+- d247346: Derive the WebGPU material over ordinary page content from the same profile and backdrop-tone
+  law as the sampled path, rather than feeding a pre-converted flat tint into its response solve.
+  A DOM group's body, paint shade, rim and both shadow terms now follow the stated tone and each
+  member's span; only the final canvas layer is converted to encoded sRGB for browser compositing.
+  The CSS tier reads the same scalar derivation. Registered-texture rendering is unchanged.
+  
+  This implements W27 child W27f G1 (claims §5.131). A correct author hint states the real backdrop
+  level. With neither a hint nor a measured tone, response and collapse remain unavailable; a
+  scalar hint also cannot reproduce structured-backdrop colour, local spread or refraction.
+- b86eb83: Publish the scheme-indexed `recededMaterialProfile` difference documents for the inactive-window
+  pose. Author tint can now lose its hue while keeping its strength-dependent neutral level, even
+  when the untinted material has collapsed into its backdrop. The new optical fields are identity
+  by default, leaving the active material unchanged.
+  
+  This is W27c G1 of the coverage wave (claims §5.130). The activation observer and public root
+  option follow in G2; the inactive rows and their measured limits land in G3.
+- 9bb6beb: Hover, focus, press and morph now deepen the lens on the WebGPU tier.
+  
+  The `lensStrength` channel is documented as `0..1+` and the motion drivers have
+  always produced it that way — 1 at rest, 1.03 focused, 1.06 hovered, 1.10 while
+  a morph runs, 1.14 pressed, 0.5 disabled. The renderer clamped it at 1 on its
+  way into the shader, so `disabled` was the only interaction state that reached
+  the material at all and every state that deepens the lens arrived
+  indistinguishable from rest. Two documents disagreed about the channel's range;
+  the one the clamp was written from was the wrong one.
+  
+  Nothing is unbounded by the change. The lens depth is still clamped to the
+  surface's half span in the fragment stage and its magnitude scaled by the same
+  ratio, so a stronger channel deepens the lens up to that limit and no further.
+  
+  **A resting surface is byte-identical.** The channel is exactly 1 at idle, where
+  the two forms agree, and the renderer's golden bed passes unchanged with no
+  image re-recorded. What you will see move is a surface under the pointer.
+- 736c7cd: Add authored material presence and the materialize transition (W27d).
+  
+  `GlassSurface present={false}` and `GlassHostHandle.update({ present: false })`
+  animate the material to identity without fading or replacing the host. The
+  `--vitrea-materialization` channel reaches both renderers; presence is independent
+  of interaction state. `GlassMorph transition="materialize"` crossfades content
+  while the two materials leave and arrive in their own geometry. The existing
+  matched-geometry behavior remains the default.
+  
+  Reduced Motion steps material presence on both tiers rather than animating blur.
+  The channel's timing and easing are authored, not measured against native motion.
+  The core minor accompanies the published motion contract's authored-presence
+  semantics; all three packages remain in the fixed release group.
+- 9bb6beb: An untinted surface's ink is decided by the material it is drawing, not by the
+  colour scheme.
+  
+  **What changes.** A surface with no author tint and no backdrop hint used to
+  publish `--vitrea-foreground: light-dark(#1c1c1e, #f5f5f7)` and let
+  `color-scheme` pick between the two. It now publishes the ink the material's own
+  level decides, on both tiers. For the regular variant that is the dark ink over
+  every backdrop there is; the clear variant still publishes `light-dark()`,
+  because at its opacity the backdrop genuinely does decide and there is no single
+  answer to prefer.
+  
+  **Why it was wrong.** The runtime already brackets the level behind the glyphs
+  over every backdrop a surface can sit on, and takes the decision wherever the
+  whole bracket lands on one side of the crossover. That was wired to
+  author-tinted surfaces only, on the reasoning that a tint is a declaration to
+  honour while the profile's own neutral tint is a calibration constant. True, and
+  not the distinction that governs: at the material's measured opacity the neutral
+  white tint dominates what a reader sees behind the text exactly as an author's
+  colour would. What was left behind was the colour scheme choosing the ink for a
+  body it knows nothing about — in a dark scheme, the light ink on a near-white
+  surface.
+  
+  **If you were relying on the old behaviour**, an explicit `foreground` on the
+  surface or the group still wins, and your own `color` rule on the host still
+  beats the runtime's, unchanged.
+
+### Patch Changes
+
+- Updated dependencies [736c7cd]
+  - @vitreajs/vitrea@0.16.0
+
 ## 0.15.0
 
 ### Minor Changes
