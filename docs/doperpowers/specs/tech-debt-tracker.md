@@ -1914,6 +1914,21 @@ configs and their drivers, and verify the harness identity before reusing any li
 choosing another shared constant moves the collision; the two independent child tasks both
 initially chose 5198, which the coordinator caught before either reused it.
 
+**Half closed by W27f G2, 2026-09-11 (claims §5.135).** The parameterisation is done: the
+calibration scene server reads `VITREA_SCENE_SERVER_PORT` and the renderer's golden server reads
+`VITREA_GOLDEN_SERVER_PORT`, each defaulting to 5189 so every recorded capture keeps the port it
+was taken on. The renderer's two halves — `playwright.config.ts`'s `baseURL`/`webServer.url` and
+`e2e/vite.config.ts`'s `server.port` — now read one variable instead of holding two copies of one
+number, which is the specific way a golden run came to be pointed at a foreign page. A port is
+not part of a capture's identity: `capturePath` records the browser, viewport and material
+document and never the URL, so no cell key and no recorded number moves.
+
+**Still open: identity before reuse.** `reuseExistingServer` is still `true` outside CI, so a
+run that finds *something* listening on its port still trusts it. Moving the port makes a
+collision avoidable, not detectable. The remaining work is a cheap identity check before reuse —
+fetch the expected fixture path and refuse a listener that does not serve it — and it is worth
+taking the next time either suite's harness is touched.
+
 ## The recovered inactive bed has no fresh native capture path (W27c G1, 2026-09-10)
 
 W27c adds 121 historical inactive fixtures under a real scene state, but

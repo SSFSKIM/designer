@@ -38,6 +38,14 @@ const GPU_ARGS = [
   "--disable-dawn-features=timestamp_quantization",
 ];
 
+/**
+ * Kept in step with `e2e/vite.config.ts`, which reads the same variable: the
+ * config that starts the server and the config that points the browser at it
+ * must agree, and two hard-coded copies of one number is how a golden run came
+ * to be served a sibling worktree's calibration page.
+ */
+const GOLDEN_SERVER_ORIGIN = `http://localhost:${process.env["VITREA_GOLDEN_SERVER_PORT"] ?? 5189}`;
+
 export default defineConfig({
   testDir: "e2e",
   fullyParallel: false,
@@ -49,7 +57,7 @@ export default defineConfig({
   reporter: [["list"]],
   timeout: 120_000,
   use: {
-    baseURL: "http://localhost:5189",
+    baseURL: GOLDEN_SERVER_ORIGIN,
     trace: "on-first-retry",
   },
   projects: [
@@ -63,7 +71,7 @@ export default defineConfig({
   ],
   webServer: {
     command: "npx vite --config e2e/vite.config.ts",
-    url: "http://localhost:5189/e2e/fixtures/index.html",
+    url: `${GOLDEN_SERVER_ORIGIN}/e2e/fixtures/index.html`,
     reuseExistingServer: process.env.CI === undefined,
     timeout: 60_000,
   },
