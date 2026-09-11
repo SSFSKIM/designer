@@ -17656,11 +17656,22 @@ clause W27f's charter asks for, and neither existing instrument could supply it.
 optics against the CSS tier's derivation, with no notion of a sampling backend. The matrix's
 coherence axis cannot carry it either — its `dom` **tier** means the CSS *renderer*, not a
 DOM-sourced backdrop, so a WebGPU group over page content has no cell in that schema. `coherence.py`
-therefore computes the same two statistics the adopted coherence rows use, over the page-sourced
-arms, and `coherence.json` is the record: 44 cells per arm pair, GPU against CSS on the same page
-request.
+therefore computes the two statistics the adopted coherence rows are stated on, over the
+page-sourced arms, and `coherence.json` is the record: 44 cells per arm pair, GPU against CSS on the
+same page request.
 
-| set / scheme | arm pair | n | cross-tier OKLab ΔE | GPU/CSS interior ratio |
+**One of the two is not the adopted row's statistic, and the difference is stated before the
+numbers rather than after them.** `crossTierOklabDeltaEMean` here is `cli/measure.ts:591`'s
+definition exactly — whole-canvas mean OKLab distance, no mask. `interiorLevelRatioGpuOverCss` is
+**not**: the adopted row takes it over `nativeSil`, the silhouette extracted from the native fixture
+(`measure.ts:465`, `:598`), while this record takes it over the **declared** eroded interior, which
+is the region every other reading in this gate is stated over. That is forced rather than chosen —
+a native silhouette exists only where a fixture does, and **11 of the 20 ordinary dark cells have no
+dark fixture**, so the adopted row's mask cannot be formed on most of the bed this gate measures.
+The consequence is that the ratio below may not be read against the adopted row's band; it is
+comparable within itself, which is what the finding rests on.
+
+| set / scheme | arm pair | n | cross-tier OKLab ΔE (adopted row's statistic) | GPU/CSS interior ratio (this gate's mask) |
 | --- | --- | ---: | --- | --- |
 | ordinary light | hinted page | 20 | 0.0004–0.0368 | 0.8467–1.0070 |
 | ordinary light | unhinted page | 20 | 0.0018–0.0216 | 0.9005–1.1106 |
@@ -17669,13 +17680,19 @@ request.
 | stacks light | hinted page | 2 | 0.0156–0.0350 | 0.8755–0.9823 |
 | stacks dark | hinted page | 2 | 0.0152–0.0251 | **0.7897**–0.9088 |
 
-Cross-tier ΔE stays inside the adopted row's ≤ 0.05 everywhere. The interior ratio does not: **six
-of the 20 ordinary dark cells and the dark checker stack fall outside the 0.8–1.25 band**, all on
-checkerboard backgrounds, the GPU tier's interior as low as **0.6211** of the CSS tier's on
-`checkerboard__toolbar-group__rest` and **0.5214** unhinted. That band was adopted over
-texture-sourced cells of the frozen bed and **is not applied here** — applying it would make the CSS
-tier a target on a path where X1 says it is a record. It is written down because the gap is real,
-larger in the dark scheme than in the light, and concentrated where the backdrop has structure.
+Cross-tier ΔE is the comparable statistic, and it stays inside the adopted row's ≤ 0.05 on every one
+of the 44 cells, the worst being 0.0368 on light `checkerboard__rrect-ml__rest`.
+
+The interior ratio is the gate's own statistic, and read within itself it carries the finding: the
+two tiers diverge **much further in the dark scheme than in the light**, and the divergence is
+concentrated where the backdrop has structure. Every light cell sits between 0.8467 and 1.1106;
+the dark cells reach **0.6211** hinted and **0.5214** unhinted, both on
+`checkerboard__toolbar-group__rest`, and six of the 20 ordinary dark cells plus the dark checker
+stack (0.7897) sit below 0.8 — all of them checkerboard backgrounds. The 0.8–1.25 figures quoted
+above are the adopted row's band and are shown for shape only; **they are not applied**, both
+because X1 makes the CSS tier a record rather than a target on this path, and because the band is
+not stated over this mask. What is being recorded is the size and the shape of a gap nobody had
+measured on DOM-sourced groups, not a verdict against a threshold.
 
 **8. What landed, and what the adoption is worth.** The bound is adopted in
 `packages/calibration/test/adopted-thresholds.test.ts` as *the stack overlay bound (W27f G2)*, six

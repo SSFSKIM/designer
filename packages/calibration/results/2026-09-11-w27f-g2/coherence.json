@@ -7,8 +7,8 @@
   "interiorLevelRatioGpuOverCss": "0.8 .. 1.25"
  },
  "definitions": {
-  "crossTierOklabDeltaEMean": "mean OKLab distance over the whole canvas, as cli/measure.ts computes it for the adopted row",
-  "interiorLevelRatioGpuOverCss": "GPU over CSS mean linear luminance on the declared interior, eroded 6 CSS px, visible union"
+  "crossTierOklabDeltaEMean": "mean OKLab distance over the whole canvas \u2014 exactly cli/measure.ts:591's definition for the adopted row",
+  "interiorLevelRatioGpuOverCss": "GPU over CSS mean linear luminance on the DECLARED interior, eroded 6 CSS px, visible union. NOT the adopted row's mask, which is the silhouette extracted from the native fixture (cli/measure.ts:465,598) and cannot be formed on the 11 dark ordinary cells with no dark fixture. A different statistic, comparable within itself only."
  },
  "phases": {
   "candidate": {

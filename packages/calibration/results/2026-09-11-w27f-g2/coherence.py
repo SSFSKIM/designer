@@ -15,18 +15,32 @@ over page content has no cell in that schema. This file therefore computes the
 same two statistics the adopted coherence rows use, over the page-sourced arms,
 and writes them as evidence.
 
-The two statistics, matching `cli/measure.ts`'s definitions so the numbers are
-comparable to the adopted rows rather than merely similar:
+The two statistics, and exactly how far each one matches `cli/measure.ts`:
 
 * `crossTierOklabDeltaEMean` — mean OKLab distance over the **whole canvas**
-  between the two tiers' captures of the same scene and arm.
+  between the two tiers' captures of the same scene and arm. This is
+  `measure.ts:591`'s definition exactly: `oklabDeltaE(twin, web).mean`, which
+  aggregates over every pixel with no mask.
 * `interiorLevelRatioGpuOverCss` — the GPU tier's mean interior linear luminance
-  over the CSS tier's, on the declared eroded interior.
+  over the CSS tier's. **The mask is not the same one `measure.ts` uses.** It
+  computes the ratio over `nativeSil` (`measure.ts:465`, `:598`), the silhouette
+  *extracted from the native fixture*; this file uses the **declared** eroded
+  interior (6 CSS px, visible union), which is the region every other reading in
+  this gate is stated over. The reason is not preference: a native silhouette
+  exists only where a fixture does, and 11 of the 20 ordinary dark cells have no
+  dark fixture, so the adopted row's mask cannot be formed on the majority of
+  the bed this gate measures. A declared region exists on every cell.
 
-The adopted thresholds for those rows (≤ 0.05 and 0.8–1.25) are printed beside
-each reading **for shape only**. They are not applied: they were adopted over
-texture-sourced cells of the frozen bed, and applying them here would make the
-CSS tier a target on a path where X1 says it is a record. Nothing in this file
+So the ratio here is a **different statistic from the adopted row's**, not a
+comparable one, and the two must not be read against each other. What it does
+support is comparison *within itself* — hinted against unhinted, dark against
+light, stack against ordinary — because the same mask is used throughout.
+
+The adopted thresholds (≤ 0.05 and 0.8–1.25) are printed beside each reading
+**for shape only**. They are not applied, for two independent reasons: they were
+adopted over texture-sourced cells of the frozen bed, and applying them here
+would make the CSS tier a target on a path where X1 says it is a record; and for
+the ratio they are not even stated over the same mask. Nothing in this file
 fails, gates, or floors.
 
     python coherence.py --scratch /tmp/w27f-g2 --out coherence.json
@@ -117,10 +131,15 @@ def main():
                         "Log 2, X1).",
         "adoptedRowShapeForReference": ADOPTED_SHAPE,
         "definitions": {
-            "crossTierOklabDeltaEMean": "mean OKLab distance over the whole canvas, as "
-                                        "cli/measure.ts computes it for the adopted row",
-            "interiorLevelRatioGpuOverCss": "GPU over CSS mean linear luminance on the declared "
-                                            "interior, eroded 6 CSS px, visible union",
+            "crossTierOklabDeltaEMean": "mean OKLab distance over the whole canvas — exactly "
+                                        "cli/measure.ts:591's definition for the adopted row",
+            "interiorLevelRatioGpuOverCss": "GPU over CSS mean linear luminance on the DECLARED "
+                                            "interior, eroded 6 CSS px, visible union. NOT the "
+                                            "adopted row's mask, which is the silhouette "
+                                            "extracted from the native fixture "
+                                            "(cli/measure.ts:465,598) and cannot be formed on the "
+                                            "11 dark ordinary cells with no dark fixture. A "
+                                            "different statistic, comparable within itself only.",
         },
         "phases": {},
     }
