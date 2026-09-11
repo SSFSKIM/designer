@@ -1959,7 +1959,9 @@ during which the destination could be released and `onMorphEnd(false)` fire at a
 0.001 — a material that draws nothing perceptible. No user-visible failure exists today. The shape
 of the fix is comparing the published endpoint exactly, and it belongs with the deferral it
 depends on: the framework-agnostic root taking a motion profile so host presence can be tuned at
-all (claims §5.132 §6).
+all (claims §5.132 §6). That deferral was decided against on 2026-09-11 (wave Decision Log 11:
+a custom profile retunes only the content crossfade; the material's arrival keeps the system's
+timing), so the window stays closed by design. If that decision is ever reversed, compare exactly.
 
 ## The demo's material-stage contrast test runs at 80% of its timeout on an idle machine (W27 stopping point, 2026-09-11)
 

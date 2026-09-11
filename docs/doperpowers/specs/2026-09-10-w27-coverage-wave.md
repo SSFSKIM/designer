@@ -222,12 +222,22 @@ into the ledger rather than chartered.
   recorded by accident for its first week, and the tree before the re-baseline holds it for all
   121 fixtures over byte-identical backgrounds. Ship the recede as a pose of the root, measured
   against that bed.
-- **Acceptance:** four gates. **G0 (measure):** the recede read on the recovered bed for every
+- **Acceptance:** five gates. **G0 (measure):** the recede read on the recovered bed for every
   matched pair as a per-cell table of the four facets, with the recovered bed's provenance written
   into the claims ledger (schema 2, single run, pose inferred from the DL14 post-mortem, 37 of
   today's 92 scenes; admitted by Decision Log 5). **G1 (fit):** a `recededMaterialProfile`
   difference document fitted on the light and dark calibration pairs, holdout read once, declared
-  and dry-run against the active bed byte-identical. **G2 (runtime):** the activation observer,
+  and dry-run against the active bed byte-identical. **G1b (check; added 2026-09-11, Decision
+  Log 12):** the spent holdout's mean is seven to eight times the calibration mean on the standard
+  profiles (§5.130 §7), so before any runtime hook: the five residuals that section names — the
+  dark mid-dark-solid level the three-anchor response misidentifies, the light checker's far-span
+  scatter, the dark photo rrect-lg's colour/spatial miss, the light photo stacks, and neutral tint
+  removing background chroma — each classified as model-form or bed on the evidence already
+  committed, with the transfer/scatter experiment that would decide it declared before it runs;
+  then one unspent checking bed captured natively (a fresh inactive session on the user's
+  machine, or the OS 27 bed as new profile keys) and read once against the frozen G1 endpoint
+  within a bound declared before the read. G2 stays blocked until that read holds: a pose proven
+  only where it was fitted is not shipped. **G2 (runtime):** the activation observer,
   the root option and React prop, `setWindowActivation`, the pose applied through
   `applyMaterialProfile`, the transit through the existing transitions, tests on three engines
   that the pose follows `document.hasFocus()` and an explicit override wins. **G3 (land):** the
@@ -244,8 +254,9 @@ into the ledger rather than chartered.
   parent and merged (`f8c38a2`). The corrected 30-cell holdout is spent; photo chroma, mid-dark
   response and far-span scatter remain explicit gaps, so G1 does not establish G3's inactive
   floors. G2 (the activation observer and `windowActivation`) and G3 (the landing, with the
-  demo's inactive rows) were not dispatched: the wave stopped here (Revision Notes,
-  2026-09-11).
+  demo's inactive rows) are HELD by the user (Decision Log 12) until G1b, the measurement gate,
+  holds on an unspent checking bed. G1b chartered 2026-09-11; its analysis half dispatched the
+  same day, its capture half needing the user's machine or the OS 27 bed.
 
 ### W27d: Identity and materialize — controlled
 
@@ -423,11 +434,12 @@ approximation; and unequal fractional proxy presence on engines whose mask-on-ba
 unverified. Identity endpoints are exact, not deferred. Claims §5.132 records the evidence and
 the W27e handoff: the vibrant operator must scale with presence and reach app-authored color at 0.
 
-**Deferred out of W27d, a wave-owner decision (contract X2):** host presence is always built on
+**Decided, not deferred (Decision Log 11, 2026-09-11):** host presence is always built on
 `DEFAULT_MOTION_PROFILE`, so an author's `profile` retunes the bindings' content crossfade and
 not the material's own arrival. That is the design as landed — presence is driven once by the
 framework-agnostic root, which has no motion-profile input — and giving that root one is new
-public surface on the package that carries it, which is why it is not taken here. Both READMEs
+public surface on the package that carries it, which is why it was not taken there; the user has
+since kept it as built (Decision Log 11). Both READMEs
 state the limit at the point where the 220 ms ease is named; claims §5.132 §6 records it. The
 group's proxy σ, likewise derived from every measured member regardless of presence, is
 recorded in §5.132 §4 rather than deferred: deriving it from positive members only would make
@@ -444,10 +456,10 @@ neighbour glow diffusion; topology-changing morphs.
 | --- | --- | --- |
 | W27a | LANDED 2026-09-10 (merged `bc14af9`; seven commits plus three review fixes): `GlassButton`/`GlassIconButton` forward `tint` and `foreground` (the README's flagship tint example had not compiled); `GlassGroup` gains the `tint` the 0.2.0 changelog promised, parsed per document; the no-hint ink guards removed on both tiers with five assertions re-pinned stricter (tracker entry closed in place); the renderer's `lensStrength` clamp at 1 lifted to a finite guard of 4 with NaN resolving to the idle 1 (goldens 33/33 unmoved); four named ink levels published on both tiers, secondary solved per surface against the actual composite colour over the whole bracket (Decision Log 9). Review: two P1s on the ink floor (chromatic tint, unresolved level) fixed with fail-before tests measuring the real contrast; two P2s (adopted stylesheets, Infinity in the Float32Array) fixed. Two gaps logged, not closed: the dark scheme's primary ink at WCAG 4.945 with nothing watching it; `lensDepthPx` ignoring `lensStrength`. Main after merge: build, lint, all unit suites green (2004 tests), demo e2e 48 | landed |
 | W27b | worktree agent, dispatched 2026-09-10 after W27a's merge; 14 commits `bc14af9..b59a585`; merged `38d782c` | CLOSED 2026-09-10 (one `role="toolbar"`, N groups; `GlassToolbarSpacer` and `sharedBackground="hidden"` as one partition rule; the gap derived through `samplingPaddingFor` over every group the toolbar registers, not the row's own props; the playground's hand split rewritten on the API; goldens and the resting bed unmoved. Review: two defects fixed before the head — the gap read only the toolbar's own material, then the first fix folded the toolbar's props in as a floor — final head reviewed correct. At the head: 2028 unit tests, platform-web 388, react e2e 114 on three engines, demo e2e 48) |
-| W27c | G0 CLOSED 2026-09-10 (merged `7312fd0`; claims §5.128: all 121 pairs read; the outer shadow and the bright rim go to zero in every profile at both scales, structure retained falls, an author tint loses its hue entirely while its darkening stays — orange and blue capsules both settle at Y 0.451 against the untinted 0.606 — and no existing field expresses that; dark untinted glass and both accessibility bodies *brighten*; four cells background-identical; the 2x dark photo capsule's active side is the 1-of-17 minority state and is excluded from the fit) / G1 declared 2026-09-10, claims §5.130: scheme-indexed endpoint, two identity-default tint fields, 121 recovered fixtures, corrected 62-cell fit and 16-cell validation, one 30-cell holdout spent; all four review findings fixed | G1 LANDED (merged `f8c38a2` after the parent's review; holdout residuals explicit, no inactive floors adopted). G2 and G3 not dispatched: the wave's stopping point (Revision Notes, 2026-09-11) |
+| W27c | G0 CLOSED 2026-09-10 (merged `7312fd0`; claims §5.128: all 121 pairs read; the outer shadow and the bright rim go to zero in every profile at both scales, structure retained falls, an author tint loses its hue entirely while its darkening stays — orange and blue capsules both settle at Y 0.451 against the untinted 0.606 — and no existing field expresses that; dark untinted glass and both accessibility bodies *brighten*; four cells background-identical; the 2x dark photo capsule's active side is the 1-of-17 minority state and is excluded from the fit) / G1 declared 2026-09-10, claims §5.130: scheme-indexed endpoint, two identity-default tint fields, 121 recovered fixtures, corrected 62-cell fit and 16-cell validation, one 30-cell holdout spent; all four review findings fixed | G1 LANDED (merged `f8c38a2` after the parent's review; holdout residuals explicit, no inactive floors adopted). G2 and G3 HELD by the user (Decision Log 12): the spent holdout's mean is seven to eight times the calibration mean on the standard profiles, so a measurement gate, G1b, precedes any runtime hook |
 | W27d | worktree agent, `bc14af9..31988e6` with main integrated at landing; merged `108b40d`; claims §5.132 with its verification record | CLOSED 2026-09-11 (`present` on `GlassSurface` and on the host entry drives `materialization` through the kernel's existing monotonic driver to both tiers; exactly 0 is `Glass.identity` and leaves the renderer's drawing set, the proxy's painted shape and the root's painted-tone forecast; `GlassMorph transition="materialize"` is two endpoints on their own boxes and planes with only the content crossfading; Reduced Motion steps presence on both tiers. Review: a six-lane panel plus a binding verifier against the frozen head — ten findings confirmed and fixed with fail-before tests (one P1: focus lost on a materialize close), two more of the same shape found while fixing them and fixed, three refuted as declared design and recorded instead (proxy σ in §5.132 §4; host presence on `DEFAULT_MOTION_PROFILE` in §5.132 §6, both READMEs and the Deferred list; the tint-table cache bound and the morph's arrival tolerance in the tracker). At the head: goldens 34/34 and GPU e2e 21/21 with nothing re-recorded, platform-web chromium e2e 158/158, react e2e 128 on three engines, demo e2e 48/48, 2 160 unit tests, build and lint clean) |
-| W27e | — | not-dispatched: deliberately last in the ordering, then held at the wave's stopping point (Revision Notes, 2026-09-11). Its design inheritance stands as written, and X9 names what the operator must do with presence now that W27d has landed |
-| W27f | G0 CLOSED 2026-09-10 (merged `730a9d3`; claims §5.129: the unhinted dark capsule misses the collapse by ΔE 0.545 against the sampled path's 0.006, a correct scalar hint repairs it but the dark medium pane still misses by 0.079 (−0.089 L against the same-hint sampled path), the checkerboard rows lose spread and the photo rows keep too much; a scalar hint itself costs the sampled path its structured-backdrop correction, so the evidence keeps sampled-today, same-hint-sampled and hinted-page columns apart; the two stack overlays are the only native cells on this path; the demo gains `/#page`, "Over ordinary page content") / G1 CLOSED on isolated branch 2026-09-10 (claims §5.131: profile-at-known-tone derivation, scalar CPU/GPU law proof, unchanged sampled-source draws; 20 ordinary scenes plus both stacks in light/dark, full holdout spent at `1fff5e6`; thick-body repair with unknown-tone paint, structured spread/colour and dark-overlay regressions retained) | G1 LANDED (merged `6ae37c1`); G2 not dispatched: the wave's stopping point (Revision Notes, 2026-09-11); no bound adopted |
+| W27e | G0 dispatched 2026-09-11, first after the 0.16.0 release (Decision Log 12) | in-flight: G0, the 58 committed dumps' operators tabulated and the tier composite question settled. Design inheritance stands as written; X9 names what the operator must do with presence |
+| W27f | G0 CLOSED 2026-09-10 (merged `730a9d3`; claims §5.129: the unhinted dark capsule misses the collapse by ΔE 0.545 against the sampled path's 0.006, a correct scalar hint repairs it but the dark medium pane still misses by 0.079 (−0.089 L against the same-hint sampled path), the checkerboard rows lose spread and the photo rows keep too much; a scalar hint itself costs the sampled path its structured-backdrop correction, so the evidence keeps sampled-today, same-hint-sampled and hinted-page columns apart; the two stack overlays are the only native cells on this path; the demo gains `/#page`, "Over ordinary page content") / G1 CLOSED on isolated branch 2026-09-10 (claims §5.131: profile-at-known-tone derivation, scalar CPU/GPU law proof, unchanged sampled-source draws; 20 ordinary scenes plus both stacks in light/dark, full holdout spent at `1fff5e6`; thick-body repair with unknown-tone paint, structured spread/colour and dark-overlay regressions retained) | G1 LANDED (merged `6ae37c1`); G2 is next after W27e G0 (Decision Log 12); no bound adopted |
 
 ## Decision Log
 
@@ -518,6 +530,28 @@ neighbour glow diffusion; topology-changing morphs.
     compromise opposite scheme responses. The historical-only native capture boundary is guarded
     in G1: refuse an inactive capture request before writing rather than file active pixels under
     an inactive id; fresh native deactivation requires a separate capture-path charter.
+11. **A custom motion profile retunes only the content crossfade; the material's arrival keeps
+    the system's timing (2026-09-11; user-decided).** W27d landed host presence on
+    `DEFAULT_MOTION_PROFILE`, with an author's `profile` reaching only the bindings' content
+    fade; the panel review raised it as a candidate defect and the verifier refuted it as
+    declared design, leaving it in §5.132 §6 and the Deferred list as a wave-owner decision under
+    X2. The user kept it as built: "That is Apple's own separation ('materialize is not a
+    fade'), and letting authors retune the material's timing would make the pose depend on app
+    motion settings." Rejected: a motion-profile input on the framework-agnostic root (new
+    public surface, and a pose that varies per app). Consequence: the tracker's 1e-3
+    arrival-tolerance window stays closed by design.
+12. **After 0.16.0: vibrancy first, then W27f G2; the activation runtime is held behind a
+    measurement gate (2026-09-11; user-decided).** The release met acceptance clause 5
+    (`ad4266d`, tag `v0.16.0`) and lifted the stopping point. The user's ordering, in their
+    words: "Vibrancy is the highest-value absent row (automatic legibility of anything on glass)
+    and its operator is already in the repo unread." W27f G2 follows it. W27c G2/G3 wait:
+    "today the inactive endpoint is seven to eight times worse [on holdout] than on calibration,
+    so shipping the hook would ship a pose proven on 23 cells only. That needs a short
+    measurement child first, not runtime work." Chartered as W27c G1b (§Children) from §5.130
+    §7's five named residuals. Rejected: wiring the two declared endpoints now and improving the
+    fit later (the runtime would publish a pose whose fidelity claim the ledger limits to where
+    it was fitted); W27f G2 before vibrancy (a landing gate and a bound, worth less than the
+    absent row).
 
 ## Surprises & Discoveries
 
@@ -597,6 +631,15 @@ linear/encoded means and local pixels, not a fabricated interpretation of `hint.
 G1 records every per-scene miss; G2 alone adopts a native stack bound and re-reads the demo.
 
 ## Revision Notes
+
+- 2026-09-11, **0.16.0 released; the stop lifted.** The user published the three packages at
+  0.16.0 (`ad4266d`; tag `v0.16.0` pushed by the parent), so parent acceptance clause 5 is met.
+  The cut record itself (registry, cold install, the c9d chain, the eye sheet) is written by the
+  session that produced the eye material, above this note. The user then set the next cut:
+  Decision Log 11 (the motion profile kept as built) and 12 (vibrancy first, W27f G2 next, the
+  activation runtime held behind W27c G1b). W27e G0 and W27c G1b's analysis half are dispatched
+  the same day, parallel-safe (the dumps and the calibration results against product code that
+  neither touches); W27f G2 follows W27e G0.
 
 - 2026-09-11, **stopping point, on the user's instruction:** "Keep the thing that's working to
   continue and finish, but don't dispatch the next wave; get to a good stopping point once works
