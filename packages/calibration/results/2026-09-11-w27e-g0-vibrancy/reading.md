@@ -21,8 +21,9 @@ layer dumps". It is there. It is not on a label.
 matching `vibrantColorMatrix`, which includes `2026-09-03-w12-lens/g1/g1-layer-dump.md`, the W12
 report that quotes one. Every one of the 57 dumps carries at least one matrix.
 
-**60 occurrences, 58 of them the same kind.** Four dumps carry two: `photo__glass-over-glass__rest`
-has two independent surfaces, and the two tinted capsules each add the tint's own branch.
+**60 occurrences, 58 of them the same kind.** Three dumps carry two — `photo__glass-over-glass__rest`
+has two independent surfaces, and the two tinted capsules each add the tint's own branch — so
+57 + 3 = 60.
 
 | what | n | layer | effect | `inputBackdropAware` | `inputClamp` | `inputClampPreserveHue` |
 | --- | ---: | --- | --- | --- | --- | --- |
@@ -123,13 +124,18 @@ Every axis the corpus varies, against the operator:
 | author tint | none ×55, orange ×1, blue ×1 | no — both tinted capsules carry operator 0 |
 | corner radius | 14, 16, 18, 20, 22 at two sizes (W20's 20 dumps) | no — all operator 0 |
 | aspect | 44×44 and 120×44 at the same span | no — all operator 0 |
-| span | 32, 44, 48, 56, 64, 72, 80, 88, 96, 112, 128, 130, 160 | not on its own — the whole ramp over checkerboard is operator 0 |
-| backdrop | 7 backgrounds | **yes — and only this** |
+| span | 32, 44, 48, 56, 64, 72, 80, 88, 96, 112, 128, 130, 160 | **yes, jointly** — not over checkerboard, where the whole ramp is operator 0, but it flips the operator at a fixed dark backdrop |
+| backdrop | 7 backgrounds | **yes, jointly** — not on its own either |
 
-**The selector is the backdrop, and the switch is binary.** Two occurrences out of 58 carry
-operator 3: `dark-solid__capsule-button__rest` and `impulse__capsule-button__rest`. Both are span
-44. Neither of their span-96 counterparts over the same backdrop switches, and the darkest solid
-that does *not* switch is `mid-dark-solid` at span 44.
+**The selector is backdrop tone and span together, and the switch is binary.** Two occurrences out
+of 58 carry operator 3: `dark-solid__capsule-button__rest` and `impulse__capsule-button__rest`, both
+span 44. Neither axis moves it alone. **Tone alone cannot be the rule**:
+`dark-solid__capsule-button__rest` (span 44, tone 0.011711) carries operator 3 while
+`dark-solid__rrect-md__rest` (span 96, *the same backdrop at the same tone*) carries operator 0, so
+span flips the operator at a fixed backdrop. **Span alone cannot be the rule either**: the whole
+48…112 ramp over checkerboard, and every span from 32 to 160 over every backdrop lighter than
+mid-dark-solid, stays on operator 0. The darkest solid that does *not* switch is `mid-dark-solid` at
+span 44. §3.1 gives the joint law the two axes enter, and it is one already in the repository.
 
 ### 3.1 It is not a threshold on backdrop luminance as such — it is the material's own adaptation
 
@@ -183,16 +189,31 @@ flips from **white** to **black** (α 0.2946 and 0.2500), `inputFaceColorMatrixB
 floor of 0.1, and `inputShadowColorMatrixFillColor` becomes `nil`. The vibrancy operator switches
 with the glass, not beside it.
 
+**A competing joint law fits the same 58 rows and the corpus cannot separate it.** Apple's own
+`tracksLuma` is 1 for every span ≤ 64 in the corpus and 0 above, so the rule "`tracksLuma` = 1 **and**
+tone below a threshold in (0.011711, 0.059511]" classifies all 58 occurrences exactly as the
+collapse predicate does — the two cells that switch are both `tracksLuma` = 1, and every span-96
+cell is `tracksLuma` = 0. The two models differ only in *where between spans 44 and 96* the switch
+crosses at a dark backdrop, and the corpus has no cell there. Both are joint laws in tone and span;
+neither is a threshold on tone. §3.3 names the ladder that tells them apart.
+
 ### 3.2 Is the matrix a function of the cell, or a fixed operator per scheme?
 
 **A function of the cell, through the material's own adapted state — and the dumps see only two of
 its values.** It is not a fixed operator per scheme: at one scheme, one scale and one accessibility
-mode, two distinct operators appear. It is not a function of geometry: 13 spans, 5 radii and 2
-aspects move it not at all. Whether it is a *continuum* sampled at its two ends or a genuine
-two-valued switch, the corpus cannot say — there are two positive examples and no intermediate.
-The threshold's location is bracketed only by the two solids that straddle it: at span 44 the
-switch lies in `tone ∈ (0.011711, 0.059511]`, and vitrea's fitted `[0.02, 0.055]` smoothstep falls
-inside that bracket, which is agreement and not confirmation.
+mode, two distinct operators appear. It is not a function of geometry as such — radius and aspect
+move it not at all, and span moves it only through the collapse argument's `+ 0.05·sizeThickness`
+term, never independently of the backdrop. Whether it is a *continuum* sampled at its two ends or a
+genuine two-valued switch, the corpus cannot say — there are two positive examples and no
+intermediate.
+
+**The threshold G1 declares must be on the joint form, not on tone.** Its location is bracketed
+only by the two solids that straddle it, and the bracket is a statement about the collapse
+argument: at span 44 (`sizeThickness` 0.09229, so a bias of 0.004614) the switch lies in
+`tone + 0.05·sizeThickness(span) ∈ (0.016325, 0.064125]`, which at that one span is
+`tone ∈ (0.011711, 0.059511]`. vitrea's fitted `[0.02, 0.055]` smoothstep falls inside it. That is
+agreement, not confirmation — and a threshold declared on tone alone would be refuted by
+`dark-solid__rrect-md__rest`, which sits at the same tone as a switching cell and does not switch.
 
 ### 3.3 What is confounded, and the capture that separates it
 
@@ -205,9 +226,13 @@ inside that bracket, which is agreement and not confirmation.
   would do — separates "threshold in tone" from "threshold in the collapse" and, if the operator
   is continuous, shows it. The bed has no such backgrounds today; `scenes-*-probe.json` is the
   pattern for adding them.
-- **Span's role is only inferable.** A span ladder over `dark-solid` (the same 48…112 rungs the
-  W12 ramp already declares, re-pointed at a dark background) would show directly where the size
-  bias moves the switch, which is the one prediction §3.1 makes that nothing has tested.
+- **Span's role is demonstrated but its shape is not.** That span flips the operator at a fixed
+  backdrop is measured — `dark-solid` at 44 against `dark-solid` at 96 — but the corpus holds
+  exactly that one transition, so the *form* the span enters by (the collapse's
+  `+ 0.05·sizeThickness` bias rather than, say, a knee at `tracksLuma`'s own span 56, which the same
+  two cells also straddle) is not separated. A span ladder over `dark-solid` — the 48…112 rungs the
+  W12 ramp already declares, re-pointed at a dark background — locates the crossing and tells the
+  two apart.
 - **The label is not confounded — it is absent.** See §5.
 
 ---
@@ -262,8 +287,12 @@ is the material, because the glass root isolates.
 
 ### 4.2 The catch that dominates the answer
 
-**A `mix-blend-mode` anywhere inside the glass root collapses `backdrop-filter` sampling for every
-group in it.** Measured against the bare-material band, one page load per declaration:
+**A `mix-blend-mode` inside the host collapses `backdrop-filter` sampling for a group whose proxy
+lives outside that element's subtree.** Measured against the bare-material band, one page load per
+declaration. Every case builds exactly one group, so what is *measured* is cross-subtree reach —
+the blend sits in the host layer, the proxy it collapses is the sibling `backdrop-proxy` layer
+under the same plane root (`planes.ts`). "Every group under the glass root" is the natural
+extrapolation from that mechanism, and it is not measured here (§4.5).
 
 | on the label, inside the host | css | gpu-dom | gpu-texture |
 | --- | --- | --- | --- |
@@ -284,8 +313,12 @@ the **broken** material, and only `gpu-texture` ever blends against the real one
 
 Backdrop-root triggers above the label, measured against the same band: `opacity: 0.99` on the host
 collapses (confirming contract X6), `filter: blur(0px)` on the host collapses, `mix-blend-mode` on
-the host collapses; `isolation: isolate` and `contain: paint` on the host are **byte-identical to
-baseline**; on the glass root `opacity` and `filter` collapse. One row is worth keeping: the same
+the host collapses; `isolation: isolate` on the host is **byte-identical to baseline** (the capture
+hashes `61578937…`, the baseline's own digest); `contain: paint` on the host does not collapse but
+is not byte-identical — it hashes `805be1c5…` and reads 231.87, 227.69, 224.95 sd 3.49/2.50/3.59
+against a baseline of 231.88, 227.69, 224.98 sd 3.49/2.50/3.58, a hundredth of a code, which is a
+paint-containment rounding difference rather than a sampling one. On the glass root `opacity` and
+`filter` collapse. One row is worth keeping: the same
 `opacity: 0.99` on `document.body` does **not** collapse (230,226,223 sd 3.58 — just the dimming),
 because an ancestor's backdrop root only costs sampling when the content the proxy needs ends up
 outside it, and `body` contains the page while the glass root does not. That is a sharper statement
@@ -338,6 +371,14 @@ map with luma coupling; `background-blend-mode` is safe, works, and creates no s
 
 ### 4.5 What the probe does not settle
 
+**The blend's blast radius is measured on one group, not on many.** Every case builds exactly one
+group, so "a `mix-blend-mode` inside the glass root collapses sampling for *every* group in it" is
+an extrapolation from the mechanism (the blend forces the enclosing group to isolate, and a render
+surface above a `backdrop-filter` re-roots it), not a reading. What is measured is that the reach
+crosses subtrees — from the host layer to the sibling proxy layer. A two-group page with the blend
+in one host would settle it, and it is worth settling before G2 leans on the universal, because the
+narrow form alone already forbids the mechanism on a `css-backdrop` group.
+
 Whether a CSS-tier label's blend group would contain L1's *filtered* output if the filter were
 alive is unanswerable in principle: any blend inside the host kills L1 and L2, so the two states
 never coexist. That the isolation boundary is exactly the glass root is pinned by measurement only
@@ -381,9 +422,16 @@ occurrences carry 2 distinct values, so any partition either leaves a 1-cell hol
 the only evidence the second operator exists. The partition below is therefore a **reading
 discipline for G1**, and the real unspent check is a native run.
 
-- **Fit (55 occurrences):** every highlight occurrence except the three span-44 solid-backdrop
-  cells named below, plus both tint occurrences. These fix the operator's form, the default
-  operator's coefficients, and the null result on span, radius, aspect, tint and interaction state.
+The three parts below partition all 60 occurrences: 55 + 3 + 2.
+
+- **Fit (55 occurrences):** every *highlight* occurrence except the three span-44 solid-backdrop
+  cells named below. These fix the operator's form, the default operator's coefficients, and the
+  null result on radius, aspect, tint and interaction state.
+- **Out of G1's scope (2 occurrences):** the two author-tint colorize matrices. They are a
+  different operator family on a different layer, already fitted as the tint pathway in W10 and
+  W19, and G1 neither fits nor validates against them. They stay in the table because they are what
+  shows the foreground operators are *not* the tint's, and because the tint's is the corpus's only
+  backdrop-aware use of the filter.
 - **Bracket, not to be consulted until G1's selector is declared and frozen (3 occurrences):**
   `impulse__capsule-button__rest`, `dark-solid__capsule-button__rest`,
   `mid-dark-solid__capsule-button__rest`. G1 declares its selector from the fit set and the
@@ -401,10 +449,12 @@ discipline for G1**, and the real unspent check is a native run.
 The operator's *form* needs no fit: it is exact, in Apple's own coefficients, to 2.5e-4. What is
 left is
 
-1. **the selector** — where the switch lies, and whether it is a step or the two ends of a
-   continuum. The candidate already in the repository is `backdropToneAdaptation` at the shipped
-   profile, which separates all 58 occurrences with a margin of 0.997; G1 declares a bound before
-   reading the bracket cells.
+1. **the selector**, declared on a **joint form in tone and span** — a threshold on tone alone is
+   already falsified by `dark-solid__rrect-md__rest` (§3). What is open is where the switch lies and
+   whether it is a step or the two ends of a continuum. Two candidates fit all 58 occurrences
+   equally: `backdropToneAdaptation` at the shipped profile, which separates them with a margin of
+   **0.9923** (1.0 against at most 0.007705), and a `tracksLuma`-style span gate crossed with a tone
+   threshold. G1 declares which form and what bound before reading the bracket cells.
 2. **the endpoints' meaning** — a check that costs nothing: `dark-solid__capsule-button__rest` and
    `dark-solid__rrect-md__rest` are both committed native fixtures over the same background, and
    they differ *in the operator* as well as in the size law. Any rim-tone difference between them

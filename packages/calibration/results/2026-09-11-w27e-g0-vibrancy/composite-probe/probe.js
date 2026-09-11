@@ -21,8 +21,12 @@
  *
  * Each mount point gets its OWN page load. The first run mixed them and learnt
  * why: a blending element mounted inside the glass root collapses the material
- * for every group in it, so a mixed capture would have answered a question
- * about blending with a picture of broken glass.
+ * of a group whose proxy is outside that element's own subtree, so a mixed
+ * capture would have answered a question about blending with a picture of
+ * broken glass. Every case here builds exactly ONE group, so the reach that is
+ * measured is cross-subtree (the blend sits in the host layer, the proxy it
+ * collapses sits in the sibling `backdrop-proxy` layer); "every group under the
+ * root" is the natural extrapolation and is not measured here.
  *
  * **Does `feColorMatrix` reproduce the CAColorMatrix arithmetic?** The bench at
  * the bottom is flat swatches on flat grounds, no glass and no blending, so the
