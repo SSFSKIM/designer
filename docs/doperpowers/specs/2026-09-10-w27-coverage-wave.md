@@ -597,7 +597,15 @@ neighbour glow diffusion; topology-changing morphs.
   exactly as written, and its parenthetical is history rather than a target. The derivation is
   `samplingPaddingFor` (`platform-web/src/optics.ts`), which is the frame loop's own composition;
   §Design's numbers are left standing beside this note rather than rewritten, per the repo's rule
-  about recorded readings.
+  about recorded readings. *Added 2026-09-11, after the 0.16.0 eye sheet read `min-width: 24px`
+  on the demo's spacer:* what a spacer actually clears is the larger of that derivation and
+  core's advisory `DEFAULT_GROUP_SAMPLING.samplingPadding`, which is still σ = 8's 24 and which
+  core's overlap check is written against. At the shipped profile the advisory is the larger on
+  the regular variant — 24 against 11.1 (nothing measured), 11.3 (36 × 28 button), 11.9 (120 × 44
+  capsule), 12.7 (420 × 52 bar) and 14.9 (420 × 72) — and the material is the larger on clear
+  (35.5). So the 24 is the advisory winning, the spacer is wider than the material needs on
+  regular and never narrower, and retiring the constant is a core change (core cannot import the
+  derivation) that is in the tracker, not this wave.
 - **`Glass.clear`'s dimming layer is painted by no renderer** (re-score §3): the variant resolves,
   warns and tints; `ResolvedMaterial.dimming` is produced and consumed by nobody. Logged to the
   tracker at this cut; not a child of this wave.

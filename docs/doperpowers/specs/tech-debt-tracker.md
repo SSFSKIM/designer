@@ -1993,3 +1993,17 @@ and touches the playground anyway; (2) the check — a demo-side test that maps 
 prop on the three public packages to at least one live site under `apps/`, so the clause fails at
 the landing rather than on a release sheet. Until (2) exists, a landing's clause-2 review must grep
 `apps/` for the prop, not the README.
+
+## Core's advisory sampling padding is still σ = 8's 24 px and wins the toolbar gap on the regular variant (W27b, measured 2026-09-11)
+
+A toolbar partition clears `max(DEFAULT_GROUP_SAMPLING.samplingPadding, samplingPaddingFor(members))`:
+core's advisory constant, which its proxy-overlap check is written against, and the material's own
+requirement derived in `platform-web/src/optics.ts`. The advisory is 24 (3σ at σ = 8, the blur
+when S1 wrote the padding rule); at the shipped profile the material asks 11.1 for an empty row,
+11.3–12.7 for a button, a capsule and a 420 × 52 bar, 14.9 for a 420 × 72 bar, and 35.5 on the
+clear variant. So on regular the advisory dominates by about 2× and the spacer is wider than the
+material needs (never narrower; the 0.16.0 eye sheet read 24 px on the demo), and on clear the
+material dominates and the max does real work. Retiring the constant means core's overlap check
+taking the padding as an input from the platform that resolved it — core is pure and cannot import
+the derivation — with `DEFAULT_GROUP_SAMPLING` kept only as the value a host without a resolved
+policy is checked against. A W27b-scale change; not chartered.
