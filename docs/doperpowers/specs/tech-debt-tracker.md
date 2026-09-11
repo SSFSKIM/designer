@@ -1898,6 +1898,31 @@ add a test with an unstaged first entry. Keep the recorded path beside the corre
 replacement pretending the historical capture recorded something else. Claims §5.131 separately
 limits the old capture's narrow source fingerprint; this parser issue does not excuse that limit.
 
+**Closed for reuse by W27f G2, 2026-09-11 (claims §5.135).** The runner this gate runs is
+`packages/calibration/results/2026-09-11-w27f-g2/measure.py`, G1's file with `porcelain_paths`
+preserving both status columns and reporting a rename's destination, and five cases in
+`measure-tests.py` — the first of them an unstaged first entry, which fails against the G1 parser.
+The G1 runner and every reading it produced are untouched; `ackages/platform-web/src/optics.ts`
+stays in the candidate manifest as the thing that was recorded.
+
+## The frozen W27f G1 runner's own test suite no longer passes at this head (W27f G2, 2026-09-11)
+
+`packages/calibration/results/2026-09-10-w27f-g1-measure-tests.py` fails one of its 35 cases on
+`main` at `8cf6a89`, and has since W27c G1 merged. `StackCoverage.test_the_declared_stacks_of_the_
+holdout_bed_are_the_two_glass_over_glass_cells` pins the holdout bed's declared stacks at
+`{checkerboard,photo}__glass-over-glass__rest`; W27c G1 added both `__inactive` twins to
+`split.holdout` in `apps/reference-apple/scenes.json`, so `stacked_scenes` now returns four. The
+runner itself is correct — it reads the split rather than a hard-coded list — and no reading it
+produced is affected. Only the test's expectation aged.
+
+It is left failing rather than edited, because that file is the frozen record of how G1's evidence
+was checked and editing it would make the historical suite describe a bed G1 never measured. W27f
+G2's copy states the current four and adds a case for the two cells it measures. The shape of the
+work, if the G1 file is ever run as a gate again: re-point that assertion at the split it is
+asserting about, and note in the same commit which scene-set change moved it. The general lesson
+is the one the entry above shares — a dated runner's tests are evidence of a past check, and a
+scene-set change can silently invalidate one.
+
 ## Calibration and renderer tests share a fixed port and can reuse the wrong harness (W27c G1, 2026-09-10)
 
 `packages/calibration/web/vite.config.ts` and
