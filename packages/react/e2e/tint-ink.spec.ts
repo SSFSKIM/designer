@@ -57,6 +57,31 @@ function relativeLuminance([r, g, b]: readonly [number, number, number, number])
 const specimen = (page: Page, ground: string, level: string): Locator =>
   page.getByTestId(`ink-plate-${ground}`).locator(`.ink-level--${level} .ink-level__specimen`);
 
+/** A seed no material could arrive at on its own, and its channels. */
+const SEED_HEX = "#ffd60a";
+const SEED = [255, 214, 10] as const;
+
+/**
+ * Whether a host's published tint is recognisably the seed above.
+ *
+ * The property's *presence* says nothing: the CSS tier writes `--vitrea-tint` on
+ * every host it draws, tinted or not — the playground's own untinted `dom-plate`
+ * publishes `rgba(254, 254, 254, 0.769)` — so the only checkable form of "this
+ * member took the group's colour" is the colour. Two readings, because either
+ * alone is weak: the channel ordering, which is what makes a shade recognisable
+ * as this seed rather than as the material's own, and a loose per-channel
+ * distance, loose because the published shade is composed against the ground the
+ * group stands on. At full strength that composition is small — measured
+ * `rgba(252, 212, 10, 1)` over the light ground and `rgba(226, 189, 8, 1)` over
+ * the dark one — and 40 code values covers both with room for either ground to
+ * move without covering a different colour.
+ */
+async function seeded(page: Page, testId: string): Promise<boolean> {
+  const [r, g, b] = parseColor(await tintOf(page, testId));
+  const near = [r, g, b].every((channel, index) => Math.abs(channel - SEED[index]!) <= 40);
+  return r > g && g > b && near;
+}
+
 test.beforeEach(async ({ page }) => {
   await gotoPlayground(page);
 });
@@ -69,10 +94,41 @@ test("a group's seed colours the member that declares no colour of its own", asy
     expect(await groupOf(page, `ink-bookmark-${ground}`)).toBe(`ink-${ground}`);
     expect(await groupOf(page, `ink-publish-${ground}`)).toBe(`ink-${ground}-action`);
 
-    expect(await tintOf(page, `ink-plate-${ground}`)).not.toBe("");
-    expect(await tintOf(page, `ink-bookmark-${ground}`)).not.toBe("");
-    expect(await tintOf(page, `ink-publish-${ground}`)).not.toBe("");
   }
+
+  // Drive the seed somewhere no material would land on its own, at full
+  // strength, so the shade each member publishes can be read back against it.
+  await page.getByTestId("group-tint-seed").fill(SEED_HEX);
+  await page.getByTestId("group-tint-strength").fill("100");
+  await expect(page.getByTestId("group-tint-value")).toHaveText("rgb(255 214 10 / 100%)");
+
+  for (const ground of GROUNDS) {
+    // Neither of these declares a colour, and both wear the group's. The plate
+    // is the surface and the bookmark is a control, on two different grounds:
+    // whatever the seed has to cross to reach them, it crosses.
+    await expect
+      .poll(() => seeded(page, `ink-plate-${ground}`), {
+        message: `the ${ground} plate did not take the group's seed`,
+      })
+      .toBe(true);
+    await expect
+      .poll(() => seeded(page, `ink-bookmark-${ground}`), {
+        message: `the ${ground} bookmark did not take the group's seed`,
+      })
+      .toBe(true);
+
+    // And it stops where the rule says it stops. `Publish` declares its own
+    // colour and sits in its own group, so the seed reaches neither of the two
+    // reasons it could have had to colour it.
+    expect(await seeded(page, `ink-publish-${ground}`), `the ${ground} Publish took the seed`).toBe(
+      false,
+    );
+  }
+
+  // The control case for the whole reading: a surface in no tinted group, which
+  // publishes a tint of its own and is not this one.
+  expect(await tintOf(page, "dom-plate")).not.toBe("");
+  expect(await seeded(page, "dom-plate")).toBe(false);
 });
 
 test("the group's tint is operable, and moves only the group's members", async ({ page }) => {
@@ -117,6 +173,28 @@ test("all four ink levels are published on one surface, in order", async ({ page
         token,
       );
       expect(published, `${token} on the ${ground} ground`).not.toBe("");
+    }
+
+    // Four names in the width of one column of the band, and the plate is what
+    // gives way when anything beside it widens — the row's gap is set from the
+    // material's sampling law, not from what is left over. An earlier width
+    // clipped these, so the fit is asserted here rather than re-tuned by eye:
+    // each name stays one line box and stays inside the plate that holds it.
+    const fits = await page.getByTestId(`ink-plate-${ground}`).evaluate((plate) =>
+      [...plate.querySelectorAll(".ink-level__name")].map((name) => {
+        const range = document.createRange();
+        range.selectNodeContents(name);
+        return {
+          lines: range.getClientRects().length,
+          overflow: name.getBoundingClientRect().right - plate.getBoundingClientRect().right,
+        };
+      }),
+    );
+    expect(fits, `the level names on the ${ground} ground`).toHaveLength(4);
+    for (const [index, fit] of fits.entries()) {
+      const where = `name ${String(index)} on the ${ground} ground`;
+      expect(fit.lines, `${where} wrapped`).toBe(1);
+      expect(fit.overflow, `${where} overflows its plate`).toBeLessThan(0);
     }
 
     const levels = ["primary", "secondary", "tertiary", "quaternary"] as const;
