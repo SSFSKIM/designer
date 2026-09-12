@@ -105,6 +105,11 @@ three**. On the checking bed the pattern is almost exactly reversed.
 Only the light standard verdict generalised — same clause, same failure mode, a different cell
 family. The dark pair's holdout failure did not, and the accessibility pair's holdout pass did not.
 
+A profile holding this bound is not a claim that the recede is matched there. On 1x dark
+`checkerboard-lc16__rrect-md__inactive`, which clears clause 3 at 1.67× and sits inside its profile's
+mean, the sheet shows the web body visibly darker than the reference (0.05217 against 0.07956 Y) with
+the backdrop's checker reading through an interior the reference keeps smoother.
+
 ## 4. Group E: the recovered bed is confirmed
 
 28 cells where a bed id already had a recovered fixture: the sitting's plurality bytes against the

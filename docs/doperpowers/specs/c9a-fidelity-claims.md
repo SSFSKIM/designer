@@ -18927,9 +18927,15 @@ only by a phase of exactly this shape.
 native | webgpu | 8× amplified difference, worst body ΔE first. Two things the metrics report and
 the eye confirms immediately: under Increase Contrast the `dark-solid__rrect-48` panel is plainly
 grey where Apple's is white, and over `hc-text` at span 32 the web body is visibly brighter with the
-backdrop's text bleeding through where Apple's is darker and smoother. The user's eye has not been
-taken on these sheets; this gate ships no pixel, so nothing waits on it, and the sheets are here for
-whoever opens G2 or a refit.
+backdrop's text bleeding through where Apple's is darker and smoother. **And one the metrics do not
+say: the two profiles that hold the bound do not look identical.** On 1x dark
+`checkerboard-lc16__rrect-md__inactive` — a cell that clears clause 3 at 1.67× and sits inside its
+profile's mean — the web body is visibly darker than the reference (0.05217 against 0.07956 Y) and
+the backdrop's checker reads through its interior where the reference's is smoother. A profile
+holding this bound is a statement about the bound, not a claim that the recede is matched, which is
+the reason §5.134 §6 called clause 1 a non-regression clause rather than the test. The user's eye has
+not been taken on these sheets; this gate ships no pixel, so nothing waits on it, and the sheets are
+here for whoever opens G2 or a refit.
 
 **10. Verification record.** `pnpm --filter @vitrea/calibration --fail-if-no-match test` 386/386 and
 lint green at the head, after publication and after both `materialize` fixes. `manifest-doctor` run
