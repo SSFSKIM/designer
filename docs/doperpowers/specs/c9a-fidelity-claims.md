@@ -18717,7 +18717,7 @@ rows enter — one `materialize` phase per pass, `--set probe`, `--frequency-set
 `holdout` role are skipped before their bytes are read: the frozen bed's own cells are never
 republished at the probe bar, and the fresh bytes for those ids are read where they belong — all
 seven in the group E re-attestation of §4 below, and the four that are `calibration` rather than
-`holdout` ids also against vitrea, as 18 unscored rows whose native side is the sitting's plurality
+`holdout` ids also against vitrea, as 20 unscored rows whose native side is the sitting's plurality
 PNG rather than the bundle's recovered one. **156 cells** enter — 62 inactive at each scale, 12 in each
 accessibility profile and the four `mid-chroma-solid` active cells at each scale — taking the bundle
 from **455 to 611** entries. Two dark ids the sitting captured are published by nobody:
