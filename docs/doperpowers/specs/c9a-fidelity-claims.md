@@ -18921,7 +18921,19 @@ expectation it created about which profiles were at risk, is contradicted on fou
 bed, and nothing in the declaration claimed it would be. **Second**, `materialize` could not publish
 a bed that adds a background, and would have deleted the freeze-bar provenance of the cells already
 in the bundle (§1). Both are instrument defects that existed before this gate and were reachable
-only by a phase of exactly this shape.
+only by a phase of exactly this shape. **Third, the bed does not contain the `clear` variant, and
+§5.134 §5 believed it did.** `checking-bed.json`'s group D note reads
+"`dark-solid__rrect-md-clear20__inactive` is the clear variant, which claims §5.130 names as having
+no inactive evidence at all … the endpoint sets the clear variant's rim and shadow amplitudes to
+zero without any cell identifying that, and this is where that shows or does not." It is not the
+clear variant. `rrect-md-clear20` is W25's confound-breaker — `rrect-md` displaced 32 points down so
+that the span is held at 96 and the short-axis clearance falls to `rrect-lg`'s 20 px
+(`scenes.json`'s own component comment and its §probe-components note) — and neither the component
+nor the scene declares a material variant at all. The cell is a perfectly good checking cell for what
+it is, and it holds its clauses; what it does not do is identify the clear variant's zeroed inactive
+rim and shadow. **§5.130's "the clear variant … has no inactive evidence here" therefore still
+stands**, and the bed did not close it. The declaration's text is left where it was written, per this
+ledger's rule about recorded readings, with this correction beside it.
 
 **9. The eye.** The sheets are `sheets/*.png`, one per profile, every checking cell as
 native | webgpu | 8× amplified difference, worst body ΔE first. Two things the metrics report and

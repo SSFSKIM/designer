@@ -599,7 +599,12 @@ in the sitting, so it is two more hand-toggled passes on a 26.5 machine — whic
 not exist. *No inactive floor is adoptable from any of this*: seven runs is the probe bar and
 Decision Log 13 settled that, so the two profiles that hold the bound hold it as fidelity and not as
 a gate. *The activation transition's timing still has no reference of any kind*, and no bed of
-stills can give it one.
+stills can give it one. And one gap that was believed closed and is not: **the `clear` variant still
+has no inactive evidence**. `checking-bed.json`'s group D note calls
+`dark-solid__rrect-md-clear20__inactive` "the clear variant"; it is W25's clearance confound-breaker
+— `rrect-md` displaced down so the span is held and the clearance moved — and declares no material
+variant at all, so the endpoint's zeroed clear rim and shadow are still identified by nothing
+(claims §5.139 §8).
 
 **W27d follow-up:** fractional-presence union geometry and nearest-field ownership (a weak
 member still grows a neck and can own an overlap until exactly 0; multiplying the blend by
