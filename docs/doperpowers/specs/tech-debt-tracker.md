@@ -2076,6 +2076,13 @@ prop on the three public packages to at least one live site under `apps/`, so th
 the landing rather than on a release sheet. Until (2) exists, a landing's clause-2 review must grep
 `apps/` for the prop, not the README.
 
+**(1) landed 2026-09-12 (W27e G2):** the playground's tint-and-ink band
+(`apps/demo/src/TintInkPlate.tsx`, `/playground/`) is that instance — a `GlassGroup tint` over a
+light and a dark ground, a `GlassButton tint` in the group it steps out into, and all four levels
+side by side on one surface, with both seeds under controls. **(2) is still open**, and it is the
+half that stops this happening again: this entry stays until a test maps documented props to live
+instances.
+
 ## Core's advisory sampling padding is still σ = 8's 24 px and wins the toolbar gap on the regular variant (W27b, measured 2026-09-11)
 
 A toolbar partition clears `max(DEFAULT_GROUP_SAMPLING.samplingPadding, samplingPaddingFor(members))`:
@@ -2229,3 +2236,23 @@ Shape of the fix, and it is small: give both drivers the two things the reader a
 `HERE`, and a create-only write for `results.json` so replacing a recorded reading has to be
 deliberate. The PNGs can stay overwriting inside whatever directory is chosen. Worth taking with
 the next gate that touches either probe; not worth a commit of its own.
+
+## The playground's frame loop costs about 7 ms more per frame since the tint-and-ink band (W27e G2, measured 2026-09-12)
+
+Measured on `/playground/?renderer=css` at rest, headless Chromium, 150 `requestAnimationFrame`
+intervals per run, three runs: a p50 of 14 ms before the band and 21 ms after it, with the mean
+moving 13.6–16.6 → 20.1–20.9 and the long intervals reaching 35 ms either way. The band adds four
+sampling groups — four more masked `backdrop-filter` proxies for a software rasteriser to paint —
+and six surfaces to a scene that had five groups, which is about what the arithmetic predicts.
+
+Nothing about the product is implicated: no site composes four groups into 26 rem, the harness is
+not a performance target, and the GPU tier draws the same band on one canvas. What it did do is
+push `morph.spec.ts`'s reversal case past a per-frame bound that assumed adjacent samples are
+adjacent frames, fixed by weighing each step against the interval it happened over. It is recorded
+because the next surface added to the playground pays the same cost and the next flaky timing case
+will have the same cause.
+
+Shape of the work if it ever matters: measure where the time goes — per-host measure-and-write
+against proxy rasterisation — before trimming anything. Trimming the band itself is the wrong first
+move: its four groups are the minimum the composition needs (a tinted group and the group a second
+seed must step out into, once per ground), so a cheaper band is a weaker demonstration.
