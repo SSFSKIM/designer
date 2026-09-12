@@ -18861,11 +18861,16 @@ backing scale suppresses the body's adaptation is unread (§4), and so is what t
 the tone axis is the committed background raster over the declared region, which §5.133 §4 already
 records as not being either statistic the matrix carries. Both thresholds are brackets with no cell
 inside them, and the dark-scheme one is very wide. The reading is `rest` state and standard
-accessibility only, one machine and one OS build. *The drift:* the reader now emits `appIsActive`
-and `activationPolicy` where a dump records them and `isKeyWindow` on the per-dump record, so a
-regenerated G0 or 2x table would differ from the committed one by that key — **the committed tables
-are untouched on disk**, which is the convention §5.137 §7 set: add the new reading beside, never
-rewrite.
+accessibility only, one machine and one OS build. *The drift, measured rather than asserted:* the
+reader now emits `appIsActive` and `activationPolicy` where a dump records them and `isKeyWindow` on
+the per-dump record. Regenerated to a scratch directory through `W27E_OUT`, **both committed
+`table.md` are byte-for-byte** and this gate adds exactly **one** key to a committed `table.json` —
+`dumps[].isKeyWindow` on the 2x probe's. The G0 table gains nothing, because a corpus with no labels
+is published in the three-field per-dump form it was recorded in; its remaining differences from the
+committed file (`definitions.label`, `definitions.role`, the spec list and `matrixSha256`) are
+§5.137 §7's and W27f G2's, not this gate's. No `rows` value and no recorded reading moves, and **the
+committed tables are untouched on disk** — the convention §5.137 §7 set: add the new reading beside,
+never rewrite. This gate's own `table.json` and `table.md` reproduce byte-for-byte on re-run.
 
 **11. What G2 may now do, and what stays the user's.** The ink half of G2 is decided (Decision Log
 15 (a) and (b)) and its playground plate half is closed. This reading supplies the missing half of
