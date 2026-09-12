@@ -17820,6 +17820,41 @@ retake, destroying the record of the one run whose record matters most; and the 
 pixel diagnostic became unreachable once the two poses were split across two processes, so it is
 removed rather than left as dead code that reads as evidence.
 
+**Third round.** Re-checked over `031fb0b..a825eb9`; four findings, and the first is again a fix
+that broke the thing it was protecting.
+
+- **The per-cell lock guard had no dry-run exemption**, where the opening gate deliberately has one.
+  On a locked screen `DRY=1 run-sitting.sh inactive 1 1 1` died at the first cell, printed
+  `cells presented: 0` where the runbook says 76 — **and still printed `PASS` and exited 0**. A
+  rehearsal that reports success while doing nothing is worse than one that refuses, and the active
+  pose was unaffected, so the two poses disagreed about their own pre-flight. The per-cell decision
+  is now a pure `Capture.cellVerdict(pose:isKeyWindow:appIsActive:screenLocked:dryRun:)` returning
+  `write`, `refuse` or `rehearse`; a real pass still refuses, a rehearsal reports **once** and
+  reaches its 76. Its message also claimed "the screen locked during it" when the screen had been
+  locked all along — the opening gate's own reading now decides which of the two it says.
+- **`--require-key` read `isKeyWindow` synchronously**, on the line after `Capture.present`, inside
+  `applicationDidFinishLaunching` and before the run loop had answered. Activation is the window
+  server's answer and arrives on the event loop; every other pose reading here waits for it
+  (`presentInactive` polls to 4 s, `runProbe` defers 1.2 s). So a healthy unlocked machine could
+  refuse the arm whenever activation had not landed in that instant — and because the refusal's
+  advice is "launch it through `open -W`", which the operator just did, the natural recovery is to
+  drop the flag, reinstating the defect the flag exists to prevent. It now polls to a 4 s deadline
+  before asserting, and says so in the refusal, so the message can no longer be read as a race.
+- **The write-side refusal reported only the two window facts**, which a screen saver firing inside
+  the settle loop leaves exactly as the inactive pose requires — a correct-looking state with the
+  advice "leave the machine alone". `Capture.cellRefusal` now names the cause
+  (`screenLocked` / `screenStateUnreadable` / `poseMismatch`) and both guards build their message
+  from it.
+- The runbook's Step 3 did not name the two proofs this section says pin the regressions. It now
+  runs `run-sitting.test.sh` and `self-check` **before** the dry run, and says to read the count
+  rather than the verdict.
+
+The pattern across all three rounds is one thing: **every defect introduced by a fix has been in a
+path that could only be exercised on this machine, in one state.** The answer each time has been to
+make the decision a pure predicate and put its whole truth table in `self-check`, or to stub the
+harness and put the control flow in `run-sitting.test.sh`. Both run on a locked screen, which is
+where all three rounds happened to be.
+
 **Verification record.** `pnpm --filter @vitrea/calibration test` 372/372 (from 356: four
 scene-matrix pins moved to the invariants this change alters, four new checking-bed pins, eleven new
 probe pins) and lint green; the Swift package builds. Re-running the G0 reading reproduces

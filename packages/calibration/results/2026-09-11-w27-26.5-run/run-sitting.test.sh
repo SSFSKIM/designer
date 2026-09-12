@@ -86,11 +86,16 @@ elif ! grep -q "cells presented:" <<<"$out"; then bad "clean dry run printed no 
 elif ! grep -q "PASS inactive 2x DONE" <<<"$out"; then bad "clean dry run did not finish"
 else ok "clean dry run reports its count and finishes"; fi
 
-# 4. A dry run WITH something to report surfaces it to the terminal.
+# 4. A dry run WITH something to report surfaces it to the terminal AND still
+#    reaches every cell. A rehearsal that reports a warning and then presents zero
+#    cells — while printing PASS and exiting 0 — is worse than one that refuses,
+#    and that is exactly what a per-cell guard without the dry-run exemption did.
 out="$(DRY=1 STUB_WOULD_REFUSE=1 run "$TMP/s4" inactive 2 1 1)"; code=$?
+n="$(sed -n 's/.*cells presented: //p' <<<"$out")"
 if [ "$code" != "0" ]; then bad "warning dry run exited $code"
 elif ! grep -q "WOULD REFUSE" <<<"$out"; then bad "dry run buried its warning in a log"
-else ok "dry run surfaces WOULD REFUSE to the terminal"; fi
+elif [ "${n:-0}" -lt 1 ]; then bad "a warning truncated the rehearsal to ${n:-0} cells"
+else ok "dry run surfaces WOULD REFUSE and still reaches all $n cells"; fi
 
 # 5. A run that fails its audit is quarantined WITH its logs, and leaves no
 #    manifest.json under the run name — so the documented retake re-takes it

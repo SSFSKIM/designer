@@ -221,10 +221,10 @@ func runProbe() {
 /// for the wrong reason, and nothing about the window says so.
 func runSelfCheck() {
   var failures = 0
-  func check(_ label: String, _ got: Bool, _ want: Bool) {
+  func check(_ label: String, _ got: Bool, _ want: Bool, detail: String? = nil) {
     let ok = got == want
     if !ok { failures += 1 }
-    print("  \(ok ? "ok  " : "FAIL") \(label) -> \(got), expected \(want)")
+    print("  \(ok ? "ok  " : "FAIL") \(label) -> \(detail ?? "\(got), expected \(want)")")
   }
   print("== self-check: Capture.cellMayBeWritten ==")
   for pose in [CapturePose.active, .inactive] {
@@ -268,6 +268,57 @@ func runSelfCheck() {
   check("active on a LOCKED screen refuses too",
         Capture.cellMayBeWritten(pose: .active, isKeyWindow: true, appIsActive: true,
                                  screenLocked: true), false)
+  print("")
+  print("== self-check: Capture.cellVerdict (what a run DOES about a refused cell) ==")
+  // The distinction a rehearsal lives on. A dry run captures nothing, so every
+  // condition that stops a real pass must let a rehearsal through and be
+  // reported instead — otherwise the rehearsal reaches zero cells and still
+  // reports PASS, which is how this row came to be written.
+  for pose in [CapturePose.active, .inactive] {
+    for locked in [false, true, nil] as [Bool?] {
+      for dry in [false, true] {
+        // The pose facts the recede requires, held fixed, so the LOCK is the only
+        // thing that can refuse an inactive cell in these rows.
+        let key = pose == .active
+        let act = pose == .active
+        let want: Capture.CellVerdict = locked == false ? .write : (dry ? .rehearse : .refuse)
+        let got = Capture.cellVerdict(pose: pose, isKeyWindow: key, appIsActive: act,
+                                      screenLocked: locked, dryRun: dry)
+        let lockText = locked.map { $0 ? "locked" : "unlocked" } ?? "unreadable"
+        check("\(pose.rawValue) \(lockText) dryRun=\(dry)", got == want,
+              true, detail: "\(got.rawValue), expected \(want.rawValue)")
+      }
+    }
+  }
+  // The two rows this subcommand exists for, named.
+  check("a LOCKED screen stops a real inactive pass",
+        Capture.cellVerdict(pose: .inactive, isKeyWindow: false, appIsActive: false,
+                            screenLocked: true, dryRun: false) == .refuse, true)
+  check("a LOCKED screen lets the REHEARSAL through, to be reported",
+        Capture.cellVerdict(pose: .inactive, isKeyWindow: false, appIsActive: false,
+                            screenLocked: true, dryRun: true) == .rehearse, true)
+  check("a lost pose still stops a real pass",
+        Capture.cellVerdict(pose: .inactive, isKeyWindow: true, appIsActive: true,
+                            screenLocked: false, dryRun: false) == .refuse, true)
+
+  print("")
+  print("== self-check: Capture.cellRefusal names the CAUSE, not the symptom ==")
+  // The message is chosen from this, and a locked screen leaves the two window
+  // facts exactly as the inactive pose requires — so a reason that reported the
+  // pose would send the operator to fix a state that is already correct.
+  check("locked screen reports the lock, not a pose mismatch",
+        Capture.cellRefusal(pose: .inactive, isKeyWindow: false, appIsActive: false,
+                            screenLocked: true) == .screenLocked, true)
+  check("unreadable session is its own cause, not 'unlocked'",
+        Capture.cellRefusal(pose: .inactive, isKeyWindow: false, appIsActive: false,
+                            screenLocked: nil) == .screenStateUnreadable, true)
+  check("a real pose mismatch on an unlocked screen reports the pose",
+        Capture.cellRefusal(pose: .inactive, isKeyWindow: true, appIsActive: false,
+                            screenLocked: false) == .poseMismatch, true)
+  check("nothing to report when the pose holds on an unlocked screen",
+        Capture.cellRefusal(pose: .inactive, isKeyWindow: false, appIsActive: false,
+                            screenLocked: false) == nil, true)
+
   print("")
   if failures == 0 {
     print("all rows hold.")
@@ -793,20 +844,48 @@ func runDumpLayers(sceneIds: [String], outDir: String, settleSeconds: Double, sc
   // without the activation a bundle launch gets. So an "active-pose" arm that
   // simply omits the accessory policy can come back non-key, and a run taken to
   // SEPARATE the pose from the scale would produce two non-key corpora and
-  // separate nothing. Asserted before any scene is walked.
-  if requireKey && !window.isKeyWindow {
-    fail("""
-      --require-key: the window is NOT key\
-      \(NSApp.isActive ? "" : " and the application is not active")\
-      \(Environment.screenIsLocked() != false ? " (the screen is locked)" : "").
-
-      This arm was asked for in the ACTIVE pose and would have recorded the recede \
-      under an active name. Launch it through `open -W` against the app bundle, on \
-      an unlocked console session with nothing stealing focus. Nothing was written.
-      """)
-  }
+  // separate nothing.
+  //
+  // The assertion is made inside the Task below, after AWAITING the pose, and not
+  // on the line after `Capture.present`. Activation is the window server's answer
+  // and it arrives on the event loop — `presentInactive` polls to a 4 s deadline
+  // for the same reason, `runProbe` defers 1.2 s and `deactivate-probe` settles
+  // before every reading. Asserting synchronously here would read the state the
+  // process started in, so a healthy unlocked machine could refuse this arm
+  // whenever activation had not landed in that instant; and since the refusal's
+  // advice is "launch it through `open -W`", which the operator just did, the
+  // natural recovery is to drop the flag — reinstating the very defect it exists
+  // to prevent.
 
   Task { @MainActor in
+    if requireKey {
+      // Poll, matching `presentInactive`'s pattern: cheap when the answer has
+      // already arrived, bounded when it never will. Nothing has been written at
+      // this point — the output directory exists and holds no dump.
+      let deadline = Date().addingTimeInterval(4.0)
+      while !window.isKeyWindow && Date() < deadline {
+        try? await Task.sleep(nanoseconds: 100_000_000)
+      }
+      guard window.isKeyWindow else {
+        fail("""
+          --require-key: the window did not become key within 4s. It is \
+          \(window.isKeyWindow ? "key" : "not key"), the application is \
+          \(NSApp.isActive ? "active" : "NOT active")\
+          \(Environment.screenIsLocked() != false ? ", and the screen is LOCKED" : "").
+
+          This arm was asked for in the ACTIVE pose and would otherwise have \
+          recorded the recede under an active name — which is what the committed \
+          2x probe did, and why this flag exists.
+
+          The window server was given 4s to answer, so this is not a race: either \
+          the screen is locked (nothing can become key), something else is holding \
+          focus, or the harness was exec'd from a terminal rather than launched as \
+          a bundle. Launch it with `open -W` against VitreaReference.app on an \
+          unlocked console session. Nothing was written.
+          """)
+      }
+      print("--require-key: window is key, NSApp.isActive=\(NSApp.isActive)")
+    }
     for scene in wanted {
       guard let component = spec.components[scene.component],
             let bgSpec = spec.backgrounds[scene.background] else {
@@ -932,7 +1011,8 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
   // The lock gate, before the idle gate, because a locked machine passes the idle
   // gate by definition. Both poses: an active run cannot become key on a locked
   // screen, and an inactive run's attestation would pass for the wrong reason.
-  if Environment.screenIsLocked() != false && options.dryRun {
+  let lockedAtStart = Environment.screenIsLocked()
+  if lockedAtStart != false && options.dryRun {
     // A dry run captures nothing, so the gate is protecting nothing — and this is
     // the check a session most wants to rehearse from wherever it happens to be.
     // Said loudly rather than silently skipped, because "the real pass will refuse
@@ -942,7 +1022,7 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
       Unlock the console session before the sitting; everything below is the \
       rehearsal continuing because it captures nothing.
       """)
-  } else if Environment.screenIsLocked() != false {
+  } else if lockedAtStart != false {
     fail("""
       the login session's screen is LOCKED\
       \(Environment.screenIsLocked() == nil ? " (or the session could not be read, which is not the same as unlocked)" : "").
@@ -1425,6 +1505,10 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
   let order = interleaved(work, seed: options.orderSeed)
   print("capturing \(order.count) fixtures via \(method.rawValue) at \(backingScale)x (interleaved)")
 
+  /// Whether the rehearsal has already reported the condition it would refuse on.
+  /// Once per run: 76 copies of one sentence is not a warning, it is noise that
+  /// buries the count underneath it.
+  var rehearsalWarned = false
   var byProfile: [String: [FixtureEntry]] = [:]
   /// The colour space the captured images actually carry, per profile. Recorded as
   /// an observation rather than restating the space the capture path requested, so
@@ -1626,6 +1710,53 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
     let dir = "\(staging)/\(profile.key)"
     let file = "\(scene.id).png"
 
+    /// Why this cell cannot be written, worded for the cause rather than for the
+    /// symptom.
+    ///
+    /// A screen that locks inside a run leaves `isKeyWindow` and `appIsActive`
+    /// both false — which is precisely what the inactive pose requires — so a
+    /// message that reported only those two facts would describe a correct state
+    /// and send the operator to fix something that is not wrong.
+    func poseRefusalMessage(_ sceneId: String, _ refusal: Capture.CellRefusal,
+                            _ w: NSWindow, lockedAtStart: Bool?) -> String {
+      switch refusal {
+      case .screenLocked, .screenStateUnreadable:
+        let unreadable = refusal == .screenStateUnreadable
+        // Only claim a transition that actually happened. The opening gate's own
+        // reading is what says whether the screen was already locked.
+        let when = lockedAtStart == false
+          ? "the run passed its opening gate and the screen locked during it"
+          : "the screen was already in this state when the run started"
+        return """
+          scene '\(sceneId)': the login session's screen is \
+          \(unreadable ? "UNREADABLE (which is not the same as unlocked)" : "LOCKED") — \
+          \(when).
+
+          This is the case the per-cell check exists for. A locked screen satisfies \
+          the inactive attestation for the WRONG REASON: nothing can become active \
+          or key, so every remaining cell would attest and the audit would score \
+          the pass perfect while the window server composites nothing the bed is \
+          about. Unlock the console session and turn off the screen saver and \
+          display sleep for the length of the sitting. Nothing was published; \
+          \(root) is unchanged.
+          """
+      case .poseMismatch:
+        return """
+          scene '\(sceneId)': the inactive pose was lost before this cell. The \
+          window is \(w.isKeyWindow ? "KEY" : "not key") and the application is \
+          \(NSApp.isActive ? "ACTIVE" : "not active"); both must be false, and the \
+          screen is not locked, so the pose itself moved.
+
+          Something activated this process mid-run — a click into the window, an \
+          AppleScript or launcher activation, an assistive tool. The capture \
+          stops here rather than file an active cell under an inactive id, which \
+          is the one failure mode the recovered bed cannot rule out about itself. \
+          Nothing was published; the fixtures and manifest under \(root) are \
+          unchanged. Re-run the pass; leave the machine alone while it runs.
+          """
+      }
+    }
+
     /// The pose gate for this cell, sampled immediately before its capture.
     ///
     /// Only the inactive pose is gated, and the asymmetry is deliberate. On the
@@ -1639,34 +1770,26 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
     func attestPose(_ w: NSWindow) -> PresentationAttestation? {
       guard pose == .inactive else { return nil }
       let locked = Environment.screenIsLocked()
-      guard locked == false else {
-        fail("""
-          scene '\(scene.id)': the login session's screen is LOCKED\
-          \(locked == nil ? " (or could not be read, which is not the same)" : "") — \
-          the run passed its opening gate and the screen locked during it.
-
-          This is the case the per-cell check exists for. A locked screen satisfies \
-          the inactive attestation for the WRONG REASON: nothing can become active \
-          or key, so every remaining cell would attest and the audit would score \
-          the pass perfect while the window server composites nothing the bed is \
-          about. Turn off the screen saver and display sleep for the length of the \
-          sitting. Nothing was published; \(root) is unchanged.
-          """)
-      }
-      guard Capture.cellMayBeWritten(pose: pose, isKeyWindow: w.isKeyWindow,
-                                     appIsActive: NSApp.isActive, screenLocked: locked) else {
-        fail("""
-          scene '\(scene.id)': the inactive pose was lost before this cell. The \
-          window is \(w.isKeyWindow ? "KEY" : "not key") and the application is \
-          \(NSApp.isActive ? "ACTIVE" : "not active"); both must be false.
-
-          Something activated this process mid-run — a click into the window, an \
-          AppleScript or launcher activation, an assistive tool. The capture \
-          stops here rather than file an active cell under an inactive id, which \
-          is the one failure mode the recovered bed cannot rule out about itself. \
-          Nothing was published; the fixtures and manifest under \(root) are \
-          unchanged. Re-run the pass; leave the machine alone while it runs.
-          """)
+      let refusal = Capture.cellRefusal(pose: pose, isKeyWindow: w.isKeyWindow,
+                                        appIsActive: NSApp.isActive, screenLocked: locked)
+      if let refusal {
+        let what = poseRefusalMessage(scene.id, refusal, w, lockedAtStart: lockedAtStart)
+        switch Capture.cellVerdict(pose: pose, isKeyWindow: w.isKeyWindow,
+                                   appIsActive: NSApp.isActive, screenLocked: locked,
+                                   dryRun: options.dryRun) {
+        case .refuse:
+          fail(what)
+        case .rehearse:
+          // A rehearsal captures nothing, so it reports and carries on — the same
+          // exemption the opening gate makes, and for the same reason. Reported
+          // once rather than per cell: 76 copies of one sentence is not a warning.
+          if !rehearsalWarned {
+            rehearsalWarned = true
+            print("WOULD REFUSE: " + what)
+          }
+        case .write:
+          break
+        }
       }
       return PresentationAttestation(
         declaredPose: pose.rawValue,
@@ -1696,19 +1819,20 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
       // refused only at the NEXT cell — after this one was already filed. The two
       // readings bracket the capture, and a cell is written only if both hold.
       if pose == .inactive, let w = window,
-         !Capture.cellMayBeWritten(pose: pose, isKeyWindow: w.isKeyWindow,
-                                   appIsActive: NSApp.isActive,
-                                   screenLocked: Environment.screenIsLocked()) {
+         let refusal = Capture.cellRefusal(pose: pose, isKeyWindow: w.isKeyWindow,
+                                           appIsActive: NSApp.isActive,
+                                           screenLocked: Environment.screenIsLocked()) {
+        // The pose held when this cell was attested and does not now, so the
+        // settle loop is where it changed. Which message that deserves depends on
+        // the cause: a screen saver that fired inside the loop leaves the two
+        // window facts exactly as the pose requires, and "leave the machine alone"
+        // would be advice about a state that is already correct.
         fail("""
-          scene '\(scene.id)': the inactive pose held when this cell was attested \
-          and was LOST before its bytes were recorded — the window is \
-          \(w.isKeyWindow ? "KEY" : "not key") and the application is \
-          \(NSApp.isActive ? "ACTIVE" : "not active") now.
+          scene '\(scene.id)': the pose held when this cell was ATTESTED and did \
+          not hold when its bytes were recorded — the settle loop is seconds long \
+          and the session changed inside it.
 
-          The settle loop is seconds long and something activated this process \
-          inside it, so this cell's pixels are not all of one pose. Nothing was \
-          published; the fixtures and manifest under \(root) are unchanged. \
-          Re-run the pass and leave the machine alone while it runs.
+          \(poseRefusalMessage(scene.id, refusal, w, lockedAtStart: lockedAtStart))
           """)
       }
 

@@ -110,15 +110,27 @@ nothing. Write them to NEW directories — never over the committed 2x trees.
 
 ## 4. Step 3 — prove the path before spending the machine (2 minutes)
 
+Three checks, in this order. The first two need **no machine state at all** — no display, no GUI
+session, not even an unlocked screen — so they are the only pre-flight that works from anywhere, and
+they pin the regressions that have actually happened here (claims §5.135 §9):
+
 ```bash
-DRY=1 packages/calibration/results/2026-09-11-w27-26.5-run/run-sitting.sh inactive 2 1 1
+R=packages/calibration/results/2026-09-11-w27-26.5-run
+bash $R/run-sitting.test.sh          # this script's own control flow, harness stubbed
+(cd apps/reference-apple && ./capture.sh self-check)   # the pure capture rules, whole truth table
+DRY=1 $R/run-sitting.sh inactive 2 1 1                 # the real path, presenting and attesting
 ```
 
-Presents and attests every cell of the pass and captures nothing. It exercises every refusal the
+The third presents and attests every cell of the pass and captures nothing. It exercises every refusal the
 real pass has — the fixture root, the backgrounds, the scene resolution, the presentation and the
 per-cell pose attestation — and prints `cells presented: 76`. Do this after each toggle change and
 each scale change; it is the cheapest thing in this document and it is the difference between
 finding a problem in two minutes and finding it in hour six.
+
+It must print `cells presented: 76`. A rehearsal that reports a warning and then presents **zero**
+cells while still printing `PASS` is the failure this step is checked against — read the count, not
+the verdict. On a locked screen it will also print `WOULD REFUSE: … LOCKED` and carry on, which is
+correct: the rehearsal captures nothing, and that line is the whole point of running it early.
 
 ## 5. Step 4 — the inactive checking bed, four passes
 

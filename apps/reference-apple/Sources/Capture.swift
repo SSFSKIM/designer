@@ -273,6 +273,60 @@ enum Capture {
     !window.isKeyWindow && !NSApp.isActive
   }
 
+  /// Why a cell may not be written, or `nil` when it may.
+  ///
+  /// Separate from the verdict below because the REASON decides the message, and
+  /// a message that names the wrong cause sends the operator to fix the wrong
+  /// thing: a screen that locked inside the settle loop leaves `isKeyWindow` and
+  /// `appIsActive` both false, which is exactly what the inactive pose requires,
+  /// so "leave the machine alone" would be advice about a state that is already
+  /// correct.
+  enum CellRefusal: String {
+    case screenLocked
+    case screenStateUnreadable
+    case poseMismatch
+  }
+
+  static func cellRefusal(pose: CapturePose, isKeyWindow: Bool, appIsActive: Bool,
+                          screenLocked: Bool?) -> CellRefusal? {
+    // The lock is checked first and fails closed on an unreadable session, as the
+    // idle gate does with an unreadable counter. It comes first because it
+    // SUBSUMES the pose facts: on a locked screen nothing can become active or
+    // key, so the inactive pose's two conditions hold for the wrong reason and a
+    // pose-first ordering would report the cell as fine.
+    guard let locked = screenLocked else { return .screenStateUnreadable }
+    if locked { return .screenLocked }
+    switch pose {
+    case .active: return isKeyWindow && appIsActive ? nil : .poseMismatch
+    case .inactive: return !isKeyWindow && !appIsActive ? nil : .poseMismatch
+    }
+  }
+
+  /// What a run should DO about a cell — which is not the same question as
+  /// whether the cell may be written.
+  ///
+  /// A dry run captures nothing, so a condition that must stop a real pass must
+  /// not stop a rehearsal: the rehearsal's whole job is to reach the end and
+  /// report everything it would have hit. The opening gate already works this
+  /// way; the per-cell gate did not, and a locked screen turned a 76-cell
+  /// rehearsal into zero cells and a green PASS — a rehearsal that reports
+  /// success while doing nothing is worse than one that refuses.
+  enum CellVerdict: String {
+    /// Capture and record it.
+    case write
+    /// Stop the run. Nothing is published.
+    case refuse
+    /// Report it and carry on; this is a rehearsal and nothing is at stake.
+    case rehearse
+  }
+
+  static func cellVerdict(pose: CapturePose, isKeyWindow: Bool, appIsActive: Bool,
+                          screenLocked: Bool?, dryRun: Bool) -> CellVerdict {
+    guard cellRefusal(pose: pose, isKeyWindow: isKeyWindow, appIsActive: appIsActive,
+                      screenLocked: screenLocked) != nil else { return .write }
+    return dryRun ? .rehearse : .refuse
+  }
+
   /// Whether a cell captured in `pose` may be WRITTEN, given the three facts that
   /// decide it. Pure, so the rule can be proved without a window — see the
   /// `self-check` subcommand, which runs the whole truth table.
@@ -288,13 +342,8 @@ enum Capture {
   /// realistic way it happens, and the opening gate cannot see it.
   static func cellMayBeWritten(pose: CapturePose, isKeyWindow: Bool, appIsActive: Bool,
                                screenLocked: Bool?) -> Bool {
-    // `nil` is "the session could not be read", which is not "unlocked" and fails
-    // closed, exactly as the idle gate treats an unreadable counter.
-    guard screenLocked == false else { return false }
-    switch pose {
-    case .active: return isKeyWindow && appIsActive
-    case .inactive: return !isKeyWindow && !appIsActive
-    }
+    cellRefusal(pose: pose, isKeyWindow: isKeyWindow, appIsActive: appIsActive,
+                screenLocked: screenLocked) == nil
   }
 
   /// The pose a window is in right now, or `nil` when it is in neither — key in an
