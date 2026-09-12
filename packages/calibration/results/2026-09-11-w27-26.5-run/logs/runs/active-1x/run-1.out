@@ -1,0 +1,9 @@
+capturing 4 fixtures via screencapturekit at 1.0x (interleaved)
+  [1/4] apple-macos-26.5-1x-light-standard/mid-chroma-solid__capsule-button__rest byte-stable
+  [2/4] apple-macos-26.5-1x-light-standard/mid-chroma-solid__rrect-lg__rest byte-stable
+  [3/4] apple-macos-26.5-1x-light-standard/mid-chroma-solid__rrect-md__rest byte-stable
+  [4/4] apple-macos-26.5-1x-light-standard/mid-chroma-solid__capsule-button__rest-tint-orange byte-stable
+manifest → /Users/new/vitrea-w27-26.5-run/active-1x/run-1/manifest.json
+CAVEAT: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+CAVEAT: Profiles not captured because this display renders at 1.0x and their keys state another scale: apple-macos-26.5-2x-dark-standard, apple-macos-26.5-2x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 320x200-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+CAVEAT: Narrowed by --scenes to 4 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root — publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.

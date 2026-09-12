@@ -18335,6 +18335,52 @@ list, and two documentation strings; the committed file is untouched on disk. No
 outside the calibration reader was touched, and no golden, canonical matrix row, material profile or
 existing fixture moved.
 
+**10. The sitting, taken (2026-09-12, 09:52Z–16:07Z; record beside the runbook).** The run §6
+declared was taken at the probe bar on macOS 26.5.2 (25F84), on the BetterDisplay virtual screen
+that is this Mac mini's only display, at 2x (displayplacer mode 68) and then at 1x (mode 69,
+`backingScaleFactor 1.0` read by the open-launched probe before the first 1x cell). Six passes,
+seven runs each, **every run attested in full**: inactive 2x and 1x at 76 cells (532 attested per
+pass), active 2x and 1x at 4 cells (28), increased contrast and reduced transparency at 1x at 14
+cells (98 each), 42 manifests whose sha256 and capture windows are in
+`packages/calibration/results/2026-09-11-w27-26.5-run/provenance.json`, with `sitting.md` beside it
+and the pass and per-run logs under `logs/`. Nothing is published: the raw runs stay on the machine
+and `materialize`'s plurality across the seven runs is the next gate's, as §6 said.
+
+Three readings the record carries that the declaration did not anticipate. **Six cells the
+harness caveats as pixel-identical to their own background** in every inactive standard run at both
+scales — `dark-solid__capsule-button__inactive`, `dark-solid__rrect-48__inactive` and
+`dark-solid__rrect-sm__inactive`, each in both schemes, the same six on all fourteen runs and none
+in the active or accessibility passes — say on the bed what `rehearse-tints` said of the committed
+bytes ("6 had a twin but no measurable region", §8): over that backdrop the recede leaves no
+component pixel at all. **The idle gate is enforced
+once per run and only recorded per cell:** `--min-idle-seconds 45` refuses at a run's opening, and
+each entry then carries `hidIdleSeconds` without a refusal, so the runbook's "a disturbed run
+retries rather than filing a disturbed cell" holds only before the first cell. The record lists
+every cell captured under 45 s of idle, per run (inactive 2x runs 4 and 5 — 13 and 3 cells;
+inactive 1x runs 1, 2 and 5 — 14, 12 and 5; the increased-contrast runs 1, 6 and 7 — 3, 1 and 5;
+none in the active or reduced-transparency passes); the pose attestation held on all of them and the seven-run
+plurality is where a disturbed byte-state would show. **The 1x labelled probe was taken in both
+poses** (`results/2026-09-12-w27e-probe-1x/`, 150 dumps): the runbook's recede recipe had no
+mechanism — the policy variable alone leaves an application that activates active and key, and all
+50 first-attempt dumps are the active pose, kept as `policy-only/` — so the recede was taken through
+`dump-layers --inactive`, which reuses `presentInactive` and records `appIsActive` and
+`activationPolicy` in every dump (50 dumps, all `key=false active=false accessory`). The active
+light arm through `open -W --require-key` lost key after its 9th scene and did not regain it; the
+active dark arm held key on all 25. The reading of these dumps is W27e G2's (Decision Log 15) and
+none of it is read here.
+
+Instrument corrections made during the sitting, all on branch `w27-dump-layers-inactive` and none
+touching a fixture, profile, golden, scene, canonical matrix row or declared bed file: the runbook's
+Screen Recording probe is launched through `open` (the `capture.sh` form reports the terminal's
+grant); `dump-layers --inactive`; `build.sh`'s `VITREA_BUILD_OUT` so that change could be built
+beside the granted bundle; the sitting script's `VITREA_BED_FILE` with `bed-inactive-a11y.txt` (the
+14 bed ids both accessibility profiles declare — the script fed every inactive pass the whole
+38-id bed and the harness refused the other 24), and `VITREA_SITTING_DIR` per accessibility pass
+(the script names a pass by pose and scale only and would have resumed over the banked standard 1x
+runs). Machine-side: Chrome (an automation instance) and Docker Desktop were up during the 2x
+inactive pass and the runs were clean; the input was touched every few seconds between 13:52Z and
+13:59Z and the increased-contrast pass waited it out at its opening gate.
+
 ### 5.137 W27e G1: the label operator settled as a saturating source-over transform, its two tiers stated, and the tolerance declared before the browser proof and measured at 0.54 code values (2026-09-12)
 
 **Gate:** W27 coverage wave, child W27e gate G1 (§Children), the §Design clause *Where each feature

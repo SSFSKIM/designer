@@ -1,0 +1,1807 @@
+{
+  "macOS": "macOS 26.5.2 25F84 on Mac14,12",
+  "notes": [
+    "Screen Recording: the runbook's `./capture.sh probe` reports the terminal's grant, not the bundle's; the open-launched probe printed OK at 2x and at 1x (runbook \u00a71 corrected at 9a8d05b5).",
+    "The 1x labelled probe: the runbook's recede recipe (policy variable only) produced KEY dumps on all 50 'inactive' arms \u2014 an .accessory application that activates still becomes active and key. Those dumps are committed under results/2026-09-12-w27e-probe-1x/policy-only/ as what they are: the ACTIVE pose. The recede was then taken through `dump-layers --inactive` (branch w27-dump-layers-inactive, built beside the granted bundle) under recede/: 50 dumps, all key=false active=false accessory. The active light arm through `open -W --require-key` lost key after its 9th scene (16 of 25 record key=false); the active dark arm is 25/25 key.",
+    "Chrome (an automation instance) and Docker Desktop were running during the 2x inactive pass; neither is a capture process and the runs were clean. The Chrome instance had exited by the active 2x pass.",
+    "The idle gate is enforced at a run's opening (45 s) and only RECORDED per cell; a touch mid-run files the cell with its idle beside it. The record lists every cell under 45 s of idle per run; the pose attestation held on all of them, and the seven-run plurality at materialize time is where a disturbed byte-state would show.",
+    "The script, the runbook and the harness were corrected during the sitting on branch w27-dump-layers-inactive: `dump-layers --inactive` and per-dump pose facts; `VITREA_BUILD_OUT` for a side build; `VITREA_BED_FILE` and bed-inactive-a11y.txt; the runbook's probe launch and recede recipe. No fixture, profile, golden, scene, matrix row or declared bed file moved.",
+    "Display restored to mode 68 (2x HiDPI) and the sitting's caffeinate ended after the last pass."
+  ],
+  "passes": [
+    {
+      "annotation": {
+        "display": "\uac00\uc0c1 16:9 (BetterDisplay virtual screen, the machine's only display) at 2560x1440 HiDPI, displayplacer mode 68, backingScaleFactor 2.0",
+        "note": "Launched 09:52Z by this session after the user's go; run 1 attempt 1 refused at the opening idle gate (the launch turn itself), attempt 2 captured. Runs 4 and 5 carry cells captured while the input was live (listed below); every one attested the pose.",
+        "toggles": "standard (both off)"
+      },
+      "pass": "inactive-2x",
+      "quarantined": [],
+      "refusals": [
+        "run 1 attempt 1: refused for idle \u2014 leave the machine alone",
+        "run 6 attempt 1: refused for idle \u2014 leave the machine alone"
+      ],
+      "runs": [
+        {
+          "attested": 76,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 76 cells over 2 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "76 of 76 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene.",
+            "6 of 76 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end."
+          ],
+          "cells": 76,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 2,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                640,
+                400
+              ],
+              "requestedScale": 2
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T09:54:04Z",
+          "generatedAt": "2026-09-12T10:06:11Z",
+          "identicalToBackground": [
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-sm__inactive",
+            "dark-solid__rrect-sm__inactive"
+          ],
+          "lastCapturedAt": "2026-09-12T10:06:11Z",
+          "manifestSha256": "e815162a9f093e18699b7a452908246676c71da97805ba435a2598e394d2e23e",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 117.033919833,
+          "profiles": [
+            "apple-macos-26.5-2x-dark-standard",
+            "apple-macos-26.5-2x-light-standard"
+          ],
+          "run": "run-1"
+        },
+        {
+          "attested": 76,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 76 cells over 2 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "76 of 76 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene.",
+            "6 of 76 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end."
+          ],
+          "cells": 76,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 2,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                640,
+                400
+              ],
+              "requestedScale": 2
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T10:06:21Z",
+          "generatedAt": "2026-09-12T10:18:27Z",
+          "identicalToBackground": [
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-sm__inactive",
+            "dark-solid__rrect-sm__inactive"
+          ],
+          "lastCapturedAt": "2026-09-12T10:18:27Z",
+          "manifestSha256": "5c242a7cd88e2b4c408f027f7989e38a73cbacdd98bf5380431261191cb228aa",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 853.693604458,
+          "profiles": [
+            "apple-macos-26.5-2x-dark-standard",
+            "apple-macos-26.5-2x-light-standard"
+          ],
+          "run": "run-2"
+        },
+        {
+          "attested": 76,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 76 cells over 2 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "76 of 76 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene.",
+            "6 of 76 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end."
+          ],
+          "cells": 76,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 2,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                640,
+                400
+              ],
+              "requestedScale": 2
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T10:18:37Z",
+          "generatedAt": "2026-09-12T10:30:42Z",
+          "identicalToBackground": [
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-sm__inactive",
+            "dark-solid__rrect-sm__inactive"
+          ],
+          "lastCapturedAt": "2026-09-12T10:30:42Z",
+          "manifestSha256": "015426b6c7bc25a1c1bf1111150d1bd56edc57201158bf7fbe9f55f275d38020",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 1589.637356958,
+          "profiles": [
+            "apple-macos-26.5-2x-dark-standard",
+            "apple-macos-26.5-2x-light-standard"
+          ],
+          "run": "run-3"
+        },
+        {
+          "attested": 76,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 76 cells over 2 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "76 of 76 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene.",
+            "6 of 76 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end."
+          ],
+          "cells": 76,
+          "cellsUnderIdle45": [
+            "checkerboard-64__rrect-lg__inactive",
+            "checkerboard-8__rrect-md__inactive",
+            "checkerboard__glass-over-glass__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-sm__inactive",
+            "hc-text-7__rrect-md__inactive",
+            "hc-text-7__rrect-md__inactive",
+            "mid-chroma-solid__capsule-button__inactive-tint-orange",
+            "mid-dark-solid__capsule-button__inactive",
+            "mid-dark-solid__rrect-lg__inactive",
+            "mid-dark-solid__rrect-lg__inactive",
+            "mid-dark-solid__rrect-sm__inactive",
+            "photo__rrect-md__inactive"
+          ],
+          "display": [
+            {
+              "actualBackingScale": 2,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                640,
+                400
+              ],
+              "requestedScale": 2
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T10:30:52Z",
+          "generatedAt": "2026-09-12T10:42:51Z",
+          "identicalToBackground": [
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-sm__inactive",
+            "dark-solid__rrect-sm__inactive"
+          ],
+          "lastCapturedAt": "2026-09-12T10:42:51Z",
+          "manifestSha256": "cc66e53401c11d3de2eefb3beee2c4cbdc20eca3b74fd545b2c4f8e31c00f68f",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 0.081435166,
+          "profiles": [
+            "apple-macos-26.5-2x-dark-standard",
+            "apple-macos-26.5-2x-light-standard"
+          ],
+          "run": "run-4"
+        },
+        {
+          "attested": 76,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 76 cells over 2 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "76 of 76 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene.",
+            "6 of 76 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end."
+          ],
+          "cells": 76,
+          "cellsUnderIdle45": [
+            "hc-text__rrect-sm__inactive",
+            "mid-chroma-solid__capsule-button__inactive",
+            "photo__glass-over-glass__inactive"
+          ],
+          "display": [
+            {
+              "actualBackingScale": 2,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                640,
+                400
+              ],
+              "requestedScale": 2
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T10:43:02Z",
+          "generatedAt": "2026-09-12T10:55:00Z",
+          "identicalToBackground": [
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-sm__inactive",
+            "dark-solid__rrect-sm__inactive"
+          ],
+          "lastCapturedAt": "2026-09-12T10:55:00Z",
+          "manifestSha256": "60d85e97b418823603359027bffbb38c0d7c9f8a9c60ec875249aae97159a523",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 4.909826708,
+          "profiles": [
+            "apple-macos-26.5-2x-dark-standard",
+            "apple-macos-26.5-2x-light-standard"
+          ],
+          "run": "run-5"
+        },
+        {
+          "attested": 76,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 76 cells over 2 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "76 of 76 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene.",
+            "6 of 76 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end."
+          ],
+          "cells": 76,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 2,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                640,
+                400
+              ],
+              "requestedScale": 2
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T10:56:40Z",
+          "generatedAt": "2026-09-12T11:08:34Z",
+          "identicalToBackground": [
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-sm__inactive",
+            "dark-solid__rrect-sm__inactive"
+          ],
+          "lastCapturedAt": "2026-09-12T11:08:34Z",
+          "manifestSha256": "062d53915e095f27a1ae2d09594aba38a01f0c418c63f5652cfc0b138f1f4861",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 124.4465135,
+          "profiles": [
+            "apple-macos-26.5-2x-dark-standard",
+            "apple-macos-26.5-2x-light-standard"
+          ],
+          "run": "run-6"
+        },
+        {
+          "attested": 76,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 76 cells over 2 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "76 of 76 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene.",
+            "6 of 76 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end."
+          ],
+          "cells": 76,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 2,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                640,
+                400
+              ],
+              "requestedScale": 2
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T11:08:45Z",
+          "generatedAt": "2026-09-12T11:20:40Z",
+          "identicalToBackground": [
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-sm__inactive",
+            "dark-solid__rrect-sm__inactive"
+          ],
+          "lastCapturedAt": "2026-09-12T11:20:40Z",
+          "manifestSha256": "bd65dfc0264cc70167c6212d47eb03d8caa207ea0ae8646c14004f779b0ceee7",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 848.717112208,
+          "profiles": [
+            "apple-macos-26.5-2x-dark-standard",
+            "apple-macos-26.5-2x-light-standard"
+          ],
+          "run": "run-7"
+        }
+      ]
+    },
+    {
+      "annotation": {
+        "display": "same virtual screen, mode 68, backingScaleFactor 2.0",
+        "toggles": "standard (both off)"
+      },
+      "pass": "active-2x",
+      "quarantined": [],
+      "refusals": [],
+      "runs": [
+        {
+          "attested": 4,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 4 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits."
+          ],
+          "cells": 4,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 2,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                640,
+                400
+              ],
+              "requestedScale": 2
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T11:21:41Z",
+          "generatedAt": "2026-09-12T11:22:11Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T11:22:11Z",
+          "manifestSha256": "d840b586bf9b57cc2bc4d32d2b723eeda3ee2309fae1a5f4a48ad5de90c07a64",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 1625.537010166,
+          "profiles": [
+            "apple-macos-26.5-2x-light-standard"
+          ],
+          "run": "run-1"
+        },
+        {
+          "attested": 4,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 4 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits."
+          ],
+          "cells": 4,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 2,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                640,
+                400
+              ],
+              "requestedScale": 2
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T11:22:21Z",
+          "generatedAt": "2026-09-12T11:22:51Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T11:22:51Z",
+          "manifestSha256": "47f69d0743f3df7a34a51772a8bf4f9993828f1896cb535be28f10bbbd4fcac7",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 1665.385728791,
+          "profiles": [
+            "apple-macos-26.5-2x-light-standard"
+          ],
+          "run": "run-2"
+        },
+        {
+          "attested": 4,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 4 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits."
+          ],
+          "cells": 4,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 2,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                640,
+                400
+              ],
+              "requestedScale": 2
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T11:23:01Z",
+          "generatedAt": "2026-09-12T11:23:31Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T11:23:31Z",
+          "manifestSha256": "32ad0929b2f9d8ec62fe73a6e4dfd42b56dce0f2d5c360ebc36e8d7a4eb4bdde",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 1705.323528583,
+          "profiles": [
+            "apple-macos-26.5-2x-light-standard"
+          ],
+          "run": "run-3"
+        },
+        {
+          "attested": 4,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 4 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits."
+          ],
+          "cells": 4,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 2,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                640,
+                400
+              ],
+              "requestedScale": 2
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T11:23:41Z",
+          "generatedAt": "2026-09-12T11:24:12Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T11:24:12Z",
+          "manifestSha256": "b4c8d15d0b7ce70c5008e8164fad2215b2f83d952ee370899d9c6e63a1be5bdb",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 1745.21475,
+          "profiles": [
+            "apple-macos-26.5-2x-light-standard"
+          ],
+          "run": "run-4"
+        },
+        {
+          "attested": 4,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 4 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits."
+          ],
+          "cells": 4,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 2,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                640,
+                400
+              ],
+              "requestedScale": 2
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T11:24:22Z",
+          "generatedAt": "2026-09-12T11:24:51Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T11:24:51Z",
+          "manifestSha256": "aef512e119275ed53dbdece1cd7bdc124e8c1a8a71f3ee918524a169addca9bf",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 1785.9537895,
+          "profiles": [
+            "apple-macos-26.5-2x-light-standard"
+          ],
+          "run": "run-5"
+        },
+        {
+          "attested": 4,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 4 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits."
+          ],
+          "cells": 4,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 2,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                640,
+                400
+              ],
+              "requestedScale": 2
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T11:25:02Z",
+          "generatedAt": "2026-09-12T11:25:30Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T11:25:30Z",
+          "manifestSha256": "ea49c5144c131d1051cf01fcd778745900e036c32cc0352c382d7e0d49bee200",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 1825.749852083,
+          "profiles": [
+            "apple-macos-26.5-2x-light-standard"
+          ],
+          "run": "run-6"
+        },
+        {
+          "attested": 4,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 4 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits."
+          ],
+          "cells": 4,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 2,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                640,
+                400
+              ],
+              "requestedScale": 2
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T11:25:40Z",
+          "generatedAt": "2026-09-12T11:26:11Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T11:26:11Z",
+          "manifestSha256": "a4a5f1b8cc35479c9197185a1ccb2f3dccc74a82e013dbb880e258e46dde3255",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 1864.356354791,
+          "profiles": [
+            "apple-macos-26.5-2x-light-standard"
+          ],
+          "run": "run-7"
+        }
+      ]
+    },
+    {
+      "annotation": {
+        "display": "same virtual screen switched to displayplacer mode 69 (2560x1440, scaling off), backingScaleFactor 1.0 confirmed by the open-launched probe at 11:26Z",
+        "note": "Preceded by the 1x rehearsal (76 cells presented, PASS 11:50Z).",
+        "toggles": "standard (both off)"
+      },
+      "pass": "inactive-1x",
+      "quarantined": [],
+      "refusals": [],
+      "runs": [
+        {
+          "attested": 76,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 1.0x and their keys state another scale: apple-macos-26.5-2x-dark-standard, apple-macos-26.5-2x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 320x200-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 76 cells over 2 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "76 of 76 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene.",
+            "6 of 76 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end."
+          ],
+          "cells": 76,
+          "cellsUnderIdle45": [
+            "checkerboard-4__rrect-md__inactive",
+            "checkerboard-lc16__capsule-button__inactive",
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-80__inactive",
+            "hc-text-28__rrect-md__inactive",
+            "hc-text__rrect-lg__inactive",
+            "hc-text__rrect-sm__inactive",
+            "impulse__rrect-lg__inactive",
+            "impulse__rrect-lg__inactive",
+            "mid-chroma-solid__capsule-button__inactive-tint-orange",
+            "mid-dark-solid__rrect-md__inactive",
+            "mid-dark-solid__rrect-md__inactive",
+            "photo__glass-over-glass__inactive"
+          ],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T11:51:20Z",
+          "generatedAt": "2026-09-12T12:03:13Z",
+          "identicalToBackground": [
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-sm__inactive",
+            "dark-solid__rrect-sm__inactive"
+          ],
+          "lastCapturedAt": "2026-09-12T12:03:13Z",
+          "manifestSha256": "448c11735a08ea9a1b80af3e441a2a502ee9bf0790e4d177febf3fe5b9218a13",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 0.280117083,
+          "profiles": [
+            "apple-macos-26.5-1x-dark-standard",
+            "apple-macos-26.5-1x-light-standard"
+          ],
+          "run": "run-1"
+        },
+        {
+          "attested": 76,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 1.0x and their keys state another scale: apple-macos-26.5-2x-dark-standard, apple-macos-26.5-2x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 320x200-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 76 cells over 2 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "76 of 76 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene.",
+            "6 of 76 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end."
+          ],
+          "cells": 76,
+          "cellsUnderIdle45": [
+            "checkerboard-64__rrect-md__inactive",
+            "checkerboard-64__rrect-md__inactive",
+            "checkerboard-8__rrect-lg__inactive",
+            "checkerboard-8__rrect-md__inactive",
+            "checkerboard-lc16__rrect-md__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-md-clear20__inactive",
+            "mid-chroma-solid__capsule-button__inactive",
+            "mid-chroma-solid__rrect-lg__inactive",
+            "mid-dark-solid__capsule-button__inactive",
+            "mid-dark-solid__rrect-lg__inactive",
+            "photo__glass-over-glass__inactive"
+          ],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T12:03:23Z",
+          "generatedAt": "2026-09-12T12:15:16Z",
+          "identicalToBackground": [
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-sm__inactive",
+            "dark-solid__rrect-sm__inactive"
+          ],
+          "lastCapturedAt": "2026-09-12T12:15:16Z",
+          "manifestSha256": "3e519c77798dbd13784487a32ee56ff6cc36d3bfa632b3afb00e4f8f7244c74b",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 0.27850625,
+          "profiles": [
+            "apple-macos-26.5-1x-dark-standard",
+            "apple-macos-26.5-1x-light-standard"
+          ],
+          "run": "run-2"
+        },
+        {
+          "attested": 76,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 1.0x and their keys state another scale: apple-macos-26.5-2x-dark-standard, apple-macos-26.5-2x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 320x200-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 76 cells over 2 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "76 of 76 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene.",
+            "6 of 76 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end."
+          ],
+          "cells": 76,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T12:15:26Z",
+          "generatedAt": "2026-09-12T12:27:17Z",
+          "identicalToBackground": [
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-sm__inactive",
+            "dark-solid__rrect-sm__inactive"
+          ],
+          "lastCapturedAt": "2026-09-12T12:27:17Z",
+          "manifestSha256": "533f962fc87de673a361f39b7d63df779d338ba6d0b0ae187ef4e6517572b9c0",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 173.861799208,
+          "profiles": [
+            "apple-macos-26.5-1x-dark-standard",
+            "apple-macos-26.5-1x-light-standard"
+          ],
+          "run": "run-3"
+        },
+        {
+          "attested": 76,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 1.0x and their keys state another scale: apple-macos-26.5-2x-dark-standard, apple-macos-26.5-2x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 320x200-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 76 cells over 2 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "76 of 76 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene.",
+            "6 of 76 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end."
+          ],
+          "cells": 76,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T12:27:27Z",
+          "generatedAt": "2026-09-12T12:39:20Z",
+          "identicalToBackground": [
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-sm__inactive",
+            "dark-solid__rrect-sm__inactive"
+          ],
+          "lastCapturedAt": "2026-09-12T12:39:20Z",
+          "manifestSha256": "c442315b7edcf6650e818f6fabfb29aa0f93c8af064fb68a4d295693bdcd5805",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 895.012229791,
+          "profiles": [
+            "apple-macos-26.5-1x-dark-standard",
+            "apple-macos-26.5-1x-light-standard"
+          ],
+          "run": "run-4"
+        },
+        {
+          "attested": 76,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 1.0x and their keys state another scale: apple-macos-26.5-2x-dark-standard, apple-macos-26.5-2x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 320x200-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 76 cells over 2 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "76 of 76 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene.",
+            "6 of 76 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end."
+          ],
+          "cells": 76,
+          "cellsUnderIdle45": [
+            "checkerboard-8__rrect-md__inactive",
+            "dark-solid__rrect-48__inactive",
+            "hc-text__rrect-lg__inactive",
+            "impulse__rrect-lg__inactive",
+            "mid-dark-solid__rrect-lg__inactive"
+          ],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T12:39:30Z",
+          "generatedAt": "2026-09-12T12:51:23Z",
+          "identicalToBackground": [
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-sm__inactive",
+            "dark-solid__rrect-sm__inactive"
+          ],
+          "lastCapturedAt": "2026-09-12T12:51:23Z",
+          "manifestSha256": "02f2bd5032d4c51bd4f6a6a53c83da7aec8f9732c9748898e93e21b926b5d1bc",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 6.660577708,
+          "profiles": [
+            "apple-macos-26.5-1x-dark-standard",
+            "apple-macos-26.5-1x-light-standard"
+          ],
+          "run": "run-5"
+        },
+        {
+          "attested": 76,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 1.0x and their keys state another scale: apple-macos-26.5-2x-dark-standard, apple-macos-26.5-2x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 320x200-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 76 cells over 2 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "76 of 76 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene.",
+            "6 of 76 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end."
+          ],
+          "cells": 76,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T12:51:33Z",
+          "generatedAt": "2026-09-12T13:03:25Z",
+          "identicalToBackground": [
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-sm__inactive",
+            "dark-solid__rrect-sm__inactive"
+          ],
+          "lastCapturedAt": "2026-09-12T13:03:25Z",
+          "manifestSha256": "b9c9f416fa95549802b3b9897e2c3f4683d04420cb35622f910de985654a5880",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 150.738487125,
+          "profiles": [
+            "apple-macos-26.5-1x-dark-standard",
+            "apple-macos-26.5-1x-light-standard"
+          ],
+          "run": "run-6"
+        },
+        {
+          "attested": 76,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 1.0x and their keys state another scale: apple-macos-26.5-2x-dark-standard, apple-macos-26.5-2x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 320x200-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 76 cells over 2 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "76 of 76 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene.",
+            "6 of 76 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end."
+          ],
+          "cells": 76,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T13:03:35Z",
+          "generatedAt": "2026-09-12T13:15:26Z",
+          "identicalToBackground": [
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__capsule-button__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-48__inactive",
+            "dark-solid__rrect-sm__inactive",
+            "dark-solid__rrect-sm__inactive"
+          ],
+          "lastCapturedAt": "2026-09-12T13:15:26Z",
+          "manifestSha256": "83ea88dfe78dc28b9176e04d506c83ed4cb3a8543e35e155e1ebed79af8d7a2d",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 872.531910625,
+          "profiles": [
+            "apple-macos-26.5-1x-dark-standard",
+            "apple-macos-26.5-1x-light-standard"
+          ],
+          "run": "run-7"
+        }
+      ]
+    },
+    {
+      "annotation": {
+        "display": "same, mode 69, backingScaleFactor 1.0",
+        "toggles": "standard (both off)"
+      },
+      "pass": "active-1x",
+      "quarantined": [],
+      "refusals": [],
+      "runs": [
+        {
+          "attested": 4,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 1.0x and their keys state another scale: apple-macos-26.5-2x-dark-standard, apple-macos-26.5-2x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 320x200-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 4 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits."
+          ],
+          "cells": 4,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T13:23:06Z",
+          "generatedAt": "2026-09-12T13:23:36Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T13:23:36Z",
+          "manifestSha256": "78a8b8c44e1711b1c3c54fa7f26f4c778b9ba63863bf1f96d14001e56c25be39",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 2043.957231,
+          "profiles": [
+            "apple-macos-26.5-1x-light-standard"
+          ],
+          "run": "run-1"
+        },
+        {
+          "attested": 4,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 1.0x and their keys state another scale: apple-macos-26.5-2x-dark-standard, apple-macos-26.5-2x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 320x200-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 4 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits."
+          ],
+          "cells": 4,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T13:23:46Z",
+          "generatedAt": "2026-09-12T13:24:17Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T13:24:17Z",
+          "manifestSha256": "92b52008b4dc48c9135efbd7d49f6e67959955a96222b48b02fd0aa3897a3c43",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 2083.6227375,
+          "profiles": [
+            "apple-macos-26.5-1x-light-standard"
+          ],
+          "run": "run-2"
+        },
+        {
+          "attested": 4,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 1.0x and their keys state another scale: apple-macos-26.5-2x-dark-standard, apple-macos-26.5-2x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 320x200-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 4 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits."
+          ],
+          "cells": 4,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T13:24:27Z",
+          "generatedAt": "2026-09-12T13:24:56Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T13:24:56Z",
+          "manifestSha256": "4205226beafd016fe973416c886bc2cebb5e4d444187257054926d5f053994fd",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 2124.39864275,
+          "profiles": [
+            "apple-macos-26.5-1x-light-standard"
+          ],
+          "run": "run-3"
+        },
+        {
+          "attested": 4,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 1.0x and their keys state another scale: apple-macos-26.5-2x-dark-standard, apple-macos-26.5-2x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 320x200-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 4 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits."
+          ],
+          "cells": 4,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T13:25:06Z",
+          "generatedAt": "2026-09-12T13:25:35Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T13:25:35Z",
+          "manifestSha256": "27de8a5341e7856425d7a1e876ff7213ec4da9f79bb1c72760c14b5207efabad",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 2163.881125583,
+          "profiles": [
+            "apple-macos-26.5-1x-light-standard"
+          ],
+          "run": "run-4"
+        },
+        {
+          "attested": 4,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 1.0x and their keys state another scale: apple-macos-26.5-2x-dark-standard, apple-macos-26.5-2x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 320x200-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 4 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits."
+          ],
+          "cells": 4,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T13:25:46Z",
+          "generatedAt": "2026-09-12T13:26:15Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T13:26:15Z",
+          "manifestSha256": "cfda57ea5e1f9ea8844c09e54c8047263fd416e69a7f0cf9cbd0217934bfa0a7",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 2203.424471958,
+          "profiles": [
+            "apple-macos-26.5-1x-light-standard"
+          ],
+          "run": "run-5"
+        },
+        {
+          "attested": 4,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 1.0x and their keys state another scale: apple-macos-26.5-2x-dark-standard, apple-macos-26.5-2x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 320x200-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 4 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits."
+          ],
+          "cells": 4,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T13:26:27Z",
+          "generatedAt": "2026-09-12T13:26:56Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T13:26:56Z",
+          "manifestSha256": "ab1914e20db024ef24295afcd4d5ee98152b146c4fd0c8e57cf1c0cd75efdf82",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 2244.209477166,
+          "profiles": [
+            "apple-macos-26.5-1x-light-standard"
+          ],
+          "run": "run-6"
+        },
+        {
+          "attested": 4,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Profiles not captured because this display renders at 1.0x and their keys state another scale: apple-macos-26.5-2x-dark-standard, apple-macos-26.5-2x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 320x200-pixel fixtures under a key claiming a different scale, with no trace in the bytes.",
+            "Narrowed by --scenes to 4 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits."
+          ],
+          "cells": 4,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T13:27:06Z",
+          "generatedAt": "2026-09-12T13:27:36Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T13:27:36Z",
+          "manifestSha256": "2ae8e53a9e167ab48b7529d807c17c282b6c88afc85d785f10c0a24dabffad50",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 2283.81963925,
+          "profiles": [
+            "apple-macos-26.5-1x-light-standard"
+          ],
+          "run": "run-7"
+        }
+      ]
+    },
+    {
+      "annotation": {
+        "display": "same, mode 69, backingScaleFactor 1.0",
+        "note": "Own sitting root a11y-increase-contrast/ and VITREA_BED_FILE=bed-inactive-a11y.txt (14 ids: the bed's ids this profile declares) \u2014 the script names a pass by pose and scale only and feeds the whole 38-id bed, and the first rehearsal was refused for the 24 ids the profile does not declare. Second rehearsal presented 14 (13:52Z). Runs 1, 2 and 7 needed idle retries: the input was touched every few seconds between about 13:52Z and 13:59Z.",
+        "toggles": "Increase contrast ON (macOS force-couples Reduce transparency ON with it), set by the user's hand at 13:48:10Z"
+      },
+      "pass": "inactive-1x-increase-contrast",
+      "quarantined": [],
+      "refusals": [
+        "run 1 attempt 1: refused for idle \u2014 leave the machine alone",
+        "run 1 attempt 2: refused for idle \u2014 leave the machine alone",
+        "run 1 attempt 3: refused for idle \u2014 leave the machine alone",
+        "run 2 attempt 1: refused for idle \u2014 leave the machine alone",
+        "run 7 attempt 1: refused for idle \u2014 leave the machine alone"
+      ],
+      "runs": [
+        {
+          "attested": 14,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'increased-contrast' and these claim another: apple-macos-26.5-1x-light-standard, apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-2x-light-standard, apple-macos-26.5-2x-dark-standard. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Narrowed by --scenes to 14 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "14 of 14 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene."
+          ],
+          "cells": 14,
+          "cellsUnderIdle45": [
+            "checkerboard-lc16__capsule-button__inactive",
+            "checkerboard__rrect-ml__inactive",
+            "hc-text__rrect-lg__inactive"
+          ],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T13:57:10Z",
+          "generatedAt": "2026-09-12T13:59:16Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T13:59:16Z",
+          "manifestSha256": "bbcc6e2d041254a9c050a032012d644b18bc925db4bed001acc5adb383bc31b0",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 0.108642458,
+          "profiles": [
+            "apple-macos-26.5-1x-light-increased-contrast"
+          ],
+          "run": "run-1"
+        },
+        {
+          "attested": 14,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'increased-contrast' and these claim another: apple-macos-26.5-1x-light-standard, apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-2x-light-standard, apple-macos-26.5-2x-dark-standard. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Narrowed by --scenes to 14 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "14 of 14 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene."
+          ],
+          "cells": 14,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T14:00:56Z",
+          "generatedAt": "2026-09-12T14:03:01Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T14:03:01Z",
+          "manifestSha256": "986b5fd75ed61767db7ea1032f1f6d17caa6170d92caece4028912504c3ff33f",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 96.941577833,
+          "profiles": [
+            "apple-macos-26.5-1x-light-increased-contrast"
+          ],
+          "run": "run-2"
+        },
+        {
+          "attested": 14,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'increased-contrast' and these claim another: apple-macos-26.5-1x-light-standard, apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-2x-light-standard, apple-macos-26.5-2x-dark-standard. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Narrowed by --scenes to 14 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "14 of 14 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene."
+          ],
+          "cells": 14,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T14:03:11Z",
+          "generatedAt": "2026-09-12T14:05:15Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T14:05:15Z",
+          "manifestSha256": "247a92d5cf147077c695ddcb2d681ce2419b33db699d8334f8f1894c1adf0137",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 231.645148208,
+          "profiles": [
+            "apple-macos-26.5-1x-light-increased-contrast"
+          ],
+          "run": "run-3"
+        },
+        {
+          "attested": 14,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'increased-contrast' and these claim another: apple-macos-26.5-1x-light-standard, apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-2x-light-standard, apple-macos-26.5-2x-dark-standard. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Narrowed by --scenes to 14 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "14 of 14 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene."
+          ],
+          "cells": 14,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T14:05:26Z",
+          "generatedAt": "2026-09-12T14:07:31Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T14:07:31Z",
+          "manifestSha256": "f329af178eb36ee3792f0343eab3e0be92eadaef190bc98e25e6c99b7ea09d7d",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 367.10966425,
+          "profiles": [
+            "apple-macos-26.5-1x-light-increased-contrast"
+          ],
+          "run": "run-4"
+        },
+        {
+          "attested": 14,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'increased-contrast' and these claim another: apple-macos-26.5-1x-light-standard, apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-2x-light-standard, apple-macos-26.5-2x-dark-standard. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Narrowed by --scenes to 14 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "14 of 14 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene."
+          ],
+          "cells": 14,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T14:07:41Z",
+          "generatedAt": "2026-09-12T14:09:46Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T14:09:46Z",
+          "manifestSha256": "6e863604d4745957c21d4779ad26a172cdbafb80019692687ef49045fab47e7e",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 501.84964925,
+          "profiles": [
+            "apple-macos-26.5-1x-light-increased-contrast"
+          ],
+          "run": "run-5"
+        },
+        {
+          "attested": 14,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'increased-contrast' and these claim another: apple-macos-26.5-1x-light-standard, apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-2x-light-standard, apple-macos-26.5-2x-dark-standard. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Narrowed by --scenes to 14 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "14 of 14 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene."
+          ],
+          "cells": 14,
+          "cellsUnderIdle45": [
+            "checkerboard__rrect-ml__inactive"
+          ],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T14:09:56Z",
+          "generatedAt": "2026-09-12T14:12:00Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T14:12:00Z",
+          "manifestSha256": "2b2ff3371580074bdc85f9da678326d575938487f1c52df636706d31ac15edf3",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 6.993007958,
+          "profiles": [
+            "apple-macos-26.5-1x-light-increased-contrast"
+          ],
+          "run": "run-6"
+        },
+        {
+          "attested": 14,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'increased-contrast' and these claim another: apple-macos-26.5-1x-light-standard, apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-2x-light-standard, apple-macos-26.5-2x-dark-standard. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Narrowed by --scenes to 14 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "14 of 14 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene."
+          ],
+          "cells": 14,
+          "cellsUnderIdle45": [
+            "checkerboard-lc16__rrect-md__inactive",
+            "dark-solid__rrect-48__inactive",
+            "hc-text-28__rrect-md__inactive",
+            "hc-text__rrect-sm__inactive",
+            "photo__rrect-md__inactive"
+          ],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T14:13:41Z",
+          "generatedAt": "2026-09-12T14:15:45Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T14:15:45Z",
+          "manifestSha256": "72ac9a3546d9a217be6ea00f1ee04d2cb915229f5437556c3b7b1d7c022409f7",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 4.884197875,
+          "profiles": [
+            "apple-macos-26.5-1x-light-increased-contrast"
+          ],
+          "run": "run-7"
+        }
+      ]
+    },
+    {
+      "annotation": {
+        "display": "same, mode 69, backingScaleFactor 1.0",
+        "note": "Same root pattern (a11y-reduce-transparency/) and the same 14-id list, which is identical for both accessibility profiles. Rehearsal presented 14 (15:51Z).",
+        "toggles": "Increase contrast OFF, Reduce transparency ON, set by the user's hand at 15:49:30Z"
+      },
+      "pass": "inactive-1x-reduce-transparency",
+      "quarantined": [],
+      "refusals": [],
+      "runs": [
+        {
+          "attested": 14,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'reduced-transparency' and these claim another: apple-macos-26.5-1x-light-standard, apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-increased-contrast, apple-macos-26.5-2x-light-standard, apple-macos-26.5-2x-dark-standard. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Narrowed by --scenes to 14 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "14 of 14 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene."
+          ],
+          "cells": 14,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T15:52:03Z",
+          "generatedAt": "2026-09-12T15:54:07Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T15:54:07Z",
+          "manifestSha256": "e997697fd97fa3ad51cebd7062ca9411736dab01fc54cb1cbd166da700604e21",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 101.59124575,
+          "profiles": [
+            "apple-macos-26.5-1x-light-reduced-transparency"
+          ],
+          "run": "run-1"
+        },
+        {
+          "attested": 14,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'reduced-transparency' and these claim another: apple-macos-26.5-1x-light-standard, apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-increased-contrast, apple-macos-26.5-2x-light-standard, apple-macos-26.5-2x-dark-standard. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Narrowed by --scenes to 14 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "14 of 14 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene."
+          ],
+          "cells": 14,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T15:54:18Z",
+          "generatedAt": "2026-09-12T15:56:23Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T15:56:23Z",
+          "manifestSha256": "4e76378b093d07d1239113caf0513c77294f846a856f922fade44fb7d576fdd9",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 237.309304458,
+          "profiles": [
+            "apple-macos-26.5-1x-light-reduced-transparency"
+          ],
+          "run": "run-2"
+        },
+        {
+          "attested": 14,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'reduced-transparency' and these claim another: apple-macos-26.5-1x-light-standard, apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-increased-contrast, apple-macos-26.5-2x-light-standard, apple-macos-26.5-2x-dark-standard. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Narrowed by --scenes to 14 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "14 of 14 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene."
+          ],
+          "cells": 14,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T15:56:33Z",
+          "generatedAt": "2026-09-12T15:58:37Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T15:58:37Z",
+          "manifestSha256": "caf24a38d1d2c7b2a87561e3e024b83ecd8efc57807ef1d29df670c51436f96b",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 371.841271333,
+          "profiles": [
+            "apple-macos-26.5-1x-light-reduced-transparency"
+          ],
+          "run": "run-3"
+        },
+        {
+          "attested": 14,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'reduced-transparency' and these claim another: apple-macos-26.5-1x-light-standard, apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-increased-contrast, apple-macos-26.5-2x-light-standard, apple-macos-26.5-2x-dark-standard. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Narrowed by --scenes to 14 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "14 of 14 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene."
+          ],
+          "cells": 14,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T15:58:47Z",
+          "generatedAt": "2026-09-12T16:00:52Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T16:00:52Z",
+          "manifestSha256": "f2183d92968c01a8e85aa1b55fbd471c0f05ac30142083c33af1589cca0a9f48",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 506.284157833,
+          "profiles": [
+            "apple-macos-26.5-1x-light-reduced-transparency"
+          ],
+          "run": "run-4"
+        },
+        {
+          "attested": 14,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'reduced-transparency' and these claim another: apple-macos-26.5-1x-light-standard, apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-increased-contrast, apple-macos-26.5-2x-light-standard, apple-macos-26.5-2x-dark-standard. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Narrowed by --scenes to 14 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "14 of 14 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene."
+          ],
+          "cells": 14,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T16:01:02Z",
+          "generatedAt": "2026-09-12T16:03:07Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T16:03:07Z",
+          "manifestSha256": "0baed952dc8dd57453a81012539d4bf328290f62e4ef0e3f2e7eb11d0367ff82",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 640.923921833,
+          "profiles": [
+            "apple-macos-26.5-1x-light-reduced-transparency"
+          ],
+          "run": "run-5"
+        },
+        {
+          "attested": 14,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'reduced-transparency' and these claim another: apple-macos-26.5-1x-light-standard, apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-increased-contrast, apple-macos-26.5-2x-light-standard, apple-macos-26.5-2x-dark-standard. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Narrowed by --scenes to 14 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "14 of 14 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene."
+          ],
+          "cells": 14,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T16:03:17Z",
+          "generatedAt": "2026-09-12T16:05:21Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T16:05:21Z",
+          "manifestSha256": "51d8dc7716048fd2908522982c84e16c91b0e4c23a141235cf94b15930b7296d",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 775.642051916,
+          "profiles": [
+            "apple-macos-26.5-1x-light-reduced-transparency"
+          ],
+          "run": "run-6"
+        },
+        {
+          "attested": 14,
+          "banked": true,
+          "caveats": [
+            "Profiles not captured because the system is in accessibility mode 'reduced-transparency' and these claim another: apple-macos-26.5-1x-light-standard, apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-increased-contrast, apple-macos-26.5-2x-light-standard, apple-macos-26.5-2x-dark-standard. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
+            "Narrowed by --scenes to 14 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root \u2014 publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.",
+            "14 of 14 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately \u2014 claims \u00a75.134 \u00a75's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene."
+          ],
+          "cells": 14,
+          "cellsUnderIdle45": [],
+          "display": [
+            {
+              "actualBackingScale": 1,
+              "colorSpace": "kCGColorSpaceSRGB",
+              "displayColorProfile": "\uac00\uc0c1 16:9",
+              "displayName": "\uac00\uc0c1 16:9",
+              "pixelSize": [
+                320,
+                200
+              ],
+              "requestedScale": 1
+            }
+          ],
+          "firstCapturedAt": "2026-09-12T16:05:31Z",
+          "generatedAt": "2026-09-12T16:07:36Z",
+          "identicalToBackground": [],
+          "lastCapturedAt": "2026-09-12T16:07:36Z",
+          "manifestSha256": "78942c2373aa25ee829325ca26f08dda6766983a05fb0ccd16ac5e3a2cf31589",
+          "materialNotRendered": [],
+          "minHidIdleSeconds": 910.226311208,
+          "profiles": [
+            "apple-macos-26.5-1x-light-reduced-transparency"
+          ],
+          "run": "run-7"
+        }
+      ]
+    }
+  ],
+  "probe1x": {
+    "active/dark": {
+      "dumps": 25,
+      "poseTally (isKeyWindow, appIsActive, activationPolicy, scale)": {
+        "(True, 'unrecorded', 'unrecorded', 1)": 25
+      }
+    },
+    "active/light": {
+      "dumps": 25,
+      "poseTally (isKeyWindow, appIsActive, activationPolicy, scale)": {
+        "(False, 'unrecorded', 'unrecorded', 1)": 16,
+        "(True, 'unrecorded', 'unrecorded', 1)": 9
+      }
+    },
+    "policy-only/dark": {
+      "dumps": 25,
+      "poseTally (isKeyWindow, appIsActive, activationPolicy, scale)": {
+        "(True, 'unrecorded', 'unrecorded', 1)": 25
+      }
+    },
+    "policy-only/light": {
+      "dumps": 25,
+      "poseTally (isKeyWindow, appIsActive, activationPolicy, scale)": {
+        "(True, 'unrecorded', 'unrecorded', 1)": 25
+      }
+    },
+    "recede/dark": {
+      "dumps": 25,
+      "poseTally (isKeyWindow, appIsActive, activationPolicy, scale)": {
+        "(False, False, 'accessory', 1)": 25
+      }
+    },
+    "recede/light": {
+      "dumps": 25,
+      "poseTally (isKeyWindow, appIsActive, activationPolicy, scale)": {
+        "(False, False, 'accessory', 1)": 25
+      }
+    }
+  },
+  "sittingDir": "/Users/new/vitrea-w27-26.5-run",
+  "writtenAt": "2026-09-12T16:21:56Z"
+}

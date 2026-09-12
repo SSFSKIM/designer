@@ -1,0 +1,20 @@
+capturing 14 fixtures via screencapturekit at 1.0x (interleaved)
+presenting INACTIVE: key=false NSApp.isActive=false policy=accessory canBecomeKey=false
+  [1/14] apple-macos-26.5-1x-light-increased-contrast/checkerboard-4__rrect-md__inactive byte-stable
+  [2/14] apple-macos-26.5-1x-light-increased-contrast/hc-text-7__rrect-md__inactive byte-stable
+  [3/14] apple-macos-26.5-1x-light-increased-contrast/dark-solid__rrect-80__inactive byte-stable
+  [4/14] apple-macos-26.5-1x-light-increased-contrast/light-solid__rrect-ml__inactive byte-stable
+  [5/14] apple-macos-26.5-1x-light-increased-contrast/checkerboard__rrect-md__inactive byte-stable
+  [6/14] apple-macos-26.5-1x-light-increased-contrast/hc-text__rrect-sm__inactive byte-stable
+  [7/14] apple-macos-26.5-1x-light-increased-contrast/hc-text-28__rrect-md__inactive byte-stable
+  [8/14] apple-macos-26.5-1x-light-increased-contrast/photo__rrect-md__inactive byte-stable
+  [9/14] apple-macos-26.5-1x-light-increased-contrast/checkerboard-lc16__rrect-md__inactive byte-stable
+  [10/14] apple-macos-26.5-1x-light-increased-contrast/dark-solid__rrect-48__inactive byte-stable
+  [11/14] apple-macos-26.5-1x-light-increased-contrast/dark-solid__rrect-md-clear20__inactive byte-stable
+  [12/14] apple-macos-26.5-1x-light-increased-contrast/hc-text__rrect-lg__inactive byte-stable
+  [13/14] apple-macos-26.5-1x-light-increased-contrast/checkerboard-lc16__capsule-button__inactive byte-stable
+  [14/14] apple-macos-26.5-1x-light-increased-contrast/checkerboard__rrect-ml__inactive byte-stable
+manifest → /Users/new/vitrea-w27-26.5-run/a11y-increase-contrast/inactive-1x/run-3/manifest.json
+CAVEAT: Profiles not captured because the system is in accessibility mode 'increased-contrast' and these claim another: apple-macos-26.5-1x-light-standard, apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-2x-light-standard, apple-macos-26.5-2x-dark-standard. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+CAVEAT: Narrowed by --scenes to 14 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root — publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.
+CAVEAT: 14 of 14 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately — claims §5.134 §5's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene.

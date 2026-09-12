@@ -2288,3 +2288,17 @@ Shape of the work if it ever matters: measure where the time goes — per-host m
 against proxy rasterisation — before trimming anything. Trimming the band itself is the wrong first
 move: its four groups are the minimum the composition needs (a tinted group and the group a second
 seed must step out into, once per ground), so a cheaper band is a weaker demonstration.
+
+## The capture's idle gate is enforced once per run and only recorded per cell (26.5 sitting, 2026-09-12)
+
+`--min-idle-seconds 45` refuses a run at its opening; after that each entry carries
+`hidIdleSeconds` and nothing refuses, so a touch mid-run files the cell with its idle beside it. The
+runbook said "a disturbed run retries rather than filing a disturbed cell", which is true only
+before the first cell (corrected in the runbook; claims §5.136 §10). On the sitting this filed cells
+at 0.08 s of idle in inactive 2x run 4 and at 0.1 s in the increased-contrast run 1, every one with
+its pose attestation intact — the recede is held by construction and the cursor is excluded from
+the capture, so the byte-state is probably unaffected, but "probably" is what the seven-run
+plurality at `materialize` time exists to test, and `sitting.md` lists the cells so it can. The shape
+of the fix, for the next bed: sample idle per cell against the same threshold and retry the cell
+(not the run) when it is under, recording the retry; or lower the per-cell bar deliberately and say
+why. Either is a harness change and a run declaration, not a change to this bed's evidence.

@@ -868,6 +868,26 @@ G1 records every per-scene miss; G2 alone adopts a native stack bound and re-rea
 
 ## Revision Notes
 
+- 2026-09-12/13, **the 26.5 sitting TAKEN and banked (Decision Log 13; claims §5.136 §10;
+  record `packages/calibration/results/2026-09-11-w27-26.5-run/sitting.md` and
+  `provenance.json`).** Six passes at the probe bar, seven runs each, every run attested in full:
+  inactive 2x and 1x (76 cells, 532 attested per pass), active 2x and 1x (4 cells), increased
+  contrast and reduced transparency at 1x (14 cells, the bed's ids those profiles declare). The 1x
+  labelled probe was taken in BOTH poses and both schemes (150 dumps,
+  `results/2026-09-12-w27e-probe-1x/`), which is the reading Decision Log 15's selector waits on;
+  nothing is read yet. Driven by the parent session from the user's go at 09:52Z to 16:07Z, the
+  user's hand on the two accessibility toggles only. Four instrument faults surfaced and were fixed
+  on branch `w27-dump-layers-inactive` without touching any fixture, profile, golden, scene, matrix
+  row or declared bed: the runbook's probe checked the terminal's Screen Recording grant rather than
+  the bundle's; the recede recipe for `dump-layers` had no mechanism (the policy variable alone
+  leaves an application that activates active and key — all 50 first-attempt "inactive" dumps are
+  the active pose, kept as `policy-only/`), so `dump-layers --inactive` now reuses the capture's
+  never-activated path and every dump records `appIsActive` and `activationPolicy`; the script fed
+  every inactive pass the whole 38-id bed where the accessibility profiles declare 14
+  (`VITREA_BED_FILE`, `bed-inactive-a11y.txt`) and named passes by pose and scale only
+  (`VITREA_SITTING_DIR` per accessibility pass); and the idle gate turned out to be enforced once
+  per run and only recorded per cell, so the record lists every cell captured under 45 s of idle.
+  Raw runs stay on the machine; publication through `materialize` is the next gate's.
 - 2026-09-12, **W27e G2's plate half landed: the three features 0.16.0 could not be operated are
   operable, and the wave's acceptance clause 2 is closed for all three.** The tint-and-ink band at
   the foot of `/playground/` (`apps/demo/src/TintInkPlate.tsx`) — a `GlassGroup tint`, a

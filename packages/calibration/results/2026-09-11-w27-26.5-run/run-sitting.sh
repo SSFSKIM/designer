@@ -30,7 +30,13 @@ APP="${VITREA_APP:-$REPO/apps/reference-apple/build/VitreaReference.app}"
 # are otherwise only reachable on the one machine and in the one state, which is
 # how two of them shipped broken.
 HARNESS="${VITREA_HARNESS:-$REPO/apps/reference-apple/build/harness}"
-SCENES="$(cat "$HERE/bed-$MODE.txt")"
+# `VITREA_BED_FILE` narrows a pass to the ids one profile declares. The two
+# accessibility profiles declare 14 of the bed's 38 inactive ids and the harness
+# refuses the other 24 before it opens a window, which the first increased-contrast
+# rehearsal of 2026-09-12 found; `bed-inactive-a11y.txt` is that intersection,
+# derived from scenes.json and identical for both profiles. The declared bed files
+# are evidence and are not edited to fit a pass.
+SCENES="$(cat "${VITREA_BED_FILE:-$HERE/bed-$MODE.txt}")"
 T="${VITREA_SITTING_DIR:-$HOME/vitrea-w27-26.5-run}"
 
 # The version gate, first and unconditional. This bed exists because macOS 27

@@ -21,6 +21,9 @@ Thumbs.db
 node_modules/
 dist/
 build/
+# The reference harness's side build (`VITREA_BUILD_OUT`), taken beside the
+# Screen-Recording-granted bundle during a sitting; never the source of a fixture.
+apps/reference-apple/build-probe/
 out/
 target/
 __pycache__/

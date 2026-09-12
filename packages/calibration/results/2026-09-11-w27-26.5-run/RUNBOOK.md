@@ -29,7 +29,7 @@ What needs your machine is §Step 4 and §Step 5.
 | **Screen Recording consent** | `cd apps/reference-apple && open -W --stdout /tmp/probe.log --stderr /tmp/probe.err build/VitreaReference.app --args probe && cat /tmp/probe.log` → must print `ScreenCaptureKit: OK` | TCC is granted per bundle identity, and every rebuild — and every worktree — is a new one. Grant it in System Settings → Privacy & Security → Screen & System Audio Recording, then re-run the probe. Without it every capture fails on the first cell. **Launch the probe through `open`, exactly as `run-sitting.sh` launches every pass**: `./capture.sh probe` execs the same binary from your shell, and macOS then charges the check to the *terminal application* that ran it, so it reports the terminal's grant and not the bundle's (found 2026-09-12: the bundle was granted and the `capture.sh` form still reported TCC; the `open` form printed OK). |
 | **Nothing else on the GPU** | close browsers, stop other agents' Playwright suites | `run-sitting.sh` refuses while a capture process is running, and names what it found. |
 | **Console session UNLOCKED** | no screen saver, no display sleep, no lock during the sitting | **The harness now refuses a locked screen outright** (`CGSSessionScreenIsLocked`), and the reason is measured: on a locked screen nothing can become active or key, so an active pass would capture the unfocused material under active ids — and an inactive pass is *worse*, because both halves of its attestation are false for the wrong reason and every cell would attest while the window server composites nothing. The idle gate cannot catch it: a locked machine is maximally idle. A `--dry-run` prints `WOULD REFUSE` and continues. |
-| **Left alone** | no typing, no other GUI work | Each run refuses unless the machine has been idle 45 s, and idle is sampled per cell. A disturbed run retries rather than filing a disturbed cell. |
+| **Left alone** | no typing, no other GUI work; a Screen Sharing cursor hovering over the shared screen counts | Each run refuses at its opening unless the machine has been idle 45 s, and the script waits 90 s and retries. **Per cell the harness records the idle and does not refuse** (found in the sitting, 2026-09-12): a touch mid-run files the cell with its `hidIdleSeconds` beside it, the pose attestation still decides whether it is evidence, and `sitting.md` lists every such cell. |
 
 Build the harness once, before anything (the Screen Recording grant is against what you build):
 
@@ -97,11 +97,23 @@ open -W --env VITREA_SCENES="$PWD/scenes-w27e-probe.json" \
   --stdout /tmp/w27e-1x-active.log --stderr /tmp/w27e-1x-active.err "$APP" \
   --args dump-layers --scenes "$IDS" --scheme light --settle 8 --require-key \
   --out /tmp/w27e-probe-1x-active/light
-# RECEDE, 1x — same scenes, non-key window, the capture's own launch policy
-VITREA_ACTIVATION_POLICY=accessory VITREA_SCENES="$PWD/scenes-w27e-probe.json" \
-  ./capture.sh dump-layers --scenes "$IDS" --scheme light --settle 8 \
-  --out /tmp/w27e-probe-1x-inactive/light
+# RECEDE, 1x — same scenes, through the capture's own never-activated path
+VITREA_SCENES="$PWD/scenes-w27e-probe.json" \
+  ./capture.sh dump-layers --inactive --scenes "$IDS" --scheme light --settle 8 \
+  --out /tmp/w27e-probe-1x-recede/light
 ```
+
+**`--inactive` is the mechanism; the policy variable alone is not** (found 2026-09-12, in the
+sitting). The first version of this recipe set only `VITREA_ACTIVATION_POLICY=accessory`, and all 50
+dumps it produced at 1x record `isKeyWindow: true`: an `.accessory` application that calls
+`activate` still becomes active and its key-capable window still becomes key, and `dump-layers`
+did exactly that. The committed 2x probe came out non-key by the accident of its launch context.
+`dump-layers --inactive` presents through `Capture.presentInactive` — `.accessory` before the run
+loop, a window that cannot become key, ordered front and never activated — and refuses if the
+recede is not observed; every dump now records `appIsActive` and `activationPolicy` beside
+`isKeyWindow`. The 1x readings of 2026-09-12 are under
+`packages/calibration/results/2026-09-12-w27e-probe-1x/`, with the policy-only arm kept as what it
+is: the active pose.
 
 Check the two arms disagree before believing either: every dump records its own `isKeyWindow`, so
 `grep -h isKeyWindow /tmp/w27e-probe-1x-*/light/*.json | sort -u` must show **both** `true` and
@@ -151,10 +163,19 @@ $R/run-sitting.sh inactive 1 1 7
 # (c) 1x, increased contrast.  System Settings -> Accessibility -> Display -> Increase contrast ON.
 #     macOS force-couples Reduce transparency on with it; that coupling is the only reachable
 #     increased-contrast state and the harness records it as a profile caveat.
+#     Its OWN sitting root and the 14-id list (both found necessary in the sitting, 2026-09-12):
+#     the script names a pass by pose and scale only and would resume over (b)'s banked runs, and
+#     the profile declares 14 of the bed's 38 ids — the harness refuses the other 24.
+export VITREA_SITTING_DIR=$HOME/vitrea-w27-26.5-run/a11y-increase-contrast
+export VITREA_BED_FILE=$R/bed-inactive-a11y.txt
+DRY=1 $R/run-sitting.sh inactive 1 1 1      # must print "cells presented: 14"
 $R/run-sitting.sh inactive 1 1 7
 
 # (d) 1x, reduced transparency.  Increase contrast OFF, Reduce transparency ON.
+export VITREA_SITTING_DIR=$HOME/vitrea-w27-26.5-run/a11y-reduce-transparency
+DRY=1 $R/run-sitting.sh inactive 1 1 1      # 14 again
 $R/run-sitting.sh inactive 1 1 7
+unset VITREA_SITTING_DIR VITREA_BED_FILE
 ```
 
 Then the four active cells the new background needs, because a recede is a difference and
@@ -199,8 +220,18 @@ deliberately **not** taking, would be 8.4 h and 11–21 h.
   cell recorded `presentedActive: false` **and** a `presentation` block whose `observedPose` is
   `inactive` with `isKeyWindow` and `appIsActive` both false. The script stops the pass if any
   cell falls short, because a cell that did not attest its pose is not evidence.
-- `~/vitrea-w27-26.5-run/` holds 6 pass directories × 7 run directories, each with its own
-  `manifest.json`.
+- `~/vitrea-w27-26.5-run/` holds the four standard pass directories (`inactive-2x`, `active-2x`,
+  `inactive-1x`, `active-1x`) × 7 run directories, each with its own `manifest.json`, and the two
+  accessibility passes under their own roots (`a11y-increase-contrast/inactive-1x/`,
+  `a11y-reduce-transparency/inactive-1x/`), because the script names a pass by pose and scale only
+  and would otherwise resume over the banked standard 1x runs (found in the sitting, 2026-09-12;
+  run them with `VITREA_SITTING_DIR` and `VITREA_BED_FILE=$R/bed-inactive-a11y.txt` — the path
+  is read as given, so name it from the directory you run in; Step 4 shows the exact lines).
+- **The idle gate is enforced once per run, at its opening; per cell the harness records
+  `hidIdleSeconds` and does not refuse.** So "a disturbed run retries rather than filing a
+  disturbed cell" holds only for a disturbance before the first cell; a touch mid-run files the
+  cell with its idle beside it and the pose attestation still decides whether it is evidence.
+  `sitting.md` lists every cell captured under 45 s of idle, per run.
 
 ### What to commit, and where
 
