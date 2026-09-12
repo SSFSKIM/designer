@@ -143,6 +143,14 @@ baseline at 0, 6 and 7 failures an hour earlier. Anything triaging against this
 entry should compare distributions rather than single runs, and should expect
 the comparison to be noisy in both directions.
 
+*Seen on Chromium once, 2026-09-12 (W27e G2's review repair), which the readings above say does
+not happen:* `morph-materialize.spec.ts`'s "returns focus to the trigger when the menu is
+dismissed" failed with "focus never entered the open platter" in a full three-engine run, then
+passed 3 of 3 in isolation and in the next full run of the same tree. One sighting is not a
+distribution, and the case is a focus assertion rather than a driver sample, so it may be a
+different mechanism with the same cause — the engines contending — but "Chromium passes every
+time" is no longer something to triage against.
+
 **The fix shape:** make the assertions bracket the driver's trajectory rather
 than sample it — poll for the channel to cross a threshold, the way the
 accessibility specs already `expect.poll` — and then put the suite in CI, because
