@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -9,7 +10,10 @@ import {
   LUMA_REC709,
   OPERATOR_TOLERANCE,
   PROBE_DUMP_DIRS,
+  PROBE_1X_ARMS,
+  PROBE_1X_DUMP_DIRS,
   applyColorMatrix,
+  armOf,
   decompose,
   labelInk,
   labelOperatorFor,
@@ -505,5 +509,237 @@ describe("W27e G1: the label operator as a function", () => {
     // And Chromium cannot express the alternative reading's light-scheme blend at
     // all, which is a fact about the web rather than about this run.
     expect(verdict.C_alternativeReading.blendSupport["mix-blend-mode: plus-darker"]).toBe(false);
+  });
+});
+
+/**
+ * W27e G2 / claims §5.138: the 1x both-pose corpus, the run Decision Log 15 (c)
+ * held the selector decision behind.
+ *
+ * A third corpus, never merged with either of the two above: 150 dumps, the same
+ * 25 probe scenes per scheme at 1x through three launches, holding scale,
+ * accessibility, settle and scene set fixed so the window state is the only axis.
+ * The pins below are the ones §5.138 reasons from — the arm counts, the pose
+ * tallies, and the two laws the corpus reads — and they are taken from the
+ * committed dumps rather than from the tables written beside them.
+ */
+const probe1x = read(PROBE_1X_DUMP_DIRS, null);
+const arm1x = (row: { dump: string }) => armOf(PROBE_1X_ARMS, row.dump);
+const pose1x = (row: { dump: string; colorScheme: string; isKeyWindow: boolean }) =>
+  `${arm1x(row)}/${row.colorScheme}/${row.isKeyWindow ? "key" : "non-key"}`;
+const highlights1x = probe1x.rows.filter((r) => r.role === "surface-highlight");
+const labels1x = probe1x.rows.filter((r) => r.role === "content-label");
+const tints1x = probe1x.rows.filter((r) => r.role === "author-tint");
+/** The body's own adapted state, which the reader publishes in the row's index signature. */
+const faceIsDark = (row: { body: unknown }) =>
+  (row.body as Record<string, unknown>)["faceFillIsDark"] === true;
+const margin = (row: { surface: unknown }) =>
+  (row.surface as Record<string, unknown>)["marginWidth"] as number;
+
+describe("W27e G2's 1x both-pose corpus: the arms and the poses", () => {
+  it("reads 25 dumps in each of the six arm-and-scheme directories, and nothing else", () => {
+    expect(probe1x.dumps.length).toBe(150);
+    expect(new Set(probe1x.dumps.map((d) => d.path)).size).toBe(150);
+    for (const arm of Object.keys(PROBE_1X_ARMS)) {
+      for (const scheme of ["light", "dark"]) {
+        expect(probe1x.dumps.filter((d) => armOf(PROBE_1X_ARMS, d.path) === arm
+          && d.colorScheme === scheme).length, `${arm}/${scheme}`).toBe(25);
+      }
+    }
+    // Every dump carries a matrix, so no cell is invisible to the row-level tallies.
+    expect(new Set(probe1x.rows.map((r) => r.dump)).size).toBe(150);
+    expect(probe1x.rows.filter((r) => r.role === "unclassified")).toEqual([]);
+  });
+
+  it("pins the corpus's IDENTITY, not only its shape", () => {
+    // Every assertion around this one reads a count or an invariant, so a dump
+    // that changed while keeping them — a label's text, canvas metadata, a tint
+    // coefficient nothing here asserts — would leave the suite green while the
+    // committed evidence claims §5.138 reasons from had moved. The reader already
+    // hashes every dump it reads; this is one digest over the sorted
+    // `path sha256` pairs, so any byte under the corpus fails here. A deliberate
+    // change to the corpus comes to this line and says so.
+    const manifest = probe1x.dumps.map((d) => `${d.path} ${d.sha256}`).sort().join("\n");
+    expect(createHash("sha256").update(manifest).digest("hex"))
+      .toBe("0ab83eb52f1385e4c35befe41e959b823e424f712dadb6446479cb6a91ff16d9");
+  });
+
+  it("refuses a dump path that belongs to none of the declared arms", () => {
+    expect(() => armOf(PROBE_1X_ARMS, "packages/calibration/results/elsewhere/x.json"))
+      .toThrow(/none of the declared arms/);
+  });
+
+  it("holds everything but the window state fixed, which is what makes the pose readable", () => {
+    expect(new Set(probe1x.rows.map((r) => r.scale))).toEqual(new Set([1]));
+    expect(new Set(probe1x.rows.map((r) => r.a11y))).toEqual(new Set(["standard"]));
+    expect(new Set(probe1x.rows.map((r) => r.settleSeconds))).toEqual(new Set([8]));
+    expect(new Set(probe1x.rows.map((r) => r.os)))
+      .toEqual(new Set(["Version 26.5.2 (Build 25F84)"]));
+  });
+
+  it("records the pose tallies the corpus index states, per dump and not per run", () => {
+    // `active/light` lost key after its ninth scene: 9 key and 16 not, in ONE arm,
+    // which is the internal proof that `isKeyWindow` is sampled per dump. The
+    // tallies are pinned because every reading in §5.138 partitions on them.
+    const tally = (arm: string, scheme: string, key: boolean) => probe1x.dumps.filter((d) =>
+      armOf(PROBE_1X_ARMS, d.path) === arm && d.colorScheme === scheme
+      && d.isKeyWindow === key).length;
+    expect([tally("active", "light", true), tally("active", "light", false)]).toEqual([9, 16]);
+    expect([tally("active", "dark", true), tally("active", "dark", false)]).toEqual([25, 0]);
+    expect([tally("policy-only", "light", true), tally("policy-only", "dark", true)])
+      .toEqual([25, 25]);
+    expect([tally("recede", "light", false), tally("recede", "dark", false)]).toEqual([25, 25]);
+    expect(probe1x.dumps.filter((d) => d.isKeyWindow).length).toBe(84);
+  });
+
+  it("carries the two new pose fields on the recede arm only, and never invents them", () => {
+    // A dump taken before the harness gained the fields states nothing about the
+    // application's activation; the reader omits the keys rather than writing false.
+    const recede = probe1x.rows.filter((r) => arm1x(r) === "recede");
+    expect(recede.length).toBeGreaterThan(0);
+    expect(recede.every((r) => r.appIsActive === false)).toBe(true);
+    expect(recede.every((r) => r.activationPolicy === "accessory")).toBe(true);
+    expect(probe1x.rows.filter((r) => arm1x(r) !== "recede")
+      .every((r) => r.appIsActive === undefined && r.activationPolicy === undefined)).toBe(true);
+  });
+});
+
+describe("W27e G2: what the pose moves, and what it does not", () => {
+  it("switches the highlight layer off with KEY, not with the application's activation", () => {
+    // §5.128's receded bright rim, in Apple's configuration. The 66 non-key dumps
+    // are the 50 of the accessory `recede` arm AND the 16 of `active/light` that
+    // lost key while the application stayed active — indistinguishable here.
+    expect(highlights1x.length).toBe(150);
+    expect(new Set(highlights1x.filter((r) => r.isKeyWindow).map((r) => r.layerOpacity)))
+      .toEqual(new Set([1]));
+    expect(new Set(highlights1x.filter((r) => !r.isKeyWindow).map((r) => r.layerOpacity)))
+      .toEqual(new Set([0]));
+    expect(highlights1x.filter((r) => !r.isKeyWindow).length).toBe(66);
+    // The backdrop layer's own margin collapses with it, and the label's layer
+    // does not: the label goes on drawing in the recede.
+    expect(new Set(highlights1x.filter((r) => !r.isKeyWindow).map(margin))).toEqual(new Set([0]));
+    expect(highlights1x.filter((r) => r.isKeyWindow).every((r) => margin(r) > 0)).toBe(true);
+    expect(new Set(labels1x.map((r) => r.layerOpacity))).toEqual(new Set([1]));
+  });
+
+  it("keeps BOTH surface operators in both schemes and in every window state", () => {
+    // This is the refutation of "one operator per scheme", which the 2x corpus
+    // read and §5.136 §5 could not attribute to the scale or to the pose. At 1x
+    // neither pose is flat: the partition survives the recede.
+    for (const group of [...new Set(highlights1x.map(pose1x))]) {
+      const rows = highlights1x.filter((r) => pose1x(r) === group);
+      expect(new Set(rows.map((r) => r.operatorId)).size, group).toBe(2);
+    }
+    expect(new Set(highlights1x.map(pose1x)).size).toBe(7);
+  });
+
+  it("agrees on the operator between the third window state and the recede, 16 of 16", () => {
+    // `active/light`'s 16 non-key dumps are the recede reached by losing key
+    // alone, under the regular policy with the application still active.
+    const third = highlights1x.filter((r) => pose1x(r) === "active/light/non-key");
+    const recede = highlights1x.filter((r) => pose1x(r) === "recede/light/non-key");
+    expect(third.length).toBe(16);
+    expect(third.every((r) => recede.find((x) => x.scene === r.scene)?.operatorId
+      === r.operatorId)).toBe(true);
+    expect(new Set(third.map((r) => r.layerOpacity))).toEqual(new Set([0]));
+    expect(new Set(third.map(margin))).toEqual(new Set([0]));
+  });
+
+  it("names the three cells whose operator is not unanimous across the window states", () => {
+    // Two of the three put two arms of the SAME pose on opposite sides, so none of
+    // them is evidence of a pose effect — they bound how tightly any selector law
+    // can be declared, and §5.138 §7 carries them as the gap.
+    const split = [...new Set(highlights1x.map((r) => `${r.colorScheme} ${r.scene}`))]
+      .filter((key) => new Set(highlights1x
+        .filter((r) => `${r.colorScheme} ${r.scene}` === key).map((r) => r.operatorId)).size > 1);
+    expect(split.sort()).toEqual([
+      "dark light-solid__capsule-button__rest",
+      "light dark-solid__capsule-button__rest",
+      "light dark-solid__rrect-48__rest-label",
+    ]);
+  });
+});
+
+describe("W27e G2: the operator is the glass's own adapted state, read out", () => {
+  it("puts the high-gain operator on exactly the surfaces whose body has adapted", () => {
+    // 150 of 150 here, on both of the body's own keys, in three window states and
+    // two schemes. §5.133 §4 saw this on two cells and called it agreement.
+    const high = [...new Set(highlights1x.map((r) => r.operatorId))]
+      .find((id) => Math.abs((highlights1x.find((r) => r.operatorId === id)
+        ?.matrix[4] as number) - 0.15) < 1e-6);
+    expect(high).toBeDefined();
+    for (const row of highlights1x) {
+      expect((row.operatorId === high), `${pose1x(row)} ${row.scene}`).toBe(faceIsDark(row));
+      expect((row.operatorId === high), `${pose1x(row)} ${row.scene}`)
+        .toBe((row.body as Record<string, unknown>)["shadowFill"] === null);
+    }
+    // And the same law holds on the two corpora read before this one.
+    for (const corpus of [reading.rows, probe.rows]) {
+      const rows = corpus.filter((r) => r.role === "surface-highlight");
+      const id = [...new Set(rows.map((r) => r.operatorId))]
+        .find((x) => Math.abs((rows.find((r) => r.operatorId === x)?.matrix[4] as number)
+          - 0.15) < 1e-6);
+      for (const row of rows) expect(row.operatorId === id).toBe(faceIsDark(row));
+    }
+  });
+
+  it("selects the LABEL operator on the same bit, which is not the colour scheme", () => {
+    // §5.136 §4 read the label's selector as the colour scheme, on a corpus where
+    // no surface adapted so scheme and material state coincided. At 1x the light
+    // scheme carries both label matrices and so does the dark one, and on 72 of 72
+    // the lightening matrix sits exactly where the body's face fill is black.
+    expect(labels1x.length).toBe(72);
+    for (const row of labels1x) {
+      const surface = highlights1x.find((r) => r.dump === row.dump);
+      expect(surface, row.dump).toBeDefined();
+      const lightening = (row.matrix[4] as number) === 1;
+      expect(lightening, `${pose1x(row)} ${row.scene}`).toBe(faceIsDark(surface!));
+    }
+    for (const scheme of ["light", "dark"]) {
+      expect(new Set(labels1x.filter((r) => r.colorScheme === scheme)
+        .map((r) => r.operatorId)).size, scheme).toBe(2);
+    }
+  });
+
+  it("leaves the two label matrices exactly where §5.136 §4 read them", () => {
+    // The pair did not move; only its selector did. Compared to the evaluator's
+    // own constants, so an edit to either side fails.
+    const distinct = [...new Set(labels1x.map((r) => JSON.stringify(r.matrix)))]
+      .map((m) => JSON.parse(m) as number[]);
+    expect(distinct.length).toBe(2);
+    expect(distinct.some((m) => JSON.stringify(m)
+      === JSON.stringify(LABEL_MATRICES.darkening))).toBe(true);
+    expect(distinct.some((m) => JSON.stringify(m)
+      === JSON.stringify(LABEL_MATRICES.lightening))).toBe(true);
+    const flags = (r: (typeof labels1x)[number]) => r.flags as Record<string, unknown>;
+    expect(labels1x.every((r) => flags(r)["inputBackdropAware"] === 1
+      && flags(r)["inputClamp"] === 1 && flags(r)["inputClampPreserveHue"] === null)).toBe(true);
+  });
+
+  it("still installs nothing over a label whose colour the author named, in every arm", () => {
+    const hot = probe1x.dumps.filter((d) => d.scene.endsWith("label-hot"));
+    expect(hot.length).toBe(6);
+    expect(hot.every((d) => d.labelLayers === 1 && d.labelLayersWithOperator === 0)).toBe(true);
+    expect(hot.every((d) => d.declaredLabel?.srgb != null)).toBe(true);
+  });
+
+  it("strips the author tint's hue in the recede and keeps its layer drawing", () => {
+    // §5.130 measured that an author tint loses its hue entirely in the receded
+    // pose while its darkening stays. Here it is in Apple's configuration: the
+    // key pose carries the rank-one colorize W12 §5 read, and the non-key pose
+    // carries an achromatic level map — on a layer that is still at opacity 1.
+    expect(tints1x.length).toBe(12);
+    expect(new Set(tints1x.map((r) => r.layerOpacity))).toEqual(new Set([1]));
+    for (const row of tints1x) {
+      const d = decompose(row.matrix);
+      if (row.isKeyWindow) {
+        expect(Math.abs(d.chromaGain), row.dump).toBeLessThan(1e-5);
+        expect(d.achromatic, row.dump).toBe(false);
+      } else {
+        expect(d.chromaGain, row.dump).toBeCloseTo(0.7, 4);
+        expect(d.achromatic, row.dump).toBe(true);
+        expect(Math.abs(Math.abs(d.offset[0] as number) - 0.1), row.dump).toBeLessThan(1e-6);
+      }
+    }
   });
 });

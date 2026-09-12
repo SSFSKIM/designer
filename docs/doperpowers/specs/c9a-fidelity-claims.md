@@ -18691,3 +18691,311 @@ untouched on disk**, which is the convention: add the new reading beside, never 
 runtime's own `foregroundCrossover`, the saturation over a swept gamut, the alpha rows, the
 four-rows-of-five convention, the browser verdict against its declared bound, and the highlight
 layer's opacity across both corpora) and lint green.
+
+### 5.138 W27e G2: the pose reading — the window state moves the layer, not the operator; the operator is the glass's own adaptation, and the label follows it (2026-09-13)
+
+**Gate:** W27 coverage wave, child W27e gate G2 (§Children); Decision Logs 12, 13 and **15 (c)**,
+which held G2's selector decision behind exactly this run; contracts **X1**, **X2**, **X4** and X9.
+Consumes §5.133, §5.136 §4–§5 and §5.137 §1–§2 and §5–§6. **This gate fits nothing, captures nothing
+from Apple, adopts no bound and declares no selector.** No file under `packages/*/src` changed; no
+material profile, fixture, renderer golden, `scenes.json` entry or canonical `results/matrix.json`
+row moved, and no committed number is rewritten. Evidence:
+`packages/calibration/results/2026-09-13-w27e-probe-1x-reading/` — `declaration.md` (committed at
+`1118ac38`, before the corpus was read), `table.json` / `table.md` from
+`scripts/vibrancy.ts --corpus probe-1x`, and `reading.py` / `reading.json`, a **second
+implementation** walking the same raw dumps with no shared code, plus `reading.md`, which carries the
+working this section summarises. The corpus is
+`results/2026-09-12-w27e-probe-1x/`: 150 dumps, the same 25 probe scenes per scheme at **1x**, three
+launches reaching three window states, with scale, accessibility, settle and scene set held fixed.
+
+**0. The eight declared stops, all cleared.** 25 dumps in each of the six arm-and-scheme
+directories; one configuration (`backingScaleFactor` 1, `a11y` standard, `settleSeconds` 8, os
+`Version 26.5.2 (Build 25F84)`, state `rest`); the pose tallies exactly as the corpus index states
+them — `active/light` **9 key and 16 not key**, `active/dark` 25 key, `policy-only/*` 25 key each,
+`recede/*` 25 each at key false, `appIsActive` false, `activationPolicy` `accessory`, with the other
+four arms recording neither new field and the reader reporting that as *not recorded* rather than as
+false; **§5.137 §6's own inherited stop does not fire** — the highlight layer reads `opacity` **1 on
+all 84 key dumps**; no unclassified occurrence and a worst form residual of **2.489e-4**, inside
+§5.133 §3's own 2.5e-4; and both committed readings reproduce through the extended reader (G0 57
+dumps / 60 occurrences / 4 matrices / 58 highlights at opacity 1; the 2x probe 50 / 24 labels in 2
+matrices / 50 highlights at opacity 0). One contradiction inside the evidence is resolved rather than
+left: the `policy-only` logs' **header** reads `isKeyWindow: false` while all 50 of that arm's dumps
+record true. The header prints once before the run loop; `isKeyWindow` is sampled per dump after the
+settle (`Sources/main.swift`), and `active/light`'s own 9-then-16 split is internal proof of it.
+
+**0a. What was read OUTSIDE the declaration's scope, disclosed.** `declaration.md` §1 scopes its
+field list to "the 150 dumps of `results/2026-09-12-w27e-probe-1x/`" and names the two older corpora
+only inside stop **S7**, as *aggregate reproduction* checks — dump counts, occurrence counts, matrix
+counts, layer opacities. `reading.py` reopens both of them and reads **fields**: the
+`glassBackground` filter's face and shadow fills, every `vibrantColorMatrix`, the label layers and
+`tracksLuma` by span. Four figures this section publishes come from that half — the body law's
+**58 of 58** on G0's corpus and **50 of 50** at 2x (§3), and the **10 of 50** and **5 of 24**
+cross-scale differences (§4).
+
+It was read because **the 1x half is uninformative alone**: a co-variation found in one corpus is a
+property of that corpus until it is checked against the others, exactly as §5.137 §1 found an
+`opacity` of 0 to say nothing until the same layer was read somewhere else. **No bound, threshold or
+partition is drawn on that half** — §3's brackets and §5's outcome resolution are stated on the 150
+dumps alone — and it is nonetheless **load-bearing**, because §3's claim to be a law rather than a
+description rests on the other two corpora agreeing, and §4's whole comparison is against the 2x one.
+Disclosed here in the discipline §5.137 §1 set for itself; `declaration.md` is committed evidence of
+what was declared and is not edited.
+
+**1. What the pose moves — three fields, and all three move with KEY.** Across the 84 key and 66
+non-key dumps: the `CASDFKeyFillHighlightEffect` layer's `opacity` is **1 on every key dump and 0 on
+every non-key one**; the backdrop layer's `marginWidth` is 8.8–68 by component when key and **0** on
+every non-key dump; and the author tint's matrix stops being a colorize (§8). The 66 non-key dumps
+are the `recede` arm's 50 — `.accessory`, never activated, `appIsActive` false — **and the 16 of
+`active/light` that lost key while the application stayed active under the regular policy**, and on
+all three fields the two are indistinguishable. §5.128's receded bright rim is the first of those
+rows read in Apple's own configuration.
+
+**2. What the pose does NOT move: the operator's selection.** Both operators appear in **both**
+schemes and in **every** window state — all seven arm-and-pose groups carry two, where the 2x corpus
+carried one per scheme. Per scene and scheme, **47 of the 50 cells carry the same operator through
+every state they were dumped in**. The three that do not are `light
+dark-solid__capsule-button__rest`, `light dark-solid__rrect-48__rest-label` and `dark
+light-solid__capsule-button__rest`. **Two of the three put two arms of the *same* pose on opposite
+sides**, which is the measurement that a single cell's disagreement in this bed needs no pose to
+explain it. The third — `light dark-solid__capsule-button__rest`, default in both key arms and
+high-gain in the recede — **is** pose-aligned inside this corpus, and it is called **inconclusive
+rather than null**: a "key → default" law over it is contradicted directly by §5.133's corpus, which
+is light, 1x and **key** and reads that same scene id as **high-gain**. So one cell points at a pose
+effect, the corpus that should agree with it points the other way, and the two neighbouring cells
+show the disagreement is the size of this bed's own run-to-run spread. The settle study in
+`specs/tech-debt-tracker.md` is what resolves it, not this reading (§7).
+
+**3. The law, on 258 of 258 occurrences: the operator is the body's own adapted state, read out.**
+The high-gain operator (m 3.0, a 1.35, b 0.15) sits on exactly those surfaces whose
+`inputFaceColorMatrixFillColor` is black and whose `inputShadowColorMatrixFillColor` is `nil`, and
+the default (m 1.5, a 0.1, b 0.9) on exactly those whose fill is white and whose shadow fill is set —
+**150 of 150** here, **58 of 58** in G0's corpus and **50 of 50** at 2x, on both keys, with no
+exception in three window states, two schemes and two scales. §5.133 §4 saw this co-variation on two
+cells and called it agreement; it is the law, and **the vibrancy operator has no selector of its own
+— it is the glass's own adaptation**. What selects the body's state is the backdrop with a
+**scheme-dependent** threshold: scored against "each scheme sits at its base state — default in
+light, high-gain in dark — and adapts to the other when the backdrop goes far enough the other way",
+**146 of 150 rows agree** and the four exceptions are §2's three cells.
+
+*One bracket this narrows, and one it does not.* The light-scheme **span gate** lies in **(64, 80]**
+declared points at `dark-solid`'s tone, where §5.133 §4 could only say "somewhere in (44, 96)" —
+vitrea's own `backdropToneAdaptation(tone, sizeThickness(span))` reads 0.5338 at span 64 and 0.0029
+at span 80, so its fitted knee is already inside Apple's interval, and Apple's `tracksLuma` brackets
+it identically. That is a bracket at **one tone across a span ladder**, which is what the probe bed
+was built to supply.
+
+The **dark-scheme tone threshold is NOT bracketed by this corpus**, and the figure first published
+here — `(0.5, 0.890969]` — is **withdrawn as a threshold**, named rather than deleted so the
+correction is legible. It mixed spans: its lower endpoint is `checkerboard` at **span 96** with
+`tracksLuma` **0**, its upper is `light-solid` at **span 44** with `tracksLuma` **1**, and this same
+section measures that span moves the adaptation, so the two endpoints are not comparable. At the one
+span the dark arm holds a tone ladder on — **span 44** — every *stable* cell up to tone **0.214096**
+(`mid-chroma-solid`) carries the high-gain operator, and the only cell above it is
+`light-solid__capsule-button__rest`, which is one of §2's three unstable cells: 1 of its 6
+occurrences reads high-gain. So the corpus gives a **lower bound of 0.214096 at span 44 and no upper
+bound at all**, because the deciding cell does not hold still. What is unchanged is that **nothing in
+vitrea models a dark-scheme adaptation** — `backdropToneAdaptation` reads 0 on every dark cell that
+switches, so the predicate that separates light on 72 of its 75 rows separates nothing in dark. The
+ladder that would bracket it is in §Deferred, and it must be **at fixed span with repeated endpoint
+dumps**, because its deciding cell is the unstable one.
+
+**4. So the 2x corpus's "one operator per scheme" is the SCALE — on an inference, named as one.**
+§5.136 §5 could not separate scale from pose because its two corpora differed in both axes. What this
+corpus supplies is the pose at 1x: the 2x corpus is non-key on all 50, `marginWidth` 0 on all 50 and
+highlight opacity 0 on all 50, which is the same receded configuration reached here at 1x. Scene for
+scene against `recede/*`, it differs on **10 of 50** surface cells and **5 of 24** labels, every
+difference in one direction — at 2x nothing adapts, every light cell reads a white face fill and
+every dark cell a black one.
+
+**The attribution to scale is not a matched control and is not published as one.** Of the three
+window states in play, exactly **one is attested per dump**: the `recede` arm, at `isKeyWindow`
+false, `appIsActive` false, `activationPolicy` `accessory`. The `active/light` non-key tail records
+**no** `appIsActive` either — the harness gained that field later in the same sitting — so
+"regular policy, application still active" is read off its launch (`open -W`, no deactivation asked
+for) and the corpus index, not off the dumps. And the 2x run records **only** `isKeyWindow: false`.
+So the chain is: those two 1x states agree on every field this reading takes (§9), from which **key
+alone drives the receded configuration**, from which the 2x run's unrecorded activation cannot be
+what separates it — leaving the backing scale. Each link is sound and the last is an inference, not
+an attested match. The pass that removes it is a **2x pass through the accessory/never-activated
+mechanism with all three pose fields recorded per dump**, which the harness can now do and which
+§Deferred names beside the ladder below.
+
+**What the mechanism is, is unread, and one candidate is narrowed rather than killed.** `tracksLuma`
+is 1 at declared span 44/48/64 and 0 at 80/96 at **both** scales — computed at each scale and
+compared in `reading.json`, not asserted — so **`tracksLuma` itself is point-based and is not the
+gate that closes at 2x**. That does not exclude a *separate* adaptation size gate measured in device
+pixels, which no field in the dumps exposes; the refutation is scoped to the flag, and the open
+possibility is exactly what the 2x `dark-solid` ladder at declared span 22 / 32 / 44 tests
+(§Deferred).
+
+**5. §5.137 §6's four outcomes, resolved: all four fail, and a fifth reading fits.**
+
+`declaration.md` §3 operationalised "§5.133's tone-and-span selector reproduces" as a **literal cell
+partition** — the high-gain operator on exactly `dark-solid__capsule-button__rest` and
+`impulse__capsule-button__rest`, the default on every other light cell. Measured against the active
+pose, **12 of its 34 light rows contradict that partition, over 7 distinct scenes**: the ladder cells
+`dark-solid__rrect-48__rest{,-label}` and `dark-solid__rrect-64__rest{,-label}` and
+`impulse__capsule-button__rest-label` and `dark-solid__capsule-button__rest-label` read high-gain
+where the partition says default, and `dark-solid__capsule-button__rest` itself reads default where
+the partition says high-gain.
+
+**That is the declaration's own defect, and it is recorded rather than repaired after the fact**
+(`declaration.md` is committed evidence of what was declared and is not edited). §5.133 §4's
+partition was drawn on **G0's** scene set; this probe bed carries a `dark-solid` span ladder G0 never
+had, and cells at the same tone and a smaller span **must** switch under §5.133 §4's joint
+tone-and-span **law** while falling outside its two-cell **partition**. The declaration conflated the
+law with the partition, so its operational test asks for something the bed makes impossible.
+
+So, read as the declaration wrote them: **outcome A fails in both columns** — its first because the
+literal partition does not reproduce in the active pose, its second because the recede is opacity 0
+and carries the same partition anyway (17/8 in light, 2/23 in dark). **Outcome B** fails, because the
+active pose at 1x carries both operators in both schemes rather than one per scheme. **Outcome C**
+fails: recede opacity is 0 on all 50. **Outcome D**, the stop, does not fire. **All four fail.**
+
+What the active pose *does* reproduce is §5.133 §4's **law** — a joint rule in tone and span, with
+every ladder cell on the side the law puts it (§3, 146 of 150 rows). **And what fits the whole corpus
+is that the pose does not select the operator at all**: it switches the layer the operator sits on
+off and strips the tint's hue, with the loss of key rather than with deactivation, while the
+selection itself survives both poses and belongs to the glass's own adaptation.
+
+**Scale is the axis — and that conclusion rests on §4's own argument, not on any column of this
+table.** §4 controls the pose at 1x directly and names the one inference it still carries; outcome
+A's first column is not the bridge and is not used as one. The table's three live rows were written
+on the assumption that the recede either collapses the selector or leaves it alone; the corpus's
+answer is the second, with the collapse landing on the layer instead.
+
+**6. The label operator: the pair is unchanged, its selector is refuted.** The two matrices are
+§5.136 §4's float for float — chroma gain 1, no luma term, zero residual, `inputBackdropAware` 1,
+`inputClamp` 1, `inputClampPreserveHue` unset on all 72 labelled occurrences — and the label's own
+layer is at `opacity` **1 in every window state**, so the label goes on drawing in the recede while
+the highlight beside it does not. The two `-label-hot` scenes carry a label layer with an **empty
+filter list** in all six arm-and-scheme combinations, **6 of 6**: Apple still installs nothing over a
+colour the author named. **What is refuted is that the colour scheme selects it**, because at 1x
+**each scheme carries both matrices**. Over all 72 labelled occurrences: **light 25 darkening / 11
+lightening**, **dark 3 / 33**. Per arm — light `active` 9/3, `policy-only` 8/4, `recede` 8/4; dark
+1/11 in each of the three. (The figures first published here, "8 and 4" and "1 and 11", are the
+`policy-only` and `recede` arms individually and were wrongly given as scheme-wide; the superseded
+pair is named rather than deleted.) And on **72 of 72** the lightening matrix sits exactly where the
+label's own surface carries the high-gain operator and the body's face fill is black — the same
+single bit as §3, per surface. The cell that proves it is the one two arms of the same pose disagree
+about: on `dark-solid__rrect-48__rest-label` the `active` light arm reads surface default **and**
+label darkening while `policy-only` reads surface high-gain **and** label lightening, same scene,
+same scheme, same pose. Re-read under this, the 2x corpus agrees on 24 of 24 and looked
+scheme-selected only because no surface adapts there, so scheme and material state coincide on every
+cell. **§5.136 §4's "the selector is the colour scheme, and nothing else the probe moved" was true of
+its corpus and is not the law**; it stands where it was written, with this beside it.
+
+***What this does NOT establish, stated before anything is built on it.*** The 72 of 72 is a
+co-variation with the body's face-fill **bit**. It does **not** show that Apple compares a composite
+**level** against a threshold, which is what `foregroundCrossover` does: direct propagation of an
+internal adapted-state bit from the body to the label fits these dumps exactly as well, and no field
+in a dump distinguishes the two. What the reading licenses is only that **Apple selects the label
+operator per surface, off that surface's own adapted state, and not off the document's colour
+scheme** — the same *shape* as `foregroundCrossover`'s role, not its arithmetic. §5.137 §3 chose the
+material's own composite level for vitrea from vitrea's own constraint, and that choice is
+**converged on in form, not authorised in substance**, by this reading. What would settle it is an
+intervention rather than a read: vary a surface's composite level while holding the body's adapted
+state fixed and see whether the label's matrix follows the level or the bit, or recover structural
+evidence naming the selector's input.
+
+**7. The gap this leaves, recorded and not closed.** **Three cells carry two different operators
+across runs of the same bed**, all at the two backgrounds whose adaptation is marginal —
+`dark-solid` in light, `light-solid` in dark — and the disagreement reaches the whole body, not just
+the filter: face fill, both face points and the shadow fill move together. Two of the three put two
+arms of the same pose on opposite sides; the third is pose-aligned here and contradicted by §5.133's
+own key reading of the same scene (§2), so the class as a whole is not a pose effect but one member
+of it is **unresolved rather than dismissed**. It is either a settle that 8 s does not reach for the
+body's own adaptation or a genuinely bistable decision near the threshold.
+It touches a committed reading: `dark-solid__capsule-button__rest` is one of the two cells §5.133 §4
+named as switching at 1x in the key pose, and here the two key arms read it as **not** switching
+while the light recede reads it as switching — of the eight scene ids shared with G0, seven reproduce
+G0's matrix in every light group and that one does not. **§5.133 §4's reading stands as recorded and
+this is the second beside it.** What it costs: any selector law for the surface operator is bounded
+from above by this, a law fitted on the key pose alone would be fitted on a cell two arms disagree
+about, and a bound tighter than one cell in 25 could not be met by a second run. The work that would
+close it is a settle study on the body's adaptation — one scene re-dumped n times at `--settle` 8 and
+at a longer settle, reading `inputFaceColorMatrixFillColor` rather than a pixel — which `dump-layers`
+can do in minutes and which no capture has needed before, because until now the body's adapted state
+was only ever read off pixels that had already settled (`specs/tech-debt-tracker.md`).
+
+**8. The author tint, for completeness.** 12 occurrences, two scenes per arm and scheme, all on a
+`CASDFGradientEffect` layer with `inputBackdropAware` 1, no clamp, and the layer at `opacity` **1 in
+every window state**. In the **key** pose the matrix is W12 §5's and §5.133 §3's rank-one colorize
+(`m` ≈ 0, output `g·Y + b`) at b = 0.6000 / 0.3212 / 0.0000 in light and 1.0056 / 0.5749 / −0.0306 in
+dark. In the **non-key** pose it is not a colorize at all: **achromatic**, `m` 0.7 with `g` 0.3 and
+b = **−0.1** on every channel in light and **+0.1** in dark, unit level gain and no hue anywhere in
+it. That is §5.130's measured "an author tint loses its hue entirely while its darkening stays"
+appearing in Apple's own configuration rather than as a pixel difference, and it is the first
+configuration-level evidence for the endpoint W27c G1 fitted. The two key-pose dark matrices from
+`active` and `policy-only` differ by at most **2.38e-7** — one operator written twice by float32,
+which is why the second pass reports nine byte-classes where the reader reports eight operators at
+its own 1e-6 tolerance.
+
+**9. `active/light`'s 16 non-key dumps: the recede, reached by losing key alone.** The application
+stayed active under `.regular` and no deactivation was asked for, and on every field this reading
+takes they are the recede: highlight `opacity` 0 on all 16, backdrop `marginWidth` 0 on all 16, the
+light recede's own achromatic tint matrix, the label layer still at `opacity` 1, and the surface
+operator agreeing with `recede/light` on **16 of 16** shared scenes. **Their own activation is
+inferred, not attested**: these dumps predate the harness's `appIsActive` field, so "regular policy,
+application still active" is read off the `open -W` launch and the corpus index rather than off the
+dump, and only the `recede` arm attests its state (§4). One thing follows: the receded
+*configuration* is driven by key resignation rather than by application deactivation — a second,
+independent route to it, a fact about what the capture's mechanism has to reproduce, and the link
+§4's cross-scale comparison rests on, the 2x corpus's own activation being unrecorded. One thing does
+not: **nothing here says the two states are the same pose in pixels.** No capture was taken, the
+attestation and `presentedActive` are about a capture and not a dump, and §5.136 §1 chose the
+`.accessory` mechanism by measurement on the pixel side. The honest statement is that they agree on
+every configuration field read here and that a pixel comparison of the two has never been taken
+(§Deferred).
+
+**10. X8 — what this did not measure.** No pixel of Apple's was captured and nothing here is a
+measurement of Apple's material; every statement is about configuration. The mechanism by which the
+backing scale suppresses the body's adaptation is unread (§4), and so is what the adaptation samples:
+the tone axis is the committed background raster over the declared region, which §5.133 §4 already
+records as not being either statistic the matrix carries. The light-scheme span gate is a bracket
+with no cell inside it, and the **dark-scheme tone threshold is not bracketed at all** — the corpus
+gives a lower bound at one span and no upper bound, because the deciding cell is unstable (§3).
+Whether Apple's per-surface label selection reads a level or an adapted-state bit is **not resolvable
+from configuration** (§6). The 10-of-50 attribution to scale carries one named inference rather than
+a matched control (§4). The reading is `rest` state and standard accessibility only, one machine and
+one OS build. *The drift, measured rather than asserted:* the
+reader now emits `appIsActive` and `activationPolicy` where a dump records them and `isKeyWindow` on
+the per-dump record. Regenerated to a scratch directory through `W27E_OUT`, **both committed
+`table.md` are byte-for-byte** and this gate adds exactly **one** key to a committed `table.json` —
+`dumps[].isKeyWindow` on the 2x probe's. The G0 table gains nothing, because a corpus with no labels
+is published in the three-field per-dump form it was recorded in; its remaining differences from the
+committed file (`definitions.label`, `definitions.role`, the spec list and `matrixSha256`) are
+§5.137 §7's and W27f G2's, not this gate's. No `rows` value and no recorded reading moves, and **the
+committed tables are untouched on disk** — the convention §5.137 §7 set: add the new reading beside,
+never rewrite. This gate's own `table.json` and `table.md` reproduce byte-for-byte on re-run.
+
+**11. What G2 may now do, and what stays the user's.** The ink half of G2 is decided (Decision Log
+15 (a) and (b)) and its playground plate half is closed. This reading supplies the missing half of
+15 (c) and **does not take it**: the recommendation, with the evidence for each option, is in the
+wave's Revision Notes entry for this reading, and the ruling is the user's.
+
+**12. Verification record.** `pnpm --filter @vitrea/calibration --fail-if-no-match test` **401/401**
+(from 386: fifteen new pins — the arm counts and the six directories, a digest over the 150 dumps'
+own sha256s so the corpus's identity is pinned and not only its shape, the arm resolver's refusal,
+the fixed configuration, the per-dump pose tallies including the 9-then-16 split, the two new fields
+present only where recorded, the layer opacity and margin against key, both operators in every
+group, the third state against the recede, the three non-unanimous cells by name, the body law on
+all three corpora, the label law on 72 of 72, the two label matrices and their flags, the
+self-coloured labels, and the tint's achromatic recede) and lint green.
+
+**13. Review record.** Independently reviewed at `f066de0c`, which reproduced the opacity, margin,
+258-of-258 body law, 72-of-72 label law, unanimity and cross-scale counts from the raw dumps and
+returned **ten defects, all real and all fixed before this section was final**. Four were
+load-bearing. *§5's resolution was wrong in the direction that flatters it:* outcome A's first column
+also fails, because the declaration operationalised a **law** as a **partition** drawn on a different
+scene set, and the conclusion's bridge was rerouted onto §4's own argument. *§2 dismissed a
+pose-aligned cell* as no evidence at all where the honest reading is inconclusive against §5.133's
+own contrary key reading. *§4 presented an unmatched inference as a controlled comparison* — only one
+of the three window states in play attests its activation. *And §6 gave `foregroundCrossover` Apple's
+authority* on evidence that identifies a bit, not a level. Of the six smaller ones: the dark-scheme
+bracket mixed spans and is withdrawn (§3); the device-pixel refutation is scoped to `tracksLuma`
+(§4); the old-corpus field reads are disclosed (§0a); `reading.py`'s promised two-pass comparison did
+not exist and now does, over 234 occurrences and 7 groups with no difference; the test pinned the
+corpus's shape but not its identity; and the label census quoted per-arm figures as scheme-wide
+(§6). No committed evidence number moved under any of them, and the two committed tables are
+untouched.
