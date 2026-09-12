@@ -98,9 +98,17 @@ const hex = (value) => {
 };
 
 /**
- * The operator's closed form and the two composites, in the driver rather than
- * in the page, so the expected value is computed by something that never ran
- * inside the browser under test.
+ * The operator's closed form and the two composites, recorded into
+ * `results.json` beside every cell so the reading carries its own model.
+ *
+ * This is NOT the independent check on Apple's matrix, and does not claim to
+ * be: it consumes `reading.filtered`, which `probe.js` evaluated inside the
+ * browser under test, so the matrix arithmetic it rests on is the engine's own.
+ * `verdict.py` re-derives the filtered ink from `results.json`'s `matrices`
+ * outside this process, scores against that, and publishes the disagreement
+ * between the two derivations. It also scores each arm against the ink that arm
+ * actually paints, which the model here does not: `blendonly` carries no
+ * `filter`, and its cells here are built from a colour those cells never show.
  */
 function expectations(reading) {
   const ink = [...hex(reading.inkColor), reading.inkAlpha];
@@ -108,10 +116,14 @@ function expectations(reading) {
   const filtered = reading.filtered;
   const a = filtered[3];
   const sourceOver = [0, 1, 2].map((i) => a * filtered[i] + (1 - a) * ground[i]);
-  // The alternative reading's blends, on opaque grounds. `plus-lighter` is
-  // Co = αs·Cs + αb·Cb clamped; `plus-darker` is its darkening counterpart,
-  // 1 − Co' on the inverted channels. Both are stated here for the opaque
-  // backdrop this bench paints and are compared, never assumed.
+  // The alternative reading's blends, on the opaque grounds this bench paints
+  // (αb = 1 throughout). `plus-lighter` is the CSS Compositing 2 form,
+  // Co = αs·Cs + αb·Cb clamped to 1. `plus-darker` is NOT taken from that spec:
+  // its §9.1.14 text is the broken Apple-derived one (w3c/fxtf-drafts#447), and
+  // Apple's own two published formulas disagree with each other. The form below
+  // is the one measured against Safari in that issue and endorsed by the CSSWG
+  // for the spec — co = min(1, αs + αb) − min(1, αs(1 − Cs) + αb(1 − Cb)) —
+  // evaluated at αb = 1, where it reduces to the expression written here.
   const plusLighter = [0, 1, 2].map((i) => clamp01(a * filtered[i] + ground[i]));
   const plusDarker = [0, 1, 2].map((i) => clamp01(1 - (a * (1 - filtered[i]) + (1 - ground[i]))));
   return {

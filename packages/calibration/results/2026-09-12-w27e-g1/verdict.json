@@ -7,6 +7,7 @@
    "maxAbsDiffCodeValues": 0.47,
    "model": "sourceOver",
    "n": 112,
+   "scoredAgainstInk": "filtered (the matrix, recomputed outside the engine)",
    "withinDeclaredBound": true,
    "worst": {
     "cell": "dark--fold--black-085--g4",
@@ -31,6 +32,7 @@
    "maxAbsDiffCodeValues": 0.54,
    "model": "sourceOver",
    "n": 112,
+   "scoredAgainstInk": "filtered (the matrix, recomputed outside the engine)",
    "withinDeclaredBound": true,
    "worst": {
     "cell": "dark--over--black-085--g5",
@@ -149,27 +151,38 @@
      "normal",
      "plus-lighter"
     ],
-    "maxAbsDiffCodeValues": 255,
+    "maxAbsDiffCodeValues": 0.45,
     "model": {
      "dark": "plusLighter",
-     "light": "plusDarker"
+     "light": "sourceOver"
     },
     "n": 112,
-    "withinDeclaredBound": false,
+    "note": "not an arm the declared bound applies to, and not an arm that carries the operator: it paints the RAW ink with no matrix, so it is scored against the raw ink under the blend the engine performed \u2014 `plus-lighter` in dark, where the blend is supported, and source-over in light, where it is not. Its agreement corroborates the engine's plus-lighter against closed form on an unfiltered source; it says nothing about Apple's matrix",
+    "perScheme": {
+     "dark": {
+      "maxAbsDiffCodeValues": 0.25,
+      "model": "plusLighter"
+     },
+     "light": {
+      "maxAbsDiffCodeValues": 0.45,
+      "model": "sourceOver"
+     }
+    },
+    "scoredAgainstInk": "raw (this arm paints no matrix)",
     "worst": {
-     "cell": "light--blendonly--white-100--g0",
+     "cell": "light--blendonly--black-085--g2",
      "expected": [
-      0,
-      0,
-      0
+      33.45,
+      34.2,
+      35.1
      ],
      "mean": [
-      255,
-      255,
-      255
+      33,
+      34,
+      35
      ],
-     "model": "plusDarker",
-     "value": 255
+     "model": "sourceOver",
+     "value": 0.45
     }
    },
    "plusblend": {
@@ -183,7 +196,18 @@
      "light": "plusDarker"
     },
     "n": 112,
-    "withinDeclaredBound": false,
+    "note": "not an arm the declared bound applies to; it is the size of the refuted reading. In light the engine rejected `plus-darker` and computed `normal`, so the reading is of the source-over fallback against the model named above, which is the disagreement itself and not an error",
+    "perScheme": {
+     "dark": {
+      "maxAbsDiffCodeValues": 0.35,
+      "model": "plusLighter"
+     },
+     "light": {
+      "maxAbsDiffCodeValues": 61,
+      "model": "plusDarker"
+     }
+    },
+    "scoredAgainstInk": "filtered (the matrix, recomputed outside the engine)",
     "worst": {
      "cell": "light--plusblend--vitrea-dark-060--g3",
      "expected": [
@@ -501,6 +525,29 @@
    "samplingBackend": "gpu-texture",
    "scheme": "light",
    "tier": "gpu-texture"
+  }
+ },
+ "independentClosedFormVsPageFiltered": {
+  "maxAbsDiffCodeValues": 3.039836872220647e-06,
+  "maxAbsDiffUnitInterval": 1.1920928910669204e-08,
+  "n": 448,
+  "usedForScoring": "the independent value",
+  "what": "this file's evaluation of `matrices` against the `filtered` ink `probe.js` computed in the page, over every bench cell",
+  "why": "the closed form scored below is only independent of the engine under test if the filtered ink is re-derived outside it; this is how far the two derivations sit apart",
+  "worst": {
+   "cell": "dark--over--black-100--g0",
+   "independent": [
+    1.0,
+    1.0,
+    1.0,
+    0.949999988079071
+   ],
+   "page": [
+    1,
+    1,
+    1,
+    0.95
+   ]
   }
  },
  "rows": {

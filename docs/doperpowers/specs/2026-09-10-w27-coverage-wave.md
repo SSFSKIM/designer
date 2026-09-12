@@ -412,7 +412,9 @@ into the ledger rather than chartered.
   reading of "exactly one filter, every time" is that fold's precondition. On the two tiers the
   operator is one function selected by the material's own composite level against
   `foregroundCrossover`, and **the CSS-tier fold loses nothing**, because the operator carries no
-  backdrop term — §5.133 §5's constraint is real and never binds here, and Chromium cannot express
+  backdrop term — measured on the two glass cells that can measure it, the dark `gpu-dom` and `css`
+  ones, the other four being flat or opaque by construction (§5.137 §4) —
+  §5.133 §5's constraint is real and never binds here, and Chromium cannot express
   `mix-blend-mode: plus-darker` at all, so the alternative reading had no web implementation on
   either tier. Tolerance **declared at 1 code value before the first capture and measured at 0.54**
   over 448 bench cells in real Chromium on an Apple metal-3 adapter; it bounds the analytic operator

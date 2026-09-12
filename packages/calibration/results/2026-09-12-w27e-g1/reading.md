@@ -35,6 +35,19 @@ Four facts around it, declared in §1.2 and read after the declaration was commi
    label's own layer — which is `opacity` 1 in both schemes, so nothing about the label rides on
    it — and it is kept because of what it does to §5.136 §5. See §6.
 
+**Half of fact 4 was not declared, and it is the half the argument rests on.** `declaration.md`
+§1.2 names its six field classes inside the *probe* dumps and §7 scopes the deliverable to "all 50
+dumps"; `highlight-opacity.py` walks both corpora, so **G0's 57 dumps and their 58 occurrences were
+read outside the declaration's scope**. They were read because the probe half means nothing alone —
+an `opacity` of 0 is only informative against what the same layer reads elsewhere — and they are the
+control that comparison needs. No bound, threshold or partition is drawn on them and nothing in this
+gate is fitted to them. But the undeclared half is the load-bearing one: §6's third explanation
+exists *because* the same layer reads `opacity` 1 across all 58 of G0's, and without that the probe
+corpus's zeroes would be a curiosity rather than a candidate explanation. This is the same kind of
+read as the structural orientation pass `declaration.md` §1.2 already records against itself, and it
+is recorded the same way — disclosed beside the declaration, which stands as committed evidence of
+what was declared and is not edited after the fact.
+
 ## 2. The semantics, settled — and two corrections to the reasoning it would have been settled by
 
 The declaration's hypothesis was the classic vibrancy blend: plus-darker in light,
@@ -168,6 +181,47 @@ agree to **0** on every ground.
 extended ink vitrea publishes and none that Apple ships. There the two readings are up to **61**
 code values apart (§4).
 
+**The strongest surviving argument for the alternative, stated at full strength.** §4 argues from a
+dead coefficient: under the alternative reading the dark matrix's
+`0.949999988079071` does nothing, and a deliberate float32 constant that does nothing is a strange
+thing for Apple to write. **The mirror of that argument runs against the declared reading, and it is
+stronger, because under the declared reading the dead thing is not a coefficient but an entire
+input.**
+
+Both matrices offset every colour channel by a whole unit against `inputClamp` = 1, so the colour
+rows saturate whichever buffer they consume, and §2.4 has already shown the alpha row agreeing under
+either. Those two facts together say the filter's output is **identical for every possible
+backdrop**. So on a label layer, under the declared reading, `inputBackdropAware: 1` selects an
+entry point whose extra input cannot change a single output pixel: the flag, the
+`capture_in_place_backdrop` call, the memoryless offscreen surface the fault string names, and the
+whole `backdrop_aware_vibrant_color_matrix_sover` path are **observationally inert**. Apple is
+paying for a backdrop snapshot on every automatic label in the system and, on this reading,
+consuming none of it. That is a larger piece of dead machinery than one float.
+
+Two answers bear on it. Neither closes it.
+
+**(a) The two arguments are not the same kind of thing.** The shader signature is a *structural*
+fact — which entry points the metallib contains, and that there is no backdrop-aware variant that is
+not `_sover`. Both inert-coefficient arguments, Apple's and this one, are aesthetic readings of
+Apple's intent: judgements about what a reasonable engineer would or would not leave in. A
+structural fact and a judgement about intent do not trade off against each other at equal weight,
+and this gate's conclusion rests on the former.
+
+**(b) The flag is not the label's alone.** §5.133 §2 records `inputBackdropAware` **1** on the two
+author-tint `CASDFGradientEffect` matrices as well, and §5.133 §3 reads those as a rank-one colorize
+(`m` = 0 to 1e-5, output `g_i·Y + b_i`) — **not** saturating, output genuinely varying with its
+input. On the tint the backdrop input is manifestly live. A filter family in which the flag travels
+with the family rather than with each matrix's need therefore explains the label's flag without the
+label's own matrix consuming anything — the label is configured like the tint because both are
+`vibrantColorMatrix` on a foreground, not because both read their backdrop. *The limit of this
+answer, stated:* the flag is **unset** on the 58 surface-highlight occurrences (§5.133 §2), so it is
+written per configuration and not blanket-defaulted across the class, and a per-configuration key is
+weaker evidence of a family habit than a blanket one would be.
+
+**This does not close the question.** §2.5's "unverified" standing is unchanged, and the reader
+should weigh the magnitude rather than the rhetoric: §4 measures the two readings up to **61** code
+values apart off black and white, and **11** at Apple's own ink.
+
 ## 3. The operator on vitrea's two tiers
 
 Stated, not implemented. `packages/calibration/scripts/vibrancy.ts` carries it as a pure evaluator
@@ -202,8 +256,9 @@ material's own composite level.
 §2.4 and it is worth stating as a result rather than as an absence. The operator carries **no
 backdrop term** — the material's composite level enters only as the *selector*, and the selector is
 per-surface on both tiers because it is per-layer in Apple's own configuration. So the fold is the
-per-pixel path, and §4 measures them equal. The constraint §5.133 §5 found is real and simply never
-binds on this operator.
+per-pixel path, and §4 measures them equal **on the two cells that can measure it** — the dark
+`gpu-dom` and `css` glass cells, where the material genuinely varies beneath a patch the ink does
+not fully cover. The constraint §5.133 §5 found is real and simply never binds on this operator.
 
 Two things do *not* follow from that, and are named so G2 does not inherit them as licence:
 
@@ -224,7 +279,19 @@ metal-3, `isFallbackAdapter: false`, 1120 × 1000 at dpr 1, port 5232 verified f
 The bench is 7 material grounds × 8 inks × 4 arms × 2 schemes = 448 flat cells, each in its own
 isolated group so a blended swatch blends against its own ground and nothing else. The glass arm
 puts the same patches inside a real host on each of the three tier configurations, over the
-checkerboard page, so the material under a patch varies.
+checkerboard page. The material under a patch varies on the two `css-backdrop` configurations only:
+`gpu-texture` registers a flat `fill: "#1040c0"` and its material reads sd **0** by construction, so
+that tier is a control for the sampling backend and not an instrument for anything spatial.
+
+**Every arm is scored against the ink it paints and the operator the engine performed**, which
+`verdict.py` does rather than `run.mjs`. Three arms show the compositor the *filtered* ink;
+`blendonly` carries no `filter` at all — it is the documented AppKit blend without any matrix, kept
+for scale — and scoring it against the filtered ink measured nothing. `verdict.py` also re-derives
+the filtered ink from `results.json`'s recorded `matrices` instead of reading the `filtered` value
+`probe.js` computed inside the engine under test, and publishes the disagreement between the two
+derivations as `independentClosedFormVsPageFiltered`: **3.04e-06 code values** at worst over all 448
+cells, the whole of it the float32 `0.949999988079071` against the page's value rounded to 1e-6.
+The independent evaluation is what the tables below score against.
 
 **A. The declared path against the closed form — the tolerance.** 112 cells per arm.
 
@@ -239,12 +306,31 @@ It is not a bound between vitrea and macOS: there is no native label fixture and
 fixture rule, there cannot be one. The fidelity claim available on this path is a configuration
 claim — Apple's coefficients, read exactly, zero residual, 26 dumps — and this number is not it.
 
-**B. The fold against the per-pixel path.** Max **1** code value over 112 pairs, on one cell
+The two rows are not the same test. `fold` paints a colour the driver already computed, so its 0.47
+is what `rgb()` rounding and the compositor do to a flat swatch and says nothing about the matrix.
+**`over` is the row that checks the matrix**, because there Chromium's own `feColorMatrix` evaluates
+Apple's twenty coefficients and the closed form it is compared against was evaluated outside the
+engine.
+
+**B. The fold against the per-pixel path.** Max **1** code value over 112 bench pairs, on one cell
 (`dark--over--black-085--g4`, 223 against 222), which is the 8-bit quantisation of the pre-computed
-flat colour. On the glass arm, over a material that actually varies: `over` and `fold` differ by
-**0.00** on `gpu-texture` and `gpu-dom`, **0.04** worst on `css`, in both schemes. In light both
-read a flat `[0, 0, 0]` at sd 0 over a material at sd 3.58 (css) and 12.59 (gpu-dom) — the ink does
-not track the material, which is §3's claim measured directly.
+flat colour.
+
+*On real glass, the claim rests on two cells and not on six.* The claim is that the ink carries no
+backdrop term, so the per-pixel path has nothing to carry that the fold drops. Only the **dark**
+`gpu-dom` and `css` cells can test it, and they do: over a bare material at sd **12.59** and
+**3.58**, the patch reads sd **0.68** and **0.49** on `over` against **0.68** and **0.48** on
+`fold`, with `over` and `fold` **0.00** and **0.04** apart. The residual standard deviation is the
+0.95 alpha letting 5 % of the material through — on `gpu-dom`, 0.05 × 12.59 = 0.63 against the 0.68
+measured. That is an order and not a value: the bare band (`BARE_BAND`) and the patch sit over
+different parts of the checkerboard, so their standard deviations are not the same quantity. What it
+shows is a passthrough rather than a backdrop term, and the two paths agreeing to the quantisation.
+
+The other four cells are **consistent with the claim but are not evidence for it**, and are named
+rather than counted: `gpu-texture`'s material is a flat registered fill at sd **0**, so nothing
+there could vary whatever the ink did; and in light the operator's output is opaque black at α 1, so
+both readings and any ink whatsoever would read a flat `[0, 0, 0]` at sd 0 by construction. A cell
+that cannot distinguish the hypotheses is not a measurement of them.
 
 **C. The alternative reading.** Half of it is not expressible in this engine, which the run asked
 rather than inferred: `CSS.supports("mix-blend-mode", "plus-darker")` is **false** and
@@ -258,6 +344,15 @@ stated from the closed form and marked as such in `verdict.json`.
 | light | 61 | closed form — the engine cannot express it |
 | dark | 49 | browser |
 | **at Apple's own ink** (black in light, white in dark) | **11** | browser; light agrees to 0 |
+
+**The fourth arm, and what it is worth.** `blendonly` carries the scheme's plus blend on the **raw**
+ink with no matrix at all. It is not a reading of Apple's operator and it is not bound by the
+declared tolerance; scored against the ink it paints and the operator the engine performed, it reads
+**0.25** in dark (`plus-lighter`, which this engine supports) and **0.45** in light (source-over,
+because `plus-darker` computes to `normal` here). Both sit inside the declared bound the two
+operator arms were held to. That is a corroboration and nothing more: the engine's `plus-lighter`
+matches closed form on an unfiltered source, so the 61 and 49 of the C table are a disagreement
+between two *readings* and not a defect in the instrument that measured them.
 
 **A finding beyond the charter, and a free corroboration.** The plus-blend cases reproduce
 §5.133 §5's collapse with a *different* blend: `mix-blend-mode: plus-lighter` inside the host takes
@@ -377,6 +472,8 @@ schemes and both corpora, and its selector is the colour scheme with 24 of 24 ag
 - **The label corpus is fully read.** All 26 labelled dumps were read in §5.136 §4 and no partition
   is drawn after the fact. The operator stands on 26 of 26 with nothing held back, and that is a
   limit of the evidence rather than a spend.
+- **One read was outside the declaration's scope:** G0's 57 dumps under `highlight-opacity.py`, the
+  control half of §1 fact 4. Disclosed in §1, no bound drawn on it, and load-bearing for §6.
 - **One engine, one machine, flat slabs rather than glyphs.** Gecko and WebKit render
   `backdrop-filter` as a no-op in every automatable capture path, so §4's readings are Chromium's.
   Antialiased glyph edges are covered only by the alpha rows of the bench, not by real type.

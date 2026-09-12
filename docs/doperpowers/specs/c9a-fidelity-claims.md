@@ -18344,7 +18344,7 @@ on the material.** No file under `packages/*/src` changed; no material profile, 
 golden, `scenes.json` entry or canonical `results/matrix.json` row moved. Evidence:
 `packages/calibration/results/2026-09-12-w27e-g1/` — `declaration.md` (committed at `15871dcc`,
 before the corpus read and before anything ran in a browser), `structure.py`/`.json`,
-`order.py`/`.json`, `highlight-opacity.py`/`.json`, `operator-probe/` (the driver, the page, 15 PNGs
+`order.py`/`.json`, `highlight-opacity.py`/`.json`, `operator-probe/` (the driver, the page, 13 PNGs
 and `results.json`), `verdict.py`/`.json`, and `reading.md`, which carries the working this section
 summarises.
 
@@ -18379,6 +18379,17 @@ Around it, declared in `declaration.md` §1.2 before reading:
   key, and §5.128 records the bright rim going to zero in the recede. The label's own layer is
   `opacity` 1 in both schemes and both corpora, so nothing about the label rides on this. What it
   does to §5.136 §5 is §6 below.
+
+**Half of the fourth bullet was NOT declared, and it is the half the argument rests on.**
+`declaration.md` §1.2 names its six field classes inside the *probe* dumps and §7 scopes the
+deliverable to "all 50 dumps"; `highlight-opacity.py` walks both corpora, so **G0's 57 committed
+dumps — the 58 occurrences at `opacity` 1 — were read outside the declaration's scope.** They were
+read because the probe half is uninformative alone: an `opacity` of 0 says nothing until the same
+layer is read somewhere else. No bound, threshold or partition is drawn on that half and nothing in
+this gate is fitted to it — and it is nonetheless the **load-bearing** half, because §6's third
+explanation exists only by the contrast with G0's ones. Disclosed here in the same spirit as the
+one-dump structural orientation pass `declaration.md` §1.2 already records against itself;
+`declaration.md` is committed evidence of what was declared and is not edited after the fact.
 
 **2. The semantics: the hypothesis is refuted and the operator is a saturating source-over
 transform.** The declaration's hypothesis was the classic vibrancy blend — plus-darker in light,
@@ -18432,6 +18443,28 @@ because a unit offset against `inputClamp` = 1 saturates either, and the alpha r
 readings. What *is* identified is the buffer — `capture_in_place_backdrop` snapshots what is
 rendered beneath, and §1 says what that is in the tree.
 
+**The strongest surviving argument for the alternative reading, stated at full strength rather than
+answered away.** §4 argues from a dead coefficient — under the alternative reading the dark
+matrix's `0.949999988079071` does nothing. **The mirror holds against the declared reading and is
+larger: there the dead thing is a whole input.** The colour rows saturate whichever buffer they
+consume and the alpha row agrees either way, so the filter's output is **identical for every possible
+backdrop** — which makes `inputBackdropAware: 1`, the `capture_in_place_backdrop` call, the
+memoryless offscreen surface the fault string names and the entire
+`backdrop_aware_vibrant_color_matrix_sover` entry point **observationally inert** on a label. Apple
+would be paying for a backdrop snapshot on every automatic label in the system and consuming none of
+it. Two answers bear on this and **neither closes it**. *(a)* The two arguments are not the same kind
+of thing: the shader signature is a **structural** fact about which entry points exist, while both
+inert-coefficient arguments are **aesthetic readings of Apple's intent**, and the conclusion here
+rests on the former. *(b)* The flag is not the label's alone: §5.133 §2 records `inputBackdropAware`
+**1** on the two author-tint `CASDFGradientEffect` matrices, which §5.133 §3 reads as a rank-one
+colorize (`m` = 0 to 1e-5, output `g_i·Y + b_i`) — **not** saturating, output genuinely varying
+with its input — so on the tint the backdrop input is manifestly live, and a family in which the
+flag travels with the filter class explains the label's flag without the matrix itself needing it.
+Its limit: the flag is *unset* on the 58 surface-highlight occurrences (§5.133 §2), so it is written
+per configuration and not blanket-defaulted. **§2's `unverified` standing (`reading.md` §2.5) is
+unchanged**, and what the reader should weigh is the magnitude §4 records: up to **61** code values
+apart off black and white, **11** at Apple's own ink.
+
 *Attestation.* The two Apple quotations are Apple's own words at Apple's own URLs. The shader
 signatures, the fault string, the UIKit/SwiftUI symbol names and `flattened_compositing_filter` are
 **third-party recoveries from shipped Apple binaries**, not Apple's words, and were not disassembled
@@ -18456,8 +18489,9 @@ collapses a DOM-proxied group's `backdrop-filter` sampling.
 
 ***What the CSS-tier fold loses relative to the per-pixel path: nothing.*** The operator carries
 **no backdrop term**; the material's composite level enters only as the selector, and the selector
-is per-surface on both tiers. The fold *is* the per-pixel path, and §4 measures them equal on a
-material that actually varies. §5.133 §5's constraint is real and never binds on this operator. Two
+is per-surface on both tiers. The fold *is* the per-pixel path, and §4 measures them equal on the
+two glass cells whose material actually varies beneath a patch the ink does not fully cover — the
+dark `gpu-dom` and `css` ones. §5.133 §5's constraint is real and never binds on this operator. Two
 things that do not follow: the material beneath the label still varies and the ink's alpha lets it
 through, so whatever the CSS tier already loses under X1 it still loses — the operator adds nothing;
 and had the alternative reading been right the fold would lose up to 61 code values with no way to
@@ -18475,7 +18509,7 @@ checkerboard page.
 | **A** — the declared path (`feColorMatrix` at sRGB, source-over) against the closed form, 112 cells | **0.54** |
 | **A** — the CPU fold against the closed form, 112 cells | 0.47 |
 | **B** — the fold against the per-pixel path, 112 pairs | 1 (8-bit quantisation of the flat colour) |
-| **B** — the same, on real glass over a varying material | 0.00 on `gpu-texture` and `gpu-dom`, 0.04 worst on `css` |
+| **B** — the same, on real glass where the material varies: the **dark** `gpu-dom` and `css` cells | 0.00 and 0.04 — the only two cells that can test it, below |
 | **C** — the alternative reading against the declared one, light | 61 (closed form; the engine cannot express it) |
 | **C** — the same, dark | 49 (browser) |
 | **C** — the same, **at Apple's own ink** (black in light, white in dark) | **11**, one cell, dark; light agrees to **0** |
@@ -18485,6 +18519,40 @@ browser's composite of it.** It is **not** a bound between vitrea and macOS: the
 pixel fixture for a label and, under the no-text fixture rule with §5.136 §4's three locks, there
 cannot be one. The fidelity claim available on this path is a configuration claim — Apple's
 coefficients, read exactly, zero residual, 26 dumps — and 0.54 is not it.
+
+*The two A rows are not the same test.* `fold` paints a colour the driver pre-computed, so its 0.47
+measures CSS colour rounding and the compositor on a flat swatch, not the matrix. **`over` is the
+row that checks the matrix**, because there Chromium's own `feColorMatrix` evaluates Apple's twenty
+coefficients.
+
+*And the closed form is now evaluated where it claims to be.* `run.mjs` built its models from the
+`filtered` ink `probe.js` computed **inside the engine under test**, so the "independent" model was
+not independent of the engine's arithmetic. `verdict.py` re-derives the filtered ink from
+`results.json`'s recorded `matrices` and scores against that, publishing the disagreement between
+the two derivations as `independentClosedFormVsPageFiltered`: **3.04e-06 code values** at worst over
+448 cells, all of it the float32 `0.949999988079071` against the page's value rounded to 1e-6. No
+published figure moves.
+
+*What the B row on real glass stands on, and what it does not.* Two cells, not six. The claim is
+that the ink carries no backdrop term, and only the **dark** `gpu-dom` and `css` cells can test it:
+there the bare material varies at sd 12.59 and 3.58, the patch reads sd 0.68 and 0.49, and that
+residual is the 0.95 alpha letting 5 % of the material through — on `gpu-dom`, 0.05 × 12.59 = 0.63
+against the 0.68 measured, an order rather than a value, since the bare band and the patch sit over
+different parts of the page — a passthrough and not a backdrop term, with `over` and `fold` 0.00 and
+0.04 apart.
+
+The other four cells are **consistent with the claim but are not evidence for it**, and are named
+rather than counted: `gpu-texture` is registered with a flat `fill: "#1040c0"` and its material reads sd
+**0**, so nothing there could vary whatever the ink did; and in light the operator's output is
+opaque black at α 1, so any ink at all would read a flat `[0, 0, 0]` at sd 0 under either reading.
+
+*Scoring each arm against the ink it paints.* `blendonly` carries the scheme's plus blend on the
+**raw** ink with no matrix, so scoring it against the filtered ink measured nothing (it recorded 255
+for that reason). Scored against what it paints and the operator the engine performed, it reads
+**0.25** in dark (`plus-lighter`) and **0.45** in light (source-over, `plus-darker` having computed
+to `normal`). It carries no operator of Apple's and is bound by nothing; it corroborates that the
+engine's `plus-lighter` matches closed form on an unfiltered source, so the C column's 61 and 49 are
+a disagreement between two readings rather than a defect in the instrument.
 
 The one cell where the two readings of `inputBackdropAware` differ at Apple's own ink is the cell
 where the dark matrix's α 0.95 decides them: under the declared reading it is a visible 5 %
