@@ -2310,3 +2310,243 @@ describe("the probe set is captured, and gated by nothing (W25 Decision Log 3 (e
     expect(floored).toEqual([]);
   });
 });
+
+/**
+ * ## The stack overlay bound: W27f G2 (2026-09-11)
+ *
+ * W27f replaced the flat white a WebGPU group drew over ordinary page content
+ * with the profile's material at the group's backdrop level. Its landing gate
+ * had to bound the one thing on this bed that has a native reading of a
+ * `css-backdrop` group: a stack's overlay, which resolves `css-backdrop` on
+ * every route and is therefore the composed-glass analogue of the page path
+ * (claims §5.129 X8). The bound was declared before the read, in
+ * `results/2026-09-11-w27f-g2/declaration.md` §4, and the read met it in every
+ * clause; claims §5.135 is the adoption.
+ *
+ * **Why this is not a `GateRow` over `matrix.json` like every bound above it.**
+ * The matrix carries no overlay-local metric, and cannot: a stack cell's
+ * footprint is the union of both placed shapes, and every perceptual, shape and
+ * material row is stated over that union. Claims §5.131 §6 is explicit that the
+ * overlay's residual must not be allowed to disappear behind the base's larger
+ * footprint, so a whole-footprint floor on these cells would gate the wrong
+ * number. The metric exists only in the gate's own reader, and its reading is
+ * committed beside it.
+ *
+ * **What this therefore is, stated plainly.** It is weaker than a matrix floor.
+ * A matrix floor fails when a re-capture moves a number; this fails when the
+ * committed reading's own arithmetic no longer satisfies the bound the ledger
+ * says it satisfies. Each clause below is asserted twice over: once on the
+ * measured error against the declared bound, which is what makes a perturbed
+ * reading fail, and once on the boolean the runner wrote, which is what catches
+ * the runner disagreeing with its own inputs. It catches the ledger and the
+ * evidence drifting apart — which W27c G1b found three instances of (claims
+ * §5.134) — and it does not catch a material change on its own, because nothing
+ * regenerates this reading in CI. What would make it a real floor is per-surface
+ * metrics in the matrix schema, so a stack cell's overlay carries adopted rows
+ * like any other cell; that is named as the work in claims §5.135 and is not
+ * done here.
+ *
+ * The dark `photo__glass-over-glass__rest` cell is absent from the table on
+ * purpose: `apple-macos-26.5-1x-dark-standard` has no such fixture, so the cell
+ * has no envelope and nothing about it is adopted.
+ */
+describe("the stack overlay bound (W27f G2, claims §5.135)", () => {
+  interface OverlayArm {
+    readonly read: Record<string, number | null>;
+    readonly recorded?: Record<string, number | null>;
+    readonly reproducesRecord?: boolean;
+    readonly errorToNative?: Record<string, number | null>;
+    readonly clauseA?: Record<string, { bound: number; from: string; holds: boolean }>;
+    readonly clauseB?: Record<string, { pin: number; holds: boolean }>;
+  }
+  interface OverlayCell {
+    readonly scheme: string;
+    readonly stack: string;
+    readonly scene: string;
+    readonly nativeFixture: boolean;
+    readonly envelope: Record<string, { min: number; max: number; upperFrom: string } | null>;
+    readonly arms: Record<string, OverlayArm>;
+  }
+  interface Verdict {
+    readonly cells: readonly OverlayCell[];
+    readonly stopsScope: string;
+    readonly boundStops: readonly string[];
+    readonly landing: string;
+  }
+  interface Identity {
+    readonly sampledPathStops: readonly string[];
+    readonly coverageStops: readonly string[];
+    readonly instrumentStops: readonly string[];
+    readonly declaredStopRulings: readonly {
+      stop: string;
+      ruling: string;
+      resolved: boolean;
+      decidedBy: string;
+    }[];
+  }
+
+  const EVIDENCE = resolve(PACKAGE_ROOT, "results", "2026-09-11-w27f-g2");
+  const VERDICT = readJson<Verdict>(resolve(EVIDENCE, "verdict.json"));
+  const IDENTITY = readJson<Identity>(resolve(EVIDENCE, "identity.json"));
+  const METRICS = ["de", "lum", "rim"] as const;
+  /** The three cells with a native fixture; the dark photo stack has none. */
+  const REFEREED = VERDICT.cells.filter((cell) => cell.nativeFixture);
+
+  it("reads the three cells that have a native overlay, and only those", () => {
+    expect(VERDICT.cells).toHaveLength(4);
+    expect(REFEREED.map((cell) => `${cell.scheme} / ${cell.stack}`)).toEqual([
+      "light / checkerboard",
+      "light / photo",
+      "dark / checkerboard",
+    ]);
+    const unrefereed = VERDICT.cells.filter((cell) => !cell.nativeFixture);
+    expect(unrefereed.map((cell) => `${cell.scheme} / ${cell.stack}`)).toEqual(["dark / photo"]);
+    // Nothing is adopted over the cell with no native fixture. If a dark
+    // `photo__glass-over-glass` is ever captured, this is where it stops being
+    // true and the cell gains an envelope of its own.
+    for (const cell of unrefereed) {
+      for (const arm of Object.values(cell.arms)) {
+        expect(arm.clauseA).toBeUndefined();
+        expect(arm.clauseB).toBeUndefined();
+      }
+    }
+  });
+
+  it("holds clause A: the DOM-base overlay is inside the native stack envelope", () => {
+    // The envelope's endpoints are S0 (the old textured-base composite, which
+    // the runtime can no longer produce) and S1 (the same base under the landed
+    // material), kept apart and never averaged. The bound is the upper endpoint.
+    // The comparison is made here rather than read off `holds`, so that a
+    // reading which drifts out of the envelope fails this test even if the
+    // runner's own verdict still says it passed.
+    for (const cell of REFEREED) {
+      const uh = cell.arms["uh"];
+      expect(uh, `${cell.scheme} / ${cell.stack} has no hinted DOM arm`).toBeDefined();
+      for (const metric of METRICS) {
+        const clause = uh?.clauseA?.[metric];
+        expect(clause, `${cell.scheme} / ${cell.stack} :: ${metric}`).toBeDefined();
+        const error = uh?.errorToNative?.[metric];
+        expect(
+          error,
+          `${cell.scheme} / ${cell.stack} :: ${metric} has no measured error to native`,
+        ).toBeTypeOf("number");
+        expect(
+          error as number,
+          `${cell.scheme} / ${cell.stack} :: ${metric} left the envelope at ${clause?.bound}`,
+        ).toBeLessThanOrEqual(clause?.bound as number);
+        expect(clause?.holds, `${cell.scheme} / ${cell.stack} :: ${metric}`).toBe(true);
+      }
+    }
+  });
+
+  it("holds clause B: no overlay reading is worse than claims §5.131 §6 recorded", () => {
+    // Eighteen pins: two arms × three metrics × the three cells with a native
+    // fixture. Each is the measured error against the magnitude claims §5.131 §6
+    // recorded for the same configuration and metric, compared here rather than
+    // taken on trust from the runner's boolean.
+    let pinned = 0;
+    for (const cell of REFEREED) {
+      for (const which of ["s1", "uh"]) {
+        for (const metric of METRICS) {
+          const pin = cell.arms[which]?.clauseB?.[metric];
+          expect(pin, `${cell.scheme} / ${cell.stack} / ${which} :: ${metric}`).toBeDefined();
+          const error = cell.arms[which]?.errorToNative?.[metric];
+          expect(
+            error,
+            `${cell.scheme} / ${cell.stack} / ${which} :: ${metric} has no measured error`,
+          ).toBeTypeOf("number");
+          expect(
+            error as number,
+            `${cell.scheme} / ${cell.stack} / ${which} :: ${metric} widened past ${pin?.pin}`,
+          ).toBeLessThanOrEqual(pin?.pin as number);
+          expect(pin?.holds, `${cell.scheme} / ${cell.stack} / ${which} :: ${metric}`).toBe(true);
+          pinned += 1;
+        }
+      }
+    }
+    expect(pinned).toBe(18);
+  });
+
+  it("records that the read reproduced the ledger exactly, rather than merely passing", () => {
+    // The distinction matters. A reading that is inside the bound but somewhere
+    // new would mean the material moved and happened to stay in range; every one
+    // of these reproduced claims §5.131 §6 to the printed precision, which is
+    // why the landing head could be certified as the configuration G1 measured.
+    // The equality is asserted on the readings themselves, so that a reading
+    // which moves fails here whatever `reproducesRecord` was written as.
+    for (const cell of REFEREED) {
+      for (const which of ["s1", "uh"]) {
+        const arm = cell.arms[which];
+        for (const metric of METRICS) {
+          const recorded = arm?.recorded?.[metric];
+          if (recorded === undefined || recorded === null) continue;
+          expect(
+            arm?.read?.[metric],
+            `${cell.scheme} / ${cell.stack} / ${which} :: ${metric} left §5.131 §6's value`,
+          ).toBe(recorded);
+        }
+        expect(
+          arm?.reproducesRecord,
+          `${cell.scheme} / ${cell.stack} / ${which} did not reproduce §5.131 §6`,
+        ).toBe(true);
+      }
+    }
+  });
+
+  it("carries the two dark-checker regressions the ledger names, pinned and unclosed", () => {
+    // Claims §5.131 §6 records both: the hinted DOM overlay's ΔE went
+    // 0.011332 → 0.013059 and the textured-base overlay's 0.013765 → 0.016702
+    // when G1's material replaced the flat. Neither is repaired by W27f G2, and
+    // the point of pinning them is that they cannot widen unobserved. A gate
+    // that quietly improved these numbers would also fail here, which is
+    // correct: it would mean the material moved.
+    const dark = REFEREED.find((cell) => cell.scheme === "dark" && cell.stack === "checkerboard");
+    expect(dark?.arms["uh"]?.clauseB?.["de"]?.pin).toBe(0.013059);
+    expect(dark?.arms["s1"]?.clauseB?.["de"]?.pin).toBe(0.016702);
+    // And the one row where clause A's upper endpoint is S1's own regression,
+    // which is why clause B is what carries this cell.
+    expect(dark?.envelope["de"]?.upperFrom).toBe("s1");
+  });
+
+  it("landed with none of the bound's own stops outstanding", () => {
+    // Scoped deliberately. `verdict.json` decides S1 and S2, the two clauses,
+    // and those are empty: this is what the adoption rests on. It does not
+    // decide S3 or S4, and an unqualified "no stop outstanding" over this file
+    // would assert something about the instrument that this file never
+    // measured — which is how the gate's two evidence files came to disagree
+    // with nothing reconciling them.
+    expect(VERDICT.boundStops).toEqual([]);
+    expect(VERDICT.landing).toBe("the bound's clauses hold");
+    expect(VERDICT.stopsScope).toContain("S1");
+  });
+
+  it("carries the instrument's stops apart, with S4 tripped and ruled on by the user", () => {
+    // S3 held: no sampled digest moved, and no capture the record has went
+    // missing from the read. S4, as `declaration.md` §6 worded it, did not: one
+    // record-only CSS capture is not byte-repeatable.
+    //
+    // The user scoped S4 to the WebGPU arms on 2026-09-12 (W27 Decision Log 14),
+    // on the ground that the stop as declared contradicted contract X1, which
+    // predates it — so the ruling corrects the declaration and not the reading.
+    //
+    // What this asserts is the *record*, not the outcome. The stop must still be
+    // recorded as tripped, the ruling must still name the decision that scoped
+    // it, and the decision must still be attributed. A later edit that quietly
+    // drops the trip, restates the ruling as the gate's own, or re-attributes it
+    // fails here — which is the whole point of keeping the history in the
+    // evidence rather than only in prose that nothing checks.
+    expect(IDENTITY.sampledPathStops).toEqual([]);
+    expect(IDENTITY.coverageStops).toEqual([]);
+    expect(IDENTITY.instrumentStops.length).toBeGreaterThan(0);
+
+    const [s4, ...rest] = IDENTITY.declaredStopRulings;
+    expect(rest).toEqual([]);
+    expect(s4?.stop).toBe("S4");
+    expect(s4?.resolved).toBe(true);
+    expect(s4?.decidedBy).toBe("W27 Decision Log 14");
+    expect(s4?.ruling).toContain("scoped to the WebGPU arms");
+    expect(s4?.ruling).toContain("corrects the declaration, not the reading");
+    // The residual the ruling explicitly did not close.
+    expect(s4?.ruling).toContain("CSS bistability stays a named residual");
+  });
+});

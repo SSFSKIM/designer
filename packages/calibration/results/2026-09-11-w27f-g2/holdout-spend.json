@@ -1,0 +1,44 @@
+{
+  "spentAt": "2026-09-11T21:46:06+0900",
+  "spentBy": "2026-09-10-w27f-g1-measure.py capture --phase holdout",
+  "scenes": {
+    "light": [
+      "checkerboard__glass-over-glass__rest",
+      "photo__glass-over-glass__rest"
+    ],
+    "dark": [
+      "checkerboard__glass-over-glass__rest",
+      "photo__glass-over-glass__rest"
+    ]
+  },
+  "sourceRoot": "/Users/new/Developer/GitHub/designer/.claude/worktrees/w27f-g2",
+  "commit": "7b2e03c89272fa8bc851ee76ad44ca356923d198",
+  "dirtyPaths": [
+    "packages/calibration/results/2026-09-11-w27f-g2/eye/",
+    "packages/calibration/results/2026-09-11-w27f-g2/identity.py",
+    "packages/calibration/results/2026-09-11-w27f-g2/verdict.py"
+  ],
+  "sceneManifestSha256": "d04eb3c494cf029ec75f7b556a2ac152957c32b9c36d180ed32d25d7ab5639a4",
+  "nativeManifestSha256": "f67dea25c199a88c1ffb6ae4c4bf34a39368d87fa2f49af064b9b32f4e8835b6",
+  "declaredGeometryScriptSha256": "d4e266a7eadeeb1fc1c6328dc1c9d9bd745798f1f1d9b7085692af874094bd40",
+  "contourInstrumentSha256": "ed35a49e7f42ce7fdbb49bf7f22e367fedaf771672a07b789ea7b7ac85cdc325",
+  "g0ReaderSha256": "1087092c3af0ecffdaece55e24ba3e8a78850241a2cbac9452a9695622f5ff0f",
+  "runnerSha256": "e3ddd666a2621e8274ef1f1292ff144a0fdccd4cae0d1c87320483d4ec99d721",
+  "materialSourcesScope": "runtime-src-trees-2026-09-10",
+  "materialSourcesSha256": {
+    "packages/renderer-webgpu/src": "7d20d6fc4746f3e852d303613c42047f4c923755dc1c5aad81d3822e71d80570",
+    "packages/platform-web/src": "8f5e8ded18140ce2abd1eaff4f77e6f1a7499c5e717161f9a0bbc88c52ff0f18",
+    "packages/core/src": "0ed71540a7b16e732c8ac1ab9423d655d0d8a3a8c5a40e84abc0d28ed92b09b4",
+    "packages/policy/src": "56a92419bfa26e1f52dc3366c394f05f855ac3400239b686f62e59b1074947e5",
+    "packages/geometry/src": "e54892df7fd5bc3f0451238a71a5083129b8ae99a06dcf741aa96981cf06c11b",
+    "packages/motion/src": "2864752ba956502742c433b2c832990ee4f7c492c1e9effd090fbcace3ebc11a"
+  },
+  "materialProfileSha256": {
+    "light": "6a9600720477dd433539d7af477b838776410e957d63fa7e63059dab214c5d26",
+    "dark": "950ce1c3e91715ee470dd02d10c589f3ebae0f2b88d6ae85f4a2de6986020e12"
+  },
+  "resolvedMaterialSha256": {
+    "light": "b2b570e4adcea8fb",
+    "dark": "874be66ea501621b"
+  }
+}
