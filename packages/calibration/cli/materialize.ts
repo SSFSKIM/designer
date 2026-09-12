@@ -396,10 +396,9 @@ function main(): void {
   // The bed's own provenance. "Unanimous" is a claim about how hard anyone
   // looked, so the run count and what it buys travel with the bytes.
   const settledEntries = publish.filter((p) => p.entry["frequencySettled"] === true);
-  // Accumulated, not replaced: the bed is materialised one phase at a time
-  // (each phase's runs cover only its own profiles), so a provenance block that
-  // overwrote itself would leave the finished bed claiming to have been built
-  // from whichever phase happened to run last.
+  // Accumulated, not replaced: the bed is materialised one phase at a time, so a
+  // provenance block that overwrote itself would leave the finished bed claiming
+  // to have been built from whichever phase happened to run last.
   const provenanceHost = manifest as unknown as { bedProvenance?: unknown[] };
   const priorProvenance = Array.isArray(provenanceHost.bedProvenance) ? provenanceHost.bedProvenance : [];
   const thisPhase = {
@@ -424,10 +423,27 @@ function main(): void {
       atP0_10: Number(confidenceAt(runs.length, 0.1).toFixed(4)),
     },
   };
+  /*
+   * A phase is identified by its profiles, its run labels AND how many cells it
+   * published, not by its profiles alone.
+   *
+   * Keying on the profiles was right while each phase was the only publication
+   * its profiles had ever had, and it made re-running the same command
+   * idempotent. It is wrong as soon as a second phase publishes DIFFERENT cells
+   * into profiles an earlier phase already filled: W27c's 26.5 checking bed adds
+   * 62 probe cells to the two 2x standard profiles that the frozen bed built at
+   * the seventeen-run freeze bar, and dropping by profile set would have deleted
+   * the record of how the 455 cells already in the bundle were taken (claims
+   * §5.139). The bed would then have claimed seven runs for bytes that had
+   * seventeen. Re-running one phase still replaces its own block, because all
+   * three parts of the identity repeat.
+   */
+  const phaseIdentity = (p: unknown): string => {
+    const block = p as { profiles?: unknown; runLabels?: unknown; cellsPublished?: unknown };
+    return JSON.stringify([block.profiles, block.runLabels, block.cellsPublished]);
+  };
   provenanceHost.bedProvenance = [
-    ...priorProvenance.filter(
-      (p) => JSON.stringify((p as { profiles?: unknown }).profiles) !== JSON.stringify(thisPhase.profiles),
-    ),
+    ...priorProvenance.filter((p) => phaseIdentity(p) !== phaseIdentity(thisPhase)),
     thisPhase,
   ];
   const split = (JSON.parse(readFileSync(SCENES, "utf8")) as { split?: Record<string, unknown> }).split ?? {};
