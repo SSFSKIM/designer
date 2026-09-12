@@ -83,18 +83,30 @@ the active pose and the recede collapses to one operator per scheme fits the dat
 scale dependence. The 1x re-run settles it only if it takes both poses — the active one is
 `dump-layers`' existing path, and the recede needs the same `.accessory` launch the capture uses:
 
+**The active arm has to be asserted, not assumed.** The committed 2x probe was taken by this same
+`dump-layers` with no accessory policy, and all 50 of its dumps record `isKeyWindow: false`:
+`capture.sh` execs from a terminal, which does not get the activation a bundle launch does. So an
+"active" arm that merely omits the policy can come back non-key, and a run taken to separate the
+pose from the scale would produce two non-key corpora and separate nothing. `--require-key` refuses
+before it walks a scene, and the active arm goes through `open -W` against the bundle:
+
 ```bash
-# active pose, 1x — dump-layers as it already runs
-VITREA_SCENES="$PWD/scenes-w27e-probe.json" ./capture.sh dump-layers --scenes "$IDS" \
-  --scheme light --settle 8 --out /tmp/w27e-probe-1x-active/light
-# recede, 1x — same scenes, non-key window
+APP="$PWD/build/VitreaReference.app"
+# ACTIVE pose, 1x — asserted key, launched the way a bundle is launched
+open -W --env VITREA_SCENES="$PWD/scenes-w27e-probe.json" \
+  --stdout /tmp/w27e-1x-active.log --stderr /tmp/w27e-1x-active.err "$APP" \
+  --args dump-layers --scenes "$IDS" --scheme light --settle 8 --require-key \
+  --out /tmp/w27e-probe-1x-active/light
+# RECEDE, 1x — same scenes, non-key window, the capture's own launch policy
 VITREA_ACTIVATION_POLICY=accessory VITREA_SCENES="$PWD/scenes-w27e-probe.json" \
   ./capture.sh dump-layers --scenes "$IDS" --scheme light --settle 8 \
   --out /tmp/w27e-probe-1x-inactive/light
 ```
 
-Each dump records `isKeyWindow`, so the two are told apart by the file rather than by the directory
-name. Write them to NEW directories — never over the committed 2x trees.
+Check the two arms disagree before believing either: every dump records its own `isKeyWindow`, so
+`grep -h isKeyWindow /tmp/w27e-probe-1x-*/light/*.json | sort -u` must show **both** `true` and
+`false`. If it shows only `false`, the active arm did not reach the pose and the run separates
+nothing. Write them to NEW directories — never over the committed 2x trees.
 
 ## 4. Step 3 — prove the path before spending the machine (2 minutes)
 

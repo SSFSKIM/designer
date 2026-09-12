@@ -17745,8 +17745,10 @@ runs the ACTIVE pose's RESPONSE rule — which the recede is measured to destroy
 captured **every cell** and then refused the whole bundle at the end, the most expensive place a
 run can fail, with `DRY=1` unable to surface it because the check runs over an empty `byProfile`
 when nothing is recorded. Measured by `rehearse-tints`, which applies the real rule to bytes already
-on disk: over the committed bed, **19 inactive tinted cells across all six profiles** would refuse
-the run — `checkerboard__capsule-button__inactive-tint-orange` reads chroma 0.3978 against its
+on disk: over the committed bed, **27 inactive tinted cells across all six profiles** would refuse
+the run — of 33 inactive tinted cells that have an untinted twin, the other 6 being `dark-solid`
+capsules whose chroma shift is unmeasurable because the component changes no pixel above the noise
+threshold, which the rehearsal now counts rather than passes over — `checkerboard__capsule-button__inactive-tint-orange` reads chroma 0.3978 against its
 twin's 0.0146 (response +0.3831, floor 1.0) where its active twin reads 115.5264 against 0.0133
 (+115.5131). The fix is the exemption `checking-bed.json`'s own `caution` asked for and
 `cli/gates.ts` already applies on the consumer side: the recede does not condemn on an attestation
@@ -17783,6 +17785,40 @@ resume branch skips, so the documented recovery would have stepped over it and h
 audit's four real conditions are stated; the standard pass is **76** cells, not 80 (§6); the
 runbook's probe re-read command needed `W27E_OUT` against a create-only writer; and
 `manifest-doctor` printed BYTE-IDENTICAL for a parsed-value comparison.
+
+**9. Second review round, and the lesson it carries.** Re-checked over `9b38eaa..031fb0b`: five of
+the eight fixes held, and **seven further defects** were returned — **two of them introduced by the
+fixes themselves**, both in `run-sitting.sh`, and both reachable only by running the script.
+
+- The tint pre-flight ran for **both** poses against the committed bundle, which holds the recovered
+  inactive bed and none of this bed's active cells. Under the active rule that bundle exits 8, so
+  every active pass would have refused before opening a window. Gated on the inactive pose.
+- `grep … | sed …` under `set -euo pipefail` **exits 1 when it finds nothing**, so a clean
+  rehearsal killed the script before it printed its count. A healthy run looked like a failure.
+
+Both are now pinned by `run-sitting.test.sh`, which stubs the harness and the launcher and exercises
+the script's control flow — the pre-flight, the dry branch, the audit, the quarantine and the resume
+— **with no display, no GUI session and no dependence on the screen's state**. Reverting either fix
+turns its row red. That is the lesson of this round in one line: the two defects the first fix pass
+introduced were in the half of the system that had no proof which could run anywhere, and they were
+hidden by the same locked screen that §8 records. The Swift side now has the same property —
+`Capture.cellMayBeWritten` is a pure function of pose, key, active and lock, and `self-check` runs
+its whole truth table on any machine in any state, including the row a live run cannot easily
+produce: an inactive cell on a locked screen, which satisfies the attestation's two window facts and
+must still refuse.
+
+The other five: **the lock gate fired once at run start and nothing re-read it**, so a screen saver
+after the gate would let every remaining inactive cell attest and the audit score the pass perfect —
+now sampled per cell, beside the pose, in both the attestation and the write; **the runbook's 1x
+active arm could not have separated the pose from the scale**, because the committed 2x probe was
+taken by that same command and records `isKeyWindow: false` on all 50 dumps, so `--require-key` now
+refuses before walking a scene and the arm is launched through `open -W`, with a check that the two
+arms actually disagree; **the refusing-cell count is 27, not 19** (of 33 inactive tinted cells with
+a twin, 6 being unmeasurable, which the rehearsal now reports rather than passes over); **the
+quarantine left the run's three logs behind** to be deleted and overwritten by the documented
+retake, destroying the record of the one run whose record matters most; and the probe's cross-pose
+pixel diagnostic became unreachable once the two poses were split across two processes, so it is
+removed rather than left as dead code that reads as evidence.
 
 **Verification record.** `pnpm --filter @vitrea/calibration test` 372/372 (from 356: four
 scene-matrix pins moved to the invariants this change alters, four new checking-bed pins, eleven new

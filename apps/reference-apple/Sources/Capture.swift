@@ -273,6 +273,30 @@ enum Capture {
     !window.isKeyWindow && !NSApp.isActive
   }
 
+  /// Whether a cell captured in `pose` may be WRITTEN, given the three facts that
+  /// decide it. Pure, so the rule can be proved without a window — see the
+  /// `self-check` subcommand, which runs the whole truth table.
+  ///
+  /// The screen-lock term is the one that is not obvious, and it is the reason
+  /// this is a function rather than two `&&`s at the call site. On a locked screen
+  /// nothing can become active or key, so `!isKeyWindow && !appIsActive` — the
+  /// inactive attestation — is satisfied **for the wrong reason**, by a session in
+  /// which the window server is compositing nothing the bed is about. An inactive
+  /// pass that locked mid-run would therefore attest every remaining cell and the
+  /// audit would score it perfect. The lock is checked per cell for exactly that
+  /// reason: a screen saver or a display sleep after the run's opening gate is the
+  /// realistic way it happens, and the opening gate cannot see it.
+  static func cellMayBeWritten(pose: CapturePose, isKeyWindow: Bool, appIsActive: Bool,
+                               screenLocked: Bool?) -> Bool {
+    // `nil` is "the session could not be read", which is not "unlocked" and fails
+    // closed, exactly as the idle gate treats an unreadable counter.
+    guard screenLocked == false else { return false }
+    switch pose {
+    case .active: return isKeyWindow && appIsActive
+    case .inactive: return !isKeyWindow && !appIsActive
+    }
+  }
+
   /// The pose a window is in right now, or `nil` when it is in neither — key in an
   /// inactive application, or not key in an active one. `nil` is a refusal, not a
   /// default: a capture taken in a half-state belongs to no bed.

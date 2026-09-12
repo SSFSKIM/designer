@@ -205,6 +205,78 @@ func runProbe() {
   }
 }
 
+// MARK: - self-check
+
+/// Run the pure capture rules over their whole truth table and refuse if any row
+/// is wrong.
+///
+/// Everything else in this harness needs a window, a display, a GUI session and a
+/// screen that is not locked — which is exactly why the rule that decides whether
+/// a cell may be written had no proof that could run anywhere. It does now:
+/// `Capture.cellMayBeWritten` is a function of three facts, so its behaviour is a
+/// table, and a table can be checked on any machine in any state.
+///
+/// The row that matters most is the one a live run cannot easily produce: an
+/// inactive cell on a LOCKED screen. `!isKeyWindow && !appIsActive` is true there
+/// for the wrong reason, and nothing about the window says so.
+func runSelfCheck() {
+  var failures = 0
+  func check(_ label: String, _ got: Bool, _ want: Bool) {
+    let ok = got == want
+    if !ok { failures += 1 }
+    print("  \(ok ? "ok  " : "FAIL") \(label) -> \(got), expected \(want)")
+  }
+  print("== self-check: Capture.cellMayBeWritten ==")
+  for pose in [CapturePose.active, .inactive] {
+    for key in [true, false] {
+      for active in [true, false] {
+        for locked in [false, true, nil] as [Bool?] {
+          let want: Bool
+          if locked != false {
+            want = false                       // unreadable or locked: fail closed
+          } else if pose == .active {
+            want = key && active
+          } else {
+            want = !key && !active
+          }
+          let got = Capture.cellMayBeWritten(pose: pose, isKeyWindow: key,
+                                             appIsActive: active, screenLocked: locked)
+          let lockText = locked.map { $0 ? "locked" : "unlocked" } ?? "unreadable"
+          check("\(pose.rawValue) key=\(key) active=\(active) \(lockText)", got, want)
+        }
+      }
+    }
+  }
+  print("")
+  print("== the rows the gates exist for ==")
+  // A locked screen satisfies the inactive attestation's two window facts and
+  // must still refuse. This is the regression the per-cell check was added for.
+  check("inactive, key=false active=false, LOCKED (attests for the wrong reason)",
+        Capture.cellMayBeWritten(pose: .inactive, isKeyWindow: false, appIsActive: false,
+                                 screenLocked: true), false)
+  check("inactive, key=false active=false, unlocked (the real recede)",
+        Capture.cellMayBeWritten(pose: .inactive, isKeyWindow: false, appIsActive: false,
+                                 screenLocked: false), true)
+  // The inactive predicate is not the negation of the active one: a key window in
+  // an inactive application is neither pose and belongs to no bed.
+  check("neither pose: key=true active=false, unlocked",
+        Capture.cellMayBeWritten(pose: .inactive, isKeyWindow: true, appIsActive: false,
+                                 screenLocked: false), false)
+  check("active, key=true active=true, unlocked",
+        Capture.cellMayBeWritten(pose: .active, isKeyWindow: true, appIsActive: true,
+                                 screenLocked: false), true)
+  check("active on a LOCKED screen refuses too",
+        Capture.cellMayBeWritten(pose: .active, isKeyWindow: true, appIsActive: true,
+                                 screenLocked: true), false)
+  print("")
+  if failures == 0 {
+    print("all rows hold.")
+  } else {
+    print("\(failures) row(s) wrong.")
+    exit(1)
+  }
+}
+
 // MARK: - rehearse-tints
 
 /// Run the producer-side tint attestation over a fixture bundle that already
@@ -258,7 +330,7 @@ func runRehearseTints(pose: CapturePose) {
   print("")
 
   var wouldRefuse: [String] = []
-  var checked = 0, exempt = 0
+  var checked = 0, exempt = 0, unmeasurable = 0
   var cache: [String: CGImage] = [:]
   func image(_ path: String) -> CGImage? {
     if let hit = cache[path] { return hit }
@@ -277,7 +349,14 @@ func runRehearseTints(pose: CapturePose) {
             let tinted = image("\(root)/\(profile.profileKey)/\(entry.sceneId).png"),
             let plain = image("\(root)/\(profile.profileKey)/\(twinId).png"),
             let own = (try? Capture.chromaShift(tinted, background: bg)) ?? nil,
-            let twin = (try? Capture.chromaShift(plain, background: bg)) ?? nil else { continue }
+            let twin = (try? Capture.chromaShift(plain, background: bg)) ?? nil else {
+        // `chromaShift` is nil when the component changed NO pixel above the
+        // noise threshold — there is no region to measure. Counted rather than
+        // passed over: a cell the rule cannot reach is not a cell the rule
+        // cleared, and the difference matters when the count is quoted.
+        unmeasurable += 1
+        continue
+      }
       checked += 1
       let reached = TintResolver.colourReachedMaterial(own: own, untintedTwin: twin)
       // The pose the rehearsal is run under decides which rule applies, so a
@@ -293,7 +372,8 @@ func runRehearseTints(pose: CapturePose) {
   }
 
   print("")
-  print("\(checked) tinted cells with an untinted twin; \(exempt) exempt by pose.")
+  print("\(checked) tinted cells measured; \(exempt) exempt by pose; "
+        + "\(unmeasurable) had a twin but no measurable region.")
   if wouldRefuse.isEmpty {
     print("This bundle PUBLISHES: no tinted cell condemns the run.")
   } else {
@@ -488,18 +568,16 @@ func runDeactivateProbe() {
       try? await Task.sleep(nanoseconds: UInt64(max(0, seconds) * 1_000_000_000))
     }
 
-    var images: [String: CGImage] = [:]
 
     /// Ask ScreenCaptureKit for the window, in memory, and drop it. This is the
     /// reading AppKit cannot give: a window can report visible and still not be in
     /// the shareable list, and a bed cannot be captured through a window that is not.
-    @MainActor func shareable(_ window: NSWindow, arm: String) async -> String {
+    @MainActor func shareable(_ window: NSWindow) async -> String {
       let px = CGSize(width: canvas.width * window.backingScaleFactor,
                       height: canvas.height * window.backingScaleFactor)
       do {
         let image = try await Capture.screenCaptureKit(
           windowID: CGWindowID(window.windowNumber), pixelSize: px)
-        images[arm] = image
         return "SCK ok \(image.width)x\(image.height)"
       } catch {
         return "SCK FAILED — \(error.localizedDescription.prefix(120))"
@@ -528,7 +606,7 @@ func runDeactivateProbe() {
       print(state("after orderFrontRegardless", inactive))
       await settle(3.0)
       print(state("3s later (does it hold?)", inactive))
-      print("     \(await shareable(inactive, arm: "inactive"))")
+      print("     \(await shareable(inactive))")
       // The one call that could break it, asked for on purpose, because "cannot
       // become key" has to be tested rather than quoted from a header.
       inactive.makeKey()
@@ -545,7 +623,7 @@ func runDeactivateProbe() {
       await settle(1.2)
       print("B. present() under .regular  [the active pose, DL14's three changes]")
       print(state("after present", active))
-      print("     \(await shareable(active, arm: "active"))")
+      print("     \(await shareable(active))")
 
       // ARM C — NSApp.deactivate() from that state.
       NSApp.deactivate()
@@ -587,11 +665,11 @@ func runDeactivateProbe() {
       print(state("after re-entering accessory", again))
     }
 
-    if let a = images["active"], let b = images["inactive"], let cmp = try? Capture.compare(a, b) {
-      print("")
-      print(String(format: "DIAGNOSTIC (written nowhere, not a reading of the material): " +
-                   "active vs inactive mad=%.4f max=%d", cmp.mad, cmp.maxDelta))
-    }
+    // The active/inactive pixel diagnostic the first version printed is gone: the
+    // two poses are now measured by two processes with different launch policies,
+    // so no single run holds both images. Reinstating it would mean writing a
+    // capture to disk for the other pass to read, which is a fixture in all but
+    // name — and the pose's evidence is the attestation, not a difference image.
     print("")
     print("Nothing was captured to disk. No fixture, scene or manifest was touched.")
     NSApp.terminate(nil)
@@ -643,7 +721,8 @@ let DUMP_LAYER_DEFAULT_SCENES = [
 /// is read exactly as `capture` reads it so the scene ids mean the same thing in
 /// both places.
 @MainActor
-func runDumpLayers(sceneIds: [String], outDir: String, settleSeconds: Double, scheme: String?) {
+func runDumpLayers(sceneIds: [String], outDir: String, settleSeconds: Double, scheme: String?,
+                   requireKey: Bool) {
   let spec = loadSpec()
   let scale = captureScale()
   let canvas = spec.canvas.cgSize
@@ -707,6 +786,25 @@ func runDumpLayers(sceneIds: [String], outDir: String, settleSeconds: Double, sc
         "NSApp.isActive: \(NSApp.isActive)")
   print("environment: colorScheme=\(colorScheme) a11y=\(a11y) (system a11y: \(SystemAccessibility.current))")
   print("out: \(outDir)")
+  // `--require-key` exists because a dump's pose is NOT implied by the command
+  // that took it. The committed 2x probe was taken by this same `dump-layers`
+  // under the default `.regular` policy and every one of its 50 dumps records
+  // `isKeyWindow: false` — the harness reaches the window server from a terminal
+  // without the activation a bundle launch gets. So an "active-pose" arm that
+  // simply omits the accessory policy can come back non-key, and a run taken to
+  // SEPARATE the pose from the scale would produce two non-key corpora and
+  // separate nothing. Asserted before any scene is walked.
+  if requireKey && !window.isKeyWindow {
+    fail("""
+      --require-key: the window is NOT key\
+      \(NSApp.isActive ? "" : " and the application is not active")\
+      \(Environment.screenIsLocked() != false ? " (the screen is locked)" : "").
+
+      This arm was asked for in the ACTIVE pose and would have recorded the recede \
+      under an active name. Launch it through `open -W` against the app bundle, on \
+      an unlocked console session with nothing stealing focus. Nothing was written.
+      """)
+  }
 
   Task { @MainActor in
     for scene in wanted {
@@ -1540,7 +1638,23 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
     /// of publishing the cell with a note.
     func attestPose(_ w: NSWindow) -> PresentationAttestation? {
       guard pose == .inactive else { return nil }
-      guard Capture.isInactivelyPresented(w) else {
+      let locked = Environment.screenIsLocked()
+      guard locked == false else {
+        fail("""
+          scene '\(scene.id)': the login session's screen is LOCKED\
+          \(locked == nil ? " (or could not be read, which is not the same)" : "") — \
+          the run passed its opening gate and the screen locked during it.
+
+          This is the case the per-cell check exists for. A locked screen satisfies \
+          the inactive attestation for the WRONG REASON: nothing can become active \
+          or key, so every remaining cell would attest and the audit would score \
+          the pass perfect while the window server composites nothing the bed is \
+          about. Turn off the screen saver and display sleep for the length of the \
+          sitting. Nothing was published; \(root) is unchanged.
+          """)
+      }
+      guard Capture.cellMayBeWritten(pose: pose, isKeyWindow: w.isKeyWindow,
+                                     appIsActive: NSApp.isActive, screenLocked: locked) else {
         fail("""
           scene '\(scene.id)': the inactive pose was lost before this cell. The \
           window is \(w.isKeyWindow ? "KEY" : "not key") and the application is \
@@ -1581,7 +1695,10 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
       // `presentedActive: true` beside an attestation saying `inactive`, and
       // refused only at the NEXT cell — after this one was already filed. The two
       // readings bracket the capture, and a cell is written only if both hold.
-      if pose == .inactive, let w = window, !Capture.isInactivelyPresented(w) {
+      if pose == .inactive, let w = window,
+         !Capture.cellMayBeWritten(pose: pose, isKeyWindow: w.isKeyWindow,
+                                   appIsActive: NSApp.isActive,
+                                   screenLocked: Environment.screenIsLocked()) {
         fail("""
           scene '\(scene.id)': the inactive pose held when this cell was attested \
           and was LOST before its bytes were recorded — the window is \
@@ -1795,6 +1912,11 @@ struct Harness {
       }
       runGUI(policy: launch == "accessory" ? .accessory : .regular) { runDeactivateProbe() }
 
+    case "self-check":
+      // No window, no display, no GUI session, no screen state: it checks the
+      // pure rules, so it runs anywhere and in any machine state.
+      runSelfCheck()
+
     case "rehearse-tints":
       // No window, no TCC, no capture: it reads a bundle that already exists and
       // says whether a run that produced it would have been refused.
@@ -1835,7 +1957,9 @@ struct Harness {
         VITREA_SCENES at a spec with none of these.
         """)
       let scheme = value(of: "--scheme", in: args)
-      runGUI { runDumpLayers(sceneIds: ids, outDir: out, settleSeconds: settle, scheme: scheme) }
+      let requireKey = args.contains("--require-key")
+      runGUI { runDumpLayers(sceneIds: ids, outDir: out, settleSeconds: settle, scheme: scheme,
+                             requireKey: requireKey) }
 
     case "capture":
       let raw = value(of: "--method", in: args) ?? "screencapturekit"
@@ -1941,7 +2065,7 @@ struct Harness {
 
     default:
       fail("""
-        usage: harness [backgrounds|probe|deactivate-probe|manifest-doctor|rehearse-tints|tint-doctor|dump-layers|capture [options]]
+        usage: harness [backgrounds|probe|deactivate-probe|self-check|manifest-doctor|rehearse-tints|tint-doctor|dump-layers|capture [options]]
 
         rehearse-tints options:
           --pose <active|inactive>    which pose's tint-attestation rule to apply (default active)
@@ -1954,6 +2078,7 @@ struct Harness {
           --out <dir>                 where the per-scene JSON goes (default build/layer-dumps)
           --settle <s>                seconds to wait after presenting each scene (default 1.5)
           --scheme <light|dark>       the colour scheme to present under (default light)
+          --require-key               refuse unless the window is key: the ACTIVE pose, asserted
 
         capture options:
           --method <m>                swiftui-image-renderer | nsview-cachedisplay | screencapturekit

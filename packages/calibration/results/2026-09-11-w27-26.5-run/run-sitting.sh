@@ -23,8 +23,13 @@ case "$SCALE" in 1|2) ;; *) echo "usage: $0 <inactive|active> <1|2> [first] [las
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$HERE/../../../.." && pwd)"
-APP="$REPO/apps/reference-apple/build/VitreaReference.app"
-HARNESS="$REPO/apps/reference-apple/build/harness"
+APP="${VITREA_APP:-$REPO/apps/reference-apple/build/VitreaReference.app}"
+# `VITREA_HARNESS` exists for `run-sitting.test.sh`, which stubs it to exercise
+# this script's control flow — the pre-flight, the dry branch, the audit and the
+# quarantine — without a display, a GUI session or an unlocked screen. Those paths
+# are otherwise only reachable on the one machine and in the one state, which is
+# how two of them shipped broken.
+HARNESS="${VITREA_HARNESS:-$REPO/apps/reference-apple/build/harness}"
 SCENES="$(cat "$HERE/bed-$MODE.txt")"
 T="${VITREA_SITTING_DIR:-$HOME/vitrea-w27-26.5-run}"
 
@@ -58,7 +63,12 @@ POSE_ARG=""
 # fails after every cell is captured. It is decidable from bytes already on disk,
 # so it is decided here, once, before the pass starts — over the committed bed,
 # under the rule this pass's pose will apply.
-if [ "${DRY:-0}" != "1" ]; then
+# Inactive passes only. The rehearsal reads the COMMITTED bundle, which holds the
+# recovered inactive bed and none of this bed's active cells — so under the active
+# pose's rule it reports the 27 recovered inactive cells the recede exempts and
+# exits non-zero, which has nothing to say about an active pass and would refuse
+# every one of them before a window opened.
+if [ "${DRY:-0}" != "1" ] && [ "$MODE" = "inactive" ]; then
   "$HARNESS" rehearse-tints --pose "$MODE" > "$T-rehearsal.out" 2>&1 || {
     echo "REFUSED: the tint attestation would refuse a $MODE bundle. See $T-rehearsal.out" >&2
     tail -6 "$T-rehearsal.out" >&2
@@ -89,7 +99,7 @@ for N in $(seq "$FIRST" "$LAST"); do
     # bundle is the identity TCC knows. It does not disturb the pose — an
     # `.accessory` application cannot be activated by being opened, which is
     # measured in claims §5.135 and by `deactivate-probe`.
-    open -W --env VITREA_SCALE="$SCALE" --env VITREA_FIXTURES="$D" \
+    ${VITREA_LAUNCHER:-open -W} --env VITREA_SCALE="$SCALE" --env VITREA_FIXTURES="$D" \
       --stdout "$D.out" --stderr "$D.err" "$APP" \
       --args capture ${POSE_ARG} ${DRY_ARG} \
       --run-label "w27-26.5-$MODE-${SCALE}x-$N" \
@@ -98,7 +108,9 @@ for N in $(seq "$FIRST" "$LAST"); do
       # Anything the rehearsal REFUSED or would refuse goes to this terminal, not
       # into a log nobody opens. A rehearsal whose only visible output is a count
       # is a rehearsal that cannot warn.
-      grep -E "WOULD REFUSE|^error:" "$D.out" "$D.err" 2>/dev/null | sed 's/^/  /'
+      # `|| true`: grep exits 1 when it finds nothing, which under `set -e` is the
+      # HEALTHY path killing the script before it prints the count.
+      grep -hE "WOULD REFUSE|^error:" "$D.out" "$D.err" 2>/dev/null | sed 's/^/  /' || true
       grep -c "dry-run" "$D.out" | sed 's/^/  cells presented: /'
       break
     fi
@@ -142,6 +154,13 @@ print(f"{len(ok)} {len(f)}")' "$D/manifest.json")
     # the directory is what makes the failure survive the recovery.
     Q="$T/$MODE-${SCALE}x/QUARANTINE-run-$N-$(date -u +%Y%m%dT%H%M%SZ)"
     mv "$D" "$Q"
+    # The logs travel with it. They are siblings of the run directory, and the
+    # documented retake deletes two of them and overwrites the third — so leaving
+    # them behind would destroy the per-run record the runbook asks to be
+    # committed, for the one run whose record matters most.
+    for L in "$D.out" "$D.err" "$D.backgrounds.out"; do
+      [ -e "$L" ] && mv "$L" "$Q/$(basename "$L")"
+    done
     echo "STOPPING: run $N attested $1 of $2 — it is not evidence."
     echo "Quarantined to $Q (no manifest.json under the run name, so re-running this"
     echo "pass re-takes run $N rather than stepping over it). Keep it: what failed to"
