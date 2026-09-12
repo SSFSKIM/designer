@@ -2334,3 +2334,20 @@ already settled. One scene — `dark-solid__capsule-button__rest` in light — d
 pixel, and the same for `light-solid` in dark. If the longer settle is unanimous the 8 s figure is
 too short for the adaptation and every dump-derived reading inherits that; if both settles are split
 the decision is bistable near its threshold and a selector law has to say so.
+
+## The wave's Tracking Map drops W27f's status cell when rendered (found 2026-09-13)
+
+*Found while validating the tables W27e G2 edited; the row itself predates this branch
+(`ec809ae6`) and belongs to W27f G2's landing.*
+
+`docs/doperpowers/specs/2026-09-10-w27-coverage-wave.md`'s Tracking Map is a three-column table —
+`| child | where | status |` — and every row carries four pipes except `| W27f |`, which carries
+five. A renderer drops cells past the header's count, so W27f's actual status cell ("G2 CLOSED and
+LANDED; bound adopted; **S4 scoped to the WebGPU arms and the eye taken, both user rulings of
+2026-09-12**; canonical stack rows corrected") is **invisible in the rendered document**, and what
+shows in the status column is the tail of the previous cell. Every other child's status renders.
+
+Not fixed here: it is another gate's record and the repair is a judgement about which of the two
+cells was meant to be the status, which the child that wrote it can make in one edit. The check that
+would have caught it is the one that found it — a pipe-count-per-table pass over the spec, worth a
+line in whatever lints these documents if anything ever does.
