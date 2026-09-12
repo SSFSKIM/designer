@@ -426,7 +426,9 @@ into the ledger rather than chartered.
   produce; **no surface selector is declared and G2 must not ship one** until that pass is read. And
   vitrea's four published ink levels are the **iOS** ladder on a non-neutral ink where Apple's
   automatic label inside glass is black at α 0.847059 and white at α 0.804706 (§5.137 §5 splits what
-  G2 re-derives from what it keeps).
+  G2 re-derives from what it keeps). **G2's ink decided 2026-09-12 (Decision Log 15):** pure
+  black/white at Apple's alpha, the macOS ladder with the WCAG 4.5 floor as a minimum; the
+  selector is held until the 1x both-pose pass, and the playground plate half runs now.
 
 ### W27f: The material over page content — controlled
 
@@ -728,6 +730,28 @@ neighbour glow diffusion; topology-changing morphs.
     "any capture" will eventually trip on an arm the claim does not depend on; scope stops to the
     arms the bound is stated on.
 
+15. **W27e G2's ink decided; its selector held behind the 1x both-pose pass (2026-09-12;
+    user-decided on the parent's recommendation).** Three rulings on the decisions §5.137 §5
+    names as decisions rather than lookups. (a) The primary ink moves to Apple's reading: pure
+    black in light and pure white in dark, at Apple's alpha — 0.847059, and ×0.95 through the
+    operator in dark — at the glyph's coverage. The four token names keep their names (the X4
+    event X4 anticipates) and the ~13 ink assertions re-baseline at G3 with each move attributed.
+    Rejected: Apple's colour with the ink kept opaque (a recorded gap on every label for no
+    gain), and keeping `#1c1c1e`/`#f5f5f7` (the whole reading becomes a gap). (b) The ladder is
+    macOS's — 0.847 / 0.498 / 0.259 / 0.098 light, 0.847 / 0.549 / 0.247 / 0.098 dark,
+    documentation-sourced and published as such — with Decision Log 9's WCAG 4.5 per-surface
+    floor kept as a minimum: Apple's alpha wherever Apple's own would pass, the solved alpha where
+    it would not, and every divergence recorded per surface. Rejected: the ladder verbatim with
+    the floor retired (closest to macOS, weakest for adopters), and the iOS ladder kept (the
+    reading becomes a gap). (c) The operator's selector — whether scheme-only replaces
+    `foregroundCrossover`'s role or sits beside it — is held until the 1x both-pose labelled pass
+    in the user's sitting (runbook Step 2): the probe corpus is 2x through a non-key window and
+    cannot say whether the active pose flips the label with the backdrop. Rejected: shipping
+    scheme-locked now, with or without the crossover (a commitment ahead of the one two-minute
+    reading that decides it). Meanwhile G2 runs its playground plate half — a tinted
+    `GlassButton`, a `GlassGroup tint` and the four named ink levels live — which needs no
+    operator decision and closes W27a's acceptance clause 2 (Surprises, 2026-09-11).
+
 ## Surprises & Discoveries
 
 - **The eighteen fidelity waves moved six matrix rows; the eight coverage children before them
@@ -833,6 +857,13 @@ G1 records every per-scene miss; G2 alone adopts a native stack bound and re-rea
 
 ## Revision Notes
 
+- 2026-09-12, **W27e G1 merged (`751c7450`); G2's ink decided and its selector held (Decision
+  Log 15).** The primary ink moves to pure black/white at Apple's alpha, the ladder to macOS's with
+  Decision Log 9's WCAG 4.5 floor kept as a minimum, and the selector waits on the 1x both-pose
+  labelled pass in the user's sitting; G2's playground plate half is dispatched now to close W27a's
+  acceptance clause 2. The 26.5 run prep merged the same day (`0e8cf995`, claims §5.136) after
+  four review rounds, the last of which produced only a record correction and logged debt; the
+  sitting itself is the user's, before the machine updates on 2026-09-14.
 - 2026-09-12, **W27e G1 closed: the label operator is a function, and it is not the blend everyone
   would have written.** Claims §5.137 and `packages/calibration/results/2026-09-12-w27e-g1/`. A
   gate with no fit in it — §5.136 §4 had already read Apple's coefficients with zero residual — so
