@@ -109,6 +109,42 @@ enum TintResolver {
   /// band's spread — a bed that only just clears it should be looked at, which is
   /// why the failure message prints the number.
   static let chromaResponseFloor = 1.0
+
+  /// Whether a scene's captured tint attestation may CONDEMN a run.
+  ///
+  /// Both post-capture tests — RESPONSE and IDENTITY — ask a question about the
+  /// ACTIVE material: did the author's colour reach the body, and do two seeds
+  /// produce two pictures. In the window recede the measured answer to both is
+  /// **no**, and that is the wave's finding rather than a capture defect: claims
+  /// §5.128 reads "an author tint loses its hue entirely" in the recede, with
+  /// orange and blue capsules both settling at Y 0.45128 over the checkerboard.
+  /// Measured on the committed recovered fixtures at 1x light standard, by the
+  /// same `Capture.chromaShift` a run computes (`rehearse-tints`):
+  ///
+  ///   checkerboard capsule   inactive  0.3978 vs twin  0.0146 → response   0.3831
+  ///                          rest    115.5264 vs twin  0.0133 → response 115.5131
+  ///   photo capsule          inactive −57.2146 vs twin −46.7418 → response −10.4727
+  ///                          rest     49.7031 vs twin −21.1716 → response  70.8747
+  ///
+  /// So an inactive pass run under the active pose's rule captures every cell and
+  /// then refuses the whole bundle at the end, which is the most expensive place
+  /// a run can fail. The exemption is not a relaxation: it is the same rule the
+  /// consumer side already applies (`packages/calibration/cli/gates.ts` skips
+  /// `state === "inactive"` before its duplicate scan, for this reason), arriving
+  /// on the producer side as `checking-bed.json`'s `caution` asked for.
+  ///
+  /// What is NOT exempt: the PRE-render half. `TintResolver.attest` still runs
+  /// per cell in either pose, because "the declared hue was already gone before
+  /// the material" is a harness fault at any activation state. And the numbers
+  /// are still measured and recorded on the entry — they are evidence of the
+  /// recede — only the refusal is withheld.
+  static func attestationMayCondemn(state: String) -> Bool { state != "inactive" }
+
+  /// Did the author's colour reach the material, on a pose where that is the
+  /// question? One expression, so the run and its rehearsal cannot disagree.
+  static func colourReachedMaterial(own: Double, untintedTwin: Double) -> Bool {
+    (own - untintedTwin) > chromaResponseFloor
+  }
 }
 
 // MARK: - tint-doctor

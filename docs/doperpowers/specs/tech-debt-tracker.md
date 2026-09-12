@@ -1970,6 +1970,48 @@ check, including preservation of tint and the separate pressed interaction. It i
 to the web runtime's root-pose observer, and making the Swift decoder accept the word is not a
 capture implementation.
 
+**CLOSED 2026-09-11 (claims §5.136; W27 Decision Log 13).** `capture --inactive` presents under
+the `.accessory` activation policy through a window that cannot become key, ordered front and
+never activated, and attests `!isKeyWindow && !NSApp.isActive` per cell into a new `presentation`
+manifest field before it captures; a cell that does not attest fails the run. The tint axis and
+the separate `pressed` interaction are untouched, `--scenes` narrows a run to the cells a session
+asked for, and `--dry-run` rehearses every refusal without capturing. Two caveats travel with it,
+neither blocking:
+
+- **ScreenCaptureKit was never asked for an inactive window's pixels.** Screen Recording is TCC-
+  denied to the build the mechanism was proved on, and TCC is keyed per bundle path, so every
+  rebuild — and every worktree — needs a fresh grant. The window is `occlusionState.visible` in
+  the pose and the 121 recovered fixtures are SCK output from exactly this configuration, so the
+  inference is strong, but it is inference plus history. `./capture.sh probe` settles it in
+  seconds and the runbook makes it the session's first step. If it ever turns out that SCK will
+  not serve an inactive window, the pose is unreachable by this harness and the shape of the work
+  is a second process holding the capture while the harness holds the window.
+- **The repeat check is the settle loop, not a second pose.** A run proves the pose held for the
+  frames that produced its bytes; it does not prove that two independent inactive *sessions* agree,
+  which is what the seven-run probe bar and `materialize`'s plurality resolution are for.
+
+## Two rehearsal-only wording limits in the capture harness (W27 DL13 review, 2026-09-12)
+
+Both are in the dry-run path only — no real capture, no fixture and no attestation depends on
+either — and both were found by review rather than by a run. Logged instead of fixed because the
+change is small, the payoff is a slightly better sentence in a rehearsal, and the session the
+harness exists for is days away; the next person in this file should take them.
+
+**`rehearsalWarned` is one flag per run, so a rehearsal reports only its FIRST cause.**
+`runCapture`'s per-cell gate (`apps/reference-apple/Sources/main.swift`) prints `WOULD REFUSE` once
+and then stays quiet, which is deliberate — 76 copies of one sentence buries the cell count that
+the runbook tells the operator to read. But the flag is a single Bool, so a rehearsal that hits a
+locked screen and then a genuine pose mismatch reports only the lock. The shape of the fix: key the
+flag on `Capture.CellRefusal`, once per case rather than once per run, which keeps the anti-noise
+intent and costs one `Set`.
+
+**The opening gate's dry-run branch says "LOCKED" when the session was UNREADABLE.** The gate tests
+`Environment.screenIsLocked() != false`, which is true for both `true` and `nil`, and its dry-run
+message names only the lock. Its own real-pass twin distinguishes the two ("or the session could
+not be read, which is not the same as unlocked"), and so does `poseRefusalMessage` through
+`CellRefusal.screenStateUnreadable`. Only this one branch flattens them. An unreadable session and
+a locked one want different next steps, so the distinction is worth carrying here too.
+
 ## Two bounded W27d limits, real and not worth a change here (W27d review, 2026-09-11)
 
 Both were confirmed by the independent panel and verified as bounded rather than defective. They

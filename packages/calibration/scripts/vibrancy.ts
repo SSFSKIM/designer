@@ -3,13 +3,19 @@
  * dumps and say what is there. No fit, no capture, no runtime material.
  *
  * Run with `pnpm --filter @vitrea/calibration --fail-if-no-match exec tsx
- * scripts/vibrancy.ts`. Set `W27E_OUT` to a scratch directory to reproduce the
- * table without replacing the recorded one; the canonical outputs are create-only.
+ * scripts/vibrancy.ts`, and `--corpus probe` for the labelled probe run of §5.133
+ * §7. Set `W27E_OUT` to a scratch directory to reproduce a table without replacing
+ * the recorded one; the canonical outputs are create-only.
  *
- * Everything here is read from files already in git: the five layer-dump trees,
- * the scene specs those runs were driven from, and `results/matrix.json` for the
+ * Everything here is read from files already in git: the layer-dump trees, the
+ * scene specs those runs were driven from, and `results/matrix.json` for the
  * backdrop level. Nothing decodes a pixel and nothing calls the capture harness,
  * so the reading is reproducible on any machine and cannot move the bed.
+ *
+ * The two corpora are kept apart on purpose. §5.133 pins a reading of a specific
+ * 57 files, so the G0 corpus is frozen as the five trees it was declared over and
+ * the labelled probe arrives beside it as a second one; a corpus is a parameter of
+ * the reader rather than a wider glob, and the test pins both.
  *
  * Two conventions are worth stating once, because both are easy to get backwards.
  * A `CAColorMatrix` is **four rows of five columns** — `out_i = m_i1·R + m_i2·G +
@@ -34,6 +40,7 @@ import { interiorLevel } from "../src/metrics/material";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const OUT = "packages/calibration/results/2026-09-11-w27e-g0-vibrancy";
+const PROBE_OUT = "packages/calibration/results/2026-09-11-w27e-probe";
 
 /**
  * Every committed layer-dump tree, in the order the waves recorded them. The list
@@ -41,12 +48,31 @@ const OUT = "packages/calibration/results/2026-09-11-w27e-g0-vibrancy";
  * deliberately, and the test pins how many dumps these five directories hold, so
  * a dump appearing or disappearing is a failing test rather than a quiet reading.
  */
-const DUMP_DIRS = [
+export const DUMP_DIRS = [
   "packages/calibration/results/2026-09-03-w12-lens/layer-dumps",
   "packages/calibration/results/2026-09-03-w12-lens/layer-dumps-ramp",
   "packages/calibration/results/2026-09-03-w12-lens/layer-dumps-adapt",
   "packages/calibration/results/2026-09-05-w18-union-contour/probe/layer-dumps",
   "packages/calibration/results/2026-09-05-w20-capsule-corner/g0/layer-dumps",
+] as const;
+
+/**
+ * The labelled probe run of §5.133 §7, one tree per colour scheme. It is a second
+ * corpus and not a sixth G0 tree: G0's reading is published evidence about the five
+ * trees above, and this run answers the question that reading could not reach —
+ * whether Apple installs a vibrancy operator on a label at all — under a different
+ * configuration. Merging the two would confound the readings and silently move a
+ * recorded count.
+ *
+ * THREE axes differ between the corpora and every cross-corpus statement has to
+ * carry all of them: colour scheme (G0 is light-only), backing scale (G0 is 1x,
+ * this is 2x) and the WINDOW POSE — all 57 G0 dumps record `isKeyWindow: true`
+ * and all 50 of these record `isKeyWindow: false`. The pose is the variable this
+ * wave exists to measure, so it is never the one to leave out of a comparison.
+ */
+export const PROBE_DUMP_DIRS = [
+  "packages/calibration/results/2026-09-11-w27e-probe/light",
+  "packages/calibration/results/2026-09-11-w27e-probe/dark",
 ] as const;
 
 /**
@@ -65,10 +91,16 @@ const SPEC_FILES = [
   "apps/reference-apple/scenes-w19-probe.json",
   "apps/reference-apple/scenes-w20-probe.json",
   "apps/reference-apple/scenes-w21-probe.json",
+  "apps/reference-apple/scenes-w27e-probe.json",
   "packages/calibration/results/2026-09-03-w12-lens/layer-dumps-ramp/scenes.json",
 ] as const;
 
-/** Every dump in the corpus is this configuration; the matrix is read at it. */
+/**
+ * Every dump in the G0 corpus is this configuration; the matrix is read at it. A
+ * corpus that is not one configuration — the labelled probe covers both schemes at
+ * 2x — reads no matrix cell at all rather than a cell from a configuration it is
+ * not, so the two backdrop statistics stay unavailable there instead of wrong.
+ */
 const PROFILE_KEY = "apple-macos-26.5-1x-light-standard";
 
 /** Rec.709 luma, the weights every matrix in the corpus factors through. */
@@ -102,9 +134,21 @@ interface Layer {
   readonly properties?: Record<string, unknown>;
   readonly sublayers?: readonly Layer[];
 }
+/**
+ * The label a scene declared, as the harness writes it back into the dump. `srgb`
+ * is null when the scene took the automatic colour, which is the case the whole
+ * probe is about: an explicit colour is the author overriding what the system
+ * would have chosen, so the two are different questions and the dump says which.
+ */
+interface DeclaredLabel {
+  readonly text: string;
+  readonly fontSize: number;
+  readonly srgb: readonly number[] | null;
+}
 interface Dump {
   readonly scene: string;
   readonly background: string;
+  readonly label?: DeclaredLabel | null;
   readonly component: string;
   readonly state: string;
   readonly tint: string | null;
@@ -263,6 +307,19 @@ function effectClass(layer: Layer): string | null {
   return effect?.class ?? null;
 }
 
+/**
+ * The layer SwiftUI commits a text run into. Its class is a mangled Swift name of
+ * the form `_TtC7SwiftUIP33_<hash>14CGDrawingLayer`, and the hash identifies the
+ * private context in the framework binary rather than the layer, so it changes
+ * between builds and must never be matched on: the stable part is the suffix. The
+ * layer carries no `effect` property at all — it draws glyphs, not a field — so its
+ * class is the only statement the tree makes about what it is.
+ */
+export const LABEL_LAYER_CLASS = "CGDrawingLayer";
+function isLabelLayer(layerClass: string): boolean {
+  return layerClass.includes(LABEL_LAYER_CLASS);
+}
+
 /** Depth-first, recording the dotted sublayer index path the dump's own order gives. */
 export function occurrences(layer: Layer, path = "0", found: Occurrence[] = []): Occurrence[] {
   for (const filter of layer.filters ?? []) {
@@ -315,6 +372,30 @@ function surfaceOf(layers: Map<string, Layer>, layerPath: string) {
     }
   }
   throw new Error(`No glass surface above ${layerPath}`);
+}
+
+/**
+ * The one glass surface a tree holds, for an occurrence that has none above it.
+ *
+ * A label is **not** inside the surface it labels: SwiftUI commits the text run to
+ * a sibling branch of the `CABackdropLayer`, so the ancestor walk above runs off
+ * the top of the tree. The association has to come from the scene's declaration
+ * instead, and the reading of that declaration is mechanical — a probe scene
+ * declares one control with one label, and a tree holding exactly one glass surface
+ * is that. Two surfaces would make the association a guess, so this refuses rather
+ * than picking one, which keeps a later stacked labelled scene from reading wrong.
+ */
+function soleSurfaceOf(layers: Map<string, Layer>, layerPath: string) {
+  const found = [...layers].flatMap(([containerPath, container]) =>
+    (container.sublayers ?? []).flatMap((child) => {
+      if (child.class !== "CABackdropLayer") return [];
+      const glass = (child.filters ?? []).find((f) => f.description === "glassBackground");
+      return glass ? [{ containerPath, backdrop: child, glass }] : [];
+    }));
+  if (found.length !== 1) {
+    throw new Error(`${layerPath}: ${found.length} glass surfaces in the tree, not one`);
+  }
+  return found[0] as { containerPath: string; backdrop: Layer; glass: CaFilter };
 }
 
 /** Element rects in the container's own coordinates, which is where span lives. */
@@ -397,13 +478,20 @@ export interface Row extends Record<string, unknown> {
   readonly vitrea: { readonly backdropToneAdaptation: number | null };
 }
 
-/** The whole reading, as data; `main` only formats it. */
-export function read() {
+/**
+ * The whole reading, as data; `main` only formats it.
+ *
+ * The corpus is a parameter with the G0 trees as its default, so calling this with
+ * no argument is the reading §5.133 published and adding a corpus cannot move it.
+ */
+export function read(dirs: readonly string[] = DUMP_DIRS,
+  matrixProfileKey: string | null = PROFILE_KEY) {
   const specs = SPEC_FILES.map((path) => ({ path, spec: readJson<SceneSpec>(path) }));
   const matrix = readJson<{ cells: MatrixCell[] }>("packages/calibration/results/matrix.json");
-  const cellsAt = matrix.cells.filter((c) => c.key.profileKey === PROFILE_KEY);
+  const cellsAt = matrixProfileKey == null ? []
+    : matrix.cells.filter((c) => c.key.profileKey === matrixProfileKey);
 
-  const dumps = DUMP_DIRS.flatMap((dir) => readdirSync(join(ROOT, dir)).sort()
+  const dumps = dirs.flatMap((dir) => readdirSync(join(ROOT, dir)).sort()
     .filter((f) => f.endsWith(".json") && f !== "scenes.json")
     .map((f) => ({ path: `${dir}/${f}`, dump: readJson<Dump>(`${dir}/${f}`) })));
 
@@ -439,7 +527,18 @@ export function read() {
     const tone = fixture.region;
 
     return found.map((occurrence) => {
-      const surface = surfaceOf(layers, occurrence.layerPath);
+      // What the layer is, in the tree's own terms. The effect class is the
+      // evidence: a key/fill highlight layer generates the surface's specular,
+      // a gradient layer under the tint branch generates the author tint. A label
+      // has no effect to read, so it is named by its class — and because it is not
+      // inside the surface's subtree, it is also the one role whose surface is
+      // resolved by the tree holding exactly one rather than by an ancestor walk.
+      const role = occurrence.layerEffect === "CASDFKeyFillHighlightEffect" ? "surface-highlight"
+        : occurrence.layerEffect === "CASDFGradientEffect" ? "author-tint"
+          : isLabelLayer(occurrence.layerClass) ? "content-label"
+            : "unclassified";
+      const surface = role === "content-label" ? soleSurfaceOf(layers, occurrence.layerPath)
+        : surfaceOf(layers, occurrence.layerPath);
       const elements = elementsOf(surface.backdrop, { x: 0, y: 0 });
       const spanFromDump = elements.length === 0 ? null
         : Math.min(...elements.map((e) => Math.min(e.width, e.height)));
@@ -466,12 +565,7 @@ export function read() {
         layerName: occurrence.layerName,
         layerEffect: occurrence.layerEffect,
         layerFrame: occurrence.layerFrame,
-        // What the layer is, in the tree's own terms. The effect class is the
-        // evidence: a key/fill highlight layer generates the surface's specular,
-        // a gradient layer under the tint branch generates the author tint.
-        role: occurrence.layerEffect === "CASDFKeyFillHighlightEffect" ? "surface-highlight"
-          : occurrence.layerEffect === "CASDFGradientEffect" ? "author-tint"
-            : "unclassified",
+        role,
         // `inputBackdropAware` is the filter's own statement of what it reads.
         input: occurrence.inputBackdropAware === 1 ? "backdrop-beneath" : "own-content",
         matrix: occurrence.matrix,
@@ -542,26 +636,141 @@ export function read() {
     return { ...row, operatorId: match.id } as Row;
   });
 
+  // One line per dump, whether or not it contributed a row. A filter that is not
+  // there produces no occurrence and would otherwise leave no trace at all, and
+  // "the scene declared a label, the tree committed its layer, and the layer
+  // carries no operator" is a reading in its own right — the case where Apple
+  // installs nothing. It is recorded per dump so that absence is legible in the
+  // table beside presence, and so that a labelled dump can never be silently lost.
+  const perDump = dumps.map(({ path, dump }) => {
+    const labelled = [...index(dump.view.layer).values()].filter((l) => isLabelLayer(l.class));
+    return {
+      path,
+      scene: dump.scene,
+      sha256: sha(path),
+      colorScheme: dump.colorScheme,
+      scale: dump.backingScaleFactor,
+      declaredLabel: dump.label ?? null,
+      labelLayers: labelled.length,
+      labelLayersWithOperator: labelled.filter((l) => (l.filters ?? [])
+        .some((f) => f.description === "vibrantColorMatrix")).length,
+      occurrences: occurrences(dump.view.layer).length,
+    };
+  });
+
   return {
-    dumps: dumps.map(({ path, dump }) => ({ path, scene: dump.scene, sha256: sha(path) })),
+    dumps: perDump,
     specs: specs.map(({ path }) => ({ path, sha256: sha(path) })),
     rows: withIds,
     operators: operators.map((o) => ({ ...o, decomposition: decompose(o.matrix) })),
   };
 }
 
-function main(): void {
-  const reading = read();
+/**
+ * A corpus and everything that is true of it as a whole, so that emitting a second
+ * table is choosing a corpus rather than copying the reader. `matrixProfileKey` is
+ * null where no single configuration describes the corpus, and `lead` is the
+ * table's own statement of what it is — the G0 table points at the prose reading
+ * committed beside it, and the probe table points at the question it answers.
+ */
+interface Corpus {
+  readonly dirs: readonly string[];
+  readonly matrixProfileKey: string | null;
+  readonly out: string;
+  readonly declaredIn: string;
+  readonly title: string;
+  readonly lead: readonly string[];
+}
+
+const CORPORA: Record<string, Corpus> = {
+  g0: {
+    dirs: DUMP_DIRS,
+    matrixProfileKey: PROFILE_KEY,
+    out: OUT,
+    declaredIn:
+      "W27 coverage wave, W27e G0; claims §5.133; Decision Log 4 and 12; X1/X2/X4/X9",
+    title: "# W27e G0: every `vibrantColorMatrix` in the committed layer dumps (2026-09-11)",
+    lead: [
+      "Generated by `packages/calibration/scripts/vibrancy.ts`; the prose reading of this table is",
+      "`reading.md` beside it and the whole record with per-element geometry is `table.json`.",
+    ],
+  },
+  probe: {
+    dirs: PROBE_DUMP_DIRS,
+    matrixProfileKey: null,
+    out: PROBE_OUT,
+    declaredIn:
+      "W27 coverage wave, W27e; claims §5.133 §2 and §7 — the labelled probe run; X1/X2/X4/X9",
+    title: "# W27e: every `vibrantColorMatrix` in the labelled probe dumps (2026-09-11)",
+    lead: [
+      "Generated by `packages/calibration/scripts/vibrancy.ts --corpus probe`; the whole record",
+      "with per-element geometry is `table.json` beside this file. §5.133 §2 found that the",
+      "committed corpus carries no label's operator at all, because the reference harness renders",
+      "`Color.clear` inside every `glassEffect`; these dumps come from a labelled probe scene spec",
+      "through `dump-layers`, which captures no pixels. The two backdrop statistics from",
+      "`results/matrix.json` are unavailable here on purpose: this corpus spans both schemes at 2x,",
+      "so no single matrix profile key describes it and a cell from another configuration would be",
+      "a wrong number rather than a missing one.",
+    ],
+  },
+};
+
+function main(argv: readonly string[]): void {
+  const requested = argv.includes("--corpus") ? argv[argv.indexOf("--corpus") + 1] ?? "" : "g0";
+  const corpus = CORPORA[requested];
+  if (!corpus) throw new Error(`--corpus takes ${Object.keys(CORPORA).join(" or ")}, not ${requested}`);
+  const reading = read(corpus.dirs, corpus.matrixProfileKey);
   const foreground = reading.rows.filter((r) => r.role === "surface-highlight");
   const tints = reading.rows.filter((r) => r.role === "author-tint");
+  const labels = reading.rows.filter((r) => r.role === "content-label");
   const foregroundOperators = [...new Set(foreground.map((r) => r.operatorId))];
+  const labelOperators = [...new Set(labels.map((r) => r.operatorId))];
+  // The label half of the reading, hoisted so the table and the markdown state it
+  // from one object rather than two that could drift.
+  const labelSummary = {
+        dumpsDeclaringALabel: reading.dumps.filter((d) => d.declaredLabel != null).length,
+        dumpsDeclaringAnAutomaticColour:
+          reading.dumps.filter((d) => d.declaredLabel != null && d.declaredLabel.srgb == null).length,
+        dumpsDeclaringAnExplicitColour:
+          reading.dumps.filter((d) => d.declaredLabel?.srgb != null).length,
+        labelLayersCommitted: reading.dumps.reduce((a, d) => a + d.labelLayers, 0),
+        labelLayersCarryingAnOperator:
+          reading.dumps.reduce((a, d) => a + d.labelLayersWithOperator, 0),
+        labelLayersCarryingNothing: reading.dumps
+          .filter((d) => d.labelLayers > d.labelLayersWithOperator)
+          .map((d) => ({ scene: d.scene, colorScheme: d.colorScheme,
+            declaredSrgb: d.declaredLabel?.srgb ?? null })),
+        distinctLabelOperators: labelOperators.length,
+        labelOperatorCounts: labelOperators.map((id) => ({
+          operatorId: id,
+          count: labels.filter((r) => r.operatorId === id).length,
+          schemes: [...new Set(labels.filter((r) => r.operatorId === id).map((r) => r.colorScheme))],
+          spans: [...new Set(labels.filter((r) => r.operatorId === id)
+            .map((r) => r.surface.spanFromDump))].sort((a, b) => (a ?? 0) - (b ?? 0)),
+          backgrounds: [...new Set(labels.filter((r) => r.operatorId === id)
+            .map((r) => r.background))].sort(),
+        })),
+        // Whether anything but the scheme selects the label's operator. The probe
+        // holds a span ladder and a tone ladder for this one line: if either
+        // selected, a scheme would carry more than one operator.
+        operatorsPerScheme: [...new Set(labels.map((r) => r.colorScheme))].sort().map((scheme) => ({
+          colorScheme: scheme,
+          operators: [...new Set(labels.filter((r) => r.colorScheme === scheme)
+            .map((r) => r.operatorId))],
+          spans: [...new Set(labels.filter((r) => r.colorScheme === scheme)
+            .map((r) => r.surface.spanFromDump))].sort((a, b) => (a ?? 0) - (b ?? 0)),
+          backgrounds: [...new Set(labels.filter((r) => r.colorScheme === scheme)
+            .map((r) => r.background))].sort(),
+        })),
+  };
+
   const result = {
-    declaredIn: "W27 coverage wave, W27e G0; claims §5.133; Decision Log 4 and 12; X1/X2/X4/X9",
+    declaredIn: corpus.declaredIn,
     provenance: {
       profile: DEFAULT_MATERIAL_PROFILE.backdropToneLow === 0.02 ? "shipped" : "patched",
-      matrixProfileKey: PROFILE_KEY,
+      matrixProfileKey: corpus.matrixProfileKey,
       matrixSha256: sha("packages/calibration/results/matrix.json"),
-      dumpDirectories: DUMP_DIRS,
+      dumpDirectories: corpus.dirs,
       dumpsRead: reading.dumps.length,
       occurrences: reading.rows.length,
       distinctMatrices: reading.operators.length,
@@ -575,7 +784,8 @@ function main(): void {
       matrix: "CAColorMatrix, four rows of five columns, row order; out_i = m_i1·R + m_i2·G + m_i3·B + m_i4·A + m_i5 on the layer's own non-premultiplied channels.",
       operator: `Matrices equal within ${OPERATOR_TOLERANCE} on every one of the twenty floats are one operator. The corpus's smallest real difference is order 1, so the grouping is not sensitive to the tolerance.`,
       decomposition: "Exact least squares for out = m·c + g⊙Y(c) + b with Y fixed at Rec.709 (0.2126, 0.7152, 0.0722) and b read from the fifth column. maxResidual is the largest coefficient the form fails to reproduce, not a fitted slack.",
-      role: "From the carrying layer's SDF effect class, which is the tree's own statement of what the layer draws: CASDFKeyFillHighlightEffect is the surface's key/fill specular, CASDFGradientEffect is the author tint's gradient.",
+      role: "From the carrying layer's SDF effect class, which is the tree's own statement of what the layer draws: CASDFKeyFillHighlightEffect is the surface's key/fill specular, CASDFGradientEffect is the author tint's gradient. A label's layer has no effect and is named by its class instead, on the stable CGDrawingLayer suffix of a mangled Swift name whose hash belongs to the framework binary; it also sits outside the surface's subtree, so its surface is the one the tree holds rather than an ancestor.",
+      label: "Per dump, from the dump's own top-level `label` field and from the layers whose class carries CGDrawingLayer: whether the scene declared a label, how many label layers the tree committed, and how many of those carry a vibrantColorMatrix. A label layer present with no operator is a reading, not a silence.",
       input: "From inputBackdropAware: 1 means the filter reads the backdrop beneath the layer, null means it reads the layer's own content.",
       span: "The minor dimension of the surface's CASDFElementLayer rects, read from the dump, cross-checked against every committed scene spec that declares the component.",
       tone: "Mean linear luminance of the committed background fixture over the DECLARED component region, read with the harness's own decodePng/componentRegion/interiorLevel. The matrix's two backdrop statistics are recorded beside it and are not the same quantity: shadow.backdropMeanLuminance is the exterior level, and material.interiorMeanBackdrop is taken over the extracted silhouette, which over a high-contrast backdrop is punched out.",
@@ -588,8 +798,14 @@ function main(): void {
       occurrences: reading.rows.length,
       surfaceHighlight: foreground.length,
       authorTint: tints.length,
-      unclassified: reading.rows.length - foreground.length - tints.length,
+      unclassified: reading.rows.length - foreground.length - tints.length - labels.length,
       distinctForegroundOperators: foregroundOperators.length,
+      // The label half of the reading, present only on a corpus that has labels,
+      // for the reason `dumps` is projected below. Its shape is the finding: a
+      // labelled dump whose label layer carries NOTHING is counted beside one that
+      // carries an operator, because "Apple installs nothing here" is the answer on
+      // exactly the scenes that name their own colour.
+      ...(labels.length === 0 ? {} : { contentLabel: labels.length, label: labelSummary }),
       foregroundOperatorCounts: foregroundOperators.map((id) => ({
         operatorId: id,
         count: foreground.filter((r) => r.operatorId === id).length,
@@ -613,7 +829,14 @@ function main(): void {
       })(),
     },
     operators: reading.operators,
-    dumps: reading.dumps,
+    // The per-dump record carries its label columns only where a label exists to
+    // report. §5.133's evidence note claims the G0 table is "byte-identical on
+    // re-run", and that corpus has no labels in it — so a corpus with none is
+    // published in the three-field form it was recorded in, and adding a reading
+    // about labels does not silently restate a published one.
+    dumps: labels.length === 0 && reading.dumps.every((d) => d.declaredLabel == null)
+      ? reading.dumps.map((d) => ({ path: d.path, scene: d.scene, sha256: d.sha256 }))
+      : reading.dumps,
     specs: reading.specs,
     rows: reading.rows,
   };
@@ -622,10 +845,9 @@ function main(): void {
   const vec = (xs: readonly number[], digits = 5) => xs.map((x) => n(x, digits)).join(" / ");
   const tree = (path: string) => path.split("/").slice(3, -1).join("/");
   const markdown = [
-    "# W27e G0: every `vibrantColorMatrix` in the committed layer dumps (2026-09-11)",
+    corpus.title,
     "",
-    "Generated by `packages/calibration/scripts/vibrancy.ts`; the prose reading of this table is",
-    "`reading.md` beside it and the whole record with per-element geometry is `table.json`.",
+    ...corpus.lead,
     "A `CAColorMatrix` is four rows of five columns, row order, and every matrix here factors as",
     "`out = m·c + g⊙Y(c) + b` with `Y` the Rec.709 luma. `—` means unavailable, never zero.",
     "",
@@ -651,6 +873,41 @@ function main(): void {
       + ["black", "grey50", "white", "red", "green", "blue"]
         .map((k) => vec(o.decomposition.maps[k] ?? [], 3)).join(" | ") + " |"),
     "",
+    // Emitted only where there are labels to report, so the G0 table — published
+    // evidence about a corpus that has none — keeps the shape it was recorded in.
+    ...(labels.length === 0 ? [] : [
+      "## The label",
+      "",
+      "A label layer that carries no operator is a reading, not a silence: it is Apple declining to",
+      "rewrite a colour the author named. Counted per dump for that reason.",
+      "",
+      `- dumps declaring a label: **${labelSummary.dumpsDeclaringALabel}** `
+      + `(${labelSummary.dumpsDeclaringAnAutomaticColour} taking the automatic colour, `
+      + `${labelSummary.dumpsDeclaringAnExplicitColour} naming their own)`,
+      `- label layers committed: **${labelSummary.labelLayersCommitted}**, of which `
+      + `**${labelSummary.labelLayersCarryingAnOperator}** carry a \`vibrantColorMatrix\``,
+      `- distinct label operators: **${labelSummary.distinctLabelOperators}**`,
+      "",
+      "| scene | scheme | declared label colour | operator |",
+      "| --- | --- | --- | ---: |",
+      ...reading.dumps.filter((d) => d.declaredLabel != null).map((d) => {
+        const row = labels.find((r) => r.dump === d.path);
+        const declared = d.declaredLabel?.srgb == null ? "automatic (`Color.primary`)"
+          : `explicit ${JSON.stringify(d.declaredLabel.srgb)}`;
+        return `| ${d.scene} | ${d.colorScheme} | ${declared} | `
+          + `${row ? row.operatorId : "**none — no filter on the label layer**"} |`;
+      }),
+      "",
+      "Operators per scheme, with everything the probe varied inside each — if span or backdrop tone",
+      "selected the label's operator, a scheme would carry more than one.",
+      "",
+      "| scheme | operators | spans | backgrounds |",
+      "| --- | --- | --- | --- |",
+      ...labelSummary.operatorsPerScheme.map((s) =>
+        `| ${s.colorScheme} | ${s.operators.join(", ")} | ${s.spans.join(", ")} | `
+        + `${s.backgrounds.join(", ")} |`),
+      "",
+    ]),
     "## The cells",
     "",
     "`tone` is the mean linear luminance of the committed background fixture over the declared",
@@ -678,15 +935,19 @@ function main(): void {
     "",
   ].join("\n");
 
-  const dir = process.env["W27E_OUT"] ?? OUT;
+  const dir = process.env["W27E_OUT"] ?? corpus.out;
   mkdirSync(resolve(ROOT, dir), { recursive: true });
   writeFileSync(resolve(ROOT, dir, "table.json"), `${JSON.stringify(result, null, 2)}\n`,
     { flag: "wx" });
   writeFileSync(resolve(ROOT, dir, "table.md"), `${markdown}\n`, { flag: "wx" });
+  const label = labels.length === 0 ? ""
+    : `, ${labels.length} on a label in ${labelOperators.length} operator(s)`;
   process.stdout.write(
     `${reading.dumps.length} dumps, ${reading.rows.length} matrices, `
-    + `${reading.operators.length} distinct, ${foregroundOperators.length} foreground operators; `
-    + `wrote ${relative(ROOT, resolve(ROOT, dir))}\n`);
+    + `${reading.operators.length} distinct, ${foregroundOperators.length} foreground operators`
+    + `${label}; wrote ${relative(ROOT, resolve(ROOT, dir))}\n`);
 }
 
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main();
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main(process.argv.slice(2));
+}
