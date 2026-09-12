@@ -18783,9 +18783,11 @@ are 4.26% of all 1,316 and 2 of the 39 minority captures (5.1%), which is the ba
 effect — but both of those two sit in `inactive-1x`, where they are 2 of that pass's 5 minority
 captures against a 5.83% base rate. Five events decide nothing either way. What the bed does say is
 that the plurality did its job: **every minority capture lost**, no cell was refused, none was
-state-ambiguous, and the only cell below 5/7 on the whole bed
+state-ambiguous, and the only LOW-IDLE cell below 5/7
 (`checkerboard__rrect-ml__inactive` under increased contrast, disturbed in runs 1 and 6) was voted
-4/3 inside one 8-bit code. The earlier draft of this section read the pooled comparison as a measured
+4/3 inside one 8-bit code. The bed's other 4/3 cell, 2x light
+`mid-chroma-solid__rrect-md__rest`, was captured at full idle, which is its own small argument that
+4/3 is not an idle signature. The earlier draft of this section read the pooled comparison as a measured
 "no"; that reading is **withdrawn** — the stratified numbers are above and the tracker entry stays
 open.
 

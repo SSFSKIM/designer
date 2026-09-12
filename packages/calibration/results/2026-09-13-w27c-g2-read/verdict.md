@@ -58,8 +58,9 @@ level the 56 low-idle captures are 4.26% of all 1,316 and 2 of the 39 minority c
 base rate — but both of those two are in `inactive-1x`, 2 of that pass's 5 minority captures against
 its own 5.83% base rate. Five events settle nothing. What the bed does show is the plurality
 working: every minority capture lost, no cell was refused, none was state-ambiguous, and the only
-cell below 5/7 (`checkerboard__rrect-ml__inactive` under increased contrast, disturbed in runs 1 and
-6) was voted 4/3 inside one code. The tracker's question stays open.
+low-idle cell below 5/7 (`checkerboard__rrect-ml__inactive` under increased contrast, disturbed in
+runs 1 and 6) was voted 4/3 inside one code — the bed's other 4/3 cell, 2x light
+`mid-chroma-solid__rrect-md__rest`, was captured at full idle. The tracker's question stays open.
 
 **The six background-identical cells enter as what they are.** `dark-solid__capsule-button`,
 `dark-solid__rrect-48` and `dark-solid__rrect-sm`, each in both schemes, carry the harness's
@@ -208,5 +209,6 @@ not clear its own ceiling, and it is recorded rather than left in the matrix.
 | `score-bound.py` → `verdict.json` | the bound applied, clause by clause |
 | `sheet.py` → `sheets/*.png` | native \| webgpu \| 8× difference, per profile, worst body ΔE first |
 
-The web captures themselves are scratch (`VITREA_WEB_CAPTURES=/tmp/w27c-g2/captures`) and are not
-committed; every row carries its capture's sha256.
+The web captures themselves are scratch — the committed matrix's rows name
+`/tmp/w27c-g2c/captures`, the directory of the re-run that followed the independent review — and are
+not committed; every row carries its capture's sha256.

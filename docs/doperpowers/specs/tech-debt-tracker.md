@@ -2315,9 +2315,9 @@ minority captures** (5.1%), which is the base rate — except that both of the t
 Five events decide nothing in either direction.
 
 What the bed does establish is that the plurality absorbed whatever the disturbance was: every
-minority capture lost, no cell was refused, none was state-ambiguous, and the only cell below five of
-seven anywhere (`checkerboard__rrect-ml__inactive` under increased contrast, disturbed in runs 1 and
-6) was voted 4/3 inside one 8-bit code. So the entry stays open and the fix's shape is unchanged —
+minority capture lost, no cell was refused, none was state-ambiguous, and the only LOW-IDLE cell
+below five of seven (`checkerboard__rrect-ml__inactive` under increased contrast, disturbed in runs 1
+and 6) was voted 4/3 inside one 8-bit code. The bed's other 4/3 cell was captured at full idle. So the entry stays open and the fix's shape is unchanged —
 and there is a second lesson in it for the next bed: **a low-idle group that is concentrated in some
 passes cannot be compared to a pooled remainder**, and the design that would answer the question is
 the per-cell retry, which produces the comparison within a pass rather than across passes.

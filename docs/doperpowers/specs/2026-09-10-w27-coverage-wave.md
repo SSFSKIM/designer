@@ -307,10 +307,11 @@ into the ledger rather than chartered.
   group A's four are byte-identical, so Decision Log 5's admitted bed is now measured rather than
   argued; and the chroma
   deficit of residuals (c)/(e) is the **active** material's, not the recede's, since the active pose
-  over the new `mid-chroma-solid` transmits about half the backdrop's chroma and sits 0.17–0.22 Y too
-  bright. Three gaps the classification did not anticipate are in the ledger and the tracker: the
+  over the new `mid-chroma-solid` passes 25–27% of the backdrop's chroma where Apple's passes 52–55%
+  — about half of what the reference passes — and sits 0.17–0.22 Y too bright. Three gaps the classification did not anticipate are in the ledger and the tracker: the
   dark thin response at a bright backdrop is wrong by 0.78 Y, the accessibility recede is
-  backdrop-coupled where Apple's is not, and one active probe cell sits above the active bed's own
+  backdrop-coupled where Apple's is not, the active pose passes 25–27% of a saturated backdrop's
+  chroma where Apple's passes 52–55%, and one active probe cell sits above the active bed's own
   ceiling.
 
 ### W27d: Identity and materialize — controlled
