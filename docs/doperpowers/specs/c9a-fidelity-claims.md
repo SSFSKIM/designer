@@ -18939,7 +18939,11 @@ here for whoever opens G2 or a refit.
 
 **10. Verification record.** `pnpm --filter @vitrea/calibration --fail-if-no-match test` 386/386 and
 lint green at the head, after publication and after both `materialize` fixes. `manifest-doctor` run
-on the pre-publication manifest out of `ec809ae6` and on the published one, both recorded verbatim.
+on the pre-publication manifest out of `ec809ae6` (written to a scratch root, which is why the
+`before` file names `/tmp`) and on the published one, both recorded verbatim. The harness that ran it
+was built with `VITREA_BUILD_OUT` to a side directory: `apps/reference-apple/build` was never
+rebuilt, because its signature holds the machine's Screen Recording grant and a rebuild is a new
+identity (§5.136 §10's own instrument correction).
 The read refused nothing and stopped nothing, and the frozen endpoint was checked against
 `2026-09-10-w27c-g1-corrected-declaration.json` before the first capture, so a drifted
 `receded-profile.ts` would have stopped the run rather than been measured. Clause 5's STOPPED
