@@ -1,0 +1,991 @@
+{
+ "declaredIn": "W27 coverage wave, W27e G2; claims §5.138; Decision Log 15 (c); the four-outcome reading of claims §5.137 §6",
+ "corpus": "2026-09-12-w27e-probe-1x",
+ "stops": {
+  "S1_dumpsPerArmScheme": {
+   "active/light": 25,
+   "active/dark": 25,
+   "policy-only/light": 25,
+   "policy-only/dark": 25,
+   "recede/light": 25,
+   "recede/dark": 25
+  },
+  "S2_scales": [
+   1
+  ],
+  "S2_a11y": [
+   "standard"
+  ],
+  "S2_settleSeconds": [
+   8
+  ],
+  "S2_os": [
+   "Version 26.5.2 (Build 25F84)"
+  ],
+  "S4_highlightOpacityInKeyPose": [
+   1
+  ]
+ },
+ "operators": [
+  {
+   "id": 0,
+   "count": 59,
+   "roles": [
+    "surface-highlight"
+   ],
+   "matrix": [
+    1.2023999691009521,
+    -1.0013999938964844,
+    -0.10099999606609344,
+    0,
+    0.8999999761581421,
+    -0.29760000109672546,
+    0.49869999289512634,
+    -0.10109999775886536,
+    0,
+    0.8999999761581421,
+    -0.2976999878883362,
+    -1.0011999607086182,
+    1.3988999128341675,
+    0,
+    0.8999999761581421,
+    0,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "id": 1,
+   "count": 28,
+   "roles": [
+    "content-label"
+   ],
+   "matrix": [
+    1,
+    0,
+    0,
+    0,
+    -1,
+    0,
+    1,
+    0,
+    0,
+    -1,
+    0,
+    0,
+    1,
+    0,
+    -1,
+    0,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "id": 2,
+   "count": 91,
+   "roles": [
+    "surface-highlight"
+   ],
+   "matrix": [
+    2.649199962615967,
+    -1.180299997329712,
+    -0.11889999359846115,
+    0,
+    0.14999999105930328,
+    -0.3506999909877777,
+    1.8198999166488647,
+    -0.11919999867677689,
+    0,
+    0.14999999105930328,
+    -0.35089999437332153,
+    -1.1798999309539795,
+    2.8808999061584473,
+    0,
+    0.14999999105930328,
+    0,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "id": 3,
+   "count": 44,
+   "roles": [
+    "content-label"
+   ],
+   "matrix": [
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0.949999988079071,
+    0
+   ]
+  },
+  {
+   "id": 4,
+   "count": 4,
+   "roles": [
+    "author-tint"
+   ],
+   "matrix": [
+    0.7637799978256226,
+    0.21450811624526978,
+    0.021711912006139755,
+    0,
+    -0.10000002384185791,
+    0.0637902021408081,
+    0.9145575165748596,
+    0.021652288734912872,
+    0,
+    -0.10000002384185791,
+    0.06374377012252808,
+    0.21459627151489258,
+    0.7216600179672241,
+    0,
+    -0.10000002384185791,
+    0,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "id": 5,
+   "count": 2,
+   "roles": [
+    "author-tint"
+   ],
+   "matrix": [
+    -0.007972470484673977,
+    -0.026819903403520584,
+    -0.0027074902318418026,
+    0,
+    1.005624771118164,
+    0.013384765014052391,
+    0.04502720758318901,
+    0.004545531701296568,
+    0,
+    0.574870228767395,
+    0.04340576380491257,
+    0.14601978659629822,
+    0.014740810729563236,
+    0,
+    -0.030624954029917717,
+    0,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "id": 6,
+   "count": 2,
+   "roles": [
+    "author-tint"
+   ],
+   "matrix": [
+    0.08503997325897217,
+    0.28607991337776184,
+    0.028879990801215172,
+    0,
+    0.5999999046325684,
+    0.055928271263837814,
+    0.18814627826213837,
+    0.01899351365864277,
+    0,
+    0.32124578952789307,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "id": 7,
+   "count": 2,
+   "roles": [
+    "author-tint"
+   ],
+   "matrix": [
+    -0.007972491905093193,
+    -0.026819976046681404,
+    -0.002707497216761112,
+    0,
+    1.0056250095367432,
+    0.013384785503149033,
+    0.04502727836370468,
+    0.0045455386862158775,
+    0,
+    0.5748701095581055,
+    0.04340582713484764,
+    0.14601999521255493,
+    0.014740832149982452,
+    0,
+    -0.0306249987334013,
+    0,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "id": 8,
+   "count": 2,
+   "roles": [
+    "author-tint"
+   ],
+   "matrix": [
+    0.7637799978256226,
+    0.21450811624526978,
+    0.021711912006139755,
+    0,
+    0.10000002384185791,
+    0.0637902021408081,
+    0.9145575165748596,
+    0.021652288734912872,
+    0,
+    0.09999996423721313,
+    0.06374377012252808,
+    0.21459627151489258,
+    0.7216600179672241,
+    0,
+    0.09999996423721313,
+    0,
+    0,
+    0,
+    1,
+    0
+   ]
+  }
+ ],
+ "matricesWithinReaderTolerance": {
+  "tolerance": 1e-06,
+  "byteClasses": 9,
+  "operators": 8,
+  "merged": [
+   {
+    "ids": [
+     5,
+     7
+    ],
+    "maxCoefficientGap": 2.384185791015625e-07
+   }
+  ]
+ },
+ "highGainOperatorIds": [
+  2
+ ],
+ "groups": {
+  "active/dark/key": {
+   "dumps": 25,
+   "appIsActive": [
+    "not recorded"
+   ],
+   "activationPolicy": [
+    "not recorded"
+   ],
+   "highlightLayerOpacity": [
+    1
+   ],
+   "backdropMarginWidth": [
+    8.8,
+    9.600000000000001,
+    12.8,
+    58,
+    68
+   ],
+   "highlightOperators": {
+    "2": 23,
+    "0": 2
+   },
+   "highlightOperatorByScene": {
+    "0": [
+     "light-solid__capsule-button__rest",
+     "light-solid__capsule-button__rest-label"
+    ],
+    "2": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard__rrect-md__rest-label",
+     "dark-solid__capsule-button__rest",
+     "dark-solid__capsule-button__rest-label",
+     "dark-solid__rrect-48__rest",
+     "dark-solid__rrect-48__rest-label",
+     "dark-solid__rrect-64__rest",
+     "dark-solid__rrect-64__rest-label",
+     "dark-solid__rrect-80__rest",
+     "dark-solid__rrect-80__rest-label",
+     "dark-solid__rrect-md__rest",
+     "dark-solid__rrect-md__rest-label",
+     "impulse__capsule-button__rest",
+     "impulse__capsule-button__rest-label",
+     "mid-chroma-solid__capsule-button__rest",
+     "mid-chroma-solid__capsule-button__rest-label",
+     "mid-chroma-solid__capsule-button__rest-label-hot",
+     "mid-dark-solid__capsule-button__rest",
+     "mid-dark-solid__capsule-button__rest-label",
+     "photo__capsule-button__rest",
+     "photo__capsule-button__rest-label",
+     "photo__capsule-button__rest-label-tint-orange",
+     "photo__capsule-button__rest-tint-orange"
+    ]
+   },
+   "labelOperators": {
+    "3": 11,
+    "1": 1
+   },
+   "labelLayerOpacity": [
+    1
+   ],
+   "labelLayersCommitted": 13,
+   "labelLayersWithOperator": 12,
+   "tintOperators": {
+    "5": 2
+   },
+   "tintLayerOpacity": [
+    1
+   ]
+  },
+  "active/light/key": {
+   "dumps": 9,
+   "appIsActive": [
+    "not recorded"
+   ],
+   "activationPolicy": [
+    "not recorded"
+   ],
+   "highlightLayerOpacity": [
+    1
+   ],
+   "backdropMarginWidth": [
+    8.8,
+    9.600000000000001,
+    12.8,
+    58,
+    68
+   ],
+   "highlightOperators": {
+    "2": 4,
+    "0": 5
+   },
+   "highlightOperatorByScene": {
+    "0": [
+     "dark-solid__capsule-button__rest",
+     "dark-solid__rrect-48__rest-label",
+     "dark-solid__rrect-80__rest",
+     "dark-solid__rrect-80__rest-label",
+     "dark-solid__rrect-md__rest"
+    ],
+    "2": [
+     "dark-solid__capsule-button__rest-label",
+     "dark-solid__rrect-48__rest",
+     "dark-solid__rrect-64__rest",
+     "dark-solid__rrect-64__rest-label"
+    ]
+   },
+   "labelOperators": {
+    "3": 2,
+    "1": 2
+   },
+   "labelLayerOpacity": [
+    1
+   ],
+   "labelLayersCommitted": 4,
+   "labelLayersWithOperator": 4,
+   "tintOperators": {},
+   "tintLayerOpacity": []
+  },
+  "active/light/non-key": {
+   "dumps": 16,
+   "appIsActive": [
+    "not recorded"
+   ],
+   "activationPolicy": [
+    "not recorded"
+   ],
+   "highlightLayerOpacity": [
+    0
+   ],
+   "backdropMarginWidth": [
+    0
+   ],
+   "highlightOperators": {
+    "0": 14,
+    "2": 2
+   },
+   "highlightOperatorByScene": {
+    "0": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard__rrect-md__rest-label",
+     "dark-solid__rrect-md__rest-label",
+     "light-solid__capsule-button__rest",
+     "light-solid__capsule-button__rest-label",
+     "mid-chroma-solid__capsule-button__rest",
+     "mid-chroma-solid__capsule-button__rest-label",
+     "mid-chroma-solid__capsule-button__rest-label-hot",
+     "mid-dark-solid__capsule-button__rest",
+     "mid-dark-solid__capsule-button__rest-label",
+     "photo__capsule-button__rest",
+     "photo__capsule-button__rest-label",
+     "photo__capsule-button__rest-label-tint-orange",
+     "photo__capsule-button__rest-tint-orange"
+    ],
+    "2": [
+     "impulse__capsule-button__rest",
+     "impulse__capsule-button__rest-label"
+    ]
+   },
+   "labelOperators": {
+    "1": 7,
+    "3": 1
+   },
+   "labelLayerOpacity": [
+    1
+   ],
+   "labelLayersCommitted": 9,
+   "labelLayersWithOperator": 8,
+   "tintOperators": {
+    "4": 2
+   },
+   "tintLayerOpacity": [
+    1
+   ]
+  },
+  "policy-only/dark/key": {
+   "dumps": 25,
+   "appIsActive": [
+    "not recorded"
+   ],
+   "activationPolicy": [
+    "not recorded"
+   ],
+   "highlightLayerOpacity": [
+    1
+   ],
+   "backdropMarginWidth": [
+    8.8,
+    9.600000000000001,
+    12.8,
+    58,
+    68
+   ],
+   "highlightOperators": {
+    "2": 24,
+    "0": 1
+   },
+   "highlightOperatorByScene": {
+    "0": [
+     "light-solid__capsule-button__rest-label"
+    ],
+    "2": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard__rrect-md__rest-label",
+     "dark-solid__capsule-button__rest",
+     "dark-solid__capsule-button__rest-label",
+     "dark-solid__rrect-48__rest",
+     "dark-solid__rrect-48__rest-label",
+     "dark-solid__rrect-64__rest",
+     "dark-solid__rrect-64__rest-label",
+     "dark-solid__rrect-80__rest",
+     "dark-solid__rrect-80__rest-label",
+     "dark-solid__rrect-md__rest",
+     "dark-solid__rrect-md__rest-label",
+     "impulse__capsule-button__rest",
+     "impulse__capsule-button__rest-label",
+     "light-solid__capsule-button__rest",
+     "mid-chroma-solid__capsule-button__rest",
+     "mid-chroma-solid__capsule-button__rest-label",
+     "mid-chroma-solid__capsule-button__rest-label-hot",
+     "mid-dark-solid__capsule-button__rest",
+     "mid-dark-solid__capsule-button__rest-label",
+     "photo__capsule-button__rest",
+     "photo__capsule-button__rest-label",
+     "photo__capsule-button__rest-label-tint-orange",
+     "photo__capsule-button__rest-tint-orange"
+    ]
+   },
+   "labelOperators": {
+    "3": 11,
+    "1": 1
+   },
+   "labelLayerOpacity": [
+    1
+   ],
+   "labelLayersCommitted": 13,
+   "labelLayersWithOperator": 12,
+   "tintOperators": {
+    "7": 2
+   },
+   "tintLayerOpacity": [
+    1
+   ]
+  },
+  "policy-only/light/key": {
+   "dumps": 25,
+   "appIsActive": [
+    "not recorded"
+   ],
+   "activationPolicy": [
+    "not recorded"
+   ],
+   "highlightLayerOpacity": [
+    1
+   ],
+   "backdropMarginWidth": [
+    8.8,
+    9.600000000000001,
+    12.8,
+    58,
+    68
+   ],
+   "highlightOperators": {
+    "0": 18,
+    "2": 7
+   },
+   "highlightOperatorByScene": {
+    "0": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard__rrect-md__rest-label",
+     "dark-solid__capsule-button__rest",
+     "dark-solid__rrect-80__rest",
+     "dark-solid__rrect-80__rest-label",
+     "dark-solid__rrect-md__rest",
+     "dark-solid__rrect-md__rest-label",
+     "light-solid__capsule-button__rest",
+     "light-solid__capsule-button__rest-label",
+     "mid-chroma-solid__capsule-button__rest",
+     "mid-chroma-solid__capsule-button__rest-label",
+     "mid-chroma-solid__capsule-button__rest-label-hot",
+     "mid-dark-solid__capsule-button__rest",
+     "mid-dark-solid__capsule-button__rest-label",
+     "photo__capsule-button__rest",
+     "photo__capsule-button__rest-label",
+     "photo__capsule-button__rest-label-tint-orange",
+     "photo__capsule-button__rest-tint-orange"
+    ],
+    "2": [
+     "dark-solid__capsule-button__rest-label",
+     "dark-solid__rrect-48__rest",
+     "dark-solid__rrect-48__rest-label",
+     "dark-solid__rrect-64__rest",
+     "dark-solid__rrect-64__rest-label",
+     "impulse__capsule-button__rest",
+     "impulse__capsule-button__rest-label"
+    ]
+   },
+   "labelOperators": {
+    "1": 8,
+    "3": 4
+   },
+   "labelLayerOpacity": [
+    1
+   ],
+   "labelLayersCommitted": 13,
+   "labelLayersWithOperator": 12,
+   "tintOperators": {
+    "6": 2
+   },
+   "tintLayerOpacity": [
+    1
+   ]
+  },
+  "recede/dark/non-key": {
+   "dumps": 25,
+   "appIsActive": [
+    "False"
+   ],
+   "activationPolicy": [
+    "accessory"
+   ],
+   "highlightLayerOpacity": [
+    0
+   ],
+   "backdropMarginWidth": [
+    0
+   ],
+   "highlightOperators": {
+    "2": 23,
+    "0": 2
+   },
+   "highlightOperatorByScene": {
+    "0": [
+     "light-solid__capsule-button__rest",
+     "light-solid__capsule-button__rest-label"
+    ],
+    "2": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard__rrect-md__rest-label",
+     "dark-solid__capsule-button__rest",
+     "dark-solid__capsule-button__rest-label",
+     "dark-solid__rrect-48__rest",
+     "dark-solid__rrect-48__rest-label",
+     "dark-solid__rrect-64__rest",
+     "dark-solid__rrect-64__rest-label",
+     "dark-solid__rrect-80__rest",
+     "dark-solid__rrect-80__rest-label",
+     "dark-solid__rrect-md__rest",
+     "dark-solid__rrect-md__rest-label",
+     "impulse__capsule-button__rest",
+     "impulse__capsule-button__rest-label",
+     "mid-chroma-solid__capsule-button__rest",
+     "mid-chroma-solid__capsule-button__rest-label",
+     "mid-chroma-solid__capsule-button__rest-label-hot",
+     "mid-dark-solid__capsule-button__rest",
+     "mid-dark-solid__capsule-button__rest-label",
+     "photo__capsule-button__rest",
+     "photo__capsule-button__rest-label",
+     "photo__capsule-button__rest-label-tint-orange",
+     "photo__capsule-button__rest-tint-orange"
+    ]
+   },
+   "labelOperators": {
+    "3": 11,
+    "1": 1
+   },
+   "labelLayerOpacity": [
+    1
+   ],
+   "labelLayersCommitted": 13,
+   "labelLayersWithOperator": 12,
+   "tintOperators": {
+    "8": 2
+   },
+   "tintLayerOpacity": [
+    1
+   ]
+  },
+  "recede/light/non-key": {
+   "dumps": 25,
+   "appIsActive": [
+    "False"
+   ],
+   "activationPolicy": [
+    "accessory"
+   ],
+   "highlightLayerOpacity": [
+    0
+   ],
+   "backdropMarginWidth": [
+    0
+   ],
+   "highlightOperators": {
+    "0": 17,
+    "2": 8
+   },
+   "highlightOperatorByScene": {
+    "0": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard__rrect-md__rest-label",
+     "dark-solid__rrect-80__rest",
+     "dark-solid__rrect-80__rest-label",
+     "dark-solid__rrect-md__rest",
+     "dark-solid__rrect-md__rest-label",
+     "light-solid__capsule-button__rest",
+     "light-solid__capsule-button__rest-label",
+     "mid-chroma-solid__capsule-button__rest",
+     "mid-chroma-solid__capsule-button__rest-label",
+     "mid-chroma-solid__capsule-button__rest-label-hot",
+     "mid-dark-solid__capsule-button__rest",
+     "mid-dark-solid__capsule-button__rest-label",
+     "photo__capsule-button__rest",
+     "photo__capsule-button__rest-label",
+     "photo__capsule-button__rest-label-tint-orange",
+     "photo__capsule-button__rest-tint-orange"
+    ],
+    "2": [
+     "dark-solid__capsule-button__rest",
+     "dark-solid__capsule-button__rest-label",
+     "dark-solid__rrect-48__rest",
+     "dark-solid__rrect-48__rest-label",
+     "dark-solid__rrect-64__rest",
+     "dark-solid__rrect-64__rest-label",
+     "impulse__capsule-button__rest",
+     "impulse__capsule-button__rest-label"
+    ]
+   },
+   "labelOperators": {
+    "1": 8,
+    "3": 4
+   },
+   "labelLayerOpacity": [
+    1
+   ],
+   "labelLayersCommitted": 13,
+   "labelLayersWithOperator": 12,
+   "tintOperators": {
+    "4": 2
+   },
+   "tintLayerOpacity": [
+    1
+   ]
+  }
+ },
+ "bodyLaw": {
+  "thisCorpus": {
+   "rows": 150,
+   "faceFillViolations": 0,
+   "shadowFillViolations": 0
+  },
+  "g0Corpus": {
+   "rows": 56,
+   "scenesExcludedAsTwoSurfaces": [
+    "photo__glass-over-glass__rest"
+   ],
+   "faceFillViolations": 0
+  },
+  "label": {
+   "labelled": 72,
+   "violations": []
+  }
+ },
+ "sceneAgreement": {
+  "unanimousAcrossAllGroups": 47,
+  "split": {
+   "dark light-solid__capsule-button__rest": {
+    "active/dark/key": 0,
+    "policy-only/dark/key": 2,
+    "recede/dark/non-key": 0
+   },
+   "light dark-solid__capsule-button__rest": {
+    "active/light/key": 0,
+    "policy-only/light/key": 0,
+    "recede/light/non-key": 2
+   },
+   "light dark-solid__rrect-48__rest-label": {
+    "active/light/key": 0,
+    "policy-only/light/key": 2,
+    "recede/light/non-key": 2
+   }
+  }
+ },
+ "lawCheck": {
+  "rows": 150,
+  "agreeing": 146,
+  "deviants": [
+   {
+    "group": "active/light/key",
+    "scene": "dark-solid__capsule-button__rest",
+    "background": "dark-solid",
+    "span": 44,
+    "observedHighGain": false,
+    "predictedHighGain": true
+   },
+   {
+    "group": "active/light/key",
+    "scene": "dark-solid__rrect-48__rest-label",
+    "background": "dark-solid",
+    "span": 48,
+    "observedHighGain": false,
+    "predictedHighGain": true
+   },
+   {
+    "group": "policy-only/light/key",
+    "scene": "dark-solid__capsule-button__rest",
+    "background": "dark-solid",
+    "span": 44,
+    "observedHighGain": false,
+    "predictedHighGain": true
+   },
+   {
+    "group": "policy-only/dark/key",
+    "scene": "light-solid__capsule-button__rest",
+    "background": "light-solid",
+    "span": 44,
+    "observedHighGain": true,
+    "predictedHighGain": false
+   }
+  ],
+  "spansByBackgroundLight": [
+   "checkerboard@96",
+   "dark-solid@44",
+   "dark-solid@48",
+   "dark-solid@64",
+   "dark-solid@80",
+   "dark-solid@96",
+   "impulse@44",
+   "light-solid@44",
+   "mid-chroma-solid@44",
+   "mid-dark-solid@44",
+   "photo@44"
+  ]
+ },
+ "brackets": {
+  "light": {
+   "highGain": 21,
+   "default": 54,
+   "tracksLumaOnHighGain": [
+    1
+   ],
+   "tracksLumaOnDefault": [
+    0,
+    1
+   ]
+  },
+  "dark": {
+   "highGain": 70,
+   "default": 5,
+   "tracksLumaOnHighGain": [
+    0,
+    1
+   ],
+   "tracksLumaOnDefault": [
+    1
+   ]
+  }
+ },
+ "acrossScales": {
+  "dumps2x": 50,
+  "2xHighlightLayerOpacity": [
+   0
+  ],
+  "2xMarginWidth": [
+   0
+  ],
+  "2xIsKeyWindow": [
+   false
+  ],
+  "2xFaceFillIsDarkByScheme": {
+   "light": [
+    false
+   ],
+   "dark": [
+    true
+   ]
+  },
+  "2xTracksLumaBySpanIsUnchanged": "read in table.json; tracksLuma is 1 at declared span 44/48/64 and 0 at 80/96 at BOTH scales",
+  "scenesDifferingFrom1xRecede": [
+   "dark light-solid__capsule-button__rest",
+   "dark light-solid__capsule-button__rest-label",
+   "light dark-solid__capsule-button__rest",
+   "light dark-solid__capsule-button__rest-label",
+   "light dark-solid__rrect-48__rest",
+   "light dark-solid__rrect-48__rest-label",
+   "light dark-solid__rrect-64__rest",
+   "light dark-solid__rrect-64__rest-label",
+   "light impulse__capsule-button__rest",
+   "light impulse__capsule-button__rest-label"
+  ]
+ },
+ "againstG0": {
+  "checkerboard__rrect-md__rest": {
+   "g0Matrices": 1,
+   "agreesWith": [
+    "active/light/non-key",
+    "policy-only/light/key",
+    "recede/light/non-key"
+   ],
+   "differsFrom": []
+  },
+  "dark-solid__capsule-button__rest": {
+   "g0Matrices": 1,
+   "agreesWith": [
+    "recede/light/non-key"
+   ],
+   "differsFrom": [
+    "active/light/key",
+    "policy-only/light/key"
+   ]
+  },
+  "dark-solid__rrect-md__rest": {
+   "g0Matrices": 1,
+   "agreesWith": [
+    "active/light/key",
+    "policy-only/light/key",
+    "recede/light/non-key"
+   ],
+   "differsFrom": []
+  },
+  "impulse__capsule-button__rest": {
+   "g0Matrices": 1,
+   "agreesWith": [
+    "active/light/non-key",
+    "policy-only/light/key",
+    "recede/light/non-key"
+   ],
+   "differsFrom": []
+  },
+  "light-solid__capsule-button__rest": {
+   "g0Matrices": 1,
+   "agreesWith": [
+    "active/light/non-key",
+    "policy-only/light/key",
+    "recede/light/non-key"
+   ],
+   "differsFrom": []
+  },
+  "mid-dark-solid__capsule-button__rest": {
+   "g0Matrices": 1,
+   "agreesWith": [
+    "active/light/non-key",
+    "policy-only/light/key",
+    "recede/light/non-key"
+   ],
+   "differsFrom": []
+  },
+  "photo__capsule-button__rest": {
+   "g0Matrices": 1,
+   "agreesWith": [
+    "active/light/non-key",
+    "policy-only/light/key",
+    "recede/light/non-key"
+   ],
+   "differsFrom": []
+  },
+  "photo__capsule-button__rest-tint-orange": {
+   "g0Matrices": 1,
+   "agreesWith": [
+    "active/light/non-key",
+    "policy-only/light/key",
+    "recede/light/non-key"
+   ],
+   "differsFrom": []
+  }
+ },
+ "labelHot": [
+  "active/dark/key mid-chroma-solid__capsule-button__rest-label-hot layers=1 withOperator=0 srgb=[255, 59, 48]",
+  "active/light/non-key mid-chroma-solid__capsule-button__rest-label-hot layers=1 withOperator=0 srgb=[255, 59, 48]",
+  "policy-only/dark/key mid-chroma-solid__capsule-button__rest-label-hot layers=1 withOperator=0 srgb=[255, 59, 48]",
+  "policy-only/light/key mid-chroma-solid__capsule-button__rest-label-hot layers=1 withOperator=0 srgb=[255, 59, 48]",
+  "recede/dark/non-key mid-chroma-solid__capsule-button__rest-label-hot layers=1 withOperator=0 srgb=[255, 59, 48]",
+  "recede/light/non-key mid-chroma-solid__capsule-button__rest-label-hot layers=1 withOperator=0 srgb=[255, 59, 48]"
+ ],
+ "labelFlags": [
+  "1/1/None"
+ ],
+ "highlightFlags": [
+  "None/1/None"
+ ],
+ "tintFlags": [
+  "1/None/None"
+ ]
+}
