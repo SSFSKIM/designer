@@ -78,6 +78,14 @@ scored, exactly as `bound.json`'s scope states.
 | 1x light increased contrast | holds (0.01090 / 0.06) | **fails** (0.01936 / 0.0078, 2.48×) | **fails** — `dark-solid__rrect-48__inactive` 0.16224, **20.80×** | **FAILS** |
 | 1x light reduced transparency | holds (0.01071 / 0.04) | **fails** (0.02138 / 0.011, 1.94×) | **fails** — `dark-solid__rrect-48__inactive` 0.17417, **15.83×** | **FAILS** |
 
+**Every failure on this bed is one cell.** Both accessibility clause-2 means are carried entirely by
+`dark-solid__rrect-48__inactive`: without it the other eleven read 0.00637 (0.82× the threshold)
+under Increase Contrast and 0.00749 (0.68×) under Reduce Transparency, and both would hold. The
+light standard pair holds clause 2 at 0.41× and 0.35× and fails only the per-cell floor. That is
+clause 3 doing what it was built for, and it is not a reason to read the failures as small: a cell
+over the floor names a regime, and G3 may adopt no inactive floor for that regime even where the
+profile's mean holds.
+
 Clause 4's reported, non-gating figures: the checking set's footprint fraction is 0.2138 against the
 calibration sets' 0.081–0.107, so it is 2.0–2.6× larger by construction; the full-canvas ratio to
 calibration runs 0.98–2.44× and the body ratio 0.72–3.71×. The full-canvas ratio is reported and is
