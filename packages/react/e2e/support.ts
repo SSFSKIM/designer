@@ -130,9 +130,16 @@ export async function sampleRects(locator: Locator, count: number): Promise<Rect
  * about motion.
  *
  * Recording in the page removes the round trip from the measurement entirely: every
- * sample is a frame, adjacent samples are adjacent frames, and the trigger lands
- * somewhere inside the recording rather than between two of them. The caller starts
- * the recording, does whatever it likes from Node, and reads the trajectory back.
+ * sample is taken inside a frame callback, and the trigger lands somewhere inside
+ * the recording rather than between two readings. The caller starts the recording,
+ * does whatever it likes from Node, and reads the trajectory back.
+ *
+ * What it does not remove is the gap *between* two samples. A dropped frame — which
+ * a headless rasteriser takes whenever the page grows a surface — puts two frames of
+ * motion between two adjacent samples, so "adjacent samples are adjacent frames" is
+ * a premise about the machine that this recorder does not supply. Each sample
+ * carries its own `time` for exactly that reason: weigh a step against the interval
+ * it happened over, never against a frame count read off the sample index.
  *
  * Settling is the runtime's own answer (`data-vitrea-morphing`), not a duration, so
  * the recording ends when the springs do.
