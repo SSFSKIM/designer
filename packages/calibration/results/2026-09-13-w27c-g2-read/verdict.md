@@ -174,10 +174,10 @@ not clear its own ceiling, and it is recorded rather than left in the matrix.
 | file | what |
 | --- | --- |
 | `plurality-report.py` → `plurality.json` | the seven-run agreement per cell, and the idle group apart |
-| `materialize-bed.sh` → `materialize.log` | the six publication phases, exactly as run |
+| `materialize-bed.sh` → `materialize.out` | the six publication phases, exactly as run |
 | `round-trip-check.py` → `round-trip.json` | every pre-existing entry and PNG diffed against `ec809ae6` |
 | `manifest-doctor-before.txt` / `-after.txt` | the Swift round trip either side of publication |
-| `g2-read.ts` → `checking-matrix.json`, `checking-read.log` | the web read, 174 rows, scratch only |
+| `g2-read.ts` → `checking-matrix.json`, `checking-read.out` | the web read, 174 rows, scratch only |
 | `native-attestation.py` → `attestation.json` | group E, native against native |
 | `score-bound.py` → `verdict.json` | the bound applied, clause by clause |
 | `sheet.py` → `sheets/*.png` | native \| webgpu \| 8× difference, per profile, worst body ΔE first |

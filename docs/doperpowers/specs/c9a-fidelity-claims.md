@@ -18702,8 +18702,8 @@ declaration and the sitting). **This gate fits nothing, adopts nothing and moves
 material profile, renderer golden, isolation hash, `scenes.json` entry, canonical `results/matrix.json`
 row or pre-existing fixture entry changed, and no file under `packages/*/src` changed. Evidence:
 `packages/calibration/results/2026-09-13-w27c-g2-read/` — `verdict.md` (the rendering),
-`plurality.json`, `materialize.log`, `round-trip.json`, `manifest-doctor-{before,after}.txt`,
-`attestation.json`, `checking-matrix.json` with `checking-read.log`, `verdict.json`, `sheets/`, and
+`plurality.json`, `materialize.out`, `round-trip.json`, `manifest-doctor-{before,after}.txt`,
+`attestation.json`, `checking-matrix.json` with `checking-read.out`, `verdict.json`, `sheets/`, and
 the five reproducers that wrote them.
 
 **The read's one-line result: the bound of §5.134 §6 holds on 2 of 6 profiles, and G2 stays
