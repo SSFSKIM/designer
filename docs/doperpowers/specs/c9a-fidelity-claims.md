@@ -18942,4 +18942,10 @@ lint green at the head, after publication and after both `materialize` fixes. `m
 on the pre-publication manifest out of `ec809ae6` and on the published one, both recorded verbatim.
 The read refused nothing and stopped nothing, and the frozen endpoint was checked against
 `2026-09-10-w27c-g1-corrected-declaration.json` before the first capture, so a drifted
-`receded-profile.ts` would have stopped the run rather than been measured.
+`receded-profile.ts` would have stopped the run rather than been measured. Clause 5's STOPPED
+condition — a golden, an isolation hash or either active resolved fingerprint moving — holds by
+construction rather than by a hardware run: **no file under `packages/*/src` changed in this gate**
+(the only source edit anywhere is `packages/calibration/cli/materialize.ts`, which no renderer
+imports), and `tuned-profiles.test.ts`, inside the 386, pins each profile's fully resolved material
+by fingerprint on every run. The 34 renderer golden/isolation tests were not re-run, because nothing
+they read moved.
