@@ -484,14 +484,21 @@ body {
 /*
  * The gap is the material's business, not the layout's taste: two sampling
  * groups side by side each pad their proxy around their own shapes, so the room
- * between the bookmark and `Publish` is the padding the material asks for with
- * something in hand. It is also wider than the group's merge distance, which is
- * why the plate and the bookmark read as two bodies rather than one.
+ * between the bookmark and `Publish` has to be at least what the material asks
+ * for. Computed from the shipped padding law over this band's measured member
+ * boxes, two adjacent groups need 14.87 px at the nominal policy and 26.56 px at
+ * the worst frost/refraction/occlusion combination the policy feed can reach.
+ * 2rem is 32 px, which clears the worst case rather than grazing it — the
+ * previous 1.75rem cleared it by 1.44 px, and the number to clear is not fixed:
+ * the law follows the surface's own span, and this plate's span is content-driven,
+ * so another row of levels or a reader's larger default font moves it. It is also
+ * wider than the group's merge distance, which is why the plate and the bookmark
+ * read as two bodies rather than one.
  */
 .ink-row {
   display: flex;
   align-items: flex-end;
-  gap: 1.75rem;
+  gap: 2rem;
   padding: 0 var(--ink-band-pad) 0.75rem;
 }
 
@@ -543,12 +550,6 @@ body {
 
 .ink-level--quaternary .ink-level__specimen {
   color: var(--vitrea-foreground-quaternary, var(--ink-faint));
-}
-
-.control--compact {
-  min-height: 2.25rem;
-  padding: 0 0.85rem;
-  font-size: 0.875rem;
 }
 
 /* ── Controls ─────────────────────────────────────────────────────────────── */

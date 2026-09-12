@@ -285,7 +285,13 @@ export function TintInkPlate(props: TintInkPlateProps): ReactNode {
                 hint={{ tone: ground.tone, luminance: linearLevel(ground.byte) }}
               >
                 <GlassButton
-                  className="control control--compact"
+                  // Two grounds means two of everything, and two buttons whose
+                  // name is the word on them are two controls a screen reader
+                  // cannot tell apart. The name keeps the visible word and adds
+                  // the ground, which is what WCAG's label-in-name asks for and
+                  // also what the bookmark beside it already does.
+                  aria-label={`Publish to the ${ground.key} ground`}
+                  className="control"
                   tint={buttonTint}
                   data-testid={`ink-publish-${ground.key}`}
                   onClick={() => props.onAction(`publish ${ground.key}`)}
