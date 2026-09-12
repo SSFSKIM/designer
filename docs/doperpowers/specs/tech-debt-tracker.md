@@ -2322,15 +2322,16 @@ and there is a second lesson in it for the next bed: **a low-idle group that is 
 passes cannot be compared to a pooled remainder**, and the design that would answer the question is
 the per-cell retry, which produces the comparison within a pass rather than across passes.
 
-## The inactive endpoint's dark thin response at a bright backdrop is wrong by 0.77 Y (W27c G2 read, 2026-09-13)
+## The inactive endpoint's dark thin response at a bright backdrop is wrong by 0.78 Y (W27c G2 read, 2026-09-13)
 
-*Measured on the checking bed, claims §5.139 §6; a supplying cell, not a scored one, and nothing was
-fitted to it.*
+*Measured on the checking bed, claims §5.139 §6; supplying cells, not scored ones, and nothing was
+fitted to them.*
 
-`light-solid__rrect-sm__inactive` in the dark scheme reads web **0.16225** against native
-**0.93261** linear Y on the eroded body — body ΔE **0.43179**, the largest single reading anywhere on
-the bed. Apple's recede over a bright solid at span 32 in dark is *invisible*: the interior is the
-backdrop's own level. vitrea paints a dark panel over it. At thick span the same backdrop reads
+`light-solid__capsule-button__inactive` in the dark scheme reads web **0.15637** against native
+**0.93261** linear Y on the eroded body — body ΔE **0.43838** — and its `rrect-sm` sibling at span 32
+reads 0.16225 against the same 0.93261, body ΔE **0.43179**. They are the two largest readings
+anywhere on the bed. Apple's recede over a bright solid at a thin span in dark is *invisible* — the
+interior is the backdrop's own level — and vitrea paints a dark panel over it. At thick span the same backdrop reads
 0.09339 / 0.11753, so it is the **thin** row alone, and it is exactly the ordinate §5.130's table
 flagged: dark `backdropToneResponseThin` is `[0.011, 0.089, 0.1611]` and its far entry is recorded
 there as "an extrapolation of this selected family, not a measured bright-background level". The bed

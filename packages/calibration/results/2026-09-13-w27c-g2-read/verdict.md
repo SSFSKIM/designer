@@ -23,8 +23,9 @@ their bytes are read and the frozen bed's own cells are untouched.
 | `manifest-doctor` | 455 entries before, 611 after; the same four undeclared fields it named before (`recoveredProvenance` ×121, the three frequency fields ×102 → ×103) |
 | bed provenance blocks | 5 → 11, all five prior blocks kept |
 
-Two defects in `cli/materialize.ts` were found by doing this and fixed before the bundle was
-written. Both are recorded in §5.139 §1.
+This is the first phase to publish beside an earlier one, and two defects in `cli/materialize.ts`
+fell out of that and were fixed before the bundle was written. The first version of each fix was
+wrong in the same way and the independent review caught both. All of it is in §5.139 §1.
 
 ## 2. The seven-run plurality
 
@@ -71,7 +72,7 @@ one thing the endpoint gets exactly right on this bed is the disappearance.
 ## 3. The bound, clause by clause
 
 WebGPU tier throughout, real Apple `metal-3` adapter, no fallback, every row `gpu-texture` sampled,
-zero `problems` and zero diagnostics over all 174 rows. Scored: group D, the 12 checking ids, on
+zero `problems` and zero diagnostics over all 176 rows, each repeated across two page loads to the byte. Scored: group D, the 12 checking ids, on
 every profile that declares them — 72 cells. Groups A, B, C and E are read and published and not
 scored, exactly as `bound.json`'s scope states.
 
@@ -150,10 +151,11 @@ confirmed by measurement**, and the DL14 post-mortem's inference of the pose is 
 
 ## 6. Three findings the classification did not anticipate
 
-1. **The dark thin response at a bright backdrop is not merely unmeasured — it is wrong by 0.77 Y.**
-   `light-solid__rrect-sm__inactive` in dark reads web 0.16225 / native 0.93261, body ΔE **0.43179**,
-   the largest reading on the bed. The native recede over a bright solid at span 32 is *invisible*;
-   vitrea paints a dark panel. §5.130 recorded dark `backdropToneResponseThin`'s far ordinate as
+1. **The dark thin response at a bright backdrop is not merely unmeasured — it is wrong by 0.78 Y.**
+   `light-solid__capsule-button__inactive` in dark reads web 0.15637 / native 0.93261, body ΔE
+   **0.43838**, and its `rrect-sm` sibling reads 0.16225 / 0.93261 at 0.43179 — the two largest
+   readings on the bed, at spans 44 and 32. The native recede over a bright solid at a thin span is
+   *invisible*; vitrea paints a dark panel. §5.130 recorded dark `backdropToneResponseThin`'s far ordinate as
    "an extrapolation of this selected family, not a measured bright-background level" — the bed
    measures it, and the extrapolation (0.1611) is off by a factor of six. At thick span the same
    backdrop reads 0.09339 / 0.11753, so it is the thin row alone. A supplying cell, not scored.
@@ -201,7 +203,7 @@ not clear its own ceiling, and it is recorded rather than left in the matrix.
 | `materialize-bed.sh` → `materialize.out` | the six publication phases, exactly as run |
 | `round-trip-check.py` → `round-trip.json` | every pre-existing entry and PNG diffed against `ec809ae6` |
 | `manifest-doctor-before.txt` / `-after.txt` | the Swift round trip either side of publication |
-| `g2-read.ts` → `checking-matrix.json`, `checking-read.out` | the web read, 174 rows, scratch only |
+| `g2-read.ts` → `checking-matrix.json`, `checking-read.out` | the web read, 176 rows, scratch only |
 | `native-attestation.py` → `attestation.json` | group E, native against native |
 | `score-bound.py` → `verdict.json` | the bound applied, clause by clause |
 | `sheet.py` → `sheets/*.png` | native \| webgpu \| 8× difference, per profile, worst body ΔE first |

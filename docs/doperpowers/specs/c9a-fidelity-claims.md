@@ -18734,20 +18734,32 @@ fields on 102, now 103). The manifest's `split` block, which was stale against `
 the G1 inactive scenes landed, is refreshed from the declaration by the tool's own documented rule;
 nothing is removed from it.
 
-Two defects in `cli/materialize.ts` were found on the way and fixed before the bundle was written,
-each of which would have destroyed committed evidence silently:
+**`cli/materialize.ts` had never published beside anything, and this phase found it.** Every earlier
+bed was materialised into ground no other phase had filled; W27c's is the first to add cells to
+profiles a previous publication already built, and two defects fell out of that immediately, each of
+which would have destroyed committed evidence silently:
 
 - **The bed provenance block was keyed on its profile set alone.** Publishing 62 probe cells into
   the two 2x standard profiles would have deleted the block recording that the 455 cells already
   there were taken at the **seventeen-run freeze bar**, leaving the bundle claiming seven runs for
-  bytes that had seventeen. The key is now profiles, run labels and cell count together, so
-  re-running one phase still replaces its own block and all five prior blocks survive (5 → 11).
+  bytes that had seventeen. A phase is now identified by its profiles, its run labels, its cell
+  count **and a SHA-256 of the sorted cells it published** — the first three are not enough, because
+  every sitting calls its runs `run-1`…`run-7` and two sittings can publish different same-sized
+  sets into the same profiles. All five historical blocks survive and the six this gate wrote are
+  digested (5 → 11).
 - **The backdrop index was not carried forward.** A fixture is a component over a raster and the
   manifest's `backgrounds` map is the only place the bundle says which; publishing the bed's cells
   over the new `mid-chroma-solid` left 24 fixtures whose backdrop nothing could name, and the
   calibration page refused every one of them. Found by the page refusing, which is the fail-closed
-  path working. `materialize` now carries a run's backgrounds forward, copying a raster the bundle
-  lacks and **stopping** where the bundle's raster differs from what the run composited over.
+  path working. `materialize` now validates every run's every background before it copies anything —
+  the id must already index the path the run used, and the bytes must agree — and **stops** rather
+  than publishing cells over a raster they were not drawn on.
+
+The first versions of both fixes were themselves wrong in the same way, which is the part worth
+carrying: the provenance key still collided on generic run labels, and the background guard compared
+the run's path against the same path in the bundle rather than against the path the manifest
+actually indexes for that id, so a renamed raster would have been validated and then not indexed.
+Both were caught by the independent review of this gate (§10) and closed before the record settled.
 
 **2. The seven-run plurality.** 188 cells over six passes; every run manifest's sha256 matches the
 sitting's committed `provenance.json` before anything was counted. **160 of 188 are unanimous across
@@ -18785,9 +18797,11 @@ three **exactly**, body ΔE **0.000000** with web and native interior Y both **0
 standard profile at both scales. The disappearance is the one thing the endpoint gets exactly right
 on this bed.
 
-**3. The bound, clause by clause, on the WebGPU tier.** Every one of the 174 rows drew on a real
-Apple `metal-3` adapter with `isFallback: false`, resolved `webgpu` + `gpu-texture` on every group,
-and reported zero `problems` and zero diagnostics. Scored: group D, the 12 checking ids, on every
+**3. The bound, clause by clause, on the WebGPU tier.** The read is **176 rows** — the bed's 188
+profile-by-scene cells less the 12 that carry §5.130's holdout role — and every one of them drew on
+a real Apple `metal-3` adapter with `isFallback: false`, resolved `webgpu` + `gpu-texture` on every
+group, repeated across two independent page loads to the byte, and reported zero `problems` and zero
+diagnostics. Scored: group D, the 12 checking ids, on every
 profile that declares them — 72 cells. Groups A, B, C and E are read and published and **not**
 scored, exactly as `bound.json`'s scope states, and the three bed ids carrying §5.130's holdout role
 are not compared against vitrea at all (§7).
@@ -18814,7 +18828,21 @@ holds.
 Clause 4's reported and explicitly non-gating figures: the checking set's mean footprint fraction is
 **0.2138** against the calibration sets' 0.081–0.107, 2.0–2.6× larger by construction, so the
 full-canvas ratio to calibration (0.98–2.44×) is published beside the footprint and gates nothing;
-the body ratio runs 0.72–3.71×. Clause 5 refused no row, suspended nothing and stopped nothing.
+the body ratio runs 0.72–3.71×.
+
+**Clause 5 refused no row, suspended nothing and stopped nothing — and every refusal it names is
+implemented and was proved to fire.** The first version of this instrument enforced the geometry,
+`problems`, resolved-state and fallback-adapter refusals it inherited from the corrected G1 driver
+and **not** the attestation one, which is the clause's own words: a row is refused "whose native
+fixture lacks the inactive-presentation attestation". It now is, along with three the review asked
+for that the frozen G1 driver had and this one had lost — the native bytes must hash to
+`plurality.json`'s plurality digest for that cell, the bundle's backdrop raster must be
+byte-identical to the copy in the run the native bytes came from, and both active documents must
+resolve to the frozen declaration's `activeSha256` (a fingerprint-to-fingerprint comparison would
+not have caught a drift in `DEFAULT_MATERIAL_PROFILE`, which the driver and the page share). The
+scorer refuses a matrix that is outside the gate's contract at all: a missing checking cell, a
+duplicated pair, a CSS read, a single-load read or a patch that is not the frozen one. Each was
+proved to fire against a deliberately mutated matrix and a mirrored sitting rather than asserted.
 
 **The bound is applied as declared and not re-scoped.** No clause was narrowed, no threshold moved,
 and the one clause that is unmeasurable on this bed is named rather than reinterpreted: clause 3's
@@ -18844,10 +18872,17 @@ carrying the spent-holdout id `mid-dark-solid__capsule-button__inactive` — are
 Group E's other four — 2x light and 2x dark `checkerboard__rrect-md` and `photo__rrect-md` — differ
 at **one** code on 236–362 pixels (0.09–0.14% of the canvas) at coherence 0.13–0.32, which
 `src/plurality.ts` classifies *incidental* by its own rule. Clause 5's suspension condition does not
-fire. A fresh, attested, seven-run 26.5 session reproduces fixtures the record
-holds as schema-2, single-run, pose-inferred evidence, which is the strongest available answer to
-the risk §Risks named when the recovered bed was admitted, and it says the DL14 post-mortem's
-inference of the pose was right.
+fire, and the reader now *enforces* it rather than reporting it: a group E row that is structured, or
+that cannot be compared at all, makes the read suspend and exits non-zero, which was proved against a
+mirrored sitting with one cell swapped. A fresh, attested, seven-run 26.5 session reproduces fixtures
+the record holds as schema-2, single-run, pose-inferred evidence, which is the strongest available
+answer to the risk §Risks named when the recovered bed was admitted, and it says the DL14
+post-mortem's inference of the pose was right.
+
+One of group E's six ids is re-attested in two profiles rather than four:
+`light-solid__capsule-button__inactive` has no recovered fixture in either dark profile, so there is
+nothing there to compare the fresh bytes against. Its fresh dark cells are read against vitrea
+instead, unscored, and they are §6's largest reading.
 
 **5. What the bed says about §5.134's five classifications.** Three are confirmed, one is supplied
 with the evidence it lacked, and one could not be read.
@@ -18880,10 +18915,11 @@ with the evidence it lacked, and one could not be read.
 
 **6. Three findings the classification did not anticipate, all on supplying cells.**
 
-- **The dark thin response at a bright backdrop is not merely unmeasured; it is wrong by 0.77 Y.**
-  `light-solid__rrect-sm__inactive` in dark reads web **0.16225** / native **0.93261**, body ΔE
-  **0.43179** — the largest reading on the bed. Apple's recede over a bright solid at span 32 in the
-  dark scheme is *invisible*; vitrea paints a dark panel over it. §5.130's table recorded the dark
+- **The dark thin response at a bright backdrop is not merely unmeasured; it is wrong by 0.78 Y.**
+  `light-solid__capsule-button__inactive` in dark reads web **0.15637** / native **0.93261**, body
+  ΔE **0.43838**, and its `rrect-sm` sibling at span 32 reads **0.16225** / 0.93261, body ΔE
+  **0.43179** — the two largest readings on the bed, at spans 44 and 32. Apple's recede over a bright
+  solid at a thin span in the dark scheme is *invisible*; vitrea paints a dark panel over it. §5.130's table recorded the dark
   `backdropToneResponseThin` far ordinate as "an extrapolation of this selected family, not a
   measured bright-background level"; the bed measures it and the extrapolation, 0.1611, is off by a
   factor of about six. At thick span the same backdrop reads 0.09339 / 0.11753, so it is the **thin
@@ -18978,15 +19014,35 @@ not been taken on these sheets; this gate ships no pixel, so nothing waits on it
 here for whoever opens G2 or a refit.
 
 **10. Verification record.** `pnpm --filter @vitrea/calibration --fail-if-no-match test` 386/386 and
-lint green at the head, after publication and after both `materialize` fixes. `manifest-doctor` run
+lint green at the head, after publication and after every fix below.
+
+**Two independent reviews of this gate, run in parallel and agreeing.** Both reproduced the
+load-bearing arithmetic against the evidence rather than reading it: the bound holds on exactly two
+of six profiles over all 72 group D rows, 160 of 188 cells are unanimous over the raw runs, the 455
+pre-existing entries and PNGs are unchanged with 156 added, no committed row anywhere derives from a
+spent-holdout id, and nothing moved outside the additive publication, `materialize`, the evidence
+directory and three documents. Both returned **incorrect**, on the same defects, and every one of
+them was real. Four were in what the gate had written down — the re-attestation was reported as 28
+group E cells when it is 24 group E and 4 group A (§4); the low-idle comparison was read as a
+measured "no" when it is confounded by pass and inconclusive (§2); the active chroma deficit
+attributed the reference's fraction to vitrea and so understated itself twofold (§7); and the
+fine-pitch scatter range mixed two pitches (§5 (b)). All four are corrected above, with the
+withdrawal stated rather than the sentence quietly replaced. Five were in the instrument and are
+fixed and re-run (§3's refusal paragraph, and the population and attestation fixes that took the read
+from 174 rows to 176). Two were in `materialize`'s own first fixes (§1). The gate's conclusions did
+not move: the same 2 of 6, and every shared row byte-identical across the runs before and after. `manifest-doctor` run
 on the pre-publication manifest out of `ec809ae6` (written to a scratch root, which is why the
 `before` file names `/tmp`) and on the published one, both recorded verbatim. The harness that ran it
 was built with `VITREA_BUILD_OUT` to a side directory: `apps/reference-apple/build` was never
 rebuilt, because its signature holds the machine's Screen Recording grant and a rebuild is a new
 identity (§5.136 §10's own instrument correction).
-The read refused nothing and stopped nothing, and the frozen endpoint was checked against
-`2026-09-10-w27c-g1-corrected-declaration.json` before the first capture, so a drifted
-`receded-profile.ts` would have stopped the run rather than been measured. Clause 5's STOPPED
+The read refused nothing and stopped nothing. The frozen endpoint is checked against
+`2026-09-10-w27c-g1-corrected-declaration.json` before the first capture — the receded patch, both
+active documents' fully resolved digests and the resolved inactive digest `bound.json` names — so a
+drift in `receded-profile.ts`, in an active profile document or in `DEFAULT_MATERIAL_PROFILE` stops
+the run rather than being measured. The matrix also records `instrumentSha256` over the driver,
+`plurality.json`, `bound.json` and `checking-bed.json`, so a reading names what measured it and under
+which declaration, which `sourceSha256` alone could not say. Clause 5's STOPPED
 condition — a golden, an isolation hash or either active resolved fingerprint moving — holds by
 construction rather than by a hardware run: **no file under `packages/*/src` changed in this gate**
 (the only source edit anywhere is `packages/calibration/cli/materialize.ts`, which no renderer

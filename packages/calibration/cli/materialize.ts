@@ -385,27 +385,82 @@ function main(): void {
    * background the bundle has never seen therefore leaves fixtures whose backdrop
    * nothing can name — and the calibration page refuses such a scene outright, so
    * the bed publishes and then cannot be read. That is how W27c's `mid-chroma-solid`
-   * was found missing (claims §5.139). Only missing keys are added: a key whose
-   * raster bytes differ from what the run composited is a stop, not a repair,
-   * because the fixtures beside it were drawn over the other one.
+   * was found missing (claims §5.139).
+   *
+   * Three things have to agree, and the tool establishes all three across every
+   * run before it writes anything. The raster a run declares must be in the run,
+   * because a cell whose backdrop was never snapshotted cannot be filed under one.
+   * The PATH must agree with the index where the index already has the id: the
+   * fixtures already filed under it were drawn over the raster the index names, so
+   * re-pointing the id at a different file would misattribute them, and a
+   * disagreement is a stop rather than a repair. And the BYTES must agree — the
+   * copy in the bundle, at the path the index gives, against every run's copy.
+   *
+   * Validating everything first is what makes the failure clean. Interleaving the
+   * checks with the copies would let a later id's stop leave earlier rasters in the
+   * fixture root that no index entry names, which is the half-published bed this
+   * tool's whole staging discipline exists to prevent.
    */
-  const backgroundsAdded: string[] = [];
+  interface BackgroundPlan {
+    /** Where the bundle files this raster: the index's path if it has one. */
+    readonly path: string;
+    readonly from: string;
+    readonly sha256: string;
+    readonly declaredBy: string;
+  }
+  const plan = new Map<string, BackgroundPlan>();
   for (const run of runs) {
     for (const [id, path] of Object.entries(run.backgrounds)) {
       const fromRun = resolve(run.dir, path);
-      const inBundle = resolve(FIXTURES, path);
-      if (!existsSync(fromRun)) continue;
-      if (existsSync(inBundle) && sha(readFileSync(inBundle)) !== sha(readFileSync(fromRun))) {
+      if (!existsSync(fromRun)) {
         throw new Error(
-          `background ${id}: the bundle's raster is not the one run ${run.label} composited over. ` +
-            `Publishing the cells beside it would file them under a backdrop they were not drawn on.`,
+          `background ${id}: run ${run.label} records it at ${path} and did not snapshot it. ` +
+            `Snapshot the whole run, its rasters included — the cells beside it have no backdrop.`,
         );
       }
-      if (!existsSync(inBundle)) copyFileSync(fromRun, inBundle);
-      if (manifest.backgrounds?.[id] === undefined) {
-        (manifest.backgrounds ??= {})[id] = path;
-        backgroundsAdded.push(id);
+      const digest = sha(readFileSync(fromRun));
+      const indexed = manifest.backgrounds?.[id];
+      if (indexed !== undefined && indexed !== path) {
+        throw new Error(
+          `background ${id}: the bundle indexes it at ${indexed} and run ${run.label} composited ` +
+            `over ${path}. The fixtures already filed under this id were drawn over the indexed ` +
+            `raster, so re-pointing the id would file them under one they were never drawn on.`,
+        );
       }
+      const seen = plan.get(id);
+      if (seen !== undefined && seen.path !== path) {
+        throw new Error(
+          `background ${id}: run ${seen.declaredBy} composited over ${seen.path} and run ` +
+            `${run.label} over ${path}. The runs are not comparable and their cells cannot ` +
+            `share one index entry.`,
+        );
+      }
+      if (seen !== undefined && seen.sha256 !== digest) {
+        throw new Error(
+          `background ${id}: runs ${seen.declaredBy} and ${run.label} composited over different ` +
+            `bytes at the same path. The runs are not comparable.`,
+        );
+      }
+      // The bytes compared are the ones at the INDEXED path, which is what the
+      // fixtures already in the bundle were drawn over.
+      const inBundle = resolve(FIXTURES, indexed ?? path);
+      if (existsSync(inBundle) && sha(readFileSync(inBundle)) !== digest) {
+        throw new Error(
+          `background ${id}: the bundle's raster at ${indexed ?? path} is not the one run ` +
+            `${run.label} composited over. Publishing the cells beside it would file them under ` +
+            `a backdrop they were not drawn on.`,
+        );
+      }
+      plan.set(id, { path: indexed ?? path, from: fromRun, sha256: digest, declaredBy: run.label });
+    }
+  }
+  const backgroundsAdded: string[] = [];
+  for (const [id, raster] of [...plan].sort(([a], [b]) => a.localeCompare(b))) {
+    const inBundle = resolve(FIXTURES, raster.path);
+    if (!existsSync(inBundle)) copyFileSync(raster.from, inBundle);
+    if (manifest.backgrounds?.[id] === undefined) {
+      (manifest.backgrounds ??= {})[id] = raster.path;
+      backgroundsAdded.push(id);
     }
   }
   for (const p of publish) {
@@ -436,11 +491,20 @@ function main(): void {
   // to have been built from whichever phase happened to run last.
   const provenanceHost = manifest as unknown as { bedProvenance?: unknown[] };
   const priorProvenance = Array.isArray(provenanceHost.bedProvenance) ? provenanceHost.bedProvenance : [];
+  const publishedCells = publish.map((p) => `${p.profile}/${p.scene}`).sort();
   const thisPhase = {
     profiles: profiles.slice().sort(),
     runs: runs.length,
     runLabels: runs.map((r) => r.label),
     cellsPublished: publish.length,
+    /*
+     * What this phase published, as a digest: the sorted `profile/scene` list, one
+     * per line, hashed. The list itself is not carried because it is 156 names for
+     * a single phase of W27c's bed and the manifest is already the largest file in
+     * the bundle, while the only question the block has to answer — is that prior
+     * block THIS phase — a digest answers exactly.
+     */
+    cellsSha256: sha(new TextEncoder().encode(publishedCells.join("\n"))),
     unanimousOrVoted: publish.length - settledEntries.length,
     frequencySettled: settledEntries.length,
     frequencySettledCells: settledEntries.map((p) => `${p.profile}/${p.scene}`).sort(),
@@ -459,8 +523,8 @@ function main(): void {
     },
   };
   /*
-   * A phase is identified by its profiles, its run labels AND how many cells it
-   * published, not by its profiles alone.
+   * A phase is identified by its profiles, its run labels, how many cells it
+   * published AND which cells those were — not by its profiles alone.
    *
    * Keying on the profiles was right while each phase was the only publication
    * its profiles had ever had, and it made re-running the same command
@@ -470,15 +534,54 @@ function main(): void {
    * the seventeen-run freeze bar, and dropping by profile set would have deleted
    * the record of how the 455 cells already in the bundle were taken (claims
    * §5.139). The bed would then have claimed seven runs for bytes that had
-   * seventeen. Re-running one phase still replaces its own block, because all
-   * three parts of the identity repeat.
+   * seventeen.
+   *
+   * Profiles, labels and count are still not enough. Run labels are generic
+   * (`run-1`…`run-7` is what every sitting calls its runs), so two sittings that
+   * publish different scenes into the same profiles at the same count collide —
+   * and the collision deletes a block whose fixtures are still in the bed, which
+   * is the exact failure this key exists to prevent. `cellsSha256` closes it: the
+   * identity now names WHICH cells, so only a phase that published the same ones
+   * replaces the earlier record of them.
    */
-  const phaseIdentity = (p: unknown): string => {
-    const block = p as { profiles?: unknown; runLabels?: unknown; cellsPublished?: unknown };
-    return JSON.stringify([block.profiles, block.runLabels, block.cellsPublished]);
+  const phaseKey = (p: unknown): unknown[] => {
+    const block = p as {
+      profiles?: unknown;
+      runLabels?: unknown;
+      cellsPublished?: unknown;
+      cellsSha256?: unknown;
+    };
+    return [block.profiles, block.runLabels, block.cellsPublished, block.cellsSha256 ?? null];
   };
+  const phaseIdentity = (p: unknown): string => JSON.stringify(phaseKey(p));
+  /*
+   * The migration, and the one place the weaker key is still used.
+   *
+   * A block written before `cellsSha256` existed cannot be matched on it. Keeping
+   * every such block unconditionally would leave the bundle carrying two records
+   * of the same publication, differing only in that one names its cells — a bed
+   * that looks like it was published twice. So a prior block WITHOUT the digest
+   * is superseded when the other three parts agree, which is the identity that
+   * wrote it, and one WITH the digest is matched on all four.
+   *
+   * What that costs is bounded and worth naming: on a bed whose blocks predate
+   * the digest, two genuinely different phases with the same profiles, labels and
+   * count would still collide once. Nothing can distinguish them — the older block
+   * does not say what it published — and after this run every block does.
+   */
+  const legacyIdentity = (p: unknown): string => JSON.stringify(phaseKey(p).slice(0, 3));
+  const superseded = (p: unknown): boolean =>
+    (p as { cellsSha256?: unknown }).cellsSha256 === undefined &&
+    legacyIdentity(p) === legacyIdentity(thisPhase);
+  const supersededCount = priorProvenance.filter(superseded).length;
+  if (supersededCount > 0) {
+    process.stdout.write(
+      `  provenance: ${supersededCount} earlier block(s) for these profiles, run labels and cell ` +
+        `count predate cellsSha256 and are superseded by this phase's, which names its cells.\n`,
+    );
+  }
   provenanceHost.bedProvenance = [
-    ...priorProvenance.filter((p) => phaseIdentity(p) !== phaseIdentity(thisPhase)),
+    ...priorProvenance.filter((p) => phaseIdentity(p) !== phaseIdentity(thisPhase) && !superseded(p)),
     thisPhase,
   ];
   const split = (JSON.parse(readFileSync(SCENES, "utf8")) as { split?: Record<string, unknown> }).split ?? {};

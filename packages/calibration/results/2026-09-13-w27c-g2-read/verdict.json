@@ -1,7 +1,7 @@
 {
  "gate": "W27c G2 read / claims \u00a75.139",
  "bound": "packages/calibration/results/2026-09-11-w27c-g1b/bound.json, declared 2026-09-11",
- "read": "/tmp/w27c-g2/checking.json",
+ "read": "packages/calibration/results/2026-09-13-w27c-g2-read/checking-matrix.json",
  "holdingIs": "when clauses 1, 2 and 3 hold JOINTLY on every profile the checking set covers. A profile that passes clause 2's mean and fails clause 3 on one cell has not held the bound.",
  "profilesHolding": [
   "apple-macos-26.5-1x-dark-standard",
@@ -16,7 +16,7 @@
  "perProfile": {
   "apple-macos-26.5-1x-dark-standard": {
    "checkingCells": 12,
-   "cellsRead": 34,
+   "cellsRead": 35,
    "clause1": {
     "ceiling": 0.09,
     "worst": 0.016043925342974875,
@@ -166,7 +166,7 @@
   },
   "apple-macos-26.5-2x-dark-standard": {
    "checkingCells": 12,
-   "cellsRead": 34,
+   "cellsRead": 35,
    "clause1": {
     "ceiling": 0.09,
     "worst": 0.01602672247505573,
@@ -1164,7 +1164,7 @@
   "E": {
    "name": "the stack and the recovered bed's own re-attestation",
    "decides": "residual (d), and the X8 provenance caveat the whole endpoint carries",
-   "cellsRead": 18,
+   "cellsRead": 20,
    "rows": [
     {
      "profile": "apple-macos-26.5-1x-dark-standard",
@@ -1187,6 +1187,17 @@
      "nativeSD": 3.136739503896674e-09,
      "webChroma": 0.0038233682380379723,
      "nativeChroma": 0.0038233682380379723
+    },
+    {
+     "profile": "apple-macos-26.5-1x-dark-standard",
+     "scene": "light-solid__capsule-button__inactive",
+     "bodyDeltaE": 0.4383816148116989,
+     "webY": 0.1563670939492596,
+     "nativeY": 0.9326072014987324,
+     "webSD": 5.1214274335159065e-08,
+     "nativeSD": 0,
+     "webChroma": 0.0030729920176442624,
+     "nativeChroma": 0.0052958023363349266
     },
     {
      "profile": "apple-macos-26.5-1x-dark-standard",
@@ -1308,6 +1319,17 @@
      "nativeSD": 0,
      "webChroma": 0.0038233682380379723,
      "nativeChroma": 0.0038233682380379723
+    },
+    {
+     "profile": "apple-macos-26.5-2x-dark-standard",
+     "scene": "light-solid__capsule-button__inactive",
+     "bodyDeltaE": 0.43838161481172633,
+     "webY": 0.15636709394925746,
+     "nativeY": 0.9326072014987307,
+     "webSD": 0,
+     "nativeSD": 0,
+     "webChroma": 0.0030729920176433318,
+     "nativeChroma": 0.005295802336334631
     },
     {
      "profile": "apple-macos-26.5-2x-dark-standard",

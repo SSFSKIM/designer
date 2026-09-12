@@ -10,12 +10,20 @@ bundle already held, against the recovered fixture the bundle holds for it. No
 vitrea capture enters, which is why it can be run over a spent-holdout id without
 reading the holdout again.
 
+Every non-`probe` bed cell is read, which is more than group E: the four
+`mid-dark-solid__capsule-button__inactive` cells are group A's spent-holdout
+supplying id, and they are read here for the same reason — native against native
+spends no holdout. They are reported apart, because clause 5's suspension is
+scoped to group E and a count that mixed the two would attribute group A's
+agreement to the re-attestation.
+
 It also publishes the fresh native interior readings — level, chroma, standard
 deviation — for the supplying groups, which is what a supplying cell is for
 (experiment arms A1 and A3 consume them; neither arm runs here).
 
-Writes `attestation.json` beside this file. Reads the sitting and the bundle and
-writes into neither.
+Writes `attestation.json` beside this file, and exits non-zero if the suspension
+fires, because a suspension is a stop rather than a remark. Reads the sitting and
+the bundle and writes into neither.
 """
 import hashlib
 import json
@@ -152,22 +160,80 @@ def main():
             })
             print(f"{cell:78s} {'IDENTICAL' if rows[-1]['identicalBytes'] else diff}")
 
+    def tally(members):
+        return {
+            "cells": len(members),
+            "identical": sum(1 for r in members if r["identicalBytes"]),
+            "differing": sorted(f"{r['profile']}/{r['scene']}" for r in members
+                                if not r["identicalBytes"]),
+            "structured": sorted(f"{r['profile']}/{r['scene']}" for r in members
+                                 if r["difference"].get("classification") == "structured"),
+            # A pair the comparison could not make — different pixel sizes — is
+            # not a cell that agreed. It carries no classification at all, so a
+            # count of structured differences alone would read it as agreement.
+            "notComparable": sorted(f"{r['profile']}/{r['scene']}" for r in members
+                                    if not r["difference"].get("comparable")),
+        }
+
+    # Reported per group, because the two groups answer different questions. Group
+    # E is the recovered bed's own re-attestation, which is what clause 5 suspends
+    # the read on; group A's cells are supplying anchors that happen to be
+    # non-`probe` and so are compared here too.
+    names = {g["id"]: g["name"] for g in bed["groups"]}
+    per_group = {}
+    for gid in sorted({g for r in rows for g in r["groups"]}):
+        members = [r for r in rows if gid in r["groups"]]
+        per_group[gid] = {"name": names.get(gid.replace("-active", ""), gid), **tally(members)}
+
+    group_e = tally([r for r in rows if "E" in r["groups"]])
+    # The suspension is a stop, so it exits non-zero. A report that names a
+    # structured group E difference and then returns success leaves the decision
+    # clause 5 reserves — whether the recovered bed is admissible at all — to
+    # whoever happens to read the JSON, which is the failure mode of every check
+    # that only prints.
+    triggering = sorted(set(group_e["structured"]) | set(group_e["notComparable"]))
+    suspension = {
+        "$comment": "bound.json clause 5 suspends the read if GROUP E's re-attestation cells do "
+                    "not reproduce the recovered fixtures within the settle protocol's noise. The "
+                    "reading below is computed over group E alone; group A's cells are read and "
+                    "published beside it and are outside the test.",
+        "scope": "checking-bed.json group E",
+        **group_e,
+        "triggeringCells": triggering,
+        "applies": bool(triggering),
+    }
+
     report = {
         "gate": "W27c G2 read / claims §5.139",
-        "reads": "the sitting's plurality bytes against the recovered fixtures the bundle holds",
+        "reads": "the sitting's plurality bytes against the recovered fixtures the bundle holds, "
+                 "for every non-probe bed cell — group E's re-attestation and group A's "
+                 "spent-holdout supplying id",
         "base": base,
         "sittingRoot": SITTING,
         "cells": len(rows),
         "identical": sum(1 for r in rows if r["identicalBytes"]),
         "structured": [f"{r['profile']}/{r['scene']}" for r in rows
                        if r["difference"].get("classification") == "structured"],
+        "perGroup": per_group,
+        "suspensionApplies": suspension,
         "rows": rows,
     }
     with open(os.path.join(HERE, "attestation.json"), "w") as handle:
         json.dump(report, handle, indent=1)
         handle.write("\n")
-    print(f"\n{report['cells']} attestation cells, {report['identical']} byte-identical, "
-          f"{len(report['structured'])} structurally different")
+    print(f"\n{report['cells']} non-probe bed cells read")
+    for gid, g in per_group.items():
+        print(f"  group {gid}: {g['cells']} cells, {g['identical']} byte-identical, "
+              f"{len(g['differing'])} differing, {len(g['structured'])} structurally different")
+    print(f"clause 5 suspension over group E ({suspension['cells']} cells): "
+          f"{'APPLIES' if suspension['applies'] else 'does not apply'}")
+    if suspension["applies"]:
+        for cell in triggering:
+            print(f"  SUSPENDS {cell}")
+        print("The recovered bed did not reproduce. Under clause 5 the rest of the read waits on "
+              "Decision Log 5's admissibility rather than being interpreted against it.")
+        return 1
+    return 0
 
 
 sys.exit(main())

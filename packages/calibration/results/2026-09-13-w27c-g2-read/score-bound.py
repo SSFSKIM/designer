@@ -10,12 +10,14 @@ clause fails, the failure is the output.
 
     python3 score-bound.py /tmp/w27c-g2/checking.json
 """
+import hashlib
 import json
 import os
 import sys
 from statistics import mean
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+REPO = HERE.split("/packages/")[0]
 G1B = os.path.join(HERE, "../2026-09-11-w27c-g1b")
 
 
@@ -32,6 +34,71 @@ def main():
     rows = read["rows"]
     for row in rows:
         assert row["scored"] == (row["scene"] in checking), row["scene"]
+
+    # The contract the matrix has to satisfy before any of it is scored.
+    #
+    # Completeness is not enough on its own. Every threshold in `bound.json` is a
+    # WebGPU-tier number, so a CSS matrix scored against them would read as a
+    # verdict rather than as a category error; `--once` drops the independent
+    # repeat the frozen instrument requires and its rows cannot be called settled;
+    # a duplicated `profile/scene` pair silently reweights a mean; and a matrix
+    # produced against some other endpoint is not this gate's read at all. Each is
+    # cheap to state and none of them announces itself in the numbers.
+    frozen = json.load(open(os.path.join(
+        REPO, "packages/calibration/results/2026-09-10-w27c-g1-corrected-declaration.json")))
+    # The driver's own `sha(JSON.stringify(recededMaterialProfile))`: compact
+    # separators and the declaration's key order, which is the order the export
+    # was serialised in.
+    patch_sha256 = hashlib.sha256(
+        json.dumps(frozen["patch"], separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+    ).hexdigest()
+    pairs = [(r["profile"], r["scene"]) for r in rows]
+    duplicated = sorted({p for p in pairs if pairs.count(p) > 1})
+    breaches = []
+    if read.get("renderer") != "webgpu":
+        breaches.append(f"the read is on the {read.get('renderer')} tier and every threshold in "
+                        "bound.json is a WebGPU-tier number")
+    not_repeated = sorted({f"{r['profile']}/{r['scene']}" for r in rows if r.get("repeats") != 2})
+    if not_repeated:
+        breaches.append(f"{len(not_repeated)} row(s) were captured once rather than twice, so "
+                        f"their determinism was never checked: {', '.join(not_repeated[:6])}")
+    if duplicated:
+        breaches.append(f"{len(duplicated)} profile/scene pair(s) appear more than once: "
+                        + ", ".join(f"{p}/{s}" for p, s in duplicated[:6]))
+    if read.get("patchSha256") != patch_sha256:
+        breaches.append(f"the read applied patch {read.get('patchSha256')} where the frozen "
+                        f"declaration is {patch_sha256}")
+    if breaches:
+        raise SystemExit("score-bound: refusing to score. The read is outside this gate's "
+                         "declared contract.\n" + "".join(f"  {b}\n" for b in breaches))
+
+    # What the checking set IS, taken from the declaration: group D crossed with
+    # the profiles `scenes.json` declares each of its ids for.
+    #
+    # Deriving the population from the rows instead would let this scorer score
+    # whatever it was handed. A partial read is the ordinary way that happens — a
+    # driver stopped part-way, a filtered re-run — and it does not announce
+    # itself: drop `dark-solid__rrect-48__inactive` from the increased-contrast
+    # profile and that profile goes from FAILS to HOLDS, on a mean over eleven
+    # cells that reads exactly like a mean over twelve. A bound scored on a
+    # population the bound did not name is not the bound.
+    scenes_doc = json.load(open(os.path.join(REPO, "apps/reference-apple/scenes.json")))
+    every_scene = [s["id"] for s in scenes_doc["scenes"]]
+    expected = set()
+    for p in scenes_doc["profiles"]:
+        declared = every_scene if p["scenes"] == "all" else p["scenes"]
+        expected.update((p["key"], i) for i in declared if i in checking)
+    present = {(r["profile"], r["scene"]) for r in rows if r["scored"]}
+    missing = sorted(expected - present)
+    surplus = sorted(present - expected)
+    if missing or surplus:
+        raise SystemExit(
+            "score-bound: refusing to score. The read does not carry the checking set the bound "
+            f"names ({len(expected)} cells, group D of checking-bed.json crossed with the profiles "
+            "scenes.json declares each id for).\n"
+            + "".join(f"  missing   {p}/{s}\n" for p, s in missing)
+            + "".join(f"  unnamed   {p}/{s}\n" for p, s in surplus)
+        )
 
     profiles = sorted({r["profile"] for r in rows})
     verdict = {}

@@ -1,11 +1,50 @@
 {
  "gate": "W27c G2 read / claims \u00a75.139",
- "reads": "the sitting's plurality bytes against the recovered fixtures the bundle holds",
+ "reads": "the sitting's plurality bytes against the recovered fixtures the bundle holds, for every non-probe bed cell \u2014 group E's re-attestation and group A's spent-holdout supplying id",
  "base": "ec809ae6c6a42826063a782c0705b79e289c4e7a",
  "sittingRoot": "/Users/new/vitrea-w27-26.5-run",
  "cells": 28,
  "identical": 24,
  "structured": [],
+ "perGroup": {
+  "A": {
+   "name": "the middle tone anchor and its neighbours",
+   "cells": 4,
+   "identical": 4,
+   "differing": [],
+   "structured": [],
+   "notComparable": []
+  },
+  "E": {
+   "name": "the stack and the recovered bed's own re-attestation",
+   "cells": 24,
+   "identical": 20,
+   "differing": [
+    "apple-macos-26.5-2x-dark-standard/checkerboard__rrect-md__inactive",
+    "apple-macos-26.5-2x-dark-standard/photo__rrect-md__inactive",
+    "apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__inactive",
+    "apple-macos-26.5-2x-light-standard/photo__rrect-md__inactive"
+   ],
+   "structured": [],
+   "notComparable": []
+  }
+ },
+ "suspensionApplies": {
+  "$comment": "bound.json clause 5 suspends the read if GROUP E's re-attestation cells do not reproduce the recovered fixtures within the settle protocol's noise. The reading below is computed over group E alone; group A's cells are read and published beside it and are outside the test.",
+  "scope": "checking-bed.json group E",
+  "cells": 24,
+  "identical": 20,
+  "differing": [
+   "apple-macos-26.5-2x-dark-standard/checkerboard__rrect-md__inactive",
+   "apple-macos-26.5-2x-dark-standard/photo__rrect-md__inactive",
+   "apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__inactive",
+   "apple-macos-26.5-2x-light-standard/photo__rrect-md__inactive"
+  ],
+  "structured": [],
+  "notComparable": [],
+  "triggeringCells": [],
+  "applies": false
+ },
  "rows": [
   {
    "profile": "apple-macos-26.5-1x-dark-standard",

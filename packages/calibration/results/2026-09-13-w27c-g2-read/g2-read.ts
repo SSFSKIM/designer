@@ -11,7 +11,7 @@
  * the fixtures the sitting published (claims §5.136 §10, materialised at
  * `2026-09-13-w27c-g2-read/materialize.log`).
  *
- * Three rules this driver carries that the bound (`bound.json` clause 5) or the
+ * Four rules this driver carries that the bound (`bound.json` clause 5) or the
  * brief imposes, and that are worth naming because they are refusals rather than
  * behaviour:
  *
@@ -30,6 +30,12 @@
  *     bed id that already carried a `calibration` role the bundle still holds the
  *     recovered fixture, which this read must not overwrite, so the comparison
  *     reads the plurality PNG out of the sitting directly and says so per row.
+ *     Every native PNG is hashed against that plurality before it is measured,
+ *     and its attestation is quoted from the manifest that describes it.
+ *   - **The pose and the endpoint are proved, not assumed.** A row whose native
+ *     fixture does not attest the pose it is labelled with is refused before it
+ *     is written, and the read stops if either active resolved fingerprint or the
+ *     resolved endpoint has moved away from the frozen declaration.
  *
  * Usage:
  *   pnpm --filter @vitrea/calibration --fail-if-no-match exec tsx \
@@ -48,6 +54,9 @@ import { oklabDeltaE } from "../../src/metrics/perceptual";
 import { srgbByteToOklab, oklabDistance, oklabChroma } from "../../src/color";
 import { recededMaterialProfile } from "../../../platform-web/src/receded-profile";
 import { mergeMaterialProfiles } from "../../../platform-web/src/color-scheme";
+import {
+  DEFAULT_MATERIAL_PROFILE, withMaterialOverrides,
+} from "../../../renderer-webgpu/src/material";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const pkg = resolve(here, "../..");
@@ -61,6 +70,19 @@ const arg = (name: string, fallback?: string): string => {
 const json = (file: string): any => JSON.parse(readFileSync(file, "utf8"));
 const sha = (data: string | Buffer | Uint8Array): string =>
   createHash("sha256").update(data).digest("hex");
+/*
+ * Key-sorted JSON, and a digest over it. This is the encoding
+ * `results/2026-09-10-w27c-g1-corrected-declare.ts` froze the endpoint's digests
+ * under, reproduced here so that the numbers below are comparable with the ones
+ * in the declaration at all.
+ */
+const canonical = (v: any): any =>
+  Array.isArray(v)
+    ? v.map(canonical)
+    : v !== null && typeof v === "object"
+      ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, canonical(v[k])]))
+      : v;
+const shaValue = (v: unknown): string => sha(JSON.stringify(canonical(v)));
 
 const out = resolve(arg("out"));
 const label = arg("label", "checking");
@@ -97,35 +119,121 @@ const checkingSet = new Set<string>(
   (bedSpec.groups.find((g: any) => g.id === "D")?.scenes ?? []) as string[],
 );
 
-/** Where a cell's native bytes live, and whether vitrea may be compared to them. */
-function nativeFor(profileKey: string, sceneId: string): {
-  path: string;
-  source: "bundle" | "sitting";
-  comparable: boolean;
-} {
-  const entry = manifest.profiles
-    .find((p: any) => p.profileKey === profileKey)
-    ?.fixtures.find((f: any) => f.sceneId === sceneId);
-  if (entry !== undefined && entry.fixtureSet === "probe") {
-    return { path: resolve(fixtures, entry.file), source: "bundle", comparable: true };
-  }
-  // Not published by this sitting: the bundle's copy is the recovered fixture of
-  // §5.130 and must not be read as if it were this bed's. The sitting's own
-  // plurality bytes are, so the row is read from there — except on a holdout id,
-  // which is not compared at all.
-  const cell = `${profileKey}/${sceneId}`;
+/**
+ * The run whose bytes won this cell's seven-run plurality, and that plurality's
+ * digest.
+ *
+ * Every row needs it, not only the ones read out of the sitting: it is what the
+ * native bytes are checked against, and it names the run directory holding the
+ * raster the native capture was composited over.
+ */
+function pluralityWinner(cell: string): { dir: string; run: string; sha256: string } {
   for (const pass of plurality.passes) {
     const tally = pass.cellTally[cell];
     if (tally === undefined) continue;
     const run = Object.entries(tally.perRunSha256).find(([, s]) => s === tally.pluralitySha256);
-    if (run === undefined) continue;
+    if (run === undefined) break;
     return {
-      path: resolve(sitting, pass.dir, run[0], profileKey, `${sceneId}.png`),
-      source: "sitting",
-      comparable: role(sceneId) !== "holdout",
+      dir: resolve(sitting, pass.dir, run[0]),
+      run: run[0],
+      sha256: tally.pluralitySha256 as string,
     };
   }
-  throw new Error(`${cell}: neither the bundle nor the sitting holds this cell`);
+  throw new Error(`${cell}: the sitting's plurality does not hold this cell`);
+}
+
+/** A run's own manifest, read once and kept: it is the attestation of its bytes. */
+const runManifests = new Map<string, any>();
+function runEntry(dir: string, profileKey: string, sceneId: string): any {
+  let doc = runManifests.get(dir);
+  if (doc === undefined) {
+    doc = json(resolve(dir, "manifest.json"));
+    runManifests.set(dir, doc);
+  }
+  const entry = doc.profiles
+    .find((p: any) => p.profileKey === profileKey)
+    ?.fixtures.find((f: any) => f.sceneId === sceneId);
+  if (entry === undefined) {
+    throw new Error(`${profileKey}/${sceneId}: run ${dir} published bytes with no manifest entry`);
+  }
+  return entry;
+}
+
+/**
+ * Where a cell's native bytes live, and the manifest entry that goes with THOSE
+ * bytes.
+ *
+ * The two travel together deliberately. A bed id the bundle already held keeps
+ * its recovered fixture, which this read must not overwrite and must not read as
+ * if it were this bed's, so the comparison takes the sitting's plurality PNG —
+ * and then the attestation has to come from the sitting's manifest too. Quoting
+ * the bundle's recovered entry beside the sitting's bytes would publish the pose,
+ * the idle and the determinism of a capture that produced no pixel in the row.
+ */
+function nativeFor(profileKey: string, sceneId: string): {
+  cell: string;
+  path: string;
+  source: "bundle" | "sitting";
+  entry: any;
+  run: { dir: string; run: string; sha256: string };
+} {
+  const cell = `${profileKey}/${sceneId}`;
+  const run = pluralityWinner(cell);
+  const published = manifest.profiles
+    .find((p: any) => p.profileKey === profileKey)
+    ?.fixtures.find((f: any) => f.sceneId === sceneId);
+  if (published !== undefined && published.fixtureSet === "probe") {
+    const path = resolve(fixtures, published.file);
+    return { cell, path, source: "bundle", entry: published, run };
+  }
+  return {
+    cell,
+    path: resolve(run.dir, profileKey, `${sceneId}.png`),
+    source: "sitting",
+    entry: runEntry(run.dir, profileKey, sceneId),
+    run,
+  };
+}
+
+/**
+ * `bound.json` clause 5's attestation refusal, stated as a reason or `undefined`.
+ *
+ * The refusal is on the native fixture, not on the web capture: a row whose
+ * native bytes cannot be shown to hold the pose they are labelled with is a
+ * measurement against an unknown reference, and the bound refuses it before it
+ * is written rather than qualifying it afterwards. For the inactive pose the
+ * harness's proof is the presentation block — the window was not key and the app
+ * not active when the shutter fired — and for the active pose it is the
+ * complementary claim.
+ */
+function attestationRefusal(entry: any, state: string): string | undefined {
+  const presented = String(entry.presentedActive);
+  if (state !== "inactive") {
+    return entry.presentedActive === true
+      ? undefined
+      : `the native fixture does not attest an active presentation (presentedActive=${presented})`;
+  }
+  if (entry.presentedActive !== false) {
+    return `the native fixture does not attest an inactive presentation ` +
+      `(presentedActive=${presented})`;
+  }
+  const presentation = entry.presentation;
+  if (presentation === undefined || presentation === null) {
+    return "the native fixture carries no presentation block";
+  }
+  if (
+    presentation.observedPose !== "inactive" ||
+    presentation.isKeyWindow !== false ||
+    presentation.appIsActive !== false
+  ) {
+    return (
+      `the native fixture's presentation block does not prove the inactive pose ` +
+      `(observedPose=${String(presentation.observedPose)}, ` +
+      `isKeyWindow=${String(presentation.isKeyWindow)}, ` +
+      `appIsActive=${String(presentation.appIsActive)})`
+    );
+  }
+  return undefined;
 }
 
 interface Cell {
@@ -135,19 +243,38 @@ interface Cell {
   scheme: string;
   a11yMode: string;
 }
+/*
+ * The population is the bed crossed with the DECLARATION, not with the bundle.
+ *
+ * `scenes.json` is the single source for which profile captures which scene, and
+ * the sitting captured what it declares. Enumerating from the manifest's existing
+ * entries instead silently drops every bed cell the sitting captured but the
+ * bundle never held — the dark `light-solid__capsule-button__inactive` pair is
+ * exactly that, declared by both dark profiles, captured seven times, and read by
+ * no row. A read whose population is the old bundle can only ever confirm the old
+ * bundle.
+ *
+ * The holdout ids are the one subtraction. Three of the bed's ids carry the
+ * `holdout` role from §5.130's frozen split; that holdout is spent, and this read
+ * must produce no second vitrea-against-native distance for one of them under
+ * another name. They are read natively by `native-attestation.py`, which compares
+ * native against native and spends nothing.
+ */
+const everyScene = matrix.scenes.map((s: any) => s.id as string);
 const population: Cell[] = [];
-for (const profile of manifest.profiles) {
-  const scale = profile.profileKey.includes("-2x-") ? 2 : 1;
-  for (const fixture of profile.fixtures) {
-    if (!groupsOf.has(fixture.sceneId)) continue;
-    if (!scenePattern.test(fixture.sceneId) || !profilePattern.test(profile.profileKey)) continue;
-    if (role(fixture.sceneId) === "holdout") continue;
+for (const profile of matrix.profiles) {
+  const scale = profile.key.includes("-2x-") ? 2 : 1;
+  const declared: string[] = profile.scenes === "all" ? everyScene : profile.scenes;
+  for (const sceneId of declared) {
+    if (!groupsOf.has(sceneId)) continue;
+    if (!scenePattern.test(sceneId) || !profilePattern.test(profile.key)) continue;
+    if (role(sceneId) === "holdout") continue;
     population.push({
-      profile: profile.profileKey,
-      scene: fixture.sceneId,
+      profile: profile.key,
+      scene: sceneId,
       scale,
       scheme: profile.colorScheme,
-      a11yMode: profile.a11yMode,
+      a11yMode: profile.a11y,
     });
   }
 }
@@ -171,6 +298,24 @@ const sourceSha256 = Object.fromEntries(
   ].map((file) => [file, sha(readFileSync(resolve(repo, file)))]),
 );
 /*
+ * The instrument, hashed into its own output.
+ *
+ * `sourceSha256` above pins what the runtime drew with. It says nothing about
+ * what measured it, and this driver is a file in a results directory that anyone
+ * may edit — the frozen G1 declaration pinned an `instrumentSha256` for exactly
+ * that reason. Pinned with it: the bound and the bed, because a matrix read under
+ * a different declaration is a different reading, and `plurality.json`, because
+ * that is what selects which of the sitting's bytes a row is compared against.
+ */
+const instrumentSha256 = Object.fromEntries(
+  [
+    "packages/calibration/results/2026-09-13-w27c-g2-read/g2-read.ts",
+    "packages/calibration/results/2026-09-13-w27c-g2-read/plurality.json",
+    "packages/calibration/results/2026-09-11-w27c-g1b/bound.json",
+    "packages/calibration/results/2026-09-11-w27c-g1b/checking-bed.json",
+  ].map((file) => [file, sha(readFileSync(resolve(repo, file)))]),
+);
+/*
  * The endpoint this read is against, quoted from the frozen declaration rather
  * than recomputed: if the exported document had drifted from it, the resolved
  * SHA-256 below would not match and the run stops before its first capture.
@@ -178,6 +323,45 @@ const sourceSha256 = Object.fromEntries(
 const frozen = json(resolve(pkg, "results/2026-09-10-w27c-g1-corrected-declaration.json"));
 if (JSON.stringify(frozen.patch) !== JSON.stringify(recededMaterialProfile)) {
   throw new Error("The exported receded profile is not the frozen G1 endpoint");
+}
+/*
+ * The receded patch alone does not fix the endpoint. It is applied THROUGH the
+ * active documents, so the material this read measures is the active material
+ * resolved over the runtime defaults with the patch on top — and `bound.json`
+ * clause 5 stops the read if either active resolved fingerprint moves. The
+ * per-row check further down cannot see that: it compares the patch the page
+ * applied against the patch this file handed it, which a drift in
+ * `DEFAULT_MATERIAL_PROFILE` or in an active document's own constants passes
+ * unchanged. So both resolutions are recomputed here, the way the declaration
+ * computed them, and compared with the digests it froze.
+ */
+for (const scheme of ["light", "dark"] as const) {
+  const doc = json(resolve(pkg, "profiles", `apple-macos-26.5-1x-${scheme}-standard.json`));
+  const declared = frozen.profiles[scheme];
+  const activeResolved = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, doc.patch);
+  const activeSha256 = shaValue(activeResolved);
+  if (activeSha256 !== declared.activeSha256) {
+    throw new Error(
+      `The ${scheme} ACTIVE material resolves to ${activeSha256} where the frozen declaration ` +
+        `froze ${declared.activeSha256}. The endpoint is a patch over this material, so the read ` +
+        `would not be against the declared endpoint.`,
+    );
+  }
+  if (doc.resolvedMaterialSha256 !== declared.activeRecordedFingerprint) {
+    throw new Error(
+      `The ${scheme} active profile document records fingerprint ${doc.resolvedMaterialSha256} ` +
+        `where the declaration froze ${declared.activeRecordedFingerprint}`,
+    );
+  }
+  const inactiveSha256 = shaValue(
+    withMaterialOverrides(activeResolved, recededMaterialProfile[scheme]),
+  );
+  if (inactiveSha256 !== declared.inactiveSha256) {
+    throw new Error(
+      `The ${scheme} INACTIVE endpoint resolves to ${inactiveSha256} where the frozen ` +
+        `declaration froze ${declared.inactiveSha256}`,
+    );
+  }
 }
 
 const rows: any[] = [];
@@ -195,6 +379,7 @@ const record = (): void =>
         sitting,
         engineVersion: browser.version(),
         sourceSha256,
+        instrumentSha256,
         patchSha256: sha(JSON.stringify(recededMaterialProfile)),
         sceneSpecSha256: sha(JSON.stringify(matrix)),
         definitions: {
@@ -233,8 +418,6 @@ try {
   for (const c of population) {
     const scene = matrix.scenes.find((s: any) => s.id === c.scene);
     if (scene === undefined) throw new Error(`${c.scene}: not declared in scenes.json`);
-    const profile = manifest.profiles.find((p: any) => p.profileKey === c.profile);
-    const entry = profile.fixtures.find((f: any) => f.sceneId === c.scene);
     const inactive = scene.state === "inactive";
     const selectedPatch = inactive ? recededMaterialProfile[c.scheme] : undefined;
     const materialDoc = json(
@@ -248,7 +431,8 @@ try {
       reducedMotion: false,
     };
     const native = nativeFor(c.profile, c.scene);
-    if (!native.comparable) continue;
+    const refused = attestationRefusal(native.entry, scene.state);
+    if (refused !== undefined) throw new Error(`${native.cell}: ${refused} (bound.json clause 5)`);
 
     const context = await browser.newContext({
       viewport: { width: matrix.canvas.width, height: matrix.canvas.height },
@@ -263,10 +447,32 @@ try {
       },
       { active: materialDoc.patch, receded: selectedPatch, accessibility: a11y },
     );
+    /*
+     * The bytes are verified, not merely located. `plurality.json` decided which
+     * run won this cell; a path derived from that decision is not the same claim
+     * as the bytes at the path being the ones it decided on, and the bundle can
+     * hold a fixture that was republished since. The same for the backdrop: the
+     * row records the raster's digest, and a digest recorded against nothing is a
+     * number, so it is compared with the copy in the run directory the native
+     * bytes came from — the raster the native capture was actually composited
+     * over. Both are refusals, as the frozen G1 instrument made them.
+     */
     const nativeBytes = readFileSync(native.path);
-    const backgroundBytes = readFileSync(
-      resolve(fixtures, "backgrounds", `${scene.background}@${c.scale}x.png`),
-    );
+    if (sha(nativeBytes) !== native.run.sha256) {
+      throw new Error(
+        `${native.cell}: the native bytes at ${native.path} hash ${sha(nativeBytes)} where the ` +
+          `sitting's plurality for this cell is ${native.run.sha256}`,
+      );
+    }
+    const backgroundName = `${scene.background}@${c.scale}x.png`;
+    const backgroundBytes = readFileSync(resolve(fixtures, "backgrounds", backgroundName));
+    const compositedOver = readFileSync(resolve(native.run.dir, "backgrounds", backgroundName));
+    if (sha(backgroundBytes) !== sha(compositedOver)) {
+      throw new Error(
+        `${native.cell}: the bundle's ${backgroundName} is not the raster run ${native.run.run} ` +
+          `composited over, so the row would be vitrea on one backdrop against native on another`,
+      );
+    }
     const nativeImage = decodePng(nativeBytes);
     const region = componentRegion(matrix.components[scene.component] as DeclaredComponent, {
       canvas: matrix.canvas,
@@ -364,17 +570,20 @@ try {
       nativeSource: native.source,
       nativePath: native.path,
       nativeSha256: sha(nativeBytes),
+      nativeRun: native.run.run,
       backgroundSha256: sha(backgroundBytes),
-      // The native cell's own per-cell attestation, quoted from the manifest the
-      // sitting wrote: the pose it proved, and the idle it was taken under.
+      // The attestation OF THESE BYTES: the pose the capture proved and the idle
+      // it was taken under, quoted from the manifest whose entry describes the
+      // file the row measured — the winning run's for a row read out of the
+      // sitting, the bundle's for one the sitting published.
       nativeAttestation: {
-        presentedActive: entry.presentedActive ?? null,
-        presentation: entry.presentation ?? null,
-        hidIdleSeconds: entry.hidIdleSeconds ?? null,
-        deterministic: entry.deterministic ?? null,
-        frequencySettled: entry.frequencySettled ?? false,
-        stateFrequencies: entry.stateFrequencies ?? null,
-        identicalToBackground: entry.identicalToBackground ?? null,
+        presentedActive: native.entry.presentedActive ?? null,
+        presentation: native.entry.presentation ?? null,
+        hidIdleSeconds: native.entry.hidIdleSeconds ?? null,
+        deterministic: native.entry.deterministic ?? null,
+        frequencySettled: native.entry.frequencySettled ?? false,
+        stateFrequencies: native.entry.stateFrequencies ?? null,
+        identicalToBackground: native.entry.identicalToBackground ?? null,
       },
       adapter: report.adapter,
       repeats: count,
