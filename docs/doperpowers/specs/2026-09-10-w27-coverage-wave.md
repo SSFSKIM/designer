@@ -619,6 +619,24 @@ neighbour glow diffusion; topology-changing morphs.
     re-interpreted after it is declared. Rejected: the probe alone (leaves W27c held on evidence
     it cannot improve); neither (loses the 26.5 endpoint's check for good); dark-only or
     accessibility-only unblocking (relaxes a declared clause to ship a pose).
+14. **Instrument stop S4 is scoped to the WebGPU arms; the eye on the page material passes
+    (2026-09-12; user-decided on the parent's recommendation).** W27f G2 declared S4 — every
+    capture arm byte-repeatable — without scope, and a record-only CSS arm on one cell
+    (`checkerboard__toolbar-group__rest`) proved bistable between two digests: a five-pixel flip
+    outside every declared shape, ≤ 7.0e-05 on the one figure it touches. The gate first narrowed
+    S4 after the read, then withdrew that as the move Decision Log 13 refuses, and left the ruling
+    to the user. Ruled: S4 is scoped to the WebGPU arms. The stop as declared contradicted X1 —
+    every measured claim is a WebGPU-tier claim and the CSS tier is a record — and X1 predates the
+    declaration, so the ruling corrects the declaration, not the reading: nothing measured
+    changes, the eighteen pinned readings are bit-identical to §5.131 §6's, and the CSS
+    bistability stays a named residual. Recorded in `identity.json`'s `declaredStopRulings` and
+    asserted by the adopted test, so a quiet change fails CI. The same day the user took the eye
+    on both sheets: passes, with the light photo rim overshoot, the photo base's colour and the
+    unhinted dark overlay's brightness standing as recorded gaps (§5.135 §10). Rejected: holding
+    S4 as written (a landing becomes a miss on an arm the bound does not depend on — the outcome
+    X1 exists to prevent). The rule to carry forward, from the gate's own note: a stop written as
+    "any capture" will eventually trip on an arm the claim does not depend on; scope stops to the
+    arms the bound is stated on.
 
 ## Surprises & Discoveries
 
