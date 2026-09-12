@@ -97,11 +97,23 @@ open -W --env VITREA_SCENES="$PWD/scenes-w27e-probe.json" \
   --stdout /tmp/w27e-1x-active.log --stderr /tmp/w27e-1x-active.err "$APP" \
   --args dump-layers --scenes "$IDS" --scheme light --settle 8 --require-key \
   --out /tmp/w27e-probe-1x-active/light
-# RECEDE, 1x — same scenes, non-key window, the capture's own launch policy
-VITREA_ACTIVATION_POLICY=accessory VITREA_SCENES="$PWD/scenes-w27e-probe.json" \
-  ./capture.sh dump-layers --scenes "$IDS" --scheme light --settle 8 \
-  --out /tmp/w27e-probe-1x-inactive/light
+# RECEDE, 1x — same scenes, through the capture's own never-activated path
+VITREA_SCENES="$PWD/scenes-w27e-probe.json" \
+  ./capture.sh dump-layers --inactive --scenes "$IDS" --scheme light --settle 8 \
+  --out /tmp/w27e-probe-1x-recede/light
 ```
+
+**`--inactive` is the mechanism; the policy variable alone is not** (found 2026-09-12, in the
+sitting). The first version of this recipe set only `VITREA_ACTIVATION_POLICY=accessory`, and all 50
+dumps it produced at 1x record `isKeyWindow: true`: an `.accessory` application that calls
+`activate` still becomes active and its key-capable window still becomes key, and `dump-layers`
+did exactly that. The committed 2x probe came out non-key by the accident of its launch context.
+`dump-layers --inactive` presents through `Capture.presentInactive` — `.accessory` before the run
+loop, a window that cannot become key, ordered front and never activated — and refuses if the
+recede is not observed; every dump now records `appIsActive` and `activationPolicy` beside
+`isKeyWindow`. The 1x readings of 2026-09-12 are under
+`packages/calibration/results/2026-09-12-w27e-probe-1x/`, with the policy-only arm kept as what it
+is: the active pose.
 
 Check the two arms disagree before believing either: every dump records its own `isKeyWindow`, so
 `grep -h isKeyWindow /tmp/w27e-probe-1x-*/light/*.json | sort -u` must show **both** `true` and
