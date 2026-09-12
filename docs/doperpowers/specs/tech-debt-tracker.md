@@ -2206,3 +2206,26 @@ fingerprint that drew it (the material-source digest the W27f runners already co
 when a cell's fingerprint is older than the head's, which turns this from a thing someone must
 remember into a thing the bed reports; (3) a periodic re-capture of the frozen bed, which is
 expensive and catches it only late. (2) is the one worth designing.
+
+## The composite-probe drivers write over their own committed evidence (W27e G1, 2026-09-12)
+
+Both W27e browser probes — `results/2026-09-11-w27e-g0-vibrancy/composite-probe/run.mjs` and
+`results/2026-09-12-w27e-g1/operator-probe/run.mjs` — set `const outDir = HERE` and write
+`results.json` plus every PNG beside themselves with a plain `writeFile`. So **a bare re-run of
+either script silently overwrites the committed reading it is sitting in**, with no flag, no
+prompt and no create-only guard.
+
+That is the opposite of the convention the rest of this harness follows. `scripts/vibrancy.ts`
+writes its tables with `flag: "wx"` and takes a scratch directory through `W27E_OUT` precisely so
+that re-running a reading cannot replace a recorded one; the calibration CLI has `--out-matrix` and
+`VITREA_WEB_CAPTURES` for the same reason. The probes have neither. Nothing has been lost — the
+G1 run was a first write into a new directory, and a re-run's diff would show in `git status` — but
+the failure mode is a worker who re-runs a probe to look at one number and commits a whole
+re-recorded evidence directory without noticing, on a machine whose adapter or engine version is
+not the one the claim was written against.
+
+Shape of the fix, and it is small: give both drivers the two things the reader already has — an
+`--out` (or an env var, matching `W27E_OUT`'s spelling) defaulting to a scratch path rather than to
+`HERE`, and a create-only write for `results.json` so replacing a recorded reading has to be
+deliberate. The PNGs can stay overwriting inside whatever directory is chosen. Worth taking with
+the next gate that touches either probe; not worth a commit of its own.

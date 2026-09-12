@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>W27e G1 — the label operator probe</title>
+    <style>
+      /*
+       * Nothing here may form a Backdrop Root above the glass planes: no
+       * opacity, filter, mask, clip-path or mix-blend-mode on html/body or on
+       * #page. The bench below the glass is flat grounds and needs no sampling
+       * at all, so it can carry whatever it likes inside its own cells.
+       */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: #000;
+      }
+
+      /*
+       * The page ground the glass samples: a hard 24 px checkerboard, G0's
+       * instrument unchanged. Sharp cells are what tells a raw-page buffer from
+       * one that has been through the material's blur, and — the reason it is
+       * here at this gate — they make the material under the label vary from
+       * pixel to pixel, so a patch whose ink carries a backdrop term reads with
+       * a standard deviation and one whose ink does not reads flat.
+       */
+      #page {
+        position: absolute;
+        inset: 0;
+        background: repeating-conic-gradient(#1040c0 0% 25%, #f0e000 0% 50%) 0 0 / 48px 48px;
+      }
+
+      .glass-host {
+        position: absolute;
+        margin: 0;
+        border: 0;
+        padding: 0;
+        background: transparent;
+        color: var(--vitrea-foreground, #fff);
+        font: 600 13px/1 system-ui, sans-serif;
+      }
+
+      .patch {
+        position: absolute;
+        pointer-events: none;
+      }
+
+      /*
+       * The operator bench: flat grounds, no glass. Every cell is its own
+       * isolated group, so a blended swatch inside it blends against that
+       * ground and against nothing else. Without the isolation a blend would
+       * reach the page behind and the reading would be of the wrong buffer.
+       */
+      #bench {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1400px;
+        height: 1000px;
+      }
+
+      #bench .cell {
+        position: absolute;
+        isolation: isolate;
+      }
+
+      #bench .swatch {
+        position: absolute;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="page"></div>
+    <div id="bench"></div>
+    <svg id="defs" width="0" height="0" style="position: absolute" aria-hidden="true"></svg>
+    <script type="module" src="./probe.js"></script>
+  </body>
+</html>
