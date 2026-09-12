@@ -18744,7 +18744,7 @@ each of which would have destroyed committed evidence silently:
   re-running one phase still replaces its own block and all five prior blocks survive (5 → 11).
 - **The backdrop index was not carried forward.** A fixture is a component over a raster and the
   manifest's `backgrounds` map is the only place the bundle says which; publishing the bed's cells
-  over the new `mid-chroma-solid` left 20 fixtures whose backdrop nothing could name, and the
+  over the new `mid-chroma-solid` left 24 fixtures whose backdrop nothing could name, and the
   calibration page refused every one of them. Found by the page refusing, which is the fail-closed
   path working. `materialize` now carries a run's backgrounds forward, copying a raster the bundle
   lacks and **stopping** where the bundle's raster differs from what the run composited over.
