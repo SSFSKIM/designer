@@ -2377,7 +2377,12 @@ describe("the stack overlay bound (W27f G2, claims §5.135)", () => {
     readonly sampledPathStops: readonly string[];
     readonly coverageStops: readonly string[];
     readonly instrumentStops: readonly string[];
-    readonly unresolvedStops: readonly { stop: string; ruling: string }[];
+    readonly declaredStopRulings: readonly {
+      stop: string;
+      ruling: string;
+      resolved: boolean;
+      decidedBy: string;
+    }[];
   }
 
   const EVIDENCE = resolve(PACKAGE_ROOT, "results", "2026-09-11-w27f-g2");
@@ -2515,19 +2520,33 @@ describe("the stack overlay bound (W27f G2, claims §5.135)", () => {
     expect(VERDICT.stopsScope).toContain("S1");
   });
 
-  it("carries the instrument's stops apart, with S4 recorded as tripped and unresolved", () => {
+  it("carries the instrument's stops apart, with S4 tripped and ruled on by the user", () => {
     // S3 held: no sampled digest moved, and no capture the record has went
     // missing from the read. S4, as `declaration.md` §6 worded it, did not: one
-    // record-only CSS capture is not byte-repeatable. The gate's reading of
-    // that — X1 makes the CSS tier a record, so a record-only arm cannot gate a
-    // WebGPU bound — is a recommendation and not a ruling, because narrowing a
-    // declared stop after the read is the user's decision (W27 Decision Log 13).
-    // This asserts that the evidence still says so, rather than that the
-    // question was settled.
+    // record-only CSS capture is not byte-repeatable.
+    //
+    // The user scoped S4 to the WebGPU arms on 2026-09-12 (W27 Decision Log 14),
+    // on the ground that the stop as declared contradicted contract X1, which
+    // predates it — so the ruling corrects the declaration and not the reading.
+    //
+    // What this asserts is the *record*, not the outcome. The stop must still be
+    // recorded as tripped, the ruling must still name the decision that scoped
+    // it, and the decision must still be attributed. A later edit that quietly
+    // drops the trip, restates the ruling as the gate's own, or re-attributes it
+    // fails here — which is the whole point of keeping the history in the
+    // evidence rather than only in prose that nothing checks.
     expect(IDENTITY.sampledPathStops).toEqual([]);
     expect(IDENTITY.coverageStops).toEqual([]);
     expect(IDENTITY.instrumentStops.length).toBeGreaterThan(0);
-    expect(IDENTITY.unresolvedStops.map((entry) => entry.stop)).toEqual(["S4"]);
-    expect(IDENTITY.unresolvedStops[0]?.ruling).toContain("Unresolved");
+
+    const [s4, ...rest] = IDENTITY.declaredStopRulings;
+    expect(rest).toEqual([]);
+    expect(s4?.stop).toBe("S4");
+    expect(s4?.resolved).toBe(true);
+    expect(s4?.decidedBy).toBe("W27 Decision Log 14");
+    expect(s4?.ruling).toContain("scoped to the WebGPU arms");
+    expect(s4?.ruling).toContain("corrects the declaration, not the reading");
+    // The residual the ruling explicitly did not close.
+    expect(s4?.ruling).toContain("CSS bistability stays a named residual");
   });
 });

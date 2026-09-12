@@ -17697,7 +17697,21 @@ therefore covers `css-today` only, and `css-bistability.json`'s finding says so.
 for both arms is the magnitude: a within-run mean absolute channel difference of 5.859375e-05,
 which over this bed's 320 × 200 RGBA capture is exactly 15 channel codes of one.
 
-**Stop S4 was tripped as declared, and this gate does not resolve it.** `declaration.md` §6 worded
+**Stop S4 was tripped as declared; the user scoped it on 2026-09-12 (Decision Log 14).** The
+history is kept in full below rather than replaced by its outcome, because what a gate proposed and
+what the user decided are different facts and the evidence exists to keep them apart.
+
+**The ruling.** Instrument stop S4 is **scoped to the WebGPU arms**. The reasoning recorded with it:
+the stop as declared **contradicted contract X1, which predates it** — X1 makes every measured claim
+a WebGPU-tier claim and the CSS tier a record — so the ruling **corrects the declaration, not the
+reading**. Nothing measured changes: the eighteen pinned readings are bit-identical to §5.131 §6's
+in the raw float, and the capture that tripped S4 is a record-only CSS arm on one cell. **The CSS
+bistability stays a named residual** — §6 above and the tracker entry — and is not closed by this.
+`identity.json`'s `declaredStopRulings` carries the declared wording, what tripped, the gate's
+recommendation and the ruling with its attribution, and the adopted test asserts the record so a
+later edit that drops the trip or re-attributes the decision fails.
+
+**How it stood before the ruling, unchanged.** `declaration.md` §6 worded
 S4 as "any capture is not byte-repeatable over its two loads", with no scope, and one capture at
 this head is not: the dark `checkerboard__toolbar-group__rest` `css-hint` arm, at 5.859375e-05.
 Read as declared, S4 is tripped, and the same section says a bound is not re-interpreted after it
@@ -17715,15 +17729,17 @@ So the evidence now says which stop each file speaks for instead of disagreeing 
 `verdict.json` carries `boundStops` — S1 and S2, empty — with `stopsScope` naming what it does not
 decide; `identity.json` carries the sampled path's stops (S3, empty, over a coverage check that
 also fails on a truncated capture) apart from the instrument's (S4, tripped), and its
-`unresolvedStops` records S4 as tripped, carries the recommendation above, and states that the
-ruling is the user's. The adopted test asserts both halves.
+`declaredStopRulings` records S4 as tripped, carries the recommendation above, and now carries the
+user's ruling with its attribution. The field was named `unresolvedStops` while the stop stood
+open; a name asserting "unresolved" over a resolved entry is the class of stale label this gate
+corrected elsewhere. The adopted test asserts both halves.
 
-**What that leaves open, stated plainly.** The adoption in this section is made on the bound's
-clauses with an instrument stop outstanding. Two rulings are available to the user: scope S4 to the
-arms the bound is stated on, which leaves this landing exactly as recorded; or hold the gate to S4
-as written, which means the landing adopts nothing until that CSS capture is stable and this
-section is rewritten as a miss. The gate's preference is the recommendation above and carries no
-more weight than that.
+**What the two available rulings were.** The adoption was made on the bound's clauses with the
+instrument stop outstanding, and the user had two: scope S4 to the arms the bound is stated on,
+leaving this landing exactly as recorded; or hold the gate to S4 as written, which would have meant
+adopting nothing until that CSS capture is stable and rewriting this section as a miss. **The first
+was taken** (Decision Log 14). The landing stands as recorded, and it stands on the user's ruling
+rather than on the gate's preference.
 
 **7. The CSS tier's coherence on DOM-sourced groups — a record, never a target (X1).** This is the
 clause W27f's charter asks for, and neither existing instrument could supply it.
@@ -17932,8 +17948,18 @@ harness read the flag off `GPUAdapter`, where it is `undefined`, and defaulted i
 so its recorded `isFallbackAdapter: false` was never measured and its guard could not fire (its
 vendor/architecture pair is what established hardware there). The site's own readout was scraped at
 each shot: `dom / webgpu / css-backdrop / approximate / none / ok / none` in both schemes, with zero
-console warnings or errors. **The user's eye is the parent's to take; no acceptance of `/#page` is
-claimed here.**
+console warnings or errors.
+
+**The eye was taken on 2026-09-12, and it passes.** The user looked at both sheets and ruled
+**"passes; residuals stand as recorded"**. The three residuals the sheet exists to show are
+therefore **accepted as gaps, not as blockers**, and stay in the ledger as future work exactly where
+this section puts them: the **light photo overlay's rim overshoot** (S1 0.114151 and Uh 0.109090
+against native 0.084228, §3); the **photo base's colour**, which the metrics improved without
+closing (§10 and §5.131 §3); and the **unhinted dark overlay's brightness**, the unknown-tone
+information limit at overlay luminance 0.049707 against native 0.020698 (§5.129 §2, §5.131 §1).
+None is closed by this ruling and none becomes acceptable parity; each keeps its place as a gap with
+the evidence beside it, which is what "stand as recorded" means. This closes W27f's acceptance
+clause for the user's eye on the demo's DOM stage.
 
 **11. Checks.** The exact required command `pnpm -r build && pnpm -r lint && pnpm -r test` passed on
 the corrected tree: **2 183 unit tests** (policy 23, motion 164, geometry 170, renderer 465, core

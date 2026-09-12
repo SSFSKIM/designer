@@ -56,8 +56,19 @@ S4_RECOMMENDATION = (
     "CSS tier a record, and the capture that tripped this is a record-only CSS arm on one cell, "
     "byte-repeatable on every arm the bound touches. That is an argument for a future gate's "
     "wording, not a licence to narrow this one's.")
-S4_RULING = ("Unresolved. Narrowing a declared stop after the read is the user's decision under "
-             "W27 Decision Log 13 — a bound is not re-interpreted after it is declared.")
+S4_RULING = (
+    "Resolved by W27 Decision Log 14 (2026-09-12, user-decided): instrument stop S4 is scoped to "
+    "the WebGPU arms. The stop as declared contradicted contract X1, which predates it — X1 makes "
+    "every measured claim a WebGPU-tier claim and the CSS tier a record — so the ruling corrects "
+    "the declaration, not the reading. Nothing measured changes: the eighteen pinned readings are "
+    "bit-identical to claims §5.131 §6's in the raw float, and the capture that tripped S4 is a "
+    "record-only CSS arm on one cell. The CSS bistability stays a named residual (claims §5.135 §6 "
+    "and the tracker), not a closed question.")
+
+# Left as the gate wrote it, before the ruling. The recommendation was not the
+# ruling and is not retrofitted into one: what a gate proposed and what the user
+# decided are different facts, and a ledger that collapses them loses the only
+# evidence that the gate did not decide its own stop.
 
 
 def digests(reading):
@@ -193,9 +204,16 @@ def main():
         "sampledPathIdentity": "unmoved" if not (sampled_stops or coverage_stops) else "moved",
         "instrumentRepeatability": "byte-repeatable" if not instrument_stops
                                    else "one or more captures are not byte-repeatable",
-        "unresolvedStops": [] if not instrument_stops else [
+        # Named for what it holds now that the stop has a ruling. It was
+        # `unresolvedStops` while S4 stood open; a field whose name asserts
+        # "unresolved" over a resolved entry would be the kind of stale label
+        # this gate spent a commit correcting elsewhere. The entry itself keeps
+        # every part of the history — what was declared, what tripped, what the
+        # gate recommended, and what the user decided.
+        "declaredStopRulings": [] if not instrument_stops else [
             {"stop": "S4", "declaredAs": S4_AS_DECLARED, "tripped": instrument_stops,
-             "gateRecommendation": S4_RECOMMENDATION, "ruling": S4_RULING}],
+             "gateRecommendation": S4_RECOMMENDATION, "ruling": S4_RULING,
+             "resolved": True, "decidedBy": "W27 Decision Log 14", "decidedOn": "2026-09-12"}],
     }
     args.out.write_text(f"{json.dumps(result, indent=1)}\n")
 

@@ -5,6 +5,14 @@ Two sheets, one per colour scheme, for the user's eye on the material over ordin
 charter ends with "the user's eye on the demo's DOM stage", and claims §5.131 §8 hands G2 that
 clause explicitly alongside the native stack bound.
 
+> **Taken, 2026-09-12. The user looked at both sheets and ruled: "passes; residuals stand as
+> recorded."** The sentence above is kept as it was written, because it is the true record of what
+> this gate could and could not claim when it built the sheet — the ruling is the user's and arrived
+> after. The three residuals the sheet exists to show are accepted as **gaps, not blockers**, and
+> stay in the ledger as future work: the light photo overlay's rim overshoot, the photo base's
+> colour, and the unhinted dark overlay's brightness. None is closed. Claims §5.135 §10 records the
+> ruling; W27f's acceptance clause for the user's eye is met.
+
 | file | size | what it carries |
 | --- | --- | --- |
 | `eye-sheet-light.png` | 4720 × 6108 | six comparison rows and the live demo stage, light |

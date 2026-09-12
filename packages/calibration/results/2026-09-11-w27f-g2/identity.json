@@ -646,7 +646,7 @@
  ],
  "sampledPathIdentity": "unmoved",
  "instrumentRepeatability": "one or more captures are not byte-repeatable",
- "unresolvedStops": [
+ "declaredStopRulings": [
   {
    "stop": "S4",
    "declaredAs": "declaration.md \u00a76: \"Any capture is not byte-repeatable over its two loads, or any capture reports a diagnostic.\" The wording is unscoped, and the same section forbids narrowing a clause after the read.",
@@ -654,7 +654,10 @@
     "S4 candidate/dark: non-deterministic captures [{'scene': 'checkerboard__toolbar-group__rest', 'arm': 'css-hint', 'repeatNoise': 5.859375e-05}]"
    ],
    "gateRecommendation": "The gate recommends, and does not rule, that an instrument stop be read as scoped to the arms the bound is stated on: contract X1 makes every measured claim a WebGPU-tier claim and the CSS tier a record, and the capture that tripped this is a record-only CSS arm on one cell, byte-repeatable on every arm the bound touches. That is an argument for a future gate's wording, not a licence to narrow this one's.",
-   "ruling": "Unresolved. Narrowing a declared stop after the read is the user's decision under W27 Decision Log 13 \u2014 a bound is not re-interpreted after it is declared."
+   "ruling": "Resolved by W27 Decision Log 14 (2026-09-12, user-decided): instrument stop S4 is scoped to the WebGPU arms. The stop as declared contradicted contract X1, which predates it \u2014 X1 makes every measured claim a WebGPU-tier claim and the CSS tier a record \u2014 so the ruling corrects the declaration, not the reading. Nothing measured changes: the eighteen pinned readings are bit-identical to claims \u00a75.131 \u00a76's in the raw float, and the capture that tripped S4 is a record-only CSS arm on one cell. The CSS bistability stays a named residual (claims \u00a75.135 \u00a76 and the tracker), not a closed question.",
+   "resolved": true,
+   "decidedBy": "W27 Decision Log 14",
+   "decidedOn": "2026-09-12"
   }
  ]
 }
