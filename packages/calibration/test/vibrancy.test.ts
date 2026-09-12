@@ -1,11 +1,37 @@
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
+import { CSS_TIER_MAPPING } from "@vitreajs/vitrea-web";
 import {
+  LABEL_MATRICES,
+  LABEL_OPERATOR_BY_SCHEME,
   LUMA_REC709,
   OPERATOR_TOLERANCE,
   PROBE_DUMP_DIRS,
+  applyColorMatrix,
   decompose,
+  labelInk,
+  labelOperatorFor,
   read,
 } from "../scripts/vibrancy";
+
+/**
+ * W27e G1's browser proof, scored against the tolerance declared before it ran.
+ * Read from the committed evidence rather than restated, so the assertions below
+ * fail if the evidence moves.
+ */
+const verdict = JSON.parse(readFileSync(
+  resolve(dirname(fileURLToPath(import.meta.url)),
+    "../results/2026-09-12-w27e-g1/verdict.json"),
+  "utf8",
+)) as {
+  declaredTolerance: { bound: number };
+  A_passes: boolean;
+  A_measuredTolerance: number;
+  B_foldAgainstDeclaredPath: { maxAbsDiffCodeValues: number };
+  C_alternativeReading: { blendSupport: Record<string, boolean> };
+};
 
 /**
  * The corpus is committed evidence, so these numbers are what W27e G0 read and not
@@ -381,5 +407,103 @@ describe("W27e's labelled probe: what it says about the SURFACE operator", () =>
       .find((r) => r.scene === "light-solid__capsule-button__rest");
     expect(lightSolidDark?.vitrea.backdropToneAdaptation).toBe(0);
     expect(lightSolidDark?.operatorId).toBe(inScheme(highlights, "dark")[0]?.operatorId);
+  });
+
+  it("reads the surface operator off a layer that draws nothing in this pose", () => {
+    // W27e G1's reading, and the reason the refutation above does not by itself
+    // choose between its two explanations. The layer the surface operator sits on
+    // is the `CASDFKeyFillHighlightEffect` layer, and across this corpus its own
+    // `opacity` is 0 on every cell while G0's is 1 on every cell. §5.128 records
+    // that the bright rim goes to zero in the receded pose in every profile at
+    // both scales, and every dump here is non-key. A matrix on a layer that draws
+    // nothing has no pixel consequence, so "one operator per scheme" may be the
+    // configuration of a dormant layer rather than a selector at all — which is a
+    // third reading beside scale dependence and a collapsing selector, and the
+    // 1x both-pose pass has to separate all three.
+    expect(new Set(highlights.map((r) => r.layerOpacity))).toEqual(new Set([0]));
+    expect(new Set(reading.rows.filter((r) => r.role === "surface-highlight")
+      .map((r) => r.layerOpacity))).toEqual(new Set([1]));
+    // The label's own layer is fully opaque in both schemes, so nothing about the
+    // label's reading rides on this.
+    expect(new Set(labels.map((r) => r.layerOpacity))).toEqual(new Set([1]));
+  });
+});
+
+/**
+ * W27e G1 / claims §5.137: the label operator, pinned to the dumps it came from.
+ *
+ * The operator needed no coefficient fit — §5.136 §4 read Apple's own numbers
+ * with zero residual — so what has to be held is that the constants the evaluator
+ * carries are still the corpus's own, and that the arithmetic around them is the
+ * arithmetic `inputClamp` = 1 describes. Both are checked against the committed
+ * dumps rather than against a transcription.
+ */
+describe("W27e G1: the label operator as a function", () => {
+  it("carries the corpus's own matrices, float for float", () => {
+    // Not a transcription check: the expected value is read out of the probe
+    // corpus on this run, so an edit to either side fails.
+    for (const [scheme, operator] of Object.entries(LABEL_OPERATOR_BY_SCHEME)) {
+      const fromDumps = inScheme(labels, scheme);
+      expect(fromDumps.length).toBe(12);
+      for (const row of fromDumps) expect(row.matrix).toEqual(LABEL_MATRICES[operator]);
+    }
+  });
+
+  it("selects the operator on the material's own composite level, not on a scheme", () => {
+    // Apple selects by colour scheme; vitrea cannot, because a surface's own level
+    // does not have to follow the document's. The crossover is a required argument
+    // for the same reason a copy of it is not kept in the evaluator: it belongs to
+    // the runtime and a second copy would go on agreeing with a number that moved.
+    const crossover = CSS_TIER_MAPPING.foregroundCrossover;
+    expect(labelOperatorFor(0.9, crossover)).toBe("darkening");
+    expect(labelOperatorFor(crossover, crossover)).toBe("darkening");
+    expect(labelOperatorFor(0.2, crossover)).toBe("lightening");
+  });
+
+  it("saturates: every in-gamut ink lands on black or on white", () => {
+    // The whole of §5.137 §2 turns on this. A unit offset against a [0, 1] clamp
+    // leaves nothing of the input colour, which is why the operator has no
+    // backdrop term for the CSS tier's fold to lose.
+    for (let v = 0; v <= 1.0001; v += 1 / 32) {
+      const ink = { rgb: [v, v / 2, 1 - v] as const, alpha: 1 };
+      expect(labelInk("darkening", ink).rgb).toEqual([0, 0, 0]);
+      expect(labelInk("lightening", ink).rgb).toEqual([1, 1, 1]);
+    }
+  });
+
+  it("passes alpha through in light and pulls it back by 0.95 in dark", () => {
+    // The one coefficient that is not a saturation, and the one that tells the two
+    // readings of `inputBackdropAware` apart: under the plus-lighter reading it is
+    // inert, because that composite saturates to white whatever the alpha.
+    for (const alpha of [1, 0.85, 0.6, 0.3, 0.18, 0]) {
+      expect(labelInk("darkening", { rgb: [0, 0, 0], alpha }).alpha).toBe(alpha);
+      expect(labelInk("lightening", { rgb: [1, 1, 1], alpha }).alpha)
+        .toBeCloseTo(alpha * 0.949999988079071, 12);
+    }
+  });
+
+  it("applies a CAColorMatrix as four rows of five columns, clamped", () => {
+    // The convention is the module header's, and it is easy to get backwards: this
+    // is the one assertion that would fail on a transposed matrix.
+    const m = [0, 0, 0, 0, 0.25, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.75, 0, 0, 0, 1, 0];
+    const out = applyColorMatrix({ rgb: [1, 1, 1], alpha: 0.5 }, m);
+    expect(out.rgb).toEqual([0.25, 0.5, 0.75]);
+    expect(out.alpha).toBe(0.5);
+    expect(() => applyColorMatrix({ rgb: [0, 0, 0], alpha: 1 }, [1, 2, 3]))
+      .toThrow(/twenty floats/);
+  });
+
+  it("agrees with what Chromium composited, inside the tolerance declared before the run", () => {
+    // The browser proof, read back from its own evidence rather than restated.
+    // What it bounds is the analytic operator against the browser's composite of
+    // it — never vitrea against macOS, for which no native label fixture exists
+    // and, under the no-text fixture rule, none can.
+    expect(verdict.declaredTolerance.bound).toBe(1);
+    expect(verdict.A_passes).toBe(true);
+    expect(verdict.A_measuredTolerance).toBeLessThanOrEqual(1);
+    expect(verdict.B_foldAgainstDeclaredPath.maxAbsDiffCodeValues).toBeLessThanOrEqual(1);
+    // And Chromium cannot express the alternative reading's light-scheme blend at
+    // all, which is a fact about the web rather than about this run.
+    expect(verdict.C_alternativeReading.blendSupport["mix-blend-mode: plus-darker"]).toBe(false);
   });
 });

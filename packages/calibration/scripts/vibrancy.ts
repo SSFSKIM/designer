@@ -288,6 +288,108 @@ export function decompose(flat: readonly number[]): Decomposition {
   };
 }
 
+/*
+ * ---------------------------------------------------------------------------
+ * W27e G1 / claims §5.137: the label operator, as a function.
+ *
+ * Everything above reads matrices out of dumps. This block evaluates the one the
+ * labelled probe found, so that G2 implements an operator that has already been
+ * written down and checked rather than one derived a second time from prose. It
+ * is pure arithmetic on encoded sRGB and knows nothing about the DOM, the
+ * renderer or a profile; `test/vibrancy.test.ts` pins its coefficients to the
+ * committed dumps, so the constants cannot drift away from Apple's.
+ * ---------------------------------------------------------------------------
+ */
+
+/**
+ * Which of the two label matrices applies. Apple selects by the colour scheme
+ * and by nothing else the probe moved (§5.136 §4). vitrea cannot use the
+ * document's scheme for this, because a vitrea surface's own level does not have
+ * to follow it; the selector is the material's own composite level against the
+ * CSS tier's `foregroundCrossover`, which is the same quantity the published ink
+ * already switches on. `darkening` is Apple's light-scheme matrix and
+ * `lightening` its dark-scheme one, named for what they do rather than for the
+ * scheme they were read under, because the scheme is not what vitrea decides on.
+ */
+export type LabelOperator = "darkening" | "lightening";
+
+/** Apple's scheme names, as the dumps record them, kept for the corpus tests. */
+export type LabelScheme = "light" | "dark";
+
+/**
+ * The two matrices, copied to the float32 values
+ * `results/2026-09-11-w27e-probe/table.json` holds. The dark alpha coefficient is
+ * 0.95 in float32 and is written here as the float32 value rather than as 0.95,
+ * because the test compares it to the dump byte for byte.
+ */
+export const LABEL_MATRICES: Readonly<Record<LabelOperator, readonly number[]>> = {
+  darkening: [1, 0, 0, 0, -1, 0, 1, 0, 0, -1, 0, 0, 1, 0, -1, 0, 0, 0, 1, 0],
+  lightening: [1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0.949999988079071, 0],
+};
+
+/** Apple's scheme → the operator it carries, which is the whole of its selector. */
+export const LABEL_OPERATOR_BY_SCHEME: Readonly<Record<LabelScheme, LabelOperator>> = {
+  light: "darkening",
+  dark: "lightening",
+};
+
+/** An ink in encoded sRGB, channels and alpha in [0, 1], non-premultiplied. */
+export interface LabelInk {
+  readonly rgb: readonly [number, number, number];
+  readonly alpha: number;
+}
+
+const clamp01 = (value: number) => (value < 0 ? 0 : value > 1 ? 1 : value);
+
+/**
+ * A `CAColorMatrix` applied the way `inputClamp` = 1 applies it: four rows of
+ * five columns over non-premultiplied encoded channels, then a plain [0, 1]
+ * clamp. `feColorMatrix` at `color-interpolation-filters: sRGB` is the same
+ * arithmetic, which §5.133 §5 confirmed to the code value on both surface
+ * operators and §5.137 confirmed again on these two.
+ */
+export function applyColorMatrix(ink: LabelInk, matrix: readonly number[]): LabelInk {
+  if (matrix.length !== 20) throw new Error(`A CAColorMatrix is twenty floats, not ${matrix.length}`);
+  const input = [ink.rgb[0], ink.rgb[1], ink.rgb[2], ink.alpha];
+  const out: number[] = [];
+  for (let row = 0; row < 4; row += 1) {
+    let sum = matrix[row * 5 + 4] as number;
+    for (let column = 0; column < 4; column += 1) {
+      sum += (matrix[row * 5 + column] as number) * (input[column] as number);
+    }
+    out.push(clamp01(sum));
+  }
+  return { rgb: [out[0] as number, out[1] as number, out[2] as number], alpha: out[3] as number };
+}
+
+/**
+ * The operator the material's own composite level selects.
+ *
+ * `crossover` has no default on purpose. The number that belongs here is the
+ * runtime's `CSS_TIER_MAPPING.foregroundCrossover`, and a calibration script that
+ * kept its own copy would go on agreeing with a constant that had moved.
+ */
+export function labelOperatorFor(compositeLevel: number, crossover: number): LabelOperator {
+  return compositeLevel >= crossover ? "darkening" : "lightening";
+}
+
+/**
+ * The rendered ink: Apple's operator evaluated on the automatic ink.
+ *
+ * Both matrices offset every channel by a whole unit against a [0, 1] clamp, so
+ * the operator **saturates** — the output colour is black under `darkening` and
+ * white under `lightening` for every input in gamut, and the only thing the input
+ * contributes is its alpha, which `lightening` scales by 0.95. That is why this
+ * takes no backdrop argument: the operator vitrea evaluates has no backdrop term,
+ * which is what lets the CSS tier fold it on the CPU without losing anything
+ * (§5.137 §3). The alternative reading of `inputBackdropAware` — the classic
+ * plus-darker / plus-lighter vibrancy composite — does have one, and §5.137 §2
+ * records why this is the reading vitrea takes and what the two are worth apart.
+ */
+export function labelInk(operator: LabelOperator, ink: LabelInk): LabelInk {
+  return applyColorMatrix(ink, LABEL_MATRICES[operator]);
+}
+
 /** One `vibrantColorMatrix` as found, before the cell's own facts are attached. */
 interface Occurrence {
   readonly layerPath: string;
@@ -295,6 +397,14 @@ interface Occurrence {
   readonly layerName: string | null;
   readonly layerEffect: string | null;
   readonly layerFrame: Layer["frame"];
+  /**
+   * The layer's own `opacity`. Recorded because a matrix on a layer at opacity 0
+   * has no pixel consequence, and W27e G1 found that is exactly where the probe
+   * corpus's surface operator sits: the `CASDFKeyFillHighlightEffect` layer reads
+   * 0 on all 50 of these non-key dumps and 1 on all 58 of G0's key ones, which is
+   * §5.128's receded rim showing up in the configuration.
+   */
+  readonly layerOpacity: number | null;
   readonly matrix: readonly number[];
   readonly inputBackdropAware: unknown;
   readonly inputClamp: unknown;
@@ -333,6 +443,7 @@ export function occurrences(layer: Layer, path = "0", found: Occurrence[] = []):
       layerName: layer.name,
       layerEffect: effectClass(layer),
       layerFrame: layer.frame,
+      layerOpacity: layer.opacity ?? null,
       matrix: boxed.float32,
       inputBackdropAware: inputs["inputBackdropAware"] ?? null,
       inputClamp: inputs["inputClamp"] ?? null,
@@ -456,6 +567,7 @@ export interface Row extends Record<string, unknown> {
   readonly layerPath: string;
   readonly layerClass: string;
   readonly layerEffect: string | null;
+  readonly layerOpacity: number | null;
   readonly role: string;
   readonly input: string;
   readonly matrix: readonly number[];
@@ -565,6 +677,7 @@ export function read(dirs: readonly string[] = DUMP_DIRS,
         layerName: occurrence.layerName,
         layerEffect: occurrence.layerEffect,
         layerFrame: occurrence.layerFrame,
+        layerOpacity: occurrence.layerOpacity,
         role,
         // `inputBackdropAware` is the filter's own statement of what it reads.
         input: occurrence.inputBackdropAware === 1 ? "backdrop-beneath" : "own-content",
