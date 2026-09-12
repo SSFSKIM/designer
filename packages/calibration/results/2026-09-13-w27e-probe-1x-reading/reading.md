@@ -120,8 +120,18 @@ both. The pose is now controlled from both sides:
 
 - the 2x corpus is non-key on all 50, `marginWidth` 0 on all 50, highlight opacity 0 on all 50 — the
   same receded configuration this corpus reaches at 1x;
-- at 1x, **both** non-key states (accessory-and-inactive, and regular-and-active) give the same
-  reading, so whichever of them the 2x run was in is covered.
+- at 1x the two non-key states the corpus reaches — accessory-and-never-activated, and
+  regular-and-still-active — differ in **both** the activation policy and the application's
+  activation and give the same reading on every field this walk takes.
+
+The 2x corpus records neither `appIsActive` nor `activationPolicy` — the harness gained both fields
+in the sitting that took the 1x corpus — so its activation is not directly controlled;
+`dump-layers`' own doc comment places it under the default `.regular` policy, non-key. The
+comparison therefore rests on the inference the second bullet supports: if the loss of key is what
+drives the receded configuration, and two states differing in policy *and* activation agree on every
+field, then the 2x run's unrecorded activation cannot be what separates it. That is an inference and
+not a matched control, and one 2x pass taken in the two now-recorded states would remove it — the
+same run that would settle §4's mechanism can take it.
 
 Against `recede/*`, scene for scene, the 2x corpus differs on **10 of 50** surface cells and **5 of
 24** labels, and every difference is in one direction: at 2x nothing adapts. In light the eight are

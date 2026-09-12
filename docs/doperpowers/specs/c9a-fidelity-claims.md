@@ -18763,8 +18763,13 @@ in dark.
 **4. So the 2x corpus's "one operator per scheme" is the SCALE, and the pose is cleared.** §5.136 §5
 could not separate them because its two corpora differed in both axes. The pose is now controlled
 from both sides: the 2x corpus is non-key on all 50, `marginWidth` 0 on all 50 and highlight opacity
-0 on all 50 — the same receded configuration reached here at 1x — and at 1x **both** non-key states
-give the same reading, so whichever of them the 2x run was in is covered. Scene for scene against
+0 on all 50 — the same receded configuration reached here at 1x — and at 1x the two non-key states
+this corpus reaches, which differ in **both** the activation policy and the application's activation,
+give the same reading on every field. The 2x corpus records neither new pose field, the harness
+having gained them in the sitting that took this one, so its activation is an **inference** from that
+agreement rather than a matched control: if key alone drives the receded configuration the 2x run's
+unrecorded activation cannot separate it. One 2x pass in the two now-recorded states would remove the
+inference, and the run that settles the mechanism below can take it. Scene for scene against
 `recede/*`, the 2x corpus differs on **10 of 50** surface cells and **5 of 24** labels, every
 difference in one direction: at 2x nothing adapts, every light cell reads a white face fill and every
 dark cell a black one. **Scale is the axis.** The mechanism is not readable from the configuration
@@ -18842,8 +18847,9 @@ takes they are the recede: highlight `opacity` 0 on all 16, backdrop `marginWidt
 light recede's own achromatic tint matrix, the label layer still at `opacity` 1, and the surface
 operator agreeing with `recede/light` on **16 of 16** shared scenes. Two things follow: the receded
 *configuration* is driven by key resignation rather than by application deactivation — a second,
-independent route to it, and a fact about what the capture's mechanism has to reproduce — and §4's
-cross-scale comparison holds whichever non-key state the 2x run was in. One thing does not: **nothing
+independent route to it, and a fact about what the capture's mechanism has to reproduce — and these
+16 dumps are the evidence §4's cross-scale comparison rests on, the 2x corpus's own activation being
+unrecorded. One thing does not: **nothing
 here says the two states are the same pose in pixels.** No capture was taken, the attestation and
 `presentedActive` are about a capture and not a dump, and §5.136 §1 chose the `.accessory` mechanism
 by measurement on the pixel side. The honest statement is that they agree on every configuration
