@@ -143,6 +143,23 @@ baseline at 0, 6 and 7 failures an hour earlier. Anything triaging against this
 entry should compare distributions rather than single runs, and should expect
 the comparison to be noisy in both directions.
 
+*Measured either side of W27e G2's tint-and-ink band, 2026-09-12, three consecutive full
+three-engine runs of each tree on one machine:* **`bdac5222` failed 0, 0, 0** (135 passed, 35.3–37.4
+s) and **the band's head failed 0, 2, 1** (155–156 passed, 41.5–42.1 s). The failures are this
+entry's class and nothing else — `morph-materialize.spec.ts`'s tab-order and focus cases and
+`presence.spec.ts`'s 220 ms budget, all on `firefox`, all assertions of a driver at a moment; the
+presence one missed by 45 ms against an allowance built from its own longest frame. So the band did
+not introduce a mechanism, it widened the window of one that was already here: it costs the
+playground's frame loop a few milliseconds a frame (its own entry below), and every case in this
+class is written against a page that keeps up. A clean baseline today is also a reminder of what
+the 2026-08-30 readings say — the rate drifts by session, so 0/0/0 against 0/2/1 is a signal about
+this machine this afternoon rather than a coefficient. **The fix shape below is unchanged and is
+now the thing worth doing**: bracketing these assertions rather than sampling them fixes the class
+for whatever is added to the playground next, and W27e G2 did exactly that for the one case that
+had crossed onto Chromium (`morph.spec.ts`'s reversal, which weighs each step against the interval
+it happened over) and deliberately left the other three to this entry rather than spreading one
+child's repair across another's tests.
+
 *Seen on Chromium once, 2026-09-12 (W27e G2's review repair), which the readings above say does
 not happen:* `morph-materialize.spec.ts`'s "returns focus to the trigger when the menu is
 dismissed" failed with "focus never entered the open platter" in a full three-engine run, then
