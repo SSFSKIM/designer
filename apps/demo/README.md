@@ -6,7 +6,7 @@ Two pages, one Vite app.
 | --- | --- |
 | `/` | **vitrea's public demo site.** Designed under [`DESIGN.md`](./DESIGN.md); asserted by [`e2e/site.spec.ts`](./e2e/site.spec.ts). |
 | `/laws/` | **The material laws.** One section per law the reference was measured to obey (backdrop tone response, the tint as a shade of its seed, the two-component body, the lens, glass over glass), each running live with a control and the runtime's own readout. Same design law as `/`; asserted by [`e2e/laws.spec.ts`](./e2e/laws.spec.ts). |
-| `/playground/` | **The internal acceptance harness.** What `vitrea-react`'s Playwright suite drives. Its structure, control names and layout are pinned by those tests, and it is deliberately outside the design law. |
+| `/playground/` | **The internal acceptance harness.** What `vitrea-react`'s Playwright suite drives. Its structure, control names and layout are pinned by those tests, and it is deliberately outside the design law. Its lower right is the **tint-and-ink band** (`src/TintInkPlate.tsx`): a `GlassGroup tint`, a `GlassButton tint` and the four named ink levels, live over a light and a dark ground, with both seeds under controls. |
 
 ```sh
 pnpm --filter demo dev        # both routes, on http://localhost:5173
