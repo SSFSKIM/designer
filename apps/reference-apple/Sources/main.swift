@@ -780,7 +780,7 @@ let DUMP_LAYER_DEFAULT_SCENES = [
 /// both places.
 @MainActor
 func runDumpLayers(sceneIds: [String], outDir: String, settleSeconds: Double, scheme: String?,
-                   requireKey: Bool) {
+                   requireKey: Bool, inactive: Bool = false) {
   let spec = loadSpec()
   let scale = captureScale()
   let canvas = spec.canvas.cgSize
@@ -836,12 +836,18 @@ func runDumpLayers(sceneIds: [String], outDir: String, settleSeconds: Double, sc
   // no way to tell how far it got.
   setvbuf(stdout, nil, _IOLBF, 0)
 
-  let window = Capture.makeWindow(canvas: canvas)
-  Capture.present(window)
+  // In the inactive pose the window must not be able to become key and the
+  // application must never be activated; `presentInactive` orders it front
+  // inside the Task below, after the run loop is up, and refuses if the pose is
+  // not observed. The active pose keeps its existing path, unchanged.
+  let window = Capture.makeWindow(canvas: canvas, keyCapable: !inactive)
+  if !inactive { Capture.present(window) }
   print("== dump-layers ==")
   print("hardware: \(Environment.hardware().model), \(Environment.hardware().osVersion)")
   print("window backingScaleFactor: \(window.backingScaleFactor), isKeyWindow: \(window.isKeyWindow), " +
-        "NSApp.isActive: \(NSApp.isActive)")
+        "NSApp.isActive: \(NSApp.isActive), activation policy: " +
+        "\(NSApp.activationPolicy() == .accessory ? "accessory" : "regular"), " +
+        "pose asked: \(inactive ? "inactive" : "active")")
   print("environment: colorScheme=\(colorScheme) a11y=\(a11y) (system a11y: \(SystemAccessibility.current))")
   print("out: \(outDir)")
   // `--require-key` exists because a dump's pose is NOT implied by the command
@@ -865,6 +871,18 @@ func runDumpLayers(sceneIds: [String], outDir: String, settleSeconds: Double, sc
   // to prevent.
 
   Task { @MainActor in
+    if inactive {
+      // The capture's own mechanism, reused rather than imitated: it observes
+      // `key=false active=false` before returning and throws otherwise, so a
+      // dump taken under this flag is a dump of the recede or no dump at all.
+      // Nothing has been written at this point.
+      do {
+        try await Capture.presentInactive(window)
+      } catch {
+        fail("--inactive: the recede was not reached — \(error.localizedDescription). Nothing was written.")
+      }
+      print("--inactive: window key=\(window.isKeyWindow), NSApp.isActive=\(NSApp.isActive)")
+    }
     if requireKey {
       // Poll, matching `presentInactive`'s pattern: cheap when the answer has
       // already arrived, bounded when it never will. Nothing has been written at
@@ -937,6 +955,13 @@ func runDumpLayers(sceneIds: [String], outDir: String, settleSeconds: Double, sc
         "backingScaleFactor": Double(window.backingScaleFactor),
         "settleSeconds": settleSeconds,
         "isKeyWindow": window.isKeyWindow,
+        // The pose is two facts, not one: a window that is not key inside an
+        // application that is still active is not the recede (§5.136 §1), and
+        // the 1x probe of 2026-09-12 showed an `.accessory` process can be both
+        // active and key. Recorded per dump so a reader never infers the pose
+        // from the command that took it.
+        "appIsActive": NSApp.isActive,
+        "activationPolicy": NSApp.activationPolicy() == .accessory ? "accessory" : "regular",
         "os": Environment.hardware().osVersion,
       ]
       record["view"] = LayerDump.describeView(root)
@@ -2088,8 +2113,23 @@ struct Harness {
         """)
       let scheme = value(of: "--scheme", in: args)
       let requireKey = args.contains("--require-key")
-      runGUI { runDumpLayers(sceneIds: ids, outDir: out, settleSeconds: settle, scheme: scheme,
-                             requireKey: requireKey) }
+      // `--inactive` presents the dump window through the SAME never-activated
+      // path `capture --inactive` uses (`.accessory` set before the run loop, a
+      // window that cannot become key, ordered front regardless), because the
+      // recede is not reachable any other way: an `.accessory` application that
+      // calls `activate` still becomes active and its key-capable window still
+      // becomes key, which is exactly what the 1x probe of 2026-09-12 recorded
+      // when it was launched with only the policy variable. The committed 2x
+      // probe came out non-key by the accident of its launch context, not by a
+      // mechanism. The two flags name opposite poses and cannot be combined.
+      let inactive = args.contains("--inactive")
+      if inactive && requireKey {
+        fail("--inactive and --require-key name opposite poses; pass one of them.")
+      }
+      runGUI(policy: inactive ? .accessory : nil) {
+        runDumpLayers(sceneIds: ids, outDir: out, settleSeconds: settle, scheme: scheme,
+                      requireKey: requireKey, inactive: inactive)
+      }
 
     case "capture":
       let raw = value(of: "--method", in: args) ?? "screencapturekit"

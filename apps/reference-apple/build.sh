@@ -25,7 +25,12 @@ DEVELOPER_DIR="${DEVELOPER_DIR:-/Applications/Xcode.app/Contents/Developer}"
 TOOLCHAIN="$DEVELOPER_DIR/Toolchains/XcodeDefault.xctoolchain/usr/bin"
 SDK="$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-OUT="$HERE/build"
+# `VITREA_BUILD_OUT` builds into a second directory and leaves `build/` alone.
+# Screen Recording is granted to the bundle's signature, and a rebuild is a new
+# signature, so a harness change that must run DURING a sitting — a dump path,
+# which captures no pixels and needs no grant — is built beside the granted
+# bundle rather than over it (2026-09-12).
+OUT="${VITREA_BUILD_OUT:-$HERE/build}"
 
 if [ ! -x "$TOOLCHAIN/swiftc" ]; then
   echo "error: no swiftc at $TOOLCHAIN — set DEVELOPER_DIR to an Xcode install" >&2
