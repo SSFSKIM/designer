@@ -18759,13 +18759,23 @@ state-ambiguous; the two 4/3 cells resolved as *voted* — the minority reading 
 `mid-chroma-solid__capsule-button__rest-tint-orange`, was frequency-settled at a 6/1 majority and
 carries its frequencies in the manifest.
 
-**The cells captured under 45 s of input idle agree at least as often as the rest**, which answers
-the open question the tracker entry left when the sitting found the idle gate enforced once per run
-and only recorded per cell. Of the 50 cells the sitting lists, **43 are unanimous (86.0%)** against
-117 of the other 138 (**84.8%**), and one is below 5/7 —
-`checkerboard__rrect-ml__inactive` under increased contrast, disturbed in runs 1 and 6, voted 4/3
-within one code. A mid-run touch did not change a byte-state on this bed; that is a reading about
-this bed, not a licence to stop enforcing the gate.
+**The cells captured under 45 s of input idle are inconclusive on this bed, and the plurality
+absorbed whatever they carry.** The tracker entry left open whether a mid-run touch changes a
+byte-state, the sitting having found the idle gate enforced once per run and only recorded per cell.
+It cannot be closed from here. Pooled, the 50 cells the sitting lists are 43 unanimous (86.0%)
+against 117 of the other 138 (84.8%) — but that pooling is confounded by pass, because three of the
+six passes contain no low-idle cell at all and only pad the comparison arm. Restricted to the three
+passes that have them the comparison reverses: **86.0% against 87.9%**, and inside `inactive-1x`
+alone **84.6% (22 of 26) against 98.0% (49 of 50)**. At the capture level the 56 low-idle captures
+are 4.26% of all 1,316 and 2 of the 39 minority captures (5.1%), which is the base rate and no
+effect — but both of those two sit in `inactive-1x`, where they are 2 of that pass's 5 minority
+captures against a 5.83% base rate. Five events decide nothing either way. What the bed does say is
+that the plurality did its job: **every minority capture lost**, no cell was refused, none was
+state-ambiguous, and the only cell below 5/7 on the whole bed
+(`checkerboard__rrect-ml__inactive` under increased contrast, disturbed in runs 1 and 6) was voted
+4/3 inside one 8-bit code. The earlier draft of this section read the pooled comparison as a measured
+"no"; that reading is **withdrawn** — the stratified numbers are above and the tracker entry stays
+open.
 
 **The six background-identical cells enter as what they are.** `dark-solid__capsule-button`,
 `dark-solid__rrect-48` and `dark-solid__rrect-sm`, in both schemes, carry the harness's
@@ -18827,11 +18837,14 @@ accessibility pair it cleared does not.
 **4. Group E: W27 Decision Log 5's admitted bed is confirmed by measurement.** 28 cells where a bed
 id already had a recovered fixture, compared native against native — the sitting's seven-run
 plurality bytes against the bundle's recovered ones, with no vitrea capture in it, which is why this
-comparison can cover a spent-holdout id without reading the holdout again. **24 of 28 are
-byte-identical.** The other four — 2x light and 2x dark `checkerboard__rrect-md` and
-`photo__rrect-md` — differ at **one** code on 236–362 pixels (0.09–0.14% of the canvas) at coherence
-0.13–0.32, which `src/plurality.ts` classifies *incidental* by its own rule. Clause 5's suspension
-condition does not fire. A fresh, attested, seven-run 26.5 session reproduces fixtures the record
+comparison can cover a spent-holdout id without reading the holdout again. The 28 are **24 of group
+E and 4 of group A**, and the two must be counted apart, because clause 5 scopes its suspension test
+to group E: **20 of group E's 24 are byte-identical**, and all **4** of group A's — the four profiles
+carrying the spent-holdout id `mid-dark-solid__capsule-button__inactive` — are byte-identical too.
+Group E's other four — 2x light and 2x dark `checkerboard__rrect-md` and `photo__rrect-md` — differ
+at **one** code on 236–362 pixels (0.09–0.14% of the canvas) at coherence 0.13–0.32, which
+`src/plurality.ts` classifies *incidental* by its own rule. Clause 5's suspension condition does not
+fire. A fresh, attested, seven-run 26.5 session reproduces fixtures the record
 holds as schema-2, single-run, pose-inferred evidence, which is the strongest available answer to
 the risk §Risks named when the recovered bed was admitted, and it says the DL14 post-mortem's
 inference of the pose was right.
@@ -18849,13 +18862,14 @@ with the evidence it lacked, and one could not be read.
   `checkerboard__rrect-ml` is over-structured — interior SD web/native **1.10×** at 1x dark,
   **1.41×** at 1x light, **1.64×** and **1.70×** at 2x — matching the active bed's own 1.21–1.33× at
   span 160 where its far anchors *were* fitted. But at fine pitch the same material is
-  *under*-structured on the same bed: 0.48–0.76× at pitches 8 and 32 in 1x dark. The deficiency is a
+  *under*-structured on the same bed: **0.48–0.51×** at pitches 8 and 32 in 1x dark, and 0.73–0.76×
+  at pitch 64 in the same profile. The deficiency is a
   **pitch × span surface**, not one unfitted far anchor, which strengthens rather than confirms the
   named candidate model form. `impulse` reads the kernel directly and the body gathers far too much
   light: 0.04303 / 0.01546 Y in dark, 0.46446 / 0.41427 in light.
 - **(c)/(e) chroma transfer — `model-form, one cause`, confirmed decisively by the background built
   for it.** Over untinted `mid-chroma-solid` the interior chroma is web **0.0673–0.1006** against
-  native **0.1648–0.2326**, 29–61% of it, while the level misses in the *opposite* direction per
+  native **0.1648–0.2326**, 29–61% of what the reference transmits, while the level misses in the *opposite* direction per
   scheme — light too bright (0.61880 / 0.47617), dark too dark (0.05680 / 0.09362). On the tinted
   cell web chroma is **exactly 0** against native 0.1207 (light) and 0.1926 (dark). Level and chroma
   are not simultaneously reachable, measured on a zero-variance anchor instead of inferred from
@@ -18896,8 +18910,10 @@ difference and this background had no active side.
 | `mid-chroma-solid__rrect-md__rest` | 0.02925 | 0.11447 | 0.69324 / 0.52594 | 0.07671 / 0.16797 |
 | `mid-chroma-solid__rrect-lg__rest` | **0.08645** | 0.11671 | 0.69360 / 0.52257 | 0.07678 / 0.16963 |
 
-The **active** material over a saturated uniform backdrop transmits about **half** its chroma and
-sits **0.17–0.22 Y too bright**. So the chroma half of residuals (c) and (e) is **inherited, not
+The backdrop's own interior chroma is **0.3089**. Apple's active material transmits **0.159–0.170**
+of it, 52–55%; vitrea's transmits **0.0767–0.0832**, **25–27%** — so the **active** material passes
+about **half of what the reference passes**, roughly a quarter of the backdrop's own chroma, and sits
+**0.17–0.22 Y too bright** besides. So the chroma half of residuals (c) and (e) is **inherited, not
 created by the recede**: the missing degree of freedom lives in the shared material model, and a
 fit that moved only the inactive difference document could not close it. The tinted cell is the good
 one (body ΔE 0.039) precisely because the author's own hue supplies what the body fails to transmit.

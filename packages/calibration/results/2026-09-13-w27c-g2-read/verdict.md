@@ -48,11 +48,17 @@ committed `provenance.json`.
 refused, none was state-ambiguous, and one cell — 2x light
 `mid-chroma-solid__capsule-button__rest-tint-orange` — was frequency-settled at a 6/1 majority.
 
-**The cells captured under 45 s of input idle agree at least as often as the rest.** The sitting
-lists 50 such cells; 43 of them are unanimous across all seven runs (86.0%) against 117 of the other
-138 (84.8%), and only one is below 5/7 (`checkerboard__rrect-ml__inactive` under increased contrast,
-disturbed in runs 1 and 6 and voted 4/3 within one code). The tracker's open question — whether a
-mid-run touch changes the byte-state — reads **no** on this bed.
+**The cells captured under 45 s of input idle are inconclusive, and the plurality absorbed them.**
+Pooled, the sitting's 50 low-idle cells are 43 unanimous (86.0%) against 117 of the other 138
+(84.8%) — but three of the six passes contain no low-idle cell and only pad the comparison arm.
+Restricted to the three passes that have them it reverses (86.0% against 87.9%), and inside
+`inactive-1x` alone it reverses hard: 84.6% (22 of 26) against 98.0% (49 of 50). At the capture
+level the 56 low-idle captures are 4.26% of all 1,316 and 2 of the 39 minority captures (5.1%) — the
+base rate — but both of those two are in `inactive-1x`, 2 of that pass's 5 minority captures against
+its own 5.83% base rate. Five events settle nothing. What the bed does show is the plurality
+working: every minority capture lost, no cell was refused, none was state-ambiguous, and the only
+cell below 5/7 (`checkerboard__rrect-ml__inactive` under increased contrast, disturbed in runs 1 and
+6) was voted 4/3 inside one code. The tracker's question stays open.
 
 **The six background-identical cells enter as what they are.** `dark-solid__capsule-button`,
 `dark-solid__rrect-48` and `dark-solid__rrect-sm`, each in both schemes, carry the harness's
@@ -121,10 +127,13 @@ the backdrop's checker reading through an interior the reference keeps smoother.
 ## 4. Group E: the recovered bed is confirmed
 
 28 cells where a bed id already had a recovered fixture: the sitting's plurality bytes against the
-bundle's recovered ones, native against native, no vitrea capture in it.
+bundle's recovered ones, native against native, no vitrea capture in it. They are **24 group E cells
+and 4 group A**, counted apart because clause 5 scopes its suspension test to group E.
 
-**24 of 28 are byte-identical.** The other four — 2x light and 2x dark `checkerboard__rrect-md` and
-`photo__rrect-md` — differ at **one** code on 236–362 pixels (0.09–0.14% of the canvas) with
+**20 of group E's 24 are byte-identical, and all 4 of group A's** — the four profiles carrying the
+spent-holdout id `mid-dark-solid__capsule-button__inactive`. Group E's other four — 2x light and 2x
+dark `checkerboard__rrect-md` and `photo__rrect-md` — differ at **one** code on 236–362 pixels
+(0.09–0.14% of the canvas) with
 coherence 0.13–0.32, which is *incidental* by `src/plurality.ts`'s own rule. Clause 5's suspension
 condition does not fire. A fresh, attested, seven-run 26.5 session reproduces fixtures the record
 held as schema-2, single-run, pose-inferred evidence: **W27 Decision Log 5's admitted bed is
@@ -135,8 +144,8 @@ confirmed by measurement**, and the DL14 post-mortem's inference of the pose is 
 | residual | §5.134's class | the checking bed |
 | --- | --- | --- |
 | (a) mid-dark-solid's middle anchor | **bed** | confirmed, and now supplied. Fresh dark `mid-dark-solid__rrect-sm` reads web 0.08866 / native 0.04092 — the spent holdout's own pair to five decimals, on a different component and a fresh capture — and the thick spans read 0.06480 / 0.03310. Light: 0.40198 / 0.45079 thin, 0.52100 / 0.52712 thick. Arm A3 has its two ordinates. |
-| (b) far-span scatter | **model-form** | confirmed and widened. At span 128 `checkerboard__rrect-ml` is over-structured — web/native interior SD 1.10× (1x dark), 1.41× (1x light), 1.64× / 1.70× at 2x — while at fine pitch the same material is *under*-structured (0.48–0.76× at pitches 8 and 32 in 1x dark). The deficiency is a pitch × span surface, not one far anchor; `impulse` reads the kernel directly and the body gathers far too much light (dark 0.04303 / 0.01546 Y, light 0.46446 / 0.41427). |
-| (c)/(e) chroma transfer | **model-form, one cause** | confirmed decisively by the background built for it. Untinted `mid-chroma-solid` interior chroma: web 0.0673–0.1006 against native 0.1648–0.2326, 29–61% of it, while the level misses in the *opposite* direction per scheme (light too bright 0.619 / 0.476, dark too dark 0.057 / 0.094). Tinted: web chroma **exactly 0** against native 0.1207 (light) and 0.1926 (dark). Level and chroma cannot both be met by the declared family, measured on a zero-variance anchor rather than inferred from `photo`. |
+| (b) far-span scatter | **model-form** | confirmed and widened. At span 128 `checkerboard__rrect-ml` is over-structured — web/native interior SD 1.10× (1x dark), 1.41× (1x light), 1.64× / 1.70× at 2x — while at fine pitch the same material is *under*-structured (0.48–0.51× at pitches 8 and 32 in 1x dark, and 0.73–0.76× at pitch 64 there). The deficiency is a pitch × span surface, not one far anchor; `impulse` reads the kernel directly and the body gathers far too much light (dark 0.04303 / 0.01546 Y, light 0.46446 / 0.41427). |
+| (c)/(e) chroma transfer | **model-form, one cause** | confirmed decisively by the background built for it. Untinted `mid-chroma-solid` interior chroma: web 0.0673–0.1006 against native 0.1648–0.2326, 29–61% of what the reference transmits, while the level misses in the *opposite* direction per scheme (light too bright 0.619 / 0.476, dark too dark 0.057 / 0.094). Tinted: web chroma **exactly 0** against native 0.1207 (light) and 0.1926 (dark). Level and chroma cannot both be met by the declared family, measured on a zero-variance anchor rather than inferred from `photo`. |
 | (d) the stacks | metrology | **not re-read.** Both `glass-over-glass` ids carry §5.130's holdout role; the read produces no vitrea-against-native distance for a spent-holdout id, so arm A4 stays declared and unrun and the stack-specific term stays unmeasured. |
 
 ## 6. Three findings the classification did not anticipate
@@ -168,8 +177,10 @@ Read against the active profiles, no receded patch, 1x and 2x light.
 | `rrect-md__rest` | 0.02925 | 0.11447 | 0.69324 / 0.52594 | 0.07671 / 0.16797 |
 | `rrect-lg__rest` | **0.08645** | 0.11671 | 0.69360 / 0.52257 | 0.07678 / 0.16963 |
 
-The active material over a saturated uniform backdrop transmits **about half** the backdrop's chroma
-and sits 0.17–0.22 Y too bright. So the chroma half of residuals (c)/(e) is **inherited, not caused
+The backdrop's own interior chroma is **0.3089**. Apple's active material transmits 0.159–0.170 of
+it (52–55%); vitrea's transmits 0.0767–0.0832 (**25–27%**) — about **half of what the reference
+transmits**, a quarter of the backdrop's own — and sits 0.17–0.22 Y too bright. So the chroma half
+of residuals (c)/(e) is **inherited, not caused
 by the recede**: the missing degree of freedom is in the shared material model. The tinted cell is
 the good one (body ΔE 0.039) because the author's own hue dominates what the body fails to transmit.
 

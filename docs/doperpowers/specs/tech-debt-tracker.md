@@ -2303,14 +2303,24 @@ of the fix, for the next bed: sample idle per cell against the same threshold an
 (not the run) when it is under, recording the retry; or lower the per-cell bar deliberately and say
 why. Either is a harness change and a run declaration, not a change to this bed's evidence.
 
-*The plurality has now tested it (W27c G2 read, 2026-09-13; claims §5.139 §2).* Of the 50 cells the
-sitting lists as captured under 45 s of idle, **43 are unanimous across all seven runs (86.0%)**
-against 117 of the other 138 (**84.8%**), and exactly one is below five of seven —
-`checkerboard__rrect-ml__inactive` under increased contrast, disturbed in runs 1 and 6, resolved 4/3
-as *voted* because the minority reading differs at or below one 8-bit code. No cell of the bed was
-refused and none was state-ambiguous. So on this bed a mid-run touch did not move a byte-state, and
-"probably unaffected" can be written as measured. The entry stays open: that is a reading about one
-bed at the probe bar, not a reason to stop enforcing the gate, and the fix's shape is unchanged.
+*The plurality has now been asked, and the bed is inconclusive (W27c G2 read, 2026-09-13; claims
+§5.139 §2).* The pooled comparison is the tempting one and it is confounded: of the 50 cells the
+sitting lists as low-idle, 43 are unanimous across all seven runs (86.0%) against 117 of the other
+138 (84.8%) — but **three of the six passes contain no low-idle cell at all** and only pad the
+comparison arm. Restricted to the three passes that have them the comparison reverses, 86.0% against
+**87.9%**, and inside `inactive-1x` alone it reverses hard: **84.6% (22 of 26) against 98.0% (49 of
+50)**. At the capture level the 56 low-idle captures are 4.26% of all 1,316 and **2 of the 39
+minority captures** (5.1%), which is the base rate — except that both of the two are in
+`inactive-1x`, where they are 2 of that pass's 5 minority captures against its own 5.83% base rate.
+Five events decide nothing in either direction.
+
+What the bed does establish is that the plurality absorbed whatever the disturbance was: every
+minority capture lost, no cell was refused, none was state-ambiguous, and the only cell below five of
+seven anywhere (`checkerboard__rrect-ml__inactive` under increased contrast, disturbed in runs 1 and
+6) was voted 4/3 inside one 8-bit code. So the entry stays open and the fix's shape is unchanged —
+and there is a second lesson in it for the next bed: **a low-idle group that is concentrated in some
+passes cannot be compared to a pooled remainder**, and the design that would answer the question is
+the per-cell retry, which produces the comparison within a pass rather than across passes.
 
 ## The inactive endpoint's dark thin response at a bright backdrop is wrong by 0.77 Y (W27c G2 read, 2026-09-13)
 
@@ -2355,14 +2365,16 @@ force-couples Reduce Transparency on with Increase Contrast, so the increased-co
 *both* settings and the reduced-transparency rows are one (the harness records the coupling as a
 profile caveat). Dark accessibility and 2x accessibility still have no inactive evidence at all.
 
-## The active material transmits about half a saturated backdrop's chroma, and one probe cell sits above the active bed's own ceiling (W27c G2 read, 2026-09-13)
+## The active material passes about half the chroma Apple's does over a saturated backdrop, and one probe cell sits above the active bed's own ceiling (W27c G2 read, 2026-09-13)
 
 *Measured on the four active `mid-chroma-solid` cells the checking bed added, claims §5.139 §7. They
 are `probe` cells: no adopted bound, no floor and no `PREDICATE_EXCLUDES` entry moves, and none is
 proposed.*
 
-Over a uniform patch at `photo`'s luminance and OKLab chroma 0.309, the **active** material reads
-interior chroma 0.077–0.083 against native 0.159–0.170 and sits 0.17–0.22 Y too bright:
+Over a uniform patch at `photo`'s luminance and OKLab chroma **0.3089**, Apple's active material
+passes interior chroma **0.159–0.170** — 52–55% of the backdrop's — and vitrea's passes
+**0.077–0.083**, 25–27%. So vitrea transmits about **half of what the reference transmits**, a
+quarter of the backdrop's own, and sits 0.17–0.22 Y too bright besides:
 `mid-chroma-solid__capsule-button__rest` 0.67344 / 0.45199 Y and 0.08323 / 0.15937 chroma,
 `rrect-md__rest` and `rrect-lg__rest` the same shape. The tinted cell is the good one (body ΔE
 0.0388) because the author's own hue supplies what the body fails to transmit.
