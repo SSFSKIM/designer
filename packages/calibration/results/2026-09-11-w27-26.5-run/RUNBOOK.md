@@ -46,7 +46,7 @@ cd apps/reference-apple && ./capture.sh deactivate-probe
 ```
 
 Writes nothing anywhere. It reports what each candidate deactivation mechanism does on this
-machine, and its reading is in claims §5.135 and in `Capture.presentInactive`'s doc comment. Run it
+machine, and its reading is in claims §5.136 and in `Capture.presentInactive`'s doc comment. Run it
 if the inactive pass ever refuses and you want to see why; you do not need it to start.
 
 ## 3. Step 2 — the labelled vibrancy probe (2 minutes, **already run**)
@@ -111,9 +111,8 @@ nothing. Write them to NEW directories — never over the committed 2x trees.
 ## 4. Step 3 — prove the path before spending the machine (~8.5 min for the inactive pass)
 
 Three checks, in this order. The first two need **no machine state at all** — no display, no GUI
-session, not even an unlocked screen — so they are the only pre-flight that works from
-anywhere, and
-they pin the regressions that have actually happened here (claims §5.135 §9):
+session, not even an unlocked screen — so they are the only pre-flight that works from anywhere,
+and they pin the regressions that have actually happened here (claims §5.136 §9):
 
 ```bash
 R=packages/calibration/results/2026-09-11-w27-26.5-run
@@ -122,10 +121,9 @@ bash $R/run-sitting.test.sh          # this script's own control flow, harness s
 DRY=1 $R/run-sitting.sh inactive 2 1 1                 # the real path, presenting and attesting
 ```
 
-The third presents and attests every cell of the pass and captures nothing. It exercises
-every refusal the
-real pass has — the fixture root, the backgrounds, the scene resolution, the presentation and the
-per-cell pose attestation. Measured at **8 m 19 s** for the inactive pass: the dry path skips the
+The third presents and attests every cell of the pass and captures nothing. It exercises every
+refusal the real pass has — the fixture root, the backgrounds, the scene resolution, the
+presentation and the per-cell pose attestation. Measured at **8 m 19 s** for the inactive pass: the dry path skips the
 capture and the settle loop but still pays the 6 s reset interstitial per cell, so it costs roughly
 the real pass's dwell and none of its settle. Do it after each toggle change and each scale change
 — about half an hour of rehearsals across the whole plan, against a sitting that is hours.
@@ -134,9 +132,8 @@ the real pass's dwell and none of its settle. Do it after each toggle change and
 pass, 4 for an active one. A count *under* that is the failure this step exists to catch, and the
 script will not catch it for you: it treats any nonzero count as success, so a pass that presented
 30 of 76 prints `PASS` and exits 0. On a locked screen it will also print `WOULD REFUSE: … LOCKED`
-and carry on, which is correct — the rehearsal captures nothing, and that line is the whole
-point of
-running this early.
+and carry on, which is correct — the rehearsal captures nothing, and that line is the whole point
+of running this early.
 
 ## 5. Step 4 — the inactive checking bed, four passes
 

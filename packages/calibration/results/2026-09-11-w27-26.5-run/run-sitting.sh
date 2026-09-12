@@ -98,7 +98,7 @@ for N in $(seq "$FIRST" "$LAST"); do
     # `open`, not the bare binary: Screen Recording is granted per bundle, and the
     # bundle is the identity TCC knows. It does not disturb the pose — an
     # `.accessory` application cannot be activated by being opened, which is
-    # measured in claims §5.135 and by `deactivate-probe`.
+    # measured in claims §5.136 and by `deactivate-probe`.
     ${VITREA_LAUNCHER:-open -W} --env VITREA_SCALE="$SCALE" --env VITREA_FIXTURES="$D" \
       --stdout "$D.out" --stderr "$D.err" "$APP" \
       --args capture ${POSE_ARG} ${DRY_ARG} \

@@ -17523,7 +17523,7 @@ floor at spans 32–44 holds in light only; the footprint ratio is 3.08–3.68×
 present on all 121 recovered entries, so nine fields are restorable and `presentedActive` is the
 one to invert. Calibration 340/340 and lint green at the fixed head.
 
-### 5.135 The 26.5 run declared: the inactive capture path built and proved, the labelled probe taken, and the bed's run declared before it is spent (2026-09-11)
+### 5.136 The 26.5 run declared: the inactive capture path built and proved, the labelled probe taken, and the bed's run declared before it is spent (2026-09-11)
 
 **Gate:** W27 coverage wave, Decision Log 13; W27c G1b's capture half and W27e's §5.133 §7 run;
 X1, X3, X7, X8, X9. **This section captures no fixture, fits no constant and adopts no bound.**

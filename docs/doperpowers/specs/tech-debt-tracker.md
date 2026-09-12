@@ -1930,7 +1930,7 @@ check, including preservation of tint and the separate pressed interaction. It i
 to the web runtime's root-pose observer, and making the Swift decoder accept the word is not a
 capture implementation.
 
-**CLOSED 2026-09-11 (claims §5.135; W27 Decision Log 13).** `capture --inactive` presents under
+**CLOSED 2026-09-11 (claims §5.136; W27 Decision Log 13).** `capture --inactive` presents under
 the `.accessory` activation policy through a window that cannot become key, ordered front and
 never activated, and attests `!isKeyWindow && !NSApp.isActive` per cell into a new `presentation`
 manifest field before it captures; a cell that does not attest fails the run. The tint axis and
