@@ -255,7 +255,9 @@ on **16 of 16** shared scenes.
 Two things follow and one does not. It follows that the receded *configuration* is driven by key
 resignation, not by application deactivation — which is a fact about what the capture's mechanism has
 to reproduce, and a second, independent route to the same configuration. It also follows that
-whichever non-key state the 2x corpus was in, §4's comparison holds. It does **not** follow that the
+these 16 dumps are what §4's comparison rests on, the 2x corpus's own activation being unrecorded:
+they are the evidence that key alone drives the receded configuration, which is the step §4 needs.
+It does **not** follow that the
 two states are the same pose in pixels: nothing here is a capture, `presentedActive` and the
 attestation are about a capture and not a dump, and §5.136 §1 chose the `.accessory` mechanism by
 measurement on the pixel side. The honest statement is that the two states agree on every
