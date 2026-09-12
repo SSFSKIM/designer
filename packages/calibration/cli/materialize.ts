@@ -86,6 +86,8 @@ interface RunSnapshot {
   readonly dir: string;
   /** `profileKey/sceneId` → the manifest entry that run recorded for it. */
   readonly entries: Map<string, Record<string, unknown>>;
+  /** `background@Nx` → the path the run recorded for the raster it composited. */
+  readonly backgrounds: Record<string, string>;
 }
 
 function loadRun(label: string, dir: string): RunSnapshot {
@@ -95,6 +97,7 @@ function loadRun(label: string, dir: string): RunSnapshot {
   }
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as {
     profiles?: { profileKey?: string; fixtures?: { sceneId?: string }[] }[];
+    backgrounds?: Record<string, string>;
   };
   const entries = new Map<string, Record<string, unknown>>();
   for (const profile of manifest.profiles ?? []) {
@@ -102,7 +105,7 @@ function loadRun(label: string, dir: string): RunSnapshot {
       entries.set(`${profile.profileKey}/${fixture.sceneId}`, fixture as Record<string, unknown>);
     }
   }
-  return { label, dir, entries };
+  return { label, dir, entries, backgrounds: manifest.backgrounds ?? {} };
 }
 
 const sha = (bytes: Uint8Array): string => createHash("sha256").update(bytes).digest("hex");
@@ -371,8 +374,40 @@ function main(): void {
   const manifestPath = resolve(FIXTURES, "manifest.json");
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as {
     profiles?: { profileKey?: string; fixtures?: { sceneId?: string }[] }[];
+    backgrounds?: Record<string, string>;
   };
   const rerolled: string[] = [];
+  /*
+   * The backdrop index, carried forward with the cells.
+   *
+   * A fixture is a component over a raster, and the manifest's `backgrounds` map
+   * is the only place the bundle says which raster. Publishing cells over a
+   * background the bundle has never seen therefore leaves fixtures whose backdrop
+   * nothing can name — and the calibration page refuses such a scene outright, so
+   * the bed publishes and then cannot be read. That is how W27c's `mid-chroma-solid`
+   * was found missing (claims §5.139). Only missing keys are added: a key whose
+   * raster bytes differ from what the run composited is a stop, not a repair,
+   * because the fixtures beside it were drawn over the other one.
+   */
+  const backgroundsAdded: string[] = [];
+  for (const run of runs) {
+    for (const [id, path] of Object.entries(run.backgrounds)) {
+      const fromRun = resolve(run.dir, path);
+      const inBundle = resolve(FIXTURES, path);
+      if (!existsSync(fromRun)) continue;
+      if (existsSync(inBundle) && sha(readFileSync(inBundle)) !== sha(readFileSync(fromRun))) {
+        throw new Error(
+          `background ${id}: the bundle's raster is not the one run ${run.label} composited over. ` +
+            `Publishing the cells beside it would file them under a backdrop they were not drawn on.`,
+        );
+      }
+      if (!existsSync(inBundle)) copyFileSync(fromRun, inBundle);
+      if (manifest.backgrounds?.[id] === undefined) {
+        (manifest.backgrounds ??= {})[id] = path;
+        backgroundsAdded.push(id);
+      }
+    }
+  }
   for (const p of publish) {
     copyFileSync(p.from, resolve(FIXTURES, p.profile, `${p.scene}.png`));
     const profile = manifest.profiles?.find((m) => m.profileKey === p.profile);
@@ -454,6 +489,7 @@ function main(): void {
     }
   }
   for (const line of rerolled) process.stdout.write(`  re-rolled ${line}\n`);
+  for (const id of backgroundsAdded.sort()) process.stdout.write(`  background ${id} added to the index\n`);
   writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
   process.stdout.write(
     `\nbed materialised: ${publish.length} cell(s) written with their own run's manifest entry` +

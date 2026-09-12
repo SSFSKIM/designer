@@ -2302,3 +2302,81 @@ plurality at `materialize` time exists to test, and `sitting.md` lists the cells
 of the fix, for the next bed: sample idle per cell against the same threshold and retry the cell
 (not the run) when it is under, recording the retry; or lower the per-cell bar deliberately and say
 why. Either is a harness change and a run declaration, not a change to this bed's evidence.
+
+*The plurality has now tested it (W27c G2 read, 2026-09-13; claims §5.139 §2).* Of the 50 cells the
+sitting lists as captured under 45 s of idle, **43 are unanimous across all seven runs (86.0%)**
+against 117 of the other 138 (**84.8%**), and exactly one is below five of seven —
+`checkerboard__rrect-ml__inactive` under increased contrast, disturbed in runs 1 and 6, resolved 4/3
+as *voted* because the minority reading differs at or below one 8-bit code. No cell of the bed was
+refused and none was state-ambiguous. So on this bed a mid-run touch did not move a byte-state, and
+"probably unaffected" can be written as measured. The entry stays open: that is a reading about one
+bed at the probe bar, not a reason to stop enforcing the gate, and the fix's shape is unchanged.
+
+## The inactive endpoint's dark thin response at a bright backdrop is wrong by 0.77 Y (W27c G2 read, 2026-09-13)
+
+*Measured on the checking bed, claims §5.139 §6; a supplying cell, not a scored one, and nothing was
+fitted to it.*
+
+`light-solid__rrect-sm__inactive` in the dark scheme reads web **0.16225** against native
+**0.93261** linear Y on the eroded body — body ΔE **0.43179**, the largest single reading anywhere on
+the bed. Apple's recede over a bright solid at span 32 in dark is *invisible*: the interior is the
+backdrop's own level. vitrea paints a dark panel over it. At thick span the same backdrop reads
+0.09339 / 0.11753, so it is the **thin** row alone, and it is exactly the ordinate §5.130's table
+flagged: dark `backdropToneResponseThin` is `[0.011, 0.089, 0.1611]` and its far entry is recorded
+there as "an extrapolation of this selected family, not a measured bright-background level". The bed
+measures it and the extrapolation is off by about a factor of six.
+
+Shape of the fix: it is a **fit**, not a repair — the field expresses the value, the evidence simply
+did not exist when it was set, and it does now. It belongs to whatever gate next opens the inactive
+endpoint, together with §5.139 §5 (a)'s two fresh middle ordinates, because both move the same
+`backdropToneResponseThin`/`Thick` pair and a fit that moved one knot without the other would
+propagate through the interpolation's slopes. Nothing may be fitted at the probe bar in a way that
+adopts a floor (W27 Decision Log 13).
+
+## The inactive material under the accessibility policies follows its backdrop where Apple's does not (W27c G2 read, 2026-09-13)
+
+*Measured on the checking bed, claims §5.139 §6. This one is scored: it is both accessibility
+profiles' clause-3 exceedance and most of their clause-2 failure, at 20.80× and 15.83× the
+threshold.*
+
+Over `dark-solid` under Increase Contrast the reference is an opaque near-white panel at every span
+the bed carries — 0.99445 at span 48, 0.9937 at 80, 0.9935 at 96 — while vitrea follows the backdrop
+down at the thin end: **0.58408** at span 48, recovering to 0.9560 only by span 80. Under Reduce
+Transparency it is 0.53328 against 0.95597. §5.130 fitted `increasedOcclusionLift` (0.92) and
+`reducedTintAdaptation` on 1x light accessibility bodies only, and recorded that "their different
+native levels are not fully expressible by this shared policy fold". The fold misses by **0.41 Y**,
+and it misses in the direction that defeats the setting: an accessibility material that reveals its
+backdrop is the opposite of what Increase Contrast and Reduce Transparency are for.
+
+Shape of the fix: read the accessibility fold's own span law off the bed rather than inheriting the
+standard profile's thin/thick knee — the bed now has three spans over the same backdrop in both
+accessibility profiles, which is what the fit never had. Note the confound to avoid: macOS
+force-couples Reduce Transparency on with Increase Contrast, so the increased-contrast rows are
+*both* settings and the reduced-transparency rows are one (the harness records the coupling as a
+profile caveat). Dark accessibility and 2x accessibility still have no inactive evidence at all.
+
+## The active material transmits about half a saturated backdrop's chroma, and one probe cell sits above the active bed's own ceiling (W27c G2 read, 2026-09-13)
+
+*Measured on the four active `mid-chroma-solid` cells the checking bed added, claims §5.139 §7. They
+are `probe` cells: no adopted bound, no floor and no `PREDICATE_EXCLUDES` entry moves, and none is
+proposed.*
+
+Over a uniform patch at `photo`'s luminance and OKLab chroma 0.309, the **active** material reads
+interior chroma 0.077–0.083 against native 0.159–0.170 and sits 0.17–0.22 Y too bright:
+`mid-chroma-solid__capsule-button__rest` 0.67344 / 0.45199 Y and 0.08323 / 0.15937 chroma,
+`rrect-md__rest` and `rrect-lg__rest` the same shape. The tinted cell is the good one (body ΔE
+0.0388) because the author's own hue supplies what the body fails to transmit.
+
+Two consequences. First, residuals (c) and (e) of claims §5.134 — the inactive material's chroma
+transfer — are **inherited from the active material**, so a fit confined to the inactive difference
+document cannot close them; the missing degree of freedom (a neutral-density absorber with separate
+level and chroma coefficients, named and unfitted in `classification.json`) belongs to the shared
+model. Second, `mid-chroma-solid__rrect-lg__rest` reads full-canvas ΔE **0.08645** where the active
+material is held to 0.07 on that profile. Every backdrop in the gated bed is either neutral or
+`photo`, where chroma, level and structure co-vary, so no gated cell could have shown this.
+
+Shape of the work: it is a material change on the WebGPU tier and therefore a wave, not a fix —
+whoever charters it needs the freeze bar on this background before any of it can carry a floor, and
+should read §5.139 §7's inactive/active chroma ratios (1.034 at the capsule, 1.058 at `rrect-lg`)
+first, because the recede transmits slightly *more* chroma than the active pose and a change that
+closed the active gap without that term would open an inactive one.

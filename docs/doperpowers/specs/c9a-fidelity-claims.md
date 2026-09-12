@@ -18691,3 +18691,249 @@ untouched on disk**, which is the convention: add the new reading beside, never 
 runtime's own `foregroundCrossover`, the saturation over a swept gamut, the alpha rows, the
 four-rows-of-five convention, the browser verdict against its declared bound, and the highlight
 layer's opacity across both corpora) and lint green.
+
+### 5.139 W27c G2's checking-bed read: the declared bound holds on two of six profiles, the recovered bed is confirmed by a fresh attested session, and the chroma deficit turns out to be the active material's (2026-09-13)
+
+**Gate:** W27 coverage wave, child W27c, the checking-bed read W27 Decision Log 12 requires before
+any activation runtime work; Decision Log 13's probe-bar sitting is its evidence. Contracts X1, X3,
+X7, X8, X9. Consumes §5.130 (the frozen endpoint and its spent holdout), §5.134 (the residual
+classification, the checking bed, the experiment and the bound), §5.136 (the capture path, the run
+declaration and the sitting). **This gate fits nothing, adopts nothing and moves no floor.** No
+material profile, renderer golden, isolation hash, `scenes.json` entry, canonical `results/matrix.json`
+row or pre-existing fixture entry changed, and no file under `packages/*/src` changed. Evidence:
+`packages/calibration/results/2026-09-13-w27c-g2-read/` — `verdict.md` (the rendering),
+`plurality.json`, `materialize.log`, `round-trip.json`, `manifest-doctor-{before,after}.txt`,
+`attestation.json`, `checking-matrix.json` with `checking-read.log`, `verdict.json`, `sheets/`, and
+the five reproducers that wrote them.
+
+**The read's one-line result: the bound of §5.134 §6 holds on 2 of 6 profiles, and G2 stays
+blocked.** Holding is clauses 1, 2 and 3 jointly on every profile the checking set covers; the two
+dark standard profiles hold all three and the other four fail.
+
+**1. Publication, and two defects in `materialize` found by doing it.** The sitting's seven runs per
+pass were materialised into the committed bundle exactly as §5.134 §5 and §5.136 §6 declared these
+rows enter — one `materialize` phase per pass, `--set probe`, `--frequency-settle`. The whole bed is
+`probe` in `scenes.json`'s split, so the **seven** bed ids that already carry a `calibration` or
+`holdout` role are skipped before their bytes are read: the frozen bed's own cells are never
+republished at the probe bar, and the fresh bytes for those ids are read where they belong, in the
+group E re-attestation of §4 below. **156 cells** enter — 62 inactive at each scale, 12 in each
+accessibility profile and the four `mid-chroma-solid` active cells at each scale — taking the bundle
+from **455 to 611** entries. Two dark ids the sitting captured are published by nobody:
+`light-solid__capsule-button__inactive` and `photo__glass-over-glass__inactive` have no dark fixture
+in the bundle and carry a `calibration`/`holdout` role, so publishing them would have added a gated
+cell taken at the probe bar; they are read in neither the bound nor the attestation and are named
+here instead.
+
+The bundle's 455 committed entries **do not move**: nothing lost, no value changed, no pre-existing
+fixture PNG changed, proved against `ec809ae6` by `round-trip.json`'s entry-by-entry and
+PNG-by-PNG diff and by `manifest-doctor` either side (455 before, 611 after, the same four
+undeclared fields it already named — `recoveredProvenance` on 121 entries and the three frequency
+fields on 102, now 103). The manifest's `split` block, which was stale against `scenes.json` since
+the G1 inactive scenes landed, is refreshed from the declaration by the tool's own documented rule;
+nothing is removed from it.
+
+Two defects in `cli/materialize.ts` were found on the way and fixed before the bundle was written,
+each of which would have destroyed committed evidence silently:
+
+- **The bed provenance block was keyed on its profile set alone.** Publishing 62 probe cells into
+  the two 2x standard profiles would have deleted the block recording that the 455 cells already
+  there were taken at the **seventeen-run freeze bar**, leaving the bundle claiming seven runs for
+  bytes that had seventeen. The key is now profiles, run labels and cell count together, so
+  re-running one phase still replaces its own block and all five prior blocks survive (5 → 11).
+- **The backdrop index was not carried forward.** A fixture is a component over a raster and the
+  manifest's `backgrounds` map is the only place the bundle says which; publishing the bed's cells
+  over the new `mid-chroma-solid` left 20 fixtures whose backdrop nothing could name, and the
+  calibration page refused every one of them. Found by the page refusing, which is the fail-closed
+  path working. `materialize` now carries a run's backgrounds forward, copying a raster the bundle
+  lacks and **stopping** where the bundle's raster differs from what the run composited over.
+
+**2. The seven-run plurality.** 188 cells over six passes; every run manifest's sha256 matches the
+sitting's committed `provenance.json` before anything was counted. **160 of 188 are unanimous across
+all seven runs**, 19 split 6/1, 7 split 5/2 and **2 split 4/3**. No cell was refused and none was
+state-ambiguous; the two 4/3 cells resolved as *voted* — the minority reading differs at or below one
+8-bit code, or scatters rather than forming a region — and are named:
+`apple-macos-26.5-2x-light-standard/mid-chroma-solid__rrect-md__rest` and
+`apple-macos-26.5-1x-light-increased-contrast/checkerboard__rrect-ml__inactive`. One cell, 2x light
+`mid-chroma-solid__capsule-button__rest-tint-orange`, was frequency-settled at a 6/1 majority and
+carries its frequencies in the manifest.
+
+**The cells captured under 45 s of input idle agree at least as often as the rest**, which answers
+the open question the tracker entry left when the sitting found the idle gate enforced once per run
+and only recorded per cell. Of the 50 cells the sitting lists, **43 are unanimous (86.0%)** against
+117 of the other 138 (**84.8%**), and one is below 5/7 —
+`checkerboard__rrect-ml__inactive` under increased contrast, disturbed in runs 1 and 6, voted 4/3
+within one code. A mid-run touch did not change a byte-state on this bed; that is a reading about
+this bed, not a licence to stop enforcing the gate.
+
+**The six background-identical cells enter as what they are.** `dark-solid__capsule-button`,
+`dark-solid__rrect-48` and `dark-solid__rrect-sm`, in both schemes, carry the harness's
+`identicalToBackground` caveat in every inactive standard run at both scales: over that backdrop the
+recede leaves no component pixel at all. They are published with it — and vitrea reproduces all
+three **exactly**, body ΔE **0.000000** with web and native interior Y both **0.011712** in every
+standard profile at both scales. The disappearance is the one thing the endpoint gets exactly right
+on this bed.
+
+**3. The bound, clause by clause, on the WebGPU tier.** Every one of the 174 rows drew on a real
+Apple `metal-3` adapter with `isFallback: false`, resolved `webgpu` + `gpu-texture` on every group,
+and reported zero `problems` and zero diagnostics. Scored: group D, the 12 checking ids, on every
+profile that declares them — 72 cells. Groups A, B, C and E are read and published and **not**
+scored, exactly as `bound.json`'s scope states, and the three bed ids carrying §5.130's holdout role
+are not compared against vitrea at all (§7).
+
+| profile | clause 1 — ceiling, full-canvas | clause 2 — mean body ΔE | clause 3 — the 2× per-cell floor | joint |
+| --- | --- | --- | --- | --- |
+| 1x light standard | holds, worst 0.00458 of 0.07 | holds, 0.01321 of 0.032 (0.41×) | **fails** — `hc-text__rrect-sm__inactive` 0.07793, **2.44×** | **FAILS** |
+| 2x light standard | holds, 0.00400 of 0.07 | holds, 0.01198 of 0.034 (0.35×) | **fails** — `hc-text__rrect-sm__inactive` 0.07310, **2.15×** | **FAILS** |
+| 1x dark standard | holds, 0.01604 of 0.09 | holds, 0.02040 of 0.034 (0.60×) | holds | **HOLDS** |
+| 2x dark standard | holds, 0.01603 of 0.09 | holds, 0.01781 of 0.041 (0.43×) | holds | **HOLDS** |
+| 1x light increased contrast | holds, 0.01090 of 0.06 | **fails**, 0.01936 of 0.0078 (2.48×) | **fails** — `dark-solid__rrect-48__inactive` 0.16224, **20.80×** | **FAILS** |
+| 1x light reduced transparency | holds, 0.01071 of 0.04 | **fails**, 0.02138 of 0.011 (1.94×) | **fails** — `dark-solid__rrect-48__inactive` 0.17417, **15.83×** | **FAILS** |
+
+Clause 4's reported and explicitly non-gating figures: the checking set's mean footprint fraction is
+**0.2138** against the calibration sets' 0.081–0.107, 2.0–2.6× larger by construction, so the
+full-canvas ratio to calibration (0.98–2.44×) is published beside the footprint and gates nothing;
+the body ratio runs 0.72–3.71×. Clause 5 refused no row, suspended nothing and stopped nothing.
+
+**The bound is applied as declared and not re-scoped.** No clause was narrowed, no threshold moved,
+and the one clause that is unmeasurable on this bed is named rather than reinterpreted: clause 3's
+per-cell floor cannot be evaluated for the stack regime, because the bed's two stack ids are
+spent-holdout ids that this read does not compare (§7).
+
+**The inversion, which is the read's most consequential finding.** Retro-applied to the spent
+holdout, this same bound failed four of six profiles — both dark on clauses 2 and 3, both light
+standard on clause 3 alone, and **only the two accessibility profiles held all three** (§5.134 §6).
+On the checking bed the pattern is nearly reversed: the dark pair holds, the accessibility pair
+fails on both scoring clauses, and only the light standard verdict generalised — same clause, same
+failure mode, a different cell family (`hc-text__rrect-sm__inactive` where the holdout named
+`photo__rrect-lg__inactive-tint-orange`). **A profile's holdout verdict did not predict its
+checking-bed verdict in four of six cases**, which is a fact about how little a 30-cell holdout drawn
+from the largest components of one bed says about a second bed drawn from another part of the space.
+It also means the hold's own premise — §5.130 §7's "seven to eight times worse on holdout", already
+narrowed by §5.134 §2 — was pointing at the wrong profiles: the dark pair it indicted holds, and the
+accessibility pair it cleared does not.
+
+**4. Group E: W27 Decision Log 5's admitted bed is confirmed by measurement.** 28 cells where a bed
+id already had a recovered fixture, compared native against native — the sitting's seven-run
+plurality bytes against the bundle's recovered ones, with no vitrea capture in it, which is why this
+comparison can cover a spent-holdout id without reading the holdout again. **24 of 28 are
+byte-identical.** The other four — 2x light and 2x dark `checkerboard__rrect-md` and
+`photo__rrect-md` — differ at **one** code on 236–362 pixels (0.09–0.14% of the canvas) at coherence
+0.13–0.32, which `src/plurality.ts` classifies *incidental* by its own rule. Clause 5's suspension
+condition does not fire. A fresh, attested, seven-run 26.5 session reproduces fixtures the record
+holds as schema-2, single-run, pose-inferred evidence, which is the strongest available answer to
+the risk §Risks named when the recovered bed was admitted, and it says the DL14 post-mortem's
+inference of the pose was right.
+
+**5. What the bed says about §5.134's five classifications.** Three are confirmed, one is supplied
+with the evidence it lacked, and one could not be read.
+
+- **(a) the mid-dark-solid anchor — `bed`, confirmed and now supplied.** Fresh dark
+  `mid-dark-solid__rrect-sm__inactive` reads web **0.08866** / native **0.04092**, body ΔE
+  **0.101314** — the spent holdout's own capsule numbers to five decimals, on a different component
+  and a fresh capture, which is also a cross-check of the instrument. The thick spans read
+  0.06480 / 0.03310 and light reads 0.40198 / 0.45079 thin and 0.52100 / 0.52712 thick. Experiment
+  arm A3 now has both ordinates at `backdropToneAnchorX[1]` in both schemes; it is not run here.
+- **(b) far-span scatter — `model-form`, confirmed and widened.** At span 128
+  `checkerboard__rrect-ml` is over-structured — interior SD web/native **1.10×** at 1x dark,
+  **1.41×** at 1x light, **1.64×** and **1.70×** at 2x — matching the active bed's own 1.21–1.33× at
+  span 160 where its far anchors *were* fitted. But at fine pitch the same material is
+  *under*-structured on the same bed: 0.48–0.76× at pitches 8 and 32 in 1x dark. The deficiency is a
+  **pitch × span surface**, not one unfitted far anchor, which strengthens rather than confirms the
+  named candidate model form. `impulse` reads the kernel directly and the body gathers far too much
+  light: 0.04303 / 0.01546 Y in dark, 0.46446 / 0.41427 in light.
+- **(c)/(e) chroma transfer — `model-form, one cause`, confirmed decisively by the background built
+  for it.** Over untinted `mid-chroma-solid` the interior chroma is web **0.0673–0.1006** against
+  native **0.1648–0.2326**, 29–61% of it, while the level misses in the *opposite* direction per
+  scheme — light too bright (0.61880 / 0.47617), dark too dark (0.05680 / 0.09362). On the tinted
+  cell web chroma is **exactly 0** against native 0.1207 (light) and 0.1926 (dark). Level and chroma
+  are not simultaneously reachable, measured on a zero-variance anchor instead of inferred from
+  `photo`, which is what the new background was added for.
+- **(d) the stacks — `metrology`, not re-read.** Both `glass-over-glass` ids carry §5.130's holdout
+  role. Arm A4 stays declared and unrun and the stack-specific term stays **unmeasured**, as §5.134
+  §3 (d) left it.
+
+**6. Three findings the classification did not anticipate, all on supplying cells.**
+
+- **The dark thin response at a bright backdrop is not merely unmeasured; it is wrong by 0.77 Y.**
+  `light-solid__rrect-sm__inactive` in dark reads web **0.16225** / native **0.93261**, body ΔE
+  **0.43179** — the largest reading on the bed. Apple's recede over a bright solid at span 32 in the
+  dark scheme is *invisible*; vitrea paints a dark panel over it. §5.130's table recorded the dark
+  `backdropToneResponseThin` far ordinate as "an extrapolation of this selected family, not a
+  measured bright-background level"; the bed measures it and the extrapolation, 0.1611, is off by a
+  factor of about six. At thick span the same backdrop reads 0.09339 / 0.11753, so it is the **thin
+  row alone**. Nothing is fitted to this here.
+- **The accessibility recede is backdrop-coupled where Apple's is not.** Over `dark-solid` under
+  Increase Contrast the reference is an opaque near-white panel at every span — 0.99445 at span 48,
+  0.9937 at 80, 0.9935 at 96 — while vitrea follows the backdrop down at the thin end: **0.58408** at
+  span 48, recovering to 0.9560 by span 80; under Reduce Transparency 0.53328 against 0.95597. That
+  single cell is both accessibility profiles' clause-3 exceedance and most of their clause-2
+  failure. §5.130 fitted `increasedOcclusionLift` on 1x light accessibility bodies and recorded that
+  "their different native levels are not fully expressible by this shared policy fold"; the fold
+  misses by **0.41 Y**, and it misses in the direction that matters for the feature — an
+  accessibility material that reveals its backdrop is the opposite of what the setting is for.
+- **The chroma deficit is the active material's, not the recede's** — §7.
+
+**7. The four active `mid-chroma-solid` cells, and why they change what (c)/(e) is about.** Read
+against the active documents with no receded patch, 1x and 2x light, because the recede is a
+difference and this background had no active side.
+
+| cell | full-canvas ΔE | body ΔE | body Y web / native | body OKLab chroma web / native |
+| --- | ---: | ---: | --- | --- |
+| `mid-chroma-solid__capsule-button__rest` | 0.00978 | 0.12540 | 0.67344 / 0.45199 | 0.08323 / 0.15937 |
+| `mid-chroma-solid__capsule-button__rest-tint-orange` | 0.00328 | 0.03883 | 0.36642 / 0.31126 | 0.16618 / 0.15897 |
+| `mid-chroma-solid__rrect-md__rest` | 0.02925 | 0.11447 | 0.69324 / 0.52594 | 0.07671 / 0.16797 |
+| `mid-chroma-solid__rrect-lg__rest` | **0.08645** | 0.11671 | 0.69360 / 0.52257 | 0.07678 / 0.16963 |
+
+The **active** material over a saturated uniform backdrop transmits about **half** its chroma and
+sits **0.17–0.22 Y too bright**. So the chroma half of residuals (c) and (e) is **inherited, not
+created by the recede**: the missing degree of freedom lives in the shared material model, and a
+fit that moved only the inactive difference document could not close it. The tinted cell is the good
+one (body ΔE 0.039) precisely because the author's own hue supplies what the body fails to transmit.
+The reference's own inactive/active interior chroma ratio on this background is **1.034** at the
+capsule and **1.058** at `rrect-lg` in light — the recede transmits slightly *more* chroma than the
+active pose, which is §5.128's census finding reproduced on a purpose-built backdrop rather than on
+`photo`, where chroma, level and structure co-vary.
+
+`mid-chroma-solid__rrect-lg__rest` reads full-canvas ΔE **0.08645**, above the **0.07** the *active*
+material is held to on this profile in `adopted-thresholds.test.ts`. It is a `probe` cell, so no
+adopted bound, no floor and no `PREDICATE_EXCLUDES` entry moves and none is proposed — but it is the
+first cell anywhere in the bed on which the active material would not clear its own ceiling, and it
+is written down rather than left sitting in a matrix.
+
+**8. X8 — what this read did not measure, and what it may not be read as saying.** It measures one
+frozen configuration against one bed, once. It does **not** measure: the stack regime (§5 (d)); any
+accessibility profile in the dark scheme, or either accessibility profile at 2x, neither of which
+this bed contains (§5.134 §5 records the second as *recommended* and it was not taken); the
+activation transition's timing, which still has no reference of any kind and no bed of stills can
+give it one; or the CSS tier, which derives and gates nothing under X1 and was not captured here.
+It adopts no floor: the sitting is seven runs, the probe bar, and W27 Decision Log 13 settled that
+no inactive regression floor comes out of it — the two profiles that hold the bound hold it at the
+probe bar, which is a statement about fidelity and not a licence to gate on these rows.
+The **spent holdout of §5.130 was not re-read**: three bed ids carry its role, and the read produces
+no vitrea-against-native distance for any of them, so their fresh bytes appear only in the
+native-against-native attestation of §4 and in the sitting's own record. The experiment of §5.134 §4
+is still unrun — A1 and A2 were runnable before this bed and remain so, A3 now has its measured
+ordinates, A4 needs a stack cell this read may not compare.
+Two things the record turned out not to hold, recorded beside the readings they qualify rather than
+replacing them. **First**, §5.134 §6's retro-application of the bound to the spent holdout, and the
+expectation it created about which profiles were at risk, is contradicted on four of six profiles
+(§3). The retro-application remains correct about the holdout; it was not predictive of the checking
+bed, and nothing in the declaration claimed it would be. **Second**, `materialize` could not publish
+a bed that adds a background, and would have deleted the freeze-bar provenance of the cells already
+in the bundle (§1). Both are instrument defects that existed before this gate and were reachable
+only by a phase of exactly this shape.
+
+**9. The eye.** The sheets are `sheets/*.png`, one per profile, every checking cell as
+native | webgpu | 8× amplified difference, worst body ΔE first. Two things the metrics report and
+the eye confirms immediately: under Increase Contrast the `dark-solid__rrect-48` panel is plainly
+grey where Apple's is white, and over `hc-text` at span 32 the web body is visibly brighter with the
+backdrop's text bleeding through where Apple's is darker and smoother. The user's eye has not been
+taken on these sheets; this gate ships no pixel, so nothing waits on it, and the sheets are here for
+whoever opens G2 or a refit.
+
+**10. Verification record.** `pnpm --filter @vitrea/calibration --fail-if-no-match test` 386/386 and
+lint green at the head, after publication and after both `materialize` fixes. `manifest-doctor` run
+on the pre-publication manifest out of `ec809ae6` and on the published one, both recorded verbatim.
+The read refused nothing and stopped nothing, and the frozen endpoint was checked against
+`2026-09-10-w27c-g1-corrected-declaration.json` before the first capture, so a drifted
+`receded-profile.ts` would have stopped the run rather than been measured.
