@@ -190,6 +190,13 @@ export function CapabilitiesPanel(props: CapabilitiesPanelProps): ReactNode {
 
       <section>
         <h2>Dev-mode findings</h2>
+        <p className="panel__note">
+          The band below styles something with{" "}
+          <code>--vitrea-foreground-quaternary</code>, so every surface in this page under the
+          material&rsquo;s thin/thick knee reports the fourth level&rsquo;s advisory once. That is
+          the finding working: the scan is of the document, not of the element, and the playground
+          is full of thin controls.
+        </p>
         <label className="toggle">
           <input
             type="checkbox"

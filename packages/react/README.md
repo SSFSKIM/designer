@@ -255,6 +255,13 @@ capture harness, not something this release measured. When those land, the curve
 becomes a data change and the claim below gains a tint section; until then, treat
 the tint's *appearance* as designed rather than as calibrated.
 
+The playground's **tint-and-ink band** is this section running. A `GlassGroup
+tint` colours a plate and the button beside it, a `GlassButton tint` sits in the
+group it had to step out into to carry a second seed, and both are over a light
+and a dark ground at once — so the same colour settling to two shades is one
+glance rather than two paragraphs. Both seeds and both strengths are under
+controls, and the band names the tier that drew it.
+
 ### Splitting a toolbar's background
 
 A system toolbar rarely has one piece of glass in it. Apple gives you two ways to
@@ -575,6 +582,12 @@ shipped regular material's darkest. So vitrea does not copy them flat.
 - Under **forced colours** all four are `CanvasText`, and under **increased
   contrast** all four are the near-monochrome ink. A preference that asked for
   more contrast does not get three dimmer answers.
+
+All four are on one surface in the playground's tint-and-ink band, over both
+grounds. What the band makes visible is the part the list above states without
+showing: secondary is a *solved* level, so the two grounds publish two different
+alphas for one declaration, while tertiary and quaternary are the platform's
+fixed numbers on both.
 
 **Your own `color` rule on the host wins.** The runtime's ink reaches the host
 through a single zero-specificity rule (`:where([data-vitrea-node])`) installed

@@ -143,6 +143,31 @@ baseline at 0, 6 and 7 failures an hour earlier. Anything triaging against this
 entry should compare distributions rather than single runs, and should expect
 the comparison to be noisy in both directions.
 
+*Measured either side of W27e G2's tint-and-ink band, 2026-09-12, three consecutive full
+three-engine runs of each tree on one machine:* **`bdac5222` failed 0, 0, 0** (135 passed, 35.3–37.4
+s) and **the band's head failed 0, 2, 1** (155–156 passed, 41.5–42.1 s). The failures are this
+entry's class and nothing else — `morph-materialize.spec.ts`'s tab-order and focus cases and
+`presence.spec.ts`'s 220 ms budget, all on `firefox`, all assertions of a driver at a moment; the
+presence one missed by 45 ms against an allowance built from its own longest frame. So the band did
+not introduce a mechanism, it widened the window of one that was already here: it costs the
+playground's frame loop a few milliseconds a frame (its own entry below), and every case in this
+class is written against a page that keeps up. A clean baseline today is also a reminder of what
+the 2026-08-30 readings say — the rate drifts by session, so 0/0/0 against 0/2/1 is a signal about
+this machine this afternoon rather than a coefficient. **The fix shape below is unchanged and is
+now the thing worth doing**: bracketing these assertions rather than sampling them fixes the class
+for whatever is added to the playground next, and W27e G2 did exactly that for the one case that
+had crossed onto Chromium (`morph.spec.ts`'s reversal, which weighs each step against the interval
+it happened over) and deliberately left the other three to this entry rather than spreading one
+child's repair across another's tests.
+
+*Seen on Chromium once, 2026-09-12 (W27e G2's review repair), which the readings above say does
+not happen:* `morph-materialize.spec.ts`'s "returns focus to the trigger when the menu is
+dismissed" failed with "focus never entered the open platter" in a full three-engine run, then
+passed 3 of 3 in isolation and in the next full run of the same tree. One sighting is not a
+distribution, and the case is a focus assertion rather than a driver sample, so it may be a
+different mechanism with the same cause — the engines contending — but "Chromium passes every
+time" is no longer something to triage against.
+
 **The fix shape:** make the assertions bracket the driver's trajectory rather
 than sample it — poll for the channel to cross a threshold, the way the
 accessibility specs already `expect.poll` — and then put the suite in CI, because
@@ -2076,6 +2101,13 @@ prop on the three public packages to at least one live site under `apps/`, so th
 the landing rather than on a release sheet. Until (2) exists, a landing's clause-2 review must grep
 `apps/` for the prop, not the README.
 
+**(1) landed 2026-09-12 (W27e G2):** the playground's tint-and-ink band
+(`apps/demo/src/TintInkPlate.tsx`, `/playground/`) is that instance — a `GlassGroup tint` over a
+light and a dark ground, a `GlassButton tint` in the group it steps out into, and all four levels
+side by side on one surface, with both seeds under controls. **(2) is still open**, and it is the
+half that stops this happening again: this entry stays until a test maps documented props to live
+instances.
+
 ## Core's advisory sampling padding is still σ = 8's 24 px and wins the toolbar gap on the regular variant (W27b, measured 2026-09-11)
 
 A toolbar partition clears `max(DEFAULT_GROUP_SAMPLING.samplingPadding, samplingPaddingFor(members))`:
@@ -2229,3 +2261,30 @@ Shape of the fix, and it is small: give both drivers the two things the reader a
 `HERE`, and a create-only write for `results.json` so replacing a recorded reading has to be
 deliberate. The PNGs can stay overwriting inside whatever directory is chosen. Worth taking with
 the next gate that touches either probe; not worth a commit of its own.
+
+## The tint-and-ink band costs the playground's frame loop a noisy few milliseconds a frame (W27e G2, measured 2026-09-12)
+
+Measured on `/playground/?renderer=css` at rest, headless Chromium, 150 `requestAnimationFrame`
+intervals per run, three runs a side. **Before the band:** means 12.0 / 13.6 / 16.6 ms, p50s
+10.4 / 14.0 / 17.9 ms. **With it:** means 12.8 / 20.1 / 20.9 ms, p50s 11.0 / 20.6 / 20.8 ms. Long
+intervals reach ~27 ms before and ~35 ms after.
+
+The first run on each side is nearly identical, and the spread within a side is as large as the
+difference between the sides, so what the six readings support is a few milliseconds a frame with
+a wide harness-produced variance rather than a clean step. *This entry first quoted the middle run
+per side — "p50 14 → 21 ms, mean 13.6–16.6 → 20.1–20.9" — which is the flattering summary of the
+same measurements and is superseded by the six above.* The direction is consistent across the
+three pairs: the band adds four sampling groups — four more masked `backdrop-filter` proxies for a
+software rasteriser to paint — and six surfaces to a scene that had five groups.
+
+Nothing about the product is implicated: no site composes four groups into 26 rem, the harness is
+not a performance target, and the GPU tier draws the same band on one canvas. What it did do is
+push `morph.spec.ts`'s reversal case past a per-frame bound that assumed adjacent samples are
+adjacent frames — the long intervals do that whatever the average is — fixed by weighing each step
+against the interval it happened over. It is recorded because the next surface added to the
+playground pays the same cost and the next flaky timing case will have the same cause.
+
+Shape of the work if it ever matters: measure where the time goes — per-host measure-and-write
+against proxy rasterisation — before trimming anything. Trimming the band itself is the wrong first
+move: its four groups are the minimum the composition needs (a tinted group and the group a second
+seed must step out into, once per ground), so a cheaper band is a weaker demonstration.

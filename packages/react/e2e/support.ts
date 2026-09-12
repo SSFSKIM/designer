@@ -79,6 +79,19 @@ export interface Rect {
   readonly height: number;
 }
 
+/**
+ * A sample with the moment it was taken, in the page's own clock.
+ *
+ * A recorder that hands back geometry alone leaves its reader assuming one
+ * frame between two samples, which is a claim about the machine rather than
+ * about the thing being recorded — and a dropped frame turns that assumption
+ * into a false failure. The time comes back with the box so the reader can weigh
+ * a step against the interval it happened over.
+ */
+export interface TimedRect extends Rect {
+  readonly time: number;
+}
+
 export async function rectOf(locator: Locator): Promise<Rect> {
   const box = await locator.boundingBox();
   if (box === null) throw new Error("The element has no box.");
@@ -117,18 +130,25 @@ export async function sampleRects(locator: Locator, count: number): Promise<Rect
  * about motion.
  *
  * Recording in the page removes the round trip from the measurement entirely: every
- * sample is a frame, adjacent samples are adjacent frames, and the trigger lands
- * somewhere inside the recording rather than between two of them. The caller starts
- * the recording, does whatever it likes from Node, and reads the trajectory back.
+ * sample is taken inside a frame callback, and the trigger lands somewhere inside
+ * the recording rather than between two readings. The caller starts the recording,
+ * does whatever it likes from Node, and reads the trajectory back.
+ *
+ * What it does not remove is the gap *between* two samples. A dropped frame — which
+ * a headless rasteriser takes whenever the page grows a surface — puts two frames of
+ * motion between two adjacent samples, so "adjacent samples are adjacent frames" is
+ * a premise about the machine that this recorder does not supply. Each sample
+ * carries its own `time` for exactly that reason: weigh a step against the interval
+ * it happened over, never against a frame count read off the sample index.
  *
  * Settling is the runtime's own answer (`data-vitrea-morphing`), not a duration, so
  * the recording ends when the springs do.
  */
-export function recordRectsUntilSettled(page: Page, selector: string): Promise<Rect[]> {
+export function recordRectsUntilSettled(page: Page, selector: string): Promise<TimedRect[]> {
   return page.evaluate(
     ([target, budget]) =>
-      new Promise<Rect[]>((resolve) => {
-        const samples: Rect[] = [];
+      new Promise<TimedRect[]>((resolve) => {
+        const samples: TimedRect[] = [];
         const started = performance.now();
         const step = (): void => {
           const element = document.querySelector(target as string);
@@ -137,7 +157,13 @@ export function recordRectsUntilSettled(page: Page, selector: string): Promise<R
             return;
           }
           const box = element.getBoundingClientRect();
-          samples.push({ x: box.x, y: box.y, width: box.width, height: box.height });
+          samples.push({
+            time: performance.now() - started,
+            x: box.x,
+            y: box.y,
+            width: box.width,
+            height: box.height,
+          });
           // Two conditions, and both are needed. The morph has to have started
           // before "not morphing" can mean "arrived", and the budget is a bound on
           // a hang rather than a wait for anything.

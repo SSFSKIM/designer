@@ -22,6 +22,11 @@
  *  - **#6** the accessibility policy, overridable from the panel, and the
  *    variant-mixing warning on demand.
  *
+ * Beside those, the tint-and-ink band (`TintInkPlate.tsx`, W27e G2): the three
+ * features 0.16.0 published with no operable instance — a tinted `GlassButton`,
+ * a `GlassGroup tint` and the four named ink levels — over a light and a dark
+ * ground, with the tint under the reader's hand.
+ *
  * Both backdrop modes are on screen at once: the left region is arbitrary DOM,
  * the right is a registered texture source. The panel reports what each group
  * actually resolved to.
@@ -51,6 +56,7 @@ import { useState, type ReactNode } from "react";
 import { ActionsMenu } from "./ActionsMenu";
 import { CapabilitiesPanel, type OverrideState } from "./CapabilitiesPanel";
 import { TextureBackdrop } from "./TextureBackdrop";
+import { TintInkPlate } from "./TintInkPlate";
 
 const TEXTURE_SOURCE = { kind: "texture", id: "playground.canvas" } as const;
 
@@ -140,6 +146,13 @@ export function App(): ReactNode {
           variantMixed={variantMixed}
           onVariantMixedChange={setVariantMixed}
         />
+
+        {/*
+          The tint-and-ink band, under the panel and clear of the toolbar's
+          corner. It renders its own page ground here and its own glass into the
+          base plane, so the two halves of one composition stay in one file.
+        */}
+        <TintInkPlate onAction={setLastAction} />
 
         <p className="visually-hidden" role="status">
           {lastAction === null ? "" : `Last action: ${lastAction}`}

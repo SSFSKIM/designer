@@ -16,6 +16,15 @@
 
 :root {
   color-scheme: dark;
+  /*
+   * The tint-and-ink band's geometry, in one place because two grids share it:
+   * the page's own third column and the base plane's overlay are the same
+   * rectangle with the same three rows, which is what puts each surface on the
+   * ground its group declares.
+   */
+  --ink-band: 18rem;
+  --ink-band-controls: 4rem;
+  --ink-band-pad: 1rem;
   --ink: #eef1f5;
   --ink-dim: rgb(238 241 245 / 0.82);
   --ink-faint: rgb(238 241 245 / 0.66);
@@ -55,7 +64,20 @@ body {
   inset: 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(340px, 26rem);
-  grid-template-rows: 1fr;
+  /* The second row is the tint-and-ink band, under the readout panel and clear
+     of the toolbar's corner. Every child is placed explicitly, so nothing here
+     depends on the order the components are written in. */
+  grid-template-rows: minmax(0, 1fr) var(--ink-band);
+}
+
+.region--dom {
+  grid-column: 1;
+  grid-row: 1 / -1;
+}
+
+.region--texture {
+  grid-column: 2;
+  grid-row: 1 / -1;
 }
 
 .region {
@@ -130,6 +152,8 @@ body {
 /* ── The readout panel ────────────────────────────────────────────────────── */
 
 .panel {
+  grid-column: 3;
+  grid-row: 1;
   position: relative;
   z-index: 1;
   display: flex;
@@ -337,6 +361,195 @@ body {
   display: grid;
   gap: 1.25rem;
   justify-items: center;
+}
+
+/* ── The tint-and-ink band (W27e G2) ──────────────────────────────────────── */
+
+/*
+ * Two boxes, one rectangle: the page's band paints the grounds and carries the
+ * controls, the plane's overlay carries the glass. They share `--ink-band` and
+ * the same three rows, so a surface stands on the ground whose level its group
+ * declares without either grid reaching into the other.
+ */
+.region--ink,
+.ink-overlay {
+  display: grid;
+  grid-template-rows: var(--ink-band-controls) 1fr 1fr;
+}
+
+.region--ink {
+  grid-column: 3;
+  grid-row: 2;
+  padding: 0;
+  background: #05070a;
+  border-left: 1px solid var(--rule);
+  border-top: 1px solid var(--rule);
+}
+
+.ink-overlay {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: min(26rem, 100%);
+  height: var(--ink-band);
+  pointer-events: none;
+}
+
+.ink-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1rem;
+  align-content: center;
+  padding: 0 var(--ink-band-pad);
+}
+
+.ink-control {
+  min-width: 0;
+}
+
+.ink-control__row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.ink-control__label {
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.ink-control__strength {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ink-control input[type="color"] {
+  display: block;
+  width: 1.75rem;
+  height: 1.4rem;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: none;
+  cursor: pointer;
+}
+
+.ink-control input[type="range"] {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+.ink-control__value {
+  margin: 0.25rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  color: var(--ink-dim);
+}
+
+/* The grounds: flat, because the level each group declares is this byte decoded
+   and an average over a gradient would make that number an approximation. */
+.ink-ground {
+  position: relative;
+  overflow: hidden;
+}
+
+.ink-ground__label {
+  position: absolute;
+  top: 0.25rem;
+  left: var(--ink-band-pad);
+  margin: 0;
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ink-ground[data-ground="light"] .ink-ground__label {
+  color: rgb(0 0 0 / 0.8);
+}
+
+.ink-ground[data-ground="dark"] .ink-ground__label {
+  color: var(--ink-faint);
+}
+
+.ink-ground__tier {
+  font-family: var(--mono);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/*
+ * The gap is the material's business, not the layout's taste: two sampling
+ * groups side by side each pad their proxy around their own shapes, so the room
+ * between the bookmark and `Publish` has to be at least what the material asks
+ * for. Computed from the shipped padding law over this band's measured member
+ * boxes, two adjacent groups need 14.87 px at the nominal policy and 26.56 px at
+ * the worst frost/refraction/occlusion combination the policy feed can reach.
+ * 2rem is 32 px, which clears the worst case rather than grazing it — the
+ * previous 1.75rem cleared it by 1.44 px, and the number to clear is not fixed:
+ * the law follows the surface's own span, and this plate's span is content-driven,
+ * so another row of levels or a reader's larger default font moves it. It is also
+ * wider than the group's merge distance, which is why the plate and the bookmark
+ * read as two bodies rather than one.
+ */
+.ink-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 2rem;
+  padding: 0 var(--ink-band-pad) 0.75rem;
+}
+
+.ink-plate {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 4.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: center;
+  gap: 0.2rem 0.5rem;
+  padding: 0.45rem 0.7rem;
+  color: var(--vitrea-foreground, var(--ink));
+}
+
+/* The specimen over the word that names it, so the four levels stay side by
+   side in the width one column of the band has. */
+.ink-level {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.ink-level__specimen {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.ink-level__name {
+  font-size: 0.5625rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--vitrea-foreground, var(--ink));
+}
+
+.ink-level--primary .ink-level__specimen {
+  color: var(--vitrea-foreground, var(--ink));
+}
+
+.ink-level--secondary .ink-level__specimen {
+  color: var(--vitrea-foreground-secondary, var(--ink-dim));
+}
+
+.ink-level--tertiary .ink-level__specimen {
+  color: var(--vitrea-foreground-tertiary, var(--ink-faint));
+}
+
+.ink-level--quaternary .ink-level__specimen {
+  color: var(--vitrea-foreground-quaternary, var(--ink-faint));
 }
 
 /* ── Controls ─────────────────────────────────────────────────────────────── */
