@@ -163,10 +163,19 @@ $R/run-sitting.sh inactive 1 1 7
 # (c) 1x, increased contrast.  System Settings -> Accessibility -> Display -> Increase contrast ON.
 #     macOS force-couples Reduce transparency on with it; that coupling is the only reachable
 #     increased-contrast state and the harness records it as a profile caveat.
+#     Its OWN sitting root and the 14-id list (both found necessary in the sitting, 2026-09-12):
+#     the script names a pass by pose and scale only and would resume over (b)'s banked runs, and
+#     the profile declares 14 of the bed's 38 ids — the harness refuses the other 24.
+export VITREA_SITTING_DIR=$HOME/vitrea-w27-26.5-run/a11y-increase-contrast
+export VITREA_BED_FILE=$R/bed-inactive-a11y.txt
+DRY=1 $R/run-sitting.sh inactive 1 1 1      # must print "cells presented: 14"
 $R/run-sitting.sh inactive 1 1 7
 
 # (d) 1x, reduced transparency.  Increase contrast OFF, Reduce transparency ON.
+export VITREA_SITTING_DIR=$HOME/vitrea-w27-26.5-run/a11y-reduce-transparency
+DRY=1 $R/run-sitting.sh inactive 1 1 1      # 14 again
 $R/run-sitting.sh inactive 1 1 7
+unset VITREA_SITTING_DIR VITREA_BED_FILE
 ```
 
 Then the four active cells the new background needs, because a recede is a difference and
@@ -216,7 +225,8 @@ deliberately **not** taking, would be 8.4 h and 11–21 h.
   accessibility passes under their own roots (`a11y-increase-contrast/inactive-1x/`,
   `a11y-reduce-transparency/inactive-1x/`), because the script names a pass by pose and scale only
   and would otherwise resume over the banked standard 1x runs (found in the sitting, 2026-09-12;
-  run them with `VITREA_SITTING_DIR` and `VITREA_BED_FILE=bed-inactive-a11y.txt`).
+  run them with `VITREA_SITTING_DIR` and `VITREA_BED_FILE=$R/bed-inactive-a11y.txt` — the path
+  is read as given, so name it from the directory you run in; Step 4 shows the exact lines).
 - **The idle gate is enforced once per run, at its opening; per cell the harness records
   `hidIdleSeconds` and does not refuse.** So "a disturbed run retries rather than filing a
   disturbed cell" holds only for a disturbance before the first cell; a touch mid-run files the

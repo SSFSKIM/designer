@@ -19,7 +19,8 @@ state (regular policy, application active, window not key) and are read on their
 
 Order taken: `active/light` 11:26:49Z, `policy-only/light` 11:30:21Z, `active/dark` 11:33:53Z,
 `policy-only/dark` 11:37:23Z (all before the inactive 1x pass), `recede/light` and `recede/dark`
-13:15–13:22Z (after it). `--settle 8` throughout. Logs under `logs/`.
+13:15–13:22Z (after it). `--settle 8` throughout. Each arm's full `dump-layers` stdout is under
+`logs/` as `.txt` (the repository ignores `*.log`).
 
 The reading (which operators sit on which layers under which pose, against §5.133 §8 and
 §5.136 §5's four-outcome table) is W27e G2's, per Decision Log 15; nothing here is read yet.

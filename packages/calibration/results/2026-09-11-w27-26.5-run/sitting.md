@@ -116,6 +116,8 @@ Display: same, mode 69, backingScaleFactor 1.0. Toggles: Increase contrast OFF, 
 
 ## The 1x labelled probe, both poses
 
+Committed under `results/2026-09-12-w27e-probe-1x/` (see its `index.md`). Each tally key reads `(isKeyWindow, appIsActive, activationPolicy, backingScaleFactor)`; `unrecorded` means the dump predates the fields `dump-layers --inactive` added.
+
 - `active/dark`: 25 dumps; pose tally {"(True, 'unrecorded', 'unrecorded', 1)": 25}
 - `active/light`: 25 dumps; pose tally {"(False, 'unrecorded', 'unrecorded', 1)": 16, "(True, 'unrecorded', 'unrecorded', 1)": 9}
 - `policy-only/dark`: 25 dumps; pose tally {"(True, 'unrecorded', 'unrecorded', 1)": 25}

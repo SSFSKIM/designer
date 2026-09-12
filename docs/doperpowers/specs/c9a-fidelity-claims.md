@@ -18356,8 +18356,9 @@ component pixel at all. **The idle gate is enforced
 once per run and only recorded per cell:** `--min-idle-seconds 45` refuses at a run's opening, and
 each entry then carries `hidIdleSeconds` without a refusal, so the runbook's "a disturbed run
 retries rather than filing a disturbed cell" holds only before the first cell. The record lists
-every cell captured under 45 s of idle, per run (inactive 2x runs 4 and 5, inactive 1x run 1, the
-increased-contrast runs 1, 6 and 7); the pose attestation held on all of them and the seven-run
+every cell captured under 45 s of idle, per run (inactive 2x runs 4 and 5 — 13 and 3 cells;
+inactive 1x runs 1, 2 and 5 — 14, 12 and 5; the increased-contrast runs 1, 6 and 7 — 3, 1 and 5;
+none in the active or reduced-transparency passes); the pose attestation held on all of them and the seven-run
 plurality is where a disturbed byte-state would show. **The 1x labelled probe was taken in both
 poses** (`results/2026-09-12-w27e-probe-1x/`, 150 dumps): the runbook's recede recipe had no
 mechanism — the policy variable alone leaves an application that activates active and key, and all

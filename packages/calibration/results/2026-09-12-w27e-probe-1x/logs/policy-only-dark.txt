@@ -1,0 +1,2618 @@
+Xcode: Xcode 26.6 Build version 17F113
+SDK:   MacOSX26.5.sdk
+scale: 1x
+
+== dump-layers ==
+hardware: Mac14,12, Version 26.5.2 (Build 25F84)
+window backingScaleFactor: 1.0, isKeyWindow: false, NSApp.isActive: false
+environment: colorScheme=dark a11y=standard (system a11y: standard)
+out: /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark
+
+--- dark-solid__capsule-button__rest ---
+  layer/object classes:
+    1x CABackdropLayer
+    2x CAFilter
+    6x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    4x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 15.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 15.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -22
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 8.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.2500)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.45
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -35.2
+    inputInnerRefractionHeight = 11
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 8.8
+    inputOuterRefractionHeight = 5.5
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 27.5
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 17.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.4
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.9028
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/dark-solid__capsule-button__rest.json
+
+--- dark-solid__capsule-button__rest-label ---
+  layer/object classes:
+    1x CABackdropLayer
+    3x CAFilter
+    7x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    5x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtC7SwiftUIP33_863CCF9D49B535DAEB1C7D61BEE53B5914CGDrawingLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = 1
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 15.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 15.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -22
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 8.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.2946)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.575
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -35.2
+    inputInnerRefractionHeight = 11
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 8.8
+    inputOuterRefractionHeight = 5.5
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 27.5
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 17.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.4
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.9028
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/dark-solid__capsule-button__rest-label.json
+
+--- dark-solid__rrect-48__rest ---
+  layer/object classes:
+    1x CABackdropLayer
+    2x CAFilter
+    6x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    4x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 16.8
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 16.8
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -24
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 9.6
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.2500)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.45
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -38.4
+    inputInnerRefractionHeight = 12
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 9.6
+    inputOuterRefractionHeight = 6
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 30
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 19.2
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.4
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.9028
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/dark-solid__rrect-48__rest.json
+
+--- dark-solid__rrect-48__rest-label ---
+  layer/object classes:
+    1x CABackdropLayer
+    3x CAFilter
+    7x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    5x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtC7SwiftUIP33_863CCF9D49B535DAEB1C7D61BEE53B5914CGDrawingLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = 1
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 16.8
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 16.8
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -24
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 9.6
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.2946)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.575
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -38.4
+    inputInnerRefractionHeight = 12
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 9.6
+    inputOuterRefractionHeight = 6
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 30
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 19.2
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.4
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.9028
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/dark-solid__rrect-48__rest-label.json
+
+--- dark-solid__rrect-64__rest ---
+  layer/object classes:
+    1x CABackdropLayer
+    2x CAFilter
+    6x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    4x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 22.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 22.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -32
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 12.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.71429
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.2500)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.45
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -51.2
+    inputInnerRefractionHeight = 16
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 12.8
+    inputOuterRefractionHeight = 8
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.102857
+    inputShadowAmount = 40
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 25.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.378571
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.5012
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/dark-solid__rrect-64__rest.json
+
+--- dark-solid__rrect-64__rest-label ---
+  layer/object classes:
+    1x CABackdropLayer
+    3x CAFilter
+    7x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    5x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtC7SwiftUIP33_863CCF9D49B535DAEB1C7D61BEE53B5914CGDrawingLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = 1
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 22.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 22.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -32
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 12.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.71429
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.2500)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.45
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -51.2
+    inputInnerRefractionHeight = 16
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 12.8
+    inputOuterRefractionHeight = 8
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.102857
+    inputShadowAmount = 40
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 25.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.378571
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.5012
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/dark-solid__rrect-64__rest-label.json
+
+--- dark-solid__rrect-80__rest ---
+  layer/object classes:
+    1x CABackdropLayer
+    2x CAFilter
+    6x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    4x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 28
+    inputBleedBlurRadius = 56
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 28
+    inputBleedOpacity = 0.133333
+    inputBlurDistance0 = -40
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 16
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 2.09524
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.2
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.4000)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.6
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -60
+    inputInnerRefractionHeight = 20
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 16
+    inputOuterRefractionHeight = 10
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.125714
+    inputShadowAmount = 50
+    inputShadowBlurRadius = 40
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 32
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.357143
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0.166667
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.0759
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/dark-solid__rrect-80__rest.json
+
+--- dark-solid__rrect-80__rest-label ---
+  layer/object classes:
+    1x CABackdropLayer
+    3x CAFilter
+    7x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    5x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtC7SwiftUIP33_863CCF9D49B535DAEB1C7D61BEE53B5914CGDrawingLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = 1
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 28
+    inputBleedBlurRadius = 56
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 28
+    inputBleedOpacity = 0.133333
+    inputBlurDistance0 = -40
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 16
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 2.09524
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.2
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.4000)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.6
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -60
+    inputInnerRefractionHeight = 20
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 16
+    inputOuterRefractionHeight = 10
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.125714
+    inputShadowAmount = 50
+    inputShadowBlurRadius = 40
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 32
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.357143
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0.166667
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.0759
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/dark-solid__rrect-80__rest-label.json
+
+--- dark-solid__rrect-md__rest ---
+  layer/object classes:
+    1x CABackdropLayer
+    2x CAFilter
+    6x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    4x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 33.6
+    inputBleedBlurRadius = 67.2
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 33.6
+    inputBleedOpacity = 0.266667
+    inputBlurDistance0 = -48
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 19.2
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 2.47619
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.2
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.4000)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.6
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -60
+    inputInnerRefractionHeight = 20
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 19.2
+    inputOuterRefractionHeight = 12
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.148571
+    inputShadowAmount = 60
+    inputShadowBlurRadius = 40
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 38.4
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.335714
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0.333333
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 36.6239
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/dark-solid__rrect-md__rest.json
+
+--- dark-solid__rrect-md__rest-label ---
+  layer/object classes:
+    1x CABackdropLayer
+    3x CAFilter
+    7x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    5x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtC7SwiftUIP33_863CCF9D49B535DAEB1C7D61BEE53B5914CGDrawingLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = 1
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 33.6
+    inputBleedBlurRadius = 67.2
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 33.6
+    inputBleedOpacity = 0.266667
+    inputBlurDistance0 = -48
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 19.2
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 2.47619
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.2
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.4000)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.6
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -60
+    inputInnerRefractionHeight = 20
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 19.2
+    inputOuterRefractionHeight = 12
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.148571
+    inputShadowAmount = 60
+    inputShadowBlurRadius = 40
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 38.4
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.335714
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0.333333
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 36.6239
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/dark-solid__rrect-md__rest-label.json
+
+--- impulse__capsule-button__rest ---
+  layer/object classes:
+    1x CABackdropLayer
+    2x CAFilter
+    6x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    4x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 15.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 15.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -22
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 8.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.2500)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.45
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -35.2
+    inputInnerRefractionHeight = 11
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 8.8
+    inputOuterRefractionHeight = 5.5
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 27.5
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 17.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.4
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.9028
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/impulse__capsule-button__rest.json
+
+--- impulse__capsule-button__rest-label ---
+  layer/object classes:
+    1x CABackdropLayer
+    3x CAFilter
+    7x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    5x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtC7SwiftUIP33_863CCF9D49B535DAEB1C7D61BEE53B5914CGDrawingLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = 1
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 15.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 15.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -22
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 8.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.2500)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.45
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -35.2
+    inputInnerRefractionHeight = 11
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 8.8
+    inputOuterRefractionHeight = 5.5
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 27.5
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 17.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.4
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.9028
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/impulse__capsule-button__rest-label.json
+
+--- mid-dark-solid__capsule-button__rest ---
+  layer/object classes:
+    1x CABackdropLayer
+    2x CAFilter
+    6x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    4x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 15.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 15.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -22
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 8.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.2500)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.45
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -35.2
+    inputInnerRefractionHeight = 11
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 8.8
+    inputOuterRefractionHeight = 5.5
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 27.5
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 17.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.4
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.9028
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/mid-dark-solid__capsule-button__rest.json
+
+--- mid-dark-solid__capsule-button__rest-label ---
+  layer/object classes:
+    1x CABackdropLayer
+    3x CAFilter
+    7x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    5x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtC7SwiftUIP33_863CCF9D49B535DAEB1C7D61BEE53B5914CGDrawingLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = 1
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 15.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 15.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -22
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 8.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.13125
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.3504)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.73125
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -35.2
+    inputInnerRefractionHeight = 11
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 8.8
+    inputOuterRefractionHeight = 5.5
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 27.5
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 17.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.4
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.9028
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/mid-dark-solid__capsule-button__rest-label.json
+
+--- checkerboard__rrect-md__rest ---
+  layer/object classes:
+    1x CABackdropLayer
+    2x CAFilter
+    6x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    4x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 33.6
+    inputBleedBlurRadius = 67.2
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 33.6
+    inputBleedOpacity = 0.266667
+    inputBlurDistance0 = -48
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 19.2
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 2.47619
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.2
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.4000)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.6
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -60
+    inputInnerRefractionHeight = 20
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 19.2
+    inputOuterRefractionHeight = 12
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.148571
+    inputShadowAmount = 60
+    inputShadowBlurRadius = 40
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 38.4
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.335714
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0.333333
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 36.6239
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/checkerboard__rrect-md__rest.json
+
+--- checkerboard__rrect-md__rest-label ---
+  layer/object classes:
+    1x CABackdropLayer
+    3x CAFilter
+    7x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    5x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtC7SwiftUIP33_863CCF9D49B535DAEB1C7D61BEE53B5914CGDrawingLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = 1
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 33.6
+    inputBleedBlurRadius = 67.2
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 33.6
+    inputBleedOpacity = 0.266667
+    inputBlurDistance0 = -48
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 19.2
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 2.47619
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.2
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.4000)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.6
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -60
+    inputInnerRefractionHeight = 20
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 19.2
+    inputOuterRefractionHeight = 12
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.148571
+    inputShadowAmount = 60
+    inputShadowBlurRadius = 40
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 38.4
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.335714
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0.333333
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 36.6239
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/checkerboard__rrect-md__rest-label.json
+
+--- light-solid__capsule-button__rest ---
+  layer/object classes:
+    1x CABackdropLayer
+    2x CAFilter
+    6x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    4x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 15.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 15.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -22
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 8.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.2500)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.45
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -35.2
+    inputInnerRefractionHeight = 11
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 8.8
+    inputOuterRefractionHeight = 5.5
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 27.5
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 17.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.4
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.9028
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/light-solid__capsule-button__rest.json
+
+--- light-solid__capsule-button__rest-label ---
+  layer/object classes:
+    1x CABackdropLayer
+    3x CAFilter
+    7x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    5x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtC7SwiftUIP33_863CCF9D49B535DAEB1C7D61BEE53B5914CGDrawingLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = 1
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 15.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0.9
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1.2
+    inputBleedColorMatrixWhite = 1
+    inputBleedDarkenBlend = 1
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 15.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -22
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 8.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1.06961
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.81875
+    inputFaceColorMatrixFillColor = rgba(1.0000, 1.0000, 1.0000, 0.2656)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 1.03
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -35.2
+    inputInnerRefractionHeight = 11
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 8.8
+    inputOuterRefractionHeight = 5.5
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 27.5
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.0500)
+    inputShadowColorMatrixSaturation = 1.8
+    inputShadowColorMatrixWhite = 1
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 17.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.5
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 39.5276
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/light-solid__capsule-button__rest-label.json
+
+--- photo__capsule-button__rest ---
+  layer/object classes:
+    1x CABackdropLayer
+    2x CAFilter
+    6x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    4x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 15.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 15.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -22
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 8.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.2500)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.45
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -35.2
+    inputInnerRefractionHeight = 11
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 8.8
+    inputOuterRefractionHeight = 5.5
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 27.5
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 17.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.4
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.9028
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/photo__capsule-button__rest.json
+
+--- photo__capsule-button__rest-label ---
+  layer/object classes:
+    1x CABackdropLayer
+    3x CAFilter
+    7x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    5x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtC7SwiftUIP33_863CCF9D49B535DAEB1C7D61BEE53B5914CGDrawingLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = 1
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 15.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 15.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -22
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 8.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.2500)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.45
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -35.2
+    inputInnerRefractionHeight = 11
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 8.8
+    inputOuterRefractionHeight = 5.5
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 27.5
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 17.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.4
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.9028
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/photo__capsule-button__rest-label.json
+
+--- mid-chroma-solid__capsule-button__rest ---
+  layer/object classes:
+    1x CABackdropLayer
+    2x CAFilter
+    6x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    4x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 15.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 15.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -22
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 8.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.2500)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.45
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -35.2
+    inputInnerRefractionHeight = 11
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 8.8
+    inputOuterRefractionHeight = 5.5
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 27.5
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 17.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.4
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.9028
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/mid-chroma-solid__capsule-button__rest.json
+
+--- mid-chroma-solid__capsule-button__rest-label ---
+  layer/object classes:
+    1x CABackdropLayer
+    3x CAFilter
+    7x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    5x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtC7SwiftUIP33_863CCF9D49B535DAEB1C7D61BEE53B5914CGDrawingLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = 1
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 15.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 15.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -22
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 8.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.3393)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.7
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -35.2
+    inputInnerRefractionHeight = 11
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 8.8
+    inputOuterRefractionHeight = 5.5
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 27.5
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 17.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.4
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.9028
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/mid-chroma-solid__capsule-button__rest-label.json
+
+--- mid-chroma-solid__capsule-button__rest-label-hot ---
+  layer/object classes:
+    1x CABackdropLayer
+    2x CAFilter
+    7x CALayer
+    1x CASDFElementLayer
+    1x CASDFKeyFillHighlightEffect
+    2x CASDFLayer
+    1x CASDFOutputEffect
+    4x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    2x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtC7SwiftUIP33_863CCF9D49B535DAEB1C7D61BEE53B5914CGDrawingLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 15.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 15.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -22
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 8.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.2500)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.45
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -35.2
+    inputInnerRefractionHeight = 11
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 8.8
+    inputOuterRefractionHeight = 5.5
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 27.5
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 17.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.4
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.9028
+    minimum = -10000
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/mid-chroma-solid__capsule-button__rest-label-hot.json
+
+--- photo__capsule-button__rest-tint-orange ---
+  layer/object classes:
+    1x CABackdropLayer
+    3x CAFilter
+    10x CALayer
+    1x CAMediaTimingFunction
+    1x CAMediaTimingFunctionBuiltin
+    2x CASDFElementLayer
+    1x CASDFFillEffect
+    1x CASDFGradientEffect
+    1x CASDFKeyFillHighlightEffect
+    4x CASDFLayer
+    1x CASDFOutputEffect
+    5x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    3x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+    1x __NSCFConstantString
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 15.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 15.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -22
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 8.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.2500)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.45
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -35.2
+    inputInnerRefractionHeight = 11
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 8.8
+    inputOuterRefractionHeight = 5.5
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 27.5
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 17.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.4
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = 1
+    inputClamp = nil
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  filter __NSCFConstantString type=? — no readable inputs
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.9028
+    minimum = -10000
+  effect CASDFGradientEffect:
+    colors = [rgba(1.0000, 1.0000, 1.0000, 1.0000), rgba(1.0000, 1.0000, 1.0000, 1.0000), rgba(1.0000, 1.0000, 1.0000, 0.0000)]
+    distances = [-1, 0, 10]
+    interpolations = [<CAMediaTimingFunctionBuiltin>, <CAMediaTimingFunction>]
+    premultiplied = 1
+  effect CASDFFillEffect:
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/photo__capsule-button__rest-tint-orange.json
+
+--- photo__capsule-button__rest-label-tint-orange ---
+  layer/object classes:
+    1x CABackdropLayer
+    4x CAFilter
+    11x CALayer
+    1x CAMediaTimingFunction
+    1x CAMediaTimingFunctionBuiltin
+    2x CASDFElementLayer
+    1x CASDFFillEffect
+    1x CASDFGradientEffect
+    1x CASDFKeyFillHighlightEffect
+    4x CASDFLayer
+    1x CASDFOutputEffect
+    6x NSConcreteValue
+    1x NSViewBackingLayer
+    1x SwiftUI.ImageLayer
+    1x SwiftUI.SDFLayer
+    3x _TtC7SwiftUIP33_05C1F5BE6EE7940FED05100EA822F7B314SDFPortalLayer
+    1x _TtC7SwiftUIP33_863CCF9D49B535DAEB1C7D61BEE53B5914CGDrawingLayer
+    1x _TtGC7SwiftUI13NSHostingViewGVS_15ModifiedContentV15VitreaReference9SceneViewGVS_30_EnvironmentKeyWritingModifierOS_11ColorScheme___
+    1x __NSCFConstantString
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = 1
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  filter CAFilter type=glassBackground:
+    inputBleedAmount = 15.4
+    inputBleedBlurRadius = 0
+    inputBleedColorMatrixBlack = 0
+    inputBleedColorMatrixFillColor = nil
+    inputBleedColorMatrixSaturation = 1
+    inputBleedColorMatrixWhite = 0.5
+    inputBleedDarkenBlend = 0
+    inputBleedDistance0 = 1
+    inputBleedDistance1 = 0
+    inputBleedHeight = 15.4
+    inputBleedOpacity = 0
+    inputBlurDistance0 = -22
+    inputBlurDistance1 = -1
+    inputBlurDistance2 = 0
+    inputBlurDistance3 = 0
+    inputBlurDistance4 = 8.8
+    inputBlurOpacity0 = 1
+    inputBlurOpacity1 = 0.5
+    inputBlurOpacity2 = 0.5
+    inputBlurOpacity3 = 1
+    inputBlurOpacity4 = 1
+    inputBlurRadius = 1.33333
+    inputClamp = 1
+    inputClampPreserveHue = 0
+    inputFaceColorMatrixBlack = 0.1
+    inputFaceColorMatrixFillColor = rgba(0.0000, 0.0000, 0.0000, 0.2500)
+    inputFaceColorMatrixSaturation = 1
+    inputFaceColorMatrixWhite = 0.45
+    inputFaceOpacity = 1
+    inputInnerRefractionAmount = -35.2
+    inputInnerRefractionHeight = 11
+    inputMaxHeadroom = 9999
+    inputOuterRefractionAmount = 8.8
+    inputOuterRefractionHeight = 5.5
+    inputRefractionDistance0 = -1
+    inputRefractionDistance1 = 0
+    inputRefractionOpacity = 0.3
+    inputSDRGradientDistance0 = -2
+    inputSDRGradientDistance1 = -1
+    inputSDRHoldingToneEnabled = 1
+    inputSDRHoldingToneWhite = 0.97
+    inputSDRShadowOpacity = 0.08
+    inputShadowAmount = 27.5
+    inputShadowBlurRadius = 0
+    inputShadowColorMatrixBlack = 0
+    inputShadowColorMatrixFillColor = nil
+    inputShadowColorMatrixSaturation = 1
+    inputShadowColorMatrixWhite = 0.5
+    inputShadowDistanceOffset = 0
+    inputShadowHeight = 17.6
+    inputShadowOffset = <NSConcreteValue>
+    inputShadowOpacity = 0.4
+    inputShadowRadius = 24
+    inputShadowVibrancyContribution = 0
+    inputSourceSublayerName = @0
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = 1
+    inputClamp = nil
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  filter __NSCFConstantString type=? — no readable inputs
+  filter CAFilter type=vibrantColorMatrix:
+    inputBackdropAware = nil
+    inputClamp = 1
+    inputClampPreserveHue = nil
+    inputColorMatrix = <NSConcreteValue>
+  effect CASDFOutputEffect:
+    maximum = 37.9028
+    minimum = -10000
+  effect CASDFGradientEffect:
+    colors = [rgba(1.0000, 1.0000, 1.0000, 1.0000), rgba(1.0000, 1.0000, 1.0000, 1.0000), rgba(1.0000, 1.0000, 1.0000, 0.0000)]
+    distances = [-1, 0, 10]
+    interpolations = [<CAMediaTimingFunctionBuiltin>, <CAMediaTimingFunction>]
+    premultiplied = 1
+  effect CASDFFillEffect:
+  effect CASDFKeyFillHighlightEffect:
+    curvature = 0.7
+    fillAmount = 0.5
+    fillAngle = 2.35619
+    fillHeight = 1
+    fillHeightOffset = 0
+    fillHeightScale = 1
+    fillSpread = 1.5708
+    fillSpreadOffset = 0
+    fillSpreadScale = 1
+    global = 0
+    keyAmount = 0.5
+    keyAngle = -0.785398
+    keyHeight = 1
+    keyHeightOffset = 0
+    keyHeightScale = 1
+    keySpread = 1.5708
+    keySpreadOffset = 0
+    keySpreadScale = 1
+  → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark/photo__capsule-button__rest-label-tint-orange.json
+
+done: 25 scenes → /Users/new/vitrea-w27-26.5-run/probe-1x/inactive/dark
