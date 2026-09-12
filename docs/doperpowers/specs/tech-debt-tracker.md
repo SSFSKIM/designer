@@ -2237,20 +2237,27 @@ Shape of the fix, and it is small: give both drivers the two things the reader a
 deliberate. The PNGs can stay overwriting inside whatever directory is chosen. Worth taking with
 the next gate that touches either probe; not worth a commit of its own.
 
-## The playground's frame loop costs about 7 ms more per frame since the tint-and-ink band (W27e G2, measured 2026-09-12)
+## The tint-and-ink band costs the playground's frame loop a noisy few milliseconds a frame (W27e G2, measured 2026-09-12)
 
 Measured on `/playground/?renderer=css` at rest, headless Chromium, 150 `requestAnimationFrame`
-intervals per run, three runs: a p50 of 14 ms before the band and 21 ms after it, with the mean
-moving 13.6–16.6 → 20.1–20.9 and the long intervals reaching 35 ms either way. The band adds four
-sampling groups — four more masked `backdrop-filter` proxies for a software rasteriser to paint —
-and six surfaces to a scene that had five groups, which is about what the arithmetic predicts.
+intervals per run, three runs a side. **Before the band:** means 12.0 / 13.6 / 16.6 ms, p50s
+10.4 / 14.0 / 17.9 ms. **With it:** means 12.8 / 20.1 / 20.9 ms, p50s 11.0 / 20.6 / 20.8 ms. Long
+intervals reach ~27 ms before and ~35 ms after.
+
+The first run on each side is nearly identical, and the spread within a side is as large as the
+difference between the sides, so what the six readings support is a few milliseconds a frame with
+a wide harness-produced variance rather than a clean step. *This entry first quoted the middle run
+per side — "p50 14 → 21 ms, mean 13.6–16.6 → 20.1–20.9" — which is the flattering summary of the
+same measurements and is superseded by the six above.* The direction is consistent across the
+three pairs: the band adds four sampling groups — four more masked `backdrop-filter` proxies for a
+software rasteriser to paint — and six surfaces to a scene that had five groups.
 
 Nothing about the product is implicated: no site composes four groups into 26 rem, the harness is
 not a performance target, and the GPU tier draws the same band on one canvas. What it did do is
 push `morph.spec.ts`'s reversal case past a per-frame bound that assumed adjacent samples are
-adjacent frames, fixed by weighing each step against the interval it happened over. It is recorded
-because the next surface added to the playground pays the same cost and the next flaky timing case
-will have the same cause.
+adjacent frames — the long intervals do that whatever the average is — fixed by weighing each step
+against the interval it happened over. It is recorded because the next surface added to the
+playground pays the same cost and the next flaky timing case will have the same cause.
 
 Shape of the work if it ever matters: measure where the time goes — per-host measure-and-write
 against proxy rasterisation — before trimming anything. Trimming the band itself is the wrong first
