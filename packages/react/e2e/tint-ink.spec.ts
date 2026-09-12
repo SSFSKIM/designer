@@ -93,7 +93,6 @@ test("a group's seed colours the member that declares no colour of its own", asy
     expect(await groupOf(page, `ink-plate-${ground}`)).toBe(`ink-${ground}`);
     expect(await groupOf(page, `ink-bookmark-${ground}`)).toBe(`ink-${ground}`);
     expect(await groupOf(page, `ink-publish-${ground}`)).toBe(`ink-${ground}-action`);
-
   }
 
   // Drive the seed somewhere no material would land on its own, at full
