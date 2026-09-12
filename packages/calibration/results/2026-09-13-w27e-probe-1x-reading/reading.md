@@ -252,13 +252,12 @@ are indistinguishable from the `.accessory` arm: highlight layer `opacity` 0 on 
 carries, the label layer still at `opacity` 1, and the surface operator agreeing with `recede/light`
 on **16 of 16** shared scenes.
 
-Two things follow and one does not. It follows that the receded *configuration* is driven by key
-resignation, not by application deactivation — which is a fact about what the capture's mechanism has
-to reproduce, and a second, independent route to the same configuration. It also follows that
-these 16 dumps are what §4's comparison rests on, the 2x corpus's own activation being unrecorded:
-they are the evidence that key alone drives the receded configuration, which is the step §4 needs.
-It does **not** follow that the
-two states are the same pose in pixels: nothing here is a capture, `presentedActive` and the
+One thing follows and one does not. It follows that the receded *configuration* is driven by key
+resignation, not by application deactivation — a second, independent route to the same
+configuration, a fact about what the capture's mechanism has to reproduce, and the step §4's
+cross-scale comparison rests on, since the 2x corpus's own activation is unrecorded. It does **not**
+follow that the two states are the same pose in pixels: nothing here is a capture, `presentedActive`
+and the
 attestation are about a capture and not a dump, and §5.136 §1 chose the `.accessory` mechanism by
 measurement on the pixel side. The honest statement is that the two states agree on every
 configuration field this reading reads, and that a pixel comparison of the two has never been taken.
