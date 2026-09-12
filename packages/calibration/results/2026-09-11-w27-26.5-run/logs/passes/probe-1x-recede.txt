@@ -1,0 +1,16 @@
+== recede arm, light, 2026-09-12T13:15:52Z
+window backingScaleFactor: 1.0, isKeyWindow: false, NSApp.isActive: false, activation policy: accessory, pose asked: inactive
+--inactive: window key=false, NSApp.isActive=false
+done: 25 scenes → /Users/new/vitrea-w27-26.5-run/probe-1x/recede/light
+== recede arm, dark, 2026-09-12T13:19:22Z
+window backingScaleFactor: 1.0, isKeyWindow: false, NSApp.isActive: false, activation policy: accessory, pose asked: inactive
+--inactive: window key=false, NSApp.isActive=false
+done: 25 scenes → /Users/new/vitrea-w27-26.5-run/probe-1x/recede/dark
+== pose facts across the recede dumps (must be key false / active false / accessory):
+  50 "activationPolicy" : "accessory"
+  50 "appIsActive" : false
+  50 "isKeyWindow" : false
+== dumps per arm:
+light:       25
+dark:       25
+RECEDE-1X DONE 2026-09-12T13:22:52Z
