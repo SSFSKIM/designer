@@ -2302,3 +2302,35 @@ plurality at `materialize` time exists to test, and `sitting.md` lists the cells
 of the fix, for the next bed: sample idle per cell against the same threshold and retry the cell
 (not the run) when it is under, recording the retry; or lower the per-cell bar deliberately and say
 why. Either is a harness change and a run declaration, not a change to this bed's evidence.
+
+## Apple's own glass adaptation is not reproducible cell-for-cell across runs (W27e G2, 2026-09-13)
+
+*Found while reading the 1x both-pose corpus; claims §5.138 §7, evidence
+`packages/calibration/results/2026-09-13-w27e-probe-1x-reading/`.*
+
+Three of the corpus's 50 scene-and-scheme cells carry a different `vibrantColorMatrix` in different
+runs of the same bed, and the difference is not a filter detail: the whole body moves with it —
+`inputFaceColorMatrixFillColor` flips white to black, both face points move and
+`inputShadowColorMatrixFillColor` goes `nil`. All three sit at the two backgrounds whose adaptation
+is marginal, `dark-solid` in light and `light-solid` in dark.
+
+It is not a pose effect. Two of the three put two arms of the **same** pose on opposite sides:
+`light dark-solid__rrect-48__rest-label` reads the default operator in the `active` arm and the
+high-gain one in `policy-only`, both key, and `dark light-solid__capsule-button__rest` reads
+high-gain in `policy-only` alone. The third, `light dark-solid__capsule-button__rest`, is one of the
+two cells claims §5.133 §4 named as switching at 1x in the key pose — and here the two key arms read
+it as not switching. §5.133 §4's reading stands as recorded; §5.138 §7 is the second reading beside
+it.
+
+What it costs: any selector law for the surface operator, and any threshold fitted for the body's
+adaptation, is bounded from above by this. A law fitted on the key pose alone would be fitted on a
+cell two arms disagree about, and a bound stated tighter than one cell in 25 could not be met by a
+second run of the same bed.
+
+Shape of the work: a settle study, which `dump-layers` can run in minutes and which no capture has
+needed before, because until now the body's adapted state was only ever read off pixels that had
+already settled. One scene — `dark-solid__capsule-button__rest` in light — dumped n times at
+`--settle` 8 and n times at a longer settle, reading `inputFaceColorMatrixFillColor` rather than a
+pixel, and the same for `light-solid` in dark. If the longer settle is unanimous the 8 s figure is
+too short for the adaptation and every dump-derived reading inherits that; if both settles are split
+the decision is bistable near its threshold and a selector law has to say so.
