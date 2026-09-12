@@ -123,12 +123,21 @@ def glass(doc):
 
 
 def load(directory):
+    """Every dump in a directory, with the repo-relative path the reader names it by.
+
+    The path travels with the document because the cross-check below joins this
+    pass to `table.json` on it: the two passes number their operators in their own
+    first-seen order, so nothing may be compared by id, and a dump path plus a
+    layer path is the only key both sides agree on without sharing code.
+    """
     out = []
     for name in sorted(os.listdir(directory)):
         if not name.endswith(".json") or name == "scenes.json":
             continue
-        with open(os.path.join(directory, name), "r", encoding="utf8") as fh:
-            out.append(json.load(fh))
+        full = os.path.join(directory, name)
+        rel = "packages/calibration/results/%s" % os.path.relpath(full, RESULTS)
+        with open(full, "r", encoding="utf8") as fh:
+            out.append((rel, json.load(fh)))
     return out
 
 
@@ -141,7 +150,7 @@ def cells(dumps, arm=None, skipped=None):
     turns a second surface into a stop.
     """
     rows = []
-    for doc in dumps:
+    for path, doc in dumps:
         if skipped is not None and len(surfaces(doc)) != 1:
             skipped.append(doc["scene"])
             continue
@@ -163,6 +172,7 @@ def cells(dumps, arm=None, skipped=None):
                  and l["frame"]["width"] > 0 and l["frame"]["height"] > 0]
         rows.append({
             "arm": arm,
+            "path": path,
             "scene": doc["scene"],
             "background": doc["background"],
             "span": min(spans) if spans else None,
@@ -220,6 +230,119 @@ def within_tolerance(cat, tolerance=1e-6):
             merged.append([v])
     return {"tolerance": tolerance, "byteClasses": len(values), "operators": len(merged),
             "merged": pairs}
+
+
+def verify(rows, group_of, high_ids_by_matrix):
+    """This pass against `scripts/vibrancy.ts`'s, quantity by quantity.
+
+    The module header promises that a disagreement voids the reading, so the
+    comparison has to exist and has to be able to fail. It joins on the pair
+    (dump path, layer path) — the only key two implementations that number their
+    own operators can share — and compares the matrix itself rather than either
+    side's operator id. `matches` is the whole verdict; `differences` names every
+    quantity that moved, so a failure says which one rather than only that one did.
+    """
+    table_path = os.path.join(HERE, "table.json")
+    if not os.path.exists(table_path):
+        return {"matches": None, "reason": "table.json has not been written yet",
+                "table": table_path}
+    with open(table_path, "r", encoding="utf8") as fh:
+        table = json.load(fh)
+
+    def reader_group(row):
+        # The arm is the directory the reader read the dump out of, which is the
+        # same rule `armOf` applies on the TypeScript side.
+        return "%s/%s/%s" % (row["dump"].split("/")[4], row["colorScheme"],
+                             "key" if row["isKeyWindow"] else "non-key")
+
+    mine, theirs = {}, {}
+    for r in rows:
+        for occ in [r["highlight"]] + ([r["label"]] if r["label"] else []) + r["tints"]:
+            mine[(r["path"], occ["layerPath"])] = {
+                "role": occ["role"], "matrix": occ["matrix"],
+                "layerOpacity": occ["layerOpacity"], "group": group_of(r),
+                "scene": r["scene"], "marginWidth": r["glass"]["marginWidth"],
+                "faceFillIsDark": r["glass"]["faceFillIsDark"],
+            }
+    for row in table["rows"]:
+        theirs[(row["dump"], row["layerPath"])] = {
+            "role": row["role"], "matrix": row["matrix"],
+            "layerOpacity": row["layerOpacity"], "group": reader_group(row),
+            "scene": row["scene"], "marginWidth": row["surface"]["marginWidth"],
+            "faceFillIsDark": row["body"]["faceFillIsDark"],
+        }
+
+    differences = []
+    if sorted(mine) != sorted(theirs):
+        only_mine = sorted(set(mine) - set(theirs))[:5]
+        only_theirs = sorted(set(theirs) - set(mine))[:5]
+        differences.append({"quantity": "occurrence keys",
+                            "onlyInThisPass": only_mine, "onlyInReader": only_theirs})
+    for key in sorted(set(mine) & set(theirs)):
+        a, b = mine[key], theirs[key]
+        for field in ("role", "matrix", "layerOpacity", "group", "scene", "marginWidth",
+                      "faceFillIsDark"):
+            if a[field] != b[field]:
+                differences.append({"quantity": field, "key": list(key),
+                                    "thisPass": a[field], "reader": b[field]})
+
+    # The aggregates §5.138 quotes, recomputed from the reader's own rows and its
+    # own per-group summary, so a divergence in how either side GROUPS shows up
+    # even when every occurrence matches.
+    def from_reader():
+        out = {}
+        for g in table["summary"]["groups"]:
+            name = "%s/%s/%s" % (g["arm"], g["colorScheme"],
+                                 "key" if g["isKeyWindow"] else "non-key")
+            out[name] = {
+                "dumps": g["dumps"],
+                "highlightOccurrences": g["surfaceHighlight"]["occurrences"],
+                "labelOccurrences": g["contentLabel"]["occurrences"],
+                "tintOccurrences": g["authorTint"]["occurrences"],
+                "highlightLayerOpacities": sorted(g["surfaceHighlight"]["layerOpacities"]),
+                "highGainScenes": sorted(
+                    s for o in g["surfaceHighlight"]["operators"]
+                    if json.dumps(next(r["matrix"] for r in table["rows"]
+                                       if r["operatorId"] == o["operatorId"])) in high_ids_by_matrix
+                    for s in o["scenes"]),
+            }
+        return out
+
+    def from_mine():
+        out = {}
+        for g in sorted({group_of(r) for r in rows}):
+            ours = [r for r in rows if group_of(r) == g]
+            out[g] = {
+                "dumps": len(ours),
+                "highlightOccurrences": len(ours),
+                "labelOccurrences": sum(1 for r in ours if r["label"]),
+                "tintOccurrences": sum(len(r["tints"]) for r in ours),
+                "highlightLayerOpacities": sorted({r["highlight"]["layerOpacity"] for r in ours}),
+                "highGainScenes": sorted(
+                    r["scene"] for r in ours
+                    if key_of(r["highlight"]["matrix"]) in high_ids_by_matrix),
+            }
+        return out
+
+    a, b = from_mine(), from_reader()
+    if sorted(a) != sorted(b):
+        differences.append({"quantity": "group names",
+                            "thisPass": sorted(a), "reader": sorted(b)})
+    for g in sorted(set(a) & set(b)):
+        for field in sorted(a[g]):
+            if a[g][field] != b[g][field]:
+                differences.append({"quantity": "%s / %s" % (g, field),
+                                    "thisPass": a[g][field], "reader": b[g][field]})
+
+    return {
+        "matches": not differences,
+        "table": "table.json",
+        "occurrencesCompared": len(set(mine) & set(theirs)),
+        "groupsCompared": len(set(a) & set(b)),
+        "fieldsPerOccurrence": ["role", "matrix", "layerOpacity", "group", "scene",
+                                "marginWidth", "faceFillIsDark"],
+        "differences": differences,
+    }
 
 
 def main():
@@ -360,6 +483,23 @@ def main():
               for r in rows if r["arm"] == "recede"}
     differ = sorted("%s %s" % (r["colorScheme"], r["scene"]) for r in two_x
                     if recede[(r["colorScheme"], r["scene"])] != r["highlightOperator"])
+    # The label half of the same comparison, which §5.138 §4 publishes as 5 of 24
+    # and this pass previously took on trust from the reader rather than deriving.
+    recede_labels = {(r["colorScheme"], r["scene"]): key_of(r["label"]["matrix"])
+                     for r in rows if r["arm"] == "recede" and r["label"]}
+    labels_2x = [r for r in two_x if r["label"]]
+    labels_differ = sorted("%s %s" % (r["colorScheme"], r["scene"]) for r in labels_2x
+                           if recede_labels.get((r["colorScheme"], r["scene"]))
+                           != key_of(r["label"]["matrix"]))
+    # `tracksLuma` by declared span at each scale, COMPUTED rather than asserted:
+    # if the flag were computed on device pixels the 2x tally would move, and the
+    # claim that it does not is load-bearing for §5.138 §4's refutation.
+    def tracks_luma_by_span(rs):
+        out = defaultdict(set)
+        for r in rs:
+            out[str(r["span"])].add(r["glass"]["tracksLuma"])
+        return {span: sorted(v) for span, v in sorted(out.items(), key=lambda kv: float(kv[0]))}
+
     across = {
         "dumps2x": len(two_x),
         "2xHighlightLayerOpacity": sorted({r["highlight"]["layerOpacity"] for r in two_x}),
@@ -368,9 +508,15 @@ def main():
         "2xFaceFillIsDarkByScheme": {
             s: sorted({r["glass"]["faceFillIsDark"] for r in two_x if r["colorScheme"] == s})
             for s in SCHEMES},
-        "2xTracksLumaBySpanIsUnchanged": "read in table.json; tracksLuma is 1 at declared span"
-                                         " 44/48/64 and 0 at 80/96 at BOTH scales",
+        "tracksLumaByDeclaredSpan": {
+            "1x": tracks_luma_by_span(rows),
+            "2x": tracks_luma_by_span(two_x),
+        },
+        "tracksLumaBySpanIsUnchangedAcrossScales":
+            tracks_luma_by_span(rows) == tracks_luma_by_span(two_x),
         "scenesDifferingFrom1xRecede": differ,
+        "labels2x": len(labels_2x),
+        "labelScenesDifferingFrom1xRecede": labels_differ,
     }
 
     # G0's corpus, for the same body law and for the one scene id that moved.
@@ -400,10 +546,16 @@ def main():
                                    if r["scene"] == s and key_of(r["highlight"]["matrix"]) not in g0_m}),
         }
 
+    checked = verify(rows, group, {k for k, v in cat.items() if v["id"] in high})
+
     result = {
         "declaredIn": "W27 coverage wave, W27e G2; claims §5.138; Decision Log 15 (c);"
                       " the four-outcome reading of claims §5.137 §6",
         "corpus": CORPUS.split("results/")[-1],
+        # The two-implementation check the module header promises. `matches` false
+        # voids the reading; `matches` null means `table.json` is not written yet,
+        # which is the state on a first run into a clean directory.
+        "verify": checked,
         "stops": stops,
         "operators": [{"id": v["id"], "count": v["count"], "roles": sorted(v["roles"]),
                        "matrix": v["matrix"]}
@@ -454,6 +606,11 @@ def main():
           % (len(rows), len(cat), law["rows"] - law["faceFillViolations"], law["rows"],
              label_law["labelled"] - len(label_law["violations"]), label_law["labelled"],
              len(unanimous), len(scenes)))
+    print("verify against table.json: matches=%s over %s occurrences and %s groups%s"
+          % (checked["matches"], checked.get("occurrencesCompared"),
+             checked.get("groupsCompared"),
+             "" if checked["matches"] is not False
+             else " — %d differences, the reading is VOID" % len(checked["differences"])))
     print("wrote %s" % OUT)
 
 

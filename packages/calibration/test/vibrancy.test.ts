@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -548,6 +549,19 @@ describe("W27e G2's 1x both-pose corpus: the arms and the poses", () => {
     // Every dump carries a matrix, so no cell is invisible to the row-level tallies.
     expect(new Set(probe1x.rows.map((r) => r.dump)).size).toBe(150);
     expect(probe1x.rows.filter((r) => r.role === "unclassified")).toEqual([]);
+  });
+
+  it("pins the corpus's IDENTITY, not only its shape", () => {
+    // Every assertion around this one reads a count or an invariant, so a dump
+    // that changed while keeping them — a label's text, canvas metadata, a tint
+    // coefficient nothing here asserts — would leave the suite green while the
+    // committed evidence claims §5.138 reasons from had moved. The reader already
+    // hashes every dump it reads; this is one digest over the sorted
+    // `path sha256` pairs, so any byte under the corpus fails here. A deliberate
+    // change to the corpus comes to this line and says so.
+    const manifest = probe1x.dumps.map((d) => `${d.path} ${d.sha256}`).sort().join("\n");
+    expect(createHash("sha256").update(manifest).digest("hex"))
+      .toBe("0ab83eb52f1385e4c35befe41e959b823e424f712dadb6446479cb6a91ff16d9");
   });
 
   it("refuses a dump path that belongs to none of the declared arms", () => {

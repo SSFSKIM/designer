@@ -1,6 +1,22 @@
 {
  "declaredIn": "W27 coverage wave, W27e G2; claims §5.138; Decision Log 15 (c); the four-outcome reading of claims §5.137 §6",
  "corpus": "2026-09-12-w27e-probe-1x",
+ "verify": {
+  "matches": true,
+  "table": "table.json",
+  "occurrencesCompared": 234,
+  "groupsCompared": 7,
+  "fieldsPerOccurrence": [
+   "role",
+   "matrix",
+   "layerOpacity",
+   "group",
+   "scene",
+   "marginWidth",
+   "faceFillIsDark"
+  ],
+  "differences": []
+ },
  "stops": {
   "S1_dumpsPerArmScheme": {
    "active/light": 25,
@@ -882,7 +898,43 @@
     true
    ]
   },
-  "2xTracksLumaBySpanIsUnchanged": "read in table.json; tracksLuma is 1 at declared span 44/48/64 and 0 at 80/96 at BOTH scales",
+  "tracksLumaByDeclaredSpan": {
+   "1x": {
+    "44": [
+     1
+    ],
+    "48": [
+     1
+    ],
+    "64": [
+     1
+    ],
+    "80": [
+     0
+    ],
+    "96": [
+     0
+    ]
+   },
+   "2x": {
+    "44": [
+     1
+    ],
+    "48": [
+     1
+    ],
+    "64": [
+     1
+    ],
+    "80": [
+     0
+    ],
+    "96": [
+     0
+    ]
+   }
+  },
+  "tracksLumaBySpanIsUnchangedAcrossScales": true,
   "scenesDifferingFrom1xRecede": [
    "dark light-solid__capsule-button__rest",
    "dark light-solid__capsule-button__rest-label",
@@ -893,6 +945,14 @@
    "light dark-solid__rrect-64__rest",
    "light dark-solid__rrect-64__rest-label",
    "light impulse__capsule-button__rest",
+   "light impulse__capsule-button__rest-label"
+  ],
+  "labels2x": 24,
+  "labelScenesDifferingFrom1xRecede": [
+   "dark light-solid__capsule-button__rest-label",
+   "light dark-solid__capsule-button__rest-label",
+   "light dark-solid__rrect-48__rest-label",
+   "light dark-solid__rrect-64__rest-label",
    "light impulse__capsule-button__rest-label"
   ]
  },
