@@ -1950,6 +1950,28 @@ neither blocking:
   frames that produced its bytes; it does not prove that two independent inactive *sessions* agree,
   which is what the seven-run probe bar and `materialize`'s plurality resolution are for.
 
+## Two rehearsal-only wording limits in the capture harness (W27 DL13 review, 2026-09-12)
+
+Both are in the dry-run path only — no real capture, no fixture and no attestation depends on
+either — and both were found by review rather than by a run. Logged instead of fixed because the
+change is small, the payoff is a slightly better sentence in a rehearsal, and the session the
+harness exists for is days away; the next person in this file should take them.
+
+**`rehearsalWarned` is one flag per run, so a rehearsal reports only its FIRST cause.**
+`runCapture`'s per-cell gate (`apps/reference-apple/Sources/main.swift`) prints `WOULD REFUSE` once
+and then stays quiet, which is deliberate — 76 copies of one sentence buries the cell count that
+the runbook tells the operator to read. But the flag is a single Bool, so a rehearsal that hits a
+locked screen and then a genuine pose mismatch reports only the lock. The shape of the fix: key the
+flag on `Capture.CellRefusal`, once per case rather than once per run, which keeps the anti-noise
+intent and costs one `Set`.
+
+**The opening gate's dry-run branch says "LOCKED" when the session was UNREADABLE.** The gate tests
+`Environment.screenIsLocked() != false`, which is true for both `true` and `nil`, and its dry-run
+message names only the lock. Its own real-pass twin distinguishes the two ("or the session could
+not be read, which is not the same as unlocked"), and so does `poseRefusalMessage` through
+`CellRefusal.screenStateUnreadable`. Only this one branch flattens them. An unreadable session and
+a locked one want different next steps, so the distinction is worth carrying here too.
+
 ## Two bounded W27d limits, real and not worth a change here (W27d review, 2026-09-11)
 
 Both were confirmed by the independent panel and verified as bounded rather than defective. They

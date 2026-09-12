@@ -108,10 +108,11 @@ Check the two arms disagree before believing either: every dump records its own 
 `false`. If it shows only `false`, the active arm did not reach the pose and the run separates
 nothing. Write them to NEW directories — never over the committed 2x trees.
 
-## 4. Step 3 — prove the path before spending the machine (2 minutes)
+## 4. Step 3 — prove the path before spending the machine (~8.5 min for the inactive pass)
 
 Three checks, in this order. The first two need **no machine state at all** — no display, no GUI
-session, not even an unlocked screen — so they are the only pre-flight that works from anywhere, and
+session, not even an unlocked screen — so they are the only pre-flight that works from
+anywhere, and
 they pin the regressions that have actually happened here (claims §5.135 §9):
 
 ```bash
@@ -121,16 +122,21 @@ bash $R/run-sitting.test.sh          # this script's own control flow, harness s
 DRY=1 $R/run-sitting.sh inactive 2 1 1                 # the real path, presenting and attesting
 ```
 
-The third presents and attests every cell of the pass and captures nothing. It exercises every refusal the
+The third presents and attests every cell of the pass and captures nothing. It exercises
+every refusal the
 real pass has — the fixture root, the backgrounds, the scene resolution, the presentation and the
-per-cell pose attestation — and prints `cells presented: 76`. Do this after each toggle change and
-each scale change; it is the cheapest thing in this document and it is the difference between
-finding a problem in two minutes and finding it in hour six.
+per-cell pose attestation. Measured at **8 m 19 s** for the inactive pass: the dry path skips the
+capture and the settle loop but still pays the 6 s reset interstitial per cell, so it costs roughly
+the real pass's dwell and none of its settle. Do it after each toggle change and each scale change
+— about half an hour of rehearsals across the whole plan, against a sitting that is hours.
 
-It must print `cells presented: 76`. A rehearsal that reports a warning and then presents **zero**
-cells while still printing `PASS` is the failure this step is checked against — read the count, not
-the verdict. On a locked screen it will also print `WOULD REFUSE: … LOCKED` and carry on, which is
-correct: the rehearsal captures nothing, and that line is the whole point of running it early.
+**Read the count, not the verdict.** It must print `cells presented: 76` — 14 for an accessibility
+pass, 4 for an active one. A count *under* that is the failure this step exists to catch, and the
+script will not catch it for you: it treats any nonzero count as success, so a pass that presented
+30 of 76 prints `PASS` and exits 0. On a locked screen it will also print `WOULD REFUSE: … LOCKED`
+and carry on, which is correct — the rehearsal captures nothing, and that line is the whole
+point of
+running this early.
 
 ## 5. Step 4 — the inactive checking bed, four passes
 

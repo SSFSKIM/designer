@@ -87,9 +87,13 @@ elif ! grep -q "PASS inactive 2x DONE" <<<"$out"; then bad "clean dry run did no
 else ok "clean dry run reports its count and finishes"; fi
 
 # 4. A dry run WITH something to report surfaces it to the terminal AND still
-#    reaches every cell. A rehearsal that reports a warning and then presents zero
-#    cells — while printing PASS and exiting 0 — is worse than one that refuses,
-#    and that is exactly what a per-cell guard without the dry-run exemption did.
+#    reaches every cell. This row pins the SCRIPT side only: the stub emits its
+#    cell lines unconditionally, so what is under test is that reporting a warning
+#    neither truncates the count nor kills the run — the `|| true` on the warning
+#    grep. The harness side, where a per-cell guard without the dry-run exemption
+#    would stop the rehearsal at its first cell, is pinned by self-check's
+#    cellVerdict rows, which are the only place that decision can be exercised
+#    without a display.
 out="$(DRY=1 STUB_WOULD_REFUSE=1 run "$TMP/s4" inactive 2 1 1)"; code=$?
 n="$(sed -n 's/.*cells presented: //p' <<<"$out")"
 if [ "$code" != "0" ]; then bad "warning dry run exited $code"

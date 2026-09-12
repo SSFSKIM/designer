@@ -17855,7 +17855,22 @@ make the decision a pure predicate and put its whole truth table in `self-check`
 harness and put the control flow in `run-sitting.test.sh`. Both run on a locked screen, which is
 where all three rounds happened to be.
 
-**Verification record.** `pnpm --filter @vitrea/calibration test` 372/372 (from 356: four
+**Fourth round — a correction to the third.** Round three's paragraph above says the unfixed
+per-cell guard printed `cells presented: 0` "and still printed `PASS` and exited 0". **The second
+half of that is wrong, and it is left standing above with this beside it.** The count line is
+`grep -c "dry-run" "$D.out" | sed …`, and `grep -c` prints `0` and **exits 1** when it matches
+nothing; under `set -euo pipefail` the script therefore dies on that line, before `PASS`. Measured
+both ways: at zero cells the pass prints the count and exits **1** with no `PASS`; at a partial count
+it prints `PASS` and exits **0**. (The reading that produced the original sentence took `$?` from a
+pipeline ending in `tail`, not from the script.)
+
+So the loud failure was louder than recorded, and the **silent** one is the case neither reading
+caught: a **partial** count, anywhere from 1 to 75, which prints `PASS` and exits 0 because the
+script treats any nonzero count as success. That is the shape to watch for, and it is why "read the
+count, not the verdict" stands as the instruction rather than being replaced by a check on the exit
+status — the exit status cannot distinguish 76 cells from 30.
+
+**Verification record (round two's).** `pnpm --filter @vitrea/calibration test` 372/372 (from 356: four
 scene-matrix pins moved to the invariants this change alters, four new checking-bed pins, eleven new
 probe pins) and lint green; the Swift package builds. Re-running the G0 reading reproduces
 `table.md` byte-for-byte and `table.json` with **no recorded value moved** — it differs only by

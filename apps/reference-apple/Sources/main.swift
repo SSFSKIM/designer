@@ -300,6 +300,13 @@ func runSelfCheck() {
   check("a lost pose still stops a real pass",
         Capture.cellVerdict(pose: .inactive, isKeyWindow: true, appIsActive: true,
                             screenLocked: false, dryRun: false) == .refuse, true)
+  // The same cause under a rehearsal. The loop above holds the pose facts fixed so
+  // that the lock is the only thing refusing an inactive cell; this is the one
+  // reachable verdict row it therefore cannot reach, and it is the row that says
+  // the dry-run exemption is about the REHEARSAL and not about the lock.
+  check("a lost pose is REPORTED, not refused, in a rehearsal",
+        Capture.cellVerdict(pose: .inactive, isKeyWindow: true, appIsActive: true,
+                            screenLocked: false, dryRun: true) == .rehearse, true)
 
   print("")
   print("== self-check: Capture.cellRefusal names the CAUSE, not the symptom ==")
@@ -868,8 +875,7 @@ func runDumpLayers(sceneIds: [String], outDir: String, settleSeconds: Double, sc
       }
       guard window.isKeyWindow else {
         fail("""
-          --require-key: the window did not become key within 4s. It is \
-          \(window.isKeyWindow ? "key" : "not key"), the application is \
+          --require-key: the window did not become key within 4s. The application is \
           \(NSApp.isActive ? "active" : "NOT active")\
           \(Environment.screenIsLocked() != false ? ", and the screen is LOCKED" : "").
 
