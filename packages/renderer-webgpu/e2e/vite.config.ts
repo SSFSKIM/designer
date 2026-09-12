@@ -25,5 +25,11 @@ export default defineConfig({
       "@vitrea/motion": `${packages}motion/src/index.ts`,
     },
   },
-  server: { port: 5189, strictPort: true },
+  // Overridable for the same reason the calibration scene server's port is:
+  // both bind 5189 with `strictPort`, and on a machine running several
+  // worktrees a golden run has been handed the calibration page instead of
+  // these fixtures (tech-debt-tracker, "Calibration and renderer tests share a
+  // fixed port"). `playwright.config.ts` reads the same variable, so the two
+  // halves cannot disagree.
+  server: { port: Number(process.env["VITREA_GOLDEN_SERVER_PORT"] ?? 5189), strictPort: true },
 });

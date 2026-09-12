@@ -1,0 +1,466 @@
+{
+  "phase": "holdout",
+  "schemes": {
+    "light": {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "materialProfile": "profiles/apple-macos-26.5-1x-light-standard.json",
+      "capturedWith": {
+        "sourceRoot": "/Users/new/Developer/GitHub/designer/.claude/worktrees/w27f-g2",
+        "commit": "7b2e03c89272fa8bc851ee76ad44ca356923d198",
+        "dirtyPaths": [
+          "packages/calibration/results/2026-09-11-w27f-g2/eye/",
+          "packages/calibration/results/2026-09-11-w27f-g2/identity.py",
+          "packages/calibration/results/2026-09-11-w27f-g2/verdict.py"
+        ],
+        "sceneManifestSha256": "d04eb3c494cf029ec75f7b556a2ac152957c32b9c36d180ed32d25d7ab5639a4",
+        "nativeManifestSha256": "f67dea25c199a88c1ffb6ae4c4bf34a39368d87fa2f49af064b9b32f4e8835b6",
+        "declaredGeometryScriptSha256": "d4e266a7eadeeb1fc1c6328dc1c9d9bd745798f1f1d9b7085692af874094bd40",
+        "contourInstrumentSha256": "ed35a49e7f42ce7fdbb49bf7f22e367fedaf771672a07b789ea7b7ac85cdc325",
+        "g0ReaderSha256": "1087092c3af0ecffdaece55e24ba3e8a78850241a2cbac9452a9695622f5ff0f",
+        "runnerSha256": "e3ddd666a2621e8274ef1f1292ff144a0fdccd4cae0d1c87320483d4ec99d721",
+        "materialSourcesScope": "runtime-src-trees-2026-09-10",
+        "materialSourcesSha256": {
+          "packages/renderer-webgpu/src": "7d20d6fc4746f3e852d303613c42047f4c923755dc1c5aad81d3822e71d80570",
+          "packages/platform-web/src": "8f5e8ded18140ce2abd1eaff4f77e6f1a7499c5e717161f9a0bbc88c52ff0f18",
+          "packages/core/src": "0ed71540a7b16e732c8ac1ab9423d655d0d8a3a8c5a40e84abc0d28ed92b09b4",
+          "packages/policy/src": "56a92419bfa26e1f52dc3366c394f05f855ac3400239b686f62e59b1074947e5",
+          "packages/geometry/src": "e54892df7fd5bc3f0451238a71a5083129b8ae99a06dcf741aa96981cf06c11b",
+          "packages/motion/src": "2864752ba956502742c433b2c832990ee4f7c492c1e9effd090fbcace3ebc11a"
+        },
+        "materialProfileSha256": {
+          "light": "6a9600720477dd433539d7af477b838776410e957d63fa7e63059dab214c5d26",
+          "dark": "950ce1c3e91715ee470dd02d10c589f3ebae0f2b88d6ae85f4a2de6986020e12"
+        },
+        "resolvedMaterialSha256": {
+          "light": "b2b570e4adcea8fb",
+          "dark": "874be66ea501621b"
+        }
+      },
+      "armNames": [
+        "sampled",
+        "sampled-hint",
+        "unsampled-nohint",
+        "unsampled-hint",
+        "css-today",
+        "css-nohint",
+        "css-hint"
+      ],
+      "armCoverage": {
+        "sampled": [
+          "checkerboard__glass-over-glass__rest",
+          "photo__glass-over-glass__rest"
+        ],
+        "sampled-hint": [
+          "checkerboard__glass-over-glass__rest",
+          "photo__glass-over-glass__rest"
+        ],
+        "unsampled-nohint": [
+          "checkerboard__glass-over-glass__rest",
+          "photo__glass-over-glass__rest"
+        ],
+        "unsampled-hint": [
+          "checkerboard__glass-over-glass__rest",
+          "photo__glass-over-glass__rest"
+        ],
+        "css-today": [
+          "checkerboard__glass-over-glass__rest",
+          "photo__glass-over-glass__rest"
+        ],
+        "css-nohint": [
+          "checkerboard__glass-over-glass__rest",
+          "photo__glass-over-glass__rest"
+        ],
+        "css-hint": [
+          "checkerboard__glass-over-glass__rest",
+          "photo__glass-over-glass__rest"
+        ]
+      },
+      "requestedArms": [
+        "sampled",
+        "sampled-hint",
+        "unsampled-nohint",
+        "unsampled-hint",
+        "css-today",
+        "css-nohint",
+        "css-hint"
+      ],
+      "stackedScenes": [
+        "checkerboard__glass-over-glass__rest",
+        "photo__glass-over-glass__rest"
+      ],
+      "scenes": [
+        "checkerboard__glass-over-glass__rest",
+        "photo__glass-over-glass__rest"
+      ],
+      "nativeRefereed": [
+        "checkerboard__glass-over-glass__rest",
+        "photo__glass-over-glass__rest"
+      ],
+      "capturedWithoutNative": [],
+      "arms": [
+        {
+          "arm": "sampled",
+          "route": "compare",
+          "exitCode": 0,
+          "matrix": "/tmp/w27f-g2/holdout/light/sampled-matrix.json",
+          "log": "/tmp/w27f-g2/holdout/light/sampled.log",
+          "scenes": [
+            "checkerboard__glass-over-glass__rest",
+            "photo__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130766.211314
+        },
+        {
+          "arm": "sampled-hint",
+          "route": "compare",
+          "exitCode": 0,
+          "matrix": "/tmp/w27f-g2/holdout/light/sampled-hint-matrix.json",
+          "log": "/tmp/w27f-g2/holdout/light/sampled-hint.log",
+          "scenes": [
+            "checkerboard__glass-over-glass__rest",
+            "photo__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130770.020076
+        },
+        {
+          "arm": "unsampled-nohint",
+          "route": "compare",
+          "exitCode": 0,
+          "matrix": "/tmp/w27f-g2/holdout/light/unsampled-nohint-matrix.json",
+          "log": "/tmp/w27f-g2/holdout/light/unsampled-nohint.log",
+          "scenes": [
+            "checkerboard__glass-over-glass__rest",
+            "photo__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130773.831302
+        },
+        {
+          "arm": "unsampled-hint",
+          "route": "compare",
+          "exitCode": 0,
+          "matrix": "/tmp/w27f-g2/holdout/light/unsampled-hint-matrix.json",
+          "log": "/tmp/w27f-g2/holdout/light/unsampled-hint.log",
+          "scenes": [
+            "checkerboard__glass-over-glass__rest",
+            "photo__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130777.627907
+        },
+        {
+          "arm": "css-today",
+          "route": "compare",
+          "exitCode": 0,
+          "matrix": "/tmp/w27f-g2/holdout/light/css-today-matrix.json",
+          "log": "/tmp/w27f-g2/holdout/light/css-today.log",
+          "scenes": [
+            "checkerboard__glass-over-glass__rest",
+            "photo__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130781.555773
+        },
+        {
+          "arm": "css-nohint",
+          "route": "compare",
+          "exitCode": 0,
+          "matrix": "/tmp/w27f-g2/holdout/light/css-nohint-matrix.json",
+          "log": "/tmp/w27f-g2/holdout/light/css-nohint.log",
+          "scenes": [
+            "checkerboard__glass-over-glass__rest",
+            "photo__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130785.403168
+        },
+        {
+          "arm": "css-hint",
+          "route": "compare",
+          "exitCode": 0,
+          "matrix": "/tmp/w27f-g2/holdout/light/css-hint-matrix.json",
+          "log": "/tmp/w27f-g2/holdout/light/css-hint.log",
+          "scenes": [
+            "checkerboard__glass-over-glass__rest",
+            "photo__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130789.166517
+        }
+      ],
+      "levels": {
+        "checkerboard__glass-over-glass__rest": 0.21404114048223255,
+        "photo__glass-over-glass__rest": 0.15148185804236047
+      },
+      "levelProvenance": {
+        "measuredHere": {
+          "source": "this phase's texture-sampled arm",
+          "scenes": [
+            "checkerboard__glass-over-glass__rest",
+            "photo__glass-over-glass__rest"
+          ],
+          "checkedAgainstG0": [
+            "checkerboard__glass-over-glass__rest",
+            "photo__glass-over-glass__rest"
+          ],
+          "notInG0": []
+        }
+      }
+    },
+    "dark": {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "materialProfile": "profiles/apple-macos-26.5-1x-dark-standard.json",
+      "capturedWith": {
+        "sourceRoot": "/Users/new/Developer/GitHub/designer/.claude/worktrees/w27f-g2",
+        "commit": "7b2e03c89272fa8bc851ee76ad44ca356923d198",
+        "dirtyPaths": [
+          "packages/calibration/results/2026-09-11-w27f-g2/eye/",
+          "packages/calibration/results/2026-09-11-w27f-g2/identity.py",
+          "packages/calibration/results/2026-09-11-w27f-g2/verdict.py"
+        ],
+        "sceneManifestSha256": "d04eb3c494cf029ec75f7b556a2ac152957c32b9c36d180ed32d25d7ab5639a4",
+        "nativeManifestSha256": "f67dea25c199a88c1ffb6ae4c4bf34a39368d87fa2f49af064b9b32f4e8835b6",
+        "declaredGeometryScriptSha256": "d4e266a7eadeeb1fc1c6328dc1c9d9bd745798f1f1d9b7085692af874094bd40",
+        "contourInstrumentSha256": "ed35a49e7f42ce7fdbb49bf7f22e367fedaf771672a07b789ea7b7ac85cdc325",
+        "g0ReaderSha256": "1087092c3af0ecffdaece55e24ba3e8a78850241a2cbac9452a9695622f5ff0f",
+        "runnerSha256": "e3ddd666a2621e8274ef1f1292ff144a0fdccd4cae0d1c87320483d4ec99d721",
+        "materialSourcesScope": "runtime-src-trees-2026-09-10",
+        "materialSourcesSha256": {
+          "packages/renderer-webgpu/src": "7d20d6fc4746f3e852d303613c42047f4c923755dc1c5aad81d3822e71d80570",
+          "packages/platform-web/src": "8f5e8ded18140ce2abd1eaff4f77e6f1a7499c5e717161f9a0bbc88c52ff0f18",
+          "packages/core/src": "0ed71540a7b16e732c8ac1ab9423d655d0d8a3a8c5a40e84abc0d28ed92b09b4",
+          "packages/policy/src": "56a92419bfa26e1f52dc3366c394f05f855ac3400239b686f62e59b1074947e5",
+          "packages/geometry/src": "e54892df7fd5bc3f0451238a71a5083129b8ae99a06dcf741aa96981cf06c11b",
+          "packages/motion/src": "2864752ba956502742c433b2c832990ee4f7c492c1e9effd090fbcace3ebc11a"
+        },
+        "materialProfileSha256": {
+          "light": "6a9600720477dd433539d7af477b838776410e957d63fa7e63059dab214c5d26",
+          "dark": "950ce1c3e91715ee470dd02d10c589f3ebae0f2b88d6ae85f4a2de6986020e12"
+        },
+        "resolvedMaterialSha256": {
+          "light": "b2b570e4adcea8fb",
+          "dark": "874be66ea501621b"
+        }
+      },
+      "armNames": [
+        "sampled",
+        "sampled-hint",
+        "unsampled-nohint",
+        "unsampled-hint",
+        "css-today",
+        "css-nohint",
+        "css-hint"
+      ],
+      "armCoverage": {
+        "sampled": [
+          "checkerboard__glass-over-glass__rest",
+          "photo__glass-over-glass__rest"
+        ],
+        "sampled-hint": [
+          "checkerboard__glass-over-glass__rest",
+          "photo__glass-over-glass__rest"
+        ],
+        "unsampled-nohint": [
+          "checkerboard__glass-over-glass__rest",
+          "photo__glass-over-glass__rest"
+        ],
+        "unsampled-hint": [
+          "checkerboard__glass-over-glass__rest",
+          "photo__glass-over-glass__rest"
+        ],
+        "css-today": [
+          "checkerboard__glass-over-glass__rest",
+          "photo__glass-over-glass__rest"
+        ],
+        "css-nohint": [
+          "checkerboard__glass-over-glass__rest",
+          "photo__glass-over-glass__rest"
+        ],
+        "css-hint": [
+          "checkerboard__glass-over-glass__rest",
+          "photo__glass-over-glass__rest"
+        ]
+      },
+      "requestedArms": [
+        "sampled",
+        "sampled-hint",
+        "unsampled-nohint",
+        "unsampled-hint",
+        "css-today",
+        "css-nohint",
+        "css-hint"
+      ],
+      "stackedScenes": [
+        "checkerboard__glass-over-glass__rest",
+        "photo__glass-over-glass__rest"
+      ],
+      "scenes": [
+        "checkerboard__glass-over-glass__rest",
+        "photo__glass-over-glass__rest"
+      ],
+      "nativeRefereed": [
+        "checkerboard__glass-over-glass__rest"
+      ],
+      "capturedWithoutNative": [
+        "photo__glass-over-glass__rest"
+      ],
+      "arms": [
+        {
+          "arm": "sampled",
+          "route": "compare",
+          "exitCode": 0,
+          "matrix": "/tmp/w27f-g2/holdout/dark/sampled-matrix.json",
+          "log": "/tmp/w27f-g2/holdout/dark/sampled.log",
+          "scenes": [
+            "checkerboard__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130793.1586912
+        },
+        {
+          "arm": "sampled",
+          "route": "capture-web",
+          "exitCode": 0,
+          "log": "/tmp/w27f-g2/holdout/dark/sampled-direct.log",
+          "scenes": [
+            "photo__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130796.1169438
+        },
+        {
+          "arm": "sampled-hint",
+          "route": "compare",
+          "exitCode": 0,
+          "matrix": "/tmp/w27f-g2/holdout/dark/sampled-hint-matrix.json",
+          "log": "/tmp/w27f-g2/holdout/dark/sampled-hint.log",
+          "scenes": [
+            "checkerboard__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130798.272015
+        },
+        {
+          "arm": "sampled-hint",
+          "route": "capture-web",
+          "exitCode": 0,
+          "log": "/tmp/w27f-g2/holdout/dark/sampled-hint-direct.log",
+          "scenes": [
+            "photo__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130801.070754
+        },
+        {
+          "arm": "unsampled-nohint",
+          "route": "compare",
+          "exitCode": 0,
+          "matrix": "/tmp/w27f-g2/holdout/dark/unsampled-nohint-matrix.json",
+          "log": "/tmp/w27f-g2/holdout/dark/unsampled-nohint.log",
+          "scenes": [
+            "checkerboard__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130803.308038
+        },
+        {
+          "arm": "unsampled-nohint",
+          "route": "capture-web",
+          "exitCode": 0,
+          "log": "/tmp/w27f-g2/holdout/dark/unsampled-nohint-direct.log",
+          "scenes": [
+            "photo__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130806.214106
+        },
+        {
+          "arm": "unsampled-hint",
+          "route": "compare",
+          "exitCode": 0,
+          "matrix": "/tmp/w27f-g2/holdout/dark/unsampled-hint-matrix.json",
+          "log": "/tmp/w27f-g2/holdout/dark/unsampled-hint.log",
+          "scenes": [
+            "checkerboard__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130808.3447082
+        },
+        {
+          "arm": "unsampled-hint",
+          "route": "capture-web",
+          "exitCode": 0,
+          "log": "/tmp/w27f-g2/holdout/dark/unsampled-hint-direct.log",
+          "scenes": [
+            "photo__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130811.120642
+        },
+        {
+          "arm": "css-today",
+          "route": "compare",
+          "exitCode": 0,
+          "matrix": "/tmp/w27f-g2/holdout/dark/css-today-matrix.json",
+          "log": "/tmp/w27f-g2/holdout/dark/css-today.log",
+          "scenes": [
+            "checkerboard__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130813.292164
+        },
+        {
+          "arm": "css-today",
+          "route": "capture-web",
+          "exitCode": 0,
+          "log": "/tmp/w27f-g2/holdout/dark/css-today-direct.log",
+          "scenes": [
+            "photo__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130816.011424
+        },
+        {
+          "arm": "css-nohint",
+          "route": "compare",
+          "exitCode": 0,
+          "matrix": "/tmp/w27f-g2/holdout/dark/css-nohint-matrix.json",
+          "log": "/tmp/w27f-g2/holdout/dark/css-nohint.log",
+          "scenes": [
+            "checkerboard__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130818.238196
+        },
+        {
+          "arm": "css-nohint",
+          "route": "capture-web",
+          "exitCode": 0,
+          "log": "/tmp/w27f-g2/holdout/dark/css-nohint-direct.log",
+          "scenes": [
+            "photo__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130820.935411
+        },
+        {
+          "arm": "css-hint",
+          "route": "compare",
+          "exitCode": 0,
+          "matrix": "/tmp/w27f-g2/holdout/dark/css-hint-matrix.json",
+          "log": "/tmp/w27f-g2/holdout/dark/css-hint.log",
+          "scenes": [
+            "checkerboard__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130823.0227818
+        },
+        {
+          "arm": "css-hint",
+          "route": "capture-web",
+          "exitCode": 0,
+          "log": "/tmp/w27f-g2/holdout/dark/css-hint-direct.log",
+          "scenes": [
+            "photo__glass-over-glass__rest"
+          ],
+          "capturedAfter": 1789130825.714755
+        }
+      ],
+      "levels": {
+        "checkerboard__glass-over-glass__rest": 0.21404114048223255,
+        "photo__glass-over-glass__rest": 0.15148185804236047
+      },
+      "levelProvenance": {
+        "measuredHere": {
+          "source": "this phase's texture-sampled arm",
+          "scenes": [
+            "checkerboard__glass-over-glass__rest",
+            "photo__glass-over-glass__rest"
+          ]
+        }
+      }
+    }
+  }
+}

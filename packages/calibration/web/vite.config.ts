@@ -34,7 +34,22 @@ const REFERENCE_FIXTURES = resolve(
 /** URL prefix the page fetches backgrounds under. */
 export const REFERENCE_MOUNT = "/reference-fixtures";
 
-export const SCENE_SERVER_PORT = 5189;
+/**
+ * The port the scene server binds, with `strictPort` below so a capture can
+ * never be served by somebody else's harness.
+ *
+ * 5189 is the default because every recorded capture in the ledger was taken on
+ * it. It is overridable because the port is a singleton on a machine that runs
+ * several worktrees at once: `packages/renderer-webgpu/playwright.config.ts`
+ * binds the same number, and a golden run has been served this page instead of
+ * its own fixtures (tech-debt-tracker, "Calibration and renderer tests share a
+ * fixed port"). A capture's identity does not depend on the port — `capturePath`
+ * records the browser, the viewport and the material document, never the URL's
+ * port — so moving it changes no cell key and no recorded number.
+ */
+export const SCENE_SERVER_PORT = Number(
+  process.env["VITREA_SCENE_SERVER_PORT"] ?? 5189,
+);
 
 const CONTENT_TYPES: Record<string, string> = {
   ".png": "image/png",

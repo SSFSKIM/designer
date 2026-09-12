@@ -1898,6 +1898,31 @@ add a test with an unstaged first entry. Keep the recorded path beside the corre
 replacement pretending the historical capture recorded something else. Claims §5.131 separately
 limits the old capture's narrow source fingerprint; this parser issue does not excuse that limit.
 
+**Closed for reuse by W27f G2, 2026-09-11 (claims §5.135).** The runner this gate runs is
+`packages/calibration/results/2026-09-11-w27f-g2/measure.py`, G1's file with `porcelain_paths`
+preserving both status columns and reporting a rename's destination, and five cases in
+`measure-tests.py` — the first of them an unstaged first entry, which fails against the G1 parser.
+The G1 runner and every reading it produced are untouched; `ackages/platform-web/src/optics.ts`
+stays in the candidate manifest as the thing that was recorded.
+
+## The frozen W27f G1 runner's own test suite no longer passes at this head (W27f G2, 2026-09-11)
+
+`packages/calibration/results/2026-09-10-w27f-g1-measure-tests.py` fails one of its 35 cases on
+`main` at `8cf6a89`, and has since W27c G1 merged. `StackCoverage.test_the_declared_stacks_of_the_
+holdout_bed_are_the_two_glass_over_glass_cells` pins the holdout bed's declared stacks at
+`{checkerboard,photo}__glass-over-glass__rest`; W27c G1 added both `__inactive` twins to
+`split.holdout` in `apps/reference-apple/scenes.json`, so `stacked_scenes` now returns four. The
+runner itself is correct — it reads the split rather than a hard-coded list — and no reading it
+produced is affected. Only the test's expectation aged.
+
+It is left failing rather than edited, because that file is the frozen record of how G1's evidence
+was checked and editing it would make the historical suite describe a bed G1 never measured. W27f
+G2's copy states the current four and adds a case for the two cells it measures. The shape of the
+work, if the G1 file is ever run as a gate again: re-point that assertion at the split it is
+asserting about, and note in the same commit which scene-set change moved it. The general lesson
+is the one the entry above shares — a dated runner's tests are evidence of a past check, and a
+scene-set change can silently invalidate one.
+
 ## Calibration and renderer tests share a fixed port and can reuse the wrong harness (W27c G1, 2026-09-10)
 
 `packages/calibration/web/vite.config.ts` and
@@ -1913,6 +1938,21 @@ pins then passed unchanged. Shape of the work: parameterize the port consistentl
 configs and their drivers, and verify the harness identity before reusing any listener. Merely
 choosing another shared constant moves the collision; the two independent child tasks both
 initially chose 5198, which the coordinator caught before either reused it.
+
+**Half closed by W27f G2, 2026-09-11 (claims §5.135).** The parameterisation is done: the
+calibration scene server reads `VITREA_SCENE_SERVER_PORT` and the renderer's golden server reads
+`VITREA_GOLDEN_SERVER_PORT`, each defaulting to 5189 so every recorded capture keeps the port it
+was taken on. The renderer's two halves — `playwright.config.ts`'s `baseURL`/`webServer.url` and
+`e2e/vite.config.ts`'s `server.port` — now read one variable instead of holding two copies of one
+number, which is the specific way a golden run came to be pointed at a foreign page. A port is
+not part of a capture's identity: `capturePath` records the browser, viewport and material
+document and never the URL, so no cell key and no recorded number moves.
+
+**Still open: identity before reuse.** `reuseExistingServer` is still `true` outside CI, so a
+run that finds *something* listening on its port still trusts it. Moving the port makes a
+collision avoidable, not detectable. The remaining work is a cheap identity check before reuse —
+fetch the expected fixture path and refuse a listener that does not serve it — and it is worth
+taking the next time either suite's harness is touched.
 
 ## The recovered inactive bed has no fresh native capture path (W27c G1, 2026-09-10)
 
@@ -2049,3 +2089,78 @@ condition the probe's verdict on whether the new backdrop root contains the samp
 than on a root existing above the proxy — the probe already paints and reads its own patch, so the
 discriminating case is one more sample outside the root. Contract X6 is unchanged by this: a sub-1
 opacity on the host or on the root still kills sampling, and that was re-measured here.
+
+## One dark CSS calibration capture is bistable between runs (W27f G2, 2026-09-11)
+
+`checkerboard__toolbar-group__rest`, dark scheme, CSS tier, lands on one of two digests depending
+on the run. Six independent capture invocations at a fixed head put `css-today` on
+`625742f5a2af…` twice and `8689d9ef6fc9…` four times and on no third value; the `css-hint` arm is
+bistable on two further digests, and its within-run repeat noise is 5.859375e-05 in five runs of
+six and exactly 0 in one. The difference is five pixels, all outside every declared shape, at most
+one channel code, with every measured term equal. Evidence:
+`packages/calibration/results/2026-09-11-w27f-g2/css-bistability.json`.
+
+This resolves an open reading rather than creating one: claims §5.131 §4 recorded the same two
+digests as a change, `625742f5 → 8689d9ef`, because it had one run on each side and could not tell
+a change from a flip. §5.135 §6 records the correction; §5.131 §4's numbers stand as written.
+
+Why it is not urgent: the cell is CSS-tier, the pixels are outside every declared shape, and no
+adopted bound or floor reads a digest. Why it is not nothing: a byte-identity check is a real
+instrument on this bed — it is how W27f G2 certified that the sampled path had not moved — and a
+capture that flips makes that check report a change where there is none. The shape of the work is
+to find the source (a compositing or rasterisation race in the CSS tier's proxy on this one
+geometry is the obvious candidate, and the cell is a toolbar group, the one component with several
+members) and to decide whether the settle protocol needs another frame for it. Until then, treat a
+digest change on this one cell as unproven until it is repeated.
+
+A general lesson, worth more than the cell: **an instrument stop written as "any capture is
+byte-repeatable" will eventually be tripped by something the claim it guards does not depend on.**
+W27f G2's declaration did exactly that and had to resolve it against contract X1 at landing time.
+Scope an instrument stop to the arms the bound is stated on.
+
+## The matrix schema has no per-surface metric, so a stack's overlay cannot carry a floor (W27f G2, 2026-09-11)
+
+`results/matrix.json` states every perceptual, shape and material row over a cell's whole declared
+footprint. For `{checkerboard,photo}__glass-over-glass__*` that footprint is the union of the base
+and the overlay (`placeComponent` returns both), so there is no way to express a bound on the
+overlay alone — and the overlay is the only part of those cells that is a `css-backdrop` group,
+which is what makes them the native evidence for the page-content path (claims §5.129 X8).
+
+The consequence is concrete. W27f G2 adopted a bound on that overlay (claims §5.135) and could not
+express it as a `GateRow`: it is seven assertions over a committed reading instead, which catches the
+ledger and the evidence drifting apart but not a material change, because nothing regenerates that
+reading in CI. Claims §5.131 §6 forbids the obvious shortcut — a whole-footprint floor on these
+cells would let the overlay's residual disappear behind the base's larger footprint, which is the
+specific error that section warns about.
+
+The shape of the work: carry per-surface readings into the matrix for cells whose declaration has
+more than one plane, so a stack cell's overlay has adopted rows like any other cell. The reader
+already exists and is not the hard part — `read_region` in `2026-09-10-w27f-g0-read.py` takes a
+surface selection and the W27f runners call it per surface. The decisions are schema ones: whether
+a per-surface axis is a new axis or a nesting of the existing ones, how the cell count assertions
+in `adopted-thresholds.test.ts` change, and whether the coherence axis follows. Worth taking with
+the next wave that touches stacked material; not worth a wave of its own.
+
+## Nothing checks the canonical matrix against a fresh capture (W27f G2, 2026-09-11)
+
+W27f G2 found the canonical `results/matrix.json` carrying **pre-W27f-G1 rows for the two
+`glass-over-glass` scenes through the whole 0.16.0 release** (claims §5.135 §8). The rows were
+captured 2026-09-10T05:22–05:23Z, before G1 merged, so the committed bed described the flat-white
+overlay the wave had replaced. Twelve rows across 1x/2x and both tiers were affected. They are
+corrected; no bound, floor, cell count or partition moved.
+
+The miss is instructive and the shape of it will recur. G1 made two correct statements — the
+`gpu-texture` material path is byte-identical, and the DOM material changed — and the stack cells
+fall between them: they are **texture-tier cells whose overlay is a DOM-sourced group**, so a change
+to the DOM material reaches a canonical cell that every "the sampled path did not move" check
+correctly reports as unmoved. Nothing caught it for a day, because **no test compares the canonical
+matrix against a fresh capture of the same configuration.** The adopted gate reads the committed
+numbers and asks whether they are inside their bounds; it cannot ask whether they are current.
+
+Shape of the work, cheapest first: (1) a landing checklist item — when a change alters what any
+group draws, name the canonical cells it reaches and re-capture them, and remember that a stacked
+cell's overlay is DOM on every route; (2) a staleness signal — record in each cell the runtime
+fingerprint that drew it (the material-source digest the W27f runners already compute) and fail
+when a cell's fingerprint is older than the head's, which turns this from a thing someone must
+remember into a thing the bed reports; (3) a periodic re-capture of the frozen bed, which is
+expensive and catches it only late. (2) is the one worth designing.

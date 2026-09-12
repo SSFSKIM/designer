@@ -1,0 +1,663 @@
+{
+ "gate": "W27f G2",
+ "scratch": "/tmp/w27f-g2",
+ "scope": "S3 (the sampled path's digests) and S4 (the instrument's repeatability). Clause A and Clause B \u2014 stops S1 and S2 \u2014 are decided in verdict.json.",
+ "phases": {
+  "candidate": {
+   "comparedAgainst": "2026-09-10-w27f-g1-candidate.json",
+   "nonDeterministicCaptures": {
+    "light": [],
+    "dark": [
+     {
+      "scene": "checkerboard__toolbar-group__rest",
+      "arm": "css-hint",
+      "repeatNoise": 5.859375e-05
+     }
+    ]
+   },
+   "arms": {
+    "dark": {
+     "css-hint": {
+      "identical": [
+       "checkerboard__capsule-button__rest",
+       "checkerboard__capsule-button__rest-tint-orange",
+       "checkerboard__rrect-md__rest",
+       "checkerboard__rrect-ml__rest",
+       "checkerboard__rrect-sm__rest",
+       "checkerboard__toolbar-group__rest",
+       "dark-solid__capsule-button__rest",
+       "dark-solid__capsule-button__rest-tint-orange",
+       "dark-solid__rrect-md__rest",
+       "impulse__capsule-button__rest-tint-orange",
+       "light-solid__capsule-button__rest",
+       "light-solid__capsule-button__rest-tint-orange",
+       "light-solid__rrect-md__rest",
+       "light-solid__rrect-ml__rest",
+       "photo__capsule-button__rest",
+       "photo__capsule-button__rest-tint-blue",
+       "photo__capsule-button__rest-tint-orange",
+       "photo__capsule-button__rest-tint-orange-half",
+       "photo__rrect-md__rest",
+       "photo__rrect-ml__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "css-nohint": {
+      "identical": [
+       "checkerboard__capsule-button__rest",
+       "checkerboard__capsule-button__rest-tint-orange",
+       "checkerboard__rrect-md__rest",
+       "checkerboard__rrect-ml__rest",
+       "checkerboard__rrect-sm__rest",
+       "checkerboard__toolbar-group__rest",
+       "dark-solid__capsule-button__rest",
+       "dark-solid__capsule-button__rest-tint-orange",
+       "dark-solid__rrect-md__rest",
+       "impulse__capsule-button__rest-tint-orange",
+       "light-solid__capsule-button__rest",
+       "light-solid__capsule-button__rest-tint-orange",
+       "light-solid__rrect-md__rest",
+       "light-solid__rrect-ml__rest",
+       "photo__capsule-button__rest",
+       "photo__capsule-button__rest-tint-blue",
+       "photo__capsule-button__rest-tint-orange",
+       "photo__capsule-button__rest-tint-orange-half",
+       "photo__rrect-md__rest",
+       "photo__rrect-ml__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "css-today": {
+      "identical": [
+       "checkerboard__capsule-button__rest",
+       "checkerboard__capsule-button__rest-tint-orange",
+       "checkerboard__rrect-md__rest",
+       "checkerboard__rrect-ml__rest",
+       "checkerboard__rrect-sm__rest",
+       "dark-solid__capsule-button__rest",
+       "dark-solid__capsule-button__rest-tint-orange",
+       "dark-solid__rrect-md__rest",
+       "impulse__capsule-button__rest-tint-orange",
+       "light-solid__capsule-button__rest",
+       "light-solid__capsule-button__rest-tint-orange",
+       "light-solid__rrect-md__rest",
+       "light-solid__rrect-ml__rest",
+       "photo__capsule-button__rest",
+       "photo__capsule-button__rest-tint-blue",
+       "photo__capsule-button__rest-tint-orange",
+       "photo__capsule-button__rest-tint-orange-half",
+       "photo__rrect-md__rest",
+       "photo__rrect-ml__rest"
+      ],
+      "moved": [
+       {
+        "scene": "checkerboard__toolbar-group__rest",
+        "recorded": "8689d9ef6fc9bda8cc65a7a5b5f3a4071d26410e13e2e2b6f4b6acc71d87151c",
+        "read": "625742f5a2afc9b98d3d81b78245a28f256a8617f0c960a633fb67caed1e3a6f"
+       }
+      ],
+      "noRecord": []
+     },
+     "sampled": {
+      "identical": [
+       "checkerboard__capsule-button__rest",
+       "checkerboard__capsule-button__rest-tint-orange",
+       "checkerboard__rrect-md__rest",
+       "checkerboard__rrect-ml__rest",
+       "checkerboard__rrect-sm__rest",
+       "checkerboard__toolbar-group__rest",
+       "dark-solid__capsule-button__rest",
+       "dark-solid__capsule-button__rest-tint-orange",
+       "dark-solid__rrect-md__rest",
+       "impulse__capsule-button__rest-tint-orange",
+       "light-solid__capsule-button__rest",
+       "light-solid__capsule-button__rest-tint-orange",
+       "light-solid__rrect-md__rest",
+       "light-solid__rrect-ml__rest",
+       "photo__capsule-button__rest",
+       "photo__capsule-button__rest-tint-blue",
+       "photo__capsule-button__rest-tint-orange",
+       "photo__capsule-button__rest-tint-orange-half",
+       "photo__rrect-md__rest",
+       "photo__rrect-ml__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "sampled-hint": {
+      "identical": [
+       "checkerboard__capsule-button__rest",
+       "checkerboard__capsule-button__rest-tint-orange",
+       "checkerboard__rrect-md__rest",
+       "checkerboard__rrect-ml__rest",
+       "checkerboard__rrect-sm__rest",
+       "checkerboard__toolbar-group__rest",
+       "dark-solid__capsule-button__rest",
+       "dark-solid__capsule-button__rest-tint-orange",
+       "dark-solid__rrect-md__rest",
+       "impulse__capsule-button__rest-tint-orange",
+       "light-solid__capsule-button__rest",
+       "light-solid__capsule-button__rest-tint-orange",
+       "light-solid__rrect-md__rest",
+       "light-solid__rrect-ml__rest",
+       "photo__capsule-button__rest",
+       "photo__capsule-button__rest-tint-blue",
+       "photo__capsule-button__rest-tint-orange",
+       "photo__capsule-button__rest-tint-orange-half",
+       "photo__rrect-md__rest",
+       "photo__rrect-ml__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "unsampled-hint": {
+      "identical": [
+       "checkerboard__capsule-button__rest",
+       "checkerboard__capsule-button__rest-tint-orange",
+       "checkerboard__rrect-md__rest",
+       "checkerboard__rrect-ml__rest",
+       "checkerboard__rrect-sm__rest",
+       "checkerboard__toolbar-group__rest",
+       "dark-solid__capsule-button__rest",
+       "dark-solid__capsule-button__rest-tint-orange",
+       "dark-solid__rrect-md__rest",
+       "impulse__capsule-button__rest-tint-orange",
+       "light-solid__capsule-button__rest",
+       "light-solid__capsule-button__rest-tint-orange",
+       "light-solid__rrect-md__rest",
+       "light-solid__rrect-ml__rest",
+       "photo__capsule-button__rest",
+       "photo__capsule-button__rest-tint-blue",
+       "photo__capsule-button__rest-tint-orange",
+       "photo__capsule-button__rest-tint-orange-half",
+       "photo__rrect-md__rest",
+       "photo__rrect-ml__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "unsampled-nohint": {
+      "identical": [
+       "checkerboard__capsule-button__rest",
+       "checkerboard__capsule-button__rest-tint-orange",
+       "checkerboard__rrect-md__rest",
+       "checkerboard__rrect-ml__rest",
+       "checkerboard__rrect-sm__rest",
+       "checkerboard__toolbar-group__rest",
+       "dark-solid__capsule-button__rest",
+       "dark-solid__capsule-button__rest-tint-orange",
+       "dark-solid__rrect-md__rest",
+       "impulse__capsule-button__rest-tint-orange",
+       "light-solid__capsule-button__rest",
+       "light-solid__capsule-button__rest-tint-orange",
+       "light-solid__rrect-md__rest",
+       "light-solid__rrect-ml__rest",
+       "photo__capsule-button__rest",
+       "photo__capsule-button__rest-tint-blue",
+       "photo__capsule-button__rest-tint-orange",
+       "photo__capsule-button__rest-tint-orange-half",
+       "photo__rrect-md__rest",
+       "photo__rrect-ml__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     }
+    },
+    "light": {
+     "css-hint": {
+      "identical": [
+       "checkerboard__capsule-button__rest",
+       "checkerboard__capsule-button__rest-tint-orange",
+       "checkerboard__rrect-md__rest",
+       "checkerboard__rrect-ml__rest",
+       "checkerboard__rrect-sm__rest",
+       "checkerboard__toolbar-group__rest",
+       "dark-solid__capsule-button__rest",
+       "dark-solid__capsule-button__rest-tint-orange",
+       "dark-solid__rrect-md__rest",
+       "impulse__capsule-button__rest-tint-orange",
+       "light-solid__capsule-button__rest",
+       "light-solid__capsule-button__rest-tint-orange",
+       "light-solid__rrect-md__rest",
+       "light-solid__rrect-ml__rest",
+       "photo__capsule-button__rest",
+       "photo__capsule-button__rest-tint-blue",
+       "photo__capsule-button__rest-tint-orange",
+       "photo__capsule-button__rest-tint-orange-half",
+       "photo__rrect-md__rest",
+       "photo__rrect-ml__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "css-nohint": {
+      "identical": [
+       "checkerboard__capsule-button__rest",
+       "checkerboard__capsule-button__rest-tint-orange",
+       "checkerboard__rrect-md__rest",
+       "checkerboard__rrect-ml__rest",
+       "checkerboard__rrect-sm__rest",
+       "checkerboard__toolbar-group__rest",
+       "dark-solid__capsule-button__rest",
+       "dark-solid__capsule-button__rest-tint-orange",
+       "dark-solid__rrect-md__rest",
+       "impulse__capsule-button__rest-tint-orange",
+       "light-solid__capsule-button__rest",
+       "light-solid__capsule-button__rest-tint-orange",
+       "light-solid__rrect-md__rest",
+       "light-solid__rrect-ml__rest",
+       "photo__capsule-button__rest",
+       "photo__capsule-button__rest-tint-blue",
+       "photo__capsule-button__rest-tint-orange",
+       "photo__capsule-button__rest-tint-orange-half",
+       "photo__rrect-md__rest",
+       "photo__rrect-ml__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "css-today": {
+      "identical": [
+       "checkerboard__capsule-button__rest",
+       "checkerboard__capsule-button__rest-tint-orange",
+       "checkerboard__rrect-md__rest",
+       "checkerboard__rrect-ml__rest",
+       "checkerboard__rrect-sm__rest",
+       "checkerboard__toolbar-group__rest",
+       "dark-solid__capsule-button__rest",
+       "dark-solid__capsule-button__rest-tint-orange",
+       "dark-solid__rrect-md__rest",
+       "impulse__capsule-button__rest-tint-orange",
+       "light-solid__capsule-button__rest",
+       "light-solid__capsule-button__rest-tint-orange",
+       "light-solid__rrect-md__rest",
+       "light-solid__rrect-ml__rest",
+       "photo__capsule-button__rest",
+       "photo__capsule-button__rest-tint-blue",
+       "photo__capsule-button__rest-tint-orange",
+       "photo__capsule-button__rest-tint-orange-half",
+       "photo__rrect-md__rest",
+       "photo__rrect-ml__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "sampled": {
+      "identical": [
+       "checkerboard__capsule-button__rest",
+       "checkerboard__capsule-button__rest-tint-orange",
+       "checkerboard__rrect-md__rest",
+       "checkerboard__rrect-ml__rest",
+       "checkerboard__rrect-sm__rest",
+       "checkerboard__toolbar-group__rest",
+       "dark-solid__capsule-button__rest",
+       "dark-solid__capsule-button__rest-tint-orange",
+       "dark-solid__rrect-md__rest",
+       "impulse__capsule-button__rest-tint-orange",
+       "light-solid__capsule-button__rest",
+       "light-solid__capsule-button__rest-tint-orange",
+       "light-solid__rrect-md__rest",
+       "light-solid__rrect-ml__rest",
+       "photo__capsule-button__rest",
+       "photo__capsule-button__rest-tint-blue",
+       "photo__capsule-button__rest-tint-orange",
+       "photo__capsule-button__rest-tint-orange-half",
+       "photo__rrect-md__rest",
+       "photo__rrect-ml__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "sampled-hint": {
+      "identical": [
+       "checkerboard__capsule-button__rest",
+       "checkerboard__capsule-button__rest-tint-orange",
+       "checkerboard__rrect-md__rest",
+       "checkerboard__rrect-ml__rest",
+       "checkerboard__rrect-sm__rest",
+       "checkerboard__toolbar-group__rest",
+       "dark-solid__capsule-button__rest",
+       "dark-solid__capsule-button__rest-tint-orange",
+       "dark-solid__rrect-md__rest",
+       "impulse__capsule-button__rest-tint-orange",
+       "light-solid__capsule-button__rest",
+       "light-solid__capsule-button__rest-tint-orange",
+       "light-solid__rrect-md__rest",
+       "light-solid__rrect-ml__rest",
+       "photo__capsule-button__rest",
+       "photo__capsule-button__rest-tint-blue",
+       "photo__capsule-button__rest-tint-orange",
+       "photo__capsule-button__rest-tint-orange-half",
+       "photo__rrect-md__rest",
+       "photo__rrect-ml__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "unsampled-hint": {
+      "identical": [
+       "checkerboard__capsule-button__rest",
+       "checkerboard__capsule-button__rest-tint-orange",
+       "checkerboard__rrect-md__rest",
+       "checkerboard__rrect-ml__rest",
+       "checkerboard__rrect-sm__rest",
+       "checkerboard__toolbar-group__rest",
+       "dark-solid__capsule-button__rest",
+       "dark-solid__capsule-button__rest-tint-orange",
+       "dark-solid__rrect-md__rest",
+       "impulse__capsule-button__rest-tint-orange",
+       "light-solid__capsule-button__rest",
+       "light-solid__capsule-button__rest-tint-orange",
+       "light-solid__rrect-md__rest",
+       "light-solid__rrect-ml__rest",
+       "photo__capsule-button__rest",
+       "photo__capsule-button__rest-tint-blue",
+       "photo__capsule-button__rest-tint-orange",
+       "photo__capsule-button__rest-tint-orange-half",
+       "photo__rrect-md__rest",
+       "photo__rrect-ml__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "unsampled-nohint": {
+      "identical": [
+       "checkerboard__capsule-button__rest",
+       "checkerboard__capsule-button__rest-tint-orange",
+       "checkerboard__rrect-md__rest",
+       "checkerboard__rrect-ml__rest",
+       "checkerboard__rrect-sm__rest",
+       "checkerboard__toolbar-group__rest",
+       "dark-solid__capsule-button__rest",
+       "dark-solid__capsule-button__rest-tint-orange",
+       "dark-solid__rrect-md__rest",
+       "impulse__capsule-button__rest-tint-orange",
+       "light-solid__capsule-button__rest",
+       "light-solid__capsule-button__rest-tint-orange",
+       "light-solid__rrect-md__rest",
+       "light-solid__rrect-ml__rest",
+       "photo__capsule-button__rest",
+       "photo__capsule-button__rest-tint-blue",
+       "photo__capsule-button__rest-tint-orange",
+       "photo__capsule-button__rest-tint-orange-half",
+       "photo__rrect-md__rest",
+       "photo__rrect-ml__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     }
+    }
+   },
+   "notRead": {
+    "dark": {},
+    "light": {}
+   },
+   "truncated": {
+    "dark": [],
+    "light": []
+   }
+  },
+  "holdout": {
+   "comparedAgainst": "2026-09-10-w27f-g1-holdout.json",
+   "nonDeterministicCaptures": {
+    "light": [],
+    "dark": []
+   },
+   "arms": {
+    "dark": {
+     "css-hint": {
+      "identical": [
+       "checkerboard__glass-over-glass__rest",
+       "photo__glass-over-glass__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "css-nohint": {
+      "identical": [
+       "checkerboard__glass-over-glass__rest",
+       "photo__glass-over-glass__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "css-today": {
+      "identical": [
+       "checkerboard__glass-over-glass__rest",
+       "photo__glass-over-glass__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "sampled": {
+      "identical": [
+       "checkerboard__glass-over-glass__rest",
+       "photo__glass-over-glass__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "sampled-hint": {
+      "identical": [
+       "checkerboard__glass-over-glass__rest",
+       "photo__glass-over-glass__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "unsampled-hint": {
+      "identical": [
+       "checkerboard__glass-over-glass__rest",
+       "photo__glass-over-glass__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "unsampled-nohint": {
+      "identical": [
+       "checkerboard__glass-over-glass__rest",
+       "photo__glass-over-glass__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     }
+    },
+    "light": {
+     "css-hint": {
+      "identical": [
+       "checkerboard__glass-over-glass__rest",
+       "photo__glass-over-glass__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "css-nohint": {
+      "identical": [
+       "checkerboard__glass-over-glass__rest",
+       "photo__glass-over-glass__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "css-today": {
+      "identical": [
+       "checkerboard__glass-over-glass__rest",
+       "photo__glass-over-glass__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "sampled": {
+      "identical": [
+       "checkerboard__glass-over-glass__rest",
+       "photo__glass-over-glass__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "sampled-hint": {
+      "identical": [
+       "checkerboard__glass-over-glass__rest",
+       "photo__glass-over-glass__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "unsampled-hint": {
+      "identical": [
+       "checkerboard__glass-over-glass__rest",
+       "photo__glass-over-glass__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     },
+     "unsampled-nohint": {
+      "identical": [
+       "checkerboard__glass-over-glass__rest",
+       "photo__glass-over-glass__rest"
+      ],
+      "moved": [],
+      "noRecord": []
+     }
+    }
+   },
+   "notRead": {
+    "dark": {
+     "checkerboard__rrect-lg__rest": [
+      "css-hint",
+      "css-nohint",
+      "unsampled-hint",
+      "unsampled-nohint"
+     ],
+     "dark-solid__capsule-button__rest-tint-blue": [
+      "css-hint",
+      "css-nohint",
+      "unsampled-hint",
+      "unsampled-nohint"
+     ],
+     "hc-text__capsule-button__rest": [
+      "css-hint",
+      "css-nohint",
+      "sampled",
+      "unsampled-hint",
+      "unsampled-nohint"
+     ],
+     "hc-text__capsule-button__rest-tint-orange": [
+      "css-hint",
+      "css-nohint",
+      "sampled",
+      "unsampled-hint",
+      "unsampled-nohint"
+     ],
+     "hc-text__rrect-md__rest": [
+      "css-hint",
+      "css-nohint",
+      "sampled",
+      "unsampled-hint",
+      "unsampled-nohint"
+     ],
+     "mid-dark-solid__capsule-button__rest": [
+      "css-hint",
+      "css-nohint",
+      "sampled",
+      "unsampled-hint",
+      "unsampled-nohint"
+     ],
+     "photo__rrect-lg__rest": [
+      "css-hint",
+      "css-nohint",
+      "unsampled-hint",
+      "unsampled-nohint"
+     ],
+     "photo__rrect-lg__rest-tint-orange": [
+      "css-hint",
+      "css-nohint",
+      "unsampled-hint",
+      "unsampled-nohint"
+     ]
+    },
+    "light": {
+     "checkerboard__rrect-lg__rest": [
+      "css-hint",
+      "css-nohint",
+      "unsampled-hint",
+      "unsampled-nohint"
+     ],
+     "dark-solid__capsule-button__rest-tint-blue": [
+      "css-hint",
+      "css-nohint",
+      "unsampled-hint",
+      "unsampled-nohint"
+     ],
+     "hc-text__capsule-button__rest": [
+      "css-hint",
+      "css-nohint",
+      "sampled",
+      "unsampled-hint",
+      "unsampled-nohint"
+     ],
+     "hc-text__capsule-button__rest-tint-orange": [
+      "css-hint",
+      "css-nohint",
+      "sampled",
+      "unsampled-hint",
+      "unsampled-nohint"
+     ],
+     "hc-text__rrect-md__rest": [
+      "css-hint",
+      "css-nohint",
+      "sampled",
+      "unsampled-hint",
+      "unsampled-nohint"
+     ],
+     "mid-dark-solid__capsule-button__rest": [
+      "css-hint",
+      "css-nohint",
+      "sampled",
+      "unsampled-hint",
+      "unsampled-nohint"
+     ],
+     "photo__rrect-lg__rest": [
+      "css-hint",
+      "css-nohint",
+      "unsampled-hint",
+      "unsampled-nohint"
+     ],
+     "photo__rrect-lg__rest-tint-orange": [
+      "css-hint",
+      "css-nohint",
+      "unsampled-hint",
+      "unsampled-nohint"
+     ]
+    }
+   },
+   "truncated": {
+    "dark": [],
+    "light": []
+   }
+  }
+ },
+ "coverageStops": [],
+ "sampledPathStops": [],
+ "instrumentStops": [
+  "S4 candidate/dark: non-deterministic captures [{'scene': 'checkerboard__toolbar-group__rest', 'arm': 'css-hint', 'repeatNoise': 5.859375e-05}]"
+ ],
+ "sampledPathIdentity": "unmoved",
+ "instrumentRepeatability": "one or more captures are not byte-repeatable",
+ "declaredStopRulings": [
+  {
+   "stop": "S4",
+   "declaredAs": "declaration.md \u00a76: \"Any capture is not byte-repeatable over its two loads, or any capture reports a diagnostic.\" The wording is unscoped, and the same section forbids narrowing a clause after the read.",
+   "tripped": [
+    "S4 candidate/dark: non-deterministic captures [{'scene': 'checkerboard__toolbar-group__rest', 'arm': 'css-hint', 'repeatNoise': 5.859375e-05}]"
+   ],
+   "gateRecommendation": "The gate recommends, and does not rule, that an instrument stop be read as scoped to the arms the bound is stated on: contract X1 makes every measured claim a WebGPU-tier claim and the CSS tier a record, and the capture that tripped this is a record-only CSS arm on one cell, byte-repeatable on every arm the bound touches. That is an argument for a future gate's wording, not a licence to narrow this one's.",
+   "ruling": "Resolved by W27 Decision Log 14 (2026-09-12, user-decided): instrument stop S4 is scoped to the WebGPU arms. The stop as declared contradicted contract X1, which predates it \u2014 X1 makes every measured claim a WebGPU-tier claim and the CSS tier a record \u2014 so the ruling corrects the declaration, not the reading. Nothing measured changes: the eighteen pinned readings are bit-identical to claims \u00a75.131 \u00a76's in the raw float, and the capture that tripped S4 is a record-only CSS arm on one cell. The CSS bistability stays a named residual (claims \u00a75.135 \u00a76 and the tracker), not a closed question.",
+   "resolved": true,
+   "decidedBy": "W27 Decision Log 14",
+   "decidedOn": "2026-09-12"
+  }
+ ]
+}
