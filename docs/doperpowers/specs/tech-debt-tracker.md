@@ -2418,6 +2418,14 @@ clause 3 on `hc-text__rrect-sm__inactive`, where the far anchor IS measured and 
 over-predicts at encoded 0.74 instead of under-predicting at 0.95 — one cause, two schemes, opposite
 symptoms.
 
+*One more ordinate of the same document, measured by the same bed and out of W27c G1c's scope:* the
+dark **thick** row's far entry. `light-solid__rrect-lg__inactive` and `light-solid__rrect-ml__inactive`
+read web **0.09339** against native **0.11753** — §5.130 recorded that ordinate as an extrapolation
+too, and the bed measures it at 0.024 Y away rather than at the thin row's 0.78. W27 Decision Log 17
+scoped this child to the thin row alone, so it was not swept. It is small, it is on the same
+`backdropToneResponseThick` array the thin row's neighbours sit on, and whatever gate opens the
+response next should move it in the same pass rather than in a third.
+
 ## The inactive material under the accessibility policies follows its backdrop where Apple's does not (W27c G2 read, 2026-09-13)
 
 *Measured on the checking bed, claims §5.139 §6. This one is scored: it is both accessibility

@@ -19435,7 +19435,7 @@ identical across two independent page loads.
 | 0.30 | 0.30715 | 0.06136 (9.40×) | — | **refused** |
 | 0.50 | 0.18494 | 0.11586 (17.75×) | — | **refused** |
 | 0.70 | 0.08906 | 0.15621 (23.93×) | — | **refused** |
-| **0.93261** (measured) | **0.00406** | **0.19450 (29.80×)** | 0.13802 (21.1×) | **refused** |
+| **0.93261** (measured) | **0.00406** | **0.19450 (29.80×)** | 0.13802 (3.11×) | **refused** |
 
 The ordinate does exactly what the bed says it should to the cell it is identified on:
 `light-solid__rrect-sm__inactive` goes from body ΔE 0.43179 to **0.00406**, Y 0.16225 → 0.93073
@@ -19557,7 +19557,8 @@ anchor was measured and the curve over-predicts `hc-text` at encoded 0.74 instea
 **Reduce Transparency's remaining failure has a different shape from the one it replaced,** and the
 shape is what matters for what comes next. Before, one cell carried the whole mean; now every cell
 carries a little of it. Vitrea's panel reads 0.98225–1.00000 where the reference reads a flat
-0.95597, so the twelve scored cells run 0.00894–0.01468 with none above 0.0122 of the 0.022 floor.
+0.95597, so the twelve scored cells run 0.00894–0.01468, the worst of them
+(`light-solid__rrect-ml__inactive`) at 0.67× of the 0.022 floor.
 That is the 0.0375 Y the two policies disagree about, distributed: `increasedOcclusionLift` at 0.96
 sits above what Reduce Transparency wants and below what Increase Contrast wants, and no value of one
 shared constant is at both. Clause 4's reported, explicitly non-gating figures are in `verdict.json`.
@@ -19626,6 +19627,14 @@ Whether 0.92 would have carried that profile's twelve-cell clause 2 is **not mea
 applied once, to the configuration the declared rule selected, and scoring a second configuration
 would be shopping for one. A later fit on this fold should either weight its objective by the scored
 population or say why it does not.
+
+**One correction to this section, made before the independent review's findings landed and recorded
+rather than made silently.** §3's table first gave `photo__capsule-button__inactive` at the measured
+ordinate as **21.1×** its baseline; it is **3.11×** (0.04440 → 0.13802 at 1x, 0.04726 → 0.13936 at
+2x). The ratio had been divided by `checkerboard`'s baseline rather than `photo`'s own. Both readings
+it divides are committed in `fit-t1.json` and are unchanged, the refusal turns on `checkerboard`'s
+29.80× and not on this cell, and the wrong ratio also stands in commit `01fe508c`'s message, which is
+left as written.
 
 **Verification record.** `pnpm -r build && pnpm -r lint && pnpm -r test` green at the fit's head:
 2,025 unit tests (policy 23, motion 164, geometry 170, renderer 465, core 302, platform-web 552,
