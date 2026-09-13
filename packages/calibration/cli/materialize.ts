@@ -86,6 +86,8 @@ interface RunSnapshot {
   readonly dir: string;
   /** `profileKey/sceneId` → the manifest entry that run recorded for it. */
   readonly entries: Map<string, Record<string, unknown>>;
+  /** `background@Nx` → the path the run recorded for the raster it composited. */
+  readonly backgrounds: Record<string, string>;
 }
 
 function loadRun(label: string, dir: string): RunSnapshot {
@@ -95,6 +97,7 @@ function loadRun(label: string, dir: string): RunSnapshot {
   }
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as {
     profiles?: { profileKey?: string; fixtures?: { sceneId?: string }[] }[];
+    backgrounds?: Record<string, string>;
   };
   const entries = new Map<string, Record<string, unknown>>();
   for (const profile of manifest.profiles ?? []) {
@@ -102,7 +105,7 @@ function loadRun(label: string, dir: string): RunSnapshot {
       entries.set(`${profile.profileKey}/${fixture.sceneId}`, fixture as Record<string, unknown>);
     }
   }
-  return { label, dir, entries };
+  return { label, dir, entries, backgrounds: manifest.backgrounds ?? {} };
 }
 
 const sha = (bytes: Uint8Array): string => createHash("sha256").update(bytes).digest("hex");
@@ -371,8 +374,95 @@ function main(): void {
   const manifestPath = resolve(FIXTURES, "manifest.json");
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as {
     profiles?: { profileKey?: string; fixtures?: { sceneId?: string }[] }[];
+    backgrounds?: Record<string, string>;
   };
   const rerolled: string[] = [];
+  /*
+   * The backdrop index, carried forward with the cells.
+   *
+   * A fixture is a component over a raster, and the manifest's `backgrounds` map
+   * is the only place the bundle says which raster. Publishing cells over a
+   * background the bundle has never seen therefore leaves fixtures whose backdrop
+   * nothing can name — and the calibration page refuses such a scene outright, so
+   * the bed publishes and then cannot be read. That is how W27c's `mid-chroma-solid`
+   * was found missing (claims §5.139).
+   *
+   * Three things have to agree, and the tool establishes all three across every
+   * run before it writes anything. The raster a run declares must be in the run,
+   * because a cell whose backdrop was never snapshotted cannot be filed under one.
+   * The PATH must agree with the index where the index already has the id: the
+   * fixtures already filed under it were drawn over the raster the index names, so
+   * re-pointing the id at a different file would misattribute them, and a
+   * disagreement is a stop rather than a repair. And the BYTES must agree — the
+   * copy in the bundle, at the path the index gives, against every run's copy.
+   *
+   * Validating everything first is what makes the failure clean. Interleaving the
+   * checks with the copies would let a later id's stop leave earlier rasters in the
+   * fixture root that no index entry names, which is the half-published bed this
+   * tool's whole staging discipline exists to prevent.
+   */
+  interface BackgroundPlan {
+    /** Where the bundle files this raster: the index's path if it has one. */
+    readonly path: string;
+    readonly from: string;
+    readonly sha256: string;
+    readonly declaredBy: string;
+  }
+  const plan = new Map<string, BackgroundPlan>();
+  for (const run of runs) {
+    for (const [id, path] of Object.entries(run.backgrounds)) {
+      const fromRun = resolve(run.dir, path);
+      if (!existsSync(fromRun)) {
+        throw new Error(
+          `background ${id}: run ${run.label} records it at ${path} and did not snapshot it. ` +
+            `Snapshot the whole run, its rasters included — the cells beside it have no backdrop.`,
+        );
+      }
+      const digest = sha(readFileSync(fromRun));
+      const indexed = manifest.backgrounds?.[id];
+      if (indexed !== undefined && indexed !== path) {
+        throw new Error(
+          `background ${id}: the bundle indexes it at ${indexed} and run ${run.label} composited ` +
+            `over ${path}. The fixtures already filed under this id were drawn over the indexed ` +
+            `raster, so re-pointing the id would file them under one they were never drawn on.`,
+        );
+      }
+      const seen = plan.get(id);
+      if (seen !== undefined && seen.path !== path) {
+        throw new Error(
+          `background ${id}: run ${seen.declaredBy} composited over ${seen.path} and run ` +
+            `${run.label} over ${path}. The runs are not comparable and their cells cannot ` +
+            `share one index entry.`,
+        );
+      }
+      if (seen !== undefined && seen.sha256 !== digest) {
+        throw new Error(
+          `background ${id}: runs ${seen.declaredBy} and ${run.label} composited over different ` +
+            `bytes at the same path. The runs are not comparable.`,
+        );
+      }
+      // The bytes compared are the ones at the INDEXED path, which is what the
+      // fixtures already in the bundle were drawn over.
+      const inBundle = resolve(FIXTURES, indexed ?? path);
+      if (existsSync(inBundle) && sha(readFileSync(inBundle)) !== digest) {
+        throw new Error(
+          `background ${id}: the bundle's raster at ${indexed ?? path} is not the one run ` +
+            `${run.label} composited over. Publishing the cells beside it would file them under ` +
+            `a backdrop they were not drawn on.`,
+        );
+      }
+      plan.set(id, { path: indexed ?? path, from: fromRun, sha256: digest, declaredBy: run.label });
+    }
+  }
+  const backgroundsAdded: string[] = [];
+  for (const [id, raster] of [...plan].sort(([a], [b]) => a.localeCompare(b))) {
+    const inBundle = resolve(FIXTURES, raster.path);
+    if (!existsSync(inBundle)) copyFileSync(raster.from, inBundle);
+    if (manifest.backgrounds?.[id] === undefined) {
+      (manifest.backgrounds ??= {})[id] = raster.path;
+      backgroundsAdded.push(id);
+    }
+  }
   for (const p of publish) {
     copyFileSync(p.from, resolve(FIXTURES, p.profile, `${p.scene}.png`));
     const profile = manifest.profiles?.find((m) => m.profileKey === p.profile);
@@ -396,17 +486,25 @@ function main(): void {
   // The bed's own provenance. "Unanimous" is a claim about how hard anyone
   // looked, so the run count and what it buys travel with the bytes.
   const settledEntries = publish.filter((p) => p.entry["frequencySettled"] === true);
-  // Accumulated, not replaced: the bed is materialised one phase at a time
-  // (each phase's runs cover only its own profiles), so a provenance block that
-  // overwrote itself would leave the finished bed claiming to have been built
-  // from whichever phase happened to run last.
+  // Accumulated, not replaced: the bed is materialised one phase at a time, so a
+  // provenance block that overwrote itself would leave the finished bed claiming
+  // to have been built from whichever phase happened to run last.
   const provenanceHost = manifest as unknown as { bedProvenance?: unknown[] };
   const priorProvenance = Array.isArray(provenanceHost.bedProvenance) ? provenanceHost.bedProvenance : [];
+  const publishedCells = publish.map((p) => `${p.profile}/${p.scene}`).sort();
   const thisPhase = {
     profiles: profiles.slice().sort(),
     runs: runs.length,
     runLabels: runs.map((r) => r.label),
     cellsPublished: publish.length,
+    /*
+     * What this phase published, as a digest: the sorted `profile/scene` list, one
+     * per line, hashed. The list itself is not carried because it is 156 names for
+     * a single phase of W27c's bed and the manifest is already the largest file in
+     * the bundle, while the only question the block has to answer — is that prior
+     * block THIS phase — a digest answers exactly.
+     */
+    cellsSha256: sha(new TextEncoder().encode(publishedCells.join("\n"))),
     unanimousOrVoted: publish.length - settledEntries.length,
     frequencySettled: settledEntries.length,
     frequencySettledCells: settledEntries.map((p) => `${p.profile}/${p.scene}`).sort(),
@@ -424,10 +522,66 @@ function main(): void {
       atP0_10: Number(confidenceAt(runs.length, 0.1).toFixed(4)),
     },
   };
+  /*
+   * A phase is identified by its profiles, its run labels, how many cells it
+   * published AND which cells those were — not by its profiles alone.
+   *
+   * Keying on the profiles was right while each phase was the only publication
+   * its profiles had ever had, and it made re-running the same command
+   * idempotent. It is wrong as soon as a second phase publishes DIFFERENT cells
+   * into profiles an earlier phase already filled: W27c's 26.5 checking bed adds
+   * 62 probe cells to the two 2x standard profiles that the frozen bed built at
+   * the seventeen-run freeze bar, and dropping by profile set would have deleted
+   * the record of how the 455 cells already in the bundle were taken (claims
+   * §5.139). The bed would then have claimed seven runs for bytes that had
+   * seventeen.
+   *
+   * Profiles, labels and count are still not enough. Run labels are generic
+   * (`run-1`…`run-7` is what every sitting calls its runs), so two sittings that
+   * publish different scenes into the same profiles at the same count collide —
+   * and the collision deletes a block whose fixtures are still in the bed, which
+   * is the exact failure this key exists to prevent. `cellsSha256` closes it: the
+   * identity now names WHICH cells, so only a phase that published the same ones
+   * replaces the earlier record of them.
+   */
+  const phaseKey = (p: unknown): unknown[] => {
+    const block = p as {
+      profiles?: unknown;
+      runLabels?: unknown;
+      cellsPublished?: unknown;
+      cellsSha256?: unknown;
+    };
+    return [block.profiles, block.runLabels, block.cellsPublished, block.cellsSha256 ?? null];
+  };
+  const phaseIdentity = (p: unknown): string => JSON.stringify(phaseKey(p));
+  /*
+   * The migration, and the one place the weaker key is still used.
+   *
+   * A block written before `cellsSha256` existed cannot be matched on it. Keeping
+   * every such block unconditionally would leave the bundle carrying two records
+   * of the same publication, differing only in that one names its cells — a bed
+   * that looks like it was published twice. So a prior block WITHOUT the digest
+   * is superseded when the other three parts agree, which is the identity that
+   * wrote it, and one WITH the digest is matched on all four.
+   *
+   * What that costs is bounded and worth naming: on a bed whose blocks predate
+   * the digest, two genuinely different phases with the same profiles, labels and
+   * count would still collide once. Nothing can distinguish them — the older block
+   * does not say what it published — and after this run every block does.
+   */
+  const legacyIdentity = (p: unknown): string => JSON.stringify(phaseKey(p).slice(0, 3));
+  const superseded = (p: unknown): boolean =>
+    (p as { cellsSha256?: unknown }).cellsSha256 === undefined &&
+    legacyIdentity(p) === legacyIdentity(thisPhase);
+  const supersededCount = priorProvenance.filter(superseded).length;
+  if (supersededCount > 0) {
+    process.stdout.write(
+      `  provenance: ${supersededCount} earlier block(s) for these profiles, run labels and cell ` +
+        `count predate cellsSha256 and are superseded by this phase's, which names its cells.\n`,
+    );
+  }
   provenanceHost.bedProvenance = [
-    ...priorProvenance.filter(
-      (p) => JSON.stringify((p as { profiles?: unknown }).profiles) !== JSON.stringify(thisPhase.profiles),
-    ),
+    ...priorProvenance.filter((p) => phaseIdentity(p) !== phaseIdentity(thisPhase) && !superseded(p)),
     thisPhase,
   ];
   const split = (JSON.parse(readFileSync(SCENES, "utf8")) as { split?: Record<string, unknown> }).split ?? {};
@@ -438,6 +592,7 @@ function main(): void {
     }
   }
   for (const line of rerolled) process.stdout.write(`  re-rolled ${line}\n`);
+  for (const id of backgroundsAdded.sort()) process.stdout.write(`  background ${id} added to the index\n`);
   writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
   process.stdout.write(
     `\nbed materialised: ${publish.length} cell(s) written with their own run's manifest entry` +
