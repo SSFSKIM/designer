@@ -1,0 +1,130 @@
+{
+  "gate": "W27c G1c / claims §5.141",
+  "kind": "declaration — nothing has been fitted, captured or read when this file lands",
+  "declaredOn": "2026-09-13",
+  "authority": "W27 Decision Log 17 (2026-09-13): the two model-form terms named in claims §5.139 §6 are fitted on the published bed with a partition and a holdout declared before the fit, the bound of §5.134 §6 is re-applied once on the new configuration, and no floor is adopted (Decision Log 13's probe bar stands).",
+  "$comment": [
+    "This file is the partition, and only the partition. It is committed before any",
+    "number this child has not already read in claims §5.139 is looked at: every cell",
+    "below is chosen from the bed's structure — which profile declares which scene, at",
+    "which span, over which backdrop, in which of the bed's five groups — and from the",
+    "readings §5.139 §6 already published. No matrix cell was opened to select it.",
+    "",
+    "Two terms are in scope and nothing else (W27 Decision Log 17). §5.139 §7's active",
+    "chroma finding is a later wave's; residual (a)'s middle response ordinate is",
+    "`bed`, its arm A3 is declared and unrun, and it is NOT moved here even though the",
+    "same bed now measures it."
+  ],
+
+  "objective": {
+    "metric": "equal-cell mean full-canvas per-pixel OKLab ΔE, the fitting objective of §5.130 §1, with the declared union 6-CSS-px-eroded body ΔE, body linear Rec.709 Y mean and body population SD published beside it per cell",
+    "tier": "WebGPU, and only WebGPU (contract X1). The CSS tier's derivation is captured beside the result for the record and gates nothing.",
+    "selection": "on the calibration cells of a term and on nothing else. Controls are read before and after and may refuse a form; they are not minimised over. Holdout is read once, at the end, on the frozen result, and no constant moves after it."
+  },
+
+  "terms": [
+    {
+      "id": "T1",
+      "name": "the dark thin response over a bright backdrop",
+      "reading": "claims §5.139 §6: `light-solid__capsule-button__inactive` in dark reads web 0.15637 / native 0.93261, body ΔE 0.43838, and `light-solid__rrect-sm__inactive` 0.16225 / 0.93261, body ΔE 0.43179 — the two largest readings on the bed. At thick span the same backdrop reads 0.09339 / 0.11753, so it is the thin row alone. §5.130's table recorded the dark `backdropToneResponseThin` far ordinate as an extrapolation of a selected family, not a measured bright-background level.",
+      "constantInScope": "packages/platform-web/src/receded-profile.ts, the DARK entry's `backdropToneResponseThin[2]` — the ordinate at `backdropToneAnchorX[2]` = 0.9505, which is `light-solid`'s own encoded-space mean. Nothing else in that entry, and nothing in the light entry.",
+      "calibration": {
+        "cells": [
+          "apple-macos-26.5-1x-dark-standard/light-solid__rrect-sm__inactive",
+          "apple-macos-26.5-2x-dark-standard/light-solid__rrect-sm__inactive"
+        ],
+        "why": "span 32 is `sizeSpanMin`, where `sizeThickness` is exactly 0 and the response's thin row is evaluated with no admixture of the thick row at all. It is therefore the one span on the bed at which the thin far ordinate is identified alone. Both scales, because §5.128 §5 binds every estimate to the scale it was measured at and the ordinate is not scale-indexed. Group A, supplying — the fit spends no checking cell for this term."
+      },
+      "controls": {
+        "cells": [
+          "apple-macos-26.5-{1x,2x}-dark-standard/mid-dark-solid__rrect-sm__inactive",
+          "apple-macos-26.5-{1x,2x}-dark-standard/dark-solid__rrect-sm__inactive",
+          "the recovered dark thin cells over `checkerboard` and `photo` in §5.130's own bed, read NATIVE-ONLY out of the committed fixtures"
+        ],
+        "why": "the far ordinate is not a local constant. `backdropToneResponseLevel` interpolates monotonically (Fritsch–Carlson) through three knots, so moving the third moves the derivative at the second and reshapes the whole curve above `backdropToneAnchorX[1]`. Every dark thin cell over a backdrop whose encoded mean lies between 0.2706 and 0.9505 moves with it. The two solid anchors' own thin cells hold the curve's lower end; the structured dark thin cells are where a raised far ordinate would be paid for, and they are §5.130 calibration ids, so reading them costs nothing and they can bound nothing. They are a REFUSAL instrument, not a fitting input: if the one-parameter family cannot hold the calibration cell and the controls together, the form is refused and reported, not compromised into a joint minimum.",
+        "spend": "none. The recovered-fixture readings are native-only where they are outside this bed, and the bed's own control cells are supplying (group A)."
+      },
+      "holdout": {
+        "cells": [
+          "apple-macos-26.5-1x-dark-standard/light-solid__capsule-button__inactive",
+          "apple-macos-26.5-2x-dark-standard/light-solid__capsule-button__inactive"
+        ],
+        "why": "span 44 on the same backdrop, one rung up the thickness ramp: `sizeThickness(44)` is 0.0923, so the response mixes 2.4% of the thick row in. It is the cell that says whether one ordinate fitted where the thin row stands alone predicts a cell where it does not. Group E, and in the DARK scheme it has no recovered fixture at all (§5.139 §4), so no fit has ever selected on it.",
+        "whatItIsAndIsNot": "its NATIVE ordinate is already published (§5.139 §6, 0.93261), so this holdout is not a check against an unseen reference. It is a check of the fitted FORM's prediction on a cell the fit did not select on. The cells whose vitrea-against-native distance has never been read at all are the bound's own checking set, which this term's fit does not touch.",
+        "readOnce": "after the configuration is frozen, once, with no constant permitted to move in response."
+      },
+      "notTouchedAndScoredByTheBound": [
+        "apple-macos-26.5-{1x,2x}-dark-standard/hc-text__rrect-sm__inactive — span 32, a structured bright backdrop, group D",
+        "apple-macos-26.5-{1x,2x}-dark-standard/checkerboard-lc16__capsule-button__inactive — span 44, group D",
+        "apple-macos-26.5-{1x,2x}-dark-standard/light-solid__rrect-ml__inactive — span 128, above `sizeSpanMax`, so the thin row does not reach it at all"
+      ]
+    },
+
+    {
+      "id": "T2",
+      "name": "the accessibility recede's occlusion",
+      "reading": "claims §5.139 §6: over `dark-solid` under Increase Contrast the reference is an opaque near-white panel at every span — 0.99445 at span 48, 0.9937 at 80, 0.9935 at 96 — while vitrea follows the backdrop down at the thin end, 0.58408 at span 48 recovering to 0.9560 by span 80, and 0.53328 under Reduce Transparency. §5.130 fitted `increasedOcclusionLift` on 1x light accessibility bodies and recorded that their different native levels are not fully expressible by this shared policy fold; the fold misses by 0.41 Y, in the direction that defeats the setting.",
+      "constantsInScope": "packages/platform-web/src/receded-profile.ts, the LIGHT entry's accessibility fold — `increasedOcclusionLift`, and whichever other EXISTING profile-document field the cells show the occlusion regime actually needs. No field is added to `MaterialProfile`: a fit moves the profile documents and nothing else. The dark entry carries no accessibility field (§5.130 §6) and gains none here.",
+      "whyThisTermCostsACheckingCell": [
+        "The two accessibility profiles declare 14 of the bed's ids and 12 of them are group D — the checking set. The bed has no supplying cell under either accessibility policy: groups A, B and C are declared on the four standard profiles only, and group E's two accessibility ids are §5.130 calibration ids over structured backdrops.",
+        "So there is no partition of this term that leaves the bound's scoring population untouched. The choice is between fitting the term on one scored cell per policy and refusing to fit it at all, and W27 Decision Log 17 rules that it is fitted.",
+        "The cost is therefore declared here, before the fit, rather than discovered in the verdict: after this fit the bound's clauses 2 and 3 on `apple-macos-26.5-1x-light-increased-contrast` and `apple-macos-26.5-1x-light-reduced-transparency` are NO LONGER an unspent check on `dark-solid__rrect-48__inactive`. The bound is still applied exactly as §5.134 §6 declares it — not narrowed, not re-scoped, not re-declared — and the verdict names the spend beside the profile it touches. The other eleven checking cells in each accessibility profile stay unspent, and the four standard profiles' checking sets are untouched by this term."
+      ],
+      "calibration": {
+        "cells": [
+          "apple-macos-26.5-1x-light-increased-contrast/dark-solid__rrect-48__inactive",
+          "apple-macos-26.5-1x-light-reduced-transparency/dark-solid__rrect-48__inactive"
+        ],
+        "why": "span 48 is the thin end where the fold misses by 0.41 Y, and `dark-solid` is the uniform backdrop that makes the miss a level reading rather than a structure reading. One cell per policy because macOS force-couples Increase Contrast with Reduce Transparency: both profiles resolve `occlusion: increased` from the SAME flag, and they differ only in `ambientTint`, which enters the same product. Two cells is the smallest set that identifies whether the two policies need one number or two."
+      },
+      "controls": {
+        "cells": [
+          "apple-macos-26.5-1x-light-increased-contrast/{checkerboard,photo}__rrect-md__inactive",
+          "apple-macos-26.5-1x-light-reduced-transparency/{checkerboard,photo}__rrect-md__inactive"
+        ],
+        "why": "these four are §5.130's own '1x light accessibility body controls' — the cells the 0.92 was fitted on, calibration ids that can bound nothing, so reading them adds no spend. They are the term's refusal instrument: they decide whether the reference's accessibility panel is backdrop-INDEPENDENT. A form that takes the recede to opacity is right only if the reference reads the same level over a structured backdrop as over `dark-solid`; if it does not, the cells refuse an occlusion floor and the term is reported rather than fitted."
+      },
+      "holdout": {
+        "cells": [
+          "apple-macos-26.5-1x-light-increased-contrast/dark-solid__rrect-80__inactive",
+          "apple-macos-26.5-1x-light-reduced-transparency/dark-solid__rrect-80__inactive"
+        ],
+        "why": "the same backdrop one rung up the span ladder, where the reference reads 0.9937 and vitrea already reaches 0.9560 without any change. If the term's form is right the residual there is small and span-independent; if the form has merely bought the thin end at the thick end's expense, this is the cell that says so. It is a group D checking cell and its vitrea-against-native distance is published in §5.139's matrix, so — like T1's holdout — it checks the fitted form's prediction, not an unseen reference.",
+        "readOnce": "after the configuration is frozen, once, with no constant permitted to move in response."
+      },
+      "notTouchedAndScoredByTheBound": [
+        "the remaining ten group D ids in each accessibility profile — the four `hc-text` cells, the three `checkerboard*` cells, `light-solid__rrect-ml__inactive`, `dark-solid__rrect-md-clear20__inactive` and `checkerboard__rrect-ml__inactive`"
+      ]
+    }
+  ],
+
+  "whatIsNotPartitionedBecauseItIsNotFitted": [
+    "residual (a), the middle dark response ordinate: the bed measures it (§5.139 §5 (a)) and it is classified `bed`, arm A3, declared and unrun. Not this child's.",
+    "residual (b), the pitch × span scatter surface (§5.139 §5 (b)).",
+    "residuals (c)/(e), chroma transfer — §5.139 §7 shows the deficit is the ACTIVE material's, and the active material is not touched here.",
+    "the dark THICK response over a bright backdrop, which the same bed measures at 0.09339 web / 0.11753 native. W27 Decision Log 17 and the brief scope T1 to the thin row alone; the thick residual is recorded as a gap, not fitted.",
+    "the light scheme's response, every scatter constant, every tint field, and both active documents."
+  ],
+
+  "stops": [
+    "a renderer golden PNG or an isolation hash moves — goldens re-record only behind the isolation proof and that is not this child's; the run stops and reports",
+    "either active document's resolved SHA-256 or recorded fingerprint moves, or any active cell of the canonical matrix moves",
+    "a form the cells support needs a field `RendererMaterialProfile` does not already carry, or an array length it does not already have — the form is refused and reported, and no field is added",
+    "a capture row that fails the frozen instrument's integrity refusals: geometry disagreement, non-empty `problems`, a demoted tier, a fallback adapter, a native fixture without its inactive-presentation attestation, or native bytes that do not hash to the sitting's plurality",
+    "the machine's Reduce Transparency or Increase Contrast setting is on when a browser capture runs — the suites inherit it and a capture taken under it is not evidence"
+  ],
+
+  "writes": {
+    "mayMove": [
+      "packages/platform-web/src/receded-profile.ts — the inactive difference documents, and only the two terms' fields",
+      "the derived hashes that follow: the frozen declaration's inactive resolved SHA-256s are superseded by this child's own declaration file, beside them, never over them"
+    ],
+    "mustNotMove": [
+      "packages/renderer-webgpu/src/material.ts and its WGSL — no new field, no new default",
+      "packages/calibration/profiles/*.json — the ACTIVE documents and their `resolvedMaterialSha256`",
+      "any renderer golden or isolation hash",
+      "apps/reference-apple/fixtures — the bed's 38 + 4 ids stay `probe` in scenes.json",
+      "packages/calibration/results/matrix.json's active rows, which stay byte-identical"
+    ]
+  }
+}
