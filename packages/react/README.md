@@ -531,8 +531,8 @@ The properties it publishes, on every host, on **both** tiers:
 
 | Property | What it carries |
 | --- | --- |
-| `--vitrea-foreground` | The ink the runtime resolved as readable on the material this group is drawing. |
-| `--vitrea-foreground-secondary` | The same ink, reduced — Apple's `secondaryLabel`. Holds WCAG 4.5 against this surface. |
+| `--vitrea-foreground` | The ink the runtime resolved as readable on the material this group is drawing — Apple's automatic label colour through its vibrancy operator, so `rgb(0 0 0 / 0.847059)` over a bright surface and `rgb(255 255 255 / 0.804706)` over a dark one. |
+| `--vitrea-foreground-secondary` | The same ink, reduced — Apple's `secondaryLabel`. Holds WCAG 4.5 against this surface wherever the primary can. |
 | `--vitrea-foreground-tertiary` | Apple's `tertiaryLabel`. Supporting text; below the body-text floor. |
 | `--vitrea-foreground-quaternary` | Apple's `quaternaryLabel`. Separators and decoration; **not** for text. |
 | `--vitrea-tint` | The tint colour, with its alpha. |
@@ -554,23 +554,64 @@ that published nothing degrades to your design rather than to nothing:
 
 ### What the four ink levels guarantee, and what they do not
 
-Apple names four label levels and gives them fixed alphas — 60%, 30%, 18% of the
-label colour. Those numbers are calibrated against the platform's *background*,
-which is essentially white, and glass never is: 60% of vitrea's dark ink reaches
-WCAG's 4.5 body-text floor over an encoded level of 1.0 and only 3.21 over the
-shipped regular material's darkest. So vitrea does not copy them flat.
+Apple names four label levels and gives each a fixed alpha, and vitrea publishes
+**macOS's** four rather than iOS's — this is a runtime replicating macOS's
+material, so it publishes macOS's ladder. The two poles are not symmetric, so
+there is one number per level *per pole* rather than one per level:
+
+| Level | Dark ink, over a bright surface | Light ink, over a dark surface |
+| --- | --- | --- |
+| primary | 0.847059 | 0.804706 |
+| secondary | 0.498039 | 0.521569 |
+| tertiary | 0.258824 | 0.234706 |
+| quaternary | 0.098039 | 0.093137 |
+
+Where those come from, because it explains both the colour and the asymmetry.
+Apple's labels do not draw their own colour on glass: a `vibrantColorMatrix` sits
+on the label inside the `glassEffect`, and both of its poles offset every colour
+channel by a whole unit against the filter's clamp, so the operator *saturates* —
+nothing of the input colour survives it and the only thing the label contributes
+is its alpha. That is why vitrea's ink is pure black and pure white rather than a
+hex. The lightening pole additionally scales alpha by 0.95, and that one
+coefficient is the whole of the right-hand column above: it is macOS's
+dark-appearance ladder (0.549020, 0.247059, 0.098039) times 0.95, and 0.804706 is
+0.847059 times it.
+
+The four alphas themselves are documentation-sourced, and are published as such.
+Apple publishes no component values for `labelColor` and its three siblings and
+says not to hard-code them, so these are third-party measurements — four of them
+agreeing exactly, and unchanged from macOS 11 through macOS 26.5.
+
+Every one of those numbers is calibrated against the platform's own *opaque*
+backgrounds, and glass is never one. So vitrea does not publish them flat.
 
 - **`--vitrea-foreground-secondary` holds 4.5** against the colour this surface
   is actually drawing — the composite, not a grey of the same brightness, so a
   saturated tint is measured against the tint. Where the backdrop is not known
   the floor is solved against both ends of the range the surface can reach and
   the harder answer taken, so the guarantee does not depend on which backdrop
-  turns up. It is Apple's 60% wherever that already clears the floor — most of
-  the dark appearance — and raised where it does not. On a surface whose
-  *primary* ink cannot hold 4.5 either, secondary collapses onto the primary:
-  there is no second readable level there, and publishing one would be a lie
-  your users would find before you did. Secondary is therefore never worse than
-  primary, and holds 4.5 wherever primary can.
+  turns up. It is Apple's own alpha wherever that already clears the floor and
+  raised where it does not — as far as the *primary's* own alpha and no further,
+  which is 0.847059 or 0.804706 rather than opaque. In practice Apple's number
+  survives unraised only over dark surfaces below an encoded level of about 0.19:
+  over a bright one the black ink at 0.498039 never reaches 4.5 through this much
+  translucency, so it is always raised there. On a surface whose *primary* ink
+  cannot hold 4.5 either, secondary collapses onto the primary: there is no
+  second readable level there, and publishing one would be a lie your users would
+  find before you did. Secondary is therefore never worse than primary, and holds
+  4.5 wherever primary can.
+- **There is a band of surfaces where neither ink carries body text, and Apple's
+  alpha widened it.** A translucent primary costs contrast on both poles, so the
+  range of surface levels over which neither the black ink nor the white one
+  reaches 4.5 has grown from an encoded [0.4425, 0.5145], where an opaque primary
+  left it, to [0.3935, 0.4900]. A surface that lands in there gets a primary that
+  misses the floor and a secondary collapsed onto it, and the runtime will not
+  pretend otherwise. Three things move a surface out of the band: hint the
+  group's backdrop, so the ink is decided against the level the surface really
+  has rather than against the hardest one its bracket could reach; pick a thicker
+  or a less clear variant, so more of what the glyphs sit on is the material's
+  own; or author the colour yourself, which is a right an application rule naming
+  the host keeps — see below.
 - **Tertiary and quaternary carry no floor.** They are Apple's supporting and
   decorative tiers, they are not body text, and lifting them to 4.5 would
   collapse the whole scale onto one value. Use tertiary for text a reader may
@@ -585,17 +626,30 @@ shipped regular material's darkest. So vitrea does not copy them flat.
 
 All four are on one surface in the playground's tint-and-ink band, over both
 grounds. What the band makes visible is the part the list above states without
-showing: secondary is a *solved* level, so the two grounds publish two different
-alphas for one declaration, while tertiary and quaternary are the platform's
-fixed numbers on both.
+showing: secondary is a *solved* level, so the two grounds can publish an alpha
+that appears in neither pole's ladder, while tertiary and quaternary are Apple's
+own numbers untouched — which is still two different numbers across the two
+grounds, because the poles are not symmetric.
+
+**The ink transits rather than snapping.** A surface whose own level drifts
+across the point where the two poles trade places does not flip its text colour
+on the frame it crosses: the published ink crossfades over 180 ms through a
+0.08-wide dead band, so a backdrop wandering back and forth over that point
+cannot pump the label. Mid-transit the token holds a premultiplied mix of the two
+poles, which is exactly what `color-mix(in srgb, …)` produces — the value the
+platform itself would have interpolated had the custom property been registered
+as a `<color>`.
 
 **Your own `color` rule on the host wins.** The runtime's ink reaches the host
-through a single zero-specificity rule (`:where([data-vitrea-node])`) installed
-first in the document's `<head>`, so any selector of yours that names the
-element — a class, an id, an attribute, a tag — overrides it, and so does an
-equally weak one by source order. Up to 0.1.1 the ink was written as an inline
-`color` instead, which meant an application rule on a glass host parsed,
-cascaded, and silently never applied; that is fixed.
+through a static rule that resolves `--vitrea-foreground`, installed first in the
+document's `<head>` — and never as an inline style, which is what it was up to
+0.1.1 and which meant an application rule on a glass host parsed, cascaded, and
+silently never applied. On most surfaces that rule is `:where([data-vitrea-node])`
+at specificity (0,0,0), so any selector of yours that names the element — a class,
+an id, an attribute, a tag — overrides it, and so does an equally weak one by
+source order. On vitrea's own controls it is `[data-vitrea-vibrant]` at (0,1,0)
+instead, which a class or an id of yours still beats. The section below is why
+there are two of them, and how to choose.
 
 Two properties the runtime does own outright, and which you should style around
 rather than on:
@@ -603,6 +657,39 @@ rather than on:
 - **`background`** on the host — the CSS tier writes the shorthand every frame,
   so a `background-image` of yours is clobbered. Put it on a pseudo-element.
 - **`transform`** on the host, while a press or a morph is running.
+
+### Who owns the label: `foreground`
+
+`GlassSurface`'s `foreground` prop — and the same prop on `GlassButton`,
+`GlassIconButton` and `GlassSegmentedControl` — carries two different kinds of
+answer. An object is the **cadence**: `{ mode: "fixed" | "author-hint" |
+"sampled-async" }`, how the surface reads the backdrop its ink is decided
+against. Two strings are the **ownership** of the label:
+
+- **`foreground="vibrant"`** says this label is vitrea's. It changes no colour:
+  the published token already *is* the vibrancy operator's output, because the
+  operator carries no backdrop term, which is what lets vitrea fold it into a
+  colour rather than install a `filter` over your subtree. What it changes is the
+  specificity the runtime's `color` declaration lands at — `[data-vitrea-vibrant]`
+  (0,1,0) rather than `:where([data-vitrea-node])` (0,0,0) — so the ink survives a
+  reset sheet's `button { color: … }` or a `* { color: … }`, which is the class of
+  rule that was quietly taking vitrea's own control labels away from it.
+- **`foreground="token"`** hands ownership back, for a control whose content your
+  app owns outright.
+
+`GlassButton`, `GlassIconButton` and `GlassSegmentedControl` default to
+`"vibrant"`, because vitrea wrote those labels. A bare `GlassSurface asChild` does
+not: it holds whatever you put in it, so the operator is an opt-in there.
+
+**A rule of yours that names the element wins on either path**, and that is the
+intended behaviour rather than a shortfall. Apple installs the operator on the
+*automatic* label colour and leaves a label that names its own colour alone, so a
+class or an id of yours beating (0,1,0) — and a tag beating (0,0,0) — is vitrea
+doing what the reference does.
+
+One limitation to design around: the two axes share one prop, so a surface cannot
+ask for `sampled-async` **and** `"vibrant"` at once. Passing an adaptation object
+leaves the label on the token path. Fixing that is additive, and it is tracked.
 
 ---
 

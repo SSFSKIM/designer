@@ -12,6 +12,7 @@ import {
   foregroundLevelInks,
   hintedBackdropLuminance,
   CSS_TIER_TOKENS,
+  FOREGROUND_INK,
   FOREGROUND_LEVELS,
   type CssTierLayer,
   type CssTierRender,
@@ -59,6 +60,7 @@ import {
   type MaterialSourceSize,
   type PolicyFoldConstants,
 } from "../src/optics";
+import { VIBRANT_INK_CHANNELS, VIBRANT_LEVEL_ALPHA } from "../src/vibrancy";
 
 /**
  * The optics `root.ts` hands this tier, for one source under one regime and one
@@ -722,10 +724,10 @@ describe("the CSS tier (the fallback is the design)", () => {
       });
 
       // Opaque enough that the tint is what the text sits on.
-      expect(regular["--vitrea-foreground"]).toBe("#1c1c1e");
+      expect(regular["--vitrea-foreground"]).toBe(FOREGROUND_INK.dark);
       expect(regular["--vitrea-foreground"]).not.toContain("light-dark");
       // Transparent enough that the dark backdrop is.
-      expect(clear["--vitrea-foreground"]).toBe("#f5f5f7");
+      expect(clear["--vitrea-foreground"]).toBe(FOREGROUND_INK.light);
     });
 
     it("prefers the hint's own luminance over the tone's coarse reading", () => {
@@ -743,8 +745,8 @@ describe("the CSS tier (the fallback is the design)", () => {
         foreground: { mode: "author-hint", tone: "dark", luminance: 0.45 },
       });
 
-      expect(coarse["--vitrea-foreground"]).toBe("#f5f5f7");
-      expect(declared["--vitrea-foreground"]).toBe("#1c1c1e");
+      expect(coarse["--vitrea-foreground"]).toBe(FOREGROUND_INK.light);
+      expect(declared["--vitrea-foreground"]).toBe(FOREGROUND_INK.dark);
     });
 
     it("gives a group hinted with a light backdrop the explicit dark foreground token", () => {
@@ -753,7 +755,7 @@ describe("the CSS tier (the fallback is the design)", () => {
         foreground: { mode: "author-hint", tone: "light" },
       });
 
-      expect(host["--vitrea-foreground"]).toBe("#1c1c1e");
+      expect(host["--vitrea-foreground"]).toBe(FOREGROUND_INK.dark);
     });
 
     /*
@@ -772,7 +774,7 @@ describe("the CSS tier (the fallback is the design)", () => {
       const unhinted = cssTierDeclarations(surface);
       const noHintAvailable = cssTierDeclarations({ ...surface, foreground: { mode: "fixed" } });
 
-      expect(unhinted.host["--vitrea-foreground"]).toBe("#1c1c1e");
+      expect(unhinted.host["--vitrea-foreground"]).toBe(FOREGROUND_INK.dark);
       expect(unhinted.host["--vitrea-foreground"]).not.toContain("light-dark");
       // The whole render, so a hint that changed a layer or the resolved body
       // rather than the token would not slip past either.
@@ -785,7 +787,7 @@ describe("the CSS tier (the fallback is the design)", () => {
         foreground: { mode: "author-hint", tone: "mixed" },
       });
 
-      expect(host["--vitrea-foreground"]).toBe("#1c1c1e");
+      expect(host["--vitrea-foreground"]).toBe(FOREGROUND_INK.dark);
       expect(cssTierDeclarations({ ...surface, foreground: { mode: "author-hint", tone: "mixed" } }))
         .toEqual(cssTierDeclarations(surface));
     });
@@ -793,14 +795,14 @@ describe("the CSS tier (the fallback is the design)", () => {
     it("ignores a tone that rode along on a fixed mode", () => {
       const hinted = { ...surface, foreground: { mode: "fixed", tone: "dark" } as const };
 
-      expect(hostOf(hinted)["--vitrea-foreground"]).toBe("#1c1c1e");
+      expect(hostOf(hinted)["--vitrea-foreground"]).toBe(FOREGROUND_INK.dark);
       expect(cssTierDeclarations(hinted)).toEqual(cssTierDeclarations(surface));
     });
 
     it("ignores a sampled-async tone — the CSS tier never gets exact analysis", () => {
       const hinted = { ...surface, foreground: { mode: "sampled-async", tone: "dark" } as const };
 
-      expect(hostOf(hinted)["--vitrea-foreground"]).toBe("#1c1c1e");
+      expect(hostOf(hinted)["--vitrea-foreground"]).toBe(FOREGROUND_INK.dark);
       expect(cssTierDeclarations(hinted)).toEqual(cssTierDeclarations(surface));
     });
 
@@ -814,7 +816,9 @@ describe("the CSS tier (the fallback is the design)", () => {
     it("keeps light-dark() where the material genuinely cannot decide", () => {
       const host = hostOf({ ...surface, optics: MATERIAL_OPTICS.clear });
 
-      expect(host["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
+      expect(host["--vitrea-foreground"]).toBe(
+        `light-dark(${FOREGROUND_INK.dark}, ${FOREGROUND_INK.light})`,
+      );
     });
 
     it("lets increased contrast's near-monochrome outrank a dark-backdrop hint", () => {
@@ -1021,24 +1025,33 @@ describe("the foreground rule, shared across the tiers", () => {
     });
 
     it("keeps secondary at or above the WCAG body-text floor, across the whole level range", () => {
-      // Every level a surface can resolve at, on both sides of the crossover.
-      // Apple's flat 0.6 would fail most of these: at an encoded level of 0.665,
-      // the shipped regular material's darkest, 60% of the dark ink is 3.21.
+      /*
+       * Every level a surface can resolve at, on both sides of the crossover.
+       * Apple's own alphas would fail most of these: the black ink at 0.498039
+       * never reaches 4.5 over ANY level the dark pole is chosen for, and the
+       * white ink at 0.521569 stops reaching it above an encoded 0.19.
+       *
+       * The ceiling moved with the primary (W27e G2, Decision Log 15 (a)). It was
+       * 1, because the primary was opaque; it is now the primary's own alpha, and
+       * where the primary cannot hold the floor secondary collapses onto it
+       * exactly as Decision Log 9 already had it do on the clear variant. The
+       * band where that happens WIDENED with Apple's alpha and is pinned below.
+       */
       for (let level = 0; level <= 1.0001; level += 0.02) {
         const clamped = Math.min(1, level);
         const secondary = foregroundLevelInks({
           policy: NOMINAL_ACCESSIBILITY_POLICY,
           level: clamped,
         }).secondary;
-        const holds =
-          inkAlphaHoldingContrast(
-            clamped >= CSS_TIER_MAPPING.foregroundCrossover ? [0x1c, 0x1c, 0x1e] : [0xf5, 0xf5, 0xf7],
-            neutralComposite(clamped),
-          ) !== undefined;
-        // Where the primary itself cannot hold 4.5 there is no second level to
-        // give, and secondary collapses onto it rather than publishing a lie.
-        if (!holds) {
-          expect(parse(secondary).alpha, `level ${clamped.toFixed(2)}`).toBe(1);
+        const side =
+          clamped >= CSS_TIER_MAPPING.foregroundCrossover ? "darkening" : "lightening";
+        const solved = inkAlphaHoldingContrast(
+          VIBRANT_INK_CHANNELS[side],
+          neutralComposite(clamped),
+        );
+        const ceiling = VIBRANT_LEVEL_ALPHA[side].primary;
+        if (solved === undefined || solved > ceiling) {
+          expect(parse(secondary).alpha, `level ${clamped.toFixed(2)}`).toBe(ceiling);
           continue;
         }
         expect(contrastOf(secondary, clamped), `level ${clamped.toFixed(2)}`).toBeGreaterThanOrEqual(
@@ -1047,23 +1060,71 @@ describe("the foreground rule, shared across the tiers", () => {
       }
     });
 
-    it("is Apple's own 0.6 wherever the material already carries it, and raised where it does not", () => {
-      // The dark appearance's common case: the light ink over a level of 0.23
-      // has 4.5 in hand well below 60%, so nothing is raised and the token is
-      // the platform's own number.
-      expect(foregroundLevelInks({ policy: NOMINAL_ACCESSIBILITY_POLICY, level: 0.23 }).secondary)
-        .toBe("rgb(245 245 247 / 0.6)");
-      // A bright glass surface: 0.6 lands at 4.15 against the floor, so the
-      // published alpha is above it.
+    /**
+     * The band the primary cannot carry body text over, pinned as a number
+     * because Apple's alpha widened it (W27e G2; claims §5.140).
+     *
+     * There has always been one: the two poles cross at a level where each is
+     * near its worst, and around that crossing neither reaches 4.5. Opaque
+     * `#1c1c1e`/`#f5f5f7` left it running from an encoded 0.4425 to 0.5145. Pure
+     * black at 0.847059 and pure white at 0.804706 leave it running from 0.3935
+     * to 0.4900 — 0.0965 wide against 0.0720, and shifted down. This is the
+     * accessibility cost of Decision Log 15 (a), measured rather than described,
+     * and it is pinned so that a later change to either pole has to move it
+     * deliberately.
+     */
+    it("pins the band where the primary cannot carry body text, on both poles", () => {
+      const holdsAt = (side: "darkening" | "lightening", level: number): boolean =>
+        contrast(
+          relativeLuminance(
+            VIBRANT_INK_CHANNELS[side].map(
+              (channel) =>
+                VIBRANT_LEVEL_ALPHA[side].primary * (channel / 255) +
+                (1 - VIBRANT_LEVEL_ALPHA[side].primary) * level,
+            ),
+          ),
+          relativeLuminance([level, level, level]),
+        ) >= 4.5;
+
+      const edge = (side: "darkening" | "lightening"): number => {
+        let low = 0;
+        let high = 1;
+        for (let step = 0; step < 40; step += 1) {
+          const mid = (low + high) / 2;
+          if (holdsAt(side, mid) === holdsAt(side, 1)) high = mid;
+          else low = mid;
+        }
+        return (low + high) / 2;
+      };
+
+      // The dark ink starts holding at 0.490; the light one stops at 0.3935.
+      expect(edge("darkening")).toBeCloseTo(0.49, 3);
+      expect(edge("lightening")).toBeCloseTo(0.3935, 3);
+      // And the crossover sits inside the band, which is why a surface near it
+      // gets a primary that cannot carry body text on either pole.
+      expect(CSS_TIER_MAPPING.foregroundCrossover).toBeGreaterThan(edge("lightening"));
+      expect(CSS_TIER_MAPPING.foregroundCrossover).toBeLessThan(edge("darkening"));
+    });
+
+    it("is Apple's own alpha wherever the material already carries it, and raised where it does not", () => {
+      // A dark surface: the white ink at Apple's 0.549020 through the operator
+      // has 4.5 in hand, so nothing is raised and the token is the platform's
+      // own number. The band this is true over is narrow — above an encoded 0.19
+      // the light pole needs raising too — which is the whole reason a copied
+      // constant could not be published flat.
+      expect(foregroundLevelInks({ policy: NOMINAL_ACCESSIBILITY_POLICY, level: 0.15 }).secondary)
+        .toBe(`rgb(255 255 255 / ${String(VIBRANT_LEVEL_ALPHA.lightening.secondary)})`);
+      // A bright glass surface: the black ink at 0.498039 reads 3.77 against the
+      // floor, so the published alpha is above it.
       expect(parse(
         foregroundLevelInks({ policy: NOMINAL_ACCESSIBILITY_POLICY, level: 0.9 }).secondary,
-      ).alpha).toBeGreaterThan(0.6);
+      ).alpha).toBeGreaterThan(VIBRANT_LEVEL_ALPHA.darkening.secondary);
     });
 
     it("does not raise tertiary or quaternary, which are not body text", () => {
       const inks = foregroundLevelInks({ policy: NOMINAL_ACCESSIBILITY_POLICY, level: 0.9 });
-      expect(inks.tertiary).toBe("rgb(28 28 30 / 0.3)");
-      expect(inks.quaternary).toBe("rgb(28 28 30 / 0.18)");
+      expect(inks.tertiary).toBe("rgb(0 0 0 / 0.258824)");
+      expect(inks.quaternary).toBe("rgb(0 0 0 / 0.098039)");
       // The scale is a scale: raising them to the floor would collapse it.
       expect(parse(inks.quaternary).alpha).toBeLessThan(parse(inks.tertiary).alpha);
       expect(parse(inks.tertiary).alpha).toBeLessThan(parse(inks.secondary).alpha);
@@ -1072,14 +1133,21 @@ describe("the foreground rule, shared across the tiers", () => {
     it("follows the ink the crossover chose", () => {
       const above = foregroundLevelInks({ policy: NOMINAL_ACCESSIBILITY_POLICY, level: 0.9 });
       const below = foregroundLevelInks({ policy: NOMINAL_ACCESSIBILITY_POLICY, level: 0.1 });
-      expect(above.tertiary).toContain("28 28 30");
-      expect(below.tertiary).toContain("245 245 247");
+      expect(above.tertiary).toContain("0 0 0");
+      expect(below.tertiary).toContain("255 255 255");
     });
 
     it("keeps light-dark() on both branches where there is no level to decide from", () => {
       const inks = foregroundLevelInks({ policy: NOMINAL_ACCESSIBILITY_POLICY });
-      expect(inks.secondary).toBe("light-dark(rgb(28 28 30 / 0.6), rgb(245 245 247 / 0.6))");
-      expect(inks.quaternary).toBe("light-dark(rgb(28 28 30 / 0.18), rgb(245 245 247 / 0.18))");
+      // macOS's ladder, and it is not symmetric: the two appearances publish
+      // different secondaries and different tertiaries, and the light pole's are
+      // the dark appearance's numbers times the operator's 0.95.
+      expect(inks.secondary).toBe(
+        "light-dark(rgb(0 0 0 / 0.498039), rgb(255 255 255 / 0.521569))",
+      );
+      expect(inks.quaternary).toBe(
+        "light-dark(rgb(0 0 0 / 0.098039), rgb(255 255 255 / 0.093137))",
+      );
     });
 
     /**
@@ -1113,14 +1181,21 @@ describe("the foreground rule, shared across the tiers", () => {
       // Neither ink holds 4.5 over the whole of the clear variant's range —
       // pinned through the solve itself, so the assertion below is the rule
       // rather than a transcription of today's constants.
-      expect(inkAlphaHoldingContrast([0x1c, 0x1c, 0x1e], bounds[0])).toBeUndefined();
-      expect(inkAlphaHoldingContrast([0xf5, 0xf5, 0xf7], bounds[1])).toBeUndefined();
-      expect(inks.secondary).toBe("light-dark(rgb(28 28 30 / 1), rgb(245 245 247 / 1))");
+      expect(inkAlphaHoldingContrast(VIBRANT_INK_CHANNELS.darkening, bounds[0])).toBeUndefined();
+      expect(inkAlphaHoldingContrast(VIBRANT_INK_CHANNELS.lightening, bounds[1])).toBeUndefined();
+      // The collapse target is the primary's own alpha and no longer opaque.
+      expect(inks.secondary).toBe(
+        `light-dark(${FOREGROUND_INK.dark}, ${FOREGROUND_INK.light})`,
+      );
 
       // The two levels that carry no floor keep their scale regardless: an app
       // still gets a hierarchy, it just does not get a second *guaranteed* one.
-      expect(inks.tertiary).toBe("light-dark(rgb(28 28 30 / 0.3), rgb(245 245 247 / 0.3))");
-      expect(inks.quaternary).toBe("light-dark(rgb(28 28 30 / 0.18), rgb(245 245 247 / 0.18))");
+      expect(inks.tertiary).toBe(
+        "light-dark(rgb(0 0 0 / 0.258824), rgb(255 255 255 / 0.234706))",
+      );
+      expect(inks.quaternary).toBe(
+        "light-dark(rgb(0 0 0 / 0.098039), rgb(255 255 255 / 0.093137))",
+      );
     });
 
     it("holds the floor over the whole bracket when a level resolved without a backdrop", () => {
@@ -1142,8 +1217,8 @@ describe("the foreground rule, shared across the tiers", () => {
         compositeBounds: bounds,
       }).secondary;
 
-      const hardest = inkAlphaHoldingContrast([0x1c, 0x1c, 0x1e], bounds[0]) as number;
-      const easiest = inkAlphaHoldingContrast([0x1c, 0x1c, 0x1e], bounds[1]) as number;
+      const hardest = inkAlphaHoldingContrast(VIBRANT_INK_CHANNELS.darkening, bounds[0]) as number;
+      const easiest = inkAlphaHoldingContrast(VIBRANT_INK_CHANNELS.darkening, bounds[1]) as number;
       expect(hardest).toBeGreaterThan(easiest);
       expect(parse(secondary).alpha).toBeGreaterThanOrEqual(hardest);
     });

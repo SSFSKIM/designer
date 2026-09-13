@@ -49,6 +49,41 @@ import { HOST_ATTRIBUTES } from "./host";
  */
 export const INK_RULE = `:where([${HOST_ATTRIBUTES.node}]) { color: var(--vitrea-foreground); }`;
 
+/**
+ * The operator's precedence, for a label vitrea owns (W27e G2; W27 §Design's
+ * *Where each feature lives*, binding).
+ *
+ * Apple transforms the app's own text colour; vitrea publishes a colour an app
+ * opts into. §Design keeps both true by dividing the surfaces: vitrea's own
+ * controls receive the operator by default because vitrea owns those labels, and
+ * arbitrary content under `GlassSurface asChild` keeps the token unless the
+ * author asks for the operator with `foreground="vibrant"`.
+ *
+ * After Decision Log 15 (a) the published token *is* the operator's output — the
+ * fold is the per-pixel path, because the operator carries no backdrop term
+ * (claims §5.137 §3) — so the two paths resolve to the same colour and differ
+ * only in **who owns the declaration**. That is what this rule is: the same
+ * indirection at attribute specificity (0,1,0) instead of `:where()`'s (0,0,0).
+ *
+ * What the difference buys, exactly. A marked host outranks a bare tag selector
+ * and a universal one — `button { color: … }`, `* { color: … }`, a reset sheet —
+ * which is the class of rule that was silently taking over vitrea's own controls'
+ * labels. It still loses to any application rule that *names* the element, and
+ * that is not a shortfall: §5.136 §4 measured Apple installing the operator on
+ * the automatic colour and declining to rewrite a label that names its own
+ * colour, so a deliberately authored colour winning outright is Apple's own
+ * behaviour and root Decision Log #34(c) stands untouched.
+ *
+ * No `filter` and no blend mode is installed for this, on either tier. A
+ * per-pixel `feColorMatrix` would be Apple's literal pipeline and it would buy
+ * nothing measurable (0.00 and 0.04 code values against the fold, claims §5.137
+ * §4) while costing two things: `filter` inside a host is a backdrop-root
+ * trigger that cuts the created layers off from the page behind them, and a
+ * filter over a subtree would saturate the author's own colour, which is the one
+ * thing Apple does not do.
+ */
+export const VIBRANT_INK_RULE = `[${HOST_ATTRIBUTES.vibrant}] { color: var(--vitrea-foreground); }`;
+
 /** Marks the element so a second root finds it instead of adding another. */
 export const INK_STYLESHEET_ATTRIBUTE = "data-vitrea-ink-stylesheet";
 
@@ -168,7 +203,10 @@ export function installInkStylesheet(document: Document): InkStylesheetHandle {
 
   const element = document.createElement("style");
   element.setAttribute(INK_STYLESHEET_ATTRIBUTE, "");
-  element.textContent = INK_RULE;
+  // Source order inside the sheet decides nothing between these two — they are
+  // at different specificities — but the owned rule is written second so the
+  // file reads in the order the cascade resolves them.
+  element.textContent = `${INK_RULE}\n${VIBRANT_INK_RULE}`;
 
   // First in the head, so the app's own sheets — this document's and any it
   // adds later — sort after it and win the 0,0,0 tiebreak. `documentElement` is

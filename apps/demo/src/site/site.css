@@ -423,7 +423,7 @@ code {
   /*
    * The instrument window is a light surface, so the glass inside it is told so.
    *
-   * The CSS tier writes its foreground as `light-dark(#1c1c1e, #f5f5f7)`, which
+   * The CSS tier writes its foreground as a `light-dark()` of its two inks, which
    * resolves against the *element's* computed `color-scheme` — and the plane root
    * carries `light dark`, so the scheme this element declares is what a control on
    * glass falls back to. It was `dark` for as long as the window was a near-black

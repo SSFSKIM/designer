@@ -368,31 +368,31 @@ export function decompose(flat: readonly number[]): Decomposition {
  * ---------------------------------------------------------------------------
  */
 
-/**
- * Which of the two label matrices applies. Apple selects by the colour scheme
- * and by nothing else the probe moved (§5.136 §4). vitrea cannot use the
- * document's scheme for this, because a vitrea surface's own level does not have
- * to follow it; the selector is the material's own composite level against the
- * CSS tier's `foregroundCrossover`, which is the same quantity the published ink
- * already switches on. `darkening` is Apple's light-scheme matrix and
- * `lightening` its dark-scheme one, named for what they do rather than for the
- * scheme they were read under, because the scheme is not what vitrea decides on.
+/*
+ * W27e G2 landed the operator in the runtime (`platform-web/src/vibrancy.ts`),
+ * where it is what the published ink is derived through. This file re-exports it
+ * rather than keeping a second copy: G1 wrote it here first so that G2 would
+ * implement something already written down and checked, and a copy that outlived
+ * the landing would go on agreeing with coefficients that had moved. The corpus
+ * pins in `test/vibrancy.test.ts` are unchanged and now check the runtime's own
+ * constants against the dumps.
  */
-export type LabelOperator = "darkening" | "lightening";
+export {
+  applyColorMatrix,
+  crossfadeInk,
+  labelOperatorFor,
+  LABEL_MATRICES,
+  vibrantInk,
+  VIBRANT_INK_CHANNELS,
+  VIBRANT_LEVEL_ALPHA,
+  type LabelInk,
+  type LabelOperator,
+} from "@vitreajs/vitrea-web";
+
+import { LABEL_MATRICES, vibrantInk, type LabelOperator } from "@vitreajs/vitrea-web";
 
 /** Apple's scheme names, as the dumps record them, kept for the corpus tests. */
 export type LabelScheme = "light" | "dark";
-
-/**
- * The two matrices, copied to the float32 values
- * `results/2026-09-11-w27e-probe/table.json` holds. The dark alpha coefficient is
- * 0.95 in float32 and is written here as the float32 value rather than as 0.95,
- * because the test compares it to the dump byte for byte.
- */
-export const LABEL_MATRICES: Readonly<Record<LabelOperator, readonly number[]>> = {
-  darkening: [1, 0, 0, 0, -1, 0, 1, 0, 0, -1, 0, 0, 1, 0, -1, 0, 0, 0, 1, 0],
-  lightening: [1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0.949999988079071, 0],
-};
 
 /** Apple's scheme → the operator it carries, which is the whole of its selector. */
 export const LABEL_OPERATOR_BY_SCHEME: Readonly<Record<LabelScheme, LabelOperator>> = {
@@ -400,62 +400,16 @@ export const LABEL_OPERATOR_BY_SCHEME: Readonly<Record<LabelScheme, LabelOperato
   dark: "lightening",
 };
 
-/** An ink in encoded sRGB, channels and alpha in [0, 1], non-premultiplied. */
-export interface LabelInk {
-  readonly rgb: readonly [number, number, number];
-  readonly alpha: number;
-}
-
-const clamp01 = (value: number) => (value < 0 ? 0 : value > 1 ? 1 : value);
-
 /**
- * A `CAColorMatrix` applied the way `inputClamp` = 1 applies it: four rows of
- * five columns over non-premultiplied encoded channels, then a plain [0, 1]
- * clamp. `feColorMatrix` at `color-interpolation-filters: sRGB` is the same
- * arithmetic, which §5.133 §5 confirmed to the code value on both surface
- * operators and §5.137 confirmed again on these two.
+ * The rendered ink, under this file's own name for it. `labelInk` is what
+ * §5.137's evidence and `test/vibrancy.test.ts` call the operator; the runtime
+ * publishes it as `vibrantInk`, and one alias here is cheaper than renaming a
+ * committed reading's vocabulary.
  */
-export function applyColorMatrix(ink: LabelInk, matrix: readonly number[]): LabelInk {
-  if (matrix.length !== 20) throw new Error(`A CAColorMatrix is twenty floats, not ${matrix.length}`);
-  const input = [ink.rgb[0], ink.rgb[1], ink.rgb[2], ink.alpha];
-  const out: number[] = [];
-  for (let row = 0; row < 4; row += 1) {
-    let sum = matrix[row * 5 + 4] as number;
-    for (let column = 0; column < 4; column += 1) {
-      sum += (matrix[row * 5 + column] as number) * (input[column] as number);
-    }
-    out.push(clamp01(sum));
-  }
-  return { rgb: [out[0] as number, out[1] as number, out[2] as number], alpha: out[3] as number };
-}
+export const labelInk = vibrantInk;
 
-/**
- * The operator the material's own composite level selects.
- *
- * `crossover` has no default on purpose. The number that belongs here is the
- * runtime's `CSS_TIER_MAPPING.foregroundCrossover`, and a calibration script that
- * kept its own copy would go on agreeing with a constant that had moved.
- */
-export function labelOperatorFor(compositeLevel: number, crossover: number): LabelOperator {
-  return compositeLevel >= crossover ? "darkening" : "lightening";
-}
-
-/**
- * The rendered ink: Apple's operator evaluated on the automatic ink.
- *
- * Both matrices offset every channel by a whole unit against a [0, 1] clamp, so
- * the operator **saturates** — the output colour is black under `darkening` and
- * white under `lightening` for every input in gamut, and the only thing the input
- * contributes is its alpha, which `lightening` scales by 0.95. That is why this
- * takes no backdrop argument: the operator vitrea evaluates has no backdrop term,
- * which is what lets the CSS tier fold it on the CPU without losing anything
- * (§5.137 §3). The alternative reading of `inputBackdropAware` — the classic
- * plus-darker / plus-lighter vibrancy composite — does have one, and §5.137 §2
- * records why this is the reading vitrea takes and what the two are worth apart.
- */
-export function labelInk(operator: LabelOperator, ink: LabelInk): LabelInk {
-  return applyColorMatrix(ink, LABEL_MATRICES[operator]);
-}
+/** Kept so the corpus test can assert the pair is exactly two matrices. */
+export const LABEL_MATRIX_COUNT = Object.keys(LABEL_MATRICES).length;
 
 /** One `vibrantColorMatrix` as found, before the cell's own facts are attached. */
 interface Occurrence {

@@ -430,7 +430,7 @@ test("steers the foreground off an author-declared tone, and reaches a readable 
 
   const style = await page.evaluate(() => window.h.hostStyle("panel"));
 
-  expect(style?.foreground).toBe("#1c1c1e");
+  expect(style?.foreground).toBe("rgb(0 0 0 / 0.847059)");
   expect(style?.foreground).not.toContain("light-dark");
 
   const ink = await page.evaluate(() => {
@@ -441,14 +441,27 @@ test("steers the foreground off an author-declared tone, and reaches a readable 
     const value = channel / 255;
     return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
   };
-  const rgb = /(\d+), (\d+), (\d+)/.exec(ink ?? "");
-  const inkLuminance =
-    0.2126 * linear(Number(rgb?.[1])) +
-    0.7152 * linear(Number(rgb?.[2])) +
-    0.0722 * linear(Number(rgb?.[3]));
+  /*
+   * The ink is TRANSLUCENT since W27e G2 — Apple's automatic label colour is
+   * black at α 0.847059, not an opaque hex — so its own channels are not what a
+   * reader sees. Composited over the measured surface first, in the page's own
+   * space, which is where the browser composites text; reading the three
+   * channels and dropping the alpha would score pure black against the panel and
+   * report a contrast no glyph on it has.
+   */
+  const rgb = /(\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/.exec(ink ?? "");
+  const inkAlpha = rgb?.[4] === undefined ? 1 : Number(rgb[4]);
+  expect(inkAlpha, `ink ${ink ?? "?"}`).toBeLessThan(1);
 
   const panel = await sample(page, PANEL);
   const surface = panel.at(110, 60);
+  const composited = [surface.r, surface.g, surface.b].map(
+    (channel, index) => inkAlpha * Number(rgb?.[index + 1]) + (1 - inkAlpha) * channel,
+  );
+  const inkLuminance =
+    0.2126 * linear(composited[0] as number) +
+    0.7152 * linear(composited[1] as number) +
+    0.0722 * linear(composited[2] as number);
   const surfaceLuminance =
     0.2126 * linear(surface.r) + 0.7152 * linear(surface.g) + 0.0722 * linear(surface.b);
   const contrast =

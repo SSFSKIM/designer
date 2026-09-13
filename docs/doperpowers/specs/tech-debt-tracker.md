@@ -2442,3 +2442,68 @@ whoever charters it needs the freeze bar on this background before any of it can
 should read §5.139 §7's inactive/active chroma ratios (1.034 at the capsule, 1.058 at `rrect-lg`)
 first, because the recede transmits slightly *more* chroma than the active pose and a change that
 closed the active gap without that term would open an inactive one.
+
+## `GlassSurface`'s `foreground` prop now carries two axes and they are mutually exclusive (W27e G2, 2026-09-13)
+
+The prop was `ForegroundAdaptation` — the *cadence* the foreground decision is fed at, `fixed`,
+`author-hint` or `sampled-async`. W27e G2 added `"vibrant"` and `"token"`, which say who owns the
+label's `color` declaration, and the W27 §Design clause that spells the opt-in `foreground="vibrant"`
+is binding, so the two live in one prop. A union of an object and two strings is discriminable, so
+nothing is ambiguous — but a surface that needs `sampled-async` adaptation *and* the vibrant
+precedence cannot say so, and neither can one that needs `author-hint` and `"token"`.
+
+It bites hardest on the controls, which now default to `"vibrant"`: an author who passes
+`foreground={{ mode: "sampled-async" }}` to a `GlassButton` silently drops the label back to the
+token path. Nothing is wrong with either result; the author simply cannot have both.
+
+Shape of the fix, and it is additive so it can wait: give the object form an optional field —
+`{ mode: "sampled-async", vibrant: true }` — and keep the two strings as shorthands for
+`{ vibrant: true }` and `{ vibrant: false }` over the default cadence. That is a `@vitreajs/vitrea`
+minor (the type is core's) plus a react minor, and it breaks nothing already written. Do it the next
+time either axis is touched, not on its own.
+
+## The two tiers pick opposite ink poles on the clear variant over a narrow backdrop window (W27e G2, measured 2026-09-13)
+
+The CSS tier's foreground level runs brighter than the renderer's for the same material over the
+same backdrop — up to **0.0502** on the regular variant and **0.0824** on the clear one — because the
+two composite the same profile in two different spaces. On the regular material that is never enough
+to reach `foregroundCrossover`. On the **clear** variant it is: over backdrop luminances in
+**(0.0656, 0.1020)** the CSS tier reads above the crossover and the renderer reads below it, so a
+demotion from the WebGPU tier to the CSS one flips the label from white to black on the same surface
+over the same page.
+
+Found while pinning the ink across the tiers (claims §5.140 §2) and it predates W27e: nothing in the
+ink's derivation moved the levels, and the same window existed with `#1c1c1e`/`#f5f5f7`. It is not
+the operator's, which is why it is here and not chartered — X1 makes a CSS-tier fidelity difference a
+recorded residual rather than work. It is now bracketed to a thousandth of the backdrop's luminance
+in `packages/calibration/test/tier-coherence.test.ts`, so a material change has to move it
+deliberately.
+
+Shape of the work if it ever matters: it is the tiers' composite gap and not the ink's rule, so
+closing it means narrowing `cssTierForegroundLevel` against `gpuTierForegroundLevel` — a material
+question on the fidelity target's terms and therefore a wave, not a fix. A cheaper mitigation that
+is *not* recommended without measuring first: hysteresis on the pole per surface would hide the flip
+at a tier switch and would also hide a genuine adaptation, which is the one thing the ink must
+follow.
+
+## The band's secondary ink reads 4.463 against a token that promises 4.5, and did before the operator (W27e G2, measured 2026-09-13)
+
+`--vitrea-foreground-secondary` is solved to hold WCAG 4.5 against the composite the runtime
+computes for the surface (Decision Log 9). The demo's contrast harness reads the same level on the
+ink band's light ground at **4.463** on the CSS tier after W27e G2 and **4.481** before it, so the
+operator moved it by 0.018 and the shortfall predates the gate (claims §5.140 §9). The two figures
+are not the same measurement: the token is solved against the runtime's computed composite, the
+harness composites the recovered ink over the plate's *median rendered pixel*. Which of the three
+candidates named in `apps/demo/e2e/ink-band-contrast.spec.ts` accounts for the 0.037 — the median of
+a plate that contains its own specimens, the tint's chroma against a solve taken on the computed
+composite, or a declared backdrop that is not exactly what is behind the plate — is not measured.
+
+Until it is, `ink-band-contrast.spec.ts` holds the reading at a **pixel** floor of 4.45, named as a
+pixel floor and not as the token's promise, so a change that pushes it further under fails the suite
+while this known gap does not.
+
+Shape of the work: W27e G3 runs the contrast harness on every glass label in the demo and is the
+place to separate the cause — read the token's own solve inputs beside the harness's surface pixel
+for the same element, and attribute the difference to one of the three candidates. If it is the
+plate's median, the harness's surface should be the pixel under the glyphs and the floor returns to
+4.5; if it is the solve's composite, the floor stays and the token's solve is the thing to move.

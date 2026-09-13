@@ -22,6 +22,7 @@ import { describe, expect, it } from "vitest";
 import type { ResolvedAccessibilityPolicy, ResolvedMaterialPolicy } from "@vitreajs/vitrea";
 import { glassTint } from "@vitreajs/vitrea";
 
+import { VIBRANT_LEVEL_ALPHA } from "../src/vibrancy";
 import {
   cssTierDeclarations,
   FOREGROUND_INK,
@@ -387,17 +388,28 @@ describe("the named ink levels over a saturated tint", () => {
     const composited = rgb.map((channel, index) => alpha * channel + (1 - alpha) * (surface[index] as number));
     const real = contrast(relativeLuminance(composited), relativeLuminance([...surface]));
 
-    // Either the floor holds against the colour the tier actually draws, or the
-    // level collapsed onto the primary because no alpha could hold it. What is
-    // not allowed is the third thing: an alpha that holds against a neutral of
-    // the same luminance and fails against the magenta.
-    if (alpha < 1) expect(real).toBeGreaterThanOrEqual(4.5);
+    /*
+     * Either the floor holds against the colour the tier actually draws, or the
+     * level collapsed onto the primary because no alpha could hold it. What is
+     * not allowed is the third thing: an alpha that holds against a neutral of
+     * the same luminance and fails against the magenta.
+     *
+     * The collapse target is the PRIMARY's alpha and no longer 1 (W27e G2,
+     * Decision Log 15 (a)): the primary is Apple's white at 0.804706 here, and
+     * Decision Log 9's rule is that secondary is never worse than the primary and
+     * holds 4.5 wherever the primary can. It cannot, on this surface.
+     */
+    const primary = VIBRANT_LEVEL_ALPHA.lightening.primary;
+    if (alpha < primary) expect(real).toBeGreaterThanOrEqual(4.5);
     else expect(real).toBeLessThan(4.5);
 
-    // On this surface it is the collapse: the light ink is at 3.39 even opaque,
-    // so there is no second readable level to give and 0.601 was a claim the
-    // material could not meet.
-    expect(alpha).toBe(1);
+    // On this surface it is the collapse: the white ink is at 3.39 even opaque,
+    // so there is no second readable level to give and Apple's 0.521569 was a
+    // claim the material could not meet. What the reader gets is the primary,
+    // whose own real contrast here is 2.53 — recorded, in claims §5.140, as a
+    // gap the material has and the ink cannot close.
+    expect(alpha).toBe(primary);
+    expect(real).toBeCloseTo(2.529, 3);
   });
 
   it("leaves the two levels that carry no floor at Apple's own alphas", () => {
@@ -408,8 +420,14 @@ describe("the named ink levels over a saturated tint", () => {
       backdropLuminance: 0.5,
       policy: policy(),
     });
-    expect(parseLevel(host["--vitrea-foreground-tertiary"] as string).alpha).toBe(0.3);
-    expect(parseLevel(host["--vitrea-foreground-quaternary"] as string).alpha).toBe(0.18);
+    // macOS's dark-appearance tertiary and quaternary, through the operator's
+    // 0.95 — this surface takes the light pole.
+    expect(parseLevel(host["--vitrea-foreground-tertiary"] as string).alpha).toBe(
+      VIBRANT_LEVEL_ALPHA.lightening.tertiary,
+    );
+    expect(parseLevel(host["--vitrea-foreground-quaternary"] as string).alpha).toBe(
+      VIBRANT_LEVEL_ALPHA.lightening.quaternary,
+    );
   });
 });
 

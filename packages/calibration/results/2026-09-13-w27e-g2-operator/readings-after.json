@@ -1,0 +1,557 @@
+{
+  "label": "after",
+  "root": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-add09894a293e5788",
+  "takenAt": "2026-09-13T05:54:20.992Z",
+  "reduceTransparency": "0",
+  "increaseContrast": "0",
+  "adapter": {
+    "available": true,
+    "info": {
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "device": "",
+      "description": ""
+    }
+  },
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+  "tiers": {
+    "ink-tier-light": "webgpu · css-backdrop",
+    "ink-tier-dark": "webgpu · css-backdrop"
+  },
+  "tokens": {
+    "light": {
+      "foreground": "rgb(0 0 0 / 0.847059)",
+      "secondary": "rgb(0 0 0 / 0.574597)",
+      "tertiary": "rgb(0 0 0 / 0.258824)",
+      "quaternary": "rgb(0 0 0 / 0.098039)",
+      "tint": ""
+    },
+    "dark": {
+      "foreground": "rgb(0 0 0 / 0.847059)",
+      "secondary": "rgb(0 0 0 / 0.699043)",
+      "tertiary": "rgb(0 0 0 / 0.258824)",
+      "quaternary": "rgb(0 0 0 / 0.098039)",
+      "tint": ""
+    }
+  },
+  "tokenVsRendered": [
+    {
+      "testId": "ink-plate-light",
+      "token": "rgb(0 0 0 / 0.847059)",
+      "rendered": "rgba(0, 0, 0, 0.847)",
+      "agrees": true
+    },
+    {
+      "testId": "ink-bookmark-light",
+      "token": "rgb(0 0 0 / 0.847059)",
+      "rendered": "rgba(0, 0, 0, 0.847)",
+      "agrees": true
+    },
+    {
+      "testId": "ink-publish-light",
+      "token": "rgb(0 0 0 / 0.847059)",
+      "rendered": "rgba(0, 0, 0, 0.847)",
+      "agrees": true
+    },
+    {
+      "testId": "ink-plate-dark",
+      "token": "rgb(0 0 0 / 0.847059)",
+      "rendered": "rgba(0, 0, 0, 0.847)",
+      "agrees": true
+    },
+    {
+      "testId": "ink-bookmark-dark",
+      "token": "rgb(255 255 255 / 0.804706)",
+      "rendered": "rgba(255, 255, 255, 0.804)",
+      "agrees": true
+    },
+    {
+      "testId": "ink-publish-dark",
+      "token": "rgb(0 0 0 / 0.847059)",
+      "rendered": "rgba(0, 0, 0, 0.847)",
+      "agrees": true
+    }
+  ],
+  "contrast": {
+    "tiers": {
+      "ink-tier-light": "webgpu · css-backdrop",
+      "ink-tier-dark": "webgpu · css-backdrop"
+    },
+    "names": [
+      {
+        "text": "primary",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          163,
+          192,
+          235
+        ],
+        "ratio": 9.0672
+      },
+      {
+        "text": "secondary",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          163,
+          192,
+          235
+        ],
+        "ratio": 9.0672
+      },
+      {
+        "text": "tertiary",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          162,
+          191,
+          234
+        ],
+        "ratio": 8.9858
+      },
+      {
+        "text": "quaternary",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          163,
+          192,
+          235
+        ],
+        "ratio": 9.0672
+      },
+      {
+        "text": "primary",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          117,
+          142,
+          181
+        ],
+        "ratio": 5.4502
+      },
+      {
+        "text": "secondary",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          117,
+          142,
+          181
+        ],
+        "ratio": 5.4502
+      },
+      {
+        "text": "tertiary",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          116,
+          142,
+          181
+        ],
+        "ratio": 5.4397
+      },
+      {
+        "text": "quaternary",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          116,
+          142,
+          181
+        ],
+        "ratio": 5.4397
+      }
+    ],
+    "levels": {
+      "light": {
+        "surface": [
+          163,
+          192,
+          235
+        ],
+        "levels": {
+          "primary": [
+            {
+              "alpha": 0.847059,
+              "colour": "rgba(0, 0, 0, 0.847)",
+              "ratio": 9.0672
+            }
+          ],
+          "secondary": [
+            {
+              "alpha": 0.576471,
+              "colour": "rgba(0, 0, 0, 0.576)",
+              "ratio": 4.3086
+            }
+          ],
+          "tertiary": [
+            {
+              "alpha": 0.258824,
+              "colour": "rgba(0, 0, 0, 0.26)",
+              "ratio": 1.7902
+            }
+          ],
+          "quaternary": [
+            {
+              "alpha": 0.098039,
+              "colour": "rgba(0, 0, 0, 0.098)",
+              "ratio": 1.2303
+            }
+          ]
+        }
+      },
+      "dark": {
+        "surface": [
+          117,
+          142,
+          181
+        ],
+        "levels": {
+          "primary": [
+            {
+              "alpha": 0.847059,
+              "colour": "rgba(0, 0, 0, 0.847)",
+              "ratio": 5.4502
+            }
+          ],
+          "secondary": [
+            {
+              "alpha": 0.698039,
+              "colour": "rgba(0, 0, 0, 0.698)",
+              "ratio": 4.2782
+            }
+          ],
+          "tertiary": [
+            {
+              "alpha": 0.258824,
+              "colour": "rgba(0, 0, 0, 0.26)",
+              "ratio": 1.6655
+            }
+          ],
+          "quaternary": [
+            {
+              "alpha": 0.098039,
+              "colour": "rgba(0, 0, 0, 0.098)",
+              "ratio": 1.2033
+            }
+          ]
+        }
+      }
+    },
+    "controls": [
+      {
+        "text": "☆",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          164,
+          193,
+          236
+        ],
+        "ratio": 9.1488
+      },
+      {
+        "text": "Publish",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          254,
+          148,
+          0
+        ],
+        "ratio": 7.8401
+      },
+      {
+        "text": "☆",
+        "colour": "rgba(255, 255, 255, 0.804)",
+        "alpha": 0.803922,
+        "surface": [
+          44,
+          73,
+          116
+        ],
+        "ratio": 6.5436
+      },
+      {
+        "text": "Publish",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          255,
+          149,
+          0
+        ],
+        "ratio": 7.912
+      }
+    ]
+  },
+  "contrastCss": {
+    "tiers": {
+      "ink-tier-light": "css · css-backdrop",
+      "ink-tier-dark": "css · css-backdrop"
+    },
+    "names": [
+      {
+        "text": "primary",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          163,
+          192,
+          235
+        ],
+        "ratio": 9.0672
+      },
+      {
+        "text": "secondary",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          163,
+          192,
+          235
+        ],
+        "ratio": 9.0672
+      },
+      {
+        "text": "tertiary",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          162,
+          191,
+          234
+        ],
+        "ratio": 8.9858
+      },
+      {
+        "text": "quaternary",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          163,
+          192,
+          235
+        ],
+        "ratio": 9.0672
+      },
+      {
+        "text": "primary",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          120,
+          145,
+          184
+        ],
+        "ratio": 5.6415
+      },
+      {
+        "text": "secondary",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          120,
+          145,
+          184
+        ],
+        "ratio": 5.6415
+      },
+      {
+        "text": "tertiary",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          119,
+          144,
+          183
+        ],
+        "ratio": 5.5773
+      },
+      {
+        "text": "quaternary",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          120,
+          145,
+          184
+        ],
+        "ratio": 5.6415
+      }
+    ],
+    "levels": {
+      "light": {
+        "surface": [
+          163,
+          192,
+          235
+        ],
+        "levels": {
+          "primary": [
+            {
+              "alpha": 0.847059,
+              "colour": "rgba(0, 0, 0, 0.847)",
+              "ratio": 9.0672
+            }
+          ],
+          "secondary": [
+            {
+              "alpha": 0.588235,
+              "colour": "rgba(0, 0, 0, 0.59)",
+              "ratio": 4.4628
+            }
+          ],
+          "tertiary": [
+            {
+              "alpha": 0.258824,
+              "colour": "rgba(0, 0, 0, 0.26)",
+              "ratio": 1.7902
+            }
+          ],
+          "quaternary": [
+            {
+              "alpha": 0.098039,
+              "colour": "rgba(0, 0, 0, 0.098)",
+              "ratio": 1.2303
+            }
+          ]
+        }
+      },
+      "dark": {
+        "surface": [
+          120,
+          145,
+          184
+        ],
+        "levels": {
+          "primary": [
+            {
+              "alpha": 0.847059,
+              "colour": "rgba(0, 0, 0, 0.847)",
+              "ratio": 5.6415
+            }
+          ],
+          "secondary": [
+            {
+              "alpha": 0.717647,
+              "colour": "rgba(0, 0, 0, 0.718)",
+              "ratio": 4.563
+            }
+          ],
+          "tertiary": [
+            {
+              "alpha": 0.258824,
+              "colour": "rgba(0, 0, 0, 0.26)",
+              "ratio": 1.6752
+            }
+          ],
+          "quaternary": [
+            {
+              "alpha": 0.098039,
+              "colour": "rgba(0, 0, 0, 0.098)",
+              "ratio": 1.2055
+            }
+          ]
+        }
+      }
+    },
+    "controls": [
+      {
+        "text": "☆",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          165,
+          193,
+          237
+        ],
+        "ratio": 9.171
+      },
+      {
+        "text": "Publish",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          253,
+          148,
+          0
+        ],
+        "ratio": 7.8128
+      },
+      {
+        "text": "☆",
+        "colour": "rgba(255, 255, 255, 0.804)",
+        "alpha": 0.803922,
+        "surface": [
+          44,
+          73,
+          117
+        ],
+        "ratio": 6.5314
+      },
+      {
+        "text": "Publish",
+        "colour": "rgba(0, 0, 0, 0.847)",
+        "alpha": 0.847059,
+        "surface": [
+          255,
+          149,
+          0
+        ],
+        "ratio": 7.912
+      }
+    ]
+  },
+  "demoContrast": [
+    {
+      "text": "Share",
+      "colour": "rgba(0, 0, 0, 0.847)",
+      "alpha": 0.847059,
+      "surface": [
+        244,
+        245,
+        246
+      ],
+      "ratio": 13.9624
+    },
+    {
+      "text": "☆",
+      "colour": "rgba(0, 0, 0, 0.847)",
+      "alpha": 0.847059,
+      "surface": [
+        243,
+        244,
+        245
+      ],
+      "ratio": 13.8671
+    },
+    {
+      "text": "Publish",
+      "colour": "rgba(0, 0, 0, 0.847)",
+      "alpha": 0.847059,
+      "surface": [
+        244,
+        245,
+        244
+      ],
+      "ratio": 13.9486
+    },
+    {
+      "text": "Actions▾",
+      "colour": "rgba(0, 0, 0, 0.847)",
+      "alpha": 0.847059,
+      "surface": [
+        244,
+        243,
+        239
+      ],
+      "ratio": 13.7783
+    }
+  ]
+}

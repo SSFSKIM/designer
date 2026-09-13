@@ -49,6 +49,12 @@ type ButtonAttributes = Omit<ComponentPropsWithRef<"button">, "color">;
  * distinction is load-bearing: `null` is a value — the author clearing a tint
  * inherited from the group, the way `Glass.tint(nil)` does — while `undefined`
  * is the inheritance the surface must not be told about.
+ *
+ * `foreground` is the one prop with a default, and the default is `"vibrant"`
+ * (W27e G2; W27 §Design's *Where each feature lives*, binding). A button's label
+ * is a label vitrea owns, so it takes the operator's precedence unless the author
+ * says otherwise — `"token"` gives it back, and an adaptation object selects a
+ * cadence and leaves the label on the token path.
  */
 type ForwardedSurfaceProps = Pick<
   GlassSurfaceOwnProps,
@@ -88,7 +94,7 @@ export function GlassButton(props: GlassButtonProps): ReactNode {
     radius = BUTTON_RADIUS,
     capsule,
     thickness = BUTTON_THICKNESS,
-    foreground,
+    foreground = "vibrant",
     groupId,
     nodeId,
     morphing,
@@ -123,7 +129,7 @@ export function GlassButton(props: GlassButtonProps): ReactNode {
       {...(tint === undefined ? {} : { tint })}
       {...(profile === undefined ? {} : { profile })}
       {...(capsule === undefined ? {} : { capsule })}
-      {...(foreground === undefined ? {} : { foreground })}
+      foreground={foreground}
       {...(groupId === undefined ? {} : { groupId })}
       {...(nodeId === undefined ? {} : { nodeId })}
       {...(morphing === undefined ? {} : { morphing })}

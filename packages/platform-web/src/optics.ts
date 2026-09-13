@@ -3315,11 +3315,29 @@ export interface CssTierMapping {
    * Where the foreground crosses from the light token to the dark one, measured
    * on the *encoded* level behind the glyphs (see `cssTierForegroundLevel`).
    *
-   * Derived rather than chosen: 0.475 is where the two shipped ink tokens reach
-   * equal WCAG contrast against the same surface. `#1c1c1e` sits at linear
-   * 0.0116 and `#f5f5f7` at 0.898, so equal contrast needs
+   * Derived rather than chosen: 0.475 is where the two ink tokens **as they were
+   * fitted** reach equal WCAG contrast against the same surface. `#1c1c1e` sits
+   * at linear 0.0116 and `#f5f5f7` at 0.898, so equal contrast needs
    * (L + 0.05)² = (0.898 + 0.05)(0.0116 + 0.05), giving L = 0.1917 and an encoded
    * 0.475. Below it the light token has more contrast, above it the dark one.
+   *
+   * **The inks moved and this did not** (W27e G2; W27 Decision Log 16; claims
+   * §5.140). Apple's operator publishes pure black at α 0.847059 and pure white
+   * at α 0.804706, and their equal-contrast level is an encoded **0.441258**, not
+   * 0.475. The user ruled the crossover stays at its fitted value and Apple's own
+   * selection is recorded as *convergent in form, not authoritative in
+   * substance*: the 1x both-pose pass showed Apple selecting per surface off that
+   * surface's own adapted state, which is the same shape as this constant's role
+   * and says nothing about its arithmetic (claims §5.138 §6). Retuning it to
+   * Apple's bracket was rejected — one tone across a span ladder, and no dark
+   * bracket at all.
+   *
+   * What the 0.0337 between the two costs, recorded rather than described: over
+   * encoded levels in [0.441258, 0.475) the runtime picks the light ink where the
+   * dark one has more contrast. Both are under the 4.5 body-text floor across the
+   * whole of that interval — it sits inside the band where neither pole carries
+   * body text, pinned in `css-tier.test.ts` — so nothing crosses the floor
+   * because of it; what a reader loses is margin on an already-marginal surface.
    */
   readonly foregroundCrossover: number;
 }

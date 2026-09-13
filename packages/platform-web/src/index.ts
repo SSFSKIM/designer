@@ -51,4 +51,5 @@ export * from "./refraction";
 export * from "./renderer-bridge";
 export * from "./root";
 export * from "./tint";
+export * from "./vibrancy";
 export * from "./webgpu";

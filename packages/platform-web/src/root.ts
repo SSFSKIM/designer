@@ -61,7 +61,13 @@ import {
 import { createBackdropProxyManager, type ProxyRequest } from "./backdrop-proxy";
 import { compositeToneOver, toneBeneath, type PaintedSurface } from "./backdrop-stack";
 import { GLASS_CHANNEL_PROPERTIES, readHostChannels, type SurfaceChannelValues } from "./channels";
-import { createDriver, clampFrameDelta, DEFAULT_MOTION_PROFILE, type MotionDriver } from "@vitrea/motion";
+import {
+  createDriver,
+  clampFrameDelta,
+  DEFAULT_MOTION_PROFILE,
+  type DriverConfig,
+  type MotionDriver,
+} from "@vitrea/motion";
 import {
   colorSchemeMaterialProfile,
   mergeMaterialProfiles,
@@ -200,6 +206,42 @@ import {
   type RendererMaterialProfile,
 } from "./renderer-bridge";
 import { createWebGPULifecycle, type WebGPULifecycle, type WebGPUStatus } from "./webgpu";
+
+/**
+ * `foregroundTone`'s driver constants, narrowed to the family the binding table
+ * gives the channel (W27e G2).
+ *
+ * `MotionProfile` types every channel's config as the `DriverConfig` union, while
+ * `MOTION_DRIVER_BY_CHANNEL` pins this one to `threshold-crossfade`; the promise
+ * is the table's and it is stated here rather than branched on, because a branch
+ * would be a second answer to a question the table already answers. It is not an
+ * unchecked assertion either: `test/vibrancy-tone.test.ts` reads the table and
+ * the profile and fails if either stops saying so.
+ *
+ * The `threshold` is replaced per root with `CssTierMapping.foregroundCrossover`.
+ * The tunable's own 0.5 is a placeholder from before the crossover was fitted,
+ * and `@vitrea/motion` cannot import an optics constant to carry the real one.
+ */
+const FOREGROUND_TONE_TUNABLE = DEFAULT_MOTION_PROFILE.channels.foregroundTone as Extract<
+  DriverConfig,
+  { kind: "threshold-crossfade" }
+>;
+
+/**
+ * Write the operator's ownership marker, or take it away (W27e G2; X9).
+ *
+ * `owned` is the declaration and presence together. Idempotent against the
+ * record's own memory rather than against the DOM: this runs once per host per
+ * frame, and an attribute write is a mutation the probe re-audits on, so writing
+ * an unchanged value every frame would turn the steady state into a read storm.
+ */
+function applyVibrant(record: HostRecord, present: boolean): void {
+  const owned = record.vibrantDeclared && present;
+  if (owned === record.vibrantApplied) return;
+  if (owned) record.host.setAttribute(HOST_ATTRIBUTES.vibrant, "");
+  else record.host.removeAttribute(HOST_ATTRIBUTES.vibrant);
+  record.vibrantApplied = owned;
+}
 
 /** Every glass group needs a backdrop source; a dom root gets this one for free. */
 export const DEFAULT_DOM_SOURCE_ID = "vitrea.dom";
@@ -581,6 +623,39 @@ interface HostRecord {
   /** Presence is authored independently of the interaction machine (W27d, X6). */
   readonly presence: MotionDriver;
   presencePublished: number;
+  /**
+   * The `foregroundTone` channel, consumed at last (W27e G2; claims §5.140).
+   *
+   * The motion table has declared a `threshold-crossfade` driver for this channel
+   * since it was written and nothing read it: the ink snapped at
+   * `foregroundCrossover` with neither the channel's dead band nor its transit,
+   * so a backdrop drifting across the crossover pumped the text colour. The
+   * driver's value is the weight of the dark ink, and both tiers publish the fold
+   * of the two poles at it.
+   *
+   * Its threshold is the **optics** constant rather than the motion profile's
+   * 0.5: the selector Decision Log 16 ruled is `foregroundCrossover`, and
+   * `@vitrea/motion` may not import an optics constant, so the substitution
+   * happens here where both are in scope.
+   */
+  readonly foregroundTone: MotionDriver;
+  /**
+   * Whether a level has ever resolved for this surface. The first one is jumped
+   * to rather than faded to: a surface's first painted frame is not a transit,
+   * and fading in from the driver's construction value would show every dark
+   * surface a moment of the wrong ink.
+   */
+  foregroundToneSeeded: boolean;
+  /**
+   * Whether the app handed this surface's label to the operator (W27e G2), and
+   * whether the attribute that carries it is currently on the element.
+   *
+   * Two fields rather than one read of the DOM, because the attribute is a
+   * function of the declaration **and** of presence — X9 — and the frame loop has
+   * to know what it last wrote in order to write nothing on an unchanged frame.
+   */
+  vibrantDeclared: boolean;
+  vibrantApplied: boolean;
   /** Last consumed value, including direct custom-property writes by other bindings. */
   materializationDrawn: number;
   /**
@@ -1532,11 +1607,46 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     for (const record of hosts.values()) {
       if (accessibility.reducedMotion) record.presence.jumpTo(record.presence.target);
       else record.presence.advance(presenceDelta);
+      /*
+       * The ink's crossfade advances here for the same reason presence does — one
+       * value per host from publication to pixels — and is *not* stepped under
+       * Reduced Motion. A colour crossing between two poles is neither motion nor
+       * deformation; it is the one thing that stops a drifting backdrop flicking
+       * the text colour, and the channel's own role in the binding table is
+       * `optical`, which Reduced Motion leaves alone by design.
+       *
+       * Retargeting happens where the level is known, which is inside each tier's
+       * own render below. The committed phase this frame is therefore last frame's
+       * level against the band — sixteen milliseconds behind a signal whose own
+       * hysteresis is 0.08 wide and whose transit is 180 ms.
+       */
+      record.foregroundTone.advance(presenceDelta);
       const value = record.presence.value;
       if (value !== record.presencePublished) {
         record.host.style.setProperty(GLASS_CHANNEL_PROPERTIES.materialization, String(value));
         record.presencePublished = value;
       }
+      /*
+       * Identity hands the label back to the app (X9; W27d's handoff, claims
+       * §5.132).
+       *
+       * At presence 0 there is no glass — "as if no glass effect was applied" —
+       * so there is no surface for vitrea to own a label on, and the app owns its
+       * content over the uncovered backdrop. The token stays published, which is
+       * what X9 requires: identity is optical absence and not unmount, and an app
+       * that reads `--vitrea-foreground` goes on getting an answer. What goes is
+       * the *ownership* — the attribute — so the runtime's `color` falls back to
+       * the `:where()` rule at zero specificity and any application rule at all,
+       * down to a bare tag, wins. That is what "the operator reaches the app's own
+       * colour at 0" means once the operator is a precedence rather than a second
+       * colour (claims §5.140 §6).
+       *
+       * Binary at exactly 0 rather than graded, because specificity has no
+       * intermediate value. Nothing else about the ink is stepped here: the ink's
+       * own colour already follows presence, because presence scales the optical
+       * terms and the level behind the glyphs is a function of them.
+       */
+      applyVibrant(record, record.presencePublished > 0);
     }
     const cap = accessibilityRefractionCap(accessibility.material);
 
@@ -1557,6 +1667,26 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
      */
     const presenceOf = (record: HostRecord, bounds: Rect): number =>
       readHostChannels(record.host, bounds).materialization;
+
+    /*
+     * The `foregroundTone` channel for one surface, given the level its own tier
+     * resolved (W27e G2).
+     *
+     * One helper for both tiers, because a seeding rule that differed between
+     * them would put a fade on a surface's first frame under one renderer and not
+     * the other. A surface with no level has nothing to cross — the ink is
+     * `light-dark()` and the channel is not read — so the driver is left where it
+     * is rather than retargeted at a value it does not have.
+     */
+    const retargetForegroundTone = (record: HostRecord, level: number | undefined): void => {
+      if (level === undefined) return;
+      if (record.foregroundToneSeeded) {
+        record.foregroundTone.retarget(level);
+        return;
+      }
+      record.foregroundTone.jumpTo(level >= cssMapping.foregroundCrossover ? 1 : 0);
+      record.foregroundToneSeeded = true;
+    };
 
     /*
      * The root's cost budget, decided once for the frame (W16 G1; charter
@@ -2348,6 +2478,21 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         const declarations = cssTierDeclarations({
           materialization: input.channels.materialization,
           driven: presenceDriven,
+          /*
+           * The channel's value as of this frame's advance, and **only once the
+           * driver has a level of its own** (W27e G2).
+           *
+           * The level this is retargeted with comes back out of the render below,
+           * because it is a function of the tinted, adapted, presence-folded
+           * optics this call derives and nothing out here can reproduce it. So on
+           * a surface's very first render there is no committed phase yet, and
+           * handing over the driver's construction value would publish the pole
+           * it happened to be built at rather than the pole the level asks for —
+           * a dark surface's first painted frame would show the dark ink. Absent,
+           * the ink is selected off the level exactly as it was before this
+           * channel was consumed, and the seed below jumps the driver to match.
+           */
+          ...(record.foregroundToneSeeded ? { foregroundTone: record.foregroundTone.value } : {}),
           radii: record.radii,
           optics: nodeBaseOptics,
           untintedOptics: nodeUntintedOptics,
@@ -2481,6 +2626,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             record.cssMaterialized = true;
           }
 
+          retargetForegroundTone(record, declarations.foregroundLevel);
           const serialised = JSON.stringify(declarations.host);
           if (record.cssApplied !== serialised) {
             for (const [property, value] of Object.entries(declarations.host)) {
@@ -2596,9 +2742,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             policy: accessibility,
             mapping: cssMapping,
             compositeBounds: inkCompositeBounds,
+            ...(record.foregroundToneSeeded ? { tone: record.foregroundTone.value } : {}),
             ...(level === undefined ? {} : { level }),
             ...(inkComposite === undefined ? {} : { composite: inkComposite }),
           });
+          retargetForegroundTone(record, level);
           const serialisedInk = JSON.stringify(ink);
           if (record.gpuForegroundApplied !== serialisedInk) {
             for (const [property, value] of Object.entries(ink)) {
@@ -2977,6 +3125,20 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         presence: createDriver(DEFAULT_MOTION_PROFILE.channels.materialization,
           hostOptions.present === false ? 0 : 1),
         presencePublished: hostOptions.present === false ? 0 : 1,
+        foregroundTone: createDriver(
+          { ...FOREGROUND_TONE_TUNABLE, threshold: cssMapping.foregroundCrossover },
+          1,
+        ),
+        foregroundToneSeeded: false,
+        vibrantDeclared: hostOptions.vibrant === true,
+        // Read off the element rather than assumed clear. `applyVibrant` is
+        // idempotent against this memory, so seeding it `false` would make the
+        // write at registration a no-op — and registration is the one point that
+        // can meet a marker it did not write, on an element that carried it out
+        // of a destroyed root and is being registered here without `vibrant`.
+        // The node, group and plane attributes are rewritten unconditionally just
+        // below and reconcile themselves; this is the only conditional one.
+        vibrantApplied: hostOptions.host.hasAttribute(HOST_ATTRIBUTES.vibrant),
         materializationDrawn: hostOptions.present === false ? 0 : 1,
         cssGroupShadow: undefined,
         cssClipsChildren: undefined,
@@ -2991,6 +3153,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       hostOptions.host.setAttribute(HOST_ATTRIBUTES.node, nodeId);
       hostOptions.host.setAttribute(HOST_ATTRIBUTES.group, hostOptions.groupId);
       hostOptions.host.setAttribute(HOST_ATTRIBUTES.plane, plane);
+      // Whether vitrea owns this surface's label. An attribute rather than a
+      // declaration, because what it selects is the ink rule's PRECEDENCE and
+      // not its value (W27e G2; `ink-stylesheet.ts`), and written through the
+      // same helper the frame loop uses so presence can take it away (X9).
+      applyVibrant(record, record.presencePublished > 0);
       // The host layer passes pointers through; a registered host opts back in,
       // so gaps between surfaces never swallow clicks on the page beneath.
       hostOptions.host.style.setProperty("pointer-events", "auto");
@@ -3051,6 +3218,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           if (patch.thickness !== undefined) record.thickness = patch.thickness;
           if (patch.order !== undefined) record.order = patch.order;
           if (patch.present !== undefined) record.presence.retarget(patch.present ? 1 : 0);
+          if (patch.vibrant !== undefined) {
+            record.vibrantDeclared = patch.vibrant;
+            applyVibrant(record, record.presencePublished > 0);
+          }
 
           scene.updateGlassNode(nodeId, {
             shape: {

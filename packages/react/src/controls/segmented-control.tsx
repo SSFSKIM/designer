@@ -58,7 +58,7 @@ import {
 import { useGlassRootHandle } from "../context";
 import { GLASS_CHANNEL_PROPERTIES } from "../interaction";
 import type { GlassCornerProfile } from "../shape";
-import { GlassSurface } from "../surface";
+import { GlassSurface, type GlassSurfaceOwnProps } from "../surface";
 import type { GlassPlane } from "@vitreajs/vitrea";
 
 export interface GlassSegment<T extends string = string> {
@@ -80,6 +80,11 @@ export interface GlassSegmentedControlProps<T extends string = string>
   readonly profile?: GlassCornerProfile | undefined;
   readonly radius?: number | undefined;
   readonly thickness?: number | undefined;
+  /**
+   * Defaults to `"vibrant"`: the segments' labels are labels vitrea owns, so the
+   * operator takes them unless the author says otherwise (W27e G2).
+   */
+  readonly foreground?: GlassSurfaceOwnProps["foreground"];
   /** Inward offset of the indicator from the track, in CSS px. */
   readonly indicatorInset?: number | undefined;
   readonly className?: string | undefined;
@@ -108,6 +113,7 @@ export function GlassSegmentedControl<T extends string = string>(
     profile,
     radius = TRACK_RADIUS,
     thickness = TRACK_THICKNESS,
+    foreground = "vibrant",
     indicatorInset = INDICATOR_INSET,
     className,
     indicatorClassName,
@@ -258,6 +264,7 @@ export function GlassSegmentedControl<T extends string = string>(
       role="radiogroup"
       radius={radius}
       thickness={thickness}
+      foreground={foreground}
       {...(className === undefined ? {} : { className })}
       {...(plane === undefined ? {} : { plane })}
       {...(groupId === undefined ? {} : { groupId })}

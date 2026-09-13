@@ -103,6 +103,16 @@ export interface GlassHostOptions {
   readonly present?: boolean;
   readonly foreground?: ForegroundAdaptation;
   /**
+   * Whether vitrea owns this surface's label (W27e G2; W27 §Design's *Where each
+   * feature lives*, binding).
+   *
+   * vitrea's own controls set it; arbitrary content under `asChild` does not
+   * unless the author asks for it. It selects the ink rule's precedence and
+   * nothing else — see `ink-stylesheet.ts`'s `VIBRANT_INK_RULE` — so a host that
+   * declares it publishes exactly the same colours as one that does not.
+   */
+  readonly vibrant?: boolean;
+  /**
    * Take over placement across a cross-plane promotion.
    *
    * Absent, vitrea moves the element into the destination plane's host layer
@@ -143,6 +153,8 @@ export interface GlassHostPatch {
   /** Animate the material to identity or back, without changing the host's opacity. */
   readonly present?: boolean;
   readonly foreground?: ForegroundAdaptation | undefined;
+  /** Hand the label to the operator's precedence, or take it back (W27e G2). */
+  readonly vibrant?: boolean;
   readonly order?: number;
 }
 
@@ -184,6 +196,12 @@ export const HOST_ATTRIBUTES = {
   node: "data-vitrea-node",
   group: "data-vitrea-group",
   plane: "data-vitrea-host-plane",
+  /**
+   * Present on a host whose label vitrea owns — its own controls by default, and
+   * `asChild` content the author opted in (W27e G2). It selects the ink rule's
+   * precedence and nothing else; see `ink-stylesheet.ts`.
+   */
+  vibrant: "data-vitrea-vibrant",
 } as const;
 
 let sequence = 0;
