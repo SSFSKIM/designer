@@ -227,6 +227,22 @@ const FOREGROUND_TONE_TUNABLE = DEFAULT_MOTION_PROFILE.channels.foregroundTone a
   { kind: "threshold-crossfade" }
 >;
 
+/**
+ * Write the operator's ownership marker, or take it away (W27e G2; X9).
+ *
+ * `owned` is the declaration and presence together. Idempotent against the
+ * record's own memory rather than against the DOM: this runs once per host per
+ * frame, and an attribute write is a mutation the probe re-audits on, so writing
+ * an unchanged value every frame would turn the steady state into a read storm.
+ */
+function applyVibrant(record: HostRecord, present: boolean): void {
+  const owned = record.vibrantDeclared && present;
+  if (owned === record.vibrantApplied) return;
+  if (owned) record.host.setAttribute(HOST_ATTRIBUTES.vibrant, "");
+  else record.host.removeAttribute(HOST_ATTRIBUTES.vibrant);
+  record.vibrantApplied = owned;
+}
+
 /** Every glass group needs a backdrop source; a dom root gets this one for free. */
 export const DEFAULT_DOM_SOURCE_ID = "vitrea.dom";
 
@@ -630,6 +646,16 @@ interface HostRecord {
    * surface a moment of the wrong ink.
    */
   foregroundToneSeeded: boolean;
+  /**
+   * Whether the app handed this surface's label to the operator (W27e G2), and
+   * whether the attribute that carries it is currently on the element.
+   *
+   * Two fields rather than one read of the DOM, because the attribute is a
+   * function of the declaration **and** of presence — X9 — and the frame loop has
+   * to know what it last wrote in order to write nothing on an unchanged frame.
+   */
+  vibrantDeclared: boolean;
+  vibrantApplied: boolean;
   /** Last consumed value, including direct custom-property writes by other bindings. */
   materializationDrawn: number;
   /**
@@ -1600,6 +1626,27 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         record.host.style.setProperty(GLASS_CHANNEL_PROPERTIES.materialization, String(value));
         record.presencePublished = value;
       }
+      /*
+       * Identity hands the label back to the app (X9; W27d's handoff, claims
+       * §5.132).
+       *
+       * At presence 0 there is no glass — "as if no glass effect was applied" —
+       * so there is no surface for vitrea to own a label on, and the app owns its
+       * content over the uncovered backdrop. The token stays published, which is
+       * what X9 requires: identity is optical absence and not unmount, and an app
+       * that reads `--vitrea-foreground` goes on getting an answer. What goes is
+       * the *ownership* — the attribute — so the runtime's `color` falls back to
+       * the `:where()` rule at zero specificity and any application rule at all,
+       * down to a bare tag, wins. That is what "the operator reaches the app's own
+       * colour at 0" means once the operator is a precedence rather than a second
+       * colour (claims §5.140 §6).
+       *
+       * Binary at exactly 0 rather than graded, because specificity has no
+       * intermediate value. Nothing else about the ink is stepped here: the ink's
+       * own colour already follows presence, because presence scales the optical
+       * terms and the level behind the glyphs is a function of them.
+       */
+      applyVibrant(record, record.presencePublished > 0);
     }
     const cap = accessibilityRefractionCap(accessibility.material);
 
@@ -3073,6 +3120,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           1,
         ),
         foregroundToneSeeded: false,
+        vibrantDeclared: hostOptions.vibrant === true,
+        vibrantApplied: false,
         materializationDrawn: hostOptions.present === false ? 0 : 1,
         cssGroupShadow: undefined,
         cssClipsChildren: undefined,
@@ -3089,10 +3138,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       hostOptions.host.setAttribute(HOST_ATTRIBUTES.plane, plane);
       // Whether vitrea owns this surface's label. An attribute rather than a
       // declaration, because what it selects is the ink rule's PRECEDENCE and
-      // not its value (W27e G2; `ink-stylesheet.ts`).
-      if (hostOptions.vibrant === true) {
-        hostOptions.host.setAttribute(HOST_ATTRIBUTES.vibrant, "");
-      }
+      // not its value (W27e G2; `ink-stylesheet.ts`), and written through the
+      // same helper the frame loop uses so presence can take it away (X9).
+      applyVibrant(record, record.presencePublished > 0);
       // The host layer passes pointers through; a registered host opts back in,
       // so gaps between surfaces never swallow clicks on the page beneath.
       hostOptions.host.style.setProperty("pointer-events", "auto");
@@ -3154,8 +3202,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           if (patch.order !== undefined) record.order = patch.order;
           if (patch.present !== undefined) record.presence.retarget(patch.present ? 1 : 0);
           if (patch.vibrant !== undefined) {
-            if (patch.vibrant) record.host.setAttribute(HOST_ATTRIBUTES.vibrant, "");
-            else record.host.removeAttribute(HOST_ATTRIBUTES.vibrant);
+            record.vibrantDeclared = patch.vibrant;
+            applyVibrant(record, record.presencePublished > 0);
           }
 
           scene.updateGlassNode(nodeId, {

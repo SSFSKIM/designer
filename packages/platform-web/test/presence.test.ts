@@ -18,7 +18,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-function setup(present = true, reducedMotion = false) {
+function setup(present = true, reducedMotion = false, vibrant = false) {
   root = createGlassRoot({
     autoStart: false,
     diagnosticSink: () => {},
@@ -28,7 +28,7 @@ function setup(present = true, reducedMotion = false) {
   root.registerGroup({ id: "presence" });
   const host = document.createElement("button");
   root.plane("base").hostLayer.append(host);
-  const handle = root.registerHost({ host, groupId: "presence", present });
+  const handle = root.registerHost({ host, groupId: "presence", present, vibrant });
   const value = () => Number(host.style.getPropertyValue("--vitrea-materialization"));
   root.runFrame(0);
   return { host, handle, value };
@@ -263,5 +263,70 @@ describe("a parked surface and the CSS tier's group shadow (W27d; W18 G1)", () =
     const clip = container?.style.getPropertyValue("clip-path") ?? "";
     // One outer rectangle plus one hole per drawing member, and no more.
     expect(clip.match(/M /gu)?.length).toBe(3);
+  });
+});
+
+/**
+ * X9: identity leaves content as the app wrote it, and that reaches the label
+ * (W27e G2's half of the contract; claims §5.140 §6).
+ *
+ * W27d landed presence and left the hook: "when the vibrant operator lands it
+ * scales with presence and reaches the app's own colour at 0, because Apple's
+ * identity leaves content as if no glass effect was applied". The operator
+ * shipped as a precedence rather than as a second colour, so what scales is the
+ * ownership: at presence 0 there is no glass to own a label on, the marker comes
+ * off, and the runtime's `color` falls back to the zero-specificity rule any
+ * application selector beats. The token stays published throughout, which is the
+ * other half of X9 — identity is optical absence, not unmount.
+ */
+describe("presence hands a vibrant label back to the app at identity (X9)", () => {
+  const owned = (host: HTMLElement): boolean => host.hasAttribute("data-vitrea-vibrant");
+
+  it("owns the label while the surface is present and gives it up at 0", () => {
+    const { host, handle, value } = setup(true, false, true);
+    expect(owned(host)).toBe(true);
+
+    handle.update({ present: false });
+    for (let time = 10; time <= 220; time += 10) {
+      root.runFrame(time);
+      // Ownership survives the whole transit and goes only at the endpoint:
+      // there is still glass at 0.01, and a label that changed hands halfway
+      // through a dematerialization would be a second visible event.
+      expect(owned(host)).toBe(value() > 0);
+    }
+    expect(value()).toBe(0);
+    expect(owned(host)).toBe(false);
+
+    // And the token is still published, which is what makes this identity rather
+    // than unmount: an app reading `--vitrea-foreground` goes on getting one.
+    expect(host.style.getPropertyValue("--vitrea-foreground")).not.toBe("");
+
+    handle.update({ present: true });
+    root.runFrame(230);
+    expect(value()).toBeGreaterThan(0);
+    expect(owned(host)).toBe(true);
+  });
+
+  it("never marks a surface the app did not hand over", () => {
+    const { host, handle } = setup(true, false, false);
+    expect(owned(host)).toBe(false);
+    handle.update({ present: false });
+    for (let time = 10; time <= 220; time += 10) root.runFrame(time);
+    expect(owned(host)).toBe(false);
+  });
+
+  it("takes the marker on and off through `update`, and respects presence either way", () => {
+    const { host, handle, value } = setup(false, false, false);
+    expect(value()).toBe(0);
+    // Declared while the surface is at identity: the declaration is recorded and
+    // the attribute is not written, because there is no glass to own.
+    handle.update({ vibrant: true });
+    expect(owned(host)).toBe(false);
+    handle.update({ present: true });
+    for (let time = 10; time <= 240; time += 10) root.runFrame(time);
+    expect(value()).toBe(1);
+    expect(owned(host)).toBe(true);
+    handle.update({ vibrant: false });
+    expect(owned(host)).toBe(false);
   });
 });

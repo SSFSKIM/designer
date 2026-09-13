@@ -17,11 +17,17 @@ export type ForegroundOwnership = "vibrant" | "token";
 function resolveForeground(
   foreground: ForegroundAdaptation | ForegroundOwnership | undefined,
 ): { adaptation: ForegroundAdaptation | undefined; vibrant: boolean | undefined } {
+  // `undefined` is "no opinion", which leaves the host on whatever it registered
+  // with. The object form is an opinion about the cadence and, by saying nothing
+  // about ownership, an opinion that vitrea does not own the label — stated as
+  // `false` rather than left `undefined` so that switching a surface FROM
+  // `"vibrant"` TO an adaptation object takes the marker off instead of leaving
+  // a patch with nothing in it.
   if (foreground === undefined) return { adaptation: undefined, vibrant: undefined };
   if (typeof foreground === "string") {
     return { adaptation: undefined, vibrant: foreground === "vibrant" };
   }
-  return { adaptation: foreground, vibrant: undefined };
+  return { adaptation: foreground, vibrant: false };
 }
 
 /**

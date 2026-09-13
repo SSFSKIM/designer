@@ -667,10 +667,13 @@ export function StageGlass(props: StageProps): ReactNode {
                 <span aria-hidden="true">{favorite ? "★" : "☆"}</span>
               </GlassIconButton>
               {/*
-                The label is wrapped because the *host's* `color` is the runtime's:
-                platform-web writes it inline every frame, so an app rule on the
-                host loses to it. Restyling a glass host's ink therefore has to
-                happen on a child, and `site.css` says what the wrapper is for.
+                The label is wrapped by choice rather than by force. It used to be
+                forced: platform-web wrote the host's `color` inline every frame
+                and an app rule on the host lost to it silently. The ink now
+                arrives through a stylesheet rule a host rule outranks — at (0,0,0)
+                on a plain surface and at (0,1,0) on a control, which is vibrant by
+                default — so the wrapper stays only because it is the element the
+                disabled dim is measured on. `site.css` says so beside the rule.
               */}
               <GlassButton className="control" disabled>
                 <span className="control__label">Publish</span>

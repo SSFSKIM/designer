@@ -2442,3 +2442,46 @@ whoever charters it needs the freeze bar on this background before any of it can
 should read §5.139 §7's inactive/active chroma ratios (1.034 at the capsule, 1.058 at `rrect-lg`)
 first, because the recede transmits slightly *more* chroma than the active pose and a change that
 closed the active gap without that term would open an inactive one.
+
+## `GlassSurface`'s `foreground` prop now carries two axes and they are mutually exclusive (W27e G2, 2026-09-13)
+
+The prop was `ForegroundAdaptation` — the *cadence* the foreground decision is fed at, `fixed`,
+`author-hint` or `sampled-async`. W27e G2 added `"vibrant"` and `"token"`, which say who owns the
+label's `color` declaration, and the W27 §Design clause that spells the opt-in `foreground="vibrant"`
+is binding, so the two live in one prop. A union of an object and two strings is discriminable, so
+nothing is ambiguous — but a surface that needs `sampled-async` adaptation *and* the vibrant
+precedence cannot say so, and neither can one that needs `author-hint` and `"token"`.
+
+It bites hardest on the controls, which now default to `"vibrant"`: an author who passes
+`foreground={{ mode: "sampled-async" }}` to a `GlassButton` silently drops the label back to the
+token path. Nothing is wrong with either result; the author simply cannot have both.
+
+Shape of the fix, and it is additive so it can wait: give the object form an optional field —
+`{ mode: "sampled-async", vibrant: true }` — and keep the two strings as shorthands for
+`{ vibrant: true }` and `{ vibrant: false }` over the default cadence. That is a `@vitreajs/vitrea`
+minor (the type is core's) plus a react minor, and it breaks nothing already written. Do it the next
+time either axis is touched, not on its own.
+
+## The two tiers pick opposite ink poles on the clear variant over a narrow backdrop window (W27e G2, measured 2026-09-13)
+
+The CSS tier's foreground level runs brighter than the renderer's for the same material over the
+same backdrop — up to **0.0502** on the regular variant and **0.0824** on the clear one — because the
+two composite the same profile in two different spaces. On the regular material that is never enough
+to reach `foregroundCrossover`. On the **clear** variant it is: over backdrop luminances in
+**(0.0656, 0.1020)** the CSS tier reads above the crossover and the renderer reads below it, so a
+demotion from the WebGPU tier to the CSS one flips the label from white to black on the same surface
+over the same page.
+
+Found while pinning the ink across the tiers (claims §5.140 §2) and it predates W27e: nothing in the
+ink's derivation moved the levels, and the same window existed with `#1c1c1e`/`#f5f5f7`. It is not
+the operator's, which is why it is here and not chartered — X1 makes a CSS-tier fidelity difference a
+recorded residual rather than work. It is now bracketed to a thousandth of the backdrop's luminance
+in `packages/calibration/test/tier-coherence.test.ts`, so a material change has to move it
+deliberately.
+
+Shape of the work if it ever matters: it is the tiers' composite gap and not the ink's rule, so
+closing it means narrowing `cssTierForegroundLevel` against `gpuTierForegroundLevel` — a material
+question on the fidelity target's terms and therefore a wave, not a fix. A cheaper mitigation that
+is *not* recommended without measuring first: hysteresis on the pole per surface would hide the flip
+at a tier switch and would also hide a genuine adaptation, which is the one thing the ink must
+follow.
