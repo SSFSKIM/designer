@@ -138,8 +138,12 @@ function accessibilityDefault(key: string): number {
       execFileSync("defaults", ["read", "com.apple.universalaccess", key], { encoding: "utf8" })
         .trim(),
     );
-  } catch {
-    return 0; // the default is absent, which is the setting being off
+  } catch (error) {
+    const stderr = String((error as { stderr?: string | Buffer }).stderr ?? "");
+    if (stderr.includes(`(com.apple.universalaccess, ${key}) does not exist`)) {
+      return 0; // an absent preference key is the setting being off
+    }
+    throw error;
   }
 }
 const machineAccessibility = {

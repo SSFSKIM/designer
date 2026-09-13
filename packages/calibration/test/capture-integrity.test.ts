@@ -1,6 +1,7 @@
-import { mkdtempSync, writeFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
+import { chmodSync, mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { captureIntegrityRefusal } from "../src/capture-integrity";
 import {
@@ -121,5 +122,52 @@ describe("the material profile document's key admission", () => {
     expect(readMaterialProfileFile(write({ tintChromaScale: 0 })).cssTierMapping).toBeUndefined();
     expect(readMaterialProfileFile(write({ cssTierMapping: { saturation: 1.4 } })).patch).toEqual({});
     expect(() => readMaterialProfileFile(write({ patch: {} }))).toThrow(/is empty/);
+  });
+});
+
+describe("the G1c capture driver's accessibility preflight", () => {
+  it("treats a missing key as off but fails closed when defaults itself fails", () => {
+    const temporary = mkdtempSync(join(tmpdir(), "vitrea-g1c-preflight-"));
+    const bin = join(temporary, "bin");
+    mkdirSync(bin);
+    const defaults = join(bin, "defaults");
+    writeFileSync(
+      defaults,
+      `#!/bin/sh
+if [ "$3" = "reduceTransparency" ]; then
+  echo "The domain/default pair of (com.apple.universalaccess, reduceTransparency) does not exist" >&2
+  exit 1
+fi
+echo "defaults second-read failure sentinel" >&2
+exit 2
+`,
+    );
+    chmodSync(defaults, 0o755);
+
+    const repo = resolve(import.meta.dirname, "../../..");
+    const driver = resolve(
+      import.meta.dirname,
+      "../results/2026-09-13-w27c-g1c-fit/g1c-run.ts",
+    );
+    const patch = join(temporary, "patch.json");
+    writeFileSync(patch, "patch-read-after-preflight");
+
+    const result = spawnSync(
+      "pnpm",
+      [
+        "--filter", "@vitrea/calibration", "--fail-if-no-match", "exec", "tsx", driver,
+        "--out", join(temporary, "out"), "--patch", patch,
+      ],
+      {
+        cwd: repo,
+        encoding: "utf8",
+        env: { ...process.env, PATH: `${bin}:${process.env.PATH ?? ""}` },
+        timeout: 30_000,
+      },
+    );
+    const output = `${result.stdout ?? ""}${result.stderr ?? ""}`;
+    expect(result.status).not.toBe(0);
+    expect(output).toContain("defaults second-read failure sentinel");
+    expect(output).not.toContain("patch-read-after-preflight");
   });
 });

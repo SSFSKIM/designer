@@ -19409,6 +19409,20 @@ instrument applied at the fit stage. If no rung both lowers the calibration cell
 the **form** is refused and the document does not move for that term. No field is added to
 `MaterialProfile`: a fit moves the profile documents and nothing else.
 
+**The two ex-ante declarations do not state the same objective.** `partition.json` freezes an
+equal-cell mean **full-canvas** ΔE selected on calibration cells alone and says controls are not
+minimised over; the later `sweep-plan.json` freezes the equal-cell mean **body** ΔE over calibration
+and controls jointly. The later declaration governs, and that is exactly what `fit-tables.py`
+executes. Both precede every vitrea capture, but not every unread number: the partition precedes the
+native-only reading, while the sweep rule follows that declared reading, which its `priorReading`
+field names. On the later rule's body metric, restricting the population to the earlier rule's
+calibration cells makes T2's 0.92 and 0.96 lifts an evidence-level tie —
+0.006521140796114115 and 0.006521140796113977, both **0.00652114** at the published precision — so
+that hybrid rule would leave selection undetermined and only the controls separate the rungs. Read
+literally, however, the earlier declaration's own full-canvas calibration means are 0.0006876584 and
+0.0006609748, so its complete rule also favours 0.96. The conflict is real in both metric and
+population; it cannot accurately be reduced to a body-metric tie under `partition.json` alone.
+
 **2. The reference's own inactive levels, read native-only.** `native-response.ts` reads 208 rows out
 of the committed fixtures and compares nothing, so it spends nothing — the same standing as §5.139
 §4's native-against-native attestation. For every untinted inactive cell it records the backdrop's
@@ -19426,8 +19440,8 @@ the same backdrops is smooth by comparison — 0.01171, 0.45079, 0.54120, 0.6095
 fail the bound.
 
 **3. T1 — measured on the GPU, swept, and the FORM REFUSED.** Five rungs from the frozen
-extrapolation 0.1611 to the reference's measured 0.93261, on twelve rows each, every row byte-
-identical across two independent page loads.
+extrapolation 0.1611 to the reference's measured 0.93261, on ten rows each — 50 rows over the
+ladder — every row byte-identical across two independent page loads.
 
 | dark `backdropToneResponseThin[2]` | calibration body ΔE | `checkerboard__capsule-button` (control) | `photo__capsule-button` (control) | verdict |
 | --- | ---: | --- | --- | --- |
@@ -19474,11 +19488,15 @@ abscissa, the response then needs a fourth knot, which is an array-length change
 and not a profile-document fit. Both are in the tracker.
 
 **4. T2 — an occlusion floor per policy, fitted on two existing fields.** The bed does not describe a
-backdrop response there at all. Under **Reduce Transparency** all fourteen accessibility cells read
-**0.95597** linear Y to five decimals — over `dark-solid`, `checkerboard`, `photo`, `hc-text` and
-`light-solid` alike, at spans 32, 44, 48, 80, 96, 128 and 160 — with population SD **0.0000** on
-eleven of them; under **Increase Contrast** eleven of fourteen read 0.99110–0.99445. That is an
-opaque panel at a level the policy sets, and vitrea made it a backdrop response.
+backdrop response there at all. Under **Reduce Transparency** twelve of fourteen accessibility cells
+read **0.95597** linear Y to five decimals over `dark-solid`, `checkerboard`, `hc-text` and
+`light-solid`, at spans 32, 44, 48, 80, 96, 128 and 160. The two exceptions are
+`light-solid__rrect-ml__inactive` at **0.95660** and `photo__rrect-md__inactive` at **0.95411**;
+population SD is exactly zero on **eight** cells and below 1e-5 on thirteen. The full native range is
+0.002497 Y. Under **Increase Contrast** eleven of fourteen read 0.99110–0.99445; the three outside
+that band are `hc-text__rrect-lg__inactive` at 0.98731, `hc-text-28__rrect-md__inactive` at 0.97792
+and `light-solid__rrect-ml__inactive` at 0.95895. That is still an opaque panel at a level the policy
+sets, to within 0.0025 Y across five backdrops and seven spans, and vitrea made it a backdrop response.
 
 The mechanism, and why one number carries it: `backdropToneUnderPolicy` scales the backdrop-tone
 adaptation by `refractionScale[accessibilityRefractionCap(policy)]`, which under a reduced-refraction
@@ -19534,8 +19552,10 @@ profile-by-scene cells less the 12 carrying §5.130's holdout role; 72 scored (g
 that declares it). Applied by the G2 read's own scorer with one change — the endpoint refusal admits
 this child's declared endpoint beside the frozen one — and one refusal added, that a matrix which does
 not record both of the machine's accessibility settings off is refused outright. Before use the
-adapted scorer was run against the committed G2 matrix and reproduced §5.139's per-profile verdict
-exactly. **No clause was narrowed, re-scoped or re-declared.**
+adapted scorer refused the unmodified committed G2 matrix because that older matrix has no
+`machineAccessibility` field; the measured 0/0 field was then injected into a **copy**, and the
+scorer reproduced §5.139's `perProfile` block exactly. `scorer-smoke.py` commits that procedure as
+runnable evidence. **No clause was narrowed, re-scoped or re-declared.**
 
 | profile | clause 1 — ceiling | clause 2 — mean body ΔE | clause 3 — the 2× per-cell floor | joint | was (§5.139) |
 | --- | --- | --- | --- | --- | --- |
@@ -19628,13 +19648,24 @@ applied once, to the configuration the declared rule selected, and scoring a sec
 would be shopping for one. A later fit on this fold should either weight its objective by the scored
 population or say why it does not.
 
-**One correction to this section, made before the independent review's findings landed and recorded
-rather than made silently.** §3's table first gave `photo__capsule-button__inactive` at the measured
-ordinate as **21.1×** its baseline; it is **3.11×** (0.04440 → 0.13802 at 1x, 0.04726 → 0.13936 at
-2x). The ratio had been divided by `checkerboard`'s baseline rather than `photo`'s own. Both readings
-it divides are committed in `fit-t1.json` and are unchanged, the refusal turns on `checkerboard`'s
-29.80× and not on this cell, and the wrong ratio also stands in commit `01fe508c`'s message, which is
-left as written.
+**Corrections to this section, recorded rather than made silently.** Before the independent review's
+findings landed, §3's table first gave `photo__capsule-button__inactive` at the measured ordinate as
+**21.1×** its baseline; it is **3.11×** (0.04440 → 0.13802 at 1x, 0.04726 → 0.13936 at 2x). The ratio
+had been divided by `checkerboard`'s baseline rather than `photo`'s own. Both readings it divides are
+committed in `fit-t1.json` and are unchanged, the refusal turns on `checkerboard`'s 29.80× and not on
+this cell, and the wrong ratio also stands in commit `01fe508c`'s message, which is left as written.
+
+The review found two more repeated counts. First, `sweep-plan.json`'s ex-ante commentary, §4 and the
+prose derived from them said all fourteen Reduce Transparency cells rounded to 0.95597 and eleven
+had exactly zero population SD. The committed matrix says **12 of 14** round to 0.95597, **8 of 14**
+have exactly zero native SD, and **13 of 14**
+have native SD below 1e-5; the two exceptions and vitrea's residual structure are now named above and
+in the tracker. Second, `sweep-plan.json` declares T1 as 12 rows per rung / 60 total and T2 as five
+matrices / 30 rows. The committed matrices contain **10 rows per T1 rung and 50 total**, because its
+patterns select five scenes across two profiles; T2 contains **six matrices and 36 rows**, six rows
+each, because the cap-0 / lift-0.92 endpoint was captured under both stage labels. The five distinct
+T2 endpoint documents and every selected cell are unchanged, so neither verdict's arithmetic moves.
+The two declaration files remain byte-for-byte as committed; this is the correction beside them.
 
 **Verification record.** `pnpm -r build && pnpm -r lint && pnpm -r test` green at the fit's head:
 2,025 unit tests (policy 23, motion 164, geometry 170, renderer 465, core 302, platform-web 552,
@@ -19654,6 +19685,13 @@ refused until it was cleared at **05:41:19Z**. Both read **0** at all thirteen r
 evidence — the eleven sweep rungs from 05:42:24Z to 05:44:43Z, the frozen WebGPU re-read at
 05:48:53Z and the CSS pass at 05:54:23Z — and at the golden suite at 05:48:18Z. The scorer refuses a
 matrix that does not carry the reading, which was proved against the committed G2 matrix before use.
+
+The thirteen matrices pin the capturing driver's pre-fix `instrumentSha256`,
+**97aa8b0d7030eb30f7aa63dc4d248c300c35136fd3da210560423a8f56480b37**; the corrected driver's
+hash is **9d37b8a78294710334e40913127b0c3230cc39757c46d37ac053a6a97f65b6da**. The evidence is not
+re-captured and the recorded hash is not rewritten. This correction cannot have changed a recorded
+pixel: it changes only the branch taken when `defaults` itself fails, every admitted run recorded
+0/0, and the same refusal was observed firing when the preference genuinely read 1.
 
 Every row of every matrix drew on a real `metal-3` adapter with `isFallback: false`, resolved its
 declared tier on every group, repeated across two independent page loads to the byte, and reported

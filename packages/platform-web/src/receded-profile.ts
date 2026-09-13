@@ -70,15 +70,18 @@ export const recededMaterialProfile: Readonly<Record<"light" | "dark", RendererM
      * response (W27c G1c, claims §5.141 §4).
      *
      * The 26.5 checking bed reads the reference as opaque and backdrop-blind
-     * there: under Reduce Transparency all fourteen cells settle at 0.95597
-     * linear Y to five decimals over dark-solid, checkerboard, photo, hc-text and
-     * light-solid alike, at spans 32 through 160, with population SD 0.0000 on
-     * eleven of them, and under Increase Contrast eleven of fourteen read
-     * 0.9911–0.99445. Nothing in that is a function of the backdrop, and the
-     * frozen endpoint made it one: it kept 45 % of the backdrop-tone adaptation
-     * alive through the refraction cap, which pulled the thin end down onto the
-     * dark backdrop it was covering — 0.58408 at span 48 against the reference's
-     * 0.99445, in the direction that defeats the setting.
+     * there: under Reduce Transparency twelve of fourteen cells settle at
+     * 0.95597 linear Y to five decimals over five backdrops and spans 32 through
+     * 160. The exceptions are light-solid/rrect-ml at 0.95660 and photo/rrect-md
+     * at 0.95411; eight have exactly zero native population SD and thirteen are
+     * below 1e-5. Under Increase Contrast eleven of fourteen read 0.9911–0.99445;
+     * hc-text/rrect-lg, hc-text-28/rrect-md and light-solid/rrect-ml are the
+     * three below that band. The 0.0025-Y Reduce Transparency range still
+     * identifies a backdrop-blind form at this scale, while the frozen endpoint
+     * kept 45 % of the backdrop-tone adaptation alive through the refraction
+     * cap. It pulled the thin end down onto the dark backdrop it was covering —
+     * 0.58408 at span 48 against the reference's 0.99445, in the direction that
+     * defeats the setting.
      *
      * Zeroing the cap is the whole statement, because the one factor carries all
      * three things a flat opaque panel does not have: the tone adaptation's

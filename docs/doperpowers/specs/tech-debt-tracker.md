@@ -2450,19 +2450,32 @@ profile caveat). Dark accessibility and 2x accessibility still have no inactive 
 
 *The backdrop coupling is CLOSED by W27c G1c (2026-09-13, claims §5.141 §4), and what is left behind
 is a different entry, written here rather than opened as a third.* The bed says the reference is not
-a span law at all: under Reduce Transparency all fourteen cells read **0.95597** linear Y to five
-decimals over `dark-solid`, `checkerboard`, `photo`, `hc-text` and `light-solid` at spans 32 through
-160, with population SD **0.0000** on eleven of them. So the fit was an occlusion floor per policy,
-on two existing fields of the light entry: `refractionScale.approximate` 0.45 → **0**, which is the
-single factor `backdropToneUnderPolicy` rides and therefore what kept 45% of the backdrop adaptation
+a span law at all: under Reduce Transparency **twelve of fourteen** cells read **0.95597** linear Y
+to five decimals over `dark-solid`, `checkerboard`, `photo`, `hc-text` and `light-solid` at spans 32
+through 160. The exceptions are `light-solid__rrect-ml__inactive` at **0.95660** and
+`photo__rrect-md__inactive` at **0.95411**, the latter with native SD **0.002962**; native SD is
+exactly zero on **eight of fourteen** and below 1e-5 on thirteen. The complete 0.002497-Y range still
+identifies an occlusion floor per policy, on two existing fields of the light entry:
+`refractionScale.approximate` 0.45 → **0**, the single factor `backdropToneUnderPolicy` rides and
+therefore what kept 45% of the backdrop adaptation
 alive under a preference that asked for the opposite, and `increasedOcclusionLift` 0.92 → **0.96**.
 `dark-solid__rrect-48__inactive` goes from body ΔE 0.16224 to 0.00410 under Increase Contrast and
 0.17417 to 0.00894 under Reduce Transparency; the increased-contrast profile crosses the declared
 bound from FAILS to HOLDS and both per-cell exceedances are gone.
 
+**Named residual in that form:** neither side is perfectly flat. Apple's two exceptions above span
+0.002497 Y, with the photo cell carrying the one material native variance; vitrea's fitted panel has
+exactly zero web SD on only **eight of fourteen** cells and reaches **0.004904** on
+`hc-text-28__rrect-md__inactive`. That web structure is visible in
+`sheets/apple-macos-26.5-1x-light-reduced-transparency.png`. The opaque-panel form remains the right
+one at this scale, but a future fidelity pass must explain and fit the residual structure rather than
+reading “opaque” as perfectly uniform.
+
 **What remains, and it is a model-form gap and not a tuning residual: the two accessibility policies
 settle at different levels and one shared fold cannot hold both.** The reference is 0.95597 under
-Reduce Transparency and 0.99110–0.99445 under Increase Contrast, **0.0375 Y apart**, and
+Reduce Transparency and 0.99110–0.99445 on eleven of fourteen Increase Contrast cells, **0.0375 Y
+apart**; its three lower cells are `hc-text__rrect-lg__inactive` at 0.98731,
+`hc-text-28__rrect-md__inactive` at 0.97792 and `light-solid__rrect-ml__inactive` at 0.95895.
 `increasedOcclusionLift` is one number for both because macOS force-couples the two settings and
 `occlusion: "increased"` comes from the Reduce Transparency row alone
 (`core/src/accessibility.ts`). At 0.92 the Reduce Transparency reference is reproduced exactly
