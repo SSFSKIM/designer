@@ -19785,8 +19785,9 @@ Evidence: `packages/calibration/results/2026-09-13-w27e-g3-landing/` — `declar
 `contrast-{css,webgpu}-{light,dark}.json` records and four corresponding additive
 `*-complete.json` records, `checked-run.mjs` and `browser-runs.json`, `sheet.mjs`, the two composed
 eye sheets and eight raw captures under `sheets/`, and — added by the review fix wave (§10) — four
-`*-converged.json` records, one `contrast-css-dark-review-red.json`, and a second sheet pair with its
-own eight raw captures under `converged-eye/sheets/`. The gate code and first 1,460 readings landed at
+`*-converged.json` records, one `contrast-css-dark-review-red.json`, a second sheet pair with its
+own eight raw captures under `converged-eye/sheets/`, and the final four
+`*-phase-honest.json` records from §11. The gate code and first 1,460 readings landed at
 `c5ebd496`; those four 365-row files remain unchanged. The complete records add the declared tinted
 label beside them for 1,464 readings. The eye pair landed at `11cbeee3`.
 
@@ -19812,11 +19813,13 @@ body-label readings, two secondary specimens and four read-only tertiary/quatern
 **1,464 total**. There are 53 unique route/family/text combinations after repeated tone stops and
 phases are reduced. Each of those counts describes the records committed at `07d54fc1` and stays
 true of them. **The record is the corrected run's**: four `*-converged.json` cells of **411 readings**
-each — 282 large-label, 121 body-label, two secondary specimens and four read-only
+each — 282 large-label, **123** body-label, two secondary specimens and four read-only
 tertiary/quaternary — for **1,644 total**, over the same **53** unique route/family/text
-combinations, since the fix wave added phases rather than labels. Of each cell's 411, **140 are
-phased** (35 rows at each of the four offsets) and 271 are single readings of a still ground. The run
-is full Chromium 151 at 1440 × 1000, dpr 1, on `apple / metal-3`;
+combinations, since the fix wave added phases rather than labels. (This breakdown first read 121
+body-label, which sums to 409 rather than 411; §11 records the correction and the counts the records
+themselves hold.) Of each cell's 411, **140 are phased** (35 rows at each of the four offsets) and
+271 are single readings of a still ground. The run is full Chromium 151 at 1440 × 1000, dpr 1, on
+`apple / metal-3`;
 every requested-WebGPU group reports `activeRenderer: webgpu`, and every requested-CSS group reports
 `css`. The adapter is not a fallback.
 Before every invocation `defaults read com.apple.universalaccess reduceTransparency` and
@@ -19867,9 +19870,10 @@ exit 0, both accessibility defaults **0 / 0**, HeadlessChrome 151 at 1440 × 100
 `apple / metal-3`, not a fallback adapter. Every number is the minimum over every matching label,
 state, tone stop and sampled phase in that family, reduced from the complete records rather than
 from a first pass. The parenthesised label is the CSS-light minimum's location; the JSON keeps every
-individual reading, its exact state and — where the scenario is phased — the offset that sample
-actually reached. The two schemes on `/playground/` intentionally produce the same flat-ground
-minima; the page's two ink grounds remain the controlled variable. **Bold marks a figure that
+individual reading, its exact state and — where the scenario is phased — the offset at which that
+reading's sampling batch began, which §11 distinguishes from a capture time per label. The two
+schemes on `/playground/` intentionally produce the same flat-ground minima; the page's two ink
+grounds remain the controlled variable. **Bold marks a figure that
 differs from the superseded table below.**
 
 | route | family (minimum label) | gate | CSS light | CSS dark | WebGPU light | WebGPU dark |
@@ -20205,7 +20209,8 @@ figure in §2, §4, §7 or §8 has been replaced by an estimate.
 4. *Phases that drifted off the period they name.* `SAMPLE_DELAYS` were applied as waits *between*
    samples, so the time spent reading each family accumulated and the four samples of a nine-second
    drift were no longer the four points chosen. `atSamplePhases` now schedules them as absolute
-   offsets from each scenario's start and records both the offset scheduled and the offset reached;
+   offsets from each scenario's start and records both the offset scheduled and the offset its
+   sampling batch began at (§11 names that field for what it is);
    `worstRatio` in the shared helper takes the same correction, so `contrast.spec.ts` and
    `page-stage.gpu.spec.ts` gain it too.
 5. *Changing states read once.* The tinted material label, both selected-favourite glyphs, both open
@@ -20235,9 +20240,12 @@ and overwriting none of them. Every item the list above owed is now read from th
   readouts — plus `access (registered texture)` where the string `same texture root: <tier>` used to
   stand, and every value is the requested tier.
 - **The phase schedule is honest in the record.** Across the 140 phased rows of a cell, the offsets
-  actually reached are 401–404 ms against a scheduled 400, 2201–2204 against 2200, 4200–4203 against
-  4200 and 6200–6203 against 6200 — at most 4 ms of slip, where the old cumulative scheme would have
-  been minutes out by the fourth sample of a busy scenario.
+  at which the sampling batches *began* are 401–404 ms against a scheduled 400, 2201–2204 against
+  2200, 4200–4203 against 4200 and 6200–6204 against 6200, taking all four cells together — at most
+  4 ms of slip in the start of a batch, where the old cumulative scheme would have been minutes out
+  by the fourth sample of a busy scenario. That stamp is a batch start and not a capture time per
+  label; §11 states what it does and does not carry, and corrects the last range, which was written
+  here as 6200–6203 from the two dark cells alone.
 - **§4's four green minima are unchanged** and are not restated; two sibling rows beside defect 1 did
   move, and §4 now says which and why.
 - **§7's total** reads 1,644 beside the 1,464.
@@ -20292,3 +20300,98 @@ on any of the three routes — not because the sheets are stale, but because the
 the operator and the ink repairs before that change existed. The sheets are evidence for what they
 frame. Whether the heavier plate label is right for these pages is a question for the user in front
 of the running demo, or for a third view nobody has captured, and it is the last open input on G3.
+
+#### 11. The re-review: a batch stamp named as one, and a body count corrected
+
+§10's fix wave was reviewed again, and two of its statements were not true as written. Both are
+corrected here rather than edited out of the record. Nothing measured moved: no profile document,
+Apple fixture, `scenes.json` entry, renderer golden, isolation hash or canonical
+`results/matrix.json` row was touched, and the eight first-pass and complete records, the four
+`*-converged.json` records, `contrast-css-dark-review-red.json` and both sheet pairs are unchanged.
+
+**1. The phase stamp is a batch start, and the field now says so.** `SamplePhase` carried
+`reachedMs`, read once at the top of each `atSamplePhases` callback. But one callback measures a
+whole scenario — its families in turn, every row of them handed that same object — so the value is
+the offset at which the *batch* began, and the labels after the first were captured some way after
+it. `reachedMs` invited exactly the misreading §2 and §10 then made. The field is now
+**`batchStartedMs`** in the interface, in `worstRatio`'s failure text and in the comment on
+`LabelReading.phase`, and `apps/demo/test/sample-phases.test.ts` pins the semantics without a
+browser: the stamp is taken before the batch's own measuring work, it is the offset actually
+started at rather than the one scheduled, and a batch that overruns its gap does not backdate the
+one after it.
+
+Stated at the precision the records actually have: across the 140 phased rows of a cell the batch
+starts land at **401–404 ms** against a scheduled 400, **2201–2204** against 2200, **4200–4203**
+against 4200 and **6200–6204** against 6200, taking all four cells together — at most **4 ms** of
+slip in the *start* of a batch. §10 gave the last range as 6200–6203, which is the two dark cells'
+envelope; both light cells reach 6204 and the 4 ms bound holds either way. One stamp covers between
+one and seven label reads: each cell holds 48 phased batches — 20 of one row, 4 of two, 8 of three,
+8 of four and 8 of seven. **The record carries no capture time per label**, and no claim may assume
+one; a label's own moment is bounded only by its batch's start and the batch's duration, which the
+instrument does not record.
+
+The four `*-converged.json` records were written before the rename and carry the value under the
+old name `reachedMs`. They stay as recorded. The corrected instrument writes `batchStartedMs`, and
+its run landed **beside** them under the tag `phase-honest`: four 411-row records, 1,644 readings in
+all, with 140 phased rows in every cell and no `reachedMs` field. `pnpm --filter demo test:e2e`
+started 2026-09-13T09:34:40Z, passed **57 / 57** in **617.1 s**, and ran on the same non-fallback
+`apple / metal-3` adapter at 1440 × 1000, dpr 1, with both accessibility defaults **0 / 0**.
+
+**2. Each cell's body-label count is 123, not 121.** §0's breakdown of the 411 converged readings
+read "282 large-label, 121 body-label, two secondary specimens and four read-only", which sums to
+409. Counted from the records themselves, all four `*-converged.json` cells hold **282
+large-label, 123 body-label, 2 secondary-pixel and 4 read-only** readings — 411, which is the total
+§0 and §10 both already state, and 1,644 across the four cells. The error was in the prose's
+breakdown alone: no total, no table row and no measured ratio depended on it, and the 121 is kept
+here as the reading it replaces. The complete cells' own breakdown, quoted in §0 above, is
+unaffected: 276 + 84 + 2 + 4 = 366.
+
+**The final phase-honest record.** The batch starts in the final four cells span **401–407 ms** for
+the scheduled 400, **2201–2213** for 2200, **4200–4204** for 4200 and **6201–6208** for 6200.
+Those are batch-start offsets, not per-label capture times. All four cells contain 282 large-label,
+123 body-label, 2 secondary and 4 read-only rows; all floor, large-type and ladder failure lists are
+empty. The minima below are reduced from `*-phase-honest.json`. They supersede §2's converged table
+only as the final metadata-schema run; every changed rounded value remains far from its floor.
+
+| route | family | gate | CSS light | CSS dark | WebGPU light | WebGPU dark |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| `/` | accessibility plate | 3.0 pixel | 13.583 | 10.928 | 13.441 | 10.906 |
+| `/` | closed morph | 4.5 pixel | 13.767 | 10.936 | 13.625 | 10.829 |
+| `/` | material/page/tone size labels | 3.0 pixel | **3.021** | 6.799 | **3.057** | 7.087 |
+| `/` | open menu | 4.5 pixel | 12.735 | 10.914 | 12.900 | 10.906 |
+| `/` | segments | 4.5 pixel | 13.800 | 10.869 | 13.597 | 10.829 |
+| `/` | selected favourite | 4.5 pixel | 13.952 | 7.010 | 14.004 | 8.140 |
+| `/` | tinted material label | 3.0 pixel | 4.452 | 5.422 | 4.452 | 5.422 |
+| `/` | toolbar controls | 4.5 pixel | 5.829 | 6.347 | 5.801 | 6.305 |
+| `/laws/` | body | 3.0 pixel | 10.556 | 10.556 | 10.488 | 10.488 |
+| `/laws/` | lens | 3.0 pixel | 12.263 | 12.263 | 12.276 | 12.276 |
+| `/laws/` | nested | 3.0 pixel | 13.212 | 13.212 | 13.064 | 13.084 |
+| `/laws/` | tint | 3.0 pixel | 6.704 | 6.704 | 6.704 | 6.704 |
+| `/laws/` | tone | 3.0 pixel | 11.923 | 11.923 | 11.833 | 11.833 |
+| `/playground/` | closed morph | 4.5 pixel | 8.562 | 8.562 | 8.412 | 8.412 |
+| `/playground/` | DOM plate body | 4.5 pixel | 10.308 | 10.308 | 8.724 | 8.724 |
+| `/playground/` | DOM plate heading | 3.0 pixel | 10.308 | 10.308 | 8.724 | 8.724 |
+| `/playground/` | ink-level names | 4.5 pixel | 5.642 | 5.642 | 5.450 | 5.450 |
+| `/playground/` | ink-row controls | 4.5 pixel | 6.531 | 6.531 | 6.544 | 6.544 |
+| `/playground/` | open menu | 4.5 pixel | 8.832 | 8.832 | 8.680 | 8.683 |
+| `/playground/` | primary specimen | 4.5 pixel | 5.642 | 5.642 | 5.450 | 5.450 |
+| `/playground/` | quaternary specimen | read only | 1.206 | 1.206 | 1.203 | 1.203 |
+| `/playground/` | secondary specimen | 4.45 / 4.25 pixel | **4.463** | 4.463 | **4.278** | 4.278 |
+| `/playground/` | segments | 4.5 pixel | 8.624 | 8.624 | 8.016 | 8.016 |
+| `/playground/` | selected favourite | 4.5 pixel | 9.317 | 9.317 | 9.047 | 9.047 |
+| `/playground/` | small texture plate | 4.5 pixel | 10.540 | 10.591 | 10.735 | 10.684 |
+| `/playground/` | tertiary specimen | read only | 1.675 | 1.675 | 1.665 | 1.665 |
+| `/playground/` | texture plate body | 4.5 pixel | 10.581 | 10.496 | 10.765 | 10.699 |
+| `/playground/` | texture plate heading | 3.0 pixel | 10.486 | 10.484 | 10.765 | 10.731 |
+| `/playground/` | toolbar controls | 4.5 pixel | **4.644** | 4.644 | **4.508** | 4.508 |
+
+**Verification.** `pnpm --filter demo lint` (ESLint, the app typecheck and the e2e typecheck) is
+clean, `pnpm --filter demo test` is **34 / 34** — §10's 30 plus four new cases over the phase stamp —
+and `pnpm --filter demo build` is green. Across the workspace `pnpm -r build`, `pnpm -r lint` and
+`pnpm -r test` are green with every other package's count unmoved: core 302, platform-web 582,
+react 148, calibration 404, renderer-webgpu 465, geometry 170, motion 164, policy 23. The final
+phase-honest demo browser run is **57 / 57** in 617.1 s. The React run at the same source state
+collected 159: **152 passed, 3 intentional skips and 4 failures in the tracker’s named timing/focus
+flake class**; it was recorded, not rerun to green. `browser-runs.json` holds **40** invocations,
+every one launched only after Reduce Transparency and Increase Contrast read **0 / 0**. No
+platform-web pixel/GPU suite was triggered because no file those suites consume moved.

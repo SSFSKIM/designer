@@ -39,10 +39,21 @@ export const LARGE_FLOOR = 3;
  */
 export const SAMPLE_DELAYS = [400, 2200, 4200, 6200];
 
-/** Where one sample actually landed: the offset it was scheduled for, and the one it reached. */
+/**
+ * When one batch of sampling began: the offset it was scheduled for, and the offset
+ * it actually started at.
+ *
+ * `batchStartedMs` is a batch stamp and not a per-label capture time, and the name
+ * says so because the distinction is load-bearing for what a record may claim. One
+ * phase drives a whole scenario: its families are measured one after another inside
+ * a single callback, and every row produced there carries this same object. So the
+ * first label of a batch is read at roughly this offset and the last one some way
+ * after it. A record that read this as the moment each label was captured would be
+ * asserting a precision the instrument never had.
+ */
 export interface SamplePhase {
   readonly scheduledMs: number;
-  readonly reachedMs: number;
+  readonly batchStartedMs: number;
 }
 
 /**
@@ -53,9 +64,9 @@ export interface SamplePhase {
  * screenshot is not free — a scenario whose families take a second each would
  * have put its four samples at 0.4s, 3.2s, 6.2s and 9.2s of a nine-second period
  * rather than at the four points that were chosen, with the last one back where
- * the first began. Each sample therefore waits only the remainder to its own
- * offset, and is told the offset it actually reached so that what gets recorded
- * is a reading rather than a schedule.
+ * the first began. Each batch therefore waits only the remainder to its own
+ * offset, and is told the offset it actually started at, so that what gets
+ * recorded is a reading rather than a schedule.
  */
 export async function atSamplePhases(
   page: Page,
@@ -65,7 +76,7 @@ export async function atSamplePhases(
   for (const scheduledMs of SAMPLE_DELAYS) {
     const wait = remainingWait(startedAt, Date.now(), scheduledMs);
     if (wait > 0) await page.waitForTimeout(wait);
-    await sample({ scheduledMs, reachedMs: Date.now() - startedAt });
+    await sample({ scheduledMs, batchStartedMs: Date.now() - startedAt });
   }
 }
 
@@ -254,8 +265,9 @@ export async function worstNow(
 /** The worst ratio any matching element reaches across the sampled phases. */
 export async function worstRatio(page: Page, selector: string): Promise<{ ratio: number; where: string }> {
   let worst = { ratio: Number.POSITIVE_INFINITY, where: selector };
-  await atSamplePhases(page, async ({ reachedMs }) => {
-    const found = await worstNow(page, selector, `at +${String(reachedMs)}ms`);
+  await atSamplePhases(page, async ({ batchStartedMs }) => {
+    const when = `in the batch beginning +${String(batchStartedMs)}ms`;
+    const found = await worstNow(page, selector, when);
     if (found.ratio < worst.ratio) worst = found;
   });
   return worst;

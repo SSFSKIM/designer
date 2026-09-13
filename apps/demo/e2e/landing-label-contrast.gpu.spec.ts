@@ -88,7 +88,12 @@ interface LabelReading {
   readonly surface: Channels;
   readonly floor: number | null;
   readonly floorName: LabelFamily["floorName"];
-  /** Present where the scenario's backdrop is moving; absent where it is still. */
+  /**
+   * Present where the scenario's backdrop is moving; absent where it is still.
+   * Its `batchStartedMs` belongs to the batch this row was measured in, not to this
+   * row alone: every label of one phase carries the same stamp, and the ones read
+   * later in the batch were captured after it.
+   */
   readonly phase: SamplePhase | null;
   readonly inks: readonly InkReading[];
   readonly ratio: number;
@@ -306,9 +311,10 @@ async function measureFamilies(
 /**
  * The four phases, for a scenario whose backdrop keeps moving.
  *
- * The state name carries the offset the sample was scheduled for, so the rows of
- * one scenario stay comparable between runs; the row itself carries the offset
- * the sample actually reached.
+ * The state name carries the offset the batch was scheduled for, so the rows of
+ * one scenario stay comparable between runs; the rows themselves carry the offset
+ * their batch actually started at. One batch measures every family in turn, so that
+ * stamp is shared by all of them and is a start rather than a per-label capture time.
  */
 async function measurePhases(
   page: Page,
