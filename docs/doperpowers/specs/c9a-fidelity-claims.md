@@ -20390,8 +20390,11 @@ clean, `pnpm --filter demo test` is **34 / 34** — §10's 30 plus four new case
 and `pnpm --filter demo build` is green. Across the workspace `pnpm -r build`, `pnpm -r lint` and
 `pnpm -r test` are green with every other package's count unmoved: core 302, platform-web 582,
 react 148, calibration 404, renderer-webgpu 465, geometry 170, motion 164, policy 23. The final
-phase-honest demo browser run is **57 / 57** in 617.1 s. The React run at the same source state
-collected 159: **152 passed, 3 intentional skips and 4 failures in the tracker’s named timing/focus
-flake class**; it was recorded, not rerun to green. `browser-runs.json` holds **40** invocations,
-every one launched only after Reduce Transparency and Increase Contrast read **0 / 0**. No
-platform-web pixel/GPU suite was triggered because no file those suites consume moved.
+phase-honest demo browser run is **57 / 57** in 617.1 s. The final committed-head React run
+collected 159: **153 passed, 3 intentional skips and 3 failures in the tracker's named timing/focus
+flake class** — Chromium's inert/release and morph-focus cases, and Firefox presence. It was
+recorded, not rerun to green; the preceding 152/4 reading remains in the log beside it.
+`browser-runs.json` holds **41** invocations, every one launched only after Reduce Transparency and
+Increase Contrast read **0 / 0**. No platform-web pixel/GPU suite was triggered because no file
+those suites consume moved. Four review rounds are recorded newest-first in the wave Revision Notes;
+the last two factual corrections are this section, and review is converged.
