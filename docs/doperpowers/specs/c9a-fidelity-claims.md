@@ -19784,7 +19784,9 @@ Evidence: `packages/calibration/results/2026-09-13-w27e-g3-landing/` — `declar
 (committed first at `2d1d9e9d`, before any source moved or browser ran), four first-pass
 `contrast-{css,webgpu}-{light,dark}.json` records and four corresponding additive
 `*-complete.json` records, `checked-run.mjs` and `browser-runs.json`, `sheet.mjs`, the two composed
-eye sheets and eight raw captures under `sheets/`. The gate code and first 1,460 readings landed at
+eye sheets and eight raw captures under `sheets/`, and — added by the review fix wave (§10) — four
+`*-converged.json` records, one `contrast-css-dark-review-red.json`, and a second sheet pair with its
+own eight raw captures under `converged-eye/sheets/`. The gate code and first 1,460 readings landed at
 `c5ebd496`; those four 365-row files remain unchanged. The complete records add the declared tinted
 label beside them for 1,464 readings. The eye pair landed at `11cbeee3`.
 
@@ -20144,9 +20146,10 @@ and 4 failures**, all four in the timing/focus class this suite's entry in
 presence cases, and Firefox's morph focus and presence cases. **It is recorded as that class and not
 called a regression, and it was not rerun to green**; §5.140's own verification record documents the
 same class at a different count, and re-rolling a flaky suite until it agrees is how a class like
-this stops being visible. `browser-runs.json` now holds **38** attempts, every one through
-`checked-run.mjs` with both accessibility defaults **0 / 0** immediately before launch, with its
-command, duration and exit status.
+this stops being visible. `browser-runs.json` now holds **39** attempts — the thirty-eight above plus
+§10's sheet capture at 09:10:31Z, 28.3 s, exit 0 — every one through `checked-run.mjs` with both
+accessibility defaults **0 / 0** immediately before launch, and each with its command, duration and
+exit status.
 
 The workspace suites were re-read at this head too: `pnpm -r build`, `pnpm -r lint` and
 `pnpm -r test` are green with policy **23**, motion **164**, geometry **170**, renderer-webgpu
@@ -20260,10 +20263,32 @@ rule, the ladder rule, the phase arithmetic and the evidence filename can be hel
 neither a page nor an adapter — and `pnpm -r build`, `pnpm -r lint` and `pnpm -r test` are green
 across the workspace with every other package's count unmoved. The browser record is in §8.
 
-**What §10 does not settle.** The user's eye has not been taken on the fix wave's head. The eye
-sheets under `sheets/` were composed against the first landing, and the fix wave changed what they
-show: the plate labels are 20px at weight 700 rather than 17px at 650 on all three routes. The
-sheets are therefore evidence for the operator and the four ink repairs, which they still show
-faithfully, and **not** for the type change, which no sheet in this directory depicts. Whether the
-heavier plate label is right for these pages is a question for the user in front of the running
-demo, and it is the last open input on G3.
+**The sheets re-taken at the fix wave's head.** `converged-eye/sheets/`, taken 2026-09-13T09:10:31Z
+with the landing side at `ac984c40` — the fix wave's head — against the same `de9a9bcd` pre-G2 before
+side, the same 1440 × 1000 at dpr 1, the same `apple / metal-3` adapter and both accessibility
+defaults **0 / 0**. Stop S6's comparison identity therefore holds: one axis moved between the
+columns. The pair is written **beside** the first landing's `sheets/`, which is untouched.
+
+Every finding §5 records reproduces: the operator's faint blue passthrough inside the primary and
+secondary strokes, the dark scheme's selected `Week` repaired from white-on-bright-pill to dark ink,
+tertiary a shade weaker and quaternary close to disappearing on the lower plate.
+
+**And the two views are unchanged against the first landing's, measured rather than eyeballed.** The
+ink-plate view is **pixel-identical** outside a 16 px strip at its left edge — 0 of 126,464 pixels
+differ, in both schemes. The controls view is pixel-identical in the dark scheme and differs in the
+light one by at most **2 code values**, which is below anything an eye adjudicates. The left strip is
+not a change either: it catches the playground's registered texture canvas, whose bands drift on a
+four-second period, at a different point of that drift. The control for that reading is in the same
+directory — the **`de9a9bcd` side, whose commit did not move between the two sheet runs, varies in
+the same strip by the same magnitude** (max channel delta 81 against the landing side's 81 and 82).
+The variation is the capture's phase, not the fix wave's doing, and it is the same drift the phase
+correction exists to sample.
+
+**What the sheets still do not cover, and it is a real limit.** Neither chosen view contains a plate
+label. The controls view is the site's toolbar, segmented control and closed morph; the plate view is
+`/playground/`'s tint-and-ink band, whose type is the `Aa` specimens and the level names. No
+`.plate strong` appears in either, so **no sheet in this directory depicts the 20px/700 type change**
+on any of the three routes — not because the sheets are stale, but because the views were chosen for
+the operator and the ink repairs before that change existed. The sheets are evidence for what they
+frame. Whether the heavier plate label is right for these pages is a question for the user in front
+of the running demo, or for a third view nobody has captured, and it is the last open input on G3.
