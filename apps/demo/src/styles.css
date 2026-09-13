@@ -297,7 +297,7 @@ body {
 }
 
 .plate span {
-  color: var(--ink-dim);
+  color: var(--vitrea-foreground, var(--ink));
   font-size: 0.8125rem;
 }
 
@@ -610,9 +610,11 @@ body {
   isolation: isolate;
 }
 
+/* Disabled recedes in its ink, not by fading the glass host. The site's same
+   control measures 72% as the furthest dim that keeps the body-text pixel floor. */
 .control:disabled {
+  color: color-mix(in oklab, var(--vitrea-foreground, var(--ink)) 72%, transparent);
   cursor: default;
-  opacity: 0.45;
 }
 
 /*
@@ -667,12 +669,14 @@ body {
   font: inherit;
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--ink-dim);
+  color: var(--vitrea-foreground, var(--ink));
   cursor: pointer;
 }
 
 .segment[aria-checked="true"] {
-  color: var(--vitrea-foreground, var(--ink));
+  /* The selected pill is bright app decoration over the glass track, so its ink
+     belongs to that pill rather than to the material behind the unselected labels. */
+  color: var(--ground);
 }
 
 .segment:focus-visible {

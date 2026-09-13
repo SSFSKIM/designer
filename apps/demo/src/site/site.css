@@ -905,7 +905,7 @@ code {
  */
 .segment[aria-checked="true"] {
   font-weight: 650;
-  color: var(--paper-9);
+  color: light-dark(var(--paper-9), var(--paper-0));
 }
 
 .segment:focus-visible {

@@ -136,6 +136,53 @@ export async function surfaceOf(target: Locator): Promise<Channels> {
   return pixels[Math.floor(pixels.length / 2)]?.rgb ?? [0, 0, 0];
 }
 
+/**
+ * The median surface pixel directly under a painter's glyphs.
+ *
+ * A broad control can use `surfaceOf`: its box is overwhelmingly material. A
+ * two-character specimen cannot — its box is mostly glyph, while its containing
+ * plate's median may be somewhere else on a chromatic material. Capture the same
+ * box once as rendered and once with only this painter transparent, then retain
+ * the pixels that changed. The second image at those coordinates is the material
+ * the glyphs actually covered, without deriving it from the ink being tested.
+ */
+export async function surfaceUnderInk(target: Locator): Promise<Channels> {
+  const painted = PNG.sync.read(await target.screenshot());
+  const previous = await target.evaluate((element) => {
+    const html = element as HTMLElement;
+    const value = html.style.getPropertyValue("color");
+    const priority = html.style.getPropertyPriority("color");
+    html.style.setProperty("color", "transparent", "important");
+    return { value, priority };
+  });
+
+  let bare: PNG;
+  try {
+    bare = PNG.sync.read(await target.screenshot());
+  } finally {
+    await target.evaluate((element, { value, priority }) => {
+      const html = element as HTMLElement;
+      if (value === "") html.style.removeProperty("color");
+      else html.style.setProperty("color", value, priority);
+    }, previous);
+  }
+
+  const pixels: { readonly rgb: Channels; readonly y: number }[] = [];
+  for (let i = 0; i < bare.data.length; i += 4) {
+    if ((bare.data[i + 3] ?? 0) < 200) continue;
+    const changed =
+      Math.abs((painted.data[i] ?? 0) - (bare.data[i] ?? 0)) +
+      Math.abs((painted.data[i + 1] ?? 0) - (bare.data[i + 1] ?? 0)) +
+      Math.abs((painted.data[i + 2] ?? 0) - (bare.data[i + 2] ?? 0));
+    if (changed < 3) continue;
+    const rgb: Channels = [bare.data[i] ?? 0, bare.data[i + 1] ?? 0, bare.data[i + 2] ?? 0];
+    pixels.push({ rgb, y: luminance(rgb[0], rgb[1], rgb[2]) });
+  }
+  if (pixels.length === 0) throw new Error("the painter made no measurable pixels");
+  pixels.sort((a, b) => a.y - b.y);
+  return pixels[Math.floor(pixels.length / 2)]?.rgb ?? [0, 0, 0];
+}
+
 /** The ink as it actually reaches the eye: composited over the surface it sits on. */
 export function inkOver(
   ink: { readonly rgb: Channels; readonly alpha: number },
