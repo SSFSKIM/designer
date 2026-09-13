@@ -2485,3 +2485,25 @@ question on the fidelity target's terms and therefore a wave, not a fix. A cheap
 is *not* recommended without measuring first: hysteresis on the pole per surface would hide the flip
 at a tier switch and would also hide a genuine adaptation, which is the one thing the ink must
 follow.
+
+## The band's secondary ink reads 4.463 against a token that promises 4.5, and did before the operator (W27e G2, measured 2026-09-13)
+
+`--vitrea-foreground-secondary` is solved to hold WCAG 4.5 against the composite the runtime
+computes for the surface (Decision Log 9). The demo's contrast harness reads the same level on the
+ink band's light ground at **4.463** on the CSS tier after W27e G2 and **4.481** before it, so the
+operator moved it by 0.018 and the shortfall predates the gate (claims §5.140 §9). The two figures
+are not the same measurement: the token is solved against the runtime's computed composite, the
+harness composites the recovered ink over the plate's *median rendered pixel*. Which of the three
+candidates named in `apps/demo/e2e/ink-band-contrast.spec.ts` accounts for the 0.037 — the median of
+a plate that contains its own specimens, the tint's chroma against a solve taken on the computed
+composite, or a declared backdrop that is not exactly what is behind the plate — is not measured.
+
+Until it is, `ink-band-contrast.spec.ts` holds the reading at a **pixel** floor of 4.45, named as a
+pixel floor and not as the token's promise, so a change that pushes it further under fails the suite
+while this known gap does not.
+
+Shape of the work: W27e G3 runs the contrast harness on every glass label in the demo and is the
+place to separate the cause — read the token's own solve inputs beside the harness's surface pixel
+for the same element, and attribute the difference to one of the three candidates. If it is the
+plate's median, the harness's surface should be the pixel under the glyphs and the floor returns to
+4.5; if it is the solve's composite, the floor stays and the token's solve is the thing to move.
