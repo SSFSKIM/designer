@@ -845,6 +845,41 @@ neighbour glow diffusion; topology-changing morphs.
     `GlassButton`, a `GlassGroup tint` and the four named ink levels live — which needs no
     operator decision and closes W27a's acceptance clause 2 (Surprises, 2026-09-11).
 
+16. **The label selector: `foregroundCrossover` keeps the role, and Apple's form is recorded as
+    convergent, not as authority (2026-09-13; user-decided on the parent's recommendation, on
+    claims §5.138).** Decision Log 15 (c) held the selector behind the 1x both-pose pass. The pass
+    read: the vibrancy operator has no selector of its own — on 258 of 258 occurrences across all
+    three corpora the high-gain operator sits exactly where the body's own face fill is black, the
+    label's lightening matrix follows the same bit on 72 of 72, and the window pose selects nothing
+    (it switches the highlight layer off, with the loss of key). So the 2x "scheme-only" label
+    reading of §5.136 §4 is refuted, and Apple's selection has the SHAPE of vitrea's crossover: per
+    surface, two poles, off the material's own adapted state. Ruled: no second selector. G2's
+    operator half ships pure black/white at Apple's alpha (Decision Log 15 (a)) on both tiers,
+    selected by the existing crossover at vitrea's fitted 0.475; the convergence is recorded and
+    two questions stay open, not closed — whether Apple's input is an internal adapted-state bit or
+    a level against a threshold, and where its dark-scheme threshold sits (unbracketed; the light
+    span gate at `dark-solid`'s tone is (64, 80] and vitrea's knee is inside it). Rejected: retuning
+    the crossover to Apple's bracket now (one tone across a span ladder, and no dark bracket at
+    all — not adoptable), and holding the operator half for another probe (it would cost the ink
+    decision already taken).
+
+17. **W27c stays held; the two model-form terms are fitted next, and the bound is re-applied once
+    (2026-09-13; user-decided on the parent's recommendation, on claims §5.139).** The checking bed
+    was published by seven-run plurality (156 cells, the 455 committed entries untouched) and the
+    declared bound of §5.134 §5 holds on the 1x and 2x dark standard profiles and fails on the light
+    standard pair (one cell, clause 3) and on both accessibility profiles (one cell at 16–21×), the
+    near inverse of the spent holdout's retro-verdict. Two model-form misses account for the
+    failures and are named in §5.139 §6: the dark thin response over a bright backdrop is wrong by
+    0.78 Y (Apple's recede there is invisible and vitrea paints a dark panel; the thin row alone),
+    and the accessibility recede follows its backdrop down where Apple's stays an opaque near-white
+    panel (0.41 Y). Ruled: no runtime until the bound holds on every profile the runtime would ship
+    on. The next W27c child fits those two terms on the published bed's supplying cells with a
+    partition and a holdout declared before the fit, re-applies the bound once on the new
+    configuration, and adopts no floor (Decision Log 13's probe bar stands). Rejected: shipping
+    the pose on the two dark profiles only (a recede that depends on the colour scheme is a visible
+    product oddity), and deferring W27c beyond the wave (the 26.5 bed exists now and a fit against
+    it is what closes the gap it measured).
+
 ## Surprises & Discoveries
 
 - **The eighteen fidelity waves moved six matrix rows; the eight coverage children before them
@@ -961,6 +996,13 @@ G1 records every per-scene miss; G2 alone adopts a native stack bound and re-rea
 
 ## Revision Notes
 
+- 2026-09-13, **Decision Logs 16 and 17: the label selector ruled (the crossover keeps the role)
+  and W27c held for a model-form fit.** Both reads of the sitting merged (`8691a6bf` the probe
+  reading, claims §5.138; `a9b14625` the checking-bed read, §5.139). Dispatched on the rulings:
+  W27e G2's operator half (pure black/white at Apple's alpha, the macOS ladder with the WCAG 4.5
+  floor as a minimum, selected by the existing crossover, both tiers, the ~13 ink assertions
+  re-baselined with each move attributed), and W27c's model-form fit of the dark thin response and
+  the accessibility occlusion with a declared partition and one holdout read.
 - 2026-09-13, **W27c's checking bed PUBLISHED and READ; the declared bound holds on two of six
   profiles and G2 stays blocked (claims §5.139; evidence
   `packages/calibration/results/2026-09-13-w27c-g2-read/`).** The sitting's seven runs per pass were
