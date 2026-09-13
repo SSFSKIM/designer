@@ -2478,11 +2478,21 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         const declarations = cssTierDeclarations({
           materialization: input.channels.materialization,
           driven: presenceDriven,
-          // The channel's value as of this frame's advance. The level it is
-          // retargeted with comes back out of the render below, because the level
-          // is a function of the tinted, adapted, presence-folded optics this call
-          // derives and nothing out here can reproduce it (W27e G2).
-          foregroundTone: record.foregroundTone.value,
+          /*
+           * The channel's value as of this frame's advance, and **only once the
+           * driver has a level of its own** (W27e G2).
+           *
+           * The level this is retargeted with comes back out of the render below,
+           * because it is a function of the tinted, adapted, presence-folded
+           * optics this call derives and nothing out here can reproduce it. So on
+           * a surface's very first render there is no committed phase yet, and
+           * handing over the driver's construction value would publish the pole
+           * it happened to be built at rather than the pole the level asks for —
+           * a dark surface's first painted frame would show the dark ink. Absent,
+           * the ink is selected off the level exactly as it was before this
+           * channel was consumed, and the seed below jumps the driver to match.
+           */
+          ...(record.foregroundToneSeeded ? { foregroundTone: record.foregroundTone.value } : {}),
           radii: record.radii,
           optics: nodeBaseOptics,
           untintedOptics: nodeUntintedOptics,
@@ -2732,7 +2742,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             policy: accessibility,
             mapping: cssMapping,
             compositeBounds: inkCompositeBounds,
-            tone: record.foregroundTone.value,
+            ...(record.foregroundToneSeeded ? { tone: record.foregroundTone.value } : {}),
             ...(level === undefined ? {} : { level }),
             ...(inkComposite === undefined ? {} : { composite: inkComposite }),
           });
