@@ -3,7 +3,7 @@
  * inactive endpoint against the 26.5 checking bed, on the WebGPU tier.
  *
  * The instrument is `results/2026-09-13-w27c-g2-read/g2-read.ts` with exactly
- * three changes and nothing else loosened.
+ * four changes and nothing else loosened.
  *
  *   - **`--patch <file>` names the endpoint under test.** The frozen G1 document
  *     is still the default, and with no `--patch` this driver reproduces the G2
@@ -20,6 +20,12 @@
  *     either is on is not evidence even where this driver overrides the policy
  *     per cell. Both are read from `com.apple.universalaccess` before the first
  *     page opens; a non-zero reading refuses the run rather than qualifying it.
+ *   - **`--controls <regex>` admits the declared control ids outside the bed**,
+ *     on §5.130's recovered fixtures, so that what a candidate costs where the
+ *     curve is already right can be measured at all. Documented in full at the
+ *     pattern's own declaration below: never scored, never a bed id, and
+ *     recording the absence of the plurality and pose proofs rather than
+ *     asserting them.
  *   - **`--label` may name a sweep rung**, so a one-parameter ladder writes one
  *     matrix per rung into the same scratch directory.
  *
@@ -451,8 +457,24 @@ const frozen = json(resolve(pkg, "results/2026-09-10-w27c-g1-corrected-declarati
 const patchFile = process.argv.includes("--patch") ? resolve(arg("patch")) : undefined;
 const candidate: Record<"light" | "dark", any> =
   patchFile === undefined ? recededMaterialProfile : json(patchFile);
-if (patchFile === undefined && JSON.stringify(frozen.patch) !== JSON.stringify(recededMaterialProfile)) {
-  throw new Error("The exported receded profile is not the frozen G1 endpoint");
+if (patchFile === undefined) {
+  /*
+   * With no candidate the exported document has to be a DECLARED endpoint, and
+   * after this child there are two: the frozen G1 one and the one
+   * `fitted-endpoint.json` freezes. Admitting only the first would refuse the
+   * frozen re-read this child exists to produce; admitting anything would let an
+   * uncommitted edit be measured as if it had been declared.
+   */
+  const declaredFile = resolve(here, "fitted-endpoint.json");
+  const declared = existsSync(declaredFile)
+    ? [frozen.patch, json(declaredFile).patch]
+    : [frozen.patch];
+  if (!declared.some((p) => JSON.stringify(p) === JSON.stringify(recededMaterialProfile))) {
+    throw new Error(
+      "The exported receded profile is neither the frozen G1 endpoint nor the endpoint " +
+        "fitted-endpoint.json declares",
+    );
+  }
 }
 const endpointUnderTest: Record<string, unknown> = {
   source: patchFile === undefined

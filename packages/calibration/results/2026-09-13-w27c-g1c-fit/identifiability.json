@@ -1,0 +1,365 @@
+{
+ "gate": "W27c G1c / claims \u00a75.141",
+ "kind": "native-only \u2014 the bed's own geometry on the response's abscissa; nothing spent",
+ "anchors": {
+  "backdropToneAnchorX": [
+   0.1104,
+   0.2706,
+   0.9505
+  ],
+  "$comment": "the three declared uniform patches' encoded-space means: dark-solid 28/255, mid-dark-solid 69/255 exactly, light-solid's raster mean"
+ },
+ "schemes": {
+  "light": {
+   "thinRow": [
+    {
+     "scene": "impulse__capsule-button__inactive",
+     "span": 44,
+     "encodedBackdropMean": 0.0037499999999999994,
+     "sizeThickness": 0.09228515625,
+     "nativeBodyY": 0.006726953444655569,
+     "backdrop": "structured",
+     "backdropSd": 0.0007515032429435112
+    },
+    {
+     "scene": "dark-solid__capsule-button__inactive",
+     "span": 44,
+     "encodedBackdropMean": 0.11037019607834325,
+     "sizeThickness": 0.09228515625,
+     "nativeBodyY": 0.011711216012870547,
+     "backdrop": "uniform",
+     "backdropSd": 3.136739503896674e-09
+    },
+    {
+     "scene": "dark-solid__rrect-sm__inactive",
+     "span": 32,
+     "encodedBackdropMean": 0.11037019607834325,
+     "sizeThickness": 0,
+     "nativeBodyY": 0.01171121601287148,
+     "backdrop": "uniform",
+     "backdropSd": 0
+    },
+    {
+     "scene": "mid-chroma-solid__capsule-button__inactive",
+     "span": 44,
+     "encodedBackdropMean": 0.25539294117663497,
+     "sizeThickness": 0.09228515625,
+     "nativeBodyY": 0.47616754823690577,
+     "backdrop": "uniform",
+     "backdropSd": 1.6195375561180828e-07
+    },
+    {
+     "scene": "mid-dark-solid__capsule-button__inactive",
+     "span": 44,
+     "encodedBackdropMean": 0.27058823529433373,
+     "sizeThickness": 0.09228515625,
+     "nativeBodyY": 0.45078578283823467,
+     "backdrop": "uniform",
+     "backdropSd": 0
+    },
+    {
+     "scene": "mid-dark-solid__rrect-sm__inactive",
+     "span": 32,
+     "encodedBackdropMean": 0.27058823529433373,
+     "sizeThickness": 0,
+     "nativeBodyY": 0.45078578283822673,
+     "backdrop": "uniform",
+     "backdropSd": 0
+    },
+    {
+     "scene": "photo__capsule-button__inactive",
+     "span": 44,
+     "encodedBackdropMean": 0.42540525612744523,
+     "sizeThickness": 0.09228515625,
+     "nativeBodyY": 0.5881617314873225,
+     "backdrop": "structured",
+     "backdropSd": 0.034456468002896735
+    },
+    {
+     "scene": "photo__rrect-sm__inactive",
+     "span": 32,
+     "encodedBackdropMean": 0.42540525612744523,
+     "sizeThickness": 0,
+     "nativeBodyY": 0.5411963393324231,
+     "backdrop": "structured",
+     "backdropSd": 0.011533314967938189
+    },
+    {
+     "scene": "checkerboard__capsule-button__inactive",
+     "span": 44,
+     "encodedBackdropMean": 0.49999999999999994,
+     "sizeThickness": 0.09228515625,
+     "nativeBodyY": 0.6085353369499223,
+     "backdrop": "structured",
+     "backdropSd": 0.10027138452950322
+    },
+    {
+     "scene": "checkerboard__rrect-sm__inactive",
+     "span": 32,
+     "encodedBackdropMean": 0.49999999999999994,
+     "sizeThickness": 0,
+     "nativeBodyY": 0.6095373627522676,
+     "backdrop": "structured",
+     "backdropSd": 0.10961591599834299
+    },
+    {
+     "scene": "checkerboard-lc16__capsule-button__inactive",
+     "span": 44,
+     "encodedBackdropMean": 0.6999999999997909,
+     "sizeThickness": 0.09228515625,
+     "nativeBodyY": 0.7864524498841342,
+     "backdrop": "structured",
+     "backdropSd": 0.042477306715573426
+    },
+    {
+     "scene": "hc-text__capsule-button__inactive",
+     "span": 44,
+     "encodedBackdropMean": 0.7400312499999999,
+     "sizeThickness": 0.09228515625,
+     "nativeBodyY": 0.7098458014304649,
+     "backdrop": "structured",
+     "backdropSd": 0.08977817936378406
+    },
+    {
+     "scene": "hc-text__rrect-sm__inactive",
+     "span": 32,
+     "encodedBackdropMean": 0.7400312499999999,
+     "sizeThickness": 0,
+     "nativeBodyY": 0.5484902322235977,
+     "backdrop": "structured",
+     "backdropSd": 0.051603017674558264
+    },
+    {
+     "scene": "light-solid__capsule-button__inactive",
+     "span": 44,
+     "encodedBackdropMean": 0.9504352941167059,
+     "sizeThickness": 0.09228515625,
+     "nativeBodyY": 0.9326072014987324,
+     "backdrop": "uniform",
+     "backdropSd": 0
+    },
+    {
+     "scene": "light-solid__rrect-sm__inactive",
+     "span": 32,
+     "encodedBackdropMean": 0.9504352941167059,
+     "sizeThickness": 0,
+     "nativeBodyY": 0.9326072014987159,
+     "backdrop": "uniform",
+     "backdropSd": 0
+    }
+   ]
+  },
+  "dark": {
+   "thinRow": [
+    {
+     "scene": "impulse__capsule-button__inactive",
+     "span": 44,
+     "encodedBackdropMean": 0.0037499999999999994,
+     "sizeThickness": 0.09228515625,
+     "nativeBodyY": 0.006726953444655569,
+     "backdrop": "structured",
+     "backdropSd": 0.0007515032429435112
+    },
+    {
+     "scene": "dark-solid__capsule-button__inactive",
+     "span": 44,
+     "encodedBackdropMean": 0.11037019607834325,
+     "sizeThickness": 0.09228515625,
+     "nativeBodyY": 0.011711216012870547,
+     "backdrop": "uniform",
+     "backdropSd": 3.136739503896674e-09
+    },
+    {
+     "scene": "dark-solid__rrect-sm__inactive",
+     "span": 32,
+     "encodedBackdropMean": 0.11037019607834325,
+     "sizeThickness": 0,
+     "nativeBodyY": 0.01171121601287148,
+     "backdrop": "uniform",
+     "backdropSd": 0
+    },
+    {
+     "scene": "mid-chroma-solid__capsule-button__inactive",
+     "span": 44,
+     "encodedBackdropMean": 0.25539294117663497,
+     "sizeThickness": 0.09228515625,
+     "nativeBodyY": 0.09759260113181537,
+     "backdrop": "uniform",
+     "backdropSd": 0
+    },
+    {
+     "scene": "mid-dark-solid__capsule-button__inactive",
+     "span": 44,
+     "encodedBackdropMean": 0.27058823529433373,
+     "sizeThickness": 0.09228515625,
+     "nativeBodyY": 0.040915196906852455,
+     "backdrop": "uniform",
+     "backdropSd": 0
+    },
+    {
+     "scene": "mid-dark-solid__rrect-sm__inactive",
+     "span": 32,
+     "encodedBackdropMean": 0.27058823529433373,
+     "sizeThickness": 0,
+     "nativeBodyY": 0.04091519690685238,
+     "backdrop": "uniform",
+     "backdropSd": 5.645843061144529e-09
+    },
+    {
+     "scene": "photo__capsule-button__inactive",
+     "span": 44,
+     "encodedBackdropMean": 0.42540525612744523,
+     "sizeThickness": 0.09228515625,
+     "nativeBodyY": 0.1115395643292825,
+     "backdrop": "structured",
+     "backdropSd": 0.014041991142281347
+    },
+    {
+     "scene": "checkerboard__capsule-button__inactive",
+     "span": 44,
+     "encodedBackdropMean": 0.49999999999999994,
+     "sizeThickness": 0.09228515625,
+     "nativeBodyY": 0.1169988854215134,
+     "backdrop": "structured",
+     "backdropSd": 0.03632562940847994
+    },
+    {
+     "scene": "checkerboard-lc16__capsule-button__inactive",
+     "span": 44,
+     "encodedBackdropMean": 0.6999999999997909,
+     "sizeThickness": 0.09228515625,
+     "nativeBodyY": 0.13853004564004176,
+     "backdrop": "structured",
+     "backdropSd": 0.007887244488455895
+    },
+    {
+     "scene": "hc-text__rrect-sm__inactive",
+     "span": 32,
+     "encodedBackdropMean": 0.7400312499999999,
+     "sizeThickness": 0,
+     "nativeBodyY": 0.08985016027271156,
+     "backdrop": "structured",
+     "backdropSd": 0.031022182321632678
+    },
+    {
+     "scene": "light-solid__rrect-sm__inactive",
+     "span": 32,
+     "encodedBackdropMean": 0.9504352941167059,
+     "sizeThickness": 0,
+     "nativeBodyY": 0.9326072014987159,
+     "backdrop": "uniform",
+     "backdropSd": 0
+    }
+   ]
+  }
+ },
+ "bedGeometry": {
+  "uniformBackdrops": [
+   {
+    "background": "dark-solid",
+    "encodedMean": 0.1104
+   },
+   {
+    "background": "mid-chroma-solid",
+    "encodedMean": 0.2554
+   },
+   {
+    "background": "mid-dark-solid",
+    "encodedMean": 0.2706
+   },
+   {
+    "background": "light-solid",
+    "encodedMean": 0.9504
+   }
+  ],
+  "structuredBackdrops": [
+   {
+    "background": "impulse",
+    "encodedMean": 0.0037
+   },
+   {
+    "background": "photo",
+    "encodedMean": 0.4254
+   },
+   {
+    "background": "checkerboard-64",
+    "encodedMean": 0.472
+   },
+   {
+    "background": "checkerboard-32",
+    "encodedMean": 0.5
+   },
+   {
+    "background": "checkerboard-8",
+    "encodedMean": 0.5
+   },
+   {
+    "background": "checkerboard-4",
+    "encodedMean": 0.5
+   },
+   {
+    "background": "checkerboard",
+    "encodedMean": 0.5
+   },
+   {
+    "background": "checkerboard-lc16",
+    "encodedMean": 0.7
+   },
+   {
+    "background": "hc-text",
+    "encodedMean": 0.74
+   },
+   {
+    "background": "hc-text-7",
+    "encodedMean": 0.7504
+   },
+   {
+    "background": "hc-text-28",
+    "encodedMean": 0.7652
+   }
+  ],
+  "uniformGaps": [
+   {
+    "between": [
+     "dark-solid",
+     "mid-chroma-solid"
+    ],
+    "from": 0.1104,
+    "to": 0.2554,
+    "width": 0.145
+   },
+   {
+    "between": [
+     "mid-chroma-solid",
+     "mid-dark-solid"
+    ],
+    "from": 0.2554,
+    "to": 0.2706,
+    "width": 0.0152
+   },
+   {
+    "between": [
+     "mid-dark-solid",
+     "light-solid"
+    ],
+    "from": 0.2706,
+    "to": 0.9504,
+    "width": 0.6798
+   }
+  ],
+  "widestUniformGap": {
+   "between": [
+    "mid-dark-solid",
+    "light-solid"
+   ],
+   "from": 0.2706,
+   "to": 0.9504,
+   "width": 0.6798
+  },
+  "brightestStructured": [
+   "hc-text-28",
+   0.7652
+  ],
+  "theConfound": "there is no UNIFORM backdrop between the middle anchor and the far one, and no STRUCTURED backdrop above the brightest structured mean. A reference level that is low at the brightest structured backdrop and high at the far uniform one is therefore explained equally by the abscissa (the response steps near white) and by the structure (the recede goes transparent over a uniform bright field and not over a broken one). The bed separates neither, and a fit that assumes one is a fit to an assumption."
+ }
+}
