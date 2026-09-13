@@ -19359,3 +19359,293 @@ construction rather than by a hardware run: **no file under `packages/*/src` cha
 imports), and `tuned-profiles.test.ts`, inside the 386, pins each profile's fully resolved material
 by fingerprint on every run. The 34 renderer golden/isolation tests were not re-run, because nothing
 they read moved.
+
+### 5.141 W27c G1c: the accessibility recede is an opaque panel and is fitted; the dark thin far ordinate is measured and REFUSED because the bed cannot separate abscissa from structure; the bound holds on three of six (2026-09-13)
+
+**Gate.** W27 coverage wave, child W27c, the model-form fit W27 Decision Log 17 authorises after
+§5.139's checking-bed read: the two terms §5.139 §6 named, fitted "with a partition and a holdout
+declared before the fit", the bound of §5.134 §6 "re-applied once on the new configuration", and no
+floor adopted. Two terms and no others — §5.139 §5 (a)'s middle response ordinate is `bed`, arm A3,
+declared and unrun, and §7's active chroma deficit is a later wave's. Contracts X1, X3, X7, X8. The
+comparison is the **WebGPU tier**; the CSS tier's derivation is captured beside it and gates nothing.
+No runtime is written, the active material is not touched, §5.130's spent holdout is not re-read, and
+Decision Log 13's probe bar stands. Evidence:
+`packages/calibration/results/2026-09-13-w27c-g1c-fit/`.
+
+**The read's one-line result: one term is fitted, one is refused, and the declared bound now holds on
+3 of 6 profiles instead of 2 — the increased-contrast profile crosses from FAILS to HOLDS and both
+accessibility profiles' per-cell exceedances are gone, while the reduced-transparency profile fails
+clause 2 alone at 1.04× and the two light standard profiles fail exactly as before, on the refused
+term seen from the other scheme.**
+
+**1. The partition, and the one spend it could not avoid.** `partition.json` is committed before any
+number this child had not already read in §5.139 is looked at; every id in it is chosen from the
+bed's structure and from §5.139 §6's published readings. **T1** (the dark thin response over a bright
+backdrop) fits on `light-solid__rrect-sm__inactive` at 1x and 2x dark, where span 32 is `sizeSpanMin`
+and `sizeThickness` is exactly 0, so the thin far ordinate is identified with no admixture of the
+thick row; its holdout is the same backdrop at span 44 and both are supplying cells, so the term
+spends no checking cell. Its **controls** are the other two anchors' thin cells (bed group A) and
+§5.130's recovered dark thin cells over `checkerboard` and `photo`, read through the instrument's
+`--controls` path — outside the bed, never scored, and recording per row that neither the sitting's
+plurality nor the inactive-pose attestation exists for them, because the recovered entries carry
+neither. They are a refusal instrument, not a fitting input.
+
+**T2** (the accessibility recede's occlusion) could not be partitioned that way and the cost is
+declared before the fit rather than discovered in the verdict. The two accessibility profiles declare
+fourteen of the bed's ids and twelve are group D; groups A, B and C are declared on the four standard
+profiles only, and group E's two accessibility ids are §5.130 calibration ids over structured
+backdrops. There is **no supplying cell under either policy**, so fitting the term at all spends one
+scored cell per policy — `dark-solid__rrect-48__inactive`, the thin end where the fold missed by
+0.41 Y. After this fit the bound's clauses 2 and 3 on `apple-macos-26.5-1x-light-increased-contrast`
+and `apple-macos-26.5-1x-light-reduced-transparency` are **no longer an unspent check on that cell**.
+The bound is still applied exactly as declared; `verdict.json` carries `declaredSpend` beside the
+per-profile result so the qualification travels with the number. The other eleven checking cells in
+each accessibility profile stay unspent and the four standard profiles are untouched by T2.
+
+The selection rule, declared in `sweep-plan.json` before the first capture: select on the equal-cell
+mean **body** ΔE over a term's calibration and control cells jointly, and **refuse** a rung whose
+single worst control exceeds twice its baseline reading at the frozen endpoint — clause 3's own
+instrument applied at the fit stage. If no rung both lowers the calibration cells and clears that cap,
+the **form** is refused and the document does not move for that term. No field is added to
+`MaterialProfile`: a fit moves the profile documents and nothing else.
+
+**2. The reference's own inactive levels, read native-only.** `native-response.ts` reads 208 rows out
+of the committed fixtures and compares nothing, so it spends nothing — the same standing as §5.139
+§4's native-against-native attestation. For every untinted inactive cell it records the backdrop's
+**encoded-space mean**, which is `backdropToneAnchorX`'s own axis (`mid-dark-solid` reads 69/255 =
+0.27059 and `light-solid` 0.9505, two of the three declared anchors exactly), and the reference's
+settled interior level over the declared union eroded 6 CSS px.
+
+The **dark thin row** at 1x, by encoded backdrop mean: `dark-solid` 0.1104 → **0.01171**,
+`mid-dark-solid` 0.2706 → **0.04092**, `photo` 0.4254 → 0.11154, `checkerboard` 0.5000 → 0.11700,
+`checkerboard-lc16` 0.7000 → 0.13853, `hc-text` 0.7400 → **0.08985**, `light-solid` 0.9504 →
+**0.93261**. It is flat and low across four fifths of the axis and steps by **0.84 in the last
+fifth**. The 2x row reproduces it (hc-text 0.10235, light-solid 0.93261). The **light thin row** over
+the same backdrops is smooth by comparison — 0.01171, 0.45079, 0.54120, 0.60954, 0.78645, 0.54849,
+0.93261 — and its own outlier is `hc-text` at span 32, which is where the light standard profiles
+fail the bound.
+
+**3. T1 — measured on the GPU, swept, and the FORM REFUSED.** Five rungs from the frozen
+extrapolation 0.1611 to the reference's measured 0.93261, on twelve rows each, every row byte-
+identical across two independent page loads.
+
+| dark `backdropToneResponseThin[2]` | calibration body ΔE | `checkerboard__capsule-button` (control) | `photo__capsule-button` (control) | verdict |
+| --- | ---: | --- | --- | --- |
+| **0.1611** (frozen) | 0.43179 | 0.00653 | 0.04440 | baseline |
+| 0.30 | 0.30715 | 0.06136 (9.40×) | — | **refused** |
+| 0.50 | 0.18494 | 0.11586 (17.75×) | — | **refused** |
+| 0.70 | 0.08906 | 0.15621 (23.93×) | — | **refused** |
+| **0.93261** (measured) | **0.00406** | **0.19450 (29.80×)** | 0.13802 (21.1×) | **refused** |
+
+The ordinate does exactly what the bed says it should to the cell it is identified on:
+`light-solid__rrect-sm__inactive` goes from body ΔE 0.43179 to **0.00406**, Y 0.16225 → 0.93073
+against a native 0.93261. It also raises the same curve everywhere above the middle knot, because a
+three-knot monotone (Fritsch–Carlson) interpolation's third ordinate is not a local constant: it sets
+`d1` and therefore `m1`, the derivative at the middle knot. `checkerboard__capsule-button__inactive`
+goes 0.11840 → 0.31327 Y against a native 0.11700. Every rung that improves the calibration cell is
+refused on the same control, so **the form is refused rather than compromised into a joint minimum**
+and the dark entry of `receded-profile.ts` does not move. `mid-dark-solid__rrect-sm__inactive` and
+`dark-solid__rrect-sm__inactive` are flat across the ladder at 0.10131 and 0.00000, which is the
+curve's lower end holding while its upper end swings — residual (a)'s own miss, unmoved and out of
+scope.
+
+**Why it is the model's refusal and not this child's scope.** The CPU mirror
+(`platform-web/src/optics.ts`'s `materialAtBackdrop`, pinned to the shader by
+`tier-coherence.test.ts`) reproduces the GPU closely enough to be read as mechanism — 0.16109 and
+0.15771 against the matrix's 0.16225 and 0.15637 on the two dark thin cells, 0.58294 and 0.53187
+against 0.58408 and 0.53328 on the accessibility ones — and it carries one counterfactual that is
+explicitly not a rung and was never selected on: the far ordinate at its measured value **with the
+middle knot released to residual (a)'s measured 0.04092**, which this child may not touch. It still
+puts `hc-text__rrect-sm` at 0.61229 against a native 0.08985 and `checkerboard__capsule-button` at
+0.23915 against 0.11700. Releasing the term that is out of scope would not rescue the term that is in
+it.
+
+**What the bed cannot say, which is the finding.** The step lies between `hc-text-28`'s 0.7652 and
+`light-solid`'s 0.9504, and those two differ in **two** ways: the abscissa, and whether the backdrop
+is uniform. `identifiability.json` states the bed's geometry on that axis — the four uniform
+backdrops sit at 0.1104, 0.2554, 0.2706 and 0.9504, so the widest uniform gap is **0.6798, 68 % of
+the axis**, and the brightest structured backdrop is 0.7652. A reference that is low at the brightest
+structured mean and high at the far uniform one is explained equally by "the response steps near
+white" and by "the recede goes transparent over a uniform bright field and not over a broken one".
+The bed separates neither, and a fit that assumes one is a fit to an assumption. **One uniform
+neutral patch between the middle anchor and the far one decides it in a single cell**, on the same
+argument that added `mid-dark-solid` in W7 and `mid-chroma-solid` in W27c G1b; if the answer is the
+abscissa, the response then needs a fourth knot, which is an array-length change to `MaterialProfile`
+and not a profile-document fit. Both are in the tracker.
+
+**4. T2 — an occlusion floor per policy, fitted on two existing fields.** The bed does not describe a
+backdrop response there at all. Under **Reduce Transparency** all fourteen accessibility cells read
+**0.95597** linear Y to five decimals — over `dark-solid`, `checkerboard`, `photo`, `hc-text` and
+`light-solid` alike, at spans 32, 44, 48, 80, 96, 128 and 160 — with population SD **0.0000** on
+eleven of them; under **Increase Contrast** eleven of fourteen read 0.99110–0.99445. That is an
+opaque panel at a level the policy sets, and vitrea made it a backdrop response.
+
+The mechanism, and why one number carries it: `backdropToneUnderPolicy` scales the backdrop-tone
+adaptation by `refractionScale[accessibilityRefractionCap(policy)]`, which under a reduced-refraction
+regime is the `approximate` rung's **0.45**. So 45 % of the adaptation survived, and
+`backdropToneAdaptation`'s own `sizeBias` term is what made it span-dependent: over `dark-solid` the
+adaptation is saturated at span 48 and effectively gone by span 80, which is exactly the shape
+§5.139 §6 recorded (0.58408 at 48, 0.9560 at 80). The same factor also scales the folded thickness
+the size occlusion grading rides, and the refraction it is named for.
+
+| stage | rung | calibration body ΔE (IC / RT) | joint mean | worst control | verdict |
+| --- | --- | --- | ---: | --- | --- |
+| s1 | `refractionScale.approximate` **0.45** (frozen) | 0.16224 / 0.17417 | 0.06109 | 1.00× | baseline |
+| s1 | 0.20 | 0.07321 / 0.06927 | 0.02878 | 1.02× | — |
+| s1 | **0** | 0.01304 / 0.00000 | 0.00721 | 1.03× | **selected** |
+| s2 | `increasedOcclusionLift` 0.92 at cap 0 | 0.01304 / 0.00000 | 0.00721 | 1.03× | — |
+| s2 | **0.96** at cap 0 | 0.00410 / 0.00894 | **0.00700** | 1.57× | **selected** |
+| s2 | 1.00 at cap 0 | 0.00185 / 0.01490 | 0.00893 | 2.16× | **refused** |
+
+`refractionScale: { approximate: 0 }` is the whole statement of the form: a flat opaque panel has no
+tone adaptation, no size grading and no refraction, and the cells can separate none of the three
+because a panel with zero variance shows none of them. That conflation is recorded as a gap rather
+than guessed at. The standard profiles are untouched because a nominal policy caps at `true`.
+
+`increasedOcclusionLift` 0.92 → **0.96** is a compromise between two policies that want different
+numbers, and the ladder is what makes that visible rather than asserted: at 0.92 Reduce Transparency's
+calibration cell reads **0.00000** — vitrea's 0.95597 is the reference's 0.95597 exactly — while
+Increase Contrast reads 0.01304, and at 1.00 the order reverses (0.01490 against 0.00185). The two
+references differ by **0.0375 Y** and one shared fold cannot express both. The declared joint
+objective selects 0.96 by 0.00700 against 0.92's 0.00721, a **3 % margin on six cells**, and §6 shows
+what that costs on the twelve the bound scores. That is recorded as a finding about the objective,
+not re-selected after the fact.
+
+**5. The frozen endpoint, and everything that did not move.**
+`2026-09-13-w27c-g1c-fit/fitted-endpoint.json` supersedes
+`2026-09-10-w27c-g1-corrected-declaration.json`, which stays on disk unchanged. The light entry
+resolves to **f74ccfe15b149ab7d3cc1e8f7d3763f5ff8000058ae8dd40529a9938c3b46ac6** where §5.130 froze
+`351976df…`; the **dark entry resolves to c8b338b8850da818a2931ad5f2b7da1849c942cd9bef6aefe13bc95c99ccec0b,
+the frozen value unchanged**, because T1 was refused. Both active documents resolve to their recorded
+fingerprints `b2b570e4adcea8fb` and `874be66ea501621b`, which `declare.ts` refuses to write a
+declaration without. **All 34 renderer golden and isolation tests pass with no PNG or pinned hash
+re-recorded** — and by construction they could not have moved, because no golden reads
+`recededMaterialProfile` (`receded-tint.spec.ts` builds its own patch inline). The **canonical
+`results/matrix.json` holds no inactive cell at all**, so this fit appends nothing to it and its
+active rows are untouched by definition rather than by comparison.
+
+The policy-scoping claim is checked rather than argued: `standard-identity.py` compares every
+standard-profile capture with the G2 read's and finds **148 of 148 byte-identical**. A field that
+reached a standard cell would show there as one differing digest, and no metric on the accessibility
+rows would have said so.
+
+**6. The bound of §5.134 §6, re-applied once, clause by clause, per profile.** 176 rows, the bed's 188
+profile-by-scene cells less the 12 carrying §5.130's holdout role; 72 scored (group D on every profile
+that declares it). Applied by the G2 read's own scorer with one change — the endpoint refusal admits
+this child's declared endpoint beside the frozen one — and one refusal added, that a matrix which does
+not record both of the machine's accessibility settings off is refused outright. Before use the
+adapted scorer was run against the committed G2 matrix and reproduced §5.139's per-profile verdict
+exactly. **No clause was narrowed, re-scoped or re-declared.**
+
+| profile | clause 1 — ceiling | clause 2 — mean body ΔE | clause 3 — the 2× per-cell floor | joint | was (§5.139) |
+| --- | --- | --- | --- | --- | --- |
+| 1x light standard | holds, 0.00458 of 0.07 | holds, 0.01321 of 0.032 (0.41×) | **fails** — `hc-text__rrect-sm__inactive` 0.07793, 2.44× | **FAILS** | FAILS, identically |
+| 2x light standard | holds, 0.00400 of 0.07 | holds, 0.01198 of 0.034 (0.35×) | **fails** — `hc-text__rrect-sm__inactive` 0.07310, 2.15× | **FAILS** | FAILS, identically |
+| 1x dark standard | holds, 0.01604 of 0.09 | holds, 0.02040 of 0.034 (0.60×) | holds | **HOLDS** | HOLDS, identically |
+| 2x dark standard | holds, 0.01603 of 0.09 | holds, 0.01781 of 0.041 (0.43×) | holds | **HOLDS** | HOLDS, identically |
+| 1x light increased contrast | holds, 0.00919 of 0.06 | **holds, 0.00319 of 0.0078 (0.41×)** | **holds** | **HOLDS** | FAILS (2.48×; 20.80×) |
+| 1x light reduced transparency | holds, 0.00878 of 0.04 | **fails, 0.01144 of 0.011 (1.04×)** | **holds** | **FAILS** | FAILS (1.94×; 15.83×) |
+
+**Three of six, against two.** Both accessibility profiles' clause-3 exceedances are gone —
+`dark-solid__rrect-48__inactive` from 20.80× to 0.26× under Increase Contrast and from 15.83× to
+0.41× under Reduce Transparency — and Increase Contrast crosses to holding on every clause. The four
+standard profiles' verdicts are unchanged **cell for cell**, which the byte-identity of §5 already
+proved; the light standard failure is T1's refused term seen from the light scheme, where the far
+anchor was measured and the curve over-predicts `hc-text` at encoded 0.74 instead of under-predicting
+`light-solid` at 0.95.
+
+**Reduce Transparency's remaining failure has a different shape from the one it replaced,** and the
+shape is what matters for what comes next. Before, one cell carried the whole mean; now every cell
+carries a little of it. Vitrea's panel reads 0.98225–1.00000 where the reference reads a flat
+0.95597, so the twelve scored cells run 0.00894–0.01468 with none above 0.0122 of the 0.022 floor.
+That is the 0.0375 Y the two policies disagree about, distributed: `increasedOcclusionLift` at 0.96
+sits above what Reduce Transparency wants and below what Increase Contrast wants, and no value of one
+shared constant is at both. Clause 4's reported, explicitly non-gating figures are in `verdict.json`.
+
+**7. The holdout, read once on the frozen endpoint.** Four cells, declared in `partition.json` before
+the fit and captured by no sweep rung — T1's ladder patterns exclude the span-44 pair by name and
+T2's exclude the span-80 pair — so the frozen re-read is the first vitrea capture either pair sees
+under this child. No constant moved in response.
+
+| cell | frozen G1 | after | reads |
+| --- | ---: | ---: | --- |
+| 1x dark `light-solid__capsule-button__inactive` | 0.43838 | **0.43838** | byte-identical: T1 was refused |
+| 2x dark `light-solid__capsule-button__inactive` | 0.43838 | **0.43838** | byte-identical |
+| IC `dark-solid__rrect-80__inactive` | 0.01277 | **0.00383** | against 0.00410 at the fitted span 48 |
+| RT `dark-solid__rrect-80__inactive` | 0.00000 | **0.00894** | 0.00894 at span 48 too, to five decimals |
+
+The two accessibility rows are the holdout doing its job: the form's central prediction is that the
+fitted panel is **span-independent**, and the held-out span agrees with the fitted span to 0.00027
+under Increase Contrast and exactly under Reduce Transparency. What is left over is a level, not a
+span law — which is what §6's remaining failure is, and it means the next move on that term is a
+per-policy level and not a span fit.
+
+**8. The CSS tier derives, and gates nothing (X1).** The same 176 cells were captured on the CSS tier
+against the same endpoint, record-only. Mean full-canvas ΔE runs 0.00573–0.02144 by profile against
+the WebGPU tier's 0.00286–0.01723, and mean body ΔE 0.00593–0.07477 against 0.00308–0.07297; the mean
+absolute cross-tier gap in body Y is **0.00197–0.00874**, widest on the two accessibility profiles
+(0.00874 and 0.00676), which is the fold this child moved being carried by one uniform layer instead
+of a shader. Its own widest single-cell gap is
+`1x light standard/mid-chroma-solid__capsule-button__inactive`, CSS 0.58114 against WebGPU 0.61880
+(native 0.47617) — a cell where **the CSS tier is closer to the reference than the WebGPU tier is**,
+which is a fact about the active material's chroma deficit (§5.139 §7) and not about the recede. No
+CSS residual is chartered here.
+
+**9. The eye.** `sheets/*.png`, one per profile, every checking cell as native | webgpu | 8×
+amplified difference, worst body ΔE first. Under **Increase Contrast** the panels now read as opaque
+near-white in both columns and what the difference strip still shows is the one-pixel contour ring —
+`strongBorderRim`, which §5.130 fitted on the 1x increased-contrast outline and this child did not
+touch — plus a faint interior rectangle. Under **Reduce Transparency** the strips show a uniform grey
+wash over the whole body on every cell, with no structure and no rim dominating: the level offset §6
+measures, seen as a level offset. The dark sheets are unchanged and their residuals sit where §5.139
+left them — `hc-text__rrect-sm` at body ΔE 0.06689 with Y 0.1346 against 0.0899, and
+`light-solid__rrect-ml` at 0.03626 with 0.0934 against 0.1175, both on the response curve's upper
+segment, both T1.
+
+**10. X8 — what this child did not measure, and what it may not be read as saying.** It measures one
+frozen configuration against one bed, once. It does **not** measure: whether the dark thin step is in
+the abscissa or in the structure (§3 — the bed cannot, and that is the finding); the dark **thick**
+response over a bright backdrop, which the same bed reads at 0.09339 web / 0.11753 native and which
+W27 Decision Log 17 scoped out; residual (a)'s middle ordinate, arm A3, still declared and unrun;
+residual (b)'s pitch × span surface; the chroma deficit, which §5.139 §7 showed is the **active**
+material's and which no inactive difference can close; dark accessibility or 2x accessibility, which
+this bed does not contain; the stack regime; or the activation transition's timing, which still has
+no reference of any kind. It **adopts no floor** — the sitting is seven runs at the probe bar and
+W27 Decision Log 13 settled that no inactive regression floor comes out of it, so the profile that
+newly holds the bound holds it at the probe bar. `PREDICATE_EXCLUDES` and
+`adopted-thresholds.test.ts` do not move, because the canonical matrix carries no inactive cell for
+them to read.
+
+Two limits belong to this gate's own method rather than to the material. **First**, T2's fit spends
+`dark-solid__rrect-48__inactive` on both accessibility profiles (§1), so those two profiles' clauses 2
+and 3 are no longer an unspent check on that cell; eleven of twelve remain unspent on each and the
+verdict carries the qualification. **Second**, the selection objective's population is the term's six
+fit cells and the bound's is the profile's twelve scored ones, and the two disagreed: 0.96 beat 0.92
+by 3 % on six cells and 0.92 is the value that reproduces Reduce Transparency's reference exactly.
+Whether 0.92 would have carried that profile's twelve-cell clause 2 is **not measured** — the bound is
+applied once, to the configuration the declared rule selected, and scoring a second configuration
+would be shopping for one. A later fit on this fold should either weight its objective by the scored
+population or say why it does not.
+
+**Verification record.** `pnpm -r build && pnpm -r lint && pnpm -r test` green at the fit's head:
+2,025 unit tests (policy 23, motion 164, geometry 170, renderer 465, core 302, platform-web 552,
+React 141, calibration 402, demo 6). Calibration gained one test: `receded-profile-export.test.ts`
+follows the live declaration, and a second case pins that the fit moved exactly
+`increasedOcclusionLift` and `refractionScale` and only in the light entry, with the dark entry deep-
+equal to the endpoint it supersedes — the ledger's claim about this fit, checked rather than written.
+`pnpm --filter @vitrea/renderer-webgpu test:golden` **34/34** with no golden or isolation hash
+re-recorded.
+
+**The machine's accessibility settings, per browser run.** The suites inherit macOS's own Reduce
+Transparency and Increase Contrast through the media-query policy feed and Playwright cannot emulate
+either, so `g1c-run.ts` reads both from `com.apple.universalaccess` before the first page opens,
+refuses the run outright on a non-zero reading, and records the pair in every matrix. The refusal was
+observed firing: the setting was **1** for the first hour of this child and every capture attempt was
+refused until it was cleared at **05:41:19Z**. Both read **0** at all thirteen runs that produced
+evidence — the eleven sweep rungs from 05:42:24Z to 05:44:43Z, the frozen WebGPU re-read at
+05:48:53Z and the CSS pass at 05:54:23Z — and at the golden suite at 05:48:18Z. The scorer refuses a
+matrix that does not carry the reading, which was proved against the committed G2 matrix before use.
+
+Every row of every matrix drew on a real `metal-3` adapter with `isFallback: false`, resolved its
+declared tier on every group, repeated across two independent page loads to the byte, and reported
+zero `problems` and zero diagnostics. Clause 5 refused no row, suspended nothing and stopped nothing.
