@@ -41,6 +41,7 @@ import { interiorLevel } from "../src/metrics/material";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const OUT = "packages/calibration/results/2026-09-11-w27e-g0-vibrancy";
 const PROBE_OUT = "packages/calibration/results/2026-09-11-w27e-probe";
+const PROBE_1X_OUT = "packages/calibration/results/2026-09-13-w27e-probe-1x-reading";
 
 /**
  * Every committed layer-dump tree, in the order the waves recorded them. The list
@@ -74,6 +75,63 @@ export const PROBE_DUMP_DIRS = [
   "packages/calibration/results/2026-09-11-w27e-probe/light",
   "packages/calibration/results/2026-09-11-w27e-probe/dark",
 ] as const;
+
+/**
+ * The 1x both-pose run of §5.136 §5, taken in the 26.5 sitting: the same 25 probe
+ * scenes per scheme as the corpus above, at 1x, through three launches that reach
+ * three window states. It is a third corpus for the same reason the second is a
+ * second — it is a different configuration and pooling it would move a published
+ * count — and it is the ONE corpus with more than one pose in it, so it is the only
+ * one whose arms have to be kept apart inside the reading as well as outside it.
+ *
+ * Each arm is named for what it is rather than for how it was launched:
+ * `active` is the bundle launch that asserts key at the gate; `policy-only` is the
+ * active pose reached under an `.accessory` policy, which is active and key because
+ * an accessory application that calls `activate` becomes both (on the capture
+ * machine that arm's raw directory is called `inactive/`, and it is not the recede);
+ * and `recede` is the recede by mechanism — `.accessory` before the run loop, a
+ * non-key-capable window, ordered front and never activated, which is what the
+ * native inactive capture path does. Only `recede`'s dumps carry `appIsActive` and
+ * `activationPolicy`, which the harness gained during the sitting.
+ *
+ * The pose is not uniform inside an arm: `active/light` lost key after its ninth
+ * scene and did not regain it, so 16 of its dumps are a regular-policy application
+ * that is still active with a window that is not key — a third state that belongs to
+ * neither pose and is read on its own. That is why every tally below is taken per
+ * arm AND per `isKeyWindow` rather than per arm alone.
+ */
+export const PROBE_1X_ARMS: Readonly<Record<string, readonly string[]>> = {
+  active: [
+    "packages/calibration/results/2026-09-12-w27e-probe-1x/active/light",
+    "packages/calibration/results/2026-09-12-w27e-probe-1x/active/dark",
+  ],
+  "policy-only": [
+    "packages/calibration/results/2026-09-12-w27e-probe-1x/policy-only/light",
+    "packages/calibration/results/2026-09-12-w27e-probe-1x/policy-only/dark",
+  ],
+  recede: [
+    "packages/calibration/results/2026-09-12-w27e-probe-1x/recede/light",
+    "packages/calibration/results/2026-09-12-w27e-probe-1x/recede/dark",
+  ],
+};
+
+/** Every 1x both-pose directory, in arm order, as `read` wants them. */
+export const PROBE_1X_DUMP_DIRS: readonly string[] =
+  Object.values(PROBE_1X_ARMS).flatMap((dirs) => [...dirs]);
+
+/**
+ * Which arm a dump belongs to, from the directory it was read out of. The arm is
+ * never inferred from a dump's own fields: `policy-only` and `active` record the
+ * same pose fields when both are key, and the whole point of keeping them apart is
+ * that they reach that pose by different mechanisms.
+ */
+export function armOf(arms: Readonly<Record<string, readonly string[]>>,
+  dumpPath: string): string {
+  for (const [arm, dirs] of Object.entries(arms)) {
+    if (dirs.some((dir) => dumpPath.startsWith(`${dir}/`))) return arm;
+  }
+  throw new Error(`${dumpPath}: in none of the declared arms`);
+}
 
 /**
  * The scene specs a dump could have been driven from. A probe run writes its own
@@ -156,6 +214,15 @@ interface Dump {
   readonly a11y: string;
   readonly backingScaleFactor: number;
   readonly isKeyWindow: boolean;
+  /**
+   * The other two halves of the window state, which the harness gained during the
+   * 26.5 sitting and which only the runs taken after it carry. They are optional
+   * rather than defaulted because "this dump does not record whether the
+   * application was active" and "the application was not active" are different
+   * facts, and the reader emits them only where the dump states them.
+   */
+  readonly appIsActive?: boolean;
+  readonly activationPolicy?: string;
   readonly settleSeconds: number;
   readonly os: string;
   readonly canvas: { width: number; height: number };
@@ -536,6 +603,20 @@ interface MatrixCell {
   readonly shadow?: { backdropMeanLuminance?: { value: number } };
 }
 
+/**
+ * The two pose fields a dump may or may not record, emitted only where it does.
+ * A dump taken before the harness gained them says nothing about the application's
+ * activation, and a `null` here would be the reader asserting something the dump
+ * does not — which is the same distinction the module header draws about a filter
+ * key that reads null.
+ */
+function pose(dump: Dump): Record<string, unknown> {
+  return {
+    ...(dump.appIsActive === undefined ? {} : { appIsActive: dump.appIsActive }),
+    ...(dump.activationPolicy === undefined ? {} : { activationPolicy: dump.activationPolicy }),
+  };
+}
+
 function readJson<T>(path: string): T {
   return JSON.parse(readFileSync(join(ROOT, path), "utf8")) as T;
 }
@@ -563,6 +644,9 @@ export interface Row extends Record<string, unknown> {
   readonly a11y: string;
   readonly scale: number;
   readonly isKeyWindow: boolean;
+  /** Present only where the dump records them; see `pose` below. */
+  readonly appIsActive?: boolean;
+  readonly activationPolicy?: string;
   readonly settleSeconds: number;
   readonly layerPath: string;
   readonly layerClass: string;
@@ -670,6 +754,7 @@ export function read(dirs: readonly string[] = DUMP_DIRS,
         a11y: dump.a11y,
         scale: dump.backingScaleFactor,
         isKeyWindow: dump.isKeyWindow,
+        ...pose(dump),
         settleSeconds: dump.settleSeconds,
         os: dump.os,
         layerPath: occurrence.layerPath,
@@ -763,6 +848,11 @@ export function read(dirs: readonly string[] = DUMP_DIRS,
       sha256: sha(path),
       colorScheme: dump.colorScheme,
       scale: dump.backingScaleFactor,
+      // The pose belongs on the per-dump record and not only on the rows, because
+      // a dump that carries no matrix at all contributes no row — and "this pose
+      // dropped the filter entirely" is a reading that must not be invisible.
+      isKeyWindow: dump.isKeyWindow,
+      ...pose(dump),
       declaredLabel: dump.label ?? null,
       labelLayers: labelled.length,
       labelLayersWithOperator: labelled.filter((l) => (l.filters ?? [])
@@ -793,6 +883,14 @@ interface Corpus {
   readonly declaredIn: string;
   readonly title: string;
   readonly lead: readonly string[];
+  /**
+   * A corpus whose dumps were taken through more than one launch declares its arms
+   * here, and everything the reader says about it is said per arm and per pose. The
+   * two corpora that are one configuration declare none, and the sections that
+   * report arms are emitted only for a corpus that has them — so a table already
+   * committed as evidence keeps the shape it was recorded in.
+   */
+  readonly arms?: Readonly<Record<string, readonly string[]>>;
 }
 
 const CORPORA: Record<string, Corpus> = {
@@ -824,6 +922,30 @@ const CORPORA: Record<string, Corpus> = {
       "`results/matrix.json` are unavailable here on purpose: this corpus spans both schemes at 2x,",
       "so no single matrix profile key describes it and a cell from another configuration would be",
       "a wrong number rather than a missing one.",
+    ],
+  },
+  "probe-1x": {
+    dirs: PROBE_1X_DUMP_DIRS,
+    arms: PROBE_1X_ARMS,
+    matrixProfileKey: null,
+    out: PROBE_1X_OUT,
+    declaredIn:
+      "W27 coverage wave, W27e G2; claims §5.138; Decision Log 15 (c); claims §5.137 §6's"
+      + " four-outcome reading; X1/X2/X4/X9",
+    title: "# W27e G2: every `vibrantColorMatrix` at 1x in three window states (2026-09-13)",
+    lead: [
+      "Generated by `packages/calibration/scripts/vibrancy.ts --corpus probe-1x`; the whole record",
+      "with per-element geometry is `table.json` beside this file, what was declared before it was",
+      "read is `declaration.md`, and the prose reading is `reading.md`. §5.136 §5 left the surface",
+      "operator's selector undecided between a scale dependence and a pose collapse, because the",
+      "two corpora before this one differ in BOTH axes; §5.137 §1 added a third reading, that the",
+      "matrix sits on a layer which draws nothing in the receded pose. These 150 dumps hold scale,",
+      "accessibility, settle and scenes fixed and move only the window state, so the pose is the",
+      "one axis left. The three backdrop statistics from `results/matrix.json` are unavailable here",
+      "on purpose: this corpus spans both schemes and three window states, so no single matrix",
+      "profile key describes it and a cell from another configuration would be a wrong number",
+      "rather than a missing one. `tone` and `adapt` are read from the committed 1x background",
+      "rasters and the shipped profile, which no pose can move.",
     ],
   },
 };
@@ -877,6 +999,66 @@ function main(argv: readonly string[]): void {
         })),
   };
 
+  /**
+   * The arm and pose partition, for a corpus that declares arms.
+   *
+   * Every tally is taken per arm AND per `isKeyWindow`, never per arm alone,
+   * because a pose is not uniform inside an arm: the bundle-launched light arm lost
+   * key partway through its run and its non-key remainder is a third window state
+   * rather than either pose. Grouping by arm alone would average that state into
+   * the active pose and lose exactly the row the reading needs.
+   */
+  const groups = corpus.arms === undefined ? null : (() => {
+    const arms = corpus.arms;
+    const armFor = new Map(reading.dumps.map((d) => [d.path, armOf(arms, d.path)] as const));
+    const schemes = [...new Set(reading.dumps.map((d) => d.colorScheme))].sort();
+    const opacities = (rows: Row[]) => [...new Set(rows.map((r) => r.layerOpacity))]
+      .sort((a, b) => (a ?? -1) - (b ?? -1));
+    const summarise = (rows: Row[]) => ({
+      occurrences: rows.length,
+      layerOpacities: opacities(rows),
+      operators: [...new Set(rows.map((r) => r.operatorId))].sort((a, b) => a - b).map((id) => {
+        const mine = rows.filter((r) => r.operatorId === id);
+        return {
+          operatorId: id,
+          count: mine.length,
+          layerOpacities: opacities(mine),
+          scenes: mine.map((r) => r.scene).sort(),
+        };
+      }),
+    });
+    return Object.keys(arms).flatMap((arm) => schemes.flatMap((colorScheme) =>
+      [true, false].flatMap((isKeyWindow) => {
+        const dumps = reading.dumps.filter((d) => armFor.get(d.path) === arm
+          && d.colorScheme === colorScheme && d.isKeyWindow === isKeyWindow);
+        if (dumps.length === 0) return [];
+        const paths = new Set(dumps.map((d) => d.path));
+        const rows = reading.rows.filter((r) => paths.has(r.dump));
+        // `undefined` is reported as the words "not recorded": a dump taken before
+        // the harness gained the field states nothing about the application's
+        // activation, and a false here would be the reader asserting it did.
+        const field = (key: string) => [...new Set(dumps.map((d) =>
+          (d as Record<string, unknown>)[key]))].map((v) => v === undefined ? "not recorded" : v);
+        const byRole = (role: string) => rows.filter((r) => r.role === role);
+        return [{
+          arm,
+          colorScheme,
+          isKeyWindow,
+          appIsActive: field("appIsActive"),
+          activationPolicy: field("activationPolicy"),
+          dumps: dumps.length,
+          dumpsWithoutAnyMatrix: dumps.filter((d) => d.occurrences === 0).length,
+          scenes: dumps.map((d) => d.scene).sort(),
+          labelLayersCommitted: dumps.reduce((a, d) => a + d.labelLayers, 0),
+          labelLayersCarryingAnOperator:
+            dumps.reduce((a, d) => a + d.labelLayersWithOperator, 0),
+          surfaceHighlight: summarise(byRole("surface-highlight")),
+          contentLabel: summarise(byRole("content-label")),
+          authorTint: summarise(byRole("author-tint")),
+        }];
+      })));
+  })();
+
   const result = {
     declaredIn: corpus.declaredIn,
     provenance: {
@@ -913,6 +1095,10 @@ function main(argv: readonly string[]): void {
       authorTint: tints.length,
       unclassified: reading.rows.length - foreground.length - tints.length - labels.length,
       distinctForegroundOperators: foregroundOperators.length,
+      // The arm and pose partition, present only on a corpus that declares arms,
+      // for the same reason the label block below is conditional: a table already
+      // committed as evidence keeps the shape it was recorded in.
+      ...(groups === null ? {} : { arms: Object.keys(corpus.arms ?? {}), groups }),
       // The label half of the reading, present only on a corpus that has labels,
       // for the reason `dumps` is projected below. Its shape is the finding: a
       // labelled dump whose label layer carries NOTHING is counted beside one that
@@ -986,6 +1172,41 @@ function main(argv: readonly string[]): void {
       + ["black", "grey50", "white", "red", "green", "blue"]
         .map((k) => vec(o.decomposition.maps[k] ?? [], 3)).join(" | ") + " |"),
     "",
+    // Emitted only for a corpus that declares arms, which is the one corpus holding
+    // more than one window state. The two committed tables have none and keep the
+    // shape they were recorded in.
+    ...(groups === null ? [] : [
+      "## The arms, the poses, and what each carries",
+      "",
+      "Per arm AND per `isKeyWindow`, never per arm alone: the bundle-launched light arm lost key",
+      "partway through its run, and its non-key remainder is a third window state rather than",
+      "either pose. `@` reads \"at layer opacity\" — a matrix on a layer at opacity 0 has no pixel",
+      "consequence, which is the reading §5.137 §1 found and this corpus exists to place.",
+      "",
+      "| arm | scheme | key | appIsActive | policy | dumps | no matrix | highlight op @ opacity "
+        + "| label op @ opacity | tint op @ opacity |",
+      "| --- | --- | --- | --- | --- | ---: | ---: | --- | --- | --- |",
+      ...groups.map((g) => {
+        const ops = (s: { operators: readonly { operatorId: number; count: number;
+          layerOpacities: readonly (number | null)[] }[] }) => s.operators.length === 0 ? "—"
+          : s.operators.map((o) => `${o.operatorId} ×${o.count} @ `
+            + o.layerOpacities.map((v) => v == null ? "—" : String(v)).join("/")).join(", ");
+        return `| ${g.arm} | ${g.colorScheme} | ${g.isKeyWindow} | ${g.appIsActive.join(", ")} `
+          + `| ${g.activationPolicy.join(", ")} | ${g.dumps} | ${g.dumpsWithoutAnyMatrix} `
+          + `| ${ops(g.surfaceHighlight)} | ${ops(g.contentLabel)} | ${ops(g.authorTint)} |`;
+      }),
+      "",
+      "Which scenes carry which surface operator, stated for every group so that a group carrying",
+      "one operator over everything is as legible as one that splits:",
+      "",
+      "| arm | scheme | key | operator | n | scenes |",
+      "| --- | --- | --- | ---: | ---: | --- |",
+      ...groups.flatMap((g) => g.surfaceHighlight.operators.map((o) =>
+        `| ${g.arm} | ${g.colorScheme} | ${g.isKeyWindow} | ${o.operatorId} | ${o.count} `
+        + `| ${o.count === g.surfaceHighlight.occurrences ? "every cell of the group"
+          : o.scenes.join(", ")} |`)),
+      "",
+    ]),
     // Emitted only where there are labels to report, so the G0 table — published
     // evidence about a corpus that has none — keeps the shape it was recorded in.
     ...(labels.length === 0 ? [] : [
