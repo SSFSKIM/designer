@@ -43,15 +43,23 @@ def main():
     calibration = set(term["calibration"]["cells"])
 
     rungs = load(prefix)
-    baseline_label = sorted(rungs)[0] if prefix.startswith("t1") else None
-    # The baseline is the rung that carries the frozen document, named by its own
-    # matrix rather than assumed from an ordering.
-    for label, doc in rungs.items():
-        if doc["endpointUnderTest"]["isFrozenG1Endpoint"]:
-            baseline_label = label
-    if baseline_label is None or baseline_label not in rungs:
-        raise SystemExit("fit-tables: no rung in this ladder carries the frozen endpoint, so "
+    # The baseline is the rung that carries the FROZEN document, named by its own
+    # matrix rather than assumed from an ordering — and looked for across every
+    # matrix the sweep wrote, not only this ladder's. A staged ladder's second
+    # stage runs entirely at the first stage's selection, so none of its rungs is
+    # the frozen endpoint; the control cap is still "twice its baseline reading at
+    # the frozen G1 endpoint" (sweep-plan.json), which is a fixed reading and not
+    # a per-stage one.
+    everything = load("t1" if prefix.startswith("t1") else "t2")
+    baseline_label = next(
+        (l for l, d in sorted(everything.items())
+         if d["endpointUnderTest"]["isFrozenG1Endpoint"]),
+        None,
+    )
+    if baseline_label is None:
+        raise SystemExit("fit-tables: no matrix in this sweep carries the frozen endpoint, so "
                          "there is no baseline to refuse a control against")
+    rungs = {**{baseline_label: everything[baseline_label]}, **rungs}
 
     def cells(doc):
         return {f"{r['profile']}/{r['scene']}": r for r in doc["rows"]}

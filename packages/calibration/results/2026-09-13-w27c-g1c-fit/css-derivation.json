@@ -1,0 +1,67 @@
+{
+ "gate": "W27c G1c / claims \u00a75.141",
+ "kind": "record only \u2014 X1: the CSS tier derives and gates nothing",
+ "patchSha256": "5c82ec2586323815c37d37b95dd760050339308adc5b829496b2ec07dc440ed7",
+ "machineAccessibility": {
+  "reduceTransparency": 0,
+  "increaseContrast": 0,
+  "readAt": "2026-09-13T05:54:23.002Z"
+ },
+ "perProfile": {
+  "apple-macos-26.5-1x-dark-standard": {
+   "cells": 35,
+   "cssMeanFullCanvasDeltaE": 0.02118846001031376,
+   "cssMeanBodyDeltaE": 0.07461534586957709,
+   "webgpuMeanFullCanvasDeltaE": 0.0172334170569782,
+   "webgpuMeanBodyDeltaE": 0.0729732075570424,
+   "meanAbsTierGapInBodyY": 0.0020438718084449673
+  },
+  "apple-macos-26.5-1x-light-increased-contrast": {
+   "cells": 14,
+   "cssMeanFullCanvasDeltaE": 0.009336923139894168,
+   "cssMeanBodyDeltaE": 0.005932041072199656,
+   "webgpuMeanFullCanvasDeltaE": 0.0028641640778003376,
+   "webgpuMeanBodyDeltaE": 0.0030846106388129433,
+   "meanAbsTierGapInBodyY": 0.008739351339489363
+  },
+  "apple-macos-26.5-1x-light-reduced-transparency": {
+   "cells": 14,
+   "cssMeanFullCanvasDeltaE": 0.005731426232394396,
+   "cssMeanBodyDeltaE": 0.009277778969831995,
+   "webgpuMeanFullCanvasDeltaE": 0.0031263730646771707,
+   "webgpuMeanBodyDeltaE": 0.011526986832569606,
+   "meanAbsTierGapInBodyY": 0.0067596906536174384
+  },
+  "apple-macos-26.5-1x-light-standard": {
+   "cells": 39,
+   "cssMeanFullCanvasDeltaE": 0.012086998917740018,
+   "cssMeanBodyDeltaE": 0.029195573402158687,
+   "webgpuMeanFullCanvasDeltaE": 0.009588551127437745,
+   "webgpuMeanBodyDeltaE": 0.032185818801787246,
+   "meanAbsTierGapInBodyY": 0.008628284686275354
+  },
+  "apple-macos-26.5-2x-dark-standard": {
+   "cells": 35,
+   "cssMeanFullCanvasDeltaE": 0.02143578669885777,
+   "cssMeanBodyDeltaE": 0.07476691026662582,
+   "webgpuMeanFullCanvasDeltaE": 0.016596801860655087,
+   "webgpuMeanBodyDeltaE": 0.07089589358293749,
+   "meanAbsTierGapInBodyY": 0.0019672904215785243
+  },
+  "apple-macos-26.5-2x-light-standard": {
+   "cells": 39,
+   "cssMeanFullCanvasDeltaE": 0.012499875130908616,
+   "cssMeanBodyDeltaE": 0.030715797773013205,
+   "webgpuMeanFullCanvasDeltaE": 0.009490275549626654,
+   "webgpuMeanBodyDeltaE": 0.03167779639439602,
+   "meanAbsTierGapInBodyY": 0.007554252093258358
+  }
+ },
+ "widestTierGap": {
+  "cell": "apple-macos-26.5-1x-light-standard/mid-chroma-solid__capsule-button__inactive",
+  "bodyYGap": 0.03765890195891508,
+  "cssBodyY": 0.5811388822144962,
+  "webgpuBodyY": 0.6187977841734112,
+  "nativeBodyY": 0.47616754823690577
+ }
+}

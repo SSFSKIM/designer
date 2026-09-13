@@ -160,7 +160,10 @@ const matrix = json(resolve(repo, "apps/reference-apple/scenes.json"));
 const manifest = json(resolve(repo, "apps/reference-apple/fixtures/manifest.json"));
 const fixtures = resolve(repo, "apps/reference-apple/fixtures");
 const bedSpec = json(resolve(here, "../2026-09-11-w27c-g1b/checking-bed.json"));
-const plurality = json(resolve(here, "plurality.json"));
+// The sitting's own plurality, read out of the read that established it rather
+// than copied here: which of the seven runs won a cell is a fact about the
+// sitting, and a second copy is a second thing to drift.
+const plurality = json(resolve(here, "../2026-09-13-w27c-g2-read/plurality.json"));
 
 /** Every id the bed declares, with the group(s) it belongs to and its role. */
 const groupsOf = new Map<string, string[]>();

@@ -1,0 +1,144 @@
+{
+  "declaredIn": "W27c G1c model-form fit; claims §5.141; W27 Decision Log 17; X1/X3/X7/X8",
+  "supersedes": "2026-09-10-w27c-g1-corrected-declaration.json (preserved unchanged)",
+  "frozenAt": "2026-09-13T05:47:46.026Z",
+  "repositoryHead": "7dbbdc3fe8bea60baadeaea0a00181bc488dea37",
+  "partition": "packages/calibration/results/2026-09-13-w27c-g1c-fit/partition.json",
+  "sweepPlan": "packages/calibration/results/2026-09-13-w27c-g1c-fit/sweep-plan.json",
+  "instrumentSha256": "97aa8b0d7030eb30f7aa63dc4d248c300c35136fd3da210560423a8f56480b37",
+  "patch": {
+    "light": {
+      "tintChromaScale": 0,
+      "tintShadeCollapseRetention": 1,
+      "tintShadeStrength": 1,
+      "optics": {
+        "regular": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0
+        },
+        "clear": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0
+        }
+      },
+      "rimCollapsed": 0,
+      "rimCollapsedTinted": 0,
+      "outerShadow": {
+        "thinOcclusionDark": 0,
+        "thinOcclusionMid": 0,
+        "thinOcclusionBright": 0,
+        "thickOcclusionAt96": 0,
+        "thickOcclusionAt128": 0,
+        "thickOcclusionAt160": 0,
+        "liftAmplitude": 0,
+        "reducedTransparencyOcclusion": 0
+      },
+      "sizeScatterRampStartThick1x": 0.3,
+      "sizeScatterRampStartThick2x": 0.04,
+      "sizeScatterRampStartFar2x": 0.04,
+      "sizeHeavyTapSigma2x": 14,
+      "tintShadeDark": 0.0288,
+      "tintShadeLight": 0.76,
+      "reducedTintAdaptation": 0.88,
+      "sizeScatterFloor": 0.7,
+      "sizeScatterRampStartThin1x": 0.55,
+      "sizeScatterRampStartThin2x": 0.7,
+      "backdropToneResponseThin": [
+        0.0126,
+        0.4,
+        0.929
+      ],
+      "backdropToneResponseThick": [
+        0.4553,
+        0.518,
+        0.9
+      ],
+      "refractionScale": {
+        "approximate": 0
+      },
+      "increasedOcclusionLift": 0.96,
+      "strongBorderRim": {
+        "rimWidth": 1,
+        "rimAlpha": -3.5
+      }
+    },
+    "dark": {
+      "tintChromaScale": 0,
+      "tintShadeCollapseRetention": 1,
+      "tintShadeStrength": 1,
+      "optics": {
+        "regular": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0,
+          "tintAlpha": 0.89
+        },
+        "clear": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0
+        }
+      },
+      "rimCollapsed": 0,
+      "rimCollapsedTinted": 0,
+      "outerShadow": {
+        "thinOcclusionDark": 0,
+        "thinOcclusionMid": 0,
+        "thinOcclusionBright": 0,
+        "thickOcclusionAt96": 0,
+        "thickOcclusionAt128": 0,
+        "thickOcclusionAt160": 0,
+        "liftAmplitude": 0,
+        "reducedTransparencyOcclusion": 0
+      },
+      "sizeScatterRampStartThick1x": 0.3,
+      "sizeScatterRampStartThick2x": 0.04,
+      "sizeScatterRampStartFar2x": 0.04,
+      "sizeHeavyTapSigma2x": 14,
+      "tintShadeDark": 0.0202,
+      "tintShadeLight": 1.46,
+      "sizeScatterRampStartThin1x": 1,
+      "sizeScatterRampStartThin2x": 1,
+      "sizeScatterHeavyShareThick1x": 0.25,
+      "backdropToneResponseThin": [
+        0.011,
+        0.089,
+        0.1611
+      ],
+      "backdropToneResponseThick": [
+        0.0215,
+        0.065,
+        0.02
+      ]
+    }
+  },
+  "patchSha256": "5c82ec2586323815c37d37b95dd760050339308adc5b829496b2ec07dc440ed7",
+  "frozenG1PatchSha256": "a5fad05c2898fe1a8af83740c0138893e5fd17cbb1460f190f2492474908e427",
+  "profiles": {
+    "light": {
+      "activeSha256": "b2b570e4adcea8fb9281aed4d2556598a1fc95b34ce4b12dd5a50157ac138306",
+      "activeRecordedFingerprint": "b2b570e4adcea8fb",
+      "inactiveSha256": "f74ccfe15b149ab7d3cc1e8f7d3763f5ff8000058ae8dd40529a9938c3b46ac6",
+      "frozenG1InactiveSha256": "351976df9bd2a2eca86aca590e6df22f4b0b1eba8cea3aba7602ccbceb9371f9"
+    },
+    "dark": {
+      "activeSha256": "874be66ea501621be265265424c16d2d98a01c40835d89c02de9473362c0d4dc",
+      "activeRecordedFingerprint": "874be66ea501621b",
+      "inactiveSha256": "c8b338b8850da818a2931ad5f2b7da1849c942cd9bef6aefe13bc95c99ccec0b",
+      "frozenG1InactiveSha256": "c8b338b8850da818a2931ad5f2b7da1849c942cd9bef6aefe13bc95c99ccec0b"
+    }
+  },
+  "holdout": {
+    "statusAtDeclaration": "unread",
+    "cells": [
+      "apple-macos-26.5-1x-dark-standard/light-solid__capsule-button__inactive",
+      "apple-macos-26.5-2x-dark-standard/light-solid__capsule-button__inactive",
+      "apple-macos-26.5-1x-light-increased-contrast/dark-solid__rrect-80__inactive",
+      "apple-macos-26.5-1x-light-reduced-transparency/dark-solid__rrect-80__inactive"
+    ],
+    "rule": "read once on this fixed document, in the frozen re-read, and no constant moves after it"
+  },
+  "adoptsNoFloor": "W27 Decision Log 13's probe bar stands: the checking bed is seven runs and no inactive regression floor comes out of it, whatever this endpoint measures."
+}
