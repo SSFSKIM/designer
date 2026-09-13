@@ -3131,7 +3131,14 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         ),
         foregroundToneSeeded: false,
         vibrantDeclared: hostOptions.vibrant === true,
-        vibrantApplied: false,
+        // Read off the element rather than assumed clear. `applyVibrant` is
+        // idempotent against this memory, so seeding it `false` would make the
+        // write at registration a no-op — and registration is the one point that
+        // can meet a marker it did not write, on an element that carried it out
+        // of a destroyed root and is being registered here without `vibrant`.
+        // The node, group and plane attributes are rewritten unconditionally just
+        // below and reconcile themselves; this is the only conditional one.
+        vibrantApplied: hostOptions.host.hasAttribute(HOST_ATTRIBUTES.vibrant),
         materializationDrawn: hostOptions.present === false ? 0 : 1,
         cssGroupShadow: undefined,
         cssClipsChildren: undefined,

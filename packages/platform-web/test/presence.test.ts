@@ -18,7 +18,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-function setup(present = true, reducedMotion = false, vibrant = false) {
+function setup(present = true, reducedMotion = false, vibrant = false, preMarked = false) {
   root = createGlassRoot({
     autoStart: false,
     diagnosticSink: () => {},
@@ -27,6 +27,9 @@ function setup(present = true, reducedMotion = false, vibrant = false) {
   });
   root.registerGroup({ id: "presence" });
   const host = document.createElement("button");
+  // An element can reach registration already carrying the marker — `destroy()`
+  // leaves host attributes where they are — so a case needs to be able to say so.
+  if (preMarked) host.setAttribute("data-vitrea-vibrant", "");
   root.plane("base").hostLayer.append(host);
   const handle = root.registerHost({ host, groupId: "presence", present, vibrant });
   const value = () => Number(host.style.getPropertyValue("--vitrea-materialization"));
@@ -312,6 +315,17 @@ describe("presence hands a vibrant label back to the app at identity (X9)", () =
     expect(owned(host)).toBe(false);
     handle.update({ present: false });
     for (let time = 10; time <= 220; time += 10) root.runFrame(time);
+    expect(owned(host)).toBe(false);
+  });
+
+  it("clears a marker it did not write, at registration", () => {
+    // A root that is destroyed leaves its host attributes on the elements, so the
+    // marker can outlive the root that put it there. Registering that element
+    // into a new root without `vibrant` must take it off: otherwise the surface
+    // keeps owned-label precedence nobody asked it for, and the app's own `color`
+    // rule silently stops winning.
+    const { host } = setup(true, false, false, true);
+    root.runFrame(16);
     expect(owned(host)).toBe(false);
   });
 

@@ -118,4 +118,30 @@ describe("the prop's two axes", () => {
     harness.frame(16);
     expect(owned(harness.result.getByRole("button", { name: "Share" }))).toBe(false);
   });
+
+  it("takes the marker off when the author removes the prop", () => {
+    // Removing the opt-in is the same statement as never making it, and React
+    // re-renders the whole declaration either way — so a surface that goes back
+    // to the default must go back to the token path. Sending nothing for the
+    // absent prop would leave the runtime holding the last opt-in forever.
+    const harness = renderGlass(
+      <GlassGroup id="g">
+        <GlassSurface asChild foreground="vibrant">
+          <section aria-label="Panel">content</section>
+        </GlassSurface>
+      </GlassGroup>,
+    );
+    harness.frame(0);
+    expect(owned(harness.result.getByRole("region", { name: "Panel" }))).toBe(true);
+
+    harness.rerender(
+      <GlassGroup id="g">
+        <GlassSurface asChild>
+          <section aria-label="Panel">content</section>
+        </GlassSurface>
+      </GlassGroup>,
+    );
+    harness.frame(16);
+    expect(owned(harness.result.getByRole("region", { name: "Panel" }))).toBe(false);
+  });
 });

@@ -36,11 +36,38 @@ const linear = (channel: number): number => {
 const luminanceOf = (rgb: Rgb): number =>
   0.2126 * linear(rgb.r) + 0.7152 * linear(rgb.g) + 0.0722 * linear(rgb.b);
 
-const parseRgb = (declaration: string): Rgb => {
-  const match = /(\d+),\s*(\d+),\s*(\d+)/.exec(declaration);
+interface Ink extends Rgb {
+  readonly alpha: number;
+}
+
+const parseInk = (declaration: string): Ink => {
+  const match = /(\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/.exec(declaration);
   if (match === null) throw new Error(`not an rgb() declaration: ${declaration}`);
-  return { r: Number(match[1]), g: Number(match[2]), b: Number(match[3]) };
+  return {
+    r: Number(match[1]),
+    g: Number(match[2]),
+    b: Number(match[3]),
+    alpha: match[4] === undefined ? 1 : Number(match[4]),
+  };
 };
+
+/**
+ * What a glyph of this ink actually leaves on this surface.
+ *
+ * The ink is TRANSLUCENT since W27e G2 — Apple's automatic label colour is black
+ * at α 0.847059 over a bright surface, white at α 0.804706 over a dark one, not
+ * an opaque hex — so its own three channels are not what a reader sees. The
+ * composite is taken in encoded sRGB, which is the space the browser composites
+ * text in; dropping the alpha would score pure black or pure white against the
+ * material and report a contrast no glyph on it has. A contrast test can only
+ * ever be wrong in the flattering direction here, which is the one direction it
+ * must not be.
+ */
+const compositeOver = (ink: Ink, surface: Rgb): Rgb => ({
+  r: ink.alpha * ink.r + (1 - ink.alpha) * surface.r,
+  g: ink.alpha * ink.g + (1 - ink.alpha) * surface.g,
+  b: ink.alpha * ink.b + (1 - ink.alpha) * surface.b,
+});
 
 const contrastOf = (a: number, b: number): number =>
   (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
@@ -70,10 +97,12 @@ test("a dark-hinted GPU-tier surface's label holds the body-text floor", async (
   // be the CSS tier's, which K5 already corrected.
   expect(built.state?.activeRenderer, `resolved ${JSON.stringify(built.state)}`).toBe("webgpu");
 
-  const ink = luminanceOf(parseRgb(built.style?.color ?? ""));
+  const ink = parseInk(built.style?.color ?? "");
 
   // The surface, sampled at four interior points well clear of the centred glyphs
   // so the reading is material rather than type. The worst is the one that counts.
+  // Each point gets its own composite rather than a representative one: the ink
+  // is translucent, so what a glyph reads as differs wherever the material does.
   const panel = await sample(page, PANEL);
   const points = [
     [40, 30],
@@ -81,7 +110,10 @@ test("a dark-hinted GPU-tier surface's label holds the body-text floor", async (
     [40, 90],
     [180, 90],
   ] as const;
-  const ratios = points.map(([x, y]) => contrastOf(ink, luminanceOf(panel.at(x, y))));
+  const ratios = points.map(([x, y]) => {
+    const surface = panel.at(x, y);
+    return contrastOf(luminanceOf(compositeOver(ink, surface)), luminanceOf(surface));
+  });
   const worst = Math.min(...ratios);
 
   expect(

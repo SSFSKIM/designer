@@ -17,6 +17,7 @@
  */
 
 import { expect, test, type Locator, type Page } from "@playwright/test";
+import { VIBRANT_LEVEL_ALPHA } from "@vitreajs/vitrea-web";
 
 import { gotoPlayground } from "./support";
 
@@ -249,17 +250,40 @@ test("secondary is solved per surface; tertiary and quaternary are Apple's fixed
   const alphaOf = async (ground: string, level: string): Promise<number> =>
     parseColor(await specimen(page, ground, level).evaluate((el) => getComputedStyle(el).color))[3];
 
-  // The same declaration on two grounds. Secondary is solved against the colour
-  // each surface is actually drawing, so the two answers differ and both are at
-  // or above Apple's 0.6; the two levels below it carry no floor and are the
-  // platform's numbers unchanged, which is the difference the band is showing.
+  /*
+   * The same declaration on two grounds. Secondary is solved against the colour
+   * each surface is actually drawing, so the two answers differ and both are at
+   * or above Apple's own alpha; the two levels below it carry no floor and are
+   * the platform's numbers unchanged, which is the difference the band shows.
+   *
+   * The number to be at or above is **macOS's** now, and it is the *dark ink's*
+   * (W27e G2; W27 Decision Log 15 (b)). It was iOS's flat 0.6. Both of the band's
+   * grounds resolve the dark ink at rest — the case above says why — so both are
+   * held to `darkening`'s secondary, and it is read from the runtime rather than
+   * transcribed, so a ladder that moved could not leave a stale constant here.
+   */
+  const nominal = VIBRANT_LEVEL_ALPHA.darkening.secondary;
   const secondary = { light: await alphaOf("light", "secondary"), dark: await alphaOf("dark", "secondary") };
-  expect(secondary.light).toBeGreaterThanOrEqual(0.6);
-  expect(secondary.dark).toBeGreaterThanOrEqual(0.6);
+  expect(secondary.light).toBeGreaterThanOrEqual(nominal);
+  expect(secondary.dark).toBeGreaterThanOrEqual(nominal);
   expect(secondary.light).not.toBeCloseTo(secondary.dark, 2);
 
+  // Equal across the two grounds because both are on the same pole, and equal to
+  // that pole's own published alphas. The two poles are NOT symmetric — the
+  // light ink's tertiary is the dark appearance's times the operator's 0.95 —
+  // so "the platform's numbers unchanged" is a statement per pole from here on.
   expect(await alphaOf("light", "tertiary")).toBeCloseTo(await alphaOf("dark", "tertiary"), 5);
   expect(await alphaOf("light", "quaternary")).toBeCloseTo(await alphaOf("dark", "quaternary"), 5);
+  // At precision 2, and that is the engine's resolution rather than a loosening:
+  // `getComputedStyle().color` serialises its alpha to two decimals, so 0.258824
+  // comes back as 0.26 whatever the runtime published. The pair above compares
+  // two equally-rounded readings and can afford five; this one compares a
+  // rounded reading to the unrounded constant and cannot.
+  expect(await alphaOf("light", "tertiary")).toBeCloseTo(VIBRANT_LEVEL_ALPHA.darkening.tertiary, 2);
+  expect(await alphaOf("light", "quaternary")).toBeCloseTo(
+    VIBRANT_LEVEL_ALPHA.darkening.quaternary,
+    2,
+  );
 });
 
 test("the band names the tier that drew it", async ({ page }) => {

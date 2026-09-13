@@ -185,6 +185,45 @@ describe("the crossfade", () => {
     }
   });
 
+  /**
+   * The number the ledger quotes for the departure from `declaration.md` §2 (d)
+   * (claims §5.140 §7), pinned so it cannot drift out of the record.
+   *
+   * The declared fold was the source-over composite of two drawn label layers
+   * with the *arriving* pole on top, which is what a crossfade is on Apple's
+   * side. It is order-dependent, and the driver reverses from wherever it is —
+   * so an order that followed the transit's direction would flip mid-transit,
+   * and at the midpoint the two orders are 66 code values apart at the same
+   * alpha. That discontinuity, on exactly the event this channel's hysteresis
+   * exists to damp, is why the shipped fold is order-free instead.
+   */
+  it("pins what the declared source-over fold would have cost at a reversal", () => {
+    const over = (bottom: LabelInk, top: LabelInk): LabelInk => {
+      const alpha = top.alpha + bottom.alpha * (1 - top.alpha);
+      const channel = (index: 0 | 1 | 2): number =>
+        (top.rgb[index] * top.alpha + bottom.rgb[index] * bottom.alpha * (1 - top.alpha)) / alpha;
+      return { rgb: [channel(0), channel(1), channel(2)], alpha };
+    };
+    const scaled = (ink: LabelInk, weight: number): LabelInk => ({
+      rgb: ink.rgb,
+      alpha: ink.alpha * weight,
+    });
+
+    const darkOnTop = over(scaled(light, 0.5), scaled(dark, 0.5));
+    const lightOnTop = over(scaled(dark, 0.5), scaled(light, 0.5));
+    expect(darkOnTop.alpha).toBeCloseTo(lightOnTop.alpha, 12);
+    expect(Math.abs(darkOnTop.rgb[0] - lightOnTop.rgb[0]) * 255).toBeCloseTo(66.29, 2);
+
+    // And what the shipped fold is worth against the declared one, which is the
+    // other number §5.140 §7 quotes: 22.8 code values over an encoded 0.475
+    // material, at the midpoint, agreeing exactly at both ends.
+    const shipped = crossfadeInk(dark, light, 0.5);
+    const overMaterial = (ink: LabelInk): number => ink.alpha * ink.rgb[0] + (1 - ink.alpha) * 0.475;
+    expect(Math.abs(overMaterial(shipped) - overMaterial(darkOnTop)) * 255).toBeCloseTo(22.8, 1);
+    expect(crossfadeInk(dark, light, 1)).toEqual(dark);
+    expect(crossfadeInk(dark, light, 0)).toEqual(light);
+  });
+
   it("moves monotonically between the poles", () => {
     let previous = crossfadeInk(dark, light, 0).rgb[0];
     for (let t = 0.05; t <= 1.0001; t += 0.05) {

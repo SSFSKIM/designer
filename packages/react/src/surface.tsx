@@ -16,14 +16,15 @@ export type ForegroundOwnership = "vibrant" | "token";
  */
 function resolveForeground(
   foreground: ForegroundAdaptation | ForegroundOwnership | undefined,
-): { adaptation: ForegroundAdaptation | undefined; vibrant: boolean | undefined } {
-  // `undefined` is "no opinion", which leaves the host on whatever it registered
-  // with. The object form is an opinion about the cadence and, by saying nothing
-  // about ownership, an opinion that vitrea does not own the label — stated as
-  // `false` rather than left `undefined` so that switching a surface FROM
-  // `"vibrant"` TO an adaptation object takes the marker off instead of leaving
-  // a patch with nothing in it.
-  if (foreground === undefined) return { adaptation: undefined, vibrant: undefined };
+): { adaptation: ForegroundAdaptation | undefined; vibrant: boolean } {
+  // Ownership is always stated — a `boolean`, never `undefined`. React re-renders
+  // the whole of a surface's declaration on every commit, so the absence of the
+  // prop is not "no opinion" here, it is the absence of the opt-in and therefore
+  // "not vibrant": that is the documented default for content vitrea did not
+  // write, and a patch that said nothing would leave the marker on a surface
+  // whose `foreground="vibrant"` had been removed. The object form says the same
+  // thing by the same reasoning — it is an opinion about the cadence and, by
+  // saying nothing about ownership, an opinion that vitrea does not own the label.
   if (typeof foreground === "string") {
     return { adaptation: undefined, vibrant: foreground === "vibrant" };
   }
@@ -266,7 +267,7 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
       ...(initial.variant === undefined ? {} : { variant: initial.variant }),
       ...(initial.tint === undefined ? {} : { tint: initial.tint }),
       ...(initial.adaptation === undefined ? {} : { foreground: initial.adaptation }),
-      ...(initial.vibrant === undefined ? {} : { vibrant: initial.vibrant }),
+      vibrant: initial.vibrant,
       // React owns placement, so platform-web must not move the element: it
       // records the parent it inserted into, and its synthetic events are
       // delegated to the portal container the element sits under. The plane
@@ -332,7 +333,7 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
       variant,
       tint,
       foreground: patch.current.adaptation,
-      ...(patch.current.vibrant === undefined ? {} : { vibrant: patch.current.vibrant }),
+      vibrant: patch.current.vibrant,
       present,
     });
   }, [foregroundKey, handle, order, present, radii, reference, smoothing, thickness, tint, variant]);
