@@ -272,6 +272,13 @@ async function runSite(page: Page, record: RunRecord): Promise<void> {
   await measurePhases(page, record, "/", "material", [
     family("size labels", ".plate strong", 3, LARGE),
   ]);
+  await page.getByTestId("tint-select").selectOption("blue");
+  await expect(page.locator(".plate--sweep-c strong")).toHaveText("112px, tinted");
+  await page.waitForTimeout(600);
+  await measureFamilies(page, record, "/", "material tinted", [
+    family("tinted size label", ".plate--sweep-c strong", 1, LARGE),
+  ]);
+  await page.getByTestId("tint-select").selectOption("none");
 
   await showSection(page, "page");
   record.resolvedTiers["/ page"] = await resolvedTierForSection(page, "page", record.tier);
@@ -537,8 +544,10 @@ function writeEvidence(record: RunRecord): void {
   const directory = process.env.W27E_G3_EVIDENCE_DIR;
   if (directory === undefined) return;
   mkdirSync(directory, { recursive: true });
+  const tag = process.env.W27E_G3_EVIDENCE_TAG;
+  const suffix = tag === undefined ? "" : `-${tag}`;
   writeFileSync(
-    join(directory, `contrast-${record.tier}-${record.scheme}.json`),
+    join(directory, `contrast-${record.tier}-${record.scheme}${suffix}.json`),
     `${JSON.stringify(record, null, 2)}\n`,
   );
 }
@@ -553,7 +562,12 @@ for (const tier of TIERS) {
       await gotoRoute(page, "/playground/", tier, scheme);
       const adapter = await adapterRecord(page);
       if (tier === "webgpu") {
-        expect(adapter).toMatchObject({ available: true, isFallbackAdapter: false });
+        expect(adapter).toMatchObject({ available: true });
+        // Canonical evidence must be hardware. CI deliberately opts into
+        // SwiftShader, where the same gate remains useful but is not fidelity data.
+        if (process.env.W27E_G3_EVIDENCE_DIR !== undefined) {
+          expect(adapter).toMatchObject({ isFallbackAdapter: false });
+        }
       }
 
       const record: RunRecord = {

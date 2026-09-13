@@ -549,7 +549,11 @@ export function StageGlass(props: StageProps): ReactNode {
                 data-testid={step.testId}
                 {...(step.tinted ? { tint: props.tint } : {})}
               >
-                <strong>
+                <strong
+                  className={
+                    step.tinted && props.tint !== null ? "plate__label--on-tint" : undefined
+                  }
+                >
                   {step.spanPx}px{step.tinted && props.tint !== null ? ", tinted" : ""}
                 </strong>
               </GlassSurface>

@@ -1,0 +1,9346 @@
+{
+  "tier": "css",
+  "scheme": "light",
+  "takenAt": "2026-09-13T07:38:58.114Z",
+  "accessibility": {
+    "reduceTransparency": "0",
+    "increaseContrast": "0"
+  },
+  "browser": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+    "dpr": 1,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    }
+  },
+  "adapter": {
+    "available": true,
+    "isFallbackAdapter": false,
+    "isFallbackAdapterReported": null,
+    "info": {
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "device": "",
+      "description": ""
+    }
+  },
+  "resolvedTiers": {
+    "/playground/": [
+      "css",
+      "css",
+      "css",
+      "css",
+      "css · css-backdrop",
+      "css · css-backdrop"
+    ],
+    "/playground/ ink reset": [
+      "css",
+      "css",
+      "css",
+      "css",
+      "css · css-backdrop",
+      "css · css-backdrop"
+    ],
+    "/ material": [
+      "css"
+    ],
+    "/ page": [
+      "css"
+    ],
+    "/ tone": [
+      "css"
+    ],
+    "/ access": [
+      "same texture root: css"
+    ],
+    "/ behavior": [
+      "css",
+      "css",
+      "css"
+    ],
+    "/laws/ tone": [
+      "css"
+    ],
+    "/laws/ tint": [
+      "css",
+      "css"
+    ],
+    "/laws/ body": [
+      "css"
+    ],
+    "/laws/ lens": [
+      "css"
+    ],
+    "/laws/ nested": [
+      "css",
+      "css"
+    ]
+  },
+  "readings": [
+    {
+      "route": "/playground/",
+      "state": "plates",
+      "family": "DOM plate heading",
+      "text": "Regular material",
+      "surface": [
+        204,
+        205,
+        205
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.308187088604132
+        }
+      ],
+      "ratio": 10.308187088604132
+    },
+    {
+      "route": "/playground/",
+      "state": "plates",
+      "family": "DOM plate body",
+      "text": "dom backdrop · author hint",
+      "surface": [
+        204,
+        205,
+        205
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.308187088604132
+        }
+      ],
+      "ratio": 10.308187088604132
+    },
+    {
+      "route": "/playground/",
+      "state": "plates",
+      "family": "texture plate heading",
+      "text": "Larger surface",
+      "surface": [
+        191,
+        232,
+        204
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 11.8498801303193
+        }
+      ],
+      "ratio": 11.8498801303193
+    },
+    {
+      "route": "/playground/",
+      "state": "plates",
+      "family": "texture plate body",
+      "text": "deeper material, stronger lensing",
+      "surface": [
+        191,
+        231,
+        205
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 11.786873205674055
+        }
+      ],
+      "ratio": 11.786873205674055
+    },
+    {
+      "route": "/playground/",
+      "state": "plates",
+      "family": "small texture plate",
+      "text": "regular",
+      "surface": [
+        194,
+        230,
+        213
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 11.814131825435133
+        }
+      ],
+      "ratio": 11.814131825435133
+    },
+    {
+      "route": "/playground/",
+      "state": "clear plate state",
+      "family": "small texture plate",
+      "text": "clear",
+      "surface": [
+        194,
+        229,
+        214
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 11.752235633514774
+        }
+      ],
+      "ratio": 11.752235633514774
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +400ms",
+      "family": "segments",
+      "text": "Day",
+      "surface": [
+        183,
+        185,
+        185
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.624310609748644
+        }
+      ],
+      "ratio": 8.624310609748644
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +400ms",
+      "family": "segments",
+      "text": "Week",
+      "surface": [
+        197,
+        197,
+        199
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            10,
+            12,
+            16
+          ],
+          "alpha": 1,
+          "ratio": 11.35650658032316
+        }
+      ],
+      "ratio": 11.35650658032316
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +400ms",
+      "family": "segments",
+      "text": "Month",
+      "surface": [
+        230,
+        190,
+        230
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.11292776602238
+        }
+      ],
+      "ratio": 10.11292776602238
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +400ms",
+      "family": "toolbar controls",
+      "text": "Share",
+      "surface": [
+        184,
+        184,
+        185
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.583881931645143
+        }
+      ],
+      "ratio": 8.583881931645143
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +400ms",
+      "family": "toolbar controls",
+      "text": "☆",
+      "surface": [
+        181,
+        181,
+        182
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.345371610686064
+        }
+      ],
+      "ratio": 8.345371610686064
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +400ms",
+      "family": "toolbar controls",
+      "text": "Disabled",
+      "surface": [
+        185,
+        183,
+        186
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.611764705882353,
+          "ratio": 4.643840322768673
+        }
+      ],
+      "ratio": 4.643840322768673
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +400ms",
+      "family": "closed morph",
+      "text": "Actions ▾",
+      "surface": [
+        185,
+        183,
+        188
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.56160113597446
+        },
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.56160113597446
+        }
+      ],
+      "ratio": 8.56160113597446
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +2200ms",
+      "family": "segments",
+      "text": "Day",
+      "surface": [
+        183,
+        185,
+        185
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.624310609748644
+        }
+      ],
+      "ratio": 8.624310609748644
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +2200ms",
+      "family": "segments",
+      "text": "Week",
+      "surface": [
+        197,
+        199,
+        195
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            10,
+            12,
+            16
+          ],
+          "alpha": 1,
+          "ratio": 11.49275415864975
+        }
+      ],
+      "ratio": 11.49275415864975
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +2200ms",
+      "family": "segments",
+      "text": "Month",
+      "surface": [
+        215,
+        233,
+        157
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 12.095524963184777
+        }
+      ],
+      "ratio": 12.095524963184777
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +2200ms",
+      "family": "toolbar controls",
+      "text": "Share",
+      "surface": [
+        184,
+        184,
+        185
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.583881931645143
+        }
+      ],
+      "ratio": 8.583881931645143
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +2200ms",
+      "family": "toolbar controls",
+      "text": "☆",
+      "surface": [
+        181,
+        181,
+        182
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.345371610686064
+        }
+      ],
+      "ratio": 8.345371610686064
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +2200ms",
+      "family": "toolbar controls",
+      "text": "Disabled",
+      "surface": [
+        185,
+        183,
+        186
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.611764705882353,
+          "ratio": 4.643840322768673
+        }
+      ],
+      "ratio": 4.643840322768673
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +2200ms",
+      "family": "closed morph",
+      "text": "Actions ▾",
+      "surface": [
+        185,
+        183,
+        188
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.56160113597446
+        },
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.56160113597446
+        }
+      ],
+      "ratio": 8.56160113597446
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +4200ms",
+      "family": "segments",
+      "text": "Day",
+      "surface": [
+        183,
+        185,
+        185
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.624310609748644
+        }
+      ],
+      "ratio": 8.624310609748644
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +4200ms",
+      "family": "segments",
+      "text": "Week",
+      "surface": [
+        195,
+        198,
+        196
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            10,
+            12,
+            16
+          ],
+          "alpha": 1,
+          "ratio": 11.365723673348493
+        }
+      ],
+      "ratio": 11.365723673348493
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +4200ms",
+      "family": "segments",
+      "text": "Month",
+      "surface": [
+        192,
+        231,
+        188
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 11.708329486240784
+        }
+      ],
+      "ratio": 11.708329486240784
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +4200ms",
+      "family": "toolbar controls",
+      "text": "Share",
+      "surface": [
+        184,
+        184,
+        185
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.583881931645143
+        }
+      ],
+      "ratio": 8.583881931645143
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +4200ms",
+      "family": "toolbar controls",
+      "text": "☆",
+      "surface": [
+        181,
+        181,
+        182
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.345371610686064
+        }
+      ],
+      "ratio": 8.345371610686064
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +4200ms",
+      "family": "toolbar controls",
+      "text": "Disabled",
+      "surface": [
+        185,
+        183,
+        186
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.611764705882353,
+          "ratio": 4.643840322768673
+        }
+      ],
+      "ratio": 4.643840322768673
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +4200ms",
+      "family": "closed morph",
+      "text": "Actions ▾",
+      "surface": [
+        185,
+        183,
+        188
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.56160113597446
+        },
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.56160113597446
+        }
+      ],
+      "ratio": 8.56160113597446
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +6200ms",
+      "family": "segments",
+      "text": "Day",
+      "surface": [
+        183,
+        185,
+        185
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.624310609748644
+        }
+      ],
+      "ratio": 8.624310609748644
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +6200ms",
+      "family": "segments",
+      "text": "Week",
+      "surface": [
+        197,
+        198,
+        195
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            10,
+            12,
+            16
+          ],
+          "alpha": 1,
+          "ratio": 11.407257268321473
+        }
+      ],
+      "ratio": 11.407257268321473
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +6200ms",
+      "family": "segments",
+      "text": "Month",
+      "surface": [
+        218,
+        237,
+        158
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 12.430697165514498
+        }
+      ],
+      "ratio": 12.430697165514498
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +6200ms",
+      "family": "toolbar controls",
+      "text": "Share",
+      "surface": [
+        184,
+        184,
+        185
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.583881931645143
+        }
+      ],
+      "ratio": 8.583881931645143
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +6200ms",
+      "family": "toolbar controls",
+      "text": "☆",
+      "surface": [
+        181,
+        181,
+        182
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.345371610686064
+        }
+      ],
+      "ratio": 8.345371610686064
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +6200ms",
+      "family": "toolbar controls",
+      "text": "Disabled",
+      "surface": [
+        185,
+        183,
+        186
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.611764705882353,
+          "ratio": 4.643840322768673
+        }
+      ],
+      "ratio": 4.643840322768673
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +6200ms",
+      "family": "closed morph",
+      "text": "Actions ▾",
+      "surface": [
+        185,
+        183,
+        188
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.56160113597446
+        },
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.56160113597446
+        }
+      ],
+      "ratio": 8.56160113597446
+    },
+    {
+      "route": "/playground/",
+      "state": "favourite selected",
+      "family": "selected favourite glyph",
+      "text": "★",
+      "surface": [
+        189,
+        189,
+        190
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.987953133089475
+        }
+      ],
+      "ratio": 8.987953133089475
+    },
+    {
+      "route": "/playground/",
+      "state": "menu open",
+      "family": "menu items",
+      "text": "Duplicate",
+      "surface": [
+        190,
+        186,
+        190
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.831728717603934
+        }
+      ],
+      "ratio": 8.831728717603934
+    },
+    {
+      "route": "/playground/",
+      "state": "menu open",
+      "family": "menu items",
+      "text": "Rename…",
+      "surface": [
+        188,
+        187,
+        190
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.854466927014526
+        }
+      ],
+      "ratio": 8.854466927014526
+    },
+    {
+      "route": "/playground/",
+      "state": "menu open",
+      "family": "menu items",
+      "text": "Export as PNG",
+      "surface": [
+        191,
+        186,
+        192
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.86138283152057
+        }
+      ],
+      "ratio": 8.86138283152057
+    },
+    {
+      "route": "/playground/",
+      "state": "menu open",
+      "family": "menu items",
+      "text": "Delete",
+      "surface": [
+        190,
+        186,
+        197
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.874544940167358
+        }
+      ],
+      "ratio": 8.874544940167358
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "ink-level names",
+      "text": "PRIMARY",
+      "surface": [
+        163,
+        192,
+        235
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.067166541737372
+        }
+      ],
+      "ratio": 9.067166541737372
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "ink-level names",
+      "text": "SECONDARY",
+      "surface": [
+        163,
+        192,
+        235
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.067166541737372
+        }
+      ],
+      "ratio": 9.067166541737372
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "ink-level names",
+      "text": "TERTIARY",
+      "surface": [
+        163,
+        192,
+        235
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.067166541737372
+        }
+      ],
+      "ratio": 9.067166541737372
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "ink-level names",
+      "text": "QUATERNARY",
+      "surface": [
+        163,
+        192,
+        235
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.067166541737372
+        }
+      ],
+      "ratio": 9.067166541737372
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "ink-level names",
+      "text": "PRIMARY",
+      "surface": [
+        120,
+        145,
+        184
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 5.641506864594306
+        }
+      ],
+      "ratio": 5.641506864594306
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "ink-level names",
+      "text": "SECONDARY",
+      "surface": [
+        120,
+        145,
+        184
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 5.641506864594306
+        }
+      ],
+      "ratio": 5.641506864594306
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "ink-level names",
+      "text": "TERTIARY",
+      "surface": [
+        120,
+        145,
+        184
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 5.641506864594306
+        }
+      ],
+      "ratio": 5.641506864594306
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "ink-level names",
+      "text": "QUATERNARY",
+      "surface": [
+        120,
+        145,
+        184
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 5.641506864594306
+        }
+      ],
+      "ratio": 5.641506864594306
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "primary specimens",
+      "text": "Aa",
+      "surface": [
+        163,
+        192,
+        235
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.067166541737372
+        }
+      ],
+      "ratio": 9.067166541737372
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "primary specimens",
+      "text": "Aa",
+      "surface": [
+        120,
+        145,
+        184
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 5.641506864594306
+        }
+      ],
+      "ratio": 5.641506864594306
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "secondary specimens",
+      "text": "Aa",
+      "surface": [
+        163,
+        192,
+        235
+      ],
+      "floor": 4.45,
+      "floorName": "secondary-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.5882352941176471,
+          "ratio": 4.462809406124817
+        }
+      ],
+      "ratio": 4.462809406124817
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "secondary specimens",
+      "text": "Aa",
+      "surface": [
+        120,
+        145,
+        184
+      ],
+      "floor": 4.45,
+      "floorName": "secondary-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.7176470588235294,
+          "ratio": 4.562956699330373
+        }
+      ],
+      "ratio": 4.562956699330373
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "tertiary specimens",
+      "text": "Aa",
+      "surface": [
+        163,
+        192,
+        235
+      ],
+      "floor": null,
+      "floorName": "read-only",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.2588235294117647,
+          "ratio": 1.7902208350506923
+        }
+      ],
+      "ratio": 1.7902208350506923
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "tertiary specimens",
+      "text": "Aa",
+      "surface": [
+        120,
+        145,
+        184
+      ],
+      "floor": null,
+      "floorName": "read-only",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.2588235294117647,
+          "ratio": 1.675179041477691
+        }
+      ],
+      "ratio": 1.675179041477691
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "quaternary specimens",
+      "text": "Aa",
+      "surface": [
+        163,
+        192,
+        235
+      ],
+      "floor": null,
+      "floorName": "read-only",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.0980392156862745,
+          "ratio": 1.2302869424097331
+        }
+      ],
+      "ratio": 1.2302869424097331
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "quaternary specimens",
+      "text": "Aa",
+      "surface": [
+        120,
+        145,
+        184
+      ],
+      "floor": null,
+      "floorName": "read-only",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.0980392156862745,
+          "ratio": 1.2055036771865588
+        }
+      ],
+      "ratio": 1.2055036771865588
+    },
+    {
+      "route": "/playground/",
+      "state": "ink-row controls",
+      "family": "bookmark and publish controls",
+      "text": "☆",
+      "surface": [
+        165,
+        193,
+        237
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.171032439635635
+        }
+      ],
+      "ratio": 9.171032439635635
+    },
+    {
+      "route": "/playground/",
+      "state": "ink-row controls",
+      "family": "bookmark and publish controls",
+      "text": "Publish",
+      "surface": [
+        253,
+        148,
+        0
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.812761739302244
+        }
+      ],
+      "ratio": 7.812761739302244
+    },
+    {
+      "route": "/playground/",
+      "state": "ink-row controls",
+      "family": "bookmark and publish controls",
+      "text": "☆",
+      "surface": [
+        44,
+        73,
+        117
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 6.531356871881124
+        }
+      ],
+      "ratio": 6.531356871881124
+    },
+    {
+      "route": "/playground/",
+      "state": "ink-row controls",
+      "family": "bookmark and publish controls",
+      "text": "Publish",
+      "surface": [
+        255,
+        149,
+        0
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.912007426277215
+        }
+      ],
+      "ratio": 7.912007426277215
+    },
+    {
+      "route": "/",
+      "state": "material at +400ms",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        240,
+        239,
+        235
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.39957955762453
+        }
+      ],
+      "ratio": 13.39957955762453
+    },
+    {
+      "route": "/",
+      "state": "material at +400ms",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        240,
+        239,
+        233
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.386350919116415
+        }
+      ],
+      "ratio": 13.386350919116415
+    },
+    {
+      "route": "/",
+      "state": "material at +400ms",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        240,
+        242,
+        235
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.602966457323896
+        }
+      ],
+      "ratio": 13.602966457323896
+    },
+    {
+      "route": "/",
+      "state": "material at +2200ms",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        242,
+        243,
+        243
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.76503686091758
+        }
+      ],
+      "ratio": 13.76503686091758
+    },
+    {
+      "route": "/",
+      "state": "material at +2200ms",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        243,
+        243,
+        237
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.744694682861908
+        }
+      ],
+      "ratio": 13.744694682861908
+    },
+    {
+      "route": "/",
+      "state": "material at +2200ms",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        243,
+        243,
+        238
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.751350956186114
+        }
+      ],
+      "ratio": 13.751350956186114
+    },
+    {
+      "route": "/",
+      "state": "material at +4200ms",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        226,
+        243,
+        250
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.505793564366163
+        }
+      ],
+      "ratio": 13.505793564366163
+    },
+    {
+      "route": "/",
+      "state": "material at +4200ms",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        226,
+        243,
+        251
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.513039822594465
+        }
+      ],
+      "ratio": 13.513039822594465
+    },
+    {
+      "route": "/",
+      "state": "material at +4200ms",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        232,
+        243,
+        251
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.625584165262564
+        }
+      ],
+      "ratio": 13.625584165262564
+    },
+    {
+      "route": "/",
+      "state": "material at +6200ms",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        242,
+        243,
+        247
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.792820239689064
+        }
+      ],
+      "ratio": 13.792820239689064
+    },
+    {
+      "route": "/",
+      "state": "material at +6200ms",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        238,
+        245,
+        248
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.857096344435023
+        }
+      ],
+      "ratio": 13.857096344435023
+    },
+    {
+      "route": "/",
+      "state": "material at +6200ms",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        236,
+        246,
+        251
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.908228513607694
+        }
+      ],
+      "ratio": 13.908228513607694
+    },
+    {
+      "route": "/",
+      "state": "material tinted",
+      "family": "tinted size label",
+      "text": "112px, tinted",
+      "surface": [
+        10,
+        129,
+        250
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            22,
+            30,
+            34
+          ],
+          "alpha": 1,
+          "ratio": 4.451954155237652
+        }
+      ],
+      "ratio": 4.451954155237652
+    },
+    {
+      "route": "/",
+      "state": "ordinary page content",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        233,
+        240,
+        244
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.39039517463446
+        }
+      ],
+      "ratio": 13.39039517463446
+    },
+    {
+      "route": "/",
+      "state": "ordinary page content",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        232,
+        239,
+        243
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.296208168756735
+        }
+      ],
+      "ratio": 13.296208168756735
+    },
+    {
+      "route": "/",
+      "state": "ordinary page content",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        237,
+        245,
+        249
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.844644283449364
+        }
+      ],
+      "ratio": 13.844644283449364
+    },
+    {
+      "route": "/",
+      "state": "tone 002/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        184,
+        184,
+        184
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.57808682203776
+        }
+      ],
+      "ratio": 8.57808682203776
+    },
+    {
+      "route": "/",
+      "state": "tone 002/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        99,
+        99,
+        99
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 4.568830078322026
+        }
+      ],
+      "ratio": 4.568830078322026
+    },
+    {
+      "route": "/",
+      "state": "tone 002/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        7,
+        7,
+        7
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 12.84837757823705
+        }
+      ],
+      "ratio": 12.84837757823705
+    },
+    {
+      "route": "/",
+      "state": "tone 004/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        186,
+        186,
+        186
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.738697078213757
+        }
+      ],
+      "ratio": 8.738697078213757
+    },
+    {
+      "route": "/",
+      "state": "tone 004/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        113,
+        113,
+        113
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 3.8085955221406045
+        }
+      ],
+      "ratio": 3.8085955221406045
+    },
+    {
+      "route": "/",
+      "state": "tone 004/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        13,
+        13,
+        13
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 12.544010544441646
+        }
+      ],
+      "ratio": 12.544010544441646
+    },
+    {
+      "route": "/",
+      "state": "tone 006/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        187,
+        187,
+        187
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.819490411372726
+        }
+      ],
+      "ratio": 8.819490411372726
+    },
+    {
+      "route": "/",
+      "state": "tone 006/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        132,
+        132,
+        132
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 3.0212369456473014
+        }
+      ],
+      "ratio": 3.0212369456473014
+    },
+    {
+      "route": "/",
+      "state": "tone 006/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        18,
+        18,
+        18
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 12.210295497173455
+        }
+      ],
+      "ratio": 12.210295497173455
+    },
+    {
+      "route": "/",
+      "state": "tone 008/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        188,
+        188,
+        188
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.900605984505574
+        }
+      ],
+      "ratio": 8.900605984505574
+    },
+    {
+      "route": "/",
+      "state": "tone 008/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        147,
+        147,
+        147
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 5.86394139901747
+        }
+      ],
+      "ratio": 5.86394139901747
+    },
+    {
+      "route": "/",
+      "state": "tone 008/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        22,
+        22,
+        22
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 11.887514468112096
+        }
+      ],
+      "ratio": 11.887514468112096
+    },
+    {
+      "route": "/",
+      "state": "tone 010/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        188,
+        188,
+        188
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.900605984505574
+        }
+      ],
+      "ratio": 8.900605984505574
+    },
+    {
+      "route": "/",
+      "state": "tone 010/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        153,
+        153,
+        153
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 6.26865884058862
+        }
+      ],
+      "ratio": 6.26865884058862
+    },
+    {
+      "route": "/",
+      "state": "tone 010/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        25,
+        25,
+        25
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 11.61736182786038
+        }
+      ],
+      "ratio": 11.61736182786038
+    },
+    {
+      "route": "/",
+      "state": "tone 012/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        188,
+        188,
+        188
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.900605984505574
+        }
+      ],
+      "ratio": 8.900605984505574
+    },
+    {
+      "route": "/",
+      "state": "tone 012/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        155,
+        155,
+        155
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 6.406774233637334
+        }
+      ],
+      "ratio": 6.406774233637334
+    },
+    {
+      "route": "/",
+      "state": "tone 012/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        29,
+        29,
+        29
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 11.226000334466114
+        }
+      ],
+      "ratio": 11.226000334466114
+    },
+    {
+      "route": "/",
+      "state": "tone 014/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        188,
+        188,
+        188
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.900605984505574
+        }
+      ],
+      "ratio": 8.900605984505574
+    },
+    {
+      "route": "/",
+      "state": "tone 014/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        158,
+        158,
+        158
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 6.616901050146272
+        }
+      ],
+      "ratio": 6.616901050146272
+    },
+    {
+      "route": "/",
+      "state": "tone 014/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        31,
+        31,
+        31
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 11.019273515979764
+        }
+      ],
+      "ratio": 11.019273515979764
+    },
+    {
+      "route": "/",
+      "state": "tone 016/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        190,
+        190,
+        190
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.063794114743336
+        }
+      ],
+      "ratio": 9.063794114743336
+    },
+    {
+      "route": "/",
+      "state": "tone 016/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        162,
+        162,
+        162
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 6.902496719123286
+        }
+      ],
+      "ratio": 6.902496719123286
+    },
+    {
+      "route": "/",
+      "state": "tone 016/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        34,
+        34,
+        34
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.698281886269843
+        }
+      ],
+      "ratio": 10.698281886269843
+    },
+    {
+      "route": "/",
+      "state": "tone 018/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        190,
+        190,
+        190
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.063794114743336
+        }
+      ],
+      "ratio": 9.063794114743336
+    },
+    {
+      "route": "/",
+      "state": "tone 018/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        164,
+        164,
+        164
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.047582142869252
+        }
+      ],
+      "ratio": 7.047582142869252
+    },
+    {
+      "route": "/",
+      "state": "tone 018/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        36,
+        36,
+        36
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.478498472238387
+        }
+      ],
+      "ratio": 10.478498472238387
+    },
+    {
+      "route": "/",
+      "state": "tone 020/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        190,
+        190,
+        190
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.063794114743336
+        }
+      ],
+      "ratio": 9.063794114743336
+    },
+    {
+      "route": "/",
+      "state": "tone 020/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        167,
+        167,
+        167
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.268021143128423
+        }
+      ],
+      "ratio": 7.268021143128423
+    },
+    {
+      "route": "/",
+      "state": "tone 020/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        49,
+        49,
+        49
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.004116388859961
+        }
+      ],
+      "ratio": 9.004116388859961
+    },
+    {
+      "route": "/",
+      "state": "tone 022/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        192,
+        192,
+        192
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.228241925096135
+        }
+      ],
+      "ratio": 9.228241925096135
+    },
+    {
+      "route": "/",
+      "state": "tone 022/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        170,
+        170,
+        170
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.491780302591593
+        }
+      ],
+      "ratio": 7.491780302591593
+    },
+    {
+      "route": "/",
+      "state": "tone 022/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        69,
+        69,
+        69
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 6.893788536501347
+        }
+      ],
+      "ratio": 6.893788536501347
+    },
+    {
+      "route": "/",
+      "state": "tone 024/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        193,
+        193,
+        193
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.310932072791866
+        }
+      ],
+      "ratio": 9.310932072791866
+    },
+    {
+      "route": "/",
+      "state": "tone 024/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        171,
+        171,
+        171
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.567094080387787
+        }
+      ],
+      "ratio": 7.567094080387787
+    },
+    {
+      "route": "/",
+      "state": "tone 024/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        90,
+        90,
+        90
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 5.158086830379695
+        }
+      ],
+      "ratio": 5.158086830379695
+    },
+    {
+      "route": "/",
+      "state": "tone 026/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        193,
+        193,
+        193
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.310932072791866
+        }
+      ],
+      "ratio": 9.310932072791866
+    },
+    {
+      "route": "/",
+      "state": "tone 026/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        174,
+        174,
+        174
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.795185880294788
+        }
+      ],
+      "ratio": 7.795185880294788
+    },
+    {
+      "route": "/",
+      "state": "tone 026/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        112,
+        112,
+        112
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 3.8572543274093567
+        }
+      ],
+      "ratio": 3.8572543274093567
+    },
+    {
+      "route": "/",
+      "state": "tone 028/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        193,
+        193,
+        193
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.310932072791866
+        }
+      ],
+      "ratio": 9.310932072791866
+    },
+    {
+      "route": "/",
+      "state": "tone 028/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        176,
+        176,
+        176
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.949016219153062
+        }
+      ],
+      "ratio": 7.949016219153062
+    },
+    {
+      "route": "/",
+      "state": "tone 028/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        131,
+        131,
+        131
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 3.0568725034150814
+        }
+      ],
+      "ratio": 3.0568725034150814
+    },
+    {
+      "route": "/",
+      "state": "tone 030/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        194,
+        194,
+        194
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.393929762582038
+        }
+      ],
+      "ratio": 9.393929762582038
+    },
+    {
+      "route": "/",
+      "state": "tone 030/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        178,
+        178,
+        178
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.10424026958628
+        }
+      ],
+      "ratio": 8.10424026958628
+    },
+    {
+      "route": "/",
+      "state": "tone 030/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        141,
+        141,
+        141
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 5.473991654876687
+        }
+      ],
+      "ratio": 5.473991654876687
+    },
+    {
+      "route": "/",
+      "state": "tone 032/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        195,
+        195,
+        195
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.477232522168906
+        }
+      ],
+      "ratio": 9.477232522168906
+    },
+    {
+      "route": "/",
+      "state": "tone 032/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        179,
+        179,
+        179
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.182369097148413
+        }
+      ],
+      "ratio": 8.182369097148413
+    },
+    {
+      "route": "/",
+      "state": "tone 032/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        147,
+        147,
+        147
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 5.86394139901747
+        }
+      ],
+      "ratio": 5.86394139901747
+    },
+    {
+      "route": "/",
+      "state": "tone 034/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        195,
+        195,
+        195
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.477232522168906
+        }
+      ],
+      "ratio": 9.477232522168906
+    },
+    {
+      "route": "/",
+      "state": "tone 034/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        181,
+        181,
+        181
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.339648588610512
+        }
+      ],
+      "ratio": 8.339648588610512
+    },
+    {
+      "route": "/",
+      "state": "tone 034/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        152,
+        152,
+        152
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 6.2001979826366025
+        }
+      ],
+      "ratio": 6.2001979826366025
+    },
+    {
+      "route": "/",
+      "state": "tone 036/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        195,
+        195,
+        195
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.477232522168906
+        }
+      ],
+      "ratio": 9.477232522168906
+    },
+    {
+      "route": "/",
+      "state": "tone 036/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        183,
+        183,
+        183
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.498274724132164
+        }
+      ],
+      "ratio": 8.498274724132164
+    },
+    {
+      "route": "/",
+      "state": "tone 036/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        155,
+        155,
+        155
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 6.406774233637334
+        }
+      ],
+      "ratio": 6.406774233637334
+    },
+    {
+      "route": "/",
+      "state": "tone 038/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        196,
+        196,
+        196
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.56083787347852
+        }
+      ],
+      "ratio": 9.56083787347852
+    },
+    {
+      "route": "/",
+      "state": "tone 038/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        183,
+        183,
+        183
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.498274724132164
+        }
+      ],
+      "ratio": 8.498274724132164
+    },
+    {
+      "route": "/",
+      "state": "tone 038/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        160,
+        160,
+        160
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 6.7589306608441895
+        }
+      ],
+      "ratio": 6.7589306608441895
+    },
+    {
+      "route": "/",
+      "state": "tone 040/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        196,
+        196,
+        196
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.56083787347852
+        }
+      ],
+      "ratio": 9.56083787347852
+    },
+    {
+      "route": "/",
+      "state": "tone 040/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        185,
+        185,
+        185
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.658228409556495
+        }
+      ],
+      "ratio": 8.658228409556495
+    },
+    {
+      "route": "/",
+      "state": "tone 040/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        164,
+        164,
+        164
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.047582142869252
+        }
+      ],
+      "ratio": 7.047582142869252
+    },
+    {
+      "route": "/",
+      "state": "tone 042/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        197,
+        197,
+        197
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.644743332917901
+        }
+      ],
+      "ratio": 9.644743332917901
+    },
+    {
+      "route": "/",
+      "state": "tone 042/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        187,
+        187,
+        187
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.819490411372726
+        }
+      ],
+      "ratio": 8.819490411372726
+    },
+    {
+      "route": "/",
+      "state": "tone 042/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        166,
+        166,
+        166
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.194169613947045
+        }
+      ],
+      "ratio": 7.194169613947045
+    },
+    {
+      "route": "/",
+      "state": "tone 044/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        197,
+        197,
+        197
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.644743332917901
+        }
+      ],
+      "ratio": 9.644743332917901
+    },
+    {
+      "route": "/",
+      "state": "tone 044/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        187,
+        187,
+        187
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.819490411372726
+        }
+      ],
+      "ratio": 8.819490411372726
+    },
+    {
+      "route": "/",
+      "state": "tone 044/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        169,
+        169,
+        169
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.416828720850454
+        }
+      ],
+      "ratio": 7.416828720850454
+    },
+    {
+      "route": "/",
+      "state": "tone 046/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        198,
+        198,
+        198
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.7289464116306
+        }
+      ],
+      "ratio": 9.7289464116306
+    },
+    {
+      "route": "/",
+      "state": "tone 046/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        188,
+        188,
+        188
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.900605984505574
+        }
+      ],
+      "ratio": 8.900605984505574
+    },
+    {
+      "route": "/",
+      "state": "tone 046/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        172,
+        172,
+        172
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.642767789279055
+        }
+      ],
+      "ratio": 7.642767789279055
+    },
+    {
+      "route": "/",
+      "state": "tone 048/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        198,
+        198,
+        198
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.7289464116306
+        }
+      ],
+      "ratio": 9.7289464116306
+    },
+    {
+      "route": "/",
+      "state": "tone 048/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        190,
+        190,
+        190
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.063794114743336
+        }
+      ],
+      "ratio": 9.063794114743336
+    },
+    {
+      "route": "/",
+      "state": "tone 048/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        174,
+        174,
+        174
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.795185880294788
+        }
+      ],
+      "ratio": 7.795185880294788
+    },
+    {
+      "route": "/",
+      "state": "tone 050/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        199,
+        199,
+        199
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.813444615750525
+        }
+      ],
+      "ratio": 9.813444615750525
+    },
+    {
+      "route": "/",
+      "state": "tone 050/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        190,
+        190,
+        190
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.063794114743336
+        }
+      ],
+      "ratio": 9.063794114743336
+    },
+    {
+      "route": "/",
+      "state": "tone 050/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        177,
+        177,
+        177
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.026455195712161
+        }
+      ],
+      "ratio": 8.026455195712161
+    },
+    {
+      "route": "/",
+      "state": "tone 052/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        199,
+        199,
+        199
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.813444615750525
+        }
+      ],
+      "ratio": 9.813444615750525
+    },
+    {
+      "route": "/",
+      "state": "tone 052/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        191,
+        191,
+        191
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.145861785757553
+        }
+      ],
+      "ratio": 9.145861785757553
+    },
+    {
+      "route": "/",
+      "state": "tone 052/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        178,
+        178,
+        178
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.10424026958628
+        }
+      ],
+      "ratio": 8.10424026958628
+    },
+    {
+      "route": "/",
+      "state": "tone 054/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        199,
+        199,
+        199
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.813444615750525
+        }
+      ],
+      "ratio": 9.813444615750525
+    },
+    {
+      "route": "/",
+      "state": "tone 054/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        193,
+        193,
+        193
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.310932072791866
+        }
+      ],
+      "ratio": 9.310932072791866
+    },
+    {
+      "route": "/",
+      "state": "tone 054/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        179,
+        179,
+        179
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.182369097148413
+        }
+      ],
+      "ratio": 8.182369097148413
+    },
+    {
+      "route": "/",
+      "state": "tone 056/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        199,
+        199,
+        199
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.813444615750525
+        }
+      ],
+      "ratio": 9.813444615750525
+    },
+    {
+      "route": "/",
+      "state": "tone 056/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        193,
+        193,
+        193
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.310932072791866
+        }
+      ],
+      "ratio": 9.310932072791866
+    },
+    {
+      "route": "/",
+      "state": "tone 056/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        181,
+        181,
+        181
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.339648588610512
+        }
+      ],
+      "ratio": 8.339648588610512
+    },
+    {
+      "route": "/",
+      "state": "tone 058/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        200,
+        200,
+        200
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.89823544665413
+        }
+      ],
+      "ratio": 9.89823544665413
+    },
+    {
+      "route": "/",
+      "state": "tone 058/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        193,
+        193,
+        193
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.310932072791866
+        }
+      ],
+      "ratio": 9.310932072791866
+    },
+    {
+      "route": "/",
+      "state": "tone 058/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        182,
+        182,
+        182
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.418794515879465
+        }
+      ],
+      "ratio": 8.418794515879465
+    },
+    {
+      "route": "/",
+      "state": "tone 060/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        200,
+        200,
+        200
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.89823544665413
+        }
+      ],
+      "ratio": 9.89823544665413
+    },
+    {
+      "route": "/",
+      "state": "tone 060/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        194,
+        194,
+        194
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.393929762582038
+        }
+      ],
+      "ratio": 9.393929762582038
+    },
+    {
+      "route": "/",
+      "state": "tone 060/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        182,
+        182,
+        182
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.418794515879465
+        }
+      ],
+      "ratio": 8.418794515879465
+    },
+    {
+      "route": "/",
+      "state": "tone 062/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        201,
+        201,
+        201
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.983316401210852
+        }
+      ],
+      "ratio": 9.983316401210852
+    },
+    {
+      "route": "/",
+      "state": "tone 062/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        195,
+        195,
+        195
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.477232522168906
+        }
+      ],
+      "ratio": 9.477232522168906
+    },
+    {
+      "route": "/",
+      "state": "tone 062/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        183,
+        183,
+        183
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.498274724132164
+        }
+      ],
+      "ratio": 8.498274724132164
+    },
+    {
+      "route": "/",
+      "state": "tone 064/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        201,
+        201,
+        201
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.983316401210852
+        }
+      ],
+      "ratio": 9.983316401210852
+    },
+    {
+      "route": "/",
+      "state": "tone 064/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        196,
+        196,
+        196
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.56083787347852
+        }
+      ],
+      "ratio": 9.56083787347852
+    },
+    {
+      "route": "/",
+      "state": "tone 064/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        185,
+        185,
+        185
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.658228409556495
+        }
+      ],
+      "ratio": 8.658228409556495
+    },
+    {
+      "route": "/",
+      "state": "tone 066/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        201,
+        201,
+        201
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.983316401210852
+        }
+      ],
+      "ratio": 9.983316401210852
+    },
+    {
+      "route": "/",
+      "state": "tone 066/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        196,
+        196,
+        196
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.56083787347852
+        }
+      ],
+      "ratio": 9.56083787347852
+    },
+    {
+      "route": "/",
+      "state": "tone 066/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        185,
+        185,
+        185
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.658228409556495
+        }
+      ],
+      "ratio": 8.658228409556495
+    },
+    {
+      "route": "/",
+      "state": "tone 068/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        202,
+        202,
+        202
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.068684972031821
+        }
+      ],
+      "ratio": 10.068684972031821
+    },
+    {
+      "route": "/",
+      "state": "tone 068/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        196,
+        196,
+        196
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.56083787347852
+        }
+      ],
+      "ratio": 9.56083787347852
+    },
+    {
+      "route": "/",
+      "state": "tone 068/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        187,
+        187,
+        187
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.819490411372726
+        }
+      ],
+      "ratio": 8.819490411372726
+    },
+    {
+      "route": "/",
+      "state": "tone 070/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        202,
+        202,
+        202
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.068684972031821
+        }
+      ],
+      "ratio": 10.068684972031821
+    },
+    {
+      "route": "/",
+      "state": "tone 070/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        197,
+        197,
+        197
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.644743332917901
+        }
+      ],
+      "ratio": 9.644743332917901
+    },
+    {
+      "route": "/",
+      "state": "tone 070/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        187,
+        187,
+        187
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.819490411372726
+        }
+      ],
+      "ratio": 8.819490411372726
+    },
+    {
+      "route": "/",
+      "state": "tone 072/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        202,
+        202,
+        202
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.068684972031821
+        }
+      ],
+      "ratio": 10.068684972031821
+    },
+    {
+      "route": "/",
+      "state": "tone 072/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        197,
+        197,
+        197
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.644743332917901
+        }
+      ],
+      "ratio": 9.644743332917901
+    },
+    {
+      "route": "/",
+      "state": "tone 072/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        187,
+        187,
+        187
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.819490411372726
+        }
+      ],
+      "ratio": 8.819490411372726
+    },
+    {
+      "route": "/",
+      "state": "tone 074/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        203,
+        203,
+        203
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.154338647716841
+        }
+      ],
+      "ratio": 10.154338647716841
+    },
+    {
+      "route": "/",
+      "state": "tone 074/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        199,
+        199,
+        199
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.813444615750525
+        }
+      ],
+      "ratio": 9.813444615750525
+    },
+    {
+      "route": "/",
+      "state": "tone 074/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        188,
+        188,
+        188
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.900605984505574
+        }
+      ],
+      "ratio": 8.900605984505574
+    },
+    {
+      "route": "/",
+      "state": "tone 076/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        203,
+        203,
+        203
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.154338647716841
+        }
+      ],
+      "ratio": 10.154338647716841
+    },
+    {
+      "route": "/",
+      "state": "tone 076/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        199,
+        199,
+        199
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.813444615750525
+        }
+      ],
+      "ratio": 9.813444615750525
+    },
+    {
+      "route": "/",
+      "state": "tone 076/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        189,
+        189,
+        189
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.98204136546317
+        }
+      ],
+      "ratio": 8.98204136546317
+    },
+    {
+      "route": "/",
+      "state": "tone 078/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        204,
+        204,
+        204
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.240274913099553
+        }
+      ],
+      "ratio": 10.240274913099553
+    },
+    {
+      "route": "/",
+      "state": "tone 078/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        199,
+        199,
+        199
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.813444615750525
+        }
+      ],
+      "ratio": 9.813444615750525
+    },
+    {
+      "route": "/",
+      "state": "tone 078/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        190,
+        190,
+        190
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.063794114743336
+        }
+      ],
+      "ratio": 9.063794114743336
+    },
+    {
+      "route": "/",
+      "state": "tone 080/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        204,
+        204,
+        204
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.240274913099553
+        }
+      ],
+      "ratio": 10.240274913099553
+    },
+    {
+      "route": "/",
+      "state": "tone 080/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        199,
+        199,
+        199
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.813444615750525
+        }
+      ],
+      "ratio": 9.813444615750525
+    },
+    {
+      "route": "/",
+      "state": "tone 080/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        190,
+        190,
+        190
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.063794114743336
+        }
+      ],
+      "ratio": 9.063794114743336
+    },
+    {
+      "route": "/",
+      "state": "tone 082/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        204,
+        204,
+        204
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.240274913099553
+        }
+      ],
+      "ratio": 10.240274913099553
+    },
+    {
+      "route": "/",
+      "state": "tone 082/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        200,
+        200,
+        200
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.89823544665413
+        }
+      ],
+      "ratio": 9.89823544665413
+    },
+    {
+      "route": "/",
+      "state": "tone 082/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        191,
+        191,
+        191
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.145861785757553
+        }
+      ],
+      "ratio": 9.145861785757553
+    },
+    {
+      "route": "/",
+      "state": "tone 084/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        204,
+        204,
+        204
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.240274913099553
+        }
+      ],
+      "ratio": 10.240274913099553
+    },
+    {
+      "route": "/",
+      "state": "tone 084/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        200,
+        200,
+        200
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.89823544665413
+        }
+      ],
+      "ratio": 9.89823544665413
+    },
+    {
+      "route": "/",
+      "state": "tone 084/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        193,
+        193,
+        193
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.310932072791866
+        }
+      ],
+      "ratio": 9.310932072791866
+    },
+    {
+      "route": "/",
+      "state": "tone 086/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        204,
+        204,
+        204
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.240274913099553
+        }
+      ],
+      "ratio": 10.240274913099553
+    },
+    {
+      "route": "/",
+      "state": "tone 086/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        201,
+        201,
+        201
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.983316401210852
+        }
+      ],
+      "ratio": 9.983316401210852
+    },
+    {
+      "route": "/",
+      "state": "tone 086/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        193,
+        193,
+        193
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.310932072791866
+        }
+      ],
+      "ratio": 9.310932072791866
+    },
+    {
+      "route": "/",
+      "state": "tone 088/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        205,
+        205,
+        205
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.326491249490903
+        }
+      ],
+      "ratio": 10.326491249490903
+    },
+    {
+      "route": "/",
+      "state": "tone 088/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        201,
+        201,
+        201
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.983316401210852
+        }
+      ],
+      "ratio": 9.983316401210852
+    },
+    {
+      "route": "/",
+      "state": "tone 088/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        193,
+        193,
+        193
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.310932072791866
+        }
+      ],
+      "ratio": 9.310932072791866
+    },
+    {
+      "route": "/",
+      "state": "tone 090/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        205,
+        205,
+        205
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.326491249490903
+        }
+      ],
+      "ratio": 10.326491249490903
+    },
+    {
+      "route": "/",
+      "state": "tone 090/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        202,
+        202,
+        202
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.068684972031821
+        }
+      ],
+      "ratio": 10.068684972031821
+    },
+    {
+      "route": "/",
+      "state": "tone 090/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        194,
+        194,
+        194
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.393929762582038
+        }
+      ],
+      "ratio": 9.393929762582038
+    },
+    {
+      "route": "/",
+      "state": "tone 092/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        205,
+        205,
+        205
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.326491249490903
+        }
+      ],
+      "ratio": 10.326491249490903
+    },
+    {
+      "route": "/",
+      "state": "tone 092/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        202,
+        202,
+        202
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.068684972031821
+        }
+      ],
+      "ratio": 10.068684972031821
+    },
+    {
+      "route": "/",
+      "state": "tone 092/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        195,
+        195,
+        195
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.477232522168906
+        }
+      ],
+      "ratio": 9.477232522168906
+    },
+    {
+      "route": "/",
+      "state": "tone 094/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        206,
+        206,
+        206
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.412985134920726
+        }
+      ],
+      "ratio": 10.412985134920726
+    },
+    {
+      "route": "/",
+      "state": "tone 094/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        202,
+        202,
+        202
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.068684972031821
+        }
+      ],
+      "ratio": 10.068684972031821
+    },
+    {
+      "route": "/",
+      "state": "tone 094/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        195,
+        195,
+        195
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.477232522168906
+        }
+      ],
+      "ratio": 9.477232522168906
+    },
+    {
+      "route": "/",
+      "state": "tone 096/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        206,
+        206,
+        206
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.412985134920726
+        }
+      ],
+      "ratio": 10.412985134920726
+    },
+    {
+      "route": "/",
+      "state": "tone 096/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        203,
+        203,
+        203
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.154338647716841
+        }
+      ],
+      "ratio": 10.154338647716841
+    },
+    {
+      "route": "/",
+      "state": "tone 096/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        196,
+        196,
+        196
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.56083787347852
+        }
+      ],
+      "ratio": 9.56083787347852
+    },
+    {
+      "route": "/",
+      "state": "tone 098/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 098/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        204,
+        204,
+        204
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.240274913099553
+        }
+      ],
+      "ratio": 10.240274913099553
+    },
+    {
+      "route": "/",
+      "state": "tone 098/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        196,
+        196,
+        196
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.56083787347852
+        }
+      ],
+      "ratio": 9.56083787347852
+    },
+    {
+      "route": "/",
+      "state": "tone 100/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 100/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        204,
+        204,
+        204
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.240274913099553
+        }
+      ],
+      "ratio": 10.240274913099553
+    },
+    {
+      "route": "/",
+      "state": "tone 100/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        197,
+        197,
+        197
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.644743332917901
+        }
+      ],
+      "ratio": 9.644743332917901
+    },
+    {
+      "route": "/",
+      "state": "tone 102/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 102/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        204,
+        204,
+        204
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.240274913099553
+        }
+      ],
+      "ratio": 10.240274913099553
+    },
+    {
+      "route": "/",
+      "state": "tone 102/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        197,
+        197,
+        197
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.644743332917901
+        }
+      ],
+      "ratio": 9.644743332917901
+    },
+    {
+      "route": "/",
+      "state": "tone 104/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 104/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        204,
+        204,
+        204
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.240274913099553
+        }
+      ],
+      "ratio": 10.240274913099553
+    },
+    {
+      "route": "/",
+      "state": "tone 104/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        198,
+        198,
+        198
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.7289464116306
+        }
+      ],
+      "ratio": 9.7289464116306
+    },
+    {
+      "route": "/",
+      "state": "tone 106/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 106/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        205,
+        205,
+        205
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.326491249490903
+        }
+      ],
+      "ratio": 10.326491249490903
+    },
+    {
+      "route": "/",
+      "state": "tone 106/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        199,
+        199,
+        199
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.813444615750525
+        }
+      ],
+      "ratio": 9.813444615750525
+    },
+    {
+      "route": "/",
+      "state": "tone 108/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 108/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        205,
+        205,
+        205
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.326491249490903
+        }
+      ],
+      "ratio": 10.326491249490903
+    },
+    {
+      "route": "/",
+      "state": "tone 108/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        199,
+        199,
+        199
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.813444615750525
+        }
+      ],
+      "ratio": 9.813444615750525
+    },
+    {
+      "route": "/",
+      "state": "tone 110/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 110/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        205,
+        205,
+        205
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.326491249490903
+        }
+      ],
+      "ratio": 10.326491249490903
+    },
+    {
+      "route": "/",
+      "state": "tone 110/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        199,
+        199,
+        199
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.813444615750525
+        }
+      ],
+      "ratio": 9.813444615750525
+    },
+    {
+      "route": "/",
+      "state": "tone 112/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        208,
+        208,
+        208
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.586795450046527
+        }
+      ],
+      "ratio": 10.586795450046527
+    },
+    {
+      "route": "/",
+      "state": "tone 112/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        206,
+        206,
+        206
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.412985134920726
+        }
+      ],
+      "ratio": 10.412985134920726
+    },
+    {
+      "route": "/",
+      "state": "tone 112/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        200,
+        200,
+        200
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.89823544665413
+        }
+      ],
+      "ratio": 9.89823544665413
+    },
+    {
+      "route": "/",
+      "state": "tone 114/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        208,
+        208,
+        208
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.586795450046527
+        }
+      ],
+      "ratio": 10.586795450046527
+    },
+    {
+      "route": "/",
+      "state": "tone 114/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 114/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        200,
+        200,
+        200
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.89823544665413
+        }
+      ],
+      "ratio": 9.89823544665413
+    },
+    {
+      "route": "/",
+      "state": "tone 116/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        209,
+        209,
+        209
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.674106821545674
+        }
+      ],
+      "ratio": 10.674106821545674
+    },
+    {
+      "route": "/",
+      "state": "tone 116/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 116/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        201,
+        201,
+        201
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.983316401210852
+        }
+      ],
+      "ratio": 9.983316401210852
+    },
+    {
+      "route": "/",
+      "state": "tone 118/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        209,
+        209,
+        209
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.674106821545674
+        }
+      ],
+      "ratio": 10.674106821545674
+    },
+    {
+      "route": "/",
+      "state": "tone 118/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 118/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        201,
+        201,
+        201
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.983316401210852
+        }
+      ],
+      "ratio": 9.983316401210852
+    },
+    {
+      "route": "/",
+      "state": "tone 120/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        209,
+        209,
+        209
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.674106821545674
+        }
+      ],
+      "ratio": 10.674106821545674
+    },
+    {
+      "route": "/",
+      "state": "tone 120/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 120/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        201,
+        201,
+        201
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.983316401210852
+        }
+      ],
+      "ratio": 9.983316401210852
+    },
+    {
+      "route": "/",
+      "state": "tone 122/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        209,
+        209,
+        209
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.674106821545674
+        }
+      ],
+      "ratio": 10.674106821545674
+    },
+    {
+      "route": "/",
+      "state": "tone 122/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 122/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        202,
+        202,
+        202
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.068684972031821
+        }
+      ],
+      "ratio": 10.068684972031821
+    },
+    {
+      "route": "/",
+      "state": "tone 124/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        210,
+        210,
+        210
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.76168562615998
+        }
+      ],
+      "ratio": 10.76168562615998
+    },
+    {
+      "route": "/",
+      "state": "tone 124/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 124/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        202,
+        202,
+        202
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.068684972031821
+        }
+      ],
+      "ratio": 10.068684972031821
+    },
+    {
+      "route": "/",
+      "state": "tone 126/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        210,
+        210,
+        210
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.76168562615998
+        }
+      ],
+      "ratio": 10.76168562615998
+    },
+    {
+      "route": "/",
+      "state": "tone 126/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        208,
+        208,
+        208
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.586795450046527
+        }
+      ],
+      "ratio": 10.586795450046527
+    },
+    {
+      "route": "/",
+      "state": "tone 126/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        203,
+        203,
+        203
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.154338647716841
+        }
+      ],
+      "ratio": 10.154338647716841
+    },
+    {
+      "route": "/",
+      "state": "tone 128/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        210,
+        210,
+        210
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.76168562615998
+        }
+      ],
+      "ratio": 10.76168562615998
+    },
+    {
+      "route": "/",
+      "state": "tone 128/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        208,
+        208,
+        208
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.586795450046527
+        }
+      ],
+      "ratio": 10.586795450046527
+    },
+    {
+      "route": "/",
+      "state": "tone 128/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        203,
+        203,
+        203
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.154338647716841
+        }
+      ],
+      "ratio": 10.154338647716841
+    },
+    {
+      "route": "/",
+      "state": "tone 130/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        210,
+        210,
+        210
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.76168562615998
+        }
+      ],
+      "ratio": 10.76168562615998
+    },
+    {
+      "route": "/",
+      "state": "tone 130/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        209,
+        209,
+        209
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.674106821545674
+        }
+      ],
+      "ratio": 10.674106821545674
+    },
+    {
+      "route": "/",
+      "state": "tone 130/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        204,
+        204,
+        204
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.240274913099553
+        }
+      ],
+      "ratio": 10.240274913099553
+    },
+    {
+      "route": "/",
+      "state": "tone 132/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        210,
+        210,
+        210
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.76168562615998
+        }
+      ],
+      "ratio": 10.76168562615998
+    },
+    {
+      "route": "/",
+      "state": "tone 132/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        209,
+        209,
+        209
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.674106821545674
+        }
+      ],
+      "ratio": 10.674106821545674
+    },
+    {
+      "route": "/",
+      "state": "tone 132/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        204,
+        204,
+        204
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.240274913099553
+        }
+      ],
+      "ratio": 10.240274913099553
+    },
+    {
+      "route": "/",
+      "state": "tone 134/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        210,
+        210,
+        210
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.76168562615998
+        }
+      ],
+      "ratio": 10.76168562615998
+    },
+    {
+      "route": "/",
+      "state": "tone 134/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        209,
+        209,
+        209
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.674106821545674
+        }
+      ],
+      "ratio": 10.674106821545674
+    },
+    {
+      "route": "/",
+      "state": "tone 134/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        204,
+        204,
+        204
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.240274913099553
+        }
+      ],
+      "ratio": 10.240274913099553
+    },
+    {
+      "route": "/",
+      "state": "tone 136/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        210,
+        210,
+        210
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.76168562615998
+        }
+      ],
+      "ratio": 10.76168562615998
+    },
+    {
+      "route": "/",
+      "state": "tone 136/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        210,
+        210,
+        210
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.76168562615998
+        }
+      ],
+      "ratio": 10.76168562615998
+    },
+    {
+      "route": "/",
+      "state": "tone 136/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        205,
+        205,
+        205
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.326491249490903
+        }
+      ],
+      "ratio": 10.326491249490903
+    },
+    {
+      "route": "/",
+      "state": "tone 138/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        211,
+        211,
+        211
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.849529329073896
+        }
+      ],
+      "ratio": 10.849529329073896
+    },
+    {
+      "route": "/",
+      "state": "tone 138/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        210,
+        210,
+        210
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.76168562615998
+        }
+      ],
+      "ratio": 10.76168562615998
+    },
+    {
+      "route": "/",
+      "state": "tone 138/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        205,
+        205,
+        205
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.326491249490903
+        }
+      ],
+      "ratio": 10.326491249490903
+    },
+    {
+      "route": "/",
+      "state": "tone 140/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        211,
+        211,
+        211
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.849529329073896
+        }
+      ],
+      "ratio": 10.849529329073896
+    },
+    {
+      "route": "/",
+      "state": "tone 140/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        210,
+        210,
+        210
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.76168562615998
+        }
+      ],
+      "ratio": 10.76168562615998
+    },
+    {
+      "route": "/",
+      "state": "tone 140/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        206,
+        206,
+        206
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.412985134920726
+        }
+      ],
+      "ratio": 10.412985134920726
+    },
+    {
+      "route": "/",
+      "state": "tone 142/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        211,
+        211,
+        211
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.849529329073896
+        }
+      ],
+      "ratio": 10.849529329073896
+    },
+    {
+      "route": "/",
+      "state": "tone 142/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        210,
+        210,
+        210
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.76168562615998
+        }
+      ],
+      "ratio": 10.76168562615998
+    },
+    {
+      "route": "/",
+      "state": "tone 142/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        206,
+        206,
+        206
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.412985134920726
+        }
+      ],
+      "ratio": 10.412985134920726
+    },
+    {
+      "route": "/",
+      "state": "tone 144/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        212,
+        212,
+        212
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.937635393601777
+        }
+      ],
+      "ratio": 10.937635393601777
+    },
+    {
+      "route": "/",
+      "state": "tone 144/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        210,
+        210,
+        210
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.76168562615998
+        }
+      ],
+      "ratio": 10.76168562615998
+    },
+    {
+      "route": "/",
+      "state": "tone 144/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 146/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        212,
+        212,
+        212
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.937635393601777
+        }
+      ],
+      "ratio": 10.937635393601777
+    },
+    {
+      "route": "/",
+      "state": "tone 146/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        211,
+        211,
+        211
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.849529329073896
+        }
+      ],
+      "ratio": 10.849529329073896
+    },
+    {
+      "route": "/",
+      "state": "tone 146/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 148/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        212,
+        212,
+        212
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.937635393601777
+        }
+      ],
+      "ratio": 10.937635393601777
+    },
+    {
+      "route": "/",
+      "state": "tone 148/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        211,
+        211,
+        211
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.849529329073896
+        }
+      ],
+      "ratio": 10.849529329073896
+    },
+    {
+      "route": "/",
+      "state": "tone 148/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 150/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        212,
+        212,
+        212
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.937635393601777
+        }
+      ],
+      "ratio": 10.937635393601777
+    },
+    {
+      "route": "/",
+      "state": "tone 150/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        212,
+        212,
+        212
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.937635393601777
+        }
+      ],
+      "ratio": 10.937635393601777
+    },
+    {
+      "route": "/",
+      "state": "tone 150/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 152/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        212,
+        212,
+        212
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.937635393601777
+        }
+      ],
+      "ratio": 10.937635393601777
+    },
+    {
+      "route": "/",
+      "state": "tone 152/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        212,
+        212,
+        212
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.937635393601777
+        }
+      ],
+      "ratio": 10.937635393601777
+    },
+    {
+      "route": "/",
+      "state": "tone 152/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 154/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        212,
+        212,
+        212
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.937635393601777
+        }
+      ],
+      "ratio": 10.937635393601777
+    },
+    {
+      "route": "/",
+      "state": "tone 154/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        212,
+        212,
+        212
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.937635393601777
+        }
+      ],
+      "ratio": 10.937635393601777
+    },
+    {
+      "route": "/",
+      "state": "tone 154/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        207,
+        207,
+        207
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.499754044377537
+        }
+      ],
+      "ratio": 10.499754044377537
+    },
+    {
+      "route": "/",
+      "state": "tone 156/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        212,
+        212,
+        212
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.937635393601777
+        }
+      ],
+      "ratio": 10.937635393601777
+    },
+    {
+      "route": "/",
+      "state": "tone 156/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        212,
+        212,
+        212
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.937635393601777
+        }
+      ],
+      "ratio": 10.937635393601777
+    },
+    {
+      "route": "/",
+      "state": "tone 156/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        208,
+        208,
+        208
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.586795450046527
+        }
+      ],
+      "ratio": 10.586795450046527
+    },
+    {
+      "route": "/",
+      "state": "tone 158/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        212,
+        212,
+        212
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.937635393601777
+        }
+      ],
+      "ratio": 10.937635393601777
+    },
+    {
+      "route": "/",
+      "state": "tone 158/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        212,
+        212,
+        212
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.937635393601777
+        }
+      ],
+      "ratio": 10.937635393601777
+    },
+    {
+      "route": "/",
+      "state": "tone 158/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        209,
+        209,
+        209
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.674106821545674
+        }
+      ],
+      "ratio": 10.674106821545674
+    },
+    {
+      "route": "/",
+      "state": "tone 160/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        213,
+        213,
+        213
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 11.0260012814165
+        }
+      ],
+      "ratio": 11.0260012814165
+    },
+    {
+      "route": "/",
+      "state": "tone 160/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        212,
+        212,
+        212
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.937635393601777
+        }
+      ],
+      "ratio": 10.937635393601777
+    },
+    {
+      "route": "/",
+      "state": "tone 160/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        209,
+        209,
+        209
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.674106821545674
+        }
+      ],
+      "ratio": 10.674106821545674
+    },
+    {
+      "route": "/",
+      "state": "accessibility at +400ms",
+      "family": "material label",
+      "text": "Regular material",
+      "surface": [
+        243,
+        240,
+        243
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.582142031579831
+        }
+      ],
+      "ratio": 13.582142031579831
+    },
+    {
+      "route": "/",
+      "state": "accessibility at +2200ms",
+      "family": "material label",
+      "text": "Regular material",
+      "surface": [
+        241,
+        239,
+        247
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.5023171125975
+        }
+      ],
+      "ratio": 13.5023171125975
+    },
+    {
+      "route": "/",
+      "state": "accessibility at +4200ms",
+      "family": "material label",
+      "text": "Regular material",
+      "surface": [
+        237,
+        245,
+        249
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.844644283449364
+        }
+      ],
+      "ratio": 13.844644283449364
+    },
+    {
+      "route": "/",
+      "state": "accessibility at +6200ms",
+      "family": "material label",
+      "text": "Regular material",
+      "surface": [
+        236,
+        240,
+        247
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.470108704170721
+        }
+      ],
+      "ratio": 13.470108704170721
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +400ms",
+      "family": "toolbar controls",
+      "text": "Share",
+      "surface": [
+        243,
+        246,
+        251
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 14.045764639065561
+        }
+      ],
+      "ratio": 14.045764639065561
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +400ms",
+      "family": "toolbar controls",
+      "text": "☆",
+      "surface": [
+        242,
+        244,
+        251
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.889211003290615
+        }
+      ],
+      "ratio": 13.889211003290615
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +400ms",
+      "family": "toolbar controls",
+      "text": "Publish",
+      "surface": [
+        243,
+        245,
+        251
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.611764705882353,
+          "ratio": 5.846772263813374
+        }
+      ],
+      "ratio": 5.846772263813374
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +400ms",
+      "family": "segments",
+      "text": "Day",
+      "surface": [
+        242,
+        245,
+        251
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.957412860413855
+        }
+      ],
+      "ratio": 13.957412860413855
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +400ms",
+      "family": "segments",
+      "text": "Week",
+      "surface": [
+        251,
+        252,
+        254
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            22,
+            30,
+            34
+          ],
+          "alpha": 1,
+          "ratio": 16.458916642099013
+        }
+      ],
+      "ratio": 16.458916642099013
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +400ms",
+      "family": "segments",
+      "text": "Month",
+      "surface": [
+        243,
+        243,
+        249
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.827067785053812
+        }
+      ],
+      "ratio": 13.827067785053812
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +400ms",
+      "family": "closed morph",
+      "text": "Actions ▾",
+      "surface": [
+        240,
+        244,
+        249
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.835135872756352
+        },
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.835135872756352
+        }
+      ],
+      "ratio": 13.835135872756352
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +2200ms",
+      "family": "toolbar controls",
+      "text": "Share",
+      "surface": [
+        231,
+        249,
+        251
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 14.021211974722288
+        }
+      ],
+      "ratio": 14.021211974722288
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +2200ms",
+      "family": "toolbar controls",
+      "text": "☆",
+      "surface": [
+        228,
+        248,
+        251
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.895981308404885
+        }
+      ],
+      "ratio": 13.895981308404885
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +2200ms",
+      "family": "toolbar controls",
+      "text": "Publish",
+      "surface": [
+        228,
+        248,
+        251
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.611764705882353,
+          "ratio": 5.832856428525676
+        }
+      ],
+      "ratio": 5.832856428525676
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +2200ms",
+      "family": "segments",
+      "text": "Day",
+      "surface": [
+        231,
+        248,
+        251
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.951604773894644
+        }
+      ],
+      "ratio": 13.951604773894644
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +2200ms",
+      "family": "segments",
+      "text": "Week",
+      "surface": [
+        248,
+        253,
+        254
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            22,
+            30,
+            34
+          ],
+          "alpha": 1,
+          "ratio": 16.471303760952466
+        }
+      ],
+      "ratio": 16.471303760952466
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +2200ms",
+      "family": "segments",
+      "text": "Month",
+      "surface": [
+        226,
+        248,
+        251
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.859397482747585
+        }
+      ],
+      "ratio": 13.859397482747585
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +2200ms",
+      "family": "closed morph",
+      "text": "Actions ▾",
+      "surface": [
+        231,
+        247,
+        250
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.87505798132176
+        },
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.87505798132176
+        }
+      ],
+      "ratio": 13.87505798132176
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +4200ms",
+      "family": "toolbar controls",
+      "text": "Share",
+      "surface": [
+        243,
+        246,
+        240
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.969851649081697
+        }
+      ],
+      "ratio": 13.969851649081697
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +4200ms",
+      "family": "toolbar controls",
+      "text": "☆",
+      "surface": [
+        241,
+        244,
+        238
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.77937647634977
+        }
+      ],
+      "ratio": 13.77937647634977
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +4200ms",
+      "family": "toolbar controls",
+      "text": "Publish",
+      "surface": [
+        242,
+        244,
+        240
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.611764705882353,
+          "ratio": 5.8179565103740725
+        }
+      ],
+      "ratio": 5.8179565103740725
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +4200ms",
+      "family": "segments",
+      "text": "Day",
+      "surface": [
+        241,
+        245,
+        238
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.847885408487869
+        }
+      ],
+      "ratio": 13.847885408487869
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +4200ms",
+      "family": "segments",
+      "text": "Week",
+      "surface": [
+        251,
+        252,
+        250
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            22,
+            30,
+            34
+          ],
+          "alpha": 1,
+          "ratio": 16.418104842698803
+        }
+      ],
+      "ratio": 16.418104842698803
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +4200ms",
+      "family": "segments",
+      "text": "Month",
+      "surface": [
+        239,
+        243,
+        237
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.664516825183288
+        }
+      ],
+      "ratio": 13.664516825183288
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +4200ms",
+      "family": "closed morph",
+      "text": "Actions ▾",
+      "surface": [
+        238,
+        245,
+        236
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.775301614486315
+        },
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.775301614486315
+        }
+      ],
+      "ratio": 13.775301614486315
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +6200ms",
+      "family": "toolbar controls",
+      "text": "Share",
+      "surface": [
+        243,
+        246,
+        251
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 14.045764639065561
+        }
+      ],
+      "ratio": 14.045764639065561
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +6200ms",
+      "family": "toolbar controls",
+      "text": "☆",
+      "surface": [
+        240,
+        245,
+        251
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.91770552400618
+        }
+      ],
+      "ratio": 13.91770552400618
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +6200ms",
+      "family": "toolbar controls",
+      "text": "Publish",
+      "surface": [
+        239,
+        246,
+        253
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.611764705882353,
+          "ratio": 5.847422320377298
+        }
+      ],
+      "ratio": 5.847422320377298
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +6200ms",
+      "family": "segments",
+      "text": "Day",
+      "surface": [
+        243,
+        245,
+        252
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.984564530207939
+        }
+      ],
+      "ratio": 13.984564530207939
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +6200ms",
+      "family": "segments",
+      "text": "Week",
+      "surface": [
+        251,
+        252,
+        254
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            22,
+            30,
+            34
+          ],
+          "alpha": 1,
+          "ratio": 16.458916642099013
+        }
+      ],
+      "ratio": 16.458916642099013
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +6200ms",
+      "family": "segments",
+      "text": "Month",
+      "surface": [
+        239,
+        245,
+        253
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.912382540269448
+        }
+      ],
+      "ratio": 13.912382540269448
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +6200ms",
+      "family": "closed morph",
+      "text": "Actions ▾",
+      "surface": [
+        238,
+        244,
+        248
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.78861280054076
+        },
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.78861280054076
+        }
+      ],
+      "ratio": 13.78861280054076
+    },
+    {
+      "route": "/",
+      "state": "behaviour favourite selected",
+      "family": "selected favourite glyph",
+      "text": "★",
+      "surface": [
+        238,
+        246,
+        249
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.932825307345027
+        }
+      ],
+      "ratio": 13.932825307345027
+    },
+    {
+      "route": "/",
+      "state": "behaviour menu open",
+      "family": "menu items",
+      "text": "Duplicate",
+      "surface": [
+        229,
+        234,
+        239
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 12.87358769449358
+        }
+      ],
+      "ratio": 12.87358769449358
+    },
+    {
+      "route": "/",
+      "state": "behaviour menu open",
+      "family": "menu items",
+      "text": "Rename…",
+      "surface": [
+        232,
+        240,
+        244
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.371084234909986
+        }
+      ],
+      "ratio": 13.371084234909986
+    },
+    {
+      "route": "/",
+      "state": "behaviour menu open",
+      "family": "menu items",
+      "text": "Export as PNG",
+      "surface": [
+        248,
+        251,
+        254
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 14.511412742046343
+        }
+      ],
+      "ratio": 14.511412742046343
+    },
+    {
+      "route": "/",
+      "state": "behaviour menu open",
+      "family": "menu items",
+      "text": "Delete",
+      "surface": [
+        228,
+        237,
+        243
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.084206933754773
+        }
+      ],
+      "ratio": 13.084206933754773
+    },
+    {
+      "route": "/laws/",
+      "state": "tone",
+      "family": "tone labels",
+      "text": "112px",
+      "surface": [
+        223,
+        223,
+        223
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 11.923391282675139
+        }
+      ],
+      "ratio": 11.923391282675139
+    },
+    {
+      "route": "/laws/",
+      "state": "tone",
+      "family": "tone labels",
+      "text": "40px",
+      "surface": [
+        224,
+        224,
+        224
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 12.014447450592113
+        }
+      ],
+      "ratio": 12.014447450592113
+    },
+    {
+      "route": "/laws/",
+      "state": "tint",
+      "family": "tint labels",
+      "text": "over dark",
+      "surface": [
+        232,
+        135,
+        0
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 6.704351776691943
+        }
+      ],
+      "ratio": 6.704351776691943
+    },
+    {
+      "route": "/laws/",
+      "state": "tint",
+      "family": "tint labels",
+      "text": "over light",
+      "surface": [
+        252,
+        147,
+        0
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.741304428499554
+        }
+      ],
+      "ratio": 7.741304428499554
+    },
+    {
+      "route": "/laws/",
+      "state": "body",
+      "family": "body labels",
+      "text": "112px",
+      "surface": [
+        206,
+        208,
+        210
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.56263469180175
+        }
+      ],
+      "ratio": 10.56263469180175
+    },
+    {
+      "route": "/laws/",
+      "state": "lens",
+      "family": "lens labels",
+      "text": "lens",
+      "surface": [
+        225,
+        227,
+        229
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 12.263499819380115
+        }
+      ],
+      "ratio": 12.263499819380115
+    },
+    {
+      "route": "/laws/",
+      "state": "nested at +400ms",
+      "family": "nested labels",
+      "text": "base",
+      "surface": [
+        239,
+        237,
+        230
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.211807281746312
+        }
+      ],
+      "ratio": 13.211807281746312
+    },
+    {
+      "route": "/laws/",
+      "state": "nested at +400ms",
+      "family": "nested labels",
+      "text": "pane",
+      "surface": [
+        252,
+        250,
+        248
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 14.482339295711665
+        }
+      ],
+      "ratio": 14.482339295711665
+    },
+    {
+      "route": "/laws/",
+      "state": "nested at +2200ms",
+      "family": "nested labels",
+      "text": "base",
+      "surface": [
+        240,
+        241,
+        241
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.575337458502032
+        }
+      ],
+      "ratio": 13.575337458502032
+    },
+    {
+      "route": "/laws/",
+      "state": "nested at +2200ms",
+      "family": "nested labels",
+      "text": "pane",
+      "surface": [
+        251,
+        252,
+        252
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 14.627407632306817
+        }
+      ],
+      "ratio": 14.627407632306817
+    },
+    {
+      "route": "/laws/",
+      "state": "nested at +4200ms",
+      "family": "nested labels",
+      "text": "base",
+      "surface": [
+        237,
+        242,
+        250
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.646867002562784
+        }
+      ],
+      "ratio": 13.646867002562784
+    },
+    {
+      "route": "/laws/",
+      "state": "nested at +4200ms",
+      "family": "nested labels",
+      "text": "pane",
+      "surface": [
+        248,
+        252,
+        254
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 14.580600225129986
+        }
+      ],
+      "ratio": 14.580600225129986
+    },
+    {
+      "route": "/laws/",
+      "state": "nested at +6200ms",
+      "family": "nested labels",
+      "text": "base",
+      "surface": [
+        241,
+        241,
+        245
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.623076445126035
+        }
+      ],
+      "ratio": 13.623076445126035
+    },
+    {
+      "route": "/laws/",
+      "state": "nested at +6200ms",
+      "family": "nested labels",
+      "text": "pane",
+      "surface": [
+        251,
+        252,
+        254
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 14.64144370728227
+        }
+      ],
+      "ratio": 14.64144370728227
+    }
+  ],
+  "secondaryAttribution": {
+    "candidate": "solve-composite",
+    "declaredGroundByte": 231,
+    "sampledGround": [
+      231,
+      231,
+      231
+    ],
+    "plateMedian": [
+      163,
+      192,
+      235
+    ],
+    "underGlyph": [
+      163,
+      192,
+      235
+    ],
+    "medianMinusUnderGlyph": [
+      0,
+      0,
+      0
+    ],
+    "tintDeclaration": "rgba(154, 187, 237, 0.867)",
+    "secondaryDeclaration": "rgb(0 0 0 / 0.589676)",
+    "solveSurface": [
+      164.241,
+      192.852,
+      236.202
+    ],
+    "solveMinusUnderGlyph": [
+      1.2410000000000139,
+      0.8520000000000039,
+      1.2019999999999982
+    ],
+    "tokenAlpha": 0.589676,
+    "recoveredAlpha": 0.5882352941176471,
+    "ratioTokenOnSolve": 4.500132007767098,
+    "ratioTokenOnRendered": 4.482089850164859,
+    "ratioRecoveredOnSolve": 4.480681899608005,
+    "ratioRecoveredOnRendered": 4.462809406124817
+  }
+}

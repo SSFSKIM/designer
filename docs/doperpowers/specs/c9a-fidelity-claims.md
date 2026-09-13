@@ -404,66 +404,62 @@ mapping keeps its `shadowOffset`/`shadowBlur`/`shadowAlpha` fields at zero, so a
 profile can restore a shadow and the declaration is still derived rather than
 special-cased.
 
-### 3.3 The foreground rule had to change with the material, and did
+### 3.3 The foreground rule is now a selector, an operator and one conditional floor
 
-Not a fidelity number, but the largest single consequence of tuning this tier, so
-it belongs beside the claim rather than in a commit message.
+Not a material-fidelity number, but the largest consequence of tuning the material, so the rule
+belongs beside the claims rather than only in implementation comments.
 
-K4 wired X6's hint straight to the foreground token: a group hinting `tone:
-"dark"` got the light ink. That was correct while the material was 28% opaque —
-the backdrop showed through, and light ink on a dark backdrop is right. At the
-material's measured opacity it inverts: what a reader sees behind the glyphs is
-`mix(backdrop, tint, α)`, and at α = 0.78 that is the white tint. Measured on the
-demo's own controls before this was fixed, **WCAG contrast 1.24 against a 4.5
-floor** — near-white ink on a near-white surface.
+**The history remains evidence.** K4 originally wired X6's backdrop hint straight to the foreground
+token: `tone: "dark"` selected the light ink. That was plausible while the material was 28% opaque
+and the backdrop dominated. At the measured opacity the material's own tint dominates instead, and
+the demo read **1.24:1 against a 4.5 body-text floor** — near-white ink on a near-white surface. K5
+moved the choice to the level behind the glyphs. The same defect then appeared from the other side on
+the GPU tier, which published no token at all: an app following
+`var(--vitrea-foreground, …)` fell back to its own dark ink on a dark surface and read **1.57:1**.
+`packages/platform-web/e2e/gpu/foreground-audit.spec.ts` is the original reproduction. Those two
+numbers are before-state readings, not the current rule.
 
-So the CSS tier now decides its foreground against the level behind the glyphs
-rather than against the backdrop alone, using the hint's `luminance` where an app
-gives one and the tone's coarse reading otherwise. The mechanism K4 established
-is untouched; only the arithmetic changed, and both regimes remain reachable —
-the *clear* variant over the same dark hint still resolves to the light token,
-because at its alpha the backdrop genuinely does dominate.
+**The current primary rule has three parts.** First, both tiers derive the surface's own composite
+level in the space each one draws — encoded sRGB for CSS and linear-light composition encoded for
+display for WebGPU — and select one of two poles at `foregroundCrossover` **0.475**. Decision Log 16
+kept that fitted crossover as the one selector: Apple's configuration converges on the same shape,
+per surface and off the body's own adapted state, but does not reveal whether it reads a level or an
+internal bit. Second, the selected pole is Apple's automatic label through the saturating source-over
+operator of §5.137: pure black at α **0.847059**, or pure white at α **0.804706** after the dark
+operator's 0.95. Third, §5.140 applies that result by default to the labels vitrea owns
+(`GlassButton`, `GlassIconButton`, `GlassSegmentedControl`) and to an authored surface that asks for
+`foreground="vibrant"`; other authored content consumes the published token only if the app chooses
+to. The operator is folded into the token on both tiers and installs no filter or blend mode.
 
-Two things this does not do. It is **not** a contrast calculation and does not
-promise a ratio: it picks between two ink tokens, and an app needing a guaranteed
-ratio still sets its own foreground.
+That selector **is not itself a contrast calculation** and the primary token promises no universal
+ratio. It chooses the better of two fixed platform poles. With Apple's translucent alphas there is
+an encoded **[0.3935, 0.4900]** band in which neither pole carries 4.5 body text; the fitted crossover
+lies inside it, and the poles' equal-contrast point is 0.441258 (§5.140 §5). In that band primary is
+still the selected platform ink, not a claim that body text is possible.
 
-**And it is no longer CSS-tier only.** K5 left the GPU tier's half as a parent
-question, and Decision Log #32(b) answered it in the order that matters: measure
-first, fix only if the defect reproduces. It reproduced, in a shape K5 had not
-predicted — the GPU tier published *no* foreground at all, so an app following the
-documented `var(--vitrea-foreground, …)` pattern fell back to its own ink. On a
-dark-hinted surface over dark page content that measured **WCAG 1.57 against the
-4.5 floor**, arrived at from the opposite direction to K5's 1.24 and just as
-unreadable. The audit is
-`packages/platform-web/e2e/gpu/foreground-audit.spec.ts`; it now measures 10.81.
+**Secondary is the contrast calculation.** Decision Log 9's rule survives the operator and macOS
+ladder: start at Apple's secondary alpha, solve against the actual composite colour supplied by the
+tier, raise alpha to WCAG **4.5** where needed, and never pass the selected primary pole's own alpha.
+Thus secondary is never worse than primary and holds 4.5 wherever primary can; where primary itself
+cannot hold, secondary collapses onto it rather than publishing a false promise. Tertiary and
+quaternary stay Apple's supporting and decorative levels and carry **no body-text floor**. Increased
+Contrast and forced colours collapse the scale to the platform's high-contrast answer instead of
+preserving dimmer levels against the preference.
 
-The fix is one rule with two composite spaces rather than two rules.
-`foregroundLevel(material, backdrop, space)` is the shared derivation — the CSS
-tier reads it in encoded sRGB, the renderer's material in linear light, and that
-difference is the only real one between them (the same difference `cssTintAlpha`
-exists for). The crossover, the two ink tokens and accessibility policy's
-precedence over the hint all live in one function that either tier calls. Only the
-foreground pair is written on the GPU tier; tint, blur and border belong to
-whichever tier paints the body, and there that is the canvas.
+The boundary of that promise matters. It is about the solve input, not a guarantee that every
+browser drawing form reproduces that ideal composite byte for byte. W27e G3 measured every demo
+label and found the ink-band secondary at **4.463 CSS** and **4.278 WebGPU** at the harness's worst,
+while the token's ideal-composite solve is 4.500. The permanent demo gates therefore call 4.45 and
+4.25 what they are — **rendered-pixel regression floors**, not the token's promise — and §5.142
+records the attribution and the form-specific work needed to close the gap. Primary and every
+semantic demo label hold their named body or large-label pixel floor; tertiary and quaternary are
+read and ordered, never incorrectly gated at 4.5.
 
-One thing found while doing it, worth more than the fix: `platform-web` writes the
-host's `color` as an inline style, so an app rule on a glass host loses to it
-silently. `--vitrea-foreground` is the seam an app is meant to build on, and
-building on it means styling something the runtime does not own — a child element.
-The demo's disabled control label had to move for exactly that reason, and both
-ends now say so.
-
-**What else is verified for the dom tier:**
-
-- It resolves and draws on all three engines, asserted through non-pixel suites.
-- The two tiers' shared quantities are now shared *by construction* rather than by
-  coincidence: `platform-web` mirrors the renderer's per-variant optics and
-  `packages/calibration/test/tier-coherence.test.ts` pins the mirror in both
-  directions. Before K5 the agreement on σ = 8 was two literals that happened to
-  match.
-
-The per-engine conformance table is C9d's release gate, not this document's.
+The one application seam is unchanged: the runtime publishes custom properties and a low-specificity
+rule, not an inline `color`. An app can override a glass host deliberately; a child can consume one
+of the named levels; and at presence zero vitrea's own-control marker leaves so content returns to
+the app while the tokens remain available (X9). §5.140 is the operator and precedence record;
+**§5.142 is the all-label browser measurement.**
 
 ---
 
@@ -19779,3 +19775,239 @@ Reviewed at `8aaf02d1` (`doperpowers:reviewer-medium`). **Five findings, all rea
 Both fixes carry a case that fails when the fix is reverted. The review's verdict on the floor's
 ceiling — that capping a solved secondary at the primary's own alpha is the right reading of
 Decision Logs 9 and 15 (b) — is recorded as agreement rather than as a finding.
+
+### 5.142 W27e G3: every demo glass label measured in both schemes and both tiers, the secondary's shortfall attributed, and the landing placed beside pre-G2 (2026-09-13)
+
+**Gate:** W27 coverage wave, child W27e **G3 (land)** (§Children); contracts **X1**, **X2**,
+**X4** and **X8**; Decision Logs **9**, **15** and **16**. Consumes §5.137, §5.138 and §5.140.
+Evidence: `packages/calibration/results/2026-09-13-w27e-g3-landing/` — `declaration.md`
+(committed first at `2d1d9e9d`, before any source moved or browser ran), four first-pass
+`contrast-{css,webgpu}-{light,dark}.json` records and four corresponding additive
+`*-complete.json` records, `checked-run.mjs` and `browser-runs.json`, `sheet.mjs`, the two composed
+eye sheets and eight raw captures under `sheets/`. The gate code and first 1,460 readings landed at
+`c5ebd496`; those four 365-row files remain unchanged. The complete records add the declared tinted
+label beside them for 1,464 readings. The eye pair landed at `11cbeee3`.
+
+**Nothing was fitted and no Apple capture was taken.** No profile document, Apple fixture,
+`scenes.json` entry, renderer golden, isolation hash or canonical `results/matrix.json` row moved;
+no package public surface or material constant changed. This is the demo's rendered-label landing
+record, not a new macOS-pixel fidelity claim.
+
+#### 0. The declaration and the inventory
+
+The declaration names every visible glyph inside a glass host on all three built entry points before
+reading one: `/`, `/laws/` and `/playground/`. A changing label is one family, with both states
+exercised: `☆` / `★`, the selected and unselected segments, `regular` / `clear`, and the closed
+`Actions` control / four open menu items. The public site's material, page, tone, behaviour and
+accessibility stages are all visited; the tone stage is read at all **80** declared stops from 0.002
+to 0.160 rather than at a representative subset. Dynamic grounds use the existing four phase
+delays. The reference stage's one surface is unlabelled and is correctly absent from the inventory.
+
+The first-pass files each carry **365 readings**; a declaration-to-harness audit found that they
+had not exercised the declared `112px, tinted` state. They stay recorded rather than being
+rewritten. Each additive complete cell carries **366 readings**: 276 large-label readings, 84
+body-label readings, two secondary specimens and four read-only tertiary/quaternary specimens —
+**1,464 total**. There are 53 unique route/family/text combinations after repeated tone stops and
+phases are reduced. The run is full Chromium 151 at 1440 × 1000, dpr 1, on `apple / metal-3`;
+every requested-WebGPU group reports `activeRenderer: webgpu`, and every requested-CSS group reports
+`css`. The adapter is not a fallback.
+Before every invocation `defaults read com.apple.universalaccess reduceTransparency` and
+`increaseContrast` read **0 / 0**; every attempt and result, including the red TDD runs, is retained
+in `browser-runs.json` rather than reconstructed from memory.
+
+#### 1. One instrument and floors that say what they are
+
+`apps/demo/e2e/landing-label-contrast.gpu.spec.ts` is one table-driven spec for the whole inventory.
+It runs in the full-Chromium project and explicitly asks for each tier, so the CSS and WebGPU rows use
+one browser compositor. The method is the demo's existing one: recover the computed ink including
+alpha by painting it through a canvas over opaque black and opaque white; take the surface from the
+glass host's own render; composite the recovered ink over that surface in encoded sRGB; then compute
+WCAG relative luminance and the ratio. A control's box is its surface instrument; a child label uses
+its closest glass host. The secondary attribution adds a paired hidden-ink exposure at exactly the
+glyph coordinates, but the permanent broad-plate metric stays the existing median after that test
+refutes the median as the cause (§3).
+
+The floors are named for the claim they can carry. Semantic body labels hold a **4.5 rendered-pixel
+floor**; the 20px/650-weight plate labels hold the existing **3.0 large-label rendered-pixel floor**.
+The secondary specimens hold **4.45 CSS** and **4.25 WebGPU pixel regression floors** after §3's
+attribution — explicitly not Decision Log 9's 4.5 token promise. Tertiary and quaternary are Apple's
+supporting/decorative levels: they are read, recorded and held in ladder order, and are **not gated at
+4.5**. A floor on them would assert the opposite of what the tokens mean.
+
+#### 2. The all-label table
+
+Every number below is the minimum over every matching label, state, tone stop and sampled phase in
+that family. The parenthesised label is the CSS-light minimum's location within the family; the JSON
+keeps every individual reading and its exact state. The two schemes on `/playground/` intentionally
+produce the same flat-ground minima; the page's two ink grounds remain the controlled variable.
+
+| route | family (minimum label) | gate | CSS light | CSS dark | WebGPU light | WebGPU dark |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| `/` | closed morph (`Actions ▾`) | 4.5 pixel | 13.775 | 10.936 | 13.654 | 10.829 |
+| `/` | accessibility plate (`Regular material`) | 3.0 pixel | 13.481 | 10.928 | 13.421 | 10.906 |
+| `/` | open menu (`Duplicate`) | 4.5 pixel | 12.851 | 10.914 | 13.025 | 10.906 |
+| `/` | segments (`Month`) | 4.5 pixel | 13.733 | 10.869 | 13.612 | 10.829 |
+| `/` | selected favourite (`★`) | 4.5 pixel | 14.196 | 8.690 | 13.926 | 9.332 |
+| `/` | material/page/tone size labels (`68px`) | 3.0 pixel | **3.021** | 6.799 | **3.057** | 7.087 |
+| `/` | tinted material label (`112px, tinted`) | 3.0 pixel | 4.452 | 5.422 | 4.452 | 5.422 |
+| `/` | toolbar controls (`Publish`) | 4.5 pixel | 5.830 | 6.347 | 5.800 | 6.305 |
+| `/laws/` | body (`112px`) | 3.0 pixel | 10.563 | 10.563 | 10.488 | 10.488 |
+| `/laws/` | lens (`lens`) | 3.0 pixel | 12.263 | 12.263 | 12.276 | 12.276 |
+| `/laws/` | nested (`base`) | 3.0 pixel | 13.212 | 13.212 | 13.064 | 13.064 |
+| `/laws/` | tint (`over dark`) | 3.0 pixel | 6.704 | 6.704 | 6.704 | 6.704 |
+| `/laws/` | tone (`112px`) | 3.0 pixel | 11.923 | 11.923 | 11.833 | 11.833 |
+| `/playground/` | DOM plate body (`dom backdrop · author hint`) | 4.5 pixel | 10.308 | 10.308 | 8.724 | 8.724 |
+| `/playground/` | DOM plate heading (`Regular material`) | 3.0 pixel | 10.308 | 10.308 | 8.724 | 8.724 |
+| `/playground/` | ink-row controls (`☆`) | 4.5 pixel | 6.531 | 6.531 | 6.544 | 6.544 |
+| `/playground/` | closed morph (`Actions ▾`) | 4.5 pixel | 8.562 | 8.562 | 8.412 | 8.412 |
+| `/playground/` | ink-level names (`primary` etc., all primary ink) | 4.5 pixel | 5.642 | 5.642 | 5.450 | 5.450 |
+| `/playground/` | open menu (`Duplicate`) | 4.5 pixel | 8.832 | 8.832 | 8.710 | 8.733 |
+| `/playground/` | primary specimen (`Aa`) | 4.5 pixel | 5.642 | 5.642 | 5.450 | 5.450 |
+| `/playground/` | quaternary specimen (`Aa`) | **read only** | 1.206 | 1.206 | 1.203 | 1.203 |
+| `/playground/` | secondary specimen (`Aa`) | 4.45 / 4.25 pixel | **4.463** | 4.463 | **4.278** | 4.278 |
+| `/playground/` | segments (`Day`) | 4.5 pixel | 8.624 | 8.624 | 8.016 | 8.016 |
+| `/playground/` | selected favourite (`★`) | 4.5 pixel | 9.076 | 9.076 | 8.642 | 8.728 |
+| `/playground/` | small texture plate (`regular`; `clear` also read) | 4.5 pixel | 11.262 | 11.215 | 11.555 | 11.555 |
+| `/playground/` | tertiary specimen (`Aa`) | **read only** | 1.675 | 1.675 | 1.665 | 1.665 |
+| `/playground/` | texture plate body (`deeper material, stronger lensing`) | 4.5 pixel | 11.791 | 11.707 | 12.817 | 12.802 |
+| `/playground/` | texture plate heading (`Larger surface`) | 3.0 pixel | 11.662 | 11.528 | 12.703 | 12.471 |
+| `/playground/` | toolbar controls (`Disabled`) | 4.5 pixel | **4.644** | 4.644 | **4.508** | 4.508 |
+
+The two narrowest legitimate margins are deliberate and guarded: the light-scheme 68px tone plate
+at 3.021 CSS / 3.057 WebGPU against the large-label floor, and the disabled playground control at
+4.644 / 4.508 against the body floor. Every other semantic label is farther away. The ink ladder is
+ordered on both grounds and tiers: at the worst ground primary / secondary / tertiary / quaternary
+read **5.642 / 4.463 / 1.675 / 1.206** CSS and **5.450 / 4.278 / 1.665 / 1.203** WebGPU.
+
+#### 3. The secondary's 0.037, separated
+
+The tracker offered three candidates for the CSS light plate's 4.463 against the token's 4.5:
+(1) the plate median includes its own specimens, (2) the solve's ideal tinted composite differs from
+the form actually drawn, or (3) the declared backdrop is not the pixel behind the plate. The paired
+read chooses **(2), the solve's composite**, and gives each rejection a number:
+
+- The plate median and the independently exposed pixel directly under the secondary glyph are both
+  **`[163, 192, 235]`**. Median minus under-glyph is `[0, 0, 0]`; moving the harness to that pixel
+  would change nothing, so candidate (1) is false and the floor does not return to 4.5.
+- Hiding the complete glass overlay exposes **`[231, 231, 231]`**, exactly the byte the page paints
+  and whose transfer function produces the hint's 0.799 luminance. Candidate (3) is false.
+- The CSS token solves against the ideal tinted composite
+  **`[164.241, 192.852, 236.202]`**, respectively **+1.241 / +0.852 / +1.202 code values** above the
+  rendered pixel. Its exact alpha, 0.589676, reads **4.500132** on that solve input and
+  **4.482090** on the rendered one: the physical form mismatch costs **0.018042**. The mandated
+  black/white canvas recovery is 8-bit and resolves the alpha to 0.588235; that reads **4.480682**
+  on the solve and **4.462809** on the rendered pixel, the remaining **0.019281** of the harness's
+  0.037323 report. The instrument's quantum and the material's physical miss are stated separately.
+
+So the existing **4.45 CSS pixel floor remains** and the tracker history is appended, not deleted.
+The all-label pass also makes the other tier explicit: the WebGPU grounds read
+**4.308564 / 4.278166**, values already present in §5.140's `readings-after.json` but not called out in
+its prose, and take a separately named **4.25 WebGPU pixel floor**. Both are regression floors for
+these demo pixels, not Decision Log 9's promise. Closing the gap means passing the selected CSS
+transfer/overlay form's actual composite and the renderer's actual output to the secondary solve
+instead of `cssTierForegroundColour` / `gpuTierForegroundColour`'s ideal forms, then removing the
+floors by fix. That is Deferred as a material/composite wave; this gate does not retune a material at
+landing.
+
+#### 4. Four demo defects the complete inventory exposed, fixed before the green run
+
+The old suite tested the public site's controls and the ink band, not every playground label or the
+site's dark scheme. The new table failed first for four independent app-level reasons; each fix stays
+in the demo and leaves the runtime and material untouched.
+
+1. The playground plates' small explanatory text used the page's `--ink-dim` inside glass and read
+   **1.328**. It now consumes `--vitrea-foreground` like the meaningful body copy it is, reading
+   **10.308 CSS / 8.724 WebGPU** at the minimum.
+2. The playground's unselected segments bypassed the adaptive token and read **1.592**; the public
+   site's selected `Week` used a scheme-inverting paper token and read **1.627** in dark. Unselected
+   labels now consume the track's foreground token, while the selected label uses dark ink in both
+   schemes over its bright app-owned pill. The minima are **8.624 / 8.016** on the playground and
+   **10.869 / 10.829** on the public site.
+3. The playground's disabled button put `opacity: 0.45` on the glass host, fading material and ink
+   together, and read **1.599**. It now follows the site's established rule — material opacity stays
+   one and only the ink recedes to 72% — reading **4.644 CSS / 4.508 WebGPU**. This is the same
+   Backdrop Root discipline as X6, applied to the demo rather than a runtime change.
+4. The declaration-to-harness audit added the public material stage's `112px, tinted` state. Its
+   saturated blue surface selected primary's fixed white pole in the dark scheme and read **2.868**;
+   §3.3 promises no universal primary ratio. The stage owns both that emphasis tint and the compact
+   label, so it now supplies scheme-stable dark ink while a tint is present rather than mistaking the
+   automatic pole for a large-label guarantee. The complete four-cell values are in §2's row.
+
+Each value above came from a red run retained in `browser-runs.json`, followed by the green four-cell
+record; none was inferred after the style moved.
+
+#### 5. The sheets and the implementer's eye
+
+`sheets/eye-sheet-light.png` and `eye-sheet-dark.png` put two views in each column — the public demo's
+behaviour controls and the playground plate — with **`de9a9bcd` pre-G2 on the left and this landing on
+the right**. `sheet.mjs` built the side checkout and captured both through full Chromium on
+`apple / metal-3`, dpr 1, 1440 × 1000, with both accessibility defaults 0 and every shown group
+reporting WebGPU. `eye.json` records the two commits and the eight raw captures.
+
+**What to look at.** On the plate, primary and secondary should stop looking punched out of the glass:
+the blue body now shows faintly through the black strokes at Apple's alpha. Tertiary is a shade
+weaker and quaternary is close to disappearing, especially on the lower/darker plate. On the public
+controls the operator is deliberately subtle; the dark sheet has one non-operator correction that
+should not be subtle — selected `Week` was white on a bright pill before and is dark at the landing.
+The surface geometry, body, rim and tint should not move between columns.
+
+**What I see.** The primary and secondary change reads as integration with the material rather than
+as dim text, and the ordinary controls remain comfortably legible. The dark selected segment is an
+unambiguous repair. Tertiary still reads as a subordinate specimen; quaternary reads as a decorative
+trace and not as text, consistent with its documented role. The likely place for the user to
+disagree is exactly there: whether the macOS-faithful quaternary is useful enough on the web to keep
+showing, and whether the slight blue passthrough in primary feels materially integrated or simply
+less crisp. The implementer's eye passes. **The user's eye is not fabricated here and remains the
+last acceptance input.**
+
+#### 6. §3.3 corrected in place
+
+The narrative no longer says the foreground is not a contrast calculation without qualification.
+It now states the complete rule: the two-pole primary selector at `foregroundCrossover` (Decision
+Log 16); Apple's source-over operator on vitrea-owned controls (§5.140); secondary's per-surface WCAG
+solve, conditional floor and primary-alpha ceiling (Decision Log 9 and §5.140 §4); and the encoded
+[0.3935, 0.4900] band where neither pole carries body text (§5.140 §5). It distinguishes the
+primary selector, which promises no universal ratio, from secondary, which does calculate one on its
+input composite, and points to this section for the browser-pixel residual. The historical 1.24 and
+1.57 failures remain as before-state evidence.
+
+#### 7. X8 — what this landing still does not measure
+
+- No native label pixel exists, so none of these readings compares vitrea's glyph to macOS. The
+  Apple claim remains the coefficient/configuration claim on 26 dumps in §5.137.
+- The 1,464 complete readings are one Chromium build, one Apple GPU, one DPR and four finite
+  dynamic phases.
+  Gecko and WebKit's semantic paths are verified elsewhere; they cannot supply this pixel capture.
+- A host median is not a worst-pixel map. The one disputed specimen was exposed at its exact glyph
+  coordinates and matched the median byte for byte; that does not turn every other median into a
+  per-glyph spatial claim.
+- The CSS and WebGPU secondary solves target ideal composites rather than the selected forms' final
+  pixels (§3). Their 4.45 / 4.25 regression floors stay in the tracker and Deferred until removed by
+  a material/composite fix.
+- Tertiary and quaternary remain below body-text contrast by design. Their 1.665–1.675 and
+  1.203–1.206 readings are gaps only if used outside their supporting/decorative roles; the demo
+  keeps the identifying names in primary ink.
+- The sheets are evidence for the operator and demo repairs on these views, not a verdict on every
+  application composition. The user's eye remains independent of the implementer's.
+
+#### 8. Verification record
+
+`pnpm -r build && pnpm -r lint && pnpm -r test` is green at the landing source: policy **23**,
+motion **164**, geometry **170**, renderer-webgpu **465**, core **302**, platform-web **582**, React
+**148**, calibration **404**, demo **6**.
+
+The final additive `pnpm --filter demo test:e2e` run passes **57 / 57** in 10.0 minutes and writes
+all four 366-row complete records. Its preceding complete attempt stopped on the newly exercised
+dark-scheme tinted label at 2.868; the focused CSS-dark case then passed **1 / 1**, and the final
+full run is green. `pnpm --filter @vitreajs/vitrea-react test:e2e` passes **156**, with the suite's
+three intentional skips and no failures. Every browser command ran through `checked-run.mjs`; both
+macOS accessibility defaults read **0 / 0** immediately before each launch and the values, command
+and exit status are in `browser-runs.json`.
+
+No platform-web pixel or GPU suite was triggered: this child changed demo source, demo e2e files and
+its own evidence only, and no file those platform suites read moved.
+
+#### 9. Independent review
+
+Recorded below after `doperpowers:reviewer-medium` reviews the complete diff and every finding is
+verified against the declared design.

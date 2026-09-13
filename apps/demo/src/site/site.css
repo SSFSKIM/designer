@@ -742,6 +742,16 @@ code {
   font-weight: 650;
 }
 
+/*
+ * The stage owns both this saturated emphasis tint and its one-word size label.
+ * Primary vibrancy deliberately promises no universal ratio, so the app supplies
+ * dark ink when the tint is present instead of treating the selected white pole
+ * as a large-label contrast guarantee.
+ */
+.plate__label--on-tint {
+  color: light-dark(var(--paper-9), var(--paper-0));
+}
+
 .bar {
   display: flex;
   align-items: center;
