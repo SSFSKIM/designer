@@ -1,0 +1,105 @@
+{
+  "gate": "W27c G1c / claims §5.141",
+  "kind": "declaration — the rungs, the objective and the refusal rule, committed before the first capture",
+  "declaredOn": "2026-09-13",
+  "partition": "packages/calibration/results/2026-09-13-w27c-g1c-fit/partition.json",
+  "instrument": "packages/calibration/results/2026-09-13-w27c-g1c-fit/g1c-run.ts",
+  "priorReading": "packages/calibration/results/2026-09-13-w27c-g1c-fit/native-response.json — native-only, nothing spent",
+
+  "$comment": [
+    "The native-only reading of the reference's own inactive levels is already on",
+    "disk and it changes what each term's fit can be, so both are stated here",
+    "before a rung is captured rather than after one is selected.",
+    "",
+    "T1. The reference's DARK thin (sizeThickness 0) response, read from the",
+    "committed fixtures at 1x: encoded backdrop mean 0.1104 -> 0.01171,",
+    "0.2706 -> 0.04092, 0.7400 -> 0.08985, 0.9504 -> 0.93261. It is flat and low",
+    "across four fifths of the axis and then steps by 0.84 in the last fifth. The",
+    "response is a three-knot monotone (Fritsch-Carlson) interpolation whose two",
+    "lower knots this child may not move, so the only free parameter is the third",
+    "ordinate — and raising it does not raise one cell, it raises the whole curve",
+    "above the middle knot. Whether one ordinate can carry that step is the",
+    "question the sweep answers on the pixels, and the controls are where the",
+    "answer is paid for.",
+    "",
+    "T2. The reference's ACCESSIBILITY recede is flat: under Reduce Transparency",
+    "every one of the fourteen cells reads 0.95597 linear Y to five decimals over",
+    "dark-solid, checkerboard, photo, hc-text and light-solid alike, at spans 32",
+    "through 160, with population SD 0.0000 on eleven of them; under Increase",
+    "Contrast eleven of fourteen read 0.9911-0.99445. So the form is not a",
+    "backdrop response at all — it is an opaque panel at a level the policy sets.",
+    "The two knobs that can express that in a profile document are named below."
+  ],
+
+  "objective": {
+    "selection": "the equal-cell mean BODY ΔE over the term's calibration and control cells jointly, so that a trade is measured rather than assumed",
+    "refusalRule": "a rung is REFUSED if any single control cell's body ΔE exceeds twice its baseline reading at the frozen G1 endpoint. A mean absorbs one destroyed cell; the per-cell cap is the same instrument §5.134 §6's clause 3 is, applied at the fit stage instead of the scoring stage. If no rung both lowers the calibration cells and clears the cap, the FORM is refused and reported, and the exported document does not move for that term.",
+    "published": "every rung's full per-cell table — full-canvas ΔE, body ΔE, body Y web/native, body SD — whether the rung is selected, refused or neither"
+  },
+
+  "terms": [
+    {
+      "id": "T1",
+      "parameter": "recededMaterialProfile.dark.backdropToneResponseThin[2] — the ordinate at backdropToneAnchorX[2] = 0.9505",
+      "frozen": 0.1611,
+      "rungs": [0.1611, 0.30, 0.50, 0.70, 0.93261],
+      "whyTheseRungs": "0.1611 is the frozen extrapolation and the baseline; 0.93261 is the reference's own measured ordinate at that anchor, which is what a 'measured far ordinate' would mean; the three between make the trade a curve rather than two points, so a refusal is quantitative.",
+      "calibrationCells": [
+        "apple-macos-26.5-1x-dark-standard/light-solid__rrect-sm__inactive",
+        "apple-macos-26.5-2x-dark-standard/light-solid__rrect-sm__inactive"
+      ],
+      "controlCells": [
+        "apple-macos-26.5-{1x,2x}-dark-standard/mid-dark-solid__rrect-sm__inactive",
+        "apple-macos-26.5-{1x,2x}-dark-standard/dark-solid__rrect-sm__inactive",
+        "apple-macos-26.5-{1x,2x}-dark-standard/checkerboard__capsule-button__inactive",
+        "apple-macos-26.5-{1x,2x}-dark-standard/photo__capsule-button__inactive"
+      ],
+      "controlProvenance": "the first two are bed group A, supplying. The last two are OUTSIDE the bed, on §5.130's recovered fixtures — pre-attestation evidence admitted by W27 Decision Log 5 — read through the instrument's `--controls` path, which records the absence of the plurality and pose proofs per row rather than asserting them. Neither is ever scored.",
+      "holdoutNotCaptured": "apple-macos-26.5-{1x,2x}-dark-standard/light-solid__capsule-button__inactive — captured only in the frozen re-read, once",
+      "cells": "6 scenes x 2 dark profiles = 12 rows per rung, 60 rows over the ladder"
+    },
+    {
+      "id": "T2",
+      "parameters": [
+        "recededMaterialProfile.light.refractionScale.approximate — the single factor the accessibility cap rides. It scales THREE things at once and the file that defines it says so: the backdrop-tone adaptation's strength (`backdropToneUnderPolicy`), the folded thickness the size occlusion gain and the shadow read (`sizeThicknessUnderPolicy`), and the refraction the rung is named for. Under a policy whose reference is a flat opaque panel all three want the same answer, which is why this is one number and not three.",
+        "recededMaterialProfile.light.increasedOcclusionLift — the fraction of remaining transparency a raised-occlusion policy closes. §5.130 fitted 0.92 here and §5.139 §6 names its 0.41 Y miss."
+      ],
+      "frozen": { "refractionScaleApproximate": 0.45, "increasedOcclusionLift": 0.92 },
+      "staged": [
+        {
+          "stage": "s1",
+          "sweeps": "refractionScale.approximate",
+          "rungs": [0.45, 0.2, 0.0],
+          "at": "increasedOcclusionLift 0.92, unmoved",
+          "why": "the 0.41 Y miss is a backdrop coupling — the same cell reads 0.584 at span 48 and 0.956 at span 80 over one backdrop — and this factor is what carries the coupling. It is swept first because the second knob cannot be read while the first is moving the cell by four tenths of a unit."
+        },
+        {
+          "stage": "s2",
+          "sweeps": "increasedOcclusionLift",
+          "rungs": [0.92, 0.96, 1.0],
+          "at": "the cap s1 selects",
+          "why": "with the coupling gone the residual is a level, and this is the only field in the document that sets it. 1.0 is opacity, which is what a flat panel over five backdrops means; the two rungs below it are there so that the reference's two policies — 0.95597 under Reduce Transparency and about 0.9935 under Increase Contrast — can be seen to disagree about it rather than be assumed to."
+        }
+      ],
+      "calibrationCells": [
+        "apple-macos-26.5-1x-light-increased-contrast/dark-solid__rrect-48__inactive",
+        "apple-macos-26.5-1x-light-reduced-transparency/dark-solid__rrect-48__inactive"
+      ],
+      "controlCells": [
+        "apple-macos-26.5-1x-light-increased-contrast/{checkerboard,photo}__rrect-md__inactive",
+        "apple-macos-26.5-1x-light-reduced-transparency/{checkerboard,photo}__rrect-md__inactive"
+      ],
+      "controlProvenance": "bed group E, and §5.130's own 1x light accessibility calibration ids — cells the frozen fit already selected on, which can bound nothing and cost no new spend.",
+      "holdoutNotCaptured": "apple-macos-26.5-1x-light-{increased-contrast,reduced-transparency}/dark-solid__rrect-80__inactive",
+      "cells": "6 rows per rung, 5 distinct rungs (the frozen pair is shared between the stages), 30 rows over the ladder"
+    }
+  ],
+
+  "afterTheSweep": [
+    "the selected candidate — which may be the frozen value for either term — is written into packages/platform-web/src/receded-profile.ts and declared with its resolved SHA-256 per scheme",
+    "the renderer goldens and the isolation proof are run: a golden that moves STOPS this child (goldens re-record only behind the isolation proof and that is not this child's)",
+    "the whole checking set is re-read on the WebGPU tier into a scratch matrix, with the CSS tier's derivation beside it for the record (X1: the CSS tier derives, never gates)",
+    "the holdout is read ONCE, on that frozen result",
+    "the bound of §5.134 §6 is re-applied clause by clause, per profile, exactly as declared"
+  ]
+}

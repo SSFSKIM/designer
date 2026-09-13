@@ -2393,6 +2393,39 @@ endpoint, together with §5.139 §5 (a)'s two fresh middle ordinates, because bo
 propagate through the interpolation's slopes. Nothing may be fitted at the probe bar in a way that
 adopts a floor (W27 Decision Log 13).
 
+*W27c G1c tried it and the cells REFUSED it (2026-09-13, claims §5.141 §3). The entry stays open and
+its shape has changed.* On the GPU the measured ordinate does close its own cell —
+`light-solid__rrect-sm__inactive` from body ΔE 0.43179 to **0.00406** — and takes
+`checkerboard__capsule-button__inactive` from 0.00653 to **0.19450**, 29.8× its baseline, with
+`photo__capsule-button__inactive` at 21.1×; every intermediate rung is refused on the same control
+(9.40× at 0.30, 17.75× at 0.50, 23.93× at 0.70). It is not the frozen middle knot's fault either: the
+CPU mirror's counterfactual, with residual (a)'s measured 0.04092 released, still puts `hc-text` at
+0.61229 against a native 0.08985.
+
+So this is **not a fit waiting for a gate**; it is a fit waiting for a CELL. The reference's dark thin
+row is flat and low from encoded 0.1104 to 0.7400 and then steps by 0.84, and the two readings that
+bracket the step differ in two ways at once — the abscissa, and whether the backdrop is uniform. The
+bed's four uniform backdrops sit at 0.1104, 0.2554, 0.2706 and 0.9504, so the widest uniform gap is
+**0.6798, 68% of the axis**, and its brightest structured backdrop is 0.7652
+(`identifiability.json`). What closes it, in order: **one uniform neutral patch between the middle
+anchor and the far one** — same argument, same shape, as `mid-dark-solid` in W7 and `mid-chroma-solid`
+in W27c G1b, and one cell answers it; then, *if* the answer is the abscissa, a **fourth knot** in
+`backdropToneAnchorX` and its two ordinate arrays, which is a `MaterialProfile` type change and not a
+profile-document fit; and if the answer is the structure, the response law's structure-independence
+premise (W9, validated on the LIGHT ACTIVE material) does not hold for the recede, which is a larger
+finding than this entry. The same three-knot ceiling is what fails the two light standard profiles'
+clause 3 on `hc-text__rrect-sm__inactive`, where the far anchor IS measured and the curve
+over-predicts at encoded 0.74 instead of under-predicting at 0.95 — one cause, two schemes, opposite
+symptoms.
+
+*One more ordinate of the same document, measured by the same bed and out of W27c G1c's scope:* the
+dark **thick** row's far entry. `light-solid__rrect-lg__inactive` and `light-solid__rrect-ml__inactive`
+read web **0.09339** against native **0.11753** — §5.130 recorded that ordinate as an extrapolation
+too, and the bed measures it at 0.024 Y away rather than at the thin row's 0.78. W27 Decision Log 17
+scoped this child to the thin row alone, so it was not swept. It is small, it is on the same
+`backdropToneResponseThick` array the thin row's neighbours sit on, and whatever gate opens the
+response next should move it in the same pass rather than in a third.
+
 ## The inactive material under the accessibility policies follows its backdrop where Apple's does not (W27c G2 read, 2026-09-13)
 
 *Measured on the checking bed, claims §5.139 §6. This one is scored: it is both accessibility
@@ -2414,6 +2447,53 @@ accessibility profiles, which is what the fit never had. Note the confound to av
 force-couples Reduce Transparency on with Increase Contrast, so the increased-contrast rows are
 *both* settings and the reduced-transparency rows are one (the harness records the coupling as a
 profile caveat). Dark accessibility and 2x accessibility still have no inactive evidence at all.
+
+*The backdrop coupling is CLOSED by W27c G1c (2026-09-13, claims §5.141 §4), and what is left behind
+is a different entry, written here rather than opened as a third.* The bed says the reference is not
+a span law at all: under Reduce Transparency **twelve of fourteen** cells read **0.95597** linear Y
+to five decimals over `dark-solid`, `checkerboard`, `photo`, `hc-text` and `light-solid` at spans 32
+through 160. The exceptions are `light-solid__rrect-ml__inactive` at **0.95660** and
+`photo__rrect-md__inactive` at **0.95411**, the latter with native SD **0.002962**; native SD is
+exactly zero on **eight of fourteen** and below 1e-5 on thirteen. The complete 0.002497-Y range still
+identifies an occlusion floor per policy, on two existing fields of the light entry:
+`refractionScale.approximate` 0.45 → **0**, the single factor `backdropToneUnderPolicy` rides and
+therefore what kept 45% of the backdrop adaptation
+alive under a preference that asked for the opposite, and `increasedOcclusionLift` 0.92 → **0.96**.
+`dark-solid__rrect-48__inactive` goes from body ΔE 0.16224 to 0.00410 under Increase Contrast and
+0.17417 to 0.00894 under Reduce Transparency; the increased-contrast profile crosses the declared
+bound from FAILS to HOLDS and both per-cell exceedances are gone.
+
+**Named residual in that form:** neither side is perfectly flat. Apple's two exceptions above span
+0.002497 Y, with the photo cell carrying the one material native variance; vitrea's fitted panel has
+exactly zero web SD on only **eight of fourteen** cells and reaches **0.004904** on
+`hc-text-28__rrect-md__inactive`. That web structure is visible in
+`sheets/apple-macos-26.5-1x-light-reduced-transparency.png`. The opaque-panel form remains the right
+one at this scale, but a future fidelity pass must explain and fit the residual structure rather than
+reading “opaque” as perfectly uniform.
+
+**What remains, and it is a model-form gap and not a tuning residual: the two accessibility policies
+settle at different levels and one shared fold cannot hold both.** The reference is 0.95597 under
+Reduce Transparency and 0.99110–0.99445 on eleven of fourteen Increase Contrast cells, **0.0375 Y
+apart**; its three lower cells are `hc-text__rrect-lg__inactive` at 0.98731,
+`hc-text-28__rrect-md__inactive` at 0.97792 and `light-solid__rrect-ml__inactive` at 0.95895.
+`increasedOcclusionLift` is one number for both because macOS force-couples the two settings and
+`occlusion: "increased"` comes from the Reduce Transparency row alone
+(`core/src/accessibility.ts`). At 0.92 the Reduce Transparency reference is reproduced exactly
+(body ΔE 0.00000) and Increase Contrast reads 0.01304; at 1.00 the order reverses. That is what leaves
+`apple-macos-26.5-1x-light-reduced-transparency` failing clause 2 at 1.04× on a uniform
+0.026–0.044 Y overshoot spread across all twelve cells rather than concentrated in one. Shape of the
+fix: a per-policy level on the occlusion fold — either a second constant that Increase Contrast
+selects, or the existing `ambientTint: "reduced"` axis given a level term, which is the one axis the
+two policies already differ on. It needs no new capture: the bed measures both levels.
+
+Two smaller things G1c left beside it. **The accessibility cap conflates three axes** — zeroing
+`refractionScale.approximate` stands down the tone adaptation, the size occlusion grading and the
+refraction together, and a flat zero-variance panel gives no evidence to separate them, so the recede
+cannot currently say "no adaptation but some refraction". **And the contour is now the visible
+residual under Increase Contrast**: with the bodies matched, the 8× difference strips show a
+one-pixel ring on every cell, which is `strongBorderRim`, fitted in §5.130 on the 1x
+increased-contrast outline and untouched since. Dark accessibility and 2x accessibility still have no
+inactive evidence at all.
 
 ## The active material passes about half the chroma Apple's does over a saturated backdrop, and one probe cell sits above the active bed's own ceiling (W27c G2 read, 2026-09-13)
 
@@ -2507,3 +2587,26 @@ place to separate the cause — read the token's own solve inputs beside the har
 for the same element, and attribute the difference to one of the three candidates. If it is the
 plate's median, the harness's surface should be the pixel under the glyphs and the floor returns to
 4.5; if it is the solve's composite, the floor stays and the token's solve is the thing to move.
+
+## A fit's selection objective can be a different population from the bound that scores it (W27c G1c, 2026-09-13)
+
+*Found by this gate in its own method, not in the material. Real, small, and worth one line in
+whatever writes the next fit's declaration.*
+
+W27c G1c's sweep rule, declared before the fit, selected on the equal-cell mean body ΔE over a term's
+**six** calibration and control cells. The bound that scores the result reads the profile's **twelve**
+checking cells. On T2's second stage the two disagreed: `increasedOcclusionLift` 0.96 beat 0.92 by
+0.00700 against 0.00721 — a 3% margin on six cells — while 0.92 is the value that reproduces the
+Reduce Transparency reference exactly (body ΔE 0.00000 on its calibration cell), and it is the
+reduced-transparency profile that then fails clause 2 at 1.04% over. Whether 0.92 would have carried
+that profile's twelve-cell mean is **not measured**: the bound is applied once, to the configuration
+the declared rule selected, and scoring a second configuration would be shopping for one
+(claims §5.141 §10).
+
+Nothing here was done wrong — the rule was declared before the numbers and applied as written, which
+is the discipline working. The lesson is about writing the rule: a fit whose objective population is
+not the scoring population can select against the gate it is trying to pass, and the cheap fix is to
+say so in the declaration — either weight the objective by the scored population, or state why the
+smaller population is the right one. Not worth re-opening this fit for: the outcome of the ruling is
+the same either way, because the light standard pair fails on a different, refused term and G2 stays
+blocked regardless.
