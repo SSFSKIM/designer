@@ -19359,3 +19359,423 @@ construction rather than by a hardware run: **no file under `packages/*/src` cha
 imports), and `tuned-profiles.test.ts`, inside the 386, pins each profile's fully resolved material
 by fingerprint on every run. The 34 renderer golden/isolation tests were not re-run, because nothing
 they read moved.
+
+### 5.140 W27e G2's operator half: Apple's automatic label ink on vitrea's own controls — the operator folded, the macOS ladder re-derived through it, the crossfade consumed, and the contrast Apple's alpha costs measured rather than described (2026-09-13)
+
+**Gate:** W27 coverage wave, child W27e gate G2's implementation half (§Children); the §Design clause
+*Where each feature lives* (binding); contracts **X1**, **X2**, **X4** and X9; Decision Logs 9,
+**15 (a)** and **(b)**, and **16**. Consumes §5.133, §5.136 §4, §5.137 (the operator's semantics, its
+two tiers, and §5's list of what G2 must re-derive and may keep) and §5.138 (the selector reading).
+**This gate fits nothing and captures nothing from Apple.** No material profile document, fixture,
+renderer golden, isolation hash, `scenes.json` entry or canonical `results/matrix.json` row moved,
+and nothing under `packages/renderer-webgpu` changed. Evidence:
+`packages/calibration/results/2026-09-13-w27e-g2-operator/` — `declaration.md` (committed at
+`9bcfca24`, before any file under `packages/*/src` moved), `sheet.mjs`, `readings-before.json`,
+`readings-after.json` and `sheets/`.
+
+**0. What was decided elsewhere, and what this gate decided for itself.** The ink's colour, its
+alpha, the ladder, the floor and the selector are Decision Logs 15 and 16 and are not reopened here.
+What G2 owned was *how the runtime carries them*, and `declaration.md` §2 names the six decisions it
+took before taking them: the operator is folded on the CPU on both tiers and no per-pixel filter is
+installed anywhere; "vibrant by default" is therefore a precedence and not a second colour; the
+opt-in is spelled on the existing `foreground` prop as §Design writes it, at the cost of making two
+axes mutually exclusive; the crossfade is a colour mix rather than a two-layer composite; the
+driver's threshold is the optics constant and not the tunable's placeholder; and a documented
+constant is published as documented while a solved bound is rounded the way the bound may safely
+land.
+
+## 1. The operator, and the one copy of it
+
+`packages/platform-web/src/vibrancy.ts` carries Apple's two `vibrantColorMatrix` matrices at the
+float32 values the probe corpus holds, the matrix application at `inputClamp` 1, the level selector,
+the macOS ladder and the crossfade. It is **one** copy: `packages/calibration/scripts/vibrancy.ts`
+re-exports it instead of keeping the definition W27e G1 wrote there, so the corpus test that reads
+the committed layer dumps now holds *the runtime's* constants to *Apple's* dumps rather than holding
+a second transcription to them. That test passes unchanged at this head, which is the no-drift proof
+and is the only thing in this gate that says the coefficients are Apple's.
+
+Three properties of the operator are pinned in `packages/platform-web/test/vibrancy.test.ts` because
+the rest of the design rests on them. It **saturates**: over a swept gamut, `darkening` outputs
+`[0, 0, 0]` and `lightening` outputs `[1, 1, 1]` for every input, so nothing of the input colour
+survives and the only thing the input contributes is its alpha (§5.137 §2). Its alpha row is the
+identity under `darkening` and 0.949999988079071 under `lightening`. And it is **idempotent on one
+pole and not the other** — black at α 0.847059 through `darkening` is itself, white at α 0.847059
+through `lightening` loses another 5 % — which is the arithmetic reason nothing in the runtime may
+apply it twice, and therefore the reason the published token and a per-pixel path cannot both exist
+over the same glyphs.
+
+## 2. The two tiers: the fold is the path, and the CSS-tier residual is not the operator's
+
+§5.137 §3 states that the CSS fold loses nothing because the operator carries no backdrop term, and
+§5.137 §4 measured the fold and the per-pixel path 0.00 and 0.04 code values apart on the only two
+cells whose material varies beneath a patch the ink does not fully cover. This gate was asked to
+verify that on the real composite and to say so or say otherwise. **It says so, and the mechanism is
+now stronger than the measurement: on the shipped runtime there is no per-pixel path to differ
+from.** The operator is folded into the published colour on both tiers, no `filter` and no
+`mix-blend-mode` is installed anywhere, and the difference §5.137 §4 bounded is therefore not a
+runtime residual at all — it was a bound on a candidate implementation this gate declined.
+
+Three things carry that, and only the third is this gate's own reading. **Structurally**, the shipped
+operator takes no backdrop argument: `vibrantInk(operator, ink)` is a function of an ink and a pole,
+the pole is a function of the surface's own level, and `packages/platform-web/test/vibrancy.test.ts`
+pins the saturation over a swept gamut — so there is no term for a backdrop to enter through.
+**On the browser's own composite**, §5.137 §4's 448 bench cells stand unchanged; nothing in this
+gate's arithmetic differs from the closed form they scored, and `@vitrea/calibration`'s corpus test
+now holds the runtime's constants to the same dumps. **On the shipped page**, the sheet of §8 reads
+each label's ink back out of the rendered document and compares it to the token the host published
+beside it; the two agree on every label of the band, on both grounds and on both tiers, which is the
+fold reaching the pixel unchanged.
+
+Declining the per-pixel path is the stronger reading of the same evidence, for three reasons stated
+in `declaration.md` §2 (a). A `filter` inside a host is a backdrop-root trigger that
+`css-tier.ts`'s own host comment already refuses by name, and §5.133 §5 measured a `mix-blend-mode`
+inside a host collapsing a DOM-proxied group's `backdrop-filter` sampling — a hazard taken for a
+measured gain of at most 0.04 code values. A filter over a subtree would also **diverge from Apple**
+where the two differ: §5.136 §4 found Apple installing the operator on the automatic colour and
+declining to rewrite a label that names its own colour, and a filter saturates the author's colour
+too. And Chromium cannot express the alternative reading's blend at all.
+
+**What the CSS tier does still lose, and it is the material's and not the ink's.** The two tiers
+resolve different foreground levels for the same material over the same backdrop — the CSS tier's
+composite runs up to **0.0502** brighter on the regular variant and **0.0824** on the clear one — and
+on the clear variant that is enough to put the two on opposite sides of `foregroundCrossover` over
+backdrop luminances in **(0.0656, 0.1020)**. Inside that window a demotion from the WebGPU tier to
+the CSS one flips the label from white to black. This is the CSS-only residual X1 asks to be written
+into the ledger rather than chartered; it predates this gate, it is a property of the two tiers'
+materials rather than of the operator, and it is now bracketed by
+`packages/calibration/test/tier-coherence.test.ts` so that a material change has to move it
+deliberately. The regular material never reaches it.
+
+## 3. The four levels, re-derived through the operator
+
+Everything §5.137 §5 listed as "G2 must re-derive", answered:
+
+| what §5.137 §5 asked | what W27e G2 publishes |
+| --- | --- |
+| the primary ink's **colour** | pure black and pure white, read back out of the matrices rather than transcribed |
+| its **alpha** | 0.847059 on the dark ink, 0.804706 on the light one — Apple's own, and Apple's × the operator's 0.95 |
+| **which ladder** a web runtime replicating macOS publishes | macOS's, per Decision Log 15 (b), and it is asymmetric where the iOS one was flat |
+| whether the **per-surface secondary solve** still binds once the ink is pure black | it does, with a moved ceiling — §4 |
+| whether the operator's **selector** replaces `foregroundCrossover`'s role or sits beside it | neither: it *is* that role, per Decision Log 16 |
+
+The published table, after the operator:
+
+| level | dark ink (bright surfaces) | light ink (dark surfaces) |
+| --- | ---: | ---: |
+| primary | 0.847059 | 0.804706 |
+| secondary | 0.498039 | 0.521569 |
+| tertiary | 0.258824 | 0.234706 |
+| quaternary | 0.098039 | 0.093137 |
+
+The light column is macOS's **dark appearance** ladder — 0.847059 / 0.549020 / 0.247059 / 0.098039 —
+times 0.949999988079071, and the dark column is its light appearance unchanged, because that
+matrix's alpha row is the identity. The alphas are documentation-sourced and published as such
+(§5.137 §5): Apple publishes no component values and says not to hard-code them. Quantised to 1e-6
+to nearest, which is what makes 0.804706 come out as the ledger records it; at the 1e-3 the ink used
+to be written at the two poles would publish 0.848 and 0.805 and "at Apple's alpha" would be false
+on both.
+
+## 4. Decision Log 9's floor, kept, with its ceiling moved
+
+The mechanism is W27a's and is unchanged: secondary is raised to whatever holds WCAG 4.5 against the
+**colour** the surface actually draws — not a neutral of the same luminance — solved at both ends of
+the surface's own bracket where the backdrop is unknown, and the harder answer taken. What moved is
+the **ceiling**. W27a solved against an opaque primary, so "even an opaque ink misses the floor" was
+the collapse condition and `1` was the honest answer above it. The primary is no longer opaque, so
+the condition is now "the *primary's own* alpha misses the floor" and the value above it is the
+primary's alpha.
+
+That is Decision Log 9 applied unchanged to a primary that moved, and it is Decision Log 9's own
+precedent: on the clear variant, where neither ink held 4.5 over any useful part, W27a had secondary
+*collapse onto the primary rather than claim a floor the primary does not have*. The alternative —
+keeping the ceiling at 1 and letting the solve run above the primary — would preserve secondary's 4.5
+over a wider range at the price of publishing a *secondary* more opaque than the *primary* over the
+encoded band [0.3935, 0.4900], which is a visibly inverted ladder. Read together, Decision Log 15
+(b)'s "the solved alpha where Apple's would not pass" is a minimum clause inside Decision Log 9's
+mechanism, and Decision Log 9's collapse is the ceiling.
+
+**Where Apple's own alpha survives unraised, per surface.** On the light ink it does over encoded
+levels up to about 0.19 and is raised above that. On the dark ink it never does: black at 0.498039
+reads 3.771 over an encoded 0.9 and 3.949 over 1.0, so every bright surface publishes a solved
+secondary. Two worked surfaces from the suites: the regular variant with no backdrop known, whose
+bracket runs from 0.6650 to 1, publishes 0.627599 — the alpha its darkest reachable colour needs;
+and full-strength magenta over an encoded 0.5, where even an opaque white reads 3.39, collapses onto
+the primary at 0.804706 and the reader gets **2.529**.
+
+## 5. What Apple's alpha costs, measured
+
+Three numbers, each pinned in a test so it can only move deliberately.
+
+**(a) The band where the primary cannot carry body text widens.** There has always been one: the two
+poles cross where each is near its worst. With `#1c1c1e`/`#f5f5f7` opaque it ran from an encoded
+**0.4425 to 0.5145** (0.0720 wide). With pure black at 0.847059 and pure white at 0.804706 it runs
+from **0.3935 to 0.4900** (0.0965 wide) and has shifted down. A surface whose level lands inside it
+gets a primary that does not reach 4.5 and a secondary collapsed onto it. Pinned in
+`packages/platform-web/test/css-tier.test.ts`.
+
+**The trade is not one-signed, and it differs by pole.** Pure black at α 0.847059 composites to an
+encoded 0.153·L, which is *darker* than `#1c1c1e`'s flat 0.1098 over any surface below an encoded
+0.7176 — so on the **dark ink** the new ink reads **better** than the old over most of the range a
+bright glass surface occupies (4.653 against 4.279 over an encoded 0.5; 5.031 against 4.666 over
+0.525) and worse only at the top (12.519 against 13.570 over 0.9; 14.938 against 17.015 over white).
+On the **light ink** there is no such crossing: white at α 0.804706 lets 19.5 % of the surface through
+where `#f5f5f7` let none, so it reads worse everywhere (11.591 against 16.066 over an encoded 0.1;
+4.547 against 5.480 over 0.390). The band widens on both edges for the same reason it improves the
+dark ink's mid-range — the surface now shows through the glyph — and the light pole pays the larger
+share of it.
+
+**(b) `foregroundCrossover` is no longer the equal-contrast point of the inks it selects between.**
+0.475 was *derived*: it is where `#1c1c1e` and `#f5f5f7` reach equal WCAG contrast against the same
+surface. The two poles' equal-contrast level is now **0.441258**. Decision Log 16 ruled the crossover
+stays at its fitted value and rejected retuning it to Apple's bracket (one tone across a span ladder,
+and no dark bracket at all — not adoptable), so the 0.0337 between them is carried. What it costs:
+over encoded levels in [0.441258, 0.475) the runtime picks the light ink where the dark one has more
+contrast. That interval lies **wholly inside** the band of (a), so nothing crosses the 4.5 floor
+because of it; what a reader loses is margin on a surface that is already marginal. Recorded on the
+constant's own doc comment, where the stale derivation would otherwise have gone on reading as
+current.
+
+**(c) The two tiers' pole window**, §2 above.
+
+## 6. Where the operator lands: a precedence, not a second colour
+
+§Design divides the surfaces — vitrea's own controls receive the operator by default because vitrea
+owns those labels, and arbitrary content under `GlassSurface asChild` keeps the token unless the
+author opts in with `foreground="vibrant"`. After Decision Log 15 (a) the published token *is* the
+operator's output, so the two paths resolve to the same colour and what remains to divide is **who
+owns the declaration**. The ink stylesheet therefore gains one rule:
+
+```css
+:where([data-vitrea-node]) { color: var(--vitrea-foreground); }   /* the token path — 0,0,0 */
+[data-vitrea-vibrant]      { color: var(--vitrea-foreground); }   /* the operator path — 0,1,0 */
+```
+
+A marked host outranks a bare tag selector and a universal one — `button { color: … }`, a reset
+sheet — which is the class of rule that was silently taking over vitrea's own controls' labels. It
+still loses to any application rule that *names* the element, and that is not a shortfall: §5.136 §4
+measured Apple installing the operator on the automatic colour and declining to rewrite a label that
+names its own colour, so a deliberately authored colour winning outright is Apple's own behaviour and
+root Decision Log #34(c) stands untouched.
+
+`GlassButton`, `GlassIconButton` and `GlassSegmentedControl` default their `foreground` prop to
+`"vibrant"`; `"token"` gives the label back. **`GlassToolbar` needs nothing** — it renders a
+`role="toolbar"` `<div>` and no surface of its own, and its labels live on the buttons inside it,
+which are already covered. The prop now carries two axes and they are mutually exclusive: a surface
+cannot ask for `sampled-async` adaptation *and* the operator. §Design spells the opt-in this way and
+the spelling is binding, so the limitation ships and is in the tracker; removing it later is additive
+(a field on the object form).
+
+## 7. The `foregroundTone` channel, consumed
+
+`MOTION_DRIVER_BY_CHANNEL` has given this channel a `threshold-crossfade` driver since the binding
+table was written and nothing had read it: the ink snapped at `foregroundCrossover` with neither the
+channel's 0.08 dead band nor its 180 ms transit, so a backdrop drifting across the crossover pumped
+the text colour. One driver per host now advances beside presence and both tiers publish the fold of
+the two poles at its value.
+
+Its threshold is `CSS_TIER_MAPPING.foregroundCrossover` and not the tunable's 0.5, which is a
+placeholder from before the crossover was fitted; `@vitrea/motion` cannot import an optics constant,
+so the substitution happens in `root.ts` where both are in scope. It is **not** stepped under Reduced
+Motion: a colour crossing between two poles is neither motion nor deformation, the channel's role in
+the binding table is `optical`, and removing the transit would restore exactly the snap the channel
+exists to prevent.
+
+**The fold is a colour crossfade in premultiplied space — `α = t·α_d + (1−t)·α_l` with the colour
+weighted by each pole's contribution — and this is a DEPARTURE from what this gate declared.**
+`declaration.md` §2 (d) committed to "the arriving ink at weight *t* composited source-over onto the
+departing ink at weight 1 − *t*", with the arriving pole on top, which is what a crossfade of two
+drawn label layers is and therefore what Apple's is. The declaration is committed evidence and is not
+edited after the fact (the convention §5.137 §1 set against itself), so the change is recorded here
+instead, with what caused it and what it is worth.
+
+*What caused it.* The declared fold is **order-dependent** and the driver **reverses from wherever
+it is** — that is the whole of `threshold-crossfade`'s design, and the reason the channel exists is to
+stop a drifting backdrop pumping the text colour. Composing the two, a fold whose layer order
+followed the transit's direction has to flip its order the moment the direction flips, and at the
+midpoint of a transit those two orders are `rgb(90 90 90 / 0.656)` and `rgb(157 157 157 / 0.656)` —
+the same alpha and **66 code values** apart in the colour, on exactly the event the hysteresis exists
+to damp. Fixing the order instead of following the direction removes the discontinuity and abandons
+"the arriving pole on top", which was the only thing the declared form had going for it. The
+premultiplied mix keeps everything else the declared form had — endpoint-exact at both poles,
+monotone in between — is order-free by construction, and is what `color-mix(in srgb, …)` computes,
+so the value vitrea publishes is the one the platform would have interpolated had a custom property
+been registered as a `<color>`.
+
+*What it is worth.* The two folds **agree exactly at both ends** and differ only inside a transit: at
+the midpoint the declared layer composite is `rgb(90 90 90 / 0.656)` against this one's
+`rgb(124 124 124 / 0.826)`, which over an encoded 0.475 material is **22.8 code values**, for at most
+180 ms, on a surface whose level has just crossed the poles' own crossing. Apple's layer order is not
+in evidence and no reading of the dumps could carry it, so neither form can claim to be Apple's;
+recorded as a gap, not closed. *Found by the independent review of this gate rather than volunteered:
+the code and its comment carried the reasoning and the declaration was left saying the other thing.*
+
+The first level a surface resolves is **jumped to** rather than faded to, through one helper both
+tiers share. That was not free, and the defect is worth recording because it is the exact failure the
+seed exists to prevent: the driver's committed phase is set inside each tier's render, *after* the
+ink for that frame has been derived from its value, so the first frame published the pole the driver
+was **constructed** at rather than the pole the level asked for — a dark surface's first painted
+frame showed the dark ink and the second showed the light one. Fixed where the value is handed over:
+both tiers pass the tone only once the driver has a level of its own, and before that the ink is
+selected off the level exactly as it was before this channel was consumed. Found twice
+independently — by this gate's own root-level cases and by the review — and pinned by both.
+
+The retarget happens where each tier knows its own level and the advance happens once per frame in
+the root's prologue, so the committed phase a frame publishes is the previous frame's level against
+the band — sixteen milliseconds behind a signal whose own dead band is 0.08 wide and whose transit is
+180 ms.
+
+## 8. The sheet, and the eye
+
+`sheet.mjs` runs the demo's own dev server against two checkouts of this repository — `de9a9bcd`
+before and this head after — and drives the full Chromium binary with Dawn's flags at dpr 1. The
+adapter it got is **Apple, metal-3** on both sides, and the band's own readout names
+`webgpu · css-backdrop` on the default pass and `css · css-backdrop` on the `?renderer=css` one, so
+each figure below says which tier drew it. **`reduceTransparency` and `increaseContrast` both read 0
+at the time of both runs**, recorded in `readings-{before,after}.json`; a run taken while either is
+on is not evidence, because the e2e path inherits them and Playwright can emulate neither.
+
+**The fold reaches the pixel unchanged.** For all six band hosts on both sides, the token the host
+published and the `color` the document computed on it are the same colour and the same alpha, read
+back through a canvas over black and over white so a four-component serialisation and a `rgb(r g b /
+a)` declaration compare as numbers (`tokenVsRendered` in both files). That is §2's third leg, on the
+shipped page.
+
+**What the eye sees, over both grounds and on both tiers.** The two sheets are very close, and the
+difference is where the ladder moved rather than where the ink did. **Quaternary is the visible
+loser**: at 0.098039 against the iOS 0.18 the specimen is close to gone on the dark ground and a
+ghost on the light one, which is Apple's own number doing what Apple documents it as doing.
+**Tertiary is a shade fainter** (0.258824 against 0.3) and reads as the same tier of emphasis.
+**Primary and secondary keep their weight**, and the only thing an eye can find on them is that the
+plate's blue now shows faintly *inside* the strokes where an opaque `#1c1c1e` used to block it —
+which is exactly what 15 % passthrough at Apple's alpha looks like at 13 px. On the demo's own
+controls (`sheets/demo-controls-{before,after}.png`) the change is at the edge of perception: the
+labels are a hair lighter and nothing else moves. Nothing looked wrong, and nothing looked like a
+different design; **the user's eye is G3's and this is not a substitute for it.**
+
+## 9. The contrast harness on the band
+
+The demo harness's method — the ink recovered through a canvas over black and over white so its
+alpha survives, the surface the median-luminance pixel of the element's own render, the ink
+composited over that surface before the ratio. Both tiers, both grounds, before and after, same
+machine and same session.
+
+| where | before | after |
+| --- | ---: | ---: |
+| primary, light ground, CSS / GPU | 9.153 / 9.153 | **9.067** / 9.067 |
+| primary, dark ground, CSS / GPU | 5.300 / 5.099 | **5.641** / 5.450 |
+| secondary, light ground, CSS / GPU | 4.481 / 4.183 | **4.463** / 4.309 |
+| secondary, dark ground, CSS / GPU | 4.575 / 4.253 | **4.563** / 4.278 |
+| tertiary, light / dark, CSS | 1.794 / 1.630 | 1.790 / 1.675 |
+| quaternary, light / dark, CSS | 1.395 / 1.325 | **1.230** / 1.206 |
+| the band's four control labels, CSS | 9.278, 7.626, 8.324, 7.738 | 9.171, 7.813, **6.531**, 7.912 |
+| the demo's four control labels | 15.587, 15.451, 15.470, 15.314 | **13.962**, 13.867, 13.949, 13.778 |
+
+Four readings and one non-reading:
+
+1. **The primary ink is not materially worse and on the dark ground is better** — 9.153 → 9.067 on
+   the light ground, 5.300 → 5.641 on the dark one. That is §5 (a)'s trade appearing on real pixels:
+   pure black composites *darker* than `#1c1c1e` over anything below an encoded 0.7176 even at
+   0.847059, so the darker of the two grounds gains.
+2. **The demo's own labels lose 1.5 of ratio** — about 15.5 → about 13.9 — and remain three times the
+   body-text floor. That is the top of the range, where the old opaque ink was strictly better.
+3. **Secondary is 0.037 under its own promise on the light ground, and was before this gate.**
+   4.481 → 4.463 on the CSS tier: the operator moved it by 0.018 and the shortfall is not its doing.
+   The token promises 4.5 against *the composite the runtime solved it against*, and what the harness
+   measures is the plate's median rendered pixel — a different surface. What separates them is not
+   measured here, and three candidates are named in `apps/demo/e2e/ink-band-contrast.spec.ts`: the
+   median of a plate that contains its own specimens, the tint's chroma against a solve taken on the
+   tier's computed composite, and a declared backdrop that may not be exactly what is behind the
+   plate. **Stop S4 does not fire** — the band carried no floor before this gate, and the pair above
+   is what says the change did not put it under. The new case holds it at a **pixel** floor of 4.45,
+   named as such, and the gap is in the tracker.
+4. **The band's dark-ground bookmark drops 8.324 → 6.531**, the largest single move in the table and
+   still 45 % above the floor. It is the group-tinted icon button: a saturated seed under a
+   translucent ink is where the 15 % passthrough shows most.
+5. **The non-reading:** tertiary and quaternary are read and not gated, because two of the four
+   levels are documented as below the body-text floor and a suite that held them to 4.5 would be
+   asserting the opposite of what they mean. Their job is the scale, and the scale holds on both
+   grounds.
+
+## 10. X8 — what this did not measure
+
+**No pixel of Apple's was captured and nothing here is a measurement of vitrea against macOS.** The
+label's rendered result is still never compared to a macOS pixel, for the reason §5.137 §7 gives and
+that this gate could not change: there is no native fixture for a label and, under the no-text
+fixture rule with §5.136 §4's three locks, there cannot be one. What this gate can claim is a
+**configuration** claim — Apple's coefficients, read with zero residual on 26 dumps, now evaluated by
+the runtime that publishes the ink — plus browser-side readings of vitrea against itself.
+
+Four gaps beyond that, all in the wave's Deferred list with their numbers:
+
+1. **The band where neither pole carries body text widened** to an encoded [0.3935, 0.4900] from
+   [0.4425, 0.5145] (§5). Deliberate — it is the price of Decision Log 15 (a) — and narrowing it is a
+   material change rather than an ink one.
+2. **`foregroundCrossover` is 0.0337 above the new poles' equal-contrast level** (§5 (b)), held there
+   by Decision Log 16.
+3. **The crossfade's fold is a colour mix and Apple's is a layer crossfade** (§7). Apple's layer
+   order is not in evidence; the two differ by about 23 code values at the midpoint of a 180 ms
+   transit and agree at both ends.
+4. **Whether Apple's per-surface selection reads a level or an internal bit is still not resolvable
+   from configuration** (§5.138 §6, unchanged by this gate). vitrea's selector is converged on in
+   form, not authorised in substance.
+
+And two limits of this gate's own instrument, rather than of the reading. The contrast figures below
+are the demo harness's method — the ink recovered through a canvas over black and over white, the
+surface the median-luminance pixel of the element's own render, the ink composited over it — which
+measures the *median* of a control rather than the pixel under each glyph, and is therefore a
+statement about the surface a label sits on rather than about its worst pixel. And the sheets are one
+machine, one adapter and one scale.
+
+## 11. Verification record
+
+`pnpm -r build`, `pnpm -r lint` and `pnpm -r test` green at the landing head. Unit suites, with the
+movers named: platform-web **553 → 582** (the operator's own pins, the ladder and the band's
+arithmetic, the `foregroundTone` channel at the root, and X9's three presence cases), react
+**141 → 148** (the division §Design draws, and the two transitions that clear the marker),
+calibration **401 → 404** (the ink pinned across the tiers as the operator's output, the pole
+window bracketed, the tiers' level gap), and policy 23, motion 164, geometry 170, renderer-webgpu
+465, core 302 and demo 6 all unmoved.
+
+Browser suites, every one of them with `defaults read com.apple.universalaccess reduceTransparency`
+reading **0** and `increaseContrast` reading **0** at the time of the run — checked before each and
+recorded because the e2e path inherits both and Playwright can emulate neither:
+
+- `packages/platform-web` e2e, three engines: **392 / 392**.
+- `packages/platform-web` e2e on a real adapter (`test:e2e:gpu`): **9 / 9**.
+- `apps/demo` e2e: **53 / 53**, from 49 — the four new band-contrast cases.
+- `@vitreajs/vitrea-react` e2e, three engines: **154 passed, 2 failed** — both in the flake class
+  the tracker already records, and the same suite on the pre-change checkout in the same session
+  read **152 passed, 4 failed**. Run separately at this head, the two specs pass; the class is
+  focus-and-frame timing on `morph-materialize.spec.ts` and `morph.spec.ts` and neither reads an ink.
+- `@vitrea/renderer-webgpu` `test:golden`: **34 / 34**. Stop **S1 does not fire** — no golden moved,
+  and nothing under `packages/renderer-webgpu` changed. **S2 does not fire**: no material profile
+  document, fixture, `scenes.json` entry or canonical `results/matrix.json` row moved.
+- **S3 does not fire**, and §2 records why it could not: there is no per-pixel path in the shipped
+  runtime for the fold to differ from, and the token equals the rendered `color` on all six band
+  hosts. **S4 does not fire**, on the pair of readings §9 (3) sets out. **S5 held on every run.**
+
+## 12. The independent review, and what it moved
+
+Reviewed at `8aaf02d1` (`doperpowers:reviewer-medium`). **Five findings, all real.**
+
+- **The crossfade contradicts `declaration.md` §2 (d)** — correct, and it is the departure §7 now
+  records rather than edits away. The declared source-over fold is order-dependent and the driver
+  reverses; the shipped fold is order-free. Not changed; recorded, with both magnitudes.
+- **The first frame published the driver's construction value** — correct, and **already fixed at
+  `bb566afb`** before the report landed: this gate's own root-level cases found the same defect
+  independently, which is the strongest thing that can be said for either instrument.
+- **React dropped the ownership signal when `foreground` became `undefined`** — correct and fixed.
+  A bare surface going from `foreground="vibrant"` to the prop removed kept the marker forever.
+  `resolveForeground` now returns a `boolean` in every case: React re-renders the whole declaration
+  each commit, so an absent prop is an absent opt-in and not an absent opinion.
+- **Registration did not reconcile a marker it had not written** — correct and fixed. `destroy()`
+  leaves host attributes behind (pre-existing, and true of `data-vitrea-node` too), and every other
+  host attribute reconciles because registration writes it unconditionally; this one was written
+  conditionally. `vibrantApplied` is now seeded from the element.
+- **The GPU foreground audit still scored an opaque ink** — correct and fixed, the same defect and
+  the same fix as `css-tier-pixels.spec.ts`: parse the alpha, composite over each sampled surface.
+  A contrast test that drops an alpha can only ever be wrong in the flattering direction.
+
+Both fixes carry a case that fails when the fix is reverted. The review's verdict on the floor's
+ceiling — that capping a solved secondary at the primary's own alpha is the right reading of
+Decision Logs 9 and 15 (b) — is recorded as agreement rather than as a finding.
