@@ -27,12 +27,47 @@
 import type { Locator, Page } from "@playwright/test";
 import { PNG } from "pngjs";
 
+import { remainingWait } from "./label-gate";
+
 /** WCAG AA: 4.5:1 for body text, 3:1 for large text. */
 export const BODY_FLOOR = 4.5;
 export const LARGE_FLOOR = 3;
 
-/** Phases of the backdrop's drift, in ms. It has a nine-second period. */
+/**
+ * Phases of the backdrop's drift, in ms, as **offsets from the moment sampling
+ * starts**. It has a nine-second period, and these four are four points in it.
+ */
 export const SAMPLE_DELAYS = [400, 2200, 4200, 6200];
+
+/** Where one sample actually landed: the offset it was scheduled for, and the one it reached. */
+export interface SamplePhase {
+  readonly scheduledMs: number;
+  readonly reachedMs: number;
+}
+
+/**
+ * Run `sample` once at each phase of the drift.
+ *
+ * The offsets are absolute from this call, not delays between samples. Waiting
+ * `SAMPLE_DELAYS[i]` *between* samples makes them cumulative, and reading a
+ * screenshot is not free — a scenario whose families take a second each would
+ * have put its four samples at 0.4s, 3.2s, 6.2s and 9.2s of a nine-second period
+ * rather than at the four points that were chosen, with the last one back where
+ * the first began. Each sample therefore waits only the remainder to its own
+ * offset, and is told the offset it actually reached so that what gets recorded
+ * is a reading rather than a schedule.
+ */
+export async function atSamplePhases(
+  page: Page,
+  sample: (phase: SamplePhase) => Promise<void>,
+): Promise<void> {
+  const startedAt = Date.now();
+  for (const scheduledMs of SAMPLE_DELAYS) {
+    const wait = remainingWait(startedAt, Date.now(), scheduledMs);
+    if (wait > 0) await page.waitForTimeout(wait);
+    await sample({ scheduledMs, reachedMs: Date.now() - startedAt });
+  }
+}
 
 const channel = (value: number): number => {
   const v = value / 255;
@@ -219,11 +254,10 @@ export async function worstNow(
 /** The worst ratio any matching element reaches across the sampled phases. */
 export async function worstRatio(page: Page, selector: string): Promise<{ ratio: number; where: string }> {
   let worst = { ratio: Number.POSITIVE_INFINITY, where: selector };
-  for (const delay of SAMPLE_DELAYS) {
-    await page.waitForTimeout(delay);
-    const found = await worstNow(page, selector, `at +${delay}ms`);
+  await atSamplePhases(page, async ({ reachedMs }) => {
+    const found = await worstNow(page, selector, `at +${String(reachedMs)}ms`);
     if (found.ratio < worst.ratio) worst = found;
-  }
+  });
   return worst;
 }
 

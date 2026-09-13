@@ -19808,7 +19808,13 @@ had not exercised the declared `112px, tinted` state. They stay recorded rather 
 rewritten. Each additive complete cell carries **366 readings**: 276 large-label readings, 84
 body-label readings, two secondary specimens and four read-only tertiary/quaternary specimens —
 **1,464 total**. There are 53 unique route/family/text combinations after repeated tone stops and
-phases are reduced. The run is full Chromium 151 at 1440 × 1000, dpr 1, on `apple / metal-3`;
+phases are reduced. Each of those counts describes the records committed at `07d54fc1` and stays
+true of them. **The record is the corrected run's**: four `*-converged.json` cells of **411 readings**
+each — 282 large-label, 121 body-label, two secondary specimens and four read-only
+tertiary/quaternary — for **1,644 total**, over the same **53** unique route/family/text
+combinations, since the fix wave added phases rather than labels. Of each cell's 411, **140 are
+phased** (35 rows at each of the four offsets) and 271 are single readings of a still ground. The run
+is full Chromium 151 at 1440 × 1000, dpr 1, on `apple / metal-3`;
 every requested-WebGPU group reports `activeRenderer: webgpu`, and every requested-CSS group reports
 `css`. The adapter is not a fallback.
 Before every invocation `defaults read com.apple.universalaccess reduceTransparency` and
@@ -19828,7 +19834,19 @@ glyph coordinates, but the permanent broad-plate metric stays the existing media
 refutes the median as the cause (§3).
 
 The floors are named for the claim they can carry. Semantic body labels hold a **4.5 rendered-pixel
-floor**; the 20px/650-weight plate labels hold the existing **3.0 large-label rendered-pixel floor**.
+floor**; the plate labels hold the existing **3.0 large-label rendered-pixel floor**, which is a
+floor for text that is actually large. The first landing gave them that floor while the demo declared
+them at `1.0625rem` — **17px** at the default root size — at weight 650, which qualifies as large
+under neither of WCAG's two readings (18pt at any weight, or 14pt at bold: **24px**, or **18.66px
+bold**), so the floor was being claimed for type that had not earned it. §10 records the correction:
+both demo stylesheets now declare the plate label at **1.25rem / 20px at weight 700**, which is the
+second reading — 700 rather than 650 because "bold" is a judgement about a face while 700 is the
+weight at which the CSS keyword and the criterion's word agree without argument, and 20px rather than
+24px because these plates are sized to demonstrate the material's size law down to a 32px span and a
+label that outgrew its plate would be showing the type instead. The gate admits either reading
+(`qualifiesAsLargeText`) and asserts the rendered `font-size` **and computed weight** of every row
+claiming the large-label floor, so neither a shrunk size nor a dropped weight can quietly take one
+back under it.
 The secondary specimens hold **4.45 CSS** and **4.25 WebGPU pixel regression floors** after §3's
 attribution — explicitly not Decision Log 9's 4.5 token promise. Tertiary and quaternary are Apple's
 supporting/decorative levels: they are read, recorded and held in ladder order, and are **not gated at
@@ -19836,10 +19854,99 @@ supporting/decorative levels: they are read, recorded and held in ladder order, 
 
 #### 2. The all-label table
 
-Every number below is the minimum over every matching label, state, tone stop and sampled phase in
-that family. The parenthesised label is the CSS-light minimum's location within the family; the JSON
-keeps every individual reading and its exact state. The two schemes on `/playground/` intentionally
-produce the same flat-ground minima; the page's two ink grounds remain the controlled variable.
+This section carries two tables. The first is **the record**: the corrected run's minima over the
+complete 411-row cells. The second is the first landing's, preserved beneath it and marked
+superseded, because a recorded reading is appended to rather than rewritten — and because the pair
+is the clearest available statement of what the review's instrument fixes were worth.
+
+**The record.** `contrast-{css,webgpu}-{light,dark}-converged.json`, one
+`pnpm --filter demo test:e2e` through `checked-run.mjs` started 2026-09-13T08:48:27Z, **618.6 s**,
+exit 0, both accessibility defaults **0 / 0**, HeadlessChrome 151 at 1440 × 1000, dpr 1, on
+`apple / metal-3`, not a fallback adapter. Every number is the minimum over every matching label,
+state, tone stop and sampled phase in that family, reduced from the complete records rather than
+from a first pass. The parenthesised label is the CSS-light minimum's location; the JSON keeps every
+individual reading, its exact state and — where the scenario is phased — the offset that sample
+actually reached. The two schemes on `/playground/` intentionally produce the same flat-ground
+minima; the page's two ink grounds remain the controlled variable. **Bold marks a figure that
+differs from the superseded table below.**
+
+| route | family (minimum label) | gate | CSS light | CSS dark | WebGPU light | WebGPU dark |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| `/` | accessibility plate (`Regular material`) | 3.0 pixel | **13.422** | 10.928 | **13.528** | 10.906 |
+| `/` | closed morph (`Actions ▾`) | 4.5 pixel | **13.820** | 10.936 | **13.842** | 10.829 |
+| `/` | material/page/tone size labels (`68px`) | 3.0 pixel | 3.021 | 6.799 | 3.057 | 7.087 |
+| `/` | open menu (`Duplicate`) | 4.5 pixel | **12.793** | 10.914 | **12.912** | 10.906 |
+| `/` | segments (`Month`) | 4.5 pixel | **13.664** | 10.869 | **13.718** | 10.829 |
+| `/` | selected favourite (`★`) | 4.5 pixel | **13.977** | **7.010** | **13.889** | **8.140** |
+| `/` | tinted material label (`112px, tinted`) | 3.0 pixel | 4.452 | 5.422 | 4.452 | 5.422 |
+| `/` | toolbar controls (`Publish`) | 4.5 pixel | **5.817** | 6.347 | **5.813** | 6.305 |
+| `/laws/` | body (`112px`) | 3.0 pixel | **10.556** | **10.556** | 10.488 | 10.488 |
+| `/laws/` | lens (`lens`) | 3.0 pixel | 12.263 | 12.263 | 12.276 | 12.276 |
+| `/laws/` | nested (`base`) | 3.0 pixel | 13.212 | **13.205** | 13.064 | 13.064 |
+| `/laws/` | tint (`over dark`) | 3.0 pixel | 6.704 | 6.704 | 6.704 | 6.704 |
+| `/laws/` | tone (`112px`) | 3.0 pixel | 11.923 | 11.923 | 11.833 | 11.833 |
+| `/playground/` | closed morph (`Actions ▾`) | 4.5 pixel | 8.562 | 8.562 | 8.412 | 8.412 |
+| `/playground/` | DOM plate body (`dom backdrop · author hint`) | 4.5 pixel | 10.308 | 10.308 | 8.724 | 8.724 |
+| `/playground/` | DOM plate heading (`Regular material`) | 3.0 pixel | 10.308 | 10.308 | 8.724 | 8.724 |
+| `/playground/` | ink-level names (`PRIMARY`, as the page renders it; all four names are primary ink) | 4.5 pixel | 5.642 | 5.642 | 5.450 | 5.450 |
+| `/playground/` | ink-row controls (`☆`) | 4.5 pixel | 6.531 | 6.531 | 6.544 | 6.544 |
+| `/playground/` | open menu (`Duplicate`) | 4.5 pixel | 8.832 | 8.832 | **8.677** | **8.739** |
+| `/playground/` | primary specimen (`Aa`) | 4.5 pixel | 5.642 | 5.642 | 5.450 | 5.450 |
+| `/playground/` | quaternary specimen (`Aa`) | **read only** | 1.206 | 1.206 | 1.203 | 1.203 |
+| `/playground/` | secondary specimen (`Aa`) | 4.45 / 4.25 pixel | 4.463 | 4.463 | 4.278 | 4.278 |
+| `/playground/` | segments (`Day`) | 4.5 pixel | 8.624 | 8.624 | 8.016 | 8.016 |
+| `/playground/` | selected favourite (`★`) | 4.5 pixel | **9.317** | **9.317** | **9.047** | **9.047** |
+| `/playground/` | small texture plate (`clear`) | 4.5 pixel | **10.573** | **10.563** | **10.735** | **10.711** |
+| `/playground/` | tertiary specimen (`Aa`) | **read only** | 1.675 | 1.675 | 1.665 | 1.665 |
+| `/playground/` | texture plate body (`deeper material, stronger lensing`) | 4.5 pixel | **10.413** | **10.496** | **10.763** | **10.732** |
+| `/playground/` | texture plate heading (`Larger surface`) | 3.0 pixel | **10.423** | **10.481** | **10.765** | **10.765** |
+| `/playground/` | toolbar controls (`Disabled`) | 4.5 pixel | 4.644 | 4.644 | 4.508 | 4.508 |
+
+**What the corrected instrument moved.** Thirteen of the twenty-nine rows changed. **Ten of them
+have their CSS-light minimum on a sampled phase**, which is the mechanism: the family's worst moment
+was one the single-sample run never took. The largest movements are exactly where the review
+predicted them: on `/`, the dark-scheme selected favourite falls from 8.690 to **7.010** CSS and from
+9.332 to **8.140** WebGPU, because the glyph sits over the stage canvas and the old run read it once,
+immediately after the click; on `/playground/`, the texture plate heading, its body and the small
+plate each fall by about 1.2 (11.791 → **10.413**, 11.662 → **10.423**, 11.262 → **10.573** CSS
+light), because the registered canvas drifts on a four-second period and one sample of it was one
+point on that curve. Five further site rows move by hundredths for the same reason at finer grain.
+The three changed rows that are *not* phase-driven — `/laws/` body and nested, and the playground's
+open menu — move by 0.007, 0.007 and 0.033 on one cell each, which is the run-to-run variation a live
+compositor has anyway and is recorded rather than explained away. The sixteen unchanged rows are the
+control: the tone sweep, the tinted label, both DOM-plate rows and the whole ink band read
+identically to three decimal places, which is what a flat or held-still ground should do — and the
+tone sweep in particular confirms that the type change moved no ratio, since the surface instrument
+is the plate's own median and not the glyph's box.
+
+**The two narrowest margins are the same two, now measured on type that earns its floor.** The
+light-scheme 68px tone plate reads **3.021 CSS / 3.057 WebGPU** against the large-label floor and
+the disabled playground control **4.644 / 4.508** against the body floor, both unchanged. They are
+the narrowest in the corrected record as they were in the first, so the review's re-identification
+question is answered rather than assumed. The difference is that the 68px plate's label is now 20px
+at weight 700 and so is large text under WCAG's bold reading, which it was not when the first
+landing held it to 3:1 at 17px/650.
+
+**The ink ladder, stated per plate.** The superseded prose read the ladder "at the worst ground" and
+took its four levels from two different plates, which no reader can act on. Each plate's own ladder
+descends:
+
+| plate | tier | primary | secondary | tertiary | quaternary |
+| --- | --- | ---: | ---: | ---: | ---: |
+| light ground | CSS | 9.067 | 4.463 | 1.790 | 1.230 |
+| light ground | WebGPU | 9.067 | 4.309 | 1.790 | 1.230 |
+| dark ground | CSS | 5.642 | 4.563 | 1.675 | 1.206 |
+| dark ground | WebGPU | 5.450 | 4.278 | 1.665 | 1.203 |
+
+The weakest secondary is the **light** plate's on CSS (4.463) and the **dark** plate's on WebGPU
+(4.278) — the two figures §3 attributes and the two the named pixel floors are set under. Both
+schemes produce identical ladders, as the flat grounds require.
+
+**Superseded: the first landing's table.** Reduced from the four **365-row first-pass** records
+rather than from the `*-complete.json` records it claimed to summarise, and taken before the review
+fix wave moved the plate label's size and weight, the phase schedule and the set of phased
+scenarios. It is kept because it is what those committed records say; it is not the record, and
+`*-complete.json`'s own 366-row minima were never separately reduced.
 
 | route | family (minimum label) | gate | CSS light | CSS dark | WebGPU light | WebGPU dark |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
@@ -19878,6 +19985,10 @@ at 3.021 CSS / 3.057 WebGPU against the large-label floor, and the disabled play
 4.644 / 4.508 against the body floor. Every other semantic label is farther away. The ink ladder is
 ordered on both grounds and tiers: at the worst ground primary / secondary / tertiary / quaternary
 read **5.642 / 4.463 / 1.675 / 1.206** CSS and **5.450 / 4.278 / 1.665 / 1.203** WebGPU.
+
+*(That last sentence is the conflation the record's per-plate ladder above replaces: 5.642, 1.675
+and 1.206 are the dark plate's and 4.463 is the light plate's, so the four were never one ladder.
+The individual figures are each correct of their own plate.)*
 
 #### 3. The secondary's 0.037, separated
 
@@ -19936,6 +20047,23 @@ in the demo and leaves the runtime and material untouched.
 Each value above came from a red run retained in `browser-runs.json`, followed by the green four-cell
 record; none was inferred after the style moved.
 
+**All four green minima survive the corrected run unchanged** — 10.308 / 8.724, 8.624 / 8.016 and
+10.869 / 10.829, 4.644 / 4.508, and the tinted row's 4.452 / 5.422 — so nothing in this section is
+restated. Two figures *beside* them did move: defect 1's sibling rows on `/playground/`, the texture
+plate's body and the small plate, fall to **10.413** and **10.573** CSS light once their drifting
+canvas is sampled at four phases instead of one (§2). The repair is the same repair; the first run
+had simply read it at its most flattering moment.
+
+**The same four defects were re-measured at the fix wave's head, in one record.** With the four ink
+fixes reverted and the corrected gate in place, the focused CSS-dark run at 2026-09-13T08:45:32Z
+(146.0 s, exit 1) wrote `contrast-css-dark-review-red.json` — a complete **411-row** record carrying
+**33 floor failures in its own `floorFailures` list**: 1.328 on the DOM plate body, 1.161–1.305
+across the texture plates and the clear state at all four phases, 1.175–1.592 on the playground
+segments, 1.599 on the disabled control, 1.627 on the site's selected `Week`, and 2.868 on the
+tinted label at all four phases. That record is the evidence for review finding 2. The old gate could
+not have produced it: asserting inside the measurement loop, it would have stopped at the first of
+the thirty-three and written nothing at all.
+
 #### 5. The sheets and the implementer's eye
 
 `sheets/eye-sheet-light.png` and `eye-sheet-dark.png` put two views in each column — the public demo's
@@ -19975,8 +20103,9 @@ input composite, and points to this section for the browser-pixel residual. The 
 
 - No native label pixel exists, so none of these readings compares vitrea's glyph to macOS. The
   Apple claim remains the coefficient/configuration claim on 26 dumps in §5.137.
-- The 1,464 complete readings are one Chromium build, one Apple GPU, one DPR and four finite
-  dynamic phases.
+- The 1,644 readings of the corrected record (and the 1,464 before them) are one Chromium build,
+  one Apple GPU, one DPR and four finite dynamic phases. Four phases of a nine-second drift is more
+  of that curve than one sample was, and it is still four points on it.
   Gecko and WebKit's semantic paths are verified elsewhere; they cannot supply this pixel capture.
 - A host median is not a worst-pixel map. The one disputed specimen was exposed at its exact glyph
   coordinates and matched the median byte for byte; that does not turn every other median into a
@@ -19994,7 +20123,9 @@ input composite, and points to this section for the browser-pixel residual. The 
 
 `pnpm -r build && pnpm -r lint && pnpm -r test` is green at the landing source: policy **23**,
 motion **164**, geometry **170**, renderer-webgpu **465**, core **302**, platform-web **582**, React
-**148**, calibration **404**, demo **6**.
+**148**, calibration **404**, demo **6**. (At §10's fix-wave head the demo figure reads **30**: the
+gate's judging half was extracted into `label-gate.ts` and given 24 unit tests. The reading above is
+left as the landing recorded it.)
 
 The final additive `pnpm --filter demo test:e2e` run passes **57 / 57** in 10.0 minutes and writes
 all four 366-row complete records. Its preceding complete attempt stopped on the newly exercised
@@ -20004,10 +20135,135 @@ three intentional skips and no failures. Every browser command ran through `chec
 macOS accessibility defaults read **0 / 0** immediately before each launch and the values, command
 and exit status are in `browser-runs.json`.
 
+**At the fix wave's head (§10), re-read rather than assumed.** `pnpm --filter demo test:e2e` passes
+**57 / 57** in **618.6 s (10.3 minutes)**, exit 0, writing all four 411-row converged records; the
+deliberate red before it is the 146.0 s exit-1 focused CSS-dark run described in §4.
+`pnpm --filter @vitreajs/vitrea-react test:e2e` collects **159**: **152 passed, 3 intentional skips
+and 4 failures**, all four in the timing/focus class this suite's entry in
+`specs/tech-debt-tracker.md` already names — Chromium's morph-materialize inert/release and
+presence cases, and Firefox's morph focus and presence cases. **It is recorded as that class and not
+called a regression, and it was not rerun to green**; §5.140's own verification record documents the
+same class at a different count, and re-rolling a flaky suite until it agrees is how a class like
+this stops being visible. `browser-runs.json` now holds **38** attempts, every one through
+`checked-run.mjs` with both accessibility defaults **0 / 0** immediately before launch, with its
+command, duration and exit status.
+
+The workspace suites were re-read at this head too: `pnpm -r build`, `pnpm -r lint` and
+`pnpm -r test` are green with policy **23**, motion **164**, geometry **170**, renderer-webgpu
+**465**, core **302**, platform-web **582**, React **148**, calibration **404** all unmoved, and demo
+**6 → 30** for the 24 unit tests over `label-gate.ts`.
+
 No platform-web pixel or GPU suite was triggered: this child changed demo source, demo e2e files and
 its own evidence only, and no file those platform suites read moved.
 
 #### 9. Independent review
 
-Recorded below after `doperpowers:reviewer-medium` reviews the complete diff and every finding is
-verified against the declared design.
+`doperpowers:reviewer-medium` reviewed the complete diff. Six findings were verified against the
+declared design and all six were acted on; §10 is the fix wave that carries them.
+
+#### 10. The review fix wave: what moved, and what still owes a reading
+
+This section is written **before** the corrected browser run, deliberately. Every one of the six
+findings is a defect in how the gate measured or in what the page presented to be measured, so the
+honest order is to repair the instrument and the page first and read afterwards — and to state here,
+in advance, exactly which numbers the reading owes. Nothing below is a new measurement, and no
+figure in §2, §4, §7 or §8 has been replaced by an estimate.
+
+**What the fix wave changed.**
+
+1. *Type that did not qualify for the floor it claimed.* Both demo stylesheets declared the plate
+   label at `1.0625rem` — 17px — at weight 650, while the gate held it to WCAG's 3:1 large-text
+   floor, which applies at 24px at any weight or 18.66px at bold. 17px meets neither, and 650 does
+   not settle the bold reading. `site.css` and `styles.css` now declare **1.25rem / 20px at weight
+   700** with the rationale beside each rule — the bold reading, taken at the weight where the CSS
+   keyword and the criterion's word agree, and at a size that still fits plates whose whole purpose
+   is to demonstrate spans down to 32px. The site's sweep and the laws body plate take one step of
+   vertical padding instead of two, which puts the 23px line box inside the 32px floor span for the
+   first time. The gate records each row's rendered size **and computed weight**, admits either of
+   WCAG's readings (`qualifiesAsLargeText`) and refuses a large-label row that satisfies neither
+   (`largeLabelSizeFailures`), so a future 3.0 row can lose neither its size nor its weight silently.
+2. *A gate that destroyed the record it failed on.* The spec asserted each floor inside the
+   measurement loop, so the first failing label ended the run and the raw JSON — the artefact that
+   would have said what else was wrong — was never written. Measurement now runs to completion, the
+   verdicts are computed over the finished rows, the record (including its `floorFailures`,
+   `largeLabelSizeFailures` and `ladderFailures` lists) is written, and only then do the assertions
+   run; a measurement error still writes what it had through a `finally`. The write target is
+   resolved before the run so a name collision cannot mask a measurement error, and an existing file
+   is **refused rather than overwritten** — a corrective run supplies a new `W27E_G3_EVIDENCE_TAG`
+   and lands beside the record it corrects, and the successful untagged filenames are unchanged.
+3. *Requested state recorded as resolved state.* The `/ access` row recorded the string
+   `same texture root: <tier>`, which is an inference from the section next door and not the
+   runtime's answer; the playground's segmented track and the band's two `Publish` action groups had
+   no readout anywhere. The site's accessibility section now publishes its own `GroupReadout`, the
+   playground's panel names those three beside the four it already had — which with the band's own
+   two readouts is all nine groups the page registers, up from six — and the gate records
+   `activeRenderer` **by group name** so the record itself shows that every measured label had its
+   own group's answer behind it.
+4. *Phases that drifted off the period they name.* `SAMPLE_DELAYS` were applied as waits *between*
+   samples, so the time spent reading each family accumulated and the four samples of a nine-second
+   drift were no longer the four points chosen. `atSamplePhases` now schedules them as absolute
+   offsets from each scenario's start and records both the offset scheduled and the offset reached;
+   `worstRatio` in the shared helper takes the same correction, so `contrast.spec.ts` and
+   `page-stage.gpu.spec.ts` gain it too.
+5. *Changing states read once.* The tinted material label, both selected-favourite glyphs, both open
+   menus, and the playground's texture plates and clear state all sit over a drifting backdrop and
+   were each read at a single moment. All seven now take the four phases. The flat ink grounds and the
+   fixed tone stops deliberately do not: on those, holding still is the measurement, and the source
+   reason is recorded beside each in the spec.
+6. *A table reduced from the wrong records.* §2's minima came from the 365-row first-pass files
+   rather than the complete records they claim to summarise. §2 now says so and is marked
+   uncitable rather than being refilled with numbers no run has produced.
+
+**What the corrected run delivered.** One `pnpm --filter demo test:e2e` through `checked-run.mjs`
+under the tag `converged`, started 2026-09-13T08:48:27Z, 618.6 s, exit 0, writing four
+`contrast-{css,webgpu}-{light,dark}-converged.json` records **beside** the eight already committed
+and overwriting none of them. Every item the list above owed is now read from those records:
+
+- **§2 is re-derived** as the minimum per family over the complete 411-row cells, with the first
+  landing's table preserved beneath it as superseded. Thirteen rows moved, ten of them because the
+  minimum now falls on a phase the single-sample run never took. **The two narrow margins are the
+  same two** — the 68px tone plate at 3.021 / 3.057 and the disabled playground control at 4.644 /
+  4.508 — so the re-identification the review demanded is answered rather than assumed.
+- **§0's counts** read **411 per cell and 1,644 total**, which is exactly the arithmetic prediction
+  this section made before the run; the **53** unique route/family/text combinations are unchanged,
+  the fix wave having added phases rather than labels. **140** of each cell's 411 rows are phased.
+- **§0's resolved-tier statement** now names groups. Each cell's `resolvedTiers` carries the nine
+  playground groups by label — including `segmented`, both `ink-*-action` groups and both band
+  readouts — plus `access (registered texture)` where the string `same texture root: <tier>` used to
+  stand, and every value is the requested tier.
+- **The phase schedule is honest in the record.** Across the 140 phased rows of a cell, the offsets
+  actually reached are 401–404 ms against a scheduled 400, 2201–2204 against 2200, 4200–4203 against
+  4200 and 6200–6203 against 6200 — at most 4 ms of slip, where the old cumulative scheme would have
+  been minutes out by the fourth sample of a busy scenario.
+- **§4's four green minima are unchanged** and are not restated; two sibling rows beside defect 1 did
+  move, and §4 now says which and why.
+- **§7's total** reads 1,644 beside the 1,464.
+- **§8** carries the demo e2e **57 / 57 in 618.6 s** and the React e2e **159 collected / 152 passed /
+  3 skipped / 4 in the named timing-and-focus flake class**, recorded as that class rather than as a
+  regression and deliberately not rerun.
+- **§3's attribution reproduces exactly**, which it was not obliged to do: plate median and
+  under-glyph pixel both `[163, 192, 235]`, exposed ground `[231, 231, 231]`, solve composite
+  `[164.241, 192.852, 236.202]`, 4.500132 on the solve input against 4.482090 on the rendered pixel,
+  and 4.462809 after the 8-bit recovery. Every figure in §3 stands on a second independent reading.
+
+**The red that proves the ordering.** The gate's own repair needed a failing run to demonstrate, and
+one was taken deliberately: with the four ink fixes reverted, the focused CSS-dark run at
+2026-09-13T08:45:32Z (146.0 s, exit 1) wrote a complete 411-row `contrast-css-dark-review-red.json`
+carrying **33 floor failures in one auditable list** — all four of §4's defects at once, several of
+them at all four phases. Under the old gate that run would have aborted on the first of the
+thirty-three and written nothing. The record is the finding and its fix in a single file.
+
+**Verification.** `pnpm --filter demo lint` (ESLint, the app typecheck and the e2e typecheck) is
+clean, `pnpm --filter demo test` is **30 / 30** — the six existing unit tests plus **24** new ones
+over `label-gate.ts`, which is the gate's judging half extracted so that the floor rule, the size
+rule, the ladder rule, the phase arithmetic and the evidence filename can be held to tests that need
+neither a page nor an adapter — and `pnpm -r build`, `pnpm -r lint` and `pnpm -r test` are green
+across the workspace with every other package's count unmoved. The browser record is in §8.
+
+**What §10 does not settle.** The user's eye has not been taken on the fix wave's head. The eye
+sheets under `sheets/` were composed against the first landing, and the fix wave changed what they
+show: the plate labels are 20px at weight 700 rather than 17px at 650 on all three routes. The
+sheets are therefore evidence for the operator and the four ink repairs, which they still show
+faithfully, and **not** for the type change, which no sheet in this directory depicts. Whether the
+heavier plate label is right for these pages is a question for the user in front of the running
+demo, and it is the last open input on G3.
