@@ -54,6 +54,8 @@ import {
   planCssTierShadow,
   sampledOuterShadowFactor,
   foregroundDeclarations,
+  labelOperatorFor,
+  vibrantInk,
   glowAlpha,
   gpuTierForegroundLevel,
   occlusionAlphaUnderPolicy,
@@ -375,6 +377,119 @@ describe("tier coherence (K5)", () => {
     expect(levelAt(atDefaultLift)).toBeGreaterThan(CSS_TIER_MAPPING.foregroundCrossover);
     expect(inkAt(rendered.tintAlpha)).toBe(FOREGROUND_INK.light);
     expect(inkAt(atDefaultLift)).toBe(FOREGROUND_INK.dark);
+  });
+
+  /**
+   * The ink itself, pinned across the tiers as Apple's operator on Apple's
+   * automatic label colour (W27e G2; claims §5.140).
+   *
+   * The two tiers already share one ink *function* — `foregroundDeclarations` is
+   * the runtime's answer and not the CSS tier's, since Decision Log #32(b) — so
+   * "the same function" is not what is at risk. Two things are.
+   *
+   * The first is that the published colour is the **operator's output** and not a
+   * transcription of it. §5.137 §3 says the CSS fold *is* the per-pixel path,
+   * because the operator carries no backdrop term; here that claim is checked
+   * against the runtime by evaluating Apple's matrix on Apple's documented label
+   * alpha and comparing the two strings, on both tiers' composite spaces.
+   *
+   * The second is the **level** each tier hands it, and that is where the tiers
+   * genuinely differ: the CSS tier's composite runs up to 0.082 brighter than the
+   * renderer's over the same backdrop. On the regular material that never
+   * reaches the crossover and the two tiers publish the same pole everywhere. On
+   * the **clear** variant it does, over a narrow window of backdrop luminance,
+   * and there a demotion flips the ink. That window is pinned rather than
+   * tolerated: it is the CSS-tier residual X1 asks to be written rather than
+   * chartered, it is a property of the two tiers' materials and not of this
+   * gate's operator, and pinning it is what makes a later material change move
+   * it deliberately.
+   */
+  it("publishes Apple's operator on both tiers, off each tier's own level", () => {
+    const crossover = CSS_TIER_MAPPING.foregroundCrossover;
+
+    // Apple's automatic label colour, which is what the operator is installed
+    // on: `labelColor`, black in the light appearance and white in the dark, at
+    // 0.847059 (claims §5.137 §5). Written here rather than imported, so the
+    // runtime's own table is checked against Apple's number and not itself.
+    const APPLE_LABEL_ALPHA = 0.847059;
+
+    const inkFor = (level: number): string => {
+      const operator = labelOperatorFor(level, crossover);
+      const out = vibrantInk(operator, {
+        rgb: operator === "darkening" ? [0, 0, 0] : [1, 1, 1],
+        alpha: APPLE_LABEL_ALPHA,
+      });
+      return (
+        `rgb(${out.rgb.map((channel) => String(Math.round(channel * 255))).join(" ")} / ` +
+        `${String(Math.round(out.alpha * 1e6) / 1e6)})`
+      );
+    };
+    const published = (level: number): string | undefined =>
+      foregroundDeclarations({ policy: NOMINAL_ACCESSIBILITY_POLICY, level })[
+        "--vitrea-foreground"
+      ];
+
+    const seen = new Set<string>();
+    for (const variant of ["regular", "clear"] as const) {
+      for (let backdrop = 0; backdrop <= 1.0001; backdrop += 0.05) {
+        const level = Math.min(1, backdrop);
+        const where = `${variant} over ${level.toFixed(2)}`;
+        const cssLevel = cssTierForegroundLevel(MATERIAL_OPTICS[variant], level);
+        const gpuLevel = gpuTierForegroundLevel(MATERIAL_SOURCE_OPTICS[variant], level);
+
+        expect(published(cssLevel), `css, ${where}`).toBe(inkFor(cssLevel));
+        expect(published(gpuLevel), `gpu, ${where}`).toBe(inkFor(gpuLevel));
+        seen.add(labelOperatorFor(cssLevel, crossover));
+        seen.add(labelOperatorFor(gpuLevel, crossover));
+      }
+    }
+    // The sweep has to reach both poles or it pins one of them and calls it two.
+    expect([...seen].sort()).toEqual(["darkening", "lightening"]);
+  });
+
+  it("agrees on the pole everywhere on the regular material, and on clear outside one window", () => {
+    const crossover = CSS_TIER_MAPPING.foregroundCrossover;
+    const disagrees = (variant: "regular" | "clear", backdrop: number): boolean => {
+      const css = cssTierForegroundLevel(MATERIAL_OPTICS[variant], backdrop);
+      const gpu = gpuTierForegroundLevel(MATERIAL_SOURCE_OPTICS[variant], backdrop);
+      return css >= crossover !== gpu >= crossover;
+    };
+
+    for (let backdrop = 0; backdrop <= 1.0001; backdrop += 0.002) {
+      expect(disagrees("regular", Math.min(1, backdrop)), `regular over ${backdrop.toFixed(3)}`)
+        .toBe(false);
+    }
+
+    // The window, bracketed to a thousandth of the backdrop's luminance. Below
+    // and above it the tiers agree; inside it a demotion from the WebGPU tier to
+    // the CSS one flips the clear variant's label from white to black.
+    expect(disagrees("clear", 0.064)).toBe(false);
+    expect(disagrees("clear", 0.067)).toBe(true);
+    expect(disagrees("clear", 0.1)).toBe(true);
+    expect(disagrees("clear", 0.103)).toBe(false);
+    expect(disagrees("clear", 0.2)).toBe(false);
+  });
+
+  it("pins how far apart the two tiers' foreground levels run", () => {
+    // The cause of the window above, as one number per variant. Reported so a
+    // material change that widened the tiers' composite gap shows up here rather
+    // than as a mysteriously wider ink window.
+    const widest = (variant: "regular" | "clear"): number => {
+      let worst = 0;
+      for (let backdrop = 0; backdrop <= 1.0001; backdrop += 0.002) {
+        const level = Math.min(1, backdrop);
+        worst = Math.max(
+          worst,
+          Math.abs(
+            cssTierForegroundLevel(MATERIAL_OPTICS[variant], level) -
+              gpuTierForegroundLevel(MATERIAL_SOURCE_OPTICS[variant], level),
+          ),
+        );
+      }
+      return worst;
+    };
+    expect(widest("regular")).toBeCloseTo(0.0502, 4);
+    expect(widest("clear")).toBeCloseTo(0.0824, 4);
   });
 
   /*

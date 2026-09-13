@@ -37,6 +37,7 @@ import { describe, expect, it } from "vitest";
 import {
   cssTierDeclarations,
   FOREGROUND_LEVELS,
+  FOREGROUND_INK,
   FOREGROUND_LEVEL_TOKENS,
 } from "../src/css-tier";
 import { cssTierTintTable } from "../src/optics";
@@ -50,20 +51,43 @@ const RECORDED = JSON.parse(
 const W27A_LEVEL_TOKENS = FOREGROUND_LEVELS.map((level) => FOREGROUND_LEVEL_TOKENS[level]);
 
 /**
- * One render with W27a's named ink levels dropped from the host.
+ * The keys this comparison drops from **both** sides, and why each earns it.
  *
  * `w19-pre-fold-declarations.json` is committed evidence and is not rewritten.
  * What it records is "the W19 field changes nothing", which is a claim about the
- * fold and not about the tier's token vocabulary, and W27a grew that vocabulary
- * by three names on a different axis entirely. Dropping exactly those three
- * keeps the claim strict rather than loosening it: every key the recording holds
- * is still compared byte for byte, and the case below pins that the three are
- * the *only* difference, so a fourth would fail rather than be absorbed here.
+ * author tint's fold. Two later gates added declarations on axes that claim has
+ * nothing to say about, and dropping exactly those keeps it strict rather than
+ * loosening it: everything else the recording holds is still compared byte for
+ * byte, and the case below pins that the dropped set is the *only* difference,
+ * so a further one fails rather than being absorbed here.
+ *
+ *  - W27a's three named ink levels: a token vocabulary, not the fold.
+ *  - W27e G2's primary ink, which moved from `#1c1c1e`/`#f5f5f7` opaque to
+ *    Apple's own pure black and white at 0.847059 and 0.804706 (Decision Log
+ *    15 (a)). Pinned in `css-tier.test.ts`; comparing it here would make an ink
+ *    ruling read as a tint regression.
  */
+const IGNORED_HOST_KEYS: readonly string[] = [...W27A_LEVEL_TOKENS, "--vitrea-foreground"];
+
+const withoutIgnoredKeys = (host: Record<string, string>): Record<string, string> => {
+  const kept: Record<string, string> = { ...host };
+  for (const key of IGNORED_HOST_KEYS) delete kept[key];
+  return kept;
+};
+
 function withoutNamedLevels(render: ReturnType<typeof cssTierDeclarations>): unknown {
-  const host: Record<string, string> = { ...render.host };
-  for (const token of W27A_LEVEL_TOKENS) delete host[token];
-  return { ...render, host };
+  // `foregroundLevel` is a REPORT the render gained in W27e G2 — `root.ts`
+  // retargets the `foregroundTone` channel with it — and not a declaration the
+  // tier writes, so the recording has no counterpart for it to be compared to.
+  const rest: Record<string, unknown> = { ...render };
+  delete rest["foregroundLevel"];
+  return { ...rest, host: withoutIgnoredKeys(render.host) };
+}
+
+/** The recorded side, put on the same footing. */
+function recordedComparable(name: string): unknown {
+  const recorded = RECORDED[name] as { host: Record<string, string> };
+  return { ...recorded, host: withoutIgnoredKeys(recorded.host) };
 }
 
 const encode = (l: number): number =>
@@ -236,7 +260,7 @@ describe("the author tint folded over the contrast floor (W19 G1)", () => {
     // declarations are still the recorded ones.
     for (const c of CASES.filter((entry) => entry.form !== "linear")) {
       const render = cssTierDeclarations({ ...c.args, untintedOptics: c.untinted });
-      expect(withoutNamedLevels(render), c.name).toEqual(RECORDED[c.name]);
+      expect(withoutNamedLevels(render), c.name).toEqual(recordedComparable(c.name));
     }
   });
 
@@ -246,7 +270,9 @@ describe("the author tint folded over the contrast floor (W19 G1)", () => {
     // the behaviour it had. Every case on the bed, all three forms, tinted and
     // untinted.
     for (const c of CASES) {
-      expect(withoutNamedLevels(cssTierDeclarations(c.args)), c.name).toEqual(RECORDED[c.name]);
+      expect(withoutNamedLevels(cssTierDeclarations(c.args)), c.name).toEqual(
+        recordedComparable(c.name),
+      );
     }
   });
 
@@ -256,21 +282,30 @@ describe("the author tint folded over the contrast floor (W19 G1)", () => {
     // overlay are the ones the tier already wrote.
     for (const c of CASES.filter((entry) => entry.seed === "none")) {
       const render = cssTierDeclarations({ ...c.args, untintedOptics: c.untinted });
-      expect(withoutNamedLevels(render), c.name).toEqual(RECORDED[c.name]);
+      expect(withoutNamedLevels(render), c.name).toEqual(recordedComparable(c.name));
     }
   });
 
-  it("differs from the recording by W27a's three named levels and by nothing else", () => {
-    // What `withoutNamedLevels` is allowed to drop, pinned. Without this the
-    // helper would be a hole: a fourth token, or a moved value on an existing
-    // one, would need only to be added to the drop list to disappear from all
-    // three cases above.
+  it("differs from the recording by W27a's three levels and W27e's ink, and by nothing else", () => {
+    // What the comparison is allowed to drop, pinned. Without this the drop list
+    // would be a hole: a fourth token, or a moved value on an existing one, would
+    // need only to be added to it to disappear from all three cases above. So the
+    // added keys are pinned exactly, nothing may be removed, and the one existing
+    // key whose VALUE the drop list absorbs is pinned to what W27e G2 published.
     for (const c of CASES) {
       const render = cssTierDeclarations(c.args);
       const recorded = RECORDED[c.name] as { host: Record<string, string> };
       const added = Object.keys(render.host).filter((key) => !(key in recorded.host));
       expect(added.sort(), c.name).toEqual([...W27A_LEVEL_TOKENS].sort());
       expect(Object.keys(recorded.host).filter((key) => !(key in render.host)), c.name).toEqual([]);
+
+      const moved = Object.keys(recorded.host).filter(
+        (key) => render.host[key] !== recorded.host[key],
+      );
+      expect(moved, c.name).toEqual(["--vitrea-foreground"]);
+      expect([FOREGROUND_INK.dark, FOREGROUND_INK.light], c.name).toContain(
+        render.host["--vitrea-foreground"],
+      );
     }
   });
 });

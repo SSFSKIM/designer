@@ -1,4 +1,30 @@
 /**
+ * Who owns a surface's label — the second thing the `foreground` prop can say
+ * (W27e G2).
+ *
+ * Not a colour and not a cadence. Both values resolve to the same published ink;
+ * what differs is the specificity the runtime's `color` declaration lands at, so
+ * `"vibrant"` survives a reset sheet's `button { color: … }` and `"token"` does
+ * not. See `platform-web`'s `ink-stylesheet.ts`.
+ */
+export type ForegroundOwnership = "vibrant" | "token";
+
+/**
+ * The prop's two axes, separated. A string is ownership and carries no cadence;
+ * an object is a cadence and says nothing about ownership, which leaves the
+ * surface on the token path — the default for content vitrea did not write.
+ */
+function resolveForeground(
+  foreground: ForegroundAdaptation | ForegroundOwnership | undefined,
+): { adaptation: ForegroundAdaptation | undefined; vibrant: boolean | undefined } {
+  if (foreground === undefined) return { adaptation: undefined, vibrant: undefined };
+  if (typeof foreground === "string") {
+    return { adaptation: undefined, vibrant: foreground === "vibrant" };
+  }
+  return { adaptation: foreground, vibrant: undefined };
+}
+
+/**
  * `GlassSurface` — the host primitive.
  *
  * One React element becomes one registered glass host. With `asChild` that
@@ -97,7 +123,26 @@ export interface GlassSurfaceOwnProps {
   readonly capsule?: boolean | undefined;
   /** Material thickness in CSS px, driving lensing depth and shadow. */
   readonly thickness?: number | undefined;
-  readonly foreground?: ForegroundAdaptation | undefined;
+  /**
+   * How this surface's foreground is decided.
+   *
+   * `ForegroundAdaptation` is the *cadence* — `fixed`, `author-hint` or
+   * `sampled-async` — and the two string forms are the *ownership* of the label
+   * (W27e G2; W27 §Design's *Where each feature lives*, binding):
+   *
+   * - `"vibrant"` hands the label to Apple's vibrancy operator. vitrea's own
+   *   controls set it for themselves, because vitrea owns their labels; on a bare
+   *   `GlassSurface asChild` it is the author's opt-in for content vitrea did not
+   *   write. It changes precedence, not colour: the published token already *is*
+   *   the operator's output, and an application rule that names the element still
+   *   wins — which is what Apple does with a label that names its own colour.
+   * - `"token"` takes it back, for a control whose content the app owns outright.
+   *
+   * The two axes are one prop because §Design spells the opt-in this way, and
+   * that makes them mutually exclusive: a surface that needs `sampled-async`
+   * *and* the operator cannot say so today. Tracked, and additive to fix.
+   */
+  readonly foreground?: ForegroundAdaptation | ForegroundOwnership | undefined;
   /** Overrides the group in scope. */
   readonly groupId?: string | undefined;
   readonly nodeId?: string | undefined;
@@ -187,8 +232,9 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
    * through `update`, and only the id, the group, the plane, the element and the
    * shape *family* can require a new registration.
    */
-  const patch = useRef({ radii, smoothing, reference, thickness, order, variant, tint, foreground, present });
-  patch.current = { radii, smoothing, reference, thickness, order, variant, tint, foreground, present };
+  const { adaptation, vibrant } = resolveForeground(foreground);
+  const patch = useRef({ radii, smoothing, reference, thickness, order, variant, tint, adaptation, vibrant, present });
+  patch.current = { radii, smoothing, reference, thickness, order, variant, tint, adaptation, vibrant, present };
 
   // Held in a ref so a fresh closure each render never re-registers the host.
   const onHostRef = useRef(onHost);
@@ -213,7 +259,8 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
       ...(initial.order === undefined ? {} : { order: initial.order }),
       ...(initial.variant === undefined ? {} : { variant: initial.variant }),
       ...(initial.tint === undefined ? {} : { tint: initial.tint }),
-      ...(initial.foreground === undefined ? {} : { foreground: initial.foreground }),
+      ...(initial.adaptation === undefined ? {} : { foreground: initial.adaptation }),
+      ...(initial.vibrant === undefined ? {} : { vibrant: initial.vibrant }),
       // React owns placement, so platform-web must not move the element: it
       // records the parent it inserted into, and its synthetic events are
       // delegated to the portal container the element sits under. The plane
@@ -278,7 +325,8 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
       ...(order === undefined ? {} : { order }),
       variant,
       tint,
-      foreground: patch.current.foreground,
+      foreground: patch.current.adaptation,
+      ...(patch.current.vibrant === undefined ? {} : { vibrant: patch.current.vibrant }),
       present,
     });
   }, [foregroundKey, handle, order, present, radii, reference, smoothing, thickness, tint, variant]);

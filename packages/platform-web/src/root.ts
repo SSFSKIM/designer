@@ -61,7 +61,13 @@ import {
 import { createBackdropProxyManager, type ProxyRequest } from "./backdrop-proxy";
 import { compositeToneOver, toneBeneath, type PaintedSurface } from "./backdrop-stack";
 import { GLASS_CHANNEL_PROPERTIES, readHostChannels, type SurfaceChannelValues } from "./channels";
-import { createDriver, clampFrameDelta, DEFAULT_MOTION_PROFILE, type MotionDriver } from "@vitrea/motion";
+import {
+  createDriver,
+  clampFrameDelta,
+  DEFAULT_MOTION_PROFILE,
+  type DriverConfig,
+  type MotionDriver,
+} from "@vitrea/motion";
 import {
   colorSchemeMaterialProfile,
   mergeMaterialProfiles,
@@ -200,6 +206,26 @@ import {
   type RendererMaterialProfile,
 } from "./renderer-bridge";
 import { createWebGPULifecycle, type WebGPULifecycle, type WebGPUStatus } from "./webgpu";
+
+/**
+ * `foregroundTone`'s driver constants, narrowed to the family the binding table
+ * gives the channel (W27e G2).
+ *
+ * `MotionProfile` types every channel's config as the `DriverConfig` union, while
+ * `MOTION_DRIVER_BY_CHANNEL` pins this one to `threshold-crossfade`; the promise
+ * is the table's and it is stated here rather than branched on, because a branch
+ * would be a second answer to a question the table already answers. It is not an
+ * unchecked assertion either: `test/vibrancy-tone.test.ts` reads the table and
+ * the profile and fails if either stops saying so.
+ *
+ * The `threshold` is replaced per root with `CssTierMapping.foregroundCrossover`.
+ * The tunable's own 0.5 is a placeholder from before the crossover was fitted,
+ * and `@vitrea/motion` cannot import an optics constant to carry the real one.
+ */
+const FOREGROUND_TONE_TUNABLE = DEFAULT_MOTION_PROFILE.channels.foregroundTone as Extract<
+  DriverConfig,
+  { kind: "threshold-crossfade" }
+>;
 
 /** Every glass group needs a backdrop source; a dom root gets this one for free. */
 export const DEFAULT_DOM_SOURCE_ID = "vitrea.dom";
@@ -581,6 +607,29 @@ interface HostRecord {
   /** Presence is authored independently of the interaction machine (W27d, X6). */
   readonly presence: MotionDriver;
   presencePublished: number;
+  /**
+   * The `foregroundTone` channel, consumed at last (W27e G2; claims §5.140).
+   *
+   * The motion table has declared a `threshold-crossfade` driver for this channel
+   * since it was written and nothing read it: the ink snapped at
+   * `foregroundCrossover` with neither the channel's dead band nor its transit,
+   * so a backdrop drifting across the crossover pumped the text colour. The
+   * driver's value is the weight of the dark ink, and both tiers publish the fold
+   * of the two poles at it.
+   *
+   * Its threshold is the **optics** constant rather than the motion profile's
+   * 0.5: the selector Decision Log 16 ruled is `foregroundCrossover`, and
+   * `@vitrea/motion` may not import an optics constant, so the substitution
+   * happens here where both are in scope.
+   */
+  readonly foregroundTone: MotionDriver;
+  /**
+   * Whether a level has ever resolved for this surface. The first one is jumped
+   * to rather than faded to: a surface's first painted frame is not a transit,
+   * and fading in from the driver's construction value would show every dark
+   * surface a moment of the wrong ink.
+   */
+  foregroundToneSeeded: boolean;
   /** Last consumed value, including direct custom-property writes by other bindings. */
   materializationDrawn: number;
   /**
@@ -1532,6 +1581,20 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     for (const record of hosts.values()) {
       if (accessibility.reducedMotion) record.presence.jumpTo(record.presence.target);
       else record.presence.advance(presenceDelta);
+      /*
+       * The ink's crossfade advances here for the same reason presence does — one
+       * value per host from publication to pixels — and is *not* stepped under
+       * Reduced Motion. A colour crossing between two poles is neither motion nor
+       * deformation; it is the one thing that stops a drifting backdrop flicking
+       * the text colour, and the channel's own role in the binding table is
+       * `optical`, which Reduced Motion leaves alone by design.
+       *
+       * Retargeting happens where the level is known, which is inside each tier's
+       * own render below. The committed phase this frame is therefore last frame's
+       * level against the band — sixteen milliseconds behind a signal whose own
+       * hysteresis is 0.08 wide and whose transit is 180 ms.
+       */
+      record.foregroundTone.advance(presenceDelta);
       const value = record.presence.value;
       if (value !== record.presencePublished) {
         record.host.style.setProperty(GLASS_CHANNEL_PROPERTIES.materialization, String(value));
@@ -1557,6 +1620,26 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
      */
     const presenceOf = (record: HostRecord, bounds: Rect): number =>
       readHostChannels(record.host, bounds).materialization;
+
+    /*
+     * The `foregroundTone` channel for one surface, given the level its own tier
+     * resolved (W27e G2).
+     *
+     * One helper for both tiers, because a seeding rule that differed between
+     * them would put a fade on a surface's first frame under one renderer and not
+     * the other. A surface with no level has nothing to cross — the ink is
+     * `light-dark()` and the channel is not read — so the driver is left where it
+     * is rather than retargeted at a value it does not have.
+     */
+    const retargetForegroundTone = (record: HostRecord, level: number | undefined): void => {
+      if (level === undefined) return;
+      if (record.foregroundToneSeeded) {
+        record.foregroundTone.retarget(level);
+        return;
+      }
+      record.foregroundTone.jumpTo(level >= cssMapping.foregroundCrossover ? 1 : 0);
+      record.foregroundToneSeeded = true;
+    };
 
     /*
      * The root's cost budget, decided once for the frame (W16 G1; charter
@@ -2348,6 +2431,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         const declarations = cssTierDeclarations({
           materialization: input.channels.materialization,
           driven: presenceDriven,
+          // The channel's value as of this frame's advance. The level it is
+          // retargeted with comes back out of the render below, because the level
+          // is a function of the tinted, adapted, presence-folded optics this call
+          // derives and nothing out here can reproduce it (W27e G2).
+          foregroundTone: record.foregroundTone.value,
           radii: record.radii,
           optics: nodeBaseOptics,
           untintedOptics: nodeUntintedOptics,
@@ -2481,6 +2569,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             record.cssMaterialized = true;
           }
 
+          retargetForegroundTone(record, declarations.foregroundLevel);
           const serialised = JSON.stringify(declarations.host);
           if (record.cssApplied !== serialised) {
             for (const [property, value] of Object.entries(declarations.host)) {
@@ -2596,9 +2685,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             policy: accessibility,
             mapping: cssMapping,
             compositeBounds: inkCompositeBounds,
+            tone: record.foregroundTone.value,
             ...(level === undefined ? {} : { level }),
             ...(inkComposite === undefined ? {} : { composite: inkComposite }),
           });
+          retargetForegroundTone(record, level);
           const serialisedInk = JSON.stringify(ink);
           if (record.gpuForegroundApplied !== serialisedInk) {
             for (const [property, value] of Object.entries(ink)) {
@@ -2977,6 +3068,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         presence: createDriver(DEFAULT_MOTION_PROFILE.channels.materialization,
           hostOptions.present === false ? 0 : 1),
         presencePublished: hostOptions.present === false ? 0 : 1,
+        foregroundTone: createDriver(
+          { ...FOREGROUND_TONE_TUNABLE, threshold: cssMapping.foregroundCrossover },
+          1,
+        ),
+        foregroundToneSeeded: false,
         materializationDrawn: hostOptions.present === false ? 0 : 1,
         cssGroupShadow: undefined,
         cssClipsChildren: undefined,
@@ -2991,6 +3087,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       hostOptions.host.setAttribute(HOST_ATTRIBUTES.node, nodeId);
       hostOptions.host.setAttribute(HOST_ATTRIBUTES.group, hostOptions.groupId);
       hostOptions.host.setAttribute(HOST_ATTRIBUTES.plane, plane);
+      // Whether vitrea owns this surface's label. An attribute rather than a
+      // declaration, because what it selects is the ink rule's PRECEDENCE and
+      // not its value (W27e G2; `ink-stylesheet.ts`).
+      if (hostOptions.vibrant === true) {
+        hostOptions.host.setAttribute(HOST_ATTRIBUTES.vibrant, "");
+      }
       // The host layer passes pointers through; a registered host opts back in,
       // so gaps between surfaces never swallow clicks on the page beneath.
       hostOptions.host.style.setProperty("pointer-events", "auto");
@@ -3051,6 +3153,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           if (patch.thickness !== undefined) record.thickness = patch.thickness;
           if (patch.order !== undefined) record.order = patch.order;
           if (patch.present !== undefined) record.presence.retarget(patch.present ? 1 : 0);
+          if (patch.vibrant !== undefined) {
+            if (patch.vibrant) record.host.setAttribute(HOST_ATTRIBUTES.vibrant, "");
+            else record.host.removeAttribute(HOST_ATTRIBUTES.vibrant);
+          }
 
           scene.updateGlassNode(nodeId, {
             shape: {

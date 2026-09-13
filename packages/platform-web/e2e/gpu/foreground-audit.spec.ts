@@ -123,6 +123,9 @@ test("the GPU tier publishes the same foreground token the CSS tier does", async
   await page.waitForSelector("html[data-harness-ready='1']");
   const css = await build("css");
 
-  expect(css, "the CSS tier's answer").toBe("#1c1c1e");
+  // Apple's automatic label colour through the vibrancy operator: pure black at
+  // Apple's own 0.847059 (W27e G2; W27 Decision Log 15 (a)). It was `#1c1c1e`
+  // opaque, which is a different platform's ink at a different opacity.
+  expect(css, "the CSS tier's answer").toBe("rgb(0 0 0 / 0.847059)");
   expect(gpu, "the GPU tier's answer").toBe(css);
 });

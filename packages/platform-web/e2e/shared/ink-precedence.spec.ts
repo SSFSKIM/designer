@@ -22,7 +22,15 @@ import { gotoHarness } from "../support";
 const PANEL = { x: 260, y: 180, width: 200, height: 110 };
 
 /** The fixture page's own `.glass-host` ink, so the runtime's answer is visible. */
-const RUNTIME_INK = "rgb(28, 28, 30)";
+/**
+ * What the runtime's ink COMPUTES to, as the engine serialises it.
+ *
+ * W27e G2 moved the published token to Apple's automatic label colour through
+ * the vibrancy operator — pure black at 0.847059 — so the computed `color` is a
+ * four-component `rgba()` where it used to be an opaque `rgb()`.
+ */
+const RUNTIME_INK = "rgba(0, 0, 0, 0.847)";
+const RUNTIME_FOREGROUND = "rgb(0 0 0 / 0.847059)";
 
 async function buildPanel(page: Page): Promise<void> {
   await page.evaluate(async (panel) => {
@@ -57,7 +65,9 @@ test("an application's own rule on a glass host wins", async ({ page }) => {
   // …and the runtime has not stopped answering. The token still carries what it
   // would have painted, which is what makes the seam usable rather than merely
   // present: an app can read it, ignore it, or blend it.
-  expect(style?.foreground, "the runtime still publishes its own answer").toBe("#1c1c1e");
+  expect(style?.foreground, "the runtime still publishes its own answer").toBe(
+    RUNTIME_FOREGROUND,
+  );
 });
 
 test("the runtime's ink still applies where the application writes none", async ({ page }) => {
@@ -69,7 +79,7 @@ test("the runtime's ink still applies where the application writes none", async 
   // answer, substituted through the very token it publishes.
   const style = await page.evaluate(() => window.h.hostStyle("panel"));
   expect(style?.color).toBe(RUNTIME_INK);
-  expect(style?.foreground).toBe("#1c1c1e");
+  expect(style?.foreground).toBe(RUNTIME_FOREGROUND);
 });
 
 test("the rule goes in first, so an equally weak app rule still wins", async ({ page }) => {
