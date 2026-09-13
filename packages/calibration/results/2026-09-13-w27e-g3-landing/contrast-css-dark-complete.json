@@ -1,0 +1,9304 @@
+{
+  "tier": "css",
+  "scheme": "dark",
+  "takenAt": "2026-09-13T07:41:15.474Z",
+  "accessibility": {
+    "reduceTransparency": "0",
+    "increaseContrast": "0"
+  },
+  "browser": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+    "dpr": 1,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    }
+  },
+  "adapter": {
+    "available": true,
+    "isFallbackAdapter": false,
+    "isFallbackAdapterReported": null,
+    "info": {
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "device": "",
+      "description": ""
+    }
+  },
+  "resolvedTiers": {
+    "/playground/": [
+      "css",
+      "css",
+      "css",
+      "css",
+      "css · css-backdrop",
+      "css · css-backdrop"
+    ],
+    "/playground/ ink reset": [
+      "css",
+      "css",
+      "css",
+      "css",
+      "css · css-backdrop",
+      "css · css-backdrop"
+    ],
+    "/ material": [
+      "css"
+    ],
+    "/ page": [
+      "css"
+    ],
+    "/ tone": [
+      "css"
+    ],
+    "/ access": [
+      "same texture root: css"
+    ],
+    "/ behavior": [
+      "css",
+      "css",
+      "css"
+    ],
+    "/laws/ tone": [
+      "css"
+    ],
+    "/laws/ tint": [
+      "css",
+      "css"
+    ],
+    "/laws/ body": [
+      "css"
+    ],
+    "/laws/ lens": [
+      "css"
+    ],
+    "/laws/ nested": [
+      "css",
+      "css"
+    ]
+  },
+  "readings": [
+    {
+      "route": "/playground/",
+      "state": "plates",
+      "family": "DOM plate heading",
+      "text": "Regular material",
+      "surface": [
+        204,
+        205,
+        205
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.308187088604132
+        }
+      ],
+      "ratio": 10.308187088604132
+    },
+    {
+      "route": "/playground/",
+      "state": "plates",
+      "family": "DOM plate body",
+      "text": "dom backdrop · author hint",
+      "surface": [
+        204,
+        205,
+        205
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.308187088604132
+        }
+      ],
+      "ratio": 10.308187088604132
+    },
+    {
+      "route": "/playground/",
+      "state": "plates",
+      "family": "texture plate heading",
+      "text": "Larger surface",
+      "surface": [
+        190,
+        229,
+        203
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 11.62240948878148
+        }
+      ],
+      "ratio": 11.62240948878148
+    },
+    {
+      "route": "/playground/",
+      "state": "plates",
+      "family": "texture plate body",
+      "text": "deeper material, stronger lensing",
+      "surface": [
+        190,
+        230,
+        206
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 11.708504774808585
+        }
+      ],
+      "ratio": 11.708504774808585
+    },
+    {
+      "route": "/playground/",
+      "state": "plates",
+      "family": "small texture plate",
+      "text": "regular",
+      "surface": [
+        196,
+        220,
+        219
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 11.215285706624256
+        }
+      ],
+      "ratio": 11.215285706624256
+    },
+    {
+      "route": "/playground/",
+      "state": "clear plate state",
+      "family": "small texture plate",
+      "text": "clear",
+      "surface": [
+        193,
+        229,
+        221
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 11.7809561951227
+        }
+      ],
+      "ratio": 11.7809561951227
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +400ms",
+      "family": "segments",
+      "text": "Day",
+      "surface": [
+        183,
+        185,
+        185
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.624310609748644
+        }
+      ],
+      "ratio": 8.624310609748644
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +400ms",
+      "family": "segments",
+      "text": "Week",
+      "surface": [
+        196,
+        196,
+        196
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            10,
+            12,
+            16
+          ],
+          "alpha": 1,
+          "ratio": 11.221330788643339
+        }
+      ],
+      "ratio": 11.221330788643339
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +400ms",
+      "family": "segments",
+      "text": "Month",
+      "surface": [
+        227,
+        192,
+        229
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.154025739944974
+        }
+      ],
+      "ratio": 10.154025739944974
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +400ms",
+      "family": "toolbar controls",
+      "text": "Share",
+      "surface": [
+        184,
+        184,
+        185
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.583881931645143
+        }
+      ],
+      "ratio": 8.583881931645143
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +400ms",
+      "family": "toolbar controls",
+      "text": "☆",
+      "surface": [
+        181,
+        181,
+        182
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.345371610686064
+        }
+      ],
+      "ratio": 8.345371610686064
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +400ms",
+      "family": "toolbar controls",
+      "text": "Disabled",
+      "surface": [
+        185,
+        183,
+        186
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.611764705882353,
+          "ratio": 4.643840322768673
+        }
+      ],
+      "ratio": 4.643840322768673
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +400ms",
+      "family": "closed morph",
+      "text": "Actions ▾",
+      "surface": [
+        185,
+        183,
+        188
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.56160113597446
+        },
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.56160113597446
+        }
+      ],
+      "ratio": 8.56160113597446
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +2200ms",
+      "family": "segments",
+      "text": "Day",
+      "surface": [
+        183,
+        185,
+        185
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.624310609748644
+        }
+      ],
+      "ratio": 8.624310609748644
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +2200ms",
+      "family": "segments",
+      "text": "Week",
+      "surface": [
+        195,
+        199,
+        196
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            10,
+            12,
+            16
+          ],
+          "alpha": 1,
+          "ratio": 11.45122056367677
+        }
+      ],
+      "ratio": 11.45122056367677
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +2200ms",
+      "family": "segments",
+      "text": "Month",
+      "surface": [
+        190,
+        228,
+        196
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 11.51416359804302
+        }
+      ],
+      "ratio": 11.51416359804302
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +2200ms",
+      "family": "toolbar controls",
+      "text": "Share",
+      "surface": [
+        184,
+        184,
+        185
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.583881931645143
+        }
+      ],
+      "ratio": 8.583881931645143
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +2200ms",
+      "family": "toolbar controls",
+      "text": "☆",
+      "surface": [
+        181,
+        181,
+        182
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.345371610686064
+        }
+      ],
+      "ratio": 8.345371610686064
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +2200ms",
+      "family": "toolbar controls",
+      "text": "Disabled",
+      "surface": [
+        185,
+        183,
+        186
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.611764705882353,
+          "ratio": 4.643840322768673
+        }
+      ],
+      "ratio": 4.643840322768673
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +2200ms",
+      "family": "closed morph",
+      "text": "Actions ▾",
+      "surface": [
+        185,
+        183,
+        188
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.56160113597446
+        },
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.56160113597446
+        }
+      ],
+      "ratio": 8.56160113597446
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +4200ms",
+      "family": "segments",
+      "text": "Day",
+      "surface": [
+        183,
+        185,
+        185
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.624310609748644
+        }
+      ],
+      "ratio": 8.624310609748644
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +4200ms",
+      "family": "segments",
+      "text": "Week",
+      "surface": [
+        195,
+        198,
+        198
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            10,
+            12,
+            16
+          ],
+          "alpha": 1,
+          "ratio": 11.38281532882633
+        }
+      ],
+      "ratio": 11.38281532882633
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +4200ms",
+      "family": "segments",
+      "text": "Month",
+      "surface": [
+        197,
+        226,
+        220
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 11.636696463557369
+        }
+      ],
+      "ratio": 11.636696463557369
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +4200ms",
+      "family": "toolbar controls",
+      "text": "Share",
+      "surface": [
+        184,
+        184,
+        185
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.583881931645143
+        }
+      ],
+      "ratio": 8.583881931645143
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +4200ms",
+      "family": "toolbar controls",
+      "text": "☆",
+      "surface": [
+        181,
+        181,
+        182
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.345371610686064
+        }
+      ],
+      "ratio": 8.345371610686064
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +4200ms",
+      "family": "toolbar controls",
+      "text": "Disabled",
+      "surface": [
+        185,
+        183,
+        186
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.611764705882353,
+          "ratio": 4.643840322768673
+        }
+      ],
+      "ratio": 4.643840322768673
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +4200ms",
+      "family": "closed morph",
+      "text": "Actions ▾",
+      "surface": [
+        185,
+        183,
+        188
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.56160113597446
+        },
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.56160113597446
+        }
+      ],
+      "ratio": 8.56160113597446
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +6200ms",
+      "family": "segments",
+      "text": "Day",
+      "surface": [
+        183,
+        185,
+        185
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.624310609748644
+        }
+      ],
+      "ratio": 8.624310609748644
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +6200ms",
+      "family": "segments",
+      "text": "Week",
+      "surface": [
+        196,
+        197,
+        196
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            10,
+            12,
+            16
+          ],
+          "alpha": 1,
+          "ratio": 11.305703389128311
+        }
+      ],
+      "ratio": 11.305703389128311
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +6200ms",
+      "family": "segments",
+      "text": "Month",
+      "surface": [
+        193,
+        229,
+        188
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 11.586851081082408
+        }
+      ],
+      "ratio": 11.586851081082408
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +6200ms",
+      "family": "toolbar controls",
+      "text": "Share",
+      "surface": [
+        184,
+        184,
+        185
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.583881931645143
+        }
+      ],
+      "ratio": 8.583881931645143
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +6200ms",
+      "family": "toolbar controls",
+      "text": "☆",
+      "surface": [
+        181,
+        181,
+        182
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.345371610686064
+        }
+      ],
+      "ratio": 8.345371610686064
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +6200ms",
+      "family": "toolbar controls",
+      "text": "Disabled",
+      "surface": [
+        185,
+        183,
+        186
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.611764705882353,
+          "ratio": 4.643840322768673
+        }
+      ],
+      "ratio": 4.643840322768673
+    },
+    {
+      "route": "/playground/",
+      "state": "controls closed at +6200ms",
+      "family": "closed morph",
+      "text": "Actions ▾",
+      "surface": [
+        185,
+        183,
+        188
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.56160113597446
+        },
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.56160113597446
+        }
+      ],
+      "ratio": 8.56160113597446
+    },
+    {
+      "route": "/playground/",
+      "state": "favourite selected",
+      "family": "selected favourite glyph",
+      "text": "★",
+      "surface": [
+        190,
+        190,
+        192
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.075704545605012
+        }
+      ],
+      "ratio": 9.075704545605012
+    },
+    {
+      "route": "/playground/",
+      "state": "menu open",
+      "family": "menu items",
+      "text": "Duplicate",
+      "surface": [
+        190,
+        186,
+        190
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.831728717603934
+        }
+      ],
+      "ratio": 8.831728717603934
+    },
+    {
+      "route": "/playground/",
+      "state": "menu open",
+      "family": "menu items",
+      "text": "Rename…",
+      "surface": [
+        189,
+        187,
+        190
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.871835927905854
+        }
+      ],
+      "ratio": 8.871835927905854
+    },
+    {
+      "route": "/playground/",
+      "state": "menu open",
+      "family": "menu items",
+      "text": "Export as PNG",
+      "surface": [
+        191,
+        186,
+        192
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.86138283152057
+        }
+      ],
+      "ratio": 8.86138283152057
+    },
+    {
+      "route": "/playground/",
+      "state": "menu open",
+      "family": "menu items",
+      "text": "Delete",
+      "surface": [
+        190,
+        187,
+        192
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 8.901314798654846
+        }
+      ],
+      "ratio": 8.901314798654846
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "ink-level names",
+      "text": "PRIMARY",
+      "surface": [
+        163,
+        192,
+        235
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.067166541737372
+        }
+      ],
+      "ratio": 9.067166541737372
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "ink-level names",
+      "text": "SECONDARY",
+      "surface": [
+        163,
+        192,
+        235
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.067166541737372
+        }
+      ],
+      "ratio": 9.067166541737372
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "ink-level names",
+      "text": "TERTIARY",
+      "surface": [
+        163,
+        192,
+        235
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.067166541737372
+        }
+      ],
+      "ratio": 9.067166541737372
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "ink-level names",
+      "text": "QUATERNARY",
+      "surface": [
+        163,
+        192,
+        235
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.067166541737372
+        }
+      ],
+      "ratio": 9.067166541737372
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "ink-level names",
+      "text": "PRIMARY",
+      "surface": [
+        120,
+        145,
+        184
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 5.641506864594306
+        }
+      ],
+      "ratio": 5.641506864594306
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "ink-level names",
+      "text": "SECONDARY",
+      "surface": [
+        120,
+        145,
+        184
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 5.641506864594306
+        }
+      ],
+      "ratio": 5.641506864594306
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "ink-level names",
+      "text": "TERTIARY",
+      "surface": [
+        120,
+        145,
+        184
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 5.641506864594306
+        }
+      ],
+      "ratio": 5.641506864594306
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "ink-level names",
+      "text": "QUATERNARY",
+      "surface": [
+        120,
+        145,
+        184
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 5.641506864594306
+        }
+      ],
+      "ratio": 5.641506864594306
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "primary specimens",
+      "text": "Aa",
+      "surface": [
+        163,
+        192,
+        235
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.067166541737372
+        }
+      ],
+      "ratio": 9.067166541737372
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "primary specimens",
+      "text": "Aa",
+      "surface": [
+        120,
+        145,
+        184
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 5.641506864594306
+        }
+      ],
+      "ratio": 5.641506864594306
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "secondary specimens",
+      "text": "Aa",
+      "surface": [
+        163,
+        192,
+        235
+      ],
+      "floor": 4.45,
+      "floorName": "secondary-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.5882352941176471,
+          "ratio": 4.462809406124817
+        }
+      ],
+      "ratio": 4.462809406124817
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "secondary specimens",
+      "text": "Aa",
+      "surface": [
+        120,
+        145,
+        184
+      ],
+      "floor": 4.45,
+      "floorName": "secondary-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.7176470588235294,
+          "ratio": 4.562956699330373
+        }
+      ],
+      "ratio": 4.562956699330373
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "tertiary specimens",
+      "text": "Aa",
+      "surface": [
+        163,
+        192,
+        235
+      ],
+      "floor": null,
+      "floorName": "read-only",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.2588235294117647,
+          "ratio": 1.7902208350506923
+        }
+      ],
+      "ratio": 1.7902208350506923
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "tertiary specimens",
+      "text": "Aa",
+      "surface": [
+        120,
+        145,
+        184
+      ],
+      "floor": null,
+      "floorName": "read-only",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.2588235294117647,
+          "ratio": 1.675179041477691
+        }
+      ],
+      "ratio": 1.675179041477691
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "quaternary specimens",
+      "text": "Aa",
+      "surface": [
+        163,
+        192,
+        235
+      ],
+      "floor": null,
+      "floorName": "read-only",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.0980392156862745,
+          "ratio": 1.2302869424097331
+        }
+      ],
+      "ratio": 1.2302869424097331
+    },
+    {
+      "route": "/playground/",
+      "state": "ink plates",
+      "family": "quaternary specimens",
+      "text": "Aa",
+      "surface": [
+        120,
+        145,
+        184
+      ],
+      "floor": null,
+      "floorName": "read-only",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.0980392156862745,
+          "ratio": 1.2055036771865588
+        }
+      ],
+      "ratio": 1.2055036771865588
+    },
+    {
+      "route": "/playground/",
+      "state": "ink-row controls",
+      "family": "bookmark and publish controls",
+      "text": "☆",
+      "surface": [
+        165,
+        193,
+        237
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 9.171032439635635
+        }
+      ],
+      "ratio": 9.171032439635635
+    },
+    {
+      "route": "/playground/",
+      "state": "ink-row controls",
+      "family": "bookmark and publish controls",
+      "text": "Publish",
+      "surface": [
+        253,
+        148,
+        0
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.812761739302244
+        }
+      ],
+      "ratio": 7.812761739302244
+    },
+    {
+      "route": "/playground/",
+      "state": "ink-row controls",
+      "family": "bookmark and publish controls",
+      "text": "☆",
+      "surface": [
+        44,
+        73,
+        117
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 6.531356871881124
+        }
+      ],
+      "ratio": 6.531356871881124
+    },
+    {
+      "route": "/playground/",
+      "state": "ink-row controls",
+      "family": "bookmark and publish controls",
+      "text": "Publish",
+      "surface": [
+        255,
+        149,
+        0
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.912007426277215
+        }
+      ],
+      "ratio": 7.912007426277215
+    },
+    {
+      "route": "/",
+      "state": "material at +400ms",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        31,
+        32,
+        33
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.92801187017581
+        }
+      ],
+      "ratio": 10.92801187017581
+    },
+    {
+      "route": "/",
+      "state": "material at +400ms",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        33,
+        33,
+        34
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.798656743892664
+        }
+      ],
+      "ratio": 10.798656743892664
+    },
+    {
+      "route": "/",
+      "state": "material at +400ms",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        29,
+        35,
+        40
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.672917126536834
+        }
+      ],
+      "ratio": 10.672917126536834
+    },
+    {
+      "route": "/",
+      "state": "material at +2200ms",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        31,
+        32,
+        33
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.92801187017581
+        }
+      ],
+      "ratio": 10.92801187017581
+    },
+    {
+      "route": "/",
+      "state": "material at +2200ms",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        33,
+        33,
+        34
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.798656743892664
+        }
+      ],
+      "ratio": 10.798656743892664
+    },
+    {
+      "route": "/",
+      "state": "material at +2200ms",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        29,
+        35,
+        40
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.672917126536834
+        }
+      ],
+      "ratio": 10.672917126536834
+    },
+    {
+      "route": "/",
+      "state": "material at +4200ms",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        31,
+        32,
+        33
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.92801187017581
+        }
+      ],
+      "ratio": 10.92801187017581
+    },
+    {
+      "route": "/",
+      "state": "material at +4200ms",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        33,
+        33,
+        34
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.798656743892664
+        }
+      ],
+      "ratio": 10.798656743892664
+    },
+    {
+      "route": "/",
+      "state": "material at +4200ms",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        29,
+        35,
+        40
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.672917126536834
+        }
+      ],
+      "ratio": 10.672917126536834
+    },
+    {
+      "route": "/",
+      "state": "material at +6200ms",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        31,
+        32,
+        33
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.92801187017581
+        }
+      ],
+      "ratio": 10.92801187017581
+    },
+    {
+      "route": "/",
+      "state": "material at +6200ms",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        33,
+        33,
+        34
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.798656743892664
+        }
+      ],
+      "ratio": 10.798656743892664
+    },
+    {
+      "route": "/",
+      "state": "material at +6200ms",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        29,
+        35,
+        40
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.672917126536834
+        }
+      ],
+      "ratio": 10.672917126536834
+    },
+    {
+      "route": "/",
+      "state": "material tinted",
+      "family": "tinted size label",
+      "text": "112px, tinted",
+      "surface": [
+        10,
+        132,
+        255
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            6,
+            11,
+            14
+          ],
+          "alpha": 1,
+          "ratio": 5.4215280596487725
+        }
+      ],
+      "ratio": 5.4215280596487725
+    },
+    {
+      "route": "/",
+      "state": "ordinary page content",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        63,
+        64,
+        64
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.405937725513303
+        }
+      ],
+      "ratio": 7.405937725513303
+    },
+    {
+      "route": "/",
+      "state": "ordinary page content",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        66,
+        67,
+        67
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.107288174730105
+        }
+      ],
+      "ratio": 7.107288174730105
+    },
+    {
+      "route": "/",
+      "state": "ordinary page content",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        61,
+        64,
+        64
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.447689139435311
+        }
+      ],
+      "ratio": 7.447689139435311
+    },
+    {
+      "route": "/",
+      "state": "tone 002/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        60,
+        60,
+        60
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.7971057874641385
+        }
+      ],
+      "ratio": 7.7971057874641385
+    },
+    {
+      "route": "/",
+      "state": "tone 002/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        30,
+        30,
+        30
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 11.123449460639787
+        }
+      ],
+      "ratio": 11.123449460639787
+    },
+    {
+      "route": "/",
+      "state": "tone 002/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        7,
+        7,
+        7
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 12.84837757823705
+        }
+      ],
+      "ratio": 12.84837757823705
+    },
+    {
+      "route": "/",
+      "state": "tone 004/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        60,
+        60,
+        60
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.7971057874641385
+        }
+      ],
+      "ratio": 7.7971057874641385
+    },
+    {
+      "route": "/",
+      "state": "tone 004/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        36,
+        36,
+        36
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.478498472238387
+        }
+      ],
+      "ratio": 10.478498472238387
+    },
+    {
+      "route": "/",
+      "state": "tone 004/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        13,
+        13,
+        13
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 12.544010544441646
+        }
+      ],
+      "ratio": 12.544010544441646
+    },
+    {
+      "route": "/",
+      "state": "tone 006/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        56,
+        56,
+        56
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.22530210832218
+        }
+      ],
+      "ratio": 8.22530210832218
+    },
+    {
+      "route": "/",
+      "state": "tone 006/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        40,
+        40,
+        40
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.029406908965381
+        }
+      ],
+      "ratio": 10.029406908965381
+    },
+    {
+      "route": "/",
+      "state": "tone 006/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        18,
+        18,
+        18
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 12.210295497173455
+        }
+      ],
+      "ratio": 12.210295497173455
+    },
+    {
+      "route": "/",
+      "state": "tone 008/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        46,
+        46,
+        46
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.34523549760198
+        }
+      ],
+      "ratio": 9.34523549760198
+    },
+    {
+      "route": "/",
+      "state": "tone 008/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        37,
+        37,
+        37
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.36723963858101
+        }
+      ],
+      "ratio": 10.36723963858101
+    },
+    {
+      "route": "/",
+      "state": "tone 008/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        22,
+        22,
+        22
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 11.887514468112096
+        }
+      ],
+      "ratio": 11.887514468112096
+    },
+    {
+      "route": "/",
+      "state": "tone 010/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        34,
+        34,
+        34
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.698281886269843
+        }
+      ],
+      "ratio": 10.698281886269843
+    },
+    {
+      "route": "/",
+      "state": "tone 010/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        31,
+        31,
+        31
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 11.019273515979764
+        }
+      ],
+      "ratio": 11.019273515979764
+    },
+    {
+      "route": "/",
+      "state": "tone 010/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        25,
+        25,
+        25
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 11.61736182786038
+        }
+      ],
+      "ratio": 11.61736182786038
+    },
+    {
+      "route": "/",
+      "state": "tone 012/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        30,
+        30,
+        30
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 11.123449460639787
+        }
+      ],
+      "ratio": 11.123449460639787
+    },
+    {
+      "route": "/",
+      "state": "tone 012/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        29,
+        29,
+        29
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 11.226000334466114
+        }
+      ],
+      "ratio": 11.226000334466114
+    },
+    {
+      "route": "/",
+      "state": "tone 012/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        29,
+        29,
+        29
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 11.226000334466114
+        }
+      ],
+      "ratio": 11.226000334466114
+    },
+    {
+      "route": "/",
+      "state": "tone 014/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        31,
+        31,
+        31
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 11.019273515979764
+        }
+      ],
+      "ratio": 11.019273515979764
+    },
+    {
+      "route": "/",
+      "state": "tone 014/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        33,
+        33,
+        33
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.806562128609432
+        }
+      ],
+      "ratio": 10.806562128609432
+    },
+    {
+      "route": "/",
+      "state": "tone 014/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        31,
+        31,
+        31
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 11.019273515979764
+        }
+      ],
+      "ratio": 11.019273515979764
+    },
+    {
+      "route": "/",
+      "state": "tone 016/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        32,
+        32,
+        32
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.913601656257798
+        }
+      ],
+      "ratio": 10.913601656257798
+    },
+    {
+      "route": "/",
+      "state": "tone 016/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        33,
+        33,
+        33
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.806562128609432
+        }
+      ],
+      "ratio": 10.806562128609432
+    },
+    {
+      "route": "/",
+      "state": "tone 016/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        34,
+        34,
+        34
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.698281886269843
+        }
+      ],
+      "ratio": 10.698281886269843
+    },
+    {
+      "route": "/",
+      "state": "tone 018/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        33,
+        33,
+        33
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.806562128609432
+        }
+      ],
+      "ratio": 10.806562128609432
+    },
+    {
+      "route": "/",
+      "state": "tone 018/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        34,
+        34,
+        34
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.698281886269843
+        }
+      ],
+      "ratio": 10.698281886269843
+    },
+    {
+      "route": "/",
+      "state": "tone 018/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        36,
+        36,
+        36
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.478498472238387
+        }
+      ],
+      "ratio": 10.478498472238387
+    },
+    {
+      "route": "/",
+      "state": "tone 020/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        34,
+        34,
+        34
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.698281886269843
+        }
+      ],
+      "ratio": 10.698281886269843
+    },
+    {
+      "route": "/",
+      "state": "tone 020/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        34,
+        34,
+        34
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.698281886269843
+        }
+      ],
+      "ratio": 10.698281886269843
+    },
+    {
+      "route": "/",
+      "state": "tone 020/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        38,
+        38,
+        38
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.255228183261965
+        }
+      ],
+      "ratio": 10.255228183261965
+    },
+    {
+      "route": "/",
+      "state": "tone 022/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        34,
+        34,
+        34
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.698281886269843
+        }
+      ],
+      "ratio": 10.698281886269843
+    },
+    {
+      "route": "/",
+      "state": "tone 022/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        37,
+        37,
+        37
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.36723963858101
+        }
+      ],
+      "ratio": 10.36723963858101
+    },
+    {
+      "route": "/",
+      "state": "tone 022/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        40,
+        40,
+        40
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.029406908965381
+        }
+      ],
+      "ratio": 10.029406908965381
+    },
+    {
+      "route": "/",
+      "state": "tone 024/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        34,
+        34,
+        34
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.698281886269843
+        }
+      ],
+      "ratio": 10.698281886269843
+    },
+    {
+      "route": "/",
+      "state": "tone 024/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        37,
+        37,
+        37
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.36723963858101
+        }
+      ],
+      "ratio": 10.36723963858101
+    },
+    {
+      "route": "/",
+      "state": "tone 024/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        41,
+        41,
+        41
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.915819038762853
+        }
+      ],
+      "ratio": 9.915819038762853
+    },
+    {
+      "route": "/",
+      "state": "tone 026/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        35,
+        35,
+        35
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.588886229327246
+        }
+      ],
+      "ratio": 10.588886229327246
+    },
+    {
+      "route": "/",
+      "state": "tone 026/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        37,
+        37,
+        37
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.36723963858101
+        }
+      ],
+      "ratio": 10.36723963858101
+    },
+    {
+      "route": "/",
+      "state": "tone 026/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        42,
+        42,
+        42
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.801922077752913
+        }
+      ],
+      "ratio": 9.801922077752913
+    },
+    {
+      "route": "/",
+      "state": "tone 028/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        36,
+        36,
+        36
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.478498472238387
+        }
+      ],
+      "ratio": 10.478498472238387
+    },
+    {
+      "route": "/",
+      "state": "tone 028/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        37,
+        37,
+        37
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.36723963858101
+        }
+      ],
+      "ratio": 10.36723963858101
+    },
+    {
+      "route": "/",
+      "state": "tone 028/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        43,
+        43,
+        43
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.687818418311055
+        }
+      ],
+      "ratio": 9.687818418311055
+    },
+    {
+      "route": "/",
+      "state": "tone 030/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        36,
+        36,
+        36
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.478498472238387
+        }
+      ],
+      "ratio": 10.478498472238387
+    },
+    {
+      "route": "/",
+      "state": "tone 030/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        37,
+        37,
+        37
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.36723963858101
+        }
+      ],
+      "ratio": 10.36723963858101
+    },
+    {
+      "route": "/",
+      "state": "tone 030/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        41,
+        41,
+        41
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.915819038762853
+        }
+      ],
+      "ratio": 9.915819038762853
+    },
+    {
+      "route": "/",
+      "state": "tone 032/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        37,
+        37,
+        37
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.36723963858101
+        }
+      ],
+      "ratio": 10.36723963858101
+    },
+    {
+      "route": "/",
+      "state": "tone 032/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        38,
+        38,
+        38
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.255228183261965
+        }
+      ],
+      "ratio": 10.255228183261965
+    },
+    {
+      "route": "/",
+      "state": "tone 032/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        41,
+        41,
+        41
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.915819038762853
+        }
+      ],
+      "ratio": 9.915819038762853
+    },
+    {
+      "route": "/",
+      "state": "tone 034/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        38,
+        38,
+        38
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.255228183261965
+        }
+      ],
+      "ratio": 10.255228183261965
+    },
+    {
+      "route": "/",
+      "state": "tone 034/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        41,
+        41,
+        41
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.915819038762853
+        }
+      ],
+      "ratio": 9.915819038762853
+    },
+    {
+      "route": "/",
+      "state": "tone 034/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        41,
+        41,
+        41
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.915819038762853
+        }
+      ],
+      "ratio": 9.915819038762853
+    },
+    {
+      "route": "/",
+      "state": "tone 036/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        38,
+        38,
+        38
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.255228183261965
+        }
+      ],
+      "ratio": 10.255228183261965
+    },
+    {
+      "route": "/",
+      "state": "tone 036/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        41,
+        41,
+        41
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.915819038762853
+        }
+      ],
+      "ratio": 9.915819038762853
+    },
+    {
+      "route": "/",
+      "state": "tone 036/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        40,
+        40,
+        40
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.029406908965381
+        }
+      ],
+      "ratio": 10.029406908965381
+    },
+    {
+      "route": "/",
+      "state": "tone 038/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        39,
+        39,
+        39
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.142579742160514
+        }
+      ],
+      "ratio": 10.142579742160514
+    },
+    {
+      "route": "/",
+      "state": "tone 038/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        41,
+        41,
+        41
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.915819038762853
+        }
+      ],
+      "ratio": 9.915819038762853
+    },
+    {
+      "route": "/",
+      "state": "tone 038/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        41,
+        41,
+        41
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.915819038762853
+        }
+      ],
+      "ratio": 9.915819038762853
+    },
+    {
+      "route": "/",
+      "state": "tone 040/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        39,
+        39,
+        39
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.142579742160514
+        }
+      ],
+      "ratio": 10.142579742160514
+    },
+    {
+      "route": "/",
+      "state": "tone 040/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        41,
+        41,
+        41
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.915819038762853
+        }
+      ],
+      "ratio": 9.915819038762853
+    },
+    {
+      "route": "/",
+      "state": "tone 040/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        42,
+        42,
+        42
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.801922077752913
+        }
+      ],
+      "ratio": 9.801922077752913
+    },
+    {
+      "route": "/",
+      "state": "tone 042/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        40,
+        40,
+        40
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.029406908965381
+        }
+      ],
+      "ratio": 10.029406908965381
+    },
+    {
+      "route": "/",
+      "state": "tone 042/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        41,
+        41,
+        41
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.915819038762853
+        }
+      ],
+      "ratio": 9.915819038762853
+    },
+    {
+      "route": "/",
+      "state": "tone 042/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        45,
+        45,
+        45
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.459382104823723
+        }
+      ],
+      "ratio": 9.459382104823723
+    },
+    {
+      "route": "/",
+      "state": "tone 044/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        40,
+        40,
+        40
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.029406908965381
+        }
+      ],
+      "ratio": 10.029406908965381
+    },
+    {
+      "route": "/",
+      "state": "tone 044/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        41,
+        41,
+        41
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.915819038762853
+        }
+      ],
+      "ratio": 9.915819038762853
+    },
+    {
+      "route": "/",
+      "state": "tone 044/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        45,
+        45,
+        45
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.459382104823723
+        }
+      ],
+      "ratio": 9.459382104823723
+    },
+    {
+      "route": "/",
+      "state": "tone 046/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        40,
+        40,
+        40
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.029406908965381
+        }
+      ],
+      "ratio": 10.029406908965381
+    },
+    {
+      "route": "/",
+      "state": "tone 046/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        42,
+        42,
+        42
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.801922077752913
+        }
+      ],
+      "ratio": 9.801922077752913
+    },
+    {
+      "route": "/",
+      "state": "tone 046/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        45,
+        45,
+        45
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.459382104823723
+        }
+      ],
+      "ratio": 9.459382104823723
+    },
+    {
+      "route": "/",
+      "state": "tone 048/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        40,
+        40,
+        40
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.029406908965381
+        }
+      ],
+      "ratio": 10.029406908965381
+    },
+    {
+      "route": "/",
+      "state": "tone 048/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        42,
+        42,
+        42
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.801922077752913
+        }
+      ],
+      "ratio": 9.801922077752913
+    },
+    {
+      "route": "/",
+      "state": "tone 048/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        45,
+        45,
+        45
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.459382104823723
+        }
+      ],
+      "ratio": 9.459382104823723
+    },
+    {
+      "route": "/",
+      "state": "tone 050/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        41,
+        41,
+        41
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.915819038762853
+        }
+      ],
+      "ratio": 9.915819038762853
+    },
+    {
+      "route": "/",
+      "state": "tone 050/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        44,
+        44,
+        44
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.573606778475641
+        }
+      ],
+      "ratio": 9.573606778475641
+    },
+    {
+      "route": "/",
+      "state": "tone 050/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 052/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        41,
+        41,
+        41
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.915819038762853
+        }
+      ],
+      "ratio": 9.915819038762853
+    },
+    {
+      "route": "/",
+      "state": "tone 052/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        44,
+        44,
+        44
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.573606778475641
+        }
+      ],
+      "ratio": 9.573606778475641
+    },
+    {
+      "route": "/",
+      "state": "tone 052/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 054/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        42,
+        42,
+        42
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.801922077752913
+        }
+      ],
+      "ratio": 9.801922077752913
+    },
+    {
+      "route": "/",
+      "state": "tone 054/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        45,
+        45,
+        45
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.459382104823723
+        }
+      ],
+      "ratio": 9.459382104823723
+    },
+    {
+      "route": "/",
+      "state": "tone 054/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 056/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        42,
+        42,
+        42
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.801922077752913
+        }
+      ],
+      "ratio": 9.801922077752913
+    },
+    {
+      "route": "/",
+      "state": "tone 056/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        45,
+        45,
+        45
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.459382104823723
+        }
+      ],
+      "ratio": 9.459382104823723
+    },
+    {
+      "route": "/",
+      "state": "tone 056/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 058/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        44,
+        44,
+        44
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.573606778475641
+        }
+      ],
+      "ratio": 9.573606778475641
+    },
+    {
+      "route": "/",
+      "state": "tone 058/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        45,
+        45,
+        45
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.459382104823723
+        }
+      ],
+      "ratio": 9.459382104823723
+    },
+    {
+      "route": "/",
+      "state": "tone 058/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        50,
+        50,
+        50
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.891114645523011
+        }
+      ],
+      "ratio": 8.891114645523011
+    },
+    {
+      "route": "/",
+      "state": "tone 060/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        43,
+        43,
+        43
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.687818418311055
+        }
+      ],
+      "ratio": 9.687818418311055
+    },
+    {
+      "route": "/",
+      "state": "tone 060/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        45,
+        45,
+        45
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.459382104823723
+        }
+      ],
+      "ratio": 9.459382104823723
+    },
+    {
+      "route": "/",
+      "state": "tone 060/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        51,
+        51,
+        51
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.778587555634648
+        }
+      ],
+      "ratio": 8.778587555634648
+    },
+    {
+      "route": "/",
+      "state": "tone 062/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        43,
+        43,
+        43
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.687818418311055
+        }
+      ],
+      "ratio": 9.687818418311055
+    },
+    {
+      "route": "/",
+      "state": "tone 062/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        46,
+        46,
+        46
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.34523549760198
+        }
+      ],
+      "ratio": 9.34523549760198
+    },
+    {
+      "route": "/",
+      "state": "tone 062/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        51,
+        51,
+        51
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.778587555634648
+        }
+      ],
+      "ratio": 8.778587555634648
+    },
+    {
+      "route": "/",
+      "state": "tone 064/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        43,
+        43,
+        43
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.687818418311055
+        }
+      ],
+      "ratio": 9.687818418311055
+    },
+    {
+      "route": "/",
+      "state": "tone 064/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 064/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        51,
+        51,
+        51
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.778587555634648
+        }
+      ],
+      "ratio": 8.778587555634648
+    },
+    {
+      "route": "/",
+      "state": "tone 066/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        44,
+        44,
+        44
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.573606778475641
+        }
+      ],
+      "ratio": 9.573606778475641
+    },
+    {
+      "route": "/",
+      "state": "tone 066/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 066/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        52,
+        52,
+        52
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.666602657166916
+        }
+      ],
+      "ratio": 8.666602657166916
+    },
+    {
+      "route": "/",
+      "state": "tone 068/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        45,
+        45,
+        45
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.459382104823723
+        }
+      ],
+      "ratio": 9.459382104823723
+    },
+    {
+      "route": "/",
+      "state": "tone 068/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 068/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        52,
+        52,
+        52
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.666602657166916
+        }
+      ],
+      "ratio": 8.666602657166916
+    },
+    {
+      "route": "/",
+      "state": "tone 070/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        45,
+        45,
+        45
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.459382104823723
+        }
+      ],
+      "ratio": 9.459382104823723
+    },
+    {
+      "route": "/",
+      "state": "tone 070/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 070/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        53,
+        53,
+        53
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.555223633980763
+        }
+      ],
+      "ratio": 8.555223633980763
+    },
+    {
+      "route": "/",
+      "state": "tone 072/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        45,
+        45,
+        45
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.459382104823723
+        }
+      ],
+      "ratio": 9.459382104823723
+    },
+    {
+      "route": "/",
+      "state": "tone 072/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 072/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        53,
+        53,
+        53
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.555223633980763
+        }
+      ],
+      "ratio": 8.555223633980763
+    },
+    {
+      "route": "/",
+      "state": "tone 074/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        45,
+        45,
+        45
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.459382104823723
+        }
+      ],
+      "ratio": 9.459382104823723
+    },
+    {
+      "route": "/",
+      "state": "tone 074/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 074/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        54,
+        54,
+        54
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.444510372609056
+        }
+      ],
+      "ratio": 8.444510372609056
+    },
+    {
+      "route": "/",
+      "state": "tone 076/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        45,
+        45,
+        45
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.459382104823723
+        }
+      ],
+      "ratio": 9.459382104823723
+    },
+    {
+      "route": "/",
+      "state": "tone 076/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 076/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        54,
+        54,
+        54
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.444510372609056
+        }
+      ],
+      "ratio": 8.444510372609056
+    },
+    {
+      "route": "/",
+      "state": "tone 078/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        46,
+        46,
+        46
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.34523549760198
+        }
+      ],
+      "ratio": 9.34523549760198
+    },
+    {
+      "route": "/",
+      "state": "tone 078/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        50,
+        50,
+        50
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.891114645523011
+        }
+      ],
+      "ratio": 8.891114645523011
+    },
+    {
+      "route": "/",
+      "state": "tone 078/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        55,
+        55,
+        55
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.334519029617036
+        }
+      ],
+      "ratio": 8.334519029617036
+    },
+    {
+      "route": "/",
+      "state": "tone 080/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        46,
+        46,
+        46
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.34523549760198
+        }
+      ],
+      "ratio": 9.34523549760198
+    },
+    {
+      "route": "/",
+      "state": "tone 080/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        50,
+        50,
+        50
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.891114645523011
+        }
+      ],
+      "ratio": 8.891114645523011
+    },
+    {
+      "route": "/",
+      "state": "tone 080/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        55,
+        55,
+        55
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.334519029617036
+        }
+      ],
+      "ratio": 8.334519029617036
+    },
+    {
+      "route": "/",
+      "state": "tone 082/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        46,
+        46,
+        46
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.34523549760198
+        }
+      ],
+      "ratio": 9.34523549760198
+    },
+    {
+      "route": "/",
+      "state": "tone 082/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        51,
+        51,
+        51
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.778587555634648
+        }
+      ],
+      "ratio": 8.778587555634648
+    },
+    {
+      "route": "/",
+      "state": "tone 082/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        56,
+        56,
+        56
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.22530210832218
+        }
+      ],
+      "ratio": 8.22530210832218
+    },
+    {
+      "route": "/",
+      "state": "tone 084/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        46,
+        46,
+        46
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.34523549760198
+        }
+      ],
+      "ratio": 9.34523549760198
+    },
+    {
+      "route": "/",
+      "state": "tone 084/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        51,
+        51,
+        51
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.778587555634648
+        }
+      ],
+      "ratio": 8.778587555634648
+    },
+    {
+      "route": "/",
+      "state": "tone 084/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        56,
+        56,
+        56
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.22530210832218
+        }
+      ],
+      "ratio": 8.22530210832218
+    },
+    {
+      "route": "/",
+      "state": "tone 086/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 086/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        51,
+        51,
+        51
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.778587555634648
+        }
+      ],
+      "ratio": 8.778587555634648
+    },
+    {
+      "route": "/",
+      "state": "tone 086/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        56,
+        56,
+        56
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.22530210832218
+        }
+      ],
+      "ratio": 8.22530210832218
+    },
+    {
+      "route": "/",
+      "state": "tone 088/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 088/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        51,
+        51,
+        51
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.778587555634648
+        }
+      ],
+      "ratio": 8.778587555634648
+    },
+    {
+      "route": "/",
+      "state": "tone 088/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        57,
+        57,
+        57
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.11690854370429
+        }
+      ],
+      "ratio": 8.11690854370429
+    },
+    {
+      "route": "/",
+      "state": "tone 090/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 090/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        51,
+        51,
+        51
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.778587555634648
+        }
+      ],
+      "ratio": 8.778587555634648
+    },
+    {
+      "route": "/",
+      "state": "tone 090/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        57,
+        57,
+        57
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.11690854370429
+        }
+      ],
+      "ratio": 8.11690854370429
+    },
+    {
+      "route": "/",
+      "state": "tone 092/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 092/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        53,
+        53,
+        53
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.555223633980763
+        }
+      ],
+      "ratio": 8.555223633980763
+    },
+    {
+      "route": "/",
+      "state": "tone 092/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        58,
+        58,
+        58
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.009383794390697
+        }
+      ],
+      "ratio": 8.009383794390697
+    },
+    {
+      "route": "/",
+      "state": "tone 094/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 094/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        53,
+        53,
+        53
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.555223633980763
+        }
+      ],
+      "ratio": 8.555223633980763
+    },
+    {
+      "route": "/",
+      "state": "tone 094/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        58,
+        58,
+        58
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.009383794390697
+        }
+      ],
+      "ratio": 8.009383794390697
+    },
+    {
+      "route": "/",
+      "state": "tone 096/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        48,
+        48,
+        48
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 9.117521348617773
+        }
+      ],
+      "ratio": 9.117521348617773
+    },
+    {
+      "route": "/",
+      "state": "tone 096/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        53,
+        53,
+        53
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.555223633980763
+        }
+      ],
+      "ratio": 8.555223633980763
+    },
+    {
+      "route": "/",
+      "state": "tone 096/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        59,
+        59,
+        59
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.90276994065947
+        }
+      ],
+      "ratio": 7.90276994065947
+    },
+    {
+      "route": "/",
+      "state": "tone 098/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        50,
+        50,
+        50
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.891114645523011
+        }
+      ],
+      "ratio": 8.891114645523011
+    },
+    {
+      "route": "/",
+      "state": "tone 098/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        53,
+        53,
+        53
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.555223633980763
+        }
+      ],
+      "ratio": 8.555223633980763
+    },
+    {
+      "route": "/",
+      "state": "tone 098/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        59,
+        59,
+        59
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.90276994065947
+        }
+      ],
+      "ratio": 7.90276994065947
+    },
+    {
+      "route": "/",
+      "state": "tone 100/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        50,
+        50,
+        50
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.891114645523011
+        }
+      ],
+      "ratio": 8.891114645523011
+    },
+    {
+      "route": "/",
+      "state": "tone 100/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        53,
+        53,
+        53
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.555223633980763
+        }
+      ],
+      "ratio": 8.555223633980763
+    },
+    {
+      "route": "/",
+      "state": "tone 100/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        59,
+        59,
+        59
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.90276994065947
+        }
+      ],
+      "ratio": 7.90276994065947
+    },
+    {
+      "route": "/",
+      "state": "tone 102/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        50,
+        50,
+        50
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.891114645523011
+        }
+      ],
+      "ratio": 8.891114645523011
+    },
+    {
+      "route": "/",
+      "state": "tone 102/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        53,
+        53,
+        53
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.555223633980763
+        }
+      ],
+      "ratio": 8.555223633980763
+    },
+    {
+      "route": "/",
+      "state": "tone 102/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        59,
+        59,
+        59
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.90276994065947
+        }
+      ],
+      "ratio": 7.90276994065947
+    },
+    {
+      "route": "/",
+      "state": "tone 104/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        50,
+        50,
+        50
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.891114645523011
+        }
+      ],
+      "ratio": 8.891114645523011
+    },
+    {
+      "route": "/",
+      "state": "tone 104/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        53,
+        53,
+        53
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.555223633980763
+        }
+      ],
+      "ratio": 8.555223633980763
+    },
+    {
+      "route": "/",
+      "state": "tone 104/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        59,
+        59,
+        59
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.90276994065947
+        }
+      ],
+      "ratio": 7.90276994065947
+    },
+    {
+      "route": "/",
+      "state": "tone 106/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        50,
+        50,
+        50
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.891114645523011
+        }
+      ],
+      "ratio": 8.891114645523011
+    },
+    {
+      "route": "/",
+      "state": "tone 106/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        55,
+        55,
+        55
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.334519029617036
+        }
+      ],
+      "ratio": 8.334519029617036
+    },
+    {
+      "route": "/",
+      "state": "tone 106/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        61,
+        61,
+        61
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.692426971546146
+        }
+      ],
+      "ratio": 7.692426971546146
+    },
+    {
+      "route": "/",
+      "state": "tone 108/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        50,
+        50,
+        50
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.891114645523011
+        }
+      ],
+      "ratio": 8.891114645523011
+    },
+    {
+      "route": "/",
+      "state": "tone 108/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        55,
+        55,
+        55
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.334519029617036
+        }
+      ],
+      "ratio": 8.334519029617036
+    },
+    {
+      "route": "/",
+      "state": "tone 108/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        61,
+        61,
+        61
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.692426971546146
+        }
+      ],
+      "ratio": 7.692426971546146
+    },
+    {
+      "route": "/",
+      "state": "tone 110/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        51,
+        51,
+        51
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.778587555634648
+        }
+      ],
+      "ratio": 8.778587555634648
+    },
+    {
+      "route": "/",
+      "state": "tone 110/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        56,
+        56,
+        56
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.22530210832218
+        }
+      ],
+      "ratio": 8.22530210832218
+    },
+    {
+      "route": "/",
+      "state": "tone 110/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        61,
+        61,
+        61
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.692426971546146
+        }
+      ],
+      "ratio": 7.692426971546146
+    },
+    {
+      "route": "/",
+      "state": "tone 112/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        50,
+        50,
+        50
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.891114645523011
+        }
+      ],
+      "ratio": 8.891114645523011
+    },
+    {
+      "route": "/",
+      "state": "tone 112/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        56,
+        56,
+        56
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.22530210832218
+        }
+      ],
+      "ratio": 8.22530210832218
+    },
+    {
+      "route": "/",
+      "state": "tone 112/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        61,
+        61,
+        61
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.692426971546146
+        }
+      ],
+      "ratio": 7.692426971546146
+    },
+    {
+      "route": "/",
+      "state": "tone 114/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        52,
+        52,
+        52
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.666602657166916
+        }
+      ],
+      "ratio": 8.666602657166916
+    },
+    {
+      "route": "/",
+      "state": "tone 114/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        56,
+        56,
+        56
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.22530210832218
+        }
+      ],
+      "ratio": 8.22530210832218
+    },
+    {
+      "route": "/",
+      "state": "tone 114/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        62,
+        62,
+        62
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.588766071764788
+        }
+      ],
+      "ratio": 7.588766071764788
+    },
+    {
+      "route": "/",
+      "state": "tone 116/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        52,
+        52,
+        52
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.666602657166916
+        }
+      ],
+      "ratio": 8.666602657166916
+    },
+    {
+      "route": "/",
+      "state": "tone 116/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        56,
+        56,
+        56
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.22530210832218
+        }
+      ],
+      "ratio": 8.22530210832218
+    },
+    {
+      "route": "/",
+      "state": "tone 116/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        62,
+        62,
+        62
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.588766071764788
+        }
+      ],
+      "ratio": 7.588766071764788
+    },
+    {
+      "route": "/",
+      "state": "tone 118/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        51,
+        51,
+        51
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.778587555634648
+        }
+      ],
+      "ratio": 8.778587555634648
+    },
+    {
+      "route": "/",
+      "state": "tone 118/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        56,
+        56,
+        56
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.22530210832218
+        }
+      ],
+      "ratio": 8.22530210832218
+    },
+    {
+      "route": "/",
+      "state": "tone 118/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        62,
+        62,
+        62
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.588766071764788
+        }
+      ],
+      "ratio": 7.588766071764788
+    },
+    {
+      "route": "/",
+      "state": "tone 120/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        51,
+        51,
+        51
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.778587555634648
+        }
+      ],
+      "ratio": 8.778587555634648
+    },
+    {
+      "route": "/",
+      "state": "tone 120/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        56,
+        56,
+        56
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.22530210832218
+        }
+      ],
+      "ratio": 8.22530210832218
+    },
+    {
+      "route": "/",
+      "state": "tone 120/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        62,
+        62,
+        62
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.588766071764788
+        }
+      ],
+      "ratio": 7.588766071764788
+    },
+    {
+      "route": "/",
+      "state": "tone 122/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        52,
+        52,
+        52
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.666602657166916
+        }
+      ],
+      "ratio": 8.666602657166916
+    },
+    {
+      "route": "/",
+      "state": "tone 122/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        57,
+        57,
+        57
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.11690854370429
+        }
+      ],
+      "ratio": 8.11690854370429
+    },
+    {
+      "route": "/",
+      "state": "tone 122/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        63,
+        63,
+        63
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.486152721838324
+        }
+      ],
+      "ratio": 7.486152721838324
+    },
+    {
+      "route": "/",
+      "state": "tone 124/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        52,
+        52,
+        52
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.666602657166916
+        }
+      ],
+      "ratio": 8.666602657166916
+    },
+    {
+      "route": "/",
+      "state": "tone 124/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        58,
+        58,
+        58
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.009383794390697
+        }
+      ],
+      "ratio": 8.009383794390697
+    },
+    {
+      "route": "/",
+      "state": "tone 124/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        63,
+        63,
+        63
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.486152721838324
+        }
+      ],
+      "ratio": 7.486152721838324
+    },
+    {
+      "route": "/",
+      "state": "tone 126/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        53,
+        53,
+        53
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.555223633980763
+        }
+      ],
+      "ratio": 8.555223633980763
+    },
+    {
+      "route": "/",
+      "state": "tone 126/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        58,
+        58,
+        58
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.009383794390697
+        }
+      ],
+      "ratio": 8.009383794390697
+    },
+    {
+      "route": "/",
+      "state": "tone 126/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        64,
+        64,
+        64
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.384613724753205
+        }
+      ],
+      "ratio": 7.384613724753205
+    },
+    {
+      "route": "/",
+      "state": "tone 128/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        53,
+        53,
+        53
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.555223633980763
+        }
+      ],
+      "ratio": 8.555223633980763
+    },
+    {
+      "route": "/",
+      "state": "tone 128/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        58,
+        58,
+        58
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.009383794390697
+        }
+      ],
+      "ratio": 8.009383794390697
+    },
+    {
+      "route": "/",
+      "state": "tone 128/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        64,
+        64,
+        64
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.384613724753205
+        }
+      ],
+      "ratio": 7.384613724753205
+    },
+    {
+      "route": "/",
+      "state": "tone 130/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        53,
+        53,
+        53
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.555223633980763
+        }
+      ],
+      "ratio": 8.555223633980763
+    },
+    {
+      "route": "/",
+      "state": "tone 130/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        58,
+        58,
+        58
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.009383794390697
+        }
+      ],
+      "ratio": 8.009383794390697
+    },
+    {
+      "route": "/",
+      "state": "tone 130/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        64,
+        64,
+        64
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.384613724753205
+        }
+      ],
+      "ratio": 7.384613724753205
+    },
+    {
+      "route": "/",
+      "state": "tone 132/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        53,
+        53,
+        53
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.555223633980763
+        }
+      ],
+      "ratio": 8.555223633980763
+    },
+    {
+      "route": "/",
+      "state": "tone 132/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        58,
+        58,
+        58
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.009383794390697
+        }
+      ],
+      "ratio": 8.009383794390697
+    },
+    {
+      "route": "/",
+      "state": "tone 132/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        66,
+        66,
+        66
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.1848525401433845
+        }
+      ],
+      "ratio": 7.1848525401433845
+    },
+    {
+      "route": "/",
+      "state": "tone 134/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        54,
+        54,
+        54
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.444510372609056
+        }
+      ],
+      "ratio": 8.444510372609056
+    },
+    {
+      "route": "/",
+      "state": "tone 134/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        58,
+        58,
+        58
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.009383794390697
+        }
+      ],
+      "ratio": 8.009383794390697
+    },
+    {
+      "route": "/",
+      "state": "tone 134/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        66,
+        66,
+        66
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.1848525401433845
+        }
+      ],
+      "ratio": 7.1848525401433845
+    },
+    {
+      "route": "/",
+      "state": "tone 136/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        54,
+        54,
+        54
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.444510372609056
+        }
+      ],
+      "ratio": 8.444510372609056
+    },
+    {
+      "route": "/",
+      "state": "tone 136/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        58,
+        58,
+        58
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.009383794390697
+        }
+      ],
+      "ratio": 8.009383794390697
+    },
+    {
+      "route": "/",
+      "state": "tone 136/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        66,
+        66,
+        66
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.1848525401433845
+        }
+      ],
+      "ratio": 7.1848525401433845
+    },
+    {
+      "route": "/",
+      "state": "tone 138/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        54,
+        54,
+        54
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.444510372609056
+        }
+      ],
+      "ratio": 8.444510372609056
+    },
+    {
+      "route": "/",
+      "state": "tone 138/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        58,
+        58,
+        58
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.009383794390697
+        }
+      ],
+      "ratio": 8.009383794390697
+    },
+    {
+      "route": "/",
+      "state": "tone 138/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        66,
+        66,
+        66
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.1848525401433845
+        }
+      ],
+      "ratio": 7.1848525401433845
+    },
+    {
+      "route": "/",
+      "state": "tone 140/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        54,
+        54,
+        54
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.444510372609056
+        }
+      ],
+      "ratio": 8.444510372609056
+    },
+    {
+      "route": "/",
+      "state": "tone 140/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        58,
+        58,
+        58
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.009383794390697
+        }
+      ],
+      "ratio": 8.009383794390697
+    },
+    {
+      "route": "/",
+      "state": "tone 140/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        66,
+        66,
+        66
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.1848525401433845
+        }
+      ],
+      "ratio": 7.1848525401433845
+    },
+    {
+      "route": "/",
+      "state": "tone 142/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        54,
+        54,
+        54
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.444510372609056
+        }
+      ],
+      "ratio": 8.444510372609056
+    },
+    {
+      "route": "/",
+      "state": "tone 142/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        59,
+        59,
+        59
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.90276994065947
+        }
+      ],
+      "ratio": 7.90276994065947
+    },
+    {
+      "route": "/",
+      "state": "tone 142/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        66,
+        66,
+        66
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.1848525401433845
+        }
+      ],
+      "ratio": 7.1848525401433845
+    },
+    {
+      "route": "/",
+      "state": "tone 144/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        55,
+        55,
+        55
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.334519029617036
+        }
+      ],
+      "ratio": 8.334519029617036
+    },
+    {
+      "route": "/",
+      "state": "tone 144/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        60,
+        60,
+        60
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.7971057874641385
+        }
+      ],
+      "ratio": 7.7971057874641385
+    },
+    {
+      "route": "/",
+      "state": "tone 144/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        67,
+        67,
+        67
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.086670844784422
+        }
+      ],
+      "ratio": 7.086670844784422
+    },
+    {
+      "route": "/",
+      "state": "tone 146/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        55,
+        55,
+        55
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.334519029617036
+        }
+      ],
+      "ratio": 8.334519029617036
+    },
+    {
+      "route": "/",
+      "state": "tone 146/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        60,
+        60,
+        60
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.7971057874641385
+        }
+      ],
+      "ratio": 7.7971057874641385
+    },
+    {
+      "route": "/",
+      "state": "tone 146/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        67,
+        67,
+        67
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.086670844784422
+        }
+      ],
+      "ratio": 7.086670844784422
+    },
+    {
+      "route": "/",
+      "state": "tone 148/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        55,
+        55,
+        55
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.334519029617036
+        }
+      ],
+      "ratio": 8.334519029617036
+    },
+    {
+      "route": "/",
+      "state": "tone 148/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        60,
+        60,
+        60
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.7971057874641385
+        }
+      ],
+      "ratio": 7.7971057874641385
+    },
+    {
+      "route": "/",
+      "state": "tone 148/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        67,
+        67,
+        67
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.086670844784422
+        }
+      ],
+      "ratio": 7.086670844784422
+    },
+    {
+      "route": "/",
+      "state": "tone 150/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        55,
+        55,
+        55
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.334519029617036
+        }
+      ],
+      "ratio": 8.334519029617036
+    },
+    {
+      "route": "/",
+      "state": "tone 150/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        60,
+        60,
+        60
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.7971057874641385
+        }
+      ],
+      "ratio": 7.7971057874641385
+    },
+    {
+      "route": "/",
+      "state": "tone 150/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        67,
+        67,
+        67
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.086670844784422
+        }
+      ],
+      "ratio": 7.086670844784422
+    },
+    {
+      "route": "/",
+      "state": "tone 152/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        55,
+        55,
+        55
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.334519029617036
+        }
+      ],
+      "ratio": 8.334519029617036
+    },
+    {
+      "route": "/",
+      "state": "tone 152/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        60,
+        60,
+        60
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.7971057874641385
+        }
+      ],
+      "ratio": 7.7971057874641385
+    },
+    {
+      "route": "/",
+      "state": "tone 152/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        68,
+        68,
+        68
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 6.9896447170466915
+        }
+      ],
+      "ratio": 6.9896447170466915
+    },
+    {
+      "route": "/",
+      "state": "tone 154/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        56,
+        56,
+        56
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.22530210832218
+        }
+      ],
+      "ratio": 8.22530210832218
+    },
+    {
+      "route": "/",
+      "state": "tone 154/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        61,
+        61,
+        61
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.692426971546146
+        }
+      ],
+      "ratio": 7.692426971546146
+    },
+    {
+      "route": "/",
+      "state": "tone 154/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        68,
+        68,
+        68
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 6.9896447170466915
+        }
+      ],
+      "ratio": 6.9896447170466915
+    },
+    {
+      "route": "/",
+      "state": "tone 156/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        56,
+        56,
+        56
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.22530210832218
+        }
+      ],
+      "ratio": 8.22530210832218
+    },
+    {
+      "route": "/",
+      "state": "tone 156/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        62,
+        62,
+        62
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.588766071764788
+        }
+      ],
+      "ratio": 7.588766071764788
+    },
+    {
+      "route": "/",
+      "state": "tone 156/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        69,
+        69,
+        69
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 6.893788536501347
+        }
+      ],
+      "ratio": 6.893788536501347
+    },
+    {
+      "route": "/",
+      "state": "tone 158/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        57,
+        57,
+        57
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.11690854370429
+        }
+      ],
+      "ratio": 8.11690854370429
+    },
+    {
+      "route": "/",
+      "state": "tone 158/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        62,
+        62,
+        62
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.588766071764788
+        }
+      ],
+      "ratio": 7.588766071764788
+    },
+    {
+      "route": "/",
+      "state": "tone 158/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        70,
+        70,
+        70
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 6.799114539514474
+        }
+      ],
+      "ratio": 6.799114539514474
+    },
+    {
+      "route": "/",
+      "state": "tone 160/1000",
+      "family": "size labels",
+      "text": "112px",
+      "surface": [
+        57,
+        57,
+        57
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.11690854370429
+        }
+      ],
+      "ratio": 8.11690854370429
+    },
+    {
+      "route": "/",
+      "state": "tone 160/1000",
+      "family": "size labels",
+      "text": "68px",
+      "surface": [
+        62,
+        62,
+        62
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 7.588766071764788
+        }
+      ],
+      "ratio": 7.588766071764788
+    },
+    {
+      "route": "/",
+      "state": "tone 160/1000",
+      "family": "size labels",
+      "text": "40px",
+      "surface": [
+        70,
+        70,
+        70
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 6.799114539514474
+        }
+      ],
+      "ratio": 6.799114539514474
+    },
+    {
+      "route": "/",
+      "state": "accessibility at +400ms",
+      "family": "material label",
+      "text": "Regular material",
+      "surface": [
+        31,
+        32,
+        33
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.92801187017581
+        }
+      ],
+      "ratio": 10.92801187017581
+    },
+    {
+      "route": "/",
+      "state": "accessibility at +2200ms",
+      "family": "material label",
+      "text": "Regular material",
+      "surface": [
+        31,
+        32,
+        33
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.92801187017581
+        }
+      ],
+      "ratio": 10.92801187017581
+    },
+    {
+      "route": "/",
+      "state": "accessibility at +4200ms",
+      "family": "material label",
+      "text": "Regular material",
+      "surface": [
+        31,
+        32,
+        33
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.92801187017581
+        }
+      ],
+      "ratio": 10.92801187017581
+    },
+    {
+      "route": "/",
+      "state": "accessibility at +6200ms",
+      "family": "material label",
+      "text": "Regular material",
+      "surface": [
+        31,
+        32,
+        33
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.92801187017581
+        }
+      ],
+      "ratio": 10.92801187017581
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +400ms",
+      "family": "toolbar controls",
+      "text": "Share",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +400ms",
+      "family": "toolbar controls",
+      "text": "☆",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +400ms",
+      "family": "toolbar controls",
+      "text": "Publish",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255.00000000000003,
+            255.00000000000003,
+            255.00000000000003
+          ],
+          "alpha": 0.580392156862745,
+          "ratio": 6.347494801893242
+        }
+      ],
+      "ratio": 6.347494801893242
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +400ms",
+      "family": "segments",
+      "text": "Day",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +400ms",
+      "family": "segments",
+      "text": "Week",
+      "surface": [
+        192,
+        192,
+        192
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            6,
+            11,
+            14
+          ],
+          "alpha": 1,
+          "ratio": 10.868932268154042
+        }
+      ],
+      "ratio": 10.868932268154042
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +400ms",
+      "family": "segments",
+      "text": "Month",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +400ms",
+      "family": "closed morph",
+      "text": "Actions ▾",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        },
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +2200ms",
+      "family": "toolbar controls",
+      "text": "Share",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +2200ms",
+      "family": "toolbar controls",
+      "text": "☆",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +2200ms",
+      "family": "toolbar controls",
+      "text": "Publish",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255.00000000000003,
+            255.00000000000003,
+            255.00000000000003
+          ],
+          "alpha": 0.580392156862745,
+          "ratio": 6.347494801893242
+        }
+      ],
+      "ratio": 6.347494801893242
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +2200ms",
+      "family": "segments",
+      "text": "Day",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +2200ms",
+      "family": "segments",
+      "text": "Week",
+      "surface": [
+        192,
+        192,
+        192
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            6,
+            11,
+            14
+          ],
+          "alpha": 1,
+          "ratio": 10.868932268154042
+        }
+      ],
+      "ratio": 10.868932268154042
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +2200ms",
+      "family": "segments",
+      "text": "Month",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +2200ms",
+      "family": "closed morph",
+      "text": "Actions ▾",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        },
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +4200ms",
+      "family": "toolbar controls",
+      "text": "Share",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +4200ms",
+      "family": "toolbar controls",
+      "text": "☆",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +4200ms",
+      "family": "toolbar controls",
+      "text": "Publish",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255.00000000000003,
+            255.00000000000003,
+            255.00000000000003
+          ],
+          "alpha": 0.580392156862745,
+          "ratio": 6.347494801893242
+        }
+      ],
+      "ratio": 6.347494801893242
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +4200ms",
+      "family": "segments",
+      "text": "Day",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +4200ms",
+      "family": "segments",
+      "text": "Week",
+      "surface": [
+        192,
+        192,
+        192
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            6,
+            11,
+            14
+          ],
+          "alpha": 1,
+          "ratio": 10.868932268154042
+        }
+      ],
+      "ratio": 10.868932268154042
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +4200ms",
+      "family": "segments",
+      "text": "Month",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +4200ms",
+      "family": "closed morph",
+      "text": "Actions ▾",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        },
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +6200ms",
+      "family": "toolbar controls",
+      "text": "Share",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +6200ms",
+      "family": "toolbar controls",
+      "text": "☆",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +6200ms",
+      "family": "toolbar controls",
+      "text": "Publish",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255.00000000000003,
+            255.00000000000003,
+            255.00000000000003
+          ],
+          "alpha": 0.580392156862745,
+          "ratio": 6.347494801893242
+        }
+      ],
+      "ratio": 6.347494801893242
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +6200ms",
+      "family": "segments",
+      "text": "Day",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +6200ms",
+      "family": "segments",
+      "text": "Week",
+      "surface": [
+        192,
+        192,
+        192
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            6,
+            11,
+            14
+          ],
+          "alpha": 1,
+          "ratio": 10.868932268154042
+        }
+      ],
+      "ratio": 10.868932268154042
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +6200ms",
+      "family": "segments",
+      "text": "Month",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour closed at +6200ms",
+      "family": "closed morph",
+      "text": "Actions ▾",
+      "surface": [
+        31,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        },
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.93586338359508
+        }
+      ],
+      "ratio": 10.93586338359508
+    },
+    {
+      "route": "/",
+      "state": "behaviour favourite selected",
+      "family": "selected favourite glyph",
+      "text": "★",
+      "surface": [
+        51,
+        52,
+        52
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 8.690135273929908
+        }
+      ],
+      "ratio": 8.690135273929908
+    },
+    {
+      "route": "/",
+      "state": "behaviour menu open",
+      "family": "menu items",
+      "text": "Duplicate",
+      "surface": [
+        30,
+        31,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 11.033475116980894
+        }
+      ],
+      "ratio": 11.033475116980894
+    },
+    {
+      "route": "/",
+      "state": "behaviour menu open",
+      "family": "menu items",
+      "text": "Rename…",
+      "surface": [
+        30,
+        31,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 11.033475116980894
+        }
+      ],
+      "ratio": 11.033475116980894
+    },
+    {
+      "route": "/",
+      "state": "behaviour menu open",
+      "family": "menu items",
+      "text": "Export as PNG",
+      "surface": [
+        32,
+        32,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 10.913601656257798
+        }
+      ],
+      "ratio": 10.913601656257798
+    },
+    {
+      "route": "/",
+      "state": "behaviour menu open",
+      "family": "menu items",
+      "text": "Delete",
+      "surface": [
+        30,
+        31,
+        32
+      ],
+      "floor": 4.5,
+      "floorName": "body-pixel",
+      "inks": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "alpha": 0.803921568627451,
+          "ratio": 11.033475116980894
+        }
+      ],
+      "ratio": 11.033475116980894
+    },
+    {
+      "route": "/laws/",
+      "state": "tone",
+      "family": "tone labels",
+      "text": "112px",
+      "surface": [
+        223,
+        223,
+        223
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 11.923391282675139
+        }
+      ],
+      "ratio": 11.923391282675139
+    },
+    {
+      "route": "/laws/",
+      "state": "tone",
+      "family": "tone labels",
+      "text": "40px",
+      "surface": [
+        224,
+        224,
+        224
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 12.014447450592113
+        }
+      ],
+      "ratio": 12.014447450592113
+    },
+    {
+      "route": "/laws/",
+      "state": "tint",
+      "family": "tint labels",
+      "text": "over dark",
+      "surface": [
+        232,
+        135,
+        0
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 6.704351776691943
+        }
+      ],
+      "ratio": 6.704351776691943
+    },
+    {
+      "route": "/laws/",
+      "state": "tint",
+      "family": "tint labels",
+      "text": "over light",
+      "surface": [
+        252,
+        147,
+        0
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 7.741304428499554
+        }
+      ],
+      "ratio": 7.741304428499554
+    },
+    {
+      "route": "/laws/",
+      "state": "body",
+      "family": "body labels",
+      "text": "112px",
+      "surface": [
+        206,
+        208,
+        210
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 10.56263469180175
+        }
+      ],
+      "ratio": 10.56263469180175
+    },
+    {
+      "route": "/laws/",
+      "state": "lens",
+      "family": "lens labels",
+      "text": "lens",
+      "surface": [
+        225,
+        227,
+        229
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 12.263499819380115
+        }
+      ],
+      "ratio": 12.263499819380115
+    },
+    {
+      "route": "/laws/",
+      "state": "nested at +400ms",
+      "family": "nested labels",
+      "text": "base",
+      "surface": [
+        239,
+        237,
+        230
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.211807281746312
+        }
+      ],
+      "ratio": 13.211807281746312
+    },
+    {
+      "route": "/laws/",
+      "state": "nested at +400ms",
+      "family": "nested labels",
+      "text": "pane",
+      "surface": [
+        252,
+        250,
+        248
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 14.482339295711665
+        }
+      ],
+      "ratio": 14.482339295711665
+    },
+    {
+      "route": "/laws/",
+      "state": "nested at +2200ms",
+      "family": "nested labels",
+      "text": "base",
+      "surface": [
+        240,
+        241,
+        241
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.575337458502032
+        }
+      ],
+      "ratio": 13.575337458502032
+    },
+    {
+      "route": "/laws/",
+      "state": "nested at +2200ms",
+      "family": "nested labels",
+      "text": "pane",
+      "surface": [
+        251,
+        252,
+        252
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 14.627407632306817
+        }
+      ],
+      "ratio": 14.627407632306817
+    },
+    {
+      "route": "/laws/",
+      "state": "nested at +4200ms",
+      "family": "nested labels",
+      "text": "base",
+      "surface": [
+        236,
+        242,
+        251
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.634503931411748
+        }
+      ],
+      "ratio": 13.634503931411748
+    },
+    {
+      "route": "/laws/",
+      "state": "nested at +4200ms",
+      "family": "nested labels",
+      "text": "pane",
+      "surface": [
+        250,
+        252,
+        255
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 14.62814427056002
+        }
+      ],
+      "ratio": 14.62814427056002
+    },
+    {
+      "route": "/laws/",
+      "state": "nested at +6200ms",
+      "family": "nested labels",
+      "text": "base",
+      "surface": [
+        241,
+        241,
+        245
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 13.623076445126035
+        }
+      ],
+      "ratio": 13.623076445126035
+    },
+    {
+      "route": "/laws/",
+      "state": "nested at +6200ms",
+      "family": "nested labels",
+      "text": "pane",
+      "surface": [
+        251,
+        252,
+        254
+      ],
+      "floor": 3,
+      "floorName": "large-label-pixel",
+      "inks": [
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.8470588235294118,
+          "ratio": 14.64144370728227
+        }
+      ],
+      "ratio": 14.64144370728227
+    }
+  ]
+}

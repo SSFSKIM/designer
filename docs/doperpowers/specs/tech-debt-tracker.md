@@ -2610,3 +2610,24 @@ say so in the declaration — either weight the objective by the scored populati
 smaller population is the right one. Not worth re-opening this fit for: the outcome of the ruling is
 the same either way, because the light standard pair fails on a different, refused term and G2 stays
 blocked regardless.
+
+**Resolution appended by W27e G3 (2026-09-13; claims §5.142 §3).** It is the **solve's
+composite**, not the plate median and not a false backdrop hint. On the CSS light plate the median
+rendered pixel and the independently exposed pixel under the secondary glyph are both
+`[163, 192, 235]`; hiding the complete glass overlay exposes `[231, 231, 231]`, exactly the byte the
+page paints and the hint decodes. The token instead solves against the ideal tinted composite
+`[164.241, 192.852, 236.202]`, **+1.241 / +0.852 / +1.202 code values** from the pixels the selected
+CSS drawing form renders. The exact token alpha 0.589676 reads **4.500132** on that solve input and
+**4.482090** on the rendered pixel, so the physical shortfall is 0.018042. The canvas method's
+8-bit black/white recovery resolves the alpha to 0.588235 and reads **4.462809**; its quantum is the
+remaining 0.019281 of the originally reported 0.037323. The 4.45 CSS pixel floor therefore stays.
+
+G3 also made the GPU reading explicit instead of leaving it inside G2's JSON: the two plate grounds
+read **4.308564 / 4.278166** on the WebGPU tier, already present at those values in G2's
+`readings-after.json`, and are held at a separately named **4.25 WebGPU pixel floor**. Neither pixel
+floor is Decision Log 9's token promise. Closing this entry means solving each tier's secondary
+against the composite its selected drawing form actually publishes — the CSS transfer/overlay form
+rather than `cssTierForegroundColour(optics, hint)`, and the renderer output rather than
+`gpuTierForegroundColour(material, hint)` — then retiring both pixel floors by fix. This is a
+material/composite change and remains deferred; the landing gate records and guards it rather than
+retuning the material without a wave.

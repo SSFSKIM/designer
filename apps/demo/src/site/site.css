@@ -712,12 +712,14 @@ code {
  *
  * Heights are `height`, not `min-height`: a plate that grew to fit its label
  * would leave the band it was chosen to sit in. The smallest is 40px against a
- * 22px h3 line box, so every label still fits at the one type size the contrast
+ * 23px line box, so every label still fits at the one type size the contrast
  * suite holds `.plate strong` to — the plate's size is what is being shown, and
- * shrinking a label to fit would have moved it under the large-text floor.
+ * shrinking a label to fit would move it under the large-text floor. The vertical
+ * padding is one step rather than two for that reason: the 40px plate has to hold
+ * the size the 3:1 floor requires, and the label is what that plate is for.
  */
 .plate--sweep {
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-1) var(--space-4);
   place-content: center;
 }
 
@@ -736,10 +738,42 @@ code {
   height: 112px;
 }
 
+/*
+ * The plate label's size and weight are an accessibility constraint before they
+ * are a type choice, so they are literals here rather than a step on the h3 scale
+ * this used to borrow. Every one of these labels is held to WCAG's 3:1 large-text
+ * floor, and that floor only applies to text that is actually large: 18pt at any
+ * weight, or 14pt at bold — 24px, or 18.66px bold. At the h3 step this rendered
+ * 17px at weight 650, which qualifies under neither, so the floor was being
+ * claimed for type that had not earned it.
+ *
+ * 20px at 700 takes the second reading rather than the first, and the weight is
+ * the load-bearing half of that: 650 is heavy but "bold" is a judgement about a
+ * face, while 700 is the weight at which the CSS keyword and the criterion's word
+ * agree without argument. The pair is chosen over 24px because the plates are
+ * sized to demonstrate the material's size law — the smallest is 40px and the
+ * laws page's body control goes to 32 — and a label that outgrew its plate would
+ * be showing the type rather than the span.
+ *
+ * `landing-label-contrast.gpu.spec.ts` asserts both numbers on the rendered
+ * pixels, so a later change to either cannot quietly take these rows back under
+ * the floor they claim. The line height is tighter than the h3's to match: 23px
+ * is what fits inside the 32px floor span with the padding below.
+ */
 .plate strong {
-  font-size: var(--type-h3-size);
-  line-height: var(--type-h3-line);
-  font-weight: 650;
+  font-size: 1.25rem;
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+/*
+ * The stage owns both this saturated emphasis tint and its one-word size label.
+ * Primary vibrancy deliberately promises no universal ratio, so the app supplies
+ * dark ink when the tint is present instead of treating the selected white pole
+ * as a large-label contrast guarantee.
+ */
+.plate__label--on-tint {
+  color: light-dark(var(--paper-9), var(--paper-0));
 }
 
 .bar {
@@ -905,7 +939,7 @@ code {
  */
 .segment[aria-checked="true"] {
   font-weight: 650;
-  color: var(--paper-9);
+  color: light-dark(var(--paper-9), var(--paper-0));
 }
 
 .segment:focus-visible {

@@ -32,10 +32,15 @@
  * is `height` rather than `min-height` for the site's reason: a plate that grew
  * to fit its label would leave the span it was set to. The width stays past the
  * largest span the control offers, so the short side is always the height.
+ *
+ * The vertical padding is one step, not two, because the label has to stay large
+ * text — 20px at weight 700, a 23px line box — while the control's floor span is
+ * 32px. One step puts 31px inside a 32px plate, so the label now fits across the
+ * control's whole travel, which it did not at the old two steps and the old size.
  */
 .plate--laws-body {
   width: min(20rem, 100%);
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-1) var(--space-4);
 }
 
 .plate--laws-lens {

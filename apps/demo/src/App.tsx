@@ -60,11 +60,27 @@ import { TintInkPlate } from "./TintInkPlate";
 
 const TEXTURE_SOURCE = { kind: "texture", id: "playground.canvas" } as const;
 
+/*
+ * The groups this panel accounts for. With the band's own two readouts beside its
+ * grounds, that is every group the page registers.
+ *
+ * The list used to name four, and the three it left out were not less interesting
+ * — they were the ones nobody could check: the segmented control's track, and the
+ * two groups the band's `Publish` buttons step out into. A reader comparing tiers,
+ * and a suite measuring a label against a floor, both need the runtime's answer
+ * for the group that label is actually sitting on, and a group with no readout
+ * anywhere leaves only what the page asked for, which is the one thing X2 says not
+ * to report. The band's two plate groups are not repeated here: they already
+ * publish their resolved tier beside the ground each one stands on.
+ */
 const GROUPS = [
   { id: "dom-region", label: "dom-region (arbitrary DOM)" },
   { id: "texture-region", label: "texture-region (registered texture)" },
+  { id: "segmented", label: "segmented (the view control's track)" },
   { id: "toolbar", label: "toolbar" },
   { id: "toolbar-menu", label: "toolbar-menu (the morph)" },
+  { id: "ink-light-action", label: "ink-light-action (the light ground's tinted button)" },
+  { id: "ink-dark-action", label: "ink-dark-action (the dark ground's tinted button)" },
 ] as const;
 
 const RANGES = [

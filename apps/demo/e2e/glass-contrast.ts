@@ -27,12 +27,58 @@
 import type { Locator, Page } from "@playwright/test";
 import { PNG } from "pngjs";
 
+import { remainingWait } from "./label-gate";
+
 /** WCAG AA: 4.5:1 for body text, 3:1 for large text. */
 export const BODY_FLOOR = 4.5;
 export const LARGE_FLOOR = 3;
 
-/** Phases of the backdrop's drift, in ms. It has a nine-second period. */
+/**
+ * Phases of the backdrop's drift, in ms, as **offsets from the moment sampling
+ * starts**. It has a nine-second period, and these four are four points in it.
+ */
 export const SAMPLE_DELAYS = [400, 2200, 4200, 6200];
+
+/**
+ * When one batch of sampling began: the offset it was scheduled for, and the offset
+ * it actually started at.
+ *
+ * `batchStartedMs` is a batch stamp and not a per-label capture time, and the name
+ * says so because the distinction is load-bearing for what a record may claim. One
+ * phase drives a whole scenario: its families are measured one after another inside
+ * a single callback, and every row produced there carries this same object. So the
+ * first label of a batch is read at roughly this offset and the last one some way
+ * after it. A record that read this as the moment each label was captured would be
+ * asserting a precision the instrument never had.
+ */
+export interface SamplePhase {
+  readonly scheduledMs: number;
+  readonly batchStartedMs: number;
+}
+
+/**
+ * Run `sample` once at each phase of the drift.
+ *
+ * The offsets are absolute from this call, not delays between samples. Waiting
+ * `SAMPLE_DELAYS[i]` *between* samples makes them cumulative, and reading a
+ * screenshot is not free — a scenario whose families take a second each would
+ * have put its four samples at 0.4s, 3.2s, 6.2s and 9.2s of a nine-second period
+ * rather than at the four points that were chosen, with the last one back where
+ * the first began. Each batch therefore waits only the remainder to its own
+ * offset, and is told the offset it actually started at, so that what gets
+ * recorded is a reading rather than a schedule.
+ */
+export async function atSamplePhases(
+  page: Page,
+  sample: (phase: SamplePhase) => Promise<void>,
+): Promise<void> {
+  const startedAt = Date.now();
+  for (const scheduledMs of SAMPLE_DELAYS) {
+    const wait = remainingWait(startedAt, Date.now(), scheduledMs);
+    if (wait > 0) await page.waitForTimeout(wait);
+    await sample({ scheduledMs, batchStartedMs: Date.now() - startedAt });
+  }
+}
 
 const channel = (value: number): number => {
   const v = value / 255;
@@ -136,6 +182,53 @@ export async function surfaceOf(target: Locator): Promise<Channels> {
   return pixels[Math.floor(pixels.length / 2)]?.rgb ?? [0, 0, 0];
 }
 
+/**
+ * The median surface pixel directly under a painter's glyphs.
+ *
+ * A broad control can use `surfaceOf`: its box is overwhelmingly material. A
+ * two-character specimen cannot — its box is mostly glyph, while its containing
+ * plate's median may be somewhere else on a chromatic material. Capture the same
+ * box once as rendered and once with only this painter transparent, then retain
+ * the pixels that changed. The second image at those coordinates is the material
+ * the glyphs actually covered, without deriving it from the ink being tested.
+ */
+export async function surfaceUnderInk(target: Locator): Promise<Channels> {
+  const painted = PNG.sync.read(await target.screenshot());
+  const previous = await target.evaluate((element) => {
+    const html = element as HTMLElement;
+    const value = html.style.getPropertyValue("color");
+    const priority = html.style.getPropertyPriority("color");
+    html.style.setProperty("color", "transparent", "important");
+    return { value, priority };
+  });
+
+  let bare: PNG;
+  try {
+    bare = PNG.sync.read(await target.screenshot());
+  } finally {
+    await target.evaluate((element, { value, priority }) => {
+      const html = element as HTMLElement;
+      if (value === "") html.style.removeProperty("color");
+      else html.style.setProperty("color", value, priority);
+    }, previous);
+  }
+
+  const pixels: { readonly rgb: Channels; readonly y: number }[] = [];
+  for (let i = 0; i < bare.data.length; i += 4) {
+    if ((bare.data[i + 3] ?? 0) < 200) continue;
+    const changed =
+      Math.abs((painted.data[i] ?? 0) - (bare.data[i] ?? 0)) +
+      Math.abs((painted.data[i + 1] ?? 0) - (bare.data[i + 1] ?? 0)) +
+      Math.abs((painted.data[i + 2] ?? 0) - (bare.data[i + 2] ?? 0));
+    if (changed < 3) continue;
+    const rgb: Channels = [bare.data[i] ?? 0, bare.data[i + 1] ?? 0, bare.data[i + 2] ?? 0];
+    pixels.push({ rgb, y: luminance(rgb[0], rgb[1], rgb[2]) });
+  }
+  if (pixels.length === 0) throw new Error("the painter made no measurable pixels");
+  pixels.sort((a, b) => a.y - b.y);
+  return pixels[Math.floor(pixels.length / 2)]?.rgb ?? [0, 0, 0];
+}
+
 /** The ink as it actually reaches the eye: composited over the surface it sits on. */
 export function inkOver(
   ink: { readonly rgb: Channels; readonly alpha: number },
@@ -172,11 +265,11 @@ export async function worstNow(
 /** The worst ratio any matching element reaches across the sampled phases. */
 export async function worstRatio(page: Page, selector: string): Promise<{ ratio: number; where: string }> {
   let worst = { ratio: Number.POSITIVE_INFINITY, where: selector };
-  for (const delay of SAMPLE_DELAYS) {
-    await page.waitForTimeout(delay);
-    const found = await worstNow(page, selector, `at +${delay}ms`);
+  await atSamplePhases(page, async ({ batchStartedMs }) => {
+    const when = `in the batch beginning +${String(batchStartedMs)}ms`;
+    const found = await worstNow(page, selector, when);
     if (found.ratio < worst.ratio) worst = found;
-  }
+  });
   return worst;
 }
 

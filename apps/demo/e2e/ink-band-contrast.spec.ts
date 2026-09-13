@@ -87,31 +87,22 @@ test("the band's primary ink holds the body-text floor on both grounds", async (
 });
 
 /**
- * Secondary, on the pixels — and it is 0.037 under its own promise on one
- * ground, which this case records rather than hides (W27e G2; claims §5.140 §9).
+ * Secondary is held to the rendered **pixel floor**, not relabelled as the
+ * token's 4.5 promise (W27e G3; claims §5.142 §3).
  *
- * `--vitrea-foreground-secondary` promises 4.5 against **the composite the
- * runtime solved it against**: the colour `cssTierForegroundColour` computes for
- * the surface's material over its declared backdrop. That promise is held by the
- * unit suites, exactly, on that colour. What this case measures is a different
- * surface — the plate's own median rendered pixel — and on the light ground the
- * two differ enough to put the ratio at **4.463** against the 4.5 the token
- * claims.
+ * The attribution has now been taken. On the light plate the median and the
+ * pixel under the glyph are both `[163, 192, 235]`, and the actual ground is the
+ * declared `[231, 231, 231]`: neither candidate explains the shortfall. The
+ * solve instead targets `[164.241, 192.852, 236.202]`, the ideal tinted
+ * composite, while this CSS drawing form paints the former. The token's exact
+ * alpha reads 4.500 there and 4.482 on the rendered surface; the canvas's 8-bit
+ * recovery resolves that alpha to 0.588235 and the harness reads 4.463. So the
+ * solve-composite mismatch is the physical gap, and the instrument's quantum is
+ * the rest of the reported 0.037.
  *
- * It is not this gate's doing. The same reading on the same instrument before
- * Apple's ink landed is **4.481**, so the operator moved it by 0.018 and the
- * shortfall predates it; the dark ground reads 4.563 before and after. Both
- * numbers are in `packages/calibration/results/2026-09-13-w27e-g2-operator/`.
- * What has not been separated is *why* the two surfaces differ — the median of a
- * plate that contains its own specimens, the tint's chroma against a solve taken
- * on the tier's computed composite, or a declared backdrop that is not quite what
- * is behind the plate — and separating them is a measurement this gate did not
- * take.
- *
- * So the floor here is the **pixel** floor and says so: 4.45, which is 4.5 less
- * the divergence measured above. A real regression — a solve against the wrong
- * colour, a ladder that stopped being raised, a ceiling lifted off the primary —
- * moves this by whole units rather than by hundredths.
+ * The 4.45 floor remains named as a pixel floor until the runtime solves against
+ * the selected CSS drawing form's actual composite. Tertiary and quaternary
+ * remain read-only below.
  */
 const SECONDARY_PIXEL_FLOOR = 4.45;
 

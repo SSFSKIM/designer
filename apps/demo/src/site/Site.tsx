@@ -605,6 +605,18 @@ export function Site(props: SiteProps): ReactNode {
             mandate, so the type excludes it from the prop set: under it the material
             flattens to system colours and borders, with no glass at all.
           </p>
+          {/*
+            The policy above is what the root resolved; this is what the surface
+            beside it resolved, and they are different questions. Every other stage
+            publishes its group, and this one did not — which left the one stage
+            about resolved state as the one stage whose own renderer had to be
+            inferred from the stage next door. Asking is not getting, here least of
+            all: a reader changing these controls is watching the material change,
+            and the row below says which renderer is making that change.
+          */}
+          {GROUPS_BY_MODE.access.map((group) => (
+            <GroupReadout key={group.id} id={group.id} label={group.label} />
+          ))}
         </Section>
 
         <Section id="tiers" active={active}>

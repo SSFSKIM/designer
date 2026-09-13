@@ -291,13 +291,26 @@ body {
   font-size: 0.9375rem;
 }
 
+/*
+ * 20px at 700 because that is WCAG's bold reading of large text — 14pt at bold —
+ * and these headings are held to the 3:1 large-text floor on the rendered pixels
+ * by `landing-label-contrast.gpu.spec.ts`. At the 17px this used to be, on the
+ * `<strong>` element's inherited weight, the floor was being claimed for type
+ * that qualified as neither 24px nor 18.66px-and-bold. The weight is declared
+ * rather than left to the element's default: the gate reads the computed number,
+ * and a page that inherits its way to boldness has not stated anything. The
+ * site's own plate carries the same pair for the same reason; the two pages do
+ * not share a stylesheet.
+ */
 .plate strong {
   display: block;
-  font-size: 1.0625rem;
+  font-size: 1.25rem;
+  line-height: 1.15;
+  font-weight: 700;
 }
 
 .plate span {
-  color: var(--ink-dim);
+  color: var(--vitrea-foreground, var(--ink));
   font-size: 0.8125rem;
 }
 
@@ -610,9 +623,11 @@ body {
   isolation: isolate;
 }
 
+/* Disabled recedes in its ink, not by fading the glass host. The site's same
+   control measures 72% as the furthest dim that keeps the body-text pixel floor. */
 .control:disabled {
+  color: color-mix(in oklab, var(--vitrea-foreground, var(--ink)) 72%, transparent);
   cursor: default;
-  opacity: 0.45;
 }
 
 /*
@@ -667,12 +682,14 @@ body {
   font: inherit;
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--ink-dim);
+  color: var(--vitrea-foreground, var(--ink));
   cursor: pointer;
 }
 
 .segment[aria-checked="true"] {
-  color: var(--vitrea-foreground, var(--ink));
+  /* The selected pill is bright app decoration over the glass track, so its ink
+     belongs to that pill rather than to the material behind the unselected labels. */
+  color: var(--ground);
 }
 
 .segment:focus-visible {
