@@ -489,6 +489,18 @@ dilated candidates (no evidence prefers them and the silhouette is the one both 
 exactly). The acceptance-2 stop clause ("if G0 selects the source mean") did not fire: the source
 won one six-cell row and lost the populous ones by an order of magnitude.
 
+*Addendum (f), the same day, on G1's pre-fit question — the holdout's scope.* No dark inactive non-D
+cell has a silhouette-minus-source offset above 0.05 (the largest are `photo__capsule-button`
+at 0.03734 and `checkerboard-64__rrect-lg` at 0.03046), so the §Design requirement of one such
+cell per scheme cannot be met from the bed in dark; and the light `hc-text__capsule-button__inactive`
+(offset 0.137) is the manifest's `holdout`, spent by §5.130's read of G1's configuration. Ruled:
+the holdout rule is one read per frozen configuration, so a cell spent against G1's endpoint and
+never fitted on is admissible as W28's holdout provided the fit does not see it — the light
+holdout takes `hc-text__capsule-button__inactive`; the dark holdout takes the two largest-offset
+non-D inactive cells, and X8 records that its discriminating offset is bounded at 0.037, the real
+dark test of the abscissa being the checking set's own `hc-text__rrect-sm__inactive` at G2. No
+capture is added for this.
+
 ## Surprises & Discoveries
 
 - 2026-09-14 (G0, §5.144): the region reversal reproduces, and locality improves clean
