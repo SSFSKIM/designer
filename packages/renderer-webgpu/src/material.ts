@@ -550,6 +550,15 @@ export interface MaterialOuterShadow {
  * Units: CSS px for distance, linear light for colour, viewport coordinates with
  * y pointing down for direction.
  */
+export type BackdropToneKnotRow =
+  | readonly [number, number, number]
+  | readonly [number, number, number, number];
+
+export interface MaterialOcclusionLiftByPolicy {
+  readonly reduceTransparency: number;
+  readonly increaseContrast: number;
+}
+
 export interface MaterialProfile {
   /** Per-variant optics. `clear` is persistently more transparent than `regular`. */
   readonly optics: Readonly<Record<MaterialVariant, MaterialOptics>>;
@@ -1321,6 +1330,8 @@ export interface MaterialProfile {
    * both directions by `packages/calibration/test/tier-coherence.test.ts`.
    */
   readonly increasedOcclusionLift: number;
+  /** Optional policy-specific levels. Absent keeps the shared lift exactly. */
+  readonly increasedOcclusionLiftByPolicy?: MaterialOcclusionLiftByPolicy;
   readonly strongBorderRim: MaterialRim;
   readonly reducedTintAdaptation: number;
 
@@ -1611,9 +1622,9 @@ export interface MaterialProfile {
    * extreme-dark region stays with the collapse constants that were fitted
    * on it.
    */
-  readonly backdropToneAnchorX: readonly [number, number, number];
-  readonly backdropToneResponseThin: readonly [number, number, number];
-  readonly backdropToneResponseThick: readonly [number, number, number];
+  readonly backdropToneAnchorX: BackdropToneKnotRow;
+  readonly backdropToneResponseThin: BackdropToneKnotRow;
+  readonly backdropToneResponseThick: BackdropToneKnotRow;
 
   /**
    * How much authority the response law has in THIS profile, 0…1 (W9).
@@ -1732,6 +1743,17 @@ export function occlusionAlphaUnderPolicy(
     case "opaque":
       return 1;
   }
+}
+
+export function occlusionLiftForPolicy(
+  policy: MaterialPolicyView,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  if (policy.occlusion !== "increased") return profile.increasedOcclusionLift;
+  const levels = profile.increasedOcclusionLiftByPolicy;
+  return policy.ambientTint === "reduced"
+    ? levels?.increaseContrast ?? profile.increasedOcclusionLift
+    : levels?.reduceTransparency ?? profile.increasedOcclusionLift;
 }
 
 export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
@@ -2731,6 +2753,7 @@ export interface MaterialProfilePatch {
   readonly lensOvalizationSpanMax?: number;
   readonly reducedTransparencyFrost?: number;
   readonly increasedOcclusionLift?: number;
+  readonly increasedOcclusionLiftByPolicy?: Readonly<Partial<MaterialOcclusionLiftByPolicy>>;
   readonly strongBorderRim?: Readonly<Partial<MaterialRim>>;
   readonly reducedTintAdaptation?: number;
   readonly tintShadeDark?: number;
@@ -2747,9 +2770,9 @@ export interface MaterialProfilePatch {
   readonly rimCollapsed?: number;
   readonly rimCollapsedTinted?: number;
   readonly rimTintChroma?: number;
-  readonly backdropToneAnchorX?: readonly [number, number, number];
-  readonly backdropToneResponseThin?: readonly [number, number, number];
-  readonly backdropToneResponseThick?: readonly [number, number, number];
+  readonly backdropToneAnchorX?: BackdropToneKnotRow;
+  readonly backdropToneResponseThin?: BackdropToneKnotRow;
+  readonly backdropToneResponseThick?: BackdropToneKnotRow;
   readonly backdropToneResponseStrength?: number;
   readonly outerShadow?: Readonly<Partial<MaterialOuterShadow>>;
   readonly lightDirection?: readonly [number, number];
@@ -2872,6 +2895,12 @@ export function withMaterialOverrides(
     lensOvalizationSpanMax: patch.lensOvalizationSpanMax ?? base.lensOvalizationSpanMax,
     reducedTransparencyFrost: patch.reducedTransparencyFrost ?? base.reducedTransparencyFrost,
     increasedOcclusionLift: patch.increasedOcclusionLift ?? base.increasedOcclusionLift,
+    ...((patch.increasedOcclusionLiftByPolicy ?? base.increasedOcclusionLiftByPolicy) === undefined
+      ? {}
+      : { increasedOcclusionLiftByPolicy: {
+          ...base.increasedOcclusionLiftByPolicy,
+          ...patch.increasedOcclusionLiftByPolicy,
+        } as MaterialOcclusionLiftByPolicy }),
     strongBorderRim: { ...base.strongBorderRim, ...patch.strongBorderRim },
     reducedTintAdaptation: patch.reducedTintAdaptation ?? base.reducedTintAdaptation,
     tintShadeDark: patch.tintShadeDark ?? base.tintShadeDark,
@@ -2933,7 +2962,7 @@ export function opticsUnderPolicy(
     tintAlpha: occlusionAlphaUnderPolicy(
       next.tintAlpha,
       policy.occlusion,
-      profile.increasedOcclusionLift,
+      occlusionLiftForPolicy(policy, profile),
     ),
   };
 
@@ -3321,21 +3350,45 @@ export function backdropToneResponse(
         f,
   ) as [number, number, number];
 
-  const x = Math.min(xs[2], Math.max(xs[0], encodedInput));
-  const h0 = xs[1] - xs[0];
-  const h1 = xs[2] - xs[1];
-  const d0 = (ys[1] - ys[0]) / h0;
-  const d1 = (ys[2] - ys[1]) / h1;
-  // Interior slope: the Fritsch–Carlson harmonic mean, 0 across a sign change,
-  // which is what keeps the curve monotone between monotone anchors.
-  const m1 = d0 * d1 <= 0 ? 0 : (2 * d0 * d1) / (d0 + d1);
-  const seg = x <= xs[1] ? 0 : 1;
-  const h = seg === 0 ? h0 : h1;
-  const t = (x - (seg === 0 ? xs[0] : xs[1])) / h;
-  const y0 = seg === 0 ? ys[0] : ys[1];
-  const y1 = seg === 0 ? ys[1] : ys[2];
-  const s0 = seg === 0 ? d0 : m1;
-  const s1 = seg === 0 ? m1 : d1;
+  let x: number, h: number, t: number, y0: number, y1: number, s0: number, s1: number;
+  if (xs.length === 3) {
+    // Kept as the original arithmetic, not routed through the four-knot branch:
+    // every existing three-knot document must resolve and render bit-identically.
+    x = Math.min(xs[2], Math.max(xs[0], encodedInput));
+    const h0 = xs[1] - xs[0];
+    const h1 = xs[2] - xs[1];
+    const d0 = (ys[1] - ys[0]) / h0;
+    const d1 = (ys[2] - ys[1]) / h1;
+    const m1 = d0 * d1 <= 0 ? 0 : (2 * d0 * d1) / (d0 + d1);
+    const seg = x <= xs[1] ? 0 : 1;
+    h = seg === 0 ? h0 : h1;
+    t = (x - (seg === 0 ? xs[0] : xs[1])) / h;
+    y0 = seg === 0 ? ys[0] : ys[1];
+    y1 = seg === 0 ? ys[1] : ys[2];
+    s0 = seg === 0 ? d0 : m1;
+    s1 = seg === 0 ? m1 : d1;
+  } else {
+    const ys4 = [ys[0], ys[1], ys[2],
+      profile.backdropToneResponseThin[3]!
+      + (profile.backdropToneResponseThick[3]! - profile.backdropToneResponseThin[3]!) * f,
+    ] as const;
+    x = Math.min(xs[3], Math.max(xs[0], encodedInput));
+    const h0 = xs[1] - xs[0], h1 = xs[2] - xs[1], h2 = xs[3] - xs[2];
+    const d0 = (ys4[1] - ys4[0]) / h0;
+    const d1 = (ys4[2] - ys4[1]) / h1;
+    const d2 = (ys4[3] - ys4[2]) / h2;
+    const m1 = d0 * d1 <= 0 ? 0 : (2 * d0 * d1) / (d0 + d1);
+    const m2 = d1 * d2 <= 0 ? 0 : (2 * d1 * d2) / (d1 + d2);
+    const seg = x <= xs[1] ? 0 : x <= xs[2] ? 1 : 2;
+    const hs = [h0, h1, h2] as const;
+    const slopes = [d0, m1, m2, d2] as const;
+    h = hs[seg]!;
+    t = (x - xs[seg]!) / h;
+    y0 = ys4[seg]!;
+    y1 = ys4[seg + 1]!;
+    s0 = slopes[seg]!;
+    s1 = slopes[seg + 1]!;
+  }
   // `levelFar` is W25's level term above the thickness knee (claims §5.113; W25
   // Decision Log 3 (b)) — an OFFSET on the settled level this curve returns, in
   // the curve's own encoded units, and not a continuation of its thin-to-thick

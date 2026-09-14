@@ -217,6 +217,10 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// (z) and (w) carry its reference level and minimum tint contrast.
   /// Texture draws keep those lanes zero, so their input bytes do not move.
   heavyTap : vec4f,
+  /// Decision Log 18's optional fourth response knot: encoded x, thin y,
+  /// thick z, and a length gate w. Appended so every three-knot field keeps its
+  /// byte offset and its original shader branch.
+  toneExtra : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -255,6 +259,35 @@ fn tone_response(x : f32, sizeK : f32, levelFar : f32) -> f32 {
   let f = sizeK * sizeK * (3.0 - 2.0 * sizeK);
   let ys = mix(ou.toneRowThin.xyz, ou.toneRowThick.xyz, vec3f(f));
   let xs = ou.toneAnchor.xyz;
+  if (ou.toneExtra.w > 0.5) {
+    let ys4 = vec4f(ys, mix(ou.toneExtra.y, ou.toneExtra.z, f));
+    let xs4 = vec4f(xs, ou.toneExtra.x);
+    let xc4 = clamp(x, xs4.x, xs4.w);
+    let h0 = max(xs4.y - xs4.x, 1e-4);
+    let h1 = max(xs4.z - xs4.y, 1e-4);
+    let h2 = max(xs4.w - xs4.z, 1e-4);
+    let d0 = (ys4.y - ys4.x) / h0;
+    let d1 = (ys4.z - ys4.y) / h1;
+    let d2 = (ys4.w - ys4.z) / h2;
+    var m1 = 0.0; var m2 = 0.0;
+    if (d0 * d1 > 0.0) { m1 = 2.0 * d0 * d1 / (d0 + d1); }
+    if (d1 * d2 > 0.0) { m2 = 2.0 * d1 * d2 / (d1 + d2); }
+    var h = h0; var t = (xc4 - xs4.x) / h0;
+    var y0 = ys4.x; var y1 = ys4.y; var s0 = d0; var s1 = m1;
+    if (xc4 > xs4.y) {
+      h = h1; t = (xc4 - xs4.y) / h1;
+      y0 = ys4.y; y1 = ys4.z; s0 = m1; s1 = m2;
+    }
+    if (xc4 > xs4.z) {
+      h = h2; t = (xc4 - xs4.z) / h2;
+      y0 = ys4.z; y1 = ys4.w; s0 = m2; s1 = d2;
+    }
+    return y0 * (1.0 + 2.0 * t) * (1.0 - t) * (1.0 - t)
+         + s0 * h * t * (1.0 - t) * (1.0 - t)
+         + y1 * t * t * (3.0 - 2.0 * t)
+         + s1 * h * t * t * (t - 1.0)
+         + levelFar;
+  }
   let xc = clamp(x, xs.x, xs.z);
   let h0 = max(xs.y - xs.x, 1e-4);
   let h1 = max(xs.z - xs.y, 1e-4);

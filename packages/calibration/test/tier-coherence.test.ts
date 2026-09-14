@@ -59,6 +59,7 @@ import {
   glowAlpha,
   gpuTierForegroundLevel,
   occlusionAlphaUnderPolicy,
+  occlusionLiftForPolicy as cssOcclusionLiftForPolicy,
   opticsUnderPolicy as cssTierOpticsUnderPolicy,
   OUTER_SHADOW_THICK_SPANS as CSS_OUTER_SHADOW_THICK_SPANS,
   OUTER_SHADOW_THIN_L as CSS_OUTER_SHADOW_THIN_L,
@@ -134,6 +135,7 @@ import {
   backdropToneSolveWeight as rendererBackdropToneSolveWeight,
   backdropToneUnderPolicy as rendererBackdropToneUnderPolicy,
   occlusionAlphaUnderPolicy as rendererOcclusionAlphaUnderPolicy,
+  occlusionLiftForPolicy as rendererOcclusionLiftForPolicy,
   opticsUnderPolicy as rendererOpticsUnderPolicy,
   OUTER_SHADOW_THICK_SPANS as RENDERER_OUTER_SHADOW_THICK_SPANS,
   OUTER_SHADOW_THIN_L as RENDERER_OUTER_SHADOW_THIN_L,
@@ -318,6 +320,28 @@ describe("tier coherence (K5)", () => {
       expect(occlusionAlphaUnderPolicy(nominal, "increased"), `nominal ${nominal}`).toBeCloseTo(
         rendererOcclusionAlphaUnderPolicy(nominal, "increased"),
         12,
+      );
+    }
+  });
+
+  it("selects the same policy-specific occlusion lift on both tiers", () => {
+    const patch = {
+      increasedOcclusionLift: 0.96,
+      increasedOcclusionLiftByPolicy: {
+        reduceTransparency: 0.92,
+        increaseContrast: 1,
+      },
+    };
+    const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    const fold = resolvedPolicyFold(patch);
+    for (const ambientTint of ["nominal", "reduced"] as const) {
+      const policy = {
+        ...NOMINAL_ACCESSIBILITY_POLICY.material,
+        occlusion: "increased" as const,
+        ambientTint,
+      };
+      expect(cssOcclusionLiftForPolicy(policy, fold)).toBe(
+        rendererOcclusionLiftForPolicy(policy, profile),
       );
     }
   });
@@ -836,6 +860,24 @@ describe("tier coherence (K5)", () => {
     expect(rendererBackdropToneResponse(0.5, 1, profile, far)).not.toBe(
       rendererBackdropToneResponse(0.5, 1, DEFAULT_MATERIAL_PROFILE, 0),
     );
+  });
+
+  it("evaluates an additive fourth response knot identically on both tiers", () => {
+    const patch = {
+      backdropToneAnchorX: [0.1104, 0.2706, 0.7652, 0.9505] as const,
+      backdropToneResponseThin: [0.011, 0.089, 0.09, 0.93261] as const,
+      backdropToneResponseThick: [0.0215, 0.065, 0.08, 0.11753] as const,
+    };
+    const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    const response = resolvedBackdropToneResponse(patch);
+    for (const thickness of [0, 0.09228515625, 0.5, 1]) {
+      for (const x of [0.1, 0.2706, 0.5, 0.549, 0.74, 0.7652, 0.85, 0.9505, 1]) {
+        expect(cssBackdropToneResponseLevel(x, thickness, response)).toBeCloseTo(
+          rendererBackdropToneResponse(x, thickness, profile),
+          12,
+        );
+      }
+    }
   });
 
   /*

@@ -40,6 +40,7 @@ import {
   inkAlphaHoldingContrast,
   neutralComposite,
   occlusionAlphaUnderPolicy,
+  occlusionLiftForPolicy,
   OUTER_SHADOW_THIN_L,
   outerShadowAlpha,
   outerShadowFalloff,
@@ -397,6 +398,26 @@ describe("the CSS tier (the fallback is the design)", () => {
     expect(foldedWith(0.9)).toBeGreaterThan(foldedWith());
     // And no patch is byte-identical to before the field could be threaded.
     expect(foldedWith()).toBe(foldedWith(INCREASED_OCCLUSION_LIFT));
+  });
+
+  it("selects the receded occlusion level through the policy's existing axis", () => {
+    const rt = resolveAccessibilityPolicy(systemWith({ reducedTransparency: true }));
+    const ic = resolveAccessibilityPolicy(systemWith({
+      reducedTransparency: true,
+      increasedContrast: true,
+    }));
+    const fold = resolvedPolicyFold({
+      increasedOcclusionLift: 0.96,
+      increasedOcclusionLiftByPolicy: {
+        reduceTransparency: 0.92,
+        increaseContrast: 1,
+      },
+    });
+    expect(occlusionLiftForPolicy(rt.material, fold)).toBe(0.92);
+    expect(occlusionLiftForPolicy(ic.material, fold)).toBe(1);
+    expect(occlusionLiftForPolicy(rt.material, resolvedPolicyFold({
+      increasedOcclusionLift: 0.96,
+    }))).toBe(0.96);
   });
 
   it("is a fitted lift now, not the pre-C9a floor re-expressed", () => {

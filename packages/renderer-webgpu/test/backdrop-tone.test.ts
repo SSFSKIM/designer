@@ -17,6 +17,7 @@ import {
   adaptedTintAlpha,
   adaptedTintColour,
   backdropToneAdaptation,
+  backdropToneResponse,
   backdropToneSizeBiasUnderPolicy,
   backdropToneUnderPolicy,
   DEFAULT_MATERIAL_PROFILE,
@@ -365,7 +366,58 @@ describe("adaptedTintAlpha, and the surface's own appearance", () => {
  * checked here is what the string must contain, in the spirit of
  * `wgsl-contract.test.ts`: three properties whose absence would be silent.
  */
+describe("a fourth backdrop-response knot", () => {
+  const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+    backdropToneAnchorX: [0.1, 0.3, 0.75, 0.95],
+    backdropToneResponseThin: [0.01, 0.04, 0.09, 0.93],
+    backdropToneResponseThick: [0.02, 0.06, 0.08, 0.12],
+  });
+
+  it("passes exactly through every added thin and thick ordinate", () => {
+    for (let i = 0; i < 4; i += 1) {
+      expect(backdropToneResponse(profile.backdropToneAnchorX[i]!, 0, profile))
+        .toBe(profile.backdropToneResponseThin[i]);
+      expect(backdropToneResponse(profile.backdropToneAnchorX[i]!, 1, profile))
+        .toBe(profile.backdropToneResponseThick[i]);
+    }
+  });
+
+  it("keeps the existing three-knot arithmetic exactly", () => {
+    const legacy = (x0: number, thickness: number): number => {
+      const p = DEFAULT_MATERIAL_PROFILE;
+      const xs = p.backdropToneAnchorX;
+      const f = thickness * thickness * (3 - 2 * thickness);
+      const ys = [0, 1, 2].map((i) => p.backdropToneResponseThin[i]!
+        + (p.backdropToneResponseThick[i]! - p.backdropToneResponseThin[i]!) * f);
+      const x = Math.min(xs[2], Math.max(xs[0], x0));
+      const h0 = xs[1] - xs[0], h1 = xs[2] - xs[1];
+      const d0 = (ys[1]! - ys[0]!) / h0, d1 = (ys[2]! - ys[1]!) / h1;
+      const m1 = d0 * d1 <= 0 ? 0 : (2 * d0 * d1) / (d0 + d1);
+      const seg = x <= xs[1] ? 0 : 1;
+      const h = seg === 0 ? h0 : h1;
+      const t = (x - (seg === 0 ? xs[0] : xs[1])) / h;
+      const y0 = seg === 0 ? ys[0]! : ys[1]!;
+      const y1 = seg === 0 ? ys[1]! : ys[2]!;
+      const s0 = seg === 0 ? d0 : m1, s1 = seg === 0 ? m1 : d1;
+      return y0 * (1 + 2 * t) * (1 - t) * (1 - t)
+        + s0 * h * t * (1 - t) * (1 - t)
+        + y1 * t * t * (3 - 2 * t)
+        + s1 * h * t * t * (t - 1);
+    };
+    for (const x of [0, 0.11, 0.2, 0.2706, 0.5, 0.9, 0.9505, 1]) {
+      for (const thickness of [0, 0.09228515625, 0.5, 1]) {
+        expect(backdropToneResponse(x, thickness)).toBe(legacy(x, thickness));
+      }
+    }
+  });
+});
+
 describe("the optics pass's statement of the axis", () => {
+  it("carries the additive fourth knot without borrowing another field's lane", () => {
+    expect(WGSL_OPTICS_PASS).toContain("toneExtra : vec4f");
+    expect(WGSL_OPTICS_PASS).toContain("if (ou.toneExtra.w > 0.5)");
+  });
+
   it("carries both uniform slots the CPU writes", () => {
     expect(WGSL_OPTICS_PASS).toContain("toneAdapt : vec4f");
     expect(WGSL_OPTICS_PASS).toContain("toneColour : vec4f");

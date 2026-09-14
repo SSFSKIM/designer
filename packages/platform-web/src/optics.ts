@@ -423,10 +423,14 @@ export const BACKDROP_TONE: BackdropToneConstants = {
  * (`backdropToneAnchorX` and friends, with the probe evidence); this is a
  * mirror, not a second opinion — pinned by `tier-coherence.test.ts`.
  */
+type BackdropToneKnotRow =
+  | readonly [number, number, number]
+  | readonly [number, number, number, number];
+
 export interface BackdropToneResponseConstants {
-  readonly anchorX: readonly [number, number, number];
-  readonly thin: readonly [number, number, number];
-  readonly thick: readonly [number, number, number];
+  readonly anchorX: BackdropToneKnotRow;
+  readonly thin: BackdropToneKnotRow;
+  readonly thick: BackdropToneKnotRow;
   /** The law's per-profile authority, 0…1 — 0 on dark profiles, whose response
    * is unmeasured (the anchors are LIGHT-reference measurements). */
   readonly strength: number;
@@ -471,19 +475,44 @@ export function backdropToneResponseLevel(
     (i) => (response.thin[i] ?? 0) + ((response.thick[i] ?? 0) - (response.thin[i] ?? 0)) * f,
   ) as [number, number, number];
 
-  const x = Math.min(xs[2], Math.max(xs[0], encodedInput));
-  const h0 = Math.max(xs[1] - xs[0], 1e-4);
-  const h1 = Math.max(xs[2] - xs[1], 1e-4);
-  const d0 = (ys[1] - ys[0]) / h0;
-  const d1 = (ys[2] - ys[1]) / h1;
-  const m1 = d0 * d1 <= 0 ? 0 : (2 * d0 * d1) / (d0 + d1);
-  const seg = x <= xs[1] ? 0 : 1;
-  const h = seg === 0 ? h0 : h1;
-  const t = (x - (seg === 0 ? xs[0] : xs[1])) / h;
-  const y0 = seg === 0 ? ys[0] : ys[1];
-  const y1 = seg === 0 ? ys[1] : ys[2];
-  const s0 = seg === 0 ? d0 : m1;
-  const s1 = seg === 0 ? m1 : d1;
+  let x: number, h: number, t: number, y0: number, y1: number, s0: number, s1: number;
+  if (xs.length === 3) {
+    x = Math.min(xs[2], Math.max(xs[0], encodedInput));
+    const h0 = Math.max(xs[1] - xs[0], 1e-4);
+    const h1 = Math.max(xs[2] - xs[1], 1e-4);
+    const d0 = (ys[1] - ys[0]) / h0;
+    const d1 = (ys[2] - ys[1]) / h1;
+    const m1 = d0 * d1 <= 0 ? 0 : (2 * d0 * d1) / (d0 + d1);
+    const seg = x <= xs[1] ? 0 : 1;
+    h = seg === 0 ? h0 : h1;
+    t = (x - (seg === 0 ? xs[0] : xs[1])) / h;
+    y0 = seg === 0 ? ys[0] : ys[1];
+    y1 = seg === 0 ? ys[1] : ys[2];
+    s0 = seg === 0 ? d0 : m1;
+    s1 = seg === 0 ? m1 : d1;
+  } else {
+    const ys4 = [ys[0], ys[1], ys[2],
+      response.thin[3]! + (response.thick[3]! - response.thin[3]!) * f,
+    ] as const;
+    x = Math.min(xs[3], Math.max(xs[0], encodedInput));
+    const h0 = Math.max(xs[1] - xs[0], 1e-4);
+    const h1 = Math.max(xs[2] - xs[1], 1e-4);
+    const h2 = Math.max(xs[3] - xs[2], 1e-4);
+    const d0 = (ys4[1] - ys4[0]) / h0;
+    const d1 = (ys4[2] - ys4[1]) / h1;
+    const d2 = (ys4[3] - ys4[2]) / h2;
+    const m1 = d0 * d1 <= 0 ? 0 : (2 * d0 * d1) / (d0 + d1);
+    const m2 = d1 * d2 <= 0 ? 0 : (2 * d1 * d2) / (d1 + d2);
+    const seg = x <= xs[1] ? 0 : x <= xs[2] ? 1 : 2;
+    const hs = [h0, h1, h2] as const;
+    const slopes = [d0, m1, m2, d2] as const;
+    h = hs[seg]!;
+    t = (x - xs[seg]!) / h;
+    y0 = ys4[seg]!;
+    y1 = ys4[seg + 1]!;
+    s0 = slopes[seg]!;
+    s1 = slopes[seg + 1]!;
+  }
   // W25's level term above the thickness knee (claims §5.113; W25 Decision Log
   // 3 (b)), mirrored: an OFFSET on the settled level this curve returns, in its
   // own encoded units. Exactly 0 at and below span 96, and 0 at every span on
@@ -4146,7 +4175,8 @@ export function materialAtBackdrop(
   const occluded = {
     ...source,
     tintAlpha: sizeOcclusionAlphaAt(
-      occlusionAlphaUnderPolicy(source.tintAlpha, policy.occlusion, fold.increasedOcclusionLift),
+      occlusionAlphaUnderPolicy(source.tintAlpha, policy.occlusion,
+        occlusionLiftForPolicy(policy, fold)),
       foldedThickness,
       size,
     ),
@@ -4368,6 +4398,10 @@ export const STRONG_BORDER: Pick<MaterialOptics, "borderWidth" | "borderAlpha"> 
  */
 export interface PolicyFoldConstants {
   readonly increasedOcclusionLift: number;
+  readonly increasedOcclusionLiftByPolicy?: {
+    readonly reduceTransparency: number;
+    readonly increaseContrast: number;
+  };
   readonly reducedTransparencyFrost: number;
   readonly strongBorder: Pick<MaterialOptics, "borderWidth" | "borderAlpha">;
 }
@@ -4398,8 +4432,17 @@ export const POLICY_FOLD_CONSTANTS: PolicyFoldConstants = {
  * alpha rather than dropping it.
  */
 export function resolvedPolicyFold(patch?: RendererMaterialProfile): PolicyFoldConstants {
+  const levels = patch?.increasedOcclusionLiftByPolicy;
   return {
     increasedOcclusionLift: patch?.increasedOcclusionLift ?? INCREASED_OCCLUSION_LIFT,
+    ...(levels === undefined ? {} : {
+      increasedOcclusionLiftByPolicy: {
+        reduceTransparency:
+          levels.reduceTransparency ?? patch?.increasedOcclusionLift ?? INCREASED_OCCLUSION_LIFT,
+        increaseContrast:
+          levels.increaseContrast ?? patch?.increasedOcclusionLift ?? INCREASED_OCCLUSION_LIFT,
+      },
+    }),
     reducedTransparencyFrost: patch?.reducedTransparencyFrost ?? REDUCED_TRANSPARENCY_FROST,
     strongBorder: {
       borderWidth: patch?.strongBorderRim?.rimWidth ?? STRONG_BORDER.borderWidth,
@@ -4425,6 +4468,17 @@ const REDUCED_TINT_SATURATION = 1;
  * default is the shipped set, so an unpatched caller folds exactly the numbers it
  * always did.
  */
+export function occlusionLiftForPolicy(
+  policy: ResolvedMaterialPolicy,
+  fold: PolicyFoldConstants = POLICY_FOLD_CONSTANTS,
+): number {
+  if (policy.occlusion !== "increased") return fold.increasedOcclusionLift;
+  const levels = fold.increasedOcclusionLiftByPolicy;
+  return policy.ambientTint === "reduced"
+    ? levels?.increaseContrast ?? fold.increasedOcclusionLift
+    : levels?.reduceTransparency ?? fold.increasedOcclusionLift;
+}
+
 export function opticsUnderPolicy(
   optics: MaterialOptics,
   policy: ResolvedMaterialPolicy,
@@ -4443,7 +4497,7 @@ export function opticsUnderPolicy(
     tintAlpha: occlusionAlphaUnderPolicy(
       next.tintAlpha,
       policy.occlusion,
-      fold.increasedOcclusionLift,
+      occlusionLiftForPolicy(policy, fold),
     ),
   };
 

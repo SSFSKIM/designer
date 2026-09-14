@@ -30,6 +30,7 @@ import {
   MATERIAL_OPTICS,
   MATERIAL_VARIANTS,
   occlusionAlphaUnderPolicy,
+  occlusionLiftForPolicy,
   opticsUnderPolicy,
   rimWidthAtScale,
   REFRACTION_LADDER,
@@ -250,6 +251,29 @@ describe("the foldings read the profile they are given", () => {
     }
     // A material with nothing left to hide is the one place it cannot lift.
     expect(occlusionAlphaUnderPolicy(1, "increased")).toBe(1);
+  });
+
+  it("uses the shared lift as the additive default for both accessibility policies", () => {
+    const rt = { ...NOMINAL_MATERIAL_POLICY, occlusion: "increased", ambientTint: "nominal" } as const;
+    const ic = { ...rt, ambientTint: "reduced" } as const;
+    expect(occlusionLiftForPolicy(rt)).toBe(INCREASED_OCCLUSION_LIFT);
+    expect(occlusionLiftForPolicy(ic)).toBe(INCREASED_OCCLUSION_LIFT);
+  });
+
+  it("selects distinct receded occlusion levels through the existing policy axis", () => {
+    const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+      increasedOcclusionLiftByPolicy: {
+        reduceTransparency: 0.92,
+        increaseContrast: 1,
+      },
+    });
+    const rt = { ...NOMINAL_MATERIAL_POLICY, occlusion: "increased", ambientTint: "nominal" } as const;
+    const ic = { ...rt, ambientTint: "reduced" } as const;
+    expect(occlusionLiftForPolicy(rt, profile)).toBe(0.92);
+    expect(occlusionLiftForPolicy(ic, profile)).toBe(1);
+    expect(opticsUnderPolicy(profile.optics.regular, rt, profile).tintAlpha)
+      .toBe(occlusionAlphaUnderPolicy(profile.optics.regular.tintAlpha, "increased", 0.92));
+    expect(opticsUnderPolicy(profile.optics.regular, ic, profile).tintAlpha).toBe(1);
   });
 
   it("is a fitted lift now, not the pre-C9a floor re-expressed", () => {
