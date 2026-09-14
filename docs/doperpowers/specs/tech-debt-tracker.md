@@ -2935,3 +2935,23 @@ gap moved, because publishing a row that exists is not the same as creating the 
 Shape of the work: both need a scene declaration before they need a capture — a `clear`-variant
 inactive id that actually declares the variant, and one non-holdout inactive stack id — and then a
 26.5 sitting to capture them.
+
+## The inactive pose and the receded document are not in the cell key (2026-09-15, §5.148)
+
+*Found by the independent review of W28 G4.* The 470 inactive rows published at that gate carry a
+`key.web.capturePath` that is byte-identical to their active twin's on the same profile: the active
+material profile document's SHA-256 is in it, the receded document's is not, and neither is the
+pose. The precedent for what that costs is in `packages/calibration/src/backdrop-probe.ts`'s own
+header, about the two axes that used to be in the same position — "Until these travelled in the
+report and in the cell's `capturePath`, the only thing separating them was the directory a run
+happened to write to — which is not evidence, because the matrix's key does not contain it." The
+consequence here is narrower and sharper: a change to `packages/platform-web/src/receded-profile.ts`
+silently invalidates all 470 rows without moving one key, where the same change made to a material
+profile document would append new rows beside the old ones and leave both readable. Half of the gap
+is closed — `capturePoseRefusal` in `packages/calibration/cli/gates.ts` refuses to measure a capture
+whose resolved pose or scheme disagrees with the cell being planned, so a mislabelled capture cannot
+reach a published row — but a correctly labelled row still cannot be told from a stale one. Shape of
+the work: a `backdropProbeLabel`-shaped clause appended to `capturePath`, empty on the active pose so
+the shipped bed's keys stay unchanged to the byte, and naming the pose and the resolved receded
+document's SHA-256 otherwise. Taking it means re-capturing the 470 inactive rows, because every one
+of their keys changes.

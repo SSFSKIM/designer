@@ -21708,8 +21708,16 @@ construction, and a live media listener therefore cannot re-derive the material 
 frame and the screenshot. The receded difference is applied by `applyMaterialProfile` inside the
 root, over the active document, exactly as in an application whose window is backgrounded. The
 report gained three resolved readouts — `windowActivation`, `colorScheme` and the
-`recededMaterialProfile` the root merged — so a capture filed under an `__inactive` id that had
-resolved `"active"` could not be published silently.
+`recededMaterialProfile` the root merged — and a capture filed under an `__inactive` id that had
+resolved `"active"` is **refused rather than measured**. The refusal is `capturePoseRefusal` in
+`packages/calibration/cli/gates.ts`, called from `compare`'s measure loop on the capture's own
+`report__<renderer>.json`: the cell joins the run's failures when the resolved pose disagrees with
+the scene's declared state, or the resolved scheme with the profile the cell is planned under, and
+an absent `windowActivation` is read as a pre-G4 capture — which can only be an active-pose one, so
+it is accepted for an active scene and refused for an inactive one. That check is the whole of the
+enforcement, because the pose is in no part of the cell key: an inactive cell's `capturePath` is
+byte-identical to its active twin's on the same profile, so a report alone, sitting off the
+publishing path, would have left nothing downstream to catch (the tracker).
 
 The proof is byte-identity, taken before a row was written. `seam-identity.ts` re-captures **every
 inactive cell of G2's frozen matrices** through the new seam — 180 WebGPU rows and 174 CSS rows,

@@ -91,10 +91,12 @@ import {
 } from "../src/index";
 import { backdropProbeRequested, probeCanonicalOutputRefusal } from "../src/backdrop-probe";
 import {
+  capturePoseRefusal,
   colourlessTintEvidence,
   isCaptureFresh,
   matrixSchemaRefusal,
   shouldWriteMatrix,
+  type CaptureReport,
   type ColourlessTintEvidence,
   type FixtureEntry,
   type Manifest,
@@ -689,6 +691,27 @@ function main(): void {
         `${cell.profileKey} / ${cell.sceneId}: the ${options.renderer}-tier capture on disk predates ` +
           `this run — capture-web resolved another tier; check its FELL BACK line`,
       );
+      continue;
+    }
+
+    /*
+     * The pose and the scheme, read off the capture's own report (W28 G4).
+     *
+     * `capturePoseRefusal` carries the argument; what belongs here is why the check
+     * sits on this path at all. The matrix key says nothing about either quantity —
+     * an inactive cell's `capturePath` is byte-identical to its active twin's — so
+     * the capture is the last place a mislabelled pose is still visible. A report
+     * that is not on disk is read as a silent one and judged the same way: it can
+     * only be an active-pose capture, which an inactive scene may not be measured
+     * from.
+     */
+    const reportPath = resolve(captureDir, `report__${options.renderer}.json`);
+    const report: CaptureReport = existsSync(reportPath)
+      ? (JSON.parse(readFileSync(reportPath, "utf8")) as CaptureReport)
+      : {};
+    const poseRefusal = capturePoseRefusal(report, cell.state, cell.colorScheme);
+    if (poseRefusal !== undefined) {
+      failures.push(`${cell.profileKey} / ${cell.sceneId}: ${poseRefusal}`);
       continue;
     }
 

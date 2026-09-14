@@ -16,10 +16,12 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 
 import {
+  capturePoseRefusal,
   colourlessTintEvidence,
   isCaptureFresh,
   matrixSchemaRefusal,
   shouldWriteMatrix,
+  type CaptureReport,
   type Manifest,
   type SceneSpec,
 } from "../cli/gates";
@@ -79,6 +81,75 @@ describe("matrixSchemaRefusal", () => {
 
   it("refuses a target from a newer build too, not only an older one", () => {
     expect(matrixSchemaRefusal(6, 5, "results/next.json")).toBeDefined();
+  });
+});
+
+describe("capturePoseRefusal", () => {
+  /** A `report__<renderer>.json` carrying the two resolved readouts, or neither. */
+  const report = (page?: { windowActivation?: string; colorScheme?: string }): CaptureReport =>
+    page === undefined ? {} : { page };
+
+  it("admits an inactive scene whose capture resolved the inactive pose", () => {
+    expect(
+      capturePoseRefusal(report({ windowActivation: "inactive", colorScheme: "dark" }), "inactive", "dark"),
+    ).toBeUndefined();
+  });
+
+  it("admits a rest scene whose capture resolved the active pose", () => {
+    expect(
+      capturePoseRefusal(report({ windowActivation: "active", colorScheme: "light" }), "rest", "light"),
+    ).toBeUndefined();
+  });
+
+  it("refuses the active material published under the recede's name", () => {
+    // The failure the check exists for: the key would carry no trace of it, so
+    // this row would read as an inactive fidelity number forever.
+    const refusal = capturePoseRefusal(
+      report({ windowActivation: "active", colorScheme: "dark" }),
+      "inactive",
+      "dark",
+    );
+    expect(refusal).toContain("declared inactive");
+    expect(refusal).toContain("resolved 'active'");
+  });
+
+  it("refuses a receded capture filed under a scene that is not declared inactive", () => {
+    const refusal = capturePoseRefusal(
+      report({ windowActivation: "inactive", colorScheme: "light" }),
+      "pressed",
+      "light",
+    );
+    expect(refusal).toContain("declared pressed");
+    expect(refusal).toContain("resolved 'inactive'");
+  });
+
+  it("admits an unlabelled capture for an active-pose scene, because that is all it can be", () => {
+    expect(capturePoseRefusal(report(), "rest", "light")).toBeUndefined();
+    expect(capturePoseRefusal(report(), "pressed", "dark")).toBeUndefined();
+  });
+
+  it("refuses an unlabelled capture for an inactive scene", () => {
+    const refusal = capturePoseRefusal(report(), "inactive", "dark");
+    expect(refusal).toContain("predates W28 G4");
+  });
+
+  it("refuses a capture that drew the other scheme's material", () => {
+    const refusal = capturePoseRefusal(
+      report({ windowActivation: "active", colorScheme: "light" }),
+      "rest",
+      "dark",
+    );
+    expect(refusal).toContain("dark profile");
+    expect(refusal).toContain("'light'");
+  });
+
+  it("refuses a labelled capture that carries no scheme readback", () => {
+    // `windowActivation` present means a post-W28-G4 capture, where the scheme
+    // readback is written by the same code path; its absence is a malformed
+    // report rather than a legacy one.
+    expect(capturePoseRefusal(report({ windowActivation: "active" }), "rest", "light")).toContain(
+      "(absent)",
+    );
   });
 });
 
