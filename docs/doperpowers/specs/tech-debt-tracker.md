@@ -2426,6 +2426,19 @@ scoped this child to the thin row alone, so it was not swept. It is small, it is
 `backdropToneResponseThick` array the thin row's neighbours sit on, and whatever gate opens the
 response next should move it in the same pass rather than in a third.
 
+*The bright-end gap is CLOSED by W27c G1d (2026-09-14, claims §5.143), and the residual it reveals
+stays here rather than being hidden by closing the heading.* The new uniform 140/255 anchor reads
+0.12214 Y at encoded 0.5490 and agrees with the structured checker at the same abscissa, so the
+answer is **abscissa**, not structure. A fourth knot at x 0.70 with the measured 0.9326072 thin far
+and 0.11753 thick far ordinates closes the light-solid rrect-sm body error 0.43179 → **0.00406** and
+the thick error 0.03626 → **0.00161**, while its worst declared control is 5.68×, below the 9× cap.
+The remaining term is the middle response: the new anchor's held-out capsule is still **0.03937**
+body DeltaE at both scales (WebGPU/native Y 0.09531/0.12214), and the selected response makes the
+checker capsule visibly darker than native. The two light-standard profiles also retain their
+opposite `hc-text__rrect-sm__inactive` over-prediction and fail clause 3 at 2.44× / 2.15×. Closing
+that shared middle/bright structure without reopening the dark controls is the next response work;
+the bright dark endpoint and dark thick ordinate themselves no longer are.
+
 ## The inactive material under the accessibility policies follows its backdrop where Apple's does not (W27c G2 read, 2026-09-13)
 
 *Measured on the checking bed, claims §5.139 §6. This one is scored: it is both accessibility
@@ -2494,6 +2507,18 @@ residual under Increase Contrast**: with the bodies matched, the 8× difference 
 one-pixel ring on every cell, which is `strongBorderRim`, fitted in §5.130 on the 1x
 increased-contrast outline and untouched since. Dark accessibility and 2x accessibility still have no
 inactive evidence at all.
+
+*The per-policy level gap is CLOSED by W27c G1d (2026-09-14, claims §5.143); the smaller residuals
+above remain open.* `increasedOcclusionLiftByPolicy` uses the existing ambient-tint distinction and
+falls back to the shared 0.96 for every document that does not name it. Fitted on the two banked
+supplying cells per policy, Reduce Transparency selects **0.88** (mean body DeltaE 0.00522) and
+Increase Contrast **0.98** (0.00112). Both profiles now hold all three clauses of the unchanged
+bound: 0.00600 against the 0.011 Reduce Transparency body threshold and 0.00278 against 0.0078
+under Increase Contrast, with no per-cell exceedance. The sheets keep the work this did not close
+visible: a near-complete one-pixel contour under Increase Contrast, and under Reduce Transparency a
+level that is still darker than native on dark-solid and brighter on light-solid. The cap still
+conflates adaptation, size grading and refraction; dark accessibility and 2x accessibility remain
+unmeasured.
 
 ## The active material passes about half the chroma Apple's does over a saturated backdrop, and one probe cell sits above the active bed's own ceiling (W27c G2 read, 2026-09-13)
 

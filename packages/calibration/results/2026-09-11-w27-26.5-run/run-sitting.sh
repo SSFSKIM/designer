@@ -37,6 +37,10 @@ HARNESS="${VITREA_HARNESS:-$REPO/apps/reference-apple/build/harness}"
 # derived from scenes.json and identical for both profiles. The declared bed files
 # are evidence and are not edited to fit a pass.
 SCENES="$(cat "${VITREA_BED_FILE:-$HERE/bed-$MODE.txt}")"
+# The granted bundle was compiled from the main checkout, so its #filePath-based
+# ROOT cannot see an amended scenes.json in a worktree. Pass the specification to
+# both resolvers explicitly: `backgrounds` and the open-launched app.
+SCENE_SPEC="${VITREA_SCENES:-$REPO/apps/reference-apple/scenes.json}"
 T="${VITREA_SITTING_DIR:-$HOME/vitrea-w27-26.5-run}"
 
 # The version gate, first and unconditional. This bed exists because macOS 27
@@ -95,7 +99,8 @@ for N in $(seq "$FIRST" "$LAST"); do
   # renders and RECORDS a path, so it proves the file on disk is the same bytes
   # before it writes a fixture; without this the run refuses.
   echo "run $MODE-${SCALE}x-$N: backgrounds $(date -u +%H:%M:%SZ)"
-  VITREA_SCALE="$SCALE" VITREA_FIXTURES="$D" "$HARNESS" backgrounds > "$D.backgrounds.out" 2>&1 \
+  VITREA_SCALE="$SCALE" VITREA_FIXTURES="$D" VITREA_SCENES="$SCENE_SPEC" \
+    "$HARNESS" backgrounds > "$D.backgrounds.out" 2>&1 \
     || { echo "run $N: backgrounds FAILED"; tail -5 "$D.backgrounds.out"; exit 2; }
 
   for A in $(seq 1 40); do
@@ -106,7 +111,7 @@ for N in $(seq "$FIRST" "$LAST"); do
     # `.accessory` application cannot be activated by being opened, which is
     # measured in claims §5.136 and by `deactivate-probe`.
     ${VITREA_LAUNCHER:-open -W} --env VITREA_SCALE="$SCALE" --env VITREA_FIXTURES="$D" \
-      --stdout "$D.out" --stderr "$D.err" "$APP" \
+      --env VITREA_SCENES="$SCENE_SPEC" --stdout "$D.out" --stderr "$D.err" "$APP" \
       --args capture ${POSE_ARG} ${DRY_ARG} \
       --run-label "w27-26.5-$MODE-${SCALE}x-$N" \
       --reset-interstitial 6 --min-idle-seconds 45 --scenes "$SCENES"

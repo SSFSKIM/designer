@@ -102,6 +102,17 @@ export const recededMaterialProfile: Readonly<Record<"light" | "dark", RendererM
      * policies differ by is a model-form gap in the ledger, not a tuning residual.
      */
     increasedOcclusionLift: 0.96,
+    /*
+     * W27c G1d splits that shared compromise by the one policy axis the two
+     * reachable states already differ on (Decision Log 19; claims §5.143).
+     * The shared number remains the additive default for documents without this
+     * map. Fitted on the banked supplying cells: 0.88 for Reduce Transparency,
+     * 0.98 when Increase Contrast adds `ambientTint: "reduced"`.
+     */
+    increasedOcclusionLiftByPolicy: {
+      reduceTransparency: 0.88,
+      increaseContrast: 0.98,
+    },
     // The existing signed rim law subtracts light; this is not a negative CSS
     // alpha. Only the 1x light increased-contrast outline identifies this band.
     strongBorderRim: { rimWidth: 1, rimAlpha: -3.5 },
@@ -135,7 +146,17 @@ export const recededMaterialProfile: Readonly<Record<"light" | "dark", RendererM
      * decides it, on the same argument that added `mid-dark-solid` in W7 and
      * `mid-chroma-solid` in W27c G1b, and the fit waits for it.
      */
-    backdropToneResponseThin: [0.011, 0.089, 0.1611],
-    backdropToneResponseThick: [0.0215, 0.065, 0.02],
+    /*
+     * Superseded by W27c G1d (Decision Log 18; claims §5.143). The uniform
+     * 140/255 anchor reads 0.12214 Y at both scales, against checkerboard's
+     * 0.11700/0.11799 at nearly the same encoded input: the step is in the
+     * abscissa, not structure. The declared sweep selects a low third knot at
+     * 0.70 and the measured 0.9326072 far ordinate; its worst control is 5.68x
+     * the frozen baseline, below the declared 9x refusal cap. The thick far
+     * entry moves in the same pass to its measured 0.11753.
+     */
+    backdropToneAnchorX: [0.1104, 0.2706, 0.7, 0.9505],
+    backdropToneResponseThin: [0.011, 0.089, 0.1, 0.9326072],
+    backdropToneResponseThick: [0.0215, 0.065, 0.060877, 0.11753],
   },
 };

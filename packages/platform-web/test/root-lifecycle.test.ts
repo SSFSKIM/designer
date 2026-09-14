@@ -15,6 +15,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { createGlassRoot, type GlassRoot, type GlassRootOptions } from "../src/root";
 import type { MediaMatcher } from "../src/media-policy";
+import { COLOR_SCHEME_MEDIA_QUERY } from "../src/color-scheme";
 
 /** jsdom has no ResizeObserver, and `GeometrySync` builds one unconditionally. */
 class StubResizeObserver {
@@ -556,6 +557,120 @@ describe("keeping the dirty-epoch ledger honest across the wire", () => {
     expect(instance.scene.dirtyBackdropSources().map((source) => source.descriptor.id)).toEqual([
       "src",
     ]);
+  });
+});
+
+describe("a material profile the root cannot draw", () => {
+  /*
+   * `setMaterialProfile` re-derives every binding on both tiers from one patch,
+   * and the response rows are resolved LAZILY — per host, per frame, inside
+   * `materialAtBackdrop`, and only where the group has a backdrop reading. So a
+   * patch whose three rows resolve to different knot counts would be accepted
+   * here, replace the material that was drawing, and only fail later: once the
+   * page has a reading, on every frame, from inside the write phase, with no
+   * caller left to hand the error to. The refusal has to happen at the call the
+   * app made, and it has to happen before anything moves.
+   */
+  const mixed = { backdropToneAnchorX: [0.1, 0.3, 0.7, 0.95] } as const;
+
+  it("is refused at the call, and does not displace the material already applied", () => {
+    const instance = root();
+    const host = withHost(instance);
+    // A patch the root CAN draw, so there is a material to lose.
+    instance.setMaterialProfile({ optics: { regular: { tintAlpha: 0.8 } } });
+    instance.runFrame(0);
+    const applied = host.style.getPropertyValue("--vitrea-occlusion");
+    expect(Number(applied)).toBeGreaterThan(0);
+
+    expect(() => instance.setMaterialProfile(mixed)).toThrow(/backdrop tone response/);
+
+    // The refused patch names no optics, so a root that had retained it would
+    // publish the default occlusion on the next frame instead of this one.
+    instance.runFrame(16);
+    expect(host.style.getPropertyValue("--vitrea-occlusion")).toBe(applied);
+  });
+
+  it("does not survive the setter's refusal to poison a later scheme change", () => {
+    /*
+     * `setMaterialProfile` assigns the app's patch and THEN re-derives, so a
+     * refusal used to leave the rejected patch held as the host profile. Nothing
+     * looks wrong until the scheme changes: `setColorScheme` recomposes the
+     * scheme's material with whatever host patch is held, so the root would throw
+     * again — from a call that has nothing to do with the bad patch, and from
+     * inside the system's own media listener when the scheme is "auto". One
+     * refused call is a refusal; a refused call that poisons every later one is a
+     * root the app cannot recover.
+     */
+    const instance = root();
+    const host = withHost(instance);
+    instance.setMaterialProfile({ optics: { regular: { tintAlpha: 0.8 } } });
+    instance.runFrame(0);
+    const applied = host.style.getPropertyValue("--vitrea-occlusion");
+
+    expect(() => instance.setMaterialProfile(mixed)).toThrow(/backdrop tone response/);
+
+    // The scheme change the refused patch must not reach.
+    expect(() => instance.setColorScheme("dark")).not.toThrow();
+    instance.runFrame(16);
+    expect(instance.colorScheme).toBe("dark");
+    // Back to light, where the patch that IS held is the one that was accepted.
+    instance.setColorScheme("light");
+    instance.runFrame(32);
+    expect(host.style.getPropertyValue("--vitrea-occlusion")).toBe(applied);
+  });
+
+  it("is refused at construction too, where the bindings are built without the setter", () => {
+    // `createGlassRoot` does not route its `materialProfile` option through
+    // `applyMaterialProfile` — it initialises each binding from it directly — so
+    // the setter's refusal does not cover the option. Same patch, same failure,
+    // and a constructor that returns a root nobody can frame is the worse of the
+    // two: there is no earlier call to attribute it to.
+    expect(() => root({ materialProfile: mixed })).toThrow(/backdrop tone response/);
+  });
+
+  it("refuses before it builds a layer, installs a stylesheet or takes a listener", () => {
+    /*
+     * A constructor that throws never hands back the root, so `destroy()` is
+     * unreachable and everything it would have released is leaked: the layer
+     * elements in the caller's container, the ink stylesheet in the document, and
+     * a media listener per preference feed. The refusal has to come before the
+     * first of those, which means it cannot read the resolved scheme off the
+     * colour-scheme feed — that feed IS one of the listeners. So both schemes are
+     * checked instead, which is the stronger claim anyway: under "auto" the
+     * system can flip the scheme later, and that recomposition runs inside the
+     * media listener where a throw has no caller to reach.
+     */
+    const styles = (): number => document.querySelectorAll("style").length;
+    let listeners = 0;
+    const counting: MediaMatcher = (media) => ({
+      matches: media === COLOR_SCHEME_MEDIA_QUERY,
+      media,
+      addEventListener: () => { listeners += 1; },
+      removeEventListener: () => { listeners -= 1; },
+    });
+
+    for (const colorScheme of ["light", "dark", "auto"] as const) {
+      const container = document.createElement("div");
+      document.body.append(container);
+      const before = styles();
+      expect(() => createGlassRoot({
+        container, autoStart: false, diagnosticSink: () => {},
+        matcher: counting, colorScheme, materialProfile: mixed,
+      }), colorScheme).toThrow(/backdrop tone response/);
+      expect(container.childElementCount, colorScheme).toBe(0);
+      expect(styles(), colorScheme).toBe(before);
+      expect(listeners, colorScheme).toBe(0);
+      container.remove();
+    }
+  });
+
+  it("leaves the root able to take the next profile it is given", () => {
+    const instance = root();
+    const host = withHost(instance);
+    expect(() => instance.setMaterialProfile(mixed)).toThrow(/backdrop tone response/);
+    instance.setMaterialProfile({ optics: { regular: { tintAlpha: 0.8 } } });
+    instance.runFrame(0);
+    expect(Number(host.style.getPropertyValue("--vitrea-occlusion"))).toBeGreaterThan(0);
   });
 });
 

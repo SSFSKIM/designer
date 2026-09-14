@@ -1,0 +1,18 @@
+== manifest-doctor ==
+file: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/apps/reference-apple/fixtures/manifest.json
+entries: 611 before, 611 after a decode/encode round trip
+
+387 of 611 entries round-trip with NO FIELD LOST AND NO VALUE
+CHANGED. Parsed values are compared, so key order and number formatting are
+normalised away; this is not a byte comparison of the two encodings.
+
+DROPPED by the round trip — a merge that carries an untouched profile
+forward re-encodes it through these types, so these fields are lost:
+  frequencySettled  on 103 entries
+  observedStates  on 103 entries
+  recoveredProvenance  on 121 entries
+  stateFrequencies  on 103 entries
+
+This is why `capture --scenes` and `capture --inactive` refuse a fixture
+root that already holds a manifest. Raw runs go to their own root and
+`materialize` publishes from them; nothing merges into the bundle in place.

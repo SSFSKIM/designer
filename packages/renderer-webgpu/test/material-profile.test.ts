@@ -17,6 +17,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  backdropToneResponse,
   collapsedRimUnderPolicy,
   DEFAULT_MATERIAL_PROFILE,
   INCREASED_OCCLUSION_LIFT,
@@ -30,11 +31,13 @@ import {
   MATERIAL_OPTICS,
   MATERIAL_VARIANTS,
   occlusionAlphaUnderPolicy,
+  occlusionLiftForPolicy,
   opticsUnderPolicy,
   rimWidthAtScale,
   REFRACTION_LADDER,
   REFRACTION_SCALE,
   withMaterialOverrides,
+  type BackdropToneKnotRow,
   type MaterialProfile,
 } from "../src/material";
 import { adaptiveTint } from "../src/analysis";
@@ -200,6 +203,125 @@ describe("withMaterialOverrides", () => {
     expect(twice.optics.regular.tintAlpha).toBe(0.6);
     expect(twice.optics.regular.rimAlpha).toBe(0.9);
   });
+
+  it("refuses a backdrop tone response whose three rows resolved to different arities", () => {
+    /*
+     * The three rows are ONE curve: `backdropToneAnchorX` carries its knots and
+     * the two response rows carry that same curve's levels at the thin and the
+     * thick end. Each was merged against the base on its own, so a patch naming
+     * one of them at four knots over a three-knot base resolved to a triplet no
+     * reader agrees about. The CPU curve branches on the ANCHORS' length and then
+     * reads `backdropToneResponseThin[3]`, which is `undefined` — NaN for the
+     * whole interior. The shader keys the same flag off the anchors (`passes.ts`,
+     * `d[115]`) and pads the level rows with a REPEAT of their third knot, so it
+     * draws a plausible curve nobody fitted. The CSS tier's mirror reads the
+     * third case. One patch, three materials, and no error anywhere — so the seam
+     * that resolves the rows refuses the combination instead of picking one.
+     */
+    const four = [0.1, 0.3, 0.7, 0.95] as const;
+    for (const patch of [
+      { backdropToneAnchorX: four },
+      { backdropToneResponseThin: four },
+      { backdropToneResponseThick: four },
+      { backdropToneAnchorX: four, backdropToneResponseThin: four },
+    ]) {
+      expect(() => withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch))
+        .toThrow(/backdrop tone response/);
+    }
+    // Deterministic, and it names each row with the arity it resolved to, so the
+    // message alone says which of the three the patch forgot.
+    const message = (): string => {
+      try {
+        withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, { backdropToneAnchorX: four });
+        return "";
+      } catch (error) {
+        return (error as Error).message;
+      }
+    };
+    expect(message()).toBe(message());
+    expect(message()).toMatch(/backdropToneAnchorX 4/);
+    expect(message()).toMatch(/backdropToneResponseThin 3/);
+    expect(message()).toMatch(/backdropToneResponseThick 3/);
+  });
+
+  it("refuses a response row that is not an array of exactly three or four knots", () => {
+    /*
+     * Equal arity is not enough, because the curve has exactly two forms and the
+     * three readers disagree about everything else. A profile document is JSON
+     * cast to the patch type with nothing checking it, so three FIVE-knot rows
+     * arrive with their arities equal and pass the check below: the CPU curve and
+     * the CSS mirror both branch on `length === 3`, fail it, and run the
+     * four-knot arithmetic, while the shader's gate is `length === 4` (`passes.ts`
+     * `d[115]`), fails THAT, and runs the three-knot branch. One document, a
+     * four-knot material on two tiers and a three-knot material on the third, and
+     * the fifth knot silently dropped by all of them. Two knots is the same trap
+     * from the other side: every reader takes a branch that indexes past the end.
+     *
+     * The casts are the point rather than a convenience — `BackdropToneKnotRow`
+     * already forbids these shapes, and the seam this guards is exactly where a
+     * value arrives without having met that type.
+     */
+    const row = (value: unknown): BackdropToneKnotRow => value as BackdropToneKnotRow;
+    for (const bad of [
+      [0.1, 0.3, 0.7, 0.9, 0.95],
+      [0.1, 0.3],
+      [0.1],
+      [],
+      "abc",
+      { length: 3 },
+      0.5,
+    ]) {
+      // Named on all three rows at once, so arity agrees and only the shape is wrong.
+      expect(() => withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+        backdropToneAnchorX: row(bad),
+        backdropToneResponseThin: row(bad),
+        backdropToneResponseThick: row(bad),
+      }), JSON.stringify(bad) ?? String(bad)).toThrow(/backdrop tone response/);
+      // And named on one row alone, where the arity check would have caught it
+      // anyway — the shape refusal has to come first, and say which row it is.
+      expect(() => withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+        backdropToneResponseThick: row(bad),
+      }), JSON.stringify(bad) ?? String(bad)).toThrow(/backdropToneResponseThick/);
+    }
+    // `null` is deliberately NOT in that list. Every leaf in this function merges
+    // with `??`, so a null row means "not named" and resolves to the base's own —
+    // which all three readers then agree on. Singling these three keys out to
+    // reject it would make them the only ones in the profile where null is not
+    // absence, and it is not the failure this guard is for: nothing diverges.
+    expect(withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+      backdropToneAnchorX: null as unknown as BackdropToneKnotRow,
+    }).backdropToneAnchorX).toEqual(DEFAULT_MATERIAL_PROFILE.backdropToneAnchorX);
+  });
+
+  it("resolves the coherent row shapes the shipped profiles take", () => {
+    // A patch that names none of the rows keeps the base's own triplet.
+    expect(withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, { glowGain: 0.1 }).backdropToneAnchorX)
+      .toEqual(DEFAULT_MATERIAL_PROFILE.backdropToneAnchorX);
+    // The light receded endpoint's shape: the two level rows re-measured at the
+    // base's own three knots, with the anchors left where they were.
+    const partial = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+      backdropToneResponseThin: [0.0126, 0.4, 0.929],
+      backdropToneResponseThick: [0.4553, 0.518, 0.9],
+    });
+    expect(partial.backdropToneAnchorX).toEqual(DEFAULT_MATERIAL_PROFILE.backdropToneAnchorX);
+    expect(partial.backdropToneResponseThin).toEqual([0.0126, 0.4, 0.929]);
+    // The dark receded endpoint's shape: all three rows moved to four knots
+    // together, which is the only way a fourth knot may arrive.
+    const wide = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+      backdropToneAnchorX: [0.1104, 0.2706, 0.7, 0.9505],
+      backdropToneResponseThin: [0.011, 0.089, 0.1, 0.9326072],
+      backdropToneResponseThick: [0.0215, 0.065, 0.060877, 0.11753],
+    });
+    expect(wide.backdropToneAnchorX).toHaveLength(4);
+    expect(backdropToneResponse(0.9505, 0, wide)).toBeCloseTo(0.9326072, 12);
+    // And a four-knot profile still takes a patch that names all three rows back
+    // down to three, which is how a caller returns to the measured light curve.
+    expect(withMaterialOverrides(wide, {
+      backdropToneAnchorX: DEFAULT_MATERIAL_PROFILE.backdropToneAnchorX,
+      backdropToneResponseThin: DEFAULT_MATERIAL_PROFILE.backdropToneResponseThin,
+      backdropToneResponseThick: DEFAULT_MATERIAL_PROFILE.backdropToneResponseThick,
+    }).backdropToneResponseThick).toHaveLength(3);
+  });
 });
 
 describe("the foldings read the profile they are given", () => {
@@ -250,6 +372,29 @@ describe("the foldings read the profile they are given", () => {
     }
     // A material with nothing left to hide is the one place it cannot lift.
     expect(occlusionAlphaUnderPolicy(1, "increased")).toBe(1);
+  });
+
+  it("uses the shared lift as the additive default for both accessibility policies", () => {
+    const rt = { ...NOMINAL_MATERIAL_POLICY, occlusion: "increased", ambientTint: "nominal" } as const;
+    const ic = { ...rt, ambientTint: "reduced" } as const;
+    expect(occlusionLiftForPolicy(rt)).toBe(INCREASED_OCCLUSION_LIFT);
+    expect(occlusionLiftForPolicy(ic)).toBe(INCREASED_OCCLUSION_LIFT);
+  });
+
+  it("selects distinct receded occlusion levels through the existing policy axis", () => {
+    const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+      increasedOcclusionLiftByPolicy: {
+        reduceTransparency: 0.92,
+        increaseContrast: 1,
+      },
+    });
+    const rt = { ...NOMINAL_MATERIAL_POLICY, occlusion: "increased", ambientTint: "nominal" } as const;
+    const ic = { ...rt, ambientTint: "reduced" } as const;
+    expect(occlusionLiftForPolicy(rt, profile)).toBe(0.92);
+    expect(occlusionLiftForPolicy(ic, profile)).toBe(1);
+    expect(opticsUnderPolicy(profile.optics.regular, rt, profile).tintAlpha)
+      .toBe(occlusionAlphaUnderPolicy(profile.optics.regular.tintAlpha, "increased", 0.92));
+    expect(opticsUnderPolicy(profile.optics.regular, ic, profile).tintAlpha).toBe(1);
   });
 
   it("is a fitted lift now, not the pre-C9a floor re-expressed", () => {

@@ -1,0 +1,227 @@
+Scope: 9 of 10 workspace projects
+[36mpackages/geometry[39m [96mbuild[39m$ tsc -p tsconfig.build.json
+[35mpackages/motion[39m [96mbuild[39m$ tsc -p tsconfig.build.json
+[34mpackages/policy[39m [96mbuild[39m$ tsc -p tsconfig.build.json
+[34mpackages/policy[39m [96mbuild[39m: Done
+[35mpackages/motion[39m [96mbuild[39m: Done
+[36mpackages/geometry[39m [96mbuild[39m: Done
+[33mpackages/renderer-webgpu[39m [96mbuild[39m$ tsc -p tsconfig.build.json
+[33mpackages/renderer-webgpu[39m [96mbuild[39m: Done
+[32mpackages/core[39m [96mbuild[39m$ tsup
+[32mpackages/core[39m [96mbuild[39m: [34mCLI[39m Building entry: src/index.ts
+[32mpackages/core[39m [96mbuild[39m: [34mCLI[39m Using tsconfig: tsconfig.json
+[32mpackages/core[39m [96mbuild[39m: [34mCLI[39m tsup v8.5.1
+[32mpackages/core[39m [96mbuild[39m: [34mCLI[39m Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/core/tsup.config.ts
+[32mpackages/core[39m [96mbuild[39m: [34mCLI[39m Target: es2022
+[32mpackages/core[39m [96mbuild[39m: [34mCLI[39m Cleaning output folder
+[32mpackages/core[39m [96mbuild[39m: [34mESM[39m Build start
+[32mpackages/core[39m [96mbuild[39m: [34mDTS[39m Build start
+[32mpackages/core[39m [96mbuild[39m: [32mESM[39m [1mdist/chunk-IOTISK2R.js     [22m[32m19.40 KB[39m
+[32mpackages/core[39m [96mbuild[39m: [32mESM[39m [1mdist/index.js              [22m[32m42.69 KB[39m
+[32mpackages/core[39m [96mbuild[39m: [32mESM[39m [1mdist/chunk-IOTISK2R.js.map [22m[32m102.61 KB[39m
+[32mpackages/core[39m [96mbuild[39m: [32mESM[39m [1mdist/dist-3U54LN7P.js      [22m[32m314.20 KB[39m
+[32mpackages/core[39m [96mbuild[39m: [32mESM[39m [1mdist/index.js.map          [22m[32m168.75 KB[39m
+[32mpackages/core[39m [96mbuild[39m: [32mESM[39m [1mdist/dist-3U54LN7P.js.map  [22m[32m832.18 KB[39m
+[32mpackages/core[39m [96mbuild[39m: [32mESM[39m ⚡️ Build success in 216ms
+[32mpackages/core[39m [96mbuild[39m: [32mDTS[39m ⚡️ Build success in 1225ms
+[32mpackages/core[39m [96mbuild[39m: [32mDTS[39m [1mdist/index.d.ts [22m[32m238.10 KB[39m
+[32mpackages/core[39m [96mbuild[39m: Done
+[31mpackages/platform-web[39m [96mbuild[39m$ tsup
+[31mpackages/platform-web[39m [96mbuild[39m: [34mCLI[39m Building entry: src/index.ts
+[31mpackages/platform-web[39m [96mbuild[39m: [34mCLI[39m Using tsconfig: tsconfig.json
+[31mpackages/platform-web[39m [96mbuild[39m: [34mCLI[39m tsup v8.5.1
+[31mpackages/platform-web[39m [96mbuild[39m: [34mCLI[39m Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/platform-web/tsup.config.ts
+[31mpackages/platform-web[39m [96mbuild[39m: [34mCLI[39m Target: es2022
+[31mpackages/platform-web[39m [96mbuild[39m: [34mCLI[39m Cleaning output folder
+[31mpackages/platform-web[39m [96mbuild[39m: [34mESM[39m Build start
+[31mpackages/platform-web[39m [96mbuild[39m: [34mDTS[39m Build start
+[31mpackages/platform-web[39m [96mbuild[39m: [32mESM[39m [1mdist/index.js     [22m[32m270.00 KB[39m
+[31mpackages/platform-web[39m [96mbuild[39m: [32mESM[39m [1mdist/index.js.map [22m[32m1.06 MB[39m
+[31mpackages/platform-web[39m [96mbuild[39m: [32mESM[39m ⚡️ Build success in 235ms
+[31mpackages/platform-web[39m [96mbuild[39m: [32mDTS[39m ⚡️ Build success in 784ms
+[31mpackages/platform-web[39m [96mbuild[39m: [32mDTS[39m [1mdist/index.d.ts [22m[32m355.53 KB[39m
+[31mpackages/platform-web[39m [96mbuild[39m: Done
+[36mpackages/react[39m [96mbuild[39m$ tsup
+[35mpackages/calibration[39m [96mbuild[39m$ tsc -p tsconfig.build.json
+[36mpackages/react[39m [96mbuild[39m: [34mCLI[39m Building entry: src/index.ts
+[36mpackages/react[39m [96mbuild[39m: [34mCLI[39m Using tsconfig: tsconfig.json
+[36mpackages/react[39m [96mbuild[39m: [34mCLI[39m tsup v8.5.1
+[36mpackages/react[39m [96mbuild[39m: [34mCLI[39m Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/react/tsup.config.ts
+[36mpackages/react[39m [96mbuild[39m: [34mCLI[39m Target: es2022
+[36mpackages/react[39m [96mbuild[39m: [34mCLI[39m Cleaning output folder
+[36mpackages/react[39m [96mbuild[39m: [34mESM[39m Build start
+[36mpackages/react[39m [96mbuild[39m: [32mESM[39m [1mdist/index.js     [22m[32m96.21 KB[39m
+[36mpackages/react[39m [96mbuild[39m: [32mESM[39m [1mdist/index.js.map [22m[32m390.16 KB[39m
+[36mpackages/react[39m [96mbuild[39m: [32mESM[39m ⚡️ Build success in 141ms
+[36mpackages/react[39m [96mbuild[39m: [34mDTS[39m Build start
+[35mpackages/calibration[39m [96mbuild[39m: Done
+[36mpackages/react[39m [96mbuild[39m: [32mDTS[39m ⚡️ Build success in 1170ms
+[36mpackages/react[39m [96mbuild[39m: [32mDTS[39m [1mdist/index.d.ts [22m[32m62.01 KB[39m
+[36mpackages/react[39m [96mbuild[39m: Done
+[34mapps/demo[39m [96mbuild[39m$ vite build
+[34mapps/demo[39m [96mbuild[39m: [36mvite v8.2.2 [32mbuilding client environment for production...[36m[39m
+[34mapps/demo[39m [96mbuild[39m: transforming...
+[34mapps/demo[39m [96mbuild[39m: [32m✓[0m 1212 modules transformed.
+[34mapps/demo[39m [96mbuild[39m: rendering chunks...
+[34mapps/demo[39m [96mbuild[39m: computing gzip size...
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mindex.html                         [0m[1;2m     1.15 kB[0m[2m │ gzip:     0.56 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mplayground/index.html              [0m[1;2m     1.16 kB[0m[2m │ gzip:     0.59 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mlaws/index.html                    [0m[1;2m     1.47 kB[0m[2m │ gzip:     0.72 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mlaws-D_PuBI1m.css           [0m[1;2m     0.94 kB[0m[2m │ gzip:     0.42 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mplayground-Cl2JUn--.css     [0m[1;2m     8.70 kB[0m[2m │ gzip:     2.52 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mStageBackdrop-VZXOmLKS.css  [0m[1;2m    15.81 kB[0m[2m │ gzip:     3.92 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mStageBackdrop-B6Wougf_.js   [0m[1;2m     3.86 kB[0m[2m │ gzip:     1.77 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mconcentric-BQBsottr.js      [0m[1;2m     8.08 kB[0m[2m │ gzip:     3.40 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mplayground-CF40cr6e.js      [0m[1;2m    15.45 kB[0m[2m │ gzip:     4.97 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mlaws-CZnued1d.js            [0m[1;2m    25.96 kB[0m[2m │ gzip:     8.29 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mActionsMenu-Dogu1NAc.js     [0m[1;2m   107.11 kB[0m[2m │ gzip:    34.87 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36msrc-D7eMDqnv.js             [0m[1;2m   187.28 kB[0m[2m │ gzip:    61.46 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mclient-BJGEH3NG.js          [0m[1;2m   348.64 kB[0m[2m │ gzip:   113.07 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mindex-CrCKGA1e.js           [0m[33;1m12,746.02 kB[0m[2m │ gzip: 1,092.15 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [32m✓ built in 1.01s[39m
+[34mapps/demo[39m [96mbuild[39m: [90m[33m[plugin builtin:vite-reporter] [33;1m[39m
+[34mapps/demo[39m [96mbuild[39m: [90m(!) Some chunks are larger than 500 kB after minification. Consider:[39m
+[34mapps/demo[39m [96mbuild[39m: [90m- Using dynamic import() to code-split the application[39m
+[34mapps/demo[39m [96mbuild[39m: [90m- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting[39m
+[34mapps/demo[39m [96mbuild[39m: [90m- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[0m[39m[90m[39m
+[34mapps/demo[39m [96mbuild[39m: Done
+Scope: 9 of 10 workspace projects
+[36mpackages/geometry[39m [96mlint[39m$ eslint . && tsc --noEmit
+[35mpackages/motion[39m [96mlint[39m$ eslint . && tsc --noEmit
+[34mpackages/policy[39m [96mlint[39m$ eslint . && tsc --noEmit
+[34mpackages/policy[39m [96mlint[39m: Done
+[35mpackages/motion[39m [96mlint[39m: Done
+[36mpackages/geometry[39m [96mlint[39m: Done
+[33mpackages/renderer-webgpu[39m [96mlint[39m$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+[33mpackages/renderer-webgpu[39m [96mlint[39m: Done
+[32mpackages/core[39m [96mlint[39m$ eslint . && tsc --noEmit
+[32mpackages/core[39m [96mlint[39m: Done
+[31mpackages/platform-web[39m [96mlint[39m$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+[31mpackages/platform-web[39m [96mlint[39m: Done
+[36mpackages/calibration[39m [96mlint[39m$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json
+[35mpackages/react[39m [96mlint[39m$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+[35mpackages/react[39m [96mlint[39m: Done
+[36mpackages/calibration[39m [96mlint[39m: Done
+[34mapps/demo[39m [96mlint[39m$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+[34mapps/demo[39m [96mlint[39m: Done
+Scope: 9 of 10 workspace projects
+[36mpackages/geometry[39m [96mtest[39m$ vitest run
+[35mpackages/policy[39m [96mtest[39m$ vitest run
+[34mpackages/motion[39m [96mtest[39m$ vitest run
+[36mpackages/geometry[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/geometry
+[35mpackages/policy[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/policy
+[34mpackages/motion[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/motion
+[35mpackages/policy[39m [96mtest[39m:  Test Files  2 passed (2)
+[35mpackages/policy[39m [96mtest[39m:       Tests  23 passed (23)
+[35mpackages/policy[39m [96mtest[39m:    Start at  13:06:48
+[35mpackages/policy[39m [96mtest[39m:    Duration  326ms (transform 78ms, setup 0ms, import 114ms, tests 9ms, environment 0ms)
+[35mpackages/policy[39m [96mtest[39m: Done
+[34mpackages/motion[39m [96mtest[39m:  Test Files  10 passed (10)
+[34mpackages/motion[39m [96mtest[39m:       Tests  164 passed (164)
+[34mpackages/motion[39m [96mtest[39m:    Start at  13:06:48
+[34mpackages/motion[39m [96mtest[39m:    Duration  766ms (transform 790ms, setup 0ms, import 1.26s, tests 563ms, environment 0ms)
+[34mpackages/motion[39m [96mtest[39m: Done
+[36mpackages/geometry[39m [96mtest[39m: === the crossing: Apple's dump against the reference construction at the same reach ===
+[36mpackages/geometry[39m [96mtest[39m: 120x44    r*  14.3916  hausdorff  0.092982 px  = 0.00646086 r
+[36mpackages/geometry[39m [96mtest[39m: 64x30     r*   9.8125  hausdorff  0.063450 px  = 0.00646621 r
+[36mpackages/geometry[39m [96mtest[39m: 44x44     r*  14.3916  hausdorff  0.092982 px  = 0.00646086 r
+[36mpackages/geometry[39m [96mtest[39m: 160x96    r*  31.3999  hausdorff  0.202744 px  = 0.00645684 r
+[36mpackages/geometry[39m [96mtest[39m: 280x160   r*  52.3332  hausdorff  0.337875 px  = 0.00645622 r
+[36mpackages/geometry[39m [96mtest[39m: contour step per 0.002 px of r across the crossing: 0.092906 px at r 14.3936
+[36mpackages/geometry[39m [96mtest[39m: === the render path at 1x (device px) ===
+[36mpackages/geometry[39m [96mtest[39m: shape                  r/min   declared  render r  render reach  spec r   sat  gap→declared  gap render↔spec
+[36mpackages/geometry[39m [96mtest[39m: capsule-button         0.5000     22.00     22.00         22.00   22.00  YES        0.0000           0.0000
+[36mpackages/geometry[39m [96mtest[39m: toolbar-group item     0.5000     22.00     22.00         22.00   22.00  YES        0.0000           0.0000
+[36mpackages/geometry[39m [96mtest[39m: rrect-sm               0.2500      8.00      8.00         12.23    8.00   no        0.1104           0.0000
+[36mpackages/geometry[39m [96mtest[39m: rrect-md               0.2083     20.00     20.00         30.57   20.00   no        0.2760           0.0000
+[36mpackages/geometry[39m [96mtest[39m: rrect-ml               0.2109     27.00     27.00         41.27   27.00   no        0.3726           0.0000
+[36mpackages/geometry[39m [96mtest[39m: rrect-lg               0.2125     34.00     34.00         51.97   34.00   no        0.4691           0.0000
+[36mpackages/geometry[39m [96mtest[39m: glass-over-glass base  0.1846     24.00     24.00         36.69   24.00   no        0.3312           0.0000
+[36mpackages/geometry[39m [96mtest[39m: glass-over-glass over  0.2857     16.00     16.00         24.46   16.00   no        0.2208           0.0000
+[36mpackages/geometry[39m [96mtest[39m: === the render path at 2x (device px) ===
+[36mpackages/geometry[39m [96mtest[39m: shape                  r/min   declared  render r  render reach  spec r   sat  gap→declared  gap render↔spec
+[36mpackages/geometry[39m [96mtest[39m: capsule-button         0.5000     44.00     44.00         44.00   44.00  YES        0.0000           0.0000
+[36mpackages/geometry[39m [96mtest[39m: toolbar-group item     0.5000     44.00     44.00         44.00   44.00  YES        0.0000           0.0000
+[36mpackages/geometry[39m [96mtest[39m: rrect-sm               0.2500     16.00     16.00         24.46   16.00   no        0.2208           0.0000
+[36mpackages/geometry[39m [96mtest[39m: rrect-md               0.2083     40.00     40.00         61.15   40.00   no        0.5519           0.0000
+[36mpackages/geometry[39m [96mtest[39m: rrect-ml               0.2109     54.00     54.00         82.55   54.00   no        0.7451           0.0000
+[36mpackages/geometry[39m [96mtest[39m: rrect-lg               0.2125     68.00     68.00        103.95   68.00   no        0.9383           0.0000
+[36mpackages/geometry[39m [96mtest[39m: glass-over-glass base  0.1846     48.00     48.00         73.38   48.00   no        0.6623           0.0000
+[36mpackages/geometry[39m [96mtest[39m: glass-over-glass over  0.2857     32.00     32.00         48.92   32.00   no        0.4416           0.0000
+[36mpackages/geometry[39m [96mtest[39m: === DEFAULT_HOST_SHAPE radius 12, 200 x h ===
+[36mpackages/geometry[39m [96mtest[39m: h  24  drawn r  12.0000  s_eff 0.0000  radius lost 0.0000 CSS px
+[36mpackages/geometry[39m [96mtest[39m: h  32  drawn r  12.0000  s_eff 0.3333  radius lost 0.0000 CSS px
+[36mpackages/geometry[39m [96mtest[39m: h  36  drawn r  12.0000  s_eff 0.5000  radius lost 0.0000 CSS px
+[36mpackages/geometry[39m [96mtest[39m: h  40  drawn r  12.0000  s_eff 0.5287  radius lost 0.0000 CSS px
+[36mpackages/geometry[39m [96mtest[39m: h  48  drawn r  12.0000  s_eff 0.5287  radius lost 0.0000 CSS px
+[36mpackages/geometry[39m [96mtest[39m:  Test Files  14 passed (14)
+[36mpackages/geometry[39m [96mtest[39m:       Tests  170 passed (170)
+[36mpackages/geometry[39m [96mtest[39m:    Start at  13:06:48
+[36mpackages/geometry[39m [96mtest[39m:    Duration  10.99s (transform 1.37s, setup 0ms, import 9.99s, tests 13.39s, environment 1ms)
+[36mpackages/geometry[39m [96mtest[39m: Done
+[33mpackages/renderer-webgpu[39m [96mtest[39m$ vitest run
+[33mpackages/renderer-webgpu[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/renderer-webgpu
+[33mpackages/renderer-webgpu[39m [96mtest[39m:  Test Files  27 passed (27)
+[33mpackages/renderer-webgpu[39m [96mtest[39m:       Tests  472 passed (472)
+[33mpackages/renderer-webgpu[39m [96mtest[39m:    Start at  13:06:59
+[33mpackages/renderer-webgpu[39m [96mtest[39m:    Duration  880ms (transform 1.92s, setup 187ms, import 3.03s, tests 1.35s, environment 1ms)
+[33mpackages/renderer-webgpu[39m [96mtest[39m: Done
+[32mpackages/core[39m [96mtest[39m$ vitest run
+[32mpackages/core[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/core
+[32mpackages/core[39m [96mtest[39m:  Test Files  16 passed (16)
+[32mpackages/core[39m [96mtest[39m:       Tests  302 passed (302)
+[32mpackages/core[39m [96mtest[39m:    Start at  13:07:00
+[32mpackages/core[39m [96mtest[39m:    Duration  2.41s (transform 1.43s, setup 0ms, import 1.89s, tests 3.33s, environment 1ms)
+[32mpackages/core[39m [96mtest[39m: Done
+[31mpackages/platform-web[39m [96mtest[39m$ vitest run
+[31mpackages/platform-web[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/platform-web
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m:  Test Files  41 passed (41)
+[31mpackages/platform-web[39m [96mtest[39m:       Tests  591 passed (591)
+[31mpackages/platform-web[39m [96mtest[39m:    Start at  13:07:03
+[31mpackages/platform-web[39m [96mtest[39m:    Duration  4.76s (transform 4.01s, setup 0ms, import 8.28s, tests 6.44s, environment 20.85s)
+[31mpackages/platform-web[39m [96mtest[39m: Done
+[36mpackages/react[39m [96mtest[39m$ vitest run
+[35mpackages/calibration[39m [96mtest[39m$ vitest run
+[35mpackages/calibration[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/calibration
+[36mpackages/react[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/react
+[36mpackages/react[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[36mpackages/react[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[36mpackages/react[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[36mpackages/react[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[36mpackages/react[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[36mpackages/react[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[36mpackages/react[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[36mpackages/react[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[35mpackages/calibration[39m [96mtest[39m:  Test Files  26 passed (26)
+[35mpackages/calibration[39m [96mtest[39m:       Tests  414 passed (414)
+[35mpackages/calibration[39m [96mtest[39m:    Start at  13:07:08
+[35mpackages/calibration[39m [96mtest[39m:    Duration  4.66s (transform 8.50s, setup 0ms, import 14.72s, tests 10.29s, environment 1ms)
+[35mpackages/calibration[39m [96mtest[39m: Done
+[36mpackages/react[39m [96mtest[39m:  Test Files  16 passed (16)
+[36mpackages/react[39m [96mtest[39m:       Tests  148 passed (148)
+[36mpackages/react[39m [96mtest[39m:    Start at  13:07:08
+[36mpackages/react[39m [96mtest[39m:    Duration  4.89s (transform 6.52s, setup 3.03s, import 9.52s, tests 11.59s, environment 14.28s)
+[36mpackages/react[39m [96mtest[39m: Done
+[34mapps/demo[39m [96mtest[39m$ vitest run
+[34mapps/demo[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/apps/demo
+[34mapps/demo[39m [96mtest[39m:  Test Files  4 passed (4)
+[34mapps/demo[39m [96mtest[39m:       Tests  34 passed (34)
+[34mapps/demo[39m [96mtest[39m:    Start at  13:07:13
+[34mapps/demo[39m [96mtest[39m:    Duration  296ms (transform 343ms, setup 0ms, import 414ms, tests 12ms, environment 0ms)
+[34mapps/demo[39m [96mtest[39m: Done

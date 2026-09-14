@@ -1,0 +1,32 @@
+{
+ "gate": "W27c G1d / claims §5.143",
+ "kind": "declared rungs, committed before the first WebGPU fit capture",
+ "partition": "packages/calibration/results/2026-09-14-w27c-g1d/partition.json",
+ "priorReading": "native-response.json and form-decision.json; native-only",
+ "objective": {
+  "selection": "lowest equal-cell mean body deltaE on the term's calibration cells among rungs clearing every declared control",
+  "refusalRule": "a rung is refused if any declared control exceeds 9x its frozen G1c body-deltaE baseline",
+  "holdout": "excluded from every pattern and read once only after both selected values are frozen"
+ },
+ "t1": {
+  "parameters": "dark backdropToneAnchorX and both response rows; four knots only on candidate rungs",
+  "rungs": [
+   { "id": "base", "kind": "three-knot frozen G1c endpoint" },
+   { "id": "anchor-0.5490", "x": 0.5490196, "thin": 0.12214, "thick": 0.060877 },
+   { "id": "step-0.7000", "x": 0.7, "thin": 0.1, "thick": 0.060877 },
+   { "id": "step-0.7400", "x": 0.74, "thin": 0.09, "thick": 0.060877 },
+   { "id": "step-0.7652", "x": 0.7652, "thin": 0.09, "thick": 0.060877 },
+   { "id": "step-0.8000", "x": 0.8, "thin": 0.09, "thick": 0.060877 },
+   { "id": "step-0.8500", "x": 0.85, "thin": 0.09, "thick": 0.060877 }
+  ],
+  "fixedFar": { "thin": 0.9326072, "thick": 0.11753 },
+  "why": "The native anchor proves the response is an abscissa law. The literal 0.549 knot tests that reading directly; later x rungs place the low third ordinate at and above the brightest structured controls so the sweep measures where the 0.84 rise can begin without destroying them. The far thin and thick values are the native measurements already published in §5.141."
+ },
+ "t2": {
+  "parameters": "light increasedOcclusionLiftByPolicy",
+  "reduceTransparencyRungs": [0.88, 0.9, 0.92, 0.94, 0.96],
+  "increaseContrastRungs": [0.96, 0.98, 0.99, 1],
+  "sharedDefault": 0.96,
+  "why": "The policies are selected independently by ambientTint, so each one-dimensional sweep holds the other policy at a value that cannot affect the selected profile. The ranges bracket §5.141's exact 0.92 Reduce Transparency reading and Increase Contrast's near-opaque level."
+ }
+}

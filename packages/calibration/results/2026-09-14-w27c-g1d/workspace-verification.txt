@@ -1,0 +1,121 @@
+Scope: 9 of 10 workspace projects
+[36mpackages/geometry[39m [96mtest[39m$ vitest run
+[35mpackages/motion[39m [96mtest[39m$ vitest run
+[34mpackages/policy[39m [96mtest[39m$ vitest run
+[35mpackages/motion[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/motion
+[34mpackages/policy[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/policy
+[34mpackages/policy[39m [96mtest[39m:  Test Files  2 passed (2)
+[34mpackages/policy[39m [96mtest[39m:       Tests  23 passed (23)
+[34mpackages/policy[39m [96mtest[39m:    Start at  12:17:41
+[34mpackages/policy[39m [96mtest[39m:    Duration  113ms (transform 39ms, setup 0ms, import 52ms, tests 10ms, environment 0ms)
+[34mpackages/policy[39m [96mtest[39m: Done
+[35mpackages/motion[39m [96mtest[39m:  Test Files  10 passed (10)
+[35mpackages/motion[39m [96mtest[39m:       Tests  164 passed (164)
+[35mpackages/motion[39m [96mtest[39m:    Start at  12:17:41
+[35mpackages/motion[39m [96mtest[39m:    Duration  455ms (transform 564ms, setup 0ms, import 824ms, tests 403ms, environment 1ms)
+[35mpackages/motion[39m [96mtest[39m: Done
+[36mpackages/geometry[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/geometry
+[36mpackages/geometry[39m [96mtest[39m: === the crossing: Apple's dump against the reference construction at the same reach ===
+[36mpackages/geometry[39m [96mtest[39m: 120x44    r*  14.3916  hausdorff  0.092982 px  = 0.00646086 r
+[36mpackages/geometry[39m [96mtest[39m: 64x30     r*   9.8125  hausdorff  0.063450 px  = 0.00646621 r
+[36mpackages/geometry[39m [96mtest[39m: 44x44     r*  14.3916  hausdorff  0.092982 px  = 0.00646086 r
+[36mpackages/geometry[39m [96mtest[39m: 160x96    r*  31.3999  hausdorff  0.202744 px  = 0.00645684 r
+[36mpackages/geometry[39m [96mtest[39m: 280x160   r*  52.3332  hausdorff  0.337875 px  = 0.00645622 r
+[36mpackages/geometry[39m [96mtest[39m: contour step per 0.002 px of r across the crossing: 0.092906 px at r 14.3936
+[36mpackages/geometry[39m [96mtest[39m: === the render path at 1x (device px) ===
+[36mpackages/geometry[39m [96mtest[39m: shape                  r/min   declared  render r  render reach  spec r   sat  gap→declared  gap render↔spec
+[36mpackages/geometry[39m [96mtest[39m: capsule-button         0.5000     22.00     22.00         22.00   22.00  YES        0.0000           0.0000
+[36mpackages/geometry[39m [96mtest[39m: toolbar-group item     0.5000     22.00     22.00         22.00   22.00  YES        0.0000           0.0000
+[36mpackages/geometry[39m [96mtest[39m: rrect-sm               0.2500      8.00      8.00         12.23    8.00   no        0.1104           0.0000
+[36mpackages/geometry[39m [96mtest[39m: rrect-md               0.2083     20.00     20.00         30.57   20.00   no        0.2760           0.0000
+[36mpackages/geometry[39m [96mtest[39m: rrect-ml               0.2109     27.00     27.00         41.27   27.00   no        0.3726           0.0000
+[36mpackages/geometry[39m [96mtest[39m: rrect-lg               0.2125     34.00     34.00         51.97   34.00   no        0.4691           0.0000
+[36mpackages/geometry[39m [96mtest[39m: glass-over-glass base  0.1846     24.00     24.00         36.69   24.00   no        0.3312           0.0000
+[36mpackages/geometry[39m [96mtest[39m: glass-over-glass over  0.2857     16.00     16.00         24.46   16.00   no        0.2208           0.0000
+[36mpackages/geometry[39m [96mtest[39m: === the render path at 2x (device px) ===
+[36mpackages/geometry[39m [96mtest[39m: shape                  r/min   declared  render r  render reach  spec r   sat  gap→declared  gap render↔spec
+[36mpackages/geometry[39m [96mtest[39m: capsule-button         0.5000     44.00     44.00         44.00   44.00  YES        0.0000           0.0000
+[36mpackages/geometry[39m [96mtest[39m: toolbar-group item     0.5000     44.00     44.00         44.00   44.00  YES        0.0000           0.0000
+[36mpackages/geometry[39m [96mtest[39m: rrect-sm               0.2500     16.00     16.00         24.46   16.00   no        0.2208           0.0000
+[36mpackages/geometry[39m [96mtest[39m: rrect-md               0.2083     40.00     40.00         61.15   40.00   no        0.5519           0.0000
+[36mpackages/geometry[39m [96mtest[39m: rrect-ml               0.2109     54.00     54.00         82.55   54.00   no        0.7451           0.0000
+[36mpackages/geometry[39m [96mtest[39m: rrect-lg               0.2125     68.00     68.00        103.95   68.00   no        0.9383           0.0000
+[36mpackages/geometry[39m [96mtest[39m: glass-over-glass base  0.1846     48.00     48.00         73.38   48.00   no        0.6623           0.0000
+[36mpackages/geometry[39m [96mtest[39m: glass-over-glass over  0.2857     32.00     32.00         48.92   32.00   no        0.4416           0.0000
+[36mpackages/geometry[39m [96mtest[39m: === DEFAULT_HOST_SHAPE radius 12, 200 x h ===
+[36mpackages/geometry[39m [96mtest[39m: h  24  drawn r  12.0000  s_eff 0.0000  radius lost 0.0000 CSS px
+[36mpackages/geometry[39m [96mtest[39m: h  32  drawn r  12.0000  s_eff 0.3333  radius lost 0.0000 CSS px
+[36mpackages/geometry[39m [96mtest[39m: h  36  drawn r  12.0000  s_eff 0.5000  radius lost 0.0000 CSS px
+[36mpackages/geometry[39m [96mtest[39m: h  40  drawn r  12.0000  s_eff 0.5287  radius lost 0.0000 CSS px
+[36mpackages/geometry[39m [96mtest[39m: h  48  drawn r  12.0000  s_eff 0.5287  radius lost 0.0000 CSS px
+[36mpackages/geometry[39m [96mtest[39m:  Test Files  14 passed (14)
+[36mpackages/geometry[39m [96mtest[39m:       Tests  170 passed (170)
+[36mpackages/geometry[39m [96mtest[39m:    Start at  12:17:42
+[36mpackages/geometry[39m [96mtest[39m:    Duration  10.81s (transform 857ms, setup 0ms, import 9.41s, tests 13.42s, environment 1ms)
+[36mpackages/geometry[39m [96mtest[39m: Done
+[33mpackages/renderer-webgpu[39m [96mtest[39m$ vitest run
+[33mpackages/renderer-webgpu[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/renderer-webgpu
+[33mpackages/renderer-webgpu[39m [96mtest[39m:  Test Files  27 passed (27)
+[33mpackages/renderer-webgpu[39m [96mtest[39m:       Tests  470 passed (470)
+[33mpackages/renderer-webgpu[39m [96mtest[39m:    Start at  12:17:53
+[33mpackages/renderer-webgpu[39m [96mtest[39m:    Duration  848ms (transform 1.89s, setup 203ms, import 3.13s, tests 1.09s, environment 1ms)
+[33mpackages/renderer-webgpu[39m [96mtest[39m: Done
+[32mpackages/core[39m [96mtest[39m$ vitest run
+[32mpackages/core[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/core
+[32mpackages/core[39m [96mtest[39m:  Test Files  16 passed (16)
+[32mpackages/core[39m [96mtest[39m:       Tests  302 passed (302)
+[32mpackages/core[39m [96mtest[39m:    Start at  12:17:54
+[32mpackages/core[39m [96mtest[39m:    Duration  2.51s (transform 1.26s, setup 0ms, import 1.78s, tests 3.08s, environment 1ms)
+[32mpackages/core[39m [96mtest[39m: Done
+[31mpackages/platform-web[39m [96mtest[39m$ vitest run
+[31mpackages/platform-web[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/platform-web
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[31mpackages/platform-web[39m [96mtest[39m:  Test Files  41 passed (41)
+[31mpackages/platform-web[39m [96mtest[39m:       Tests  583 passed (583)
+[31mpackages/platform-web[39m [96mtest[39m:    Start at  12:17:57
+[31mpackages/platform-web[39m [96mtest[39m:    Duration  4.50s (transform 3.25s, setup 0ms, import 7.33s, tests 5.59s, environment 21.24s)
+[31mpackages/platform-web[39m [96mtest[39m: Done
+[36mpackages/calibration[39m [96mtest[39m$ vitest run
+[35mpackages/react[39m [96mtest[39m$ vitest run
+[36mpackages/calibration[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/calibration
+[35mpackages/react[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/react
+[35mpackages/react[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[35mpackages/react[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[35mpackages/react[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[35mpackages/react[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[35mpackages/react[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[35mpackages/react[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[36mpackages/calibration[39m [96mtest[39m:  Test Files  26 passed (26)
+[36mpackages/calibration[39m [96mtest[39m:       Tests  411 passed (411)
+[36mpackages/calibration[39m [96mtest[39m:    Start at  12:18:02
+[36mpackages/calibration[39m [96mtest[39m:    Duration  4.21s (transform 6.23s, setup 0ms, import 11.26s, tests 8.94s, environment 2ms)
+[35mpackages/react[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[35mpackages/react[39m [96mtest[39m: [90mNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package[39m
+[36mpackages/calibration[39m [96mtest[39m: Done
+[35mpackages/react[39m [96mtest[39m:  Test Files  16 passed (16)
+[35mpackages/react[39m [96mtest[39m:       Tests  148 passed (148)
+[35mpackages/react[39m [96mtest[39m:    Start at  12:18:02
+[35mpackages/react[39m [96mtest[39m:    Duration  4.13s (transform 3.72s, setup 3.23s, import 6.13s, tests 9.65s, environment 13.37s)
+[35mpackages/react[39m [96mtest[39m: Done
+[34mapps/demo[39m [96mtest[39m$ vitest run
+[34mapps/demo[39m [96mtest[39m:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/apps/demo
+[34mapps/demo[39m [96mtest[39m:  Test Files  4 passed (4)
+[34mapps/demo[39m [96mtest[39m:       Tests  34 passed (34)
+[34mapps/demo[39m [96mtest[39m:    Start at  12:18:07
+[34mapps/demo[39m [96mtest[39m:    Duration  309ms (transform 319ms, setup 0ms, import 387ms, tests 11ms, environment 0ms)
+[34mapps/demo[39m [96mtest[39m: Done

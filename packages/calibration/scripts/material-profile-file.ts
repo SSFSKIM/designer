@@ -97,6 +97,12 @@ export const MATERIAL_PATCH_KEYS = new Set([
   "lensOvalizationSpanMax",
   "reducedTransparencyFrost",
   "increasedOcclusionLift",
+  // The same lift read PER accessibility policy (W27c G1d, Decision Log 19): the
+  // shared scalar above is the additive default both policies fall back to, and
+  // this is the pair that separates them once they have been fitted apart. It is
+  // the parameter G1d's own sweep varied, and while it was missing here the
+  // canonical capture path refused every rung of that sweep.
+  "increasedOcclusionLiftByPolicy",
   "strongBorderRim",
   "reducedTintAdaptation",
   // The author tint's tone map (W3) and the backdrop tone adaptation (W7). The
@@ -174,6 +180,23 @@ export const MATERIAL_PATCH_KEYS = new Set([
  * runtime boundary too; this refuses it here, where the file has a path and the
  * message can name it.
  */
+/**
+ * Every policy the per-policy occlusion lift has.
+ *
+ * The same nested guard as `OUTER_SHADOW_KEYS`, for the same reason and at a
+ * block with only two leaves — which is exactly what makes it worth guarding. The
+ * renderer spreads this block over the base rather than replacing it, so a
+ * document naming a third policy, or spelling one of these two the way the media
+ * query does (`prefers-contrast`), applies cleanly, hashes itself into every cell
+ * as the configuration that ran, and lifts by the shared scalar instead. Naming
+ * one of the two alone is valid: that is how a sweep moves one policy and leaves
+ * the other where the fit left it.
+ */
+export const OCCLUSION_LIFT_BY_POLICY_KEYS = new Set([
+  "reduceTransparency",
+  "increaseContrast",
+]);
+
 export const OUTER_SHADOW_KEYS = new Set([
   "offsetPx",
   "sigmaPx",
@@ -267,6 +290,52 @@ export function readMaterialProfileFile(path: string): MaterialProfileSections {
   const outerShadow = object(patch["outerShadow"]);
   if (outerShadow !== undefined) {
     reject("the renderer's MaterialOuterShadow", Object.keys(outerShadow), OUTER_SHADOW_KEYS);
+  }
+  /*
+   * The per-policy lift, checked as a VALUE and not only for its key names.
+   *
+   * The key guard above can only read keys off something that is already a
+   * record, so everything else walked past it into a renderer that SPREADS this
+   * block over the defaults: an array spreads as the numeric keys `0` and `1`,
+   * and a scalar, a string or a null spreads to nothing at all — either way both
+   * policies keep the shared default while the cell records the document as the
+   * configuration that ran. An empty map is that same no-op one level up. And a
+   * leaf that is not a finite number reaches the lift arithmetic, where it
+   * becomes a NaN alpha and a surface that does not draw; `1e999` is how one
+   * arrives, since `JSON.parse` turns an overflowing literal into `Infinity`
+   * without an error of its own.
+   */
+  if ("increasedOcclusionLiftByPolicy" in patch) {
+    const liftByPolicy = object(patch["increasedOcclusionLiftByPolicy"]);
+    if (liftByPolicy === undefined) {
+      throw new Error(
+        `--material-profile ${path} gives increasedOcclusionLiftByPolicy as ` +
+          `${JSON.stringify(patch["increasedOcclusionLiftByPolicy"]) ?? "undefined"}, which is ` +
+          `not a map of policy names to lifts. The renderer spreads this block over the ` +
+          `defaults, so applying it would have left both policies on the shared lift while ` +
+          `recording the document as the configuration that ran. Name ` +
+          `${[...OCCLUSION_LIFT_BY_POLICY_KEYS].join(" or ")}.`,
+      );
+    }
+    const policies = Object.keys(liftByPolicy);
+    if (policies.length === 0) {
+      throw new Error(
+        `--material-profile ${path} gives increasedOcclusionLiftByPolicy as an empty object, ` +
+          `so it names no policy and would change nothing while recording itself as the ` +
+          `configuration that ran.`,
+      );
+    }
+    reject("the renderer's MaterialOcclusionLiftByPolicy", policies,
+      OCCLUSION_LIFT_BY_POLICY_KEYS);
+    for (const [policy, lift] of Object.entries(liftByPolicy)) {
+      if (typeof lift === "number" && Number.isFinite(lift)) continue;
+      throw new Error(
+        `--material-profile ${path} gives increasedOcclusionLiftByPolicy.${policy} as ` +
+          `${JSON.stringify(lift) ?? String(lift)}, which is not a finite number. It is a ` +
+          `fraction of the remaining transparency the lift closes, and anything else reaches ` +
+          `the alpha arithmetic as NaN — a surface that does not draw at all.`,
+      );
+    }
   }
   if (cssTierMapping !== undefined) {
     reject("the CSS tier's CssTierMapping", Object.keys(cssTierMapping), CSS_TIER_MAPPING_KEYS);

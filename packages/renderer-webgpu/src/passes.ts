@@ -112,6 +112,10 @@ export interface FieldTargets {
   readonly upsampled: boolean;
 }
 
+type BackdropToneKnotRow =
+  | readonly [number, number, number]
+  | readonly [number, number, number, number];
+
 export interface OpticsPassArgs {
   /** The group's resource identity on this plane — see `groupResourceId`. */
   readonly resourceId: string;
@@ -348,9 +352,9 @@ export interface OpticsPassArgs {
    * a thin (`sizeThickness` 0) and a thick (saturated) surface. See
    * `MaterialProfile.backdropToneAnchorX`.
    */
-  readonly backdropToneAnchorX: readonly [number, number, number];
-  readonly backdropToneResponseThin: readonly [number, number, number];
-  readonly backdropToneResponseThick: readonly [number, number, number];
+  readonly backdropToneAnchorX: BackdropToneKnotRow;
+  readonly backdropToneResponseThin: BackdropToneKnotRow;
+  readonly backdropToneResponseThick: BackdropToneKnotRow;
   /** The response law's per-profile authority (0 on dark profiles) — see
    * `MaterialProfile.backdropToneResponseStrength`. */
   readonly backdropToneResponseStrength: number;
@@ -724,7 +728,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.resourceId}`, 112);
+      const slot = uniformSlot(`optics:${args.resourceId}`, 116);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -902,6 +906,12 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[109] = args.domMaterial?.mode ?? 0;
       d[110] = args.domMaterial?.referenceBackdropLuminance ?? 0;
       d[111] = args.domMaterial?.minimumTintContrast ?? 0;
+      // Decision Log 18's optional fourth backdrop-response knot. Appended as a
+      // vec4 so every existing uniform keeps its offset; w is the length gate.
+      d[112] = args.backdropToneAnchorX[3] ?? args.backdropToneAnchorX[2];
+      d[113] = args.backdropToneResponseThin[3] ?? args.backdropToneResponseThin[2];
+      d[114] = args.backdropToneResponseThick[3] ?? args.backdropToneResponseThick[2];
+      d[115] = args.backdropToneAnchorX.length === 4 ? 1 : 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

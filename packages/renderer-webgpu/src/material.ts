@@ -550,6 +550,15 @@ export interface MaterialOuterShadow {
  * Units: CSS px for distance, linear light for colour, viewport coordinates with
  * y pointing down for direction.
  */
+export type BackdropToneKnotRow =
+  | readonly [number, number, number]
+  | readonly [number, number, number, number];
+
+export interface MaterialOcclusionLiftByPolicy {
+  readonly reduceTransparency: number;
+  readonly increaseContrast: number;
+}
+
 export interface MaterialProfile {
   /** Per-variant optics. `clear` is persistently more transparent than `regular`. */
   readonly optics: Readonly<Record<MaterialVariant, MaterialOptics>>;
@@ -1321,6 +1330,8 @@ export interface MaterialProfile {
    * both directions by `packages/calibration/test/tier-coherence.test.ts`.
    */
   readonly increasedOcclusionLift: number;
+  /** Optional policy-specific levels. Absent keeps the shared lift exactly. */
+  readonly increasedOcclusionLiftByPolicy?: MaterialOcclusionLiftByPolicy;
   readonly strongBorderRim: MaterialRim;
   readonly reducedTintAdaptation: number;
 
@@ -1611,9 +1622,9 @@ export interface MaterialProfile {
    * extreme-dark region stays with the collapse constants that were fitted
    * on it.
    */
-  readonly backdropToneAnchorX: readonly [number, number, number];
-  readonly backdropToneResponseThin: readonly [number, number, number];
-  readonly backdropToneResponseThick: readonly [number, number, number];
+  readonly backdropToneAnchorX: BackdropToneKnotRow;
+  readonly backdropToneResponseThin: BackdropToneKnotRow;
+  readonly backdropToneResponseThick: BackdropToneKnotRow;
 
   /**
    * How much authority the response law has in THIS profile, 0…1 (W9).
@@ -1732,6 +1743,17 @@ export function occlusionAlphaUnderPolicy(
     case "opaque":
       return 1;
   }
+}
+
+export function occlusionLiftForPolicy(
+  policy: MaterialPolicyView,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  if (policy.occlusion !== "increased") return profile.increasedOcclusionLift;
+  const levels = profile.increasedOcclusionLiftByPolicy;
+  return policy.ambientTint === "reduced"
+    ? levels?.increaseContrast ?? profile.increasedOcclusionLift
+    : levels?.reduceTransparency ?? profile.increasedOcclusionLift;
 }
 
 export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
@@ -2731,6 +2753,7 @@ export interface MaterialProfilePatch {
   readonly lensOvalizationSpanMax?: number;
   readonly reducedTransparencyFrost?: number;
   readonly increasedOcclusionLift?: number;
+  readonly increasedOcclusionLiftByPolicy?: Readonly<Partial<MaterialOcclusionLiftByPolicy>>;
   readonly strongBorderRim?: Readonly<Partial<MaterialRim>>;
   readonly reducedTintAdaptation?: number;
   readonly tintShadeDark?: number;
@@ -2747,9 +2770,9 @@ export interface MaterialProfilePatch {
   readonly rimCollapsed?: number;
   readonly rimCollapsedTinted?: number;
   readonly rimTintChroma?: number;
-  readonly backdropToneAnchorX?: readonly [number, number, number];
-  readonly backdropToneResponseThin?: readonly [number, number, number];
-  readonly backdropToneResponseThick?: readonly [number, number, number];
+  readonly backdropToneAnchorX?: BackdropToneKnotRow;
+  readonly backdropToneResponseThin?: BackdropToneKnotRow;
+  readonly backdropToneResponseThick?: BackdropToneKnotRow;
   readonly backdropToneResponseStrength?: number;
   readonly outerShadow?: Readonly<Partial<MaterialOuterShadow>>;
   readonly lightDirection?: readonly [number, number];
@@ -2798,6 +2821,72 @@ function rejectRetiredOuterShadowLeaves(patch: object | undefined): void {
 }
 
 /**
+ * Throw if the resolved backdrop tone response's three rows disagree about how
+ * many knots the curve has.
+ *
+ * The rows are one curve — `backdropToneAnchorX` is its knots and the two
+ * response rows are that curve's levels at the thin and the thick end — but they
+ * are three separate patch keys, so a patch naming one of them at four knots
+ * over a three-knot base used to resolve to a triplet with no single reading.
+ * The CPU curve branches on the ANCHORS' length and then indexes the level rows
+ * at that arity, so a four-knot anchor row over three-knot levels reads past the
+ * end and returns NaN for the whole interior. The shader keys the same flag off
+ * the anchors (`passes.ts`, `d[115]`) but pads the level rows with a repeat of
+ * their last knot, so it draws a fourth segment nobody fitted. The CSS tier's
+ * mirror in `@vitreajs/vitrea-web` reads the third of those. A patch that would
+ * make the tiers draw different materials is refused here rather than resolved,
+ * which is the same stance `rejectRetiredOuterShadowLeaves` takes above: a
+ * configuration that cannot be rendered honestly does not get to be measured.
+ *
+ * The rows may move to four knots — that is what the dark receded endpoint does
+ * — but only together, and the message names each row's resolved arity so it
+ * says which of the three the patch left behind.
+ */
+function rejectMixedBackdropToneArity(
+  anchorX: BackdropToneKnotRow,
+  thin: BackdropToneKnotRow,
+  thick: BackdropToneKnotRow,
+): void {
+  /*
+   * Each row is an array of one of the curve's two lengths, checked before the
+   * three are compared to each other.
+   *
+   * Equal arity alone is not enough, because the readers do not agree on what
+   * "not three" means. A profile document is JSON cast to the patch type with
+   * nothing between, so three FIVE-knot rows arrive with their arities equal: the
+   * CPU curve and the CSS mirror branch on `length === 3`, fail it and run the
+   * four-knot arithmetic, while the shader's gate is `length === 4` (`passes.ts`
+   * `d[115]`), fails THAT and runs the three-knot branch. One document, two
+   * different curves, and the fifth knot dropped by every reader. Two knots is
+   * the same trap from the other end, where each branch indexes past the row.
+   */
+  for (const [name, row] of [
+    ["backdropToneAnchorX", anchorX],
+    ["backdropToneResponseThin", thin],
+    ["backdropToneResponseThick", thick],
+  ] as const) {
+    if (Array.isArray(row) && (row.length === 3 || row.length === 4)) continue;
+    throw new Error(
+      `The backdrop tone response's ${name} is ${JSON.stringify(row) ?? String(row)}, which ` +
+        `is not an array of three or four knots. The curve has exactly those two forms, and ` +
+        `anything else is read as a different one by each tier: the CPU curve and the CSS ` +
+        `mirror take the four-knot branch for any length but three, where the shader takes ` +
+        `the three-knot branch for any length but four.`,
+    );
+  }
+  if (anchorX.length === thin.length && thin.length === thick.length) return;
+  throw new Error(
+    `The backdrop tone response's three rows resolved to different knot counts — ` +
+      `backdropToneAnchorX ${anchorX.length}, backdropToneResponseThin ${thin.length}, ` +
+      `backdropToneResponseThick ${thick.length}. They are one curve's knots and that ` +
+      `curve's levels at its two thickness ends, and the shader reads the knot count off ` +
+      `the anchors alone, so a mixed triplet renders as NaN on the CPU curve and as a ` +
+      `fabricated segment on the GPU. A patch moving the response to a new knot count has ` +
+      `to name all three rows.`,
+  );
+}
+
+/**
  * Apply a patch. This is how a calibration profile lands: C7 emits the measured
  * numbers, the host passes them here, and every constant above is replaceable
  * without touching this file.
@@ -2820,6 +2909,18 @@ export function withMaterialOverrides(
   for (const rung of REFRACTION_LADDER) {
     refractionScale[rung] = patch.refractionScale?.[rung] ?? base.refractionScale[rung];
   }
+
+  // Resolved before the profile is built rather than merged inline below, so the
+  // three rows of one curve can be checked against each other while they are
+  // still three things. See `rejectMixedBackdropToneArity`.
+  const backdropToneAnchorX = patch.backdropToneAnchorX ?? base.backdropToneAnchorX;
+  const backdropToneResponseThin =
+    patch.backdropToneResponseThin ?? base.backdropToneResponseThin;
+  const backdropToneResponseThick =
+    patch.backdropToneResponseThick ?? base.backdropToneResponseThick;
+  rejectMixedBackdropToneArity(
+    backdropToneAnchorX, backdropToneResponseThin, backdropToneResponseThick,
+  );
 
   return {
     optics,
@@ -2872,6 +2973,12 @@ export function withMaterialOverrides(
     lensOvalizationSpanMax: patch.lensOvalizationSpanMax ?? base.lensOvalizationSpanMax,
     reducedTransparencyFrost: patch.reducedTransparencyFrost ?? base.reducedTransparencyFrost,
     increasedOcclusionLift: patch.increasedOcclusionLift ?? base.increasedOcclusionLift,
+    ...((patch.increasedOcclusionLiftByPolicy ?? base.increasedOcclusionLiftByPolicy) === undefined
+      ? {}
+      : { increasedOcclusionLiftByPolicy: {
+          ...base.increasedOcclusionLiftByPolicy,
+          ...patch.increasedOcclusionLiftByPolicy,
+        } as MaterialOcclusionLiftByPolicy }),
     strongBorderRim: { ...base.strongBorderRim, ...patch.strongBorderRim },
     reducedTintAdaptation: patch.reducedTintAdaptation ?? base.reducedTintAdaptation,
     tintShadeDark: patch.tintShadeDark ?? base.tintShadeDark,
@@ -2893,9 +3000,9 @@ export function withMaterialOverrides(
     rimCollapsed: patch.rimCollapsed ?? base.rimCollapsed,
     rimCollapsedTinted: patch.rimCollapsedTinted ?? base.rimCollapsedTinted,
     rimTintChroma: patch.rimTintChroma ?? base.rimTintChroma,
-    backdropToneAnchorX: patch.backdropToneAnchorX ?? base.backdropToneAnchorX,
-    backdropToneResponseThin: patch.backdropToneResponseThin ?? base.backdropToneResponseThin,
-    backdropToneResponseThick: patch.backdropToneResponseThick ?? base.backdropToneResponseThick,
+    backdropToneAnchorX,
+    backdropToneResponseThin,
+    backdropToneResponseThick,
     backdropToneResponseStrength:
       patch.backdropToneResponseStrength ?? base.backdropToneResponseStrength,
     outerShadow: { ...base.outerShadow, ...patch.outerShadow },
@@ -2933,7 +3040,7 @@ export function opticsUnderPolicy(
     tintAlpha: occlusionAlphaUnderPolicy(
       next.tintAlpha,
       policy.occlusion,
-      profile.increasedOcclusionLift,
+      occlusionLiftForPolicy(policy, profile),
     ),
   };
 
@@ -3321,21 +3428,45 @@ export function backdropToneResponse(
         f,
   ) as [number, number, number];
 
-  const x = Math.min(xs[2], Math.max(xs[0], encodedInput));
-  const h0 = xs[1] - xs[0];
-  const h1 = xs[2] - xs[1];
-  const d0 = (ys[1] - ys[0]) / h0;
-  const d1 = (ys[2] - ys[1]) / h1;
-  // Interior slope: the Fritsch–Carlson harmonic mean, 0 across a sign change,
-  // which is what keeps the curve monotone between monotone anchors.
-  const m1 = d0 * d1 <= 0 ? 0 : (2 * d0 * d1) / (d0 + d1);
-  const seg = x <= xs[1] ? 0 : 1;
-  const h = seg === 0 ? h0 : h1;
-  const t = (x - (seg === 0 ? xs[0] : xs[1])) / h;
-  const y0 = seg === 0 ? ys[0] : ys[1];
-  const y1 = seg === 0 ? ys[1] : ys[2];
-  const s0 = seg === 0 ? d0 : m1;
-  const s1 = seg === 0 ? m1 : d1;
+  let x: number, h: number, t: number, y0: number, y1: number, s0: number, s1: number;
+  if (xs.length === 3) {
+    // Kept as the original arithmetic, not routed through the four-knot branch:
+    // every existing three-knot document must resolve and render bit-identically.
+    x = Math.min(xs[2], Math.max(xs[0], encodedInput));
+    const h0 = xs[1] - xs[0];
+    const h1 = xs[2] - xs[1];
+    const d0 = (ys[1] - ys[0]) / h0;
+    const d1 = (ys[2] - ys[1]) / h1;
+    const m1 = d0 * d1 <= 0 ? 0 : (2 * d0 * d1) / (d0 + d1);
+    const seg = x <= xs[1] ? 0 : 1;
+    h = seg === 0 ? h0 : h1;
+    t = (x - (seg === 0 ? xs[0] : xs[1])) / h;
+    y0 = seg === 0 ? ys[0] : ys[1];
+    y1 = seg === 0 ? ys[1] : ys[2];
+    s0 = seg === 0 ? d0 : m1;
+    s1 = seg === 0 ? m1 : d1;
+  } else {
+    const ys4 = [ys[0], ys[1], ys[2],
+      profile.backdropToneResponseThin[3]!
+      + (profile.backdropToneResponseThick[3]! - profile.backdropToneResponseThin[3]!) * f,
+    ] as const;
+    x = Math.min(xs[3], Math.max(xs[0], encodedInput));
+    const h0 = xs[1] - xs[0], h1 = xs[2] - xs[1], h2 = xs[3] - xs[2];
+    const d0 = (ys4[1] - ys4[0]) / h0;
+    const d1 = (ys4[2] - ys4[1]) / h1;
+    const d2 = (ys4[3] - ys4[2]) / h2;
+    const m1 = d0 * d1 <= 0 ? 0 : (2 * d0 * d1) / (d0 + d1);
+    const m2 = d1 * d2 <= 0 ? 0 : (2 * d1 * d2) / (d1 + d2);
+    const seg = x <= xs[1] ? 0 : x <= xs[2] ? 1 : 2;
+    const hs = [h0, h1, h2] as const;
+    const slopes = [d0, m1, m2, d2] as const;
+    h = hs[seg]!;
+    t = (x - xs[seg]!) / h;
+    y0 = ys4[seg]!;
+    y1 = ys4[seg + 1]!;
+    s0 = slopes[seg]!;
+    s1 = slopes[seg + 1]!;
+  }
   // `levelFar` is W25's level term above the thickness knee (claims §5.113; W25
   // Decision Log 3 (b)) — an OFFSET on the settled level this curve returns, in
   // the curve's own encoded units, and not a continuation of its thin-to-thick

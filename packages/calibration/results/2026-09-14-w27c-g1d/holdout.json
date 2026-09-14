@@ -1,0 +1,100 @@
+{
+ "gate": "W27c G1d / claims \u00a75.143",
+ "endpoint": "e20042c61516d073fce9c641478d8cf1ab82c0a0188442012f875a79b82e8b89",
+ "rule": "read once after both fits are frozen; no constant moves afterward",
+ "logicalRead": {
+  "startedAt": "2026-09-14T02:55:49.302Z",
+  "resumedAt": "2026-09-14T02:58:56.321Z",
+  "reason": "The first segment stopped before its first H-group cell because the native resolver asked the new sitting plurality for a pre-existing fixture. frozen-read.ts resumed the same fixed endpoint, skipped every row already captured, and read each remaining cell once."
+ },
+ "cells": [
+  {
+   "cell": "apple-macos-26.5-1x-dark-standard/mid-light-solid__capsule-button__inactive",
+   "readSegment": "initial",
+   "repeats": 2,
+   "bodyDeltaE": 0.039373552304496906,
+   "g1cBodyDeltaE": null,
+   "fullCanvasDeltaE": 0.003041394541138929,
+   "bodyYWeb": 0.09530746663096895,
+   "bodyYNative": 0.12213877222960455,
+   "captureSha256": "434a7f6937a0c307621b08cfca9cc09f859205f9c7cb573eb751c5166a982328"
+  },
+  {
+   "cell": "apple-macos-26.5-2x-dark-standard/mid-light-solid__capsule-button__inactive",
+   "readSegment": "resume",
+   "repeats": 2,
+   "bodyDeltaE": 0.03937355230449323,
+   "g1cBodyDeltaE": null,
+   "fullCanvasDeltaE": 0.0030365281558372282,
+   "bodyYWeb": 0.09530746663095058,
+   "bodyYNative": 0.12213877222961504,
+   "captureSha256": "4a6d8919b95379f65a4883618edf9aa6579a484bc396f55aaafe550436538723"
+  },
+  {
+   "cell": "apple-macos-26.5-1x-dark-standard/mid-light-solid__rrect-ml__inactive",
+   "readSegment": "initial",
+   "repeats": 2,
+   "bodyDeltaE": 0.0016381304121920177,
+   "g1cBodyDeltaE": null,
+   "fullCanvasDeltaE": 0.0007975537114098568,
+   "bodyYWeb": 0.061246054231619114,
+   "bodyYNative": 0.06087723233539392,
+   "captureSha256": "10eb3a43d5501aa1492059e12ed278ff8ea00541431609b12589aeae0277743c"
+  },
+  {
+   "cell": "apple-macos-26.5-2x-dark-standard/mid-light-solid__rrect-ml__inactive",
+   "readSegment": "resume",
+   "repeats": 2,
+   "bodyDeltaE": 0.0016381304121927246,
+   "g1cBodyDeltaE": null,
+   "fullCanvasDeltaE": 0.0007924318984595403,
+   "bodyYWeb": 0.06124605423157499,
+   "bodyYNative": 0.06087723233547363,
+   "captureSha256": "be9543ab662bce3ce4dd8aea47bc44e0757f17e661573cad40f39883a6252f69"
+  },
+  {
+   "cell": "apple-macos-26.5-1x-light-increased-contrast/hc-text__capsule-button__inactive",
+   "readSegment": "resume",
+   "repeats": 2,
+   "bodyDeltaE": 0.0013104195707589932,
+   "g1cBodyDeltaE": null,
+   "fullCanvasDeltaE": 0.0016602902142574425,
+   "bodyYWeb": 0.9950216727070356,
+   "bodyYNative": 0.9911020971138648,
+   "captureSha256": "0fbd7979c47b3e8081b3257f8adf048cda163ddfbd35ce96af04fec7fdb1accb"
+  },
+  {
+   "cell": "apple-macos-26.5-1x-light-increased-contrast/photo__rrect-lg__inactive",
+   "readSegment": "resume",
+   "repeats": 2,
+   "bodyDeltaE": 0.0010541768752969725,
+   "g1cBodyDeltaE": null,
+   "fullCanvasDeltaE": 0.003091423840842607,
+   "bodyYWeb": 0.9917414358020684,
+   "bodyYNative": 0.9933123874659316,
+   "captureSha256": "38e2998ea7326778c537e51775939ca56c4036e8da5395323dfa8833738c7979"
+  },
+  {
+   "cell": "apple-macos-26.5-1x-light-reduced-transparency/hc-text__capsule-button__inactive",
+   "readSegment": "resume",
+   "repeats": 2,
+   "bodyDeltaE": 0.005725756441553543,
+   "g1cBodyDeltaE": null,
+   "fullCanvasDeltaE": 0.0004973189843204827,
+   "bodyYWeb": 0.9727542853870603,
+   "bodyYNative": 0.9559733532492276,
+   "captureSha256": "929910f5a59628dd2cb5d0a411ad416fe46e162725d5325a8f9ccf1f5936beac"
+  },
+  {
+   "cell": "apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-lg__inactive",
+   "readSegment": "resume",
+   "repeats": 2,
+   "bodyDeltaE": 0.006766455893334387,
+   "g1cBodyDeltaE": null,
+   "fullCanvasDeltaE": 0.004990801519540734,
+   "bodyYWeb": 0.9501069300339473,
+   "bodyYNative": 0.9554853874581809,
+   "captureSha256": "444fc358da74375a546785c57fc044d92ede2bfd2ec231604867d946c35be3e9"
+  }
+ ]
+}

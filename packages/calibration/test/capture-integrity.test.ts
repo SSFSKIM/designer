@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { chmodSync, mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import { chmodSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -103,6 +103,23 @@ describe("the material profile document's key admission", () => {
     });
   });
 
+  it("admits the per-policy occlusion lift (W27c G1d, Decision Log 19)", () => {
+    // The same gap one wave later, and on the one key G1d's whole sweep varied:
+    // the receded endpoint's lift is a level PER accessibility policy now, and
+    // the shared scalar beside it no longer says what either policy does. A
+    // document naming it was refused by the path that exists to measure it.
+    expect(MATERIAL_PATCH_KEYS.has("increasedOcclusionLiftByPolicy")).toBe(true);
+    const path = write({
+      patch: {
+        increasedOcclusionLift: 0.96,
+        increasedOcclusionLiftByPolicy: { reduceTransparency: 0.92, increaseContrast: 0.96 },
+      },
+    });
+    expect(readMaterialProfileFile(path).patch).toMatchObject({
+      increasedOcclusionLiftByPolicy: { reduceTransparency: 0.92, increaseContrast: 0.96 },
+    });
+  });
+
   it("still refuses a key the renderer does not have, naming it", () => {
     const path = write({ patch: { tintChromaScale: 0, tintChroma: 0.4 } });
     expect(() => readMaterialProfileFile(path)).toThrow(/does not have: tintChroma\b/);
@@ -116,6 +133,74 @@ describe("the material profile document's key admission", () => {
     expect(() => readMaterialProfileFile(retired)).toThrow(/MaterialOuterShadow does not have/);
     const mapping = write({ cssTierMapping: { shadowAlpha: 0.2 } });
     expect(() => readMaterialProfileFile(mapping)).toThrow(/CssTierMapping does not have/);
+  });
+
+  it("refuses a policy the per-policy lift does not have, naming it", () => {
+    // The nested half of the key just admitted. The block has exactly two leaves
+    // and the renderer spreads it over the defaults, so a document naming a third
+    // — or spelling one of the two the way the media query does — applies
+    // cleanly, hashes itself into every cell as the configuration that ran, and
+    // lifts by the shared scalar instead. That is the silently-measured-the-
+    // defaults failure one level deeper, which is what `outerShadow`'s leaf guard
+    // beside it exists for.
+    const typo = write({
+      patch: { increasedOcclusionLiftByPolicy: { reduceTransparency: 0.92, contrast: 1 } },
+    });
+    expect(() => readMaterialProfileFile(typo))
+      .toThrow(/MaterialOcclusionLiftByPolicy does not have: contrast\b/);
+    const media = write({
+      patch: { increasedOcclusionLiftByPolicy: { "prefers-contrast": 1 } },
+    });
+    expect(() => readMaterialProfileFile(media)).toThrow(/does not have: prefers-contrast\b/);
+    // Either leaf alone is a valid document: the renderer merges the block over
+    // the base, so a sweep may name one policy and leave the other where it was.
+    for (const policy of ["reduceTransparency", "increaseContrast"]) {
+      expect(readMaterialProfileFile(write({
+        patch: { increasedOcclusionLiftByPolicy: { [policy]: 0.92 } },
+      })).patch).toMatchObject({ increasedOcclusionLiftByPolicy: { [policy]: 0.92 } });
+    }
+  });
+
+  it("refuses a per-policy lift that is not a map of policies to numbers", () => {
+    /*
+     * The leaf guard above only looks at a value it could read keys off, so
+     * everything that is not a record walked straight past it. The renderer
+     * SPREADS this block over the defaults, so each of these applies cleanly and
+     * measures something nobody asked for: an array spreads as the numeric keys
+     * `0` and `1` — neither of which is a policy — and a scalar or a null spreads
+     * to nothing at all, leaving both policies on the shared default while the
+     * cell records the document as the configuration that ran. An empty map is
+     * the same no-op one level up. And a leaf that is not a finite number reaches
+     * the lift arithmetic, where a string multiplies to NaN and a NaN alpha is a
+     * surface that does not draw.
+     */
+    const lift = (value: unknown): string =>
+      write({ patch: { increasedOcclusionLiftByPolicy: value } });
+    for (const notAMap of [[0.92, 0.96], 0.92, "0.92", null, true]) {
+      expect(() => readMaterialProfileFile(lift(notAMap)), JSON.stringify(notAMap) ?? "undefined")
+        .toThrow(/increasedOcclusionLiftByPolicy/);
+    }
+    expect(() => readMaterialProfileFile(lift({}))).toThrow(/names no policy/);
+    for (const bad of ["0.92", null, true, {}, []]) {
+      expect(() => readMaterialProfileFile(lift({ reduceTransparency: bad })),
+        JSON.stringify(bad)).toThrow(/reduceTransparency/);
+    }
+    /*
+     * A number that is not finite is the same defect wearing the right type, and
+     * it reaches here as literal JSON rather than through `JSON.stringify` — the
+     * encoder writes `NaN` and `Infinity` out as `null`, so the only way one can
+     * arrive in a committed document is an overflowing literal, which
+     * `JSON.parse` turns into `Infinity` with no error of its own.
+     */
+    const overflow = join(mkdtempSync(join(tmpdir(), "vitrea-profile-")), "profile.json");
+    writeFileSync(overflow,
+      `{ "patch": { "increasedOcclusionLiftByPolicy": { "increaseContrast": 1e999 } } }\n`);
+    expect(JSON.parse(readFileSync(overflow, "utf8")).patch.increasedOcclusionLiftByPolicy
+      .increaseContrast).toBe(Number.POSITIVE_INFINITY);
+    expect(() => readMaterialProfileFile(overflow)).toThrow(/increaseContrast/);
+    // And the shape the sweep actually writes still reads.
+    expect(readMaterialProfileFile(lift({ reduceTransparency: 0.92, increaseContrast: 0.96 })).patch)
+      .toMatchObject({ increasedOcclusionLiftByPolicy: { reduceTransparency: 0.92 } });
   });
 
   it("reads a bare patch, a CSS-only document, and refuses one that would change nothing", () => {

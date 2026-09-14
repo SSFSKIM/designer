@@ -222,24 +222,20 @@ describe("W3's tinted cells", () => {
 });
 
 /**
- * Two populations wear `state: "inactive"` since scene spec 4, and they must not
- * be read as one: the 37 scenes W27c G0 RECOVERED, which have committed fixtures
- * and mirror their active twin's split role, and the 31 W27c G1b declared as the
- * CHECKING BED, which have no fixtures at all until the 26.5 run takes them.
- *
- * The discriminator is the split role, and that is W27 Decision Log 13 written
- * into the matrix: the whole checking bed is `probe` because it is read at the
- * probe bar and no inactive regression floor is adopted from it, while no
- * recovered cell is `probe` — each inherited its twin's gated role. So "not
- * probe" is the recovered bed exactly, without either population having to be
- * listed by hand in two places.
+ * Three populations wear `state: "inactive"` since scene spec 5, and they must
+ * not be read as one: the 37 recovered scenes in gated roles, W27c G1b's 31-cell
+ * checking-bed addition in `probe`, and W27c G1d's four `mid-light-solid` anchor
+ * scenes in that same probe role. The background separates the two additive
+ * probe populations; "not probe" still identifies the recovered bed exactly.
  */
 const isCheckingBedInactive = (scene: SceneEntry): boolean =>
-  scene.state === "inactive" && setOf(scene.id) === "probe";
+  scene.state === "inactive"
+  && setOf(scene.id) === "probe"
+  && scene.background !== "mid-light-solid";
 
 describe("W27c G0/G1's recovered-inactive bed (claims §5.128; X3, X7)", () => {
   const recovered = MATRIX.scenes.filter(
-    (scene) => isRecoveredInactive(scene) && !isCheckingBedInactive(scene),
+    (scene) => isRecoveredInactive(scene) && setOf(scene.id) !== "probe",
   );
 
   it("has exactly the 37 scenes G0 matched (claims §5.128 §1: 121 cells, 37 distinct scenes)", () => {
@@ -373,6 +369,48 @@ describe("W27c G1b's checking bed, declared before the capture (claims §5.134 �
     // specification's 12, and the extra two are free re-attestation.
     expect(cells("apple-macos-26.5-1x-light-increased-contrast")).toBe(14);
     expect(cells("apple-macos-26.5-1x-light-reduced-transparency")).toBe(14);
+  });
+});
+
+describe("W27c G1d's uniform dark-response anchor (Decision Log 18)", () => {
+  const ids = [
+    "mid-light-solid__capsule-button__inactive",
+    "mid-light-solid__rrect-sm__inactive",
+    "mid-light-solid__rrect-ml__inactive",
+    "mid-light-solid__rrect-lg__inactive",
+  ];
+
+  it("adds exactly the four declared inactive probe scenes over neutral 140/255", () => {
+    expect(MATRIX.backgrounds["mid-light-solid"]?.srgb).toEqual([140, 140, 140]);
+    const scenes = MATRIX.scenes.filter((scene) => scene.background === "mid-light-solid");
+    expect(scenes.map((scene) => scene.id)).toEqual(ids);
+    for (const scene of scenes) {
+      expect(scene.state).toBe("inactive");
+      expect(scene.tint).toBeUndefined();
+      expect(setOf(scene.id)).toBe("probe");
+    }
+  });
+
+  it("declares the same four ids in both dark standard profiles", () => {
+    for (const scale of ["1x", "2x"]) {
+      const profile = MATRIX.profiles.find(
+        (entry) => entry.key === `apple-macos-26.5-${scale}-dark-standard`,
+      );
+      expect(profile).toBeDefined();
+      expect(profile?.scenes).not.toBe("all");
+      const declared = profile?.scenes === "all" ? [] : profile?.scenes ?? [];
+      expect(ids.filter((id) => !declared.includes(id))).toEqual([]);
+    }
+  });
+
+  it("presents four dark cells, not eight cross-scheme cells, at either scale", () => {
+    const selected = (scale: string): string[] => MATRIX.profiles
+      .filter((profile) => profile.key.includes(`-${scale}-`) && profile.key.endsWith("-standard"))
+      .flatMap((profile) => profile.scenes === "all"
+        ? MATRIX.scenes.map((scene) => scene.id)
+        : profile.scenes)
+      .filter((id) => ids.includes(id));
+    for (const scale of ["1x", "2x"]) expect(selected(scale)).toEqual(ids);
   });
 });
 

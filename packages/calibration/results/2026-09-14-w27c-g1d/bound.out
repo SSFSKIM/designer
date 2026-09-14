@@ -1,0 +1,40 @@
+
+apple-macos-26.5-1x-dark-standard  (12 checking cells)
+  clause 1 ceiling 0.09: HOLDS (worst 0.00989 on hc-text__rrect-lg__inactive)
+  clause 2 threshold 0.034: HOLDS (mean body ΔE 0.02089, 0.61×)
+  clause 3 floor 0.068: HOLDS (0 cell(s) over)
+  JOINT: HOLDS
+
+apple-macos-26.5-1x-light-increased-contrast  (12 checking cells)
+  clause 1 ceiling 0.06: HOLDS (worst 0.00921 on light-solid__rrect-ml__inactive)
+  clause 2 threshold 0.0078: HOLDS (mean body ΔE 0.00278, 0.36×)
+  clause 3 floor 0.0156: HOLDS (0 cell(s) over)
+  JOINT: HOLDS
+
+apple-macos-26.5-1x-light-reduced-transparency  (12 checking cells)
+  clause 1 ceiling 0.04: HOLDS (worst 0.00562 on hc-text__rrect-lg__inactive)
+  clause 2 threshold 0.011: HOLDS (mean body ΔE 0.00600, 0.55×)
+  clause 3 floor 0.022: HOLDS (0 cell(s) over)
+  JOINT: HOLDS
+
+apple-macos-26.5-1x-light-standard  (12 checking cells)
+  clause 1 ceiling 0.07: HOLDS (worst 0.00458 on hc-text__rrect-lg__inactive)
+  clause 2 threshold 0.032: HOLDS (mean body ΔE 0.01321, 0.41×)
+  clause 3 floor 0.064: FAILS (1 cell(s) over)
+      hc-text__rrect-sm__inactive                      0.07793  2.44×
+  JOINT: FAILS
+
+apple-macos-26.5-2x-dark-standard  (12 checking cells)
+  clause 1 ceiling 0.09: HOLDS (worst 0.00911 on hc-text__rrect-lg__inactive)
+  clause 2 threshold 0.041: HOLDS (mean body ΔE 0.01874, 0.46×)
+  clause 3 floor 0.082: HOLDS (0 cell(s) over)
+  JOINT: HOLDS
+
+apple-macos-26.5-2x-light-standard  (12 checking cells)
+  clause 1 ceiling 0.07: HOLDS (worst 0.00400 on hc-text__rrect-lg__inactive)
+  clause 2 threshold 0.034: HOLDS (mean body ΔE 0.01198, 0.35×)
+  clause 3 floor 0.068: FAILS (1 cell(s) over)
+      hc-text__rrect-sm__inactive                      0.07310  2.15×
+  JOINT: FAILS
+
+profiles holding the bound: 4 of 6

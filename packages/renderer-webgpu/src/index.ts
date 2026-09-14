@@ -221,6 +221,7 @@ export {
   MATERIAL_OPTICS,
   MATERIAL_VARIANTS,
   occlusionAlphaUnderPolicy,
+  occlusionLiftForPolicy,
   collapsedRimUnderPolicy,
   opticsUnderPolicy,
   OUTER_SHADOW,

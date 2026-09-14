@@ -1,0 +1,38 @@
+{
+ "gate": "W27c G1d / claims §5.143 / W27 Decision Log 18",
+ "kind": "native-only form decision made after fixture publication and before any fit or web capture",
+ "axis": "encoded Rec.709 backdrop mean",
+ "thinUniformRow": [
+  {
+   "background": "mid-dark-solid",
+   "encodedBackdropMean": 0.27058823529433373,
+   "nativeBodyY1x": 0.04091519690685238,
+   "nativeBodyY2x": 0.0409151969068554
+  },
+  {
+   "background": "mid-light-solid",
+   "encodedBackdropMean": 0.5490196078430432,
+   "nativeBodyY1x": 0.12213877222960362,
+   "nativeBodyY2x": 0.1221387722296076
+  },
+  {
+   "background": "light-solid",
+   "encodedBackdropMean": 0.9504352941167059,
+   "nativeBodyY1x": 0.9326072014987159,
+   "nativeBodyY2x": 0.9326072014987342
+  }
+ ],
+ "structuredControl": {
+  "background": "checkerboard",
+  "encodedBackdropMean": 0.5,
+  "nativeBodyY1x": 0.1169988854215134,
+  "nativeBodyY2x": 0.11798613845930347,
+  "comparison": "At nearly the same abscissa as mid-light-solid, the structured row agrees with the uniform anchor within 0.00514 Y at 1x and 0.00415 Y at 2x. Structure does not explain the row there."
+ },
+ "increments": {
+  "midDarkToMidLight1x": 0.08122357532275124,
+  "midLightToLight1x": 0.8104684292691123
+ },
+ "answer": "abscissa",
+ "reason": "The uniform thin row rises from 0.04092 Y at encoded 0.2706 to 0.12214 Y at 0.5490, then to 0.93261 Y at 0.9504, identically across scale. The structured checkerboard at encoded 0.5 reads 0.11700/0.11799 Y, matching the new uniform anchor rather than defining another row. The large remaining step therefore lies in the abscissa between encoded 0.55 and 0.95; T1 proceeds with a fourth knot."
+}
