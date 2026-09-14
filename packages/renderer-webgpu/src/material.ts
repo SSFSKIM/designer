@@ -2847,6 +2847,33 @@ function rejectMixedBackdropToneArity(
   thin: BackdropToneKnotRow,
   thick: BackdropToneKnotRow,
 ): void {
+  /*
+   * Each row is an array of one of the curve's two lengths, checked before the
+   * three are compared to each other.
+   *
+   * Equal arity alone is not enough, because the readers do not agree on what
+   * "not three" means. A profile document is JSON cast to the patch type with
+   * nothing between, so three FIVE-knot rows arrive with their arities equal: the
+   * CPU curve and the CSS mirror branch on `length === 3`, fail it and run the
+   * four-knot arithmetic, while the shader's gate is `length === 4` (`passes.ts`
+   * `d[115]`), fails THAT and runs the three-knot branch. One document, two
+   * different curves, and the fifth knot dropped by every reader. Two knots is
+   * the same trap from the other end, where each branch indexes past the row.
+   */
+  for (const [name, row] of [
+    ["backdropToneAnchorX", anchorX],
+    ["backdropToneResponseThin", thin],
+    ["backdropToneResponseThick", thick],
+  ] as const) {
+    if (Array.isArray(row) && (row.length === 3 || row.length === 4)) continue;
+    throw new Error(
+      `The backdrop tone response's ${name} is ${JSON.stringify(row) ?? String(row)}, which ` +
+        `is not an array of three or four knots. The curve has exactly those two forms, and ` +
+        `anything else is read as a different one by each tier: the CPU curve and the CSS ` +
+        `mirror take the four-knot branch for any length but three, where the shader takes ` +
+        `the three-knot branch for any length but four.`,
+    );
+  }
   if (anchorX.length === thin.length && thin.length === thick.length) return;
   throw new Error(
     `The backdrop tone response's three rows resolved to different knot counts — ` +

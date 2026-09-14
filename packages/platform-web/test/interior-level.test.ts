@@ -917,6 +917,29 @@ describe("a tone response whose rows disagree about how many knots it has", () =
     expect(message()).toMatch(/backdropToneResponseThick 3/);
   });
 
+  it("is refused when a row is not an array of exactly three or four knots", () => {
+    /*
+     * The mirror's half of the renderer's shape refusal, and it matters most
+     * here: equal arity alone lets three FIVE-knot rows through, and this tier
+     * branches on `length === 3` — so it would fail that, run the four-knot
+     * arithmetic and drop the fifth knot, while the shader's gate is
+     * `length === 4` and runs the THREE-knot branch instead. The same document
+     * drawing a different curve on each tier is the one thing the mirror exists
+     * to prevent. A profile arrives as JSON cast to the patch type, so nothing
+     * upstream has checked that a row is an array at all.
+     */
+    for (const bad of [[0.1, 0.3, 0.7, 0.9, 0.95], [0.1, 0.3], [], "abc", { length: 3 }, 0.5]) {
+      const value = bad as never;
+      expect(() => resolvedBackdropToneResponse({
+        backdropToneAnchorX: value,
+        backdropToneResponseThin: value,
+        backdropToneResponseThick: value,
+      }), JSON.stringify(bad) ?? String(bad)).toThrow(/backdrop tone response/);
+      expect(() => resolvedBackdropToneResponse({ backdropToneResponseThin: value }),
+        JSON.stringify(bad) ?? String(bad)).toThrow(/backdropToneResponseThin/);
+    }
+  });
+
   it("resolves the coherent shapes either side of it", () => {
     // No patch at all, and a patch naming none of the three rows.
     expect(resolvedBackdropToneResponse({ glowGain: 0.1 }))

@@ -37,6 +37,7 @@ import {
   REFRACTION_LADDER,
   REFRACTION_SCALE,
   withMaterialOverrides,
+  type BackdropToneKnotRow,
   type MaterialProfile,
 } from "../src/material";
 import { adaptiveTint } from "../src/analysis";
@@ -241,6 +242,55 @@ describe("withMaterialOverrides", () => {
     expect(message()).toMatch(/backdropToneAnchorX 4/);
     expect(message()).toMatch(/backdropToneResponseThin 3/);
     expect(message()).toMatch(/backdropToneResponseThick 3/);
+  });
+
+  it("refuses a response row that is not an array of exactly three or four knots", () => {
+    /*
+     * Equal arity is not enough, because the curve has exactly two forms and the
+     * three readers disagree about everything else. A profile document is JSON
+     * cast to the patch type with nothing checking it, so three FIVE-knot rows
+     * arrive with their arities equal and pass the check below: the CPU curve and
+     * the CSS mirror both branch on `length === 3`, fail it, and run the
+     * four-knot arithmetic, while the shader's gate is `length === 4` (`passes.ts`
+     * `d[115]`), fails THAT, and runs the three-knot branch. One document, a
+     * four-knot material on two tiers and a three-knot material on the third, and
+     * the fifth knot silently dropped by all of them. Two knots is the same trap
+     * from the other side: every reader takes a branch that indexes past the end.
+     *
+     * The casts are the point rather than a convenience — `BackdropToneKnotRow`
+     * already forbids these shapes, and the seam this guards is exactly where a
+     * value arrives without having met that type.
+     */
+    const row = (value: unknown): BackdropToneKnotRow => value as BackdropToneKnotRow;
+    for (const bad of [
+      [0.1, 0.3, 0.7, 0.9, 0.95],
+      [0.1, 0.3],
+      [0.1],
+      [],
+      "abc",
+      { length: 3 },
+      0.5,
+    ]) {
+      // Named on all three rows at once, so arity agrees and only the shape is wrong.
+      expect(() => withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+        backdropToneAnchorX: row(bad),
+        backdropToneResponseThin: row(bad),
+        backdropToneResponseThick: row(bad),
+      }), JSON.stringify(bad) ?? String(bad)).toThrow(/backdrop tone response/);
+      // And named on one row alone, where the arity check would have caught it
+      // anyway — the shape refusal has to come first, and say which row it is.
+      expect(() => withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+        backdropToneResponseThick: row(bad),
+      }), JSON.stringify(bad) ?? String(bad)).toThrow(/backdropToneResponseThick/);
+    }
+    // `null` is deliberately NOT in that list. Every leaf in this function merges
+    // with `??`, so a null row means "not named" and resolves to the base's own —
+    // which all three readers then agree on. Singling these three keys out to
+    // reject it would make them the only ones in the profile where null is not
+    // absence, and it is not the failure this guard is for: nothing diverges.
+    expect(withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+      backdropToneAnchorX: null as unknown as BackdropToneKnotRow,
+    }).backdropToneAnchorX).toEqual(DEFAULT_MATERIAL_PROFILE.backdropToneAnchorX);
   });
 
   it("resolves the coherent row shapes the shipped profiles take", () => {

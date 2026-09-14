@@ -465,6 +465,28 @@ export function resolvedBackdropToneResponse(
   const anchorX = patch?.backdropToneAnchorX ?? BACKDROP_TONE_RESPONSE.anchorX;
   const thin = patch?.backdropToneResponseThin ?? BACKDROP_TONE_RESPONSE.thin;
   const thick = patch?.backdropToneResponseThick ?? BACKDROP_TONE_RESPONSE.thick;
+  /*
+   * Each row is one of the curve's two lengths before the three are compared,
+   * because equal arity alone does not make them one curve. A patch arrives as
+   * JSON cast to the profile type, so a row may be five knots — or not an array —
+   * with nothing upstream having looked. This tier branches on `length === 3` and
+   * would run the four-knot arithmetic on five, where the shader's gate is
+   * `length === 4` and would run the three-knot branch on the same document.
+   */
+  for (const [name, row] of [
+    ["backdropToneAnchorX", anchorX],
+    ["backdropToneResponseThin", thin],
+    ["backdropToneResponseThick", thick],
+  ] as const) {
+    if (Array.isArray(row) && (row.length === 3 || row.length === 4)) continue;
+    throw new Error(
+      `The backdrop tone response's ${name} is ${JSON.stringify(row) ?? String(row)}, which ` +
+        `is not an array of three or four knots. The curve has exactly those two forms, and ` +
+        `anything else is read as a different one by each tier: this tier takes the four-knot ` +
+        `branch for any length but three, where the shader takes the three-knot branch for ` +
+        `any length but four.`,
+    );
+  }
   if (anchorX.length !== thin.length || thin.length !== thick.length) {
     throw new Error(
       `The backdrop tone response's three rows resolved to different knot counts — ` +
