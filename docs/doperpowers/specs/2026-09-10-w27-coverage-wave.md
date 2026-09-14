@@ -991,6 +991,20 @@ neighbour glow diffusion; topology-changing morphs.
     same child as Decision Log 18's re-fit so the bound is re-applied once on one frozen
     configuration and the holdout is read once. Rejected: deferring it to a later wave (the
     evidence is banked and the profile is the only thing between the fit and the clause).
+20. **The wave closes with W27c's runtime held as a recorded residual (2026-09-14; user-decided
+    on the parent's recommendation, on claims §5.143).** After Decision Logs 18 and 19 the bound
+    of §5.134 §6 holds on four of six profiles; the light standard pair fails clause 3 on one small
+    control (`hc-text__rrect-sm__inactive`, 2.44× / 2.15×), and §5.143 reads that miss as the
+    response's middle and structured terms rather than a knot — the same term that leaves the new
+    anchor's held-out capsule 0.039 off. Closing it is a structure-aware inactive response, which
+    revisits W9's structure-independence premise and is nearer a wave than a gate. Ruled: the
+    wave is recomposed and closed now; W27c G2 (the runtime) and G3 stay held under Decision Log
+    17's rule and are recorded in Deferred with the shape of the work that would close them; the
+    receded profile documents, the four-knot response and the per-policy level ship inert, as
+    they have since 0.16.0. Rejected: a structure-aware response gate inside this wave (a
+    premise revisit on the inactive material, not a fit on a banked bed); shipping the runtime on
+    the four holding profiles with the light standard miss recorded (the failing profiles are the
+    ones an adopter's first surface ships on, and Decision Log 17's rule was set for that reason).
 
 ## Surprises & Discoveries
 
@@ -1108,6 +1122,13 @@ G1 records every per-scene miss; G2 alone adopts a native stack bound and re-rea
 
 ## Revision Notes
 
+- 2026-09-14, **Decision Log 20: the wave closes; W27c's runtime is held as a recorded residual.**
+  G1d merged (`8a8ff862`, claims §5.143): the anchor cell captured on 26.5.2 and published beside
+  the bundle (619 entries, nothing pre-existing moved), the step placed in the abscissa, the dark
+  response on four knots, the accessibility level per policy (0.88 / 0.98), the holdout read once
+  and the bound re-applied once — four of six profiles hold. The user's ruling on the parent's
+  three options: close the wave now rather than open a structure-aware response gate or ship the
+  runtime on four profiles. Recomposition against §Parent-Level Acceptance follows.
 - 2026-09-14, **W27c G1d independently reviewed and the separate fix wave converged with no
   material findings** (claims §5.143 §10). The first medium review found two P2s: mixed response-row
   arities could split CPU/CSS from the shader, and the canonical loader did not admit the new
