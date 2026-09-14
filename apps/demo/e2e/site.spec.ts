@@ -478,18 +478,31 @@ test.describe("the material over ordinary page content", () => {
     // hinted path is the toolbar's, one section down.
     await expect(readoutRow(page, "page", "Backdrop analysis")).toHaveText("none");
 
-    // The contrast that makes that reading mean something: the toolbar is the same
-    // DOM-sourced path with a hint written, and it reports one. Read on its own
-    // section, because a group only resolves while its stage is mounted.
-    await showSection(page, "behavior");
-    await expect(readoutRow(page, "behavior", "Backdrop analysis").first()).toHaveText("hint");
-
-    // Choosing this path is not a fault. A DOM-sourced group on a working engine
-    // is `ok` with no reason, exactly as the tiers section says.
+    /*
+     * Choosing this path is not a fault. A DOM-sourced group on a working engine
+     * is `ok` with no reason, exactly as the tiers section says.
+     *
+     * **Asked while this stage is still the current one, which is the whole
+     * reason it sits here** rather than at the end where it used to. The stage is
+     * one live surface driven by the section in view: `Stage.tsx` renders
+     * `<GlassGroup id="page">` only under `mode === "page"`, so after the
+     * contrast below switches sections the group is gone, `useGlassCapabilities`
+     * returns `undefined`, and every row of this readout falls back to the empty
+     * `none`. That is what the assertion read — and it read it only on a machine
+     * that hands the page a real adapter, because the branch is the WebGPU tier's.
+     * A headless shell resolves `css` here and skipped it.
+     */
     if (renderer === "webgpu") {
       await expect(readoutRow(page, "page", "Health")).toHaveText("ok");
       await expect(readoutRow(page, "page", "Demotion reason")).toHaveText("none");
     }
+
+    // The contrast that makes the `none` above mean something: the toolbar is the
+    // same DOM-sourced path with a hint written, and it reports one. Read on its
+    // own section, because a group only resolves while its stage is mounted —
+    // and read last, because arriving there ends this section's readout.
+    await showSection(page, "behavior");
+    await expect(readoutRow(page, "behavior", "Backdrop analysis").first()).toHaveText("hint");
   });
 
   test("it is the same three plates as the sweep, over a different backdrop", async ({ page }) => {

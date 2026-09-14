@@ -456,6 +456,43 @@ app offering "follow the system" reads `prefers-color-scheme` for its colours as
 well as passing `"auto"` here. `apps/demo`'s site switch is the worked example of
 both halves moving together.
 
+### Window activation
+
+Apple's glass recedes when its window loses focus. That is a fact about the
+window, not about any one surface, so it is a prop on the root and there is no
+`inactive` interaction state to look for on a surface:
+
+```tsx
+<GlassRoot windowActivation="auto">{/* "auto" | "active" | "inactive" */}</GlassRoot>
+```
+
+`"auto"` is the default and follows the window's own focus, re-read from
+`document.hasFocus()` whenever the window fires `focus` or `blur`. Pin the prop
+to `"active"` or `"inactive"` and the pin wins over the window in both
+directions, which is what a preview pane, a screenshot or a visual-regression
+run needs. Changing it does not rebuild the root, so no registration in the tree
+is dropped.
+
+```tsx
+function PoseReadout() {
+  const pose = useGlassWindowActivation(); // "active" | "inactive", "auto" already folded
+  return <p>the glass is drawing its {pose} material</p>;
+}
+```
+
+The hook reports what resolved rather than what was asked for, on the same rule
+as `useGlassCapabilities`. An app that needs to move the pose imperatively —
+from an event the prop cannot see, or from outside React's render — reaches the
+runtime through `useGlassRoot()` and calls `root.setWindowActivation(...)`; the
+binding does not re-assert its prop on every frame, so what you set by hand
+stays set until the prop itself changes.
+
+The material it selects is the endpoint vitrea measured from macOS 26.5: the
+outer shadow and the bright rim go, and an author's tint survives as an
+achromatic shade. It is a fitted appearance rather than a pixel-match guarantee,
+and the gaps are named in
+[`@vitreajs/vitrea-web`'s README](https://www.npmjs.com/package/@vitreajs/vitrea-web).
+
 ---
 
 ## What this package exports
@@ -465,8 +502,8 @@ both halves moving together.
 `GlassSegmentedControl`, `PlanePortal`.
 
 **Hooks** — `useGlassCapabilities`, `useGlassAccessibility`,
-`useGlassDiagnostics`, `useGlassMotionProfile`, `useGlassTicker`, `useGlassRoot`,
-`useToolbarItem`.
+`useGlassWindowActivation`, `useGlassDiagnostics`, `useGlassMotionProfile`,
+`useGlassTicker`, `useGlassRoot`, `useToolbarItem`.
 
 **Composition helpers** — `renderAsChild`, `composeRefs`, `mergeSlotProps` for
 `asChild` seams; `radiiFor`, `smoothingFor`, `capsuleRadius`,
@@ -475,8 +512,10 @@ both halves moving together.
 `GlassToolbarItemProps` uses to drop the pair before it spreads the rest onto an
 element.
 
-**Types** — `GlassColorScheme` and `ResolvedColorScheme`, re-exported from the
-runtime so a `colorScheme` prop of your own can be typed without installing it;
+**Types** — `GlassColorScheme` and `ResolvedColorScheme`, and
+`GlassWindowActivation` and `ResolvedWindowActivation`, re-exported from the
+runtime so a `colorScheme` or `windowActivation` prop of your own can be typed
+without installing it;
 `GlassToolbarItemProps`, the `sharedBackground` / `groupProps` pair a toolbar
 reads off its children, so a control your app wrote can declare them too.
 

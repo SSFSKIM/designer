@@ -1,0 +1,37 @@
+scene server: http://localhost:5198
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json sha256:950ce1c3e917 sections=renderer
+
+photo__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-15-w28-g3-runtime/identity-after/dark/photo__rrect-md__rest/
+
+photo__rrect-md__inactive
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-15-w28-g3-runtime/identity-after/dark/photo__rrect-md__inactive/
+
+checkerboard__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-15-w28-g3-runtime/identity-after/dark/checkerboard__rrect-md__rest/
+
+checkerboard__rrect-md__inactive
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-15-w28-g3-runtime/identity-after/dark/checkerboard__rrect-md__inactive/
+
+4 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.

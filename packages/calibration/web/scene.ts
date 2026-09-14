@@ -546,6 +546,9 @@ async function build(): Promise<SceneReport> {
   const accessibilityOverrides = window.__vitreaAccessibilityOverrides;
   const root = createGlassRoot({
     renderer: requestedRenderer,
+    // This harness selects both endpoints above, including candidate documents.
+    // Window focus must not apply a second receded patch to a deterministic cell.
+    windowActivation: "active",
     ...(materialProfile === undefined ? {} : { materialProfile }),
     ...(cssTierMapping === undefined ? {} : { cssTierMapping }),
     // Handed to the root at construction rather than set afterwards: the CSS

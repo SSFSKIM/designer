@@ -41,6 +41,12 @@
  * to name its values (W21 G3).
  */
 export type { GlassColorScheme, ResolvedColorScheme } from "@vitreajs/vitrea-web";
+/*
+ * And the activation pose's, for the same reason: an app writing a
+ * `windowActivation` prop of its own — a preview pane, a capture harness — types
+ * it from here rather than from the runtime package.
+ */
+export type { GlassWindowActivation, ResolvedWindowActivation } from "@vitreajs/vitrea-web";
 export {
   GlassRoot,
   useGlassAccessibility,
@@ -48,6 +54,7 @@ export {
   useGlassDiagnostics,
   useGlassMotionProfile,
   useGlassTicker,
+  useGlassWindowActivation,
   type GlassRootProps,
 } from "./root";
 export { GlassGroup, type GlassBackdrop, type GlassDomBackdrop, type GlassGroupProps, type GlassTextureBackdrop } from "./group";

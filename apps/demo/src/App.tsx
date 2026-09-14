@@ -50,6 +50,7 @@ import {
   GlassToolbar,
   GlassToolbarSpacer,
   PlanePortal,
+  type GlassWindowActivation,
 } from "@vitreajs/vitrea-react";
 import { useState, type ReactNode } from "react";
 
@@ -114,6 +115,13 @@ export function App(): ReactNode {
     reducedTransparency: "system",
     increasedContrast: "system",
   });
+  /*
+   * `"auto"` is the shipped default and the one worth having on screen: the page
+   * recedes when the window goes to the background, which is the behaviour being
+   * demonstrated. The panel's pin is for holding either pose still while someone
+   * looks at it.
+   */
+  const [windowActivation, setWindowActivation] = useState<GlassWindowActivation>("auto");
   const [variantMixed, setVariantMixed] = useState(false);
   const [range, setRange] = useState<Range>("week");
   const [lastAction, setLastAction] = useState<string | null>(null);
@@ -128,6 +136,7 @@ export function App(): ReactNode {
       // so by name. That is acceptance #5, and it is why asking for the GPU tier
       // by default is safe to ship.
       renderer={REQUESTED_RENDERER}
+      windowActivation={windowActivation}
       reducedMotion={overrides.reducedMotion}
       reducedTransparency={overrides.reducedTransparency}
       increasedContrast={overrides.increasedContrast}
@@ -159,6 +168,8 @@ export function App(): ReactNode {
           groups={GROUPS}
           overrides={overrides}
           onOverridesChange={setOverrides}
+          windowActivation={windowActivation}
+          onWindowActivationChange={setWindowActivation}
           variantMixed={variantMixed}
           onVariantMixedChange={setVariantMixed}
         />

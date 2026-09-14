@@ -111,6 +111,7 @@ function rootWithHost(options: GlassRootOptions): Fixture {
   document.body.append(container);
   containers.push(container);
   const created = createGlassRoot({
+    windowActivation: "active",
     container,
     autoStart: false,
     diagnosticSink: () => {},

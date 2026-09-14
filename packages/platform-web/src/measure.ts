@@ -122,3 +122,8 @@ export function readViewport(meter: LayoutReadMeter, view: Window): ViewportRead
     devicePixelRatio: view.devicePixelRatio,
   };
 }
+
+/** Focus is a browser read but not a layout read, so it does not bump the meter. */
+export function readWindowFocus(view: Window): boolean {
+  return view.document.hasFocus();
+}

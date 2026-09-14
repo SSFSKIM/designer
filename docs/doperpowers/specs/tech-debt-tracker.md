@@ -117,6 +117,13 @@ alone. Quoting a borrowed number is the one option that should not survive.
 
 ## `packages/react`'s press and morph specs are flaky on Firefox
 
+*W28 G3, 2026-09-15 (claims §5.147):* the single full three-engine run reproduces
+`presence.spec.ts`'s nominal 220 ms budget case on Firefox: **433.6 ms** elapsed against
+**354.2 ms** allowed after that run's longest-frame allowance. This is the existing class
+below, not an activation-state failure. It is retained in
+`results/2026-09-15-w28-g3-runtime/react.txt` and **not rerun to green**; the separate activation
+assertion-carrier correction is tested only in its own file.
+
 *Found 2026-08-30, running the suites for the tint API (W3).*
 
 Two to four cases in `packages/react/e2e/press.spec.ts` and `morph.spec.ts` fail
@@ -2453,6 +2460,12 @@ the bright dark endpoint and dark thick ordinate themselves no longer are.
 
 ## The window-activation runtime is held behind the inactive response (W27 recomposition, 2026-09-14)
 
+**2026-09-15 — ~~The window-activation runtime is held behind the inactive response~~ CLOSED
+by W28 G3, claims §5.147 (`2026-09-14-w28-footprint-response.md`).** The admitted endpoints now
+follow document focus by default, with explicit root/React pins, a resolved readout and an
+operable playground. G4 still owns runtime-pose capture publication, the demo/native eye and
+the coverage re-score; the activation transit's native timing remains unmeasured.
+
 W27 Decision Log 20 closes the coverage wave without W27c G2 or G3. The endpoint documents, the
 four-knot response and the per-policy accessibility lift ship inert; there is no
 `windowActivation` root option or `<GlassRoot>` prop, no activation observer or
@@ -2471,7 +2484,8 @@ hook on the four profiles that hold today.
 *Taken up by W28 (2026-09-14, `2026-09-14-w28-footprint-response.md`): the response work is read
 as W9's deferred per-footprint abscissa first (§5.31, §5.34 residual class 1), a structure term
 second and only on evidence; G2 and G3 above are W28's G3 and G4 behind the unchanged bound holding
-on six profiles. This entry closes when W28's G4 lands.*
+on six profiles. ~~This entry closes when W28's G4 lands.~~ The runtime hold closes at G3 above;
+G4 retains the landing work.*
 
 G0's medium review (claims §5.144, 2026-09-14) leaves bounded evidence/documentation debt:
 W9's original background-directory bytes lack a committed hash attestation, and the matched-mean

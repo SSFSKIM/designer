@@ -3,7 +3,7 @@
 **Status: IN FLIGHT — G0 CLOSED 2026-09-14, not identifiable (§5.144); Decision Log 2 rules the
 simplest survivor built and the bound as referee; G1 CLOSED 2026-09-14 (§5.145), fitted and sealed;
 G2 CLOSED 2026-09-14 (§5.146), the unchanged bound holds on six of six, merged `237465fa`;
-Decision Log 3 lifts W27c's hold — G3 (the runtime) DISPATCHED 2026-09-15 (§5.147). The user's eye
+Decision Log 3 lifts W27c's hold — G3 (the runtime) CLOSED 2026-09-15 (§5.147). The user's eye
 on the six G2 sheets is requested before G4's cut. The machine stays on macOS 26.5.2 until the wave
 closes; no identifying sitting was taken.**
 
@@ -336,7 +336,7 @@ the charter for G3 and G4 here; this document adds nothing to their scope and re
 - **Contracts:** X1, X7, X8.
 - **Size:** 6–10 agent-hours.
 
-### G3: The runtime — W27c G2 as chartered — controlled — DISPATCHED 2026-09-15 (Decision Log 3; claims §5.147)
+### G3: The runtime — W27c G2 as chartered — controlled — CLOSED 2026-09-15 (Decision Log 3; claims §5.147)
 
 - **Purpose and acceptance:** acceptance 6, verbatim from the W27 spec's W27c G2 and the tracker's
   handoff entry. Framework-agnostic first, React over it; three engines; changeset (a
@@ -352,6 +352,14 @@ the charter for G3 and G4 here; this document adds nothing to their scope and re
   regime, the demo's backgrounded pose with the harness capture beside it, README and playground,
   the matrix re-scored (§3.6 window focus state to `replicated+measured`), the eye sheets, the
   recomposition against this document's seven clauses, one minor cut prepared.
+- **Capture handoff from G3 (§5.147):** G3 pins calibration roots to `"active"` and retains
+  `web/scene.ts`'s candidate receded merge, with 16/16 before/after captures byte-identical.
+  G4 replaces that scene-pose seam: the inactive rows it publishes must be captured through
+  the runtime's `"inactive"` root pose, with `applyMaterialProfile` applying the receded document.
+  It also supplies the capture's colour scheme to the root: the current harness passes a dark
+  active patch but leaves the root's scheme at its light default. G4 proves those captures
+  byte-identical to G2's frozen matrix before writing a row, so the matrix records what ships.
+  The active document's SHA remains the cell key's profile identity.
 - **Edges:** blocked-by G3.
 - **Contracts:** X2, X3, X8.
 - **Size:** 12–16 agent-hours.
@@ -421,7 +429,7 @@ named, not this wave's); the motion-metrics harness; the OS 27 recapture; `promi
 | G1 | CLOSED 2026-09-14 — input check passed, rows fitted, endpoint sealed; G2 unread | §5.145 | `results/2026-09-14-w28-g1-silhouette/` |
 | G1s | — (Decision Log 2) | assigned at dispatch | — |
 | G2 | CLOSED 2026-09-14 — 188 WebGPU rows, six holdouts read once, bound holds on six of six; 182 CSS coherence rows | §5.146 | `results/2026-09-14-w28-g2-read/` |
-| G3 | DISPATCHED 2026-09-15 (Decision Log 3) | §5.147 | `results/2026-09-15-w28-g3-runtime/` |
+| G3 | CLOSED 2026-09-15 — root pose and bindings shipped; three-engine activation verified; review clean | §5.147 | `results/2026-09-15-w28-g3-runtime/` |
 | G4 | — | assigned at dispatch | — |
 
 ## Decision Log
@@ -547,6 +555,13 @@ applied as written, in both directions).
 
 ## Surprises & Discoveries
 
+- 2026-09-15 (G3, §5.147): headed Playwright `bringToFront()` on a second page leaves
+  the original document's `hasFocus()` true on Chromium, Firefox and WebKit. The tests state
+  their synthetic focus feed explicitly rather than using visibility as a proxy. Real unfocused
+  test documents (notably jsdom) now correctly recede by default, so material fixtures pin their
+  active pose. The unchanged calibration candidate-merge path is byte-identical on 16 before/after
+  capture pairs across both schemes and tiers; G4 owns replacing it with the runtime pose.
+
 - 2026-09-14 (G1, §5.145): the raw silhouette input passes 335/335 unpressed canonical cells
   on each tier, with maximum GPU discrepancy 0.02723997831346303 eight-bit codes. The old
   analysis mip would shift checker/text inputs by as much as 0.13629209995269775 encoded;
@@ -569,6 +584,14 @@ applied as written, in both directions).
   non-D phase evidence rather than borrowing the original D square as a selection baseline.
 
 ## Revision Notes
+
+- 2026-09-15 (G3, §5.147): runtime closed — auto activation, both explicit pins, live setter,
+  resolved root state, React prop/hook and playground control. Workspace 2,377 units; goldens
+  34/34 unchanged; platform 404/404; activation binding 15/15 after test-only carrier/transit
+  corrections. The existing Firefox presence timing failure is retained, not rerun to green;
+  a headed-only demo assertion is reordered and verified. One medium review is clean. The
+  16/16 capture identity proof and G4's runtime-pose plus scheme handoff are recorded; no
+  material, native fixture, matrix, floor, coverage score, eye verdict or release changes.
 
 - 2026-09-15 (the parent): G2 merged (`237465fa`); Decision Log 3 recorded — the hold lifts, G3
   dispatched under §5.147, the user's eye requested on the G2 sheets before G4's cut, the sitting
