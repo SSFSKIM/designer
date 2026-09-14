@@ -8,7 +8,8 @@ import type { SurfaceInput } from "../../src/render-model";
 /** Real reduction and real optics, with a structured left host and uniform right host.
  * Altering the obsolete source reference must not alter either local solve. */
 export async function silhouetteProbe(
-  mode: "silhouette" | "source" | "absent", sourceReference = 0.3, split = false, hint = false,
+  mode: "silhouette" | "source" | "absent", sourceReference: number | null = 0.3,
+  split = false, hint = false,
   alpha: "opaque" | "partial" | "empty" = "opaque",
 ) {
   const adapter = await navigator.gpu.requestAdapter();
@@ -53,10 +54,12 @@ export async function silhouetteProbe(
   groups.forEach((members, i) => renderer.setGroup({
     groupId: `group-${i}`, surfaces: members, backdropSourceId: "bg",
     refraction: "none", analysisExact: false,
-    backdropTone: [sourceReference, sourceReference, sourceReference],
-    backdropToneLevel: srgbToLinearChannel(sourceReference),
+    ...(sourceReference === null ? {} : {
+      backdropTone: [sourceReference, sourceReference, sourceReference] as const,
+      backdropToneLevel: srgbToLinearChannel(sourceReference),
+      backdropToneLinearLuminance: sourceReference,
+    }),
     backdropToneHint: hint,
-    backdropToneLinearLuminance: sourceReference,
     union: { neckWidth: 0, maxBulge: 0, separationThreshold: 0 },
   }));
   const target = device.createTexture({ size: [width, height], format: "rgba8unorm",

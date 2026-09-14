@@ -279,6 +279,49 @@ export function sampleBackdropTone(
   }
 }
 
+/** A shared native-resolution read, independent of any host's geometry. */
+export interface BackdropSnapshot {
+  readonly data: Uint8ClampedArray;
+  readonly width: number;
+  readonly height: number;
+}
+
+/**
+ * Holds one source read across all silhouettes. Geometry changes only repeat the
+ * reduction, while source replacement and intrinsic resizing require new pixels.
+ * Live content refreshes on cadence, even when a CSS root has no dirty epoch feed.
+ */
+export function createBackdropSnapshotReader(): (
+  texture: GlassBackdropTexture, epoch: number, now: number,
+) => BackdropSnapshot | undefined {
+  let held: { texture: GlassBackdropTexture; epoch: number; atMs: number;
+    width: number; height: number; snapshot: BackdropSnapshot | undefined } | undefined;
+  return (texture, epoch, now) => {
+    const drawable = drawableOf(texture);
+    const width = drawable?.width ?? 0;
+    const height = drawable?.height ?? 0;
+    if (held !== undefined && held.texture === texture && held.width === width &&
+        held.height === height &&
+        (texture.kind === "image" ? held.epoch === epoch :
+          now - held.atMs < BACKDROP_TONE_CADENCE_MS)) return held.snapshot;
+    let snapshot: BackdropSnapshot | undefined;
+    const surface = drawable === undefined ? undefined : scratchSurface();
+    if (surface !== undefined && drawable !== undefined) {
+      try {
+        // Resizing clears any taint left by an earlier source.
+        surface.canvas.width = width;
+        surface.canvas.height = height;
+        surface.ctx.drawImage(drawable.source, 0, 0);
+        snapshot = { data: surface.ctx.getImageData(0, 0, width, height).data, width, height };
+      } catch {
+        snapshot = undefined;
+      }
+    }
+    held = { texture, epoch, atMs: now, width, height, snapshot };
+    return snapshot;
+  };
+}
+
 /** The batched host and source geometry, all in viewport-relative CSS pixels. */
 export interface BackdropSilhouette {
   readonly bounds: Rect;

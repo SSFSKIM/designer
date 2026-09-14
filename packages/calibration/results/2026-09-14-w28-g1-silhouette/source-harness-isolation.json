@@ -1,0 +1,76 @@
+{
+  "against": "f925156c calibration/web/scene.ts and index.html; current runtime on both sides",
+  "scope": "The profile-gated border-box harness correction only; runtime source identity is separately checked by GPU goldens.",
+  "machineAccessibility": {
+    "label": "source-harness-isolation",
+    "readAt": "2026-09-14T12:31:31.749Z",
+    "reduceTransparency": 0,
+    "increaseContrast": 0
+  },
+  "rows": [
+    {
+      "tier": "webgpu",
+      "scheme": "light",
+      "scene": "photo__capsule-button__rest",
+      "beforeSha256": "a837944e3171187be971ca03c97e2043688bf0023a02bd6aa710e46d4480c43e",
+      "afterSha256": "a837944e3171187be971ca03c97e2043688bf0023a02bd6aa710e46d4480c43e",
+      "equal": true
+    },
+    {
+      "tier": "webgpu",
+      "scheme": "light",
+      "scene": "checkerboard__rrect-md__rest",
+      "beforeSha256": "b4997516fc486f9a3e5720d85c0edd5d6e56cc82532a6c4d39ef9c750ebd39d3",
+      "afterSha256": "b4997516fc486f9a3e5720d85c0edd5d6e56cc82532a6c4d39ef9c750ebd39d3",
+      "equal": true
+    },
+    {
+      "tier": "webgpu",
+      "scheme": "dark",
+      "scene": "photo__capsule-button__rest",
+      "beforeSha256": "62ac25dd6077fe55b217e2f35a2d53d6ff7e23383f055baa1941eecf0eff8cb7",
+      "afterSha256": "62ac25dd6077fe55b217e2f35a2d53d6ff7e23383f055baa1941eecf0eff8cb7",
+      "equal": true
+    },
+    {
+      "tier": "webgpu",
+      "scheme": "dark",
+      "scene": "checkerboard__rrect-md__rest",
+      "beforeSha256": "8d111a99c4f0e60a5471da3e010260354d26d4e95ec4559a0a1ec3df0ade7e53",
+      "afterSha256": "8d111a99c4f0e60a5471da3e010260354d26d4e95ec4559a0a1ec3df0ade7e53",
+      "equal": true
+    },
+    {
+      "tier": "css",
+      "scheme": "light",
+      "scene": "photo__capsule-button__rest",
+      "beforeSha256": "6e1eef705ce14198a1d5f815cee4487a5356d88461bd052df459f3ccaefef063",
+      "afterSha256": "6e1eef705ce14198a1d5f815cee4487a5356d88461bd052df459f3ccaefef063",
+      "equal": true
+    },
+    {
+      "tier": "css",
+      "scheme": "light",
+      "scene": "checkerboard__rrect-md__rest",
+      "beforeSha256": "ad5e72562980a8bc76ab346b297ae1654770787e5bde8714ddad7ce13b8e49fe",
+      "afterSha256": "ad5e72562980a8bc76ab346b297ae1654770787e5bde8714ddad7ce13b8e49fe",
+      "equal": true
+    },
+    {
+      "tier": "css",
+      "scheme": "dark",
+      "scene": "photo__capsule-button__rest",
+      "beforeSha256": "7c1a8c334996f1a416aa15f30a89fc34d224128da41e1e1705a6d643bf691357",
+      "afterSha256": "7c1a8c334996f1a416aa15f30a89fc34d224128da41e1e1705a6d643bf691357",
+      "equal": true
+    },
+    {
+      "tier": "css",
+      "scheme": "dark",
+      "scene": "checkerboard__rrect-md__rest",
+      "beforeSha256": "45f28bcfdfedaf237352b0703ded3a6f93eb8b4a4dcb7915e7dc8860f259c194",
+      "afterSha256": "45f28bcfdfedaf237352b0703ded3a6f93eb8b4a4dcb7915e7dc8860f259c194",
+      "equal": true
+    }
+  ]
+}

@@ -1,8 +1,10 @@
 import { expect, test, type Page } from "@playwright/test";
 import { openHarness, requireHardwareAdapter } from "../support";
 import type { silhouetteProbe } from "../fixtures/silhouette";
+import type { silhouetteBoundsProbe } from "../fixtures/silhouette-bounds";
 
-const probe = (page: Page, mode: "silhouette" | "source" | "absent", reference = 0.3, split = false, hint = false,
+const probe = (page: Page, mode: "silhouette" | "source" | "absent",
+  reference: number | null = 0.3, split = false, hint = false,
   alpha: "opaque" | "partial" | "empty" = "opaque") =>
   page.evaluate(async ({ mode, reference, split, hint, alpha }) => {
     const path = "/e2e/fixtures/silhouette.ts";
@@ -25,6 +27,18 @@ const maxDelta = (a: readonly number[], b: readonly number[]) =>
   Math.max(...a.map((value, i) => Math.abs(value - b[i]!)));
 
 test.describe("@gpu W28 silhouette abscissa", () => {
+  test("clips the reduction extent before counting even a huge offscreen rectangle", async ({ page }) => {
+    requireHardwareAdapter(await openHarness(page));
+    const values = await page.evaluate(async () => {
+      const path = "/e2e/fixtures/silhouette-bounds.ts";
+      const module = await import(path) as { silhouetteBoundsProbe: typeof silhouetteBoundsProbe };
+      return module.silhouetteBoundsProbe();
+    });
+    expect([values[6], values[14], values[22], values[30]]).toEqual([64, 16, 256, 0]);
+    expect([values[7], values[15], values[23], values[31]]).toEqual([64, 16, 256, 0]);
+    for (const i of [0, 1, 2]) expect(values[i * 8 + 4]).toBeCloseTo(1, 6);
+  });
+
   test("encodes raw texels before averaging, separately for both hosts", async ({ page }) => {
     requireHardwareAdapter(await openHarness(page));
     const result = await probe(page, "silhouette");
@@ -57,7 +71,7 @@ test.describe("@gpu W28 silhouette abscissa", () => {
     expect(Math.abs(body(base)[0]! - body(base)[1024]!)).toBeGreaterThan(5);
   });
 
-  test("transparent texels carry no colour and an empty mask publishes no abscissa", async ({ page }) => {
+  test("transparent texels carry no colour and an empty mask reports its valid fallback", async ({ page }) => {
     requireHardwareAdapter(await openHarness(page));
     const partial = await probe(page, "silhouette", 0.3, false, false, "partial");
     expect(partial.readings[0]!.encodedLuminance).toBeCloseTo(1, 5);
@@ -66,8 +80,24 @@ test.describe("@gpu W28 silhouette abscissa", () => {
       .toBeCloseTo(partial.css[0]!.encodedLuminance!, 5);
     expect(partial.readings[0]!.sampleCount).toBe(partial.css[0]!.footprint!.sampleCount);
     const empty = await probe(page, "silhouette", 0.3, false, false, "empty");
-    expect(empty.readings.map((reading) => reading.surfaceId)).toEqual(["host-1"]);
+    expect(empty.readings.map((reading) => reading.kind)).toEqual(["source", "silhouette"]);
+    expect(empty.readings[0]).toMatchObject({ surfaceId: "host-0", sampleCount: 0,
+      color: [0.3, 0.3, 0.3], linearLuminance: 0.3,
+      sourceWidth: 0, sourceHeight: 0, sampledWidth: 0, sampledHeight: 0 });
+    expect(empty.readings[0]!.encodedLuminance).toBeCloseTo(0.3, 12);
     expect(empty.css[0]).toBeUndefined();
+    const source = await probe(page, "source", 0.3, false, false, "empty");
+    expect(maxDelta(body(empty).slice(0, 1024), body(source).slice(0, 1024)))
+      .toBeLessThanOrEqual(1);
+  });
+
+  test("an empty mask with no source reference still omits the abscissa", async ({ page }) => {
+    requireHardwareAdapter(await openHarness(page));
+    const empty = await probe(page, "silhouette", null, false, false, "empty");
+    expect(empty.readings.map((reading) => reading.surfaceId)).toEqual(["host-1"]);
+    const source = await probe(page, "source", null, false, false, "empty");
+    expect(maxDelta(body(empty).slice(0, 1024), body(source).slice(0, 1024)))
+      .toBeLessThanOrEqual(1);
   });
 
   test("an author hint bypasses the reduction on every host", async ({ page }) => {

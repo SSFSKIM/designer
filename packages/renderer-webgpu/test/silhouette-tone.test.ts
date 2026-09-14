@@ -28,6 +28,28 @@ describe("silhouette abscissa profile selection", () => {
 });
 
 
+describe("zero-weight silhouette readout", () => {
+  const metadata = [{ surfaceId: "empty", sourceWidth: 512, sourceHeight: 256,
+    sampledWidth: 256, sampledHeight: 128 }];
+  const empty = new Float32Array([0, 0, 0, 0, 0, 0, 100, 0]);
+
+  it("reports the valid source fallback without claiming empty-mask sample metadata", () => {
+    const readings = toneReadingsFromBuffer(empty, metadata,
+      [0.8, 0.1, 0.2, 0.21404114048223255]);
+    expect(readings).toHaveLength(1);
+    expect(readings[0]).toMatchObject({ surfaceId: "empty", kind: "source",
+      color: [0.8, 0.1, 0.2], luminance: 0.21404114048223255,
+      linearLuminance: 0.25604, sampleCount: 0, level: 0,
+      sourceWidth: 0, sourceHeight: 0, sampledWidth: 0, sampledHeight: 0 });
+    expect(readings[0]!.encodedLuminance).toBeCloseTo(0.5, 12);
+  });
+
+  it("omits an empty reduction when there is no valid reference to draw", () => {
+    expect(toneReadingsFromBuffer(empty, metadata)).toEqual([]);
+    expect(toneReadingsFromBuffer(empty, metadata, [0, 0, 0, -1])).toEqual([]);
+  });
+});
+
 describe("per-surface reduction boundary", () => {
   it("packs resolved device bounds rather than the shadow-padded group or another host", () => {
     const surfaces = resolveSurfaces({

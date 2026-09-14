@@ -80,7 +80,9 @@ try {
       const path = "/e2e/fixtures/silhouette-evidence.ts";
       const module = await import(path) as { silhouettePyramidDiagnostic: typeof silhouettePyramidDiagnostic };
       return module.silhouettePyramidDiagnostic(input);
-    }, { pngDataUrl: `data:image/png;base64,${bytes.toString("base64")}`, dpr, shapes });
+    }, { pngDataUrl: `data:image/png;base64,${bytes.toString("base64")}`, dpr,
+      // The broad non-D shapes already identify this input-only Jensen gap.
+      shapes: shapes.filter((shape) => background !== "hc-text" || shape.id !== "rrect-sm") });
     diagnostics.push({ background, path, sha256: sha(bytes), ...result });
   }
   writeFileSync(output, JSON.stringify({
@@ -89,7 +91,9 @@ try {
     command: process.argv, machineAccessibility, engineVersion: browser.version(), adapter, provenance,
     benchmark: bench,
     diagnosticMethod: "Unmodified production silhouette reducer, same full-resolution masks, bound to production pyramid mip 0 versus analysisLevel. This measures encoding after linear blur, not the legacy whole-source analysis shader.",
-    diagnosticShapes: shapes, diagnostics,
+    diagnosticShapes: shapes,
+    excludedDiagnostic: "hc-text/rrect-sm is a checking-set base; no diagnostic cell uses it.",
+    diagnostics,
   }, null, 2) + "\n");
   console.log(JSON.stringify({ output, overheads: bench.differences,
     diagnostics: diagnostics.map((row) => ({ background: row.background, dpr: row.dpr,

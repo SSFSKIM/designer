@@ -1,6 +1,6 @@
 /** W28 evidence only. No runtime branch or diagnostic profile option is added. */
 import { createWebGPURenderer } from "../../src/renderer";
-import { createAppTextureProvider, createCopyProvider } from "../../src/backdrop";
+import { createCopyProvider } from "../../src/backdrop";
 import { srgbToLinearChannel } from "../../src/color";
 import { createGpuContext, createUniformSlot } from "../../src/gpu-context";
 import { resolveSurfaces } from "../../src/instances";
@@ -54,9 +54,14 @@ export async function silhouetteCost(input: {
         const c = x < width / 2 ? (Math.floor(x / dpr) % 2) * 255 : 191;
         pixels.set([c, c, c, 255], (y * width + x) * 4);
       }
-      const texture = device.createTexture({ size: [width, height], format: "rgba8unorm",
-        usage: GPUTextureUsage.COPY_DST | GPUTextureUsage.TEXTURE_BINDING });
-      device.queue.writeTexture({ texture }, pixels, { bytesPerRow: width * 4 }, [width, height]);
+      const image = new ImageData(new Uint8ClampedArray(pixels), width, height);
+      let sourceEncoded = 0, sourceLinear = 0;
+      for (let i = 0; i < pixels.length; i += 4) {
+        sourceEncoded += pixels[i]! / 255;
+        sourceLinear += srgbToLinearChannel(pixels[i]! / 255);
+      }
+      sourceEncoded /= width * height;
+      sourceLinear /= width * height;
       const patch: MaterialProfilePatch = {
         backdropToneAbscissa: mode === "source" ? "source" : { kind: "silhouette" },
         outerShadow: { thinOcclusionDark: 0, thinOcclusionMid: 0, thinOcclusionBright: 0,
@@ -66,15 +71,15 @@ export async function silhouetteCost(input: {
       const renderer = createWebGPURenderer({ materialProfile: patch });
       renderer.attachDevice(device, "app");
       renderer.setViewport({ widthCss, heightCss, devicePixelRatio: dpr });
-      renderer.registerBackdrop(createAppTextureProvider({ id: "bg", device, texture,
-        colorSpace: "srgb", alphaMode: "opaque", encoded: true }));
+      renderer.registerBackdrop(createCopyProvider({ id: "bg", kind: "image", device,
+        source: image, width, height }));
       renderer.setGroup({ groupId: "g", surfaces, backdropSourceId: "bg", refraction: "none",
-        analysisExact: false, backdropTone: [0.3, 0.3, 0.3],
-        backdropToneLevel: srgbToLinearChannel(0.3), backdropToneLinearLuminance: 0.3,
+        analysisExact: false, backdropTone: [sourceLinear, sourceLinear, sourceLinear],
+        backdropToneLevel: srgbToLinearChannel(sourceEncoded), backdropToneLinearLuminance: sourceLinear,
         union: { neckWidth: 0, maxBulge: 0, separationThreshold: 0 } });
       const target = device.createTexture({ size: [width, height], format: "rgba8unorm",
         usage: GPUTextureUsage.RENDER_ATTACHMENT });
-      entries.push({ geometry, dpr, mode, width, height, surfaces, patch, texture, target,
+      entries.push({ geometry, dpr, mode, width, height, surfaces, patch, target,
         view: target.createView(), renderer, samples: [] as number[] });
     }
   }
@@ -116,7 +121,7 @@ export async function silhouetteCost(input: {
       warmup: input.warmup, rounds: input.rounds, rows, differences };
   } finally {
     for (const entry of entries) {
-      entry.renderer.destroy(); entry.texture.destroy(); entry.target.destroy();
+      entry.renderer.destroy(); entry.target.destroy();
     }
     device.destroy();
   }

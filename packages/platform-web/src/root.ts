@@ -161,6 +161,7 @@ import {
   materialAtBackdrop,
   opticsUnderPolicy,
   resolvedBackdropToneResponse,
+  validateBackdropToneAbscissa,
   resolvedRimTintChroma,
   resolvedPolicyFold,
   resolvedTintShade,
@@ -184,6 +185,9 @@ import {
 import {
   BACKDROP_TONE_CADENCE_MS,
   sampleBackdropTone,
+  createBackdropSnapshotReader,
+  silhouetteBackdropTone,
+  type BackdropSnapshot,
   type BackdropToneSample,
   type BackdropSilhouette,
 } from "./backdrop-tone";
@@ -777,11 +781,11 @@ const withCssBody = (
  * standing up the colour-scheme feed first, and that feed is one of the listeners
  * a refusal must not leak.
  *
- * Only the response rows are checked, because they are the only part of the
- * profile that is resolved lazily, per frame, deep inside the write phase. Every
- * other constant is resolved eagerly by `applyMaterialProfile` itself.
+ * The response rows and abscissa discriminator are checked before the lazy
+ * per-host solve can see them. Other constants resolve eagerly on application.
  */
 const rejectUndrawableProfile = (profile: RendererMaterialProfile | undefined): void => {
+  validateBackdropToneAbscissa(profile);
   for (const scheme of ["light", "dark"] as const) {
     resolvedBackdropToneResponse(
       mergeMaterialProfiles(colorSchemeMaterialProfile(scheme), profile),
@@ -1202,7 +1206,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
      * error to. Resolved once up front instead, where the app's own call is still
      * on the stack and the root has changed nothing yet.
      */
+    validateBackdropToneAbscissa(profile);
     resolvedBackdropToneResponse(profile);
+    sourceSnapshots.clear();
+    surfaceBackdropTones.clear();
     resolvedProfile = profile;
     cssOptics = cssTierOptics(profile, cssMapping);
     gpuOptics = sourceOptics(profile);
@@ -1277,30 +1284,34 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     backdropTones.set(sourceId, { epoch, atMs: now, sample });
     return sample;
   };
+  const sourceSnapshots = new Map<string, ReturnType<typeof createBackdropSnapshotReader>>();
   const surfaceBackdropTones = new Map<string, {
     readonly sourceId: string;
-    readonly epoch: number;
+    readonly snapshot: BackdropSnapshot | undefined;
     readonly geometryKey: string;
-    readonly atMs: number;
     readonly sample: BackdropToneSample | undefined;
   }>();
   const cssBackdropAbscissae = new Map<string, readonly SurfaceBackdropToneAbscissa[]>();
-  /** Geometry participates in invalidation without adding any layout reads. */
+  /** Geometry invalidation reuses shared pixels without adding any layout reads. */
   const silhouetteToneFor = (
-    sourceId: string, surfaceId: string, silhouette: BackdropSilhouette,
+    sourceId: string, surfaceId: string, silhouette: BackdropSilhouette, now: number,
   ): BackdropToneSample | undefined => {
     const texture = suppliedTextures.get(sourceId);
     if (texture === undefined) return undefined;
-    const epoch = scene.backdropSource(sourceId)?.dirtyEpoch ?? 0;
+    let reader = sourceSnapshots.get(sourceId);
+    if (reader === undefined) {
+      reader = createBackdropSnapshotReader();
+      sourceSnapshots.set(sourceId, reader);
+    }
+    const snapshot = reader(texture, scene.backdropSource(sourceId)?.dirtyEpoch ?? 0, now);
     const geometryKey = JSON.stringify(silhouette);
     const held = surfaceBackdropTones.get(surfaceId);
-    const now = view.performance?.now() ?? 0;
-    if (held !== undefined && held.sourceId === sourceId) {
-      const stale = held.epoch !== epoch || held.geometryKey !== geometryKey || texture.kind !== "image";
-      if (!stale || now - held.atMs < BACKDROP_TONE_CADENCE_MS) return held.sample;
-    }
-    const sample = sampleBackdropTone(texture, silhouette);
-    surfaceBackdropTones.set(surfaceId, { sourceId, epoch, geometryKey, atMs: now, sample });
+    if (held !== undefined && held.sourceId === sourceId && held.snapshot === snapshot &&
+        held.geometryKey === geometryKey) return held.sample;
+    const sample = snapshot === undefined ? undefined : silhouetteBackdropTone(
+      snapshot.data, snapshot.width, snapshot.height, silhouette,
+    );
+    surfaceBackdropTones.set(surfaceId, { sourceId, snapshot, geometryKey, sample });
     return sample;
   };
   /** One CSS-colour parser per root, memoised by string. See `tint.ts`. */
@@ -1665,6 +1676,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   };
 
   const write = (frame: FrameInfo, resolution: FrameReport["resolution"]): void => {
+    // All silhouettes in this frame share the same source-cadence boundary.
+    const toneSampleTime = view.performance?.now() ?? 0;
     const viewport = geometry.viewport;
     if (viewport !== undefined) {
       layers.resizeCanvases(viewport.width, viewport.height, viewport.devicePixelRatio);
@@ -2054,9 +2067,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       };
       const silhouetteAbscissa = resolvedProfile?.backdropToneAbscissa !== undefined &&
         resolvedProfile.backdropToneAbscissa !== "source";
+      // The GPU reduces its own silhouettes, but still needs the source reference
+      // for fallback and material gating. CSS reads only its shared native snapshot.
       const groupBackdropTone: BackdropToneSample | undefined =
         declaredLuminance === undefined
-          ? ((silhouetteAbscissa ? undefined : backdropToneFor(groupRecord.descriptor.backdropSourceId)) ?? stackedTone())
+          ? ((silhouetteAbscissa && state.activeRenderer === "css"
+              ? undefined : backdropToneFor(groupRecord.descriptor.backdropSourceId)) ?? stackedTone())
           : {
               rgb: [declaredLuminance, declaredLuminance, declaredLuminance],
               luminance: declaredLuminance,
@@ -2199,6 +2215,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         }
       }
 
+      // Completed GPU reductions also supply the CPU composite predictor used by
+      // stacked DOM groups. Reuse those local references rather than reading the
+      // texture again or predicting every host against the whole-source mean.
+      const gpuAbscissae = silhouetteAbscissa && state.activeRenderer === "webgpu" &&
+        declaredLuminance === undefined
+        ? new Map((bridge?.renderer?.backdropToneAbscissae?.(groupId) ?? [])
+            .filter((input) => input.kind === "silhouette")
+            .map((input) => [input.surfaceId, input] as const))
+        : undefined;
       const cssAbscissae: SurfaceBackdropToneAbscissa[] = [];
       cssBackdropAbscissae.set(groupId, cssAbscissae);
       for (const { record, bounds } of measured) {
@@ -2208,11 +2233,16 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           ? declaredPlacement.rect : geometry.placementOf(sourceId);
         // W28 replaces the reference throughout the host's solve, not only the
         // response curve. The legacy path and author-hint precedence stay intact.
-        const backdropTone = silhouetteAbscissa && declaredLuminance === undefined && viewport !== undefined
+        const gpuAbscissa = gpuAbscissae?.get(record.nodeId);
+        const backdropTone = gpuAbscissa !== undefined
+          ? { rgb: gpuAbscissa.color, luminance: gpuAbscissa.luminance,
+              linearLuminance: gpuAbscissa.linearLuminance }
+          : silhouetteAbscissa && state.activeRenderer === "css" &&
+          declaredLuminance === undefined && viewport !== undefined
           ? silhouetteToneFor(sourceId, record.nodeId, {
               bounds, radius: record.radii[0], viewport,
               ...(placement === undefined ? {} : { placement }),
-            }) ?? groupBackdropTone
+            }, toneSampleTime) ?? groupBackdropTone
           : groupBackdropTone;
         if (silhouetteAbscissa && declaredLuminance !== undefined && backdropTone !== undefined) {
           cssAbscissae.push({
@@ -3148,6 +3178,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     setBackdropTexture(sourceId, texture) {
       bridge?.setBackdropTexture(sourceId, texture);
+      sourceSnapshots.delete(sourceId);
       for (const [surfaceId, held] of surfaceBackdropTones) {
         if (held.sourceId === sourceId) surfaceBackdropTones.delete(surfaceId);
       }
@@ -3609,6 +3640,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       inkStylesheet.dispose();
       hosts.clear();
       surfaceBackdropTones.clear();
+      sourceSnapshots.clear();
       cssBackdropAbscissae.clear();
       probeReports.clear();
       frameListeners.clear();

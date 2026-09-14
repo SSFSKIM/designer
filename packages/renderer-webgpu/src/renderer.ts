@@ -771,6 +771,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   function drawGroups(
     encoder: GPUCommandEncoder,
     resolution: SceneResolutionView | undefined,
+    timeMs: number,
   ): DrawFrameResult {
     const { store: pyramids, runner: passes } = ensureContext();
     const active = targets;
@@ -1000,6 +1001,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         ? silhouetteTone?.draw(encoder, {
             groupId: input.groupId, field: fieldArgs, fields, surfaces, pyramid,
             viewportDevice, fit: fitFor(sourceId, pyramid),
+            timeMs, cadenceHz: governor.knobs.adaptationCadenceHz,
+            liveSource: providers.get(sourceId)?.kind !== "image" &&
+              providers.get(sourceId)?.kind !== "gradient",
             fallbackTone: [
               input.backdropTone?.[0] ?? 0, input.backdropTone?.[1] ?? 0,
               input.backdropTone?.[2] ?? 0,
@@ -1572,7 +1576,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           if (args.highlight !== undefined) passes.clearPass(encoder, args.highlight);
         }
 
-        result = drawGroups(encoder, args.resolution);
+        result = drawGroups(encoder, args.resolution, args.frame.timeMs);
 
         args.timing?.resolve(encoder);
         gpu.device.queue.submit([encoder.finish()]);
@@ -1651,7 +1655,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
             if (targets !== undefined) {
               passes.clearPass(encoder, targets.optics);
               if (targets.highlight !== undefined) passes.clearPass(encoder, targets.highlight);
-              drawGroups(encoder, frameContext.resolution);
+              drawGroups(encoder, frameContext.resolution, frameContext.frame.timeMs);
             }
 
             context.device.queue.submit([encoder.finish()]);

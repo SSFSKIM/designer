@@ -1,0 +1,804 @@
+{
+  "gate": "W28 G1 / claims §5.145",
+  "kind": "input-only; not a fit or holdout output read",
+  "repositoryHead": "b20e26903b427674410228683bba8e3707b8c21a",
+  "tier": "css",
+  "limit": null,
+  "engineVersion": "151.0.7922.34",
+  "machineAccessibility": {
+    "label": "review-fix-css-photo",
+    "readAt": "2026-09-14T12:49:55.133Z",
+    "reduceTransparency": 0,
+    "increaseContrast": 0
+  },
+  "populationSha256": "af18f36b382cd2b4e90fce56fa5de479e9dc5cee094c1e451549612e3b711c37",
+  "expectedSha256": "9e9c6b5f843395297ae57459378bf6f33b65f2dd9b8f92f950299422c803fffe",
+  "instrumentSha256": "be23e986a20becdb4e17441f1bfb31d9f25e55e814c4ef8a1a83c293b20a845e",
+  "aliases": [
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-32__capsule-button__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-32__capsule-button__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-32__capsule-button__rest-tint-orange",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-32__capsule-button__rest-tint-orange",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-md__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-md__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-ml__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-ml__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-4__capsule-button__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-4__capsule-button__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-4__capsule-button__rest-tint-orange",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-4__capsule-button__rest-tint-orange",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-ml__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-ml__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-64__capsule-button__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-64__capsule-button__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-64__capsule-button__rest-tint-orange",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-64__capsule-button__rest-tint-orange",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-md__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-md__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-ml__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-ml__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-8__capsule-button__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-8__capsule-button__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-8__capsule-button__rest-tint-orange",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-8__capsule-button__rest-tint-orange",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-md__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-md__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-ml__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-ml__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-ml__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-ml__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-orange",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-orange",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/hc-text-28__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/hc-text-28__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/hc-text-28__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/hc-text-28__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/hc-text-7__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/hc-text-7__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/hc-text-7__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/hc-text-7__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/hc-text__rrect-md__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/hc-text__rrect-md__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/photo__rrect-md__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/photo__rrect-md__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/photo__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/photo__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    }
+  ],
+  "rows": [
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "photo__capsule-button__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.46274873418332846,
+      "sourceEncoded": 0.42540525612745095,
+      "backgroundSha256": "8e319b0f82acf6169f24981192c960ad12a5c9b4904342692ca324e6379c6ed0",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.4627487341833274
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "encoded",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.46274873418332674,
+                "luminance": 0.1811672978414788,
+                "linearLuminance": 0.21193860947873105,
+                "color": [
+                  0.2489209859578584,
+                  0.19883834047919913,
+                  0.23280923481117932
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 692.5391249999999,
+      "capture": "/tmp/w28-g1-silhouette-captures/review-fix-css-photo/apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest",
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "photo__capsule-button__rest",
+      "scheme": "light",
+      "pose": "active",
+      "policy": "increased-contrast",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.46274873418332846,
+      "sourceEncoded": 0.42540525612745095,
+      "backgroundSha256": "8e319b0f82acf6169f24981192c960ad12a5c9b4904342692ca324e6379c6ed0",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "approximate",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.4627487341833274
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.46274873418332674,
+                "luminance": 0.1811672978414788,
+                "linearLuminance": 0.21193860947873105,
+                "color": [
+                  0.2489209859578584,
+                  0.19883834047919913,
+                  0.23280923481117932
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1047.3600000000001,
+      "capture": "/tmp/w28-g1-silhouette-captures/review-fix-css-photo/apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest",
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "scene": "photo__capsule-button__rest",
+      "scheme": "light",
+      "pose": "active",
+      "policy": "reduced-transparency",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.46274873418332846,
+      "sourceEncoded": 0.42540525612745095,
+      "backgroundSha256": "8e319b0f82acf6169f24981192c960ad12a5c9b4904342692ca324e6379c6ed0",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "approximate",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.4627487341833274
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.46274873418332674,
+                "luminance": 0.1811672978414788,
+                "linearLuminance": 0.21193860947873105,
+                "color": [
+                  0.2489209859578584,
+                  0.19883834047919913,
+                  0.23280923481117932
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1073.510459,
+      "capture": "/tmp/w28-g1-silhouette-captures/review-fix-css-photo/apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-light-standard/photo__capsule-button__rest",
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "scene": "photo__capsule-button__rest",
+      "scheme": "light",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.46274873418332846,
+      "sourceEncoded": 0.42540525612745095,
+      "backgroundSha256": "8e319b0f82acf6169f24981192c960ad12a5c9b4904342692ca324e6379c6ed0",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.4627487341833274
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.46274873418332674,
+                "luminance": 0.1811672978414788,
+                "linearLuminance": 0.21193860947873105,
+                "color": [
+                  0.2489209859578584,
+                  0.19883834047919913,
+                  0.23280923481117932
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1058.9008329999997,
+      "capture": "/tmp/w28-g1-silhouette-captures/review-fix-css-photo/apple-macos-26.5-1x-light-standard/photo__capsule-button__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest",
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "scene": "photo__capsule-button__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 2,
+      "component": "capsule-button",
+      "flags": [
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.46336221253983406,
+      "sourceEncoded": 0.42535406458026953,
+      "backgroundSha256": "e461bf7fc3d3df3bc37d055146556591979e561a209f2df40bdfa69af9a2d156",
+      "pixelSize": [
+        640,
+        400
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 19468,
+          "encodedLuminance": 0.4633622125398338
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "encoded",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.4633622125398313,
+                "luminance": 0.18168291976100553,
+                "linearLuminance": 0.21279069834766645,
+                "color": [
+                  0.24973054385620294,
+                  0.19998709456029426,
+                  0.23084784895173485
+                ],
+                "sampleCount": 19468,
+                "level": 0,
+                "sourceWidth": 640,
+                "sourceHeight": 400,
+                "sampledWidth": 640,
+                "sampledHeight": 400
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1139.1692910000002,
+      "capture": "/tmp/w28-g1-silhouette-captures/review-fix-css-photo/apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-2x-light-standard/photo__capsule-button__rest",
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "scene": "photo__capsule-button__rest",
+      "scheme": "light",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 2,
+      "component": "capsule-button",
+      "flags": [
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.46336221253983406,
+      "sourceEncoded": 0.42535406458026953,
+      "backgroundSha256": "e461bf7fc3d3df3bc37d055146556591979e561a209f2df40bdfa69af9a2d156",
+      "pixelSize": [
+        640,
+        400
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 19468,
+          "encodedLuminance": 0.4633622125398338
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.4633622125398313,
+                "luminance": 0.18168291976100553,
+                "linearLuminance": 0.21279069834766645,
+                "color": [
+                  0.24973054385620294,
+                  0.19998709456029426,
+                  0.23084784895173485
+                ],
+                "sampleCount": 19468,
+                "level": 0,
+                "sourceWidth": 640,
+                "sourceHeight": 400,
+                "sampledWidth": 640,
+                "sampledHeight": 400
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1142.3975839999994,
+      "capture": "/tmp/w28-g1-silhouette-captures/review-fix-css-photo/apple-macos-26.5-2x-light-standard/photo__capsule-button__rest.png"
+    }
+  ]
+}

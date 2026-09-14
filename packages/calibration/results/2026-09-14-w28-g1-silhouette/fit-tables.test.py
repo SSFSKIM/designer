@@ -25,5 +25,21 @@ class Admission(unittest.TestCase):
                 scorer.admit([{"profile": profile, "scene": scene, "role": "control"}])
 
 
+class Selection(unittest.TestCase):
+    def test_measured_middle_changes_only_when_controls_refuse_it(self):
+        table = {
+            "dark-four-x0.7-m0.04092": {"refused": False, "fitMeanBodyDeltaE": 0.02},
+            "dark-four-x0.7-m0.06496": {"refused": False, "fitMeanBodyDeltaE": 0.01},
+            "dark-four-x0.7-m0.089": {"refused": False, "fitMeanBodyDeltaE": 0.005},
+            "dark-baseline-silhouette": {"refused": False, "fitMeanBodyDeltaE": 0.001},
+        }
+        self.assertEqual(scorer.choose("dark", table), "dark-four-x0.7-m0.04092")
+        table["dark-four-x0.7-m0.04092"]["refused"] = True
+        self.assertEqual(scorer.choose("dark", table), "dark-four-x0.7-m0.06496")
+        table["dark-four-x0.7-m0.06496"]["refused"] = True
+        table["dark-four-x0.7-m0.089"]["refused"] = True
+        self.assertIsNone(scorer.choose("dark", table))
+
+
 if __name__ == "__main__":
     unittest.main()

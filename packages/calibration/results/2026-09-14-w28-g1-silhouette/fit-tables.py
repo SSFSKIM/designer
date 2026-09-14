@@ -26,11 +26,34 @@ def admit(rows):
             raise ValueError(f"{cell}: W28 holdout cannot enter any sweep row")
 
 
+def choose(scheme, table):
+    candidates = [name for name, row in table.items()
+                  if not row["refused"] and "baseline" not in name]
+    if scheme == "dark":
+        # The measured middle anchors are released only by a control refusal,
+        # not by an outcome on the checking set or an attractive old-row score.
+        for middle in ["0.04092", "0.06496", "0.089"]:
+            cohort = [name for name in candidates if name.endswith(f"-m{middle}")]
+            if cohort:
+                candidates = cohort
+                break
+    return min(candidates, key=lambda name: (table[name]["fitMeanBodyDeltaE"],
+               "four" in name, name), default=None)
+
+
 def score(scheme):
     expected = {r["cell"]: r for r in partition["rows"]
                 if r["scheme"] == scheme and r["a11yMode"] == "standard"}
+    proposals = load(HERE / "fit-model-proposals.json")["proposals"]
+    required = {row["name"] for row in proposals if row["scheme"] == scheme}
+    required.update({f"{scheme}-baseline-source", f"{scheme}-baseline-silhouette"})
+    missing = [name for name in sorted(required)
+               if not (HERE / "sweep-matrices" / f"{name}.json").exists()]
+    if missing:
+        raise ValueError(f"{scheme}: declared rungs remain unread: {missing}")
     table = {}
-    for path in sorted((HERE / "sweep-matrices").glob(f"{scheme}-*.json")):
+    for name in sorted(required):
+        path = HERE / "sweep-matrices" / f"{name}.json"
         doc = load(path)
         if doc["renderer"] != "webgpu":
             continue
@@ -67,8 +90,7 @@ def score(scheme):
         }
     candidates = [name for name, row in table.items()
                   if not row["refused"] and "baseline-source" not in name]
-    selected = min(candidates, key=lambda name: (table[name]["fitMeanBodyDeltaE"],
-                   "four" in name, name), default=None)
+    selected = choose(scheme, table)
     result = {"gate": "W28 G1 / claims §5.145", "scheme": scheme,
               "objective": partition["metric"], "controlCap": partition["controlCap"],
               "selected": selected, "admissible": candidates, "rungs": table}

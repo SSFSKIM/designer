@@ -4,6 +4,7 @@
  * two-capture repeat check are unchanged. Admission happens before native PNGs
  * or browser pages; the G2 checking read is deliberately not a mode of this fit.
  */
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { resolve, dirname } from "node:path";
@@ -60,13 +61,25 @@ const output = resolve(here, "sweep-matrices", `${label}.json`);
 if (existsSync(output)) throw new Error(`Refusing to replace ${output}`);
 mkdirSync(dirname(output), { recursive: true });
 const instrumentSha256 = sha(readFileSync(resolve(here, "fit-read.ts")));
+const runtimePaths = ["packages/core/src", "packages/renderer-webgpu/src",
+  "packages/platform-web/src", "packages/calibration/web"];
+execFileSync("git", ["-C", repo, "diff", "--quiet", "HEAD", "--", ...runtimePaths]);
+const repositoryHead = execFileSync("git", ["-C", repo, "rev-parse", "HEAD"], { encoding: "utf8" }).trim();
+const sourceSha256 = Object.fromEntries([
+  "packages/renderer-webgpu/src/material.ts", "packages/renderer-webgpu/src/renderer.ts",
+  "packages/renderer-webgpu/src/silhouette-tone.ts", "packages/renderer-webgpu/src/wgsl/silhouette-tone.ts",
+  "packages/renderer-webgpu/src/wgsl/optics.ts", "packages/renderer-webgpu/src/wgsl/highlight.ts",
+  "packages/platform-web/src/root.ts", "packages/platform-web/src/optics.ts",
+  "packages/platform-web/src/backdrop-tone.ts", "packages/calibration/web/scene.ts",
+].map((file) => [file, sha(readFileSync(resolve(repo, file)))]));
+const partitionSha256 = sha(readFileSync(resolve(here, "partition.json")));
 const rows: any[] = [];
 const run = await launch(label);
 const record = () => writeFileSync(output, `${JSON.stringify({
   gate: "W28 G1 / claims §5.145", label, renderer: tier,
   patchSha256: sha(JSON.stringify(candidate)), inactiveSha256,
   activeSha256: baseline.profiles[scheme].activeSha256,
-  instrumentSha256, partitionSha256: sha(readFileSync(resolve(here, "partition.json"))),
+  instrumentSha256, partitionSha256, repositoryHead, sourceSha256,
   machineAccessibility: run.machineAccessibility, engineVersion: run.browser.version(), rows,
 }, null, 2)}\n`);
 try {

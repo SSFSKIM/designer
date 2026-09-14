@@ -30,8 +30,11 @@ fn raw_tone(texel : vec2i) -> RawTone {
 fn reduce_tone(@builtin(local_invocation_index) lane : u32,
                @builtin(workgroup_id) group : vec3u) {
   let shape = shapes[group.x];
-  let lo = vec2i(floor(shape.rect.xy));
-  let hi = vec2i(ceil(shape.rect.xy + shape.rect.zw));
+  // G0 clips to the capture raster. Clip BEFORE deriving the iteration area so
+  // offscreen geometry cannot create unbounded work or overflow its u32 product.
+  // In-bounds rectangles retain exactly the same lane assignment and arithmetic.
+  let lo = vec2i(clamp(floor(shape.rect.xy), vec2f(0.0), u.viewport.xy));
+  let hi = vec2i(clamp(ceil(shape.rect.xy + shape.rect.zw), vec2f(0.0), u.viewport.xy));
   let extent = vec2u(max(hi - lo, vec2i(0)));
   let half = shape.rect.zw * 0.5;
   let centre = shape.rect.xy + half;
@@ -42,8 +45,6 @@ fn reduce_tone(@builtin(local_invocation_index) lane : u32,
   for (var i = lane; i < extent.x * extent.y; i += 256u) {
     let pixel = lo + vec2i(vec2u(i % extent.x, i / extent.x));
     let p = vec2f(pixel) + 0.5;
-    // G0 clips its mask to the capture raster before taking a mean.
-    if (any(p < vec2f(0.0)) || any(p >= u.viewport.xy)) { continue; }
     let q = abs(p - centre) - half + radius;
     let distance = length(max(q, vec2f(0.0))) + min(max(q.x, q.y), 0.0) - radius;
     if (distance > 0.0) { continue; }
