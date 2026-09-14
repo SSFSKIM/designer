@@ -705,7 +705,8 @@ applied as written, in both directions).
    and `eye.md` in §5.148 §4, at 2× in both schemes, which needed the playground's new `colorScheme`
    pin because the recede's endpoints are fitted per scheme and the page could only draw one of
    them. Every gap that remains is a named line: §5.146 §7, §5.147 §7, §5.148 §5, and the tracker,
-   which gains **nine** entries at this landing and three dated amendments beside existing ones.
+   which gains **nine** entries at this landing and three dated amendments beside existing ones —
+   and a tenth from the review fix wave, for the pose's absence from the cell key.
 
    The first exception is the one the clause turns on. **The user's eye has not been given and the
    veto has not been exercised.** Decision Log 3 (d) requested it on G2's six sheets and made it the
@@ -866,7 +867,63 @@ the active material draws". No floor was adopted, so six profiles holding a boun
 not a gate. And the cell that held W27c for five days now clears its ceiling by 7 % and is still
 visibly wrong on the sheet — which is the sentence this project exists to be able to write.
 
+A third thing, learned after the wave had closed. The independent review over G4 returned **correct
+with findings**, and the shape of the nine is one shape: not one measurement was wrong and no
+verdict moved, but nine things the record said *about* its own evidence were — two counts, a table
+transcribed a digit past the precision it had been read at, an enforcement claimed on a path that
+did not enforce it, a field described as a readback that is not one, a guard named for a check it
+does not make, and a product defect on the page the eye was taken on. All nine are closed on this
+branch (§Revision Notes, the 2026-09-15 fix-wave entry). What they have in common is that every one
+of them lived in prose rather than in a number, and the table — the only figure-set in §5.148 with
+no script behind it — is where the arithmetic error was. That is the rule the wave hands forward:
+a figure in the ledger is a script's output or it is a transcription, and a transcription is a
+claim nobody can re-run.
+
 ## Revision Notes
+
+- 2026-09-15 (G4 review closure, the fix wave): the independent review over the G4 branch returns
+  **correct with findings** — nine, none of them a wrong measurement or a moved verdict — and all
+  nine are closed here. Two counts corrected from the artifacts they describe: `PREDICATE_EXCLUDES`
+  holds **32** entries, not 43 (a regex over-matched the block), and the cut is **two changeset
+  files declaring three minors**, not three changesets. §5.148 §2's twelve-row table had been
+  transcribed at six decimal places off a per-set summary that prints five, so its three ΔE columns
+  each carried an invented last digit; `published-rows.py` now generates the table and
+  `published-rows.json` from the canonical matrix, the ledger records the correction rather than
+  absorbing it — nothing moves by more than 0.000008 absolute and 0.34 % relative — and the closing
+  paragraph's worst-cell and cross-tier figures name the scale they are read at. §5.148 §1's claim
+  that a capture resolving `"active"` under an `__inactive` id "could not be published silently" was
+  true of the report and false of the publishing driver, which read none of the three new fields:
+  `capturePoseRefusal` (`cli/gates.ts`, eight unit cases in `compare-gates.test.ts`) now refuses to
+  measure a capture whose resolved `windowActivation` or `colorScheme` disagrees with the planned
+  cell, an absent field being a pre-G4 capture only an active-pose scene may use. The half not
+  fixed — the pose and the receded document's identity are in no part of the cell key, so a change
+  to `receded-profile.ts` invalidates the 470 rows without moving one — is a tenth tracker entry
+  carrying the shape of the fix and its cost, which is re-capturing those rows. Three smaller
+  corrections of what an artifact is: the report's `recededMaterialProfile` is a document the page
+  **names**, not a readback like the two beside it; the state-label guard reads one source twice and
+  catches drift in time rather than disagreement between two names, and is renamed for what it does;
+  and `SceneState` is now a union beside `FixtureSet`, with `plan()` refusing an undeclared pose as
+  `setOf` already refuses an undeclared split. One product defect, on the page the eye was taken on:
+  the playground's own ground read `matchMedia` once, so under the `auto` pin it stayed put while
+  the glass followed the system — it now subscribes and unsubscribes in the shape
+  `src/site/main.tsx` uses, with `"light"` unchanged. `proof-join.py` is new evidence rather than a
+  fix: joining the seam proof's per-cell SHAs to `capture-tree-after.json` shows **348 of the 354**
+  proof cells have a published capture equal to both the seam's observation and G2's record, **0
+  differing**, and names the six absent (four `light-solid__capsule-button__inactive` cells at the
+  dark-standard profiles, which have no committed native fixture there, and the two light-standard
+  `hc-text__capsule-button__inactive` holdout cells §2 leaves unread) — so the publishing driver,
+  not only the bespoke harness, reproduces G2's bytes. Verification at this head: calibration lint
+  clean and **428** unit tests (420 plus the eight new); demo lint clean and 34 units; `pnpm -r
+  build` clean; demo e2e **57 / 57**; React e2e **171 passed, 3 skipped, 3 failed** on three
+  engines, recorded and not rerun — the two `presence.spec.ts` elapsed-window cases on chromium
+  (558.7 ms against 389.7 allowed) and firefox (418.64 against 387.36), which are the known flake
+  class the tracker holds, and one `morph-materialize.spec.ts` release-timing case on chromium; all
+  three are in code this wave did not touch. Each browser run is preceded by a machine reading of
+  0 / 0 in `browser-runs.txt`, and full output is in `fix-demo-e2e.txt` and `fix-react-e2e.txt`.
+  `results/matrix.json` is byte-identical to its state at `5dedffb7` (blob `b9fbec87`); no material
+  constant, native fixture, profile document, receded document, golden, declared split or fitted
+  value moved. One gap left open and named rather than fixed: the playground's `auto` ground has no
+  e2e assertion of its own, where the public site's identical behaviour has one.
 
 - 2026-09-15 (the parent, at recomposition): the wave is CLOSED. §Outcomes & Retrospective verifies
   all seven acceptance clauses against `main` at `bf3ebe44` plus this branch — six MET, clause 7
