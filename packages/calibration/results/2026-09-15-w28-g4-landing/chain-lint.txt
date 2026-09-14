@@ -1,0 +1,19 @@
+Scope: 9 of 10 workspace projects
+[36mpackages/geometry[39m [96mlint[39m$ eslint . && tsc --noEmit
+[35mpackages/motion[39m [96mlint[39m$ eslint . && tsc --noEmit
+[34mpackages/policy[39m [96mlint[39m$ eslint . && tsc --noEmit
+[35mpackages/motion[39m [96mlint[39m: Done
+[36mpackages/geometry[39m [96mlint[39m: Done
+[34mpackages/policy[39m [96mlint[39m: Done
+[33mpackages/renderer-webgpu[39m [96mlint[39m$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+[33mpackages/renderer-webgpu[39m [96mlint[39m: Done
+[32mpackages/core[39m [96mlint[39m$ eslint . && tsc --noEmit
+[32mpackages/core[39m [96mlint[39m: Done
+[31mpackages/platform-web[39m [96mlint[39m$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+[31mpackages/platform-web[39m [96mlint[39m: Done
+[36mpackages/react[39m [96mlint[39m$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+[35mpackages/calibration[39m [96mlint[39m$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json
+[36mpackages/react[39m [96mlint[39m: Done
+[35mpackages/calibration[39m [96mlint[39m: Done
+[34mapps/demo[39m [96mlint[39m$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+[34mapps/demo[39m [96mlint[39m: Done

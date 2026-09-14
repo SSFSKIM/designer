@@ -50,9 +50,10 @@ import {
   GlassToolbar,
   GlassToolbarSpacer,
   PlanePortal,
+  type GlassColorScheme,
   type GlassWindowActivation,
 } from "@vitreajs/vitrea-react";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import { ActionsMenu } from "./ActionsMenu";
 import { CapabilitiesPanel, type OverrideState } from "./CapabilitiesPanel";
@@ -109,6 +110,36 @@ type Range = (typeof RANGES)[number]["value"];
 const REQUESTED_RENDERER: "css" | "webgpu" =
   new URLSearchParams(window.location.search).get("renderer") === "css" ? "css" : "webgpu";
 
+/**
+ * `prefers-color-scheme`, read by the page for the page's own ground — the same
+ * read, and the same reason, as the public site's `usePrefersDark`
+ * (`src/site/main.tsx`).
+ *
+ * The runtime reads this query for the material, which is what `colorScheme="auto"`
+ * is; it cannot write the reader's tokens and does not try to, so every host that
+ * offers "follow the system" owns this half of it. Subscribing rather than reading
+ * once is the whole point: under `"auto"` the root follows the live media feed, so
+ * a page that sampled the query at mount would hold its ground still while the
+ * glass moved with the system, which is the one comparison a playground pinned to
+ * `"auto"` exists to make. Kept beside the root that owns the other half rather
+ * than shared with the site's copy, so each page's pairing stays visible.
+ */
+function usePrefersDark(): boolean {
+  const [prefersDark, setPrefersDark] = useState(
+    () => window.matchMedia("(prefers-color-scheme: dark)").matches,
+  );
+
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-color-scheme: dark)");
+    const listener = (): void => setPrefersDark(query.matches);
+    query.addEventListener("change", listener);
+    listener();
+    return () => query.removeEventListener("change", listener);
+  }, []);
+
+  return prefersDark;
+}
+
 export function App(): ReactNode {
   const [overrides, setOverrides] = useState<OverrideState>({
     reducedMotion: "system",
@@ -122,6 +153,23 @@ export function App(): ReactNode {
    * looks at it.
    */
   const [windowActivation, setWindowActivation] = useState<GlassWindowActivation>("auto");
+  /*
+   * The scheme is pinned, and `"light"` stays the default this page has always
+   * drawn — the acceptance harness must not change what a suite sees by existing.
+   *
+   * It is here because the recede is *scheme-conditioned*: `recededMaterialProfile`
+   * has a light entry and a dark one, fitted separately, and a playground that could
+   * only draw the light material could only ever demonstrate half of the pose it
+   * exists to demonstrate (W28 G4, claims §5.148). The page's own ground follows the
+   * same state through `data-color-scheme`, as the public site's does, so the glass
+   * is never a dark material over a light page.
+   */
+  const [colorScheme, setColorScheme] = useState<GlassColorScheme>("light");
+  const prefersDark = usePrefersDark();
+  useEffect(() => {
+    document.documentElement.dataset["colorScheme"] =
+      colorScheme === "auto" ? (prefersDark ? "dark" : "light") : colorScheme;
+  }, [colorScheme, prefersDark]);
   const [variantMixed, setVariantMixed] = useState(false);
   const [range, setRange] = useState<Range>("week");
   const [lastAction, setLastAction] = useState<string | null>(null);
@@ -136,6 +184,7 @@ export function App(): ReactNode {
       // so by name. That is acceptance #5, and it is why asking for the GPU tier
       // by default is safe to ship.
       renderer={REQUESTED_RENDERER}
+      colorScheme={colorScheme}
       windowActivation={windowActivation}
       reducedMotion={overrides.reducedMotion}
       reducedTransparency={overrides.reducedTransparency}
@@ -170,6 +219,8 @@ export function App(): ReactNode {
           onOverridesChange={setOverrides}
           windowActivation={windowActivation}
           onWindowActivationChange={setWindowActivation}
+          colorScheme={colorScheme}
+          onColorSchemeChange={setColorScheme}
           variantMixed={variantMixed}
           onVariantMixedChange={setVariantMixed}
         />

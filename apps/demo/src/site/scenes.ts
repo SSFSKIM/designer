@@ -151,15 +151,29 @@ const isProbe = (id: string): boolean => split.probe?.includes(id) === true;
 
 /**
  * W27c G0/G1's recovered-inactive pose (claims §5.128; X3, X7): `scenes.json`
- * now declares 37 scenes with `state: "inactive"` — the window-recede pose,
+ * declares scenes with `state: "inactive"` — the window-recede pose,
  * captured for the fidelity bed but with no counterpart on this page yet.
  * `Stage` renders every reference scene as a live, key (active) `GlassSurface`;
  * it has no inactive-root wiring, so a visitor picking one of these would see a
  * live active surface paired against a native capture of a receded window,
- * read as a fidelity gap that is actually a missing feature. Held out of the
- * public picker until W27c G3 wires an inactive `Stage` mode and publishes the
- * pairing deliberately; W3's `pressed` filter below is the same withholding for
- * the same reason, on the pose that got there first.
+ * read as a fidelity gap that is actually a missing feature. W3's `pressed`
+ * filter below is the same withholding for the same reason, on the pose that
+ * got there first.
+ *
+ * **2026-09-15 (W28 G4, claims §5.148): the runtime exists and the withholding
+ * stands, on a different reason.** W28 G3 shipped the pose (§5.147) and G4
+ * published the inactive rows in the canonical matrix, so the earlier "until
+ * W27c G3 wires an inactive `Stage` mode" no longer describes what is missing.
+ * What is missing is a place to put it: activation is a pose of the **root**
+ * (X7) and this page has one root, so posing the pair's surface inactive would
+ * recede the whole site — its toolbar, its panels and the prose chrome around
+ * the comparison — and posing only that surface would need a per-surface recede,
+ * which is Apple's "element overlap" and is deferred, unbuilt and unmeasured
+ * (W27 §Deferred). The operable demonstration is therefore the playground's
+ * `windowActivation` pin and the whole page receding when the window is
+ * backgrounded, which is what G4's sheets read. A second root scoped to the
+ * pair, or the per-element recede, is what would let this picker offer the
+ * inactive scenes; the tracker carries it.
  */
 const isRecoveredInactive = (scene: { readonly state: string }): boolean => scene.state === "inactive";
 

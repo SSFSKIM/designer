@@ -58,6 +58,8 @@ import {
   type GlassHostHandle,
   type GlassRoot,
   type RendererMaterialProfile,
+  type ResolvedColorScheme,
+  type ResolvedWindowActivation,
   type VitreaDiagnostic,
 } from "@vitreajs/vitrea-web";
 import type {
@@ -203,8 +205,43 @@ export interface SceneReport {
    * defaults. A fidelity number is only interpretable against the numbers that
    * produced it, so the patch travels with the report rather than living in the
    * command line that happened to inject it.
+   *
+   * This is the document handed to `createGlassRoot`, which since W28 G4 is the
+   * ACTIVE endpoint on every published row: the receded difference is the root's
+   * to merge, and it is reported separately as `recededMaterialProfile` so the two
+   * halves of an inactive capture's material are each readable for what they are.
+   * On the scratch fitting path the candidate document is already merged in here,
+   * which is what `recededMaterialProfile: null` beside an `__inactive` scene means.
    */
   readonly materialProfile: RendererMaterialProfile | null;
+  /**
+   * The shipped receded difference the root will merge over the document above,
+   * or `null` where none applies: an active scene, or the scratch fitting path
+   * whose candidate is inside `materialProfile`.
+   *
+   * **Named, not read back** — unlike the two fields below it. This is the page's
+   * own `recededMaterialProfile[scheme]`, the document it handed nothing and the
+   * root imports for itself, reported because the root exposes no getter for the
+   * difference it merged. So it says which document the runtime was going to use,
+   * on the evidence that the two sides import the same constant; `windowActivation`
+   * below says whether the runtime used one at all, and that one is an observation.
+   */
+  readonly recededMaterialProfile: RendererMaterialProfile | null;
+  /**
+   * The window-activation pose this capture resolved to, read back off the root.
+   *
+   * The request is in the option; this is the answer, and it is reported for the
+   * same reason `accessibilityPolicy` is. A capture filed under an `__inactive`
+   * scene id that resolved `"active"` would be the active material under the
+   * recede's name, which is precisely the mistake a resolved readout makes
+   * impossible to publish silently.
+   */
+  readonly windowActivation: ResolvedWindowActivation;
+  /**
+   * Which scheme's material drew, read back off the root the same way — not the
+   * media query the page asked, and not the profile key the driver filed it under.
+   */
+  readonly colorScheme: ResolvedColorScheme;
   /**
    * What the crossing to `backdrop-filter` was priced at for this capture, or
    * `null` for the shipped mapping (corrective K5). Only the dom tier renders
@@ -271,7 +308,16 @@ declare global {
      * defaults, which is what an uncalibrated capture must be.
      */
     __vitreaMaterialProfile?: RendererMaterialProfile;
-    /** Scratch fitting override. Absence selects the declared inactive endpoint. */
+    /**
+     * A CANDIDATE receded document, for a fit and for nothing else.
+     *
+     * Absence is the published path: the root poses itself and applies the shipped
+     * `recededMaterialProfile`. Presence is a fit reading a document that is not
+     * the shipped one, which the runtime pose could not draw, so the page merges it
+     * over the active document and pins the root active instead. The report's
+     * `windowActivation` and `recededMaterialProfile` fields are what tell the two
+     * apart after the fact.
+     */
     __vitreaRecededMaterialProfile?: RendererMaterialProfile;
     /**
      * The CSS tier's half of the same document, injected the same way. Absent
@@ -532,23 +578,64 @@ async function build(): Promise<SceneReport> {
   const adapter = await probeAdapter();
 
   const diagnostics: { code: string; severity: string; message: string }[] = [];
+  /*
+   * The pose is the runtime's, and the capture states it rather than inferring it
+   * (W28 G4, claims §5.148).
+   *
+   * Through W28 G1 and G2 this page merged the receded document itself and pinned
+   * the root active, because no runtime applied a pose. G3 shipped that runtime
+   * (claims §5.147), so the seam moves here: an `__inactive` scene is captured with
+   * `windowActivation: "inactive"` and the receded difference is applied by
+   * `applyMaterialProfile` inside the root, over the active document, exactly as it
+   * is in an application whose window is backgrounded. The matrix then records what
+   * ships instead of what the harness could reproduce. Byte-identity against G2's
+   * frozen captures is the proof that the move changed no pixel, and it is in the
+   * evidence directory rather than asserted here.
+   *
+   * **The scheme is stated, not followed.** The driver declares the capture's
+   * colour scheme on the browser context — that is how a native profile's scheme
+   * axis is expressed on the web side — and this page reads that declaration once,
+   * here, and hands the root a FIXED `colorScheme`. `"auto"` would have worked
+   * under the same emulation, and is rejected for the reason the accessibility
+   * overrides above are passed as overrides: a capture's optical state must not
+   * depend on a live media listener that can re-derive the material between the
+   * first frame and the screenshot. One read, one setting, and `root.colorScheme`
+   * is reported beside it so a reader sees what resolved rather than what was asked.
+   *
+   * **Both poses are pinned.** An active scene pins `"active"` for the reason it
+   * always did — a capture document that loses focus must not recede mid-run — and
+   * an inactive scene pins `"inactive"` rather than arranging for the observer to
+   * answer, because `document.hasFocus()` is not something a headless driver can
+   * put in a known state (§5.147 §4).
+   */
+  const colorScheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  /*
+   * The scratch fitting branch, and the one thing that distinguishes it.
+   *
+   * A fit reads CANDIDATE receded documents that are by definition not the shipped
+   * ones, so it cannot go through the runtime's pose — the root would apply
+   * `recededMaterialProfile` and the candidate would never draw. When the driver
+   * injects one, the page merges it over the active document exactly as G1's seam
+   * did and pins the root active, so the candidate is the only receded difference
+   * in the capture. That path is a fit instrument: it is never the path a
+   * published row is captured through, and the report says which path ran.
+   */
+  const candidateReceded = placed.inactive ? window.__vitreaRecededMaterialProfile : undefined;
+  const posedByRuntime = placed.inactive && candidateReceded === undefined;
   // Forwarded, never interpreted: the page has no opinion about an optical
   // number, and reading one here to "check" it would put a second copy of the
   // material's constants in the harness.
-  // G1's measurement seam. G3 replaces this merge with the runtime root pose;
-  // the active document and its cell-key SHA remain the active endpoint (X7).
-  const materialProfile = placed.inactive
-    ? mergeMaterialProfiles(window.__vitreaMaterialProfile,
-        window.__vitreaRecededMaterialProfile ?? recededMaterialProfile[
-          window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"])
-    : window.__vitreaMaterialProfile;
+  const materialProfile = candidateReceded === undefined
+    ? window.__vitreaMaterialProfile
+    : mergeMaterialProfiles(window.__vitreaMaterialProfile, candidateReceded);
+  /** The difference the ROOT will merge while inactive, or absent on every other path. */
+  const runtimeReceded = posedByRuntime ? recededMaterialProfile[colorScheme] : undefined;
   const cssTierMapping = window.__vitreaCssTierMapping;
   const accessibilityOverrides = window.__vitreaAccessibilityOverrides;
   const root = createGlassRoot({
     renderer: requestedRenderer,
-    // This harness selects both endpoints above, including candidate documents.
-    // Window focus must not apply a second receded patch to a deterministic cell.
-    windowActivation: "active",
+    colorScheme,
+    windowActivation: posedByRuntime ? "inactive" : "active",
     ...(materialProfile === undefined ? {} : { materialProfile }),
     ...(cssTierMapping === undefined ? {} : { cssTierMapping }),
     // Handed to the root at construction rather than set afterwards: the CSS
@@ -620,8 +707,13 @@ async function build(): Promise<SceneReport> {
     // The silhouette input check compares these dimensions with the native
     // declaration. CSS's transparent border belongs inside that declared box,
     // not outside it. The source-profile capture path retains its existing box.
-    if (materialProfile?.backdropToneAbscissa !== undefined &&
-      materialProfile.backdropToneAbscissa !== "source") {
+    // The abscissa of the material that will DRAW, which on the runtime pose is the
+    // receded difference's and not the active document's: the root merges the two
+    // and this decision has to follow the merge, or an inactive cell would be
+    // captured in the source path's content box.
+    const drawnAbscissa =
+      runtimeReceded?.backdropToneAbscissa ?? materialProfile?.backdropToneAbscissa;
+    if (drawnAbscissa !== undefined && drawnAbscissa !== "source") {
       host.style.boxSizing = "border-box";
     }
     host.style.left = `${surface.left}px`;
@@ -777,6 +869,9 @@ async function build(): Promise<SceneReport> {
     pressed: placed.pressed,
     tint: placed.tint ?? null,
     materialProfile: materialProfile ?? null,
+    recededMaterialProfile: runtimeReceded ?? null,
+    windowActivation: root.windowActivation,
+    colorScheme: root.colorScheme,
     cssTierMapping: cssTierMapping ?? null,
     transparentPage,
     accessibilityOverrides: accessibilityOverrides ?? null,

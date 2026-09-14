@@ -83,19 +83,24 @@ import {
   serializeResultMatrix,
   upsertCellResult,
   RESULT_MATRIX_SCHEMA_VERSION,
+  SCENE_STATES,
   type CellResult,
   type FixtureSet,
   type ResultMatrix,
+  type SceneState,
 } from "../src/index";
 import { backdropProbeRequested, probeCanonicalOutputRefusal } from "../src/backdrop-probe";
 import {
+  capturePoseRefusal,
   colourlessTintEvidence,
   isCaptureFresh,
   matrixSchemaRefusal,
   shouldWriteMatrix,
+  type CaptureReport,
   type ColourlessTintEvidence,
   type FixtureEntry,
   type Manifest,
+  type SceneEntry,
   type SceneSpec,
 } from "./gates";
 import { DEFAULT_SILHOUETTE_THRESHOLD, DEFAULT_SILHOUETTE_CHROMA_THRESHOLD, measureCell } from "./measure";
@@ -131,8 +136,8 @@ const DEFAULT_SETS: readonly FixtureSet[] = ["calibration", "validation"];
 // `ColourlessTintEvidence` live in `./gates` beside `colourlessTintEvidence`
 // itself, which needs them and is imported from there for the same reason every
 // other pure predicate in this file is (see that module's header). Only the
-// names this file uses directly (`SceneSpec`, `FixtureEntry`, `Manifest`,
-// `ColourlessTintEvidence`) are imported; the rest are structural.
+// names this file uses directly (`SceneEntry`, `SceneSpec`, `FixtureEntry`,
+// `Manifest`, `ColourlessTintEvidence`) are imported; the rest are structural.
 
 function readJson<T>(path: string): T {
   if (!existsSync(path)) {
@@ -353,6 +358,8 @@ interface PlannedCell {
   readonly a11yMode: string;
   readonly sceneId: string;
   readonly fixtureSet: FixtureSet;
+  /** The scene's declared pose, off `scenes.json`: `rest`, `pressed` or `inactive`. */
+  readonly state: SceneState;
   readonly fixture: FixtureEntry;
   readonly backgroundFile: string;
   readonly order: number;
@@ -369,6 +376,20 @@ function plan(
       if (spec.split[set]?.includes(sceneId) === true) return set;
     }
     throw new Error(`compare: '${sceneId}' is in no declared split in scenes.json`);
+  };
+
+  // The same refusal one axis over. A declared pose the harness does not know is a
+  // pose nothing downstream can act on — the capture would be filed active by
+  // default and `capturePoseRefusal` would then wave it through — so the run stops
+  // here rather than publishing a row under a label it never honoured.
+  const stateOf = (scene: SceneEntry): SceneState => {
+    for (const state of SCENE_STATES) {
+      if (scene.state === state) return state;
+    }
+    throw new Error(
+      `compare: '${scene.id}' declares state '${scene.state}' in scenes.json, which is not one of ` +
+        `${SCENE_STATES.join(", ")}`,
+    );
   };
 
   const cells: PlannedCell[] = [];
@@ -454,6 +475,7 @@ function plan(
         a11yMode: profile.a11yMode,
         sceneId: fixture.sceneId,
         fixtureSet: declared,
+        state: stateOf(scene),
         fixture,
         backgroundFile,
         order: fnv1a(`${profile.profileKey}|${fixture.sceneId}`),
@@ -673,6 +695,27 @@ function main(): void {
     }
 
     /*
+     * The pose and the scheme, read off the capture's own report (W28 G4).
+     *
+     * `capturePoseRefusal` carries the argument; what belongs here is why the check
+     * sits on this path at all. The matrix key says nothing about either quantity —
+     * an inactive cell's `capturePath` is byte-identical to its active twin's — so
+     * the capture is the last place a mislabelled pose is still visible. A report
+     * that is not on disk is read as a silent one and judged the same way: it can
+     * only be an active-pose capture, which an inactive scene may not be measured
+     * from.
+     */
+    const reportPath = resolve(captureDir, `report__${options.renderer}.json`);
+    const report: CaptureReport = existsSync(reportPath)
+      ? (JSON.parse(readFileSync(reportPath, "utf8")) as CaptureReport)
+      : {};
+    const poseRefusal = capturePoseRefusal(report, cell.state, cell.colorScheme);
+    if (poseRefusal !== undefined) {
+      failures.push(`${cell.profileKey} / ${cell.sceneId}: ${poseRefusal}`);
+      continue;
+    }
+
+    /*
      * The other half of the coherence pair (schema 4).
      *
      * A `compare` run renders one tier — `--renderer` is a single value, and the
@@ -731,6 +774,9 @@ function main(): void {
          */
         tier: options.renderer === "webgpu" ? "texture" : "dom",
         fixtureSet: cell.fixtureSet,
+        // The declaration's own word for the pose, carried onto the row so that a
+        // bed holding both poses can be read one pose at a time (X3).
+        state: cell.state,
         blurAxis: "x",
         silhouetteThreshold: options.silhouetteThreshold,
         silhouetteChromaThreshold: options.silhouetteChromaThreshold,

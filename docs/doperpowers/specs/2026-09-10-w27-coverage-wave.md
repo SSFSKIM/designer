@@ -680,6 +680,27 @@ bound holding on all six profiles on one sealed configuration. G2 then applies t
 supports and puts the backgrounded-window pose in the demo. The tracker entry "The window-activation
 runtime is held behind the inactive response" carries the executable handoff.
 
+**Closed 2026-09-15 by W28, as this entry specified and in its order.** What closed the hold is
+what this paragraph asked for: W28 G0 read the response's abscissa and found it not identifiable
+from the bed (claims §5.144), Decision Log 2 ruled the simplest survivor built, G1 landed the
+per-surface silhouette abscissa profile-gated and refitted the receded rows on non-D cells
+(§5.145), and G2 re-applied the **unchanged** §5.134 §6 bound once on one sealed configuration —
+**it holds clauses 1–3 jointly on all six profiles**, 72 / 72 checking cells under their caps
+(§5.146). W28's Decision Log 3 lifted the hold on that evidence. W27c G2 then landed verbatim as
+W28 G3 (§5.147): the observer, `windowActivation`, `setWindowActivation`, the `<GlassRoot>` prop,
+the resolved readout, the pose through `applyMaterialProfile`, three engines, both READMEs and the
+playground pin. W27c G3 landed as W28 G4 (§5.148): 470 inactive rows in the canonical matrix as the
+scene's declared `state`, captured through the runtime's own pose and proved byte-identical to G2's
+captures before a row was written, **no floor adopted** (W27 Decision Log 13 stands, and the gated
+bed excludes the pose by axis rather than by cell list), the demo's backgrounded pose on sheets in
+both schemes, and the coverage matrix re-scored — §3.6's window-focus row moves to
+`replicated+measured` in the 2026-09-15 re-score. The user's eye on the G2 sheets is the veto
+before the 0.18.0 cut, which W28 G4 prepared and did not publish. What did **not** close: the
+abscissa's kind and scale are still unidentified, no inactive floor is adoptable at the probe bar,
+the transit's timing is unmeasured against any native sequence, and the four inactive evidence
+classes this document handed forward — dark accessibility, 2x accessibility, the `clear` variant
+and the stack regime — remain unread.
+
 **Deferred (may return):** the name "prominent" (`GlassButton prominent` = accent tint + vibrant
 label; opens when W27e lands); the motion-metrics harness (no native frame sequence has ever been
 captured; the parent's Decision Log 23 (c) charters it after this wave); the OS 27 recapture

@@ -13,7 +13,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-import type { FixtureSet } from "../src/index";
+import type { FixtureSet, SceneState } from "../src/index";
 
 /**
  * mtime comparisons have to tolerate a coarse clock. Some filesystems store
@@ -80,6 +80,78 @@ export function matrixSchemaRefusal(
     `stay frozen (wave Decision Log 15 ruling 3) — send this run somewhere else with ` +
     `--out-matrix results/<name>.json.`
   );
+}
+
+// ---------------------------------------------------------------------------
+// The pose and the scheme a capture actually resolved
+// ---------------------------------------------------------------------------
+
+/**
+ * The two resolved readouts `capture-web` writes onto `report__<renderer>.json`,
+ * under `page` — where the page's own readbacks live, beside what was requested.
+ */
+export interface CaptureReadout {
+  readonly windowActivation?: string;
+  readonly colorScheme?: string;
+}
+
+export interface CaptureReport {
+  readonly page?: CaptureReadout;
+}
+
+/**
+ * Why this capture may not be measured as this cell — or `undefined` when it may.
+ *
+ * Neither the window-activation pose nor the colour scheme is visible in the PNG,
+ * and neither is in the matrix key: an inactive cell's `key.web.capturePath` is
+ * byte-identical to its active twin's on the same profile, because the pose and the
+ * receded document's identity appear nowhere in the grammar. So a capture filed
+ * under an `__inactive` scene id that had in fact resolved `"active"` would be the
+ * active material published under the recede's name, with nothing in the committed
+ * artifacts to expose it afterwards. `scene.ts` reports what resolved; this is what
+ * stands between that report and a published row, and it is the only thing that does.
+ *
+ * The scheme is here for the same reason one level down. A capture is filed under a
+ * profile key that names a scheme, the driver declares that scheme on the browser
+ * context, and the page reads that declaration once — so a context that did not take
+ * the declaration produces a light capture under a dark profile's key, and every
+ * figure measured over it is a fidelity reading of the wrong material.
+ *
+ * **An absent `windowActivation` is a pre-W28-G4 capture, not a pose.** Before that
+ * gate the page could only pin the root active, so an unlabelled capture can only be
+ * an active-pose one: it is accepted for a scene declared `rest` or `pressed`, and
+ * refused for one declared `inactive`, where its silence is exactly the claim that
+ * cannot be taken on trust. The scheme readback arrived in the same change, so an
+ * unlabelled capture carries no scheme to compare and is judged on the pose alone.
+ */
+export function capturePoseRefusal(
+  report: CaptureReport,
+  state: SceneState,
+  colorScheme: "light" | "dark",
+): string | undefined {
+  const expected = state === "inactive" ? "inactive" : "active";
+  const resolved = report.page?.windowActivation;
+  if (resolved === undefined) {
+    if (expected === "active") return undefined;
+    return (
+      `the capture carries no resolved windowActivation, so it predates W28 G4 and can only be an ` +
+      `active-pose capture — but this scene is declared ${state}`
+    );
+  }
+  if (resolved !== expected) {
+    return (
+      `the scene is declared ${state}, so the capture had to resolve windowActivation ` +
+      `'${expected}' and resolved '${resolved}'`
+    );
+  }
+  const resolvedScheme = report.page?.colorScheme;
+  if (resolvedScheme !== colorScheme) {
+    return (
+      `the cell is planned under a ${colorScheme} profile and the capture resolved colorScheme ` +
+      `'${resolvedScheme ?? "(absent)"}'`
+    );
+  }
+  return undefined;
 }
 
 // ---------------------------------------------------------------------------

@@ -1,0 +1,65 @@
+{
+  "gate": "W28 G4 — the demo's backgrounded pose",
+  "claims": "§5.148",
+  "scratch": "/tmp/w28-g4-demo",
+  "frontmostBefore": "Finder",
+  "frontmostRestored": "Finder",
+  "playgroundSheets": [
+    {
+      "scheme": "light",
+      "pose": "active",
+      "file": "playground-2x-light-active.png",
+      "sha256": "07cdc59b75bca3282e0715129532344d6097f669473dc24d2a821436dc6caa91",
+      "resolved": "active"
+    },
+    {
+      "scheme": "light",
+      "pose": "inactive",
+      "file": "playground-2x-light-inactive.png",
+      "sha256": "b6b4f7350319e41df3bc645b28d8cf3bec59160bd89e84e6ecdf9bd387f15ded",
+      "resolved": "inactive"
+    },
+    {
+      "scheme": "dark",
+      "pose": "active",
+      "file": "playground-2x-dark-active.png",
+      "sha256": "b56c847082cfa68f6475561de4ace9dcb79efef76a47763e13c499a9836665f4",
+      "resolved": "active"
+    },
+    {
+      "scheme": "dark",
+      "pose": "inactive",
+      "file": "playground-2x-dark-inactive.png",
+      "sha256": "fb8b3d90f76a7d42caebf5ae9549de1f189b1d67f0bba624d5fb5071fa965b53",
+      "resolved": "inactive"
+    }
+  ],
+  "realFocusLoss": {
+    "pin": "auto",
+    "atStart": {
+      "activation": "active",
+      "hasFocus": true
+    },
+    "browserApp": "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app",
+    "frontmostWithBrowser": "Google Chrome for Testing",
+    "afterActivatingBrowser": {
+      "activation": "active",
+      "hasFocus": true
+    },
+    "focusedSha256": "e8795fccee3bd537043252df18c327e2ce1731329c0e05f383d0566f0879d00a",
+    "frontmostAfterSwitch": "Finder",
+    "afterSwitch": {
+      "activation": "active",
+      "hasFocus": true
+    },
+    "backgroundedSha256": "83fe5a136135fbd910aecfa9881ac73db4445c9596cca72061ea4dd8c5ae2d56",
+    "frontmostAfterReturn": "Google Chrome for Testing",
+    "afterReturn": {
+      "activation": "active",
+      "hasFocus": true
+    },
+    "refocusedSha256": "c394b0ef98642457a026922a2fda76af8532a1da620c5aa23c66810a740f7eef",
+    "backgroundedDiffersFromFocused": true,
+    "returnedMatchesFocused": false
+  }
+}

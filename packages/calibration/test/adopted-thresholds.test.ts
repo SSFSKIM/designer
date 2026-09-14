@@ -1435,6 +1435,8 @@ interface Cell {
     readonly web: { readonly engine: string; readonly renderer: string };
   };
   readonly fixtureSet: string;
+  /** The scene's declared pose (W28 G4). Absent on a row written before the label existed. */
+  readonly state?: string;
   readonly tier: "texture" | "dom";
   readonly shape?: AxisReport;
   readonly perceptual?: AxisReport;
@@ -1475,7 +1477,21 @@ const MATRIX_PATH = resolve(
 );
 const MATRIX_FILE = readJson<ResultMatrix>(MATRIX_PATH);
 /**
- * The gated bed, which is the matrix file minus its `probe` rows.
+ * The scene declaration, read here rather than inside one `describe`, because two
+ * of the drops below are stated over it.
+ */
+const SCENE_DECLARATION = readJson<{
+  readonly scenes: readonly { readonly id: string; readonly state: string }[];
+  readonly split: Record<string, readonly string[]>;
+}>(resolve(PACKAGE_ROOT, "..", "..", "apps", "reference-apple", "scenes.json"));
+/** Every scene the declaration poses inactive — the window-activation axis's far end. */
+const INACTIVE_SCENES = new Set(
+  SCENE_DECLARATION.scenes.filter((scene) => scene.state === "inactive").map((scene) => scene.id),
+);
+
+/**
+ * The gated bed: the matrix file minus its `probe` rows, and minus the inactive
+ * pose on every set.
  *
  * Since W25 the canonical matrix carries the probe set beside the frozen bed:
  * the harness captures it routinely and the fits and the claims read it, but it
@@ -1486,10 +1502,30 @@ const MATRIX_FILE = readJson<ResultMatrix>(MATRIX_PATH);
  * places that select from it. The guard at the foot of the file is what keeps
  * this from becoming a hole: it asserts that nothing gated ever sees a probe
  * row, in both directions.
+ *
+ * W28 G4 adds the second drop, and it is an axis rather than a set. The canonical
+ * matrix now carries the window-inactive pose beside the active one (claims
+ * §5.148), across `calibration`, `validation` and `probe` alike, so the frozen bed
+ * this file gates is no longer "the matrix minus one set" unless the pose is named
+ * too. **No inactive floor may be adopted** — W27 Decision Log 13 rules that a
+ * regression floor needs a regime frozen at the seventeen-run bar and the inactive
+ * bed is at the probe bar of seven, which is also why `fitted-endpoint.json`
+ * records `adoptsNoFloor` — and every adopted bound, floor, partition count and
+ * conditioning exclusion in this file was measured on the active pose. Letting the
+ * inactive rows into any of them would silently restate an active-pose promise over
+ * a different material. The drop is by the declared pose, never by naming cells:
+ * a list of inactive scene ids here would need a line per cell per profile per
+ * tier, and every new inactive scene would join the gate by default, which is the
+ * failure this axis-shaped exclusion cannot have.
  */
 const MATRIX: ResultMatrix = {
   ...MATRIX_FILE,
-  cells: MATRIX_FILE.cells.filter((cell) => cell.fixtureSet !== "probe"),
+  cells: MATRIX_FILE.cells.filter(
+    (cell) =>
+      cell.fixtureSet !== "probe" &&
+      cell.state !== "inactive" &&
+      !INACTIVE_SCENES.has(cell.key.sceneId),
+  ),
 };
 
 /** `tier / set / scene / profile` — every failure message starts with this. */
@@ -2254,10 +2290,7 @@ describe("W14 X7 — the shadow axis's pair, adopted at the outer shadow's landi
  * from the matrix rather than from prose, so the matrix guard covers them.
  */
 describe("the probe set is captured, and gated by nothing (W25 Decision Log 3 (e))", () => {
-  const MATRIX_DECLARATION = readJson<{ split: Record<string, readonly string[]> }>(
-    resolve(PACKAGE_ROOT, "..", "..", "apps", "reference-apple", "scenes.json"),
-  );
-  const PROBE = new Set(MATRIX_DECLARATION.split["probe"] ?? []);
+  const PROBE = new Set(SCENE_DECLARATION.split["probe"] ?? []);
 
   it("declares a probe set, so these assertions are about something", () => {
     // An empty list would make every assertion below vacuously true, which is
@@ -2276,15 +2309,21 @@ describe("the probe set is captured, and gated by nothing (W25 Decision Log 3 (e
     expect(intruders.map(name)).toEqual([]);
   });
 
-  it("drops the file's probe rows by their own label, and by nothing else", () => {
+  it("drops the file's probe rows by their own label, or the inactive pose, and nothing else", () => {
     // The other direction, and it is the one that could rot silently: the file
     // on disk now carries the probe set (W25 G4's rebuild), so the guard above
     // passes both when the drop works and when the rows were never captured.
-    // Every row the drop removes must be a probe row of a declared probe scene,
-    // and the two views must differ by exactly those rows.
+    // Every row the drop removes must be a probe row of a declared probe scene or
+    // a row of a declared inactive scene, and the two views must differ by exactly
+    // those rows. The inactive arm is W28 G4's; its own guards are below.
     const dropped = MATRIX_FILE.cells.filter((cell) => !MATRIX.cells.includes(cell));
-    expect(dropped.every((cell) => cell.fixtureSet === "probe")).toBe(true);
-    expect(dropped.every((cell) => PROBE.has(cell.key.sceneId))).toBe(true);
+    expect(
+      dropped.every(
+        (cell) =>
+          (cell.fixtureSet === "probe" && PROBE.has(cell.key.sceneId)) ||
+          INACTIVE_SCENES.has(cell.key.sceneId),
+      ),
+    ).toBe(true);
     expect(MATRIX.cells).toHaveLength(MATRIX_FILE.cells.length - dropped.length);
   });
 
@@ -2309,6 +2348,78 @@ describe("the probe set is captured, and gated by nothing (W25 Decision Log 3 (e
     );
     expect(floored).toEqual([]);
   });
+});
+
+/**
+ * The window-activation axis: published in the matrix, and gated by nothing
+ * (W28 G4, claims §5.148; W27 Decision Log 13).
+ *
+ * The same promise the probe set has, for a different reason. The probe set is
+ * ungated because its membership is allowed to grow and be re-captured; the
+ * inactive pose is ungated because **no floor may be adopted from it at all** —
+ * a regression floor needs a regime frozen at the seventeen-run bar, the inactive
+ * bed stands at the probe bar of seven, and the endpoint's own
+ * `fitted-endpoint.json` records `adoptsNoFloor`. Beside that, every adopted bound
+ * and conditioning exclusion in this file was measured on the active pose against
+ * active native fixtures; an inactive row entering one of them would restate an
+ * active-pose promise over a material with no rim, no outer shadow and a different
+ * response.
+ *
+ * As with the probe guard, the direction that matters is silent: an inactive row
+ * inside a gated count does not look like a failure, it looks like a bed that
+ * grew. And the exclusion is stated on the axis rather than on cells, so that a
+ * scene added to the inactive bed tomorrow is outside the gate the moment it is
+ * declared, rather than the moment somebody remembers to list it.
+ */
+describe("the inactive pose is published, and gated by nothing (W27 Decision Log 13)", () => {
+  it("declares an inactive pose, so these assertions are about something", () => {
+    expect(INACTIVE_SCENES.size).toBeGreaterThan(0);
+  });
+
+  it("puts no inactive row in the gated bed, at any profile or tier", () => {
+    // By either name, exactly as the probe guard reads its own set: the label the
+    // capture wrote onto the row, and the pose the scene declaration gives it.
+    const intruders = MATRIX.cells.filter(
+      (cell) => cell.state === "inactive" || INACTIVE_SCENES.has(cell.key.sceneId),
+    );
+    expect(intruders.map(name)).toEqual([]);
+  });
+
+  it("catches a labelled row left stale by a later edit to the declaration", () => {
+    // Not two independent readings. `cell.state` was copied off this same
+    // declaration at capture time, so what the comparison can find is drift in
+    // time rather than disagreement between two sources: a scene re-posed in
+    // `scenes.json` after its rows were measured leaves rows whose label the
+    // declaration no longer supports, and the drop above would then depend on
+    // which of the two names happened to be read. That is worth holding; a
+    // second reading of the pose would have to come from the capture, and the
+    // capture's own resolved `windowActivation` is checked on the publishing
+    // path instead (`capturePoseRefusal`, claims §5.148 §1).
+    const disagreeing = MATRIX_FILE.cells.filter(
+      (cell) =>
+        cell.state !== undefined &&
+        (cell.state === "inactive") !== INACTIVE_SCENES.has(cell.key.sceneId),
+    );
+    expect(disagreeing.map(name)).toEqual([]);
+  });
+
+  it("names no inactive scene in the conditioning predicate's exclusion list", () => {
+    // `PREDICATE_EXCLUDES` must equal the machine's own output over the gated bed.
+    // An inactive scene named here would be an exclusion for a cell no gated count
+    // ever reaches — a line nothing could ever re-derive or remove.
+    const named = PREDICATE_EXCLUDES.filter((line) =>
+      [...INACTIVE_SCENES].some((sceneId) => line.includes(` / ${sceneId} / `)),
+    );
+    expect(named).toEqual([]);
+  });
+
+  it("floors no inactive row", () => {
+    const floored = Object.keys(REGRESSION_FLOORS).filter((key) =>
+      [...INACTIVE_SCENES].some((sceneId) => key.includes(` / ${sceneId} / `)),
+    );
+    expect(floored).toEqual([]);
+  });
+
 });
 
 /**

@@ -1,0 +1,23 @@
+W28 G4 browser runs (claims §5.148).
+
+Reduce Transparency and Increase Contrast are read off the machine before every
+browser launch, including a launch that then fails; a nonzero reading refuses the
+run, because Playwright cannot emulate either policy and a capture taken under one
+would be an accessibility pose filed under the nominal profile.
+
+2026-09-14T16:19:00Z  seam-identity              reduceTransparency=0 increaseContrast=0
+2026-09-14T16:23:55Z  active-sample              reduceTransparency=0 increaseContrast=0
+2026-09-14T16:26:49Z  inactive-rows              reduceTransparency=0 increaseContrast=0
+2026-09-14T16:40:07Z  demo-pose                  reduceTransparency=0 increaseContrast=0
+2026-09-14T16:46:03Z  demo-pose-retry            reduceTransparency=0 increaseContrast=0
+2026-09-14T16:46:28Z  demo-pose-retry2           reduceTransparency=0 increaseContrast=0
+2026-09-14T16:47:55Z  real-focus                 reduceTransparency=0 increaseContrast=0
+2026-09-14T16:51:30Z  demo-pose-scheme-pinned    reduceTransparency=0 increaseContrast=0
+2026-09-14T16:52:43Z  demo-pose-final            reduceTransparency=0 increaseContrast=0
+2026-09-14T17:00:55Z  renderer-goldens           reduceTransparency=0 increaseContrast=0
+2026-09-14T17:01:12Z  renderer-gpu               reduceTransparency=0 increaseContrast=0
+2026-09-14T17:01:24Z  platform-web               reduceTransparency=0 increaseContrast=0
+2026-09-14T17:02:29Z  react-e2e                  reduceTransparency=0 increaseContrast=0
+2026-09-14T17:03:48Z  demo-e2e                   reduceTransparency=0 increaseContrast=0
+2026-09-14T17:55:55Z  fix-demo-e2e               reduceTransparency=0 increaseContrast=0
+2026-09-14T18:07:16Z  fix-react-e2e              reduceTransparency=0 increaseContrast=0

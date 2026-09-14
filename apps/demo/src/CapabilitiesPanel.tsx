@@ -15,6 +15,7 @@ import {
   useGlassDiagnostics,
   useGlassWindowActivation,
   type AccessibilityOverride,
+  type GlassColorScheme,
   type GlassWindowActivation,
 } from "@vitreajs/vitrea-react";
 import type { ReactNode } from "react";
@@ -31,11 +32,14 @@ export interface CapabilitiesPanelProps {
   readonly onOverridesChange: (next: OverrideState) => void;
   readonly windowActivation: GlassWindowActivation;
   readonly onWindowActivationChange: (next: GlassWindowActivation) => void;
+  readonly colorScheme: GlassColorScheme;
+  readonly onColorSchemeChange: (next: GlassColorScheme) => void;
   readonly variantMixed: boolean;
   readonly onVariantMixedChange: (next: boolean) => void;
 }
 
 const ACTIVATIONS: readonly GlassWindowActivation[] = ["auto", "active", "inactive"];
+const SCHEMES: readonly GlassColorScheme[] = ["light", "dark", "auto"];
 
 const AXES = [
   "configuredSource",
@@ -176,6 +180,26 @@ export function CapabilitiesPanel(props: CapabilitiesPanelProps): ReactNode {
           while this window has focus, which is what a preview or a capture harness needs, and{" "}
           <code>active</code> holds the live material while it does not.
         </p>
+        <p className="panel__note">
+          The recede is fitted per colour scheme &mdash; <code>recededMaterialProfile</code> has a
+          light entry and a dark one &mdash; so the pin below selects which of the two the pose
+          above resolves to. It moves this page&rsquo;s own ground with it.
+        </p>
+        <label className="toggle">
+          <select
+            value={props.colorScheme}
+            onChange={(event) =>
+              props.onColorSchemeChange(event.target.value as GlassColorScheme)
+            }
+          >
+            {SCHEMES.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+          colorScheme pin
+        </label>
       </section>
 
       <section>

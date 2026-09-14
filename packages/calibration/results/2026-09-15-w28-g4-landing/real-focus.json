@@ -1,0 +1,43 @@
+{
+  "gate": "W28 G4 — a real focus loss, read without a driver",
+  "claims": "§5.148",
+  "why": "Playwright enables Chromium's focus emulation on every page it owns, so a driven page cannot report losing focus. This launches the same binary directly and speaks CDP over a bare WebSocket instead.",
+  "executable": "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+  "frontmostBefore": "Finder",
+  "frontmostRestored": "Finder",
+  "scratch": "/tmp/w28-g4-focus",
+  "readings": {
+    "cdpVersion": {
+      "Browser": "Chrome/151.0.7922.34",
+      "Protocol-Version": "1.3",
+      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "V8-Version": "15.1.206.8",
+      "WebKit-Version": "537.36 (@782af9cb30a53f54487e5d2e44738645a8ec457c)",
+      "webSocketDebuggerUrl": "ws://localhost:9333/devtools/browser/ad401d63-8ec6-48d8-ad7a-e2616b565af0"
+    },
+    "frontmostWithBrowser": "Google Chrome for Testing",
+    "focused": {
+      "hasFocus": true,
+      "activation": "active",
+      "pin": "auto",
+      "visibility": "visible"
+    },
+    "focusedSha256": "18bf6f890eb1068f8889a9b410e26539ae3d393d528a22460dded304737921d0",
+    "frontmostAfterSwitch": "Finder",
+    "backgrounded": {
+      "hasFocus": false,
+      "activation": "inactive",
+      "pin": "auto",
+      "visibility": "visible"
+    },
+    "backgroundedSha256": "aa6fae23baa6bd4053f95924cc12f3ef7d0e975d965849102e61a0a6996afa46",
+    "frontmostAfterReturn": "Google Chrome for Testing",
+    "returned": {
+      "hasFocus": true,
+      "activation": "active",
+      "pin": "auto",
+      "visibility": "visible"
+    },
+    "returnedSha256": "b4aff400184d8a422d79189a02e6aa9febb726cdb63e501cc8489765880a1373"
+  }
+}

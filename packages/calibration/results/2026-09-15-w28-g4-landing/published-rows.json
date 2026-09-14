@@ -1,0 +1,320 @@
+{
+  "gate": "W28 G4 — the published inactive rows",
+  "claims": "§5.148 §2",
+  "source": "packages/calibration/results/matrix.json",
+  "schemaVersion": 5,
+  "inactiveCells": 470,
+  "decimals": 6,
+  "rows": [
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "tier": "texture",
+      "n": 45,
+      "oklabDeltaEMeanMean": 0.010456073011391169,
+      "oklabDeltaEMeanWorst": 0.1262630660235919,
+      "worstCells": [
+        {
+          "sceneId": "mid-chroma-solid__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.1262630660235919
+        },
+        {
+          "sceneId": "impulse__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.07046025604516275
+        }
+      ],
+      "ssimMeanMean": 0.9871384027229941,
+      "silhouetteIoUMean": 0.9418670206868569,
+      "silhouetteIoUCells": 37,
+      "crossTierOklabDeltaEMeanMean": null,
+      "crossTierCells": 0,
+      "widestCrossTierCell": null
+    },
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "tier": "dom",
+      "n": 45,
+      "oklabDeltaEMeanMean": 0.010179401896675308,
+      "oklabDeltaEMeanWorst": 0.09493058456722589,
+      "worstCells": [
+        {
+          "sceneId": "mid-chroma-solid__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.09493058456722589
+        },
+        {
+          "sceneId": "impulse__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.07245361726053029
+        }
+      ],
+      "ssimMeanMean": 0.9780668665229999,
+      "silhouetteIoUMean": 0.9410509892421252,
+      "silhouetteIoUCells": 37,
+      "crossTierOklabDeltaEMeanMean": 0.003893249458996212,
+      "crossTierCells": 45,
+      "widestCrossTierCell": {
+        "sceneId": "mid-chroma-solid__rrect-lg__inactive",
+        "crossTierOklabDeltaEMean": 0.03563935803011912
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "tier": "texture",
+      "n": 45,
+      "oklabDeltaEMeanMean": 0.010020344025685001,
+      "oklabDeltaEMeanWorst": 0.1262636340768654,
+      "worstCells": [
+        {
+          "sceneId": "mid-chroma-solid__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.1262636340768654
+        },
+        {
+          "sceneId": "impulse__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.06945269900822164
+        }
+      ],
+      "ssimMeanMean": 0.9912364381208659,
+      "silhouetteIoUMean": 0.9292947002275819,
+      "silhouetteIoUCells": 37,
+      "crossTierOklabDeltaEMeanMean": null,
+      "crossTierCells": 0,
+      "widestCrossTierCell": null
+    },
+    {
+      "profile": "apple-macos-26.5-2x-dark-standard",
+      "tier": "dom",
+      "n": 45,
+      "oklabDeltaEMeanMean": 0.010902183587010202,
+      "oklabDeltaEMeanWorst": 0.09546420397592645,
+      "worstCells": [
+        {
+          "sceneId": "mid-chroma-solid__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.09546420397592645
+        },
+        {
+          "sceneId": "impulse__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.072152847062979
+        }
+      ],
+      "ssimMeanMean": 0.9809549449825691,
+      "silhouetteIoUMean": 0.9313899856529152,
+      "silhouetteIoUCells": 37,
+      "crossTierOklabDeltaEMeanMean": 0.004766217196659187,
+      "crossTierCells": 45,
+      "widestCrossTierCell": {
+        "sceneId": "mid-chroma-solid__rrect-lg__inactive",
+        "crossTierOklabDeltaEMean": 0.035230933458261476
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "tier": "texture",
+      "n": 54,
+      "oklabDeltaEMeanMean": 0.0046378016660704145,
+      "oklabDeltaEMeanWorst": 0.04744780277079444,
+      "worstCells": [
+        {
+          "sceneId": "mid-chroma-solid__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.04744780277079444
+        },
+        {
+          "sceneId": "photo__rrect-ml__inactive",
+          "oklabDeltaEMean": 0.024254761405051988
+        }
+      ],
+      "ssimMeanMean": 0.994270929666285,
+      "silhouetteIoUMean": 0.9980512887045921,
+      "silhouetteIoUCells": 48,
+      "crossTierOklabDeltaEMeanMean": null,
+      "crossTierCells": 0,
+      "widestCrossTierCell": null
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "tier": "dom",
+      "n": 54,
+      "oklabDeltaEMeanMean": 0.004708183310476815,
+      "oklabDeltaEMeanWorst": 0.02138559704382813,
+      "worstCells": [
+        {
+          "sceneId": "checkerboard-32__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.02138559704382813
+        },
+        {
+          "sceneId": "impulse__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.019808047439317182
+        }
+      ],
+      "ssimMeanMean": 0.9871379388171149,
+      "silhouetteIoUMean": 0.9946608996350489,
+      "silhouetteIoUCells": 48,
+      "crossTierOklabDeltaEMeanMean": 0.0036929057855545557,
+      "crossTierCells": 54,
+      "widestCrossTierCell": {
+        "sceneId": "mid-chroma-solid__rrect-lg__inactive",
+        "crossTierOklabDeltaEMean": 0.041199906640739255
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "tier": "texture",
+      "n": 54,
+      "oklabDeltaEMeanMean": 0.004629710651578998,
+      "oklabDeltaEMeanWorst": 0.047439563086975195,
+      "worstCells": [
+        {
+          "sceneId": "mid-chroma-solid__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.047439563086975195
+        },
+        {
+          "sceneId": "photo__rrect-ml__inactive",
+          "oklabDeltaEMean": 0.02407503308100898
+        }
+      ],
+      "ssimMeanMean": 0.997472965301033,
+      "silhouetteIoUMean": 0.991102258635983,
+      "silhouetteIoUCells": 48,
+      "crossTierOklabDeltaEMeanMean": null,
+      "crossTierCells": 0,
+      "widestCrossTierCell": null
+    },
+    {
+      "profile": "apple-macos-26.5-2x-light-standard",
+      "tier": "dom",
+      "n": 54,
+      "oklabDeltaEMeanMean": 0.005050450339668526,
+      "oklabDeltaEMeanWorst": 0.02382164623062526,
+      "worstCells": [
+        {
+          "sceneId": "checkerboard-32__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.02382164623062526
+        },
+        {
+          "sceneId": "impulse__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.020350063355698653
+        }
+      ],
+      "ssimMeanMean": 0.9921883013638491,
+      "silhouetteIoUMean": 0.996749849021804,
+      "silhouetteIoUCells": 48,
+      "crossTierOklabDeltaEMeanMean": 0.003974062579283489,
+      "crossTierCells": 54,
+      "widestCrossTierCell": {
+        "sceneId": "mid-chroma-solid__rrect-lg__inactive",
+        "crossTierOklabDeltaEMean": 0.041169590270907594
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "tier": "texture",
+      "n": 19,
+      "oklabDeltaEMeanMean": 0.0025888530233804954,
+      "oklabDeltaEMeanWorst": 0.009205778136186163,
+      "worstCells": [
+        {
+          "sceneId": "light-solid__rrect-ml__inactive",
+          "oklabDeltaEMean": 0.009205778136186163
+        },
+        {
+          "sceneId": "hc-text__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.006413060953146053
+        }
+      ],
+      "ssimMeanMean": 0.9933400495282064,
+      "silhouetteIoUMean": 0.9925167773271028,
+      "silhouetteIoUCells": 19,
+      "crossTierOklabDeltaEMeanMean": null,
+      "crossTierCells": 0,
+      "widestCrossTierCell": null
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "tier": "dom",
+      "n": 19,
+      "oklabDeltaEMeanMean": 0.005673273564237179,
+      "oklabDeltaEMeanWorst": 0.013734154170717565,
+      "worstCells": [
+        {
+          "sceneId": "light-solid__rrect-ml__inactive",
+          "oklabDeltaEMean": 0.013734154170717565
+        },
+        {
+          "sceneId": "hc-text__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.01217386845399976
+        }
+      ],
+      "ssimMeanMean": 0.9576797730473354,
+      "silhouetteIoUMean": 0.9384821279351875,
+      "silhouetteIoUCells": 19,
+      "crossTierOklabDeltaEMeanMean": 0.004285783422729685,
+      "crossTierCells": 19,
+      "widestCrossTierCell": {
+        "sceneId": "hc-text__rrect-lg__inactive",
+        "crossTierOklabDeltaEMean": 0.007391226080126292
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "tier": "texture",
+      "n": 18,
+      "oklabDeltaEMeanMean": 0.001514498200421772,
+      "oklabDeltaEMeanWorst": 0.005620514223009433,
+      "worstCells": [
+        {
+          "sceneId": "hc-text__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.005620514223009433
+        },
+        {
+          "sceneId": "light-solid__rrect-ml__inactive",
+          "oklabDeltaEMean": 0.005140061053078101
+        }
+      ],
+      "ssimMeanMean": 0.9991442651026848,
+      "silhouetteIoUMean": 0.9219043411558836,
+      "silhouetteIoUCells": 18,
+      "crossTierOklabDeltaEMeanMean": null,
+      "crossTierCells": 0,
+      "widestCrossTierCell": null
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "tier": "dom",
+      "n": 18,
+      "oklabDeltaEMeanMean": 0.0017517259513351645,
+      "oklabDeltaEMeanWorst": 0.005288738673302114,
+      "worstCells": [
+        {
+          "sceneId": "hc-text__rrect-lg__inactive",
+          "oklabDeltaEMean": 0.005288738673302114
+        },
+        {
+          "sceneId": "light-solid__rrect-ml__inactive",
+          "oklabDeltaEMean": 0.005163106659925769
+        }
+      ],
+      "ssimMeanMean": 0.9983634680720086,
+      "silhouetteIoUMean": 0.9397573857792205,
+      "silhouetteIoUCells": 18,
+      "crossTierOklabDeltaEMeanMean": 0.0007696391668668973,
+      "crossTierCells": 18,
+      "widestCrossTierCell": {
+        "sceneId": "photo__toolbar-group__inactive",
+        "crossTierOklabDeltaEMean": 0.0021507872687019226
+      }
+    }
+  ],
+  "table": [
+    "| profile | tier | n | mean ΔE | worst ΔE | mean SSIM | mean IoU | cross-tier ΔE |",
+    "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+    "| 1x-dark-standard | texture | 45 | 0.010456 | 0.126263 | 0.987138 | 0.941867 | — |",
+    "| 1x-dark-standard | dom | 45 | 0.010179 | 0.094931 | 0.978067 | 0.941051 | 0.003893 |",
+    "| 2x-dark-standard | texture | 45 | 0.010020 | 0.126264 | 0.991236 | 0.929295 | — |",
+    "| 2x-dark-standard | dom | 45 | 0.010902 | 0.095464 | 0.980955 | 0.931390 | 0.004766 |",
+    "| 1x-light-standard | texture | 54 | 0.004638 | 0.047448 | 0.994271 | 0.998051 | — |",
+    "| 1x-light-standard | dom | 54 | 0.004708 | 0.021386 | 0.987138 | 0.994661 | 0.003693 |",
+    "| 2x-light-standard | texture | 54 | 0.004630 | 0.047440 | 0.997473 | 0.991102 | — |",
+    "| 2x-light-standard | dom | 54 | 0.005050 | 0.023822 | 0.992188 | 0.996750 | 0.003974 |",
+    "| 1x-light-increased-contrast | texture | 19 | 0.002589 | 0.009206 | 0.993340 | 0.992517 | — |",
+    "| 1x-light-increased-contrast | dom | 19 | 0.005673 | 0.013734 | 0.957680 | 0.938482 | 0.004286 |",
+    "| 1x-light-reduced-transparency | texture | 18 | 0.001514 | 0.005621 | 0.999144 | 0.921904 | — |",
+    "| 1x-light-reduced-transparency | dom | 18 | 0.001752 | 0.005289 | 0.998363 | 0.939757 | 0.000770 |"
+  ]
+}
