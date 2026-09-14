@@ -949,6 +949,19 @@ export type AxisReport =
 export interface CellResult {
   readonly key: ResultCellKey;
   readonly fixtureSet: FixtureSet;
+  /**
+   * The scene's declared state — `rest`, `pressed` or `inactive` — copied off
+   * `scenes.json` so a row says which pose it is (X3; W28 G4, claims §5.148).
+   *
+   * A label beside `fixtureSet`, never a key segment: the state axis already
+   * lives in the scene id and in the declaration, and putting it in the key would
+   * make the same scene two cells. What it buys is that a gate, a sheet or a
+   * reader can select the pose from the matrix alone instead of re-joining it to
+   * the scene declaration — which matters from the moment one bed carries both
+   * poses. Absent on a row written before this field existed, and every such row
+   * is an active-pose row.
+   */
+  readonly state?: string;
   readonly tier: FidelityTier;
   /** ISO 8601 instant the measurement was taken. */
   readonly capturedAt: string;
@@ -1000,10 +1013,13 @@ export interface CellResult {
  *
  * The band-windowed perceptual rows (W13 X6, `ssimBand` / `ssimInterior` /
  * `ssimOutside` and their window counts), the shadow axis's affine pair
- * (W14 X7, `affineNative` / `affineWeb`) and the shape axis's declaration-
+ * (W14 X7, `affineNative` / `affineWeb`), the shape axis's declaration-
  * conformance rows (W20 G0, `drawnAreaWeb` / `declaredIoUWeb` /
- * `declaredContour{P95,Max}Web`) are schema *additions* and do not move this
- * number.
+ * `declaredContour{P95,Max}Web`) and the cell's `state` label (W28 G4) are
+ * schema *additions* and do not move this number. `state` in particular changes
+ * no figure and adds no axis: it copies a scene property this matrix's rows
+ * always had and never wrote down, so an older cell read beside a newer one is
+ * the same quantity under the same conditions.
  * The version exists to stop a reader taking two cells as the same quantity
  * when they are not, and nothing here changes an existing quantity: every
  * schema-5 figure is measured exactly as before, the new rows are optional in

@@ -353,6 +353,8 @@ interface PlannedCell {
   readonly a11yMode: string;
   readonly sceneId: string;
   readonly fixtureSet: FixtureSet;
+  /** The scene's declared pose, off `scenes.json`: `rest`, `pressed` or `inactive`. */
+  readonly state: string;
   readonly fixture: FixtureEntry;
   readonly backgroundFile: string;
   readonly order: number;
@@ -454,6 +456,7 @@ function plan(
         a11yMode: profile.a11yMode,
         sceneId: fixture.sceneId,
         fixtureSet: declared,
+        state: scene.state,
         fixture,
         backgroundFile,
         order: fnv1a(`${profile.profileKey}|${fixture.sceneId}`),
@@ -731,6 +734,9 @@ function main(): void {
          */
         tier: options.renderer === "webgpu" ? "texture" : "dom",
         fixtureSet: cell.fixtureSet,
+        // The declaration's own word for the pose, carried onto the row so that a
+        // bed holding both poses can be read one pose at a time (X3).
+        state: cell.state,
         blurAxis: "x",
         silhouetteThreshold: options.silhouetteThreshold,
         silhouetteChromaThreshold: options.silhouetteChromaThreshold,

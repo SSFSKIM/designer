@@ -97,6 +97,8 @@ export interface MeasureInput {
   readonly textureTwinPath?: string;
   readonly tier: FidelityTier;
   readonly fixtureSet: FixtureSet;
+  /** The scene's declared state, carried onto the cell as a label (X3). */
+  readonly state?: string;
   readonly blurAxis: "x" | "y";
   readonly blurRegion?: readonly [number, number, number, number];
   /**
@@ -604,6 +606,7 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
   const cell: CellResult = {
     key: resultCellKey(input.profileKey, loadWebCell(input.webCellPath), input.sceneId),
     fixtureSet: input.fixtureSet,
+    ...(input.state === undefined ? {} : { state: input.state }),
     tier: input.tier,
     capturedAt: new Date().toISOString(),
     perceptual,
