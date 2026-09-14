@@ -9,7 +9,15 @@
 > `main` at `cc89dd2` (0.15.0), summarised in §Design. Children dispatch per their track hint and
 > open by citing this document (path + child id).
 
-**Status: CHARTERED 2026-09-10.** W27a dispatched the same day (autonomous, worktree). The rest
+**Status: RECOMPOSED 2026-09-14 (claims §§5.128–5.143); 0.17.0 PREPARED,
+UNPUBLISHED — Decision Log 20 closes the wave with W27c G2/G3 held.** Verified against `main` at
+`d3d3163`, the publishable package surfaces and the live demo: clause 1 PARTLY (eight rows move and
+one is added; window focus is measured, not replicated), clause 2 PARTLY (every feature documented
+and operable, but the two React-only compositions have no named framework-agnostic widget option),
+clause 3 PARTLY (floors stand; the landing-time from-empty proofs do not exist), clause 4 MET, and
+clause 5 PARTLY until the user runs `pnpm release`. The originally chartered status is kept beneath.
+
+*Originally:* CHARTERED 2026-09-10. W27a dispatched the same day (autonomous, worktree). The rest
 dispatch in the order of §Ordering.
 
 ## Purpose
@@ -351,6 +359,9 @@ into the ledger rather than chartered.
   per-policy map, and refusal is early and non-retaining. The final review returned no material
   findings. Workspace build/lint and 2,320 tests pass; goldens 34/34, platform e2e 392/392 and GPU
   21/21 pass at 0/0 accessibility, without changing evidence or a fitted value.
+  **At recomposition (Decision Log 20), G2 and G3 move to Deferred rather than landing:** the four
+  holding profiles do not outweigh the light-standard pair's shared response miss; the exact
+  structure-aware prerequisite and the runtime/landing sequence are in §Deferred.
 
 ### W27d: Identity and materialize — controlled
 - **Purpose:** `Glass.identity` is Apple's documented way to animate glass to nothing in place;
@@ -654,6 +665,17 @@ the recomposition and the user's eye.
   inactive bed, which is 26.5 by construction. The recapture is a separate item (Deferred).
 
 ## Deferred / Out of Scope
+
+**W27c G2 and G3 — HELD by Decision Log 20.** The activation observer, framework-agnostic
+`windowActivation` option and `setWindowActivation`, React `<GlassRoot>` prop, inactive scene rows
+and floors, demo pose and eye do not land in this wave. The receded endpoint documents, four-knot
+response and per-policy occlusion levels ship inert. What closes the hold is the structure-aware
+middle/bright inactive response claims §5.143 §8 names — uniform and structured transfer together,
+then cap/refraction separation and the one-pixel contour — followed by the unchanged §5.134 §6
+bound holding on all six profiles on one sealed configuration. G2 then applies that endpoint through
+`applyMaterialProfile`; G3 adds the `inactive` state to the matrix, adopts only floors the evidence
+supports and puts the backgrounded-window pose in the demo. The tracker entry "The window-activation
+runtime is held behind the inactive response" carries the executable handoff.
 
 **Deferred (may return):** the name "prominent" (`GlassButton prominent` = accent tint + vibrant
 label; opens when W27e lands); the motion-metrics harness (no native frame sequence has ever been
@@ -1082,7 +1104,133 @@ neighbour glow diffusion; topology-changing morphs.
 
 ## Outcomes & Retrospective
 
-Pending — written at recomposition against §Parent-Level Acceptance.
+**Verified at recomposition (2026-09-14) against the Parent-Level Acceptance, on `main` at
+`d3d3163`, the publishable package entries and the live demo:**
+
+1. **The matrix moves by build — PARTLY.** The appended 2026-09-14 re-score in the coverage
+   matrix's §7 moves eight rows and adds the WebGPU-over-DOM row under §3.7. Across **175 total / 156
+   scoreable** rows: `replicated+measured` 41 → **45** (29%), `replicated, unmeasured` 25 → **29**
+   (19%), `partial` 26 → **24** (15%), `excluded by decision` 23 → **22** (14%), and
+   `absent, undecided` 40 → **36** (23%). Toolbar grouping is replicated and unmeasured; button tint,
+   vibrancy and its levels, and the DOM-backed WebGPU material are replicated and measured;
+   identity, `materialize` and materialize-not-fade are replicated and unmeasured because there is
+   no native motion sequence (§§5.132, 5.135, 5.137, 5.140, 5.142). The miss is window focus:
+   §§5.128, 5.130, 5.134, 5.139, 5.141 and 5.143 measure the inactive endpoint, but the unchanged
+   bound holds on four of six profiles and no runtime consumes it. Decision Log 20 holds W27c G2/G3,
+   so §3.6 is **`partial` — measured, not replicated**, not the `replicated+measured` the charter
+   asked for.
+2. **Every feature is reachable and shown — PARTLY on the clause's literal cross-framework
+   wording; MET at each feature's designed altitude after the recomposition fix.** The audit found
+   two genuine omissions and fixed both at `9650921`: `packages/platform-web/README.md` now names
+   the four foreground tokens and the `vibrant` host option, and `apps/demo/src/TintInkPlate.tsx`
+   now lets a reader switch the two bookmark controls between `foreground="vibrant"` and
+   `foreground="token"`, with the returned app-owned ink visible. The browser case failed before
+   the control existed and passes after; `packages/core/README.md` also no longer says tint is only
+   per surface.
+
+   | landed feature | React reach | framework-agnostic reach | carrying README | live instance |
+   | --- | --- | --- | --- | --- |
+   | W27a — button/group tint and four ink levels | `packages/react/src/controls/button.tsx`, `group.tsx`, `surface.tsx` | `packages/platform-web/src/host.ts` (`tint`, `foreground`), `root.registerGroup`, the four published custom properties | `packages/react/README.md`; `packages/platform-web/README.md` | `apps/demo/src/TintInkPlate.tsx`, both tint seeds/strengths and all four levels |
+   | W27b — toolbar partition | `packages/react/src/controls/toolbar.tsx` (`GlassToolbarSpacer`, `sharedBackground`, `groupProps`) | existing `registerGroup` / `groupId` plus public `samplingPaddingFor`; **no toolbar-named host option** | `packages/react/README.md` | `apps/demo/src/App.tsx`, the flexible spacer and hidden menu item |
+   | W27d — identity and materialize | `packages/react/src/surface.tsx` (`present`), `morph.tsx` (`transition`) | `packages/platform-web/src/host.ts` (`present`) and `--vitrea-materialization`; **no host-level morph widget** | both package READMEs | the Dismiss-glass and Materialize-actions controls in `apps/demo/src/App.tsx` |
+   | W27e — vibrant ink | `foreground` ownership on `GlassSurface`; vibrant defaults on the three owned controls | `packages/platform-web/src/host.ts` (`vibrant`) | both package READMEs after `9650921` | every owned label plus the new ownership checkbox in `TintInkPlate.tsx` |
+   | W27f — DOM-backdrop material | a group with no registered texture, with optional `hint` | the same group route through `createGlassRoot`; the behavior is automatic, not a new option | `packages/platform-web/README.md` | `apps/demo/src/site/Site.tsx`, `/#page` “Over ordinary page content” |
+
+   The two NOT-MET literal cells are deliberate component compositions over public primitives: a
+   framework-agnostic toolbar or morph API would add the widget layer §Purpose explicitly excludes.
+   W27f and the four token writes are automatic behavior rather than props. Nothing remains
+   undocumented or unoperable.
+3. **The bed — PARTLY.** From the charter baseline `c960ee2f`, the first 2,312 lines of
+   `adopted-thresholds.test.ts` are byte-identical (SHA-256
+   `955e5ff795ca1c12c61445f1a767b7d103aab4f05e43a12caa9cfef98dd89c0a`): eleven
+   `REGRESSION_FLOORS`, eleven `UNMET_ROWS`, predicate 32, and every dom floor retain their values.
+   W27f G2 adds the stack-overlay bound at `ec54b055`, makes it assert its arithmetic at `6ad09248`,
+   and records/scopes the S4 ruling at `f15d5085` / `0a073624`; no floor is loosened, re-pinned or
+   removed. The one canonical matrix edit, `7b1208eb`, corrects twelve stale stack rows while leaving
+   all eleven floored readings bit-identical and every moved texture row inside its adopted bounds.
+
+   Holdout discipline is qualified, never hidden: §5.131 spends W27f G1's full ten-scene set once;
+   §5.135 deliberately reads the two stack members a second time on the same configuration, with
+   the exception declared before the read; §5.141 reads four cells once on its changed endpoint;
+   §5.143 freezes at `da1423da`, resumes one cell-once read without duplicate cell or capture hash,
+   and scores once at `fa150a6c`. Its four accessibility cells were also §5.130 holdout members, but
+   the material document changed between reads. The resting golden evidence is real — W27a 33/33,
+   W27d 34/34 plus 21/21 GPU, no golden PNG or calibration file moved across W27a/W27b/W27d — but
+   **the required from-empty rebuild does not exist at any of those three landing heads**. The last
+   one is W26 G3 at `2a235f36`; `isolation.spec.ts` still pins `W26_HASHES`. That unrepairable
+   historical proof gap is recorded in `tech-debt-tracker.md`, so this clause is not promoted to MET.
+4. **The CSS tier still derives — MET, with every residual named.** On the recomposed tree,
+   `tier-coherence.test.ts` plus `adopted-thresholds.test.ts` pass **96 / 96**. W27f replaces the
+   removed W11a flat-unsampled pin with a stronger profile-at-response-anchor pin at `a3c3ddce`;
+   W27e adds three foreground cases and W27c adds the fourth-knot and per-policy cases. The dom floors
+   stay at the baseline values.
+
+   Residuals in the ledger: §5.135's five-pixel CSS bistability and the DOM-source coherence ratios
+   down to **0.6211 hinted / 0.5214 unhinted**; §5.140 §2's clear-material opposite-pole window at
+   backdrop luminances **(0.0656, 0.1020)**; §5.132's CSS materialization transit (no lens field, a
+   spurious `(1-p)·p` heavy term and approximate tint transfer); §5.130's receded CSS uniform layer,
+   one-blur heavy mixture and unsigned-border limits; §5.129's 2 × 2 CSS host excess and §5.131's
+   weak rim; §§5.141/5.143's inactive cross-tier body-Y gap **0.00197–0.00874**; and §5.142's
+   rendered secondary at **4.463 CSS / 4.309 and 4.278 WebGPU**, guarded by 4.45 / 4.25 pixel floors
+   rather than called the token's 4.5 promise. W27a's WebGPU-only lens is covered by the standing
+   no-lens CSS statement; W27b is tier-independent composition.
+5. **The release — PARTLY, prepared and deliberately not published.** The user's landing-sheet eye
+   passed W27f on **2026-09-12** and W27e on **2026-09-14** (“pass”), with the residuals above
+   standing. W27e G2's existing `@vitreajs/vitrea-web` minor changeset and the recomposition's patch
+   note for the additive three/four-knot `MaterialProfile` rows and
+   `increasedOcclusionLiftByPolicy` are consumed together by `pnpm changeset version`; the fixed
+   group is prepared at **0.17.0**. The c9d chain at the code-identical recomposition head records:
+   workspace build and lint green; targeted coherence/floors 96/96; platform-web Playwright
+   392/392; renderer Playwright 56 passed / 1 intentional attribution skip; demo Playwright 57/57;
+   React Playwright 162 collected, **155 passed / 3 intentional skips / 4 failures in the tracker’s
+   known Firefox timing/focus class**, none in the new ownership case, and not rerun to manufacture a
+   green record. The first two workspace unit runs exposed a 5 s Vitest budget shorter than the
+   test's own 30 s subprocess budget; the recomposition raises only that outer budget and records the
+   fail-before, after which the exact `pnpm -r test` chain passes **2,320 / 2,320**. Publishing and
+   tagging remain the user's; the exact remaining command is `pnpm release` after accepting or
+   closing the recorded React-suite flake class.
+
+**Retrospective.** This wave changed the project more in how it knows than in how the material looks.
+The inactive endpoint began as 121 accidental fixtures whose state was inferred; it ends with a
+native `.accessory` capture path that cannot become key, refuses a locked screen and attests
+`isKeyWindow`, `appIsActive` and the inverted `presentedActive` **per cell**. Its seven-run plurality
+was the first publication beside a frozen bundle rather than into empty ground. That exposed two
+`materialize` defects a fresh directory could not — provenance that would delete the earlier
+freeze-bar record and a backdrop index not carried forward — and replaced “the bundle validates
+itself” with an entry-by-entry comparison against the commit it began from (§§5.136, 5.139).
+
+Vibrancy changed the oracle too. The operator was recovered from Apple's **layer tree**, not from
+text pixels the fixture rules prohibit: the SDF label's place between backdrop and highlight, a
+single `vibrantColorMatrix`, its `inputBackdropAware`/clamp configuration and the shipped
+`*_sover` shader signature identify the saturating source-over transform. Chromium then bounded
+vitrea's analytic fold against the browser; the claim never pretends that is a native label-pixel
+comparison (§§5.137, 5.140). Four review rounds on W27e G3 converged by turning each failure into an
+instrument property — large-text qualification, measure-write-judge, named resolved groups,
+absolute sample phases and honest batch timestamps — rather than re-rolling a convenient number.
+The same discipline on W27c G1d took two P2 findings and four reachable guard edges through one fix
+wave until the final review had no material finding.
+
+The macOS 26.5 deadline made that rigor operational. The inactive bed, labelled layer dumps,
+neutral anchor and two hand-toggled accessibility passes were banked before the capture machine
+could move to OS 27. The anchor answered abscissa rather than structure and the per-policy levels
+closed two spectacular errors, but the remaining light-standard miss is larger than a final knot;
+Decision Log 20 closes the wave instead of hiding that under a partial runtime. Coverage moves from
+41 to 45 measured rows and 25 to 29 replicated-unmeasured rows, while one of the charter's headline
+rows remains honestly partial.
+
+**Handed to the next cut, by name:** the structure-aware inactive middle/bright response, then W27c
+G2's held observer/root/React runtime and G3's rows, floors, demo and eye; the native motion-metrics
+harness for identity/materialize timing; an OS 27 capture under new `apple-macos-27.0-…` keys beside,
+never over, the frozen 26.5 keys; and the `prominent` name (accent tint plus vibrant label). The rest
+of §Deferred remains live: per-element recede and recede-opacify-grow; HTML-in-Canvas/element-texture
+refraction over page content; ambient spill, transient lift and touch-versus-pointer intensity;
+Show Button Shapes and Differentiate Without Color; the concentricity gradient and window corner;
+and the excluded tab bar, sheet, popover, slider, toggle and search-field families. W27e hands on the
+unmeasured native label pixel/clamp/alpha limits, scale-gated adaptation, the dark threshold and
+adapted-state input, non-key pixel identity and adaptation instability. W27d hands on fractional
+union ownership, stacked-tone prediction, the CSS transit and unequal fractional proxy presence.
+The secondary composite floors and W27f's per-surface matrix instrument remain fix-shaped debt, not
+accepted fidelity.
 
 ## W27f G1 dry-run declaration (2026-09-10)
 
@@ -1122,6 +1270,18 @@ G1 records every per-scene miss; G2 alone adopts a native stack bound and re-rea
 
 ## Revision Notes
 
+- 2026-09-14, **RECOMPOSED against all five parent clauses; 0.17.0 prepared, not published.** The
+  coverage matrix's §7 gains the additive nine-row W27 reading (45 measured, 29 replicated
+  unmeasured, 24 partial, 22 excluded, 36 absent over 156 scoreable rows); window focus is measured
+  and held, never scored replicated. The public-surface audit repaired the framework-agnostic
+  foreground documentation and added an operable vibrant/token ownership control to the existing
+  tint-and-ink plate (`9650921`). Floors are unchanged, the CSS coherence and dom-floor pair pass
+  96/96, and the missing W27a/b/d from-empty landing proof is recorded rather than inferred. W27c
+  G2/G3 move into Deferred with the response prerequisite and landing sequence; the tracker gains
+  both the held runtime and the historical rebuild-proof gap. The c9d release chain, its known React
+  flake-class exception and every browser run's 0/0 accessibility readings are in Outcomes. Two
+  changesets — the vibrant-ink minor and the additive profile-seam patch — prepare fixed-group
+  0.17.0; `pnpm release`, the tag and the push remain the user's.
 - 2026-09-14, **Decision Log 20: the wave closes; W27c's runtime is held as a recorded residual.**
   G1d merged (`8a8ff862`, claims §5.143): the anchor cell captured on 26.5.2 and published beside
   the bundle (619 entries, nothing pre-existing moved), the step placed in the abscissa, the dark

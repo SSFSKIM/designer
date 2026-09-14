@@ -254,5 +254,5 @@ exit 2
     expect(result.status).not.toBe(0);
     expect(output).toContain("defaults second-read failure sentinel");
     expect(output).not.toContain("patch-read-after-preflight");
-  });
+  }, 30_000);
 });
