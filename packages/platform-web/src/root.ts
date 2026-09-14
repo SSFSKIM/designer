@@ -45,6 +45,7 @@ import {
   type CornerReference,
   type GlassGroupDescriptor,
   type GlassGroupState,
+  type SurfaceBackdropToneAbscissa,
   type GlassPlane,
   type GlassScene,
   type MaterialVariant,
@@ -184,6 +185,7 @@ import {
   BACKDROP_TONE_CADENCE_MS,
   sampleBackdropTone,
   type BackdropToneSample,
+  type BackdropSilhouette,
 } from "./backdrop-tone";
 import { createGlassLayerManager, type GlassLayerManager, type PlaneLayers } from "./planes";
 import { resolveSamplingGeometry } from "./proxy-geometry";
@@ -438,6 +440,8 @@ export interface GlassGroupRenderInput {
    * Absent exactly where `backdropTone` is.
    */
   readonly backdropToneLinearLuminance?: number;
+  /** An authored level overrides silhouette sampling on both tiers. */
+  readonly backdropToneHint?: boolean;
   /**
    * The final encoded-layer solve for a host DOM group (W27f G1). The profile
    * stays linear until its response, collapse, paint and rim are evaluated;
@@ -1273,6 +1277,32 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     backdropTones.set(sourceId, { epoch, atMs: now, sample });
     return sample;
   };
+  const surfaceBackdropTones = new Map<string, {
+    readonly sourceId: string;
+    readonly epoch: number;
+    readonly geometryKey: string;
+    readonly atMs: number;
+    readonly sample: BackdropToneSample | undefined;
+  }>();
+  const cssBackdropAbscissae = new Map<string, readonly SurfaceBackdropToneAbscissa[]>();
+  /** Geometry participates in invalidation without adding any layout reads. */
+  const silhouetteToneFor = (
+    sourceId: string, surfaceId: string, silhouette: BackdropSilhouette,
+  ): BackdropToneSample | undefined => {
+    const texture = suppliedTextures.get(sourceId);
+    if (texture === undefined) return undefined;
+    const epoch = scene.backdropSource(sourceId)?.dirtyEpoch ?? 0;
+    const geometryKey = JSON.stringify(silhouette);
+    const held = surfaceBackdropTones.get(surfaceId);
+    const now = view.performance?.now() ?? 0;
+    if (held !== undefined && held.sourceId === sourceId) {
+      const stale = held.epoch !== epoch || held.geometryKey !== geometryKey || texture.kind !== "image";
+      if (!stale || now - held.atMs < BACKDROP_TONE_CADENCE_MS) return held.sample;
+    }
+    const sample = sampleBackdropTone(texture, silhouette);
+    surfaceBackdropTones.set(surfaceId, { sourceId, epoch, geometryKey, atMs: now, sample });
+    return sample;
+  };
   /** One CSS-colour parser per root, memoised by string. See `tint.ts`. */
   const parseTint = createTintParser(view.document);
 
@@ -1500,7 +1530,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     const cssTint = cssTintForms.get(groupId);
     const cssShadow = cssShadowForms.get(groupId);
 
-    return withCssBody(cssBody, cssTint, cssShadow, resolveGlassGroupState(
+    const state = withCssBody(cssBody, cssTint, cssShadow, resolveGlassGroupState(
       groupCapabilityInputs(
         source.descriptor.kind === "texture"
           ? {
@@ -1528,6 +1558,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           : { configuredSource: "dom", platform, governor, hint },
       ),
     ));
+    const abscissae = resolvedProfile?.backdropToneAbscissa !== undefined &&
+      resolvedProfile.backdropToneAbscissa !== "source"
+      ? state.activeRenderer === "webgpu"
+        ? bridge?.renderer?.backdropToneAbscissae?.(groupId)
+        : cssBackdropAbscissae.get(groupId)
+      : undefined;
+    return abscissae === undefined ? state : { ...state, backdropToneAbscissae: abscissae };
   };
 
   /**
@@ -2015,9 +2052,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         }
         return toneBeneath(footprint, backPlane, painted);
       };
-      const backdropTone: BackdropToneSample | undefined =
+      const silhouetteAbscissa = resolvedProfile?.backdropToneAbscissa !== undefined &&
+        resolvedProfile.backdropToneAbscissa !== "source";
+      const groupBackdropTone: BackdropToneSample | undefined =
         declaredLuminance === undefined
-          ? (backdropToneFor(groupRecord.descriptor.backdropSourceId) ?? stackedTone())
+          ? ((silhouetteAbscissa ? undefined : backdropToneFor(groupRecord.descriptor.backdropSourceId)) ?? stackedTone())
           : {
               rgb: [declaredLuminance, declaredLuminance, declaredLuminance],
               luminance: declaredLuminance,
@@ -2107,12 +2146,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         mergeDistance: sampling.mergeDistance,
         declaredMergeDistance: groupRecord.descriptor.mergeDistance,
         blurRadius: groupBlurRadius,
-        ...(backdropTone === undefined
+        ...(declaredLuminance === undefined ? {} : { backdropToneHint: true }),
+        ...(groupBackdropTone === undefined
           ? {}
           : {
-              backdropTone: backdropTone.rgb,
-              backdropToneLevel: backdropTone.luminance,
-              backdropToneLinearLuminance: backdropTone.linearLuminance,
+              backdropTone: groupBackdropTone.rgb,
+              backdropToneLevel: groupBackdropTone.luminance,
+              backdropToneLinearLuminance: groupBackdropTone.linearLuminance,
             }),
         // The layer pair travels only where the GPU tier is the one drawing and
         // has nothing to sample — over its proxy, or over the page (W11a).
@@ -2159,7 +2199,42 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         }
       }
 
+      const cssAbscissae: SurfaceBackdropToneAbscissa[] = [];
+      cssBackdropAbscissae.set(groupId, cssAbscissae);
       for (const { record, bounds } of measured) {
+        const sourceId = groupRecord.descriptor.backdropSourceId;
+        const declaredPlacement = suppliedTextures.get(sourceId)?.placement;
+        const placement = declaredPlacement?.kind === "rect"
+          ? declaredPlacement.rect : geometry.placementOf(sourceId);
+        // W28 replaces the reference throughout the host's solve, not only the
+        // response curve. The legacy path and author-hint precedence stay intact.
+        const backdropTone = silhouetteAbscissa && declaredLuminance === undefined && viewport !== undefined
+          ? silhouetteToneFor(sourceId, record.nodeId, {
+              bounds, radius: record.radii[0], viewport,
+              ...(placement === undefined ? {} : { placement }),
+            }) ?? groupBackdropTone
+          : groupBackdropTone;
+        if (silhouetteAbscissa && declaredLuminance !== undefined && backdropTone !== undefined) {
+          cssAbscissae.push({
+            surfaceId: record.nodeId, kind: "hint",
+            encodedLuminance: declaredLuminance <= 0.0031308
+              ? 12.92 * declaredLuminance : 1.055 * declaredLuminance ** (1 / 2.4) - 0.055,
+            luminance: declaredLuminance, linearLuminance: declaredLuminance,
+            color: backdropTone.rgb, sampleCount: 0, level: 0,
+            sourceWidth: 0, sourceHeight: 0, sampledWidth: 0, sampledHeight: 0,
+          });
+        }
+        if (silhouetteAbscissa && backdropTone?.encodedLuminance !== undefined &&
+            backdropTone.footprint !== undefined) {
+          const { sampleCount, sourceWidth, sourceHeight } = backdropTone.footprint;
+          cssAbscissae.push({
+            surfaceId: record.nodeId, kind: "silhouette",
+            encodedLuminance: backdropTone.encodedLuminance,
+            luminance: backdropTone.luminance, linearLuminance: backdropTone.linearLuminance,
+            color: backdropTone.rgb, sampleCount, level: 0, sourceWidth, sourceHeight,
+            sampledWidth: sourceWidth, sampledHeight: sourceHeight,
+          });
+        }
         const nodeRecord = scene.glassNode(record.nodeId);
         /*
          * The surface's channels, read once and read EARLY (W27d).
@@ -3073,6 +3148,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     setBackdropTexture(sourceId, texture) {
       bridge?.setBackdropTexture(sourceId, texture);
+      for (const [surfaceId, held] of surfaceBackdropTones) {
+        if (held.sourceId === sourceId) surfaceBackdropTones.delete(surfaceId);
+      }
       // Held on this side too (W7). The bridge is the GPU tier's, and a CSS-tier
       // root has none — but the backdrop's own tone is what the CSS tier's
       // adaptation is missing, and these are exactly the pixels that answer it.
@@ -3103,6 +3181,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     },
 
     removeGroup(groupId) {
+      cssBackdropAbscissae.delete(groupId);
       proxies.remove(groupId);
       probeReports.delete(groupId);
       scene.removeGlassGroup(groupId);
@@ -3375,6 +3454,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         release() {
           geometry.untrack(nodeId);
           hosts.delete(nodeId);
+          surfaceBackdropTones.delete(nodeId);
           scene.removeGlassNode(nodeId);
           for (const attribute of Object.values(HOST_ATTRIBUTES)) {
             record.host.removeAttribute(attribute);
@@ -3528,6 +3608,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       layers.destroy();
       inkStylesheet.dispose();
       hosts.clear();
+      surfaceBackdropTones.clear();
+      cssBackdropAbscissae.clear();
       probeReports.clear();
       frameListeners.clear();
     },

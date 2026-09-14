@@ -27,7 +27,17 @@
  *    a fitted conversion constant), so a fallback to it would dissolve every
  *    untinted surface on the page into its own background.
  *
- * ## What this is coarse about, and why that is the honest trade
+ * ## The profile-gated silhouette reading (W28)
+ *
+ * The account below describes the legacy source branch, which remains unchanged
+ * when the profile omits `backdropToneAbscissa` or names `source`. A silhouette
+ * profile reads the raw native-resolution raster under each measured rounded
+ * host instead. It averages encoded Rec709 luma and decodes that scalar once;
+ * its local linear RGB mean also replaces the source reference throughout the
+ * CSS solve. The input readout records the actual region mean, not a fitted
+ * response or a downsampled proxy for it (W28 Decision Logs 1 amendment and 2).
+ *
+ * ## What the legacy source reading is coarse about, and why
  *
  * One number per **source**, not per surface: a surface sitting over a dark
  * corner of a bright backdrop reads the backdrop's mean here and its own
@@ -67,6 +77,7 @@
  * buys are on the constant.
  */
 
+import type { Rect } from "@vitreajs/vitrea";
 import type { GlassBackdropTexture } from "./renderer-bridge";
 
 /**
@@ -75,6 +86,14 @@ import type { GlassBackdropTexture } from "./renderer-bridge";
  * constant survived the convention work unchanged.
  */
 export interface BackdropToneSample {
+  /** The actual encoded Rec709 input, present for the silhouette branch. */
+  readonly encodedLuminance?: number;
+  /** Native source dimensions and the number of covered device-pixel centres. */
+  readonly footprint?: {
+    readonly sampleCount: number;
+    readonly sourceWidth: number;
+    readonly sourceHeight: number;
+  };
   /** The LINEAR-space mean colour — the physical average light, what the
    * collapse converges onto. */
   readonly rgb: readonly [number, number, number];
@@ -171,6 +190,7 @@ function srgbDecode(encoded: number): number {
  */
 export function sampleBackdropTone(
   texture: GlassBackdropTexture | undefined,
+  silhouette?: BackdropSilhouette,
 ): BackdropToneSample | undefined {
   if (texture === undefined) return undefined;
   const surface = scratchSurface();
@@ -178,6 +198,26 @@ export function sampleBackdropTone(
 
   const drawable = drawableOf(texture);
   if (drawable === undefined) return undefined;
+
+  if (silhouette !== undefined) {
+    try {
+      // The silhouette is a native-resolution reading, not the legacy capped
+      // source statistic. Resizing also clears any previous tainted canvas.
+      surface.canvas.width = drawable.width;
+      surface.canvas.height = drawable.height;
+      surface.ctx.drawImage(drawable.source, 0, 0);
+      return silhouetteBackdropTone(
+        surface.ctx.getImageData(0, 0, drawable.width, drawable.height).data,
+        drawable.width, drawable.height, silhouette,
+      );
+    } catch {
+      return undefined;
+    }
+  }
+  if (surface.canvas.width !== SAMPLE_EXTENT || surface.canvas.height !== SAMPLE_EXTENT) {
+    surface.canvas.width = SAMPLE_EXTENT;
+    surface.canvas.height = SAMPLE_EXTENT;
+  }
 
   // Aspect preserved and capped, so the source is drawn at or below 1:1 rather
   // than squashed into a square — a squashed draw averages across the wrong axis
@@ -237,6 +277,102 @@ export function sampleBackdropTone(
   } catch {
     return undefined;
   }
+}
+
+/** The batched host and source geometry, all in viewport-relative CSS pixels. */
+export interface BackdropSilhouette {
+  readonly bounds: Rect;
+  readonly radius: number;
+  readonly viewport: {
+    readonly width: number;
+    readonly height: number;
+    readonly devicePixelRatio: number;
+  };
+  readonly placement?: Rect;
+}
+
+/**
+ * Reads encoded Rec709 luma under a rounded rectangle at device-pixel centres
+ * (W28 Decision Log 2). The source stays at native resolution; sampling is
+ * bilinear with edge clamping, using the renderer's placement/cover convention.
+ * The level is decoded once after averaging; colour remains a linear mean.
+ */
+export function silhouetteBackdropTone(
+  data: Uint8ClampedArray,
+  width: number,
+  height: number,
+  geometry: BackdropSilhouette,
+): BackdropToneSample | undefined {
+  const { bounds, viewport } = geometry;
+  const dpr = viewport.devicePixelRatio;
+  if (width <= 0 || height <= 0 || bounds.width <= 0 || bounds.height <= 0 ||
+      viewport.width <= 0 || viewport.height <= 0 || dpr <= 0) return undefined;
+  let placement = geometry.placement;
+  if (placement === undefined || !Number.isFinite(placement.x) ||
+      !Number.isFinite(placement.y) || placement.width <= 0 || placement.height <= 0) {
+    // This is the renderer's centred cover fit, expressed as a CSS rectangle.
+    const scale = Math.max(viewport.width / width, viewport.height / height);
+    placement = {
+      x: (viewport.width - width * scale) / 2,
+      y: (viewport.height - height * scale) / 2,
+      width: width * scale, height: height * scale,
+    };
+  }
+  const radius = Math.max(0, Math.min(geometry.radius, bounds.width / 2, bounds.height / 2));
+  const cx = bounds.x + bounds.width / 2;
+  const cy = bounds.y + bounds.height / 2;
+  let encoded = 0;
+  let r = 0;
+  let g = 0;
+  let b = 0;
+  let weight = 0;
+  let sampleCount = 0;
+  const endX = Math.min(Math.ceil(viewport.width * dpr), Math.ceil((bounds.x + bounds.width) * dpr));
+  const endY = Math.min(Math.ceil(viewport.height * dpr), Math.ceil((bounds.y + bounds.height) * dpr));
+  for (let y = Math.max(0, Math.floor(bounds.y * dpr)); y < endY; y += 1) {
+    const py = (y + 0.5) / dpr;
+    for (let x = Math.max(0, Math.floor(bounds.x * dpr)); x < endX; x += 1) {
+      const px = (x + 0.5) / dpr;
+      const qx = Math.abs(px - cx) - bounds.width / 2 + radius;
+      const qy = Math.abs(py - cy) - bounds.height / 2 + radius;
+      const distance = Math.hypot(Math.max(qx, 0), Math.max(qy, 0)) +
+        Math.min(Math.max(qx, qy), 0) - radius;
+      if (distance > 0) continue;
+      sampleCount += 1;
+      const sx = Math.max(0, Math.min(width - 1, (px - placement.x) / placement.width * width - 0.5));
+      const sy = Math.max(0, Math.min(height - 1, (py - placement.y) / placement.height * height - 0.5));
+      const x0 = Math.floor(sx);
+      const y0 = Math.floor(sy);
+      const fx = sx - x0;
+      const fy = sy - y0;
+      // Alpha weights declared pixels rather than inventing black where a
+      // transparent source has supplied no backdrop colour.
+      for (let dy = 0; dy <= 1; dy += 1) {
+        for (let dx = 0; dx <= 1; dx += 1) {
+          const i = (Math.min(height - 1, y0 + dy) * width + Math.min(width - 1, x0 + dx)) * 4;
+          const a = (data[i + 3] as number) / 255 *
+            (dx === 0 ? 1 - fx : fx) * (dy === 0 ? 1 - fy : fy);
+          if (a <= 0) continue;
+          const pr = (data[i] as number) / 255;
+          const pg = (data[i + 1] as number) / 255;
+          const pb = (data[i + 2] as number) / 255;
+          encoded += (0.2126 * pr + 0.7152 * pg + 0.0722 * pb) * a;
+          r += srgbDecode(pr) * a;
+          g += srgbDecode(pg) * a;
+          b += srgbDecode(pb) * a;
+          weight += a;
+        }
+      }
+    }
+  }
+  if (weight <= 0) return undefined;
+  const rgb = [r / weight, g / weight, b / weight] as const;
+  const encodedLuminance = encoded / weight;
+  return {
+    rgb, encodedLuminance, luminance: srgbDecode(encodedLuminance),
+    linearLuminance: 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2],
+    footprint: { sampleCount, sourceWidth: width, sourceHeight: height },
+  };
 }
 
 interface Drawable {

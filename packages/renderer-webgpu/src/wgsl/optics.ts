@@ -221,6 +221,8 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// thick z, and a length gate w. Appended so every three-knot field keeps its
   /// byte offset and its original shader branch.
   toneExtra : vec4f,
+  /// W28: whether the per-surface reference field is present (x).
+  localTone : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -243,6 +245,7 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
 /// channel, unioned in the field pass like every other per-surface scalar. One
 /// channel, in the field pass's fourth target — see 'wgsl/field.ts'.
 @group(0) @binding(9) var presenceTexture : texture_2d<f32>;
+@group(0) @binding(10) var localToneTexture : texture_2d<f32>;
 
 /// One encoded sRGB channel from a linear one — the space the backdrop tone
 /// response's anchors live in (W9). Mirrors material.ts's 'linearToSrgbChannel'.
@@ -565,6 +568,27 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     aux = textureLoad(auxTexture, texel, 0);
     aux2 = textureLoad(aux2Texture, texel, 0);
     presence = textureLoad(presenceTexture, texel, 0);
+  }
+
+  // The complete reference changes together: response, collapse colour and
+  // compensation, nominal composition, opacity solve, and the tint/rim readouts.
+  // The source branch retains the old uniforms and arithmetic exactly.
+  var toneStrength = ou.toneAdapt.w;
+  var toneColour = ou.toneColour;
+  var toneLinearMean = ou.toneAnchor.w;
+  if (ou.localTone.x > 0.5) {
+    if (ou.flags.w > 0.5) {
+      toneColour = textureSampleLevel(localToneTexture, fieldSampler, in.uv, 0.0);
+    } else {
+      toneColour = textureLoad(localToneTexture, vec2i(in.uv * ou.flags.yz), 0);
+    }
+    toneLinearMean = dot(toneColour.rgb, vec3f(0.2126, 0.7152, 0.0722));
+    // A fully transparent mask measured no colour and has no local authority.
+    if (toneColour.w < 0.0) {
+      toneStrength = 0.0;
+      toneColour = ou.toneColour;
+      toneLinearMean = ou.toneAnchor.w;
+    }
   }
 
   let d = field.x;
@@ -928,13 +952,13 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    */
   var toneAdapt = 0.0;
   if (ou.toneAdapt.w > 0.0) {
-    let toneX = ou.toneColour.w + ou.toneAdapt.z * sizeK;
+    let toneX = toneColour.w + ou.toneAdapt.z * sizeK;
     let toneT = clamp(
       (toneX - ou.toneAdapt.x) / max(ou.toneAdapt.y - ou.toneAdapt.x, 1e-6),
       0.0,
       1.0,
     );
-    toneAdapt = clamp(ou.toneAdapt.w, 0.0, 1.0) * (1.0 - toneT * toneT * (3.0 - 2.0 * toneT));
+    toneAdapt = clamp(toneStrength, 0.0, 1.0) * (1.0 - toneT * toneT * (3.0 - 2.0 * toneT));
   }
   /*
    * Both the colour and the alpha move, together and not separately. What the
@@ -974,9 +998,9 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    */
   var solvedNeutral = neutral;
   var solvedAlpha = sizedAlpha;
-  if (ou.toneAdapt.w > 0.0 && ou.toneRowThin.w > 0.0 &&
+  if (toneStrength > 0.0 && ou.toneRowThin.w > 0.0 &&
       sizedAlpha > 1e-3 && toneAdapt < 0.995) {
-    let encodedInput = srgb_encode(ou.toneColour.w);
+    let encodedInput = srgb_encode(toneColour.w);
     let anchor = max(ou.toneAnchor.x, 1e-4);
     let authority =
       smoothstep(anchor * 0.5, anchor, encodedInput) * clamp(ou.toneRowThin.w, 0.0, 1.0);
@@ -984,10 +1008,10 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
       let response = tone_response(encodedInput, sizeK, toneLevelFar);
       // The collapse's mean pull is toward L(toneColour.rgb) — the LINEAR
       // mean, which toneAnchor.w carries — not toward the encoded level.
-      let preCollapse = (response - toneAdapt * ou.toneAnchor.w) / (1.0 - toneAdapt);
+      let preCollapse = (response - toneAdapt * toneLinearMean) / (1.0 - toneAdapt);
       let neutralLuma = dot(neutral, vec3f(0.2126, 0.7152, 0.0722));
-      let nominal = (1.0 - sizedAlpha) * ou.toneAnchor.w + sizedAlpha * neutralLuma;
-      let shift = (preCollapse - nominal) / sizedAlpha * authority * ou.toneAdapt.w;
+      let nominal = (1.0 - sizedAlpha) * toneLinearMean + sizedAlpha * neutralLuma;
+      let shift = (preCollapse - nominal) / sizedAlpha * authority * toneStrength;
       solvedNeutral = clamp(neutral + vec3f(shift), vec3f(0.0), vec3f(1.0));
       /*
        * The light attractor needs OPACITY. The light scheme's neutral is
@@ -1000,14 +1024,14 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
        * collapse's own axis with its own fitted constants.
        */
       let solvedLuma = dot(solvedNeutral, vec3f(0.2126, 0.7152, 0.0722));
-      let achieved = (1.0 - sizedAlpha) * ou.toneAnchor.w + sizedAlpha * solvedLuma;
-      if (preCollapse > achieved + 1e-4 && solvedLuma > ou.toneAnchor.w + 1e-3) {
+      let achieved = (1.0 - sizedAlpha) * toneLinearMean + sizedAlpha * solvedLuma;
+      if (preCollapse > achieved + 1e-4 && solvedLuma > toneLinearMean + 1e-3) {
         let alphaTarget = clamp(
-          (preCollapse - ou.toneAnchor.w) / (solvedLuma - ou.toneAnchor.w),
+          (preCollapse - toneLinearMean) / (solvedLuma - toneLinearMean),
           sizedAlpha,
           1.0,
         );
-        solvedAlpha = mix(sizedAlpha, alphaTarget, authority * ou.toneAdapt.w);
+        solvedAlpha = mix(sizedAlpha, alphaTarget, authority * toneStrength);
       }
     }
   }
@@ -1040,7 +1064,7 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * lerped toward it would be a black surface rather than a transmitting one.
    * There the CSS tier's own 'backdrop-filter' is what carries the transmission.
    */
-  var toneTarget = ou.toneColour.rgb;
+  var toneTarget = toneColour.rgb;
   if (ou.flags.x > 0.5 || domMaterial) {
     toneTarget = mix(toneTarget, backdrop, clamp(ou.toneRowThick.w, 0.0, 1.0));
   }
@@ -1198,7 +1222,7 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     // the composite; as a layer it is the layer over the tone the host measured
     // for the group — zero where nothing was measured, the same reference-level
     // convention the CSS tier's 'materialLuminance' takes (within its 0.02).
-    let u = bodyAlpha * dot(colour, vec3f(0.2126, 0.7152, 0.0722)) + (1.0 - bodyAlpha) * ou.toneColour.w;
+    let u = bodyAlpha * dot(colour, vec3f(0.2126, 0.7152, 0.0722)) + (1.0 - bodyAlpha) * toneColour.w;
     let grip = clamp(ou.seed.w, 0.0, 1.0) * clamp(ou.tone.z, 0.0, 1.0) *
       (1.0 - toneAdapt * (1.0 - clamp(ou.rim.w, 0.0, 1.0)));
     let shade = mix(1.0, clamp(mix(ou.tone.x, ou.tone.y, clamp(u, 0.0, 1.0)), 0.0, 1.0), grip);
@@ -1315,7 +1339,7 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    *   author tint layer composites with sixty lines above.
    */
   let rimLuma = materialAlpha * dot(materialColour, vec3f(0.2126, 0.7152, 0.0722))
-    + (1.0 - materialAlpha) * ou.toneColour.w;
+    + (1.0 - materialAlpha) * toneColour.w;
   let rimAmplitude = ou.rim.y + ou.rimLaw.x * rimLuma;
   let rimCollapsed = mix(ou.rimLaw.y, ou.rimLaw.z, tintK);
   /*

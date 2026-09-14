@@ -123,6 +123,8 @@ export interface OpticsPassArgs {
   readonly targetFormat: GPUTextureFormat;
   readonly rectDevice: DeviceRect;
   readonly fields: FieldTargets;
+  /** W28 local linear RGB and decoded encoded level, union-blended per surface. */
+  readonly localTone?: GPUTextureView;
   /** Viewport in device px, and CSS px per device px. */
   readonly viewportDevice: readonly [number, number];
   readonly cssPerDevice: number;
@@ -387,6 +389,7 @@ export interface HighlightPassArgs {
   readonly targetFormat: GPUTextureFormat;
   readonly rectDevice: DeviceRect;
   readonly fields: FieldTargets;
+  readonly localTone?: GPUTextureView;
   readonly viewportDevice: readonly [number, number];
   readonly cssPerDevice: number;
   readonly sweep: number;
@@ -728,7 +731,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.resourceId}`, 116);
+      const slot = uniformSlot(`optics:${args.resourceId}`, 120);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -912,6 +915,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[113] = args.backdropToneResponseThin[3] ?? args.backdropToneResponseThin[2];
       d[114] = args.backdropToneResponseThick[3] ?? args.backdropToneResponseThick[2];
       d[115] = args.backdropToneAnchorX.length === 4 ? 1 : 0;
+      d[116] = args.localTone === undefined ? 0 : 1;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;
@@ -946,6 +950,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
             { binding: 7, resource: args.fields.aux2.createView() },
             { binding: 8, resource: heavy },
             { binding: 9, resource: args.fields.presence.createView() },
+            { binding: 10, resource: args.localTone ?? placeholderView },
           ],
         }),
       );
@@ -975,7 +980,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[16] = args.fields.width;
       d[17] = args.fields.height;
       d[18] = args.fields.upsampled ? 1 : 0;
-      d[19] = 0;
+      d[19] = args.localTone === undefined ? 0 : 1;
       d[20] = args.backdropTone[0];
       d[21] = Math.max(args.backdropTone[1], args.backdropTone[0] + 1e-4);
       d[22] = args.backdropTone[2];
@@ -1017,6 +1022,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
             { binding: 2, resource: args.fields.aux.createView() },
             { binding: 3, resource: context.flatSampler },
             { binding: 4, resource: args.fields.presence.createView() },
+            { binding: 5, resource: args.localTone ?? placeholderView },
           ],
         }),
       );

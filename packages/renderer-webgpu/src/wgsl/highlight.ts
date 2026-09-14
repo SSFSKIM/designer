@@ -49,7 +49,7 @@ export const WGSL_HIGHLIGHT_PASS = `struct HighlightUniforms {
   glow : vec4f,
   /// highlight colour, linear light (xyz), unused (w)
   colour : vec4f,
-  /// fieldSize.xy, fieldUpsampled (z), unused (w)
+  /// fieldSize.xy, fieldUpsampled (z), local tone field present (w, W28)
   flags : vec4f,
   /// backdrop tone adaptation (W7), exactly as the optics pass takes it:
   /// backdropToneLow, backdropToneHigh, the size bias already divided by the
@@ -79,6 +79,7 @@ export const WGSL_HIGHLIGHT_PASS = `struct HighlightUniforms {
 /// bound here for the same reason the optics pass binds it: a highlight is the
 /// material catching light, and a material that is not there catches none.
 @group(0) @binding(4) var presenceTexture : texture_2d<f32>;
+@group(0) @binding(5) var localToneTexture : texture_2d<f32>;
 
 const TAU = 6.283185307179586;
 
@@ -108,6 +109,16 @@ fn fs_highlight(in : FullscreenOut) -> @location(0) vec4f {
     aux = textureLoad(auxTexture, texel, 0);
     presence = textureLoad(presenceTexture, texel, 0);
   }
+  var toneStrength = hu.toneAdapt.w;
+  var toneLevel = hu.toneLevel.x;
+  if (hu.flags.w > 0.5) {
+    if (hu.flags.z > 0.5) {
+      toneLevel = textureSampleLevel(localToneTexture, fieldSampler, fieldUv, 0.0).w;
+    } else {
+      toneLevel = textureLoad(localToneTexture, vec2i(fieldUv * hu.flags.xy), 0).w;
+    }
+  }
+  if (toneLevel < 0.0) { toneStrength = 0.0; }
   let mat = clamp(presence.x, 0.0, 1.0);
   let d = field.x;
   let normal = field.yz;
@@ -156,14 +167,14 @@ fn fs_highlight(in : FullscreenOut) -> @location(0) vec4f {
   );
   let sizeK = clamp(spanT * spanT * (3.0 - 2.0 * spanT) * hu.toneLevel.w, 0.0, 1.0);
   var toneAdapt = 0.0;
-  if (hu.toneAdapt.w > 0.0) {
-    let toneX = hu.toneLevel.x + hu.toneAdapt.z * sizeK;
+  if (toneStrength > 0.0) {
+    let toneX = toneLevel + hu.toneAdapt.z * sizeK;
     let toneT = clamp(
       (toneX - hu.toneAdapt.x) / max(hu.toneAdapt.y - hu.toneAdapt.x, 1e-6),
       0.0,
       1.0,
     );
-    toneAdapt = clamp(hu.toneAdapt.w, 0.0, 1.0) * (1.0 - toneT * toneT * (3.0 - 2.0 * toneT));
+    toneAdapt = clamp(toneStrength, 0.0, 1.0) * (1.0 - toneT * toneT * (3.0 - 2.0 * toneT));
   }
 
   /*

@@ -16,6 +16,7 @@ import { fieldPassSource, WGSL_FIELD_KERNELS } from "./field";
 import { WGSL_HIGHLIGHT_PASS } from "./highlight";
 import { WGSL_OPTICS_PASS } from "./optics";
 import { WGSL_PRELUDE } from "./prelude";
+import { silhouetteFieldModule, silhouetteReductionModule } from "./silhouette-tone";
 
 export * from "./analysis";
 export * from "./cross-check";
@@ -68,6 +69,9 @@ export function allShaderSource(): string {
     importPassSource("external"),
     WGSL_DOWNSAMPLE_PASS,
     WGSL_ANALYSIS_PASS,
+    silhouetteReductionModule(),
+    silhouetteFieldModule("rsupn"),
+    silhouetteFieldModule("rsup"),
     WGSL_OPTICS_PASS,
     WGSL_HIGHLIGHT_PASS,
   ].join("\n\n");

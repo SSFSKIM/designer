@@ -199,6 +199,8 @@ export interface GroupRenderInput {
    * back to a level nobody measured.
    */
   readonly backdropTone?: Rgb;
+  /** Author hints retain precedence over the silhouette reduction. */
+  readonly backdropToneHint?: boolean;
   /**
    * The backdrop's ENCODED-space tone level (W9, claims §5.31–§5.34): the mean
    * taken in sRGB-encoded space, decoded once — the input the reference's tone

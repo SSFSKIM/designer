@@ -146,6 +146,7 @@ export const MATERIAL_PATCH_KEYS = new Set([
   "rimTintChroma",
   // The backdrop tone response (W9): the anchors of R(encodedMean, thickness),
   // measured constants in the profile document like every other key here.
+  "backdropToneAbscissa",
   "backdropToneAnchorX",
   "backdropToneResponseThin",
   "backdropToneResponseThick",
@@ -287,6 +288,16 @@ export function readMaterialProfileFile(path: string): MaterialProfileSections {
     );
   };
   reject("the renderer's MaterialProfilePatch", Object.keys(patch), MATERIAL_PATCH_KEYS);
+  // A locality descriptor is a tagged branch, not an open numeric patch. Refuse
+  // an unrecognised scale instead of recording a parameter the renderer ignores.
+  if ("backdropToneAbscissa" in patch) {
+    const abscissa = patch["backdropToneAbscissa"];
+    const descriptor = object(abscissa);
+    if (abscissa !== "source" && !(descriptor?.["kind"] === "silhouette" &&
+      Object.keys(descriptor).length === 1)) {
+      throw new Error(`--material-profile ${path} gives an invalid backdropToneAbscissa`);
+    }
+  }
   const outerShadow = object(patch["outerShadow"]);
   if (outerShadow !== undefined) {
     reject("the renderer's MaterialOuterShadow", Object.keys(outerShadow), OUTER_SHADOW_KEYS);

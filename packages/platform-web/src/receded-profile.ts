@@ -10,6 +10,9 @@ import type { RendererMaterialProfile } from "./renderer-bridge";
  * checker and photo spatial profiles. It is not a scale-free frost ratio.
  */
 const common: RendererMaterialProfile = {
+  // W28 (claims §5.145) changes only the inactive response's sampling region.
+  // No active document opts in; the two endpoints stay inert until activation ships.
+  backdropToneAbscissa: { kind: "silhouette" },
   tintChromaScale: 0,
   tintShadeCollapseRetention: 1,
   tintShadeStrength: 1,

@@ -424,3 +424,5 @@ export {
   WGSL_RSUPN_GRAD,
   WGSL_SMOOTH_UNION,
 } from "./wgsl";
+
+export type { SurfaceBackdropToneAbscissa } from "./silhouette-tone";

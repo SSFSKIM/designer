@@ -1622,6 +1622,8 @@ export interface MaterialProfile {
    * extreme-dark region stays with the collapse constants that were fitted
    * on it.
    */
+  /** W28: absent/source preserves the source solve; silhouette reduces raw pixels per surface. */
+  readonly backdropToneAbscissa?: "source" | { readonly kind: "silhouette" };
   readonly backdropToneAnchorX: BackdropToneKnotRow;
   readonly backdropToneResponseThin: BackdropToneKnotRow;
   readonly backdropToneResponseThick: BackdropToneKnotRow;
@@ -2770,6 +2772,7 @@ export interface MaterialProfilePatch {
   readonly rimCollapsed?: number;
   readonly rimCollapsedTinted?: number;
   readonly rimTintChroma?: number;
+  readonly backdropToneAbscissa?: MaterialProfile["backdropToneAbscissa"];
   readonly backdropToneAnchorX?: BackdropToneKnotRow;
   readonly backdropToneResponseThin?: BackdropToneKnotRow;
   readonly backdropToneResponseThick?: BackdropToneKnotRow;
@@ -2899,6 +2902,15 @@ export function withMaterialOverrides(
   patch: MaterialProfilePatch,
 ): MaterialProfile {
   rejectRetiredOuterShadowLeaves(patch.outerShadow);
+  const backdropToneAbscissa = patch.backdropToneAbscissa === undefined
+    ? base.backdropToneAbscissa : patch.backdropToneAbscissa;
+  if (backdropToneAbscissa !== undefined && backdropToneAbscissa !== "source" &&
+      (backdropToneAbscissa === null || typeof backdropToneAbscissa !== "object" ||
+       backdropToneAbscissa.kind !== "silhouette" ||
+       Object.keys(backdropToneAbscissa).some((key) => key !== "kind"))) {
+    throw new TypeError("backdropToneAbscissa must be source or { kind: silhouette }");
+  }
+
 
   const optics = {} as Record<MaterialVariant, MaterialOptics>;
   for (const variant of MATERIAL_VARIANTS) {
@@ -3000,6 +3012,7 @@ export function withMaterialOverrides(
     rimCollapsed: patch.rimCollapsed ?? base.rimCollapsed,
     rimCollapsedTinted: patch.rimCollapsedTinted ?? base.rimCollapsedTinted,
     rimTintChroma: patch.rimTintChroma ?? base.rimTintChroma,
+    ...(backdropToneAbscissa === undefined ? {} : { backdropToneAbscissa }),
     backdropToneAnchorX,
     backdropToneResponseThin,
     backdropToneResponseThick,
