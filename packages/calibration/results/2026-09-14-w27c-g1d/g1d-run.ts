@@ -399,7 +399,8 @@ for (const profile of matrix.profiles) {
      * control is a cell the fit is refused on, and a spent holdout id read again
      * would be a second spending under another name whatever it is called here.
      */
-    if (role(sceneId) === "holdout") continue;
+    const cell = `${profile.key}/${sceneId}`;
+    if (role(sceneId) === "holdout" && !declaredHoldout.has(cell)) continue;
     population.push({
       profile: profile.key,
       scene: sceneId,
@@ -467,6 +468,15 @@ const frozen = json(resolve(pkg, "results/2026-09-13-w27c-g1c-fit/fitted-endpoin
 const patchFile = process.argv.includes("--patch") ? resolve(arg("patch")) : undefined;
 const candidate: Record<"light" | "dark", any> =
   patchFile === undefined ? recededMaterialProfile : json(patchFile);
+const includeDeclaredHoldout = process.argv.includes("--include-declared-holdout");
+if (includeDeclaredHoldout && patchFile !== undefined) {
+  throw new Error("A sweep candidate cannot read the frozen endpoint's declared holdout");
+}
+const declaredHoldout = new Set<string>(
+  includeDeclaredHoldout
+    ? json(resolve(here, "fitted-endpoint.json")).holdout.cells
+    : [],
+);
 if (patchFile === undefined) {
   /*
    * With no candidate the exported document has to be a DECLARED endpoint, and
