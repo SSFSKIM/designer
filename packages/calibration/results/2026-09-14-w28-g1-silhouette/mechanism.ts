@@ -100,6 +100,7 @@ try {
       const failure = await page.getAttribute("html", "data-scene-error");
       if (failure !== null) throw new Error(`${c.id}: ${failure}`);
       const report = await page.evaluate(() => window.__vitreaCalibration.report);
+      if (report === undefined) throw new Error(`${c.id}: no capture report`);
       const refusal = captureIntegrityRefusal(report, { canvas: matrix.canvas, scale: c.scale });
       if (refusal !== undefined) throw new Error(`${c.id}: ${refusal}`);
       const placed = placeComponent(matrix.components[target.component], matrix.canvas);

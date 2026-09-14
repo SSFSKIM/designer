@@ -503,6 +503,15 @@ capture is added for this.
 
 ## Surprises & Discoveries
 
+- 2026-09-14 (G1, §5.145): the raw silhouette input passes 335/335 unpressed canonical cells
+  on each tier, with maximum GPU discrepancy 0.02723997831346303 eight-bit codes. The old
+  analysis mip would shift checker/text inputs by as much as 0.13629209995269775 encoded;
+  locality alone is not enough if linear blur precedes encoding. CSS also enlarged a declared
+  120 × 44 content-box host to 122 × 46 with its transparent border. A silhouette-only
+  border-box harness correction fixes that geometry while eight source capture pairs remain
+  byte-identical. First-stage review found redundant raster work and three boundary defects;
+  the separate fix wave closes them without moving sixteen checked input readouts or captures.
+
 - 2026-09-14 (G0, §5.144): the region reversal reproduces, and locality improves clean
   light-active thin isotonic RMS from 0.087204959 (source) to 0.011413806 (silhouette), but
   its runner-up gap is only 0.002036644, below the 0.004 bar. Light-inactive thin body and
@@ -516,6 +525,16 @@ capture is added for this.
   non-D phase evidence rather than borrowing the original D square as a selection baseline.
 
 ## Revision Notes
+
+- 2026-09-14 (parent rulings recorded by G1, §5.145): the input pass condition is one code on
+  every unpressed canonical cell; the 24 interaction cells retain their actual-geometry and
+  abscissa deltas as records because G0 used unpressed masks. The parent also explicitly admits
+  the two light `impulse__rrect-md__inactive` validation rows already present in G1's committed
+  partition as non-D supplying cells. A former configuration's validation role does not bar
+  later supply when it remains recorded and is not called a holdout. No partition is rewritten,
+  and D plus the six W28 holdouts remain excluded from fitting. The exact dark photo-capsule
+  displacement is 0.03734347805587751 at 1x and 0.03800814795956453 at 2x; the Decision Log's
+  rounded 0.037 describes the 1x reading, not a literal all-scale bound.
 
 - 2026-09-14 (the parent): G0 merged (`679cee90`); Decision Log 2 recorded on the user's choice;
   G1 dispatched under §5.145 with the mechanism fixed as the per-surface silhouette mean and the

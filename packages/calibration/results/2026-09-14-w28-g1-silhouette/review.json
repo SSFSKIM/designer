@@ -4,11 +4,31 @@
   "reviewedHead": "f331dc5",
   "initialVerdict": "incorrect",
   "findings": [
-    {"priority": "P1", "finding": "Unchanged GPU silhouettes were reduced every frame", "disposition": "Fixed in separate renderer wave: epoch/resource/geometry/fit cache; live-source governor cadence; static changes immediate; cancellation and identity tests."},
-    {"priority": "P1", "finding": "Each CSS host reread the full native source, including on GPU", "disposition": "Fixed in separate platform wave: one native snapshot per source/cadence; no GPU CPU-silhouette reads; completed GPU references preserve stacked composite predictions."},
-    {"priority": "P2", "finding": "Offscreen bounds expanded reduction work before clipping", "disposition": "Fixed in renderer wave: clip before extent; direct GPU overflow/offscreen regression."},
-    {"priority": "P2", "finding": "CSS-only roots accepted malformed abscissa descriptors", "disposition": "Fixed in platform wave: constructor and replacement validation before allocation or retention."},
-    {"priority": "P2", "finding": "An empty reduction omitted a source fallback that actually drew", "disposition": "Fixed in renderer wave: valid fallback is kind source; genuinely absent reference remains omitted; unknown sampling metadata stays zero."}
+    {
+      "priority": "P1",
+      "finding": "Unchanged GPU silhouettes were reduced every frame",
+      "disposition": "Fixed in separate renderer wave: epoch/resource/geometry/fit cache; live-source governor cadence; static changes immediate; cancellation and identity tests."
+    },
+    {
+      "priority": "P1",
+      "finding": "Each CSS host reread the full native source, including on GPU",
+      "disposition": "Fixed in separate platform wave: one native snapshot per source/cadence; no GPU CPU-silhouette reads; completed GPU references preserve stacked composite predictions."
+    },
+    {
+      "priority": "P2",
+      "finding": "Offscreen bounds expanded reduction work before clipping",
+      "disposition": "Fixed in renderer wave: clip before extent; direct GPU overflow/offscreen regression."
+    },
+    {
+      "priority": "P2",
+      "finding": "CSS-only roots accepted malformed abscissa descriptors",
+      "disposition": "Fixed in platform wave: constructor and replacement validation before allocation or retention."
+    },
+    {
+      "priority": "P2",
+      "finding": "An empty reduction omitted a source fallback that actually drew",
+      "disposition": "Fixed in renderer wave: valid fallback is kind source; genuinely absent reference remains omitted; unknown sampling metadata stays zero."
+    }
   ],
   "verification": {
     "rendererWorkerUnitTests": 497,
@@ -23,5 +43,11 @@
     "The imported mip zero may already be downscaled outside the canonical bed; original and sampled dimensions are disclosed.",
     "The outer shadow's CPU thin regime still uses a source reference. Receded shadow amplitudes are zero; active adoption requires separate work.",
     "G0 interaction predictors use unpressed geometry. Those 24 canonical cells are records, not input-fidelity gates."
-  ]
+  ],
+  "closure": {
+    "head": "1e55b6fa",
+    "verdict": "correct",
+    "remainingMaterialFindings": 0,
+    "scope": "Focused verification of the separate fix wave; no new browser or image read by reviewer"
+  }
 }

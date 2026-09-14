@@ -51,11 +51,15 @@ const common: RendererMaterialProfile = {
  * the selected difference through applyMaterialProfile; G1's calibration harness
  * performs the same merge until that runtime path lands.
  *
- * Superseded once, by W27c G1c (claims §5.141): the 26.5 checking bed measured
+ * W27c G1c (claims §5.141) superseded the initial fit: the 26.5 checking bed measured
  * the two terms §5.139 §6 named, one was fitted and one was refused, and the
- * live declaration is now `2026-09-13-w27c-g1c-fit/fitted-endpoint.json`. The
+ * G1c declaration is `2026-09-13-w27c-g1c-fit/fitted-endpoint.json`. The
  * §5.130 declaration stays on disk unchanged and the two fields G1c moved carry
- * their own paragraphs below. Nothing else in either entry moved.
+ * their own paragraphs below. Nothing else in either entry moved in that gate.
+ *
+ * W28 G1 (claims §5.145) refits the response under a silhouette abscissa. Its
+ * frozen document is `2026-09-14-w28-g1-silhouette/fitted-endpoint.json`; no active
+ * profile or activation observer is changed by these opt-in endpoint documents.
  */
 export const recededMaterialProfile: Readonly<Record<"light" | "dark", RendererMaterialProfile>> = {
   light: {
@@ -66,8 +70,10 @@ export const recededMaterialProfile: Readonly<Record<"light" | "dark", RendererM
     sizeScatterFloor: 0.7,
     sizeScatterRampStartThin1x: 0.55,
     sizeScatterRampStartThin2x: 0.7,
-    backdropToneResponseThin: [0.0126, 0.4, 0.929],
-    backdropToneResponseThick: [0.4553, 0.518, 0.9],
+    // W28's non-D fit under the silhouette abscissa; the sealed rows are in claims §5.145.
+    backdropToneAnchorX: [0.1104, 0.2706, 0.45, 0.9505],
+    backdropToneResponseThin: [0.0126, 0.451, 0.573, 0.933],
+    backdropToneResponseThick: [0.4553, 0.527, 0.63, 0.898],
     /*
      * Under a raised-occlusion policy the recede is a FLAT PANEL, not a backdrop
      * response (W27c G1c, claims §5.141 §4).
@@ -158,8 +164,9 @@ export const recededMaterialProfile: Readonly<Record<"light" | "dark", RendererM
      * the frozen baseline, below the declared 9x refusal cap. The thick far
      * entry moves in the same pass to its measured 0.11753.
      */
-    backdropToneAnchorX: [0.1104, 0.2706, 0.7, 0.9505],
-    backdropToneResponseThin: [0.011, 0.089, 0.1, 0.9326072],
-    backdropToneResponseThick: [0.0215, 0.065, 0.060877, 0.11753],
+    // W28's non-D fit under the silhouette abscissa; the sealed rows are in claims §5.145.
+    backdropToneAnchorX: [0.1104, 0.2706, 0.8, 0.9505],
+    backdropToneResponseThin: [0.011, 0.04092, 0.263, 0.9326072],
+    backdropToneResponseThick: [0.0215, 0.0331, 0.092, 0.11753],
   },
 };
