@@ -1338,6 +1338,10 @@ G1 records every per-scene miss; G2 alone adopts a native stack bound and re-rea
 
 ## Revision Notes
 
+- 2026-09-14, **W28 chartered on the held work** (`2026-09-14-w28-footprint-response.md`, Decision
+  Log 1): the structure-aware inactive response §Deferred names is read against the ledger as W9's
+  deferred per-footprint abscissa first and a structure term only if the reading finds one; W27c
+  G2 and G3 are W28's G3 and G4, chartered verbatim from this document. Nothing here moved.
 - 2026-09-14, **0.17.0 PUBLISHED; clause 5 MET; tag `v0.17.0` at `85f4ad05`.** The user's
   `pnpm release` on the recomposition merge. Registry core 07:33:59Z, web 07:36:34Z, react
   07:36:36Z — dependency order for the first time, so no release-chain window (span 156 s). Cold

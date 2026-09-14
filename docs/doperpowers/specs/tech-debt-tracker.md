@@ -2468,6 +2468,11 @@ land G2's framework-agnostic root option, explicit setter and React prop through
 backgrounded-window pose and the user's eye. Decision Logs 17 and 20 explicitly reject shipping the
 hook on the four profiles that hold today.
 
+*Taken up by W28 (2026-09-14, `2026-09-14-w28-footprint-response.md`): the response work is read
+as W9's deferred per-footprint abscissa first (§5.31, §5.34 residual class 1), a structure term
+second and only on evidence; G2 and G3 above are W28's G3 and G4 behind the unchanged bound holding
+on six profiles. This entry closes when W28's G4 lands.*
+
 ## The inactive material under the accessibility policies follows its backdrop where Apple's does not (W27c G2 read, 2026-09-13)
 
 *Measured on the checking bed, claims §5.139 §6. This one is scored: it is both accessibility
