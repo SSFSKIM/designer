@@ -21775,28 +21775,39 @@ CSS tier's mean cross-tier body ΔE against its WebGPU twin:
 
 | profile | tier | n | mean ΔE | worst ΔE | mean SSIM | mean IoU | cross-tier ΔE |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1x-dark-standard | texture | 45 | 0.010461 | 0.126263 | 0.98714 | 0.94187 | — |
-| 1x-dark-standard | dom | 45 | 0.010183 | 0.094931 | 0.97807 | 0.94105 | 0.003893 |
-| 2x-dark-standard | texture | 45 | 0.010016 | 0.126264 | 0.99124 | 0.92929 | — |
-| 2x-dark-standard | dom | 45 | 0.010900 | 0.095464 | 0.98095 | 0.93139 | 0.004769 |
-| 1x-light-standard | texture | 54 | 0.004640 | 0.047452 | 0.99427 | 0.99805 | — |
-| 1x-light-standard | dom | 54 | 0.004706 | 0.021390 | 0.98714 | 0.99466 | 0.003692 |
-| 2x-light-standard | texture | 54 | 0.004626 | 0.047443 | 0.99747 | 0.99110 | — |
-| 2x-light-standard | dom | 54 | 0.005054 | 0.023816 | 0.99219 | 0.99675 | 0.003966 |
-| 1x-light-increased-contrast | texture | 19 | 0.002587 | 0.009209 | 0.99334 | 0.99252 | — |
-| 1x-light-increased-contrast | dom | 19 | 0.005671 | 0.013730 | 0.95768 | 0.93848 | 0.004291 |
-| 1x-light-reduced-transparency | texture | 18 | 0.001509 | 0.005617 | 0.99914 | 0.92190 | — |
-| 1x-light-reduced-transparency | dom | 18 | 0.001752 | 0.005286 | 0.99836 | 0.93976 | 0.000771 |
+| 1x-dark-standard | texture | 45 | 0.010456 | 0.126263 | 0.987138 | 0.941867 | — |
+| 1x-dark-standard | dom | 45 | 0.010179 | 0.094931 | 0.978067 | 0.941051 | 0.003893 |
+| 2x-dark-standard | texture | 45 | 0.010020 | 0.126264 | 0.991236 | 0.929295 | — |
+| 2x-dark-standard | dom | 45 | 0.010902 | 0.095464 | 0.980955 | 0.931390 | 0.004766 |
+| 1x-light-standard | texture | 54 | 0.004638 | 0.047448 | 0.994271 | 0.998051 | — |
+| 1x-light-standard | dom | 54 | 0.004708 | 0.021386 | 0.987138 | 0.994661 | 0.003693 |
+| 2x-light-standard | texture | 54 | 0.004630 | 0.047440 | 0.997473 | 0.991102 | — |
+| 2x-light-standard | dom | 54 | 0.005050 | 0.023822 | 0.992188 | 0.996750 | 0.003974 |
+| 1x-light-increased-contrast | texture | 19 | 0.002589 | 0.009206 | 0.993340 | 0.992517 | — |
+| 1x-light-increased-contrast | dom | 19 | 0.005673 | 0.013734 | 0.957680 | 0.938482 | 0.004286 |
+| 1x-light-reduced-transparency | texture | 18 | 0.001514 | 0.005621 | 0.999144 | 0.921904 | — |
+| 1x-light-reduced-transparency | dom | 18 | 0.001752 | 0.005289 | 0.998363 | 0.939757 | 0.000770 |
+
+The table is `published-rows.py`'s output, and the form it was first published in was not: its
+three ΔE columns carried a sixth decimal place read off a per-set summary that prints five, so
+that last digit was written rather than measured. `n`, the mean SSIM and the mean IoU reproduce
+exactly. The matrix itself was never wrong — its per-set aggregates are `inactive-rows.txt`'s, at
+the precision that file prints — and no figure above moves by more than **0.000008 absolute and
+0.34 % relative**, so no ordering, no comparison and no sentence below it changes. Every column is
+now printed at six places, which is where the SSIM and IoU columns gain a digit they did not carry
+before. The table is generated because it was the one figure-set in this section standing on no
+script, and a ledger whose currency is reproducibility cannot hold a hand-transcribed table.
 
 These are published fidelity readings and **not** a gate: nothing above is floored, bounded or
 compared against a threshold, and the checking verdict for this endpoint is §5.146's and stays
 §5.146's. The worst inactive cell on every dark profile and tier is
-`mid-chroma-solid__rrect-lg__inactive` (0.126264 texture, 0.095464 dom), and it is the **active**
-material's chroma transfer over a saturated backdrop rather than the recede's — §5.139 §5
-established that and the tracker carries it. The next worst is `impulse__rrect-lg__inactive` at
-0.070460 / 0.072454, the dark low-input residual §5.145 recorded. The widest cross-tier gap,
-0.041200, is `mid-chroma-solid__rrect-lg__inactive` again, on light standard. No number here is a
-new finding and none is gated.
+`mid-chroma-solid__rrect-lg__inactive` — 0.126263 texture and 0.094931 dom at 1x, 0.126264 and
+0.095464 at 2x — and it is the **active** material's chroma transfer over a saturated backdrop
+rather than the recede's — §5.139 §5 established that and the tracker carries it. The next worst
+on both dark profiles is `impulse__rrect-lg__inactive`, 0.070460 / 0.072454 at 1x and 0.069453 /
+0.072153 at 2x, the dark low-input residual §5.145 recorded. The widest cross-tier gap is
+`mid-chroma-solid__rrect-lg__inactive` again, on light standard: 0.041200 at 1x and 0.041170 at
+2x. No number here is a new finding and none is gated.
 
 **3. No floor, and the exclusion is an axis rather than a list.** W27 Decision Log 13 and
 `fitted-endpoint.json`'s `adoptsNoFloor` rule that no inactive floor may be adopted: a regression
