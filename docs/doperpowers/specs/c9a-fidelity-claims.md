@@ -21910,8 +21910,8 @@ activation is a pose of the **root** (X7), that page has one root, and posing it
 would recede the whole site. `apps/demo/src/site/scenes.ts` now records that as the reason those
 scenes stay out of the picker, replacing the earlier "until W27c G3 wires an inactive Stage mode".
 
-**6. The cut, prepared and not published.** Three changesets, all minors, all in the `fixed` group,
-so the cut is **0.18.0** across `@vitreajs/vitrea`, `@vitreajs/vitrea-web` and
+**6. The cut, prepared and not published.** Two changesets declaring three minors, all in the
+`fixed` group, so the cut is **0.18.0** across `@vitreajs/vitrea`, `@vitreajs/vitrea-web` and
 `@vitreajs/vitrea-react`. G1's web-and-React changeset is joined by a core minor this gate adds:
 §5.147 §2 recorded that "core contracts did not move and need no independent minor", and that is
 **corrected here** — G1's `GlassGroupState` gained an optional `backdropToneAbscissae` and core
