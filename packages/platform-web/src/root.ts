@@ -759,7 +759,38 @@ const withCssBody = (
   ...(cssShadow === undefined ? {} : { cssShadow }),
 });
 
+/**
+ * Refuse a host patch that either scheme's material could not draw.
+ *
+ * Both schemes rather than the one resolved right now, for two reasons that meet
+ * here. The scheme is a composition — the app's patch over the scheme's own
+ * document — so a patch can be coherent against one base and not the other, and
+ * whichever is not drawing today is one `setColorScheme` away from drawing. Under
+ * `"auto"` that flip is not even a call the app makes: it arrives on the system's
+ * `prefers-color-scheme` listener, where a throw has nowhere to go and the root
+ * is left half-applied. Checking both is also what lets the constructor refuse
+ * before it has built anything, since reading the resolved scheme would mean
+ * standing up the colour-scheme feed first, and that feed is one of the listeners
+ * a refusal must not leak.
+ *
+ * Only the response rows are checked, because they are the only part of the
+ * profile that is resolved lazily, per frame, deep inside the write phase. Every
+ * other constant is resolved eagerly by `applyMaterialProfile` itself.
+ */
+const rejectUndrawableProfile = (profile: RendererMaterialProfile | undefined): void => {
+  for (const scheme of ["light", "dark"] as const) {
+    resolvedBackdropToneResponse(
+      mergeMaterialProfiles(colorSchemeMaterialProfile(scheme), profile),
+    );
+  }
+};
+
 export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
+  // Before the layer manager, the ink stylesheet and every preference feed: a
+  // constructor that throws never hands back the root, so nothing it has already
+  // built can be destroyed and everything it has taken is leaked.
+  rejectUndrawableProfile(options.materialProfile);
+
   const view = options.window ?? window;
   const devMode = options.devMode ?? true;
   const sink = options.diagnosticSink ?? (devMode ? consoleDiagnosticSink() : undefined);
@@ -1084,14 +1115,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   /** The one material both tiers derive from: the scheme's, tuned by the app's. */
   const activeProfile = (): RendererMaterialProfile | undefined =>
     mergeMaterialProfiles(colorSchemeMaterialProfile(resolvedScheme()), hostProfile);
+  // Already refused at the top of this function, for both schemes, before
+  // anything here was built — the bindings below are initialised from the option
+  // directly rather than through `applyMaterialProfile`, so its guard does not
+  // cover the profile a root is BUILT with.
   const initialProfile = activeProfile();
-  // The construction half of `applyMaterialProfile`'s refusal below. The bindings
-  // under here are initialised from the option directly rather than through that
-  // function, so the setter's guard does not cover the profile a root is BUILT
-  // with — and a constructor that hands back a root which throws on its first
-  // framed backdrop is the worse of the two failures, because there is no earlier
-  // call left to attribute it to.
-  resolvedBackdropToneResponse(initialProfile);
   let resolvedProfile = initialProfile;
 
   const cssMapping: CssTierMapping = { ...CSS_TIER_MAPPING, ...options.cssTierMapping };
@@ -3407,6 +3435,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     },
 
     setMaterialProfile(profile) {
+      // Refused against BOTH schemes before it is held, not just the one drawing.
+      // A patch this root could not draw in the other scheme would otherwise sit
+      // here until something flipped the scheme — and under "auto" that flip
+      // arrives on the system's own media listener, where a throw has no caller
+      // to reach. Checked before `hostProfile` moves, so a refusal leaves the
+      // root holding the patch it was already drawing rather than the bad one.
+      rejectUndrawableProfile(profile);
       // The app's own patch, replacing whatever it passed at construction — and
       // still merged over the colour scheme's base, because the scheme is a
       // separate choice the app has not just changed its mind about.

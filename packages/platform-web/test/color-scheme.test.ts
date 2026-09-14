@@ -24,8 +24,11 @@ import {
   observeColorScheme,
   resolveColorScheme,
   COLOR_SCHEME_MEDIA_QUERY,
+  type ResolvedColorScheme,
 } from "../src/color-scheme";
 import { darkMaterialProfile } from "../src/dark-profile";
+import { resolvedBackdropToneResponse } from "../src/optics";
+import type { RendererMaterialProfile } from "../src/renderer-bridge";
 import { createGlassRoot, type GlassRoot, type GlassRootOptions } from "../src/root";
 import type { MediaMatcher, MediaQueryHandle } from "../src/media-policy";
 
@@ -184,6 +187,64 @@ describe("the scheme's base patch", () => {
     expect(resolveColorScheme("dark", false)).toBe("dark");
     expect(resolveColorScheme("auto", true)).toBe("dark");
     expect(resolveColorScheme("auto", false)).toBe("light");
+  });
+
+  it("presents the same tone response arity in both schemes, so a patch is drawable in both or neither", () => {
+    /*
+     * The property `createGlassRoot` and `setMaterialProfile` lean on when they
+     * refuse an incoherent backdrop tone response against BOTH schemes rather
+     * than the one resolved right now.
+     *
+     * The app holds ONE patch for whichever scheme is drawing, so the question is
+     * whether a patch can be coherent over one base and not the other. Today it
+     * cannot: light's base is the absence of a patch, so it presents the mirror's
+     * three knots, and the dark document names all three rows at three knots too.
+     * A host patch is therefore judged by its own shape alone, and refusing
+     * against both schemes rejects nothing that the active scheme would accept.
+     *
+     * This is a tripwire, not a decoration. The dark receded endpoint already
+     * carries four-knot rows, so the day a four-knot row lands in a SCHEME base
+     * the two bases stop agreeing, a scheme-specific partial patch becomes
+     * expressible, and checking both schemes would start refusing patches the
+     * selected scheme could draw. That is the moment the refusal has to become
+     * per-scheme — with `setColorScheme` validating its target before it sets,
+     * and "auto" still checking both, since the system can flip it with no call
+     * to attribute a throw to. This failing is the signal to do that work.
+     */
+    const arity = (scheme: ResolvedColorScheme): readonly number[] => {
+      const response = resolvedBackdropToneResponse(colorSchemeMaterialProfile(scheme));
+      return [response.anchorX.length, response.thin.length, response.thick.length];
+    };
+    expect(arity("light")).toEqual([3, 3, 3]);
+    expect(arity("dark")).toEqual(arity("light"));
+
+    // And the consequence, on the shapes the shipped endpoints actually take: the
+    // verdict is the patch's own, identical in both schemes.
+    const verdict = (scheme: ResolvedColorScheme, patch: RendererMaterialProfile): string => {
+      try {
+        const response = resolvedBackdropToneResponse(
+          mergeMaterialProfiles(colorSchemeMaterialProfile(scheme), patch),
+        );
+        return `drawn at ${response.anchorX.length}`;
+      } catch {
+        return "refused";
+      }
+    };
+    const cases: readonly RendererMaterialProfile[] = [
+      // The light receded endpoint: both level rows, no anchors.
+      { backdropToneResponseThin: [0.0126, 0.4, 0.929],
+        backdropToneResponseThick: [0.4553, 0.518, 0.9] },
+      // The dark receded endpoint: all three rows at four knots.
+      { backdropToneAnchorX: [0.1104, 0.2706, 0.7, 0.9505],
+        backdropToneResponseThin: [0.011, 0.089, 0.1, 0.9326072],
+        backdropToneResponseThick: [0.0215, 0.065, 0.060877, 0.11753] },
+      // A fourth knot on one row alone, which neither base can complete.
+      { backdropToneAnchorX: [0.1, 0.3, 0.7, 0.95] },
+      { backdropToneResponseThin: [0.01, 0.4, 0.9, 0.95] },
+    ];
+    for (const patch of cases) {
+      expect(verdict("dark", patch), JSON.stringify(patch)).toBe(verdict("light", patch));
+    }
   });
 });
 

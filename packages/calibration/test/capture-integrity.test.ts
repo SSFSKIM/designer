@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { chmodSync, mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import { chmodSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -159,6 +159,48 @@ describe("the material profile document's key admission", () => {
         patch: { increasedOcclusionLiftByPolicy: { [policy]: 0.92 } },
       })).patch).toMatchObject({ increasedOcclusionLiftByPolicy: { [policy]: 0.92 } });
     }
+  });
+
+  it("refuses a per-policy lift that is not a map of policies to numbers", () => {
+    /*
+     * The leaf guard above only looks at a value it could read keys off, so
+     * everything that is not a record walked straight past it. The renderer
+     * SPREADS this block over the defaults, so each of these applies cleanly and
+     * measures something nobody asked for: an array spreads as the numeric keys
+     * `0` and `1` — neither of which is a policy — and a scalar or a null spreads
+     * to nothing at all, leaving both policies on the shared default while the
+     * cell records the document as the configuration that ran. An empty map is
+     * the same no-op one level up. And a leaf that is not a finite number reaches
+     * the lift arithmetic, where a string multiplies to NaN and a NaN alpha is a
+     * surface that does not draw.
+     */
+    const lift = (value: unknown): string =>
+      write({ patch: { increasedOcclusionLiftByPolicy: value } });
+    for (const notAMap of [[0.92, 0.96], 0.92, "0.92", null, true]) {
+      expect(() => readMaterialProfileFile(lift(notAMap)), JSON.stringify(notAMap) ?? "undefined")
+        .toThrow(/increasedOcclusionLiftByPolicy/);
+    }
+    expect(() => readMaterialProfileFile(lift({}))).toThrow(/names no policy/);
+    for (const bad of ["0.92", null, true, {}, []]) {
+      expect(() => readMaterialProfileFile(lift({ reduceTransparency: bad })),
+        JSON.stringify(bad)).toThrow(/reduceTransparency/);
+    }
+    /*
+     * A number that is not finite is the same defect wearing the right type, and
+     * it reaches here as literal JSON rather than through `JSON.stringify` — the
+     * encoder writes `NaN` and `Infinity` out as `null`, so the only way one can
+     * arrive in a committed document is an overflowing literal, which
+     * `JSON.parse` turns into `Infinity` with no error of its own.
+     */
+    const overflow = join(mkdtempSync(join(tmpdir(), "vitrea-profile-")), "profile.json");
+    writeFileSync(overflow,
+      `{ "patch": { "increasedOcclusionLiftByPolicy": { "increaseContrast": 1e999 } } }\n`);
+    expect(JSON.parse(readFileSync(overflow, "utf8")).patch.increasedOcclusionLiftByPolicy
+      .increaseContrast).toBe(Number.POSITIVE_INFINITY);
+    expect(() => readMaterialProfileFile(overflow)).toThrow(/increaseContrast/);
+    // And the shape the sweep actually writes still reads.
+    expect(readMaterialProfileFile(lift({ reduceTransparency: 0.92, increaseContrast: 0.96 })).patch)
+      .toMatchObject({ increasedOcclusionLiftByPolicy: { reduceTransparency: 0.92 } });
   });
 
   it("reads a bare patch, a CSS-only document, and refuses one that would change nothing", () => {
