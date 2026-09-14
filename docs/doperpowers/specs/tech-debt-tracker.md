@@ -2878,9 +2878,11 @@ structure. G4's sheet shows it on `photo__rrect-md__inactive`, a cell outside th
 the contour band reading red on one side and blue on the other, which is lens displacement rather
 than a level error. No constant in either endpoint expresses either one: the response fits a level
 against an abscissa, and W28's abscissa work moved **where** that level is read rather than how much
-structure the material passes. W9's H4 is the candidate law for the interior half and W28 G0 found
-the bed carries no contrast axis at matched abscissa to test it with (largest body-contrast-SD
-difference 0.000024540389 over 123 pairs). Shape of the work: the identifying sitting priced in
+structure the material passes. A third member of the same family, smaller and on the dark standard
+profiles: a **hairline contour** on the bright-solid pane, where no `strongBorderRim` is active and
+so the accessibility-contour entry above does not reach it. W9's H4 is the candidate law for the
+interior half and W28 G0 found the bed carries no contrast axis at matched abscissa to test it with
+(largest body-contrast-SD difference 0.000024540389 over 123 pairs). Shape of the work: the identifying sitting priced in
 W28's §Deferred is what would supply that axis; the contour half needs the cap/refraction separation
 §5.143 §8 named, which is still unstarted.
 

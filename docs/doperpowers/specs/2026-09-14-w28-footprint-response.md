@@ -704,8 +704,8 @@ applied as written, in both directions).
    §5.146, and the demo's backgrounded pose beside the harness capture at the landing — three sheets
    and `eye.md` in §5.148 §4, at 2× in both schemes, which needed the playground's new `colorScheme`
    pin because the recede's endpoints are fitted per scheme and the page could only draw one of
-   them. Every gap that remains is a named line: §5.146 §7, §5.147 §7, §5.148 §5, and eleven tracker
-   entries, six of them written at this landing.
+   them. Every gap that remains is a named line: §5.146 §7, §5.147 §7, §5.148 §5, and the tracker,
+   which gains **nine** entries at this landing and three dated amendments beside existing ones.
 
    The first exception is the one the clause turns on. **The user's eye has not been given and the
    veto has not been exercised.** Decision Log 3 (d) requested it on G2's six sheets and made it the
@@ -870,7 +870,9 @@ visibly wrong on the sheet — which is the sentence this project exists to be a
   items are closed with it. The coverage matrix carries a 2026-09-15 re-score beside the
   2026-09-14 one: §3.6's window-focus row moves `partial` → `replicated+measured`, one row, no row
   added, none downward, 44 → 45 measured of 156 scoreable. `2026-08-28-post-v1-wave.md` gains its
-  post-close addendum. Six tracker entries are new and three are amended beside their originals.
+  post-close addendum. Nine tracker entries are new and three are amended beside their originals.
+  (The commit that landed this recomposition says "six" in its body and lists nine; the count here
+  is the file's.)
 
 - 2026-09-15 (G4, §5.148): the landing closed. The calibration seam is the runtime's — the root is
   posed and handed the capture's scheme, and the receded document is applied by
