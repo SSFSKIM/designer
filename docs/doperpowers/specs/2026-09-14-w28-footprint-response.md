@@ -1,9 +1,11 @@
 # W28 — the footprint response: the inactive material's abscissa under the surface, and what structure adds beyond it
 
 **Status: IN FLIGHT — G0 CLOSED 2026-09-14, not identifiable (§5.144); Decision Log 2 rules the
-simplest survivor built and the bound as referee; G1 CLOSED 2026-09-14 (§5.145), fitted and sealed,
-G2 CLOSED 2026-09-14 (§5.146), unchanged bound holds on six of six; G3 awaits parent dispatch.
-The machine stays on macOS 26.5.2; no identifying sitting was taken.**
+simplest survivor built and the bound as referee; G1 CLOSED 2026-09-14 (§5.145), fitted and sealed;
+G2 CLOSED 2026-09-14 (§5.146), the unchanged bound holds on six of six, merged `237465fa`;
+Decision Log 3 lifts W27c's hold — G3 (the runtime) DISPATCHED 2026-09-15 (§5.147). The user's eye
+on the six G2 sheets is requested before G4's cut. The machine stays on macOS 26.5.2 until the wave
+closes; no identifying sitting was taken.**
 
 Parent: `2026-09-10-w27-coverage-wave.md` (Decision Logs 17 and 20, §Deferred, Outcomes clause 1
 "window focus is measured but not shipped"); `2026-08-28-post-v1-wave.md` post-close addenda
@@ -334,7 +336,7 @@ the charter for G3 and G4 here; this document adds nothing to their scope and re
 - **Contracts:** X1, X7, X8.
 - **Size:** 6–10 agent-hours.
 
-### G3: The runtime — W27c G2 as chartered — controlled
+### G3: The runtime — W27c G2 as chartered — controlled — DISPATCHED 2026-09-15 (Decision Log 3; claims §5.147)
 
 - **Purpose and acceptance:** acceptance 6, verbatim from the W27 spec's W27c G2 and the tracker's
   handoff entry. Framework-agnostic first, React over it; three engines; changeset (a
@@ -399,7 +401,12 @@ declined.
 
 ## Deferred / Out of Scope
 
-The active material's chroma transfer over saturated backdrops (§5.139 §5; the tracker); the
+**The identifying sitting** (Decision Log 3 (e)): the abscissa's kind and scale — silhouette mean
+versus its 1/32 and 1/16 dilations, and whether it is the same on both poses — remain unidentified;
+the experiment G0 designed (two fresh phase placements of the text square, a contrast pair matched
+in encoded region mean, two bright uniform patches near 0.80 and 0.88 for the dark step; about
+twelve cells at 1x, four to six hours at the probe bar) needs a 26.5 machine and is priced, not
+chartered. The active material's chroma transfer over saturated backdrops (§5.139 §5; the tracker); the
 active pose's footprint abscissa (recorded by G0, acted on by a later wave); dark accessibility, 2x
 accessibility, the `clear` variant and the stack regime as inactive evidence classes (W27 §Deferred,
 unchanged); any inactive floor (needs the seventeen-run bar); the `strongBorderRim` one-pixel
@@ -414,7 +421,7 @@ named, not this wave's); the motion-metrics harness; the OS 27 recapture; `promi
 | G1 | CLOSED 2026-09-14 — input check passed, rows fitted, endpoint sealed; G2 unread | §5.145 | `results/2026-09-14-w28-g1-silhouette/` |
 | G1s | — (Decision Log 2) | assigned at dispatch | — |
 | G2 | CLOSED 2026-09-14 — 188 WebGPU rows, six holdouts read once, bound holds on six of six; 182 CSS coherence rows | §5.146 | `results/2026-09-14-w28-g2-read/` |
-| G3 | — | assigned at dispatch | — |
+| G3 | DISPATCHED 2026-09-15 (Decision Log 3) | §5.147 | `results/2026-09-15-w28-g3-runtime/` |
 | G4 | — | assigned at dispatch | — |
 
 ## Decision Log
@@ -504,6 +511,40 @@ capture is added for this. *(Corrected by G1 the same day, the original kept: th
 offset is 0.03734347805587751 at 1x and 0.03800814795956453 at 2x, so the bound is 0.038 across
 scales; both below 0.05, holdout and threshold unchanged.)*
 
+### Decision Log 3 — the bound holds on six; the hold lifts; the runtime is dispatched (2026-09-15; the parent, under Decision Log 2's rule)
+
+G2 (claims §5.146, merged `237465fa`) ran the reader G1 sealed exactly once — 188 WebGPU rows, the
+six holdouts admitted once, no guard refusal, no resumption; 182 CSS rows record-only with every
+holdout excluded — and scored §5.134 §6's bound of 2026-09-11 unchanged, group D reconstructed
+independently by the scorer. **It holds clauses 1–3 jointly on all six profiles**, 72 / 72
+checking cells under their per-cell caps: dark 1x 0.01584 / 0.034, dark 2x 0.01114 / 0.041, light
+1x 0.01277 / 0.032, light 2x 0.01111 / 0.034, Increase Contrast 0.00278 / 0.0078, Reduce
+Transparency 0.00600 / 0.011 on clause 2, every clause-1 worst under its ceiling. The cell that
+held W27c, light `hc-text__rrect-sm__inactive`, is the closest: **0.05932 / 0.064** at 1x and
+**0.05455 / 0.068** at 2x, from 0.07793 and 0.07310 at G1d — under its cap by 7 % and 20 %, and
+still visibly too bright on the sheet. The holdouts: light `hc-text__capsule-button` 0.01746 /
+0.02665 at an offset of −0.137, the two dark cells 0.026–0.054 at offsets 0.030–0.038.
+
+Decision Log 2 made this read the referee: a candidate the reading could not select, tested on
+a checking set the fit never saw. It held. **Ruled:** (a) W27c's hold (W27 Decision Logs 17 and
+20; the tracker's "The window-activation runtime is held behind the inactive response") lifts on
+this evidence — G3, W27c's G2 verbatim, is dispatched under claims §5.147 and G4 follows it;
+(b) the record says what the bound says and no more: holding is not pixel identity, the eye's
+residuals stand as named in §5.146 (the small text control's level, structured transfer and
+rim/lens bands on the large panes, the low-contrast checker's amplitude in dark, the one-pixel
+contour under Increase Contrast, Reduce Transparency's backdrop-dependent slope), and the
+abscissa's kind and scale remain unidentified — the silhouette mean is the candidate that passed,
+not Apple's law; (c) no inactive floor is adopted (W27 Decision Log 13; `fitted-endpoint.json`'s
+`adoptsNoFloor`), and G4 publishes the inactive rows as scene `state` without one; (d) the user's
+eye on the six G2 sheets (`results/2026-09-14-w28-g2-read/sheets/`) is requested now and is the
+veto before G4's cut, not before G3, which changes no material; (e) the identifying sitting is no
+longer a gate's fallback and moves to §Deferred as the experiment that would identify the abscissa
+— it still needs 26.5, so the machine stays on 26.5.2 until the wave closes and the OS decision
+returns then; (f) G3's ledger number is §5.147, G4's assigned at its dispatch. **Rejected:** a
+second read to widen the margin on the text cell (the holdout is spent for this configuration);
+tightening the bound after seeing it hold (the bound was declared before the bed existed and is
+applied as written, in both directions).
+
 ## Surprises & Discoveries
 
 - 2026-09-14 (G1, §5.145): the raw silhouette input passes 335/335 unpressed canonical cells
@@ -529,6 +570,9 @@ scales; both below 0.05, holdout and threshold unchanged.)*
 
 ## Revision Notes
 
+- 2026-09-15 (the parent): G2 merged (`237465fa`); Decision Log 3 recorded — the hold lifts, G3
+  dispatched under §5.147, the user's eye requested on the G2 sheets before G4's cut, the sitting
+  moved to Deferred as the identifying experiment. Status line, G3 status and Tracking Map updated.
 - 2026-09-15 (G2 review closure, §5.146 §8): the independent medium pass over
   `5a517d68..338de679` returns correct with no material findings. Independent arithmetic reproduces
   the verdict and derived tables; in-memory reconstruction matches all six sheets pixel-for-pixel.
