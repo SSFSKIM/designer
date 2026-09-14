@@ -763,10 +763,12 @@ these is closed and each now has, or already had, a tracker entry.
 
 ### The c9d chain at the 0.18.0 head
 
-Run serially on `w28-g4-landing`, one browser at a time, every browser invocation preceded by a
-fresh reading of Reduce Transparency and Increase Contrast off the machine — **0 / 0 before every
-one**, logged in `results/2026-09-15-w28-g4-landing/browser-runs.txt`, with a nonzero reading
-refusing the run. Each step's whole output is kept beside it as `chain-<step>.txt`.
+Run serially on `w28-g4-landing` at the version-bump commit `1400f604`, one browser at a time, every
+browser invocation preceded by a fresh reading of Reduce Transparency and Increase Contrast off the
+machine — **0 / 0 before every one**, logged in `results/2026-09-15-w28-g4-landing/browser-runs.txt`
+(14 readings), with a nonzero reading refusing the run. Each step's whole output is kept beside it
+as `chain-<step>.txt`. Every commit after `1400f604` on this branch touches only `docs/` and this
+gate's own evidence directory, so the chain's head is **code-identical** to the branch head.
 
 | step | command | result |
 | --- | --- | --- |
