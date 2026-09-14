@@ -1,8 +1,8 @@
 # W28 — the footprint response: the inactive material's abscissa under the surface, and what structure adds beyond it
 
-**Status: CHARTERED 2026-09-14 (Decision Log 1; the user's choice after 0.17.0 published, W27 spec
-§Deferred "W27c G2 and G3 — HELD by Decision Log 20"). G0 dispatched the same day (claims §5.144).
-The machine stays on macOS 26.5.2 until Decision Log 2 rules on the sitting.**
+**Status: IN FLIGHT — G0 CLOSED 2026-09-14, not identifiable (§5.144); Decision Log 2 rules the
+simplest survivor built and the bound as referee; G1 DISPATCHED 2026-09-14 (§5.145). The machine
+stays on macOS 26.5.2: the identifying sitting is the fallback if G2 fails.**
 
 Parent: `2026-09-10-w27-coverage-wave.md` (Decision Logs 17 and 20, §Deferred, Outcomes clause 1
 "window focus is measured but not shipped"); `2026-08-28-post-v1-wave.md` post-close addenda
@@ -269,7 +269,7 @@ the charter for G3 and G4 here; this document adds nothing to their scope and re
 
 ## Children
 
-### G0: The abscissa read — controlled, native-only, nothing spent — READ 2026-09-14: NOT IDENTIFIABLE (§5.144; Decision Log 2 required)
+### G0: The abscissa read — controlled, native-only, nothing spent — CLOSED 2026-09-14: NOT IDENTIFIABLE (§5.144; merged `679cee90`; ruled by Decision Log 2)
 
 - **Purpose:** decide, from committed rasters and committed native fixtures, where the reference
   takes the response's input and how much structure adds beyond it, on the recede and on the active
@@ -294,7 +294,7 @@ the charter for G3 and G4 here; this document adds nothing to their scope and re
 - **Size:** 8–12 agent-hours.
 - **Ledger:** claims §5.144.
 
-### G1: The footprint abscissa on both tiers, and the rows refitted — controlled
+### G1: The footprint abscissa on both tiers, and the rows refitted — controlled — DISPATCHED 2026-09-14 (Decision Log 2; claims §5.145)
 
 - **Purpose:** the mechanism, profile-gated; the receded rows refitted under it on non-D cells;
   declared and dry-run.
@@ -303,8 +303,11 @@ the charter for G3 and G4 here; this document adds nothing to their scope and re
   that GPU and CSS read the same abscissa kind from the same document; `tier-coherence.test.ts` and the dom
   floors unchanged at rest; the holdout declared unread; the fitted endpoint's SHA-256s and patch
   digest frozen in `fitted-endpoint.json`; a dry run of the whole G2 read (`DRY`-style: every
-  refusal exercised, no page opened for a holdout cell). If G0 recommends the sitting, G1 waits on
-  Decision Log 2 for the fit's holdout and proceeds with the mechanism meanwhile.
+  refusal exercised, no page opened for a holdout cell). *Under Decision Log 2 the mechanism is
+  fixed as the per-surface silhouette mean (G0's simplest surviving candidate), and the mechanism
+  check is on the INPUT, not the output: the branch's per-surface abscissa, exposed as a readout,
+  equals G0's `per-cell.json` silhouette encoded mean for every selection-population cell within
+  one 8-bit code, on both tiers.*
 - **Edges:** blocked-by G0; blocks G2.
 - **Contracts:** X1, X8.
 - **Size:** 20–30 agent-hours.
@@ -406,8 +409,8 @@ named, not this wave's); the motion-metrics harness; the OS 27 recapture; `promi
 
 | child | status | claims | evidence |
 | --- | --- | --- | --- |
-| G0 | READ 2026-09-14 — not identifiable; waits on Decision Log 2 | §5.144 | `results/2026-09-14-w28-g0-abscissa/` |
-| G1 | — | assigned at dispatch | — |
+| G0 | CLOSED 2026-09-14 — not identifiable; merged `679cee90` | §5.144 | `results/2026-09-14-w28-g0-abscissa/` |
+| G1 | DISPATCHED 2026-09-14 (Decision Log 2) | §5.145 | `results/2026-09-14-w28-g1-silhouette/` |
 | G1s | — (Decision Log 2) | assigned at dispatch | — |
 | G2 | — | assigned at dispatch | — |
 | G3 | — | assigned at dispatch | — |
@@ -452,6 +455,40 @@ committed rasters, that on 1x `hc-text` the square's silhouette mean is 0.5110 a
 0.6988 against the capsule's 0.6026 and 0.5293 — the region choice reverses the predicted order —
 which is why the dilated-silhouette family was added to G0.
 
+### Decision Log 2 — G0's verdict ruled: build the simplest survivor and let the bound judge (2026-09-14; the user, on the parent's recommendation)
+
+G0 (claims §5.144, merged `679cee90`) read the abscissa from 398 committed native cells with the
+checking set excluded and a curve-free statistic, and returned **not identifiable from this bed**:
+locality lowers the clean light-active thin isotonic RMS from 0.087204959 (source) to
+0.011413806 (silhouette), but the runner-up gap is 0.002036644 against the declared 0.004 Y bar;
+the light-inactive thin row ties body with Gaussian 1/32 and the dark-inactive thin row, six
+cells, prefers the source; and the bed carries no contrast axis at matched abscissa (largest
+body-contrast-SD difference 0.000024540389 over 123 pairs), so H4 is untestable rather than
+absent. Three candidates remain noise-compatible on every clean row: the silhouette mean and the
+silhouette dilated by 1/32 and 1/16 of span. The charter's acceptance 1 sends that verdict here.
+
+Put to the user with three paths — build the simplest survivor and let the bound judge; take a
+predeclared identifying sitting first (two fresh phase placements of the text square, a contrast
+pair matched in encoded region mean, two bright uniform patches, about twelve cells at 1x, four
+to six hours of the machine); or stop W28 — the user chose the first. **Ruled:** (a) G1 builds
+the **per-surface silhouette mean** in encoded space as the abscissa, profile-gated
+(`backdropToneAbscissa`), the active material byte-identical (X11); (b) the mechanism check is
+on the input — the branch's per-surface abscissa readout equals G0's per-cell silhouette mean on
+the selection population within one 8-bit code on both tiers — because G0 selected no curve and
+an output check would smuggle one in; (c) the receded rows are refitted under it on non-D cells
+with the same control cap and a holdout declared from probe cells the fit never sees, and the
+unchanged §5.134 §6 bound at G2 is the referee: on the checking set it is a genuine prediction of
+a candidate the reading could not select, which is a test and not a fit to an assumption;
+(d) if G2 fails on any profile, the wave does not refit toward the checking set — the identifying
+sitting above becomes the next ruling, and the machine stays on 26.5.2 until then; (e) G1 is
+dispatched under claims §5.145, evidence `results/2026-09-14-w28-g1-silhouette/`; G2's number is
+assigned at its dispatch. **Rejected:** the sitting first (four to six hours of the user's machine
+to separate three candidates whose difference the bound may already decide for free); stopping
+(the reading bounded the answer to three candidates — that is progress the hold should use); the
+dilated candidates (no evidence prefers them and the silhouette is the one both tiers can carry
+exactly). The acceptance-2 stop clause ("if G0 selects the source mean") did not fire: the source
+won one six-cell row and lost the populous ones by an order of magnitude.
+
 ## Surprises & Discoveries
 
 - 2026-09-14 (G0, §5.144): the region reversal reproduces, and locality improves clean
@@ -468,6 +505,9 @@ which is why the dilated-silhouette family was added to G0.
 
 ## Revision Notes
 
+- 2026-09-14 (the parent): G0 merged (`679cee90`); Decision Log 2 recorded on the user's choice;
+  G1 dispatched under §5.145 with the mechanism fixed as the per-surface silhouette mean and the
+  mechanism check moved to the input. Status line updated.
 - 2026-09-14 (G0): committed the 398-cell population at 8ad63af before reading pixels;
   completed five predictor families on seven-rung ladders, isotonic residuals, uniform checks
   and residual/active-input records under §5.144. Verdict: not identifiable from this bed.
