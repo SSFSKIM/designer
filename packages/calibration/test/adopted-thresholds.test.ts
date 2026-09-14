@@ -2385,10 +2385,16 @@ describe("the inactive pose is published, and gated by nothing (W27 Decision Log
     expect(intruders.map(name)).toEqual([]);
   });
 
-  it("agrees with the declaration on every row that carries a state label", () => {
-    // The label is a copy of a scene property, so the two can only disagree by a
-    // capture run having written a stale one — which would make the drop above
-    // depend on which of the two names happened to be read.
+  it("catches a labelled row left stale by a later edit to the declaration", () => {
+    // Not two independent readings. `cell.state` was copied off this same
+    // declaration at capture time, so what the comparison can find is drift in
+    // time rather than disagreement between two sources: a scene re-posed in
+    // `scenes.json` after its rows were measured leaves rows whose label the
+    // declaration no longer supports, and the drop above would then depend on
+    // which of the two names happened to be read. That is worth holding; a
+    // second reading of the pose would have to come from the capture, and the
+    // capture's own resolved `windowActivation` is checked on the publishing
+    // path instead (`capturePoseRefusal`, claims §5.148 §1).
     const disagreeing = MATRIX_FILE.cells.filter(
       (cell) =>
         cell.state !== undefined &&

@@ -21827,7 +21827,12 @@ floor needs a regime frozen at the seventeen-run bar and this bed stands at the 
 **by the declared pose and never by naming cells** — a list of inactive ids would need a line per
 cell per profile per tier, and every inactive scene added later would join the gate by default,
 which is the failure an axis-shaped exclusion cannot have. The drop reads both names, the cell's
-own `state` label and the scene declaration, and a guard asserts they agree on every labelled row.
+own `state` label and the scene declaration, and a guard asserts they agree on every labelled row
+— which is a check against **drift in time**, not a second reading: the label was copied off that
+same declaration at capture time, so what the guard catches is a scene re-posed in `scenes.json`
+after its rows were measured, leaving the drop dependent on which of the two names is read. The
+capture's own resolved pose is the independent reading, and it is checked where a row is published
+rather than here (§1).
 Five further guards mirror the probe set's, in both directions: the gated bed holds no inactive
 row; the drop removes only probe rows of declared probe scenes or rows of declared inactive scenes;
 no inactive scene is named in `PREDICATE_EXCLUDES`; and no inactive row is floored.
