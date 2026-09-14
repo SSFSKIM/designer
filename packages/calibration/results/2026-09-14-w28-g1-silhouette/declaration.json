@@ -1,0 +1,74 @@
+{
+  "gate": "W28 G1 / claims \u00a75.145",
+  "authority": "W28 Decision Log 2 and coordinator addendum (f)",
+  "declaredBeforeFit": true,
+  "mechanism": "Per-surface silhouette encoded Rec709 luma over finest available raw pixels; source branch unchanged. AnalysisLevel diagnostics are record-only, never a fitted scale.",
+  "mechanismPopulation": "../2026-09-14-w28-g0-abscissa/population.json",
+  "mechanismLimitEncoded": 0.00392156862745098,
+  "mechanismNativeReads": false,
+  "holdout": {
+    "status": "unread on W28 configuration; mechanism INPUT readout is not a vitrea/native output read",
+    "rows": [
+      {
+        "cell": "apple-macos-26.5-1x-light-standard/hc-text__capsule-button__inactive",
+        "manifestRole": "holdout",
+        "sourceEncoded": 0.7400312499999999,
+        "silhouetteEncoded": 0.6026272577996714,
+        "offset": -0.1374039922003285
+      },
+      {
+        "cell": "apple-macos-26.5-2x-light-standard/hc-text__capsule-button__inactive",
+        "manifestRole": "holdout",
+        "sourceEncoded": 0.7402656249999999,
+        "silhouetteEncoded": 0.6029381549208956,
+        "offset": -0.13732747007910429
+      },
+      {
+        "cell": "apple-macos-26.5-1x-dark-standard/photo__capsule-button__inactive",
+        "manifestRole": "calibration",
+        "sourceEncoded": 0.42540525612745095,
+        "silhouetteEncoded": 0.46274873418332846,
+        "offset": 0.03734347805587751
+      },
+      {
+        "cell": "apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-lg__inactive",
+        "manifestRole": "probe",
+        "sourceEncoded": 0.47199999999999986,
+        "silhouetteEncoded": 0.502464853021727,
+        "offset": 0.03046485302172719
+      },
+      {
+        "cell": "apple-macos-26.5-2x-dark-standard/photo__capsule-button__inactive",
+        "manifestRole": "calibration",
+        "sourceEncoded": 0.42535406458026953,
+        "silhouetteEncoded": 0.46336221253983406,
+        "offset": 0.03800814795956453
+      },
+      {
+        "cell": "apple-macos-26.5-2x-dark-standard/checkerboard-64__rrect-lg__inactive",
+        "manifestRole": "probe",
+        "sourceEncoded": 0.47199999999999986,
+        "silhouetteEncoded": 0.5025336681123029,
+        "offset": 0.03053366811230307
+      }
+    ],
+    "limitation": "Dark non-D inactive cells never exceed 0.05 encoded displacement. Largest is photo capsule; the checking-set hc-text square is reserved for G2. Light hc-text capsule is manifest holdout, not probe."
+  },
+  "fit": {
+    "status": "not started; mechanism must pass first",
+    "metric": "equal-cell mean body OKLab \u0394E; WebGPU only",
+    "controls": "Non-D controls; maximum 9\u00d7 frozen G1d per-cell body \u0394E",
+    "denied": "Every D base on both poses; checkerboard__rrect-ml; every W28 holdout cell as fit, control, or sweep row",
+    "baseline": "../2026-09-14-w27c-g1d/frozen-checking-matrix.json"
+  },
+  "unchanged": [
+    "Active profiles",
+    "Fixtures",
+    "Scene spec",
+    "Native harness build",
+    "Goldens",
+    "Golden isolation spec",
+    "Canonical matrix",
+    "Display and accessibility settings"
+  ]
+}
