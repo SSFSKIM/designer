@@ -43,6 +43,20 @@ including a tinted state suffix, to that same admission guard and expects refusa
 - `uniform-check.json`: 52 non-D neutral uniform points, checked against diagnostic row-winner
   monotone envelopes, never supplied to the regression. No map was selected.
 - `residuals.json`: 255 clean-standard per-cell residuals and 123 matched-region-mean pairs.
+- `verification.json`: the committed implementation head, exact verification command/counts,
+  independent review and checked inventory/compatibility reductions.
+
+## Verification
+
+Implementation head **fb4d36a** passes the four instrument tests and
+`pnpm -r build && pnpm -r lint && pnpm -r test`: **156 files / 2,320 workspace tests**.
+An independent `doperpowers:reviewer-medium` review of **7ae115ff..fb4d36a** returned
+**correct, no material findings**. Its inventory check was verified: exactly 420 declared PNG
+hashes, none a D native fixture. Seven of eight required rows miss the separation bar.
+The common noise-compatible alternatives across all eight clean rows are silhouette and
+silhouette dilations 1/32 and 1/16; they are compatible alternatives, not selections.
+Bounded raster-lineage and descriptive-contrast-cutoff debt is recorded in `tech-debt-tracker.md`.
+No second review or fit is needed; the final bookkeeping changes no code or measured number.
 
 ## Population and provenance
 

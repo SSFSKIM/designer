@@ -2473,6 +2473,14 @@ as W9's deferred per-footprint abscissa first (§5.31, §5.34 residual class 1),
 second and only on evidence; G2 and G3 above are W28's G3 and G4 behind the unchanged bound holding
 on six profiles. This entry closes when W28's G4 lands.*
 
+G0's medium review (claims §5.144, 2026-09-14) leaves bounded evidence/documentation debt:
+W9's original background-directory bytes lack a committed hash attestation, and the matched-mean
+pairs supply essentially no contrast axis (maximum body-contrast-SD difference **0.000024540389**;
+the read's looser descriptive cutoff remains 0.05). Preserve the old evidence; a future identifying
+sitting must carry its background hashes and an encoded-region-mean-matched contrast pair, and its
+report should state the exact observed contrast range. No defect changes G0's not-identifiable
+verdict; choosing that sitting or stopping is W28 Decision Log 2's task, not a G0 refit.
+
 ## The inactive material under the accessibility policies follows its backdrop where Apple's does not (W27c G2 read, 2026-09-13)
 
 *Measured on the checking bed, claims §5.139 §6. This one is scored: it is both accessibility

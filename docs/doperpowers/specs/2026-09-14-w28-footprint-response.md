@@ -473,6 +473,9 @@ which is why the dilated-silhouette family was added to G0.
   and residual/active-input records under §5.144. Verdict: not identifiable from this bed.
   G0 recommends neither G1 mechanism yet and hands the sitting/stop choice to Decision Log 2;
   no Decision Log entry, runtime change, capture, fixture edit or D native read by this child.
+  Independent medium review returned no material findings; bounded evidence/documentation debt
+  is logged in the tracker. The implementation passes 4 instrument tests and workspace build,
+  lint and 2,320 tests in 156 files; review converges without another fit or mechanism choice.
 
 - 2026-09-14 (the parent): chartered; adversarially reviewed, four findings folded into acceptance 1
   and 2, §Design, G0, G1 and X10 (Decision Log 1's amendment); G0 dispatched.

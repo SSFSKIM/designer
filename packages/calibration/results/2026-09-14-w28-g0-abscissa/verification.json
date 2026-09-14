@@ -1,0 +1,67 @@
+{
+  "head": "fb4d36a523e51d3de498bee42654689465f3f816",
+  "command": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3 packages/calibration/results/2026-09-14-w28-g0-abscissa/test_read.py && pnpm -r build && pnpm -r lint && pnpm -r test",
+  "exitCode": 0,
+  "instrumentTests": 4,
+  "workspaceTestFiles": 156,
+  "workspaceTests": 2320,
+  "packages": [
+    {
+      "package": "packages/policy",
+      "tests": 23
+    },
+    {
+      "package": "packages/motion",
+      "tests": 164
+    },
+    {
+      "package": "packages/geometry",
+      "tests": 170
+    },
+    {
+      "package": "packages/renderer-webgpu",
+      "tests": 473
+    },
+    {
+      "package": "packages/core",
+      "tests": 302
+    },
+    {
+      "package": "packages/platform-web",
+      "tests": 592
+    },
+    {
+      "package": "packages/calibration",
+      "tests": 414
+    },
+    {
+      "package": "packages/react",
+      "tests": 148
+    },
+    {
+      "package": "apps/demo",
+      "tests": 34
+    }
+  ],
+  "sourceLog": "/private/tmp/claude-501/-Users-new-Developer-GitHub-designer/17c7ce02-f9b0-4ed9-b7de-20ee8bbe3a81/tasks/btd524dv0.output",
+  "cwd": "repository root",
+  "independentReview": {
+    "reviewer": "doperpowers:reviewer-medium",
+    "base": "7ae115ff423f6666d8f7ba329d54f83c784b6ede",
+    "head": "fb4d36a523e51d3de498bee42654689465f3f816",
+    "verdict": "correct; no material findings",
+    "boundedDebt": "W9 original raster hash attestation and the limited matched-mean contrast axis/descriptive cutoff, logged in tech-debt-tracker.md"
+  },
+  "postReviewChecks": {
+    "inputInventory": 420,
+    "DNativeFixtures": 0,
+    "requiredRowsMissingBar": 7,
+    "requiredRows": 8,
+    "commonNoiseCompatibleCleanCandidates": [
+      "dilated/0.03125",
+      "dilated/0.0625",
+      "silhouette"
+    ],
+    "maximumMatchedPairContrastSdDifference": 2.4540388531724133e-05
+  }
+}

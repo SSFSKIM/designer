@@ -21090,8 +21090,22 @@ counterfactual to calculate. No active document or runtime arithmetic moved, as 
 
 **8. Verification and limits.** The four instrument tests were observed failing before the
 isotonic and admission implementations and then passing. The background-only region control
-passes before any native fixture is read. `pnpm -r build && pnpm -r lint && pnpm -r test` passes
-with build first; independent review and final-head verification are recorded below when complete.
+passes before any native fixture is read. At implementation head **fb4d36a**,
+`pnpm -r build && pnpm -r lint && pnpm -r test` passes with build first: **156 files / 2,320 tests**,
+plus **4** instrument tests. The package counts are policy 23, motion 164, geometry 170,
+renderer-webgpu 473, core 302, platform-web 592, calibration 414, React 148 and demo 34.
+`verification.json` records the command, head and counts; the final bookkeeping changes no code
+or measured number.
+
+One independent `doperpowers:reviewer-medium` review of **7ae115ff..fb4d36a** returned
+**correct, no material findings**. Its inventory and statistical conclusions were verified:
+exactly **420** declared fixture/background hashes, **0** D native fixtures, and **7 of 8** required
+rows missing the separation bar. The clean rows retain three common noise-compatible alternatives
+across both poses and schemes — **silhouette, dilation 1/32 and dilation 1/16** — which supports
+“not established and not disproved,” not a unique selection. The W9 raster-lineage limitation and
+loose descriptive contrast cutoff are logged in `tech-debt-tracker.md`, not reopened as a fit;
+the matched-pair maximum contrast-SD change is **0.000024540389**. Review converges here.
+
 The first full calculation reached the output stage and refused on the new-anchor plurality
 record's different metadata schema; the output metadata reader was corrected and the complete
 native-only calculation rerun successfully, without changing the population or its statistics.
