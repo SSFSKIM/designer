@@ -529,6 +529,11 @@ scales; both below 0.05, holdout and threshold unchanged.)*
 
 ## Revision Notes
 
+- 2026-09-15 (G2 review closure, §5.146 §8): the independent medium pass over
+  `5a517d68..338de679` returns correct with no material findings. Independent arithmetic reproduces
+  the verdict and derived tables; in-memory reconstruction matches all six sheets pixel-for-pixel.
+  No fix wave, further read, constant, matrix, sheet or verdict change is needed.
+
 - 2026-09-14 (G2, §5.146): the sealed endpoint reads all 188 planned WebGPU rows, including
   six holdouts admitted once with two deterministic repeats each, then 182 CSS record-only rows
   excluding every holdout. All 72 checking cells hold the unchanged bound; six of six profiles

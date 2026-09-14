@@ -21515,3 +21515,12 @@ reader checked two deterministic repeats per row, **740 screenshots** in total. 
 fixtures, scenes, active documents, receded patch, goldens and canonical matrix are unchanged. No
 new unit-suite or golden result is claimed for this evidence-only gate; §5.145's source verification
 remains its own record.
+
+**8. Independent review (2026-09-15).** One `doperpowers:reviewer-medium` pass over
+`5a517d68412366688485e0a6f9a28d5b0124b014..338de6794efe31d3e20790be6655399726e64867`
+returns **correct, no material findings**. Its independent recomputation reproduces the verdict
+and derived tables; in-memory sheet reconstruction matches all six committed PNGs pixel-for-pixel.
+It verifies the six holdouts, 188 WebGPU rows, 182 CSS rows, 72 checking cells and provenance
+against the seal and ledger. `review.json` records the range and disposition. No finding requires
+a fix wave or debt entry; the review closes after this one pass. No measured number, matrix,
+sheet, configuration or verdict changes in recording its closure.
