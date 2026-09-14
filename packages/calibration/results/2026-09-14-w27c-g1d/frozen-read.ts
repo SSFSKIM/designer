@@ -435,7 +435,9 @@ population.sort((a, b) => `${a.profile}/${a.scene}`.localeCompare(`${b.profile}/
 
 mkdirSync(out, { recursive: true });
 const resultFile = resolve(out, `${label}.json`);
-if (existsSync(resultFile)) throw new Error(`Refusing to replace ${resultFile}`);
+if (existsSync(resultFile) && !process.argv.includes("--resume")) {
+  throw new Error(`Refusing to replace ${resultFile}`);
+}
 
 const sourceSha256 = Object.fromEntries(
   [
