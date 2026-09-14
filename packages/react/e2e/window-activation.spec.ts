@@ -29,45 +29,61 @@ async function readout(page: Page, label: string): Promise<string> {
   }, label);
 }
 
+/** The declarations the CSS tier writes for a surface; empty ones belong to whoever writes them. */
+const MATERIAL_PROPERTIES = [
+  "backdrop-filter",
+  "-webkit-backdrop-filter",
+  "background-color",
+  "background-image",
+  "box-shadow",
+  "border-width",
+  "border-color",
+  "--vitrea-tint",
+  "--vitrea-occlusion",
+  "--vitrea-border-color",
+  "--vitrea-blur",
+] as const;
+
 /**
- * Everything this tier declares for one surface, host and layers together.
+ * Everything this tier *wrote* for one surface, host and layers together.
  *
- * **Not the host's `box-shadow`**, which is what this read used to be and what
- * made it useless: since W18 G1 the outer shadow is written by whichever carrier
- * took it out of the body's own backdrop — L3, or the group's shadow container —
- * and the host writes `none` on every carrier but the fallback. So both poses
- * read `none` there, and an assertion on it could never fail for the reason it
- * was written and could never pass for one either.
+ * Two corrections are folded into this one read, and both were assumptions about
+ * where a material lives rather than about what it is.
  *
- * What replaces it is the tier's whole output rather than a term chosen in
- * advance. Which declaration a material change lands in is the profile
- * document's business and it moves between waves; what a binding test is
- * entitled to claim is that the recede reaches this tier's declarations at all.
- * The three layers (`sharp`, `heavy`, `overlay`) carry the two filters, the
- * tint, the press glow and the rim; the host carries the published tokens and
- * the fallback shadow.
+ * **Not the host's `box-shadow` alone.** Since W18 G1 the outer shadow is written
+ * by whichever carrier took it out of the body's own backdrop — L3, or the
+ * group's shadow container — and the host writes `none` on every carrier but the
+ * clipping-ancestor fallback. An assertion on that one property could not fail
+ * for the reason it was written, and could not pass for one either. So the read
+ * is the tier's whole output across the host and its three layers (`sharp`,
+ * `heavy`, `overlay`), because which declaration a material change lands in is
+ * the profile document's business and moves between waves.
+ *
+ * **And `element.style`, never `getComputedStyle`.** The tier writes its
+ * declarations inline — `css-tier-layers.ts` for the layers, the host's own write
+ * in `root.ts` — so the inline value is the endpoint it decided on, while a
+ * computed value during an armed transition is a frame of the transit toward it.
+ * WebKit caught the difference: the tier writes `backdrop-filter` and
+ * `-webkit-backdrop-filter` from one string, the engine interpolates them as two
+ * transitions, and a computed baseline disagreed with *itself* by a thousandth of
+ * a pixel across the pair. What this file claims is that a prop reaches this
+ * tier's declarations; the transit between two frozen endpoints is the tier's own
+ * and is asserted where transitions are the subject.
  */
 async function materialOf(page: Page): Promise<string> {
-  return page.getByTestId("dom-plate").evaluate((host) => {
-    const read = (element: Element): string => {
-      const computed = getComputedStyle(element);
-      return [
-        "backdrop-filter",
-        "-webkit-backdrop-filter",
-        "background-color",
-        "background-image",
-        "box-shadow",
-        "border-color",
-        "--vitrea-tint",
-        "--vitrea-occlusion",
-        "--vitrea-border-color",
-        "--vitrea-blur",
-      ]
-        .map((property) => `${property}: ${computed.getPropertyValue(property).trim()}`)
-        .join("; ");
-    };
-    return [host, ...host.querySelectorAll("[data-vitrea-css-layer]")].map(read).join("\n");
-  });
+  return page.getByTestId("dom-plate").evaluate(
+    (host, properties) =>
+      [host, ...host.querySelectorAll<HTMLElement>("[data-vitrea-css-layer]")]
+        .map((element) =>
+          properties
+            .map((property) => [property, element.style.getPropertyValue(property)] as const)
+            .filter(([, value]) => value !== "")
+            .map(([property, value]) => `${property}: ${value}`)
+            .join("; "),
+        )
+        .join("\n"),
+    MATERIAL_PROPERTIES,
+  );
 }
 
 /**
@@ -118,6 +134,9 @@ test("a pin holds the recede while the window has focus, and the material follow
 
 test("returning the pin to auto hands the pose back to the window", async ({ page }) => {
   await gotoPlayground(page);
+  // The pose is settled before the baseline is taken, so what is captured is the
+  // active endpoint rather than whatever a still-materializing surface had.
+  await expect.poll(async () => readout(page, "windowActivation")).toBe("active");
   const active = await materialOf(page);
 
   await page.getByLabel("windowActivation pin").selectOption("inactive");
