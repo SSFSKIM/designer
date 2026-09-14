@@ -1,0 +1,89 @@
+{
+ "gate": "W27c G1d / claims §5.143",
+ "kind": "machine-readable transcription of declaration.md, committed before the first fit rung",
+ "authority": "W27 Decision Logs 18 and 19; declaration.md is the prior committed declaration",
+ "objective": {
+  "metric": "equal-cell mean body OKLab deltaE on fit cells only",
+  "tier": "WebGPU; CSS is record-only under X1",
+  "controlCap": "refuse a rung if any declared control exceeds 9x its frozen G1c body-deltaE baseline",
+  "holdout": "read once after both fits are frozen; no constant moves afterward"
+ },
+ "groups": [
+  {
+   "id": "F",
+   "role": "supplying",
+   "scenes": [
+    "mid-light-solid__capsule-button__inactive",
+    "mid-light-solid__rrect-sm__inactive",
+    "mid-light-solid__rrect-ml__inactive",
+    "mid-light-solid__rrect-lg__inactive"
+   ]
+  }
+ ],
+ "terms": [
+  {
+   "id": "T1",
+   "name": "dark thin response with the Decision Log 18 anchor, plus the dark thick far ordinate",
+   "calibration": {
+    "cells": [
+     "apple-macos-26.5-1x-dark-standard/mid-light-solid__rrect-sm__inactive",
+     "apple-macos-26.5-2x-dark-standard/mid-light-solid__rrect-sm__inactive",
+     "apple-macos-26.5-1x-dark-standard/light-solid__rrect-sm__inactive",
+     "apple-macos-26.5-2x-dark-standard/light-solid__rrect-sm__inactive",
+     "apple-macos-26.5-1x-dark-standard/light-solid__rrect-lg__inactive",
+     "apple-macos-26.5-2x-dark-standard/light-solid__rrect-lg__inactive"
+    ]
+   },
+   "controls": {
+    "cells": [
+     "apple-macos-26.5-{1x,2x}-dark-standard/dark-solid__rrect-sm__inactive",
+     "apple-macos-26.5-{1x,2x}-dark-standard/mid-dark-solid__rrect-sm__inactive",
+     "apple-macos-26.5-{1x,2x}-dark-standard/hc-text__rrect-sm__inactive",
+     "apple-macos-26.5-{1x,2x}-dark-standard/checkerboard-lc16__capsule-button__inactive",
+     "apple-macos-26.5-{1x,2x}-dark-standard/checkerboard__capsule-button__inactive",
+     "apple-macos-26.5-{1x,2x}-dark-standard/photo__capsule-button__inactive",
+     "apple-macos-26.5-{1x,2x}-dark-standard/mid-light-solid__rrect-lg__inactive"
+    ]
+   },
+   "holdout": {
+    "cells": [
+     "apple-macos-26.5-1x-dark-standard/mid-light-solid__capsule-button__inactive",
+     "apple-macos-26.5-2x-dark-standard/mid-light-solid__capsule-button__inactive",
+     "apple-macos-26.5-1x-dark-standard/mid-light-solid__rrect-ml__inactive",
+     "apple-macos-26.5-2x-dark-standard/mid-light-solid__rrect-ml__inactive"
+    ],
+    "readOnce": "after both terms are frozen"
+   }
+  },
+  {
+   "id": "T2",
+   "name": "accessibility occlusion level per policy",
+   "calibration": {
+    "cells": [
+     "apple-macos-26.5-1x-light-increased-contrast/checkerboard__rrect-md__inactive",
+     "apple-macos-26.5-1x-light-increased-contrast/photo__rrect-md__inactive",
+     "apple-macos-26.5-1x-light-reduced-transparency/checkerboard__rrect-md__inactive",
+     "apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-md__inactive"
+    ]
+   },
+   "controls": {
+    "cells": [
+     "apple-macos-26.5-1x-light-{increased-contrast,reduced-transparency}/dark-solid__rrect-48__inactive",
+     "apple-macos-26.5-1x-light-{increased-contrast,reduced-transparency}/dark-solid__rrect-80__inactive",
+     "apple-macos-26.5-1x-light-{increased-contrast,reduced-transparency}/hc-text-28__rrect-md__inactive",
+     "apple-macos-26.5-1x-light-{increased-contrast,reduced-transparency}/light-solid__rrect-ml__inactive"
+    ]
+   },
+   "holdout": {
+    "cells": [
+     "apple-macos-26.5-1x-light-increased-contrast/hc-text__capsule-button__inactive",
+     "apple-macos-26.5-1x-light-increased-contrast/photo__rrect-lg__inactive",
+     "apple-macos-26.5-1x-light-reduced-transparency/hc-text__capsule-button__inactive",
+     "apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-lg__inactive"
+    ],
+    "readOnce": "with T1 holdout after both terms are frozen"
+   }
+  }
+ ],
+ "adoptsNoFloor": "Decision Log 13's probe bar stands"
+}
