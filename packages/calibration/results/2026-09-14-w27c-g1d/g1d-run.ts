@@ -180,6 +180,16 @@ for (const group of bedSpec.groups) {
 for (const component of ["capsule-button", "rrect-sm", "rrect-ml", "rrect-lg"]) {
   groupsOf.set(`mid-light-solid__${component}__inactive`, ["F"]);
 }
+const includeDeclaredHoldout = process.argv.includes("--include-declared-holdout");
+const declaredHoldout = new Set<string>(
+  includeDeclaredHoldout
+    ? json(resolve(here, "fitted-endpoint.json")).holdout.cells
+    : [],
+);
+for (const cell of declaredHoldout) {
+  const scene = cell.slice(cell.indexOf("/") + 1);
+  if (!groupsOf.has(scene)) groupsOf.set(scene, ["H"]);
+}
 const role = (id: string): string =>
   ["calibration", "validation", "holdout", "recorded", "probe"]
     .find((set) => (matrix.split[set] ?? []).includes(id)) ?? "unassigned";
@@ -466,17 +476,11 @@ const frozen = json(resolve(pkg, "results/2026-09-13-w27c-g1c-fit/fitted-endpoin
  * than the candidate this file handed it.
  */
 const patchFile = process.argv.includes("--patch") ? resolve(arg("patch")) : undefined;
-const candidate: Record<"light" | "dark", any> =
-  patchFile === undefined ? recededMaterialProfile : json(patchFile);
-const includeDeclaredHoldout = process.argv.includes("--include-declared-holdout");
 if (includeDeclaredHoldout && patchFile !== undefined) {
   throw new Error("A sweep candidate cannot read the frozen endpoint's declared holdout");
 }
-const declaredHoldout = new Set<string>(
-  includeDeclaredHoldout
-    ? json(resolve(here, "fitted-endpoint.json")).holdout.cells
-    : [],
-);
+const candidate: Record<"light" | "dark", any> =
+  patchFile === undefined ? recededMaterialProfile : json(patchFile);
 if (patchFile === undefined) {
   /*
    * With no candidate the exported document has to be a DECLARED endpoint, and
