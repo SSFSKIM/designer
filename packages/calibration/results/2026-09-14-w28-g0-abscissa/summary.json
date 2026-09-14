@@ -1,0 +1,2933 @@
+{
+  "gate": "W28 G0 / claims \u00a75.144",
+  "verdict": "not identifiable from this bed",
+  "selected": null,
+  "count": 398,
+  "populationMetadataCorrection": "The immutable declaration labels 32 non-recovered inactive rows as manifest-attested active. Their pose field was always inactive and selection membership is unchanged. Per-cell provenance corrects that label to manifest-attested inactive (non-recovered probe).",
+  "countsByPolicyPose": {
+    "standard/active": 250,
+    "standard/inactive": 110,
+    "increased-contrast/inactive": 10,
+    "increased-contrast/active": 10,
+    "reduced-transparency/inactive": 9,
+    "reduced-transparency/active": 9
+  },
+  "noise": {
+    "thresholdLinearY": 0.004,
+    "status": "Charter decision bar, approximately one 8-bit code on the recovered single-run bed; not a re-estimated per-cell Y variance. Plurality JSON records state shares, not raw pixel spread.",
+    "source": "2026-09-11-w27-26.5-run/provenance.json and 2026-09-14-w27c-g1d/plurality.json; \u00a75.143 \u00a71 records minority differences <= one code for the new neutral anchors",
+    "passes": [
+      {
+        "pass": "inactive-2x",
+        "runs": 7,
+        "cells": 76,
+        "unanimousCells": 65,
+        "agreementHistogram": {
+          "7": 65,
+          "6": 11
+        }
+      },
+      {
+        "pass": "active-2x",
+        "runs": 7,
+        "cells": 4,
+        "unanimousCells": 2,
+        "agreementHistogram": {
+          "7": 2,
+          "6": 1,
+          "4": 1
+        }
+      },
+      {
+        "pass": "inactive-1x",
+        "runs": 7,
+        "cells": 76,
+        "unanimousCells": 71,
+        "agreementHistogram": {
+          "7": 71,
+          "6": 5
+        }
+      },
+      {
+        "pass": "active-1x",
+        "runs": 7,
+        "cells": 4,
+        "unanimousCells": 4,
+        "agreementHistogram": {
+          "7": 4
+        }
+      },
+      {
+        "pass": "inactive-1x-increase-contrast",
+        "runs": 7,
+        "cells": 14,
+        "unanimousCells": 9,
+        "agreementHistogram": {
+          "7": 9,
+          "5": 4,
+          "4": 1
+        }
+      },
+      {
+        "pass": "inactive-1x-reduce-transparency",
+        "runs": 7,
+        "cells": 14,
+        "unanimousCells": 9,
+        "agreementHistogram": {
+          "7": 9,
+          "6": 2,
+          "5": 3
+        }
+      },
+      {
+        "pass": "g1d-inactive-2x",
+        "runs": 7,
+        "cells": 4
+      },
+      {
+        "pass": "g1d-inactive-1x",
+        "runs": 7,
+        "cells": 4
+      }
+    ]
+  },
+  "regionChecks": [
+    {
+      "component": "rrect-sm",
+      "silhouette": 0.5109999999999999,
+      "body": 0.6988416988416988
+    },
+    {
+      "component": "capsule-button",
+      "silhouette": 0.6026272577996715,
+      "body": 0.5292848335388408
+    }
+  ],
+  "rowVerdicts": {
+    "all/dark/active/thick": {
+      "best": "gaussian/0.25",
+      "runnerUp": "dilated/0.125",
+      "margin": 4.242117790144613e-06,
+      "ranking": [
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.0020694959996911495
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.002073738117481294
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.002089550409762261
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.0021671693900989835
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.00217987959046602
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.0021847345366403466
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.0022056124389242216
+        },
+        {
+          "predictor": "source",
+          "rms": 0.0022056124389242216
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.002401796618910325
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.002473416717804205
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0027218378579580474
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.0027250257698148727
+        },
+        {
+          "predictor": "body",
+          "rms": 0.0029539126786721224
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.0029539126786721224
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.0029539126786721224
+        }
+      ]
+    },
+    "all/dark/active/thin": {
+      "best": "body",
+      "runnerUp": "gaussian/0.03125",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "body",
+          "rms": 0.14170291678173821
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.14170291678173821
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.14170291678173821
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.14170291678173821
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.14316994490449766
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.14325651498460254
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.14329784771823548
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.14329784778628987
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.14329784819594915
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.14329784826400355
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.14329784826400355
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.14329785598416062
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.14329785598416062
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.14329785598416062
+        },
+        {
+          "predictor": "source",
+          "rms": 0.14329785598416062
+        }
+      ]
+    },
+    "all/dark/inactive/thick": {
+      "best": "gaussian/0.03125",
+      "runnerUp": "gaussian/0.0625",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.002381127646070605
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.002381127646070605
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.002381127646070605
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.0023811283799119376
+        },
+        {
+          "predictor": "body",
+          "rms": 0.002381130662113982
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.0029364869524149155
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0029364869524149155
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "source",
+          "rms": 0.00293657945677677
+        }
+      ]
+    },
+    "all/dark/inactive/thin": {
+      "best": "body",
+      "runnerUp": "dilated/0.125",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "body",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.0438443771284967
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0438443771284967
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.0438443771284967
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.0438443771284967
+        },
+        {
+          "predictor": "source",
+          "rms": 0.0438443771284967
+        }
+      ]
+    },
+    "all/light/active/thick": {
+      "best": "source",
+      "runnerUp": "gaussian/0.5",
+      "margin": 0.001351283747189222,
+      "ranking": [
+        {
+          "predictor": "source",
+          "rms": 0.095122224318176
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.09647350806536523
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.09656493848908719
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.09721498206723009
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.09723800518299783
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.09797555868287691
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.09818912369207002
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.09902090961432464
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.09902090961432464
+        },
+        {
+          "predictor": "body",
+          "rms": 0.09902091179323425
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.09902176730336323
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.09914380646822282
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.09914380650294297
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.09916278149898747
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.09917349561397756
+        }
+      ]
+    },
+    "all/light/active/thin": {
+      "best": "dilated/0.25",
+      "runnerUp": "dilated/0.125",
+      "margin": 0.00019291047279113016,
+      "ranking": [
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.1779979201388139
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.17819083061160504
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.1789207074315113
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.1795257670915192
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.1796905431255809
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.17977925076590362
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.1798513741705525
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.1822887900161271
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.18301220537702317
+        },
+        {
+          "predictor": "body",
+          "rms": 0.18307019780414707
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.18307019780414707
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.18307019780414707
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.18561753542452622
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.19109497048395346
+        },
+        {
+          "predictor": "source",
+          "rms": 0.1924303980952044
+        }
+      ]
+    },
+    "all/light/inactive/thick": {
+      "best": "source",
+      "runnerUp": "gaussian/1",
+      "margin": 0.003549410383589996,
+      "ranking": [
+        {
+          "predictor": "source",
+          "rms": 0.1268780833734692
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.1304274937570592
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.13063874666557682
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.13066056146968608
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.13066058200303293
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.13068452721135956
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.1322718936184882
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.1336312340667452
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.1336312340667452
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.13363123883856215
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.13374600804996836
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.13374600804996836
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.13374600804996836
+        },
+        {
+          "predictor": "body",
+          "rms": 0.13374600811746476
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.13374606065421907
+        }
+      ]
+    },
+    "all/light/inactive/thin": {
+      "best": "source",
+      "runnerUp": "body",
+      "margin": 0.005947787144907596,
+      "ranking": [
+        {
+          "predictor": "source",
+          "rms": 0.1658015755057582
+        },
+        {
+          "predictor": "body",
+          "rms": 0.1717493626506658
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.1717493626506658
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.1717493626506658
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.1717493626506658
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.17174936726551815
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.17174936726551815
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.17174936726551815
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.17174936726551815
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.17174936739647173
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.17174936739647173
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.17287223876691976
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.17287223876691976
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.17313431615512212
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.17313431615512212
+        }
+      ]
+    },
+    "clean-standard/dark/active/thick": {
+      "best": "gaussian/0.25",
+      "runnerUp": "dilated/0.125",
+      "margin": 4.242117790144613e-06,
+      "ranking": [
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.0020694959996911495
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.002073738117481294
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.002089550409762261
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.0021671693900989835
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.00217987959046602
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.0021847345366403466
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.0022056124389242216
+        },
+        {
+          "predictor": "source",
+          "rms": 0.0022056124389242216
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.002401796618910325
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.002473416717804205
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0027218378579580474
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.0027250257698148727
+        },
+        {
+          "predictor": "body",
+          "rms": 0.0029539126786721224
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.0029539126786721224
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.0029539126786721224
+        }
+      ]
+    },
+    "clean-standard/dark/active/thin": {
+      "best": "gaussian/0.25",
+      "runnerUp": "body",
+      "margin": 0.0004096141581877424,
+      "ranking": [
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.005499203854024257
+        },
+        {
+          "predictor": "body",
+          "rms": 0.005908818012211999
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.005908818012211999
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.00590884709071896
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.00590884709071896
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.00829159871040997
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.008292302895940991
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.008292317530739647
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.008292317530739647
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.008292524544392938
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.010280108317178266
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.012332794095511045
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.012729342793658407
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.016355109542558706
+        },
+        {
+          "predictor": "source",
+          "rms": 0.01653255581354687
+        }
+      ]
+    },
+    "clean-standard/dark/inactive/thick": {
+      "best": "gaussian/0.03125",
+      "runnerUp": "gaussian/0.0625",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.002381127646070605
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.002381127646070605
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.002381127646070605
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.0023811283799119376
+        },
+        {
+          "predictor": "body",
+          "rms": 0.002381130662113982
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.0029364869524149155
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0029364869524149155
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "source",
+          "rms": 0.00293657945677677
+        }
+      ]
+    },
+    "clean-standard/dark/inactive/thin": {
+      "best": "source",
+      "runnerUp": "body",
+      "margin": 0.00011541500033080776,
+      "ranking": [
+        {
+          "predictor": "source",
+          "rms": 0.000284996976416923
+        },
+        {
+          "predictor": "body",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.00040041309623646174
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.00040041309623646174
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.00040041309623646174
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.00040041309623646174
+        }
+      ]
+    },
+    "clean-standard/light/active/thick": {
+      "best": "gaussian/0.03125",
+      "runnerUp": "gaussian/0.0625",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.008331712478255683
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.008331712478255683
+        },
+        {
+          "predictor": "body",
+          "rms": 0.008331743705666963
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.00834399561546551
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.008928324096631161
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.008928361030198641
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.008928361495120782
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.009052688973234219
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.009317494876156403
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.009745337209454242
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.010227875926122607
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.01104086984618266
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.015880941336324395
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.01592313009963097
+        },
+        {
+          "predictor": "source",
+          "rms": 0.01618652658937923
+        }
+      ]
+    },
+    "clean-standard/light/active/thin": {
+      "best": "silhouette",
+      "runnerUp": "dilated/0.03125",
+      "margin": 0.002036644247465377,
+      "ranking": [
+        {
+          "predictor": "silhouette",
+          "rms": 0.011413806072943391
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.013450450320408768
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.01510346806338094
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.015555725108344532
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.015629847787420145
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.015881889136844515
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.017696387913476212
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.02662553757068867
+        },
+        {
+          "predictor": "body",
+          "rms": 0.03216984496380897
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.032183488145733304
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.032183488145733304
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.03796872273197906
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.0613186946344418
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.08368895768612292
+        },
+        {
+          "predictor": "source",
+          "rms": 0.08720495872706242
+        }
+      ]
+    },
+    "clean-standard/light/inactive/thick": {
+      "best": "silhouette",
+      "runnerUp": "gaussian/0.03125",
+      "margin": 6.113639037237488e-06,
+      "ranking": [
+        {
+          "predictor": "silhouette",
+          "rms": 0.001353680667533101
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.0013597943065703384
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.0013597943065703384
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.0013597943065703384
+        },
+        {
+          "predictor": "body",
+          "rms": 0.0013598042646980728
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.004864356690406746
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.004865153407206771
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.004868229868010517
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.004868426341148531
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.006106929560782627
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.006110822491457364
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.006112286199261076
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.006114109431627024
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.006115265427704137
+        },
+        {
+          "predictor": "source",
+          "rms": 0.0061158411365831635
+        }
+      ]
+    },
+    "clean-standard/light/inactive/thin": {
+      "best": "body",
+      "runnerUp": "gaussian/0.03125",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "body",
+          "rms": 0.0027584976383874887
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.0027584976383874887
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.0027584976383874887
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.0027584976383874887
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.0027597531554171034
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.0027597531554171034
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.0027597531554171034
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.0027597531554171034
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.0027597532366304025
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0027597532366304025
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.0027597532366304025
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.0027597532366304025
+        },
+        {
+          "predictor": "source",
+          "rms": 0.011857522359183106
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.012020968658979217
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.012020968658979217
+        }
+      ]
+    },
+    "clean-standard-canonical/dark/active/thick": {
+      "best": "gaussian/0.25",
+      "runnerUp": "dilated/0.125",
+      "margin": 4.242117790144613e-06,
+      "ranking": [
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.0020694959996911495
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.002073738117481294
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.002089550409762261
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.0021671693900989835
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.00217987959046602
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.0021847345366403466
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.0022056124389242216
+        },
+        {
+          "predictor": "source",
+          "rms": 0.0022056124389242216
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.002401796618910325
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.002473416717804205
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0027218378579580474
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.0027250257698148727
+        },
+        {
+          "predictor": "body",
+          "rms": 0.0029539126786721224
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.0029539126786721224
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.0029539126786721224
+        }
+      ]
+    },
+    "clean-standard-canonical/dark/active/thin": {
+      "best": "gaussian/0.25",
+      "runnerUp": "body",
+      "margin": 0.0004096141581877424,
+      "ranking": [
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.005499203854024257
+        },
+        {
+          "predictor": "body",
+          "rms": 0.005908818012211999
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.005908818012211999
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.00590884709071896
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.00590884709071896
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.00829159871040997
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.008292302895940991
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.008292317530739647
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.008292317530739647
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.008292524544392938
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.010280108317178266
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.012332794095511045
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.012729342793658407
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.016355109542558706
+        },
+        {
+          "predictor": "source",
+          "rms": 0.01653255581354687
+        }
+      ]
+    },
+    "clean-standard-canonical/dark/inactive/thick": {
+      "best": "gaussian/0.03125",
+      "runnerUp": "gaussian/0.0625",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.002381127646070605
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.002381127646070605
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.002381127646070605
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.0023811283799119376
+        },
+        {
+          "predictor": "body",
+          "rms": 0.002381130662113982
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.0029364869524149155
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0029364869524149155
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "source",
+          "rms": 0.00293657945677677
+        }
+      ]
+    },
+    "clean-standard-canonical/dark/inactive/thin": {
+      "best": "source",
+      "runnerUp": "body",
+      "margin": 0.00011541500033080776,
+      "ranking": [
+        {
+          "predictor": "source",
+          "rms": 0.000284996976416923
+        },
+        {
+          "predictor": "body",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.00040041197674773075
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.00040041309623646174
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.00040041309623646174
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.00040041309623646174
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.00040041309623646174
+        }
+      ]
+    },
+    "clean-standard-canonical/light/active/thick": {
+      "best": "gaussian/0.03125",
+      "runnerUp": "gaussian/0.0625",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.008181449133598546
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.008181449133598546
+        },
+        {
+          "predictor": "body",
+          "rms": 0.008181494184897393
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.008198585726911505
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.00872300008400881
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.008723053638089603
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.00872305431223116
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.008902734952460545
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.009281708439468402
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.009673253849711601
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.010051983094070979
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.010906902677415143
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.0154427428450478
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.01549988394721758
+        },
+        {
+          "predictor": "source",
+          "rms": 0.015735557988199235
+        }
+      ]
+    },
+    "clean-standard-canonical/light/active/thin": {
+      "best": "silhouette",
+      "runnerUp": "dilated/0.03125",
+      "margin": 0.004286851330706018,
+      "ranking": [
+        {
+          "predictor": "silhouette",
+          "rms": 0.011344951194633962
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.01563180252533998
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0169215515869812
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.016990867161818204
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.017520693379422848
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.01762110999779117
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.01763188796894652
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.025135990583407177
+        },
+        {
+          "predictor": "body",
+          "rms": 0.029948443490433643
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.030071710378817035
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.030071710378817035
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.03812082910005038
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.06128096401066912
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.08124525436734839
+        },
+        {
+          "predictor": "source",
+          "rms": 0.08483320709686785
+        }
+      ]
+    },
+    "clean-standard-canonical/light/inactive/thick": {
+      "best": "silhouette",
+      "runnerUp": "gaussian/0.03125",
+      "margin": 6.113639037237488e-06,
+      "ranking": [
+        {
+          "predictor": "silhouette",
+          "rms": 0.001353680667533101
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.0013597943065703384
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.0013597943065703384
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.0013597943065703384
+        },
+        {
+          "predictor": "body",
+          "rms": 0.0013598042646980728
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.004864356690406746
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.004865153407206771
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.004868229868010517
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.004868426341148531
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.006106929560782627
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.006110822491457364
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.006112286199261076
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.006114109431627024
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.006115265427704137
+        },
+        {
+          "predictor": "source",
+          "rms": 0.0061158411365831635
+        }
+      ]
+    },
+    "clean-standard-canonical/light/inactive/thin": {
+      "best": "body",
+      "runnerUp": "gaussian/0.03125",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "body",
+          "rms": 0.0027584976383874887
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.0027584976383874887
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.0027584976383874887
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.0027584976383874887
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.0027597531554171034
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.0027597531554171034
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.0027597531554171034
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.0027597531554171034
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.0027597532366304025
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0027597532366304025
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.0027597532366304025
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.0027597532366304025
+        },
+        {
+          "predictor": "source",
+          "rms": 0.011857522359183106
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.012020968658979217
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.012020968658979217
+        }
+      ]
+    },
+    "clean-standard-w9/light/active/thick": {
+      "best": "body",
+      "runnerUp": "gaussian/0.03125",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "body",
+          "rms": 0.008668006382558643
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.008668006382558643
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.008668006382558643
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.008672689463243491
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.009393377839008732
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.009393377839008732
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.009393377839008732
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.009393377839008732
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.009393377839008732
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.009911276906555836
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.010633833603769589
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.011351748558908952
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.01688013602330684
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.01688013602330684
+        },
+        {
+          "predictor": "source",
+          "rms": 0.017214703811192257
+        }
+      ]
+    },
+    "clean-standard-w9/light/active/thin": {
+      "best": "dilated/0.03125",
+      "runnerUp": "dilated/0.0625",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.00416078609407533
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.00416078609407533
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.00416078609407533
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.007654174811523162
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.010006011684566083
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.010006011684566083
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.01592007445160667
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.027804537194186872
+        },
+        {
+          "predictor": "body",
+          "rms": 0.0349369185250694
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.0349369185250694
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.0349369185250694
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.03752115983125964
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.06002039523348434
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.0892239240897286
+        },
+        {
+          "predictor": "source",
+          "rms": 0.09263918044756528
+        }
+      ]
+    },
+    "policy:increased-contrast/light/active/thick": {
+      "best": "body",
+      "runnerUp": "dilated/0.03125",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "body",
+          "rms": 0.0026594583373288727
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.0026594583373288727
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0026594583373288727
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.0026594583373288727
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.0026594583373288727
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.0026594583373288727
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.0026594583373288727
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.0026594583373288727
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.0026594583373288727
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.0026594583373288727
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.0026594583373288727
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.0026594583373288727
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.0026594583373288727
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.0026594583373288727
+        },
+        {
+          "predictor": "source",
+          "rms": 0.0026594583373288727
+        }
+      ]
+    },
+    "policy:increased-contrast/light/active/thin": {
+      "best": "body",
+      "runnerUp": "dilated/0.03125",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "body",
+          "rms": 0.24475961428321283
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.24475961428321283
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.24475961428321283
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.24475961428321283
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.24475961428321283
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.24475961428321283
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.24475961428321283
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.24475961428321283
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.24475961428321283
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.24475961428321283
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.24475961428321283
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.24475961428321283
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.24475961428321283
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.24475961428321283
+        },
+        {
+          "predictor": "source",
+          "rms": 0.24475961428321283
+        }
+      ]
+    },
+    "policy:increased-contrast/light/inactive/thick": {
+      "best": "body",
+      "runnerUp": "dilated/0.03125",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "body",
+          "rms": 0.0
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.0
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.0
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.0
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.0
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.0
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.0
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.0
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.0
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.0
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 8.457941678057131e-05
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 8.457941678057131e-05
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 8.457941678057131e-05
+        },
+        {
+          "predictor": "source",
+          "rms": 8.457941678057131e-05
+        }
+      ]
+    },
+    "policy:increased-contrast/light/inactive/thin": {
+      "best": "body",
+      "runnerUp": "dilated/0.03125",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "body",
+          "rms": 0.09383994509877236
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.09383994509877236
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.09383994509877236
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.09383994509877236
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.09383994509877236
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.09383994509877236
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.09383994509877236
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.09383994509877236
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.09383994509877236
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.09383994509877236
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.09383994509877236
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.09383994509877236
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.09383994509877236
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.09383994509877236
+        },
+        {
+          "predictor": "source",
+          "rms": 0.09383994509877236
+        }
+      ]
+    },
+    "policy:reduced-transparency/light/active/thick": {
+      "best": "body",
+      "runnerUp": "dilated/0.03125",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "body",
+          "rms": 0.0018430401262577946
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.0018430401262577946
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0018430401262577946
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.0018430401262577946
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.0018430401262577946
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.0018430401262577946
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.0018430401262577946
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.0018430401262577946
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.0018430401262577946
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.0018430401262577946
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.0018430401262577946
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.0018430401262577946
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.0018430401262577946
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.0018430401262577946
+        },
+        {
+          "predictor": "source",
+          "rms": 0.0018430401262577946
+        }
+      ]
+    },
+    "policy:reduced-transparency/light/active/thin": {
+      "best": "body",
+      "runnerUp": "dilated/0.03125",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "body",
+          "rms": 0.16097970321052107
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.16097970321052107
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.16097970321052107
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.16097970321052107
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.16097970321052107
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.16097970321052107
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.16097970321052107
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.16097970321052107
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.16097970321052107
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.16097970321052107
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.16097970321052107
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.16097970321052107
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.16097970321052107
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.16097970321052107
+        },
+        {
+          "predictor": "source",
+          "rms": 0.17080517892520766
+        }
+      ]
+    },
+    "policy:reduced-transparency/light/inactive/thick": {
+      "best": "dilated/0.5",
+      "runnerUp": "dilated/1",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.0
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.0
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.0
+        },
+        {
+          "predictor": "body",
+          "rms": 0.0005633837566161071
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.0005633837566161071
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0005633837566161071
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.0005633837566161071
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.0005633837566161071
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.0005633837566161071
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.0005633837566161071
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.0005633837566161071
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.0005633837566161071
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.0005633837566161071
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.0005633837566161071
+        },
+        {
+          "predictor": "source",
+          "rms": 0.0005633837566161071
+        }
+      ]
+    },
+    "policy:reduced-transparency/light/inactive/thin": {
+      "best": "body",
+      "runnerUp": "dilated/0.03125",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "body",
+          "rms": 0.06877675544153132
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.06877675544153132
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.06877675544153132
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.06877675544153132
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.06877675544153132
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.06877675544153132
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.06877675544153132
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.06877675544153132
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.06877675544153132
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.06877675544153132
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.06877675544153132
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.06877675544153132
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.06877675544153132
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.06877675544153132
+        },
+        {
+          "predictor": "source",
+          "rms": 0.07289542033352686
+        }
+      ]
+    },
+    "policy:standard/dark/active/thick": {
+      "best": "gaussian/0.25",
+      "runnerUp": "dilated/0.125",
+      "margin": 4.242117790144613e-06,
+      "ranking": [
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.0020694959996911495
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.002073738117481294
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.002089550409762261
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.0021671693900989835
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.00217987959046602
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.0021847345366403466
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.0022056124389242216
+        },
+        {
+          "predictor": "source",
+          "rms": 0.0022056124389242216
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.002401796618910325
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.002473416717804205
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0027218378579580474
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.0027250257698148727
+        },
+        {
+          "predictor": "body",
+          "rms": 0.0029539126786721224
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.0029539126786721224
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.0029539126786721224
+        }
+      ]
+    },
+    "policy:standard/dark/active/thin": {
+      "best": "body",
+      "runnerUp": "gaussian/0.03125",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "body",
+          "rms": 0.14170291678173821
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.14170291678173821
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.14170291678173821
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.14170291678173821
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.14316994490449766
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.14325651498460254
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.14329784771823548
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.14329784778628987
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.14329784819594915
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.14329784826400355
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.14329784826400355
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.14329785598416062
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.14329785598416062
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.14329785598416062
+        },
+        {
+          "predictor": "source",
+          "rms": 0.14329785598416062
+        }
+      ]
+    },
+    "policy:standard/dark/inactive/thick": {
+      "best": "gaussian/0.03125",
+      "runnerUp": "gaussian/0.0625",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.002381127646070605
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.002381127646070605
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.002381127646070605
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.0023811283799119376
+        },
+        {
+          "predictor": "body",
+          "rms": 0.002381130662113982
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.0029364869524149155
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0029364869524149155
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.00293657945677677
+        },
+        {
+          "predictor": "source",
+          "rms": 0.00293657945677677
+        }
+      ]
+    },
+    "policy:standard/dark/inactive/thin": {
+      "best": "body",
+      "runnerUp": "dilated/0.125",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "body",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.04384437712411506
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.0438443771284967
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.0438443771284967
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.0438443771284967
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.0438443771284967
+        },
+        {
+          "predictor": "source",
+          "rms": 0.0438443771284967
+        }
+      ]
+    },
+    "policy:standard/light/active/thick": {
+      "best": "dilated/0.125",
+      "runnerUp": "gaussian/0.5",
+      "margin": 0.00014146589398638526,
+      "ranking": [
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.059211441737979945
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.05935290763196633
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.05949850379665676
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.05949850379665676
+        },
+        {
+          "predictor": "body",
+          "rms": 0.059498507709210655
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.05950004389072011
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.05956931101760601
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.059569322266786656
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.059569327282094124
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.05962260912056105
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.06020959257852794
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.0604730134448308
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.061222530888982704
+        },
+        {
+          "predictor": "source",
+          "rms": 0.06126931372488854
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.061335053879602634
+        }
+      ]
+    },
+    "policy:standard/light/active/thin": {
+      "best": "dilated/0.25",
+      "runnerUp": "silhouette",
+      "margin": 0.0023136762380278064,
+      "ranking": [
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.13621570246154382
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.13852937869957163
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.13881672647251916
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.141008642892283
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.14114441320756493
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.14137858316903296
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.14210049517088805
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.14392121815461487
+        },
+        {
+          "predictor": "body",
+          "rms": 0.1458838171521157
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.1458838171521157
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.1458838171521157
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.1458838171521157
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.15232121058966636
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.15907329682536356
+        },
+        {
+          "predictor": "source",
+          "rms": 0.16510269269827554
+        }
+      ]
+    },
+    "policy:standard/light/inactive/thick": {
+      "best": "silhouette",
+      "runnerUp": "gaussian/0.03125",
+      "margin": 1.482963814941618e-07,
+      "ranking": [
+        {
+          "predictor": "silhouette",
+          "rms": 0.04350306482985675
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.04350321312623824
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.04350321312623824
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.04350321312623824
+        },
+        {
+          "predictor": "body",
+          "rms": 0.04350321336833373
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.043705317558652035
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.04370537879681387
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.04370565297581024
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.04370566999742882
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.0438211191151552
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.04521573647358994
+        },
+        {
+          "predictor": "dilated/1",
+          "rms": 0.045215755481430454
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.04521575861002501
+        },
+        {
+          "predictor": "source",
+          "rms": 0.04521578886995179
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.04521581453315444
+        }
+      ]
+    },
+    "policy:standard/light/inactive/thin": {
+      "best": "dilated/1",
+      "runnerUp": "gaussian/1",
+      "margin": 0.0,
+      "ranking": [
+        {
+          "predictor": "dilated/1",
+          "rms": 0.07937205923568816
+        },
+        {
+          "predictor": "gaussian/1",
+          "rms": 0.07937205923568816
+        },
+        {
+          "predictor": "dilated/0.03125",
+          "rms": 0.07938413778809546
+        },
+        {
+          "predictor": "dilated/0.0625",
+          "rms": 0.07938413778809546
+        },
+        {
+          "predictor": "gaussian/0.25",
+          "rms": 0.07938413778809546
+        },
+        {
+          "predictor": "gaussian/0.5",
+          "rms": 0.07938413778809546
+        },
+        {
+          "predictor": "body",
+          "rms": 0.07938413816834203
+        },
+        {
+          "predictor": "dilated/0.125",
+          "rms": 0.07938413816834203
+        },
+        {
+          "predictor": "dilated/0.25",
+          "rms": 0.07938413816834203
+        },
+        {
+          "predictor": "dilated/0.5",
+          "rms": 0.07938413816834203
+        },
+        {
+          "predictor": "gaussian/0.03125",
+          "rms": 0.07938413816834203
+        },
+        {
+          "predictor": "gaussian/0.0625",
+          "rms": 0.07938413816834203
+        },
+        {
+          "predictor": "gaussian/0.125",
+          "rms": 0.07938413816834203
+        },
+        {
+          "predictor": "silhouette",
+          "rms": 0.07938413816834203
+        },
+        {
+          "predictor": "source",
+          "rms": 0.08070215101387682
+        }
+      ]
+    }
+  },
+  "activeInputDisplacement": {
+    "body": {
+      "meanAbsolute": 0.04147876566635713,
+      "maxAbsolute": 0.5279999999999999
+    },
+    "silhouette": {
+      "meanAbsolute": 0.033288389365851594,
+      "maxAbsolute": 0.528
+    }
+  },
+  "x8": "No selected abscissa means no uniquely defined active-material counterfactual. Active native order and candidate input displacements are measured; no rendered active or inactive effect, CSS Jensen gap, new uniform/phase fixture, D target, or response constant was measured or changed."
+}

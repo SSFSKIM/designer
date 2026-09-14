@@ -269,7 +269,7 @@ the charter for G3 and G4 here; this document adds nothing to their scope and re
 
 ## Children
 
-### G0: The abscissa read — controlled, native-only, nothing spent — DISPATCHED 2026-09-14
+### G0: The abscissa read — controlled, native-only, nothing spent — READ 2026-09-14: NOT IDENTIFIABLE (§5.144; Decision Log 2 required)
 
 - **Purpose:** decide, from committed rasters and committed native fixtures, where the reference
   takes the response's input and how much structure adds beyond it, on the recede and on the active
@@ -406,7 +406,7 @@ named, not this wave's); the motion-metrics harness; the OS 27 recapture; `promi
 
 | child | status | claims | evidence |
 | --- | --- | --- | --- |
-| G0 | DISPATCHED 2026-09-14 | §5.144 | `results/2026-09-14-w28-g0-abscissa/` |
+| G0 | READ 2026-09-14 — not identifiable; waits on Decision Log 2 | §5.144 | `results/2026-09-14-w28-g0-abscissa/` |
 | G1 | — | assigned at dispatch | — |
 | G1s | — (Decision Log 2) | assigned at dispatch | — |
 | G2 | — | assigned at dispatch | — |
@@ -454,9 +454,25 @@ which is why the dilated-silhouette family was added to G0.
 
 ## Surprises & Discoveries
 
-—
+- 2026-09-14 (G0, §5.144): the region reversal reproduces, and locality improves clean
+  light-active thin isotonic RMS from 0.087204959 (source) to 0.011413806 (silhouette), but
+  its runner-up gap is only 0.002036644, below the 0.004 bar. Light-inactive thin body and
+  Gaussian 1/32 tie at 0.002758498; dark-inactive thin source already reads 0.000284997.
+  Isotonic ordering does not identify one family/scale across schemes or poses. The declared
+  full population's tint/composite/accessibility confounds do not explain away this failure:
+  clean and cohort-separated sensitivities also fail to establish a common selection.
+  Of 123 same-region-mean diagnostic pairs, none changes body-contrast SD by more than 0.05;
+  a contrast law cannot be inferred from the remaining pitch differences. The sitting's uniform
+  patches can locate the response step, not the locality scale; its spatial discriminator needs
+  non-D phase evidence rather than borrowing the original D square as a selection baseline.
 
 ## Revision Notes
+
+- 2026-09-14 (G0): committed the 398-cell population at 8ad63af before reading pixels;
+  completed five predictor families on seven-rung ladders, isotonic residuals, uniform checks
+  and residual/active-input records under §5.144. Verdict: not identifiable from this bed.
+  G0 recommends neither G1 mechanism yet and hands the sitting/stop choice to Decision Log 2;
+  no Decision Log entry, runtime change, capture, fixture edit or D native read by this child.
 
 - 2026-09-14 (the parent): chartered; adversarially reviewed, four findings folded into acceptance 1
   and 2, §Design, G0, G1 and X10 (Decision Log 1's amendment); G0 dispatched.
