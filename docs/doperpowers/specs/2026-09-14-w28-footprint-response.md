@@ -791,6 +791,16 @@ run is exactly what a flake looks like from the other side. Nothing was rerun to
 result — it is the first and only React run at this head — and the tracker entry keeps both
 readings.
 
+*And a third reading, added beside rather than over, because the chain table above would otherwise
+read as the last word.* The review fix wave re-ran the same suite at `20d3f3e0` — after a change to
+`apps/demo/src/App.tsx`, which is what the React e2e drives — and got **171 passed / 3 skipped /
+3 failed**: `presence.spec.ts`'s elapsed window on chromium (558.7 ms against 389.7 allowed) and on
+firefox (418.64 against 387.36), and one `morph-materialize.spec.ts` release-timing case on
+chromium. All three are in code neither this gate nor its fix wave touched, all three are the
+tracker's elapsed-window class, and none was rerun. So the honest statement of this suite across
+three runs at three heads is **red, green, red on the same timing cases** — which is the definition
+of the flake the tracker holds, and is why the entry is not closed by the green reading in the table.
+
 
 The publish rehearsal, short of publishing: `pnpm publish --dry-run` on each of the three published
 packages at 0.18.0, all three clean, with the two things npm would get wrong on its own read off the

@@ -124,6 +124,19 @@ below, not an activation-state failure. It is retained in
 `results/2026-09-15-w28-g3-runtime/react.txt` and **not rerun to green**; the separate activation
 assertion-carrier correction is tested only in its own file.
 
+*W28 G4, 2026-09-15 (claims §5.148): the heading's "on Firefox" is now too narrow.* Three full
+three-engine runs at three heads on the same day read **red, green, red** on the same timing cases,
+and the third one is not only Gecko. G4's c9d chain at `1400f604` passed the suite outright — 174
+passed, 3 skipped, 0 failed — and the review fix wave's run at `20d3f3e0` failed three:
+`presence.spec.ts`'s elapsed window on **chromium** at 558.7 ms against 389.7 allowed and on firefox
+at 418.64 against 387.36, plus one `morph-materialize.spec.ts` release-timing case on **chromium**.
+None was rerun and all three are in code those gates did not touch. What the three readings together
+say is that this is one elapsed-window class rather than a Gecko-specific one, and that a green run
+is evidence of nothing: the entry stays open on the strength of the reds. The shape of the fix is
+unchanged and is below — assert the trajectory in the page rather than a driver's reading of a
+moment — and it now has a second engine's evidence that the driver round trip, not the engine, is
+what the budget is measuring.
+
 *Found 2026-08-30, running the suites for the tint API (W3).*
 
 Two to four cases in `packages/react/e2e/press.spec.ts` and `morph.spec.ts` fail
