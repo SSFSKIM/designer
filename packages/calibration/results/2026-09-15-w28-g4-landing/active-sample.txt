@@ -1,0 +1,1046 @@
+── apple-macos-26.5-1x-dark-standard / webgpu
+
+── web capture (apple-macos-26.5-1x-dark-standard, 5 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json sha256:950ce1c3e917 sections=renderer
+
+photo__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest/
+
+checkerboard__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-dark-standard/checkerboard__rrect-md__rest/
+
+photo__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-dark-standard/photo__rrect-md__rest/
+
+photo__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest-tint-orange/
+
+checkerboard__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest/
+
+5 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (5 cell(s)) ─────────────────────────────
+matrix → /tmp/w28-g4-active/matrix.json (5 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+calibration 1x-dark-standard              photo__capsule-button__rest                   0.995    0.08   0.992   0.0074    0.196/ 0.093    0.1020/ 0.0563    0.0318/ 0.0197    0.0907/ 0.0577
+calibration 1x-dark-standard              checkerboard__rrect-md__rest                  0.999    0.03   0.988   0.0038    0.018/ 0.021    0.0493/ 0.0498    0.0280/ 0.0276    0.0728/ 0.0711
+calibration 1x-dark-standard              photo__rrect-md__rest                         1.000    0.01   0.998   0.0129    0.086/ 0.070    0.0490/ 0.0409    0.0177/ 0.0143    0.0656/ 0.0556
+calibration 1x-dark-standard              photo__capsule-button__rest-tint-orange       1.000    0.00   0.998   0.0009    0.011/ 0.006    0.4384/ 0.4277    0.0255/ 0.0099    0.0617/ 0.0126
+calibration 1x-dark-standard              checkerboard__capsule-button__rest            0.999    0.01   0.992   0.0049    0.069/ 0.033    0.1130/ 0.0722    0.0671/ 0.0402    0.1066/ 0.0784
+
+1x-dark-standard              calibration n= 5  IoU mean 0.9987 worst 0.9955   contour p95 mean 0.20 worst 1.00   SSIM mean 0.9936 worst 0.9879   dE mean 0.00599 worst 0.01294
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-dark-standard              photo__capsule-button__rest                     1.00  0.0355/ 0.0531    8/ 26/ 16/ 20    8/ 24/ 15/ 22      9.0/   8.0     16.2/  17.6
+1x-dark-standard              checkerboard__rrect-md__rest                    0.50  0.1492/ 0.1418   20/ 36/ 31/ 29   22/ 37/ 33/ 31      8.0/   7.5     17.7/  18.2
+1x-dark-standard              photo__rrect-md__rest                           1.00  0.0988/ 0.1239   19/ 36/ 28/ 29   21/ 41/ 29/ 33      8.5/  10.0     17.4/  18.4
+1x-dark-standard              photo__capsule-button__rest-tint-orange         1.00  0.0316/ 0.0325    8/ 26/ 16/ 20    8/ 24/ 15/ 22      9.0/   8.0     16.2/  17.6
+1x-dark-standard              checkerboard__capsule-button__rest              0.50  0.0829/ 0.0820    7/ 23/ 19/ 18    9/ 24/ 20/ 19      8.0/   7.5     18.4/  19.0
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a801e246aa16d039e/packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json
+web accessibility for apple-macos-26.5-1x-dark-standard (native standard): browser preferences, no overrides
+
+── notes (6) ────────────
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+── apple-macos-26.5-1x-dark-standard / css
+
+── web capture (apple-macos-26.5-1x-dark-standard, 5 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json sha256:950ce1c3e917 sections=renderer
+
+photo__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest/
+
+checkerboard__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-dark-standard/checkerboard__rrect-md__rest/
+
+photo__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-dark-standard/photo__rrect-md__rest/
+
+photo__capsule-button__rest-tint-orange
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest-tint-orange/
+
+checkerboard__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest/
+
+5 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (5 cell(s)) ─────────────────────────────
+matrix → /tmp/w28-g4-active/matrix.json (10 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+calibration 1x-dark-standard              photo__capsule-button__rest                   0.995    0.08   0.974   0.0079    0.196/ 0.088    0.1020/ 0.0568    0.0318/ 0.0099    0.0907/ 0.0152
+calibration 1x-dark-standard              checkerboard__rrect-md__rest                  0.979    0.63   0.917   0.0193    0.018/ 0.038    0.0493/ 0.0487    0.0280/ 0.0217    0.0728/ 0.0163
+calibration 1x-dark-standard              photo__rrect-md__rest                         1.000    0.01   0.966   0.0106    0.086/ 0.086    0.0490/ 0.0402    0.0177/ 0.0100    0.0656/ 0.0094
+calibration 1x-dark-standard              photo__capsule-button__rest-tint-orange       1.000    0.00   0.985   0.0023    0.011/ 0.002    0.4384/ 0.4273    0.0255/ 0.0079    0.0617/ 0.0000
+calibration 1x-dark-standard              checkerboard__capsule-button__rest            0.999    0.01   0.969   0.0073    0.069/ 0.049    0.1130/ 0.0757    0.0671/ 0.0292    0.1066/ 0.0212
+
+1x-dark-standard              calibration n= 5  IoU mean 0.9947 worst 0.9795   contour p95 mean 1.20 worst 5.00   SSIM mean 0.9623 worst 0.9174   dE mean 0.00949 worst 0.01933
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-dark-standard              photo__capsule-button__rest                     1.00  0.0355/ 0.4367    8/ 26/ 16/ 20    9/ 28/ 12/ 20      9.0/   9.5     16.2/  —   
+1x-dark-standard              checkerboard__rrect-md__rest                    0.50  0.1492/ 0.5488   20/ 36/ 31/ 29   20/ 38/ 29/ 31      8.0/   9.0     17.7/  —   
+1x-dark-standard              photo__rrect-md__rest                           1.00  0.0988/ 0.4804   19/ 36/ 28/ 29   20/ 40/ 29/ 31      8.5/  10.0     17.4/  10.6
+1x-dark-standard              photo__capsule-button__rest-tint-orange         1.00  0.0316/ 0.0404    8/ 26/ 16/ 20    9/ 28/ 12/ 20      9.0/   9.5     16.2/  15.9
+1x-dark-standard              checkerboard__capsule-button__rest              0.50  0.0829/ 0.5527    7/ 23/ 19/ 18   10/ 28/ 18/ 18      8.0/   9.0     18.4/  —   
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+coherence axis on 5 of 5 dom cell(s) — this tier against its texture twin, web against web.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a801e246aa16d039e/packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json
+web accessibility for apple-macos-26.5-1x-dark-standard (native standard): browser preferences, no overrides
+
+── notes (6) ────────────
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+── apple-macos-26.5-2x-dark-standard / webgpu
+
+── web capture (apple-macos-26.5-2x-dark-standard, 5 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json sha256:950ce1c3e917 sections=renderer
+
+photo__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-dark-standard/photo__rrect-md__rest/
+
+photo__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest-tint-orange/
+
+checkerboard__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest/
+
+photo__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest/
+
+checkerboard__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-dark-standard/checkerboard__rrect-md__rest/
+
+5 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (5 cell(s)) ─────────────────────────────
+matrix → /tmp/w28-g4-active/matrix.json (15 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+calibration 2x-dark-standard              photo__rrect-md__rest                         1.000    0.02   0.998   0.0129    0.090/ 0.077    0.0493/ 0.0410    0.0185/ 0.0150    0.0911/ 0.0790
+calibration 2x-dark-standard              photo__capsule-button__rest-tint-orange       0.999    0.02   0.997   0.0009    0.018/ 0.004    0.4395/ 0.4280    0.0289/ 0.0088    0.0880/ 0.0288
+calibration 2x-dark-standard              checkerboard__capsule-button__rest            0.999    0.03   0.992   0.0048    0.074/ 0.032    0.1141/ 0.0727    0.0701/ 0.0390    0.1500/ 0.1136
+calibration 2x-dark-standard              photo__capsule-button__rest                   0.997    0.11   0.994   0.0075    0.199/ 0.090    0.1023/ 0.0558    0.0324/ 0.0190    0.1195/ 0.0773
+calibration 2x-dark-standard              checkerboard__rrect-md__rest                  1.000    0.02   0.990   0.0039    0.019/ 0.020    0.0498/ 0.0500    0.0291/ 0.0292    0.0943/ 0.0971
+
+2x-dark-standard              calibration n= 5  IoU mean 0.9989 worst 0.9968   contour p95 mean 0.20 worst 1.00   SSIM mean 0.9942 worst 0.9903   dE mean 0.00600 worst 0.01289
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2x-dark-standard              photo__rrect-md__rest                           1.00  0.0997/ 0.1263   37/ 73/ 56/ 58   43/ 81/ 59/ 66     18.0/  19.0     35.0/  37.3
+2x-dark-standard              photo__capsule-button__rest-tint-orange         1.00  0.0324/ 0.0345   17/ 52/ 33/ 39   16/ 48/ 30/ 44     17.5/  16.0     32.9/  35.5
+2x-dark-standard              checkerboard__capsule-button__rest              0.50  0.0837/ 0.0846   14/ 46/ 37/ 35   18/ 48/ 40/ 37     16.0/  15.0     37.2/  38.3
+2x-dark-standard              photo__capsule-button__rest                     1.00  0.0373/ 0.0502   17/ 52/ 33/ 39   16/ 48/ 30/ 44     17.5/  16.0     32.9/  35.5
+2x-dark-standard              checkerboard__rrect-md__rest                    0.50  0.1485/ 0.1487   41/ 70/ 62/ 57   45/ 75/ 65/ 61     14.5/  15.0     35.5/  36.9
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a801e246aa16d039e/packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json
+web accessibility for apple-macos-26.5-2x-dark-standard (native standard): browser preferences, no overrides
+
+── notes (6) ────────────
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+── apple-macos-26.5-2x-dark-standard / css
+
+── web capture (apple-macos-26.5-2x-dark-standard, 5 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json sha256:950ce1c3e917 sections=renderer
+
+photo__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-dark-standard/photo__rrect-md__rest/
+
+photo__capsule-button__rest-tint-orange
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   mad 0.000158
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest-tint-orange/
+
+checkerboard__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest/
+
+photo__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest/
+
+checkerboard__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-dark-standard/checkerboard__rrect-md__rest/
+
+5 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (5 cell(s)) ─────────────────────────────
+matrix → /tmp/w28-g4-active/matrix.json (20 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+calibration 2x-dark-standard              photo__rrect-md__rest                         1.000    0.03   0.975   0.0111    0.090/ 0.095    0.0493/ 0.0400    0.0185/ 0.0110    0.0911/ 0.0125
+calibration 2x-dark-standard              photo__capsule-button__rest-tint-orange       0.999    0.02   0.988   0.0023    0.018/ 0.000    0.4395/ 0.4276    0.0289/ 0.0054    0.0880/ 0.0036
+calibration 2x-dark-standard              checkerboard__capsule-button__rest            0.999    0.03   0.972   0.0076    0.074/ 0.053    0.1141/ 0.0760    0.0701/ 0.0327    0.1500/ 0.0340
+calibration 2x-dark-standard              photo__capsule-button__rest                   0.997    0.10   0.981   0.0081    0.199/ 0.096    0.1023/ 0.0559    0.0324/ 0.0103    0.1195/ 0.0142
+calibration 2x-dark-standard              checkerboard__rrect-md__rest                  0.975    1.28   0.929   0.0204    0.019/ 0.041    0.0498/ 0.0520    0.0291/ 0.0253    0.0943/ 0.0205
+
+2x-dark-standard              calibration n= 5  IoU mean 0.9939 worst 0.9746   contour p95 mean 2.20 worst 10.00   SSIM mean 0.9689 worst 0.9285   dE mean 0.00990 worst 0.02036
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2x-dark-standard              photo__rrect-md__rest                           1.00  0.0997/ 0.4846   37/ 73/ 56/ 58   40/ 78/ 57/ 62     18.0/  19.0     35.0/  12.6
+2x-dark-standard              photo__capsule-button__rest-tint-orange         1.00  0.0324/ 0.0390   17/ 52/ 33/ 39   19/ 55/ 25/ 41     17.5/  18.0     32.9/  32.7
+2x-dark-standard              checkerboard__capsule-button__rest              0.50  0.0837/ 0.5712   14/ 46/ 37/ 35   19/ 55/ 35/ 36     16.0/  18.0     37.2/  —   
+2x-dark-standard              photo__capsule-button__rest                     1.00  0.0373/ 0.4546   17/ 52/ 33/ 39   19/ 55/ 25/ 41     17.5/  18.0     32.9/  —   
+2x-dark-standard              checkerboard__rrect-md__rest                    0.50  0.1485/ 0.5469   41/ 70/ 62/ 57   40/ 74/ 59/ 61     14.5/  17.0     35.5/  —   
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+coherence axis on 5 of 5 dom cell(s) — this tier against its texture twin, web against web.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a801e246aa16d039e/packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json
+web accessibility for apple-macos-26.5-2x-dark-standard (native standard): browser preferences, no overrides
+
+── notes (6) ────────────
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+── apple-macos-26.5-1x-light-standard / webgpu
+
+── web capture (apple-macos-26.5-1x-light-standard, 5 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:6a9600720477 sections=renderer+cssTierMapping
+
+photo__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-standard/photo__capsule-button__rest/
+
+photo__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange/
+
+checkerboard__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__rest/
+
+photo__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-standard/photo__rrect-md__rest/
+
+checkerboard__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest/
+
+5 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (5 cell(s)) ─────────────────────────────
+matrix → /tmp/w28-g4-active/matrix.json (25 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+calibration 1x-light-standard             photo__capsule-button__rest                   1.000    0.00   0.999   0.0023    0.353/ 0.364    0.5832/ 0.6192    0.0461/ 0.0527    0.0872/ 0.1292
+calibration 1x-light-standard             photo__capsule-button__rest-tint-orange       1.000    0.00   0.999   0.0009    0.086/ 0.093    0.3524/ 0.3605    0.0360/ 0.0319    0.1239/ 0.1088
+calibration 1x-light-standard             checkerboard__rrect-md__rest                  0.998    0.06   0.987   0.0032    0.110/ 0.112    0.6829/ 0.6963    0.1131/ 0.1097    0.0904/ 0.1237
+calibration 1x-light-standard             photo__rrect-md__rest                         1.000    0.00   0.997   0.0116    0.423/ 0.337    0.6649/ 0.6603    0.0572/ 0.0511    0.0651/ 0.1256
+calibration 1x-light-standard             checkerboard__capsule-button__rest            0.994    0.11   0.997   0.0023    0.171/ 0.169    0.6207/ 0.6806    0.1424/ 0.1465    0.0949/ 0.1083
+
+1x-light-standard             calibration n= 5  IoU mean 0.9984 worst 0.9936   contour p95 mean 0.40 worst 1.00   SSIM mean 0.9957 worst 0.9865   dE mean 0.00407 worst 0.01163
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-light-standard             photo__capsule-button__rest                     1.00  0.1710/ 0.1664   24/ 39/ 32/ 34   23/ 39/ 31/ 34      7.5/   8.0     18.0/  18.3
+1x-light-standard             photo__capsule-button__rest-tint-orange         1.00  0.1710/ 0.1664   24/ 39/ 32/ 34   23/ 39/ 31/ 34      7.5/   8.0     18.0/  18.3
+1x-light-standard             checkerboard__rrect-md__rest                    0.50  0.1586/ 0.1565   22/ 37/ 32/ 30   25/ 40/ 35/ 33      7.5/   7.5     17.7/  18.2
+1x-light-standard             photo__rrect-md__rest                           1.00  0.1017/ 0.1431   20/ 36/ 28/ 30   24/ 41/ 32/ 35      8.0/   8.5     17.3/  18.3
+1x-light-standard             checkerboard__capsule-button__rest              0.50  0.1895/ 0.1757   24/ 39/ 32/ 34   24/ 39/ 32/ 34      7.5/   7.5     18.0/  18.4
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a801e246aa16d039e/packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json
+web accessibility for apple-macos-26.5-1x-light-standard (native standard): browser preferences, no overrides
+
+── notes (6) ────────────
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+── apple-macos-26.5-1x-light-standard / css
+
+── web capture (apple-macos-26.5-1x-light-standard, 5 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:6a9600720477 sections=renderer+cssTierMapping
+
+photo__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-standard/photo__capsule-button__rest/
+
+photo__capsule-button__rest-tint-orange
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange/
+
+checkerboard__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__rest/
+
+photo__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-standard/photo__rrect-md__rest/
+
+checkerboard__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest/
+
+5 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (5 cell(s)) ─────────────────────────────
+matrix → /tmp/w28-g4-active/matrix.json (30 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+calibration 1x-light-standard             photo__capsule-button__rest                   1.000    0.00   0.978   0.0039    0.353/ 0.384    0.5832/ 0.6223    0.0461/ 0.0382    0.0872/ 0.0379
+calibration 1x-light-standard             photo__capsule-button__rest-tint-orange       1.000    0.00   0.980   0.0027    0.086/-0.006    0.3524/ 0.3566    0.0360/ 0.0069    0.1239/ 0.0152
+calibration 1x-light-standard             checkerboard__rrect-md__rest                  1.000    0.00   0.912   0.0212    0.110/ 0.184    0.6829/ 0.6964    0.1131/ 0.1012    0.0904/ 0.0253
+calibration 1x-light-standard             photo__rrect-md__rest                         1.000    0.00   0.963   0.0103    0.423/ 0.356    0.6649/ 0.6562    0.0572/ 0.0416    0.0651/ 0.0268
+calibration 1x-light-standard             checkerboard__capsule-button__rest            1.000    0.00   0.972   0.0062    0.171/ 0.253    0.6207/ 0.6797    0.1424/ 0.1399    0.0949/ 0.0178
+
+1x-light-standard             calibration n= 5  IoU mean 1.0000 worst 1.0000   contour p95 mean 0.00 worst 0.00   SSIM mean 0.9611 worst 0.9121   dE mean 0.00887 worst 0.02121
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-light-standard             photo__capsule-button__rest                     1.00  0.1710/ 0.1455   24/ 39/ 32/ 34   23/ 41/ 29/ 32      7.5/   9.0     18.0/  19.8
+1x-light-standard             photo__capsule-button__rest-tint-orange         1.00  0.1710/ 0.1473   24/ 39/ 32/ 34   23/ 41/ 29/ 32      7.5/   9.0     18.0/  18.6
+1x-light-standard             checkerboard__rrect-md__rest                    0.50  0.1586/ 0.1735   22/ 37/ 32/ 30   22/ 40/ 31/ 32      7.5/   9.0     17.7/  18.7
+1x-light-standard             photo__rrect-md__rest                           1.00  0.1017/ 0.1398   20/ 36/ 28/ 30   22/ 41/ 30/ 33      8.0/   9.5     17.3/  20.4
+1x-light-standard             checkerboard__capsule-button__rest              0.50  0.1895/ 0.1571   24/ 39/ 32/ 34   23/ 41/ 30/ 33      7.5/   9.0     18.0/  19.3
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+coherence axis on 5 of 5 dom cell(s) — this tier against its texture twin, web against web.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a801e246aa16d039e/packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json
+web accessibility for apple-macos-26.5-1x-light-standard (native standard): browser preferences, no overrides
+
+── notes (6) ────────────
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+── apple-macos-26.5-2x-light-standard / webgpu
+
+── web capture (apple-macos-26.5-2x-light-standard, 5 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:6a9600720477 sections=renderer+cssTierMapping
+
+checkerboard__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__rest/
+
+checkerboard__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest/
+
+photo__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-light-standard/photo__capsule-button__rest/
+
+photo__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-light-standard/photo__rrect-md__rest/
+
+photo__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-orange/
+
+5 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (5 cell(s)) ─────────────────────────────
+matrix → /tmp/w28-g4-active/matrix.json (35 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+calibration 2x-light-standard             checkerboard__rrect-md__rest                  0.996    0.23   0.991   0.0039    0.116/ 0.099    0.6832/ 0.7023    0.1272/ 0.1100    0.1047/ 0.1848
+calibration 2x-light-standard             checkerboard__capsule-button__rest            0.994    0.20   0.996   0.0025    0.185/ 0.159    0.6226/ 0.6869    0.1552/ 0.1441    0.1246/ 0.1819
+calibration 2x-light-standard             photo__capsule-button__rest                   1.000    0.01   0.998   0.0024    0.371/ 0.377    0.5837/ 0.6196    0.0499/ 0.0579    0.1020/ 0.2124
+calibration 2x-light-standard             photo__rrect-md__rest                         1.000    0.01   0.998   0.0117    0.439/ 0.348    0.6654/ 0.6610    0.0591/ 0.0548    0.0776/ 0.1919
+calibration 2x-light-standard             photo__capsule-button__rest-tint-orange       1.000    0.01   0.999   0.0009    0.092/ 0.091    0.3527/ 0.3604    0.0399/ 0.0334    0.1687/ 0.1562
+
+2x-light-standard             calibration n= 5  IoU mean 0.9979 worst 0.9939   contour p95 mean 0.40 worst 1.00   SSIM mean 0.9964 worst 0.9906   dE mean 0.00428 worst 0.01173
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2x-light-standard             checkerboard__rrect-md__rest                    0.50  0.1584/ 0.1580   45/ 75/ 65/ 61   50/ 79/ 69/ 66     15.0/  14.5     35.8/  36.8
+2x-light-standard             checkerboard__capsule-button__rest              0.50  0.1906/ 0.1788   48/ 77/ 65/ 67   49/ 77/ 65/ 67     14.5/  14.0     36.2/  37.1
+2x-light-standard             photo__capsule-button__rest                     1.00  0.1763/ 0.1713   48/ 79/ 64/ 67   46/ 77/ 62/ 68     15.5/  15.5     36.3/  37.0
+2x-light-standard             photo__rrect-md__rest                           1.00  0.1063/ 0.1472   38/ 72/ 57/ 59   47/ 83/ 64/ 70     17.0/  18.0     34.8/  36.9
+2x-light-standard             photo__capsule-button__rest-tint-orange         1.00  0.1763/ 0.1713   48/ 79/ 64/ 67   46/ 77/ 62/ 68     15.5/  15.5     36.3/  37.0
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a801e246aa16d039e/packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json
+web accessibility for apple-macos-26.5-2x-light-standard (native standard): browser preferences, no overrides
+
+── notes (6) ────────────
+  checkerboard__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+── apple-macos-26.5-2x-light-standard / css
+
+── web capture (apple-macos-26.5-2x-light-standard, 5 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:6a9600720477 sections=renderer+cssTierMapping
+
+checkerboard__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__rest/
+
+checkerboard__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest/
+
+photo__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-light-standard/photo__capsule-button__rest/
+
+photo__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-light-standard/photo__rrect-md__rest/
+
+photo__capsule-button__rest-tint-orange
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-orange/
+
+5 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (5 cell(s)) ─────────────────────────────
+matrix → /tmp/w28-g4-active/matrix.json (40 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+calibration 2x-light-standard             checkerboard__rrect-md__rest                  1.000    0.01   0.915   0.0229    0.116/ 0.211    0.6832/ 0.7073    0.1272/ 0.1227    0.1047/ 0.0275
+calibration 2x-light-standard             checkerboard__capsule-button__rest            1.000    0.01   0.976   0.0068    0.185/ 0.274    0.6226/ 0.6949    0.1552/ 0.1522    0.1246/ 0.0233
+calibration 2x-light-standard             photo__capsule-button__rest                   1.000    0.01   0.984   0.0041    0.371/ 0.422    0.5837/ 0.6233    0.0499/ 0.0416    0.1020/ 0.0337
+calibration 2x-light-standard             photo__rrect-md__rest                         1.000    0.01   0.974   0.0103    0.439/ 0.396    0.6654/ 0.6573    0.0591/ 0.0456    0.0776/ 0.0307
+calibration 2x-light-standard             photo__capsule-button__rest-tint-orange       1.000    0.01   0.986   0.0028    0.092/-0.006    0.3527/ 0.3566    0.0399/ 0.0071    0.1687/ 0.0178
+
+2x-light-standard             calibration n= 5  IoU mean 0.9998 worst 0.9996   contour p95 mean 0.00 worst 0.00   SSIM mean 0.9670 worst 0.9154   dE mean 0.00937 worst 0.02286
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2x-light-standard             checkerboard__rrect-md__rest                    0.50  0.1584/ 0.1558   45/ 75/ 65/ 61   44/ 78/ 63/ 64     15.0/  17.0     35.8/  38.0
+2x-light-standard             checkerboard__capsule-button__rest              0.50  0.1906/ 0.1589   48/ 77/ 65/ 67   47/ 83/ 59/ 66     14.5/  18.0     36.2/  39.4
+2x-light-standard             photo__capsule-button__rest                     1.00  0.1763/ 0.1481   48/ 79/ 64/ 67   47/ 83/ 57/ 64     15.5/  18.0     36.3/  39.5
+2x-light-standard             photo__rrect-md__rest                           1.00  0.1063/ 0.1409   38/ 72/ 57/ 59   44/ 80/ 61/ 66     17.0/  18.0     34.8/  40.7
+2x-light-standard             photo__capsule-button__rest-tint-orange         1.00  0.1763/ 0.1521   48/ 79/ 64/ 67   47/ 83/ 57/ 64     15.5/  18.0     36.3/  37.3
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+coherence axis on 5 of 5 dom cell(s) — this tier against its texture twin, web against web.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a801e246aa16d039e/packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json
+web accessibility for apple-macos-26.5-2x-light-standard (native standard): browser preferences, no overrides
+
+── notes (6) ────────────
+  checkerboard__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+── apple-macos-26.5-1x-light-increased-contrast / webgpu
+
+── web capture (apple-macos-26.5-1x-light-increased-contrast, 5 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:6a9600720477 sections=renderer+cssTierMapping
+accessibility=reducedTransparency+increasedContrast (others explicitly off)
+
+checkerboard__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-increased-contrast/checkerboard__rrect-md__rest/
+
+photo__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-increased-contrast/photo__rrect-md__rest/
+
+photo__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest/
+
+photo__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest-tint-orange/
+
+checkerboard__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__rest/
+
+5 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (5 cell(s)) ─────────────────────────────
+matrix → /tmp/w28-g4-active/matrix.json (45 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+calibration 1x-light-increased-contrast   checkerboard__rrect-md__rest                  0.945    1.24   0.941   0.0118   -0.136/ 0.047    0.9494/ 0.9234    0.1668/ 0.0276    0.0190/ 0.0150
+calibration 1x-light-increased-contrast   photo__rrect-md__rest                         1.000    0.00   0.922   0.0151    0.005/ 0.113    0.9564/ 0.8992    0.1775/ 0.0266    0.0000/ 0.0784
+calibration 1x-light-increased-contrast   photo__capsule-button__rest                   1.000    0.00   0.949   0.0070   -0.241/ 0.120    0.9183/ 0.9009    0.2381/ 0.0301    0.0000/ 0.0923
+calibration 1x-light-increased-contrast   photo__capsule-button__rest-tint-orange       1.000    0.00   0.932   0.0039   -0.086/ 0.067    0.3986/ 0.4475    0.0894/ 0.0922    0.0000/ 0.3547
+calibration 1x-light-increased-contrast   checkerboard__capsule-button__rest            0.840    1.82   0.965   0.0060   -0.182/ 0.056    0.9136/ 0.9251    0.2269/ 0.0344    0.0156/ 0.0257
+
+1x-light-increased-contrast   calibration n= 5  IoU mean 0.9571 worst 0.8404   contour p95 mean 1.83 worst 7.16   SSIM mean 0.9418 worst 0.9216   dE mean 0.00875 worst 0.01506
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-light-increased-contrast   checkerboard__rrect-md__rest                    0.50  0.6862/ 0.1022   19/ 34/ 29/ 28   19/ 34/ 30/ 28      7.5/   7.5     17.6/  18.1
+1x-light-increased-contrast   photo__rrect-md__rest                           1.00  0.4784/ 0.0975   20/ 37/ 29/ 29   18/ 38/ 26/ 30      8.5/  10.0     17.7/  18.0
+1x-light-increased-contrast   photo__capsule-button__rest                     1.00  0.5599/ 0.0979   20/ 35/ 28/ 29   18/ 34/ 26/ 30      7.5/   8.0     17.8/  18.1
+1x-light-increased-contrast   photo__capsule-button__rest-tint-orange         1.00  0.5643/ 0.0979   20/ 35/ 28/ 29   18/ 34/ 26/ 30      7.5/   8.0     17.8/  18.1
+1x-light-increased-contrast   checkerboard__capsule-button__rest              0.50  0.6778/ 0.1021   20/ 34/ 28/ 29   20/ 34/ 28/ 30      7.0/   7.0     17.8/  18.3
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a801e246aa16d039e/packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json
+web accessibility for apple-macos-26.5-1x-light-increased-contrast (native increased-contrast): reduced-transparency + increased-contrast
+
+── notes (6) ────────────
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+── apple-macos-26.5-1x-light-increased-contrast / css
+
+── web capture (apple-macos-26.5-1x-light-increased-contrast, 5 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:6a9600720477 sections=renderer+cssTierMapping
+accessibility=reducedTransparency+increasedContrast (others explicitly off)
+
+checkerboard__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-increased-contrast/checkerboard__rrect-md__rest/
+
+photo__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-increased-contrast/photo__rrect-md__rest/
+
+photo__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest/
+
+photo__capsule-button__rest-tint-orange
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest-tint-orange/
+
+checkerboard__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__rest/
+
+5 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (5 cell(s)) ─────────────────────────────
+matrix → /tmp/w28-g4-active/matrix.json (50 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+calibration 1x-light-increased-contrast   checkerboard__rrect-md__rest                  0.961    0.89   0.925   0.0191   -0.136/ 0.038    0.9494/ 0.9354    0.1668/ 0.0211    0.0190/ 0.0062
+calibration 1x-light-increased-contrast   photo__rrect-md__rest                         1.000    0.00   0.908   0.0209    0.005/ 0.080    0.9564/ 0.9102    0.1775/ 0.0191    0.0000/ 0.0399
+calibration 1x-light-increased-contrast   photo__capsule-button__rest                   1.000    0.00   0.942   0.0106   -0.241/ 0.047    0.9183/ 0.9162    0.2381/ 0.0216    0.0000/ 0.0338
+calibration 1x-light-increased-contrast   photo__capsule-button__rest-tint-orange       1.000    0.00   0.939   0.0073   -0.086/-0.157    0.3986/ 0.4490    0.0894/ 0.1137    0.0000/ 0.2198
+calibration 1x-light-increased-contrast   checkerboard__capsule-button__rest            0.849    1.90   0.955   0.0111   -0.182/ 0.038    0.9136/ 0.9443    0.2269/ 0.0241    0.0156/ 0.0136
+
+1x-light-increased-contrast   calibration n= 5  IoU mean 0.9619 worst 0.8486   contour p95 mean 2.00 worst 8.00   SSIM mean 0.9336 worst 0.9077   dE mean 0.01380 worst 0.02086
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-light-increased-contrast   checkerboard__rrect-md__rest                    0.50  0.6862/ 0.0851   19/ 34/ 29/ 28   19/ 38/ 26/ 30      7.5/   9.5     17.6/  26.1
+1x-light-increased-contrast   photo__rrect-md__rest                           1.00  0.4784/ 0.0785   20/ 37/ 29/ 29   19/ 40/ 26/ 31      8.5/  10.5     17.7/  18.9
+1x-light-increased-contrast   photo__capsule-button__rest                     1.00  0.5599/ 0.0743   20/ 35/ 28/ 29   18/ 38/ 23/ 30      7.5/  10.0     17.8/  21.1
+1x-light-increased-contrast   photo__capsule-button__rest-tint-orange         1.00  0.5643/ 0.0743   20/ 35/ 28/ 29   18/ 38/ 23/ 30      7.5/  10.0     17.8/  20.3
+1x-light-increased-contrast   checkerboard__capsule-button__rest              0.50  0.6778/ 0.0769   20/ 34/ 28/ 29   18/ 38/ 27/ 31      7.0/  10.0     17.8/  26.6
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+coherence axis on 5 of 5 dom cell(s) — this tier against its texture twin, web against web.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a801e246aa16d039e/packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json
+web accessibility for apple-macos-26.5-1x-light-increased-contrast (native increased-contrast): reduced-transparency + increased-contrast
+
+── notes (6) ────────────
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+── apple-macos-26.5-1x-light-reduced-transparency / webgpu
+
+── web capture (apple-macos-26.5-1x-light-reduced-transparency, 5 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:6a9600720477 sections=renderer+cssTierMapping
+accessibility=reducedTransparency (others explicitly off)
+
+photo__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest-tint-orange/
+
+photo__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-md__rest/
+
+checkerboard__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-reduced-transparency/checkerboard__rrect-md__rest/
+
+photo__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest/
+
+checkerboard__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-reduced-transparency/checkerboard__capsule-button__rest/
+
+5 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (5 cell(s)) ─────────────────────────────
+matrix → /tmp/w28-g4-active/matrix.json (55 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+calibration 1x-light-reduced-transparency photo__capsule-button__rest-tint-orange       1.000    0.00   0.997   0.0006    0.017/ 0.031    0.4166/ 0.4152    0.0323/ 0.0164    0.1123/ 0.0484
+calibration 1x-light-reduced-transparency photo__rrect-md__rest                         1.000    0.00   0.999   0.0020    0.001/ 0.116    0.8930/ 0.8958    0.0257/ 0.0298    0.0316/ 0.0298
+calibration 1x-light-reduced-transparency checkerboard__rrect-md__rest                  0.984    0.50   0.993   0.0038    0.004/ 0.044    0.8898/ 0.9325    0.0307/ 0.0400    0.0349/ 0.0112
+calibration 1x-light-reduced-transparency photo__capsule-button__rest                   1.000    0.00   0.999   0.0009   -0.009/ 0.097    0.8927/ 0.8943    0.0360/ 0.0328    0.0310/ 0.0356
+calibration 1x-light-reduced-transparency checkerboard__capsule-button__rest            0.973    0.46   0.997   0.0013    0.009/ 0.053    0.8903/ 0.9312    0.0428/ 0.0493    0.0333/ 0.0064
+
+1x-light-reduced-transparency calibration n= 5  IoU mean 0.9915 worst 0.9733   contour p95 mean 0.40 worst 1.00   SSIM mean 0.9971 worst 0.9935   dE mean 0.00173 worst 0.00376
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-light-reduced-transparency photo__capsule-button__rest-tint-orange         1.00  0.0962/ 0.0979   20/ 35/ 28/ 29   18/ 34/ 26/ 30      7.5/   8.0     17.8/  18.1
+1x-light-reduced-transparency photo__rrect-md__rest                           1.00  0.1019/ 0.0975   20/ 37/ 29/ 29   18/ 38/ 26/ 30      8.5/  10.0     17.7/  18.0
+1x-light-reduced-transparency checkerboard__rrect-md__rest                    0.50  0.1079/ 0.1044   19/ 34/ 29/ 28   19/ 34/ 30/ 28      7.5/   7.5     17.6/  18.1
+1x-light-reduced-transparency photo__capsule-button__rest                     1.00  0.0962/ 0.0979   20/ 35/ 28/ 29   18/ 34/ 26/ 30      7.5/   8.0     17.8/  18.1
+1x-light-reduced-transparency checkerboard__capsule-button__rest              0.50  0.1007/ 0.1021   20/ 34/ 28/ 29   20/ 34/ 28/ 30      7.0/   7.0     17.8/  18.3
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a801e246aa16d039e/packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json
+web accessibility for apple-macos-26.5-1x-light-reduced-transparency (native reduced-transparency): reduced-transparency
+
+── notes (8) ────────────
+  photo__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__rrect-md__rest: blur NOT MEASURED on the native side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  checkerboard__capsule-button__rest: blur NOT MEASURED on the native side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+── apple-macos-26.5-1x-light-reduced-transparency / css
+
+── web capture (apple-macos-26.5-1x-light-reduced-transparency, 5 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:6a9600720477 sections=renderer+cssTierMapping
+accessibility=reducedTransparency (others explicitly off)
+
+photo__capsule-button__rest-tint-orange
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest-tint-orange/
+
+photo__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-md__rest/
+
+checkerboard__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-reduced-transparency/checkerboard__rrect-md__rest/
+
+photo__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest/
+
+checkerboard__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /tmp/w28-g4-active/captures/apple-macos-26.5-1x-light-reduced-transparency/checkerboard__capsule-button__rest/
+
+5 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (5 cell(s)) ─────────────────────────────
+matrix → /tmp/w28-g4-active/matrix.json (60 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+calibration 1x-light-reduced-transparency photo__capsule-button__rest-tint-orange       1.000    0.00   0.981   0.0022    0.017/-0.003    0.4166/ 0.4143    0.0323/ 0.0036    0.1123/ 0.0082
+calibration 1x-light-reduced-transparency photo__rrect-md__rest                         1.000    0.00   0.964   0.0054    0.001/ 0.095    0.8930/ 0.8953    0.0257/ 0.0147    0.0316/ 0.0000
+calibration 1x-light-reduced-transparency checkerboard__rrect-md__rest                  1.000    0.00   0.974   0.0078    0.004/ 0.037    0.8898/ 0.9327    0.0307/ 0.0231    0.0349/ 0.0000
+calibration 1x-light-reduced-transparency photo__capsule-button__rest                   1.000    0.00   0.978   0.0029   -0.009/ 0.067    0.8927/ 0.8922    0.0360/ 0.0171    0.0310/ 0.0000
+calibration 1x-light-reduced-transparency checkerboard__capsule-button__rest            0.997    0.06   0.983   0.0040    0.009/ 0.042    0.8903/ 0.9297    0.0428/ 0.0306    0.0333/ 0.0000
+
+1x-light-reduced-transparency calibration n= 5  IoU mean 0.9993 worst 0.9967   contour p95 mean 0.20 worst 1.00   SSIM mean 0.9759 worst 0.9643   dE mean 0.00447 worst 0.00782
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-light-reduced-transparency photo__capsule-button__rest-tint-orange         1.00  0.0962/ 0.0821   20/ 35/ 28/ 29   19/ 37/ 22/ 29      7.5/   9.0     17.8/  18.9
+1x-light-reduced-transparency photo__rrect-md__rest                           1.00  0.1019/ 0.0833   20/ 37/ 29/ 29   18/ 38/ 27/ 29      8.5/  10.0     17.7/  18.3
+1x-light-reduced-transparency checkerboard__rrect-md__rest                    0.50  0.1079/ 0.0896   19/ 34/ 29/ 28   18/ 36/ 28/ 29      7.5/   9.0     17.6/  20.0
+1x-light-reduced-transparency photo__capsule-button__rest                     1.00  0.0962/ 0.0812   20/ 35/ 28/ 29   19/ 37/ 22/ 29      7.5/   9.0     17.8/  18.3
+1x-light-reduced-transparency checkerboard__capsule-button__rest              0.50  0.1007/ 0.0876   20/ 34/ 28/ 29   19/ 37/ 27/ 29      7.0/   9.0     17.8/  20.1
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+coherence axis on 5 of 5 dom cell(s) — this tier against its texture twin, web against web.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a801e246aa16d039e/packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json
+web accessibility for apple-macos-26.5-1x-light-reduced-transparency (native reduced-transparency): reduced-transparency
+
+── notes (8) ────────────
+  photo__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__rrect-md__rest: blur NOT MEASURED on the native side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  checkerboard__capsule-button__rest: blur NOT MEASURED on the native side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
