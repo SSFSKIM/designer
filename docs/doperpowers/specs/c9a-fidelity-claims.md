@@ -21688,3 +21688,203 @@ precedence, scheme/host-profile restoration, independent presence, resolved-stat
 the React store/binding, and independently passes the **616 platform / 156 React** units.
 It runs no browser beside the serial chain. The base and head pins are unchanged at its return;
 `review.json` records the result. No production fix wave or further review round is needed.
+
+
+## 5.148 W28 G4: the landing — the inactive pose is captured through the runtime, published in the canonical matrix, and gated by nothing (2026-09-15)
+
+**Gate: W28 acceptance 5 and 7, contracts X2, X3, X8, X10 and X11, Decision Log 3; inherited
+from W27c G3 as chartered.** Evidence is `packages/calibration/results/2026-09-15-w28-g4-landing/`.
+No material constant, native fixture, profile document, receded document, golden or declared split
+moves at this gate, and **no inactive floor is adopted**. The cut is prepared and unpublished: the
+user's eye on the six G2 sheets is the veto before it, and publishing is the user's hand.
+
+**1. The calibration seam is the runtime's, and it moved no pixel.** Through G2 the calibration
+page merged the receded document itself and pinned the root active, because no runtime applied a
+pose (§5.147 §5). `packages/calibration/web/scene.ts` now creates the root with
+`windowActivation: "inactive"` on an `__inactive` scene and `"active"` on every other, with the
+capture's colour scheme handed over as a **fixed** `colorScheme` rather than as `"auto"`: the
+driver declares the scheme on the browser context, the page reads that declaration once at
+construction, and a live media listener therefore cannot re-derive the material between the first
+frame and the screenshot. The receded difference is applied by `applyMaterialProfile` inside the
+root, over the active document, exactly as in an application whose window is backgrounded. The
+report gained three resolved readouts — `windowActivation`, `colorScheme` and the
+`recededMaterialProfile` the root merged — so a capture filed under an `__inactive` id that had
+resolved `"active"` could not be published silently.
+
+The proof is byte-identity, taken before a row was written. `seam-identity.ts` re-captures **every
+inactive cell of G2's frozen matrices** through the new seam — 180 WebGPU rows and 174 CSS rows,
+**354 of 354 byte-identical** to the `captureSha256` G2 recorded, on `apple/metal-3` for every
+cell, with the resolved readout `"inactive"` and the capture's scheme on all 354. Six of the 180
+are W28's spent holdout cells; re-capturing the **web** side of a cell spends nothing, and the
+script opens no native fixture, reads no manifest entry and computes no fidelity number, which is
+why it is admissible at all. The active half is `active-sample.sh` plus `compare-active.py`: the
+ordinary `compare` pipeline, over the six scenes every profile's canonical capture directory holds,
+on both tiers, into a scratch root — **60 of 60 PNGs byte-identical** to the canonical
+`web-captures/` those rows were measured from, none absent. The scratch fitting path survives and
+is marked: a driver injecting `__vitreaRecededMaterialProfile` is reading a **candidate** document
+the runtime could not draw, so the page merges it and pins the root active as G1's seam did, and
+the report's two new fields are what tell the two paths apart after the fact. No published row is
+captured that way.
+
+**2. The inactive rows, in the canonical matrix, as the scene's declared state (X3).** One
+`compare` invocation per profile per tier — twelve in all, WebGPU before CSS on each profile so the
+coherence axis has its twin on disk — over the 58 inactive scene ids the declaration puts in
+`calibration`, `validation` or `probe`. The list is generated from `scenes.json` by
+`inactive-scenes.py` and passed in; no id is named in code and no split is changed. **470 rows**
+were measured, 0 fell back to the CSS tier and 0 carry problems:
+
+| profile | texture | dom | sets, per tier |
+| --- | ---: | ---: | --- |
+| 1x-dark-standard | 45 | 45 | 9 calibration, 1 validation, 35 probe |
+| 2x-dark-standard | 45 | 45 | 9 / 1 / 35 |
+| 1x-light-standard | 54 | 54 | 17 / 6 / 31 |
+| 2x-light-standard | 54 | 54 | 17 / 6 / 31 |
+| 1x-light-increased-contrast | 19 | 19 | 6 / 1 / 12 |
+| 1x-light-reduced-transparency | 18 | 18 | 5 / 1 / 12 |
+
+**Two declared inactive sets are deliberately absent and neither is a split change.** `holdout` —
+30 inactive cells across the six profiles — is not read, because a holdout is one native reading
+per frozen configuration and W28 spent exactly six of them at G2 (§5.146 §3); reading the rest here
+would spend a resource this wave does not need and cannot return. `recorded` — the four
+`__inactive-pressed` ids — is the pressed pose, which this wave measured nothing about and whose
+geometry G0 and G1 explicitly excluded (§5.145; the tracker). **The charter's statement that the
+inactive ids are declared `probe` is re-declared here as wrong in fact and right in effect:** of
+the 72 inactive scenes, 35 are `probe`, 17 `calibration`, 6 `validation`, 10 `holdout` and 4
+`recorded`. What makes the charter's expectation hold anyway is §3's exclusion, which is by pose
+and not by set.
+
+`state` is a new optional label on a matrix cell, copied off `scenes.json` beside `fixtureSet`. It
+is a schema **addition** and does not move `RESULT_MATRIX_SCHEMA_VERSION`, for the reason that
+constant's doc comment gives: it changes no figure, adds no axis, and copies a property the rows
+always had and never wrote down. The 637 pre-existing cells carry no label and are all active-pose
+rows.
+
+The matrix was written once, by `merge-matrix.ts`, from a scratch matrix, under a rule it enforces
+before it writes: only new keys, every added cell a declared inactive scene, and **not one existing
+cell's bytes moved**. `matrix-identity.py` reads the same statement a second way from outside the
+merge, against `bf3ebe44`: 637 → **1,107** cells, 470 added, **0 existing cells changed and 0
+missing**, schema 5 on both sides. That second reading exists because the line diff of
+`results/matrix.json` is unreadable — interleaving 470 pretty-printed cells into 637 rewrites most
+of the file's lines without a number changing — and X11's promise has to be a reading rather than
+an impression of a diff. Canonical captures went to the canonical `web-captures/` on this machine;
+`capture-tree.py` records that tree at 3,213 files before and **5,093 after: 1,880 added, 0 changed,
+0 removed**.
+
+The rows as published — mean and worst per-cell OKLab ΔE, mean SSIM, mean silhouette IoU, and the
+CSS tier's mean cross-tier body ΔE against its WebGPU twin:
+
+| profile | tier | n | mean ΔE | worst ΔE | mean SSIM | mean IoU | cross-tier ΔE |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1x-dark-standard | texture | 45 | 0.010461 | 0.126263 | 0.98714 | 0.94187 | — |
+| 1x-dark-standard | dom | 45 | 0.010183 | 0.094931 | 0.97807 | 0.94105 | 0.003893 |
+| 2x-dark-standard | texture | 45 | 0.010016 | 0.126264 | 0.99124 | 0.92929 | — |
+| 2x-dark-standard | dom | 45 | 0.010900 | 0.095464 | 0.98095 | 0.93139 | 0.004769 |
+| 1x-light-standard | texture | 54 | 0.004640 | 0.047452 | 0.99427 | 0.99805 | — |
+| 1x-light-standard | dom | 54 | 0.004706 | 0.021390 | 0.98714 | 0.99466 | 0.003692 |
+| 2x-light-standard | texture | 54 | 0.004626 | 0.047443 | 0.99747 | 0.99110 | — |
+| 2x-light-standard | dom | 54 | 0.005054 | 0.023816 | 0.99219 | 0.99675 | 0.003966 |
+| 1x-light-increased-contrast | texture | 19 | 0.002587 | 0.009209 | 0.99334 | 0.99252 | — |
+| 1x-light-increased-contrast | dom | 19 | 0.005671 | 0.013730 | 0.95768 | 0.93848 | 0.004291 |
+| 1x-light-reduced-transparency | texture | 18 | 0.001509 | 0.005617 | 0.99914 | 0.92190 | — |
+| 1x-light-reduced-transparency | dom | 18 | 0.001752 | 0.005286 | 0.99836 | 0.93976 | 0.000771 |
+
+These are published fidelity readings and **not** a gate: nothing above is floored, bounded or
+compared against a threshold, and the checking verdict for this endpoint is §5.146's and stays
+§5.146's. The worst inactive cell on every dark profile and tier is
+`mid-chroma-solid__rrect-lg__inactive` (0.126264 texture, 0.095464 dom), and it is the **active**
+material's chroma transfer over a saturated backdrop rather than the recede's — §5.139 §5
+established that and the tracker carries it. The next worst is `impulse__rrect-lg__inactive` at
+0.070460 / 0.072454, the dark low-input residual §5.145 recorded. The widest cross-tier gap,
+0.041200, is `mid-chroma-solid__rrect-lg__inactive` again, on light standard. No number here is a
+new finding and none is gated.
+
+**3. No floor, and the exclusion is an axis rather than a list.** W27 Decision Log 13 and
+`fitted-endpoint.json`'s `adoptsNoFloor` rule that no inactive floor may be adopted: a regression
+floor needs a regime frozen at the seventeen-run bar and this bed stands at the probe bar of seven.
+`adopted-thresholds.test.ts`'s gated bed therefore drops the inactive pose alongside the probe set,
+**by the declared pose and never by naming cells** — a list of inactive ids would need a line per
+cell per profile per tier, and every inactive scene added later would join the gate by default,
+which is the failure an axis-shaped exclusion cannot have. The drop reads both names, the cell's
+own `state` label and the scene declaration, and a guard asserts they agree on every labelled row.
+Five further guards mirror the probe set's, in both directions: the gated bed holds no inactive
+row; the drop removes only probe rows of declared probe scenes or rows of declared inactive scenes;
+no inactive scene is named in `PREDICATE_EXCLUDES`; and no inactive row is floored.
+
+`PREDICATE_EXCLUDES` is **byte-identical to its state at `bf3ebe44`** — 43 entries, unchanged — and
+the file's machine check still asserts it equals the predicate's own output over the gated bed.
+That is the point of an axis exclusion: the conditioning predicate never sees an inactive row, so
+there is nothing for it to name. `MATRIX_CELLS`, `MATRIX_PARTITION`, every adopted bound, every
+regression floor and every dom floor are untouched. The package's 26 suites pass **420 / 420**,
+`scene-matrix.test.ts` and `tier-coherence.test.ts` among them, unchanged in meaning.
+
+**4. The demo's backgrounded pose, and a real focus change.** Two readings, in `sheets/` and
+`eye.md`.
+
+The operable path is the playground's pin, captured at 2× on headed hardware Chromium in both
+schemes, pinned `active` and pinned `inactive`, beside the harness capture of
+`photo__rrect-md__inactive` at the same scale from the canonical `web-captures/`. Getting the dark
+half of that sheet required a change to the playground, and it is the one product change this gate
+makes: the page passed no `colorScheme`, so it drew the light material whatever the system said,
+and a playground that can only draw the light material can only demonstrate half of a pose whose
+endpoints are fitted per scheme. It gains a `colorScheme` pin beside the activation pin, defaulting
+to `"light"` — the behaviour it has always had, so no suite sees a different page by its existing —
+and the page's own ground follows the same state through `data-color-scheme` as the public site's
+does. The public site is unchanged and stays on `"auto"` activation.
+
+The real focus loss needed the driver taken out of the loop, and the reason is worth recording
+because it explains §5.147 §4. Under Playwright, making another application frontmost through
+LaunchServices left the playground's `document.hasFocus()` **true** and the root `"active"`
+(`playwright-focus.json`): Playwright enables Chromium's **focus emulation** on every page it owns,
+so a driven page cannot report losing focus, and no amount of activating other applications will
+change that. `bringToFront()` failing to move the pose on three engines is the same mechanism seen
+from the other side. `real-focus.ts` therefore launches the same Chromium binary directly with a
+remote-debugging port and speaks CDP over a bare WebSocket — no driver, and so no emulation:
+
+| the machine's frontmost application | `document.hasFocus()` | `root.windowActivation` | `visibilityState` |
+| --- | --- | --- | --- |
+| Google Chrome for Testing | true | `active` | `visible` |
+| Finder | **false** | **`inactive`** | `visible` |
+| Google Chrome for Testing | true | `active` | `visible` |
+
+The pin was on `"auto"` throughout; Chromium 151.0.7922.34, macOS 26.5.2 (25F84). This is the first
+reading in the project where a **window manager**, rather than a test, moved the pose, and it
+answers §5.147's open question in the direction the runtime was built for. Note the third column:
+the document stayed `"visible"` while unfocused, which is exactly why the observer does not listen
+to `visibilitychange`. AppleScript was not used — an AppleEvent to `System Events` or to `Finder`
+times out at -1712 on this machine, waiting for an automation consent nobody was present to give —
+so the frontmost application is read through `lsappinfo` and moved through `open -a`, neither of
+which needs that consent. The screen was borrowed for about two minutes with nobody at the machine
+and handed back with the Finder frontmost, which is what it was on entry.
+
+`eye.md` reads the sheets. In short: the pose removes the broad outer shadow and the bright rim and
+keeps an author tint as an achromatic shade — `Publish` is orange active and a pale neutral
+inactive at what reads as the same lightness — and the bodies barely move, so this is a pose that
+removes structure rather than one that dims. The harness band's residuals are §5.146's, unchanged
+by the landing: a band following the whole contour and a low-frequency structured pattern across
+the interior, on a cell outside the checking set. One confound is named rather than cropped out —
+the playground's texture region is an animated canvas, so the middle third of each difference strip
+is animation, and the pose is read on the DOM-backdrop column, the panel and the controls.
+
+**5. Not measured, and what the sheets do not show.** The transit between the two poses is
+inherited and unmeasured against any native sequence (§5.147 §3); every sheet here is a settled
+endpoint. The abscissa's kind and scale remain unidentified — the silhouette mean is the candidate
+that passed the bound, not Apple's law (Decision Log 3 (b)) — and the identifying sitting is priced
+and deferred, not taken. The active pose's own footprint abscissa is recorded by G0 and not acted
+on (X11). No native capture, no reference-app build, no dark-accessibility or 2x-accessibility
+evidence, no `clear`-variant or stack inactive evidence class, and no isolated CSS Jensen term: the
+cross-tier column above is an equal-cell mean body gap, which is not that quantity. Apple's other
+named adaptation input in the same sentence, **element overlap**, is unbuilt, and with it the
+per-element recede that would let the public site's reference pair offer its inactive scenes —
+activation is a pose of the **root** (X7), that page has one root, and posing its pair's surface
+would recede the whole site. `apps/demo/src/site/scenes.ts` now records that as the reason those
+scenes stay out of the picker, replacing the earlier "until W27c G3 wires an inactive Stage mode".
+
+**6. The cut, prepared and not published.** Three changesets, all minors, all in the `fixed` group,
+so the cut is **0.18.0** across `@vitreajs/vitrea`, `@vitreajs/vitrea-web` and
+`@vitreajs/vitrea-react`. G1's web-and-React changeset is joined by a core minor this gate adds:
+§5.147 §2 recorded that "core contracts did not move and need no independent minor", and that is
+**corrected here** — G1's `GlassGroupState` gained an optional `backdropToneAbscissae` and core
+exports the new `SurfaceBackdropToneAbscissa`, which is an additive public surface and therefore a
+semver event under X2. The version bump, the publish dry runs and the c9d chain are recorded in the
+W28 spec's §Outcomes & Retrospective, clause 5, with their counts; **nothing is published and
+nothing is tagged**, and the status line reads `0.18.0 PREPARED, UNPUBLISHED`.

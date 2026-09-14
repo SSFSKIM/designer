@@ -50,9 +50,10 @@ import {
   GlassToolbar,
   GlassToolbarSpacer,
   PlanePortal,
+  type GlassColorScheme,
   type GlassWindowActivation,
 } from "@vitreajs/vitrea-react";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import { ActionsMenu } from "./ActionsMenu";
 import { CapabilitiesPanel, type OverrideState } from "./CapabilitiesPanel";
@@ -122,6 +123,24 @@ export function App(): ReactNode {
    * looks at it.
    */
   const [windowActivation, setWindowActivation] = useState<GlassWindowActivation>("auto");
+  /*
+   * The scheme is pinned, and `"light"` stays the default this page has always
+   * drawn — the acceptance harness must not change what a suite sees by existing.
+   *
+   * It is here because the recede is *scheme-conditioned*: `recededMaterialProfile`
+   * has a light entry and a dark one, fitted separately, and a playground that could
+   * only draw the light material could only ever demonstrate half of the pose it
+   * exists to demonstrate (W28 G4, claims §5.148). The page's own ground follows the
+   * same state through `data-color-scheme`, as the public site's does, so the glass
+   * is never a dark material over a light page.
+   */
+  const [colorScheme, setColorScheme] = useState<GlassColorScheme>("light");
+  useEffect(() => {
+    document.documentElement.dataset["colorScheme"] =
+      colorScheme === "auto"
+        ? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+        : colorScheme;
+  }, [colorScheme]);
   const [variantMixed, setVariantMixed] = useState(false);
   const [range, setRange] = useState<Range>("week");
   const [lastAction, setLastAction] = useState<string | null>(null);
@@ -136,6 +155,7 @@ export function App(): ReactNode {
       // so by name. That is acceptance #5, and it is why asking for the GPU tier
       // by default is safe to ship.
       renderer={REQUESTED_RENDERER}
+      colorScheme={colorScheme}
       windowActivation={windowActivation}
       reducedMotion={overrides.reducedMotion}
       reducedTransparency={overrides.reducedTransparency}
@@ -170,6 +190,8 @@ export function App(): ReactNode {
           onOverridesChange={setOverrides}
           windowActivation={windowActivation}
           onWindowActivationChange={setWindowActivation}
+          colorScheme={colorScheme}
+          onColorSchemeChange={setColorScheme}
           variantMixed={variantMixed}
           onVariantMixedChange={setVariantMixed}
         />
