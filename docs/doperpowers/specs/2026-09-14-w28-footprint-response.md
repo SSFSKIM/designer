@@ -682,7 +682,7 @@ applied as written, in both directions).
    label copied off `scenes.json` beside `fixtureSet`, never a key segment (X3). **No floor was
    adopted for any regime** — `adopted-thresholds.test.ts`'s gated bed drops the inactive pose
    alongside the probe set, by the declared pose and never by naming cells, with six guards in both
-   directions — and `PREDICATE_EXCLUDES` is **byte-identical to `bf3ebe44`**, 43 entries, still
+   directions — and `PREDICATE_EXCLUDES` is **byte-identical to `bf3ebe44`**, 32 entries, still
    machine-checked against the predicate's own output over the gated bed. The clause's factual
    premise needed re-declaring and is, in §5.148 §2: of the 72 inactive scenes only 35 are `probe`,
    17 being `calibration`, 6 `validation`, 10 `holdout` and 4 `recorded`. Holdout and `recorded` are
@@ -887,7 +887,7 @@ visibly wrong on the sheet — which is the sentence this project exists to be a
   60/60 active. 470 inactive rows entered the canonical matrix as the scene's declared `state`,
   637 → 1,107 cells with zero existing cells changed, read twice. No inactive floor was adopted and
   the gated bed excludes the pose by axis rather than by cell list; `PREDICATE_EXCLUDES` is
-  byte-identical at 43 entries and still machine-checked. Three sheets and `eye.md`, including a
+  byte-identical at 32 entries and still machine-checked. Three sheets and `eye.md`, including a
   real window-manager focus change read without a driver. Workspace 2,382 units in 162 files;
   goldens 34/34 unregenerated; renderer GPU 28/28; platform 404/404; React 174 passed / 3 skipped /
   0 failed; demo 57/57; three publish dry runs clean at 0.18.0 with every `workspace:` range

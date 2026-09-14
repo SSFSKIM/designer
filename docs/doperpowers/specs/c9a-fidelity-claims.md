@@ -21810,7 +21810,7 @@ Five further guards mirror the probe set's, in both directions: the gated bed ho
 row; the drop removes only probe rows of declared probe scenes or rows of declared inactive scenes;
 no inactive scene is named in `PREDICATE_EXCLUDES`; and no inactive row is floored.
 
-`PREDICATE_EXCLUDES` is **byte-identical to its state at `bf3ebe44`** — 43 entries, unchanged — and
+`PREDICATE_EXCLUDES` is **byte-identical to its state at `bf3ebe44`** — 32 entries, unchanged — and
 the file's machine check still asserts it equals the predicate's own output over the gated bed.
 That is the point of an axis exclusion: the conditioning predicate never sees an inactive row, so
 there is nothing for it to name. `MATRIX_CELLS`, `MATRIX_PARTITION`, every adopted bound, every
