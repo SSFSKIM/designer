@@ -110,6 +110,36 @@ type Range = (typeof RANGES)[number]["value"];
 const REQUESTED_RENDERER: "css" | "webgpu" =
   new URLSearchParams(window.location.search).get("renderer") === "css" ? "css" : "webgpu";
 
+/**
+ * `prefers-color-scheme`, read by the page for the page's own ground — the same
+ * read, and the same reason, as the public site's `usePrefersDark`
+ * (`src/site/main.tsx`).
+ *
+ * The runtime reads this query for the material, which is what `colorScheme="auto"`
+ * is; it cannot write the reader's tokens and does not try to, so every host that
+ * offers "follow the system" owns this half of it. Subscribing rather than reading
+ * once is the whole point: under `"auto"` the root follows the live media feed, so
+ * a page that sampled the query at mount would hold its ground still while the
+ * glass moved with the system, which is the one comparison a playground pinned to
+ * `"auto"` exists to make. Kept beside the root that owns the other half rather
+ * than shared with the site's copy, so each page's pairing stays visible.
+ */
+function usePrefersDark(): boolean {
+  const [prefersDark, setPrefersDark] = useState(
+    () => window.matchMedia("(prefers-color-scheme: dark)").matches,
+  );
+
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-color-scheme: dark)");
+    const listener = (): void => setPrefersDark(query.matches);
+    query.addEventListener("change", listener);
+    listener();
+    return () => query.removeEventListener("change", listener);
+  }, []);
+
+  return prefersDark;
+}
+
 export function App(): ReactNode {
   const [overrides, setOverrides] = useState<OverrideState>({
     reducedMotion: "system",
@@ -135,12 +165,11 @@ export function App(): ReactNode {
    * is never a dark material over a light page.
    */
   const [colorScheme, setColorScheme] = useState<GlassColorScheme>("light");
+  const prefersDark = usePrefersDark();
   useEffect(() => {
     document.documentElement.dataset["colorScheme"] =
-      colorScheme === "auto"
-        ? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
-        : colorScheme;
-  }, [colorScheme]);
+      colorScheme === "auto" ? (prefersDark ? "dark" : "light") : colorScheme;
+  }, [colorScheme, prefersDark]);
   const [variantMixed, setVariantMixed] = useState(false);
   const [range, setRange] = useState<Range>("week");
   const [lastAction, setLastAction] = useState<string | null>(null);
