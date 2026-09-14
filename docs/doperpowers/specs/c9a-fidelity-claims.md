@@ -21737,6 +21737,17 @@ the runtime could not draw, so the page merges it and pins the root active as G1
 the report's two new fields are what tell the two paths apart after the fact. No published row is
 captured that way.
 
+The seam proof's own strongest reading is one the seam script does not take, and `proof-join.py`
+takes it: joining each proof cell's SHA-256 to `capture-tree-after.json`, which hashes the canonical
+`web-captures/` after `compare` wrote the 470 published rows into it. **348 of the 354 proof cells
+have a published capture whose bytes equal both the seam's observation and G2's record, 0 differ**,
+so the statement is about the publishing driver rather than only about a bespoke harness. The six
+without one are not identity failures but cells the publishing run never reached: four are
+`light-solid__capsule-button__inactive` on the two dark-standard profiles, a scene the run passed
+and that has no committed native fixture there, so it plans no cell and writes no capture; the other
+two are `hc-text__capsule-button__inactive` on the two light-standard profiles, holdout, which §2
+says is deliberately unread.
+
 **2. The inactive rows, in the canonical matrix, as the scene's declared state (X3).** One
 `compare` invocation per profile per tier — twelve in all, WebGPU before CSS on each profile so the
 coherence axis has its twin on disk — over the 58 inactive scene ids the declaration puts in
