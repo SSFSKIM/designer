@@ -917,6 +917,21 @@ and any group stacked on a light surface. Shape of the fix: the tone measured un
 footprint rather than the source's extent — the declared-geometry reader already does this on the
 calibration side.
 
+*Built, and gated to one pose (2026-09-15, claims §5.145 and §5.148).* W28 G1 built exactly the fix
+this entry names — `backdropToneAbscissa: { kind: "silhouette" }`, a per-surface encoded-space mean
+under the host's own region, carried through the response, the collapse compensation, the nominal
+composition and the opacity solve on the WebGPU tier and through `sampleBackdropTone`'s rect on the
+CSS tier — and it passes 335 / 335 unpressed canonical cells per tier against G0's independently
+computed silhouette means. **It is off everywhere the active material draws.** Only the two receded
+documents opt in; absent or `"source"` is today's arithmetic bit for bit, because W28 held the
+active material byte-identical by contract (X11) rather than reopening eighteen waves of active
+fits inside a wave about the recede. So this entry is no longer "no mechanism exists"; it is "the
+mechanism exists and the active pose has not been refitted under it". G0 recorded what the abscissa
+would do to the active pose and W28 acted on none of it. Two things the switch-over needs that this
+wave did not produce: G0's verdict was **not identifiable from this bed**, so the kind and scale
+that win for the active pose are not known either, and the CSS tier carries a per-surface mean
+where the GPU carries a per-pixel field, whose Jensen difference has its own entry below.
+
 ## The CSS tier under increased contrast is 0.00006–0.00025 worse in ΔE at W22 G1 while its GPU twin improves (2026-09-08)
 
 *Found at W22 G1's dry run (claims §5.96 §6).* With `specularGain` 0 on the light profile the CSS
@@ -2458,6 +2473,18 @@ opposite `hc-text__rrect-sm__inactive` over-prediction and fail clause 3 at 2.44
 that shared middle/bright structure without reopening the dark controls is the next response work;
 the bright dark endpoint and dark thick ordinate themselves no longer are.
 
+*The clause-3 failure above is superseded, and the residual it was evidence for is not
+(2026-09-15, claims §5.146; kept as written per this file's rule).* W28's footprint abscissa moved
+`hc-text__rrect-sm__inactive` from 2.44× / 2.15× of its per-cell floor to **0.9269× / 0.8023× of
+its ceiling** — under it by 7 % and 20 % — and the unchanged bound now holds on all six profiles,
+which is what lifted W27c's hold. The paragraph's sentence about failing clause 3 therefore
+describes the G1d head and not any head since. What did not move is the reason this entry exists:
+that cell is still the worst light checking cell and still reads **visibly too bright** on the
+sheet at WebGPU/native body Y 0.6791 / 0.5485 (1x) and 0.6907 / 0.5690 (2x), and the dark
+low-contrast checker capsule is still both dark profiles' clause-3 worst at 0.05936 / 0.05994. A
+bound holding is not pixel identity, and the shared middle/bright structure named above is still
+the work.
+
 ## The window-activation runtime is held behind the inactive response (W27 recomposition, 2026-09-14)
 
 **2026-09-15 — ~~The window-activation runtime is held behind the inactive response~~ CLOSED
@@ -2465,6 +2492,18 @@ by W28 G3, claims §5.147 (`2026-09-14-w28-footprint-response.md`).** The admitt
 follow document focus by default, with explicit root/React pins, a resolved readout and an
 operable playground. G4 still owns runtime-pose capture publication, the demo/native eye and
 the coverage re-score; the activation transit's native timing remains unmeasured.
+
+**2026-09-15 — the three items handed to G4 are closed too (claims §5.148).** Runtime-pose capture
+publication: the calibration page poses its root and hands it the capture's scheme, and 470
+inactive rows are in the canonical matrix as the scene's declared `state`, captured that way and
+proved byte-identical to G2's own captures — 354 / 354 inactive, 60 / 60 active — before a row was
+written. No floor is adopted and none may be; the gated bed excludes the pose by axis, and
+`PREDICATE_EXCLUDES` is byte-identical. The demo/native eye: three sheets and `eye.md`, the
+playground's pin at 2× in both schemes beside the harness capture, and a **real** focus change read
+without a driver — `hasFocus` false, root `inactive`, `visibilityState` still `"visible"`. The
+coverage re-score: §3.6's window-focus row moves to `replicated+measured` in the coverage matrix's
+2026-09-15 re-score. The transit's native timing is still unmeasured and now has its own entry
+below, so it does not disappear with this heading.
 
 W27 Decision Log 20 closes the coverage wave without W27c G2 or G3. The endpoint documents, the
 four-knot response and the per-policy accessibility lift ship inert; there is no
@@ -2766,3 +2805,131 @@ amplitude is zero, so this is inert for W28; active adoption must move that refe
 queue-completion timing measures warmed, static canonical-sized scenes, not first-reduction cost,
 4K scenes or live-source adaptation fidelity. Those limits are future work, not general performance
 or active-material fidelity claims.
+
+## The activation transit's timing and curve are unmeasured against any native sequence (2026-09-15, §5.147, §5.148)
+
+*Named at W28 G3 and carried out of that gate's closed heading so it does not disappear with it.*
+The pose is two frozen endpoints and the transit between them is inherited: the CSS tier keeps its
+existing armed property transitions at **240 ms** under nominal motion and **120 ms** under Reduced
+Motion with the existing easing, and the GPU tier takes the selected endpoint's uniforms on its next
+frame with no interpolation of its own. Those numbers are implementation choices from the motion
+kernel, not readings — the native bed holds endpoint stills and nothing else, so no duration, no
+curve and no per-channel ordering has ever been compared against macOS receding a window. W28 G4's
+sheets are settled endpoints for the same reason. This sits under the same blocker as identity and
+`materialize`: there is no native frame sequence for any transition in this project. Shape of the
+work: the motion-metrics harness the parent's Decision Log 23 (c) charters — a native capture path
+that records a sequence rather than a still — and then this transit read against it, which is when
+240 / 120 stop being authored numbers.
+
+## No engine will report a real unfocused document to a test driver (2026-09-15, §5.147, §5.148)
+
+*Found twice, from both sides.* W28 G3 opened a second page and called `bringToFront()`: the
+original document went on answering `document.hasFocus() === true` on Chromium, Firefox **and**
+WebKit, so the three-engine activation tests drive a synthetic `hasFocus` feed and say so. W28 G4
+then made another **application** frontmost through LaunchServices with the page under Playwright,
+and got the same answer — still focused, still `active`. The mechanism is the driver, not the
+engines: Playwright turns Chromium's focus emulation on for every page it owns so a suite does not
+break when the developer clicks away, and a page held focused by the protocol cannot report losing
+it. G4's reading had to launch the binary itself and speak CDP over a bare socket to get the true
+answer (`hasFocus` false, root `inactive`, `visibilityState` still `"visible"`). The cost is that
+**every automated activation test in the repository is a synthetic feed**, on all three engines, and
+the one real reading is a manual-class script on one machine and one engine. Shape of the work: if
+Playwright ever exposes focus emulation as an option, the three-engine specs can drive the real
+path on Chromium at least; failing that, a small CDP-only case in the platform suite, run headed,
+would keep one non-synthetic reading in the chain rather than in a wave's evidence directory.
+
+## The CSS tier's inactive abscissa is a per-surface mean where the GPU's is a per-pixel field, and the Jensen term is unmeasured (2026-09-15, §5.146, §5.148)
+
+*Named by W28's contract X1 and left unmeasured by G2 and G4.* Under `backdropToneAbscissa`
+`silhouette` the WebGPU tier keeps a per-pixel local reference and the CSS tier can carry one number
+per surface — one `rgba()` layer cannot hold a field — so over a backdrop that is not uniform under
+the body the two differ by a Jensen term. Nothing has measured that term **in isolation**. What
+exists instead is an equal-cell mean absolute body-Y gap between the tiers: 0.0014–0.0095 over
+§5.146's 182 common cells and 0.00077–0.0048 over §5.148's 235 published inactive dom rows, both of
+which sum the Jensen difference together with every other cross-tier difference the two layers
+already had. The widest single cell in both readings is `mid-chroma-solid__rrect-lg__inactive`
+(0.0412), which is dominated by the chroma-transfer entry elsewhere in this file rather than by
+locality. Shape of the work: evaluate the WebGPU tier's own per-pixel abscissa field and its
+per-surface mean over the same footprints on the committed rasters, off-line, and report the
+composite difference the two inputs produce through the same solve — a reading that needs no
+capture and no native fixture, and would let the coherence pins compare like with like.
+
+## The dark low-contrast checker capsule is the worst inactive checking cell and has no entry of its own (2026-09-15, §5.146, §5.148)
+
+*Found reading §5.146's verdict table and confirmed in §5.148's published rows.*
+`checkerboard-lc16__capsule-button__inactive` is clause 3's worst cell on **both** dark profiles —
+0.05936 against a 0.068 ceiling at 1x and 0.05994 against 0.082 at 2x — and the eye reads it as a
+capsule that is visibly lighter on WebGPU than native while transmitting a **stronger** checker
+amplitude. Two errors in one cell, and they point in different directions: a level that is too high
+and a structure transfer that is too strong. The light profiles show the same cell with a different
+amplitude and level again. It is unentered because every earlier inactive entry was written about
+`hc-text` or about the accessibility policies, and this is neither. Shape of the work: it belongs
+with the structured-transfer residual below rather than with a level fit — a low-contrast checker at
+pitch 16 is the one backdrop on the bed where amplitude and level can be separated, because the
+source mean and the silhouette mean nearly coincide there while the contrast does not.
+
+## Structured transfer and the rim/lens band are the inactive material's largest eye residuals and neither is a fitted term (2026-09-15, §5.146, §5.148)
+
+*Read on the G2 sheets at the bound's own verdict, and again on G4's harness band.* On every large
+pane over a structured backdrop — `hc-text` at three row heights, the checkers at four pitches, and
+`photo` — the body level agrees closely with native while the **difference** is a band following the
+whole contour plus a low-frequency pattern across the interior that follows the backdrop's own
+structure. G4's sheet shows it on `photo__rrect-md__inactive`, a cell outside the checking set, with
+the contour band reading red on one side and blue on the other, which is lens displacement rather
+than a level error. No constant in either endpoint expresses either one: the response fits a level
+against an abscissa, and W28's abscissa work moved **where** that level is read rather than how much
+structure the material passes. W9's H4 is the candidate law for the interior half and W28 G0 found
+the bed carries no contrast axis at matched abscissa to test it with (largest body-contrast-SD
+difference 0.000024540389 over 123 pairs). Shape of the work: the identifying sitting priced in
+W28's §Deferred is what would supply that axis; the contour half needs the cap/refraction separation
+§5.143 §8 named, which is still unstarted.
+
+## The light dark-solid intermediate-span inactive body is darker and cooler than native (2026-09-15, §5.146)
+
+*Read on the light-standard sheets at both scales.* `dark-solid__rrect-80__inactive` retains a
+visible cool, dark body difference where the smaller `dark-solid` controls beside it visually
+coincide, and `light-solid__rrect-ml__inactive` is the clause-3 worst cell on both accessibility
+profiles at the other end of the same axis. The pattern is a span, not a backdrop: the response's
+thin and thick rows are blended by `smoothstep(32, 96, span)` and 80 sits inside that blend, so an
+error there is an error in the blend rather than in either row. Nothing has fitted the blend for the
+receded endpoint — W28 G1 fitted anchors and ordinates and left the thickness law where the active
+material put it. Shape of the work: read the receded interior level against span on the uniform
+backdrops, where the abscissa is unambiguous, and see whether the knee wants moving for this pose
+before any row is touched.
+
+## The Increase Contrast inactive light-solid pane is whiter than native (2026-09-15, §5.146)
+
+*Read on the increased-contrast sheet.* Beside the one-pixel contour residual that dominates that
+profile, `light-solid` at a large span is visibly whiter on WebGPU than the native panel, which reads
+greyer. W27c G1d fitted `increasedOcclusionLiftByPolicy` to **0.98** for this policy against body
+ΔE, and the cell clears its bound at 0.01388 against 0.0156 — so this is a residual the metric
+scores as passing and the eye does not. The bed cannot currently separate it from the contour: both
+are read on the same twelve cells, and the contour's own amplitude biases a whole-canvas statistic.
+Shape of the work: an interior-only reading of the accessibility cells at large spans, excluding the
+contour band, which would say whether 0.98 is a level error or whether the panel's opacity is right
+and its border is what differs.
+
+## The inactive bed's dark holdout cannot discriminate the abscissa (2026-09-15, §5.146)
+
+*Named by W28 Decision Log 2 (f) and confirmed by the read.* W28's own design asked for a holdout
+cell per scheme whose silhouette mean differs from its source mean by more than 0.05, because a
+holdout that cannot tell the two abscissae apart cannot test the mechanism. In **dark** the bed has
+no such non-D cell: the largest available displacement is `photo__capsule-button__inactive` at
+0.03734 (1x) and 0.03801 (2x). The dark holdouts were admitted anyway, with the limit recorded, and
+they passed at 0.026–0.054 body ΔE — which is evidence that the endpoint predicts well, and is not
+evidence about locality. The light holdout, at −0.137, is the only strong discriminator the bed has
+ever held, and it is spent for this configuration. Shape of the work: the identifying sitting's dark
+half — a dark structured cell whose body sits over a region whose mean is far from its source's —
+captured on a 26.5 machine while one exists.
+
+## The `clear` variant and the stack regime are not established as inactive evidence classes (2026-09-15, §5.146, §5.148)
+
+*Carried from W27's hand-forward list and unchanged by W28.* The receded documents zero a clear
+rim and a clear shadow, and the bed's one `clear` id, `dark-solid__rrect-md-clear20__inactive`,
+declares no material variant — so those two constants are identified by nothing and simply ride along
+whenever a `clear` surface recedes. The stack regime is worse off: its only inactive ids are spent
+holdout, so W27f's arm A4 stays declared and unrun. W28 G4 published 470 inactive rows and neither
+gap moved, because publishing a row that exists is not the same as creating the cell that does not.
+Shape of the work: both need a scene declaration before they need a capture — a `clear`-variant
+inactive id that actually declares the variant, and one non-holdout inactive stack id — and then a
+26.5 sitting to capture them.

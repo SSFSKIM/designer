@@ -887,3 +887,58 @@ remains is the chrome the material sits in, the states vitrea does not have, con
 end, two accessibility inputs and the reference's own drift. After twenty-seven waves every profile
 key still reads `apple-macos-26.5`; W27's charter opened by observing that reference being
 superseded.
+
+---
+
+### Re-scored 2026-09-15 after W28, beside the 2026-09-14 reading
+
+W28 (`2026-09-14-w28-footprint-response.md`) built the footprint abscissa the inactive response
+needed, held the unchanged bound on all six profiles, shipped the window-activation runtime and
+published the inactive rows. **One row moves, none is added, none moves downward.** The two tables
+above are left as written and no row's earlier record is rewritten.
+
+| row | matrix | 2026-09-14 | 2026-09-15 | evidence |
+| --- | --- | --- | --- | --- |
+| Window / scene focus state changes the material | §3.6 | `partial` — the measured half, not the runtime half | **`replicated+measured`** | The 2026-09-14 cell named its own blocker: "the endpoint ships as `recededMaterialProfile` … and nothing consumes it: no `windowActivation` option or prop, no focus observer and no React export." All three exist. **Measured:** W28 G0 read the response's abscissa from 398 committed native cells with the checking set excluded and a curve-free statistic, and returned *not identifiable from this bed* (§5.144); Decision Log 2 ruled the simplest survivor built and the bound as referee; G1 landed the per-surface silhouette abscissa profile-gated on both tiers and refitted the receded rows on non-D cells, sealed at `6d7465c9` (§5.145); G2 ran the sealed reader once — 188 WebGPU rows, six holdouts admitted once — and scored the **unchanged** 2026-09-11 bound, which **holds clauses 1–3 jointly on all six profiles**, 72 / 72 checking cells under their caps (§5.146). The cell that held W27c, light `hc-text__rrect-sm__inactive`, went from 2.44× / 2.15× its clause-3 floor to **0.9269× / 0.8023×** of its ceiling. **Replicated:** `createGlassRoot({ windowActivation })` with `"auto" \| "active" \| "inactive"`, `root.setWindowActivation`, the free `setWindowActivation(root, value)`, the resolved `root.windowActivation` getter and the `focus`/`blur` observer consuming `document.hasFocus()` through the batched read (`packages/platform-web/src/window-activation.ts`, `root.ts`, `measure.ts`); `<GlassRoot windowActivation>` and `useGlassWindowActivation()` (`packages/react/src/root.tsx`, `store.ts`); the pose applied through `applyMaterialProfile` as two frozen endpoints, tested on three engines, documented in both package READMEs, and operable in the playground's pin with its resolved readout (§5.147). **Published:** 470 inactive rows in the canonical matrix as the scene's declared `state`, on both tiers across all six profiles, captured through the runtime's own `"inactive"` pose and proved byte-identical to G2's frozen captures before a row was written — 354 / 354 inactive and 60 / 60 active (§5.148). **And a first:** a real window-manager focus change, read without a driver, moves the pose — `hasFocus` false, root `inactive`, `visibilityState` still `"visible"` (§5.148 §4). **What the score does not claim.** No inactive floor is adopted and none may be while seven runs is the probe bar (W27 Decision Log 13), so this row is fidelity rather than a gate. The abscissa's kind and scale remain unidentified — the silhouette mean is the candidate that passed, not Apple's law — and the identifying sitting is priced and deferred. The transit's 240 ms / 120 ms are inherited and unmeasured against any native sequence. §5.146's eye residuals stand: the light text square is still visibly too bright, structured transfer and rim/lens bands differ on the large panes, the low-contrast checker's amplitude differs in dark, the one-pixel contour under Increase Contrast and Reduce Transparency's backdrop-dependent slope are unclosed. Dark accessibility, 2x accessibility, the `clear` variant and the stack regime are still not inactive evidence classes. And the row quotes Apple naming **two** system-managed adaptation inputs — "element overlap and focus state" — of which only focus state ships |
+
+| layer | rows | `replicated+measured` | `replicated, unmeasured` | `partial` | `excluded by decision` | `absent, undecided` | n/a |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| §1 Material API surface | 52 | 14 → 14 | 7 → 7 | 7 → 7 | 4 → 4 | 10 → 10 | 10 → 10 |
+| §2 Component families | 26 | 1 → 1 | 3 → 3 | 3 → 3 | 7 → 7 | 10 → 10 | 2 → 2 |
+| §3 Behavioral system | 97 | 29 → **30** | 19 → 19 | 15 → **14** | 11 → 11 | 16 → 16 | 7 → 7 |
+| **total** | **175** | **44 → 45** | **29 → 29** | **25 → 24** | **22 → 22** | **36 → 36** | **19 → 19** |
+
+As proportions of the same **156** scoreable rows: replicated and measured 28% → **29%**;
+replicated, unmeasured 19% → 19%; partial 16% → **15%**; excluded by decision 14% → 14%; absent and
+never ruled on 23% → 23%. §1 and §2 are untouched — W28 built no API surface and no component —
+and the scoreable denominator does not move, so every proportion above is a row moving rather than
+a denominator changing.
+
+**Why only one row, when the wave was four gates long.** W28 is the narrowest wave the project has
+run: one state axis, end to end. Its other products are evidence rather than coverage. The
+footprint abscissa is a mechanism inside the response, not a native behaviour the matrix
+enumerates, and it is gated to the receded documents — the active material is byte-identical by
+contract (X11), so no row that scores the active response moves. G0's reading is a finding *about*
+the reference (it takes the response's input under the surface, not over the source) that the
+matrix has gestured at since 2026-09-10 — "a thin dark appearance selected by scene content beyond
+the surface's footprint" — and it stays a gesture here rather than becoming a row, because the
+reading's own verdict was **not identifiable**: a row scored on a candidate the bed could not
+select would be crediting a law nobody has read. When the identifying sitting is taken, that row is
+the one to add.
+
+**Three rows this re-score checked and did not move**, each for a reason worth naming rather than
+leaving to silence. §3.6's *sheet drag makes the material recede, opacify and grow* keeps
+`excluded by decision`: it is the same recede mechanism, but the row is scored on a gesture-driven
+component that §Out of scope excludes, and W28 built no gesture-driven pose. §3.3's *small elements
+flip light/dark to the underlying content* keeps `partial`: G0 added real native evidence about
+where the reference takes that decision's input, and X11 held the active material still, so the
+evidence under the row is stronger and the verdict is unchanged. §2's *Windows / window chrome*
+keeps `absent, undecided`: a window **activation pose** is not window chrome, and vitrea still
+renders no title bar and no window corner.
+
+**One §6 entry is now half-stale**, recorded here rather than rewritten there. §6 lists *"Window /
+scene focus state as a material state axis — glass receding when a window loses focus, and 'element
+overlap and focus state' being named by Apple as system-managed adaptation inputs"* under a section
+whose criterion is zero occurrences in the composite spec and the claims ledger. The first half is
+now measured, fitted, bounded and shipped across §§5.128–5.148; the second half — element overlap —
+remains genuinely unmentioned and unbuilt, which is the half that keeps the entry alive.

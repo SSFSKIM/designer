@@ -1,11 +1,14 @@
 # W28 — the footprint response: the inactive material's abscissa under the surface, and what structure adds beyond it
 
-**Status: IN FLIGHT — G0 CLOSED 2026-09-14, not identifiable (§5.144); Decision Log 2 rules the
-simplest survivor built and the bound as referee; G1 CLOSED 2026-09-14 (§5.145), fitted and sealed;
-G2 CLOSED 2026-09-14 (§5.146), the unchanged bound holds on six of six, merged `237465fa`;
-Decision Log 3 lifts W27c's hold — G3 (the runtime) CLOSED 2026-09-15 (§5.147). The user's eye
-on the six G2 sheets is requested before G4's cut. The machine stays on macOS 26.5.2 until the wave
-closes; no identifying sitting was taken.**
+**Status: CLOSED 2026-09-15 — all five gates run; six of seven acceptance clauses MET, clause 7
+PARTLY, the exception named. G0 CLOSED 2026-09-14, not identifiable (§5.144); Decision Log 2 rules
+the simplest survivor built and the bound as referee; G1 CLOSED 2026-09-14 (§5.145), fitted and
+sealed; G2 CLOSED 2026-09-14 (§5.146), the unchanged bound holds on six of six, merged `237465fa`;
+Decision Log 3 lifts W27c's hold — G3 (the runtime) CLOSED 2026-09-15 (§5.147); G4 (the landing)
+CLOSED 2026-09-15 (§5.148). W27c's held runtime and landing are closed with it. Release status:
+`0.18.0 PREPARED, UNPUBLISHED` — the user's eye on the six G2 sheets is still the veto before the
+cut, and `pnpm release` is the user's hand. The machine stays on macOS 26.5.2 and the OS 27 decision
+returns with the identifying sitting, which was priced and not taken.**
 
 Parent: `2026-09-10-w27-coverage-wave.md` (Decision Logs 17 and 20, §Deferred, Outcomes clause 1
 "window focus is measured but not shipped"); `2026-08-28-post-v1-wave.md` post-close addenda
@@ -345,7 +348,7 @@ the charter for G3 and G4 here; this document adds nothing to their scope and re
 - **Contracts:** X2, X7.
 - **Size:** 12–20 agent-hours.
 
-### G4: The landing — W27c G3 as chartered — controlled; the cut after the user's eye
+### G4: The landing — W27c G3 as chartered — CLOSED 2026-09-15 (§5.148); the cut prepared, the user's eye still the veto
 
 - **Purpose and acceptance:** acceptance 5 and 7: inactive rows in the canonical matrix as scene
   `state`, `PREDICATE_EXCLUDES` equal to the machine's output, no floor adopted for any probe-bar
@@ -427,10 +430,10 @@ named, not this wave's); the motion-metrics harness; the OS 27 recapture; `promi
 | --- | --- | --- | --- |
 | G0 | CLOSED 2026-09-14 — not identifiable; merged `679cee90` | §5.144 | `results/2026-09-14-w28-g0-abscissa/` |
 | G1 | CLOSED 2026-09-14 — input check passed, rows fitted, endpoint sealed; G2 unread | §5.145 | `results/2026-09-14-w28-g1-silhouette/` |
-| G1s | — (Decision Log 2) | assigned at dispatch | — |
+| G1s | NOT TAKEN — declined at Decision Log 2, moved to §Deferred by Decision Log 3 (e) | — | — |
 | G2 | CLOSED 2026-09-14 — 188 WebGPU rows, six holdouts read once, bound holds on six of six; 182 CSS coherence rows | §5.146 | `results/2026-09-14-w28-g2-read/` |
 | G3 | CLOSED 2026-09-15 — root pose and bindings shipped; three-engine activation verified; review clean | §5.147 | `results/2026-09-15-w28-g3-runtime/` |
-| G4 | — | assigned at dispatch | — |
+| G4 | CLOSED 2026-09-15 — runtime-pose seam proved byte-identical, 470 inactive rows published, no floor, sheets and re-score, 0.18.0 prepared and unpublished | §5.148 | `results/2026-09-15-w28-g4-landing/` |
 
 ## Decision Log
 
@@ -555,6 +558,32 @@ applied as written, in both directions).
 
 ## Surprises & Discoveries
 
+- 2026-09-15 (G4, §5.148): **the driver, not the engines, was holding the document focused.**
+  Making another application frontmost through LaunchServices, with the page under Playwright,
+  leaves `document.hasFocus()` true and the root `active` — because Playwright turns Chromium's
+  focus emulation on for every page it owns, so a suite does not break when the developer clicks
+  away. That is also G3's `bringToFront()` finding, seen from the other side. Launching the same
+  binary directly and speaking CDP over a bare socket gives the true answer on the first try:
+  `hasFocus` false, root `inactive`, and `visibilityState` still `"visible"` — the case the
+  observer was designed around and had never been able to witness. Consequence: every automated
+  activation test in the repository is synthetic by necessity, on all three engines, and the one
+  real reading is a manual-class script.
+
+- 2026-09-15 (G4, §5.148): moving the calibration seam to the runtime pose moved **no pixel** —
+  354 of 354 inactive cells and 60 of 60 active captures byte-identical — but it could easily have
+  moved one, in a place that has nothing to do with the material. The host's box sizing is chosen
+  from the drawn abscissa, and under the runtime pose the abscissa lives in the receded difference
+  the ROOT merges rather than in the document the page hands it; a decision reading only the host
+  profile would have captured every inactive cell in the wrong box. The page's own geometry
+  decisions have to follow the merge, not the option.
+
+- 2026-09-15 (G4, §5.148): the playground could not draw the dark receded endpoint at all. It
+  passed no `colorScheme`, so it drew the light material whatever the system said — invisible for
+  two waves because the page's own chrome is dark either way, and visible the moment two sheets of
+  the same page in two schemes came out identical. The recede's endpoints are fitted per scheme, so
+  the acceptance harness needed the scheme under the reader's hand before it could demonstrate the
+  pose it exists to demonstrate.
+
 - 2026-09-15 (G3, §5.147): headed Playwright `bringToFront()` on a second page leaves
   the original document's `hasFocus()` true on Chromium, Firefox and WebKit. The tests state
   their synthetic focus feed explicitly rather than using visibility as a proxy. Real unfocused
@@ -583,7 +612,279 @@ applied as written, in both directions).
   patches can locate the response step, not the locality scale; its spatial discriminator needs
   non-D phase evidence rather than borrowing the original D square as a selection baseline.
 
+## Outcomes & Retrospective
+
+**Verified at recomposition (2026-09-15) against the Parent-Level Acceptance, on `main` at
+`bf3ebe44` plus the `w28-g4-landing` branch, the prepared package entries and the live demo.**
+
+1. **The abscissa is decided by reading, not by fitting, and never on the checking set — MET.**
+   G0 (§5.144) committed its 398-cell selection population at `8ad63af` before it read a pixel, and
+   the population excludes group D and `checkerboard__rrect-ml__inactive` on **both** poses, with
+   the script refusing a D id by name. Five predictor families were computed from the committed
+   background rasters and `componentRegion` on seven-rung ladders, and the statistic is the one the
+   clause specifies: the RMS residual after isotonic regression, per scheme, pose and thickness row,
+   with no response curve anywhere in the comparison. The verdict is the honest one and it is
+   against the wave's own hopes: **not identifiable from this bed.** Locality lowers the clean
+   light-active thin residual from 0.087204959 (source) to 0.011413806 (silhouette), but the
+   runner-up gap is 0.002036644 against the declared 0.004 Y bar; the light-inactive thin row ties
+   silhouette with Gaussian 1/32 at 0.002758498; the dark-inactive thin row, six cells, prefers the
+   source outright. G0 also classified what it could not test: of 123 same-region-mean diagnostic
+   pairs none changes body-contrast SD by more than 0.05 (the largest is 0.000024540389), so W9's
+   H4 is **untestable on this bed rather than absent**, and the clause's "a residual that grows with
+   contrast gets its own gate" never became answerable. Nothing was captured, no D fixture was
+   opened and no constant moved at that gate.
+2. **The abscissa lands profile-gated, reproduces its predictor before anything is fitted, and the
+   active material is byte-identical — MET as amended by Decision Log 2 (b).** The amendment is
+   material and is named here rather than buried: the clause as written asked for an **output**
+   check — the branch's rendered body Y reproducing G0's prediction — and G0 selected no curve, so
+   an output check would have smuggled one in. The ruling moved it to the **input**: the branch's
+   per-surface abscissa, exposed as a readout, equals G0's own `per-cell.json` silhouette encoded
+   mean within one 8-bit code, on both tiers. It passes **335 / 335** unpressed canonical cells per
+   tier, worst GPU discrepancy 0.02723997831346303 of a code. `backdropToneAbscissa` is the gate:
+   absent or `"source"` is today's arithmetic bit for bit, the two receded documents are the only
+   ones that opt in, and the local reference replaces the source mean everywhere the solve uses it —
+   the response, the collapse compensation, the nominal composition and the opacity solve — not only
+   in `tone_response`. X11 holds at this head: every active document resolves to the same
+   `resolvedMaterialSha256`, the renderer's **34 goldens pass unregenerated**, the isolation spec's
+   hashes are untouched, and the canonical matrix's 637 active rows are byte-identical cell for cell
+   against `bf3ebe44` (§5.148 §2). The CSS tier carries the per-surface half and its Jensen gap to
+   the GPU's per-pixel field is **recorded and unmeasured in isolation**, which is the clause's own
+   instruction and is now a tracker entry.
+3. **The fit never selects on the checking set — MET, and locked three ways.** G1's 28-rung fit ran
+   on calibration and non-D probe cells only; the twelve group D ids plus
+   `checkerboard__rrect-ml__inactive` were predictions at the read. `score-bound.py` reconstructs
+   group D independently and asserts `scored == (scene in D)` on every row, and the verdict records
+   **zero D cells spent by the fit**. The three locks X10 names — a committed population before the
+   script runs, a fit script that refuses a D id, and the scorer's membership assertion — all fired
+   and none was bypassed. The holdout was declared before the fit from cells the fit never saw, and
+   Decision Log 2 (f)'s addendum records honestly that the dark half of it **cannot discriminate the
+   abscissa**: no dark non-D cell has a silhouette-minus-source displacement above 0.038, where the
+   design asked for 0.05. That limit is in the ledger, in X8 and now in the tracker.
+4. **The bound holds on all six profiles — MET.** G2 (§5.146) ran the reader G1 sealed exactly once:
+   188 planned WebGPU rows, six declared holdout pairs admitted once each with two byte-identical
+   deterministic repeats, no resumption and no guard refusal, then 182 CSS rows record-only with
+   every holdout excluded. The 2026-09-11 `bound.json` was applied unchanged, clause by clause, by
+   the same scorer lineage, and **clauses 1–3 hold jointly on every profile**, 72 / 72 checking
+   cells under their per-cell caps. Clause 2: dark 1x 0.01584 / 0.034, dark 2x 0.01114 / 0.041,
+   light 1x 0.01277 / 0.032, light 2x 0.01111 / 0.034, Increase Contrast 0.00278 / 0.0078, Reduce
+   Transparency 0.00600 / 0.011. The cell that held W27c, light `hc-text__rrect-sm__inactive`, is
+   the closest at **0.05932 / 0.064** (1x) and **0.05455 / 0.068** (2x), from 0.07793 and 0.07310 at
+   G1d. The verdict history of that unchanged bound is 2 / 6 → 3 / 6 → 4 / 6 → **6 / 6**. Decision
+   Log 2 (c) made this read the referee — a candidate the reading could not select, tested on a
+   checking set the fit never saw — and the wave did not tighten it after seeing it hold. The
+   independent medium review reproduced the verdict and every derived table by independent
+   arithmetic and reconstructed all six sheets pixel-for-pixel in memory.
+5. **No inactive floor is adopted, and the rows are published as scene `state` — MET.** G4 (§5.148)
+   published **470 inactive rows** in the canonical matrix, on both tiers across all six profiles,
+   from the 58 inactive ids the declaration puts in `calibration`, `validation` or `probe`; the
+   matrix went 637 → **1,107** cells with **0 existing cells changed or missing**, read twice, once
+   by the merge that refuses to write otherwise and once from outside it. `state` is an additive
+   label copied off `scenes.json` beside `fixtureSet`, never a key segment (X3). **No floor was
+   adopted for any regime** — `adopted-thresholds.test.ts`'s gated bed drops the inactive pose
+   alongside the probe set, by the declared pose and never by naming cells, with six guards in both
+   directions — and `PREDICATE_EXCLUDES` is **byte-identical to `bf3ebe44`**, 43 entries, still
+   machine-checked against the predicate's own output over the gated bed. The clause's factual
+   premise needed re-declaring and is, in §5.148 §2: of the 72 inactive scenes only 35 are `probe`,
+   17 being `calibration`, 6 `validation`, 10 `holdout` and 4 `recorded`. Holdout and `recorded` are
+   deliberately unread and neither absence changes a declared split.
+6. **The runtime is W27c G2 as chartered — MET.** G3 (§5.147) built the activation observer
+   following `document.hasFocus()` through the batched read with an explicit override that wins, the
+   framework-agnostic `windowActivation` option and both forms of `setWindowActivation`, the resolved
+   `root.windowActivation` getter, the React `<GlassRoot>` prop and `useGlassWindowActivation()`, the
+   pose applied through `applyMaterialProfile` as two frozen endpoints (X7), the transit through the
+   existing transitions, tests on three engines, README paragraphs on both packages, and the demo
+   receding when its window is backgrounded. Nothing was re-designed and nothing was dropped. Two
+   things are worth carrying out of that gate rather than leaving in it. The three-engine tests drive
+   a **synthetic** `hasFocus` feed and say so, because no engine reports a real unfocused document to
+   a driver — G4 found the mechanism, and it is Playwright's focus emulation rather than the engines.
+   And the transit's 240 ms / 120 ms are **inherited implementation choices**, measured against no
+   native sequence; both now have tracker entries of their own.
+7. **By eye, and the ledger — PARTLY, with two exceptions and both are named.** The measurement half
+   is met: six sheets at both scales for every profile at G2's read, indexed with full prose in
+   §5.146, and the demo's backgrounded pose beside the harness capture at the landing — three sheets
+   and `eye.md` in §5.148 §4, at 2× in both schemes, which needed the playground's new `colorScheme`
+   pin because the recede's endpoints are fitted per scheme and the page could only draw one of
+   them. Every gap that remains is a named line: §5.146 §7, §5.147 §7, §5.148 §5, and eleven tracker
+   entries, six of them written at this landing.
+
+   The first exception is the one the clause turns on. **The user's eye has not been given and the
+   veto has not been exercised.** Decision Log 3 (d) requested it on G2's six sheets and made it the
+   veto before G4's cut; the cut is therefore prepared and **unpublished**, which is the only state
+   this clause can honestly be in until the user looks. The second is smaller and is a
+   re-declaration: the clause says "the cut after the landing is one `@vitreajs/vitrea-web` minor",
+   and it is **three minors in the fixed group**. The React minor is implied by acceptance 6, which
+   required the `<GlassRoot>` prop; the core minor is the one nobody predicted, and §5.147 §2's
+   sentence that "core contracts did not move" is corrected in §5.148 §6 — G1's `GlassGroupState`
+   gained an optional `backdropToneAbscissae` and core exports `SurfaceBackdropToneAbscissa`, which
+   X2 makes a semver event.
+
+### The eye's residuals, carried forward unchanged
+
+Holding a bound is not pixel identity, and this wave says so in the same breath as the verdict. The
+light `hc-text__rrect-sm__inactive` control clears clause 3 by 7 % at 1x and 20 % at 2x and is
+**still visibly too bright** against the native pale-grey control, at WebGPU/native body Y
+0.6791 / 0.5485 and 0.6907 / 0.5690. The low-contrast checker capsule is both dark profiles'
+clause-3 worst cell and reads lighter than native while transmitting a **stronger** checker
+amplitude — a level error and a structure error pointing opposite ways in one cell. Large text and
+checker panes agree in overall level and differ in structured transfer and in the rim/lens band,
+which G4's harness sheet shows again on a cell outside the checking set. `dark-solid__rrect-80`
+keeps a cool, dark body on both light profiles. Under Increase Contrast the near-complete one-pixel
+contour is the dominant residual and the large light-solid pane is visibly whiter than native.
+Reduce Transparency keeps a backdrop-dependent slope rather than one common level error. None of
+these is closed and each now has, or already had, a tracker entry.
+
+### What was not measured
+
+- **Native focus delivery.** No engine reports a real unfocused document to a test driver, on any of
+  the three, so every automated activation test in the repository is a synthetic `hasFocus` feed.
+  The one non-synthetic reading is G4's, taken by launching Chromium directly and speaking CDP over
+  a bare socket, on one machine and one engine — real, and not in any suite.
+- **Native transition timing.** No frame sequence of Apple's recede exists, so the transit's
+  duration, curve and per-channel ordering are authored. Every sheet in this wave is a settled
+  endpoint.
+- **The identifying sitting.** Not taken. The abscissa's kind and scale — silhouette mean against
+  its 1/32 and 1/16 dilations, and whether it is the same on both poses — remain unidentified;
+  Decision Log 3 (e) moved the experiment to §Deferred priced at about twelve cells and four to six
+  hours of a 26.5 machine.
+- **The CSS/GPU Jensen gap, in isolation.** Unmeasured. What exists is an equal-cell mean absolute
+  body-Y gap — 0.0014–0.0095 over §5.146's 182 common cells, 0.00077–0.0048 over §5.148's 235
+  published inactive dom rows — which sums the Jensen term together with every other cross-tier
+  difference the two layers already had.
+- **The active pose's footprint abscissa.** Read by G0 and acted on by nothing: X11 held the active
+  material byte-identical, so the mechanism exists and the active pose has not been refitted under
+  it. The tracker's W22 G3 entry is amended to say exactly that.
+- **Element overlap**, Apple's other named system-managed adaptation input in the same sentence as
+  focus state, and with it the per-element recede that would let the public site's reference pair
+  offer its inactive scenes.
+
+### Status
+
+**0.18.0 PREPARED, UNPUBLISHED.**
+
+### The c9d chain at the 0.18.0 head
+
+Run serially on `w28-g4-landing`, one browser at a time, every browser invocation preceded by a
+fresh reading of Reduce Transparency and Increase Contrast off the machine — **0 / 0 before every
+one**, logged in `results/2026-09-15-w28-g4-landing/browser-runs.txt`, with a nonzero reading
+refusing the run. Each step's whole output is kept beside it as `chain-<step>.txt`.
+
+| step | command | result |
+| --- | --- | --- |
+| workspace build | `pnpm -r build` | exit 0 |
+| workspace lint | `pnpm -r lint` | exit 0 |
+| root ESLint | `npx eslint .` | exit 0 |
+| workspace units | `pnpm -r test` | **2,382 passed / 162 files**, 0 failed — policy 23, motion 164, geometry 170, renderer 497, core 302, platform 616, React 156, calibration **420**, demo 34 |
+| renderer goldens | `pnpm --filter @vitrea/renderer-webgpu test:golden` | **34 / 34**, no regeneration, isolation spec untouched |
+| renderer GPU | `pnpm --filter @vitrea/renderer-webgpu test:gpu` | **28 / 28** on a real adapter |
+| platform-web Playwright, all projects | `npx playwright test` | **404 / 404** — 153 Chromium, 121 Firefox, 121 WebKit, 9 hardware Chromium GPU |
+| React Playwright, three engines | `pnpm --filter @vitreajs/vitrea-react test:e2e` | **174 passed / 3 intentional skips / 0 failed** — 59 Chromium, 58 Firefox, 57 WebKit |
+| demo Playwright | `pnpm --filter demo test:e2e` | **57 / 57** — 49 Chromium, 8 hardware Chromium GPU |
+
+**The React suite is green this time, and the tracker entry stays open.** W28 G3's single full
+three-engine run reproduced the known Firefox `presence.spec.ts` timing case at 433.6 ms against
+354.2 ms allowed, and recorded it rather than re-running to green. This chain's run of the same
+suite passes it. Neither reading retires the other: the entry is a **flake** class, and one green
+run is exactly what a flake looks like from the other side. Nothing was rerun to produce this
+result — it is the first and only React run at this head — and the tracker entry keeps both
+readings.
+
+
+The publish rehearsal, short of publishing: `pnpm publish --dry-run` on each of the three published
+packages at 0.18.0. All three are clean at 0.18.0, and the two things npm would get wrong on its own are read off the packed tarball rather than assumed: every `workspace:` range is rewritten — web → core `^0.18.0`, react → core and web `^0.18.0` — and each tarball carries `dist/`, `LICENSE`, `NOTICE` and `README.md`. Packed sizes 545,528 / 540,670 / 178,893 bytes for core, web and react; React's `>=19.0.0` peers survive the pack. This is the reason `pnpm release` is the only sanctioned path (Decision Log #30(a)), re-confirmed here.
+
+**Nothing is published and nothing is tagged.** `pnpm release` is the only sanctioned path and it is
+the user's hand; the tag `v0.18.0` follows the publish, not this branch.
+
+### Tracking Map at close
+
+| child | status | claims | evidence |
+| --- | --- | --- | --- |
+| G0 | CLOSED 2026-09-14 — not identifiable; merged `679cee90` | §5.144 | `results/2026-09-14-w28-g0-abscissa/` |
+| G1 | CLOSED 2026-09-14 — input check passed, rows fitted, endpoint sealed | §5.145 | `results/2026-09-14-w28-g1-silhouette/` |
+| G1s | NOT TAKEN — Decision Log 2 declined it, Decision Log 3 (e) moved it to §Deferred | — | — |
+| G2 | CLOSED 2026-09-14 — the unchanged bound holds on six of six; merged `237465fa` | §5.146 | `results/2026-09-14-w28-g2-read/` |
+| G3 | CLOSED 2026-09-15 — root pose and bindings shipped; three engines; review clean | §5.147 | `results/2026-09-15-w28-g3-runtime/` |
+| G4 | CLOSED 2026-09-15 — seam, 470 matrix rows, no floor, sheets, re-score, 0.18.0 prepared | §5.148 | `results/2026-09-15-w28-g4-landing/` |
+
+### Deferred at close
+
+Carried unchanged from §Deferred, with the sitting as Decision Log 3 (e) left it:
+
+- **The identifying sitting** — the experiment G0 designed: two fresh phase placements of the text
+  square, a contrast pair matched in encoded region mean, and two bright uniform patches near
+  encoded 0.80 and 0.88 for the dark step. About twelve cells at 1x, four to six hours at the probe
+  bar, and it needs a 26.5 machine. **Priced, not chartered.** The machine stays on macOS 26.5.2
+  until it is ruled on, and the OS 27 decision returns with it.
+- The active material's chroma transfer over saturated backdrops (§5.139 §5), which is the worst
+  inactive cell on every dark profile in G4's published rows and is not the recede's error.
+- The active pose's footprint abscissa, recorded by G0, acted on by a later wave.
+- Dark accessibility, 2x accessibility, the `clear` variant and the stack regime as inactive
+  evidence classes — unchanged from W27 §Deferred, and G4 publishing 470 rows moved none of them,
+  because publishing a row that exists is not creating a cell that does not.
+- Any inactive floor: none is adoptable while seven runs is the probe bar, so the six profiles that
+  hold the bound hold it as fidelity rather than as a gate.
+- The `strongBorderRim` one-pixel contour under Increase Contrast and Reduce Transparency's
+  backdrop-dependent slope (§5.143 §8).
+- The motion-metrics harness — now with the activation transit as a second customer beside identity
+  and `materialize`.
+- The OS 27 recapture, under new `apple-macos-27.0-…` keys beside and never over the frozen 26.5
+  ones; and `prominent`.
+
+### Retrospective
+
+The wave's shape was set by a reading that failed. G0 was built to identify where the reference
+takes the response's input, and it could not: three candidates stayed noise-compatible on every
+clean row and the bed carried no contrast axis to test the structure term with. The tempting move
+was to fit the residual anyway. What happened instead is the thing worth keeping — Decision Log 2
+built the **simplest survivor** and handed the verdict to a bound that had been declared before the
+bed existed and had already failed four times. That made G2 a genuine prediction rather than a
+confirmation, and it held on six of six. The discipline that made it a test was negative: the fit
+never saw a checking cell, the mechanism check was moved to the input because an output check would
+have imported a curve nobody had read, and the bound was not tightened after it held.
+
+The second thing the wave learned is about instruments rather than material. Three times now, a
+question about focus has been answered by the driver instead of by the engine: `bringToFront()` on
+three engines, then a real application switch under Playwright, both reporting a focused document
+that was not focused. The explanation — Playwright holds every page it owns focused on purpose —
+means the repository's entire three-engine activation suite is synthetic by necessity, and the only
+true reading in the project was taken by dropping the driver and speaking the protocol directly.
+That reading is also the wave's nicest result: a window manager moved the pose, `hasFocus` went
+false, the root resolved `inactive`, and `visibilityState` stayed `"visible"` — which is precisely
+the case the observer was designed around and had never been able to witness.
+
+What the wave did not do is as legible as what it did. The active material is byte-identical after
+four gates about the response's input, because the mechanism is profile-gated and only two documents
+opt in; the cost is that the tracker's oldest abscissa entry now reads "built, and off everywhere
+the active material draws". No floor was adopted, so six profiles holding a bound is fidelity and
+not a gate. And the cell that held W27c for five days now clears its ceiling by 7 % and is still
+visibly wrong on the sheet — which is the sentence this project exists to be able to write.
+
 ## Revision Notes
+
+- 2026-09-15 (the parent, at recomposition): the wave is CLOSED. §Outcomes & Retrospective verifies
+  all seven acceptance clauses against `main` at `bf3ebe44` plus this branch — six MET, clause 7
+  PARTLY on the user's eye not yet given and on the cut being three minors rather than one. Status
+  line, G4's child block and the Tracking Map updated; the recomposition's Tracking Map, Deferred
+  and c9d chain are in §Outcomes. W27's §Deferred entry "W27c G2 and G3 — HELD by Decision Log 20"
+  is closed beside its original text, and the tracker's held-runtime entry's three remaining G4
+  items are closed with it. The coverage matrix carries a 2026-09-15 re-score beside the
+  2026-09-14 one: §3.6's window-focus row moves `partial` → `replicated+measured`, one row, no row
+  added, none downward, 44 → 45 measured of 156 scoreable. `2026-08-28-post-v1-wave.md` gains its
+  post-close addendum. Six tracker entries are new and three are amended beside their originals.
+
+- 2026-09-15 (G4, §5.148): the landing closed. The calibration seam is the runtime's — the root is
+  posed and handed the capture's scheme, and the receded document is applied by
+  `applyMaterialProfile` — proved byte-identical before a row was written, 354/354 inactive and
+  60/60 active. 470 inactive rows entered the canonical matrix as the scene's declared `state`,
+  637 → 1,107 cells with zero existing cells changed, read twice. No inactive floor was adopted and
+  the gated bed excludes the pose by axis rather than by cell list; `PREDICATE_EXCLUDES` is
+  byte-identical at 43 entries and still machine-checked. Three sheets and `eye.md`, including a
+  real window-manager focus change read without a driver. Workspace 2,382 units in 162 files;
+  goldens 34/34 unregenerated; renderer GPU 28/28; platform 404/404; React 174 passed / 3 skipped /
+  0 failed; demo 57/57; three publish dry runs clean at 0.18.0 with every `workspace:` range
+  rewritten. One product change: the playground gains a `colorScheme` pin, default unchanged. No
+  material constant, native fixture, profile document, receded document, golden, declared split or
+  fitted value moved.
 
 - 2026-09-15 (G3, §5.147): runtime closed — auto activation, both explicit pins, live setter,
   resolved root state, React prop/hook and playground control. Workspace 2,377 units; goldens
