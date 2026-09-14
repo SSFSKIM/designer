@@ -1,0 +1,5254 @@
+{
+  "gate": "W28 G1 / claims §5.145",
+  "kind": "input-only; not a fit or holdout output read",
+  "repositoryHead": "f331dc5ea52f9002c6295671626eb4b41115345b",
+  "tier": "css",
+  "limit": null,
+  "engineVersion": "151.0.7922.34",
+  "machineAccessibility": {
+    "label": "mechanism-css-complete",
+    "readAt": "2026-09-14T11:49:46.953Z",
+    "reduceTransparency": 0,
+    "increaseContrast": 0
+  },
+  "populationSha256": "af18f36b382cd2b4e90fce56fa5de479e9dc5cee094c1e451549612e3b711c37",
+  "expectedSha256": "9e9c6b5f843395297ae57459378bf6f33b65f2dd9b8f92f950299422c803fffe",
+  "instrumentSha256": "5e2e60fab2c5ec97e55dbbbf671ee19242da45eca956a5536539e354e5d459ec",
+  "aliases": [
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-32__capsule-button__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-32__capsule-button__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-32__capsule-button__rest-tint-orange",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-32__capsule-button__rest-tint-orange",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-md__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-md__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-ml__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-ml__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-4__capsule-button__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-4__capsule-button__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-4__capsule-button__rest-tint-orange",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-4__capsule-button__rest-tint-orange",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-ml__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-ml__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-4__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-64__capsule-button__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-64__capsule-button__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-64__capsule-button__rest-tint-orange",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-64__capsule-button__rest-tint-orange",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-md__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-md__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-ml__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-ml__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-8__capsule-button__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-8__capsule-button__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-8__capsule-button__rest-tint-orange",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-8__capsule-button__rest-tint-orange",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-md__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-md__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-ml__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-ml__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-ml__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-ml__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard-lc16__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-orange",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-orange",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/hc-text-28__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/hc-text-28__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/hc-text-28__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/hc-text-28__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/hc-text-7__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/hc-text-7__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/hc-text-7__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/hc-text-7__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/hc-text__rrect-md__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/hc-text__rrect-md__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/photo__rrect-md__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/photo__rrect-md__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    },
+    {
+      "id": "w9/apple-macos-26.5-1x-light-standard/photo__rrect-sm__rest",
+      "canonicalId": "canonical/apple-macos-26.5-1x-light-standard/photo__rrect-sm__rest",
+      "reason": "The W9 id has the same declared geometry and committed raster as its canonical counterpart; its native output is not consumed."
+    }
+  ],
+  "rows": [
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-32__capsule-button__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-32__capsule-button__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.4999999999999999,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "80be313e7f72f9fc7e149df57e8ca8afb6c5d53a2f5c8ffffd72bf65b3f1ecb1",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.4999999999999999
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 687.5637919999999,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-32__capsule-button__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-32__capsule-button__rest-tint-orange",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-32__capsule-button__rest-tint-orange",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "tinted",
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.4999999999999999,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "80be313e7f72f9fc7e149df57e8ca8afb6c5d53a2f5c8ffffd72bf65b3f1ecb1",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.4999999999999999
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1024.3224579999996,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-32__capsule-button__rest-tint-orange.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-lg__inactive",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-32__rrect-lg__inactive",
+      "scheme": "dark",
+      "pose": "inactive",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-lg",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.49999999999999994,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "80be313e7f72f9fc7e149df57e8ca8afb6c5d53a2f5c8ffffd72bf65b3f1ecb1",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 34,
+          "bounds": {
+            "x": 20,
+            "y": 20,
+            "width": 280,
+            "height": 160
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 43816,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 43816,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 993.1244169999995,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-lg__inactive.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-lg__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-32__rrect-lg__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-lg",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.49999999999999994,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "80be313e7f72f9fc7e149df57e8ca8afb6c5d53a2f5c8ffffd72bf65b3f1ecb1",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 34,
+          "bounds": {
+            "x": 20,
+            "y": 20,
+            "width": 280,
+            "height": 160
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 43816,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 43816,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 508.1981660000001,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-lg__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-md__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-32__rrect-md__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-md",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.4999999999999999,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "80be313e7f72f9fc7e149df57e8ca8afb6c5d53a2f5c8ffffd72bf65b3f1ecb1",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 20,
+          "bounds": {
+            "x": 80,
+            "y": 52,
+            "width": 160,
+            "height": 96
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 15024,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 15024,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 995.156833,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-md__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-ml__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-32__rrect-ml__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-ml",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.4999999999999999,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "80be313e7f72f9fc7e149df57e8ca8afb6c5d53a2f5c8ffffd72bf65b3f1ecb1",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 27,
+          "bounds": {
+            "x": 48,
+            "y": 36,
+            "width": 224,
+            "height": 128
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 28048,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 28048,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1008.1935830000002,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-ml__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-sm__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-32__rrect-sm__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-sm",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.4999999999999999,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "80be313e7f72f9fc7e149df57e8ca8afb6c5d53a2f5c8ffffd72bf65b3f1ecb1",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 8,
+          "bounds": {
+            "x": 128,
+            "y": 84,
+            "width": 64,
+            "height": 32
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 2000,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 2000,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 522.4036249999999,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-32__rrect-sm__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-4__capsule-button__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-4__capsule-button__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.49999999999999983,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "b0541cfb6eb385f38016ea85aaeacb272b2ad18f02aeb84321fb9a2f7008c83c",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.4999999999999999
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1023.3880410000002,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-4__capsule-button__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-4__capsule-button__rest-tint-orange",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-4__capsule-button__rest-tint-orange",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "tinted",
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.49999999999999983,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "b0541cfb6eb385f38016ea85aaeacb272b2ad18f02aeb84321fb9a2f7008c83c",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.4999999999999999
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1007.097917000001,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-4__capsule-button__rest-tint-orange.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-lg__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-4__rrect-lg__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-lg",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.49999999999999983,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "b0541cfb6eb385f38016ea85aaeacb272b2ad18f02aeb84321fb9a2f7008c83c",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 34,
+          "bounds": {
+            "x": 20,
+            "y": 20,
+            "width": 280,
+            "height": 160
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 43816,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 43816,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 524.4235000000008,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-lg__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-ml__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-4__rrect-ml__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-ml",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.4999999999999999,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "b0541cfb6eb385f38016ea85aaeacb272b2ad18f02aeb84321fb9a2f7008c83c",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 27,
+          "bounds": {
+            "x": 48,
+            "y": 36,
+            "width": 224,
+            "height": 128
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 28048,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 28048,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1032.8886669999993,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-ml__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-sm__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-4__rrect-sm__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-sm",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.4999999999999999,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "b0541cfb6eb385f38016ea85aaeacb272b2ad18f02aeb84321fb9a2f7008c83c",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 8,
+          "bounds": {
+            "x": 128,
+            "y": 84,
+            "width": 64,
+            "height": 32
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 2000,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 2000,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 988.308583,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-4__rrect-sm__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-64__capsule-button__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-64__capsule-button__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.5779967159277504,
+      "sourceEncoded": 0.47199999999999986,
+      "backgroundSha256": "490fbf5b6f469cd0bcd82bdaeca0397312a4de2160a60a1d9aa8cc0fa30c334e",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.5779967159277504
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5779967159277504,
+                "luminance": 0.2934658653477822,
+                "linearLuminance": 0.5779967159277504,
+                "color": [
+                  0.5779967159277504,
+                  0.5779967159277504,
+                  0.5779967159277504
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 994.2958749999998,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-64__capsule-button__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-64__capsule-button__rest-tint-orange",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-64__capsule-button__rest-tint-orange",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "tinted",
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.5779967159277504,
+      "sourceEncoded": 0.47199999999999986,
+      "backgroundSha256": "490fbf5b6f469cd0bcd82bdaeca0397312a4de2160a60a1d9aa8cc0fa30c334e",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.5779967159277504
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5779967159277504,
+                "luminance": 0.2934658653477822,
+                "linearLuminance": 0.5779967159277504,
+                "color": [
+                  0.5779967159277504,
+                  0.5779967159277504,
+                  0.5779967159277504
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1031.4466249999987,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-64__capsule-button__rest-tint-orange.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-lg__inactive",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-64__rrect-lg__inactive",
+      "scheme": "dark",
+      "pose": "inactive",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-lg",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.502464853021727,
+      "sourceEncoded": 0.47199999999999986,
+      "backgroundSha256": "490fbf5b6f469cd0bcd82bdaeca0397312a4de2160a60a1d9aa8cc0fa30c334e",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 34,
+          "bounds": {
+            "x": 20,
+            "y": 20,
+            "width": 280,
+            "height": 160
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 43816,
+          "encodedLuminance": 0.5024648530217272
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5024648530217273,
+                "luminance": 0.21632966405194093,
+                "linearLuminance": 0.5024648530217273,
+                "color": [
+                  0.5024648530217273,
+                  0.5024648530217273,
+                  0.5024648530217273
+                ],
+                "sampleCount": 43816,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 512.0957089999993,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-lg__inactive.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-lg__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-64__rrect-lg__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-lg",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.502464853021727,
+      "sourceEncoded": 0.47199999999999986,
+      "backgroundSha256": "490fbf5b6f469cd0bcd82bdaeca0397312a4de2160a60a1d9aa8cc0fa30c334e",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 34,
+          "bounds": {
+            "x": 20,
+            "y": 20,
+            "width": 280,
+            "height": 160
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 43816,
+          "encodedLuminance": 0.5024648530217272
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5024648530217273,
+                "luminance": 0.21632966405194093,
+                "linearLuminance": 0.5024648530217273,
+                "color": [
+                  0.5024648530217273,
+                  0.5024648530217273,
+                  0.5024648530217273
+                ],
+                "sampleCount": 43816,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 490.3027499999989,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-lg__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-md__inactive",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-64__rrect-md__inactive",
+      "scheme": "dark",
+      "pose": "inactive",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-md",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.45527156549520753,
+      "sourceEncoded": 0.47199999999999986,
+      "backgroundSha256": "490fbf5b6f469cd0bcd82bdaeca0397312a4de2160a60a1d9aa8cc0fa30c334e",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 20,
+          "bounds": {
+            "x": 80,
+            "y": 52,
+            "width": 160,
+            "height": 96
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 15024,
+          "encodedLuminance": 0.4552715654952076
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.45527156549520764,
+                "luminance": 0.17495138331005694,
+                "linearLuminance": 0.4552715654952076,
+                "color": [
+                  0.45527156549520764,
+                  0.45527156549520764,
+                  0.45527156549520764
+                ],
+                "sampleCount": 15024,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1007.1442910000005,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-md__inactive.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-md__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-64__rrect-md__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-md",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.45527156549520753,
+      "sourceEncoded": 0.47199999999999986,
+      "backgroundSha256": "490fbf5b6f469cd0bcd82bdaeca0397312a4de2160a60a1d9aa8cc0fa30c334e",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 20,
+          "bounds": {
+            "x": 80,
+            "y": 52,
+            "width": 160,
+            "height": 96
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 15024,
+          "encodedLuminance": 0.4552715654952076
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.45527156549520764,
+                "luminance": 0.17495138331005694,
+                "linearLuminance": 0.4552715654952076,
+                "color": [
+                  0.45527156549520764,
+                  0.45527156549520764,
+                  0.45527156549520764
+                ],
+                "sampleCount": 15024,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1021.3238749999982,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-md__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-ml__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-64__rrect-ml__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-ml",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.5099828864803193,
+      "sourceEncoded": 0.47199999999999986,
+      "backgroundSha256": "490fbf5b6f469cd0bcd82bdaeca0397312a4de2160a60a1d9aa8cc0fa30c334e",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 27,
+          "bounds": {
+            "x": 48,
+            "y": 36,
+            "width": 224,
+            "height": 128
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 28048,
+          "encodedLuminance": 0.5099828864803194
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5099828864803194,
+                "luminance": 0.22339775287901437,
+                "linearLuminance": 0.5099828864803194,
+                "color": [
+                  0.5099828864803194,
+                  0.5099828864803194,
+                  0.5099828864803194
+                ],
+                "sampleCount": 28048,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 480.4282920000005,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-ml__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-sm__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-64__rrect-sm__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-sm",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.9999999999999999,
+      "sourceEncoded": 0.47199999999999986,
+      "backgroundSha256": "490fbf5b6f469cd0bcd82bdaeca0397312a4de2160a60a1d9aa8cc0fa30c334e",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 8,
+          "bounds": {
+            "x": 128,
+            "y": 84,
+            "width": 64,
+            "height": 32
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 2000,
+          "encodedLuminance": 0.9999999999999999
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 1,
+                "luminance": 1,
+                "linearLuminance": 1,
+                "color": [
+                  1,
+                  1,
+                  1
+                ],
+                "sampleCount": 2000,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 980.950665999997,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-sm__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-8__capsule-button__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-8__capsule-button__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.4999999999999999,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "d3d2ba8b4186b0d48a6932573280b048885f2c1f4723879ddb2d639baaaa0eb7",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.4999999999999999
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 480.0444580000003,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-8__capsule-button__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-8__capsule-button__rest-tint-orange",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-8__capsule-button__rest-tint-orange",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "tinted",
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.4999999999999999,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "d3d2ba8b4186b0d48a6932573280b048885f2c1f4723879ddb2d639baaaa0eb7",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.4999999999999999
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 522.2562089999992,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-8__capsule-button__rest-tint-orange.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-lg__inactive",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-8__rrect-lg__inactive",
+      "scheme": "dark",
+      "pose": "inactive",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-lg",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.49999999999999994,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "d3d2ba8b4186b0d48a6932573280b048885f2c1f4723879ddb2d639baaaa0eb7",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 34,
+          "bounds": {
+            "x": 20,
+            "y": 20,
+            "width": 280,
+            "height": 160
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 43816,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 43816,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 991.6395000000011,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-lg__inactive.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-lg__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-8__rrect-lg__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-lg",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.49999999999999994,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "d3d2ba8b4186b0d48a6932573280b048885f2c1f4723879ddb2d639baaaa0eb7",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 34,
+          "bounds": {
+            "x": 20,
+            "y": 20,
+            "width": 280,
+            "height": 160
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 43816,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 43816,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1020.1886249999989,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-lg__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-md__inactive",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-8__rrect-md__inactive",
+      "scheme": "dark",
+      "pose": "inactive",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-md",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.49999999999999994,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "d3d2ba8b4186b0d48a6932573280b048885f2c1f4723879ddb2d639baaaa0eb7",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 20,
+          "bounds": {
+            "x": 80,
+            "y": 52,
+            "width": 160,
+            "height": 96
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 15024,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 15024,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 479.15129199999865,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-md__inactive.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-md__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-8__rrect-md__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-md",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.49999999999999994,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "d3d2ba8b4186b0d48a6932573280b048885f2c1f4723879ddb2d639baaaa0eb7",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 20,
+          "bounds": {
+            "x": 80,
+            "y": 52,
+            "width": 160,
+            "height": 96
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 15024,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 15024,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 483.7335000000021,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-md__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-ml__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-8__rrect-ml__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-ml",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.49999999999999994,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "d3d2ba8b4186b0d48a6932573280b048885f2c1f4723879ddb2d639baaaa0eb7",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 27,
+          "bounds": {
+            "x": 48,
+            "y": 36,
+            "width": 224,
+            "height": 128
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 28048,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 28048,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 480.4058330000007,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-ml__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-sm__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-8__rrect-sm__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-sm",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.4999999999999999,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "d3d2ba8b4186b0d48a6932573280b048885f2c1f4723879ddb2d639baaaa0eb7",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 8,
+          "bounds": {
+            "x": 128,
+            "y": 84,
+            "width": 64,
+            "height": 32
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 2000,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 2000,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 484.02037500000006,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-8__rrect-sm__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-lc16__rrect-lg__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-lc16__rrect-lg__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-lg",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.7000000000000001,
+      "sourceEncoded": 0.7000000000000001,
+      "backgroundSha256": "e43e768594ad761664ff779fc3c834ecfb1810c1ca02130d6cc0f0d998188d4e",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 34,
+          "bounds": {
+            "x": 20,
+            "y": 20,
+            "width": 280,
+            "height": 160
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 43816,
+          "encodedLuminance": 0.6999999999994837
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.699999999999472,
+                "luminance": 0.4479884124411315,
+                "linearLuminance": 0.4996991458195793,
+                "color": [
+                  0.49969914581957936,
+                  0.49969914581957936,
+                  0.49969914581957936
+                ],
+                "sampleCount": 43816,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 998.4019170000029,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-lc16__rrect-lg__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-lc16__rrect-ml__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-lc16__rrect-ml__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-ml",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.7000000000000001,
+      "sourceEncoded": 0.7000000000000001,
+      "backgroundSha256": "e43e768594ad761664ff779fc3c834ecfb1810c1ca02130d6cc0f0d998188d4e",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 27,
+          "bounds": {
+            "x": 48,
+            "y": 36,
+            "width": 224,
+            "height": 128
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 28048,
+          "encodedLuminance": 0.6999999999998068
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "encoded",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.6999999999998068,
+                "luminance": 0.4479884124416082,
+                "linearLuminance": 0.4996991458197647,
+                "color": [
+                  0.49969914581976477,
+                  0.49969914581976477,
+                  0.49969914581976477
+                ],
+                "sampleCount": 28048,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1023.687915999999,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-lc16__rrect-ml__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard-lc16__rrect-sm__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard-lc16__rrect-sm__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-sm",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.7,
+      "sourceEncoded": 0.7000000000000001,
+      "backgroundSha256": "e43e768594ad761664ff779fc3c834ecfb1810c1ca02130d6cc0f0d998188d4e",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 8,
+          "bounds": {
+            "x": 128,
+            "y": 84,
+            "width": 64,
+            "height": 32
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 2000,
+          "encodedLuminance": 0.7000000000000058
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.7000000000000058,
+                "luminance": 0.4479884124418916,
+                "linearLuminance": 0.4996991458200457,
+                "color": [
+                  0.4996991458200457,
+                  0.4996991458200457,
+                  0.4996991458200457
+                ],
+                "sampleCount": 2000,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1005.2691669999986,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard-lc16__rrect-sm__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__inactive",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard__capsule-button__inactive",
+      "scheme": "dark",
+      "pose": "inactive",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.4999999999999999,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "8221472c8e3f1eccbec0da09058285ce8544b090e71fd2fdf30eab52cab8e298",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.4999999999999999
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 976.7928329999995,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__inactive.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__inactive-tint-orange",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard__capsule-button__inactive-tint-orange",
+      "scheme": "dark",
+      "pose": "inactive",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "tinted",
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.4999999999999999,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "8221472c8e3f1eccbec0da09058285ce8544b090e71fd2fdf30eab52cab8e298",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.4999999999999999
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 478.8887089999989,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__inactive-tint-orange.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard__capsule-button__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.4999999999999999,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "8221472c8e3f1eccbec0da09058285ce8544b090e71fd2fdf30eab52cab8e298",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.4999999999999999
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1004.2587909999966,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest-tint-orange",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard__capsule-button__rest-tint-orange",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "tinted",
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.4999999999999999,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "8221472c8e3f1eccbec0da09058285ce8544b090e71fd2fdf30eab52cab8e298",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.4999999999999999
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1018.0644170000014,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest-tint-orange.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard__glass-over-glass__inactive",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard__glass-over-glass__inactive",
+      "scheme": "dark",
+      "pose": "inactive",
+      "policy": "standard",
+      "scale": 1,
+      "component": "glass-over-glass",
+      "flags": [
+        "composite",
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.49999999999999994,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "8221472c8e3f1eccbec0da09058285ce8544b090e71fd2fdf30eab52cab8e298",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "base",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 24,
+          "bounds": {
+            "x": 50,
+            "y": 35,
+            "width": 220,
+            "height": 130
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        },
+        {
+          "nodeId": "over",
+          "groupId": "component-over",
+          "plane": "overlay",
+          "family": "fixed-rounded-rect",
+          "radius": 16,
+          "bounds": {
+            "x": 100,
+            "y": 64,
+            "width": 120,
+            "height": 56
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "base",
+          "sampleCount": 28100,
+          "encodedLuminance": 0.49999999999999994
+        },
+        {
+          "surfaceId": "over",
+          "sampleCount": 6508,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "base",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 28100,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        },
+        {
+          "id": "component-over",
+          "configuredSource": "dom",
+          "state": {
+            "configuredSource": "dom",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "encoded",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": []
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.06272711180674936,
+            "linearLuminance": 0.06272711180674936,
+            "rgb": [
+              0.06272711180674936,
+              0.06272711180674936,
+              0.06272711180674936
+            ]
+          }
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 522.5293339999989,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard__glass-over-glass__inactive.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard__glass-over-glass__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard__glass-over-glass__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "glass-over-glass",
+      "flags": [
+        "composite",
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.49999999999999994,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "8221472c8e3f1eccbec0da09058285ce8544b090e71fd2fdf30eab52cab8e298",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "base",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 24,
+          "bounds": {
+            "x": 50,
+            "y": 35,
+            "width": 220,
+            "height": 130
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        },
+        {
+          "nodeId": "over",
+          "groupId": "component-over",
+          "plane": "overlay",
+          "family": "fixed-rounded-rect",
+          "radius": 16,
+          "bounds": {
+            "x": 100,
+            "y": 64,
+            "width": 120,
+            "height": 56
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "base",
+          "sampleCount": 28100,
+          "encodedLuminance": 0.49999999999999994
+        },
+        {
+          "surfaceId": "over",
+          "sampleCount": 6508,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "base",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 28100,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        },
+        {
+          "id": "component-over",
+          "configuredSource": "dom",
+          "state": {
+            "configuredSource": "dom",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": []
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.050202859729160394,
+            "linearLuminance": 0.050202859729160394,
+            "rgb": [
+              0.050202859729160394,
+              0.050202859729160394,
+              0.050202859729160394
+            ]
+          }
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 976.8137500000012,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard__glass-over-glass__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard__rrect-md__inactive",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard__rrect-md__inactive",
+      "scheme": "dark",
+      "pose": "inactive",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-md",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.4999999999999999,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "8221472c8e3f1eccbec0da09058285ce8544b090e71fd2fdf30eab52cab8e298",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 20,
+          "bounds": {
+            "x": 80,
+            "y": 52,
+            "width": 160,
+            "height": 96
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 15024,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 15024,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 445.49812499999825,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard__rrect-md__inactive.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/checkerboard__rrect-md__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "checkerboard__rrect-md__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-md",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.4999999999999999,
+      "sourceEncoded": 0.4999999999999999,
+      "backgroundSha256": "8221472c8e3f1eccbec0da09058285ce8544b090e71fd2fdf30eab52cab8e298",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 20,
+          "bounds": {
+            "x": 80,
+            "y": 52,
+            "width": 160,
+            "height": 96
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 15024,
+          "encodedLuminance": 0.49999999999999994
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.5,
+                "luminance": 0.21404114048223255,
+                "linearLuminance": 0.5,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "sampleCount": 15024,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 497.6940839999952,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/checkerboard__rrect-md__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/hc-text-28__rrect-lg__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "hc-text-28__rrect-lg__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-lg",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.7081887894832936,
+      "sourceEncoded": 0.7652499999999999,
+      "backgroundSha256": "12700db8a7d00a5b24f276e49692a76d0afae23ac1a89db5fd7a4914d734e0dc",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 34,
+          "bounds": {
+            "x": 20,
+            "y": 20,
+            "width": 280,
+            "height": 160
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 43816,
+          "encodedLuminance": 0.7081887894832937
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.7081887894832938,
+                "luminance": 0.45973847889164715,
+                "linearLuminance": 0.7081887894832938,
+                "color": [
+                  0.7081887894832938,
+                  0.7081887894832938,
+                  0.7081887894832938
+                ],
+                "sampleCount": 43816,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 513.6046249999999,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/hc-text-28__rrect-lg__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/hc-text-28__rrect-sm__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "hc-text-28__rrect-sm__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-sm",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.6159999999999999,
+      "sourceEncoded": 0.7652499999999999,
+      "backgroundSha256": "12700db8a7d00a5b24f276e49692a76d0afae23ac1a89db5fd7a4914d734e0dc",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 8,
+          "bounds": {
+            "x": 128,
+            "y": 84,
+            "width": 64,
+            "height": 32
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 2000,
+          "encodedLuminance": 0.6159999999999999
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.616,
+                "luminance": 0.3375422533305345,
+                "linearLuminance": 0.616,
+                "color": [
+                  0.616,
+                  0.616,
+                  0.616
+                ],
+                "sampleCount": 2000,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 481.6552920000031,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/hc-text-28__rrect-sm__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/hc-text-7__rrect-lg__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "hc-text-7__rrect-lg__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-lg",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.6817829103523825,
+      "sourceEncoded": 0.7504374999999999,
+      "backgroundSha256": "0c9b736c8d4e74235411bcf49ebfc32cdfd731b46e910af226a23d9738c920b4",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 34,
+          "bounds": {
+            "x": 20,
+            "y": 20,
+            "width": 280,
+            "height": 160
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 43816,
+          "encodedLuminance": 0.6817829103523826
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.6817829103523827,
+                "luminance": 0.42248277021360575,
+                "linearLuminance": 0.6817829103523826,
+                "color": [
+                  0.6817829103523827,
+                  0.6817829103523827,
+                  0.6817829103523827
+                ],
+                "sampleCount": 43816,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1016.5447089999943,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/hc-text-7__rrect-lg__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/hc-text-7__rrect-sm__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "hc-text-7__rrect-sm__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-sm",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.6229999999999999,
+      "sourceEncoded": 0.7504374999999999,
+      "backgroundSha256": "0c9b736c8d4e74235411bcf49ebfc32cdfd731b46e910af226a23d9738c920b4",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 8,
+          "bounds": {
+            "x": 128,
+            "y": 84,
+            "width": 64,
+            "height": 32
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 2000,
+          "encodedLuminance": 0.6229999999999999
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.623,
+                "luminance": 0.34605518614030706,
+                "linearLuminance": 0.623,
+                "color": [
+                  0.623,
+                  0.623,
+                  0.623
+                ],
+                "sampleCount": 2000,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 496.2241670000003,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/hc-text-7__rrect-sm__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/impulse__capsule-button__inactive",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "impulse__capsule-button__inactive",
+      "scheme": "dark",
+      "pose": "inactive",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.0032840722495894904,
+      "sourceEncoded": 0.003749999999999999,
+      "backgroundSha256": "a0342dd9608bae6a2493b5c30bc266cac77416ad43674f8f245e14bda14770fc",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.0032840722495894904
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "encoded",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.003284072249589479,
+                "luminance": 0.0002541851586369566,
+                "linearLuminance": 0.0032840722495894787,
+                "color": [
+                  0.003284072249589479,
+                  0.003284072249589479,
+                  0.003284072249589479
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 490.7956669999985,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/impulse__capsule-button__inactive.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/impulse__capsule-button__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "impulse__capsule-button__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.0032840722495894904,
+      "sourceEncoded": 0.003749999999999999,
+      "backgroundSha256": "a0342dd9608bae6a2493b5c30bc266cac77416ad43674f8f245e14bda14770fc",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.0032840722495894904
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "encoded",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.003284072249589479,
+                "luminance": 0.0002541851586369566,
+                "linearLuminance": 0.0032840722495894787,
+                "color": [
+                  0.003284072249589479,
+                  0.003284072249589479,
+                  0.003284072249589479
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 988.5374999999985,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/impulse__capsule-button__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/impulse__rrect-lg__inactive",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "impulse__rrect-lg__inactive",
+      "scheme": "dark",
+      "pose": "inactive",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-lg",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.0054774511593938275,
+      "sourceEncoded": 0.003749999999999999,
+      "backgroundSha256": "a0342dd9608bae6a2493b5c30bc266cac77416ad43674f8f245e14bda14770fc",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 34,
+          "bounds": {
+            "x": 20,
+            "y": 20,
+            "width": 280,
+            "height": 160
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 43816,
+          "encodedLuminance": 0.005477451159393828
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "encoded",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.005477451159393822,
+                "luminance": 0.0004239513281264568,
+                "linearLuminance": 0.005477451159393822,
+                "color": [
+                  0.005477451159393822,
+                  0.005477451159393822,
+                  0.005477451159393822
+                ],
+                "sampleCount": 43816,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1002.6156669999982,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/impulse__rrect-lg__inactive.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/impulse__rrect-lg__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "impulse__rrect-lg__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-lg",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.0054774511593938275,
+      "sourceEncoded": 0.003749999999999999,
+      "backgroundSha256": "a0342dd9608bae6a2493b5c30bc266cac77416ad43674f8f245e14bda14770fc",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 34,
+          "bounds": {
+            "x": 20,
+            "y": 20,
+            "width": 280,
+            "height": 160
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 43816,
+          "encodedLuminance": 0.005477451159393828
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "encoded",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.005477451159393822,
+                "luminance": 0.0004239513281264568,
+                "linearLuminance": 0.005477451159393822,
+                "color": [
+                  0.005477451159393822,
+                  0.005477451159393822,
+                  0.005477451159393822
+                ],
+                "sampleCount": 43816,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 494.04154100000596,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/impulse__rrect-lg__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/impulse__rrect-ml__inactive",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "impulse__rrect-ml__inactive",
+      "scheme": "dark",
+      "pose": "inactive",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-ml",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.003422703936109526,
+      "sourceEncoded": 0.003749999999999999,
+      "backgroundSha256": "a0342dd9608bae6a2493b5c30bc266cac77416ad43674f8f245e14bda14770fc",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 27,
+          "bounds": {
+            "x": 48,
+            "y": 36,
+            "width": 224,
+            "height": 128
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 28048,
+          "encodedLuminance": 0.003422703936109526
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "encoded",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.0034227039361095207,
+                "luminance": 0.00026491516533355425,
+                "linearLuminance": 0.0034227039361095202,
+                "color": [
+                  0.0034227039361095207,
+                  0.0034227039361095207,
+                  0.0034227039361095207
+                ],
+                "sampleCount": 28048,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1014.6212919999962,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/impulse__rrect-ml__inactive.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/impulse__rrect-ml__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "impulse__rrect-ml__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-ml",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.003422703936109526,
+      "sourceEncoded": 0.003749999999999999,
+      "backgroundSha256": "a0342dd9608bae6a2493b5c30bc266cac77416ad43674f8f245e14bda14770fc",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 27,
+          "bounds": {
+            "x": 48,
+            "y": 36,
+            "width": 224,
+            "height": 128
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 28048,
+          "encodedLuminance": 0.003422703936109526
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "encoded",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.0034227039361095207,
+                "luminance": 0.00026491516533355425,
+                "linearLuminance": 0.0034227039361095202,
+                "color": [
+                  0.0034227039361095207,
+                  0.0034227039361095207,
+                  0.0034227039361095207
+                ],
+                "sampleCount": 28048,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1022.4606249999997,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/impulse__rrect-ml__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/impulse__rrect-sm__rest",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "impulse__rrect-sm__rest",
+      "scheme": "dark",
+      "pose": "active",
+      "policy": "standard",
+      "scale": 1,
+      "component": "rrect-sm",
+      "flags": [],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.007999999999999998,
+      "sourceEncoded": 0.003749999999999999,
+      "backgroundSha256": "a0342dd9608bae6a2493b5c30bc266cac77416ad43674f8f245e14bda14770fc",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 8,
+          "bounds": {
+            "x": 128,
+            "y": 84,
+            "width": 64,
+            "height": 32
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 2000,
+          "encodedLuminance": 0.007999999999999998
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "encoded",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.007999999999999972,
+                "luminance": 0.0006191950464396264,
+                "linearLuminance": 0.007999999999999972,
+                "color": [
+                  0.007999999999999972,
+                  0.007999999999999972,
+                  0.007999999999999972
+                ],
+                "sampleCount": 2000,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1004.8845829999991,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/impulse__rrect-sm__rest.png"
+    },
+    {
+      "id": "canonical/apple-macos-26.5-1x-dark-standard/photo__capsule-button__inactive",
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "scene": "photo__capsule-button__inactive",
+      "scheme": "dark",
+      "pose": "inactive",
+      "policy": "standard",
+      "scale": 1,
+      "component": "capsule-button",
+      "flags": [
+        "intermediate-thickness"
+      ],
+      "geometryDifferences": [],
+      "expectedEncoded": 0.46274873418332846,
+      "sourceEncoded": 0.42540525612745095,
+      "backgroundSha256": "8e319b0f82acf6169f24981192c960ad12a5c9b4904342692ca324e6379c6ed0",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "surfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "capsule",
+          "radius": 22,
+          "bounds": {
+            "x": 100,
+            "y": 78,
+            "width": 120,
+            "height": 44
+          },
+          "refraction": {
+            "state": "none",
+            "accessibilityCap": "true",
+            "effective": "none"
+          }
+        }
+      ],
+      "expectedSurfaces": [
+        {
+          "surfaceId": "body",
+          "sampleCount": 4872,
+          "encodedLuminance": 0.4627487341833274
+        }
+      ],
+      "groups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "css",
+            "samplingBackend": "css-backdrop",
+            "refraction": "none",
+            "analysis": "none",
+            "health": "ok",
+            "cssBody": "two-layer",
+            "cssTint": "linear",
+            "cssShadow": "layer",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "kind": "silhouette",
+                "encodedLuminance": 0.46274873418332674,
+                "luminance": 0.1811672978414788,
+                "linearLuminance": 0.21193860947873105,
+                "color": [
+                  0.2489209859578584,
+                  0.19883834047919913,
+                  0.23280923481117932
+                ],
+                "sampleCount": 4872,
+                "level": 0,
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": null
+        }
+      ],
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "elapsedMs": 1010.6741660000043,
+      "capture": "/tmp/w28-g1-silhouette-captures/mechanism-css-complete/apple-macos-26.5-1x-dark-standard/photo__capsule-button__inactive.png"
+    }
+  ]
+}

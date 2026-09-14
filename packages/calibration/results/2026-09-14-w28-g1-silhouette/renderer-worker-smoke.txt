@@ -1,0 +1,7 @@
+pnpm --filter @vitrea/renderer-webgpu exec playwright test e2e/gpu/silhouette-tone.spec.ts --headed --grep "all solve"
+
+[2mRunning [22m1[2m test using [22m1[2m worker[22m
+
+  [32m✓[39m  [2m1 [22m[chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:47:3 › @gpu W28 silhouette abscissa › all solve consumers use the local reference and the union keeps both hosts[2m (1.3s)[22m
+
+[32m  1 passed[39m[2m (3.9s)[22m

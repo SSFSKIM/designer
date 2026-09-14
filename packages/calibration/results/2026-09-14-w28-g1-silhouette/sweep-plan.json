@@ -1,0 +1,36 @@
+{
+  "gate": "W28 G1 / claims §5.145",
+  "declaredBeforeFit": true,
+  "requires": "mechanism-table.json passes=true before any native target is opened",
+  "proposalRule": "Generate candidate ordinates with the existing CPU Hermite response against non-D native body levels. This surrogate proposes rows only; selection uses rendered WebGPU equal-cell mean body OKLab DeltaE and the unchanged 9x control cap.",
+  "sourceBaseline": "Preserved G1d patch, no silhouette branch",
+  "mechanismBaseline": "G1d response rows with silhouette branch",
+  "dark": {
+    "knotCounts": [4],
+    "thirdPositions": [0.549, 0.6, 0.65, 0.7, 0.74, 0.8],
+    "middleRows": [[0.04092, 0.0331], [0.06496, 0.04905], [0.089, 0.065]],
+    "middleRule": "The measured pair is preferred; the intermediate and old pairs expose whether non-D controls refuse the measured middle knots.",
+    "heldLow": [0.011, 0.0215],
+    "initialFar": [0.9326072, 0.11753],
+    "optimized": "Third and far thin/thick ordinates; each remains in [0,1]."
+  },
+  "light": {
+    "knotCounts": [3, 4],
+    "thirdPositionsForFour": [0.45, 0.55, 0.65, 0.75, 0.85],
+    "heldLow": [0.0126, 0.4553],
+    "optimized": "Middle and far ordinates for three knots, plus third ordinates for four knots; each remains in [0,1].",
+    "formRule": "The three-knot form wins a rendered-objective tie; a fourth knot is retained only if it improves the fit objective while all controls hold."
+  },
+  "proposalSearch": {
+    "objective": "Mean absolute cube-root level difference on fit cells, no controls; surrogate only",
+    "coordinateStepLadder": [0.04, 0.02, 0.01, 0.005, 0.002, 0.001],
+    "maximumPassesPerStep": 20,
+    "noOtherFields": "Accessibility levels, approximate refraction and every non-response facet remain unchanged."
+  },
+  "selection": {
+    "metric": "Equal-cell mean body OKLab DeltaE, WebGPU, both scales",
+    "controlCap": 9,
+    "controlBaseline": "2026-09-14-w27c-g1d/frozen-checking-matrix.json",
+    "stop": "If the input check fails, no fit opens. If every candidate rung is refused by a control, stop rather than widening the family."
+  }
+}

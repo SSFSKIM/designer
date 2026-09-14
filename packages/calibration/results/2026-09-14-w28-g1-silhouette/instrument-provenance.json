@@ -1,0 +1,8 @@
+{
+  "run": "mechanism-css",
+  "executedSource": "mechanism-css-executed.ts.txt",
+  "executedSha256": "2d4bf8d8254c70e334876b468227054b28890de344dc4212acaf3fa34624824d",
+  "recordedSha256": "8036cc15cdf6a2b6c8d0c3afe05e0cb2fdb0a88995d6b0ee50b63a913e5eb360",
+  "agrees": false,
+  "note": "The first CSS attempt stopped on pressed geometry after 51 cells. Per-surface expectation instrumentation was added while that process still held its launch-time code; its per-row on-disk hash therefore names the later file. This snapshot preserves the exact executed source and corrects the digest beside the original record. Subsequent runs freeze the hash before launching."
+}
