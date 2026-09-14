@@ -1,0 +1,288 @@
+{
+  "gate": "W28 G1 / claims §5.145",
+  "label": "a11y-rt-selected",
+  "renderer": "webgpu",
+  "patchSha256": "4e3467a8b9bd51241366018222f0b47b9872a24fb281c95a0508f52625272516",
+  "inactiveSha256": "6dcb32c422639d0d49a4ad2927766f97817fb48c90c8987fbc09ec6a55a2b689",
+  "activeSha256": "b2b570e4adcea8fb9281aed4d2556598a1fc95b34ce4b12dd5a50157ac138306",
+  "instrumentSha256": "2295d944ae3711726ccfc149e617956d7466851edf3184e3977ecdfb62cf92be",
+  "partitionSha256": "089454e68b6e31201e01eb0b1cb505584c7d61b9ff470f30940960f8df80ea63",
+  "repositoryHead": "1e55b6fabf2b1fee41deeeaee602a8617abbd580",
+  "sourceSha256": {
+    "packages/renderer-webgpu/src/material.ts": "07bb14a67deb6ca050c692a65bce9097d47d9dbccee30c23ed07f537aea27ded",
+    "packages/renderer-webgpu/src/renderer.ts": "77016a891ede789b43e29254bba8483847b957680bb73b133b9032c857b513c9",
+    "packages/renderer-webgpu/src/silhouette-tone.ts": "6c4ec82bd5efccef7afbc42345e1708d42767e83673c11d78ed645c29abe907e",
+    "packages/renderer-webgpu/src/wgsl/silhouette-tone.ts": "65e66f70d2ce855b69173c260de7b870e3e3c97c175abe2043fad8adb65a7c56",
+    "packages/renderer-webgpu/src/wgsl/optics.ts": "9ea5d7c2ab5ed501207de0e34e47948fcd932d3f922a5980573027002cba923e",
+    "packages/renderer-webgpu/src/wgsl/highlight.ts": "74810240e96ad016960c9840ef9e7f606beb7923783844c93769cf005be2ce96",
+    "packages/platform-web/src/root.ts": "0fd9b4ee9bbe6c24c8db0277bb78c60c814f2649395d1b5e85e85714f9977c67",
+    "packages/platform-web/src/optics.ts": "b4816bf0f70d34006009100e08b20c6d419ce39b6a67ced1db1f409a97d365c0",
+    "packages/platform-web/src/backdrop-tone.ts": "4ddf562b443347b7b35097eb7e267cd58e294b8e25166e9e095d29b211a76506",
+    "packages/calibration/web/scene.ts": "a7ffd7c3e4a7e34eae85e4c99fb47dbcf49f77fcc0df6e38eaecfba96079a540"
+  },
+  "machineAccessibility": {
+    "label": "a11y-rt-selected",
+    "readAt": "2026-09-14T14:16:08.273Z",
+    "reduceTransparency": 0,
+    "increaseContrast": 0
+  },
+  "engineVersion": "151.0.7922.34",
+  "rows": [
+    {
+      "cell": "apple-macos-26.5-1x-light-reduced-transparency/checkerboard__rrect-md__inactive",
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "scene": "checkerboard__rrect-md__inactive",
+      "scheme": "light",
+      "scale": 1,
+      "a11yMode": "reduced-transparency",
+      "role": "accessibility-check",
+      "manifestRole": "calibration",
+      "nativeFile": "apple-macos-26.5-1x-light-reduced-transparency/checkerboard__rrect-md__inactive.png",
+      "nativeLineage": "G1d exact target bytes",
+      "baselineBodyDeltaE": 0.003840241300883383,
+      "state": "inactive",
+      "scored": false,
+      "repeats": 2,
+      "capture": "/tmp/w28-g1-silhouette-captures/a11y-rt-selected/apple-macos-26.5-1x-light-reduced-transparency/checkerboard__rrect-md__inactive.png",
+      "captureSha256": "0771f9594176e8d72af07a71bd25d0ea0de6a2b4c137731fdde44fa40c8d81cf",
+      "nativePath": "/Users/new/vitrea-w27-26.5-run/a11y-reduce-transparency/inactive-1x/run-1/apple-macos-26.5-1x-light-reduced-transparency/checkerboard__rrect-md__inactive.png",
+      "nativeSha256": "2eaaa66220cec653bacdeba294cb2d4b0cf5bc023b8420d8edd3e6f8b1e49848",
+      "backgroundSha256": "8221472c8e3f1eccbec0da09058285ce8544b090e71fd2fdf30eab52cab8e298",
+      "nativeAttestation": {
+        "presentedActive": false,
+        "presentation": {
+          "activationPolicy": "accessory",
+          "appIsActive": false,
+          "attestedAt": "2026-09-12T15:52:09Z",
+          "declaredPose": "inactive",
+          "isKeyWindow": false,
+          "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+          "observedPose": "inactive",
+          "windowCanBecomeKey": false
+        },
+        "hidIdleSeconds": 111.138595875,
+        "deterministic": true,
+        "frequencySettled": false,
+        "stateFrequencies": null,
+        "identicalToBackground": false
+      },
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200,
+                "kind": "silhouette",
+                "level": 0,
+                "color": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "luminance": 0.214041069149971,
+                "encodedLuminance": 0.4999999701976776,
+                "linearLuminance": 0.5,
+                "sampleCount": 15024
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21404114048223255,
+            "linearLuminance": 0.5,
+            "rgb": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "geometry": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 20,
+          "bounds": {
+            "x": 80,
+            "y": 52,
+            "width": 160,
+            "height": 96
+          },
+          "refraction": {
+            "state": "true",
+            "accessibilityCap": "approximate",
+            "effective": "approximate"
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.001015572060618483,
+        "p95": 0.005965251333074688,
+        "max": 0.2134225057190218,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 12264,
+        "webY": 0.96721923173572,
+        "nativeY": 0.9559733532494971,
+        "webSD": 0.008023652198337021,
+        "nativeSD": 0,
+        "webChroma": 3.6861890216143956e-8,
+        "nativeChroma": 3.6718749153372384e-8,
+        "deltaE": 0.003840241300883383
+      }
+    },
+    {
+      "cell": "apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-md__inactive",
+      "profile": "apple-macos-26.5-1x-light-reduced-transparency",
+      "scene": "photo__rrect-md__inactive",
+      "scheme": "light",
+      "scale": 1,
+      "a11yMode": "reduced-transparency",
+      "role": "accessibility-check",
+      "manifestRole": "calibration",
+      "nativeFile": "apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-md__inactive.png",
+      "nativeLineage": "G1d exact target bytes",
+      "baselineBodyDeltaE": 0.0065975919582819615,
+      "state": "inactive",
+      "scored": false,
+      "repeats": 2,
+      "capture": "/tmp/w28-g1-silhouette-captures/a11y-rt-selected/apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-md__inactive.png",
+      "captureSha256": "bf767c85ef1e152bffb866c3a90362cdf37f74df0d8d38f2e1b1250d040a8691",
+      "nativePath": "/Users/new/vitrea-w27-26.5-run/a11y-reduce-transparency/inactive-1x/run-1/apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-md__inactive.png",
+      "nativeSha256": "28e61489b1a1bc2728094f2463d593cdd603a6b610f3392648bdf6f769861bb2",
+      "backgroundSha256": "8e319b0f82acf6169f24981192c960ad12a5c9b4904342692ca324e6379c6ed0",
+      "nativeAttestation": {
+        "presentedActive": false,
+        "presentation": {
+          "activationPolicy": "accessory",
+          "appIsActive": false,
+          "attestedAt": "2026-09-12T15:52:38Z",
+          "declaredPose": "inactive",
+          "isKeyWindow": false,
+          "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+          "observedPose": "inactive",
+          "windowCanBecomeKey": false
+        },
+        "hidIdleSeconds": 139.819451833,
+        "deterministic": true,
+        "frequencySettled": false,
+        "stateFrequencies": null,
+        "identicalToBackground": false
+      },
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok",
+            "backdropToneAbscissae": [
+              {
+                "surfaceId": "body",
+                "sourceWidth": 320,
+                "sourceHeight": 200,
+                "sampledWidth": 320,
+                "sampledHeight": 200,
+                "kind": "silhouette",
+                "level": 0,
+                "color": [
+                  0.24693286418914795,
+                  0.2009364664554596,
+                  0.2556445002555847
+                ],
+                "luminance": 0.16848397254943848,
+                "encodedLuminance": 0.4473254680633545,
+                "linearLuminance": 0.2146652191877365,
+                "sampleCount": 15024
+              }
+            ]
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15148185804236047,
+            "linearLuminance": 0.2140654342001308,
+            "rgb": [
+              0.202058890978265,
+              0.21890261995801485,
+              0.2015036036589953
+            ]
+          }
+        }
+      ],
+      "geometry": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 20,
+          "bounds": {
+            "x": 80,
+            "y": 52,
+            "width": 160,
+            "height": 96
+          },
+          "refraction": {
+            "state": "true",
+            "accessibilityCap": "approximate",
+            "effective": "approximate"
+          }
+        }
+      ],
+      "deltaE": {
+        "mean": 0.0016997454918913453,
+        "p95": 0.009500891012954172,
+        "max": 0.08592206917559662,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 12264,
+        "webY": 0.949109012651718,
+        "nativeY": 0.9541053847250991,
+        "webSD": 0.0063991528378027325,
+        "nativeSD": 0.0029621230152858634,
+        "webChroma": 0.003343593879364502,
+        "nativeChroma": 0.008463032196842685,
+        "deltaE": 0.0065975919582819615
+      }
+    }
+  ]
+}

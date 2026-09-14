@@ -1,0 +1,46 @@
+[96mresults/2026-09-14-w28-g1-silhouette/mechanism.ts[0m:[93m107[0m:[93m7[0m - [91merror[0m[90m TS18048: [0m'report' is possibly 'undefined'.
+
+[7m107[0m       report.surfaces.forEach((surface: any, index: number) => {
+[7m   [0m [91m      ~~~~~~[0m
+
+[96mresults/2026-09-14-w28-g1-silhouette/mechanism.ts[0m:[93m118[0m:[93m34[0m - [91merror[0m[90m TS18048: [0m'report' is possibly 'undefined'.
+
+[7m118[0m       if (tier === "webgpu" && (!report.adapter.ok || report.adapter.isFallback !== false)) {
+[7m   [0m [91m                                 ~~~~~~[0m
+
+[96mresults/2026-09-14-w28-g1-silhouette/mechanism.ts[0m:[93m118[0m:[93m55[0m - [91merror[0m[90m TS18048: [0m'report' is possibly 'undefined'.
+
+[7m118[0m       if (tier === "webgpu" && (!report.adapter.ok || report.adapter.isFallback !== false)) {
+[7m   [0m [91m                                                      ~~~~~~[0m
+
+[96mresults/2026-09-14-w28-g1-silhouette/mechanism.ts[0m:[93m134[0m:[93m29[0m - [91merror[0m[90m TS18048: [0m'report' is possibly 'undefined'.
+
+[7m134[0m         return { surfaceId: report.surfaces[index]!.nodeId, sampleCount: region.areaPx,
+[7m   [0m [91m                            ~~~~~~[0m
+
+[96mresults/2026-09-14-w28-g1-silhouette/mechanism.ts[0m:[93m144[0m:[93m55[0m - [91merror[0m[90m TS18048: [0m'report' is possibly 'undefined'.
+
+[7m144[0m         backgroundSha256: sha(background), pixelSize: report.pixelSize,
+[7m   [0m [91m                                                      ~~~~~~[0m
+
+[96mresults/2026-09-14-w28-g1-silhouette/mechanism.ts[0m:[93m145[0m:[93m19[0m - [91merror[0m[90m TS18048: [0m'report' is possibly 'undefined'.
+
+[7m145[0m         surfaces: report.surfaces, expectedSurfaces, groups: report.groups, adapter: report.adapter,
+[7m   [0m [91m                  ~~~~~~[0m
+
+[96mresults/2026-09-14-w28-g1-silhouette/mechanism.ts[0m:[93m145[0m:[93m62[0m - [91merror[0m[90m TS18048: [0m'report' is possibly 'undefined'.
+
+[7m145[0m         surfaces: report.surfaces, expectedSurfaces, groups: report.groups, adapter: report.adapter,
+[7m   [0m [91m                                                             ~~~~~~[0m
+
+[96mresults/2026-09-14-w28-g1-silhouette/mechanism.ts[0m:[93m145[0m:[93m86[0m - [91merror[0m[90m TS18048: [0m'report' is possibly 'undefined'.
+
+[7m145[0m         surfaces: report.surfaces, expectedSurfaces, groups: report.groups, adapter: report.adapter,
+[7m   [0m [91m                                                                                     ~~~~~~[0m
+
+
+Found 8 errors in the same file, starting at: results/2026-09-14-w28-g1-silhouette/mechanism.ts[90m:107[0m
+
+[90mundefined[39m
+/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a0f33e8f39b68b402/packages/calibration:
+[41m[31m[[39m[49m[41m[30mERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL[39m[49m[41m[31m][39m[49m [31mCommand failed with exit code 2: tsc --ignoreConfig --noEmit --target es2022 --module esnext --moduleResolution bundler --skipLibCheck --types 'node,@webgpu/types' web/scene.ts results/2026-09-14-w28-g1-silhouette/fit-read.ts results/2026-09-14-w28-g1-silhouette/adopt-fit.ts results/2026-09-14-w28-g1-silhouette/audit-fit.ts results/2026-09-14-w28-g1-silhouette/mechanism.ts[39m

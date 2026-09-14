@@ -2716,3 +2716,39 @@ calibration population into an empty scratch capture root, and compare every dig
 W26 baseline. Never write `results/matrix.json`, a profile document or a golden. A current-head
 rebuild can show the final composition rests identically, but cannot by itself prove each
 intermediate landing did.
+
+## W28's interaction predictors still use unpressed geometry (2026-09-14, §5.145)
+
+G0's predictor masks use the declared component, including the 24 canonical interaction cells.
+The web path actually compresses their hosts: the photo capsule reads 118.20001220703125 ×
+43.339996337890625 at (100.89999389648438, 78.33000183105469), rather than the declared
+120 × 44 at (100, 78). G1 therefore records those cells' geometry and abscissa differences but
+excludes them from its raw-input pass condition, by the parent's clarification. The evidence is
+`results/2026-09-14-w28-g1-silhouette/mechanism-table.json`. Closing this gap requires predictors
+built from the interaction's actual geometry and a state-attested native interaction bed, not a
+response fit against an unpressed mask or the recovered pressed/rest duplicate fixtures.
+
+## The source-profile CSS harness retains its historical content-box sizing (2026-09-14, §5.145)
+
+The calibration page specifies a capsule as 120 × 44, but the CSS tier's 1px transparent border
+makes its content-box host measure 122 × 46. G1 makes the silhouette-profile harness border-box
+before registration so its input can be checked against native geometry; source-profile captures
+are deliberately unchanged, proved by eight before/after capture pairs in
+`results/2026-09-14-w28-g1-silhouette/source-harness-isolation.json`. A separate CSS measurement
+correction should declare border-box geometry for the source-profile bed and rescore that bed in
+scratch. The runtime must not silently change an application's box sizing to repair a harness.
+
+## Silhouette locality beyond the native-size inactive bed remains unmeasured (2026-09-14, §5.145)
+
+The new GPU reduction reads imported mip zero. The canonical input check has no downscaled source,
+but a resolution cap can already have linearly filtered that mip; its encoded mean then need not
+be the raw raster's mean. Original and sampled dimensions are exposed in the readout. G1's
+input-only diagnostic measures mip-zero versus analysis-level shifts up to 0.13629209995269775
+encoded on non-D shapes. Exact high-resolution locality needs a raw-source reduction or an
+encoded-space statistic that preserves the region mean through downscaling, with its cost measured.
+
+The CPU outer-shadow thin regime also still uses a group/source reference. Every receded shadow
+amplitude is zero, so this is inert for W28; active adoption must move that reference too. G1's
+queue-completion timing measures warmed, static canonical-sized scenes, not first-reduction cost,
+4K scenes or live-source adaptation fidelity. Those limits are future work, not general performance
+or active-material fidelity claims.

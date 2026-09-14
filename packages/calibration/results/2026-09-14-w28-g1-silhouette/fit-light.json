@@ -1,0 +1,3338 @@
+{
+  "gate": "W28 G1 / claims \u00a75.145",
+  "scheme": "light",
+  "objective": "Equal-cell mean body OKLab \u0394E on fit rows, WebGPU; CSS is record-only (X1)",
+  "controlCap": 9,
+  "selected": "light-four-x0.45",
+  "admissible": [
+    "light-baseline-silhouette",
+    "light-four-x0.45",
+    "light-four-x0.55",
+    "light-four-x0.65",
+    "light-four-x0.75",
+    "light-four-x0.85",
+    "light-three"
+  ],
+  "rungs": {
+    "light-baseline-silhouette": {
+      "patchSha256": "ce23a81a4fdbe220ad062fdadc19a634a2598b846e3f2dd63e640289ede133a3",
+      "inactiveSha256": "65afc1434e1f1cd35e3083249388681f6e2dc353f4c504361f1f9a940386d355",
+      "fitMeanBodyDeltaE": 0.01784707503487165,
+      "controlMeanBodyDeltaE": 0.00805822148712984,
+      "worstControl": {
+        "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-md__inactive",
+        "bodyDeltaE": 0.011385572118620686,
+        "baselineBodyDeltaE": 0.010256695226181162,
+        "ratio": 1.1100624389772216
+      },
+      "refused": false,
+      "rows": [
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.005805480409971623,
+          "webY": 0.6365025948698156,
+          "nativeY": 0.6466388156790398,
+          "fullCanvasDeltaE": 0.005789174348508517
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.009547500756132862,
+          "webY": 0.6426605252070293,
+          "nativeY": 0.6615996025856392,
+          "fullCanvasDeltaE": 0.00826688741381975
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.011554271893960466,
+          "webY": 0.6104603595841608,
+          "nativeY": 0.6305332453492631,
+          "fullCanvasDeltaE": 0.0033844755064557316
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.0074584917629372674,
+          "webY": 0.6367587059422766,
+          "nativeY": 0.6416838566517122,
+          "fullCanvasDeltaE": 0.006411072670332023
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.01556867262565475,
+          "webY": 0.6364361279322629,
+          "nativeY": 0.6421680032606778,
+          "fullCanvasDeltaE": 0.0044697796504850566
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.00683543727098058,
+          "webY": 0.6195814435253442,
+          "nativeY": 0.6085353369499223,
+          "fullCanvasDeltaE": 0.000784257018981415
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.005938864829509975,
+          "webY": 0.6366473326218504,
+          "nativeY": 0.6415819358552268,
+          "fullCanvasDeltaE": 0.002289630093328906
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.007044875385557759,
+          "webY": 0.6186156586406883,
+          "nativeY": 0.6095373627522676,
+          "fullCanvasDeltaE": 0.000302685443448509
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__inactive",
+          "role": "control",
+          "bodyDeltaE": 0,
+          "webY": 0.011711216012870547,
+          "nativeY": 0.011711216012870547,
+          "fullCanvasDeltaE": 4.900847769814287e-07
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0028715758461044273,
+          "webY": 0.4564110231804078,
+          "nativeY": 0.45723213738568824,
+          "fullCanvasDeltaE": 0.0022313007296765612
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.01171121601287148,
+          "nativeY": 0.01171121601287148,
+          "fullCanvasDeltaE": 5.410386219305425e-07
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.03847524889390342,
+          "webY": 0.0033891232223436313,
+          "nativeY": 0.006726953444655569,
+          "fullCanvasDeltaE": 0.0029231339134662437
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02962906097245222,
+          "webY": 0.46566868356323604,
+          "nativeY": 0.4142690988857269,
+          "fullCanvasDeltaE": 0.020598480759255605
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028827502365527367,
+          "webY": 0.46430328123625647,
+          "nativeY": 0.4143401890287667,
+          "fullCanvasDeltaE": 0.006942675961711638
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028758011712014867,
+          "webY": 0.46325625026577644,
+          "nativeY": 0.41349507017001697,
+          "fullCanvasDeltaE": 0.01284427421161521
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.002709514622113217,
+          "webY": 0.9313523863529174,
+          "nativeY": 0.9326072014987324,
+          "fullCanvasDeltaE": 0.00020696557378374709
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.8980969160838864,
+          "nativeY": 0.8980969160838864,
+          "fullCanvasDeltaE": 1.091818620760588e-05
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.002709514622113216,
+          "webY": 0.9313523863528436,
+          "nativeY": 0.9326072014987159,
+          "fullCanvasDeltaE": 8.4152558541973e-05
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.003138217526459079,
+          "webY": 0.5209955732046977,
+          "nativeY": 0.5271151257060639,
+          "fullCanvasDeltaE": 0.00233516085992026
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.003138217526462437,
+          "webY": 0.5209955732043456,
+          "nativeY": 0.5271151257057323,
+          "fullCanvasDeltaE": 0.0008320832496988352
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02873654099850762,
+          "webY": 0.401977779832193,
+          "nativeY": 0.45078578283822673,
+          "fullCanvasDeltaE": 0.0008884083254897244
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.021545453585768832,
+          "webY": 0.5860802572654118,
+          "nativeY": 0.5881617314873225,
+          "fullCanvasDeltaE": 0.0017088483985224772
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.04710048906179603,
+          "webY": 0.6090061734881218,
+          "nativeY": 0.6284209423405968,
+          "fullCanvasDeltaE": 0.011211664821312953
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.05384911856096424,
+          "webY": 0.6065999849610447,
+          "nativeY": 0.6280259974206699,
+          "fullCanvasDeltaE": 0.023907250574202316
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.016846909030280816,
+          "webY": 0.5525287749379189,
+          "nativeY": 0.5411963393324231,
+          "fullCanvasDeltaE": 0.0005268231947439062
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-32__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.014274008285482465,
+          "webY": 0.6364444893094406,
+          "nativeY": 0.6439827356592132,
+          "fullCanvasDeltaE": 0.011431069073812644
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.013030426471354783,
+          "webY": 0.6429823544605096,
+          "nativeY": 0.6598457200027362,
+          "fullCanvasDeltaE": 0.010629726932764037
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.011385572118620686,
+          "webY": 0.6096888103027349,
+          "nativeY": 0.6290803248311515,
+          "fullCanvasDeltaE": 0.003565226484812875
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.0031261906479357715,
+          "webY": 0.6370518826814172,
+          "nativeY": 0.6399775034495441,
+          "fullCanvasDeltaE": 0.002413847379058638
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.004948042873507409,
+          "webY": 0.636792746862868,
+          "nativeY": 0.6401472629330108,
+          "fullCanvasDeltaE": 0.0012309350356152706
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.016003009861728527,
+          "webY": 0.6194200460655311,
+          "nativeY": 0.6100102482077946,
+          "fullCanvasDeltaE": 0.001575125223744284
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0043000225145626535,
+          "webY": 0.6361004114627212,
+          "nativeY": 0.6404198275203946,
+          "fullCanvasDeltaE": 0.0014737211384657028
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.020000397410887084,
+          "webY": 0.6185184839823276,
+          "nativeY": 0.6109968358894288,
+          "fullCanvasDeltaE": 0.0008019904656427257
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__inactive",
+          "role": "control",
+          "bodyDeltaE": 0,
+          "webY": 0.01171121601287224,
+          "nativeY": 0.01171121601287224,
+          "fullCanvasDeltaE": 5.295451275664159e-07
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0028715758460994005,
+          "webY": 0.4564110231798304,
+          "nativeY": 0.45723213738538965,
+          "fullCanvasDeltaE": 0.002212979874650522
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.011711216012870392,
+          "nativeY": 0.011711216012870392,
+          "fullCanvasDeltaE": 0
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.04023390175655306,
+          "webY": 0.0033868581219087318,
+          "nativeY": 0.006730233410468886,
+          "fullCanvasDeltaE": 0.003102630858163932
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02952693657562469,
+          "webY": 0.46533493070486914,
+          "nativeY": 0.4141305565783549,
+          "fullCanvasDeltaE": 0.02049291514794132
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02902698954084202,
+          "webY": 0.464275475524179,
+          "nativeY": 0.41398839174176333,
+          "fullCanvasDeltaE": 0.006932472821617697
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028837153232480903,
+          "webY": 0.4632541773425667,
+          "nativeY": 0.41336179532332196,
+          "fullCanvasDeltaE": 0.012832034206101704
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0027095146221122516,
+          "webY": 0.9313523863529458,
+          "nativeY": 0.9326072014987307,
+          "fullCanvasDeltaE": 0.0002085428685238125
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.89809691608095,
+          "nativeY": 0.89809691608095,
+          "fullCanvasDeltaE": 5.860081781737664e-06
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0027095146221132174,
+          "webY": 0.9313523863529256,
+          "nativeY": 0.9326072014987342,
+          "fullCanvasDeltaE": 8.466909200739911e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0031382175264532417,
+          "webY": 0.5209955732043898,
+          "nativeY": 0.5271151257049501,
+          "fullCanvasDeltaE": 0.002340348126074823
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.003138217526460717,
+          "webY": 0.5209955732049986,
+          "nativeY": 0.5271151257063577,
+          "fullCanvasDeltaE": 0.0008084254052096684
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028736540998508302,
+          "webY": 0.4019777798321786,
+          "nativeY": 0.4507857828382355,
+          "fullCanvasDeltaE": 0.0008885683587407878
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.021216330125706808,
+          "webY": 0.5864181605569406,
+          "nativeY": 0.5748823977520511,
+          "fullCanvasDeltaE": 0.0016841929891713988
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.046599003275273616,
+          "webY": 0.6095109024072092,
+          "nativeY": 0.6281426342207539,
+          "fullCanvasDeltaE": 0.01107389282287749
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.05342924758008146,
+          "webY": 0.6068193985004546,
+          "nativeY": 0.6280820123498807,
+          "fullCanvasDeltaE": 0.02373698664274984
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.017557725499118732,
+          "webY": 0.5516534570105591,
+          "nativeY": 0.5407885671064349,
+          "fullCanvasDeltaE": 0.000541394232620694
+        }
+      ]
+    },
+    "light-baseline-source": {
+      "patchSha256": "e20042c61516d073fce9c641478d8cf1ab82c0a0188442012f875a79b82e8b89",
+      "inactiveSha256": "cc0e4426bc73515e4cca76fda4606bc9dbb0d614f92330f526ef838f91dd0f79",
+      "fitMeanBodyDeltaE": 0.017937390775192436,
+      "controlMeanBodyDeltaE": 0.008184406047818808,
+      "worstControl": {
+        "cell": "apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-lg__inactive",
+        "bodyDeltaE": 0.005798527160370074,
+        "baselineBodyDeltaE": 0.005798527160370074,
+        "ratio": 1.0
+      },
+      "refused": false,
+      "rows": [
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.005798527160370074,
+          "webY": 0.6365317578129364,
+          "nativeY": 0.6466388156790398,
+          "fullCanvasDeltaE": 0.0057846385805930415
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.010130310217531295,
+          "webY": 0.6412548377776938,
+          "nativeY": 0.6615996025856392,
+          "fullCanvasDeltaE": 0.008631587039310617
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.011381739085740106,
+          "webY": 0.6110060554307296,
+          "nativeY": 0.6305332453492631,
+          "fullCanvasDeltaE": 0.003346783918787804
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.00745832839045817,
+          "webY": 0.6368081307990554,
+          "nativeY": 0.6416838566517122,
+          "fullCanvasDeltaE": 0.00641111321419275
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.01555509089649589,
+          "webY": 0.6364951445732913,
+          "nativeY": 0.6421680032606778,
+          "fullCanvasDeltaE": 0.004467317760125706
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.006829614931197907,
+          "webY": 0.6194179645361381,
+          "nativeY": 0.6085353369499223,
+          "fullCanvasDeltaE": 0.0007826319789763197
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0059330879928091934,
+          "webY": 0.6366702541571646,
+          "nativeY": 0.6415819358552268,
+          "fullCanvasDeltaE": 0.002288859385316213
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.007038503960077127,
+          "webY": 0.6187187757836886,
+          "nativeY": 0.6095373627522676,
+          "fullCanvasDeltaE": 0.0003024854218892324
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__inactive",
+          "role": "control",
+          "bodyDeltaE": 0,
+          "webY": 0.011711216012870547,
+          "nativeY": 0.011711216012870547,
+          "fullCanvasDeltaE": 0
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0028715758461044273,
+          "webY": 0.4564110231804078,
+          "nativeY": 0.45723213738568824,
+          "fullCanvasDeltaE": 0.0022313007296765612
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.01171121601287148,
+          "nativeY": 0.01171121601287148,
+          "fullCanvasDeltaE": 5.410386219305425e-07
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.03343056882195467,
+          "webY": 0.0037422729970036815,
+          "nativeY": 0.006726953444655569,
+          "fullCanvasDeltaE": 0.0025406722011389236
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028956797424522916,
+          "webY": 0.4644554452746332,
+          "nativeY": 0.4142690988857269,
+          "fullCanvasDeltaE": 0.02013647558322098
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028934712863308003,
+          "webY": 0.4644970044145313,
+          "nativeY": 0.4143401890287667,
+          "fullCanvasDeltaE": 0.006970669823256038
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0288126945111791,
+          "webY": 0.4633548765965852,
+          "nativeY": 0.41349507017001697,
+          "fullCanvasDeltaE": 0.012866569605911937
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.002709514622113217,
+          "webY": 0.9313523863529174,
+          "nativeY": 0.9326072014987324,
+          "fullCanvasDeltaE": 0.00020696557378374709
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.8980969160838864,
+          "nativeY": 0.8980969160838864,
+          "fullCanvasDeltaE": 1.0748249088708142e-05
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.002709514622113216,
+          "webY": 0.9313523863528436,
+          "nativeY": 0.9326072014987159,
+          "fullCanvasDeltaE": 8.4152558541973e-05
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.003138217526459079,
+          "webY": 0.5209955732046977,
+          "nativeY": 0.5271151257060639,
+          "fullCanvasDeltaE": 0.00233516085992026
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.003138217526462437,
+          "webY": 0.5209955732043456,
+          "nativeY": 0.5271151257057323,
+          "fullCanvasDeltaE": 0.0008320832496988352
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02873654099850762,
+          "webY": 0.401977779832193,
+          "nativeY": 0.45078578283822673,
+          "fullCanvasDeltaE": 0.0008884083254897244
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.027059408914601298,
+          "webY": 0.5535689606909403,
+          "nativeY": 0.5881617314873225,
+          "fullCanvasDeltaE": 0.0020965418483584524
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.04771317146221961,
+          "webY": 0.5975792696028823,
+          "nativeY": 0.6284209423405968,
+          "fullCanvasDeltaE": 0.011345934653862487
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.05411043785631268,
+          "webY": 0.6002506255961734,
+          "nativeY": 0.6280259974206699,
+          "fullCanvasDeltaE": 0.02401048628794195
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.01725860637928455,
+          "webY": 0.5300593854088654,
+          "nativeY": 0.5411963393324231,
+          "fullCanvasDeltaE": 0.0005298350619425381
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-32__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.014057276976968836,
+          "webY": 0.6391986458465082,
+          "nativeY": 0.6439827356592132,
+          "fullCanvasDeltaE": 0.011298049776817861
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.012995626880130144,
+          "webY": 0.6431506675260202,
+          "nativeY": 0.6598457200027362,
+          "fullCanvasDeltaE": 0.010606600165159682
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.010256695226181162,
+          "webY": 0.6124187664064619,
+          "nativeY": 0.6290803248311515,
+          "fullCanvasDeltaE": 0.0033122040861687935
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.0048381959239710715,
+          "webY": 0.649775534099129,
+          "nativeY": 0.6399775034495441,
+          "fullCanvasDeltaE": 0.0035250871034658076
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.005741081815978947,
+          "webY": 0.6489856012004224,
+          "nativeY": 0.6401472629330108,
+          "fullCanvasDeltaE": 0.001416524874695582
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.016425663559910448,
+          "webY": 0.6258901260702245,
+          "nativeY": 0.6100102482077946,
+          "fullCanvasDeltaE": 0.001596075073806314
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0039747312936446386,
+          "webY": 0.6423333499776629,
+          "nativeY": 0.6404198275203946,
+          "fullCanvasDeltaE": 0.0014047623877983422
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.019871482825583313,
+          "webY": 0.6249060625327492,
+          "nativeY": 0.6109968358894288,
+          "fullCanvasDeltaE": 0.0007935835577261094
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__inactive",
+          "role": "control",
+          "bodyDeltaE": 0,
+          "webY": 0.01171121601287224,
+          "nativeY": 0.01171121601287224,
+          "fullCanvasDeltaE": 5.295451275664159e-07
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0028715758460994005,
+          "webY": 0.4564110231798304,
+          "nativeY": 0.45723213738538965,
+          "fullCanvasDeltaE": 0.002212979874650522
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.011711216012870392,
+          "nativeY": 0.011711216012870392,
+          "fullCanvasDeltaE": 0
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.039376153408897795,
+          "webY": 0.003446656503372368,
+          "nativeY": 0.006730233410468886,
+          "fullCanvasDeltaE": 0.00303830173957426
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02907673881310112,
+          "webY": 0.46452099263092983,
+          "nativeY": 0.4141305565783549,
+          "fullCanvasDeltaE": 0.02018672833325104
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.029107232628687814,
+          "webY": 0.46442079696341093,
+          "nativeY": 0.41398839174176333,
+          "fullCanvasDeltaE": 0.006953335435719529
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02886973766515686,
+          "webY": 0.4633129940309894,
+          "nativeY": 0.41336179532332196,
+          "fullCanvasDeltaE": 0.012845540723636507
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0027095146221122516,
+          "webY": 0.9313523863529458,
+          "nativeY": 0.9326072014987307,
+          "fullCanvasDeltaE": 0.0002085428685238125
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.89809691608095,
+          "nativeY": 0.89809691608095,
+          "fullCanvasDeltaE": 5.860081781737664e-06
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0027095146221132174,
+          "webY": 0.9313523863529256,
+          "nativeY": 0.9326072014987342,
+          "fullCanvasDeltaE": 8.466909200739911e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0031382175264532417,
+          "webY": 0.5209955732043898,
+          "nativeY": 0.5271151257049501,
+          "fullCanvasDeltaE": 0.002340348126074823
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.003138217526460717,
+          "webY": 0.5209955732049986,
+          "nativeY": 0.5271151257063577,
+          "fullCanvasDeltaE": 0.0008084254052096684
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028736540998508302,
+          "webY": 0.4019777798321786,
+          "nativeY": 0.4507857828382355,
+          "fullCanvasDeltaE": 0.0008885683587407878
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02287411134617531,
+          "webY": 0.5531150096510558,
+          "nativeY": 0.5748823977520511,
+          "fullCanvasDeltaE": 0.0017911263007854116
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.04721423698971706,
+          "webY": 0.5979262697719014,
+          "nativeY": 0.6281426342207539,
+          "fullCanvasDeltaE": 0.011210507121955772
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.053689595551768186,
+          "webY": 0.6003247302743636,
+          "nativeY": 0.6280820123498807,
+          "fullCanvasDeltaE": 0.023840195489032903
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.018456397973695766,
+          "webY": 0.5285268872536847,
+          "nativeY": 0.5407885671064349,
+          "fullCanvasDeltaE": 0.000564458697650397
+        }
+      ]
+    },
+    "light-four-x0.45": {
+      "patchSha256": "f21dc5c4978b5e24fcd2c86ca58ffbdbc1bb272528ea29635d40b95e054bbb6b",
+      "inactiveSha256": "6dcb32c422639d0d49a4ad2927766f97817fb48c90c8987fbc09ec6a55a2b689",
+      "fitMeanBodyDeltaE": 0.016032500055353678,
+      "controlMeanBodyDeltaE": 0.007932447179265686,
+      "worstControl": {
+        "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-lg__inactive",
+        "bodyDeltaE": 0.007949990189033706,
+        "baselineBodyDeltaE": 0.0048381959239710715,
+        "ratio": 1.6431724374048398
+      },
+      "refused": false,
+      "rows": [
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.006711329942735496,
+          "webY": 0.6572536080077651,
+          "nativeY": 0.6466388156790398,
+          "fullCanvasDeltaE": 0.0062854572522761006
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.0058645358679424815,
+          "webY": 0.6635682233912861,
+          "nativeY": 0.6615996025856392,
+          "fullCanvasDeltaE": 0.005902731314920003
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.008226161626695528,
+          "webY": 0.6316266604004478,
+          "nativeY": 0.6305332453492631,
+          "fullCanvasDeltaE": 0.0025411341041875375
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.009913369286766564,
+          "webY": 0.6574643298865802,
+          "nativeY": 0.6416838566517122,
+          "fullCanvasDeltaE": 0.0079533116515018
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.017086765021207727,
+          "webY": 0.6571610235658972,
+          "nativeY": 0.6421680032606778,
+          "fullCanvasDeltaE": 0.0047728150563614916
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.005280330791988987,
+          "webY": 0.6094203713664891,
+          "nativeY": 0.6085353369499223,
+          "fullCanvasDeltaE": 0.0006785960127622569
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.008664181670289546,
+          "webY": 0.6571760863031216,
+          "nativeY": 0.6415819358552268,
+          "fullCanvasDeltaE": 0.0028216541439729428
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.006025002141840534,
+          "webY": 0.6077290964104411,
+          "nativeY": 0.6095373627522676,
+          "fullCanvasDeltaE": 0.00028664712598923495
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__inactive",
+          "role": "control",
+          "bodyDeltaE": 0,
+          "webY": 0.011711216012870547,
+          "nativeY": 0.011711216012870547,
+          "fullCanvasDeltaE": 4.900847769814287e-07
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0028715758461044273,
+          "webY": 0.4564110231804078,
+          "nativeY": 0.45723213738568824,
+          "fullCanvasDeltaE": 0.0022313007296765612
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.01171121601287148,
+          "nativeY": 0.01171121601287148,
+          "fullCanvasDeltaE": 5.410386219305425e-07
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.03847524889390342,
+          "webY": 0.0033891232223436313,
+          "nativeY": 0.006726953444655569,
+          "fullCanvasDeltaE": 0.0029231339134662437
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02962906097245222,
+          "webY": 0.46566868356323604,
+          "nativeY": 0.4142690988857269,
+          "fullCanvasDeltaE": 0.020598480759255605
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028827502365527367,
+          "webY": 0.46430328123625647,
+          "nativeY": 0.4143401890287667,
+          "fullCanvasDeltaE": 0.006942675961711638
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028758011712014867,
+          "webY": 0.46325625026577644,
+          "nativeY": 0.41349507017001697,
+          "fullCanvasDeltaE": 0.01284427421161521
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070087,
+          "webY": 0.931978130505293,
+          "nativeY": 0.9326072014987324,
+          "fullCanvasDeltaE": 0.00010645483889029593
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.8980969160838864,
+          "nativeY": 0.8980969160838864,
+          "fullCanvasDeltaE": 9.468939093359745e-06
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070497,
+          "webY": 0.9319781305053084,
+          "nativeY": 0.9326072014987159,
+          "fullCanvasDeltaE": 4.238837712095433e-05
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257060639,
+          "nativeY": 0.5271151257060639,
+          "fullCanvasDeltaE": 0.000219173427780625
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257057323,
+          "nativeY": 0.5271151257057323,
+          "fullCanvasDeltaE": 0.0001015237318363579
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.45078578283822673,
+          "nativeY": 0.45078578283822673,
+          "fullCanvasDeltaE": 2.3948286864214283e-05
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.021645017822321137,
+          "webY": 0.5790670195173491,
+          "nativeY": 0.5881617314873225,
+          "fullCanvasDeltaE": 0.0017112445999518141
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.047926511551801776,
+          "webY": 0.6298645040481121,
+          "nativeY": 0.6284209423405968,
+          "fullCanvasDeltaE": 0.011407294136113194
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.054593703728986906,
+          "webY": 0.6274099090997284,
+          "nativeY": 0.6280259974206699,
+          "fullCanvasDeltaE": 0.024254761405051988
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.01695798656537028,
+          "webY": 0.5530414971041305,
+          "nativeY": 0.5411963393324231,
+          "fullCanvasDeltaE": 0.0005302740894042901
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-32__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.014270651222106153,
+          "webY": 0.6573341592376651,
+          "nativeY": 0.6439827356592132,
+          "fullCanvasDeltaE": 0.011356610510289456
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.010058598199779235,
+          "webY": 0.6633672259815241,
+          "nativeY": 0.6598457200027362,
+          "fullCanvasDeltaE": 0.008758900317861416
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.007228503442462089,
+          "webY": 0.6312229136786575,
+          "nativeY": 0.6290803248311515,
+          "fullCanvasDeltaE": 0.0025590290838341787
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.007949990189033706,
+          "webY": 0.6578177736316223,
+          "nativeY": 0.6399775034495441,
+          "fullCanvasDeltaE": 0.005615976164224186
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.007879461352459255,
+          "webY": 0.6575368506718493,
+          "nativeY": 0.6401472629330108,
+          "fullCanvasDeltaE": 0.0019276744873931533
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.01592977408675058,
+          "webY": 0.6089519271636901,
+          "nativeY": 0.6100102482077946,
+          "fullCanvasDeltaE": 0.0015845782076083575
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.007672159916684168,
+          "webY": 0.6568712674662243,
+          "nativeY": 0.6404198275203946,
+          "fullCanvasDeltaE": 0.002164415293254885
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.020609887977352286,
+          "webY": 0.6078276286910296,
+          "nativeY": 0.6109968358894288,
+          "fullCanvasDeltaE": 0.0008274996226289871
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__inactive",
+          "role": "control",
+          "bodyDeltaE": 0,
+          "webY": 0.01171121601287224,
+          "nativeY": 0.01171121601287224,
+          "fullCanvasDeltaE": 5.295451275664159e-07
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0028715758460994005,
+          "webY": 0.4564110231798304,
+          "nativeY": 0.45723213738538965,
+          "fullCanvasDeltaE": 0.002212979874650522
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.011711216012870392,
+          "nativeY": 0.011711216012870392,
+          "fullCanvasDeltaE": 0
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.04023390175655306,
+          "webY": 0.0033868581219087318,
+          "nativeY": 0.006730233410468886,
+          "fullCanvasDeltaE": 0.003102630858163932
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02952693657562469,
+          "webY": 0.46533493070486914,
+          "nativeY": 0.4141305565783549,
+          "fullCanvasDeltaE": 0.02049291514794132
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02902698954084202,
+          "webY": 0.464275475524179,
+          "nativeY": 0.41398839174176333,
+          "fullCanvasDeltaE": 0.006932472821617697
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028837153232480903,
+          "webY": 0.4632541773425667,
+          "nativeY": 0.41336179532332196,
+          "fullCanvasDeltaE": 0.012832034206101704
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520074775,
+          "webY": 0.931978130505588,
+          "nativeY": 0.9326072014987307,
+          "fullCanvasDeltaE": 0.00010634085831184304
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.89809691608095,
+          "nativeY": 0.89809691608095,
+          "fullCanvasDeltaE": 9.391614491131356e-06
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070043,
+          "webY": 0.9319781305052913,
+          "nativeY": 0.9326072014987342,
+          "fullCanvasDeltaE": 4.275691869540752e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257049501,
+          "nativeY": 0.5271151257049501,
+          "fullCanvasDeltaE": 0.000200721501557625
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257063577,
+          "nativeY": 0.5271151257063577,
+          "fullCanvasDeltaE": 7.47708325707754e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.4507857828382355,
+          "nativeY": 0.4507857828382355,
+          "fullCanvasDeltaE": 1.6682435796883244e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.020159697517574945,
+          "webY": 0.5794226460108978,
+          "nativeY": 0.5748823977520511,
+          "fullCanvasDeltaE": 0.0016019153998644686
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.047469413260410535,
+          "webY": 0.6303632726199917,
+          "nativeY": 0.6281426342207539,
+          "fullCanvasDeltaE": 0.011280116453361735
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.054154939661129484,
+          "webY": 0.6276384715378647,
+          "nativeY": 0.6280820123498807,
+          "fullCanvasDeltaE": 0.02407503308100898
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.017667432861307664,
+          "webY": 0.5521781351037236,
+          "nativeY": 0.5407885671064349,
+          "fullCanvasDeltaE": 0.0005446696338137225
+        }
+      ]
+    },
+    "light-four-x0.55": {
+      "patchSha256": "8229c9854a832d1717ac376ca7bd219002552200a0d87b4a5d52618ebe862fff",
+      "inactiveSha256": "ab18062445ab0c4579726b2cd4fc612577c71c538729be0c6d5e1e5262505440",
+      "fitMeanBodyDeltaE": 0.016223720561082036,
+      "controlMeanBodyDeltaE": 0.008196934767555245,
+      "worstControl": {
+        "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-lg__inactive",
+        "bodyDeltaE": 0.008449531387506157,
+        "baselineBodyDeltaE": 0.0048381959239710715,
+        "ratio": 1.746421914342607
+      },
+      "refused": false,
+      "rows": [
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.007325056743161491,
+          "webY": 0.6592897891301522,
+          "nativeY": 0.6466388156790398,
+          "fullCanvasDeltaE": 0.0066646548928196775
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.006007641086021147,
+          "webY": 0.6655060099170738,
+          "nativeY": 0.6615996025856392,
+          "fullCanvasDeltaE": 0.00598430101576654
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.008222966653681024,
+          "webY": 0.631698439006213,
+          "nativeY": 0.6305332453492631,
+          "fullCanvasDeltaE": 0.002539896940013823
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.010433678884674006,
+          "webY": 0.6595234160776484,
+          "nativeY": 0.6416838566517122,
+          "fullCanvasDeltaE": 0.008280289812915427
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.01765508974375189,
+          "webY": 0.6597989766637707,
+          "nativeY": 0.6421680032606778,
+          "fullCanvasDeltaE": 0.004888544146868435
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.005247084028983116,
+          "webY": 0.6087157863105498,
+          "nativeY": 0.6085353369499223,
+          "fullCanvasDeltaE": 0.0006789467148315009
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.009436589286982346,
+          "webY": 0.6592383584784318,
+          "nativeY": 0.6415819358552268,
+          "fullCanvasDeltaE": 0.00299756944222748
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.006064796369026216,
+          "webY": 0.6071541061454914,
+          "nativeY": 0.6095373627522676,
+          "fullCanvasDeltaE": 0.00028663582119441415
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__inactive",
+          "role": "control",
+          "bodyDeltaE": 0,
+          "webY": 0.011711216012870547,
+          "nativeY": 0.011711216012870547,
+          "fullCanvasDeltaE": 4.900847769814287e-07
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0028715758461044273,
+          "webY": 0.4564110231804078,
+          "nativeY": 0.45723213738568824,
+          "fullCanvasDeltaE": 0.0022313007296765612
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.01171121601287148,
+          "nativeY": 0.01171121601287148,
+          "fullCanvasDeltaE": 5.410386219305425e-07
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.03847524889390342,
+          "webY": 0.0033891232223436313,
+          "nativeY": 0.006726953444655569,
+          "fullCanvasDeltaE": 0.0029231339134662437
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02962906097245222,
+          "webY": 0.46566868356323604,
+          "nativeY": 0.4142690988857269,
+          "fullCanvasDeltaE": 0.020598480759255605
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028827502365527367,
+          "webY": 0.46430328123625647,
+          "nativeY": 0.4143401890287667,
+          "fullCanvasDeltaE": 0.006942675961711638
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028758011712014867,
+          "webY": 0.46325625026577644,
+          "nativeY": 0.41349507017001697,
+          "fullCanvasDeltaE": 0.01284427421161521
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070087,
+          "webY": 0.931978130505293,
+          "nativeY": 0.9326072014987324,
+          "fullCanvasDeltaE": 0.00010645483889029593
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.8980969160838864,
+          "nativeY": 0.8980969160838864,
+          "fullCanvasDeltaE": 9.468939093359745e-06
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070497,
+          "webY": 0.9319781305053084,
+          "nativeY": 0.9326072014987159,
+          "fullCanvasDeltaE": 4.238837712095433e-05
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257060639,
+          "nativeY": 0.5271151257060639,
+          "fullCanvasDeltaE": 0.000219173427780625
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257057323,
+          "nativeY": 0.5271151257057323,
+          "fullCanvasDeltaE": 0.0001015237318363579
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.45078578283822673,
+          "nativeY": 0.45078578283822673,
+          "fullCanvasDeltaE": 2.3948286864214283e-05
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.021498581558082593,
+          "webY": 0.5839819035476499,
+          "nativeY": 0.5881617314873225,
+          "fullCanvasDeltaE": 0.0017044557455440437
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.047898382855906856,
+          "webY": 0.629579370475987,
+          "nativeY": 0.6284209423405968,
+          "fullCanvasDeltaE": 0.011401752273429377
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.054556021404635426,
+          "webY": 0.6269859464422154,
+          "nativeY": 0.6280259974206699,
+          "fullCanvasDeltaE": 0.024238732131919762
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.019548252999371494,
+          "webY": 0.5627450535909397,
+          "nativeY": 0.5411963393324231,
+          "fullCanvasDeltaE": 0.0006118348885898171
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-32__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.014410686427711122,
+          "webY": 0.6592377642554142,
+          "nativeY": 0.6439827356592132,
+          "fullCanvasDeltaE": 0.011440715733885753
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.010055657015020005,
+          "webY": 0.6650976477457237,
+          "nativeY": 0.6598457200027362,
+          "fullCanvasDeltaE": 0.008760689863187896
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.007229015048564062,
+          "webY": 0.631282321244709,
+          "nativeY": 0.6290803248311515,
+          "fullCanvasDeltaE": 0.0025588820696037704
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.008449531387506157,
+          "webY": 0.6589529026215101,
+          "nativeY": 0.6399775034495441,
+          "fullCanvasDeltaE": 0.0059953951001649386
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.00857389422057204,
+          "webY": 0.6592469469409511,
+          "nativeY": 0.6401472629330108,
+          "fullCanvasDeltaE": 0.0020960006676992386
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.015984754438412428,
+          "webY": 0.6083037855182372,
+          "nativeY": 0.6100102482077946,
+          "fullCanvasDeltaE": 0.001587318480203769
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.00856948911890993,
+          "webY": 0.659136453891668,
+          "nativeY": 0.6404198275203946,
+          "fullCanvasDeltaE": 0.0023649113294901725
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.020714075677885285,
+          "webY": 0.6071566390660853,
+          "nativeY": 0.6109968358894288,
+          "fullCanvasDeltaE": 0.0008307036068151727
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__inactive",
+          "role": "control",
+          "bodyDeltaE": 0,
+          "webY": 0.01171121601287224,
+          "nativeY": 0.01171121601287224,
+          "fullCanvasDeltaE": 5.295451275664159e-07
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0028715758460994005,
+          "webY": 0.4564110231798304,
+          "nativeY": 0.45723213738538965,
+          "fullCanvasDeltaE": 0.002212979874650522
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.011711216012870392,
+          "nativeY": 0.011711216012870392,
+          "fullCanvasDeltaE": 0
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.04023390175655306,
+          "webY": 0.0033868581219087318,
+          "nativeY": 0.006730233410468886,
+          "fullCanvasDeltaE": 0.003102630858163932
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02952693657562469,
+          "webY": 0.46533493070486914,
+          "nativeY": 0.4141305565783549,
+          "fullCanvasDeltaE": 0.02049291514794132
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02902698954084202,
+          "webY": 0.464275475524179,
+          "nativeY": 0.41398839174176333,
+          "fullCanvasDeltaE": 0.006932472821617697
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028837153232480903,
+          "webY": 0.4632541773425667,
+          "nativeY": 0.41336179532332196,
+          "fullCanvasDeltaE": 0.012832034206101704
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520074775,
+          "webY": 0.931978130505588,
+          "nativeY": 0.9326072014987307,
+          "fullCanvasDeltaE": 0.00010634085831184304
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.89809691608095,
+          "nativeY": 0.89809691608095,
+          "fullCanvasDeltaE": 9.391614491131356e-06
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070043,
+          "webY": 0.9319781305052913,
+          "nativeY": 0.9326072014987342,
+          "fullCanvasDeltaE": 4.275691869540752e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257049501,
+          "nativeY": 0.5271151257049501,
+          "fullCanvasDeltaE": 0.000200721501557625
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257063577,
+          "nativeY": 0.5271151257063577,
+          "fullCanvasDeltaE": 7.47708325707754e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.4507857828382355,
+          "nativeY": 0.4507857828382355,
+          "fullCanvasDeltaE": 1.6682435796883244e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.020813915434826857,
+          "webY": 0.5841846354657156,
+          "nativeY": 0.5748823977520511,
+          "fullCanvasDeltaE": 0.001653631463028668
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.04743721775895184,
+          "webY": 0.6300872150238851,
+          "nativeY": 0.6281426342207539,
+          "fullCanvasDeltaE": 0.0112726680190624
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.05412079735815905,
+          "webY": 0.6272093769813799,
+          "nativeY": 0.6280820123498807,
+          "fullCanvasDeltaE": 0.024059839229408204
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.020132460481352987,
+          "webY": 0.5618042477679346,
+          "nativeY": 0.5407885671064349,
+          "fullCanvasDeltaE": 0.0006222727487035754
+        }
+      ]
+    },
+    "light-four-x0.65": {
+      "patchSha256": "8abf1aab631e60722ce1c2371576b0df0f0bee86b1cf57086f81cad8688ec15e",
+      "inactiveSha256": "9a35a0a89ed5d14035dd8e5818a8be500350f6de9520a86adc00342c3b4d7f58",
+      "fitMeanBodyDeltaE": 0.016272613937924448,
+      "controlMeanBodyDeltaE": 0.008292551397368633,
+      "worstControl": {
+        "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-lg__inactive",
+        "bodyDeltaE": 0.008676586448966801,
+        "baselineBodyDeltaE": 0.0048381959239710715,
+        "ratio": 1.7933516098383369
+      },
+      "refused": false,
+      "rows": [
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.007554695872847779,
+          "webY": 0.6600182278974057,
+          "nativeY": 0.6466388156790398,
+          "fullCanvasDeltaE": 0.006804948904709394
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.006095692920184074,
+          "webY": 0.6662701422584927,
+          "nativeY": 0.6615996025856392,
+          "fullCanvasDeltaE": 0.006039142873204485
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.008225479155337515,
+          "webY": 0.6316343775020211,
+          "nativeY": 0.6305332453492631,
+          "fullCanvasDeltaE": 0.0025411000490642216
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.010662983963139078,
+          "webY": 0.6603254813433649,
+          "nativeY": 0.6416838566517122,
+          "fullCanvasDeltaE": 0.008425944670150684
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.017700114718694062,
+          "webY": 0.6605463496608991,
+          "nativeY": 0.6421680032606778,
+          "fullCanvasDeltaE": 0.00490034308163321
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0052175017979468425,
+          "webY": 0.6084734364929424,
+          "nativeY": 0.6085353369499223,
+          "fullCanvasDeltaE": 0.0006782946986262543
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.009796312634904372,
+          "webY": 0.6601607943257785,
+          "nativeY": 0.6415819358552268,
+          "fullCanvasDeltaE": 0.003068361103566488
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.006150573006943901,
+          "webY": 0.6067434394437191,
+          "nativeY": 0.6095373627522676,
+          "fullCanvasDeltaE": 0.00028863008226043035
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__inactive",
+          "role": "control",
+          "bodyDeltaE": 0,
+          "webY": 0.011711216012870547,
+          "nativeY": 0.011711216012870547,
+          "fullCanvasDeltaE": 4.900847769814287e-07
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0028715758461044273,
+          "webY": 0.4564110231804078,
+          "nativeY": 0.45723213738568824,
+          "fullCanvasDeltaE": 0.0022313007296765612
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.01171121601287148,
+          "nativeY": 0.01171121601287148,
+          "fullCanvasDeltaE": 5.410386219305425e-07
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.03847524889390342,
+          "webY": 0.0033891232223436313,
+          "nativeY": 0.006726953444655569,
+          "fullCanvasDeltaE": 0.0029231339134662437
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02962906097245222,
+          "webY": 0.46566868356323604,
+          "nativeY": 0.4142690988857269,
+          "fullCanvasDeltaE": 0.020598480759255605
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028827502365527367,
+          "webY": 0.46430328123625647,
+          "nativeY": 0.4143401890287667,
+          "fullCanvasDeltaE": 0.006942675961711638
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028758011712014867,
+          "webY": 0.46325625026577644,
+          "nativeY": 0.41349507017001697,
+          "fullCanvasDeltaE": 0.01284427421161521
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070087,
+          "webY": 0.931978130505293,
+          "nativeY": 0.9326072014987324,
+          "fullCanvasDeltaE": 0.00010645483889029593
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.8980969160838864,
+          "nativeY": 0.8980969160838864,
+          "fullCanvasDeltaE": 9.468939093359745e-06
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070497,
+          "webY": 0.9319781305053084,
+          "nativeY": 0.9326072014987159,
+          "fullCanvasDeltaE": 4.238837712095433e-05
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257060639,
+          "nativeY": 0.5271151257060639,
+          "fullCanvasDeltaE": 0.000219173427780625
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257057323,
+          "nativeY": 0.5271151257057323,
+          "fullCanvasDeltaE": 0.0001015237318363579
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.45078578283822673,
+          "nativeY": 0.45078578283822673,
+          "fullCanvasDeltaE": 2.3948286864214283e-05
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02151320443840057,
+          "webY": 0.5854436033985302,
+          "nativeY": 0.5881617314873225,
+          "fullCanvasDeltaE": 0.0017063531970129791
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.04788529372083377,
+          "webY": 0.6294360956275665,
+          "nativeY": 0.6284209423405968,
+          "fullCanvasDeltaE": 0.011399057147000078
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.05454392027378643,
+          "webY": 0.626803597808266,
+          "nativeY": 0.6280259974206699,
+          "fullCanvasDeltaE": 0.02423344896208735
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.019965058196754367,
+          "webY": 0.5641412857374858,
+          "nativeY": 0.5411963393324231,
+          "fullCanvasDeltaE": 0.0006256034249765409
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-32__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.014456365679119903,
+          "webY": 0.6599615803244655,
+          "nativeY": 0.6439827356592132,
+          "fullCanvasDeltaE": 0.011468767466672159
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.010041040424931022,
+          "webY": 0.6657647156575176,
+          "nativeY": 0.6598457200027362,
+          "fullCanvasDeltaE": 0.008754189024658916
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.007227568602318051,
+          "webY": 0.6312183951954845,
+          "nativeY": 0.6290803248311515,
+          "fullCanvasDeltaE": 0.002558838542692968
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.008676586448966801,
+          "webY": 0.659469550370114,
+          "nativeY": 0.6399775034495441,
+          "fullCanvasDeltaE": 0.006167704673856703
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.008870088982885311,
+          "webY": 0.6600005328181945,
+          "nativeY": 0.6401472629330108,
+          "fullCanvasDeltaE": 0.0021718752658285876
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0159758631839047,
+          "webY": 0.6080005822566744,
+          "nativeY": 0.6100102482077946,
+          "fullCanvasDeltaE": 0.0015864130784148539
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.008895508161616945,
+          "webY": 0.6599406354650985,
+          "nativeY": 0.6404198275203946,
+          "fullCanvasDeltaE": 0.0024323750396380065
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.020726002290984643,
+          "webY": 0.6067355976103648,
+          "nativeY": 0.6109968358894288,
+          "fullCanvasDeltaE": 0.0008322387786955482
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__inactive",
+          "role": "control",
+          "bodyDeltaE": 0,
+          "webY": 0.01171121601287224,
+          "nativeY": 0.01171121601287224,
+          "fullCanvasDeltaE": 5.295451275664159e-07
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0028715758460994005,
+          "webY": 0.4564110231798304,
+          "nativeY": 0.45723213738538965,
+          "fullCanvasDeltaE": 0.002212979874650522
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.011711216012870392,
+          "nativeY": 0.011711216012870392,
+          "fullCanvasDeltaE": 0
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.04023390175655306,
+          "webY": 0.0033868581219087318,
+          "nativeY": 0.006730233410468886,
+          "fullCanvasDeltaE": 0.003102630858163932
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02952693657562469,
+          "webY": 0.46533493070486914,
+          "nativeY": 0.4141305565783549,
+          "fullCanvasDeltaE": 0.02049291514794132
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02902698954084202,
+          "webY": 0.464275475524179,
+          "nativeY": 0.41398839174176333,
+          "fullCanvasDeltaE": 0.006932472821617697
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028837153232480903,
+          "webY": 0.4632541773425667,
+          "nativeY": 0.41336179532332196,
+          "fullCanvasDeltaE": 0.012832034206101704
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520074775,
+          "webY": 0.931978130505588,
+          "nativeY": 0.9326072014987307,
+          "fullCanvasDeltaE": 0.00010634085831184304
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.89809691608095,
+          "nativeY": 0.89809691608095,
+          "fullCanvasDeltaE": 9.391614491131356e-06
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070043,
+          "webY": 0.9319781305052913,
+          "nativeY": 0.9326072014987342,
+          "fullCanvasDeltaE": 4.275691869540752e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257049501,
+          "nativeY": 0.5271151257049501,
+          "fullCanvasDeltaE": 0.000200721501557625
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257063577,
+          "nativeY": 0.5271151257063577,
+          "fullCanvasDeltaE": 7.47708325707754e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.4507857828382355,
+          "nativeY": 0.4507857828382355,
+          "fullCanvasDeltaE": 1.6682435796883244e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02107139307022578,
+          "webY": 0.5856625105641224,
+          "nativeY": 0.5748823977520511,
+          "fullCanvasDeltaE": 0.001673082894636002
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.047418809696362973,
+          "webY": 0.6299330397125629,
+          "nativeY": 0.6281426342207539,
+          "fullCanvasDeltaE": 0.011268381020068372
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.05410691092321061,
+          "webY": 0.6270263520984913,
+          "nativeY": 0.6280820123498807,
+          "fullCanvasDeltaE": 0.024053744015671057
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.020614015695622174,
+          "webY": 0.5633064958057501,
+          "nativeY": 0.5407885671064349,
+          "fullCanvasDeltaE": 0.0006365780117601348
+        }
+      ]
+    },
+    "light-four-x0.75": {
+      "patchSha256": "e7bb90b096cc24e075628991e3628d38514382bd248168001456d264222b10c8",
+      "inactiveSha256": "a2560d02850b42ff7ac62ad788033d7f7b4bd1b7c4487da96d14e014e1f01a05",
+      "fitMeanBodyDeltaE": 0.01626978068243477,
+      "controlMeanBodyDeltaE": 0.00831626128744039,
+      "worstControl": {
+        "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-lg__inactive",
+        "bodyDeltaE": 0.008677376091337312,
+        "baselineBodyDeltaE": 0.0048381959239710715,
+        "ratio": 1.7935148199238562
+      },
+      "refused": false,
+      "rows": [
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.007557010800746496,
+          "webY": 0.6600235065425305,
+          "nativeY": 0.6466388156790398,
+          "fullCanvasDeltaE": 0.006806358307723741
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.006098824280704776,
+          "webY": 0.6662958668566854,
+          "nativeY": 0.6615996025856392,
+          "fullCanvasDeltaE": 0.006040898562833626
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.008214476521953725,
+          "webY": 0.6313821903834405,
+          "nativeY": 0.6305332453492631,
+          "fullCanvasDeltaE": 0.002541031855451513
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.010667692207785632,
+          "webY": 0.6603391010831103,
+          "nativeY": 0.6416838566517122,
+          "fullCanvasDeltaE": 0.008428716971479828
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.017699867791375747,
+          "webY": 0.6605480583893041,
+          "nativeY": 0.6421680032606778,
+          "fullCanvasDeltaE": 0.004900295764185839
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.005225979094267656,
+          "webY": 0.6084051514428838,
+          "nativeY": 0.6085353369499223,
+          "fullCanvasDeltaE": 0.0006789571534738305
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0097975656572827,
+          "webY": 0.6601648191923469,
+          "nativeY": 0.6415819358552268,
+          "fullCanvasDeltaE": 0.0030685525978468562
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.006195934100326617,
+          "webY": 0.6065152975885053,
+          "nativeY": 0.6095373627522676,
+          "fullCanvasDeltaE": 0.00029003340089418865
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__inactive",
+          "role": "control",
+          "bodyDeltaE": 0,
+          "webY": 0.011711216012870547,
+          "nativeY": 0.011711216012870547,
+          "fullCanvasDeltaE": 4.900847769814287e-07
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0028715758461044273,
+          "webY": 0.4564110231804078,
+          "nativeY": 0.45723213738568824,
+          "fullCanvasDeltaE": 0.0022313007296765612
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.01171121601287148,
+          "nativeY": 0.01171121601287148,
+          "fullCanvasDeltaE": 5.410386219305425e-07
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.03847524889390342,
+          "webY": 0.0033891232223436313,
+          "nativeY": 0.006726953444655569,
+          "fullCanvasDeltaE": 0.0029231339134662437
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02962906097245222,
+          "webY": 0.46566868356323604,
+          "nativeY": 0.4142690988857269,
+          "fullCanvasDeltaE": 0.020598480759255605
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028827502365527367,
+          "webY": 0.46430328123625647,
+          "nativeY": 0.4143401890287667,
+          "fullCanvasDeltaE": 0.006942675961711638
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028758011712014867,
+          "webY": 0.46325625026577644,
+          "nativeY": 0.41349507017001697,
+          "fullCanvasDeltaE": 0.01284427421161521
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070087,
+          "webY": 0.931978130505293,
+          "nativeY": 0.9326072014987324,
+          "fullCanvasDeltaE": 0.00010645483889029593
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.8980969160838864,
+          "nativeY": 0.8980969160838864,
+          "fullCanvasDeltaE": 9.468939093359745e-06
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070497,
+          "webY": 0.9319781305053084,
+          "nativeY": 0.9326072014987159,
+          "fullCanvasDeltaE": 4.238837712095433e-05
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257060639,
+          "nativeY": 0.5271151257060639,
+          "fullCanvasDeltaE": 0.000219173427780625
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257057323,
+          "nativeY": 0.5271151257057323,
+          "fullCanvasDeltaE": 0.0001015237318363579
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.45078578283822673,
+          "nativeY": 0.45078578283822673,
+          "fullCanvasDeltaE": 2.3948286864214283e-05
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.021514911595400914,
+          "webY": 0.5856136485437462,
+          "nativeY": 0.5881617314873225,
+          "fullCanvasDeltaE": 0.001706531005048378
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.04785823200510366,
+          "webY": 0.6291655832049624,
+          "nativeY": 0.6284209423405968,
+          "fullCanvasDeltaE": 0.011392631712974754
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.054520835986542365,
+          "webY": 0.6265155308262581,
+          "nativeY": 0.6280259974206699,
+          "fullCanvasDeltaE": 0.02422368752199414
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.019892021083466934,
+          "webY": 0.5639167597699556,
+          "nativeY": 0.5411963393324231,
+          "fullCanvasDeltaE": 0.000623230352993093
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-32__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.014456726759918489,
+          "webY": 0.6599651295452834,
+          "nativeY": 0.6439827356592132,
+          "fullCanvasDeltaE": 0.011468978329487895
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.010040871496396066,
+          "webY": 0.6657857913757514,
+          "nativeY": 0.6598457200027362,
+          "fullCanvasDeltaE": 0.008753728108667348
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.007510955700227411,
+          "webY": 0.63056363016056,
+          "nativeY": 0.6290803248311515,
+          "fullCanvasDeltaE": 0.0026278259886926363
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.008677376091337312,
+          "webY": 0.6594713438162202,
+          "nativeY": 0.6399775034495441,
+          "fullCanvasDeltaE": 0.006168281921962234
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.008871333798839018,
+          "webY": 0.6600033824979018,
+          "nativeY": 0.6401472629330108,
+          "fullCanvasDeltaE": 0.002172233992863518
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.015973992162307948,
+          "webY": 0.6079227919408887,
+          "nativeY": 0.6100102482077946,
+          "fullCanvasDeltaE": 0.001586512658816667
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.008896759396897574,
+          "webY": 0.6599434826316359,
+          "nativeY": 0.6404198275203946,
+          "fullCanvasDeltaE": 0.0024326748213476658
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0207638964943384,
+          "webY": 0.6065341148894303,
+          "nativeY": 0.6109968358894288,
+          "fullCanvasDeltaE": 0.0008330181557142159
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__inactive",
+          "role": "control",
+          "bodyDeltaE": 0,
+          "webY": 0.01171121601287224,
+          "nativeY": 0.01171121601287224,
+          "fullCanvasDeltaE": 5.295451275664159e-07
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0028715758460994005,
+          "webY": 0.4564110231798304,
+          "nativeY": 0.45723213738538965,
+          "fullCanvasDeltaE": 0.002212979874650522
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.011711216012870392,
+          "nativeY": 0.011711216012870392,
+          "fullCanvasDeltaE": 0
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.04023390175655306,
+          "webY": 0.0033868581219087318,
+          "nativeY": 0.006730233410468886,
+          "fullCanvasDeltaE": 0.003102630858163932
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02952693657562469,
+          "webY": 0.46533493070486914,
+          "nativeY": 0.4141305565783549,
+          "fullCanvasDeltaE": 0.02049291514794132
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02902698954084202,
+          "webY": 0.464275475524179,
+          "nativeY": 0.41398839174176333,
+          "fullCanvasDeltaE": 0.006932472821617697
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028837153232480903,
+          "webY": 0.4632541773425667,
+          "nativeY": 0.41336179532332196,
+          "fullCanvasDeltaE": 0.012832034206101704
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520074775,
+          "webY": 0.931978130505588,
+          "nativeY": 0.9326072014987307,
+          "fullCanvasDeltaE": 0.00010634085831184304
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.89809691608095,
+          "nativeY": 0.89809691608095,
+          "fullCanvasDeltaE": 9.391614491131356e-06
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070043,
+          "webY": 0.9319781305052913,
+          "nativeY": 0.9326072014987342,
+          "fullCanvasDeltaE": 4.280814352753748e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257049501,
+          "nativeY": 0.5271151257049501,
+          "fullCanvasDeltaE": 0.000200721501557625
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257063577,
+          "nativeY": 0.5271151257063577,
+          "fullCanvasDeltaE": 7.47708325707754e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.4507857828382355,
+          "nativeY": 0.4507857828382355,
+          "fullCanvasDeltaE": 1.6682435796883244e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02110461871854086,
+          "webY": 0.5858405411266946,
+          "nativeY": 0.5748823977520511,
+          "fullCanvasDeltaE": 0.0016755610071524387
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.04739021674102398,
+          "webY": 0.6296485595240744,
+          "nativeY": 0.6281426342207539,
+          "fullCanvasDeltaE": 0.011261685555801246
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.054087675489348855,
+          "webY": 0.6267444089486562,
+          "nativeY": 0.6280820123498807,
+          "fullCanvasDeltaE": 0.024045157530409242
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02055006485804186,
+          "webY": 0.5630841556914851,
+          "nativeY": 0.5407885671064349,
+          "fullCanvasDeltaE": 0.000634494281919327
+        }
+      ]
+    },
+    "light-four-x0.85": {
+      "patchSha256": "0b9d9914b76ab5dbec1493e911cde5de369205e022b688ac82a88cb6bf236123",
+      "inactiveSha256": "e2d069f365703fda7f1729274fae9bf4fe3db7c8a93cb5fc75c6b35f725a9b5b",
+      "fitMeanBodyDeltaE": 0.016284602019629134,
+      "controlMeanBodyDeltaE": 0.008338010080234342,
+      "worstControl": {
+        "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-lg__inactive",
+        "bodyDeltaE": 0.008862892689730152,
+        "baselineBodyDeltaE": 0.0048381959239710715,
+        "ratio": 1.8318589881444298
+      },
+      "refused": false,
+      "rows": [
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.007743446154335019,
+          "webY": 0.6606343239188407,
+          "nativeY": 0.6466388156790398,
+          "fullCanvasDeltaE": 0.006921398998861915
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.00616385485948861,
+          "webY": 0.6668462955417186,
+          "nativeY": 0.6615996025856392,
+          "fullCanvasDeltaE": 0.006081688934792584
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.008224050797904971,
+          "webY": 0.6316162133960563,
+          "nativeY": 0.6305332453492631,
+          "fullCanvasDeltaE": 0.0025408810401374633
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.010821920242606175,
+          "webY": 0.6608727562205902,
+          "nativeY": 0.6416838566517122,
+          "fullCanvasDeltaE": 0.008526580971137114
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.017804615629616025,
+          "webY": 0.6611093055987012,
+          "nativeY": 0.6421680032606778,
+          "fullCanvasDeltaE": 0.0049232923023973954
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.005228126222950252,
+          "webY": 0.6085874496187669,
+          "nativeY": 0.6085353369499223,
+          "fullCanvasDeltaE": 0.0006783766010910891
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.010028208979684927,
+          "webY": 0.6607688775319774,
+          "nativeY": 0.6415819358552268,
+          "fullCanvasDeltaE": 0.003114583659354553
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.006156545112988768,
+          "webY": 0.6067158569627884,
+          "nativeY": 0.6095373627522676,
+          "fullCanvasDeltaE": 0.00028877623148423204
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__inactive",
+          "role": "control",
+          "bodyDeltaE": 0,
+          "webY": 0.011711216012870547,
+          "nativeY": 0.011711216012870547,
+          "fullCanvasDeltaE": 4.900847769814287e-07
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0028715758461044273,
+          "webY": 0.4564110231804078,
+          "nativeY": 0.45723213738568824,
+          "fullCanvasDeltaE": 0.0022313007296765612
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.01171121601287148,
+          "nativeY": 0.01171121601287148,
+          "fullCanvasDeltaE": 5.410386219305425e-07
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.03847524889390342,
+          "webY": 0.0033891232223436313,
+          "nativeY": 0.006726953444655569,
+          "fullCanvasDeltaE": 0.0029231339134662437
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02962906097245222,
+          "webY": 0.46566868356323604,
+          "nativeY": 0.4142690988857269,
+          "fullCanvasDeltaE": 0.020598480759255605
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028827502365527367,
+          "webY": 0.46430328123625647,
+          "nativeY": 0.4143401890287667,
+          "fullCanvasDeltaE": 0.006942675961711638
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028758011712014867,
+          "webY": 0.46325625026577644,
+          "nativeY": 0.41349507017001697,
+          "fullCanvasDeltaE": 0.01284427421161521
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070087,
+          "webY": 0.931978130505293,
+          "nativeY": 0.9326072014987324,
+          "fullCanvasDeltaE": 0.00010645483889029593
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.8980969160838864,
+          "nativeY": 0.8980969160838864,
+          "fullCanvasDeltaE": 9.468939093359745e-06
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070497,
+          "webY": 0.9319781305053084,
+          "nativeY": 0.9326072014987159,
+          "fullCanvasDeltaE": 4.238837712095433e-05
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257060639,
+          "nativeY": 0.5271151257060639,
+          "fullCanvasDeltaE": 0.000219173427780625
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257057323,
+          "nativeY": 0.5271151257057323,
+          "fullCanvasDeltaE": 0.0001015237318363579
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.45078578283822673,
+          "nativeY": 0.45078578283822673,
+          "fullCanvasDeltaE": 2.3948286864214283e-05
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.021529251652089552,
+          "webY": 0.5858496881543419,
+          "nativeY": 0.5881617314873225,
+          "fullCanvasDeltaE": 0.0017079673972379055
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.047875787301861976,
+          "webY": 0.6293510216225826,
+          "nativeY": 0.6284209423405968,
+          "fullCanvasDeltaE": 0.011396902539418097
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.05453587966326275,
+          "webY": 0.6266901200001309,
+          "nativeY": 0.6280259974206699,
+          "fullCanvasDeltaE": 0.024229729531687064
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.019907788510186354,
+          "webY": 0.5639612957842568,
+          "nativeY": 0.5411963393324231,
+          "fullCanvasDeltaE": 0.0006236397509069245
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-32__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.01450156229517684,
+          "webY": 0.6604561485471895,
+          "nativeY": 0.6439827356592132,
+          "fullCanvasDeltaE": 0.011496140755966876
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.009589783321609993,
+          "webY": 0.6673935319319364,
+          "nativeY": 0.6598457200027362,
+          "fullCanvasDeltaE": 0.008471147477297393
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.00722676865966095,
+          "webY": 0.6312082405220172,
+          "nativeY": 0.6290803248311515,
+          "fullCanvasDeltaE": 0.002558649398307176
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.008862892689730152,
+          "webY": 0.6598938259774787,
+          "nativeY": 0.6399775034495441,
+          "fullCanvasDeltaE": 0.006294454423827239
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.00911722631268336,
+          "webY": 0.6606253897240906,
+          "nativeY": 0.6401472629330108,
+          "fullCanvasDeltaE": 0.0022267510252797825
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.01600520173353552,
+          "webY": 0.6081326160337854,
+          "nativeY": 0.6100102482077946,
+          "fullCanvasDeltaE": 0.00158841937267813
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.009116122116054351,
+          "webY": 0.6604989250625424,
+          "nativeY": 0.6404198275203946,
+          "fullCanvasDeltaE": 0.002478863323441247
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02072989667013968,
+          "webY": 0.6067155786392734,
+          "nativeY": 0.6109968358894288,
+          "fullCanvasDeltaE": 0.0008324157578670678
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__inactive",
+          "role": "control",
+          "bodyDeltaE": 0,
+          "webY": 0.01171121601287224,
+          "nativeY": 0.01171121601287224,
+          "fullCanvasDeltaE": 5.295451275664159e-07
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0028715758460994005,
+          "webY": 0.4564110231798304,
+          "nativeY": 0.45723213738538965,
+          "fullCanvasDeltaE": 0.002212979874650522
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.011711216012870392,
+          "nativeY": 0.011711216012870392,
+          "fullCanvasDeltaE": 0
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.04023390175655306,
+          "webY": 0.0033868581219087318,
+          "nativeY": 0.006730233410468886,
+          "fullCanvasDeltaE": 0.003102630858163932
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02952693657562469,
+          "webY": 0.46533493070486914,
+          "nativeY": 0.4141305565783549,
+          "fullCanvasDeltaE": 0.02049291514794132
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02902698954084202,
+          "webY": 0.464275475524179,
+          "nativeY": 0.41398839174176333,
+          "fullCanvasDeltaE": 0.006932472821617697
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028837153232480903,
+          "webY": 0.4632541773425667,
+          "nativeY": 0.41336179532332196,
+          "fullCanvasDeltaE": 0.012832034206101704
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520074775,
+          "webY": 0.931978130505588,
+          "nativeY": 0.9326072014987307,
+          "fullCanvasDeltaE": 0.00010638644470195631
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.89809691608095,
+          "nativeY": 0.89809691608095,
+          "fullCanvasDeltaE": 9.486108318866736e-06
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070043,
+          "webY": 0.9319781305052913,
+          "nativeY": 0.9326072014987342,
+          "fullCanvasDeltaE": 4.280814352753748e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257049501,
+          "nativeY": 0.5271151257049501,
+          "fullCanvasDeltaE": 0.000200721501557625
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257063577,
+          "nativeY": 0.5271151257063577,
+          "fullCanvasDeltaE": 7.47708325707754e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.4507857828382355,
+          "nativeY": 0.4507857828382355,
+          "fullCanvasDeltaE": 1.6682435796883244e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.021148894860559098,
+          "webY": 0.5860612647637075,
+          "nativeY": 0.5748823977520511,
+          "fullCanvasDeltaE": 0.001678968455274167
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.047410456198848726,
+          "webY": 0.6298516026260768,
+          "nativeY": 0.6281426342207539,
+          "fullCanvasDeltaE": 0.011266442021514415
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.05410021346970404,
+          "webY": 0.6269237993627904,
+          "nativeY": 0.6280820123498807,
+          "fullCanvasDeltaE": 0.024050741256501768
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02056354170441011,
+          "webY": 0.5631259028062024,
+          "nativeY": 0.5407885671064349,
+          "fullCanvasDeltaE": 0.0006349110329697952
+        }
+      ]
+    },
+    "light-three": {
+      "patchSha256": "a5e45f277a3a581bb391b1f334326451b8f5545f442d2ce95b577ed00aed0782",
+      "inactiveSha256": "301c50b12ec7cdc79fd5cfe2ebdfa345ea978c3cf9665f4acb7fc2d3bad65322",
+      "fitMeanBodyDeltaE": 0.017780929169519462,
+      "controlMeanBodyDeltaE": 0.007152121065071888,
+      "worstControl": {
+        "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-lg__inactive",
+        "bodyDeltaE": 0.007756110859112313,
+        "baselineBodyDeltaE": 0.00745832839045817,
+        "ratio": 1.0399261675089435
+      },
+      "refused": false,
+      "rows": [
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-32__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.004578981884921253,
+          "webY": 0.6465245136297483,
+          "nativeY": 0.6466388156790398,
+          "fullCanvasDeltaE": 0.004988517112623138
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.006472609433891987,
+          "webY": 0.6526919310725399,
+          "nativeY": 0.6615996025856392,
+          "fullCanvasDeltaE": 0.006324910280870386
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-64__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.009277043326059877,
+          "webY": 0.6210756748864366,
+          "nativeY": 0.6305332453492631,
+          "fullCanvasDeltaE": 0.002834908698729676
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.007756110859112313,
+          "webY": 0.646664577103466,
+          "nativeY": 0.6416838566517122,
+          "fullCanvasDeltaE": 0.006598033383232734
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard-8__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.0157971598006067,
+          "webY": 0.6469905358308534,
+          "nativeY": 0.6421680032606778,
+          "fullCanvasDeltaE": 0.004514483075972027
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.005294354915849125,
+          "webY": 0.6111011529122644,
+          "nativeY": 0.6085353369499223,
+          "fullCanvasDeltaE": 0.0006831305301005975
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0062238148570541675,
+          "webY": 0.6466461737042959,
+          "nativeY": 0.6415819358552268,
+          "fullCanvasDeltaE": 0.0023219018093026196
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.006198513738490581,
+          "webY": 0.6099250605502801,
+          "nativeY": 0.6095373627522676,
+          "fullCanvasDeltaE": 0.0002861823757369323
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__inactive",
+          "role": "control",
+          "bodyDeltaE": 0,
+          "webY": 0.011711216012870547,
+          "nativeY": 0.011711216012870547,
+          "fullCanvasDeltaE": 4.900847769814287e-07
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0028715758461044273,
+          "webY": 0.4564110231804078,
+          "nativeY": 0.45723213738568824,
+          "fullCanvasDeltaE": 0.0022313007296765612
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.01171121601287148,
+          "nativeY": 0.01171121601287148,
+          "fullCanvasDeltaE": 5.410386219305425e-07
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.03847524889390342,
+          "webY": 0.0033891232223436313,
+          "nativeY": 0.006726953444655569,
+          "fullCanvasDeltaE": 0.0029231339134662437
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02962906097245222,
+          "webY": 0.46566868356323604,
+          "nativeY": 0.4142690988857269,
+          "fullCanvasDeltaE": 0.020598480759255605
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028827502365527367,
+          "webY": 0.46430328123625647,
+          "nativeY": 0.4143401890287667,
+          "fullCanvasDeltaE": 0.006942675961711638
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/impulse__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028758011712014867,
+          "webY": 0.46325625026577644,
+          "nativeY": 0.41349507017001697,
+          "fullCanvasDeltaE": 0.01284427421161521
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070087,
+          "webY": 0.931978130505293,
+          "nativeY": 0.9326072014987324,
+          "fullCanvasDeltaE": 0.00010645483889029593
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.8980969160838864,
+          "nativeY": 0.8980969160838864,
+          "fullCanvasDeltaE": 9.090963782418283e-06
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/light-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070497,
+          "webY": 0.9319781305053084,
+          "nativeY": 0.9326072014987159,
+          "fullCanvasDeltaE": 4.238837712095433e-05
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257060639,
+          "nativeY": 0.5271151257060639,
+          "fullCanvasDeltaE": 0.000219173427780625
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257057323,
+          "nativeY": 0.5271151257057323,
+          "fullCanvasDeltaE": 0.0001015237318363579
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.03837735776326438,
+          "webY": 0.3864294337870444,
+          "nativeY": 0.45078578283822673,
+          "fullCanvasDeltaE": 0.0011876532688855858
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.021822308225563334,
+          "webY": 0.5766981174521967,
+          "nativeY": 0.5881617314873225,
+          "fullCanvasDeltaE": 0.0017234698497927306
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.047214313114294255,
+          "webY": 0.619619969720666,
+          "nativeY": 0.6284209423405968,
+          "fullCanvasDeltaE": 0.011241793782903091
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.05393620301612561,
+          "webY": 0.617242146275676,
+          "nativeY": 0.6280259974206699,
+          "fullCanvasDeltaE": 0.023960851870416723
+        },
+        {
+          "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.015812986249640337,
+          "webY": 0.5418320565297843,
+          "nativeY": 0.5411963393324231,
+          "fullCanvasDeltaE": 0.0004906025899021884
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-32__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.013733212479131958,
+          "webY": 0.6461801573056845,
+          "nativeY": 0.6439827356592132,
+          "fullCanvasDeltaE": 0.01106248290386017
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.011173600227633456,
+          "webY": 0.6527468669153799,
+          "nativeY": 0.6598457200027362,
+          "fullCanvasDeltaE": 0.009454678219082692
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-64__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.00815035458314243,
+          "webY": 0.6204590099220657,
+          "nativeY": 0.6290803248311515,
+          "fullCanvasDeltaE": 0.002830813531292155
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-lg__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.0036484742191618914,
+          "webY": 0.6457584296399256,
+          "nativeY": 0.6399775034495441,
+          "fullCanvasDeltaE": 0.0027704877792363433
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard-8__rrect-md__inactive",
+          "role": "control",
+          "bodyDeltaE": 0.005237905967200791,
+          "webY": 0.64637103534901,
+          "nativeY": 0.6401472629330108,
+          "fullCanvasDeltaE": 0.0013056491025875657
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.01592594467251571,
+          "webY": 0.6110580419001282,
+          "nativeY": 0.6100102482077946,
+          "fullCanvasDeltaE": 0.0015826503621044449
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.004557288920371562,
+          "webY": 0.6463157149429877,
+          "nativeY": 0.6404198275203946,
+          "fullCanvasDeltaE": 0.0015330973502236524
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02054242144825037,
+          "webY": 0.6098379139568167,
+          "nativeY": 0.6109968358894288,
+          "fullCanvasDeltaE": 0.000823628317531492
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__inactive",
+          "role": "control",
+          "bodyDeltaE": 0,
+          "webY": 0.01171121601287224,
+          "nativeY": 0.01171121601287224,
+          "fullCanvasDeltaE": 5.295451275664159e-07
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0028715758460994005,
+          "webY": 0.4564110231798304,
+          "nativeY": 0.45723213738538965,
+          "fullCanvasDeltaE": 0.002212979874650522
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.011711216012870392,
+          "nativeY": 0.011711216012870392,
+          "fullCanvasDeltaE": 0
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.04023390175655306,
+          "webY": 0.0033868581219087318,
+          "nativeY": 0.006730233410468886,
+          "fullCanvasDeltaE": 0.003102630858163932
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02952693657562469,
+          "webY": 0.46533493070486914,
+          "nativeY": 0.4141305565783549,
+          "fullCanvasDeltaE": 0.02049291514794132
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.02902698954084202,
+          "webY": 0.464275475524179,
+          "nativeY": 0.41398839174176333,
+          "fullCanvasDeltaE": 0.006932472821617697
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/impulse__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.028837153232480903,
+          "webY": 0.4632541773425667,
+          "nativeY": 0.41336179532332196,
+          "fullCanvasDeltaE": 0.012832034206101704
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520074775,
+          "webY": 0.931978130505588,
+          "nativeY": 0.9326072014987307,
+          "fullCanvasDeltaE": 0.00010634085831184304
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.89809691608095,
+          "nativeY": 0.89809691608095,
+          "fullCanvasDeltaE": 9.391614491131356e-06
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/light-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0013552514520070043,
+          "webY": 0.9319781305052913,
+          "nativeY": 0.9326072014987342,
+          "fullCanvasDeltaE": 4.275691869540752e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-lg__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257049501,
+          "nativeY": 0.5271151257049501,
+          "fullCanvasDeltaE": 0.000200721501557625
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0,
+          "webY": 0.5271151257063577,
+          "nativeY": 0.5271151257063577,
+          "fullCanvasDeltaE": 7.47708325707754e-05
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/mid-dark-solid__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.0383773577632661,
+          "webY": 0.3864294337870436,
+          "nativeY": 0.4507857828382355,
+          "fullCanvasDeltaE": 0.0011863105412101066
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__capsule-button__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.019933704001828166,
+          "webY": 0.5769753382372798,
+          "nativeY": 0.5748823977520511,
+          "fullCanvasDeltaE": 0.001585116202020835
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-md__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.04673794131078326,
+          "webY": 0.6201174408522759,
+          "nativeY": 0.6281426342207539,
+          "fullCanvasDeltaE": 0.01110987769070433
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-ml__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.05351553902898335,
+          "webY": 0.6174420788875209,
+          "nativeY": 0.6280820123498807,
+          "fullCanvasDeltaE": 0.023788550055643783
+        },
+        {
+          "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-sm__inactive",
+          "role": "fit",
+          "bodyDeltaE": 0.016726296865828362,
+          "webY": 0.5409912972168511,
+          "nativeY": 0.5407885671064349,
+          "fullCanvasDeltaE": 0.0005136633654190047
+        }
+      ]
+    }
+  }
+}

@@ -614,6 +614,13 @@ async function build(): Promise<SceneReport> {
     // so the host stays out of the accessibility tree and out of hit-testing.
     host.setAttribute("aria-hidden", "true");
     host.className = "glass-host";
+    // The silhouette input check compares these dimensions with the native
+    // declaration. CSS's transparent border belongs inside that declared box,
+    // not outside it. The source-profile capture path retains its existing box.
+    if (materialProfile?.backdropToneAbscissa !== undefined &&
+      materialProfile.backdropToneAbscissa !== "source") {
+      host.style.boxSizing = "border-box";
+    }
     host.style.left = `${surface.left}px`;
     host.style.top = `${surface.top}px`;
     host.style.width = `${surface.width}px`;

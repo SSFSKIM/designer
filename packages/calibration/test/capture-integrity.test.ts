@@ -85,6 +85,18 @@ describe("the material profile document's key admission", () => {
     return path;
   };
 
+  it("admits only a source or silhouette abscissa, without swallowing malformed variants", () => {
+    for (const abscissa of ["source", { kind: "silhouette" }]) {
+      expect(readMaterialProfileFile(write({ backdropToneAbscissa: abscissa })).patch)
+        .toEqual({ backdropToneAbscissa: abscissa });
+    }
+    for (const abscissa of [null, false, 0, [], {}, "silhouette", { kind: "body" },
+      { kind: "silhouette", scale: 1 }]) {
+      expect(() => readMaterialProfileFile(write({ backdropToneAbscissa: abscissa })))
+        .toThrow(/backdropToneAbscissa/);
+    }
+  });
+
   it("admits the inactive endpoint's two tint terms (W27c, claims §5.130)", () => {
     // The frozen receded endpoint sets both. While they were missing from the
     // set, the canonical capture path refused the very document it exists to

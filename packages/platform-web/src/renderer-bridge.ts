@@ -328,6 +328,7 @@ export function toRendererGroups(
           ...(group.backdropTone !== undefined
             ? {
                 backdropTone: group.backdropTone,
+                ...(group.backdropToneHint === undefined ? {} : { backdropToneHint: group.backdropToneHint }),
                 ...(group.backdropToneLevel === undefined
                   ? {}
                   : { backdropToneLevel: group.backdropToneLevel }),

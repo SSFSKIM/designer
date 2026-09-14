@@ -1,0 +1,11 @@
+/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a0f33e8f39b68b402/packages/calibration/results/2026-09-14-w28-g1-silhouette/gpu-evidence.ts:73
+    throw new Error("Not steady state: a cost row rebuilt its static source more than once");
+          ^
+
+Error: Not steady state: a cost row rebuilt its static source more than once
+    at <anonymous> [90m(/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a0f33e8f39b68b402/packages/calibration/[39mresults/2026-09-14-w28-g1-silhouette/gpu-evidence.ts:73:11[90m)[39m
+
+Node.js v24.18.0
+[90mundefined[39m
+/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a0f33e8f39b68b402/packages/calibration:
+[41m[31m[[39m[49m[41m[30mERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL[39m[49m[41m[31m][39m[49m [31mCommand failed with exit code 1: tsx results/2026-09-14-w28-g1-silhouette/gpu-evidence.ts --out gpu-evidence.json --rounds 96 --warmup 24 --port 5221[39m

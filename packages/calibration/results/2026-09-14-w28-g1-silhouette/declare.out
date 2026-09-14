@@ -1,0 +1,381 @@
+{
+  "sealed": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a0f33e8f39b68b402/packages/calibration/results/2026-09-14-w28-g1-silhouette/fitted-endpoint.json",
+  "profiles": {
+    "light": {
+      "activeSha256": "b2b570e4adcea8fb9281aed4d2556598a1fc95b34ce4b12dd5a50157ac138306",
+      "activeRecordedFingerprint": "b2b570e4adcea8fb",
+      "inactiveSha256": "6dcb32c422639d0d49a4ad2927766f97817fb48c90c8987fbc09ec6a55a2b689",
+      "resolvedMaterial": {
+        "optics": {
+          "regular": {
+            "blurSigma": 1.25,
+            "tint": [
+              1,
+              1,
+              1
+            ],
+            "tintAlpha": 0.46,
+            "rimWidth": 1.5,
+            "rimAlpha": 0,
+            "rimWidth2x": 1.35,
+            "specularPower": 6,
+            "specularGain": 0,
+            "rimLevelGain": 0,
+            "rimLitExponent": 0.85,
+            "rimAlongSideSlope": 0.1,
+            "shadowDepth": 0.35,
+            "shadowAlpha": 0,
+            "highlight": [
+              1,
+              1,
+              1
+            ]
+          },
+          "clear": {
+            "blurSigma": 4,
+            "tint": [
+              1,
+              1,
+              1
+            ],
+            "tintAlpha": 0.1,
+            "rimWidth": 1.25,
+            "rimAlpha": 0,
+            "rimWidth2x": 1.25,
+            "specularPower": 8,
+            "specularGain": 0.45,
+            "rimLevelGain": 0,
+            "rimLitExponent": 0,
+            "rimAlongSideSlope": 0,
+            "shadowDepth": 0.22,
+            "shadowAlpha": 0,
+            "highlight": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        "adaptiveTintDark": [
+          1,
+          1,
+          1
+        ],
+        "adaptiveTintLight": [
+          1,
+          1,
+          1
+        ],
+        "adaptiveLuminanceLow": 0.12,
+        "adaptiveLuminanceHigh": 0.42,
+        "refractionScale": {
+          "none": 0,
+          "approximate": 0,
+          "true": 1
+        },
+        "sizeSpanMin": 32,
+        "sizeSpanMax": 96,
+        "lensSizeGainMax": 2.6,
+        "sizeScatterGainMax": 8,
+        "sizeScatterFloor": 0.7,
+        "sizeScatterSpanMax": 256,
+        "sizeScatterGainMax2x": 4.8,
+        "sizeScatterFloor2x": 1,
+        "sizeScatterSpanMax2x": 256,
+        "sizeScatterGainFar2x": 9.9,
+        "sizeScatterRampStartThin1x": 0.55,
+        "sizeScatterRampStartThick1x": 0.3,
+        "sizeScatterRampStartThin2x": 0.7,
+        "sizeScatterRampStartThick2x": 0.04,
+        "sizeScatterRampStartFar1x": 0.2,
+        "sizeScatterRampStartFar2x": 0.04,
+        "sizeScatterRampReach1xPx": 80,
+        "sizeScatterRampReach2xPx": 100,
+        "sizeScatterHeavyShareThick1x": 0,
+        "sizeScatterHeavyShareThick2x": 0,
+        "sizeToneLevelFar": 0,
+        "sizeHeavyTapSigma": 9,
+        "sizeHeavyTapSigma2x": 14,
+        "sizeOcclusionGain": 0.05,
+        "sizeShadowGainMax": 1,
+        "lensRefractionGain": 0.745,
+        "lensHeightPerSpan": 0.25,
+        "lensHeightMax": 20,
+        "lensAmountPerSpan": 0.8,
+        "lensAmountMax": 60,
+        "lensThicknessReference": 8,
+        "lensExtentGain": 1.337,
+        "lensProfileExponent": 3.69,
+        "lensOvalization": 0.8,
+        "lensOvalizationSpanMin": 64,
+        "lensOvalizationSpanMax": 72,
+        "reducedTransparencyFrost": 1.75,
+        "increasedOcclusionLift": 0.96,
+        "increasedOcclusionLiftByPolicy": {
+          "reduceTransparency": 0.88,
+          "increaseContrast": 0.98
+        },
+        "strongBorderRim": {
+          "rimWidth": 1,
+          "rimAlpha": -3.5
+        },
+        "reducedTintAdaptation": 0.88,
+        "tintShadeDark": 0.0288,
+        "tintShadeLight": 0.76,
+        "tintShadeStrength": 1,
+        "tintChromaScale": 0,
+        "tintShadeCollapseRetention": 1,
+        "backdropToneMax": 1,
+        "backdropToneLow": 0.02,
+        "backdropToneHigh": 0.055,
+        "backdropToneSizeBias": 0.05,
+        "collapseTransmission": 0.017,
+        "collapseTransmission2x": 0.07,
+        "rimCollapsed": 0,
+        "rimCollapsedTinted": 0,
+        "rimTintChroma": 1,
+        "backdropToneAbscissa": {
+          "kind": "silhouette"
+        },
+        "backdropToneAnchorX": [
+          0.1104,
+          0.2706,
+          0.45,
+          0.9505
+        ],
+        "backdropToneResponseThin": [
+          0.0126,
+          0.451,
+          0.573,
+          0.933
+        ],
+        "backdropToneResponseThick": [
+          0.4553,
+          0.527,
+          0.63,
+          0.898
+        ],
+        "backdropToneResponseStrength": 1,
+        "outerShadow": {
+          "offsetPx": 7.95,
+          "sigmaPx": 15.55,
+          "spreadPx": 3.1,
+          "thinOcclusionDark": 0,
+          "thinOcclusionMid": 0,
+          "thinOcclusionBright": 0,
+          "thickOcclusionAt96": 0,
+          "thickOcclusionAt128": 0,
+          "thickOcclusionAt160": 0,
+          "liftAmplitude": 0,
+          "liftSpanMin": 64,
+          "liftSpanFull": 118,
+          "liftBlurSigmaCss": 40,
+          "reducedTransparencyOcclusion": 0,
+          "sizeGain": 0
+        },
+        "lightDirection": [
+          -0.3714,
+          -0.9285
+        ],
+        "rimLitAxis": [
+          -0.7071,
+          -0.7071
+        ],
+        "sweepBandRadians": 0.55,
+        "glowRadiusCss": 44,
+        "glowGain": 0.6,
+        "sweepGain": 0.85
+      }
+    },
+    "dark": {
+      "activeSha256": "874be66ea501621be265265424c16d2d98a01c40835d89c02de9473362c0d4dc",
+      "activeRecordedFingerprint": "874be66ea501621b",
+      "inactiveSha256": "70391dee6d9990c22efc4b268caf9139886af9684a4255ded1128d3b7a2b7326",
+      "resolvedMaterial": {
+        "optics": {
+          "regular": {
+            "blurSigma": 1.25,
+            "tint": [
+              0.05,
+              0.05,
+              0.05
+            ],
+            "tintAlpha": 0.89,
+            "rimWidth": 1.5,
+            "rimAlpha": 0,
+            "rimWidth2x": 1.35,
+            "specularPower": 6,
+            "specularGain": 0,
+            "rimLevelGain": 0,
+            "rimLitExponent": 0.85,
+            "rimAlongSideSlope": 0.1,
+            "shadowDepth": 0.35,
+            "shadowAlpha": 0,
+            "highlight": [
+              1,
+              1,
+              1
+            ]
+          },
+          "clear": {
+            "blurSigma": 4,
+            "tint": [
+              1,
+              1,
+              1
+            ],
+            "tintAlpha": 0.1,
+            "rimWidth": 1.25,
+            "rimAlpha": 0,
+            "rimWidth2x": 1.25,
+            "specularPower": 8,
+            "specularGain": 0.45,
+            "rimLevelGain": 0,
+            "rimLitExponent": 0,
+            "rimAlongSideSlope": 0,
+            "shadowDepth": 0.22,
+            "shadowAlpha": 0,
+            "highlight": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        "adaptiveTintDark": [
+          0.05,
+          0.05,
+          0.05
+        ],
+        "adaptiveTintLight": [
+          0.05,
+          0.05,
+          0.05
+        ],
+        "adaptiveLuminanceLow": 0.12,
+        "adaptiveLuminanceHigh": 0.42,
+        "refractionScale": {
+          "none": 0,
+          "approximate": 0.45,
+          "true": 1
+        },
+        "sizeSpanMin": 32,
+        "sizeSpanMax": 96,
+        "lensSizeGainMax": 2.6,
+        "sizeScatterGainMax": 8,
+        "sizeScatterFloor": 0.4,
+        "sizeScatterSpanMax": 256,
+        "sizeScatterGainMax2x": 4.8,
+        "sizeScatterFloor2x": 1,
+        "sizeScatterSpanMax2x": 256,
+        "sizeScatterGainFar2x": 9.9,
+        "sizeScatterRampStartThin1x": 1,
+        "sizeScatterRampStartThick1x": 0.3,
+        "sizeScatterRampStartThin2x": 1,
+        "sizeScatterRampStartThick2x": 0.04,
+        "sizeScatterRampStartFar1x": 0.2,
+        "sizeScatterRampStartFar2x": 0.04,
+        "sizeScatterRampReach1xPx": 80,
+        "sizeScatterRampReach2xPx": 100,
+        "sizeScatterHeavyShareThick1x": 0.25,
+        "sizeScatterHeavyShareThick2x": 0,
+        "sizeToneLevelFar": 0,
+        "sizeHeavyTapSigma": 0,
+        "sizeHeavyTapSigma2x": 14,
+        "sizeOcclusionGain": 0.05,
+        "sizeShadowGainMax": 1,
+        "lensRefractionGain": 0.745,
+        "lensHeightPerSpan": 0.25,
+        "lensHeightMax": 20,
+        "lensAmountPerSpan": 0.8,
+        "lensAmountMax": 60,
+        "lensThicknessReference": 8,
+        "lensExtentGain": 1.337,
+        "lensProfileExponent": 3.69,
+        "lensOvalization": 0.8,
+        "lensOvalizationSpanMin": 64,
+        "lensOvalizationSpanMax": 72,
+        "reducedTransparencyFrost": 1.75,
+        "increasedOcclusionLift": 0.75,
+        "strongBorderRim": {
+          "rimWidth": 2,
+          "rimAlpha": 0.95
+        },
+        "reducedTintAdaptation": 0.35,
+        "tintShadeDark": 0.0202,
+        "tintShadeLight": 1.46,
+        "tintShadeStrength": 1,
+        "tintChromaScale": 0,
+        "tintShadeCollapseRetention": 1,
+        "backdropToneMax": 1,
+        "backdropToneLow": 0.02,
+        "backdropToneHigh": 0.055,
+        "backdropToneSizeBias": 0.05,
+        "collapseTransmission": 0.017,
+        "collapseTransmission2x": 0.07,
+        "rimCollapsed": 0,
+        "rimCollapsedTinted": 0,
+        "rimTintChroma": 1,
+        "backdropToneAbscissa": {
+          "kind": "silhouette"
+        },
+        "backdropToneAnchorX": [
+          0.1104,
+          0.2706,
+          0.8,
+          0.9505
+        ],
+        "backdropToneResponseThin": [
+          0.011,
+          0.04092,
+          0.263,
+          0.9326072
+        ],
+        "backdropToneResponseThick": [
+          0.0215,
+          0.0331,
+          0.092,
+          0.11753
+        ],
+        "backdropToneResponseStrength": 1,
+        "outerShadow": {
+          "offsetPx": 7.95,
+          "sigmaPx": 15.55,
+          "spreadPx": 3.1,
+          "thinOcclusionDark": 0,
+          "thinOcclusionMid": 0,
+          "thinOcclusionBright": 0,
+          "thickOcclusionAt96": 0,
+          "thickOcclusionAt128": 0,
+          "thickOcclusionAt160": 0,
+          "liftAmplitude": 0,
+          "liftSpanMin": 64,
+          "liftSpanFull": 118,
+          "liftBlurSigmaCss": 40,
+          "reducedTransparencyOcclusion": 0,
+          "sizeGain": 0
+        },
+        "lightDirection": [
+          -0.3714,
+          -0.9285
+        ],
+        "rimLitAxis": [
+          -0.7071,
+          -0.7071
+        ],
+        "sweepBandRadians": 0.55,
+        "glowRadiusCss": 44,
+        "glowGain": 0.6,
+        "sweepGain": 0.85
+      }
+    }
+  },
+  "holdoutCells": [
+    "apple-macos-26.5-1x-light-standard/hc-text__capsule-button__inactive",
+    "apple-macos-26.5-2x-light-standard/hc-text__capsule-button__inactive",
+    "apple-macos-26.5-1x-dark-standard/photo__capsule-button__inactive",
+    "apple-macos-26.5-1x-dark-standard/checkerboard-64__rrect-lg__inactive",
+    "apple-macos-26.5-2x-dark-standard/photo__capsule-button__inactive",
+    "apple-macos-26.5-2x-dark-standard/checkerboard-64__rrect-lg__inactive"
+  ]
+}

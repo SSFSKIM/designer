@@ -44,7 +44,26 @@ export const DEMOTION_REASONS = [
 
 export type DemotionReason = (typeof DEMOTION_REASONS)[number];
 
+/** W28's actual per-surface response input. Dimensions disclose a downscaled source;
+ * level zero is the finest imported image, not necessarily the original raster. */
+export interface SurfaceBackdropToneAbscissa {
+  readonly surfaceId: string;
+  readonly kind: "source" | "silhouette" | "hint";
+  readonly encodedLuminance: number;
+  readonly luminance: number;
+  readonly linearLuminance: number;
+  readonly color: readonly [number, number, number];
+  readonly sampleCount: number;
+  readonly level: number;
+  readonly sourceWidth: number;
+  readonly sourceHeight: number;
+  readonly sampledWidth: number;
+  readonly sampledHeight: number;
+}
+
 export interface GlassGroupState {
+  /** Latest actual reduction for the drawn surfaces, absent before it is observed. */
+  readonly backdropToneAbscissae?: readonly SurfaceBackdropToneAbscissa[];
   /** What the app declared — never mutated by the runtime. */
   readonly configuredSource: ConfiguredSource;
   /** What is actually drawing. */

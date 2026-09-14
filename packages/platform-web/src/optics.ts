@@ -66,6 +66,16 @@ import type { MaterialVariant, ResolvedMaterialPolicy } from "@vitreajs/vitrea";
 
 import type { RendererMaterialProfile } from "./renderer-bridge";
 
+/** Refuses unsupported runtime abscissae before either tier retains a profile. */
+export function validateBackdropToneAbscissa(profile: RendererMaterialProfile | undefined): void {
+  const value = profile?.backdropToneAbscissa;
+  if (value !== undefined && value !== "source" &&
+      (value === null || typeof value !== "object" || value.kind !== "silhouette" ||
+       Object.keys(value).some((key) => key !== "kind"))) {
+    throw new TypeError("backdropToneAbscissa must be source or { kind: silhouette }");
+  }
+}
+
 /** Linear-light RGB, the units the renderer's profile states its colours in. */
 export type LinearRgb = readonly [number, number, number];
 

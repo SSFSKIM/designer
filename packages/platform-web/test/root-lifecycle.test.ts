@@ -12,6 +12,7 @@
  */
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import type { SurfaceBackdropToneAbscissa } from "@vitreajs/vitrea";
 
 import { createGlassRoot, type GlassRoot, type GlassRootOptions } from "../src/root";
 import type { MediaMatcher } from "../src/media-policy";
@@ -413,7 +414,8 @@ describe("app-owned device replacement", () => {
  */
 function stubGpu(): {
   readonly load: () => Promise<never>;
-  readonly renderer: { unbuiltSources: readonly string[] };
+  readonly renderer: { unbuiltSources: readonly string[];
+    backdropToneAbscissae(groupId: string): readonly SurfaceBackdropToneAbscissa[] };
   /** The rebuild source ids each frame carried, in frame order. */
   readonly rebuildsPerFrame: () => string[][];
 } {
@@ -423,6 +425,7 @@ function stubGpu(): {
     ready: true,
     deviceStatus: { generation: 1 },
     unbuiltSources: [] as readonly string[],
+    backdropToneAbscissae: (): readonly SurfaceBackdropToneAbscissa[] => [],
     attachDevice: () => {},
     replaceDevice: () => {},
     registerBackdrop: () => {},
@@ -486,6 +489,69 @@ describe("keeping the dirty-epoch ledger honest across the wire", () => {
     await instance.ready();
     return { instance, gpu };
   };
+
+  it("keeps only the shared source fallback on an active GPU silhouette group", async () => {
+    const { instance } = await gpuRoot();
+    instance.setMaterialProfile({ backdropToneAbscissa: { kind: "silhouette" } });
+    const original = HTMLCanvasElement.prototype.getContext;
+    let reads = 0;
+    HTMLCanvasElement.prototype.getContext = (() => ({
+      configure() {}, unconfigure() {}, clearRect() {}, drawImage() {},
+      getImageData() {
+        reads += 1;
+        return { data: new Uint8ClampedArray([128, 128, 128, 255]) };
+      },
+    })) as unknown as typeof original;
+    try {
+      for (let i = 0; i < 2; i += 1) {
+        const host = document.createElement("div");
+        host.getBoundingClientRect = () => ({ x: i * 10, y: 0, width: 10, height: 10,
+          left: i * 10, right: i * 10 + 10, top: 0, bottom: 10, toJSON() {} });
+        instance.plane("base").hostLayer.append(host);
+        instance.registerHost({ host, groupId: "g1" });
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = canvas.height = 1;
+      instance.setBackdropTexture("src", { kind: "canvas", canvas });
+      instance.runFrame(16);
+      expect(instance.capabilities("g1")?.activeRenderer).toBe("webgpu");
+      expect(reads).toBe(1);
+      expect(instance.renderInput()?.groups[0]?.backdropToneLevel).toBeGreaterThan(0);
+    } finally {
+      HTMLCanvasElement.prototype.getContext = original;
+    }
+  });
+
+  it("uses completed GPU local readings for the DOM overlays above each host", async () => {
+    const { instance, gpu } = await gpuRoot();
+    instance.setMaterialProfile({ backdropToneAbscissa: { kind: "silhouette" } });
+    const canvas = document.createElement("canvas");
+    instance.setBackdropTexture("src", { kind: "canvas", canvas });
+    const inputs: SurfaceBackdropToneAbscissa[] = [];
+    for (let i = 0; i < 2; i += 1) {
+      const host = document.createElement("div");
+      const rect = () => ({ x: i * 100, y: 0, width: 80, height: 80,
+        left: i * 100, right: i * 100 + 80, top: 0, bottom: 80, toJSON() {} });
+      host.getBoundingClientRect = rect;
+      instance.plane("base").hostLayer.append(host);
+      const handle = instance.registerHost({ host, groupId: "g1" });
+      inputs.push({ surfaceId: handle.nodeId, kind: "silhouette", encodedLuminance: i,
+        luminance: i, linearLuminance: i, color: [i, i, i], sampleCount: 6400,
+        level: 0, sourceWidth: 300, sourceHeight: 150, sampledWidth: 300, sampledHeight: 150 });
+      const overlay = withHost(instance, { groupId: `above-${i}`, plane: "overlay" });
+      overlay.getBoundingClientRect = rect;
+    }
+    instance.runFrame(16);
+    gpu.renderer.backdropToneAbscissae = (groupId) => groupId === "g1" ? inputs : [];
+    instance.runFrame(32);
+    const groups = instance.renderInput()!.groups;
+    const low = groups.find((g) => g.groupId === "above-0");
+    const high = groups.find((g) => g.groupId === "above-1");
+    expect(instance.capabilities("g1")?.activeRenderer).toBe("webgpu");
+    expect(low?.state.samplingBackend).toBe("css-backdrop");
+    expect(low?.backdropToneLevel).toBeDefined();
+    expect(high?.backdropToneLevel).toBeGreaterThan(low!.backdropToneLevel!);
+  });
 
   it("re-marks a live canvas every frame, so it does not freeze after one import", async () => {
     const { instance, gpu } = await gpuRoot();

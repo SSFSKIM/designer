@@ -52,7 +52,7 @@ import {
   type BackdropFit,
   type BackdropPlacement,
 } from "./backdrop-fit";
-import { OUTPUT_TEXTURE_FORMAT, relativeLuminance } from "./color";
+import { OUTPUT_TEXTURE_FORMAT, relativeLuminance, linearToSrgbChannel } from "./color";
 import {
   createDeviceHost,
   type DeviceCapabilityInput,
@@ -103,6 +103,7 @@ import {
   type MaterialProfilePatch,
   type MaterialVariant,
 } from "./material";
+import { createSilhouetteTonePass, type SurfaceBackdropToneAbscissa } from "./silhouette-tone";
 import { createPassRunner, groupResourceId, type DeviceRect, type PassRunner } from "./passes";
 import {
   createPyramidStore,
@@ -296,6 +297,8 @@ export interface GlassRenderer {
 
   /** Resolve any completed analysis readbacks into the adaptation drivers. */
   collectAdaptation(): Promise<number>;
+  /** Actual GPU reduction, resolved asynchronously after the submitted draw. */
+  backdropToneAbscissae(groupId: string): readonly SurfaceBackdropToneAbscissa[];
   destroy(): void;
 }
 
@@ -315,6 +318,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   const groups = new Map<string, GroupEntry>();
   const adaptation = new Map<string, AdaptationState>();
   const lastReadbackAt = new Map<string, number>();
+  const hintedTones = new Map<string, {
+    groupId: string; readings: readonly SurfaceBackdropToneAbscissa[];
+  }>();
 
   let accessibility: MaterialPolicyView = NOMINAL_MATERIAL_POLICY;
   let material: MaterialProfile = withMaterialOverrides(
@@ -336,6 +342,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   let builtGeneration: number | undefined;
   let store: PyramidStore | undefined;
   let runner: PassRunner | undefined;
+  let silhouetteTone: ReturnType<typeof createSilhouetteTonePass> | undefined;
   let framesDrawn = 0;
   let generations = 0;
   let lastFrameTimeMs: number | undefined;
@@ -383,6 +390,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
 
   const dropContext = (): void => {
     store?.destroy();
+    silhouetteTone?.destroy();
+    silhouetteTone = undefined;
+    hintedTones.clear();
     runner?.destroy();
     context?.destroy();
     store = undefined;
@@ -421,6 +431,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       builtGeneration = generation;
       store = createPyramidStore(context);
       runner = createPassRunner(context);
+      silhouetteTone = createSilhouetteTonePass(context);
       // The providers outlive the context, and every one of them closes over the
       // device it was built with. Re-pointing them here — rather than in the loss
       // teardown — is what makes the timing right: this is the one place that
@@ -760,6 +771,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   function drawGroups(
     encoder: GPUCommandEncoder,
     resolution: SceneResolutionView | undefined,
+    timeMs: number,
   ): DrawFrameResult {
     const { store: pyramids, runner: passes } = ensureContext();
     const active = targets;
@@ -798,7 +810,11 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
      * `passes.forget` is idempotent, which is what lets one rule cover every way
      * a group can draw nothing rather than one release site per reason.
      */
-    const releaseIdle = (groupId: string): void => passes.forget(resourceOf(groupId));
+    const releaseIdle = (groupId: string): void => {
+      passes.forget(resourceOf(groupId));
+      silhouetteTone?.forget(resourceOf(groupId));
+      hintedTones.delete(resourceOf(groupId));
+    };
 
     for (const entry of groups.values()) {
       const input = entry.input;
@@ -958,7 +974,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         rectDevice.x * cssPerDevice,
         rectDevice.y * cssPerDevice,
       ]);
-      const fields = passes.fieldPass(encoder, {
+      const fieldArgs = {
         resourceId: resourceOf(input.groupId),
         family: governor.knobs.fieldFamily,
         rectDevice,
@@ -970,7 +986,8 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         instances: packed.data,
         instanceCount: packed.count,
         union,
-      });
+      };
+      const fields = passes.fieldPass(encoder, fieldArgs);
 
       const state = stateOf(input, resolution);
       const variant = variantOf(input);
@@ -978,6 +995,41 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       const pyramid = sourceId === undefined ? undefined : pyramids.resources(sourceId);
       const adapt =
         sourceId === undefined ? undefined : adaptationFor(sourceId).values;
+      const localTone = typeof material.backdropToneAbscissa === "object" &&
+        input.backdropToneHint !== true && pyramid !== undefined && sourceId !== undefined &&
+        surfaces.length > 0
+        ? silhouetteTone?.draw(encoder, {
+            groupId: input.groupId, field: fieldArgs, fields, surfaces, pyramid,
+            viewportDevice, fit: fitFor(sourceId, pyramid),
+            timeMs, cadenceHz: governor.knobs.adaptationCadenceHz,
+            liveSource: providers.get(sourceId)?.kind !== "image" &&
+              providers.get(sourceId)?.kind !== "gradient",
+            fallbackTone: [
+              input.backdropTone?.[0] ?? 0, input.backdropTone?.[1] ?? 0,
+              input.backdropTone?.[2] ?? 0,
+              input.backdropTone === undefined ? -1 :
+                input.backdropToneLevel ?? relativeLuminance(input.backdropTone),
+            ],
+          })
+        : undefined;
+      if (localTone === undefined) silhouetteTone?.forget(resourceOf(input.groupId));
+      const hintLevel = input.backdropToneLevel ??
+        (input.backdropTone === undefined ? undefined : relativeLuminance(input.backdropTone));
+      if (typeof material.backdropToneAbscissa === "object" &&
+          input.backdropToneHint === true && hintLevel !== undefined &&
+          input.backdropTone !== undefined) {
+        const color = input.backdropTone;
+        hintedTones.set(resourceOf(input.groupId), {
+          groupId: input.groupId,
+          readings: surfaces.map((surface) => ({
+            surfaceId: surface.nodeId, kind: "hint", color,
+            encodedLuminance: linearToSrgbChannel(hintLevel), luminance: hintLevel,
+            linearLuminance: input.backdropToneLinearLuminance ?? hintLevel,
+            sampleCount: 0, level: 0,
+            sourceWidth: 0, sourceHeight: 0, sampledWidth: 0, sampledHeight: 0,
+          })),
+        });
+      } else hintedTones.delete(resourceOf(input.groupId));
       /*
        * The response and size laws always read the LINEAR profile (W27f G1).
        * DOM groups convert only their final layer, after evaluating the material
@@ -1002,7 +1054,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         material.backdropToneLow,
         material.backdropToneHigh,
         backdropToneSizeBiasUnderPolicy(policy, material),
-        input.backdropTone === undefined
+        input.backdropTone === undefined && localTone === undefined
           ? 0
           : backdropToneUnderPolicy(policy, material) * material.backdropToneMax,
       ];
@@ -1026,6 +1078,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         targetFormat: active.format,
         rectDevice,
         fields,
+        ...(localTone === undefined ? {} : { localTone }),
         viewportDevice,
         cssPerDevice,
         coverageRampCss: cssPerDevice,
@@ -1281,6 +1334,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           rectDevice: surfaceRectDevice,
           fieldRectDevice: rectDevice,
           fields,
+          ...(localTone === undefined ? {} : { localTone }),
           viewportDevice,
           cssPerDevice,
           sweep: lead.channels.sweep,
@@ -1461,7 +1515,11 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       // have drawn on more than one (`groupResourceId`). Forgetting only the
       // plane drawn most recently would strand the other plane's set for the
       // life of the renderer.
-      for (const plane of planesDrawn) runner?.forget(groupResourceId(plane, groupId));
+      for (const plane of planesDrawn) {
+        runner?.forget(groupResourceId(plane, groupId));
+        silhouetteTone?.forget(groupResourceId(plane, groupId));
+        hintedTones.delete(groupResourceId(plane, groupId));
+      }
     },
 
     setAccessibility(policy) {
@@ -1518,19 +1576,21 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           if (args.highlight !== undefined) passes.clearPass(encoder, args.highlight);
         }
 
-        result = drawGroups(encoder, args.resolution);
+        result = drawGroups(encoder, args.resolution, args.frame.timeMs);
 
         args.timing?.resolve(encoder);
         gpu.device.queue.submit([encoder.finish()]);
         // Success path only: starting a readback map for a copy that never
         // reached the queue is its own bug (see `requestStats`).
         pyramids.afterSubmit();
+        silhouetteTone?.afterSubmit();
       } finally {
         // Owed whether or not the frame reached the queue. A throw anywhere above
         // leaves an acquired video held across the frame, and the next acquire
         // then fails the frame-protocol check — self-healing, but only after a
         // wasted frame and a decoder buffer nobody released.
         pyramids.releaseAcquired();
+        silhouetteTone?.cancelQueued();
       }
 
       // Advance the adaptation filters by the real frame delta. The drivers are
@@ -1579,6 +1639,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
             // already acquired have to happen here rather than in `render`.
             pendingEncoder = undefined;
             pyramids.releaseAcquired();
+            silhouetteTone?.cancelQueued();
             throw error;
           }
         },
@@ -1594,13 +1655,15 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
             if (targets !== undefined) {
               passes.clearPass(encoder, targets.optics);
               if (targets.highlight !== undefined) passes.clearPass(encoder, targets.highlight);
-              drawGroups(encoder, frameContext.resolution);
+              drawGroups(encoder, frameContext.resolution, frameContext.frame.timeMs);
             }
 
             context.device.queue.submit([encoder.finish()]);
             pyramids.afterSubmit();
+            silhouetteTone?.afterSubmit();
           } finally {
             pyramids.releaseAcquired();
+            silhouetteTone?.cancelQueued();
           }
 
           const delta =
@@ -1614,7 +1677,16 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       };
     },
 
+    backdropToneAbscissae(groupId) {
+      return [
+        ...(silhouetteTone?.readings(groupId) ?? []),
+        ...[...hintedTones.values()].filter((entry) => entry.groupId === groupId)
+          .flatMap((entry) => entry.readings),
+      ];
+    },
+
     async collectAdaptation() {
+      await silhouetteTone?.collect();
       if (store === undefined) return 0;
       const stats = await store.collectStats();
       for (const [sourceId, value] of stats) {

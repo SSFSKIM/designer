@@ -1,0 +1,67 @@
+
+[2mRunning [22m62[2m tests using [22m1[2m worker[22m
+
+  [32m✓[39m  [2m 1 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › field-mask renders its pinned bytes from the named profile[2m (880ms)[22m
+  [32m✓[39m  [2m 2 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › refraction-checkerboard renders its pinned bytes from the named profile[2m (295ms)[22m
+  [32m✓[39m  [2m 3 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › body-ramp-1x renders its pinned bytes from the named profile[2m (286ms)[22m
+  [32m✓[39m  [2m 4 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › placed-checkerboard renders its pinned bytes from the named profile[2m (304ms)[22m
+  [32m✓[39m  [2m 5 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › lens-size-scaling renders its pinned bytes from the named profile[2m (263ms)[22m
+  [32m✓[39m  [2m 6 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › tint-adaptation-light renders its pinned bytes from the named profile[2m (277ms)[22m
+  [32m✓[39m  [2m 7 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › tint-adaptation-dark renders its pinned bytes from the named profile[2m (296ms)[22m
+  [32m✓[39m  [2m 8 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › rim-two-references renders its pinned bytes from the named profile[2m (301ms)[22m
+  [32m✓[39m  [2m 9 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › concentric-nesting renders its pinned bytes from the named profile[2m (292ms)[22m
+  [32m✓[39m  [2m10 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › union-pair renders its pinned bytes from the named profile[2m (277ms)[22m
+  [32m✓[39m  [2m11 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › collapsed-tone renders its pinned bytes from the named profile[2m (291ms)[22m
+  [32m✓[39m  [2m12 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › collapsed-tone-textured renders its pinned bytes from the named profile[2m (292ms)[22m
+  [32m✓[39m  [2m13 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › highlight-press-glow renders its pinned bytes from the named profile[2m (265ms)[22m
+  [32m✓[39m  [2m14 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:936:3 › @golden the goldens move only through the named profile seam › the outer shadow is the whole of W8's delta — it draws, and only there[2m (294ms)[22m
+  [32m✓[39m  [2m15 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:1029:3 › @golden the goldens move only through the named profile seam › the geometry change is confined to the scenes it can reach[2m (1ms)[22m
+  [32m✓[39m  [2m16 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:1045:3 › @golden the goldens move only through the named profile seam › the 1x pin carries the depth ramp — its fail-before record[2m (294ms)[22m
+  [32m✓[39m  [2m17 [22m[chromium-gpu] › e2e/golden/isolation.spec.ts:1077:3 › @golden the goldens move only through the named profile seam › and the tuned profile is not the old one — the proof is not vacuous[2m (324ms)[22m
+  [32m✓[39m  [2m18 [22m[chromium-gpu] › e2e/golden/receded-tint.spec.ts:7:1 › @golden the inactive tint loses hue without losing its collapsed level[2m (628ms)[22m
+  [32m✓[39m  [2m19 [22m[chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › field-mask matches its golden[2m (274ms)[22m
+  [32m✓[39m  [2m20 [22m[chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › refraction-checkerboard matches its golden[2m (277ms)[22m
+  [32m✓[39m  [2m21 [22m[chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › body-ramp-1x matches its golden[2m (247ms)[22m
+  [32m✓[39m  [2m22 [22m[chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › placed-checkerboard matches its golden[2m (259ms)[22m
+  [32m✓[39m  [2m23 [22m[chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › lens-size-scaling matches its golden[2m (265ms)[22m
+  [32m✓[39m  [2m24 [22m[chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › tint-adaptation-light matches its golden[2m (284ms)[22m
+  [32m✓[39m  [2m25 [22m[chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › tint-adaptation-dark matches its golden[2m (285ms)[22m
+  [32m✓[39m  [2m26 [22m[chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › rim-two-references matches its golden[2m (283ms)[22m
+  [32m✓[39m  [2m27 [22m[chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › concentric-nesting matches its golden[2m (261ms)[22m
+  [32m✓[39m  [2m28 [22m[chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › union-pair matches its golden[2m (285ms)[22m
+  [32m✓[39m  [2m29 [22m[chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › collapsed-tone matches its golden[2m (303ms)[22m
+  [32m✓[39m  [2m30 [22m[chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › collapsed-tone-textured matches its golden[2m (295ms)[22m
+  [32m✓[39m  [2m31 [22m[chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › highlight-press-glow matches its golden[2m (265ms)[22m
+  [32m✓[39m  [2m32 [22m[chromium-gpu] › e2e/golden/scenes.spec.ts:91:3 › @golden the goldens are distinguishable › two scenes that should differ do differ[2m (326ms)[22m
+  [32m✓[39m  [2m33 [22m[chromium-gpu] › e2e/golden/scenes.spec.ts:112:3 › @golden acceptance #2 — lensing scales with surface size › a larger surface bends a deeper band of the same backdrop[2m (262ms)[22m
+  [32m✓[39m  [2m34 [22m[chromium-gpu] › e2e/golden/scenes.spec.ts:246:3 › @golden claims §5.47 — a backdrop is sampled where it sits › the placed render is the golden, and the cover-fit render is what it replaced[2m (312ms)[22m
+  [32m✓[39m  [2m35 [22m[chromium-gpu] › e2e/gpu/cross-check.spec.ts:46:3 › @gpu the f32 cross-check (Decision Log #20) › both families agree with f64 to a rounding error on this adapter[2m (425ms)[22m
+  [32m✓[39m  [2m36 [22m[chromium-gpu] › e2e/gpu/cross-check.spec.ts:132:3 › @gpu the f32 cross-check (Decision Log #20) › the shader computes the same function as the TypeScript, not merely a close one[2m (243ms)[22m
+  [32m✓[39m  [2m37 [22m[chromium-gpu] › e2e/gpu/materialization.spec.ts:149:3 › @gpu W27d presence reaches the shader › a surface at 0.35 draws a different material from the same surface at 1[2m (278ms)[22m
+  [32m✓[39m  [2m38 [22m[chromium-gpu] › e2e/gpu/materialization.spec.ts:169:3 › @gpu W27d presence reaches the shader › the channel is monotone: 0 moves at least as far as 0.35[2m (295ms)[22m
+  [32m✓[39m  [2m39 [22m[chromium-gpu] › e2e/gpu/materialization.spec.ts:187:3 › @gpu W27d presence reaches the shader › driving the channel to 1 renders the bytes of a scene nobody drove[2m (308ms)[22m
+  [32m✓[39m  [2m40 [22m[chromium-gpu] › e2e/gpu/materialization.spec.ts:206:3 › @gpu W27d the identity endpoint › at 0 the surface is not there at all[2m (305ms)[22m
+  [32m✓[39m  [2m41 [22m[chromium-gpu] › e2e/gpu/materialization.spec.ts:249:3 › @gpu W27d one absent member of a connected group › leaves its present neighbour the group it would have had alone[2m (303ms)[22m
+  [32m✓[39m  [2m42 [22m[chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu light DOM material matches its scalar law at 0.1104[2m (426ms)[22m
+  [32m✓[39m  [2m43 [22m[chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu light DOM material matches its scalar law at 0.2706[2m (436ms)[22m
+  [32m✓[39m  [2m44 [22m[chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu light DOM material matches its scalar law at 0.9505[2m (415ms)[22m
+  [32m✓[39m  [2m45 [22m[chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu dark DOM material matches its scalar law at 0.1104[2m (439ms)[22m
+  [32m✓[39m  [2m46 [22m[chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu dark DOM material matches its scalar law at 0.2706[2m (430ms)[22m
+  [32m✓[39m  [2m47 [22m[chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu dark DOM material matches its scalar law at 0.9505[2m (419ms)[22m
+  [32m✓[39m  [2m48 [22m[chromium-gpu] › e2e/gpu/runtime.spec.ts:21:3 › @gpu the dirty-epoch invariant on a device › rebuilds an always-dirty source once per frame, never twice[2m (255ms)[22m
+  [32m✓[39m  [2m49 [22m[chromium-gpu] › e2e/gpu/runtime.spec.ts:42:3 › @gpu device-loss recovery › an app-owned device reports the loss and waits for a replacement[2m (394ms)[22m
+  [32m✓[39m  [2m50 [22m[chromium-gpu] › e2e/gpu/runtime.spec.ts:63:3 › @gpu device-loss recovery › a vitrea-owned device recovers and draws again[2m (391ms)[22m
+  [32m✓[39m  [2m51 [22m[chromium-gpu] › e2e/gpu/runtime.spec.ts:82:3 › @gpu the shipped shaders compile › every pass builds a pipeline without a validation error[2m (308ms)[22m
+  [32m✓[39m  [2m52 [22m[chromium-gpu] › e2e/gpu/runtime.spec.ts:99:3 › @gpu the governor's field families agree › family C renders the same silhouette as family D[2m (296ms)[22m
+  [32m✓[39m  [2m53 [22m[chromium-gpu] › e2e/gpu/runtime.spec.ts:144:3 › @gpu the governor's resolution rungs › rungs 2 and 3 render the same material through a coarser field[2m (301ms)[22m
+  [32m✓[39m  [2m54 [22m[chromium-gpu] › e2e/gpu/shadow-extent.spec.ts:48:3 › @gpu the outer shadow's field extent › falls off the same way above a top-adjacent surface as above a free one[2m (286ms)[22m
+  [32m✓[39m  [2m55 [22m[chromium-gpu] › e2e/gpu/shadow-extent.spec.ts:91:3 › @gpu the outer shadow's field extent › keeps the shadow's own reach, and stops there[2m (264ms)[22m
+  [32m✓[39m  [2m56 [22m[chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:30:3 › @gpu W28 silhouette abscissa › clips the reduction extent before counting even a huge offscreen rectangle[2m (245ms)[22m
+  [32m✓[39m  [2m57 [22m[chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:42:3 › @gpu W28 silhouette abscissa › encodes raw texels before averaging, separately for both hosts[2m (357ms)[22m
+  [32m✓[39m  [2m58 [22m[chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:62:3 › @gpu W28 silhouette abscissa › all solve consumers use the local reference and the union keeps both hosts[2m (531ms)[22m
+  [32m✓[39m  [2m59 [22m[chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:74:3 › @gpu W28 silhouette abscissa › transparent texels carry no colour and an empty mask reports its valid fallback[2m (543ms)[22m
+  [32m✓[39m  [2m60 [22m[chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:94:3 › @gpu W28 silhouette abscissa › an empty mask with no source reference still omits the abscissa[2m (456ms)[22m
+  [32m✓[39m  [2m61 [22m[chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:103:3 › @gpu W28 silhouette abscissa › an author hint bypasses the reduction on every host[2m (487ms)[22m
+  [32m✓[39m  [2m62 [22m[chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:116:3 › @gpu W28 silhouette abscissa › absent and explicit source preserve the same drawing[2m (468ms)[22m
+
+[32m  62 passed[39m[2m (23.9s)[22m

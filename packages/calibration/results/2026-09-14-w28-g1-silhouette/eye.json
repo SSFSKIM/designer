@@ -1,0 +1,12 @@
+{
+  "scope": "Selected WebGPU fit captures beside their exact native targets; no D or W28 holdout image viewed",
+  "scale": 1,
+  "observations": [
+    {"profile": "light-standard", "scene": "mid-dark-solid__rrect-sm__inactive", "bodyDeltaE": 0, "observation": "The neutral body level agrees by eye; only a very small contour/antialiasing difference remains."},
+    {"profile": "light-standard", "scene": "photo__capsule-button__inactive", "bodyDeltaE": 0.021645017822321137, "observation": "The overall haze and silhouette are close. Native retains a stronger pink/green interior variation; WebGPU is greyer and loses some local chroma."},
+    {"profile": "dark-standard", "scene": "mid-dark-solid__rrect-sm__inactive", "bodyDeltaE": 0, "observation": "The formerly high middle response now matches the native dark body level. The remaining visible difference is confined to the contour."},
+    {"profile": "dark-standard", "scene": "mid-light-solid__rrect-sm__inactive", "bodyDeltaE": 0, "observation": "The new neutral anchor matches the native body level, with a small edge-shape difference."},
+    {"profile": "dark-standard", "scene": "impulse__rrect-lg__inactive", "bodyDeltaE": 0.10284622939973558, "observation": "WebGPU remains plainly too light and hazy; the sparse points, especially near the top, are more visible. This is not closed by the response-row refit."}
+  ],
+  "limits": "This is a supplying-cell inspection, not G2's six-profile checking sheets or the user's landing veto. No demo/activation comparison was made."
+}

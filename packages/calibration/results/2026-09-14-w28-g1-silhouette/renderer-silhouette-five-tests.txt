@@ -1,0 +1,10 @@
+
+[2mRunning [22m5[2m tests using [22m1[2m worker[22m
+
+  [32m✓[39m  [2m1 [22m[chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:28:3 › @gpu W28 silhouette abscissa › encodes raw texels before averaging, separately for both hosts[2m (933ms)[22m
+  [32m✓[39m  [2m2 [22m[chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:48:3 › @gpu W28 silhouette abscissa › all solve consumers use the local reference and the union keeps both hosts[2m (560ms)[22m
+  [32m✓[39m  [2m3 [22m[chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:60:3 › @gpu W28 silhouette abscissa › transparent texels carry no colour and an empty mask publishes no abscissa[2m (423ms)[22m
+  [32m✓[39m  [2m4 [22m[chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:73:3 › @gpu W28 silhouette abscissa › an author hint bypasses the reduction on every host[2m (458ms)[22m
+  [32m✓[39m  [2m5 [22m[chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:86:3 › @gpu W28 silhouette abscissa › absent and explicit source preserve the same drawing[2m (445ms)[22m
+
+[32m  5 passed[39m[2m (5.4s)[22m

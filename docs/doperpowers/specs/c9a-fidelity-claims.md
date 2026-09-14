@@ -21115,3 +21115,262 @@ encoded region mean; a new uniform or phase-shifted fixture; any D native target
 error, rendered active counterfactual, CSS Jensen gap, activation runtime or timing, or a new
 regression floor. No reference build, scene, fixture, profile, material constant, golden or
 canonical matrix changed. No display or accessibility setting was read or changed by this gate.
+
+## 5.145 W28 G1: the per-surface silhouette input on both tiers, and the inactive response refit (2026-09-14)
+
+**Gate:** W28 G1, Decision Log 2 and its holdout addendum; X1, X10 and X11. Evidence is
+`packages/calibration/results/2026-09-14-w28-g1-silhouette/`. The mechanism check passed before
+any response ordinate was proposed. Both schemes are refitted and sealed, with the six W28
+holdouts unread and the G2 reader dry-run. No checking verdict or activation runtime is claimed.
+
+**1. The declaration precedes the fit.** Commit **711ad78** declares the input check, the six
+W28 holdout cells and the admission boundary. Commit **b20e2690** records the completed input
+check and fixes the fit partition and candidate family before a supplying native PNG is opened.
+Every checking-set background/component base is refused on both poses, including tint suffixes;
+`checkerboard__rrect-ml` is refused too. Both the browser driver and scorer reject a W28 holdout
+in a fit, control or unlabelled sweep row. The three admission tests were observed failing before
+the guard, then passing; the scorer independently exercises the same named exclusions.
+
+The partition supplies **74** standard-policy fit cells (**38 light / 36 dark** across the two
+scales), **22** controls (**12 light / 10 dark**) and **4** non-D accessibility checks. The dispatch
+explicitly includes recovered thin impulse capsules and photo squares whose inherited manifest
+roles include validation; they are supplying cells here, without rewriting a manifest role.
+The parent additionally admits the two light `impulse__rrect-md__inactive` validation rows already
+in the committed partition: a prior configuration's validation role does not bar later non-D
+supply, provided that former role stays recorded and the cell is not called a holdout. The
+partition is retained, not regenerated after viewing outcomes. X10's D and W28-holdout exclusions
+remain absolute.
+The metric is equal-cell mean body OKLab DeltaE on WebGPU; every control retains the **9×** cap on
+its exact G1d body-DeltaE baseline. CSS is record-only. The declared family contains **24** response
+candidates: six light forms and eighteen dark forms, plus source and silhouette baselines per
+scheme. A native-level surrogate proposes ordinates; it selects no candidate. Rendered body error
+and the control cap select the rows. The dark measured middle pair **0.04092 / 0.0331** is released
+only if its candidate cohort is refused by controls, not because an old-row score is attractive.
+
+**2. One local reference through the solve, with the old branch retained.** The additive
+`backdropToneAbscissa` is absent or `"source"` on every active document and `{ kind: "silhouette" }`
+on the receded documents. The GPU branch reduces full device-pixel centres under each surface's
+rounded rectangle or capsule, encodes each RGB sample before taking Rec.709 luma, and carries both
+that encoded mean and the local linear RGB reference. Its tone field follows the same union weights
+as the optical field. Response input, collapse colour and compensation, nominal composition,
+opacity solve, tint/rim reference and highlight collapse use that field. Author hints bypass the
+reduction and remain authoritative. CSS uses a native-resolution snapshot and the host's measured
+rect/radius; the same local reference feeds its complete solve.
+
+The parent's implementation clarification takes the finest imported mip, not `analysisLevel`:
+encoding after the existing linear-light blur changes the statistic. Original and sampled
+source dimensions are disclosed; none of the canonical check's sources was downscaled. The old
+source branch's arithmetic is retained. This is an opt-in endpoint change, not activation runtime.
+
+**3. The input check, not a material-output fit.** `mechanism-table.json` and its CSV contain all
+**359 canonical cells** on both tiers: **335 unpressed** cells are gated and **24 interaction** cells
+are recorded separately. Another **39 W9 observations** alias canonical inputs after equality of
+raster path, dimensions, component and G0 predictor is checked. No native glass PNG is opened by
+this input read, and no canonical matrix row is written.
+
+| tier | unpressed cells within 1/255 encoded | maximum absolute error, 8-bit codes |
+| --- | ---: | ---: |
+| WebGPU | **335 / 335** | **0.02723997831346303** |
+| CSS | **335 / 335** | **0.0000000003352268462819552** |
+
+The maximum cross-tier difference is **0.027239977978236185 codes**. The GPU maximum is the 2x
+dark-standard `checkerboard-lc16__rrect-lg__rest` input. All per-surface inputs are checked;
+disjoint toolbar masks additionally reproduce G0's union by area weighting. For a glass-over-glass
+cell, the raw-raster union is its containing base silhouette; the DOM overlay samples already
+rendered glass and is not mislabelled as another raw-raster observation.
+
+G0's interaction masks are unpressed, whereas the web host actually compresses. One photo capsule
+measures **118.20001220703125 × 43.339996337890625** at
+**(100.89999389648438, 78.33000183105469)** against **120 × 44** at **(100, 78)**. The parent's
+clarification makes these 24 cells geometry/abscissa-delta records rather than failures of raw
+sampling. A future interaction predictor needs the actual state geometry; the tracker carries it.
+
+The first CSS check also exposed a harness error: its content-box capsule grew to **122 × 46**
+when CSS supplied a 1px transparent border, changing the mask from **4,872** to **5,204** pixel
+centres. A silhouette-only border-box declaration fixes the geometry on both tiers. Eight source
+capture pairs, two schemes × two tiers × two scenes at 1x, remain **byte-identical** to the original
+harness. The source-profile sizing debt is recorded rather than silently changing the resting bed.
+Earlier geometry refusals remain on disk. One running driver's source was extended while it still
+held its launch-time code; `instrument-provenance.json` records the correct executed snapshot beside
+the original on-disk hash. Subsequent runs freeze that digest before launching.
+
+**4. What the old analysis level would have cost, and what the implemented branch costs.**
+`gpu-evidence.json` binds the unmodified production reducer to mip zero and to `analysisLevel`,
+with the same full-resolution masks, on sixteen non-D backdrop/shape/scale combinations. This is
+an input-only diagnostic, not the legacy whole-source shader and not a fitted scale. Checkerboard
+shifts by **0.09150400757789612–0.11596167087554932 encoded**; hc-text by
+**0.11079341173171997–0.13629209995269775**; photo by
+**0.0006013810634613037–0.0010547339916229248**. The checker/text differences exceed the one-code
+bar substantially, confirming that the finest-level branch is necessary on this bed.
+
+The warmed static benchmark interleaves source and silhouette for **96 rounds** after **24 warmup
+rounds**, on two hosts and a full canonical canvas at both scales. It times CPU submission through
+GPU queue completion, not GPU-only timestamps. Median paired overhead is about **0–0.1 ms**, and
+paired p95 about **0.2 ms**, at the clock's roughly 0.1 ms granularity; full samples are retained.
+Setup, upload, warmup, explicit readback waits and screenshots are excluded. Every source pyramid
+builds once. The first benchmark refused an app-owned texture that correctly declared itself live;
+the corrected static image provider is recorded beside that refusal. First-reduction, live-source
+and 4K costs are not measured by these static numbers.
+
+**5. Independent review closed in a separate fix wave.** The medium review of **f331dc5** found
+five defects: redundant full GPU reductions, repeated native CSS snapshots including on GPU,
+offscreen iteration before clipping, missing CSS descriptor validation, and omitted readouts for
+valid empty-mask fallbacks. Separate renderer/platform workers fixed all five. GPU caches are
+invalidated by source/resource/geometry/fit/identity, with live pixels on the existing governor
+cadence; static replacements and geometry changes are immediate. CSS shares one snapshot and uses
+completed GPU local readings for stacked CPU bookkeeping without a second pixel read. Valid
+fallbacks report `kind: "source"`; absent references remain omitted.
+
+At **1e55b6fa**, renderer **497 tests in 29 files** and platform **610 tests in 43 files**, their
+build/lint/type checks, and the **7 / 7** real-adapter silhouette tests pass. All **371** unpressed
+canonical surface bounds are inside the viewport, so the clipping change leaves their reduction
+arithmetic unchanged. Sixteen representative post-fix readouts **and capture PNGs** are identical
+to the full check, including its worst-error cell. The reviewer's focused closure reports
+**correct, no material findings**. This closes the round; it does not commission another fit.
+
+**6. The holdout is held out of this refit, not new native evidence.** The light hc-text capsule
+is the manifest's holdout, not a recovered probe. The parent admits its reuse on a new frozen
+configuration, provided this fit never sees it. The dark bed has no non-D inactive displacement
+above 0.05, so the parent selects its two most discriminating available cells instead:
+
+| scheme / scale | scene, all inactive | silhouette minus source, encoded |
+| --- | --- | ---: |
+| light 1x | hc-text capsule | −0.1374039922003285 |
+| light 2x | hc-text capsule | −0.13732747007910429 |
+| dark 1x | photo capsule | +0.03734347805587751 |
+| dark 2x | photo capsule | +0.03800814795956453 |
+| dark 1x | checkerboard-64 rrect-lg | +0.03046485302172719 |
+| dark 2x | checkerboard-64 rrect-lg | +0.03053366811230307 |
+
+The parent's rounded “0.037” limitation is the 1x reading, not an exact all-scale upper bound;
+the largest recorded offset is **0.03800814795956453**. Both scales remain below 0.05. The dark
+checking square stays reserved for G2. None of these six cells enters a fit/control/sweep row;
+the input-only mechanism read does not compare their material output with native.
+
+**7. The light fit needs a fourth knot under this objective.** All eight light reads are complete
+and every declared control holds. The source baseline's mean body DeltaE is
+**0.017937390775192436**; changing only the abscissa gives **0.01784707503487165**. The best
+three-knot proposal gives **0.017780929169519462**. The selected four-knot proposal gives
+**0.016032500055353678**, over the same 38 fit cells:
+
+- anchors **[0.1104, 0.2706, 0.45, 0.9505]**;
+- light thin **[0.0126, 0.451, 0.573, 0.933]**;
+- light thick **[0.4553, 0.527, 0.63, 0.898]**.
+
+Its worst control is 2x `checkerboard-8__rrect-lg__inactive`, body DeltaE
+**0.007949990189033706** against G1d's **0.0048381959239710715**, or
+**1.6431724374048398×**, below 9×. The other fourth-knot positions, 0.55 / 0.65 / 0.75 / 0.85,
+give fit means **0.016223720561082036 / 0.016272613937924448 / 0.01626978068243477 /
+0.016284602019629134**. Every rung and cell is retained in `fit-light.json` and `sweep-matrices/`.
+The selected position is a fit parameter, not a newly identified native uniform-response knee.
+
+**8. The dark fit keeps the measured middle knots and re-examines the far step.** The source
+baseline's mean body DeltaE is **0.042990339330247415**; the silhouette-only baseline is
+**0.043120181282406536**. Every dark candidate holds its controls, so there is no permission or
+need to release the measured middle pair. Within that cohort, third positions
+0.549 / 0.6 / 0.65 / 0.7 / 0.74 / 0.8 give fit means
+**0.02296500339780657 / 0.02274145506094373 / 0.02273420126642791 /
+0.02269485783556432 / 0.02266042401821043 / 0.02253858803940114**. The selected rows are:
+
+- anchors **[0.1104, 0.2706, 0.8, 0.9505]**;
+- dark thin **[0.011, 0.04092, 0.263, 0.9326072]**;
+- dark thick **[0.0215, 0.0331, 0.092, 0.11753]**.
+
+The far ordinates were included in proposal optimization and remain at their measured G1d
+values. The selected control maximum is 2x `checkerboard-64__rrect-md__inactive`, body DeltaE
+**0.03164934818584635** against **0.014941394706346563**, or **2.118232521653608×**.
+The intermediate and old-middle cohorts are recorded, never substituted after their measured
+counterpart has passed. `fit-dark.json` retains every rung. `fit-audit.json` verifies **28 reads /
+1,320 rows / 2,640 captures including repeats**, no D or W28-holdout row, one unchanged runtime
+and instrument, and machine settings 0 / 0 throughout.
+
+The supplying-cell eye confirms the uniform levels: 1x light and dark mid-dark squares and the
+dark mid-light square each have **zero body DeltaE** on the selected captures. The light photo
+capsule still loses some of native's pink/green interior variation, body DeltaE
+**0.021645017822321137**. The dark impulse large rectangle is not closed: WebGPU/native body Y
+is **0.04360236488216411 / 0.015463752037264402** at 1x and
+**0.04304462476890003 / 0.015438612828528873** at 2x. Body DeltaE is
+**0.10284622939973558 / 0.10145087230272085**, against source baselines
+**0.10128918238084636 / 0.10106952097531305**. It is visibly too light and hazy, with sparse
+points too apparent. Closing that low-input body/collapse residual needs work beyond the middle
+and far response ordinates; it is recorded, not hidden by the improved aggregate objective.
+`eye.json` is a supplying-cell inspection, not G2's checking sheets or the user's landing veto.
+
+**9. CSS derives; accessibility is unchanged.** The selected documents are read on CSS for the
+same **96 non-D standard-policy fit/control cells**, with no holdout. Mean absolute CSS/WebGPU
+body-Y gaps are:
+
+| profile | mean absolute body-Y gap |
+| --- | ---: |
+| light standard 1x | 0.00407096496685912 |
+| light standard 2x | 0.0026787569722420868 |
+| dark standard 1x | 0.0010353293609859041 |
+| dark standard 2x | 0.0009393802843711449 |
+
+The widest gap is 1x light `photo__rrect-md__inactive`: CSS Y **0.621904170864313**, WebGPU Y
+**0.6298645040481121**, gap **0.007960333183799073**. These are record-only output differences,
+combining the tiers' filter/compositing behavior; they do not isolate a CSS/GPU Jensen term. The
+isolated encode-after-linear-blur input diagnostic is §4. `css-coherence.json` keeps every cell.
+
+The four non-D accessibility body-metric objects are **identical** to G1d's: Increase Contrast's
+checker/photo body DeltaE remains **0.001194629074527989 / 0.0010356497954574781**; Reduce
+Transparency's remains **0.003840241300883383 / 0.0065975919582819615**. The levels remain
+**0.98 / 0.88**, respectively; the shared 0.96, approximate refraction scale 0 and every other
+non-response facet remain unchanged. `accessibility-check.json` records the complete comparison.
+
+**10. One sealed endpoint, and the G2 read rehearsed without spending it.** The exported rows
+land at **6d7465c91fb0e5eb4800bf5dc8adf8fe6d8fc82e**. `declare.ts` verifies their resolved identity
+with the selected sweep documents and freezes the actual exported patch, not a re-created guess:
+
+| resolution | SHA-256 |
+| --- | --- |
+| light active, unchanged | `b2b570e4adcea8fb9281aed4d2556598a1fc95b34ce4b12dd5a50157ac138306` |
+| dark active, unchanged | `874be66ea501621be265265424c16d2d98a01c40835d89c02de9473362c0d4dc` |
+| light inactive | `6dcb32c422639d0d49a4ad2927766f97817fb48c90c8987fbc09ec6a55a2b689` |
+| dark inactive | `70391dee6d9990c22efc4b268caf9139886af9684a4255ded1128d3b7a2b7326` |
+
+The exported patch digest is
+`3fbdcb6de5f05fe2dad0b624c97cc8a98a538ffa514b2d7a18ace2b359e5f733`.
+`fitted-endpoint.json` also pins runtime and instrument sources, active profile documents and the
+committed recovered-holdout blob identities. Source-content checks allow documentation-only
+commits but refuse changed drawing or measurement code. No source or instrument changes after
+this seal.
+
+The actual `frozen-read.ts --dry` executes **47 refusal cases**, accepts its valid controls and
+plans **188 rows**, including all six unread holdouts. Its counters are **0 browser pages,
+0 native PNGs and 0 background PNGs opened**; `realReadExecuted` is false. The scratch artifact
+and committed copy are identical, SHA-256
+`da326985df166f0b1665e0c7c372e0006e58475e4fd167b0dba4513017b3c12a`.
+The dry run itself reads no machine setting; real browser runs retain the mandatory preflight.
+The future CSS read is record-only and excludes all six W28 holdouts. The bound scorer remains
+WebGPU-only and keeps G1d's bound arithmetic unchanged.
+
+A separate instrument review found nine lineage/admission issues, including advisory-seed
+classification, owning-checkout scratch paths, recovered-holdout provenance and labels, current
+source/scorer/bound hashing, and strict resume-row/capture verification. A separate fix wave
+closes them; **10 TypeScript and 6 Python instrument tests** pass. These corrections change no
+material value or measured row. The four recovered holdouts explicitly retain their lack of
+presentation attestation; the checkerboard-64 pair retains the strict checking-bed lineage.
+
+**11. Verification and X8.** At the adopted source head, `pnpm -r build && pnpm -r lint &&
+pnpm -r test` passes, build first: **160 files / 2,363 tests** — policy 23, motion 164, geometry
+170, renderer 497, core 302, platform 610, calibration 415, React 148 and demo 34. This includes
+the tier-coherence pins, resting DOM floors and the exported frozen-document guard. The guard
+was first observed refusing the as-yet-unsealed document, then passes against the completed seal.
+Renderer browser verification is **34 / 34 goldens without regeneration plus 28 / 28 GPU tests**.
+Platform e2e is **392 / 392**: 383 across Chromium/Firefox/WebKit and nine on headed hardware
+Chromium, run serially. The golden isolation spec is untouched. Every browser command records
+Reduce Transparency / Increase Contrast **0 / 0** on macOS **26.5.2 (25F84)**; no setting or display
+mode is changed.
+
+The minor changeset documents the new abscissa field and refitted receded documents, still inert
+until a separate activation runtime applies them. No native capture, reference build,
+scene/fixture/active-profile edit, golden rewrite or canonical matrix change occurs.
+
+Not measured: G2's holdout or checking verdict; a new native holdout; a uniquely identified bright
+response knee or locality scale; a structure law at matched abscissa; a native pressed-geometry
+predictor; high-resolution downscaled-source fidelity, first-reduction/4K/live-source cost or
+adaptation fidelity; isolated CSS/GPU output Jensen error; an activation transition, demo landing
+or new regression floor. The dark impulse body's remaining **0.10284622939973558 / 0.10145087230272085**
+errors, photo chroma loss, the source-profile CSS sizing discrepancy and the active-shadow/source-cap
+locality limits remain named future work. G2, not this fit, judges the unchanged checking bound.
