@@ -792,7 +792,12 @@ readings.
 
 
 The publish rehearsal, short of publishing: `pnpm publish --dry-run` on each of the three published
-packages at 0.18.0. All three are clean at 0.18.0, and the two things npm would get wrong on its own are read off the packed tarball rather than assumed: every `workspace:` range is rewritten — web → core `^0.18.0`, react → core and web `^0.18.0` — and each tarball carries `dist/`, `LICENSE`, `NOTICE` and `README.md`. Packed sizes 545,528 / 540,670 / 178,893 bytes for core, web and react; React's `>=19.0.0` peers survive the pack. This is the reason `pnpm release` is the only sanctioned path (Decision Log #30(a)), re-confirmed here.
+packages at 0.18.0, all three clean, with the two things npm would get wrong on its own read off the
+packed tarball rather than assumed. Every `workspace:` range is rewritten — web → core `^0.18.0`,
+react → core and web `^0.18.0` — and each tarball carries `dist/`, `LICENSE`, `NOTICE` and
+`README.md`. Packed sizes are 545,528 / 540,670 / 178,893 bytes for core, web and react, and React's
+`>=19.0.0` peers survive the pack. This is the reason `pnpm release` is the only sanctioned path
+(Decision Log #30(a)), re-confirmed here.
 
 **Nothing is published and nothing is tagged.** `pnpm release` is the only sanctioned path and it is
 the user's hand; the tag `v0.18.0` follows the publish, not this branch.
