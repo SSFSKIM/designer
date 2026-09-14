@@ -2,8 +2,8 @@
 
 **Status: IN FLIGHT — G0 CLOSED 2026-09-14, not identifiable (§5.144); Decision Log 2 rules the
 simplest survivor built and the bound as referee; G1 CLOSED 2026-09-14 (§5.145), fitted and sealed,
-G2 ready to dispatch. The machine stays on macOS 26.5.2: the identifying sitting is the fallback
-if G2 fails.**
+G2 CLOSED 2026-09-14 (§5.146), unchanged bound holds on six of six; G3 awaits parent dispatch.
+The machine stays on macOS 26.5.2; no identifying sitting was taken.**
 
 Parent: `2026-09-10-w27-coverage-wave.md` (Decision Logs 17 and 20, §Deferred, Outcomes clause 1
 "window focus is measured but not shipped"); `2026-08-28-post-v1-wave.md` post-close addenda
@@ -322,7 +322,7 @@ the charter for G3 and G4 here; this document adds nothing to their scope and re
   attested inactive; `materialize --frequency-settle`; `round-trip.json` zero old entries changed).
 - **Edges:** blocked-by Decision Log 2; blocks G2's holdout if taken.
 
-### G2: The read — controlled; one sealed configuration, one holdout, the bound once
+### G2: The read — controlled — CLOSED 2026-09-14 (§5.146; unchanged bound holds on all six profiles)
 
 - **Purpose:** acceptance 4, applied exactly as §5.143 §5–6 did: freeze, read the holdout once,
   score the unchanged bound with the same scorer lineage, six sheets by eye, CSS coherence
@@ -413,7 +413,7 @@ named, not this wave's); the motion-metrics harness; the OS 27 recapture; `promi
 | G0 | CLOSED 2026-09-14 — not identifiable; merged `679cee90` | §5.144 | `results/2026-09-14-w28-g0-abscissa/` |
 | G1 | CLOSED 2026-09-14 — input check passed, rows fitted, endpoint sealed; G2 unread | §5.145 | `results/2026-09-14-w28-g1-silhouette/` |
 | G1s | — (Decision Log 2) | assigned at dispatch | — |
-| G2 | — | assigned at dispatch | — |
+| G2 | CLOSED 2026-09-14 — 188 WebGPU rows, six holdouts read once, bound holds on six of six; 182 CSS coherence rows | §5.146 | `results/2026-09-14-w28-g2-read/` |
 | G3 | — | assigned at dispatch | — |
 | G4 | — | assigned at dispatch | — |
 
@@ -528,6 +528,17 @@ scales; both below 0.05, holdout and threshold unchanged.)*
   non-D phase evidence rather than borrowing the original D square as a selection baseline.
 
 ## Revision Notes
+
+- 2026-09-14 (G2, §5.146): the sealed endpoint reads all 188 planned WebGPU rows, including
+  six holdouts admitted once with two deterministic repeats each, then 182 CSS record-only rows
+  excluding every holdout. All 72 checking cells hold the unchanged bound; six of six profiles
+  hold clauses 1–3 jointly. The light hc-text square remains visibly too light despite body ΔE
+  0.05931843667932792 / 0.05455396371236936, below 0.064 / 0.068 at 1x/2x. Six sheets and
+  `eye.json`, indexed with full prose in §5.146, retain the structure, level and contour gaps.
+  The fresh worktree's initial missing-built-package error preceded reader evaluation; after
+  workspace build the unchanged reader completed with no guard refusal or resumption. Every
+  launch records machine 0 / 0; no source, constant, native fixture, canonical matrix or floor
+  moves. G3 remains the parent's dispatch decision.
 
 - 2026-09-14 (G1, §5.145): closed the two-tier silhouette mechanism, 335/335 unpressed canonical
   inputs per tier, 39 W9 aliases and 24 interaction records. The 28-rung non-D fit selects light

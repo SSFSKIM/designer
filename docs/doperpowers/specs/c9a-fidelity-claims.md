@@ -21374,3 +21374,144 @@ adaptation fidelity; isolated CSS/GPU output Jensen error; an activation transit
 or new regression floor. The dark impulse body's remaining **0.10284622939973558 / 0.10145087230272085**
 errors, photo chroma loss, the source-profile CSS sizing discrepancy and the active-shadow/source-cap
 locality limits remain named future work. G2, not this fit, judges the unchanged checking bound.
+
+## 5.146 W28 G2: the sealed silhouette endpoint holds the unchanged bound on all six profiles (2026-09-14)
+
+**Gate:** W28 G2, parent acceptance 4, 5 and the measurement/eye portion of 7; contracts X1,
+X7, X8 and X10; Decision Log 2 with addendum (f). Evidence is
+`packages/calibration/results/2026-09-14-w28-g2-read/`. **Clauses 1–3 hold jointly on all six
+profiles.** No constant moves, no inactive floor is adopted, and no activation runtime or landing
+is claimed. G3 remains the parent's dispatch decision.
+
+**1. Preflight and seal.** The checkout is merge head
+`5a517d68412366688485e0a6f9a28d5b0124b014`, reading G1's endpoint sealed at `6d7465c9`.
+The exported patch remains
+`3fbdcb6de5f05fe2dad0b624c97cc8a98a538ffa514b2d7a18ace2b359e5f733`;
+active and inactive resolutions remain exactly §5.145 §10's four SHA-256s. `seal-check.json`
+independently verifies **97 source files and 14 instrument files** against `fitted-endpoint.json`;
+the unchanged live reader enforces the same content fingerprints. Documentation/merge head changes
+are admitted by those content checks, not by a patched or bypassed guard.
+
+`browser-runs.txt` records fresh `defaults read com.apple.universalaccess reduceTransparency`
+and `increaseContrast` values **0 / 0** before each launch attempt. The first process failed in
+module loading because this fresh worktree lacked `@vitrea/policy/dist/index.js`; it evaluated no
+reader code and created no scratch directory. `webgpu-run.txt` preserves that error. The workspace
+`pnpm -r build` then passed (`build.txt`), without invoking the native reference build. Fresh 0 / 0
+readings precede the successful WebGPU and subsequent CSS runs. No display or accessibility setting
+changed. The WebGPU read reports headed Chromium **151.0.7922.34**, Apple **metal-3**, adapter
+`ok: true`, `isFallback: false` on every row.
+
+**2. The read completed, without resumption or a guard refusal.** G1's `frozen-read.ts --read`
+ran unchanged, all **188 planned WebGPU rows**, followed serially by the CSS record-only read.
+All six declared holdout pairs were admitted once, each with the reader's mandatory **two
+byte-identical deterministic repeats**; “once” means one admitted cell reading, not removal of the
+instrument's repeat check. There are no duplicate profile/scene keys. No read was restarted after
+opening a page, no holdout was revisited, and no reader guard refused the real read. The earlier
+module-loader failure is not a partial measurement or a guard refusal.
+
+All captures and original matrices are under `/tmp/vitrea-w28-g2-read/`, never the canonical
+`web-captures/` or `results/matrix.json`. `publication.json` pins byte-identical copies of the
+completed WebGPU matrix (`frozen-checking-matrix.json`), CSS matrix (`css-matrix.json`) and
+unchanged scorer verdict (`verdict.json`). `publish.py` checks the exact dry-run population,
+holdout membership, repeat counts, machine settings and every retained capture hash before copying.
+`commands.json` indexes the invocations; the run logs establish completion rather than the command
+list claiming execution. No source, instrument, profile, fixture, scene, golden or canonical matrix
+changed.
+
+**3. The six holdouts, held out of the refit rather than new native evidence.** `holdout.json`
+joins the completed rows to G1's immutable `declaration.json` offsets. The four recovered H rows
+(the light text and dark photo capsules) retain `preAttestationRecovered` and pinned blob lineage,
+not invented presentation attestation. The checkerboard-64 pair retains the seven-run plurality.
+
+| holdout, all inactive | body ΔE | WebGPU / native body Y | silhouette minus source, encoded |
+| --- | ---: | ---: | ---: |
+| 1x-dark-standard `checkerboard-64__rrect-lg__inactive` | 0.026264762609671508 | 0.05684330189540538 / 0.06468800142378656 | 0.03046485302172719 |
+| 1x-dark-standard `photo__capsule-button__inactive` | 0.05312503529869464 | 0.09159280855732001 / 0.1115395643292825 | 0.03734347805587751 |
+| 2x-dark-standard `checkerboard-64__rrect-lg__inactive` | 0.03304914355082987 | 0.05671002798004815 / 0.06377694778676242 | 0.03053366811230307 |
+| 2x-dark-standard `photo__capsule-button__inactive` | 0.05435784719518263 | 0.0917525215351844 / 0.11056524997916208 | 0.03800814795956453 |
+| 1x-light-standard `hc-text__capsule-button__inactive` | 0.017462795625987983 | 0.6695029172527087 / 0.7098458014304649 | -0.1374039922003285 |
+| 2x-light-standard `hc-text__capsule-button__inactive` | 0.02664620310747139 | 0.6675817014667098 / 0.7244475221573274 | -0.13732747007910429 |
+
+The dark holdout's greatest available displacement is **0.03800814795956453** at 2x, the exact
+reading beside Decision Log 2(f)'s rounded 0.038; neither dark pair exceeds 0.05. These holdouts
+therefore test predictions at modest displacements, not a strong dark-locality discriminator. The
+checking set's dark hc-text square remains the stronger abscissa test. These known native targets
+are not an unspent native sitting, and no native capture is added.
+
+**4. The unchanged bound, scored once.** G1's `score-bound.py` reads the original 2026-09-11
+`bound.json` and `checking-bed.json`, reconstructs group D independently, asserts every matrix
+`scored` flag, and checks the exact **72-cell** cross-profile population (**12 per profile**).
+The fit spent **zero D cells**. `score-run.txt` records the one successful scoring invocation;
+`verdict.json` retains all clauses and every supplying-group row. The table reports the largest
+body error against clause 3's **2 × clause-2 threshold**, not against a newly adopted floor.
+`clause3-per-cell.json` reports all **72** body errors, thresholds, multiples and per-cell verdicts;
+**all 72 hold**.
+
+| profile | clause 1 worst / ceiling | clause 2 mean / threshold | clause 3 maximum body ΔE / ceiling (cell) | joint |
+| --- | ---: | ---: | --- | --- |
+| 1x-dark-standard | 0.007992939488449218 / 0.09 | 0.015844464648052118 / 0.034 | holds, 0.05936442148847314 / 0.068 (`checkerboard-lc16__capsule-button__inactive`) | **holds** |
+| 2x-dark-standard | 0.005266639514317867 / 0.09 | 0.01114032847689244 / 0.041 | holds, 0.059941456608513605 / 0.082 (`checkerboard-lc16__capsule-button__inactive`) | **holds** |
+| 1x-light-standard | 0.005588822759352456 / 0.07 | 0.01276730402243362 / 0.032 | holds, 0.05931843667932792 / 0.064 (`hc-text__rrect-sm__inactive`) | **holds** |
+| 2x-light-standard | 0.0046959347817600566 / 0.07 | 0.011110137917386284 / 0.034 | holds, 0.05455396371236936 / 0.068 (`hc-text__rrect-sm__inactive`) | **holds** |
+| 1x-light-increased-contrast | 0.009205778136186163 / 0.06 | 0.0027806830280380154 / 0.0078 | holds, 0.01387562614635444 / 0.0156 (`light-solid__rrect-ml__inactive`) | **holds** |
+| 1x-light-reduced-transparency | 0.005620514223009433 / 0.04 | 0.006004504417812597 / 0.011 | holds, 0.011716377850611871 / 0.022 (`light-solid__rrect-ml__inactive`) | **holds** |
+
+Thus the result is **6 of 6**, versus §5.143's 4 of 6. Light-standard hc-text square is now
+**0.9268505731144988× / 0.8022641722407259×** its clause-3 ceiling at 1x/2x. It is still the
+worst light checking cell, not an erased residual. No failed profile or cell is omitted and no
+bound, floor or population is changed after the read. The binding failure stop rule does not fire;
+passing this measured gate is not the user's landing veto or a claim of pixel identity.
+
+**5. CSS coherence, recorded and never scored.** The same frozen patch is read on CSS, excluding
+every W28 holdout pair. `css-coherence.json` compares **182** common cells with WebGPU, including
+the active records in the planned population; these are equal-cell mean absolute body-Y gaps,
+not inactive-only means and not an isolated Jensen term. CSS is not passed to the bound scorer.
+
+| profile | common cells | mean absolute CSS/WebGPU body-Y gap |
+| --- | ---: | ---: |
+| 1x-dark-standard | 38 | 0.0015958270110311918 |
+| 2x-dark-standard | 38 | 0.0014034745620516186 |
+| 1x-light-standard | 39 | 0.009472330125291303 |
+| 2x-light-standard | 39 | 0.007661331876531355 |
+| 1x-light-increased-contrast | 14 | 0.007226834897106412 |
+| 1x-light-reduced-transparency | 14 | 0.00787243698003939 |
+
+The widest gap is light-standard 1x `mid-chroma-solid__capsule-button__inactive`: CSS body Y
+**0.3886040531605991**, WebGPU **0.43251653719084865**, native **0.47616754823690577**,
+absolute tier gap **0.043912484030249554**. This remains a named chroma/transfer residual; an
+improved checking verdict does not close it or charter a CSS-only fit.
+
+**6. The eye, after the numbers were frozen.** G1d's unchanged `sheet.py` produces six sheets,
+all **72 checking cells**, native | WebGPU | **8× absolute difference**, worst body error first.
+`eye.json` records the six-profile inspection and hashes each sheet. The following is the prose
+index; all sheet paths are beneath this gate's evidence directory. There is no separate `eye.md`.
+
+- **1x-dark-standard**, `sheets/apple-macos-26.5-1x-dark-standard.png`. The low-contrast checker capsule is visibly lighter on WebGPU and reveals a stronger checker pattern than native. The small hc-text control remains too light with different horizontal interior bands. Large text and checker panes are close in overall body level but differ in structure transfer and curved edge/rim bands; the large text difference has pronounced bar-shaped and right-edge regions. Uniform ends agree closely, with a hairline contour on the bright-solid pane. The same families recur at both scales.
+- **2x-dark-standard**, `sheets/apple-macos-26.5-2x-dark-standard.png`. The low-contrast checker capsule is visibly lighter on WebGPU and reveals a stronger checker pattern than native. The small hc-text control remains too light with different horizontal interior bands. Large text and checker panes are close in overall body level but differ in structure transfer and curved edge/rim bands; the large text difference has pronounced bar-shaped and right-edge regions. Uniform ends agree closely, with a hairline contour on the bright-solid pane. The same families recur at both scales.
+- **1x-light-standard**, `sheets/apple-macos-26.5-1x-light-standard.png`. The small hc-text control remains visibly brighter on WebGPU than the native pale-grey control, despite clearing clause 3. The dark-solid rrect-80 body remains darker/cooler. The low-contrast checker capsule transmits a different checker amplitude and level. Large text and checker panes agree in their overall milky appearance but not their rim/lens bands or structured interior transfer; the difference strip follows both the bars and contour. Light-solid and the small dark-solid control visually coincide. These families recur at both scales.
+- **2x-light-standard**, `sheets/apple-macos-26.5-2x-light-standard.png`. The small hc-text control remains visibly brighter on WebGPU than the native pale-grey control, despite clearing clause 3. The dark-solid rrect-80 body remains darker/cooler. The low-contrast checker capsule transmits a different checker amplitude and level. Large text and checker panes agree in their overall milky appearance but not their rim/lens bands or structured interior transfer; the difference strip follows both the bars and contour. Light-solid and the small dark-solid control visually coincide. These families recur at both scales.
+- **1x-light-increased-contrast**, `sheets/apple-macos-26.5-1x-light-increased-contrast.png`. Body levels are close on most cells, while the near-complete one-pixel difference outline remains the dominant contour residual. Native has a clean, continuous dark border; the WebGPU border is weaker or broken along portions of the outline. The light-solid large pane is visibly whiter on WebGPU. Text panes retain faint structured interior differences even when the bodies look nearly white. This is the previously named strongBorderRim residual, not a post-read fitting opportunity.
+- **1x-light-reduced-transparency**, `sheets/apple-macos-26.5-1x-light-reduced-transparency.png`. Native panels are nearly flat. WebGPU remains darker over dark-solid and brighter over light-solid, showing the existing backdrop-dependent slope rather than one common level error. Large text panes retain faint text/rim bands where native is flat; the amplified difference is concentrated along the bar-shaped interior and curved edge. Checker transfer remains faintly visible in the difference. The absence of an Increase Contrast-style dark border is consistent between the two.
+
+In particular, the light hc-text square remains WebGPU/native body Y
+**0.6791425490749562 / 0.5484902322235977** at 1x and
+**0.6906534355527162 / 0.5689681016630563** at 2x. Passing the bound does not make that visible
+level gap disappear. The structured-transfer and lens/rim differences, the low-contrast dark
+capsule, the light dark-solid intermediate-span response, the accessibility contour and Reduce
+Transparency's backdrop-dependent slope remain future fidelity work. Closing them needs evidence
+and a declared response/structure or contour wave, not a post-holdout edit of this endpoint.
+
+**7. Not measured and verification.** No dark accessibility or accessibility at 2x; no activation
+runtime, transition or timing; no demo/landing comparison or user's eye veto; no new native fixture,
+unspent native holdout or identifying sitting; no isolated CSS Jensen term; no active-material
+abscissa change; and no inactive regression floor. The `clear` variant, stack and dark-accessibility
+regimes are not established as inactive evidence classes by this read. A successful prediction on
+this frozen bed supports this endpoint under the declared bound; it does not uniquely identify the
+native locality family/scale, a shared physical active/inactive law, or H4.
+
+Workspace build passes. Publication validates **188 WebGPU / 182 CSS rows**, **6 holdout cells**,
+**72 checking cells**, exact population membership and all **370 retained capture hashes**; the
+reader checked two deterministic repeats per row, **740 screenshots** in total. The scorer, source,
+fixtures, scenes, active documents, receded patch, goldens and canonical matrix are unchanged. No
+new unit-suite or golden result is claimed for this evidence-only gate; §5.145's source verification
+remains its own record.

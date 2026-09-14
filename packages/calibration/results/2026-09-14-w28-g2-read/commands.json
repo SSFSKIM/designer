@@ -1,0 +1,46 @@
+{
+  "cwd": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a01af3a2c5ef08e8f",
+  "commands": {
+    "webgpu": [
+      "pnpm",
+      "--dir",
+      "packages/calibration",
+      "exec",
+      "tsx",
+      "results/2026-09-14-w28-g1-silhouette/frozen-read.ts",
+      "--read",
+      "--out",
+      "/tmp/vitrea-w28-g2-read",
+      "--label",
+      "checking"
+    ],
+    "css": [
+      "pnpm",
+      "--dir",
+      "packages/calibration",
+      "exec",
+      "tsx",
+      "results/2026-09-14-w28-g1-silhouette/frozen-read.ts",
+      "--read",
+      "--renderer",
+      "css",
+      "--out",
+      "/tmp/vitrea-w28-g2-read",
+      "--label",
+      "css"
+    ],
+    "score": [
+      "python3",
+      "packages/calibration/results/2026-09-14-w28-g1-silhouette/score-bound.py",
+      "/tmp/vitrea-w28-g2-read/checking.json",
+      "/tmp/vitrea-w28-g2-read/verdict.json"
+    ],
+    "sheets": [
+      "python3",
+      "packages/calibration/results/2026-09-14-w27c-g1d/sheet.py",
+      "/tmp/vitrea-w28-g2-read/checking.json",
+      "packages/calibration/results/2026-09-14-w28-g2-read/sheets"
+    ]
+  },
+  "notice": "Invocation reference, not execution status. Logs and publication.json establish what completed. The read/scorer refuse overwrite; these commands are not instructions to reread a spent holdout."
+}

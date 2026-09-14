@@ -1,0 +1,13 @@
+2026-09-14T14:44:37Z — WebGPU frozen-read.ts --read --out /tmp/vitrea-w28-g2-read --label checking
+Preflight commands: defaults read com.apple.universalaccess reduceTransparency / increaseContrast
+reduceTransparency=0; increaseContrast=0. No settings changed.
+The process exited before evaluation: @vitrea/policy/dist/index.js was absent in the fresh worktree. No scratch directory was created. webgpu-run.txt preserves the module-loader error. pnpm -r build then passed (build.txt); no native reference build was invoked.
+
+2026-09-14T14:45:34Z — same unchanged reader after workspace build, log webgpu-read.txt
+Fresh defaults readings: reduceTransparency=0; increaseContrast=0. No settings changed.
+The WebGPU reader completed with exit code 0 before CSS was launched.
+
+2026-09-14T14:49:25Z — frozen-read.ts --read --renderer css --out /tmp/vitrea-w28-g2-read --label css
+Fresh defaults readings: reduceTransparency=0; increaseContrast=0. No settings changed.
+Record-only coherence; the unchanged reader excludes every W28 holdout pair.
+CSS completed with exit code 0. Publication checks 188 WebGPU rows, 182 CSS rows, six WebGPU holdout pairs and zero CSS holdout pairs. All 370 rows retain two byte-identical deterministic repeats. No subsequent browser run was made.

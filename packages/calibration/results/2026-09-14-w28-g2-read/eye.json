@@ -1,0 +1,23 @@
+{
+  "gate": "W28 G2 / claims \u00a75.146",
+  "readAt": "2026-09-14T14:51:26.722517+00:00",
+  "afterBoundFrozen": true,
+  "layout": "native | WebGPU | 8\u00d7 absolute difference; G1d sheet.py unchanged; all 72 checking cells across six profiles",
+  "profiles": {
+    "apple-macos-26.5-1x-light-standard": "The small hc-text control remains visibly brighter on WebGPU than the native pale-grey control, despite clearing clause 3. The dark-solid rrect-80 body remains darker/cooler. The low-contrast checker capsule transmits a different checker amplitude and level. Large text and checker panes agree in their overall milky appearance but not their rim/lens bands or structured interior transfer; the difference strip follows both the bars and contour. Light-solid and the small dark-solid control visually coincide. These families recur at both scales.",
+    "apple-macos-26.5-1x-dark-standard": "The low-contrast checker capsule is visibly lighter on WebGPU and reveals a stronger checker pattern than native. The small hc-text control remains too light with different horizontal interior bands. Large text and checker panes are close in overall body level but differ in structure transfer and curved edge/rim bands; the large text difference has pronounced bar-shaped and right-edge regions. Uniform ends agree closely, with a hairline contour on the bright-solid pane. The same families recur at both scales.",
+    "apple-macos-26.5-2x-light-standard": "The small hc-text control remains visibly brighter on WebGPU than the native pale-grey control, despite clearing clause 3. The dark-solid rrect-80 body remains darker/cooler. The low-contrast checker capsule transmits a different checker amplitude and level. Large text and checker panes agree in their overall milky appearance but not their rim/lens bands or structured interior transfer; the difference strip follows both the bars and contour. Light-solid and the small dark-solid control visually coincide. These families recur at both scales.",
+    "apple-macos-26.5-2x-dark-standard": "The low-contrast checker capsule is visibly lighter on WebGPU and reveals a stronger checker pattern than native. The small hc-text control remains too light with different horizontal interior bands. Large text and checker panes are close in overall body level but differ in structure transfer and curved edge/rim bands; the large text difference has pronounced bar-shaped and right-edge regions. Uniform ends agree closely, with a hairline contour on the bright-solid pane. The same families recur at both scales.",
+    "apple-macos-26.5-1x-light-increased-contrast": "Body levels are close on most cells, while the near-complete one-pixel difference outline remains the dominant contour residual. Native has a clean, continuous dark border; the WebGPU border is weaker or broken along portions of the outline. The light-solid large pane is visibly whiter on WebGPU. Text panes retain faint structured interior differences even when the bodies look nearly white. This is the previously named strongBorderRim residual, not a post-read fitting opportunity.",
+    "apple-macos-26.5-1x-light-reduced-transparency": "Native panels are nearly flat. WebGPU remains darker over dark-solid and brighter over light-solid, showing the existing backdrop-dependent slope rather than one common level error. Large text panes retain faint text/rim bands where native is flat; the amplified difference is concentrated along the bar-shaped interior and curved edge. Checker transfer remains faintly visible in the difference. The absence of an Increase Contrast-style dark border is consistent between the two."
+  },
+  "headline": "The bound holds on six profiles; visible structure, level and contour differences remain. This is not pixel identity and adopts no floor.",
+  "sheets": {
+    "apple-macos-26.5-1x-dark-standard.png": "f288ea0cfc6bc8d99cf539aae856b399243936b38daf1a8a7a9244c5a3b75b78",
+    "apple-macos-26.5-1x-light-increased-contrast.png": "03eb2cf16b2818f39f8e89bc952a0452cfe7418350e34f5cac0b97613383e2a9",
+    "apple-macos-26.5-1x-light-reduced-transparency.png": "64218abf984820ec791e0b0931555516c10662a81d94a15197aa463a18d7b827",
+    "apple-macos-26.5-1x-light-standard.png": "2c00557a414f2648ff182e533bf15f394decc52bd2b6d029c86bf7dc29762cda",
+    "apple-macos-26.5-2x-dark-standard.png": "95b6ca962664f8fa3b671ec1b8dda1d749fb6e3b1d701810236e9f9007fa1eb5",
+    "apple-macos-26.5-2x-light-standard.png": "4737f8b06d3d0be7df9491bc05a984611375a4d6f61bcab9dcacf437b383338a"
+  }
+}
