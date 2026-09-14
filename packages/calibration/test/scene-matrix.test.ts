@@ -408,6 +408,16 @@ describe("W27c G1d's uniform dark-response anchor (Decision Log 18)", () => {
       expect(ids.filter((id) => !declared.includes(id))).toEqual([]);
     }
   });
+
+  it("presents four dark cells, not eight cross-scheme cells, at either scale", () => {
+    const selected = (scale: string): string[] => MATRIX.profiles
+      .filter((profile) => profile.key.includes(`-${scale}-`) && profile.key.endsWith("-standard"))
+      .flatMap((profile) => profile.scenes === "all"
+        ? MATRIX.scenes.map((scene) => scene.id)
+        : profile.scenes)
+      .filter((id) => ids.includes(id));
+    for (const scale of ["1x", "2x"]) expect(selected(scale)).toEqual(ids);
+  });
 });
 
 describe("W7's backdrop-adaptation holdout", () => {
