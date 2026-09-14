@@ -222,17 +222,11 @@ describe("W3's tinted cells", () => {
 });
 
 /**
- * Two populations wear `state: "inactive"` since scene spec 4, and they must not
- * be read as one: the 37 scenes W27c G0 RECOVERED, which have committed fixtures
- * and mirror their active twin's split role, and the 31 W27c G1b declared as the
- * CHECKING BED, which have no fixtures at all until the 26.5 run takes them.
- *
- * The discriminator is the split role, and that is W27 Decision Log 13 written
- * into the matrix: the whole checking bed is `probe` because it is read at the
- * probe bar and no inactive regression floor is adopted from it, while no
- * recovered cell is `probe` — each inherited its twin's gated role. So "not
- * probe" is the recovered bed exactly, without either population having to be
- * listed by hand in two places.
+ * Three populations wear `state: "inactive"` since scene spec 5, and they must
+ * not be read as one: the 37 recovered scenes in gated roles, W27c G1b's 31-cell
+ * checking-bed addition in `probe`, and W27c G1d's four `mid-light-solid` anchor
+ * scenes in that same probe role. The background separates the two additive
+ * probe populations; "not probe" still identifies the recovered bed exactly.
  */
 const isCheckingBedInactive = (scene: SceneEntry): boolean =>
   scene.state === "inactive"
