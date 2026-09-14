@@ -20895,3 +20895,26 @@ renderer goldens **34 / 34** with no regeneration, renderer GPU **21 / 21**, and
 platform-web e2e suite **392 / 392**. `browser-runs.txt` records Increase Contrast / Reduce
 Transparency at **0 / 0** for every final browser command as well as each earlier browser capture in
 this gate.
+
+**10. Independent review and separate fix wave.** A `doperpowers:reviewer-medium` pass over
+`68fd5fc5..c84f1b69` found two P2 defects in the additive seams, not in the fitted values: the
+three response rows could resolve to mixed knot counts and make CPU, shader and CSS draw different
+curves; and the canonical calibration loader refused `increasedOcclusionLiftByPolicy`. Both were
+verified against the code and sent to a separate TDD fix-wave agent rather than changed inline.
+Convergence reviews then found four reachable edges in those fixes: malformed policy maps still
+passed the loader, a refused host patch remained held for a later scheme change, constructor-time
+refusal came after DOM/listener allocation, and equal but unsupported row lengths still selected
+different CPU/CSS and shader branches. Commits `d76ff5a6`, `cd017b18` and `91420e9` close all six:
+policy maps must be non-empty admitted leaves with finite numeric values; response rows must be
+actual arrays of exactly three or four knots with one shared arity on both renderer and CSS seams;
+and a root validates before allocation or retaining a replacement. The shared three-knot scheme
+base and every valid three-/four-knot endpoint remain pinned. The final medium convergence review
+of `91420e9` returned **no material findings**.
+
+No measured constant, profile resolution, fixture, matrix, sheet or golden moved in the fix wave.
+At final head the nine-project workspace build and lint pass, with **156 files / 2,320 tests**:
+policy 23, motion 164, geometry 170, renderer-webgpu 473, core 302, platform-web 592, calibration
+414, React 148 and demo 34. The renderer goldens remain **34 / 34** without regeneration, renderer
+GPU is **21 / 21**, and platform-web e2e is **392 / 392**. Each post-fix browser pass independently
+read and recorded Increase Contrast / Reduce Transparency at **0 / 0** in `browser-runs.txt`; the
+successive additive logs preserve every verification round rather than replacing an earlier record.

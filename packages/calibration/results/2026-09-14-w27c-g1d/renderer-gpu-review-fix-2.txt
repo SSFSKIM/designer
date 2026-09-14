@@ -1,0 +1,27 @@
+[2m$ playwright test --grep @gpu[22m
+
+[2mRunning [22m21[2m tests using [22m1[2m worker[22m
+
+  [32m✓[39m  [2m 1 [22m[chromium-gpu] › e2e/gpu/cross-check.spec.ts:46:3 › @gpu the f32 cross-check (Decision Log #20) › both families agree with f64 to a rounding error on this adapter[2m (539ms)[22m
+  [32m✓[39m  [2m 2 [22m[chromium-gpu] › e2e/gpu/cross-check.spec.ts:132:3 › @gpu the f32 cross-check (Decision Log #20) › the shader computes the same function as the TypeScript, not merely a close one[2m (211ms)[22m
+  [32m✓[39m  [2m 3 [22m[chromium-gpu] › e2e/gpu/materialization.spec.ts:149:3 › @gpu W27d presence reaches the shader › a surface at 0.35 draws a different material from the same surface at 1[2m (238ms)[22m
+  [32m✓[39m  [2m 4 [22m[chromium-gpu] › e2e/gpu/materialization.spec.ts:169:3 › @gpu W27d presence reaches the shader › the channel is monotone: 0 moves at least as far as 0.35[2m (256ms)[22m
+  [32m✓[39m  [2m 5 [22m[chromium-gpu] › e2e/gpu/materialization.spec.ts:187:3 › @gpu W27d presence reaches the shader › driving the channel to 1 renders the bytes of a scene nobody drove[2m (259ms)[22m
+  [32m✓[39m  [2m 6 [22m[chromium-gpu] › e2e/gpu/materialization.spec.ts:206:3 › @gpu W27d the identity endpoint › at 0 the surface is not there at all[2m (253ms)[22m
+  [32m✓[39m  [2m 7 [22m[chromium-gpu] › e2e/gpu/materialization.spec.ts:249:3 › @gpu W27d one absent member of a connected group › leaves its present neighbour the group it would have had alone[2m (254ms)[22m
+  [32m✓[39m  [2m 8 [22m[chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu light DOM material matches its scalar law at 0.1104[2m (402ms)[22m
+  [32m✓[39m  [2m 9 [22m[chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu light DOM material matches its scalar law at 0.2706[2m (394ms)[22m
+  [32m✓[39m  [2m10 [22m[chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu light DOM material matches its scalar law at 0.9505[2m (380ms)[22m
+  [32m✓[39m  [2m11 [22m[chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu dark DOM material matches its scalar law at 0.1104[2m (375ms)[22m
+  [32m✓[39m  [2m12 [22m[chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu dark DOM material matches its scalar law at 0.2706[2m (382ms)[22m
+  [32m✓[39m  [2m13 [22m[chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu dark DOM material matches its scalar law at 0.9505[2m (372ms)[22m
+  [32m✓[39m  [2m14 [22m[chromium-gpu] › e2e/gpu/runtime.spec.ts:21:3 › @gpu the dirty-epoch invariant on a device › rebuilds an always-dirty source once per frame, never twice[2m (203ms)[22m
+  [32m✓[39m  [2m15 [22m[chromium-gpu] › e2e/gpu/runtime.spec.ts:42:3 › @gpu device-loss recovery › an app-owned device reports the loss and waits for a replacement[2m (337ms)[22m
+  [32m✓[39m  [2m16 [22m[chromium-gpu] › e2e/gpu/runtime.spec.ts:63:3 › @gpu device-loss recovery › a vitrea-owned device recovers and draws again[2m (278ms)[22m
+  [32m✓[39m  [2m17 [22m[chromium-gpu] › e2e/gpu/runtime.spec.ts:82:3 › @gpu the shipped shaders compile › every pass builds a pipeline without a validation error[2m (245ms)[22m
+  [32m✓[39m  [2m18 [22m[chromium-gpu] › e2e/gpu/runtime.spec.ts:99:3 › @gpu the governor's field families agree › family C renders the same silhouette as family D[2m (244ms)[22m
+  [32m✓[39m  [2m19 [22m[chromium-gpu] › e2e/gpu/runtime.spec.ts:144:3 › @gpu the governor's resolution rungs › rungs 2 and 3 render the same material through a coarser field[2m (259ms)[22m
+  [32m✓[39m  [2m20 [22m[chromium-gpu] › e2e/gpu/shadow-extent.spec.ts:48:3 › @gpu the outer shadow's field extent › falls off the same way above a top-adjacent surface as above a free one[2m (222ms)[22m
+  [32m✓[39m  [2m21 [22m[chromium-gpu] › e2e/gpu/shadow-extent.spec.ts:91:3 › @gpu the outer shadow's field extent › keeps the shadow's own reach, and stops there[2m (226ms)[22m
+
+[32m  21 passed[39m[2m (8.4s)[22m

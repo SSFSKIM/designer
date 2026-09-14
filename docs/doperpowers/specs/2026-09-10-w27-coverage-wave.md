@@ -344,6 +344,13 @@ into the ledger rather than chartered.
   light-standard profiles still fail clause 3 on `hc-text__rrect-sm__inactive` at 2.44× / 2.15×.
   G2 therefore stays blocked. Six sheets were read by eye, CSS derives and gates nothing, no floor
   was adopted and no golden, active material document or canonical matrix row moved.
+  **G1d REVIEWED 2026-09-14:** the required independent medium review found two P2s in the
+  additive profile seams; convergence passes found four reachable edges in their guards. A separate
+  TDD fix wave closed all six in `d76ff5a6`, `cd017b18` and `91420e9`: coherent supported response
+  shapes are enforced on renderer and CSS paths, the calibration loader admits and validates the
+  per-policy map, and refusal is early and non-retaining. The final review returned no material
+  findings. Workspace build/lint and 2,320 tests pass; goldens 34/34, platform e2e 392/392 and GPU
+  21/21 pass at 0/0 accessibility, without changing evidence or a fitted value.
 
 ### W27d: Identity and materialize — controlled
 - **Purpose:** `Glass.identity` is Apple's documented way to animate glass to nothing in place;
@@ -1101,6 +1108,16 @@ G1 records every per-scene miss; G2 alone adopts a native stack bound and re-rea
 
 ## Revision Notes
 
+- 2026-09-14, **W27c G1d independently reviewed and the separate fix wave converged with no
+  material findings** (claims §5.143 §10). The first medium review found two P2s: mixed response-row
+  arities could split CPU/CSS from the shader, and the canonical loader did not admit the new
+  per-policy lift. Follow-up review found malformed maps, retained refused state, a constructor leak
+  and equal unsupported row lengths. All six were verified and closed through fail-before tests in
+  `d76ff5a6`, `cd017b18` and `91420e9`; the final medium pass returned no material findings. The
+  fixes validate only profile shape and input integrity: no fit, fixture, matrix, sheet, golden or
+  profile resolution moved. Final workspace build/lint and 2,320 tests pass; renderer goldens 34/34,
+  platform e2e 392/392 and renderer GPU 21/21 pass with every browser run recorded at 0/0
+  accessibility.
 - 2026-09-14, **W27c G1d CLOSED; the neutral anchor says abscissa, both fits froze together, and
   the unchanged bound holds on four of six profiles** (Decision Logs 18 and 19; claims §5.143).
   Fourteen native runs on macOS 26.5.2 attest 4/4 dark cells each, all above 45 s idle; publication
