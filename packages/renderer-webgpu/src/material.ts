@@ -2821,6 +2821,45 @@ function rejectRetiredOuterShadowLeaves(patch: object | undefined): void {
 }
 
 /**
+ * Throw if the resolved backdrop tone response's three rows disagree about how
+ * many knots the curve has.
+ *
+ * The rows are one curve — `backdropToneAnchorX` is its knots and the two
+ * response rows are that curve's levels at the thin and the thick end — but they
+ * are three separate patch keys, so a patch naming one of them at four knots
+ * over a three-knot base used to resolve to a triplet with no single reading.
+ * The CPU curve branches on the ANCHORS' length and then indexes the level rows
+ * at that arity, so a four-knot anchor row over three-knot levels reads past the
+ * end and returns NaN for the whole interior. The shader keys the same flag off
+ * the anchors (`passes.ts`, `d[115]`) but pads the level rows with a repeat of
+ * their last knot, so it draws a fourth segment nobody fitted. The CSS tier's
+ * mirror in `@vitreajs/vitrea-web` reads the third of those. A patch that would
+ * make the tiers draw different materials is refused here rather than resolved,
+ * which is the same stance `rejectRetiredOuterShadowLeaves` takes above: a
+ * configuration that cannot be rendered honestly does not get to be measured.
+ *
+ * The rows may move to four knots — that is what the dark receded endpoint does
+ * — but only together, and the message names each row's resolved arity so it
+ * says which of the three the patch left behind.
+ */
+function rejectMixedBackdropToneArity(
+  anchorX: BackdropToneKnotRow,
+  thin: BackdropToneKnotRow,
+  thick: BackdropToneKnotRow,
+): void {
+  if (anchorX.length === thin.length && thin.length === thick.length) return;
+  throw new Error(
+    `The backdrop tone response's three rows resolved to different knot counts — ` +
+      `backdropToneAnchorX ${anchorX.length}, backdropToneResponseThin ${thin.length}, ` +
+      `backdropToneResponseThick ${thick.length}. They are one curve's knots and that ` +
+      `curve's levels at its two thickness ends, and the shader reads the knot count off ` +
+      `the anchors alone, so a mixed triplet renders as NaN on the CPU curve and as a ` +
+      `fabricated segment on the GPU. A patch moving the response to a new knot count has ` +
+      `to name all three rows.`,
+  );
+}
+
+/**
  * Apply a patch. This is how a calibration profile lands: C7 emits the measured
  * numbers, the host passes them here, and every constant above is replaceable
  * without touching this file.
@@ -2843,6 +2882,18 @@ export function withMaterialOverrides(
   for (const rung of REFRACTION_LADDER) {
     refractionScale[rung] = patch.refractionScale?.[rung] ?? base.refractionScale[rung];
   }
+
+  // Resolved before the profile is built rather than merged inline below, so the
+  // three rows of one curve can be checked against each other while they are
+  // still three things. See `rejectMixedBackdropToneArity`.
+  const backdropToneAnchorX = patch.backdropToneAnchorX ?? base.backdropToneAnchorX;
+  const backdropToneResponseThin =
+    patch.backdropToneResponseThin ?? base.backdropToneResponseThin;
+  const backdropToneResponseThick =
+    patch.backdropToneResponseThick ?? base.backdropToneResponseThick;
+  rejectMixedBackdropToneArity(
+    backdropToneAnchorX, backdropToneResponseThin, backdropToneResponseThick,
+  );
 
   return {
     optics,
@@ -2922,9 +2973,9 @@ export function withMaterialOverrides(
     rimCollapsed: patch.rimCollapsed ?? base.rimCollapsed,
     rimCollapsedTinted: patch.rimCollapsedTinted ?? base.rimCollapsedTinted,
     rimTintChroma: patch.rimTintChroma ?? base.rimTintChroma,
-    backdropToneAnchorX: patch.backdropToneAnchorX ?? base.backdropToneAnchorX,
-    backdropToneResponseThin: patch.backdropToneResponseThin ?? base.backdropToneResponseThin,
-    backdropToneResponseThick: patch.backdropToneResponseThick ?? base.backdropToneResponseThick,
+    backdropToneAnchorX,
+    backdropToneResponseThin,
+    backdropToneResponseThick,
     backdropToneResponseStrength:
       patch.backdropToneResponseStrength ?? base.backdropToneResponseStrength,
     outerShadow: { ...base.outerShadow, ...patch.outerShadow },

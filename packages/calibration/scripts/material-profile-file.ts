@@ -97,6 +97,12 @@ export const MATERIAL_PATCH_KEYS = new Set([
   "lensOvalizationSpanMax",
   "reducedTransparencyFrost",
   "increasedOcclusionLift",
+  // The same lift read PER accessibility policy (W27c G1d, Decision Log 19): the
+  // shared scalar above is the additive default both policies fall back to, and
+  // this is the pair that separates them once they have been fitted apart. It is
+  // the parameter G1d's own sweep varied, and while it was missing here the
+  // canonical capture path refused every rung of that sweep.
+  "increasedOcclusionLiftByPolicy",
   "strongBorderRim",
   "reducedTintAdaptation",
   // The author tint's tone map (W3) and the backdrop tone adaptation (W7). The
@@ -174,6 +180,23 @@ export const MATERIAL_PATCH_KEYS = new Set([
  * runtime boundary too; this refuses it here, where the file has a path and the
  * message can name it.
  */
+/**
+ * Every policy the per-policy occlusion lift has.
+ *
+ * The same nested guard as `OUTER_SHADOW_KEYS`, for the same reason and at a
+ * block with only two leaves — which is exactly what makes it worth guarding. The
+ * renderer spreads this block over the base rather than replacing it, so a
+ * document naming a third policy, or spelling one of these two the way the media
+ * query does (`prefers-contrast`), applies cleanly, hashes itself into every cell
+ * as the configuration that ran, and lifts by the shared scalar instead. Naming
+ * one of the two alone is valid: that is how a sweep moves one policy and leaves
+ * the other where the fit left it.
+ */
+export const OCCLUSION_LIFT_BY_POLICY_KEYS = new Set([
+  "reduceTransparency",
+  "increaseContrast",
+]);
+
 export const OUTER_SHADOW_KEYS = new Set([
   "offsetPx",
   "sigmaPx",
@@ -267,6 +290,11 @@ export function readMaterialProfileFile(path: string): MaterialProfileSections {
   const outerShadow = object(patch["outerShadow"]);
   if (outerShadow !== undefined) {
     reject("the renderer's MaterialOuterShadow", Object.keys(outerShadow), OUTER_SHADOW_KEYS);
+  }
+  const liftByPolicy = object(patch["increasedOcclusionLiftByPolicy"]);
+  if (liftByPolicy !== undefined) {
+    reject("the renderer's MaterialOcclusionLiftByPolicy", Object.keys(liftByPolicy),
+      OCCLUSION_LIFT_BY_POLICY_KEYS);
   }
   if (cssTierMapping !== undefined) {
     reject("the CSS tier's CssTierMapping", Object.keys(cssTierMapping), CSS_TIER_MAPPING_KEYS);

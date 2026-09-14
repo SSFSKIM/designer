@@ -159,6 +159,7 @@ import {
   linearTint,
   materialAtBackdrop,
   opticsUnderPolicy,
+  resolvedBackdropToneResponse,
   resolvedRimTintChroma,
   resolvedPolicyFold,
   resolvedTintShade,
@@ -1084,6 +1085,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   const activeProfile = (): RendererMaterialProfile | undefined =>
     mergeMaterialProfiles(colorSchemeMaterialProfile(resolvedScheme()), hostProfile);
   const initialProfile = activeProfile();
+  // The construction half of `applyMaterialProfile`'s refusal below. The bindings
+  // under here are initialised from the option directly rather than through that
+  // function, so the setter's guard does not cover the profile a root is BUILT
+  // with — and a constructor that hands back a root which throws on its first
+  // framed backdrop is the worse of the two failures, because there is no earlier
+  // call left to attribute it to.
+  resolvedBackdropToneResponse(initialProfile);
   let resolvedProfile = initialProfile;
 
   const cssMapping: CssTierMapping = { ...CSS_TIER_MAPPING, ...options.cssTierMapping };
@@ -1150,6 +1158,19 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * lands on the next frame, on whichever tier is drawing.
    */
   const applyMaterialProfile = (profile: RendererMaterialProfile | undefined): void => {
+    /*
+     * Refused before a single binding moves, so a patch neither tier could draw
+     * leaves the material that IS drawing exactly where it was.
+     *
+     * The response rows are the one part of the profile this tier resolves
+     * lazily — per host, per frame, inside `materialAtBackdrop`, and only where
+     * the group has a backdrop reading. Accepting a patch whose rows disagree
+     * would therefore replace the live material here and fail much later: on
+     * every frame, from inside the write phase, with no caller left to hand the
+     * error to. Resolved once up front instead, where the app's own call is still
+     * on the stack and the root has changed nothing yet.
+     */
+    resolvedBackdropToneResponse(profile);
     resolvedProfile = profile;
     cssOptics = cssTierOptics(profile, cssMapping);
     gpuOptics = sourceOptics(profile);

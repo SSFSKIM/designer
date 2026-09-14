@@ -559,6 +559,55 @@ describe("keeping the dirty-epoch ledger honest across the wire", () => {
   });
 });
 
+describe("a material profile the root cannot draw", () => {
+  /*
+   * `setMaterialProfile` re-derives every binding on both tiers from one patch,
+   * and the response rows are resolved LAZILY — per host, per frame, inside
+   * `materialAtBackdrop`, and only where the group has a backdrop reading. So a
+   * patch whose three rows resolve to different knot counts would be accepted
+   * here, replace the material that was drawing, and only fail later: once the
+   * page has a reading, on every frame, from inside the write phase, with no
+   * caller left to hand the error to. The refusal has to happen at the call the
+   * app made, and it has to happen before anything moves.
+   */
+  const mixed = { backdropToneAnchorX: [0.1, 0.3, 0.7, 0.95] } as const;
+
+  it("is refused at the call, and does not displace the material already applied", () => {
+    const instance = root();
+    const host = withHost(instance);
+    // A patch the root CAN draw, so there is a material to lose.
+    instance.setMaterialProfile({ optics: { regular: { tintAlpha: 0.8 } } });
+    instance.runFrame(0);
+    const applied = host.style.getPropertyValue("--vitrea-occlusion");
+    expect(Number(applied)).toBeGreaterThan(0);
+
+    expect(() => instance.setMaterialProfile(mixed)).toThrow(/backdrop tone response/);
+
+    // The refused patch names no optics, so a root that had retained it would
+    // publish the default occlusion on the next frame instead of this one.
+    instance.runFrame(16);
+    expect(host.style.getPropertyValue("--vitrea-occlusion")).toBe(applied);
+  });
+
+  it("is refused at construction too, where the bindings are built without the setter", () => {
+    // `createGlassRoot` does not route its `materialProfile` option through
+    // `applyMaterialProfile` — it initialises each binding from it directly — so
+    // the setter's refusal does not cover the option. Same patch, same failure,
+    // and a constructor that returns a root nobody can frame is the worse of the
+    // two: there is no earlier call to attribute it to.
+    expect(() => root({ materialProfile: mixed })).toThrow(/backdrop tone response/);
+  });
+
+  it("leaves the root able to take the next profile it is given", () => {
+    const instance = root();
+    const host = withHost(instance);
+    expect(() => instance.setMaterialProfile(mixed)).toThrow(/backdrop tone response/);
+    instance.setMaterialProfile({ optics: { regular: { tintAlpha: 0.8 } } });
+    instance.runFrame(0);
+    expect(Number(host.style.getPropertyValue("--vitrea-occlusion"))).toBeGreaterThan(0);
+  });
+});
+
 describe("measuring around vitrea's own transforms", () => {
   /** Run frames until the geometry sync has nothing left to measure. */
   const settle = (instance: GlassRoot): void => {

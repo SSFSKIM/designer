@@ -874,3 +874,63 @@ describe("the runtime runs the chain in the shader's order (W17 G1)", () => {
     container.remove();
   });
 });
+
+describe("a tone response whose rows disagree about how many knots it has", () => {
+  /*
+   * The mirror's half of the renderer's refusal in `withMaterialOverrides`.
+   *
+   * `anchorX`, `thin` and `thick` are one curve, but they are three patch keys
+   * resolved against the mirrored constants one at a time — so a patch naming one
+   * of them at four knots over the three-knot mirror used to resolve to a triplet
+   * this tier reads one way, the CPU curve another and the shader a third. The
+   * curve here branches on the ANCHORS' length and then reads `thin[3]`, which is
+   * `undefined` on a three-knot row: NaN interior level, into a CSS declaration.
+   *
+   * This tier has to refuse it on its own rather than lean on the renderer's
+   * guard, for two reasons the layering gives. platform-web does not depend on
+   * `@vitrea/renderer-webgpu` (`optics.ts`'s header), and a `renderer: "css"`
+   * root never builds a bridge at all — so `withMaterialOverrides` is never
+   * reached and its refusal cannot cover this path.
+   */
+  const four = [0.1, 0.3, 0.7, 0.95] as const;
+
+  it("is refused where the rows resolve, rather than read past the end of one", () => {
+    for (const patch of [
+      { backdropToneAnchorX: four },
+      { backdropToneResponseThin: four },
+      { backdropToneResponseThick: four },
+      { backdropToneAnchorX: four, backdropToneResponseThick: four },
+    ]) {
+      expect(() => resolvedBackdropToneResponse(patch)).toThrow(/backdrop tone response/);
+    }
+    const message = (): string => {
+      try {
+        resolvedBackdropToneResponse({ backdropToneResponseThin: four });
+        return "";
+      } catch (error) {
+        return (error as Error).message;
+      }
+    };
+    expect(message()).toBe(message());
+    expect(message()).toMatch(/backdropToneAnchorX 3/);
+    expect(message()).toMatch(/backdropToneResponseThin 4/);
+    expect(message()).toMatch(/backdropToneResponseThick 3/);
+  });
+
+  it("resolves the coherent shapes either side of it", () => {
+    // No patch at all, and a patch naming none of the three rows.
+    expect(resolvedBackdropToneResponse({ glowGain: 0.1 }))
+      .toEqual(resolvedBackdropToneResponse());
+    // The light receded endpoint's shape: both level rows at the mirror's knots.
+    expect(resolvedBackdropToneResponse({
+      backdropToneResponseThin: [0.0126, 0.4, 0.929],
+      backdropToneResponseThick: [0.4553, 0.518, 0.9],
+    }).anchorX).toEqual(resolvedBackdropToneResponse().anchorX);
+    // The dark receded endpoint's shape: all three rows moved together.
+    expect(resolvedBackdropToneResponse({
+      backdropToneAnchorX: [0.1104, 0.2706, 0.7, 0.9505],
+      backdropToneResponseThin: [0.011, 0.089, 0.1, 0.9326072],
+      backdropToneResponseThick: [0.0215, 0.065, 0.060877, 0.11753],
+    }).thick).toHaveLength(4);
+  });
+});

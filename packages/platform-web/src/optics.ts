@@ -443,14 +443,43 @@ export const BACKDROP_TONE_RESPONSE: BackdropToneResponseConstants = {
   strength: 1,
 };
 
-/** The response constants under a profile patch, by the renderer's merge rule. */
+/**
+ * The response constants under a profile patch, by the renderer's merge rule —
+ * including the renderer's refusal when the three rows disagree.
+ *
+ * The rows are one curve, but they are three patch keys merged one at a time, so
+ * a patch naming one of them at four knots over the three-knot mirror resolves to
+ * a triplet with no single reading: `backdropToneResponseLevel` below branches on
+ * the ANCHORS' length and then indexes the level rows at that arity, which reads
+ * past the end of a three-knot row and returns NaN for the interior — into a CSS
+ * declaration. The renderer's `withMaterialOverrides` refuses the same
+ * combination, and this tier refuses it again rather than relying on that: a
+ * `renderer: "css"` root builds no bridge, so the renderer's guard is never
+ * reached, and platform-web does not depend on `@vitrea/renderer-webgpu` to
+ * borrow it. The rows may move to four knots — the dark receded endpoint does —
+ * but only together.
+ */
 export function resolvedBackdropToneResponse(
   patch?: RendererMaterialProfile,
 ): BackdropToneResponseConstants {
+  const anchorX = patch?.backdropToneAnchorX ?? BACKDROP_TONE_RESPONSE.anchorX;
+  const thin = patch?.backdropToneResponseThin ?? BACKDROP_TONE_RESPONSE.thin;
+  const thick = patch?.backdropToneResponseThick ?? BACKDROP_TONE_RESPONSE.thick;
+  if (anchorX.length !== thin.length || thin.length !== thick.length) {
+    throw new Error(
+      `The backdrop tone response's three rows resolved to different knot counts — ` +
+        `backdropToneAnchorX ${anchorX.length}, backdropToneResponseThin ${thin.length}, ` +
+        `backdropToneResponseThick ${thick.length}. They are one curve's knots and that ` +
+        `curve's levels at its two thickness ends, and the curve reads the knot count off ` +
+        `the anchors alone, so a mixed triplet resolves to a NaN interior level here and ` +
+        `to a different material again on the GPU tier. A patch moving the response to a ` +
+        `new knot count has to name all three rows.`,
+    );
+  }
   return {
-    anchorX: patch?.backdropToneAnchorX ?? BACKDROP_TONE_RESPONSE.anchorX,
-    thin: patch?.backdropToneResponseThin ?? BACKDROP_TONE_RESPONSE.thin,
-    thick: patch?.backdropToneResponseThick ?? BACKDROP_TONE_RESPONSE.thick,
+    anchorX,
+    thin,
+    thick,
     strength: patch?.backdropToneResponseStrength ?? BACKDROP_TONE_RESPONSE.strength,
   };
 }
