@@ -9,14 +9,16 @@
 > `main` at `cc89dd2` (0.15.0), summarised in §Design. Children dispatch per their track hint and
 > open by citing this document (path + child id).
 
-**Status: RECOMPOSED 2026-09-14 (claims §§5.128–5.143); 0.17.0 PREPARED,
-UNPUBLISHED — Decision Log 20 closes the wave with W27c G2/G3 held.** Verified against `main` at
+**Status: RECOMPOSED 2026-09-14 (claims §§5.128–5.143); 0.17.0 PUBLISHED 2026-09-14, tag
+`v0.17.0` at `85f4ad05` — Decision Log 20 closes the wave with W27c G2/G3 held.** Verified against `main` at
 `d3d3163`, the publishable package surfaces and the live demo: clause 1 PARTLY (seven rows move and
 one is added; window focus is measured, not replicated, and the button pair holds `partial` on the
 absent prominent style), clause 2 PARTLY (every feature documented and operable, but the two
 React-only compositions have no named framework-agnostic widget option),
 clause 3 PARTLY (floors stand; the landing-time from-empty proofs do not exist), clause 4 MET, and
-clause 5 PARTLY until the user runs `pnpm release`. The originally chartered status is kept beneath.
+clause 5 MET on the user's `pnpm release` of 2026-09-14 (registry core 07:33:59Z, web 07:36:34Z,
+react 07:36:36Z; the React flake class accepted by publishing). The originally chartered status is
+kept beneath.
 
 *Originally:* CHARTERED 2026-09-10. W27a dispatched the same day (autonomous, worktree). The rest
 dispatch in the order of §Ordering.
@@ -1188,7 +1190,8 @@ neighbour glow diffusion; topology-changing morphs.
    rendered secondary at **4.463 CSS / 4.309 and 4.278 WebGPU**, guarded by 4.45 / 4.25 pixel floors
    rather than called the token's 4.5 promise. W27a's WebGPU-only lens is covered by the standing
    no-lens CSS statement; W27b is tier-independent composition.
-5. **The release — PARTLY, prepared and deliberately not published.** The user's landing-sheet eye
+5. **The release — PARTLY at recomposition, prepared and deliberately not published; MET on the
+   user's publish of 2026-09-14 (the record is the last paragraph of this clause).** The user's landing-sheet eye
    passed W27f on **2026-09-12** and W27e on **2026-09-14** (“pass”), with the residuals above
    standing. W27e G2's existing `@vitreajs/vitrea-web` minor changeset and the recomposition's patch
    note for the additive three/four-knot `MaterialProfile` rows and
@@ -1224,6 +1227,26 @@ neighbour glow diffusion; topology-changing morphs.
    `apps/demo/vite.config.ts`), so the Pages deploy does not depend on a host path. Publishing and
    tagging remain the user's; the exact remaining command is `pnpm release` after accepting or
    closing the recorded React-suite flake class.
+
+   **Published 2026-09-14, by the user's `pnpm release` on `85f4ad05`; tag `v0.17.0` (annotated, on
+   that commit) pushed by the parent.** Registry: core 07:33:59.877Z, web 07:36:34.399Z, react
+   07:36:36.004Z — the first cut in twelve whose packages landed in dependency order, so **no
+   release-chain window**: at every instant a listed dependent's `^0.17.0` ranges resolved. The span
+   first-to-last was 156 s (the eleven windows before it: 53, 70, 73, 248, 267, 246, 124, 73, 125,
+   52 and 173 s), and the order was not chosen — `changeset publish` was run once, as before. The
+   publish is the user's acceptance of the React suite's four disclosed Firefox timing/focus
+   failures as the tracker's known class; nothing was rerun. Verified by a cold install outside
+   the workspace after all three were listed: all three at 0.17.0, ranges `^0.17.0` (web → core;
+   react → core and web), all three entry points import (core 44 exports, web **240** against 229
+   at 0.16.0 — the vibrancy operator, the foreground selector and the per-policy lift — react 36),
+   `recededMaterialProfile` and `increasedOcclusionLiftByPolicy` exported from the web package,
+   `GlassToolbarSpacer` from the React binding, the four-knot response's anchor `0.9505` and thin
+   knot `0.9326072` present in the web bundle and in core's split chunk, no private package
+   installed, LICENSE / NOTICE / README in each (installed 1 788 / 1 764 / 624 kB against
+   1 772 / 1 672 / 608 at 0.16.0). One install-time observation: three minutes after the publish,
+   npm's cached packument still answered `ETARGET` for `@vitreajs/vitrea@0.17.0` on the machine
+   that had queried the registry before the cut; `--prefer-online` resolved it. That is npm's
+   five-minute metadata cache, not the registry, and a fresh machine would not see it.
 
 **Retrospective.** This wave changed the project more in how it knows than in how the material looks.
 The inactive endpoint began as 121 accidental fixtures whose state was inferred; it ends with a
@@ -1315,6 +1338,14 @@ G1 records every per-scene miss; G2 alone adopts a native stack bound and re-rea
 
 ## Revision Notes
 
+- 2026-09-14, **0.17.0 PUBLISHED; clause 5 MET; tag `v0.17.0` at `85f4ad05`.** The user's
+  `pnpm release` on the recomposition merge. Registry core 07:33:59Z, web 07:36:34Z, react
+  07:36:36Z — dependency order for the first time, so no release-chain window (span 156 s). Cold
+  install verified (core 44 / web 240 / react 36 exports; the four-knot anchors and the per-policy
+  lift in the shipped bundle; 1 788 / 1 764 / 624 kB). The React Firefox flake class is accepted by
+  the publish and stays in the tracker. Status line and Outcomes clause 5 amended in place, the
+  recomposition-time PARTLY kept in the clause's heading; the parent spec carries the addendum.
+  Nothing else in this document moved.
 - 2026-09-14, **the recomposition's medium review closed in one fix wave; no code behaviour moved.**
   Three verified findings, each a record or a boundary rather than a defect in what draws. (1) The
   appended matrix re-score scored `GlassButtonStyle` / `GlassProminentButtonStyle` as

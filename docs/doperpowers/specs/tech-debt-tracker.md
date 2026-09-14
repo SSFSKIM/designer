@@ -174,6 +174,11 @@ accessibility specs already `expect.poll` — and then put the suite in CI, beca
 a flake visible only locally will keep being triaged as "probably pre-existing"
 by everyone who meets it.
 
+*Disclosed at the 0.17.0 cut (2026-09-14): 4 of 162 on the recomposition head, the same
+press / morph-materialize / presence timing-and-focus class, none in the wave's new cases; not
+rerun for a green record. The user's publish accepted the class as disclosed (W27 wave spec,
+Outcomes clause 5). The fix shape above is unchanged and still owed.*
+
 ## ~~The untinted material's ink is still decided by the colour scheme~~ — CLOSED 2026-09-10 by W27a
 
 *Found 2026-08-30, building the tint API (W3).*
