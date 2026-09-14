@@ -28,6 +28,7 @@
   --ink: #eef1f5;
   --ink-dim: rgb(238 241 245 / 0.82);
   --ink-faint: rgb(238 241 245 / 0.66);
+  --ink-band-authored: #000000;
   --ground: #0a0c10;
   --rule: rgb(255 255 255 / 0.09);
   --accent: #7fd7ff;
@@ -437,6 +438,24 @@ body {
 .ink-control__strength {
   flex: 1 1 auto;
   min-width: 0;
+}
+
+.ink-control__ownership {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--ink-faint);
+  font-size: 0.625rem;
+  white-space: nowrap;
+}
+
+.ink-control__ownership input {
+  margin: 0;
+}
+
+/* The app supplies a stronger ink only when it takes ownership back. */
+.control.ink-bookmark--token {
+  color: var(--ink-band-authored);
 }
 
 .ink-control input[type="color"] {

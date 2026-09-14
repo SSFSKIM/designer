@@ -3,7 +3,8 @@
  *
  * 0.16.0 shipped a tinted `GlassButton`, a `GlassGroup tint` and the four named
  * ink levels with props, README paragraphs and no instance anywhere a reader
- * could operate (the wave's Surprises, 2026-09-11). This is that instance. What
+ * could operate (the wave's Surprises, 2026-09-11). This is that instance; W27's
+ * recomposition also made the vibrant/token ownership choice operable here. What
  * it is composed to show is the part a paragraph cannot: the same three
  * declarations over two grounds at once, with the material's answer to each
  * beside the other's, and the tint under the reader's hand.
@@ -147,6 +148,10 @@ function TintControl(props: {
   readonly strength: number;
   readonly onSeedChange: (next: string) => void;
   readonly onStrengthChange: (next: number) => void;
+  readonly ownership?: {
+    readonly checked: boolean;
+    readonly onChange: (checked: boolean) => void;
+  };
 }): ReactNode {
   return (
     <div className="ink-control">
@@ -173,6 +178,17 @@ function TintControl(props: {
             onChange={(event) => props.onStrengthChange(Number(event.target.value))}
           />
         </label>
+        {props.ownership === undefined ? null : (
+          <label className="ink-control__ownership">
+            <input
+              type="checkbox"
+              checked={props.ownership.checked}
+              aria-label="Vitrea owns bookmark ink"
+              onChange={(event) => props.ownership?.onChange(event.target.checked)}
+            />
+            <span>vibrant</span>
+          </label>
+        )}
       </div>
       <p className="ink-control__value" data-testid={`${props.id}-value`}>
         {tintDeclaration(props.seed, props.strength)}
@@ -190,6 +206,7 @@ export function TintInkPlate(props: TintInkPlateProps): ReactNode {
   const [groupStrength, setGroupStrength] = useState(45);
   const [buttonSeed, setButtonSeed] = useState(BUTTON_SEED);
   const [buttonStrength, setButtonStrength] = useState(100);
+  const [vitreaOwnsBookmarkInk, setVitreaOwnsBookmarkInk] = useState(true);
 
   const groupTint = tintDeclaration(groupSeed, groupStrength);
   const buttonTint = tintDeclaration(buttonSeed, buttonStrength);
@@ -205,6 +222,10 @@ export function TintInkPlate(props: TintInkPlateProps): ReactNode {
             strength={groupStrength}
             onSeedChange={setGroupSeed}
             onStrengthChange={setGroupStrength}
+            ownership={{
+              checked: vitreaOwnsBookmarkInk,
+              onChange: setVitreaOwnsBookmarkInk,
+            }}
           />
           <TintControl
             id="button-tint"
@@ -272,8 +293,11 @@ export function TintInkPlate(props: TintInkPlateProps): ReactNode {
                 </GlassSurface>
                 <GlassIconButton
                   aria-label={`Bookmark the ${ground.key} ground`}
-                  className="control control--icon"
+                  className={`control control--icon${
+                    vitreaOwnsBookmarkInk ? "" : " ink-bookmark--token"
+                  }`}
                   data-testid={`ink-bookmark-${ground.key}`}
+                  foreground={vitreaOwnsBookmarkInk ? "vibrant" : "token"}
                   onClick={() => props.onAction(`bookmark ${ground.key}`)}
                 >
                   <span aria-hidden="true">☆</span>

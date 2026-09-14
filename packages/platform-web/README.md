@@ -124,6 +124,22 @@ Content visibility, pointer handling and contrast over the uncovered page remain
 the app's responsibility. The timing is authored and has no measured native
 reference; the tier-specific optical limits are recorded in claims §5.132.
 
+## Foreground tokens and ownership without a framework
+
+Every registered host publishes `--vitrea-foreground` and its `-secondary`,
+`-tertiary` and `-quaternary` levels. The primary is Apple's automatic macOS label
+ink through the vibrant operator; secondary is raised where the primary can hold
+WCAG 4.5, while tertiary and quaternary deliberately carry no body-text floor.
+Use the tokens directly when the app owns its content.
+
+Set `vibrant: true` on `registerHost` or `handle.update()` when vitrea owns the
+label. This does not change the token value. It raises the runtime's `color` rule
+from the zero-specificity `:where([data-vitrea-node])` path to
+`[data-vitrea-vibrant]`, so it survives a reset such as `button { color: … }`;
+set it back to `false` to return to the token path. An application rule that names
+the element still wins. Presence 0 removes the vibrant marker so identity leaves
+content exactly as the app wrote it.
+
 ## The pieces
 
 | What | Where |

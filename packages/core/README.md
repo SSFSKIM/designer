@@ -447,9 +447,10 @@ errors. Asking for the GPU tier is not the same as getting it, and
   a support query.
 - v1 corner radii are uniform. The `radii` API keeps its four-component shape,
   but a non-uniform set is a dev-mode error; per-corner algebra is post-v1.
-- **One author tint seed per group.** A tint is declared per surface and its
-  strength is honoured per surface, but a group is one optics pass and carries
-  one seed, so two *different* tint colours in one group raise a dev-mode warning
+- **One author tint seed per group.** A group tint seeds every member that does
+  not declare its own colour; a surface tint overrides that seed and its strength
+  is honoured per surface. A group is one optics pass and carries one seed, so
+  two *different* tint colours in one group raise a dev-mode warning
   and the WebGPU tier draws them all in the first surface's colour. One coloured
   control among plain ones — Apple's own guidance for tinting — is the supported
   composition.
