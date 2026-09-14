@@ -20886,3 +20886,12 @@ structure-aware response beyond the scalar mean; or an inactive regression floor
 matrix is untouched. These limits, the two light-standard clause-3 failures, T1's new-anchor
 residual and the visible rim/structure differences remain future fidelity work rather than silent
 acceptance.
+
+**9. Head verification.** The committed implementation plus evidence passes
+`pnpm -r build && pnpm -r lint && pnpm -r test` at head. The nine workspace test projects report
+**156 files / 2,305 tests**: policy 23, motion 164, geometry 170, renderer-webgpu 470, core 302,
+platform-web 583, calibration 411, React 148 and demo 34. The real-adapter browser checks also pass:
+renderer goldens **34 / 34** with no regeneration, renderer GPU **21 / 21**, and the complete
+platform-web e2e suite **392 / 392**. `browser-runs.txt` records Increase Contrast / Reduce
+Transparency at **0 / 0** for every final browser command as well as each earlier browser capture in
+this gate.
