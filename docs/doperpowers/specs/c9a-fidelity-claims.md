@@ -20735,3 +20735,154 @@ recorded, not rerun to green; the preceding 152/4 reading remains in the log bes
 Increase Contrast read **0 / 0**. No platform-web pixel/GPU suite was triggered because no file
 those suites consume moved. Four review rounds are recorded newest-first in the wave Revision Notes;
 the last two factual corrections are this section, and review is converged.
+
+### 5.143 W27c G1d: the 26.5 neutral anchor puts the dark response step in the abscissa; the anchored response and per-policy accessibility levels make the unchanged bound hold on four of six profiles (2026-09-14)
+
+**Gate.** W27 coverage wave, child W27c G1d; W27 Decision Logs 18 and 19, contracts X1,
+X3, X7 and X8. Evidence is
+`packages/calibration/results/2026-09-14-w27c-g1d/`. This gate adds the last 26.5 native
+anchor, fits T1 and the two accessibility levels on one frozen configuration, reads the declared
+holdout once, re-applies §5.134 §6's bound once and adopts **no floor** (Decision Log 13). It does
+not write activation runtime, re-record a golden, change an active material profile document or
+append a canonical `results/matrix.json` row.
+
+**1. The capture was declared and published before a fit opened.** `declaration.md` landed at
+`378e712` before a scene, script, fixture or material moved. The source adds one neutral sRGB
+(140, 140, 140) background, encoded mean **0.5490196**, and four inactive cells — capsule,
+rrect-sm, rrect-ml and rrect-lg — to both dark-standard scales under `split.probe`. The first 2x
+rehearsal presented **8**, not 4: both light-standard profiles still inherited every additive scene
+through `scenes: "all"`. No pixel was captured. Their exact pre-existing 164-scene memberships were
+then frozen as explicit lists, with no old membership changed, and a test reproducing the harness's
+selection pinned four cells at either scale. Both corrected rehearsals presented **4**.
+
+The granted ad-hoc bundle was not rebuilt. Its executable SHA-256 is
+`bd3092e8d6d1f50ba43124adf42bed8a29e96646adb97bb3a538582653fda212`; the
+open-launched probe reported ScreenCaptureKit OK at 2x and 1x. macOS was **26.5.2 (25F84)**,
+automatic download and macOS installation were both 0, and Increase Contrast / Reduce Transparency
+were **0 / 0** before both standard passes. BetterDisplay's only display was
+`7709FD0F-F423-4277-B0C8-7CA94F85723A`, mode 68 at 2x and mode 69 at 1x, restored to
+mode 68 at the end. Each pass ran detached under `nohup` and `caffeinate`; no browser capture ran
+beside it and no input was synthesised.
+
+Fourteen runs banked, seven per scale. Every run is **4 / 4 attested**, deterministic, material-
+rendered, inactive with key=false and appActive=false, and has no cell below 45 s HID idle. The
+minimum per run spans **554.1–789.8 s** at 2x and **908.5–1142.4 s** at 1x; full manifest SHA-256s
+are in `capture-record.json`. All four 2x cells and the 1x capsule/rrect-sm are 7/7 unanimous. The
+1x rrect-ml and rrect-lg are 6/7; each minority differs incidentally by no more than one 8-bit code.
+`materialize --set probe --frequency-settle` published those pluralities: 611 → **619** entries,
+two background rasters and eight fixture PNGs. `manifest-doctor` ran before and after.
+`round-trip.json`, against capture-input head `582a145`, finds **0** old entries changed, **0** old
+PNGs changed or lost, all **11 / 11** old provenance blocks kept and exactly the expected eight
+entries added. Raw runs remain at `/Users/new/vitrea-w27c-g1d-2026-09-14`.
+
+**2. The answer is abscissa, with scale-independent numbers.** `native-response.ts` read the eight
+new fixtures native-only after publication and before a web capture. At sizeThickness 0, the uniform
+dark row is **0.040915 Y** at encoded 0.270588, **0.122139 Y** at 0.549020, and
+**0.932607 Y** at 0.950435, equal across 1x and 2x to the shown precision. The structured
+checkerboard at encoded 0.5 reads **0.116999 / 0.117986 Y**, within 0.00514 / 0.00415 of the
+new uniform point. The row rises by 0.081224 before the new point and another **0.810468** after
+it. Structure does not define another row at the same abscissa; the large step lies in the abscissa
+between encoded 0.55 and 0.95. T1 therefore proceeds, rather than stopping on W9's
+structure-independence premise.
+
+**3. T1: the fourth-knot fit, and the thick far entry in the same pass.** The profile type accepts
+three or four knots. The CPU renderer, appended WGSL uniform and CSS mirror keep an explicit
+three-knot branch; every old three-knot profile resolves exactly as before, active profile documents'
+`resolvedMaterialSha256` values stay fixed and the **34 / 34** renderer goldens pass before and
+after the type change without regeneration. The candidate family fixes the measured far ordinates
+and sweeps the low third knot's position. The literal 0.549 knot is refused: it takes
+`checkerboard-lc16__capsule-button__inactive` to **11.89×** its frozen control body DeltaE, past
+the declared 9× cap. The selected rung is:
+
+- `backdropToneAnchorX`: **[0.1104, 0.2706, 0.7000, 0.9505]**;
+- dark thin row: **[0.011, 0.089, 0.100, 0.9326072]**;
+- dark thick row: **[0.0215, 0.065, 0.060877, 0.11753]**.
+
+Across the six fit cells its mean body DeltaE falls **0.15771 → 0.01502**. The worst declared
+control is `checkerboard__capsule-button__inactive` at **5.68×** (0.00653 → 0.03709), below the
+cap; every rung and row remains in `fit-t1.json` and `sweep-matrices/`. The far thin cell closes
+0.43179 → **0.00406** and the far thick cell 0.03626 → **0.00161**. The new-anchor thin fit
+retains a 0.03937 body error, which its held-out capsule reproduces; fitting the far step does not
+erase the already named middle-response residual.
+
+**4. T2: one accessibility level per policy.** The additive profile field
+`increasedOcclusionLiftByPolicy` is selected through the existing `ambientTint` distinction:
+Reduce Transparency's raised occlusion plus nominal ambient tint, versus Increase Contrast's
+force-coupled raised occlusion plus reduced ambient tint. If absent, both tiers use the existing
+shared `increasedOcclusionLift` exactly, so no old resolution moves. On the two banked supplying
+cells per policy, under the declared control cap, the selected levels are:
+
+- Reduce Transparency: **0.88**, fit mean body DeltaE **0.00522**; worst control 0.80× baseline;
+- Increase Contrast: **0.98**, fit mean body DeltaE **0.00112**; worst control 1.33× baseline.
+
+The shared 0.96 remains in the document as the additive default. `refractionScale.approximate`
+stays at G1c's **0**. Every browser rung records the machine's settings **0 / 0**. Cross-tier unit
+pins read the same policy-specific value from the same profile on GPU and CSS.
+
+**5. One frozen configuration and one holdout read, resumed rather than restarted.** The active
+resolved SHA-256s remain light `b2b570e4…` and dark `874be66e…`; the fitted inactive resolutions
+are light `cc0e4426…` and dark `5d601038…`, with patch digest `e20042c6…`.
+`fitted-endpoint.json` froze eight holdout cells as unread before the first final page opened. The
+first segment read the two 1x T1 cells and then refused before opening its first historical profile
+holdout: that fixture is not part of the seven-run checking-bed plurality. The partial matrix and
+refusal are preserved. A separate resume instrument admitted only the declaration's H-group
+fixtures from the committed bundle, checked the same endpoint and renderer, and skipped every
+existing profile/scene row. Thus every holdout cell was captured exactly once rather than restarting
+around the refusal. The complete matrix has **188 rows**, six profiles, no duplicate key, two
+repeats per row and machine settings 0 / 0.
+
+| holdout | body DeltaE | WebGPU/native Y |
+| --- | ---: | ---: |
+| dark 1x mid-light capsule | 0.03937 | 0.09531 / 0.12214 |
+| dark 2x mid-light capsule | 0.03937 | 0.09531 / 0.12214 |
+| dark 1x mid-light rrect-ml | 0.00164 | 0.06125 / 0.06088 |
+| dark 2x mid-light rrect-ml | 0.00164 | 0.06125 / 0.06088 |
+| Increase Contrast hc-text capsule | 0.00131 | 0.99502 / 0.99110 |
+| Increase Contrast photo rrect-lg | 0.00105 | 0.99174 / 0.99331 |
+| Reduce Transparency hc-text capsule | 0.00573 | 0.97275 / 0.95597 |
+| Reduce Transparency photo rrect-lg | 0.00677 | 0.95011 / 0.95549 |
+
+No constant moved after this read.
+
+**6. The unchanged bound, applied once clause by clause.** `score-bound.py` reads §5.134 §6's
+original `bound.json` and independently reconstructs group D. All six profiles hold clause 1 and
+clause 2. Four hold clause 3 and therefore hold jointly; the two light-standard profiles keep their
+one previously named clause-3 failure. No floor is adopted.
+
+| profile | clause 1 worst / ceiling | clause 2 mean / threshold | clause 3 | joint |
+| --- | ---: | ---: | --- | --- |
+| dark standard 1x | 0.00989 / 0.09 | 0.02089 / 0.034 | holds | **holds** |
+| dark standard 2x | 0.00911 / 0.09 | 0.01874 / 0.041 | holds | **holds** |
+| light standard 1x | 0.00458 / 0.07 | 0.01321 / 0.032 | **fails**, hc-text rrect-sm 0.07793 (2.44× threshold) | fails |
+| light standard 2x | 0.00400 / 0.07 | 0.01198 / 0.034 | **fails**, hc-text rrect-sm 0.07310 (2.15×) | fails |
+| Increase Contrast 1x | 0.00921 / 0.06 | 0.00278 / 0.0078 | holds | **holds** |
+| Reduce Transparency 1x | 0.00562 / 0.04 | 0.00600 / 0.011 | holds | **holds** |
+
+The result is **4 of 6 profiles**, up from G1c's 3 of 6. W27c G2 remains blocked under Decision
+Log 17: holding means every profile the runtime would ship, and this read does not relax the bound
+after seeing it.
+
+**7. CSS derives and gates nothing.** The CSS read uses the same patch digest and excludes all
+eight holdouts. Mean absolute CSS/WebGPU body-Y gaps are 0.00219 / 0.00216 on dark 1x/2x,
+0.00863 / 0.00755 on light standard 1x/2x, 0.00664 on Increase Contrast and 0.00688 on
+Reduce Transparency. The widest cell is the already named light-standard chroma transfer,
+`mid-chroma-solid__capsule-button__inactive`: CSS 0.58114, WebGPU 0.61880, native 0.47617.
+These are coherence measurements, not gates (X1).
+
+**8. The eye and X8.** Six sheets put native beside WebGPU. The bright/dark uniform ends in the
+dark profiles now agree by eye apart from a hairline contour; the remaining dark misses are
+structured transfer, lens and rim bands, especially the small hc-text and low-contrast checker
+controls, consistently at both scales. Light standard's numerical failure is plainly visible:
+`hc-text__rrect-sm__inactive` is pale grey natively and much brighter on WebGPU. Under both
+accessibility policies the body level is much closer, and the dominant visible residual is the
+one-pixel contour; Increase Contrast's `strongBorderRim` draws a nearly complete difference outline.
+Reduce Transparency still shows a backdrop-dependent slope — WebGPU darker over dark-solid and
+brighter over light-solid — despite its lower supplying-cell objective. Full observations are in
+`eye.md`.
+
+Not measured: dark accessibility; accessibility at 2x; an activation transition or its timing; an
+unspent native holdout (the declared holdouts test prediction on known native fixtures); a
+structure-aware response beyond the scalar mean; or an inactive regression floor. The canonical
+matrix is untouched. These limits, the two light-standard clause-3 failures, T1's new-anchor
+residual and the visible rim/structure differences remain future fidelity work rather than silent
+acceptance.
