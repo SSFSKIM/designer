@@ -83,9 +83,11 @@ import {
   serializeResultMatrix,
   upsertCellResult,
   RESULT_MATRIX_SCHEMA_VERSION,
+  SCENE_STATES,
   type CellResult,
   type FixtureSet,
   type ResultMatrix,
+  type SceneState,
 } from "../src/index";
 import { backdropProbeRequested, probeCanonicalOutputRefusal } from "../src/backdrop-probe";
 import {
@@ -96,6 +98,7 @@ import {
   type ColourlessTintEvidence,
   type FixtureEntry,
   type Manifest,
+  type SceneEntry,
   type SceneSpec,
 } from "./gates";
 import { DEFAULT_SILHOUETTE_THRESHOLD, DEFAULT_SILHOUETTE_CHROMA_THRESHOLD, measureCell } from "./measure";
@@ -131,8 +134,8 @@ const DEFAULT_SETS: readonly FixtureSet[] = ["calibration", "validation"];
 // `ColourlessTintEvidence` live in `./gates` beside `colourlessTintEvidence`
 // itself, which needs them and is imported from there for the same reason every
 // other pure predicate in this file is (see that module's header). Only the
-// names this file uses directly (`SceneSpec`, `FixtureEntry`, `Manifest`,
-// `ColourlessTintEvidence`) are imported; the rest are structural.
+// names this file uses directly (`SceneEntry`, `SceneSpec`, `FixtureEntry`,
+// `Manifest`, `ColourlessTintEvidence`) are imported; the rest are structural.
 
 function readJson<T>(path: string): T {
   if (!existsSync(path)) {
@@ -354,7 +357,7 @@ interface PlannedCell {
   readonly sceneId: string;
   readonly fixtureSet: FixtureSet;
   /** The scene's declared pose, off `scenes.json`: `rest`, `pressed` or `inactive`. */
-  readonly state: string;
+  readonly state: SceneState;
   readonly fixture: FixtureEntry;
   readonly backgroundFile: string;
   readonly order: number;
@@ -371,6 +374,20 @@ function plan(
       if (spec.split[set]?.includes(sceneId) === true) return set;
     }
     throw new Error(`compare: '${sceneId}' is in no declared split in scenes.json`);
+  };
+
+  // The same refusal one axis over. A declared pose the harness does not know is a
+  // pose nothing downstream can act on — the capture would be filed active by
+  // default and `capturePoseRefusal` would then wave it through — so the run stops
+  // here rather than publishing a row under a label it never honoured.
+  const stateOf = (scene: SceneEntry): SceneState => {
+    for (const state of SCENE_STATES) {
+      if (scene.state === state) return state;
+    }
+    throw new Error(
+      `compare: '${scene.id}' declares state '${scene.state}' in scenes.json, which is not one of ` +
+        `${SCENE_STATES.join(", ")}`,
+    );
   };
 
   const cells: PlannedCell[] = [];
@@ -456,7 +473,7 @@ function plan(
         a11yMode: profile.a11yMode,
         sceneId: fixture.sceneId,
         fixtureSet: declared,
-        state: scene.state,
+        state: stateOf(scene),
         fixture,
         backgroundFile,
         order: fnv1a(`${profile.profileKey}|${fixture.sceneId}`),

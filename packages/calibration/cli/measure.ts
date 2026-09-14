@@ -74,6 +74,7 @@ import {
   type LuminanceTransferReport,
   type MaterialAxisReport,
   type PerceptualAxisReport,
+  type SceneState,
   type ShadowAxisReport,
   type ShapeAxisReport,
   type WebCell,
@@ -98,7 +99,7 @@ export interface MeasureInput {
   readonly tier: FidelityTier;
   readonly fixtureSet: FixtureSet;
   /** The scene's declared state, carried onto the cell as a label (X3). */
-  readonly state?: string;
+  readonly state?: SceneState;
   readonly blurAxis: "x" | "y";
   readonly blurRegion?: readonly [number, number, number, number];
   /**

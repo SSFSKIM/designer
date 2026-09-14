@@ -41,6 +41,26 @@ import type {
 import { parseProfileKey, type FidelityTier, type FixtureSet } from "./profile";
 
 // ---------------------------------------------------------------------------
+// The scene's declared pose
+// ---------------------------------------------------------------------------
+
+/**
+ * Every pose `scenes.json` declares, closed the way `FIXTURE_SETS` is.
+ *
+ * The split has been a union since the grammar was written, for the reason a
+ * closed set always earns: a typo, or a pose invented in the declaration and
+ * never taught to the harness, is a compile error rather than a label nobody
+ * notices on a published row. The state axis had the same standing and none of
+ * the same protection — it travelled as a bare `string` from the declaration
+ * through the CLI onto the cell — so it is closed here too, and `compare`
+ * refuses a scene whose declared state is not one of these exactly as it already
+ * refuses one in no declared split.
+ */
+export const SCENE_STATES = ["rest", "pressed", "inactive"] as const;
+
+export type SceneState = (typeof SCENE_STATES)[number];
+
+// ---------------------------------------------------------------------------
 // Metric values
 // ---------------------------------------------------------------------------
 
@@ -961,7 +981,7 @@ export interface CellResult {
    * poses. Absent on a row written before this field existed, and every such row
    * is an active-pose row.
    */
-  readonly state?: string;
+  readonly state?: SceneState;
   readonly tier: FidelityTier;
   /** ISO 8601 instant the measurement was taken. */
   readonly capturedAt: string;
