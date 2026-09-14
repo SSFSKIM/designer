@@ -1,8 +1,9 @@
 # W28 — the footprint response: the inactive material's abscissa under the surface, and what structure adds beyond it
 
 **Status: IN FLIGHT — G0 CLOSED 2026-09-14, not identifiable (§5.144); Decision Log 2 rules the
-simplest survivor built and the bound as referee; G1 DISPATCHED 2026-09-14 (§5.145). The machine
-stays on macOS 26.5.2: the identifying sitting is the fallback if G2 fails.**
+simplest survivor built and the bound as referee; G1 CLOSED 2026-09-14 (§5.145), fitted and sealed,
+G2 ready to dispatch. The machine stays on macOS 26.5.2: the identifying sitting is the fallback
+if G2 fails.**
 
 Parent: `2026-09-10-w27-coverage-wave.md` (Decision Logs 17 and 20, §Deferred, Outcomes clause 1
 "window focus is measured but not shipped"); `2026-08-28-post-v1-wave.md` post-close addenda
@@ -294,7 +295,7 @@ the charter for G3 and G4 here; this document adds nothing to their scope and re
 - **Size:** 8–12 agent-hours.
 - **Ledger:** claims §5.144.
 
-### G1: The footprint abscissa on both tiers, and the rows refitted — controlled — DISPATCHED 2026-09-14 (Decision Log 2; claims §5.145)
+### G1: The footprint abscissa on both tiers, and the rows refitted — controlled — CLOSED 2026-09-14 (claims §5.145; endpoint sealed, G2 unread)
 
 - **Purpose:** the mechanism, profile-gated; the receded rows refitted under it on non-D cells;
   declared and dry-run.
@@ -410,7 +411,7 @@ named, not this wave's); the motion-metrics harness; the OS 27 recapture; `promi
 | child | status | claims | evidence |
 | --- | --- | --- | --- |
 | G0 | CLOSED 2026-09-14 — not identifiable; merged `679cee90` | §5.144 | `results/2026-09-14-w28-g0-abscissa/` |
-| G1 | DISPATCHED 2026-09-14 (Decision Log 2) | §5.145 | `results/2026-09-14-w28-g1-silhouette/` |
+| G1 | CLOSED 2026-09-14 — input check passed, rows fitted, endpoint sealed; G2 unread | §5.145 | `results/2026-09-14-w28-g1-silhouette/` |
 | G1s | — (Decision Log 2) | assigned at dispatch | — |
 | G2 | — | assigned at dispatch | — |
 | G3 | — | assigned at dispatch | — |
@@ -525,6 +526,20 @@ capture is added for this.
   non-D phase evidence rather than borrowing the original D square as a selection baseline.
 
 ## Revision Notes
+
+- 2026-09-14 (G1, §5.145): closed the two-tier silhouette mechanism, 335/335 unpressed canonical
+  inputs per tier, 39 W9 aliases and 24 interaction records. The 28-rung non-D fit selects light
+  anchors [0.1104, 0.2706, 0.45, 0.9505] and dark [0.1104, 0.2706, 0.8, 0.9505], with dark
+  middle ordinates 0.04092 / 0.0331 retained. GPU fit means are 0.016032500055353678 light and
+  0.02253858803940114 dark; worst controls 1.6431724374048398× / 2.118232521653608×, below 9×.
+  The exported endpoint is sealed at `6d7465c9`, patch digest `3fbdcb6d…`; all six holdouts remain
+  unread. G2's actual dry run exercises 47 refusals with zero pages or PNGs opened. Independent
+  review converged after separate fix waves. Workspace build/lint and 2,363 tests pass, with
+  34 unchanged goldens, 28 GPU tests and 392 platform browser tests. Source/fixture/profile/matrix
+  protections hold; the minor changeset records endpoints still inert pending activation runtime.
+  The dark impulse
+  low-input residual, photo chroma, pressed geometry, source CSS sizing and non-canonical locality
+  limits are recorded rather than claimed closed. G2 is the next gate; no checking verdict here.
 
 - 2026-09-14 (parent rulings recorded by G1, §5.145): the input pass condition is one code on
   every unpressed canonical cell; the 24 interaction cells retain their actual-geometry and

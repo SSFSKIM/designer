@@ -1,0 +1,14 @@
+
+[2mRunning [22m9[2m tests using [22m1[2m worker[22m
+
+  [32m✓[39m  [2m1 [22m[chromium-gpu] › e2e/gpu/foreground-audit.spec.ts:75:1 › a dark-hinted GPU-tier surface's label holds the body-text floor[2m (785ms)[22m
+  [32m✓[39m  [2m2 [22m[chromium-gpu] › e2e/gpu/foreground-audit.spec.ts:127:1 › the GPU tier publishes the same foreground token the CSS tier does[2m (421ms)[22m
+  [32m✓[39m  [2m3 [22m[chromium-gpu] › e2e/gpu/tint-gpu.spec.ts:27:1 › draws the tint inside the optics pass, per surface[2m (394ms)[22m
+  [32m✓[39m  [2m4 [22m[chromium-gpu] › e2e/gpu/tint-gpu.spec.ts:82:3 › the tinted surface is a material › stays glass on the GPU tier — a material, not a fill of the author's colour[2m (339ms)[22m
+  [32m✓[39m  [2m5 [22m[chromium-gpu] › e2e/gpu/tint-gpu.spec.ts:137:1 › gives up the material and the colour together under forced colours[2m (335ms)[22m
+  [32m✓[39m  [2m6 [22m[chromium-gpu] › e2e/gpu/webgpu-tier.spec.ts:46:3 › the WebGPU tier draws › paints the optics canvas over a texture-backed group[2m (330ms)[22m
+  [32m✓[39m  [2m7 [22m[chromium-gpu] › e2e/gpu/webgpu-tier.spec.ts:101:3 › the WebGPU tier draws › fetches the renderer module where WebGPU was asked for and had[2m (294ms)[22m
+  [32m✓[39m  [2m8 [22m[chromium-gpu] › e2e/gpu/webgpu-tier.spec.ts:131:3 › device loss swaps the tier and recovers › stops drawing and hands the surface to the CSS tier[2m (431ms)[22m
+  [32m✓[39m  [2m9 [22m[chromium-gpu] › e2e/gpu/webgpu-tier.spec.ts:188:3 › device loss swaps the tier and recovers › draws again once a device is restored[2m (432ms)[22m
+
+[32m  9 passed[39m[2m (6.4s)[22m

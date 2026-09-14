@@ -21120,8 +21120,8 @@ canonical matrix changed. No display or accessibility setting was read or change
 
 **Gate:** W28 G1, Decision Log 2 and its holdout addendum; X1, X10 and X11. Evidence is
 `packages/calibration/results/2026-09-14-w28-g1-silhouette/`. The mechanism check passed before
-any response ordinate was proposed. The browser fit is in progress; no fitted endpoint or checking
-verdict is claimed by this intermediate record.
+any response ordinate was proposed. Both schemes are refitted and sealed, with the six W28
+holdouts unread and the G2 reader dry-run. No checking verdict or activation runtime is claimed.
 
 **1. The declaration precedes the fit.** Commit **711ad78** declares the input check, the six
 W28 holdout cells and the admission boundary. Commit **b20e2690** records the completed input
@@ -21263,7 +21263,6 @@ Its worst control is 2x `checkerboard-8__rrect-lg__inactive`, body DeltaE
 give fit means **0.016223720561082036 / 0.016272613937924448 / 0.01626978068243477 /
 0.016284602019629134**. Every rung and cell is retained in `fit-light.json` and `sweep-matrices/`.
 The selected position is a fit parameter, not a newly identified native uniform-response knee.
-The selected position is not treated as a newly measured physical knee.
 
 **8. The dark fit keeps the measured middle knots and re-examines the far step.** The source
 baseline's mean body DeltaE is **0.042990339330247415**; the silhouette-only baseline is
@@ -21297,8 +21296,81 @@ points too apparent. Closing that low-input body/collapse residual needs work be
 and far response ordinates; it is recorded, not hidden by the improved aggregate objective.
 `eye.json` is a supplying-cell inspection, not G2's checking sheets or the user's landing veto.
 
-Not yet measured in this intermediate record: the frozen-endpoint holdout, checking bound,
-CSS fitted-output residual or final workspace/golden/e2e verification. No activation
-runtime, native capture, reference build, scene/fixture/active-profile edit or canonical matrix
-change is made. No display or accessibility setting is changed; browser runs record the existing
-Reduce Transparency / Increase Contrast readings as **0 / 0** on macOS **26.5.2 (25F84)**.
+**9. CSS derives; accessibility is unchanged.** The selected documents are read on CSS for the
+same **96 non-D standard-policy fit/control cells**, with no holdout. Mean absolute CSS/WebGPU
+body-Y gaps are:
+
+| profile | mean absolute body-Y gap |
+| --- | ---: |
+| light standard 1x | 0.00407096496685912 |
+| light standard 2x | 0.0026787569722420868 |
+| dark standard 1x | 0.0010353293609859041 |
+| dark standard 2x | 0.0009393802843711449 |
+
+The widest gap is 1x light `photo__rrect-md__inactive`: CSS Y **0.621904170864313**, WebGPU Y
+**0.6298645040481121**, gap **0.007960333183799073**. These are record-only output differences,
+combining the tiers' filter/compositing behavior; they do not isolate a CSS/GPU Jensen term. The
+isolated encode-after-linear-blur input diagnostic is §4. `css-coherence.json` keeps every cell.
+
+The four non-D accessibility body-metric objects are **identical** to G1d's: Increase Contrast's
+checker/photo body DeltaE remains **0.001194629074527989 / 0.0010356497954574781**; Reduce
+Transparency's remains **0.003840241300883383 / 0.0065975919582819615**. The levels remain
+**0.98 / 0.88**, respectively; the shared 0.96, approximate refraction scale 0 and every other
+non-response facet remain unchanged. `accessibility-check.json` records the complete comparison.
+
+**10. One sealed endpoint, and the G2 read rehearsed without spending it.** The exported rows
+land at **6d7465c91fb0e5eb4800bf5dc8adf8fe6d8fc82e**. `declare.ts` verifies their resolved identity
+with the selected sweep documents and freezes the actual exported patch, not a re-created guess:
+
+| resolution | SHA-256 |
+| --- | --- |
+| light active, unchanged | `b2b570e4adcea8fb9281aed4d2556598a1fc95b34ce4b12dd5a50157ac138306` |
+| dark active, unchanged | `874be66ea501621be265265424c16d2d98a01c40835d89c02de9473362c0d4dc` |
+| light inactive | `6dcb32c422639d0d49a4ad2927766f97817fb48c90c8987fbc09ec6a55a2b689` |
+| dark inactive | `70391dee6d9990c22efc4b268caf9139886af9684a4255ded1128d3b7a2b7326` |
+
+The exported patch digest is
+`3fbdcb6de5f05fe2dad0b624c97cc8a98a538ffa514b2d7a18ace2b359e5f733`.
+`fitted-endpoint.json` also pins runtime and instrument sources, active profile documents and the
+committed recovered-holdout blob identities. Source-content checks allow documentation-only
+commits but refuse changed drawing or measurement code. No source or instrument changes after
+this seal.
+
+The actual `frozen-read.ts --dry` executes **47 refusal cases**, accepts its valid controls and
+plans **188 rows**, including all six unread holdouts. Its counters are **0 browser pages,
+0 native PNGs and 0 background PNGs opened**; `realReadExecuted` is false. The scratch artifact
+and committed copy are identical, SHA-256
+`da326985df166f0b1665e0c7c372e0006e58475e4fd167b0dba4513017b3c12a`.
+The dry run itself reads no machine setting; real browser runs retain the mandatory preflight.
+The future CSS read is record-only and excludes all six W28 holdouts. The bound scorer remains
+WebGPU-only and keeps G1d's bound arithmetic unchanged.
+
+A separate instrument review found nine lineage/admission issues, including advisory-seed
+classification, owning-checkout scratch paths, recovered-holdout provenance and labels, current
+source/scorer/bound hashing, and strict resume-row/capture verification. A separate fix wave
+closes them; **10 TypeScript and 6 Python instrument tests** pass. These corrections change no
+material value or measured row. The four recovered holdouts explicitly retain their lack of
+presentation attestation; the checkerboard-64 pair retains the strict checking-bed lineage.
+
+**11. Verification and X8.** At the adopted source head, `pnpm -r build && pnpm -r lint &&
+pnpm -r test` passes, build first: **160 files / 2,363 tests** — policy 23, motion 164, geometry
+170, renderer 497, core 302, platform 610, calibration 415, React 148 and demo 34. This includes
+the tier-coherence pins, resting DOM floors and the exported frozen-document guard. The guard
+was first observed refusing the as-yet-unsealed document, then passes against the completed seal.
+Renderer browser verification is **34 / 34 goldens without regeneration plus 28 / 28 GPU tests**.
+Platform e2e is **392 / 392**: 383 across Chromium/Firefox/WebKit and nine on headed hardware
+Chromium, run serially. The golden isolation spec is untouched. Every browser command records
+Reduce Transparency / Increase Contrast **0 / 0** on macOS **26.5.2 (25F84)**; no setting or display
+mode is changed.
+
+The minor changeset documents the new abscissa field and refitted receded documents, still inert
+until a separate activation runtime applies them. No native capture, reference build,
+scene/fixture/active-profile edit, golden rewrite or canonical matrix change occurs.
+
+Not measured: G2's holdout or checking verdict; a new native holdout; a uniquely identified bright
+response knee or locality scale; a structure law at matched abscissa; a native pressed-geometry
+predictor; high-resolution downscaled-source fidelity, first-reduction/4K/live-source cost or
+adaptation fidelity; isolated CSS/GPU output Jensen error; an activation transition, demo landing
+or new regression floor. The dark impulse body's remaining **0.10284622939973558 / 0.10145087230272085**
+errors, photo chroma loss, the source-profile CSS sizing discrepancy and the active-shadow/source-cap
+locality limits remain named future work. G2, not this fit, judges the unchanged checking bound.
