@@ -1,5 +1,26 @@
 # @vitreajs/vitrea-react
 
+## 0.18.0
+
+### Minor Changes
+
+- 6d7465c: Add the profile-gated `backdropToneAbscissa` option. The `silhouette` branch samples an
+  encoded-space mean under each surface and uses its local reference throughout the WebGPU
+  and CSS material solves; absent or `source` retains the existing active behavior.
+  
+  Refit the opt-in receded material documents under silhouette sampling. The root now applies these frozen
+  endpoints when its window loses focus, following `document.hasFocus()` by default. Pin
+  `windowActivation` to `active` or `inactive`, or return to `auto`, through the root option,
+  `setWindowActivation`, or the matching React `<GlassRoot>` prop. Resolved root state reports
+  what is drawing; activation is neither an interaction state nor a profile-key segment.
+
+### Patch Changes
+
+- Updated dependencies [b29bc39]
+- Updated dependencies [6d7465c]
+  - @vitreajs/vitrea@0.18.0
+  - @vitreajs/vitrea-web@0.18.0
+
 ## 0.17.0
 
 ### Patch Changes
