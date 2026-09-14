@@ -29,9 +29,45 @@ async function readout(page: Page, label: string): Promise<string> {
   }, label);
 }
 
-/** The outer shadow the CSS tier declares on a host — the recede's most visible term. */
-async function shadowOf(page: Page): Promise<string> {
-  return page.getByTestId("dom-plate").evaluate((element) => getComputedStyle(element).boxShadow);
+/**
+ * Everything this tier declares for one surface, host and layers together.
+ *
+ * **Not the host's `box-shadow`**, which is what this read used to be and what
+ * made it useless: since W18 G1 the outer shadow is written by whichever carrier
+ * took it out of the body's own backdrop — L3, or the group's shadow container —
+ * and the host writes `none` on every carrier but the fallback. So both poses
+ * read `none` there, and an assertion on it could never fail for the reason it
+ * was written and could never pass for one either.
+ *
+ * What replaces it is the tier's whole output rather than a term chosen in
+ * advance. Which declaration a material change lands in is the profile
+ * document's business and it moves between waves; what a binding test is
+ * entitled to claim is that the recede reaches this tier's declarations at all.
+ * The three layers (`sharp`, `heavy`, `overlay`) carry the two filters, the
+ * tint, the press glow and the rim; the host carries the published tokens and
+ * the fallback shadow.
+ */
+async function materialOf(page: Page): Promise<string> {
+  return page.getByTestId("dom-plate").evaluate((host) => {
+    const read = (element: Element): string => {
+      const computed = getComputedStyle(element);
+      return [
+        "backdrop-filter",
+        "-webkit-backdrop-filter",
+        "background-color",
+        "background-image",
+        "box-shadow",
+        "border-color",
+        "--vitrea-tint",
+        "--vitrea-occlusion",
+        "--vitrea-border-color",
+        "--vitrea-blur",
+      ]
+        .map((property) => `${property}: ${computed.getPropertyValue(property).trim()}`)
+        .join("; ");
+    };
+    return [host, ...host.querySelectorAll("[data-vitrea-css-layer]")].map(read).join("\n");
+  });
 }
 
 /**
@@ -68,29 +104,33 @@ test("a pin holds the recede while the window has focus, and the material follow
 }) => {
   await gotoPlayground(page);
   await expect.poll(async () => readout(page, "windowActivation")).toBe("active");
-  const active = await shadowOf(page);
+  const active = await materialOf(page);
 
   await page.getByLabel("windowActivation pin").selectOption("inactive");
 
   await expect.poll(async () => readout(page, "windowActivation")).toBe("inactive");
   // The window never lost focus; the pin is the whole reason the pose moved.
   expect(await page.evaluate(() => document.hasFocus())).toBe(true);
-  // And it is a material change, not a label: the receded endpoint removes the
-  // outer shadow, which is a declaration this tier writes on every host.
-  await expect.poll(async () => shadowOf(page)).not.toBe(active);
+  // And it is a material change rather than a label: the receded endpoint is a
+  // different set of declarations on this tier, not the same ones renamed.
+  await expect.poll(async () => materialOf(page)).not.toBe(active);
 });
 
 test("returning the pin to auto hands the pose back to the window", async ({ page }) => {
   await gotoPlayground(page);
-  const active = await shadowOf(page);
+  const active = await materialOf(page);
 
   await page.getByLabel("windowActivation pin").selectOption("inactive");
   await expect.poll(async () => readout(page, "windowActivation")).toBe("inactive");
+  await expect.poll(async () => materialOf(page)).not.toBe(active);
 
   await page.getByLabel("windowActivation pin").selectOption("auto");
 
   await expect.poll(async () => readout(page, "windowActivation")).toBe("active");
-  await expect.poll(async () => shadowOf(page)).toBe(active);
+  // Polled, not read once: both poses are frozen endpoints and the transit
+  // between them is the tier's armed transitions, so the settled value is the
+  // only one worth comparing.
+  await expect.poll(async () => materialOf(page)).toBe(active);
 });
 
 test("a blur event alone cannot recede a window that still has focus", async ({ page }) => {
