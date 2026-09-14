@@ -1,0 +1,888 @@
+{
+  "gate": "W27c G1d fit / claims §5.143",
+  "label": "t2-ic-0.98",
+  "renderer": "webgpu",
+  "readAgainst": {
+    "light": {
+      "activeSha256": "b2b570e4adcea8fb9281aed4d2556598a1fc95b34ce4b12dd5a50157ac138306",
+      "activeRecordedFingerprint": "b2b570e4adcea8fb",
+      "inactiveSha256": "f74ccfe15b149ab7d3cc1e8f7d3763f5ff8000058ae8dd40529a9938c3b46ac6",
+      "frozenG1InactiveSha256": "351976df9bd2a2eca86aca590e6df22f4b0b1eba8cea3aba7602ccbceb9371f9"
+    },
+    "dark": {
+      "activeSha256": "874be66ea501621be265265424c16d2d98a01c40835d89c02de9473362c0d4dc",
+      "activeRecordedFingerprint": "874be66ea501621b",
+      "inactiveSha256": "c8b338b8850da818a2931ad5f2b7da1849c942cd9bef6aefe13bc95c99ccec0b",
+      "frozenG1InactiveSha256": "c8b338b8850da818a2931ad5f2b7da1849c942cd9bef6aefe13bc95c99ccec0b"
+    }
+  },
+  "endpointUnderTest": {
+    "source": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/packages/calibration/results/2026-09-14-w27c-g1d/sweeps/t2-ic-0.98.json",
+    "patch": {
+      "light": {
+        "tintChromaScale": 0,
+        "tintShadeCollapseRetention": 1,
+        "tintShadeStrength": 1,
+        "optics": {
+          "regular": {
+            "rimAlpha": 0,
+            "rimLevelGain": 0,
+            "shadowAlpha": 0
+          },
+          "clear": {
+            "rimAlpha": 0,
+            "rimLevelGain": 0,
+            "shadowAlpha": 0
+          }
+        },
+        "rimCollapsed": 0,
+        "rimCollapsedTinted": 0,
+        "outerShadow": {
+          "thinOcclusionDark": 0,
+          "thinOcclusionMid": 0,
+          "thinOcclusionBright": 0,
+          "thickOcclusionAt96": 0,
+          "thickOcclusionAt128": 0,
+          "thickOcclusionAt160": 0,
+          "liftAmplitude": 0,
+          "reducedTransparencyOcclusion": 0
+        },
+        "sizeScatterRampStartThick1x": 0.3,
+        "sizeScatterRampStartThick2x": 0.04,
+        "sizeScatterRampStartFar2x": 0.04,
+        "sizeHeavyTapSigma2x": 14,
+        "tintShadeDark": 0.0288,
+        "tintShadeLight": 0.76,
+        "reducedTintAdaptation": 0.88,
+        "sizeScatterFloor": 0.7,
+        "sizeScatterRampStartThin1x": 0.55,
+        "sizeScatterRampStartThin2x": 0.7,
+        "backdropToneResponseThin": [
+          0.0126,
+          0.4,
+          0.929
+        ],
+        "backdropToneResponseThick": [
+          0.4553,
+          0.518,
+          0.9
+        ],
+        "refractionScale": {
+          "approximate": 0
+        },
+        "increasedOcclusionLift": 0.96,
+        "strongBorderRim": {
+          "rimWidth": 1,
+          "rimAlpha": -3.5
+        },
+        "increasedOcclusionLiftByPolicy": {
+          "reduceTransparency": 0.92,
+          "increaseContrast": 0.98
+        }
+      },
+      "dark": {
+        "tintChromaScale": 0,
+        "tintShadeCollapseRetention": 1,
+        "tintShadeStrength": 1,
+        "optics": {
+          "regular": {
+            "rimAlpha": 0,
+            "rimLevelGain": 0,
+            "shadowAlpha": 0,
+            "tintAlpha": 0.89
+          },
+          "clear": {
+            "rimAlpha": 0,
+            "rimLevelGain": 0,
+            "shadowAlpha": 0
+          }
+        },
+        "rimCollapsed": 0,
+        "rimCollapsedTinted": 0,
+        "outerShadow": {
+          "thinOcclusionDark": 0,
+          "thinOcclusionMid": 0,
+          "thinOcclusionBright": 0,
+          "thickOcclusionAt96": 0,
+          "thickOcclusionAt128": 0,
+          "thickOcclusionAt160": 0,
+          "liftAmplitude": 0,
+          "reducedTransparencyOcclusion": 0
+        },
+        "sizeScatterRampStartThick1x": 0.3,
+        "sizeScatterRampStartThick2x": 0.04,
+        "sizeScatterRampStartFar2x": 0.04,
+        "sizeHeavyTapSigma2x": 14,
+        "tintShadeDark": 0.0202,
+        "tintShadeLight": 1.46,
+        "sizeScatterRampStartThin1x": 1,
+        "sizeScatterRampStartThin2x": 1,
+        "sizeScatterHeavyShareThick1x": 0.25,
+        "backdropToneResponseThin": [
+          0.011,
+          0.089,
+          0.1611
+        ],
+        "backdropToneResponseThick": [
+          0.0215,
+          0.065,
+          0.02
+        ]
+      }
+    },
+    "patchSha256": "d764707529bb120ac2a9d774e2b11eaa2e1e0c5ca36fd8a8350af45181bf6bde",
+    "frozenPatchSha256": "5c82ec2586323815c37d37b95dd760050339308adc5b829496b2ec07dc440ed7",
+    "isFrozenG1Endpoint": false,
+    "lightInactiveSha256": "14676c529cdc90ff9b7726360a75c5a110ba20be1fdd186117c165865f3228be",
+    "lightFrozenInactiveSha256": "f74ccfe15b149ab7d3cc1e8f7d3763f5ff8000058ae8dd40529a9938c3b46ac6",
+    "darkInactiveSha256": "c8b338b8850da818a2931ad5f2b7da1849c942cd9bef6aefe13bc95c99ccec0b",
+    "darkFrozenInactiveSha256": "c8b338b8850da818a2931ad5f2b7da1849c942cd9bef6aefe13bc95c99ccec0b"
+  },
+  "partition": "packages/calibration/results/2026-09-14-w27c-g1d/partition.json",
+  "bed": "packages/calibration/results/2026-09-11-w27c-g1b/checking-bed.json",
+  "bound": "packages/calibration/results/2026-09-11-w27c-g1b/bound.json",
+  "machineAccessibility": {
+    "reduceTransparency": 0,
+    "increaseContrast": 0,
+    "readAt": "2026-09-14T02:48:01.138Z"
+  },
+  "sitting": "/Users/new/vitrea-w27-26.5-run",
+  "engineVersion": "151.0.7922.34",
+  "sourceSha256": {
+    "packages/renderer-webgpu/src/material.ts": "4f55edefee154315205bb71aa9d47abde859daf88e507e17fd5a023e21f2eafd",
+    "packages/renderer-webgpu/src/wgsl/optics.ts": "9a53aed40b4ee678e33546194f6f3a8a8014eafd34420fece6ba72a3b8536c75",
+    "packages/platform-web/src/root.ts": "7a207497e4b73a4aeee5d30301699fd47390660b0b3a987e925bd307de9ded90",
+    "packages/platform-web/src/optics.ts": "e694b35e6500edbc7775c9b404b342e74dedfb35810282b4084b3bb177d59fb4",
+    "packages/platform-web/src/receded-profile.ts": "83d0aecf6a014f8c4a42e0b2d0e7dbf5eb72341c22ea8dac945a0dff1d76b69e",
+    "packages/calibration/web/scene.ts": "1f8f51b04d9cd779717ab2c135aef3fd74624692b77de9def2341e985949d322",
+    "packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json": "6a9600720477dd433539d7af477b838776410e957d63fa7e63059dab214c5d26",
+    "packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json": "950ce1c3e91715ee470dd02d10c589f3ebae0f2b88d6ae85f4a2de6986020e12"
+  },
+  "instrumentSha256": {
+    "packages/calibration/results/2026-09-14-w27c-g1d/g1d-run.ts": "540e2f2058ab8d0828b277b210df9be273de3f303ddfad563d576285c53c38eb",
+    "packages/calibration/results/2026-09-14-w27c-g1d/partition.json": "bb1ca662864a55a30ec5471a922d3c234c15db3488ef0cb568b375ff0bfad49b",
+    "packages/calibration/results/2026-09-14-w27c-g1d/plurality.json": "11aa88d2dd3c63f95dc38060ed43e925a7ac850bcd261e5dd2a44767fbed43c9",
+    "packages/calibration/results/2026-09-11-w27c-g1b/bound.json": "736a647dfc4c7ceae5498e1c12ff370b019be7d78de81a9487b04379265c8081",
+    "packages/calibration/results/2026-09-11-w27c-g1b/checking-bed.json": "64c0e5addff2583242ec39045a1d89c5af1c1f0bf4754728aa72a8b3d9dc8dba"
+  },
+  "patchSha256": "d764707529bb120ac2a9d774e2b11eaa2e1e0c5ca36fd8a8350af45181bf6bde",
+  "sceneSpecSha256": "fcd1607ede1ba2337a7ab84d0aaf5cd93651bccd5f39ca954a1937086eba90eb",
+  "definitions": {
+    "deltaE": "Full-canvas mean per-pixel OKLab distance, canonical oklabDeltaE",
+    "bodyDeltaE": "Mean per-pixel OKLab distance over the declared union eroded 6 CSS px",
+    "body": "Declared union eroded 6 CSS px: linear Rec.709 Y mean and population SD, and mean per-pixel OKLab chroma",
+    "scale": "Device pixels per CSS px",
+    "geometry": "How the page was actually framed, read back per row: the viewport is the declared matrix canvas, and a row exists only where the page reported no problems and agreed with the declaration on canvas, requested scale and devicePixelRatio",
+    "notRead": "The three bed ids carrying §5.130's holdout role are captured by no row here: the holdout is spent and this read does not produce a second vitrea-against-native distance for one under another name"
+  },
+  "rows": [
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "checkerboard__rrect-md__inactive",
+      "scale": 1,
+      "scheme": "light",
+      "a11yMode": "increased-contrast",
+      "state": "inactive",
+      "groups": [
+        "E"
+      ],
+      "role": "calibration",
+      "scored": false,
+      "isControl": false,
+      "preAttestationRecovered": false,
+      "capture": "/tmp/w27c-g1d-sweeps/t2-ic-0.98/apple-macos-26.5-1x-light-increased-contrast/checkerboard__rrect-md__inactive.png",
+      "captureSha256": "8d1316d4a25d8bf05a3247c03356e0b33fb1f931b679c70c3a5467244e6ff7c4",
+      "nativeSource": "sitting",
+      "nativePath": "/Users/new/vitrea-w27-26.5-run/a11y-increase-contrast/inactive-1x/run-1/apple-macos-26.5-1x-light-increased-contrast/checkerboard__rrect-md__inactive.png",
+      "nativeSha256": "5c560db1d242e3273ec0b6d71187296a3a81dd1eb8588076a563e1631317f1b2",
+      "nativeRun": "run-1",
+      "backgroundSha256": "8221472c8e3f1eccbec0da09058285ce8544b090e71fd2fdf30eab52cab8e298",
+      "nativeAttestation": {
+        "presentedActive": false,
+        "presentation": {
+          "activationPolicy": "accessory",
+          "appIsActive": false,
+          "attestedAt": "2026-09-12T13:57:47Z",
+          "declaredPose": "inactive",
+          "isKeyWindow": false,
+          "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+          "observedPose": "inactive",
+          "windowCanBecomeKey": false
+        },
+        "hidIdleSeconds": 114.923395458,
+        "deterministic": true,
+        "frequencySettled": false,
+        "stateFrequencies": null,
+        "identicalToBackground": false
+      },
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 2,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.21404114048223255,
+            "linearLuminance": 0.5,
+            "rgb": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 200
+        },
+        "canvas": {
+          "width": 320,
+          "height": 200
+        },
+        "pixelSize": [
+          320,
+          200
+        ],
+        "requestedScale": 1,
+        "devicePixelRatio": 1,
+        "background": {
+          "id": "checkerboard",
+          "url": "/reference-fixtures/backgrounds/checkerboard@1x.png",
+          "naturalWidth": 320,
+          "naturalHeight": 200
+        },
+        "capturedPixels": [
+          320,
+          200
+        ]
+      },
+      "problems": [],
+      "diagnostics": [],
+      "deltaE": {
+        "mean": 0.002498134444354229,
+        "p95": 0.00297480831878383,
+        "max": 0.427607809339423,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 12264,
+        "webY": 0.9935812339503518,
+        "nativeY": 0.9935195638797862,
+        "webSD": 0.003989110088845205,
+        "nativeSD": 0.003958060002909702,
+        "webChroma": 3.7194006709445704e-8,
+        "nativeChroma": 3.719323819467459e-8,
+        "deltaE": 0.001194629074527989
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "dark-solid__rrect-48__inactive",
+      "scale": 1,
+      "scheme": "light",
+      "a11yMode": "increased-contrast",
+      "state": "inactive",
+      "groups": [
+        "D"
+      ],
+      "role": "probe",
+      "scored": true,
+      "isControl": false,
+      "preAttestationRecovered": false,
+      "capture": "/tmp/w27c-g1d-sweeps/t2-ic-0.98/apple-macos-26.5-1x-light-increased-contrast/dark-solid__rrect-48__inactive.png",
+      "captureSha256": "b2e78a11672c6b19fad7b686af284999df485ba8a719d85f2a6bae6cc45852e1",
+      "nativeSource": "bundle",
+      "nativePath": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/apps/reference-apple/fixtures/apple-macos-26.5-1x-light-increased-contrast/dark-solid__rrect-48__inactive.png",
+      "nativeSha256": "c0a553036c098356aa8494fb0bded92ceb0462c435a69ecd239d8921555a9f17",
+      "nativeRun": "run-1",
+      "backgroundSha256": "a2060412e337027e43ec3eafac5905bd6b9eda56d98ef5e35494cb7e86aa8f49",
+      "nativeAttestation": {
+        "presentedActive": false,
+        "presentation": {
+          "activationPolicy": "accessory",
+          "appIsActive": false,
+          "attestedAt": "2026-09-12T13:58:35Z",
+          "declaredPose": "inactive",
+          "isKeyWindow": false,
+          "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+          "observedPose": "inactive",
+          "windowCanBecomeKey": false
+        },
+        "hidIdleSeconds": 162.736607208,
+        "deterministic": true,
+        "frequencySettled": false,
+        "stateFrequencies": null,
+        "identicalToBackground": false
+      },
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 2,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.011711216012856962,
+            "linearLuminance": 0.011711216012873185,
+            "rgb": [
+              0.0116122451797466,
+              0.0116122451797466,
+              0.012983032342164687
+            ]
+          }
+        }
+      ],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 200
+        },
+        "canvas": {
+          "width": 320,
+          "height": 200
+        },
+        "pixelSize": [
+          320,
+          200
+        ],
+        "requestedScale": 1,
+        "devicePixelRatio": 1,
+        "background": {
+          "id": "dark-solid",
+          "url": "/reference-fixtures/backgrounds/dark-solid@1x.png",
+          "naturalWidth": 320,
+          "naturalHeight": 200
+        },
+        "capturedPixels": [
+          320,
+          200
+        ]
+      },
+      "problems": [],
+      "diagnostics": [],
+      "deltaE": {
+        "mean": 0.00058567034599848,
+        "p95": 0,
+        "max": 0.3539322477492694,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 2580,
+        "webY": 0.991102097113835,
+        "nativeY": 0.9944543302942228,
+        "webSD": 1.1542389828584841e-7,
+        "nativeSD": 0.00431165606089582,
+        "webChroma": 3.716311241562218e-8,
+        "nativeChroma": 3.720488698625017e-8,
+        "deltaE": 0.0011207417387046324
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "dark-solid__rrect-80__inactive",
+      "scale": 1,
+      "scheme": "light",
+      "a11yMode": "increased-contrast",
+      "state": "inactive",
+      "groups": [
+        "D"
+      ],
+      "role": "probe",
+      "scored": true,
+      "isControl": false,
+      "preAttestationRecovered": false,
+      "capture": "/tmp/w27c-g1d-sweeps/t2-ic-0.98/apple-macos-26.5-1x-light-increased-contrast/dark-solid__rrect-80__inactive.png",
+      "captureSha256": "940809c128536d1cfc09a486c70e5ac5acc9b24d270e79c4b45cd6194ed22f8b",
+      "nativeSource": "bundle",
+      "nativePath": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/apps/reference-apple/fixtures/apple-macos-26.5-1x-light-increased-contrast/dark-solid__rrect-80__inactive.png",
+      "nativeSha256": "6f24eecff08a57c92102126e33a911ddacc2c6a5dd674292780413cd338e962e",
+      "nativeRun": "run-1",
+      "backgroundSha256": "a2060412e337027e43ec3eafac5905bd6b9eda56d98ef5e35494cb7e86aa8f49",
+      "nativeAttestation": {
+        "presentedActive": false,
+        "presentation": {
+          "activationPolicy": "accessory",
+          "appIsActive": false,
+          "attestedAt": "2026-09-12T13:57:28Z",
+          "declaredPose": "inactive",
+          "isKeyWindow": false,
+          "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+          "observedPose": "inactive",
+          "windowCanBecomeKey": false
+        },
+        "hidIdleSeconds": 95.763807291,
+        "deterministic": true,
+        "frequencySettled": false,
+        "stateFrequencies": null,
+        "identicalToBackground": false
+      },
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 2,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.011711216012856962,
+            "linearLuminance": 0.011711216012873185,
+            "rgb": [
+              0.0116122451797466,
+              0.0116122451797466,
+              0.012983032342164687
+            ]
+          }
+        }
+      ],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 200
+        },
+        "canvas": {
+          "width": 320,
+          "height": 200
+        },
+        "pixelSize": [
+          320,
+          200
+        ],
+        "requestedScale": 1,
+        "devicePixelRatio": 1,
+        "background": {
+          "id": "dark-solid",
+          "url": "/reference-fixtures/backgrounds/dark-solid@1x.png",
+          "naturalWidth": 320,
+          "naturalHeight": 200
+        },
+        "capturedPixels": [
+          320,
+          200
+        ]
+      },
+      "problems": [],
+      "diagnostics": [],
+      "deltaE": {
+        "mean": 0.0010793519564953006,
+        "p95": 0.00297480831878383,
+        "max": 0.36478644277908256,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 8604,
+        "webY": 0.9911020971139368,
+        "nativeY": 0.9936502645606071,
+        "webSD": 0,
+        "nativeSD": 0.0040224605618650175,
+        "webChroma": 3.716311241561652e-8,
+        "nativeChroma": 3.719486694916365e-8,
+        "deltaE": 0.0008519209318320654
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "hc-text-28__rrect-md__inactive",
+      "scale": 1,
+      "scheme": "light",
+      "a11yMode": "increased-contrast",
+      "state": "inactive",
+      "groups": [
+        "D"
+      ],
+      "role": "probe",
+      "scored": true,
+      "isControl": false,
+      "preAttestationRecovered": false,
+      "capture": "/tmp/w27c-g1d-sweeps/t2-ic-0.98/apple-macos-26.5-1x-light-increased-contrast/hc-text-28__rrect-md__inactive.png",
+      "captureSha256": "fd33f996032f4fae4da7ace560984fec7ec8964e323625d7a2a0cb38734a79b5",
+      "nativeSource": "bundle",
+      "nativePath": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/apps/reference-apple/fixtures/apple-macos-26.5-1x-light-increased-contrast/hc-text-28__rrect-md__inactive.png",
+      "nativeSha256": "8f28d155f45f5fcd1b618728a2abaa05e4f12d3622a0bcbae780411e840db6e7",
+      "nativeRun": "run-1",
+      "backgroundSha256": "12700db8a7d00a5b24f276e49692a76d0afae23ac1a89db5fd7a4914d734e0dc",
+      "nativeAttestation": {
+        "presentedActive": false,
+        "presentation": {
+          "activationPolicy": "accessory",
+          "appIsActive": false,
+          "attestedAt": "2026-09-12T13:58:06Z",
+          "declaredPose": "inactive",
+          "isKeyWindow": false,
+          "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+          "observedPose": "inactive",
+          "windowCanBecomeKey": false
+        },
+        "hidIdleSeconds": 134.036842125,
+        "deterministic": true,
+        "frequencySettled": false,
+        "stateFrequencies": null,
+        "identicalToBackground": false
+      },
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 2,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.5465942649513014,
+            "linearLuminance": 0.76525,
+            "rgb": [
+              0.76525,
+              0.76525,
+              0.76525
+            ]
+          }
+        }
+      ],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 200
+        },
+        "canvas": {
+          "width": 320,
+          "height": 200
+        },
+        "pixelSize": [
+          320,
+          200
+        ],
+        "requestedScale": 1,
+        "devicePixelRatio": 1,
+        "background": {
+          "id": "hc-text-28",
+          "url": "/reference-fixtures/backgrounds/hc-text-28@1x.png",
+          "naturalWidth": 320,
+          "naturalHeight": 200
+        },
+        "capturedPixels": [
+          320,
+          200
+        ]
+      },
+      "problems": [],
+      "diagnostics": [],
+      "deltaE": {
+        "mean": 0.0037697865251684077,
+        "p95": 0.008931096839232105,
+        "max": 0.427607809339423,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 12264,
+        "webY": 0.9962308703935864,
+        "nativeY": 0.9779234736456495,
+        "webSD": 0.004396704582892457,
+        "nativeSD": 0.007125232823392444,
+        "webChroma": 3.722702572059201e-8,
+        "nativeChroma": 0.000025343117635925782,
+        "deltaE": 0.006158835053658255
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "light-solid__rrect-ml__inactive",
+      "scale": 1,
+      "scheme": "light",
+      "a11yMode": "increased-contrast",
+      "state": "inactive",
+      "groups": [
+        "D"
+      ],
+      "role": "probe",
+      "scored": true,
+      "isControl": false,
+      "preAttestationRecovered": false,
+      "capture": "/tmp/w27c-g1d-sweeps/t2-ic-0.98/apple-macos-26.5-1x-light-increased-contrast/light-solid__rrect-ml__inactive.png",
+      "captureSha256": "89399c9dc944d3cbf74507fe504fec5d800874478b8e2e4fcdb43e5fc90f213e",
+      "nativeSource": "bundle",
+      "nativePath": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a411f423c61b68604/apps/reference-apple/fixtures/apple-macos-26.5-1x-light-increased-contrast/light-solid__rrect-ml__inactive.png",
+      "nativeSha256": "61593399baec782a887dcee7c6c8b2c2ec516216736e056631f3ba3ea4f66440",
+      "nativeRun": "run-1",
+      "backgroundSha256": "7e7a1df7ed169f8bf2806f3a5327cc37e6123e4fd9810149bbf0c56b5d7155ff",
+      "nativeAttestation": {
+        "presentedActive": false,
+        "presentation": {
+          "activationPolicy": "accessory",
+          "appIsActive": false,
+          "attestedAt": "2026-09-12T13:57:37Z",
+          "declaredPose": "inactive",
+          "isKeyWindow": false,
+          "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+          "observedPose": "inactive",
+          "windowCanBecomeKey": false
+        },
+        "hidIdleSeconds": 105.3398495,
+        "deterministic": true,
+        "frequencySettled": false,
+        "stateFrequencies": null,
+        "identicalToBackground": false
+      },
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 2,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.8909690727434563,
+            "linearLuminance": 0.8909690727450716,
+            "rgb": [
+              0.887923117881436,
+              0.887923117881436,
+              0.9301108583750052
+            ]
+          }
+        }
+      ],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 200
+        },
+        "canvas": {
+          "width": 320,
+          "height": 200
+        },
+        "pixelSize": [
+          320,
+          200
+        ],
+        "requestedScale": 1,
+        "devicePixelRatio": 1,
+        "background": {
+          "id": "light-solid",
+          "url": "/reference-fixtures/backgrounds/light-solid@1x.png",
+          "naturalWidth": 320,
+          "naturalHeight": 200
+        },
+        "capturedPixels": [
+          320,
+          200
+        ]
+      },
+      "problems": [],
+      "diagnostics": [],
+      "deltaE": {
+        "mean": 0.009205778136186163,
+        "p95": 0.014676078255340268,
+        "max": 0.34506536206954486,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 24224,
+        "webY": 1,
+        "nativeY": 0.958952754148089,
+        "webSD": 0,
+        "nativeSD": 0.0038680690022044155,
+        "webChroma": 3.727399553518245e-8,
+        "nativeChroma": 0.0013194981666758555,
+        "deltaE": 0.01387562614635444
+      }
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-increased-contrast",
+      "scene": "photo__rrect-md__inactive",
+      "scale": 1,
+      "scheme": "light",
+      "a11yMode": "increased-contrast",
+      "state": "inactive",
+      "groups": [
+        "E"
+      ],
+      "role": "calibration",
+      "scored": false,
+      "isControl": false,
+      "preAttestationRecovered": false,
+      "capture": "/tmp/w27c-g1d-sweeps/t2-ic-0.98/apple-macos-26.5-1x-light-increased-contrast/photo__rrect-md__inactive.png",
+      "captureSha256": "24d006a1d348bac022f449a9156b1e3bcd1e361f7bfa515de394c2464d4491d8",
+      "nativeSource": "sitting",
+      "nativePath": "/Users/new/vitrea-w27-26.5-run/a11y-increase-contrast/inactive-1x/run-1/apple-macos-26.5-1x-light-increased-contrast/photo__rrect-md__inactive.png",
+      "nativeSha256": "c6737307afa7086de0b5ae8acb3d1583ee7972cb47e1af47d3234eb2e939fb99",
+      "nativeRun": "run-1",
+      "backgroundSha256": "8e319b0f82acf6169f24981192c960ad12a5c9b4904342692ca324e6379c6ed0",
+      "nativeAttestation": {
+        "presentedActive": false,
+        "presentation": {
+          "activationPolicy": "accessory",
+          "appIsActive": false,
+          "attestedAt": "2026-09-12T13:58:15Z",
+          "declaredPose": "inactive",
+          "isKeyWindow": false,
+          "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+          "observedPose": "inactive",
+          "windowCanBecomeKey": false
+        },
+        "hidIdleSeconds": 143.589462,
+        "deterministic": true,
+        "frequencySettled": false,
+        "stateFrequencies": null,
+        "identicalToBackground": false
+      },
+      "adapter": {
+        "ok": true,
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": "",
+        "isFallback": false
+      },
+      "repeats": 2,
+      "actualGroups": [
+        {
+          "id": "component",
+          "configuredSource": "texture",
+          "state": {
+            "configuredSource": "texture",
+            "activeRenderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "refraction": "true",
+            "analysis": "exact",
+            "health": "ok"
+          },
+          "probeVerdict": "pass",
+          "unsampledMaterial": null,
+          "backdropTone": {
+            "level": 0.15148185804236047,
+            "linearLuminance": 0.2140654342001308,
+            "rgb": [
+              0.202058890978265,
+              0.21890261995801485,
+              0.2015036036589953
+            ]
+          }
+        }
+      ],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 200
+        },
+        "canvas": {
+          "width": 320,
+          "height": 200
+        },
+        "pixelSize": [
+          320,
+          200
+        ],
+        "requestedScale": 1,
+        "devicePixelRatio": 1,
+        "background": {
+          "id": "photo",
+          "url": "/reference-fixtures/backgrounds/photo@1x.png",
+          "naturalWidth": 320,
+          "naturalHeight": 200
+        },
+        "capturedPixels": [
+          320,
+          200
+        ]
+      },
+      "problems": [],
+      "diagnostics": [],
+      "deltaE": {
+        "mean": 0.0016095928574532297,
+        "p95": 0.00297480831878383,
+        "max": 0.3678413969399625,
+        "sampleCount": 64000
+      },
+      "body": {
+        "n": 12264,
+        "webY": 0.9914415541405347,
+        "nativeY": 0.9935195638797862,
+        "webSD": 0.0011595341034603373,
+        "nativeSD": 0.003958060002909702,
+        "webChroma": 0.00019002443851732676,
+        "nativeChroma": 3.719323819467459e-8,
+        "deltaE": 0.0010356497954574781
+      }
+    }
+  ]
+}
