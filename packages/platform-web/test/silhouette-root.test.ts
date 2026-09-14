@@ -30,6 +30,7 @@ function setup(silhouette = true, hint?: number) {
   const container = document.createElement("div");
   document.body.append(container);
   root = createGlassRoot({
+    windowActivation: "active",
     container, renderer: "css", autoStart: false, diagnosticSink() {},
     matcher: () => ({ matches: false, media: "", addEventListener() {}, removeEventListener() {} }),
     ...(silhouette ? { materialProfile: { backdropToneAbscissa: { kind: "silhouette" } } } : {}),
@@ -89,7 +90,9 @@ describe("CSS silhouette profile routing", () => {
     const profile = { backdropToneAbscissa: value } as unknown as
       Parameters<GlassRoot["setMaterialProfile"]>[0];
     const children = container.innerHTML;
-    expect(() => createGlassRoot({ container, renderer: "css", materialProfile: profile }))
+    expect(() => createGlassRoot({
+      windowActivation: "active", container, renderer: "css", materialProfile: profile,
+    }))
       .toThrow(/backdropToneAbscissa/);
     expect(container.innerHTML).toBe(children);
     expect(() => instance.setMaterialProfile(profile)).toThrow(/backdropToneAbscissa/);

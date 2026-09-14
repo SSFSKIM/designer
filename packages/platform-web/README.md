@@ -192,9 +192,10 @@ content exactly as the app wrote it.
 | planes | `root.plane(plane)` → `PlaneLayers`; `GLASS_PLANES` |
 | interaction channels | `GLASS_CHANNEL_PROPERTIES` — write 0..1, the material reads |
 | findings | `root.diagnostics`, `consoleDiagnosticSink()`, `VitreaDiagnostic` |
-| capability answers | `root.capabilities(groupId)`, `root.accessibility`, `root.webgpu`, `root.colorScheme` |
+| capability answers | `root.capabilities(groupId)`, `root.accessibility`, `root.webgpu`, `root.colorScheme`, `root.windowActivation` |
 | how far apart two groups must sit | `samplingPaddingFor({ members, material })` |
 | colour scheme | `colorScheme: "light" \| "dark" \| "auto"`, `root.setColorScheme`, `darkMaterialProfile` |
+| window activation | `windowActivation: "auto" \| "active" \| "inactive"`, `root.setWindowActivation`, `setWindowActivation(root, value)`, `recededMaterialProfile` |
 | WebGPU | `renderer: "webgpu"`, `root.ready()`, `root.replaceDevice(device)` |
 
 Everything else this package exports is exported because the React bindings and
@@ -245,16 +246,50 @@ The page's own background is still the page's: vitrea does not write your tokens
 so an app offering "follow the system" reads `prefers-color-scheme` for its own
 colours as well as passing `"auto"` here.
 
-`recededMaterialProfile.light` and `.dark` are measured differences for a fixed inactive-window
-appearance. Select the entry for the resolved scheme and merge it over that scheme's material;
-for example, `createGlassRoot({ colorScheme: "dark", materialProfile: recededMaterialProfile.dark })`.
-They remove the outer shadow and bright rim while retaining an author's tint strength as an
-achromatic shade. The recovered native reference is macOS 26.5, with 1x-only light accessibility
-evidence. This is a fitted endpoint, not a pixel-match guarantee: photo chroma, intermediate dark
-levels and large-surface scattering remain measured gaps (claims §5.130). In particular, a
+`recededMaterialProfile.light` and `.dark` are the measured differences the pose below selects, and
+they are exported so an app can reach the endpoint directly — a preview that is never a window, a
+harness that captures the receded appearance. Select the entry for the resolved scheme and merge it
+over that scheme's material; for example,
+`createGlassRoot({ colorScheme: "dark", windowActivation: "inactive" })`.
+
+---
+
+## Window activation
+
+Apple's Liquid Glass recedes when its window loses focus, and vitrea models that as a pose of the
+**root**: a window is active or it is not, once per document, so no individual surface carries the
+answer and it is not a seventh interaction state.
+
+```ts
+const root = createGlassRoot({ windowActivation: "auto" }); // "auto" | "active" | "inactive"
+```
+
+`"auto"` is the default and follows the window's own focus. `"active"` and `"inactive"` pin the
+pose and win over what the window is doing, which is what a preview pane, a screenshot or a capture
+harness needs. `root.setWindowActivation(value)` moves a live root and takes effect on its next
+frame; `setWindowActivation(root, value)` is the same call as a free function, for a caller holding
+a root rather than writing against its methods. `root.windowActivation` reports which pose is
+actually drawing — `"active"` or `"inactive"`, with `"auto"` already folded.
+
+What feeds `"auto"` is `document.hasFocus()` on the window the root was created for, re-read
+whenever that window fires `focus` or `blur`. Visibility is a separate fact: a document behind
+another window can remain `"visible"` while unfocused, so `visibilitychange` does not select this
+pose. A `blur` event dispatched by page script cannot invent the answer either: the event says a
+reading is stale, and `document.hasFocus()` supplies it. Unfocused test documents (including
+jsdom) recede under `"auto"`; deterministic material tests should explicitly select their pose.
+
+The pose is a material change and travels the same path every other one does — the receded
+difference for the resolved colour scheme, merged and applied through `applyMaterialProfile`, so the
+CSS tier re-derives its declarations and the WebGPU tier takes new uniforms. Two frozen endpoints,
+with no intermediate profile document: the existing CSS transitions carry the visual transit,
+while the GPU takes the selected endpoint on its next frame. It is merged **over** an app's own `materialProfile`, so where the two name the same
+constant the recede wins for as long as it is on.
+
+The endpoints remove the outer shadow and the bright rim and retain an author's tint strength as an
+achromatic shade. The native reference is macOS 26.5, with 1x-only light accessibility evidence, and
+it is a fitted endpoint rather than a pixel-match guarantee: photo chroma, intermediate dark levels
+and large-surface scattering remain measured gaps (claims §5.130, §5.145–§5.147). In particular a
 full-strength neutral tint loses background colour that the native inactive material can retain.
-These documents alone do not observe window focus; activation is a root pose, not an interaction
-state on individual surfaces.
 
 ---
 

@@ -40,6 +40,8 @@ import {
   createGlassRoot,
   type GlassColorScheme,
   type GlassRoot as PlatformGlassRoot,
+  type GlassWindowActivation,
+  type ResolvedWindowActivation,
   type VitreaDiagnostic,
   type VitreaDiagnosticSink,
 } from "@vitreajs/vitrea-web";
@@ -87,6 +89,17 @@ export interface GlassRootProps {
    * behind that surface. This states which material the surface is made of.
    */
   readonly colorScheme?: GlassColorScheme | undefined;
+  /**
+   * Whether this window's glass draws the active material or the receded one
+   * (W28 G3). `"auto"` is the default and follows the window's own focus;
+   * `"active"` and `"inactive"` pin the pose and win over what the window is
+   * doing, which is what a preview, a screenshot or a capture harness needs.
+   *
+   * A pose of the root, not a state of a surface: a window's activation is one
+   * fact per document, so it is not a seventh interaction state and no surface
+   * carries it.
+   */
+  readonly windowActivation?: GlassWindowActivation | undefined;
   /** `"system"` follows the media query; a boolean overrules it (§Accessibility). */
   readonly reducedMotion?: AccessibilityOverride | undefined;
   readonly reducedTransparency?: AccessibilityOverride | undefined;
@@ -144,6 +157,7 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
     renderer = "css",
     powerPreference,
     colorScheme = "light",
+    windowActivation = "auto",
     reducedMotion = "system",
     reducedTransparency = "system",
     increasedContrast = "system",
@@ -176,6 +190,10 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
   const schemeRef = useRef<GlassColorScheme>(colorScheme);
   schemeRef.current = colorScheme;
 
+  // And the activation pose, on the same argument.
+  const activationRef = useRef<GlassWindowActivation>(windowActivation);
+  activationRef.current = windowActivation;
+
   useEffect(() => {
     const consoleSink = consoleDiagnosticSink();
     const sink: VitreaDiagnosticSink = (diagnostic) => {
@@ -198,6 +216,10 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
       // through this dependency list: rebuilding the runtime for a theme toggle
       // would drop every registration in the tree.
       colorScheme: schemeRef.current,
+      // Read at construction for the same reason: a root mounted with the pose
+      // already pinned must draw it on its first frame rather than flashing the
+      // active material for one.
+      windowActivation: activationRef.current,
     });
 
     rootRef.current = created;
@@ -227,6 +249,18 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
     if (root === null) return;
     root.setColorScheme(colorScheme);
   }, [colorScheme, root]);
+
+  /*
+   * The pose is applied to the live root exactly as the scheme above is, and for
+   * the same reason. It is deliberately NOT re-asserted every frame: an app that
+   * leaves the prop on `"auto"` and calls `root.setWindowActivation(...)` by hand
+   * through `useGlassRoot()` keeps what it set, because a binding that wrote its
+   * prop back on every frame would make the imperative seam write-only.
+   */
+  useEffect(() => {
+    if (root === null) return;
+    root.setWindowActivation(windowActivation);
+  }, [root, windowActivation]);
 
   /*
    * The bindings' motion runs on the root's frame loop, not on one of their own.
@@ -309,6 +343,24 @@ export function useGlassCapabilities(groupId?: string): GlassGroupState | undefi
   return useSyncExternalStore(
     useCallback((listener) => store.subscribeCapabilities(id, listener), [id, store]),
     () => store.capabilities(id),
+    () => undefined,
+  );
+}
+
+/**
+ * Which pose this root is actually drawing — `"auto"` already folded against the
+ * window's focus.
+ *
+ * The resolved answer, beside the resolved group state and the resolved
+ * accessibility policy, because that is what the honesty core is for: a readout
+ * says what drew, not what was asked for. `undefined` until the root exists,
+ * which is the tree's first commit.
+ */
+export function useGlassWindowActivation(): ResolvedWindowActivation | undefined {
+  const store = useGlassRootStore();
+  return useSyncExternalStore(
+    useCallback((listener) => store.subscribeWindowActivation(listener), [store]),
+    () => store.windowActivation(),
     () => undefined,
   );
 }

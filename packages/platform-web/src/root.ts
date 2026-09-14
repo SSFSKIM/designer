@@ -212,6 +212,13 @@ import {
   type GlassRendererBridge,
   type RendererMaterialProfile,
 } from "./renderer-bridge";
+import { recededMaterialProfile } from "./receded-profile";
+import {
+  observeWindowActivation,
+  resolveWindowActivation,
+  type GlassWindowActivation,
+  type ResolvedWindowActivation,
+} from "./window-activation";
 import { createWebGPULifecycle, type WebGPULifecycle, type WebGPUStatus } from "./webgpu";
 
 /**
@@ -319,6 +326,12 @@ export interface GlassRootOptions {
    * this states which material the surface is made of.
    */
   readonly colorScheme?: GlassColorScheme;
+  /**
+   * Follow window focus by default, or pin either frozen material endpoint (W28 G3).
+   * An unfocused document, including jsdom and background capture pages, recedes
+   * under auto. Deterministic material tests should explicitly select their pose.
+   */
+  readonly windowActivation?: GlassWindowActivation;
   /**
    * The CSS tier's side of that crossing: what a renderer quantity costs to
    * express as `backdrop-filter` plus an sRGB overlay.
@@ -537,6 +550,10 @@ export interface GlassRoot {
    * readout says what drew, not what was asked for.
    */
   readonly colorScheme: ResolvedColorScheme;
+  /** Change the root pose on the next frame; returning to auto re-reads window focus. */
+  setWindowActivation(value: GlassWindowActivation): void;
+  /** The endpoint resolved for drawing, never the requested auto setting. */
+  readonly windowActivation: ResolvedWindowActivation;
   readonly accessibility: ResolvedAccessibilityPolicy;
   readonly webgpu: WebGPUStatus | undefined;
   /**
@@ -1108,13 +1125,16 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    */
   let schemeSetting: GlassColorScheme = options.colorScheme ?? "light";
   let hostProfile: RendererMaterialProfile | undefined = options.materialProfile;
+  let activationSetting: GlassWindowActivation = options.windowActivation ?? "auto";
+  const activationFeed = observeWindowActivation(view);
+  let resolvedActivation = resolveWindowActivation(activationSetting, activationFeed.read());
   const colorSchemeFeed: ColorSchemeFeed = observeColorScheme({
     // On the SUPPLIED window, for the reason the device-ratio feed states: a root
     // created for an iframe or a popup has to read that window's answer.
     matcher: options.matcher ?? browserMediaMatcher(view),
     onChange: () => {
       if (schemeSetting !== "auto") return;
-      applyMaterialProfile(activeProfile());
+      applyMaterialProfile(posedProfile());
     },
   });
   /** The setting folded against the system's answer — what is actually drawing. */
@@ -1127,7 +1147,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   // anything here was built — the bindings below are initialised from the option
   // directly rather than through `applyMaterialProfile`, so its guard does not
   // cover the profile a root is BUILT with.
-  const initialProfile = activeProfile();
+  // The receded document is a difference OVER the complete active endpoint,
+  // not another host override. The active document is kept intact for restoration
+  // and for capture identity; activation never invents a blended profile SHA.
+  const posedProfile = (): RendererMaterialProfile | undefined =>
+    mergeMaterialProfiles(activeProfile(), resolvedActivation === "inactive"
+      ? recededMaterialProfile[resolvedScheme()] : undefined);
+  const initialProfile = posedProfile();
   let resolvedProfile = initialProfile;
 
   const cssMapping: CssTierMapping = { ...CSS_TIER_MAPPING, ...options.cssTierMapping };
@@ -3059,7 +3085,14 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
   scheduler.addParticipant({
     id: "vitrea.platform-web",
-    read: () => geometry.read(),
+    read: () => {
+      const next = resolveWindowActivation(activationSetting, activationFeed.read());
+      if (next !== resolvedActivation) {
+        resolvedActivation = next;
+        applyMaterialProfile(posedProfile());
+      }
+      geometry.read();
+    },
     write: (context) => {
       if (context.resolution !== undefined) write(context.frame, context.resolution);
       // The dirty backdrop set is handed out in `write` and only there
@@ -3557,12 +3590,21 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       // still merged over the colour scheme's base, because the scheme is a
       // separate choice the app has not just changed its mind about.
       hostProfile = profile;
-      applyMaterialProfile(activeProfile());
+      applyMaterialProfile(posedProfile());
     },
 
     setColorScheme(scheme) {
       schemeSetting = scheme;
-      applyMaterialProfile(activeProfile());
+      applyMaterialProfile(posedProfile());
+    },
+
+    setWindowActivation(value) {
+      activationSetting = value;
+      activationFeed.invalidate();
+    },
+
+    get windowActivation() {
+      return resolvedActivation;
     },
 
     get colorScheme() {
@@ -3616,6 +3658,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       accessibilityFeed.stop();
       devicePixelRatioFeed.stop();
       colorSchemeFeed.stop();
+      activationFeed.stop();
       geometry.destroy();
       proxies.destroy();
       // The bridge first: it owns GPU resources built on the device the

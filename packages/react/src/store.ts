@@ -17,7 +17,7 @@
  */
 
 import type { GlassGroupState, ResolvedAccessibilityPolicy } from "@vitreajs/vitrea";
-import type { GlassRoot } from "@vitreajs/vitrea-web";
+import type { GlassRoot, ResolvedWindowActivation } from "@vitreajs/vitrea-web";
 import { createContext, useContext } from "react";
 
 type Listener = () => void;
@@ -25,6 +25,8 @@ type Listener = () => void;
 export interface GlassRootStore {
   subscribeAccessibility(listener: Listener): () => void;
   accessibility(): ResolvedAccessibilityPolicy | undefined;
+  subscribeWindowActivation(listener: Listener): () => void;
+  windowActivation(): ResolvedWindowActivation | undefined;
   subscribeCapabilities(groupId: string, listener: Listener): () => void;
   capabilities(groupId: string): GlassGroupState | undefined;
   /** Re-read everything subscribed. Called once per ticker frame. */
@@ -65,9 +67,11 @@ const samePolicy = (
 
 export function createGlassRootStore(root: () => GlassRoot | null): GlassRootStore {
   const accessibilityListeners = new Set<Listener>();
+  const activationListeners = new Set<Listener>();
   const capabilityListeners = new Map<string, Set<Listener>>();
 
   let accessibility: ResolvedAccessibilityPolicy | undefined;
+  let windowActivation: ResolvedWindowActivation | undefined;
   const capabilities = new Map<string, GlassGroupState | undefined>();
 
   const notify = (listeners: Iterable<Listener>): void => {
@@ -79,6 +83,17 @@ export function createGlassRootStore(root: () => GlassRoot | null): GlassRootSto
     if (samePolicy(accessibility, live)) return;
     accessibility = live;
     notify(accessibilityListeners);
+  };
+
+  /**
+   * One enum, so identity comparison IS the snapshot comparison — the pose has
+   * no structure to fold, which is the whole reason it is a pose of the root.
+   */
+  const readWindowActivation = (): void => {
+    const live = root()?.windowActivation;
+    if (windowActivation === live) return;
+    windowActivation = live;
+    notify(activationListeners);
   };
 
   const readCapabilities = (groupId: string): void => {
@@ -96,6 +111,14 @@ export function createGlassRootStore(root: () => GlassRoot | null): GlassRootSto
     },
 
     accessibility: () => accessibility,
+
+    subscribeWindowActivation(listener) {
+      activationListeners.add(listener);
+      readWindowActivation();
+      return () => activationListeners.delete(listener);
+    },
+
+    windowActivation: () => windowActivation,
 
     subscribeCapabilities(groupId, listener) {
       const listeners = capabilityListeners.get(groupId) ?? new Set<Listener>();
@@ -115,6 +138,7 @@ export function createGlassRootStore(root: () => GlassRoot | null): GlassRootSto
 
     poll() {
       readAccessibility();
+      readWindowActivation();
       for (const groupId of capabilityListeners.keys()) readCapabilities(groupId);
     },
   };

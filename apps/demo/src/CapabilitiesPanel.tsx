@@ -13,7 +13,9 @@ import {
   useGlassAccessibility,
   useGlassCapabilities,
   useGlassDiagnostics,
+  useGlassWindowActivation,
   type AccessibilityOverride,
+  type GlassWindowActivation,
 } from "@vitreajs/vitrea-react";
 import type { ReactNode } from "react";
 
@@ -27,9 +29,13 @@ export interface CapabilitiesPanelProps {
   readonly groups: readonly { readonly id: string; readonly label: string }[];
   readonly overrides: OverrideState;
   readonly onOverridesChange: (next: OverrideState) => void;
+  readonly windowActivation: GlassWindowActivation;
+  readonly onWindowActivationChange: (next: GlassWindowActivation) => void;
   readonly variantMixed: boolean;
   readonly onVariantMixedChange: (next: boolean) => void;
 }
+
+const ACTIVATIONS: readonly GlassWindowActivation[] = ["auto", "active", "inactive"];
 
 const AXES = [
   "configuredSource",
@@ -89,6 +95,7 @@ function OverrideToggle(props: {
 
 export function CapabilitiesPanel(props: CapabilitiesPanelProps): ReactNode {
   const policy = useGlassAccessibility();
+  const activation = useGlassWindowActivation();
   const diagnostics = useGlassDiagnostics();
 
   return (
@@ -128,6 +135,46 @@ export function CapabilitiesPanel(props: CapabilitiesPanelProps): ReactNode {
           <em>not</em> say: a root that chose the CSS tier reads <code>health: ok</code> with no
           demotion reason, because choosing is not failing — labelling intent as fault would invert
           the whole point of these rows.
+        </p>
+      </section>
+
+      <section>
+        <h2>Window activation</h2>
+        <p className="panel__note">
+          Apple&rsquo;s glass recedes when its window loses focus, so the pose belongs to the root:
+          one window is active or it is not, and no individual surface carries the answer. Leave
+          the pin on <code>auto</code> and click away from this window &mdash; to another window,
+          and every surface on the page drops its outer shadow and its
+          bright rim together. The row below is the runtime&rsquo;s own answer, with{" "}
+          <code>auto</code> already folded against the window&rsquo;s focus.
+        </p>
+        <label className="toggle">
+          <select
+            value={props.windowActivation}
+            onChange={(event) =>
+              props.onWindowActivationChange(event.target.value as GlassWindowActivation)
+            }
+          >
+            {ACTIVATIONS.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+          windowActivation pin
+        </label>
+        <table className="state-table">
+          <tbody>
+            <tr>
+              <th scope="row">windowActivation</th>
+              <td>{activation ?? "—"}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p className="panel__note">
+          Pinning wins over the window, in both directions: <code>inactive</code> holds the recede
+          while this window has focus, which is what a preview or a capture harness needs, and{" "}
+          <code>active</code> holds the live material while it does not.
         </p>
       </section>
 

@@ -833,6 +833,7 @@ describe("the runtime runs the chain in the shader's order (W17 G1)", () => {
     const container = document.createElement("div");
     document.body.append(container);
     const instance = createGlassRoot({
+      windowActivation: "active",
       container,
       autoStart: false,
       matcher,

@@ -43,6 +43,7 @@ function root(options: GlassRootOptions = {}): GlassRoot {
   document.body.append(container);
   containers.push(container);
   const created = createGlassRoot({
+    windowActivation: "active",
     container,
     autoStart: false,
     matcher,
@@ -720,6 +721,7 @@ describe("a material profile the root cannot draw", () => {
       document.body.append(container);
       const before = styles();
       expect(() => createGlassRoot({
+        windowActivation: "active",
         container, autoStart: false, diagnosticSink: () => {},
         matcher: counting, colorScheme, materialProfile: mixed,
       }), colorScheme).toThrow(/backdrop tone response/);

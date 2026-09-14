@@ -53,3 +53,4 @@ export * from "./root";
 export * from "./tint";
 export * from "./vibrancy";
 export * from "./webgpu";
+export * from "./window-activation";

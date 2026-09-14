@@ -98,6 +98,7 @@ function stackedRoot(overlayBox: Rect, options: StackOptions = {}): GlassRoot {
   document.body.append(container);
   containers.push(container);
   const instance = createGlassRoot({
+    windowActivation: "active",
     container,
     autoStart: false,
     matcher,

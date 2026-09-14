@@ -23,6 +23,8 @@ import {
   type GlassLayerManager,
   type GlassPlane,
   type GlassRoot,
+  type GlassWindowActivation,
+  type RendererMaterialProfile,
   type ProxyRequest,
   type VitreaDiagnostic,
 } from "../../src/index";
@@ -103,6 +105,7 @@ export interface RootSpec {
   readonly backdrop?: BackdropHint;
   /** W21 G3: which colour scheme's material the root draws. Default light. */
   readonly colorScheme?: "light" | "dark" | "auto";
+  readonly windowActivation?: GlassWindowActivation;
 }
 
 export interface TextureGroupSpec {
@@ -168,6 +171,8 @@ let restoreCanvasContexts: (() => void) | undefined;
  * nothing. `e2e/gpu` uses neither — it runs against a real adapter, because that
  * is the only thing that proves the drawing.
  */
+let rendererProfile: RendererMaterialProfile | undefined;
+
 const installStubGpuStack = (): (() => Promise<never>) => {
   const original = HTMLCanvasElement.prototype.getContext;
   function patched(this: HTMLCanvasElement, id: string, ...rest: unknown[]): unknown {
@@ -207,7 +212,7 @@ const installStubGpuStack = (): (() => Promise<never>) => {
     setGroup: () => undefined,
     removeGroup: () => undefined,
     setAccessibility: () => undefined,
-    setMaterialProfile: () => undefined,
+    setMaterialProfile: (profile: RendererMaterialProfile) => { rendererProfile = profile; },
     drawFrame: () => ({ groupsDrawn: 0, rebuilds: 0, skipped: [], unbuilt: [] }),
     collectAdaptation: async () => undefined,
     frameParticipant: () => ({ id: "vitrea.renderer-webgpu" }),
@@ -252,12 +257,21 @@ const textureCanvases = new Map<string, HTMLCanvasElement>();
 const diagnostics: DiagnosticRecord[] = [];
 
 const api = {
+  /** The complete endpoint actually forwarded by the root to the renderer seam. */
+  async rendererMaterial() {
+    const { DEFAULT_MATERIAL_PROFILE, withMaterialOverrides } =
+      await import("../../../renderer-webgpu/src/material");
+    return withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, rendererProfile ?? {});
+  },
   async createRoot(spec: RootSpec = {}): Promise<void> {
     restoreCanvasContexts?.();
+    rendererProfile = undefined;
     device = spec.appDevice === true ? makeStubDevice() : undefined;
     const load = device === undefined ? undefined : installStubGpuStack();
     root = createGlassRoot({
       renderer: spec.renderer ?? "css",
+      // Existing material tests select the active endpoint; activation tests opt into auto.
+      windowActivation: spec.windowActivation ?? "active",
       devMode: spec.devMode ?? true,
       autoStart: false,
       ...(spec.colorScheme === undefined ? {} : { colorScheme: spec.colorScheme }),
