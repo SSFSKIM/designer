@@ -235,11 +235,13 @@ describe("W3's tinted cells", () => {
  * listed by hand in two places.
  */
 const isCheckingBedInactive = (scene: SceneEntry): boolean =>
-  scene.state === "inactive" && setOf(scene.id) === "probe";
+  scene.state === "inactive"
+  && setOf(scene.id) === "probe"
+  && scene.background !== "mid-light-solid";
 
 describe("W27c G0/G1's recovered-inactive bed (claims §5.128; X3, X7)", () => {
   const recovered = MATRIX.scenes.filter(
-    (scene) => isRecoveredInactive(scene) && !isCheckingBedInactive(scene),
+    (scene) => isRecoveredInactive(scene) && setOf(scene.id) !== "probe",
   );
 
   it("has exactly the 37 scenes G0 matched (claims §5.128 §1: 121 cells, 37 distinct scenes)", () => {
@@ -373,6 +375,38 @@ describe("W27c G1b's checking bed, declared before the capture (claims §5.134 �
     // specification's 12, and the extra two are free re-attestation.
     expect(cells("apple-macos-26.5-1x-light-increased-contrast")).toBe(14);
     expect(cells("apple-macos-26.5-1x-light-reduced-transparency")).toBe(14);
+  });
+});
+
+describe("W27c G1d's uniform dark-response anchor (Decision Log 18)", () => {
+  const ids = [
+    "mid-light-solid__capsule-button__inactive",
+    "mid-light-solid__rrect-sm__inactive",
+    "mid-light-solid__rrect-ml__inactive",
+    "mid-light-solid__rrect-lg__inactive",
+  ];
+
+  it("adds exactly the four declared inactive probe scenes over neutral 140/255", () => {
+    expect(MATRIX.backgrounds["mid-light-solid"]?.srgb).toEqual([140, 140, 140]);
+    const scenes = MATRIX.scenes.filter((scene) => scene.background === "mid-light-solid");
+    expect(scenes.map((scene) => scene.id)).toEqual(ids);
+    for (const scene of scenes) {
+      expect(scene.state).toBe("inactive");
+      expect(scene.tint).toBeUndefined();
+      expect(setOf(scene.id)).toBe("probe");
+    }
+  });
+
+  it("declares the same four ids in both dark standard profiles", () => {
+    for (const scale of ["1x", "2x"]) {
+      const profile = MATRIX.profiles.find(
+        (entry) => entry.key === `apple-macos-26.5-${scale}-dark-standard`,
+      );
+      expect(profile).toBeDefined();
+      expect(profile?.scenes).not.toBe("all");
+      const declared = profile?.scenes === "all" ? [] : profile?.scenes ?? [];
+      expect(ids.filter((id) => !declared.includes(id))).toEqual([]);
+    }
   });
 });
 

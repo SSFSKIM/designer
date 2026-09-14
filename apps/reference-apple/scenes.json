@@ -46,7 +46,14 @@
     "apart, and `sceneSpecVersion` is the only field a committed bundle says",
     "that in."
   ],
-  "version": 4,
+  "$comment-version-5": [
+    "5 — W27 Decision Log 18's dark inactive response anchor: one uniform",
+    "neutral background (`mid-light-solid`) and four inactive components,",
+    "declared `probe` under both dark standard scales before the seven-run",
+    "capture. The bump is provenance: the eight new profile/scene cells must",
+    "say that they were resolved from the 168-scene specification."
+  ],
+  "version": 5,
   "canvas": { "width": 320, "height": 200 },
 
   "backgrounds": {
@@ -152,6 +159,30 @@
         "",
         "Not a substitute for photo. A saturated patch is where the transfer is",
         "READ; photo is where it has to hold with structure present."
+      ]
+    },
+    "mid-light-solid": {
+      "kind": "solid",
+      "srgb": [140, 140, 140],
+      "$comment": [
+        "W27 Decision Log 18's missing dark inactive response anchor, and the",
+        "ONLY reason this background exists. Claims §5.141 found that the dark",
+        "thin row stays low through the brightest structured backdrop and then",
+        "rises by 0.84 at `light-solid`, but the two cells differ in both tone",
+        "and structure. The existing uniform patches leave their widest gap",
+        "between encoded 0.2706 and 0.9504 — 0.6798, 68% of the whole axis.",
+        "",
+        "A neutral 140/255 grey is encoded 0.5490196, inside that gap and close",
+        "to its centre. Its linear Rec.709 luminance is 0.262251: the channels",
+        "are equal, so there is no chroma axis, and a solid has zero spatial",
+        "structure. The dark inactive row over this one patch therefore decides",
+        "the question §5.141 could not: a rise here puts the step in the response",
+        "abscissa; a flat low row leaves structure as the explanatory variable.",
+        "",
+        "Same argument, same shape, as W7's `mid-dark-solid`: an axis whose",
+        "widest uniform interval contains no evidence gets one purpose-built",
+        "uniform neutral point, at both scales and at Decision Log 13's probe",
+        "bar. It is not a floor and no active counterpart is required."
       ]
     },
     "checkerboard": {
@@ -598,7 +629,11 @@
     { "id": "mid-chroma-solid__capsule-button__inactive", "background": "mid-chroma-solid", "component": "capsule-button", "state": "inactive" },
     { "id": "mid-chroma-solid__capsule-button__inactive-tint-orange", "background": "mid-chroma-solid", "component": "capsule-button", "state": "inactive", "tint": "orange" },
     { "id": "mid-chroma-solid__rrect-md__inactive", "background": "mid-chroma-solid", "component": "rrect-md", "state": "inactive" },
-    { "id": "mid-chroma-solid__rrect-lg__inactive", "background": "mid-chroma-solid", "component": "rrect-lg", "state": "inactive" }
+    { "id": "mid-chroma-solid__rrect-lg__inactive", "background": "mid-chroma-solid", "component": "rrect-lg", "state": "inactive" },
+    { "id": "mid-light-solid__capsule-button__inactive", "background": "mid-light-solid", "component": "capsule-button", "state": "inactive" },
+    { "id": "mid-light-solid__rrect-sm__inactive", "background": "mid-light-solid", "component": "rrect-sm", "state": "inactive" },
+    { "id": "mid-light-solid__rrect-ml__inactive", "background": "mid-light-solid", "component": "rrect-ml", "state": "inactive" },
+    { "id": "mid-light-solid__rrect-lg__inactive", "background": "mid-light-solid", "component": "rrect-lg", "state": "inactive" }
   ],
 
   "profiles": [
@@ -749,7 +784,11 @@
         "mid-chroma-solid__capsule-button__inactive",
         "mid-chroma-solid__capsule-button__inactive-tint-orange",
         "mid-chroma-solid__rrect-md__inactive",
-        "mid-chroma-solid__rrect-lg__inactive"
+        "mid-chroma-solid__rrect-lg__inactive",
+        "mid-light-solid__capsule-button__inactive",
+        "mid-light-solid__rrect-sm__inactive",
+        "mid-light-solid__rrect-ml__inactive",
+        "mid-light-solid__rrect-lg__inactive"
       ],
       "$comment": [
         "Wave 1 / G3 adoption: extended past calibration-only so the profile has a declared split (2 validation + 2 holdout; the split is per SCENE, so membership follows automatically). Holdout picks cover the size extreme (rrect-lg) and the stacked case (glass-over-glass) — the families the split comment names as where overfitting hides.",
@@ -987,7 +1026,11 @@
         "mid-chroma-solid__capsule-button__inactive",
         "mid-chroma-solid__capsule-button__inactive-tint-orange",
         "mid-chroma-solid__rrect-md__inactive",
-        "mid-chroma-solid__rrect-lg__inactive"
+        "mid-chroma-solid__rrect-lg__inactive",
+        "mid-light-solid__capsule-button__inactive",
+        "mid-light-solid__rrect-sm__inactive",
+        "mid-light-solid__rrect-ml__inactive",
+        "mid-light-solid__rrect-lg__inactive"
       ],
       "$comment": "Wave 1 / W1: the 1x dark subset, at 2x — extended with the same split scenes as 1x dark (G3 adoption; the profiles stay scene-comparable across scale). W3's and W7's additions are mirrored here for that same invariant: this list must stay the 1x dark list. W25's `probe` set is mirrored here for the same reason, and at 2x it is the half of the amendment that buys anything new: the grids as they stood on disk were 1x only, and no fixture anywhere identified the reference's kernel width above span 96 at 2x (claims §5.113). W27c G0/G1's 14 recovered-inactive scenes (claims §5.128; X3) are mirrored here too, for the same invariant — this list must stay the 1x dark list."
     }
@@ -1278,7 +1321,11 @@
       "mid-chroma-solid__capsule-button__inactive",
       "mid-chroma-solid__capsule-button__inactive-tint-orange",
       "mid-chroma-solid__rrect-md__inactive",
-      "mid-chroma-solid__rrect-lg__inactive"
+      "mid-chroma-solid__rrect-lg__inactive",
+      "mid-light-solid__capsule-button__inactive",
+      "mid-light-solid__rrect-sm__inactive",
+      "mid-light-solid__rrect-ml__inactive",
+      "mid-light-solid__rrect-lg__inactive"
     ]
   }
 }

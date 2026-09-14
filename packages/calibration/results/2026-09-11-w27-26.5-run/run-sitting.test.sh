@@ -22,7 +22,11 @@ bad()  { echo "  FAIL $1"; fails=$((fails + 1)); }
 cat > "$TMP/harness" <<'STUB'
 #!/bin/bash
 case "$1" in
-  backgrounds) mkdir -p "$VITREA_FIXTURES/backgrounds"; echo "backgrounds"; exit 0;;
+  backgrounds)
+    mkdir -p "$VITREA_FIXTURES/backgrounds"
+    printf '%s\n' "${VITREA_SCENES:-}" > "$VITREA_FIXTURES/background-scenes"
+    echo "backgrounds"
+    exit 0;;
   rehearse-tints) echo "rehearse $*"; exit "${STUB_REHEARSAL:-0}";;
 esac
 exit 0
@@ -32,6 +36,9 @@ chmod +x "$TMP/harness"
 # The launcher stub mimics `open -W`: it parses --env/--stdout/--stderr/--args.
 cat > "$TMP/launcher" <<'LAUNCH'
 #!/bin/bash
+# `open` does not propagate an arbitrary caller environment into the app. Drop
+# the inherited value so only an explicit `--env VITREA_SCENES=...` reaches it.
+unset VITREA_SCENES
 out=/dev/null; err=/dev/null; scenes=""; dry=0
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -53,6 +60,7 @@ for a in "$@"; do [ "$prev" = "--scenes" ] && scenes="$a"; prev="$a"; done
 } > "$out" 2>"$err"
 if [ "$dry" = "0" ]; then
   mkdir -p "$VITREA_FIXTURES"
+  printf '%s\n' "${VITREA_SCENES:-}" > "$VITREA_FIXTURES/launcher-scenes"
   cp "${STUB_MANIFEST:?}" "$VITREA_FIXTURES/manifest.json"
 fi
 exit 0
@@ -150,6 +158,21 @@ if [ "$code" != "0" ]; then bad "a healthy run exited $code"
 elif ! grep -q "attested 1 1" <<<"$out"; then bad "a healthy run did not attest"
 elif ! grep -q "already banked, skipping" <<<"$out2"; then bad "re-running did not skip a banked run"
 else ok "a healthy run banks and the pass resumes over it"; fi
+
+# 7. A worktree-local scene specification must reach both processes that resolve
+#    it: `backgrounds` and the open-launched app. The latter does not inherit the
+#    shell's arbitrary environment, which is why the launcher stub deliberately
+#    clears VITREA_SCENES before parsing explicit --env arguments.
+scene_spec="$TMP/amended-scenes.json"
+printf '{"version":4}\n' > "$scene_spec"
+out="$(VITREA_SCENES="$scene_spec" STUB_MANIFEST="$TMP/good-manifest.json" \
+       run "$TMP/s7" inactive 2 1 1)"; code=$?
+bg="$(cat "$TMP/s7/inactive-2x/run-1/background-scenes" 2>/dev/null)"
+app="$(cat "$TMP/s7/inactive-2x/run-1/launcher-scenes" 2>/dev/null)"
+if [ "$code" != "0" ]; then bad "scene override run exited $code"
+elif [ "$bg" != "$scene_spec" ]; then bad "backgrounds did not receive VITREA_SCENES"
+elif [ "$app" != "$scene_spec" ]; then bad "open-launched app did not receive VITREA_SCENES"
+else ok "scene override reaches backgrounds and the open-launched app"; fi
 
 echo ""
 [ "$fails" = "0" ] && { echo "all ok"; exit 0; } || { echo "$fails failed"; exit 1; }
