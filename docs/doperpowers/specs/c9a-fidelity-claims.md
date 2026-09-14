@@ -21853,8 +21853,12 @@ the document stayed `"visible"` while unfocused, which is exactly why the observ
 to `visibilitychange`. AppleScript was not used — an AppleEvent to `System Events` or to `Finder`
 times out at -1712 on this machine, waiting for an automation consent nobody was present to give —
 so the frontmost application is read through `lsappinfo` and moved through `open -a`, neither of
-which needs that consent. The screen was borrowed for about two minutes with nobody at the machine
-and handed back with the Finder frontmost, which is what it was on entry.
+which needs that consent. The screen was borrowed for a few minutes with nobody at the machine
+and handed back with the Finder frontmost, which is what both reading scripts recorded on entry.
+Precisely: before anything in this gate touched it, `lsappinfo` reported `UserNotificationCenter`
+frontmost — an unattended machine with no user application in front — and the Finder was raised
+while the AppleScript path was being found to be unusable. Nothing else was opened, moved or
+closed.
 
 `eye.md` reads the sheets. In short: the pose removes the broad outer shadow and the bright rim and
 keeps an author tint as an achromatic shade — `Publish` is orange active and a pale neutral
