@@ -124,6 +124,65 @@ Content visibility, pointer handling and contrast over the uncovered page remain
 the app's responsibility. The timing is authored and has no measured native
 reference; the tier-specific optical limits are recorded in claims §5.132.
 
+## Tint without a framework
+
+```ts
+import { glassTint } from "@vitreajs/vitrea";
+
+// A group's seed is core's parsed tint, not a string, and rides the group's
+// material profile — so the profile's `variant` comes with it.
+root.registerGroup({
+  id: "controls",
+  material: { variant: "regular", tint: glassTint([1, 0.584, 0]) },
+});
+
+// A surface takes any CSS colour the engine parses, and overrides its group.
+const handle = root.registerHost({ host: button, groupId: "controls", tint: "#ff9500" });
+
+handle.update({ tint: "rgb(255 149 0 / 50%)" }); // the colour's alpha IS the strength
+handle.update({ tint: null });                   // untinted, even under a tinted group
+handle.update({ tint: undefined });              // drop the override, inherit again
+```
+
+A surface that declares no `tint` inherits the group's seed; `null` clears an
+inherited one, the way `Glass.tint(nil)` does. In a patch the distinction is the
+key's presence, as it is for the other overrides on `update()`: `{ tint: undefined }`
+removes this surface's override, while an absent `tint` key leaves it alone.
+Strength 0 is not a tint — the material is byte-identical to an untinted one.
+
+The surface path takes a string because that is what an app already has; the group
+path takes `glassTint([r, g, b], strength)`, sRGB channels in 0..1. To hand a group
+a CSS colour instead, parse it the way the React binding does —
+`createTintParser(document)` once per document, then
+`resolveTintDeclaration(colour, parse, groupId, root.diagnostics)`. A colour neither
+parser resolves leaves the surface **untinted** and reports `tint-unparseable` rather
+than guessing at it; outside a browser (jsdom, SSR) only the numeric syntaxes
+resolve, so write `#rrggbb`, `#rrggbbaa`, `rgb()` or `rgba()` there.
+
+A group is one optics pass carrying one seed, so a group tint plus a member that
+overrides it is two: dev mode reports `tint-mixing`, and the tiers disagree there —
+WebGPU paints them all with the first surface's colour while the CSS tier honours
+each. Give a second colour its own group. The tint is a seed the material tone-maps
+against the backdrop it is already sampling, not a fill, and it never moves the
+material's own opacity; the foreground tokens below are published against the tinted
+material, so the ink follows the colour without the app deciding it again.
+
+## Foreground tokens and ownership without a framework
+
+Every registered host publishes `--vitrea-foreground` and its `-secondary`,
+`-tertiary` and `-quaternary` levels. The primary is Apple's automatic macOS label
+ink through the vibrant operator; secondary is raised where the primary can hold
+WCAG 4.5, while tertiary and quaternary deliberately carry no body-text floor.
+Use the tokens directly when the app owns its content.
+
+Set `vibrant: true` on `registerHost` or `handle.update()` when vitrea owns the
+label. This does not change the token value. It raises the runtime's `color` rule
+from the zero-specificity `:where([data-vitrea-node])` path to
+`[data-vitrea-vibrant]`, so it survives a reset such as `button { color: … }`;
+set it back to `false` to return to the token path. An application rule that names
+the element still wins. Presence 0 removes the vibrant marker so identity leaves
+content exactly as the app wrote it.
+
 ## The pieces
 
 | What | Where |

@@ -254,5 +254,12 @@ exit 2
     expect(result.status).not.toBe(0);
     expect(output).toContain("defaults second-read failure sentinel");
     expect(output).not.toContain("patch-read-after-preflight");
-  });
+    // The outer deadline must sit clear of the inner one, not on it. `spawnSync`
+    // gives the driver 30 s and then still has to be reaped, its output decoded
+    // and these assertions run; an equal Vitest budget makes the subprocess
+    // timeout — the case's own designed slow path — race the runner's, and the
+    // failure that surfaces is a test-timed-out rather than the preflight
+    // verdict. The headroom is the reason for the number, not the driver's cost:
+    // a cold `pnpm exec tsx` here is seconds, not tens of them.
+  }, 45_000);
 });

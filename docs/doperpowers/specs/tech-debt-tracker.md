@@ -2108,6 +2108,13 @@ side by side on one surface, with both seeds under controls. **(2) is still open
 half that stops this happening again: this entry stays until a test maps documented props to live
 instances.
 
+**Recomposition repair 2026-09-14 (`9650921`):** the same band now also passes the ownership half
+of W27a/W27e's `foreground` prop in live code: one operable checkbox moves both bookmarks between
+`"vibrant"` and `"token"`, the runtime marker follows and the returned app-owned ink is visibly
+stronger. A three-engine browser assertion pins the instance. The generic README-to-live-instance
+inventory in (2) remains open; this closes the concrete omission the audit found, not that broader
+lint.
+
 ## Core's advisory sampling padding is still σ = 8's 24 px and wins the toolbar gap on the regular variant (W27b, measured 2026-09-11)
 
 A toolbar partition clears `max(DEFAULT_GROUP_SAMPLING.samplingPadding, samplingPaddingFor(members))`:
@@ -2439,6 +2446,23 @@ opposite `hc-text__rrect-sm__inactive` over-prediction and fail clause 3 at 2.44
 that shared middle/bright structure without reopening the dark controls is the next response work;
 the bright dark endpoint and dark thick ordinate themselves no longer are.
 
+## The window-activation runtime is held behind the inactive response (W27 recomposition, 2026-09-14)
+
+W27 Decision Log 20 closes the coverage wave without W27c G2 or G3. The endpoint documents, the
+four-knot response and the per-policy accessibility lift ship inert; there is no
+`windowActivation` root option or `<GlassRoot>` prop, no activation observer or
+`setWindowActivation`, no inactive scene rows or floors, and no operable demo pose. This is a held
+runtime, not a replicated matrix row.
+
+What closes the hold is the response work claims §5.143 and the entry above identify: fit the shared
+middle/bright response across uniform and structured backdrops without reopening the dark controls,
+then separate the cap/refraction and one-pixel contour terms visible on the sheets. Re-apply the
+unchanged §5.134 §6 bound on a sealed configuration and require all six profiles to hold. Only then
+land G2's framework-agnostic root option, explicit setter and React prop through
+`applyMaterialProfile`; G3 adds inactive `state` rows, any evidence-supported floors, the demo's
+backgrounded-window pose and the user's eye. Decision Logs 17 and 20 explicitly reject shipping the
+hook on the four profiles that hold today.
+
 ## The inactive material under the accessibility policies follows its backdrop where Apple's does not (W27c G2 read, 2026-09-13)
 
 *Measured on the checking bed, claims §5.139 §6. This one is scored: it is both accessibility
@@ -2656,3 +2680,21 @@ rather than `cssTierForegroundColour(optics, hint)`, and the renderer output rat
 `gpuTierForegroundColour(material, hint)` — then retiring both pixel floors by fix. This is a
 material/composite change and remains deferred; the landing gate records and guards it rather than
 retuning the material without a wave.
+
+## W27a, W27b and W27d have no from-empty rest rebuild at their landing heads (W27 recomposition, 2026-09-14)
+
+Parent clause 3 requires two independent proofs that each non-optical child left the resting bed
+byte-identical: the renderer isolation spec and a from-empty calibration rebuild. The golden PNGs and
+`packages/calibration/` are unchanged across all three child ranges; W27a records 33/33 goldens,
+W27d records 34/34 plus 21/21 GPU e2e, and W27b's unchanged composition is argued from the source.
+But none of the three landing records contains a from-empty rebuild. The isolation spec itself was
+last changed before the W27 charter and still pins `W26_HASHES`; the last from-empty canonical build
+is W26 G3 at `2a235f36`. The recomposition therefore marks this half of clause 3 NOT MET rather than
+promoting an unchanged git diff into capture evidence.
+
+What closes it is a historical reconstruction, not a canonical rewrite: check out each landed head
+(`bc14af9`, `38d782c`, `108b40d`) in isolation on the capture machine, rebuild the declared resting
+calibration population into an empty scratch capture root, and compare every digest with the common
+W26 baseline. Never write `results/matrix.json`, a profile document or a golden. A current-head
+rebuild can show the final composition rests identically, but cannot by itself prove each
+intermediate landing did.

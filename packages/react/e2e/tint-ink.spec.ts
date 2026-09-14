@@ -286,6 +286,35 @@ test("secondary is solved per surface; tertiary and quaternary are Apple's fixed
   );
 });
 
+test("foreground ownership is operable on the bookmark controls", async ({ page }) => {
+  const ownership = page.getByRole("checkbox", { name: "Vitrea owns bookmark ink" });
+  await expect(ownership).toBeChecked();
+
+  for (const ground of GROUNDS) {
+    await expect(page.getByTestId(`ink-bookmark-${ground}`)).toHaveAttribute(
+      "data-vitrea-vibrant",
+      "",
+    );
+  }
+
+  const vibrantColor = await page
+    .getByTestId("ink-bookmark-light")
+    .evaluate((host) => getComputedStyle(host).color);
+  await ownership.uncheck();
+  await expect(ownership).not.toBeChecked();
+  for (const ground of GROUNDS) {
+    await expect(page.getByTestId(`ink-bookmark-${ground}`)).not.toHaveAttribute(
+      "data-vitrea-vibrant",
+      "",
+    );
+  }
+  await expect
+    .poll(() =>
+      page.getByTestId("ink-bookmark-light").evaluate((host) => getComputedStyle(host).color),
+    )
+    .not.toBe(vibrantColor);
+});
+
 test("the band names the tier that drew it", async ({ page }) => {
   for (const ground of GROUNDS) {
     const readout = page.getByTestId(`ink-tier-${ground}`);
