@@ -499,7 +499,9 @@ never fitted on is admissible as W28's holdout provided the fit does not see it 
 holdout takes `hc-text__capsule-button__inactive`; the dark holdout takes the two largest-offset
 non-D inactive cells, and X8 records that its discriminating offset is bounded at 0.037, the real
 dark test of the abscissa being the checking set's own `hc-text__rrect-sm__inactive` at G2. No
-capture is added for this.
+capture is added for this. *(Corrected by G1 the same day, the original kept: the photo capsule's
+offset is 0.03734347805587751 at 1x and 0.03800814795956453 at 2x, so the bound is 0.038 across
+scales; both below 0.05, holdout and threshold unchanged.)*
 
 ## Surprises & Discoveries
 
