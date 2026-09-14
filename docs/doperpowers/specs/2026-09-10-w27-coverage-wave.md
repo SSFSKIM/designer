@@ -11,9 +11,10 @@
 
 **Status: RECOMPOSED 2026-09-14 (claims §§5.128–5.143); 0.17.0 PREPARED,
 UNPUBLISHED — Decision Log 20 closes the wave with W27c G2/G3 held.** Verified against `main` at
-`d3d3163`, the publishable package surfaces and the live demo: clause 1 PARTLY (eight rows move and
-one is added; window focus is measured, not replicated), clause 2 PARTLY (every feature documented
-and operable, but the two React-only compositions have no named framework-agnostic widget option),
+`d3d3163`, the publishable package surfaces and the live demo: clause 1 PARTLY (seven rows move and
+one is added; window focus is measured, not replicated, and the button pair holds `partial` on the
+absent prominent style), clause 2 PARTLY (every feature documented and operable, but the two
+React-only compositions have no named framework-agnostic widget option),
 clause 3 PARTLY (floors stand; the landing-time from-empty proofs do not exist), clause 4 MET, and
 clause 5 PARTLY until the user runs `pnpm release`. The originally chartered status is kept beneath.
 
@@ -1108,13 +1109,17 @@ neighbour glow diffusion; topology-changing morphs.
 `d3d3163`, the publishable package entries and the live demo:**
 
 1. **The matrix moves by build — PARTLY.** The appended 2026-09-14 re-score in the coverage
-   matrix's §7 moves eight rows and adds the WebGPU-over-DOM row under §3.7. Across **175 total / 156
-   scoreable** rows: `replicated+measured` 41 → **45** (29%), `replicated, unmeasured` 25 → **29**
-   (19%), `partial` 26 → **24** (15%), `excluded by decision` 23 → **22** (14%), and
-   `absent, undecided` 40 → **36** (23%). Toolbar grouping is replicated and unmeasured; button tint,
-   vibrancy and its levels, and the DOM-backed WebGPU material are replicated and measured;
-   identity, `materialize` and materialize-not-fade are replicated and unmeasured because there is
-   no native motion sequence (§§5.132, 5.135, 5.137, 5.140, 5.142). The miss is window focus:
+   matrix's §7 moves seven rows and adds the WebGPU-over-DOM row under §3.7. Across **175 total / 156
+   scoreable** rows: `replicated+measured` 41 → **44** (28%), `replicated, unmeasured` 25 → **29**
+   (19%), `partial` 26 → **25** (16%), `excluded by decision` 23 → **22** (14%), and
+   `absent, undecided` 40 → **36** (23%). Toolbar grouping is replicated and unmeasured; vibrancy and
+   its levels and the DOM-backed WebGPU material are replicated and measured; identity, `materialize`
+   and materialize-not-fade are replicated and unmeasured because there is
+   no native motion sequence (§§5.132, 5.135, 5.137, 5.140, 5.142). Two of the clause's named rows
+   fall short. The smaller is the button pair (§1.6): W27a's `Glass.tint` on buttons is replicated
+   **and** measured on both tinted capsule-button cells, which is what the clause asked, but the row
+   also names `GlassProminentButtonStyle`, absent and held by Decision Log 6, so the row itself keeps
+   `partial` rather than being scored on its closed half. The larger is window focus:
    §§5.128, 5.130, 5.134, 5.139, 5.141 and 5.143 measure the inactive endpoint, but the unchanged
    bound holds on four of six profiles and no runtime consumes it. Decision Log 20 holds W27c G2/G3,
    so §3.6 is **`partial` — measured, not replicated**, not the `replicated+measured` the charter
@@ -1127,6 +1132,15 @@ neighbour glow diffusion; topology-changing morphs.
    `foreground="token"`, with the returned app-owned ink visible. The browser case failed before
    the control existed and passes after; `packages/core/README.md` also no longer says tint is only
    per surface.
+
+   A third omission in the same file, found by the medium review of that recomposition and closed
+   beside it: the framework-agnostic **tint** path had no prose anywhere — `registerHost({ tint })`
+   taking any CSS colour with its alpha as the strength, the group's `material.tint` seed as core's
+   parsed `glassTint`, inheritance, `null` clearing an inherited seed against `undefined` dropping a
+   surface's override, the `tint-unparseable` refusal, and one optics pass carrying one seed — so an
+   adopter outside React met the flagship colouring API through its type declarations only. The W27a
+   row below already named `packages/platform-web/README.md` as the carrying README; that is now true
+   of the tint half as well as the foreground one, which is why the row is unchanged.
 
    | landed feature | React reach | framework-agnostic reach | carrying README | live instance |
    | --- | --- | --- | --- | --- |
@@ -1180,13 +1194,34 @@ neighbour glow diffusion; topology-changing morphs.
    note for the additive three/four-knot `MaterialProfile` rows and
    `increasedOcclusionLiftByPolicy` are consumed together by `pnpm changeset version`; the fixed
    group is prepared at **0.17.0**. The c9d chain at the code-identical recomposition head records:
-   workspace build and lint green; targeted coherence/floors 96/96; platform-web Playwright
+   workspace build and lint green, the root `npx eslint .` among them and green on its own; targeted
+   coherence/floors 96/96; platform-web Playwright
    392/392; renderer Playwright 56 passed / 1 intentional attribution skip; demo Playwright 57/57;
    React Playwright 162 collected, **155 passed / 3 intentional skips / 4 failures in the tracker’s
    known Firefox timing/focus class**, none in the new ownership case, and not rerun to manufacture a
-   green record. The first two workspace unit runs exposed a 5 s Vitest budget shorter than the
-   test's own 30 s subprocess budget; the recomposition raises only that outer budget and records the
-   fail-before, after which the exact `pnpm -r test` chain passes **2,320 / 2,320**. Publishing and
+   green record. **The chain is therefore not all green, and is recorded that way**: the React suite
+   is red by those four named failures, which is what holds this clause and the release at PARTLY.
+   The first two workspace unit runs exposed a 5 s Vitest budget shorter than the
+   test's own 30 s subprocess budget; the recomposition raises only that outer budget — to 30 s,
+   recording the fail-before — after which the exact `pnpm -r test` chain passes **2,320 / 2,320**.
+   The medium review then read 30 s against 30 s as a boundary rather than a headroom, and the fix
+   wave beside this note moves the outer deadline to **45 s** so the subprocess timeout the case is
+   built around cannot race the runner's; every assertion is unchanged and the file is otherwise
+   untouched.
+
+   **The accessibility readings, in full.** Every browser invocation of the recomposition read
+   `reduceTransparency=0` and `increaseContrast=0` off the capture machine before it ran — the c9d
+   chain's five suites above and, equally, the TDD red and green runs the recomposition's own fixes
+   were driven by. None of them scored under a policy Playwright cannot emulate, so no figure here is
+   an accessibility pose mistaken for the nominal one.
+
+   **The publish rehearsal, short of publishing.** Three dry-runs over the fixed group at 0.17.0 —
+   `@vitreajs/vitrea`, `@vitreajs/vitrea-web`, `@vitreajs/vitrea-react` — confirm the two things npm
+   would get wrong on its own. The packed manifests rewrite every `workspace:^` range to **`^0.17.0`**
+   (web → core; react → core and web), which is the reason `pnpm release` is the only sanctioned
+   path; and each tarball carries `dist/`, `LICENSE`, `NOTICE` and `README.md`, the README by npm's
+   own rule rather than by the `files` list. The demo build routes relatively (`base: "./"` in
+   `apps/demo/vite.config.ts`), so the Pages deploy does not depend on a host path. Publishing and
    tagging remain the user's; the exact remaining command is `pnpm release` after accepting or
    closing the recorded React-suite flake class.
 
@@ -1215,11 +1250,21 @@ neutral anchor and two hand-toggled accessibility passes were banked before the 
 could move to OS 27. The anchor answered abscissa rather than structure and the per-policy levels
 closed two spectacular errors, but the remaining light-standard miss is larger than a final knot;
 Decision Log 20 closes the wave instead of hiding that under a partial runtime. Coverage moves from
-41 to 45 measured rows and 25 to 29 replicated-unmeasured rows, while one of the charter's headline
-rows remains honestly partial.
+41 to 44 measured rows and 25 to 29 replicated-unmeasured rows, while two of the charter's named
+rows remain honestly partial — window focus, and the button pair whose prominent style nothing in
+the repo renders even though the tint half beside it is measured.
 
 **Handed to the next cut, by name:** the structure-aware inactive middle/bright response, then W27c
-G2's held observer/root/React runtime and G3's rows, floors, demo and eye; the native motion-metrics
+G2's held observer/root/React runtime and G3's rows, floors, demo and eye; the four pieces of
+inactive evidence W27c's bed could not produce, each with the reason it stayed unread — **dark
+accessibility**, which `scenes.json` never declares and which macOS force-couples to the other
+setting, and **2x accessibility**, recommended in §5.134 §5 and not taken in the sitting, both of
+them bed extensions needing a 26.5 machine that may no longer exist; the **`clear` variant**, whose
+supposed cell declares no material variant, so the endpoint's zeroed clear rim and shadow are
+identified by nothing; and the **stack regime**, whose only ids are spent holdout, so arm A4 stays
+declared and unrun until the bed gains a non-holdout stack cell. Downstream of all four sits **any
+eventual inactive floor**: none is adoptable while seven runs is the probe bar, so the two profiles
+that hold the bound hold it as fidelity rather than as a gate. Also: the native motion-metrics
 harness for identity/materialize timing; an OS 27 capture under new `apple-macos-27.0-…` keys beside,
 never over, the frozen 26.5 keys; and the `prominent` name (accent tint plus vibrant label). The rest
 of §Deferred remains live: per-element recede and recede-opacify-grow; HTML-in-Canvas/element-texture
@@ -1270,13 +1315,37 @@ G1 records every per-scene miss; G2 alone adopts a native stack bound and re-rea
 
 ## Revision Notes
 
+- 2026-09-14, **the recomposition's medium review closed in one fix wave; no code behaviour moved.**
+  Three verified findings, each a record or a boundary rather than a defect in what draws. (1) The
+  appended matrix re-score scored `GlassButtonStyle` / `GlassProminentButtonStyle` as
+  `replicated+measured` on the strength of the tint half while the prominent style the same row names
+  is absent; the row now holds `partial` with the tint half credited inside it, and every count in
+  the appended re-score is recomputed from that — seven rows move plus one added, §1 at
+  14/7/7/4/10/10, totals 44/29/25/22/36/19 over 175 rows and 156 scoreable, proportions
+  28/19/16/14/23%. The 2026-09-10 re-score above it is untouched, as is every row's earlier record.
+  (2) The framework-agnostic tint path had no documentation; `packages/platform-web/README.md` gains
+  it, written against the source and type-checked as written. (3) `capture-integrity.test.ts` gave
+  its outer Vitest deadline exactly the 30 s its own `spawnSync` budget uses, so the subprocess
+  timeout the case is built around raced the runner's; the deadline is 45 s and every assertion
+  stands. Recorded beside them, self-identified rather than found by review: Outcomes clause 5 now
+  states the 0/0 accessibility readings behind **every** recomposition browser invocation including
+  the TDD red and green runs, names root `npx eslint .` green, and records the three 0.17.0 publish
+  dry-runs — `workspace:^` packed as `^0.17.0`, `dist`/`LICENSE`/`NOTICE`/`README.md` in each
+  tarball, the demo routed relatively — while keeping the React suite's disclosed red (155 passed /
+  3 intentional skips / 4 known Firefox timing-focus failures) and saying plainly that the c9d chain
+  is therefore not all green. "Handed to the next cut" now names W27c's four unread inactive
+  evidence classes and any eventual inactive floor.
 - 2026-09-14, **RECOMPOSED against all five parent clauses; 0.17.0 prepared, not published.** The
-  coverage matrix's §7 gains the additive nine-row W27 reading (45 measured, 29 replicated
-  unmeasured, 24 partial, 22 excluded, 36 absent over 156 scoreable rows); window focus is measured
-  and held, never scored replicated. The public-surface audit repaired the framework-agnostic
-  foreground documentation and added an operable vibrant/token ownership control to the existing
-  tint-and-ink plate (`9650921`). Floors are unchanged, the CSS coherence and dom-floor pair pass
-  96/96, and the missing W27a/b/d from-empty landing proof is recorded rather than inferred. W27c
+  coverage matrix's §7 gains the additive nine-row W27 reading (44 measured, 29 replicated
+  unmeasured, 25 partial, 22 excluded, 36 absent over 156 scoreable rows); window focus is measured
+  and held, never scored replicated, and the `GlassButtonStyle` pair holds `partial` with its tint
+  half credited as measured inside the row, because `GlassProminentButtonStyle` is absent. The
+  public-surface audit repaired the framework-agnostic foreground documentation and added an
+  operable vibrant/token ownership control to the existing tint-and-ink plate (`9650921`), and the
+  tint half of that surface — host and group seeds, inheritance, clearing and the two-seed rule — is
+  documented in the same README beside it. Floors are unchanged, the CSS coherence and dom-floor
+  pair pass 96/96, and the missing W27a/b/d from-empty landing proof is recorded rather than
+  inferred. W27c
   G2/G3 move into Deferred with the response prerequisite and landing sequence; the tracker gains
   both the held runtime and the historical rebuild-proof gap. The c9d release chain, its known React
   flake-class exception and every browser run's 0/0 accessibility readings are in Outcomes. Two
