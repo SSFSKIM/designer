@@ -215,9 +215,16 @@ export interface SceneReport {
    */
   readonly materialProfile: RendererMaterialProfile | null;
   /**
-   * The receded difference the ROOT merged over the document above, or `null`
-   * where none was: an active scene, or the scratch fitting path whose candidate
-   * is inside `materialProfile`.
+   * The shipped receded difference the root will merge over the document above,
+   * or `null` where none applies: an active scene, or the scratch fitting path
+   * whose candidate is inside `materialProfile`.
+   *
+   * **Named, not read back** — unlike the two fields below it. This is the page's
+   * own `recededMaterialProfile[scheme]`, the document it handed nothing and the
+   * root imports for itself, reported because the root exposes no getter for the
+   * difference it merged. So it says which document the runtime was going to use,
+   * on the evidence that the two sides import the same constant; `windowActivation`
+   * below says whether the runtime used one at all, and that one is an observation.
    */
   readonly recededMaterialProfile: RendererMaterialProfile | null;
   /**

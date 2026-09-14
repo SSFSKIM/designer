@@ -21707,9 +21707,12 @@ driver declares the scheme on the browser context, the page reads that declarati
 construction, and a live media listener therefore cannot re-derive the material between the first
 frame and the screenshot. The receded difference is applied by `applyMaterialProfile` inside the
 root, over the active document, exactly as in an application whose window is backgrounded. The
-report gained three resolved readouts — `windowActivation`, `colorScheme` and the
-`recededMaterialProfile` the root merged — and a capture filed under an `__inactive` id that had
-resolved `"active"` is **refused rather than measured**. The refusal is `capturePoseRefusal` in
+report gained three fields, and the distinction between them matters: `windowActivation` and
+`colorScheme` are resolved readouts off the root, while `recededMaterialProfile` is the shipped
+document the page **names** — its own import, reported because the root exposes no getter for the
+difference it merged, so it says which document the runtime was going to apply rather than
+observing what it applied. A capture filed under an `__inactive` id that had resolved `"active"`
+is **refused rather than measured**. The refusal is `capturePoseRefusal` in
 `packages/calibration/cli/gates.ts`, called from `compare`'s measure loop on the capture's own
 `report__<renderer>.json`: the cell joins the run's failures when the resolved pose disagrees with
 the scene's declared state, or the resolved scheme with the profile the cell is planned under, and
