@@ -1,0 +1,37 @@
+{
+  "runtimeSourceCommit": "4e3466abec2e8d0a6ae166c97f2c1e69254ec06c",
+  "testFixCommits": [
+    "6eaaccd6",
+    "5fb1bf4d",
+    "62aa5b5b"
+  ],
+  "node": "24.18.0",
+  "pnpm": "11.23.0",
+  "macOS": "26.5.2",
+  "macOSBuild": "25F84",
+  "ssrImport": "Built platform-web package imported in Node without document/window; setWindowActivation is exported.",
+  "unitTests": {
+    "policy": 23,
+    "motion": 164,
+    "geometry": 170,
+    "renderer": 497,
+    "core": 302,
+    "platform": 616,
+    "calibration": 415,
+    "react": 156,
+    "demo": 34
+  },
+  "files": 162,
+  "rootSourceSha256": "ee9b24bb5122e0c423a17881cfb6c9f8964030bf53aea2544c32e4263569afca",
+  "materialMeasured": false,
+  "notes": [
+    "Capture equality is a runtime regression check, not a material fit or a new native comparison.",
+    "The initial full browser runs and later targeted test corrections remain separate evidence."
+  ],
+  "finalSourceTestHead": "62aa5b5b",
+  "finalWorkspaceChain": [
+    "build-final.txt",
+    "lint-final.txt",
+    "unit-tests-final.txt"
+  ]
+}

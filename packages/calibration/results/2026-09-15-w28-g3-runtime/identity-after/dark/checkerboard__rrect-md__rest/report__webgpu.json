@@ -1,0 +1,242 @@
+{
+  "capturedAt": "2026-09-14T15:29:36.219Z",
+  "requestedRenderer": "webgpu",
+  "colorScheme": "dark",
+  "accessibility": null,
+  "materialProfile": {
+    "path": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-aa920752a5e1b9f51/packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json",
+    "sha256": "950ce1c3e917",
+    "patch": {
+      "backdropToneAnchorX": [
+        0.1104,
+        0.2706,
+        0.9505
+      ],
+      "backdropToneResponseThin": [
+        0.011,
+        0.0284,
+        0.1611
+      ],
+      "backdropToneResponseThick": [
+        0.0131,
+        0.0238,
+        0.1006
+      ],
+      "backdropToneResponseStrength": 1,
+      "tintShadeStrength": 0,
+      "optics": {
+        "regular": {
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.9,
+          "rimAlpha": 0.0265,
+          "specularGain": 0,
+          "rimLevelGain": 2.334
+        }
+      },
+      "adaptiveTintDark": [
+        0.05,
+        0.05,
+        0.05
+      ],
+      "adaptiveTintLight": [
+        0.05,
+        0.05,
+        0.05
+      ],
+      "outerShadow": {
+        "thinOcclusionDark": 0,
+        "thinOcclusionMid": 0.063,
+        "thinOcclusionBright": 0.063,
+        "thickOcclusionAt96": 0.278,
+        "thickOcclusionAt128": 0.301,
+        "thickOcclusionAt160": 0.324,
+        "liftAmplitude": 0.0051,
+        "liftSpanMin": 64,
+        "liftSpanFull": 118,
+        "liftBlurSigmaCss": 40,
+        "reducedTransparencyOcclusion": 0.038
+      },
+      "sizeHeavyTapSigma": 0,
+      "sizeHeavyTapSigma2x": 0
+    },
+    "cssTierMapping": null
+  },
+  "fallback": null,
+  "problems": [],
+  "page": {
+    "sceneId": "checkerboard__rrect-md__rest",
+    "requestedRenderer": "webgpu",
+    "requestedScale": 1,
+    "requestedBackdropMode": "texture",
+    "requestedBackdropLevel": null,
+    "devicePixelRatio": 1,
+    "frames": 8,
+    "canvas": {
+      "width": 320,
+      "height": 200
+    },
+    "pixelSize": [
+      320,
+      200
+    ],
+    "background": {
+      "id": "checkerboard",
+      "url": "/reference-fixtures/backgrounds/checkerboard@1x.png",
+      "naturalWidth": 320,
+      "naturalHeight": 200
+    },
+    "pressed": false,
+    "tint": null,
+    "materialProfile": {
+      "backdropToneAnchorX": [
+        0.1104,
+        0.2706,
+        0.9505
+      ],
+      "backdropToneResponseThin": [
+        0.011,
+        0.0284,
+        0.1611
+      ],
+      "backdropToneResponseThick": [
+        0.0131,
+        0.0238,
+        0.1006
+      ],
+      "backdropToneResponseStrength": 1,
+      "tintShadeStrength": 0,
+      "optics": {
+        "regular": {
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.9,
+          "rimAlpha": 0.0265,
+          "specularGain": 0,
+          "rimLevelGain": 2.334
+        }
+      },
+      "adaptiveTintDark": [
+        0.05,
+        0.05,
+        0.05
+      ],
+      "adaptiveTintLight": [
+        0.05,
+        0.05,
+        0.05
+      ],
+      "outerShadow": {
+        "thinOcclusionDark": 0,
+        "thinOcclusionMid": 0.063,
+        "thinOcclusionBright": 0.063,
+        "thickOcclusionAt96": 0.278,
+        "thickOcclusionAt128": 0.301,
+        "thickOcclusionAt160": 0.324,
+        "liftAmplitude": 0.0051,
+        "liftSpanMin": 64,
+        "liftSpanFull": 118,
+        "liftBlurSigmaCss": 40,
+        "reducedTransparencyOcclusion": 0.038
+      },
+      "sizeHeavyTapSigma": 0,
+      "sizeHeavyTapSigma2x": 0
+    },
+    "cssTierMapping": null,
+    "transparentPage": false,
+    "accessibilityOverrides": null,
+    "accessibilityPolicy": {
+      "reducedTransparency": false,
+      "reducedMotion": false,
+      "increasedContrast": false,
+      "forcedColors": false,
+      "material": {
+        "glass": "material",
+        "colorSource": "material",
+        "frost": "nominal",
+        "refraction": "nominal",
+        "occlusion": "nominal",
+        "border": "nominal",
+        "ambientTint": "nominal",
+        "foreground": "adaptive"
+      },
+      "motion": {
+        "overshoot": "elastic",
+        "deformation": "nominal",
+        "shimmer": "travel",
+        "morph": "elastic",
+        "crossfade": "never",
+        "positionalContinuity": true
+      }
+    },
+    "groups": [
+      {
+        "id": "component",
+        "configuredSource": "texture",
+        "state": {
+          "configuredSource": "texture",
+          "activeRenderer": "webgpu",
+          "samplingBackend": "gpu-texture",
+          "refraction": "true",
+          "analysis": "exact",
+          "health": "ok"
+        },
+        "probeVerdict": "pass",
+        "unsampledMaterial": null,
+        "backdropTone": {
+          "level": 0.21404114048223255,
+          "linearLuminance": 0.5,
+          "rgb": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      }
+    ],
+    "surfaces": [
+      {
+        "nodeId": "body",
+        "groupId": "component",
+        "plane": "base",
+        "family": "fixed-rounded-rect",
+        "radius": 20,
+        "bounds": {
+          "x": 80,
+          "y": 52,
+          "width": 160,
+          "height": 96
+        },
+        "refraction": {
+          "state": "true",
+          "accessibilityCap": "true",
+          "effective": "true"
+        }
+      }
+    ],
+    "webgpu": {
+      "available": true,
+      "deviceHealth": "ok",
+      "ownership": "vitrea"
+    },
+    "rendererActive": true,
+    "adapter": {
+      "ok": true,
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "device": "",
+      "description": "",
+      "isFallback": false
+    },
+    "canvasColorSpace": "srgb",
+    "canvasColorSpaceNote": "read back from the configured canvas context.",
+    "diagnostics": [],
+    "problems": []
+  }
+}

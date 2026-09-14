@@ -1,0 +1,115 @@
+
+[2mRunning [22m12[2m tests using [22m1[2m worker[22m
+
+chromium: second-page focus reading { focus: [33mtrue[39m, pose: [32m'active'[39m }
+  [31m✘[39m  [2m 1 [22m[31m[chromium] › e2e/shared/window-activation.spec.ts:21:1 › auto follows document activation; either explicit endpoint wins and auto re-follows[39m[2m (6.5s)[22m
+  [32m✓[39m  [2m 2 [22m[chromium] › e2e/shared/window-activation.spec.ts:46:1 › a visibility event or synthetic blur cannot invent document inactivity[2m (435ms)[22m
+light: active b2b570e4adcea8fb9281aed4d2556598a1fc95b34ce4b12dd5a50157ac138306; inactive 6dcb32c422639d0d49a4ad2927766f97817fb48c90c8987fbc09ec6a55a2b689
+  [32m✓[39m  [2m 3 [22m[chromium] › e2e/shared/window-activation.spec.ts:57:3 › light: the renderer receives the sealed endpoint and restores the active document[2m (301ms)[22m
+dark: active 874be66ea501621be265265424c16d2d98a01c40835d89c02de9473362c0d4dc; inactive 70391dee6d9990c22efc4b268caf9139886af9684a4255ded1128d3b7a2b7326
+  [32m✓[39m  [2m 4 [22m[chromium] › e2e/shared/window-activation.spec.ts:57:3 › dark: the renderer receives the sealed endpoint and restores the active document[2m (291ms)[22m
+firefox: second-page focus reading { focus: [33mtrue[39m, pose: [32m'active'[39m }
+  [31m✘[39m  [2m 5 [22m[31m[firefox] › e2e/shared/window-activation.spec.ts:21:1 › auto follows document activation; either explicit endpoint wins and auto re-follows[39m[2m (6.9s)[22m
+  [32m✓[39m  [2m 6 [22m[firefox] › e2e/shared/window-activation.spec.ts:46:1 › a visibility event or synthetic blur cannot invent document inactivity[2m (1.0s)[22m
+light: active b2b570e4adcea8fb9281aed4d2556598a1fc95b34ce4b12dd5a50157ac138306; inactive 6dcb32c422639d0d49a4ad2927766f97817fb48c90c8987fbc09ec6a55a2b689
+  [32m✓[39m  [2m 7 [22m[firefox] › e2e/shared/window-activation.spec.ts:57:3 › light: the renderer receives the sealed endpoint and restores the active document[2m (474ms)[22m
+dark: active 874be66ea501621be265265424c16d2d98a01c40835d89c02de9473362c0d4dc; inactive 70391dee6d9990c22efc4b268caf9139886af9684a4255ded1128d3b7a2b7326
+  [32m✓[39m  [2m 8 [22m[firefox] › e2e/shared/window-activation.spec.ts:57:3 › dark: the renderer receives the sealed endpoint and restores the active document[2m (420ms)[22m
+webkit: second-page focus reading { focus: [33mtrue[39m, pose: [32m'active'[39m }
+  [31m✘[39m  [2m 9 [22m[31m[webkit] › e2e/shared/window-activation.spec.ts:21:1 › auto follows document activation; either explicit endpoint wins and auto re-follows[39m[2m (8.2s)[22m
+  [32m✓[39m  [2m10 [22m[webkit] › e2e/shared/window-activation.spec.ts:46:1 › a visibility event or synthetic blur cannot invent document inactivity[2m (645ms)[22m
+light: active b2b570e4adcea8fb9281aed4d2556598a1fc95b34ce4b12dd5a50157ac138306; inactive 6dcb32c422639d0d49a4ad2927766f97817fb48c90c8987fbc09ec6a55a2b689
+  [32m✓[39m  [2m11 [22m[webkit] › e2e/shared/window-activation.spec.ts:57:3 › light: the renderer receives the sealed endpoint and restores the active document[2m (392ms)[22m
+dark: active 874be66ea501621be265265424c16d2d98a01c40835d89c02de9473362c0d4dc; inactive 70391dee6d9990c22efc4b268caf9139886af9684a4255ded1128d3b7a2b7326
+  [32m✓[39m  [2m12 [22m[webkit] › e2e/shared/window-activation.spec.ts:57:3 › dark: the renderer receives the sealed endpoint and restores the active document[2m (343ms)[22m
+
+
+[31m  1) [chromium] › e2e/shared/window-activation.spec.ts:21:1 › auto follows document activation; either explicit endpoint wins and auto re-follows [39m
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 2[39m
+    [31m+ Received  + 2[39m
+
+    [2m  Object {[22m
+    [32m-   "focus": false,[39m
+    [32m-   "pose": "inactive",[39m
+    [31m+   "focus": true,[39m
+    [31m+   "pose": "active",[39m
+    [2m  }[22m
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+    [0m [90m 29 |[39m   [36mawait[39m other[33m.[39mbringToFront()[33m;[39m
+     [90m 30 |[39m   console[33m.[39mlog([32m`${browserName}: second-page focus reading`[39m[33m,[39m [36mawait[39m reading(page))[33m;[39m
+    [31m[1m>[22m[39m[90m 31 |[39m   [36mawait[39m expect[33m.[39mpoll(() [33m=>[39m reading(page))[33m.[39mtoEqual({ focus[33m:[39m [36mfalse[39m[33m,[39m pose[33m:[39m [32m"inactive"[39m })[33m;[39m
+     [90m    |[39m                                          [31m[1m^[22m[39m
+     [90m 32 |[39m
+     [90m 33 |[39m   [36mawait[39m page[33m.[39mevaluate(() [33m=>[39m window[33m.[39mh[33m.[39mrequireRoot()[33m.[39msetWindowActivation([32m"active"[39m))[33m;[39m
+     [90m 34 |[39m   [36mawait[39m expect[33m.[39mpoll(() [33m=>[39m reading(page))[33m.[39mtoEqual({ focus[33m:[39m [36mfalse[39m[33m,[39m pose[33m:[39m [32m"active"[39m })[33m;[39m[0m
+    [2m    at /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-aa920752a5e1b9f51/packages/platform-web/e2e/shared/window-activation.spec.ts:31:42[22m
+
+[2m    Error Context: test-results/shared-window-activation-a-57fd3-nt-wins-and-auto-re-follows-chromium/error-context.md[22m
+
+[31m  2) [firefox] › e2e/shared/window-activation.spec.ts:21:1 › auto follows document activation; either explicit endpoint wins and auto re-follows [39m
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 2[39m
+    [31m+ Received  + 2[39m
+
+    [2m  Object {[22m
+    [32m-   "focus": false,[39m
+    [32m-   "pose": "inactive",[39m
+    [31m+   "focus": true,[39m
+    [31m+   "pose": "active",[39m
+    [2m  }[22m
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+    [0m [90m 29 |[39m   [36mawait[39m other[33m.[39mbringToFront()[33m;[39m
+     [90m 30 |[39m   console[33m.[39mlog([32m`${browserName}: second-page focus reading`[39m[33m,[39m [36mawait[39m reading(page))[33m;[39m
+    [31m[1m>[22m[39m[90m 31 |[39m   [36mawait[39m expect[33m.[39mpoll(() [33m=>[39m reading(page))[33m.[39mtoEqual({ focus[33m:[39m [36mfalse[39m[33m,[39m pose[33m:[39m [32m"inactive"[39m })[33m;[39m
+     [90m    |[39m                                          [31m[1m^[22m[39m
+     [90m 32 |[39m
+     [90m 33 |[39m   [36mawait[39m page[33m.[39mevaluate(() [33m=>[39m window[33m.[39mh[33m.[39mrequireRoot()[33m.[39msetWindowActivation([32m"active"[39m))[33m;[39m
+     [90m 34 |[39m   [36mawait[39m expect[33m.[39mpoll(() [33m=>[39m reading(page))[33m.[39mtoEqual({ focus[33m:[39m [36mfalse[39m[33m,[39m pose[33m:[39m [32m"active"[39m })[33m;[39m[0m
+    [2m    at /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-aa920752a5e1b9f51/packages/platform-web/e2e/shared/window-activation.spec.ts:31:42[22m
+
+[2m    Error Context: test-results/window-activation-auto-fol-04b30-nt-wins-and-auto-re-follows-firefox/error-context.md[22m
+
+[31m  3) [webkit] › e2e/shared/window-activation.spec.ts:21:1 › auto follows document activation; either explicit endpoint wins and auto re-follows [39m
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 2[39m
+    [31m+ Received  + 2[39m
+
+    [2m  Object {[22m
+    [32m-   "focus": false,[39m
+    [32m-   "pose": "inactive",[39m
+    [31m+   "focus": true,[39m
+    [31m+   "pose": "active",[39m
+    [2m  }[22m
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+    [0m [90m 29 |[39m   [36mawait[39m other[33m.[39mbringToFront()[33m;[39m
+     [90m 30 |[39m   console[33m.[39mlog([32m`${browserName}: second-page focus reading`[39m[33m,[39m [36mawait[39m reading(page))[33m;[39m
+    [31m[1m>[22m[39m[90m 31 |[39m   [36mawait[39m expect[33m.[39mpoll(() [33m=>[39m reading(page))[33m.[39mtoEqual({ focus[33m:[39m [36mfalse[39m[33m,[39m pose[33m:[39m [32m"inactive"[39m })[33m;[39m
+     [90m    |[39m                                          [31m[1m^[22m[39m
+     [90m 32 |[39m
+     [90m 33 |[39m   [36mawait[39m page[33m.[39mevaluate(() [33m=>[39m window[33m.[39mh[33m.[39mrequireRoot()[33m.[39msetWindowActivation([32m"active"[39m))[33m;[39m
+     [90m 34 |[39m   [36mawait[39m expect[33m.[39mpoll(() [33m=>[39m reading(page))[33m.[39mtoEqual({ focus[33m:[39m [36mfalse[39m[33m,[39m pose[33m:[39m [32m"active"[39m })[33m;[39m[0m
+    [2m    at /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-aa920752a5e1b9f51/packages/platform-web/e2e/shared/window-activation.spec.ts:31:42[22m
+
+[2m    Error Context: test-results/window-activation-auto-fol-04b30-nt-wins-and-auto-re-follows-webkit/error-context.md[22m
+
+[31m  3 failed[39m
+[31m    [chromium] › e2e/shared/window-activation.spec.ts:21:1 › auto follows document activation; either explicit endpoint wins and auto re-follows [39m
+[31m    [firefox] › e2e/shared/window-activation.spec.ts:21:1 › auto follows document activation; either explicit endpoint wins and auto re-follows [39m
+[31m    [webkit] › e2e/shared/window-activation.spec.ts:21:1 › auto follows document activation; either explicit endpoint wins and auto re-follows [39m
+[32m  9 passed[39m[2m (34.6s)[22m

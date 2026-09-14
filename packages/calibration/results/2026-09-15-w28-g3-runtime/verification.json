@@ -1,0 +1,174 @@
+{
+  "browserRuns": {
+    "activation-discovery": {
+      "engines": {
+        "chromium": {
+          "passed": 3,
+          "failed": 1,
+          "skipped": 0
+        },
+        "firefox": {
+          "passed": 3,
+          "failed": 1,
+          "skipped": 0
+        },
+        "webkit": {
+          "passed": 3,
+          "failed": 1,
+          "skipped": 0
+        }
+      },
+      "logSha256": "e0879155f95ba4db9ef80c6dafa9275f17ab5dafd7853459ac855c12c2c6d28d"
+    },
+    "platform-web": {
+      "engines": {
+        "chromium": {
+          "passed": 152,
+          "failed": 1,
+          "skipped": 0
+        },
+        "firefox": {
+          "passed": 120,
+          "failed": 1,
+          "skipped": 0
+        },
+        "webkit": {
+          "passed": 120,
+          "failed": 1,
+          "skipped": 0
+        },
+        "chromium-gpu": {
+          "passed": 9,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "logSha256": "f592e8b20bdb7bd5367a825e4f4a0e6e19b93caecd26081b208816e37b2d73fe"
+    },
+    "renderer-goldens": {
+      "engines": {
+        "chromium-gpu": {
+          "passed": 34,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "logSha256": "39751803903035f4207db9969f86f6d18cc643a87e4844cc7720060d50f5961f"
+    },
+    "platform-web-final": {
+      "engines": {
+        "chromium": {
+          "passed": 153,
+          "failed": 0,
+          "skipped": 0
+        },
+        "firefox": {
+          "passed": 121,
+          "failed": 0,
+          "skipped": 0
+        },
+        "webkit": {
+          "passed": 121,
+          "failed": 0,
+          "skipped": 0
+        },
+        "chromium-gpu": {
+          "passed": 9,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "logSha256": "2ff94ad21451eb87fcb42313ed5bb0c88f369b3b1a1b2d9b18e2bdf9f9d3f468"
+    },
+    "react": {
+      "engines": {
+        "chromium": {
+          "passed": 58,
+          "failed": 1,
+          "skipped": 0
+        },
+        "firefox": {
+          "passed": 56,
+          "failed": 2,
+          "skipped": 1
+        },
+        "webkit": {
+          "passed": 56,
+          "failed": 1,
+          "skipped": 2
+        }
+      },
+      "logSha256": "9a0c5d55a243c4b8e31963198cd318e4ab8c91a4a484907e14adfe8a6d132fc5"
+    },
+    "demo": {
+      "engines": {
+        "chromium": {
+          "passed": 48,
+          "failed": 1,
+          "skipped": 0
+        },
+        "chromium-gpu": {
+          "passed": 8,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "logSha256": "0fd4e53268430f679a9ab75ba136fe0a862dd7e4c51964a800e3fa8152d4142b"
+    },
+    "react-activation-final": {
+      "engines": {
+        "chromium": {
+          "passed": 5,
+          "failed": 0,
+          "skipped": 0
+        },
+        "firefox": {
+          "passed": 5,
+          "failed": 0,
+          "skipped": 0
+        },
+        "webkit": {
+          "passed": 4,
+          "failed": 1,
+          "skipped": 0
+        }
+      },
+      "logSha256": "77eb95c93e5993da3ded301e0ae708eb6a6887569eb0df3cb2c91f5b76aa23d9"
+    },
+    "demo-stage-final": {
+      "engines": {
+        "chromium": {
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "logSha256": "6e95770a72d694bb95bcab18ff9e614e0b60de2ecb19f9c046e975ce3c0e9224"
+    },
+    "react-activation-endpoints": {
+      "engines": {
+        "chromium": {
+          "passed": 5,
+          "failed": 0,
+          "skipped": 0
+        },
+        "firefox": {
+          "passed": 5,
+          "failed": 0,
+          "skipped": 0
+        },
+        "webkit": {
+          "passed": 5,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "logSha256": "1044077d2975e8072513b95928c616c850c77ab6e9dc45ac377f1488c6e22017"
+    }
+  },
+  "captureIdentity": {
+    "pairs": 16,
+    "byteIdentical": 16
+  },
+  "note": "First-run failures remain separate from targeted corrections; no summed result is presented as a fresh full-suite run."
+}

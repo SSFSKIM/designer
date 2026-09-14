@@ -1,0 +1,87 @@
+Scope: 9 of 10 workspace projects
+[36mpackages/geometry[39m [96mbuild[39m$ tsc -p tsconfig.build.json
+[35mpackages/motion[39m [96mbuild[39m$ tsc -p tsconfig.build.json
+[34mpackages/policy[39m [96mbuild[39m$ tsc -p tsconfig.build.json
+[34mpackages/policy[39m [96mbuild[39m: Done
+[35mpackages/motion[39m [96mbuild[39m: Done
+[36mpackages/geometry[39m [96mbuild[39m: Done
+[33mpackages/renderer-webgpu[39m [96mbuild[39m$ tsc -p tsconfig.build.json
+[33mpackages/renderer-webgpu[39m [96mbuild[39m: Done
+[32mpackages/core[39m [96mbuild[39m$ tsup
+[32mpackages/core[39m [96mbuild[39m: [34mCLI[39m Building entry: src/index.ts
+[32mpackages/core[39m [96mbuild[39m: [34mCLI[39m Using tsconfig: tsconfig.json
+[32mpackages/core[39m [96mbuild[39m: [34mCLI[39m tsup v8.5.1
+[32mpackages/core[39m [96mbuild[39m: [34mCLI[39m Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-aa920752a5e1b9f51/packages/core/tsup.config.ts
+[32mpackages/core[39m [96mbuild[39m: [34mCLI[39m Target: es2022
+[32mpackages/core[39m [96mbuild[39m: [34mCLI[39m Cleaning output folder
+[32mpackages/core[39m [96mbuild[39m: [34mESM[39m Build start
+[32mpackages/core[39m [96mbuild[39m: [34mDTS[39m Build start
+[32mpackages/core[39m [96mbuild[39m: [32mESM[39m [1mdist/index.js              [22m[32m42.69 KB[39m
+[32mpackages/core[39m [96mbuild[39m: [32mESM[39m [1mdist/chunk-IOTISK2R.js     [22m[32m19.40 KB[39m
+[32mpackages/core[39m [96mbuild[39m: [32mESM[39m [1mdist/dist-VQPRX7BX.js      [22m[32m333.75 KB[39m
+[32mpackages/core[39m [96mbuild[39m: [32mESM[39m [1mdist/chunk-IOTISK2R.js.map [22m[32m102.61 KB[39m
+[32mpackages/core[39m [96mbuild[39m: [32mESM[39m [1mdist/index.js.map          [22m[32m169.56 KB[39m
+[32mpackages/core[39m [96mbuild[39m: [32mESM[39m [1mdist/dist-VQPRX7BX.js.map  [22m[32m872.24 KB[39m
+[32mpackages/core[39m [96mbuild[39m: [32mESM[39m ⚡️ Build success in 226ms
+[32mpackages/core[39m [96mbuild[39m: [32mDTS[39m ⚡️ Build success in 1237ms
+[32mpackages/core[39m [96mbuild[39m: [32mDTS[39m [1mdist/index.d.ts [22m[32m240.09 KB[39m
+[32mpackages/core[39m [96mbuild[39m: Done
+[31mpackages/platform-web[39m [96mbuild[39m$ tsup
+[31mpackages/platform-web[39m [96mbuild[39m: [34mCLI[39m Building entry: src/index.ts
+[31mpackages/platform-web[39m [96mbuild[39m: [34mCLI[39m Using tsconfig: tsconfig.json
+[31mpackages/platform-web[39m [96mbuild[39m: [34mCLI[39m tsup v8.5.1
+[31mpackages/platform-web[39m [96mbuild[39m: [34mCLI[39m Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-aa920752a5e1b9f51/packages/platform-web/tsup.config.ts
+[31mpackages/platform-web[39m [96mbuild[39m: [34mCLI[39m Target: es2022
+[31mpackages/platform-web[39m [96mbuild[39m: [34mCLI[39m Cleaning output folder
+[31mpackages/platform-web[39m [96mbuild[39m: [34mESM[39m Build start
+[31mpackages/platform-web[39m [96mbuild[39m: [34mDTS[39m Build start
+[31mpackages/platform-web[39m [96mbuild[39m: [32mESM[39m [1mdist/index.js     [22m[32m282.72 KB[39m
+[31mpackages/platform-web[39m [96mbuild[39m: [32mESM[39m [1mdist/index.js.map [22m[32m1.10 MB[39m
+[31mpackages/platform-web[39m [96mbuild[39m: [32mESM[39m ⚡️ Build success in 230ms
+[31mpackages/platform-web[39m [96mbuild[39m: [32mDTS[39m ⚡️ Build success in 803ms
+[31mpackages/platform-web[39m [96mbuild[39m: [32mDTS[39m [1mdist/index.d.ts [22m[32m360.52 KB[39m
+[31mpackages/platform-web[39m [96mbuild[39m: Done
+[36mpackages/calibration[39m [96mbuild[39m$ tsc -p tsconfig.build.json
+[35mpackages/react[39m [96mbuild[39m$ tsup
+[35mpackages/react[39m [96mbuild[39m: [34mCLI[39m Building entry: src/index.ts
+[35mpackages/react[39m [96mbuild[39m: [34mCLI[39m Using tsconfig: tsconfig.json
+[35mpackages/react[39m [96mbuild[39m: [34mCLI[39m tsup v8.5.1
+[35mpackages/react[39m [96mbuild[39m: [34mCLI[39m Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-aa920752a5e1b9f51/packages/react/tsup.config.ts
+[35mpackages/react[39m [96mbuild[39m: [34mCLI[39m Target: es2022
+[35mpackages/react[39m [96mbuild[39m: [34mCLI[39m Cleaning output folder
+[35mpackages/react[39m [96mbuild[39m: [34mESM[39m Build start
+[35mpackages/react[39m [96mbuild[39m: [32mESM[39m [1mdist/index.js     [22m[32m97.47 KB[39m
+[35mpackages/react[39m [96mbuild[39m: [32mESM[39m [1mdist/index.js.map [22m[32m394.65 KB[39m
+[35mpackages/react[39m [96mbuild[39m: [32mESM[39m ⚡️ Build success in 145ms
+[35mpackages/react[39m [96mbuild[39m: [34mDTS[39m Build start
+[36mpackages/calibration[39m [96mbuild[39m: Done
+[35mpackages/react[39m [96mbuild[39m: [32mDTS[39m ⚡️ Build success in 1171ms
+[35mpackages/react[39m [96mbuild[39m: [32mDTS[39m [1mdist/index.d.ts [22m[32m63.16 KB[39m
+[35mpackages/react[39m [96mbuild[39m: Done
+[34mapps/demo[39m [96mbuild[39m$ vite build
+[34mapps/demo[39m [96mbuild[39m: [36mvite v8.2.2 [32mbuilding client environment for production...[36m[39m
+[34mapps/demo[39m [96mbuild[39m: transforming...
+[34mapps/demo[39m [96mbuild[39m: [32m✓[0m 1215 modules transformed.
+[34mapps/demo[39m [96mbuild[39m: rendering chunks...
+[34mapps/demo[39m [96mbuild[39m: computing gzip size...
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mindex.html                         [0m[1;2m     1.15 kB[0m[2m │ gzip:     0.57 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mplayground/index.html              [0m[1;2m     1.16 kB[0m[2m │ gzip:     0.60 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mlaws/index.html                    [0m[1;2m     1.47 kB[0m[2m │ gzip:     0.72 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mlaws-D_PuBI1m.css           [0m[1;2m     0.94 kB[0m[2m │ gzip:     0.42 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mplayground-C6LzDn36.css     [0m[1;2m     8.96 kB[0m[2m │ gzip:     2.59 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mStageBackdrop-VZXOmLKS.css  [0m[1;2m    15.81 kB[0m[2m │ gzip:     3.92 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mStageBackdrop-A-RJ3S-e.js   [0m[1;2m     3.86 kB[0m[2m │ gzip:     1.77 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mconcentric-Cxi4V9dw.js      [0m[1;2m     8.08 kB[0m[2m │ gzip:     3.40 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mplayground-3UKODffl.js      [0m[1;2m    17.42 kB[0m[2m │ gzip:     5.50 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mlaws-CYEhMUvW.js            [0m[1;2m    25.97 kB[0m[2m │ gzip:     8.28 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mActionsMenu-m0iGW2Yt.js     [0m[1;2m   107.10 kB[0m[2m │ gzip:    34.87 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36msrc-DfJBbe2g.js             [0m[1;2m   200.80 kB[0m[2m │ gzip:    65.35 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mclient-B_Z2t9nN.js          [0m[1;2m   356.25 kB[0m[2m │ gzip:   115.68 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mindex-Dv7lzR0E.js           [0m[33;1m12,746.02 kB[0m[2m │ gzip: 1,092.15 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [32m✓ built in 983ms[39m
+[34mapps/demo[39m [96mbuild[39m: [90m[33m[plugin builtin:vite-reporter] [33;1m[39m
+[34mapps/demo[39m [96mbuild[39m: [90m(!) Some chunks are larger than 500 kB after minification. Consider:[39m
+[34mapps/demo[39m [96mbuild[39m: [90m- Using dynamic import() to code-split the application[39m
+[34mapps/demo[39m [96mbuild[39m: [90m- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting[39m
+[34mapps/demo[39m [96mbuild[39m: [90m- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[0m[39m[90m[39m
+[34mapps/demo[39m [96mbuild[39m: Done

@@ -21524,3 +21524,167 @@ It verifies the six holdouts, 188 WebGPU rows, 182 CSS rows, 72 checking cells a
 against the seal and ledger. `review.json` records the range and disposition. No finding requires
 a fix wave or debt entry; the review closes after this one pass. No measured number, matrix,
 sheet, configuration or verdict changes in recording its closure.
+
+
+## 5.147 W28 G3: window activation is a resolved root pose (2026-09-15)
+
+**Gate: CLOSED — runtime delivered on both tiers and all three engines; one clean medium
+review. The existing Firefox presence-timing failure is retained separately, not rerun to green.**
+W28 acceptance 6, Decision Log 3 and inherited W27c G2 / X7, as chartered. Evidence is
+`packages/calibration/results/2026-09-15-w28-g3-runtime/`. No material is fitted or re-scored at
+this gate: §5.145's two frozen receded endpoints are the ones §5.146 admitted on all six profiles.
+
+**1. One root pose through the existing material path.** `platform-web/src/window-activation.ts`
+observes the supplied window's `focus` and `blur`, marks its focus reading stale and consumes
+`document.hasFocus()` through `measure.ts` in the next frame's read phase. Construction takes
+one initial reading through the same seam; destroying the root removes both listeners. No
+browser global is read at module scope, and focus is not a layout read or a new metered reflow.
+There is no `visibilitychange` listener: a document behind another window can be visible and
+unfocused, so visibility is not an activation answer.
+
+`createGlassRoot({ windowActivation })` defaults to `"auto"`; `"active"` and `"inactive"` each
+win over the observer. `setWindowActivation(root, value)` and the root's same-named method
+change the live setting without rebuilding anything. Returning to `"auto"` invalidates the
+cached reading, so it re-follows the document rather than a remembered explicit pose. The
+resolved getter `root.windowActivation` reports `"active"` or `"inactive"`, not `"auto"`.
+An unfocused jsdom or capture document correctly recedes under the default; the option's doc
+comment and README tell deterministic tests to select their pose explicitly.
+
+`root.ts` keeps the active document (scheme base plus author patch) intact and merges the
+scheme's `recededMaterialProfile` difference **over** it while inactive. `applyMaterialProfile`
+re-derives every existing CSS and GPU binding, including the silhouette input, policy fold and
+shadow terms. Scheme changes and author-profile replacements take this same posed path.
+No endpoint, active profile document, material constant, core state/channel table, scene,
+fixture, golden, canonical matrix or floor changes. The active document's SHA remains the
+capture key's identity; activation is a scene state, never a profile-key segment.
+
+**2. Binding and operation.** React's `<GlassRoot windowActivation>` has the same default and
+three values, applied to the live root rather than its lifecycle dependencies. The existing
+`useGlassRoot()` handle reaches the method. `useGlassWindowActivation()` publishes the
+resolved answer through the existing frame-polled store, including `undefined` before the root
+exists. The playground defaults to auto and adds an explicit pin plus that resolved readout;
+the public demo remains on auto. Both package READMEs explain the recede and how to pin it.
+The W28 changeset carries web and React minors; core contracts did not move and need no
+independent minor. The fixed group is cut once at G4.
+
+**3. Transit is inherited, not a new fit.** The two profile documents are fixed endpoints, not
+an interpolated profile or a new motion channel. CSS keeps its existing armed property
+transitions: **240 ms** under nominal motion, **120 ms** under Reduced Motion, with the
+existing easing curves. The GPU receives the selected endpoint's per-frame uniforms; no new
+GPU profile interpolation is added. W27d's driver-owned materialization still suppresses the
+CSS transitions while driven, avoiding a second ease over presence. Presence and identity
+remain independent of activation; neither host opacity nor interaction precedence is changed
+(X6 and X9). These transit times are inherited implementation choices, **not measured against
+a native activation sequence**: the fixture bed holds endpoint stills, not that timing reference.
+
+**4. What the engines actually honoured.** The first headed experiment opened another page and
+called `bringToFront()`. The original document continued answering `hasFocus() === true` on
+**Chromium, Firefox and WebKit**, through the five-second polling window. Its three discovery
+failures are retained in `activation-discovery.txt`; they are a failed automation mechanism,
+not evidence that a real unfocused document stays active. No visibility-based workaround is
+added to production.
+
+The three-engine state-machine tests therefore explicitly replace the test document's
+`hasFocus` answer and dispatch the matching window event. That **synthetic feed**, not a native
+window-manager action, drives both directions, both pins and return to auto through the real
+observer, root and binding. A synthetic blur with an unchanged true `hasFocus` does not recede.
+All assertions wait on resolved state rather than sampling a driver's output on one frame.
+
+| engine | second-page `bringToFront` changes original `hasFocus` | test feed |
+| --- | --- | --- |
+| Chromium, headed full binary | no, remains true | synthetic `hasFocus` + window focus/blur |
+| Firefox, headed | no, remains true | synthetic `hasFocus` + window focus/blur |
+| WebKit, headed | no, remains true | synthetic `hasFocus` + window focus/blur |
+
+**5. Endpoint identity and deterministic capture identity.** On all three engines the browser
+harness records the profile actually forwarded from the root to the renderer bridge, then
+resolves it with `withMaterialOverrides` and hashes its complete sorted document. This is an
+endpoint-routing assertion using the stand-in renderer seam, not a pixel fidelity measurement:
+
+| endpoint | resolved SHA-256, equal to §5.145 §10 |
+| --- | --- |
+| light active | `b2b570e4adcea8fb9281aed4d2556598a1fc95b34ce4b12dd5a50157ac138306` |
+| dark active | `874be66ea501621be265265424c16d2d98a01c40835d89c02de9473362c0d4dc` |
+| light inactive | `6dcb32c422639d0d49a4ad2927766f97817fb48c90c8987fbc09ec6a55a2b689` |
+| dark inactive | `70391dee6d9990c22efc4b268caf9139886af9684a4255ded1128d3b7a2b7326` |
+
+The calibration harness temporarily retains its candidate receded merge and explicitly pins
+its runtime root active so focus cannot apply a second receded difference. This is proved,
+not inferred: `capture-identity.json` compares the root from **57559499** with this runtime on
+four calibration scenes (photo/checkerboard rrect-md, rest/inactive), 1x light/dark standard,
+both tiers. **16 / 16 PNG pairs are byte-identical**; all 32 before/after cells are independently
+deterministic over two page loads each (**64 screenshots**). Every capture reports
+**apple/metal-3**, with a full headed Chromium and accessibility settings **0 / 0**. No native
+material PNG is opened, no holdout is read and no fidelity metric is recomputed. The paired
+captures and reports remain under `identity-before/` and `identity-after/`.
+
+**6. Verification.** Workspace build, lint and units pass: **162 files / 2,377 tests** — policy 23,
+motion 164, geometry 170, renderer 497, core 302, platform 616, calibration 415, React 156 and
+demo 34. The six new platform units cover the option/setter state machine, batched changes,
+visibility independence, material restoration and listener teardown; the eight React units
+cover prop/lifecycle/imperative/readout behavior. The initial five platform tests and all eight
+React tests were observed failing before the behavior existed. A Node import of the built web package succeeds without a document or
+window and exports the free setter. The toolchain is **Node 24.18.0 / pnpm 11.23.0**, on **macOS 26.5.2 (25F84)**.
+Renderer goldens pass **34 / 34**, without regeneration;
+the isolation spec is untouched. The final platform browser run passes **404 / 404**:
+**153 Chromium, 121 Firefox, 121 WebKit and 9 hardware Chromium GPU**. Each of the three
+shared projects includes all four activation cases (the two hashes plus observer/override
+and visibility independence). React/demo first-run and targeted-correction counts follow below; §8 records the review. The first full platform browser run was **401 / 404**:
+its three lazy-renderer guards caught an eager renderer import in the new test inspection
+helper. The helper now imports only when that inspection is requested; no production lazy
+boundary or assertion was relaxed. The failed run remains in `platform-web.txt`.
+
+The first full React run is **170 passed / 4 failed / 3 skipped**: Chromium **58 / 1 / 0**,
+Firefox **56 / 2 / 1**, WebKit **56 / 1 / 2** (passed / failed / skipped). Three failures are
+one new test's carrier error: it read the semantic host's unused `box-shadow` (`none` in both
+poses), while the CSS material paints on its owned layers. The separate binding fix wave
+(**6eaaccd6**) reads the host plus those layers, and makes the restoration assertion prove the
+material first left its active signature. Production rendering is unchanged. The remaining
+failure is the tracker's existing Firefox `presence.spec.ts` timing class: **433.6 ms** against
+**354.2 ms** allowed. That case is retained and **not rerun to green**. Only the corrected
+activation file is rerun. Its first corrected-carrier run is **14 / 15**: WebKit's initial
+computed blur was still in transit (**6.513744 px / 6.512323 px** across the standard/prefixed
+properties), while restoration correctly reached **6.52 px**. The second test-only correction
+(**62aa5b5b**) reads the tier's written inline endpoints instead of a computed transit frame;
+no timeout, tolerance or production motion changes. The final targeted run passes **15 / 15**, **5 / 5 on each engine**, in
+`react-activation-endpoints.txt`. All G3 activation cases are verified; the pre-existing Firefox
+presence-timing case is the one outstanding browser failure, not relabelled as a pass.
+
+The full headed demo run also exposed a pre-existing GPU-only test lifetime error: the
+unsampled-path case switched away from the page stage before asserting that stage's group
+health, then read its unregistered `none` fallback. The separate test fix wave (**5fb1bf4d**)
+moves the unchanged assertions before the switch. No site behavior or assertion is weakened;
+the corrected case passes **1 / 1** on headed Chromium (`demo-stage-final.txt`). The full
+demo run is **56 passed / 1 failed** before that correction: **48 / 1** on Chromium and
+**8 / 0** on hardware Chromium GPU, including all four label-contrast audits. The full run and
+its targeted correction are distinct records, not a newly claimed full-suite rerun.
+
+The final source/test head **62aa5b5b** repeats `pnpm -r build && pnpm -r lint && pnpm -r test`
+cleanly (`build-final.txt`, `lint-final.txt`, `unit-tests-final.txt`), still **2,377 units**.
+`browser-runs.txt` records **Reduce Transparency / Increase Contrast 0 / 0 before every browser
+command**, including discovery and failed attempts; a nonzero reading would refuse the run.
+All browser commands run headed, one capture process at a time; Chromium material runs use the
+full binary and hardware paths, never an opted-in software adapter. `verification.json`'s
+per-engine counts and log hashes are reproduced by `summarize-verification.py`. No result from
+a corrected test is silently folded into the first full run's count.
+
+**7. Not done, and the landing handoff.** Native window-manager focus-event delivery is not
+claimed from the synthetic browser feed; G4 shows the demo's actual backgrounded-window pose.
+Neither activation transit timing nor its curve is measured against a native sequence. No demo
+pose sheet, user eye verdict, inactive regression floor, new native capture or reference-app
+build is taken here. All of §5.146's material residuals and unmeasured evidence classes stand.
+G4 replaces the calibration scene-pose seam: the inactive rows it publishes are captured through
+`windowActivation: "inactive"` and `applyMaterialProfile`, with the capture's colour scheme
+also passed to the root (the current harness carries a dark patch but defaults the root scheme
+to light). Those captures are then proved byte-identical to G2's
+frozen matrix **before a row is written**, so the matrix records what ships. G4, not G3, re-scores
+the coverage matrix and prepares the fixed-group cut.
+
+
+**8. Independent review.** One `doperpowers:reviewer-medium` pass over
+`575594991bbbca7e2b6720a445bcea53da766b96..4e3466abec2e8d0a6ae166c97f2c1e69254ec06c`
+returns **correct, no material findings**. It checks observer lifecycle/batching, override
+precedence, scheme/host-profile restoration, independent presence, resolved-state honesty and
+the React store/binding, and independently passes the **616 platform / 156 React** units.
+It runs no browser beside the serial chain. The base and head pins are unchanged at its return;
+`review.json` records the result. No production fix wave or further review round is needed.
