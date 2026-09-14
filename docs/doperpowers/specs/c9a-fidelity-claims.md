@@ -20918,3 +20918,200 @@ policy 23, motion 164, geometry 170, renderer-webgpu 473, core 302, platform-web
 GPU is **21 / 21**, and platform-web e2e is **392 / 392**. Each post-fix browser pass independently
 read and recorded Increase Contrast / Reduce Transparency at **0 / 0** in `browser-runs.txt`; the
 successive additive logs preserve every verification round rather than replacing an earlier record.
+
+## 5.144 W28 G0: locality improves the native ordering, but the abscissa's kind and scale are not identifiable from this bed (2026-09-14)
+
+**Gate:** W28, G0, the native-only reading required by acceptance 1 before any mechanism or fit;
+contracts X8, X10 and X11. Consumes §§5.30–5.31 (W9's encoded-space law and probe), §5.130's
+recovered bed, §5.139 §4's re-attestation and §5.143's native response points. Evidence:
+`packages/calibration/results/2026-09-14-w28-g0-abscissa/` — `index.md` gives the runnable
+commands, definitions and file inventory. **The verdict is “not identifiable from this bed.”**
+No family and scale clears the declared separation bar across the required rows; G1 has no
+selected mechanism to implement. This is the reading's stop, not a new parent decision.
+
+**1. The population was committed before any pixel was read.** Commit **8ad63af** declares
+**398 cells**: **230** canonical active, **129** canonical inactive and **39** W9 active. W9's
+56-cell probe contributes 39 after excluding 9 uniform and 8 D cells. Every D background/component
+base from `2026-09-11-w27c-g1b/checking-bed.json` is refused on both poses, including tinted and
+interaction suffixes; `checkerboard__rrect-ml` is refused too. The reader checks the declaration
+is committed unchanged and the current manifests reproduce it before opening an image. Its test
+feeds D names on both poses and expects refusal at that same pixel boundary. **No D native PNG
+was opened.**
+
+The full population retains all structured tint, interaction, composite and accessibility entries,
+with explicit flags rather than outcome-based exclusions. There are **250 / 110** standard-policy
+active/inactive cells, **10 / 10** Increase Contrast and **9 / 9** Reduce Transparency. The
+canonical inactive population contains **97** recovered single-run entries and **32** later
+attested probe entries. A metadata error is corrected beside the immutable declaration: its
+`provenance` text called those 32 non-recovered rows “manifest-attested active,” although their
+`pose` always said inactive. `per-cell.json` corrects that label; no id, pose or membership changes.
+
+All 39 admitted W9 ids have a canonical counterpart; **24** pairs are byte-identical. They remain
+separate equal-weight observations as declared, not independent repeats, and cohort-separated
+sensitivity tables expose the weighting. W9's majority-state PNGs come from its evidence directory;
+its manifest's background keys resolve to canonical committed rasters after key and background-
+declaration equality checks. The original uncommitted W9 background directory is not re-attested.
+`inputs.json` hashes every PNG actually opened.
+
+**2. Five families, with the region reversal reproduced first.** All abscissae are means of
+**encoded-space Rec.709 luma**, decoded once only where a linear abscissa is recorded. The native
+ordinate is mean per-pixel **linear Rec.709 Y** under `componentRegion`'s union eroded **6 CSS px**,
+using the calibration package's actual instrument. The source, eroded body and silhouette means
+are joined by silhouette dilation and per-pixel Gaussian blur averaged over the eroded body.
+Each ladder is **0, 1/32, 1/16, 1/8, 1/4, 1/2, 1 times the declared short-side span in CSS px**;
+Gaussian sigma is scaled to device pixels, truncated at four sigma and edge-clamped. Dilation is
+clipped to the known canvas and renormalized. The same span supplies
+`sizeThickness = smoothstep(32,96,span)`; the **163** intermediate-thickness cells go in the thin
+row and are flagged, including the capsule at **0.09228515625**. Composite rows use the minimum
+constituent short side and are not claimed to identify a single material response.
+
+The first check read only the 1x hc-text **background**, never its forbidden square fixture:
+
+| component | silhouette encoded mean | eroded-body encoded mean |
+| --- | ---: | ---: |
+| rrect-sm | 0.511000000 | 0.698841699 |
+| capsule-button | 0.602627258 | 0.529284834 |
+
+Thus the region definition really does reverse their predicted order. This reproduces the
+charter's grounding without importing the square's native outcome into selection.
+
+**3. Curve-free does not mean scale-identifying.** Every predictor is fitted separately by
+equal-weight, monotone non-decreasing isotonic regression within scheme × pose × thickness.
+Equal x values are pooled after rounding to 12 decimal places so summation noise cannot invent
+an order for an exactly equal checker mean. RMS is in-sample; no response curve, including W9's,
+defines a predictor or its score. The zero-scale aliases body/Gaussian(0) and
+silhouette/dilation(0) count once when choosing the runner-up. Nonzero scales that induce the
+same fitted ordering remain a real tie. `isotonic.json` keeps every fitted value and residual;
+`predictor-table.csv` reports all **17** predictor columns on every required row and sensitivity.
+
+The decision bar is **0.004 linear Y**, as chartered for the recovered single-run bed. The
+plurality records in `2026-09-11-w27-26.5-run/` and `2026-09-14-w27c-g1d/plurality.json` record
+state shares, not raw per-cell Y spreads, so this is not a newly estimated variance. §5.139 §4's
+re-attestation found **20/24** E cells byte-identical and four incidental one-code differences on
+**236–362 pixels**; §5.143 §1 records the new neutral-anchor minorities as at most one code.
+One encoded code is **1/255**, not universally 0.004 linear Y; the latter is the declared
+approximate selection threshold rather than a transfer-function identity.
+
+The required full-population rows are below. “Best” is diagnostic, not selected; fractions are
+relative to span, G means Gaussian, and D means dilation (not checking-group membership).
+
+| scheme / pose / thickness | n | best | RMS | runner-up | RMS gap |
+| --- | ---: | --- | ---: | --- | ---: |
+| dark / active / thick | 40 | G 1/4 | 0.002069496 | D 1/8 | 0.000004242 |
+| dark / active / thin | 45 | body | 0.141702917 | G 1/32 | 0 |
+| dark / inactive / thick | 22 | G 1/32 | 0.002381128 | G 1/16 | 0 |
+| dark / inactive / thin | 14 | body | 0.043844377 | D 1/8 | 0 |
+| light / active / thick | 82 | source | 0.095122224 | G 1/2 | 0.001351284 |
+| light / active / thin | 102 | D 1/4 | 0.177997920 | D 1/8 | 0.000192910 |
+| light / inactive / thick | 42 | source | 0.126878083 | G 1 | 0.003549410 |
+| light / inactive / thin | 51 | source | 0.165801576 | body | 0.005947787 |
+
+The last row alone clears 0.004, in favour of source, but it mixes different accessibility and
+authored-material responses. It does not establish a common mechanism or justify substituting
+that row for the population.
+
+**4. Removing the declared confounds does not rescue identifiability.** The predeclared clean
+sensitivity is **255** standard-policy, untinted, unpressed, single-surface cells. It retains
+intermediate thickness and the thick span sweep, so residual size dependence still cannot be
+called a contrast law. Policy-specific and canonical/W9-separated tables are recorded too.
+
+| scheme / pose / thickness | n | source RMS | best | best RMS | runner-up gap |
+| --- | ---: | ---: | --- | ---: | ---: |
+| dark / active / thick | 40 | 0.002205612 | G 1/4 | 0.002069496 | 0.000004242 |
+| dark / active / thin | 29 | 0.016532556 | G 1/4 | 0.005499204 | 0.000409614 |
+| dark / inactive / thick | 22 | 0.002936579 | G 1/32 | 0.002381128 | 0 |
+| dark / inactive / thin | 6 | 0.000284997 | source | 0.000284997 | 0.000115415 |
+| light / active / thick | 68 | 0.016186527 | G 1/32 | 0.008331712 | 0 |
+| light / active / thin | 50 | 0.087204959 | silhouette | 0.011413806 | 0.002036644 |
+| light / inactive / thick | 28 | 0.006115841 | silhouette | 0.001353681 | 0.000006114 |
+| light / inactive / thin | 12 | 0.011857522 | body | 0.002758498 | 0 |
+
+Locality substantially improves the clean light-active thin ordering, but silhouette's runner-up
+is dilation 1/32 at **0.013450450**, only **0.002036644** behind. On light inactive thin, body and
+Gaussian 1/32 tie exactly. Dark inactive thin has only **6** clean observations and source already
+has **0.000284997** RMS. The same kind and scale on active/inactive is therefore **not established
+and not disproved**. Canonical-only light-active thin favours silhouette by **0.004286851**; W9-only
+light-active thin ties dilation 1/32 and 1/16 at **0.004160786**. The population does not license
+choosing the favourable cohort after reading it.
+
+**5. Uniform points are a check, never the map's definition.** Since no map was selected,
+`uniform-check.json` labels its **52** non-D native neutral points as checks against the
+policy-separated diagnostic winners' monotone envelopes, not validation of a selected mechanism.
+The standard 1x square points, recorded in G1c's `identifiability.json` and G1d's
+`native-response.json`, are:
+
+| uniform backdrop | encoded x | light inactive Y | dark inactive Y |
+| --- | ---: | ---: | ---: |
+| dark-solid | 0.110370196 | 0.011711216 | 0.011711216 |
+| mid-dark-solid | 0.270588235 | 0.450785783 | 0.040915197 |
+| mid-light-solid | 0.549019608 | not measured | 0.122138772 |
+| light-solid | 0.950435294 | 0.932607201 | 0.932607201 |
+
+All five abscissa families coincide on these uniform rasters. The wide gap between uniform
+points remains unfilled: monotonicity permits an interval, not an invented light response curve.
+The diagnostic fits are not certified by this check; for example, the dark thin policy-standard
+winner puts the new middle point **0.005034483 Y** below its envelope, and the light thin winner
+puts dark-solid **0.004584355 Y** below its envelope. Those fits retain tint/composite confounds;
+the discrepancies are recorded, not fitted away or called H4.
+
+**6. Residual classification: neither “flat everywhere” nor an identified contrast term.** With
+no selected abscissa there is no selected-predictor residual to classify. `residuals.json` supplies
+the diagnostic clean-row winners' **255 per-cell residuals**, with pitch and body-contrast SD,
+and **123** within-profile, within-component, within-cohort pairs whose encoded region means
+differ by at most **0.001**. **None** changes body-contrast SD by more than **0.05**. Thus the
+bed does not supply a substantial contrast axis at fixed encoded region mean for this test;
+the high-/low-contrast checker pair is not equal-mean in the space the response uses.
+
+Nor is pitch universally flat. W9 rrect-md at pitches **8 / 16 / 32 / 64** has diagnostic
+residuals **−0.013425413 / −0.013387169 / −0.010316417 / −0.009094996 Y**, a range of
+**0.004330417**. Canonical 2x light capsule pitch 32 versus pitch 4 differs by **0.015579484 Y**
+at equal silhouette mean and effectively equal contrast. That exceeds the bar but is not growth
+with contrast. H4 remains unidentifiable here; fitting a term to these residuals would confound
+pitch, span and response composition. W9's older −0.011…−0.013 curve-based finding is not
+retracted, and is not silently substituted for this gate's curve-free statistic.
+
+**7. Recommendation and the active-material record (X8).** **G1 builds neither candidate yet.**
+Stop at Decision Log 2; the parent/user decides whether to acquire identifying evidence or stop
+this wave. The source approximation is not vindicated by a failure to distinguish its
+replacements. The sitting's neutral patches near encoded **0.80 and 0.88** would constrain the
+dark thin step and light bright-end shape, but cannot distinguish locality families: every
+abscissa agrees on a uniform. The phase-shifted hc-text square is the spatial discriminator.
+Its original square is D and cannot be reused as a selection baseline. One new phase alone does
+not guarantee scale separation; if identifying locality is the sitting's goal, predeclare multiple
+non-D phase placements whose candidate orderings differ and a contrast pair matched in encoded
+region mean. That is a recommendation, not an authorized expansion or a capture by this child.
+
+Across the **269** active observations, candidate body/source encoded-input displacement averages
+**0.041478766** in absolute value, maximum **0.528000000**; silhouette/source averages
+**0.033288389**, maximum **0.528000000**. The clean active residual table above measures the
+corresponding improvement in native ordering. These are input and native-order effects, **not
+rendered active-material Y predictions**. Without a selected abscissa there is no unique active
+counterfactual to calculate. No active document or runtime arithmetic moved, as X11 requires.
+
+**8. Verification and limits.** The four instrument tests were observed failing before the
+isotonic and admission implementations and then passing. The background-only region control
+passes before any native fixture is read. At implementation head **fb4d36a**,
+`pnpm -r build && pnpm -r lint && pnpm -r test` passes with build first: **156 files / 2,320 tests**,
+plus **4** instrument tests. The package counts are policy 23, motion 164, geometry 170,
+renderer-webgpu 473, core 302, platform-web 592, calibration 414, React 148 and demo 34.
+`verification.json` records the command, head and counts; the final bookkeeping changes no code
+or measured number.
+
+One independent `doperpowers:reviewer-medium` review of **7ae115ff..fb4d36a** returned
+**correct, no material findings**. Its inventory and statistical conclusions were verified:
+exactly **420** declared fixture/background hashes, **0** D native fixtures, and **7 of 8** required
+rows missing the separation bar. The clean rows retain three common noise-compatible alternatives
+across both poses and schemes — **silhouette, dilation 1/32 and dilation 1/16** — which supports
+“not established and not disproved,” not a unique selection. The W9 raster-lineage limitation and
+loose descriptive contrast cutoff are logged in `tech-debt-tracker.md`, not reopened as a fit;
+the matched-pair maximum contrast-SD change is **0.000024540389**. Review converges here.
+
+The first full calculation reached the output stage and refused on the new-anchor plurality
+record's different metadata schema; the output metadata reader was corrected and the complete
+native-only calculation rerun successfully, without changing the population or its statistics.
+
+Not measured: a selected abscissa or scale; a shared active/inactive locality law; H4 at matched
+encoded region mean; a new uniform or phase-shifted fixture; any D native target; vitrea/native
+error, rendered active counterfactual, CSS Jensen gap, activation runtime or timing, or a new
+regression floor. No reference build, scene, fixture, profile, material constant, golden or
+canonical matrix changed. No display or accessibility setting was read or changed by this gate.
