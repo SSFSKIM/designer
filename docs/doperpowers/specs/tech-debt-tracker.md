@@ -137,6 +137,9 @@ unchanged and is below — assert the trajectory in the page rather than a drive
 moment — and it now has a second engine's evidence that the driver round trip, not the engine, is
 what the budget is measuring.
 
+*2026-09-16:* 0.18.0 was published with this class as disclosed above — the acceptance is the
+user's, recorded in W28 §Status — and nothing was rerun. The entry stays open.
+
 *Found 2026-08-30, running the suites for the tint API (W3).*
 
 Two to four cases in `packages/react/e2e/press.spec.ts` and `morph.spec.ts` fail

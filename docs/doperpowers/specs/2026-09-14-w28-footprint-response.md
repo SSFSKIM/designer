@@ -6,9 +6,12 @@ the simplest survivor built and the bound as referee; G1 CLOSED 2026-09-14 (§5.
 sealed; G2 CLOSED 2026-09-14 (§5.146), the unchanged bound holds on six of six, merged `237465fa`;
 Decision Log 3 lifts W27c's hold — G3 (the runtime) CLOSED 2026-09-15 (§5.147); G4 (the landing)
 CLOSED 2026-09-15 (§5.148). W27c's held runtime and landing are closed with it. Release status:
-`0.18.0 PREPARED, UNPUBLISHED` — the user's eye on the six G2 sheets is still the veto before the
-cut, and `pnpm release` is the user's hand. The machine stays on macOS 26.5.2 and the OS 27 decision
-returns with the identifying sitting, which was priced and not taken.**
+0.18.0 PUBLISHED 2026-09-15 by the user's `pnpm release` on `ea01b2cf`; tag `v0.18.0` on that
+commit, pushed by the parent 2026-09-16 (§Status; Revision Notes 2026-09-16). The eye on the sheets
+comes after the cut, not before it: the user published and then had the nine sheets sent to a
+second machine, so clause 7's first exception stands and any finding is a fix wave against 0.18.0.
+Decision Log 4 records the user's OS ruling — the identifying sitting is forgone on 26.5, the
+machine updates to macOS 27, and the OS 27 recapture is the next wave.**
 
 Parent: `2026-09-10-w27-coverage-wave.md` (Decision Logs 17 and 20, §Deferred, Outcomes clause 1
 "window focus is measured but not shipped"); `2026-08-28-post-v1-wave.md` post-close addenda
@@ -417,7 +420,8 @@ versus its 1/32 and 1/16 dilations, and whether it is the same on both poses —
 the experiment G0 designed (two fresh phase placements of the text square, a contrast pair matched
 in encoded region mean, two bright uniform patches near 0.80 and 0.88 for the dark step; about
 twelve cells at 1x, four to six hours at the probe bar) needs a 26.5 machine and is priced, not
-chartered. The active material's chroma transfer over saturated backdrops (§5.139 §5; the tracker); the
+chartered. *(2026-09-16, Decision Log 4: forgone on 26.5 — the machine updates to macOS 27; the same
+experiment is re-runnable on the OS 27 bed.)* The active material's chroma transfer over saturated backdrops (§5.139 §5; the tracker); the
 active pose's footprint abscissa (recorded by G0, acted on by a later wave); dark accessibility, 2x
 accessibility, the `clear` variant and the stack regime as inactive evidence classes (W27 §Deferred,
 unchanged); any inactive floor (needs the seventeen-run bar); the `strongBorderRim` one-pixel
@@ -555,6 +559,30 @@ returns then; (f) G3's ledger number is §5.147, G4's assigned at its dispatch. 
 second read to widen the margin on the text cell (the holdout is spent for this configuration);
 tightening the bound after seeing it hold (the bound was declared before the bed existed and is
 applied as written, in both directions).
+
+### Decision Log 4 — the OS ruling: the identifying sitting is forgone on 26.5; the machine updates to macOS 27; the OS 27 recapture is the next wave (2026-09-16; the user, on the parent's hand-off)
+
+**Context.** At close the parent handed the user one decision: the identifying sitting (§Deferred;
+Decision Log 3 (e)) is the only work left that needs a 26.5 machine, and updating to macOS 27
+forecloses it. The user published 0.18.0 and ruled: *"updating OS is indeed the right call, we'll get
+macOS 27 and do the recapture."*
+
+**Ruled.** (a) The identifying sitting is **not taken on 26.5**. The abscissa's kind and scale stay
+unidentified, as §5.144 and §5.146 already record; the bound that judged the silhouette mean holds
+without the identification, and that is the state the wave shipped in. (b) The machine updates to
+macOS 27. From that moment every `apple-macos-26.5-*` fixture, profile and matrix row is frozen
+evidence that can never be added to; `run-sitting.sh`'s version gate refuses by design, and no
+26.5-keyed cell is to be captured, re-captured or "completed" on 27. (c) **The next wave is the
+OS 27 recapture**: the harness re-run on macOS 27 under new profile keys, read against the same
+metrics, so that what 27 changed in Apple's material — if anything — is measured against the 26.5
+bed rather than inferred. The motion-metrics harness follows it. (d) The identifying experiment is
+foreclosed on 26.5, not foreclosed: G0's design (two phase placements of the text square, a
+contrast pair matched in encoded mean, two bright uniform patches for the dark step) can be run on
+the OS 27 bed once it exists, and if it is, it identifies the abscissa for 27, which is the
+material the runtime will then be fitted to. §Deferred is amended beside, not rewritten.
+
+**Rejected:** running the sitting before the update — four to six hours for a kind and scale whose
+bound already holds on all six profiles, with a fit that the OS 27 recapture may move anyway.
 
 ## Surprises & Discoveries
 
@@ -719,6 +747,12 @@ applied as written, in both directions).
    gained an optional `backdropToneAbscissae` and core exports `SurfaceBackdropToneAbscissa`, which
    X2 makes a semver event.
 
+   *2026-09-16, beside the verdict rather than over it:* the cut is published (§Status) and the order
+   this clause asked for did not hold — the user ran `pnpm release` first and asked for the sheets on
+   a second machine after. The eye is still owed; it is now a post-publish read, and a finding from it
+   routes to a fix wave against 0.18.0 rather than vetoing a cut that has happened. The verdict stays
+   PARTLY as written above.
+
 ### The eye's residuals, carried forward unchanged
 
 Holding a bound is not pixel identity, and this wave says so in the same breath as the verdict. The
@@ -760,7 +794,29 @@ these is closed and each now has, or already had, a tracker entry.
 
 ### Status
 
-**0.18.0 PREPARED, UNPUBLISHED.**
+**0.18.0 PREPARED, UNPUBLISHED.** *(as written at close, 2026-09-15; the record below is added beside it)*
+
+**0.18.0 PUBLISHED 2026-09-15, by the user's `pnpm release` on `ea01b2cf` (the G4 merge, the head
+this section's chain was verified at); tag `v0.18.0` (annotated, on that commit) pushed by the
+parent on 2026-09-16.** Registry: core 15:48:56.734Z, web 15:49:00.088Z, react 15:49:32.588Z —
+dependency order again, the second cut in a row, so **no release-chain window**; first-to-last span
+36 s against 156 s at 0.17.0. `changeset publish` was run once, as before, and the order was not
+chosen. The publish is the user's acceptance of the React suite's elapsed-window class as G4
+disclosed it — red, green, red across three runs, the last red on chromium as well as firefox —
+with nothing rerun; the tracker entry carries the acceptance. Verified by a cold install outside the
+workspace after all three were listed (`--prefer-online`): all three at 0.18.0, ranges rewritten to
+`^0.18.0` (web → core; react → core and web), no private `@vitrea/*` package installed, all three
+entry points import — core **44** exports (unchanged), web **247** against 240 at 0.17.0, react
+**37** against 36 — with `setWindowActivation`, `observeWindowActivation`,
+`resolveWindowActivation`, `validateBackdropToneAbscissa` and `recededMaterialProfile` exported from
+the web package, `useGlassWindowActivation` from the React binding, and `backdropToneAbscissa`
+present in the shipped web bundle. LICENSE / NOTICE / README in each; installed
+1 848 / 1 816 / 628 kB against 1 788 / 1 764 / 624 at 0.17.0.
+
+The eye Decision Log 3 (d) requested was not given before the cut. On 2026-09-16 the user asked for
+G2's six sheets and G4's three demo sheets to be sent to a second machine, and they were (one
+archive, nine PNGs, 3.7 MB); the read is owed there and its outcome, if it is a finding, is a fix
+wave against the published 0.18.0. Decision Log 4 records the OS ruling that came with it.
 
 ### The c9d chain at the 0.18.0 head
 
@@ -811,7 +867,8 @@ react → core and web `^0.18.0` — and each tarball carries `dist/`, `LICENSE`
 (Decision Log #30(a)), re-confirmed here.
 
 **Nothing is published and nothing is tagged.** `pnpm release` is the only sanctioned path and it is
-the user's hand; the tag `v0.18.0` follows the publish, not this branch.
+the user's hand; the tag `v0.18.0` follows the publish, not this branch. *(2026-09-16: both have now
+happened; see §Status above. This paragraph is left as the chain wrote it.)*
 
 ### Tracking Map at close
 
@@ -832,7 +889,8 @@ Carried unchanged from §Deferred, with the sitting as Decision Log 3 (e) left i
   square, a contrast pair matched in encoded region mean, and two bright uniform patches near
   encoded 0.80 and 0.88 for the dark step. About twelve cells at 1x, four to six hours at the probe
   bar, and it needs a 26.5 machine. **Priced, not chartered.** The machine stays on macOS 26.5.2
-  until it is ruled on, and the OS 27 decision returns with it.
+  until it is ruled on, and the OS 27 decision returns with it. *(Ruled 2026-09-16, Decision Log 4:
+  forgone on 26.5; the machine updates to 27; the OS 27 recapture is the next wave.)*
 - The active material's chroma transfer over saturated backdrops (§5.139 §5), which is the worst
   inactive cell on every dark profile in G4's published rows and is not the recede's error.
 - The active pose's footprint abscissa, recorded by G0, acted on by a later wave.
@@ -891,6 +949,16 @@ claim nobody can re-run.
 
 ## Revision Notes
 
+- 2026-09-16 (the parent): **0.18.0 PUBLISHED**, by the user's `pnpm release` on `ea01b2cf`
+  (registry core 15:48:56Z, web 15:49:00Z, react 15:49:32Z on 2026-09-15 — dependency order, span
+  36 s, no release-chain window); tag `v0.18.0` annotated on `ea01b2cf` and pushed; cold install
+  verified (core 44 / web 247 / react 37 exports; the window-activation and abscissa exports and
+  `backdropToneAbscissa` in the shipped bundle; 1 848 / 1 816 / 628 kB). The eye was not given
+  before the cut: the user published, then asked for the nine sheets on a second machine, which were
+  sent; clause 7's first exception is annotated beside, not re-scored. Decision Log 4 records the
+  user's OS ruling — the identifying sitting forgone on 26.5, the machine to macOS 27, the OS 27
+  recapture next. Status line, §Status, §Deferred and the c9d chain's "nothing is published" line
+  annotated beside; nothing rewritten.
 - 2026-09-15 (G4 review closure, the fix wave): the independent review over the G4 branch returns
   **correct with findings** — nine, none of them a wrong measurement or a moved verdict — and all
   nine are closed here. Two counts corrected from the artifacts they describe: `PREDICATE_EXCLUDES`
