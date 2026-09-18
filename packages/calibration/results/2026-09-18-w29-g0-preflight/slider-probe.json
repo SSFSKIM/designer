@@ -1,0 +1,506 @@
+{
+  "gate": "W29 G0 (d); claims 5.149",
+  "key": {
+    "name": "NSGlassTintAmount",
+    "domain": "NSGlobalDomain",
+    "type": "float",
+    "asFoundValue": 0.5459057,
+    "asFoundWrittenAt": "2026-09-18T11:59 local (the .GlobalPreferences.plist mtime)",
+    "restoredTo": 0.5459057
+  },
+  "drivesRenderingWithoutAGui": true,
+  "declaredParameterSweep": {
+    "0.0": {
+      "inputBlurFillDarkenOpacity": "0",
+      "inputBlurFillLightenOpacity": "0.675",
+      "inputBlurFillNormalOpacity": "0",
+      "inputFaceColorMatrixFillColor": "rgba(1.0000, 1.0000, 1.0000, 0.0000)"
+    },
+    "0.25": {
+      "inputBlurFillDarkenOpacity": "0",
+      "inputBlurFillLightenOpacity": "0.7875",
+      "inputBlurFillNormalOpacity": "0.25",
+      "inputFaceColorMatrixFillColor": "rgba(1.0000, 1.0000, 1.0000, 0.1000)"
+    },
+    "0.5": {
+      "inputBlurFillDarkenOpacity": "0",
+      "inputBlurFillLightenOpacity": "0.9",
+      "inputBlurFillNormalOpacity": "0.5",
+      "inputFaceColorMatrixFillColor": "rgba(1.0000, 1.0000, 1.0000, 0.2000)"
+    },
+    "1.0": {
+      "inputBlurFillDarkenOpacity": "0",
+      "inputBlurFillLightenOpacity": "0.9",
+      "inputBlurFillNormalOpacity": "1",
+      "inputFaceColorMatrixFillColor": "rgba(1.0000, 1.0000, 1.0000, 0.5000)"
+    },
+    "DELETED": {
+      "inputBlurFillDarkenOpacity": "0",
+      "inputBlurFillLightenOpacity": "0.9",
+      "inputBlurFillNormalOpacity": "0.5",
+      "inputFaceColorMatrixFillColor": "rgba(1.0000, 1.0000, 1.0000, 0.2000)"
+    }
+  },
+  "centreIs": {
+    "value": 0.5,
+    "evidence": "With the key deleted the harness declares inputBlurFillNormalOpacity 0.5 and inputFaceColorMatrixFillColor alpha 0.2000, and its captures are byte-identical to the 0.5 arm's on every cell of every arm. 0.5 is also the knee of both declared ramps: the face fill's alpha rises 0.0->0.20 over [0, 0.5] and 0.20->0.50 over [0.5, 1.0], and the lighten opacity rises 0.675->0.9 over [0, 0.5] and then holds."
+  },
+  "arms": {
+    "active-2x": {
+      "apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest": {
+        "centreRunToRunSpread": {
+          "maxDelta": 2,
+          "changedPx": 141,
+          "deltaEWorst": 0.006409738216553444
+        },
+        "positions": {
+          "0.0": {
+            "identicalToCentre": false,
+            "maxDelta": 58,
+            "changedPx": 19546,
+            "ssim": 0.980304263212451,
+            "deltaEMean": 0.009555704847105285,
+            "deltaEWorst": 0.22470976393460015,
+            "movedBeyondSpread": true
+          },
+          "1.0": {
+            "identicalToCentre": false,
+            "maxDelta": 64,
+            "changedPx": 19718,
+            "ssim": 0.9740601322835305,
+            "deltaEMean": 0.008487132350312185,
+            "deltaEWorst": 0.22422367294047316,
+            "movedBeyondSpread": true
+          },
+          "0.5459057": {
+            "identicalToCentre": false,
+            "maxDelta": 8,
+            "changedPx": 15084,
+            "ssim": 0.9995295651780086,
+            "deltaEMean": 0.0009383986467480448,
+            "deltaEWorst": 0.027514202678299866,
+            "movedBeyondSpread": true
+          },
+          "<key deleted>": {
+            "identicalToCentre": false,
+            "maxDelta": 2,
+            "changedPx": 141,
+            "ssim": 0.999999013326385,
+            "deltaEMean": 1.5983508284190985e-06,
+            "deltaEWorst": 0.006409738216553444,
+            "movedBeyondSpread": false
+          }
+        }
+      },
+      "apple-macos-26.5-2x-dark-standard/hc-text__rrect-sm__rest": {
+        "centreRunToRunSpread": {
+          "maxDelta": 2,
+          "changedPx": 88,
+          "deltaEWorst": 0.004363995323306727
+        },
+        "positions": {
+          "0.0": {
+            "identicalToCentre": false,
+            "maxDelta": 67,
+            "changedPx": 8007,
+            "ssim": 0.9951299436947557,
+            "deltaEMean": 0.0023937001738163727,
+            "deltaEWorst": 0.25686316630858935,
+            "movedBeyondSpread": true
+          },
+          "1.0": {
+            "identicalToCentre": false,
+            "maxDelta": 74,
+            "changedPx": 8176,
+            "ssim": 0.99140600188387,
+            "deltaEMean": 0.005138562797136653,
+            "deltaEWorst": 0.2765508471175509,
+            "movedBeyondSpread": true
+          },
+          "0.5459057": {
+            "identicalToCentre": false,
+            "maxDelta": 9,
+            "changedPx": 7553,
+            "ssim": 0.9998438759620669,
+            "deltaEMean": 0.0005819851222262556,
+            "deltaEWorst": 0.029437953508058674,
+            "movedBeyondSpread": true
+          },
+          "<key deleted>": {
+            "identicalToCentre": false,
+            "maxDelta": 2,
+            "changedPx": 88,
+            "ssim": 0.999999876338572,
+            "deltaEMean": 9.35387677852031e-07,
+            "deltaEWorst": 0.004363995323306727,
+            "movedBeyondSpread": false
+          }
+        }
+      },
+      "apple-macos-26.5-2x-dark-standard/photo__rrect-md__rest": {
+        "centreRunToRunSpread": {
+          "maxDelta": 2,
+          "changedPx": 491,
+          "deltaEWorst": 0.004439955340180184
+        },
+        "positions": {
+          "0.0": {
+            "identicalToCentre": false,
+            "maxDelta": 50,
+            "changedPx": 60426,
+            "ssim": 0.9984580937638936,
+            "deltaEMean": 0.00645155332862131,
+            "deltaEWorst": 0.08673139879384421,
+            "movedBeyondSpread": true
+          },
+          "1.0": {
+            "identicalToCentre": false,
+            "maxDelta": 102,
+            "changedPx": 60722,
+            "ssim": 0.9711937665392933,
+            "deltaEMean": 0.03880780976511183,
+            "deltaEWorst": 0.21113694610881234,
+            "movedBeyondSpread": true
+          },
+          "0.5459057": {
+            "identicalToCentre": false,
+            "maxDelta": 12,
+            "changedPx": 60452,
+            "ssim": 0.9992038217403792,
+            "deltaEMean": 0.0045274759203270416,
+            "deltaEWorst": 0.02661808356385449,
+            "movedBeyondSpread": true
+          },
+          "<key deleted>": {
+            "identicalToCentre": false,
+            "maxDelta": 2,
+            "changedPx": 491,
+            "ssim": 0.9999983354729123,
+            "deltaEMean": 3.879511069758472e-06,
+            "deltaEWorst": 0.004439955340180184,
+            "movedBeyondSpread": false
+          }
+        }
+      },
+      "apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest": {
+        "centreRunToRunSpread": {
+          "maxDelta": 0,
+          "changedPx": 0,
+          "deltaEWorst": 0.0
+        },
+        "positions": {
+          "0.0": {
+            "identicalToCentre": false,
+            "maxDelta": 37,
+            "changedPx": 19549,
+            "ssim": 0.9865816061895177,
+            "deltaEMean": 0.006977355660446899,
+            "deltaEWorst": 0.11869208321340083,
+            "movedBeyondSpread": true
+          },
+          "1.0": {
+            "identicalToCentre": false,
+            "maxDelta": 60,
+            "changedPx": 19741,
+            "ssim": 0.9819294627976434,
+            "deltaEMean": 0.0038638815387332984,
+            "deltaEWorst": 0.19313327392440863,
+            "movedBeyondSpread": true
+          },
+          "0.5459057": {
+            "identicalToCentre": false,
+            "maxDelta": 4,
+            "changedPx": 18613,
+            "ssim": 0.9996874493415434,
+            "deltaEMean": 0.00042958093534392714,
+            "deltaEWorst": 0.012737955462841297,
+            "movedBeyondSpread": true
+          },
+          "<key deleted>": {
+            "identicalToCentre": true,
+            "maxDelta": 0,
+            "changedPx": 0,
+            "ssim": 1,
+            "deltaEMean": 0,
+            "deltaEWorst": 0,
+            "movedBeyondSpread": false
+          }
+        }
+      },
+      "apple-macos-26.5-2x-light-standard/hc-text__rrect-sm__rest": {
+        "centreRunToRunSpread": {
+          "maxDelta": 1,
+          "changedPx": 77,
+          "deltaEWorst": 0.0045100980041188656
+        },
+        "positions": {
+          "0.0": {
+            "identicalToCentre": false,
+            "maxDelta": 38,
+            "changedPx": 8021,
+            "ssim": 0.9951993956758032,
+            "deltaEMean": 0.0022433666516034566,
+            "deltaEWorst": 0.12093125022539572,
+            "movedBeyondSpread": true
+          },
+          "1.0": {
+            "identicalToCentre": false,
+            "maxDelta": 106,
+            "changedPx": 8209,
+            "ssim": 0.9941709605721799,
+            "deltaEMean": 0.001037753240643093,
+            "deltaEWorst": 0.35662015615820514,
+            "movedBeyondSpread": true
+          },
+          "0.5459057": {
+            "identicalToCentre": false,
+            "maxDelta": 3,
+            "changedPx": 7554,
+            "ssim": 0.9998971876795376,
+            "deltaEMean": 0.00013140680560382877,
+            "deltaEWorst": 0.0093874232598481,
+            "movedBeyondSpread": true
+          },
+          "<key deleted>": {
+            "identicalToCentre": false,
+            "maxDelta": 1,
+            "changedPx": 77,
+            "ssim": 0.9999996457779727,
+            "deltaEMean": 8.478125635013658e-07,
+            "deltaEWorst": 0.0045100980041188656,
+            "movedBeyondSpread": false
+          }
+        }
+      },
+      "apple-macos-26.5-2x-light-standard/photo__rrect-md__rest": {
+        "centreRunToRunSpread": {
+          "maxDelta": 2,
+          "changedPx": 606,
+          "deltaEWorst": 0.0052941428355793825
+        },
+        "positions": {
+          "0.0": {
+            "identicalToCentre": false,
+            "maxDelta": 56,
+            "changedPx": 60141,
+            "ssim": 0.9966956605143756,
+            "deltaEMean": 0.012090202743115737,
+            "deltaEWorst": 0.07885761252120775,
+            "movedBeyondSpread": true
+          },
+          "1.0": {
+            "identicalToCentre": false,
+            "maxDelta": 64,
+            "changedPx": 60863,
+            "ssim": 0.9967030790781959,
+            "deltaEMean": 0.01780976492610135,
+            "deltaEWorst": 0.10434878419950173,
+            "movedBeyondSpread": true
+          },
+          "0.5459057": {
+            "identicalToCentre": false,
+            "maxDelta": 7,
+            "changedPx": 60248,
+            "ssim": 0.9996013447819742,
+            "deltaEMean": 0.0016489033702720452,
+            "deltaEWorst": 0.013270158985487134,
+            "movedBeyondSpread": true
+          },
+          "<key deleted>": {
+            "identicalToCentre": true,
+            "maxDelta": 0,
+            "changedPx": 0,
+            "ssim": 1,
+            "deltaEMean": 0,
+            "deltaEWorst": 0,
+            "movedBeyondSpread": false
+          }
+        }
+      }
+    },
+    "inactive-2x": {
+      "apple-macos-26.5-2x-dark-standard/photo__rrect-md__inactive": {
+        "centreRunToRunSpread": {
+          "maxDelta": 0,
+          "changedPx": 0,
+          "deltaEWorst": 0.0
+        },
+        "positions": {
+          "0.0": {
+            "identicalToCentre": false,
+            "maxDelta": 34,
+            "changedPx": 60658,
+            "ssim": 0.9987748079605827,
+            "deltaEMean": 0.005517894231920553,
+            "deltaEWorst": 0.06945049193604381,
+            "movedBeyondSpread": true
+          },
+          "1.0": {
+            "identicalToCentre": false,
+            "maxDelta": 103,
+            "changedPx": 61100,
+            "ssim": 0.9723887228663307,
+            "deltaEMean": 0.038356863489578785,
+            "deltaEWorst": 0.20763837092952223,
+            "movedBeyondSpread": true
+          },
+          "0.5459057": {
+            "identicalToCentre": false,
+            "maxDelta": 11,
+            "changedPx": 60799,
+            "ssim": 0.999235385355397,
+            "deltaEMean": 0.00438069315065312,
+            "deltaEWorst": 0.025274372683619775,
+            "movedBeyondSpread": true
+          },
+          "<key deleted>": {
+            "identicalToCentre": true,
+            "maxDelta": 0,
+            "changedPx": 0,
+            "ssim": 1,
+            "deltaEMean": 0,
+            "deltaEWorst": 0,
+            "movedBeyondSpread": false
+          }
+        }
+      },
+      "apple-macos-26.5-2x-light-standard/photo__rrect-md__inactive": {
+        "centreRunToRunSpread": {
+          "maxDelta": 0,
+          "changedPx": 0,
+          "deltaEWorst": 0.0
+        },
+        "positions": {
+          "0.0": {
+            "identicalToCentre": false,
+            "maxDelta": 56,
+            "changedPx": 60163,
+            "ssim": 0.9973293355102943,
+            "deltaEMean": 0.012813626397286119,
+            "deltaEWorst": 0.08487720405897874,
+            "movedBeyondSpread": true
+          },
+          "1.0": {
+            "identicalToCentre": false,
+            "maxDelta": 72,
+            "changedPx": 60996,
+            "ssim": 0.9962918880462684,
+            "deltaEMean": 0.020179755913066203,
+            "deltaEWorst": 0.11302670270390887,
+            "movedBeyondSpread": true
+          },
+          "0.5459057": {
+            "identicalToCentre": false,
+            "maxDelta": 7,
+            "changedPx": 60097,
+            "ssim": 0.9996126739578277,
+            "deltaEMean": 0.0018073616718450624,
+            "deltaEWorst": 0.011833600746108017,
+            "movedBeyondSpread": true
+          },
+          "<key deleted>": {
+            "identicalToCentre": true,
+            "maxDelta": 0,
+            "changedPx": 0,
+            "ssim": 1,
+            "deltaEMean": 0,
+            "deltaEWorst": 0,
+            "movedBeyondSpread": false
+          }
+        }
+      }
+    },
+    "active-1x": {
+      "apple-macos-26.5-1x-dark-standard/photo__rrect-md__rest": {
+        "centreRunToRunSpread": {
+          "maxDelta": 0,
+          "changedPx": 0,
+          "deltaEWorst": 0.0
+        },
+        "positions": {
+          "0.0": {
+            "identicalToCentre": false,
+            "maxDelta": 34,
+            "changedPx": 15205,
+            "ssim": 0.9971758497731892,
+            "deltaEMean": 0.006141321488819466,
+            "deltaEWorst": 0.0661058337482406,
+            "movedBeyondSpread": true
+          },
+          "1.0": {
+            "identicalToCentre": false,
+            "maxDelta": 101,
+            "changedPx": 15362,
+            "ssim": 0.9587667153851331,
+            "deltaEMean": 0.0389882621377558,
+            "deltaEWorst": 0.2087661327601163,
+            "movedBeyondSpread": true
+          },
+          "0.5459057": {
+            "identicalToCentre": false,
+            "maxDelta": 12,
+            "changedPx": 15229,
+            "ssim": 0.9989207617207333,
+            "deltaEMean": 0.004545672188305667,
+            "deltaEWorst": 0.02659473215523954,
+            "movedBeyondSpread": true
+          },
+          "<key deleted>": {
+            "identicalToCentre": true,
+            "maxDelta": 0,
+            "changedPx": 0,
+            "ssim": 1,
+            "deltaEMean": 0,
+            "deltaEWorst": 0,
+            "movedBeyondSpread": false
+          }
+        }
+      },
+      "apple-macos-26.5-1x-light-standard/photo__rrect-md__rest": {
+        "centreRunToRunSpread": {
+          "maxDelta": 0,
+          "changedPx": 0,
+          "deltaEWorst": 0.0
+        },
+        "positions": {
+          "0.0": {
+            "identicalToCentre": false,
+            "maxDelta": 55,
+            "changedPx": 15079,
+            "ssim": 0.9944496092306405,
+            "deltaEMean": 0.011978873717644382,
+            "deltaEWorst": 0.07731470767732347,
+            "movedBeyondSpread": true
+          },
+          "1.0": {
+            "identicalToCentre": false,
+            "maxDelta": 62,
+            "changedPx": 15507,
+            "ssim": 0.9952471039974844,
+            "deltaEMean": 0.017854111002611972,
+            "deltaEWorst": 0.10398603732376385,
+            "movedBeyondSpread": true
+          },
+          "0.5459057": {
+            "identicalToCentre": false,
+            "maxDelta": 7,
+            "changedPx": 15063,
+            "ssim": 0.9995956501771366,
+            "deltaEMean": 0.00165235908647505,
+            "deltaEWorst": 0.011464683821550328,
+            "movedBeyondSpread": true
+          },
+          "<key deleted>": {
+            "identicalToCentre": true,
+            "maxDelta": 0,
+            "changedPx": 0,
+            "ssim": 1,
+            "deltaEMean": 0,
+            "deltaEWorst": 0,
+            "movedBeyondSpread": false
+          }
+        }
+      }
+    }
+  }
+}

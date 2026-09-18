@@ -1,0 +1,105 @@
+{
+  "a": {
+    "label": "0.5-r2",
+    "root": "/Users/new/vitrea-w29-g0-scratch/d/cap/active-2x/0.5-r2"
+  },
+  "b": {
+    "label": "0.5-r3",
+    "root": "/Users/new/vitrea-w29-g0-scratch/d/cap/active-2x/0.5-r3"
+  },
+  "onlyInA": [],
+  "onlyInB": [],
+  "cells": [
+    {
+      "cell": "apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest",
+      "identical": false,
+      "changedPx": 141,
+      "maxDelta": 2,
+      "mad": 0.00043359375,
+      "ssim": 0.999999013326385,
+      "deltaEMean": 0.0000015983508284190985,
+      "deltaEWorst": 0.006409738216553444,
+      "interiorLevel": {
+        "0.5-r2": 0.4757015825308176,
+        "0.5-r3": 0.47570192307599085
+      }
+    },
+    {
+      "cell": "apple-macos-26.5-2x-dark-standard/hc-text__rrect-sm__rest",
+      "identical": false,
+      "changedPx": 88,
+      "maxDelta": 2,
+      "mad": 0.00023567708333333334,
+      "ssim": 0.999999876338572,
+      "deltaEMean": 9.35387677852031e-7,
+      "deltaEWorst": 0.004363995323306727,
+      "interiorLevel": {
+        "0.5-r2": 0.7319934147268401,
+        "0.5-r3": 0.7319933008475363
+      }
+    },
+    {
+      "cell": "apple-macos-26.5-2x-dark-standard/photo__rrect-md__rest",
+      "identical": true,
+      "changedPx": 0,
+      "maxDelta": 0,
+      "mad": 0,
+      "ssim": 1,
+      "deltaEMean": 0,
+      "deltaEWorst": 0,
+      "interiorLevel": {
+        "0.5-r2": 0.2061927165093305,
+        "0.5-r3": 0.2061927165093305
+      }
+    },
+    {
+      "cell": "apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest",
+      "identical": true,
+      "changedPx": 0,
+      "maxDelta": 0,
+      "mad": 0,
+      "ssim": 1,
+      "deltaEMean": 0,
+      "deltaEWorst": 0,
+      "interiorLevel": {
+        "0.5-r2": 0.5092285893584871,
+        "0.5-r3": 0.5092285893584871
+      }
+    },
+    {
+      "cell": "apple-macos-26.5-2x-light-standard/hc-text__rrect-sm__rest",
+      "identical": false,
+      "changedPx": 77,
+      "maxDelta": 1,
+      "mad": 0.00024088541666666667,
+      "ssim": 0.9999996457779727,
+      "deltaEMean": 8.478125635013658e-7,
+      "deltaEWorst": 0.0045100980041188656,
+      "interiorLevel": {
+        "0.5-r2": 0.7460797647943208,
+        "0.5-r3": 0.7460797699796815
+      }
+    },
+    {
+      "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-md__rest",
+      "identical": true,
+      "changedPx": 0,
+      "maxDelta": 0,
+      "mad": 0,
+      "ssim": 1,
+      "deltaEMean": 0,
+      "deltaEWorst": 0,
+      "interiorLevel": {
+        "0.5-r2": 0.2909891210174991,
+        "0.5-r3": 0.2909891210174991
+      }
+    }
+  ],
+  "summary": {
+    "cells": 6,
+    "identical": 3,
+    "worstMaxDelta": 2,
+    "worstDeltaE": 0.006409738216553444,
+    "worstChangedPx": 141
+  }
+}

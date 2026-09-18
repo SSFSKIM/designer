@@ -2971,3 +2971,33 @@ the work: a `backdropProbeLabel`-shaped clause appended to `capturePath`, empty 
 the shipped bed's keys stay unchanged to the byte, and naming the pose and the resolved receded
 document's SHA-256 otherwise. Taking it means re-capturing the 470 inactive rows, because every one
 of their keys changes.
+
+## `dump-layers --inactive` cannot name a declared inactive scene (2026-09-18, §5.149)
+
+*Found by W29 G0's SDK comparison.* `main.swift`'s `dump-layers` calls
+`refuseScenesUnreachableInPose(ids, in: loadSpec(), pose: .active, …)` **before** it reads
+`--inactive` off the arguments, so every id whose declared state is `inactive` is refused whatever
+pose the run is about to present in — including the run that exists to present the recede. The W27e
+recipe never met it because its probe spec declares only `rest` ids. The consequence is narrow: the
+recede is a property of the presentation rather than of the scene (`Capture.presentInactive`'s own
+doc comment says so, and `capture --inactive` is built on it), so a `rest` id under `--inactive` is
+the same reading, and G0 took it that way. Shape of the work: read `--inactive` first and pass the
+pose it names into the refusal, which is a two-line move inside the same `case`. Doing it rebuilds
+the harness, so it waits for a build some later wave is taking anyway — X4 says the granted bundle
+is not rebuilt for it.
+
+## The manifest's `sdk` field is an environment read, and a pass's own launch leaves it `unknown` (2026-09-18, §5.149)
+
+*Found by W29 G0 (a).* `capture.sh` derives `VITREA_SDK` from the installed SDK and exports it;
+`run-sitting.sh` launches the bundle through `open` without it, because `launchctl setenv` does not
+reach a GUI launch from a background session. Every manifest G0 wrote therefore reads
+`"sdk": "unknown", "xcodeVersion": "unknown"`. The committed 26.5 bundle carries `MacOSX26.5.sdk`,
+so the field was populated when that bed was published — and what it records is **the SDK installed
+on the machine, not the one the binary links**, which after a toolchain upgrade is a different
+thing. X2 asks for the linked SDK read from the binary; that read is `LC_BUILD_VERSION`'s `sdk`, and
+on this build path even that is not the SDK the bundle compiled against (§5.149 §1: `swiftc` links
+through `clang` with `--sysroot`, so `ld` records `sdk == minos`). Shape of the work: the harness
+reads its own `LC_BUILD_VERSION` at startup — its executable is on disk and the load command is four
+fields — and records it beside a build-time SDK string the build script stamps in, so the two are
+separable rather than conflated. Until then a bed's SDK provenance is a build fact somebody has to
+write down by hand.

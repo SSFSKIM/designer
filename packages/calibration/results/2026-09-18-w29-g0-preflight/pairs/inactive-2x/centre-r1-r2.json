@@ -1,0 +1,49 @@
+{
+  "a": {
+    "label": "0.5-r1",
+    "root": "/Users/new/vitrea-w29-g0-scratch/d/cap/inactive-2x/0.5-r1"
+  },
+  "b": {
+    "label": "0.5-r2",
+    "root": "/Users/new/vitrea-w29-g0-scratch/d/cap/inactive-2x/0.5-r2"
+  },
+  "onlyInA": [],
+  "onlyInB": [],
+  "cells": [
+    {
+      "cell": "apple-macos-26.5-2x-dark-standard/photo__rrect-md__inactive",
+      "identical": true,
+      "changedPx": 0,
+      "maxDelta": 0,
+      "mad": 0,
+      "ssim": 1,
+      "deltaEMean": 0,
+      "deltaEWorst": 0,
+      "interiorLevel": {
+        "0.5-r1": 0.20248525825433744,
+        "0.5-r2": 0.20248525825433744
+      }
+    },
+    {
+      "cell": "apple-macos-26.5-2x-light-standard/photo__rrect-md__inactive",
+      "identical": true,
+      "changedPx": 0,
+      "maxDelta": 0,
+      "mad": 0,
+      "ssim": 1,
+      "deltaEMean": 0,
+      "deltaEWorst": 0,
+      "interiorLevel": {
+        "0.5-r1": 0.2800617763254718,
+        "0.5-r2": 0.2800617763254718
+      }
+    }
+  ],
+  "summary": {
+    "cells": 2,
+    "identical": 2,
+    "worstMaxDelta": 0,
+    "worstDeltaE": 0,
+    "worstChangedPx": 0
+  }
+}

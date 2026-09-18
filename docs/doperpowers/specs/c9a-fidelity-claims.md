@@ -21930,3 +21930,184 @@ exports the new `SurfaceBackdropToneAbscissa`, which is an additive public surfa
 semver event under X2. The version bump, the publish dry runs and the c9d chain are recorded in the
 W28 spec's §Outcomes & Retrospective, clause 5, with their counts; **nothing is published and
 nothing is tagged**, and the status line reads `0.18.0 PREPARED, UNPUBLISHED`.
+
+## 5.149 W29 G0: pre-flight on macOS 27 — the granted bundle still captures, the material is not SDK-gated as far as it declares, and the transparency slider moves every cell (2026-09-18)
+
+**Gate: W29 G0 (a)–(f), contracts X2, X4, X6, X7 and X8, clause 1's freeze.** Evidence is
+`packages/calibration/results/2026-09-18-w29-g0-preflight/`, whose `README.md` is the prose record
+and whose scripts produced every figure below. Nothing under `apps/reference-apple/fixtures/`,
+`packages/calibration/profiles/` or `results/matrix.json` was written; the 26.5 freeze verifies
+**intact, 1,762 entries**, after every capture this gate took (`freeze-verify.txt`). Raw captures —
+24 runs, four dump trees, three side bundles — stay on the machine under `~/vitrea-w29-g0-scratch/`,
+as a sitting's snapshots do. No profile key was committed, no fixture was filed and nothing about
+vitrea moved.
+
+**1. The machine (a).** macOS **27.0 build 26A428**, Mac14,12 / M2 Pro. Reduce Transparency 0,
+Increase Contrast 0, Differentiate Without Color 0, read before and beside every capture. Xcode
+26.6 (17F113) whose `MacOSX.sdk` is 26.5; the Command Line Tools at 27.0 carrying `MacOSX26.5.sdk`
+and `MacOSX27.0.sdk` with a Swift 6.4 `swiftc`. The granted bundle is byte-unchanged: sha256
+`bd3092e8…`, cdhash `88cbbb5b…`, `minos 26.0 sdk 26.0`. The virtual display came back as the same
+screen — persistent id `7709FD0F-F423-4277-B0C8-7CA94F85723A`, `system_profiler` name and the
+harness's own `NSScreen.localizedName` and `colorSpace.localizedName` all `가상 16:9`, the two
+strings the six 26.5 profiles carry — with **modes 68 and 69 both present and both reached** during
+this gate, the 1x arm running under 69 and the display returned to 68.
+
+Two fields in `machine.json` are null and both nulls are findings.
+
+**Show Borders has no readable key on this machine.** `showborders-search.txt` is the search:
+`com.apple.universalaccess` holds 17 top-level keys, the same five accessibility booleans 26.5 had
+and nothing border-shaped; the global domain holds nothing border / glass / contrast / transparency
+shaped except `NSGlassTintAmount`; and `MacOSX27.sdk`'s `NSAccessibility.h` still declares exactly
+the five `accessibilityDisplayShould…` properties of macOS 10.10–10.12 and no sixth. What is
+attested is the **absence of a key**, which is not the setting being off. X2's bar is that an
+attestation is a read that can refuse, and there is nothing here to read — so under the charter's
+plan ("Show Borders off and attested in every run") G1 cannot attest it from the machine. The
+options are the user's: read the pane by hand and label the manifest field an operator assertion,
+as Design already rules for the slider's fallback; or find the key by diffing the defaults domains
+across a toggle, which needs one hand on System Settings and is the same experiment the slider did
+not need.
+
+**The bundle's linked SDK is not what `LC_BUILD_VERSION` says it compiled against.** `swiftc` links
+through `clang` with `--sysroot` rather than `-isysroot`, and clang reads the SDK's
+`SDKSettings.plist` only for the latter — so `ld` records `sdk == minos` whatever SDK was used.
+Measured: these same sources built against `MacOSX26.5.sdk` and against `MacOSX27.0.sdk` under one
+toolchain **both** came out `sdk 26.0`, and forcing the field needs an explicit
+`-platform_version`. The charter's Grounding reads the granted bundle as linking the 26.5 SDK "…
+`minos 26.0 sdk 26.0`"; the first half is a build fact (Xcode 26.6's `MacOSX.sdk` is 26.5) and the
+second is **not evidence for it**. X2 asks G1 for "the capturing bundle's linked SDK, read from the
+binary": that read exists and is `26.0`, and it must be recorded as the field it is rather than as
+the SDK the build used, which only the build command knows.
+
+**2. The granted bundle still captures on 27 (b).** Through `open -W`, the way `run-sitting.sh`
+launches every pass. `dump-layers` on one scene at settle 8 wrote its JSON with **no permission
+prompt**. One `capture --scenes photo__rrect-md__rest` into a scratch root filed 2 cells across the
+two 2x standard profiles, both `materialRendered: true`, `deterministic: true`, `repeatNoise: 0`,
+`identicalToBackground: false`, `presentedActive: true` — no prompt and no silent denial, so TCC is
+intact. `deactivate-probe` reports the adopted mechanism still reaching the recede
+(`key=false active=false visible=true onscreen=true policy=accessory`, holding after three seconds
+and after an explicit `makeKey()`) and, in that pose, **`SCK ok 640x400`** — which closes the one
+thing `Capture.presentInactive`'s doc comment records as unread on 26.5.
+
+**3. SDK gating: not observed in the declared material; the pixel arm stops for the user (c).**
+Three bundles, all `dev.vitrea.reference-apple`, all ad-hoc signed: the granted one (recorded
+`sdk 26.0`, Xcode 26.6 toolchain, sources predating `ee9e7449`), and two side builds from `HEAD`
+under **one** toolchain — the Command Line Tools' Swift 6.4, because Xcode 26.6's compiler refuses
+the 27 SDK outright — against `MacOSX26.5.sdk` and `MacOSX27.0.sdk`, recording `sdk 26.5` and
+`sdk 27.0`. `VITREA_BUILD_OUT` paths outside the repository throughout; `apps/reference-apple/build/`
+was not touched (X4).
+
+The pixel arm **did not run**. `probe` through the 27-SDK bundle reports `ScreenCaptureKit: BLOCKED`
+with the TCC denial and no prompt, which is the charter's own expectation: TCC binds an ad-hoc
+signature by its cdhash, a rebuild is a new identity, and a recorded denial suppresses the prompt.
+`tccutil reset` was **not** run — it resets by bundle identifier and the granted bundle shares that
+identifier, so it would destroy the wave's one irreplaceable grant. Granting the side bundle is a
+hand in System Settings and it is the user's call, because the shared identifier makes the effect on
+the granted entry unknown.
+
+The grant-free arm did run and it is the verdict. `dump-layers` reads the declared Core Animation
+filter tree — the numbers the window server composites from — and asks TCC for nothing. On the
+charter's cell set (checkerboard capsule; the light `hc-text__rrect-sm`; the corner-bearing
+`dark-solid__rrect-80`; `photo__rrect-md` in each scheme; one cell through the `.accessory` recede),
+after the process-local fields are dropped (`description` carries every layer's heap address;
+`sourceContextId` and `sourceLayerRenderId` are per-process, and those three account for all 21
+leaves by which two dumps of one cell differ when every input agrees):
+
+- **`sdk 26.5` against `sdk 27.0`: 9 of 9 cells byte-identical.** Same layer and effect classes,
+  all **81 filter inputs equal**, in both schemes and in the recede.
+- **the granted bundle against both: 8 of 9.** The ninth is the recede arm and its difference is
+  the **pose**, not the material: that binary predates `dump-layers --inactive`, ignored the flag
+  and presented active, which its own dump records (`isKeyWindow: true`, no `activationPolicy`
+  field) and `strings` confirms.
+
+So a binary recording the **oldest** linked SDK of the three declares the same 27 material as one
+recording 27.0, and the 27 material is plainly present in it: the granted bundle's dumps carry the
+filter's new SDF effects (`CASDFKeyFillHighlightEffect`, `CASDFOutputEffect`, `CASDFElementLayer`),
+the new `inputKeyFillHighlight*`, `inputRingShadow*`, `inputBlurFill*` and `inputAberration*` input
+keys, and the slider's value, none of which exist in the committed 26.5 dumps. **The residual:** the
+window server composites from this tree and could in principle read the requesting binary's linked
+SDK itself, so identical trees are strong evidence and not a pixel proof. Only the side bundle's
+grant closes it. `sheets/sdk-gating.png` puts the granted bundle's own 27 pixels beside the
+committed 26.5 fixture of the same cell; it is **not** the native delta and carries no measurement
+of what 27 changed, because two axes move between those columns — the OS and the slider, which did
+not exist on 26.5.
+
+**4. The slider moves every cell, and the centre is 0.5 (d).** `NSGlassTintAmount` in
+`NSGlobalDomain`, a float, found at **0.5459057** (`.GlobalPreferences.plist` written 2026-09-18
+11:59 local). It **drives rendering with no GUI at all**, and it drives it as a material parameter
+rather than through one: the harness's own `dump-layers`, relaunched per arm so no process reads a
+stale preference, reports `inputBlurFillNormalOpacity` equal to the key unrounded at 0.0, 0.25, 0.5,
+0.5459057 and 1.0, with `inputFaceColorMatrixFillColor`'s alpha at 0.0000, 0.1000, 0.2000, 0.2275
+and 0.5000 and `inputBlurFillLightenOpacity` at 0.675, 0.7875, 0.9, 0.9, 0.9.
+
+**With the key deleted the material renders at 0.5**, and 0.5 is the knee of both declared ramps —
+the face fill's alpha rises 0.0→0.20 over [0, 0.5] and 0.20→0.50 over [0.5, 1.0]; the lighten
+opacity rises to 0.9 over [0, 0.5] and then holds. So the system's own default, what a machine with
+no key draws, is 0.5, and **this machine is not at it**.
+
+The pixel arm, ten cells over three arms, each arm's own three centre runs as its bar, every run
+audited for pose by `run-sitting.sh`'s four-part rule:
+
+| arm | cells | centre run-to-run spread (worst) | 0.0 | 1.0 | 0.5459057 | key deleted |
+| --- | ---: | --- | --- | --- | --- | --- |
+| 2x active | 6 | maxDelta 2, ΔE 0.006410 | maxDelta 37–74, ΔE ≤ 0.256863 | 60–106, ≤ 0.356620 | 3–12, ≤ 0.029438 | within the bar |
+| 2x inactive (recede) | 2 | maxDelta 0, ΔE 0 | 34–56, ≤ 0.084877 | 72–103, ≤ 0.207638 | 7–11, ≤ 0.025274 | byte-identical |
+| 1x active | 2 | maxDelta 0, ΔE 0 | 34–55, ≤ 0.077315 | 62–101, ≤ 0.208766 | 7–12, ≤ 0.026595 | byte-identical |
+
+**10 of 10 cells moved beyond their own spread at all three positions, including the as-found
+0.5459057**: the 0.046 the machine sits off centre is separable from run-to-run variation on every
+cell of every arm. The deleted-key arm is inside the spread everywhere, which is "absent means 0.5"
+read a second time, from pixels. By eye (`sheets/slider.png`) the axis is material opacity rather
+than lightness: at 0.0 the body is nearly clear and the backdrop's structure reads through it, and
+at 1.0 the light-scheme body washes toward white while the dark-scheme body goes to a dark neutral,
+each scheme moving toward its own tint.
+
+**The key was restored to exactly 0.5459057 and read back at that value**, and it is a float, as
+found. The one run that lost its pose mid-arm — `active-1x/0.5-r3`, `presentedActive: false` at 4–14
+seconds of HID idle — is kept under `QUARANTINE-` in the scratch tree and was re-taken; against its
+neighbours it read maxDelta 99 and ΔE 0.183, the size of the slider's whole range, which is the
+concrete reason the audit exists and why a probe comparing configurations must run it.
+
+**5. Window geometry does not enter the capture region (e).** The region is the window's own
+rectangle: borderless, sized to the canvas, `hasShadow = false`,
+`SCContentFilter(desktopIndependentWindow:)` with `ignoreShadowsSingleWindow = true`, the
+configuration's width and height the canvas's pixel size and `scalesToFit = false`
+(`Sources/Capture.swift`). Measured against the raster the harness composited into that same
+window, on the scenes that would show it first — `rrect-lg`, the largest component the declaration
+carries at 280x160 on a 320x200 canvas, plus `rrect-80` and `toolbar-group`: **all four corner
+pixels of every cell equal the raster exactly and the outer ring's minimum alpha is 255.** A window
+clipped to a rounded rectangle composites its corners transparent or dark; neither happens. The ring
+differences that do exist are the component's own shadow — `rrect-lg` reads ring-1 worst 7–11 with
+530–943 pixels over the noise threshold — and the **committed 26.5 fixtures of the same cells read
+the same pattern** (worst 6–11, 718–975 pixels), while `rrect-80` and `toolbar-group` read worst 0–1
+on both. No scene's capture region is cut into and no stop condition fires.
+
+**6. The plan and the bar table (f).** `plan.md` and `bar-table.md`.
+
+The 27 bed is **eight passes and 624 declared cells**, at a **measured 10.09 s per cell** (the 26.5
+record prices 9.5 s; the fit over this gate's 22 attested runs is `wall = 0.4 s + 10.09 s x cells`,
+so a pass is priced on cells and not on runs). One round over every pass is 104.9 min; **seven runs
+is 12.24 h**, and 15.9–30.6 h with the W27 record's 1.3–2.5x attempt loss. Standard-first is 11.02 h
+at the bar over four passes needing no hand on System Settings; the four accessibility passes are
+1.22 h and need the user twice. Five declared cells were never published on 26.5, all on a
+dark-standard profile, and they are named in `plan.md` so G2 meets them as reports rather than as
+absences.
+
+The 26.5 bar per cell: the bundle records **103** cells with an exact run total (`stateFrequencies`),
+**121** at one run (`recoveredProvenance`) and **395** with nothing. `bedProvenance`'s 13 events
+record counts rather than ids, so of the 395: **159** are in the one profile group all of whose
+events ran at seven and can be attributed seven **as a group statement**; **54** more are in that
+group beyond what those events say they published at all; and **182** are in the three groups whose
+events ran at both seven and seventeen, where the manifest offers nothing to choose. **224 cells
+carry a per-cell bar and 236 can be attributed no bar at all** — 38 % of the bed — which is the
+measured form of Decision Log 1 (iii)'s ruling that the 27 bed declares one bar per pass.
+
+**7. Not measured here.** No 27 fixture, no profile key, no material and no vitrea change: this gate
+files nothing. The slider's ends are not evidence classes and this gate does not ask for them; it
+measures only that they are separable, which is what Decision Log 3 needs. The native delta is G2's
+and nothing here anticipates it — the 26.5-against-27 pixels on the (c) sheet are confounded by the
+slider and carry no reading. Whether `NSGlassTintAmount` reaches vitrea's own surfaces, or has any
+web analogue, is not asked. And one harness ordering bug is recorded rather than fixed:
+`dump-layers` calls `refuseScenesUnreachableInPose` with `pose: .active` before it reads
+`--inactive`, so it refuses every declared inactive id whatever pose it is about to present in; the
+recede is a property of the presentation, so a `rest` id under `--inactive` is the same reading, and
+this gate took it that way. It belongs in the tracker.

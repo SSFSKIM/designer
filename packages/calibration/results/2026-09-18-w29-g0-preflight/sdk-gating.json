@@ -1,0 +1,170 @@
+{
+  "gate": "W29 G0 (c); claims 5.149",
+  "question": "Is Apple's 27 material gated on the capturing binary's linked SDK?",
+  "bundles": {
+    "granted": {
+      "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app",
+      "recordedSdk": "26.0",
+      "minos": "26.0",
+      "toolchain": "Xcode 26.6 swiftc (Swift 6.3.3), MacOSX.sdk 26.5",
+      "sourceRevision": "predates ee9e7449 (no dump-layers --inactive in the binary)",
+      "screenRecordingGrant": "granted; verified by a capture with materialRendered true"
+    },
+    "sdk265": {
+      "path": "/Users/new/vitrea-w29-g0-scratch/c/side-sdk265/VitreaReference.app",
+      "recordedSdk": "26.5",
+      "minos": "26.0",
+      "toolchain": "Command Line Tools swiftc (Swift 6.4), MacOSX26.5.sdk",
+      "sourceRevision": "HEAD",
+      "screenRecordingGrant": "none; not requested (see the sdk27 arm)"
+    },
+    "sdk27": {
+      "path": "/Users/new/vitrea-w29-g0-scratch/c/side-sdk27/VitreaReference.app",
+      "recordedSdk": "27.0",
+      "minos": "26.0",
+      "toolchain": "Command Line Tools swiftc (Swift 6.4), MacOSX27.0.sdk",
+      "sourceRevision": "HEAD",
+      "screenRecordingGrant": "DENIED, and no prompt was presented"
+    }
+  },
+  "pixelArm": {
+    "ran": false,
+    "reason": "ScreenCaptureKit reported the TCC denial for the side bundle and presented no prompt. TCC binds an ad-hoc signature by its cdhash, so a rebuild is a new identity, and a recorded denial suppresses the prompt (README, the capture wall). Granting it is a hand in System Settings.",
+    "whatIsNeeded": "System Settings > Privacy & Security > Screen & System Audio Recording: add /Users/new/vitrea-w29-g0-scratch/c/side-sdk27/VitreaReference.app and enable it, then re-run the arm. The side bundle carries the same CFBundleIdentifier as the granted one, so whether adding it disturbs the granted entry is not known and X4 makes that the user's call."
+  },
+  "declaredMaterialArm": {
+    "method": "dump-layers on the charter's cell set through each bundle: the declared Core Animation filter tree and every filter input by its own inputKeys. Captures no pixels and needs no grant.",
+    "cells": [
+      "dark/checkerboard__capsule-button__rest",
+      "dark/dark-solid__rrect-80__rest",
+      "dark/hc-text__rrect-sm__rest",
+      "dark/photo__rrect-md__rest",
+      "inactive/photo__rrect-md__rest",
+      "light/checkerboard__capsule-button__rest",
+      "light/dark-solid__rrect-80__rest",
+      "light/hc-text__rrect-sm__rest",
+      "light/photo__rrect-md__rest"
+    ],
+    "grantedVsSideBuilds": {
+      "cells": 9,
+      "cellsWithDifferingInputs": 1,
+      "digestIdentical": 8
+    },
+    "sdk265VsSdk27": {
+      "cells": 9,
+      "cellsWithDifferingInputs": 0,
+      "digestIdentical": 9
+    },
+    "cellsWithDifferingInputs": {
+      "inactive/photo__rrect-md__rest": {
+        "glassBackground.inputBleedBlurRadius": {
+          "granted": "33.599999999999994",
+          "sdk265": "0",
+          "sdk27": "0"
+        },
+        "glassBackground.inputBleedOpacity": {
+          "granted": "0.1666666716337204",
+          "sdk265": "0",
+          "sdk27": "0"
+        },
+        "glassBackground.inputBlurDistance0": {
+          "granted": "-48",
+          "sdk265": "0",
+          "sdk27": "0"
+        },
+        "glassBackground.inputBlurDistance1": {
+          "granted": "-1",
+          "sdk265": "0",
+          "sdk27": "0"
+        },
+        "glassBackground.inputBlurOpacity0": {
+          "granted": "0.2666666805744171",
+          "sdk265": "0.5333333611488342",
+          "sdk27": "0.5333333611488342"
+        },
+        "glassBackground.inputBlurOpacity1": {
+          "granted": "0.13333334028720856",
+          "sdk265": "0.5333333611488342",
+          "sdk27": "0.5333333611488342"
+        },
+        "glassBackground.inputBlurOpacity2": {
+          "granted": "0.5",
+          "sdk265": "1",
+          "sdk27": "1"
+        },
+        "glassBackground.inputClamp": {
+          "granted": "1.0696101188659668",
+          "sdk265": "1",
+          "sdk27": "1"
+        },
+        "glassBackground.inputFaceColorMatrixWhite": {
+          "granted": "1.0299999713897705",
+          "sdk265": "0.9599999785423279",
+          "sdk27": "0.9599999785423279"
+        },
+        "glassBackground.inputKeyFillHighlightAmount": {
+          "granted": "0.4",
+          "sdk265": "0.5",
+          "sdk27": "0.5"
+        },
+        "glassBackground.inputKeyFillHighlightColorBias": {
+          "granted": "-0.25",
+          "sdk265": "-0.1875",
+          "sdk27": "-0.1875"
+        },
+        "glassBackground.inputKeyFillHighlightSpread": {
+          "granted": "1.6755160819145565",
+          "sdk265": "2.0943951023931953",
+          "sdk27": "2.0943951023931953"
+        },
+        "glassBackground.inputKeyFillHighlightSpreadSDR": {
+          "granted": "1.8500490071139892",
+          "sdk265": "2.0943951023931953",
+          "sdk27": "2.0943951023931953"
+        },
+        "glassBackground.inputOuterRefractionAmount": {
+          "granted": "24",
+          "sdk265": "0",
+          "sdk27": "0"
+        },
+        "glassBackground.inputOuterRefractionHeight": {
+          "granted": "19.200000000000003",
+          "sdk265": "0",
+          "sdk27": "0"
+        },
+        "glassBackground.inputRefractionOpacity": {
+          "granted": "0.6000000238418579",
+          "sdk265": "0",
+          "sdk27": "0"
+        },
+        "glassBackground.inputRingShadowOpacity": {
+          "granted": "0.05999999865889549",
+          "sdk265": "0",
+          "sdk27": "0"
+        },
+        "glassBackground.inputSDRGradientDistance0": {
+          "granted": "0",
+          "sdk265": "1",
+          "sdk27": "1"
+        },
+        "glassBackground.inputSDRGradientDistance1": {
+          "granted": "0",
+          "sdk265": "1",
+          "sdk27": "1"
+        },
+        "glassBackground.inputShadowOpacity": {
+          "granted": "0.1599999964237213",
+          "sdk265": "0",
+          "sdk27": "0"
+        },
+        "glassBackground.inputShadowRadius": {
+          "granted": "10.666666666666666",
+          "sdk265": "0",
+          "sdk27": "0"
+        }
+      }
+    }
+  },
+  "verdict": "Not SDK-gated, as far as the declared material can say. Two bundles built from one toolchain and one source revision against MacOSX26.5.sdk and MacOSX27.0.sdk, recording sdk 26.5 and sdk 27.0 in LC_BUILD_VERSION, declare a byte-identical material on 9 of 9 cells: same layer and effect classes, all 81 filter inputs equal. The granted bundle, which records the oldest value of the three (sdk 26.0), agrees with both on 8 of the 9; the 9th is the recede arm, and its difference is the pose rather than the material — that binary predates dump-layers --inactive and presented active, which its own dump records (isKeyWindow true, no activationPolicy field). The pixel arm is not taken.",
+  "residual": "The window server composites the material out of the tree this arm reads, so identical trees are strong evidence and not a pixel proof: the compositor could in principle read the requesting binary's linked SDK itself. Closing that needs the side bundle's Screen Recording grant."
+}
