@@ -23,6 +23,7 @@ every script that produced them.
 | `plan.md`, `price-passes.py` | the eight passes re-priced off the committed 27 keys: 624 declared cells, 12.25 h at the seven-run bar, 15.9–30.6 h with attempt loss |
 | `bar-table.md`, `verify-bar-table.py` | clause 2's 26.5 bar per cell, independently re-derived and **confirming G0's on every figure** |
 | `sdk-pixel.json`, `sheets/sdk-pixel.png`, `harness-pixel-arm.sh`, `sdk-pixel-pairs.sh`, `sdk-pixel-sheet.py`, `audit.txt` | the harness half of the SDK-gating pixel arm, and the verdict: byte-identical, which closes G0's residual |
+| `verify-output.txt` | the freeze verify, the lint and the test run, recorded at the commit |
 | `freeze-verify.txt` | the 26.5 freeze, re-verified after every capture this gate took |
 
 ## What changed outside this directory
