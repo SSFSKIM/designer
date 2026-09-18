@@ -25,6 +25,7 @@ import {
 } from "@vitrea/renderer-webgpu";
 
 import { linearRgbLuminance, srgbByteToLinear } from "../src/color";
+import { parseProfileKey } from "../src/profile";
 
 const REPO_ROOT = resolve(import.meta.dirname, "..", "..", "..");
 
@@ -71,6 +72,27 @@ const SETS = ["calibration", "validation", "holdout", "recorded", "probe"] as co
  */
 const GATED_SETS: readonly string[] = ["calibration", "validation", "holdout"];
 const IDS = new Set(MATRIX.scenes.map((scene) => scene.id));
+/**
+ * The two operating-system beds the matrix declares, and the key prefix of each.
+ *
+ * Every assertion below that was written about "the four standard profiles" or
+ * "both dark profiles" was written when one bed existed, and each is a statement
+ * about a bed's SHAPE rather than about 26.5 in particular — so W29's 27 bed
+ * (version 6: the same scenes and the same split under `apple-macos-27.0-…`
+ * keys) is held to it too, which is also what checks that the 27 entries really
+ * are copies of the 26.5 lists.
+ */
+const BEDS = ["apple-macos-26.5-", "apple-macos-27.0-"] as const;
+/**
+ * A profile key with macOS 27's trailing appearance-slider token removed.
+ *
+ * The token is last precisely so that everything before it sits where a 26.5
+ * key has it (see `PROFILE_KEY_PATTERN`); stripping it is how an assertion about
+ * the scale-and-mode part of a key stays one expression across both beds,
+ * instead of silently excluding the 27 keys because they no longer end in the
+ * a11y mode.
+ */
+const withoutGlass = (key: string): string => key.replace(/-glass[0-9.]+$/, "");
 const setOf = (id: string): string | undefined =>
   SETS.find((set) => MATRIX.split[set].includes(id));
 
@@ -404,13 +426,16 @@ describe("W27c G1d's uniform dark-response anchor (Decision Log 18)", () => {
   });
 
   it("presents four dark cells, not eight cross-scheme cells, at either scale", () => {
-    const selected = (scale: string): string[] => MATRIX.profiles
-      .filter((profile) => profile.key.includes(`-${scale}-`) && profile.key.endsWith("-standard"))
+    const selected = (bed: string, scale: string): string[] => MATRIX.profiles
+      .filter((profile) => profile.key.startsWith(bed) && profile.key.includes(`-${scale}-`)
+        && withoutGlass(profile.key).endsWith("-standard"))
       .flatMap((profile) => profile.scenes === "all"
         ? MATRIX.scenes.map((scene) => scene.id)
         : profile.scenes)
       .filter((id) => ids.includes(id));
-    for (const scale of ["1x", "2x"]) expect(selected(scale)).toEqual(ids);
+    // Per bed, not across both: a pass captures one operating system's profiles,
+    // so "four cells, not eight" is a statement about one bed's pass.
+    for (const bed of BEDS) for (const scale of ["1x", "2x"]) expect(selected(bed, scale), `${bed}${scale}`).toEqual(ids);
   });
 });
 
@@ -566,15 +591,24 @@ describe("W25's probe set is captured evidence that no gate is stated over", () 
       .filter((profile) => profile.scenes === "all" || PROBE.every((id) => profile.scenes.includes(id)))
       .map((profile) => profile.key)
       .sort();
+    // The 27 bed declares the same scenes as the 26.5 bed (version 6), so the
+    // grids ride its four standard profiles as well — which is the assertion
+    // that would catch a 27 entry built from anything other than the 26.5 list.
     expect(carrying).toEqual([
       "apple-macos-26.5-1x-dark-standard",
       "apple-macos-26.5-1x-light-standard",
       "apple-macos-26.5-2x-dark-standard",
       "apple-macos-26.5-2x-light-standard",
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "apple-macos-27.0-2x-light-standard-glass0.5",
     ]);
     for (const key of [
       "apple-macos-26.5-1x-light-reduced-transparency",
       "apple-macos-26.5-1x-light-increased-contrast",
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "apple-macos-27.0-1x-light-increased-contrast-glass0.5",
     ]) {
       const profile = MATRIX.profiles.find((p) => p.key === key);
       expect(profile?.scenes === "all" ? [] : (profile?.scenes ?? []).filter((id) => PROBE.includes(id)), key)
@@ -590,6 +624,8 @@ describe("W25's probe set is captured evidence that no gate is stated over", () 
       return scenes === undefined || scenes === "all" ? [] : scenes;
     };
     expect(at("apple-macos-26.5-2x-dark-standard")).toEqual(at("apple-macos-26.5-1x-dark-standard"));
+    expect(at("apple-macos-27.0-2x-dark-standard-glass0.5"))
+      .toEqual(at("apple-macos-27.0-1x-dark-standard-glass0.5"));
   });
 });
 
@@ -619,5 +655,66 @@ describe("W25's probe backgrounds and shapes cost no new generator", () => {
       expect(long / short, `${id}: aspect`).toBeCloseTo(1.75, 2);
       expect((shape.radius ?? 0) / short, `${id}: radius fraction`).toBeCloseTo(0.211, 2);
     }
+  });
+});
+
+describe("W29's macOS 27 bed (version 6, acceptance clause 2)", () => {
+  const OS_27 = MATRIX.profiles.filter((profile) => profile.key.startsWith("apple-macos-27.0-"));
+
+  it("declares one 27 profile per 26.5 profile, and nothing else", () => {
+    // Six, not eight: the charter enumerates {1x,2x}×{light,dark}-standard plus
+    // the two 1x light accessibility keys. Eight is the number of PASSES the
+    // sitting runs (each scale × mode × pose), and a pose is not a profile — an
+    // inactive pass captures the `__inactive` scenes these same keys declare.
+    expect(OS_27.map((profile) => profile.key).sort()).toEqual([
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "apple-macos-27.0-1x-light-increased-contrast-glass0.5",
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+    ]);
+  });
+
+  it("copies each 26.5 profile's scene list, scheme and mode exactly", () => {
+    // The clause is "the same scenes, the same split". If a 27 list drifted from
+    // its 26.5 counterpart, G2's native-against-native read would meet the
+    // difference as a missing cell rather than as a declaration bug, so the copy
+    // is asserted here rather than trusted to the edit that made it.
+    for (const profile of OS_27) {
+      const source = withoutGlass(profile.key).replace("apple-macos-27.0-", "apple-macos-26.5-");
+      const counterpart = MATRIX.profiles.find((entry) => entry.key === source);
+      expect(counterpart, source).toBeDefined();
+      expect(profile.scenes, profile.key).toEqual(counterpart?.scenes);
+    }
+  });
+
+  it("carries the slider position in every 27 key and in none of the 26.5 keys", () => {
+    // Contract X6: the key names every axis that moved a pixel, and G0 measured
+    // `NSGlassTintAmount` moving 10 of 10 probe cells beyond their own
+    // run-to-run spread (claims §5.149 §4). Decision Log 3 (a) fixes the bed at
+    // the system default 0.5 — the value the material renders at with the key
+    // absent — so every 27 key states 0.5, and a pass at another position needs
+    // its own keys rather than these ones at a different setting.
+    for (const profile of MATRIX.profiles) {
+      const parsed = parseProfileKey(profile.key);
+      expect(parsed, profile.key).not.toBeNull();
+      expect(parsed?.glass, profile.key)
+        .toBe(profile.key.startsWith("apple-macos-27.0-") ? 0.5 : undefined);
+    }
+  });
+
+  it("declares the 624 cells the pass plan is priced on", () => {
+    // `results/2026-09-18-w29-g0-preflight/plan.md` prices eight passes at 624
+    // declared cells and 12.24 h at the seven-run bar, from a measured 10.09 s
+    // per cell on 27. That figure is derived from this file, so it is pinned
+    // here — a change to a 27 profile's list that did not also move plan.md
+    // would otherwise re-price the sitting silently.
+    const declared = OS_27.reduce(
+      (total, profile) =>
+        total + (profile.scenes === "all" ? MATRIX.scenes.length : profile.scenes.length),
+      0,
+    );
+    expect(declared).toBe(624);
   });
 });

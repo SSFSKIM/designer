@@ -3001,3 +3001,40 @@ reads its own `LC_BUILD_VERSION` at startup — its executable is on disk and th
 fields — and records it beside a build-time SDK string the build script stamps in, so the two are
 separable rather than conflated. Until then a bed's SDK provenance is a build fact somebody has to
 write down by hand.
+
+## The capture harness cannot be narrowed to one profile (2026-09-18, §5.150)
+
+*Found by W29 G1 while building the 27 sitting.* `main.swift` selects which profiles a run captures
+from two things and nothing else: the machine's accessibility mode, matched against
+`profile.a11y`, and the display's real backing scale, matched against the substring `-<scale>x-` in
+the key. `--scenes` narrows *cells*, not profiles. That was invisible while one bed existed, and it
+became load-bearing the moment `scenes.json` declared two: a 2x standard pass against the canonical
+version-6 declaration selects **four** profiles rather than two — the 26.5 pair and the 27 pair —
+and spends twice the priced machine hours writing 27 pixels into `apple-macos-26.5-…` directories
+inside the run snapshot, which is twelve extra hours of a sitting and a snapshot that invites exactly
+the confusion X1 exists to prevent. The workaround is `results/2026-09-18-w29-g1-bed/pass-spec.py`,
+which derives a profile-narrowed specification from the canonical file at every pass's opening and
+refuses unless the canonical file still declares what clause 2 names. It works and it is verified per
+pass, but it means a sitting reads a document that is not the one in the repository, and every future
+bed that lives beside another one will need the same scaffolding. Shape of the work: a `--profile
+KEY[,KEY]` option on `capture` that intersects with the a11y-and-scale selection and fails when it
+selects nothing, which is the same shape `--scenes` already has and about fifteen lines beside it.
+Doing it rebuilds the harness, so it waits for a build a later wave is taking anyway — X4 says the
+granted bundle is not rebuilt for it, and any bundle added to Screen Recording under its identifier
+evicts its grant.
+
+## The SDK-gating pixel arm is settled in the active pose only (2026-09-18, §5.150)
+
+*Left open by W29 G1 (4).* The pixel arm closed G0's residual decisively — two bundles recording
+`LC_BUILD_VERSION` `sdk 26.0` and `sdk 27.0` produce byte-identical captures on 16 of 16 attested
+cell pairs at zero run-to-run spread — but only through the **active** presentation. The side
+bundle's inactive run failed after one cell and was not retaken while it held the grant, so there is
+nothing for a harness inactive half to be compared against; the declared-material arm had the same
+limit for a different reason (the granted bundle predates `dump-layers --inactive` and presented
+active). Why it is small: SDK gating, if it existed, would be a property of the requesting binary
+rather than of the window's activation state — the compositor would have to read a load command that
+does not change between poses — and the active arm leaves no difference for a pose-conditional gate
+to hide in. Shape of the work: a three-run inactive arm through each bundle at slider 0.5, on the
+same four ids. It needs the 27-SDK side bundle's Screen Recording grant back, and granting it evicts
+the harness bundle's (W29 Surprises), so it costs two hands on System Settings and should be done
+only alongside something else that already needs the side bundle granted.

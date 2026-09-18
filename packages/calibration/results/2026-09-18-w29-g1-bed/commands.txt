@@ -1,0 +1,46 @@
+The eight passes, as run. W29 G1 (5); RUNBOOK.md §3 carries the same lines with their
+pre-flight and their expected counts.
+
+  R=<repo>/packages/calibration/results/2026-09-18-w29-g1-bed
+  export VITREA_SCENES=<repo>/apps/reference-apple/scenes.json
+
+Standard first, display at displayplacer mode 68 (11.03 h at the seven-run bar):
+
+  DRY=1 $R/run-sitting-27.sh active   2 standard        # must print: cells presented: 162
+  $R/run-sitting-27.sh active   2 standard
+  DRY=1 $R/run-sitting-27.sh inactive 2 standard        # must print: cells presented: 119
+  $R/run-sitting-27.sh inactive 2 standard
+
+  displayplacer "id:7709FD0F-F423-4277-B0C8-7CA94F85723A res:2560x1440 hz:60 color_depth:4 \
+    enabled:true origin:(0,0) degree:0 mode:69"
+  displayplacer list | grep 'current mode'              # must read: mode 69
+
+  DRY=1 $R/run-sitting-27.sh active   1 standard        # 162
+  $R/run-sitting-27.sh active   1 standard
+  DRY=1 $R/run-sitting-27.sh inactive 1 standard        # 119
+  $R/run-sitting-27.sh inactive 1 standard
+
+Then the four accessibility passes, display still at mode 69, each needing a hand in
+System Settings > Accessibility > Display (1.22 h at the bar):
+
+  # Increase contrast ON (macOS force-couples Reduce transparency ON with it)
+  DRY=1 $R/run-sitting-27.sh active   1 increased-contrast   # 10
+  $R/run-sitting-27.sh active   1 increased-contrast
+  DRY=1 $R/run-sitting-27.sh inactive 1 increased-contrast   # 22
+  $R/run-sitting-27.sh inactive 1 increased-contrast
+
+  # Increase contrast OFF, Reduce transparency ON
+  DRY=1 $R/run-sitting-27.sh active   1 reduced-transparency # 9
+  $R/run-sitting-27.sh active   1 reduced-transparency
+  DRY=1 $R/run-sitting-27.sh inactive 1 reduced-transparency # 21
+  $R/run-sitting-27.sh inactive 1 reduced-transparency
+
+  # Toggles back off, display back to 2x
+  displayplacer "id:7709FD0F-F423-4277-B0C8-7CA94F85723A res:2560x1440 hz:60 color_depth:4 \
+    enabled:true origin:(0,0) degree:0 mode:68"
+
+No VITREA_SITTING_DIR and no VITREA_BED_FILE: the accessibility mode is part of the pass's
+identity, so each pass has its own run directory ($HOME/vitrea-w29-27-run/<mode>-<pose>-<scale>x/
+run-N) and its cell list is derived per pass from the declaration. The four standard rehearsal
+lines were run on 2026-09-18 and are in logs/rehearsal.txt; the four accessibility ones need the
+toggle first, which is why they are not.

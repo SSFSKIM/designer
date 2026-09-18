@@ -1,0 +1,90 @@
+{
+  "gate": "W29 G1 (4); Decision Log 3 (c); claims 5.150",
+  "question": "G0's residual: the window server composites the material out of the declared filter tree, and could in principle read the requesting binary's own linked SDK. Two bundles declaring one material is strong evidence and not a pixel proof. Do the pixels agree?",
+  "verdict": "They are byte-identical. 16 of 16 attested cell pairs — four ids in two schemes, at two runs each — carry the same SHA-256 from a bundle recording LC_BUILD_VERSION sdk 26.0 and from one recording sdk 27.0, on one machine at slider 0.5, 2x, active. Each arm's own run-to-run spread is zero on every cell, so there is no spread for a difference to hide inside: the arms are not merely within a bar, they are the same bytes. Apple's macOS 27 material is not gated on the capturing binary's linked SDK. G0's residual is closed and X4 stands: the 27 bed is captured with the granted bundle, which is never rebuilt.",
+  "capturedAt": "2026-09-18",
+  "machine": {
+    "os": "27.0",
+    "osBuild": "26A428",
+    "glassTintAmount": 0.5,
+    "reduceTransparency": 0,
+    "increaseContrast": 0,
+    "showBorders": 0,
+    "displayplacerMode": 68,
+    "scale": "2x",
+    "pose": "active",
+    "note": "Read before each run into attest.read beside it, by the same refusals run-sitting-27.sh applies."
+  },
+  "grantRecheck": {
+    "required": "Decision Log 3 (c): G1 re-checks that the granted harness bundle still captures BEFORE any other step, since the side bundle shares its CFBundleIdentifier and adding the side bundle evicted the harness's grant once already (W29 Surprises).",
+    "howChecked": "open -W build/VitreaReference.app --args probe, the same launch run-sitting-27.sh uses for every pass",
+    "result": "ScreenCaptureKit: OK 640x400 — the material path is available",
+    "alsoRecorded": "ImageRenderer reports 'material rendered: NO', which is that path's standing property and not a finding: it renders offscreen and does not draw Liquid Glass at all (Capture.swift)."
+  },
+  "arms": {
+    "harness": {
+      "bundle": "/Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app",
+      "recordedSdk": "26.0",
+      "minos": "26.0",
+      "binarySha256": "bd3092e8d6d1f50ba43124adf42bed8a29e96646adb97bb3a538582653fda212",
+      "runs": ["active-r1", "active-r2", "active-r3"],
+      "root": "~/vitrea-w29-g0-scratch/sdk-pixel/harness",
+      "secondsPerRun": [77, 77, 77],
+      "attested": "3 of 3 runs, 8 of 8 cells each",
+      "capturedBy": "results/2026-09-18-w29-g1-bed/harness-pixel-arm.sh (G1, 2026-09-18)"
+    },
+    "sideSdk27": {
+      "bundle": "~/vitrea-w29-g0-scratch/c/side-sdk27/VitreaReference.app",
+      "recordedSdk": "27.0",
+      "minos": "26.0",
+      "runs": ["active-r1", "active-r2", "active-r3 (QUARANTINED, see below)"],
+      "root": "~/vitrea-w29-g0-scratch/sdk-pixel/side-sdk27",
+      "attested": "2 of 3 runs; active-r3 attested 3 of 8 cells",
+      "capturedBy": "~/vitrea-w29-g0-scratch/side-pixel-arm.sh (the parent, 2026-09-18, in the window while the side bundle held the grant)",
+      "grantNow": "none; the grant is back on the harness bundle"
+    },
+    "heldIdentical": [
+      "the four ids: checkerboard__capsule-button__rest, dark-solid__rrect-80__rest, hc-text__rrect-sm__rest, photo__rrect-md__rest",
+      "both schemes, via the two 2x standard profiles",
+      "scale 2x, display mode 68",
+      "NSGlassTintAmount 0.5",
+      "--reset-interstitial 6, no --min-idle-seconds (the side arm was taken without one; matching it keeps the bundle the only variable)",
+      "the MAIN checkout's scenes.json (version 5), because the side arm ran against it: this worktree's version 6 also declares the six 27 keys, which at 2x standard would add eight cells the other arm has no counterpart for"
+    ],
+    "theOneVariable": "the capturing bundle, and with it the linked SDK its LC_BUILD_VERSION records"
+  },
+  "pairs": {
+    "method": "results/2026-09-18-w29-g0-preflight/native-pair.ts — bytes first, then SSIM, OKLab dE and interior level, per cell. Rows under ~/vitrea-w29-g0-scratch/sdk-pixel/pairs/.",
+    "withinHarness": {
+      "harness-r1-r2": { "cells": 8, "byteIdentical": 8, "worstMaxDelta": 0, "worstDeltaE": 0 },
+      "harness-r1-r3": { "cells": 8, "byteIdentical": 8, "worstMaxDelta": 0, "worstDeltaE": 0 },
+      "harness-r2-r3": { "cells": 8, "byteIdentical": 8, "worstMaxDelta": 0, "worstDeltaE": 0 }
+    },
+    "withinSide": {
+      "side-r1-r2": { "cells": 8, "byteIdentical": 8, "worstMaxDelta": 0, "worstDeltaE": 0 }
+    },
+    "acrossArms": {
+      "cross-r1": { "cells": 8, "byteIdentical": 8, "worstMaxDelta": 0, "worstDeltaE": 0 },
+      "cross-r2": { "cells": 8, "byteIdentical": 8, "worstMaxDelta": 0, "worstDeltaE": 0 }
+    },
+    "bar": "Each arm's own three-run (harness) and two-run (side) spread, which is zero on every cell and every metric. The harness attests each cell byte-stable WITHIN its run by capturing it twice, so a byte difference BETWEEN runs of one configuration is already the run-to-run spread rather than noise below it."
+  },
+  "sideRun3": {
+    "status": "not evidence; excluded from every pair above",
+    "finding": "G1's audit of the banked side arm (results/2026-09-18-w29-g0-preflight/audit-runs.py) found active-r3 attesting 3 of 8 cells: five recorded presentedActive false at 1.0-4.7 s of HID idle. This is the failure plan.md item 7 names — a run that loses the pose mid-pass reads against its neighbours like a material difference.",
+    "whyItStrengthensTheVerdict": "Six of r3's eight cells differ from the harness arm by bytes. Five are the pose-lost ones. The sixth, light/photo__rrect-md__rest, attested presentedActive true but at 0.1 s of HID idle — captured while the machine was being used. The only two cells of r3 that were taken undisturbed (255.5 s and 245.9 s of idle) are byte-identical to the harness arm. So every disagreement in the whole comparison is accounted for by a run's own record of being disturbed, and none by the bundle.",
+    "notRetaken": "The side bundle no longer holds the Screen Recording grant, and re-granting it would evict the harness's again (W29 Surprises). r1 and r2 already settle the question at zero spread, so a third run buys nothing that would change the verdict."
+  },
+  "inactiveHalf": {
+    "taken": false,
+    "why": "The side arm's inactive half failed after one cell on 2026-09-18 and was deliberately not retaken (the parent's dispatch records this). There is therefore nothing for a harness inactive half to be compared against, and capturing one alone would be a reading of the harness bundle rather than a comparison of two.",
+    "whatIsLost": "The recede is the one pose the declared-material arm could not compare either — the granted bundle predates dump-layers --inactive and presented active, so G0's 9th cell differed by pose rather than by material (sdk-gating.json). The pixel arm therefore settles SDK gating in the ACTIVE pose only.",
+    "whyThatIsEnough": "SDK gating, if it existed, would be a property of the requesting binary and not of the window's activation state: the compositor would have to read the binary's LC_BUILD_VERSION, which does not change between poses. The active arm's result is byte-identity on every cell at zero spread, which leaves no room for a pose-conditional gate to be hiding in a difference. Recorded as a residual rather than closed: closing it needs the side bundle re-granted, which costs the harness's grant, and nothing in the wave depends on it.",
+    "wouldClose": "A three-run inactive arm through each bundle at slider 0.5, which needs the side bundle's grant back and the harness's re-added afterwards by hand."
+  },
+  "evidence": {
+    "sheet": "sheets/sdk-pixel.png — granted | side | their difference x8 | the granted bundle's difference from itself x8. Both difference columns are black.",
+    "audit": "audit.txt",
+    "rows": "~/vitrea-w29-g0-scratch/sdk-pixel/pairs/*.json (scratch; the figures above are the derived record)"
+  }
+}

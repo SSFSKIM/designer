@@ -50,6 +50,7 @@ import {
   type CaptureVariant,
   type CellResolution,
 } from "../src/plurality";
+import { parseAttestRead, runProvenanceProblems, type RunProvenance } from "../src/run-provenance";
 
 const PACKAGE_ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
 const REPO_ROOT = resolve(PACKAGE_ROOT, "..", "..");
@@ -88,6 +89,12 @@ interface RunSnapshot {
   readonly entries: Map<string, Record<string, unknown>>;
   /** `background@Nx` → the path the run recorded for the raster it composited. */
   readonly backgrounds: Record<string, string>;
+  /**
+   * What the run says about the machine it was taken on, read out of its own
+   * manifest and out of the `attest.read` the run script wrote beside it. Judged
+   * against the profile keys the run filed under by `src/run-provenance.ts`.
+   */
+  readonly provenance: RunProvenance;
 }
 
 function loadRun(label: string, dir: string): RunSnapshot {
@@ -98,6 +105,7 @@ function loadRun(label: string, dir: string): RunSnapshot {
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as {
     profiles?: { profileKey?: string; fixtures?: { sceneId?: string }[] }[];
     backgrounds?: Record<string, string>;
+    hardware?: { osVersion?: string; osBuild?: string };
   };
   const entries = new Map<string, Record<string, unknown>>();
   for (const profile of manifest.profiles ?? []) {
@@ -105,7 +113,28 @@ function loadRun(label: string, dir: string): RunSnapshot {
       entries.set(`${profile.profileKey}/${fixture.sceneId}`, fixture as Record<string, unknown>);
     }
   }
-  return { label, dir, entries, backgrounds: manifest.backgrounds ?? {} };
+  // The attestation is read if it is there and its absence is carried forward as
+  // an absence rather than as an empty record: whether a run needed one depends
+  // on the axes its keys claim, and that is the rule's judgement, not this
+  // loader's (`run-provenance.ts`).
+  const attestPath = resolve(dir, "attest.read");
+  const attested = existsSync(attestPath)
+    ? parseAttestRead(readFileSync(attestPath, "utf8"))
+    : null;
+  return {
+    label,
+    dir,
+    entries,
+    backgrounds: manifest.backgrounds ?? {},
+    provenance: {
+      label,
+      hardware: manifest.hardware ?? {},
+      attested,
+      profileKeys: (manifest.profiles ?? [])
+        .map((profile) => profile.profileKey)
+        .filter((key): key is string => typeof key === "string"),
+    },
+  };
 }
 
 const sha = (bytes: Uint8Array): string => createHash("sha256").update(bytes).digest("hex");
@@ -218,6 +247,26 @@ const confidenceAt = (n: number, p: number): number => 1 - Math.pow(1 - p, n);
 function main(): void {
   const options = parseArgs(process.argv.slice(2));
   const runs = options.runs.map((r) => loadRun(r.label, r.dir));
+  /*
+   * Before a single PNG is opened: were these runs taken on the machine their
+   * profile keys describe, and were they all taken on the same one?
+   *
+   * First because it is decidable from the manifests and the attestations alone,
+   * and because everything after it is a decision BETWEEN the runs — a plurality
+   * over seven runs from two operating systems is a majority vote between two
+   * materials rather than a majority over one. The harness never made this check:
+   * it validates a profile's accessibility mode and its scale against the machine
+   * and reads the OS version only to record it, so nothing there would stop a 27
+   * run filing into a 26.5 directory (W29 Grounding; the gate lives in TypeScript
+   * because the granted bundle is never rebuilt, contract X4).
+   */
+  const provenance = runProvenanceProblems(runs.map((run) => run.provenance));
+  if (provenance.length > 0) {
+    throw new Error(
+      `${provenance.length} run(s) disagree with the profile keys they filed under, and ` +
+        `nothing was read:\n  - ${provenance.join("\n  - ")}`,
+    );
+  }
   /*
    * Read up front, because the declaration is now both the publication filter
    * and the role a published entry carries. A cell outside the selected roles

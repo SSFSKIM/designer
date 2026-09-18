@@ -17,12 +17,39 @@ export type MetricAxis = (typeof METRIC_AXES)[number];
 export type FidelityTier = "texture" | "dom";
 
 /**
- * A native capture profile key, e.g. `apple-macos-26.5-2x-light-standard`.
+ * A native capture profile key, e.g. `apple-macos-26.5-2x-light-standard` or
+ * `apple-macos-27.0-2x-light-standard-glass0.5`.
  * Every axis that can move a pixel is in the key, so a claim always names the
  * cell it was measured in.
+ *
+ * The trailing `-glass<amount>` token is the appearance slider macOS 27
+ * introduced, and it is optional because it does not exist before 27: the key
+ * `NSGlassTintAmount` is absent from every 26.x preference store, so a 26.5 key
+ * with no slider token is not a key that omitted an axis, it is a key captured
+ * on a system that had none (W29 G0 (d); claims §5.149 §4). On 27 the axis is
+ * measured to move every cell of every arm, in both poses and at both scales,
+ * far beyond the cell's own run-to-run spread — the value reaches the glass
+ * filter unrounded as `inputBlurFillNormalOpacity` — so W29's contract X6, "the
+ * key names every axis that moved a pixel", makes the token mandatory for a 27
+ * fixture. W29 Decision Log 3 (a) rules the bed's position at the system
+ * default 0.5 and puts it in the key; the charter's Design puts it **last**.
+ *
+ * Last, rather than beside the OS token, for two reasons that are not
+ * aesthetic. The granted reference bundle must accept the key without a
+ * rebuild (contract X4), and the one thing it reads out of a key is the
+ * substring `-<scale>x-` (`main.swift`'s scale gate; the scheme and a11y
+ * axes it takes from the profile's own declared fields) — which survives
+ * either placement, so placement is decided by the readers that do parse
+ * positionally. Those are this pattern and the scene matrix's own assertions,
+ * and a token appended after the a11y mode leaves every earlier axis at the
+ * offset a 26.5 key has it at.
+ *
+ * The amount is parsed as a number, so `-glass0.50` and `-glass0.5` name the
+ * same position; nothing canonicalises the spelling, because a key is a literal
+ * written once in `scenes.json` and reviewed there.
  */
 export const PROFILE_KEY_PATTERN =
-  /^apple-(?<platform>macos|ios|ipados)-(?<osVersion>\d+\.\d+)-(?<scale>\d+)x-(?<colorScheme>light|dark)-(?<a11yMode>standard|reduced-transparency|increased-contrast)$/;
+  /^apple-(?<platform>macos|ios|ipados)-(?<osVersion>\d+\.\d+)-(?<scale>\d+)x-(?<colorScheme>light|dark)-(?<a11yMode>standard|reduced-transparency|increased-contrast)(?:-glass(?<glass>\d+(?:\.\d+)?))?$/;
 
 export interface NativeProfile {
   readonly platform: "macos" | "ios" | "ipados";
@@ -30,6 +57,13 @@ export interface NativeProfile {
   readonly scale: number;
   readonly colorScheme: "light" | "dark";
   readonly a11yMode: "standard" | "reduced-transparency" | "increased-contrast";
+  /**
+   * The appearance slider's position, `NSGlassTintAmount`, when the key states
+   * one. Absent on every pre-27 key, and absent rather than defaulted to the
+   * system centre: a bed captured before the axis existed made no statement
+   * about it, and a 0.5 invented here would read as one.
+   */
+  readonly glass?: number;
 }
 
 /** Parse a profile key, or return null — an unparseable key is never guessed at. */
@@ -43,6 +77,7 @@ export function parseProfileKey(key: string): NativeProfile | null {
     scale: Number(groups.scale),
     colorScheme: groups.colorScheme as NativeProfile["colorScheme"],
     a11yMode: groups.a11yMode as NativeProfile["a11yMode"],
+    ...(groups.glass === undefined ? {} : { glass: Number(groups.glass) }),
   };
 }
 

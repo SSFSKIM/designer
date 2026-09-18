@@ -22111,3 +22111,247 @@ web analogue, is not asked. And one harness ordering bug is recorded rather than
 `--inactive`, so it refuses every declared inactive id whatever pose it is about to present in; the
 recede is a property of the presentation, so a `rest` id under `--inactive` is the same reading, and
 this gate took it that way. It belongs in the tracker.
+
+## 5.150 W29 G1 Part A: the 27 bed's infrastructure — the key's slider axis, the sitting's refusals, and the SDK-gating residual closed on pixels (2026-09-18)
+
+**Gate: W29 G1 Part A, acceptance clause 2, Decision Log 3, contracts X1, X2, X4, X6 and X7.**
+Evidence is `packages/calibration/results/2026-09-18-w29-g1-bed/`, whose `README.md` is the prose
+record, `RUNBOOK.md` the operator's document and whose scripts produced every figure below. **No 27
+fixture is filed by this gate**; Part B materialises them from the banked runs. Nothing under
+`apps/reference-apple/fixtures/`, `packages/calibration/profiles/` or `results/matrix.json` was
+written and the 26.5 freeze verifies **intact, 1,762 entries**, after every capture this gate took
+(`freeze-verify.txt`). Raw captures stay on the machine under `~/vitrea-w29-g0-scratch/sdk-pixel/`.
+
+**1. The key carries the slider, last, and the placement is a grammar rule.** Decision Log 3 (a)
+rules the 27 bed at `NSGlassTintAmount` **0.5** and puts the position in the profile key, which
+contract X6 requires of any axis that moved a pixel — G0 measured this one moving 10 of 10 probe
+cells beyond their own run-to-run spread, in both poses, at both scales, in both schemes (§5.149 §4).
+The six committed keys are
+
+```
+apple-macos-27.0-1x-light-standard-glass0.5              apple-macos-27.0-2x-light-standard-glass0.5
+apple-macos-27.0-1x-dark-standard-glass0.5               apple-macos-27.0-2x-dark-standard-glass0.5
+apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+apple-macos-27.0-1x-light-increased-contrast-glass0.5
+```
+
+Six, not eight: eight is the number of **passes** (each scale × accessibility mode × pose) and a
+pose is not a profile — an inactive pass captures the `__inactive` scenes these same keys declare.
+
+`PROFILE_KEY_PATTERN` gains an **optional** trailing `-glass<amount>` group and `NativeProfile` an
+optional `glass`. Optional because the axis is *absent* before 27 rather than unspecified: the key
+exists in no 26.x preference store, so a 26.5 key with no slider token is not a key that omitted an
+axis but a key captured on a system that had none. `parseProfileKey` therefore returns a 26.5 profile
+with **no** `glass` property at all rather than one defaulted to the 27 centre, and
+`profile-key.test.ts` asserts that: a 0.5 read out of a 26.5 key would claim the frozen bed was
+captured at a position nobody can know it was at.
+
+**The placement was decided by what the granted bundle accepts without a rebuild, and then by the
+readers that parse positionally.** The one thing `main.swift` reads out of a profile key is the
+substring `-<scale>x-` (its scale gate); the colour scheme and the accessibility mode it takes from
+the profile's own declared JSON fields, and it uses the key otherwise only verbatim, as a directory
+name and a manifest value. So the bundle accepts either placement and X4 is satisfied either way,
+which leaves the decision to `PROFILE_KEY_PATTERN` and to the scene matrix's own assertions.
+Appending after the a11y mode leaves every earlier axis at the offset a 26.5 key has it at; a mid-key
+spelling (`apple-macos-27.0-glass0.5-2x-light-standard`) would move the scale and scheme tokens and
+silently change what code shaped like `key.includes("-2x-") && key.endsWith("-standard")` selects —
+`scene-matrix.test.ts` holds one such assertion, and under the trailing form it keeps meaning what it
+meant. The grammar refuses the mid-key spelling outright, so the placement is enforced rather than
+conventional. Proved by rehearsal rather than by reasoning: the granted harness parses version 6 and
+presents every cell of all four standard passes under the new keys (§4 below).
+
+**`scenes.json` is version 6** and the diff against 5 is six profile entries and one
+`$comment-version-6`. The 27 entries declare the **same scenes in the same split** as their 26.5
+counterparts — asserted rather than trusted, by a `scene-matrix.test.ts` block that compares each 27
+list against its counterpart, requires every 27 key to state 0.5 and every 26.5 key to state nothing,
+and pins the **624 declared cells** the pass plan is priced on. Three pre-existing assertions in that
+file were per-bed statements written when one bed existed; they are widened to hold of both beds,
+which is also what would catch a 27 entry built from anything other than the 26.5 list.
+
+**2. A pass cannot read the canonical declaration, and that is a finding about the harness.** The
+harness selects profiles by accessibility mode and display scale and by **nothing else** — it has no
+profile filter, and `--scenes` narrows cells rather than profiles. With both beds declared in one
+file a 2x standard pass would select **four** profiles rather than two and spend twice the priced
+hours writing 27 pixels into `apple-macos-26.5-…` directories inside the run snapshot: twelve extra
+hours of machine time, and a run snapshot that invites exactly the confusion X1 exists to prevent.
+`pass-spec.py` derives a **27-only specification** from the canonical file at the opening of every
+pass and refuses unless what it finds there is still the six keys clause 2 names, each ending
+`-glass0.5`, each declaring its 26.5 counterpart's scenes exactly. Everything else in the document
+passes through untouched, so a pass's manifest records `sceneSpecVersion: 6` and the canonical split,
+which is true of it. The specification is derived at every pass and never kept, so it cannot drift
+from the declaration; both its hash and the canonical file's are recorded in the run's attestation.
+The pass's cell list is derived from the same document per pose and per mode, for the reason the W27
+sitting needed a hand-derived `bed-inactive-a11y.txt`: a list that is derived cannot disagree with
+the declaration it came from.
+
+**3. The sitting's attestation, and what it refuses.** `run-sitting-27.sh` is the W27 script's
+successor. It carries the W27 per-cell pose audit and its quarantine **unchanged in what they require
+of a cell**, and adds, per run, read before `open -W` and recorded into the run's own directory as
+`attest.read`:
+
+| read | refusal | why it is a refusal and not a note |
+| --- | --- | --- |
+| `sw_vers -productVersion` | not `27.0*` | the W27 gate inverted: a 26.x or 27.1 pass filed under these keys is the mistake no later read could undo |
+| `sw_vers -buildVersion` | not `26A428` | a point update is a different material and a Decision Log entry, not a continuation |
+| `NSGlassTintAmount` | not exactly `0.5`, **including absent** | the material renders at 0.5 with the key absent, but a position inferred from an absence is not an attestation; the machine's as-found 0.5459057 is above the noise bar on all ten probe cells |
+| `reduceTransparency`, `increaseContrast` | the machine's mode ≠ the pass's declared mode | refused on the MODE by the harness's own rule (contrast first, since macOS force-couples transparency with it), so the gate asks exactly the question the harness will ask when it selects profiles |
+| `com.apple.Accessibility ButtonShapesEnabled` | not `0` | Show Borders, the axis macOS 27 decoupled; the key the user's toggle revealed (W29 Surprises) |
+| `displayplacer`'s current mode | ≠ 68 for a 2x pass, ≠ 69 for a 1x pass | the harness SKIPS a profile whose key states another scale, so a pass at the wrong mode does not mislabel a fixture — it quietly captures the other scale's profiles into this pass's directory |
+| `vtool -show-build-version` on the bundle's binary | `LC_BUILD_VERSION` unreadable | X2 asks for the capturing bundle's linked SDK **from the binary**; a field that cannot be read is refused rather than guessed. The value itself is a **record**, not a proof: §5.149 §1 measured `ld` writing `sdk == minos` on this build path whatever SDK compiled the sources, so the number identifies the binary and says nothing about its SDK |
+
+Three things are read out of the manifest **the harness itself wrote**, after the run and before it
+is banked, and a failure quarantines it exactly as a failed cell does: the OS series parsed from
+`hardware.osVersion` (which reads `Version 27.0 (Build 26A428)`, so it is parsed rather than
+prefix-matched) and `hardware.osBuild`; the `actualBackingScale` the harness *measured*; and that
+every profile it filed under is a 27 key. HID idle is **reported** rather than refused — the harness
+gates idle once at a run's opening and records it per cell without refusing — so a run prints how
+many cells were captured under 45 s and `sitting.md` lists them.
+
+**The closing re-read is new and it is not decoration.** Every axis the opening read gates is
+settable from a shell or a preference pane while a 27-minute run is in progress, and a slider moved
+mid-run files cells at two positions under one key. So the same read runs again at the run's close,
+into `attest.close`, and the two are diffed. The closing read deliberately does **not** refuse out of
+the script: by then a `manifest.json` is on disk and the resume branch skips any run that has one, so
+an exit there would leave a drifted run looking exactly like a banked one and the documented recovery
+would step over it. The diff decides, and it goes down the quarantine path.
+
+`run-sitting-27.test.sh` is 27 rows over those refusals with the machine's readers stubbed, and it
+exists because a rehearsal on a correctly-configured machine can only prove the refusals do **not**
+fire: Reduce Transparency, Increase Contrast and Show Borders need a hand in System Settings, the
+display mode needs the screen switched and the build needs a different operating system. All 26 pass.
+
+**`materialize` refuses before it opens a PNG.** `src/run-provenance.ts` is the rule and
+`test/run-provenance.test.ts` its 16 rows. Per run and per profile key it filed under: the OS series
+the capture recorded against the OS the key claims; the attested slider position against the position
+the key states, numerically, so `-glass0.50` and `-glass0.5` name one position while `absent` names
+none; the attestation's own OS reading against the same key; and the manifest's build against the
+attestation's, two independent reads of one machine. Across runs, two agreements that no per-run check can reach: **the same OS build**, because seven
+runs could each agree with their own keys and still have been taken on two builds, and a plurality
+across those is a vote between two materials rather than a majority over one; and **the same scene
+declaration**, by the digest the run script records — `sceneSpecVersion` would catch a version bump
+but not an edit inside one, and the declaration decides which cells exist and where their geometry
+puts them, so runs taken across an edit are two beds rather than seven runs of one. A 27 key with no `attest.read` beside it is refused outright — no manifest field records the
+slider, so a run with no attestation cannot say where it stood — while a 26.5 key is asked for none,
+because the axis did not exist when that bed was captured. Every problem is reported at once rather
+than the first, since a sitting is hours and finding its second fault after fixing its first costs
+another sitting. This is the check the harness never had: it validates a profile's accessibility mode
+and its scale against the machine but reads the OS only to record it, so nothing there would stop a
+27 run filing into a 26.5 directory (W29 Grounding). It lives in TypeScript because the granted
+bundle is never rebuilt (X4).
+
+**4. The rehearsal, against the real bundle and the real machine.** `rehearse-all.sh` ran the four
+standard passes under `DRY=1` — every cell presented through the granted bundle, every attestation
+gate exercised, the display switched to displayplacer mode 69 for the 1x arms and returned to 68,
+and **nothing captured**. `logs/rehearsal.txt` is the record.
+
+| pass | cells presented | `--scenes` ids | wall clock | s/cell | profile keys filed under | pose attested on every cell |
+| --- | ---: | ---: | ---: | ---: | --- | --- |
+| standard × inactive × 2x | **119** | 72 | 13 m 03 s | 6.58 | `apple-macos-27.0-2x-{light,dark}-standard-glass0.5` | `inactive key=false active=false` |
+| standard × active × 2x | **162** | 96 | 17 m 44 s | 6.57 | the same two | `active` |
+| standard × inactive × 1x | **119** | 72 | 13 m 01 s | 6.56 | `apple-macos-27.0-1x-{light,dark}-standard-glass0.5` | `inactive key=false active=false` |
+| standard × active × 1x | **162** | 96 | 17 m 42 s | 6.56 | the same two | `active` |
+
+Every count is `plan.md`'s declared-cell figure for that pass, exactly. No `WOULD REFUSE` line and no
+`error:` line was printed by any of the four, **no cell was filed under a 26.5 key** (zero
+occurrences of the string in any of the four logs), the pose attestation is uniform within each pass,
+and the closing attestation read is identical to the opening one on all four — no drift. The four
+`attest.read` / `attest.close` pairs are committed under `attest/`; they carry the granted bundle's
+cdhash `88cbbb5b…` and binary digest `bd3092e8…`, the same two G0 recorded, and
+`displayplacerMode` 68 for the 2x passes and 69 for the 1x ones against the mode each pass declared.
+
+The rehearsal cost **1 h 02 m** of machine time including the two display switches, and that is a
+real line in the sitting's budget rather than free. At **6.57 s/cell** it reproduces the W27
+sitting's dry rate (6.6 s/cell) to two figures, and the arithmetic against the real pass closes: a
+dry cell pays the 6 s reset interstitial and the 0.25 s layout and skips the settle loop and the
+capture, so the 3.5 s between 6.57 and G0's measured 10.09 s for a real cell is what the settle and
+the capture cost.
+
+Three things this proves that no stub could. The granted bundle **parses `scenes.json` version 6**
+and files under the new keys: every presented line reads
+`apple-macos-27.0-2x-{light,dark}-standard-glass0.5/<scene>`, which is the trailing slider token
+surviving the one check the bundle makes on a key (its `-<scale>x-` scale gate) without a rebuild.
+The **derived 27-only specification is what both resolvers read** — `backgrounds` and the
+open-launched app — so a pass presents the 27 profiles and only those, where the canonical
+declaration would have presented four. And the **inactive passes reach the recede on every cell**:
+each line reads `inactive key=false active=false`, which is the per-cell pose attestation the W27
+audit requires, taken at the bar of the whole pass rather than of a sample.
+
+Two things it could not reach, and both are named rather than assumed. The **accessibility passes**
+are not rehearsed from this session: each needs a hand in System Settings, and a rehearsal without
+that hand would only exercise the refusal — `run-sitting-27.test.sh` exercises it against a stubbed
+machine and the runbook puts the real rehearsal beside the real pass. And `sceneSpecVersion: 6` in a
+manifest is **unverified**, because a dry run writes no manifest; what is verified is that the
+derived specification's own `version` field reads 6 and that the harness accepted it.
+
+The count to read is the **cell** count, not the id count: the harness prints one line per profile ×
+scene and the standard passes carry two profiles, so `--scenes` carries 96 active and 72 inactive
+ids while the rehearsal presents 162 and 119. Both numbers are printed, and `plan.md`, the runbook
+and the test each say which one they mean — a rehearsal whose expected count is the smaller of the
+two would pass while presenting three fifths of the pass, and the script treats any nonzero count as
+success.
+
+**5. The 26.5 bar per cell, re-derived and confirmed.** `bar-table.md` is clause 2's table and
+`verify-bar-table.py` is an independent derivation from the same committed manifest that prints its
+own figures beside G0's and exits non-zero on any disagreement. **It agrees on every figure**: 619
+fixtures, **103** with an exact run total (`stateFrequencies`, the only bars seen being 7 and 17),
+**121** at one run (`recoveredProvenance`), **395** with nothing; of those 395, **159** attributable
+to seven as a group statement, **54** beyond what any event says it published, **182** in groups whose
+events ran at both bars. **224 cells carry a per-cell bar; 236 can be attributed none** — 38 % of the
+bed. One derivation error was made and is recorded because it is the trap the table is about:
+grouping the publication events by their own `profiles` tuple, rather than by the transitive closure
+of profiles that events link, splits the four single-profile events out of the pair groups they
+belong to, counts one fixture in two groups, and reports 647 cells with no attributable bar out of a
+bed of 619. The arithmetic closes only at the closure's level, which is why the bar is not per cell.
+
+**6. SDK gating on pixels: not gated, and G0's residual is closed.** §5.149 §3 settled it on the
+declared material — two bundles from one toolchain recording `sdk 26.5` and `sdk 27.0` declare a
+byte-identical filter tree on 9 of 9 cells, and the granted bundle agrees on 8 of 9 — and left one
+residual: the window server composites from that tree and could in principle read the requesting
+binary's own linked SDK. Decision Log 3 (c) granted the side bundle, which evicted the harness's
+grant (W29 Surprises); the parent captured the side half in that window and the grant was moved back.
+G1 re-checked the granted bundle **before any other step**, as (c) requires — `open -W … --args
+probe` printed `ScreenCaptureKit: OK 640x400` — and then captured the harness half with everything
+except the bundle held identical: the same four ids, both schemes, 2x, slider 0.5, the same
+`--reset-interstitial 6`, three runs, and the **main checkout's** version-5 declaration, because that
+is what the side arm ran against.
+
+**The two bundles produce identical bytes. 16 of 16 attested cell pairs carry the same SHA-256**, and
+each arm's own run-to-run spread is **zero** on every cell and every metric — bytes, SSIM, OKLab ΔE
+and interior level — so the arms are not merely inside a bar, there is no bar for a difference to
+hide in. A binary whose `LC_BUILD_VERSION` records `sdk 26.0` draws the same pixels as one recording
+`sdk 27.0`, on one machine at one slider position. **Apple's macOS 27 material is not gated on the
+capturing binary's linked SDK**; X4 stands and the 27 bed is captured with the granted bundle.
+`sheets/sdk-pixel.png` is the sheet: granted, side, their difference at 8×, and the granted bundle's
+difference from itself at 8× beside it. Both difference columns are black.
+
+**Two residuals, both recorded rather than closed.** The **inactive half was not taken**: the side
+arm's inactive run failed after one cell on 2026-09-18 and was not retaken, so there is nothing for a
+harness inactive half to be compared against, and capturing one alone would be a reading of the
+granted bundle rather than a comparison of two. The pixel arm therefore settles SDK gating in the
+**active pose only** — which is the same pose limit the declared-material arm had, since the granted
+bundle predates `dump-layers --inactive` and its 9th cell differed by pose. SDK gating, if it
+existed, would be a property of the requesting binary rather than of the window's activation state:
+the compositor would have to read a `LC_BUILD_VERSION` that does not change between poses, and the
+active arm leaves no difference for a pose-conditional gate to hide in. Closing it needs the side
+bundle re-granted, which costs the harness's grant, and nothing in the wave depends on it.
+
+**And the side arm's third run is not evidence.** G1's audit of the banked side arm found
+`active-r3` attesting **3 of 8** cells: five recorded `presentedActive: false` at 1.0–4.7 s of HID
+idle, which is the failure `plan.md` item 7 names — a run that loses the pose mid-pass reads against
+its neighbours like a material difference. It is excluded from every pair. Six of its eight cells
+differ from the harness arm by bytes: the five pose-lost ones, and `light/photo__rrect-md__rest`,
+which attested the pose but at **0.1 s** of idle. The only two cells of r3 taken undisturbed (255.5 s
+and 245.9 s of idle) are byte-identical to the harness arm. So **every** disagreement in the whole
+comparison is accounted for by a run's own record of being disturbed and none by the bundle, which
+is the strongest form the verdict could take. It is not retaken: the side bundle no longer holds the
+grant, re-granting would evict the harness's again, and r1 and r2 already settle the question at zero
+spread.
+
+**7. Not measured here.** No 27 fixture, no material, no vitrea change and no read of any 27 capture
+against vitrea (clause 2's own prohibition). No 27 profile document, bound or floor. The slider's
+ends are not evidence classes and nothing here asks for them. The native delta is G2's; the
+26.5-against-27 pixels on G0's (c) sheet remain confounded by the slider and carry no reading. Two
+harness limitations are recorded rather than fixed, because fixing either means rebuilding the
+granted bundle: it has no profile filter (§2 above), and `dump-layers` calls
+`refuseScenesUnreachableInPose` with `pose: .active` before it reads `--inactive` (§5.149 §7). Both
+belong in the tracker.
