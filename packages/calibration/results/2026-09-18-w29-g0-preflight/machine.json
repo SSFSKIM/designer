@@ -1,0 +1,43 @@
+{
+  "recordedAt": "2026-09-18T03:49:20Z",
+  "gate": "W29 G0 (a); claims 5.149",
+  "os": { "productVersion": "27.0", "build": "26A428",
+          "kernel": "Darwin Kernel Version 27.0.0: Tue Aug 11 21:20:40 PDT 2026; root:xnu-13432.1.9~1/RELEASE_ARM64_T6020" },
+  "hardware": { "model": "Mac14,12", "cpu": "Apple M2 Pro" },
+  "accessibility": {
+    "reduceTransparency": 0,
+    "increaseContrast": 0,
+    "differentiateWithoutColor": 0,
+    "showBorders": null,
+    "showBordersNote": "No key in com.apple.universalaccess, none in the global domain, and no accessibilityDisplayShould* property for it in MacOSX27.sdk NSAccessibility.h. The absence of a key is what is attested; the setting's state is not readable here."
+  },
+  "glassSlider": { "key": "NSGlassTintAmount", "domain": "NSGlobalDomain",
+                   "value": 0.5459057, "type": "float" },
+  "toolchain": {
+    "xcode": "Xcode 26.6 Build version 17F113",
+    "xcodeMacOSXSdkVersion": "26.5",
+    "commandLineToolsVersion": "27.0.0.0.1788430756",
+    "commandLineToolsSdks": "MacOSX.sdk MacOSX26.5.sdk MacOSX26.sdk MacOSX27.0.sdk MacOSX27.sdk ",
+    "commandLineToolsSwiftc": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)"
+  },
+  "bundle": {
+    "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app",
+    "binarySha256": "bd3092e8d6d1f50ba43124adf42bed8a29e96646adb97bb3a538582653fda212",
+    "cdHash": "88cbbb5b2db0af50167c0d7004f3bd7d3ebe6427",
+    "minos": "26.0",
+    "recordedSdk": "26.0",
+    "compiledAgainstSdk": null,
+    "compiledAgainstSdkNote": "Not derivable from the binary. swiftc links through clang with --sysroot, which does not read SDKSettings.plist, so ld records sdk == minos whatever SDK was used. The bundle was built by build.sh under Xcode 26.6, whose MacOSX.sdk is 26.5."
+  },
+  "display": {
+    "persistentScreenId": "7709FD0F-F423-4277-B0C8-7CA94F85723A",
+    "name": "\uac00\uc0c1 16:9",
+    "harnessDisplayName": "\uac00\uc0c1 16:9",
+    "colorProfile": "\uac00\uc0c1 16:9",
+    "colorProfileSource": "/Users/new/vitrea-w29-g0-scratch/d/cap/active-2x/0.5459057-r1/manifest.json",
+    "colorProfileNote": "NSScreen.colorSpace.localizedName as the harness reads it, taken from a G0 scratch run; this is the field the six 26.5 profiles carry beside displayName.",
+    "currentMode": 68,
+    "mode68Present": true,
+    "mode69Present": true
+  }
+}

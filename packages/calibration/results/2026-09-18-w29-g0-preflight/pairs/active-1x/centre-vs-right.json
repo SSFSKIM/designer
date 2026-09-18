@@ -1,0 +1,49 @@
+{
+  "a": {
+    "label": "0.5-r1",
+    "root": "/Users/new/vitrea-w29-g0-scratch/d/cap/active-1x/0.5-r1"
+  },
+  "b": {
+    "label": "1.0-r1",
+    "root": "/Users/new/vitrea-w29-g0-scratch/d/cap/active-1x/1.0-r1"
+  },
+  "onlyInA": [],
+  "onlyInB": [],
+  "cells": [
+    {
+      "cell": "apple-macos-26.5-1x-dark-standard/photo__rrect-md__rest",
+      "identical": false,
+      "changedPx": 15362,
+      "maxDelta": 101,
+      "mad": 9.969,
+      "ssim": 0.9587667153851331,
+      "deltaEMean": 0.0389882621377558,
+      "deltaEWorst": 0.2087661327601163,
+      "interiorLevel": {
+        "0.5-r1": 0.20611372860698554,
+        "1.0-r1": 0.1793174475740139
+      }
+    },
+    {
+      "cell": "apple-macos-26.5-1x-light-standard/photo__rrect-md__rest",
+      "identical": false,
+      "changedPx": 15507,
+      "maxDelta": 62,
+      "mad": 5.110802083333334,
+      "ssim": 0.9952471039974844,
+      "deltaEMean": 0.017854111002611972,
+      "deltaEWorst": 0.10398603732376385,
+      "interiorLevel": {
+        "0.5-r1": 0.290488377480208,
+        "1.0-r1": 0.32247125488444994
+      }
+    }
+  ],
+  "summary": {
+    "cells": 2,
+    "identical": 0,
+    "worstMaxDelta": 101,
+    "worstDeltaE": 0.2087661327601163,
+    "worstChangedPx": 15507
+  }
+}

@@ -1,0 +1,33 @@
+== com.apple.universalaccess, every top-level key ==
+  FontSizeCategory (dict)
+  History (dict)
+  closeViewHotkeysEnabled = False
+  closeViewZoomDisplayID = 0
+  closeViewZoomFactor = 1.0
+  closeViewZoomFactorBeforeTermination = 1.0
+  customFonts = True
+  differentiateWithoutColor = False
+  grayscale = False
+  hudNotifiedConstrast = 0.0
+  increaseContrast = False
+  keyboardAccessCommandMap (bytes)
+  keyboardAccessFocusRingTimeout = 15.0
+  liveSpeechEnabled = False
+  login = False
+  reduceTransparency = False
+  sessionChange = False
+  -- 17 keys
+
+== NSGlobalDomain, anything border/glass/tint/contrast/transparency shaped ==
+      NSGlassTintAmount = "0.5459057";
+      NSLinguisticDataAssetsRequestLastInterval = 86400;
+
+== MacOSX27.sdk: accessibilityDisplayShould* ==
+  94:@property (readonly) BOOL accessibilityDisplayShouldIncreaseContrast API_AVAILABLE(macos(10.10));
+  97:@property (readonly) BOOL accessibilityDisplayShouldDifferentiateWithoutColor API_AVAILABLE(macos(10.10));
+  100:@property (readonly) BOOL accessibilityDisplayShouldReduceTransparency API_AVAILABLE(macos(10.10));
+  103:@property (readonly) BOOL accessibilityDisplayShouldReduceMotion API_AVAILABLE(macos(10.12));
+  106:@property (readonly) BOOL accessibilityDisplayShouldInvertColors API_AVAILABLE(macos(10.12));
+
+== MacOSX27.sdk AppKit headers: showBorders / windowBorder ==
+  (no matches above means none)
