@@ -18,6 +18,9 @@
  * - `metrics/shape`, `metrics/material`, `metrics/perceptual`, `metrics/motion`,
  *   `metrics/shadow` — the axes, reported separately so a win on one can never
  *   mask a loss on another.
+ * - `plurality` / `run-provenance` — materialising one reference bed out of
+ *   several raw capture runs: which run's bytes are published, and whether those
+ *   runs were taken on the machine their profile keys describe.
  * - `report` — X9's result side: the per-cell key (native profile × web cell ×
  *   scene), the per-axis reports, and the result matrix.
  *
@@ -44,6 +47,7 @@ export * from "./image";
 export * from "./silhouette";
 export * from "./component-region";
 export * from "./plurality";
+export * from "./run-provenance";
 
 export * from "./metrics/shape";
 export * from "./metrics/material";

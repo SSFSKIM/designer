@@ -1,0 +1,28 @@
+The three checks the dispatch asks G1 to run and record, at commit 8abc8161.
+
+$ python3 packages/calibration/results/2026-09-16-w29-freeze/freeze.py verify
+26.5 freeze intact: 1762 entries
+
+$ pnpm --filter @vitrea/calibration --fail-if-no-match lint
+$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && \
+    tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json
+(no output; exit 0)
+
+$ pnpm --filter @vitrea/calibration --fail-if-no-match test
+ Test Files  27 passed (27)
+      Tests  451 passed (451)
+
+Baseline before this gate was 26 files / 428 tests. The gate adds
+test/run-provenance.test.ts (16 rows over the two materialize refusals) and
+seven rows spread across test/profile-key.test.ts and test/scene-matrix.test.ts.
+
+Two checks beyond the three asked for, run before the commit:
+
+$ pnpm -r lint          all nine packages Done
+$ pnpm -r test          2,411 tests across nine packages, all passed
+                        (the demo reads scenes.json statically, so version 6 is
+                        exercised there too)
+
+$ bash results/2026-09-18-w29-g1-bed/run-sitting-27.test.sh
+27 rows, all ok — and it runs while a real capture is in progress, which is when
+somebody would want it, because the shared-GPU guard has its own reader seam.
