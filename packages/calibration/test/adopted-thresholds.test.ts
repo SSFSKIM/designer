@@ -849,7 +849,7 @@ interface GatedProfile {
   readonly names: { readonly texture: string; readonly dom: string };
 }
 
-const GATED_PROFILES: readonly GatedProfile[] = [
+const GATED_PROFILES_26_5: readonly GatedProfile[] = [
   {
     profileKey: "apple-macos-26.5-1x-light-standard",
     cells: { texture: 36, dom: 36 },
@@ -895,6 +895,186 @@ const GATED_PROFILES: readonly GatedProfile[] = [
     dom: DOM_TIER_2X_DARK,
     names: { texture: "TEXTURE_TIER_2X_DARK", dom: "DOM_TIER_2X_DARK" },
   },
+];
+
+/*
+ * ---------------------------------------------------------------------------
+ * The fifth adoption: macOS 27, at the 26.5 values (W29 Decision Log 4 (a))
+ * ---------------------------------------------------------------------------
+ *
+ * The reference moved. macOS 27 draws a different material under every app
+ * (claims §5.151: it moved on all 619 cells and its geometry did not), the 27
+ * bed is captured under its own keys beside the frozen 26.5 one, and W29 G3
+ * refits vitrea to it. **The bounds that judge that refit are declared here
+ * before the fit is read** — contract X5, and the reason this block lands in a
+ * commit of its own that precedes every fit commit.
+ *
+ * **The user ruled the numbers, and ruled them to be the 26.5 numbers**
+ * (Decision Log 4 (a), 2026-09-19): the five unconfounded 27 profiles carry the
+ * 26.5 tables' values per tier, and increased contrast carries no table at all.
+ * So these are not new tables — they are the same tables, and they are ALIASES
+ * rather than transcriptions on purpose. A copy could drift from its twin by a
+ * digit and nothing would notice; an alias is the ruling itself, in code.
+ *
+ * *What un-aliasing one would mean.* If a later wave re-pins a 27 bound, it must
+ * break that table out into its own literal rather than edit the constant on the
+ * left of the `=`, because the 26.5 tables gate the frozen 26.5 rows and X1
+ * forbids moving them. The alias is a statement that the two are equal today,
+ * not a statement that they are the same object forever.
+ *
+ * *Why the 26.5 values are a defensible target rather than an optimistic one.*
+ * G2 measured the two operating systems against each other at a whole-cell ΔE of
+ * 0.014 at the median — an order under the 0.07 the light texture table already
+ * allows (claims §5.151 §10). On the two light standard profiles and on reduced
+ * transparency the whole native-to-native distribution sits inside the allowance
+ * (ΔE mean p90 0.047, 0.048 and 0.009). On the two DARK profiles it does not:
+ * p90 0.111 and max 0.155 against an allowance of 0.09, edge-weighted p90 0.072
+ * against 0.04. The user ruled these tables knowing that (Decision Log 4 (a)),
+ * and ruled what a dark miss means: **a floor decision for the user, recorded**
+ * — not a bound loosened after the read, and not a fit failure.
+ *
+ * *No regression floor for any 27 profile, in this wave.* Acceptance clause 4
+ * rules it out and the reason is the bed's own bar: the 27 fixtures are
+ * published at the seven-run probe bar, not the seventeen-run freeze bar the
+ * 26.5 floors stand on (claims §5.150 Part B §4). A floor pinned at a
+ * seven-run bed's reading would claim a precision the bed does not carry. The
+ * assertion below is what keeps that a rule rather than an intention.
+ *
+ * *No table for either increased-contrast key.* The decoupled 27 bed of that
+ * name is a different accessibility state from the 26.5 bed of that name — macOS
+ * 27 no longer force-enables Reduce Transparency with Increase Contrast — so a
+ * bound declared across the pair would be a bound on the decoupling and not on
+ * the material (claims §5.151 §9). The coupled bed that separates them is G1c's
+ * (§5.152), captured after this declaration was written; whether that profile
+ * gets a bound is decided on its own reading, in a later child, not here.
+ */
+
+/**
+ * A 27 profile's cell counts before the sealed read has been taken.
+ *
+ * The thresholds above are a DECLARATION — they are chosen, and X5 makes
+ * choosing them before the read the whole point. The cell counts are not: they
+ * are the machine's output, transcribed from the canonical run the way
+ * `PREDICATE_EXCLUDES` is. The two therefore land in two different commits, and
+ * this sentinel is what holds the gap open honestly: while it stands, the
+ * profile is declared and not yet gated, and the case below asserts the matrix
+ * carries no row for it. The moment a row lands, the counts must be transcribed
+ * or the suite goes red.
+ */
+const PENDING_UNTIL_THE_27_READ = "pending-until-the-27-read" as const;
+
+type Declared27Profile = Omit<GatedProfile, "cells"> & {
+  readonly cells: GatedProfile["cells"] | typeof PENDING_UNTIL_THE_27_READ;
+};
+
+/** The 27 tables, aliased to the 26.5 tables the user ruled them equal to. */
+const TEXTURE_TIER_27_LIGHT = TEXTURE_TIER_LIGHT;
+const DOM_TIER_27_LIGHT = DOM_TIER_LIGHT;
+const TEXTURE_TIER_27_2X_LIGHT = TEXTURE_TIER_2X_LIGHT;
+const DOM_TIER_27_2X_LIGHT = DOM_TIER_2X_LIGHT;
+const TEXTURE_TIER_27_DARK = TEXTURE_TIER_DARK;
+const DOM_TIER_27_DARK = DOM_TIER_DARK;
+const TEXTURE_TIER_27_2X_DARK = TEXTURE_TIER_2X_DARK;
+const DOM_TIER_27_2X_DARK = DOM_TIER_2X_DARK;
+const TEXTURE_TIER_27_REDUCED_TRANSPARENCY = TEXTURE_TIER_REDUCED_TRANSPARENCY;
+const DOM_TIER_27_REDUCED_TRANSPARENCY = DOM_TIER_REDUCED_TRANSPARENCY;
+
+/**
+ * The five profiles Decision Log 4 (a) names, and no others.
+ *
+ * The list is stated rather than derived from the matrix or from `scenes.json`,
+ * for the reason every enumerated list in this file is stated: a gate whose
+ * membership follows its artifact cannot notice a profile that arrived or left.
+ * A 27 row under any key not here fails the case below — which is what keeps the
+ * two increased-contrast beds out by rule rather than by nobody having captured
+ * them.
+ */
+const DECLARED_27_PROFILES: readonly Declared27Profile[] = [
+  {
+    profileKey: "apple-macos-27.0-1x-light-standard-glass0.5",
+    cells: PENDING_UNTIL_THE_27_READ,
+    texture: TEXTURE_TIER_27_LIGHT,
+    dom: DOM_TIER_27_LIGHT,
+    names: { texture: "TEXTURE_TIER_27_LIGHT", dom: "DOM_TIER_27_LIGHT" },
+  },
+  {
+    profileKey: "apple-macos-27.0-2x-light-standard-glass0.5",
+    cells: PENDING_UNTIL_THE_27_READ,
+    texture: TEXTURE_TIER_27_2X_LIGHT,
+    dom: DOM_TIER_27_2X_LIGHT,
+    names: { texture: "TEXTURE_TIER_27_2X_LIGHT", dom: "DOM_TIER_27_2X_LIGHT" },
+  },
+  {
+    profileKey: "apple-macos-27.0-1x-dark-standard-glass0.5",
+    cells: PENDING_UNTIL_THE_27_READ,
+    texture: TEXTURE_TIER_27_DARK,
+    dom: DOM_TIER_27_DARK,
+    names: { texture: "TEXTURE_TIER_27_DARK", dom: "DOM_TIER_27_DARK" },
+  },
+  {
+    profileKey: "apple-macos-27.0-2x-dark-standard-glass0.5",
+    cells: PENDING_UNTIL_THE_27_READ,
+    texture: TEXTURE_TIER_27_2X_DARK,
+    dom: DOM_TIER_27_2X_DARK,
+    names: { texture: "TEXTURE_TIER_27_2X_DARK", dom: "DOM_TIER_27_2X_DARK" },
+  },
+  {
+    profileKey: "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+    cells: PENDING_UNTIL_THE_27_READ,
+    texture: TEXTURE_TIER_27_REDUCED_TRANSPARENCY,
+    dom: DOM_TIER_27_REDUCED_TRANSPARENCY,
+    names: {
+      texture: "TEXTURE_TIER_27_REDUCED_TRANSPARENCY",
+      dom: "DOM_TIER_27_REDUCED_TRANSPARENCY",
+    },
+  },
+];
+
+/** The 26.5 tables each 27 table is ruled equal to — the pin on the alias. */
+const RULED_EQUAL_TO_26_5: Readonly<Record<string, readonly GateRow[]>> = {
+  TEXTURE_TIER_27_LIGHT: TEXTURE_TIER_LIGHT,
+  DOM_TIER_27_LIGHT: DOM_TIER_LIGHT,
+  TEXTURE_TIER_27_2X_LIGHT: TEXTURE_TIER_2X_LIGHT,
+  DOM_TIER_27_2X_LIGHT: DOM_TIER_2X_LIGHT,
+  TEXTURE_TIER_27_DARK: TEXTURE_TIER_DARK,
+  DOM_TIER_27_DARK: DOM_TIER_DARK,
+  TEXTURE_TIER_27_2X_DARK: TEXTURE_TIER_2X_DARK,
+  DOM_TIER_27_2X_DARK: DOM_TIER_2X_DARK,
+  TEXTURE_TIER_27_REDUCED_TRANSPARENCY: TEXTURE_TIER_REDUCED_TRANSPARENCY,
+  DOM_TIER_27_REDUCED_TRANSPARENCY: DOM_TIER_REDUCED_TRANSPARENCY,
+};
+
+const transcribed27 = (profile: Declared27Profile): profile is GatedProfile =>
+  profile.cells !== PENDING_UNTIL_THE_27_READ;
+
+/**
+ * Every profile the gate runs its tables over: the six 26.5 ones, plus each 27
+ * profile whose counts have been transcribed from the sealed read.
+ *
+ * Composed rather than written out, so a declared-but-unread 27 profile is
+ * carried by exactly one construct — and so that transcribing its counts is the
+ * only edit needed to put it under every bound, floor, partition and
+ * conditioning case below.
+ */
+const GATED_PROFILES: readonly GatedProfile[] = [
+  ...GATED_PROFILES_26_5,
+  ...DECLARED_27_PROFILES.filter(transcribed27),
+];
+
+/**
+ * How many profiles the gate covers, pinned so the composition above cannot
+ * quietly cover fewer. 6 while the 27 read is pending; 11 once it lands.
+ */
+const GATED_PROFILE_COUNT = 6;
+
+/**
+ * The two 27 accessibility keys that get no table in this wave, named so their
+ * absence from `DECLARED_27_PROFILES` reads as the ruling it is rather than as
+ * an omission (Decision Log 4 (a); claims §5.151 §9, §5.152).
+ */
+const UNBOUNDED_27_PROFILES: readonly string[] = [
+  "apple-macos-27.0-1x-light-increased-contrast-glass0.5",
+  "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
 ];
 
 /**
@@ -1659,7 +1839,7 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
       [...GATED_PROFILES.map((profile) => profile.profileKey), ...UNGATED_PROFILES].sort(),
     ).toEqual(Object.keys(MATRIX_PARTITION).sort());
     expect(UNGATED_PROFILES, "every profile in the matrix is gated").toHaveLength(0);
-    expect(GATED_PROFILES).toHaveLength(6);
+    expect(GATED_PROFILES).toHaveLength(GATED_PROFILE_COUNT);
 
     for (const { profileKey, cells: counted } of GATED_PROFILES) {
       for (const tier of ["texture", "dom"] as const) {
@@ -2202,6 +2382,81 @@ function bandBelow(side: readonly PairSide[] | undefined, label: string): PairSi
  * forgot `--alpha` would otherwise pass with nothing to gate. The dom tier refuses the reading by
  * its interior alpha (§5.84 §7) and is not gated here.
  */
+describe("the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a))", () => {
+  it("declares exactly the five profiles the user ruled, and no increased-contrast key", () => {
+    expect(DECLARED_27_PROFILES.map((profile) => profile.profileKey).sort()).toEqual(
+      [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+        "apple-macos-27.0-1x-light-standard-glass0.5",
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "apple-macos-27.0-2x-light-standard-glass0.5",
+      ],
+    );
+    for (const key of UNBOUNDED_27_PROFILES) {
+      expect(
+        DECLARED_27_PROFILES.map((profile) => profile.profileKey),
+        `${key}: ruled to carry no table this wave`,
+      ).not.toContain(key);
+    }
+    // Every declared key parses as a 27 key at the system default slider
+    // position, which is the bed Decision Log 3 (a) captured.
+    for (const { profileKey } of DECLARED_27_PROFILES) {
+      expect(profileKey.startsWith("apple-macos-27.0-"), profileKey).toBe(true);
+      expect(profileKey.endsWith("-glass0.5"), profileKey).toBe(true);
+    }
+  });
+
+  it("holds every 27 table at its 26.5 twin's values, row for row", () => {
+    // The content of Decision Log 4 (a). The tables are aliases, so this reads
+    // as a tautology today — and that is the guarantee: the case fails the day
+    // somebody breaks one out into a literal without saying so, which is the
+    // only way a 27 bound may ever move.
+    for (const profile of DECLARED_27_PROFILES) {
+      for (const tier of ["texture", "dom"] as const) {
+        const ruled = RULED_EQUAL_TO_26_5[profile.names[tier]];
+        expect(ruled, `${profile.names[tier]}: no 26.5 table named as its twin`).toBeDefined();
+        expect(profile[tier], `${profile.profileKey} / ${tier}`).toEqual(ruled);
+      }
+    }
+    expect(Object.keys(RULED_EQUAL_TO_26_5)).toHaveLength(2 * DECLARED_27_PROFILES.length);
+  });
+
+  it("adopts no regression floor on any 27 profile (acceptance clause 4)", () => {
+    // The 27 bed is published at the seven-run probe bar and a floor needs the
+    // seventeen-run freeze bar. A floor here would pin a precision the bed does
+    // not carry, so the rule is enforced rather than remembered.
+    expect(
+      Object.keys(REGRESSION_FLOORS).filter((key) => key.includes("apple-macos-27.0-")),
+      "no 27 profile may carry a regression floor in W29",
+    ).toEqual([]);
+  });
+
+  it("gates every 27 row it finds, and refuses one it never declared", () => {
+    const rows = MATRIX.cells.filter((cell) => cell.key.profileKey.startsWith("apple-macos-27.0-"));
+    const declared = new Set(DECLARED_27_PROFILES.map((profile) => profile.profileKey));
+    for (const cell of rows) {
+      expect(
+        declared,
+        `${name(cell)}: a 27 row under a key no table was declared for`,
+      ).toContain(cell.key.profileKey);
+    }
+
+    // The sentinel's whole job. While a profile's counts are pending it is
+    // declared and not yet gated, so the matrix must carry nothing for it; the
+    // first row that lands makes this red until the counts are transcribed from
+    // the canonical run, exactly as `PREDICATE_EXCLUDES` is.
+    for (const profile of DECLARED_27_PROFILES) {
+      if (transcribed27(profile)) continue;
+      expect(
+        rows.filter((cell) => cell.key.profileKey === profile.profileKey),
+        `${profile.profileKey}: rows are in the matrix but its cell counts are still ` +
+          `${PENDING_UNTIL_THE_27_READ} — transcribe them into DECLARED_27_PROFILES`,
+      ).toHaveLength(0);
+    }
+  });
+});
+
 describe("W20 — declaration conformance on the texture tier", () => {
   const DECLARED_CONTOUR_MAX_PX = 1;
   const DECLARED_IOU_MIN = 0.99;
