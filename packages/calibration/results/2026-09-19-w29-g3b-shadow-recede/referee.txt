@@ -1,0 +1,125 @@
+
+apple-macos-27.0-1x-dark-standard-glass0.5 / texture (13 cells, table TEXTURE_TIER_27_DARK)
+  silhouetteIoU          ≥ 0.93     worst 0.99384  n=9  ok   0
+  contourDistanceMean    ≤ 0.5      worst 0.10545  n=9  ok   0
+  contourDistanceP95     ≤ 1.5      worst 1.00000  n=9  ok   0
+  ssimMean               ≥ 0.87     worst 0.95731  n=13  ok   0
+  oklabDeltaEMean        ≤ 0.09     worst 0.08901  n=13  ok   0
+  oklabDeltaEP95         ≤ 0.17     worst 0.21521  n=13  MISS 1
+      holdout     photo__rrect-lg__rest                        0.21521
+  edgeWeightedMean       ≤ 0.04     worst 0.02023  n=13  ok   0
+  ssimOutside            ≥ 0.83     worst 0.93301  n=13  ok   0
+
+apple-macos-27.0-1x-dark-standard-glass0.5 / dom (13 cells, table DOM_TIER_27_DARK)
+  silhouetteIoU          ≥ 0.93     worst 0.99425  n=9  ok   0
+  contourDistanceMean    ≤ 0.5      worst 0.10145  n=9  ok   0
+  contourDistanceP95     ≤ 1.5      worst 1.00000  n=9  ok   0
+  ssimMean               ≥ 0.83     worst 0.90891  n=13  ok   0
+  oklabDeltaEMean        ≤ 0.09     worst 0.08322  n=13  ok   0
+  oklabDeltaEP95         ≤ 0.18     worst 0.20095  n=13  MISS 1
+      holdout     photo__rrect-lg__rest                        0.20095
+  edgeWeightedMean       ≤ 0.05     worst 0.02176  n=13  ok   0
+  ssimOutside            ≥ 0.78     worst 0.87286  n=13  ok   0
+
+apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 / texture (9 cells, table TEXTURE_TIER_27_INCREASED_CONTRAST_COUPLED)
+  silhouetteIoU          ≥ 0.85     worst 0.99610  n=6  ok   0
+  contourDistanceMean    ≤ 1.8      worst 0.06545  n=6  ok   0
+  contourDistanceP95     ≤ 11.5     worst 1.00000  n=6  ok   0
+  ssimMean               ≥ 0.86     worst 0.98094  n=9  ok   0
+  oklabDeltaEMean        ≤ 0.06     worst 0.01315  n=9  ok   0
+  oklabDeltaEP95         ≤ 0.1      worst 0.02247  n=9  ok   0
+  edgeWeightedMean       ≤ 0.17     worst 0.02153  n=9  ok   0
+  ssimOutside            ≥ 0.69     worst 0.94841  n=9  ok   0
+
+apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 / dom (9 cells, table DOM_TIER_27_INCREASED_CONTRAST_COUPLED)
+  silhouetteIoU          ≥ 0.8      worst 0.99982  n=6  ok   0
+  contourDistanceMean    ≤ 2.6      worst 0.01000  n=6  ok   0
+  contourDistanceP95     ≤ 5.5      worst 0.00000  n=6  ok   0
+  ssimMean               ≥ 0.83     worst 0.90289  n=9  ok   0
+  oklabDeltaEMean        ≤ 0.07     worst 0.02670  n=9  ok   0
+  oklabDeltaEP95         ≤ 0.09     worst 0.02596  n=9  ok   0
+  edgeWeightedMean       ≤ 0.18     worst 0.07008  n=9  ok   0
+  ssimOutside            ≥ 0.61     worst 0.74670  n=9  ok   0
+
+apple-macos-27.0-1x-light-reduced-transparency-glass0.5 / texture (8 cells, table TEXTURE_TIER_27_REDUCED_TRANSPARENCY)
+  silhouetteIoU          ≥ 0.87     worst 0.99982  n=5  ok   0
+  contourDistanceMean    ≤ 1.5      worst 0.01000  n=5  ok   0
+  contourDistanceP95     ≤ 3.5      worst 0.00000  n=5  ok   0
+  ssimMean               ≥ 0.95     worst 0.98037  n=8  ok   0
+  oklabDeltaEMean        ≤ 0.04     worst 0.02252  n=8  ok   0
+  oklabDeltaEP95         ≤ 0.08     worst 0.03368  n=8  ok   0
+  edgeWeightedMean       ≤ 0.1      worst 0.05529  n=8  ok   0
+  ssimOutside            ≥ 0.84     worst 0.94014  n=8  ok   0
+
+apple-macos-27.0-1x-light-reduced-transparency-glass0.5 / dom (8 cells, table DOM_TIER_27_REDUCED_TRANSPARENCY)
+  silhouetteIoU          ≥ 0.89     worst 0.99984  n=5  ok   0
+  contourDistanceMean    ≤ 1.5      worst 0.00875  n=5  ok   0
+  contourDistanceP95     ≤ 5.0      worst 0.00000  n=5  ok   0
+  ssimMean               ≥ 0.91     worst 0.92524  n=8  ok   0
+  oklabDeltaEMean        ≤ 0.04     worst 0.02880  n=8  ok   0
+  oklabDeltaEP95         ≤ 0.07     worst 0.03770  n=8  ok   0
+  edgeWeightedMean       ≤ 0.11     worst 0.09007  n=8  ok   0
+  ssimOutside            ≥ 0.83     worst 0.82707  n=8  MISS 1
+      holdout     photo__rrect-lg__rest                        0.82707
+
+apple-macos-27.0-1x-light-standard-glass0.5 / texture (36 cells, table TEXTURE_TIER_27_LIGHT)
+  silhouetteIoU          ≥ 0.82     worst 0.99622  n=34  ok   0
+  contourDistanceMean    ≤ 2.5      worst 0.16099  n=34  ok   0
+  contourDistanceP95     ≤ 5.0      worst 1.00000  n=34  ok   0
+  ssimMean               ≥ 0.88     worst 0.88431  n=36  ok   0
+  oklabDeltaEMean        ≤ 0.07     worst 0.06105  n=36  ok   0
+  oklabDeltaEP95         ≤ 0.17     worst 0.14783  n=36  ok   0
+  edgeWeightedMean       ≤ 0.11     worst 0.03575  n=36  ok   0
+  ssimOutside            ≥ 0.84     worst 0.90906  n=36  ok   0
+
+apple-macos-27.0-1x-light-standard-glass0.5 / dom (36 cells, table DOM_TIER_27_LIGHT)
+  silhouetteIoU          ≥ 0.85     worst 0.99818  n=34  ok   0
+  contourDistanceMean    ≤ 2.0      worst 0.08669  n=34  ok   0
+  contourDistanceP95     ≤ 7.0      worst 1.00000  n=34  ok   0
+  ssimMean               ≥ 0.9      worst 0.88402  n=36  MISS 2
+      holdout     checkerboard__rrect-lg__rest                 0.88402
+      holdout     checkerboard__glass-over-glass__rest         0.89538
+  oklabDeltaEMean        ≤ 0.08     worst 0.04906  n=36  ok   0
+  ssimOutside            ≥ 0.82     worst 0.83011  n=36  ok   0
+
+apple-macos-27.0-2x-dark-standard-glass0.5 / texture (13 cells, table TEXTURE_TIER_27_2X_DARK)
+  silhouetteIoU          ≥ 0.93     worst 0.99599  n=9  ok   0
+  contourDistanceMean    ≤ 1.0      worst 0.13975  n=9  ok   0
+  contourDistanceP95     ≤ 1.5      worst 1.00000  n=9  ok   0
+  ssimMean               ≥ 0.88     worst 0.97120  n=13  ok   0
+  oklabDeltaEMean        ≤ 0.09     worst 0.08802  n=13  ok   0
+  oklabDeltaEP95         ≤ 0.17     worst 0.21344  n=13  MISS 1
+      holdout     photo__rrect-lg__rest                        0.21344
+  edgeWeightedMean       ≤ 0.04     worst 0.01964  n=13  ok   0
+  ssimOutside            ≥ 0.86     worst 0.95159  n=13  ok   0
+
+apple-macos-27.0-2x-dark-standard-glass0.5 / dom (13 cells, table DOM_TIER_27_2X_DARK)
+  silhouetteIoU          ≥ 0.93     worst 0.99640  n=9  ok   0
+  contourDistanceMean    ≤ 0.5      worst 0.13793  n=9  ok   0
+  contourDistanceP95     ≤ 3.0      worst 1.00000  n=9  ok   0
+  ssimMean               ≥ 0.85     worst 0.94504  n=13  ok   0
+  oklabDeltaEMean        ≤ 0.09     worst 0.08062  n=13  ok   0
+  oklabDeltaEP95         ≤ 0.19     worst 0.19474  n=13  MISS 1
+      holdout     photo__rrect-lg__rest                        0.19474
+  edgeWeightedMean       ≤ 0.05     worst 0.02123  n=13  ok   0
+  ssimOutside            ≥ 0.82     worst 0.90469  n=13  ok   0
+
+apple-macos-27.0-2x-light-standard-glass0.5 / texture (36 cells, table TEXTURE_TIER_27_2X_LIGHT)
+  silhouetteIoU          ≥ 0.85     worst 0.99336  n=34  ok   0
+  contourDistanceMean    ≤ 5.0      worst 0.23370  n=34  ok   0
+  contourDistanceP95     ≤ 10.0     worst 1.00000  n=34  ok   0
+  ssimMean               ≥ 0.93     worst 0.95441  n=36  ok   0
+  oklabDeltaEMean        ≤ 0.07     worst 0.06019  n=36  ok   0
+  oklabDeltaEP95         ≤ 0.17     worst 0.14643  n=36  ok   0
+  edgeWeightedMean       ≤ 0.12     worst 0.03193  n=36  ok   0
+  ssimOutside            ≥ 0.87     worst 0.95599  n=36  ok   0
+
+apple-macos-27.0-2x-light-standard-glass0.5 / dom (36 cells, table DOM_TIER_27_2X_LIGHT)
+  silhouetteIoU          ≥ 0.85     worst 0.99336  n=34  ok   0
+  contourDistanceMean    ≤ 4.0      worst 0.23370  n=34  ok   0
+  contourDistanceP95     ≤ 10.0     worst 1.00000  n=34  ok   0
+  ssimMean               ≥ 0.92     worst 0.94076  n=36  ok   0
+  oklabDeltaEMean        ≤ 0.08     worst 0.04390  n=36  ok   0
+  ssimOutside            ≥ 0.72     worst 0.89201  n=36  ok   0
+
+total missed cell-rows: 7

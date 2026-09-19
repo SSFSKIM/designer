@@ -1,0 +1,222 @@
+{
+ "gate": "W29 G3b / claims §5.154",
+ "kind": "declaration — stated before the 27 receded endpoints are fitted and before any of their rows is read",
+ "declaredOn": "2026-09-19",
+ "tier": "WebGPU. The CSS tier derives from the same documents and is recorded beside; it gates nothing here, exactly as in W27c G1b.",
+ "rules": "W29 Decision Log 6 (d), ruled by the user 2026-09-19: the bound is declared before the read 'in the form and at the values W28's §5.134 §6 bound.json used for the 26.5 recede'. Contracts X1, X3, X5, X7.",
+
+ "$comment": [
+  "This is `results/2026-09-11-w27c-g1b/bound.json` — the bound W27c G1b declared",
+  "for the 26.5 recede and W28 G2 scored 6 of 6 against — carried to the macOS 27",
+  "bed. Its three clauses, its metrics, its arithmetic and every one of its",
+  "eighteen thresholds are that file's, unchanged and not re-derived. What this",
+  "file decides is only what it HAS to decide: which 27 profile each 26.5",
+  "profile's thresholds attach to, and which cells are the checking set on a bed",
+  "whose splits are not W27c's checking-bed groups.",
+  "",
+  "Both decisions are made here rather than after the read, and both are made by",
+  "a rule rather than by naming cells, so that neither can be chosen to be",
+  "passable.",
+  "",
+  "Nothing in this file adopts a floor. Acceptance clause 4 of this wave rules a",
+  "27 regression floor out on every profile — the 27 bed sits at the seven-run",
+  "probe bar and not the seventeen-run freeze bar a floor needs (claims §5.150",
+  "Part B §4) — and the inactive pose is outside the adopted gate entirely on",
+  "both beds (claims §5.148; the gate drops the pose on every set). So a miss",
+  "here changes no CI gate and is a finding put to the user, which is the shape",
+  "Decision Log 4 (a) gave a miss and Decision Log 6 (d) repeats for this one."
+ ],
+
+ "readAgainst": {
+  "$comment": [
+   "The two 27 receded documents this child fits, posed through",
+   "`compare --receded-profile` over the 27 ACTIVE documents of the same read.",
+   "Their hashes are recorded in `sealed-documents.txt` BEFORE the canonical read",
+   "and the read refuses to run at any other bytes, exactly as G3's",
+   "`canonical-read.sh` refuses at any other active document.",
+   "",
+   "The active material does not move in this child except for the outer shadow's",
+   "constants, which are Decision Log 6 (a)'s and are fitted and sealed in the",
+   "same wave. That is a deviation from W28 contract X10's 'the active material",
+   "does not move' as it stood for that wave, and it is named rather than",
+   "silently taken: the recede is read over the 27 active material as it will",
+   "SHIP, so reading it over a shadow this wave has already found to be wrong",
+   "would measure a pose against a body nobody intends to keep. The field diff of",
+   "the active documents is committed evidence (`document-diff.txt`) and it shows",
+   "the shadow block and nothing else."
+  ],
+  "activeDocuments": [
+   "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+   "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json"
+  ],
+  "recededDocuments": [
+   "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+   "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json"
+  ]
+ },
+
+ "scope": {
+  "$comment": [
+   "W27c G1b scored group D of `checking-bed.json` and nothing else, on one rule:",
+   "a cell the fit was selected on, or a cell whose answer is already on the",
+   "record, may not decide whether the bound holds. W28's contract X11 states the",
+   "same rule as 'the checking set is never a selection cell'.",
+   "",
+   "The 27 bed has no checking-bed groups — it is the declared bed, split",
+   "calibration / validation / holdout in `apps/reference-apple/scenes.json` — so",
+   "the rule is carried across by the split that already exists, which is the",
+   "translation with the fewest free choices in it:",
+   "",
+   "  the checking set is every INACTIVE cell of the VALIDATION and HOLDOUT sets,",
+   "  on every 27 profile that declares one.",
+   "",
+   "The inactive CALIBRATION rows are what the fit is selected on, so they are",
+   "group A/B/C's role here and are excluded by the same argument that excluded",
+   "those: 17 ids on the light standard profiles, 10 on the dark pair, 5 and 6 on",
+   "the two accessibility profiles. They are READ and PUBLISHED under clause 4,",
+   "as W27c's supplying cells were — outside the pass/fail arithmetic, not",
+   "outside the record.",
+   "",
+   "The `recorded` and `probe` sets are excluded for the reason they are excluded",
+   "everywhere in this repository: `probe` is gated by nothing (W25 Decision Log",
+   "3 (e)) and `recorded` is not a fidelity set.",
+   "",
+   "Counted from the manifest at declaration time, before any fit: 48 checking",
+   "cells across the six profiles — 16 on each light standard profile, 5 on each",
+   "dark standard profile, 3 on the coupled increased-contrast profile and 3 on",
+   "reduced transparency."
+  ],
+  "scored": "every inactive cell of the validation and holdout sets, on every 27 profile that declares one",
+  "readAndPublishedButNotScored": "the inactive calibration rows (the fit's selection cells), and the recorded and probe sets",
+  "expectedCheckingCells": {
+   "apple-macos-27.0-1x-light-standard-glass0.5": 16,
+   "apple-macos-27.0-2x-light-standard-glass0.5": 16,
+   "apple-macos-27.0-1x-dark-standard-glass0.5": 5,
+   "apple-macos-27.0-2x-dark-standard-glass0.5": 5,
+   "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 3,
+   "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": 3
+  },
+  "notScoredOnClauses2And3": {
+   "$comment": [
+    "The composite components. `bodyDeltaE` is a statistic over the DECLARED BOX",
+    "eroded 6 CSS px, and `toolbar-group` (three capsules with gaps) and",
+    "`glass-over-glass` (a pane on a pane) have no single declared box — the",
+    "reader returns null rather than inventing a rectangle, which is the same",
+    "absence `cli/native-delta-readers.ts` reports for them. Clause 1 is",
+    "full-canvas and scores them; clauses 2 and 3 cannot and say so.",
+    "",
+    "Declared here rather than discovered at scoring time, with the count, so",
+    "that a scorer that silently dropped a cell would fail this file instead of",
+    "quietly narrowing the bound."
+   ],
+   "components": ["toolbar-group", "glass-over-glass"],
+   "expectedCells": 12
+  }
+ },
+
+ "metrics": {
+  "fullCanvasDeltaE": "whole-image mean per-pixel OKLab distance — the canonical `oklabDeltaEMean` of the perceptual axis, read straight off the canonical `results/matrix.json` row, which is the same quantity `adopted-thresholds.test.ts` gates and the same one W27c G1b named",
+  "bodyDeltaE": "the same distance over the declared box eroded 6 CSS px (`ERODE_CSS_PX`, `declaredBox` — W21's body, which W23 and W24 both read against), computed by this gate's `score-bound.ts` from the committed native fixture and the canonical web capture, because the matrix carries no eroded-body ΔE row and adding one would be a schema change this child has no reason to make"
+ },
+
+ "clauses": [
+  {
+   "id": "1",
+   "name": "the ceiling — per cell, full-canvas",
+   "rule": "Every cell of the checking set reads `oklabDeltaEMean` at or below its profile's threshold below.",
+   "thresholds": {
+    "apple-macos-27.0-1x-light-standard-glass0.5": 0.07,
+    "apple-macos-27.0-2x-light-standard-glass0.5": 0.07,
+    "apple-macos-27.0-1x-dark-standard-glass0.5": 0.09,
+    "apple-macos-27.0-2x-dark-standard-glass0.5": 0.09,
+    "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 0.06,
+    "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": 0.04
+   },
+   "reason": [
+    "Exactly W27c G1b clause 1's six numbers, attached to the 27 profile each",
+    "26.5 profile's fixtures are the counterpart of (`counterpartKey` in",
+    "`cli/native-delta-metrics.ts`: the OS token moves and the slider token",
+    "drops, and the coupled contrast key is the one that names the 26.5",
+    "increased-contrast bed like for like — Decision Log 4 (b), claims §5.152).",
+    "",
+    "They were, and still are, the bound the ACTIVE material is held to on the",
+    "same tier, the same profile and the same metric — the 27 tables of",
+    "`adopted-thresholds.test.ts` are ALIASES of the 26.5 ones by Decision Logs",
+    "4 (a) and 5, so 'the active bed's adopted ceiling' is the same number on",
+    "both beds and this clause does not have to choose between them. The inactive",
+    "pose ships into the same product through the same root, so it may not be",
+    "held to a weaker one."
+   ]
+  },
+  {
+   "id": "2",
+   "name": "the discriminating clause — per profile, interior",
+   "rule": "The checking set's equal-cell mean `bodyDeltaE` for each profile is at or below the threshold below, over the cells that have a declared box.",
+   "thresholds": {
+    "apple-macos-27.0-1x-light-standard-glass0.5": 0.032,
+    "apple-macos-27.0-2x-light-standard-glass0.5": 0.034,
+    "apple-macos-27.0-1x-dark-standard-glass0.5": 0.034,
+    "apple-macos-27.0-2x-dark-standard-glass0.5": 0.041,
+    "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 0.0078,
+    "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": 0.011
+   },
+   "reason": [
+    "W27c G1b clause 2's six numbers, unchanged and at the same profile mapping.",
+    "Decision Log 6 (d) says 'at the values W28's §5.134 §6 bound.json used',",
+    "and these are them: each is the 26.5 frozen endpoint's own VALIDATION mean",
+    "body ΔE from the G1 read, rounded up to two significant figures.",
+    "",
+    "Deriving 27 thresholds from a 27 reading instead was available and is",
+    "refused, because there is no 27 reading that could supply them which this",
+    "child has not also fitted against — the 26.5 numbers came from a frozen",
+    "experiment that predated the bound, and nothing on the 27 bed has that",
+    "property. A threshold computed from this child's own fit would be a bound",
+    "the fit could not fail.",
+    "",
+    "What carrying them across DOES assume, stated because it is the assumption",
+    "a reader should test: that a 27 recede fitted as well as the 26.5 recede was",
+    "fitted should land in the same place on the same metric. The 27 material is",
+    "not the 26.5 material — §5.151 measured it moving on every cell — so this is",
+    "a bound on the QUALITY OF THE FIT and not on the material, and that is why",
+    "it is the right one to carry. A miss says this child fitted the 27 endpoints",
+    "less well than W28 fitted the 26.5 ones, or that the 27 recede has a",
+    "structure the existing operators cannot hold; the read has to say which."
+   ]
+  },
+  {
+   "id": "3",
+   "name": "the per-cell floor on a named residual",
+   "rule": "No cell of the checking set with a declared box exceeds twice its profile's clause-2 threshold. A cell that does is named in the ledger, and no inactive floor may be adopted for the regime that cell identifies — which on this bed is every regime, since clause 4 of this wave adopts no 27 floor at all.",
+   "reason": [
+    "W27c G1b clause 3, unchanged, including the multiple. A mean over a large",
+    "bed absorbs one bad cell, and every residual either bed has named is",
+    "concentrated in one or two cells; 2× is the smallest multiple that admitted",
+    "every validation cell of the frozen 26.5 read with margin while still",
+    "catching that bed's own known failures."
+   ]
+  },
+  {
+   "id": "4",
+   "name": "what is reported whether or not it gates",
+   "rule": [
+    "The read publishes, per checking cell AND per supplying cell: both metrics, the resolved group state, the resolved pose readback, the candidate receded document the capture was posed with and its hash (which is in the cell's `capturePath`), the fixture set, the eroded-body level and standard deviation on both sides beside the distances, and the shadow axis.",
+    "The per-profile comparison is stated on `bodyDeltaE`. The full-canvas ratio between the checking set and the calibration set is NOT a gate quantity and is reported only with the two sets' footprint composition beside it — W27c G1b clause 4's rule, kept because the error it was written against (a ratio quoted across sets whose mean footprint differs 3.08×–3.68×) is available on this bed too."
+   ]
+  },
+  {
+   "id": "5",
+   "name": "what stops or refuses the read",
+   "rule": [
+    "REFUSED, cell by cell, by the instruments that already do it: a capture whose reported canvas, requested scale or devicePixelRatio disagrees with the declaration (`captureIntegrityRefusal`); a capture whose resolved colour scheme is not the profile's, or which is filed under an inactive id without either an inactive root or a candidate receded document (`capturePoseRefusal`); a fallback adapter; a non-empty `problems`.",
+    "STOPPED if `DEFAULT_MATERIAL_PROFILE` moves, if any of the 34 renderer goldens moves, or if either 26.5 profile document's resolved fingerprint moves (X1). The 27 receded documents are applied as a patch over the 27 active documents; the 26.5 bed must be byte-identical throughout, and `results/2026-09-16-w29-freeze/freeze.py verify` is run at this gate's opening and close.",
+    "SPENT once read: the holdout is read once at the sealed configuration and nothing is re-fitted after it (X5). A failed partial read is spent and is not silently retried as fresh."
+   ]
+  }
+ ],
+
+ "whatHoldingMeans": {
+  "holds": "clauses 1, 2 and 3 hold JOINTLY on every profile the checking set covers. A profile that passes clause 2's mean and fails clause 3 on one cell has not held the bound — W27c G1b's own rule, and the one that made the 26.5 spent holdout fail four of six profiles where clause 2 alone would have failed two.",
+  "ifItMisses": "nothing is re-fitted, no threshold is widened and no floor is adopted. The miss is recorded per profile per clause with the cell that carries it, and it is drafted for the user as a Decision Log entry in the shape Decision Log 4 (a) gave a dark ΔE miss: a floor decision for the user, recorded, not a bound loosened after the fact and not a fit failure.",
+  "whatItDoesNotDecide": "whether the 27 receded endpoints are SELECTED by the runtime. That is W29 G4's by Decision Log 2, and it stays G4's whether this bound holds or misses: these documents are calibration profile documents posed through `compare --receded-profile`, and `packages/platform-web/src/receded-profile.ts` still ships the 26.5 endpoints."
+ }
+}

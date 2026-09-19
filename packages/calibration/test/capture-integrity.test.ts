@@ -7,6 +7,8 @@ import { captureIntegrityRefusal } from "../src/capture-integrity";
 import {
   MATERIAL_PATCH_KEYS,
   readMaterialProfileFile,
+  readRecededProfileFile,
+  recededProfileClause,
 } from "../scripts/material-profile-file";
 
 /**
@@ -274,4 +276,57 @@ exit 2
     // verdict. The headroom is the reason for the number, not the driver's cost:
     // a cold `pnpm exec tsx` here is seconds, not tens of them.
   }, 45_000);
+});
+
+/**
+ * The candidate receded document `--receded-profile` poses a run's inactive
+ * scenes with (W29 G3b, Decision Log 6 (d)).
+ *
+ * The flag's own behaviour lives in `capture-web.ts`, which imports Playwright
+ * and launches a browser; what is decidable without one — which documents the
+ * flag accepts, and what the cell's key says afterwards — is here, which is why
+ * both were put in the shared module rather than in the driver.
+ */
+describe("the candidate receded document", () => {
+  const write = (body: unknown): string => {
+    const dir = mkdtempSync(join(tmpdir(), "vitrea-receded-"));
+    const path = join(dir, "candidate.json");
+    writeFileSync(path, `${JSON.stringify(body)}\n`);
+    return path;
+  };
+
+  it("takes a receded document, bare or wrapped in a profile document's sections", () => {
+    const bare = readRecededProfileFile(write({ tintShadeLight: 1.46, tintChromaScale: 0 }));
+    expect(bare.patch["tintShadeLight"]).toBe(1.46);
+    expect(bare.cssTierMapping).toBeUndefined();
+    const wrapped = readRecededProfileFile(write({ patch: { tintShadeLight: 1.46 } }));
+    expect(wrapped.patch["tintShadeLight"]).toBe(1.46);
+  });
+
+  it("refuses one that carries a cssTierMapping, because the crossing is the active document's", () => {
+    // Two dom tiers in one run — the inactive scenes on the candidate's mapping
+    // and the active ones on the profile's — with nothing in the matrix saying so.
+    expect(() =>
+      readRecededProfileFile(write({ patch: { tintShadeLight: 1.46 }, cssTierMapping: { blurSigmaScale: 2.2 } })),
+    ).toThrow(/cssTierMapping/);
+  });
+
+  it("refuses one that names nothing the renderer knows, as the material guard does", () => {
+    expect(() => readRecededProfileFile(write({ tintShadeLght: 1.46 }))).toThrow(/does not have/);
+  });
+
+  it("names the document and its hash in the cell's key", () => {
+    const path = write({ tintShadeLight: 1.46 });
+    const sections = readRecededProfileFile(path);
+    const clause = recededProfileClause(sections, "/nowhere");
+    expect(clause).toContain("recededProfile=");
+    expect(clause).toContain(`sha256:${sections.sha256}`);
+    expect(clause.startsWith(", ")).toBe(true);
+  });
+
+  it("says nothing at all when no candidate was posed, so the shipped bed's keys do not move", () => {
+    // The load-bearing case: every inactive row captured through the runtime
+    // pose keeps a byte-identical `capturePath`.
+    expect(recededProfileClause(undefined, "/nowhere")).toBe("");
+  });
 });

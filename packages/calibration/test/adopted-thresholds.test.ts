@@ -92,7 +92,8 @@
  *      them. See claims §5.26 for the one mechanism behind all thirty-three.
  */
 
-import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
@@ -1046,7 +1047,7 @@ const DECLARED_27_PROFILES: readonly Declared27Profile[] = [
     // a bound on the material. Declared in its own commit, and that commit still
     // precedes every fit commit that touches this profile (contract X5).
     profileKey: "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
-    cells: { texture: 9, dom: 8 },
+    cells: { texture: 9, dom: 9 },
     texture: TEXTURE_TIER_27_INCREASED_CONTRAST_COUPLED,
     dom: DOM_TIER_27_INCREASED_CONTRAST_COUPLED,
     names: {
@@ -1176,14 +1177,14 @@ const MATRIX_PARTITION: Readonly<Record<string, number>> = {
   "apple-macos-26.5-2x-dark-standard": 26,
   "apple-macos-26.5-2x-light-standard": 72,
   "apple-macos-27.0-1x-dark-standard-glass0.5": 26,
-  "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 17,
+  "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 18,
   "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": 16,
   "apple-macos-27.0-1x-light-standard-glass0.5": 72,
   "apple-macos-27.0-2x-dark-standard-glass0.5": 26,
   "apple-macos-27.0-2x-light-standard-glass0.5": 72,
 };
 
-const MATRIX_CELLS = 458; // 229 until W29 G3 appended the 27 bed (§5.153); 230 until W18 G2 (§5.79)
+const MATRIX_CELLS = 459; // 458 until W29 G3b re-read the 27 bed (§5.154); 229 until W29 G3 appended it (§5.153); 230 until W18 G2 (§5.79)
 
 /**
  * Scenes that carry no shape and no material axis, per profile — so the shape
@@ -1645,40 +1646,46 @@ const NO_SHAPE_AXIS_SCENES: Readonly<
  * against. Re-pinning any of these bounds is the user's ruling and nobody
  * else's; the wave's Decision Log 6 draft is where it is put.
  *
- * ## The three causes, each measured rather than supposed
+ * ## What is left, after W29 G3b read the one law nobody had measured
  *
- * **(1) The outer shadow moved on macOS 27 and this child may not follow it** —
- * seven of the fifteen, every `ssimOutside` row and the `ssimMean` rows that
- * carry the same exterior. On the 2x light bed
- * `checkerboard__rrect-md__rest`'s native shadow went from a mean exterior
- * departure of 0.0128 with a falloff σ of 35.8 device px on 26.5 to **0.0028 at
- * σ 18.8 on 27** — less than a quarter of the light removed, over less than half
- * the distance — while vitrea still draws 0.0133 at σ 35, the 26.5 shadow it was
- * fitted to. On 26.5 the two agreed to the third decimal and the cell read
- * ssimOutside 0.9943; on 27 it reads 0.8495.
- * **G2's native delta never read the shadow axis** (claims §5.151 §2 lists the
- * laws it read and the shadow is not among them), and contract X3 says G3
- * changes nothing G2 did not name as moved. So the constants are left alone and
- * the finding is recorded instead. It is the largest single thing this wave now
- * knows and has not acted on.
+ * The list was FIFTEEN rows at G3's read and is **seven** now. Decision Log 6 (a)
+ * ruled the outer shadow read native-against-native and refit, G3b did it, and
+ * every row that cause carried came good — the whole of cause (1) below, plus two
+ * rows of cause (2) that turned out to be carrying the same exterior. The eight
+ * that cleared are recorded in the ledger's §5.154 with their before and after;
+ * the sharpest is `2x-light-standard` texture `checkerboard__rrect-lg__rest ::
+ * ssimOutside`, **0.77243 → 0.95599**.
  *
- * **(2) The largest spans keep the most residual** — six of the fifteen are
- * `rrect-lg`, `rrect-ml` or `glass-over-glass`, the bed's biggest surfaces, and
- * their 26.5 twins read 0.97–0.99 where the 27 rows read 0.86–0.91. The body's
- * far-span term (`sizeToneLevelFar`) is the constant W25 declined for want of a
- * reading that could choose its sign, and the 27 bed has not been asked for one.
+ * The seven that remain are **all holdout cells** and they are two causes, both
+ * of which Decision Log 6 accepted as residual rather than chartered to G3b:
  *
- * **(3) The dark bed's diffusion at a large span over a photograph** — the four
- * `photo__rrect-lg__rest :: oklabDeltaEP95` rows. The level is close (native
- * 0.1814 against 0.1636) and the **spread is not**: native 0.0417 against
- * vitrea's 0.0142, so vitrea passes a third of the structure the 27 dark
- * reference passes there. That is the scale-selective scatter the light
- * document's `scatter.doesNotClose` names, at the one span where the dark
- * document has no heavy tap to shape it with.
+ * **(a) The dark bed's diffusion at a large span over a photograph** — the four
+ * `photo__rrect-lg__rest :: oklabDeltaEP95` rows, unchanged to the fourth decimal
+ * by the shadow refit, which is the right outcome: the residual is inside the
+ * body and the shadow is outside it. The level agrees (native 0.1814 against
+ * 0.1636) and the spread does not (0.0417 against 0.0142), so vitrea passes a
+ * third of the structure the 27 dark reference passes there. Decision Log 6 (c)
+ * made this a child of its own after the wave; §5.153 §9 has the same finding by
+ * eye — over a photograph vitrea's body is grey and Apple's is coloured — and the
+ * tone response's solve is achromatic by construction, so no constant in either
+ * document can close it.
  *
- * Decision Log 4 (a) already ruled what a dark miss means — a floor decision for
- * the user, recorded — and the review of §5.152 §B extended the same shape to a
- * 2x-light SSIM miss. All fifteen are in one of those two classes.
+ * **(b) The largest spans keep the most residual** — `checkerboard__rrect-lg__rest`
+ * and `checkerboard__glass-over-glass__rest :: ssimMean` on the 1x light dom tier,
+ * and `photo__rrect-lg__rest :: ssimOutside` on reduced transparency's. All three
+ * improved and none crossed: 0.88380 → 0.88402, 0.89349 → 0.89538, and reduced
+ * transparency's moved the wrong way by 0.0003 (0.82736 → 0.82707), which is the
+ * one place the shadow refit cost anything measurable. `sizeToneLevelFar` is still
+ * the constant W25 declined and §5.153 §6's scale-selective scatter is still the
+ * mechanism; Decision Log 6 (b) accepted these as residual.
+ *
+ * What is NOT here any more is cause (1), and the reason it is worth saying: it
+ * was the only one of the three that was a genuinely unmeasured law rather than a
+ * known residual, and reading it cost no new capture at all.
+ *
+ * Decision Log 4 (a) ruled what a dark miss means — a floor decision for the user,
+ * recorded — and the review of §5.152 §B extended the same shape to a 2x-light
+ * SSIM miss. All seven are in one of those two classes.
  */
 interface MissedRow {
   readonly measured: number;
@@ -1686,21 +1693,13 @@ interface MissedRow {
 }
 
 const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.89349, bound: "≥ 0.9" },
-  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.8838, bound: "≥ 0.9" },
-  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.20096, bound: "≤ 0.18" },
-  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": { measured: 0.82736, bound: "≥ 0.83" },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.89538, bound: "≥ 0.9" },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.88402, bound: "≥ 0.9" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.20095, bound: "≤ 0.18" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": { measured: 0.82707, bound: "≥ 0.83" },
   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.19474, bound: "≤ 0.19" },
-  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimOutside": { measured: 0.84949, bound: "≥ 0.87" },
-  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimMean": { measured: 0.91215, bound: "≥ 0.93" },
-  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimOutside": { measured: 0.79671, bound: "≥ 0.87" },
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimMean": { measured: 0.91261, bound: "≥ 0.93" },
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimOutside": { measured: 0.80881, bound: "≥ 0.87" },
-  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.85978, bound: "≥ 0.88" },
-  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimMean": { measured: 0.90989, bound: "≥ 0.93" },
-  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimOutside": { measured: 0.77243, bound: "≥ 0.87" },
-  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21524, bound: "≤ 0.17" },
-  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21346, bound: "≤ 0.17" },
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21521, bound: "≤ 0.17" },
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21344, bound: "≤ 0.17" },
 };
 
 const PREDICATE_EXCLUDES = [
@@ -1721,6 +1720,7 @@ const PREDICATE_EXCLUDES = [
   "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
   "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+  "dom / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
@@ -1788,7 +1788,16 @@ interface Cell {
   readonly key: {
     readonly profileKey: string;
     readonly sceneId: string;
-    readonly web: { readonly engine: string; readonly renderer: string };
+    readonly web: {
+      readonly engine: string;
+      readonly renderer: string;
+      /**
+       * How the capture was taken, including the profile document and its hash
+       * (W29 G3b reads it — `atAShippedDocument`). Part of the key, so a refit
+       * appends a generation beside the rows read at the old document.
+       */
+      readonly capturePath: string;
+    };
   };
   readonly fixtureSet: string;
   /** The scene's declared pose (W28 G4). Absent on a row written before the label existed. */
@@ -1874,13 +1883,67 @@ const INACTIVE_SCENES = new Set(
  * tier, and every new inactive scene would join the gate by default, which is the
  * failure this axis-shaped exclusion cannot have.
  */
+/**
+ * The short content hash `capture-web` puts in a cell's `capturePath` for each
+ * committed profile document, as the documents stand right now.
+ *
+ * Twelve hex characters of SHA-256 over the file, which is
+ * `scripts/material-profile-file.ts`'s own construction. Derived here rather
+ * than transcribed for the reason every hash in this file is: a number a person
+ * retypes after a refit is a number that goes stale silently, and this one
+ * decides which rows the gate reads.
+ */
+const SHIPPED_DOCUMENT_HASHES = new Map(
+  readdirSync(resolve(PACKAGE_ROOT, "profiles"))
+    .filter((file) => file.endsWith(".json"))
+    .map((file) => {
+      const path = `packages/calibration/profiles/${file}`;
+      const hash = createHash("sha256")
+        .update(readFileSync(resolve(PACKAGE_ROOT, "profiles", file)))
+        .digest("hex")
+        .slice(0, 12);
+      return [path, hash] as const;
+    }),
+);
+
+/**
+ * Was this row captured at a profile document that is committed and unchanged?
+ *
+ * **The third drop, and it is a generation rather than a set or an axis** (W29
+ * G3b). A cell's key contains its `capturePath`, and the `capturePath` names the
+ * material profile document and its content hash — so a refit that moves a
+ * document does not overwrite the rows read at the old one, it APPENDS a second
+ * generation beside them (the package's own README says so, and the wave rule is
+ * that a recorded number is never rewritten). Both generations are evidence and
+ * both stay in the file; only one of them is the bed that ships.
+ *
+ * So the gate reads the generation whose document is the document on disk. That
+ * is stronger than "the newest rows" and it is stronger than the old implicit
+ * behaviour, which was simply that no second generation had ever existed: it
+ * makes every counted, bounded and floored row carry a proof that it was
+ * measured at the material this repository currently contains. A row naming a
+ * hash no file has is a row from a superseded fit; a document edited without a
+ * re-read empties its own profile out of the partition and fails loudly here
+ * rather than gating a bound against a bed nobody captured.
+ *
+ * A row whose `capturePath` names no document at all — `materialProfile=renderer
+ * defaults` — is not a bed row and never was; it would be a capture taken at the
+ * renderer's untuned defaults, which is not the material any bound is stated on.
+ */
+function atAShippedDocument(cell: Cell): boolean {
+  const clause = /materialProfile=(\S+) sha256:([0-9a-f]{12})/.exec(cell.key.web.capturePath);
+  if (clause === null) return false;
+  return SHIPPED_DOCUMENT_HASHES.get(clause[1] ?? "") === clause[2];
+}
+
 const MATRIX: ResultMatrix = {
   ...MATRIX_FILE,
   cells: MATRIX_FILE.cells.filter(
     (cell) =>
       cell.fixtureSet !== "probe" &&
       cell.state !== "inactive" &&
-      !INACTIVE_SCENES.has(cell.key.sceneId),
+      !INACTIVE_SCENES.has(cell.key.sceneId) &&
+      atAShippedDocument(cell),
   ),
 };
 
@@ -2792,22 +2855,45 @@ describe("the probe set is captured, and gated by nothing (W25 Decision Log 3 (e
     expect(intruders.map(name)).toEqual([]);
   });
 
-  it("drops the file's probe rows by their own label, or the inactive pose, and nothing else", () => {
+  it("drops the file's probe rows, the inactive pose and superseded generations, and nothing else", () => {
     // The other direction, and it is the one that could rot silently: the file
     // on disk now carries the probe set (W25 G4's rebuild), so the guard above
     // passes both when the drop works and when the rows were never captured.
-    // Every row the drop removes must be a probe row of a declared probe scene or
-    // a row of a declared inactive scene, and the two views must differ by exactly
-    // those rows. The inactive arm is W28 G4's; its own guards are below.
+    // Every row the drop removes must be a probe row of a declared probe scene, a
+    // row of a declared inactive scene, or a row captured at a profile document
+    // this repository no longer contains — and the two views must differ by
+    // exactly those rows. The inactive arm is W28 G4's and the generation arm is
+    // W29 G3b's; each has its own guards below.
     const dropped = MATRIX_FILE.cells.filter((cell) => !MATRIX.cells.includes(cell));
     expect(
       dropped.every(
         (cell) =>
           (cell.fixtureSet === "probe" && PROBE.has(cell.key.sceneId)) ||
-          INACTIVE_SCENES.has(cell.key.sceneId),
+          INACTIVE_SCENES.has(cell.key.sceneId) ||
+          !atAShippedDocument(cell),
       ),
     ).toBe(true);
     expect(MATRIX.cells).toHaveLength(MATRIX_FILE.cells.length - dropped.length);
+  });
+
+  it("gates only rows captured at a profile document this repository still contains", () => {
+    // The generation drop, from the inside. Two things would make it a hole: a
+    // hash set that resolved nothing (every row dropped, which the partition
+    // above would catch loudly) and a regex that matched everything (no row
+    // dropped, which nothing else would catch at all). So the mapping is
+    // asserted to be non-empty and to be the thing the rows actually name.
+    expect(SHIPPED_DOCUMENT_HASHES.size).toBeGreaterThan(0);
+    for (const cell of MATRIX.cells) {
+      expect(atAShippedDocument(cell), name(cell)).toBe(true);
+    }
+    // And every document the gated rows name is one of the committed profile
+    // documents, at its current bytes — not merely SOME string that parsed.
+    const named = new Set(
+      MATRIX.cells.map(
+        (cell) => /materialProfile=(\S+) /.exec(cell.key.web.capturePath)?.[1] ?? "(none)",
+      ),
+    );
+    for (const path of named) expect([...SHIPPED_DOCUMENT_HASHES.keys()]).toContain(path);
   });
 
   it("names no probe scene in the conditioning predicate's exclusion list", () => {

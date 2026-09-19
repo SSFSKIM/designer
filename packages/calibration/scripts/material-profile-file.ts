@@ -10,6 +10,7 @@
  */
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
+import { relative } from "node:path";
 
 /**
  * Every top-level key a `MaterialProfilePatch` may carry.
@@ -364,4 +365,61 @@ export function readMaterialProfileFile(path: string): MaterialProfileSections {
     patch,
     cssTierMapping,
   };
+}
+
+// ---------------------------------------------------------------------------
+// The candidate receded document (W29 G3b, Decision Log 6 (d))
+// ---------------------------------------------------------------------------
+
+/**
+ * Read a CANDIDATE receded document — the difference `--receded-profile` poses a
+ * run's `__inactive` scenes with.
+ *
+ * The same file, the same key guard: a receded document is a
+ * `MaterialProfilePatch` like any other and the trap it protects against is the
+ * same one (a document one level too deep applies cleanly, names nothing the
+ * renderer knows, and measures the shipped material while the cell swears it
+ * posed a candidate).
+ *
+ * What is added is one refusal of its own. A receded document may **not** carry
+ * a `cssTierMapping`. The mapping is the crossing to `backdrop-filter` and it is
+ * a property of the material, which the ACTIVE document already names; the
+ * recede is a difference over the material and does not change the crossing. A
+ * receded document carrying one would replace the active mapping for the
+ * inactive scenes of a run and leave the active scenes on the other — one run,
+ * two dom tiers, and nothing in the matrix saying so.
+ */
+export function readRecededProfileFile(path: string): MaterialProfileSections {
+  const sections = readMaterialProfileFile(path);
+  if (sections.cssTierMapping !== undefined) {
+    throw new Error(
+      `--receded-profile ${path} carries a cssTierMapping. A receded document is a difference ` +
+        `over the active material, and the CSS tier's mapping is the active document's: applying ` +
+        `one here would give this run's inactive scenes a different dom tier from its active ` +
+        `ones, which is not a pose. Put the mapping in the --material-profile document.`,
+    );
+  }
+  if (Object.keys(sections.patch).length === 0) {
+    throw new Error(`--receded-profile ${path} names no renderer key, so it would pose nothing`);
+  }
+  return sections;
+}
+
+/**
+ * How a cell's `capturePath` names the candidate receded document — or nothing
+ * at all where there is none.
+ *
+ * **Empty is the load-bearing case.** Every inactive row published before this
+ * flag existed was captured through the runtime pose, and its key must stay
+ * byte-identical or the whole committed bed re-keys itself. So the clause is
+ * additive and leads with its separator, exactly as `backdropProbeLabel` does
+ * for the same reason.
+ */
+export function recededProfileClause(
+  profile: Pick<MaterialProfileSections, "path" | "sha256"> | undefined,
+  repoRoot: string,
+): string {
+  if (profile === undefined) return "";
+  const shown = relative(repoRoot, profile.path);
+  return `, recededProfile=${shown.startsWith("..") ? profile.path : shown} sha256:${profile.sha256}`;
 }

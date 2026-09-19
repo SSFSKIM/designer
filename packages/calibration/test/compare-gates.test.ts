@@ -85,9 +85,12 @@ describe("matrixSchemaRefusal", () => {
 });
 
 describe("capturePoseRefusal", () => {
-  /** A `report__<renderer>.json` carrying the two resolved readouts, or neither. */
-  const report = (page?: { windowActivation?: string; colorScheme?: string }): CaptureReport =>
-    page === undefined ? {} : { page };
+  /** A `report__<renderer>.json` carrying the resolved readouts, or none of them. */
+  const report = (page?: {
+    windowActivation?: string;
+    colorScheme?: string;
+    candidateRecededMaterialProfile?: unknown;
+  }): CaptureReport => (page === undefined ? {} : { page });
 
   it("admits an inactive scene whose capture resolved the inactive pose", () => {
     expect(
@@ -141,6 +144,70 @@ describe("capturePoseRefusal", () => {
     );
     expect(refusal).toContain("dark profile");
     expect(refusal).toContain("'light'");
+  });
+
+  it("admits an active root under an inactive id when a candidate receded document drew", () => {
+    // W29 G3b: the candidate seam pins the root active by construction, because
+    // a root that receded itself would apply the SHIPPED difference and the
+    // candidate would never draw. The recede is admitted on the evidence that it
+    // happened and on nothing else.
+    expect(
+      capturePoseRefusal(
+        report({
+          windowActivation: "active",
+          colorScheme: "dark",
+          candidateRecededMaterialProfile: { tintShadeLight: 1.46 },
+        }),
+        "inactive",
+        "dark",
+      ),
+    ).toBeUndefined();
+  });
+
+  it("still checks the scheme on the candidate path", () => {
+    const refusal = capturePoseRefusal(
+      report({
+        windowActivation: "active",
+        colorScheme: "light",
+        candidateRecededMaterialProfile: { tintShadeLight: 1.46 },
+      }),
+      "inactive",
+      "dark",
+    );
+    expect(refusal).toContain("dark profile");
+    expect(refusal).toContain("'light'");
+  });
+
+  it("does not take a null or non-object candidate as evidence of a recede", () => {
+    // `candidateRecededMaterialProfile: null` is what EVERY runtime-posed and
+    // active capture writes, so reading it as truthy evidence would open the
+    // exception on the whole bed. A scalar or an array is a malformed report and
+    // is no better.
+    for (const candidate of [null, undefined, 0, "", "yes", [] as unknown]) {
+      expect(
+        capturePoseRefusal(
+          report({
+            windowActivation: "active",
+            colorScheme: "dark",
+            candidateRecededMaterialProfile: candidate,
+          }),
+          "inactive",
+          "dark",
+        ),
+      ).toContain("resolved 'active'");
+    }
+  });
+
+  it("does not let a candidate document excuse a capture that resolved neither pose", () => {
+    // An unlabelled capture predates the pose readback entirely; a candidate
+    // document named beside it cannot say what the root did.
+    expect(
+      capturePoseRefusal(
+        report({ colorScheme: "dark", candidateRecededMaterialProfile: { tintShadeLight: 1.46 } }),
+        "inactive",
+        "dark",
+      ),
+    ).toContain("predates W28 G4");
   });
 
   it("refuses a labelled capture that carries no scheme readback", () => {

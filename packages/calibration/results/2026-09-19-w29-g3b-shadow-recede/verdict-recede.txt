@@ -1,0 +1,64 @@
+checking cells read: 95 (24 with no declared box)
+apple-macos-27.0-1x-dark-standard-glass0.5 / texture (5 cells)
+  clause 1  worst 0.094198 / 0.09   MISS
+  clause 2  mean  0.059342 / 0.034   MISS
+  clause 3  worst 0.126106 / 0.068 (photo__rrect-lg__inactive)   MISS
+  joint     DOES NOT HOLD
+apple-macos-27.0-1x-dark-standard-glass0.5 / dom (5 cells)
+  clause 1  worst 0.086597 / 0.09   holds
+  clause 2  mean  0.055701 / 0.034   MISS
+  clause 3  worst 0.115746 / 0.068 (photo__rrect-lg__inactive)   MISS
+  joint     DOES NOT HOLD
+apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 / texture (3 cells)
+  clause 1  worst 0.036347 / 0.06   holds
+  clause 2  mean  0.035351 / 0.0078   MISS
+  clause 3  worst 0.041958 / 0.0156 (photo__rrect-lg__inactive)   MISS
+  joint     DOES NOT HOLD
+apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 / dom (2 cells)
+  clause 1  worst 0.029856 / 0.06   holds
+  clause 2  mean  0.038807 / 0.0078   MISS
+  clause 3  worst 0.038807 / 0.0156 (photo__rrect-lg__inactive)   MISS
+  joint     DOES NOT HOLD
+apple-macos-27.0-1x-light-reduced-transparency-glass0.5 / texture (3 cells)
+  clause 1  worst 0.012398 / 0.04   holds
+  clause 2  mean  0.009883 / 0.011   holds
+  clause 3  worst 0.013942 / 0.022 (photo__rrect-lg__inactive)   holds
+  joint     HOLDS
+apple-macos-27.0-1x-light-reduced-transparency-glass0.5 / dom (3 cells)
+  clause 1  worst 0.013348 / 0.04   holds
+  clause 2  mean  0.011696 / 0.011   MISS
+  clause 3  worst 0.014839 / 0.022 (photo__rrect-lg__inactive)   holds
+  joint     DOES NOT HOLD
+apple-macos-27.0-1x-light-standard-glass0.5 / texture (16 cells)
+  clause 1  worst 0.076028 / 0.07   MISS
+  clause 2  mean  0.041808 / 0.032   MISS
+  clause 3  worst 0.100014 / 0.064 (photo__rrect-lg__inactive-tint-orange)   MISS
+  joint     DOES NOT HOLD
+apple-macos-27.0-1x-light-standard-glass0.5 / dom (16 cells)
+  clause 1  worst 0.079125 / 0.07   MISS
+  clause 2  mean  0.034792 / 0.032   MISS
+  clause 3  worst 0.104546 / 0.064 (photo__rrect-lg__inactive-tint-orange)   MISS
+  joint     DOES NOT HOLD
+apple-macos-27.0-2x-dark-standard-glass0.5 / texture (5 cells)
+  clause 1  worst 0.093072 / 0.09   MISS
+  clause 2  mean  0.058950 / 0.041   MISS
+  clause 3  worst 0.124863 / 0.082 (photo__rrect-lg__inactive)   MISS
+  joint     DOES NOT HOLD
+apple-macos-27.0-2x-dark-standard-glass0.5 / dom (5 cells)
+  clause 1  worst 0.082357 / 0.09   holds
+  clause 2  mean  0.053776 / 0.041   MISS
+  clause 3  worst 0.109996 / 0.082 (photo__rrect-lg__inactive)   MISS
+  joint     DOES NOT HOLD
+apple-macos-27.0-2x-light-standard-glass0.5 / texture (16 cells)
+  clause 1  worst 0.074847 / 0.07   MISS
+  clause 2  mean  0.043296 / 0.034   MISS
+  clause 3  worst 0.099643 / 0.068 (photo__rrect-lg__inactive-tint-orange)   MISS
+  joint     DOES NOT HOLD
+apple-macos-27.0-2x-light-standard-glass0.5 / dom (16 cells)
+  clause 1  worst 0.077990 / 0.07   MISS
+  clause 2  mean  0.035237 / 0.034   MISS
+  clause 3  worst 0.104242 / 0.068 (photo__rrect-lg__inactive-tint-orange)   MISS
+  joint     DOES NOT HOLD
+
+texture-tier profiles holding jointly: 1 of 6
+written packages/calibration/results/2026-09-19-w29-g3b-shadow-recede/verdict-recede.json

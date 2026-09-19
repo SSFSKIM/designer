@@ -246,6 +246,24 @@ interface Options {
   readonly allowMaterialFree: boolean;
   readonly allowColourlessTints: boolean;
   readonly materialProfile: string | undefined;
+  /**
+   * A candidate receded document to pose this run's `__inactive` scenes with
+   * (W29 G3b, Decision Log 6 (d); the tracker's `--receded-profile` entry).
+   *
+   * The 27 receded endpoints are fitted before the runtime selects one, so a
+   * read of a candidate cannot go through the runtime's pose — `web/scene.ts`'s
+   * candidate seam merges it over the active document and pins the root active
+   * instead. Absent means the shipped recede through the runtime pose, which is
+   * every inactive row published before this flag existed.
+   *
+   * It is a separate flag from `--material-profile` rather than a section of the
+   * same document because the two are different things: one is the material and
+   * the other is a difference over it, they are selected by different axes (the
+   * scheme selects the active document, the POSE selects the receded one), and a
+   * run names one active document and applies the receded one only where a
+   * scene's declared state asks for it.
+   */
+  readonly recededProfile: string | undefined;
   readonly webAccessibility: WebAccessibilityMode;
   readonly matrixPath: string;
   readonly silhouetteThreshold: number;
@@ -315,6 +333,7 @@ function parseOptions(argv: readonly string[]): Options {
   }
 
   const materialProfile = flag("material-profile");
+  const recededProfile = flag("receded-profile");
   const scenes = list("scene");
   const profileKeys = list("profile");
 
@@ -337,6 +356,7 @@ function parseOptions(argv: readonly string[]): Options {
     allowMaterialFree: argv.includes("--allow-material-free"),
     allowColourlessTints: argv.includes("--allow-colourless-tints"),
     materialProfile: materialProfile === undefined ? undefined : resolve(process.cwd(), materialProfile),
+    recededProfile: recededProfile === undefined ? undefined : resolve(process.cwd(), recededProfile),
     webAccessibility,
     matrixPath: resolve(PACKAGE_ROOT, flag("out-matrix") ?? "results/matrix.json"),
     silhouetteThreshold: Number(flag("silhouette-threshold") ?? `${DEFAULT_SILHOUETTE_THRESHOLD}`),
@@ -537,6 +557,7 @@ function captureFor(planned: readonly PlannedCell[], options: Options): void {
     "--out",
     captureRootFor(first.profileKey, variant),
     ...(options.materialProfile === undefined ? [] : ["--material-profile", options.materialProfile]),
+    ...(options.recededProfile === undefined ? [] : ["--receded-profile", options.recededProfile]),
     ...(options.alpha ? ["--alpha"] : []),
   ]);
 }
@@ -1027,6 +1048,9 @@ function main(): void {
     );
   }
   for (const caveat of manifest.caveats) say(`caveat: ${caveat}`);
+  if (options.recededProfile !== undefined) {
+    say(`receded profile posed on the inactive scenes: ${options.recededProfile}`);
+  }
   if (options.materialProfile !== undefined) {
     say(`material profile applied to the web side: ${options.materialProfile}`);
   }

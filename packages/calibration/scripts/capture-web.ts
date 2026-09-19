@@ -56,7 +56,11 @@ import {
   parseBackdropLevel,
   probeCanonicalOutputRefusal,
 } from "../src/backdrop-probe.ts";
-import { readMaterialProfileFile } from "./material-profile-file.ts";
+import {
+  readMaterialProfileFile,
+  readRecededProfileFile,
+  recededProfileClause,
+} from "./material-profile-file.ts";
 import { PNG } from "pngjs";
 import { createServer, type ViteDevServer } from "vite";
 
@@ -225,6 +229,17 @@ interface Options {
   readonly outDir: string;
   readonly materialProfile: MaterialProfileFile | undefined;
   /**
+   * A CANDIDATE receded document to pose the inactive scenes of this run with
+   * (W29 G3b, Decision Log 6 (d)).
+   *
+   * It applies to `__inactive` scenes and to nothing else — the page's own
+   * branch decides that, not this driver — so one run may name both a scene of
+   * each pose and each gets the material its pose declares. Absent means the
+   * shipped recede through the runtime pose, which is what every row published
+   * before this flag existed was captured with.
+   */
+  readonly recededProfile: MaterialProfileFile | undefined;
+  /**
    * Also take the declaration-conformance capture (W20 G0, claims §5.83): the
    * same scene on the same resolved tier with the page ground transparent and
    * the backdrop raster hidden, written as `<scene>__<tier>__alpha.png`.
@@ -253,6 +268,7 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
   let accessibility: AccessibilityRequest | undefined;
   let outDir = DEFAULT_OUT;
   let materialProfile: MaterialProfileFile | undefined;
+  let recededProfile: MaterialProfileFile | undefined;
   let alpha = false;
   let all = false;
 
@@ -309,6 +325,10 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
         materialProfile = readMaterialProfile(resolve(process.cwd(), next(index, argument)));
         index += 1;
         break;
+      case "--receded-profile":
+        recededProfile = readRecededProfile(resolve(process.cwd(), next(index, argument)));
+        index += 1;
+        break;
       default:
         if (argument.startsWith("--")) throw new Error(`unknown flag ${argument}`);
         ids.push(argument);
@@ -346,6 +366,7 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
     accessibility,
     outDir,
     materialProfile,
+    recededProfile,
     alpha,
   };
 }
@@ -367,6 +388,21 @@ function readMaterialProfile(path: string): MaterialProfileFile {
     sha256: sections.sha256,
     patch: sections.patch as MaterialProfileFile["patch"],
     cssTierMapping: sections.cssTierMapping as MaterialProfileFile["cssTierMapping"],
+  };
+}
+
+/**
+ * The same for a candidate receded document, typed the same way. The refusals
+ * that make it a RECEDED document rather than a material one are in the shared
+ * module, where the unit suite can reach them without this driver's browser.
+ */
+function readRecededProfile(path: string): MaterialProfileFile {
+  const sections = readRecededProfileFile(path);
+  return {
+    path: sections.path,
+    sha256: sections.sha256,
+    patch: sections.patch as MaterialProfileFile["patch"],
+    cssTierMapping: undefined,
   };
 }
 
@@ -610,6 +646,13 @@ async function captureScene(
       `animations=disabled, frames=${first.report.frames}, ` +
       `${accessibilityLabel(options.accessibility)}, ` +
       materialProfileLabel(options.materialProfile) +
+      // Empty when no candidate receded document was injected, so every key
+      // published before this flag existed is unchanged to the byte, and
+      // non-empty otherwise — which is what makes a receded row say which
+      // endpoint drew it. The tracker's "the inactive pose and the receded
+      // document are not in the cell key" is closed for the candidate path by
+      // this clause and stays open for the runtime-posed one.
+      recededProfileClause(options.recededProfile, REPO_ROOT) +
       // From what the page reported it was asked for, not from this process's
       // environment — the same rule the renderer and the adapter follow. Empty
       // for the canonical texture-sampled, unhinted request, so a shipped cell's
@@ -724,6 +767,14 @@ async function captureScene(
                 patch: options.materialProfile.patch,
                 cssTierMapping: options.materialProfile.cssTierMapping ?? null,
               },
+        recededProfile:
+          options.recededProfile === undefined
+            ? null
+            : {
+                path: options.recededProfile.path,
+                sha256: options.recededProfile.sha256,
+                patch: options.recededProfile.patch,
+              },
         fallback: fallback ?? null,
         problems,
         page: first.report,
@@ -789,6 +840,25 @@ async function main(): Promise<void> {
         { patch: profile.patch, cssTierMapping: profile.cssTierMapping },
       );
       say(`material profile: ${materialProfileLabel(profile)}`);
+    }
+
+    /*
+     * The candidate receded document, on the same init script placement and for
+     * the same reason (W29 G3b, Decision Log 6 (d)).
+     *
+     * Only the renderer patch travels. A receded document is a DIFFERENCE over
+     * the active material that the page merges before the root is built, and the
+     * CSS tier's mapping is not a difference of that kind — it is the crossing to
+     * `backdrop-filter`, which the active document already names and which the
+     * recede does not change. A receded document that carried one would silently
+     * replace the active mapping for the inactive scenes of the same run.
+     */
+    if (options.recededProfile !== undefined) {
+      const receded = options.recededProfile;
+      await context.addInitScript((patch: MaterialProfileFile["patch"]) => {
+        window.__vitreaRecededMaterialProfile = patch;
+      }, receded.patch);
+      say(`receded profile:${recededProfileClause(receded, REPO_ROOT)}`);
     }
 
     // Same init-script placement, same reason: the CSS tier writes its

@@ -34,6 +34,30 @@ Which packages move, and why:
   group, which is what keeps a cross-package material claim from being split
   across two versions.
 
-The measurement bed, the documents, the declared bounds and the fifteen rows the
-refit did not meet are in the repository rather than in the tarball:
-`packages/calibration/profiles/apple-macos-27.0-*.json` and the ledger's §5.153.
+Amended after W29 G3b (the ledger's §5.154), which is why this entry says more
+than the refit did. **No constant in any published package moved there either** —
+the shadow refit and the two receded endpoints are profile documents in the
+private calibration package — so this is still one `@vitreajs/vitrea-web` minor.
+
+- **Apple's outer shadow changed too, and the 27 documents now carry it.** It is
+  dimmer, tighter, shorter and less displaced under every surface: the blur's
+  radius halves, the downward reach falls to a quarter and the amplitude to about
+  a third at a middling size. Reading it needed no new capture and moved no
+  constant outside the two 27 documents' `outerShadow` blocks.
+- **A receded window's material is measured for macOS 27** and ships as two more
+  documents, one per colour scheme. The largest single difference from macOS 26.5
+  is that a receded surface now keeps its shadow, where on 26.5 it lost it
+  entirely. These are **not yet what the runtime uses**: a page still recedes by
+  the macOS 26.5 difference, and connecting the two is the same next release that
+  makes macOS 27 the default.
+
+One residual is named rather than fixed, because it needs a shape the material
+does not have: on macOS 27 the shadow's blur grows with the surface's size, and
+vitrea's is one number. It is right for large surfaces and too soft for small
+ones; the ledger's §5.154 measures it and the wave's Decision Log 7 puts the
+mechanism to a decision.
+
+The measurement bed, the documents, the declared bounds and the rows the refit did
+not meet are in the repository rather than in the tarball:
+`packages/calibration/profiles/apple-macos-27.0-*.json` and the ledger's §5.153
+and §5.154.
