@@ -1,0 +1,15 @@
+# W29 G2 review closure — the checks, 2026-09-19
+
+$ pnpm --filter @vitrea/calibration lint
+$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json
+
+$ pnpm --filter @vitrea/calibration test
+
+
+ Test Files  29 passed (29)
+      Tests  473 passed (473)
+   Start at  12:06:04
+   Duration  3.06s (transform 2.79s, setup 0ms, import 6.08s, tests 8.46s, environment 2ms)
+
+$ python3 packages/calibration/results/2026-09-16-w29-freeze/freeze.py verify
+26.5 freeze intact: 1818 entries

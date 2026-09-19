@@ -507,6 +507,7 @@ interface RecedeRow {
   readonly recede27: Readonly<Partial<Record<CaptureReadingName, number>>>;
   readonly deltaOfRecede: Readonly<Partial<Record<CaptureReadingName, number>>>;
   readonly bar: Readonly<Partial<Record<CaptureReadingName, number>>>;
+  readonly barSource: Readonly<Partial<Record<CaptureReadingName, "cell" | "bed-minimum" | "bed-zero">>>;
   readonly moved: Readonly<Partial<Record<CaptureReadingName, boolean>>>;
 }
 
@@ -525,6 +526,30 @@ function encodedMeanOf(image: CalibrationImage): number {
 
 function buildDelta(barPath: string, outDir: string): void {
   const bar = readJson<BarFile>(barPath);
+
+  /**
+   * The declared zero-spread fallback, read for the signed capture readings the
+   * recede rows are built from. The bar file names the fallback per *metric*
+   * only (`bedMinimumNonZeroBar`) because the recede's first cut gave a verdict
+   * only where both 27 cells had a non-zero spread of their own, which left 158
+   * of 231 recede rows unbarred and read the ledger's recede medians off 18 to
+   * 70 rows while 219 pairs were measurable (the independent review of this
+   * gate, finding 1, 2026-09-19). The fallback is derived here from the bar
+   * file's own committed cells rather than by regenerating the bar, so the
+   * declared bar is read and never rewritten, and it is exactly the rule the
+   * pair rows already apply: the cell's own spread where it has one, the
+   * bed-wide minimum non-zero spread where its seven runs agreed exactly, and
+   * zero for a reading whose spread the bed never resolved at all.
+   */
+  const bedMinimumNonZeroSpread: Partial<Record<CaptureReadingName, number>> = {};
+  for (const cell of bar.cells) {
+    for (const name of CAPTURE_READINGS) {
+      const spread = cell.readingSpread[name];
+      if (spread === undefined || spread <= 0) continue;
+      const best = bedMinimumNonZeroSpread[name];
+      if (best === undefined || spread < best) bedMinimumNonZeroSpread[name] = spread;
+    }
+  }
   const barByCell = new Map<string, BarCell>();
   for (const cell of bar.cells) barByCell.set(`${cell.profileKey} ${cell.sceneId}`, cell);
 
@@ -681,6 +706,7 @@ function buildDelta(barPath: string, outDir: string): void {
       const recede27: Partial<Record<CaptureReadingName, number>> = {};
       const deltaOfRecede: Partial<Record<CaptureReadingName, number>> = {};
       const barValues: Partial<Record<CaptureReadingName, number>> = {};
+      const barSource: Partial<Record<CaptureReadingName, "cell" | "bed-minimum" | "bed-zero">> = {};
       const moved: Partial<Record<CaptureReadingName, boolean>> = {};
       for (const name of CAPTURE_READINGS) {
         const i26 = inactive.bed26[name];
@@ -694,12 +720,21 @@ function buildDelta(barPath: string, outDir: string): void {
         deltaOfRecede[name] = difference;
         // Both 27 cells contribute their own spread to the difference of
         // differences, so the bar is their sum. The 26.5 pair contributes an
-        // unmeasured amount on top, which is stated and not estimated.
-        const own = (inactiveBar?.readingSpread[name] ?? 0) + (activeBar?.readingSpread[name] ?? 0);
-        if (own > 0) {
-          barValues[name] = own;
-          moved[name] = Math.abs(difference) > own;
-        }
+        // unmeasured amount on top, which is stated and not estimated. Each
+        // side takes its own spread where it has one and the bed-wide minimum
+        // non-zero spread where its seven runs agreed exactly, so a pair of
+        // perfectly stable cells is barred rather than dropped; where the bed
+        // resolved no spread at all for the reading the bar is exactly zero,
+        // which is the strongest of the three and is said as `bed-zero`.
+        const inactiveSpread = inactiveBar?.readingSpread[name] ?? 0;
+        const activeSpread = activeBar?.readingSpread[name] ?? 0;
+        const floor = bedMinimumNonZeroSpread[name];
+        const own =
+          (inactiveSpread > 0 ? inactiveSpread : (floor ?? 0)) + (activeSpread > 0 ? activeSpread : (floor ?? 0));
+        barSource[name] =
+          inactiveSpread > 0 && activeSpread > 0 ? "cell" : floor === undefined ? "bed-zero" : "bed-minimum";
+        barValues[name] = own;
+        moved[name] = Math.abs(difference) > own;
       }
       recedeRows.push({
         profileKey27: profile.profileKey,
@@ -711,6 +746,7 @@ function buildDelta(barPath: string, outDir: string): void {
         recede27,
         deltaOfRecede,
         bar: barValues,
+        barSource,
         moved,
       });
     }
@@ -742,7 +778,10 @@ function buildDelta(barPath: string, outDir: string): void {
         construction:
           "(27 inactive − 27 active) − (26.5 inactive − 26.5 active), per signed capture reading, " +
           "so that the version change and the recede are not confounded. The bar is the sum of the " +
-          "two 27 cells' own run-to-run reading spreads; the 26.5 pair contributes an unmeasured " +
+          "two 27 cells' run-to-run reading spreads, each side taking the bed-wide minimum non-zero " +
+          "spread where its own seven runs agreed exactly and the whole bar being zero where the " +
+          "bed resolved no spread for that reading at all — the same three-level fallback the pair " +
+          "rows take, said per reading in `barSource`. The 26.5 pair contributes an unmeasured " +
           "amount on top of it.",
         readings: CAPTURE_READINGS,
         rows: recedeRows,
@@ -751,10 +790,13 @@ function buildDelta(barPath: string, outDir: string): void {
       1,
     )}\n`,
   );
+  const recedeReadings = recedeRows.reduce((total, row) => total + Object.keys(row.bar).length, 0);
+  const recedeMeasurable = recedeRows.reduce((total, row) => total + Object.keys(row.deltaOfRecede).length, 0);
   say(
     `native-delta: ${String(rows.length)} pair rows, ${String(recedeRows.length)} recede rows, ` +
       `${String(onlyOn27.length)} cells only on 27 (reported, not diffed), ` +
-      `${String(unbarred.length)} cells with no bar`,
+      `${String(unbarred.length)} pair cells with no bar; ` +
+      `${String(recedeReadings)} of ${String(recedeMeasurable)} measurable recede readings barred`,
   );
 }
 
@@ -909,8 +951,12 @@ function buildTables(dir: string, barPath: string): void {
 
   out("# W29 G2 — the native delta, read off the rows");
   out("");
-  out(`${String(delta.rows.length)} pair rows; ${String(delta.unbarred.length)} cells with no bar; ${String(delta.onlyOn27.length)} cells only on 27, reported not diffed:`);
+  const recedeBarred = recede.rows.reduce((total, row) => total + Object.keys(row.bar).length, 0);
+  const recedeMeasurable = recede.rows.reduce((total, row) => total + Object.keys(row.deltaOfRecede).length, 0);
+  out(`${String(delta.rows.length)} pair rows; ${String(delta.unbarred.length)} PAIR cells with no bar; ${String(delta.onlyOn27.length)} cells only on 27, reported not diffed:`);
   for (const cell of delta.onlyOn27) out(`  ${cell}`);
+  out("");
+  out(`${String(recede.rows.length)} recede rows, on which ${String(recedeBarred)} of ${String(recedeMeasurable)} measurable readings carry a bar.`);
   out("");
   out("Every count is 'moved / measured', against the cell's own 27-against-27 bar (bar-declaration.md).");
   out("The two accessibility profiles carry a confound the material cannot be separated from:");
@@ -1073,6 +1119,11 @@ function buildTables(dir: string, barPath: string): void {
   out("");
   out("(27 inactive − 27 active) − (26.5 inactive − 26.5 active), per signed reading.");
   out(`${String(recede.rows.length)} scene pairs.`);
+  out(
+    "'moved/meas' is over the rows that carry the reading at all: each side of the pair takes its " +
+      "own run-to-run spread where it has one and the bed-wide minimum non-zero spread where its " +
+      "seven runs agreed exactly, so a reading is measured wherever both beds resolve it.",
+  );
   out("");
   out(
     `${"reading".padEnd(20)} ${"moved/meas".padStart(11)} ${"median recede 26.5".padStart(19)} ` +

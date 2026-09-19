@@ -1,0 +1,220 @@
+# W29 G2 — the review closure's recomputations (2026-09-19)
+
+Medians are the instrument's (upper middle of an even count); percentiles are nearest-rank.
+
+# 1. The recede on its full measurable population
+
+Per reading: the barred population the ledger's §8 table was read on, then every row that
+carries the reading at all. 'v2 barred' is the same instrument after the bed-minimum
+fallback is applied to the recede rows as it always was to the pair rows.
+
+  reading             v1 bar       26.5         27       diff    meas       26.5         27       diff    v2 moved/meas
+  bodyLevel               55   -0.00487   -0.02544   -0.02895     219    0.00068   -0.01725   -0.02753          219/219
+  rimContourMean          56   -0.10958   -0.06278    0.04725     219   -0.11101   -0.06570    0.01782          219/219
+  rimLocalMean            30   -0.13599   -0.06547    0.06214     219   -0.10944   -0.06534    0.02846          219/219
+  highlightPeak           60    0.02806    0.01565    0.02464     219   -0.02702   -0.02203    0.01328          219/219
+  highlightFloor          55   -0.01510   -0.00115    0.01784     219   -0.01561   -0.00033    0.01205          219/219
+  highlightRatio          18   -0.06822    0.33212    2.31541      38    0.00464    0.33212    1.12009            38/38
+  interiorMean            70   -0.01463   -0.02685   -0.03069     201   -0.01364   -0.02664   -0.03017          201/201
+  interiorStdDev          70   -0.00783   -0.00909   -0.00210     201   -0.00970   -0.01170   -0.00357          201/201
+  rimPeak                 36   -0.09179   -0.04995    0.04703     201   -0.07689   -0.04516    0.04067          201/201
+  rimPeakDepthPx           0        nan        nan        nan     201    2.00000    3.00000    0.00000          168/201
+  tintDeltaL              70   -0.00960   -0.02580   -0.02531     201   -0.00683   -0.02407   -0.02477          201/201
+  tintChroma              70    0.00001   -0.00000   -0.00001     201   -0.00000   -0.00001   -0.00000          201/201
+  silhouetteAreaPx        10   -1.00000   54.00000  171.00000     231   -8.00000   -1.00000    2.00000          181/231
+
+  rows with no bar at all: v1 158 of 231, v2 0 of 231
+  v2 bar sources over all barred readings: {'bed-minimum': 2322, 'bed-zero': 201, 'cell': 47}
+
+# 2. The bed-wide medians with the increased-contrast rows removed
+
+  32 increased-contrast rows of 619 (10 active, 22 inactive).
+
+  ## pose: active
+  metric                      bed n   bed median  ex-IC n  ex-IC median
+  rimContourDeltaMax            330   1.1167e-01      321    1.0889e-01
+  rimLocalDeltaMax              330   9.1154e-02      321    8.5756e-02
+  rimPeakDelta                  342   4.5393e-02      332    4.6397e-02
+  rimFwhmDeltaPx                223   7.9048e-01      220    7.9048e-01
+  highlightBinDeltaMax          330   1.5186e-01      321    1.5210e-01
+  highlightBinDeltaMean         330   7.1202e-02      321    7.1623e-02
+  highlightRatioDelta           132   1.1317e+01      131    1.1128e+01
+  interiorMeanDelta             342   7.3677e-02      332    7.2485e-02
+  bodyLevelDelta                330   7.3267e-02      321    7.2036e-02
+  interiorStdDevDelta           342   1.5318e-02      332    1.5062e-02
+  transferSlopeDelta            256   2.9993e-02      246    2.9376e-02
+  transferOffsetDelta           256   6.2771e-02      246    6.1974e-02
+  ssimComplement                342   2.2487e-02      332    2.1017e-02
+  ssimBandComplement            342   1.4357e-01      332    1.3409e-01
+  ssimInteriorComplement        156   4.9847e-02      153    4.9847e-02
+  oklabDeltaEMean               342   1.3582e-02      332    1.3616e-02
+  oklabDeltaEBodyMean           342   7.1901e-02      332    7.0041e-02
+  edgeWeightedMean              342   1.6512e-02      332    1.5024e-02
+
+  ## pose: inactive
+  metric                      bed n   bed median  ex-IC n  ex-IC median
+  rimContourDeltaMax            265   3.8684e-03      244    2.6452e-03
+  rimLocalDeltaMax              265   3.7622e-03      244    2.8549e-03
+  rimPeakDelta                  247   2.1014e-03      225    2.0572e-03
+  rimFwhmDeltaPx                152   9.6429e-01      146    9.6518e-01
+  highlightBinDeltaMax          265   6.4170e-02      244    6.0008e-02
+  highlightBinDeltaMean         265   3.2641e-02      244    3.2641e-02
+  highlightRatioDelta            80   1.3943e-01       80    1.3943e-01
+  interiorMeanDelta             247   1.1077e-01      225    1.0528e-01
+  bodyLevelDelta                265   1.0775e-01      244    1.0234e-01
+  interiorStdDevDelta           247   8.6185e-03      225    7.8751e-03
+  transferSlopeDelta            169   3.3785e-02      151    2.3620e-02
+  transferOffsetDelta           169   1.0681e-01      151    1.0115e-01
+  ssimComplement                277   2.2622e-02      255    2.2078e-02
+  ssimBandComplement            247   1.3122e-01      225    1.0713e-01
+  ssimInteriorComplement        136   3.2621e-02      125    3.3488e-02
+  oklabDeltaEMean               277   1.5337e-02      255    1.5229e-02
+  oklabDeltaEBodyMean           247   7.9439e-02      225    7.4834e-02
+  edgeWeightedMean              277   1.9811e-02      255    1.7250e-02
+
+  The rim's worst cell by delta/bar, with and without the increased-contrast rows:
+    rimContourDeltaMax active    bed    1x-light-increased-contrast/hc-text__capsule-button__rest  delta 1.1687  delta/bar 1.265e+08
+    rimContourDeltaMax active    ex-IC  1x-dark-standard/checkerboard-64__rrect-sm__rest  delta 0.4915  delta/bar 5.321e+07
+    rimContourDeltaMax inactive  bed    1x-light-increased-contrast/hc-text__rrect-lg__inactive  delta 1.1589  delta/bar 1.255e+08
+    rimContourDeltaMax inactive  ex-IC  2x-light-standard/checkerboard-64__rrect-lg__inactive  delta 0.3784  delta/bar 4.097e+07
+
+# 3. The reduced-transparency attestation, as the manifest carries it
+
+  apple-macos-26.5-1x-light-increased-contrast
+    a11yMode:    increased-contrast
+    attestation: ABSENT
+    caveat:      Captured with reduce-transparency also on. That is not contamination: macOS couples the toggles (Increase Contrast force-enables Reduce Transparency, and the transparency checkbox cannot be uncleared while contrast is on — user-verified 2026-08-29), so this is the only reachable increased-contrast state and the one a real user sees.
+  apple-macos-26.5-1x-light-reduced-transparency
+    a11yMode:    reduced-transparency
+    attestation: ABSENT
+  apple-macos-27.0-1x-light-increased-contrast-glass0.5
+    a11yMode:    increased-contrast
+    attestation: {"os": "27.0 26A428", "osProductVersion": "27.0", "osBuild": "26A428", "glassTintAmount": "0.5", "reduceTransparency": "0", "increaseContrast": "1", "a11yMode": "increased-contrast", "showBorders": "0", "displayplacerMode": "69", "displayModeDeclaredForScale": "69", "bundlePath": "/Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app", "bundleCdHash": "88cbbb5b2db0af50167c0d7004f3bd7d3ebe6427", "bundleBinarySha256": "bd3092e8d6d1f50ba43124adf42bed8a29e96646adb97bb3a538582653fda212", "bundleMinOS": "26.0", "bundleRecordedSdk": "26.0", "bundleRecordedSdkNote": "LC_BUILD_VERSION's sdk field; ld writes sdk == minos on this build path, so this identifies the binary and is not a reading of the SDK it compiled against (claims \u00a75.149 \u00a71)", "sceneSpecCanonicalSha256": "c3d1badce6a39a863296a5e6ef9055eb0491e04041f42e87935e01a91273c0fb", "passSpecSha256": "afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af", "runs": "7"}
+    caveat:      Captured with Increase Contrast ON and Reduce Transparency OFF. macOS 27 does not couple them: all seven runs attested increaseContrast=1 with reduceTransparency=0, and the harness wrote no coupling note (it records one whenever it observes the coupling). This is a DIFFERENT state from the 26.5 profile of the same name, whose own caveat records that on macOS 26.5 the coupled state was the only reachable increased-contrast state — that caveat is true of that bed and is unchanged. A difference between the two beds on this profile is therefore confounded with the decoupling and must not be attributed to the material without separating them (W29 Surprises; claims §5.150).
+  apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+    a11yMode:    reduced-transparency
+    attestation: {"os": "27.0 26A428", "osProductVersion": "27.0", "osBuild": "26A428", "glassTintAmount": "0.5", "reduceTransparency": "1", "increaseContrast": "0", "a11yMode": "reduced-transparency", "showBorders": "0", "displayplacerMode": "69", "displayModeDeclaredForScale": "69", "bundlePath": "/Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app", "bundleCdHash": "88cbbb5b2db0af50167c0d7004f3bd7d3ebe6427", "bundleBinarySha256": "bd3092e8d6d1f50ba43124adf42bed8a29e96646adb97bb3a538582653fda212", "bundleMinOS": "26.0", "bundleRecordedSdk": "26.0", "bundleRecordedSdkNote": "LC_BUILD_VERSION's sdk field; ld writes sdk == minos on this build path, so this identifies the binary and is not a reading of the SDK it compiled against (claims \u00a75.149 \u00a71)", "sceneSpecCanonicalSha256": "c3d1badce6a39a863296a5e6ef9055eb0491e04041f42e87935e01a91273c0fb", "passSpecSha256": "afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af", "runs": "7"}
+    caveat:      Captured with Reduce Transparency ON and Increase Contrast OFF, which is the same state the 26.5 profile of this name was captured in. Recorded here only because its sibling profile changed: macOS 27 no longer couples the two toggles, so on 27 this state and the increased-contrast state are independent where on 26.5 one implied the other (W29 Surprises; claims §5.150).
+
+# 4. The bounded metrics per profile, worst case beside the median
+
+The adopted tables in test/adopted-thresholds.test.ts bound the PER-CELL value, so the
+native-to-native distribution is reported at its p90 and its max as well as its median.
+'allowance' is the 26.5 texture-tier row for the profile of the same name; a '>=' row is
+restated as the complement the native-delta metric measures, so every row reads 'lower is
+closer'. The allowance bounds vitrea against Apple, not Apple against Apple: it is here as
+the scale Decision Log 4 (c) reasons on, not as a bound anything is failing.
+
+The '(healthy)' columns drop the §4 cells whose two silhouettes differ by more than 2x, where
+the shape metrics are reading the extractor's threshold rather than a shape (claims §5.151 §4).
+
+  ## 1x-dark-standard  (n = 115 pairs, 100 of them healthy)
+  metric                        n    median       p90       max  p90 (healthy)  max (healthy)  allowance  p90/allow
+  silhouetteIoUComplement     106    0.0010    0.9620    0.9969         0.0551         0.6225     0.0700      13.74
+  contourDistanceMeanPx       106    0.0394    3.5484   21.5428         1.3700         6.2324     0.5000       7.10
+  contourDistanceP95Px        106    0.0000   24.0000   89.5728        10.7703        37.0297     1.5000      16.00
+  ssimComplement              115    0.0491    0.1628    0.2355         0.1589         0.2355     0.1300       1.25
+  oklabDeltaEMean             115    0.0231    0.1106    0.1547         0.1113         0.1547     0.0900       1.23
+  oklabDeltaEP95              115    0.1183    0.2161    0.3095         0.2192         0.3095     0.1700       1.27
+  edgeWeightedMean            115    0.0121    0.0725    0.1177         0.0726         0.1177     0.0400       1.81
+  ssimOutsideComplement       106    0.0689    0.1488    0.2099         0.1415         0.2099     0.1700       0.88
+
+  ## 1x-light-increased-contrast  (n = 32 pairs, 29 of them healthy)
+  metric                        n    median       p90       max  p90 (healthy)  max (healthy)  allowance  p90/allow
+  silhouetteIoUComplement      32    0.0000    0.1057    0.9929         0.1057         0.2336     0.1500       0.70
+  contourDistanceMeanPx        32    0.0000    1.2380   15.7667         1.2380         3.5194     1.8000       0.69
+  contourDistanceP95Px         32    0.0000    7.8482   66.0000         7.8482        15.0000    11.5000       0.68
+  ssimComplement               32    0.0420    0.0815    0.1220         0.0815         0.1220     0.1400       0.58
+  oklabDeltaEMean              32    0.0143    0.0541    0.1006         0.0598         0.1006     0.0600       0.90
+  oklabDeltaEP95               32    0.1099    0.1716    0.1919         0.1889         0.1919     0.1000       1.72
+  edgeWeightedMean             32    0.0379    0.1208    0.2253         0.1521         0.2253     0.1700       0.71
+  ssimOutsideComplement        32    0.0713    0.1493    0.2275         0.1578         0.2275     0.2000       0.75
+
+  ## 1x-light-reduced-transparency  (n = 30 pairs, 24 of them healthy)
+  metric                        n    median       p90       max  p90 (healthy)  max (healthy)  allowance  p90/allow
+  silhouetteIoUComplement      30    0.0007    0.5891    0.6923         0.2342         0.3096     0.1300       4.53
+  contourDistanceMeanPx        30    0.0181    7.2135   30.5850         3.2988         3.6199     1.5000       4.81
+  contourDistanceP95Px         30    0.0000   20.0000   70.0000        14.0000        15.0000     3.5000       5.71
+  ssimComplement               30    0.0081    0.0339    0.0463         0.0286         0.0463     0.0500       0.68
+  oklabDeltaEMean              30    0.0042    0.0094    0.0211         0.0094         0.0211     0.0400       0.23
+  oklabDeltaEP95               30    0.0119    0.0329    0.0359         0.0329         0.0359     0.0800       0.41
+  edgeWeightedMean             30    0.0091    0.0215    0.0536         0.0215         0.0536     0.1000       0.22
+  ssimOutsideComplement        30    0.0197    0.0605    0.0926         0.0600         0.0926     0.0700       0.86
+
+  ## 1x-light-standard  (n = 164 pairs, 151 of them healthy)
+  metric                        n    median       p90       max  p90 (healthy)  max (healthy)  allowance  p90/allow
+  silhouetteIoUComplement     158    0.0002    0.0116    0.9967         0.0070         0.4000     0.1800       0.06
+  contourDistanceMeanPx       158    0.0075    0.3962   38.0882         0.1422         3.0220     2.5000       0.16
+  contourDistanceP95Px        158    0.0000    1.0000   58.0000         1.0000        15.0000     5.0000       0.20
+  ssimComplement              164    0.0219    0.0791    0.2062         0.0780         0.2062     0.1200       0.66
+  oklabDeltaEMean             164    0.0153    0.0468    0.0967         0.0468         0.0967     0.0700       0.67
+  oklabDeltaEP95              164    0.0772    0.1286    0.4410         0.1249         0.2397     0.1700       0.76
+  edgeWeightedMean            164    0.0212    0.0773    0.1432         0.0775         0.1432     0.1100       0.70
+  ssimOutsideComplement       158    0.0260    0.1240    0.7192         0.0923         0.2740     0.1600       0.78
+
+  ## 2x-dark-standard  (n = 114 pairs, 98 of them healthy)
+  metric                        n    median       p90       max  p90 (healthy)  max (healthy)  allowance  p90/allow
+  silhouetteIoUComplement     105    0.0007    0.9618    0.9931         0.0242         0.6251     0.0700      13.74
+  contourDistanceMeanPx       105    0.0453    2.6948   10.4167         1.2772         7.8468     1.0000       2.69
+  contourDistanceP95Px        105    0.0000   22.0000   86.6060         9.0000        54.0000     1.5000      14.67
+  ssimComplement              114    0.0387    0.1258    0.1878         0.1258         0.1878     0.1200       1.05
+  oklabDeltaEMean             114    0.0233    0.1105    0.1542         0.1119         0.1542     0.0900       1.23
+  oklabDeltaEP95              114    0.1267    0.2148    0.3129         0.2212         0.3129     0.1700       1.26
+  edgeWeightedMean            114    0.0120    0.0710    0.1188         0.0752         0.1188     0.0400       1.78
+  ssimOutsideComplement       105    0.0435    0.1080    0.2478         0.0978         0.2478     0.1400       0.77
+
+  ## 2x-light-standard  (n = 164 pairs, 151 of them healthy)
+  metric                        n    median       p90       max  p90 (healthy)  max (healthy)  allowance  p90/allow
+  silhouetteIoUComplement     158    0.0005    0.0068    0.9967         0.0050         0.3728     0.1500       0.05
+  contourDistanceMeanPx       158    0.0312    0.3359   75.6174         0.2337         5.7454     5.0000       0.07
+  contourDistanceP95Px        158    0.0000    2.0000  115.9741         1.0000        29.0000    10.0000       0.20
+  ssimComplement              164    0.0141    0.0646    0.1165         0.0630         0.1165     0.1100       0.59
+  oklabDeltaEMean             164    0.0140    0.0480    0.0963         0.0514         0.0963     0.0700       0.69
+  oklabDeltaEP95              164    0.0655    0.1286    0.4410         0.1221         0.2397     0.1700       0.76
+  edgeWeightedMean            164    0.0199    0.0769    0.1442         0.0775         0.1442     0.1200       0.64
+  ssimOutsideComplement       158    0.0196    0.1867    0.6792         0.1126         0.3488     0.1400       1.33
+
+# 5. The corner's direction over the healthy cells
+
+  all rows, active, moved only         n= 340  moved  230  up/down 126/104
+  all rows, inactive, moved only       n= 247  moved  190  up/down 103/87
+  healthy rows, active, moved only     n= 304  moved  195  up/down 107/88
+  healthy rows, inactive, moved only   n= 233  moved  178  up/down 96/82
+  all rows                             n= 587  up/down/tie 233/191/163  median signed +0.000e+00
+  healthy rows                         n= 537  up/down/tie 207/170/160  median signed +0.000e+00
+
+# 7. The 55 cells whose 26.5 silhouette is the small one, by backdrop
+
+    dark-solid             32
+    impulse                11
+    light-solid             6
+    mid-dark-solid          4
+    hc-text                 1
+    hc-text-7               1
+    total                  55
+
+# 8. The highlight ratio's two ends
+
+  active: n=132
+    ratio  26.5 median    4.617  27 median   20.173  26.5 max    278.814  27 max   2837.540
+    cells with a 27 ratio over 100: 23; over 26.5: 6
+    dimmest bin  26.5 median 0.0784  27 median 0.0242
+    brightest bin 26.5 median 0.3770  27 median 0.3632
+  inactive: n=80
+    ratio  26.5 median    1.014  27 median    1.351  26.5 max    159.471  27 max   1859.028
+    cells with a 27 ratio over 100: 13; over 26.5: 1
+    dimmest bin  26.5 median 0.0759  27 median 0.0020
+    brightest bin 26.5 median 0.1594  27 median 0.0894
+
+# 9. The brightest bin's angular shift, over all cells and over the moved ones
+
+  active: all n=330 median 45.0 deg;  moved n=169 median 112.5 deg;  moved max 180.0 deg
+  inactive: all n=265 median 22.5 deg;  moved n=106 median 90.0 deg;  moved max 180.0 deg
+
+# 10. The chroma population the hue was read on
+
+  chroma < 0.01 on both beds     n= 456  median |hue shift|   82.83 deg
+  chroma >= 0.01 on both beds    n= 113  median |hue shift|    1.00 deg
+  crossing 0.01 between beds     n=  20  median |hue shift|    4.79 deg
+  measurable population          n= 589
+
