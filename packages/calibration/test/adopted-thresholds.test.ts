@@ -1004,35 +1004,35 @@ const DOM_TIER_27_INCREASED_CONTRAST_COUPLED = DOM_TIER_INCREASED_CONTRAST;
 const DECLARED_27_PROFILES: readonly Declared27Profile[] = [
   {
     profileKey: "apple-macos-27.0-1x-light-standard-glass0.5",
-    cells: PENDING_UNTIL_THE_27_READ,
+    cells: { texture: 36, dom: 36 },
     texture: TEXTURE_TIER_27_LIGHT,
     dom: DOM_TIER_27_LIGHT,
     names: { texture: "TEXTURE_TIER_27_LIGHT", dom: "DOM_TIER_27_LIGHT" },
   },
   {
     profileKey: "apple-macos-27.0-2x-light-standard-glass0.5",
-    cells: PENDING_UNTIL_THE_27_READ,
+    cells: { texture: 36, dom: 36 },
     texture: TEXTURE_TIER_27_2X_LIGHT,
     dom: DOM_TIER_27_2X_LIGHT,
     names: { texture: "TEXTURE_TIER_27_2X_LIGHT", dom: "DOM_TIER_27_2X_LIGHT" },
   },
   {
     profileKey: "apple-macos-27.0-1x-dark-standard-glass0.5",
-    cells: PENDING_UNTIL_THE_27_READ,
+    cells: { texture: 13, dom: 13 },
     texture: TEXTURE_TIER_27_DARK,
     dom: DOM_TIER_27_DARK,
     names: { texture: "TEXTURE_TIER_27_DARK", dom: "DOM_TIER_27_DARK" },
   },
   {
     profileKey: "apple-macos-27.0-2x-dark-standard-glass0.5",
-    cells: PENDING_UNTIL_THE_27_READ,
+    cells: { texture: 13, dom: 13 },
     texture: TEXTURE_TIER_27_2X_DARK,
     dom: DOM_TIER_27_2X_DARK,
     names: { texture: "TEXTURE_TIER_27_2X_DARK", dom: "DOM_TIER_27_2X_DARK" },
   },
   {
     profileKey: "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
-    cells: PENDING_UNTIL_THE_27_READ,
+    cells: { texture: 8, dom: 8 },
     texture: TEXTURE_TIER_27_REDUCED_TRANSPARENCY,
     dom: DOM_TIER_27_REDUCED_TRANSPARENCY,
     names: {
@@ -1046,7 +1046,7 @@ const DECLARED_27_PROFILES: readonly Declared27Profile[] = [
     // a bound on the material. Declared in its own commit, and that commit still
     // precedes every fit commit that touches this profile (contract X5).
     profileKey: "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
-    cells: PENDING_UNTIL_THE_27_READ,
+    cells: { texture: 9, dom: 8 },
     texture: TEXTURE_TIER_27_INCREASED_CONTRAST_COUPLED,
     dom: DOM_TIER_27_INCREASED_CONTRAST_COUPLED,
     names: {
@@ -1091,9 +1091,10 @@ const GATED_PROFILES: readonly GatedProfile[] = [
 
 /**
  * How many profiles the gate covers, pinned so the composition above cannot
- * quietly cover fewer. 6 while the 27 read is pending; 11 once it lands.
+ * quietly cover fewer. It was 6 while the 27 read was pending and is 12 now
+ * that the six 27 profiles carry the counts the canonical run measured.
  */
-const GATED_PROFILE_COUNT = 6;
+const GATED_PROFILE_COUNT = 12;
 
 /**
  * The one 27 key that gets no table in this wave, named so its absence from
@@ -1169,17 +1170,20 @@ const DARK_PROFILES = [
  */
 const MATRIX_PARTITION: Readonly<Record<string, number>> = {
   "apple-macos-26.5-1x-dark-standard": 26,
-  // 18 → 17 at W18 G2 (claims §5.79): the dom-tier holdout
-  // `hc-text__capsule-button__rest` could not be measured on the rebuilt bed
-  // (`GatedProfile.cells`).
   "apple-macos-26.5-1x-light-increased-contrast": 17,
   "apple-macos-26.5-1x-light-reduced-transparency": 16,
   "apple-macos-26.5-1x-light-standard": 72,
   "apple-macos-26.5-2x-dark-standard": 26,
   "apple-macos-26.5-2x-light-standard": 72,
+  "apple-macos-27.0-1x-dark-standard-glass0.5": 26,
+  "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 17,
+  "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": 16,
+  "apple-macos-27.0-1x-light-standard-glass0.5": 72,
+  "apple-macos-27.0-2x-dark-standard-glass0.5": 26,
+  "apple-macos-27.0-2x-light-standard-glass0.5": 72,
 };
 
-const MATRIX_CELLS = 229; // 230 until W18 G2 (claims §5.79); the row lost is named above
+const MATRIX_CELLS = 458; // 229 until W29 G3 appended the 27 bed (§5.153); 230 until W18 G2 (§5.79)
 
 /**
  * Scenes that carry no shape and no material axis, per profile — so the shape
@@ -1271,6 +1275,28 @@ const NO_SHAPE_AXIS_SCENES: Readonly<
   },
   "apple-macos-26.5-1x-light-reduced-transparency": { texture: [], dom: [] },
   "apple-macos-26.5-1x-light-increased-contrast": { texture: [], dom: [] },
+  /*
+   * **Every 27 profile's lists are empty, on both tiers, and that emptiness is a
+   * measurement** (W29 G3, claims §5.153).
+   *
+   * On 26.5 the entries above exist because Apple's material over a near-black
+   * solid sat inside the extractor's 0.02 linear threshold of its own backdrop:
+   * there was no silhouette to find, so the cell carried no shape axis. On macOS
+   * 27 it does not sit there — claims §5.151 §4 measured the same thing from the
+   * other side (`dark-solid__rrect-64__rest` is 52 px of silhouette on 26.5 and
+   * 6,996 px on 27) — and vitrea's refitted material follows it, so every cell of
+   * every 27 profile yields a contour on both tiers.
+   *
+   * They are written out rather than left to the `?? []` default, because an
+   * absent key and an empty list would then be the same thing, and these six are
+   * the statement that the near-tone cells came back.
+   */
+  "apple-macos-27.0-1x-light-standard-glass0.5": { texture: [], dom: [] },
+  "apple-macos-27.0-2x-light-standard-glass0.5": { texture: [], dom: [] },
+  "apple-macos-27.0-1x-dark-standard-glass0.5": { texture: [], dom: [] },
+  "apple-macos-27.0-2x-dark-standard-glass0.5": { texture: [], dom: [] },
+  "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": { texture: [], dom: [] },
+  "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": { texture: [], dom: [] },
 };
 
 /**
@@ -1597,22 +1623,123 @@ const NO_SHAPE_AXIS_SCENES: Readonly<
  *   of one heavy width per source at the 2x span grading the reference has and
  *   vitrea does not (W26 Decision Log 2 (f), 7 (g); the tracker).
  */
+/*
+ * ---------------------------------------------------------------------------
+ * The fifteen rows the macOS 27 refit missed — recorded, claimed UNMET, and
+ * enforced by nothing (W29 G3, claims §5.153)
+ * ---------------------------------------------------------------------------
+ *
+ * **This is NOT a regression floor, and the difference is the whole point.**
+ * A floor pins a number and says "no worse than this"; acceptance clause 4
+ * forbids one on any 27 profile, because the 27 bed is published at the
+ * seven-run probe bar and a floor needs the seventeen-run freeze bar. So these
+ * rows enforce no value at all. Each one keeps its adopted bound as a claim that
+ * is **missed**, exactly as §5.27's rows keep theirs, and what CI holds is only
+ * the membership of this list: a new miss fails the case below, and a row that
+ * comes good fails it too. Nothing here can be satisfied by moving a number.
+ *
+ * The bound was declared before the fit was read (contracts X5; Decision Logs
+ * 4 (a) and 5), the fit was read once at a sealed configuration, and the holdout
+ * was read once. **Nothing was re-fitted after that read** — which is why five of
+ * the fifteen are holdout cells that this child could not and did not tune
+ * against. Re-pinning any of these bounds is the user's ruling and nobody
+ * else's; the wave's Decision Log 6 draft is where it is put.
+ *
+ * ## The three causes, each measured rather than supposed
+ *
+ * **(1) The outer shadow moved on macOS 27 and this child may not follow it** —
+ * seven of the fifteen, every `ssimOutside` row and the `ssimMean` rows that
+ * carry the same exterior. On the 2x light bed
+ * `checkerboard__rrect-md__rest`'s native shadow went from a mean exterior
+ * departure of 0.0128 with a falloff σ of 35.8 device px on 26.5 to **0.0028 at
+ * σ 18.8 on 27** — less than a quarter of the light removed, over less than half
+ * the distance — while vitrea still draws 0.0133 at σ 35, the 26.5 shadow it was
+ * fitted to. On 26.5 the two agreed to the third decimal and the cell read
+ * ssimOutside 0.9943; on 27 it reads 0.8495.
+ * **G2's native delta never read the shadow axis** (claims §5.151 §2 lists the
+ * laws it read and the shadow is not among them), and contract X3 says G3
+ * changes nothing G2 did not name as moved. So the constants are left alone and
+ * the finding is recorded instead. It is the largest single thing this wave now
+ * knows and has not acted on.
+ *
+ * **(2) The largest spans keep the most residual** — six of the fifteen are
+ * `rrect-lg`, `rrect-ml` or `glass-over-glass`, the bed's biggest surfaces, and
+ * their 26.5 twins read 0.97–0.99 where the 27 rows read 0.86–0.91. The body's
+ * far-span term (`sizeToneLevelFar`) is the constant W25 declined for want of a
+ * reading that could choose its sign, and the 27 bed has not been asked for one.
+ *
+ * **(3) The dark bed's diffusion at a large span over a photograph** — the four
+ * `photo__rrect-lg__rest :: oklabDeltaEP95` rows. The level is close (native
+ * 0.1814 against 0.1636) and the **spread is not**: native 0.0417 against
+ * vitrea's 0.0142, so vitrea passes a third of the structure the 27 dark
+ * reference passes there. That is the scale-selective scatter the light
+ * document's `scatter.doesNotClose` names, at the one span where the dark
+ * document has no heavy tap to shape it with.
+ *
+ * Decision Log 4 (a) already ruled what a dark miss means — a floor decision for
+ * the user, recorded — and the review of §5.152 §B extended the same shape to a
+ * 2x-light SSIM miss. All fifteen are in one of those two classes.
+ */
+interface MissedRow {
+  readonly measured: number;
+  readonly bound: string;
+}
+
+const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.89349, bound: "≥ 0.9" },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.8838, bound: "≥ 0.9" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.20096, bound: "≤ 0.18" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": { measured: 0.82736, bound: "≥ 0.83" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.19474, bound: "≤ 0.19" },
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimOutside": { measured: 0.84949, bound: "≥ 0.87" },
+  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimMean": { measured: 0.91215, bound: "≥ 0.93" },
+  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimOutside": { measured: 0.79671, bound: "≥ 0.87" },
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimMean": { measured: 0.91261, bound: "≥ 0.93" },
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimOutside": { measured: 0.80881, bound: "≥ 0.87" },
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.85978, bound: "≥ 0.88" },
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimMean": { measured: 0.90989, bound: "≥ 0.93" },
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimOutside": { measured: 0.77243, bound: "≥ 0.87" },
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21524, bound: "≤ 0.17" },
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21346, bound: "≤ 0.17" },
+};
+
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "dom / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+  "dom / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+  "dom / calibration / light-solid__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+  "dom / calibration / light-solid__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+  "dom / calibration / light-solid__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+  "dom / calibration / light-solid__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+  "dom / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "dom / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+  "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+  "dom / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+  "dom / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "dom / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+  "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard",
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
   "texture / calibration / checkerboard__toolbar-group__rest / apple-macos-26.5-2x-light-standard",
   "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-1x-light-standard",
@@ -1620,16 +1747,30 @@ const PREDICATE_EXCLUDES = [
   "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-light-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / calibration / light-solid__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+  "texture / calibration / light-solid__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+  "texture / calibration / light-solid__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+  "texture / calibration / light-solid__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+  "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+  "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+  "texture / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+  "texture / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
   "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+  "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
 ] as const;
 
 // ---------------------------------------------------------------------------
@@ -1933,6 +2074,10 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
 
           for (const cell of applicable) {
             const measured = reading(cell, axis, metric);
+            // A 27 row the refit missed: named in `MISSED_27_ROWS`, claimed
+            // UNMET, and enforced by nothing until the user rules. The case that
+            // owns that list is what keeps it from growing unnoticed.
+            if (MISSED_27_ROWS[`${name(cell)} :: ${metric}`] !== undefined) continue;
             const pinned = REGRESSION_FLOORS[`${name(cell)} :: ${metric}`];
 
             // An UNMET row: the adopted bound stands as a claim in §5.27 and CI
@@ -2466,6 +2611,53 @@ describe("the macOS 27 tables, declared before the refit's read (W29 Decision Lo
       Object.keys(REGRESSION_FLOORS).filter((key) => key.includes("apple-macos-27.0-")),
       "no 27 profile may carry a regression floor in W29",
     ).toEqual([]);
+  });
+
+  it("names every 27 row the refit missed, and nothing it did not", () => {
+    /*
+     * The list's owner. It is derived here from the artifact and compared to the
+     * constant in BOTH directions, which is the only thing that makes recording
+     * a miss different from excusing one: a row that starts missing joins this
+     * failure, and a row that stops missing joins it too, so the set can only be
+     * changed in a commit that says why.
+     *
+     * Nothing about the VALUE is asserted. That is deliberate and it is what
+     * separates this from `REGRESSION_FLOORS` — acceptance clause 4 adopts no 27
+     * floor, so there is no number here for a later run to be held to.
+     */
+    const missed: string[] = [];
+    for (const profile of DECLARED_27_PROFILES.filter(transcribed27)) {
+      for (const tier of ["texture", "dom"] as const) {
+        for (const [axis, metric, comparison, threshold] of profile[tier]) {
+          for (const cell of cellsOf(profile.profileKey, tier)) {
+            if (axis === "shape" && (cell.shape === undefined || !isWellConditioned(cell))) continue;
+            const measured = reading(cell, axis, metric);
+            const fails = comparison === "≥" ? measured < threshold : measured > threshold;
+            if (fails) missed.push(`${name(cell)} :: ${metric}`);
+          }
+        }
+      }
+    }
+    expect(missed.sort(), "the 27 rows that miss their declared bound").toEqual(
+      Object.keys(MISSED_27_ROWS).sort(),
+    );
+
+    // Every recorded reading is the one the sealed read took, to five decimals —
+    // so the prose beside the list cannot drift from the artifact it describes.
+    for (const profile of DECLARED_27_PROFILES.filter(transcribed27)) {
+      for (const tier of ["texture", "dom"] as const) {
+        for (const [axis, metric] of profile[tier]) {
+          for (const cell of cellsOf(profile.profileKey, tier)) {
+            const row = MISSED_27_ROWS[`${name(cell)} :: ${metric}`];
+            if (row === undefined) continue;
+            expect(reading(cell, axis, metric), `${name(cell)} :: ${metric}`).toBeCloseTo(
+              row.measured,
+              5,
+            );
+          }
+        }
+      }
+    }
   });
 
   it("gates every 27 row it finds, and refuses one it never declared", () => {
