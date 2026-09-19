@@ -31,6 +31,20 @@ The ten, in the review's numbering:
 Items 3 and 6 need no computation here — 3 is an attestation the fixtures either carry or
 do not (checked against `fixtures/manifest.json` below), and 6 is already in
 `read-checks.txt` check 6 and is transcribed into the ledger rather than recomputed.
+
+## Amended 2026-09-19 by the G1c Part B review closure (claims §5.152 §B, §5.151 §12)
+
+Item 4's allowances were **transcribed** from `test/adopted-thresholds.test.ts` into a
+dictionary here, and three of the forty-eight texture-tier numbers were transcribed wrong
+(`2x-light-standard` ssimMean, `1x-light-reduced-transparency` ssimOutside,
+`1x-light-increased-contrast` ssimOutside — a fourth, `2x-light-standard` ssimOutside, was
+found by the same audit). The dictionary is now **read from the test file** by
+`adopted_allowances.read_allowances()` beside this script — which the G1c closure imports
+too, so there is one reader and not two — the allowance column cannot drift again, and
+the dom tier is reported beside the texture tier as Decision Log 4 (c) says it is. The
+original transcription is kept verbatim as `TRANSCRIBED_2026_09_19` and item 11 prints it
+against the file row by row: the first run's numbers are not rewritten, the corrected ones
+are printed beside them. The original output stands as `review-closure.v1.txt`.
 """
 import json
 import pathlib
@@ -39,6 +53,9 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 CALIBRATION = HERE.parents[1]
 REFERENCE = CALIBRATION.parents[1] / "apps" / "reference-apple"
+
+sys.path.insert(0, str(HERE))
+from adopted_allowances import read_allowances  # noqa: E402  (after HERE is known)
 
 rows = json.loads((HERE / "native-delta.json").read_text())["rows"]
 recede_v1 = json.loads((HERE / "recede-delta.v1.json").read_text())["rows"]
@@ -192,13 +209,17 @@ say("# 4. The bounded metrics per profile, worst case beside the median")
 say()
 say("The adopted tables in test/adopted-thresholds.test.ts bound the PER-CELL value, so the")
 say("native-to-native distribution is reported at its p90 and its max as well as its median.")
-say("'allowance' is the 26.5 texture-tier row for the profile of the same name; a '>=' row is")
+say("'allowance' is the 26.5 texture-tier row for the profile of the same name and 'dom' the")
+say("dom-tier row beside it; a '>=' row is")
 say("restated as the complement the native-delta metric measures, so every row reads 'lower is")
 say("closer'. The allowance bounds vitrea against Apple, not Apple against Apple: it is here as")
 say("the scale Decision Log 4 (c) reasons on, not as a bound anything is failing.")
+say("Both columns are PARSED from the test file (2026-09-19 amendment, item 11); the dash marks")
+say("a metric the dom table of that profile does not carry.")
 say()
-# The 26.5 texture-tier tables, transcribed from test/adopted-thresholds.test.ts.
-ALLOWANCE = {
+# The 26.5 texture-tier tables as the first run TRANSCRIBED them. Kept because a recorded
+# number is corrected beside and never over: item 11 prints this against the file.
+TRANSCRIBED_2026_09_19 = {
     "1x-light-standard": {
         "silhouetteIoUComplement": 1 - 0.82, "contourDistanceMeanPx": 2.5, "contourDistanceP95Px": 5.0,
         "ssimComplement": 1 - 0.88, "oklabDeltaEMean": 0.07, "oklabDeltaEP95": 0.17,
@@ -234,6 +255,10 @@ BOUNDED = [
     "silhouetteIoUComplement", "contourDistanceMeanPx", "contourDistanceP95Px", "ssimComplement",
     "oklabDeltaEMean", "oklabDeltaEP95", "edgeWeightedMean", "ssimOutsideComplement",
 ]
+
+TABLES, TABLE_NAMES = read_allowances()
+ALLOWANCE = {name: tiers["texture"] for name, tiers in TABLES.items()}
+DOM_ALLOWANCE = {name: tiers["dom"] for name, tiers in TABLES.items()}
 say("The '(healthy)' columns drop the §4 cells whose two silhouettes differ by more than 2x, where")
 say("the shape metrics are reading the extractor's threshold rather than a shape (claims §5.151 §4).")
 say()
@@ -248,19 +273,23 @@ def healthy_row(r):
 for key in sorted({short(r["profileKey27"]) for r in rows}):
     subset = [r for r in rows if short(r["profileKey27"]) == key]
     fit = [r for r in subset if healthy_row(r)]
-    say(f"  ## {key}  (n = {len(subset)} pairs, {len(fit)} of them healthy)")
+    say(f"  ## {key}  (n = {len(subset)} pairs, {len(fit)} of them healthy)"
+        f"   tables: {TABLE_NAMES[key]['texture']}, {TABLE_NAMES[key]['dom']}")
     say(f"  {'metric':26s} {'n':>4s} {'median':>9s} {'p90':>9s} {'max':>9s} "
-        f"{'p90 (healthy)':>14s} {'max (healthy)':>14s} {'allowance':>10s} {'p90/allow':>10s}")
+        f"{'p90 (healthy)':>14s} {'max (healthy)':>14s} {'allowance':>10s} {'p90/allow':>10s} "
+        f"{'dom':>10s}")
     for metric in BOUNDED:
         values = [r["metrics"][metric] for r in subset if r["metrics"].get(metric) is not None]
         clean = [r["metrics"][metric] for r in fit if r["metrics"].get(metric) is not None]
         if not values:
             continue
         allow = ALLOWANCE[key][metric]
+        dom = DOM_ALLOWANCE[key].get(metric)
         p90 = percentile(values, 0.90)
         say(f"  {metric:26s} {len(values):>4d} {median(values):>9.4f} {p90:>9.4f} "
             f"{max(values):>9.4f} {percentile(clean, 0.90):>14.4f} "
-            f"{(max(clean) if clean else float('nan')):>14.4f} {allow:>10.4f} {p90 / allow:>10.2f}")
+            f"{(max(clean) if clean else float('nan')):>14.4f} {allow:>10.4f} {p90 / allow:>10.2f} "
+            f"{('—' if dom is None else f'{dom:.4f}'):>10s}")
     say()
 
 # ---------------------------------------------------------------------------
@@ -356,6 +385,31 @@ for label, subset in (("chroma < 0.01 on both beds", weak), ("chroma >= 0.01 on 
     hue = [r["metrics"]["tintHueShiftDeltaDeg"] for r in subset]
     say(f"  {label:30s} n={len(subset):4d}  median |hue shift| {median(hue):7.2f} deg")
 say(f"  {'measurable population':30s} n={len(with_hue):4d}")
+say()
+
+# ---------------------------------------------------------------------------
+say("# 11. The allowances audited against the test file (added 2026-09-19 by the G1c review closure)")
+say()
+say("Every texture-tier allowance the first run transcribed, beside the row the test file")
+say("actually carries. 'file' is what read_allowances() parses now and what section 4 above")
+say("uses; 'transcribed' is what the 2026-09-19 first run wrote and what review-closure.v1.txt")
+say("and the tables copied from it were read against. A MISMATCH line is a number a decision may")
+say("have cited: claims §5.151 §12 and the charter's Decision Log 4 (c) carry the correction.")
+say()
+mismatches = 0
+for key in sorted(TRANSCRIBED_2026_09_19):
+    for metric in BOUNDED:
+        was = TRANSCRIBED_2026_09_19[key][metric]
+        now = ALLOWANCE[key][metric]
+        mark = "        " if abs(now - was) < 1e-12 else "MISMATCH"
+        if mark == "MISMATCH":
+            mismatches += 1
+            say(f"  {mark} {key:32s} {metric:26s} transcribed {was:.4f}  file {now:.4f}")
+say(f"  {mismatches} of {len(TRANSCRIBED_2026_09_19) * len(BOUNDED)} texture-tier rows differ; "
+    f"the rest agree exactly.")
+say()
+say("The dom tier was never transcribed here at all, so it has nothing to differ from; it is")
+say("parsed and printed beside the texture column in section 4 from now on.")
 say()
 
 text = "\n".join(out) + "\n"
