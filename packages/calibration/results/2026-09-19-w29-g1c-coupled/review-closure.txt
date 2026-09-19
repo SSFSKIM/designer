@@ -1,0 +1,103 @@
+# W29 G1c Part B — the review closure's recomputations (2026-09-19)
+
+Medians are named at every use: 'upper' is the instrument's (native-delta.ts) and 'mean' is
+read-checks.py's. Quantiles are read-checks.py §8's, so a row here lands on that row's number.
+
+# 1. The allowance the coupled profile is read against, from the test file
+
+Allowances are parsed from test/adopted-thresholds.test.ts through the shared
+adopted_allowances module, never transcribed. The three shape rows are over the healthy
+cells, the five material rows over all 32 pairs, and the median is read-checks.py's — all
+three exactly as §8 reads them, so only the allowance column moves against what it printed.
+
+  table: TEXTURE_TIER_INCREASED_CONTRAST (texture), DOM_TIER_INCREASED_CONTRAST (dom)
+
+  metric                        n     median        p90        max  allowance  first read      dom  verdict
+  silhouetteIoUComplement      30  0.0001246    0.03575     0.2752       0.15        same      0.2  MAX OVER
+  contourDistanceMeanPx        30   0.002889      0.623      3.948        1.8        same      2.6  MAX OVER
+  contourDistanceP95Px         30          0          1         31       11.5        same      5.5  MAX OVER
+  ssimComplement               32    0.03565    0.07169     0.1151       0.14        same     0.17  inside
+  oklabDeltaEMean              32   0.008629    0.02259    0.03919       0.06        same     0.07  inside
+  oklabDeltaEP95               32    0.03517    0.05062    0.06873        0.1        same     0.09  inside
+  edgeWeightedMean             32    0.02523    0.06321       0.11       0.17        same     0.18  inside
+  ssimOutsideComplement        32    0.07781     0.1553     0.2369       0.31         0.2     0.39  inside
+
+The one row that moves is ssimOutsideComplement: the first read had ≤ 0.20 and called the
+0.2369 worst cell a named risk; the file's row is ssimOutside ≥ 0.69, so the allowance is
+≤ 0.31 and that cell sits at 0.764 of it.
+
+# 2. Is 'inside every material row at its worst cell' unique to this profile?
+
+Every profile's five material rows at their worst cell, against that profile's own parsed
+texture allowance. The shape rows are excluded, as they are everywhere in this wave: they
+are the extractor reading a level and are over on every profile.
+
+  1x-dark-standard                             n= 115  over: ssimComplement 0.2355 > 0.13; oklabDeltaEMean 0.1547 > 0.09; oklabDeltaEP95 0.3095 > 0.17; edgeWeightedMean 0.1177 > 0.04; ssimOutsideComplement 0.2099 > 0.17
+  1x-light-increased-contrast                  n=  32  over: oklabDeltaEMean 0.1006 > 0.06; oklabDeltaEP95 0.1919 > 0.1; edgeWeightedMean 0.2253 > 0.17
+  1x-light-increased-contrast-coupled          n=  32  INSIDE EVERY MATERIAL ROW
+  1x-light-reduced-transparency                n=  30  INSIDE EVERY MATERIAL ROW
+  1x-light-standard                            n= 164  over: ssimComplement 0.2062 > 0.12; oklabDeltaEMean 0.0967 > 0.07; oklabDeltaEP95 0.441 > 0.17; edgeWeightedMean 0.1432 > 0.11; ssimOutsideComplement 0.7192 > 0.16
+  2x-dark-standard                             n= 114  over: ssimComplement 0.1878 > 0.12; oklabDeltaEMean 0.1542 > 0.09; oklabDeltaEP95 0.3129 > 0.17; edgeWeightedMean 0.1188 > 0.04; ssimOutsideComplement 0.2478 > 0.14
+  2x-light-standard                            n= 164  over: ssimComplement 0.1165 > 0.07; oklabDeltaEMean 0.09626 > 0.07; oklabDeltaEP95 0.441 > 0.17; edgeWeightedMean 0.1442 > 0.12; ssimOutsideComplement 0.6792 > 0.13
+
+Two profiles are inside all five, and the second one is only inside since the allowance was
+corrected: reduced transparency's ssimOutside row is ≥ 0.84 in the file (≤ 0.16), not the
+≤ 0.07 the transcription had, and its worst cell is 0.0926.
+
+# 3. The allowance audit
+
+In G2's closure, item 11 — the dictionary that failed is that child's, and both closures now
+read through adopted_allowances. Four of its forty-eight texture rows differed from the file:
+2x-light-standard ssimMean (≤ 0.07, not ≤ 0.11) and ssimOutside (≤ 0.13, not ≤ 0.14),
+1x-light-reduced-transparency ssimOutside (≤ 0.16, not ≤ 0.07), 1x-light-increased-contrast
+ssimOutside (≤ 0.31, not ≤ 0.20).
+
+# 4. The tone response, conditioned on its own fit
+
+  transferR2 over 28 cells that carry a transfer:
+    26.5  median 0.0075 (mean) 0.0079 (upper)   max 0.7145   below 0.1: 20 of 28
+    27    median 0.0160 (mean) 0.0160 (upper)   max 0.4159   below 0.1: 22 of 28
+
+  A slope and an offset fitted through a cloud with no slope in it are a reading of the
+  body's own level. The offset says so directly:
+    transferOffset against bodyLevel, 26.5  n=26  r = 0.9852
+    transferOffset against bodyLevel, 27    n=26  r = 0.9985
+    pooled over both beds                 n=52  r = 0.9906
+
+# 5. The two median conventions, on the corner radii §B §3 cites
+
+Neither figure is wrong and neither moves. `tables` takes the upper middle of an even count
+and read-checks.py averages the two middles, so a component carrying an even number of cells
+reads differently in the two files. The implied radius is 1/κ.
+
+  component              cells   κ 26.5 upper  κ 27 upper            r upper   κ 26.5 mean  κ 27 mean             r mean
+  capsule-button            12        0.05582     0.05582   17.92 → 17.92 px       0.05582    0.05582   17.92 → 17.92 px
+  rrect-48                   1        0.10321     0.10321     9.69 → 9.69 px       0.10321    0.10321     9.69 → 9.69 px
+  rrect-80                   1        0.06233     0.06233   16.04 → 16.04 px       0.06233    0.06233   16.04 → 16.04 px
+  rrect-lg                   3        0.03051     0.03267   32.78 → 30.61 px       0.03051    0.03267   32.78 → 30.61 px
+  rrect-md                   7        0.05295     0.05295   18.89 → 18.89 px       0.05295    0.05295   18.89 → 18.89 px
+  rrect-md-clear20           1        0.05400     0.05400   18.52 → 18.52 px       0.05400    0.05400   18.52 → 18.52 px
+  rrect-ml                   2        0.03999     0.05207   25.01 → 19.21 px       0.03933    0.04542   25.43 → 22.02 px
+  rrect-sm                   1        0.13227     0.13227     7.56 → 7.56 px       0.13227    0.13227     7.56 → 7.56 px
+  toolbar-group              2        0.05436     0.05436   18.40 → 18.40 px       0.05436    0.05436   18.40 → 18.40 px
+
+`law-tables.txt` prints the 'upper' pair and claims §5.152 §B §3 cites the 'mean' pair. They
+can differ only where the cell count is even — capsule-button, rrect-ml and toolbar-group —
+and on this bed only rrect-ml actually does, because the other two have equal middles. The
+generator now names its convention in the file's header.
+
+# 6. The attested field, as the manifest writes it
+
+  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+    increaseContrast     1
+    reduceTransparency   1
+    showBorders          0
+    glassTintAmount      0.5
+    osBuild              26A428
+    displayplacerMode    69
+    runs                 7
+
+  `showBorders` and `glassTintAmount` are the attestation's field names. ButtonShapesEnabled
+  and NSGlassTintAmount are the `defaults` keys they are read from (charter Surprises,
+  2026-09-18) and appear in the profile's caveat prose, not in the attested block.
+

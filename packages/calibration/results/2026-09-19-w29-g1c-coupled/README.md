@@ -153,6 +153,19 @@ the native-to-native distribution is inside the 26.5 increased-contrast allowanc
 which is true of no profile in Decision Log 4 (c) — including the decoupled profile of nearly this
 name, whose ΔE p95 the confound put over. The two things the user should weigh are in the draft.
 
+**The review closure** (2026-09-19, `review-closure.py` / `.txt`; claims §5.152 §B §12). Six
+findings, none flipping a verdict, and Decision Log 5's ruling unchanged. Under all of them: the
+26.5 allowance column was transcribed by hand and four of its forty-eight texture rows were wrong,
+so the allowances are now parsed from `adopted-thresholds.test.ts` through
+`../2026-09-19-w29-g2-native-delta/adopted_allowances.py`, which both closures import. Two
+statements above are amended by it — the SSIM-outside worst cell is **inside** its allowance
+(0.237 against ≤ 0.31, not the transcribed ≤ 0.20), so there is no tail to carry as a named risk;
+and "true of no profile" is **true of one other**, `1x-light-reduced-transparency`, whose own
+SSIM-outside allowance was mis-transcribed the other way. The four other findings condition the tone
+response on `transferR2`, separate the transfer offset from the body level (r = 0.9985), name the
+two median conventions that make `law-tables.txt` and `read-checks.txt` disagree on `rrect-ml`
+without either being wrong, and name the attested field as `showBorders`.
+
 ## Files
 
 | file | what it is |
@@ -169,6 +182,7 @@ name, whose ΔE p95 the confound put over. The two things the user should weigh 
 | `delta/native-delta.json`, `delta/recede-delta.json`, `delta-run.txt` | the rows |
 | `delta/law-tables.txt` | the tables every verdict in §5.152 §B is read off |
 | `read-checks.py` / `.txt` | the nine things a table cannot answer, including the coupled-against-decoupled comparison and the fallback's own alternative |
+| `review-closure.py` / `.txt` | the independent review's six findings, recomputed from the committed rows; the allowances parsed from the test file, never transcribed |
 | `delta/sheets/` | 26.5 \| 27 coupled \| amplified difference (×8), four per profile and three per law |
 | `sheets/`, `three-way-sheet.py` | 26.5 \| 27 coupled \| 27 decoupled on one strip — the material and the toggle separated by eye |
 | `verify-output.txt`, `freeze-verify.txt` | lint, the workspace's tests, and the 26.5 freeze at 1,818 entries |

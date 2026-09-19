@@ -22952,6 +22952,37 @@ and that is what the table beside them now carries. **No material, profile, boun
 golden or matrix row was touched by this closure**, and the pair rows of `native-delta.json` are
 bit-identical across the re-run.
 
+**Amended 2026-09-19 by the G1c Part B review closure: item 4's allowance column was transcribed,
+and four of its forty-eight texture rows were wrong.** The distribution figures — every median, p90
+and max — are unaffected; what was wrong is the allowance each was held against, and therefore some
+statements of the form *this profile is over its allowance*. Corrected beside, from
+`adopted-thresholds.test.ts` itself:
+
+| profile | metric | transcribed | the adopted row | allowance |
+| --- | --- | ---: | --- | ---: |
+| `2x-light-standard` | SSIM complement | ≤ 0.11 | `ssimMean ≥ 0.93` | **≤ 0.07** |
+| `2x-light-standard` | SSIM-outside complement | ≤ 0.14 | `ssimOutside ≥ 0.87` | **≤ 0.13** |
+| `1x-light-reduced-transparency` | SSIM-outside complement | ≤ 0.07 | `ssimOutside ≥ 0.84` | **≤ 0.16** |
+| `1x-light-increased-contrast` | SSIM-outside complement | ≤ 0.20 | `ssimOutside ≥ 0.69` | **≤ 0.31** |
+
+**What follows from each.** `2x-light-standard` SSIM complement: p90 **0.0646 is inside** ≤ 0.07, at
+0.92 of it, and the **max 0.1165 is outside** — a **max-only** miss, so a 2x-light SSIM miss at G3's
+read is **a floor decision for the user, recorded**, the same shape as the dark ΔE tail under
+Decision Log 4 (a) and not a bound loosened after the fact. (The review reported that profile over at
+p90 as well; recomputed, it is not, and the narrower statement is the one recorded.) The same
+profile's SSIM-outside row was already over at p90 and max and stays over against the tighter ≤ 0.13.
+`1x-light-reduced-transparency` moves the other way: against ≤ 0.16 its worst cell is 0.0926, so that
+profile is **inside every material row at its worst cell**, which §5.152 §B §11's uniqueness claim is
+amended for. `1x-light-increased-contrast` (the confounded profile) is inside ≤ 0.31 at 0.2275; its
+ΔE rows are what put it over, not this one.
+
+The cause was a hand copy. The allowances are now **parsed** from the test file by
+`adopted_allowances.read_allowances()`, which G2's closure and G1c's both import; G2's
+`review-closure.py` keeps the original transcription as `TRANSCRIBED_2026_09_19` and prints the audit
+of all forty-eight rows as its item 11, its §4 now carries the dom tier beside the texture tier, and
+the first output stands as `review-closure.v1.txt`. Nothing in vitrea moved and the test file was
+read, never edited.
+
 ## 5.152 W29 G1c Part A: the coupled increased-contrast bed's infrastructure — a fourth accessibility token, one profile the harness takes without a rebuild, and the two contrast passes made to refuse each other (2026-09-19)
 
 **Gate: W29 Decision Log 4 (b), acceptance clause 2, contracts X1, X2, X4, X6 and X7.** Evidence is
@@ -23082,7 +23113,11 @@ increased-contrast scene list verbatim — from seven runs per pose: **28 unanim
 frequency-settled, 0 refused**, no omission and no hole. Every run attested `increaseContrast=1`
 with `reduceTransparency=1`, `ButtonShapesEnabled=0` and `NSGlassTintAmount` 0.5 on build 26A428 at
 display mode 69, and `materialize` carried the fields all fourteen runs agree on into the profile's
-`attestation` block. `src/run-provenance.ts` did not fire, which is Part A's refusal in its positive
+`attestation` block. (**Beside, 2026-09-19, review closure:** those last two are the `defaults`
+keys, and the attested **fields** are named `showBorders` and `glassTintAmount` — `showBorders: "0"`
+and `glassTintAmount: "0.5"` in the manifest's block, which `review-closure.txt` §6 prints. The
+values are as stated; only the names were the keys' rather than the block's.)
+`src/run-provenance.ts` did not fire, which is Part A's refusal in its positive
 form: the runs and the key agree about both toggles.
 
 The bar is G2's instrument, construction and rule unchanged, over this pass's own fourteen runs,
@@ -23124,7 +23159,13 @@ the median area difference **3.5 px** out of several thousand. The corner's medi
 **exactly 0.000**, with 6 cells up, 10 down and 14 exactly tied, and every single-box component
 reproduces its own declared radius to the hundredth of a pixel — `capsule-button` 17.92 → 17.92 px,
 `rrect-md` 18.89 → 18.89, `rrect-sm` 7.56 → 7.56, `rrect-48` 9.69 → 9.69, `rrect-80` 16.04 → 16.04 —
-except `rrect-lg` at 32.78 → 30.61 px over 3 cells and `rrect-ml` at 25.43 → 22.02 over 2. `rrect-lg`
+except `rrect-lg` at 32.78 → 30.61 px over 3 cells and `rrect-ml` at 25.43 → 22.02 over 2 (**the
+median convention, named beside 2026-09-19:** this line is read off `read-checks.txt`, whose median
+averages the two middles of an even count, while `delta/law-tables.txt` prints the **upper middle**
+and so gives `rrect-ml` 25.01 → 19.21 px. Both are right under their own rule and neither number is
+corrected to the other; the two can differ only on a component with an even cell count, and on this
+bed only `rrect-ml` actually does. `law-tables.txt`'s header now names its convention, and
+`review-closure.txt` §5 prints every component under both). `rrect-lg`
 is the one family §5.151 §3 also shows moving on the rest of the bed (30.46 → 29.92 there);
 `rrect-ml` carries two cells here and is in neither of that section's lists, and `rrect-sm` — which
 moved there, 7.87 → 7.56 — holds still here at 7.56 → 7.56. Two and three cells are not a population,
@@ -23182,7 +23223,11 @@ Medians over the same 32 cells (`read-checks.txt` §4, §5):
 scatter are the material**: they moved by the same amount whether the transparency reduction was on
 or off, to within 1 %. The **level, the tone offset and the tint's lightness are mostly the
 toggle**: on the decoupled profile they read two to five times larger than the material alone
-accounts for. §5.151 §9's refusal to attribute any of that profile's cells to the material was
+accounts for. (**Beside, 2026-09-19, review closure:** that is **two** independent readings and not
+three. `transferOffset` tracks `bodyLevel` at **r = 0.9985** on the 27 bed and 0.9852 on 26.5 over
+the 26 cells carrying both, so on a panel this opaque the fitted offset *is* the body's level read a
+second way — §9's condition below says why. The tint's lightness is the third, separate reading.)
+§5.151 §9's refusal to attribute any of that profile's cells to the material was
 right, and it was right for a reason that now has a number on it.
 
 **8. Does this profile move like the rest of the bed?** On the whole-cell rows, yes and
@@ -23202,6 +23247,14 @@ this profile has ever been read against a web capture, and `results/matrix.json`
 And the scatter row deserves one caution in G3's hands: on the 26.5 side the declared interior box
 contains that bed's hard dark outline, so part of the σ drop is the outline's disappearance rather
 than a diffusion change — the rim row and the scatter row are not independent on this profile.
+
+**The tone response row is conditioned on its own fit** (added 2026-09-19, review closure): the
+linear transfer barely holds on a near-opaque panel — median `transferR2` **0.0075 on 26.5 and
+0.0160 on 27**, with **22 of the 28 cells that carry a transfer below R² 0.1 on 27** — so the slope
+and offset in §2 and §7 are a fit through a cloud with almost no slope in it, and the offset is
+consequently a reading of the body's level (§7, r = 0.9985). The row's counts stand as movement
+against the bar; what it does not support is a claim about the *shape* of this profile's response to
+its backdrop, and G3 should read the level law rather than this one on it.
 
 **10. One consequence for `compare`, found here and not fixed here.** `cli/compare.ts`'s
 `webAccessibilityFlags` maps the **manifest's** `a11yMode` to the web-side accessibility flags, and
@@ -23233,17 +23286,31 @@ shape rows over the healthy cells, as that table's are):
 | ΔE mean | 0.0086 | 0.0226 | **0.0392** | ≤ 0.06 |
 | ΔE p95 | 0.0352 | 0.0506 | **0.0687** | ≤ 0.10 |
 | edge-weighted | 0.0252 | 0.0632 | **0.110** | ≤ 0.17 |
-| SSIM-outside complement | 0.0778 | 0.1553 | 0.237 | ≤ 0.20 |
+| SSIM-outside complement | 0.0778 | 0.1553 | 0.237 | ≤ 0.20 → **≤ 0.31** ‡ |
 
 † the three shape rows, as everywhere in this wave, are the extractor reading a level rather than a
 shape and are over the allowance on every profile in Decision Log 4 (c).
 
-**Every material row is inside the 26.5 allowance at its worst cell**, which is true of no other
-profile in that table: `1x-light-standard` and `2x-light-standard` exceed the ΔE-mean allowance at
-their worst cell, both dark profiles exceed ΔE mean and edge-weighted at p90 **and** max, and the **decoupled**
-increased-contrast profile exceeds ΔE p95 at p90 (0.1716) and max (0.1919) against ≤ 0.10 — where
-the coupled profile reads **0.0506 and 0.0687**. The confound was what put that row over, and
-removing it brings the profile inside its own 26.5 numbers.
+‡ **Corrected beside, 2026-09-19 (review closure).** The allowance in this row was transcribed. The
+adopted row is `ssimOutside ≥ 0.69` in `TEXTURE_TIER_INCREASED_CONTRAST`, so the complement the
+native delta measures is **≤ 0.31**, not ≤ 0.20, and the 0.237 worst cell sits at **0.76 of the
+allowance** — inside, with headroom. Nothing measured moves; the column was wrong and the
+measurement was not. Every allowance in this section and in Decision Log 4 (c) is now **parsed** from
+`adopted-thresholds.test.ts` rather than copied (`adopted_allowances.py`; the audit of all
+forty-eight texture rows is in §5.151 §12).
+
+**Every material row is inside the 26.5 allowance at its worst cell**, which is true of only one
+other profile in that table, **`1x-light-reduced-transparency`** (amended 2026-09-19: on the
+transcribed column that profile's SSIM-outside row read over, and against the file's ≤ 0.16 its
+worst cell is 0.0926 — inside, like the other four). Of the rest: `1x-light-standard` exceeds SSIM
+complement, ΔE mean, ΔE p95, edge-weighted and SSIM-outside at its worst cell; `2x-light-standard`
+exceeds the same five; both dark profiles exceed ΔE mean and edge-weighted at p90 **and** max; and
+the **decoupled** increased-contrast profile exceeds ΔE mean (0.1006 against ≤ 0.06), ΔE p95 at p90
+(0.1716) and max (0.1919) against ≤ 0.10, and edge-weighted (0.2253 against ≤ 0.17) — where the
+coupled profile reads **0.0392, 0.0506 and 0.0687, and 0.110**. The confound was what put those rows
+over, and removing it brings the profile inside its own 26.5 numbers. (`review-closure.txt` §2 is
+the per-profile print; the decoupled profile's own SSIM-outside row, 0.2275, is inside ≤ 0.31 on the
+corrected column.)
 
 **The draft, for the user to rule:** declare the 27 tables for
 `apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5` **at the 26.5
@@ -23251,9 +23318,49 @@ increased-contrast tables' values**, per tier, before G3 reads its fit — the s
 argument Decision Log 4 (a) ruled for the five unconfounded profiles, on evidence that is stronger
 here than on any of them. Two things the user should weigh against it. First, it **adds a profile to
 G3**, which was chartered on five and is already running; the alternative is to hold the table for a
-later child and let G3 fit the five. Second, `SSIM-outside complement` has a max of **0.237** against
-≤ 0.20 — one material-adjacent row whose worst cell is outside, and the one line of this draft that
-is a prediction rather than a measurement, since the outside region is where the rim's disappearance
-lands. The parent's recommendation is to **declare it**, and to record the SSIM-outside tail as a
-named risk in the Decision Log entry rather than loosening the row in advance, which is the shape
-Decision Log 4 (a) already chose for the dark profiles' ΔE tail.
+later child and let G3 fit the five. ~~Second, `SSIM-outside complement` has a max of **0.237**
+against ≤ 0.20 — one material-adjacent row whose worst cell is outside, and the one line of this
+draft that is a prediction rather than a measurement, since the outside region is where the rim's
+disappearance lands. The parent's recommendation is to **declare it**, and to record the SSIM-outside
+tail as a named risk in the Decision Log entry rather than loosening the row in advance, which is the
+shape Decision Log 4 (a) already chose for the dark profiles' ΔE tail.~~
+
+**The second point is withdrawn, 2026-09-19 (review closure).** It rested on the transcribed ≤ 0.20;
+the adopted row gives ≤ 0.31 and the 0.237 worst cell is inside it with headroom, so there was no row
+outside the allowance to name as a risk and no prediction in the draft. The recommendation to
+**declare** stands and is unchanged — it never depended on that point, and the evidence for it is
+stronger without it. The struck text is kept because it is what was put to the user and what
+Decision Log 5 ruled on; the note beside that ruling says the same.
+
+**12. Review closure (2026-09-19).** §B was read independently and six things came back; all six are
+closed here and none of them flips a verdict. Every figure below was recomputed from the committed
+rows — `results/2026-09-19-w29-g1c-coupled/review-closure.py` / `.txt`, and item 11 of G2's
+`review-closure.py` for the audit — and where a recorded number was wrong the corrected one is
+written **beside** it, never over it.
+
+- **The allowance column was transcribed, and four of forty-eight texture rows were wrong.** Three
+  reached this section and the charter (§11 above; §5.151 §12; Decision Log 4 (c)); the fourth,
+  `2x-light-standard` SSIM-outside ≤ 0.13 rather than ≤ 0.14, was found by auditing the rest.
+  Allowances are now **parsed** from `adopted-thresholds.test.ts` by `adopted_allowances.py`, which
+  both review closures import; the test file is read and never edited.
+- **The SSIM-outside row of §11 has headroom, not a risk.** ≤ 0.31 against a worst cell of 0.237.
+  The draft's second weighing point and the "named risk" it proposed are withdrawn above, and a
+  dated parent note stands beside Decision Log 5's ruling. **The ruling itself is unchanged.**
+- **The uniqueness claim is amended**: `1x-light-reduced-transparency` is inside every material row
+  at its worst cell too, so the property is shared with one other profile rather than unique.
+- **The tone response is conditioned on its own fit** (§9) and the offset is not independent of the
+  level (§7): median `transferR2` 0.0075 → 0.0160, 22 of 28 cells under R² 0.1 on 27, and
+  `transferOffset` against `bodyLevel` at r = 0.9985 on the 27 bed.
+- **The two median conventions are named** where each is read (§3, and in `law-tables.txt`'s own
+  header). No figure moved: 25.43 → 22.02 px and 25.01 → 19.21 px are the same two cells under
+  the averaged and the upper-middle middle.
+- **The attested field is `showBorders`** (§1), not the `defaults` key `ButtonShapesEnabled`.
+
+One finding was verified and **partly disagreed with**: the review reported `2x-light-standard`
+exceeding its corrected SSIM allowance at p90 *and* max. Recomputed, its p90 is **0.0646 against
+≤ 0.07 — inside, at 0.92 of the allowance** — and only its **max, 0.1165, is outside**. The
+consequence is recorded in §5.151 §12 and Decision Log 4 (c) in that narrower form: a **max-only**
+miss, and a floor decision for the user if G3's read lands there.
+
+Nothing in vitrea moved: no material, no profile document, no bound, no floor, no golden, no fixture
+and no row of `results/matrix.json`. The 26.5 freeze verifies intact at 1,818 entries.
