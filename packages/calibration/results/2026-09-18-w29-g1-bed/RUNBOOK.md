@@ -1,6 +1,7 @@
 # The macOS 27 bed — the sitting, pass by pass
 
-**For whoever drives the capture machine.** W29 acceptance clause 2, Decision Log 3, claims §5.150.
+**For whoever drives the capture machine.** W29 acceptance clause 2, Decision Log 3, claims §5.150;
+§3b is the second sitting, Decision Log 4 (b) and claims §5.152.
 
 This bed is the new reference. Every native pixel vitrea has ever been measured against was captured
 on macOS 26.5.2, and from 2026-09-14 "Apple's material" is what a Mac on 27 draws. The 26.5 bed is
@@ -58,7 +59,7 @@ number means **one** rehearsal rather than seven.
 **Read the count, not the verdict.** `cells presented:` counts **cells**, not ids — the harness
 prints one line per profile × scene, and the standard passes carry two profiles. So it must print
 **162** for an active standard pass, **119** for an inactive one, **10** and **22** for increased
-contrast, **9** and **21** for reduced transparency. (The `--scenes` id list is smaller for the
+contrast in either of its two states (§3b), **9** and **21** for reduced transparency. (The `--scenes` id list is smaller for the
 standard passes — 96 and 72 — because the light and dark profiles declare overlapping lists; the
 script prints that number too, as `cells=N ids`.) A count *under* the cell count is the failure this
 step exists to catch, and the script will not catch it for you: it treats any nonzero count as
@@ -71,8 +72,10 @@ and returning it to mode 68.
 
 ## 3. The eight passes
 
-`VITREA_SCENES` must point at the checkout whose `scenes.json` declares the 27 profiles (version
-6). The granted bundle was compiled from the main checkout, so its `#filePath`-based root cannot see
+`VITREA_SCENES` must point at the checkout whose `scenes.json` declares the 27 profiles — version 6
+for the eight passes below, version 7 once §3b's coupled profile is declared beside them (the eight
+derive the same specification from either, because a pass carries one contrast profile and these
+carry the decoupled one). The granted bundle was compiled from the main checkout, so its `#filePath`-based root cannot see
 an amended declaration in a worktree — the path is passed explicitly to both the `backgrounds`
 resolver and the open-launched app, and the pass runs against the **27-only specification derived
 from it** (see `pass-spec.py`: the harness selects profiles by accessibility mode and scale and by
@@ -156,6 +159,76 @@ same command. A run that FAILS — its per-cell audit, its run-level checks, or 
 is quarantined under `QUARANTINE-run-N-<timestamp>/`, which carries no `manifest.json` under the run
 name, so the same command re-takes it instead of stepping over it. **Keep the quarantined run: what
 failed to attest is the finding.**
+
+---
+
+## 3b. The second sitting — the coupled increased-contrast pass, two passes, ~36 min at the bar
+
+**Why there is a second sitting at all.** macOS 27 decoupled Reduce transparency from Increase
+Contrast. The first sitting captured `…-increased-contrast-glass0.5` with contrast on and
+transparency reduction OFF, because that is what the machine does on 27; the 26.5 profile of the
+same name was captured with BOTH on, because that is the only state 26.5 allowed. So those two beds
+are not the same state and cannot be read against each other like for like — every difference on
+them is confounded with the decoupling (claims §5.151 §9). Decision Log 4 (b) rules a second pass
+captured with **both toggles on**, under a key of its own,
+`apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5`: the 26.5 increased-contrast scene
+list verbatim, 32 cells at 1x in both poses, seven runs each.
+
+Everything in §1 still applies unchanged — the build, the slider at 0.5, Show Borders off, the
+console unlocked, the machine left alone, nothing else on the GPU, the bundle not rebuilt — with
+**one reversal**: this pass wants Reduce transparency ON, and §1's "accessibility toggles off" row
+is about the standard passes.
+
+**`VITREA_SCENES` must point at a checkout whose `scenes.json` is version 7**, which is where the
+coupled profile is declared. Against version 6 the pass refuses in `pass-spec.py` before anything
+opens, naming the declaration it expected.
+
+```bash
+# The state, both toggles. System Settings > Accessibility > Display:
+#   Increase contrast ON, Reduce transparency ON. macOS 27 does not set the
+#   second for you — that is the whole reason this pass exists.
+defaults read com.apple.universalaccess increaseContrast      # must read 1
+defaults read com.apple.universalaccess reduceTransparency    # must read 1
+
+# 1x, as on 26.5: the coupled profile is 1x light, and a 2x pass refuses before
+# the bundle is launched because no profile declares it.
+displayplacer "id:7709FD0F-F423-4277-B0C8-7CA94F85723A res:2560x1440 hz:60 color_depth:4 \
+  enabled:true origin:(0,0) degree:0 mode:69"
+displayplacer list | grep 'current mode'                      # must read: mode 69
+
+R=<repo>/packages/calibration/results/2026-09-18-w29-g1-bed
+export VITREA_SCENES=<repo>/apps/reference-apple/scenes.json  # version 7
+
+DRY=1 $R/run-sitting-27.sh active   1 increased-contrast-coupled   # must print: cells presented: 10
+$R/run-sitting-27.sh active   1 increased-contrast-coupled         # ~11 min at the bar
+DRY=1 $R/run-sitting-27.sh inactive 1 increased-contrast-coupled   # must print: cells presented: 22
+$R/run-sitting-27.sh inactive 1 increased-contrast-coupled         # ~25 min at the bar
+
+# Toggles back off, and the display back to 2x.
+displayplacer "id:7709FD0F-F423-4277-B0C8-7CA94F85723A res:2560x1440 hz:60 color_depth:4 \
+  enabled:true origin:(0,0) degree:0 mode:68"
+```
+
+The wall clock is the first sitting's own: its two decoupled contrast passes ran 11 min and 25 min
+at the seven-run bar (`sitting.md`). The cell counts are the same 10 and 22 for the same reason —
+this profile declares the same 32 cells — so **read the count, not the verdict**, exactly as §2 says:
+the script treats any nonzero count as success, and a count under 10 or 22 is the failure the
+rehearsal exists to catch.
+
+The runs land in `$HOME/vitrea-w29-27-run/increased-contrast-coupled-{active,inactive}-1x/run-N`,
+beside the first sitting's, and nothing of the first sitting is touched: the pass's identity includes
+its mode, so its directory is its own and a banked run of the decoupled pass is neither resumed nor
+overwritten.
+
+**What refuses here that did not exist before.** The two contrast passes now refuse each other's
+state, and the refusal reads the second toggle rather than the mode:
+
+| message | meaning |
+| --- | --- |
+| `REFUSED: this pass declares the COUPLED increased-contrast state and Reduce transparency reads 0` | Contrast is on and transparency reduction is not. Turn Reduce transparency on; this pass is the coupled state and nothing else. |
+| `REFUSED: this pass declares increased contrast ALONE and Reduce transparency reads '1'` | The plain `increased-contrast` pass on a coupled machine. Run it as `increased-contrast-coupled`, which files under its own key, rather than filing the coupled state under the decoupled bed's key. |
+| `pass-spec: the canonical declaration's 27 profiles are …` | `VITREA_SCENES` points at a version-6 checkout, or the declaration moved. The pass does not run against a bed whose declaration moved under it. |
+| `RUN-LEVEL PROBLEMS … is not a profile this pass declared` | The harness filed under a profile the derived specification did not carry. Quarantined; report it rather than re-running. |
 
 ---
 

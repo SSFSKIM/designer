@@ -59,6 +59,44 @@ describe("profile keys (X9)", () => {
     expect(parseProfileKey("apple-macos-27.0-glass0.5-2x-light-standard")).toBeNull();
   });
 
+  it("parses the coupled increased-contrast mode, and keeps it distinct from contrast alone", () => {
+    // W29 Decision Log 4 (b), claims §5.152. The token names a machine state —
+    // Increase Contrast on AND Reduce Transparency on — and exists because macOS
+    // 27 decoupled the two toggles, so `-increased-contrast-` on a 27 key means
+    // contrast alone while the same token on the 26.5 key means both.
+    expect(
+      parseProfileKey("apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5"),
+    ).toEqual({
+      platform: "macos",
+      osVersion: "27.0",
+      scale: 1,
+      colorScheme: "light",
+      a11yMode: "increased-contrast-coupled",
+      glass: 0.5,
+    });
+    // The decoupled key is unchanged by the alternation that now precedes it:
+    // the longer token must not swallow the shorter one, and the shorter one
+    // must not match a prefix of the longer.
+    expect(parseProfileKey("apple-macos-27.0-1x-light-increased-contrast-glass0.5")?.a11yMode)
+      .toBe("increased-contrast");
+    expect(parseProfileKey("apple-macos-26.5-1x-light-increased-contrast")?.a11yMode)
+      .toBe("increased-contrast");
+    // The slider token still comes last and is still optional, so the new mode
+    // is an a11y token like the other three rather than a fourth axis.
+    expect(parseProfileKey("apple-macos-27.0-1x-light-increased-contrast-coupled")).toEqual({
+      platform: "macos",
+      osVersion: "27.0",
+      scale: 1,
+      colorScheme: "light",
+      a11yMode: "increased-contrast-coupled",
+    });
+    // `-coupled` is part of one mode token and not a modifier the grammar
+    // composes: no other mode may wear it, and it may not appear twice.
+    expect(parseProfileKey("apple-macos-27.0-1x-light-reduced-transparency-coupled")).toBeNull();
+    expect(parseProfileKey("apple-macos-27.0-1x-light-standard-coupled-glass0.5")).toBeNull();
+    expect(parseProfileKey("apple-macos-27.0-1x-light-coupled-increased-contrast")).toBeNull();
+  });
+
   it("keeps a holdout set and reports every metric axis", () => {
     expect(FIXTURE_SETS).toContain("holdout");
     expect(METRIC_AXES).toEqual(["shape", "material", "motion", "perceptual"]);

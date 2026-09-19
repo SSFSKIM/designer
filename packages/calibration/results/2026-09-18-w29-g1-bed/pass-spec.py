@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """The scene specification one pass of the 27 bed runs against, and its cell list.
 
-    pass-spec.py spec <canonical-scenes.json> <out.json>
+    pass-spec.py spec <canonical-scenes.json> <out.json> [decoupled|coupled]
     pass-spec.py ids  <spec.json> <active|inactive> <a11y-mode> <1|2>
 
-**Why a derived specification exists at all.** `scenes.json` version 6 declares
-both beds — the six frozen `apple-macos-26.5-…` profiles and W29's six
-`apple-macos-27.0-…-glass0.5` ones — because the charter's clause 2 puts the 27
+**Why a derived specification exists at all.** `scenes.json` declares both beds —
+the six frozen `apple-macos-26.5-…` profiles and W29's `apple-macos-27.0-…-glass0.5`
+ones — because the charter's clause 2 puts the 27
 keys "beside the six 26.5 keys" and because the two beds must be read from one
 declaration to be comparable. The harness, though, selects profiles by
 accessibility mode and display scale and by **nothing else**: it has no profile
@@ -24,8 +24,23 @@ refuses unless what it finds there is the six expected keys, each at the ruled
 slider position, each declaring its 26.5 counterpart's scenes exactly. Everything
 else in the document — the canvas, the backgrounds, the components, the tints,
 the 168 scenes, the split and `version` — passes through untouched, so the
-manifest a pass writes records `sceneSpecVersion: 6` and the same split the
-canonical file declares, which is true of it.
+manifest a pass writes records the canonical file's own `sceneSpecVersion` and
+split, which is true of it.
+
+**Why one of the two increased-contrast profiles is left out of every pass.**
+macOS 27 decoupled Reduce transparency from Increase Contrast, so the bed holds
+two contrast profiles: `…-increased-contrast-glass0.5`, captured with contrast
+alone, and `…-increased-contrast-coupled-glass0.5`, captured with both toggles
+on — the state macOS 26.5 forced, and the only one comparable with the 26.5 bed
+like for like (W29 Decision Log 4 (b); claims §5.151 §9, §5.152). The harness
+cannot tell them apart: it selects on the profile's declared `a11y` field, both
+declare `increased-contrast` because that is what `SystemAccessibility.current`
+returns in either state, and teaching it the difference would be a rebuild (X4).
+So the derived specification carries exactly ONE of them, named by the pass —
+`decoupled` by default, which is what the six passes of the first sitting ran
+against and what they still derive today. Structural rather than advisory: the
+list is built by filling one contrast slot, so there is no arrangement of
+arguments under which both reach the bundle.
 
 **Why the cell list is derived too.** A pass presents one pose for its whole
 length and the harness refuses the run outright if any cell the selected
@@ -43,18 +58,34 @@ import sys
 OS_27_PREFIX = "apple-macos-27.0-"
 GLASS_TOKEN = "-glass0.5"
 
-# The six keys W29 acceptance clause 2 declares. Spelled out rather than
-# pattern-matched: the whole purpose of the refusal below is that a pass cannot
-# run against a declaration somebody widened, narrowed or re-slidered without
-# this file moving with it.
+# The six keys W29 acceptance clause 2 declares, plus Decision Log 4 (b)'s
+# coupled contrast profile. Spelled out rather than pattern-matched: the whole
+# purpose of the refusal below is that a pass cannot run against a declaration
+# somebody widened, narrowed or re-slidered without this file moving with it.
 EXPECTED = [
     "apple-macos-27.0-1x-dark-standard-glass0.5",
+    "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
     "apple-macos-27.0-1x-light-increased-contrast-glass0.5",
     "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
     "apple-macos-27.0-1x-light-standard-glass0.5",
     "apple-macos-27.0-2x-dark-standard-glass0.5",
     "apple-macos-27.0-2x-light-standard-glass0.5",
 ]
+
+# The two contrast profiles, and which of them each variant puts in the pass.
+CONTRAST = {
+    "decoupled": "apple-macos-27.0-1x-light-increased-contrast-glass0.5",
+    "coupled": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+}
+
+# The 26.5 profile each 27 profile is the counterpart of. Derived by dropping the
+# OS token and the slider — an axis 26.5 could not carry — except for the coupled
+# key, which drops `-coupled` as well for the same reason: 26.5 could not carry
+# that axis either, because contrast force-enabled transparency reduction there,
+# so the 26.5 profile of the plain name IS the coupled state.
+def counterpart_of(key):
+    source = key[: -len(GLASS_TOKEN)].replace(OS_27_PREFIX, "apple-macos-26.5-")
+    return source.replace("-increased-contrast-coupled", "-increased-contrast")
 
 # Which `state` values a fresh run can put on screen, per pose. The same two sets
 # `SceneSpecFile.freshlyCapturableStates` returns; mirrored rather than imported
@@ -69,7 +100,10 @@ def die(message: str) -> None:
     raise SystemExit(2)
 
 
-def derive(canonical_path: str, out_path: str) -> None:
+def derive(canonical_path: str, out_path: str, variant: str) -> None:
+    if variant not in CONTRAST:
+        die("the contrast variant must be one of " + ", ".join(sorted(CONTRAST))
+            + ", not '" + variant + "'")
     raw = open(canonical_path, "rb").read()
     doc = json.loads(raw)
     profiles = doc.get("profiles") or []
@@ -85,7 +119,7 @@ def derive(canonical_path: str, out_path: str) -> None:
             die(key + " does not state the ruled slider position " + GLASS_TOKEN
                 + ". Decision Log 3 (a) captures this bed at NSGlassTintAmount 0.5 and X6"
                 " puts the position in the key.")
-        source = key[: -len(GLASS_TOKEN)].replace(OS_27_PREFIX, "apple-macos-26.5-")
+        source = counterpart_of(key)
         counterpart = by_key.get(source)
         if counterpart is None:
             die(key + " has no 26.5 counterpart " + source
@@ -95,12 +129,19 @@ def derive(canonical_path: str, out_path: str) -> None:
             die(key + " declares scenes its counterpart " + source + " does not."
                 " G2 reads 27 against 26.5 cell by cell; a drifted list turns a"
                 " declaration bug into a missing cell.")
-    doc["profiles"] = [by_key[key] for key in EXPECTED]
+    # One contrast slot, filled by the pass's variant. Built this way rather than
+    # by removing the other key so that a third contrast state added to EXPECTED
+    # without a decision here fails loudly at CONTRAST rather than silently
+    # joining every pass.
+    selected = sorted([key for key in EXPECTED if key not in CONTRAST.values()]
+                      + [CONTRAST[variant]])
+    doc["profiles"] = [by_key[key] for key in selected]
     text = json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
     open(out_path, "w").write(text)
     print("canonicalSha256=" + hashlib.sha256(raw).hexdigest())
     print("passSpecSha256=" + hashlib.sha256(text.encode()).hexdigest())
-    print("profiles=" + ",".join(EXPECTED))
+    print("contrastVariant=" + variant)
+    print("profiles=" + ",".join(selected))
 
 
 def ids(spec_path: str, pose: str, a11y: str, scale: str) -> None:
@@ -135,8 +176,8 @@ def ids(spec_path: str, pose: str, a11y: str, scale: str) -> None:
 
 
 def main() -> None:
-    if len(sys.argv) >= 2 and sys.argv[1] == "spec" and len(sys.argv) == 4:
-        derive(sys.argv[2], sys.argv[3])
+    if len(sys.argv) >= 2 and sys.argv[1] == "spec" and len(sys.argv) in (4, 5):
+        derive(sys.argv[2], sys.argv[3], sys.argv[4] if len(sys.argv) == 5 else "decoupled")
     elif len(sys.argv) >= 2 and sys.argv[1] == "ids" and len(sys.argv) == 6:
         ids(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
     else:

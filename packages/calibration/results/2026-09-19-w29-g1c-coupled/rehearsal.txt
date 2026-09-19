@@ -1,0 +1,81 @@
+W29 G1c Part A — the rehearsals, on the capture machine.
+Nothing captured; nothing written under fixtures/, profiles/ or results/matrix.json.
+
+=== 0. The machine, as found ===
+ProductName:		macOS
+ProductVersion:		27.0
+BuildVersion:		26A428
+NSGlassTintAmount=0.5
+reduceTransparency=0
+increaseContrast=0
+ButtonShapesEnabled=0
+displayplacerMode=68
+
+Both accessibility toggles are OFF, so the machine is in the 'standard' mode
+and every contrast pass must refuse from here. That is the state these rows
+are read in, and it is why they are refusals rather than counts.
+
+=== 1. The derived specification, per variant ===
+Two derivations from one canonical declaration. Each carries exactly one
+contrast profile — the harness selects on the profile's declared a11y field
+and both contrast profiles declare 'increased-contrast', so a specification
+holding both would hand one machine state two beds.
+--- variant decoupled
+canonicalSha256=fef923fabeafc74f518c25fc1789f47b09fe51219ed06ce5d3b494631432e2df
+passSpecSha256=bfee095219152e17bed313a17930a602c60684fd634db7e3c8bacf506f319f21
+contrastVariant=decoupled
+profiles=apple-macos-27.0-1x-dark-standard-glass0.5,apple-macos-27.0-1x-light-increased-contrast-glass0.5,apple-macos-27.0-1x-light-reduced-transparency-glass0.5,apple-macos-27.0-1x-light-standard-glass0.5,apple-macos-27.0-2x-dark-standard-glass0.5,apple-macos-27.0-2x-light-standard-glass0.5
+profiles the harness could select with contrast on: apple-macos-27.0-1x-light-increased-contrast-glass0.5
+cells it would present, active/inactive: 10/22
+--- variant coupled
+canonicalSha256=fef923fabeafc74f518c25fc1789f47b09fe51219ed06ce5d3b494631432e2df
+passSpecSha256=4fe75f8e0c096a2b4211fcb12b91f1639b732cbcd85067b09cbef762b747d560
+contrastVariant=coupled
+profiles=apple-macos-27.0-1x-dark-standard-glass0.5,apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5,apple-macos-27.0-1x-light-reduced-transparency-glass0.5,apple-macos-27.0-1x-light-standard-glass0.5,apple-macos-27.0-2x-dark-standard-glass0.5,apple-macos-27.0-2x-light-standard-glass0.5
+profiles the harness could select with contrast on: apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+cells it would present, active/inactive: 10/22
+
+The two id lists are the same 32 cells — the coupled profile declares the
+26.5 increased-contrast list verbatim, as clause 2 asks of every 27 profile —
+so what differs between the passes is the profile, the key, and the state.
+active id lists identical: yes
+
+=== 2. The refusals, from the machine's real state ===
+Each row runs DRY, so a row that failed to refuse would capture nothing.
+--- DRY=1 run-sitting-27.sh active 1 increased-contrast-coupled
+pass spec:   /tmp/vitrea-w29-g1c-rehearsal/refusals/increased-contrast-coupled-active-1x.scenes-27.json (4fe75f8e0c096a2b4211fcb12b91f1639b732cbcd85067b09cbef762b747d560)
+REFUSED: this pass declares accessibility mode 'increased-contrast-coupled' and the machine is in 'standard' (reduceTransparency=0 increaseContrast=0). The mode is a read-only system value: set it in System Settings > Accessibility > Display and re-run.
+--- DRY=1 run-sitting-27.sh inactive 1 increased-contrast-coupled
+pass spec:   /tmp/vitrea-w29-g1c-rehearsal/refusals/increased-contrast-coupled-inactive-1x.scenes-27.json (4fe75f8e0c096a2b4211fcb12b91f1639b732cbcd85067b09cbef762b747d560)
+REFUSED: this pass declares accessibility mode 'increased-contrast-coupled' and the machine is in 'standard' (reduceTransparency=0 increaseContrast=0). The mode is a read-only system value: set it in System Settings > Accessibility > Display and re-run.
+--- DRY=1 run-sitting-27.sh active 1 increased-contrast
+pass spec:   /tmp/vitrea-w29-g1c-rehearsal/refusals/increased-contrast-active-1x.scenes-27.json (bfee095219152e17bed313a17930a602c60684fd634db7e3c8bacf506f319f21)
+REFUSED: this pass declares accessibility mode 'increased-contrast' and the machine is in 'standard' (reduceTransparency=0 increaseContrast=0). The mode is a read-only system value: set it in System Settings > Accessibility > Display and re-run.
+--- DRY=1 run-sitting-27.sh active 2 increased-contrast-coupled
+pass-spec: no profile in /tmp/vitrea-w29-g1c-rehearsal/refusals/increased-contrast-coupled-active-2x.scenes-27.json is both a11y mode 'increased-contrast' and 2x. The two accessibility profiles are 1x light only, as on 26.5; dark and 2x accessibility are W29 Deferred.
+
+The first two are the coupled pass refusing because the machine is not in
+its state. The third is its mirror, and it is new: until macOS 27 decoupled
+the toggles there was only one increased-contrast state, and the plain pass
+now refuses a coupled machine rather than filing it under the decoupled key.
+The fourth is the pass no profile can serve, refused before the bundle is
+launched — the coupled profile is 1x light, as its 26.5 counterpart is.
+
+=== 3. The granted bundle reads the declaration, unrebuilt ===
+The bundle is handed the COUPLED specification — the one holding the new
+key — and asked to present one cell, dry. If the new profile entry broke
+the decode, no cell would be presented at all.
+presenting at the display's own scale: 2x
+backgrounds: 16 backgrounds → /tmp/vitrea-w29-g1c-rehearsal/bundle/run-1/backgrounds
+capturing 2 fixtures via screencapturekit at 2.0x (interleaved)
+  [1/2] apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__rest dry-run active
+  [2/2] apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__rest dry-run active
+dry run complete: every cell presented and attested in the active pose.
+Nothing was captured, nothing was written, and /tmp/vitrea-w29-g1c-rehearsal/bundle/run-1 is untouched.
+
+It presented the profiles whose a11y mode and scale the machine matches, and
+the coupled profile is not among them — which is the a11y gate skipping it,
+the same gate that skips the decoupled one from a standard machine. What is
+NOT rehearsable here is the count under the coupled key itself: that needs
+the two toggles on, and it is the first line of each pass command in
+RUNBOOK §3b — 'cells presented: 10' and '22'.

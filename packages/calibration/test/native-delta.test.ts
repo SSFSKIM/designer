@@ -52,13 +52,25 @@ describe("the pairing of a 27 cell with its 26.5 counterpart", () => {
   it("maps every declared 27 profile key onto a declared 26.5 one", () => {
     const declared = new Set(spec.profiles.map((profile) => profile.key));
     const keys27 = spec.profiles.map((profile) => profile.key).filter((key) => key.startsWith("apple-macos-27.0-"));
-    expect(keys27).toHaveLength(6);
+    expect(keys27).toHaveLength(7);
     for (const key of keys27) {
       const counterpart = counterpartKey(key);
       expect(counterpart.startsWith("apple-macos-26.5-")).toBe(true);
       expect(counterpart).not.toContain("glass");
       expect(declared.has(counterpart)).toBe(true);
     }
+  });
+
+  it("maps both 27 contrast keys onto the one 26.5 contrast bed", () => {
+    // macOS 27 split one 26.5 state into two, so the pairing is not a bijection
+    // and must not be written as one. `…-increased-contrast-coupled-…` is the
+    // half captured in the state 26.5 forced and is the like-for-like pair
+    // (W29 Decision Log 4 (b); claims §5.152); the plain key is contrast alone
+    // and its pair carries the decoupling with it (§5.151 §9).
+    expect(counterpartKey("apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5"))
+      .toBe("apple-macos-26.5-1x-light-increased-contrast");
+    expect(counterpartKey("apple-macos-27.0-1x-light-increased-contrast-glass0.5"))
+      .toBe("apple-macos-26.5-1x-light-increased-contrast");
   });
 
   it("reads the pose off the scene's own state token, on every declared scene", () => {

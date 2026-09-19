@@ -88,9 +88,20 @@ import {
  * back and the slider token dropped. The slider axis does not exist before 27,
  * so dropping it is not losing an axis — these are the two keys that differ in
  * exactly the thing being measured, plus the one axis 26.5 had no way to carry.
+ *
+ * `-coupled` drops with it, and for the same reason: macOS 26.5 had no way to
+ * carry that axis either. Contrast force-enabled transparency reduction there,
+ * so `apple-macos-26.5-1x-light-increased-contrast` IS the coupled state and the
+ * token would be redundant on it (claims §5.150 Part B §3). The consequence is
+ * that the two 27 contrast keys both name that one 26.5 key, which is the shape
+ * of the question: one 26.5 state split into two on 27, and the pair worth
+ * reading like-for-like is the coupled one (W29 Decision Log 4 (b), §5.152).
  */
 export function counterpartKey(key27: string): string {
-  return key27.replace(/^apple-macos-27\.0-/, "apple-macos-26.5-").replace(/-glass[\d.]+$/, "");
+  return key27
+    .replace(/^apple-macos-27\.0-/, "apple-macos-26.5-")
+    .replace(/-glass[\d.]+$/, "")
+    .replace(/-increased-contrast-coupled$/, "-increased-contrast");
 }
 
 /** Active or receded, read off the scene's own state token (X3: the pose is a scene state). */

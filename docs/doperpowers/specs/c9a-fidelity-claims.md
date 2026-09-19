@@ -22821,7 +22821,10 @@ macOS 27 does not couple Reduce Transparency to Increase Contrast; on 26.5 the c
 only reachable increased-contrast state and the 26.5 profile was captured in it (§5.150 Part B §3).
 **So the 27 increased-contrast bed is a different state from the 26.5 bed of the same name, and
 every difference on `apple-macos-27.0-1x-light-increased-contrast-glass0.5` is confounded with the
-decoupling.** Its counts are reported with every other profile's in `law-tables.txt` — 10/10 active
+decoupling.** (The user ruled the separation on 2026-09-19: a second pass is captured with both
+toggles on, under `apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5`, and read against
+the 26.5 bed like for like — Decision Log 4 (b), §5.152. Nothing in this section is amended by it;
+the reading of the coupled bed joins it as §5.152 §B.) Its counts are reported with every other profile's in `law-tables.txt` — 10/10 active
 and 22/22 receded cells move on the whole-cell rows — and **not one of them is read as a statement
 about the material**. `sheets/law__rim-band__1__1x-light-increased-contrast__hc-text__capsule-button__rest__x8.png`
 is the confound in a picture: the 26.5 capsule is nearly opaque white and the 27 one is translucent
@@ -22943,3 +22946,115 @@ against the 0.07 / 0.08 light allowances; the dark profiles' own texture and dom
 and that is what the table beside them now carries. **No material, profile, bound, floor, fixture,
 golden or matrix row was touched by this closure**, and the pair rows of `native-delta.json` are
 bit-identical across the re-run.
+
+## 5.152 W29 G1c Part A: the coupled increased-contrast bed's infrastructure — a fourth accessibility token, one profile the harness takes without a rebuild, and the two contrast passes made to refuse each other (2026-09-19)
+
+**Gate: W29 Decision Log 4 (b), acceptance clause 2, contracts X1, X2, X4, X6 and X7.** Evidence is
+`packages/calibration/results/2026-09-19-w29-g1c-coupled/`, whose `README.md` is the prose record and
+`rehearsal.txt` the rehearsals as they ran on the machine; the instruments are the bed's own, in
+`results/2026-09-18-w29-g1-bed/`. **Nothing was captured by this gate** and nothing was written under
+`apps/reference-apple/fixtures/`, `packages/calibration/profiles/` or `results/matrix.json`. The 26.5
+freeze verifies **intact, 1,818 entries**. Part B materialises the banked runs and reads them.
+
+**1. Why a second increased-contrast bed exists.** macOS 26.5 force-coupled the two accessibility
+toggles: Increase Contrast enabled Reduce transparency and the transparency checkbox could not be
+uncleared while contrast was on (user-verified 2026-08-29), so the coupled state was the **only**
+increased-contrast state a machine could be in, and `apple-macos-26.5-1x-light-increased-contrast`
+is that state. macOS 27 made them independent, so the first sitting's
+`apple-macos-27.0-1x-light-increased-contrast-glass0.5` is contrast **alone** — all seven of its runs
+attested `increaseContrast=1` with `reduceTransparency=0`, and the harness, which records the
+coupling as a profile caveat whenever it observes it, wrote no such note in any of the 56 run
+manifests (§5.150 Part B §3). Two states under one name: §5.151 §9 therefore reads **none** of that
+profile's 10 active and 22 receded moved cells as a statement about the material. Decision Log 4 (b)
+rules a second pass captured with **both toggles on**, under a key of its own, whose reading against
+the 26.5 bed is the like-for-like comparison the decoupled capture cannot give.
+
+**2. The token names a machine state, and the grammar keeps the two apart.** The key is
+
+```
+apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+```
+
+`PROFILE_KEY_PATTERN` gains `increased-contrast-coupled` as a fourth accessibility mode beside
+`standard`, `reduced-transparency` and `increased-contrast`, and `NativeProfile.a11yMode` with it.
+The name says what the bed IS — contrast on *and* transparency reduction on — rather than what macOS
+does, because macOS 27 does not couple anything: the state is reached by two deliberate hands and
+only its relationship to the 26.5 bed makes it worth capturing. The slider token stays last and
+stays optional, so the new mode is an a11y token like the other three and not a fourth axis, and the
+placement rule §5.150 §1 states is unchanged.
+
+Every existing key parses exactly as it did, which `profile-key.test.ts` asserts in both directions:
+the longer alternative must not swallow the shorter (`…-increased-contrast-glass0.5` still reads
+`increased-contrast`) and the shorter must not match a prefix of the longer. `-coupled` is part of
+one mode token and not a modifier the grammar composes — `…-reduced-transparency-coupled` and
+`…-standard-coupled` parse as nothing — so a key naming any other pair of toggles would need its own
+token and its own ruling.
+
+**3. The declaration: the field the harness matches is not the token the key carries, and that is the
+design.** `scenes.json` is **version 7** and the diff against 6 is one profile entry, one
+`$comment-version-7` and two sentences added to the decoupled entry's own comment saying what it is.
+The new entry declares the 26.5 increased-contrast scene list **verbatim** — 32 cells, 10 active and
+22 receded, the same list the decoupled profile declares — so the three beds are read over one scene
+list, and `scene-matrix.test.ts` asserts the copy against the 26.5 counterpart rather than trusting
+the edit that made it.
+
+Its `a11y` field is **`increased-contrast`**, not the key's token. The granted bundle selects a
+profile by comparing that field against `SystemAccessibility.current`, which answers *is contrast on*
+— it returns `increased-contrast` in both states and cannot see the second toggle — so a profile
+declaring the key's own token would be skipped in every state the machine can be in, and teaching
+the bundle the token would be a rebuild of the binary that holds the wave's one Screen Recording
+grant (X4). The entry therefore declares the mode the bundle knows and the **key** carries the
+state; `scene-matrix.test.ts` pins both halves so the difference reads as a decision rather than as
+a typo.
+
+**4. What stops one pass capturing both contrast profiles.** With two profiles declaring the same
+`a11y`, one machine state would select both and the second bed would be a copy of the first under
+another name. Three things prevent it, in the order they act, and the first is structural:
+
+| where | what it does | why it is there rather than elsewhere |
+| --- | --- | --- |
+| `pass-spec.py` | the derived specification is built by filling **one** contrast slot from the pass's own mode — `decoupled` by default, which is what the first sitting's six passes still derive | the bundle is never offered both, so no arrangement of arguments can hand one machine state two beds. A third contrast state added to `EXPECTED` without a decision fails loudly rather than joining every pass |
+| `run-sitting-27.sh` | reads **both** toggles and refuses unless they read the way the pass's mode declares: the coupled pass refuses `reduceTransparency=0`, and the plain contrast pass now refuses a coupled machine | the machine's *mode* cannot carry the distinction, so the second toggle is read on its own. The mirror refusal is new and is the point: a run in the wrong state, filed under either key, is the confound §5.151 §9 records |
+| `src/run-provenance.ts` | judges the key against the two attested booleans before `materialize` opens a PNG | a manifest cannot make this judgement — its `a11yMode` is `SystemAccessibility.current` and reads `increased-contrast` in both states, so the attestation is the only place the two are separable. The rule asks nothing of the 26.5 bed, which carries no attestation and wears the plain token for the state its OS forced |
+
+The run script also reads the derived specification's own profile list back and quarantines a run
+that filed under a profile the pass did not declare. The two contrast keys never appear in one
+derived specification, so that check is the narrow statement that a coupled pass's cells are under
+the coupled key, read out of the manifest the harness itself wrote.
+
+**5. Proved by rehearsal, and the half that could not be.** `rehearsal.txt` is the record, taken on
+the capture machine at 27.0 build 26A428, slider 0.5, Show Borders 0, display mode 68, **both
+accessibility toggles off**. This child has no hands in System Settings, so the pass cannot be
+rehearsed end to end from here; what a standard machine can prove was proved rather than reasoned:
+
+- Both derivations from the real canonical declaration carry exactly one contrast profile, would
+  present **10** active and **22** receded cells, and produce **identical** id lists — so what
+  differs between the two passes is the profile, the key and the state, and nothing else.
+- Every refusal fires from the machine's real state: the coupled pass in both poses, the plain
+  contrast pass, and the coupled pass at 2x — the last refused in `pass-spec.py` before the bundle is
+  launched, because the coupled profile is 1x light as its 26.5 counterpart is.
+- **The granted bundle reads the version-7 declaration unrebuilt.** Handed the coupled specification
+  — the one holding the new key — it resolved the 16 backgrounds and presented its cells dry, under
+  the profiles whose mode and scale the machine matches. A profile entry that broke the decode would
+  have presented none. (X4 intact: nothing was built, and the bundle's own grant was not touched.)
+- `run-sitting-27.test.sh` is **36 rows** against a stubbed machine, up from 27. The new rows: each
+  contrast pass refusing the other's state, each being offered exactly one contrast profile read out
+  of the file the bundle is handed, and a coupled run that filed under the decoupled key being
+  quarantined. One existing row **reversed** — it asserted that a coupled machine ran the plain
+  contrast pass, which was right while the coupled state was the only one macOS could be in.
+
+What is not rehearsable without the toggles is the count under the coupled key itself. It is the
+first line of each pass command in `RUNBOOK.md` §3b — `cells presented: 10` and `22` — and the
+RUNBOOK's standing rule applies: read the count, not the verdict.
+
+**6. One record that is no longer reproducible, stated rather than left to be discovered.** The eight
+passes of 2026-09-18 attested a `canonicalSha256` and a `passSpecSha256` over **version 6** and the
+specification derived from it. Neither is reproducible from a checkout at version 7. That is what
+those fields are for — they say which declaration a run read — and the declaration has since gained a
+profile beside the six they were taken against. No banked run, no published cell and no committed
+number moved; the file they name moved, by an addition, and the G1 README says so beside them.
+
+**7. Not measured here.** No capture, no read of any fixture against vitrea, no material, no profile
+document, no bound, no floor, no matrix row, and no judgement about what the coupling is worth. The
+coupled bed's reading against the 26.5 bed is Part B, and whether the profile gets a bound is decided
+on that reading (Decision Log 4 (b)).

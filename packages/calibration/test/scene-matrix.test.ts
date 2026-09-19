@@ -51,7 +51,19 @@ interface Matrix {
   readonly components: Record<string, { readonly kind: string; readonly size?: readonly number[] }>;
   readonly tints: Record<string, { readonly srgb: readonly number[]; readonly alpha?: number }>;
   readonly scenes: readonly SceneEntry[];
-  readonly profiles: readonly { readonly key: string; readonly scenes: "all" | readonly string[] }[];
+  readonly profiles: readonly {
+    readonly key: string;
+    readonly scenes: "all" | readonly string[];
+    /**
+     * The accessibility mode and colour scheme the harness reads to decide
+     * whether this machine may capture the profile at all. Declared here since
+     * W29 Decision Log 4 (b), where `a11y` stops being derivable from the key:
+     * the coupled contrast profile's key names a machine state the harness
+     * cannot read, so its field states the mode the harness knows instead.
+     */
+    readonly a11y: string;
+    readonly colorScheme: string;
+  }[];
   readonly split: Record<
     "calibration" | "validation" | "holdout" | "recorded" | "probe",
     readonly string[]
@@ -658,22 +670,26 @@ describe("W25's probe backgrounds and shapes cost no new generator", () => {
   });
 });
 
-describe("W29's macOS 27 bed (version 6, acceptance clause 2)", () => {
+describe("W29's macOS 27 bed (version 7, acceptance clause 2 and Decision Log 4 (b))", () => {
   const OS_27 = MATRIX.profiles.filter((profile) => profile.key.startsWith("apple-macos-27.0-"));
+  const COUPLED = "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5";
 
-  it("declares one 27 profile per 26.5 profile, and nothing else", () => {
-    // Six, not eight: the charter enumerates {1x,2x}×{light,dark}-standard plus
-    // the two 1x light accessibility keys. Eight is the number of PASSES the
-    // sitting runs (each scale × mode × pose), and a pose is not a profile — an
-    // inactive pass captures the `__inactive` scenes these same keys declare.
+  it("declares one 27 profile per 26.5 profile, plus the coupled contrast state", () => {
+    // Six were the charter's: {1x,2x}×{light,dark}-standard plus the two 1x light
+    // accessibility keys. Eight is the number of PASSES the first sitting ran
+    // (each scale × mode × pose), and a pose is not a profile — an inactive pass
+    // captures the `__inactive` scenes these same keys declare. The seventh is
+    // Decision Log 4 (b)'s: macOS 27 decoupled the two accessibility toggles, so
+    // the state 26.5 forced has to be captured deliberately and named separately.
     expect(OS_27.map((profile) => profile.key).sort()).toEqual([
       "apple-macos-27.0-1x-dark-standard-glass0.5",
+      COUPLED,
       "apple-macos-27.0-1x-light-increased-contrast-glass0.5",
       "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
       "apple-macos-27.0-1x-light-standard-glass0.5",
       "apple-macos-27.0-2x-dark-standard-glass0.5",
       "apple-macos-27.0-2x-light-standard-glass0.5",
-    ]);
+    ].sort());
   });
 
   it("copies each 26.5 profile's scene list, scheme and mode exactly", () => {
@@ -681,12 +697,35 @@ describe("W29's macOS 27 bed (version 6, acceptance clause 2)", () => {
     // its 26.5 counterpart, G2's native-against-native read would meet the
     // difference as a missing cell rather than as a declaration bug, so the copy
     // is asserted here rather than trusted to the edit that made it.
+    //
+    // The coupled profile's counterpart is the 26.5 increased-contrast bed too,
+    // which is the whole point of it: one 26.5 state split into two on 27, and
+    // this is the half that is comparable with it like for like. So two 27 keys
+    // map onto that one 26.5 key and both are asserted to declare its cells.
     for (const profile of OS_27) {
-      const source = withoutGlass(profile.key).replace("apple-macos-27.0-", "apple-macos-26.5-");
+      const source = withoutGlass(profile.key)
+        .replace("apple-macos-27.0-", "apple-macos-26.5-")
+        .replace("-increased-contrast-coupled", "-increased-contrast");
       const counterpart = MATRIX.profiles.find((entry) => entry.key === source);
       expect(counterpart, source).toBeDefined();
       expect(profile.scenes, profile.key).toEqual(counterpart?.scenes);
     }
+  });
+
+  it("declares the coupled profile in the a11y mode the harness can match", () => {
+    // The granted bundle selects a profile by comparing its declared `a11y`
+    // against `SystemAccessibility.current`, which answers "is contrast on" and
+    // returns `increased-contrast` in BOTH states — it cannot see the second
+    // toggle, and teaching it to would be a rebuild (X4). So the entry declares
+    // the mode the harness knows and the KEY carries the state, and the two
+    // deliberately differ. What stops one pass capturing both profiles is the
+    // derived pass specification (`pass-spec.py`), which carries exactly one of
+    // them; what stops a run filing under the wrong one is the attestation of
+    // both toggles (`run-sitting-27.sh`, `src/run-provenance.ts`).
+    const coupled = MATRIX.profiles.find((profile) => profile.key === COUPLED);
+    expect(coupled?.a11y).toBe("increased-contrast");
+    expect(parseProfileKey(COUPLED)?.a11yMode).toBe("increased-contrast-coupled");
+    expect(coupled?.colorScheme).toBe("light");
   });
 
   it("carries the slider position in every 27 key and in none of the 26.5 keys", () => {
@@ -704,17 +743,21 @@ describe("W29's macOS 27 bed (version 6, acceptance clause 2)", () => {
     }
   });
 
-  it("declares the 624 cells the pass plan is priced on", () => {
+  it("declares the 624 cells the pass plan is priced on, and 32 more for the coupled pair", () => {
     // `results/2026-09-18-w29-g0-preflight/plan.md` prices eight passes at 624
     // declared cells and 12.24 h at the seven-run bar, from a measured 10.09 s
     // per cell on 27. That figure is derived from this file, so it is pinned
     // here — a change to a 27 profile's list that did not also move plan.md
-    // would otherwise re-price the sitting silently.
-    const declared = OS_27.reduce(
-      (total, profile) =>
-        total + (profile.scenes === "all" ? MATRIX.scenes.length : profile.scenes.length),
-      0,
-    );
-    expect(declared).toBe(624);
+    // would otherwise re-price the sitting silently. The coupled profile is
+    // counted apart from it because it is a second sitting of two passes
+    // (Decision Log 4 (b)) and not a re-pricing of the first.
+    const cells = (profile: (typeof OS_27)[number]): number =>
+      profile.scenes === "all" ? MATRIX.scenes.length : profile.scenes.length;
+    const coupled = OS_27.filter((profile) => profile.key === COUPLED);
+    expect(coupled.reduce((total, profile) => total + cells(profile), 0)).toBe(32);
+    expect(
+      OS_27.filter((profile) => profile.key !== COUPLED)
+        .reduce((total, profile) => total + cells(profile), 0),
+    ).toBe(624);
   });
 });

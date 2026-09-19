@@ -216,3 +216,66 @@ describe("the slider refusal (contract X6: the key names every axis that moved a
     expect(problems.length).toBeGreaterThanOrEqual(2);
   });
 });
+
+describe("the accessibility refusal (W29 Decision Log 4 (b); claims §5.152)", () => {
+  /** An increased-contrast run, in one of the two states macOS 27 can be in. */
+  const contrast = (ic: string, rt: string, key: string): RunProvenance =>
+    run27({
+      attested: parseAttestRead(
+        ATTEST_27.replace("increaseContrast=0", `increaseContrast=${ic}`)
+          .replace("reduceTransparency=0", `reduceTransparency=${rt}`)
+          .replace("a11yMode=standard", "a11yMode=increased-contrast"),
+      ),
+      profileKeys: [key],
+    });
+
+  const DECOUPLED = "apple-macos-27.0-1x-light-increased-contrast-glass0.5";
+  const COUPLED = "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5";
+
+  it("publishes each state under its own key", () => {
+    expect(runProvenanceProblems([contrast("1", "0", DECOUPLED)])).toEqual([]);
+    expect(runProvenanceProblems([contrast("1", "1", COUPLED)])).toEqual([]);
+  });
+
+  it("refuses the coupled state filed under the decoupled key, and the reverse", () => {
+    // This is the confound §5.151 §9 records, caught before a pixel is opened.
+    // The manifest cannot catch it: its `a11yMode` is
+    // `SystemAccessibility.current`, which reads `increased-contrast` in BOTH
+    // states, so the two toggles are separable only in the attestation.
+    const filedDecoupled = runProvenanceProblems([contrast("1", "1", DECOUPLED)]);
+    expect(filedDecoupled).toHaveLength(1);
+    expect(filedDecoupled[0]).toContain("names increased contrast alone");
+    expect(filedDecoupled[0]).toContain("belongs under the increased-contrast-coupled key");
+    const filedCoupled = runProvenanceProblems([contrast("1", "0", COUPLED)]);
+    expect(filedCoupled).toHaveLength(1);
+    expect(filedCoupled[0]).toContain("claims the COUPLED state");
+  });
+
+  it("refuses either contrast key when the machine attested no contrast at all", () => {
+    for (const key of [DECOUPLED, COUPLED]) {
+      const problems = runProvenanceProblems([contrast("0", "1", key)]);
+      expect(problems.some((p) => p.includes("the run attested increaseContrast=0")), key)
+        .toBe(true);
+    }
+  });
+
+  it("refuses a coupled key on a run that carries no attestation", () => {
+    // The coupled token claims a state no manifest field carries, so a run that
+    // cannot say both toggles stood on cannot be published under it (X2).
+    const problems = runProvenanceProblems([run27({ attested: null, profileKeys: [COUPLED] })]);
+    expect(problems.some((p) => p.includes("cannot say both stood on"))).toBe(true);
+  });
+
+  it("asks nothing of the 26.5 bed, whose coupled capture wears the plain token", () => {
+    // On macOS 26.5 contrast force-enabled transparency reduction and the
+    // checkbox could not be uncleared, so the coupled state was the only
+    // increased-contrast state and the bed of that name is it (§5.150 Part B §3).
+    // It predates the attestation file, and a rule that demanded one would make
+    // the frozen bed unpublishable by its own machinery.
+    expect(
+      runProvenanceProblems([
+        run265({ profileKeys: ["apple-macos-26.5-1x-light-increased-contrast"] }),
+      ]),
+    ).toEqual([]);
+  });
+});

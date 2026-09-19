@@ -1,0 +1,25 @@
+W29 G1c Part A — the checks, 2026-09-19, on the worktree branch.
+
+$ bash packages/calibration/results/2026-09-18-w29-g1-bed/run-sitting-27.test.sh
+  36 rows, all ok (27 at G1's close; the nine new and one reversed row are
+  claims §5.152 §5). Full output in run-sitting-27.test.txt.
+
+$ pnpm --filter @vitrea/calibration lint
+  eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json
+    && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json
+  clean.
+
+$ pnpm --filter @vitrea/calibration test
+  Test Files  29 passed (29)
+       Tests  481 passed (481)
+
+$ pnpm -r test          (the whole workspace, since scenes.json is shared)
+  policy 23, motion 164, geometry 170, renderer-webgpu 497, core 302,
+  platform-web 616, react 156, calibration 481, demo 34 — all passed.
+
+$ python3 packages/calibration/results/2026-09-16-w29-freeze/freeze.py verify
+  26.5 freeze intact: 1818 entries
+
+Nothing was captured by this gate, and nothing was written under
+apps/reference-apple/fixtures/, packages/calibration/profiles/ or
+packages/calibration/results/matrix.json.
