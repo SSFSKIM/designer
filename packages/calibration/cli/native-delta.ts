@@ -3,7 +3,9 @@
  *
  *   npx tsx cli/native-delta.ts verify-readers
  *   npx tsx cli/native-delta.ts bar    --runs ~/vitrea-w29-27-run --out <dir>/noise-bar.json
+ *                                      [--passes <pass dir>,...] [--fallback-bar <bar.json>,...]
  *   npx tsx cli/native-delta.ts delta  --bar <dir>/noise-bar.json --out <dir>
+ *                                      [--only <27 profile key>]
  *   npx tsx cli/native-delta.ts tables --dir <dir>
  *   npx tsx cli/native-delta.ts sheets --dir <dir> [--gain 8] [--per-profile 4]
  *
@@ -287,6 +289,18 @@ interface BarFile {
   readonly construction: string;
   readonly rule: string;
   readonly runsRoot: string;
+  /**
+   * The pass directories this bar was taken over. Recorded because
+   * `bedMinimumNonZeroBar` below is a minimum over exactly these cells, so what
+   * "the bed" means in the rule is a property of the run rather than of the file.
+   */
+  readonly passes: readonly string[];
+  /**
+   * Other committed bar files of the same bed whose `bedMinimumNonZeroBar` was
+   * folded into this one's by per-metric minimum, so that "the bed" in the rule
+   * means the bed and not this run's share of it. Empty for a run over all of it.
+   */
+  readonly fallbackBarsRead?: readonly string[];
   readonly metrics: readonly NativeDeltaMetric[];
   readonly captureReadings: readonly CaptureReadingName[];
   /** Per metric, the smallest non-zero pairwise max anywhere in the bed. */
@@ -294,6 +308,16 @@ interface BarFile {
   readonly cells: readonly BarCell[];
 }
 
+/**
+ * The passes of W29's first sitting, which is the bed `bar` reads by default.
+ *
+ * Named rather than discovered: a pass directory that appeared under the runs
+ * root without this list moving would silently widen the bed a bar is taken
+ * over, and the bar is the thing every verdict rests on. A second sitting
+ * therefore names its own passes with `--passes`, which is also how its bar
+ * stays ITS bar — the zero-spread fallback below is a minimum over the cells the
+ * bar was built from, so a bed's fallback is a statement about that bed.
+ */
 const PASS_DIRECTORIES = [
   "standard-active-1x",
   "standard-inactive-1x",
@@ -305,7 +329,12 @@ const PASS_DIRECTORIES = [
   "reduced-transparency-inactive-1x",
 ] as const;
 
-function buildBar(runsRoot: string, outPath: string): void {
+function buildBar(
+  runsRoot: string,
+  outPath: string,
+  passes: readonly string[],
+  fallbackBars: readonly string[],
+): void {
   const manifest = readJson<Manifest>(resolve(FIXTURES, "manifest.json"));
   const spec = readJson<{ readonly scenes: readonly { readonly id: string; readonly background: string }[] }>(
     resolve(REFERENCE, "scenes.json"),
@@ -321,7 +350,7 @@ function buildBar(runsRoot: string, outPath: string): void {
 
   // Gather the raw runs: pass -> run -> profileKey -> sceneId.
   const runsOf = new Map<string, string[]>();
-  for (const pass of PASS_DIRECTORIES) {
+  for (const pass of passes) {
     const passDir = resolve(runsRoot, pass);
     if (!existsSync(passDir)) throw new Error(`native-delta bar: ${passDir} does not exist`);
     const runDirs = readdirSync(passDir)
@@ -440,8 +469,39 @@ function buildBar(runsRoot: string, outPath: string): void {
     if (done % 25 === 0) say(`  ${String(done)} / ${String(runsOf.size)} cells barred`);
   }
 
+  /*
+   * The zero-spread fallback: per metric, the finest non-zero difference the 27
+   * BED resolved, which is what the declared rule says and is not the same as
+   * what this run's passes resolved.
+   *
+   * The two coincide for a run over the whole bed and they do not for a run over
+   * part of it. A minimum over a subset is never smaller than the minimum over
+   * the bed, and on a small enough subset it is undefined — a second sitting of
+   * 32 cells resolves no non-zero spread at all on the geometry metrics, where
+   * 624 cells resolve one. Reading the rule off the subset would hand those
+   * metrics a bar of exactly zero, the sharpest instrument there is, on the
+   * thinnest evidence for it; it would also make a "moved" on this profile mean
+   * something different from a "moved" on every other 27 profile, which is
+   * precisely what a reading that joins §5.151 cannot afford.
+   *
+   * So `--fallback-bar` takes another COMMITTED bar file of the same bed and the
+   * per-metric minimum of the two is used. Read rather than re-derived: the
+   * other file's figures are committed evidence, and re-deriving them here would
+   * be a second opinion about a number that has already been recorded.
+   */
   const bedMinimumNonZeroBar: Partial<Record<NativeDeltaMetric, number>> = {};
   for (const [metric, value] of bedNonZero) bedMinimumNonZeroBar[metric] = value;
+  const fallbackFrom: string[] = [];
+  for (const path of fallbackBars) {
+    const other = readJson<BarFile>(path);
+    fallbackFrom.push(path);
+    for (const metric of NATIVE_DELTA_METRICS) {
+      const value = other.bedMinimumNonZeroBar[metric];
+      if (value === undefined) continue;
+      const own = bedMinimumNonZeroBar[metric];
+      if (own === undefined || value < own) bedMinimumNonZeroBar[metric] = value;
+    }
+  }
 
   const file: BarFile = {
     generatedAt: new Date().toISOString(),
@@ -459,11 +519,14 @@ function buildBar(runsRoot: string, outPath: string): void {
       "is not better estimated than the extreme, and the strict statement the ledger needs is " +
       "'beyond anything this bed did against itself'. Where a cell's own pairwise max is exactly " +
       "zero on a metric — seven byte-identical runs — the bar is the smallest non-zero pairwise " +
-      "max anywhere in the 27 bed for that metric (bedMinimumNonZeroBar), so that a cell that " +
+      "max anywhere in the bed this bar was taken over for that metric " +
+      "(bedMinimumNonZeroBar, over the passes named below), so that a cell that " +
       "happened to be perfectly stable is not given an infinitely sharp instrument. The bar is " +
       "27-against-27 only; the 26.5 bed's own run-to-run spread is not in it and is not derivable " +
       "(claims §5.149 §6), so every verdict understates the combined spread of a cross-bed pair.",
     runsRoot,
+    passes,
+    fallbackBarsRead: fallbackFrom,
     metrics: NATIVE_DELTA_METRICS,
     captureReadings: CAPTURE_READINGS,
     bedMinimumNonZeroBar,
@@ -524,7 +587,7 @@ function encodedMeanOf(image: CalibrationImage): number {
   return sum / count;
 }
 
-function buildDelta(barPath: string, outDir: string): void {
+function buildDelta(barPath: string, outDir: string, only: string | undefined): void {
   const bar = readJson<BarFile>(barPath);
 
   /**
@@ -578,7 +641,24 @@ function buildDelta(barPath: string, outDir: string): void {
   /** Per (profile, scene) the signed readings of both beds, for the recede pass. */
   const scalarsByCell = new Map<string, { readonly bed26: CaptureReadingVector; readonly bed27: CaptureReadingVector }>();
 
-  const profiles27 = manifest.profiles.filter((profile) => profile.profileKey.startsWith("apple-macos-27.0-"));
+  /*
+   * Which 27 profiles this read covers. Every one of them by default, which is
+   * the whole-bed read clause 3 asks for; `--only` narrows it to one, which is
+   * what a later sitting's own profile needs — its cells are the only ones its
+   * bar covers, and a row judged against another bed's bar would be a verdict
+   * resting on a spread that was never measured on it.
+   */
+  const profiles27 = manifest.profiles.filter(
+    (profile) =>
+      profile.profileKey.startsWith("apple-macos-27.0-")
+      && (only === undefined || profile.profileKey === only),
+  );
+  if (profiles27.length === 0) {
+    throw new Error(
+      `native-delta delta: no published 27 profile${only === undefined ? "" : ` named ${only}`}, ` +
+        `so there is nothing to read.`,
+    );
+  }
   let done = 0;
   const total = profiles27.reduce((sum, profile) => sum + profile.fixtures.length, 0);
 
@@ -949,7 +1029,11 @@ function buildTables(dir: string, barPath: string): void {
   const profiles = [...new Set(delta.rows.map((row) => row.profileKey27))].sort();
   const poses: readonly ("active" | "inactive")[] = ["active", "inactive"];
 
-  out("# W29 G2 — the native delta, read off the rows");
+  // Titled by what the read covers rather than by the gate that first ran it:
+  // the same instrument reads a second sitting's profile (W29 G1c, §5.152), and
+  // a header naming G2 on those tables would be a mislabel in the one file a
+  // reader takes the verdicts off.
+  out("# The native delta, read off the rows");
   out("");
   const recedeBarred = recede.rows.reduce((total, row) => total + Object.keys(row.bar).length, 0);
   const recedeMeasurable = recede.rows.reduce((total, row) => total + Object.keys(row.deltaOfRecede).length, 0);
@@ -958,10 +1042,32 @@ function buildTables(dir: string, barPath: string): void {
   out("");
   out(`${String(recede.rows.length)} recede rows, on which ${String(recedeBarred)} of ${String(recedeMeasurable)} measurable readings carry a bar.`);
   out("");
+  out(`profiles read: ${profiles.join(", ")}`);
+  out("");
   out("Every count is 'moved / measured', against the cell's own 27-against-27 bar (bar-declaration.md).");
-  out("The two accessibility profiles carry a confound the material cannot be separated from:");
-  out("macOS 27 decoupled Reduce Transparency from Increase Contrast, so the 27 increased-contrast");
-  out("bed is a DIFFERENT STATE from the 26.5 bed of that name (§5.150 Part B §3).");
+  // The confound is a property of a profile and not of the bed, so it is stated
+  // about the profiles this read actually covers. macOS 27 decoupled the two
+  // accessibility toggles, which split one 26.5 state into two on 27: the
+  // profile named `-increased-contrast-` is contrast alone and its rows carry
+  // the decoupling, and `-increased-contrast-coupled-` is the state 26.5 forced
+  // and is the like-for-like pair (W29 Decision Log 4 (b); §5.151 §9, §5.152).
+  const confounded = profiles.filter(
+    (key) => key.includes("-increased-contrast-") && !key.includes("-increased-contrast-coupled-"),
+  );
+  const coupled = profiles.filter((key) => key.includes("-increased-contrast-coupled-"));
+  if (confounded.length > 0) {
+    out("CONFOUNDED, and the material cannot be separated from it on these rows:");
+    for (const key of confounded) out(`  ${key}`);
+    out("macOS 27 decoupled Reduce Transparency from Increase Contrast, so this 27 bed is a");
+    out("DIFFERENT STATE from the 26.5 bed of that name (§5.150 Part B §3).");
+  }
+  if (coupled.length > 0) {
+    out("UNCONFOUNDED on the accessibility axis, and captured to be so:");
+    for (const key of coupled) out(`  ${key}`);
+    out("Both toggles were on, which is the state macOS 26.5 forced and the one its bed of that");
+    out("name was captured in, so this pair differs in the operating system and nothing else");
+    out("(W29 Decision Log 4 (b); claims §5.152).");
+  }
   out("");
 
   out("## Moved cells per metric per profile, active and inactive apart");
@@ -1498,7 +1604,10 @@ function main(): void {
     const runs = flag("runs") ?? resolve(homedir(), "vitrea-w29-27-run");
     const out = flag("out");
     if (out === undefined) throw new Error("native-delta bar: --out <noise-bar.json> is required");
-    buildBar(runs, resolve(out));
+    const passes = flag("passes")?.split(",").filter((name) => name !== "") ?? PASS_DIRECTORIES;
+    if (passes.length === 0) throw new Error("native-delta bar: --passes named no pass directory");
+    const fallback = flag("fallback-bar")?.split(",").filter((name) => name !== "") ?? [];
+    buildBar(runs, resolve(out), passes, fallback.map((path) => resolve(path)));
     return;
   }
   if (mode === "delta") {
@@ -1507,7 +1616,7 @@ function main(): void {
     if (barPath === undefined || out === undefined) {
       throw new Error("native-delta delta: --bar <noise-bar.json> and --out <dir> are required");
     }
-    buildDelta(resolve(barPath), resolve(out));
+    buildDelta(resolve(barPath), resolve(out), flag("only"));
     return;
   }
   if (mode === "tables") {

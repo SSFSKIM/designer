@@ -35,7 +35,7 @@
   },
   "caveats": [
     "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
-    "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key \u2014 a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes."
+    "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes."
   ],
   "generatedAt": "2026-08-30T11:40:07Z",
   "hardware": {
@@ -53,8 +53,8 @@
       "display": {
         "actualBackingScale": 1,
         "colorSpace": "kCGColorSpaceSRGB",
-        "displayColorProfile": "\uac00\uc0c1 16:9",
-        "displayName": "\uac00\uc0c1 16:9",
+        "displayColorProfile": "가상 16:9",
+        "displayName": "가상 16:9",
         "pixelSize": [
           320,
           200
@@ -78,7 +78,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest.png",
             "sourceSha256": "eaf37928219a0c1eae6e255487f5ec91966b2d935dd720c377715eb6500bd14c"
@@ -100,7 +100,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest-tint-orange.png",
             "sourceSha256": "1900f758cbd5649e757d0e8c4ec80ddcc8c166b71ff7b3737e6393370d7a7b2d"
@@ -210,7 +210,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-dark-standard/checkerboard__glass-over-glass__rest.png",
             "sourceSha256": "262753319d893c168f8f65d4c359125bce1f06b64230aceef35c0b01503a3d4c"
@@ -252,7 +252,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-dark-standard/checkerboard__rrect-md__rest.png",
             "sourceSha256": "47335ef40c14b54949aac25375c194c40eed417bb258bf3c6cdf5168e8e9c0e7"
@@ -1238,7 +1238,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__rest.png",
             "sourceSha256": "d3094acff8fdbf6fbc2488a427596d143dc337c5805968e74b8b1b9baf49c94f"
@@ -1260,7 +1260,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__rest-tint-orange.png",
             "sourceSha256": "484681ee348d6287f031a8e2db25c16a40e535e418abbbd766140ae1225898ff"
@@ -1525,7 +1525,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-dark-standard/dark-solid__rrect-md__rest.png",
             "sourceSha256": "b85fae977b99f6d4dcc5bc8981f2bcfda549f4a7adc54b8dbf37fa9542df4449"
@@ -1966,7 +1966,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-dark-standard/impulse__capsule-button__rest.png",
             "sourceSha256": "cd16623af8409b4c2d8544a1365acb0af91133a378023b13cdef07f4be847ef8"
@@ -2398,7 +2398,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-dark-standard/mid-dark-solid__capsule-button__rest.png",
             "sourceSha256": "f7da2b579940fad88c03b1109455c59fd1a16c3c269b62a0d303891df3c93a18"
@@ -2724,7 +2724,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest.png",
             "sourceSha256": "1c541715a94f18c528a730aa5beee0a6cc3100fd81fdc003510eca04746ba33f"
@@ -2746,7 +2746,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-dark-standard/photo__capsule-button__pressed.png",
             "sourceSha256": "1c541715a94f18c528a730aa5beee0a6cc3100fd81fdc003510eca04746ba33f"
@@ -2768,7 +2768,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest-tint-orange.png",
             "sourceSha256": "3081e4d0685d6578cacd47570f5661ce12266e006e6fd1b44d01a6503f8b7c25"
@@ -2884,7 +2884,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-dark-standard/photo__rrect-lg__rest.png",
             "sourceSha256": "dba481170a24ad748508691f624f69c9e534f7dd922e71f28b2f86e961e387ea"
@@ -2926,7 +2926,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-dark-standard/photo__rrect-md__rest.png",
             "sourceSha256": "7ffc46c449e63a49682da01f2738b4d4d74cee7de1a3dce53bc06dfbbbfb984c"
@@ -2988,14 +2988,14 @@
     {
       "a11yMode": "increased-contrast",
       "caveats": [
-        "Captured with reduce-transparency also on. That is not contamination: macOS couples the toggles (Increase Contrast force-enables Reduce Transparency, and the transparency checkbox cannot be uncleared while contrast is on \u2014 user-verified 2026-08-29), so this is the only reachable increased-contrast state and the one a real user sees."
+        "Captured with reduce-transparency also on. That is not contamination: macOS couples the toggles (Increase Contrast force-enables Reduce Transparency, and the transparency checkbox cannot be uncleared while contrast is on — user-verified 2026-08-29), so this is the only reachable increased-contrast state and the one a real user sees."
       ],
       "colorScheme": "light",
       "display": {
         "actualBackingScale": 1,
         "colorSpace": "kCGColorSpaceSRGB",
-        "displayColorProfile": "\uac00\uc0c1 16:9",
-        "displayName": "\uac00\uc0c1 16:9",
+        "displayColorProfile": "가상 16:9",
+        "displayName": "가상 16:9",
         "pixelSize": [
           320,
           200
@@ -3019,7 +3019,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__rest.png",
             "sourceSha256": "5740b595db13cfb1c084528004904ff96fe87d3366f03d4ef274a721d56904cd"
@@ -3041,7 +3041,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__rest-tint-orange.png",
             "sourceSha256": "fb9d73f4b990e4c6901669b122100f570f1a40576b3f8908c6d34452d76aa9e9"
@@ -3123,7 +3123,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-increased-contrast/checkerboard__rrect-md__rest.png",
             "sourceSha256": "5c560db1d242e3273ec0b6d71187296a3a81dd1eb8588076a563e1631317f1b2"
@@ -3375,7 +3375,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-increased-contrast/hc-text__capsule-button__rest.png",
             "sourceSha256": "dac7df9b97c80f6936d1e48945bfa4c146adb187e08886cb6e2f035f63e1a3cd"
@@ -3567,7 +3567,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest.png",
             "sourceSha256": "a09c55e56851fe701bba9f504e9dd04c3079c1598d389003212a3a82c9951e13"
@@ -3589,7 +3589,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__pressed.png",
             "sourceSha256": "a09c55e56851fe701bba9f504e9dd04c3079c1598d389003212a3a82c9951e13"
@@ -3611,7 +3611,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest-tint-orange.png",
             "sourceSha256": "7f10c06001d917f5f59c040223cdceb900e041bf44267cd350167abd3a2592e2"
@@ -3713,7 +3713,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-increased-contrast/photo__rrect-lg__rest.png",
             "sourceSha256": "08132384c9ccf30b37e2bfb1ddd0cd6ced2fa057ab6200f7c85ef7381d01db3a"
@@ -3755,7 +3755,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-increased-contrast/photo__rrect-md__rest.png",
             "sourceSha256": "c6737307afa7086de0b5ae8acb3d1583ee7972cb47e1af47d3234eb2e939fb99"
@@ -3797,7 +3797,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-increased-contrast/photo__toolbar-group__rest.png",
             "sourceSha256": "22e9c90d6db1c8b38646a6f0eaba716b9ccefac1a614547d4dad6c3a89c41169"
@@ -3832,8 +3832,8 @@
       "display": {
         "actualBackingScale": 1,
         "colorSpace": "kCGColorSpaceSRGB",
-        "displayColorProfile": "\uac00\uc0c1 16:9",
-        "displayName": "\uac00\uc0c1 16:9",
+        "displayColorProfile": "가상 16:9",
+        "displayName": "가상 16:9",
         "pixelSize": [
           320,
           200
@@ -3857,7 +3857,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-reduced-transparency/checkerboard__capsule-button__rest.png",
             "sourceSha256": "1f1963c3575e4f0eef19a111ffe8f05ad5f1b110392c9d9fe7753e0ec527453a"
@@ -3899,7 +3899,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-reduced-transparency/checkerboard__rrect-md__rest.png",
             "sourceSha256": "2eaaa66220cec653bacdeba294cb2d4b0cf5bc023b8420d8edd3e6f8b1e49848"
@@ -4151,7 +4151,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-reduced-transparency/hc-text__capsule-button__rest.png",
             "sourceSha256": "97429d175b48e1cc39d060be7da68195f1572a8fe925040c045d3d4df00e8b33"
@@ -4343,7 +4343,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest.png",
             "sourceSha256": "2c4d5b964a4acbfead46b0a0f6cef9c00b3c2f05d97d28193fbfa14c9c94a40a"
@@ -4365,7 +4365,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__pressed.png",
             "sourceSha256": "2c4d5b964a4acbfead46b0a0f6cef9c00b3c2f05d97d28193fbfa14c9c94a40a"
@@ -4387,7 +4387,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest-tint-orange.png",
             "sourceSha256": "6e5770cb8126a6656ec93e41a6ef64b9a8716aec6acae550bcccf8b94cf40294"
@@ -4489,7 +4489,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-lg__rest.png",
             "sourceSha256": "935f04baf4537d4751d7b851b5c0f239c3ce45dba8fcbbce3d701d818481cfed"
@@ -4531,7 +4531,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-md__rest.png",
             "sourceSha256": "28e61489b1a1bc2728094f2463d593cdd603a6b610f3392648bdf6f769861bb2"
@@ -4573,7 +4573,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-reduced-transparency/photo__toolbar-group__rest.png",
             "sourceSha256": "9eeab58738620f4597a3f6ca3c08812f22b4e73c493101cd2f69764e2a7993f7"
@@ -4608,8 +4608,8 @@
       "display": {
         "actualBackingScale": 1,
         "colorSpace": "kCGColorSpaceSRGB",
-        "displayColorProfile": "\uac00\uc0c1 16:9",
-        "displayName": "\uac00\uc0c1 16:9",
+        "displayColorProfile": "가상 16:9",
+        "displayName": "가상 16:9",
         "pixelSize": [
           320,
           200
@@ -4633,7 +4633,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest.png",
             "sourceSha256": "fdc5a4c01e52f690e74a9e9ee40785d4c47fdc743e94f30fb6edcaabd0044787"
@@ -4655,7 +4655,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__pressed.png",
             "sourceSha256": "fdc5a4c01e52f690e74a9e9ee40785d4c47fdc743e94f30fb6edcaabd0044787"
@@ -4677,7 +4677,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-blue.png",
             "sourceSha256": "57dcbe829ce977dedd4f7a221500d0d143297f5facec8776386a655cdc9fbc9d"
@@ -4699,7 +4699,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-orange.png",
             "sourceSha256": "57dcbe829ce977dedd4f7a221500d0d143297f5facec8776386a655cdc9fbc9d"
@@ -4855,7 +4855,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/checkerboard__glass-over-glass__rest.png",
             "sourceSha256": "797c3e6e89bf7b3f8fe220df7499538e38ceed874ffbaba55deb428ab566c1ef"
@@ -4897,7 +4897,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-lg__rest.png",
             "sourceSha256": "9883ec633d22c4d07f4e5b2e32664f7f7ff7b7b96e16ed64d9cf91d75397cf9c"
@@ -4939,7 +4939,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__rest.png",
             "sourceSha256": "134a8a716af5c67f24fbb4d3d958af7c5d82b37ffc61a5b6dfb45a8878880043"
@@ -4961,7 +4961,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__pressed.png",
             "sourceSha256": "134a8a716af5c67f24fbb4d3d958af7c5d82b37ffc61a5b6dfb45a8878880043"
@@ -5073,7 +5073,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__rest.png",
             "sourceSha256": "4744b6671ed18a6f6cbadb8b0ec1edf6fc6c7a5ceb581f6aa8196c5ae2f15b59"
@@ -5129,7 +5129,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/checkerboard__toolbar-group__rest.png",
             "sourceSha256": "191ae2e8265acc14c0b4248637bb810187019cdcecb4c4da321204ddd0899c7e"
@@ -6085,7 +6085,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest.png",
             "sourceSha256": "d3094acff8fdbf6fbc2488a427596d143dc337c5805968e74b8b1b9baf49c94f"
@@ -6107,7 +6107,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest-tint-blue.png",
             "sourceSha256": "484681ee348d6287f031a8e2db25c16a40e535e418abbbd766140ae1225898ff"
@@ -6129,7 +6129,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest-tint-orange.png",
             "sourceSha256": "484681ee348d6287f031a8e2db25c16a40e535e418abbbd766140ae1225898ff"
@@ -6420,7 +6420,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/dark-solid__rrect-md__rest.png",
             "sourceSha256": "f07efce9b8c9cca616483af9a1633aec4a1badd11b29f659522dd19408fd49b5"
@@ -6581,7 +6581,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/hc-text__capsule-button__rest.png",
             "sourceSha256": "96b7c304b620d86c2ae6c7940148893c3739ac00fbceabe635073982c527f8bd"
@@ -6603,7 +6603,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/hc-text__capsule-button__rest-tint-orange.png",
             "sourceSha256": "a9c59f093bf0435ed031505bfb219538ee73b3c465f807abb3d27c0ed226d4b0"
@@ -6749,7 +6749,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/hc-text__rrect-md__rest.png",
             "sourceSha256": "c7ef1d4e8c28d90d2694b89d25ce7f20c639a9164fad787c48c03cd3f7011b1c"
@@ -7035,7 +7035,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/impulse__capsule-button__rest.png",
             "sourceSha256": "cd16623af8409b4c2d8544a1365acb0af91133a378023b13cdef07f4be847ef8"
@@ -7057,7 +7057,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/impulse__capsule-button__rest-tint-orange.png",
             "sourceSha256": "be62179fad5d0a10a36046e0121f343efe1cc130309924747efa3de1213f9543"
@@ -7203,7 +7203,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/impulse__rrect-md__rest.png",
             "sourceSha256": "08bb89cb341e4472a52299a0ce908b1c3164b3dcd38be93f6994ac992637c865"
@@ -7315,7 +7315,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/light-solid__capsule-button__rest.png",
             "sourceSha256": "c02f06b4b7f0e899ddd09c811354f8701d82c15730a21c6607e2a7b943dde47f"
@@ -7337,7 +7337,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/light-solid__capsule-button__rest-tint-orange.png",
             "sourceSha256": "5a8aef5809a70810a92e93d4784b91b647eab611640a213569bc60377563e369"
@@ -7468,7 +7468,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/light-solid__rrect-md__rest.png",
             "sourceSha256": "799584fa585a7592fb928edda9c060b00799097c9b2cd97d124cef45f070bc86"
@@ -7849,7 +7849,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/mid-dark-solid__capsule-button__rest.png",
             "sourceSha256": "24c893d7e869227f80f73fed0ccd801728f043034657089c5ce5cbe682e4f8db"
@@ -8041,7 +8041,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/photo__capsule-button__rest.png",
             "sourceSha256": "ffbbebb1312e01263edaf73250451043f6e9f8fd687f8d708e409b79ea6fc4fb"
@@ -8063,7 +8063,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/photo__capsule-button__pressed.png",
             "sourceSha256": "ffbbebb1312e01263edaf73250451043f6e9f8fd687f8d708e409b79ea6fc4fb"
@@ -8085,7 +8085,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-blue.png",
             "sourceSha256": "d8adce7c6f75ba1e1a32f27171b53cf0565fcb3742ced1f248a4f84fdcd243c9"
@@ -8107,7 +8107,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange.png",
             "sourceSha256": "d8adce7c6f75ba1e1a32f27171b53cf0565fcb3742ced1f248a4f84fdcd243c9"
@@ -8129,7 +8129,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange-half.png",
             "sourceSha256": "988c6c5ee8d96f643947176e78103fe5da2475f4f5da1a342aa59d7a1cd40d3c"
@@ -8339,7 +8339,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/photo__glass-over-glass__rest.png",
             "sourceSha256": "cc531676d05717cf1c495a21fcac40fd292555ad6cd2c4d9207f97eaba5d3eee"
@@ -8381,7 +8381,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest.png",
             "sourceSha256": "11b5f9e05b91eb71bd56e13f565f8e0878f2d79d2d6b3180983bbeb675ce85fd"
@@ -8403,7 +8403,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest-tint-orange.png",
             "sourceSha256": "8fd9fa390a507c4f4fda77a3f205e021b32bfce14b6afd40b66060efac4cc095"
@@ -8485,7 +8485,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/photo__rrect-md__rest.png",
             "sourceSha256": "5832078af492e4b9f442d9e4ca02693bb8b83e38e8b5c89dd92e8f6990d27c98"
@@ -8507,7 +8507,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/photo__rrect-md__pressed.png",
             "sourceSha256": "5832078af492e4b9f442d9e4ca02693bb8b83e38e8b5c89dd92e8f6990d27c98"
@@ -8529,7 +8529,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/photo__rrect-md__rest-tint-orange.png",
             "sourceSha256": "b0df0a82cd2e8cf2619f810022e0a3eac60c9745ccf0c5f221c5866e0e8d7cbf"
@@ -8695,7 +8695,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/photo__rrect-sm__rest.png",
             "sourceSha256": "e4d1ecbfdff8929aadf1666d19a8857a060eb9ac8e5be666539e09f8136b6a4a"
@@ -8737,7 +8737,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-1x-light-standard/photo__toolbar-group__rest.png",
             "sourceSha256": "38f4d48b6871ab55af7d3fc74cb87d34c16544611dd4516e463e5bfaba792bdc"
@@ -8772,8 +8772,8 @@
       "display": {
         "actualBackingScale": 2,
         "colorSpace": "kCGColorSpaceSRGB",
-        "displayColorProfile": "\uac00\uc0c1 16:9",
-        "displayName": "\uac00\uc0c1 16:9",
+        "displayColorProfile": "가상 16:9",
+        "displayName": "가상 16:9",
         "pixelSize": [
           640,
           400
@@ -8797,7 +8797,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest.png",
             "sourceSha256": "e520c9844172ee3c2122900e469f33367cf64358e6970c36ce018fd07c4f516c"
@@ -8819,7 +8819,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest-tint-orange.png",
             "sourceSha256": "3f3aecf7f81bfa2ac0df8c2c578187466de7af107e76e6c84c02c4ff626c596f"
@@ -8929,7 +8929,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-dark-standard/checkerboard__glass-over-glass__rest.png",
             "sourceSha256": "55e4bf3d4e44580ee61f976d239d99a42cf31c7d7d2c65c0de112c935e341cd2"
@@ -8971,7 +8971,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-dark-standard/checkerboard__rrect-md__rest.png",
             "sourceSha256": "13fd624153fe5b99ca6d405fcf5c26b000430ce0d6cd87e5216b6bac69c149ab"
@@ -10173,7 +10173,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest.png",
             "sourceSha256": "fad0229d7d04c1c7116ca68959aeac26308adbdd971223531d09d98c4fa70863"
@@ -10195,7 +10195,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest-tint-orange.png",
             "sourceSha256": "fe3193f159152aa9e88e42096446bc3159058424625a8c366e43530dbb36b021"
@@ -10476,7 +10476,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-dark-standard/dark-solid__rrect-md__rest.png",
             "sourceSha256": "c19610eac00be855f6a0fe837ca76e92eb8aae9e3c48cb60269143a9e5468294"
@@ -10940,7 +10940,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-dark-standard/impulse__capsule-button__rest.png",
             "sourceSha256": "241f79fc11e31cfdfd40ed70f02c7e965f9d64dd2773c8076814e82a28eb28bc"
@@ -11399,7 +11399,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-dark-standard/mid-dark-solid__capsule-button__rest.png",
             "sourceSha256": "a9a9390df1a0b238f062036a303ad697a4c72c02cb51e567abe5b49abf42b4e4"
@@ -11721,7 +11721,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest.png",
             "sourceSha256": "431435b7e44215267409d28498b93d61db64ecdb09abb6fb864e7da281ffc819"
@@ -11743,7 +11743,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-dark-standard/photo__capsule-button__pressed.png",
             "sourceSha256": "431435b7e44215267409d28498b93d61db64ecdb09abb6fb864e7da281ffc819"
@@ -11765,7 +11765,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest-tint-orange.png",
             "sourceSha256": "c22561ee2730df4f908ecb34d2f3194cf1b59ebff0a6abeda37d4e7736a92416"
@@ -11895,7 +11895,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-dark-standard/photo__rrect-lg__rest.png",
             "sourceSha256": "5d9abd37978940f9cfd029b94d33ddde828b4e03a2b54ec15d8ee93d9c592a33"
@@ -11937,7 +11937,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-dark-standard/photo__rrect-md__rest.png",
             "sourceSha256": "6e33365600f3bb9d6858784230912dc1238d81304fa560b4b22d60639fcc03e9"
@@ -12002,8 +12002,8 @@
       "display": {
         "actualBackingScale": 2,
         "colorSpace": "kCGColorSpaceSRGB",
-        "displayColorProfile": "\uac00\uc0c1 16:9",
-        "displayName": "\uac00\uc0c1 16:9",
+        "displayColorProfile": "가상 16:9",
+        "displayName": "가상 16:9",
         "pixelSize": [
           640,
           400
@@ -12027,7 +12027,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest.png",
             "sourceSha256": "fcc7e1b720cf74b8a30e5203822593c6fb8e12f9acaf2d0c92bc1040224097d7"
@@ -12049,7 +12049,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__pressed.png",
             "sourceSha256": "fcc7e1b720cf74b8a30e5203822593c6fb8e12f9acaf2d0c92bc1040224097d7"
@@ -12071,7 +12071,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest-tint-blue.png",
             "sourceSha256": "d72a88a273f218f6c42332d34ca2b40436ddf61fd72a1abc062615da055683ee"
@@ -12093,7 +12093,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest-tint-orange.png",
             "sourceSha256": "d72a88a273f218f6c42332d34ca2b40436ddf61fd72a1abc062615da055683ee"
@@ -12263,7 +12263,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/checkerboard__glass-over-glass__rest.png",
             "sourceSha256": "194ea4d52683d1234e22acf7aa32829b2f6a0c303db66dbe75811a7daf22d600"
@@ -12319,7 +12319,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-lg__rest.png",
             "sourceSha256": "4f65f5524ffbda32f659df541a023c323f55968d3efbe9e49ec4caafbefd3d6e"
@@ -12361,7 +12361,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__rest.png",
             "sourceSha256": "8e4f864f6b8002e7f96a7e9fe88c2ea29d4c88f497eb62e9cbf7f46cc4d60fca"
@@ -12383,7 +12383,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__pressed.png",
             "sourceSha256": "8e4f864f6b8002e7f96a7e9fe88c2ea29d4c88f497eb62e9cbf7f46cc4d60fca"
@@ -12495,7 +12495,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/checkerboard__rrect-sm__rest.png",
             "sourceSha256": "cd3518fd5db24cda1f17bf76bf432e9caf408529b8905bf7797593bbcd7e001d"
@@ -12537,7 +12537,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/checkerboard__toolbar-group__rest.png",
             "sourceSha256": "d1d7ed86ac9634f2f171036d329a83aeec7248468496db823bae50a24e49cc91"
@@ -13745,7 +13745,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest.png",
             "sourceSha256": "fad0229d7d04c1c7116ca68959aeac26308adbdd971223531d09d98c4fa70863"
@@ -13767,7 +13767,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest-tint-blue.png",
             "sourceSha256": "fe3193f159152aa9e88e42096446bc3159058424625a8c366e43530dbb36b021"
@@ -13789,7 +13789,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest-tint-orange.png",
             "sourceSha256": "fe3193f159152aa9e88e42096446bc3159058424625a8c366e43530dbb36b021"
@@ -14129,7 +14129,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/dark-solid__rrect-md__rest.png",
             "sourceSha256": "80afbcf965f7d7ffb6571cbd1d677e881de12cbab9a7889ea726aa215378d043"
@@ -14309,7 +14309,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/hc-text__capsule-button__rest.png",
             "sourceSha256": "c9e5c5e45a40df1176a164d5e895fceb137d34402048e827f7016b3c3e0e4457"
@@ -14331,7 +14331,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/hc-text__capsule-button__rest-tint-orange.png",
             "sourceSha256": "cffda7131222780b81684f176721cc04e304b351d59e409d29537efabadbf735"
@@ -14488,7 +14488,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/hc-text__rrect-md__rest.png",
             "sourceSha256": "d82efc7124344edf21c420009c7e2cf6e82812d08c145e09960926771c7432cf"
@@ -14800,7 +14800,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/impulse__capsule-button__rest.png",
             "sourceSha256": "241f79fc11e31cfdfd40ed70f02c7e965f9d64dd2773c8076814e82a28eb28bc"
@@ -14822,7 +14822,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/impulse__capsule-button__rest-tint-orange.png",
             "sourceSha256": "ddd1193844b0186a55c9b928500a99612d6420953c0dbdc195d15de76a66dee5"
@@ -14965,7 +14965,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/impulse__rrect-md__rest.png",
             "sourceSha256": "822f1335f4f06cf993064d72a38ca95408ac045ac64393b2950a8ddc295c69f5"
@@ -15104,7 +15104,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/light-solid__capsule-button__rest.png",
             "sourceSha256": "356d548ec6f250cc423c5030c9fbf6fe68ed7a2506d382537136057873dd7edf"
@@ -15126,7 +15126,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/light-solid__capsule-button__rest-tint-orange.png",
             "sourceSha256": "fa961b3c84a0dff5a7317a2b8940370f0702f8614b889d15e60b4ff4fe38c8a4"
@@ -15268,7 +15268,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/light-solid__rrect-md__rest.png",
             "sourceSha256": "c77e2fb7a8628169271a71c18588084e3e315699e51272e173519b85e3169ca0"
@@ -15660,7 +15660,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/mid-dark-solid__capsule-button__rest.png",
             "sourceSha256": "5e12776c7fe67f9d288e43d5a9a163565323dc777d75dfa504c06330e379a27d"
@@ -15876,7 +15876,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/photo__capsule-button__rest.png",
             "sourceSha256": "5fa3ccbb8ccb92f47634372e2efffa66cd7d6925636c0778dd0befa83c291a7b"
@@ -15898,7 +15898,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/photo__capsule-button__pressed.png",
             "sourceSha256": "5fa3ccbb8ccb92f47634372e2efffa66cd7d6925636c0778dd0befa83c291a7b"
@@ -15920,7 +15920,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-blue.png",
             "sourceSha256": "df4c0bf04e217a2fc94d4c04d522b444ff79f27d337525792b891556ccdc5a4c"
@@ -15942,7 +15942,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-orange.png",
             "sourceSha256": "df4c0bf04e217a2fc94d4c04d522b444ff79f27d337525792b891556ccdc5a4c"
@@ -15964,7 +15964,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/photo__capsule-button__rest-tint-orange-half.png",
             "sourceSha256": "70d9ee5d9b05511f8a33a7f47abf4379cbfdbae362c23dcb50e7759045c15d05"
@@ -16174,7 +16174,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/photo__glass-over-glass__rest.png",
             "sourceSha256": "61a4f10999b7142559f849a05955cdcfc9cc62462f161b014b4cae861cb72f09"
@@ -16216,7 +16216,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/photo__rrect-lg__rest.png",
             "sourceSha256": "63d482bc4c7d7c6dc7bee66b78a79c74ed41b0004e154af1c6a6ef33f7244f06"
@@ -16238,7 +16238,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/photo__rrect-lg__rest-tint-orange.png",
             "sourceSha256": "c48c3bc321963c22f7854e3d9b1d743b307012ebf3d4ccacba116d75dcbba15f"
@@ -16320,7 +16320,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/photo__rrect-md__rest.png",
             "sourceSha256": "c9c28d5cf33aed3fe3c56a2f5ad01cf000fd036a9a5713b9479de13f357b9c4f"
@@ -16342,7 +16342,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/photo__rrect-md__pressed.png",
             "sourceSha256": "c9c28d5cf33aed3fe3c56a2f5ad01cf000fd036a9a5713b9479de13f357b9c4f"
@@ -16364,7 +16364,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/photo__rrect-md__rest-tint-orange.png",
             "sourceSha256": "5b602aa69e19cdc84216127b1bc760560fd46c96f44813851e957f01787f6ff9"
@@ -16530,7 +16530,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/photo__rrect-sm__rest.png",
             "sourceSha256": "f243c96e5cbb4a4bef55a1dc83e5fa957d8b0ec49b212252ec69cce8b1f4647c"
@@ -16572,7 +16572,7 @@
           "recoveredProvenance": {
             "schemaVersion": 2,
             "runsPerCell": 1,
-            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims \u00a75.128)",
+            "pose": "Inferred from DL14 post-mortem, not attested per cell (W27 Decision Log 5; claims §5.128)",
             "sourceCommit": "0b4b02427243cf89d1c77bcb09241a200132f86a",
             "sourcePath": "apple-macos-26.5-2x-light-standard/photo__toolbar-group__rest.png",
             "sourceSha256": "738208635526cbba800829d287c24216dc588b36537e53a1566e2fb1bf22c7fa"
@@ -16621,8 +16621,8 @@
       "display": {
         "actualBackingScale": 1,
         "colorSpace": "kCGColorSpaceSRGB",
-        "displayColorProfile": "\uac00\uc0c1 16:9",
-        "displayName": "\uac00\uc0c1 16:9",
+        "displayColorProfile": "가상 16:9",
+        "displayName": "가상 16:9",
         "pixelSize": [
           320,
           200
@@ -19782,9 +19782,1001 @@
         "bundleBinarySha256": "bd3092e8d6d1f50ba43124adf42bed8a29e96646adb97bb3a538582653fda212",
         "bundleMinOS": "26.0",
         "bundleRecordedSdk": "26.0",
-        "bundleRecordedSdkNote": "LC_BUILD_VERSION's sdk field; ld writes sdk == minos on this build path, so this identifies the binary and is not a reading of the SDK it compiled against (claims \u00a75.149 \u00a71)",
+        "bundleRecordedSdkNote": "LC_BUILD_VERSION's sdk field; ld writes sdk == minos on this build path, so this identifies the binary and is not a reading of the SDK it compiled against (claims §5.149 §1)",
         "sceneSpecCanonicalSha256": "c3d1badce6a39a863296a5e6ef9055eb0491e04041f42e87935e01a91273c0fb",
         "passSpecSha256": "afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af",
+        "runs": "7"
+      }
+    },
+    {
+      "a11yMode": "increased-contrast",
+      "caveats": [
+        "Captured with reduce-transparency also on. That is not contamination: macOS couples the toggles (Increase Contrast force-enables Reduce Transparency, and the transparency checkbox cannot be uncleared while contrast is on — user-verified 2026-08-29), so this is the only reachable increased-contrast state and the one a real user sees.",
+        "Captured with Increase Contrast ON and Reduce Transparency ON, and both are attested per run: all seven runs of both passes read increaseContrast=1 with reduceTransparency=1, ButtonShapesEnabled=0 and NSGlassTintAmount 0.5 (see this profile's `attestation` block). That state is why this profile exists. macOS 26.5 force-coupled the two toggles — contrast enabled transparency reduction and the transparency checkbox could not be uncleared while contrast was on — so the coupled state was the ONLY increased-contrast state a machine could be in, and apple-macos-26.5-1x-light-increased-contrast is it. macOS 27 made them independent, so the profile named apple-macos-27.0-1x-light-increased-contrast-glass0.5 is contrast ALONE and cannot be read against the 26.5 bed like for like; this profile can, and it is the only 27 profile that can (W29 Decision Log 4 (b); claims §5.151 §9, §5.152). NOTE on the harness's own coupling note beside this one: it is the attestation the capture wrote and it is kept verbatim, but its wording is a statement about macOS 26.5 — on 27 nothing couples the toggles and this state was reached by hand."
+      ],
+      "colorScheme": "light",
+      "display": {
+        "actualBackingScale": 1,
+        "colorSpace": "kCGColorSpaceSRGB",
+        "displayColorProfile": "가상 16:9",
+        "displayName": "가상 16:9",
+        "pixelSize": [
+          320,
+          200
+        ],
+        "requestedScale": 1
+      },
+      "profileKey": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "fixtures": [
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:45:14Z",
+          "chromaShift": 0.0092,
+          "deltaFromBackground": 10.123635416666668,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/checkerboard__capsule-button__inactive.png",
+          "fixtureSet": "calibration",
+          "height": 200,
+          "hidIdleSeconds": 1148.710658541,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 19,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:45:11Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "checkerboard__capsule-button__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 2.952323079109192,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:42:22Z",
+          "chromaShift": 0.0071,
+          "deltaFromBackground": 10.124020833333333,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/checkerboard__capsule-button__inactive-tint-orange.png",
+          "fixtureSet": "calibration",
+          "height": 200,
+          "hidIdleSeconds": 976.415149791,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 1,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:42:19Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "checkerboard__capsule-button__inactive-tint-orange",
+          "settleIterations": 1,
+          "settleSeconds": 3.038572907447815,
+          "tint": {
+            "colourReachedMaterial": false,
+            "colourSurvivedResolution": true,
+            "declaredAlpha": 1,
+            "declaredSRGB": [
+              255,
+              149,
+              0
+            ],
+            "glassValueDistinguishesHue": true,
+            "resolvedChroma": 255,
+            "resolvedOpacity": 1,
+            "resolvedSRGB": [
+              255,
+              149,
+              0
+            ],
+            "tintId": "orange",
+            "untintedTwinChromaShift": 0.0092
+          },
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:29:11Z",
+          "chromaShift": 0.0104,
+          "deltaFromBackground": 9.719958333333333,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/checkerboard__capsule-button__rest.png",
+          "fixtureSet": "calibration",
+          "height": 200,
+          "hidIdleSeconds": 184.843317291,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 4,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "checkerboard__capsule-button__rest",
+          "settleIterations": 1,
+          "settleSeconds": 2.981902003288269,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:29:49Z",
+          "chromaShift": 234.6995,
+          "deltaFromBackground": 10.157432291666666,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/checkerboard__capsule-button__rest-tint-orange.png",
+          "fixtureSet": "calibration",
+          "height": 200,
+          "hidIdleSeconds": 223.077516708,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 8,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "checkerboard__capsule-button__rest-tint-orange",
+          "settleIterations": 1,
+          "settleSeconds": 3.0080960988998413,
+          "tint": {
+            "colourReachedMaterial": true,
+            "colourSurvivedResolution": true,
+            "declaredAlpha": 1,
+            "declaredSRGB": [
+              255,
+              149,
+              0
+            ],
+            "glassValueDistinguishesHue": true,
+            "resolvedChroma": 255,
+            "resolvedOpacity": 1,
+            "resolvedSRGB": [
+              255,
+              149,
+              0
+            ],
+            "tintId": "orange",
+            "untintedTwinChromaShift": 0.0104
+          },
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:42:32Z",
+          "chromaShift": 0.0121,
+          "deltaFromBackground": 30.616098958333332,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/checkerboard__rrect-md__inactive.png",
+          "fixtureSet": "calibration",
+          "height": 200,
+          "hidIdleSeconds": 986.017889708,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 2,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:42:29Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "checkerboard__rrect-md__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 3.0255099534988403,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:29:30Z",
+          "chromaShift": 0.0138,
+          "deltaFromBackground": 30.115046875,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/checkerboard__rrect-md__rest.png",
+          "fixtureSet": "calibration",
+          "height": 200,
+          "hidIdleSeconds": 203.953731875,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 6,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "checkerboard__rrect-md__rest",
+          "settleIterations": 1,
+          "settleSeconds": 2.9839850664138794,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:43:00Z",
+          "chromaShift": 0.015,
+          "deltaFromBackground": 56.63628125,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/checkerboard__rrect-ml__inactive.png",
+          "fixtureSet": "probe",
+          "height": 200,
+          "hidIdleSeconds": 1014.740903458,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 5,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:42:57Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "checkerboard__rrect-ml__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 2.9663490056991577,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:43:20Z",
+          "chromaShift": 0,
+          "deltaFromBackground": 30.5446875,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/checkerboard-4__rrect-md__inactive.png",
+          "fixtureSet": "probe",
+          "height": 200,
+          "hidIdleSeconds": 1033.834871458,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 7,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:43:16Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "checkerboard-4__rrect-md__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 3.01010799407959,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:43:48Z",
+          "chromaShift": 0.0106,
+          "deltaFromBackground": 5.4433645833333335,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/checkerboard-lc16__capsule-button__inactive.png",
+          "fixtureSet": "probe",
+          "height": 200,
+          "hidIdleSeconds": 1062.517399125,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 10,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:43:45Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "checkerboard-lc16__capsule-button__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 2.9747259616851807,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:45:05Z",
+          "chromaShift": 0.0122,
+          "deltaFromBackground": 16.6269375,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/checkerboard-lc16__rrect-md__inactive.png",
+          "fixtureSet": "probe",
+          "height": 200,
+          "hidIdleSeconds": 1139.196278541,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 18,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:45:02Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "checkerboard-lc16__rrect-md__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 3.023068070411682,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:43:39Z",
+          "chromaShift": -0.9753,
+          "deltaFromBackground": 12.5561875,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/dark-solid__rrect-48__inactive.png",
+          "fixtureSet": "probe",
+          "height": 200,
+          "hidIdleSeconds": 1052.975240333,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 9,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:43:36Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "dark-solid__rrect-48__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 3.0339399576187134,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:44:55Z",
+          "chromaShift": -0.9814,
+          "deltaFromBackground": 34.81825,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/dark-solid__rrect-80__inactive.png",
+          "fixtureSet": "probe",
+          "height": 200,
+          "hidIdleSeconds": 1129.599482291,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 17,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:44:52Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "dark-solid__rrect-80__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 2.9737759828567505,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:45:24Z",
+          "chromaShift": -0.9858,
+          "deltaFromBackground": 47.728541666666665,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/dark-solid__rrect-md-clear20__inactive.png",
+          "fixtureSet": "probe",
+          "height": 200,
+          "hidIdleSeconds": 1158.163836833,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 20,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:45:21Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "dark-solid__rrect-md-clear20__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 2.8866310119628906,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:43:10Z",
+          "chromaShift": 0.0172,
+          "deltaFromBackground": 8.142682291666667,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/hc-text__capsule-button__inactive.png",
+          "fixtureSet": "holdout",
+          "height": 200,
+          "hidIdleSeconds": 1024.250882333,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 6,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:43:07Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "hc-text__capsule-button__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 2.9427319765090942,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:28:32Z",
+          "chromaShift": 0.0061,
+          "deltaFromBackground": 8.065453125,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/hc-text__capsule-button__rest.png",
+          "fixtureSet": "holdout",
+          "height": 200,
+          "hidIdleSeconds": 146.644629166,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 0,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "hc-text__capsule-button__rest",
+          "settleIterations": 1,
+          "settleSeconds": 2.9585349559783936,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:42:12Z",
+          "chromaShift": 0.0122,
+          "deltaFromBackground": 55.04708854166667,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/hc-text__rrect-lg__inactive.png",
+          "fixtureSet": "probe",
+          "height": 200,
+          "hidIdleSeconds": 966.80048725,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 0,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:42:09Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "hc-text__rrect-lg__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 2.988532066345215,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:44:07Z",
+          "chromaShift": 0.0282,
+          "deltaFromBackground": 4.089854166666667,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/hc-text__rrect-sm__inactive.png",
+          "fixtureSet": "probe",
+          "height": 200,
+          "hidIdleSeconds": 1081.732181041,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 12,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:44:04Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "hc-text__rrect-sm__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 3.0400079488754272,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:44:27Z",
+          "chromaShift": 0.0099,
+          "deltaFromBackground": 20.643802083333334,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/hc-text-28__rrect-md__inactive.png",
+          "fixtureSet": "probe",
+          "height": 200,
+          "hidIdleSeconds": 1100.889189791,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 14,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:44:24Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "hc-text-28__rrect-md__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 3.0438380241394043,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:46:12Z",
+          "chromaShift": 0.013,
+          "deltaFromBackground": 24.179739583333333,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/hc-text-7__rrect-md__inactive.png",
+          "fixtureSet": "probe",
+          "height": 200,
+          "hidIdleSeconds": 1206.670529833,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 3,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:46:09Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "hc-text-7__rrect-md__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 3.010416030883789,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:42:51Z",
+          "chromaShift": -4.8648,
+          "deltaFromBackground": 4.867541666666667,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/light-solid__rrect-ml__inactive.png",
+          "fixtureSet": "probe",
+          "height": 200,
+          "hidIdleSeconds": 1005.20754,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 4,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:42:48Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "light-solid__rrect-ml__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 2.999487042427063,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:44:46Z",
+          "chromaShift": -71.2342,
+          "deltaFromBackground": 9.17309375,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/photo__capsule-button__inactive.png",
+          "fixtureSet": "calibration",
+          "height": 200,
+          "hidIdleSeconds": 1120.049405291,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 16,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:44:43Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "photo__capsule-button__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 3.018486976623535,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:43:29Z",
+          "chromaShift": -71.2342,
+          "deltaFromBackground": 9.17309375,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/photo__capsule-button__inactive-pressed.png",
+          "fixtureSet": "recorded",
+          "height": 200,
+          "hidIdleSeconds": 1043.374290458,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 8,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:43:26Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "photo__capsule-button__inactive-pressed",
+          "settleIterations": 1,
+          "settleSeconds": 2.9530750513076782,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:43:58Z",
+          "chromaShift": -74.4217,
+          "deltaFromBackground": 7.33725,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/photo__capsule-button__inactive-tint-orange.png",
+          "fixtureSet": "calibration",
+          "height": 200,
+          "hidIdleSeconds": 1072.12531425,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 11,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:43:55Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "photo__capsule-button__inactive-tint-orange",
+          "settleIterations": 1,
+          "settleSeconds": 3.0278940200805664,
+          "tint": {
+            "colourReachedMaterial": false,
+            "colourSurvivedResolution": true,
+            "declaredAlpha": 1,
+            "declaredSRGB": [
+              255,
+              149,
+              0
+            ],
+            "glassValueDistinguishesHue": true,
+            "resolvedChroma": 255,
+            "resolvedOpacity": 1,
+            "resolvedSRGB": [
+              255,
+              149,
+              0
+            ],
+            "tintId": "orange",
+            "untintedTwinChromaShift": -71.2342
+          },
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:28:51Z",
+          "chromaShift": -69.8311,
+          "deltaFromBackground": 9.218864583333334,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/photo__capsule-button__pressed.png",
+          "fixtureSet": "recorded",
+          "height": 200,
+          "hidIdleSeconds": 165.717211291,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 2,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "photo__capsule-button__pressed",
+          "settleIterations": 1,
+          "settleSeconds": 2.97419810295105,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:29:39Z",
+          "chromaShift": -69.8311,
+          "deltaFromBackground": 9.218864583333334,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/photo__capsule-button__rest.png",
+          "fixtureSet": "calibration",
+          "height": 200,
+          "hidIdleSeconds": 213.503373041,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 7,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "photo__capsule-button__rest",
+          "settleIterations": 1,
+          "settleSeconds": 2.980404019355774,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:29:20Z",
+          "chromaShift": 159.5495,
+          "deltaFromBackground": 7.930567708333333,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/photo__capsule-button__rest-tint-orange.png",
+          "fixtureSet": "calibration",
+          "height": 200,
+          "hidIdleSeconds": 194.412896875,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 5,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "photo__capsule-button__rest-tint-orange",
+          "settleIterations": 1,
+          "settleSeconds": 3.0016549825668335,
+          "tint": {
+            "colourReachedMaterial": true,
+            "colourSurvivedResolution": true,
+            "declaredAlpha": 1,
+            "declaredSRGB": [
+              255,
+              149,
+              0
+            ],
+            "glassValueDistinguishesHue": true,
+            "resolvedChroma": 255,
+            "resolvedOpacity": 1,
+            "resolvedSRGB": [
+              255,
+              149,
+              0
+            ],
+            "tintId": "orange",
+            "untintedTwinChromaShift": -69.8311
+          },
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:44:36Z",
+          "chromaShift": -109.8081,
+          "deltaFromBackground": 90.33402083333333,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/photo__rrect-lg__inactive.png",
+          "fixtureSet": "holdout",
+          "height": 200,
+          "hidIdleSeconds": 1110.448020291,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 15,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:44:33Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "photo__rrect-lg__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 2.9836909770965576,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:29:58Z",
+          "chromaShift": -85.9662,
+          "deltaFromBackground": 91.35136979166667,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/photo__rrect-lg__rest.png",
+          "fixtureSet": "holdout",
+          "height": 200,
+          "hidIdleSeconds": 232.559813291,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 9,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "photo__rrect-lg__rest",
+          "settleIterations": 1,
+          "settleSeconds": 2.905285954475403,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:45:33Z",
+          "chromaShift": -96.3011,
+          "deltaFromBackground": 29.088619791666666,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/photo__rrect-md__inactive.png",
+          "fixtureSet": "calibration",
+          "height": 200,
+          "hidIdleSeconds": 1167.700056041,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 21,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:45:30Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "photo__rrect-md__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 2.9534260034561157,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:28:42Z",
+          "chromaShift": -84.2204,
+          "deltaFromBackground": 29.256046875,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/photo__rrect-md__rest.png",
+          "fixtureSet": "calibration",
+          "height": 200,
+          "hidIdleSeconds": 156.174197791,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 1,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "photo__rrect-md__rest",
+          "settleIterations": 1,
+          "settleSeconds": 2.9680529832839966,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:44:17Z",
+          "chromaShift": -81.766,
+          "deltaFromBackground": 8.745671875,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/photo__toolbar-group__inactive.png",
+          "fixtureSet": "validation",
+          "height": 200,
+          "hidIdleSeconds": 1091.2724625,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 13,
+          "presentation": {
+            "activationPolicy": "accessory",
+            "appIsActive": false,
+            "attestedAt": "2026-09-19T07:44:14Z",
+            "declaredPose": "inactive",
+            "isKeyWindow": false,
+            "mechanism": "accessory-policy+non-key-window+orderFrontRegardless",
+            "observedPose": "inactive",
+            "windowCanBecomeKey": false
+          },
+          "presentedActive": false,
+          "repeatNoise": 0,
+          "sceneId": "photo__toolbar-group__inactive",
+          "settleIterations": 1,
+          "settleSeconds": 2.9591819047927856,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-19T07:29:01Z",
+          "chromaShift": -80.0887,
+          "deltaFromBackground": 8.80146875,
+          "deterministic": true,
+          "file": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/photo__toolbar-group__rest.png",
+          "fixtureSet": "validation",
+          "height": 200,
+          "hidIdleSeconds": 175.295075708,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 3,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "photo__toolbar-group__rest",
+          "settleIterations": 1,
+          "settleSeconds": 3.0053259134292603,
+          "width": 320
+        }
+      ],
+      "hardware": {
+        "cpu": "Apple M2 Pro",
+        "model": "Mac14,12",
+        "osBuild": "26A428",
+        "osVersion": "Version 27.0 (Build 26A428)",
+        "sdk": "unknown",
+        "xcodeVersion": "unknown"
+      },
+      "attestation": {
+        "os": "27.0 26A428",
+        "osProductVersion": "27.0",
+        "osBuild": "26A428",
+        "glassTintAmount": "0.5",
+        "reduceTransparency": "1",
+        "increaseContrast": "1",
+        "a11yMode": "increased-contrast",
+        "passA11yMode": "increased-contrast-coupled",
+        "showBorders": "0",
+        "displayplacerMode": "69",
+        "displayModeDeclaredForScale": "69",
+        "bundlePath": "/Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app",
+        "bundleCdHash": "88cbbb5b2db0af50167c0d7004f3bd7d3ebe6427",
+        "bundleBinarySha256": "bd3092e8d6d1f50ba43124adf42bed8a29e96646adb97bb3a538582653fda212",
+        "bundleMinOS": "26.0",
+        "bundleRecordedSdk": "26.0",
+        "bundleRecordedSdkNote": "LC_BUILD_VERSION's sdk field; ld writes sdk == minos on this build path, so this identifies the binary and is not a reading of the SDK it compiled against (claims §5.149 §1)",
+        "sceneSpecCanonicalSha256": "fef923fabeafc74f518c25fc1789f47b09fe51219ed06ce5d3b494631432e2df",
+        "passSpecSha256": "4fe75f8e0c096a2b4211fcb12b91f1639b732cbcd85067b09cbef762b747d560",
         "runs": "7"
       }
     },
@@ -19794,8 +20786,8 @@
       "display": {
         "actualBackingScale": 1,
         "colorSpace": "kCGColorSpaceSRGB",
-        "displayColorProfile": "\uac00\uc0c1 16:9",
-        "displayName": "\uac00\uc0c1 16:9",
+        "displayColorProfile": "가상 16:9",
+        "displayName": "가상 16:9",
         "pixelSize": [
           320,
           200
@@ -20769,13 +21761,14 @@
         "bundleBinarySha256": "bd3092e8d6d1f50ba43124adf42bed8a29e96646adb97bb3a538582653fda212",
         "bundleMinOS": "26.0",
         "bundleRecordedSdk": "26.0",
-        "bundleRecordedSdkNote": "LC_BUILD_VERSION's sdk field; ld writes sdk == minos on this build path, so this identifies the binary and is not a reading of the SDK it compiled against (claims \u00a75.149 \u00a71)",
+        "bundleRecordedSdkNote": "LC_BUILD_VERSION's sdk field; ld writes sdk == minos on this build path, so this identifies the binary and is not a reading of the SDK it compiled against (claims §5.149 §1)",
         "sceneSpecCanonicalSha256": "c3d1badce6a39a863296a5e6ef9055eb0491e04041f42e87935e01a91273c0fb",
         "passSpecSha256": "afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af",
         "runs": "7"
       },
       "caveats": [
-        "Captured with Increase Contrast ON and Reduce Transparency OFF. macOS 27 does not couple them: all seven runs attested increaseContrast=1 with reduceTransparency=0, and the harness wrote no coupling note (it records one whenever it observes the coupling). This is a DIFFERENT state from the 26.5 profile of the same name, whose own caveat records that on macOS 26.5 the coupled state was the only reachable increased-contrast state \u2014 that caveat is true of that bed and is unchanged. A difference between the two beds on this profile is therefore confounded with the decoupling and must not be attributed to the material without separating them (W29 Surprises; claims \u00a75.150)."
+        "Captured with Increase Contrast ON and Reduce Transparency OFF. macOS 27 does not couple them: all seven runs attested increaseContrast=1 with reduceTransparency=0, and the harness wrote no coupling note (it records one whenever it observes the coupling). This is a DIFFERENT state from the 26.5 profile of the same name, whose own caveat records that on macOS 26.5 the coupled state was the only reachable increased-contrast state — that caveat is true of that bed and is unchanged. A difference between the two beds on this profile is therefore confounded with the decoupling and must not be attributed to the material without separating them (W29 Surprises; claims §5.150).",
+        "Where the unconfounded reading lives: the same 32 cells captured with BOTH toggles on, the state the 26.5 profile of this name was captured in, are published under apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 (W29 Decision Log 4 (b); claims §5.152). This profile is unchanged and its caveat above still holds of it."
       ]
     },
     {
@@ -20784,8 +21777,8 @@
       "display": {
         "actualBackingScale": 1,
         "colorSpace": "kCGColorSpaceSRGB",
-        "displayColorProfile": "\uac00\uc0c1 16:9",
-        "displayName": "\uac00\uc0c1 16:9",
+        "displayColorProfile": "가상 16:9",
+        "displayName": "가상 16:9",
         "pixelSize": [
           320,
           200
@@ -21669,13 +22662,13 @@
         "bundleBinarySha256": "bd3092e8d6d1f50ba43124adf42bed8a29e96646adb97bb3a538582653fda212",
         "bundleMinOS": "26.0",
         "bundleRecordedSdk": "26.0",
-        "bundleRecordedSdkNote": "LC_BUILD_VERSION's sdk field; ld writes sdk == minos on this build path, so this identifies the binary and is not a reading of the SDK it compiled against (claims \u00a75.149 \u00a71)",
+        "bundleRecordedSdkNote": "LC_BUILD_VERSION's sdk field; ld writes sdk == minos on this build path, so this identifies the binary and is not a reading of the SDK it compiled against (claims §5.149 §1)",
         "sceneSpecCanonicalSha256": "c3d1badce6a39a863296a5e6ef9055eb0491e04041f42e87935e01a91273c0fb",
         "passSpecSha256": "afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af",
         "runs": "7"
       },
       "caveats": [
-        "Captured with Reduce Transparency ON and Increase Contrast OFF, which is the same state the 26.5 profile of this name was captured in. Recorded here only because its sibling profile changed: macOS 27 no longer couples the two toggles, so on 27 this state and the increased-contrast state are independent where on 26.5 one implied the other (W29 Surprises; claims \u00a75.150)."
+        "Captured with Reduce Transparency ON and Increase Contrast OFF, which is the same state the 26.5 profile of this name was captured in. Recorded here only because its sibling profile changed: macOS 27 no longer couples the two toggles, so on 27 this state and the increased-contrast state are independent where on 26.5 one implied the other (W29 Surprises; claims §5.150)."
       ]
     },
     {
@@ -21684,8 +22677,8 @@
       "display": {
         "actualBackingScale": 1,
         "colorSpace": "kCGColorSpaceSRGB",
-        "displayColorProfile": "\uac00\uc0c1 16:9",
-        "displayName": "\uac00\uc0c1 16:9",
+        "displayColorProfile": "가상 16:9",
+        "displayName": "가상 16:9",
         "pixelSize": [
           320,
           200
@@ -26307,7 +27300,7 @@
         "bundleBinarySha256": "bd3092e8d6d1f50ba43124adf42bed8a29e96646adb97bb3a538582653fda212",
         "bundleMinOS": "26.0",
         "bundleRecordedSdk": "26.0",
-        "bundleRecordedSdkNote": "LC_BUILD_VERSION's sdk field; ld writes sdk == minos on this build path, so this identifies the binary and is not a reading of the SDK it compiled against (claims \u00a75.149 \u00a71)",
+        "bundleRecordedSdkNote": "LC_BUILD_VERSION's sdk field; ld writes sdk == minos on this build path, so this identifies the binary and is not a reading of the SDK it compiled against (claims §5.149 §1)",
         "sceneSpecCanonicalSha256": "c3d1badce6a39a863296a5e6ef9055eb0491e04041f42e87935e01a91273c0fb",
         "passSpecSha256": "afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af",
         "runs": "7"
@@ -26319,8 +27312,8 @@
       "display": {
         "actualBackingScale": 2,
         "colorSpace": "kCGColorSpaceSRGB",
-        "displayColorProfile": "\uac00\uc0c1 16:9",
-        "displayName": "\uac00\uc0c1 16:9",
+        "displayColorProfile": "가상 16:9",
+        "displayName": "가상 16:9",
         "pixelSize": [
           640,
           400
@@ -29438,7 +30431,7 @@
         "bundleBinarySha256": "bd3092e8d6d1f50ba43124adf42bed8a29e96646adb97bb3a538582653fda212",
         "bundleMinOS": "26.0",
         "bundleRecordedSdk": "26.0",
-        "bundleRecordedSdkNote": "LC_BUILD_VERSION's sdk field; ld writes sdk == minos on this build path, so this identifies the binary and is not a reading of the SDK it compiled against (claims \u00a75.149 \u00a71)",
+        "bundleRecordedSdkNote": "LC_BUILD_VERSION's sdk field; ld writes sdk == minos on this build path, so this identifies the binary and is not a reading of the SDK it compiled against (claims §5.149 §1)",
         "sceneSpecCanonicalSha256": "c3d1badce6a39a863296a5e6ef9055eb0491e04041f42e87935e01a91273c0fb",
         "passSpecSha256": "afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af",
         "runs": "7"
@@ -29450,8 +30443,8 @@
       "display": {
         "actualBackingScale": 2,
         "colorSpace": "kCGColorSpaceSRGB",
-        "displayColorProfile": "\uac00\uc0c1 16:9",
-        "displayName": "\uac00\uc0c1 16:9",
+        "displayColorProfile": "가상 16:9",
+        "displayName": "가상 16:9",
         "pixelSize": [
           640,
           400
@@ -34073,7 +35066,7 @@
         "bundleBinarySha256": "bd3092e8d6d1f50ba43124adf42bed8a29e96646adb97bb3a538582653fda212",
         "bundleMinOS": "26.0",
         "bundleRecordedSdk": "26.0",
-        "bundleRecordedSdkNote": "LC_BUILD_VERSION's sdk field; ld writes sdk == minos on this build path, so this identifies the binary and is not a reading of the SDK it compiled against (claims \u00a75.149 \u00a71)",
+        "bundleRecordedSdkNote": "LC_BUILD_VERSION's sdk field; ld writes sdk == minos on this build path, so this identifies the binary and is not a reading of the SDK it compiled against (claims §5.149 §1)",
         "sceneSpecCanonicalSha256": "c3d1badce6a39a863296a5e6ef9055eb0491e04041f42e87935e01a91273c0fb",
         "passSpecSha256": "afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af",
         "runs": "7"
@@ -34488,7 +35481,7 @@
         {
           "cell": "apple-macos-26.5-2x-dark-standard/checkerboard-8__capsule-button__rest",
           "reason": "three structurally different settled appearances across seven runs at one sitting (3 / 3 / 1), a tie no majority settles; W25 Decision Log 5",
-          "observedStates": "the runs returned 3 settled appearances that differ structurally, not one appearance and some noise \u2014 1e8c6c4375ca (run-1run-2run-7) vs 813e53b93af7 (run-4run-5run-6) at maxDelta 51, 19586 px changed, coherence 1.000 vs 30a03fa4f26a (run-3) at maxDelta 58, 37699 px changed, coherence 1.000. A majority would publish whichever state happened to win two runs, which is a coin flip wearing a reference's name."
+          "observedStates": "the runs returned 3 settled appearances that differ structurally, not one appearance and some noise — 1e8c6c4375ca (run-1run-2run-7) vs 813e53b93af7 (run-4run-5run-6) at maxDelta 51, 19586 px changed, coherence 1.000 vs 30a03fa4f26a (run-3) at maxDelta 58, 37699 px changed, coherence 1.000. A majority would publish whichever state happened to win two runs, which is a coin flip wearing a reference's name."
         }
       ],
       "confidenceBought": {
@@ -35004,6 +35997,64 @@
       "cellsPublished": 21,
       "cellsSha256": "2c33292352d41d8092ee60f784db5e0a8f84f56cabee01198b839c25d6ca637f",
       "unanimousOrVoted": 21,
+      "frequencySettled": 0,
+      "frequencySettledCells": [],
+      "omitted": [],
+      "confidenceBought": {
+        "note": "probability a state held by fraction p of draws would have been seen at least once in 7 runs",
+        "atP0_50": 0.9922,
+        "atP0_33": 0.9394,
+        "atP0_25": 0.8665,
+        "atP0_167": 0.7217,
+        "atP0_10": 0.5217
+      }
+    },
+    {
+      "profiles": [
+        "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5"
+      ],
+      "runs": 7,
+      "runLabels": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7"
+      ],
+      "cellsPublished": 10,
+      "cellsSha256": "172154b2e2d66f95e61106f177115074282e62881baad631cf44293c4e772fa3",
+      "unanimousOrVoted": 10,
+      "frequencySettled": 0,
+      "frequencySettledCells": [],
+      "omitted": [],
+      "confidenceBought": {
+        "note": "probability a state held by fraction p of draws would have been seen at least once in 7 runs",
+        "atP0_50": 0.9922,
+        "atP0_33": 0.9394,
+        "atP0_25": 0.8665,
+        "atP0_167": 0.7217,
+        "atP0_10": 0.5217
+      }
+    },
+    {
+      "profiles": [
+        "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5"
+      ],
+      "runs": 7,
+      "runLabels": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7"
+      ],
+      "cellsPublished": 22,
+      "cellsSha256": "d914fcfd3928a1ace765380c7d5bd97d67451aef6eeb5fa90d83bc5999cefbe0",
+      "unanimousOrVoted": 22,
       "frequencySettled": 0,
       "frequencySettledCells": [],
       "omitted": [],
