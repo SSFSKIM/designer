@@ -1,0 +1,87 @@
+[2026-09-18T23:59:41Z] start increased-contrast; slider=0.5 rt=0 ic=1 borders=0 mode 69
+[2026-09-18T23:59:41Z] DRY active 1x increased-contrast
+run increased-contrast-active-1x-1: backgrounds 23:59:41Z
+run increased-contrast-active-1x-1 attempt 1: capture 23:59:41Z
+  error: the machine has been idle 19.9s, under the 45.0s this run requires, and a user-activity assertion is held. Liquid Glass adapts over seconds and a disturbed session captures the adaptation rather than the material. Leave the machine alone and re-run.
+  cells presented: 0
+[2026-09-18T23:59:41Z] STOP: dry active increased-contrast presented '0' (expected 10), rc=1
+[2026-09-19T00:00:24Z] start increased-contrast; slider=0.5 rt=0 ic=1 borders=0 mode 69
+[2026-09-19T00:00:24Z] DRY active 1x increased-contrast
+run increased-contrast-active-1x-1: backgrounds 00:00:24Z
+run increased-contrast-active-1x-1 attempt 1: capture 00:00:24Z
+  cells presented: 10
+PASS increased-contrast-active-1x DONE 00:01:30Z
+[2026-09-19T00:01:30Z] REAL active 1x increased-contrast
+pass: increased-contrast-active-1x runs 1..7  cells=10 ids  dry=0
+sitting dir: /Users/new/vitrea-w29-27-run
+pass spec:   /Users/new/vitrea-w29-27-run/increased-contrast-active-1x.scenes-27.json (afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af)
+run increased-contrast-active-1x-1: backgrounds 00:01:30Z
+run increased-contrast-active-1x-1 attempt 1: capture 00:01:30Z
+run 1: complete 00:03:06Z
+run increased-contrast-active-1x-1: attested 10 10  cells under 45s idle: 0  idle unreadable: 0
+run increased-contrast-active-1x-2: backgrounds 00:03:06Z
+run increased-contrast-active-1x-2 attempt 1: capture 00:03:06Z
+run 2: complete 00:04:41Z
+run increased-contrast-active-1x-2: attested 10 10  cells under 45s idle: 0  idle unreadable: 0
+run increased-contrast-active-1x-3: backgrounds 00:04:42Z
+run increased-contrast-active-1x-3 attempt 1: capture 00:04:42Z
+run 3: complete 00:06:17Z
+run increased-contrast-active-1x-3: attested 10 10  cells under 45s idle: 0  idle unreadable: 0
+run increased-contrast-active-1x-4: backgrounds 00:06:18Z
+run increased-contrast-active-1x-4 attempt 1: capture 00:06:18Z
+run 4: complete 00:07:53Z
+run increased-contrast-active-1x-4: attested 10 10  cells under 45s idle: 5  idle unreadable: 0
+run increased-contrast-active-1x-5: backgrounds 00:07:54Z
+run increased-contrast-active-1x-5 attempt 1: capture 00:07:54Z
+run 5: complete 00:09:29Z
+run increased-contrast-active-1x-5: attested 10 10  cells under 45s idle: 0  idle unreadable: 0
+run increased-contrast-active-1x-6: backgrounds 00:09:30Z
+run increased-contrast-active-1x-6 attempt 1: capture 00:09:30Z
+run 6: complete 00:11:06Z
+run increased-contrast-active-1x-6: attested 10 10  cells under 45s idle: 0  idle unreadable: 0
+run increased-contrast-active-1x-7: backgrounds 00:11:06Z
+run increased-contrast-active-1x-7 attempt 1: capture 00:11:06Z
+run 7: complete 00:12:42Z
+run increased-contrast-active-1x-7: attested 10 10  cells under 45s idle: 0  idle unreadable: 0
+PASS increased-contrast-active-1x DONE 00:12:42Z
+[2026-09-19T00:12:42Z] DONE active 1x increased-contrast
+[2026-09-19T00:12:42Z] DRY inactive 1x increased-contrast
+run increased-contrast-inactive-1x-1: backgrounds 00:12:42Z
+run increased-contrast-inactive-1x-1 attempt 1: capture 00:12:42Z
+  cells presented: 22
+PASS increased-contrast-inactive-1x DONE 00:15:07Z
+[2026-09-19T00:15:07Z] REAL inactive 1x increased-contrast
+pass: increased-contrast-inactive-1x runs 1..7  cells=22 ids  dry=0
+sitting dir: /Users/new/vitrea-w29-27-run
+pass spec:   /Users/new/vitrea-w29-27-run/increased-contrast-inactive-1x.scenes-27.json (afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af)
+run increased-contrast-inactive-1x-1: backgrounds 00:15:08Z
+run increased-contrast-inactive-1x-1 attempt 1: capture 00:15:08Z
+run 1: complete 00:18:41Z
+run increased-contrast-inactive-1x-1: attested 22 22  cells under 45s idle: 0  idle unreadable: 0
+run increased-contrast-inactive-1x-2: backgrounds 00:18:41Z
+run increased-contrast-inactive-1x-2 attempt 1: capture 00:18:41Z
+run 2: complete 00:22:12Z
+run increased-contrast-inactive-1x-2: attested 22 22  cells under 45s idle: 0  idle unreadable: 0
+run increased-contrast-inactive-1x-3: backgrounds 00:22:12Z
+run increased-contrast-inactive-1x-3 attempt 1: capture 00:22:12Z
+run 3: complete 00:25:45Z
+run increased-contrast-inactive-1x-3: attested 22 22  cells under 45s idle: 0  idle unreadable: 0
+run increased-contrast-inactive-1x-4: backgrounds 00:25:45Z
+run increased-contrast-inactive-1x-4 attempt 1: capture 00:25:45Z
+run 4: complete 00:29:16Z
+run increased-contrast-inactive-1x-4: attested 22 22  cells under 45s idle: 0  idle unreadable: 0
+run increased-contrast-inactive-1x-5: backgrounds 00:29:16Z
+run increased-contrast-inactive-1x-5 attempt 1: capture 00:29:16Z
+run 5: complete 00:32:47Z
+run increased-contrast-inactive-1x-5: attested 22 22  cells under 45s idle: 0  idle unreadable: 0
+run increased-contrast-inactive-1x-6: backgrounds 00:32:47Z
+run increased-contrast-inactive-1x-6 attempt 1: capture 00:32:47Z
+run 6: complete 00:36:18Z
+run increased-contrast-inactive-1x-6: attested 22 22  cells under 45s idle: 0  idle unreadable: 0
+run increased-contrast-inactive-1x-7: backgrounds 00:36:19Z
+run increased-contrast-inactive-1x-7 attempt 1: capture 00:36:19Z
+run 7: complete 00:39:52Z
+run increased-contrast-inactive-1x-7: attested 22 22  cells under 45s idle: 0  idle unreadable: 0
+PASS increased-contrast-inactive-1x DONE 00:39:52Z
+[2026-09-19T00:39:52Z] DONE inactive 1x increased-contrast
+[2026-09-19T00:39:52Z] BOTH increased-contrast PASSES DONE

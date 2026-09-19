@@ -1,0 +1,587 @@
+{
+  "gate": "W29 G1 Part B; acceptance clause 2; claims 5.150",
+  "note": "The raw runs stay on the capture machine, as a sitting's snapshots do. This names them, digests each run's manifest so the published bed can be traced back to the run that produced it, and records the first and last cell each run captured.",
+  "sittingDir": "~/vitrea-w29-27-run",
+  "passes": {
+    "standard-active-2x": {
+      "runs": [
+        {
+          "run": "run-1",
+          "manifestSha256": "4ca185e01aefcf82173cbe9276251151d55a7d6e32a6de160d4242e057156188",
+          "cells": 162,
+          "firstCapturedAt": "2026-09-18T07:21:26Z",
+          "lastCapturedAt": "2026-09-18T07:47:02Z",
+          "attestReadSha256": "2e983d608f864d101a6ea39b9c4d9c3522284a23fb1324bbde03f371d7814322",
+          "attestCloseSha256": "2d88f660571decae4cacd5a1ee22bd624805631d54e6224343b29800e8a27122"
+        },
+        {
+          "run": "run-2",
+          "manifestSha256": "78073d4f555fc411ec6459ec37f29fbcd152dae39ce885c7ac471dbdfb370202",
+          "cells": 162,
+          "firstCapturedAt": "2026-09-18T07:47:13Z",
+          "lastCapturedAt": "2026-09-18T08:12:53Z",
+          "attestReadSha256": "fab830c207ce552b49de38afee66509d316f62c8e512c9e361180634fb7502e5",
+          "attestCloseSha256": "d8aca46c4c58026f9bff4e96575699d96dfbbc09db84e954cce8fbbd137e7de3"
+        },
+        {
+          "run": "run-3",
+          "manifestSha256": "dc16f9062a95fd4eddf742854b692673e71522157368a291e80423f14f9a6c53",
+          "cells": 162,
+          "firstCapturedAt": "2026-09-18T08:13:04Z",
+          "lastCapturedAt": "2026-09-18T08:39:01Z",
+          "attestReadSha256": "33aec88a1599bb39f135ac2935792849ee8bee468db50af5ff1133a5a643783f",
+          "attestCloseSha256": "66302b0e2f3e0c7dc5b88c2d80d9f5c33cd7253a7e0157701692e6c5fdbab51e"
+        },
+        {
+          "run": "run-4",
+          "manifestSha256": "633202508102c8008087c0455679a62e0c92837a2f2a377307dddd6350b488b4",
+          "cells": 162,
+          "firstCapturedAt": "2026-09-18T08:39:12Z",
+          "lastCapturedAt": "2026-09-18T09:05:03Z",
+          "attestReadSha256": "cf5950629d458eb59e9b1c7fcefc4ae64194678bbf1c9e87bf976a770695771d",
+          "attestCloseSha256": "333279f0e4724eaf6224753d0edf7f7296a97608f4d954d4453bdf501e717d91"
+        },
+        {
+          "run": "run-5",
+          "manifestSha256": "2faf0976b6103045152b51639c33d329bf1ed8ae27dbbde26954a8dffd73ae49",
+          "cells": 162,
+          "firstCapturedAt": "2026-09-18T09:05:15Z",
+          "lastCapturedAt": "2026-09-18T09:31:13Z",
+          "attestReadSha256": "cc0e624d4ed15ee6948e80374c889ba57cdeda142f30b45e2cf5da9e56b8ffbc",
+          "attestCloseSha256": "1a45b51818b5f7524e61d8c60df6f68b3ee338eb9c7651e2613baa84f26b27db"
+        },
+        {
+          "run": "run-6",
+          "manifestSha256": "ae6bac62cbb089a50a1ac057e372c9ffa123b76686cfec121480b853a6878038",
+          "cells": 162,
+          "firstCapturedAt": "2026-09-18T09:31:24Z",
+          "lastCapturedAt": "2026-09-18T09:57:00Z",
+          "attestReadSha256": "9ec67c48aebd4e62c34be338fd6b3d5c6277435421aa385ab8e055c39d704781",
+          "attestCloseSha256": "1a0bebb9033e764db5ac81f78f27dbbd98d7ebc5fece7d2cc425cc2961ee5c76"
+        },
+        {
+          "run": "run-7",
+          "manifestSha256": "cd235bbd809ded33f15a87efdb7d688469e41b95a050933b4e044d7ca27263bb",
+          "cells": 162,
+          "firstCapturedAt": "2026-09-18T09:57:11Z",
+          "lastCapturedAt": "2026-09-18T10:22:48Z",
+          "attestReadSha256": "8e200d537c7cb41fd6c0ae8eae66b941e55dc60b4ddcedc4fccd5a975bf06550",
+          "attestCloseSha256": "207010d2deca0aceb6ba151c4febd1b3881f7500e4f8a3435ac080e755127826"
+        }
+      ],
+      "profiles": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "apple-macos-27.0-2x-light-standard-glass0.5"
+      ],
+      "passSpec": "standard-active-2x.scenes-27.json",
+      "passSpecSha256": "afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af"
+    },
+    "standard-inactive-2x": {
+      "runs": [
+        {
+          "run": "run-1",
+          "manifestSha256": "071573d9ba02809269211683e4c48561bb965dda63807cf997bd2faa6365d03a",
+          "cells": 119,
+          "firstCapturedAt": "2026-09-18T10:36:00Z",
+          "lastCapturedAt": "2026-09-18T10:54:49Z",
+          "attestReadSha256": "a2f340c9e12fc8c9ec4e96a3670e7505ab2ec5fbb29cc3d1d1990e1ba8f674e3",
+          "attestCloseSha256": "04e26a5d991e32b5067d0505316b3f692eacf1b57748232c7682c3fdd6cc0cac"
+        },
+        {
+          "run": "run-2",
+          "manifestSha256": "ed816c95a4dcb5faa584a088dc443cf733264e30a9ac9530bcac7b15e77aa755",
+          "cells": 119,
+          "firstCapturedAt": "2026-09-18T10:54:59Z",
+          "lastCapturedAt": "2026-09-18T11:13:47Z",
+          "attestReadSha256": "94f47c913f8a3acbf2890c3b58e31301e2602c175edaac523696bb334e0edc98",
+          "attestCloseSha256": "45d628b6f83ee607917a3bda8535ffe9cc566b71ef5e92ff9f25c0725d4b0e6a"
+        },
+        {
+          "run": "run-3",
+          "manifestSha256": "2845d84116b204aa3a92f2f0e478d3d51bbb30b7ab39d11b498f87d34adce000",
+          "cells": 119,
+          "firstCapturedAt": "2026-09-18T11:13:58Z",
+          "lastCapturedAt": "2026-09-18T11:32:48Z",
+          "attestReadSha256": "f611094099b2ea8c9c7302a12c4b227dbd1ab132ef02863c197825488f574ea0",
+          "attestCloseSha256": "0ac14636bcdbf6f25f320fc2717691e324e4c88150023495c40e9c85b1e49bbd"
+        },
+        {
+          "run": "run-4",
+          "manifestSha256": "b1d15479e61c7137e31748a6536eb0dce1aecea295fd7a4fbb45458d538ecb4c",
+          "cells": 119,
+          "firstCapturedAt": "2026-09-18T11:32:58Z",
+          "lastCapturedAt": "2026-09-18T11:51:50Z",
+          "attestReadSha256": "d8546c0d0ab6f1122ea311bb7285ff684b9c4c638153893644a3b16888e0b9d5",
+          "attestCloseSha256": "954b6bc2529b80f3b0894d429e1f65fb6836dc691a7f0ba346a68de83c3dc8c8"
+        },
+        {
+          "run": "run-5",
+          "manifestSha256": "ff1fc17c63e89270e56dcb2039ef9b7922f7f17dbb1c2fb696da9d2df0df69e8",
+          "cells": 119,
+          "firstCapturedAt": "2026-09-18T11:52:00Z",
+          "lastCapturedAt": "2026-09-18T12:10:51Z",
+          "attestReadSha256": "f07047891a3f8fe62df7aa4b3b75971c5b33a61f97527242e366dc66f31283e4",
+          "attestCloseSha256": "78f65f7aa62f984636edda681946ceee23e0aaee59e3217703c12472f1b88e04"
+        },
+        {
+          "run": "run-6",
+          "manifestSha256": "6a6283c4cbc7d129192abac44d4811e8465e1d4863cbbfb2fb8e5fe1fff87578",
+          "cells": 119,
+          "firstCapturedAt": "2026-09-18T12:11:01Z",
+          "lastCapturedAt": "2026-09-18T12:29:51Z",
+          "attestReadSha256": "8ad9cb3f6941c72b547e008731b11b7192a7348c7b4c31e8ae3b5d5d356b8870",
+          "attestCloseSha256": "e59f2bb5567a98f7543a072439153a3d27e1350c761246eb1e83744a37945d05"
+        },
+        {
+          "run": "run-7",
+          "manifestSha256": "0dfff198686a0cb42345c1d4d2fd7c346c18f7a44423c89be2b58da383c4d24e",
+          "cells": 119,
+          "firstCapturedAt": "2026-09-18T12:30:01Z",
+          "lastCapturedAt": "2026-09-18T12:48:51Z",
+          "attestReadSha256": "8765c545b70b6c2c7012ea02dd5fcf02d2c699831749903476137222e62deded",
+          "attestCloseSha256": "be7d56308f37498aeb8f0f003772b65344ebbb5cd1e3dafa31ae43801ba8c686"
+        }
+      ],
+      "profiles": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "apple-macos-27.0-2x-light-standard-glass0.5"
+      ],
+      "passSpec": "standard-inactive-2x.scenes-27.json",
+      "passSpecSha256": "afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af"
+    },
+    "standard-active-1x": {
+      "runs": [
+        {
+          "run": "run-1",
+          "manifestSha256": "cc32cc23c0f1bccfd66b093c84a85a74c19a2cd7a5b217f881f9c3b2b691b874",
+          "cells": 162,
+          "firstCapturedAt": "2026-09-18T13:06:50Z",
+          "lastCapturedAt": "2026-09-18T13:32:23Z",
+          "attestReadSha256": "03e8743844c93595aa39665fb8fcac847357da0099fb452d270ac8d72cbe6f84",
+          "attestCloseSha256": "d8708708c704769a7b6110b25dc88506ad8023c42b30517d77259b8f4fabe99e"
+        },
+        {
+          "run": "run-2",
+          "manifestSha256": "fdd6981e953ba5d7faf418c7e42e6ddd918801d926b3334ecc2fcbaa0aa90045",
+          "cells": 162,
+          "firstCapturedAt": "2026-09-18T13:32:33Z",
+          "lastCapturedAt": "2026-09-18T13:58:06Z",
+          "attestReadSha256": "6a248db1f364be7e2db5c88a6a579ffbed1c11f5175343983d78be04d7624124",
+          "attestCloseSha256": "74fdeb6109f1a96cc3e16a082c6a27118bf500d41429620e58ea69bac6a1f86b"
+        },
+        {
+          "run": "run-3",
+          "manifestSha256": "16f5fbe6aed29687dcd6722d426722f9f9b3ed2b4afb60ff67793b94286777ef",
+          "cells": 162,
+          "firstCapturedAt": "2026-09-18T13:58:16Z",
+          "lastCapturedAt": "2026-09-18T14:23:53Z",
+          "attestReadSha256": "543ffe8abced23404627453a29437cccfde2e01830cff6cc03905e98bedbd599",
+          "attestCloseSha256": "a7c3396bc751039b9558e97eef1962cb14376293d647717a872a3b350897e73a"
+        },
+        {
+          "run": "run-4",
+          "manifestSha256": "42aab2e88bb628153436be8f893fae9afaa8c50b792f6bc51fef49894da67b37",
+          "cells": 162,
+          "firstCapturedAt": "2026-09-18T14:24:05Z",
+          "lastCapturedAt": "2026-09-18T14:49:44Z",
+          "attestReadSha256": "b5926b9c8778421084d83d70baf8802e938f62620703616eb4814c3559d13ac8",
+          "attestCloseSha256": "00d0f74eac69a9579386df1ae649945a1979611eb3d5970ce8a4af7e4a2373b6"
+        },
+        {
+          "run": "run-5",
+          "manifestSha256": "9e6d7620eb9fc2d807517087b7efdc5f2d5402bfe172534248afbbdc5b464a38",
+          "cells": 162,
+          "firstCapturedAt": "2026-09-18T14:49:56Z",
+          "lastCapturedAt": "2026-09-18T15:15:39Z",
+          "attestReadSha256": "10ded019b5671ba4652c95ca3c37cc9a590383bca3978f140878df05ee4ac099",
+          "attestCloseSha256": "aeca8895657b105eb50adbe8cb43eba8da7131e2efbd55933574fbb8f80b99df"
+        },
+        {
+          "run": "run-6",
+          "manifestSha256": "1a6abc85ab14291ce86502cbef0171c2c1aa88dd17ea2ff596e8330b3eb9e786",
+          "cells": 162,
+          "firstCapturedAt": "2026-09-18T15:15:50Z",
+          "lastCapturedAt": "2026-09-18T15:41:24Z",
+          "attestReadSha256": "c80bfd330fe2ba18fabf22dab66d3149c14ca0ac874b2610047cd5b150faba3b",
+          "attestCloseSha256": "93646c89f981a86115c0bfb8eb5d9aafe9e0d87281a815378507eb7eb8525433"
+        },
+        {
+          "run": "run-7",
+          "manifestSha256": "359abc04eab4c21534830c8ef5cf16438bc3b53eb3db67d2c861e8477fc4fd79",
+          "cells": 162,
+          "firstCapturedAt": "2026-09-18T15:41:35Z",
+          "lastCapturedAt": "2026-09-18T16:07:09Z",
+          "attestReadSha256": "d597f9daad613ecb2caf3532781085f02f95edbeaa8ce7371a2f376149e927a5",
+          "attestCloseSha256": "257fd6383e4a8489fd0097e454cc6206731c3ef8ed812927589729784c0191fd"
+        }
+      ],
+      "profiles": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "apple-macos-27.0-1x-light-standard-glass0.5"
+      ],
+      "passSpec": "standard-active-1x.scenes-27.json",
+      "passSpecSha256": "afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af"
+    },
+    "standard-inactive-1x": {
+      "runs": [
+        {
+          "run": "run-1",
+          "manifestSha256": "eb62932d8e01e4c8f814a8056c93abc17b3214fb08c7c9fc14032d5f4e8aca87",
+          "cells": 119,
+          "firstCapturedAt": "2026-09-18T16:20:21Z",
+          "lastCapturedAt": "2026-09-18T16:39:18Z",
+          "attestReadSha256": "51adf8684c6bb458416202df0c1db3408953ec051ca47c3930983cdb75a9009e",
+          "attestCloseSha256": "c73e8be233c18706df24ab6c7d2a5654534203f6401c8d43f4828995792aa7be"
+        },
+        {
+          "run": "run-2",
+          "manifestSha256": "3c78bec408af96281b142c731985c1aed2fe1363de4c34e2892c885676a76ad0",
+          "cells": 119,
+          "firstCapturedAt": "2026-09-18T16:39:30Z",
+          "lastCapturedAt": "2026-09-18T16:58:23Z",
+          "attestReadSha256": "3d00dec3df07bdb28c5a5f7269f5475bbfc0f4c5350caf21e959831aa5916bdc",
+          "attestCloseSha256": "fbf30725d390ac5d8dbbec8cff1340c79defd81c245eee1a6a5a70f2a5912324"
+        },
+        {
+          "run": "run-3",
+          "manifestSha256": "75b262711824e834d2dfb96185f4822f71cc1330455f5e17b2d9d273edac05ca",
+          "cells": 119,
+          "firstCapturedAt": "2026-09-18T16:58:33Z",
+          "lastCapturedAt": "2026-09-18T17:17:33Z",
+          "attestReadSha256": "e79ae69ebfd5956ebb001c2ed5aeeb555cfb506f0efd23038f409e5b1f12361b",
+          "attestCloseSha256": "e40278742af829f0c7beffb4c2e7612d78d0642821ea923a5a115b12f7c5e462"
+        },
+        {
+          "run": "run-4",
+          "manifestSha256": "fda4db3f5820d5c185ae7f3215f50ba3b6c3dd2335e0c1fdc7c8f216a4ad0183",
+          "cells": 119,
+          "firstCapturedAt": "2026-09-18T17:17:43Z",
+          "lastCapturedAt": "2026-09-18T17:36:42Z",
+          "attestReadSha256": "a5f1e18547759c84d03c58e81a057e643bb2a26c819c8883162c9d77857f8528",
+          "attestCloseSha256": "fcadc9a1a89ce63d7c8db38a4d988349322e2bff160b2d78a640d696915eb14d"
+        },
+        {
+          "run": "run-5",
+          "manifestSha256": "794b1358d6ed02ea51bec9f26199ed5f1196a6c23697e0056a0e706b4477f6ee",
+          "cells": 119,
+          "firstCapturedAt": "2026-09-18T17:36:53Z",
+          "lastCapturedAt": "2026-09-18T17:55:49Z",
+          "attestReadSha256": "8d181df2bb74027cf0a0fcb76a3516a66d96b2a5411a2796b91a64fb1160d4db",
+          "attestCloseSha256": "5aba761ddb1f44e6395890c3770725c6f3ceda74b7562b6e7cd7011727110c62"
+        },
+        {
+          "run": "run-6",
+          "manifestSha256": "eb0f2b7ea4a7767a1b735974316a442079893f3ef93437d8bcbb0a49393d87fe",
+          "cells": 119,
+          "firstCapturedAt": "2026-09-18T17:56:01Z",
+          "lastCapturedAt": "2026-09-18T18:14:51Z",
+          "attestReadSha256": "74673a438aa5a3676f1b564c88abb3e010e30f140c1d89009bace06bab9acb38",
+          "attestCloseSha256": "e73c8dfd3cd8c1dc39bd23378c34bfb8c81a47e1159fe996f115b09e4e035d64"
+        },
+        {
+          "run": "run-7",
+          "manifestSha256": "b87e82c902304d484129477078a81cdc0536222b08048fac06929f8f09a964a8",
+          "cells": 119,
+          "firstCapturedAt": "2026-09-18T18:15:02Z",
+          "lastCapturedAt": "2026-09-18T18:33:54Z",
+          "attestReadSha256": "3f847dd403e3a4217e74be0c8b9a1b66aafa1e0bf853cc94fd20c35ca49ffba3",
+          "attestCloseSha256": "6a67d0ce3511382fd190089e0cddd0be36769be8a2fb2700acc052623d548636"
+        }
+      ],
+      "profiles": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "apple-macos-27.0-1x-light-standard-glass0.5"
+      ],
+      "passSpec": "standard-inactive-1x.scenes-27.json",
+      "passSpecSha256": "afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af"
+    },
+    "increased-contrast-active-1x": {
+      "runs": [
+        {
+          "run": "run-1",
+          "manifestSha256": "b82ad55a9c03fed66b525f190734324e33bc345462068656830aa947838cd9eb",
+          "cells": 10,
+          "firstCapturedAt": "2026-09-19T00:01:40Z",
+          "lastCapturedAt": "2026-09-19T00:03:06Z",
+          "attestReadSha256": "066f69af3d9ad25f7d19df078429632aba61207c2db2fc894f05dfa3f34c3816",
+          "attestCloseSha256": "e02487448e7ed223a7367abd978a6b4de201fbf4633f83af826b853f9e50e09c"
+        },
+        {
+          "run": "run-2",
+          "manifestSha256": "f397b7bcdb223c6e690ae320688da9ae5bf22da57bc41d3c7dc63df4cf373793",
+          "cells": 10,
+          "firstCapturedAt": "2026-09-19T00:03:16Z",
+          "lastCapturedAt": "2026-09-19T00:04:41Z",
+          "attestReadSha256": "6db1c6bcbc034d5945669e133355a060c27b430614da203a78f29f526d5f2972",
+          "attestCloseSha256": "3454a0d6ca84fd029128755dff80a2cc45f7be543b69e95eb31e7fd6dc942b48"
+        },
+        {
+          "run": "run-3",
+          "manifestSha256": "b8974a5071fb227a64ad8477943d9ac46f0da8d5d440e9180567cfae39bbce92",
+          "cells": 10,
+          "firstCapturedAt": "2026-09-19T00:04:52Z",
+          "lastCapturedAt": "2026-09-19T00:06:17Z",
+          "attestReadSha256": "6922b0e3c28c69047cb5764b09b9b18072afe0c7e7df60debe73c92eab029dd6",
+          "attestCloseSha256": "fea71f4ff12a5883dd04402a98c0a1b39441f6a50b3559875519893436656ad1"
+        },
+        {
+          "run": "run-4",
+          "manifestSha256": "6cd6fa5b054595324011f3398304917bd6150adcafffde2a8df1753f07eecace",
+          "cells": 10,
+          "firstCapturedAt": "2026-09-19T00:06:28Z",
+          "lastCapturedAt": "2026-09-19T00:07:53Z",
+          "attestReadSha256": "8819ea5737333dfcec9d8838f0e68024474ee60084afb211ec0667f8d140a8c7",
+          "attestCloseSha256": "275bd88ed06ef4a46ba2f4348fb99c053fef13cc9d6a9c0e3decad683825fc08"
+        },
+        {
+          "run": "run-5",
+          "manifestSha256": "f41a8f4d7ac5f45dd72eeb36feec6cdba29b1f3075af5aa5daa86aa67d4554a1",
+          "cells": 10,
+          "firstCapturedAt": "2026-09-19T00:08:03Z",
+          "lastCapturedAt": "2026-09-19T00:09:29Z",
+          "attestReadSha256": "78211ecc86396e7dfe3fe9f30ef2ab4352892a906c7a949eabdf4cfd48648430",
+          "attestCloseSha256": "f1771090b9e6c20e1a11c49584b5babcf545016534c5c750a73333bda8dbd903"
+        },
+        {
+          "run": "run-6",
+          "manifestSha256": "945b2e80611ebbc2ea5b46150fd1c944c76f523544511251dbe13208a581b320",
+          "cells": 10,
+          "firstCapturedAt": "2026-09-19T00:09:40Z",
+          "lastCapturedAt": "2026-09-19T00:11:06Z",
+          "attestReadSha256": "388cd96471a995d4f21b55c0ec44b1922706354c48544fff244faf8564394ed4",
+          "attestCloseSha256": "53d50379266a09f785e4a99542ced5e5d261e1a96121b35847f44aa86fc931db"
+        },
+        {
+          "run": "run-7",
+          "manifestSha256": "be9093ac9daa159f7cf005f35bf5657ad9a65adf6a2031de6100925827c9b564",
+          "cells": 10,
+          "firstCapturedAt": "2026-09-19T00:11:16Z",
+          "lastCapturedAt": "2026-09-19T00:12:42Z",
+          "attestReadSha256": "5ce3d5dc5043f43f4f9895afc06fa99cc021655e1b59e39def9e78e6424c8124",
+          "attestCloseSha256": "f2dccfef2bd0f08368af1c9d696a10c1a8e636fbfad40e2d102e925b33ac8d42"
+        }
+      ],
+      "profiles": [
+        "apple-macos-27.0-1x-light-increased-contrast-glass0.5"
+      ],
+      "passSpec": "increased-contrast-active-1x.scenes-27.json",
+      "passSpecSha256": "afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af"
+    },
+    "increased-contrast-inactive-1x": {
+      "runs": [
+        {
+          "run": "run-1",
+          "manifestSha256": "0d9247658f40eb6fd8d269c5c5640dfbc162a758c71b8018b1a96148f18312b0",
+          "cells": 22,
+          "firstCapturedAt": "2026-09-19T00:15:19Z",
+          "lastCapturedAt": "2026-09-19T00:18:41Z",
+          "attestReadSha256": "f66cbeeb535f73b934c1889a7de520c53f769b6974cd042ebac77ce3cc720081",
+          "attestCloseSha256": "40553de7a73dd9970b89a535aa9c65f8575338ef13014871d84798ef64faf598"
+        },
+        {
+          "run": "run-2",
+          "manifestSha256": "2d6f09cc71f18e37f12f1f86deb7ad7df6d47290bbf34e8ec5395cb4e513ce69",
+          "cells": 22,
+          "firstCapturedAt": "2026-09-19T00:18:51Z",
+          "lastCapturedAt": "2026-09-19T00:22:12Z",
+          "attestReadSha256": "9a1bb043505adda7048bdcac30f6ec82a398721ffdca82f4015a8712be0ccccc",
+          "attestCloseSha256": "0df783406feeba6e5445e8854fd8137d461c1b71cce23673ea1a3bf946afeeee"
+        },
+        {
+          "run": "run-3",
+          "manifestSha256": "829f1716fd068e4a4c29085ffb6dbb26dc80fe87e9003ca7c204a0aba819104c",
+          "cells": 22,
+          "firstCapturedAt": "2026-09-19T00:22:23Z",
+          "lastCapturedAt": "2026-09-19T00:25:45Z",
+          "attestReadSha256": "b9debade2b1995b20f8c788948a8b320ff6549168c722abc93927ab92fb17c18",
+          "attestCloseSha256": "12df5636e3fd820220e23f0238b7dca384f5920cd0d41a3e219a7df8894291de"
+        },
+        {
+          "run": "run-4",
+          "manifestSha256": "e5333ff2216b17e8766d70567ad68bf9e7ae1589dfa8e839c06acb9b3c277758",
+          "cells": 22,
+          "firstCapturedAt": "2026-09-19T00:25:55Z",
+          "lastCapturedAt": "2026-09-19T00:29:16Z",
+          "attestReadSha256": "fc1d9b88158096bdc2a2dc85fb22078c45420a815317792932a5aff97370f2b9",
+          "attestCloseSha256": "227931b8953a8be72e3188f9834933d7db7ecb5847022369ed28e7f6ce6df3e9"
+        },
+        {
+          "run": "run-5",
+          "manifestSha256": "25a6b295ac78f4d1c9b69f881f282a006ad59368dcce2993b1219d5e1fe3ffac",
+          "cells": 22,
+          "firstCapturedAt": "2026-09-19T00:29:26Z",
+          "lastCapturedAt": "2026-09-19T00:32:47Z",
+          "attestReadSha256": "68d2a6d17bd1583552bfcd1a4f7f41f3e3ae70df758dba9471c38ac96b71d443",
+          "attestCloseSha256": "9f86ee1a44f0b3b3c46de7a5f63a03fa61388d12e99055a9a700816e04e11196"
+        },
+        {
+          "run": "run-6",
+          "manifestSha256": "9ed55a3383fb8d1549e49ce94090e98b1c1aacc09e16343f92b3bce7e14c273f",
+          "cells": 22,
+          "firstCapturedAt": "2026-09-19T00:32:58Z",
+          "lastCapturedAt": "2026-09-19T00:36:18Z",
+          "attestReadSha256": "18e56d51bc241934cf0679de93fa83776e4017bf85239c87bf1e05c08ec9c21b",
+          "attestCloseSha256": "f19415e65a29c8063ba7c278c200f91e3b340086b7c959b9f105b858e1a83f57"
+        },
+        {
+          "run": "run-7",
+          "manifestSha256": "318a93a9459aae0e6c266fe24dcbda20d81e946fd0ea47f962ac3b90d2781649",
+          "cells": 22,
+          "firstCapturedAt": "2026-09-19T00:36:30Z",
+          "lastCapturedAt": "2026-09-19T00:39:52Z",
+          "attestReadSha256": "131b8d7a4b9ac0d0ab867145c3d75fb14c80672b006f12386cf638c4557ad401",
+          "attestCloseSha256": "d0b7696e056005a804013ed6ea04417f3dac2f85cb9e215f7d456a6f4b003d62"
+        }
+      ],
+      "profiles": [
+        "apple-macos-27.0-1x-light-increased-contrast-glass0.5"
+      ],
+      "passSpec": "increased-contrast-inactive-1x.scenes-27.json",
+      "passSpecSha256": "afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af"
+    },
+    "reduced-transparency-active-1x": {
+      "runs": [
+        {
+          "run": "run-1",
+          "manifestSha256": "646f2ef81b23463e3de0c052a05032f9267d7e59b837a65f0535ad2fdd29934e",
+          "cells": 9,
+          "firstCapturedAt": "2026-09-19T00:43:10Z",
+          "lastCapturedAt": "2026-09-19T00:44:26Z",
+          "attestReadSha256": "6de0da75b88b1a25b0669cf03062ab7493536fbd8a394a9a767e6df3f3cedf24",
+          "attestCloseSha256": "a12da58624e20e5a251677398612dc0a2a5cc97622d36c74c4aeef15710b252a"
+        },
+        {
+          "run": "run-2",
+          "manifestSha256": "ee521eaeb9635aeb8b5ff91b91f1359f2449d6655f3551c2d2ff59c366fa7771",
+          "cells": 9,
+          "firstCapturedAt": "2026-09-19T00:44:36Z",
+          "lastCapturedAt": "2026-09-19T00:45:52Z",
+          "attestReadSha256": "1727d7485ed932239907dede2280bf836246b3bc70a4cfa23a007cdbbc47d7a0",
+          "attestCloseSha256": "236450622384dfaf8c505f154ba111ec635eb3a4fa0e0ae46491f62d835af8a4"
+        },
+        {
+          "run": "run-3",
+          "manifestSha256": "30b6112b92272dacd0df59fbc61cc99bae53e2be176124feecb80f2dde231d1a",
+          "cells": 9,
+          "firstCapturedAt": "2026-09-19T00:46:02Z",
+          "lastCapturedAt": "2026-09-19T00:47:18Z",
+          "attestReadSha256": "9d1d9da5b40cbcba855b0ed7c2485451c533a4e44aa335a8ed6e6daa8b9f834b",
+          "attestCloseSha256": "893b40e40e9e50bfa605bdca5ef7443cd76595ff781efe0db08bc438d00b8108"
+        },
+        {
+          "run": "run-4",
+          "manifestSha256": "f6af2e2bf84ceb37cdf9b2bbf999f4f8d8135e6074a65af147343bef504b575c",
+          "cells": 9,
+          "firstCapturedAt": "2026-09-19T00:47:28Z",
+          "lastCapturedAt": "2026-09-19T00:48:44Z",
+          "attestReadSha256": "70d084ccc29de67182563012aad4fa4400184f75e1c3b0f559383fd5dcbb21b9",
+          "attestCloseSha256": "a3a8e6e5f0260f0386efd5fc4d97f3b31ed42718625a595018875b472a409b1d"
+        },
+        {
+          "run": "run-5",
+          "manifestSha256": "89c7f3153fd4937170992c3d18ea8e371b14be8ad42a6a2fbbc60552956ce19c",
+          "cells": 9,
+          "firstCapturedAt": "2026-09-19T00:48:56Z",
+          "lastCapturedAt": "2026-09-19T00:50:12Z",
+          "attestReadSha256": "98e3e044bfe819c2f47b3bffd7f3b88472ea191c4fde91dfd8a3e19bc0d25b6e",
+          "attestCloseSha256": "9d68d4d65ee1b34adf5d29418b614191ffce66f59abe9b3b308cd5c893f70715"
+        },
+        {
+          "run": "run-6",
+          "manifestSha256": "7df6b1b1f0bebb9e2b7d09319d6f3c020f79382648cf756c56d3a27421443d3b",
+          "cells": 9,
+          "firstCapturedAt": "2026-09-19T00:50:22Z",
+          "lastCapturedAt": "2026-09-19T00:51:38Z",
+          "attestReadSha256": "77d77243a6ea7576b298de4c346b0e1acb4fd3d6517477c3ca442fad6cf1929c",
+          "attestCloseSha256": "c589f38008e3a91384d68a43ff9b82eb75cf77ac361698f4205d06f8fcf42e48"
+        },
+        {
+          "run": "run-7",
+          "manifestSha256": "663c1ede8be8c278dd9ea89cfe20c1a09c3e7eb697be4f59580905cbe3adf5aa",
+          "cells": 9,
+          "firstCapturedAt": "2026-09-19T00:51:48Z",
+          "lastCapturedAt": "2026-09-19T00:53:04Z",
+          "attestReadSha256": "5e33cb8ded224dc4fa70fda932e2fdbe41eb57be8538895fb6a39a2d1aa08c57",
+          "attestCloseSha256": "c9a01a8f702c9f290c2135e39eed21a130757d58b9c880cc88d4e83f18958cd5"
+        }
+      ],
+      "profiles": [
+        "apple-macos-27.0-1x-light-reduced-transparency-glass0.5"
+      ],
+      "passSpec": "reduced-transparency-active-1x.scenes-27.json",
+      "passSpecSha256": "afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af"
+    },
+    "reduced-transparency-inactive-1x": {
+      "runs": [
+        {
+          "run": "run-1",
+          "manifestSha256": "798dd1712dc705dfb8cd3aa14ac003eba1b5ef6b8519aa8cddc4ab36fa8e1c9d",
+          "cells": 21,
+          "firstCapturedAt": "2026-09-19T00:55:33Z",
+          "lastCapturedAt": "2026-09-19T00:58:48Z",
+          "attestReadSha256": "b068583015db0d986b510cdefae8447c31386fe089be41e4449f911119600d14",
+          "attestCloseSha256": "bf552caeb9aa96ca128368375c4f58a6eafff58f47065324a9ceb97c2c8e15a8"
+        },
+        {
+          "run": "run-2",
+          "manifestSha256": "f7727a8992b5947de912f22484082fa5a5dde953ef0291890696ef9896a0e4d5",
+          "cells": 21,
+          "firstCapturedAt": "2026-09-19T00:58:58Z",
+          "lastCapturedAt": "2026-09-19T01:02:09Z",
+          "attestReadSha256": "98b49170cc71d556d902b7935ae7320cf5a0ca9e2415bc89f5d74dc6c78497a2",
+          "attestCloseSha256": "c74d84bdd1a1c8e3b3c23c61ef716db792bd88265ffda40d9aab2a0371f1fcc6"
+        },
+        {
+          "run": "run-3",
+          "manifestSha256": "bb1176deef516feae2b6dc630668c03e6fee1b07ce49a78c867aad11c64f0dc5",
+          "cells": 21,
+          "firstCapturedAt": "2026-09-19T01:02:20Z",
+          "lastCapturedAt": "2026-09-19T01:05:31Z",
+          "attestReadSha256": "6b63c0ef9dfc5fc841404f2ee0ec5bb5f62a6c9f7a3b9698f131b78b0e280e75",
+          "attestCloseSha256": "3c9554e941069c010190eff56287f3434c1a9eee9ec983ff6782302076468937"
+        },
+        {
+          "run": "run-4",
+          "manifestSha256": "dd6a0e5955f91fcaac22323bd51f8215cd00114d0b0ea069e8e4a7ac45287a6e",
+          "cells": 21,
+          "firstCapturedAt": "2026-09-19T01:05:41Z",
+          "lastCapturedAt": "2026-09-19T01:08:53Z",
+          "attestReadSha256": "b5fe3f39e2b8d7913c4bc08a25e8c4c8288695b7bcd0fa6445d6cd7a7f8ab213",
+          "attestCloseSha256": "9834038eef95afc9143930a48e02736a008c2720f35e74d59154cd526209857c"
+        },
+        {
+          "run": "run-5",
+          "manifestSha256": "7c04e2099c32d29c17d532fbf1ecef0862cefd71c73514996015b15964e10e61",
+          "cells": 21,
+          "firstCapturedAt": "2026-09-19T01:09:04Z",
+          "lastCapturedAt": "2026-09-19T01:12:19Z",
+          "attestReadSha256": "3fda514c9ef6d6ebc3936b9e38083ba565f57b38a3c675ee69d5c343a91a8e5e",
+          "attestCloseSha256": "f1bbc6028153d014d1f079ec1021ceb024a695e7cdd3bdb8dc0296f8541112f6"
+        },
+        {
+          "run": "run-6",
+          "manifestSha256": "dbacd2bf48202ab1b9e41d9a240910114c9ad1911d88eca66fcaa522af8ba905",
+          "cells": 21,
+          "firstCapturedAt": "2026-09-19T01:12:29Z",
+          "lastCapturedAt": "2026-09-19T01:15:40Z",
+          "attestReadSha256": "657bdd91c633158dca6ba7a3b3dc4e9e814b42a7a45589f1d332baf954660a8b",
+          "attestCloseSha256": "f93b086a521af91480afedd5cda28ac6c3f07e78e5aac4843628d3502d4426ff"
+        },
+        {
+          "run": "run-7",
+          "manifestSha256": "4d5253c2194a054db6cd83659fc057c48e0c9a60a9b134b559941be633f3f9ea",
+          "cells": 21,
+          "firstCapturedAt": "2026-09-19T01:15:52Z",
+          "lastCapturedAt": "2026-09-19T01:19:04Z",
+          "attestReadSha256": "2ed7ad8d62cc19f74255bf3b49b5cec83893548d59dff7de8b0fad2361a9206b",
+          "attestCloseSha256": "cb7112229808b7848659c37c9bcd6241fda893f64f4540ee536a3f6104c39021"
+        }
+      ],
+      "profiles": [
+        "apple-macos-27.0-1x-light-reduced-transparency-glass0.5"
+      ],
+      "passSpec": "reduced-transparency-inactive-1x.scenes-27.json",
+      "passSpecSha256": "afcc59c5b0191b7ac6d24bdf99daff6e8bcc8a3460c38ef9a7bd6090c14287af"
+    }
+  }
+}
