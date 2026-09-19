@@ -22551,8 +22551,8 @@ which is what separates a comfortable verdict from a marginal one. Full per-prof
 
 | law | verdict | moved (active / inactive) | median Δ | med Δ/bar |
 | --- | --- | --- | --- | --- |
-| silhouette / geometry | **did not move** | 248/342, 192/247 | IoU complement 3.6e-4; contour mean 0.014 px; area 8 px | 24–92 |
-| corner geometry | **did not move** | 230/340, 190/247 | κ 7.2e-4 /px, median signed **0.000**, 126 up / 104 down | 29–83 |
+| silhouette / geometry | **did not move** | 248/342, 192/247 | over the 539 healthy cells of §3: IoU complement 3.6e-4; contour mean 0.0145 px; area 8 px | 9–92 |
+| corner geometry | **did not move** | 230/340, 190/247 | κ 7.8e-4 /px over the same 537, median signed **0.000**, 126 up / 104 down | 29–83 |
 | interior level | **moved, both signed** | 342/342, 247/247 | 0.074 / 0.111 linear | 6e7–1e8 |
 | tone response by backdrop | **moved, conditioned on the backdrop** | 256/256, 169/169 | slope 0.030, offset 0.063 | 3e5–4e6 |
 | scatter / diffusion | **moved, conditioned on the backdrop's spatial scale** | 342/342, 247/247 | σ 0.015 / 0.009 | 2e6–5e6 |
