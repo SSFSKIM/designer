@@ -18,7 +18,7 @@ every script that produced them.
 | `commands.txt` | the eight passes' exact command lines, apart from the runbook's prose |
 | `RUNBOOK.md` | the operator's document: the pre-flight, the exact command for each of the eight passes, what "done" looks like, and every refusal and what it means |
 | `run-sitting-27.sh` | one pass of the bed. The version gate on 27.0/26A428, the slider, Show Borders, the accessibility mode, the display's mode and the capturing binary's linked SDK read and refused before pixels; a closing re-read diffed against the opening one; the W27 per-cell pose audit and quarantine, with run-level checks read out of the manifest the harness itself wrote |
-| `run-sitting-27.test.sh` | 27 rows over that script's refusals and control flow, machine stubbed. The half a rehearsal on a correctly-configured machine cannot reach |
+| `run-sitting-27.test.sh` | rows over that script's refusals and control flow, machine stubbed — 27 at G1's close, 36 after G1c. The half a rehearsal on a correctly-configured machine cannot reach |
 | `pass-spec.py` | the 27-only scene specification a pass reads, derived from the canonical declaration at every pass's opening, and the pass's cell list per pose and mode |
 | `rehearse-all.sh` | the four standard `DRY=1` rehearsals in one go, switching the display for the 1x arms and returning it to mode 68 |
 | `logs/rehearsal.txt` | what those rehearsals printed: 119 / 162 / 119 / 162 cells, 1 h 02 m, all clean |
@@ -90,3 +90,20 @@ The dispatch asked for **eight** 27 profile entries; the charter's clause 2 enum
 committed. Eight is the number of **passes** — each scale × mode × pose — and a pose is not a
 profile: an inactive pass captures the `__inactive` scenes these same six keys already declare.
 `scene-matrix.test.ts` pins the six and says so.
+
+## What moved here after this child closed
+
+G1c (Decision Log 4 (b), claims §5.152) added a second increased-contrast pass, captured with both
+accessibility toggles on, and it runs on these instruments rather than on copies of them: a second
+copy of a 450-line capture script is how two passes of one bed stop agreeing. So `pass-spec.py`,
+`run-sitting-27.sh`, `run-sitting-27.test.sh` and `RUNBOOK.md` (§3b) carry the coupled mode, and
+`scenes.json` is **version 7**. G1's own records — `commands.txt`, `sitting.md`, `attest/`,
+`bed-counts.txt`, `logs/` and every number in this file — describe the eight passes of 2026-09-18
+and are untouched.
+
+One consequence worth stating rather than discovering: the `canonicalSha256` and `passSpecSha256`
+those eight passes attested are digests of **version 6** and of the specification derived from it,
+and neither is reproducible from a checkout at version 7. That is what those fields are for — they
+say which declaration a run read — and the declaration has since gained a profile beside the six
+they were taken against. Nothing in the banked runs, the published cells or the committed record
+moved; what moved is the file they name, by an addition.

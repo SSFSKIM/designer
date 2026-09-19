@@ -103,7 +103,7 @@ export function osSeriesOf(osVersion: string): string | null {
  * of them at once: a sitting is hours of machine time and finding its second
  * problem after fixing its first costs another sitting.
  *
- * Four rules, in the order a reader should take them.
+ * Six rules, in the order a reader should take them.
  */
 export function runProvenanceProblems(runs: readonly RunProvenance[]): string[] {
   const problems: string[] = [];
@@ -133,7 +133,57 @@ export function runProvenanceProblems(runs: readonly RunProvenance[]): string[] 
             `filing into the other's directory, which is why this refuses here.`,
         );
       }
-      // 2. The appearance slider, which only the run script can attest. A key
+      // 2. The two accessibility toggles, against the mode the key names.
+      //    `a11yMode` in a manifest is `SystemAccessibility.current`, which
+      //    answers "is contrast on" and cannot distinguish the coupled state
+      //    from contrast alone — the distinction macOS 27 created by decoupling
+      //    the toggles, and the one W29 Decision Log 4 (b) captures a bed to
+      //    resolve. Only the run script's attestation reads both booleans, so
+      //    this is where the two increased-contrast keys are held apart. A key
+      //    claiming the coupled state needs an attestation and refuses without
+      //    one; a key claiming contrast alone is checked only where a run
+      //    attested, which is the proportionality the slider rule uses and the
+      //    reason the 26.5 bed — captured before the file existed, in the only
+      //    state its OS allowed — still wears the plain token.
+      const contrastMode =
+        claimed.a11yMode === "increased-contrast"
+        || claimed.a11yMode === "increased-contrast-coupled";
+      if (contrastMode) {
+        const wantCoupled = claimed.a11yMode === "increased-contrast-coupled";
+        const ic = run.attested?.["increaseContrast"];
+        const rt = run.attested?.["reduceTransparency"];
+        if (ic === undefined || rt === undefined) {
+          if (wantCoupled) {
+            problems.push(
+              `run ${run.label}: ${key} claims Increase Contrast and Reduce Transparency both ` +
+                `on, and the run attested increaseContrast=${JSON.stringify(ic ?? null)} ` +
+                `reduceTransparency=${JSON.stringify(rt ?? null)}. No manifest field carries ` +
+                `the two toggles separately, so a run that cannot say both stood on cannot be ` +
+                `published under a key that claims they did (X2).`,
+            );
+          }
+        } else if (ic === "0") {
+          problems.push(
+            `run ${run.label}: ${key} claims increased contrast and the run attested ` +
+              `increaseContrast=0.`,
+          );
+        } else if (wantCoupled && rt === "0") {
+          problems.push(
+            `run ${run.label}: ${key} claims the COUPLED state — contrast with reduce ` +
+              `transparency — and the run attested reduceTransparency=0. That run is the ` +
+              `decoupled bed and belongs under the plain increased-contrast key.`,
+          );
+        } else if (!wantCoupled && rt !== "0") {
+          problems.push(
+            `run ${run.label}: ${key} names increased contrast alone and the run attested ` +
+              `reduceTransparency=${rt}. macOS 27 decouples the two toggles, so a run with ` +
+              `both on is the coupled state and belongs under the ` +
+              `increased-contrast-coupled key; filing it here is the confound claims §5.151 §9 ` +
+              `records.`,
+          );
+        }
+      }
+      // 3. The appearance slider, which only the run script can attest. A key
       //    that names the axis and a run that cannot say where it stood are not
       //    publishable together: the position moves every cell of every arm
       //    beyond its own run-to-run spread (claims §5.149 §4), so an unattested
@@ -162,7 +212,7 @@ export function runProvenanceProblems(runs: readonly RunProvenance[]): string[] 
             `machine must agree on it exactly.`,
         );
       }
-      // 3. The attestation's own OS reading, against the same key. The manifest
+      // 4. The attestation's own OS reading, against the same key. The manifest
       //    and the attestation are two independent reads of one machine — the
       //    harness's, through Foundation, and the run script's, through
       //    `sw_vers` — and a bed is stronger for having both agree than for
@@ -187,7 +237,7 @@ export function runProvenanceProblems(runs: readonly RunProvenance[]): string[] 
     }
   }
 
-  // 4. The runs against each other. Every rule above is per run, so seven runs
+  // 5. The runs against each other. Every rule above is per run, so seven runs
   //    could each agree with their own keys and still have been taken on two
   //    builds of the same OS series — a point update is a different material and
   //    a Decision Log entry, and a plurality across one would be a vote between
@@ -209,7 +259,7 @@ export function runProvenanceProblems(runs: readonly RunProvenance[]): string[] 
     );
   }
 
-  // 5. And against each other on the declaration they read. `sceneSpecVersion`
+  // 6. And against each other on the declaration they read. `sceneSpecVersion`
   //    in the manifest would catch a version bump but not an edit inside one, and
   //    the declaration decides which cells exist and where their geometry puts
   //    them — so two runs of one pass taken across an edit are two beds. Only

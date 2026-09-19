@@ -47,16 +47,44 @@ export type FidelityTier = "texture" | "dom";
  * The amount is parsed as a number, so `-glass0.50` and `-glass0.5` name the
  * same position; nothing canonicalises the spelling, because a key is a literal
  * written once in `scenes.json` and reviewed there.
+ *
+ * `increased-contrast-coupled` is a fourth accessibility mode and it names a
+ * machine state rather than a macOS setting: **Increase Contrast on AND Reduce
+ * Transparency on**. Until macOS 27 that state needed no name of its own,
+ * because contrast force-enabled transparency reduction and the checkbox could
+ * not be uncleared while contrast was on — the coupled state was the only
+ * increased-contrast state a machine could be in, and
+ * `apple-macos-26.5-1x-light-increased-contrast` is it. macOS 27 decoupled the
+ * two toggles (W29 Surprises; claims §5.150 Part B §3), so on 27
+ * `…-increased-contrast-…` means contrast **alone** and the 26.5 state is
+ * reachable only by setting both by hand. Two states under one name is how a
+ * bed-against-bed read attributes a toggle to the material, which is exactly
+ * what §5.151 §9 had to refuse to do, so W29 Decision Log 4 (b) captures the
+ * coupled state under a key of its own and the grammar gains the token it needs.
+ * The mode is the whole machine state, not a composition of two tokens: nothing
+ * here parses `-coupled` as a modifier, and a key naming any other pair of
+ * toggles would need its own token and its own ruling.
  */
 export const PROFILE_KEY_PATTERN =
-  /^apple-(?<platform>macos|ios|ipados)-(?<osVersion>\d+\.\d+)-(?<scale>\d+)x-(?<colorScheme>light|dark)-(?<a11yMode>standard|reduced-transparency|increased-contrast)(?:-glass(?<glass>\d+(?:\.\d+)?))?$/;
+  /^apple-(?<platform>macos|ios|ipados)-(?<osVersion>\d+\.\d+)-(?<scale>\d+)x-(?<colorScheme>light|dark)-(?<a11yMode>standard|reduced-transparency|increased-contrast-coupled|increased-contrast)(?:-glass(?<glass>\d+(?:\.\d+)?))?$/;
 
 export interface NativeProfile {
   readonly platform: "macos" | "ios" | "ipados";
   readonly osVersion: string;
   readonly scale: number;
   readonly colorScheme: "light" | "dark";
-  readonly a11yMode: "standard" | "reduced-transparency" | "increased-contrast";
+  /**
+   * The accessibility state the fixtures were captured in. `increased-contrast`
+   * is contrast alone — which is all it could mean before macOS 27 decoupled the
+   * toggles, and all it means after — and `increased-contrast-coupled` is
+   * contrast **with** reduce transparency, the state macOS 26.5 forced and
+   * macOS 27 makes reachable only deliberately. See `PROFILE_KEY_PATTERN`.
+   */
+  readonly a11yMode:
+    | "standard"
+    | "reduced-transparency"
+    | "increased-contrast"
+    | "increased-contrast-coupled";
   /**
    * The appearance slider's position, `NSGlassTintAmount`, when the key states
    * one. Absent on every pre-27 key, and absent rather than defaulted to the

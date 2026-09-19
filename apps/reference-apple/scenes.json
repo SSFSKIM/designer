@@ -74,7 +74,18 @@
     "The two accessibility keys stay 1x light, as on 26.5: dark and 2x",
     "accessibility are W29 Deferred."
   ],
-  "version": 6,
+  "$comment-version-7": [
+    "7 \u2014 W29 Decision Log 4 (b): ONE new profile entry,",
+    "`apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5`, and this note. No",
+    "scene, background, component, tint, split membership or existing profile moves. The",
+    "entry exists because macOS 27 decoupled Increase Contrast from Reduce transparency:",
+    "the 27 profile named `\u2026-increased-contrast-glass0.5` was captured with contrast alone",
+    "and the 26.5 profile of that name was captured with both, so the two cannot be read",
+    "against each other like for like (claims \u00a75.151 \u00a79). This profile is the second",
+    "increased-contrast pass, captured with BOTH toggles on \u2014 the state 26.5 forced \u2014 and",
+    "its reading joins \u00a75.151 beside the confounded one, under \u00a75.152."
+  ],
+  "version": 7,
   "canvas": { "width": 320, "height": 200 },
 
   "backgrounds": {
@@ -1803,7 +1814,79 @@
         "The 26.5 increased-contrast list verbatim; see the reduced-transparency entry.",
         "macOS 27 decouples Show Borders from Increase Contrast and surfaces it as a",
         "separate switch; it is attested off per run from com.apple.Accessibility's",
-        "ButtonShapesEnabled (W29 Surprises) and is not an evidence class in this wave."
+        "ButtonShapesEnabled (W29 Surprises) and is not an evidence class in this wave.",
+        "It also decoupled Reduce transparency from Increase Contrast, so this profile is",
+        "contrast ALONE \u2014 all seven of its runs attested increaseContrast=1 with",
+        "reduceTransparency=0 \u2014 where the 26.5 profile of this name is contrast with",
+        "transparency reduction, the only state that OS allowed. The coupled state is",
+        "captured under the `-increased-contrast-coupled-` key below (W29 Decision Log 4",
+        "(b); claims \u00a75.151 \u00a79, \u00a75.152)."
+      ]
+    },
+    {
+      "key": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "colorScheme": "light",
+      "a11y": "increased-contrast",
+      "scenes": [
+        "checkerboard__capsule-button__rest",
+        "photo__capsule-button__rest",
+        "checkerboard__rrect-md__rest",
+        "photo__rrect-md__rest",
+        "photo__toolbar-group__rest",
+        "photo__capsule-button__pressed",
+        "hc-text__capsule-button__rest",
+        "photo__rrect-lg__rest",
+
+        "checkerboard__capsule-button__rest-tint-orange",
+        "photo__capsule-button__rest-tint-orange",
+
+        "checkerboard__capsule-button__inactive-tint-orange",
+        "checkerboard__capsule-button__inactive",
+        "checkerboard__rrect-md__inactive",
+        "hc-text__capsule-button__inactive",
+        "photo__capsule-button__inactive-pressed",
+        "photo__capsule-button__inactive-tint-orange",
+        "photo__capsule-button__inactive",
+        "photo__rrect-lg__inactive",
+        "photo__rrect-md__inactive",
+        "photo__toolbar-group__inactive",
+
+        "hc-text__rrect-sm__inactive",
+        "hc-text__rrect-lg__inactive",
+        "hc-text-7__rrect-md__inactive",
+        "hc-text-28__rrect-md__inactive",
+        "checkerboard-lc16__capsule-button__inactive",
+        "checkerboard-lc16__rrect-md__inactive",
+        "checkerboard-4__rrect-md__inactive",
+        "checkerboard__rrect-ml__inactive",
+        "dark-solid__rrect-48__inactive",
+        "dark-solid__rrect-80__inactive",
+        "dark-solid__rrect-md-clear20__inactive",
+        "light-solid__rrect-ml__inactive"
+      ],
+      "$comment": [
+        "The 26.5 increased-contrast list verbatim, like its sibling above \u2014 the same 32",
+        "cells, so the two 27 contrast beds and the 26.5 one are read over one scene list.",
+        "This profile is the state macOS 26.5 FORCED and macOS 27 leaves optional: Increase",
+        "Contrast ON *and* Reduce transparency ON. On 26.5 contrast force-enabled",
+        "transparency reduction and the checkbox could not be uncleared while contrast was",
+        "on, so `apple-macos-26.5-1x-light-increased-contrast` is that coupled state; on 27",
+        "the toggles are independent and the sibling key above is contrast ALONE (W29",
+        "Surprises; claims \u00a75.150 Part B \u00a73). Two states under one name is how a",
+        "bed-against-bed read attributes a toggle to the material, which is what claims",
+        "\u00a75.151 \u00a79 had to refuse to do, so W29 Decision Log 4 (b) captures the coupled state",
+        "under a key of its own and \u00a75.152 reads it against the 26.5 bed like for like.",
+        "`a11y` is `increased-contrast` and NOT the key's own token, and the difference is",
+        "deliberate: the field is what the harness matches against the machine, and",
+        "`SystemAccessibility.current` answers 'is contrast on' \u2014 it returns",
+        "`increased-contrast` in both states and cannot see the second toggle. Declaring the",
+        "key's token here would make the granted bundle skip this profile in every state,",
+        "and teaching it the token would be a rebuild (X4). What keeps the two profiles from",
+        "BOTH being captured by one pass is the derived pass specification, which carries",
+        "exactly one of them (`pass-spec.py`'s variant); what keeps a run out of the wrong",
+        "one is the attestation of the two toggles in `run-sitting-27.sh` and the refusal in",
+        "`src/run-provenance.ts`. Show Borders is off and attested here as everywhere in",
+        "this bed."
       ]
     },
     {

@@ -1,0 +1,39 @@
+== run-sitting-27.sh ==
+  ok   refuses an OS that is not 27.0
+  ok   refuses an undeclared 27 build
+  ok   refuses the machine's as-found slider position
+  ok   refuses an absent slider key rather than assuming the default
+  ok   refuses a standard pass on a reduced-transparency machine
+  ok   reads the coupled state as increased-contrast, as the harness does
+  ok   runs the increased-contrast pass on a contrast-only machine
+  ok   runs the coupled pass on a machine with both toggles on
+  ok   refuses the decoupled pass on a coupled machine
+  ok   refuses the coupled pass on a contrast-only machine
+  ok   refuses the coupled pass with contrast off
+  ok   refuses with Show Borders on
+  ok   refuses a 2x pass at the 1x display mode
+  ok   refuses a 1x pass at the 2x display mode
+  ok   refuses when the virtual display cannot be read
+  ok   refuses when the binary's LC_BUILD_VERSION cannot be read
+  ok   standard active 2x rehearses 96 ids and attests
+  ok   standard inactive 2x rehearses 72 ids and attests
+  ok   increased-contrast active 1x rehearses 10 ids and attests
+  ok   reduced-transparency inactive 1x rehearses 21 ids and attests
+  ok   increased-contrast-coupled active 1x rehearses 10 ids and attests
+  ok   increased-contrast-coupled inactive 1x rehearses 22 ids and attests
+  ok   dry run surfaces WOULD REFUSE and still reaches all 72 ids
+  ok   active pass does not run the inactive rehearsal
+  ok   inactive pass refuses on a failing rehearsal
+  ok   the derived 27-only spec reaches both resolvers and carries only the six 27 keys
+  ok   the coupled pass is offered exactly one contrast profile, the coupled one
+  ok   the decoupled pass is offered exactly one contrast profile, the decoupled one
+  ok   a coupled run that filed under the decoupled key is quarantined
+  ok   a banked run is skipped on resume
+  ok   a failing audit quarantines the run with its logs and attestation
+  ok   a run whose own manifest records another build is quarantined
+  ok   a run the harness measured at another scale is quarantined
+  ok   a run that filed under a 26.5 key is quarantined (X1)
+  ok   a state that moved between the two reads quarantines the run with both reads
+  ok   refuses an accessibility pass at a scale no profile declares
+
+all ok

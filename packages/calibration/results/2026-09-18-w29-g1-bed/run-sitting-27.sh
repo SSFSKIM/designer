@@ -1,8 +1,12 @@
 #!/bin/bash
 # One pass of the macOS 27 bed — W29 acceptance clause 2, Decision Log 3, claims §5.150.
 #
-#   ./run-sitting-27.sh <inactive|active> <1|2> \
-#                       [standard|increased-contrast|reduced-transparency] [first] [last]
+#   ./run-sitting-27.sh <inactive|active> <1|2> [<a11y mode>] [first] [last]
+#
+# where <a11y mode> is one of `standard`, `reduced-transparency`,
+# `increased-contrast` (contrast alone, which is all macOS 27 gives you by
+# turning it on) or `increased-contrast-coupled` (contrast AND reduce
+# transparency, the state macOS 26.5 forced — see (8) below).
 #
 # A PASS is one scale, one accessibility mode and one pose, and all three are
 # named on the command line. The W27 script named a pass by pose and scale only
@@ -55,9 +59,22 @@
 #      would file cells at two positions under one key.
 #   7. A derived, 27-only scene specification. See `pass-spec.py`: the harness
 #      selects profiles by accessibility mode and scale and by nothing else, so a
-#      pass against the canonical version-6 declaration would select both beds'
+#      pass against the canonical declaration would select both beds'
 #      profiles and spend twice the sitting writing 27 pixels into
 #      `apple-macos-26.5-…` directories.
+#   8. The two increased-contrast states, held apart. macOS 27 decoupled Reduce
+#      transparency from Increase Contrast, so `increased-contrast` is contrast
+#      ALONE and `increased-contrast-coupled` is the state 26.5 forced — both
+#      toggles on — which is the only state comparable with the 26.5 bed like for
+#      like (W29 Decision Log 4 (b); claims §5.151 §9, §5.152). The harness cannot
+#      tell them apart: `SystemAccessibility.current` answers "is contrast on".
+#      Two things separate them here, and neither is advice. The derived
+#      specification carries exactly ONE contrast profile, named by the pass, so
+#      the bundle is never offered both; and this script refuses unless BOTH
+#      toggles read the way the pass's mode declares — contrast alone refuses on a
+#      coupled machine as surely as the coupled pass refuses on a decoupled one,
+#      because a run in the wrong state filed under either key is exactly the
+#      confound the second pass exists to remove.
 #
 # The per-cell pose attestation audit and its quarantine are the W27 script's,
 # unchanged in what they require of a cell, with the run-level checks of (1),
@@ -66,12 +83,31 @@ set -euo pipefail
 
 MODE="${1:-}"; SCALE="${2:-}"; A11Y="${3:-standard}"; FIRST="${4:-1}"
 usage() {
-  echo "usage: $0 <inactive|active> <1|2> [standard|increased-contrast|reduced-transparency] [first] [last]" >&2
+  echo "usage: $0 <inactive|active> <1|2> [standard|increased-contrast|increased-contrast-coupled|reduced-transparency] [first] [last]" >&2
   exit 64
 }
 case "$MODE" in inactive|active) ;; *) usage;; esac
 case "$SCALE" in 1|2) ;; *) usage;; esac
-case "$A11Y" in standard|increased-contrast|reduced-transparency) ;; *) usage;; esac
+case "$A11Y" in standard|increased-contrast|increased-contrast-coupled|reduced-transparency) ;; *) usage;; esac
+# The pass's mode is a state of the machine; the harness's is a value it can
+# read. They are the same string for three of the four modes and differ for the
+# fourth, because `SystemAccessibility.current` returns `increased-contrast`
+# whenever contrast is on and cannot see the second toggle (SceneViews.swift).
+# So the coupled pass declares the mode the harness knows, selects the coupled
+# profile through the derived specification, and proves the second toggle in its
+# own attestation — WANT_RT below.
+MACHINE_A11Y="$A11Y"
+CONTRAST_VARIANT=decoupled
+# Which Reduce Transparency reading the pass requires, or `any` where the mode
+# does not state one. Both contrast passes state one: the whole point of the
+# second is that the toggle the 26.5 bed had on is an axis of the bed now.
+WANT_RT=any
+case "$A11Y" in
+  increased-contrast-coupled)
+    MACHINE_A11Y=increased-contrast; CONTRAST_VARIANT=coupled; WANT_RT=on;;
+  increased-contrast)
+    WANT_RT=off;;
+esac
 # Under DRY a bare `first` means one rehearsal, not seven; a real pass keeps the
 # seven-run bar as its default so that omitting the argument cannot under-bank.
 if [ -n "${5:-}" ]; then LAST="$5"
@@ -202,6 +238,11 @@ read_state() {
     echo "reduceTransparency=$rt"
     echo "increaseContrast=$ic"
     echo "a11yMode=$machine_a11y"
+    # The pass's own name for the state, beside the machine's. They differ only
+    # for the coupled contrast pass, where the machine's reading cannot express
+    # what the key claims, and `materialize` judges the KEY against the two
+    # booleans above rather than against this field (src/run-provenance.ts).
+    echo "passA11yMode=$A11Y"
     echo "showBorders=$borders"
     echo "displayplacerMode=${display_mode:-unreadable}"
     echo "displayModeDeclaredForScale=$WANT_DISPLAY_MODE"
@@ -224,8 +265,20 @@ read_state() {
     || refuse "macOS build $os_build is not the declared $OS_BUILD_DECLARED. A point update is a different bed and a Decision Log entry."
   [ "$glass" = "$GLASS_DECLARED" ] \
     || refuse "NSGlassTintAmount reads '$glass', not the ruled $GLASS_DECLARED. Decision Log 3 (a) captures this bed at the system default; set it with 'defaults write -g NSGlassTintAmount -float $GLASS_DECLARED'."
-  [ "$machine_a11y" = "$A11Y" ] \
+  [ "$machine_a11y" = "$MACHINE_A11Y" ] \
     || refuse "this pass declares accessibility mode '$A11Y' and the machine is in '$machine_a11y' (reduceTransparency=$rt increaseContrast=$ic). The mode is a read-only system value: set it in System Settings > Accessibility > Display and re-run."
+  # And the second toggle, which the machine's MODE cannot carry. On 26.5 it
+  # needed no reading: contrast force-enabled transparency reduction and the
+  # checkbox could not be uncleared, so contrast-on meant both-on. macOS 27 made
+  # them independent, which makes a run's transparency state an axis of the bed —
+  # the two contrast passes differ in nothing else, and a run that drifted across
+  # this line would be filed under a key that names the other state.
+  if [ "$WANT_RT" = "on" ] && [ "$rt" = "0" ]; then
+    refuse "this pass declares the COUPLED increased-contrast state and Reduce transparency reads 0. Decision Log 4 (b) captures it with BOTH toggles on, which is the state macOS 26.5 forced and the only one comparable with the 26.5 bed; turn Reduce transparency on in System Settings > Accessibility > Display and re-run."
+  fi
+  if [ "$WANT_RT" = "off" ] && [ "$rt" != "0" ]; then
+    refuse "this pass declares increased contrast ALONE and Reduce transparency reads '$rt'. macOS 27 decouples the two toggles, so a machine with both on is the coupled state: run it as 'increased-contrast-coupled', which files under its own key, rather than filing the coupled state under the decoupled bed's key (claims §5.151 §9)."
+  fi
   [ "$borders" = "0" ] \
     || refuse "Show Borders (com.apple.Accessibility ButtonShapesEnabled) reads '$borders', not 0. It is off in every run of this bed and is not an evidence class in this wave."
   [ -n "$display_mode" ] \
@@ -267,18 +320,26 @@ BUNDLE_SDK="$(printf '%s\n' "$VTOOL_OUT" | sed -n 's/^ *sdk *//p' | head -1)"
 
 mkdir -p "$T"
 # The 27-only specification, derived at the opening of every pass from the
-# canonical declaration and refused unless that declaration is still the six keys
-# clause 2 names, each at the ruled slider position, each declaring its 26.5
-# counterpart's scenes. See `pass-spec.py`.
+# canonical declaration and refused unless that declaration is still the keys the
+# bed names — clause 2's six plus Decision Log 4 (b)'s coupled contrast profile —
+# each at the ruled slider position, each declaring its 26.5 counterpart's scenes;
+# then narrowed to the ONE contrast profile this pass's mode names. See
+# `pass-spec.py`.
 PASS_SPEC="$T/$PASS.scenes-27.json"
-SPEC_READ="$(python3 "$HERE/pass-spec.py" spec "$CANONICAL" "$PASS_SPEC")"
+SPEC_READ="$(python3 "$HERE/pass-spec.py" spec "$CANONICAL" "$PASS_SPEC" "$CONTRAST_VARIANT")"
 CANONICAL_SHA="$(printf '%s\n' "$SPEC_READ" | sed -n 's/^canonicalSha256=//p')"
 PASS_SPEC_SHA="$(printf '%s\n' "$SPEC_READ" | sed -n 's/^passSpecSha256=//p')"
+# The profiles this pass could possibly file under — the derived specification's
+# own list, read back rather than restated. The run-level audit checks every key
+# the harness actually filed against it, which is what catches a contrast pass
+# that filed under the other contrast profile: the two never appear in one
+# derived specification, so the list is the narrow statement and not a broad one.
+PASS_PROFILES="$(printf '%s\n' "$SPEC_READ" | sed -n 's/^profiles=//p')"
 # The cells this pass presents, derived from the same document, per pose and per
 # accessibility mode. `--scenes` is required rather than optional: the profiles
 # declare both poses' states and the harness refuses the whole run if any cell it
 # would attempt states the pose this run is not presenting.
-SCENES="$(python3 "$HERE/pass-spec.py" ids "$PASS_SPEC" "$MODE" "$A11Y" "$SCALE")"
+SCENES="$(python3 "$HERE/pass-spec.py" ids "$PASS_SPEC" "$MODE" "$MACHINE_A11Y" "$SCALE")"
 SCENE_COUNT="$(printf '%s' "$SCENES" | tr ',' '\n' | grep -c . || true)"
 
 # The tint attestation is the LAST thing a run does, so a bundle that will fail it
@@ -381,6 +442,7 @@ for N in $(seq "$FIRST" "$LAST"); do
   # opening and records it per cell without refusing, so a touch mid-run files a
   # cell with its idle beside it and `sitting.md` is where that is listed.
   ATTESTED=$(MODE="$MODE" SCALE="$SCALE" OS_SERIES="$OS_SERIES" \
+             PASS_PROFILES="$PASS_PROFILES" \
              OS_BUILD_DECLARED="$OS_BUILD_DECLARED" python3 -c '
 import json, os, re, sys
 m = json.load(open(sys.argv[1]))
@@ -400,6 +462,8 @@ for p in m["profiles"]:
         problems.append("%s captured at backingScale %r, not %g" % (p["profileKey"], actual, want_scale))
     if not p["profileKey"].startswith("apple-macos-27.0-"):
         problems.append("%s is not a 27 profile key" % p["profileKey"])
+    elif p["profileKey"] not in os.environ["PASS_PROFILES"].split(","):
+        problems.append("%s is not a profile this pass declared" % p["profileKey"])
 f = [x for p in m["profiles"] for x in p["fixtures"]]
 if mode == "inactive":
     ok = [x for x in f if x.get("presentedActive") is False and x["deterministic"]

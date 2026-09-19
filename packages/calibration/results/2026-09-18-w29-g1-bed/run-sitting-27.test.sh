@@ -191,10 +191,38 @@ out="$(STUB_IC=1 STUB_RT=1 dry "$TMP/v4b" active 1 reduced-transparency)"
 grep -q "and the machine is in 'increased-contrast'" <<<"$out" \
   && ok "reads the coupled state as increased-contrast, as the harness does" \
   || bad "mis-read the coupled a11y state: $out"
-out="$(STUB_IC=1 STUB_RT=1 STUB_DISPLAY_MODE=69 dry "$TMP/v4c" active 1 increased-contrast)"
+out="$(STUB_IC=1 STUB_RT=0 STUB_DISPLAY_MODE=69 dry "$TMP/v4c" active 1 increased-contrast)"
 grep -q "cells presented:" <<<"$out" \
-  && ok "runs the increased-contrast pass on a coupled machine" \
+  && ok "runs the increased-contrast pass on a contrast-only machine" \
   || bad "refused a correct increased-contrast pass: $out"
+out="$(STUB_IC=1 STUB_RT=1 STUB_DISPLAY_MODE=69 dry "$TMP/v4c2" active 1 increased-contrast-coupled)"
+grep -q "cells presented:" <<<"$out" \
+  && ok "runs the coupled pass on a machine with both toggles on" \
+  || bad "refused a correct coupled increased-contrast pass: $out"
+
+# 4b. The two increased-contrast states, since macOS 27 decoupled the toggles
+#     (W29 Decision Log 4 (b); claims §5.152). The machine's MODE reads
+#     `increased-contrast` in both, so the gate above cannot separate them and
+#     the second toggle is read on its own. Each pass refuses the other's state:
+#     a run in the wrong one, filed under either key, is the confound §5.151 §9
+#     records — a toggle read as a material change.
+#
+#     The row above USED to assert that a COUPLED machine ran the plain
+#     increased-contrast pass, which was right while the coupled state was the
+#     only one macOS could be in. That state is the one the six-pass sitting of
+#     2026-09-18 did not capture, and the reversal is the point.
+out="$(STUB_IC=1 STUB_RT=1 dry "$TMP/v4d" active 1 increased-contrast)"
+grep -q "declares increased contrast ALONE and Reduce transparency reads '1'" <<<"$out" \
+  && ok "refuses the decoupled pass on a coupled machine" \
+  || bad "filed a coupled machine under the decoupled bed's key: $out"
+out="$(STUB_IC=1 STUB_RT=0 dry "$TMP/v4e" active 1 increased-contrast-coupled)"
+grep -q "declares the COUPLED increased-contrast state and Reduce transparency reads 0" <<<"$out" \
+  && ok "refuses the coupled pass on a contrast-only machine" \
+  || bad "filed a decoupled machine under the coupled key: $out"
+out="$(STUB_IC=0 STUB_RT=1 dry "$TMP/v4f" active 1 increased-contrast-coupled)"
+grep -q "and the machine is in 'reduced-transparency'" <<<"$out" \
+  && ok "refuses the coupled pass with contrast off" \
+  || bad "ran a coupled pass with contrast off: $out"
 
 # 5. Show Borders, the axis macOS 27 decoupled from Increase Contrast. Off in
 #    every run of this bed; the key is the one the user's toggle revealed.
@@ -231,14 +259,22 @@ grep -q "vtool read no LC_BUILD_VERSION" <<<"$out" \
 #    row pins is that the script derived and passed the right id list, which is
 #    the part that belongs to the script.
 for spec in "active 2 standard 96" "inactive 2 standard 72" \
-            "active 1 increased-contrast 10" "inactive 1 reduced-transparency 21"; do
+            "active 1 increased-contrast 10" "inactive 1 reduced-transparency 21" \
+            "active 1 increased-contrast-coupled 10" \
+            "inactive 1 increased-contrast-coupled 22"; do
   set -- $spec
   pose="$1"; scale="$2"; mode="$3"; want="$4"
   # The stubs read their environment, and `run` is a shell function, so the
   # per-row state is exported here rather than prefixed to the call.
   STUB_DISPLAY_MODE=68; STUB_IC=0; STUB_RT=0
   [ "$scale" = "1" ] && STUB_DISPLAY_MODE=69
-  [ "$mode" = "increased-contrast" ] && { STUB_IC=1; STUB_RT=1; }
+  # The two contrast states, which differ in the second toggle and in nothing
+  # else. The coupled rows carry the same 10 and 22 ids as the decoupled pass —
+  # the profile declares the 26.5 increased-contrast list verbatim — so what they
+  # pin is that the derived specification put the OTHER profile in front of the
+  # bundle, which row 11 reads out of the file itself.
+  [ "$mode" = "increased-contrast" ] && STUB_IC=1
+  [ "$mode" = "increased-contrast-coupled" ] && { STUB_IC=1; STUB_RT=1; }
   [ "$mode" = "reduced-transparency" ] && STUB_RT=1
   export STUB_DISPLAY_MODE STUB_IC STUB_RT
   out="$(dry "$TMP/p-$pose-$scale-$mode" "$pose" "$scale" "$mode")"
@@ -300,6 +336,47 @@ elif grep -q '"key": "apple-macos-26.5-' "$TMP/s12/standard-active-2x.scenes-27.
 elif [ "$(grep -c '"key": "apple-macos-27.0-' "$TMP/s12/standard-active-2x.scenes-27.json")" != "6" ]; then bad "the derived spec does not declare the six 27 profiles"
 elif ! grep -q "attested 1 1" <<<"$out"; then bad "a healthy run did not attest: $out"
 else ok "the derived 27-only spec reaches both resolvers and carries only the six 27 keys"; fi
+
+# 11b. The coupled pass is offered ONE contrast profile and it is the coupled
+#      one. The harness selects on the profile's declared `a11y`, both contrast
+#      profiles declare `increased-contrast` — `SystemAccessibility.current`
+#      cannot see the second toggle — so if both reached the bundle one pass
+#      would capture both keys from one machine state and the second bed would be
+#      a copy of the first under a different name. What prevents it is the
+#      derived specification carrying exactly one of them, which is read here out
+#      of the file the bundle is actually handed.
+out="$(STUB_IC=1 STUB_RT=1 STUB_DISPLAY_MODE=69 dry "$TMP/s12c" active 1 increased-contrast-coupled)"
+SPEC="$TMP/s12c/increased-contrast-coupled-active-1x.scenes-27.json"
+if [ ! -f "$SPEC" ]; then bad "the coupled pass derived no specification: $out"
+elif grep -q '"key": "apple-macos-27.0-1x-light-increased-contrast-glass0.5"' "$SPEC"; then
+  bad "the coupled pass's spec still declares the decoupled contrast profile"
+elif ! grep -q '"key": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5"' "$SPEC"; then
+  bad "the coupled pass's spec does not declare the coupled profile"
+elif [ "$(grep -c '"a11y": "increased-contrast"' "$SPEC")" != "1" ]; then
+  bad "more than one profile in the coupled pass's spec is selectable with contrast on"
+else ok "the coupled pass is offered exactly one contrast profile, the coupled one"; fi
+#      And the mirror: the ordinary contrast pass still gets the decoupled one.
+out="$(STUB_IC=1 STUB_RT=0 STUB_DISPLAY_MODE=69 dry "$TMP/s12d" active 1 increased-contrast)"
+SPEC="$TMP/s12d/increased-contrast-active-1x.scenes-27.json"
+if grep -q '"key": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5"' "$SPEC"; then
+  bad "the decoupled pass's spec declares the coupled profile"
+elif ! grep -q '"key": "apple-macos-27.0-1x-light-increased-contrast-glass0.5"' "$SPEC"; then
+  bad "the decoupled pass's spec does not declare the decoupled profile"
+else ok "the decoupled pass is offered exactly one contrast profile, the decoupled one"; fi
+
+# 11c. And a run that filed under a profile this pass did not declare is
+#      quarantined, read out of the manifest the harness itself wrote. The two
+#      contrast keys never appear in one derived specification, so this is the
+#      run-level statement that a coupled pass's cells are under the coupled key.
+sed -e 's/apple-macos-27.0-2x-light-standard-glass0.5/apple-macos-27.0-1x-light-increased-contrast-glass0.5/' \
+    -e 's/"actualBackingScale":2/"actualBackingScale":1/' -e 's/"requestedScale":2/"requestedScale":1/' \
+  "$TMP/manifest.json" > "$TMP/wrong-contrast.json"
+out="$(STUB_MANIFEST="$TMP/wrong-contrast.json" STUB_IC=1 STUB_RT=1 STUB_DISPLAY_MODE=69 \
+       run "$TMP/s12e" active 1 increased-contrast-coupled 1 1)"; code=$?
+if [ "$code" != "6" ]; then bad "a coupled run filed under the decoupled key exited $code, not 6"
+elif ! grep -q "is not a profile this pass declared" <<<"$out"; then
+  bad "a run filed under the other contrast profile was banked: $out"
+else ok "a coupled run that filed under the decoupled key is quarantined"; fi
 
 # 12. A healthy run banks and the pass resumes over it.
 out2="$(STUB_MANIFEST="$TMP/manifest.json" run "$TMP/s12" active 2 standard 1 1)"
