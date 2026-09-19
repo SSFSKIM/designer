@@ -1,0 +1,34 @@
+W29 G2 — the gate's close, on the worktree forked from main at 3d476331.
+
+$ pnpm --filter @vitrea/calibration lint
+> @vitrea/calibration@0.0.0 lint
+> eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json
+(no output; exit 0)
+
+The lint runs `tsc --noEmit` over the library and its tests, which import `@vitreajs/vitrea-web`
+and `@vitrea/renderer-webgpu`; those resolve only after `pnpm -r build`, which was run first, as
+CI's verify job does (`pnpm -r build && pnpm -r lint && pnpm -r test`).
+
+$ pnpm --filter @vitrea/calibration test
+> @vitrea/calibration@0.0.0 test
+> vitest run
+
+ RUN  v4.1.11 packages/calibration
+
+ Test Files  29 passed (29)
+      Tests  472 passed (472)
+   Duration  2.99s
+
+29 files rather than 28: `test/native-delta.test.ts` is this gate's, 15 cases over the two ported
+rim readers, the pair reader and the rule that pairs a 27 cell with its 26.5 counterpart. The
+pairing cases are asserted against `apps/reference-apple/scenes.json` itself rather than against a
+list written in the test, because a silently mispaired cell is the one failure this instrument could
+not survive and a hand-written expectation would carry the same assumption that produced it.
+
+$ python3 packages/calibration/results/2026-09-16-w29-freeze/freeze.py verify
+26.5 freeze intact: 1818 entries
+
+Taken again at the close, after every fixture in both beds had been read. Identical to the reading
+in `freeze-verify.txt` at the gate's opening. X1 and X3 hold: this gate wrote nothing under
+`apps/reference-apple/fixtures/`, `packages/calibration/profiles/` or `results/matrix.json`, moved
+no material, declared or changed no bound and no floor, regenerated no golden, and took no capture.

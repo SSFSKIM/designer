@@ -337,11 +337,24 @@ export function pairMetrics(
     metrics.contourDistanceMeanPx = contour.meanPx;
     metrics.contourDistanceP95Px = contour.p95Px;
     metrics.silhouetteAreaDeltaPx = Math.abs(a.area - b.area);
-    const curvature = cornerCurvature(a.silhouette, b.silhouette);
-    cornerCurvaturePerPx = [curvature.cornerCurvaturePerPxA, curvature.cornerCurvaturePerPxB];
-    metrics.cornerCurvatureDeltaPerPx = Math.abs(
-      curvature.cornerCurvaturePerPxA - curvature.cornerCurvaturePerPxB,
-    );
+    try {
+      const curvature = cornerCurvature(a.silhouette, b.silhouette);
+      cornerCurvaturePerPx = [curvature.cornerCurvaturePerPxA, curvature.cornerCurvaturePerPxB];
+      metrics.cornerCurvatureDeltaPerPx = Math.abs(
+        curvature.cornerCurvaturePerPxA - curvature.cornerCurvaturePerPxB,
+      );
+    } catch (error) {
+      /*
+       * A silhouette can be non-empty and still carry no traceable contour —
+       * a few scattered pixels where the extractor found the material's own
+       * level meeting the backdrop's. Curvature is then undefined rather than
+       * zero, and a zero here would read as "the two corners agree exactly",
+       * which is the opposite of what happened.
+       */
+      notes.push(
+        `corner curvature ABSENT: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
 
     const windows = ssimDepthWindows(field, a.silhouette, {
       splitPx: SSIM_BAND_SPLIT_CSS_PX * geometry.scale,

@@ -3038,3 +3038,32 @@ to hide in. Shape of the work: a three-run inactive arm through each bundle at s
 same four ids. It needs the 27-SDK side bundle's Screen Recording grant back, and granting it evicts
 the harness bundle's (W29 Surprises), so it costs two hands on System Settings and should be done
 only alongside something else that already needs the side bundle granted.
+
+## `cornerCurvature` reports a number on a contour too short to carry one (2026-09-19, §5.151 §4)
+
+*Found by W29 G2, reading two native beds against each other.* `contourCurvature` refuses a
+zero-length contour outright — "a 0.00px contour sampled 512 times at σ=3 carries no curvature" —
+which is right, and G2 catches that refusal and records the axis as absent. What it does **not**
+refuse is a contour that is merely far too short for its own smoothing scale. On the four
+`dark-solid__rrect-64__rest` cells the 26.5 silhouette is a 574-px fragment, and the estimator
+returns a characteristic corner curvature of **338.9 /px** — an implied corner radius of 0.003 px,
+on a component whose declaration says 64. Two cells further along, `dark-solid__rrect-48__rest` at
+2x returns 3.68 /px and `dark-solid__rrect-80__rest` returns 39.4 /px, from 431-px and 331-px
+fragments of a shape that encloses ten to sixteen thousand pixels.
+
+The number is not wrong arithmetic; it is the curvature-scale-space estimator applied to a perimeter
+shorter than the σ = 3 px Gaussian it is differentiated with, where the smoothed derivatives are
+dominated by the fragment's own ends. It is dangerous rather than merely useless because it is a
+*plausible-looking* float in a column of plausible-looking floats: a per-component median over those
+cells would report that Apple moved a corner from radius 0.003 px to radius 12.95 px, which is the
+extractor's story and not the material's. G2 names those cells and reads its corner verdict off the
+539 cells whose two silhouettes are within 2x of each other, but the next reader has to know to.
+
+**The fix shape**, in `src/metrics/shape.ts`: refuse in `contourCurvature` when the traced perimeter
+is under a few multiples of `smoothingSigmaPx` — the same `CalibrationError("empty-region", …)` the
+zero-length case already raises, with the perimeter and the sigma in the message — so a caller gets
+an absence with a reason instead of a number. The threshold wants one measurement behind it rather
+than a guess: sweep a rasterised circle of known radius down through short perimeters and record
+where `cornerCurvaturePerPxA` leaves the ±12 % of `1/r` the doc comment already claims for it. About
+twenty lines and one test beside the existing curvature tests, plus a re-read of any committed row
+that would newly become absent.
