@@ -1,0 +1,226 @@
+{
+  "$comment": [
+    "The macOS 27 dark-standard material: the difference document, in the same",
+    "relationship to the runtime default that apple-macos-26.5-1x-dark-standard.json",
+    "is in. It serves both dark profiles, at both scales.",
+    "",
+    "Read it against the 27 LIGHT document rather than against the 26.5 dark one for",
+    "what this child changed: the two schemes' refits are the same three laws at",
+    "different numbers, and the dark scheme keeps a thin/thick split at the bright end",
+    "of the response where the light scheme's rows converge."
+  ],
+  "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-19",
+  "recordedBy": "W29 G3",
+  "colorSpace": "srgb",
+  "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
+  "supersedes": "apple-macos-26.5-1x-dark-standard",
+  "resolvedMaterialSha256": "614559032cd0465e",
+  "measurement": {
+    "fixtures": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5 and -2x-, the W29 G1 bed at seven runs per cell, slider 0.5",
+    "cellsUsedForFitting": 54,
+    "fixtureSets": "calibration and probe; validation checked and never fitted; holdout read once at the sealed configuration",
+    "webCell": "chromium 151.0.7922.34, renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3",
+    "objective": "as the light document's",
+    "objectiveBefore": 0.0807,
+    "objectiveAfter": 0.0228,
+    "reproduce": "python3 packages/calibration/results/2026-09-19-w29-g3-refit/fit.py render <label> apple-macos-27.0-1x-dark-standard-glass0.5 webgpu <document> --set calibration,probe"
+  },
+  "patch": {
+    "backdropToneAnchorX": [
+      0.004,
+      0.11,
+      0.47,
+      0.95
+    ],
+    "backdropToneResponseThin": [
+      0.036,
+      0.042,
+      0.199,
+      0.464
+    ],
+    "backdropToneResponseThick": [
+      0.031,
+      0.035,
+      0.169,
+      0.196
+    ],
+    "backdropToneResponseStrength": 1,
+    "tintShadeStrength": 0,
+    "optics": {
+      "regular": {
+        "tint": [
+          0.05,
+          0.05,
+          0.05
+        ],
+        "tintAlpha": 0.9,
+        "rimAlpha": 0.055,
+        "specularGain": 0,
+        "rimLevelGain": 0.44,
+        "rimWidth": 2.2
+      }
+    },
+    "adaptiveTintDark": [
+      0.05,
+      0.05,
+      0.05
+    ],
+    "adaptiveTintLight": [
+      0.05,
+      0.05,
+      0.05
+    ],
+    "outerShadow": {
+      "thinOcclusionDark": 0,
+      "thinOcclusionMid": 0.063,
+      "thinOcclusionBright": 0.063,
+      "thickOcclusionAt96": 0.278,
+      "thickOcclusionAt128": 0.301,
+      "thickOcclusionAt160": 0.324,
+      "liftAmplitude": 0.0051,
+      "liftSpanMin": 64,
+      "liftSpanFull": 118,
+      "liftBlurSigmaCss": 40,
+      "reducedTransparencyOcclusion": 0.038
+    },
+    "sizeHeavyTapSigma": 0,
+    "sizeHeavyTapSigma2x": 0,
+    "backdropToneLow": 0,
+    "backdropToneHigh": 0.0001,
+    "sizeScatterFloor": 0.34
+  },
+  "entries": {
+    "backdropToneAdaptation": {
+      "status": "measured",
+      "value": {
+        "backdropToneLow": 0,
+        "backdropToneHigh": 0.0001
+      },
+      "previous": {
+        "backdropToneLow": 0.02,
+        "backdropToneHigh": 0.055
+      },
+      "method": [
+        "The same reading as the light document's, and it is the same statement about",
+        "the material rather than about the scheme: over `dark-solid` the 27 dark",
+        "reference settles at 0.0419 against a backdrop of 0.011 linear, four times it,",
+        "and over `impulse` at 0.0356 against 0.0003. Nothing on this bed converges on",
+        "its backdrop, so the band that made the material converge stands down."
+      ]
+    },
+    "backdropToneResponse": {
+      "status": "measured",
+      "value": {
+        "backdropToneAnchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "backdropToneResponseThin": [
+          0.036,
+          0.042,
+          0.199,
+          0.464
+        ],
+        "backdropToneResponseThick": [
+          0.031,
+          0.035,
+          0.169,
+          0.196
+        ]
+      },
+      "previous": {
+        "backdropToneAnchorX": [
+          0.1104,
+          0.2706,
+          0.9505
+        ],
+        "backdropToneResponseThin": [
+          0.011,
+          0.0284,
+          0.1611
+        ],
+        "backdropToneResponseThick": [
+          0.0131,
+          0.0238,
+          0.1006
+        ]
+      },
+      "method": [
+        "Four knots, as the light document's, and the third at 0.47 rather than 0.425:",
+        "the dark bed's two structured backdrops sit at 0.425 and 0.500 and read within",
+        "0.04 of each other, so one knot between them carries both and the gated cells",
+        "are `photo` and `checkerboard`.",
+        "The ordinates are the reference's own levels, corrected once by the rendered",
+        "residual. The reference's dark level rose by about three times across the bed",
+        "— `photo__rrect-md__rest` 0.1887 against vitrea's 0.0415, `checkerboard`",
+        "0.1646 against 0.0498 — which is the same finding as the light scheme's, at a",
+        "scheme whose neutral is 0.05 rather than white.",
+        "Unlike the light scheme, the two rows do NOT converge at the bright end:",
+        "0.464 thin against 0.196 thick at 0.95, read off `light-solid__rrect-sm__rest`",
+        "(0.4721) and `light-solid__rrect-lg__rest` (0.2036). The dark material over a",
+        "bright backdrop still depends strongly on how thick the surface is."
+      ]
+    },
+    "rim": {
+      "status": "measured",
+      "value": {
+        "rimAlpha": 0.055,
+        "rimLevelGain": 0.44,
+        "rimWidth": 2.2
+      },
+      "previous": {
+        "rimAlpha": 0.0265,
+        "rimLevelGain": 2.334
+      },
+      "method": [
+        "The dark rim's amplitude law read the same way as the light one, and the",
+        "finding is in the GAIN: 2.334 was fitted on a body whose level ran 0.01 to 0.16,",
+        "and the 27 body runs 0.04 to 0.47, so the same gain would draw a rim four times",
+        "the reference's on the bright cells. The least-squares line through the five",
+        "backdrops' (level, wanted amplitude) pairs is 0.055 + 0.44 x — a larger",
+        "intercept and a fifth of the gain, which is the dark rim becoming much flatter",
+        "in the body's own level.",
+        "The width moves far less than the light scheme's: the dark reference's FWHM is",
+        "about 1.25 CSS px against vitrea's 1.0, so 2.2."
+      ]
+    },
+    "scatter": {
+      "status": "measured",
+      "value": {
+        "sizeScatterFloor": 0.34
+      },
+      "previous": {
+        "sizeScatterFloor": 0.4
+      },
+      "method": [
+        "The dark document names no heavy tap (`sizeHeavyTapSigma` 0 at both scales, and",
+        "that is unchanged), so the mix is the whole lever here. Fitted on the interior's",
+        "spread with the level already refitted: the bed-wide signed residual is −0.014",
+        "at 0.34, and the per-backdrop spread is inside ±0.05 on every backdrop but",
+        "`checkerboard-64`."
+      ]
+    },
+    "cssTierBlur": {
+      "status": "measured",
+      "value": {
+        "blurSigmaScale": 2.2
+      },
+      "previous": {
+        "blurSigmaScale": 1
+      },
+      "method": [
+        "The light document's constant, carried here so that one scheme's dom tier is",
+        "not blurred differently from the other's for want of a key. The dark dom tier",
+        "meets every adopted row at either value; it is set for coherence, not by a fit",
+        "of its own, and this entry says so."
+      ]
+    }
+  },
+  "cssTierMapping": {
+    "blurSigmaScale": 2.2
+  }
+}

@@ -238,6 +238,21 @@ function load(key: string): TunedProfile {
 
 const LIGHT = load("apple-macos-26.5-1x-light-standard");
 const DARK = load("apple-macos-26.5-1x-dark-standard");
+/**
+ * The macOS 27 documents (W29 G3, claims §5.153).
+ *
+ * They are patches over the same unmoved runtime default the two above are
+ * patches over — W29 Decision Log 1 (i) — and they are pinned here by the same
+ * fingerprint for the same reason: a recorded measurement nobody can apply, or
+ * can apply and get a different material from, is not evidence.
+ *
+ * Neither claims `identityWithRuntimeDefault`. Only one document can be the
+ * identity with a single default and that one is the frozen 26.5 light patch;
+ * asserting the absence below is what keeps the 27 refit from quietly becoming a
+ * second claim on the same constant.
+ */
+const LIGHT_27 = load("apple-macos-27.0-1x-light-standard-glass0.5");
+const DARK_27 = load("apple-macos-27.0-1x-dark-standard-glass0.5");
 
 describe("tuned calibration profiles", () => {
   it("carry the profile key they are named for, in the locked colour space", () => {
@@ -317,6 +332,33 @@ describe("tuned calibration profiles", () => {
     // And the two profiles resolve differently, so the fingerprint is discriminating
     // rather than a constant that would match anything.
     expect(LIGHT.resolvedMaterialSha256).not.toBe(DARK.resolvedMaterialSha256);
+  });
+
+  it("pins the macOS 27 documents the same way, and keeps the identity singular", () => {
+    /*
+     * W29 G3 (claims §5.153). The 27 material ships as patch documents over the
+     * unmoved default (W29 Decision Log 1 (i)), so the same two guarantees apply
+     * one bed along: the digest is over the fully resolved material, and it moves
+     * when the rendered material moves.
+     *
+     * The four digests being pairwise distinct is the load-bearing half of this
+     * case. It is what proves the two beds' materials are different objects — if
+     * a 27 document ever resolved to a 26.5 digest, the refit would have landed
+     * on nothing — and it is the check that the 26.5 documents still resolve as
+     * they were recorded while two new documents patch the same default (X1).
+     */
+    for (const profile of [LIGHT_27, DARK_27]) {
+      const resolved = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, profile.patch);
+      expect(
+        fingerprint(resolved),
+        `${profile.profileKey}: the resolved material no longer matches the recorded ` +
+          `fingerprint — re-run results/2026-09-19-w29-g3-refit/seal.ts and say what moved`,
+      ).toBe(profile.resolvedMaterialSha256);
+      expect(profile.identityWithRuntimeDefault).toBeUndefined();
+      expect(resolved).not.toEqual(DEFAULT_MATERIAL_PROFILE);
+    }
+    const digests = [LIGHT, DARK, LIGHT_27, DARK_27].map((p) => p.resolvedMaterialSha256);
+    expect(new Set(digests).size, "four documents, four materials").toBe(4);
   });
 
   it("records the measured light-scheme tint alpha, not the advisory one", () => {
