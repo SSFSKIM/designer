@@ -22534,14 +22534,28 @@ constructions, one on bytes and one on metrics, agreeing cell for cell.
 ### 1. The scope of the read
 
 **619 pair rows**, one per 26.5 cell, keyed `{ profileKey27, profileKey26, sceneId }`; **231 recede
-rows**; **0 cells without a bar**. Five 27 cells have no 26.5 counterpart and are **reported rather
-than diffed** — `light-solid__capsule-button__inactive` and `photo__glass-over-glass__inactive` on
+rows**; **0 pair cells without a bar**. Five 27 cells have no 26.5 counterpart and are **reported
+rather than diffed** — `light-solid__capsule-button__inactive` and `photo__glass-over-glass__inactive` on
 both dark profiles, and `checkerboard-8__capsule-button__rest` at 2x dark — which are exactly the
 five §5.150 Part B §5 names as declared-but-never-published on 26.5.
 
 Active and inactive are read apart throughout (342 active and 277 inactive pairs), and the recede is
 reported as its own difference of differences, so the version change and the recede are never each
 other (§5.134's warning; W29 Risks).
+
+**Review closure (2026-09-19): "0 cells without a bar" was true of the pair rows and not of the
+recede ones.** The instrument's first cut gave a recede reading a bar only where *both* 27 cells had
+a non-zero spread of their own, so **158 of the 231 recede rows carried no bar at all** and §8's
+medians were read off 18 to 70 rows while 219 pairs were measurable. `native-delta.ts` now gives the
+recede rows the same three-level fallback the pair rows always had — the cell's own spread, else the
+bed-wide minimum non-zero spread for that reading, else exactly zero where the bed never resolved the
+reading's spread — and **all 2,570 measurable recede readings now carry a bar** (2,322 bed-minimum,
+201 bed-zero, 47 from the cells' own spread). The bar file itself is untouched: the per-reading
+fallback is derived from its own committed cells. The regenerated rows are `recede-delta.json` with
+the original kept beside them as **`recede-delta.v1.json`**, the regenerated tables are
+**`law-tables.v2.txt`** beside the `law-tables.txt` this section was first read off, and every figure
+the closure adds is computed in `review-closure.py` into `review-closure.txt`. The pair rows are
+bit-identical across the re-run, so nothing outside §8 moves.
 
 ### 2. The verdict per law
 
@@ -22552,14 +22566,24 @@ which is what separates a comfortable verdict from a marginal one. Full per-prof
 | law | verdict | moved (active / inactive) | median Δ | med Δ/bar |
 | --- | --- | --- | --- | --- |
 | silhouette / geometry | **did not move** | 248/342, 192/247 | over the 539 healthy cells of §3: IoU complement 3.6e-4; contour mean 0.0145 px; area 8 px | 9–92 |
-| corner geometry | **did not move** | 230/340, 190/247 | κ 7.8e-4 /px over the same 537, median signed **0.000**, 126 up / 104 down | 29–83 |
+| corner geometry | **did not move** | 230/340, 190/247 | κ 7.8e-4 /px over the same 537, median signed **0.000**; 126 up / 104 down of the 230 moved active cells, and **207 up / 170 down / 160 tied** over all 537 healthy cells | 29–83 |
 | interior level | **moved, both signed** | 342/342, 247/247 | 0.074 / 0.111 linear | 6e7–1e8 |
 | tone response by backdrop | **moved, conditioned on the backdrop** | 256/256, 169/169 | slope 0.030, offset 0.063 | 3e5–4e6 |
 | scatter / diffusion | **moved, conditioned on the backdrop's spatial scale** | 342/342, 247/247 | σ 0.015 / 0.009 | 2e6–5e6 |
 | rim band / edge darkening | **moved, and dimmed on more cells than it brightened** | 330/330, 227/265 | rim 0.112 active, signed −0.0099, 138 up / 192 down | 2e5–1e8 |
 | highlight amplitude and position | **moved, and became far more directional** | 330/330, 241/265 | bin max 0.152; ratio signed **+6.31**, 97 up / 35 down | 5e6–4e8 |
 | tint shade | **lightness moved, hue did not** | 88/88 tinted on all three rows | ΔL 0.026, chroma 0.0022, **hue 0.80°** | see §7 |
-| the recede | **moved on every reading** | 55–70 of 55–70 per reading | see §8 | ≥ 10⁴ |
+| the recede | **moved on every reading** | as first read, 18–70 of 18–70 **barred** rows per reading; on the full measurable population **38–219 of 38–219** | see §8 | ≥ 10⁴ |
+
+**Every bed-wide count and median in this section, and in §5 to §7 and §10, contains the 32
+increased-contrast rows that §9 says are no statement about the material** (10 active, 22 inactive).
+Review closure: the medians without them, on the four rows the ledger leans on hardest, are rim
+**0.1117 → 0.1089**, `ssimBandComplement` **0.1436 → 0.1341**, `interiorMeanDelta`
+**0.0737 → 0.0725** and `ssimComplement` **0.0225 → 0.0210** in the active pose; the whole ex-IC
+table, both poses and eighteen metrics, is §2 of `review-closure.txt`. **No verdict in the table
+above changes** — the largest move is the rim's 2.5 % and the direction and the order of magnitude
+of every row survive — but the bed-wide figures are the confounded ones and the ex-IC figures are
+what a claim about Apple's material should quote.
 
 ### 3. The geometry did not move, and that is a measurement
 
@@ -22568,7 +22592,10 @@ about two thirds of cells — and their **magnitudes are invisible**. Over the 5
 silhouettes are within 2× of each other (see §4), the median IoU complement is **3.6 × 10⁻⁴** (an
 IoU of 0.99964), the median mean contour distance **0.0145 px**, the median area difference **8 px**
 out of several thousand, and the median |Δκ| **7.8 × 10⁻⁴ /px** with a median **signed** change of
-exactly **0.000** and 126 cells up against 104 down. Read as an implied corner radius per component,
+exactly **0.000** and 126 cells up against 104 down. Those two counts are the *moved active* cells
+over all 340 that carry a curvature, artefact cells included; over the 537 healthy cells of both
+poses the signed change is **207 up, 170 down and 160 exactly tied**, still at a median of exactly
+0.000 (review closure, `review-closure.txt` §5). Read as an implied corner radius per component,
 every single-box component reproduces its own declared radius on both beds to the hundredth of a
 pixel: `capsule-button` 17.92 → 17.92 px, `rrect-md` 18.89 → 18.89, `rrect-80` 16.04 → 16.04,
 `rrect-lg` 30.46 → 29.92, `rrect-sm` 7.87 → 7.56.
@@ -22581,7 +22608,9 @@ declared in `scenes.json`, and it did not move.
 ### 4. Sixty-six cells where the extractor followed the level, and the largest finding in the gate
 
 **66 of 619 cells have one bed's silhouette under half the other's**, and 55 of those have the small
-one on **26.5**: `dark-solid` 32, `impulse` 11, `light-solid` 6, `mid-dark-solid` 4. This is the
+one on **26.5**: `dark-solid` 32, `impulse` 11, `light-solid` 6, `mid-dark-solid` 4, `hc-text` 1 and
+`hc-text-7` 1 (the last two were dropped from the first printing of this list, which summed to 53;
+review closure, `review-closure.txt` §7). This is the
 tracker's known fault — the shape axis mis-segments where the material's own level meets its
 backdrop's — and here it is not a defect but a reading. On 26.5 Apple's material over those
 backdrops sat **inside the extractor's 0.02 linear threshold of its own backdrop**; on 27 it does
@@ -22614,24 +22643,35 @@ active pose (178 up, 152 down) and **−0.0614** in the recede (125 up, 140 down
 p05 and p95 are **−0.188 and +0.200** active, **−0.273 and +0.179** receded. A single constant
 cannot describe it.
 
-Per backdrop, with the per-cell signed difference at p10 / p50 / p90 (`read-checks.txt` check 6):
+Per backdrop, with the per-cell signed difference at p10 / p50 / p90 (`read-checks.txt` check 6).
+**All fifteen backdrops that carry an active cell** are here, in the order of their own encoded
+mean; the seven the first printing of this table left out are marked, and none of them changes the
+reading (review closure):
 
 | backdrop (encoded mean) | active p10 / p50 / p90 | up / down |
 | --- | --- | --- |
 | `impulse` (0.004) | −0.198 / **+0.008** / +0.228 | 12 / 8 |
 | `dark-solid` (0.110) | −0.185 / **+0.025** / +0.275 | 28 / 14 |
 | `mid-chroma-solid` (0.255) | −0.137 / **−0.068** / −0.035 | **0 / 8** |
+| `mid-dark-solid` (0.271) *(added)* | −0.167 / **+0.066** / +0.080 | 8 / 8 |
 | `photo` (0.425) | −0.115 / **−0.027** / +0.124 | 15 / 29 |
+| `checkerboard-64` (0.472) *(added)* | −0.068 / +0.007 / +0.119 | 16 / 8 |
 | `checkerboard` (0.500) | −0.088 / +0.001 / +0.097 | 17 / 12 |
+| `checkerboard-32` (0.500) *(added)* | −0.061 / +0.003 / +0.104 | 14 / 10 |
+| `checkerboard-4` (0.500) *(added)* | −0.105 / +0.003 / +0.129 | 13 / 11 |
+| `checkerboard-8` (0.500) *(added)* | −0.105 / +0.004 / +0.126 | 14 / 9 |
 | `checkerboard-lc16` (0.700) | −0.071 / **+0.143** / +0.200 | 10 / 10 |
+| `hc-text` (0.740) *(added)* | −0.078 / +0.009 / +0.120 | 9 / 7 |
 | `hc-text-7` (0.750) | −0.062 / **+0.123** / +0.152 | 6 / 6 |
+| `hc-text-28` (0.765) *(added)* | −0.025 / **+0.065** / +0.127 | 8 / 4 |
 | `light-solid` (0.950) | −0.507 / +0.002 / +0.098 | 8 / 8 |
 
 The structure the delta shows, stated without a mechanism: **the change in level is a function of
 something beyond the backdrop's mean, because within every backdrop it spans ±0.1 to ±0.2 and
 changes sign**, and the two backdrops where it does not change sign point opposite ways —
-`mid-chroma-solid` is darker on 27 on 8 of 8 active cells, `mid-light-solid` brighter on 8 of 8
-receded cells. G3 has to fit that conditioning; this gate names it and does not guess it.
+`mid-chroma-solid` is darker on 27 on 8 of 8 active cells — the only active backdrop of the fifteen
+whose sign does not change — and `mid-light-solid` is brighter on 8 of 8 receded cells. G3 has to
+fit that conditioning; this gate names it and does not guess it.
 
 The **spatial** transfer — the affine fit of rendered against backdrop luminance inside one cell —
 moved on all 425 cells that identify one, median |Δslope| 0.030 and |Δoffset| 0.063. It rose most
@@ -22666,7 +22706,11 @@ second way, and it is a statement about the diffusion's scale rather than its st
 ### 7. The rim band dimmed and widened; the highlight became far more directional
 
 **The rim band.** All 330 active cells that carry a declared box moved on W23's contour reader, at a
-median |Δ| of **0.112** luminance per CSS px against a bar of 9.2 × 10⁻⁹. The signed median is
+median |Δ| of **0.112** luminance per CSS px against a bar of 9.2 × 10⁻⁹ — **0.109 over the 321 of
+them that are not increased-contrast**. The worst cell by Δ/bar that `law-tables.txt` names,
+`1x-light-increased-contrast/hc-text__capsule-button__rest` at Δ 1.169, is on the confounded profile;
+the worst cell that is not is **`1x-dark-standard/checkerboard-64__rrect-sm__rest` at Δ 0.492**, and
+that is the exemplar a statement about the material should carry (review closure). The signed median is
 **−0.0099** and, of the cells that moved, **192 went down against 138 up** — the edge is dimmer
 relative to its own body on more cells than it is brighter. The radial profile agrees and is
 sharper about it: `rimPeakDelta` moved on 340 of 342 with a signed median of **−0.039** and **253 of
@@ -22678,8 +22722,19 @@ at the worst bin and **0.071** averaged over the sixteen. The reading that matte
 **ratio of brightest bin to dimmest**: it moved on 132 of 132 cells that resolve one, with a median
 signed change of **+6.31** and 97 of the moved cells going up against 35 down. On 26.5 that ratio is
 what W24 chartered a whole wave about — a rim that is "drawn, not lit" reads near 1 — and on 27 it
-is several times larger. The brightest bin's **direction** also moved: 169 of 330 active cells shift
-by more than one 22.5° bin, with a median shift of **45°**. `sheets/law__highlight__*` show it: on
+is several times larger.
+
+**The ratio's two ends, because a difference of ratios is not a quantity to fit** (review closure,
+`review-closure.txt` §8). Over the same 132 active cells the median ratio is **4.62 on 26.5 and
+20.17 on 27**, its maximum is **2,837.5**, and **23 cells read over 100 on 27 against 6 on 26.5**.
+The rise is mostly the **dimmest bin falling**: its median goes **0.0784 → 0.0242** while the
+brightest bin barely moves, **0.3770 → 0.3632**. So the quantity that moved is the floor of the
+angular profile, not its peak, and G3 should fit the bins rather than the +6.31.
+
+The brightest bin's **direction** also moved: 169 of 330 active cells shift by more than one 22.5°
+bin. Their median shift is **112.5°**; the **45°** figure is the median over all 330 active cells,
+161 of which do not clear the one-bin bar at all (review closure). `sheets/law__highlight__*` show
+it: on
 the receded dark pane over `hc-text` the 27 capture carries a bright band along the top edge that
 the 26.5 capture does not.
 
@@ -22688,8 +22743,14 @@ the 26.5 capture does not.
 `tintResponse` documents that hue is meaningless at near-zero chroma, and the bed splits exactly
 there: **456 of 569 cells have an interior chroma under 0.01 on both beds**, and their median hue
 "shift" is **82°** — the metric read where it is undefined. On the 113 cells whose interior chroma
-is at least 0.01 the median is **1.0°**. So **the tint's hue did not move and its lightness did**;
-the 67° bed-wide median in `law-tables.txt` is an artefact of reading a hue off neutral pixels and
+is at least 0.01 the median is **1.0°**. Those two counts do not exhaust the bed: **20 further cells
+cross 0.01 between the beds**, so the measurable population is **589** and the split is 456 / 20 /
+113, the crossing cells reading a median 4.8° (review closure, `review-closure.txt` §10). They are
+the cells where a hue becomes defined between the two versions, which is a reading about the
+extractor's threshold and not about the tint.
+
+So **the tint's hue did not move and its lightness did**; the 67° bed-wide median in
+`law-tables.txt` is an artefact of reading a hue off neutral pixels and
 is recorded here so it cannot be read as a finding. `tintChromaDelta`'s bar is also degenerate at
 5.6 × 10⁻¹⁶, which is float epsilon rather than a resolution, so that row is read on its magnitude
 and not on its verdict.
@@ -22697,9 +22758,14 @@ and not on its verdict.
 ### 8. The recede: it darkens the body far more on 27, and takes away much less of the rim
 
 231 scene pairs, as a difference of differences so that neither the version change nor the recede is
-read as the other. Every reading moved. The ones that need no silhouette are the load-bearing ones:
+read as the other. Every reading moved. The ones that need no silhouette are the load-bearing ones —
+and each is now given twice, because the first table was read on a fraction of the rows.
 
-| reading | recede on 26.5 | recede on 27 | difference | moved |
+**As first read: the rows that carried a bar of their own** (both 27 cells with a non-zero spread —
+the selection rule, stated here because it was not stated when the table was written, and it is a
+selection on the *bar* and not on the reading):
+
+| reading | recede on 26.5 | recede on 27 | difference | moved / barred |
 | --- | ---: | ---: | ---: | --- |
 | `bodyLevel` | −0.0049 | **−0.0254** | **−0.0290** | 55/55 |
 | `rimContourMean` | −0.1096 | **−0.0628** | **+0.0473** | 56/56 |
@@ -22709,11 +22775,42 @@ read as the other. Every reading moved. The ones that need no silhouette are the
 | `interiorMean` (masked) | −0.0146 | −0.0269 | −0.0307 | 70/70 |
 | `interiorStdDev` | −0.0078 | −0.0091 | −0.0021 | 70/70 |
 
-So on 27 **the recede darkens the body about five times as much as it did on 26.5**, and it **takes
-away less than half as much rim** — the rim loss the inactive endpoint was fitted to (§5.130's "hue
-disappears, shade survives collapse") is roughly halved. The recede's effect on the highlight's
-directionality reverses sign: on 26.5 receding slightly flattened the angular ratio and on 27 it
-raises it.
+**On the full measurable population** — every row where both beds resolve the reading, which is what
+the corrected instrument bars (review closure; `law-tables.v2.txt`, `review-closure.txt` §1):
+
+| reading | recede on 26.5 | recede on 27 | difference | moved / measured |
+| --- | ---: | ---: | ---: | --- |
+| `bodyLevel` | **+0.00068** | **−0.01725** | **−0.02753** | 219/219 |
+| `rimContourMean` | −0.1110 | −0.0657 | **+0.0178** | 219/219 |
+| `rimLocalMean` | −0.1094 | −0.0653 | +0.0285 | 219/219 |
+| `highlightPeak` | −0.0270 | −0.0220 | +0.0133 | 219/219 |
+| `highlightRatio` | +0.0046 | +0.332 | **+1.120** | 38/38 |
+| `interiorMean` (masked) | −0.0136 | −0.0266 | −0.0302 | 201/201 |
+| `interiorStdDev` | −0.0097 | −0.0117 | −0.0036 | 201/201 |
+
+Each column is a median over its own population, so a difference column is the median of the
+per-cell differences and not the difference of the two medians beside it.
+
+So **on 27 the recede darkens the body, and it darkens it more than the 26.5 recede did on both
+populations** — but the multiple the first reading gave does not survive the second. Over the 55
+barred rows the recede's effect on the body goes −0.0049 → −0.0254, five times as much; over all 219
+measurable pairs it goes **+0.00068 → −0.01725**, the 26.5 term changing sign, so the 26.5 recede
+barely touched the body at all and **"five times" is undefined**. What both populations agree on is
+the **direction and the size of the change** — the recede's effect on the body is more negative on 27
+by a per-cell median of **−0.0290** barred and **−0.0275** over the full population, an order above
+the readings' own bar either way. The rim reads the same way in kind and smaller in size: the recede
+**takes away less rim on 27** (−0.1096 → −0.0628 barred, −0.1110 → −0.0657 full), at a per-cell
+median difference of **+0.0473** barred against **+0.0178** full, so the rim loss the inactive
+endpoint was fitted to (§5.130's "hue disappears, shade survives collapse") is reduced on 27 but by
+a fraction the barred subset overstates. The recede's effect on the highlight's directionality
+reverses sign on the barred rows (−0.068 → +0.332) and rises from near zero on the full ones
+(+0.0046 → +0.332), which is the same statement about 27 and a weaker one about 26.5.
+
+**Which population a G3 fit should use: the full one.** The barred subset was not chosen for
+anything about the recede: it is the subset whose two 27 cells happened to disagree across the seven
+runs, which is a property of the capture rather than of the material, and the medians above show the
+two populations do not read the same. The narrower one is kept above because it is what was
+recorded, not because it is the better sample.
 
 The `silhouetteAreaPx` recede row is **not used**: its differences run to thousands of pixels on the
 `dark-solid` and `mid-dark-solid` cells, which is §4's extraction fault and not a recede.
@@ -22731,25 +22828,53 @@ is the confound in a picture: the 26.5 capsule is nearly opaque white and the 27
 with the backdrop's text reading through it, which is what removing the transparency reduction does
 and is not what a material change looks like.
 
-The reduced-transparency profile is **not** confounded — both beds attest `reduceTransparency=1`
-with `increaseContrast=0` — and it moves like the standard profiles: 9/9 active and 21/21 receded
-cells on the whole-cell rows.
+The reduced-transparency profile is **not** confounded, and it moves like the standard profiles: 9/9
+active and 21/21 receded cells on the whole-cell rows. **The two beds do not say so the same way**,
+which the first writing of this paragraph elided by saying "both beds attest" (review closure,
+2026-09-19; `review-closure.txt` §3). The **27** profile carries an `attestation` block in
+`apps/reference-apple/fixtures/manifest.json` recording `reduceTransparency=1` with
+`increaseContrast=0` over all seven runs. **No 26.5 profile in that manifest carries an attestation
+block at all** — the attestation was added to the harness for the 27 sitting. The 26.5 bed of that
+name is unconfounded **by inference**: its entry records `a11yMode: "reduced-transparency"`, and the
+capture driver of the day refused to capture a profile whose declared mode was not the machine's
+current one (`main.swift`'s `guard profile.a11y == systemA11y`, over
+`SystemAccessibility.current`, which returns `increased-contrast` first and `reduced-transparency`
+only when contrast is off). So those fixtures could only have been written with
+`reduceTransparency=1` and `increaseContrast=0`. That is a strong inference from the harness's own
+refusal and the manifest's own token, and it is not an attestation; it is recorded this way so that
+the 26.5 side's guarantee is never quoted as stronger than it is.
 
 ### 10. The whole cell, as the fidelity read sees it
 
 All 619 cells move on `ssimComplement` (median 0.0225 active, 0.0226 receded), `oklabDeltaEMean`
 (0.0136 / 0.0153), `oklabDeltaEBodyMean` (0.0719 / 0.0794) and `edgeWeightedMean` (0.0165 / 0.0198).
 The band-windowed rows say where: **`ssimBandComplement` is 0.144, six times the whole-crop figure**,
-and `ssimInteriorComplement` is 0.050. The difference between the two beds is concentrated in the
-24 CSS px band around the contour, which is where the eye reads the material and where §5.99's rim
-work and §5.107's lit-edge work both live.
+and `ssimInteriorComplement` is 0.050. Without the 32 increased-contrast rows (§9, §2) the same
+active medians read `ssimComplement` **0.0210**, `ssimBandComplement` **0.1341**, `oklabDeltaEMean`
+**0.0136**, `oklabDeltaEBodyMean` **0.0700** and `edgeWeightedMean` **0.0150** — every row within a
+tenth of the bed-wide figure, and the concentration in the band unchanged (review closure).
+
+The difference between the two beds is concentrated in the 24 CSS px band around the contour, which
+is where the eye reads the material and where §5.99's rim work and §5.107's lit-edge work both
+live.
 
 For scale against the adopted bounds this project holds vitrea to: the texture tier's adopted
 `oklabDeltaEMean` bound on `apple-macos-26.5-1x-light-standard` is ≤ 0.07, and the **native-to-native
 whole-cell ΔE between the two beds is 0.014 at the median**. The two OS versions are, by that one
-metric, closer to each other than vitrea is allowed to be to either — which is what makes a refit
-tractable rather than a rebuild, and is the only comparison in this section that crosses from
-Apple's material to vitrea's bounds.
+metric, closer to each other at the median than vitrea is allowed to be to either — which is what
+makes a refit tractable rather than a rebuild, and is the only comparison in this section that
+crosses from Apple's material to vitrea's bounds.
+
+**A median against those tables is the wrong statistic, and the worst case says something else**
+(review closure, 2026-09-19; the full per-profile table is `review-closure.txt` §4 and it is
+transcribed into the charter's Decision Log 4 (c), which is where the recommendation that reads it
+lives). `adopted-thresholds.test.ts` bounds the **per-cell** value, not the bed's median, and on the
+two dark profiles the native-to-native `oklabDeltaEMean` reaches a p90 of **0.111** and a max of
+**0.155** against an adopted allowance of 0.09 — so on the tail the two OS versions are *further*
+apart from each other than vitrea is allowed to be from either, while on the light and
+reduced-transparency profiles the p90 stays under the allowance. The median and the tail are both
+true and they do not say the same thing; §11's open list gains nothing here, but Decision Log 4 (c)
+is where the consequence is drawn.
 
 ### 11. Not measured here, and what is left open
 
@@ -22769,3 +22894,52 @@ answered:
 - **`contourDistanceP95Px`, `oklabDeltaEP95` and `rimPeakDepthDeltaPx` have no resolution in this
   bed** — 589 to 619 cells at exactly zero within-bed spread — so their verdicts rest on a bar of
   zero. They are reported with `barSource: "bed-zero"` and are not leaned on.
+
+### 12. Review closure (2026-09-19)
+
+This section was read by an independent read-only review after the gate closed, and the review
+returned ten findings. **None flips a law's verdict**: the material still moved on every cell, the
+geometry still did not, and every "moved / did not move" above survives its correction. Three of the
+ten change numbers the user is about to rule on, and all three are corrected in place, beside what
+was first recorded and never over it:
+
+1. **The recede was read on a fraction of its rows.** The instrument barred a recede reading only
+   where both 27 cells had a spread of their own, so 158 of 231 rows carried no bar and §8's medians
+   came off 18 to 70 rows while 219 pairs were measurable. The instrument now applies the pair rows'
+   own bed-minimum fallback to the recede rows; §8 carries both populations; the `bodyLevel` term on
+   26.5 changes sign between them, so **"five times as much" is withdrawn** and replaced by the
+   direction and both readings. `recede-delta.json` regenerated, `recede-delta.v1.json` kept beside
+   it, tables as `law-tables.v2.txt`.
+2. **The 32 increased-contrast rows sit inside every bed-wide number**, on a profile §9 says is no
+   statement about the material. The ex-IC medians are now beside the bed-wide ones in §2, §7 and
+   §10, and §7 names a non-increased-contrast exemplar for the rim beside the one `law-tables.txt`
+   picked.
+3. **The 26.5 reduced-transparency bed does not attest anything** — no 26.5 profile in the manifest
+   carries an attestation block. §9 now says it is unconfounded by inference from its `a11yMode` and
+   the harness's mode gate, which is the weaker and true statement.
+4. **The bound recommendation was read off a median** against tables that bound the per-cell worst
+   case. The p90 and max per profile per bounded metric are in `review-closure.txt` §4 and in the
+   charter's Decision Log 4 (c); the dark profiles' ΔE tail exceeds its allowance where the median is
+   an order under it. The recommendation itself is the user's and is not changed here.
+5. The corner's 126 up / 104 down is the moved active cells including the §4 artefact cells; over the
+   537 healthy cells it is 207 up / 170 down / 160 tied (§2, §3).
+6. §5's per-backdrop table showed 8 of the 15 active backdrops; all fifteen are now there.
+7. The 55-cell breakdown in §4 summed to 53: `hc-text` 1 and `hc-text-7` 1 were dropped.
+8. The highlight ratio's +6.31 is mostly the **dimmest bin falling** (0.0784 → 0.0242), not the
+   brightest rising; the median ratio pair and the tail are now in §7 so G3 does not fit a difference
+   of ratios.
+9. The 45° median angular shift is over all 330 active cells; over the 169 that moved it is 112.5°.
+10. The hue's 456-of-569 split omits 20 cells that cross chroma 0.01 between the beds; the measurable
+    population is 589.
+
+Every figure above was recomputed from the committed rows by
+`results/2026-09-19-w29-g2-native-delta/review-closure.py` into `review-closure.txt`, not copied
+from the review. One recomputation **disagrees** with the review and the machine's reading is the one
+written: the review counted 21 cells with a 27 highlight ratio over 100 and the rows give **23** (of
+132 active cells; 6 on 26.5). Two agree to rounding rather than exactly: the full-population 26.5
+`bodyLevel` recede is **+0.00068** where the review wrote +0.00070, and the dark-profile ΔE p90 is
+**0.1106** (1x) and **0.1105** (2x) where the review wrote 0.111. The review quoted the dark tail
+against the 0.07 / 0.08 light allowances; the dark profiles' own texture and dom allowance is **0.09**
+and that is what the table beside them now carries. **No material, profile, bound, floor, fixture,
+golden or matrix row was touched by this closure**, and the pair rows of `native-delta.json` are
+bit-identical across the re-run.

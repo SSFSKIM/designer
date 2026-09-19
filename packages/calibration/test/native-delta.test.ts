@@ -343,3 +343,47 @@ describe("the pair reader", () => {
     expect(result.notes.join(" ")).toContain("no single declared box");
   });
 });
+
+/**
+ * The recede rows' bar, over the committed W29 G2 evidence.
+ *
+ * A recede reading is a difference of differences and its bar is the sum of the
+ * two 27 cells' run-to-run spreads. The instrument's first cut stated that bar
+ * only where both cells had a non-zero spread of their own, which left a reading
+ * measured and unjudged on two thirds of the rows — the gate's own medians were
+ * then read off the minority that happened to be barred (claims §5.151 §12,
+ * finding 1). The rule that closes it is the one the pair rows always had: a
+ * cell with no spread of its own takes the bed-wide minimum non-zero spread, and
+ * a reading whose spread the bed never resolved takes exactly zero. The check is
+ * on the shape of the result rather than on the arithmetic: every measurable
+ * reading is judged, and every bar says which of the three levels it came from.
+ */
+describe("the recede rows carry a bar wherever the reading is measurable", () => {
+  const evidence = resolve(
+    import.meta.dirname,
+    "..",
+    "results",
+    "2026-09-19-w29-g2-native-delta",
+    "recede-delta.json",
+  );
+  const recede = JSON.parse(readFileSync(evidence, "utf8")) as {
+    readonly rows: readonly {
+      readonly deltaOfRecede: Readonly<Record<string, number>>;
+      readonly bar: Readonly<Record<string, number>>;
+      readonly barSource: Readonly<Record<string, string>>;
+      readonly moved: Readonly<Record<string, boolean>>;
+    }[];
+  };
+
+  it("judges every reading it measures, and says where each bar came from", () => {
+    expect(recede.rows.length).toBeGreaterThan(0);
+    for (const row of recede.rows) {
+      for (const name of Object.keys(row.deltaOfRecede)) {
+        expect(row.bar[name]).toBeTypeOf("number");
+        expect(row.bar[name]).toBeGreaterThanOrEqual(0);
+        expect(row.moved[name]).toBeTypeOf("boolean");
+        expect(["cell", "bed-minimum", "bed-zero"]).toContain(row.barSource[name]);
+      }
+    }
+  });
+});
