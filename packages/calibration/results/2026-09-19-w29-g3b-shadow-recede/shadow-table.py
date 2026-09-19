@@ -73,6 +73,24 @@ def main(labels: list[str]) -> int:
         run = SCRATCH / "fit-log" / label
         for matrix in sorted(run.glob("*.json")):
             collected += rows(matrix)
+    #
+    # THE FIT NEVER READS A HOLDOUT ROW.
+    #
+    # X5: the holdout is read once per frozen configuration, at the canonical
+    # read, and nothing is fitted after it. A fit loop that printed a holdout
+    # cell would let it select a constant whether or not anybody meant it to, so
+    # the drop is here — in the reader every fit round goes through — rather
+    # than in each invocation's scene list, where one mistyped list would undo
+    # it. A round whose scene list names a holdout id still captures it; what
+    # this guarantees is that no number off that capture reaches a human or a
+    # table.
+    #
+    dropped = [r for r in collected if r.get("set") == "holdout"]
+    collected = [r for r in collected if r.get("set") != "holdout"]
+    if dropped:
+        print(f"# {len(dropped)} holdout row(s) captured by this label and NOT read (X5):")
+        for r in sorted({(r["profile"], r["scene"]) for r in dropped}):
+            print(f"#   {r[0]} {r[1]}")
     collected.sort(key=lambda r: (r["profile"], r["renderer"], r["scene"]))
 
     header = f"{'profile':<48}{'r':<4}{'scene':<42}"

@@ -7,9 +7,9 @@
 #
 # G3's `canonical-read.sh` with the receded pair added, and it refuses at any
 # bytes but the four `sealed-documents.txt` records. A document change re-keys
-# every row it drew — the material profile document's hash is in the cell's
-# `capturePath`, and since this child so is the RECEDED document's — so "the
-# sealed configuration" is now four files and the refusal has to name all four.
+# every row it drew. The material profile document's hash is in the cell's
+# `capturePath`, and since this child the receded document's is there too, so
+# "the sealed configuration" is four files and the refusal names all four.
 #
 # **Every 27 profile is re-read**, not only the ones whose documents moved. The
 # active documents' `outerShadow` block moved (Decision Log 6 (a)) and every
@@ -38,10 +38,10 @@ LIGHT_RECEDED=profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json
 DARK_RECEDED=profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json
 
 # Filled from `sealed-documents.txt` after `seal.ts` runs, and never by hand.
-LIGHT_SHA=__LIGHT_SHA__
-DARK_SHA=__DARK_SHA__
-LIGHT_RECEDED_SHA=__LIGHT_RECEDED_SHA__
-DARK_RECEDED_SHA=__DARK_RECEDED_SHA__
+LIGHT_SHA=f42ddec1cf5a9544c39d1aa81ac78fbb3dac5815a634db7de597fc280c2b01c5
+DARK_SHA=272d1b0c3e102adae85205b2bbc818d254983b3008579198b2fa28953dcae335
+LIGHT_RECEDED_SHA=59d4b20a459669ccdb2577f87c49075dce38dfb4e1bcf640a2b54dd01e61b30f
+DARK_RECEDED_SHA=5c81bc72edad101a5ea86d74e60b27c2b309410e25a50c4850e9078a967c66b9
 
 check() {
   local got

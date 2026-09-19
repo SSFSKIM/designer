@@ -1,0 +1,85 @@
+
+── apple-macos-27.0-1x-light-standard-glass0.5  against  apple-macos-26.5-1x-light-standard ──
+   backdropToneAnchorX                          [0.1104, 0.2706, 0.9505]  ->  [0.004, 0.11, 0.425, 0.95]
+   backdropToneHigh                                        0.055  ->  0.0001
+   backdropToneLow                                          0.02  ->  0
+   backdropToneResponseThick                    [0.4953, 0.5744, 0.9358]  ->  [0.242, 0.3074, 0.5554, 0.957]
+   backdropToneResponseThin                     [0.0126, 0.4561, 0.9713]  ->  [0.214, 0.2835, 0.5383, 0.937]
+   optics.regular.rimAlpha                                 0.844  ->  0.115
+   optics.regular.rimLevelGain                            -0.628  ->  -0.122
+   optics.regular.rimWidth                            "(absent)"  ->  6.5
+   optics.regular.rimWidth2x                                1.35  ->  5.85
+   outerShadow.liftAmplitude                                0.01  ->  0.001
+   outerShadow.reducedTransparencyOcclusion                0.197  ->  0.087
+   outerShadow.sigmaPx                                     15.55  ->  11
+   outerShadow.thickOcclusionAt128                         0.448  ->  0.202
+   outerShadow.thickOcclusionAt160                         0.479  ->  0.293
+   outerShadow.thickOcclusionAt96                           0.37  ->  0.111
+   outerShadow.thinOcclusionBright                         0.127  ->  0.041
+   outerShadow.thinOcclusionMid                             0.33  ->  0.05
+   sizeHeavyTapSigma                                           9  ->  14
+   sizeHeavyTapSigma2x                                         9  ->  20
+   sizeScatterFloor                                          0.4  ->  0.25
+   cssTierMapping.blurSigmaScale                       "(absent)"  ->  2.2
+
+── apple-macos-27.0-1x-light-standard-glass0.5  against  its own state at G3's seal (b2a42bde) ──
+   outerShadow.liftAmplitude                                0.01  ->  0.001
+   outerShadow.reducedTransparencyOcclusion                0.197  ->  0.087
+   outerShadow.sigmaPx                                     15.55  ->  11
+   outerShadow.thickOcclusionAt128                         0.448  ->  0.202
+   outerShadow.thickOcclusionAt160                         0.479  ->  0.293
+   outerShadow.thickOcclusionAt96                           0.37  ->  0.111
+   outerShadow.thinOcclusionBright                         0.127  ->  0.041
+   outerShadow.thinOcclusionMid                             0.33  ->  0.05
+
+── apple-macos-27.0-1x-dark-standard-glass0.5  against  apple-macos-26.5-1x-dark-standard ──
+   backdropToneAnchorX                          [0.1104, 0.2706, 0.9505]  ->  [0.004, 0.11, 0.47, 0.95]
+   backdropToneHigh                                   "(absent)"  ->  0.0001
+   backdropToneLow                                    "(absent)"  ->  0
+   backdropToneResponseThick                    [0.0131, 0.0238, 0.1006]  ->  [0.031, 0.035, 0.169, 0.196]
+   backdropToneResponseThin                     [0.011, 0.0284, 0.1611]  ->  [0.036, 0.042, 0.199, 0.464]
+   optics.regular.rimAlpha                                0.0265  ->  0.055
+   optics.regular.rimLevelGain                             2.334  ->  0.44
+   optics.regular.rimWidth                            "(absent)"  ->  2.2
+   outerShadow.liftAmplitude                              0.0051  ->  0.0005
+   outerShadow.sigmaPx                                "(absent)"  ->  11
+   outerShadow.thickOcclusionAt128                         0.301  ->  0.229
+   outerShadow.thickOcclusionAt160                         0.324  ->  0.333
+   outerShadow.thickOcclusionAt96                          0.278  ->  0.126
+   outerShadow.thinOcclusionBright                         0.063  ->  0.032
+   outerShadow.thinOcclusionMid                            0.063  ->  0.032
+   sizeScatterFloor                                   "(absent)"  ->  0.34
+   cssTierMapping.blurSigmaScale                       "(absent)"  ->  2.2
+
+── apple-macos-27.0-1x-dark-standard-glass0.5  against  its own state at G3's seal (b2a42bde) ──
+   outerShadow.liftAmplitude                              0.0051  ->  0.0005
+   outerShadow.sigmaPx                                "(absent)"  ->  11
+   outerShadow.thickOcclusionAt128                         0.301  ->  0.229
+   outerShadow.thickOcclusionAt160                         0.324  ->  0.333
+   outerShadow.thickOcclusionAt96                          0.278  ->  0.126
+   outerShadow.thinOcclusionBright                         0.063  ->  0.032
+   outerShadow.thinOcclusionMid                            0.063  ->  0.032
+
+── apple-macos-27.0-1x-light-standard-glass0.5-receded  against  the shipped 26.5 endpoint ──
+   backdropToneAnchorX                          [0.1104, 0.2706, 0.45, 0.9505]  ->  [0.004, 0.11, 0.425, 0.95]
+   backdropToneResponseThick                    [0.4553, 0.527, 0.63, 0.898]  ->  [0.1442, 0.2823, 0.4695, 0.832]
+   backdropToneResponseThin                     [0.0126, 0.451, 0.573, 0.933]  ->  [0.1647, 0.2809, 0.4775, 0.8293]
+   outerShadow.liftAmplitude                                   0  ->  0.001
+   outerShadow.reducedTransparencyOcclusion                    0  ->  0.087
+   outerShadow.thickOcclusionAt128                             0  ->  0.202
+   outerShadow.thickOcclusionAt160                             0  ->  0.293
+   outerShadow.thickOcclusionAt96                              0  ->  0.111
+   outerShadow.thinOcclusionBright                             0  ->  0.041
+   outerShadow.thinOcclusionMid                                0  ->  0.05
+
+── apple-macos-27.0-1x-dark-standard-glass0.5-receded  against  the shipped 26.5 endpoint ──
+   backdropToneAnchorX                          [0.1104, 0.2706, 0.8, 0.9505]  ->  [0.004, 0.11, 0.47, 0.95]
+   backdropToneResponseThick                    [0.0215, 0.0331, 0.092, 0.11753]  ->  [0, 0.0155, 0.164, 0.186]
+   backdropToneResponseThin                     [0.011, 0.04092, 0.263, 0.9326072]  ->  [0, 0.0187, 0.192, 0.448]
+   outerShadow.liftAmplitude                                   0  ->  0.0005
+   outerShadow.reducedTransparencyOcclusion                    0  ->  0.038
+   outerShadow.thickOcclusionAt128                             0  ->  0.229
+   outerShadow.thickOcclusionAt160                             0  ->  0.333
+   outerShadow.thickOcclusionAt96                              0  ->  0.126
+   outerShadow.thinOcclusionBright                             0  ->  0.032
+   outerShadow.thinOcclusionMid                                0  ->  0.032

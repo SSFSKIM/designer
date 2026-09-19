@@ -7,7 +7,13 @@
     "Read it against the 27 LIGHT document rather than against the 26.5 dark one for",
     "what this child changed: the two schemes' refits are the same three laws at",
     "different numbers, and the dark scheme keeps a thin/thick split at the bright end",
-    "of the response where the light scheme's rows converge."
+    "of the response where the light scheme's rows converge.",
+    "",
+    "W29 G3b (claims §5.154; Decision Log 6 (a)) refits the `outerShadow` block and",
+    "nothing else. The shadow is the one law G2 never read and G3 was therefore",
+    "forbidden to follow (§5.153 §5); it is read native-against-native in",
+    "`results/2026-09-19-w29-g3b-shadow-recede/` and the constants are fitted on the",
+    "departure the shadow axis measures. Every other key below is G3's, unchanged."
   ],
   "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
   "schemaVersion": 1,
@@ -16,7 +22,7 @@
   "colorSpace": "srgb",
   "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
   "supersedes": "apple-macos-26.5-1x-dark-standard",
-  "resolvedMaterialSha256": "614559032cd0465e",
+  "resolvedMaterialSha256": "8439eb808495f5bf",
   "measurement": {
     "fixtures": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5 and -2x-, the W29 G1 bed at seven runs per cell, slider 0.5",
     "cellsUsedForFitting": 54,
@@ -25,7 +31,15 @@
     "objective": "as the light document's",
     "objectiveBefore": 0.0807,
     "objectiveAfter": 0.0228,
-    "reproduce": "python3 packages/calibration/results/2026-09-19-w29-g3-refit/fit.py render <label> apple-macos-27.0-1x-dark-standard-glass0.5 webgpu <document> --set calibration,probe"
+    "reproduce": "python3 packages/calibration/results/2026-09-19-w29-g3-refit/fit.py render <label> apple-macos-27.0-1x-dark-standard-glass0.5 webgpu <document> --set calibration,probe",
+    "outerShadow": {
+      "gate": "W29 G3b, claims §5.154",
+      "bar": "results/2026-09-19-w29-g3b-shadow-recede/noise-bar.json, declared before the first 26.5 pair",
+      "objective": "shadow.meanDeparture{Native,Web}, linear light, over the whole exterior of the declared region",
+      "objectiveBefore": 0.006813,
+      "objectiveAfter": 0.000735,
+      "reproduce": "python3 results/2026-09-19-w29-g3b-shadow-recede/shadow-table.py shadow-base shadow-C"
+    }
   },
   "patch": {
     "backdropToneAnchorX": [
@@ -74,16 +88,17 @@
     ],
     "outerShadow": {
       "thinOcclusionDark": 0,
-      "thinOcclusionMid": 0.063,
-      "thinOcclusionBright": 0.063,
-      "thickOcclusionAt96": 0.278,
-      "thickOcclusionAt128": 0.301,
-      "thickOcclusionAt160": 0.324,
-      "liftAmplitude": 0.0051,
+      "thinOcclusionMid": 0.032,
+      "thinOcclusionBright": 0.032,
+      "thickOcclusionAt96": 0.126,
+      "thickOcclusionAt128": 0.229,
+      "thickOcclusionAt160": 0.333,
+      "liftAmplitude": 0.0005,
       "liftSpanMin": 64,
       "liftSpanFull": 118,
       "liftBlurSigmaCss": 40,
-      "reducedTransparencyOcclusion": 0.038
+      "reducedTransparencyOcclusion": 0.038,
+      "sigmaPx": 11
     },
     "sizeHeavyTapSigma": 0,
     "sizeHeavyTapSigma2x": 0,
@@ -218,6 +233,62 @@
         "meets every adopted row at either value; it is set for coherence, not by a fit",
         "of its own, and this entry says so."
       ]
+    },
+    "outerShadow": {
+      "status": "measured and fitted (W29 G3b, Decision Log 6 (a))",
+      "method": [
+        "The dark bed reads the SAME geometry law as the light one — native falloff",
+        "sigma 1.52 / 8.87 / 13.42 / 17.43 CSS px at spans 44 / 96 / 128 / 160 against",
+        "the light bed's 1.84 / 8.80 / 13.10 / 17.30 — so sigmaPx takes the same 11.0.",
+        "It is a NEW key in this patch: the 26.5 dark document names no length at all",
+        "and inherited the default's 15.55, and a document that now differs from the",
+        "default there has to say so.",
+        "",
+        "The amplitude is where the two schemes part. On the light bed the shadow's",
+        "amplitude roughly halved between the beds; on the dark bed the native's own",
+        "falloff amplitude did NOT move (median 27/26.5 ratio 1.02) and the whole fall",
+        "in its departure is the sigma. So the dark thin regime goes 0.063 -> 0.032 and",
+        "the 96 anchor 0.278 -> 0.126, both solved from the departure at sigma 11 on",
+        "the four identified dark calibration cells (checkerboard and photo, capsule",
+        "and rrect-md, at both scales).",
+        "",
+        "thickOcclusionAt128 and thickOcclusionAt160 are UNFITTED and derived, because",
+        "the dark bed declares no calibration cell above span 96 — the same position",
+        "its 26.5 values were in. They carry the LIGHT document's fitted span shape",
+        "scaled to this document's 96 anchor (0.202/0.111 and 0.293/0.111), and the",
+        "native corroborates the shape: the dark native's amplitude ratio between",
+        "spans 160 and 96 is 2.46 and 2.55 on its two supported backdrops against the",
+        "light bed's 2.41.",
+        "",
+        "liftAmplitude 0.0051 -> 0.0005, carried at the light document's fitted ratio",
+        "(0.001/0.01) because the lift shows over a BRIGHT backdrop and the dark bed",
+        "declares none outside holdout and probe. Derived, not fitted, and named here",
+        "as such.",
+        "",
+        "reducedTransparencyOcclusion stays at its 26.5 value of 0.038. There is no",
+        "dark reduced-transparency profile on either bed, so the constant is",
+        "identified by nothing on 27 exactly as it was on 26.5, and moving it on a",
+        "scaled derivation would put an invented number where an unidentified one is",
+        "already honestly recorded."
+      ],
+      "value": {
+        "sigmaPx": 11,
+        "thinOcclusionMid": 0.032,
+        "thinOcclusionBright": 0.032,
+        "thickOcclusionAt96": 0.126,
+        "thickOcclusionAt128": 0.229,
+        "thickOcclusionAt160": 0.333,
+        "liftAmplitude": 0.0005
+      },
+      "previous": {
+        "sigmaPx": "(inherited from the default)",
+        "thinOcclusionMid": 0.063,
+        "thinOcclusionBright": 0.063,
+        "thickOcclusionAt96": 0.278,
+        "thickOcclusionAt128": 0.301,
+        "thickOcclusionAt160": 0.324,
+        "liftAmplitude": 0.0051
+      }
     }
   },
   "cssTierMapping": {

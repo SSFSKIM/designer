@@ -1,0 +1,164 @@
+{
+  "$comment": [
+    "The macOS 27 light RECEDED endpoint, as a difference over",
+    "apple-macos-27.0-1x-light-standard-glass0.5.json — W29 G3b, Decision Log 6 (d).",
+    "",
+    "It is a CALIBRATION profile document and not a runtime constant. The runtime",
+    "still ships the 26.5 endpoints in packages/platform-web/src/receded-profile.ts;",
+    "selecting a 27 endpoint is W29 G4's by Decision Log 2. This document is posed",
+    "on the inactive scenes through `compare --receded-profile`, which merges it",
+    "over the active document and pins the root active, and the cell's capturePath",
+    "carries its hash so a row says which endpoint drew it.",
+    "",
+    "Fitted on the seventeen inactive CALIBRATION rows of",
+    "apple-macos-27.0-1x-light-standard-glass0.5 at dpr 1 and checked on validation.",
+    "One caveat is recorded in claims §5.154 rather than hidden here: the response's",
+    "first ordinate is identified by no UNTINTED calibration cell — the bed's only",
+    "calibration cell at that abscissa is tinted — and it was moved on the two",
+    "untinted `impulse` VALIDATION cells before that was noticed, so for that one",
+    "ordinate those two cells are not an independent check."
+  ],
+  "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5-receded",
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-19",
+  "recordedBy": "W29 G3b",
+  "colorSpace": "srgb",
+  "kind": "receded-endpoint",
+  "supersedes": "packages/platform-web/src/receded-profile.ts recededMaterialProfile.light (W28 G1, claims §5.145)",
+  "appliesOver": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+  "measurement": {
+    "gate": "W29 G3b, claims §5.154; Decision Log 6 (d)",
+    "fixtures": "apps/reference-apple/fixtures/apple-macos-27.0-1x-light-standard-glass0.5, the inactive rows of the W29 G1 bed at seven runs per cell, slider 0.5",
+    "cellsUsedForFitting": 17,
+    "fixtureSets": "calibration; validation checked; holdout read once at the sealed configuration and never fitted",
+    "webCell": "chromium, renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3, posed through compare --receded-profile",
+    "objective": "mean over the inactive rows of |Δ interiorMean|, with the shadow read as |Δ meanDeparture|",
+    "objectiveBefore": 0.1174,
+    "objectiveAfter": 0.01017
+  },
+  "patch": {
+    "backdropToneAbscissa": {
+      "kind": "silhouette"
+    },
+    "tintChromaScale": 0,
+    "tintShadeCollapseRetention": 1,
+    "tintShadeStrength": 1,
+    "optics": {
+      "regular": {
+        "rimAlpha": 0,
+        "rimLevelGain": 0,
+        "shadowAlpha": 0
+      },
+      "clear": {
+        "rimAlpha": 0,
+        "rimLevelGain": 0,
+        "shadowAlpha": 0
+      }
+    },
+    "rimCollapsed": 0,
+    "rimCollapsedTinted": 0,
+    "outerShadow": {
+      "thinOcclusionDark": 0,
+      "thinOcclusionMid": 0.05,
+      "thinOcclusionBright": 0.041,
+      "thickOcclusionAt96": 0.111,
+      "thickOcclusionAt128": 0.202,
+      "thickOcclusionAt160": 0.293,
+      "liftAmplitude": 0.001,
+      "reducedTransparencyOcclusion": 0.087
+    },
+    "sizeScatterRampStartThick1x": 0.3,
+    "sizeScatterRampStartThick2x": 0.04,
+    "sizeScatterRampStartFar2x": 0.04,
+    "sizeHeavyTapSigma2x": 14,
+    "tintShadeDark": 0.0288,
+    "tintShadeLight": 0.76,
+    "reducedTintAdaptation": 0.88,
+    "sizeScatterFloor": 0.7,
+    "sizeScatterRampStartThin1x": 0.55,
+    "sizeScatterRampStartThin2x": 0.7,
+    "backdropToneAnchorX": [
+      0.004,
+      0.11,
+      0.425,
+      0.95
+    ],
+    "backdropToneResponseThin": [
+      0.1647,
+      0.2809,
+      0.4775,
+      0.8293
+    ],
+    "backdropToneResponseThick": [
+      0.1442,
+      0.2823,
+      0.4695,
+      0.832
+    ],
+    "refractionScale": {
+      "approximate": 0
+    },
+    "increasedOcclusionLift": 0.96,
+    "increasedOcclusionLiftByPolicy": {
+      "reduceTransparency": 0.88,
+      "increaseContrast": 0.98
+    },
+    "strongBorderRim": {
+      "rimWidth": 1,
+      "rimAlpha": -3.5
+    }
+  },
+  "entries": {
+    "backdropToneResponse": {
+      "status": "measured and fitted",
+      "previous": {
+        "backdropToneAnchorX": [
+          0.1104,
+          0.2706,
+          0.45,
+          0.9505
+        ],
+        "backdropToneResponseThin": [
+          0.0126,
+          0.451,
+          0.573,
+          0.933
+        ],
+        "backdropToneResponseThick": [
+          0.4553,
+          0.527,
+          0.63,
+          0.898
+        ]
+      },
+      "method": [
+        "The anchors move to the 27 ACTIVE document's, [0.004, 0.11, 0.425, 0.95],",
+        "and that is the load-bearing half of this fit. W28's anchors start at 0.1104",
+        "because the 26.5 bed's uniform backdrops start there; the 27 active refit",
+        "moved the first knot to the darkest backdrop there is (§5.153 §2 item 1) and",
+        "the recede has to follow it. While it did not, every cell over `impulse`",
+        "clamped to an ordinate no cell identified and rendered 0.4612 against a",
+        "reference of 0.2323 — a fifth of the whole residual, on two cells, and",
+        "immovable by any value of that ordinate. Re-anchoring alone took the bed-wide",
+        "residual from 0.0433 to 0.0213.",
+        "",
+        "The ordinates are then the native inactive level read at each anchor, because",
+        "the rendered level tracks the response ordinate to within 0.02 on this",
+        "material: 0.2823 over `dark-solid`, 0.4955-0.4975 over the photograph, 0.8310",
+        "over `light-solid`. Two iterations of the residual close the rest.",
+        "",
+        "The 27 light recede is nearly THICKNESS-INDEPENDENT, which the 26.5 one is",
+        "not: its thin and thick rows differ by 0.44 at the dark anchor (0.0126 against",
+        "0.4553) and by 0.02 here. That is the same convergence §5.153 §2 found in the",
+        "active light document, arriving in the pose."
+      ]
+    },
+    "outerShadow": {
+      "status": "measured — the recede no longer removes the shadow",
+      "previous": "every amplitude leaf zero (W27c G1, claims §5.130)",
+      "method": "See `theRecedeNoLongerRemovesTheShadow` in fitted-receded.json. The block is this document's own active document's, leaf for leaf; the residual over the eight identified inactive cells is 0.00045 mean absolute at a signed mean of +0.00009."
+    }
+  },
+  "resolvedMaterialSha256": "8dc63b265c1de038",
+  "resolvedOverActiveDocument": "apple-macos-27.0-1x-light-standard-glass0.5.json"
+}

@@ -2856,22 +2856,45 @@ describe("the probe set is captured, and gated by nothing (W25 Decision Log 3 (e
     expect(intruders.map(name)).toEqual([]);
   });
 
-  it("drops the file's probe rows by their own label, or the inactive pose, and nothing else", () => {
+  it("drops the file's probe rows, the inactive pose and superseded generations, and nothing else", () => {
     // The other direction, and it is the one that could rot silently: the file
     // on disk now carries the probe set (W25 G4's rebuild), so the guard above
     // passes both when the drop works and when the rows were never captured.
-    // Every row the drop removes must be a probe row of a declared probe scene or
-    // a row of a declared inactive scene, and the two views must differ by exactly
-    // those rows. The inactive arm is W28 G4's; its own guards are below.
+    // Every row the drop removes must be a probe row of a declared probe scene, a
+    // row of a declared inactive scene, or a row captured at a profile document
+    // this repository no longer contains — and the two views must differ by
+    // exactly those rows. The inactive arm is W28 G4's and the generation arm is
+    // W29 G3b's; each has its own guards below.
     const dropped = MATRIX_FILE.cells.filter((cell) => !MATRIX.cells.includes(cell));
     expect(
       dropped.every(
         (cell) =>
           (cell.fixtureSet === "probe" && PROBE.has(cell.key.sceneId)) ||
-          INACTIVE_SCENES.has(cell.key.sceneId),
+          INACTIVE_SCENES.has(cell.key.sceneId) ||
+          !atAShippedDocument(cell),
       ),
     ).toBe(true);
     expect(MATRIX.cells).toHaveLength(MATRIX_FILE.cells.length - dropped.length);
+  });
+
+  it("gates only rows captured at a profile document this repository still contains", () => {
+    // The generation drop, from the inside. Two things would make it a hole: a
+    // hash set that resolved nothing (every row dropped, which the partition
+    // above would catch loudly) and a regex that matched everything (no row
+    // dropped, which nothing else would catch at all). So the mapping is
+    // asserted to be non-empty and to be the thing the rows actually name.
+    expect(SHIPPED_DOCUMENT_HASHES.size).toBeGreaterThan(0);
+    for (const cell of MATRIX.cells) {
+      expect(atAShippedDocument(cell), name(cell)).toBe(true);
+    }
+    // And every document the gated rows name is one of the committed profile
+    // documents, at its current bytes — not merely SOME string that parsed.
+    const named = new Set(
+      MATRIX.cells.map(
+        (cell) => /materialProfile=(\S+) /.exec(cell.key.web.capturePath)?.[1] ?? "(none)",
+      ),
+    );
+    for (const path of named) expect([...SHIPPED_DOCUMENT_HASHES.keys()]).toContain(path);
   });
 
   it("names no probe scene in the conditioning predicate's exclusion list", () => {
