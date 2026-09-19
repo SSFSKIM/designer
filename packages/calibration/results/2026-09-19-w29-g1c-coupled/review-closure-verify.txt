@@ -1,0 +1,30 @@
+# W29 G1c Part B — the review closure's verification (2026-09-19)
+
+Run from packages/calibration unless the path says otherwise. Nothing in vitrea moved in this
+closure, so what these prove is that the amended instruments and the regenerated evidence still
+pass the suite the wave is held to, and that the 26.5 freeze is untouched.
+
+$ pnpm --filter @vitrea/calibration lint
+$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json
+  (exit 0, no output)
+
+$ pnpm --filter @vitrea/calibration test
+
+ Test Files  29 passed (29)
+      Tests  481 passed (481)
+   Start at  18:33:47
+   Duration  2.96s (transform 2.58s, setup 0ms, import 5.64s, tests 7.90s, environment 2ms)
+
+$ python3 results/2026-09-16-w29-freeze/freeze.py verify
+26.5 freeze intact: 1818 entries
+
+$ npx tsx cli/native-delta.ts tables --dir results/2026-09-19-w29-g1c-coupled/delta
+Regenerated twice: byte-identical to the committed file before the generator's header change, and
+two lines longer after it — the median convention named, and no number in the file moved. That is
+why delta/law-tables.txt is amended in place and no .v1 copy stands beside it.
+
+$ python3 results/2026-09-19-w29-g2-native-delta/review-closure.py
+$ python3 results/2026-09-19-w29-g1c-coupled/review-closure.py
+Both closures read their allowances through adopted_allowances.read_allowances(), which parses
+test/adopted-thresholds.test.ts. That file is read and never edited; it is unmodified in this
+closure's commits, and the regenerated G2 output stands beside its original as review-closure.v1.txt.

@@ -1045,6 +1045,14 @@ function buildTables(dir: string, barPath: string): void {
   out(`profiles read: ${profiles.join(", ")}`);
   out("");
   out("Every count is 'moved / measured', against the cell's own 27-against-27 bar (bar-declaration.md).");
+  // The convention is named in the file because a second reader of the same rows
+  // reasonably takes the other one: `read-checks.py` uses Python's
+  // `statistics.median`, which averages the two middles, so an even-count group
+  // reads differently there than it does here. Both are right under their own
+  // rule and neither figure is corrected to the other; the reader needs to know
+  // which is which (claims §5.152 §B §3, review closure 2026-09-19).
+  out("Every median here is the upper middle order statistic of an even count, never the average of");
+  out("the two middles, so a group with an even number of cells reads as one of its own members.");
   // The confound is a property of a profile and not of the bed, so it is stated
   // about the profiles this read actually covers. macOS 27 decoupled the two
   // accessibility toggles, which split one 26.5 state into two on 27: the

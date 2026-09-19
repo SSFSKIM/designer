@@ -3097,6 +3097,33 @@ the doc comment's premise is restated as a 26.5 fact with the 27 split beside it
 lines with the switch's `default` refusal unchanged, plus rows in `compare-gates.test.ts` for both
 keys. It should land with, or before, the first read of either 27 contrast profile against vitrea.
 
+## The wave's allowance columns were hand-transcribed from the adopted tables, and four rows were wrong (2026-09-19, claims §5.151 §12, §5.152 §B §12)
+
+*Found by the independent review of W29 G1c Part B, and closed there for the two review
+closures — this entry is the part that is not closed.*
+
+`test/adopted-thresholds.test.ts` is the source of truth for every adopted bound. W29's native
+delta reasons against those bounds constantly (Decision Log 4 (c) is a table of them), and each
+place that needed them **copied them in by hand**. Four of the forty-eight texture-tier rows came
+out wrong, and they reached a decision the user ruled on: a risk named in Decision Log 5 that did
+not exist, a uniqueness claim that was not unique, and a `2x-light-standard` SSIM allowance quoted
+0.04 looser than the file's.
+
+The two review closures now import `adopted_allowances.read_allowances()`, which parses the tier
+tables and `GATED_PROFILES` out of the test file, so those two cannot drift again. **What is not
+fixed is the general case**: the next instrument that wants an adopted bound will find no
+TypeScript-side export to read — the tables are `const`s inside a test file, reachable from Python
+only by a regex over the source — and will transcribe them like the others did.
+
+**The fix shape**: move the tier tables and their profile mapping into a module the test file
+imports (say `src/adopted-tables.ts`, exporting the rows and the `profileKey → tables` map, with
+`adopted-thresholds.test.ts` keeping every comment that explains *why* a row holds its value), and
+give it a tiny CLI or generated JSON artifact so a Python instrument reads one file instead of
+parsing the suite. The test keeps asserting the matrix against the tables, so nothing about the
+gate's behaviour changes; what changes is that "the allowance for this profile" becomes something a
+tool asks for rather than something a person retypes. Perhaps a hundred lines and a mechanical move,
+best done when the next wave needs the numbers outside the suite. Until then, `adopted_allowances.py`
+is the one reader, and anything new should import it rather than start a fifth copy.
 ---
 
 ## The macOS 27 receded endpoints are not fitted, and every wave writes its own runner to fit one
