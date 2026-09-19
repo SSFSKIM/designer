@@ -1029,7 +1029,11 @@ function buildTables(dir: string, barPath: string): void {
   const profiles = [...new Set(delta.rows.map((row) => row.profileKey27))].sort();
   const poses: readonly ("active" | "inactive")[] = ["active", "inactive"];
 
-  out("# W29 G2 — the native delta, read off the rows");
+  // Titled by what the read covers rather than by the gate that first ran it:
+  // the same instrument reads a second sitting's profile (W29 G1c, §5.152), and
+  // a header naming G2 on those tables would be a mislabel in the one file a
+  // reader takes the verdicts off.
+  out("# The native delta, read off the rows");
   out("");
   const recedeBarred = recede.rows.reduce((total, row) => total + Object.keys(row.bar).length, 0);
   const recedeMeasurable = recede.rows.reduce((total, row) => total + Object.keys(row.deltaOfRecede).length, 0);
@@ -1038,10 +1042,32 @@ function buildTables(dir: string, barPath: string): void {
   out("");
   out(`${String(recede.rows.length)} recede rows, on which ${String(recedeBarred)} of ${String(recedeMeasurable)} measurable readings carry a bar.`);
   out("");
+  out(`profiles read: ${profiles.join(", ")}`);
+  out("");
   out("Every count is 'moved / measured', against the cell's own 27-against-27 bar (bar-declaration.md).");
-  out("The two accessibility profiles carry a confound the material cannot be separated from:");
-  out("macOS 27 decoupled Reduce Transparency from Increase Contrast, so the 27 increased-contrast");
-  out("bed is a DIFFERENT STATE from the 26.5 bed of that name (§5.150 Part B §3).");
+  // The confound is a property of a profile and not of the bed, so it is stated
+  // about the profiles this read actually covers. macOS 27 decoupled the two
+  // accessibility toggles, which split one 26.5 state into two on 27: the
+  // profile named `-increased-contrast-` is contrast alone and its rows carry
+  // the decoupling, and `-increased-contrast-coupled-` is the state 26.5 forced
+  // and is the like-for-like pair (W29 Decision Log 4 (b); §5.151 §9, §5.152).
+  const confounded = profiles.filter(
+    (key) => key.includes("-increased-contrast-") && !key.includes("-increased-contrast-coupled-"),
+  );
+  const coupled = profiles.filter((key) => key.includes("-increased-contrast-coupled-"));
+  if (confounded.length > 0) {
+    out("CONFOUNDED, and the material cannot be separated from it on these rows:");
+    for (const key of confounded) out(`  ${key}`);
+    out("macOS 27 decoupled Reduce Transparency from Increase Contrast, so this 27 bed is a");
+    out("DIFFERENT STATE from the 26.5 bed of that name (§5.150 Part B §3).");
+  }
+  if (coupled.length > 0) {
+    out("UNCONFOUNDED on the accessibility axis, and captured to be so:");
+    for (const key of coupled) out(`  ${key}`);
+    out("Both toggles were on, which is the state macOS 26.5 forced and the one its bed of that");
+    out("name was captured in, so this pair differs in the operating system and nothing else");
+    out("(W29 Decision Log 4 (b); claims §5.152).");
+  }
   out("");
 
   out("## Moved cells per metric per profile, active and inactive apart");

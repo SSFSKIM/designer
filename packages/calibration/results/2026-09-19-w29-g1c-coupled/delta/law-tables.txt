@@ -1,0 +1,295 @@
+# The native delta, read off the rows
+
+32 pair rows; 0 PAIR cells with no bar; 0 cells only on 27, reported not diffed:
+
+10 recede rows, on which 115 of 115 measurable readings carry a bar.
+
+profiles read: apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+
+Every count is 'moved / measured', against the cell's own 27-against-27 bar (bar-declaration.md).
+UNCONFOUNDED on the accessibility axis, and captured to be so:
+  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+Both toggles were on, which is the state macOS 26.5 forced and the one its bed of that
+name was captured in, so this pair differs in the operating system and nothing else
+(W29 Decision Log 4 (b); claims §5.152).
+
+## Moved cells per metric per profile, active and inactive apart
+
+### pose: active
+
+metric                         1x-light-increased-contrast-coupled
+------------------------------------------------------------------
+silhouetteIoUComplement                              5/10
+contourDistanceMeanPx                                5/10
+contourDistanceP95Px                                 3/10
+silhouetteAreaDeltaPx                                4/10
+cornerCurvatureDeltaPerPx                            5/10
+ssimComplement                                      10/10
+ssimBandComplement                                  10/10
+ssimInteriorComplement                                3/3
+ssimOutsideComplement                               10/10
+oklabDeltaEMean                                     10/10
+oklabDeltaEP95                                      10/10
+oklabDeltaEBodyMean                                 10/10
+edgeWeightedMean                                    10/10
+interiorMeanDelta                                   10/10
+interiorStdDevDelta                                 10/10
+bodyLevelDelta                                        9/9
+transferSlopeDelta                                  10/10
+transferOffsetDelta                                 10/10
+rimContourDeltaMax                                    9/9
+rimLocalDeltaMax                                      9/9
+rimRow0DeltaMax                                       9/9
+rimPeakDelta                                        10/10
+rimPeakDepthDeltaPx                                 10/10
+rimFwhmDeltaPx                                        4/4
+highlightBinDeltaMax                                  9/9
+highlightBinDeltaMean                                 9/9
+highlightIntegralDeltaMax                             9/9
+highlightRatioDelta                                     —
+highlightPeakAngleDeltaDeg                            4/9
+tintDeltaLDelta                                     10/10
+tintChromaDelta                                     10/10
+tintHueShiftDeltaDeg                                10/10
+
+### pose: inactive
+
+metric                         1x-light-increased-contrast-coupled
+------------------------------------------------------------------
+silhouetteIoUComplement                             11/22
+contourDistanceMeanPx                               11/22
+contourDistanceP95Px                                 4/22
+silhouetteAreaDeltaPx                               16/22
+cornerCurvatureDeltaPerPx                           11/22
+ssimComplement                                      22/22
+ssimBandComplement                                  22/22
+ssimInteriorComplement                              12/12
+ssimOutsideComplement                               22/22
+oklabDeltaEMean                                     22/22
+oklabDeltaEP95                                      21/22
+oklabDeltaEBodyMean                                 22/22
+edgeWeightedMean                                    22/22
+interiorMeanDelta                                   22/22
+interiorStdDevDelta                                 22/22
+bodyLevelDelta                                      21/21
+transferSlopeDelta                                  18/18
+transferOffsetDelta                                 18/18
+rimContourDeltaMax                                  21/21
+rimLocalDeltaMax                                    21/21
+rimRow0DeltaMax                                     21/21
+rimPeakDelta                                        14/22
+rimPeakDepthDeltaPx                                 19/22
+rimFwhmDeltaPx                                        6/6
+highlightBinDeltaMax                                21/21
+highlightBinDeltaMean                               21/21
+highlightIntegralDeltaMax                           21/21
+highlightRatioDelta                                     —
+highlightPeakAngleDeltaDeg                          11/21
+tintDeltaLDelta                                     22/22
+tintChromaDelta                                     22/22
+tintHueShiftDeltaDeg                                22/22
+
+## Per law, over the whole bed and per pose
+
+### silhouette / geometry
+
+metric                         pose       moved/meas     median Δ   median bar  med Δ/bar  worst Δ/bar  median signed  ↑/↓ of moved  worst cell
+silhouetteIoUComplement        active           5/10     6.656e-5     5.793e-6      11.49      21741.0              —           0/0  1x-light-increased-contrast-coupled/checkerboard__capsule-button__rest
+silhouetteIoUComplement        inactive        11/22     2.053e-4     5.793e-6      35.43      47510.7              —           0/0  1x-light-increased-contrast-coupled/hc-text__rrect-lg__inactive
+contourDistanceMeanPx          active           5/10     2.155e-3     5.875e-4       3.67       2462.3              —           0/0  1x-light-increased-contrast-coupled/checkerboard__capsule-button__rest
+contourDistanceMeanPx          inactive        11/22     3.623e-3     5.875e-4       6.17       6719.0              —           0/0  1x-light-increased-contrast-coupled/hc-text__rrect-lg__inactive
+contourDistanceP95Px           active           3/10     0.000e+0     0.000e+0   Infinity     Infinity              —           0/0  1x-light-increased-contrast-coupled/checkerboard__capsule-button__rest
+contourDistanceP95Px           inactive         4/22     0.000e+0     0.000e+0   Infinity     Infinity              —           0/0  1x-light-increased-contrast-coupled/checkerboard__capsule-button__inactive
+silhouetteAreaDeltaPx          active           4/10     1.000e+0     1.000e+0       1.00       5570.0              —           0/0  1x-light-increased-contrast-coupled/checkerboard__rrect-md__rest
+silhouetteAreaDeltaPx          inactive        16/22     1.000e+1     1.000e+0      10.00      14020.0              —           0/0  1x-light-increased-contrast-coupled/hc-text__rrect-lg__inactive
+
+### corner geometry
+
+metric                         pose       moved/meas     median Δ   median bar  med Δ/bar  worst Δ/bar  median signed  ↑/↓ of moved  worst cell
+cornerCurvatureDeltaPerPx      active           5/10     9.668e-4     2.287e-5      42.28    1385499.1       0.000e+0           3/2  1x-light-increased-contrast-coupled/checkerboard__capsule-button__rest
+cornerCurvatureDeltaPerPx      inactive        11/22     7.315e-4     2.287e-5      31.99     115064.9       0.000e+0           3/8  1x-light-increased-contrast-coupled/hc-text__rrect-lg__inactive
+
+### rim band / edge darkening
+
+metric                         pose       moved/meas     median Δ   median bar  med Δ/bar  worst Δ/bar  median signed  ↑/↓ of moved  worst cell
+rimContourDeltaMax             active            9/9     1.097e+0     9.238e-9 118703209.13  121429535.8       1.066e+0           9/0  1x-light-increased-contrast-coupled/photo__rrect-md__rest
+rimContourDeltaMax             inactive        21/21     8.957e-1     9.238e-9 96893344.65  104081669.4       8.913e-1          21/0  1x-light-increased-contrast-coupled/photo__rrect-md__inactive
+rimLocalDeltaMax               active            9/9     1.089e+0     1.110e-6  980667.27    1005836.4              —           0/0  1x-light-increased-contrast-coupled/photo__rrect-md__rest
+rimLocalDeltaMax               inactive        21/21     8.907e-1     1.110e-6  802439.54     810969.7              —           0/0  1x-light-increased-contrast-coupled/hc-text__capsule-button__inactive
+rimRow0DeltaMax                active            9/9     1.083e+0    5.970e-10 1813377827.87 1840742240.7              —           0/0  1x-light-increased-contrast-coupled/photo__rrect-md__rest
+rimRow0DeltaMax                inactive        21/21     8.940e-1    5.970e-10 1496067979.83 1551130079.5              —           0/0  1x-light-increased-contrast-coupled/photo__rrect-md__inactive
+rimPeakDelta                   active          10/10     1.516e-2     1.317e-8 1151373.79    2476756.3       1.516e-2           8/2  1x-light-increased-contrast-coupled/photo__capsule-button__rest-tint-orange
+rimPeakDelta                   inactive        14/22     4.822e-4     1.317e-8   36615.45    1086186.7       3.392e-4          12/2  1x-light-increased-contrast-coupled/hc-text__rrect-lg__inactive
+rimPeakDepthDeltaPx            active          10/10     1.000e+1     0.000e+0   Infinity     Infinity      -1.000e+1          0/10  1x-light-increased-contrast-coupled/checkerboard__capsule-button__rest
+rimPeakDepthDeltaPx            inactive        19/22     4.000e+0     0.000e+0   Infinity     Infinity       0.000e+0          9/10  1x-light-increased-contrast-coupled/checkerboard__capsule-button__inactive
+rimFwhmDeltaPx                 active            4/4     3.732e+0     1.252e-7 29812014.66   32064509.9      -2.107e+0           1/3  1x-light-increased-contrast-coupled/checkerboard__rrect-md__rest
+rimFwhmDeltaPx                 inactive          6/6     3.699e+0     1.252e-7 29547824.94   35942387.4       2.764e+0           4/2  1x-light-increased-contrast-coupled/dark-solid__rrect-48__inactive
+
+### highlight amplitude and position
+
+metric                         pose       moved/meas     median Δ   median bar  med Δ/bar  worst Δ/bar  median signed  ↑/↓ of moved  worst cell
+highlightBinDeltaMax           active            9/9     8.337e-2     9.451e-9 8820895.09   16700371.8              —           0/0  1x-light-increased-contrast-coupled/checkerboard__capsule-button__rest-tint-orange
+highlightBinDeltaMax           inactive        21/21     3.178e-2     9.451e-9 3194263.60   14132650.5              —           0/0  1x-light-increased-contrast-coupled/checkerboard__capsule-button__inactive-tint-orange
+highlightBinDeltaMean          active            9/9     2.962e-2     9.451e-9 3134387.69    5959440.7              —           0/0  1x-light-increased-contrast-coupled/checkerboard__capsule-button__rest-tint-orange
+highlightBinDeltaMean          inactive        21/21     1.161e-2     9.451e-9 1228850.83    8874858.5              —           0/0  1x-light-increased-contrast-coupled/dark-solid__rrect-md-clear20__inactive
+highlightIntegralDeltaMax      active            9/9     1.294e+0     4.562e-6  264488.28     301007.0              —           0/0  1x-light-increased-contrast-coupled/checkerboard__rrect-md__rest
+highlightIntegralDeltaMax      inactive        21/21     9.818e-1     4.562e-6  212055.12     299174.3              —           0/0  1x-light-increased-contrast-coupled/hc-text-28__rrect-md__inactive
+highlightPeakAngleDeltaDeg     active            4/9     2.250e+1     2.250e+1       1.00          5.0              —           0/0  1x-light-increased-contrast-coupled/photo__rrect-md__rest
+highlightPeakAngleDeltaDeg     inactive        11/21     6.750e+1     2.250e+1       3.00          8.0              —           0/0  1x-light-increased-contrast-coupled/hc-text-28__rrect-md__inactive
+
+### interior level
+
+metric                         pose       moved/meas     median Δ   median bar  med Δ/bar  worst Δ/bar  median signed  ↑/↓ of moved  worst cell
+interiorMeanDelta              active          10/10     3.113e-2    9.674e-10 32174707.99   86072037.1      -1.741e-2           4/6  1x-light-increased-contrast-coupled/photo__rrect-lg__rest
+interiorMeanDelta              inactive        22/22     5.118e-2    9.674e-10 52900688.07  164038074.8      -3.644e-2          3/19  1x-light-increased-contrast-coupled/dark-solid__rrect-md-clear20__inactive
+bodyLevelDelta                 active            9/9     8.919e-2    5.970e-10 149378532.12  177119978.6      -8.919e-2           0/9  1x-light-increased-contrast-coupled/photo__rrect-md__rest
+bodyLevelDelta                 inactive        21/21     9.318e-2    5.970e-10 156070247.27  313068023.7      -9.318e-2          1/20  1x-light-increased-contrast-coupled/dark-solid__rrect-48__inactive
+
+### tone response by backdrop level
+
+metric                         pose       moved/meas     median Δ   median bar  med Δ/bar  worst Δ/bar  median signed  ↑/↓ of moved  worst cell
+transferSlopeDelta             active          10/10     1.168e-1     4.306e-8 2712367.10    6776216.2       1.168e-1          10/0  1x-light-increased-contrast-coupled/photo__capsule-button__pressed
+transferSlopeDelta             inactive        18/18     2.134e-1     4.306e-8 2344941.11   16409527.4       2.134e-1          18/0  1x-light-increased-contrast-coupled/checkerboard__rrect-ml__inactive
+transferOffsetDelta            active          10/10     9.172e-2     2.204e-8 4162303.20    4975234.0      -7.319e-2           1/9  1x-light-increased-contrast-coupled/photo__rrect-lg__rest
+transferOffsetDelta            inactive        18/18     6.958e-2     2.204e-8 3063818.26    5068845.0      -6.752e-2          1/17  1x-light-increased-contrast-coupled/photo__rrect-lg__inactive
+
+### scatter / diffusion
+
+metric                         pose       moved/meas     median Δ   median bar  med Δ/bar  worst Δ/bar  median signed  ↑/↓ of moved  worst cell
+interiorStdDevDelta            active          10/10     1.857e-1     3.017e-9 48747748.85   69349072.8      -1.471e-1          0/10  1x-light-increased-contrast-coupled/photo__toolbar-group__rest
+interiorStdDevDelta            inactive        22/22     1.568e-1     3.017e-9 45642372.18   79365248.6      -1.436e-1          0/22  1x-light-increased-contrast-coupled/hc-text__rrect-sm__inactive
+
+### tint shade
+
+metric                         pose       moved/meas     median Δ   median bar  med Δ/bar  worst Δ/bar  median signed  ↑/↓ of moved  worst cell
+tintDeltaLDelta                active          10/10     1.036e-2     1.180e-8  878093.65    2473268.4      -6.201e-3           4/6  1x-light-increased-contrast-coupled/photo__rrect-lg__rest
+tintDeltaLDelta                inactive        22/22     1.776e-2     1.180e-8 1505664.21    4875421.7      -1.524e-2          3/19  1x-light-increased-contrast-coupled/dark-solid__rrect-md-clear20__inactive
+tintChromaDelta                active          10/10     4.389e-4    5.561e-16 789330453295.34 5759691070645.6      -1.306e-4           3/7  1x-light-increased-contrast-coupled/photo__toolbar-group__rest
+tintChromaDelta                inactive        22/22     2.793e-5    5.561e-16 50234278014.01 6184504927990.7       9.651e-6          15/7  1x-light-increased-contrast-coupled/photo__capsule-button__inactive
+tintHueShiftDeltaDeg           active          10/10     4.445e+1     1.026e-7 358516040.55 1716363139.2              —           0/0  1x-light-increased-contrast-coupled/photo__rrect-md__rest
+tintHueShiftDeltaDeg           inactive        22/22     7.172e+1     1.026e-7 436860507.46 1748519864.7              —           0/0  1x-light-increased-contrast-coupled/hc-text__capsule-button__inactive
+
+### the whole cell, as the fidelity read sees it
+
+metric                         pose       moved/meas     median Δ   median bar  med Δ/bar  worst Δ/bar  median signed  ↑/↓ of moved  worst cell
+ssimComplement                 active          10/10     4.612e-2    7.473e-10 61720411.74  153979536.3              —           0/0  1x-light-increased-contrast-coupled/photo__rrect-lg__rest
+ssimComplement                 inactive        22/22     2.842e-2    7.473e-10 35052233.55  118704874.6              —           0/0  1x-light-increased-contrast-coupled/light-solid__rrect-ml__inactive
+ssimBandComplement             active          10/10     2.353e-1     3.125e-9 75298577.76   94556145.0              —           0/0  1x-light-increased-contrast-coupled/photo__toolbar-group__rest
+ssimBandComplement             inactive        22/22     1.619e-1     3.125e-9 50533744.39   77297933.9              —           0/0  1x-light-increased-contrast-coupled/hc-text__rrect-sm__inactive
+ssimInteriorComplement         active            3/3     2.888e-3    7.448e-12 387710049.50 1300002599.1              —           0/0  1x-light-increased-contrast-coupled/checkerboard__rrect-md__rest
+ssimInteriorComplement         inactive        12/12     3.146e-3    7.448e-12 422391661.36 1171389814.0              —           0/0  1x-light-increased-contrast-coupled/checkerboard__rrect-md__inactive
+ssimOutsideComplement          active          10/10     1.553e-1     3.340e-9 46493015.03   70932750.5              —           0/0  1x-light-increased-contrast-coupled/photo__rrect-lg__rest
+ssimOutsideComplement          inactive        22/22     6.402e-2     3.340e-9 17185718.01   39549267.5              —           0/0  1x-light-increased-contrast-coupled/photo__rrect-lg__inactive
+oklabDeltaEMean                active          10/10     8.024e-3     1.160e-7   69189.40     337894.0              —           0/0  1x-light-increased-contrast-coupled/photo__rrect-lg__rest
+oklabDeltaEMean                inactive        22/22     9.341e-3     1.160e-7   49209.37     307044.1              —           0/0  1x-light-increased-contrast-coupled/photo__rrect-lg__inactive
+oklabDeltaEP95                 active          10/10     3.517e-2     0.000e+0   Infinity     Infinity              —           0/0  1x-light-increased-contrast-coupled/checkerboard__capsule-button__rest
+oklabDeltaEP95                 inactive        21/22     3.618e-2     0.000e+0   Infinity     Infinity              —           0/0  1x-light-increased-contrast-coupled/checkerboard__capsule-button__inactive
+oklabDeltaEBodyMean            active          10/10     6.287e-2     2.692e-7  233518.42     343177.5              —           0/0  1x-light-increased-contrast-coupled/photo__toolbar-group__rest
+oklabDeltaEBodyMean            inactive        22/22     6.124e-2     2.692e-7  211082.56     366784.2              —           0/0  1x-light-increased-contrast-coupled/hc-text__rrect-sm__inactive
+edgeWeightedMean               active          10/10     2.612e-2     1.935e-8 1349808.90    5684514.2              —           0/0  1x-light-increased-contrast-coupled/photo__rrect-lg__rest
+edgeWeightedMean               inactive        22/22     2.433e-2     1.935e-8 1210944.21    5291439.3              —           0/0  1x-light-increased-contrast-coupled/photo__rrect-lg__inactive
+
+## Tone response, cells grouped by their backdrop's encoded mean
+
+band            cells  interior moved  median signed ΔL  slope moved  median Δslope  median Δoffset
+0.10–0.25           3             3/3         -1.539e-1          0/0            NaN             NaN
+0.25–0.45          12           12/12         -4.589e-2        12/12       1.168e-1       -9.296e-2
+0.45–0.65           8             8/8         -3.644e-2          8/8       6.050e-1       -7.036e-2
+0.65–0.85           8             8/8         -3.543e-3          8/8       1.457e-1       -3.560e-2
+0.85–1.01           1             1/1          5.341e-2          0/0            NaN             NaN
+
+## Scatter, structured backdrops against solid ones
+
+structured         28/28 moved   median signed -1.568e-1   ↑/↓ of moved 0/28   worst 1x-light-increased-contrast-coupled/hc-text__rrect-sm__inactive
+solid                4/4 moved   median signed -1.185e-1   ↑/↓ of moved 0/4   worst 1x-light-increased-contrast-coupled/dark-solid__rrect-48__inactive
+
+By backdrop id, structured only:
+  checkerboard             7/7   median signed -1.471e-1
+  checkerboard-4           1/1   median signed -1.646e-1
+  checkerboard-lc16        2/2   median signed -1.293e-1
+  hc-text                  4/4   median signed -1.987e-1
+  hc-text-28               1/1   median signed -1.377e-1
+  hc-text-7                1/1   median signed -1.886e-1
+  photo                  12/12   median signed -1.374e-1
+
+## Tint shade, the tinted cells only
+
+tintDeltaLDelta                4/4 moved   median Δ 1.524e-2   median signed 6.810e-3   worst 1x-light-increased-contrast-coupled/photo__capsule-button__inactive-tint-orange
+tintChromaDelta                4/4 moved   median Δ 7.611e-4   median signed 2.307e-6   worst 1x-light-increased-contrast-coupled/photo__capsule-button__inactive-tint-orange
+tintHueShiftDeltaDeg           4/4 moved   median Δ 1.202e+2   median signed NaN   worst 1x-light-increased-contrast-coupled/checkerboard__capsule-button__inactive-tint-orange
+
+The same three on the untinted cells, as the control:
+tintDeltaLDelta              28/28 moved   median Δ 1.776e-2   median signed -1.036e-2
+tintChromaDelta              28/28 moved   median Δ 1.306e-4   median signed 5.395e-6
+tintHueShiftDeltaDeg         28/28 moved   median Δ 6.691e+1   median signed NaN
+
+## Corner geometry: the characteristic corner curvature of each bed, by component
+
+component             cells  moved  median κ 26.5   median κ 27   implied r 26.5→27
+capsule-button           13      6        0.05582       0.05582    17.92 → 17.92 px
+rrect-48                  1      0        0.10321       0.10321      9.69 → 9.69 px
+rrect-80                  1      0        0.06233       0.06233    16.04 → 16.04 px
+rrect-lg                  3      3        0.03051       0.03267    32.78 → 30.61 px
+rrect-md                  8      5        0.05295       0.05295    18.89 → 18.89 px
+rrect-md-clear20          1      0        0.05400       0.05400    18.52 → 18.52 px
+rrect-ml                  2      2        0.03999       0.05207    25.01 → 19.21 px
+rrect-sm                  1      0        0.13227       0.13227      7.56 → 7.56 px
+toolbar-group             2      0        0.05436       0.05436    18.40 → 18.40 px
+
+## The recede, as its own row set
+
+(27 inactive − 27 active) − (26.5 inactive − 26.5 active), per signed reading.
+10 scene pairs.
+'moved/meas' is over the rows that carry the reading at all: each side of the pair takes its own run-to-run spread where it has one and the bed-wide minimum non-zero spread where its seven runs agreed exactly, so a reading is measured wherever both beds resolve it.
+
+reading               moved/meas  median recede 26.5  median recede 27  median difference   median bar
+bodyLevel                    9/9            7.954e-3          6.033e-4          -8.347e-3     5.636e-7
+rimContourMean               9/9            8.046e-2         -1.156e-1          -1.659e-1     1.127e-6
+rimLocalMean                 9/9            8.738e-2         -9.747e-2          -1.487e-1     0.000e+0
+highlightPeak                9/9           -6.012e-3         -5.608e-2          -4.150e-2     5.636e-7
+highlightFloor               9/9            1.058e-2         -2.604e-3          -7.439e-3     5.636e-7
+interiorMean               10/10            1.326e-2         -2.347e-3          -6.053e-3     1.055e-6
+interiorStdDev             10/10            5.048e-2          3.296e-3           1.562e-2     1.647e-5
+rimPeak                    10/10            0.000e+0         -1.437e-2          -1.397e-2     0.000e+0
+rimPeakDepthPx              9/10            0.000e+0          5.000e+0           3.000e+0     0.000e+0
+tintDeltaL                 10/10            1.522e-1         -9.323e-4          -8.918e-3     3.639e-7
+tintChroma                 10/10           -2.062e-3          1.337e-5           2.511e-3    1.701e-13
+silhouetteAreaPx            9/10           -2.000e+0          1.000e+0           5.000e+0     0.000e+0
+
+## Where the bar came from, per metric
+
+A cell whose seven runs agreed exactly on a metric has no spread of its own and takes the bed-wide minimum non-zero bar. That is the sharpest honest bar available and it is also the most generous to a verdict of 'moved', so the share matters to how a verdict reads: the median Δ/bar in the law tables is what says whether the movement is comfortable there.
+
+metric                           own bar  bed minimum  bed zero  bed minimum value
+silhouetteIoUComplement                0           32         0           5.793e-6
+contourDistanceMeanPx                  0           32         0           5.875e-4
+contourDistanceP95Px                   0            0        32                  —
+silhouetteAreaDeltaPx                  0           32         0           1.000e+0
+cornerCurvatureDeltaPerPx              0           32         0           2.287e-5
+ssimComplement                         4           28         0          7.473e-10
+ssimBandComplement                     4           28         0           3.125e-9
+ssimInteriorComplement                 0           15         0          7.448e-12
+ssimOutsideComplement                  4           28         0           3.340e-9
+oklabDeltaEMean                        4           28         0           1.160e-7
+oklabDeltaEP95                         0            0        32                  —
+oklabDeltaEBodyMean                    4           28         0           2.692e-7
+edgeWeightedMean                       4           28         0           1.935e-8
+interiorMeanDelta                      4           28         0          9.674e-10
+interiorStdDevDelta                    4           28         0           3.017e-9
+bodyLevelDelta                         2           28         0          5.970e-10
+transferSlopeDelta                     4           24         0           4.306e-8
+transferOffsetDelta                    4           24         0           2.204e-8
+rimContourDeltaMax                     2           28         0           9.238e-9
+rimLocalDeltaMax                       0           30         0           1.110e-6
+rimRow0DeltaMax                        2           28         0          5.970e-10
+rimPeakDelta                           0           32         0           1.317e-8
+rimPeakDepthDeltaPx                    0            0        32                  —
+rimFwhmDeltaPx                         2            8         0           1.252e-7
+highlightBinDeltaMax                   2           28         0           9.451e-9
+highlightBinDeltaMean                  2           28         0           9.451e-9
+highlightIntegralDeltaMax              4           26         0           4.562e-6
+highlightPeakAngleDeltaDeg             0           30         0           2.250e+1
+tintDeltaLDelta                        4           28         0           1.180e-8
+tintChromaDelta                        4           28         0          5.561e-16
+tintHueShiftDeltaDeg                   4           28         0           1.026e-7
+

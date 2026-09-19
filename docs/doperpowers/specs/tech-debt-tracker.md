@@ -3067,3 +3067,32 @@ than a guess: sweep a rasterised circle of known radius down through short perim
 where `cornerCurvaturePerPxA` leaves the ±12 % of `1/r` the doc comment already claims for it. About
 twenty lines and one test beside the existing curvature tests, plus a re-read of any committed row
 that would newly become absent.
+
+## `compare` picks the web side's accessibility flags off a field that cannot tell macOS 27's two contrast states apart (2026-09-19, §5.152 §B §10)
+
+*Found by W29 G1c, publishing the coupled increased-contrast bed beside the decoupled one.*
+`cli/compare.ts`'s `webAccessibilityFlags` maps the **manifest's** `a11yMode` to the flags the web
+capture renders with, and in its default `as-captured` mode it renders `increased-contrast` with
+**both** `reduced-transparency` and `increased-contrast`. Its doc comment gives the reason and the
+reason was true: "macOS force-enables Reduce Transparency when Increase Contrast is on … there is no
+single-flag increased-contrast state on that platform to capture."
+
+macOS 27 decoupled them, and the bed now holds both states —
+`apple-macos-27.0-1x-light-increased-contrast-glass0.5` captured with contrast alone and
+`…-increased-contrast-coupled-glass0.5` with both. **Both record `a11yMode: "increased-contrast"` in
+the manifest**, because that field is `SystemAccessibility.current` and it answers only "is contrast
+on". So `compare` cannot distinguish them: `as-captured` is correct and now *measured* for the
+coupled profile, and **wrong** for the decoupled one, whose like-for-like mode is `contrast-only`.
+
+Nothing committed is affected — no 27 contrast profile has been read against vitrea, and W29
+Decision Log 4 (a) declares no table for increased contrast — so this is a trap laid for the next
+reader rather than a wrong number on disk.
+
+**The fix shape**: key on the **profile key's** `a11yMode` via `parseProfileKey`, which since W29
+G1c distinguishes `increased-contrast` from `increased-contrast-coupled`, rather than on the
+manifest field, which cannot; keep the manifest field as the honest record of what the machine
+reported. `webAccessibilityFlags` then returns one flag for the decoupled key and two for the
+coupled one, `contrast-only` keeps its meaning as the *bound* on vitrea's contrast-only path, and
+the doc comment's premise is restated as a 26.5 fact with the 27 split beside it. Perhaps thirty
+lines with the switch's `default` refusal unchanged, plus rows in `compare-gates.test.ts` for both
+keys. It should land with, or before, the first read of either 27 contrast profile against vitrea.
