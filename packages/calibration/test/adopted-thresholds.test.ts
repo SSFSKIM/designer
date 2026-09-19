@@ -849,7 +849,7 @@ interface GatedProfile {
   readonly names: { readonly texture: string; readonly dom: string };
 }
 
-const GATED_PROFILES: readonly GatedProfile[] = [
+const GATED_PROFILES_26_5: readonly GatedProfile[] = [
   {
     profileKey: "apple-macos-26.5-1x-light-standard",
     cells: { texture: 36, dom: 36 },
@@ -895,6 +895,222 @@ const GATED_PROFILES: readonly GatedProfile[] = [
     dom: DOM_TIER_2X_DARK,
     names: { texture: "TEXTURE_TIER_2X_DARK", dom: "DOM_TIER_2X_DARK" },
   },
+];
+
+/*
+ * ---------------------------------------------------------------------------
+ * The fifth adoption: macOS 27, at the 26.5 values (W29 Decision Log 4 (a))
+ * ---------------------------------------------------------------------------
+ *
+ * The reference moved. macOS 27 draws a different material under every app
+ * (claims §5.151: it moved on all 619 cells and its geometry did not), the 27
+ * bed is captured under its own keys beside the frozen 26.5 one, and W29 G3
+ * refits vitrea to it. **The bounds that judge that refit are declared here
+ * before the fit is read** — contract X5, and the reason this block lands in a
+ * commit of its own that precedes every fit commit.
+ *
+ * **The user ruled the numbers, and ruled them to be the 26.5 numbers**
+ * (Decision Log 4 (a), 2026-09-19): the five unconfounded 27 profiles carry the
+ * 26.5 tables' values per tier, and increased contrast carries no table at all.
+ * So these are not new tables — they are the same tables, and they are ALIASES
+ * rather than transcriptions on purpose. A copy could drift from its twin by a
+ * digit and nothing would notice; an alias is the ruling itself, in code.
+ *
+ * *What un-aliasing one would mean.* If a later wave re-pins a 27 bound, it must
+ * break that table out into its own literal rather than edit the constant on the
+ * left of the `=`, because the 26.5 tables gate the frozen 26.5 rows and X1
+ * forbids moving them. The alias is a statement that the two are equal today,
+ * not a statement that they are the same object forever.
+ *
+ * *Why the 26.5 values are a defensible target rather than an optimistic one.*
+ * G2 measured the two operating systems against each other at a whole-cell ΔE of
+ * 0.014 at the median — an order under the 0.07 the light texture table already
+ * allows (claims §5.151 §10). On the two light standard profiles and on reduced
+ * transparency the whole native-to-native distribution sits inside the allowance
+ * (ΔE mean p90 0.047, 0.048 and 0.009). On the two DARK profiles it does not:
+ * p90 0.111 and max 0.155 against an allowance of 0.09, edge-weighted p90 0.072
+ * against 0.04. The user ruled these tables knowing that (Decision Log 4 (a)),
+ * and ruled what a dark miss means: **a floor decision for the user, recorded**
+ * — not a bound loosened after the read, and not a fit failure.
+ *
+ * *No regression floor for any 27 profile, in this wave.* Acceptance clause 4
+ * rules it out and the reason is the bed's own bar: the 27 fixtures are
+ * published at the seven-run probe bar, not the seventeen-run freeze bar the
+ * 26.5 floors stand on (claims §5.150 Part B §4). A floor pinned at a
+ * seven-run bed's reading would claim a precision the bed does not carry. The
+ * assertion below is what keeps that a rule rather than an intention.
+ *
+ * *One increased-contrast key gets a table and one does not.* The **decoupled**
+ * 27 bed is a different accessibility state from the 26.5 bed of the same name —
+ * macOS 27 no longer force-enables Reduce Transparency with Increase Contrast —
+ * so a bound declared across that pair would be a bound on the decoupling and
+ * not on the material (claims §5.151 §9), and it gets none. The **coupled** bed
+ * was captured in the state macOS 26.5 forced, so its native-to-native read
+ * differs in the operating system and nothing else, and **Decision Log 5 rules
+ * it a table at the 26.5 increased-contrast values** on the same form and the
+ * same argument as Decision Log 4 (a) (claims §5.152 §B).
+ *
+ * That entry also names the one row it expects to be hard, so that a miss there
+ * reads as the prediction it is rather than as a surprise: the coupled profile's
+ * native-to-native **SSIM-outside complement reaches 0.237 at its worst cell
+ * against an allowance of 0.20**, the only material-adjacent row of that profile
+ * outside its allowance. It is recorded and **not loosened** — a miss on it is a
+ * floor decision for the user, exactly as a dark ΔE miss is.
+ */
+
+/**
+ * A 27 profile's cell counts before the sealed read has been taken.
+ *
+ * The thresholds above are a DECLARATION — they are chosen, and X5 makes
+ * choosing them before the read the whole point. The cell counts are not: they
+ * are the machine's output, transcribed from the canonical run the way
+ * `PREDICATE_EXCLUDES` is. The two therefore land in two different commits, and
+ * this sentinel is what holds the gap open honestly: while it stands, the
+ * profile is declared and not yet gated, and the case below asserts the matrix
+ * carries no row for it. The moment a row lands, the counts must be transcribed
+ * or the suite goes red.
+ */
+const PENDING_UNTIL_THE_27_READ = "pending-until-the-27-read" as const;
+
+type Declared27Profile = Omit<GatedProfile, "cells"> & {
+  readonly cells: GatedProfile["cells"] | typeof PENDING_UNTIL_THE_27_READ;
+};
+
+/** The 27 tables, aliased to the 26.5 tables the user ruled them equal to. */
+const TEXTURE_TIER_27_LIGHT = TEXTURE_TIER_LIGHT;
+const DOM_TIER_27_LIGHT = DOM_TIER_LIGHT;
+const TEXTURE_TIER_27_2X_LIGHT = TEXTURE_TIER_2X_LIGHT;
+const DOM_TIER_27_2X_LIGHT = DOM_TIER_2X_LIGHT;
+const TEXTURE_TIER_27_DARK = TEXTURE_TIER_DARK;
+const DOM_TIER_27_DARK = DOM_TIER_DARK;
+const TEXTURE_TIER_27_2X_DARK = TEXTURE_TIER_2X_DARK;
+const DOM_TIER_27_2X_DARK = DOM_TIER_2X_DARK;
+const TEXTURE_TIER_27_REDUCED_TRANSPARENCY = TEXTURE_TIER_REDUCED_TRANSPARENCY;
+const DOM_TIER_27_REDUCED_TRANSPARENCY = DOM_TIER_REDUCED_TRANSPARENCY;
+const TEXTURE_TIER_27_INCREASED_CONTRAST_COUPLED = TEXTURE_TIER_INCREASED_CONTRAST;
+const DOM_TIER_27_INCREASED_CONTRAST_COUPLED = DOM_TIER_INCREASED_CONTRAST;
+
+/**
+ * The five profiles Decision Log 4 (a) names and the sixth Decision Log 5 adds,
+ * and no others.
+ *
+ * The list is stated rather than derived from the matrix or from `scenes.json`,
+ * for the reason every enumerated list in this file is stated: a gate whose
+ * membership follows its artifact cannot notice a profile that arrived or left.
+ * A 27 row under any key not here fails the case below — which is what keeps the
+ * two increased-contrast beds out by rule rather than by nobody having captured
+ * them.
+ */
+const DECLARED_27_PROFILES: readonly Declared27Profile[] = [
+  {
+    profileKey: "apple-macos-27.0-1x-light-standard-glass0.5",
+    cells: { texture: 36, dom: 36 },
+    texture: TEXTURE_TIER_27_LIGHT,
+    dom: DOM_TIER_27_LIGHT,
+    names: { texture: "TEXTURE_TIER_27_LIGHT", dom: "DOM_TIER_27_LIGHT" },
+  },
+  {
+    profileKey: "apple-macos-27.0-2x-light-standard-glass0.5",
+    cells: { texture: 36, dom: 36 },
+    texture: TEXTURE_TIER_27_2X_LIGHT,
+    dom: DOM_TIER_27_2X_LIGHT,
+    names: { texture: "TEXTURE_TIER_27_2X_LIGHT", dom: "DOM_TIER_27_2X_LIGHT" },
+  },
+  {
+    profileKey: "apple-macos-27.0-1x-dark-standard-glass0.5",
+    cells: { texture: 13, dom: 13 },
+    texture: TEXTURE_TIER_27_DARK,
+    dom: DOM_TIER_27_DARK,
+    names: { texture: "TEXTURE_TIER_27_DARK", dom: "DOM_TIER_27_DARK" },
+  },
+  {
+    profileKey: "apple-macos-27.0-2x-dark-standard-glass0.5",
+    cells: { texture: 13, dom: 13 },
+    texture: TEXTURE_TIER_27_2X_DARK,
+    dom: DOM_TIER_27_2X_DARK,
+    names: { texture: "TEXTURE_TIER_27_2X_DARK", dom: "DOM_TIER_27_2X_DARK" },
+  },
+  {
+    profileKey: "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+    cells: { texture: 8, dom: 8 },
+    texture: TEXTURE_TIER_27_REDUCED_TRANSPARENCY,
+    dom: DOM_TIER_27_REDUCED_TRANSPARENCY,
+    names: {
+      texture: "TEXTURE_TIER_27_REDUCED_TRANSPARENCY",
+      dom: "DOM_TIER_27_REDUCED_TRANSPARENCY",
+    },
+  },
+  {
+    // Decision Log 5, ruled 2026-09-19 after the five above were declared: the
+    // coupled bed is the 26.5 state captured on 27, so a bound across the pair is
+    // a bound on the material. Declared in its own commit, and that commit still
+    // precedes every fit commit that touches this profile (contract X5).
+    profileKey: "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+    cells: { texture: 9, dom: 8 },
+    texture: TEXTURE_TIER_27_INCREASED_CONTRAST_COUPLED,
+    dom: DOM_TIER_27_INCREASED_CONTRAST_COUPLED,
+    names: {
+      texture: "TEXTURE_TIER_27_INCREASED_CONTRAST_COUPLED",
+      dom: "DOM_TIER_27_INCREASED_CONTRAST_COUPLED",
+    },
+  },
+];
+
+/** The 26.5 tables each 27 table is ruled equal to — the pin on the alias. */
+const RULED_EQUAL_TO_26_5: Readonly<Record<string, readonly GateRow[]>> = {
+  TEXTURE_TIER_27_LIGHT: TEXTURE_TIER_LIGHT,
+  DOM_TIER_27_LIGHT: DOM_TIER_LIGHT,
+  TEXTURE_TIER_27_2X_LIGHT: TEXTURE_TIER_2X_LIGHT,
+  DOM_TIER_27_2X_LIGHT: DOM_TIER_2X_LIGHT,
+  TEXTURE_TIER_27_DARK: TEXTURE_TIER_DARK,
+  DOM_TIER_27_DARK: DOM_TIER_DARK,
+  TEXTURE_TIER_27_2X_DARK: TEXTURE_TIER_2X_DARK,
+  DOM_TIER_27_2X_DARK: DOM_TIER_2X_DARK,
+  TEXTURE_TIER_27_REDUCED_TRANSPARENCY: TEXTURE_TIER_REDUCED_TRANSPARENCY,
+  DOM_TIER_27_REDUCED_TRANSPARENCY: DOM_TIER_REDUCED_TRANSPARENCY,
+  TEXTURE_TIER_27_INCREASED_CONTRAST_COUPLED: TEXTURE_TIER_INCREASED_CONTRAST,
+  DOM_TIER_27_INCREASED_CONTRAST_COUPLED: DOM_TIER_INCREASED_CONTRAST,
+};
+
+const transcribed27 = (profile: Declared27Profile): profile is GatedProfile =>
+  profile.cells !== PENDING_UNTIL_THE_27_READ;
+
+/**
+ * Every profile the gate runs its tables over: the six 26.5 ones, plus each 27
+ * profile whose counts have been transcribed from the sealed read.
+ *
+ * Composed rather than written out, so a declared-but-unread 27 profile is
+ * carried by exactly one construct — and so that transcribing its counts is the
+ * only edit needed to put it under every bound, floor, partition and
+ * conditioning case below.
+ */
+const GATED_PROFILES: readonly GatedProfile[] = [
+  ...GATED_PROFILES_26_5,
+  ...DECLARED_27_PROFILES.filter(transcribed27),
+];
+
+/**
+ * How many profiles the gate covers, pinned so the composition above cannot
+ * quietly cover fewer. It was 6 while the 27 read was pending and is 12 now
+ * that the six 27 profiles carry the counts the canonical run measured.
+ */
+const GATED_PROFILE_COUNT = 12;
+
+/**
+ * The one 27 key that gets no table in this wave, named so its absence from
+ * `DECLARED_27_PROFILES` reads as the ruling it is rather than as an omission.
+ *
+ * The DECOUPLED increased-contrast bed: contrast alone on 27 against contrast
+ * **with** transparency reduction on 26.5, so a bound across the pair would be a
+ * bound on the toggle (Decision Log 4 (a); claims §5.151 §9). It is also not read
+ * against vitrea at all in this wave — `compare`'s web accessibility flags key on
+ * the manifest's `a11yMode`, which reads `increased-contrast` for both 27 contrast
+ * profiles, so the web side cannot yet be put in contrast-without-reduction. That
+ * is the tracker entry G1c Part B left, and the reason the absence here is two
+ * decisions rather than one.
+ */
+const UNBOUNDED_27_PROFILES: readonly string[] = [
+  "apple-macos-27.0-1x-light-increased-contrast-glass0.5",
 ];
 
 /**
@@ -954,17 +1170,20 @@ const DARK_PROFILES = [
  */
 const MATRIX_PARTITION: Readonly<Record<string, number>> = {
   "apple-macos-26.5-1x-dark-standard": 26,
-  // 18 → 17 at W18 G2 (claims §5.79): the dom-tier holdout
-  // `hc-text__capsule-button__rest` could not be measured on the rebuilt bed
-  // (`GatedProfile.cells`).
   "apple-macos-26.5-1x-light-increased-contrast": 17,
   "apple-macos-26.5-1x-light-reduced-transparency": 16,
   "apple-macos-26.5-1x-light-standard": 72,
   "apple-macos-26.5-2x-dark-standard": 26,
   "apple-macos-26.5-2x-light-standard": 72,
+  "apple-macos-27.0-1x-dark-standard-glass0.5": 26,
+  "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 17,
+  "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": 16,
+  "apple-macos-27.0-1x-light-standard-glass0.5": 72,
+  "apple-macos-27.0-2x-dark-standard-glass0.5": 26,
+  "apple-macos-27.0-2x-light-standard-glass0.5": 72,
 };
 
-const MATRIX_CELLS = 229; // 230 until W18 G2 (claims §5.79); the row lost is named above
+const MATRIX_CELLS = 458; // 229 until W29 G3 appended the 27 bed (§5.153); 230 until W18 G2 (§5.79)
 
 /**
  * Scenes that carry no shape and no material axis, per profile — so the shape
@@ -1056,6 +1275,28 @@ const NO_SHAPE_AXIS_SCENES: Readonly<
   },
   "apple-macos-26.5-1x-light-reduced-transparency": { texture: [], dom: [] },
   "apple-macos-26.5-1x-light-increased-contrast": { texture: [], dom: [] },
+  /*
+   * **Every 27 profile's lists are empty, on both tiers, and that emptiness is a
+   * measurement** (W29 G3, claims §5.153).
+   *
+   * On 26.5 the entries above exist because Apple's material over a near-black
+   * solid sat inside the extractor's 0.02 linear threshold of its own backdrop:
+   * there was no silhouette to find, so the cell carried no shape axis. On macOS
+   * 27 it does not sit there — claims §5.151 §4 measured the same thing from the
+   * other side (`dark-solid__rrect-64__rest` is 52 px of silhouette on 26.5 and
+   * 6,996 px on 27) — and vitrea's refitted material follows it, so every cell of
+   * every 27 profile yields a contour on both tiers.
+   *
+   * They are written out rather than left to the `?? []` default, because an
+   * absent key and an empty list would then be the same thing, and these six are
+   * the statement that the near-tone cells came back.
+   */
+  "apple-macos-27.0-1x-light-standard-glass0.5": { texture: [], dom: [] },
+  "apple-macos-27.0-2x-light-standard-glass0.5": { texture: [], dom: [] },
+  "apple-macos-27.0-1x-dark-standard-glass0.5": { texture: [], dom: [] },
+  "apple-macos-27.0-2x-dark-standard-glass0.5": { texture: [], dom: [] },
+  "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": { texture: [], dom: [] },
+  "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": { texture: [], dom: [] },
 };
 
 /**
@@ -1382,22 +1623,123 @@ const NO_SHAPE_AXIS_SCENES: Readonly<
  *   of one heavy width per source at the 2x span grading the reference has and
  *   vitrea does not (W26 Decision Log 2 (f), 7 (g); the tracker).
  */
+/*
+ * ---------------------------------------------------------------------------
+ * The fifteen rows the macOS 27 refit missed — recorded, claimed UNMET, and
+ * enforced by nothing (W29 G3, claims §5.153)
+ * ---------------------------------------------------------------------------
+ *
+ * **This is NOT a regression floor, and the difference is the whole point.**
+ * A floor pins a number and says "no worse than this"; acceptance clause 4
+ * forbids one on any 27 profile, because the 27 bed is published at the
+ * seven-run probe bar and a floor needs the seventeen-run freeze bar. So these
+ * rows enforce no value at all. Each one keeps its adopted bound as a claim that
+ * is **missed**, exactly as §5.27's rows keep theirs, and what CI holds is only
+ * the membership of this list: a new miss fails the case below, and a row that
+ * comes good fails it too. Nothing here can be satisfied by moving a number.
+ *
+ * The bound was declared before the fit was read (contracts X5; Decision Logs
+ * 4 (a) and 5), the fit was read once at a sealed configuration, and the holdout
+ * was read once. **Nothing was re-fitted after that read** — which is why five of
+ * the fifteen are holdout cells that this child could not and did not tune
+ * against. Re-pinning any of these bounds is the user's ruling and nobody
+ * else's; the wave's Decision Log 6 draft is where it is put.
+ *
+ * ## The three causes, each measured rather than supposed
+ *
+ * **(1) The outer shadow moved on macOS 27 and this child may not follow it** —
+ * seven of the fifteen, every `ssimOutside` row and the `ssimMean` rows that
+ * carry the same exterior. On the 2x light bed
+ * `checkerboard__rrect-md__rest`'s native shadow went from a mean exterior
+ * departure of 0.0128 with a falloff σ of 35.8 device px on 26.5 to **0.0028 at
+ * σ 18.8 on 27** — less than a quarter of the light removed, over less than half
+ * the distance — while vitrea still draws 0.0133 at σ 35, the 26.5 shadow it was
+ * fitted to. On 26.5 the two agreed to the third decimal and the cell read
+ * ssimOutside 0.9943; on 27 it reads 0.8495.
+ * **G2's native delta never read the shadow axis** (claims §5.151 §2 lists the
+ * laws it read and the shadow is not among them), and contract X3 says G3
+ * changes nothing G2 did not name as moved. So the constants are left alone and
+ * the finding is recorded instead. It is the largest single thing this wave now
+ * knows and has not acted on.
+ *
+ * **(2) The largest spans keep the most residual** — six of the fifteen are
+ * `rrect-lg`, `rrect-ml` or `glass-over-glass`, the bed's biggest surfaces, and
+ * their 26.5 twins read 0.97–0.99 where the 27 rows read 0.86–0.91. The body's
+ * far-span term (`sizeToneLevelFar`) is the constant W25 declined for want of a
+ * reading that could choose its sign, and the 27 bed has not been asked for one.
+ *
+ * **(3) The dark bed's diffusion at a large span over a photograph** — the four
+ * `photo__rrect-lg__rest :: oklabDeltaEP95` rows. The level is close (native
+ * 0.1814 against 0.1636) and the **spread is not**: native 0.0417 against
+ * vitrea's 0.0142, so vitrea passes a third of the structure the 27 dark
+ * reference passes there. That is the scale-selective scatter the light
+ * document's `scatter.doesNotClose` names, at the one span where the dark
+ * document has no heavy tap to shape it with.
+ *
+ * Decision Log 4 (a) already ruled what a dark miss means — a floor decision for
+ * the user, recorded — and the review of §5.152 §B extended the same shape to a
+ * 2x-light SSIM miss. All fifteen are in one of those two classes.
+ */
+interface MissedRow {
+  readonly measured: number;
+  readonly bound: string;
+}
+
+const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.89349, bound: "≥ 0.9" },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.8838, bound: "≥ 0.9" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.20096, bound: "≤ 0.18" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": { measured: 0.82736, bound: "≥ 0.83" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.19474, bound: "≤ 0.19" },
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimOutside": { measured: 0.84949, bound: "≥ 0.87" },
+  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimMean": { measured: 0.91215, bound: "≥ 0.93" },
+  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimOutside": { measured: 0.79671, bound: "≥ 0.87" },
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimMean": { measured: 0.91261, bound: "≥ 0.93" },
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimOutside": { measured: 0.80881, bound: "≥ 0.87" },
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.85978, bound: "≥ 0.88" },
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimMean": { measured: 0.90989, bound: "≥ 0.93" },
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimOutside": { measured: 0.77243, bound: "≥ 0.87" },
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21524, bound: "≤ 0.17" },
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21346, bound: "≤ 0.17" },
+};
+
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "dom / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+  "dom / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+  "dom / calibration / light-solid__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+  "dom / calibration / light-solid__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+  "dom / calibration / light-solid__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+  "dom / calibration / light-solid__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+  "dom / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "dom / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+  "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+  "dom / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+  "dom / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "dom / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+  "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard",
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
   "texture / calibration / checkerboard__toolbar-group__rest / apple-macos-26.5-2x-light-standard",
   "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-1x-light-standard",
@@ -1405,16 +1747,30 @@ const PREDICATE_EXCLUDES = [
   "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-light-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / calibration / light-solid__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+  "texture / calibration / light-solid__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+  "texture / calibration / light-solid__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+  "texture / calibration / light-solid__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+  "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+  "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+  "texture / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+  "texture / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
   "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+  "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
 ] as const;
 
 // ---------------------------------------------------------------------------
@@ -1659,7 +2015,7 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
       [...GATED_PROFILES.map((profile) => profile.profileKey), ...UNGATED_PROFILES].sort(),
     ).toEqual(Object.keys(MATRIX_PARTITION).sort());
     expect(UNGATED_PROFILES, "every profile in the matrix is gated").toHaveLength(0);
-    expect(GATED_PROFILES).toHaveLength(6);
+    expect(GATED_PROFILES).toHaveLength(GATED_PROFILE_COUNT);
 
     for (const { profileKey, cells: counted } of GATED_PROFILES) {
       for (const tier of ["texture", "dom"] as const) {
@@ -1718,6 +2074,10 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
 
           for (const cell of applicable) {
             const measured = reading(cell, axis, metric);
+            // A 27 row the refit missed: named in `MISSED_27_ROWS`, claimed
+            // UNMET, and enforced by nothing until the user rules. The case that
+            // owns that list is what keeps it from growing unnoticed.
+            if (MISSED_27_ROWS[`${name(cell)} :: ${metric}`] !== undefined) continue;
             const pinned = REGRESSION_FLOORS[`${name(cell)} :: ${metric}`];
 
             // An UNMET row: the adopted bound stands as a claim in §5.27 and CI
@@ -2202,6 +2562,129 @@ function bandBelow(side: readonly PairSide[] | undefined, label: string): PairSi
  * forgot `--alpha` would otherwise pass with nothing to gate. The dom tier refuses the reading by
  * its interior alpha (§5.84 §7) and is not gated here.
  */
+describe("the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a))", () => {
+  it("declares exactly the six profiles the user ruled, and not the confounded one", () => {
+    expect(DECLARED_27_PROFILES.map((profile) => profile.profileKey).sort()).toEqual(
+      [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+        "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+        "apple-macos-27.0-1x-light-standard-glass0.5",
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "apple-macos-27.0-2x-light-standard-glass0.5",
+      ],
+    );
+    for (const key of UNBOUNDED_27_PROFILES) {
+      expect(
+        DECLARED_27_PROFILES.map((profile) => profile.profileKey),
+        `${key}: ruled to carry no table this wave`,
+      ).not.toContain(key);
+    }
+    // Every declared key parses as a 27 key at the system default slider
+    // position, which is the bed Decision Log 3 (a) captured.
+    for (const { profileKey } of DECLARED_27_PROFILES) {
+      expect(profileKey.startsWith("apple-macos-27.0-"), profileKey).toBe(true);
+      expect(profileKey.endsWith("-glass0.5"), profileKey).toBe(true);
+    }
+  });
+
+  it("holds every 27 table at its 26.5 twin's values, row for row", () => {
+    // The content of Decision Log 4 (a). The tables are aliases, so this reads
+    // as a tautology today — and that is the guarantee: the case fails the day
+    // somebody breaks one out into a literal without saying so, which is the
+    // only way a 27 bound may ever move.
+    for (const profile of DECLARED_27_PROFILES) {
+      for (const tier of ["texture", "dom"] as const) {
+        const ruled = RULED_EQUAL_TO_26_5[profile.names[tier]];
+        expect(ruled, `${profile.names[tier]}: no 26.5 table named as its twin`).toBeDefined();
+        expect(profile[tier], `${profile.profileKey} / ${tier}`).toEqual(ruled);
+      }
+    }
+    expect(Object.keys(RULED_EQUAL_TO_26_5)).toHaveLength(2 * DECLARED_27_PROFILES.length);
+  });
+
+  it("adopts no regression floor on any 27 profile (acceptance clause 4)", () => {
+    // The 27 bed is published at the seven-run probe bar and a floor needs the
+    // seventeen-run freeze bar. A floor here would pin a precision the bed does
+    // not carry, so the rule is enforced rather than remembered.
+    expect(
+      Object.keys(REGRESSION_FLOORS).filter((key) => key.includes("apple-macos-27.0-")),
+      "no 27 profile may carry a regression floor in W29",
+    ).toEqual([]);
+  });
+
+  it("names every 27 row the refit missed, and nothing it did not", () => {
+    /*
+     * The list's owner. It is derived here from the artifact and compared to the
+     * constant in BOTH directions, which is the only thing that makes recording
+     * a miss different from excusing one: a row that starts missing joins this
+     * failure, and a row that stops missing joins it too, so the set can only be
+     * changed in a commit that says why.
+     *
+     * Nothing about the VALUE is asserted. That is deliberate and it is what
+     * separates this from `REGRESSION_FLOORS` — acceptance clause 4 adopts no 27
+     * floor, so there is no number here for a later run to be held to.
+     */
+    const missed: string[] = [];
+    for (const profile of DECLARED_27_PROFILES.filter(transcribed27)) {
+      for (const tier of ["texture", "dom"] as const) {
+        for (const [axis, metric, comparison, threshold] of profile[tier]) {
+          for (const cell of cellsOf(profile.profileKey, tier)) {
+            if (axis === "shape" && (cell.shape === undefined || !isWellConditioned(cell))) continue;
+            const measured = reading(cell, axis, metric);
+            const fails = comparison === "≥" ? measured < threshold : measured > threshold;
+            if (fails) missed.push(`${name(cell)} :: ${metric}`);
+          }
+        }
+      }
+    }
+    expect(missed.sort(), "the 27 rows that miss their declared bound").toEqual(
+      Object.keys(MISSED_27_ROWS).sort(),
+    );
+
+    // Every recorded reading is the one the sealed read took, to five decimals —
+    // so the prose beside the list cannot drift from the artifact it describes.
+    for (const profile of DECLARED_27_PROFILES.filter(transcribed27)) {
+      for (const tier of ["texture", "dom"] as const) {
+        for (const [axis, metric] of profile[tier]) {
+          for (const cell of cellsOf(profile.profileKey, tier)) {
+            const row = MISSED_27_ROWS[`${name(cell)} :: ${metric}`];
+            if (row === undefined) continue;
+            expect(reading(cell, axis, metric), `${name(cell)} :: ${metric}`).toBeCloseTo(
+              row.measured,
+              5,
+            );
+          }
+        }
+      }
+    }
+  });
+
+  it("gates every 27 row it finds, and refuses one it never declared", () => {
+    const rows = MATRIX.cells.filter((cell) => cell.key.profileKey.startsWith("apple-macos-27.0-"));
+    const declared = new Set(DECLARED_27_PROFILES.map((profile) => profile.profileKey));
+    for (const cell of rows) {
+      expect(
+        declared,
+        `${name(cell)}: a 27 row under a key no table was declared for`,
+      ).toContain(cell.key.profileKey);
+    }
+
+    // The sentinel's whole job. While a profile's counts are pending it is
+    // declared and not yet gated, so the matrix must carry nothing for it; the
+    // first row that lands makes this red until the counts are transcribed from
+    // the canonical run, exactly as `PREDICATE_EXCLUDES` is.
+    for (const profile of DECLARED_27_PROFILES) {
+      if (transcribed27(profile)) continue;
+      expect(
+        rows.filter((cell) => cell.key.profileKey === profile.profileKey),
+        `${profile.profileKey}: rows are in the matrix but its cell counts are still ` +
+          `${PENDING_UNTIL_THE_27_READ} — transcribe them into DECLARED_27_PROFILES`,
+      ).toHaveLength(0);
+    }
+  });
+});
+
 describe("W20 — declaration conformance on the texture tier", () => {
   const DECLARED_CONTOUR_MAX_PX = 1;
   const DECLARED_IOU_MIN = 0.99;
