@@ -1047,7 +1047,7 @@ const DECLARED_27_PROFILES: readonly Declared27Profile[] = [
     // a bound on the material. Declared in its own commit, and that commit still
     // precedes every fit commit that touches this profile (contract X5).
     profileKey: "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
-    cells: { texture: 9, dom: 8 },
+    cells: { texture: 9, dom: 9 },
     texture: TEXTURE_TIER_27_INCREASED_CONTRAST_COUPLED,
     dom: DOM_TIER_27_INCREASED_CONTRAST_COUPLED,
     names: {
@@ -1177,14 +1177,14 @@ const MATRIX_PARTITION: Readonly<Record<string, number>> = {
   "apple-macos-26.5-2x-dark-standard": 26,
   "apple-macos-26.5-2x-light-standard": 72,
   "apple-macos-27.0-1x-dark-standard-glass0.5": 26,
-  "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 17,
+  "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 18,
   "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": 16,
   "apple-macos-27.0-1x-light-standard-glass0.5": 72,
   "apple-macos-27.0-2x-dark-standard-glass0.5": 26,
   "apple-macos-27.0-2x-light-standard-glass0.5": 72,
 };
 
-const MATRIX_CELLS = 458; // 229 until W29 G3 appended the 27 bed (§5.153); 230 until W18 G2 (§5.79)
+const MATRIX_CELLS = 459; // 458 until W29 G3b re-read the 27 bed (§5.154); 229 until W29 G3 appended it (§5.153); 230 until W18 G2 (§5.79)
 
 /**
  * Scenes that carry no shape and no material axis, per profile — so the shape
@@ -1646,40 +1646,46 @@ const NO_SHAPE_AXIS_SCENES: Readonly<
  * against. Re-pinning any of these bounds is the user's ruling and nobody
  * else's; the wave's Decision Log 6 draft is where it is put.
  *
- * ## The three causes, each measured rather than supposed
+ * ## What is left, after W29 G3b read the one law nobody had measured
  *
- * **(1) The outer shadow moved on macOS 27 and this child may not follow it** —
- * seven of the fifteen, every `ssimOutside` row and the `ssimMean` rows that
- * carry the same exterior. On the 2x light bed
- * `checkerboard__rrect-md__rest`'s native shadow went from a mean exterior
- * departure of 0.0128 with a falloff σ of 35.8 device px on 26.5 to **0.0028 at
- * σ 18.8 on 27** — less than a quarter of the light removed, over less than half
- * the distance — while vitrea still draws 0.0133 at σ 35, the 26.5 shadow it was
- * fitted to. On 26.5 the two agreed to the third decimal and the cell read
- * ssimOutside 0.9943; on 27 it reads 0.8495.
- * **G2's native delta never read the shadow axis** (claims §5.151 §2 lists the
- * laws it read and the shadow is not among them), and contract X3 says G3
- * changes nothing G2 did not name as moved. So the constants are left alone and
- * the finding is recorded instead. It is the largest single thing this wave now
- * knows and has not acted on.
+ * The list was FIFTEEN rows at G3's read and is **seven** now. Decision Log 6 (a)
+ * ruled the outer shadow read native-against-native and refit, G3b did it, and
+ * every row that cause carried came good — the whole of cause (1) below, plus two
+ * rows of cause (2) that turned out to be carrying the same exterior. The eight
+ * that cleared are recorded in the ledger's §5.154 with their before and after;
+ * the sharpest is `2x-light-standard` texture `checkerboard__rrect-lg__rest ::
+ * ssimOutside`, **0.77243 → 0.95599**.
  *
- * **(2) The largest spans keep the most residual** — six of the fifteen are
- * `rrect-lg`, `rrect-ml` or `glass-over-glass`, the bed's biggest surfaces, and
- * their 26.5 twins read 0.97–0.99 where the 27 rows read 0.86–0.91. The body's
- * far-span term (`sizeToneLevelFar`) is the constant W25 declined for want of a
- * reading that could choose its sign, and the 27 bed has not been asked for one.
+ * The seven that remain are **all holdout cells** and they are two causes, both
+ * of which Decision Log 6 accepted as residual rather than chartered to G3b:
  *
- * **(3) The dark bed's diffusion at a large span over a photograph** — the four
- * `photo__rrect-lg__rest :: oklabDeltaEP95` rows. The level is close (native
- * 0.1814 against 0.1636) and the **spread is not**: native 0.0417 against
- * vitrea's 0.0142, so vitrea passes a third of the structure the 27 dark
- * reference passes there. That is the scale-selective scatter the light
- * document's `scatter.doesNotClose` names, at the one span where the dark
- * document has no heavy tap to shape it with.
+ * **(a) The dark bed's diffusion at a large span over a photograph** — the four
+ * `photo__rrect-lg__rest :: oklabDeltaEP95` rows, unchanged to the fourth decimal
+ * by the shadow refit, which is the right outcome: the residual is inside the
+ * body and the shadow is outside it. The level agrees (native 0.1814 against
+ * 0.1636) and the spread does not (0.0417 against 0.0142), so vitrea passes a
+ * third of the structure the 27 dark reference passes there. Decision Log 6 (c)
+ * made this a child of its own after the wave; §5.153 §9 has the same finding by
+ * eye — over a photograph vitrea's body is grey and Apple's is coloured — and the
+ * tone response's solve is achromatic by construction, so no constant in either
+ * document can close it.
  *
- * Decision Log 4 (a) already ruled what a dark miss means — a floor decision for
- * the user, recorded — and the review of §5.152 §B extended the same shape to a
- * 2x-light SSIM miss. All fifteen are in one of those two classes.
+ * **(b) The largest spans keep the most residual** — `checkerboard__rrect-lg__rest`
+ * and `checkerboard__glass-over-glass__rest :: ssimMean` on the 1x light dom tier,
+ * and `photo__rrect-lg__rest :: ssimOutside` on reduced transparency's. All three
+ * improved and none crossed: 0.88380 → 0.88402, 0.89349 → 0.89538, and reduced
+ * transparency's moved the wrong way by 0.0003 (0.82736 → 0.82707), which is the
+ * one place the shadow refit cost anything measurable. `sizeToneLevelFar` is still
+ * the constant W25 declined and §5.153 §6's scale-selective scatter is still the
+ * mechanism; Decision Log 6 (b) accepted these as residual.
+ *
+ * What is NOT here any more is cause (1), and the reason it is worth saying: it
+ * was the only one of the three that was a genuinely unmeasured law rather than a
+ * known residual, and reading it cost no new capture at all.
+ *
+ * Decision Log 4 (a) ruled what a dark miss means — a floor decision for the user,
+ * recorded — and the review of §5.152 §B extended the same shape to a 2x-light
+ * SSIM miss. All seven are in one of those two classes.
  */
 interface MissedRow {
   readonly measured: number;
@@ -1687,21 +1693,13 @@ interface MissedRow {
 }
 
 const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.89349, bound: "≥ 0.9" },
-  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.8838, bound: "≥ 0.9" },
-  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.20096, bound: "≤ 0.18" },
-  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": { measured: 0.82736, bound: "≥ 0.83" },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.89538, bound: "≥ 0.9" },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.88402, bound: "≥ 0.9" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.20095, bound: "≤ 0.18" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": { measured: 0.82707, bound: "≥ 0.83" },
   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.19474, bound: "≤ 0.19" },
-  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimOutside": { measured: 0.84949, bound: "≥ 0.87" },
-  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimMean": { measured: 0.91215, bound: "≥ 0.93" },
-  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimOutside": { measured: 0.79671, bound: "≥ 0.87" },
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimMean": { measured: 0.91261, bound: "≥ 0.93" },
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimOutside": { measured: 0.80881, bound: "≥ 0.87" },
-  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.85978, bound: "≥ 0.88" },
-  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimMean": { measured: 0.90989, bound: "≥ 0.93" },
-  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: ssimOutside": { measured: 0.77243, bound: "≥ 0.87" },
-  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21524, bound: "≤ 0.17" },
-  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21346, bound: "≤ 0.17" },
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21521, bound: "≤ 0.17" },
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21344, bound: "≤ 0.17" },
 };
 
 const PREDICATE_EXCLUDES = [
@@ -1722,6 +1720,7 @@ const PREDICATE_EXCLUDES = [
   "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
   "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+  "dom / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",

@@ -1,0 +1,92 @@
+Scope: 9 of 10 workspace projects
+packages/geometry build$ tsc -p tsconfig.build.json
+packages/policy build$ tsc -p tsconfig.build.json
+packages/motion build$ tsc -p tsconfig.build.json
+packages/policy build: Done
+packages/motion build: Done
+packages/geometry build: Done
+packages/renderer-webgpu build$ tsc -p tsconfig.build.json
+packages/renderer-webgpu build: Done
+packages/core build$ tsup
+packages/core build: CLI Building entry: src/index.ts
+packages/core build: CLI Using tsconfig: tsconfig.json
+packages/core build: CLI tsup v8.5.1
+packages/core build: CLI Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-acbdf5c2213e0ad86/packages/core/tsup.config.ts
+packages/core build: CLI Target: es2022
+packages/core build: CLI Cleaning output folder
+packages/core build: ESM Build start
+packages/core build: DTS Build start
+packages/core build: ESM dist/chunk-IOTISK2R.js     19.40 KB
+packages/core build: ESM dist/dist-VQPRX7BX.js      333.75 KB
+packages/core build: ESM dist/index.js              42.69 KB
+packages/core build: ESM dist/chunk-IOTISK2R.js.map 102.61 KB
+packages/core build: ESM dist/index.js.map          169.56 KB
+packages/core build: ESM dist/dist-VQPRX7BX.js.map  872.24 KB
+packages/core build: ESM ⚡️ Build success in 229ms
+packages/core build: DTS ⚡️ Build success in 1275ms
+packages/core build: DTS dist/index.d.ts 240.09 KB
+packages/core build: Done
+packages/platform-web build$ tsup
+packages/platform-web build: CLI Building entry: src/index.ts
+packages/platform-web build: CLI Using tsconfig: tsconfig.json
+packages/platform-web build: CLI tsup v8.5.1
+packages/platform-web build: CLI Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-acbdf5c2213e0ad86/packages/platform-web/tsup.config.ts
+packages/platform-web build: CLI Target: es2022
+packages/platform-web build: CLI Cleaning output folder
+packages/platform-web build: ESM Build start
+packages/platform-web build: DTS Build start
+packages/platform-web build: ESM dist/index.js     282.72 KB
+packages/platform-web build: ESM dist/index.js.map 1.10 MB
+packages/platform-web build: ESM ⚡️ Build success in 236ms
+packages/platform-web build: DTS ⚡️ Build success in 812ms
+packages/platform-web build: DTS dist/index.d.ts 360.52 KB
+packages/platform-web build: Done
+packages/react build$ tsup
+packages/calibration build$ tsc -p tsconfig.build.json
+packages/react build: CLI Building entry: src/index.ts
+packages/react build: CLI Using tsconfig: tsconfig.json
+packages/react build: CLI tsup v8.5.1
+packages/react build: CLI Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-acbdf5c2213e0ad86/packages/react/tsup.config.ts
+packages/react build: CLI Target: es2022
+packages/react build: CLI Cleaning output folder
+packages/react build: ESM Build start
+packages/react build: ESM dist/index.js     97.47 KB
+packages/react build: ESM dist/index.js.map 394.65 KB
+packages/react build: ESM ⚡️ Build success in 146ms
+packages/react build: DTS Build start
+packages/calibration build: Done
+packages/react build: DTS ⚡️ Build success in 1193ms
+packages/react build: DTS dist/index.d.ts 63.16 KB
+packages/react build: Done
+apps/demo build$ vite build
+apps/demo build: vite v8.2.2 building client environment for production...
+apps/demo build: transforming...
+apps/demo build: ✓ 1215 modules transformed.
+apps/demo build: rendering chunks...
+apps/demo build: computing gzip size...
+apps/demo build: dist/index.html                              1.15 kB │ gzip:     0.56 kB
+apps/demo build: dist/playground/index.html                   1.16 kB │ gzip:     0.60 kB
+apps/demo build: dist/laws/index.html                         1.47 kB │ gzip:     0.72 kB
+apps/demo build: dist/assets/laws-D_PuBI1m.css                0.94 kB │ gzip:     0.42 kB
+apps/demo build: dist/assets/playground-C6LzDn36.css          8.96 kB │ gzip:     2.59 kB
+apps/demo build: dist/assets/StageBackdrop-VZXOmLKS.css      15.81 kB │ gzip:     3.92 kB
+apps/demo build: dist/assets/StageBackdrop-A-RJ3S-e.js        3.86 kB │ gzip:     1.77 kB
+apps/demo build: dist/assets/concentric-Cxi4V9dw.js           8.08 kB │ gzip:     3.40 kB
+apps/demo build: dist/assets/playground-CbYCRxx7.js          18.46 kB │ gzip:     5.81 kB
+apps/demo build: dist/assets/laws-CYEhMUvW.js                25.97 kB │ gzip:     8.28 kB
+apps/demo build: dist/assets/ActionsMenu-m0iGW2Yt.js        107.10 kB │ gzip:    34.87 kB
+apps/demo build: dist/assets/src-DfJBbe2g.js                200.80 kB │ gzip:    65.35 kB
+apps/demo build: dist/assets/client-B_Z2t9nN.js             356.25 kB │ gzip:   115.68 kB
+apps/demo build: dist/assets/index-BNg8Uj8r.js           39,061.45 kB │ gzip: 2,882.84 kB
+apps/demo build: ✓ built in 3.27s
+apps/demo build: [plugin builtin:vite-reporter] 
+apps/demo build: (!) Some chunks are larger than 500 kB after minification. Consider:
+apps/demo build: - Using dynamic import() to code-split the application
+apps/demo build: - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+apps/demo build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+apps/demo build: [33m[PLUGIN_TIMINGS] [0mYour build spent 10% of 3.3s inside plugin hooks (315ms).
+apps/demo build: Not measurable — 1 hook whose calls overlap, so elapsed time covers work other calls were doing. Profile with `node --cpu-prof`:
+apps/demo build:   - vite:build-html transform (3 calls)
+apps/demo build: See https://rolldown.rs/reference/InputOptions.checks#plugintimings for more details.
+apps/demo build: Done
+build=0

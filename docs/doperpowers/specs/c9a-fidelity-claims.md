@@ -23637,3 +23637,365 @@ each. What the sheets say that the metrics do not say plainly:
   0 changed, and all 332 added rows are 27 rows.
 - Machine, read before and after every browser run of the gate: macOS 27.0 build 26A428, Reduce
   Transparency 0, Increase Contrast 0, `NSGlassTintAmount` 0.5, display at displayplacer mode 68.
+
+## 5.154 W29 G3b: the outer shadow read at last — it moved on every cell of every profile, the refit clears eight of the fifteen missed rows, and the macOS 27 recede keeps the shadow the macOS 26.5 recede removes (2026-09-19)
+
+**Gate: W29 G3b, Decision Log 6 (a), (d) and (e), ruled by the user 2026-09-19; contracts X1, X3,
+X5, X7.** Evidence is `packages/calibration/results/2026-09-19-w29-g3b-shadow-recede/` —
+`bar-declaration.md` and `bound.json` as the two declarations were committed, `fitted-shadow.json`
+and `fitted-receded.json` as the only places this child's chosen numbers are written by hand,
+`sealed-documents.txt` with the hashes the read ran at, `document-diff.txt` as the proof that
+nothing else moved, `referee.txt`, `verdict-recede.txt` and `before-after.txt` as the read, and
+`sheets/` as the eye's column. The material documents are
+`packages/calibration/profiles/apple-macos-27.0-1x-{light,dark}-standard-glass0.5{,-receded}.json`
+and the rows are the 455 this gate appended to `results/matrix.json`.
+
+**`DEFAULT_MATERIAL_PROFILE` did not move**, the 34 renderer goldens are byte-identical, both 26.5
+documents resolve to the digests they recorded on every run of `seal.ts`, the 26.5 freeze is intact
+at 1,818 entries, and the 1,107 committed 26.5 rows are bit-identical across the append: 0 missing,
+0 changed (`append-check.txt`).
+
+### 1. What was declared, and when
+
+Two declarations, both committed before the reading they govern.
+
+**The shadow's bar** (`bar-declaration.md`, `noise-bar.json`, commit `3e9975b0`), before the first
+26.5 pair of this gate was opened. It adds seventeen metrics to `cli/native-delta.ts` — one for
+every quantity `cli/measure.ts`'s shadow axis reports, entered as a distance between the two sides
+of a pair — and it adds **no rule**: the construction, the "beyond the max of that cell's own
+27-against-27 pairwise distribution" verdict and the zero-spread fallback are G2's
+(§5.151; `2026-09-19-w29-g2-native-delta/bar-declaration.md`), read as written. Two of the
+seventeen are not one-to-one with a field of `ShadowAxisReport` and they are the two a refit most
+needs: `shadowProfileRmsDelta`, the ring profile over the rings both sides resolved, because a
+shadow half as deep over twice the distance moves σ and the amplitude in opposite directions and
+can leave the mean departure where it was; and the worst-band pair of W14 X7's affine `y = a·bg + c`.
+
+Because the instrument is one function of a pair of captures, the bar re-derives G2's thirty-two
+metrics on the way past, and that is a check rather than a by-product: **190,683 readings compared,
+zero disagreements, zero rows present in one bar and absent in the other, and the thirty-two
+`bedMinimumNonZeroBar` entries identical** (`bar-reproduction.txt`). G2's committed bar is untouched.
+
+**The recede's bound** (`bound.json`, same commit), before either receded endpoint was fitted. It is
+W27c G1b's three clauses — the ones §5.134 §6 declared and W28 G2 scored 6 of 6 against (§5.146) —
+carried to the 27 bed at their 26.5 values, which is the form Decision Log 6 (d) ruled. Two things
+had to be decided and both are decided by rule rather than by naming cells: the profile mapping is
+`counterpartKey`'s, and the checking set is **every inactive validation and holdout cell**, 48 per
+tier across six profiles, with the inactive calibration rows read and published but not scored
+because they are the fit's selection cells. That is W27c's group-D exclusion and W28's contract X11
+translated to a bed that has no checking-bed groups. The twelve composite cells have no declared box
+and so cannot carry `bodyDeltaE`; clauses 2 and 3 say so in advance rather than dropping them at
+scoring time.
+
+### 2. The read: the shadow moved on every measurable cell of every profile
+
+619 pair rows carry a bar. Per profile, active pose, median 26.5 → median 27:
+
+| 27 profile | departure | falloff σ, device px | falloff amplitude | reach below | offset |
+| --- | --- | --- | --- | --- | --- |
+| `1x-light-standard` | 96/96 moved, 0.00625 → **0.00121** | 65/65, 17.76 → **8.80** | 65/65, 0.3454 → **0.1776** | 57/57, 38 → **8** | 49/57, 7.5 → **4.0** |
+| `2x-light-standard` | 96/96, 0.00610 → **0.00078** | 72/72, 35.77 → **18.69** | 72/72, 0.3540 → **0.1045** | 58/58, 76.5 → **16** | 55/58, 14.5 → **8.0** |
+| `1x-dark-standard` | 66/66, 0.00150 → **0.00073** | 44/44, 17.75 → **8.99** | 44/44, 0.2363 → **0.1684** | 35/35, 23 → **8** | 30/35, 8.0 → **4.0** |
+| `2x-dark-standard` | 65/65, 0.00145 → **0.00046** | 48/48, 35.80 → **18.75** | 48/48, 0.2128 → **0.1377** | 34/34, 52 → **16** | 32/34, 16.0 → **8.0** |
+| `1x-light-reduced-transparency` | 9/9, 0.00344 → **0.00099** | 8/8, 17.71 → **1.90** | 8/8, 0.2071 → **0.1587** | 8/8, 35 → **9** | 7/8, 7.5 → **4.5** |
+| `1x-light-increased-contrast` (decoupled) | 10/10, 0.00519 → **0.00097** | 9/9, 17.76 → **1.86** | 9/9, 0.2109 → **0.1535** | 9/9, 35 → **9** | 8/9, 7.5 → **4.5** |
+
+Pooled over the bed: **342 of 342 cells moved on the mean exterior departure and 246 of 246 on the
+fitted σ and amplitude**, at a median Δ/bar between 10⁵ and 10⁷, so none of these is a close call.
+The direction is one sentence: *the 27 shadow is dimmer, tighter, shorter and less displaced.*
+§5.153 §5's two figures reproduce exactly — on the 2x light bed `checkerboard__rrect-md__rest`'s
+departure is 0.01279 → 0.00284 and its σ 35.8 → 18.8 device px.
+
+**The coupled increased-contrast profile's thirty-two cells are read UNBARRED and reported rather
+than judged**, and that is a limit of this gate rather than of the bed. They were published by G1c
+Part B after G2's bar was built, so they have no shadow bar anywhere: G2's eight passes do not cover
+their sitting and G1c's own bar (`2026-09-19-w29-g1c-coupled/delta/noise-bar.json`) predates the
+shadow metrics. Building one now would be a bar declared after the pairs had been read, which X5
+forbids, so this gate does not build one. Their readings move exactly as the other five profiles'
+do (0.00519 → 0.00124 median departure, σ 17.76 → 1.51) and no verdict rests on them.
+
+### 3. The refit, inside the existing constants, and nothing else
+
+Eight leaves move in the 27 light document and seven in the dark. `document-diff.txt` diffs each one
+leaf by leaf against **its own state at G3's seal** (`b2a42bde`) and the answer on both is the
+`outerShadow` block and nothing else.
+
+The objective is the shadow axis's own `meanDeparture` — the mean of `backdrop − rendered` over the
+whole exterior of the declared region, in linear light — rather than `falloffAmplitude`, and that is
+a choice with a reason: the departure is an exact integral over a fixed population and is defined
+on every cell, while the amplitude is one parameter of a two-parameter fit to ring means, and where
+the 27 σ falls to 1.5 device px there are two or three rings above the body's own edge to fit it on.
+On the light standard bed it goes **0.00681 → 0.00074 mean absolute**, a ninefold improvement.
+
+| constant | light | dark | how |
+| --- | --- | --- | --- |
+| `sigmaPx` | 15.55 → **11.0** | inherited 15.55 → **11.0** | §4 below |
+| `thinOcclusionMid` | 0.33 → **0.05** | 0.063 → **0.032** | solved from the departure at σ 11 |
+| `thinOcclusionBright` | 0.127 → **0.041** | 0.063 → **0.032** | the same |
+| `thickOcclusionAt96` | 0.37 → **0.111** | 0.278 → **0.126** | the same, on the `rrect-md` cells |
+| `thickOcclusionAt128` | 0.448 → **0.202** | 0.301 → **0.229** | light fitted, dark derived |
+| `thickOcclusionAt160` | 0.479 → **0.293** | 0.324 → **0.333** | unfitted and derived on both |
+| `liftAmplitude` | 0.01 → **0.001** | 0.0051 → **0.0005** | light fitted on its own round, dark derived |
+| `reducedTransparencyOcclusion` | 0.197 → **0.087** | unchanged | a compromise, below |
+
+The amplitudes are solved rather than swept. At σ 11 with the 26.5 amplitudes the web reads 0.00648
+/ 0.01350 / 0.03052 on the checkerboard capsule / `rrect-md` / `rrect-ml` against a 27 native of
+0.00082 / 0.00379 / 0.01270, so the composited alpha each regime needs is the 26.5 alpha times that
+ratio and the occlusion follows by inverting sRGB's 2.4 power. Over the three supported backdrops
+the thin regime wants 0.041–0.056, the 96 anchor 0.101–0.119 and the 128 anchor 0.192–0.209; the
+adopted numbers are those means.
+
+**`thickOcclusionAt160` is unfitted on both documents**, as its 26.5 value was and for the same
+reason — every span above 128 in the bed is holdout. It is the linear extrapolation from the two
+fitted anchors, and the native corroborates the shape rather than the value: its own falloff
+amplitude rises 0.1074 → 0.1819 → 0.2586 across spans 96 / 128 / 160, increments of 0.0745 and
+0.0767, a straight line to 3 %. The **dark** document's 128 and 160 anchors are derived for a
+sharper reason — its bed declares no calibration cell above span 96 at all — and they carry the
+light document's fitted span shape scaled to the dark 96 anchor, which the native corroborates: the
+dark amplitude ratio between spans 160 and 96 is 2.46 and 2.55 on its two supported backdrops
+against the light bed's 2.41.
+
+**`liftAmplitude` is fitted and not stood down.** At 0 the bed-wide signed departure residual is
++0.00068 and at 0.004 it is −0.00186, so the zero crossing is 0.0011 and the 27 lift is about a
+tenth of the 26.5 one. The shadow still adds the backdrop's own blurred light; far less of it.
+
+**`reducedTransparencyOcclusion` is a compromise where 26.5's was a measurement**, and that is a
+finding about the fold rather than about the fit. W14 G0 measured the 26.5 reference's exterior
+under the preference **flat** at 0.192–0.202 thin and thick together and over every backdrop, which
+is exactly what justifies `flatOuterShadow` writing one amplitude into all six anchors. On 27 it is
+not flat: the native falloff amplitude reads 0.165 at span 44, 0.111 at 96 and 0.251 at 160. The
+four identified cells want 0.024 to 0.053 of alpha and 0.087 is their mean.
+
+**`offsetPx`, `spreadPx`, `thinOcclusionDark`, `sizeGain`, `liftSpanMin`, `liftSpanFull` and
+`liftBlurSigmaCss` do not move**, each for a reason. The offset is span-graded on 27 like the σ
+(4.0 CSS px at span 44, 7.5 at 96, 8.0 at 128) and 7.95 is already right where the missed rows are.
+`thinOcclusionDark` stays 0 because the shadow is still analytically inert over black: the native
+reads 0.00000 over `dark-solid` at span 44 and 0.00006 at span 96.
+
+### 4. What the existing operator could not fit: the blur stopped being span-invariant
+
+The largest thing this gate learned and did not act on, and it is the mirror image of §5.153 §6.
+
+`MaterialOuterShadow`'s header records, as a **positive** measurement of W8 and W14, that the
+reference's three lengths are span-invariant on macOS 26.5: across spans 32, 44, 96 and 160 the
+fitted σ stays within 15.4–15.9 CSS px, and "the size law reaches the amplitude (`sizeGain`) and
+nothing else". On macOS 27 the same reading gives, in CSS px:
+
+| casting span | 32 | 44 | 96 | 128 | 160 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1x light | — | 1.84 | 8.80 | 13.10 | 17.30 |
+| 2x light | 2.08 | 3.92 | 9.40 | 13.28 | 17.59 |
+
+and the dark bed (1.52 / 8.87 / 13.42 / 17.43) and reduced transparency (1.51 / 8.50 / 16.97) read
+the same law. It is linear in the casting span to within the reading's own noise —
+σ ≈ 0.131 · (span − 26) — and it is scale-invariant in CSS px at every span the amplitude
+identifies, which is what a shadow specified in points does.
+
+`sigmaPx` is one constant the shader reads from a uniform, so no value of it is both 1.8 and 17.4.
+11.0 is the best the thick regime admits, and the thick regime is where every row this refit exists
+to clear sits; the thin cells keep a shadow about six times too wide, **carrying the right energy in
+the wrong shape** — which is why the departure residual is 0.0007 and this residual does not show in
+it. Decision Log 6 (a) ruled the shadow's CONSTANTS refit and contract X3 admits a new operator only
+where a named structure needs one, so the structure is named and put to the user as Decision Log 7
+rather than built. The operator it would need is small: the casting surface's span is already in the
+shader as `shadowAux.z` and `outer_shadow_thick` already grades the amplitude by it.
+
+### 5. The recede: on 27 it keeps the shadow that on 26.5 it removes
+
+The structural finding of the second half, and the reason the outer shadow is one of the two fields
+that move in the receded documents.
+
+On macOS 26.5 the receded pose casts **no** outer shadow, and that is a measurement rather than an
+assumption: the native 26.5 inactive cells read a mean exterior departure of 0.00003 to 0.0001 over
+every backdrop and span, which is zero at this instrument's resolution, and it is why W27c G1's
+endpoint zeroes all eight of the block's amplitude leaves (§5.130).
+
+On macOS 27 it does. The same cells read **0.00119 at span 44, 0.00296 at 96, 0.00527 on the stack
+and 0.01002 at 160** — between a quarter and one and a half times what the 27 active pose casts at
+the same span. So the 27 receded documents do not zero the block: they carry their own active
+document's shadow, leaf for leaf, and the read says that is right — against the eight identified
+inactive cells the departure residual is **0.00045 mean absolute at a signed mean of +0.00009**,
+which is the shadow axis's own noise floor on this bed. It is a difference in what the recede IS,
+not a tuning: on 26.5 the pose removes the material's elevation and on 27 it keeps it.
+
+### 6. The recede's level, and the two weaknesses in its fit
+
+The other field that moves is the backdrop-tone response, and **the anchors are the load-bearing
+half**. W28's receded endpoint anchors at [0.1104, 0.2706, 0.45, 0.9505] because the 26.5 bed's
+uniform backdrops start there; the 27 active refit moved the first knot to the darkest backdrop
+there is (§5.153 §2 item 1) and the recede has to follow. While it did not, every cell over
+`impulse` clamped to an ordinate no cell identified and rendered 0.4612 against a reference of
+0.2323 — a fifth of the whole residual, on two cells, and immovable by any value of that ordinate.
+Re-anchoring alone took the bed-wide residual from 0.0433 to 0.0213; two iterations of the residual
+closed the rest. The inactive body's level residual goes **0.1174 → 0.01017 mean absolute**, against
+the active pose's 0.0085 at the same read.
+
+The 27 light recede is nearly **thickness-independent**: its thin and thick rows differ by 0.44 at
+the dark anchor on 26.5 (0.0126 against 0.4553) and by 0.02 here. That is the same convergence
+§5.153 §2 found in the active light document, arriving in the pose. The **dark** document's far
+ordinate is the largest single move on this bed and it is fitted on a CALIBRATION cell, which its
+26.5 predecessor never was — W27c G1c refused the measured value for want of a uniform anchor and
+G1d adopted 0.9326072 from a probe; on 27 `light-solid__capsule-button__inactive` is a dark
+calibration cell, reads 0.4419, and the fitted ordinate leaves −0.0003. The dark recede over a
+bright backdrop is half what the 26.5 endpoint drew.
+
+**Two weaknesses are recorded rather than removed.** The light document's first ordinate is
+identified by no UNTINTED calibration cell — the bed's only calibration cell at that abscissa is
+tinted — and it was moved on the two untinted `impulse` VALIDATION cells before that was noticed, so
+for that one ordinate those two cells are not an independent check. They stay in the checking set
+and the bound is scored over them. The dark document's first ordinate is a **floor and not a fit**:
+at 0.09 the web renders 0.0893 against a reference of 0.0105, at 0.0105 it renders 0.0654 and at 0
+it renders 0.0580, so driving it to the bottom of its range buys the last 0.007 and leaves +0.0475
+on its own validation cell. Something other than the response holds the 27 dark recede's floor over
+a near-black backdrop about 0.058 above the reference.
+
+**The tint shade and the rim do not move in either receded document, and both were measured not to
+want to.** The six tinted light inactive calibration cells read +0.066 at the darkest backdrop
+falling monotonically to −0.005 over `light-solid`; the shade law is `mix(tintShadeDark,
+tintShadeLight, u)` in exactly that level, and a least squares over the five untinted/tinted pairs
+returns a NEGATIVE dark end (−0.060), which the law cannot represent — clamped at zero it trades
++0.066 for −0.029 and improves no cell's worst case. That is a model-form gap, not a tuning
+residual. The rim's is simpler: §5.151 §8 measured the 27 recede taking away LESS rim than the 26.5
+recede (contour rim −0.067 against −0.110), which reads like a reason to restore some, and the bed
+says not to — the 27 ACTIVE rim is itself a fifth of the 26.5 one (§5.153 §2 item 2), so removing
+all of a much smaller rim already lands within 0.0032 of the reference, and where it is worst it is
+vitrea drawing MORE rim than the reference.
+
+### 7. The read, and the fifteen missed rows become seven
+
+One canonical run per profile per tier at the four sealed documents — `f42ddec1cf5a…`,
+`272d1b0c3e10…`, `59d4b20a4596…`, `5c81bc72edad…`, refused by `canonical-read.sh` at any other
+bytes — Reduce Transparency 0, Increase Contrast 0 and `NSGlassTintAmount` 0.5 read before and after
+every pass, one capture process at a time. **Holdout was read once at that frozen configuration and
+nothing was re-fitted after it.** 455 rows appended; 0 rows missing, 0 changed.
+
+Per profile per tier, over the 454 rows both generations carry:
+
+| profile / tier | `ssimMean` worst | `ssimOutside` worst | ΔE mean, mean | ΔE p95 worst |
+| --- | --- | --- | --- | --- |
+| `1x-light-standard` / texture | 0.85978 → **0.88431** | 0.88157 → **0.90906** | 0.01220 → **0.00853** | 0.14776 → 0.14783 |
+| `1x-light-standard` / dom | 0.88380 → 0.88402 | 0.82833 → 0.83011 | 0.01060 → **0.00849** | 0.10662 → 0.10667 |
+| `2x-light-standard` / texture | 0.90989 → **0.95441** | 0.77243 → **0.95599** | 0.01126 → **0.00744** | 0.14642 → 0.14643 |
+| `2x-light-standard` / dom | 0.93929 → 0.94076 | 0.89069 → 0.89201 | 0.01023 → **0.00812** | 0.09534 → 0.09537 |
+| `1x-dark-standard` / texture | 0.94206 → **0.95731** | 0.93211 → 0.93301 | 0.01479 → **0.01272** | 0.21524 → 0.21521 |
+| `1x-dark-standard` / dom | 0.90876 → 0.90891 | 0.87286 → 0.87286 | 0.01441 → **0.01398** | 0.20096 → 0.20095 |
+| `2x-dark-standard` / texture | 0.94444 → **0.97120** | 0.88127 → **0.95159** | 0.01471 → **0.01261** | 0.21346 → 0.21344 |
+| `2x-dark-standard` / dom | 0.94496 → 0.94504 | 0.90469 → 0.90469 | 0.01434 → **0.01389** | 0.19474 → 0.19474 |
+| `1x-light-reduced-transparency` / texture | 0.98195 → 0.98037 | 0.95006 → 0.94014 | 0.00698 → **0.00619** | 0.03358 → 0.03368 |
+| `1x-light-reduced-transparency` / dom | 0.92551 → 0.92524 | 0.82736 → 0.82707 | 0.00974 → **0.00900** | 0.03770 → 0.03770 |
+| `1x-light-increased-contrast-coupled` / texture | 0.98062 → 0.98094 | 0.94604 → 0.94841 | 0.00494 → **0.00414** | 0.02222 → 0.02247 |
+| `1x-light-increased-contrast-coupled` / dom | 0.90299 → 0.90289 | 0.74666 → 0.74670 | 0.01167 → **0.01090** | 0.02586 → 0.02596 |
+
+**The whole-cell ΔE mean falls on every one of the twelve profile-tiers**, and the ΔE p95 tail does
+not move at all — which is the control this reading needs, because that tail is the chromatic
+transmission residual and it lives inside the body where the shadow is not.
+
+**`MISSED_27_ROWS` goes 15 → 7, and all eight that cleared are the outer shadow's.** The sharpest is
+`2x-light-standard` texture `checkerboard__rrect-lg__rest :: ssimOutside`, **0.77243 → 0.95599**;
+the others are `checkerboard__rrect-ml__rest :: ssimOutside` (0.79671),
+`checkerboard__glass-over-glass__rest :: ssimOutside` (0.80881) and
+`checkerboard__rrect-md__rest :: ssimOutside` (0.84949), all cleared, and the four `ssimMean` rows
+that carried the same exterior — `1x-light` `rrect-lg` 0.85978 → 0.88431, `2x-light` `rrect-lg`
+0.90989 → 0.95441, `rrect-ml` 0.91215 and `glass-over-glass` 0.91261 both cleared. Two of those
+eight were counted under cause (2) at G3's read rather than cause (1): the largest spans were
+carrying the same exterior as the shadow's own rows, and only the refit could separate them.
+
+The seven that remain are **all holdout cells** and are the two causes Decision Log 6 accepted as
+residual: the four dark `photo__rrect-lg__rest :: oklabDeltaEP95` rows, unchanged to the fourth
+decimal (cause 3, chartered as its own child by Decision Log 6 (c)); and three at the largest spans
+which all improved and none crossed — `1x-light` dom `checkerboard__rrect-lg__rest` 0.88380 →
+0.88402 and `checkerboard__glass-over-glass__rest` 0.89349 → 0.89538 against ≥ 0.90, and reduced
+transparency's dom `photo__rrect-lg__rest :: ssimOutside`, which moved the **wrong way** by 0.0003
+(0.82736 → 0.82707) and is the one place the refit cost anything measurable.
+
+One row population changed and it is a swap rather than a loss: on the coupled increased-contrast
+dom tier `hc-text__capsule-button__rest` now measures where it did not, and
+`hc-text__capsule-button__inactive` no longer does — the CSS tier's extracted contour there is
+0.00 px, so `contourCurvature` refuses rather than reporting. That profile's gated dom count goes
+8 → 9, `MATRIX_CELLS` 458 → 459 and `PREDICATE_EXCLUDES` 67 → 68 for the same cell.
+
+**The gate learned what a generation is, and that is a change to
+`adopted-thresholds.test.ts` rather than to a number.** A cell's key contains its `capturePath` and
+the `capturePath` names the profile document and its content hash, so a refit appends a second
+generation beside the rows read at the old document rather than overwriting them — which is the
+rule (a recorded number is never rewritten) and is what made this read possible at all. The gate now
+reads the generation whose document is the document on disk, derived from the files rather than
+transcribed, and every counted, bounded and floored row therefore carries a proof that it was
+measured at the material this repository currently contains.
+
+### 8. The recede's bound: it holds on one of twelve, and that is a decision for the user
+
+`bound.json`'s three clauses over the 95 checking cells (48 texture, 47 dom — the refused cell
+above), scored by `score-bound.ts`, which parses the thresholds and the scope rule out of the
+declaration rather than holding a copy:
+
+| profile / tier | clause 1, worst | clause 2, mean | clause 3, worst | joint |
+| --- | --- | --- | --- | --- |
+| `1x-light-standard` / texture | 0.0760 / 0.07 MISS | 0.0418 / 0.032 MISS | 0.1000 / 0.064 MISS | no |
+| `1x-light-standard` / dom | 0.0791 / 0.07 MISS | 0.0348 / 0.032 MISS | 0.1045 / 0.064 MISS | no |
+| `2x-light-standard` / texture | 0.0748 / 0.07 MISS | 0.0433 / 0.034 MISS | 0.0996 / 0.068 MISS | no |
+| `2x-light-standard` / dom | 0.0780 / 0.07 MISS | 0.0352 / 0.034 MISS | 0.1042 / 0.068 MISS | no |
+| `1x-dark-standard` / texture | 0.0942 / 0.09 MISS | 0.0593 / 0.034 MISS | 0.1261 / 0.068 MISS | no |
+| `1x-dark-standard` / dom | 0.0866 / 0.09 holds | 0.0557 / 0.034 MISS | 0.1157 / 0.068 MISS | no |
+| `2x-dark-standard` / texture | 0.0931 / 0.09 MISS | 0.0590 / 0.041 MISS | 0.1249 / 0.082 MISS | no |
+| `2x-dark-standard` / dom | 0.0824 / 0.09 holds | 0.0538 / 0.041 MISS | 0.1100 / 0.082 MISS | no |
+| `1x-light-increased-contrast-coupled` / texture | 0.0363 / 0.06 holds | 0.0354 / 0.0078 MISS | 0.0420 / 0.0156 MISS | no |
+| `1x-light-increased-contrast-coupled` / dom | 0.0299 / 0.06 holds | 0.0388 / 0.0078 MISS | 0.0388 / 0.0156 MISS | no |
+| `1x-light-reduced-transparency` / texture | 0.0124 / 0.04 holds | 0.0099 / 0.011 holds | 0.0139 / 0.022 holds | **HOLDS** |
+| `1x-light-reduced-transparency` / dom | 0.0133 / 0.04 holds | 0.0117 / 0.011 MISS | 0.0148 / 0.022 holds | no |
+
+**One of twelve holds jointly.** Nothing was re-fitted after the read, no threshold was widened and
+no floor was adopted; the miss is recorded for the user in the shape Decision Log 4 (a) gave a dark
+ΔE miss, and it changes no CI gate — the adopted gate drops the inactive pose on every set and
+clause 4 of this wave rules a 27 floor out on every profile.
+
+**What the miss is, precisely, because the number alone would mislead.** Clause 3's worst cell is
+`photo__rrect-lg__inactive` or its tinted twin on **every one of the twelve rows** — the bed's
+largest span over a photograph. The inactive calibration set's largest span is 96 and `rrect-lg` is
+160, so the checking set is asking the endpoint about a regime the fit never saw, which is what
+W27c G1b built it to do ("deliberately weighted toward the large components the fit never saw") and
+which the 26.5 endpoint was asked in the same way and passed. Two things separate the two readings.
+The 27 residual at that cell is the **chromatic transmission** of §5.153 §9 and cause (3) above,
+seen in the pose — the same `photo__rrect-lg` cell that carries four of the seven remaining active
+misses, and a mechanism neither document has. And the 27 endpoints are three rounds of one child on
+one bed, where the 26.5 endpoint is the accumulated work of W27c G1, G1c, G1d and W28 G1: four
+gates, four sittings and two model-form questions settled. A bound carried across at its 26.5 values
+is a bound on the QUALITY OF THE FIT, which `bound.json` says in advance, and this read is that
+bound answering.
+
+### 9. By eye
+
+`sheets/` carries native | vitrea | difference ×8 for all six profiles, both tiers and **both
+poses**, with the largest spans first because that is where the shadow is read.
+
+- **The exterior is clean now.** On every active checkerboard sheet the difference column is dark
+  right up to the contour, where G3's carried a broad halo around every surface — the 26.5 shadow
+  drawn over a reference that no longer has one. This is the refit, seen rather than scored.
+- **What is left is inside the body and on the rim.** The same sheets show the checkerboard's own
+  structure through the body at ×8 and a bright ring on the contour: §5.153 §6's scale-selective
+  scatter and the rim's profile, neither of which this child touched.
+- **The receded body passes too much of the backdrop's structure.** On
+  `checkerboard__rrect-lg__inactive` the native body is nearly flat and vitrea's shows the checker
+  plainly; the difference is the whole interior. The level is right — that is what §6 fitted — and
+  the diffusion under the recede is not, which is the recede's own version of §5.153 §6. It is
+  recorded here rather than fitted, because no inactive calibration cell above span 96 exists to
+  fit it on and the cells that show it are holdout.
+- **Over a photograph the recede is as chromatic as the active pose is.** `photo__rrect-md__inactive`
+  and `photo__capsule-button__inactive` show the same rainbow difference the active cells do. It is
+  the cell the bound misses worst and the cause is the one Decision Log 6 (c) already chartered.
+- **`impulse__capsule-button__inactive` carries a specular point** in the difference that neither
+  the level nor the shadow explains, beside the +0.019 level residual §6 names.
+
+### 10. Verification record
+
+- `pnpm -r build`, `pnpm -r lint`, `pnpm -r test` green on the finished tree; `packages/calibration`
+  509 tests over 29 files.
+- `pnpm --filter @vitrea/renderer-webgpu test:golden`: **34 of 34 byte-identical**, which is what
+  makes "the runtime default did not move" a reading rather than a claim; `test:gpu` 28 green.
+- `seal.ts` re-derives both 26.5 documents' `resolvedMaterialSha256` from the renderer on every run:
+  `b2b570e4adcea8fb` and `874be66ea501621b`, as recorded (X1).
+- The 26.5 freeze verifies **intact at 1,818 entries** at this gate's opening and at its close.
+- `results/matrix.json`: 1,562 rows before, 2,017 after; 0 missing, 0 changed, 455 added, all of
+  them 27 rows at the four sealed documents. The 26.5 half is bit-identical: 1,107 rows, 0 missing,
+  0 changed.
+- Machine, read before and after every browser run: macOS 27.0 build 26A428, Reduce Transparency 0,
+  Increase Contrast 0, `NSGlassTintAmount` 0.5, display at displayplacer mode 68.

@@ -3126,58 +3126,123 @@ best done when the next wave needs the numbers outside the suite. Until then, `a
 is the one reader, and anything new should import it rather than start a fifth copy.
 ---
 
-## The macOS 27 receded endpoints are not fitted, and every wave writes its own runner to fit one
+## The runtime ships the macOS 26.5 recede while the macOS 27 endpoints sit in the calibration package
 
-*Found 2026-09-19, during W29 G3's refit (claims §5.153 §7).*
+*Found 2026-09-19, during W29 G3's refit (§5.153 §7); the fit landed in G3b
+(§5.154) and this is what is left of it.*
 
-The 27 active material is refit and the inactive endpoint is not, so a 27 page's
-inactive window draws the 26.5 recede over a body that moved: the inactive cells'
-level residual is **0.1174 mean absolute against the active pose's 0.0148**, and
-refitting the active pose did not improve it (0.1117 before). Nothing committed is
-wrong — the adopted gate drops the inactive pose on every set, so no bound is
-affected — but the gap is real and §5.151 §8 already measured its shape: on 27 the
-recede darkens the body more and takes away much less of the rim.
+**Half of this entry is closed.** The driver it asked for exists —
+`compare --receded-profile <file>` through `capture-web` to `web/scene.ts`'s
+candidate seam, with the receded document's hash in the cell's `capturePath` — and
+the two macOS 27 endpoints are fitted through it, sealed, and read into the
+canonical matrix:
+`packages/calibration/profiles/apple-macos-27.0-1x-{light,dark}-standard-glass0.5-receded.json`.
+The inactive body's level residual went 0.1174 to 0.01017.
 
-What makes it a debt rather than simply unfinished work is the second half. The
-seam for measuring a candidate endpoint exists and is good (`web/scene.ts`'s
-`__vitreaRecededMaterialProfile`, which merges a candidate over the active document
-and pins the root active so the candidate is the only receded difference in the
-capture), but **nothing drives it from the calibration CLI**. Every wave that has
-fitted an endpoint — W27c G1, W27c G1c, W27c G1d, W28 G1 — wrote its own runner
-against that seam, and the four are near-copies. So the cost of fitting the 27
-endpoint is not the fit, it is a fifth copy of a browser driver.
+What is left is the selection. `packages/platform-web/src/receded-profile.ts` still
+exports the 26.5 endpoints as one constant per scheme, so a page running the 27
+active material still recedes by the 26.5 difference, and the two documents that
+say otherwise are calibration artefacts nothing at runtime reads. That is W29 G4's
+by Decision Log 2 and it is a shape question rather than a number question: the
+active material is selected by a `materialProfile` a caller passes, and the recede
+is selected by nothing — the root imports its own constant.
 
-**The fix shape**: one `--receded-profile <file>` flag on `cli/compare.ts`, passed
-through `scripts/capture-web.ts` to the page and set on `window` for inactive
-scenes only, with the document's hash in the cell's `capturePath` beside the active
-one so a row says which endpoint drew it. The four bespoke runners then have a
-supported path to be written against, and the 27 endpoints become a fit rather than
-a project. The runtime SELECTION of a 27 endpoint is a separate question and is
-W29 G4's by Decision Log 2.
+**The fix shape**: give the receded difference the same seam the active document
+has, so a `materialProfile` and its recede travel together — either a
+`recededMaterialProfile` option on `createGlassRoot` defaulting to today's
+constant, or a field on the material profile document itself. Until then, shipping
+the 27 material means shipping a 26.5 recede with it, which the ledger records and
+the runtime does not.
 
 ---
 
-## The outer shadow is fitted on macOS 26.5 and macOS 27 draws a different one
+## The outer shadow's blur is span-invariant in the material and is not on macOS 27
 
-*Found 2026-09-19, during W29 G3's read (claims §5.153 §5).*
+*Found 2026-09-19 by W29 G3b's native-against-native read of the shadow axis
+(claims §5.154), which closed the previous entry here — the 27 constants are refit
+and the seven rows §5.153 §5 named are re-read.*
 
-On the 2x light bed `checkerboard__rrect-md__rest`'s native exterior departure falls
-**0.01279 → 0.00284** between the two beds and its falloff σ **35.8 → 18.8 device
-px** — less than a quarter of the light removed over less than half the distance —
-while vitrea draws the 26.5 shadow it was fitted to. The cell's `ssimOutside` reads
-0.9943 on 26.5 and 0.8495 on 27, and on `checkerboard__rrect-lg__rest` 0.7724.
+`MaterialOuterShadow`'s header records, as a positive measurement, that the
+reference's three lengths are span-invariant on macOS 26.5: across spans 32, 44, 96
+and 160 the fitted σ stays within 15.4–15.9 CSS px. On macOS 27 it is not. The
+native falloff σ reads **1.8 CSS px at span 44, 8.8 at 96, 13.1 at 128 and 17.3 at
+160**, the same law on the light, dark and reduced-transparency beds and at both
+scales, and linear in the casting span to within the reading's own noise
+(σ ≈ 0.131 · (span − 26)). The offset grades with it: 4.0 CSS px at span 44 against
+8.0 at 128.
 
-It is a debt rather than a bug because the wave that would have fixed it was not
-allowed to see it: W29 G2's native-against-native read enumerated nine laws and the
-shadow axis is not among them, and contract X3 confines the refit to what that read
-named. So seven of G3's fifteen missed rows have this one cause, recorded as UNMET
-claims with no floor.
+`sigmaPx` is one constant and the shader reads it from a uniform, so no value of it
+is both 1.8 and 17.4. The 27 documents carry 11.0, which is the best the thick
+regime admits and is where every row the refit existed to clear sits; the thin
+cells keep a shadow about six times too wide, carrying the right energy in the
+wrong shape. The amplitudes fitted beside it absorb the energy error, which is why
+the departure residual is 0.0007 and the residual this entry names does not show in
+it.
 
-**The fix shape**: `cli/native-delta.ts` already is the bed-against-bed instrument
-and `cli/measure.ts` already computes the shadow metrics (`meanDeparture`,
-`strengthPeak`, `falloffSigma`, the four extents); adding the shadow axis to the
-delta's metric vector is a small change to `cli/native-delta-metrics.ts`. Read the
-27 bed against the 26.5 bed on that axis, then refit the fifteen `outerShadow`
-constants in the 27 documents against it. **No new capture is needed** — both beds
-are on disk — which is what makes this the cheapest of the three causes Decision Log
-6 puts to the user.
+**The fix shape**: a span grading on the length, profile-gated so the runtime
+default and the two 26.5 documents resolve bit-identically. It is smaller than it
+sounds — the casting surface's span is already in the shader as `shadowAux.z` and
+`outer_shadow_thick` already grades the AMPLITUDE by it, so the change is that
+interpolation applied to `ou.shadow.y`, new leaves under `outerShadow`, the CSS
+tier's mirror in `platform-web/src/optics.ts`, and `outerShadowReachPx` taking the
+maximum over spans for the pad. It is not taken in G3b because Decision Log 6 (a)
+ruled the shadow's CONSTANTS refit; it is put to the user as Decision Log 7.
+
+---
+
+## The highlight's angular directionality has no web-side reader, so it cannot be fitted
+
+*Named by W29 Decision Log 4 (a) as an unclosed law, left unfitted by G3
+(§5.153 §2 item 3) and carried here by Decision Log 6 (e).*
+
+macOS 27 moved the highlight's directionality: §5.151 §7's review closure measured
+the dimmest of W24's sixteen angular bins falling 0.0784 → 0.0242 while the
+brightest barely moves, and said the fit belongs on the bins rather than on the
+ratio the wave first quoted. G3 refit the rim's amplitude and width and left the
+angular floor exactly where W24 put it, because **the bins are not a reading
+`cli/measure.ts` takes**: W24's angular reader lives in
+`cli/native-delta-readers.ts` and reads a pair of NATIVE captures, so there is no
+native-against-web number for any bound or fit to move.
+
+**The fix shape**: give the angular read a web side. `angularRead` already takes a
+raster and a declared box and has nothing native about it — what is missing is a
+call in `cli/measure.ts` that runs it on both captures and a block on the material
+axis that records the sixteen bins, the integral and the peak angle per side, with
+the same absences the reader already reports for a composite with no declared box.
+Then the floor is fittable and a bound on it is statable. Perhaps a hundred lines
+and one schema addition, and it is the last of Decision Log 4 (a)'s six laws with
+no instrument behind it.
+
+---
+
+## `results/matrix.json` is 52.9 MB, past GitHub's recommended file size
+
+*Found 2026-09-19 when GitHub warned on the W29 G3 merge; carried here by G3b,
+which appended a second 27 generation to it.*
+
+The canonical matrix is one committed JSON file holding every cell of every bed,
+pretty-printed one field per line so that "this cell moved" is a small diff. It
+crossed 50 MB at G3's append and G3b's read adds a generation beside it, because a
+profile document change re-keys every row it drew and the rule is that a recorded
+number is never rewritten. GitHub warns above 50 MB and refuses above 100; at the
+current rate of one OS recapture per wave the file reaches the hard limit in two
+or three more.
+
+Nothing is broken and nothing should be deleted — the old generations are the
+evidence a claim cites, and the project's rule against rewriting a recorded number
+is the reason the file grows at all. **Not acted on here**, because how to split
+committed evidence is a decision about what the repository promises and not a
+mechanical one.
+
+**Three shapes, for whoever rules it.** *Split by bed*: one file per OS
+(`results/matrix-26.5.json`, `matrix-27.0.json`), which halves the working file
+today and moves the problem one recapture along; the gate reads a directory
+instead of a file and every path that names the matrix changes. *Split by
+generation*: the current generation in `results/matrix.json` and superseded ones
+under `results/superseded/<document-sha>.json`, which keeps the working file small
+forever and makes "which generation is this" a directory rather than a regex over
+`capturePath` — the gate's own `atAShippedDocument` becomes a file listing.
+*Compress the tail*: keep the newest generation pretty-printed and store the rest
+as one `.json.gz`, which is the smallest change and the worst diff. The second is
+the parent's recommendation; all three are the user's to rule, and the axis they
+differ on is whether a superseded row should still be one `git show` away.

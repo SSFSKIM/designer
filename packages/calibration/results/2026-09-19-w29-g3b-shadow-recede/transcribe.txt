@@ -1,0 +1,125 @@
+# gated bed: 459 cells
+
+const MATRIX_PARTITION: Readonly<Record<string, number>> = {
+  "apple-macos-26.5-1x-dark-standard": 26,
+  "apple-macos-26.5-1x-light-increased-contrast": 17,
+  "apple-macos-26.5-1x-light-reduced-transparency": 16,
+  "apple-macos-26.5-1x-light-standard": 72,
+  "apple-macos-26.5-2x-dark-standard": 26,
+  "apple-macos-26.5-2x-light-standard": 72,
+  "apple-macos-27.0-1x-dark-standard-glass0.5": 26,
+  "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 18,
+  "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": 16,
+  "apple-macos-27.0-1x-light-standard-glass0.5": 72,
+  "apple-macos-27.0-2x-dark-standard-glass0.5": 26,
+  "apple-macos-27.0-2x-light-standard-glass0.5": 72,
+};
+
+const MATRIX_CELLS = 459;
+
+# cells per profile per tier (the `cells` field of each declared profile)
+#   apple-macos-26.5-1x-dark-standard                             dom      13
+#   apple-macos-26.5-1x-dark-standard                             texture  13
+#   apple-macos-26.5-1x-light-increased-contrast                  dom      8
+#   apple-macos-26.5-1x-light-increased-contrast                  texture  9
+#   apple-macos-26.5-1x-light-reduced-transparency                dom      8
+#   apple-macos-26.5-1x-light-reduced-transparency                texture  8
+#   apple-macos-26.5-1x-light-standard                            dom      36
+#   apple-macos-26.5-1x-light-standard                            texture  36
+#   apple-macos-26.5-2x-dark-standard                             dom      13
+#   apple-macos-26.5-2x-dark-standard                             texture  13
+#   apple-macos-26.5-2x-light-standard                            dom      36
+#   apple-macos-26.5-2x-light-standard                            texture  36
+#   apple-macos-27.0-1x-dark-standard-glass0.5                    dom      13
+#   apple-macos-27.0-1x-dark-standard-glass0.5                    texture  13
+#   apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 dom      9
+#   apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 texture  9
+#   apple-macos-27.0-1x-light-reduced-transparency-glass0.5       dom      8
+#   apple-macos-27.0-1x-light-reduced-transparency-glass0.5       texture  8
+#   apple-macos-27.0-1x-light-standard-glass0.5                   dom      36
+#   apple-macos-27.0-1x-light-standard-glass0.5                   texture  36
+#   apple-macos-27.0-2x-dark-standard-glass0.5                    dom      13
+#   apple-macos-27.0-2x-dark-standard-glass0.5                    texture  13
+#   apple-macos-27.0-2x-light-standard-glass0.5                   dom      36
+#   apple-macos-27.0-2x-light-standard-glass0.5                   texture  36
+
+const PREDICATE_EXCLUDES = [   // 68 lines
+  "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "dom / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+  "dom / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+  "dom / calibration / light-solid__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+  "dom / calibration / light-solid__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+  "dom / calibration / light-solid__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+  "dom / calibration / light-solid__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+  "dom / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "dom / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+  "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+  "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+  "dom / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+  "dom / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+  "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+  "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+  "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+  "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
+  "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+  "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+  "dom / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "dom / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+  "texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+  "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard",
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+  "texture / calibration / checkerboard__toolbar-group__rest / apple-macos-26.5-2x-light-standard",
+  "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+  "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-1x-light-standard",
+  "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+  "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
+  "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / calibration / light-solid__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+  "texture / calibration / light-solid__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+  "texture / calibration / light-solid__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+  "texture / calibration / light-solid__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+  "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+  "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard",
+  "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+  "texture / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+  "texture / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+  "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
+  "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+  "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+  "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+  "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
+  "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+  "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+] as const;
+
+const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {   // 7 rows
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.89538, bound: "≥ 0.9" },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.88402, bound: "≥ 0.9" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.20095, bound: "≤ 0.18" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": { measured: 0.82707, bound: "≥ 0.83" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.19474, bound: "≤ 0.19" },
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21521, bound: "≤ 0.17" },
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21344, bound: "≤ 0.17" },
+};
