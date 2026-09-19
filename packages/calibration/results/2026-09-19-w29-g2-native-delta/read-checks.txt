@@ -1,0 +1,365 @@
+# 1. The backdrops behind each tone-response band
+
+   0.0037  impulse
+   0.1104  dark-solid
+   0.2554  mid-chroma-solid
+   0.2706  mid-dark-solid
+   0.4254  photo
+   0.4720  checkerboard-64
+   0.5000  checkerboard
+   0.5000  checkerboard-32
+   0.5000  checkerboard-4
+   0.5000  checkerboard-8
+   0.5490  mid-light-solid
+   0.7000  checkerboard-lc16
+   0.7400  hc-text
+   0.7504  hc-text-7
+   0.7652  hc-text-28
+   0.9504  light-solid
+
+# 2. rrect-64's corner curvature
+
+  1x-dark-standard/dark-solid__rrect-64__rest  kappa 26.5 0.00000  27 0.08248  area 26.5 52  27 6996  IoU complement 0.993718
+  1x-light-standard/dark-solid__rrect-64__rest  kappa 26.5 0.00000  27 0.07722  area 26.5 52  27 7016  IoU complement 0.992588
+  2x-dark-standard/dark-solid__rrect-64__rest  kappa 26.5 338.91947  27 0.04133  area 26.5 574  27 27988  IoU complement 0.980001
+  2x-light-standard/dark-solid__rrect-64__rest  kappa 26.5 338.91947  27 0.04499  area 26.5 574  27 28036  IoU complement 0.979526
+
+  The same component's neighbours, for scale:
+  rrect-48 dark-solid__rrect-48__inactive  curvature ABSENT
+  rrect-48 dark-solid__rrect-48__rest  kappa 26.5 0.00000  27 0.11234  area 26.5 40  27 3938
+  rrect-48 dark-solid__rrect-48__inactive  kappa 26.5 0.10321  27 0.10321  area 26.5 3948  27 3948
+  rrect-48 dark-solid__rrect-48__inactive  kappa 26.5 0.10321  27 0.10321  area 26.5 3948  27 3948
+  rrect-48 dark-solid__rrect-48__inactive  curvature ABSENT
+  rrect-48 dark-solid__rrect-48__rest  kappa 26.5 0.00000  27 0.10321  area 26.5 40  27 3948
+  rrect-48 dark-solid__rrect-48__inactive  curvature ABSENT
+  rrect-48 dark-solid__rrect-48__rest  kappa 26.5 3.67673  27 0.05757  area 26.5 431  27 15758
+  rrect-48 dark-solid__rrect-48__inactive  curvature ABSENT
+  rrect-48 dark-solid__rrect-48__rest  kappa 26.5 3.67673  27 0.05218  area 26.5 431  27 15792
+  rrect-80 dark-solid__rrect-80__inactive  curvature ABSENT
+  rrect-80 dark-solid__rrect-80__rest  kappa 26.5 39.43428  27 0.07113  area 26.5 331  27 10924
+  rrect-80 dark-solid__rrect-80__inactive  kappa 26.5 0.06233  27 0.06233  area 26.5 10956  27 10956
+  rrect-80 dark-solid__rrect-80__inactive  kappa 26.5 0.06233  27 0.06233  area 26.5 10956  27 10956
+  rrect-80 dark-solid__rrect-80__inactive  kappa 26.5 0.06233  27 0.06233  area 26.5 10956  27 10956
+  rrect-80 dark-solid__rrect-80__rest  kappa 26.5 0.06233  27 0.06233  area 26.5 10956  27 10956
+  rrect-80 dark-solid__rrect-80__inactive  curvature ABSENT
+  rrect-80 dark-solid__rrect-80__rest  kappa 26.5 0.35054  27 0.03552  area 26.5 1176  27 43707
+  rrect-80 dark-solid__rrect-80__inactive  kappa 26.5 0.03346  27 0.03446  area 26.5 43808  27 43780
+  rrect-80 dark-solid__rrect-80__rest  kappa 26.5 0.03346  27 0.03380  area 26.5 43808  27 43792
+
+# 3. The chroma the hue shift was read at
+
+  tinted    n=  88  median interior chroma 0.163340  median |hue shift delta| 0.796 deg
+  untinted  n= 531  median interior chroma 0.000075  median |hue shift delta| 67.278 deg
+
+  Cells whose interior chroma is under 0.01 on BOTH beds — where a hue is not defined:
+  chroma < 0.01    n= 456  moved  450  median |hue shift delta| 82.442 deg
+  chroma >= 0.01   n= 113  moved  113  median |hue shift delta| 0.998 deg
+
+# 4. The recede's silhouette-area row
+
+  1x-dark-standard/checkerboard__capsule-button__inactive  recede 26.5      0.0  27     -2.0  difference     -2.0  bar nan
+  1x-dark-standard/checkerboard__capsule-button__inactive-tint-orange  recede 26.5     -3.0  27     -2.0  difference      1.0  bar nan
+  1x-dark-standard/checkerboard__glass-over-glass__inactive  recede 26.5   1313.0  27      1.0  difference  -1312.0  bar nan
+  1x-dark-standard/checkerboard__rrect-md__inactive  recede 26.5    -12.0  27     -1.0  difference     11.0  bar nan
+  1x-dark-standard/checkerboard-32__rrect-lg__inactive  recede 26.5    -16.0  27    -11.0  difference      5.0  bar nan
+  1x-dark-standard/checkerboard-4__rrect-md__inactive  recede 26.5    -16.0  27      0.0  difference     16.0  bar nan
+  1x-dark-standard/checkerboard-64__rrect-lg__inactive  recede 26.5  -8264.0  27  -2768.0  difference   5496.0  bar nan
+  1x-dark-standard/checkerboard-64__rrect-md__inactive  recede 26.5    542.0  27  -1035.0  difference  -1577.0  bar nan
+  1x-dark-standard/checkerboard-8__rrect-lg__inactive  recede 26.5    -20.0  27     14.0  difference     34.0  bar nan
+  1x-dark-standard/checkerboard-8__rrect-md__inactive  recede 26.5    -17.0  27      0.0  difference     17.0  bar nan
+  1x-dark-standard/checkerboard-lc16__capsule-button__inactive  recede 26.5     36.0  27     -8.0  difference    -44.0  bar nan
+  1x-dark-standard/checkerboard-lc16__rrect-md__inactive  recede 26.5     19.0  27  -2230.0  difference  -2249.0  bar nan
+  1x-dark-standard/dark-solid__capsule-button__inactive  recede 26.5    -25.0  27  -4844.0  difference  -4819.0  bar nan
+  1x-dark-standard/dark-solid__capsule-button__inactive-tint-orange  recede 26.5    -80.0  27    -36.0  difference     44.0  bar nan
+  1x-dark-standard/dark-solid__rrect-48__inactive  recede 26.5    -40.0  27  -3938.0  difference  -3898.0  bar nan
+  1x-dark-standard/dark-solid__rrect-80__inactive  recede 26.5   -331.0  27 -10924.0  difference -10593.0  bar nan
+  1x-dark-standard/dark-solid__rrect-lg__inactive  recede 26.5   -323.0  27 -43688.0  difference -43365.0  bar nan
+  1x-dark-standard/dark-solid__rrect-md__inactive  recede 26.5   -370.0  27 -14980.0  difference -14610.0  bar nan
+  1x-dark-standard/dark-solid__rrect-md-clear20__inactive  recede 26.5   -370.0  27 -14980.0  difference -14610.0  bar nan
+  1x-dark-standard/dark-solid__rrect-sm__inactive  recede 26.5    -34.0  27  -1988.0  difference  -1954.0  bar nan
+  1x-dark-standard/hc-text__rrect-lg__inactive  recede 26.5     -9.0  27      0.0  difference      9.0  bar nan
+  1x-dark-standard/hc-text__rrect-sm__inactive  recede 26.5     -8.0  27      0.0  difference      8.0  bar nan
+  1x-dark-standard/hc-text-28__rrect-md__inactive  recede 26.5     -4.0  27      0.0  difference      4.0  bar nan
+  1x-dark-standard/hc-text-7__rrect-md__inactive  recede 26.5     -9.0  27      0.0  difference      9.0  bar nan
+  1x-dark-standard/impulse__capsule-button__inactive  recede 26.5   -126.0  27   -372.0  difference   -246.0  bar nan
+  1x-dark-standard/impulse__rrect-lg__inactive  recede 26.5   -153.0  27   -844.0  difference   -691.0  bar nan
+  1x-dark-standard/impulse__rrect-ml__inactive  recede 26.5   -371.0  27   -696.0  difference   -325.0  bar nan
+  1x-dark-standard/light-solid__rrect-lg__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-dark-standard/light-solid__rrect-sm__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-dark-standard/mid-dark-solid__capsule-button__inactive  recede 26.5  -4621.0  27    -90.0  difference   4531.0  bar nan
+  1x-dark-standard/mid-dark-solid__rrect-lg__inactive  recede 26.5    565.0  27   -178.0  difference   -743.0  bar 1.0
+  1x-dark-standard/mid-dark-solid__rrect-md__inactive  recede 26.5    323.0  27   -116.0  difference   -439.0  bar nan
+  1x-dark-standard/mid-dark-solid__rrect-sm__inactive  recede 26.5  -1852.0  27    -32.0  difference   1820.0  bar nan
+  1x-dark-standard/photo__capsule-button__inactive  recede 26.5     22.0  27   -399.0  difference   -421.0  bar nan
+  1x-dark-standard/photo__capsule-button__inactive-pressed  recede 26.5     22.0  27   -399.0  difference   -421.0  bar nan
+  1x-dark-standard/photo__capsule-button__inactive-tint-orange  recede 26.5   -287.0  27     -8.0  difference    279.0  bar nan
+  1x-dark-standard/photo__rrect-lg__inactive  recede 26.5     13.0  27    586.0  difference    573.0  bar 3.0
+  1x-dark-standard/photo__rrect-md__inactive  recede 26.5      3.0  27    153.0  difference    150.0  bar nan
+  1x-light-increased-contrast/checkerboard__capsule-button__inactive  recede 26.5   -534.0  27      0.0  difference    534.0  bar nan
+  1x-light-increased-contrast/checkerboard__capsule-button__inactive-tint-orange  recede 26.5     -2.0  27     -2.0  difference      0.0  bar nan
+  1x-light-increased-contrast/checkerboard__rrect-md__inactive  recede 26.5  -1514.0  27      0.0  difference   1514.0  bar nan
+  1x-light-increased-contrast/hc-text__capsule-button__inactive  recede 26.5  -2501.0  27    139.0  difference   2640.0  bar nan
+  1x-light-increased-contrast/photo__capsule-button__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-increased-contrast/photo__capsule-button__inactive-pressed  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-increased-contrast/photo__capsule-button__inactive-tint-orange  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-increased-contrast/photo__rrect-lg__inactive  recede 26.5    -13.0  27     -3.0  difference     10.0  bar nan
+  1x-light-increased-contrast/photo__rrect-md__inactive  recede 26.5     -4.0  27      0.0  difference      4.0  bar nan
+  1x-light-increased-contrast/photo__toolbar-group__inactive  recede 26.5     -2.0  27      0.0  difference      2.0  bar nan
+  1x-light-reduced-transparency/checkerboard__capsule-button__inactive  recede 26.5     -8.0  27     26.0  difference     34.0  bar nan
+  1x-light-reduced-transparency/checkerboard__rrect-md__inactive  recede 26.5    -12.0  27     17.0  difference     29.0  bar nan
+  1x-light-reduced-transparency/hc-text__capsule-button__inactive  recede 26.5    -16.0  27     40.0  difference     56.0  bar nan
+  1x-light-reduced-transparency/photo__capsule-button__inactive  recede 26.5      0.0  27     -1.0  difference     -1.0  bar nan
+  1x-light-reduced-transparency/photo__capsule-button__inactive-pressed  recede 26.5      0.0  27     -1.0  difference     -1.0  bar nan
+  1x-light-reduced-transparency/photo__capsule-button__inactive-tint-orange  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-reduced-transparency/photo__rrect-lg__inactive  recede 26.5      1.0  27      5.0  difference      4.0  bar nan
+  1x-light-reduced-transparency/photo__rrect-md__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-reduced-transparency/photo__toolbar-group__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/checkerboard__capsule-button__inactive  recede 26.5      0.0  27     -1.0  difference     -1.0  bar nan
+  1x-light-standard/checkerboard__capsule-button__inactive-pressed  recede 26.5      0.0  27     -1.0  difference     -1.0  bar nan
+  1x-light-standard/checkerboard__capsule-button__inactive-tint-blue  recede 26.5      0.0  27     -3.0  difference     -3.0  bar nan
+  1x-light-standard/checkerboard__capsule-button__inactive-tint-orange  recede 26.5      0.0  27     -3.0  difference     -3.0  bar nan
+  1x-light-standard/checkerboard__glass-over-glass__inactive  recede 26.5     89.0  27      0.0  difference    -89.0  bar nan
+  1x-light-standard/checkerboard__rrect-lg__inactive  recede 26.5     -8.0  27      1.0  difference      9.0  bar nan
+  1x-light-standard/checkerboard__rrect-md__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/checkerboard__rrect-md__inactive-pressed  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/checkerboard__rrect-ml__inactive  recede 26.5      0.0  27     -1.0  difference     -1.0  bar nan
+  1x-light-standard/checkerboard__rrect-sm__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/checkerboard__toolbar-group__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/checkerboard-32__rrect-lg__inactive  recede 26.5     -7.0  27     -4.0  difference      3.0  bar nan
+  1x-light-standard/checkerboard-4__rrect-md__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/checkerboard-64__rrect-lg__inactive  recede 26.5     -8.0  27     66.0  difference     74.0  bar nan
+  1x-light-standard/checkerboard-64__rrect-md__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/checkerboard-8__rrect-lg__inactive  recede 26.5     -8.0  27     10.0  difference     18.0  bar nan
+  1x-light-standard/checkerboard-8__rrect-md__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/checkerboard-lc16__capsule-button__inactive  recede 26.5   -470.0  27   1284.0  difference   1754.0  bar nan
+  1x-light-standard/checkerboard-lc16__rrect-md__inactive  recede 26.5  -3236.0  27   3746.0  difference   6982.0  bar nan
+  1x-light-standard/dark-solid__capsule-button__inactive  recede 26.5    -25.0  27     -4.0  difference     21.0  bar nan
+  1x-light-standard/dark-solid__capsule-button__inactive-tint-blue  recede 26.5    -80.0  27    -24.0  difference     56.0  bar nan
+  1x-light-standard/dark-solid__capsule-button__inactive-tint-orange  recede 26.5    -80.0  27    -24.0  difference     56.0  bar nan
+  1x-light-standard/dark-solid__rrect-48__inactive  recede 26.5    -40.0  27      0.0  difference     40.0  bar nan
+  1x-light-standard/dark-solid__rrect-80__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/dark-solid__rrect-lg__inactive  recede 26.5      0.0  27    -12.0  difference    -12.0  bar nan
+  1x-light-standard/dark-solid__rrect-md__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/dark-solid__rrect-md-clear20__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/dark-solid__rrect-sm__inactive  recede 26.5    -34.0  27      0.0  difference     34.0  bar nan
+  1x-light-standard/hc-text__capsule-button__inactive  recede 26.5      0.0  27      7.0  difference      7.0  bar nan
+  1x-light-standard/hc-text__capsule-button__inactive-tint-orange  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/hc-text__rrect-lg__inactive  recede 26.5    178.0  27    866.0  difference    688.0  bar nan
+  1x-light-standard/hc-text__rrect-md__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/hc-text__rrect-sm__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/hc-text-28__rrect-md__inactive  recede 26.5      0.0  27     66.0  difference     66.0  bar nan
+  1x-light-standard/hc-text-7__rrect-md__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/impulse__capsule-button__inactive  recede 26.5   -126.0  27      0.0  difference    126.0  bar nan
+  1x-light-standard/impulse__capsule-button__inactive-tint-orange  recede 26.5    -88.0  27    -32.0  difference     56.0  bar nan
+  1x-light-standard/impulse__rrect-lg__inactive  recede 26.5     -6.0  27     -4.0  difference      2.0  bar 1.0
+  1x-light-standard/impulse__rrect-md__inactive  recede 26.5      0.0  27     -4.0  difference     -4.0  bar nan
+  1x-light-standard/impulse__rrect-ml__inactive  recede 26.5     -8.0  27     -8.0  difference      0.0  bar nan
+  1x-light-standard/light-solid__capsule-button__inactive  recede 26.5     -3.0  27   1338.0  difference   1341.0  bar nan
+  1x-light-standard/light-solid__capsule-button__inactive-tint-orange  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/light-solid__rrect-lg__inactive  recede 26.5 -43781.0  27     54.0  difference  43835.0  bar 4.0
+  1x-light-standard/light-solid__rrect-md__inactive  recede 26.5 -15009.0  27   1604.0  difference  16613.0  bar nan
+  1x-light-standard/light-solid__rrect-ml__inactive  recede 26.5 -28025.0  27     46.0  difference  28071.0  bar nan
+  1x-light-standard/light-solid__rrect-sm__inactive  recede 26.5      0.0  27    800.0  difference    800.0  bar nan
+  1x-light-standard/mid-chroma-solid__capsule-button__inactive  recede 26.5      0.0  27     -4.0  difference     -4.0  bar nan
+  1x-light-standard/mid-chroma-solid__capsule-button__inactive-tint-orange  recede 26.5     -4.0  27      0.0  difference      4.0  bar nan
+  1x-light-standard/mid-chroma-solid__rrect-lg__inactive  recede 26.5     -8.0  27     -8.0  difference      0.0  bar nan
+  1x-light-standard/mid-chroma-solid__rrect-md__inactive  recede 26.5      0.0  27     -4.0  difference     -4.0  bar nan
+  1x-light-standard/mid-dark-solid__capsule-button__inactive  recede 26.5      0.0  27     -4.0  difference     -4.0  bar nan
+  1x-light-standard/mid-dark-solid__rrect-lg__inactive  recede 26.5     -1.0  27     -5.0  difference     -4.0  bar nan
+  1x-light-standard/mid-dark-solid__rrect-md__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/mid-dark-solid__rrect-sm__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  1x-light-standard/photo__capsule-button__inactive  recede 26.5      0.0  27     -1.0  difference     -1.0  bar nan
+  1x-light-standard/photo__capsule-button__inactive-pressed  recede 26.5      0.0  27     -1.0  difference     -1.0  bar nan
+  1x-light-standard/photo__capsule-button__inactive-tint-blue  recede 26.5      0.0  27     -3.0  difference     -3.0  bar nan
+  1x-light-standard/photo__capsule-button__inactive-tint-orange  recede 26.5      0.0  27     -3.0  difference     -3.0  bar nan
+  1x-light-standard/photo__capsule-button__inactive-tint-orange-half  recede 26.5      0.0  27     -6.0  difference     -6.0  bar nan
+  1x-light-standard/photo__glass-over-glass__inactive  recede 26.5      1.0  27     -1.0  difference     -2.0  bar nan
+  1x-light-standard/photo__rrect-lg__inactive  recede 26.5      0.0  27     -5.0  difference     -5.0  bar nan
+  1x-light-standard/photo__rrect-lg__inactive-tint-orange  recede 26.5     -1.0  27    -16.0  difference    -15.0  bar 1.0
+  1x-light-standard/photo__rrect-md__inactive  recede 26.5      0.0  27      2.0  difference      2.0  bar nan
+  1x-light-standard/photo__rrect-md__inactive-pressed  recede 26.5      0.0  27      2.0  difference      2.0  bar nan
+  1x-light-standard/photo__rrect-md__inactive-tint-orange  recede 26.5      0.0  27     -3.0  difference     -3.0  bar nan
+  1x-light-standard/photo__rrect-ml__inactive  recede 26.5      1.0  27      0.0  difference     -1.0  bar nan
+  1x-light-standard/photo__rrect-sm__inactive  recede 26.5      0.0  27      1.0  difference      1.0  bar nan
+  1x-light-standard/photo__toolbar-group__inactive  recede 26.5      0.0  27     -6.0  difference     -6.0  bar nan
+  2x-dark-standard/checkerboard__capsule-button__inactive  recede 26.5    -10.0  27      4.0  difference     14.0  bar nan
+  2x-dark-standard/checkerboard__capsule-button__inactive-tint-orange  recede 26.5    -13.0  27     -1.0  difference     12.0  bar nan
+  2x-dark-standard/checkerboard__glass-over-glass__inactive  recede 26.5   5437.0  27    -14.0  difference  -5451.0  bar nan
+  2x-dark-standard/checkerboard__rrect-md__inactive  recede 26.5     25.0  27     -2.0  difference    -27.0  bar nan
+  2x-dark-standard/checkerboard-32__rrect-lg__inactive  recede 26.5    265.0  27    -11.0  difference   -276.0  bar nan
+  2x-dark-standard/checkerboard-4__rrect-md__inactive  recede 26.5    -26.0  27     20.0  difference     46.0  bar nan
+  2x-dark-standard/checkerboard-64__rrect-lg__inactive  recede 26.5 -26432.0  27  -7118.0  difference  19314.0  bar nan
+  2x-dark-standard/checkerboard-64__rrect-md__inactive  recede 26.5   7099.0  27  -4555.0  difference -11654.0  bar nan
+  2x-dark-standard/checkerboard-8__rrect-lg__inactive  recede 26.5   -121.0  27     72.0  difference    193.0  bar nan
+  2x-dark-standard/checkerboard-8__rrect-md__inactive  recede 26.5    -27.0  27      2.0  difference     29.0  bar nan
+  2x-dark-standard/checkerboard-lc16__capsule-button__inactive  recede 26.5    124.0  27    -26.0  difference   -150.0  bar nan
+  2x-dark-standard/checkerboard-lc16__rrect-md__inactive  recede 26.5     90.0  27  -8942.0  difference  -9032.0  bar nan
+  2x-dark-standard/dark-solid__capsule-button__inactive  recede 26.5   -457.0  27 -19398.0  difference -18941.0  bar nan
+  2x-dark-standard/dark-solid__capsule-button__inactive-tint-orange  recede 26.5   -200.0  27    -96.0  difference    104.0  bar nan
+  2x-dark-standard/dark-solid__rrect-48__inactive  recede 26.5   -431.0  27 -15758.0  difference -15327.0  bar nan
+  2x-dark-standard/dark-solid__rrect-80__inactive  recede 26.5  -1176.0  27 -43707.0  difference -42531.0  bar nan
+  2x-dark-standard/dark-solid__rrect-lg__inactive  recede 26.5  -1280.0  27 -174830.0  difference -173550.0  bar nan
+  2x-dark-standard/dark-solid__rrect-md__inactive  recede 26.5  -1208.0  27 -59934.0  difference -58726.0  bar nan
+  2x-dark-standard/dark-solid__rrect-md-clear20__inactive  recede 26.5  -1208.0  27 -59934.0  difference -58726.0  bar nan
+  2x-dark-standard/dark-solid__rrect-sm__inactive  recede 26.5   -314.0  27  -7956.0  difference  -7642.0  bar nan
+  2x-dark-standard/hc-text__rrect-lg__inactive  recede 26.5   -118.0  27     18.0  difference    136.0  bar nan
+  2x-dark-standard/hc-text__rrect-sm__inactive  recede 26.5     -6.0  27     -2.0  difference      4.0  bar nan
+  2x-dark-standard/hc-text-28__rrect-md__inactive  recede 26.5    -14.0  27      1.0  difference     15.0  bar nan
+  2x-dark-standard/hc-text-7__rrect-md__inactive  recede 26.5    -13.0  27      9.0  difference     22.0  bar nan
+  2x-dark-standard/impulse__capsule-button__inactive  recede 26.5   -464.0  27  -1626.0  difference  -1162.0  bar nan
+  2x-dark-standard/impulse__rrect-lg__inactive  recede 26.5  -1017.0  27  -3532.0  difference  -2515.0  bar nan
+  2x-dark-standard/impulse__rrect-ml__inactive  recede 26.5  -1383.0  27  -2932.0  difference  -1549.0  bar nan
+  2x-dark-standard/light-solid__rrect-lg__inactive  recede 26.5    -96.0  27      0.0  difference     96.0  bar nan
+  2x-dark-standard/light-solid__rrect-sm__inactive  recede 26.5     -7.0  27      0.0  difference      7.0  bar nan
+  2x-dark-standard/mid-dark-solid__capsule-button__inactive  recede 26.5 -18802.0  27   -164.0  difference  18638.0  bar nan
+  2x-dark-standard/mid-dark-solid__rrect-lg__inactive  recede 26.5   1953.0  27   -298.0  difference  -2251.0  bar 2.0
+  2x-dark-standard/mid-dark-solid__rrect-md__inactive  recede 26.5   1109.0  27   -196.0  difference  -1305.0  bar nan
+  2x-dark-standard/mid-dark-solid__rrect-sm__inactive  recede 26.5  -7600.0  27    -72.0  difference   7528.0  bar nan
+  2x-dark-standard/photo__capsule-button__inactive  recede 26.5     79.0  27  -1486.0  difference  -1565.0  bar nan
+  2x-dark-standard/photo__capsule-button__inactive-pressed  recede 26.5     79.0  27  -1486.0  difference  -1565.0  bar nan
+  2x-dark-standard/photo__capsule-button__inactive-tint-orange  recede 26.5  -1217.0  27     -2.0  difference   1215.0  bar nan
+  2x-dark-standard/photo__rrect-lg__inactive  recede 26.5    -33.0  27   3149.0  difference   3182.0  bar nan
+  2x-dark-standard/photo__rrect-md__inactive  recede 26.5     11.0  27    478.0  difference    467.0  bar nan
+  2x-light-standard/checkerboard__capsule-button__inactive  recede 26.5     -9.0  27      3.0  difference     12.0  bar nan
+  2x-light-standard/checkerboard__capsule-button__inactive-pressed  recede 26.5     -9.0  27      3.0  difference     12.0  bar nan
+  2x-light-standard/checkerboard__capsule-button__inactive-tint-blue  recede 26.5    -10.0  27    -15.0  difference     -5.0  bar nan
+  2x-light-standard/checkerboard__capsule-button__inactive-tint-orange  recede 26.5    -10.0  27    -15.0  difference     -5.0  bar nan
+  2x-light-standard/checkerboard__glass-over-glass__inactive  recede 26.5    193.0  27    142.0  difference    -51.0  bar nan
+  2x-light-standard/checkerboard__rrect-lg__inactive  recede 26.5    -65.0  27     30.0  difference     95.0  bar nan
+  2x-light-standard/checkerboard__rrect-md__inactive  recede 26.5    -10.0  27      2.0  difference     12.0  bar nan
+  2x-light-standard/checkerboard__rrect-md__inactive-pressed  recede 26.5    -10.0  27      2.0  difference     12.0  bar nan
+  2x-light-standard/checkerboard__rrect-ml__inactive  recede 26.5    -39.0  27    -10.0  difference     29.0  bar nan
+  2x-light-standard/checkerboard__rrect-sm__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  2x-light-standard/checkerboard__toolbar-group__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  2x-light-standard/checkerboard-32__rrect-lg__inactive  recede 26.5    -68.0  27     69.0  difference    137.0  bar nan
+  2x-light-standard/checkerboard-4__rrect-md__inactive  recede 26.5    -12.0  27     12.0  difference     24.0  bar nan
+  2x-light-standard/checkerboard-64__rrect-lg__inactive  recede 26.5    -24.0  27    182.0  difference    206.0  bar nan
+  2x-light-standard/checkerboard-64__rrect-md__inactive  recede 26.5     45.0  27    105.0  difference     60.0  bar nan
+  2x-light-standard/checkerboard-8__rrect-lg__inactive  recede 26.5    -64.0  27     66.0  difference    130.0  bar nan
+  2x-light-standard/checkerboard-8__rrect-md__inactive  recede 26.5    -10.0  27      4.0  difference     14.0  bar nan
+  2x-light-standard/checkerboard-lc16__capsule-button__inactive  recede 26.5  -1589.0  27   6070.0  difference   7659.0  bar nan
+  2x-light-standard/checkerboard-lc16__rrect-md__inactive  recede 26.5  -1048.0  27  10261.0  difference  11309.0  bar nan
+  2x-light-standard/dark-solid__capsule-button__inactive  recede 26.5   -457.0  27     -8.0  difference    449.0  bar nan
+  2x-light-standard/dark-solid__capsule-button__inactive-tint-blue  recede 26.5   -200.0  27    -80.0  difference    120.0  bar nan
+  2x-light-standard/dark-solid__capsule-button__inactive-tint-orange  recede 26.5   -200.0  27    -80.0  difference    120.0  bar nan
+  2x-light-standard/dark-solid__rrect-48__inactive  recede 26.5   -431.0  27      0.0  difference    431.0  bar nan
+  2x-light-standard/dark-solid__rrect-80__inactive  recede 26.5      0.0  27    -12.0  difference    -12.0  bar nan
+  2x-light-standard/dark-solid__rrect-lg__inactive  recede 26.5    -16.0  27    -20.0  difference     -4.0  bar nan
+  2x-light-standard/dark-solid__rrect-md__inactive  recede 26.5     -5.0  27     -8.0  difference     -3.0  bar nan
+  2x-light-standard/dark-solid__rrect-md-clear20__inactive  recede 26.5     -5.0  27     -8.0  difference     -3.0  bar nan
+  2x-light-standard/dark-solid__rrect-sm__inactive  recede 26.5   -314.0  27      0.0  difference    314.0  bar nan
+  2x-light-standard/hc-text__capsule-button__inactive  recede 26.5     -9.0  27    162.0  difference    171.0  bar 1.0
+  2x-light-standard/hc-text__capsule-button__inactive-tint-orange  recede 26.5     -8.0  27      0.0  difference      8.0  bar nan
+  2x-light-standard/hc-text__rrect-lg__inactive  recede 26.5    410.0  27   3947.0  difference   3537.0  bar 1.0
+  2x-light-standard/hc-text__rrect-md__inactive  recede 26.5     -7.0  27    163.0  difference    170.0  bar nan
+  2x-light-standard/hc-text__rrect-sm__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  2x-light-standard/hc-text-28__rrect-md__inactive  recede 26.5     28.0  27    219.0  difference    191.0  bar nan
+  2x-light-standard/hc-text-7__rrect-md__inactive  recede 26.5     17.0  27      8.0  difference     -9.0  bar nan
+  2x-light-standard/impulse__capsule-button__inactive  recede 26.5   -464.0  27     -8.0  difference    456.0  bar nan
+  2x-light-standard/impulse__capsule-button__inactive-tint-orange  recede 26.5   -228.0  27    -88.0  difference    140.0  bar nan
+  2x-light-standard/impulse__rrect-lg__inactive  recede 26.5    -32.0  27    -24.0  difference      8.0  bar nan
+  2x-light-standard/impulse__rrect-md__inactive  recede 26.5    -16.0  27    -12.0  difference      4.0  bar nan
+  2x-light-standard/impulse__rrect-ml__inactive  recede 26.5    -22.0  27    -26.0  difference     -4.0  bar nan
+  2x-light-standard/light-solid__capsule-button__inactive  recede 26.5    -31.0  27   5096.0  difference   5127.0  bar nan
+  2x-light-standard/light-solid__capsule-button__inactive-tint-orange  recede 26.5    -12.0  27      0.0  difference     12.0  bar nan
+  2x-light-standard/light-solid__rrect-lg__inactive  recede 26.5 -175138.0  27     70.0  difference 175208.0  bar 2.0
+  2x-light-standard/light-solid__rrect-md__inactive  recede 26.5 -60026.0  27   6320.0  difference  66346.0  bar nan
+  2x-light-standard/light-solid__rrect-ml__inactive  recede 26.5 -112126.0  27     72.0  difference 112198.0  bar nan
+  2x-light-standard/light-solid__rrect-sm__inactive  recede 26.5     -7.0  27   2974.0  difference   2981.0  bar nan
+  2x-light-standard/mid-chroma-solid__capsule-button__inactive  recede 26.5    -17.0  27     -6.0  difference     11.0  bar nan
+  2x-light-standard/mid-chroma-solid__capsule-button__inactive-tint-orange  recede 26.5    -28.0  27      0.0  difference     28.0  bar nan
+  2x-light-standard/mid-chroma-solid__rrect-lg__inactive  recede 26.5    -32.0  27    -22.0  difference     10.0  bar nan
+  2x-light-standard/mid-chroma-solid__rrect-md__inactive  recede 26.5     -8.0  27    -10.0  difference     -2.0  bar nan
+  2x-light-standard/mid-dark-solid__capsule-button__inactive  recede 26.5     -1.0  27      0.0  difference      1.0  bar nan
+  2x-light-standard/mid-dark-solid__rrect-lg__inactive  recede 26.5     -4.0  27    -24.0  difference    -20.0  bar 2.0
+  2x-light-standard/mid-dark-solid__rrect-md__inactive  recede 26.5      0.0  27     -8.0  difference     -8.0  bar nan
+  2x-light-standard/mid-dark-solid__rrect-sm__inactive  recede 26.5      0.0  27      0.0  difference      0.0  bar nan
+  2x-light-standard/photo__capsule-button__inactive  recede 26.5     -5.0  27     -2.0  difference      3.0  bar nan
+  2x-light-standard/photo__capsule-button__inactive-pressed  recede 26.5     -5.0  27     -2.0  difference      3.0  bar nan
+  2x-light-standard/photo__capsule-button__inactive-tint-blue  recede 26.5    -10.0  27     -5.0  difference      5.0  bar nan
+  2x-light-standard/photo__capsule-button__inactive-tint-orange  recede 26.5     -9.0  27     -5.0  difference      4.0  bar nan
+  2x-light-standard/photo__capsule-button__inactive-tint-orange-half  recede 26.5     -6.0  27     -9.0  difference     -3.0  bar nan
+  2x-light-standard/photo__glass-over-glass__inactive  recede 26.5    -14.0  27     -8.0  difference      6.0  bar nan
+  2x-light-standard/photo__rrect-lg__inactive  recede 26.5    -55.0  27    -23.0  difference     32.0  bar nan
+  2x-light-standard/photo__rrect-lg__inactive-tint-orange  recede 26.5    -67.0  27    -25.0  difference     42.0  bar nan
+  2x-light-standard/photo__rrect-md__inactive  recede 26.5     -5.0  27      3.0  difference      8.0  bar nan
+  2x-light-standard/photo__rrect-md__inactive-pressed  recede 26.5     -5.0  27      3.0  difference      8.0  bar nan
+  2x-light-standard/photo__rrect-md__inactive-tint-orange  recede 26.5    -13.0  27     -5.0  difference      8.0  bar nan
+  2x-light-standard/photo__rrect-ml__inactive  recede 26.5    -23.0  27     -5.0  difference     18.0  bar nan
+  2x-light-standard/photo__rrect-sm__inactive  recede 26.5      0.0  27      3.0  difference      3.0  bar nan
+  2x-light-standard/photo__toolbar-group__inactive  recede 26.5      0.0  27     -8.0  difference     -8.0  bar nan
+
+# 5. The cells whose silhouette is level-driven, and the geometry law without them
+
+  66 of 619 cells have one bed's silhouette under half the other's.
+  Their backdrops, and which bed is the small one:
+    dark-solid           26.5 small    32
+    impulse              26.5 small    11
+    light-solid          26.5 small     6
+    mid-dark-solid       26.5 small     4
+    mid-light-solid      27 small       4
+    hc-text              27 small       4
+    hc-text              26.5 small     1
+    hc-text-7            26.5 small     1
+    light-solid          27 small       1
+    hc-text-28           27 small       1
+    hc-text-7            27 small       1
+
+  The geometry law, healthy cells only (both silhouettes within 2x of each other):
+    silhouetteIoUComplement      moved  392/ 539  median 3.5979e-04  median delta/bar     57.45  worst 6.2510e-01 on impulse__rrect-ml__rest
+    contourDistanceMeanPx        moved  392/ 539  median 1.4493e-02  median delta/bar     24.67  worst 7.8468e+00 on impulse__rrect-ml__rest
+    silhouetteAreaDeltaPx        moved  369/ 539  median 8.0000e+00  median delta/bar      8.00  worst 8.5937e+04 on checkerboard-lc16__rrect-lg__rest
+    cornerCurvatureDeltaPerPx    moved  373/ 537  median 7.7557e-04  median delta/bar     32.83  worst 3.6704e+03 on checkerboard-lc16__rrect-ml__rest
+
+  And the interior level on the cells the extractor lost, which is what moved there:
+    55 cells, median 27-minus-26.5 interior level +0.04010 linear
+# 6. The level and tone laws per backdrop AND per pose, mask-free where it matters
+
+  Split by pose, and reported as percentiles of the PER-CELL signed difference rather
+  than as each bed's own median: over `impulse` active the two beds' medians are 0.007
+  and 0.234 while the median per-cell difference is +0.008, because the cell at one
+  bed's median is not the cell at the other's. The difference is the measurement and
+  each bed's median is only context. `bodyLevel` is the declared box eroded six
+  CSS px and needs no silhouette, which is what makes it usable where check 5 is not.
+
+  ## pose: active
+  backdrop             level    n  dBody p10       p50       p90   up/down  slope 26.5       27  r2 26.5   r2 27
+  impulse             0.0037   20   -0.19816  +0.00790  +0.22795   12/8        -0.0011   0.0148    0.008   0.153
+  dark-solid          0.1104   42   -0.18454  +0.02514  +0.27529   28/14           nan      nan      nan     nan
+  mid-chroma-solid    0.2554    8   -0.13696  -0.06780  -0.03509    0/8            nan      nan      nan     nan
+  mid-dark-solid      0.2706   16   -0.16720  +0.06604  +0.08023    8/8            nan      nan      nan     nan
+  photo               0.4254   44   -0.11479  -0.02713  +0.12400   15/29        0.0909   0.2833    0.130   0.426
+  checkerboard-64     0.4720   24   -0.06811  +0.00673  +0.11851   16/8         0.1378   0.2145    0.566   0.751
+  checkerboard        0.5000   29   -0.08776  +0.00119  +0.09658   17/12        0.0692   0.0387    0.206   0.205
+  checkerboard-32     0.5000   24   -0.06121  +0.00296  +0.10400   14/10        0.1294   0.1220    0.381   0.486
+  checkerboard-4      0.5000   24   -0.10472  +0.00349  +0.12876   13/11        0.0265   0.0175    0.096   0.087
+  checkerboard-8      0.5000   23   -0.10520  +0.00351  +0.12598   14/9         0.0212   0.0296    0.098   0.175
+  checkerboard-lc16   0.7000   20   -0.07136  +0.14313  +0.19958   10/10        0.0470   0.0508    0.132   0.146
+  hc-text             0.7400   16   -0.07768  +0.00924  +0.12025    9/7         0.0640   0.0829    0.222   0.188
+  hc-text-7           0.7504   12   -0.06204  +0.12265  +0.15221    6/6         0.0361   0.0583    0.077   0.106
+  hc-text-28          0.7652   12   -0.02500  +0.06521  +0.12697    8/4         0.1261   0.1463    0.363   0.393
+  light-solid         0.9504   16   -0.50722  +0.00228  +0.09788    8/8            nan      nan      nan     nan
+
+  ## pose: inactive
+  backdrop             level    n  dBody p10       p50       p90   up/down  slope 26.5       27  r2 26.5   r2 27
+  impulse             0.0037   16   -0.17838  -0.00762  +0.22890    6/10        0.0154   0.0113    0.004   0.003
+  dark-solid          0.1104   40   -0.17346  +0.00871  +0.27206   29/11           nan      nan      nan     nan
+  mid-chroma-solid    0.2554   16   -0.12505  +0.13645  +0.18839    8/8            nan      nan      nan     nan
+  mid-dark-solid      0.2706   16   -0.16086  +0.04691  +0.04993    8/8            nan      nan      nan     nan
+  photo               0.4254   46   -0.26329  -0.07695  +0.10515   17/29        0.2480   0.3992    0.666   0.703
+  checkerboard-64     0.4720    8   -0.12223  +0.06230  +0.07636    4/4         0.1277   0.1591    0.505   0.649
+  checkerboard        0.5000   33   -0.23717  -0.07583  +0.09872   11/22        0.0335   0.0156    0.254   0.142
+  checkerboard-32     0.5000    4   -0.12121  +0.08460  +0.08924    2/2         0.0671   0.0546    0.268   0.410
+  checkerboard-4      0.5000    6   -0.30420  +0.02628  +0.11230    3/3         0.0061   0.0016    0.056   0.004
+  checkerboard-8      0.5000    8   -0.13616  +0.09645  +0.11194    4/4         0.0069  -0.0009    0.079   0.008
+  mid-light-solid     0.5490    8   +0.10775  +0.12001  +0.12014    8/0            nan      nan      nan     nan
+  checkerboard-lc16   0.7000   12   -0.20334  +0.03720  +0.17813    6/6         0.0118   0.0135    0.036   0.055
+  hc-text             0.7400   20   -0.20957  -0.10039  +0.11841    8/12        0.0352   0.0272    0.245   0.116
+  hc-text-7           0.7504    6   -0.25248  +0.03646  +0.12878    3/3         0.0076   0.0061    0.050   0.038
+  hc-text-28          0.7652    6   -0.21411  +0.03627  +0.12698    3/3         0.0319   0.0587    0.243   0.356
+  light-solid         0.9504   20   -0.09962  -0.06505  +0.06052    5/15           nan      nan      nan     nan
+
+  The body level over the whole bed, per pose:
+    active    n= 330  median signed +0.00257  up/down 178/152  p05 -0.18752  p95 +0.19958
+    inactive  n= 265  median signed -0.06137  up/down 125/140  p05 -0.27276  p95 +0.17923
+

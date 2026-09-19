@@ -1,0 +1,75 @@
+# W29 G2 — the native delta: what macOS 27 changed in Apple's own material
+
+W29 acceptance clause 3, contracts X1 and X3, Decision Logs 1–3; claims **§5.151**. Nothing under
+`apps/reference-apple/fixtures/`, `packages/calibration/profiles/` or `results/matrix.json` was
+written by this gate, no material moved, no bound and no floor was declared or changed, and no
+capture was taken. The raw runs stay on the capture machine.
+
+## What is here
+
+| file | what it is |
+| --- | --- |
+| `bar-declaration.md` | the noise bar's construction and rule, **written and committed before any 26.5 pair was read** |
+| `verify-readers.txt` | the ported W23 and W24 rim readers against those instruments' own committed 26.5 output |
+| `noise-bar.json` | per 27 cell and per metric, the 27-against-27 distribution the verdicts are stated against |
+| `native-delta.json` | one row per `{ profileKey27, profileKey26, sceneId }`: every metric, its bar, moved / not moved, the signed readings of both beds, the pose |
+| `recede-delta.json` | the recede's own rows: `(27 inactive − 27 active) − (26.5 inactive − 26.5 active)` |
+| `law-tables.txt` | the tables the ledger's per-law verdicts are read off |
+| `read-checks.py` / `.txt` | the six things a table cannot answer, and the reason each verdict below is worded as it is |
+| `sheets/` | 26.5 \| 27 \| amplified difference (×8), four per profile and three per law |
+| `bar-run.txt`, `delta-run.txt` | what the two runs printed |
+| `freeze-verify.txt`, `verify-output.txt` | the 26.5 freeze at this gate's opening and close, and lint + test |
+
+## How it was run
+
+```bash
+cd packages/calibration
+npx tsx cli/native-delta.ts verify-readers
+npx tsx cli/native-delta.ts bar    --runs "$HOME/vitrea-w29-27-run" \
+                                   --out results/2026-09-19-w29-g2-native-delta/noise-bar.json
+npx tsx cli/native-delta.ts delta  --bar results/2026-09-19-w29-g2-native-delta/noise-bar.json \
+                                   --out results/2026-09-19-w29-g2-native-delta
+npx tsx cli/native-delta.ts tables --dir results/2026-09-19-w29-g2-native-delta
+npx tsx cli/native-delta.ts sheets --dir results/2026-09-19-w29-g2-native-delta --gain 8
+python3 results/2026-09-19-w29-g2-native-delta/read-checks.py
+python3 results/2026-09-16-w29-freeze/freeze.py verify
+```
+
+The instrument is `cli/native-delta.ts` with `cli/native-delta-metrics.ts` and
+`cli/native-delta-readers.ts`, covered by `test/native-delta.test.ts`. `bar-declaration.md` records
+why it lives in `cli/` rather than beside these numbers.
+
+## The shape of the result, in one paragraph
+
+**619 pairs, and the material moved on every one of them.** Every cell of every profile is beyond
+its own 27-against-27 spread on the whole-cell perceptual rows, on the interior level, on the rim
+band and on the highlight — at median Δ/bar between 10⁴ and 10⁸, so those verdicts are not close
+calls. The **geometry did not move**: silhouette IoU, contour distance, silhouette area and corner
+curvature move on about two thirds of cells at median Δ/bar 8–92, and their absolute magnitudes are
+an IoU complement of 3.6 × 10⁻⁴, a mean contour distance of 0.014 px and eight pixels of area — a
+shape difference nobody could see. What changed is the material: its level, its edge, its
+highlight, how much of a backdrop's structure survives it, and how the recede acts on all four.
+
+## Four things to read before any number here
+
+1. **The bar is 27-against-27.** The 26.5 bed's own run-to-run spread is not in it and is not
+   derivable (§5.149 §6), so "moved" is a floor on the evidence, not a ceiling, and "not moved" is
+   the weaker of the two statements.
+2. **The accessibility profiles are confounded.** macOS 27 decoupled Reduce Transparency from
+   Increase Contrast, so the 27 increased-contrast bed is a *different state* from the 26.5 bed of
+   the same name (§5.150 Part B §3). `sheets/law__rim-band__1__1x-light-increased-contrast__…` is
+   that confound in a picture: the 26.5 capsule is nearly opaque and the 27 one is translucent with
+   the text reading through it. Nothing on
+   `apple-macos-27.0-1x-light-increased-contrast-glass0.5` is attributed to the material here.
+3. **Five 27 cells have no 26.5 counterpart** and are reported rather than diffed. They are the
+   five the 26.5 bed declared and never published (§5.150 Part B §5), named at the head of
+   `law-tables.txt`.
+4. **Sixty-six cells have one bed's silhouette under half the other's**, 55 of them with the small
+   one on 26.5 and over the near-tone backdrops (`dark-solid` 32, `impulse` 11, `light-solid` 6,
+   `mid-dark-solid` 4). That is the extractor following the level rather than the shape — the
+   tracker's "the shape axis mis-segments a glowing interior over a near-tone backdrop" — and it is
+   itself the gate's largest finding: on 26.5 Apple's material over those backdrops sat inside the
+   0.02 linear threshold of its own backdrop and on 27 it does not. Every silhouette-masked reading
+   on those cells is read against a mask of a few dozen pixels; `bodyLevel`, the declared box eroded
+   six CSS px, is the mask-free reading that replaces it, and check 6 of `read-checks.txt` is the
+   level and tone law read that way.
