@@ -53,6 +53,7 @@ import {
   oklabDistance,
   oklabDeltaE,
   rimIntensity,
+  shadowField,
   silhouetteArea,
   silhouetteIoU,
   srgbByteToOklab,
@@ -64,6 +65,7 @@ import {
   type CalibrationImage,
   type ComponentRegion,
   type RimIntensityReport,
+  type ShadowFieldReport,
   type Silhouette,
 } from "../src/index";
 import {
@@ -170,6 +172,43 @@ export const NATIVE_DELTA_METRICS = [
   "tintDeltaLDelta",
   "tintChromaDelta",
   "tintHueShiftDeltaDeg",
+  /*
+   * The outer shadow (W29 G3b, Decision Log 6 (a)): every quantity
+   * `cli/measure.ts`'s shadow axis reports on a side, entered here as a
+   * distance between the two sides of a pair.
+   *
+   * It is the one law G2 did not read — §5.151 §2 lists what it did — and the
+   * cause §5.153 §5 names for seven of the fifteen missed rows. The metrics are
+   * added to this list rather than measured by a script of their own for the
+   * reason the bar declaration gives: the bar bounds the delta only if both are
+   * the same function of a pair of captures, so a shadow reading barred by a
+   * shadow-specific instrument would be barred by a different rule from every
+   * other law in the same table.
+   *
+   * `shadowProfileRmsDelta` is the whole ring profile rather than a summary of
+   * it — RMS over the rings both sides resolved — and it is what a refit is
+   * scored on when σ and the amplitude trade off against each other. The affine
+   * pair's two rows are W14 X7's transmission and lift, taken as the worst band
+   * the two sides share, because a shadow that removes less light and a shadow
+   * that adds some are different findings.
+   */
+  "shadowMeanDepartureDelta",
+  "shadowStrengthPeakDelta",
+  "shadowStrengthPeakDistanceDeltaPx",
+  "shadowExtentAboveDeltaPx",
+  "shadowExtentBelowDeltaPx",
+  "shadowExtentLeftDeltaPx",
+  "shadowExtentRightDeltaPx",
+  "shadowOffsetXDeltaPx",
+  "shadowOffsetYDeltaPx",
+  "shadowCentroidOffsetXDeltaPx",
+  "shadowCentroidOffsetYDeltaPx",
+  "shadowFalloffSigmaDeltaPx",
+  "shadowFalloffAmplitudeDelta",
+  "shadowFalloffLengthDeltaPx",
+  "shadowProfileRmsDelta",
+  "shadowAffineSlopeDeltaMax",
+  "shadowAffineInterceptDeltaMax",
 ] as const;
 
 export type NativeDeltaMetric = (typeof NATIVE_DELTA_METRICS)[number];
@@ -188,6 +227,18 @@ export interface CaptureReading {
   readonly contour: ContourRimRead | null;
   /** W24's angular read off the declared boundary. */
   readonly angular: AngularRead | null;
+  /**
+   * The shadow axis outside the declared region — the same `shadowField` call
+   * `cli/measure.ts` makes, with the same region and the same scale.
+   *
+   * Read per capture and not per pair because it is a property of one capture,
+   * exactly as the rim and the angular reads above are: a cell with seven runs
+   * would otherwise pay for the exterior walk twenty-one times over. It needs no
+   * silhouette, so it is present on the cells whose shape and material rows are
+   * absent — a material inside the extractor's threshold of its own backdrop
+   * still casts a shadow, and on this bed those are 66 cells (§5.151 §4).
+   */
+  readonly shadow: ShadowFieldReport | null;
 }
 
 export interface CellGeometry {
@@ -241,7 +292,15 @@ export function readCapture(
     contour = contourRimRead(raster, geometry.box, geometry.scale);
     angular = angularRead(raster, geometry.box, geometry.scale);
   }
-  return { image, silhouette, area, rim, contour, angular };
+  let shadow: ShadowFieldReport | null;
+  try {
+    shadow = shadowField(image, background, geometry.region, { scale: geometry.scale });
+  } catch {
+    // A declared region the exterior walk cannot be taken over — the frame
+    // eaten by the component — is an absence and not a zero shadow.
+    shadow = null;
+  }
+  return { image, silhouette, area, rim, contour, angular, shadow };
 }
 
 function absMaxOverSides(
@@ -301,6 +360,16 @@ export interface PairReadings {
   readonly tintDeltaL: readonly [number, number] | null;
   readonly tintChroma: readonly [number, number] | null;
   readonly tintHueShiftDeg: readonly [number, number] | null;
+  /** The shadow axis's signed readings, so a verdict can say which way it went. */
+  readonly shadowMeanDeparture: readonly [number, number] | null;
+  readonly shadowStrengthPeak: readonly [number, number] | null;
+  readonly shadowExtentBelowPx: readonly [number, number] | null;
+  readonly shadowFalloffSigmaPx: readonly [number, number] | null;
+  readonly shadowFalloffAmplitude: readonly [number, number] | null;
+  readonly shadowFalloffLengthPx: readonly [number, number] | null;
+  readonly shadowOffsetYPx: readonly [number, number] | null;
+  /** The exterior's own backdrop support, which is what the ratios rest on. */
+  readonly shadowBackdropSupport: readonly [number, number] | null;
 }
 
 export interface PairResult {
@@ -508,6 +577,119 @@ export function pairMetrics(
     );
   }
 
+  // ---- the outer shadow ---------------------------------------------------
+  let shadowMeanDeparture: readonly [number, number] | null = null;
+  let shadowStrengthPeak: readonly [number, number] | null = null;
+  let shadowExtentBelowPx: readonly [number, number] | null = null;
+  let shadowFalloffSigmaPx: readonly [number, number] | null = null;
+  let shadowFalloffAmplitude: readonly [number, number] | null = null;
+  let shadowFalloffLengthPx: readonly [number, number] | null = null;
+  let shadowOffsetYPx: readonly [number, number] | null = null;
+  let shadowBackdropSupport: readonly [number, number] | null = null;
+  if (a.shadow !== null && b.shadow !== null) {
+    const sa = a.shadow;
+    const sb = b.shadow;
+    /** A paired optional: both sides present, or the row is absent for both. */
+    const pair = (
+      pick: (side: ShadowFieldReport) => number | undefined,
+    ): readonly [number, number] | null => {
+      const left = pick(sa);
+      const right = pick(sb);
+      return left === undefined ||
+        right === undefined ||
+        !Number.isFinite(left) ||
+        !Number.isFinite(right)
+        ? null
+        : [left, right];
+    };
+    const distance = (
+      metric: NativeDeltaMetric,
+      pick: (side: ShadowFieldReport) => number | undefined,
+    ): readonly [number, number] | null => {
+      const both = pair(pick);
+      if (both !== null) metrics[metric] = Math.abs(both[0] - both[1]);
+      return both;
+    };
+
+    shadowMeanDeparture = distance("shadowMeanDepartureDelta", (side) => side.meanDeparture);
+    shadowStrengthPeak = distance("shadowStrengthPeakDelta", (side) => side.strengthPeak);
+    distance("shadowStrengthPeakDistanceDeltaPx", (side) => side.strengthPeakDistancePx);
+    distance("shadowExtentAboveDeltaPx", (side) => side.extentAbovePx);
+    shadowExtentBelowPx = distance("shadowExtentBelowDeltaPx", (side) => side.extentBelowPx);
+    distance("shadowExtentLeftDeltaPx", (side) => side.extentLeftPx);
+    distance("shadowExtentRightDeltaPx", (side) => side.extentRightPx);
+    distance("shadowOffsetXDeltaPx", (side) => side.offsetXPx);
+    shadowOffsetYPx = distance("shadowOffsetYDeltaPx", (side) => side.offsetYPx);
+    distance("shadowCentroidOffsetXDeltaPx", (side) => side.centroidOffsetXPx);
+    distance("shadowCentroidOffsetYDeltaPx", (side) => side.centroidOffsetYPx);
+    shadowFalloffSigmaPx = distance("shadowFalloffSigmaDeltaPx", (side) => side.falloffSigmaPx);
+    shadowFalloffAmplitude = distance(
+      "shadowFalloffAmplitudeDelta",
+      (side) => side.falloffAmplitude,
+    );
+    shadowFalloffLengthPx = distance("shadowFalloffLengthDeltaPx", (side) => side.falloffLengthPx);
+    shadowBackdropSupport = pair((side) => side.backdropSupport);
+
+    /*
+     * The ring profile, over the rings BOTH sides resolved.
+     *
+     * A summary statistic can hide a profile that changed shape: a shadow half
+     * as deep over twice the distance moves σ and the amplitude in opposite
+     * directions and can leave the mean departure where it was. The RMS over
+     * the shared rings is what a refit is scored on, and it is absent rather
+     * than zero where the two profiles share no ring — which is the normalised
+     * block's absence over `dark-solid` and `impulse`, where there is no light
+     * to remove.
+     */
+    const ringsB = new Map(sb.profile.map((ring) => [ring.distancePx, ring.occlusion]));
+    let squares = 0;
+    let rings = 0;
+    for (const ring of sa.profile) {
+      const other = ringsB.get(ring.distancePx);
+      if (other === undefined || !Number.isFinite(other) || !Number.isFinite(ring.occlusion)) {
+        continue;
+      }
+      squares += (ring.occlusion - other) ** 2;
+      rings += 1;
+    }
+    if (rings > 0) metrics.shadowProfileRmsDelta = Math.sqrt(squares / rings);
+
+    // W14 X7's affine pair, worst over the bands and directions both sides
+    // identified. An unidentifiable band on either side drops out of the max
+    // rather than entering it as a zero.
+    const affineB = new Map(
+      sb.affine.map((band) => [`${band.direction} ${band.ringLabel}`, band]),
+    );
+    let worstSlope: number | null = null;
+    let worstIntercept: number | null = null;
+    for (const band of sa.affine) {
+      const other = affineB.get(`${band.direction} ${band.ringLabel}`);
+      if (other === undefined) continue;
+      if (band.slopeALinear !== undefined && other.slopeALinear !== undefined) {
+        const delta = Math.abs(band.slopeALinear - other.slopeALinear);
+        worstSlope = worstSlope === null ? delta : Math.max(worstSlope, delta);
+      }
+      if (band.interceptCLinear !== undefined && other.interceptCLinear !== undefined) {
+        const delta = Math.abs(band.interceptCLinear - other.interceptCLinear);
+        worstIntercept = worstIntercept === null ? delta : Math.max(worstIntercept, delta);
+      }
+    }
+    metrics.shadowAffineSlopeDeltaMax = worstSlope;
+    metrics.shadowAffineInterceptDeltaMax = worstIntercept;
+
+    if (sa.unmeasurableReason !== undefined) {
+      notes.push(
+        `shadow axis NOT NORMALISED: ${sa.unmeasurableReason} The absolute departure is still ` +
+          `a distance; every ratio-valued shadow row is absent, not zero.`,
+      );
+    }
+  } else {
+    notes.push(
+      "the shadow rows are ABSENT: the exterior of the declared region could not be walked on " +
+        `the ${a.shadow === null ? "reference" : "other"} capture.`,
+    );
+  }
+
   return {
     metrics,
     readings: {
@@ -529,6 +711,14 @@ export function pairMetrics(
       tintDeltaL,
       tintChroma,
       tintHueShiftDeg,
+      shadowMeanDeparture,
+      shadowStrengthPeak,
+      shadowExtentBelowPx,
+      shadowFalloffSigmaPx,
+      shadowFalloffAmplitude,
+      shadowFalloffLengthPx,
+      shadowOffsetYPx,
+      shadowBackdropSupport,
     },
     notes,
   };

@@ -228,6 +228,20 @@ export interface SceneReport {
    */
   readonly recededMaterialProfile: RendererMaterialProfile | null;
   /**
+   * The CANDIDATE receded document this capture was posed with, or `null` where
+   * none was injected (W29 G3b, Decision Log 6 (d)).
+   *
+   * Named rather than read back, like `recededMaterialProfile` above and for the
+   * same reason: the root exposes no getter for a difference it never saw. What
+   * it is for is the other field's mirror image. `recededMaterialProfile`
+   * non-null says the RUNTIME receded this capture; this says the HARNESS did,
+   * over an active root, with a document that is not the shipped one — and it is
+   * what lets a reader, and `capturePoseRefusal`, tell a receded capture taken
+   * through the fit seam from an active capture filed under an inactive id,
+   * which `windowActivation` alone cannot do on this path.
+   */
+  readonly candidateRecededMaterialProfile: RendererMaterialProfile | null;
+  /**
    * The window-activation pose this capture resolved to, read back off the root.
    *
    * The request is in the option; this is the answer, and it is reported for the
@@ -610,15 +624,25 @@ async function build(): Promise<SceneReport> {
    */
   const colorScheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   /*
-   * The scratch fitting branch, and the one thing that distinguishes it.
+   * The candidate branch, and the one thing that distinguishes it.
    *
-   * A fit reads CANDIDATE receded documents that are by definition not the shipped
-   * ones, so it cannot go through the runtime's pose — the root would apply
+   * A read of a CANDIDATE receded document — one that is by definition not the
+   * shipped one — cannot go through the runtime's pose: the root would apply
    * `recededMaterialProfile` and the candidate would never draw. When the driver
-   * injects one, the page merges it over the active document exactly as G1's seam
-   * did and pins the root active, so the candidate is the only receded difference
-   * in the capture. That path is a fit instrument: it is never the path a
-   * published row is captured through, and the report says which path ran.
+   * injects one, the page merges it over the active document exactly as W28 G1's
+   * seam did and pins the root active, so the candidate is the only receded
+   * difference in the capture.
+   *
+   * **Through W29 G3b this was a scratch fitting path and nothing else**, and the
+   * comment here said so. Decision Log 6 (d) made it a driver flag
+   * (`compare --receded-profile`) and read six 27 profiles' inactive rows through
+   * it into the canonical matrix, because the 27 endpoints are fitted before the
+   * runtime selects one (that selection is G4's, by Decision Log 2). So what
+   * separates a published candidate row from an active capture filed under an
+   * inactive id is no longer the directory it was written to: it is
+   * `candidateRecededMaterialProfile` in this report, the receded document's hash
+   * in the cell's `capturePath`, and `capturePoseRefusal`, which admits an active
+   * root under an inactive id only on the evidence of the first.
    */
   const candidateReceded = placed.inactive ? window.__vitreaRecededMaterialProfile : undefined;
   const posedByRuntime = placed.inactive && candidateReceded === undefined;
@@ -870,6 +894,7 @@ async function build(): Promise<SceneReport> {
     tint: placed.tint ?? null,
     materialProfile: materialProfile ?? null,
     recededMaterialProfile: runtimeReceded ?? null,
+    candidateRecededMaterialProfile: candidateReceded ?? null,
     windowActivation: root.windowActivation,
     colorScheme: root.colorScheme,
     cssTierMapping: cssTierMapping ?? null,

@@ -910,6 +910,29 @@ const LAWS: readonly { readonly law: string; readonly metrics: readonly NativeDe
   { law: "scatter / diffusion", metrics: ["interiorStdDevDelta"] },
   { law: "tint shade", metrics: ["tintDeltaLDelta", "tintChromaDelta", "tintHueShiftDeltaDeg"] },
   {
+    // W29 G3b, Decision Log 6 (a): the law G2 did not read.
+    law: "outer shadow",
+    metrics: [
+      "shadowMeanDepartureDelta",
+      "shadowStrengthPeakDelta",
+      "shadowStrengthPeakDistanceDeltaPx",
+      "shadowFalloffSigmaDeltaPx",
+      "shadowFalloffAmplitudeDelta",
+      "shadowFalloffLengthDeltaPx",
+      "shadowProfileRmsDelta",
+      "shadowExtentAboveDeltaPx",
+      "shadowExtentBelowDeltaPx",
+      "shadowExtentLeftDeltaPx",
+      "shadowExtentRightDeltaPx",
+      "shadowOffsetXDeltaPx",
+      "shadowOffsetYDeltaPx",
+      "shadowCentroidOffsetXDeltaPx",
+      "shadowCentroidOffsetYDeltaPx",
+      "shadowAffineSlopeDeltaMax",
+      "shadowAffineInterceptDeltaMax",
+    ],
+  },
+  {
     law: "the whole cell, as the fidelity read sees it",
     metrics: ["ssimComplement", "ssimBandComplement", "ssimInteriorComplement", "ssimOutsideComplement", "oklabDeltaEMean", "oklabDeltaEP95", "oklabDeltaEBodyMean", "edgeWeightedMean"],
   },
@@ -930,6 +953,13 @@ const SIGNED_OF: Partial<Record<NativeDeltaMetric, keyof PairReadings>> = {
   cornerCurvatureDeltaPerPx: "cornerCurvaturePerPx",
   tintDeltaLDelta: "tintDeltaL",
   tintChromaDelta: "tintChroma",
+  shadowMeanDepartureDelta: "shadowMeanDeparture",
+  shadowStrengthPeakDelta: "shadowStrengthPeak",
+  shadowExtentBelowDeltaPx: "shadowExtentBelowPx",
+  shadowFalloffSigmaDeltaPx: "shadowFalloffSigmaPx",
+  shadowFalloffAmplitudeDelta: "shadowFalloffAmplitude",
+  shadowFalloffLengthDeltaPx: "shadowFalloffLengthPx",
+  shadowOffsetYDeltaPx: "shadowOffsetYPx",
 };
 
 function signedDelta(row: DeltaRow, metric: NativeDeltaMetric): number | null {

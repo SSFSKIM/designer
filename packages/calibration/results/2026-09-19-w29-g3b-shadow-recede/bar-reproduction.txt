@@ -1,0 +1,12 @@
+G2  metrics 32, cells 624
+G3b metrics 49, cells 624
+shared 32, added 17, dropped 0
+added: shadowMeanDepartureDelta, shadowStrengthPeakDelta, shadowStrengthPeakDistanceDeltaPx, shadowExtentAboveDeltaPx, shadowExtentBelowDeltaPx, shadowExtentLeftDeltaPx, shadowExtentRightDeltaPx, shadowOffsetXDeltaPx, shadowOffsetYDeltaPx, shadowCentroidOffsetXDeltaPx, shadowCentroidOffsetYDeltaPx, shadowFalloffSigmaDeltaPx, shadowFalloffAmplitudeDelta, shadowFalloffLengthDeltaPx, shadowProfileRmsDelta, shadowAffineSlopeDeltaMax, shadowAffineInterceptDeltaMax
+
+cells in this bar with no G2 counterpart: 0
+readings compared: 190683
+rows present in one bar and absent in the other: 0
+readings that disagree: 0
+bedMinimumNonZeroBar entries compared: 32, disagreeing: 0
+
+verdict: this gate's bar REPRODUCES G2's on the thirty-one metrics they share.

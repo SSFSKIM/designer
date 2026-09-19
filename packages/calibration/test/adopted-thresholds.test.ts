@@ -92,7 +92,8 @@
  *      them. See claims §5.26 for the one mechanism behind all thirty-three.
  */
 
-import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
@@ -1788,7 +1789,16 @@ interface Cell {
   readonly key: {
     readonly profileKey: string;
     readonly sceneId: string;
-    readonly web: { readonly engine: string; readonly renderer: string };
+    readonly web: {
+      readonly engine: string;
+      readonly renderer: string;
+      /**
+       * How the capture was taken, including the profile document and its hash
+       * (W29 G3b reads it — `atAShippedDocument`). Part of the key, so a refit
+       * appends a generation beside the rows read at the old document.
+       */
+      readonly capturePath: string;
+    };
   };
   readonly fixtureSet: string;
   /** The scene's declared pose (W28 G4). Absent on a row written before the label existed. */
@@ -1874,13 +1884,67 @@ const INACTIVE_SCENES = new Set(
  * tier, and every new inactive scene would join the gate by default, which is the
  * failure this axis-shaped exclusion cannot have.
  */
+/**
+ * The short content hash `capture-web` puts in a cell's `capturePath` for each
+ * committed profile document, as the documents stand right now.
+ *
+ * Twelve hex characters of SHA-256 over the file, which is
+ * `scripts/material-profile-file.ts`'s own construction. Derived here rather
+ * than transcribed for the reason every hash in this file is: a number a person
+ * retypes after a refit is a number that goes stale silently, and this one
+ * decides which rows the gate reads.
+ */
+const SHIPPED_DOCUMENT_HASHES = new Map(
+  readdirSync(resolve(PACKAGE_ROOT, "profiles"))
+    .filter((file) => file.endsWith(".json"))
+    .map((file) => {
+      const path = `packages/calibration/profiles/${file}`;
+      const hash = createHash("sha256")
+        .update(readFileSync(resolve(PACKAGE_ROOT, "profiles", file)))
+        .digest("hex")
+        .slice(0, 12);
+      return [path, hash] as const;
+    }),
+);
+
+/**
+ * Was this row captured at a profile document that is committed and unchanged?
+ *
+ * **The third drop, and it is a generation rather than a set or an axis** (W29
+ * G3b). A cell's key contains its `capturePath`, and the `capturePath` names the
+ * material profile document and its content hash — so a refit that moves a
+ * document does not overwrite the rows read at the old one, it APPENDS a second
+ * generation beside them (the package's own README says so, and the wave rule is
+ * that a recorded number is never rewritten). Both generations are evidence and
+ * both stay in the file; only one of them is the bed that ships.
+ *
+ * So the gate reads the generation whose document is the document on disk. That
+ * is stronger than "the newest rows" and it is stronger than the old implicit
+ * behaviour, which was simply that no second generation had ever existed: it
+ * makes every counted, bounded and floored row carry a proof that it was
+ * measured at the material this repository currently contains. A row naming a
+ * hash no file has is a row from a superseded fit; a document edited without a
+ * re-read empties its own profile out of the partition and fails loudly here
+ * rather than gating a bound against a bed nobody captured.
+ *
+ * A row whose `capturePath` names no document at all — `materialProfile=renderer
+ * defaults` — is not a bed row and never was; it would be a capture taken at the
+ * renderer's untuned defaults, which is not the material any bound is stated on.
+ */
+function atAShippedDocument(cell: Cell): boolean {
+  const clause = /materialProfile=(\S+) sha256:([0-9a-f]{12})/.exec(cell.key.web.capturePath);
+  if (clause === null) return false;
+  return SHIPPED_DOCUMENT_HASHES.get(clause[1] ?? "") === clause[2];
+}
+
 const MATRIX: ResultMatrix = {
   ...MATRIX_FILE,
   cells: MATRIX_FILE.cells.filter(
     (cell) =>
       cell.fixtureSet !== "probe" &&
       cell.state !== "inactive" &&
-      !INACTIVE_SCENES.has(cell.key.sceneId),
+      !INACTIVE_SCENES.has(cell.key.sceneId) &&
+      atAShippedDocument(cell),
   ),
 };
 

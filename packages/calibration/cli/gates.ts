@@ -93,6 +93,11 @@ export function matrixSchemaRefusal(
 export interface CaptureReadout {
   readonly windowActivation?: string;
   readonly colorScheme?: string;
+  /**
+   * The candidate receded document the harness merged, where one was injected
+   * (W29 G3b). `null` or absent on every other path.
+   */
+  readonly candidateRecededMaterialProfile?: unknown;
 }
 
 export interface CaptureReport {
@@ -123,6 +128,18 @@ export interface CaptureReport {
  * refused for one declared `inactive`, where its silence is exactly the claim that
  * cannot be taken on trust. The scheme readback arrived in the same change, so an
  * unlabelled capture carries no scheme to compare and is judged on the pose alone.
+ *
+ * **One named exception, and it is the whole reason this function has a third
+ * branch** (W29 G3b, Decision Log 6 (d)). A capture posed with a CANDIDATE
+ * receded document resolves `windowActivation: "active"` by construction: the
+ * page merges the candidate over the active document and pins the root active,
+ * because a root that receded itself would apply the shipped difference and the
+ * candidate would never draw. Refusing it would make a fitted endpoint
+ * unmeasurable; waving every active resolution through would give back exactly
+ * the mistake above. So the recede is admitted on the evidence that it happened —
+ * `candidateRecededMaterialProfile` non-null in the same report — and on nothing
+ * else. The cell's `capturePath` carries that document's hash, so the row says
+ * which endpoint drew it and cannot be confused with a runtime-posed one.
  */
 export function capturePoseRefusal(
   report: CaptureReport,
@@ -131,6 +148,12 @@ export function capturePoseRefusal(
 ): string | undefined {
   const expected = state === "inactive" ? "inactive" : "active";
   const resolved = report.page?.windowActivation;
+  const candidate = report.page?.candidateRecededMaterialProfile;
+  const posedByCandidate =
+    typeof candidate === "object" && candidate !== null && !Array.isArray(candidate);
+  if (expected === "inactive" && resolved === "active" && posedByCandidate) {
+    return schemeRefusal(report, colorScheme);
+  }
   if (resolved === undefined) {
     if (expected === "active") return undefined;
     return (
@@ -144,6 +167,14 @@ export function capturePoseRefusal(
       `'${expected}' and resolved '${resolved}'`
     );
   }
+  return schemeRefusal(report, colorScheme);
+}
+
+/** The scheme half of the check above, shared with the candidate-receded branch. */
+function schemeRefusal(
+  report: CaptureReport,
+  colorScheme: "light" | "dark",
+): string | undefined {
   const resolvedScheme = report.page?.colorScheme;
   if (resolvedScheme !== colorScheme) {
     return (
