@@ -3096,3 +3096,61 @@ coupled one, `contrast-only` keeps its meaning as the *bound* on vitrea's contra
 the doc comment's premise is restated as a 26.5 fact with the 27 split beside it. Perhaps thirty
 lines with the switch's `default` refusal unchanged, plus rows in `compare-gates.test.ts` for both
 keys. It should land with, or before, the first read of either 27 contrast profile against vitrea.
+
+---
+
+## The macOS 27 receded endpoints are not fitted, and every wave writes its own runner to fit one
+
+*Found 2026-09-19, during W29 G3's refit (claims §5.153 §7).*
+
+The 27 active material is refit and the inactive endpoint is not, so a 27 page's
+inactive window draws the 26.5 recede over a body that moved: the inactive cells'
+level residual is **0.1174 mean absolute against the active pose's 0.0148**, and
+refitting the active pose did not improve it (0.1117 before). Nothing committed is
+wrong — the adopted gate drops the inactive pose on every set, so no bound is
+affected — but the gap is real and §5.151 §8 already measured its shape: on 27 the
+recede darkens the body more and takes away much less of the rim.
+
+What makes it a debt rather than simply unfinished work is the second half. The
+seam for measuring a candidate endpoint exists and is good (`web/scene.ts`'s
+`__vitreaRecededMaterialProfile`, which merges a candidate over the active document
+and pins the root active so the candidate is the only receded difference in the
+capture), but **nothing drives it from the calibration CLI**. Every wave that has
+fitted an endpoint — W27c G1, W27c G1c, W27c G1d, W28 G1 — wrote its own runner
+against that seam, and the four are near-copies. So the cost of fitting the 27
+endpoint is not the fit, it is a fifth copy of a browser driver.
+
+**The fix shape**: one `--receded-profile <file>` flag on `cli/compare.ts`, passed
+through `scripts/capture-web.ts` to the page and set on `window` for inactive
+scenes only, with the document's hash in the cell's `capturePath` beside the active
+one so a row says which endpoint drew it. The four bespoke runners then have a
+supported path to be written against, and the 27 endpoints become a fit rather than
+a project. The runtime SELECTION of a 27 endpoint is a separate question and is
+W29 G4's by Decision Log 2.
+
+---
+
+## The outer shadow is fitted on macOS 26.5 and macOS 27 draws a different one
+
+*Found 2026-09-19, during W29 G3's read (claims §5.153 §5).*
+
+On the 2x light bed `checkerboard__rrect-md__rest`'s native exterior departure falls
+**0.01279 → 0.00284** between the two beds and its falloff σ **35.8 → 18.8 device
+px** — less than a quarter of the light removed over less than half the distance —
+while vitrea draws the 26.5 shadow it was fitted to. The cell's `ssimOutside` reads
+0.9943 on 26.5 and 0.8495 on 27, and on `checkerboard__rrect-lg__rest` 0.7724.
+
+It is a debt rather than a bug because the wave that would have fixed it was not
+allowed to see it: W29 G2's native-against-native read enumerated nine laws and the
+shadow axis is not among them, and contract X3 confines the refit to what that read
+named. So seven of G3's fifteen missed rows have this one cause, recorded as UNMET
+claims with no floor.
+
+**The fix shape**: `cli/native-delta.ts` already is the bed-against-bed instrument
+and `cli/measure.ts` already computes the shadow metrics (`meanDeparture`,
+`strengthPeak`, `falloffSigma`, the four extents); adding the shadow axis to the
+delta's metric vector is a small change to `cli/native-delta-metrics.ts`. Read the
+27 bed against the 26.5 bed on that axis, then refit the fifteen `outerShadow`
+constants in the 27 documents against it. **No new capture is needed** — both beds
+are on disk — which is what makes this the cheapest of the three causes Decision Log
+6 puts to the user.

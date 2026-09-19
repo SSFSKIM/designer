@@ -23257,3 +23257,267 @@ is a prediction rather than a measurement, since the outside region is where the
 lands. The parent's recommendation is to **declare it**, and to record the SSIM-outside tail as a
 named risk in the Decision Log entry rather than loosening the row in advance, which is the shape
 Decision Log 4 (a) already chose for the dark profiles' ΔE tail.
+
+## 5.153 W29 G3: the refit — vitrea's material moved to macOS 27 on both tiers, the level law rewritten where Apple's glass stopped vanishing into a dark backdrop, and fifteen declared rows missed with the outer shadow named as the cause of seven (2026-09-19)
+
+**Gate: W29 G3, acceptance clause 4; contracts X1, X3, X5, X7; Decision Logs 1 (i), 2, 4 (a) and
+5.** Evidence is `packages/calibration/results/2026-09-19-w29-g3-refit/` —
+`bounds-declaration.md` as the bounds were declared, `fitted-constants.json` as the only place this
+child's chosen numbers are written by hand, `sealed-documents.txt` with the hashes the read ran at,
+`verdict.txt` and `before-after.txt` as the read, and `sheets/` as the eye's column. The material
+documents are `packages/calibration/profiles/apple-macos-27.0-1x-{light,dark}-standard-glass0.5.json`
+and the rows are the 332 this gate appended to `results/matrix.json`.
+
+**`DEFAULT_MATERIAL_PROFILE` did not move** (Decision Log 1 (i)). The 34 renderer goldens are
+byte-identical, both 26.5 documents resolve to the digests they recorded, and the 1,107 committed
+26.5 rows are bit-identical across the append — 0 missing, 0 changed. The 27 material ships as two
+**patch documents** over that unmoved default, which is what makes all of that true at once.
+
+### 1. What was declared, and when
+
+Two bounds commits, both before any 27 fit was read (X5). The first declared the five profiles of
+Decision Log 4 (a) at the 26.5 tables' values per tier; the second, after the user ruled Decision
+Log 5 mid-flight, declared the coupled increased-contrast profile at the 26.5 increased-contrast
+tables' values. **Every table is an ALIAS of the 26.5 constant it is ruled equal to**, taken from
+`adopted-thresholds.test.ts` itself and never from a charter table — which is what made this gate
+immune to the three transcription errors the review of §5.152 §B found in Decision Log 4 (c) and 5.
+No 27 regression floor is adopted, on any profile, and a case enforces that rather than remembering
+it. The decoupled increased-contrast profile gets no table and is not read against vitrea at all.
+
+Cell counts, `MATRIX_PARTITION` and `PREDICATE_EXCLUDES` are the machine's output and were
+transcribed after the read. Between the two, `PENDING_UNTIL_THE_27_READ` held the gap open: a
+declared profile was not yet gated, the gate asserted the matrix held no row for it, and the first
+row that landed made the suite red until its counts were transcribed.
+
+### 2. The mechanism chosen for each law, and why
+
+Decision Log 4 (a) named six structures and precommitted no mechanism. All six were answered inside
+the **existing** operators, and no operator was added — W28's precommit is satisfied by naming the
+one structure that could not be fitted rather than by reaching for a new term (§6 below).
+
+1. **Interior level.** The monotone backdrop-tone response, refit per scheme, with **four knots
+   instead of three and the first moved from the darkest SOLID backdrop to the darkest backdrop
+   there is**, and with the adaptation band that stood the law down over dark backdrops measured
+   **inert** and moved to the bottom of its range. The second half is the load-bearing one: on 26.5
+   the band ran 0.02–0.055 linear, so a thin surface over a near-black backdrop adapted fully and
+   disappeared into it, which is why vitrea's capsule over `dark-solid` rendered 0.0126. On 27
+   Apple's material does not disappear anywhere on this bed — 0.2899 over `dark-solid` and 0.2389
+   over `impulse`, at 5× and 45× their own backdrops. §5.151 §4 measured the same thing from the
+   other side, and the user's own eye named those cells on the W22 sheets.
+   `backdropToneMax` is **not** the lever and this is recorded so nobody tries it again: the
+   renderer multiplies it into the response's own strength, so zeroing it disables the law being
+   fitted. Measured — at max 0 the dark cells render the bare material at 0.4766 against a reference
+   of 0.2899.
+   **The finding inside the light rows is that they converge.** Thin and thick differ by 0.48 at the
+   dark anchor on 26.5 (0.0126 against 0.4953) and by 0.024 on 27: the light material's level over a
+   dark backdrop is now very nearly independent of the surface's thickness. The **dark** rows do not
+   converge — 0.464 thin against 0.196 thick at the bright anchor — so the two schemes are refit to
+   different shapes and not to one scaled by a constant.
+2. **The rim band.** The same affine-in-level amplitude law of W23 at **a fifth of its amplitude**
+   and about four times its width. The reference's radial rim peak fell four to six times between
+   the beds on the same cells (`checkerboard__rrect-md__rest` 0.0904 → 0.0183,
+   `dark-solid__rrect-md__rest` 0.1233 → 0.0172) while vitrea went on drawing the 26.5 number, and
+   its FWHM rose from about 1.3 to about 2.2 CSS px. The conversion is measured rather than assumed:
+   the rendered peak is 0.336 of the law's amplitude on every untinted cell whose body is under 0.9,
+   over five backdrops, and `rim_weight`'s FWHM is 0.586 × width.
+   In the **dark** document the finding is in the gain: 2.334 was fitted on a body that ran 0.01–0.16
+   and the 27 body runs 0.04–0.47, so the same gain would draw four times the reference's rim on the
+   bright cells. 0.055 + 0.44 × level is a larger intercept and a fifth of the gain — the dark rim
+   became much flatter in the body's own level.
+3. **The highlight's directionality.** Not moved, and the absence is a decision with a reason.
+   §5.151 §7's review closure established that what moved inside the +6.31 ratio is the **dimmest
+   bin falling** (0.0784 → 0.0242) while the brightest bin barely moves, and that G3 should fit the
+   bins rather than the ratio. The bins are not a reading `cli/measure.ts` takes — W24's angular
+   reader lives in `cli/native-delta-readers.ts` and reads a native pair — so fitting them needs a
+   web-side port of that reader, which is an instrument this child did not build. What it did
+   instead is measurable and is recorded: the rim's **amplitude and width** were refit, and the
+   angular floor is left. **This is an unclosed law of Decision Log 4 (a), named as such**, not a
+   law found not to have moved.
+4. **Scatter.** A wider heavy component with a smaller sharp share (σ 9 → 14 at dpr 1, 9 → 20 at
+   dpr 2; share 0.40 → 0.25 light, 0.40 → 0.34 dark), fitted on the interior's spread per backdrop
+   and checked against the luminance transfer's slope, which orders the backdrops the same way
+   independently. The direction was measured rather than reasoned: σ 6 and σ 4.5 make the
+   checkerboard residual worse (+0.049 and +0.075 against +0.033) and the fitted point brings the
+   bed-wide signed mean of the transfer slope to 0.0000 from +0.041.
+5. **The recede.** Not refit; §7.
+6. **The tint's lightness.** Not moved, and measured not to need to be: against the refitted body
+   the twelve tinted light cells read a ΔL residual of +0.0026 at the median and 0.0076 mean
+   absolute. §5.151's ΔL move is carried by the body's own level, and moving the shade as well would
+   count it twice.
+
+**The CSS tier is derived in the same commit from the same documents.** Its one fitted constant is
+`cssTierMapping.blurSigmaScale` 1 → 2.2, and the measurement that put it there is that nothing else
+reaches a tier with one `backdrop-filter`: neither `sizeScatterGainMax` nor the share moves its
+worst cell at all (`checkerboard__rrect-ml__rest` 0.85817 against 0.85846 at gain 8 and 14), while
+this constant takes that cell from 0.858 to 0.888 at 1.6 and to 0.907 at 2.2. That row is one the
+**26.5** dom tier misses and holds by floor (0.8748); the 27 dom tier meets it.
+
+### 3. The read
+
+One canonical run per profile per tier at the sealed documents (`fa872c68…`, `96b36eed…`, refused by
+`canonical-read.sh` at any other bytes), Reduce Transparency 0, Increase Contrast 0 and
+`NSGlassTintAmount` 0.5 read before and after every pass, one capture process at a time (X7).
+**Holdout was read once at that frozen configuration and nothing was re-fitted after it.**
+
+Per profile per tier, on the 156 cells read both before the refit and after (holdout is out of both
+sides because the baseline never read it; `before-after.txt`):
+
+| profile / tier | ΔE mean, mean | ΔE p95, worst | SSIM, worst |
+| --- | ---: | ---: | ---: |
+| `1x-light-standard` / texture | 0.0151 → **0.0085** | 0.459 → **0.135** | 0.897 → 0.888 |
+| `1x-light-standard` / dom | 0.0152 → **0.0080** | 0.459 → **0.096** | 0.872 → **0.907** |
+| `2x-light-standard` / texture | 0.0150 → **0.0079** | 0.465 → **0.135** | 0.892 → **0.912** |
+| `2x-light-standard` / dom | 0.0153 → **0.0079** | 0.464 → **0.086** | 0.921 → **0.951** |
+| `1x-dark-standard` / texture | 0.0196 → **0.0077** | 0.275 → **0.167** | 0.900 → **0.955** |
+| `1x-dark-standard` / dom | 0.0198 → **0.0086** | 0.256 → **0.154** | 0.890 → **0.930** |
+| `2x-dark-standard` / texture | 0.0195 → **0.0078** | 0.274 → **0.166** | 0.915 → **0.955** |
+| `2x-dark-standard` / dom | 0.0196 → **0.0088** | 0.258 → **0.148** | 0.912 → **0.945** |
+| `1x-light-reduced-transparency` / both | 0.0053 → 0.0053 | 0.026 → 0.027 | 0.984 → 0.982 |
+
+The whole-cell ΔE mean roughly **halves on every standard profile on both tiers**, and the ΔE p95
+tail — the row the two dark profiles were declared knowing they might miss — falls from 0.46 to 0.14
+on light and from 0.27 to 0.17 on dark. Reduced transparency does not move at all, which is the
+control this reading needs: that material is nearly opaque, so a change in how the body responds to
+its backdrop should show there least, and it does.
+
+### 4. The verdict, per profile per tier per clause
+
+Eight rows per texture table, six per light dom table, eight per the others. **Met unless named.**
+
+| profile | texture | dom |
+| --- | --- | --- |
+| `1x-light-standard` | all met but `ssimMean`: holdout `checkerboard__rrect-lg__rest` **0.85978** (≥ 0.88) | all met but `ssimMean`: holdout `checkerboard__rrect-lg__rest` **0.88380** and `checkerboard__glass-over-glass__rest` **0.89349** (≥ 0.90) |
+| `2x-light-standard` | `ssimMean` holdout `checkerboard__rrect-lg__rest` **0.90989**, calibration `checkerboard__rrect-ml__rest` **0.91215**, holdout `checkerboard__glass-over-glass__rest` **0.91261** (≥ 0.93); `ssimOutside` the same three at **0.77243 / 0.79671 / 0.80881** plus calibration `checkerboard__rrect-md__rest` **0.84949** (≥ 0.87) | **all met** |
+| `1x-dark-standard` | `oklabDeltaEP95` holdout `photo__rrect-lg__rest` **0.21524** (≤ 0.17) | the same cell **0.20096** (≤ 0.18) |
+| `2x-dark-standard` | the same cell **0.21346** (≤ 0.17) | the same cell **0.19474** (≤ 0.19) |
+| `1x-light-reduced-transparency` | **all met** | `ssimOutside` holdout `photo__rrect-lg__rest` **0.82736** (≥ 0.83) |
+| `1x-light-increased-contrast-coupled` | **all met** | **all met** |
+
+**Fifteen missed rows of the 458-cell gated bed**, against 23 on cal+val alone before the refit. Four
+of the twelve profile-tiers are clean outright, and the coupled increased-contrast profile —
+Decision Log 5's late addition, whose SSIM-outside row the entry named as a risk — clears every row
+with room: its worst texture `ssimOutside` is 0.946 against ≥ 0.69. (The risk as drafted rested on a
+0.20 allowance transcribed from the charter; the table in `adopted-thresholds.test.ts`, which is
+what this gate declared against, allows a complement of 0.31.)
+
+`MISSED_27_ROWS` records all fifteen in the gate file. **It is not a regression floor**: clause 4
+adopts none, so it enforces no value, only the membership of the list in both directions — a new
+miss fails CI and a row that comes good fails it too. Each row keeps its adopted bound as a claim
+that is UNMET, and re-pinning one is the user's ruling (Decision Log 6 draft).
+
+### 5. The outer shadow moved on macOS 27, nobody measured it, and it is seven of the fifteen
+
+The largest thing this gate learned and did not act on.
+
+On 26.5 the reference's outer shadow and vitrea's agreed to the third decimal. On the 2x light bed
+`checkerboard__rrect-md__rest` reads a mean exterior departure of 0.01279 native against 0.01328
+web, a peak of 0.1584 against 0.1580, an extent below of 75 px against 79, and a falloff σ of 35.8
+device px — which is why that cell's `ssimOutside` is **0.9943** there.
+
+On 27 the same cell's native reads **0.00284** of departure at a falloff σ of **18.8** and an extent
+below of **33** — less than a quarter of the light removed, over less than half the distance — while
+vitrea still draws 0.0133 at σ 35, because that is what it was fitted to. The cell now reads
+ssimOutside **0.8495**, and on `checkerboard__rrect-lg__rest` the same mechanism reads **0.7724**.
+
+**G2's native delta never read the shadow axis** — §5.151 §2 lists the laws it read and the shadow
+is not among them — and contract X3 says G3 changes nothing G2 did not name as moved. So the
+constants are left exactly where W8 and W14 put them and the finding is recorded instead. It is the
+cause of every `ssimOutside` miss above and of the `ssimMean` misses that carry the same exterior:
+on `checkerboard__rrect-ml__rest` at 2x the interior SSIM is **0.9740** and the band 0.9318 while
+the outside is 0.7967, so the whole-crop 0.9121 is the exterior dragging a good interior down.
+
+The work that closes it is a native-against-native read of the shadow axis on the 27 bed — the same
+instrument `cli/native-delta.ts` already is, with the shadow metrics `cli/measure.ts` already
+computes — followed by a refit of the fifteen `outerShadow` constants. It is a child, not a patch.
+
+### 6. What the existing operators could not fit, named rather than absorbed
+
+**The diffusion is conditioned on the backdrop's spatial scale in a way one kernel cannot express.**
+At the fitted point the light interior's spread reads **+0.044 over `checkerboard` (16 px pitch)**
+and **−0.028 over `checkerboard-4`** and **−0.028 over `photo`**: the reference passes LESS than
+vitrea at one pitch and MORE at both a finer and a coarser one. A sharp-plus-heavy mix of two
+Gaussians is monotone in frequency and cannot do that at once, and the fit above is the best single
+compromise it admits — which is why the transfer slope's bed-wide mean is 0.0000 while individual
+backdrops sit at ±0.04.
+
+The shape of the work: a scale-**selective** scatter — a second heavy tap at its own width, or a mix
+that is a function of the backdrop's measured spatial scale rather than of the surface's span. It is
+not added here because X3 limits this child to the smallest operator a NAMED structure needs and
+because W28's precommit wants the structure measured before the term exists. Naming it is what this
+section does instead. It is also, through the level it leaves at the largest spans, most of cause
+(2) of the fifteen misses: six of them are `rrect-lg`, `rrect-ml` or `glass-over-glass`, whose 26.5
+twins read 0.97–0.99 where the 27 rows read 0.86–0.91.
+
+**The level law's conditioning is still unidentified**, as §5.151 §11 said it would be. The fitted
+curve renders 0.61 over `mid-chroma-solid` against a reference of 0.385 — the abscissa is a
+luminance and that backdrop is chromatic — and no knot fixes it. It is a probe backdrop and reaches
+no bound; W28 §Deferred's identifying sitting is what settles it.
+
+### 7. Not done in this gate, and named
+
+- **The 27 receded endpoints are not fitted.** The inactive pose is measured with the 26.5 receded
+  difference merged over the refitted 27 active material, and it is plainly wrong there: the
+  inactive cells' level residual is **0.1174 mean absolute against the active pose's 0.0148**, and
+  the active refit did not improve it (0.1117 before). The recede is gated by nothing — the adopted
+  gate drops the inactive pose on every set — so no bound is affected, but the gap is real and
+  §5.151 §8 measured its shape: on 27 the recede darkens the body more and takes away less rim.
+  Fitting it needs a driver that injects a candidate receded document (the seam exists,
+  `web/scene.ts`'s `__vitreaRecededMaterialProfile`, and every wave that has used it wrote its own
+  runner), and the runtime selection of a 27 endpoint is G4's by Decision Log 2.
+- **The highlight's angular bins**, §2 item 3.
+- **The two increased-contrast profiles' web-side accessibility flags.** `compare` keys them on the
+  manifest's `a11yMode`, which reads `increased-contrast` for both 27 contrast profiles, so the
+  coupled profile's default `as-captured` is right and the decoupled one cannot be put in
+  contrast-without-reduction at all. The decoupled profile is therefore not read against vitrea in
+  this wave, which is also what Decision Log 4 (a) ruled for a different reason.
+- **`sizeToneLevelFar`**, W25's declined constant, is still declined and is still the term the
+  largest spans want.
+
+### 8. Two transcriptions that are findings
+
+**Every 27 profile's `NO_SHAPE_AXIS_SCENES` lists are empty, on both tiers.** On 26.5 the near-tone
+cells carried no shape axis at all because Apple's material sat inside the extractor's 0.02 linear
+threshold of its own backdrop. On 27 it does not, the refitted material follows it, and every cell
+of every 27 profile yields a contour on both tiers. The emptiness is written out rather than left to
+a default, because an absent key and an empty list would otherwise read the same.
+
+**The conditioning predicate excludes a different set of cells on 27.** `PREDICATE_EXCLUDES` goes
+32 → 67 and the 26.5 half is unchanged; of the 35 new lines, the `dark-solid` cells that failed the
+predicate on 26.5 now pass, and `light-solid` and `photo` cells fail that did not. Same instrument,
+same threshold, a material that stopped vanishing at one end of the range and started converging at
+the other.
+
+### 9. By eye
+
+`sheets/` carries native | vitrea | difference at ×8 for all six profiles on both tiers, seven cells
+each. What the sheets say that the metrics do not say plainly:
+
+- **The near-black cells are right now.** `dark-solid__capsule-button__rest` and
+  `impulse__capsule-button__rest` show a body and a rim on both sides at both schemes, where the
+  26.5 material drew nothing. This is the user's W22 note (§5.99) answered by the reference moving
+  and vitrea following it.
+- **Over a photograph vitrea's body is grey and Apple's is coloured**, and this is the clearest
+  unmeasured gap in the gate. On the dark bed at `photo__rrect-lg__rest` the native body carries the
+  backdrop's hues plainly and vitrea's is a flat neutral panel; the amplified difference is the
+  whole body rather than its edge. The tone response's solve is **achromatic by construction** — it
+  shifts the neutral's luma and leaves chroma alone, which the shader's own comment states — so no
+  constant in either document can carry this. It is the same four cells as the dark ΔE p95 misses,
+  seen rather than scored, and it is a mechanism question for a later child.
+- **The rim's edge is harder than the reference's** on the near-black cells: vitrea's band ends
+  abruptly where the reference's fades. The width is right at the median and the profile is not.
+- At the largest spans **vitrea's body is too flat**: the checkerboard reads through Apple's
+  `rrect-lg` and barely through vitrea's, which is §6's residual in a picture.
+
+### 10. Verification record
+
+- `packages/calibration`: 499 tests, 29 files, green.
+- `pnpm --filter @vitrea/renderer-webgpu test:golden`: **34 of 34 byte-identical**, which is the
+  proof Decision Log 1 (i) asked for — the goldens render the runtime default and the default did
+  not move.
+- `seal.ts` re-derives both 26.5 documents' `resolvedMaterialSha256` from the renderer on every run:
+  `b2b570e4adcea8fb` and `874be66ea501621b`, as recorded (X1).
+- The 26.5 freeze verifies **intact at 1,818 entries** at this gate's opening and at its close.
+- The 26.5 half of `results/matrix.json` is bit-identical across the append: 1,107 rows, 0 missing,
+  0 changed, and all 332 added rows are 27 rows.
+- Machine, read before and after every browser run of the gate: macOS 27.0 build 26A428, Reduce
+  Transparency 0, Increase Contrast 0, `NSGlassTintAmount` 0.5, display at displayplacer mode 68.

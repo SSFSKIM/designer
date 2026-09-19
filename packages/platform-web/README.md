@@ -227,6 +227,36 @@ patch directly (`materialProfile: darkMaterialProfile`), and an app that wants
 the dark material with a tuning of its own can do both: the scheme selects the
 base and `materialProfile` merges over it, leaf by leaf.
 
+### Which macOS the material is measured against
+
+Everything above is measured against **macOS 26.5**, and that is what the package
+draws today. macOS 27 changed the material under every app — the body's level over
+a dark backdrop, the rim's amplitude and width, and how much of a backdrop's
+structure survives it — and vitrea is refit to it as **patch documents beside the
+26.5 ones rather than as a new default**:
+
+| document | what it is |
+| --- | --- |
+| `packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json` | the identity with the renderer's own constants — "light 26.5" is the absence of a patch |
+| `…/apple-macos-26.5-1x-dark-standard.json` | `darkMaterialProfile`, the patch selected by `colorScheme: "dark"` |
+| `…/apple-macos-27.0-1x-light-standard-glass0.5.json` | the macOS 27 light material, serving both scales and both light accessibility states |
+| `…/apple-macos-27.0-1x-dark-standard-glass0.5.json` | the macOS 27 dark material |
+
+All four are patches over the same renderer default, so any of them is a value
+`materialProfile` accepts — the shape an app already uses to merge a tuning of its
+own. **What this release does not yet do is select one for you**: the package still
+draws the 26.5 material by default, and the runtime seam that makes the 27 material
+a page's default lands in the next change. The documents are in the repository
+rather than in the published tarball, because a published package that loaded a
+calibration file would be shipping a data dependency for numbers that never move
+between releases.
+
+The `-glass0.5` in the key is macOS 27's appearance slider, `NSGlassTintAmount`, at
+the position a Mac ships with; the material was measured there. No profile field is
+new for the 27 documents — they name the same constants the 26.5 ones do, at their
+own values — and each records a `resolvedMaterialSha256` over the material it
+resolves to, pinned in `packages/calibration/test/tuned-profiles.test.ts`.
+
 **A backdrop hint and the colour scheme are different things.** A group's
 `hint: { tone, luminance }` states the tone of what is BEHIND the surface, which
 is what the adaptation and the foreground decision read; the scheme states which
