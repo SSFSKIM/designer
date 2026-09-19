@@ -498,6 +498,27 @@ describe("tuned calibration profiles", () => {
     expect(DARK.cssTierMapping).toBeUndefined();
   });
 
+  it("gives the 27 documents a CSS-tier half the 26.5 ones do not have", () => {
+    /*
+     * W29 G3's review closure (claims §5.153). `platform-web`'s README tells an
+     * app to pass a document as TWO options — `materialProfile: doc.patch` and
+     * `cssTierMapping: doc.cssTierMapping` — and the reason it has to is here: the
+     * 27 documents carry a mapping key the 26.5 ones never set, so passing the
+     * patch alone draws the 27 material on the GPU tier with the CSS tier still
+     * blurring at the 26.5 scale. The case pins the claim the README makes rather
+     * than the fit, which §5.153 §2 records.
+     */
+    for (const profile of [LIGHT_27, DARK_27]) {
+      expect(profile.cssTierMapping?.blurSigmaScale, profile.profileKey).toBe(2.2);
+    }
+    // The 26.5 half of the claim, in both directions: the light document names a
+    // mapping and not this key, the dark one names no mapping at all, and the
+    // shipped default is the value a document-less root keeps drawing at.
+    expect(LIGHT.cssTierMapping?.blurSigmaScale).toBeUndefined();
+    expect(DARK.cssTierMapping).toBeUndefined();
+    expect(CSS_TIER_MAPPING.blurSigmaScale).toBe(1);
+  });
+
   it("gives every entry a status from the closed set the profiles use", () => {
     // An entry with an unrecognised status is a number whose provenance nobody
     // has to read — which is the failure the seed profile's status field exists

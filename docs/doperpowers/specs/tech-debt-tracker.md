@@ -3181,3 +3181,36 @@ delta's metric vector is a small change to `cli/native-delta-metrics.ts`. Read t
 constants in the 27 documents against it. **No new capture is needed** — both beds
 are on disk — which is what makes this the cheapest of the three causes Decision Log
 6 puts to the user.
+
+---
+
+## A material profile document is two options, and no option takes the document
+
+*Found 2026-09-19, by the review closure of W29 G3 (claims §5.153).*
+
+A profile document has two halves that have to travel together: `patch`, the
+renderer's material, and `cssTierMapping`, what that same material costs to express
+as one `backdrop-filter` plus an overlay. `createGlassRoot` takes them as two
+options of the same name, and nothing joins them — so the natural reading, "a
+document is a value `materialProfile` accepts", silently gives a page the 27
+material on the GPU tier and a CSS tier still blurring at the 26.5 scale
+(`blurSigmaScale` 1 against the document's 2.2, which is the constant that carries
+that tier's whole share of the 27 diffusion refit). The harness itself passes both
+(`packages/calibration/web/scene.ts`), which is why the split has never bitten a
+measurement; an app has nothing to copy from.
+
+`@vitreajs/vitrea-react`'s `<GlassRoot>` surfaces neither option, so a React app
+cannot select a 27 document at all today. That is a deliberate omission for
+`cssTierMapping` — its doc comment calls it calibration's seam rather than an
+application knob — and an unstated one for `materialProfile`.
+
+**The fix shape**: one option on `createGlassRoot` that takes a document
+(`materialDocument`, say) and reads both halves off it, with the two existing
+options kept for an app tuning one tier by hand and the document's own
+`resolvedMaterialSha256` available to the diagnostics that already record which
+material drew. The React binding then has one prop to surface instead of two, and
+the "deliberately not an application knob" line survives intact, because a
+document is a measured material rather than a knob. This belongs with W29 G4's
+runtime selection of the 27 default, not beside it: both are the same seam, and
+G4 chartered the selection. The README (`packages/platform-web/README.md`) states
+the two-option instruction in the meantime.
