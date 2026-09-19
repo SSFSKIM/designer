@@ -940,13 +940,22 @@ const GATED_PROFILES_26_5: readonly GatedProfile[] = [
  * seven-run bed's reading would claim a precision the bed does not carry. The
  * assertion below is what keeps that a rule rather than an intention.
  *
- * *No table for either increased-contrast key.* The decoupled 27 bed of that
- * name is a different accessibility state from the 26.5 bed of that name — macOS
- * 27 no longer force-enables Reduce Transparency with Increase Contrast — so a
- * bound declared across the pair would be a bound on the decoupling and not on
- * the material (claims §5.151 §9). The coupled bed that separates them is G1c's
- * (§5.152), captured after this declaration was written; whether that profile
- * gets a bound is decided on its own reading, in a later child, not here.
+ * *One increased-contrast key gets a table and one does not.* The **decoupled**
+ * 27 bed is a different accessibility state from the 26.5 bed of the same name —
+ * macOS 27 no longer force-enables Reduce Transparency with Increase Contrast —
+ * so a bound declared across that pair would be a bound on the decoupling and
+ * not on the material (claims §5.151 §9), and it gets none. The **coupled** bed
+ * was captured in the state macOS 26.5 forced, so its native-to-native read
+ * differs in the operating system and nothing else, and **Decision Log 5 rules
+ * it a table at the 26.5 increased-contrast values** on the same form and the
+ * same argument as Decision Log 4 (a) (claims §5.152 §B).
+ *
+ * That entry also names the one row it expects to be hard, so that a miss there
+ * reads as the prediction it is rather than as a surprise: the coupled profile's
+ * native-to-native **SSIM-outside complement reaches 0.237 at its worst cell
+ * against an allowance of 0.20**, the only material-adjacent row of that profile
+ * outside its allowance. It is recorded and **not loosened** — a miss on it is a
+ * floor decision for the user, exactly as a dark ΔE miss is.
  */
 
 /**
@@ -978,9 +987,12 @@ const TEXTURE_TIER_27_2X_DARK = TEXTURE_TIER_2X_DARK;
 const DOM_TIER_27_2X_DARK = DOM_TIER_2X_DARK;
 const TEXTURE_TIER_27_REDUCED_TRANSPARENCY = TEXTURE_TIER_REDUCED_TRANSPARENCY;
 const DOM_TIER_27_REDUCED_TRANSPARENCY = DOM_TIER_REDUCED_TRANSPARENCY;
+const TEXTURE_TIER_27_INCREASED_CONTRAST_COUPLED = TEXTURE_TIER_INCREASED_CONTRAST;
+const DOM_TIER_27_INCREASED_CONTRAST_COUPLED = DOM_TIER_INCREASED_CONTRAST;
 
 /**
- * The five profiles Decision Log 4 (a) names, and no others.
+ * The five profiles Decision Log 4 (a) names and the sixth Decision Log 5 adds,
+ * and no others.
  *
  * The list is stated rather than derived from the matrix or from `scenes.json`,
  * for the reason every enumerated list in this file is stated: a gate whose
@@ -1028,6 +1040,20 @@ const DECLARED_27_PROFILES: readonly Declared27Profile[] = [
       dom: "DOM_TIER_27_REDUCED_TRANSPARENCY",
     },
   },
+  {
+    // Decision Log 5, ruled 2026-09-19 after the five above were declared: the
+    // coupled bed is the 26.5 state captured on 27, so a bound across the pair is
+    // a bound on the material. Declared in its own commit, and that commit still
+    // precedes every fit commit that touches this profile (contract X5).
+    profileKey: "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+    cells: PENDING_UNTIL_THE_27_READ,
+    texture: TEXTURE_TIER_27_INCREASED_CONTRAST_COUPLED,
+    dom: DOM_TIER_27_INCREASED_CONTRAST_COUPLED,
+    names: {
+      texture: "TEXTURE_TIER_27_INCREASED_CONTRAST_COUPLED",
+      dom: "DOM_TIER_27_INCREASED_CONTRAST_COUPLED",
+    },
+  },
 ];
 
 /** The 26.5 tables each 27 table is ruled equal to — the pin on the alias. */
@@ -1042,6 +1068,8 @@ const RULED_EQUAL_TO_26_5: Readonly<Record<string, readonly GateRow[]>> = {
   DOM_TIER_27_2X_DARK: DOM_TIER_2X_DARK,
   TEXTURE_TIER_27_REDUCED_TRANSPARENCY: TEXTURE_TIER_REDUCED_TRANSPARENCY,
   DOM_TIER_27_REDUCED_TRANSPARENCY: DOM_TIER_REDUCED_TRANSPARENCY,
+  TEXTURE_TIER_27_INCREASED_CONTRAST_COUPLED: TEXTURE_TIER_INCREASED_CONTRAST,
+  DOM_TIER_27_INCREASED_CONTRAST_COUPLED: DOM_TIER_INCREASED_CONTRAST,
 };
 
 const transcribed27 = (profile: Declared27Profile): profile is GatedProfile =>
@@ -1068,13 +1096,20 @@ const GATED_PROFILES: readonly GatedProfile[] = [
 const GATED_PROFILE_COUNT = 6;
 
 /**
- * The two 27 accessibility keys that get no table in this wave, named so their
- * absence from `DECLARED_27_PROFILES` reads as the ruling it is rather than as
- * an omission (Decision Log 4 (a); claims §5.151 §9, §5.152).
+ * The one 27 key that gets no table in this wave, named so its absence from
+ * `DECLARED_27_PROFILES` reads as the ruling it is rather than as an omission.
+ *
+ * The DECOUPLED increased-contrast bed: contrast alone on 27 against contrast
+ * **with** transparency reduction on 26.5, so a bound across the pair would be a
+ * bound on the toggle (Decision Log 4 (a); claims §5.151 §9). It is also not read
+ * against vitrea at all in this wave — `compare`'s web accessibility flags key on
+ * the manifest's `a11yMode`, which reads `increased-contrast` for both 27 contrast
+ * profiles, so the web side cannot yet be put in contrast-without-reduction. That
+ * is the tracker entry G1c Part B left, and the reason the absence here is two
+ * decisions rather than one.
  */
 const UNBOUNDED_27_PROFILES: readonly string[] = [
   "apple-macos-27.0-1x-light-increased-contrast-glass0.5",
-  "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
 ];
 
 /**
@@ -2383,10 +2418,11 @@ function bandBelow(side: readonly PairSide[] | undefined, label: string): PairSi
  * its interior alpha (§5.84 §7) and is not gated here.
  */
 describe("the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a))", () => {
-  it("declares exactly the five profiles the user ruled, and no increased-contrast key", () => {
+  it("declares exactly the six profiles the user ruled, and not the confounded one", () => {
     expect(DECLARED_27_PROFILES.map((profile) => profile.profileKey).sort()).toEqual(
       [
         "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
         "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
         "apple-macos-27.0-1x-light-standard-glass0.5",
         "apple-macos-27.0-2x-dark-standard-glass0.5",

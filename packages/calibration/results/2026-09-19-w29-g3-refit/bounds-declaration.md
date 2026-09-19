@@ -23,11 +23,34 @@ They are **aliases** of the 26.5 constants rather than transcriptions, so the ru
 the 26.5 tables' values" cannot drift by a digit. Breaking one out into its own literal is what
 re-pinning a 27 bound would mean, and `RULED_EQUAL_TO_26_5` fails the day that happens silently.
 
+## The sixth profile, declared second (Decision Log 5, ruled 2026-09-19)
+
+G1c Part B published `apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5` and read it
+against the 26.5 increased-contrast bed like for like after the five tables above were committed.
+On that reading the user ruled a sixth table, at the 26.5 **increased-contrast** tables' values per
+tier, on the same form and the same argument as Decision Log 4 (a). It is declared in the commit
+that follows this file's first version, and **that commit still precedes every fit commit touching
+this profile** — no macOS 27 fit had been read at either declaration.
+
+| 27 profile | texture table | dom table |
+| --- | --- | --- |
+| `apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5` | `TEXTURE_TIER_INCREASED_CONTRAST` | `DOM_TIER_INCREASED_CONTRAST` |
+
+**The row Decision Log 5 predicts will be hard, recorded before the read and not loosened:** the
+coupled profile's native-to-native **SSIM-outside complement reaches 0.237 at its worst cell against
+an allowance of 0.20** — the only material row of that profile outside its allowance, where every
+other row is inside it at its worst cell. A miss there at this child's read is a floor decision for
+the user, exactly as a dark ΔE miss is.
+
 ## What is deliberately not declared
 
-- **No table for either increased-contrast key** — neither the decoupled
-  `…-increased-contrast-glass0.5` nor G1c's coupled `…-increased-contrast-coupled-glass0.5`.
-  Decision Log 4 (a). `UNBOUNDED_27_PROFILES` names both so the absence reads as the ruling.
+- **No table for the DECOUPLED increased-contrast key** `…-increased-contrast-glass0.5`. Decision
+  Log 4 (a): contrast alone on 27 against contrast with transparency reduction on 26.5, so a bound
+  across the pair would be a bound on the toggle (claims §5.151 §9). It is also not read against
+  vitrea at all in this wave: `compare`'s web accessibility flags key on the manifest's `a11yMode`,
+  which reads `increased-contrast` for both 27 contrast profiles, so the web side cannot be put in
+  contrast-without-reduction — G1c Part B's tracker entry. `UNBOUNDED_27_PROFILES` names it so the
+  absence reads as the ruling.
 - **No regression floor on any 27 profile.** Acceptance clause 4: the 27 bed sits at the
   seven-run probe bar, not the seventeen-run freeze bar a floor needs (claims §5.150 Part B §4).
   Enforced by its own case.
