@@ -23373,7 +23373,20 @@ and no row of `results/matrix.json`. The 26.5 freeze verifies intact at 1,818 en
 child's chosen numbers are written by hand, `sealed-documents.txt` with the hashes the read ran at,
 `verdict.txt` and `before-after.txt` as the read, and `sheets/` as the eye's column. The material
 documents are `packages/calibration/profiles/apple-macos-27.0-1x-{light,dark}-standard-glass0.5.json`
-and the rows are the 332 this gate appended to `results/matrix.json`.
+and the rows are the 332 this gate appended to `results/matrix.json`. †
+
+† **Corrected beside, 2026-09-19 (review closure).** **455 rows were appended, not 332.** The matrix
+went 1,107 → 1,562 cells and every one of the 455 carries a 27 profile key. 332 is the
+**calibration+validation** read alone (268 calibration and 64 validation); the **holdout** read
+appended a further **123**, which §3 below records as having happened and this count left out.
+Recomputed from `git show b2a42bde~1:packages/calibration/results/matrix.json` against the committed
+file, with set membership read from `apps/reference-apple/scenes.json` as the harness reads it. Per
+profile the 455 are `1x-light-standard` 138, `2x-light-standard` 138, `1x-dark-standard` 56,
+`2x-dark-standard` 56, `1x-light-increased-contrast-coupled` 35 and
+`1x-light-reduced-transparency` 32. Nothing measured moves — no row's content is in question, only
+how many of them the prose counted — and the bit-identity below re-verifies: the committed matrix's
+first 1,107 cells are identical to the pre-append file's, in order. The same correction stands
+beside §10 and beside the charter's Tracking Map row.
 
 **`DEFAULT_MATERIAL_PROFILE` did not move** (Decision Log 1 (i)). The 34 renderer goldens are
 byte-identical, both 26.5 documents resolve to the digests they recorded, and the 1,107 committed
@@ -23420,6 +23433,19 @@ one structure that could not be fitted rather than by reaching for a new term (�
    dark backdrop is now very nearly independent of the surface's thickness. The **dark** rows do not
    converge — 0.464 thin against 0.196 thick at the bright anchor — so the two schemes are refit to
    different shapes and not to one scaled by a constant.
+   **Reworded beside, 2026-09-19 (review closure): "measured inert" is stronger than this bed
+   supports.** What was measured is that **Apple's material does not converge on its backdrop
+   anywhere on this bed**, so the band that stood the level law down over dark backdrops has no work
+   to do here and is moved to the bottom of its range to say so — `backdropToneLow` 0.02 → 0.0 and
+   `backdropToneHigh` 0.055 → 0.0001. At 0.0001 and with the bed's darkest backdrop at ~3e-4 linear,
+   **no cell exercises the band**, so the fitted setting is one the bed cannot distinguish from a
+   range of others: it is **not exercised**, which is a different claim from *measured to be inert*.
+   The refit does not turn on the distinction — the level everywhere is owned by the response below,
+   which is what the fit moved — and neither a bound nor a missed row changes. A bed carrying a
+   backdrop inside the band would identify it; none does. Same correction in
+   `fitted-constants.json`'s `backdropToneAdaptation` entry, whose own method text reads the
+   evidence correctly ("the reference does not vanish anywhere on the bed") under the same
+   overstated heading.
 2. **The rim band.** The same affine-in-level amplitude law of W23 at **a fifth of its amplitude**
    and about four times its width. The reference's radial rim peak fell four to six times between
    the beds on the same cells (`checkerboard__rrect-md__rest` 0.0904 → 0.0183,
@@ -23532,8 +23558,18 @@ device px — which is why that cell's `ssimOutside` is **0.9943** there.
 
 On 27 the same cell's native reads **0.00284** of departure at a falloff σ of **18.8** and an extent
 below of **33** — less than a quarter of the light removed, over less than half the distance — while
-vitrea still draws 0.0133 at σ 35, because that is what it was fitted to. The cell now reads
+vitrea still draws 0.0133 at σ 35, because that is what it was fitted to. ‡ The cell now reads
 ssimOutside **0.8495**, and on `checkerboard__rrect-lg__rest` the same mechanism reads **0.7724**.
+
+‡ **Corrected beside, 2026-09-19 (review closure).** Vitrea's own σ on that cell is **36.8** device
+px, not 35: the instrument reads `falloffSigmaWeb` **36.8162** for `checkerboard__rrect-md__rest`
+at `2x-light-standard`, texture tier, identically in `results/matrix.json` on both beds and in this
+gate's `baseline-matrix.json` and `canonical-read-calval.txt`. 35 was the **native** 26.5 reading
+(`falloffSigmaNative` 35.7648) standing in for the web one. The reading the sentence makes is
+strengthened rather than weakened — vitrea draws at 36.8 against the 27 native's 18.8, so the ratio
+is 1.96× rather than 1.86× — and the web σ being **bit-identical between the two beds** (36.8162 on
+both) is itself the evidence that no shadow constant moved in this gate. The departure figure
+(0.0133, `meanDepartureWeb` 0.013306) is confirmed as written.
 
 **G2's native delta never read the shadow axis** — §5.151 §2 lists the laws it read and the shadow
 is not among them — and contract X3 says G3 changes nothing G2 did not name as moved. So the
@@ -23541,6 +23577,24 @@ constants are left exactly where W8 and W14 put them and the finding is recorded
 cause of every `ssimOutside` miss above and of the `ssimMean` misses that carry the same exterior:
 on `checkerboard__rrect-ml__rest` at 2x the interior SSIM is **0.9740** and the band 0.9318 while
 the outside is 0.7967, so the whole-crop 0.9121 is the exterior dragging a good interior down.
+
+**Added beside, 2026-09-19 (review closure): by eye this is the most visible defect on the sheets,
+and the metric above understates how plain it is.** On
+`sheets/1x-light-standard-glass0.5__css.png` at `checkerboard__rrect-md__rest` the checkerboard
+around vitrea's surface is **washed grey over about twice the distance the native's is**: measured
+off the sheet's own pixels on an 80 px strip through the centre, the native's exterior is pure
+checkerboard (block mean 0.500, block σ 0.500) to within ~10 sheet px of the silhouette above it and
+recovers within ~45 below, while vitrea's is still departing 60 px above (0.483 at the last block
+before the edge) and past the panel's bottom edge ~85 px below. It reads in the ×8 difference column
+as a bright halo all round the surface where the native's column has almost none — which is what the
+eye sees first on these two cells, ahead of anything in the interior. `checkerboard__rrect-lg__rest`
+shows the same thing with the extent nearly right and the amount wrong (dom tier, 2x: falloff σ
+34.6 web against 35.2 native, exterior departure 0.0515 against 0.0370). The **dom** tier carries
+it as plainly as the texture tier: on `rrect-md` at 2x its exterior reads 0.0116 of departure at σ
+32.7 against the native's 0.00284 at σ 18.8. Direction, so the next child reads it right: vitrea's
+exterior is **broader and weaker at its peak**, not simply stronger — strength peak 0.167 texture
+and 0.244 dom against the native's 0.366 — a wide soft wash where 27's is a tight contact shadow.
+This is §9's list, entered here beside the measurement it belongs to.
 
 The work that closes it is a native-against-native read of the shadow axis on the 27 bed — the same
 instrument `cli/native-delta.ts` already is, with the shadow metrics `cli/measure.ts` already
@@ -23623,6 +23677,12 @@ each. What the sheets say that the metrics do not say plainly:
   abruptly where the reference's fades. The width is right at the median and the profile is not.
 - At the largest spans **vitrea's body is too flat**: the checkerboard reads through Apple's
   `rrect-lg` and barely through vitrea's, which is §6's residual in a picture.
+- **Added 2026-09-19 (review closure): the unfollowed 26.5 outer shadow is the most visible defect
+  on these sheets**, ahead of every residual above it. On `checkerboard__rrect-md__rest` and
+  `checkerboard__rrect-lg__rest` the checkerboard around vitrea's surface is washed grey over about
+  twice the distance the native's is, and the ×8 column shows it as a bright halo all round the
+  silhouette where the native's is almost clean. It is §5's finding seen rather than scored, and the
+  numbers behind it are recorded there.
 
 ### 10. Verification record
 
@@ -23634,6 +23694,57 @@ each. What the sheets say that the metrics do not say plainly:
   `b2b570e4adcea8fb` and `874be66ea501621b`, as recorded (X1).
 - The 26.5 freeze verifies **intact at 1,818 entries** at this gate's opening and at its close.
 - The 26.5 half of `results/matrix.json` is bit-identical across the append: 1,107 rows, 0 missing,
-  0 changed, and all 332 added rows are 27 rows.
+  0 changed, and all 332 added rows are 27 rows. **Corrected beside, 2026-09-19 (review closure):
+  455 rows were added, all of them 27 rows — 332 from the calibration+validation read and 123 from
+  the holdout read; see the header's footnote.** The bit-identity is unaffected and re-verified:
+  1,107 rows, 0 missing, 0 changed, in order.
 - Machine, read before and after every browser run of the gate: macOS 27.0 build 26A428, Reduce
   Transparency 0, Increase Contrast 0, `NSGlassTintAmount` 0.5, display at displayplacer mode 68.
+
+### 11. Review closure (2026-09-19)
+
+An independent read-only review of the gate returned four should-fix items and two notes. All six
+are closed above, beside the text each one reads, and **no verdict, adopted bound, regression floor
+or missed row moves**: nothing in this closure touched a material constant, a profile document
+value, a fixture or a row of `results/matrix.json`. Every number written here was recomputed from
+the committed evidence rather than copied from the review.
+
+**Two counts and one reading were wrong, in the prose only.** (1) **455 rows were appended, not
+332** — 332 is the calibration+validation read and the holdout read this section describes appended
+123 more — corrected beside the header, beside §10 and beside the charter's Tracking Map row and
+Revision Note. (2) **Vitrea's shadow falloff σ on `checkerboard__rrect-md__rest` at
+`2x-light-standard` is 36.8 device px, not 35**: 35.8 is the 26.5 NATIVE σ, which §5 had standing in
+for the web one. Both corrections make the statement they sit in stronger rather than weaker — the
+holdout was read and the exterior ratio is 1.96× rather than 1.86× — which is why neither is a
+verdict change.
+
+**One claim was overstated and is reworded rather than withdrawn.** The adaptation band is **not
+exercised** by this bed, which is not the same as measured inert on it: at `backdropToneHigh` 0.0001
+against a darkest backdrop of ~3e-4 linear, no cell reaches the band. What the bed does measure —
+that Apple's 27 material converges on its backdrop nowhere in it — is what put the band at the
+bottom of its range, and the level everywhere is owned by the response the gate refit. §2 item 1
+carries the correction; `fitted-constants.json` keeps its own text, whose method paragraph already
+reads the evidence correctly under the overstated heading.
+
+**One residual was seen and not listed.** The unfollowed 26.5 outer shadow is the most visible
+defect on the sheets, ahead of the interior residuals §9 lists, and it is now in both places — §5
+beside the measurement and §9 as a by-eye entry. Measured off the sheet's own pixels rather than
+taken from the review: vitrea's exterior is a broad **darkening** roughly twice the native's reach,
+and the bright halo the review named is the ×8 difference column's rendering of it.
+
+**Two documentation defects outside the ledger, closed where they live.**
+`packages/platform-web/README.md` said no profile field is new for the 27 documents, which
+`cssTierMapping.blurSigmaScale` — absent from both 26.5 documents, 2.2 in both 27 ones — falsifies;
+and it told an app that any document "is a value `materialProfile` accepts", which would have given
+a page the 27 GPU material with a CSS tier still blurring at the 26.5 scale. The README now names
+the field and states the instruction as the two options a root actually has
+(`materialProfile: doc.patch` and `cssTierMapping: doc.cssTierMapping`), with the snippet; the
+changeset carries the same correction. **No API was added** — one option that takes a whole
+document is W29 G4's seam, and the shape is in `specs/tech-debt-tracker.md` along with the fact
+that `@vitreajs/vitrea-react`'s `<GlassRoot>` surfaces neither option today. A case in
+`tuned-profiles.test.ts` pins the README's claim about the field.
+
+**Verification of the closure itself.** `pnpm -r lint` green; `@vitrea/calibration` 500 tests in 29
+files green (the one new case); `@vitreajs/vitrea-web` 616 tests in 44 files green; the 26.5 freeze
+verifies **intact at 1,818 entries**; `results/matrix.json` unchanged, and its first 1,107 cells
+re-checked identical to the pre-append file, in order.

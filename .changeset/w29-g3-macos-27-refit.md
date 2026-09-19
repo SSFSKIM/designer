@@ -19,10 +19,13 @@ Which packages move, and why:
 
 - **`@vitreajs/vitrea-web`** — a documentation and capability change rather than a
   code change, and stated that way on purpose: **no constant in this package
-  moved**. What is new is that a second reference material exists and is a value
-  `createGlassRoot({ materialProfile })` accepts, and the README now says which
-  macOS each document is measured against. The CSS tier needed no new code to
-  follow the refit — it already derives its blur, tint and rim from whichever
+  moved**. What is new is that a second reference material exists and is
+  selectable through the options a root already has: a document's `patch` is a
+  value `createGlassRoot({ materialProfile })` accepts and its `cssTierMapping` is
+  a value the sibling `cssTierMapping` option accepts, and both have to be passed
+  for a page to draw the 27 material on both tiers. The README now says which macOS
+  each document is measured against, and how to pass one. The CSS tier needed no
+  new code to follow the refit — it already derives its blur, tint and rim from whichever
   document the root carries, and the 27 documents carry their own CSS mapping —
   which is the two-tiers-one-profile rule paying for itself. An app that upgrades
   and asks for nothing new draws exactly what it drew before.
