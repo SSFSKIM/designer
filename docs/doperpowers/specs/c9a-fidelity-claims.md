@@ -23889,7 +23889,7 @@ The largest thing this gate learned and did not act on, and it is the mirror ima
 `MaterialOuterShadow`'s header records, as a **positive** measurement of W8 and W14, that the
 reference's three lengths are span-invariant on macOS 26.5: across spans 32, 44, 96 and 160 the
 fitted σ stays within 15.4–15.9 CSS px, and "the size law reaches the amplitude (`sizeGain`) and
-nothing else". On macOS 27 the same reading gives, in CSS px:
+nothing else". On macOS 27 the same reading gives, in CSS px: †
 
 | casting span | 32 | 44 | 96 | 128 | 160 |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -23899,7 +23899,72 @@ nothing else". On macOS 27 the same reading gives, in CSS px:
 and the dark bed (1.52 / 8.87 / 13.42 / 17.43) and reduced transparency (1.51 / 8.50 / 16.97) read
 the same law. It is linear in the casting span to within the reading's own noise —
 σ ≈ 0.131 · (span − 26) — and it is scale-invariant in CSS px at every span the amplitude
-identifies, which is what a shadow specified in points does.
+identifies, which is what a shadow specified in points does. ‡
+
+† **Corrected beside, 2026-09-19 (review closure).** *Every figure in the table is one cell, the
+table named none of them, and the dark row mixes two beds and two spans.* Recomputed from
+`native-delta.json`'s `readings.shadowFalloffSigmaPx[1]` divided by the row's `scale`, which is how
+the device-px medians of §2 become the CSS px here.
+
+- The **1x and 2x light rows** are each profile's plain `checkerboard__<component>__rest` cell:
+  1x `capsule-button` 1.843, `rrect-md` 8.797, `rrect-ml` 13.105, `rrect-lg` 17.299; 2x `rrect-sm`
+  2.081, `capsule-button` 3.922, `rrect-md` 9.394, `rrect-ml` 13.279, `rrect-lg` 17.588.
+- The **dark row does not hold that convention at either end.** 1.52 and 8.87 are `1x-dark`'s
+  `checkerboard__capsule-button__rest` (1.518) and `checkerboard__rrect-md__rest` (8.871). **13.42
+  is not a 1x-dark span-128 reading at all**: it is `1x-dark`'s `checkerboard__glass-over-glass__rest`
+  — the **span-130 stack** — at 13.422, a figure the `2x-dark` bed also happens to carry at span 128
+  (median 13.417). The 1x-dark bed declares no plain-`checkerboard` `rrect-ml` cell; its five span-128
+  cells read 13.184–13.675, median **13.190**. And 17.43 is `light-solid__rrect-lg__rest` (17.428),
+  where that bed's checkerboard `rrect-lg` cells read 17.451–17.456.
+- **Reduced transparency** is 1.51 `checkerboard__capsule-button__rest` (1.513), 8.50
+  `checkerboard__rrect-md__rest` (8.503) and 16.97 `photo__rrect-lg__rest` (16.971) — the only
+  span-160 cell that profile carries.
+
+The bed-wide medians, over **every** active cell of the profile that resolves a σ (upper middle
+order statistic, `law-tables.txt`'s convention; cell count in brackets):
+
+| bed | 32 | 44 | 96 | 128 | 130 | 160 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1x light | 4.06 (4) | **1.52** (22) | 8.80 (16) | 13.14 (8) | 13.36 (2) | 17.30 (13) |
+| 2x light | 2.38 (8) | **1.93** (25) | 9.36 (16) | 13.30 (8) | 13.58 (2) | 17.58 (13) |
+| 1x dark | 2.05 (3) | 1.54 (14) | 8.87 (10) | 13.19 (5) | 13.42 (1) | 17.45 (11) |
+| 2x dark | 1.89 (7) | **2.85** (14) | 9.38 (10) | 13.42 (5) | 13.74 (1) | 17.68 (11) |
+| 1x reduced transparency | — | 1.50 (5) | 8.59 (2) | — | — | 16.97 (1) |
+
+At spans 96 and above, every column whose quoted cell is its own bed's span-matched cell agrees with
+that bed's median to **0.04 CSS px or better**, with one exception — reduced transparency's span-96
+column, whose bed is two cells and whose median is 8.59 against the quoted 8.50. So nothing in the
+thick regime, which is the regime the refit exists for, turns on which cell was read. **At span 44 it
+does**: 1.52 against the quoted 1.84 at 1x light, 1.93 against 3.92 at 2x light. The thin span is
+also where the reading is least identified — the per-cell spread at span 44 is 1.11–4.08 at 1x light
+and 0.57–9.70 at 2x light, with two `checkerboard-64` cells at 74.3 where the two-parameter fit finds
+no width at all, and the span-32 column rests on three or four `rrect-sm` cells at 1x, one of which
+reads 157.7 on the light bed. The thin-span columns are therefore a reading with a wide instrument
+error, and the non-conformance ‡ names is established on the medians as well as on the quoted cells
+rather than on either alone.
+
+‡ **Corrected beside, 2026-09-19 (review closure).** *The law as published is the bed's line only
+above span 96, and it is not scale-invariant below it.* Least squares over the four quoted 1x light
+cells returns **σ_css = 0.1334 · span − 4.013**, zero at span **30.1**, residuals −0.014 / +0.003 /
++0.043 / −0.032; over spans 96–160 alone, 0.1328 · span − 3.937 with a max residual of 0.038. So the
+line is right and **the published intercept is not**: against σ ≈ 0.131 · (span − 26) the span-44
+cell reads 1.843 where the law gives 2.358 — **−0.52, −28 %** — and on the 2x bed the same law gives
+0.79 at span 32 against 2.08 read and 2.36 at span 44 against 3.92 read (**1.66×**).
+
+**Restated:** σ_css ≈ **0.133 · (span − 30)**, over spans **96–160**, where it holds to 0.1–0.5 % at
+1x and 1.7–6.6 % at 2x. Below span 96 there is no single law, and the failure is specifically of
+scale invariance: 1x light reads 1.84 at span 44 where 2x light reads 3.92, a ratio of **2.13 — the
+device pixel ratio** — so at the thin spans the σ is nearly constant in DEVICE px rather than in CSS
+px, while at 96–160 the two scales agree to **1.3–6.8 %**. Whether that is Apple's material or the
+instrument is not settled by this bed: at σ ≈ 1.8 CSS px a 1x capture leaves two or three rings above
+the body's own edge to fit, which is the same limit §3 records for the 27 amplitudes. **What is not
+withdrawn**: linearity and scale invariance above span 96, and therefore the whole of the thick
+regime this refit was for. The thin-span divergence is open structure and is what Decision Log 7 (a)
+puts to the user.
+
+**"About six times too wide" is a 1x figure.** `sigmaPx` 11.0 against the 1x span-44 cell's 1.84 is
+**5.97×**; against the 2x span-44 cell's 3.92 it is **2.80×**, and against the 1x bed-wide median of
+1.52 it is 7.2×. The sentence below keeps the 1x reading and the range is 2.8–7.2× across the bed.
 
 `sigmaPx` is one constant the shader reads from a uniform, so no value of it is both 1.8 and 17.4.
 11.0 is the best the thick regime admits, and the thick regime is where every row this refit exists
@@ -23977,7 +24042,21 @@ One canonical run per profile per tier at the four sealed documents — `f42ddec
 `272d1b0c3e10…`, `59d4b20a4596…`, `5c81bc72edad…`, refused by `canonical-read.sh` at any other
 bytes — Reduce Transparency 0, Increase Contrast 0 and `NSGlassTintAmount` 0.5 read before and after
 every pass, one capture process at a time. **Holdout was read once at that frozen configuration and
-nothing was re-fitted after it.** 455 rows appended; 0 rows missing, 0 changed.
+nothing was re-fitted after it.** 455 rows appended; 0 rows missing, 0 changed. ¶
+
+¶ **Scoped beside, 2026-09-19 (review closure).** *The fit's X5 guarantee has two halves and they are
+enforced differently; the README's "the drop is in `shadow-table.py` rather than in each invocation's
+scene list" is true of the shadow half only.* The shadow rounds were read through this gate's
+`shadow-table.py`, which drops any row whose set is `holdout` **in the reader** and prints how many
+it dropped, so a round whose scene list names a holdout id still cannot put one in a table. The
+recede rounds were read through `results/2026-09-19-w29-g3-refit/fit.py table`, which has **no
+holdout filter** — it prints every row in the label's scratch matrices. The recede's guarantee is
+therefore **procedural**: each invocation passed `--set calibration` with an explicit `--scene` list
+naming no holdout id, which is the form `fitted-receded.json`'s own `reproduce` line records. Nothing
+about the read above changes and no holdout number reached a receded constant; what is weaker than
+the README implied is the *enforcement*, which on the recede half is the operator's scene list rather
+than a reader that would refuse. A reader-side drop shared by both halves is in
+`specs/tech-debt-tracker.md`.
 
 Per profile per tier, over the 454 rows both generations carry:
 
@@ -24001,7 +24080,7 @@ not move at all — which is the control this reading needs, because that tail i
 transmission residual and it lives inside the body where the shadow is not.
 
 **`MISSED_27_ROWS` goes 15 → 7, and all eight that cleared are the outer shadow's.** The sharpest is
-`2x-light-standard` texture `checkerboard__rrect-lg__rest :: ssimOutside`, **0.77243 → 0.95599**;
+`2x-light-standard` texture `checkerboard__rrect-lg__rest :: ssimOutside`, **0.77243 → 0.95599**; ◆
 the others are `checkerboard__rrect-ml__rest :: ssimOutside` (0.79671),
 `checkerboard__glass-over-glass__rest :: ssimOutside` (0.80881) and
 `checkerboard__rrect-md__rest :: ssimOutside` (0.84949), all cleared, and the four `ssimMean` rows
@@ -24009,6 +24088,31 @@ that carried the same exterior — `1x-light` `rrect-lg` 0.85978 → 0.88431, `2
 0.90989 → 0.95441, `rrect-ml` 0.91215 and `glass-over-glass` 0.91261 both cleared. Two of those
 eight were counted under cause (2) at G3's read rather than cause (1): the largest spans were
 carrying the same exterior as the shadow's own rows, and only the refit could separate them.
+
+◆ **Corrected beside, 2026-09-19 (review closure).** *Two after-figures in this paragraph are the
+tier's new worst rather than the named cell's own reading.* **The table above is right** — its
+columns are per-tier worsts over the active rows, and a tier's worst cell may change between the two
+generations. What the prose did was carry the after-column's number back onto the before-column's
+cell. Recomputed from the two generations in `results/matrix.json`, joined on (profile, scene, tier)
+exactly as `before-after.py` joins them:
+
+- `2x-light-standard` texture `checkerboard__rrect-lg__rest :: ssimOutside` reads **0.77243 →
+  0.96931**. **0.95599** is that tier's new worst and it is `light-solid__rrect-md__rest`, which went
+  0.96145 → 0.95599 — the largest of the small costs the refit paid on cells that were never missing.
+- `2x-light-standard` texture `checkerboard__rrect-lg__rest :: ssimMean` reads **0.90989 → 0.96396**.
+  **0.95441** is that tier's new worst and it is `hc-text__rrect-md__rest`, 0.93799 → 0.95441.
+- The other six cleared rows read, same tier: `rrect-ml :: ssimOutside` 0.79671 → **0.97053**,
+  `glass-over-glass :: ssimOutside` 0.80881 → **0.97798**, `rrect-md :: ssimOutside` 0.84949 →
+  **0.98239**, `rrect-ml :: ssimMean` 0.91215 → **0.96943**, `glass-over-glass :: ssimMean` 0.91261 →
+  **0.96780**; and on `1x-light-standard` texture `rrect-lg :: ssimMean` 0.85978 → **0.88431**, which
+  is both the cell's reading and the tier's worst and is written correctly above.
+- The same shape sits unnamed in the `1x-light-standard` texture row: `checkerboard__rrect-lg__rest
+  :: ssimOutside` goes 0.88157 → **0.98081** while the tier's new worst, 0.90906, is
+  `light-solid__rrect-md__rest`.
+
+Every cleared row cleared by more than the table's after-column shows, so the verdict —
+`MISSED_27_ROWS` 15 → 7, all eight cleared rows the shadow's — is unaffected in direction and
+strengthened in magnitude.
 
 The seven that remain are **all holdout cells** and are the two causes Decision Log 6 accepted as
 residual: the four dark `photo__rrect-lg__rest :: oklabDeltaEP95` rows, unchanged to the fourth
@@ -24037,7 +24141,7 @@ measured at the material this repository currently contains.
 
 `bound.json`'s three clauses over the 95 checking cells (48 texture, 47 dom — the refused cell
 above), scored by `score-bound.ts`, which parses the thresholds and the scope rule out of the
-declaration rather than holding a copy:
+declaration rather than holding a copy: ◊
 
 | profile / tier | clause 1, worst | clause 2, mean | clause 3, worst | joint |
 | --- | --- | --- | --- | --- |
@@ -24053,6 +24157,30 @@ declaration rather than holding a copy:
 | `1x-light-increased-contrast-coupled` / dom | 0.0299 / 0.06 holds | 0.0388 / 0.0078 MISS | 0.0388 / 0.0156 MISS | no |
 | `1x-light-reduced-transparency` / texture | 0.0124 / 0.04 holds | 0.0099 / 0.011 holds | 0.0139 / 0.022 holds | **HOLDS** |
 | `1x-light-reduced-transparency` / dom | 0.0133 / 0.04 holds | 0.0117 / 0.011 MISS | 0.0148 / 0.022 holds | no |
+
+◊ **Footnoted beside, 2026-09-19 (review closure): the table carries no mark for the scope breach §6
+records, and here is what it is worth.** §6 records that the light document's first response ordinate
+was moved on the two untinted `impulse` VALIDATION cells before that was noticed, and that those
+cells stay in the checking set. That is **eight of the 95 checking rows** —
+`impulse__capsule-button__inactive` and `impulse__rrect-md__inactive`, on `1x-light-standard` and
+`2x-light-standard`, both tiers. (The `impulse` rows on the two dark profiles are scored against the
+**dark** document, whose first ordinate is the separate floor §6 names, not this breach.) Recomputed
+from `verdict-recede.json`:
+
+- **No clause 1 or clause 3 verdict is theirs.** Their clause-1 readings are the full-canvas ΔE
+  **0.00087, 0.00093, 0.00130, 0.00136, 0.00551, 0.00557, 0.00654 and 0.00656** against a 0.07
+  threshold, and every clause-3 reading holds; the worst cell on **all twelve rows** of the table is
+  `photo__rrect-lg__inactive` or its tinted twin.
+- **They enter clause 2 and they flatter it.** Their body ΔE is below their profile-tier's mean, so
+  dropping all eight raises it: `1x-light` texture 0.0418 → 0.0456 and dom 0.0348 → 0.0385,
+  `2x-light` texture 0.0433 → 0.0474 and dom 0.0352 → 0.0387, against thresholds 0.032 / 0.032 /
+  0.034 / 0.034. All four miss either way, so **no verdict in the table changes** — the breach costs
+  the read no pass and buys it none.
+- **The single joint hold contains no `impulse` cell.** `1x-light-reduced-transparency` / texture's
+  three checking rows are `hc-text__capsule-button__inactive`, `photo__rrect-lg__inactive` and the
+  composite `photo__toolbar-group__inactive`, which carries no declared box and so no `bodyDeltaE`.
+  It is scored against the light document all the same, so the one hold in the table owes nothing to
+  a cell the fit had already seen.
 
 **One of twelve holds jointly.** Nothing was re-fitted after the read, no threshold was widened and
 no floor was adopted; the miss is recorded for the user in the shape Decision Log 4 (a) gave a dark
@@ -24096,6 +24224,57 @@ poses**, with the largest spans first because that is where the shadow is read.
 - **`impulse__capsule-button__inactive` carries a specular point** in the difference that neither
   the level nor the shadow explains, beside the +0.019 level residual §6 names.
 
+**Added beside, 2026-09-19 (review closure): four residuals the eye's column shows and the list
+above did not carry, each measured off the sheet it names.** The sheets are the committed evidence
+and the measurement is over them: every strip is read back out of the PNG at the geometry `sheets.py`
+wrote it with, the *far exterior* is every pixel more than **12 CSS px** outside the component's
+bounding box (for `rrect-lg` on the 320×200 canvas, the outermost 8 CSS px frame of the difference
+strip), and a *body* figure is the luminance mean and standard deviation over the component's box
+inset 12 CSS px. All difference figures are the sheet's own ×8 amplification, 0–255.
+
+- **(a) The receded pose casts a broad exterior halo at the largest span, where the active pose no
+  longer does.** On `1x-light-standard__webgpu__inactive`, strip `checkerboard__rrect-lg__inactive`,
+  the far-exterior difference mean is **17.42**; on the `__css__inactive` sheet of the same profile
+  it is **15.89**. Against that, no active strip on either 1x light sheet exceeds **5.92** (CSS
+  `checkerboard__rrect-lg__rest`; 4.46 on WebGPU), and the 2x light sheets read the same two
+  populations (17.25 / 15.93 inactive against ≤ 5.94 active). So §9's first bullet — "the exterior is
+  clean now" — is a statement about the **active** pose, and the receded pose at span 160 is where
+  the old halo still lives. The cause is on the record in §3 and in §5: the recede carries its active
+  document's shadow leaf for leaf, that block's thick anchor above span 128 is derived rather than
+  fitted, and `checkerboard__rrect-lg__inactive` is a **holdout** cell — the bed declares no inactive
+  calibration cell above span 96 to fit the receded exterior on. Tracked.
+- **(b) On the receded pose the native draws a crisp one-pixel contour stroke and vitrea draws
+  none** — the opposite sign to §6's closing sentence. On `1x-light-standard__webgpu__inactive`,
+  strip `light-solid__capsule-button__inactive`, the scanline through the body's centre crossing the
+  left edge reads native 242.4 outside → **186.4 for one pixel** → 233.4 inside, a 56.0-level dark
+  hairline; vitrea reads 240.4 → 239.4 → 234.2, a dip of **1.0**, and the CSS strip has no dip at all
+  (240.4 → 240.4 → 234.4). On `photo__capsule-button__inactive` the native dips to **80.8** against
+  114.9 outside (−34.1) and vitrea rises monotonically through the edge on both tiers. §6's "where it
+  is worst it is vitrea drawing MORE rim than the reference" is a statement about the **rim band the
+  metric reads**; at the contour itself, on these two receded cells, vitrea draws less rim than the
+  reference and in fact none. Tracked with (a).
+- **(c) The body's structure error changes sign with the bed, and the two tiers do not miss
+  together.** Interior standard deviation, native | vitrea: on `1x-dark-standard` active
+  `checkerboard__rrect-md__rest` the native reads **11.14** against WebGPU **6.16** (0.55×) and CSS
+  **3.62** (0.32×) — both tiers pass too LITTLE of the checker, the CSS tier by three times as much —
+  while on `1x-light-standard` the same cell reads native **10.22** against WebGPU **18.04** (1.77×)
+  and CSS **10.65** (1.04×). §9's second bullet, which reads the light sheets and says vitrea passes
+  the backdrop's structure through the body, is therefore one-sided: it is the light bed's WebGPU
+  reading and the dark bed inverts it. Tracked.
+- **(d) Under Reduced Transparency the GPU tier is under-opaque and the CSS tier is close; and the
+  `impulse` specular point is WebGPU's alone.** On
+  `1x-light-reduced-transparency-glass0.5__webgpu__active`, strip `checkerboard__rrect-md__rest`, the
+  native body is flat opaque white — mean **253.25**, sd **0.43** — where vitrea reads mean 247.45 at
+  sd **3.49**, eight times the native's structure, and the checker is plainly visible through it; the
+  CSS strip of the same cell reads mean 246.40 at sd **1.03**. Both tiers sit 6–7 levels below the
+  native's level, so what separates them is the structure and not the level
+  (`checkerboard__capsule-button__rest` reads the same way, sd 3.98 against 1.00). And on
+  `1x-light-standard__webgpu__inactive`, strip `impulse__capsule-button__inactive`, the difference
+  has a compact core at the body's centre — radial mean 58.7 at r 0, **63.7 at r 3**, down to 28.1 by
+  r 8 — which the CSS strip does not have: its radial mean falls monotonically from 42.7 at the
+  centre to about 22 and then stays flat, with no local maximum anywhere in the body. The specular
+  point the bullet above names is a **WebGPU-only** residual. Tracked.
+
 ### 10. Verification record
 
 - `pnpm -r build`, `pnpm -r lint`, `pnpm -r test` green on the finished tree; `packages/calibration`
@@ -24110,3 +24289,38 @@ poses**, with the largest spans first because that is where the shadow is read.
   0 changed.
 - Machine, read before and after every browser run: macOS 27.0 build 26A428, Reduce Transparency 0,
   Increase Contrast 0, `NSGlassTintAmount` 0.5, display at displayplacer mode 68.
+
+### 11. Review closure (2026-09-19)
+
+An independent read-only review of this gate raised ten items and **found no measurement, bound,
+verdict or missed row wrong**. Eight needed a correction and all eight are written beside above, none
+by rewriting a recorded number: §7's two mis-attributed tier-worsts (◆), §4's unnamed cells and mixed
+dark row (†), §4's span law restated as σ_css ≈ 0.133 · (span − 30) over spans 96–160 with the thin
+spans and the 1x/2x divergence recorded as open structure (‡), §7's holdout-drop sentence scoped to
+the shadow half with the recede's guarantee recorded as procedural (¶), §8's twelve-verdict table
+footnoted for the scope breach §6 records (◊), and four by-eye residuals added to §9, each measured
+off the sheet it names. Two items needed no change. Outside this ledger the same closure corrected
+Decision Log 7 (a)'s cost claim — a span-graded operator would leave the 34 goldens byte-identical
+but **not** the four documents' `resolvedMaterialSha256`, because `seal.ts`'s fingerprint is a
+canonicalising digest over the whole resolved material and the two 26.5 documents are byte-frozen, so
+a one-time X1 exemption is part of that option's price and the scale-selective scatter of §5.153 §6
+carries the same one — the changeset's wording about where the receded documents live, a note beside
+`bar-reproduction.txt`'s "thirty-one" where its own header and this section say thirty-two, and four
+new entries in `specs/tech-debt-tracker.md`.
+
+Every figure written in this closure was recomputed from committed evidence — `results/matrix.json`'s
+two 27 generations, `native-delta.json`'s own readings, `verdict-recede.json`, and the sheets — and
+one recomputation reads differently from the review's: the **−0.52 (−28 %)** span-44 residual is the
+residual against the **published** law σ ≈ 0.131 · (span − 26), not against the review's own least
+squares line, under which that cell fits to −0.014 (−0.7 %). The line itself reproduces exactly
+(0.1334, −4.013, zero at span 30.1). On the dark bed's 13.42 the nearer reading is that it is
+`1x-dark`'s span-**130** `glass-over-glass` stack rather than a 2x-dark cell, though it equals the
+2x-dark span-128 median and either way is not the 1x-dark span-128 reading the table implies (13.19).
+And on §9's (c) the two tiers' structure error is not WebGPU-over-and-CSS-under on the dark bed: both
+are under there, WebGPU at 0.55× of the native's interior spread and CSS at 0.32×.
+
+Re-verified at the closure, on the merged tree: `pnpm --filter @vitrea/calibration lint` clean and
+its suite **510 tests over 29 files** green — one more case than §10's 509, which is the merge's own
+addition to `tuned-profiles.test.ts` and not this closure's; the closure adds no test and touches no
+code. The 26.5 freeze verifies **intact at 1,818 entries** at the closure's close as it did at the
+gate's.
