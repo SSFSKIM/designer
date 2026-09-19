@@ -22821,10 +22821,15 @@ macOS 27 does not couple Reduce Transparency to Increase Contrast; on 26.5 the c
 only reachable increased-contrast state and the 26.5 profile was captured in it (§5.150 Part B §3).
 **So the 27 increased-contrast bed is a different state from the 26.5 bed of the same name, and
 every difference on `apple-macos-27.0-1x-light-increased-contrast-glass0.5` is confounded with the
-decoupling.** (The user ruled the separation on 2026-09-19: a second pass is captured with both
-toggles on, under `apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5`, and read against
-the 26.5 bed like for like — Decision Log 4 (b), §5.152. Nothing in this section is amended by it;
-the reading of the coupled bed joins it as §5.152 §B.) Its counts are reported with every other profile's in `law-tables.txt` — 10/10 active
+decoupling.** (**Separated since, and the share is measured.** The user ruled a second pass on
+2026-09-19; it was captured with both toggles on, published as
+`apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5` and read against the same 26.5 bed
+like for like — Decision Log 4 (b), **§5.152 §B**. Nothing in this section is amended by it and its
+refusal to attribute stands, but the laws it had to refuse on now split in two: the **rim and the
+scatter moved by the same amount in both states, to within 1 %, and are the material**, while the
+**level, the tone offset and the tint's lightness read two to five times larger here than the
+material alone accounts for and are mostly the toggle** — `bodyLevel` falls 0.096 from 26.5 to the
+coupled bed and 0.288 to this one. §5.152 §B §7 is the table.) Its counts are reported with every other profile's in `law-tables.txt` — 10/10 active
 and 22/22 receded cells move on the whole-cell rows — and **not one of them is read as a statement
 about the material**. `sheets/law__rim-band__1__1x-light-increased-contrast__hc-text__capsule-button__rest__x8.png`
 is the confound in a picture: the 26.5 capsule is nearly opaque white and the 27 one is translucent
@@ -23058,3 +23063,197 @@ number moved; the file they name moved, by an addition, and the G1 README says s
 document, no bound, no floor, no matrix row, and no judgement about what the coupling is worth. The
 coupled bed's reading against the 26.5 bed is Part B, and whether the profile gets a bound is decided
 on that reading (Decision Log 4 (b)).
+
+### 5.152 §B — the coupled bed read against 26.5: the material moved on every cell, the geometry did not, and the decoupling's share of §5.151 §9 is now measured (2026-09-19)
+
+**Gate: W29 Decision Log 4 (b), acceptance clause 3, contracts X1, X2 and X3.** Evidence is
+`packages/calibration/results/2026-09-19-w29-g1c-coupled/`: `bar-declaration.md` and
+`delta/noise-bar.json` committed in `848713cf`, **before** the commit that read a 26.5 pair;
+`delta/native-delta.json` and `delta/recede-delta.json` the rows; `delta/law-tables.txt` the tables
+every verdict below is read off; `read-checks.txt` the nine things a table cannot answer; `sheets/`
+and `delta/sheets/` the eye's column. **No vitrea change is in this gate** (X3): no material, no
+profile document, no bound, no floor, no golden and no row of `results/matrix.json`. No capture was
+taken — the machine's toggles were back off throughout and the GPU belonged to G3. The 26.5 freeze
+verifies **intact, 1,818 entries**.
+
+**1. What was published, and what it is.** 32 cells over
+`apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5` — 10 active and 22 receded, the 26.5
+increased-contrast scene list verbatim — from seven runs per pose: **28 unanimous, 4 voted, 0
+frequency-settled, 0 refused**, no omission and no hole. Every run attested `increaseContrast=1`
+with `reduceTransparency=1`, `ButtonShapesEnabled=0` and `NSGlassTintAmount` 0.5 on build 26A428 at
+display mode 69, and `materialize` carried the fields all fourteen runs agree on into the profile's
+`attestation` block. `src/run-provenance.ts` did not fire, which is Part A's refusal in its positive
+form: the runs and the key agree about both toggles.
+
+The bar is G2's instrument, construction and rule unchanged, over this pass's own fourteen runs,
+with one thing declared in advance because a 32-cell bed changes what the rule means: the
+**zero-spread fallback is the minimum over the 27 bed and not over this pass**, taken as the
+per-metric minimum of this run's figure and G2's committed `bedMinimumNonZeroBar` (a new
+`--fallback-bar`, read rather than re-derived). On **32 of 32 metrics** the fallback then equals the
+624-cell bed's and exactly G2's three blind metrics keep a bar of exactly zero, so a "moved" here
+means what a "moved" means in §5.151. The 32-cell alternative is not discarded: under it **15 of 929
+verdicts would differ**, every one of them False → True, and every one on `rimPeakDelta` at
+Δ ≈ 10⁻¹⁵ (floating-point dust), `highlightPeakAngleDeltaDeg` at exactly one 22.5° bin, or
+`silhouetteAreaDeltaPx` at exactly 1 px — which is the argument for the decision rather than a
+defence of it (`read-checks.txt` §6).
+
+The bar reproduced the publication record again, on a bed neither construction was tuned on: **28 of
+32 cells have exactly zero spread on every whole-cell metric across all 21 pairs, and they are
+exactly the 28 `materialize` published unanimously.** The four with a spread are the four it voted.
+
+**2. The verdict per law.** Counts are moved / measured against each cell's own bar, active and
+receded apart. Full tables in `delta/law-tables.txt`.
+
+| law | verdict | moved (active / inactive) | median Δ | med Δ/bar |
+| --- | --- | --- | --- | --- |
+| silhouette / geometry | **did not move** | 5/10, 11/22 | over the 30 healthy cells of §3: IoU complement 1.25e-4; contour mean 0.0029 px; area 3.5 px | 1–35 |
+| corner geometry | **did not move** | 5/10, 11/22 | κ 7.3e-4–9.7e-4 /px, median signed **exactly 0.000**; 6 up / 10 down / 14 tied over the 30 healthy cells | 32–42 |
+| interior level | **moved, down on all but one cell** | 10/10, 22/22 | `bodyLevel` 0.0912, signed −0.0912; 1 of 30 moved cells up | 3e7–2e8 |
+| tone response by backdrop | **moved, conditioned on the backdrop** | 10/10, 18/18 | slope 0.117 / 0.213 signed **up on 28 of 28**; offset 0.092 / 0.070 signed down | 2e6–4e6 |
+| scatter / diffusion | **moved, and it is the largest magnitude here** | 10/10, 22/22 | σ 0.186 / 0.157, signed −0.147 / −0.144, **0 of 32 up** | 5e7 |
+| rim band / edge darkening | **moved, and the 26.5 dark outline is gone** | 9/9, 21/21 | rim contour 1.097 / 0.896, signed **+1.066 / +0.891, 30 of 30 up**; peak depth 12 px → 4 px | 1e8–2e9 |
+| highlight amplitude and position | **moved on every cell that carries it** | 9/9, 21/21 | bin max 0.083 / 0.032; peak angle moved on 15 of 30, by one 22.5° bin or more | 2e5–9e6 |
+| tint shade | **lightness moved, hue did not** | 32/32 on all three rows | ΔL 0.0153; chroma 1.3e-4; **hue 1.59° on the two cells that have one**, 69.3° on the 30 that do not | see §5 |
+| the recede | **moved on every reading** | 9–10 of 9–10 barred rows on each of 12 readings | see §6 | ≥ 10² |
+
+**3. The geometry did not move, and two cells say why the count is not the reading.** Sixteen of 32
+cells clear their bar on IoU complement, contour mean and corner curvature, and the magnitudes are
+invisible: over the 30 cells whose two silhouettes are within 2× of each other the median IoU
+complement is **1.25 × 10⁻⁴** (an IoU of 0.99988), the median mean contour distance **0.0029 px** and
+the median area difference **3.5 px** out of several thousand. The corner's median signed Δκ is
+**exactly 0.000**, with 6 cells up, 10 down and 14 exactly tied, and every single-box component
+reproduces its own declared radius to the hundredth of a pixel — `capsule-button` 17.92 → 17.92 px,
+`rrect-md` 18.89 → 18.89, `rrect-sm` 7.56 → 7.56, `rrect-48` 9.69 → 9.69, `rrect-80` 16.04 → 16.04 —
+except `rrect-lg` at 32.78 → 30.61 px over 3 cells and `rrect-ml` at 25.43 → 22.02 over 2. `rrect-lg`
+is the one family §5.151 §3 also shows moving on the rest of the bed (30.46 → 29.92 there);
+`rrect-ml` carries two cells here and is in neither of that section's lists, and `rrect-sm` — which
+moved there, 7.87 → 7.56 — holds still here at 7.56 → 7.56. Two and three cells are not a population,
+and the reading of this row is the median signed **0.000** over all thirty, not the per-component
+line.
+
+The two cells excluded are `hc-text__capsule-button__inactive` (2,284 px of silhouette on 26.5
+against **4,872** on 27) and `hc-text-7__rrect-md__inactive` (6,162 against **15,024**). Both are in
+§5.151 §4's list of 66, and their recurrence here is a small finding of its own: **the extractor's
+threshold fault is not a consequence of the transparency reduction being off.** It is there in the
+state where Apple's material is nearly opaque on both beds, because what changed is the *rim* the
+extractor was keying on, not the body.
+
+**4. What the eye sees, and it is one thing.** `sheets/three-way__*.png` puts the same cell on the
+three beds side by side — 26.5, 27 coupled, 27 decoupled — which no pair sheet can do. On 26.5 the
+increased-contrast material is an **opaque white slab with a crisp dark outline**. On 27 in the same
+state it is an opaque slab with **no outline at all** and a faint wash of the backdrop's colour. On
+27 with the transparency reduction off it is plainly translucent: the text rows and the photograph
+read through it. So the two changes separate by eye exactly as they separate in the numbers —
+**26.5 → coupled is the material (the outline goes, the body dims slightly), coupled → decoupled is
+the toggle (the material becomes translucent)** — and `delta/sheets/law__rim-band__1__…` is the same
+statement as an amplified difference: the whole difference image is the rim.
+
+**5. The tint's hue, and why the row needs its condition here more than anywhere.** Only **2** of 32
+cells carry an interior chroma of 0.01 or more on both beds, and on those two the median hue shift
+is **1.59°**. On the other 30 it reads **69.3°**, and bed-wide the row says 59° — a number that is
+an artefact of taking an angle where there is no hue (§5.151 §7). The chroma itself moved on 32 of
+32 cells, from a median of **1.8 × 10⁻⁵ to 6.7 × 10⁻⁴**: real against the bar, and still two orders
+of magnitude below the threshold at which a hue exists. **The tint's lightness moved and its hue did
+not**, which is what §5.151 says of the rest of the bed.
+
+**6. The recede.** Ten scene pairs, 115 of 115 measurable readings barred, and every reading moved
+on 9 or 10 of its rows. The recede's own differences are small and consistent in sign with the
+active reading: `bodyLevel` −0.0083, `interiorMean` −0.0130, `interiorStdDev` −0.0142,
+`rimContourMean` −0.166, `rimLocalMean` −0.149, `highlightPeak` −0.0415, `tintDeltaL` −0.0163. The
+rim rows are the largest here as they are everywhere else in this profile.
+
+**7. The decoupling's share of §5.151 §9, measured.** This is what the second sitting was captured
+for. The two 27 contrast profiles declare the same 32 cells and share one 26.5 counterpart, so their
+rows differ in exactly one thing: whether Reduce transparency was on when the 27 side was captured.
+Medians over the same 32 cells (`read-checks.txt` §4, §5):
+
+| reading | 26.5 | 27 coupled | 27 decoupled | coupled − 26.5 | decoupled − 26.5 | the toggle's share |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| `bodyLevel` | 0.9880 | 0.8918 | 0.7005 | **−0.0962** | −0.2875 | **two thirds of it** |
+| `interiorMean` | 0.9325 | 0.8855 | 0.6936 | −0.0471 | −0.2390 | 5.1× |
+| `transferOffset` | 0.9619 | 0.8771 | 0.6687 | −0.0847 | −0.2932 | 3.5× |
+| `tintDeltaL` | 0.3778 | 0.3589 | 0.2789 | −0.0189 | −0.0989 | 5.2× |
+| `interiorStdDev` | 0.2001 | 0.0463 | 0.0465 | **−0.1538** | −0.1535 | **none — 1.00×** |
+| rim contour max | — | — | — | **0.8980** | 0.8983 | **none — 1.00×** |
+| rim local max | — | — | — | 0.8910 | 0.8967 | none — 1.01× |
+| `rimPeakDepthPx` | 12 px | 4 px | 2 px | **−8 px** | −10 px | a fifth of it |
+
+**So the laws §5.151 §9 had to refuse on that profile split cleanly in two.** The **rim and the
+scatter are the material**: they moved by the same amount whether the transparency reduction was on
+or off, to within 1 %. The **level, the tone offset and the tint's lightness are mostly the
+toggle**: on the decoupled profile they read two to five times larger than the material alone
+accounts for. §5.151 §9's refusal to attribute any of that profile's cells to the material was
+right, and it was right for a reason that now has a number on it.
+
+**8. Does this profile move like the rest of the bed?** On the whole-cell rows, yes and
+unremarkably: its median `ssimComplement` (0.036), `oklabDeltaEMean` (0.0086) and `edgeWeightedMean`
+(0.025) sit inside the range the five unconfounded profiles span (0.008–0.049, 0.0042–0.023,
+0.009–0.021). On three laws it moved **much more** than any of them: `interiorStdDevDelta` 0.152
+against 0.0098–0.014, `rimContourDeltaMax` 0.898 against 0.011–0.111, `transferSlopeDelta` 0.151
+against 0.0053–0.041. That is not a discrepancy to explain away — it is the finding that **Apple
+changed the increased-contrast material more than the ordinary one**, and the direction is the same
+as the light profiles': the level down (1 of 30 moved cells up, against 27 of 156 on
+`1x-light-standard`), the interior σ down on every cell, the transfer slope up on every cell.
+
+**9. What this reading does not say.** It is a 27-against-27 bar and carries no part of the 26.5
+bed's own run-to-run spread (§5.149 §6), so every "moved" is a floor and every "did not move" is the
+weaker statement. It is 1x light only, as the profile is. It says nothing about vitrea: no cell of
+this profile has ever been read against a web capture, and `results/matrix.json` has no row for it.
+And the scatter row deserves one caution in G3's hands: on the 26.5 side the declared interior box
+contains that bed's hard dark outline, so part of the σ drop is the outline's disappearance rather
+than a diffusion change — the rim row and the scatter row are not independent on this profile.
+
+**10. One consequence for `compare`, found here and not fixed here.** `cli/compare.ts`'s
+`webAccessibilityFlags` maps the **manifest's** `a11yMode` to the web-side accessibility flags, and
+in its default `as-captured` mode renders `increased-contrast` with **both** flags — on the
+documented ground that "macOS force-enables Reduce Transparency when Increase Contrast is on … there
+is no single-flag increased-contrast state on that platform to capture". That is a true statement
+about macOS 26.5 and it is false on 27. Both 27 contrast profiles record `a11yMode:
+"increased-contrast"` in the manifest, because that is what `SystemAccessibility.current` returns in
+either state, so `compare` cannot tell them apart: for the **coupled** profile `as-captured` is now
+correct and *measured* rather than assumed, and for the **decoupled** profile `as-captured` is
+**wrong** — its like-for-like mode is `contrast-only`. Nothing committed is affected: no 27 contrast
+profile has been read against vitrea and Decision Log 4 (a) declares no table for increased contrast
+this wave. The shape of the fix is to key on the **profile key's** `a11yMode`, which the grammar
+now distinguishes, rather than on the manifest field, which cannot. Recorded in
+`specs/tech-debt-tracker.md` and named here so that G3 and G4 meet it as a decision rather than as a
+surprise.
+
+**11. A bound, drafted for the user.** Decision Log 4 (b) leaves this to the reading, and the reading
+supports one. Decision Log 4 (c)'s table is the native-to-native distribution against each profile's
+own 26.5 texture-tier allowance, and for this profile it reads (`read-checks.txt` §8; the three
+shape rows over the healthy cells, as that table's are):
+
+| metric | median | p90 | max | 26.5 increased-contrast allowance |
+| --- | ---: | ---: | ---: | ---: |
+| IoU complement † | 0.0001 | 0.0358 | 0.275 | ≤ 0.15 |
+| contour mean px † | 0.003 | 0.623 | 3.95 | ≤ 1.8 |
+| contour p95 px † | 0.000 | 1.00 | 31.0 | ≤ 11.5 |
+| SSIM complement | 0.0357 | 0.0717 | 0.115 | ≤ 0.14 |
+| ΔE mean | 0.0086 | 0.0226 | **0.0392** | ≤ 0.06 |
+| ΔE p95 | 0.0352 | 0.0506 | **0.0687** | ≤ 0.10 |
+| edge-weighted | 0.0252 | 0.0632 | **0.110** | ≤ 0.17 |
+| SSIM-outside complement | 0.0778 | 0.1553 | 0.237 | ≤ 0.20 |
+
+† the three shape rows, as everywhere in this wave, are the extractor reading a level rather than a
+shape and are over the allowance on every profile in Decision Log 4 (c).
+
+**Every material row is inside the 26.5 allowance at its worst cell**, which is true of no other
+profile in that table: `1x-light-standard` and `2x-light-standard` exceed the ΔE-mean allowance at
+their worst cell, both dark profiles exceed ΔE mean and edge-weighted at p90 **and** max, and the **decoupled**
+increased-contrast profile exceeds ΔE p95 at p90 (0.1716) and max (0.1919) against ≤ 0.10 — where
+the coupled profile reads **0.0506 and 0.0687**. The confound was what put that row over, and
+removing it brings the profile inside its own 26.5 numbers.
+
+**The draft, for the user to rule:** declare the 27 tables for
+`apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5` **at the 26.5
+increased-contrast tables' values**, per tier, before G3 reads its fit — the same form and the same
+argument Decision Log 4 (a) ruled for the five unconfounded profiles, on evidence that is stronger
+here than on any of them. Two things the user should weigh against it. First, it **adds a profile to
+G3**, which was chartered on five and is already running; the alternative is to hold the table for a
+later child and let G3 fit the five. Second, `SSIM-outside complement` has a max of **0.237** against
+≤ 0.20 — one material-adjacent row whose worst cell is outside, and the one line of this draft that
+is a prediction rather than a measurement, since the outside region is where the rim's disappearance
+lands. The parent's recommendation is to **declare it**, and to record the SSIM-outside tail as a
+named risk in the Decision Log entry rather than loosening the row in advance, which is the shape
+Decision Log 4 (a) already chose for the dark profiles' ΔE tail.

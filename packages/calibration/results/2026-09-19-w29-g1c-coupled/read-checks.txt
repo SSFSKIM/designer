@@ -1,0 +1,190 @@
+# W29 G1c — what the coupled bed's counts mean
+
+Rows: 32 pair, 10 recede. The 26.5 counterpart is apple-macos-26.5-1x-light-increased-contrast on every one of them.
+
+## 1. The geometry, on the cells whose two silhouettes are comparable
+
+§5.151 §4: where one bed's material sits inside the extractor's 0.02 linear threshold of its
+own backdrop and the other's does not, every silhouette-masked statistic is taken over a few
+dozen pixels and the shape metrics read a segmentation, not a shape. The same conditioning is
+applied here: a cell is HEALTHY when its two silhouettes are within 2x of each other.
+
+healthy 30, artefact 2 of 32 cells carrying both areas
+  artefact  hc-text__capsule-button__inactive            26.5     2284 px   27     4872 px
+  artefact  hc-text-7__rrect-md__inactive                26.5     6162 px   27    15024 px
+
+  healthy  silhouetteIoUComplement    moved 16/30   median 0.000124571
+  healthy  contourDistanceMeanPx      moved 16/30   median 0.00288918
+  healthy  silhouetteAreaDeltaPx      moved 18/30   median 3.5
+
+## 2. The corner, signed and per component
+
+over 30 healthy cells carrying a curvature: 6 up, 10 down, 14 exactly tied; median signed Δκ 0 /px
+
+  component            cells   median κ 26.5   median κ 27   implied r 26.5→27
+  capsule-button          12         0.05582       0.05582    17.92 →  17.92 px
+  rrect-48                 1         0.10321       0.10321     9.69 →   9.69 px
+  rrect-80                 1         0.06233       0.06233    16.04 →  16.04 px
+  rrect-lg                 3         0.03051       0.03267    32.78 →  30.61 px
+  rrect-md                 7         0.05295       0.05295    18.89 →  18.89 px
+  rrect-md-clear20         1         0.05400       0.05400    18.52 →  18.52 px
+  rrect-ml                 2         0.03933       0.04542    25.43 →  22.02 px
+  rrect-sm                 1         0.13227       0.13227     7.56 →   7.56 px
+  toolbar-group            2         0.05436       0.05436    18.40 →  18.40 px
+
+## 3. The tint's hue, conditioned on there being a hue
+
+§5.151 §7: `tintResponse` documents that its hue is meaningless at near-zero chroma, and a
+bed read without that condition reports a hue swing that is an artefact of it.
+
+  chroma ≥ 0.01 on BOTH beds: 2 cells, median |Δhue| 1.59°
+  below it on either bed:     30 cells, median |Δhue| 69.3°
+  read without the condition: 32 cells, median |Δhue| 59°
+
+## 4. The coupled bed against the decoupled one, cell for cell
+
+The two 27 profiles declare the same 32 cells and share one 26.5 counterpart, so their rows
+differ in exactly one thing: whether Reduce transparency was on when the 27 side was captured.
+This is what §5.151 §9 could not have: the confounded reading beside the unconfounded one.
+
+  metric                         coupled moved  decoupled moved   median |Δ| coupled  decoupled   ratio
+  silhouetteIoUComplement           16/32          15/32       3.328e-05           0    0.00
+  contourDistanceMeanPx             16/32          15/32       0.0010776           0    0.00
+  contourDistanceP95Px               7/32           6/32               0           0     nan
+  silhouetteAreaDeltaPx             20/32          19/32               5           5    1.00
+  cornerCurvatureDeltaPerPx         16/32          13/32      0.00036576           0    0.00
+  ssimComplement                    32/32          32/32        0.035651    0.040281    1.13
+  ssimBandComplement                32/32          32/32         0.17444      0.2002    1.15
+  ssimInteriorComplement            15/15          14/15       0.0028876    0.018174    6.29
+  ssimOutsideComplement             32/32          32/32        0.077814    0.070859    0.91
+  oklabDeltaEMean                   32/32          32/32       0.0086291    0.013763    1.59
+  oklabDeltaEP95                    31/32          31/32        0.035172     0.10994    3.13
+  oklabDeltaEBodyMean               32/32          32/32         0.06078     0.13166    2.17
+  edgeWeightedMean                  32/32          32/32        0.025229    0.037252    1.48
+  interiorMeanDelta                 32/32          32/32        0.039919     0.20802    5.21
+  interiorStdDevDelta               32/32          32/32         0.15197     0.15257    1.00
+  bodyLevelDelta                    30/30          30/30        0.091184     0.26802    2.94
+  transferSlopeDelta                28/28          28/28          0.1514     0.32126    2.12
+  transferOffsetDelta               28/28          28/28        0.069974       0.254    3.63
+  rimContourDeltaMax                30/30          30/30         0.89798     0.89829    1.00
+  rimLocalDeltaMax                  30/30          30/30           0.891     0.89672    1.01
+  rimRow0DeltaMax                   30/30          30/30          0.8946     0.89647    1.00
+  rimPeakDelta                      24/32          27/32      0.00079823   0.0061448    7.70
+  rimPeakDepthDeltaPx               29/32          27/32             6.5         6.5    1.00
+  rimFwhmDeltaPx                    10/10           9/9            3.446     0.90235    0.26
+  highlightBinDeltaMax              30/30          30/30        0.057828     0.11547    2.00
+  highlightBinDeltaMean             30/30          30/30        0.014812    0.040172    2.71
+  highlightIntegralDeltaMax         30/30          30/30          1.0267      1.2308    1.20
+  highlightRatioDelta                0/0            1/1              nan      12.064     nan
+  highlightPeakAngleDeltaDeg        15/30          19/30           33.75        67.5    2.00
+  tintDeltaLDelta                   32/32          32/32        0.015313    0.081074    5.29
+  tintChromaDelta                   32/32          32/32       0.0001306   0.0013546   10.37
+  tintHueShiftDeltaDeg              32/32          32/32          59.018      89.342    1.51
+
+  ratio = the decoupled bed's median distance from 26.5 divided by the coupled bed's. Above 1
+  means the decoupled reading is the larger one, and the excess is what the TOGGLE contributes
+  to §5.151's numbers on this profile.
+
+## 5. The signed readings, coupled and decoupled, on the laws the ledger leans on
+
+  reading            26.5   27 coupled   27 decoupled   coupled−26.5   decoupled−26.5
+  bodyLevel          0.98799     0.89177        0.70053      -0.096218         -0.28746
+  interiorMean       0.93254     0.88548        0.69357      -0.047065         -0.23897
+  interiorStdDev     0.20006    0.046252        0.04652       -0.15381         -0.15354
+  transferSlope     -0.10539    0.022241       0.082566        0.12764          0.18796
+  transferOffset     0.96185     0.87712        0.66868       -0.08473         -0.29317
+  rimPeak                  0   0.0018747      0.0061448      0.0018747        0.0061448
+  rimPeakDepthPx          12           4              2             -8              -10
+  rimFwhmPx           3.3125       1.537         1.1946        -1.7755          -2.1179
+  tintDeltaL          0.3778     0.35892         0.2789      -0.018875        -0.098899
+  tintChroma       1.7858e-05  0.00067385      0.0013869     0.00065599         0.001369
+
+## 6. Would any verdict differ under a fallback taken over this pass alone?
+
+The bar declaration takes the zero-spread fallback over the whole 27 bed rather than over this
+pass's 32 cells (bar-declaration.md §1). The alternative is recorded here rather than argued:
+a 32-cell minimum is larger where it is defined and undefined on twelve metrics, where the
+rule would then give a bar of exactly zero.
+
+  verdicts that would differ: 15 of 929
+    checkerboard__capsule-button__rest       highlightPeakAngleDeltaDeg   Δ=22.5 bar 22.5 → 0   moved False → True
+    checkerboard__rrect-md__inactive         highlightPeakAngleDeltaDeg   Δ=22.5 bar 22.5 → 0   moved False → True
+    checkerboard__rrect-ml__inactive         highlightPeakAngleDeltaDeg   Δ=22.5 bar 22.5 → 0   moved False → True
+    checkerboard-4__rrect-md__inactive       rimPeakDelta                 Δ=3.553e-15 bar 1.317e-08 → 0   moved False → True
+    dark-solid__rrect-48__inactive           rimPeakDelta                 Δ=2.22e-15 bar 1.317e-08 → 0   moved False → True
+    dark-solid__rrect-80__inactive           rimPeakDelta                 Δ=5.329e-15 bar 1.317e-08 → 0   moved False → True
+    dark-solid__rrect-80__inactive           highlightPeakAngleDeltaDeg   Δ=22.5 bar 22.5 → 0   moved False → True
+    dark-solid__rrect-md-clear20__inactive   rimPeakDelta                 Δ=3.886e-15 bar 1.317e-08 → 0   moved False → True
+    light-solid__rrect-ml__inactive          rimPeakDelta                 Δ=6.772e-15 bar 1.317e-08 → 0   moved False → True
+    photo__capsule-button__inactive          silhouetteAreaDeltaPx        Δ=1 bar 1 → 0   moved False → True
+    photo__capsule-button__inactive-pressed  silhouetteAreaDeltaPx        Δ=1 bar 1 → 0   moved False → True
+    photo__capsule-button__pressed           highlightPeakAngleDeltaDeg   Δ=22.5 bar 22.5 → 0   moved False → True
+    photo__capsule-button__rest              highlightPeakAngleDeltaDeg   Δ=22.5 bar 22.5 → 0   moved False → True
+    photo__rrect-lg__rest                    highlightPeakAngleDeltaDeg   Δ=22.5 bar 22.5 → 0   moved False → True
+    photo__rrect-md__rest                    silhouetteAreaDeltaPx        Δ=1 bar 1 → 0   moved False → True
+
+## 7. The recede, coupled against decoupled
+
+  reading              coupled moved  decoupled moved   median difference coupled  decoupled
+  bodyLevel                9/9            9/9               -0.0083466   -0.071759
+  highlightFloor           9/9            9/9               -0.0074394   -0.011537
+  highlightPeak            9/9            9/9                -0.041501   0.0033421
+  interiorMean            10/10          10/10               -0.012982   -0.050722
+  interiorStdDev          10/10          10/10               -0.014191    -0.02475
+  rimContourMean           9/9            9/9                 -0.16589    -0.12844
+  rimLocalMean             9/9            9/9                 -0.14872    -0.13933
+  rimPeak                 10/10          10/10               -0.014172  -0.0074579
+  rimPeakDepthPx           9/10           8/10                     2.5           1
+  silhouetteAreaPx         9/10           5/10                     3.5           3
+  tintChroma              10/10          10/10               0.0015769   0.0012575
+  tintDeltaL              10/10          10/10               -0.016313   -0.056797
+
+10 coupled recede rows against 10 decoupled ones.
+
+## 8. The native-to-native distribution against the 26.5 allowances
+
+The shape of Decision Log 4 (c)'s table, for this profile. It is what a bound proposal has to
+be read off: every row of `adopted-thresholds.test.ts` is a PER-CELL bound, so the p90 and the
+max decide whether declaring the 26.5 table for this profile is defensible, not the median.
+The three shape rows are over the HEALTHY cells of check 1, as that table's are.
+
+  metric                       population  median      p90         max         26.5 allowance  over?
+  silhouetteIoUComplement          30   0.0001246     0.03575      0.2752            0.15  MAX OVER
+  contourDistanceMeanPx            30    0.002889       0.623       3.948             1.8  MAX OVER
+  contourDistanceP95Px             30           0           1          31            11.5  MAX OVER
+  ssimComplement                   32     0.03565     0.07169      0.1151            0.14  
+  oklabDeltaEMean                  32    0.008629     0.02259     0.03919            0.06  
+  oklabDeltaEP95                   32     0.03517     0.05062     0.06873             0.1  
+  edgeWeightedMean                 32     0.02523     0.06321        0.11            0.17  
+  ssimOutsideComplement            32     0.07781      0.1553      0.2369             0.2  MAX OVER
+
+## 9. Does this profile move like the rest of the bed?
+
+The five profiles Decision Log 4 (a) declared tables for are the unconfounded ones. The
+comparison is per profile and on |Δ| — the quantity the law tables report — because a signed
+median pooled over light, dark and reduced transparency cancels populations that §5.151 §2
+says moved BOTH ways, and would answer a question nobody asked.
+
+  metric (median |Δ|)            coupled 1x-light-st 2x-light-st 1x-dark-sta 2x-dark-sta 1x-light-re
+  ssimComplement                 0.03565     0.02172     0.01394     0.04908     0.03712    0.007755
+  oklabDeltaEMean               0.008629     0.01528     0.01395      0.0231     0.02318     0.00416
+  edgeWeightedMean               0.02523     0.02121     0.01916     0.01213       0.012    0.009065
+  interiorMeanDelta              0.03992     0.08925      0.0853      0.1006      0.1014     0.03337
+  bodyLevelDelta                 0.09118     0.08785     0.08453     0.09416     0.09147     0.03524
+  interiorStdDevDelta              0.152     0.01404     0.01323    0.009835     0.01031     0.00951
+  transferSlopeDelta              0.1514      0.0413     0.03432      0.0162     0.01928    0.005302
+  rimContourDeltaMax               0.898      0.1109     0.09578     0.04793     0.05059     0.01126
+  highlightBinDeltaMax           0.05783      0.1307      0.1302      0.3256      0.1178     0.04343
+  tintDeltaLDelta                0.01531     0.04143     0.04159      0.1455      0.1439     0.01135
+
+  And the directions, per profile, as the share of moved cells that read UP on the signed
+  reading — a law that moved the same way everywhere reads the same here.
+
+  reading (up / moved)           coupled 1x-light-st 2x-light-st 1x-dark-sta 2x-dark-sta 1x-light-re
+  bodyLevel                         1/30      27/156      31/156     109/113     108/112       28/28
+  interiorMean                      7/32      17/158      19/158     101/106     100/105       30/30
+  interiorStdDev                    0/32      51/158      53/158      63/106      64/105       29/30
+  transferSlope                    28/28      45/114      51/114       46/72       50/71       11/26
+  tintDeltaL                        7/32      17/158      20/158     101/106     100/105       30/30
+
+  32 coupled rows; the five profiles carry 587 rows between them.

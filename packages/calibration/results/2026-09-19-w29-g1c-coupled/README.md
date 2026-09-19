@@ -1,8 +1,10 @@
 # W29 G1c — the coupled increased-contrast bed
 
 **Decision Log 4 (b); claims §5.152.** Part A built the key, the declaration, the pass and the
-refusals and **captured nothing**. Part B materialises the banked runs and reads them against the
-26.5 increased-contrast bed with G2's instrument.
+refusals and **captured nothing**. **Part B is closed**: the bed is published, its bar was declared
+and committed before a 26.5 pair was read, and the reading is §5.152 §B — *the material moved on
+every one of the 32 cells and the geometry did not*, with the decoupling's share of §5.151 §9
+measured for the first time. A bound is drafted for the user as the charter's Decision Log 5.
 
 ## What this child is for
 
@@ -111,29 +113,64 @@ The wall clock is the first sitting's own for the same cells: 11 min and 25 min 
 `$HOME/vitrea-w29-27-run/increased-contrast-coupled-{active,inactive}-1x/run-N`, beside the first
 sitting's and touching none of it.
 
-## Part B, when the runs are banked
+## Part B, as it ran
 
-Materialise the profile at seven runs per pass with the attestation in its manifest entry (IC=1,
-RT=1, `ButtonShapesEnabled=0`, slider 0.5 — `materialize` records every field all seven runs agree
-on) and a caveat that names the state and why the profile exists, beside the 26.5 caveat and never
-over it. Then G2's instrument, `cli/native-delta.ts`, against
-`apple-macos-26.5-1x-light-increased-contrast`, with the bar declared from the seven runs and
-**committed before the 26.5 pair is read**, exactly as G2 did. The reading is §5.152 §B, with the
-same per-law structure as §5.151 and a sentence beside §5.151 §9 pointing to it. No bound is proposed
-unless the reading supports one, in which case it is drafted for the user.
+**Published.** `materialize-coupled.sh --apply`, two passes at seven runs each: **32 cells, 28
+unanimous, 4 voted, 0 frequency-settled, 0 refused**, no omission and no hole (`materialize.txt`).
+`src/run-provenance.ts` did not fire — the runs and the key agree about both toggles, which is Part
+A's refusal in its positive form. The profile's `attestation` block carries every field all fourteen
+runs agree on, including `increaseContrast=1`, `reduceTransparency=1`, `showBorders=0` and
+`glassTintAmount=0.5`.
 
-One thing to expect in the manifest and to leave alone: the harness writes its own coupling note on
-any `increased-contrast` profile it observes with transparency reduction on, and that note says macOS
-*couples* the toggles — true of 26.5 and not of 27. It is what the capture recorded, so it stays, and
-the caveat added beside it is where the state is stated correctly.
+**The caveats** (`add-coupled-caveat.py`, `caveat.txt`) are added beside and never over. The harness
+wrote its own coupling note on all seven runs of both passes — the attestation the capture made —
+and its wording is a statement about macOS 26.5, where the toggles were coupled. It stays verbatim;
+the caveat beside it names the state, the attested values, why the profile exists, and the one thing
+that note gets wrong on 27. The decoupled profile gains a pointer to where the unconfounded reading
+lives, and its own caveat is untouched.
+
+**The bar** (`bar-declaration.md`, `delta/noise-bar.json`, `bar-run.txt`) was committed in
+`848713cf`, which precedes the commit that read a 26.5 pair. G2's instrument, construction and rule
+are unchanged; the one thing declared here is that the zero-spread fallback is the minimum over the
+27 **bed** and not over this 32-cell pass, read from G2's committed figures through
+`--fallback-bar`. On 32 of 32 metrics it then equals the 624-cell bed's.
+
+**The read** (`delta-run.txt`, `delta/`, `read-checks.txt`): 32 pair rows, 10 recede rows, **0 cells
+unbarred**, 115 of 115 measurable recede readings barred. Per law — the material moved on the
+interior level, the tone response, the scatter, the rim, the highlight and the tint's lightness, on
+every cell that carries them; the silhouette, the corner and the tint's hue did not. The rim is the
+law that moved most: the 26.5 material's crisp dark outline is gone on 27.
+
+**What the second sitting bought.** The two 27 contrast profiles declare the same 32 cells over one
+26.5 counterpart, so their rows differ in exactly one thing. The rim and the scatter moved by the
+same amount in both states, to within 1 % — they are the material. The level, the tone offset and
+the tint's lightness read two to five times larger on the decoupled profile — they are mostly the
+toggle. `sheets/three-way__*.png` is that sentence as a picture: 26.5 opaque with an outline, 27
+coupled opaque without one, 27 decoupled plainly translucent.
+
+**A bound is drafted**, not adopted (charter Decision Log 5; §5.152 §B §11). Every material row of
+the native-to-native distribution is inside the 26.5 increased-contrast allowance at its worst cell,
+which is true of no profile in Decision Log 4 (c) — including the decoupled profile of nearly this
+name, whose ΔE p95 the confound put over. The two things the user should weigh are in the draft.
 
 ## Files
 
 | file | what it is |
 | --- | --- |
+| **Part A** | |
 | `rehearsal.txt` | the rehearsal record, on the machine, with the toggles off |
 | `rehearse-coupled.sh` | what produced it; re-runnable, captures nothing |
 | `run-sitting-27.test.txt` | the stubbed-machine test's 36 rows as they ran |
+| **Part B** | |
+| `materialize-coupled.sh`, `materialize.txt` | the publication, two passes at seven runs each |
+| `add-coupled-caveat.py`, `caveat.txt` | the state-naming caveat and the decoupled profile's pointer, added beside what was already there |
+| `bar-declaration.md` | the bar's construction and the one thing a 32-cell bed changes about the rule — **committed before any 26.5 pair was read** |
+| `delta/noise-bar.json`, `bar-run.txt` | the per-cell 27-against-27 distribution the verdicts are stated against |
+| `delta/native-delta.json`, `delta/recede-delta.json`, `delta-run.txt` | the rows |
+| `delta/law-tables.txt` | the tables every verdict in §5.152 §B is read off |
+| `read-checks.py` / `.txt` | the nine things a table cannot answer, including the coupled-against-decoupled comparison and the fallback's own alternative |
+| `delta/sheets/` | 26.5 \| 27 coupled \| amplified difference (×8), four per profile and three per law |
+| `sheets/`, `three-way-sheet.py` | 26.5 \| 27 coupled \| 27 decoupled on one strip — the material and the toggle separated by eye |
 | `verify-output.txt`, `freeze-verify.txt` | lint, the workspace's tests, and the 26.5 freeze at 1,818 entries |
 
 The instruments themselves stay where the bed's instruments live —

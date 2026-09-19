@@ -1,8 +1,36 @@
-W29 G1c Part A — the checks, 2026-09-19, on the worktree branch.
+W29 G1c — the checks, 2026-09-19, on the worktree branch.
+
+## Part A (commit aba2f41d)
 
 $ bash packages/calibration/results/2026-09-18-w29-g1-bed/run-sitting-27.test.sh
   36 rows, all ok (27 at G1's close; the nine new and one reversed row are
   claims §5.152 §5). Full output in run-sitting-27.test.txt.
+
+## Part B
+
+$ bash results/2026-09-19-w29-g1c-coupled/materialize-coupled.sh --apply
+  32 cells over one new profile from 7 runs per pose: 28 unanimous, 4 voted,
+  0 frequency-settled, 0 refused, 0 omitted. Full output in materialize.txt.
+
+$ python3 results/2026-09-19-w29-g1c-coupled/add-coupled-caveat.py \
+    apps/reference-apple/fixtures/manifest.json --apply
+  two caveats added, neither replacing anything. Output in caveat.txt.
+
+$ npx tsx cli/native-delta.ts bar --passes increased-contrast-coupled-{active,inactive}-1x \
+    --fallback-bar results/2026-09-19-w29-g2-native-delta/noise-bar.json ...
+  32 cells barred. Output in bar-run.txt. Committed as 848713cf, which precedes
+  the commit that read a 26.5 pair.
+
+$ npx tsx cli/native-delta.ts delta --only <the coupled key> ...
+  32 pair rows, 10 recede rows, 0 cells only on 27, 0 pair cells with no bar;
+  115 of 115 measurable recede readings barred. Output in delta-run.txt.
+
+$ npx tsx cli/native-delta.ts tables --dir .../delta
+$ npx tsx cli/native-delta.ts sheets --dir .../delta --gain 8
+$ python3 results/2026-09-19-w29-g1c-coupled/three-way-sheet.py --scale 3
+$ python3 results/2026-09-19-w29-g1c-coupled/read-checks.py > read-checks.txt
+
+## Both parts
 
 $ pnpm --filter @vitrea/calibration lint
   eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json
@@ -19,7 +47,9 @@ $ pnpm -r test          (the whole workspace, since scenes.json is shared)
 
 $ python3 packages/calibration/results/2026-09-16-w29-freeze/freeze.py verify
   26.5 freeze intact: 1818 entries
+  — before publication, after publication, and at the close.
 
-Nothing was captured by this gate, and nothing was written under
-apps/reference-apple/fixtures/, packages/calibration/profiles/ or
-packages/calibration/results/matrix.json.
+No capture was taken by either part. Nothing was written under
+apps/reference-apple/fixtures/apple-macos-26.5-*/, fixtures/backgrounds/,
+packages/calibration/profiles/ or packages/calibration/results/matrix.json; no
+material, bound, floor or golden moved.
