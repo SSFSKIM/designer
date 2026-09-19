@@ -1,0 +1,7 @@
+capturing 162 fixtures via screencapturekit at 2.0x (interleaved)
+  [1/162] apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard-8__capsule-button__rest byte-stable
+  [2/162] apple-macos-27.0-2x-light-standard-glass0.5/mid-chroma-solid__capsule-button__rest-tint-orange byte-stable
+  ...
+CAVEAT: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-27.0-1x-light-increased-contrast-glass0.5, apple-macos-27.0-1x-light-reduced-transparency-glass0.5. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+CAVEAT: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-27.0-1x-dark-standard-glass0.5, apple-macos-27.0-1x-light-standard-glass0.5. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+CAVEAT: Narrowed by --scenes to 162 cells over 2 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root — publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.

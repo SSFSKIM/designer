@@ -1,0 +1,10 @@
+1. lines outside the manifest: recorded 1761, now 1761 — IDENTICAL
+
+2. 26.5 units inside the manifest: 44 checked, 0 moved, 0 lost
+
+3. 26.5 publication records: 13 before, 13 still hashed, dropped none, unexpected none
+
+The whole-file hash this replaces, recorded rather than discarded:
+   e17fd7dba402a91791c166137e716d535ff9b8d34c0e55afedb6ba4a8c0cf9ac  apps/reference-apple/fixtures/manifest.json
+
+VERDICT: the amendment loses nothing — every unit the whole-file hash covered about the 26.5 bed is still hashed, and still unchanged.

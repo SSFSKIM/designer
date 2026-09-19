@@ -1,0 +1,15 @@
+Permitted differences:
+  + profile apple-macos-27.0-1x-dark-standard-glass0.5 added: 117 cells
+  + profile apple-macos-27.0-1x-light-increased-contrast-glass0.5 added: 32 cells
+  + profile apple-macos-27.0-1x-light-reduced-transparency-glass0.5 added: 30 cells
+  + profile apple-macos-27.0-1x-light-standard-glass0.5 added: 164 cells
+  + profile apple-macos-27.0-2x-dark-standard-glass0.5 added: 117 cells
+  + profile apple-macos-27.0-2x-light-standard-glass0.5 added: 164 cells
+  + bedProvenance: 8 block(s) added, 13 kept
+
+Disallowed differences: 0
+
+Whole-file sha256 before: e17fd7dba402a91791c166137e716d535ff9b8d34c0e55afedb6ba4a8c0cf9ac
+Whole-file sha256 now:    076207c672ff255982676c622b87812bcd6044942059b13fafb4c9ed6212b10b
+
+VERDICT: the 26.5 half of the manifest is byte-identical; only the 27 bed was added.

@@ -1,10 +1,13 @@
-# W29 G1 — the macOS 27 bed, 2026-09-18
+# W29 G1 — the macOS 27 bed, 2026-09-18 and 2026-09-19
 
 The claims section is **c9a §5.150**; the charter is
-`docs/doperpowers/specs/2026-09-16-w29-os27-recapture.md`, child G1. This directory is Part A: the
-bed's infrastructure, proven against the real machine and the real granted bundle, with **no 27
-fixture filed**. Part B materialises the fixtures from the banked runs and is dispatched after the
-parent has run the sitting.
+`docs/doperpowers/specs/2026-09-16-w29-os27-recapture.md`, child G1, **closed 2026-09-19**.
+
+**Part A** built the bed's infrastructure against the real machine and the real granted bundle, with
+no fixture filed. **Part B** published it: the parent ran the sitting — eight passes, seven runs
+each, 56 runs, none quarantined — and `materialize` filed **624 cells over six
+`apple-macos-27.0-…-glass0.5` profiles with no shortfall and no refusal**. Nothing here reads a 27
+fixture against vitrea; that is G2.
 
 Raw captures stay on the machine — the SDK-pixel arm under `~/vitrea-w29-g0-scratch/sdk-pixel/`, the
 sitting's runs under `~/vitrea-w29-27-run/`. What is here is derived: the runbook, the records and
@@ -23,6 +26,16 @@ every script that produced them.
 | `plan.md`, `price-passes.py` | the eight passes re-priced off the committed 27 keys: 624 declared cells, 12.25 h at the seven-run bar, 15.9–30.6 h with attempt loss |
 | `bar-table.md`, `verify-bar-table.py` | clause 2's 26.5 bar per cell, independently re-derived and **confirming G0's on every figure** |
 | `sdk-pixel.json`, `sheets/sdk-pixel.png`, `harness-pixel-arm.sh`, `sdk-pixel-pairs.sh`, `sdk-pixel-sheet.py`, `audit.txt` | the harness half of the SDK-gating pixel arm, and the verdict: byte-identical, which closes G0's residual |
+| **Part B** | |
+| `sitting.md` | the sitting: every pass's wall clock, what the machine attested, every retry, every cell captured while the machine was in use, the publication and the counts |
+| `materialize-27.sh` | the publication, one invocation per pass at seven runs with `--frequency-settle` |
+| `provenance.json`, `provenance.py` | every run directory, its manifest's digest, its cell count, its timestamps and both its attestation digests |
+| `logs/`, `attest/` | the three driver logs, a head-and-tail of each of the 56 runs' own output, the pass scripts, and all 112 attestation reads |
+| `bed-counts.py`, `bed-counts.txt` | clause 2's counts per profile against 26.5, the shortfall list (empty), and disk-against-record both directions |
+| `idle-cells.py`, `idle-cells.md` | the ten cells captured under the 45 s idle bar and what decided each |
+| `manifest-delta.py`, `manifest-before.json` | the pre-publication snapshot and the proof that only the 27 bed was added to the shared manifest |
+| `freeze-amendment-proof.py`, `freeze-amendment-proof.txt` | the proof that decomposing the freeze's manifest hash loses nothing |
+| `add-a11y-caveat.py` | the caveat recording that macOS 27 decouples the two accessibility toggles |
 | `verify-output.txt` | the freeze verify, the lint and the test run, recorded at the commit |
 | `freeze-verify.txt` | the 26.5 freeze, re-verified after every capture this gate took |
 

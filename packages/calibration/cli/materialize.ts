@@ -37,7 +37,7 @@
  * count buys, because "deterministic" is only ever a claim about how hard anyone
  * looked.
  */
-import { copyFileSync, existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -87,6 +87,12 @@ interface RunSnapshot {
   readonly dir: string;
   /** `profileKey/sceneId` → the manifest entry that run recorded for it. */
   readonly entries: Map<string, Record<string, unknown>>;
+  /** `profileKey` → everything the run recorded about the profile except its cells. */
+  readonly profileBlocks: Map<string, Record<string, unknown>>;
+  /** The machine the run was taken on, as the capture itself recorded it. */
+  readonly hardware: Record<string, unknown>;
+  /** The run script's `attest.read`, or null where the run carries none. */
+  readonly attested: Readonly<Record<string, string>> | null;
   /** `background@Nx` → the path the run recorded for the raster it composited. */
   readonly backgrounds: Record<string, string>;
   /**
@@ -105,10 +111,20 @@ function loadRun(label: string, dir: string): RunSnapshot {
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as {
     profiles?: { profileKey?: string; fixtures?: { sceneId?: string }[] }[];
     backgrounds?: Record<string, string>;
-    hardware?: { osVersion?: string; osBuild?: string };
+    hardware?: Record<string, unknown>;
   };
   const entries = new Map<string, Record<string, unknown>>();
+  // The profile's own header — everything the run recorded about it except its
+  // cells. Carried because a bed's FIRST publication of a profile has nothing in
+  // the bundle to append to, and the only honest source for `colorScheme`,
+  // `a11yMode` and the `display` block is the run that captured it.
+  const profileBlocks = new Map<string, Record<string, unknown>>();
   for (const profile of manifest.profiles ?? []) {
+    if (typeof profile.profileKey === "string") {
+      const header = { ...(profile as Record<string, unknown>) };
+      delete header["fixtures"];
+      profileBlocks.set(profile.profileKey, header);
+    }
     for (const fixture of profile.fixtures ?? []) {
       entries.set(`${profile.profileKey}/${fixture.sceneId}`, fixture as Record<string, unknown>);
     }
@@ -125,6 +141,9 @@ function loadRun(label: string, dir: string): RunSnapshot {
     label,
     dir,
     entries,
+    profileBlocks,
+    hardware: manifest.hardware ?? {},
+    attested,
     backgrounds: manifest.backgrounds ?? {},
     provenance: {
       label,
@@ -512,6 +531,51 @@ function main(): void {
       backgroundsAdded.push(id);
     }
   }
+  /*
+   * A profile the bed has never held before.
+   *
+   * Until W29 this could not happen: every publication appended cells to one of
+   * the six profiles the 2026-08-30 bundle already declared, so `find` always hit
+   * and the `continue` below was unreachable. The macOS 27 bed is the first
+   * publication of six NEW keys, and on that path the old code copied every PNG
+   * in and then skipped the manifest silently — 624 fixtures on disk that the
+   * record does not describe, which is the one thing the manifest exists to make
+   * impossible. The header is taken from the runs rather than invented: the only
+   * honest source for `colorScheme`, `a11yMode` and the `display` block is the
+   * capture that measured them, and `display` in particular carries the backing
+   * scale the harness actually rendered at.
+   */
+  const created: string[] = [];
+  for (const key of new Set(publish.map((p) => p.profile))) {
+    if (manifest.profiles?.some((m) => m.profileKey === key) === true) continue;
+    const headers = runs
+      .map((run) => run.profileBlocks.get(key))
+      .filter((header): header is Record<string, unknown> => header !== undefined);
+    const first = headers[0];
+    if (first === undefined) {
+      throw new Error(
+        `${key}: no run's manifest describes this profile, so the bed cannot say what it is.`,
+      );
+    }
+    // Every run must describe it identically. A profile captured at two backing
+    // scales, or in two colour schemes, across the runs of one phase is not one
+    // profile, and publishing a plurality over it would pick a header by accident.
+    const disagreeing = headers.filter((h) => JSON.stringify(h) !== JSON.stringify(first));
+    if (disagreeing.length > 0) {
+      throw new Error(
+        `${key}: the runs describe this profile differently — ` +
+          `${JSON.stringify(first)} against ${JSON.stringify(disagreeing[0])}. ` +
+          `The runs are not comparable and their cells cannot share one profile entry.`,
+      );
+    }
+    (manifest.profiles ??= []).push({ ...first, fixtures: [] } as (typeof manifest.profiles)[number]);
+    // The directory too: the bundle files a profile's cells under its key
+    // verbatim, and a first publication has nowhere to copy them to.
+    mkdirSync(resolve(FIXTURES, key), { recursive: true });
+    created.push(key);
+  }
+  manifest.profiles?.sort((a, b) => (a.profileKey ?? "").localeCompare(b.profileKey ?? ""));
+
   for (const p of publish) {
     copyFileSync(p.from, resolve(FIXTURES, p.profile, `${p.scene}.png`));
     const profile = manifest.profiles?.find((m) => m.profileKey === p.profile);
@@ -532,6 +596,67 @@ function main(): void {
     else profile.fixtures[at] = entry;
     profile.fixtures.sort((a, b) => (a.sceneId ?? "").localeCompare(b.sceneId ?? ""));
   }
+  /*
+   * The machine each published profile was captured on, recorded ON THE PROFILE.
+   *
+   * The bundle's top-level `hardware` block is a single record for the whole
+   * bundle, written when every fixture in it came from one sitting on one
+   * operating system. That stopped being true when a second bed moved in beside
+   * the first: the 26.5 profiles were captured on macOS 26.5.2 build 25F84 and
+   * the 27 profiles on 27.0 build 26A428, and one block cannot say both. It is
+   * therefore left exactly as it is — it is frozen evidence about the bed it
+   * describes — and the second bed's record is added BESIDE it, per profile,
+   * which is also where a reader asking "what drew this fixture" looks.
+   *
+   * Two sources, and the difference between them matters. `hardware` is what the
+   * capture itself recorded through Foundation. `attestation` is what the run
+   * script read from the machine and from the binary and REFUSED on — the axes
+   * no manifest field carries: macOS 27's appearance slider, Show Borders, the
+   * display's mode, and the capturing bundle's own `LC_BUILD_VERSION`. Only the
+   * fields every run of the profile agrees on are recorded, because a value that
+   * moved between the runs is not a property of the bed; a disagreement on the
+   * machine itself is a refusal rather than a majority.
+   */
+  const publishedProfiles = [...new Set(publish.map((p) => p.profile))].sort();
+  for (const key of publishedProfiles) {
+    const contributing = runs.filter((run) => run.profileBlocks.has(key));
+    const entry = manifest.profiles?.find((m) => m.profileKey === key) as
+      | (Record<string, unknown> & { profileKey?: string })
+      | undefined;
+    if (entry === undefined) continue;
+    const hardware = contributing[0]?.hardware;
+    if (hardware !== undefined && Object.keys(hardware).length > 0) {
+      const odd = contributing.find(
+        (run) => JSON.stringify(run.hardware) !== JSON.stringify(hardware),
+      );
+      if (odd !== undefined) {
+        throw new Error(
+          `${key}: run ${odd.label} records a different machine from run ` +
+            `${contributing[0]?.label ?? "?"} — ${JSON.stringify(odd.hardware)} against ` +
+            `${JSON.stringify(hardware)}. A plurality across two machines is not a bed.`,
+        );
+      }
+      entry["hardware"] = hardware;
+    }
+    // Every field all the contributing runs' attestations agree on, minus the
+    // three that are per-run by construction: which phase wrote it, when, and
+    // which pass it belonged to (a profile is captured by two passes, one per
+    // pose, and both of them describe the same profile).
+    const attestations = contributing
+      .map((run) => run.attested)
+      .filter((read): read is Readonly<Record<string, string>> => read !== null);
+    if (attestations.length === contributing.length && attestations.length > 0) {
+      const first = attestations[0] as Readonly<Record<string, string>>;
+      const agreed: Record<string, string> = {};
+      for (const [field, value] of Object.entries(first)) {
+        if (field === "phase" || field === "readAt" || field === "pass") continue;
+        if (attestations.every((read) => read[field] === value)) agreed[field] = value;
+      }
+      agreed["runs"] = String(contributing.length);
+      entry["attestation"] = agreed;
+    }
+  }
+
   // The bed's own provenance. "Unanimous" is a claim about how hard anyone
   // looked, so the run count and what it buys travel with the bytes.
   const settledEntries = publish.filter((p) => p.entry["frequencySettled"] === true);
@@ -640,6 +765,7 @@ function main(): void {
       declaration.split[role] = (split[role] as readonly string[] | undefined) ?? [];
     }
   }
+  for (const key of created) process.stdout.write(`  profile ${key} is new to this bed\n`);
   for (const line of rerolled) process.stdout.write(`  re-rolled ${line}\n`);
   for (const id of backgroundsAdded.sort()) process.stdout.write(`  background ${id} added to the index\n`);
   writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);

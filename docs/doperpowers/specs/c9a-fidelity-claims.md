@@ -22355,3 +22355,132 @@ harness limitations are recorded rather than fixed, because fixing either means 
 granted bundle: it has no profile filter (§2 above), and `dump-layers` calls
 `refuseScenesUnreachableInPose` with `pose: .active` before it reads `--inactive` (§5.149 §7). Both
 belong in the tracker.
+
+### 5.150 Part B — the 27 bed published: 624 cells, no shortfall, no refusal (2026-09-19)
+
+**Gate: W29 G1 Part B, acceptance clause 2, contracts X1 and X2.** Evidence is
+`packages/calibration/results/2026-09-18-w29-g1-bed/`: `sitting.md` is the sitting's record,
+`provenance.json` names every run, `logs/` and `attest/` carry what the machine printed and what it
+attested, and `bed-counts.txt`, `idle-cells.md`, `manifest-before.json` and
+`freeze-amendment-proof.txt` are the checks below. The raw runs stay on the capture machine. **No
+27 fixture is read against vitrea here** — clause 2 forbids it in this child, and nothing about
+vitrea, the material, the profile documents or `results/matrix.json` moved.
+
+**1. The sitting.** Eight passes, seven runs each: **56 runs, 624 cells a round, none quarantined**,
+every run printing `attested N N`. The four standard passes ran 07:03:32Z–18:33:54Z on 2026-09-18
+(11 h 30 m with their rehearsals and the display switch); the four accessibility passes
+23:59:41Z–01:19:04Z into 2026-09-19 (1 h 19 m). **12 h 49 m of wall clock against `plan.md`'s
+12.25 h at the bar** — inside the 15.9–30.6 h attempt-loss band and near its floor, because the
+sitting lost almost nothing to retries. All 56 runs attested macOS 27.0 build 26A428,
+`NSGlassTintAmount` 0.5, Show Borders 0, the granted bundle `bd3092e8…`, one canonical declaration
+and one derived pass specification, with the display's mode matching the mode each pass's scale
+declared; **not one closing read drifted from its opening read**.
+
+**One refusal in the whole sitting, and it is the gate working.** The increased-contrast rehearsal
+was refused at 23:59:41Z for 19.9 s of HID idle — the operator's own hand on System Settings seconds
+earlier, flipping the toggle that pass needs. It presented 0 cells, the driver stopped on the
+**count** rather than on the exit status (which is why the runbook says to read the count), and the
+pass was restarted 43 s later and presented its 10.
+
+**2. Ten cells of 624 were captured while the machine was in use, and the plurality did its job.**
+Five in `standard-active-2x` run 6 and five in `increased-contrast-active-1x` run 4, at 1.9–41.2 s
+of idle. The harness gates idle once at a run's opening and per cell records it without refusing, so
+all ten attested `presentedActive`, `deterministic` and `materialRendered` and the question left is
+only whether the disturbed run's bytes were published. **Nine of the ten were unanimous across all
+seven runs** — the disturbance moved nothing. The tenth,
+`2x-dark-standard/checkerboard-64__rrect-md__rest` at **3.1 s** of idle, stood alone and was
+**outvoted 6–1**, so the bed published bytes no disturbed run produced. Named cell by cell in
+`sitting.md` and derived by `idle-cells.py`.
+
+**3. macOS 27 does not couple Reduce Transparency to Increase Contrast.** On 26.5, Increase Contrast
+force-enabled Reduce Transparency and the transparency checkbox could not be uncleared while
+contrast was on (user-verified 2026-08-29); the coupled state was the only reachable
+increased-contrast state, the 26.5 profile was captured in it, and the harness records that coupling
+as a profile caveat whenever it observes it. On 27 all seven increased-contrast runs attested
+`increaseContrast=1` with `reduceTransparency=0`, **the harness wrote no coupling note in any of the
+56 run manifests**, and the reduced-transparency passes attested the mirror image. The 27
+increased-contrast bed is therefore a *different state* from the 26.5 bed of the same name, and a
+difference between the two on that profile is confounded with the decoupling until they are
+separated. Recorded as a caveat on the two 27 accessibility profile entries, **beside the 26.5
+caveat and never over it** — the 26.5 caveat is true of the bed it describes and of the operating
+system that bed was captured on. The evidence under the caveat is an attestation rather than a note:
+both toggles are fields in each run's `attest.read` and are carried into the profile's published
+`attestation` block.
+
+**4. The publication.** One `materialize` invocation per pass, seven runs each, `--frequency-settle`.
+**624 cells: 505 unanimous, 110 voted, 9 frequency-settled, 0 refused, 0 state-ambiguous** — so no
+`--omit` ruling was needed and the bed has no holes. The nine settled cells are all in the two active
+standard passes, six at 6–1 and three at 5–2; seven of them are `rrect-lg` and six sit over an
+`hc-text` backdrop, which is **not** where the 26.5 bed's 103 settled cells sat (38 `capsule-button`,
+backdrops led by `checkerboard-4`). Recorded as an observation only: the two beds were settled at
+different bars and the populations are not comparable as they stand. The bed's provenance records
+**72.2 % confidence at a one-in-six minority** — the probe bar, not the freeze bar, which is why
+clause 4 adopts no 27 regression floor.
+
+**5. Counts, and no shortfall.** Per profile, declared / filed / what 26.5 holds: 1x-dark 117/117/115,
+1x-light-increased-contrast 32/32/32, 1x-light-reduced-transparency 30/30/30, 1x-light 164/164/164,
+2x-dark 117/117/114, 2x-light 164/164/164. **Every profile filed exactly what the declaration asked
+for, and the 27 bed is five cells larger than the 26.5 bed rather than smaller**, so clause 2's
+"shortfall named cell by cell" has nothing to name. The five extra are precisely the ones G0's
+`plan.md` named in advance as declared-but-never-published on 26.5 — the 27 sitting filled all five
+holes the 26.5 bed has, including `light-solid__capsule-button__inactive` on both dark profiles,
+which claims §5.148 §1 found the 26.5 publishing run passing over. A 27 cell with no 26.5
+counterpart is one **G2 reports rather than diffs**. `bed-counts.py` also checks what a count cannot
+— every PNG has a manifest entry, every entry a PNG, every `file` field pointing at the bytes beside
+it: **624 of 624, both directions, zero problems.**
+
+**6. The backdrops did not move.** All 32 background ids the 27 runs composited over are
+**byte-identical** to the rasters the 26.5 bundle indexes — 896 comparisons across the 56 runs, zero
+disagreements. The harness draws them with its own CoreGraphics generators and nothing guaranteed
+macOS 27 would rasterise them identically; had they moved, `materialize` would have refused the
+publication outright rather than filing cells under a backdrop they were not drawn on. So G2 reads
+27 against 26.5 over the **same backdrop bytes on both sides**, which is one confound it does not
+have to carry.
+
+**7. Two instruments had to change, and both changes are the finding.**
+
+*`materialize` could not publish a profile the bed had never held.* Until this gate every
+publication appended cells to one of the six profiles the 2026-08-30 bundle already declared, so the
+profile lookup always hit; on the new-key path the tool copied every PNG in and then **skipped the
+manifest silently** — 624 fixtures on disk that the record does not describe, which is the one thing
+the manifest exists to make impossible, and which nothing downstream would have caught because
+`compare` reads the manifest rather than the directory. It now creates the entry from the runs'
+own profile headers — `colorScheme`, `a11yMode` and the `display` block are measurements and the only
+honest source is the capture that measured them — and refuses when the runs describe the profile
+differently, because a profile captured at two backing scales across one phase's runs is not one
+profile. Six new rows in `test/materialize-new-profile.test.ts`.
+
+*One top-level `hardware` block cannot describe two beds.* The bundle's block reads macOS 26.5.2
+build 25F84 and is frozen evidence about the bed it describes. The 27 record is therefore written
+**per profile**, beside it: `hardware` as the capture recorded it through Foundation, and
+`attestation` as the run script read it from the machine and from the binary and refused on — the
+axes no manifest field carries (the appearance slider, Show Borders, the display's mode, the
+capturing bundle's own `LC_BUILD_VERSION`). Only fields every run of the profile agreed on are
+recorded; a disagreement on the machine itself is a refusal rather than a majority.
+
+**8. The freeze had to be amended, and the amendment proves itself.** `freeze.py` hashed
+`fixtures/manifest.json` as **one file**. That was right while the bundle held one bed and stopped
+being right the moment clause 2's 27 profiles were published, because the manifest is the file their
+entries have to go in: a whole-file hash cannot tell "the 26.5 bed moved" from "a second bed was
+added beside it", and after publication it can only ever report the first. It now hashes the manifest
+**per unit**, exactly as it already hashed the matrix per 26.5 row: each 26.5 profile entry, each
+top-level block, each `backgrounds` index pair, and each `bedProvenance` block whose profiles are all
+26.5. A 27 entry appended beside them changes nothing; a 26.5 entry that moves, or a provenance block
+dropped or rewritten, still fires.
+
+The superseded reading is recorded rather than discarded — the manifest's whole-file SHA-256
+immediately before publication was `e17fd7dba402a91791c166137e716d535ff9b8d34c0e55afedb6ba4a8c0cf9ac`
+— and the amendment is proved against it three ways (`freeze-amendment-proof.txt`): the **1,761**
+lines outside the manifest are byte-identical to the recorded list; the **44** 26.5 units inside the
+manifest all hash to what they hashed to before publication, none moved and none lost; and all
+**13** 26.5 publication records are still hashed, with none dropped. `manifest-delta.py` proves the
+same thing a second, independent way — by classifying every difference between the manifest and its
+pre-publication snapshot rather than by hashing — and reports **zero disallowed differences**: six 27
+profile entries added, eight `bedProvenance` blocks appended, and nothing else. `freeze.py verify`
+reads **1,818 entries intact**.
+
+**9. Not measured here.** No read of any 27 fixture against vitrea, no material, no 27 profile
+document, no bound, no floor, no matrix row, and no judgement about what 27 changed. The nine
+bistable cells are recorded and not explained. The `hardware.sdk` and `xcodeVersion` fields in the 27
+runs read `unknown`, which is the environment-derived field the tracker already carries (§5.149 §1);
+the binary's own `LC_BUILD_VERSION` is in each profile's `attestation` instead.
