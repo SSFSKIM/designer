@@ -27,6 +27,8 @@ import { dirname, join } from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 
+import { print } from "./print-patch.mjs";
+
 const here = dirname(fileURLToPath(import.meta.url));
 const documentPath = join(
   here,
@@ -37,26 +39,6 @@ const documentPath = join(
   "apple-macos-26.5-1x-dark-standard.json",
 );
 const modulePath = join(here, "..", "src", "dark-profile.ts");
-
-const IDENTIFIER = /^[A-Za-z_$][A-Za-z0-9_$]*$/;
-
-/**
- * Print one JSON value as TypeScript. Numeric arrays stay on one line because a
- * colour or an anchor triple is one leaf of the material and reads as one — the
- * patch type takes them as fixed-length tuples for the same reason.
- */
-function print(value, indent) {
-  if (Array.isArray(value)) return `[${value.map((entry) => print(entry, indent)).join(", ")}]`;
-  if (value !== null && typeof value === "object") {
-    const inner = `${indent}  `;
-    const lines = Object.entries(value).map(([key, entry]) => {
-      const name = IDENTIFIER.test(key) ? key : JSON.stringify(key);
-      return `${inner}${name}: ${print(entry, inner)},`;
-    });
-    return `{\n${lines.join("\n")}\n${indent}}`;
-  }
-  return JSON.stringify(value);
-}
 
 const profileDocument = JSON.parse(readFileSync(documentPath, "utf8"));
 

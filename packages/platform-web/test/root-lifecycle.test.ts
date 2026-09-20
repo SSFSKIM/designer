@@ -214,6 +214,11 @@ describe("a texture source with no pixels behind it", () => {
       analysis: "none",
       health: "demoted",
       demotionReason: "no-texture-supplied",
+      // Every resolved state names the material it drew from W29 G4 on, and the
+      // claim this exhaustive comparison makes is that the group's material is
+      // the ROOT's resolved one rather than a second answer — so it is read off
+      // the root rather than transcribed.
+      materialDocument: instance.material,
     });
   });
 
@@ -638,7 +643,21 @@ describe("a material profile the root cannot draw", () => {
    * caller left to hand the error to. The refusal has to happen at the call the
    * app made, and it has to happen before anything moves.
    */
-  const mixed = { backdropToneAnchorX: [0.1, 0.3, 0.7, 0.95] } as const;
+  /*
+   * Three knots, where the two rows it does not name have four.
+   *
+   * It was written the other way up — four knots over macOS 26.5's three-knot
+   * response — and W29 G4 turned it over, because W29 G3 fit macOS 27's level
+   * law at four knots (claims §5.153 §2 item 1) and G4 made that document the
+   * default, at which point a four-knot patch became one the root CAN draw and
+   * these five cases stopped testing a refusal at all. It has to be the shorter
+   * row rather than a longer one: `BackdropToneKnotRow` admits three knots or
+   * four and nothing else, so five is refused by the type system and never
+   * reaches the runtime guard this describes. The count is pinned in
+   * `color-scheme.test.ts`'s arity tripwire, which is where a future refit is
+   * told to come and move this line too.
+   */
+  const mixed = { backdropToneAnchorX: [0.1, 0.3, 0.95] } as const;
 
   it("is refused at the call, and does not displace the material already applied", () => {
     const instance = root();

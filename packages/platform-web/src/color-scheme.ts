@@ -2,10 +2,12 @@
  * Which colour scheme's material a root draws, and how that choice becomes a
  * material profile (W21 G3; the wave spec's "What ships" and Decision Log 1).
  *
- * The material is measured per colour scheme. Only one scheme's numbers can be
- * the renderer's defaults, and those are the light-standard profile's — so the
- * dark scheme ships as a patch (`darkMaterialProfile`) and this module is the
- * one place that decides when it applies.
+ * The material is measured per colour scheme, and a root draws one measured
+ * material document (`material-document.ts`) whose active half holds one patch
+ * per scheme. This module is the one place that decides which of the two
+ * applies; since W29 G4 it is handed the document rather than importing one, so
+ * that which macOS a page draws and which scheme it draws it in stay separate
+ * questions.
  *
  * Three settings, and the default is `"light"`: an existing host's material must
  * not move because it upgraded. `"dark"` is a host that has resolved its own
@@ -22,7 +24,10 @@
  * once.
  */
 
-import { darkMaterialProfile } from "./dark-profile";
+import {
+  DEFAULT_MATERIAL_PROFILE_DOCUMENT,
+  type GlassMaterialProfileDocument,
+} from "./material-document";
 import type { MediaMatcher, MediaQueryHandle } from "./media-policy";
 import type { RendererMaterialProfile } from "./renderer-bridge";
 
@@ -36,19 +41,25 @@ export type ResolvedColorScheme = "light" | "dark";
 export const COLOR_SCHEME_MEDIA_QUERY = "(prefers-color-scheme: dark)";
 
 /**
- * The base patch a resolved scheme selects.
+ * The base patch a resolved scheme selects, out of the document a root drew.
  *
- * `undefined` for light rather than an empty object, because that is what light
- * *is*: the light profile document is the identity with the renderer's defaults
- * (`identityWithRuntimeDefault`, pinned by calibration's `tuned-profiles.test.ts`),
- * so there is no light patch to ship and an empty one would be a second name for
- * "no patch". Everything downstream already takes `RendererMaterialProfile |
- * undefined`.
+ * `undefined` is a legitimate answer and not a missing one: an endpoint whose
+ * material IS the renderer's defaults ships no patch, which is exactly what the
+ * macOS 26.5 light endpoint is — that document is the identity with the runtime
+ * default (`identityWithRuntimeDefault`, pinned by calibration's
+ * `tuned-profiles.test.ts`). Everything downstream already takes
+ * `RendererMaterialProfile | undefined`.
+ *
+ * The document argument is what made "macOS 27 by default" a selection rather
+ * than a moved constant (W29 Decision Log 2): before it, this function reached
+ * for one shipped patch per scheme and the choice of material was a property of
+ * the build.
  */
 export function colorSchemeMaterialProfile(
   scheme: ResolvedColorScheme,
+  document: GlassMaterialProfileDocument = DEFAULT_MATERIAL_PROFILE_DOCUMENT,
 ): RendererMaterialProfile | undefined {
-  return scheme === "dark" ? darkMaterialProfile : undefined;
+  return document.active[scheme].patch;
 }
 
 type PatchRecord = Readonly<Record<string, unknown>>;
