@@ -11,12 +11,29 @@ that residual, render again. Every step is a measurement and the whole path is
 in `fit-log/`.
 
     python3 fit.py render <label> <profile> <renderer> <document> [--set S] [--scene a,b]
-    python3 fit.py table  <label> [--metric interiorMean]
+    python3 fit.py table  <label> [--metric interiorMean] [--with-holdout]
     python3 fit.py doc    <out.json> <base.json> <overrides.json>
 
 `render` refuses the same three things `read.sh` does — another capture process,
 an accessibility toggle that is not 0, a slider that is not the bed's 0.5 — and
 writes into `$VITREA_G3_SCRATCH`, never beside the canonical matrix.
+
+**The holdout drop, by construction (W30 G0 (f), claims §5.156 §4).** `cells()`
+below is the single place every reader built on this file gets its rows from,
+and it drops every row whose `fixtureSet` is `holdout` before returning, with
+the count and the scenes printed. X5 says the holdout is read once per frozen
+configuration and nothing is fitted after it, so a fit loop must not be able to
+put a holdout number in front of the person choosing constants — and until this
+wave that guarantee was `shadow-table.py`'s alone, while `fit.py table` printed
+every row in the label's scratch matrices and the recede half of W29 G3b held
+the contract by the operator passing `--set calibration` on every invocation.
+It held; it held by discipline rather than by construction, which is what the
+tracker's "the fit loop's holdout drop lives in one reader" records.
+
+`--with-holdout` is the deliberate exception, for the canonical read that IS
+allowed to see them. It has to be typed, per invocation, on a reader whose
+default refuses — which is the opposite of the old arrangement in the one way
+that matters.
 """
 from __future__ import annotations
 
@@ -134,10 +151,43 @@ def render(label: str, profile: str, renderer: str, document: Path, argv: list[s
     return matrix
 
 
-def readings(matrix: Path) -> list[dict]:
-    cells = json.loads(matrix.read_text())["cells"]
+HOLDOUT = "holdout"
+
+
+def cells(matrix: Path, with_holdout: bool = False) -> list[dict]:
+    """Every cell of one scratch matrix — MINUS the holdout rows (W30 G0 (f)).
+
+    THE FIT NEVER READS A HOLDOUT ROW.
+
+    X5: the holdout is read once per frozen configuration, at the canonical
+    read, and nothing is fitted after it. A fit loop that printed a holdout cell
+    would let it select a constant whether or not anybody meant it to, so the
+    drop is here — in the one function every reader built on this file gets its
+    rows from — rather than in each invocation's `--set` or `--scene` list,
+    where one mistyped list would undo it. A round whose scene list names a
+    holdout id still captures it; what this guarantees is that no number off
+    that capture reaches a human or a table.
+
+    The count and the scenes are printed rather than silently swallowed, so a
+    round that captured more than it meant to says so. `with_holdout` is the
+    deliberate exception for the canonical read, and it has to be typed.
+    """
+    everything = json.loads(matrix.read_text())["cells"]
+    if with_holdout:
+        return everything
+    dropped = [cell for cell in everything if cell.get("fixtureSet") == HOLDOUT]
+    if dropped:
+        print(f"# {len(dropped)} holdout row(s) in {matrix.name} and NOT read (X5):")
+        for profile, scene in sorted(
+            {(cell["key"]["profileKey"], cell["key"]["sceneId"]) for cell in dropped}
+        ):
+            print(f"#   {profile} {scene}")
+    return [cell for cell in everything if cell.get("fixtureSet") != HOLDOUT]
+
+
+def readings(matrix: Path, with_holdout: bool = False) -> list[dict]:
     rows = []
-    for cell in cells:
+    for cell in cells(matrix, with_holdout):
         material = cell.get("material") or {}
         at = lambda k: material[k]["value"] if isinstance(material.get(k), dict) else None
         scene = cell["key"]["sceneId"]
@@ -171,11 +221,11 @@ def readings(matrix: Path) -> list[dict]:
     return rows
 
 
-def table(label: str, metric: str = "interiorMean") -> None:
+def table(label: str, metric: str = "interiorMean", with_holdout: bool = False) -> None:
     run = SCRATCH / "fit-log" / label
     rows: list[dict] = []
     for matrix in sorted(run.glob("*.json")):
-        rows += readings(matrix)
+        rows += readings(matrix, with_holdout)
     rows = [r for r in rows if r.get(f"{metric}Native") is not None]
     rows.sort(key=lambda r: (r["profile"], r["state"] or "", r["x"] or 0, r["scene"]))
     print(f"{'profile':<50}{'state':<9}{'scene':<44}{'x':>7}{'N':>9}{'W':>9}{'W-N':>9}")
@@ -194,25 +244,35 @@ def table(label: str, metric: str = "interiorMean") -> None:
 
 
 def main() -> int:
-    verb = sys.argv[1]
+    # `--with-holdout` is read out of the argv before anything dispatches, so
+    # the verbs' own positional arguments keep their places and the flag can sit
+    # anywhere. It is the ONE way a holdout row reaches a reader here, and it
+    # has to be typed (W30 G0 (f)).
+    argv = [a for a in sys.argv[1:] if a != "--with-holdout"]
+    with_holdout = len(argv) != len(sys.argv) - 1
+    verb = argv[0]
     if verb == "doc":
-        out, base, overrides = (Path(a) for a in sys.argv[2:5])
+        out, base, overrides = (Path(a) for a in argv[1:4])
         print(make_doc(out, base, json.loads(overrides.read_text())))
     elif verb == "render":
-        label, profile, renderer, document = sys.argv[2:6]
-        print(render(label, profile, renderer, Path(document), sys.argv[6:]))
+        label, profile, renderer, document = argv[1:5]
+        print(render(label, profile, renderer, Path(document), argv[5:]))
     elif verb == "table":
-        table(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else "interiorMean")
+        table(argv[1], argv[2] if len(argv) > 2 else "interiorMean", with_holdout)
     elif verb == "merge":
         # Every matrix a label's renders wrote, as one file the referee can read.
         # The cells keep their own keys, so a merge can never fuse two rows.
-        out = Path(sys.argv[2])
-        cells: list[dict] = []
-        for source in sys.argv[3:]:
+        #
+        # Through `cells()` like every other reader: a merged file is a fit
+        # label's matrices under one name, and a holdout row that survives the
+        # merge is a holdout row in front of the referee.
+        out = Path(argv[1])
+        merged: list[dict] = []
+        for source in argv[2:]:
             for matrix in sorted((SCRATCH / "fit-log" / source).glob("*.json")):
-                cells += json.loads(matrix.read_text())["cells"]
-        out.write_text(json.dumps({"schemaVersion": 5, "cells": cells}))
-        print(f"{out} ({len(cells)} cells)")
+                merged += cells(matrix, with_holdout)
+        out.write_text(json.dumps({"schemaVersion": 5, "cells": merged}))
+        print(f"{out} ({len(merged)} cells)")
     else:
         raise SystemExit(__doc__)
     return 0

@@ -173,6 +173,9 @@ import {
   tintToneAdaptation as rendererTintToneAdaptation,
   withMaterialOverrides,
 } from "@vitrea/renderer-webgpu";
+import { createHash } from "node:crypto";
+import { readFileSync, readdirSync } from "node:fs";
+import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 /** IEC 61966-2-1, encode direction — the same spec constant both tiers restate. */
@@ -2800,5 +2803,145 @@ describe("the outer shadow's paint order (X7)", () => {
         insideCaster: false,
       }),
     ).toBe(1);
+  });
+});
+
+/**
+ * The CSS tier's own attenuation of the backdrop's structure, recorded as a
+ * measured residual before the operator that will move it (W30 G0 (d), claims
+ * §5.156 §3).
+ *
+ * Everything else in this file pins the two tiers to each other *through the
+ * profile* — one number rather than three, checked by arithmetic. This case is
+ * the other half and it cannot be checked by arithmetic: the CSS tier's single
+ * `backdrop-filter` cannot express a two-component kernel at all, so what it
+ * passes through the body is not a function of the profile that anyone can
+ * derive. It is a measurement, and until now it was one nobody had written down.
+ *
+ * The tracker's entry — "the two tiers miss the backdrop's structure in opposite
+ * directions, and the bed only ever showed one of them" — asks for exactly this:
+ * carry the CSS tier's attenuation into this file as a measured residual rather
+ * than discovering it at the fit. W30's scatter operator lands on the WebGPU
+ * tier and reaches the CSS tier only as a refitted scalar, and §5.154 §9 (c)
+ * records that a scalar refitted to carry a WebGPU operator can move a `dom` row
+ * the wrong way. This is the reading that makes that visible instead of silent.
+ *
+ * **It is a pin on committed evidence and it is MEANT to go red when the
+ * material moves.** The numbers are read off `results/matrix.json`'s macOS 27
+ * generation at the shipped documents, so they change exactly when a fit
+ * re-reads the bed — which is the event this exists to surface. When it fires
+ * after a sanctioned read, re-record it with the wave and the claims section
+ * that moved it, the way every recorded number in this repository moves.
+ */
+describe("the CSS tier's structure attenuation, measured (W30 G0 (d))", () => {
+  /**
+   * `interiorStdDevWeb / interiorStdDevNative` on `checkerboard__rrect-md__rest`,
+   * active, per profile per tier, at the macOS 27 documents 0.19.0 ships.
+   *
+   * The cell is the one §5.154 §9 (c) and the tracker both state the residual on:
+   * a 16 px checkerboard under a span-96 surface, in the gated sets on every
+   * profile. Recomputed from the matrix by
+   * `results/2026-09-20-w30-g0-cut/structure-cut.py`, not transcribed from the
+   * sheets — §5.156 §3 records that the sheet measurement and this metric
+   * disagree on that cell by an order of magnitude and in the residual's
+   * direction, because they are different masks over different spaces.
+   */
+  const RECORDED: Record<string, { webgpu: number; css: number }> = {
+    "apple-macos-27.0-1x-light-standard-glass0.5": { webgpu: 1.566985, css: 0.968105 },
+    "apple-macos-27.0-2x-light-standard-glass0.5": { webgpu: 0.425183, css: 0.3838 },
+    "apple-macos-27.0-1x-dark-standard-glass0.5": { webgpu: 0.748901, css: 0.355154 },
+    "apple-macos-27.0-2x-dark-standard-glass0.5": { webgpu: 0.637386, css: 0.25366 },
+    "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": {
+      webgpu: 0.817557,
+      css: 0.197627,
+    },
+    "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": {
+      webgpu: 0.969039,
+      css: 0.331926,
+    },
+  };
+
+  const PACKAGE_ROOT = resolve(import.meta.dirname, "..");
+  const CAPTURE = /materialProfile=(\S+) sha256:([0-9a-f]{12})/;
+  const SHIPPED = new Map(
+    readdirSync(resolve(PACKAGE_ROOT, "profiles"))
+      .filter((file) => file.endsWith(".json"))
+      .map((file) => [
+        `packages/calibration/profiles/${file}`,
+        createHash("sha256")
+          .update(readFileSync(resolve(PACKAGE_ROOT, "profiles", file)))
+          .digest("hex")
+          .slice(0, 12),
+      ]),
+  );
+
+  interface Row {
+    readonly key: { readonly profileKey: string; readonly sceneId: string;
+      readonly web: { readonly capturePath: string } };
+    readonly tier: string;
+    readonly state?: string;
+    readonly material?: Record<string, { readonly value: number } | string>;
+  }
+
+  const measured = new Map<string, number>();
+  for (const cell of (
+    JSON.parse(
+      readFileSync(resolve(PACKAGE_ROOT, "results", "matrix.json"), "utf8"),
+    ) as { cells: readonly Row[] }
+  ).cells) {
+    if (cell.key.sceneId !== "checkerboard__rrect-md__rest" || cell.state === "inactive") continue;
+    const clause = CAPTURE.exec(cell.key.web.capturePath);
+    if (clause === null || SHIPPED.get(clause[1] ?? "") !== clause[2]) continue;
+    const native = cell.material?.["interiorStdDevNative"];
+    const web = cell.material?.["interiorStdDevWeb"];
+    if (typeof native !== "object" || typeof web !== "object" || !(native.value > 0)) continue;
+    measured.set(
+      `${cell.key.profileKey}|${cell.tier === "texture" ? "webgpu" : "css"}`,
+      web.value / native.value,
+    );
+  }
+
+  it("reads the cell on every macOS 27 profile on both tiers", () => {
+    // Twelve readings. An absent one would make an expectation below vacuous,
+    // which is the failure a table of recorded numbers has that a fit does not.
+    for (const profile of Object.keys(RECORDED)) {
+      for (const tier of ["webgpu", "css"]) {
+        expect(measured.has(`${profile}|${tier}`), `${profile} / ${tier}: no row`).toBe(true);
+      }
+    }
+  });
+
+  for (const [profile, recorded] of Object.entries(RECORDED)) {
+    it(`records what each tier passes on ${profile}`, () => {
+      expect(
+        measured.get(`${profile}|webgpu`),
+        `${profile} WebGPU structure ratio moved — re-record with the section that moved it`,
+      ).toBeCloseTo(recorded.webgpu, 5);
+      expect(
+        measured.get(`${profile}|css`),
+        `${profile} CSS structure ratio moved — re-record with the section that moved it`,
+      ).toBeCloseTo(recorded.css, 5);
+    });
+  }
+
+  it("keeps the two tiers' residuals apart, and on opposite sides in the light scheme", () => {
+    /*
+     * The reading the operator must not lose, stated as a relation rather than
+     * as two numbers so that it survives a re-record. On 1x light the WebGPU
+     * tier passes MORE of the checker than Apple does and the CSS tier passes
+     * about as much; on 1x dark both pass less and the CSS tier passes less than
+     * half what the WebGPU tier does. A scalar refitted on the WebGPU tier's
+     * light residual moves the CSS tier's `dom` rows the wrong way on three of
+     * these four beds, which is why the two `ssimMean` rows W30 claims are
+     * declared the SHADOW's and not the scatter's (§5.156 §7 (c)).
+     */
+    const light = "apple-macos-27.0-1x-light-standard-glass0.5";
+    const dark = "apple-macos-27.0-1x-dark-standard-glass0.5";
+    expect(measured.get(`${light}|webgpu`)).toBeGreaterThan(1);
+    expect(measured.get(`${light}|css`)).toBeLessThan(measured.get(`${light}|webgpu`) as number);
+    expect(measured.get(`${dark}|webgpu`)).toBeLessThan(1);
+    expect(measured.get(`${dark}|css`)).toBeLessThan(
+      (measured.get(`${dark}|webgpu`) as number) / 2,
+    );
   });
 });

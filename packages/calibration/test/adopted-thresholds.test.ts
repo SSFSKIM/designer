@@ -3241,3 +3241,60 @@ describe("the stack overlay bound (W27f G2, claims §5.135)", () => {
     expect(s4?.ruling).toContain("CSS bistability stays a named residual");
   });
 });
+
+/**
+ * W30 G0 (a), acceptance clause 1 — the frozen bed's own count, pinned across
+ * the exemption.
+ *
+ * `atAShippedDocument` above keeps only the rows whose `capturePath` names a
+ * profile document whose BYTES are the bytes on disk. That is a strength
+ * everywhere else in this file and it is a hazard for exactly one commit: W30 G2
+ * spends the wave's single X1 exemption by adding leaves to the renderer's
+ * default, which moves every document's resolved digest, and the obvious way to
+ * record that move — re-recording the digest inside the two frozen macOS 26.5
+ * documents — would change those documents' bytes. `SHIPPED_DOCUMENT_HASHES`
+ * would then no longer hold the hashes the 1,107 macOS 26.5 rows name, the
+ * partition would drop all of them, and **every bound, floor, partition count and
+ * conditioning exclusion stated over the macOS 26.5 bed would pass vacuously.**
+ * No assertion in this file says "over a non-empty set" often enough to catch
+ * that; a bed that silently empties does not look like a failure.
+ *
+ * So the count is pinned. It is stated over the matrix FILE rather than over
+ * `MATRIX`, because the probe and inactive drops are a different question and
+ * this one is only about the document partition. The number is the freeze's own:
+ * `results/2026-09-16-w29-freeze/sha256.txt` carries one row hash per macOS
+ * 26.5-keyed row of the canonical matrix and there are 1,107 of them, so a
+ * disagreement here is either a document whose bytes moved or a row that left
+ * the matrix, and both are X1 events.
+ *
+ * It is a pin rather than a floor: if a later wave legitimately re-reads the
+ * macOS 26.5 bed the number moves WITH the freeze and both are re-recorded
+ * together, which is the event this exists to make visible rather than
+ * impossible.
+ */
+describe("the frozen macOS 26.5 bed survives the document partition (W30 G0, X1)", () => {
+  const FROZEN = MATRIX_FILE.cells.filter((cell) =>
+    cell.key.profileKey.startsWith("apple-macos-26.5-"),
+  );
+
+  it("keeps all 1,107 macOS 26.5 rows at documents whose bytes are on disk", () => {
+    expect(FROZEN.length).toBe(1107);
+    expect(FROZEN.filter(atAShippedDocument).length).toBe(1107);
+  });
+
+  it("names the two frozen documents and nothing else", () => {
+    // The partition passes on a hash match, so the thing worth asserting beside
+    // the count is WHICH documents the frozen rows were captured at: two, both
+    // macOS 26.5, the pair the freeze holds. A macOS 26.5 row captured at some
+    // other document would pass the count above and still not be the frozen bed.
+    const named = new Set(
+      FROZEN.map(
+        (cell) => /materialProfile=(\S+) sha256:/.exec(cell.key.web.capturePath)?.[1] ?? "none",
+      ),
+    );
+    expect([...named].sort()).toEqual([
+      "packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json",
+      "packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json",
+    ]);
+  });
+});

@@ -1,0 +1,27 @@
+W30 G0 (f) — the holdout drop, by construction
+============================================================================
+
+A scratch matrix of three cells, one of them `checkerboard__rrect-lg__rest` at
+fixtureSet `holdout` — the row the drop exists for. Every reader built on
+`fit.py`'s `cells()` is run over it, with and without the flag.
+
+--- fit.py table
+    on the table, default:  holdout scene ABSENT
+    drop notice:            present, count 1
+    notice names the row:   yes
+    a kept row IS printed:  yes
+    with --with-holdout:    holdout scene reaches the table
+
+--- shadow-table.py
+    on the table, default:  holdout scene ABSENT
+    drop notice:            present, count 1
+    notice names the row:   yes
+    a kept row IS printed:  yes
+    with --with-holdout:    holdout scene reaches the table
+
+--- fit.py merge
+    default:          ['checkerboard__rrect-md__rest', 'photo__rrect-md__rest']
+    --with-holdout:   ['checkerboard__rrect-lg__rest', 'checkerboard__rrect-md__rest', 'photo__rrect-md__rest']
+
+OK — no reader yields a holdout number without the flag, and every reader
+     yields one with it.

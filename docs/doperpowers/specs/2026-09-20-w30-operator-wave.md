@@ -525,7 +525,7 @@ and the impulse specular point (tracker); the slider's ends as evidence classes.
 
 | Child | Status | Claims section | Evidence |
 | --- | --- | --- | --- |
-| G0 | not dispatched | §5.156 | `results/2026-09-20-w30-g0-cut/` |
+| G0 | **CLOSED 2026-09-20.** The pre-wave resolved macOS 26.5 materials on disk before a leaf exists, at the pinned `b2b570e4adcea8fb` / `874be66ea501621b`, with the identity test (empty `W30_OPERATOR_LEAVES`, green) and the 1,107 gated-row pin. Nothing under the freeze touched; `freeze.py verify` intact at 1,818 at open and close. **The shadow cut**: the thick regime's line and its CSS-px scale invariance confirmed (ratio 1.021 light / 1.017 dark over 66 cell pairs), the thin regime's device-px reading **refuted** — neither 1.00 nor 0.50, the (amplitude, σ) pair trades at constant product, and the thin σ bifurcates on the author's TINT — so the floor is CSS px with its value **declared unfitted**. The σ law named: `σ = sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan · (span − sigmaSpanRefPx))`, three leaves, every inert default 0, the knee derived. **The structure cut**: the tables cannot choose between (i) and (ii) and G2 lands the spanning set; the scheme-conditioned leaf named under both; `sizeToneLevelFar` declined. The CSS tier's attenuation carried into `tier-coherence.test.ts` as twelve recorded readings plus the relation they encode. The holdout drop moved into `fit.py`'s `cells()`, exercised by a check that builds a matrix containing a holdout row. Declarations committed before G2 opens | §5.156 | `results/2026-09-20-w30-g0-cut/` |
 | G1 | **CLOSED 2026-09-20** — the split executed: `results/matrix.json` 2,017 rows / 72,102,187 B → **1,562 rows / 55,768,930 B**, W29 G3's generation moved byte for byte to `results/superseded/fa872c683f3e.json` (343) and `96b36eedf1c4.json` (112), named by the ACTIVE document's hash with `index.json` the lookup; no macOS 26.5 row moved and their order holds; append-check 6/6 PASS including a full reconstruction to the pre-split digest; `freeze.py verify` intact at 1,818; the demo's `capturedAt` tie-break retired, `atAShippedDocument` kept as the edited-document guard, `vibrancy.ts` given a digest lineage beside the old; chain green and `pnpm --filter demo build` green (main chunk 39,062.53 → 30,272.52 kB) | §5.157 | `results/2026-09-20-w30-g1-split/`, `results/superseded/` |
 | G2 | not dispatched | §5.158 | `results/2026-09-20-w30-g2-leaves/` |
 | G3 | not dispatched | §5.159 | `results/2026-09-20-w30-g3-operators/` |
@@ -563,6 +563,46 @@ opens:
 
 ## Surprises & Discoveries
 
+- **The macOS 27 generation of `results/matrix.json` carries no probe row at all** (G0, claims
+  §5.156 §3). The canonical read is calibration + validation, then holdout; the pitch ladder is
+  entirely probe; so the ladder — the row set this wave's scatter is fitted on — has **no committed
+  macOS 27 web reading**. 260 calibration + 62 validation + 123 holdout, and zero probe, against the
+  macOS 26.5 generation's 662. §5.153 §6's per-pitch figures came off G3's scratch matrices, which
+  were never committed. The Grounding's "each of the four macOS 27 standard profiles carries 45
+  pitch-ladder fixtures — every one of them probe" is true of the fixture bundle and is what made
+  the operator look fittable from committed evidence; it is not true of the matrix. **Consequence
+  for G4**: the canonical read should include `--set probe` for the macOS 27 generation, or the wave
+  closes with the operator fitted on a ladder and its verdict recorded on a bed carrying no rung of
+  it. That is about 180 rows per profile-tier beyond the 455 and is the parent's to rule. It is also
+  what makes `sizeToneLevelFar` and the scatter's shape unfittable from committed evidence today,
+  which is three consequences of one cause.
+- **The σ law does not only shrink the padding; at span 160 it grows it by 37 %** (G0, claims
+  §5.156 §2). The Risks list carries "the padding shrinks at thin spans, the direction that can
+  expose a sampling floor", which is right at spans 32 and 44 (−36 % and −41 %) and backwards at the
+  top: `outerShadowReachPx` goes 31.88 → 43.80 CSS px at span 160 and 29.86 → 33.52 at 128, because
+  the shipped σ is **too NARROW by a third** at spans 128 and above. §5.154 §4's "too wide" is only
+  the thin half of a two-sided miss and the wide half had never been stated. X8's "padding is
+  touched deliberately" therefore has a cost on a facet already at 3.2× the frame's GPU time, and a
+  question for the group clip, which takes the max over members.
+- **§5.154 §4's "nearly constant in DEVICE px" is the wrong way round, and the thin regime is the
+  instrument** (G0, claims §5.156 §2). The reading it quotes is real and reproduces; the
+  interpretation is not: σ_css(2x)/σ_css(1x) = 2.13 means σ in device px goes 1.84 → 7.84, which is
+  four times. Neither hypothesis holds in the thin regime (ratio 1.44 light, 1.88 dark). What does
+  hold is that the reader's (amplitude, σ) pair trades at a nearly constant product there while both
+  factors are separately scale-invariant at 96–160, and that the thin σ **bifurcates on the author's
+  tint** — untinted cells read a ratio of 1.86–2.57 and their tinted siblings 0.51–0.56 on the same
+  geometry. So the Design's "the floor expressed in device px if G0's cut confirms the thin regime
+  is nearly constant there" resolves to **CSS px with an unfitted value**, and the law needs no dpr
+  argument at all, which is one mirror fewer for the CSS tier to keep.
+- **The instrument returns no σ on `toolbar-group`, and `glass-over-glass` is not a mixed-span
+  reading** (G0, claims §5.156 §2). The charter asks what one σ per cell means on a mixed-span
+  composite. On `toolbar-group` it means nothing: seven active rows, `shadowFalloffSigmaPx` null on
+  every one, in both families — the silhouette is fenestrated and the monotone profile the model
+  needs does not exist. On `glass-over-glass` the 120×56 overlay lies wholly inside the 220×130 base
+  and never reaches the measured exterior, so the reading is the base's alone and is a clean span-130
+  one. **All six of those cells are holdout**, so span 130 has no cell any fit may see and the law's
+  value there is an extrapolation — which matters, because one of the two `ssimMean` rows this wave
+  claims is at span 130.
 - **The frozen documents' bytes are an input to every bound** (found by the charter's review):
   `adopted-thresholds.test.ts` hashes the profile files on disk and keeps only rows captured at those
   bytes, so the first draft's "re-record the digest in place" would have silently retired the macOS
@@ -572,6 +612,23 @@ opens:
 
 ## Revision Notes
 
+- 2026-09-20 (G0): **G0 closed** under claims §5.156; six commits, each its own clause. Nothing
+  under `results/2026-09-16-w29-freeze/` was touched — v1's exemption reader stays withdrawn and
+  `freeze.py verify` reads 1,818 intact at this child's open and close. Four Surprises recorded
+  above, and three of them change what later children can do:
+  - **The scatter's shape is not decidable from committed evidence**, because the macOS 27 bed
+    carries no probe row. G2 lands the **spanning set** per Decision Log 1 (b), and the parent has a
+    decision on whether G4's canonical read includes the probe set. G0's tables do fix everything
+    the spanning set needs to be written: the scheme-conditioned leaf under either shape, its inert
+    default, and the per-source statistic candidate (ii) would key on (`stats` is `[encoded mean,
+    linear variance, edge density, sample count]` per source, already computed in the analysis pass).
+  - **The σ law's floor is CSS px and its value is declared unfitted**, which resolves the Design's
+    open "device px or CSS px" in the second direction and for a measured reason.
+  - **The padding grows at the large spans**, so X8's recomputation at G3 is not only a shrink.
+  Two readings recorded beside existing ones rather than over them: §5.154 §4's span-32 column is
+  carried by a runaway fit (4.06 over four cells, 2.63 over the three that converge), and its
+  thin-span "bed-wide median disagrees with the quoted cell" is explained — the quoted 1.84 is the
+  untinted median and the 1.52 was pulled down by cells whose fit had collapsed.
 - 2026-09-20 (G1): **the generation split executed** (claims §5.157; evidence
   `results/2026-09-20-w30-g1-split/`, layout `results/superseded/`). The working file holds one
   generation per profile — 1,107 macOS 26.5 rows unchanged and in their order, 455 macOS 27 rows at

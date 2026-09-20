@@ -1,0 +1,422 @@
+W30 G0 (b) — the shadow cut: macOS 27's falloff σ per span, per scale, per scheme
+============================================================================================================
+
+Source: results/2026-09-19-w29-g3b-shadow-recede/native-delta.json,
+        readings.shadowFalloffSigmaPx[1] / row scale — claims §5.154 §4's correction.
+Spans:  the declared component's shorter side, from apps/reference-apple/scenes.json.
+        rrect-sm=32  capsule-button=44  toolbar-group=44  rrect-48=48  rrect-64=64  rrect-80=80  rrect-md=96  rrect-md-clear20=96  rrect-ml=128  glass-over-glass=130  rrect-lg=160
+Cells:  ACTIVE pose only. Every figure is `median [min–max] (n)`, median = sorted[n//2],
+        the upper middle order statistic law-tables.txt uses and §5.154 §4's medians are.
+
+§0. The non-converged fits, excluded by the rule σ_css > span
+------------------------------------------------------------------------------------------------------------
+  245 cells kept, 10 excluded of 255 active
+  cells that resolve a σ at all. Every exclusion, named:
+    σ   157.71 CSS px at span  32  1x light                             hc-text__rrect-sm__rest                            probe
+    σ    74.31 CSS px at span  44  1x dark                              checkerboard-64__capsule-button__rest              probe
+    σ    74.31 CSS px at span  44  1x dark                              checkerboard-64__capsule-button__rest-tint-orange  probe
+    σ    74.31 CSS px at span  44  1x light                             checkerboard-64__capsule-button__rest              probe
+    σ    74.31 CSS px at span  44  1x light                             checkerboard-64__capsule-button__rest-tint-orange  probe
+    σ    73.82 CSS px at span  44  2x dark                              checkerboard-64__capsule-button__rest              probe
+    σ    73.82 CSS px at span  44  2x dark                              checkerboard-64__capsule-button__rest-tint-orange  probe
+    σ    73.82 CSS px at span  44  2x light                             checkerboard-64__capsule-button__rest              probe
+    σ    73.58 CSS px at span  44  2x light                             checkerboard-64__capsule-button__rest-tint-orange  probe
+    σ    38.99 CSS px at span  32  2x light                             hc-text-7__rrect-sm__rest                          probe
+
+  These are §5.154 §4's own two populations — the 74.3 readings are the four
+  `checkerboard-64__capsule-button` cells (a 64 px pitch under a 44 px caster: the
+  ring means oscillate with the backdrop and the search leaves the material), and
+  157.7 is `hc-text__rrect-sm__rest` on 1x light. Both are probe rows; no gated cell
+  is excluded by the rule at any span, which is worth stating because it means the
+  rule costs the acceptance nothing.
+
+§1. The gated sets (calibration + validation + holdout + recorded)
+------------------------------------------------------------------------------------------------------------
+  bed                                                     32                    44                    96                   128                   130                   160
+  1x dark                                                  —   1.70 [ 1.52–  1.92] ( 6)   9.04 [ 8.87–  9.04] ( 2)                     —  13.42 [13.42– 13.42] ( 1)  17.38 [17.38– 17.38] ( 1)
+  2x dark                                                  —   2.85 [ 2.17–  4.17] ( 6)   9.38 [ 9.36–  9.38] ( 2)                     —  13.74 [13.74– 13.74] ( 1)  17.62 [17.62– 17.62] ( 1)
+  1x light                                                 —   1.52 [ 1.11–  3.77] (14)   8.73 [ 7.93–  9.02] ( 7)  13.10 [12.92– 13.17] ( 3)  13.36 [13.25– 13.36] ( 2)  17.06 [16.97– 17.30] ( 3)
+  2x light                               2.08 [ 2.08–  2.08] ( 1)   1.93 [ 0.57–  9.70] (14)   9.32 [ 8.31–  9.39] ( 7)  13.28 [13.22– 13.32] ( 3)  13.58 [13.53– 13.58] ( 2)  17.34 [17.29– 17.59] ( 3)
+  1x light-increased-contrast                              —   1.52 [ 1.24–  3.89] ( 6)   8.80 [ 8.57–  8.80] ( 2)                     —                     —  16.97 [16.97– 16.97] ( 1)
+  1x light-increased-contrast-coupled                      —   1.50 [ 1.16–  2.29] ( 6)   8.59 [ 8.50–  8.59] ( 2)                     —                     —  16.97 [16.97– 16.97] ( 1)
+  1x light-reduced-transparency                            —   1.50 [ 1.39–  2.30] ( 5)   8.59 [ 8.50–  8.59] ( 2)                     —                     —  16.97 [16.97– 16.97] ( 1)
+
+§2. The probe ladder
+------------------------------------------------------------------------------------------------------------
+  bed                                                     32                    44                    96                   128                   130                   160
+  1x dark                                2.05 [ 1.63–  3.54] ( 3)   1.49 [ 1.42–  1.54] ( 6)   8.87 [ 8.48– 11.72] ( 8)  13.19 [13.18– 13.67] ( 5)                     —  17.46 [16.16– 18.78] (10)
+  2x dark                                1.89 [ 1.73–  8.40] ( 7)   2.78 [ 1.05–  2.87] ( 6)   9.38 [ 9.17– 12.51] ( 8)  13.42 [13.41– 13.74] ( 5)                     —  17.68 [16.46– 18.97] (10)
+  1x light                               2.63 [ 1.69–  4.06] ( 3)   1.42 [ 1.13–  2.05] ( 6)   8.80 [ 8.39– 12.13] ( 9)  13.14 [12.95– 13.53] ( 5)                     —  17.36 [16.57– 18.72] (10)
+  2x light                               2.38 [ 1.86–  9.50] ( 6)   1.09 [ 0.62–  4.06] ( 9)   9.37 [ 9.24– 12.86] ( 9)  13.30 [13.15– 13.67] ( 5)                     —  17.59 [16.72– 19.00] (10)
+  1x light-increased-contrast                              —                     —                     —                     —                     —                     —
+  1x light-increased-contrast-coupled                      —                     —                     —                     —                     —                     —
+  1x light-reduced-transparency                            —                     —                     —                     —                     —                     —
+
+§3. Both, pooled — the bed as §5.154 §4 read it
+------------------------------------------------------------------------------------------------------------
+  bed                                                     32                    44                    96                   128                   130                   160
+  1x dark                                2.05 [ 1.63–  3.54] ( 3)   1.54 [ 1.42–  1.92] (12)   8.87 [ 8.48– 11.72] (10)  13.19 [13.18– 13.67] ( 5)  13.42 [13.42– 13.42] ( 1)  17.45 [16.16– 18.78] (11)
+  2x dark                                1.89 [ 1.73–  8.40] ( 7)   2.78 [ 1.05–  4.17] (12)   9.38 [ 9.17– 12.51] (10)  13.42 [13.41– 13.74] ( 5)  13.74 [13.74– 13.74] ( 1)  17.68 [16.46– 18.97] (11)
+  1x light                               2.63 [ 1.69–  4.06] ( 3)   1.52 [ 1.11–  3.77] (20)   8.80 [ 7.93– 12.13] (16)  13.14 [12.92– 13.53] ( 8)  13.36 [13.25– 13.36] ( 2)  17.30 [16.57– 18.72] (13)
+  2x light                               2.11 [ 1.86–  9.50] ( 7)   1.58 [ 0.57–  9.70] (23)   9.36 [ 8.31– 12.86] (16)  13.30 [13.15– 13.67] ( 8)  13.58 [13.53– 13.58] ( 2)  17.58 [16.72– 19.00] (13)
+  1x light-increased-contrast                              —   1.52 [ 1.24–  3.89] ( 6)   8.80 [ 8.57–  8.80] ( 2)                     —                     —  16.97 [16.97– 16.97] ( 1)
+  1x light-increased-contrast-coupled                      —   1.50 [ 1.16–  2.29] ( 6)   8.59 [ 8.50–  8.59] ( 2)                     —                     —  16.97 [16.97– 16.97] ( 1)
+  1x light-reduced-transparency                            —   1.50 [ 1.39–  2.30] ( 5)   8.59 [ 8.50–  8.59] ( 2)                     —                     —  16.97 [16.97– 16.97] ( 1)
+
+§4. Per backdrop class, pooled over the gated sets and the probe ladder together
+------------------------------------------------------------------------------------------------------------
+  1x dark
+    backdrop                            32                    44                    96                   128                   130                   160
+    checker 4 px                         —   1.42 [ 1.42–  1.42] ( 2)   8.87 [ 8.87–  8.87] ( 1)  13.19 [13.19– 13.19] ( 1)                     —  17.46 [17.46– 17.46] ( 1)
+    checker 8 px                         —   1.49 [ 1.49–  1.49] ( 2)   8.87 [ 8.87–  8.87] ( 1)  13.19 [13.19– 13.19] ( 1)                     —  17.46 [17.46– 17.46] ( 1)
+    checker 16 px                        —   1.52 [ 1.52–  1.52] ( 2)   8.87 [ 8.87–  8.87] ( 1)                     —  13.42 [13.42– 13.42] ( 1)                     —
+    checker 16 px lc                     —                     —   8.94 [ 8.94–  8.94] ( 1)  13.29 [13.29– 13.29] ( 1)                     —  17.56 [17.56– 17.56] ( 1)
+    checker 32 px                        —   1.54 [ 1.54–  1.54] ( 2)   8.87 [ 8.87–  8.87] ( 1)  13.18 [13.18– 13.18] ( 1)                     —  17.45 [17.45– 17.45] ( 1)
+    checker 64 px      3.54 [ 3.54–  3.54] ( 1)                     —   8.48 [ 8.48–  8.48] ( 1)  13.67 [13.67– 13.67] ( 1)                     —  16.16 [16.16– 16.16] ( 1)
+    photo photo                          —   1.70 [ 1.70–  1.70] ( 3)   9.04 [ 9.04–  9.04] ( 1)                     —                     —  17.38 [17.38– 17.38] ( 1)
+    solid light                          —                     —                     —                     —                     —  17.43 [17.43– 17.43] ( 1)
+    solid mid-dark                       —   1.92 [ 1.92–  1.92] ( 1)   8.63 [ 8.63–  8.63] ( 1)                     —                     —  17.66 [17.66– 17.66] ( 1)
+    hc-text 7 px       1.63 [ 1.63–  1.63] ( 1)                     —  10.51 [10.51– 10.51] ( 1)                     —                     —  17.15 [17.15– 17.15] ( 1)
+    hc-text 14 px                        —                     —                     —                     —                     —  16.75 [16.75– 16.75] ( 1)
+    hc-text 28 px      2.05 [ 2.05–  2.05] ( 1)                     —  11.72 [11.72– 11.72] ( 1)                     —                     —  18.78 [18.78– 18.78] ( 1)
+
+  2x dark
+    backdrop                            32                    44                    96                   128                   130                   160
+    checker 4 px       1.73 [ 1.73–  1.73] ( 1)   2.67 [ 2.67–  2.67] ( 2)   9.38 [ 9.38–  9.38] ( 1)  13.42 [13.42– 13.42] ( 1)                     —  17.68 [17.68– 17.68] ( 1)
+    checker 8 px       1.76 [ 1.76–  1.76] ( 1)   2.78 [ 2.78–  2.78] ( 1)   9.38 [ 9.38–  9.38] ( 1)  13.42 [13.42– 13.42] ( 1)                     —  17.68 [17.68– 17.68] ( 1)
+    checker 16 px                        —   2.85 [ 2.85–  2.85] ( 2)   9.38 [ 9.38–  9.38] ( 1)                     —  13.74 [13.74– 13.74] ( 1)                     —
+    checker 16 px lc                     —   1.05 [ 1.05–  1.05] ( 1)   9.38 [ 9.38–  9.38] ( 1)  13.49 [13.49– 13.49] ( 1)                     —  17.77 [17.77– 17.77] ( 1)
+    checker 32 px      1.77 [ 1.77–  1.77] ( 1)   2.87 [ 2.87–  2.87] ( 2)   9.38 [ 9.38–  9.38] ( 1)  13.41 [13.41– 13.41] ( 1)                     —  17.68 [17.68– 17.68] ( 1)
+    checker 64 px      7.64 [ 7.64–  7.64] ( 1)                     —   9.34 [ 9.34–  9.34] ( 1)  13.74 [13.74– 13.74] ( 1)                     —  16.46 [16.46– 16.46] ( 1)
+    photo photo                          —   2.17 [ 2.17–  2.17] ( 3)   9.36 [ 9.36–  9.36] ( 1)                     —                     —  17.62 [17.62– 17.62] ( 1)
+    solid light        1.89 [ 1.89–  1.89] ( 1)                     —                     —                     —                     —  17.76 [17.76– 17.76] ( 1)
+    solid mid-dark                       —   4.17 [ 4.17–  4.17] ( 1)   9.17 [ 9.17–  9.17] ( 1)                     —                     —  17.89 [17.89– 17.89] ( 1)
+    hc-text 7 px       8.40 [ 8.40–  8.40] ( 1)                     —  10.47 [10.47– 10.47] ( 1)                     —                     —  17.36 [17.36– 17.36] ( 1)
+    hc-text 14 px                        —                     —                     —                     —                     —  16.85 [16.85– 16.85] ( 1)
+    hc-text 28 px      2.89 [ 2.89–  2.89] ( 1)                     —  12.51 [12.51– 12.51] ( 1)                     —                     —  18.97 [18.97– 18.97] ( 1)
+
+  1x light
+    backdrop                            32                    44                    96                   128                   130                   160
+    checker 4 px                         —   1.42 [ 1.13–  1.42] ( 2)   8.49 [ 8.49–  8.49] ( 1)  12.95 [12.95– 12.95] ( 1)                     —  17.16 [17.16– 17.16] ( 1)
+    checker 8 px                         —   1.67 [ 1.19–  1.67] ( 2)   8.70 [ 8.70–  8.70] ( 1)  13.03 [13.03– 13.03] ( 1)                     —  17.22 [17.22– 17.22] ( 1)
+    checker 16 px                        —   1.84 [ 1.11–  1.84] ( 4)   8.80 [ 8.80–  8.80] ( 2)  13.10 [13.10– 13.10] ( 1)  13.36 [13.36– 13.36] ( 1)  17.30 [17.30– 17.30] ( 1)
+    checker 16 px lc                     —                     —   8.80 [ 8.80–  8.80] ( 1)  13.15 [13.15– 13.15] ( 1)                     —  17.38 [17.38– 17.38] ( 1)
+    checker 32 px                        —   2.05 [ 1.27–  2.05] ( 2)   8.91 [ 8.91–  8.91] ( 1)  13.14 [13.14– 13.14] ( 1)                     —  17.32 [17.32– 17.32] ( 1)
+    checker 64 px      4.06 [ 4.06–  4.06] ( 1)                     —   8.60 [ 8.60–  8.60] ( 1)  13.53 [13.53– 13.53] ( 1)                     —  18.17 [18.17– 18.17] ( 1)
+    photo photo                          —   1.43 [ 1.18–  1.52] ( 5)   8.57 [ 8.57–  8.73] ( 3)  12.92 [12.92– 12.92] ( 1)  13.25 [13.25– 13.25] ( 1)  17.06 [16.97– 17.06] ( 2)
+    solid light                          —   2.01 [ 1.30–  2.01] ( 2)   9.02 [ 9.02–  9.02] ( 1)  13.17 [13.17– 13.17] ( 1)                     —  17.36 [17.36– 17.36] ( 1)
+    solid mid-dark                       —   1.55 [ 1.55–  1.55] ( 1)   8.39 [ 8.39–  8.39] ( 1)                     —                     —  17.48 [17.48– 17.48] ( 1)
+    solid mid-chroma                     —                     —   8.80 [ 8.80–  8.80] ( 1)                     —                     —                     —
+    hc-text 7 px       1.69 [ 1.69–  1.69] ( 1)                     —  10.83 [10.83– 10.83] ( 1)                     —                     —  16.95 [16.95– 16.95] ( 1)
+    hc-text 14 px                        —   3.77 [ 1.93–  3.77] ( 2)   7.93 [ 7.93–  7.93] ( 1)                     —                     —  16.57 [16.57– 16.57] ( 1)
+    hc-text 28 px      2.63 [ 2.63–  2.63] ( 1)                     —  12.13 [12.13– 12.13] ( 1)                     —                     —  18.72 [18.72– 18.72] ( 1)
+
+  2x light
+    backdrop                            32                    44                    96                   128                   130                   160
+    checker 4 px       1.86 [ 1.86–  1.86] ( 1)   3.07 [ 0.63–  3.07] ( 2)   9.33 [ 9.33–  9.33] ( 1)  13.15 [13.15– 13.15] ( 1)                     —  17.56 [17.56– 17.56] ( 1)
+    checker 8 px       2.05 [ 2.05–  2.05] ( 1)   3.54 [ 0.66–  3.54] ( 2)   9.37 [ 9.37–  9.37] ( 1)  13.19 [13.19– 13.19] ( 1)                     —  17.57 [17.57– 17.57] ( 1)
+    checker 16 px      2.08 [ 2.08–  2.08] ( 1)   3.92 [ 0.57–  3.92] ( 4)   9.39 [ 9.39–  9.39] ( 2)  13.28 [13.28– 13.28] ( 1)  13.58 [13.58– 13.58] ( 1)  17.59 [17.59– 17.59] ( 1)
+    checker 16 px lc                     —   1.09 [ 1.09–  1.09] ( 1)   9.24 [ 9.24–  9.24] ( 1)  13.45 [13.45– 13.45] ( 1)                     —  17.69 [17.69– 17.69] ( 1)
+    checker 32 px      2.11 [ 2.11–  2.11] ( 1)   4.06 [ 0.69–  4.06] ( 2)   9.41 [ 9.41–  9.41] ( 1)  13.30 [13.30– 13.30] ( 1)                     —  17.59 [17.59– 17.59] ( 1)
+    checker 64 px      9.50 [ 9.50–  9.50] ( 1)                     —   9.46 [ 9.46–  9.46] ( 1)  13.67 [13.67– 13.67] ( 1)                     —  18.37 [18.37– 18.37] ( 1)
+    photo photo                          —   1.58 [ 0.63–  1.93] ( 5)   9.12 [ 9.12–  9.32] ( 3)  13.22 [13.22– 13.22] ( 1)  13.53 [13.53– 13.53] ( 1)  17.34 [17.29– 17.34] ( 2)
+    solid light        2.38 [ 2.38–  2.38] ( 1)   4.08 [ 0.73–  4.08] ( 2)   9.36 [ 9.36–  9.36] ( 1)  13.32 [13.32– 13.32] ( 1)                     —  17.58 [17.58– 17.58] ( 1)
+    solid mid-dark                       —   3.60 [ 3.60–  3.60] ( 1)   9.32 [ 9.32–  9.32] ( 1)                     —                     —  17.75 [17.75– 17.75] ( 1)
+    solid mid-chroma                     —   1.30 [ 0.62–  1.30] ( 2)   9.26 [ 9.26–  9.26] ( 1)                     —                     —                     —
+    hc-text 7 px                         —                     —  10.59 [10.59– 10.59] ( 1)                     —                     —  17.23 [17.23– 17.23] ( 1)
+    hc-text 14 px                        —   9.70 [ 3.59–  9.70] ( 2)   8.31 [ 8.31–  8.31] ( 1)                     —                     —  16.72 [16.72– 16.72] ( 1)
+    hc-text 28 px      3.80 [ 3.80–  3.80] ( 1)                     —  12.86 [12.86– 12.86] ( 1)                     —                     —  19.00 [19.00– 19.00] ( 1)
+
+  1x light-increased-contrast
+    backdrop                            32                    44                    96                   128                   130                   160
+    checker 16 px                        —   1.86 [ 1.24–  1.86] ( 2)   8.80 [ 8.80–  8.80] ( 1)                     —                     —                     —
+    photo photo                          —   1.52 [ 1.41–  1.52] ( 3)   8.57 [ 8.57–  8.57] ( 1)                     —                     —  16.97 [16.97– 16.97] ( 1)
+    hc-text 14 px                        —   3.89 [ 3.89–  3.89] ( 1)                     —                     —                     —                     —
+
+  1x light-increased-contrast-coupled
+    backdrop                            32                    44                    96                   128                   130                   160
+    checker 16 px                        —   1.51 [ 1.16–  1.51] ( 2)   8.50 [ 8.50–  8.50] ( 1)                     —                     —                     —
+    photo photo                          —   1.50 [ 1.40–  1.50] ( 3)   8.59 [ 8.59–  8.59] ( 1)                     —                     —  16.97 [16.97– 16.97] ( 1)
+    hc-text 14 px                        —   2.29 [ 2.29–  2.29] ( 1)                     —                     —                     —                     —
+
+  1x light-reduced-transparency
+    backdrop                            32                    44                    96                   128                   130                   160
+    checker 16 px                        —   1.51 [ 1.51–  1.51] ( 1)   8.50 [ 8.50–  8.50] ( 1)                     —                     —                     —
+    photo photo                          —   1.50 [ 1.39–  1.50] ( 3)   8.59 [ 8.59–  8.59] ( 1)                     —                     —  16.97 [16.97– 16.97] ( 1)
+    hc-text 14 px                        —   2.30 [ 2.30–  2.30] ( 1)                     —                     —                     —                     —
+
+§4b. The instrument on a mixed-span composite
+------------------------------------------------------------------------------------------------------------
+  `metrics/shadow.ts` returns ONE (amplitude, σ) pair per cell, fitted over ring
+  means of the whole exterior with the shadow's edge pinned to the DECLARED
+  contour — the union of the component's placed shapes. The charter asks what that
+  means where the component has more than one span. The bed carries two such
+  components and they turn out to be different cases, neither of them a mixture:
+
+  toolbar-group: 7 active rows, 0 resolve a σ
+    1x light                            checkerboard__toolbar-group__rest       —  (no width; neither family converged) calibration
+    1x light                            photo__toolbar-group__rest              —  (no width; neither family converged) validation
+    1x light-increased-contrast         photo__toolbar-group__rest              —  (no width; neither family converged) validation
+    1x light-increased-contrast-coupled photo__toolbar-group__rest              —  (no width; neither family converged) validation
+    1x light-reduced-transparency       photo__toolbar-group__rest              —  (no width; neither family converged) validation
+    2x light                            checkerboard__toolbar-group__rest       —  (no width; neither family converged) calibration
+    2x light                            photo__toolbar-group__rest              —  (no width; neither family converged) validation
+
+  glass-over-glass: 6 active rows, 6 resolve a σ
+    1x dark                             checkerboard__glass-over-glass__rest    13.422                                  holdout
+    1x light                            checkerboard__glass-over-glass__rest    13.357                                  holdout
+    1x light                            photo__glass-over-glass__rest           13.247                                  holdout
+    2x dark                             checkerboard__glass-over-glass__rest    13.741                                  holdout
+    2x light                            checkerboard__glass-over-glass__rest    13.584                                  holdout
+    2x light                            photo__glass-over-glass__rest           13.527                                  holdout
+
+  `toolbar-group` is three 44x44 capsules at 12 px spacing, so its members do not
+  differ in span at all — and the instrument returns NO width on any of its seven
+  rows, on either bed, in either family. The silhouette is fenestrated: the 12 px
+  gaps are exterior to the declared region and interior to the shadow field, so the
+  near rings average pixels occluded by two neighbours with pixels occluded by one,
+  and the monotone profile the blurred-edge model needs does not exist. The cell
+  still carries a departure and a strength peak. **The σ law is not read on it.**
+
+  `glass-over-glass` is a 220x130 base with a 120x56 overlay at offset (0, −8).
+  Half-extents put the overlay inside x ±60 of ±110 and y −36…+20 of ±65, so it is
+  WHOLLY INTERIOR to the base and never reaches the measured exterior. The reading
+  is the base's alone and it is a clean span-130 reading, not a compromise between
+  130 and 56 — which is why its six cells sit within 13.25…13.74 of the rrect-ml
+  span-128 column rather than between the span-56 and span-130 values. **The σ law
+  IS read on it, at span 130 — and every one of those six cells is holdout.**
+
+§5. The thin-regime hypothesis, on every cell pair that carries it
+------------------------------------------------------------------------------------------------------------
+  §5.154 §4 states it as: below span 96 the σ is 'nearly constant in DEVICE px',
+  read off 1.84 at 1x light against 3.92 at 2x light at span 44, 'a ratio of 2.13 —
+  the device pixel ratio'. The two halves of that sentence are different
+  hypotheses and the bed can separate them, so both are printed:
+
+    H_css  σ is scale-invariant in CSS px      → σ_css(2x) / σ_css(1x) = 1.00
+    H_dev  σ is scale-invariant in DEVICE px   → σ_css(2x) / σ_css(1x) = 0.50
+
+  A pair is one scene id present on BOTH the 1x and the 2x bed of one scheme.
+
+  light — 61 cell pairs
+     span scene                                                σ 1x     σ 2x   ratio  σdev 1x  σdev 2x          set
+       32 checkerboard-64__rrect-sm__rest                      4.06     9.50    2.34     4.06    18.99        probe
+       32 hc-text-28__rrect-sm__rest                           2.63     3.80    1.44     2.63     7.60        probe
+       44 checkerboard-32__capsule-button__rest                2.05     4.06    1.98     2.05     8.12        probe
+       44 checkerboard-32__capsule-button__rest-tint-orange     1.27     0.69    0.54     1.27     1.38        probe
+       44 checkerboard-4__capsule-button__rest                 1.42     3.07    2.17     1.42     6.14        probe
+       44 checkerboard-4__capsule-button__rest-tint-orange     1.13     0.63    0.56     1.13     1.26        probe
+       44 checkerboard-8__capsule-button__rest                 1.67     3.54    2.12     1.67     7.08        probe
+       44 checkerboard-8__capsule-button__rest-tint-orange     1.19     0.66    0.55     1.19     1.32        probe
+       44 checkerboard__capsule-button__pressed                1.84     3.92    2.13     1.84     7.84     recorded
+       44 checkerboard__capsule-button__rest                   1.84     3.92    2.13     1.84     7.84  calibration
+       44 checkerboard__capsule-button__rest-tint-blue         1.11     0.57    0.51     1.11     1.15   validation
+       44 checkerboard__capsule-button__rest-tint-orange       1.24     0.68    0.55     1.24     1.36  calibration
+       44 hc-text__capsule-button__rest                        3.77     9.70    2.57     3.77    19.39      holdout
+       44 hc-text__capsule-button__rest-tint-orange            1.93     3.59    1.86     1.93     7.18      holdout
+       44 light-solid__capsule-button__rest                    2.01     4.08    2.03     2.01     8.16  calibration
+       44 light-solid__capsule-button__rest-tint-orange        1.30     0.73    0.56     1.30     1.47  calibration
+       44 mid-dark-solid__capsule-button__rest                 1.55     3.60    2.32     1.55     7.19      holdout
+       44 photo__capsule-button__pressed                       1.52     1.93    1.27     1.52     3.86     recorded
+       44 photo__capsule-button__rest                          1.52     1.93    1.27     1.52     3.86  calibration
+       44 photo__capsule-button__rest-tint-blue                1.18     0.63    0.53     1.18     1.26  calibration
+       44 photo__capsule-button__rest-tint-orange              1.41     1.30    0.93     1.41     2.61  calibration
+       44 photo__capsule-button__rest-tint-orange-half         1.43     1.58    1.10     1.43     3.15  calibration
+       96 checkerboard-32__rrect-md__rest                      8.91     9.41    1.06     8.91    18.82        probe
+       96 checkerboard-4__rrect-md__rest                       8.49     9.33    1.10     8.49    18.65        probe
+       96 checkerboard-64__rrect-md__rest                      8.60     9.46    1.10     8.60    18.91        probe
+       96 checkerboard-8__rrect-md__rest                       8.70     9.37    1.08     8.70    18.74        probe
+       96 checkerboard-lc16__rrect-md__rest                    8.80     9.24    1.05     8.80    18.47        probe
+       96 checkerboard__rrect-md__pressed                      8.80     9.39    1.07     8.80    18.79     recorded
+       96 checkerboard__rrect-md__rest                         8.80     9.39    1.07     8.80    18.79  calibration
+       96 hc-text-28__rrect-md__rest                          12.13    12.86    1.06    12.13    25.73        probe
+       96 hc-text-7__rrect-md__rest                           10.83    10.59    0.98    10.83    21.18        probe
+       96 hc-text__rrect-md__rest                              7.93     8.31    1.05     7.93    16.61      holdout
+       96 light-solid__rrect-md__rest                          9.02     9.36    1.04     9.02    18.73  calibration
+       96 mid-chroma-solid__rrect-md__rest                     8.80     9.26    1.05     8.80    18.53        probe
+       96 mid-dark-solid__rrect-md__rest                       8.39     9.32    1.11     8.39    18.64        probe
+       96 photo__rrect-md__pressed                             8.57     9.12    1.06     8.57    18.25     recorded
+       96 photo__rrect-md__rest                                8.57     9.12    1.06     8.57    18.25  calibration
+       96 photo__rrect-md__rest-tint-orange                    8.73     9.32    1.07     8.73    18.65   validation
+      128 checkerboard-32__rrect-ml__rest                     13.14    13.30    1.01    13.14    26.61        probe
+      128 checkerboard-4__rrect-ml__rest                      12.95    13.15    1.02    12.95    26.29        probe
+      128 checkerboard-64__rrect-ml__rest                     13.53    13.67    1.01    13.53    27.33        probe
+      128 checkerboard-8__rrect-ml__rest                      13.03    13.19    1.01    13.03    26.38        probe
+      128 checkerboard-lc16__rrect-ml__rest                   13.15    13.45    1.02    13.15    26.90        probe
+      128 checkerboard__rrect-ml__rest                        13.10    13.28    1.01    13.10    26.56  calibration
+      128 light-solid__rrect-ml__rest                         13.17    13.32    1.01    13.17    26.64  calibration
+      128 photo__rrect-ml__rest                               12.92    13.22    1.02    12.92    26.44  calibration
+      130 checkerboard__glass-over-glass__rest                13.36    13.58    1.02    13.36    27.17      holdout
+      130 photo__glass-over-glass__rest                       13.25    13.53    1.02    13.25    27.05      holdout
+      160 checkerboard-32__rrect-lg__rest                     17.32    17.59    1.02    17.32    35.18        probe
+      160 checkerboard-4__rrect-lg__rest                      17.16    17.56    1.02    17.16    35.12        probe
+      160 checkerboard-64__rrect-lg__rest                     18.17    18.37    1.01    18.17    36.74        probe
+      160 checkerboard-8__rrect-lg__rest                      17.22    17.57    1.02    17.22    35.15        probe
+      160 checkerboard-lc16__rrect-lg__rest                   17.38    17.69    1.02    17.38    35.38        probe
+      160 checkerboard__rrect-lg__rest                        17.30    17.59    1.02    17.30    35.18      holdout
+      160 hc-text-28__rrect-lg__rest                          18.72    19.00    1.01    18.72    38.00        probe
+      160 hc-text-7__rrect-lg__rest                           16.95    17.23    1.02    16.95    34.47        probe
+      160 hc-text__rrect-lg__rest                             16.57    16.72    1.01    16.57    33.44        probe
+      160 light-solid__rrect-lg__rest                         17.36    17.58    1.01    17.36    35.16        probe
+      160 mid-dark-solid__rrect-lg__rest                      17.48    17.75    1.02    17.48    35.51        probe
+      160 photo__rrect-lg__rest                               16.97    17.29    1.02    16.97    34.58      holdout
+      160 photo__rrect-lg__rest-tint-orange                   17.06    17.34    1.02    17.06    34.69      holdout
+    thin (spans 32–44)       n=22  ratio median 1.443  min 0.515  max 2.569  mean 1.430
+    thick (spans 96–160)     n=39  ratio median 1.021  min 0.978  max 1.111  mean 1.035
+
+  dark — 41 cell pairs
+     span scene                                                σ 1x     σ 2x   ratio  σdev 1x  σdev 2x          set
+       32 checkerboard-64__rrect-sm__rest                      3.54     7.64    2.16     3.54    15.28        probe
+       32 hc-text-28__rrect-sm__rest                           2.05     2.89    1.41     2.05     5.78        probe
+       32 hc-text-7__rrect-sm__rest                            1.63     8.40    5.16     1.63    16.80        probe
+       44 checkerboard-32__capsule-button__rest                1.54     2.87    1.86     1.54     5.75        probe
+       44 checkerboard-32__capsule-button__rest-tint-orange     1.54     2.87    1.86     1.54     5.75        probe
+       44 checkerboard-4__capsule-button__rest                 1.42     2.67    1.88     1.42     5.35        probe
+       44 checkerboard-4__capsule-button__rest-tint-orange     1.42     2.67    1.88     1.42     5.35        probe
+       44 checkerboard-8__capsule-button__rest-tint-orange     1.49     2.78    1.87     1.49     5.57        probe
+       44 checkerboard__capsule-button__rest                   1.52     2.85    1.88     1.52     5.71  calibration
+       44 checkerboard__capsule-button__rest-tint-orange       1.52     2.85    1.88     1.52     5.71  calibration
+       44 mid-dark-solid__capsule-button__rest                 1.92     4.17    2.17     1.92     8.34      holdout
+       44 photo__capsule-button__pressed                       1.70     2.17    1.28     1.70     4.33     recorded
+       44 photo__capsule-button__rest                          1.70     2.17    1.28     1.70     4.33  calibration
+       44 photo__capsule-button__rest-tint-orange              1.70     2.17    1.28     1.70     4.33  calibration
+       96 checkerboard-32__rrect-md__rest                      8.87     9.38    1.06     8.87    18.75        probe
+       96 checkerboard-4__rrect-md__rest                       8.87     9.38    1.06     8.87    18.75        probe
+       96 checkerboard-64__rrect-md__rest                      8.48     9.34    1.10     8.48    18.67        probe
+       96 checkerboard-8__rrect-md__rest                       8.87     9.38    1.06     8.87    18.75        probe
+       96 checkerboard-lc16__rrect-md__rest                    8.94     9.38    1.05     8.94    18.76        probe
+       96 checkerboard__rrect-md__rest                         8.87     9.38    1.06     8.87    18.75  calibration
+       96 hc-text-28__rrect-md__rest                          11.72    12.51    1.07    11.72    25.02        probe
+       96 hc-text-7__rrect-md__rest                           10.51    10.47    1.00    10.51    20.93        probe
+       96 mid-dark-solid__rrect-md__rest                       8.63     9.17    1.06     8.63    18.35        probe
+       96 photo__rrect-md__rest                                9.04     9.36    1.04     9.04    18.73  calibration
+      128 checkerboard-32__rrect-ml__rest                     13.18    13.41    1.02    13.18    26.83        probe
+      128 checkerboard-4__rrect-ml__rest                      13.19    13.42    1.02    13.19    26.83        probe
+      128 checkerboard-64__rrect-ml__rest                     13.67    13.74    1.00    13.67    27.48        probe
+      128 checkerboard-8__rrect-ml__rest                      13.19    13.42    1.02    13.19    26.83        probe
+      128 checkerboard-lc16__rrect-ml__rest                   13.29    13.49    1.02    13.29    26.99        probe
+      130 checkerboard__glass-over-glass__rest                13.42    13.74    1.02    13.42    27.48      holdout
+      160 checkerboard-32__rrect-lg__rest                     17.45    17.68    1.01    17.45    35.35        probe
+      160 checkerboard-4__rrect-lg__rest                      17.46    17.68    1.01    17.46    35.35        probe
+      160 checkerboard-64__rrect-lg__rest                     16.16    16.46    1.02    16.16    32.91        probe
+      160 checkerboard-8__rrect-lg__rest                      17.46    17.68    1.01    17.46    35.35        probe
+      160 checkerboard-lc16__rrect-lg__rest                   17.56    17.77    1.01    17.56    35.55        probe
+      160 hc-text-28__rrect-lg__rest                          18.78    18.97    1.01    18.78    37.95        probe
+      160 hc-text-7__rrect-lg__rest                           17.15    17.36    1.01    17.15    34.72        probe
+      160 hc-text__rrect-lg__rest                             16.75    16.85    1.01    16.75    33.71        probe
+      160 light-solid__rrect-lg__rest                         17.43    17.76    1.02    17.43    35.52        probe
+      160 mid-dark-solid__rrect-lg__rest                      17.66    17.89    1.01    17.66    35.79        probe
+      160 photo__rrect-lg__rest                               17.38    17.62    1.01    17.38    35.24      holdout
+    thin (spans 32–44)       n=14  ratio median 1.879  min 1.275  max 5.161  mean 1.988
+    thick (spans 96–160)     n=27  ratio median 1.017  min 0.996  max 1.101  mean 1.029
+
+§5b. The fit's own valley: the amplitude beside the σ
+------------------------------------------------------------------------------------------------------------
+  `metrics/shadow.ts` fits (amplitude, σ) jointly with the edge pinned to the declared
+  contour, and its own header says the two trade along a valley. The product
+  amplitude × σ is the profile's first moment — the energy the tail carries — and it
+  is what survives the trade. If the product is scale-invariant where the two factors
+  are not, the thin regime's σ is a position on the valley rather than a width.
+
+  bed                                span 32                   span 44                   span 96                  span 128                  span 130                  span 160
+                         a       σ       a·σ       a       σ       a·σ       a       σ       a·σ       a       σ       a·σ       a       σ       a·σ       a       σ       a·σ
+  1x dark           0.0907    2.05     0.186  0.1632    1.54     0.252  0.1536    8.87     1.363  0.2634   13.19     3.474  0.2740   13.42     3.678  0.3814   17.45     6.655
+  2x dark           0.0535    1.89     0.101  0.0613    2.78     0.171  0.1496    9.38     1.402  0.2672   13.42     3.584  0.2724   13.74     3.743  0.3826   17.68     6.762
+  1x light          0.0628    2.63     0.165  0.1827    1.52     0.278  0.1061    8.80     0.933  0.1814   13.14     2.383  0.1856   13.36     2.479  0.2567   17.30     4.441
+  2x light          0.0465    2.11     0.098  0.0776    1.58     0.122  0.1043    9.36     0.977  0.1827   13.30     2.430  0.1867   13.58     2.536  0.2592   17.58     4.557
+  1x light-increased-contrast                         —  0.1535    1.52     0.234  0.1074    8.80     0.945                         —                         —  0.2511   16.97     4.262
+  1x light-increased-contrast-coupled                         —  0.1645    1.50     0.247  0.1112    8.59     0.955                         —                         —  0.2511   16.97     4.261
+  1x light-reduced-transparency                         —  0.1587    1.50     0.238  0.1112    8.59     0.955                         —                         —  0.2511   16.97     4.261
+
+  The plain against the TINTED cell, at one span and one scene, on the light bed —
+  the same geometry, the same backdrop, an author tint the material's blur cannot
+  depend on:
+
+    scene                                           bed               a       σ      a·σ
+    checkerboard__capsule-button__rest              1x light     0.1115    1.84    0.205
+    checkerboard__capsule-button__rest              2x light     0.0453    3.92    0.177
+    checkerboard__capsule-button__rest-tint-orange  1x light     0.2686    1.24    0.332
+    checkerboard__capsule-button__rest-tint-orange  2x light     0.2446    0.68    0.166
+    light-solid__capsule-button__rest               1x light     0.0990    2.01    0.199
+    light-solid__capsule-button__rest               2x light     0.0451    4.08    0.184
+    light-solid__capsule-button__rest-tint-orange   1x light     0.2421    1.30    0.315
+    light-solid__capsule-button__rest-tint-orange   2x light     0.2194    0.73    0.161
+    checkerboard__rrect-md__rest                    1x light     0.1074    8.80    0.945
+    checkerboard__rrect-md__rest                    2x light     0.1045    9.39    0.981
+
+§6. The thick regime's line, checked on this bed
+------------------------------------------------------------------------------------------------------------
+  §5.154 §4 as corrected: σ_css ≈ 0.133 · (span − 30) over spans 96–160.
+
+  bed                                           96         128         130         160     slope   zero at  max resid
+  1x dark                                     8.87       13.19       13.42       17.45    0.1340      29.7      0.023
+  2x dark                                     9.38       13.42       13.74       17.68    0.1297      24.0      0.072
+  1x light                                    8.80       13.14       13.36       17.30    0.1329      29.6      0.057
+  2x light                                    9.36       13.30       13.58       17.58    0.1283      23.6      0.090
+  1x light-increased-contrast                 8.80           —           —       16.97    0.1277      27.1      0.000
+  1x light-increased-contrast-coupled         8.59           —           —       16.97    0.1310      30.4      0.000
+  1x light-reduced-transparency               8.59           —           —       16.97    0.1310      30.4      0.000
+
+§7. What 0.19.0 draws, against what the reference shows
+------------------------------------------------------------------------------------------------------------
+  The shipped `sigmaPx` is 11.0 CSS px in both macOS 27 standard documents, one
+  uniform for every span. The ratio below is 11.0 / (the bed's median native σ).
+
+  bed                                           32          44          96         128         130         160
+  1x dark                                    5.36x       7.12x       1.24x       0.83x       0.82x       0.63x
+  2x dark                                    5.81x       3.95x       1.17x       0.82x       0.80x       0.62x
+  1x light                                   4.18x       7.22x       1.25x       0.84x       0.82x       0.64x
+  2x light                                   5.21x       6.98x       1.17x       0.83x       0.81x       0.63x
+  1x light-increased-contrast                    —       7.22x       1.25x           —           —       0.65x
+  1x light-increased-contrast-coupled            —       7.34x       1.28x           —           —       0.65x
+  1x light-reduced-transparency                  —       7.34x       1.28x           —           —       0.65x
+
+§8. The roster: which cells a σ acceptance can be fitted on, and which are checks
+------------------------------------------------------------------------------------------------------------
+  X4 and the charter's clause 3: the σ law is fitted on NON-HOLDOUT cells and the
+  holdout cells' native σ is reported beside it as a check, never fitted to.
+  Non-holdout here means calibration + validation + recorded + probe; the ladder is
+  entirely probe and probe is gated by nothing, which is what makes it fittable.
+
+  bed                                            span 32           span 44           span 96          span 128          span 130          span 160
+                                           fit     check     fit     check     fit     check     fit     check     fit     check     fit     check
+  1x dark                                    3         0      11         1      10         0       5         0       0         1      10         1
+  2x dark                                    7         0      11         1      10         0       5         0       0         1      10         1
+  1x light                                   3         0      17         3      15         1       8         0       0         2      10         3
+  2x light                                   7         0      20         3      15         1       8         0       0         2      10         3
+  1x light-increased-contrast                0         0       5         1       2         0       0         0       0         0       0         1
+  1x light-increased-contrast-coupled        0         0       5         1       2         0       0         0       0         0       0         1
+  1x light-reduced-transparency              0         0       4         1       2         0       0         0       0         0       0         1
+
+  The holdout cells the σ law will be CHECKED against, named — every one of them:
+    span  44  1x dark                             mid-dark-solid__capsule-button__rest            σ   1.92
+    span  44  1x light                            hc-text__capsule-button__rest                   σ   3.77
+    span  44  1x light                            hc-text__capsule-button__rest-tint-orange       σ   1.93
+    span  44  1x light                            mid-dark-solid__capsule-button__rest            σ   1.55
+    span  44  1x light-increased-contrast         hc-text__capsule-button__rest                   σ   3.89
+    span  44  1x light-increased-contrast-coupled hc-text__capsule-button__rest                   σ   2.29
+    span  44  1x light-reduced-transparency       hc-text__capsule-button__rest                   σ   2.30
+    span  44  2x dark                             mid-dark-solid__capsule-button__rest            σ   4.17
+    span  44  2x light                            hc-text__capsule-button__rest                   σ   9.70
+    span  44  2x light                            hc-text__capsule-button__rest-tint-orange       σ   3.59
+    span  44  2x light                            mid-dark-solid__capsule-button__rest            σ   3.60
+    span  96  1x light                            hc-text__rrect-md__rest                         σ   7.93
+    span  96  2x light                            hc-text__rrect-md__rest                         σ   8.31
+    span 130  1x dark                             checkerboard__glass-over-glass__rest            σ  13.42
+    span 130  1x light                            checkerboard__glass-over-glass__rest            σ  13.36
+    span 130  1x light                            photo__glass-over-glass__rest                   σ  13.25
+    span 130  2x dark                             checkerboard__glass-over-glass__rest            σ  13.74
+    span 130  2x light                            checkerboard__glass-over-glass__rest            σ  13.58
+    span 130  2x light                            photo__glass-over-glass__rest                   σ  13.53
+    span 160  1x dark                             photo__rrect-lg__rest                           σ  17.38
+    span 160  1x light                            checkerboard__rrect-lg__rest                    σ  17.30
+    span 160  1x light                            photo__rrect-lg__rest                           σ  16.97
+    span 160  1x light                            photo__rrect-lg__rest-tint-orange               σ  17.06
+    span 160  1x light-increased-contrast         photo__rrect-lg__rest                           σ  16.97
+    span 160  1x light-increased-contrast-coupled photo__rrect-lg__rest                           σ  16.97
+    span 160  1x light-reduced-transparency       photo__rrect-lg__rest                           σ  16.97
+    span 160  2x dark                             photo__rrect-lg__rest                           σ  17.62
+    span 160  2x light                            checkerboard__rrect-lg__rest                    σ  17.59
+    span 160  2x light                            photo__rrect-lg__rest                           σ  17.29
+    span 160  2x light                            photo__rrect-lg__rest-tint-orange               σ  17.34
+
