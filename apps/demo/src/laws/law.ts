@@ -140,9 +140,20 @@ export function bodyLaw(
     // accessibility fold applies to the refraction and the frost, not to the
     // shadow's width. `outerShadowSigmaPx` is the same function both tiers
     // evaluate, which is what keeps this a readout and not a second opinion.
-    shadowSigma: outerShadowSigmaPx(LAW_SHADOW, spanPx),
+    shadowSigma: shadowSigmaAt(spanPx),
   };
 }
+
+/**
+ * The outer shadow's σ at one span, CSS px — `bodyLaw`'s own term, exported so
+ * the prose beside the readout can be evaluated rather than typed.
+ *
+ * Added 2026-09-20 by the W30 G4 review closure (claims §5.160 §9): the note
+ * above the readout quoted the two ends of the control as literals, which is
+ * exactly the sentence a refit leaves stale while every number under it moves.
+ */
+export const shadowSigmaAt = (spanPx: number): number =>
+  outerShadowSigmaPx(LAW_SHADOW, spanPx);
 
 /** Three decimals, tabular, for the readouts. */
 export const fixed = (value: number, places = 3): string => value.toFixed(places);

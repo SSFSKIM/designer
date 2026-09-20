@@ -868,9 +868,15 @@ test.describe("backdrop tone adaptation is on screen", () => {
      * (`packages/calibration/results/2026-09-20-w30-g4-landing/tone-range.json`,
      * all eighty stops of the old control). Over a ground of 0.0060 the three
      * bodies read 0.2347 / 0.2515 / 0.2607 — ordered by span and spanning 0.026,
-     * about a ninth of their own level — against 0.0147 at the top stop. The
+     * about a tenth of their own level — against 0.0148 at the top stop. The
      * widest the gate ever opens is a few stops above the bottom, not at the
      * bright end.
+     *
+     * Both percentages are the spread over the MEAN of the three bodies, which
+     * is the one divisor this stage is read by (corrected 2026-09-20, W30 G4
+     * review closure; claims §5.160 §9). The top stop's spread is 0.014766 at
+     * full precision, which is 0.0148 and not the 0.0147 the rounded bodies
+     * subtract to.
      *
      * The disorder the assertion above declines to test runs to position 6, a
      * ground of about 0.0029, and the order holds at all 74 stops above it
@@ -897,13 +903,18 @@ test.describe("backdrop tone adaptation is on screen", () => {
      * rather than a switch with a transition painted on it.
      *
      * It runs from the stop above, not from the bottom one, and the omission is a
-     * reading rather than a convenience: the 40px plate's published alpha is
-     * **0.695** at the bottom stop against 0.648–0.656 at every stop above it
-     * (`tone-range.json`), so its composited body sits above its own trend there
-     * and a monotone check started at the bottom would fail on the same anomaly
-     * that costs the ordering. It is the tracker's "three bodies are not ordered
-     * by span at the curve's first anchor", now localised to one plate's alpha at
-     * one anchor.
+     * reading rather than a convenience: over the disordered band the 40px plate
+     * publishes an alpha of **0.692–0.695**, and above it 0.647–0.667
+     * (`tone-range.ladder.json`), so its composited body sits above its own trend
+     * across the band and a monotone check started at the bottom would fail on
+     * the same anomaly that costs the ordering. The step at the band's edge is
+     * the largest discontinuity on the control — the 40px body goes 0.2340 at
+     * position 6 to **0.2057** at position 7, which is its minimum over the whole
+     * range. It is the tracker's "three bodies are not ordered by span at the
+     * curve's first anchor", now localised to one plate's alpha over a band
+     * (corrected 2026-09-20, W30 G4 review closure; claims §5.160 §9, where the
+     * flat 0.695 against 0.648–0.656 this comment used to carry is corrected
+     * beside).
      */
     let previous = near.a;
     for (const [position, level] of [

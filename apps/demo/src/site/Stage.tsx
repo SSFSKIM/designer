@@ -172,13 +172,18 @@ const SIZE_SWEEP = [
  * opposite way round from the one the charter and the tracker entry carried.
  * `results/2026-09-20-w30-g4-landing/tone-range.json` reads all eighty stops of
  * the old control on the material 0.20.0 ships: the three bodies separate by
- * **0.026 (11 % of their own level) at a ground of 0.006** and by **0.0148
- * (2.4 %) at 0.16**, so the separation is widest over the DARK half and narrows
- * toward the bright end. What closes at the very bottom is not the separation but
- * the ORDER — at 0.0021 the three read 0.2285 / 0.2127 / 0.2236 and the middle
- * plate is the darkest, the tracker's "not ordered by span at the curve's first
- * anchor". So the band worth resolving is about 0.004…0.034, which held 16 of the
- * old control's 80 stops and holds **40 of the new one's 81**.
+ * **0.026 (10.4 % of their own level) at a ground of 0.006** and by **0.0148
+ * (2.3 %) at 0.16**, so the separation is widest over the DARK half and narrows
+ * toward the bright end. "Of their own level" is the spread over the MEAN of the
+ * three bodies throughout, here and in the e2e and the ledger — one divisor, so
+ * two readings of this stage are comparable (corrected 2026-09-20, W30 G4 review
+ * closure; claims §5.160 §9, where the column that mixed spread/mean with
+ * spread/min is corrected beside). What closes at the very bottom is not the
+ * separation but the ORDER — at 0.0021 the three read 0.2285 / 0.2127 / 0.2236
+ * and the middle plate is the darkest, the tracker's "not ordered by span at the
+ * curve's first anchor". So the band worth resolving is about 0.004…0.034, which
+ * held **15** of the old control's 80 stops and holds **40 of the new one's 81**,
+ * both counted the same way: by the ground each stop actually paints.
  *
  * **The finer control also found more of the disorder, which is a cost of the
  * re-range worth stating as one** (`tone-range.ladder.json`, the same instrument

@@ -113,6 +113,73 @@ test("the span control moves the surface and the blur it is given", async ({ pag
   await expect(page.getByTestId("body-single")).toContainText(`${largeBlur.toFixed(2)} px`);
 });
 
+/**
+ * The σ readout, against the shadow the tier actually drew (W30 G4 review
+ * closure; claims §5.160 §9).
+ *
+ * The readout landed at G4 with nothing pinning it: the body's two widths are
+ * asserted against `--vitrea-blur` above, and the shadow — the wave's own
+ * operator, and the only place on the site it is a number the reader can move —
+ * had no assertion at all. It is asserted the same way, against what the tier
+ * wrote rather than against a literal: `cssShadowBlurRadius` is 2σ, so the outer
+ * entry of the plate's overlay layer `box-shadow` divided by two is the σ the
+ * page must be printing. Both ends of the control, because a σ law that had
+ * collapsed to a constant would still match at one of them.
+ */
+const shadowSigmaDrawn = (page: Page, testId: string): Promise<number> =>
+  page.getByTestId(testId).evaluate((element) => {
+    const layer = element.querySelector<HTMLElement>('[data-vitrea-css-layer="overlay"]');
+    if (layer === null) throw new Error("the plate has no overlay layer to carry a shadow");
+    // Read computed rather than inline, because what a browser serialises a
+    // `box-shadow` back to is not what the tier wrote it as: the colour moves to
+    // the front and `inset` to the end, and every entry gains its full four
+    // lengths. Parsing the normalised form is parsing what the compositor has.
+    const drawn = getComputedStyle(layer).boxShadow;
+    // The rim is the inset entry of the same list; the outer shadow is the other.
+    const outer = drawn
+      .split(/,(?![^(]*\))/)
+      .map((part) => part.trim())
+      .find((part) => part !== "" && part !== "none" && !part.includes("inset"));
+    if (outer === undefined) throw new Error(`no outer shadow in "${drawn}"`);
+    const lengths = outer.match(/-?\d+(?:\.\d+)?px/g) ?? [];
+    // `<colour> <x> <y> <blur> <spread>`, normalised: the third length is the blur.
+    const blur = lengths.length === 4 ? lengths[2] : undefined;
+    if (blur === undefined) throw new Error(`unreadable shadow "${outer}"`);
+    return Number.parseFloat(blur) / 2;
+  });
+
+test("the outer shadow's σ readout is the σ the tier drew, at both ends of the span", async ({
+  page,
+}) => {
+  await gotoLaws(page);
+  await showSection(page, "body");
+
+  const drawn: Record<string, number> = {};
+  for (const span of ["32", "288"] as const) {
+    await page.getByTestId("body-span").fill(span);
+    await expect(page.getByTestId("body-span-readout")).toContainText(`${span}px`);
+    await page.waitForTimeout(400);
+    drawn[span] = await shadowSigmaDrawn(page, "body-plate");
+    await expect(
+      page.getByTestId("body-shadow-sigma"),
+      `the σ readout at span ${span}`,
+    ).toHaveText(`${(drawn[span] ?? Number.NaN).toFixed(2)} px`);
+  }
+
+  // The law is graded, not a constant: the two ends must differ, or the two
+  // assertions above would both hold against one number.
+  expect(drawn["288"] ?? 0).toBeGreaterThan(drawn["32"] ?? 0);
+
+  // And the prose above the readout, which quotes both ends and their ratio, is
+  // derived from the same law since the review closure. This is what says so: a
+  // refit that moved σ and left the sentence behind fails here.
+  const thin = drawn["32"] ?? Number.NaN;
+  const wide = drawn["288"] ?? Number.NaN;
+  const note = await page.locator("#body .note").last().textContent();
+  expect(note).toContain(`${thin.toFixed(2)}px band`);
+  expect(note).toContain(`${Math.round(wide / thin)} times as wide`);
+});
+
 test("the refraction rung is a policy result, and the readout says which", async ({ page }) => {
   await gotoLaws(page);
   await showSection(page, "lens");

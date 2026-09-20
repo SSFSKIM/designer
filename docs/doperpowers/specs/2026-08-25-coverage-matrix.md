@@ -1029,6 +1029,18 @@ there.
 | --- | --- | --- | --- |
 | The material itself moved with no API change | §1.7 | "the shadow's blur is span-invariant in vitrea and is not on macOS 27, where one constant cannot hold 1.8 and 17.4 CSS px" | **Closed.** σ is `sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan · (span − sigmaSpanRefPx))` in both tiers' material, fitted jointly across every bed each document serves and adopted as a bound — within ±5 % of the native median at spans 96, 128 and 160 on all six profiles, and within a factor 1.5 of the native thin-span statistic at span 44 against 0.19.0's 5.97–7.34× (claims §5.159 §1, §5.160). The row's other three named limits stand: seven declared rows are still recorded as missed, the highlight's directionality is still unfitted, and the by-eye residuals of §5.153–§5.155 are unchanged |
 
+> **Split beside, 2026-09-20 (W30 G4 review closure; claims §5.160 §9, finding 12).** The closure
+> sentence in that row runs the two tolerances together and so reads B2 as adopted, which it is not.
+> Separated: **B1 is the adopted bound** — the σ law within ±5 % of the native statistic at spans 96,
+> 128 and 160 on every bed each document serves, four cases in `adopted-thresholds.test.ts`, and
+> jointly tighter than ±5 % because the admissible σ is the intersection of the served beds' windows.
+> **B2 — the factor 1.5 at span 44, read at 1.155–1.419 against 0.19.0's 5.97–7.34 — is a one-wave
+> reading and is not adopted**, as §5.156 §5 (b) declared before either operator existed: the
+> thin-span (amplitude, σ) pair is not identified, trading at constant product at that span, and the
+> thin σ bifurcates on the author's tint. What would make it adoptable is a thin-span cell whose
+> amplitude lets the pair separate, which is item 4 of the wave's Deferred at close. The row's
+> recorded limit is closed by B1 alone; nothing about that closure depends on B2.
+
 **Three rows this re-score checked and did not move**, each for a reason worth naming.
 
 - §3.2's *larger surfaces refract, shadow, and scatter more* keeps `replicated+measured`, as above.
