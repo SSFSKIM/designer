@@ -140,6 +140,14 @@ what the budget is measuring.
 *2026-09-16:* 0.18.0 was published with this class as disclosed above — the acceptance is the
 user's, recorded in W28 §Status — and nothing was rerun. The entry stays open.
 
+*2026-09-20 (the parent, at the 0.19.0 head `eac168bb`):* the third full three-engine run of the
+day read one red, `press.spec.ts` "re-pressing mid-release continues the same trajectory" on
+**chromium** — frame 1 stepped 0.097 against a 0.061 travel and a 0.046 budget — after two green
+runs of the same suite at the G4 merge (`cb7c8ae5`, 174 passed) and at G4's own version head (174
+passed). Not rerun. The log is committed as `results/2026-09-20-w29-g4-landing/chain-parent-final-tree.txt`.
+The class is the driver's reading of a moment; a step larger than the whole travel is a sample
+taken across a frame boundary. The 0.19.0 publish accepts it as disclosed, as 0.17.0 and 0.18.0 did.
+
 *Found 2026-08-30, running the suites for the tint API (W3).*
 
 Two to four cases in `packages/react/e2e/press.spec.ts` and `morph.spec.ts` fail
