@@ -533,7 +533,7 @@ and the impulse specular point (tracker); the slider's ends as evidence classes.
 | --- | --- | --- | --- |
 | G0 | **CLOSED 2026-09-20.** The pre-wave resolved macOS 26.5 materials on disk before a leaf exists, at the pinned `b2b570e4adcea8fb` / `874be66ea501621b`, with the identity test (empty `W30_OPERATOR_LEAVES`, green) and the 1,107 gated-row pin. Nothing under the freeze touched; `freeze.py verify` intact at 1,818 at open and close. **The shadow cut**: the thick regime's line and its CSS-px scale invariance confirmed (ratio 1.021 light / 1.017 dark over 66 cell pairs), the thin regime's device-px reading **refuted** — neither 1.00 nor 0.50, the (amplitude, σ) pair trades at constant product, and the thin σ bifurcates on the author's TINT — so the floor is CSS px with its value **declared unfitted**. The σ law named: `σ = sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan · (span − sigmaSpanRefPx))`, three leaves, every inert default 0, the knee derived. **The structure cut**: the tables cannot choose between (i) and (ii) and G2 lands the spanning set; the scheme-conditioned leaf named under both; `sizeToneLevelFar` declined. The CSS tier's attenuation carried into `tier-coherence.test.ts` as twelve recorded readings plus the relation they encode. The holdout drop moved into `fit.py`'s `cells()`, exercised by a check that builds a matrix containing a holdout row. Declarations committed before G2 opens | §5.156 | `results/2026-09-20-w30-g0-cut/` |
 | G1 | **CLOSED 2026-09-20** — the split executed: `results/matrix.json` 2,017 rows / 72,102,187 B → **1,562 rows / 55,768,930 B**, W29 G3's generation moved byte for byte to `results/superseded/fa872c683f3e.json` (343) and `96b36eedf1c4.json` (112), named by the ACTIVE document's hash with `index.json` the lookup; no macOS 26.5 row moved and their order holds; append-check 6/6 PASS including a full reconstruction to the pre-split digest; `freeze.py verify` intact at 1,818; the demo's `capturedAt` tie-break retired, `atAShippedDocument` kept as the edited-document guard, `vibrancy.ts` given a digest lineage beside the old; chain green and `pnpm --filter demo build` green (main chunk 39,062.53 → 30,272.52 kB) | §5.157 | `results/2026-09-20-w30-g1-split/`, `results/superseded/` |
-| G2 | not dispatched | §5.158 | `results/2026-09-20-w30-g2-leaves/` |
+| G2 | **CLOSED 2026-09-20.** The eight leaves landed at algebraic identities in one commit — `sigmaSlopePerSpan` / `sigmaSpanRefPx` / `sigmaThinOffsetPx` on `MaterialOuterShadow`, `sizeHeavySecondSigma` / `…2x` / `sizeHeavySecondShare` / `sizeScatterScaleGain` / `sizeScatterScaleRef` on `MaterialProfile`, every one 0 — with the merge lines, both allowlists, the CSS mirror of the σ law (and the five scatter leaves deliberately not mirrored), three new uniform vec4s, the shader evaluating both laws, and the second heavy texture as a third pyramid blur kind gated on its share. **No document was re-sealed**: the child measured that re-sealing the four macOS 27 documents drops 230 gated cells across six profiles and turns the chain red by 23 cases, which is this charter's own Surprise on the bed nobody checked, and the parent ruled Decision Log 4 — one record for all six documents, and a re-seal lands with its read from here on. Proofs: freeze intact at 1,818; goldens 34/34 byte-identical with no regen; the identity test green with the leaf list filled (`toStrictEqual`); the 1,107 gated-row pin; the CSS tier's 120 × 47 declarations character-identical to bytes recorded before a leaf existed; the inert laws swept over spans 1…1000 at both scales on both tiers; a `@gpu` case that opens the gate (widths-only Δ 0, share ∓1 Δ 41/32, sign Δ 73) — which **caught a real vec4 misalignment every inertness proof was green over**; `tier-coherence` green; chain green at 2,541 over 173; `window-activation` green at eight re-recorded hashes | §5.158 | `results/2026-09-20-w30-g2-leaves/`, `profiles/digest-supersessions.json` |
 | G3 | not dispatched | §5.159 | `results/2026-09-20-w30-g3-operators/` |
 | G4 | not dispatched | §5.160 | `results/2026-09-20-w30-g4-landing/` |
 
@@ -820,6 +820,29 @@ own Surprise on the bed nobody checked. Ruled:
   against V8's differs by ~6.5 kB), so rows move as raw text slices and the append-check proves it by
   reconstructing the pre-split file and matching its digest. The demo's bundle is 8.8 MB smaller as a
   side effect. G4 runs the same script with no arguments after its own read (X7).
+- 2026-09-20 (G2): **the exemption spent**, under claims §5.158; one preparatory commit (the CSS
+  tier's declarations recorded before a leaf existed) and one commit of substance. Contract X1
+  holds with nothing to report: the two frozen macOS 26.5 documents, the seed, every fixture, every
+  golden and every row of `results/matrix.json` are byte-identical to main, and `freeze.py verify`
+  reads 1,818 intact at this child's open and close. Three things worth the parent's eye, beyond
+  Decision Log 4, which this child's own measurement produced:
+  - **The `@gpu` on-path case caught a defect every inertness proof was green over.** The three new
+    uniform vec4s were packed at float offsets 117 / 121 / 125, none of them a multiple of four, so
+    the shader read `localTone`'s padding as the σ law and each operator's words as its
+    neighbour's. Every word involved is 0 on the landed material, so the 34 goldens, the identity
+    test, the CSS declaration case and the whole unit chain passed over it. Only opening the gate
+    could see it — which is the general lesson: *a proof that the OFF path is unchanged says
+    nothing about whether the ON path is wired to anything.*
+  - **A scatter operator measured on a pitch the body already erases measures as dead.** The first
+    draft of that case ran on `refraction-checkerboard`, where a share of ±1 at a second width of
+    40 CSS px moved exactly one 8-bit code, because a 10 px pitch is gone at the FIRST heavy width
+    and both taps read the same flat mean. It runs on `lens-size-depth` instead. G3's fit inherits
+    the trap.
+  - **`sampledOuterShadowFactor` and the two group-level readers are now bounds in the code as well
+    as in the prose**: the optics pass's pad takes the max over members of the occlusion and,
+    separately, of the span; the CSS group-shadow clip takes the law at the widest carried cast.
+    Neither is any member's value.
+
 - 2026-09-20 (the parent): **adversarial review folded** (opus, read-only; two blocking, fourteen
   should-fix, six minor). Folded: the exemption's shape withdrawn and replaced by supersession beside
   the document (finding 1, 2); the exemption its own child with proofs on both tiers, algebraic inert

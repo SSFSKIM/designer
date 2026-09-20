@@ -233,6 +233,9 @@ export {
   outerShadowLiftRise,
   outerShadowOcclusionAt,
   outerShadowReachPx,
+  // W30 G2's σ law, exported so the CSS tier's mirror and the calibration
+  // harness read the one function rather than restating its algebra.
+  outerShadowSigmaPx,
   outerShadowThickOcclusion,
   outerShadowThinOcclusion,
   outerShadowUnderPolicy,
@@ -274,6 +277,8 @@ export {
   // W26's heavy width, exported so the calibration harness can pin the CSS tier's
   // own heavy layer against the width this tier actually blurs to.
   heavyTapSigmaAtScale,
+  // W30 G2's second heavy width, gated on its own share (claims §5.158).
+  heavySecondTapSigmaAtScale,
   scatterRampAreaMean,
   scatterRampReachDevicePx,
   scatterRampStart,

@@ -91,6 +91,7 @@ import {
   scatterFloorAtScale,
   scatterGainAtScale,
   scatterGainFarAtScale,
+  heavySecondTapSigmaAtScale,
   heavyTapSigmaAtScale,
   scatterHeavyShareThickAtScale,
   scatterRampReachDevicePx,
@@ -542,7 +543,12 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       // number: a tolerance around zero calls σ 1e-7 and σ 0 equal, and those two
       // are a heavy texture the pass binds and no heavy texture at all.
       const sameHeavy = sameHeavySigma(heavySigmaCssFor(sourceId), existing.heavySigmaCss);
-      if (sameDensity && sameSigma && sameHeavy) continue;
+      // The second heavy blur rides the identical rule (W30 G2).
+      const sameHeavy2 = sameHeavySigma(
+        heavySecondSigmaCssFor(sourceId),
+        existing.heavy2SigmaCss,
+      );
+      if (sameDensity && sameSigma && sameHeavy && sameHeavy2) continue;
       requests.push({
         sourceId,
         epoch: existing.builtEpoch,
@@ -633,6 +639,23 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       heavyTapSigmaAtScale(material, viewport.devicePixelRatio) /
       Math.max(viewport.devicePixelRatio, 1e-3)
     );
+  };
+
+  /**
+   * The SECOND heavy blur's σ in CSS px a build for this source would ask for
+   * (W30 G2), 0 wherever the material leaves `sizeHeavySecondShare` at 0.
+   *
+   * `heavySigmaCssFor`'s rule exactly, including the "a source with no body has
+   * no heavy component either" clause, because the second heavy sample is a
+   * component of the same body and is mixed into the same `kScatter`. The width
+   * is already in CSS px in the profile — the fit has not yet said whether its
+   * two scale readings halve into each other the way `sizeHeavyTapSigma`'s do —
+   * so this applies `rampAtScale` and nothing else, and
+   * `heavySecondTapSigmaAtScale` is where the share's gate lives.
+   */
+  const heavySecondSigmaCssFor = (sourceId: string): number => {
+    if (bodySigmaCssFor(sourceId) <= 0) return 0;
+    return heavySecondTapSigmaAtScale(material, viewport.devicePixelRatio);
   };
 
   /**
@@ -742,6 +765,10 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           // The heavy blur's own σ, through the same conversion (W26). At 0 the
           // pyramid allocates nothing and encodes nothing.
           heavySigmaCss: heavySigmaCssFor(request.sourceId),
+          // The second heavy blur's σ (W30 G2). At 0 — the landed material —
+          // the pyramid allocates nothing and encodes nothing, exactly as for
+          // the first one.
+          heavy2SigmaCss: heavySecondSigmaCssFor(request.sourceId),
           viewportCss: [viewport.widthCss, viewport.heightCss],
           ...(isUsablePlacement(placement) ? { placement } : {}),
         },
@@ -919,6 +946,17 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
        * surface is the one that reaches furthest.
        */
       let reachOcclusion = outerShadowThinOcclusion(shadowBackdropLuminance, shadow);
+      /*
+       * And the widest σ, for the same reason one step along (W30 G2). Since
+       * macOS 27 the blur is graded by the CASTING span (`outerShadowSigmaPx`),
+       * so a rect padded at one member's σ while a wider member emitted a wider
+       * one slices that member's shadow off at the scissor. The pad is a bound,
+       * not a value: it is taken at the deepest amplitude and the largest span
+       * ANY member carries, even where those are two different members, because
+       * one rectangle has to contain every member's shadow and the reach is
+       * monotone in both arguments on the law the material ships.
+       */
+      let reachSpanPx = 0;
       for (const surface of surfaces) {
         reachOcclusion = Math.max(
           reachOcclusion,
@@ -930,8 +968,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
             material,
           ),
         );
+        reachSpanPx = Math.max(reachSpanPx, surface.spanPx);
       }
-      const shadowReachPx = outerShadowReachPx(shadow, reachOcclusion);
+      const shadowReachPx = outerShadowReachPx(shadow, reachOcclusion, reachSpanPx);
 
       const snapped = snapRectToDevicePixels(
         groupFieldRect(surfaces, union, undefined, shadowReachPx),
@@ -1174,6 +1213,31 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // itself is already in the texture, so this pass only chooses which of
         // two textures the deep sample comes from.
         heavyTapEnabled: pyramid?.heavy !== undefined,
+        /*
+         * W30's two operators (claims §5.156 §2 and §3; §5.158), every word of
+         * them 0 on the landed material.
+         *
+         * The shadow's σ law crosses as three leaves rather than one width,
+         * because the shader reads it per pixel from the casting surface's own
+         * span. The scatter's scale conditioning crosses as the material's gain
+         * and reference plus the SOURCE's own statistic — the analysis pass's
+         * edge density, which arrives by readback and is therefore resolved
+         * here, like `bodyChainLod`. `adapt` is the filtered reading, so the
+         * statistic the shader sees is the one the drivers have settled on
+         * rather than a raw frame's; where nothing has been observed it is 0,
+         * which is also the reference's default, so an unobserved source takes
+         * the operator's own zero.
+         */
+        outerShadowSigmaLaw: [
+          shadow.sigmaSlopePerSpan,
+          shadow.sigmaSpanRefPx,
+          shadow.sigmaThinOffsetPx,
+        ],
+        sizeScatterScaleGain: material.sizeScatterScaleGain,
+        sizeScatterScaleRef: material.sizeScatterScaleRef,
+        backdropScaleStatistic: adapt?.edgeDensity ?? 0,
+        sizeHeavySecondShare: material.sizeHeavySecondShare,
+        heavySecondEnabled: pyramid?.heavy2 !== undefined,
         ...(pyramid === undefined && input.unsampledMaterial !== undefined
           ? { domMaterial: {
               ...input.unsampledMaterial,
@@ -1315,6 +1379,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
                 chain: pyramid.chain.createView(),
                 body: pyramid.body.createView(),
                 heavy: pyramid.heavy?.createView(),
+                heavy2: pyramid.heavy2?.createView(),
               },
       });
 

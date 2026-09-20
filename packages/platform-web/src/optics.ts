@@ -1216,6 +1216,19 @@ export interface MaterialSourceSize {
    * `cssTierHeavySigmaCssPx` and the charter to close it is in the tracker.
    * A constant nothing on this tier reads is not carried (C9a §6.2), which is why
    * the field is absent rather than present and unused.
+   *
+   * **W30's five scatter leaves are absent for the same reason and by the same
+   * rule** (claims §5.156 §3, §5.158). `sizeHeavySecondSigma`, its 2x anchor and
+   * `sizeHeavySecondShare` are a second pyramid texture, which this tier has no
+   * pyramid to build; `sizeScatterScaleGain` and `sizeScatterScaleRef` are keyed
+   * on the analysis pass's per-source edge density, and this tier measures no
+   * backdrop statistic at all — a `backdrop-filter` reads a page it cannot
+   * reduce. Both are the tier rule working as intended (Decision Log 23 of
+   * 2026-09-05): the material change lands on the WebGPU tier, this tier carries
+   * what its two layers can, and §5.159 fits the best scalar projection onto
+   * `blurSigmaScale` and records the residual. The σ law above is the other
+   * half of that rule and mirrors in FULL, because a `box-shadow` per surface
+   * can draw it exactly.
    */
   /**
    * The body's depth ramp (W13 G1, claims §5.61 §2, §5.64 §5): the sharp
@@ -1363,6 +1376,21 @@ export function sourceRefractionScale(patch?: RendererMaterialProfile): Refracti
 export interface MaterialSourceOuterShadow {
   readonly offsetPx: number;
   readonly sigmaPx: number;
+  /**
+   * The σ law's three leaves (W30 G2; claims §5.156 §2), mirrored field for
+   * field from `MaterialOuterShadow` — and mirrored because this tier DRAWS
+   * them. Since macOS 27 the blur is graded by the casting span, and this tier
+   * already emits one `box-shadow` per surface with that surface's span in
+   * scope, so the law lands on both tiers in full rather than as a projection:
+   * `outerShadowSigmaPx` is the one function and `cssShadowBlurRadius` is the
+   * one convention it is written through.
+   *
+   * The reasons live where the numbers are authored. All three ship at 0, where
+   * the law returns `sigmaPx` at every span.
+   */
+  readonly sigmaSlopePerSpan: number;
+  readonly sigmaSpanRefPx: number;
+  readonly sigmaThinOffsetPx: number;
   readonly spreadPx: number;
   /** The black term's amplitude below the knee, by backdrop luminance (W14 G1). */
   readonly thinOcclusionDark: number;
@@ -1407,6 +1435,9 @@ export interface MaterialSourceOuterShadow {
 export const MATERIAL_SOURCE_OUTER_SHADOW: MaterialSourceOuterShadow = {
   offsetPx: 7.95,
   sigmaPx: 15.55,
+  sigmaSlopePerSpan: 0,
+  sigmaSpanRefPx: 0,
+  sigmaThinOffsetPx: 0,
   spreadPx: 3.1,
   thinOcclusionDark: 0,
   thinOcclusionMid: 0.33,
@@ -1652,6 +1683,37 @@ export function outerShadowFalloff(signedDistancePx: number, sigmaPx: number): n
 }
 
 /**
+ * The outer shadow's σ at a casting span, CSS px — the mirror of the renderer's
+ * `outerShadowSigmaPx` (W30 G2; claims §5.156 §2), where the law and its reasons
+ * are authored:
+ *
+ *     σ(span) = sigmaPx + max(sigmaThinOffsetPx,
+ *                             sigmaSlopePerSpan · (span − sigmaSpanRefPx))
+ *
+ * **Per surface on this tier, per pixel on the other, and one law.** A
+ * `box-shadow` carries one blur radius, so this tier evaluates the law once for
+ * each caster at that caster's own span and writes `2σ`; the GPU tier reads the
+ * casting span out of the field pass's aux target. The two group-level readers —
+ * this tier's group-shadow clip and that tier's scissor pad — take the law at
+ * the largest span among the members, which bounds every member's own σ rather
+ * than naming any member's.
+ *
+ * It takes no device ratio, which is what keeps the mirror one function: the cut
+ * rejected the device-px reading of the thin regime, so there is no second
+ * length convention for this tier to reconcile.
+ *
+ * At the shipped leaves this returns `shadow.sigmaPx` identically, so every
+ * string this tier wrote before the law existed is the string it writes now —
+ * pinned character for character by `w30-css-declaration-identity.test.ts`.
+ */
+export function outerShadowSigmaPx(shadow: MaterialSourceOuterShadow, spanPx: number): number {
+  return (
+    shadow.sigmaPx +
+    Math.max(shadow.sigmaThinOffsetPx, shadow.sigmaSlopePerSpan * (spanPx - shadow.sigmaSpanRefPx))
+  );
+}
+
+/**
  * `box-shadow`'s blur radius for a Gaussian σ.
  *
  * CSS Backgrounds 3 defines the blur radius as twice the standard deviation of
@@ -1739,12 +1801,27 @@ export function sampledOuterShadowFactor(input: {
   readonly signedDistanceToShadowBoxPx: number;
   /** Whether the point lies inside the CASTING host's own border box. */
   readonly insideCaster: boolean;
+  /**
+   * The CASTER's own span in CSS px — the argument the σ law is read at (W30 G2;
+   * `outerShadowSigmaPx`). The bound is a statement about one caster's shadow at
+   * a point, so the span is that caster's and not the group's; a caller bounding
+   * a whole group evaluates this per member and multiplies, which is what the
+   * form above says.
+   *
+   * Omitted resolves the law at span 0. At the shipped leaves the law is
+   * span-invariant, so an omitting caller reads exactly what it read before the
+   * law existed.
+   */
+  readonly casterSpanPx?: number;
 }): number {
   if (input.insideCaster) return 1;
   return (
     1 -
     clamp01(input.alpha) *
-      outerShadowFalloff(input.signedDistanceToShadowBoxPx, input.shadow.sigmaPx)
+      outerShadowFalloff(
+        input.signedDistanceToShadowBoxPx,
+        outerShadowSigmaPx(input.shadow, input.casterSpanPx ?? 0),
+      )
   );
 }
 

@@ -42,6 +42,8 @@ import {
 } from "@vitreajs/vitrea-web";
 import type { MaterialProfilePatch } from "@vitrea/renderer-webgpu";
 
+import { supersessionFor } from "./digest-supersessions";
+
 interface ProfileDocument {
   readonly profileKey: string;
   readonly patch: MaterialProfilePatch;
@@ -140,11 +142,24 @@ describe("the shipped macOS 27 material and the macOS 27 profile documents", () 
     expect(DEFAULT_MATERIAL_PROFILE_DOCUMENT.platform).toBe("macOS 27.0");
   });
 
-  it("names each endpoint's document and its recorded digest", () => {
-    // The readout's provenance. `root.material` reports these two fields, so a
-    // capture cell and the demo's capabilities panel can say which document drew
-    // — and a digest that did not come from the document it claims would make
-    // that readout a decoration.
+  it("names each endpoint's document and the digest its pin resolves to", () => {
+    /*
+     * The readout's provenance. `root.material` reports these two fields, so a
+     * capture cell and the demo's capabilities panel can say which document drew
+     * — and a digest that did not come from the document it claims would make
+     * that readout a decoration.
+     *
+     * Since W30 G2 the digest an endpoint reports is the CURRENT one, read from
+     * `profiles/digest-supersessions.json`, and not the document's own field
+     * (W30 Decision Log 1 (a) and 4 (a); claims §5.158). The wave added eight
+     * leaves to the renderer's default at values that are algebraic identities,
+     * which moves a digest taken over the fully resolved material while moving
+     * no pixel — and no document's bytes were edited, because
+     * `adopted-thresholds.test.ts` hashes those bytes and an edit empties that
+     * document's rows out of every bound. So the document's field is the reading
+     * it was sealed at, the record beside it is what the pin resolves to now,
+     * and this readout names what draws. Both halves are asserted here.
+     */
     const endpoints = [
       [macos27MaterialProfileDocument.active.light, LIGHT],
       [macos27MaterialProfileDocument.active.dark, DARK],
@@ -153,7 +168,9 @@ describe("the shipped macOS 27 material and the macOS 27 profile documents", () 
     ] as const;
     for (const [endpoint, document] of endpoints) {
       expect(endpoint.profileKey).toBe(document.profileKey);
-      expect(endpoint.resolvedMaterialSha256).toBe(document.resolvedMaterialSha256);
+      const record = supersessionFor(document.profileKey);
+      expect(document.resolvedMaterialSha256).toBe(record.recordedSha256);
+      expect(endpoint.resolvedMaterialSha256).toBe(record.currentSha256);
     }
   });
 });

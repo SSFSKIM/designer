@@ -153,6 +153,7 @@ import {
   cssTierForegroundBounds,
   cssTierForegroundLevel,
   cssShadowBlurRadius,
+  outerShadowSigmaPx,
   cssTierShadowAlpha,
   MATERIAL_SOURCE_OUTER_SHADOW,
   MATERIAL_SOURCE_SIZE,
@@ -1489,7 +1490,16 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
    * the one every surface can have — so a caller that says nothing gets the
    * shadow out of its own sampled backdrop.
    */
-  const shadow = outerShadowDeclaration(shadowSource, shadowAlpha);
+  /*
+   * And the σ the blur radius is written from is the law's at THIS surface's
+   * span (W30 G2; claims §5.156 §2), not one width for the material: since
+   * macOS 27 the blur grades with the caster, and this tier already had the
+   * span in scope one line above. The law is evaluated inside
+   * `outerShadowDeclaration` so that the one place a blur radius is written is
+   * the one place a σ is resolved. A surface with no span resolves the law at 0,
+   * which is what a surface too small for the size law was already getting.
+   */
+  const shadow = outerShadowDeclaration(shadowSource, shadowAlpha, surface.spanPx ?? 0);
   const shadowCarrier: CssTierShadowCarrier = surface.shadowCarrier ?? "layer";
   const radius = surface.radii.map(px).join(" ");
 
@@ -2320,11 +2330,15 @@ function opticsAtPresence(optics: MaterialOptics, presence: number): MaterialOpt
  * gets written every frame, because a material that stopped writing one of its
  * own declarations leaves whatever was last there.
  */
-function outerShadowDeclaration(shadow: MaterialSourceOuterShadow, alpha: number): string {
+function outerShadowDeclaration(
+  shadow: MaterialSourceOuterShadow,
+  alpha: number,
+  spanPx: number,
+): string {
   const rounded = Math.round(alpha * 1000) / 1000;
   if (!(rounded > 0)) return "none";
   return (
-    `0 ${px(shadow.offsetPx)} ${px(cssShadowBlurRadius(shadow.sigmaPx))} ` +
+    `0 ${px(shadow.offsetPx)} ${px(cssShadowBlurRadius(outerShadowSigmaPx(shadow, spanPx)))} ` +
     `${px(shadow.spreadPx)} rgba(0, 0, 0, ${rounded})`
   );
 }

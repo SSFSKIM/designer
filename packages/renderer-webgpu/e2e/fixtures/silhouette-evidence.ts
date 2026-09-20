@@ -164,7 +164,7 @@ export async function silhouettePyramidDiagnostic(input: {
     const build = device.createCommandEncoder();
     const result = store.build({ sourceId: "bg", epoch: 1,
       resolution: { scale: 1, maxDimension: Math.max(bitmap.width, bitmap.height) },
-      bodySigmaCss: 1.25 / input.dpr, heavySigmaCss: 0,
+      bodySigmaCss: 1.25 / input.dpr, heavySigmaCss: 0, heavy2SigmaCss: 0,
       viewportCss: [bitmap.width / input.dpr, bitmap.height / input.dpr] }, provider, build);
     if (result.status !== "built") throw new Error(`Pyramid build returned ${result.status}`);
     device.queue.submit([build.finish()]);

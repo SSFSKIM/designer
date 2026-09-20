@@ -27,6 +27,8 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { CSS_TIER_MAPPING, type CssTierMapping } from "@vitreajs/vitrea-web";
+
+import { DIGEST_SUPERSESSIONS, supersessionFor } from "./digest-supersessions";
 import {
   DEFAULT_MATERIAL_PROFILE,
   withMaterialOverrides,
@@ -238,6 +240,28 @@ function load(key: string): TunedProfile {
 
 const LIGHT = load("apple-macos-26.5-1x-light-standard");
 const DARK = load("apple-macos-26.5-1x-dark-standard");
+
+/**
+ * The supersession record beside the two frozen documents (W30 Decision Log
+ * 1 (a); claims §5.158).
+ *
+ * W30's operator wave added eight leaves to `DEFAULT_MATERIAL_PROFILE` at values
+ * that are algebraic identities. A digest over the fully RESOLVED material moves
+ * when the material gains a key, whatever that key holds, so the two frozen
+ * documents' fingerprints moved while no macOS 26.5 pixel did. That is the
+ * one-time X1 exemption W29 Decision Log 7 (a) granted.
+ *
+ * It is spent as a record BESIDE the documents rather than as a re-recorded
+ * digest inside them (Decision Log 1 (a)), and the record covers all six shipped
+ * documents rather than only the frozen two (Decision Log 4 (a)) —
+ * `test/digest-supersessions.ts` is the reader and carries the reasoning.
+ *
+ * So the pins below assert BOTH readings, for the macOS 26.5 pair and for the
+ * macOS 27 four alike. The document's own field must still be the digest it was
+ * sealed at, and the material it resolves to today must be the record's current
+ * digest. Neither can move without this file going red.
+ */
+
 /**
  * The macOS 27 documents (W29 G3, claims §5.153).
  *
@@ -321,17 +345,44 @@ describe("tuned calibration profiles", () => {
      * not of anyone's declaration order.
      */
     for (const profile of [LIGHT, DARK]) {
+      const record = supersessionFor(profile.profileKey);
+      // The document's own field is the reading it was SEALED at, and it may not
+      // move: these are frozen bytes and every gated macOS 26.5 row names them.
+      expect(
+        profile.resolvedMaterialSha256,
+        `${profile.profileKey}: the document's own digest moved — the frozen bytes ` +
+          `are an input to every bound over this bed (W30 Decision Log 1 (a))`,
+      ).toBe(record.recordedSha256);
       const resolved = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, profile.patch);
       expect(
         fingerprint(resolved),
-        `${profile.profileKey}: the resolved material no longer matches the recorded ` +
-          `fingerprint — re-record resolvedMaterialSha256 and say in the profile what moved`,
-      ).toBe(profile.resolvedMaterialSha256);
+        `${profile.profileKey}: the resolved material no longer matches the digest ` +
+          `recorded beside the document — re-run ` +
+          `results/2026-09-20-w30-g2-leaves/reseal.ts, and say in the record what moved`,
+      ).toBe(record.currentSha256);
     }
 
     // And the two profiles resolve differently, so the fingerprint is discriminating
     // rather than a constant that would match anything.
     expect(LIGHT.resolvedMaterialSha256).not.toBe(DARK.resolvedMaterialSha256);
+    expect(supersessionFor(LIGHT.profileKey).currentSha256).not.toBe(
+      supersessionFor(DARK.profileKey).currentSha256,
+    );
+    /*
+     * The exemption is spent ONCE (W29 Decision Log 7 (a)), and the record is
+     * exactly the six SHIPPED documents — no more and no fewer (W30 Decision Log
+     * 4 (a)). A seventh entry is a second exemption, which needs a new grant
+     * from the user and not a test that quietly accepts it; a missing entry is a
+     * document whose pin nothing resolves.
+     */
+    expect(DIGEST_SUPERSESSIONS.map((entry) => entry.profileKey).sort()).toEqual([
+      "apple-macos-26.5-1x-dark-standard",
+      "apple-macos-26.5-1x-light-standard",
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "apple-macos-27.0-1x-dark-standard-glass0.5-receded",
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "apple-macos-27.0-1x-light-standard-glass0.5-receded",
+    ]);
   });
 
   it("pins the macOS 27 documents the same way, and keeps the identity singular", () => {
@@ -348,16 +399,24 @@ describe("tuned calibration profiles", () => {
      * they were recorded while two new documents patch the same default (X1).
      */
     for (const profile of [LIGHT_27, DARK_27]) {
+      const record = supersessionFor(profile.profileKey);
       const resolved = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, profile.patch);
       expect(
         fingerprint(resolved),
         `${profile.profileKey}: the resolved material no longer matches the recorded ` +
-          `fingerprint — re-run results/2026-09-19-w29-g3-refit/seal.ts and say what moved`,
-      ).toBe(profile.resolvedMaterialSha256);
+          `fingerprint — re-run results/2026-09-20-w30-g2-leaves/reseal.ts and say in the ` +
+          `record what moved`,
+      ).toBe(record.currentSha256);
+      expect(profile.resolvedMaterialSha256).toBe(record.recordedSha256);
       expect(profile.identityWithRuntimeDefault).toBeUndefined();
       expect(resolved).not.toEqual(DEFAULT_MATERIAL_PROFILE);
     }
-    const digests = [LIGHT, DARK, LIGHT_27, DARK_27].map((p) => p.resolvedMaterialSha256);
+    // The four materials, compared at the digests the four documents actually
+    // resolve to. This is the load-bearing half: if a macOS 27 document ever
+    // resolved to a macOS 26.5 digest, the refit would have landed on nothing.
+    const digests = [LIGHT, DARK, LIGHT_27, DARK_27].map(
+      (profile) => supersessionFor(profile.profileKey).currentSha256,
+    );
     expect(new Set(digests).size, "four documents, four materials").toBe(4);
   });
 

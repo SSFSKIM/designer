@@ -1,0 +1,27 @@
+packages/renderer-webgpu $ npx playwright test e2e/gpu/w30-heavy-second-tap.spec.ts --grep @gpu
+
+second heavy tap: widths-only Δ 0; share −1 Δ 41; share +1 Δ 32; sign Δ 73
+  ✓  1 [chromium-gpu] › e2e/gpu/w30-heavy-second-tap.spec.ts:72:3 › @gpu W30's second heavy tap
+       (claims §5.156 §3, §5.158) › draws nothing at the shipped share and something at a fitted one
+
+  1 passed (1.9s)
+
+Read: the SHARE is the gate — two widths named beside a zero share move not one
+byte of 620×440×4 — and the ON path exists and is SIGNED: a share of −1 and a
+share of +1 land 41 and 32 codes from the shipped material and 73 codes from each
+other.
+
+The scene is `lens-size-depth`: a 32 px checker at dpr 1 under a 400 px surface.
+Both choices are forced. A pitch the FIRST heavy width (9 device px) already
+erases reads the same flat mean at both widths, so a live mechanism measures as a
+dead one — `refraction-checkerboard`'s 10 px cell moved exactly one 8-bit code at
+a share of 1, and the first draft of this spec ran on it. And the span has to be
+deep enough that `kScatter` has saturated, because the deep component is what the
+second tap is mixed into.
+
+This spec is also what caught the vec4 packing (§5.158): the three new uniform
+vec4s were first written at float offsets 117, 121 and 125, which are not
+multiples of four, so the shader read three of `localTone`'s padding words as the
+σ law and the operators' own words as each other's. Every one of those words is 0
+on the landed material, so the 34 goldens, the identity test and the CSS
+declaration case were all green over the bug. Only opening the gate could see it.

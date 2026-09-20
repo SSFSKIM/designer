@@ -214,6 +214,32 @@ export interface OpticsPassArgs {
    * is what runs — the 0.14.0 path, to the bit.
    */
   readonly heavyTapEnabled: boolean;
+  /**
+   * W30's span-graded shadow σ (claims §5.156 §2), as three leaves rather than
+   * one resolved width: the law is read PER PIXEL from the casting surface's own
+   * span, which only the shader knows, so what crosses here is the law and not
+   * its value. Slope, reference span and signed thin offset, in the order
+   * `MaterialOuterShadow` declares them. All three 0 on the landed material,
+   * where the law returns `outerShadow[1]` at every span.
+   */
+  readonly outerShadowSigmaLaw: readonly [number, number, number];
+  /**
+   * W30's scale-selective scatter (claims §5.156 §3), the two halves of the
+   * spanning set this pass can see.
+   *
+   * `sizeScatterScaleGain` and `sizeScatterScaleRef` are the material's;
+   * `backdropScaleStatistic` is the SOURCE's — the analysis pass's edge density
+   * for the source this group samples, which arrives by readback and is
+   * therefore resolved by the caller, as `bodyChainLod` is. `heavySecondShare`
+   * is the signed weight of the second heavy sample, and `heavySecondEnabled`
+   * says whether the pyramid actually built that texture. Both amounts are 0 on
+   * the landed material and the texture is not built there.
+   */
+  readonly sizeScatterScaleGain: number;
+  readonly sizeScatterScaleRef: number;
+  readonly backdropScaleStatistic: number;
+  readonly sizeHeavySecondShare: number;
+  readonly heavySecondEnabled: boolean;
   /** DOM-layer mode: 0 is off, 1 is unknown tone, and 2 has a measured tone. */
   readonly domMaterial?: {
     readonly mode: number;
@@ -378,6 +404,13 @@ export interface OpticsPassArgs {
         readonly body: GPUTextureView;
         /** The heavy blur (W26), absent where the profile named no width. */
         readonly heavy: GPUTextureView | undefined;
+        /**
+         * The SECOND heavy blur (W30 G2), absent wherever
+         * `MaterialProfile.sizeHeavySecondShare` is 0 — which is everywhere on
+         * the landed material, and is what makes the operator cost nothing
+         * until §5.159 turns it on.
+         */
+        readonly heavy2: GPUTextureView | undefined;
       }
     | undefined;
 }
@@ -731,7 +764,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.resourceId}`, 120);
+      const slot = uniformSlot(`optics:${args.resourceId}`, 132);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -916,6 +949,25 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[114] = args.backdropToneResponseThick[3] ?? args.backdropToneResponseThick[2];
       d[115] = args.backdropToneAnchorX.length === 4 ? 1 : 0;
       d[116] = args.localTone === undefined ? 0 : 1;
+      // W30's two operators, each in a vec4 of its own rather than in the
+      // padding of a facet it does not belong to (`heavyTap`'s own precedent).
+      // Every word below is 0 on the landed material, so the bytes this pass
+      // writes are the 0.19.0 bed's with three zeroed vec4s appended.
+      // 117..119 are `localTone`'s own three padding words, which stay zero: a
+      // vec4 starts every four floats, so the next one begins at 120 and an
+      // operator packed from 117 would read three of its neighbour's lanes.
+      d[120] = args.outerShadowSigmaLaw[0];
+      d[121] = args.outerShadowSigmaLaw[1];
+      d[122] = args.outerShadowSigmaLaw[2];
+      d[123] = 0;
+      d[124] = args.sizeScatterScaleGain;
+      d[125] = args.sizeScatterScaleRef;
+      d[126] = args.backdropScaleStatistic;
+      d[127] = 0;
+      d[128] = args.sizeHeavySecondShare;
+      d[129] = args.heavySecondEnabled ? 1 : 0;
+      d[130] = 0;
+      d[131] = 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;
@@ -924,6 +976,10 @@ export function createPassRunner(context: GpuContext): PassRunner {
       // is one layout; where there is none the placeholder stands in it and the
       // enable above is what keeps the shader from reading it.
       const heavy = args.backdrop?.heavy ?? placeholderView;
+      // W30's second heavy texture, on the same rule: one layout, so the slot is
+      // always filled, and the enable above is what keeps the shader from
+      // reading the placeholder.
+      const heavy2 = args.backdrop?.heavy2 ?? placeholderView;
 
       const pipeline = opticsPipeline(args.targetFormat);
       const pass = encoder.beginRenderPass({
@@ -951,6 +1007,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
             { binding: 8, resource: heavy },
             { binding: 9, resource: args.fields.presence.createView() },
             { binding: 10, resource: args.localTone ?? placeholderView },
+            { binding: 11, resource: heavy2 },
           ],
         }),
       );

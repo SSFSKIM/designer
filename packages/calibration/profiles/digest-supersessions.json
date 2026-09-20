@@ -1,0 +1,141 @@
+{
+  "$comment": [
+    "The digests every shipped profile document's pin resolves to, recorded BESIDE",
+    "the documents rather than in them — W30 Decision Log 1 (a) and 4 (a), spending",
+    "the one-time X1 exemption W29 Decision Log 7 (a) granted.",
+    "",
+    "`recordedSha256` is the document's own `resolvedMaterialSha256`: the digest it",
+    "was sealed at, and still the reading. `currentSha256` is what the same",
+    "fingerprint resolves to over a default that now carries W30's eight inert",
+    "leaves. The two differ because the digest is taken over the FULLY RESOLVED",
+    "material and the material gained eight keys, every one of them at a value that",
+    "is an algebraic identity; no pixel of either tier moved, and",
+    "`results/2026-09-20-w30-g2-leaves/` carries the proofs.",
+    "",
+    "WHY NO DOCUMENT WAS EDITED, INCLUDING THE FOUR THAT ARE NOT FROZEN.",
+    "`test/adopted-thresholds.test.ts` builds `SHIPPED_DOCUMENT_HASHES` from the",
+    "BYTES of every file in this directory, and `atAShippedDocument` keeps only",
+    "matrix rows whose `capturePath` names a current hash. That is what rules the",
+    "frozen pair: re-recording a digest inside either would empty all 1,107 macOS",
+    "26.5 rows out of every bound, floor, partition count and conditioning exclusion",
+    "stated over that bed. G2 measured that the same is true of the macOS 27 four —",
+    "re-sealing them dropped 230 gated cells across six profiles and turned",
+    "`adopted-thresholds.test.ts` red by 15 cases and `tier-coherence.test.ts` by 8 —",
+    "so the record covers all six and the documents keep their bytes.",
+    "",
+    "From here a re-seal and its canonical read land in ONE merge (Decision Log",
+    "4 (b)), so the gated bed is never empty on main and no count is ever written",
+    "down to zero to make a merge green. G3 seals the macOS 27 documents when it",
+    "genuinely moves their material and reads at those bytes in the same child; the",
+    "four macOS 27 entries below leave this file then, and the two frozen ones stay.",
+    "",
+    "The exemption is spent once. No later wave adds a record to this file without a",
+    "new grant from the user."
+  ],
+  "recordedBy": "W30 G2",
+  "claims": "docs/doperpowers/specs/c9a-fidelity-claims.md §5.158",
+  "supersessions": [
+    {
+      "profileKey": "apple-macos-26.5-1x-light-standard",
+      "recordedSha256": "b2b570e4adcea8fb",
+      "currentSha256": "b340a4dee871633c",
+      "leaves": [
+        "outerShadow.sigmaSlopePerSpan",
+        "outerShadow.sigmaSpanRefPx",
+        "outerShadow.sigmaThinOffsetPx",
+        "sizeHeavySecondSigma",
+        "sizeHeavySecondSigma2x",
+        "sizeHeavySecondShare",
+        "sizeScatterScaleGain",
+        "sizeScatterScaleRef"
+      ],
+      "decisionLog": "W30 Decision Log 1 (a); W30 Decision Log 4 (a); W29 Decision Log 7 (a)",
+      "date": "2026-09-20"
+    },
+    {
+      "profileKey": "apple-macos-26.5-1x-dark-standard",
+      "recordedSha256": "874be66ea501621b",
+      "currentSha256": "93ab090705c43f1f",
+      "leaves": [
+        "outerShadow.sigmaSlopePerSpan",
+        "outerShadow.sigmaSpanRefPx",
+        "outerShadow.sigmaThinOffsetPx",
+        "sizeHeavySecondSigma",
+        "sizeHeavySecondSigma2x",
+        "sizeHeavySecondShare",
+        "sizeScatterScaleGain",
+        "sizeScatterScaleRef"
+      ],
+      "decisionLog": "W30 Decision Log 1 (a); W30 Decision Log 4 (a); W29 Decision Log 7 (a)",
+      "date": "2026-09-20"
+    },
+    {
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "recordedSha256": "e825cb034c9070e4",
+      "currentSha256": "8d06a41cb70ba52f",
+      "leaves": [
+        "outerShadow.sigmaSlopePerSpan",
+        "outerShadow.sigmaSpanRefPx",
+        "outerShadow.sigmaThinOffsetPx",
+        "sizeHeavySecondSigma",
+        "sizeHeavySecondSigma2x",
+        "sizeHeavySecondShare",
+        "sizeScatterScaleGain",
+        "sizeScatterScaleRef"
+      ],
+      "decisionLog": "W30 Decision Log 1 (a); W30 Decision Log 4 (a); W29 Decision Log 7 (a)",
+      "date": "2026-09-20"
+    },
+    {
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "recordedSha256": "8439eb808495f5bf",
+      "currentSha256": "73a3fb119a81312b",
+      "leaves": [
+        "outerShadow.sigmaSlopePerSpan",
+        "outerShadow.sigmaSpanRefPx",
+        "outerShadow.sigmaThinOffsetPx",
+        "sizeHeavySecondSigma",
+        "sizeHeavySecondSigma2x",
+        "sizeHeavySecondShare",
+        "sizeScatterScaleGain",
+        "sizeScatterScaleRef"
+      ],
+      "decisionLog": "W30 Decision Log 1 (a); W30 Decision Log 4 (a); W29 Decision Log 7 (a)",
+      "date": "2026-09-20"
+    },
+    {
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5-receded",
+      "recordedSha256": "8dc63b265c1de038",
+      "currentSha256": "91a22b7ad3473d51",
+      "leaves": [
+        "outerShadow.sigmaSlopePerSpan",
+        "outerShadow.sigmaSpanRefPx",
+        "outerShadow.sigmaThinOffsetPx",
+        "sizeHeavySecondSigma",
+        "sizeHeavySecondSigma2x",
+        "sizeHeavySecondShare",
+        "sizeScatterScaleGain",
+        "sizeScatterScaleRef"
+      ],
+      "decisionLog": "W30 Decision Log 1 (a); W30 Decision Log 4 (a); W29 Decision Log 7 (a)",
+      "date": "2026-09-20"
+    },
+    {
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5-receded",
+      "recordedSha256": "3264b6cdde64bc8b",
+      "currentSha256": "1b40966487534d1c",
+      "leaves": [
+        "outerShadow.sigmaSlopePerSpan",
+        "outerShadow.sigmaSpanRefPx",
+        "outerShadow.sigmaThinOffsetPx",
+        "sizeHeavySecondSigma",
+        "sizeHeavySecondSigma2x",
+        "sizeHeavySecondShare",
+        "sizeScatterScaleGain",
+        "sizeScatterScaleRef"
+      ],
+      "decisionLog": "W30 Decision Log 1 (a); W30 Decision Log 4 (a); W29 Decision Log 7 (a)",
+      "date": "2026-09-20"
+    }
+  ]
+}
