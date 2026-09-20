@@ -129,8 +129,16 @@ test.describe("the same-plane overlap dev-error", () => {
     // byte-identical at three blur radii and four backdrop classes, so the
     // mechanism the warning names provably does not occur here.
     // See `spikes/s1-proxy-topology/overlap-experiment/`.
-    const gap = 22;
+    /*
+     * The gap is DERIVED from the padding rather than written down (W29 G4). It
+     * was 22, chosen when the material's own padding at this span was about 12;
+     * on macOS 27 it is 22.85 and the literal fell to the wrong side of the
+     * band this case exists to sit in. A whole pixel past the padding is inside
+     * it by construction, for any material whose padding is over one pixel, and
+     * the two bounds below still state the band rather than assuming it.
+     */
     const { padding } = expectedProxyBlur({ spanPx: 40, extentsCssPx: [100, 40] });
+    const gap = Math.ceil(padding) + 1;
     expect(padding).toBeLessThan(gap);
     expect(2 * padding).toBeGreaterThan(gap);
 

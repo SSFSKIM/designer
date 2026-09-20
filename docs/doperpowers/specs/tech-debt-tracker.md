@@ -3529,3 +3529,74 @@ from that whether the non-monotonicity is the CSS tier's composite alone or the
 material's. If it is the tier's, it belongs beside the other cross-tier residuals
 in `tier-coherence.test.ts`; if it is the material's, it is a fit question for the
 operator wave.
+
+---
+
+## The CSS tier overshoots the curve's target over a pure black backdrop, and macOS 27 exposed it (W29 G4, 2026-09-20)
+
+*Found 2026-09-20 landing the macOS 27 selection (claims §5.155 §5), by
+`platform-web/e2e/pixel/backdrop-tone-pixels.spec.ts`'s twelve-step ramp.*
+
+Over a **pure black** backdrop the CSS tier renders the 44 px surface at an
+encoded level of **187.5** where the response curve's target is 0.2147 linear,
+about 129 codes — roughly 58 codes high. One grey level up, at 13, it renders
+144.2 against a target of 0.2446 and tracks from there to the top of the ramp
+(150.1, 156.6, 164.2, 169.5, 174.7, 179.7, 183.7, 187.5, 189.8, 192.7). So the
+rendered level moves the **wrong way** across the ramp's first step, by 43 codes.
+
+It is not the law: the curve's own target is strictly increasing across this ramp
+at both spans (`results/2026-09-20-w29-g4-landing/ramp-probe.txt`). It is the
+conversion — an encoded `rgba()` overlay over a backdrop with nothing in it,
+which is where the linear chain's quantum is coarsest and where
+`linearChainReaches` hands the solve its anchored form.
+
+**It is newly visible rather than newly true.** On macOS 26.5 the collapse owned
+everything below grey 38 — `k` reads 1.00 at greys 0, 13 and 25 — so the surface
+simply became its backdrop there and the conversion was never asked for a level
+it could not reach. macOS 27's adaptation band is inert, which exposes the
+region.
+
+**No committed row covers it.** The bed's darkest backdrop is `dark-solid` at
+(28, 28, 30), which is step 2 of this ramp and tracks correctly, so no adopted
+bound and no floor is touched by this and no matrix row is wrong. What it
+affects is a page whose own backdrop is darker than anything Apple's bed
+contains — a black canvas, a dark video letterbox, a page that paints `#000`.
+
+**The fix shape**: the GPU tier is the fidelity target and should be read first —
+this reading is CSS-tier only, and whether the WebGPU tier lands the same target
+over pure black is unmeasured. If it does, the residual is the tier conversion's
+and belongs with the other cross-tier entries; the lever is the anchored solve's
+behaviour when the anchor's own level is zero. If it does not, the level law's
+first anchor is extrapolating below the bed and that is a fit question. Either
+way the instrument exists: the spec above sweeps it, and the reading is committed
+in its own comment.
+
+---
+
+## The CSS tier's heavy-share band flattened to 2 codes on the macOS 27 material (W29 G4, 2026-09-20)
+
+*Found 2026-09-20 landing the macOS 27 selection (claims §5.155 §5), by
+`platform-web/e2e/pixel/css-tier-pixels.spec.ts`.*
+
+W16 G1 gave the CSS tier's heavy layer a raster `mask-image` carrying the depth
+ramp, so the heavy share rises from `1 − s₀(span)` at the contour to `kDeep(span)`
+at the reach. On a 220 × 120 surface the macOS 26.5 material put **more than 8**
+alpha codes between the two depths; the macOS 27 material puts **2** — 127 near
+the contour against 129 at the centre.
+
+The band's shape did not change. Of the size law's constants only
+`sizeScatterFloor` differs between the two documents, **0.40 against 0.25**, and
+the heavy share is clamped up to that floor (`scatterFloorAtScale`), so a lower
+floor lets the deep end sit nearer the contour's own share.
+
+Nothing is wrong: the ramp is still in the raster, which is the property that
+case exists to hold, and the tier's cross-tier bound is unaffected and green.
+What is weaker is the **discrimination**: the case's floor moved from 8 codes to
+1, so a future regression that flattened the band the rest of the way has 2 codes
+of margin to be caught in rather than 8.
+
+**The fix shape**: read the band at a size where it is widest under this material
+rather than at the size W16 happened to choose — the ramp's reach is 80 CSS px at
+1x, so a surface a little over twice that separates the two depths by the most
+the law allows. That is a fixture change and a re-measurement, not a material
+one, and it should be done from the law rather than by trying sizes.

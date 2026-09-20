@@ -558,18 +558,31 @@ export function GlassToolbar(props: GlassToolbarProps): ReactNode {
     const registered = (slots ?? []).flatMap((slot) =>
       slot.kind === "partition" ? [{ ...groupProps, ...slot.own }] : [],
     );
-    return registered.reduce(
-      (widest, props) =>
-        Math.max(
-          widest,
-          props?.samplingPadding ?? DEFAULT_GROUP_SAMPLING.samplingPadding,
-          samplingPaddingFor({
-            members,
-            material,
-            ...(props?.variant === undefined ? {} : { variant: props.variant }),
-          }),
-        ),
-      0,
+    /*
+     * Rounded UP to a whole CSS pixel (W29 G4). The derivation is exact and the
+     * overlap check that reads it is a strict inequality, so a gap equal to the
+     * padding to the last bit sits on the boundary — and the runtime computes
+     * its own side from the members' measured extents rather than from the
+     * toolbar's box, so the two arrive at the same number by two routes and one
+     * ulp decides. That is not hypothetical: on the macOS 27 material under
+     * Reduce Transparency the two routes agree to fourteen decimal places and
+     * the check fired. A layout opens whole pixels anyway; a ceiling is the
+     * cheapest way to be strictly clear rather than exactly level.
+     */
+    return Math.ceil(
+      registered.reduce(
+        (widest, props) =>
+          Math.max(
+            widest,
+            props?.samplingPadding ?? DEFAULT_GROUP_SAMPLING.samplingPadding,
+            samplingPaddingFor({
+              members,
+              material,
+              ...(props?.variant === undefined ? {} : { variant: props.variant }),
+            }),
+          ),
+        0,
+      ),
     );
   })();
 
