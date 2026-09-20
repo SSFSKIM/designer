@@ -148,6 +148,9 @@ passed). Not rerun. The log is committed as `results/2026-09-20-w29-g4-landing/c
 The class is the driver's reading of a moment; a step larger than the whole travel is a sample
 taken across a frame boundary. The 0.19.0 publish accepts it as disclosed, as 0.17.0 and 0.18.0 did.
 
+*2026-09-20 (the parent):* 0.19.0 was published by the user on `26250e97` (registry 04:40Z) with
+this class as disclosed above and nothing rerun; tag `v0.19.0`. The entry stays open.
+
 *Found 2026-08-30, running the suites for the tint API (W3).*
 
 Two to four cases in `packages/react/e2e/press.spec.ts` and `morph.spec.ts` fail
