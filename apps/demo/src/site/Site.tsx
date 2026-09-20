@@ -388,14 +388,16 @@ export function Site(props: SiteProps): ReactNode {
                 step={TONE_GROUND.step}
                 value={groundStep}
                 onChange={(event) => setGroundStep(Number(event.target.value))}
-                aria-valuetext={`${groundLevel.toFixed(3)} linear`}
+                aria-valuetext={`${TONE_GROUND.label(groundLevel)} linear`}
                 data-testid="ground-level"
               />
               <span className="field__hint" data-testid="ground-level-readout">
-                {groundLevel.toFixed(3)} linear. The interior settles on a curve
-                through four measured anchors, and the surface&rsquo;s size moves
-                where the curve&rsquo;s ends sit; this range is the dark end, where
-                the macOS 26.5 material used to come apart by size.
+                {TONE_GROUND.label(groundLevel)} linear. The interior settles on a
+                curve through four measured anchors, and the surface&rsquo;s size
+                moves where the curve&rsquo;s ends sit. The control&rsquo;s stops
+                step by a constant RATIO rather than a constant amount, so half its
+                travel lies under 0.018 linear, which is where the three plates
+                come apart most.
               </span>
             </label>
           </Fields>
@@ -416,11 +418,14 @@ export function Site(props: SiteProps): ReactNode {
             thicker ones staying a little brighter: a thicker surface reads its
             backdrop as brighter than it is, so the thickness enters the
             curve&rsquo;s argument rather than its result. That separation is
-            plainly visible over the bright half of the control and closes to
-            almost nothing at the bottom stop, where the three bodies sit within
-            0.016 of each other and about a hundred times above the backdrop they
-            are standing on. On macOS 26.5 the same drag pulled the 40px plate all
-            the way onto the ground &mdash; body and rim both the backdrop, its
+            widest low down &mdash; the three bodies span 0.026 over a ground of
+            0.006, about a ninth of their own level, against 0.015 at the top stop
+            &mdash; which is why the control&rsquo;s stops crowd the dark end. It
+            survives all the way down but its ORDER does not: over the last few
+            stops, under a ground of about 0.003, the three sit within 0.016 of
+            each other and are no longer sorted by size, and all three are about a
+            hundred times above the backdrop they are standing on. On macOS 26.5 the same drag pulled the 40px plate
+            all the way onto the ground &mdash; body and rim both the backdrop, its
             label the only thing marking where it was. What replaced that is not a
             weaker version of it: it is a material that stays a material over a
             backdrop that has nothing left to give it.

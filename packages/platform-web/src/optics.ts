@@ -4455,17 +4455,31 @@ const defaultSamplingMapping = (): Partial<CssTierMapping> =>
  * A root that selected another document passes that document's two halves here.
  * A group whose descriptor patches the profile resolves its own σ through
  * `proxySamplingSigma` inside the frame and never comes through this function.
+ *
+ * **An absent `profile` and an undefined one are two different materials** (W30
+ * G4, Decision Log 1 (f)). One shipped endpoint carries no patch at all — the
+ * macOS 26.5 light active endpoint IS the renderer's constants, which is why
+ * `GlassMaterialEndpoint.patch` is optional — so a caller holding a document
+ * has to be able to say "this endpoint's material is the renderer's own". The
+ * key's PRESENCE is what says it: omit `profile` for the default document's
+ * light endpoint, and pass it as `undefined` for an endpoint that names no
+ * patch. A `??` here would have collapsed the two and silently drawn a macOS
+ * 26.5 toolbar's gap at the macOS 27 material, which is the seam this argument
+ * exists to close.
  */
 export function samplingPaddingFor(input: {
   readonly members: readonly (readonly [number, number])[];
   readonly material: ResolvedMaterialPolicy;
   readonly variant?: MaterialVariant;
-  /** A material document's `patch`; omit for the material a default root draws. */
-  readonly profile?: RendererMaterialProfile;
+  /**
+   * A material document endpoint's `patch`; omit the key for the material a
+   * default root draws, and pass `undefined` for an endpoint that has none.
+   */
+  readonly profile?: RendererMaterialProfile | undefined;
   /** The same document's `cssTierMapping`; omit for the same. */
   readonly cssTierMapping?: Partial<CssTierMapping>;
 }): number {
-  const profile = input.profile ?? defaultSamplingProfile();
+  const profile = "profile" in input ? input.profile : defaultSamplingProfile();
   const mapping: CssTierMapping = {
     ...CSS_TIER_MAPPING,
     ...(input.cssTierMapping ?? defaultSamplingMapping()),

@@ -370,6 +370,16 @@ export function Laws(props: LawsProps): ReactNode {
             blur, so it takes a single width at the mixed value: its interior level
             matches, and its structure is the tier&rsquo;s known limit.
           </p>
+          <p className="note">
+            The same slider now moves a second law. Until 0.20.0 the outer
+            shadow&rsquo;s blur was one constant at every size &mdash; which is
+            what macOS 26.5 measured, span-invariant within half a pixel from 32
+            to 160 &mdash; and on macOS 27 it is a line in the casting span above
+            a knee at 44px. The readout below evaluates it beside the body&rsquo;s
+            two widths, from the same published constants: drag to 32 and the
+            shadow is a tight 2.13px band under the plate, drag to 288 and it is
+            sixteen times as wide.
+          </p>
           <dl className="readout" data-testid="body-law">
             <div className="readout__head">
               <dt>The law</dt>
@@ -390,6 +400,10 @@ export function Laws(props: LawsProps): ReactNode {
             <div className="readout__row">
               <dt>CSS tier, single width</dt>
               <dd data-testid="body-single">{fixed(body.single, 2)} px</dd>
+            </div>
+            <div className="readout__row">
+              <dt>Outer shadow &sigma; at this span</dt>
+              <dd data-testid="body-shadow-sigma">{fixed(body.shadowSigma, 2)} px</dd>
             </div>
           </dl>
           <ChannelReadout label="the plate" testId="body-plate" />

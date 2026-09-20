@@ -73,6 +73,7 @@ import {
   useId,
   useMemo,
   useState,
+  useSyncExternalStore,
   type CSSProperties,
   type FocusEvent as ReactFocusEvent,
   type HTMLAttributes,
@@ -80,9 +81,11 @@ import {
   type ReactNode,
 } from "react";
 
+import { useGlassRootHandle } from "../context";
 import { GlassGroup, type GlassGroupProps } from "../group";
 import { PlanePortal, PLANE_ANCHOR_ATTRIBUTE } from "../plane-portal";
 import { useGlassAccessibility } from "../root";
+import { useGlassRootStore } from "../store";
 
 /**
  * The attribute a toolbar item marks itself with, carrying its toolbar's id.
@@ -504,6 +507,37 @@ export function GlassToolbar(props: GlassToolbarProps): ReactNode {
    * every group starts at, and the honest answer for a toolbar with no extent.
    */
   const accessibility = useGlassAccessibility();
+  /*
+   * ...and at the material the ROOT selected, not at the package default
+   * (W30 Decision Log 1 (f); the tracker's "`GlassToolbar` opens its split at
+   * the default document's blur").
+   *
+   * `samplingPaddingFor` composes the shipped optics with a document's own
+   * `patch` and `cssTierMapping`, and omitting both means the default
+   * document's. Since 0.19.0 that default is the macOS 27 material, whose
+   * `blurSigmaScale` is 2.2 against the module's 1 — so a page pinned to
+   * `macos26MaterialProfileDocument` was opening its split at 2.2× the blur its
+   * own material draws. The handle now carries the selected document, so the
+   * toolbar asks its own material's question.
+   *
+   * The scheme is the RESOLVED one and it is subscribed rather than read once:
+   * the two schemes of one document do not ask for the same room (the macOS 27
+   * dark endpoint wants about 16 % more than the light one), and
+   * `colorScheme="auto"` moves under the system without the prop changing. The
+   * pose is deliberately not an axis: a gap that changed when the window lost
+   * focus would reflow the toolbar on blur, and the partition is structural
+   * (this file's header). The active endpoint is what a focused window draws
+   * and what the overlap check is read against.
+   */
+  const { materialProfileDocument } = useGlassRootHandle();
+  const store = useGlassRootStore();
+  const scheme =
+    useSyncExternalStore(
+      useCallback((listener) => store.subscribeColorScheme(listener), [store]),
+      () => store.colorScheme(),
+      () => store.colorScheme(),
+    ) ?? "light";
+  const endpoint = materialProfileDocument.active[scheme];
   const [box, setBox] = useState<readonly [number, number]>([0, 0]);
 
   useEffect(() => {
@@ -579,6 +613,11 @@ export function GlassToolbar(props: GlassToolbarProps): ReactNode {
               members,
               material,
               ...(props?.variant === undefined ? {} : { variant: props.variant }),
+              // The key is always present, `undefined` included: an endpoint
+              // that names no patch IS the renderer's constants, and omitting
+              // the key would ask for the default document's instead.
+              profile: endpoint.patch,
+              cssTierMapping: materialProfileDocument.cssTierMapping,
             }),
           ),
         0,

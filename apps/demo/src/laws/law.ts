@@ -11,10 +11,12 @@ import {
   backdropToneResponseLevel,
   colorSchemeMaterialProfile,
   cssTierOptics,
+  outerShadowSigmaPx,
   resolvedBackdropToneResponse,
   scatterThickness,
   sizeScatterSigmaAt,
   sizeThickness,
+  sourceOuterShadow,
   sourceSize,
   CSS_TIER_MAPPING,
   DEFAULT_MATERIAL_PROFILE_DOCUMENT,
@@ -42,6 +44,7 @@ export const LAW_OPTICS = cssTierOptics(LAW_PROFILE, {
   ...DEFAULT_MATERIAL_PROFILE_DOCUMENT.cssTierMapping,
 });
 export const LAW_SIZE = sourceSize(LAW_PROFILE);
+export const LAW_SHADOW = sourceOuterShadow(LAW_PROFILE);
 const LAW_RESPONSE = resolvedBackdropToneResponse(LAW_PROFILE);
 
 /** Linear light to the sRGB transfer function, 0..1 in and out. */
@@ -98,6 +101,16 @@ export interface BodyLaw {
   readonly scatter: number;
   /** The one width the CSS tier's single `backdrop-filter` takes instead. */
   readonly single: number;
+  /**
+   * The outer shadow's σ at the same span, CSS px (W30; claims §5.159 §1).
+   *
+   * On this page because this control is the only span axis it has, and because
+   * the span is now an argument to two laws rather than one: the body's mix has
+   * always ridden it, and since 0.20.0 so does the shadow's blur. Reading them
+   * off one slider is what makes "the casting span" visible as a quantity the
+   * material is a function of, rather than as two coincidences.
+   */
+  readonly shadowSigma: number;
 }
 
 /**
@@ -123,6 +136,11 @@ export function bodyLaw(
     sharp,
     scatter: sharp * LAW_SIZE.sizeScatterGainMax,
     single: sizeScatterSigmaAt(sharp, mix, LAW_SIZE),
+    // Not folded by the policy: the σ law is the material's own and the
+    // accessibility fold applies to the refraction and the frost, not to the
+    // shadow's width. `outerShadowSigmaPx` is the same function both tiers
+    // evaluate, which is what keeps this a readout and not a second opinion.
+    shadowSigma: outerShadowSigmaPx(LAW_SHADOW, spanPx),
   };
 }
 

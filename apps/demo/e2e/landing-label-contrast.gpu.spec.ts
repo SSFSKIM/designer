@@ -392,16 +392,28 @@ async function runSite(page: Page, record: RunRecord): Promise<void> {
 
   await showSection(page, "tone");
   record.resolvedTiers["/ tone"] = await resolvedForSection(page, "tone", record.tier);
+  /*
+   * Positions on the ground ladder since W30 G4, not thousandths, and the level
+   * is read back off the page rather than computed here — see `contrast.spec.ts`
+   * for the argument. The row label carries the level, so the record stays
+   * readable as a sweep over grounds rather than over slider indices.
+   */
   const slider = page.getByTestId("ground-level");
-  for (let value = 2; value <= 160; value += 2) {
-    await slider.fill(String(value));
-    await expect(page.getByTestId("ground-level-readout")).toContainText(
-      `${(value / 1000).toFixed(3)} linear`,
-    );
+  const readout = page.getByTestId("ground-level-readout");
+  const levelNow = async (): Promise<string> =>
+    (/^\s*(0\.\d+) linear/.exec((await readout.textContent()) ?? "")?.[1] ?? "");
+  // Seeded with what the control already shows, so the first fill has to move it.
+  let previousLevel = await levelNow();
+  for (let position = 0; position <= 80; position += 1) {
+    await slider.fill(String(position));
+    await expect
+      .poll(levelNow, { message: `the ground readout did not move off ${previousLevel}` })
+      .not.toBe(previousLevel);
+    previousLevel = await levelNow();
     await page.waitForTimeout(320);
     // One reading per declared stop. The sweep is the axis being walked, and the
     // drift is held still under it so that what moves between rows is the ground.
-    await measureFamilies(page, record, "/", `tone ${String(value).padStart(3, "0")}/1000`, [
+    await measureFamilies(page, record, "/", `tone ${previousLevel} linear`, [
       family("size labels", ".plate strong", 3, LARGE),
     ]);
   }

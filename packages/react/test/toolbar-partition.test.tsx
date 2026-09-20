@@ -31,8 +31,19 @@
 import { fireEvent } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { DEFAULT_GROUP_SAMPLING, rectsOverlap, type Rect } from "@vitreajs/vitrea";
-import { resolveProxyGeometry, samplingPaddingFor } from "@vitreajs/vitrea-web";
+import {
+  DEFAULT_GROUP_SAMPLING,
+  NOMINAL_ACCESSIBILITY_POLICY,
+  rectsOverlap,
+  type Rect,
+} from "@vitreajs/vitrea";
+import {
+  macos26MaterialProfileDocument,
+  macos27MaterialProfileDocument,
+  resolveProxyGeometry,
+  samplingPaddingFor,
+  type GlassMaterialProfileDocument,
+} from "@vitreajs/vitrea-web";
 
 import {
   DEFAULT_CLEAR_DIMMING,
@@ -380,6 +391,139 @@ describe("the gap a spacer opens", () => {
     const spacer = spacers()[0];
     expect(spacer?.style.flex).toBe("1 1 auto");
     expect(gapOf(spacer)).toBeGreaterThan(0);
+  });
+});
+
+/**
+ * The seam W30 G4 closed: whose material the gap is derived from.
+ *
+ * `samplingPaddingFor` composes a *document's* optics, and until 0.20.0 the
+ * toolbar could name none — the React surface told it which accessibility
+ * policy was resolved and never which material document the root had selected,
+ * so a page pinned to `macos26MaterialProfileDocument` opened its split at the
+ * macOS 27 material's blur (the tracker's "`GlassToolbar` opens its split at the
+ * default document's blur"; W30 Decision Log 1 (f)). `GlassRootHandle` now
+ * carries the selected document and the toolbar asks its own material's
+ * question.
+ *
+ * The assertions run on the `clear` variant, deliberately. On `regular` at
+ * jsdom's span 0 both materials sit under core's published advisory of 24, so
+ * the max hides the whole difference and a case written there would pass over a
+ * bug; `clear` samples at four times the blur, which is where the material's own
+ * requirement is the term in front.
+ */
+describe("the gap is derived from the document the root selected (W30 Decision Log 1 (f))", () => {
+  const clearSplit = (
+    <GlassToolbar
+      aria-label="Actions"
+      groupProps={{ variant: "clear", dimming: DEFAULT_CLEAR_DIMMING }}
+    >
+      <GlassButton nodeId="a">One</GlassButton>
+      <GlassToolbarSpacer />
+      <GlassButton nodeId="b">Two</GlassButton>
+    </GlassToolbar>
+  );
+
+  /** What the document's own active endpoint asks for, composed here as the toolbar composes it. */
+  const wantedAt = (
+    document: GlassMaterialProfileDocument,
+    scheme: "light" | "dark",
+    material: Parameters<typeof samplingPaddingFor>[0]["material"],
+  ): number =>
+    Math.ceil(
+      Math.max(
+        DEFAULT_GROUP_SAMPLING.samplingPadding,
+        samplingPaddingFor({
+          members: [],
+          material,
+          variant: "clear",
+          profile: document.active[scheme].patch,
+          cssTierMapping: document.cssTierMapping,
+        }),
+      ),
+    );
+
+  it("opens the macOS 26.5 padding on a root pinned to the macOS 26.5 material", () => {
+    const harness = renderGlass(clearSplit, {
+      materialProfileDocument: macos26MaterialProfileDocument,
+    });
+    harness.run(1);
+
+    const material = harness.root().accessibility.material;
+    const gap = gapOf(spacers()[0]);
+    expect(gap).toBeCloseTo(wantedAt(macos26MaterialProfileDocument, "light", material), 6);
+    // ...and it is the macOS 26.5 number rather than the default document's,
+    // which is the failure itself: the two differ by the whole of the macOS 27
+    // CSS crossing, and the old gap was the larger one.
+    const atDefault = samplingPaddingFor({ members: [], material, variant: "clear" });
+    expect(gap).toBeLessThan(atDefault);
+    const at265 = samplingPaddingFor({
+      members: [],
+      material,
+      variant: "clear",
+      profile: macos26MaterialProfileDocument.active.light.patch,
+      cssTierMapping: macos26MaterialProfileDocument.cssTierMapping,
+    });
+    expect(atDefault / at265).toBeCloseTo(2.0439, 3);
+  });
+
+  it("leaves a root on the default document exactly where it was", () => {
+    // The other half of the fix, and the one that says it is a fix rather than a
+    // change: every page that never named a document draws the default one, and
+    // its gap is derived from the same endpoint it always was.
+    const harness = renderGlass(clearSplit);
+    harness.run(1);
+
+    const material = harness.root().accessibility.material;
+    expect(gapOf(spacers()[0])).toBeCloseTo(
+      Math.ceil(
+        Math.max(
+          DEFAULT_GROUP_SAMPLING.samplingPadding,
+          samplingPaddingFor({ members: [], material, variant: "clear" }),
+        ),
+      ),
+      6,
+    );
+  });
+
+  it("follows the RESOLVED scheme, because one document's two endpoints differ", () => {
+    // The scheme is an axis of the material, not only of the colour: the macOS
+    // 27 dark endpoint asks for about 7.6 % more room than the light one at the
+    // same variant. Before this seam the toolbar took the light endpoint's
+    // number under both, which is an UNDER-pad on a dark root — the direction
+    // the derivation exists to rule out.
+    const harness = renderGlass(clearSplit, { colorScheme: "dark" });
+    harness.run(1);
+
+    const material = harness.root().accessibility.material;
+    expect(harness.root().colorScheme).toBe("dark");
+    expect(gapOf(spacers()[0])).toBeCloseTo(
+      wantedAt(macos27MaterialProfileDocument, "dark", material),
+      6,
+    );
+    expect(
+      samplingPaddingFor({
+        members: [],
+        material,
+        variant: "clear",
+        profile: macos27MaterialProfileDocument.active.dark.patch,
+        cssTierMapping: macos27MaterialProfileDocument.cssTierMapping,
+      }),
+    ).toBeGreaterThan(samplingPaddingFor({ members: [], material, variant: "clear" }));
+  });
+
+  it("reads an endpoint that names no patch as the renderer's own constants, not as the default document's", () => {
+    // `GlassMaterialEndpoint.patch` is optional because one shipped endpoint has
+    // none: the macOS 26.5 light active material IS the renderer's own leaves.
+    // `samplingPaddingFor` therefore distinguishes an absent `profile` key from
+    // one present and `undefined`, and this is the case that pins it — the two
+    // answers are the macOS 26.5 material and the macOS 27 one.
+    expect(macos26MaterialProfileDocument.active.light.patch).toBeUndefined();
+    const material = NOMINAL_ACCESSIBILITY_POLICY.material;
+    expect(
+      samplingPaddingFor({ members: [], material, profile: undefined, cssTierMapping: {} }),
+    ).toBeCloseTo(11.1, 6);
+    expect(samplingPaddingFor({ members: [], material })).toBeCloseTo(22.6875, 6);
   });
 });
 

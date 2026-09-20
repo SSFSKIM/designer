@@ -604,10 +604,9 @@ test.describe("the material over ordinary page content", () => {
  * surface's ink against the material that surface ended up showing.
  *
  * **Two of the three read differently on macOS 27, and the prose moved with the
- * material at W29 G4.** The continuity claim is untouched. The size gate now
- * holds at the bright end of the control and has nothing to separate at the dark
- * end, and the convergence it used to produce is gone: Apple's macOS 27 glass
- * does not vanish into a near-black backdrop (§5.151 §4), and the adaptation band
+ * material at W29 G4.** The continuity claim is untouched. The convergence the
+ * size gate used to produce is gone: Apple's macOS 27 glass does not vanish into
+ * a near-black backdrop (§5.151 §4), and the adaptation band
  * that made vitrea's vanish measures inert on the new bed (§5.153 §2 item 1). The
  * ink claim survives as a mechanism and not as a visible difference — both plates
  * now resolve the same foreground, because their bodies never separate far enough
@@ -690,13 +689,25 @@ test.describe("backdrop tone adaptation is on screen", () => {
     return pixels[Math.floor(pixels.length / 2)]?.rgb ?? [0, 0, 0];
   };
 
-  const setGround = async (page: Page, value: string): Promise<void> => {
-    await page.getByTestId("ground-level").fill(value);
+  /**
+   * Drive the ground control to a stop, and say which level that stop is.
+   *
+   * The control's value is a POSITION on a geometric ladder since W30 G4, not a
+   * count of thousandths: 81 stops of equal ratio from 0.0020 to 0.1600, so that
+   * half the travel lies under 0.018 where the three plates come apart most
+   * (`Stage.tsx`'s `TONE_GROUND`; the reading is
+   * `packages/calibration/results/2026-09-20-w30-g4-landing/tone-range.json`).
+   * Both are written out at every call site rather than computed here, for this
+   * file's standing reason: a test that derived the level from the same formula
+   * the page uses would agree with the page by construction. The pair IS the
+   * assertion — if the ladder moves, these stops stop naming these levels and
+   * every one of them fails.
+   */
+  const setGround = async (page: Page, position: string, level: string): Promise<void> => {
+    await page.getByTestId("ground-level").fill(position);
     // The material transitions; the readout does not, so it is the settled signal
     // that the control took rather than a timeout hoping it did.
-    await expect(page.getByTestId("ground-level-readout")).toContainText(
-      `${(Number(value) / 1000).toFixed(3)} linear`,
-    );
+    await expect(page.getByTestId("ground-level-readout")).toContainText(`${level} linear`);
     await page.waitForTimeout(400);
   };
 
@@ -728,8 +739,9 @@ test.describe("backdrop tone adaptation is on screen", () => {
 
     // The top stop is `STAGE_HINT`'s own 0.16, which is past the curve's high edge.
     // Every plate is its unadapted self there, and that is the page's stated reason
-    // the rest of the site looks untouched by this feature.
-    await setGround(page, "160");
+    // the rest of the site looks untouched by this feature. It survived the W30 G4
+    // re-range for exactly that: the ladder's ends did not move, only its stops.
+    await setGround(page, "80", "0.1600");
     const flatGround = await groundOf(page);
     const unadaptedTint = { a: await tintOf(page, "a"), b: await tintOf(page, "b"), c: await tintOf(page, "c") };
     /*
@@ -779,7 +791,7 @@ test.describe("backdrop tone adaptation is on screen", () => {
     // The bottom stop. On macOS 27 no plate reaches the backdrop: every one of
     // them is still a light glass body over near-black pixels, which is the
     // single most visible thing Apple changed about this material.
-    await setGround(page, "2");
+    await setGround(page, "0", "0.0020");
     const darkGround = await groundOf(page);
     const groundLevel = levelOf(darkGround);
     const dark = {
@@ -812,15 +824,22 @@ test.describe("backdrop tone adaptation is on screen", () => {
     // The 112px plate is the one the case has always read this way.
     expect(unadapted - dark.c).toBeLessThan(dark.c - groundLevel);
     /*
-     * The size gate is NOT asserted at this stop any more, and the omission is
-     * recorded rather than silent. With the adaptation inert there is nothing
-     * left to separate the three plates at the dark end: the reading above has
-     * them within 0.016 of each other and **not** ordered by span — 0.2285 /
-     * 0.2127 / 0.2236 — which is the CSS tier's own occlusion and rim composite
-     * at the curve's first anchor rather than the response law, whose thin and
-     * thick rows are correctly ordered there (0.214 against 0.242). It is
-     * carried in `specs/tech-debt-tracker.md`. What the sweep's ordering claim
-     * still holds at is the bright end, which is asserted above.
+     * The size gate is NOT asserted at this stop, and the omission is recorded
+     * rather than silent. The three plates read within 0.016 of each other and
+     * **not** ordered by span — 0.2285 / 0.2127 / 0.2236 — which is the CSS
+     * tier's own occlusion and rim composite at the curve's first anchor rather
+     * than the response law, whose thin and thick rows are correctly ordered
+     * there (0.214 against 0.242). It is carried in
+     * `specs/tech-debt-tracker.md`.
+     *
+     * **What W29 G4 could not see, and W30 G4's reading does**: the disorder is a
+     * BAND and not an anchor. The old control had one stop under a ground of
+     * 0.004 and the re-ranged one has seven; all seven are disordered and all 74
+     * above them are ordered by span, and the widest the three ever separate is
+     * just above the band (`tone-range.json`, `tone-range.ladder.json`). So the
+     * ordering claim is asserted below rather than abandoned, and the sentence
+     * this comment used to end with — that the claim survives "at the bright
+     * end" — had the axis backwards.
      */
 
     /*
@@ -840,24 +859,72 @@ test.describe("backdrop tone adaptation is on screen", () => {
     }
 
     /*
+     * One stop up, the size gate is back — and this band is what the W30 G4
+     * re-range put the control's resolution into (charter Decision Log 1 (e),
+     * claims §5.160).
+     *
+     * The ruling was written on the premise that the separation lives over the
+     * bright half; the reading it asked for says the opposite
+     * (`packages/calibration/results/2026-09-20-w30-g4-landing/tone-range.json`,
+     * all eighty stops of the old control). Over a ground of 0.0060 the three
+     * bodies read 0.2347 / 0.2515 / 0.2607 — ordered by span and spanning 0.026,
+     * about a ninth of their own level — against 0.0147 at the top stop. The
+     * widest the gate ever opens is a few stops above the bottom, not at the
+     * bright end.
+     *
+     * The disorder the assertion above declines to test runs to position 6, a
+     * ground of about 0.0029, and the order holds at all 74 stops above it
+     * (`tone-range.ladder.json`). Position 20 is inside that ordered range and
+     * clear of its edge.
+     */
+    await setGround(page, "20", "0.0060");
+    const nearGround = await groundOf(page);
+    const near = {
+      a: await bodyAt(page, "a", nearGround),
+      b: await bodyAt(page, "b", nearGround),
+      c: await bodyAt(page, "c", nearGround),
+    };
+    expect(near.a, "40px against 68px").toBeLessThan(near.b);
+    expect(near.b, "68px against 112px").toBeLessThan(near.c);
+    const nearSpread = near.c - near.a;
+    const flatSpread = bodyOf(unadaptedTint.c, flatGround) - bodyOf(unadaptedTint.a, flatGround);
+    expect(nearSpread).toBeGreaterThan(flatSpread);
+
+    /*
      * Continuity, which is the claim a two-state feature would also pass the
      * assertions above. Every intermediate stop lands strictly between the two
      * ends and never goes backwards, so what the reader drags through is a curve
      * rather than a switch with a transition painted on it.
+     *
+     * It runs from the stop above, not from the bottom one, and the omission is a
+     * reading rather than a convenience: the 40px plate's published alpha is
+     * **0.695** at the bottom stop against 0.648–0.656 at every stop above it
+     * (`tone-range.json`), so its composited body sits above its own trend there
+     * and a monotone check started at the bottom would fail on the same anomaly
+     * that costs the ordering. It is the tracker's "three bodies are not ordered
+     * by span at the curve's first anchor", now localised to one plate's alpha at
+     * one anchor.
      */
-    let previous = dark.a;
-    for (const value of ["20", "40", "60", "80", "100"]) {
-      await setGround(page, value);
-      const level = await bodyAt(page, "a", await groundOf(page));
-      expect(level, `at ${value}`).toBeGreaterThan(previous);
-      expect(level, `at ${value}`).toBeLessThan(flatSmall);
-      previous = level;
+    let previous = near.a;
+    for (const [position, level] of [
+      ["29", "0.0098"],
+      ["42", "0.0200"],
+      ["59", "0.0506"],
+      ["71", "0.0977"],
+    ] as const) {
+      await setGround(page, position, level);
+      const body = await bodyAt(page, "a", await groundOf(page));
+      expect(body, `at ${level}`).toBeGreaterThan(previous);
+      expect(body, `at ${level}`).toBeLessThan(flatSmall);
+      previous = body;
     }
 
     // And the control is a control: the keyboard moves it like anything else.
+    // `Home` is the near-black stop, which is what Decision Log 1 (e) asked the
+    // re-range to keep one keystroke away.
     await page.getByTestId("ground-level").focus();
     await page.keyboard.press("Home");
-    await expect(page.getByTestId("ground-level-readout")).toContainText("0.002 linear");
+    await expect(page.getByTestId("ground-level-readout")).toContainText("0.0020 linear");
   });
 
   /*
@@ -889,10 +956,10 @@ test.describe("backdrop tone adaptation is on screen", () => {
         .getByTestId(`tone-plate-${step}`)
         .evaluate((element) => (element as HTMLElement).style.getPropertyValue("--vitrea-foreground"));
 
-    await setGround(page, "160");
+    await setGround(page, "80", "0.1600");
     expect(await inkOf("a")).toBe(await inkOf("c"));
 
-    await setGround(page, "2");
+    await setGround(page, "0", "0.0020");
     expect(await inkOf("a")).toBe(await inkOf("c"));
 
     // And the ink is a resolved value rather than an empty string: a page that
@@ -1243,11 +1310,10 @@ test.describe("the outer shadow is on screen", () => {
     return { ground, shadowed };
   };
 
-  const setGroundLevel = async (page: Page, value: string): Promise<void> => {
-    await page.getByTestId("ground-level").fill(value);
-    await expect(page.getByTestId("ground-level-readout")).toContainText(
-      `${(Number(value) / 1000).toFixed(3)} linear`,
-    );
+  /** A position on the ground ladder and the level it is; see the tone suite's own. */
+  const setGroundLevel = async (page: Page, position: string, level: string): Promise<void> => {
+    await page.getByTestId("ground-level").fill(position);
+    await expect(page.getByTestId("ground-level-readout")).toContainText(`${level} linear`);
     await page.waitForTimeout(400);
   };
 
@@ -1338,10 +1404,11 @@ test.describe("the outer shadow is on screen", () => {
     await showSection(page, "tone");
 
     // The two ends of the stage's own control: its ground runs 0.002 to 0.160
-    // linear, because the axis it was built for lives down there.
-    await setGroundLevel(page, "160");
+    // linear, because the axis it was built for lives down there. Position 80 and
+    // position 0 since the W30 G4 re-range; the ends themselves did not move.
+    await setGroundLevel(page, "80", "0.1600");
     const bright = await shadowUnder(page, "tone-plate-c");
-    await setGroundLevel(page, "2");
+    await setGroundLevel(page, "0", "0.0020");
     const dark = await shadowUnder(page, "tone-plate-c");
 
     // Over the bright end it is plainly there — a real fraction of the light

@@ -95,6 +95,31 @@ export const nativeProfileFor = (scheme: "light" | "dark"): string =>
   scheme === "dark" ? DARK_NATIVE_PROFILE : NATIVE_PROFILE;
 
 /**
+ * What a label calls the bed the pair's native half came from — "macOS 27.0".
+ *
+ * Derived from the profile key rather than written down, which is the fix for a
+ * real defect and not a tidy (W30 G4; the tracker's "the reference pair labels
+ * its native panel macOS 26.5 beside a caption naming a macOS 27 profile"). The
+ * pair moved to macOS 27 at W29 G4 and three strings around it did not: the
+ * capture's alt text, the caption's *who* line and the collapsed layout's panel
+ * switch. Nothing measured was wrong — the fixtures, the cell and the key were
+ * all macOS 27 — and no test caught it, because the assertions read the caption,
+ * which is derived, and not the labels, which were literals. So the labels stop
+ * being literals: a later move of the bed carries all three with it, and the one
+ * reading a screen reader gets cannot be the stale one.
+ */
+export const nativePlatformFor = (scheme: "light" | "dark"): string => {
+  const release = /^apple-macos-([\d.]+)-/.exec(nativeProfileFor(scheme))?.[1];
+  if (release === undefined) {
+    throw new Error(
+      `The native profile key ${nativeProfileFor(scheme)} does not name a macOS release, so the `
+        + "pair cannot say which bed its capture came from.",
+    );
+  }
+  return `macOS ${release}`;
+};
+
+/**
  * The scene's capture under a resolved scheme, `undefined` where there is none.
  *
  * The light profile captures every scene; the dark one captures fourteen. A

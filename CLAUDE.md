@@ -78,9 +78,29 @@ own `profileKey`: the web page refuses a token the runtime ships no material for
 itself and applies the receded endpoint of the document it selected. `--out-matrix` and the
 `VITREA_WEB_CAPTURES` env redirect output to scratch; the canonical `results/matrix.json` is
 committed evidence, and the canonical `web-captures/` beside it is gitignored — it lives on the
-capture machine and is what the sheets and the demo fixture are copied from. A cell's key includes the material profile document's hash,
-so after the profile changes a run **appends** beside the old rows: `rm results/matrix.json`
-before a full rebuild, or reduce to the newest row per key.
+capture machine and is what the sheets and the demo fixture are copied from.
+
+**Generations, and where the superseded ones live.** A cell's key includes every material profile
+document's twelve-hex content hash, so a refit that moves a document does not overwrite the rows
+read at the old one — the next run **appends** a generation beside them, because a recorded number
+is never rewritten. The working file holds **one generation per profile** and the superseded ones
+are moved, byte for byte, to `results/superseded/<active-document-sha>.json`, named by the ACTIVE
+document (a receded document is a difference over it and never names a file);
+`results/superseded/index.json` maps every document hash, active and receded, to the file holding
+its rows, and `README.md` there is generated from that index. The gate that moves them runs after
+the read that superseded them:
+
+```bash
+python3 results/2026-09-20-w30-g1-split/split-generation.py plan      # what would move, and where
+python3 results/2026-09-20-w30-g1-split/split-generation.py apply \
+  --evidence results/<this-gate>/ --claims "c9a §5.NNN" --read-claims "c9a §5.MMM"
+```
+
+Never delete the working file and never "reduce to the newest row per key": 1,107 of its rows are
+frozen macOS 26.5 evidence whose hashes `results/2026-09-16-w29-freeze/freeze.py verify` checks,
+and a row of a frozen profile selected to move is refused before a byte is written. The demo reads
+a build-time projection of the current generation (`apps/demo/matrix-reduction.ts`), not the file,
+so the page's figures do not depend on its size.
 
 Release: changesets under `.changeset/` (fidelity changes are `@vitreajs/vitrea-web` minors; the
 three published packages are a `fixed` group). `pnpm changeset version`, commit, then
@@ -142,7 +162,21 @@ is shipped beside it, and `createGlassRoot({ materialProfileDocument })` chooses
 is generated from the four macOS 27 documents by `scripts/generate-macos27-profile.mjs` and pinned to
 them by `packages/calibration/test/macos27-profile-export.test.ts`, as `src/dark-profile.ts` is by its
 own sibling pair. `root.material` and `GlassGroupState.materialDocument` report the endpoint that
-actually drew, its digest, and whether an app tuned it — the honesty core, one axis further.
+actually drew, its digest, and whether an app tuned it — the honesty core, one axis further; in
+React the selected document itself is on `GlassRootHandle`, which is what lets `GlassToolbar`
+derive a layout number from its own material rather than from the default one.
+
+**Two of the material's operators are functions of the surface rather than constants** (W30, claims
+§5.159). The outer shadow's blur is graded by the CASTING SPAN —
+`σ(span) = sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan · (span − sigmaSpanRefPx))`,
+evaluated per pixel from the field pass's aux target on the WebGPU tier and per surface into one
+`box-shadow` blur radius on the CSS tier, with the group clip and the scissor pad taking it at the
+widest member as a BOUND. And the scatter is conditioned on the backdrop's measured spatial scale
+(`sizeScatterScaleGain` / `sizeScatterScaleRef`, keyed on the analysis pass's per-source statistic),
+adopted on the dark document and declined on the light one with both declines recorded as
+measurements. A leaf that is a law rather than a value has to be mirrored on both tiers and pinned
+by `tier-coherence.test.ts`; `w30-inert-laws.test.ts` holds each law's identity and the reach's
+monotonicity.
 
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated

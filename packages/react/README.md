@@ -319,6 +319,19 @@ material's half of the number this spacer opens; the other half is
 `samplingPadding`, when you declare one). It answers for the material a default
 root draws; a root that selected another document passes that document's `patch`
 and `cssTierMapping` as the optional `profile` and `cssTierMapping` arguments.
+An endpoint that carries no patch of its own — the macOS 26.5 light active
+material IS the renderer's constants — is named by passing `profile: undefined`
+explicitly, which is a different statement from leaving the key out.
+
+**From 0.20.0 `GlassToolbar` does that for you.** `GlassRootHandle` carries
+`materialProfileDocument`, so the toolbar derives its gap from the material its
+own root selected and from the colour scheme that root resolved, rather than from
+the package default. A toolbar under
+`materialProfileDocument={macos26MaterialProfileDocument}` opens about half the
+gap it used to, because that is what its material asks for; one on the default
+document is unchanged in the light scheme and opens a few pixels wider in the
+dark one, where the dark endpoint wants about 8 % more room than the light
+endpoint it was previously being sized by.
 
 ### Where a surface belongs: the controls layer
 
@@ -478,6 +491,20 @@ schemes plus what the material costs on the CSS tier, so one prop moves every
 tier and both poses together. It is read at construction: a scheme and a window
 pose move *within* one material, where a different document is a different
 material.
+
+The document the root actually selected is on the root handle from 0.20.0, which
+is what lets a layout ask its own material's questions:
+
+```tsx
+import { useGlassRootHandle } from "@vitreajs/vitrea-react";
+
+const { materialProfileDocument } = useGlassRootHandle();
+```
+
+It is what the RUNTIME selected and not what the prop currently says — the two
+differ if a parent re-renders with another document, because the root reads it
+once — and it is there before the mount effect has built the runtime, so a
+component that has to produce a layout number on its first render can.
 
 `materialProfile` (a tuning of the renderer's optical constants, applied live)
 and `cssTierMapping` (the CSS crossing) are surfaced beside it for an app naming

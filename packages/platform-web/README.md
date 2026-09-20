@@ -193,7 +193,7 @@ content exactly as the app wrote it.
 | interaction channels | `GLASS_CHANNEL_PROPERTIES` — write 0..1, the material reads |
 | findings | `root.diagnostics`, `consoleDiagnosticSink()`, `VitreaDiagnostic` |
 | capability answers | `root.capabilities(groupId)`, `root.accessibility`, `root.webgpu`, `root.colorScheme`, `root.windowActivation` |
-| how far apart two groups must sit | `samplingPaddingFor({ members, material, profile?, cssTierMapping? })` |
+| how far apart two groups must sit | `samplingPaddingFor({ members, material, profile?, cssTierMapping? })` — omit `profile` for the default document, pass it as `undefined` for an endpoint that has none |
 | which measured material draws | `materialProfileDocument`, `macos27MaterialProfileDocument`, `macos26MaterialProfileDocument`, `root.material` |
 | colour scheme | `colorScheme: "light" \| "dark" \| "auto"`, `root.setColorScheme` |
 | window activation | `windowActivation: "auto" \| "active" \| "inactive"`, `root.setWindowActivation`, `setWindowActivation(root, value)`, `recededMaterialProfile` |
@@ -304,6 +304,19 @@ the release, and it is the one thing to know before taking it: surfaces over dar
 backdrops are no longer nearly invisible, the rim and the outer shadow are
 different, and CSS-tier visitors get a wider blur. Pin
 `macos26MaterialProfileDocument` to keep exactly what 0.18.0 drew.
+
+**0.20.0 moves the outer shadow again, and this time by the size of the surface.**
+On macOS 27 a wider surface casts a wider-blurred shadow; on macOS 26.5 it did
+not, which is a measurement and not an absence. So the macOS 27 documents carry a
+line in the casting span rather than one width, and the effect is two-sided: a
+44 px control's blur falls from 22 CSS px to 4.3 and a 160 px panel's rises from
+22 to 34.7. What a layout feels is the sampling geometry moving with it — a
+group's shadow reach falls about a third at a small caster and rises about a
+third at a large one, and keeps rising above the bed — so a control packed
+against a neighbour reads as further from it and a large panel near a viewport
+edge reaches further. `macos26MaterialProfileDocument` is unaffected: that
+material's σ is span-invariant and its three new leaves are zero, which is where
+its own measurement puts them.
 
 The demo site shows the macOS 27 pair only. A document is selected at
 construction — a page drawing one has surfaces measured against it — so a single

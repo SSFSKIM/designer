@@ -17,7 +17,11 @@
  */
 
 import type { GlassGroupState, ResolvedAccessibilityPolicy } from "@vitreajs/vitrea";
-import type { GlassRoot, ResolvedWindowActivation } from "@vitreajs/vitrea-web";
+import type {
+  GlassRoot,
+  ResolvedColorScheme,
+  ResolvedWindowActivation,
+} from "@vitreajs/vitrea-web";
 import { createContext, useContext } from "react";
 
 type Listener = () => void;
@@ -27,6 +31,8 @@ export interface GlassRootStore {
   accessibility(): ResolvedAccessibilityPolicy | undefined;
   subscribeWindowActivation(listener: Listener): () => void;
   windowActivation(): ResolvedWindowActivation | undefined;
+  subscribeColorScheme(listener: Listener): () => void;
+  colorScheme(): ResolvedColorScheme | undefined;
   subscribeCapabilities(groupId: string, listener: Listener): () => void;
   capabilities(groupId: string): GlassGroupState | undefined;
   /** Re-read everything subscribed. Called once per ticker frame. */
@@ -103,10 +109,12 @@ const samePolicy = (
 export function createGlassRootStore(root: () => GlassRoot | null): GlassRootStore {
   const accessibilityListeners = new Set<Listener>();
   const activationListeners = new Set<Listener>();
+  const schemeListeners = new Set<Listener>();
   const capabilityListeners = new Map<string, Set<Listener>>();
 
   let accessibility: ResolvedAccessibilityPolicy | undefined;
   let windowActivation: ResolvedWindowActivation | undefined;
+  let colorScheme: ResolvedColorScheme | undefined;
   const capabilities = new Map<string, GlassGroupState | undefined>();
 
   const notify = (listeners: Iterable<Listener>): void => {
@@ -129,6 +137,23 @@ export function createGlassRootStore(root: () => GlassRoot | null): GlassRootSto
     if (windowActivation === live) return;
     windowActivation = live;
     notify(activationListeners);
+  };
+
+  /**
+   * The resolved scheme, on the same argument as the pose above: one enum, so
+   * identity is the comparison.
+   *
+   * Polled rather than taken from the prop, because `colorScheme="auto"` is
+   * resolved inside the runtime against `prefers-color-scheme` — the answer
+   * moves with the system while the prop stands still. A consumer that derives
+   * a number from the scheme's material (`GlassToolbar`'s gap, W30 Decision
+   * Log 1 (f)) would otherwise hold the first frame's answer forever.
+   */
+  const readColorScheme = (): void => {
+    const live = root()?.colorScheme;
+    if (colorScheme === live) return;
+    colorScheme = live;
+    notify(schemeListeners);
   };
 
   const readCapabilities = (groupId: string): void => {
@@ -155,6 +180,14 @@ export function createGlassRootStore(root: () => GlassRoot | null): GlassRootSto
 
     windowActivation: () => windowActivation,
 
+    subscribeColorScheme(listener) {
+      schemeListeners.add(listener);
+      readColorScheme();
+      return () => schemeListeners.delete(listener);
+    },
+
+    colorScheme: () => colorScheme,
+
     subscribeCapabilities(groupId, listener) {
       const listeners = capabilityListeners.get(groupId) ?? new Set<Listener>();
       listeners.add(listener);
@@ -174,6 +207,7 @@ export function createGlassRootStore(root: () => GlassRoot | null): GlassRootSto
     poll() {
       readAccessibility();
       readWindowActivation();
+      readColorScheme();
       for (const groupId of capabilityListeners.keys()) readCapabilities(groupId);
     },
   };

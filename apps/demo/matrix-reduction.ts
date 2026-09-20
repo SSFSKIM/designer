@@ -75,6 +75,7 @@ const PROJECTED = {
   shape: ["silhouetteIoU", "contourDistanceMean", "contourDistanceP95"],
   perceptual: ["ssimMean", "oklabDeltaEMean"],
   material: ["luminanceSlopeNative", "luminanceSlopeWeb"],
+  shadow: ["falloffSigmaNative", "falloffSigmaWeb"],
 } as const;
 
 /** The clause `calibration.ts` and `adopted-thresholds.test.ts` both read. */
@@ -97,6 +98,7 @@ export interface SourceCell {
   readonly shape?: Record<string, Metric | string>;
   readonly perceptual?: Record<string, Metric | string>;
   readonly material?: Record<string, Metric | string>;
+  readonly shadow?: Record<string, Metric | string>;
 }
 
 export interface ReducedCell {
@@ -118,6 +120,7 @@ export interface ReducedCell {
   readonly shape?: Record<string, Metric>;
   readonly perceptual?: Record<string, Metric>;
   readonly material?: Record<string, Metric>;
+  readonly shadow?: Record<string, Metric>;
 }
 
 export function atAShippedDocument(
@@ -146,6 +149,7 @@ export function project(cell: SourceCell): ReducedCell {
   const shape = axis(cell.shape, PROJECTED.shape);
   const perceptual = axis(cell.perceptual, PROJECTED.perceptual);
   const material = axis(cell.material, PROJECTED.material);
+  const shadow = axis(cell.shadow, PROJECTED.shadow);
   return {
     key: {
       profileKey: cell.key.profileKey,
@@ -165,6 +169,7 @@ export function project(cell: SourceCell): ReducedCell {
     ...(shape === undefined ? {} : { shape }),
     ...(perceptual === undefined ? {} : { perceptual }),
     ...(material === undefined ? {} : { material }),
+    ...(shadow === undefined ? {} : { shadow }),
   };
 }
 

@@ -1,0 +1,35 @@
+W30 G4 — the chain at the 0.20.0 cut (claims §5.160 §7)
+
+Run serially, in this order, each browser step preceded by a machine-settings
+reading appended to `browser-runs.txt` by `record-machine.sh`, which exits
+nonzero under an accessibility policy Playwright cannot record.
+
+step                                              result                            log
+pnpm -r build                                     exit 0                            chain-build.txt
+pnpm -r lint                                      exit 0 (nine packages)            chain-lint.txt
+pnpm -r test                                      2564 passed, 0 failed             chain-units.txt
+  policy 23 . motion 164 . geometry 170 . renderer-webgpu 511 . core 302
+  platform-web 631 . react 167 . calibration 550 . demo 46
+@vitrea/renderer-webgpu test:golden               34 passed, no regen               chain-goldens.txt
+@vitrea/renderer-webgpu test:gpu                  34 passed                         chain-gpu.txt
+@vitreajs/vitrea-web Playwright (four projects)   410 passed                        chain-platform-web.txt
+@vitreajs/vitrea-react Playwright (three engines) 172 passed, 3 skipped, 2 FAILED   chain-react-e2e.txt
+demo Playwright                                   58 passed                         (run before the cut)
+freeze.py verify                                  26.5 freeze intact: 1818 entries  freeze-verify-open.txt
+split-generation.py plan                          1833 retained, 0 moved            split-plan.txt
+pnpm publish --dry-run x3, then pnpm pack         clean; workspace: rewritten to ^0.20.0   dry-run.txt
+
+The two reds are the tracker's standing React driver-timing class and are
+recorded rather than rerun (claims §5.160 §7):
+
+  [chromium] presence.spec.ts "authored presence is monotone in place"
+      elapsed 485.0 ms against 406.7 allowed after the run's longest-frame
+      allowance
+  [firefox]  morph-materialize.spec.ts "the end that is absent is inert, and is
+      released when it has gone" — the destination end was still in the document
+      5 s after Escape
+
+Neither is in code this gate touched: the gate's React change is the root
+handle's material document and the toolbar's gap, which no presence or morph
+case reads. The class has now failed on BOTH engines on BOTH cases, which is the
+reading the tracker entry gained here.

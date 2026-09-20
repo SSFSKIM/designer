@@ -121,17 +121,33 @@ test("the plates' labels hold the large-text floor over page content", async ({ 
 test("the plates' labels hold the large-text floor at every ground level", async ({ page }) => {
   await showSection(page, "tone");
 
+  /*
+   * The control's value is a POSITION on a geometric ladder since W30 G4, not a
+   * count of thousandths (`Stage.tsx`'s `TONE_GROUND`). The sweep walks positions
+   * and reads the level back off the page rather than computing it: every one of
+   * the 81 stops prints a distinct four-decimal level, so "the readout changed"
+   * is the settle signal the stop's own number used to be, and this file does not
+   * have to carry a copy of the ladder's arithmetic to know where it is.
+   */
   const slider = page.getByTestId("ground-level");
+  const readout = page.getByTestId("ground-level-readout");
+  const levelNow = async (): Promise<string> =>
+    (/^\s*(0\.\d+) linear/.exec((await readout.textContent()) ?? "")?.[1] ?? "");
   let worst = { ratio: Number.POSITIVE_INFINITY, where: "" };
-  for (let value = 2; value <= 160; value += 8) {
-    await slider.fill(String(value));
-    await expect(page.getByTestId("ground-level-readout")).toContainText(
-      `${(value / 1000).toFixed(3)} linear`,
-    );
+  // Seeded with what the control already shows, so the first fill has to move it.
+  let previous = await levelNow();
+  for (let position = 0; position <= 80; position += 4) {
+    await slider.fill(String(position));
+    await expect
+      .poll(levelNow, { message: `the ground readout did not move off ${previous}` })
+      .not.toBe(previous);
+    const level = await levelNow();
+    expect(level, `position ${position}`).not.toBe("");
+    previous = level;
     // Past the material transition, so the reading is the settled surface rather
     // than a frame the reader never stops on.
     await page.waitForTimeout(320);
-    const found = await worstNow(page, ".plate strong", `at ground ${(value / 1000).toFixed(3)}`);
+    const found = await worstNow(page, ".plate strong", `at ground ${level}`);
     if (found.ratio < worst.ratio) worst = found;
   }
 

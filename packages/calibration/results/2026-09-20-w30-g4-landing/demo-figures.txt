@@ -1,0 +1,115 @@
+W30 G4 — the demo's calibration readout, at the wave's two ends
+====================================================================================================
+
+  after   packages/calibration/results/matrix.json (the generation the page reduces)
+  before  results/superseded/f42ddec1cf5a.json + 272d1b0c3e10.json (W29 G3b's rows,
+          what the page printed at the 0.19.0 cut)
+  rule    primary profile per scheme, texture tier, `matrix-reduction.ts`'s PROJECTED
+
+light scheme — apple-macos-27.0-1x-light-standard-glass0.5
+----------------------------------------------------------------------------------------------------
+  checkerboard__capsule-button__rest           span  44
+      shape.silhouetteIoU                      1.000000 ->     1.000000   +0.000000
+      shape.contourDistanceMean                0.000000 ->     0.000000   +0.000000
+      shape.contourDistanceP95                 0.000000 ->     0.000000   +0.000000
+      perceptual.ssimMean                      0.982172 ->     0.982061   -0.000111
+      perceptual.oklabDeltaEMean               0.003432 ->     0.003407   -0.000025
+      material.luminanceSlopeNative            0.143999 ->     0.143999   +0.000000
+      material.luminanceSlopeWeb               0.179978 ->     0.179929   -0.000049
+      shadow.falloffSigmaNative                1.843035 ->     1.843035   +0.000000
+      shadow.falloffSigmaWeb                  15.685129 ->    12.849253   -2.835876
+  photo__capsule-button__rest                  span  44
+      shape.silhouetteIoU                      0.999384 ->     0.999384   +0.000000
+      shape.contourDistanceMean                0.010870 ->     0.010870   +0.000000
+      shape.contourDistanceP95                 0.000000 ->     0.000000   +0.000000
+      perceptual.ssimMean                      0.995979 ->     0.996035   +0.000056
+      perceptual.oklabDeltaEMean               0.005265 ->     0.005220   -0.000045
+      material.luminanceSlopeNative            0.522821 ->     0.522821   +0.000000
+      material.luminanceSlopeWeb               0.391437 ->     0.390945   -0.000492
+      shadow.falloffSigmaNative                1.522835 ->     1.522835   +0.000000
+      shadow.falloffSigmaWeb                  15.864516 ->    12.763311   -3.101205
+  checkerboard__rrect-lg__rest                 span 160
+      shape.silhouetteIoU                      0.999840 ->     0.999840   +0.000000
+      shape.contourDistanceMean                0.008750 ->     0.008750   +0.000000
+      shape.contourDistanceP95                 0.000000 ->     0.000000   +0.000000
+      perceptual.ssimMean                      0.884311 ->     0.883390   -0.000921
+      perceptual.oklabDeltaEMean               0.021642 ->     0.022923   +0.001280
+      material.luminanceSlopeNative            0.021235 ->     0.021235   +0.000000
+      material.luminanceSlopeWeb               0.097491 ->     0.097532   +0.000040
+      shadow.falloffSigmaNative               17.299078 ->    17.299078   +0.000000
+      shadow.falloffSigmaWeb                  14.027795 ->    20.266338   +6.238543
+  photo__rrect-lg__rest                        span 160
+      shape.silhouetteIoU                      0.999498 ->     0.999544   +0.000046
+      shape.contourDistanceMean                0.027500 ->     0.025000   -0.002500
+      shape.contourDistanceP95                 0.000000 ->     0.000000   +0.000000
+      perceptual.ssimMean                      0.983884 ->     0.983564   -0.000320
+      perceptual.oklabDeltaEMean               0.061054 ->     0.060882   -0.000172
+      material.luminanceSlopeNative            0.686180 ->     0.686180   +0.000000
+      material.luminanceSlopeWeb               0.397028 ->     0.397027   -0.000001
+      shadow.falloffSigmaNative               16.968423 ->    16.968423   +0.000000
+      shadow.falloffSigmaWeb                  14.078396 ->    19.802558   +5.724162
+  checkerboard__rrect-sm__rest                 span  32
+      shape.silhouetteIoU                      1.000000 ->     1.000000   +0.000000
+      shape.contourDistanceMean                0.000000 ->     0.000000   +0.000000
+      shape.contourDistanceP95                 0.000000 ->     0.000000   +0.000000
+      perceptual.ssimMean                      0.992545 ->     0.992551   +0.000006
+      perceptual.oklabDeltaEMean               0.001602 ->     0.001574   -0.000028
+      material.luminanceSlopeNative            0.148668 ->     0.148668   +0.000000
+      material.luminanceSlopeWeb               0.209777 ->     0.209744   -0.000034
+      shadow.falloffSigmaWeb                  14.960694 ->    11.031579   -3.929114
+  checkerboard__rrect-md__rest                 span  96
+      shape.silhouetteIoU                      1.000000 ->     1.000000   +0.000000
+      shape.contourDistanceMean                0.000000 ->     0.000000   +0.000000
+      shape.contourDistanceP95                 0.000000 ->     0.000000   +0.000000
+      perceptual.ssimMean                      0.945314 ->     0.945366   +0.000051
+      perceptual.oklabDeltaEMean               0.009458 ->     0.009365   -0.000093
+      material.luminanceSlopeNative            0.072099 ->     0.072099   +0.000000
+      material.luminanceSlopeWeb               0.126845 ->     0.126843   -0.000002
+      shadow.falloffSigmaNative                8.796781 ->     8.796781   +0.000000
+      shadow.falloffSigmaWeb                  14.578978 ->    12.569820   -2.009158
+
+dark scheme — apple-macos-27.0-1x-dark-standard-glass0.5
+----------------------------------------------------------------------------------------------------
+  checkerboard__capsule-button__rest           span  44
+      shape.silhouetteIoU                      0.999795 ->     0.999795   +0.000000
+      shape.contourDistanceMean                0.003623 ->     0.003623   +0.000000
+      shape.contourDistanceP95                 0.000000 ->     0.000000   +0.000000
+      perceptual.ssimMean                      0.975871 ->     0.979411   +0.003540
+      perceptual.oklabDeltaEMean               0.004331 ->     0.004091   -0.000239
+      material.luminanceSlopeNative            0.097651 ->     0.097651   +0.000000
+      material.luminanceSlopeWeb               0.033646 ->     0.047481   +0.013835
+      shadow.falloffSigmaNative                1.518452 ->     1.518452   +0.000000
+      shadow.falloffSigmaWeb                  14.006802 ->    15.385374   +1.378572
+  photo__capsule-button__rest                  span  44
+      shape.silhouetteIoU                      0.988829 ->     0.988829   +0.000000
+      shape.contourDistanceMean                0.132404 ->     0.132404   +0.000000
+      shape.contourDistanceP95                 1.000000 ->     1.000000   +0.000000
+      perceptual.ssimMean                      0.988654 ->     0.988858   +0.000204
+      perceptual.oklabDeltaEMean               0.008848 ->     0.008835   -0.000013
+      material.luminanceSlopeNative            0.412845 ->     0.412845   +0.000000
+      material.luminanceSlopeWeb               0.091709 ->     0.090668   -0.001041
+      shadow.falloffSigmaNative                1.698105 ->     1.698105   +0.000000
+      shadow.falloffSigmaWeb                  15.946314 ->    15.574819   -0.371495
+  checkerboard__rrect-lg__rest                 span 160   no cell in either generation
+  photo__rrect-lg__rest                        span 160
+      shape.silhouetteIoU                      0.997645 ->     0.997722   +0.000077
+      shape.contourDistanceMean                0.156334 ->     0.152662   -0.003672
+      shape.contourDistanceP95                 1.000000 ->     1.000000   +0.000000
+      perceptual.ssimMean                      0.957312 ->     0.957005   -0.000307
+      perceptual.oklabDeltaEMean               0.089014 ->     0.088737   -0.000277
+      material.luminanceSlopeNative            0.277548 ->     0.277548   +0.000000
+      material.luminanceSlopeWeb               0.071058 ->     0.070525   -0.000533
+      shadow.falloffSigmaNative               17.384673 ->    17.384673   +0.000000
+      shadow.falloffSigmaWeb                  13.970775 ->    19.829848   +5.859073
+  checkerboard__rrect-sm__rest                 span  32   no cell in either generation
+  checkerboard__rrect-md__rest                 span  96
+      shape.silhouetteIoU                      1.000000 ->     1.000000   +0.000000
+      shape.contourDistanceMean                0.000000 ->     0.000000   +0.000000
+      shape.contourDistanceP95                 0.000000 ->     0.000000   +0.000000
+      perceptual.ssimMean                      0.963006 ->     0.966131   +0.003125
+      perceptual.oklabDeltaEMean               0.006496 ->     0.005996   -0.000500
+      material.luminanceSlopeNative            0.034757 ->     0.034757   +0.000000
+      material.luminanceSlopeWeb               0.022665 ->     0.034014   +0.011349
+      shadow.falloffSigmaNative                8.871118 ->     8.871118   +0.000000
+      shadow.falloffSigmaWeb                  13.833607 ->    12.322779   -1.510828
+

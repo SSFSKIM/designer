@@ -117,6 +117,7 @@ accessibility policy Playwright cannot record.
 | --- | --- |
 | 0.18.0 | `packages/calibration/results/2026-09-15-w28-g4-landing/` (`chain.sh`, `chain-*.txt`, `chain-status.txt`); the counts are in claims §5.148 §6 and the W28 spec's Outcomes clause 5 |
 | 0.19.0 | `packages/calibration/results/2026-09-20-w29-g4-landing/`, same shape; the counts are in claims §5.155 §6. Its machine reading gained a third value — `NSGlassTintAmount`, macOS 27's appearance slider, which did not exist when this checklist was written and which drives the native material with no GUI (claims §5.149 §4). It is recorded rather than refused on, because no browser suite renders the native material; what it makes is a record of the machine each run was taken on |
+| 0.20.0 | `packages/calibration/results/2026-09-20-w30-g4-landing/` (`chain-status.txt`, `chain-*.txt`, `browser-runs.txt`, `dry-run.txt`); the counts are in claims §5.160 §7. **The React suite is red at this cut and is recorded rather than rerun**: two cases of the tracker's standing driver-timing class, `presence.spec.ts`'s elapsed window on chromium and `morph-materialize.spec.ts`'s release timing on firefox, neither in code the wave touched. 0.17.0, 0.18.0 and 0.19.0 each published with this class disclosed and the acceptance is the user's, as §Status of each wave records |
 
 ### Artifacts
 
