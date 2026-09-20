@@ -942,3 +942,66 @@ overlap and focus state' being named by Apple as system-managed adaptation input
 whose criterion is zero occurrences in the composite spec and the claims ledger. The first half is
 now measured, fitted, bounded and shipped across §§5.128–5.148; the second half — element overlap —
 remains genuinely unmentioned and unbuilt, which is the half that keeps the entry alive.
+
+### Re-scored 2026-09-20 after W29, beside the 2026-09-15 reading
+
+W29 (`2026-09-16-w29-os27-recapture.md`) moved the reference itself: Apple's material was captured
+again on macOS 27.0 build 26A428 under new keys, measured native-against-native cell by cell before
+any vitrea constant moved, refit on both tiers, and selected as what a page draws by default.
+**Two rows move, both in §1.7, both upward; none is added and none moves downward.** The three
+tables above are left as written and no row's earlier record is rewritten.
+
+| row | matrix | 2026-09-15 | 2026-09-20 | evidence |
+| --- | --- | --- | --- | --- |
+| The material itself moved with no API change — "we tuned Liquid Glass so it more effectively diffuses complex content behind it … a darkened edge along with brighter specular highlights", and apps get it without recompiling | §1.7 | `absent, undecided` — "vitrea calibrates against macOS 26.5 captures … the reference material has already moved, and vitrea's fidelity claim is against a superseded version" | **`replicated+measured`** | **Measured, and measured first.** The 2026-09-15 cell named the shelf-life fact; this wave priced it and paid it. A macOS 27 bed of **624 cells over six profile keys** was captured at seven runs per cell with every pixel-moving axis attested per run, no shortfall and no refusal (§5.150); **619 pairs were then read native-against-native against a noise bar defined per metric from the macOS 27 bed's own run-to-run behaviour and committed before the first macOS 26.5 pair was opened** — Apple's material moved on **every one of them** and Apple's geometry did not (§5.151). The State of the Union's three claims are all in that reading and all quantified: the diffusion moved (scatter, 589 of 589, and conditioned on the backdrop's spatial scale rather than uniformly), the edge moved (the rim band on all 330 active cells, in amplitude and in width), the speculars moved (the angular ratio on 132 of 132). Two the announcement did not name moved further: the interior level, which stopped vanishing into a dark backdrop, and the **outer shadow**, which is dimmer, tighter, shorter and less displaced on every measurable cell of every profile (§5.154). **Fitted:** two macOS 27 patch documents plus two receded endpoints, bounds declared at the macOS 26.5 tables' values *before* the read (X5) and no floor adopted, holdout read once; the whole-cell ΔE mean roughly halves on every standard profile on both tiers and the p95 tail falls 0.46 → 0.14 light (§5.153, §5.154). **Replicated:** `createGlassRoot({ materialProfileDocument })` selects a whole measured material — active and receded patches per scheme plus the CSS crossing — `macos27MaterialProfileDocument` is the default from 0.19.0, `<GlassRoot materialProfileDocument>` surfaces it in React, and `root.material` reports which endpoint drew with its digest (§5.155). **What the score does not claim.** Seven declared rows are recorded as missed rather than met; the shadow's blur is span-invariant in vitrea and is not on macOS 27, where one constant cannot hold 1.8 and 17.4 CSS px; the highlight's *directionality* is measured and unfitted for want of a web-side angular reader; and the by-eye residuals of §5.153, §5.154 and §5.155 stand. The row scores the material having been re-measured and refit, not the gap having closed |
+| A user-facing slider adjusting Liquid Glass "anywhere from ultra clear to fully tinted" | §1.7 | `absent, undecided` | **`partial`** | The axis is identified, attested and fitted at one point on it; nothing about it is exposed. **Identified:** Apple documents no API and no defaults key, and G0 found the backing store by diffing every preference domain across the update — `NSGlassTintAmount`, a float in `NSGlobalDomain` that did not exist on macOS 26.5 — then measured that it **drives rendering with no GUI**, moving 10 of 10 probe cells beyond their own three-run spread at both ends and at the machine's as-found position, in both poses, at both scales, in both schemes (§5.149 §4). **Attested:** with the key deleted the material renders at exactly the 0.5 arm, so the system's own default is 0.5; Decision Log 3 (a) ruled the bed captured there, the position is read from the machine per run by something that can refuse, and it is the trailing `-glass0.5` token of every macOS 27 profile key (X6). **Not replicated:** vitrea has no slider, no media query reports one, and the material is fitted at 0.5 alone. The two ends stay evidence classes this wave declined to capture (§Deferred), which is what holds the row at `partial` rather than higher |
+
+| layer | rows | `replicated+measured` | `replicated, unmeasured` | `partial` | `excluded by decision` | `absent, undecided` | n/a |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| §1 Material API surface | 52 | 14 → **15** | 7 → 7 | 7 → **8** | 4 → 4 | 10 → **8** | 10 → 10 |
+| §2 Component families | 26 | 1 → 1 | 3 → 3 | 3 → 3 | 7 → 7 | 10 → 10 | 2 → 2 |
+| §3 Behavioral system | 97 | 30 → 30 | 19 → 19 | 14 → 14 | 11 → 11 | 16 → 16 | 7 → 7 |
+| **total** | **175** | **45 → 46** | **29 → 29** | **24 → 25** | **22 → 22** | **36 → 34** | **19 → 19** |
+
+As proportions of the same **156** scoreable rows: replicated and measured 28.8% → **29.5%**;
+replicated, unmeasured 18.6% → 18.6%; partial 15.4% → **16.0%**; excluded by decision 14.1% →
+14.1%; absent and never ruled on 23.1% → **21.8%**. §2 and §3 are untouched and the scoreable
+denominator does not move, so every proportion above is a row moving rather than a denominator
+changing.
+
+**Why §3 does not move, when the wave refit most of §3's material.** The behavioural rows are
+scored on whether vitrea replicates a native behaviour and whether that claim is measured, not on
+which release it was measured against. Every row W29 touched — the size law, the tone response,
+scatter, the rim, tinting, the recede — was already `replicated+measured` on the macOS 26.5 bed,
+and re-measuring them on a newer bed makes each claim younger rather than broader. Scoring them
+again would be counting one replication twice; the fact that actually changed belongs to the two
+§1.7 rows above, which is where it is recorded.
+
+**Four rows this re-score checked and did not move**, each for a reason worth naming.
+
+- §3.3's *small elements flip light/dark to the underlying content* keeps `partial`, and the reason
+  is a **finding rather than an absence of work**: on macOS 27 the adaptation band that stood the
+  level law down over dark backdrops measures **inert** — Apple's material does not disappear
+  anywhere on this bed, reading 0.2899 over `dark-solid` where vitrea's macOS 26.5 capsule rendered
+  0.0126 — so the refit moved the band to the bottom of its range (§5.153 §2 item 1). The row's
+  native behaviour is weaker on the new reference than on the old one, which is not the same thing
+  as vitrea replicating more of it.
+- §3.6's *window / scene focus state changes the material* keeps `replicated+measured`. W29 G3b
+  refit the pose on the new bed and found the largest single difference from macOS 26.5 — a receded
+  surface now **keeps** its outer shadow, where the macOS 26.5 endpoint removes it entirely — and
+  W29 G4 made the fitted macOS 27 endpoints what the runtime applies by default. It is the same
+  claim on a newer bed, with the declared recede bound **missed on eleven of twelve profile-tiers**
+  and recorded rather than re-pinned (Decision Log 7 (b)): a fidelity fact under an unchanged score.
+- §1.7's *concentricity moved outward* and *toolbar-minimization machinery* keep `absent,
+  undecided`. This wave measured the material and not the API surface, and Apple's window corner
+  never enters the harness's capture region at all — the region is the window's own rectangle,
+  which G0 measured and §5.149 §5 records — so the wave has nothing to say about either row in any
+  direction.
+
+**One §6 entry is now stale in its first half, and is recorded here rather than rewritten there.**
+§6's closing item is Apple's disclaimer that these effects "can appear differently between system
+versions", with the observation that "no vitrea document states that the reference is a moving
+target or prices the cost of tracking it". Seven claims sections now do both: §§5.149–5.155 are the
+price, paid, with the hours and the machine-unavailability recorded in the wave's Grounding
+Baseline and its `sitting.md`. The half that stays alive is the disclaimer itself — nothing in the
+project yet says what happens at macOS 28.

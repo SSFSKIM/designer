@@ -69,10 +69,16 @@ function nativeFixtures(): Plugin {
       // list stays explicit rather than copying every profile — the accessibility
       // and 2x profiles are captured but not shown, and a build should not carry
       // fixtures no page references.
+      //
+      // The two macOS 27 directories, from W29 G4: the site draws the runtime's
+      // default material and that is macOS 27's, so these are the fixtures the
+      // pair is a comparison against. The macOS 26.5 directories stay captured
+      // and committed and are not copied, for the reason the list is explicit —
+      // no page references them (`src/site/scenes.ts`).
       for (const directory of [
         "backgrounds",
-        "apple-macos-26.5-1x-light-standard",
-        "apple-macos-26.5-1x-dark-standard",
+        "apple-macos-27.0-1x-light-standard-glass0.5",
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
       ]) {
         await cp(join(fixtures, directory), join(out, directory), { recursive: true });
       }

@@ -67,9 +67,24 @@ export const CANVAS: { readonly width: number; readonly height: number } = matri
  *
  * Both are the 1x profiles, because that is the scale this machine captured and
  * the scale the pair's rasters are.
+ *
+ * **They moved to macOS 27 at W29 G4**, and they had to move together with the
+ * runtime rather than beside it. The pair's whole claim is "this browser, now,
+ * against Apple's own pixels", and the browser draws whatever material the
+ * runtime resolves by default — which is macOS 27's since 0.19.0. A macOS 26.5
+ * fixture under a macOS 27 render would put a real, measured difference in the
+ * pair and label it vitrea's error.
+ *
+ * The macOS 26.5 pair is **not** offered beside it, and that is a limitation of
+ * this page rather than a preference. A material document is selected at
+ * construction — a page drawing one has surfaces measured against it — so
+ * offering both beds would mean two roots, and the site has one. The macOS 26.5
+ * material stays shipped and selectable by an application
+ * (`macos26MaterialProfileDocument`); what this page cannot do is show both at
+ * once, which `packages/platform-web/README.md` says.
  */
-export const NATIVE_PROFILE = "apple-macos-26.5-1x-light-standard";
-export const DARK_NATIVE_PROFILE = "apple-macos-26.5-1x-dark-standard";
+export const NATIVE_PROFILE = "apple-macos-27.0-1x-light-standard-glass0.5";
+export const DARK_NATIVE_PROFILE = "apple-macos-27.0-1x-dark-standard-glass0.5";
 
 /** Which profile speaks for a resolved colour scheme. */
 export const nativeProfileFor = (scheme: "light" | "dark"): string =>

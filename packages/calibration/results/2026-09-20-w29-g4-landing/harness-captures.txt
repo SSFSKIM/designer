@@ -1,0 +1,61 @@
+machine: 27.0/26A428 RT=0 IC=0 NSGlassTintAmount=0.5
+── 1x light, the demo's fixture cell ──
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:f42ddec1cf5a sections=renderer+cssTierMapping
+
+checkerboard__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w29-g4-scratch/captures/apple-macos-27.0-1x-light-standard-glass0.5/checkerboard__capsule-button__rest/
+
+1 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+── 2x light, the eye's two poses ──
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:f42ddec1cf5a sections=renderer+cssTierMapping
+
+photo__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w29-g4-scratch/captures/apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__rest/
+
+photo__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w29-g4-scratch/captures/apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__inactive/
+
+2 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+── 2x dark, the same two ──
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:272d1b0c3e10 sections=renderer+cssTierMapping
+
+photo__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w29-g4-scratch/captures/apple-macos-27.0-2x-dark-standard-glass0.5/photo__rrect-md__rest/
+
+photo__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w29-g4-scratch/captures/apple-macos-27.0-2x-dark-standard-glass0.5/photo__rrect-md__inactive/
+
+2 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+── closing machine read ──
+RT=0 IC=0 NSGlassTintAmount=0.5

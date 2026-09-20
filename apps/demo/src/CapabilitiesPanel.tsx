@@ -53,11 +53,30 @@ const AXES = [
 
 function GroupState(props: { readonly id: string; readonly label: string }): ReactNode {
   const state = useGlassCapabilities(props.id);
+  const material = state?.materialDocument;
 
   return (
     <table className="state-table">
       <caption>{props.label}</caption>
       <tbody>
+        {/*
+          Which measured material drew, first, because every row under it is
+          read against the body this one describes (W29 G4). It joined the
+          resolved state when the material became a selection: a page draws
+          macOS 27's by default from 0.19.0 and can pin macOS 26.5's, so it is
+          exactly as much a resolved fact as the tier. The endpoint's key is
+          shown rather than the family's name — the colour-scheme pin and the
+          activation pin above each select a different one, and watching this
+          row follow them is the point.
+        */}
+        <tr key="materialDocument">
+          <th scope="row">materialDocument</th>
+          <td data-testid="material-document">
+            {material === undefined
+              ? "\u2014"
+              : `${material.profileKey ?? material.name}${material.tuned ? " (tuned)" : ""}`}
+          </td>
+        </tr>
         {AXES.map((axis) => {
           const value = state?.[axis];
           return (
@@ -181,9 +200,11 @@ export function CapabilitiesPanel(props: CapabilitiesPanelProps): ReactNode {
           <code>active</code> holds the live material while it does not.
         </p>
         <p className="panel__note">
-          The recede is fitted per colour scheme &mdash; <code>recededMaterialProfile</code> has a
-          light entry and a dark one &mdash; so the pin below selects which of the two the pose
-          above resolves to. It moves this page&rsquo;s own ground with it.
+          The recede is fitted per colour scheme &mdash; a material document carries a light
+          receded endpoint and a dark one &mdash; so the pin below selects which of the two the
+          pose above resolves to. It moves this page&rsquo;s own ground with it, and it moves the{" "}
+          <code>materialDocument</code> row in each group&rsquo;s table, which names the endpoint
+          that actually drew.
         </p>
         <label className="toggle">
           <select

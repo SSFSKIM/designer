@@ -1,0 +1,27 @@
+(1) the shipped patch against the profile document's patch
+  active light   equal  patch sha256 8a21b92c4581ac4a
+                 document apple-macos-27.0-1x-light-standard-glass0.5
+                 file sha256 f42ddec1cf5a  resolvedMaterialSha256 e825cb034c9070e4
+  active dark    equal  patch sha256 e26f13b11368e4d2
+                 document apple-macos-27.0-1x-dark-standard-glass0.5
+                 file sha256 272d1b0c3e10  resolvedMaterialSha256 8439eb808495f5bf
+  receded light  equal  patch sha256 5dd741a1addce259
+                 document apple-macos-27.0-1x-light-standard-glass0.5-receded
+                 file sha256 59d4b20a4596  resolvedMaterialSha256 8dc63b265c1de038
+  receded dark   equal  patch sha256 5aa36a8b5889e0ec
+                 document apple-macos-27.0-1x-dark-standard-glass0.5-receded
+                 file sha256 5c81bc72edad  resolvedMaterialSha256 3264b6cdde64bc8b
+
+(2) the newest macOS 27 rows, against those file hashes
+  456 newest macOS 27 cells across 6 profiles
+  at a shipped document hash: 455
+  at an earlier generation:   1
+    apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5|hc-text__capsule-button__inactive|dom  apple-macos-27.0-1x-light-standard-glass0.5 at fa872c683f3e  2026-09-19T09:48:10.997Z
+  naming an unshipped document: 0
+  shipped apple-macos-27.0-1x-dark-standard-glass0.5           272d1b0c3e10
+  shipped apple-macos-27.0-1x-dark-standard-glass0.5-receded   5c81bc72edad
+  shipped apple-macos-27.0-1x-light-standard-glass0.5          f42ddec1cf5a
+  shipped apple-macos-27.0-1x-light-standard-glass0.5-receded  59d4b20a4596
+
+document name: apple-macos-27.0-glass0.5 (macOS 27.0)
+all joins hold

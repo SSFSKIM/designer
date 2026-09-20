@@ -72,14 +72,23 @@ const SEED = [255, 214, 10] as const;
  * alone is weak: the channel ordering, which is what makes a shade recognisable
  * as this seed rather than as the material's own, and a loose per-channel
  * distance, loose because the published shade is composed against the ground the
- * group stands on. At full strength that composition is small — measured
- * `rgba(252, 212, 10, 1)` over the light ground and `rgba(226, 189, 8, 1)` over
- * the dark one — and 40 code values covers both with room for either ground to
- * move without covering a different colour.
+ * group stands on.
+ *
+ * **The window moved from 40 codes to 52 at W29 G4, on a reading.** At full
+ * strength the composition is small but it is not the same size on the two
+ * materials: on macOS 26.5 the shade measured `rgba(252, 212, 10, 1)` over the
+ * light ground and `rgba(226, 189, 8, 1)` over the dark one, 3 and 29 codes from
+ * the seed; on macOS 27 it measures `rgb(252, 212, 10)` light and
+ * `rgb(213, 179, 7)` dark, 3 and **42**. The dark ground composes further because
+ * the macOS 27 body over it is a different level, which is the wave's own
+ * subject. 52 covers 42 with room and still excludes what this reading has to
+ * exclude: the playground's `Publish` publishes `rgb(252, 147, 0)`, whose green
+ * channel is 67 from the seed's, so it stays out by 15 codes and the
+ * `r > g > b` ordering keeps the untinted material out regardless.
  */
 async function seeded(page: Page, testId: string): Promise<boolean> {
   const [r, g, b] = parseColor(await tintOf(page, testId));
-  const near = [r, g, b].every((channel, index) => Math.abs(channel - SEED[index]!) <= 40);
+  const near = [r, g, b].every((channel, index) => Math.abs(channel - SEED[index]!) <= 52);
   return r > g && g > b && near;
 }
 

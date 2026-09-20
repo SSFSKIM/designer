@@ -600,9 +600,18 @@ test.describe("the material over ordinary page content", () => {
  *
  * Three claims, and the page makes all three in prose beside the control: that the
  * material follows the ground *continuously* rather than switching, that the
- * follow is gated by size so the small surface converges on the backdrop while the
- * large one does not, and that the runtime — not the page — re-decides each
+ * follow is gated by size, and that the runtime — not the page — decides each
  * surface's ink against the material that surface ended up showing.
+ *
+ * **Two of the three read differently on macOS 27, and the prose moved with the
+ * material at W29 G4.** The continuity claim is untouched. The size gate now
+ * holds at the bright end of the control and has nothing to separate at the dark
+ * end, and the convergence it used to produce is gone: Apple's macOS 27 glass
+ * does not vanish into a near-black backdrop (§5.151 §4), and the adaptation band
+ * that made vitrea's vanish measures inert on the new bed (§5.153 §2 item 1). The
+ * ink claim survives as a mechanism and not as a visible difference — both plates
+ * now resolve the same foreground, because their bodies never separate far enough
+ * to earn two.
  *
  * Read from `--vitrea-tint` on the CSS tier, and the query string says so. That is
  * the tier's published decision rather than a rendering of it, which is the same
@@ -691,7 +700,27 @@ test.describe("backdrop tone adaptation is on screen", () => {
     await page.waitForTimeout(400);
   };
 
-  test("the plates track the ground control, and the small one converges where the large one does not", async ({
+  /*
+   * **Moved at W29 G4, and the move is the finding.** Until 0.19.0 this case
+   * asserted a convergence: at the bottom stop the 40px plate took the
+   * backdrop's own level, byte for byte, while the 112px plate barely moved.
+   * That was macOS 26.5's material and it is not macOS 27's. W29 G2 measured
+   * Apple's body over a near-black backdrop at **0.2899 linear**, five times its
+   * own backdrop, where the macOS 26.5 reference vanished into it (§5.151 §4);
+   * W29 G3 read the adaptation band **inert** on the new bed and moved it to the
+   * bottom of its range (§5.153 §2 item 1), and W29 G4 made that document the
+   * default. So the plates still track the ground — that is the response law,
+   * and it is the load-bearing half — and none of them converges any more.
+   *
+   * The replacement assertions are written against a reading rather than against
+   * whatever made the old ones pass:
+   * `packages/calibration/results/2026-09-20-w29-g4-landing/tone-probe.json`,
+   * taken on this page with this material. Its bottom stop is a ground of
+   * 0.00212 linear under bodies of 0.2285 / 0.2127 / 0.2236 — about a hundred
+   * times the backdrop — against a top stop of 0.1590 under 0.6198 / 0.6314 /
+   * 0.6345.
+   */
+  test("the plates track the ground control, and on macOS 27 none of them converges onto it", async ({
     page,
   }) => {
     await gotoSite(page, "?renderer=css");
@@ -716,8 +745,27 @@ test.describe("backdrop tone adaptation is on screen", () => {
      * the backdrop's level — an order of magnitude past this — so a plate that had
      * adapted here could not satisfy it.
      */
-    expect(colourOf(unadaptedTint.a)).toBe(colourOf(unadaptedTint.c));
-    expect(colourOf(unadaptedTint.b)).toBe(colourOf(unadaptedTint.c));
+    /*
+     * "Same colour" is read to within one code from W29 G4, where it used to be
+     * read exactly. The CSS tier solves its tint COLOUR against the alpha it is
+     * drawing at, so three plates the size law has already separated in alpha
+     * can land on adjacent codes; on macOS 26.5 the solve rounded all three to
+     * the same one and on macOS 27 it does not — 254 / 254 / 253 at the top stop
+     * (`results/2026-09-20-w29-g4-landing/tone-probe.json`). One code is a
+     * rounding step, and the claim this line carries is that the plates differ
+     * by the size law's alpha rather than by an adaptation, which a one-code
+     * colour band does not weaken: adaptation at the bottom stop used to move
+     * the colour by nearly seventy codes.
+     */
+    const codesOf = (tint: string): readonly number[] =>
+      (colourOf(tint).match(/\d+/g) ?? []).map(Number);
+    for (const other of [unadaptedTint.a, unadaptedTint.b]) {
+      const [c0 = 0, c1 = 0, c2 = 0] = codesOf(unadaptedTint.c);
+      const [o0 = 0, o1 = 0, o2 = 0] = codesOf(other);
+      expect(Math.abs(o0 - c0)).toBeLessThanOrEqual(1);
+      expect(Math.abs(o1 - c1)).toBeLessThanOrEqual(1);
+      expect(Math.abs(o2 - c2)).toBeLessThanOrEqual(1);
+    }
     expect(alphaOf(unadaptedTint.a)).toBeLessThanOrEqual(alphaOf(unadaptedTint.b));
     expect(alphaOf(unadaptedTint.b)).toBeLessThanOrEqual(alphaOf(unadaptedTint.c));
     expect(alphaOf(unadaptedTint.c) - alphaOf(unadaptedTint.a)).toBeLessThanOrEqual(
@@ -728,8 +776,9 @@ test.describe("backdrop tone adaptation is on screen", () => {
     // live it would credit the adaptation axis with the size law's separation.
     const flatSmall = bodyOf(unadaptedTint.a, flatGround);
 
-    // The bottom stop. The 40px plate reaches the backdrop; the 112px plate is
-    // still a light glass body over the same pixels, in the same sampling group.
+    // The bottom stop. On macOS 27 no plate reaches the backdrop: every one of
+    // them is still a light glass body over near-black pixels, which is the
+    // single most visible thing Apple changed about this material.
     await setGround(page, "2");
     const darkGround = await groundOf(page);
     const groundLevel = levelOf(darkGround);
@@ -747,26 +796,46 @@ test.describe("backdrop tone adaptation is on screen", () => {
      */
     const unadapted = bodyOf(unadaptedTint.c, darkGround);
 
-    // Converged: not "darker", the backdrop's own level.
-    expect(Math.abs(dark.a - groundLevel)).toBeLessThan(0.002);
-    // Held: the largest plate is still nearer the material it started as than the
+    // Tracked: every plate is far darker than it was over the bright ground, so
+    // the response law moved with the backdrop rather than ignoring it.
+    for (const step of ["a", "b", "c"] as const) {
+      expect(dark[step], step).toBeLessThan(bodyOf(unadaptedTint[step], flatGround) - 0.2);
+    }
+    // Not converged: every plate, the thinnest included, sits two orders of
+    // magnitude above the backdrop it is standing on. This is where the case used
+    // to assert the opposite of itself for the 40px plate.
+    for (const step of ["a", "b", "c"] as const) {
+      expect(dark[step] - groundLevel, step).toBeGreaterThan(0.15);
+    }
+    // Held: every plate is still nearer the material it started as than the
     // backdrop it is standing on, over the same pixels and in the same group.
+    // The 112px plate is the one the case has always read this way.
     expect(unadapted - dark.c).toBeLessThan(dark.c - groundLevel);
-    // And the gate is ordered by span, which is the whole claim of the sweep.
-    expect(dark.a).toBeLessThan(dark.b);
-    expect(dark.b).toBeLessThan(dark.c);
+    /*
+     * The size gate is NOT asserted at this stop any more, and the omission is
+     * recorded rather than silent. With the adaptation inert there is nothing
+     * left to separate the three plates at the dark end: the reading above has
+     * them within 0.016 of each other and **not** ordered by span — 0.2285 /
+     * 0.2127 / 0.2236 — which is the CSS tier's own occlusion and rim composite
+     * at the curve's first anchor rather than the response law, whose thin and
+     * thick rows are correctly ordered there (0.214 against 0.242). It is
+     * carried in `specs/tech-debt-tracker.md`. What the sweep's ordering claim
+     * still holds at is the bright end, which is asserted above.
+     */
 
     /*
-     * The same convergence on the pixels. A rounding step of tolerance, not zero:
-     * the claim is that the surface reaches its background, and holding a demo to
-     * an exact byte would make a one-step retune of the material read as a broken
-     * page. The 112px plate is checked against the same ground so the tolerance is
-     * doing work rather than being satisfied by everything.
+     * The same statement on the pixels, and it is the reading that inverted. The
+     * case used to require the 40px plate's median pixel to be within one code of
+     * its background and the 112px plate's to be more than 32 codes away; on
+     * macOS 27 **both** are far from it, so the threshold that separated them
+     * becomes the threshold they now share. Read as a median so the label's
+     * glyphs cannot move it, and on both plates so the assertion is about the
+     * material rather than about one size.
      */
     const smallPixel = await renderedOf(page.getByTestId("tone-plate-a"));
     const largePixel = await renderedOf(page.getByTestId("tone-plate-c"));
     for (const index of [0, 1, 2] as const) {
-      expect(Math.abs((smallPixel[index] ?? 0) - (darkGround[index] ?? 0))).toBeLessThanOrEqual(1);
+      expect(Math.abs((smallPixel[index] ?? 0) - (darkGround[index] ?? 0))).toBeGreaterThan(32);
       expect(Math.abs((largePixel[index] ?? 0) - (darkGround[index] ?? 0))).toBeGreaterThan(32);
     }
 
@@ -792,14 +861,24 @@ test.describe("backdrop tone adaptation is on screen", () => {
   });
 
   /*
-   * The ink is the runtime's, per surface, and this is the assertion that says so.
+   * **Inverted at W29 G4, and the inversion is the claim.**
    *
-   * At the bottom stop the 40px plate's body has gone dark and the 112px plate's
-   * has not, in one sampling group over one backdrop — so the two must be given
-   * different foregrounds in the same frame. Nothing on this page chooses that;
-   * the group states its backdrop level and the runtime resolves the rest.
+   * This case used to assert that at the bottom stop the 40px plate's body had
+   * gone dark and the 112px plate's had not, so the runtime gave the two
+   * different inks in one frame over one backdrop. That followed from macOS
+   * 26.5's adaptation, and macOS 27 does not have it: with the band inert the
+   * two bodies never separate by more than 0.016 anywhere on this control
+   * (`results/2026-09-20-w29-g4-landing/tone-probe.json`), which is nowhere near
+   * the ink law's crossover, so both plates resolve the same foreground at every
+   * stop.
+   *
+   * Keeping the case and inverting it is deliberate. Deleting it would remove
+   * the only automated reading of this material property from the page, and it
+   * is a property worth pinning in both directions: if the adaptation ever comes
+   * back — a refit, a document a page selects, a new reference — the two plates
+   * separate and this fails, which is the right moment to be told.
    */
-  test("the runtime gives the adapted plate a different ink from its unadapted neighbour", async ({
+  test("both plates take the same ink, because macOS 27's bodies never separate enough to earn two", async ({
     page,
   }) => {
     await gotoSite(page, "?renderer=css");
@@ -814,7 +893,11 @@ test.describe("backdrop tone adaptation is on screen", () => {
     expect(await inkOf("a")).toBe(await inkOf("c"));
 
     await setGround(page, "2");
-    expect(await inkOf("a")).not.toBe(await inkOf("c"));
+    expect(await inkOf("a")).toBe(await inkOf("c"));
+
+    // And the ink is a resolved value rather than an empty string: a page that
+    // had stopped publishing one would pass the two equalities above trivially.
+    expect((await inkOf("a")).trim()).not.toBe("");
   });
 });
 
@@ -871,6 +954,12 @@ test.describe("the reference pair is a comparison", () => {
    * Asserted over every scene the picker offers rather than over the opening one,
    * because the drift was invisible on nineteen of the twenty and the arbitrary
    * one is not a fixture worth trusting.
+   *
+   * The key moved to macOS 27 at W29 G4, with the runtime's default material. A
+   * second form of the same drift arrived with it and is caught here: the matrix
+   * now holds two generations of macOS 27 rows — a document change re-keys every
+   * cell and no recorded row is ever rewritten — so "this profile, this tier" no
+   * longer names one cell, and `calibration.ts` breaks the tie by capture time.
    */
   test("every scene's figures come from the primary cell", async ({ page }) => {
     await gotoSite(page);
@@ -894,7 +983,7 @@ test.describe("the reference pair is a comparison", () => {
       // silhouette and no shape row. An axis reported absent is a result; what must
       // never vary is *whose* cell the figures are.
       await expect(figures.locator(".readout__row"), scene).not.toHaveCount(1);
-      await expect(figures, scene).toContainText("apple-macos-26.5-1x-light-standard");
+      await expect(figures, scene).toContainText("apple-macos-27.0-1x-light-standard-glass0.5");
       await expect(figures, scene).toContainText("texture tier");
     }
 
@@ -1002,8 +1091,16 @@ test.describe("the accessibility floor", () => {
     await gotoSite(page);
     await showSection(page, "access");
 
+    /*
+     * Matched on the LABEL rather than on the row's whole text. `hasText` is a
+     * case-insensitive substring, and from W29 G4 every group's readout carries
+     * a row naming the material document that drew — whose value contains
+     * `…-glass0.5`, the macOS 27 profile key's appearance-slider token. Two rows
+     * under `#access` then answer to "Glass" and the loose match resolves both.
+     */
     const glass = await page
-      .locator("#access .readout__row", { hasText: "Glass" })
+      .locator("#access .readout__row")
+      .filter({ has: page.locator("dt", { hasText: /^Glass$/ }) })
       .locator("dd")
       .innerText();
     expect(glass.trim()).toBe("none");

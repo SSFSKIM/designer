@@ -245,6 +245,18 @@ export const CSS_TIER_MAPPING_KEYS = new Set([
 export interface MaterialProfileSections {
   readonly path: string;
   readonly sha256: string;
+  /**
+   * The document's own `profileKey`, `undefined` for a bare patch file that
+   * declares none (W29 G4).
+   *
+   * Carried because it is what selects the runtime material the patch is a
+   * difference FROM. Since 0.19.0 `@vitreajs/vitrea-web` resolves macOS 27's
+   * material by default and macOS 26.5's on request, so a document's numbers
+   * only mean what they were fitted to mean over the base of their own OS — and
+   * a bare patch file, which names no key, is read over whatever the runtime
+   * resolves by itself.
+   */
+  readonly profileKey: string | undefined;
   readonly patch: Record<string, unknown>;
   readonly cssTierMapping: Record<string, unknown> | undefined;
 }
@@ -362,6 +374,7 @@ export function readMaterialProfileFile(path: string): MaterialProfileSections {
     // Hashed over the file, not the extracted sections: the cell should name the
     // artefact a human can go and read, provenance included.
     sha256: createHash("sha256").update(text).digest("hex").slice(0, 12),
+    profileKey: typeof document["profileKey"] === "string" ? document["profileKey"] : undefined,
     patch,
     cssTierMapping,
   };

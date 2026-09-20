@@ -241,14 +241,24 @@ describe("the gap a spacer opens", () => {
     </GlassToolbar>
   );
 
-  /** Both paddings a split is checked against; the layout has to clear each. */
+  /**
+   * Both paddings a split is checked against; the layout has to clear each.
+   *
+   * Rounded up, because the control is (W29 G4): the derivation is exact and the
+   * overlap check that reads it is a strict inequality, so a gap level with the
+   * padding to the last bit is one ulp from a finding — which is what happened
+   * on the macOS 27 material under Reduce Transparency. A layout opens whole
+   * pixels; this mirror opens the same ones.
+   */
   const wanted = (harness: Harness): number =>
-    Math.max(
-      DEFAULT_GROUP_SAMPLING.samplingPadding,
-      // The toolbar measured nothing in jsdom, so the members it derives over
-      // are empty — the projection at span 0, which is the floor every group
-      // starts at and the honest answer for a row with no extent.
-      samplingPaddingFor({ members: [], material: harness.root().accessibility.material }),
+    Math.ceil(
+      Math.max(
+        DEFAULT_GROUP_SAMPLING.samplingPadding,
+        // The toolbar measured nothing in jsdom, so the members it derives over
+        // are empty — the projection at span 0, which is the floor every group
+        // starts at and the honest answer for a row with no extent.
+        samplingPaddingFor({ members: [], material: harness.root().accessibility.material }),
+      ),
     );
 
   it("clears the padding the material requires and the advisory core checks against", () => {
@@ -308,8 +318,9 @@ describe("the gap a spacer opens", () => {
     const material = harness.root().accessibility.material;
     const clear = samplingPaddingFor({ members: [], material, variant: "clear" });
     expect(clear).toBeGreaterThan(samplingPaddingFor({ members: [], material }));
+    // `Math.ceil` for the reason `wanted` gives: the control opens whole pixels.
     expect(gapOf(spacers()[0])).toBeCloseTo(
-      Math.max(DEFAULT_GROUP_SAMPLING.samplingPadding, clear),
+      Math.ceil(Math.max(DEFAULT_GROUP_SAMPLING.samplingPadding, clear)),
       6,
     );
   });

@@ -7,13 +7,21 @@ import {
 } from "@vitreajs/vitrea";
 
 import {
-  MATERIAL_OPTICS,
+  cssTierOptics,
   opticsUnderPolicy,
   proxySamplingSigma,
   requiredSamplingPadding,
   samplingPaddingFor,
+  sourceSize,
+  CSS_TIER_MAPPING,
+  MATERIAL_OPTICS,
   SAMPLING_PADDING_SIGMA_MULTIPLE,
 } from "../src/optics";
+import { colorSchemeMaterialProfile } from "../src/color-scheme";
+import {
+  DEFAULT_MATERIAL_PROFILE_DOCUMENT,
+  macos26MaterialProfileDocument,
+} from "../src/material-document";
 import {
   resolveProxyGeometry,
   resolveSamplingGeometry,
@@ -574,18 +582,51 @@ describe("the sampling padding a layout has to clear", () => {
   ): number => samplingPaddingFor({ members, material: material(reducedTransparency) });
 
   it("is what the runtime resolves for the same members", () => {
-    // The same composition `root.ts` takes each group's geometry over, so a
-    // caller outside the frame loop and the frame loop cannot part company.
+    /*
+     * The same composition `root.ts` takes each group's geometry over, so a
+     * caller outside the frame loop and the frame loop cannot part company.
+     *
+     * The runtime side is built from the DEFAULT DOCUMENT from W29 G4, not from
+     * `MATERIAL_OPTICS`. The two were the same material until 0.19.0 and are not
+     * any more: the renderer's constants stay at the macOS 26.5 light material by
+     * Decision Log 1 (i) and a root resolves the selected document over them.
+     * Reading the constant here would have made this case assert that a layout
+     * helper agrees with a material nothing draws — which is the parting of
+     * company it exists to catch, one level up.
+     */
+    const profile = colorSchemeMaterialProfile("light", DEFAULT_MATERIAL_PROFILE_DOCUMENT);
+    const mapping = {
+      ...CSS_TIER_MAPPING,
+      ...DEFAULT_MATERIAL_PROFILE_DOCUMENT.cssTierMapping,
+    };
     const members = [[96, 44] as const, [44, 44] as const];
     for (const reducedTransparency of [false, true]) {
       const policy = material(reducedTransparency);
       const sigma = proxySamplingSigma(
-        opticsUnderPolicy(MATERIAL_OPTICS.regular, policy).blurRadius,
+        opticsUnderPolicy(cssTierOptics(profile, mapping).regular, policy).blurRadius,
         policy,
         members,
+        sourceSize(profile),
       );
       expect(padding(members, reducedTransparency)).toBe(requiredSamplingPadding(sigma));
     }
+  });
+
+  it("takes another document's law when one is named", () => {
+    // The option W29 G4 added, and the reason it exists: the macOS 26.5 document
+    // blurs at the module's own scale and the macOS 27 default at 2.2 times it,
+    // so a root that pinned the older material must be able to ask for the gap
+    // that material needs rather than the one the default would take.
+    const members = [[96, 44] as const];
+    const legacy = samplingPaddingFor({
+      members,
+      material: material(false),
+      ...(macos26MaterialProfileDocument.active.light.patch === undefined
+        ? {}
+        : { profile: macos26MaterialProfileDocument.active.light.patch }),
+      cssTierMapping: macos26MaterialProfileDocument.cssTierMapping,
+    });
+    expect(legacy).toBeLessThan(padding(members));
   });
 
   it("rises with a member's span", () => {

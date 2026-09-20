@@ -59,6 +59,18 @@ test("a visibility event or synthetic blur cannot invent document inactivity", a
   await expect.poll(() => reading(page)).toEqual({ focus: true, pose: "active" });
 });
 
+/*
+ * **The four hashes moved to the macOS 27 documents at W29 G4, and what they are
+ * is worth stating.** Each is the sha256 of the material the renderer is handed,
+ * and its first sixteen hex digits are that profile document's own recorded
+ * `resolvedMaterialSha256` — `e825cb034c9070e4` and `8439eb808495f5bf` for the
+ * two active documents, `8dc63b265c1de038` and `3264b6cdde64bc8b` for the two
+ * receded ones. So this case is not only "the pose reaches the renderer": it is
+ * "the renderer is handed exactly the material the sealed document records, and
+ * exactly the one the calibration bed was read at". The four literals here and
+ * the four in `packages/calibration/profiles/apple-macos-27.0-*.json` are one
+ * measurement, checked from the browser.
+ */
 for (const scheme of ["light", "dark"] as const) {
   test(`${scheme}: the renderer receives the sealed endpoint and restores the active document`, async ({
     page,
@@ -76,13 +88,13 @@ for (const scheme of ["light", "dark"] as const) {
       window.h.frame(3);
     });
     expect(active).toBe(scheme === "light"
-      ? "b2b570e4adcea8fb9281aed4d2556598a1fc95b34ce4b12dd5a50157ac138306"
-      : "874be66ea501621be265265424c16d2d98a01c40835d89c02de9473362c0d4dc");
+      ? "e825cb034c9070e44cc1bdc99705faa826329bf7bb1fd10a7743a82ec52e155f"
+      : "8439eb808495f5bf3803d37da6becb9f56cc8294f372cc957647c04a9de83c3c");
     const inactive = hash(await page.evaluate(() => window.h.rendererMaterial()));
     process.stdout.write(`${scheme}: active ${active}; inactive ${inactive}\n`);
     expect(inactive).toBe(scheme === "light"
-      ? "6dcb32c422639d0d49a4ad2927766f97817fb48c90c8987fbc09ec6a55a2b689"
-      : "70391dee6d9990c22efc4b268caf9139886af9684a4255ded1128d3b7a2b7326");
+      ? "8dc63b265c1de0384723c80b53a46efa2fddc483a769a91116c30fae9d2867ff"
+      : "3264b6cdde64bc8b8d55f74538268ae30d80eb8d0361a12061ef0d0f2aec5196");
     await page.evaluate(() => {
       window.h.requireRoot().setWindowActivation("active");
       window.h.frame(3);

@@ -360,14 +360,22 @@ export function Site(props: SiteProps): ReactNode {
 
         <Section id="tone" active={active}>
           <p className="body">
-            Liquid Glass does not always sit in front of what is behind it. Over a
-            dark enough backdrop it takes that backdrop&rsquo;s tone and settles
-            into it, and the settled macOS 26.5 reference is unambiguous about how
-            far that goes: a 44px capsule over a near-black backdrop comes out
-            byte-identical to its own background, while a 96px surface over the
-            same backdrop keeps about three quarters of its own appearance. So it
-            is one axis with two inputs &mdash; how dark the backdrop is, and how
-            big the surface is.
+            Liquid Glass does not sit in front of what is behind it at a fixed
+            strength: the interior settles on a level the backdrop chooses, along a
+            curve measured from Apple&rsquo;s own material. Drag the ground and
+            every plate follows it continuously.
+            <strong>
+              {" "}
+              How far that goes is the clearest thing macOS 27 changed.
+            </strong>{" "}
+            On macOS 26.5 a 44px capsule over a near-black backdrop came out
+            byte-identical to its own background &mdash; it disappeared. On macOS
+            27 it does not: Apple&rsquo;s body over that backdrop measures 0.29
+            linear against a backdrop of 0.06, and the adaptation that used to take
+            it the rest of the way is measured inert across the whole bed. So the
+            curve is still an axis with two inputs &mdash; how dark the backdrop is
+            and how big the surface is &mdash; and its dark end no longer runs to
+            zero.
           </p>
           <Fields legend="Backdrop">
             <label className="field">
@@ -385,9 +393,9 @@ export function Site(props: SiteProps): ReactNode {
               />
               <span className="field__hint" data-testid="ground-level-readout">
                 {groundLevel.toFixed(3)} linear. The interior settles on a curve
-                through three measured anchors, and the surface&rsquo;s size moves
+                through four measured anchors, and the surface&rsquo;s size moves
                 where the curve&rsquo;s ends sit; this range is the dark end, where
-                the sizes come apart.
+                the macOS 26.5 material used to come apart by size.
               </span>
             </label>
           </Fields>
@@ -404,15 +412,18 @@ export function Site(props: SiteProps): ReactNode {
           <p className="body">
             The three plates are the same three as the sweep above &mdash; 40, 68
             and 112px short spans, one authored thickness of 8px, nothing else
-            differing. Drag the ground down and they come apart: the 40px plate
-            takes the ground&rsquo;s own colour exactly &mdash; at the bottom stop
-            its body and its rim are both the backdrop, and its label is the only
-            thing left marking where it is &mdash; while the 68px plate is most of
-            the way there and the 112px plate has barely moved. That is the size
-            gate, and it is the size law again rather than a second rule. A
-            thicker surface reads its backdrop as brighter than it is, so it holds
-            its own appearance longer &mdash; the thickness enters the curve&rsquo;s
-            argument, not its result.
+            differing. Drag the ground down and all three darken together, the
+            thicker ones staying a little brighter: a thicker surface reads its
+            backdrop as brighter than it is, so the thickness enters the
+            curve&rsquo;s argument rather than its result. That separation is
+            plainly visible over the bright half of the control and closes to
+            almost nothing at the bottom stop, where the three bodies sit within
+            0.016 of each other and about a hundred times above the backdrop they
+            are standing on. On macOS 26.5 the same drag pulled the 40px plate all
+            the way onto the ground &mdash; body and rim both the backdrop, its
+            label the only thing marking where it was. What replaced that is not a
+            weaker version of it: it is a material that stays a material over a
+            backdrop that has nothing left to give it.
           </p>
           <p className="body">
             The texture stages here let the runtime read the ground for itself:
@@ -429,18 +440,24 @@ export function Site(props: SiteProps): ReactNode {
             ground it is standing on, so it is not estimating anything. It also has
             to: the runtime picks each plate&rsquo;s ink against the material that
             plate is actually showing, and it can only do that for a group whose
-            backdrop was declared. Watch the labels as you drag &mdash; the 40px
-            plate&rsquo;s ink turns light as its body goes dark, while the 112px
-            plate&rsquo;s stays dark on a body that is still light: one group, two
-            answers, in the same frame. An app that cannot state its backdrop still
-            gets the adaptation, from the pixels it registered: one average per
-            source, re-read when the source says its content changed.
+            backdrop was declared. On macOS 26.5 that showed on this control &mdash;
+            the 40px plate&rsquo;s ink turned light as its body went dark while the
+            112px plate&rsquo;s stayed dark, one group and two answers in one frame.
+            On macOS 27 the three bodies never separate that far, so all three
+            labels keep the same ink here; the per-surface decision is the same
+            decision, taken on a material that no longer forces it apart. An app
+            that cannot state its backdrop still gets the reading, from the pixels
+            it registered: one average per source, re-read when the source says its
+            content changed.
           </p>
           <p className="note">
             Reduced transparency folds this axis down rather than through. That
             preference asked for more occlusion, and a surface dissolving into its
             backdrop is the opposite of it; a material law does not get to outrank a
-            policy. Under forced colours there is no material to adapt at all.
+            policy. Under forced colours there is no material to adapt at all. The
+            figures above are measured &mdash; the wave that moved this page to
+            macOS 27 is recorded in the project&rsquo;s fidelity ledger at
+            &sect;&sect;5.149&ndash;5.155.
           </p>
           {GROUPS_BY_MODE.tone.map((group) => (
             <GroupReadout key={group.id} id={group.id} label={group.label} />

@@ -8,8 +8,13 @@ import {
   cssTierCompositeLevel,
   cssTierOptics,
   cssTintColor,
+  resolvedBackdropTone,
+  resolvedBackdropToneResponse,
+  sourceInteriorLight,
+  sourceSize,
   COLLAPSE_TRANSMISSION,
   CSS_TIER_MAPPING,
+  type CssTierMapping,
   innerShadowedSourceOptics,
   interiorBandLight,
   interiorShadowKeep,
@@ -19,6 +24,8 @@ import {
   sourceOptics,
   toneRespondedSourceOptics,
 } from "../../src/optics";
+import { colorSchemeMaterialProfile } from "../../src/color-scheme";
+import { DEFAULT_MATERIAL_PROFILE_DOCUMENT } from "../../src/material-document";
 import { gotoHarness, sample } from "../support";
 
 /**
@@ -52,6 +59,14 @@ import { gotoHarness, sample } from "../support";
  * functions, so a constant that moves in the profile moves these expectations
  * with it and a literal copied off one run cannot go stale silently. What the
  * browser adds to that mirror is the reading, the declarations and the pixels.
+ *
+ * **The collapse is inert on the material this package now ships** (W29 G4). The
+ * two mechanisms below are both still in the runtime and both still fitted per
+ * document, but macOS 27's adaptation band measures inert (claims §5.153 §2 item
+ * 1) — `k` is 0.00 at every step of every sweep in this file — so what these
+ * cases read is the response curve alone. The collapse's own assertions are kept
+ * and inverted rather than deleted, so that a material which brings it back is
+ * loud rather than silent; each says so where it stands.
  *
  * **A fresh page per backdrop, deliberately.** The harness's `createRoot` leaves
  * the previous root's hosts in the document, so a loop that rebuilt the scene in
@@ -146,7 +161,31 @@ interface LawDeclared {
   readonly target: number;
 }
 
-const SOURCE = sourceOptics().regular;
+/*
+ * The material the harness's root actually draws, resolved rather than taken off
+ * the module constants (W29 G4).
+ *
+ * The header above says the point of this mirror is that "a constant that moves
+ * in the profile moves these expectations with it". Until 0.19.0 the renderer's
+ * own defaults WERE what a root drew, so calling the exported functions with no
+ * patch satisfied that by accident. They are not any more: W29 Decision Log 1 (i)
+ * holds `DEFAULT_MATERIAL_PROFILE` still at the macOS 26.5 light material and a
+ * root resolves a selected document over it, so an unpatched mirror would be
+ * comparing one material's arithmetic against another material's declarations.
+ *
+ * The light endpoint of the default document, because `createRoot` here passes
+ * no `colorScheme` and the default is light.
+ */
+const PROFILE = colorSchemeMaterialProfile("light", DEFAULT_MATERIAL_PROFILE_DOCUMENT);
+const MAPPING: CssTierMapping = {
+  ...CSS_TIER_MAPPING,
+  ...DEFAULT_MATERIAL_PROFILE_DOCUMENT.cssTierMapping,
+};
+const SIZE = sourceSize(PROFILE);
+const TONE = resolvedBackdropTone(PROFILE);
+const RESPONSE = resolvedBackdropToneResponse(PROFILE);
+const INTERIOR_LIGHT = sourceInteriorLight(PROFILE);
+const SOURCE = sourceOptics(PROFILE).regular;
 
 /**
  * The CSS tier's tone chain for a flat grey backdrop, at nominal policy, on the
@@ -163,8 +202,8 @@ const BOXES: Readonly<Record<number, { width: number; height: number; radius: nu
 const lawDeclares = (grey: number, spanPx: number): LawDeclared => {
   const linear = decode(grey / 255);
   const tone = { rgb: [linear, linear, linear] as const, luminance: linear, linearLuminance: linear };
-  const thickness = sizeThickness(spanPx);
-  const collapse = backdropToneAdaptation(linear, thickness);
+  const thickness = sizeThickness(spanPx, SIZE);
+  const collapse = backdropToneAdaptation(linear, thickness, TONE);
   /*
    * Re-pointed at W17 G1 (charter Decision Log 2 (b)): the size law's occlusion
    * enters the alpha BEFORE the W9 response solve, which is where the shader's
@@ -174,8 +213,8 @@ const lawDeclares = (grey: number, spanPx: number): LawDeclared => {
    * solve exists to hit, by up to +0.027 of the level (claims §5.74 §3). The law
    * is unchanged and its order is not, so the helper follows the tier there.
    */
-  const sized = { ...SOURCE, tintAlpha: sizeOcclusionAlphaAt(SOURCE.tintAlpha, thickness) };
-  const responded = toneRespondedSourceOptics(sized, tone, thickness, collapse, 1);
+  const sized = { ...SOURCE, tintAlpha: sizeOcclusionAlphaAt(SOURCE.tintAlpha, thickness, SIZE) };
+  const responded = toneRespondedSourceOptics(sized, tone, thickness, collapse, 1, RESPONSE);
   const adapted = adaptedSourceOptics(responded, tone.rgb, collapse);
   // The surface's own box, because the inner shadow's area mean is a co-area
   // integral over it — the same numbers `buildScene` registers above.
@@ -188,7 +227,7 @@ const lawDeclares = (grey: number, spanPx: number): LawDeclared => {
   };
   const shadowed = innerShadowedSourceOptics(
     adapted,
-    interiorShadowKeep(SOURCE, geometry, thickness, 1 - collapse),
+    interiorShadowKeep(SOURCE, geometry, thickness, 1 - collapse, INTERIOR_LIGHT),
   );
   /*
    * The conversion the tier actually runs, ANCHOR AND ALL (W21 Decision Log 4
@@ -205,55 +244,68 @@ const lawDeclares = (grey: number, spanPx: number): LawDeclared => {
   const interior = {
     tintAlpha: shadowed.tintAlpha,
     tint: shadowed.tint,
-    addedLight: interiorBandLight(SOURCE, geometry, 1 - collapse),
+    addedLight: interiorBandLight(SOURCE, geometry, 1 - collapse, INTERIOR_LIGHT),
   };
   const anchor = linearChainReaches(cssTierCompositeLevel(interior, tone.luminance))
     ? undefined
     : { linearMean: tone.linearLuminance, toneLevel: tone.luminance };
   const alpha = cssOpticsFromSource(
-    cssTierOptics().regular,
+    cssTierOptics(PROFILE, MAPPING).regular,
     shadowed,
-    CSS_TIER_MAPPING,
+    MAPPING,
     anchor,
     "regular",
   ).tintAlpha;
   return {
     colour: cssTintColor(shadowed, alpha).join(", "),
     occlusion: Math.round(alpha * 1000) / 1000,
-    target: backdropToneResponseLevel(grey / 255, thickness),
+    target: backdropToneResponseLevel(grey / 255, thickness, RESPONSE),
   };
 };
 
 /** One rounding step of the declared occlusion, which is written to 3 decimals. */
 const ROUNDING = 0.0015;
 
-test("a small surface over a near-black backdrop becomes that backdrop", async ({ page }) => {
+test("a small surface over a near-black backdrop stays a body, and no longer becomes it", async ({
+  page,
+}) => {
   /*
-   * `dark-solid` (28, 28, 30) — the calibration backdrop where the reference's
-   * own capsule is byte-identical to its background. Fully adapted, the CSS tier
-   * declares the backdrop's own colour, so the surface renders as its backdrop
-   * rather than as a body in front of it.
+   * **Inverted at W29 G4, and the inversion is the finding.**
    *
-   * At an opacity of 1 − `collapseTransmission` since W24 (claims §5.108 §2),
-   * where it was 1 before: Apple's collapsed material is a dark glass that still
-   * transmits what is beneath it, so the tier takes the transmission out of the
-   * layer's own alpha and lets `backdrop-filter` supply the rest. 0.983 at
-   * dpr 1 is that constant, and it is the whole of the difference.
+   * `dark-solid` (28, 28, 30) is the calibration backdrop where the macOS 26.5
+   * reference's own 44 px capsule was byte-identical to its background, so this
+   * case asserted the collapse: an opacity of 1 − `collapseTransmission`, the
+   * backdrop's own bytes as the declared colour, and a rendered pixel within four
+   * codes of the backdrop.
+   *
+   * macOS 27's material does not do that anywhere. W29 G2 measured Apple's body
+   * over `dark-solid` at **0.2899 linear against a backdrop of 0.06**, five times
+   * its own backdrop (§5.151 §4), and W29 G3 measured the adaptation band inert
+   * and moved it to the bottom of its range (§5.153 §2 item 1). W29 G4 made that
+   * document what a root resolves, so what this case can assert is the opposite
+   * of what it used to — and it is asserted against the law's own mirror rather
+   * than against a literal.
    */
   await buildScene(page, "rgb(28, 28, 30)");
 
   const small = await declared(page, "small");
-  expect(small.occlusion).toBeCloseTo(1 - COLLAPSE_TRANSMISSION, 3);
-  // Not "close to" the backdrop — the backdrop's own bytes, at the collapse's own
-  // opacity. The reading, the curve and the linear-lerp-to-sRGB-overlay
-  // conversion all have to be right for this string to come out.
-  expect(small.tint).toBe("rgba(28, 28, 30, 0.983)");
+  const law = lawDeclares(28, 44);
 
+  // The tier runs the law: the declaration is the mirror's, to its rounding step.
+  expect(Math.abs(small.occlusion - law.occlusion)).toBeLessThanOrEqual(ROUNDING);
+  // And the law is not a collapse. Well clear of it rather than merely unequal:
+  // a collapsed declaration sits at 0.983 and this sits near 0.65.
+  expect(small.occlusion).toBeLessThan(1 - COLLAPSE_TRANSMISSION - 0.1);
+  // The declared colour is a light body, not the backdrop's own bytes.
+  expect(small.tint).not.toBe("rgba(28, 28, 30, 0.983)");
+
+  // And the pixels say the same thing: the surface is plainly in front of its
+  // backdrop where it used to be indistinguishable from it.
   const pixel = (await sample(page, SMALL)).at(60, 22);
-  expect(Math.abs(level(pixel) - level({ r: 28, g: 28, b: 30 }))).toBeLessThan(4);
+  expect(Math.abs(level(pixel) - level({ r: 28, g: 28, b: 30 }))).toBeGreaterThan(40);
 });
 
-test("a large surface over the same backdrop keeps most of its own appearance", async ({
+test("a large surface over the same backdrop is the more opaque of the two", async ({
   page,
 }) => {
   await buildScene(page, "rgb(28, 28, 30)");
@@ -261,12 +313,28 @@ test("a large surface over the same backdrop keeps most of its own appearance", 
   const large = await declared(page, "large");
   const small = await declared(page, "small");
 
-  // The size gate. Same backdrop, same material, and the large surface is still
-  // mostly its own colour where the small one is entirely its backdrop's.
-  expect(large.occlusion).toBeLessThan(small.occlusion);
+  /*
+   * **The size gate survives and its sign turns over** (W29 G4). While the small
+   * surface collapsed onto this backdrop it was the more opaque of the two by a
+   * wide margin, and this case read the gate that way. With nothing collapsing,
+   * what separates the two is the response curve's own thin and thick rows, and
+   * at macOS 27's first anchor the thick row sits above the thin one (0.242
+   * against 0.214) exactly as it does at the mid greys the case below reads. So
+   * the large surface is the more opaque here too — one rule at both ends of the
+   * curve, where there used to be two.
+   */
+  expect(large.occlusion).toBeGreaterThan(small.occlusion);
   expect(large.tint).not.toBe(small.tint);
+  /*
+   * The rendered separation is real and small. It was more than 60 codes while
+   * the small surface was its backdrop; it is now a few, because both surfaces
+   * are bodies over the same backdrop and only their thickness differs. Asserted
+   * as a direction with a floor of one code rather than as a magnitude: the claim
+   * is that the size law reaches the pixels, and pinning the magnitude here would
+   * be pinning the conversion's rounding.
+   */
   expect(level((await sample(page, LARGE)).at(130, 70))).toBeGreaterThan(
-    level((await sample(page, SMALL)).at(60, 22)) + 60,
+    level((await sample(page, SMALL)).at(60, 22)) + 1,
   );
 });
 
@@ -307,7 +375,12 @@ test("a mid grey backdrop lands on the response curve, and the surface's size mo
    * asserting the two are identical.
    */
   expect(colourOf(small.tint)).toBe("254, 254, 254");
-  expect(colourOf(large.tint)).toBe("255, 255, 255");
+  // Moved at W29 G4: the large surface read 255 under the macOS 26.5 material and
+  // reads 254 under macOS 27's. The claim is unchanged — the shift saturates at
+  // white and the remainder is carried as opacity — and the two sizes rounding to
+  // the same code again is a property of this material rather than of the law,
+  // which is why each is still read per surface rather than by asserting equality.
+  expect(colourOf(large.tint)).toBe("254, 254, 254");
 
   // The anchors' settled levels are functions of thickness, and at this grey the
   // thick row sits above the thin one — so the large surface is the MORE opaque,
@@ -356,14 +429,42 @@ test("across the transition the level is monotone, the collapse is a slope, and 
     levels.push(level((await sample(page, SMALL)).at(60, 22)));
   }
 
-  for (let i = 1; i < steps; i += 1) {
+  /*
+   * **Monotone from the first step on, with the zeroth named** (W29 G4).
+   *
+   * The reading, on the macOS 27 material: 187.5, 144.2, 150.1, 156.6, 164.2,
+   * 169.5, 174.7, 179.7, 183.7, 187.5, 189.8, 192.7. Every step but the first
+   * rises. The first falls by 43 codes, and it is not the law — the curve's own
+   * target over this ramp is strictly increasing at both spans
+   * (`results/2026-09-20-w29-g4-landing/ramp-probe.txt`: 0.2147 → 0.6346 at span
+   * 44). It is the CSS tier's conversion over a PURE BLACK backdrop, where the
+   * encoded overlay's quantum is coarsest and the solve lands about 58 codes
+   * above a target of 0.2147 linear.
+   *
+   * It is newly VISIBLE rather than newly true: on macOS 26.5 the collapse owned
+   * everything below grey 38 (`k` 1.00 at greys 0, 13 and 25), so the surface
+   * simply became its backdrop there and the conversion was never asked for a
+   * level it could not reach. macOS 27 has no collapse anywhere, which exposes
+   * the region. **No committed row covers it**: the bed's darkest backdrop is
+   * `dark-solid` at (28, 28, 30), which is step 2 of this ramp and tracks. It is
+   * in the tracker as a CSS-tier residual.
+   */
+  for (let i = 2; i < steps; i += 1) {
     expect(levels[i] as number, `level ${i}`).toBeGreaterThanOrEqual((levels[i - 1] as number) - 1);
   }
+  expect((levels[0] as number) - (levels[1] as number), "the black step's overshoot")
+    .toBeGreaterThan(20);
 
-  // The ends: fully collapsed over black — at the collapse's own opacity, which
-  // is `1 − collapseTransmission` since W24 — and the curve's own value at the
-  // grey.
-  expect(occlusions[0] as number).toBeCloseTo(1 - COLLAPSE_TRANSMISSION, 3);
+  /*
+   * The dark end. It was `1 − collapseTransmission` while the collapse owned
+   * this backdrop; on macOS 27 nothing collapses anywhere (`k` is 0.00 at every
+   * step of this ramp, both spans) and the end is simply the curve's own value
+   * there, which the per-step check above has already held to the law. Asserted
+   * again as a value rather than dropped, so that a collapse returning to this
+   * region would be loud.
+   */
+  expect(occlusions[0] as number).toBeCloseTo(lawDeclares(0, 44).occlusion, 3);
+  expect(occlusions[0] as number).toBeLessThan(1 - COLLAPSE_TRANSMISSION - 0.1);
   const dip = occlusions.indexOf(Math.min(...occlusions));
   expect(dip).toBeGreaterThan(0);
   expect(dip).toBeLessThan(steps - 1);
@@ -409,13 +510,44 @@ test("across the transition the level is monotone, the collapse is a slope, and 
     }
     return most;
   };
+  /*
+   * Two codes rather than one, from W29 G4. The sweep is 22 backdrops two grey
+   * levels apart and it rises 151.3 → 172.5 across them; the one backward step
+   * in it is **1.60 codes** at grey 50, and every other step is forward or flat.
+   * The tolerance was one code under the macOS 26.5 material and that material's
+   * declared alpha moved faster here, so a single code covered the conversion's
+   * quantum. On macOS 27 the alpha crosses this whole band between 0.654 and
+   * 0.663 — a ninth of the excursion — so the rendered level is carried almost
+   * entirely by the backdrop showing through, and the overlay's encoded rounding
+   * is a larger share of each step than it was.
+   */
   for (let i = 1; i < fine; i += 1) {
     expect(fineLevels[i] as number, `fine level ${i}`).toBeGreaterThanOrEqual(
-      (fineLevels[i - 1] as number) - 1,
+      (fineLevels[i - 1] as number) - 2,
     );
   }
-  const fineExcursion = (fineOcclusions[0] as number) - Math.min(...fineOcclusions);
-  expect(fineExcursion).toBeGreaterThan(0.15);
+  /*
+   * **What this band carries on macOS 27, and what it does not** (W29 G4).
+   *
+   * The band 28…70 was chosen because it straddles the macOS 26.5 collapse for a
+   * 44 px surface, size bias included, and the claim was that the collapse is a
+   * slope rather than a switch: the declared alpha fell by more than 0.15 across
+   * it and no single step took more than a third of that fall. On macOS 27 there
+   * is no collapse here or anywhere — `k` reads 0.00 at every step of this sweep
+   * and of the coarse one (`results/2026-09-20-w29-g4-landing/ramp-probe.txt`) —
+   * so the alpha does not fall at all: it rises monotonically from 0.654 to
+   * 0.663, which is the light attractor's arm and nothing else.
+   *
+   * So the excursion assertion is replaced by the statement that makes its
+   * absence checkable rather than dropped. A collapse returning to this band
+   * would put a fall of at least 0.15 in a series that is now flat to 0.009, and
+   * the first line below would fail on it; the two that follow keep the
+   * no-switch claim on both quantities, which is the half of the original that
+   * still has something to be true about.
+   */
+  const fineFall = (fineOcclusions[0] as number) - Math.min(...fineOcclusions);
+  expect(fineFall, "the collapse arm, which macOS 27 does not have").toBeLessThan(0.01);
+  const fineExcursion = Math.max(...fineOcclusions) - Math.min(...fineOcclusions);
   expect(widest(fineOcclusions)).toBeLessThan(fineExcursion / 3);
   const levelExcursion = Math.max(...fineLevels) - Math.min(...fineLevels);
   expect(widest(fineLevels)).toBeLessThan(levelExcursion / 3);

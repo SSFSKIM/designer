@@ -130,6 +130,43 @@ export interface GlassGroupState {
    * interior. Absent on a WebGPU-tier group and before the first frame resolves one.
    */
   readonly cssShadow?: "layer" | "group" | "host";
+  /**
+   * Which measured material document this group is drawing (W29 G4).
+   *
+   * The material became a selection in 0.19.0 — a page draws macOS 27's material
+   * by default and can pin macOS 26.5 — so "which material drew" stopped being a
+   * constant of the build and became a resolved fact, and the honesty core says a
+   * resolved fact belongs on the state beside `cssBody`, `cssTint` and
+   * `cssShadow`. A capture cell, a readout and the demo's capabilities panel all
+   * read it from here rather than from whatever the page meant to pass.
+   *
+   * Resolved by the platform, like the three fields above and for the same
+   * reason: the material is a property of the root, which core's per-group
+   * resolver cannot see. Absent before the first frame resolves one.
+   */
+  readonly materialDocument?: ResolvedMaterialDocument;
+}
+
+/**
+ * The material a group actually drew, named so it can be checked rather than
+ * assumed.
+ *
+ * `tuned` is the field that keeps the other three honest. A root may merge an
+ * app's own `materialProfile` or `cssTierMapping` over whatever the document
+ * selected, and a readout that named the document without saying so would report
+ * a digest over a material that is not on the screen.
+ */
+export interface ResolvedMaterialDocument {
+  /** The document's name — the profile-key stem the material was measured under. */
+  readonly name: string;
+  /** Which macOS release it was measured on. */
+  readonly platform: string;
+  /** The endpoint drawn for this group's resolved scheme and window pose. */
+  readonly profileKey?: string;
+  /** That endpoint's digest over the material it resolves to. */
+  readonly resolvedMaterialSha256?: string;
+  /** True where the app merged a material or CSS-tier patch of its own over it. */
+  readonly tuned: boolean;
 }
 
 export function isHealthy(state: GlassGroupState): boolean {

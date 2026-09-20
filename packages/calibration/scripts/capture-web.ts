@@ -136,6 +136,12 @@ export interface WebCell {
 interface MaterialProfileFile {
   readonly path: string;
   readonly sha256: string;
+  /**
+   * The document's own key, which is what tells the page which runtime material
+   * this patch is a difference from (W29 G4). `undefined` for a bare patch file,
+   * which is read over whatever the runtime resolves by itself.
+   */
+  readonly profileKey: string | undefined;
   readonly patch: NonNullable<SceneReport["materialProfile"]>;
   /**
    * The CSS tier's half of the same document (corrective K5).
@@ -386,6 +392,7 @@ function readMaterialProfile(path: string): MaterialProfileFile {
   return {
     path: sections.path,
     sha256: sections.sha256,
+    profileKey: sections.profileKey,
     patch: sections.patch as MaterialProfileFile["patch"],
     cssTierMapping: sections.cssTierMapping as MaterialProfileFile["cssTierMapping"],
   };
@@ -401,6 +408,7 @@ function readRecededProfile(path: string): MaterialProfileFile {
   return {
     path: sections.path,
     sha256: sections.sha256,
+    profileKey: sections.profileKey,
     patch: sections.patch as MaterialProfileFile["patch"],
     cssTierMapping: undefined,
   };
@@ -827,9 +835,23 @@ async function main(): Promise<void> {
       const profile = options.materialProfile;
       await context.addInitScript(
         (sections: {
+          profileKey: MaterialProfileFile["profileKey"];
           patch: MaterialProfileFile["patch"];
           cssTierMapping: MaterialProfileFile["cssTierMapping"];
         }) => {
+          /*
+           * The key travels even when the patch does not, and that is the point
+           * of sending it (W29 G4). A patch is a DIFFERENCE from whatever
+           * material the root resolved, and since 0.19.0 the runtime resolves
+           * macOS 27's by default and macOS 26.5's on request — so the page has
+           * to select the base this document was fitted over before it merges
+           * anything. The macOS 26.5 light document, whose patch is empty
+           * because it IS the renderer's defaults, is exactly the case where
+           * the key is the only thing that says so.
+           */
+          if (sections.profileKey !== undefined) {
+            window.__vitreaMaterialProfileKey = sections.profileKey;
+          }
           if (Object.keys(sections.patch).length > 0) {
             window.__vitreaMaterialProfile = sections.patch;
           }
@@ -837,7 +859,11 @@ async function main(): Promise<void> {
             window.__vitreaCssTierMapping = sections.cssTierMapping;
           }
         },
-        { patch: profile.patch, cssTierMapping: profile.cssTierMapping },
+        {
+          profileKey: profile.profileKey,
+          patch: profile.patch,
+          cssTierMapping: profile.cssTierMapping,
+        },
       );
       say(`material profile: ${materialProfileLabel(profile)}`);
     }

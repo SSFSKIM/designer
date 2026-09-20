@@ -64,6 +64,7 @@ import {
 } from "@vitrea/policy";
 import type { MaterialVariant, ResolvedMaterialPolicy } from "@vitreajs/vitrea";
 
+import { DEFAULT_MATERIAL_PROFILE_DOCUMENT } from "./material-document";
 import type { RendererMaterialProfile } from "./renderer-bridge";
 
 /** Refuses unsupported runtime abscissae before either tier retains a profile. */
@@ -4299,10 +4300,19 @@ export function domMaterialReference(
 }
 
 /**
- * This tier's numbers under the shipped profile and the shipped mapping.
+ * This tier's numbers under the RENDERER's own profile and the module's mapping.
  *
  * Derived rather than written out, so there is no second place for the CSS tier
  * and the material profile to disagree.
+ *
+ * **It is not what a root draws by default any more** (W29 G4). It was until
+ * 0.19.0, when the renderer's defaults were the only material there was; since
+ * then a root resolves a selected document over them and the default document is
+ * macOS 27's. Anything that needs the material a page is actually made of takes
+ * `cssTierOptics(profile, mapping)` with that document's two halves — which is
+ * what `samplingPaddingFor` below does, and what the demo's law readouts do.
+ * This constant stays because it is the identity the CSS tier's own derivations
+ * are written against.
  */
 export const MATERIAL_OPTICS: Readonly<Record<MaterialVariant, MaterialOptics>> = cssTierOptics();
 
@@ -4318,6 +4328,19 @@ export const SAMPLING_PADDING_SIGMA_MULTIPLE = 3;
 export function requiredSamplingPadding(blurRadius: number): number {
   return blurRadius * SAMPLING_PADDING_SIGMA_MULTIPLE;
 }
+
+/*
+ * The default document's two halves, read lazily.
+ *
+ * Lazily because this module is imported by `material-document.ts` for a type
+ * and a function called at module scope would be evaluating a binding that may
+ * not be initialised yet. Nothing here is hot: `samplingPaddingFor` is a layout
+ * call, not a per-frame one.
+ */
+const defaultSamplingProfile = (): RendererMaterialProfile | undefined =>
+  DEFAULT_MATERIAL_PROFILE_DOCUMENT.active.light.patch;
+const defaultSamplingMapping = (): Partial<CssTierMapping> =>
+  DEFAULT_MATERIAL_PROFILE_DOCUMENT.cssTierMapping;
 
 /**
  * The sampling padding a group of these members takes under this policy, in
@@ -4337,18 +4360,37 @@ export function requiredSamplingPadding(blurRadius: number): number {
  * estimate. Members are `[width, height]` pairs in CSS px; an empty list is the
  * projection at span 0, which is the floor every group starts at.
  *
- * A profile patch is not read here: this is the shipped material's law, which is
- * what a caller outside the frame loop has. A group whose descriptor patches the
- * profile resolves its own σ through `proxySamplingSigma` inside the frame.
+ * **Which material's law, since W29 G4.** The default is the material a root
+ * resolves when an app asks for nothing — the default document's light endpoint,
+ * through that document's own CSS mapping — and no longer the renderer's own
+ * constants, which Decision Log 1 (i) deliberately holds still at the macOS 26.5
+ * light material. The two were the same number until 0.19.0. A caller that went
+ * on taking the renderer's would open a toolbar's gap at one times the blur
+ * while its own root drew at 2.2 times it, which is exactly the failure this
+ * function exists to prevent, and it would do so silently.
+ *
+ * A root that selected another document passes that document's two halves here.
+ * A group whose descriptor patches the profile resolves its own σ through
+ * `proxySamplingSigma` inside the frame and never comes through this function.
  */
 export function samplingPaddingFor(input: {
   readonly members: readonly (readonly [number, number])[];
   readonly material: ResolvedMaterialPolicy;
   readonly variant?: MaterialVariant;
+  /** A material document's `patch`; omit for the material a default root draws. */
+  readonly profile?: RendererMaterialProfile;
+  /** The same document's `cssTierMapping`; omit for the same. */
+  readonly cssTierMapping?: Partial<CssTierMapping>;
 }): number {
-  const folded = opticsUnderPolicy(MATERIAL_OPTICS[input.variant ?? "regular"], input.material);
+  const profile = input.profile ?? defaultSamplingProfile();
+  const mapping: CssTierMapping = {
+    ...CSS_TIER_MAPPING,
+    ...(input.cssTierMapping ?? defaultSamplingMapping()),
+  };
+  const optics = cssTierOptics(profile, mapping)[input.variant ?? "regular"];
+  const folded = opticsUnderPolicy(optics, input.material);
   return requiredSamplingPadding(
-    proxySamplingSigma(folded.blurRadius, input.material, input.members),
+    proxySamplingSigma(folded.blurRadius, input.material, input.members, sourceSize(profile)),
   );
 }
 

@@ -38,9 +38,12 @@ import { DEFAULT_MOTION_PROFILE, withReducedMotion, type MotionProfile } from "@
 import {
   consoleDiagnosticSink,
   createGlassRoot,
+  type CssTierMapping,
   type GlassColorScheme,
+  type GlassMaterialProfileDocument,
   type GlassRoot as PlatformGlassRoot,
   type GlassWindowActivation,
+  type RendererMaterialProfile,
   type ResolvedWindowActivation,
   type VitreaDiagnostic,
   type VitreaDiagnosticSink,
@@ -89,6 +92,43 @@ export interface GlassRootProps {
    * behind that surface. This states which material the surface is made of.
    */
   readonly colorScheme?: GlassColorScheme | undefined;
+  /**
+   * Which **measured material** this root draws, as one document (W29 G4).
+   *
+   * Defaults to `macos27MaterialProfileDocument` — what a Mac draws today —
+   * with `macos26MaterialProfileDocument` shipped beside it for a page pinned to
+   * the material it was designed against. A document carries the active patch
+   * and the receded difference for both colour schemes plus the CSS tier's
+   * crossing, so selecting one moves every tier and both poses at once; before
+   * this prop a React app could not select a reference material at all.
+   *
+   * Read at construction, because `createGlassRoot` selects it there: a scheme
+   * and a window pose move within one material, where a different document is a
+   * different material and a root already drawing one has surfaces measured
+   * against it.
+   */
+  readonly materialProfileDocument?: GlassMaterialProfileDocument | undefined;
+  /**
+   * A tuning over whatever the document selected — the renderer's optical
+   * constants, leaf by leaf.
+   *
+   * Applied live, because `createGlassRoot` exposes a setter for it and a
+   * material change is not a reason to tear a root down. Hold the object still
+   * between renders: an inline literal is a new value every render and re-derives
+   * both tiers each time.
+   */
+  readonly materialProfile?: RendererMaterialProfile | undefined;
+  /**
+   * What the material costs to express as `backdrop-filter` plus an overlay, for
+   * the visitors on the CSS tier.
+   *
+   * Calibration's seam rather than an application knob — the shipped mapping is
+   * tuned against the dom-tier cells, and the selected document brings its own —
+   * and it is surfaced here only so that an app handing this binding a whole
+   * measured material by hand can hand over both halves of it. Read at
+   * construction, which is where the root reads it.
+   */
+  readonly cssTierMapping?: Partial<CssTierMapping> | undefined;
   /**
    * Whether this window's glass draws the active material or the receded one
    * (W28 G3). `"auto"` is the default and follows the window's own focus;
@@ -157,6 +197,9 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
     renderer = "css",
     powerPreference,
     colorScheme = "light",
+    materialProfileDocument,
+    materialProfile,
+    cssTierMapping,
     windowActivation = "auto",
     reducedMotion = "system",
     reducedTransparency = "system",
@@ -194,6 +237,22 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
   const activationRef = useRef<GlassWindowActivation>(windowActivation);
   activationRef.current = windowActivation;
 
+  /*
+   * The material props, held in refs for the reason the scheme and the pose
+   * above are: the root reads each of them once at construction, and putting an
+   * object-valued prop in the effect's dependency list would tear the runtime
+   * down and rebuild it — dropping every registration in the tree — the first
+   * time a parent re-rendered with a fresh literal. `materialProfile` is
+   * additionally applied to the live root below, because the root has a setter
+   * for it and a tuning change is not a reason to rebuild anything.
+   */
+  const documentRef = useRef<GlassMaterialProfileDocument | undefined>(materialProfileDocument);
+  documentRef.current = materialProfileDocument;
+  const mappingRef = useRef<Partial<CssTierMapping> | undefined>(cssTierMapping);
+  mappingRef.current = cssTierMapping;
+  const materialRef = useRef<RendererMaterialProfile | undefined>(materialProfile);
+  materialRef.current = materialProfile;
+
   useEffect(() => {
     const consoleSink = consoleDiagnosticSink();
     const sink: VitreaDiagnosticSink = (diagnostic) => {
@@ -220,6 +279,15 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
       // already pinned must draw it on its first frame rather than flashing the
       // active material for one.
       windowActivation: activationRef.current,
+      // Read at construction because the root selects its material there, and
+      // for the same reason the two above are: the first frame has to draw the
+      // material the app asked for rather than a default it would then be moved
+      // off one frame later.
+      ...(documentRef.current === undefined
+        ? {}
+        : { materialProfileDocument: documentRef.current }),
+      ...(mappingRef.current === undefined ? {} : { cssTierMapping: mappingRef.current }),
+      ...(materialRef.current === undefined ? {} : { materialProfile: materialRef.current }),
     });
 
     rootRef.current = created;
@@ -242,6 +310,26 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
     root.setAccessibilityOverrides(overrides);
     store.poll();
   }, [increasedContrast, reducedMotion, reducedTransparency, root, store]);
+
+  /*
+   * The app's own tuning over the selected document, applied to the live root
+   * exactly as the scheme below is.
+   *
+   * Withdrawing the prop sends the empty patch rather than skipping the call,
+   * and that is the whole of "the app took its tuning back": a root that kept
+   * the last patch it was given would go on drawing a material the app has
+   * stopped asking for. Skipped entirely on the construction pass, where the
+   * option above already carried it.
+   */
+  const materialApplied = useRef(false);
+  useEffect(() => {
+    if (root === null) return;
+    if (!materialApplied.current) {
+      materialApplied.current = true;
+      return;
+    }
+    root.setMaterialProfile(materialProfile ?? {});
+  }, [materialProfile, root]);
 
   // The scheme is a material change, applied to the live root exactly as the
   // accessibility overrides above are.

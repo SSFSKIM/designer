@@ -27,6 +27,11 @@ import {
   type ResolvedColorScheme,
 } from "../src/color-scheme";
 import { darkMaterialProfile } from "../src/dark-profile";
+import {
+  macos27DarkMaterialProfile,
+  macos27LightMaterialProfile,
+} from "../src/macos27-profile";
+import { macos26MaterialProfileDocument } from "../src/material-document";
 import { resolvedBackdropToneResponse } from "../src/optics";
 import type { RendererMaterialProfile } from "../src/renderer-bridge";
 import { createGlassRoot, type GlassRoot, type GlassRootOptions } from "../src/root";
@@ -176,11 +181,20 @@ describe("the shipped dark patch", () => {
 });
 
 describe("the scheme's base patch", () => {
-  it("is the dark document's patch for dark, and nothing at all for light", () => {
-    expect(colorSchemeMaterialProfile("dark")).toBe(darkMaterialProfile);
-    // Not an empty object: light IS the renderer's defaults, and an empty patch
-    // would be a second name for the absence of one.
-    expect(colorSchemeMaterialProfile("light")).toBeUndefined();
+  it("is the selected document's patch for each scheme, and the default document is macOS 27", () => {
+    // Moved at W29 G4 (Decision Log 2). The function used to reach for one
+    // shipped patch per scheme, so "which macOS a page draws" was a property of
+    // the build; it now reads the document the root selected, and the default
+    // document is macOS 27's. The macOS 26.5 reading it used to make is below,
+    // against the document that still ships that material.
+    expect(colorSchemeMaterialProfile("light")).toBe(macos27LightMaterialProfile);
+    expect(colorSchemeMaterialProfile("dark")).toBe(macos27DarkMaterialProfile);
+
+    expect(colorSchemeMaterialProfile("dark", macos26MaterialProfileDocument))
+      .toBe(darkMaterialProfile);
+    // Not an empty object: the macOS 26.5 light endpoint IS the renderer's
+    // defaults, and an empty patch would be a second name for the absence of one.
+    expect(colorSchemeMaterialProfile("light", macos26MaterialProfileDocument)).toBeUndefined();
   });
 
   it("folds the setting against the system's answer", () => {
@@ -198,10 +212,16 @@ describe("the scheme's base patch", () => {
      *
      * The app holds ONE patch for whichever scheme is drawing, so the question is
      * whether a patch can be coherent over one base and not the other. Today it
-     * cannot: light's base is the absence of a patch, so it presents the mirror's
-     * three knots, and the dark document names all three rows at three knots too.
-     * A host patch is therefore judged by its own shape alone, and refusing
-     * against both schemes rejects nothing that the active scheme would accept.
+     * cannot: both of the default document's scheme bases name all three rows at
+     * four knots. A host patch is therefore judged by its own shape alone, and
+     * refusing against both schemes rejects nothing that the active scheme would
+     * accept.
+     *
+     * The count moved at W29 G4, with the material: macOS 26.5 presents three
+     * knots — light as the mirror's own defaults, dark as a three-knot document —
+     * and macOS 27's level law is fitted at four (claims §5.153 §2 item 1). What
+     * the invariant asserts did not move, which is why it is written as an
+     * equality between the two schemes with the absolute count read separately.
      *
      * This is a tripwire, not a decoration. The dark receded endpoint already
      * carries four-knot rows, so the day a four-knot row lands in a SCHEME base
@@ -216,7 +236,7 @@ describe("the scheme's base patch", () => {
       const response = resolvedBackdropToneResponse(colorSchemeMaterialProfile(scheme));
       return [response.anchorX.length, response.thin.length, response.thick.length];
     };
-    expect(arity("light")).toEqual([3, 3, 3]);
+    expect(arity("light")).toEqual([4, 4, 4]);
     expect(arity("dark")).toEqual(arity("light"));
 
     // And the consequence, on the shapes the shipped endpoints actually take: the

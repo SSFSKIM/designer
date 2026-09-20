@@ -55,6 +55,7 @@ import {
   type ResolvedAccessibilityPolicy,
   type ResolvedForegroundAdaptation,
   type ResolvedMaterial,
+  type ResolvedMaterialDocument,
   type ShapeFamily,
   type WebGPURendererModule,
 } from "@vitreajs/vitrea";
@@ -78,6 +79,10 @@ import {
   type GlassColorScheme,
   type ResolvedColorScheme,
 } from "./color-scheme";
+import {
+  DEFAULT_MATERIAL_PROFILE_DOCUMENT,
+  type GlassMaterialProfileDocument,
+} from "./material-document";
 import {
   cssTierDeclarations,
   foregroundDeclarations,
@@ -212,7 +217,6 @@ import {
   type GlassRendererBridge,
   type RendererMaterialProfile,
 } from "./renderer-bridge";
-import { recededMaterialProfile } from "./receded-profile";
 import {
   observeWindowActivation,
   resolveWindowActivation,
@@ -308,6 +312,23 @@ export interface GlassRootOptions {
    * transparency).
    */
   readonly materialProfile?: RendererMaterialProfile;
+  /**
+   * Which **measured material** this root draws, as one document (W29 G4).
+   *
+   * The option to reach for when you want a whole reference material rather
+   * than a tuning of one. A document carries the four patches a root selects
+   * between — the active material and the receded difference, per colour scheme
+   * — and the CSS crossing that same material was measured to cost, so all of it
+   * moves together. The default is `macos27MaterialProfileDocument`, which is
+   * what a Mac draws today; `macos26MaterialProfileDocument` pins the material
+   * this package drew through 0.18.0.
+   *
+   * `materialProfile` and `cssTierMapping` still merge OVER whatever this
+   * selected, so an app can pin a reference material and tune one leaf of it.
+   * Selected once, at construction: a scheme and a pose move within one
+   * material, where a different document is a different material.
+   */
+  readonly materialProfileDocument?: GlassMaterialProfileDocument;
   /**
    * Which colour scheme's material this root draws (W21 G3).
    *
@@ -550,6 +571,18 @@ export interface GlassRoot {
    * readout says what drew, not what was asked for.
    */
   readonly colorScheme: ResolvedColorScheme;
+  /**
+   * Which measured material is drawing right now — the document selected at
+   * construction, narrowed to the endpoint the resolved scheme and the resolved
+   * window pose pick out, and flagged `tuned` where the app merged a patch of
+   * its own over it (W29 G4).
+   *
+   * A readout, for the same reason `colorScheme` and `windowActivation` are
+   * readouts: since 0.19.0 the material is a selection, so what a page draws is
+   * a resolved fact rather than a constant of the build, and a capture cell, a
+   * test and the demo's capabilities panel all have to be able to read it.
+   */
+  readonly material: ResolvedMaterialDocument;
   /** Change the root pose on the next frame; returning to auto re-reads window focus. */
   setWindowActivation(value: GlassWindowActivation): void;
   /** The endpoint resolved for drawing, never the requested auto setting. */
@@ -765,23 +798,26 @@ const nextRootOrdinal = (): number => {
 };
 
 /**
- * The resolved state with the CSS tier's body form on it, or exactly the state
- * core resolved where there is none (W16 G1).
+ * The resolved state with the platform's own folds on it — the CSS tier's three
+ * forms (W16 G1, W17 G1, W18 G1) and the material document that drew (W29 G4) —
+ * or exactly the state core resolved where there is none.
  *
  * Spread conditionally, because an absent field and a field written `undefined`
  * are different things to every consumer that serialises this record — and the
  * capture cells do.
  */
-const withCssBody = (
+const withPlatformFolds = (
   cssBody: "two-layer" | "collapsed" | undefined,
   cssTint: "linear" | "encoded" | undefined,
   cssShadow: CssTierShadowCarrier | undefined,
+  materialDocument: ResolvedMaterialDocument,
   state: GlassGroupState,
 ): GlassGroupState => ({
   ...state,
   ...(cssBody === undefined ? {} : { cssBody }),
   ...(cssTint === undefined ? {} : { cssTint }),
   ...(cssShadow === undefined ? {} : { cssShadow }),
+  materialDocument,
 });
 
 /**
@@ -801,20 +837,29 @@ const withCssBody = (
  * The response rows and abscissa discriminator are checked before the lazy
  * per-host solve can see them. Other constants resolve eagerly on application.
  */
-const rejectUndrawableProfile = (profile: RendererMaterialProfile | undefined): void => {
+const rejectUndrawableProfile = (
+  profile: RendererMaterialProfile | undefined,
+  document: GlassMaterialProfileDocument,
+): void => {
   validateBackdropToneAbscissa(profile);
   for (const scheme of ["light", "dark"] as const) {
     resolvedBackdropToneResponse(
-      mergeMaterialProfiles(colorSchemeMaterialProfile(scheme), profile),
+      mergeMaterialProfiles(colorSchemeMaterialProfile(scheme, document), profile),
     );
   }
 };
 
 export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
+  // Which measured material this root draws, before anything reads a constant
+  // from it. The document is selected once at construction and not afterwards:
+  // a scheme and a pose move within one material, and moving between materials
+  // is a different claim about the page than either of those.
+  const materialDocument = options.materialProfileDocument ?? DEFAULT_MATERIAL_PROFILE_DOCUMENT;
+
   // Before the layer manager, the ink stylesheet and every preference feed: a
   // constructor that throws never hands back the root, so nothing it has already
   // built can be destroyed and everything it has taken is leaked.
-  rejectUndrawableProfile(options.materialProfile);
+  rejectUndrawableProfile(options.materialProfile, materialDocument);
 
   const view = options.window ?? window;
   const devMode = options.devMode ?? true;
@@ -1142,7 +1187,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     resolveColorScheme(schemeSetting, colorSchemeFeed.prefersDark);
   /** The one material both tiers derive from: the scheme's, tuned by the app's. */
   const activeProfile = (): RendererMaterialProfile | undefined =>
-    mergeMaterialProfiles(colorSchemeMaterialProfile(resolvedScheme()), hostProfile);
+    mergeMaterialProfiles(colorSchemeMaterialProfile(resolvedScheme(), materialDocument), hostProfile);
   // Already refused at the top of this function, for both schemes, before
   // anything here was built — the bindings below are initialised from the option
   // directly rather than through `applyMaterialProfile`, so its guard does not
@@ -1152,11 +1197,49 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   // and for capture identity; activation never invents a blended profile SHA.
   const posedProfile = (): RendererMaterialProfile | undefined =>
     mergeMaterialProfiles(activeProfile(), resolvedActivation === "inactive"
-      ? recededMaterialProfile[resolvedScheme()] : undefined);
+      ? materialDocument.receded[resolvedScheme()].patch : undefined);
   const initialProfile = posedProfile();
   let resolvedProfile = initialProfile;
 
-  const cssMapping: CssTierMapping = { ...CSS_TIER_MAPPING, ...options.cssTierMapping };
+  /*
+   * The CSS crossing, from the same document the material came from (W29 G4).
+   *
+   * Three layers, narrowing: the module's own measured mapping, then what the
+   * selected document says that material costs on a tier with one
+   * `backdrop-filter`, then the app's own override. The middle layer is the one
+   * that was missing — a document's `patch` and its `cssTierMapping` are halves
+   * of one measurement, and a root that took the first and defaulted the second
+   * drew the document's material on the GPU tier and a different one on the CSS
+   * tier.
+   */
+  const cssMapping: CssTierMapping = {
+    ...CSS_TIER_MAPPING,
+    ...materialDocument.cssTierMapping,
+    ...options.cssTierMapping,
+  };
+
+  /**
+   * Which material actually drew, for the state every consumer reads (W29 G4).
+   *
+   * Recomputed per frame rather than held, because two of its four fields follow
+   * the resolved scheme and the resolved window pose, and both of those move
+   * without a call from the app.
+   */
+  const resolvedMaterialDocument = (): ResolvedMaterialDocument => {
+    const scheme = resolvedScheme();
+    const endpoint = resolvedActivation === "inactive"
+      ? materialDocument.receded[scheme]
+      : materialDocument.active[scheme];
+    return {
+      name: materialDocument.name,
+      platform: materialDocument.platform,
+      ...(endpoint.profileKey === undefined ? {} : { profileKey: endpoint.profileKey }),
+      ...(endpoint.resolvedMaterialSha256 === undefined
+        ? {}
+        : { resolvedMaterialSha256: endpoint.resolvedMaterialSha256 }),
+      tuned: hostProfile !== undefined || options.cssTierMapping !== undefined,
+    };
+  };
   let cssOptics = cssTierOptics(initialProfile, cssMapping);
   /**
    * The same profile *before* the tier conversion — the material the renderer is
@@ -1567,7 +1650,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     const cssTint = cssTintForms.get(groupId);
     const cssShadow = cssShadowForms.get(groupId);
 
-    const state = withCssBody(cssBody, cssTint, cssShadow, resolveGlassGroupState(
+    const state = withPlatformFolds(cssBody, cssTint, cssShadow, resolvedMaterialDocument(), resolveGlassGroupState(
       groupCapabilityInputs(
         source.descriptor.kind === "texture"
           ? {
@@ -3585,7 +3668,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       // arrives on the system's own media listener, where a throw has no caller
       // to reach. Checked before `hostProfile` moves, so a refusal leaves the
       // root holding the patch it was already drawing rather than the bad one.
-      rejectUndrawableProfile(profile);
+      rejectUndrawableProfile(profile, materialDocument);
       // The app's own patch, replacing whatever it passed at construction — and
       // still merged over the colour scheme's base, because the scheme is a
       // separate choice the app has not just changed its mind about.
@@ -3609,6 +3692,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     get colorScheme() {
       return resolvedScheme();
+    },
+
+    get material() {
+      return resolvedMaterialDocument();
     },
 
     setAccessibilityOverrides(overrides) {

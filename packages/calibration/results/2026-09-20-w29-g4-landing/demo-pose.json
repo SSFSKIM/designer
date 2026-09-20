@@ -1,0 +1,65 @@
+{
+  "gate": "W29 G4 — the demo's backgrounded pose, on the macOS 27 material",
+  "claims": "§5.155",
+  "scratch": "/tmp/w29-g4-demo",
+  "frontmostBefore": "\"Finder\" ASN:0x0-0x1a01a: (in front) \n    bundleID=[ NULL ] \n    bundle path=[ NULL ] \n    executable path=[ NULL ] \n !cgsConnection !signalled type=[ NULL ]  flavor=[ NULL ]  Version=[ NULL ]  Arch=!!none",
+  "frontmostRestored": "\"Finder\" ASN:0x0-0x1a01a: (in front) \n    bundleID=[ NULL ] \n    bundle path=[ NULL ] \n    executable path=[ NULL ] \n !cgsConnection !signalled type=[ NULL ]  flavor=[ NULL ]  Version=[ NULL ]  Arch=!!none",
+  "playgroundSheets": [
+    {
+      "scheme": "light",
+      "pose": "active",
+      "file": "playground-2x-light-active.png",
+      "sha256": "b1fd5cc2d69e284abea8b33079e08508d6100d421ad279ec76c84985867824f0",
+      "resolved": "active"
+    },
+    {
+      "scheme": "light",
+      "pose": "inactive",
+      "file": "playground-2x-light-inactive.png",
+      "sha256": "363a08973e32d650e14d652e298d110eeb8d3eb0da067f38708ff8edabeff720",
+      "resolved": "inactive"
+    },
+    {
+      "scheme": "dark",
+      "pose": "active",
+      "file": "playground-2x-dark-active.png",
+      "sha256": "92cf1b2b6411e05bd94c5033c85c5873487dd02dce405f7d76b0dec8901d46dc",
+      "resolved": "active"
+    },
+    {
+      "scheme": "dark",
+      "pose": "inactive",
+      "file": "playground-2x-dark-inactive.png",
+      "sha256": "ff70b3388b548360e99cd5129632421666c743a916506522a4efc34ac04810d1",
+      "resolved": "inactive"
+    }
+  ],
+  "realFocusLoss": {
+    "pin": "auto",
+    "atStart": {
+      "activation": "active",
+      "hasFocus": true
+    },
+    "browserApp": "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app",
+    "frontmostWithBrowser": "\"Google Chrome for Testing\" ASN:0x0-0x86c86c: (in front) \n    bundleID=[ NULL ] \n    bundle path=[ NULL ] \n    executable path=[ NULL ] \n !cgsConnection !signalled type=[ NULL ]  flavor=[ NULL ]  Version=[ NULL ]  Arch=!!none",
+    "afterActivatingBrowser": {
+      "activation": "active",
+      "hasFocus": true
+    },
+    "focusedSha256": "81b701ebbb97a1d25dd6b99b1c51f86576bad66105eb8ea2226183f23e7dc4c2",
+    "frontmostAfterSwitch": "\"Finder\" ASN:0x0-0x1a01a: (in front) \n    bundleID=[ NULL ] \n    bundle path=[ NULL ] \n    executable path=[ NULL ] \n !cgsConnection !signalled type=[ NULL ]  flavor=[ NULL ]  Version=[ NULL ]  Arch=!!none",
+    "afterSwitch": {
+      "activation": "active",
+      "hasFocus": true
+    },
+    "backgroundedSha256": "73fff18c4e12fbec8c4629414c423cc5bae5bc6d66b7082d20f481835bec70f0",
+    "frontmostAfterReturn": "\"Google Chrome for Testing\" ASN:0x0-0x86c86c: (in front) \n    bundleID=[ NULL ] \n    bundle path=[ NULL ] \n    executable path=[ NULL ] \n !cgsConnection !signalled type=[ NULL ]  flavor=[ NULL ]  Version=[ NULL ]  Arch=!!none",
+    "afterReturn": {
+      "activation": "active",
+      "hasFocus": true
+    },
+    "refocusedSha256": "4fcc6e9582e2816ae7e04b5b1c7a0b24f6811bb52e0ec37ef4effa60e66b5584",
+    "backgroundedDiffersFromFocused": true,
+    "returnedMatchesFocused": false
+  }
+}

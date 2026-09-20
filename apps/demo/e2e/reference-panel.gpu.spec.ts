@@ -30,6 +30,14 @@
  * digest). A recalibration that moves this scene's GPU capture moves this fixture
  * with it — copy both files again — or this test fails for the right reason: the
  * demo would no longer be showing what was measured.
+ *
+ * That is what happened at W29 G4, and the pair was re-copied: the runtime's
+ * default material moved to macOS 27's document, the site draws the default, and
+ * the committed macOS 26.5 copy became a picture of a material this page no
+ * longer renders. The cell beside it names the document
+ * (`apple-macos-27.0-1x-light-standard-glass0.5.json`, `sha256:f42ddec1cf5a`) and
+ * the run that produced it is
+ * `packages/calibration/results/2026-09-20-w29-g4-landing/harness-captures.sh`.
  */
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";

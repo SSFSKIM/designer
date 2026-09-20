@@ -69,8 +69,11 @@ jobs:
       # The native captures are copied into `dist/fixtures/` by the app's own vite
       # plugin, and the site references them, so their absence would be a silently
       # broken comparison rather than a build failure.
+      # Named at the profile the site's pair actually shows, which moved to macOS
+      # 27 with the runtime's default material (W29 G4). A stale key here would
+      # have kept asserting that a directory nothing references was copied.
       - name: the native captures made it into the artifact
-        run: test -d apps/demo/dist/fixtures/apple-macos-26.5-1x-light-standard
+        run: test -d apps/demo/dist/fixtures/apple-macos-27.0-1x-light-standard-glass0.5
 
       - uses: actions/configure-pages@v5
 

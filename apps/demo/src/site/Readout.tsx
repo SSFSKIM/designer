@@ -22,14 +22,44 @@ const AXES = [
   ["demotionReason", "Demotion reason"],
 ] as const;
 
+/**
+ * Which measured material this group drew, as one line (W29 G4).
+ *
+ * It joins the readout because it joined the resolved state, and it joined the
+ * resolved state because the material stopped being a constant of the build: a
+ * page draws macOS 27's material by default from 0.19.0 and can pin macOS
+ * 26.5's, so "what is this made of" is now exactly as much a resolved fact as
+ * "what is drawing it". The endpoint's key is shown rather than the family's
+ * name because the key is what a reader can go and find in the repository, and
+ * because the colour scheme and the window pose each select a different one.
+ *
+ * `tuned` is printed when it is true and nothing at all when it is false: a
+ * digest quoted beside a material an app has since patched is a readout that
+ * has stopped being a readout.
+ */
+const materialLine = (document: {
+  readonly name: string;
+  readonly platform: string;
+  readonly profileKey?: string;
+  readonly tuned: boolean;
+}): string =>
+  `${document.profileKey ?? document.name} (${document.platform})${document.tuned ? ", tuned" : ""}`;
+
 export function GroupReadout(props: { readonly id: string; readonly label: string }): ReactNode {
   const state = useGlassCapabilities(props.id);
+  const material = state?.materialDocument;
 
   return (
     <dl className="readout">
       <div className="readout__head">
         <dt>Group</dt>
         <dd>{props.label}</dd>
+      </div>
+      <div className="readout__row" key="materialDocument">
+        <dt>Material measured against</dt>
+        <dd data-empty={material === undefined ? "" : undefined} data-testid="material-document">
+          {material === undefined ? "none" : materialLine(material)}
+        </dd>
       </div>
       {AXES.map(([axis, label]) => {
         const value = state?.[axis];

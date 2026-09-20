@@ -3,15 +3,37 @@ import { expect, test, type Page } from "@playwright/test";
 import { resolveAccessibilityPolicy } from "@vitreajs/vitrea";
 
 import {
-  MATERIAL_OPTICS,
-  MATERIAL_SOURCE_SIZE,
+  cssTierOptics,
   opticsUnderPolicy,
   requiredSamplingPadding,
-  WEBGPU_PROXY_PROJECTION_SCALE,
   scatterThickness,
   sizeScatterSigmaAt,
+  sourceSize,
+  CSS_TIER_MAPPING,
+  WEBGPU_PROXY_PROJECTION_SCALE,
 } from "../src/optics";
+import { colorSchemeMaterialProfile } from "../src/color-scheme";
+import { DEFAULT_MATERIAL_PROFILE_DOCUMENT } from "../src/material-document";
 import { accessibilityRefractionCap } from "../src/refraction";
+
+/*
+ * The material the harness's roots draw, resolved rather than taken off the
+ * module constants (W29 G4).
+ *
+ * `MATERIAL_OPTICS` and `MATERIAL_SOURCE_SIZE` are the renderer's own defaults,
+ * and until 0.19.0 those were what a root drew. They are not any more: Decision
+ * Log 1 (i) holds the renderer's constants at the macOS 26.5 light material and
+ * a root resolves a selected document over them, so this helper would have been
+ * deriving one material's blur and asserting it against another's DOM. The
+ * specs are unchanged — they assert the mechanism, which is the point of
+ * deriving rather than writing numbers down.
+ */
+const PROXY_PROFILE = colorSchemeMaterialProfile("light", DEFAULT_MATERIAL_PROFILE_DOCUMENT);
+const PROXY_SIZE = sourceSize(PROXY_PROFILE);
+const PROXY_OPTICS = cssTierOptics(PROXY_PROFILE, {
+  ...CSS_TIER_MAPPING,
+  ...DEFAULT_MATERIAL_PROFILE_DOCUMENT.cssTierMapping,
+});
 
 /** Load the fixture page and wait for the harness module to have run. */
 export async function gotoHarness(page: Page): Promise<void> {
@@ -180,7 +202,7 @@ export function expectedProxyBlur(options: {
     },
     { reducedTransparency: options.reducedTransparency ?? false },
   ).material;
-  const folded = opticsUnderPolicy(MATERIAL_OPTICS.regular, policy);
+  const folded = opticsUnderPolicy(PROXY_OPTICS.regular, policy);
   const sigma = sizeScatterSigmaAt(
     folded.blurRadius,
     // The projection at the scale the WebGPU tier's proxy takes its padding
@@ -188,12 +210,12 @@ export function expectedProxyBlur(options: {
     // proxy's own number and no longer the CSS tier's, which reads the live ratio.
     scatterThickness(
       options.spanPx,
-      MATERIAL_SOURCE_SIZE.refractionScale[accessibilityRefractionCap(policy)],
-      MATERIAL_SOURCE_SIZE,
+      PROXY_SIZE.refractionScale[accessibilityRefractionCap(policy)],
+      PROXY_SIZE,
       WEBGPU_PROXY_PROJECTION_SCALE,
       options.extentsCssPx,
     ),
-    MATERIAL_SOURCE_SIZE,
+    PROXY_SIZE,
   );
   return { sigma, padding: requiredSamplingPadding(sigma) };
 }

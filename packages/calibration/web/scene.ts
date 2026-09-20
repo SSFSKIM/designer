@@ -52,10 +52,12 @@ import {
   GLASS_CHANNEL_PROPERTIES,
   createGlassRoot,
   mergeMaterialProfiles,
-  recededMaterialProfile,
+  DEFAULT_MATERIAL_PROFILE_DOCUMENT,
+  SHIPPED_MATERIAL_PROFILE_DOCUMENTS,
   type DomMaterialReference,
   type CssTierMapping,
   type GlassHostHandle,
+  type GlassMaterialProfileDocument,
   type GlassRoot,
   type RendererMaterialProfile,
   type ResolvedColorScheme,
@@ -66,6 +68,7 @@ import type {
   AccessibilityOverrides,
   GlassGroupState,
   ResolvedAccessibilityPolicy,
+  ResolvedMaterialDocument,
 } from "@vitreajs/vitrea";
 
 import {
@@ -257,6 +260,19 @@ export interface SceneReport {
    */
   readonly colorScheme: ResolvedColorScheme;
   /**
+   * Which measured material document drew, read back off the root (W29 G4).
+   *
+   * The third readout of the same kind as the two above, and it exists for the
+   * reason they do: from 0.19.0 the material is a SELECTION rather than a
+   * constant of the build, so "which macOS this capture reproduces" became a
+   * resolved fact that a cell must be able to state. It names the endpoint the
+   * resolved scheme and the resolved pose picked out, that endpoint's
+   * `resolvedMaterialSha256`, and whether the driver merged a patch of its own
+   * over it — which is what keeps the digest from being read as a promise about
+   * pixels the harness then tuned.
+   */
+  readonly material: ResolvedMaterialDocument;
+  /**
    * What the crossing to `backdrop-filter` was priced at for this capture, or
    * `null` for the shipped mapping (corrective K5). Only the dom tier renders
    * through it, but it is reported on every capture: a GPU-tier cell that
@@ -322,6 +338,22 @@ declare global {
      * defaults, which is what an uncalibrated capture must be.
      */
     __vitreaMaterialProfile?: RendererMaterialProfile;
+    /**
+     * The `profileKey` of the document `__vitreaMaterialProfile` came out of,
+     * injected the same way (W29 G4).
+     *
+     * It is what selects the runtime material document this capture is read
+     * against, and it became load-bearing the moment the shipped default moved
+     * to macOS 27: a patch is a DIFFERENCE from whatever base the root resolved,
+     * so a macOS 26.5 document merged over a macOS 27 base is neither material.
+     * The page maps the key's OS token onto a shipped document and refuses a
+     * token it does not ship, which is the same rule the harness applies to every
+     * other axis — a value that cannot be checked is not an attestation.
+     *
+     * Absent means the runtime's own default document, which is what an
+     * unspecified capture must be.
+     */
+    __vitreaMaterialProfileKey?: string;
     /**
      * A CANDIDATE receded document, for a fit and for nothing else.
      *
@@ -644,6 +676,35 @@ async function build(): Promise<SceneReport> {
    * in the cell's `capturePath`, and `capturePoseRefusal`, which admits an active
    * root under an inactive id only on the evidence of the first.
    */
+  /*
+   * Which shipped material document this capture is read against (W29 G4).
+   *
+   * Before the selection landed there was only one shipped material and this
+   * question did not exist: a profile document's patch was a difference from the
+   * one base the runtime had. Since 0.19.0 a root resolves macOS 27's material
+   * by default and macOS 26.5's on request, and a patch composed over the wrong
+   * one of those is a material nobody measured — so the driver names the
+   * document its `--material-profile` came from and the page selects by the OS
+   * token in that key. An unrecognised token stops the capture rather than
+   * drawing something plausible.
+   */
+  const materialProfileDocument = ((): GlassMaterialProfileDocument | undefined => {
+    const key = window.__vitreaMaterialProfileKey;
+    if (key === undefined) return undefined;
+    const os = /^apple-macos-(\d+\.\d+)-/.exec(key)?.[1];
+    const shipped = SHIPPED_MATERIAL_PROFILE_DOCUMENTS.find(
+      (document) => document.platform === `macOS ${os ?? ""}`,
+    );
+    if (shipped === undefined) {
+      throw new Error(
+        `the material profile document ${key} names macOS ${os ?? "(unparsed)"}, which ` +
+          `@vitreajs/vitrea-web does not ship a material for — a patch over the wrong base ` +
+          `is not the material this profile records`,
+      );
+    }
+    return shipped;
+  })();
+
   const candidateReceded = placed.inactive ? window.__vitreaRecededMaterialProfile : undefined;
   const posedByRuntime = placed.inactive && candidateReceded === undefined;
   // Forwarded, never interpreted: the page has no opinion about an optical
@@ -652,14 +713,23 @@ async function build(): Promise<SceneReport> {
   const materialProfile = candidateReceded === undefined
     ? window.__vitreaMaterialProfile
     : mergeMaterialProfiles(window.__vitreaMaterialProfile, candidateReceded);
-  /** The difference the ROOT will merge while inactive, or absent on every other path. */
-  const runtimeReceded = posedByRuntime ? recededMaterialProfile[colorScheme] : undefined;
+  /**
+   * The difference the ROOT will merge while inactive, or absent on every other
+   * path. Read off the selected document rather than off a constant this module
+   * imports: since W29 G4 the recede travels with the material, so naming the
+   * shipped 26.5 endpoint here would have reported a difference the root is not
+   * going to apply on any macOS 27 capture.
+   */
+  const runtimeReceded = posedByRuntime
+    ? (materialProfileDocument ?? DEFAULT_MATERIAL_PROFILE_DOCUMENT).receded[colorScheme].patch
+    : undefined;
   const cssTierMapping = window.__vitreaCssTierMapping;
   const accessibilityOverrides = window.__vitreaAccessibilityOverrides;
   const root = createGlassRoot({
     renderer: requestedRenderer,
     colorScheme,
     windowActivation: posedByRuntime ? "inactive" : "active",
+    ...(materialProfileDocument === undefined ? {} : { materialProfileDocument }),
     ...(materialProfile === undefined ? {} : { materialProfile }),
     ...(cssTierMapping === undefined ? {} : { cssTierMapping }),
     // Handed to the root at construction rather than set afterwards: the CSS
@@ -897,6 +967,7 @@ async function build(): Promise<SceneReport> {
     candidateRecededMaterialProfile: candidateReceded ?? null,
     windowActivation: root.windowActivation,
     colorScheme: root.colorScheme,
+    material: root.material,
     cssTierMapping: cssTierMapping ?? null,
     transparentPage,
     accessibilityOverrides: accessibilityOverrides ?? null,

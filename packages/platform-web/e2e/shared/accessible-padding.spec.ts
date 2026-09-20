@@ -51,12 +51,21 @@ import {
 const DEMO_GROUP_GAP = 56;
 
 /**
- * A gap under one padding at the toolbar's span under reduced transparency, so
- * one group's box covers the other's shapes and the leak the warning names is
- * really there — measured at up to 3/255 around this separation, and larger as
- * it closes further.
+ * A gap **between** the two paddings: over the nominal one and under the reduced
+ * transparency one, so that one group's box covers the other's shapes only after
+ * the flip and the leak the warning names is really the flip's — measured at up
+ * to 3/255 around this separation, and larger as it closes further.
+ *
+ * It was 16 while the material blurred at the macOS 26.5 scale, where 16 was over
+ * the nominal padding of about 12. On macOS 27 the nominal padding is 23.05 and
+ * the reduced-transparency one is 39.99, so 16 is under BOTH — and a gap under
+ * both is the very trap this file's header describes: the finding is raised
+ * before the flip, `clearDiagnostics` empties the list but not the channel's
+ * dedupe key, and the case passes on an empty list for the wrong reason. It
+ * passed on nothing at all for exactly one run, which is how this was found. The
+ * case now asserts both bounds so the trap cannot come back quietly.
  */
-const TIGHT_GROUP_GAP = 16;
+const TIGHT_GROUP_GAP = 32;
 
 /** Comfortably past one padding, where every measured cell is byte-identical. */
 const CLEAR_GROUP_GAP = 88;
@@ -191,6 +200,11 @@ test("and it still fires where the leak is real, under the very preference that 
   });
   expect(TIGHT_GROUP_GAP).toBeLessThan(padding);
   expect(DEMO_GROUP_GAP).toBeGreaterThan(padding);
+  // ...and over the NOMINAL padding, so the finding is the flip's rather than
+  // one the scene already had before it and the dedupe then swallowed.
+  expect(TIGHT_GROUP_GAP).toBeGreaterThan(
+    expectedProxyBlur({ spanPx: TOOLBAR_SPAN, extentsCssPx: [96, 44] }).padding,
+  );
   await buildDemoShapedScene(page, { gap: TIGHT_GROUP_GAP });
 
   expect(await findingsOf(page, ["proxy-overlap-after-enforcement"])).toEqual([
@@ -322,9 +336,18 @@ test("the gap a toolbar derives for a split is enough, at either accessibility s
 
     // The toolbar's own box: the two partitions and the gap between them, which
     // is what `GlassToolbar` measures and what contains every member below.
-    const gap = Math.max(
-      DEFAULT_GROUP_SAMPLING.samplingPadding,
-      samplingPaddingFor({ members: [[340, TOOLBAR_SPAN]], material }),
+    // `Math.ceil` mirrors `GlassToolbar`, which rounds its derived gap up to a
+    // whole CSS pixel (W29 G4): the derivation is exact, the overlap check is a
+    // strict inequality, and the runtime reaches the same number by a different
+    // route — from the members' measured extents rather than from the toolbar's
+    // box — so an exact match is one ulp from a finding. On the macOS 27
+    // material under Reduce Transparency the two agreed to fourteen decimal
+    // places and it fired, which is what put the ceiling in the control.
+    const gap = Math.ceil(
+      Math.max(
+        DEFAULT_GROUP_SAMPLING.samplingPadding,
+        samplingPaddingFor({ members: [[340, TOOLBAR_SPAN]], material }),
+      ),
     );
 
     // Tighter than the margin the playground used to write by hand, and clear of

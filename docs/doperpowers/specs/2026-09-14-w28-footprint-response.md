@@ -906,6 +906,28 @@ Carried unchanged from §Deferred, with the sitting as Decision Log 3 (e) left i
 - The OS 27 recapture, under new `apple-macos-27.0-…` keys beside and never over the frozen 26.5
   ones; and `prominent`.
 
+**Where these went, 2026-09-20 (W29 closed; `2026-09-16-w29-os27-recapture.md`).** The OS 27
+recapture ran and closed, and it took three of the items above with it. The bed exists under new
+keys beside the frozen macOS 26.5 ones exactly as this list asked — 624 cells over six profiles at
+seven runs, with a seventh profile added mid-wave — and the material is refit to it and **selected
+as what a page draws by default** in 0.19.0, over an unmoved `DEFAULT_MATERIAL_PROFILE`. The
+**inactive floor** stays unadoptable for the reason above and for a second one: the macOS 27 bed is
+captured at one bar per pass, not at seventeen runs, so W29 adopted no macOS 27 floor on any
+profile either. The **activation transit** and the motion-metrics harness are untouched and are
+next in the parent's order, behind one operator wave W29 chartered (the span-graded shadow and the
+scale-selective scatter together, under a single one-time X1 exemption). `strongBorderRim`'s
+one-pixel contour and the reduced-transparency slope were not read again: both are macOS 26.5
+readings of a material that has since moved, and neither has a macOS 27 counterpart yet.
+`prominent` is where it was.
+
+One thing this wave handed forward has been answered in a direction worth recording here. W28's
+recede was fitted on macOS 26.5, where the pose removes the outer shadow entirely; on macOS 27 it
+**keeps** it, which is the largest single difference between the two beds' receded endpoints
+(claims §5.154 §6). The fitted macOS 27 endpoints are what a root applies from 0.19.0, and the
+declared recede bound — this wave's own, at W27c G1b's three clauses and its macOS 26.5 values —
+holds on **one of twelve profile-tiers** on the new bed and is recorded as missed rather than
+re-fitted or widened (W29 Decision Log 7 (b)).
+
 ### Retrospective
 
 The wave's shape was set by a reading that failed. G0 was built to identify where the reference

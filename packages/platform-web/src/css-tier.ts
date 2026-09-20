@@ -198,10 +198,18 @@ import type { CssTierShadowCarrier } from "./css-tier-shadow";
 export type { CssTierShadowCarrier };
 
 /**
- * The least tint this tier draws on the shipped profile — `MATERIAL_OPTICS.clear`'s
- * converted alpha, restated as a number because `MATERIAL_OPTICS` is derived in
- * `optics.ts` from the profile and this module may not import a value that
- * depends on it at module scope. `tier-coherence` pins the two together.
+ * The least tint this tier draws on the RENDERER's own profile —
+ * `MATERIAL_OPTICS.clear`'s converted alpha, restated as a number because
+ * `MATERIAL_OPTICS` is derived in `optics.ts` from the profile and this module
+ * may not import a value that depends on it at module scope. `tier-coherence`
+ * pins the two together.
+ *
+ * "The renderer's own" rather than "the shipped" since W29 G4: a root resolves a
+ * selected material document over those constants, and the two macOS 27
+ * documents patch `optics.regular` alone, so the clear variant's converted alpha
+ * — and therefore this floor — is the same number under both shipped documents.
+ * A future document that patched `optics.clear` downward would not be, which is
+ * what `cssTierFloorAlpha`'s unused `optics` argument is the seam for.
  */
 const CSS_TIER_TINT_FLOOR_ALPHA = 0.2668228970218852;
 
@@ -877,8 +885,8 @@ export interface CssTierTintTransfer {
  * named rather than derived** (W17 G1; Decision Log 4 (a)).
  *
  * It is `MATERIAL_OPTICS.clear.tintAlpha`: the least tint this tier draws on the
- * shipped profile, on the variant whose whole point is to be persistently more
- * transparent. "The surface always paints a real tint" is a statement about the
+ * renderer's own profile, on the variant whose whole point is to be persistently
+ * more transparent. "The surface always paints a real tint" is a statement about the
  * least it paints, so the least it paints is the number, and nothing here is new
  * or fitted to this wave.
  *

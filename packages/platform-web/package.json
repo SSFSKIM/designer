@@ -1,6 +1,6 @@
 {
   "name": "@vitreajs/vitrea-web",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "description": "Framework-agnostic browser host for vitrea: mount a glass root from any framework, or none. DOM host registration, plane management, backdrop proxies, CSS-tier renderer, WebGPU lifecycle.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/SSFSKIM/designer",
@@ -28,6 +28,7 @@
     "build": "tsup",
     "lint": "eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json",
     "profile:dark": "node scripts/generate-dark-profile.mjs",
+    "profile:macos27": "node scripts/generate-macos27-profile.mjs",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:chromium": "playwright test --project=chromium",

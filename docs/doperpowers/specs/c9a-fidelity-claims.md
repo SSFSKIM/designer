@@ -24324,3 +24324,336 @@ its suite **510 tests over 29 files** green — one more case than §10's 509, w
 addition to `tuned-profiles.test.ts` and not this closure's; the closure adds no test and touches no
 code. The 26.5 freeze verifies **intact at 1,818 entries** at the closure's close as it did at the
 gate's.
+
+## 5.155 W29 G4: the landing — macOS 27's material is what a page draws, by selection; the four documents ship generated and pinned to the bytes the bed was read at; 0.19.0 prepared and unpublished (2026-09-20)
+
+**Gate: W29 G4, acceptance clauses 5, 6 and 7; contracts X1, X7; Decision Logs 1 (i), 2, 4, 5, 6
+and 7.** Evidence is `packages/calibration/results/2026-09-20-w29-g4-landing/` —
+`document-identity.txt` for the join that makes the selection honest, `harness-captures.sh` and
+`.txt` for the web captures this gate took, `tone-probe.json` for the reading two of the demo's
+browser cases were moved against, `eye-measures.txt` and `sheets/` with `eye.md` for the eye,
+`chain-*.txt`, `chain-status.txt`, `browser-runs.txt` and `freeze-verify-close.txt` for the c9d
+chain, `ramp-probe.txt` for the response curve's own values across the browser suite's ramp on both
+shipped documents, and `dry-run.txt` for the release rehearsal.
+
+**No material constant, native fixture, profile document, golden or declared split moves at this
+gate, and no row is written to `results/matrix.json`.** `DEFAULT_MATERIAL_PROFILE` did not move
+(Decision Log 1 (i)) and the 34 renderer goldens are byte-identical; the macOS 26.5 freeze verifies
+**intact at 1,818 entries** at this gate's close. What moved is which patch over that unmoved
+default a root resolves, which is what Decision Log 2 ruled and what the whole of clause 5 is.
+
+### 1. The selection, and why it is a selection
+
+`packages/platform-web/src/material-document.ts` holds one **material profile document** per
+measured material: four patches — the active material and the receded difference, per colour scheme
+— and the CSS tier's crossing. `macos27MaterialProfileDocument` is what a root resolves when an app
+asks for nothing; `macos26MaterialProfileDocument` ships beside it and selects the material the
+package drew through 0.18.0, receded endpoints included. One option takes it,
+`createGlassRoot({ materialProfileDocument })`, and `materialProfile` and `cssTierMapping` stay,
+merging over whatever the document selected.
+
+So a page drawing nothing but defaults now draws, per colour scheme: the macOS 27 light or dark
+patch active, the macOS 27 light or dark **receded** document when its window loses focus, and
+`cssTierMapping.blurSigmaScale` 2.2 on the CSS tier. That is four of the five things clause 5's
+ruling names; the fifth is that the macOS 26.5 documents stay shipped and selectable, which they
+are, by name and by document.
+
+**Why the shape is a document and not two options.** The tracker's entry from W29 G3's review
+asked for one option that reads both halves of a profile document, and a second entry, from G3b,
+asked for the recede to travel with the active material rather than being an imported constant.
+They are one seam: a material lands on two tiers and in two window poses, and the failure mode of
+splitting it is silent — passing a document's `patch` alone gave a page the macOS 27 material on
+the GPU tier, a CSS tier still blurring at the macOS 26.5 scale, and a macOS 26.5 recede. Both
+entries are closed by this one shape.
+
+`colorSchemeMaterialProfile` now takes the document rather than importing one, which is the line
+where "which macOS a page draws" stopped being a property of the build.
+
+### 2. The honesty core, one axis further — and what the eye caught that no test did
+
+Core's `GlassGroupState` gains an optional `materialDocument` and exports `ResolvedMaterialDocument`
+beside it, on the precedent `cssBody`, `cssTint` and `cssShadow` set: a resolved fact the platform
+knows and core's per-group resolver cannot see, folded on at the one function every consumer of the
+state goes through. It names the document family, the macOS release it was measured on, the
+endpoint the resolved scheme and pose picked out, that endpoint's `resolvedMaterialSha256`, and
+**whether the app merged a patch of its own over it**. The last field is what keeps the other four
+from being a decoration: a digest quoted beside a material an app has since tuned is not a readout.
+`root.material` is the same answer at the root, beside `root.colorScheme` and
+`root.windowActivation`.
+
+**A defect the sheets found and the suites did not.** The first eye run's playground column, pinned
+`inactive`, named the **active** document while the root had correctly resolved `inactive`. The
+cause was one package along: `packages/react/src/store.ts` compared capability snapshots on the
+seven core axes and on none of the four the platform folds on, so a change that moved only those was
+never notified and `useGlassCapabilities` kept its first answer — which also means the CSS tier's
+three form fields have never reached a React subscriber on a change. It now compares every field,
+`packages/react/test/material-document.test.tsx`'s pose case pins it through the polling path, and
+the second run's sheets show `…-glass0.5-receded` where the first showed the active key. Recorded
+here because of where it came from: the rule that a material change must be put beside the native
+fixture and *looked at* is what caught a runtime defect that every unit and browser suite passed.
+
+### 3. The hash equality: the bytes the bed was read at are the bytes the runtime ships
+
+`packages/platform-web/src/macos27-profile.ts` is **generated** from the four macOS 27 documents by
+`scripts/generate-macos27-profile.mjs` — the sibling of the macOS 26.5 dark generator, with the
+printer both use extracted into one module so the two cannot drift in formatting — and
+`packages/calibration/test/macos27-profile-export.test.ts` deep-equals each pair in both directions
+on every run. `document-identity.mjs` states the same thing as two joins, and the second is the one
+clause 5 needs:
+
+| document | patch digest, shipped == recorded | file sha256 | `resolvedMaterialSha256` |
+| --- | --- | --- | --- |
+| `apple-macos-27.0-1x-light-standard-glass0.5` | `8a21b92c4581ac4a` | `f42ddec1cf5a` | `e825cb034c9070e4` |
+| `apple-macos-27.0-1x-dark-standard-glass0.5` | `e26f13b11368e4d2` | `272d1b0c3e10` | `8439eb808495f5bf` |
+| `…-1x-light-standard-glass0.5-receded` | `5dd741a1addce259` | `59d4b20a4596` | `8dc63b265c1de038` |
+| `…-1x-dark-standard-glass0.5-receded` | `5aa36a8b5889e0ec` | `5c81bc72edad` | `3264b6cdde64bc8b` |
+
+Those four file hashes are the four `canonical-read.sh` sealed at W29 G3b and refused to run at any
+other bytes. Every cell in `results/matrix.json` carries its material profile document and that
+document's content hash inside its own `capturePath`, so the join can be taken without re-reading
+anything: **455 of the 456 newest macOS 27 cells, across all six profiles, were read at exactly
+these hashes.** No row names a document the runtime does not ship.
+
+The one cell that is not is named rather than rounded away, and it is a fact about the bed rather
+than about the documents: `apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5`,
+`hc-text__capsule-button__inactive`, dom tier, holdout, whose newest row is G3's at `fa872c683f3e`.
+§5.154 records why — at G3b's read the CSS tier's extracted contour there is 0.00 px and
+`contourCurvature` refuses rather than reporting, so that read produced no row for the cell and the
+earlier generation stayed newest. Nothing was re-read to fix it and nothing should be.
+
+### 4. The landing (clause 6)
+
+The site draws the runtime's default material, so moving the default moved what the demo is a
+comparison *against*, and the change is larger than a fixture pair.
+
+- **The reference pair and the Pages assertion.** `apps/demo/vite.config.ts`,
+  `src/site/scenes.ts` and `.github/workflows/pages.yml` move to
+  `apple-macos-27.0-{1x-light,1x-dark}-standard-glass0.5`. The macOS 26.5 pair is **not** offered
+  beside it, and that is a limitation rather than a preference: a material document is selected at
+  construction, so offering both beds needs two roots and the site has one. `scenes.ts` and
+  `packages/platform-web/README.md` say so.
+- **The committed harness fixture.** `apps/demo/e2e/fixtures/checkerboard__capsule-button__rest__webgpu.png`
+  and its cell are re-copied from a macOS 27 capture taken by `harness-captures.sh`. Re-capturing
+  the **web** side of a cell spends nothing (§5.148 §1), which is what makes it admissible; the
+  cell records the document and `sha256:f42ddec1cf5a`.
+- **The figures.** `src/site/calibration.ts` moves to the macOS 27 keys and gains a tie-break it did
+  not need before: the matrix now holds two generations of macOS 27 rows, so one profile and one
+  tier no longer name one cell, and the page takes the newest reading. That works and is a
+  heuristic standing where a name belongs, which is why the tracker's matrix-size entry gains this
+  gate's recommendation for the generation split.
+- **The readouts.** The playground's capabilities panel and the public site's group readout both
+  name the material document that drew, off the resolved state.
+- **The playground's law readouts** resolved against the RENDERER's defaults, which Decision Log 1
+  (i) deliberately holds still at the macOS 26.5 light material. They now resolve against the
+  selected document, so the arithmetic printed beside a control is the arithmetic behind the pixels
+  again. This was a real defect the selection exposed rather than created: `MATERIAL_OPTICS` and
+  `MATERIAL_SOURCE_SIZE` are module constants, and until 0.19.0 they happened to be what a root
+  drew.
+- **The documents.** `CLAUDE.md` gains the key grammar's OS and slider tokens, the receded
+  document's place in the profile set, and a paragraph on which material a page draws and how the
+  runtime says so; both package READMEs carry the selection, the document's four-patch shape, the
+  readout and the upgrade note; `packages/react/README.md` adds the macOS 27 holdout reading
+  **beside** the macOS 26.5 claim rather than over it, because the macOS 26.5 claim is what
+  `macos26MaterialProfileDocument` still selects and its bed is frozen.
+- **The coverage matrix** is re-scored 2026-09-20 in `2026-08-25-coverage-matrix.md` §7. Two rows
+  move, both in §1.7, both upward: *the material itself moved with no API change* goes
+  `absent, undecided` → **`replicated+measured`**, and *the user-facing slider* goes
+  `absent, undecided` → **`partial`** — identified, attested and fitted at one point on the axis,
+  with nothing about it exposed. §3 does not move and the re-score says why: re-measuring a
+  behaviour on a newer bed makes a claim younger rather than broader.
+
+**The thirteen light standard holdout scenes, at 1×, on the material this release ships**, read off
+the newest generation of the committed matrix and quoted in the React README: WebGPU tier
+silhouette IoU 0.9994 mean / 0.9951 worst, contour distance 0.015 px mean, SSIM 0.9661 mean /
+0.8843 worst, OKLab ΔE 0.0189 mean / 0.0760 worst; CSS tier over the same cells ΔE 0.0180 mean /
+0.0791 worst at SSIM 0.9523 mean. These are published readings and **not** a gate: the checking
+verdict for this material is §5.153's and §5.154's and stays theirs.
+
+### 5. Five browser cases moved, and two of the moves are findings
+
+Every one is in the file with its reason, and none moved silently. Two are the material's:
+
+1. **`site.spec.ts` "the plates track the ground control …"** asserted that at the bottom stop the
+   40px plate takes the backdrop's own level while the 112px plate barely moves. That is macOS
+   26.5's material. On macOS 27 Apple's body over a near-black backdrop measures 0.2899 linear
+   (§5.151 §4) and the adaptation band that took vitrea's to zero measures inert (§5.153 §2 item 1),
+   so **no plate converges**. The replacement assertions are written against `tone-probe.json`, a
+   reading taken on this page with this material and committed beside them: a ground of 0.00212
+   linear under bodies of 0.2285 / 0.2127 / 0.2236, against a top stop of 0.1590 under 0.6198 /
+   0.6314 / 0.6345. The case now asserts that every plate tracks the ground and that every plate
+   stays two orders of magnitude above it.
+2. **The same case's top-stop colour equality** is read to within one code instead of exactly. The
+   CSS tier solves its tint colour against the alpha it draws at, and the size law's alphas land the
+   three plates on adjacent codes (254 / 254 / 253) where macOS 26.5's solve rounded all three the
+   same way.
+3. **The same case no longer asserts the size ordering at the dark stop.** With the adaptation inert
+   the three bodies sit within 0.016 and are **not** monotone in span there. The response law is
+   ordered correctly at that anchor (thin 0.214 against thick 0.242); what is not is the CSS tier's
+   composite, which also carries the occlusion lift and the rim. The omission is stated in the file
+   and carried in the tracker.
+4. **"the runtime gives the adapted plate a different ink from its unadapted neighbour"** is
+   inverted rather than deleted. Both plates now take the same ink at every stop, because their
+   bodies never separate far enough to cross the ink law. Keeping the case and inverting it pins the
+   property in both directions: an adaptation coming back separates them and fails loudly.
+5. **"forced colours removes the glass …"** matched a row by the loose substring "Glass", and the
+   new material row's value contains `-glass0.5` — the macOS 27 key's slider token. Matched on the
+   label instead.
+
+Two more moved for the same reason on the other packages: `@vitreajs/vitrea-react`'s tint-seed
+window, 40 codes to 52, on a reading of 42 — the macOS 27 body over the dark ground composes the
+shade further from the seed than the macOS 26.5 body did, and 52 still leaves the playground's own
+orange `Publish` out by 15 codes — and `apps/demo`'s contrast suite, which gained `test.slow()`.
+That last one is worth separating from the rest: it **timed out** rather than missing a floor. The
+tracker has held the one-line fix since 2026-09-11 with the case measured at 24.1 s against a 30 s
+default, and the macOS 27 material tipped it over because the CSS tier blurs at 2.2× the sigma at
+each of a twenty-stop sweep. Every floor held; a time budget written against one material is not a
+property of the page.
+
+Three unit cases moved with the material, each with its sentence:
+`platform-web/test/color-scheme.test.ts`'s scheme-base reading (now per document, with the macOS
+26.5 reading kept beside it); its **knot-arity tripwire**, 3 → 4, which fired exactly as its own
+comment predicted it would — the comment says "this failing is the signal to do that work", and the
+work it names is not yet needed because both macOS 27 scheme bases are four-knot and the invariant
+holds; and `root-lifecycle.test.ts`'s undrawable patch, which was four knots over a three-knot base
+and is now three over four, because `BackdropToneKnotRow` admits three knots or four and nothing
+else.
+
+### 6. The c9d chain at the version head
+
+Serial, one browser at a time, every browser step preceded by a machine reading that refuses the run
+if either accessibility policy is on — and which now also records `NSGlassTintAmount`, because macOS
+27 introduced an appearance axis that did not exist when this script was written. `chain.sh` is
+W28 G4's, unchanged but for that. Reduce Transparency 0, Increase Contrast 0 and
+`NSGlassTintAmount` 0.5 on every reading (`browser-runs.txt`).
+
+| step | result |
+| --- | --- |
+| `pnpm -r build` | exit 0 |
+| `pnpm -r lint` | exit 0 |
+| `npx eslint .` (root) | exit 0 |
+| `pnpm -r test` | **2,495 passed**, 0 failed (policy 23, motion 164, geometry 170, renderer-webgpu 497, core 302, platform-web 617, react 163, calibration 525, demo 34) |
+| `@vitrea/renderer-webgpu` `test:golden` | **34 passed**, 0 failed — byte-identical, which is Decision Log 1 (i)'s proof |
+| `@vitrea/renderer-webgpu` `test:gpu` | **28 passed**, 0 failed |
+| `@vitreajs/vitrea-web` Playwright | **404 passed**, 0 failed (chromium, firefox, webkit, chromium-gpu) |
+| `@vitreajs/vitrea-react` Playwright | **174 passed**, 0 failed (three engines) |
+| `demo` Playwright | **57 passed**, 0 failed (12.4 min) |
+
+**Green on every step, and the run before it was not.** The chain was run twice, and the first run
+is the honest half of this record: it returned 36 failures on `@vitreajs/vitrea-web`, 4 on
+`@vitreajs/vitrea-react` and 1 on the demo, every one of them a case pinning the macOS 26.5
+material or a budget written against it. Each was read, moved in place with its reason, and only
+then re-run — none was re-run to green. §5 lists them.
+
+One of the four React failures is the **elapsed-window class** the tracker carries and 0.18.0's
+publish accepted as disclosed: `presence.spec.ts`'s authored presence read 451.8 ms against a
+window of 388.5. It failed in the first run and passed in the second with no change to the case,
+which is that class's signature exactly. It is not re-run to green and it is not fixed here; it is
+named.
+
+Reduce Transparency 0, Increase Contrast 0 and `NSGlassTintAmount` 0.5 on all five browser readings
+(`browser-runs.txt`), one capture process at a time throughout (X7). The macOS 26.5 freeze verifies
+**intact at 1,818 entries** at this gate's close (`freeze-verify-close.txt`).
+
+### 7. The eye (clause 7)
+
+`eye.md` reads three sheets: the playground at 2× pinned active and pinned inactive in both schemes,
+each over two harness bands — `photo__rrect-md` at rest and inactive, native | vitrea | 8×
+difference — and a fourth sheet of a real window-manager focus change read over bare CDP, because
+Playwright's focus emulation holds a driven page focused and no amount of activating other
+applications will change that (§5.148 §4, reproduced at this head).
+
+W28's sheet had one harness band because only the receded material had moved; this gate moved both.
+What the demo band shows is §5.154 §6 seen rather than inferred: on macOS 26.5 the pose removed
+structure and the difference column was a halo around every surface, and here that halo is not
+there, because the macOS 27 recede keeps the outer shadow. Measured, the exterior beyond 12 CSS px
+of the component's box differs from native by a mean of **0.12–0.16 codes** with a maximum of 3–4,
+on all four cells.
+
+Four residuals, each a gap to macOS recorded rather than accepted:
+
+- **(a) The body passes too little of the backdrop's structure through, and far too little in
+  dark.** Interior standard deviation, native against vitrea: `2x-light` rest 0.0467 → 0.0307
+  (0.66×), `2x-light` inactive 0.0385 → 0.0329 (0.85×), `2x-dark` rest 0.0218 → 0.0066
+  (**0.30×**), `2x-dark` inactive 0.0205 → 0.0067 (**0.33×**). It corroborates the tracker's
+  scheme-conditioned entry on a second backdrop: that entry read `checkerboard` at 0.55× dark and
+  1.77× light, and this reads `photo` at 0.30× dark and 0.66× light. Both backdrops, both schemes,
+  and dark is the more attenuated on both — which is the thing an operator wave fitting a
+  scale-selective scatter on the light bed alone would land on the wrong side of.
+- **(b) The dark active body is 0.0196 linear too dark**, while `2x-dark` inactive matches to
+  +0.0002, `2x-light` rest to +0.0040 and `2x-light` inactive to −0.0134. The two that match are one
+  per scheme and one per pose, so it is not a constant offset; it is the level law's conditioning,
+  which §5.153 §6 records as unidentified.
+- **(c) The receded pose's edge is about twice the active pose's, in both schemes**: mean channel
+  difference in the 12 CSS px ring around the box 1.58 light active against 3.01 light inactive,
+  1.68 dark active against 3.76 dark inactive, maxima 60 / 72 / 105 / 115 codes. The recede is
+  fitted on the body and its edge is a subtraction rather than a fitted term, which is the shape the
+  tracker's missing-contour-hairline entry names, seen as an amplitude rather than as a stroke.
+- **(d)** The demo band's middle third is an animated canvas and is named rather than cropped
+  (inherited from §5.148).
+
+What the sheets cannot show is named too: the largest spans are not on them — the exterior halo the
+tracker records at 17.42 is a span-160 holdout cell and this scene is span 96 — the transit between
+the poses is a settled-endpoint reading as it was at W28, and neither accessibility profile is on
+them at all.
+
+### 8. The cut, prepared and not published
+
+Four changesets, three of them this gate's, so the cut is **0.19.0** across `@vitreajs/vitrea`,
+`@vitreajs/vitrea-web` and `@vitreajs/vitrea-react` (the `fixed` group):
+
+- `@vitreajs/vitrea-web` minor — the selection, the document option and the readout, carrying the
+  upgrade note, because 0.19.0 **does** change what an existing page looks like.
+- `@vitreajs/vitrea-react` minor — `<GlassRoot>`'s three material props, which it surfaced none of,
+  and the capability store reporting the material live.
+- `@vitreajs/vitrea` minor — `GlassGroupState.materialDocument` and `ResolvedMaterialDocument`, an
+  additive public surface and so a semver event under X2, on the precedent §5.148 §6 set.
+- W29 G3's changeset said "the material a page draws by default does not change in this release",
+  which was true of the two-release plan it was written under and is not true of this cut. The
+  sentence is **withdrawn in place with the reason** rather than deleted, and the measurement it
+  describes is unchanged.
+
+**The rehearsal** (`dry-run.sh`, `dry-run.txt`): `pnpm publish --dry-run --no-git-checks` for each
+of the three, then the two things npm would get wrong on its own read off the **packed tarball**
+rather than assumed.
+
+| package | version | dependencies, as packed | `LICENSE` / `NOTICE` / `README.md` | `dist/` entries | size |
+| --- | --- | --- | --- | ---: | ---: |
+| `@vitreajs/vitrea` | 0.19.0 | none | all three | 7 | 546,698 B |
+| `@vitreajs/vitrea-web` | 0.19.0 | `@vitreajs/vitrea` `^0.19.0` | all three | 3 | 553,945 B |
+| `@vitreajs/vitrea-react` | 0.19.0 | `@vitreajs/vitrea` `^0.19.0`, `@vitreajs/vitrea-web` `^0.19.0`; peers `react` / `react-dom` `>=19.0.0` | all three | 3 | 183,132 B |
+
+Every `workspace:` range is rewritten to a real one in the tarball, which is the whole reason
+`pnpm release` is the only sanctioned path (c9d §2.4: npm would ship the literal `workspace:^`).
+
+**Nothing is published and nothing is tagged**, and the wave's status line reads
+`0.19.0 PREPARED, UNPUBLISHED`. `pnpm release` is the user's hand and the tag follows it.
+
+### 9. Not measured, and what this gate did not do
+
+No native capture, no reference-app build and no row in `results/matrix.json`: this gate reads the
+committed bed and captures only the web side of six cells, into scratch. No bound, floor or
+threshold is read in §7 — the checking verdict stays §5.153's and §5.154's. The seven rows
+`MISSED_27_ROWS` holds are unchanged and unre-fitted, as Decision Logs 6 (b), 6 (c) and 7 (a) rule.
+The macOS 26.5 documents keep their own bounds running over their own rows, which is what proves
+those rows were not edited, and `tuned-profiles.test.ts`'s identity pin over the runtime default
+plus the macOS 26.5 light patch stays green — which is the whole point of landing this as a
+selection.
+
+**One strengthening this gate did not take.** `capturePoseRefusal` is unchanged in meaning, as the
+gate was told: it refuses a cell whose resolved pose or scheme disagrees with the scene and the
+profile it is planned under. The material readout now makes a third refusal expressible — a cell
+whose resolved material document disagrees with the profile key it is filed under — and that is a
+real gap, because the pose and the scheme are checked and the *material* is not. It is not built
+here because it would change the seam's meaning in the same gate that moved the material under it,
+which is two changes in one place; the readout it needs is shipped and the check is a few lines.
+
+Two things the landing found and left to the user: the demo's tone stage was **designed** around a
+convergence macOS 27 does not have, and whether that section should be re-ranged, re-subjected or
+retired is a decision about what the site is for rather than a mechanical one; and the matrix's
+generation question now has a second consumer answering it by timestamp. Both are in the tracker,
+with G4's recommendation on the second.
+
+Four new residuals are in the tracker beside them, all found by this landing: the CSS tier's
+overshoot over a pure black backdrop, the heavy-share band flattening from 8 codes to 2, the tone
+stage's three bodies not being ordered by span at the curve's first anchor, and core's advisory
+sampling padding crossing from "wider than needed" to "a warning an upgrading app will see".

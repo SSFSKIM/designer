@@ -1,5 +1,141 @@
 # @vitreajs/vitrea-web
 
+## 0.19.0
+
+### Minor Changes
+
+- 28c2c20: Measure vitrea against macOS 27 and refit the material to it.
+  
+  **Amended before release, and one sentence of it is withdrawn.** This entry was
+  written when the refit and the runtime selection were going to be two releases,
+  and it said "the material a page draws by default does not change in this
+  release". They are one release: W29 G4 landed the selection into the same cut, so
+  **0.19.0 does change what a page draws by default**, and the changeset beside this
+  one (`w29-g4-macos-27-default.md`) is where that is described. What follows is
+  the measurement and the documents, which is what this entry is for and which is
+  unchanged.
+  
+  macOS 27 changed Apple's Liquid Glass under every app. Measured against the new
+  reference bed, the body's settled level over a dark backdrop, the rim's amplitude
+  and width and how much of a backdrop's structure survives the material all moved —
+  most visibly, a surface over a near-black backdrop is no longer nearly invisible.
+  Two documents now record the 27 material, one per colour scheme, as patches over
+  exactly the same renderer default the two macOS 26.5 documents patch. Both tiers
+  derive from them: the WebGPU tier is fitted and the CSS tier's mapping is refit in
+  the same change.
+  
+  Which packages move, and why:
+  
+  - **`@vitreajs/vitrea-web`** — at this gate a documentation and capability change
+    rather than a code change: **no constant in this package moved here**. What was
+    new is that a second reference material exists and is selectable. The CSS tier
+    needed no new code to follow the refit — it already derives its blur, tint and
+    rim from whichever document the root carries, and the 27 documents carry their
+    own CSS mapping — which is the two-tiers-one-profile rule paying for itself.
+    (The sentence that stood here, "an app that upgrades and asks for nothing new
+    draws exactly what it drew before", belonged to the two-release plan and is
+    withdrawn with it; see the G4 entry.)
+  - **`@vitreajs/vitrea` and `@vitreajs/vitrea-react`** carry no change of their
+    own; they move because the three published packages are versioned as one fixed
+    group, which is what keeps a cross-package material claim from being split
+    across two versions.
+  
+  Amended after W29 G3b (the ledger's §5.154), which is why this entry says more
+  than the refit did. **No constant in any published package moved there either** —
+  the shadow refit and the two receded endpoints are profile documents in the
+  private calibration package — so this is still one `@vitreajs/vitrea-web` minor.
+  
+  - **Apple's outer shadow changed too, and the 27 documents now carry it.** It is
+    dimmer, tighter, shorter and less displaced under every surface: the blur's
+    radius halves, the downward reach falls to a quarter and the amplitude to about
+    a third at a middling size. Reading it needed no new capture and moved no
+    constant outside the two 27 documents' `outerShadow` blocks.
+  - **A receded window's material is measured for macOS 27** and recorded as two more
+    profile documents, one per colour scheme, in the repository beside the active
+    pair — calibration evidence, not files this tarball carries. The largest
+    single difference from macOS 26.5 is that a receded surface now keeps its
+    shadow, where on 26.5 it lost it entirely. W29 G4 made them what the runtime
+    applies, in this same release.
+  
+  One residual is named rather than fixed, because it needs a shape the material
+  does not have: on macOS 27 the shadow's blur grows with the surface's size, and
+  vitrea's is one number. It is right for large surfaces and too soft for small
+  ones; the ledger's §5.154 measures it and the wave's Decision Log 7 puts the
+  mechanism to a decision.
+  
+  The measurement bed, the documents, the declared bounds and the rows the refit did
+  not meet are in the repository rather than in the tarball:
+  `packages/calibration/profiles/apple-macos-27.0-*.json` and the ledger's §5.153
+  and §5.154.
+- **A page now draws macOS 27's material by default.** This is the change to read
+  before taking 0.19.0: your surfaces will look different.
+  
+  macOS 27 changed Apple's Liquid Glass under every app, and vitrea is measured
+  against what a Mac actually draws. What moves for an existing page, in rough
+  order of how visible it is:
+  
+  - **A surface over a dark backdrop is no longer nearly invisible.** On macOS 26.5
+    a thin surface over a near-black backdrop settled onto that backdrop and
+    disappeared into it. Apple's macOS 27 material does not do that anywhere on the
+    measured bed, so vitrea's does not either.
+  - **The rim, the outer shadow and the specular highlights are different.** The rim
+    is wider and differently weighted; the shadow is dimmer, tighter, shorter and
+    less displaced.
+  - **CSS-tier visitors get a wider blur** — `blurSigmaScale` 2.2 against the
+    previous 1, which carries that tier's whole share of the diffusion refit. Its
+    second-order effect is worth knowing: a group's proxy padding is derived from
+    the blur it actually draws, so a group that left `samplingPadding` at core's
+    advisory 24 may now be raised to the 3σ floor with a
+    `sampling-padding-below-3-sigma` diagnostic. Raising it yourself silences the
+    finding and changes nothing else.
+  - **A window that loses focus recedes differently**: on macOS 27 a receded surface
+    keeps its outer shadow, where on macOS 26.5 it lost it entirely.
+  
+  **To keep exactly what 0.18.0 drew**, select the previous reference by name:
+  
+  ```ts
+  import { createGlassRoot, macos26MaterialProfileDocument } from "@vitreajs/vitrea-web";
+  
+  createGlassRoot({ container, materialProfileDocument: macos26MaterialProfileDocument });
+  ```
+  
+  **`materialProfileDocument` is the new option, and it takes a whole measured
+  material.** A document carries four patches and a mapping — the active material
+  per colour scheme, the receded difference per colour scheme, and what that
+  material costs to express as one `backdrop-filter` plus an overlay — so selecting
+  one moves both tiers and both window poses together. Before it, the halves were
+  separate options and nothing joined them: passing a document's `patch` alone gave
+  a page one material on the GPU tier and another on the CSS tier, and the recede
+  was not selectable at all. `materialProfile` and `cssTierMapping` are unchanged
+  and still merge over whatever the document selected, which is the pair to reach
+  for when tuning one leaf rather than choosing a reference.
+  
+  **Which material drew is now a readout.** `root.material` and every group's
+  resolved state name the endpoint that drew, the profile document it came from,
+  that document's `resolvedMaterialSha256`, and whether the app merged a patch of
+  its own over it:
+  
+  ```ts
+  root.material;
+  // { name: "apple-macos-27.0-glass0.5", platform: "macOS 27.0",
+  //   profileKey: "apple-macos-27.0-1x-dark-standard-glass0.5-receded",
+  //   resolvedMaterialSha256: "3264b6cdde64bc8b", tuned: false }
+  ```
+  
+  The renderer's own `DEFAULT_MATERIAL_PROFILE` did **not** move, and that is
+  deliberate rather than incidental: every shipped material is a patch over it, so
+  "macOS 27 by default" is a selection between measured documents and both macOS
+  26.5 documents keep the fingerprints they were recorded with. The four macOS 27
+  documents, the bed they were fitted on, the bounds declared before the fit was
+  read and the seven rows it did not meet are in the repository rather than in this
+  tarball: `packages/calibration/profiles/apple-macos-27.0-*.json` and the ledger's
+  §§5.149–5.155.
+
+### Patch Changes
+
+- Updated dependencies
+  - @vitreajs/vitrea@0.19.0
+
 ## 0.18.0
 
 ### Minor Changes
