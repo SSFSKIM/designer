@@ -105,6 +105,19 @@ stale goldens re-baselined behind the isolation proof, and the demo's contrast
 and readout defects fixed at the token. The Firefox intermittent that was not in
 that count is closed too.
 
+### The chain since, per release
+
+This section is the chain **of record** rather than a log of every run, so each
+later cut names where its own run is written down rather than copying the table.
+Every one of them ran the same nine steps in the same order, serially, with each
+browser step preceded by a machine-settings reading that refuses under an
+accessibility policy Playwright cannot record.
+
+| version | where the run is recorded |
+| --- | --- |
+| 0.18.0 | `packages/calibration/results/2026-09-15-w28-g4-landing/` (`chain.sh`, `chain-*.txt`, `chain-status.txt`); the counts are in claims §5.148 §6 and the W28 spec's Outcomes clause 5 |
+| 0.19.0 | `packages/calibration/results/2026-09-20-w29-g4-landing/`, same shape; the counts are in claims §5.155 §6. Its machine reading gained a third value — `NSGlassTintAmount`, macOS 27's appearance slider, which did not exist when this checklist was written and which drives the native material with no GUI (claims §5.149 §4). It is recorded rather than refused on, because no browser suite renders the native material; what it makes is a record of the machine each run was taken on |
+
 ### Artifacts
 
 - [x] `pnpm changeset version` → both packages at **0.1.0**, the `fixed` pair
