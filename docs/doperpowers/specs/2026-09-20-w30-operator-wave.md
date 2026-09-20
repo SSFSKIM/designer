@@ -626,7 +626,7 @@ declarations — the part the wave is judged against. Ruled, for the review clos
   with the reference held. The inert default of `sigmaSpanRefPx` stays 0 (the identity does not
   depend on it); 96 is the fit's value, not the default's. B1 is joint across the beds one document
   serves: the light document must meet ±5 % on 1x, 2x, reduced transparency and coupled contrast at
-  once (window at span 96 **[8.897, 9.020]**, ±0.68 % effective), the dark on 1x and 2x
+  once (window at span 96 **[8.897, 9.020]**, ±0.68 % effective) — recomputed by the review closure at four decimals as **[8.8966, 9.0193]**, ±0.685 %; the figure here is the review's rounding, kept as written, the dark on 1x and 2x
   (**[8.908, 9.318]**); a law fitted to the 1x-light median alone fails the 2x-light bed at −6 %.
 - (d) **Decision Log 2 (a)'s ladder read is the shadow's evidence as much as the scatter's**: all ten
   fittable span-160 cells per standard bed are ladder probe rows, so without it the wave would seal
