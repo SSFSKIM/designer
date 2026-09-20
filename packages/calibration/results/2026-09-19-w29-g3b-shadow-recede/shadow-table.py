@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """W29 G3b — the shadow axis of a fit label's matrices, native beside web.
 
-    python3 shadow-table.py <label> [<label> ...]
+    python3 shadow-table.py <label> [<label> ...] [--with-holdout]
 
 The renders themselves are G3's `fit.py render`, unchanged and invoked as it
 stands: one candidate document, one `compare` run into `$VITREA_G3_SCRATCH`,
@@ -15,6 +15,15 @@ table whose native/web pairs are named `<metric>Native` / `<metric>Web` under
 Absences are printed as `—` and never as zero: over `dark-solid` and `impulse`
 there is no light to remove and the whole normalised block is absent, which is
 the honest reading of a shadow over black and not a shadow of strength nothing.
+
+**The holdout drop moved out of this file (W30 G0 (f), claims §5.156 §4).** It
+used to live here, and it was the only place it lived — which is the tracker's
+"the fit loop's holdout drop lives in one reader, and the other reader has
+none". It is now `fit.py`'s `cells()`, the single function every reader built on
+that file takes its rows from, so a wave that writes a new reader inherits the
+guarantee instead of having to be told. This file reads through it and prints
+the drop `cells()` reports; the behaviour is unchanged and the guarantee is one
+function wider.
 """
 from __future__ import annotations
 
@@ -22,6 +31,12 @@ import json
 import os
 import sys
 from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+# `fit.py` is W29 G3's, one evidence directory along: `render` is invoked from
+# there unchanged, so the reader that goes with it belongs there too.
+sys.path.insert(0, str(HERE.parent / "2026-09-19-w29-g3-refit"))
+from fit import cells as fit_cells  # noqa: E402
 
 SCRATCH = Path(os.environ.get("VITREA_G3_SCRATCH", "/tmp/g3scratch"))
 
@@ -43,9 +58,9 @@ def at(block: dict, name: str) -> float | None:
     return entry["value"] if isinstance(entry, dict) else None
 
 
-def rows(matrix: Path) -> list[dict]:
+def rows(matrix: Path, with_holdout: bool = False) -> list[dict]:
     out = []
-    for cell in json.loads(matrix.read_text())["cells"]:
+    for cell in fit_cells(matrix, with_holdout):
         shadow = cell.get("shadow")
         if shadow is None:
             continue
@@ -67,30 +82,20 @@ def show(value: float | None, digits: int, width: int) -> str:
     return f"{'—':>{width}}" if value is None else f"{value:>{width}.{digits}f}"
 
 
-def main(labels: list[str]) -> int:
+def main(labels: list[str], with_holdout: bool = False) -> int:
+    #
+    # THE FIT NEVER READS A HOLDOUT ROW — and since W30 G0 (f) that is `fit.py`'s
+    # `cells()` and not this file's own filter. The drop belongs to whatever
+    # reads a fit label's matrices, not to one wave's script: a round whose
+    # scene list names a holdout id still captures it, and what is guaranteed is
+    # that no number off that capture reaches a human or a table, through any
+    # reader built on that function. `cells()` prints what it dropped.
+    #
     collected: list[dict] = []
     for label in labels:
         run = SCRATCH / "fit-log" / label
         for matrix in sorted(run.glob("*.json")):
-            collected += rows(matrix)
-    #
-    # THE FIT NEVER READS A HOLDOUT ROW.
-    #
-    # X5: the holdout is read once per frozen configuration, at the canonical
-    # read, and nothing is fitted after it. A fit loop that printed a holdout
-    # cell would let it select a constant whether or not anybody meant it to, so
-    # the drop is here — in the reader every fit round goes through — rather
-    # than in each invocation's scene list, where one mistyped list would undo
-    # it. A round whose scene list names a holdout id still captures it; what
-    # this guarantees is that no number off that capture reaches a human or a
-    # table.
-    #
-    dropped = [r for r in collected if r.get("set") == "holdout"]
-    collected = [r for r in collected if r.get("set") != "holdout"]
-    if dropped:
-        print(f"# {len(dropped)} holdout row(s) captured by this label and NOT read (X5):")
-        for r in sorted({(r["profile"], r["scene"]) for r in dropped}):
-            print(f"#   {r[0]} {r[1]}")
+            collected += rows(matrix, with_holdout)
     collected.sort(key=lambda r: (r["profile"], r["renderer"], r["scene"]))
 
     header = f"{'profile':<48}{'r':<4}{'scene':<42}"
@@ -130,6 +135,7 @@ def main(labels: list[str]) -> int:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
+    LABELS = [a for a in sys.argv[1:] if a != "--with-holdout"]
+    if not LABELS:
         raise SystemExit(__doc__)
-    raise SystemExit(main(sys.argv[1:]))
+    raise SystemExit(main(LABELS, "--with-holdout" in sys.argv[1:]))

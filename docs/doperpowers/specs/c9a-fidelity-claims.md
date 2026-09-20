@@ -25347,3 +25347,35 @@ is not fitted in this wave.** What would settle it is the same missing read — 
 27 document — which would give it 9 backdrops per scheme instead of 2. Recorded rather than fitted,
 and it costs the wave nothing: the leaf already exists, it is named by no document, and X1 is
 untouched either way.
+
+### 4. The holdout drop, by construction
+
+X4 and X5 say the holdout is read once per frozen configuration and nothing is fitted after it, so a
+fit loop must not be able to put a holdout number in front of the person choosing constants. Until
+this wave that was true of `shadow-table.py`, which dropped holdout rows in its own reader and
+printed the count, and not of `results/2026-09-19-w29-g3-refit/fit.py table`, which printed every
+row in a label's scratch matrices. W29 G3b's recede half read through the second one and held the
+contract by the operator typing `--set calibration` on every invocation. It held — no holdout number
+reached a receded constant — and it held **by discipline rather than by construction**, which is
+what the tracker's "the fit loop's holdout drop lives in one reader, and the other reader has none"
+records, and what it says a wave touching this code should close.
+
+The drop is now `fit.py`'s **`cells()`**: the single function every reader built on that file takes
+its rows from, dropping every row whose `fixtureSet` is `holdout` before returning and printing the
+count and the scenes it refused. `readings()` maps over it, `table` prints from `readings()`, and
+`merge` — which is a reader of a fit label's matrices under another name, and whose output the
+referee reads — goes through it too. `shadow-table.py` imports it and deletes its own filter, so the
+two halves of a gate now enforce one contract in one place instead of the same contract two ways.
+`--with-holdout` is the deliberate exception for the canonical read that is allowed to see them; it
+has to be typed, on a reader whose default refuses, which is the opposite of the old arrangement in
+the one way that matters.
+
+`holdout-drop-check.py` is the proof, and it exercises the failure rather than the success: it
+builds a scratch matrix in a temporary directory that **contains** a holdout row, points
+`VITREA_G3_SCRATCH` at it, and runs every reader over it with and without the flag. Per reader it
+asserts four things — no holdout scene on any table line; the drop notice present and carrying the
+count; the notice naming what it refused (naming a refusal is the opposite of reading it); and a
+non-holdout row actually printed, so the check cannot pass because the reader printed nothing — and
+then that `--with-holdout` does admit the row, so the check is discriminating. `merge` is checked on
+its output file rather than on a table. `holdout-drop-check.txt` is the record; it takes no capture
+and touches nothing outside its temporary directory (X2, X5).
