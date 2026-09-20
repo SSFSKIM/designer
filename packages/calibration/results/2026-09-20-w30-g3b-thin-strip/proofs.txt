@@ -1,0 +1,45 @@
+W30 G3b — the fix's proofs (claims §5.159b; charter Decision Log 5 (a)).
+
+── the 34 renderer goldens, byte-identical ──
+$ pnpm --filter @vitrea/renderer-webgpu test:golden
+  34 passed (11.0s)
+$ git status --short packages/renderer-webgpu/e2e/goldens
+  (empty)
+
+They render at the macOS 26.5 σ of 15.55. The falloff's tanh argument peaks near
+2 there — five times under the ±20 clamp and twenty times under f32's `exp`
+overflow — so byte-identity is what the clamp being the identity predicts, not a
+coincidence. A golden at a thin σ is what would have caught the defect, and none
+exists; the new `@gpu` case below is that reading, taken on a real adapter rather
+than baked.
+
+── the new @gpu case, on the PRE-FIX renderer (the fail-before) ──
+$ npx playwright test --grep @gpu e2e/gpu/w30-thin-sigma-coverage.spec.ts
+  2 failed
+
+  1) a 44 px capsule and a 44 px toolbar are drawn whole under macOS 27's σ law
+     Error: capsule: 652 of 4780 declared px undrawn, IoU 0.8636
+     Expected: 0   Received: 652
+
+  2) the drawn silhouette is the same at every σ
+     Error: macOS 26.5, σ 15.55: 0 | macOS 27 at span 96, σ 8.96: 0
+          | macOS 27 at span 44, σ 2.13: 784 | macOS 27's law, σ(44) = 2.13: 784
+     Expected: 0   Received: 784
+
+  784 = the capsule's 652 + the toolbar's 132 (of 4,308 declared, IoU 0.9694).
+  The capsule's 652 is the same 652 the calibration harness measures on
+  `checkerboard__capsule-button__rest` over a transparent page (repro.txt).
+
+── the same case, on the FIXED renderer ──
+$ npx playwright test --grep @gpu e2e/gpu/w30-thin-sigma-coverage.spec.ts
+  2 passed (2.3s)
+
+── the whole @gpu suite ──
+$ pnpm --filter @vitrea/renderer-webgpu test:gpu
+  33 passed (13.0s)     — 31 before this gate, plus the two above
+
+── the unit chain, the packages the fix touches ──
+$ pnpm --filter @vitrea/renderer-webgpu test     511 passed / 30 files
+$ pnpm --filter @vitreajs/vitrea-web test        631 passed / 46 files
+$ pnpm --filter @vitrea/renderer-webgpu lint     exit 0
+$ pnpm --filter @vitreajs/vitrea-web lint        exit 0

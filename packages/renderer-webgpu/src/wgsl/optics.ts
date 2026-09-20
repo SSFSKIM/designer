@@ -364,9 +364,26 @@ fn rim_weight(d : f32, width : f32) -> f32 {
 /// normal CDF — WGSL has no erf, and this is within 1.8e-4 of it everywhere,
 /// which is 0.015 of one 8-bit code at the shipped occlusion. Mirrors
 /// material.ts's 'outerShadowFalloff' term for term.
+///
+/// THE ARGUMENT IS CLAMPED, AND THE CLAMP IS THE IDENTITY (W30 G3b; claims
+/// 5.159b). 'tanh' saturates to exactly 1.0 in f32 by |t| = 9.011 and in f64 by
+/// |t| = 18.2, so replacing every |t| > 20 with 20 returns the same bits in both
+/// precisions at every input the unclamped form evaluates finitely. What it
+/// removes is a NaN: a backend that lowers 'tanh' to (exp(2t) - 1)/(exp(2t) + 1)
+/// — which Metal's fast-math path does — overflows f32's 'exp' at 2t > 88.72 and
+/// hands back Inf/Inf. The cubic makes that threshold reachable at a modest
+/// distance: t passes 44.36 at x ~ 10.06, so any pixel more than about 10 sigma
+/// inside the shadow's silhouette returned NaN, and the NaN travelled into the
+/// composite's alpha through 'shadowAlpha * (1 - coverage)', where a coverage of
+/// exactly 1 does not stop it (NaN times 0 is NaN). At every sigma the project
+/// had shipped, 10 sigma was further than any caster is deep and nothing reached
+/// it; macOS 27's thin regime draws sigma 2.13 at a span-44 caster, where 10
+/// sigma is 21.4 CSS px and a 44 px capsule's own centre line is 25 CSS px
+/// inside its silhouette — which is the strip 5.159 section 6 measured.
 fn outer_shadow_falloff(signedDistance : f32, sigma : f32) -> f32 {
   let x = -signedDistance / max(sigma, 1e-4);
-  return 0.5 * (1.0 + tanh(0.7978845608028654 * (x + 0.044715 * x * x * x)));
+  let t = clamp(0.7978845608028654 * (x + 0.044715 * x * x * x), -20.0, 20.0);
+  return 0.5 * (1.0 + tanh(t));
 }
 
 /// The outer shadow's sigma at a casting span, CSS px (W30 G2; claims 5.156

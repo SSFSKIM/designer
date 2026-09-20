@@ -1,0 +1,30 @@
+W30 G3b — the reproduction and its three controls, one scene each, scratch
+matrices and scratch captures (`--out-matrix`, `VITREA_WEB_CAPTURES`).
+
+machine: macOS 27.0 / 26A428  RT=0  IC=0  NSGlassTintAmount=0.5
+scene:   checkerboard__capsule-button__rest, apple-macos-27.0-1x-light-standard-glass0.5
+declared component region: 4872 px^2
+
+── the PRE-FIX renderer ──
+document                                   σ(44)    drawn    declared   IoU
+0.19.0, unchanged                         11.0000    4872        4872   1.0000
+0.19.0 + sigmaPx 8 (runtime's law live)    1.1672      --        4872   REFUSED: interior alpha over a
+                                                                        transparent page is 0.0000,
+                                                                        under the 0.9 an alpha coverage
+                                                                        rule needs
+0.19.0 + sigmaPx 8 + the law leaves 0      8.0000    4872        4872   1.0000
+0.19.0 + sigmaPx 2.13 + the law leaves 0   2.1300    4220        4872   0.8662
+
+the undrawn rows of the last one, read off its own alpha capture
+(repro-before-alpha.png), x within 100…220:
+  104:78  105:82  106:82  107:84  108:84  109:82  110:82  111:78   = 652 px
+which is `bisect.py`'s predicted 103.78…111.12 to the row.
+
+── the FIXED renderer ──
+0.19.0 + sigmaPx 2.13 + the law leaves 0   2.1300    4872        4872   1.0000
+repro-after-alpha.png carries no undrawn row inside the capsule at all.
+
+The perceptual row moves with it, on the same cell: ssimMean 0.978 → 0.982 and
+oklabDeltaEP95 0.0038 → 0.0034, both back to what the same cell reads at σ 11 —
+the interior is whole again, and the shadow axis still reads the thin σ it was
+asked for (blur sigma N/W 1.8/12.5, against 1.8/13.8 at σ 11).

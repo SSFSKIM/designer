@@ -533,6 +533,66 @@ export const W30_SCATTER_SCALE_SCENE: Scene = {
   ],
 };
 
+/**
+ * The two casters a thin σ draws wrong, at the bed's own geometry (W30 G3b;
+ * claims §5.159b).
+ *
+ * `capsule-button` is 120 × 44 and `toolbar-group` is three 44 × 44 capsules
+ * 12 CSS px apart — `apps/reference-apple/scenes.json`'s own components, copied
+ * here because the defect is a property of how DEEP a caster is, not of what it
+ * is over. A 44 px capsule's centre line sits 22 CSS px inside its own
+ * silhouette and 25 past the shadow's spread, which is more than ten times the
+ * σ macOS 27's law draws at that span; every rrect in the bed is either
+ * shallower (`rrect-sm`, span 32) or wide enough that its own σ grows faster
+ * than its depth does, which is why the failures were exactly the span-44
+ * texture cells.
+ *
+ * No backdrop and no refraction, as the shadow scenes above: the material lands
+ * in the canvas's ALPHA, and the assertion is about which pixels of the declared
+ * region carry any at all. 130 CSS px between the two groups is ten times the
+ * reach the fitted law produces at span 44, so neither is the other's business.
+ */
+export const W30_THIN_SIGMA_COVERAGE_SCENE: Scene = {
+  name: "w30-thin-sigma-coverage",
+  widthCss: 320,
+  heightCss: 280,
+  devicePixelRatio: 1,
+  measureOnly: true,
+  backdrop: { kind: "none" },
+  groups: [
+    group(
+      "capsule",
+      [
+        rect("c", [160, 70], [120, 44], {
+          shape: {
+            center: [160, 70],
+            size: [120, 44],
+            radii: [22, 22, 22, 22],
+            smoothing: 0,
+            thickness: 6,
+          },
+        }),
+      ],
+      { noBackdrop: true, refraction: "none", analysisExact: false },
+    ),
+    group(
+      "toolbar",
+      [104, 160, 216].map((cx, i) =>
+        rect(`t${i}`, [cx, 200], [44, 44], {
+          shape: {
+            center: [cx, 200],
+            size: [44, 44],
+            radii: [22, 22, 22, 22],
+            smoothing: 0,
+            thickness: 6,
+          },
+        }),
+      ),
+      { noBackdrop: true, refraction: "none", analysisExact: false },
+    ),
+  ],
+};
+
 export const ALL_SCENES: readonly Scene[] = [
   ...SCENES,
   LENS_DEPTH_SCENE,
@@ -540,6 +600,7 @@ export const ALL_SCENES: readonly Scene[] = [
   SHADOW_MID_CANVAS_SCENE,
   W30_SHADOW_SPAN_SCENE,
   W30_SCATTER_SCALE_SCENE,
+  W30_THIN_SIGMA_COVERAGE_SCENE,
 ];
 
 export const SCENE_NAMES = SCENES.map((scene) => scene.name);
