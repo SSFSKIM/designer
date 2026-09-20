@@ -24892,3 +24892,262 @@ filtered `MATRIX`, because the probe and inactive drops are a different question
 freeze's own count of macOS 26.5-keyed rows. Read today: 2,017 cells in the file, 1,562 at a shipped
 document, **1,107 of them macOS 26.5 and all 1,107 gated**, at
 `apple-macos-26.5-1x-{light,dark}-standard.json` and nothing else.
+
+### 2. The shadow cut: what Apple's σ does per span, and what the instrument can say about it
+
+`shadow-cut.py` reads `results/2026-09-19-w29-g3b-shadow-recede/native-delta.json` and nothing
+else; `shadow-cut.txt` is its output and `shadow-cut.json` its rows. The arithmetic is §5.154 §4's
+correction verbatim — `readings.shadowFalloffSigmaPx[1] / scale` — and the casting span is the
+declared component's shorter side, read from `scenes.json` rather than tabulated.
+
+**The statistic, named.** The upper middle order statistic, `sorted[n // 2]`, over the **active**
+cells of a bed that resolve a σ, reported with the per-cell minimum, maximum and count. That is
+`law-tables.txt`'s convention and therefore what §5.154 §4's medians already are.
+
+**Non-converged fits are excluded by a rule rather than by name: `σ_css > span`.** A fitted blur
+wider than the surface casting it has no edge left in the measuring window, so the number is a
+reading of the backdrop and not of the material. It removes **10 of 255** active cells that resolve
+a σ, every one of them a probe row, and they are exactly §5.154 §4's own two named populations: the
+four `checkerboard-64__capsule-button` cells at 74.31 and their 2x siblings at 73.82/73.58 (a 64 px
+pitch under a 44 px caster — the ring means oscillate with the backdrop and the search leaves the
+material), the `hc-text__rrect-sm__rest` cell at **157.71** on 1x light, and `hc-text-7__rrect-sm`
+at 38.99 on 2x light. **No gated cell is excluded at any span**, so the rule costs the acceptance
+nothing.
+
+**The cut reproduces §5.154 §4 exactly where it excludes nothing, which is the check on it.** At
+spans 96, 128, 130 and 160 every bed's median and count match the ledger's table figure for figure.
+Where they differ the difference is exactly the excluded cells: 1x light span 44 reads 1.52 over
+**20** cells here against 1.52 over 22 there, and 1x light span 32 reads **2.63 (3)** against
+4.06 (4) — 4.06 was the median only because the 157.71 non-fit was the fourth cell. The span-32
+column of §5.154 §4 is therefore carried by a runaway fit; the corrected reading, 2.63, is recorded
+here beside it and nothing there is rewritten.
+
+**The instrument on a mixed-span composite, answered.** The bed carries two composites and neither
+is a mixture:
+
+- **`toolbar-group` resolves no σ at all.** Seven active rows across the beds, and
+  `shadowFalloffSigmaPx` is `null` on every one — neither the blurred-edge family nor the
+  exponential converges. Its three members are 44×44 at 12 px spacing, so they do not differ in
+  span; what defeats the fit is that the silhouette is **fenestrated**. The gaps are exterior to the
+  declared region and interior to the shadow field, so the near rings average pixels occluded by two
+  neighbours with pixels occluded by one, and the monotone profile the model needs does not exist.
+  The cell still carries a departure and a strength peak. **The σ law is not read on it.**
+- **`glass-over-glass` is a clean span-130 reading.** The 120×56 overlay at offset (0, −8) lies
+  wholly inside the 220×130 base (±60 of ±110 in x, −36…+20 of ±65 in y), so it never reaches the
+  measured exterior and the reading is the base's alone. Its six cells sit at 13.25–13.74, between
+  the span-128 and span-160 columns where a 130 belongs and nowhere near a 56. **The σ law is read
+  on it at span 130 — and all six of those cells are holdout**, so span 130 has zero cells any fit
+  may see.
+
+#### The thin-regime hypothesis, tested — and it fails in both directions
+
+§5.154 §4's sentence has two halves and they are different claims: the reading (σ_css(2x)/σ_css(1x)
+= 2.13 at span 44) and the interpretation ("the σ is nearly constant in DEVICE px"). The bed
+separates them, on **61 light and 41 dark cell pairs** — one scene id present on both scales of one
+scheme. A σ constant in CSS px gives a ratio of 1.00; one constant in device px gives **0.50**.
+
+| band | light | dark |
+| --- | --- | --- |
+| thick, spans 96–160 | median **1.021**, 0.978–1.111, n 39 | median **1.017**, 0.996–1.101, n 27 |
+| thin, spans 32–44 | median **1.443**, 0.515–2.569, n 22 | median **1.879**, 1.275–5.161, n 14 |
+
+The thick regime is scale-invariant in CSS px to 2 % on the median and 11 % at its worst cell, and
+the device-px hypothesis is rejected there by a factor of two. **In the thin regime neither
+hypothesis holds**: 1.44 and 1.88 are not 1.00 and they are not 0.50, and the range covers both.
+The reading §5.154 §4 quotes is real — `checkerboard__capsule-button__rest` reads 1.84 at 1x and
+3.92 at 2x, a ratio of 2.13 — but 2.13 in CSS px means σ in DEVICE px goes 1.84 → 7.84, which is
+four times and not constant. **The interpretation in §5.154 §4 is the wrong way round, and the
+corrected reading is that the thin regime is constant in neither unit.** Recorded beside it;
+§5.154 §4's own figures are unchanged and reproduce.
+
+**What the thin spans actually show is the instrument's valley, and two independent signatures say
+so.**
+
+*First, the amplitude moves with the σ and the product does not.* `metrics/shadow.ts` fits
+(amplitude, σ) jointly with the shadow's edge pinned to the declared contour, and its own header
+records that the two trade along a valley. On `checkerboard__capsule-button__rest` the amplitude
+reads **0.1115 at 1x against 0.0453 at 2x** — a factor 2.46 — while σ reads 1.84 against 3.92, a
+factor 2.13, and the product moves by **14 %** (0.205 → 0.177). At spans 96 through 160 both factors
+are separately scale-invariant: 0.1061 against 0.1043 and 8.80 against 9.36 at span 96; 0.2567
+against 0.2592 and 17.30 against 17.58 at span 160. So the fit is identified in the thick regime and
+is a position on a valley in the thin one.
+
+*Second, the thin σ moves with the author's tint, which the material's blur cannot depend on.* On
+the 1x/2x light pairs the same scene with an orange tint reads a ratio of **0.51–0.56** where the
+untinted cell reads **1.86–2.57**: `checkerboard__capsule-button__rest` 2.13 against its
+`-tint-orange` sibling's 0.55, `light-solid__capsule-button__rest` 2.03 against 0.56,
+`checkerboard-4__capsule-button__rest` 2.17 against 0.56. At 2x the tinted cells read σ of
+**0.57–0.73 CSS px — one to one and a half DEVICE pixels**, below the raster's own resolution, at an
+amplitude five times the untinted cell's. Two populations straddling the two hypotheses, separated
+by a parameter that is not in the material: that is the fit collapsing, not Apple's law.
+
+**And it explains §5.154 §4's own correction.** That correction noted that at span 44 the bed-wide
+median (1.52) disagrees with the quoted cell (1.84) where the thick spans agree to 0.04. The
+disagreement is the tinted cells: on the **untinted** non-holdout span-44 cells the 1x light median
+is **1.84 over 8 cells, range 1.42–2.05** — the quoted cell's own figure, restored, and a range of
+1.44 rather than the 9× the mixed population showed. On 1x dark it is **1.54 over 6, range
+1.42–1.70**. So the quoted figure was the better reading and the bed-wide median was the misleading
+one, for a reason nobody had.
+
+**Verdict: the bed does not support a device-px floor, and it does not support a fitted floor in any
+unit.** It supports the thick regime's line, and it supports a floor that exists for a structural
+reason and carries an unfitted value.
+
+#### The thick regime's line, and what 0.19.0 draws against it
+
+Least squares over each bed's own medians at 96/128/130/160:
+
+| bed | 96 | 128 | 130 | 160 | slope | zero at | max residual |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1x light | 8.80 | 13.14 | 13.36 | 17.30 | 0.1329 | 29.6 | 0.057 |
+| 2x light | 9.36 | 13.30 | 13.58 | 17.58 | 0.1283 | 23.6 | 0.090 |
+| 1x dark | 8.87 | 13.19 | 13.42 | 17.45 | 0.1340 | 29.7 | 0.023 |
+| 2x dark | 9.38 | 13.42 | 13.74 | 17.68 | 0.1297 | 24.0 | 0.072 |
+| 1x reduced transparency | 8.59 | — | — | 16.97 | 0.1310 | 30.4 | 0.000 |
+| 1x increased contrast | 8.80 | — | — | 16.97 | 0.1277 | 27.1 | 0.000 |
+| 1x increased contrast, coupled | 8.59 | — | — | 16.97 | 0.1310 | 30.4 | 0.000 |
+
+σ_css ≈ 0.133 · (span − 30) holds, on the medians, on every bed. **The line crosses zero at span
+23.6–30.4, inside the range the bed carries** — the smallest declared span is 32 — which is why a
+floor is structurally necessary and not merely a fit of the thin cells: without one the law emits a
+negative σ on a 24 px surface and 0.27 CSS px on a 32 px one.
+
+Against it, `sigmaPx` 11.0 as 0.19.0 ships it:
+
+| bed | 32 | 44 | 96 | 128 | 130 | 160 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1x light | 4.18× | 7.22× | 1.25× | 0.84× | 0.82× | **0.64×** |
+| 2x light | 5.21× | 6.98× | 1.17× | 0.83× | 0.81× | 0.63× |
+| 1x dark | 5.36× | 7.12× | 1.24× | 0.83× | 0.82× | 0.63× |
+| 2x dark | 5.81× | 3.95× | 1.17× | 0.82× | 0.80× | 0.62× |
+
+So the miss is two-sided, and §5.154 §4's "too wide" is only the thin half: **at spans 128 and above
+the shipped σ is too NARROW by about a third**, and that half has never been stated.
+
+#### The reach, and a direction the charter's Risks did not have
+
+`reach-table.ts` computes the reach through the renderer's own `outerShadowReachPx` and
+`outerShadowOcclusionAt`, varying nothing but σ, at the shipped macOS 27 documents' anchors, offset
+and spread. On 1x light, over the mid plateau, in CSS px:
+
+| span | occlusion | reach at σ 11.0 | reach at the native σ | Δ |
+| ---: | ---: | ---: | ---: | ---: |
+| 32 | 0.0500 | 20.90 | 13.40 | −7.50 (−36 %) |
+| 44 | 0.0515 | 21.12 | 12.44 | −8.68 (−41 %) |
+| 96 | 0.1110 | 26.37 | 23.31 | −3.06 (−12 %) |
+| 128 | 0.2020 | 29.86 | 33.52 | **+3.66 (+12 %)** |
+| 130 | 0.2077 | 30.01 | 34.08 | +4.07 (+14 %) |
+| 160 | 0.2930 | 31.88 | **43.80** | **+11.92 (+37 %)** |
+
+The dark document reads the same shape (17.10 → 12.50 at span 32; 32.56 → 44.87 at span 160). **The
+padding does not only shrink.** The charter's Risks list carries "the padding shrinks at thin spans,
+the direction that can expose a sampling floor"; that is true at 32 and 44 and the opposite is true
+at the top, where the reach **grows by 37 %** at span 160. That is a cost on a facet already
+measured at 3.2× the frame's GPU time and a question for the group clip, which takes the max over
+members. It is recorded under the charter's Surprises.
+
+Because the cut rejects the device-px reading, the law is one function of CSS span with no dpr in
+it, and `outerShadowReachPx` — which takes no dpr — gives one reach at both scales. The rejected
+alternative is printed beside it in `reach-table.txt`: a device-px floor would have made the span-32
+reach 11.86 at dpr 2 against 12.66 at dpr 1, a dpr-dependent scissor and a second mirror for the CSS
+tier to keep.
+
+#### The σ law's leaf shape, named
+
+```
+σ_css(span) = sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan · (span − sigmaSpanRefPx))
+```
+
+Three leaves on `MaterialOuterShadow`, and the knee is **derived** from them
+(`span_knee = sigmaSpanRefPx + sigmaThinOffsetPx / sigmaSlopePerSpan`) rather than being a fourth:
+
+| leaf | unit | meaning | inert default |
+| --- | --- | --- | --- |
+| `sigmaSlopePerSpan` | CSS px of σ per CSS px of span (dimensionless) | the measured line's slope, 0.128–0.134 on this bed | **0** — a multiplied zero |
+| `sigmaSpanRefPx` | CSS px | the casting span at which σ equals `sigmaPx`; the line pivots here | **0** — unreachable while the slope is 0, and the identity does not depend on its value |
+| `sigmaThinOffsetPx` | CSS px, signed | the width the thin regime holds, as an offset from `sigmaPx`; the value the line is clamped below at | **0** — an added zero under a `max` whose other arm is also zero |
+
+At the defaults σ(span) = `sigmaPx` + max(0, 0) = `sigmaPx` at every span, identically and for every
+argument: the identity is algebraic and not numerical, which is what acceptance clause 1 asks for.
+`sigmaPx` keeps its place as the material's one width and gains a meaning — the σ at the reference
+span — which is what lets the frozen macOS 26.5 material, whose σ genuinely is span-invariant, go on
+expressing itself with three zeros.
+
+**The floor's unit is CSS px**, because the cut rejects device-px constancy, and **its value is
+declared unfitted**: the thin cells are a position on the instrument's valley and no order statistic
+over them is a measurement of Apple's blur. G3 sets it by declaration — the natural choice is the
+thick line evaluated at the thin spans, 1.86 CSS px at span 44, which sits inside the 1x untinted
+range of 1.42–2.05 on the light bed and just above the 1.42–1.70 of the dark — and the wave records
+it as a decision rather than as a fit.
+
+**The statistic a thin-span acceptance is read by**, so that the acceptance is falsifiable: the
+fitted σ at span 44 against the **upper middle order statistic of the UNTINTED, non-holdout,
+non-excluded span-44 cells at 1x**, which is **1.84 over 8 cells (1.42–2.05) on light** and
+**1.54 over 6 (1.42–1.70) on dark**. Every `-tint-*` scene is excluded, for the bifurcation above;
+every cell the `σ_css > span` rule removes is excluded; the 2x cells are excluded because their
+amplitude is not scale-invariant there and the pair is therefore not identified. The holdout span-44
+cells — 1x light `hc-text__capsule-button__rest` 3.77 and `mid-dark-solid__capsule-button__rest`
+1.55, 1x dark `mid-dark-solid__capsule-button__rest` 1.92 — are reported beside it and fitted to
+nothing.
+
+#### Which cells the law is read on
+
+| bed | span 32 | 44 | 96 | 128 | 130 | 160 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1x light | 3 / 0 | 17 / 3 | 15 / 1 | 8 / 0 | **0 / 2** | 10 / 3 |
+| 2x light | 7 / 0 | 20 / 3 | 15 / 1 | 8 / 0 | **0 / 2** | 10 / 3 |
+| 1x dark | 3 / 0 | 11 / 1 | 10 / 0 | 5 / 0 | **0 / 1** | 10 / 1 |
+| 2x dark | 7 / 0 | 11 / 1 | 10 / 0 | 5 / 0 | **0 / 1** | 10 / 1 |
+| 1x reduced transparency | 0 / 0 | 4 / 1 | 2 / 0 | 0 / 0 | 0 / 0 | **0 / 1** |
+| 1x increased contrast | 0 / 0 | 5 / 1 | 2 / 0 | 0 / 0 | 0 / 0 | **0 / 1** |
+| 1x increased contrast, coupled | 0 / 0 | 5 / 1 | 2 / 0 | 0 / 0 | 0 / 0 | **0 / 1** |
+
+*fit / check*, where fit is calibration + validation + recorded + probe and check is holdout (X4).
+Two readings follow from it and both bind the declarations. **Span 130 has no fittable cell on any
+bed**: every `glass-over-glass` σ is holdout, so the law's value there is an extrapolation of the
+line and the holdout rows are the only thing that can check it. **The three accessibility profiles
+have no fittable cell above span 96 either**: their only span-160 reading is the holdout
+`photo__rrect-lg__rest` at 16.97, which is why the charter calls that row's `ssimOutside`
+"reachable if the law extrapolates" and not claimable. Against that, **span 160 gains ten fittable
+cells per standard bed from the probe ladder**, which is the first time `thickOcclusionAt160` has
+had anything to be fitted on at all.
+
+#### Which anchors the joint refit will move, and in which direction
+
+The reader's amplitude is the model's occlusion at the contour and is **σ-independent by
+construction** — the blurred-edge shape is 0.5 at distance zero whatever σ is — so the amplitude gap
+can be read today, at the shipped σ, on the WebGPU tier's own rows of the committed matrix. On
+1x-light-standard, active, at the shipped document:
+
+| span | native a | vitrea a | vitrea / native | native a·σ | vitrea a·σ |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 44 | 0.1827 | 0.0494 | **0.27×** | 0.289 | 0.822 |
+| 96 | 0.1061 | 0.1114 | 1.05× | 0.923 | 1.544 |
+| 128 | 0.1790 | 0.2050 | 1.15× | 2.358 | 2.923 |
+| 130 | 0.1856 | 0.2214 | 1.19× | 2.479 | 3.131 |
+| 160 | 0.2511 | 0.3136 | 1.25× | 4.262 | 4.415 |
+
+That is the compensation, seen directly: at span 44 vitrea draws a shadow **3.7× too dim over six
+times too wide an area**, and the two cancel in a mean taken over the whole exterior — which is why
+the departure residual is 0.0007 and shows none of it. So:
+
+- **`thinOcclusionMid` rises, and it is the largest move** — 0.05 toward ≈ 0.185 on the light
+  document (the shipped anchor and vitrea's read amplitude agree to 1 %, so the mapping is 1:1
+  there), and 0.032 toward the dark bed's native 0.1632, a factor of 3.7–5.
+- **`thinOcclusionBright` rises**: the native amplitude on `light-solid__capsule-button__rest` at
+  1x light is **0.0990** against a shipped anchor of 0.041.
+- **`thinOcclusionDark` stays exactly 0** — inert over a backdrop with no light to remove, and
+  nothing in this wave reaches it.
+- **`thickOcclusionAt96` falls slightly**, 0.111 toward ≈ 0.106.
+- **`thickOcclusionAt128` falls**, 0.202 toward ≈ 0.176 (−13 %).
+- **`thickOcclusionAt160` falls most**, 0.293 toward ≈ 0.235 (−20 %) — and it is the anchor that is
+  **derived rather than fitted today**, at exactly the span where σ moves most. The direction agrees
+  in sign with the macOS 26.5 holdout reading §5.65 §4(b) recorded, where the derivation was heavy
+  at 160 too. This wave can fit it for the first time, on the ladder's ten span-160 rungs.
+- **`liftAmplitude` moves only as the thick anchors' trade partner.** It is zero below span 64 and
+  rides the same falloff as the thick term; §5.65 records their shapes correlating at 0.9998, so
+  with σ freed the pair is more collinear rather than less. The referee reads the pair, and the
+  departure residual is what says it is right.
+
+The reach's own direction says the same from the other side: the wave narrows the shadow where it is
+dim and widens it where it is bright.
