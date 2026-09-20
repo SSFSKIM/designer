@@ -31,6 +31,15 @@
  * — the numbers §5.159b records as the fail-before. The capsule's 652 is the
  * same 652 the calibration harness measures on
  * `checkerboard__capsule-button__rest` over a transparent page.
+ *
+ * **The third case sweeps the other axis: depth** (review closure; claims
+ * §5.159b §10, finding 11). σ and depth enter the overflow only as their ratio,
+ * and the two cases above hold the depth at 44 CSS px, so nothing here said
+ * that the defect reaches the material the package still ships as
+ * `macos26MaterialProfileDocument`. It does — at σ 15.55 the overflow sits
+ * 153.35 CSS px inside the silhouette — and the case reads **1,156 of 114,356
+ * declared pixels undrawn (IoU 0.9899)** on the unfixed renderer at that σ,
+ * measured by unclamping the shader on this branch and re-running.
  */
 
 import { expect, test, type Page } from "@playwright/test";
@@ -65,6 +74,14 @@ const THIN_SIGMA_SHADOW = {
 /** The scene's declared regions, in CSS px — `scenes.ts`'s own numbers. */
 const CAPSULE = { cx: 160, cy: 70, w: 120, h: 44, r: 22 } as const;
 const TOOLBAR = [104, 160, 216].map((cx) => ({ cx, cy: 200, w: 44, h: 44, r: 22 }));
+/** `w30-deep-caster-coverage`'s single surface, likewise. */
+const DEEP = { cx: 210, cy: 220, w: 340, h: 340, r: 36 } as const;
+
+/**
+ * The macOS 26.5 σ, span-invariant, with this document's thick anchors: the
+ * material 0.20.0 still ships as `macos26MaterialProfileDocument`.
+ */
+const MACOS_26_5_SIGMA = 15.55;
 
 interface Region {
   readonly cx: number;
@@ -130,12 +147,28 @@ const drawnPixels = (raster: Raster): { readonly set: Set<number>; readonly peak
 const render = (
   page: Page,
   patch: Record<string, unknown> = THIN_SIGMA_SHADOW,
+  scene = "w30-thin-sigma-coverage",
 ): Promise<{ width: number; height: number; pixels: string }> =>
   page.evaluate(
     ([name, material]) =>
       window.vitrea.renderScene(name as string, undefined, material as Record<string, unknown>),
-    ["w30-thin-sigma-coverage", patch] as const,
+    [scene, patch] as const,
   );
+
+/**
+ * The σ law switched off at one width, which is what "a σ" means here: the two
+ * law leaves zeroed and the floor with them, so `outerShadowSigmaPx` returns
+ * `sigmaPx` at every span.
+ */
+const flatSigma = (sigmaPx: number): Record<string, unknown> => ({
+  outerShadow: {
+    ...THIN_SIGMA_SHADOW.outerShadow,
+    sigmaPx,
+    sigmaSlopePerSpan: 0,
+    sigmaSpanRefPx: 0,
+    sigmaThinOffsetPx: 0,
+  },
+});
 
 /**
  * The declaration's own clause, read the way the calibration harness reads it:
@@ -204,21 +237,11 @@ test.describe("@gpu the surface draws everywhere it declared, at a thin σ", () 
     const report = await openHarness(page);
     requireHardwareAdapter(report);
 
-    const flat = (sigmaPx: number): Record<string, unknown> => ({
-      outerShadow: {
-        ...THIN_SIGMA_SHADOW.outerShadow,
-        sigmaPx,
-        sigmaSlopePerSpan: 0,
-        sigmaSpanRefPx: 0,
-        sigmaThinOffsetPx: 0,
-      },
-    });
-
     const areas = new Map<string, number>();
     for (const [label, patch] of [
-      ["macOS 26.5, σ 15.55", flat(15.55)],
-      ["macOS 27 at span 96, σ 8.96", flat(8.96)],
-      ["macOS 27 at span 44, σ 2.13", flat(2.1272)],
+      ["macOS 26.5, σ 15.55", flatSigma(MACOS_26_5_SIGMA)],
+      ["macOS 27 at span 96, σ 8.96", flatSigma(8.96)],
+      ["macOS 27 at span 44, σ 2.13", flatSigma(2.1272)],
       ["macOS 27's law, σ(44) = 2.13", THIN_SIGMA_SHADOW as unknown as Record<string, unknown>],
     ] as const) {
       const raster = decodeCapture(await render(page, patch));
@@ -227,5 +250,42 @@ test.describe("@gpu the surface draws everywhere it declared, at a thin σ", () 
 
     const report_ = [...areas].map(([label, undrawn]) => `${label}: ${undrawn}`).join(" | ");
     for (const [, undrawn] of areas) expect(undrawn, report_).toBe(0);
+  });
+
+  /**
+   * The exposure's OTHER half: a caster deep enough to reach the overflow at a σ
+   * nobody would call thin (review closure; claims §5.159b §10, finding 11).
+   *
+   * The two cases above sweep σ at a fixed 44 px depth. The quantity that
+   * overflows is the ratio — `x` is the distance to the shadow's silhouette
+   * MEASURED IN σ — so a wide caster reaches it by being deep, and the material
+   * this package still ships as `macos26MaterialProfileDocument` reaches it at a
+   * half-depth of 10.061 · 15.55 − 3.1 = 153.35 CSS px. A surface past about 307
+   * CSS px on its shorter side therefore drew a strip of itself undrawn under
+   * 0.19.0 at the macOS 26.5 material, which is a class of surface an
+   * application has — a full-height sidebar, a tall sheet — and which the
+   * calibration bed does not carry, its deepest component being 160 px.
+   *
+   * So this case is the one reading that says the fix is not about macOS 27's
+   * thin regime: it is about the argument, at every material the package ships.
+   * It fails on the unfixed renderer at the same σ the 34 goldens render at.
+   */
+  test("a 340 px caster is drawn whole at the macOS 26.5 σ", async ({ page }) => {
+    const report = await openHarness(page);
+    requireHardwareAdapter(report);
+
+    const raster = decodeCapture(
+      await render(page, flatSigma(MACOS_26_5_SIGMA), "w30-deep-caster-coverage"),
+    );
+    const { peak } = drawnPixels(raster);
+    expect(peak, "the optics pass wrote no alpha at all").toBeGreaterThan(16);
+
+    const deep = conformance(raster, [DEEP]);
+    expect(
+      deep.undrawn,
+      `deep caster: ${deep.undrawn} of ${deep.declared} declared px undrawn, ` +
+        `IoU ${deep.iou.toFixed(4)} at σ ${MACOS_26_5_SIGMA}`,
+    ).toBe(0);
+    expect(deep.iou, "deep caster declaration conformance").toBeGreaterThanOrEqual(0.99);
   });
 });

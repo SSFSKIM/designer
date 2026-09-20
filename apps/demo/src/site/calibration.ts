@@ -61,7 +61,7 @@ interface Metric {
   readonly units: string;
 }
 
-interface Cell {
+export interface Cell {
   readonly key: {
     readonly profileKey: string;
     readonly sceneId: string;
@@ -91,7 +91,14 @@ const metric = (axis: Record<string, Metric | string> | undefined, name: string)
 
 const fixed = (value: number, places: number): string => value.toFixed(places);
 
-function figuresOf(cell: Cell): readonly Figure[] {
+/**
+ * Exported for `test/matrix-reduction.test.ts`, which pins the build-time
+ * reduction's `PROJECTED` to this function by running both over the same cell
+ * (review closure; claims §5.159b §10, finding 10). The names here and the
+ * names the plugin keeps were two lists that had to agree by hand, and a figure
+ * added here without the other would simply stop appearing on the page.
+ */
+export function figuresOf(cell: Cell): readonly Figure[] {
   const out: Figure[] = [];
   const add = (
     label: string,

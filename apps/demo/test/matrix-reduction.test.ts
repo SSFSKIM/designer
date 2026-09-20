@@ -30,7 +30,12 @@ import {
   type SourceCell,
 } from "../matrix-reduction.ts";
 import { shippedDocumentHashes } from "../shipped-documents.ts";
-import { MEASURED_CELL_COUNT, REPORTS_BY_SCENE } from "../src/site/calibration";
+import {
+  type Cell,
+  figuresOf,
+  MEASURED_CELL_COUNT,
+  REPORTS_BY_SCENE,
+} from "../src/site/calibration";
 
 const MATRIX = fileURLToPath(
   new URL("../../../packages/calibration/results/matrix.json", import.meta.url),
@@ -81,6 +86,38 @@ describe("the reduction against the whole file", () => {
     for (const cell of kept) {
       expect(byIdentity.get(identity(cell)), identity(cell)).toEqual(project(cell));
     }
+  });
+
+  it("projects every metric `figuresOf` prints, over a cell carrying all of them", () => {
+    // `PROJECTED` and `figuresOf` are two lists of metric names that have to
+    // agree, and nothing made them (review closure; claims §5.159b §10, finding
+    // 10). A figure added to the page and not to the plugin would not fail a
+    // type check, would not fail a render, and would simply never appear.
+    //
+    // Pinned functionally rather than by name: a synthetic cell carrying every
+    // metric any row in the file carries, on both sides of the projection. If
+    // the projection drops one the page reads, the two figure lists differ.
+    const maximal: Record<"shape" | "perceptual" | "material", Record<string, unknown>> = {
+      shape: {},
+      perceptual: {},
+      material: {},
+    };
+    for (const cell of FILE.cells) {
+      for (const axis of ["shape", "perceptual", "material"] as const) {
+        for (const [name, value] of Object.entries(cell[axis] ?? {})) {
+          if (typeof value === "object" && value !== null) maximal[axis][name] ??= value;
+        }
+      }
+    }
+    const everyMetric = Object.values(maximal)
+      .reduce((sum, axis) => sum + Object.keys(axis).length, 0);
+    expect(everyMetric).toBeGreaterThan(40);
+
+    const source = { ...(FILE.cells[0] as SourceCell), ...maximal } as SourceCell;
+    const whole = figuresOf(source as unknown as Cell);
+    const projected = figuresOf(project(source) as unknown as Cell);
+    expect(whole.length).toBeGreaterThan(0);
+    expect(projected).toEqual(whole);
   });
 
   it("reports the file's own row count, not the reduction's", () => {
