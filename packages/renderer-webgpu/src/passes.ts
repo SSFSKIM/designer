@@ -230,10 +230,13 @@ export interface OpticsPassArgs {
    * `sizeScatterScaleGain` and `sizeScatterScaleRef` are the material's;
    * `backdropScaleStatistic` is the SOURCE's — the analysis pass's edge density
    * for the source this group samples, which arrives by readback and is
-   * therefore resolved by the caller, as `bodyChainLod` is. `heavySecondShare`
-   * is the signed weight of the second heavy sample, and `heavySecondEnabled`
-   * says whether the pyramid actually built that texture. Both amounts are 0 on
-   * the landed material and the texture is not built there.
+   * therefore resolved by the caller, as `bodyChainLod` is. Where the caller has
+   * observed nothing it passes `sizeScatterScaleRef` — the value at which the
+   * operator contributes nothing whatever the gain is, which "no evidence" has to
+   * resolve to and 0 only coincidentally does. `heavySecondShare` is the signed
+   * weight of the second heavy sample, and `heavySecondEnabled` says whether the
+   * pyramid actually built that texture. Both amounts are 0 on the landed
+   * material and the texture is not built there.
    */
   readonly sizeScatterScaleGain: number;
   readonly sizeScatterScaleRef: number;

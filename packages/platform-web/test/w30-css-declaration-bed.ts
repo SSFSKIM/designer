@@ -21,9 +21,25 @@
  * that bracket them, and three backdrop levels — because the shadow's amplitude
  * is keyed on the backdrop and the blur radius has to be shown unmoved at every
  * amplitude the thin regime resolves, not only at one.
+ *
+ * ## Two sweeps, two fixtures
+ *
+ * `sweep()` is the nominal regime and is what
+ * `w30-css-declarations-pre-leaves.json` holds. `policySweep()` is the same bed
+ * under the reduced-transparency and increased-contrast regimes, added by the
+ * review closure (claims §5.158 §8, finding 6) because those are the two paths
+ * that fold the material before a declaration is written — `opticsUnderPolicy`
+ * scales the blur radius and lifts the occlusion — and a σ law that reached them
+ * and not the nominal path would be as much a violation of X1 as one that
+ * reached the nominal path. It has its own fixture,
+ * `w30-css-declarations-policies-pre-leaves.json`, recorded the same way and for
+ * the same reason: on the pre-leaf tree, by checking out
+ * `packages/platform-web/src` at `01347a2c` and running the recorder there. The
+ * nominal fixture is not re-recorded and does not move.
  */
 
-import { NOMINAL_ACCESSIBILITY_POLICY } from "@vitreajs/vitrea";
+import { NOMINAL_ACCESSIBILITY_POLICY, resolveAccessibilityPolicy } from "@vitreajs/vitrea";
+import type { ResolvedAccessibilityPolicy } from "@vitreajs/vitrea";
 
 import { cssTierDeclarations, type CssTierRender, type CssTierSurface } from "../src/css-tier";
 import { macos26MaterialProfileDocument } from "../src/material-document";
@@ -77,6 +93,7 @@ export function renderCase(
   spanPx: number,
   backdropLuminance: number,
   devicePixelRatio: number,
+  policy: ResolvedAccessibilityPolicy = NOMINAL_ACCESSIBILITY_POLICY,
 ): CssTierRender {
   const patch = colorSchemeMaterialProfile(scheme, macos26MaterialProfileDocument);
   const mapping: CssTierMapping = {
@@ -86,7 +103,7 @@ export function renderCase(
   const surface: CssTierSurface = {
     radii: [22, 22, 22, 22],
     optics: cssTierOptics(patch, mapping).regular,
-    policy: NOMINAL_ACCESSIBILITY_POLICY,
+    policy,
     outerShadow: sourceOuterShadow(patch),
     size: sourceSize(patch),
     mapping,
@@ -123,6 +140,57 @@ export function sweep(): Record<string, Record<string, string>> {
           out[caseKey(scheme, spanPx, backdrop, dpr)] = declarationsOf(
             renderCase(scheme, spanPx, backdrop, dpr),
           );
+        }
+      }
+    }
+  }
+  return out;
+}
+
+/**
+ * The two accessibility regimes the material folds under before a declaration is
+ * written, beside the nominal one the sweep above is taken at.
+ *
+ * Forced colours is not here: at `glass: "none"` the tier writes the platform's
+ * palette and no shadow at all, so it would pin the absence of the thing this
+ * bed exists to watch. These two are the regimes that keep the facet and change
+ * its arithmetic — `opticsUnderPolicy` scales the blur radius under increased
+ * frost and lifts the occlusion under either — which is the path a σ law could
+ * reach without touching the nominal one.
+ */
+export const POLICIES = ["reduced-transparency", "increased-contrast"] as const;
+
+export const policyOf = (name: (typeof POLICIES)[number]): ResolvedAccessibilityPolicy =>
+  resolveAccessibilityPolicy({
+    reducedTransparency: name === "reduced-transparency",
+    reducedMotion: false,
+    increasedContrast: name === "increased-contrast",
+    forcedColors: false,
+    reducedTransparencySupported: true,
+  });
+
+/** One policy case's identity — the nominal key with the regime in front of it. */
+export const policyCaseKey = (
+  policy: (typeof POLICIES)[number],
+  scheme: (typeof SCHEMES)[number],
+  spanPx: number,
+  backdrop: number,
+  dpr: number,
+): string => `${policy}/${caseKey(scheme, spanPx, backdrop, dpr)}`;
+
+/** The same bed under each regime, keyed by `policyCaseKey`. */
+export function policySweep(): Record<string, Record<string, string>> {
+  const out: Record<string, Record<string, string>> = {};
+  for (const policy of POLICIES) {
+    const resolved = policyOf(policy);
+    for (const scheme of SCHEMES) {
+      for (const spanPx of SPANS) {
+        for (const backdrop of BACKDROPS) {
+          for (const dpr of RATIOS) {
+            out[policyCaseKey(policy, scheme, spanPx, backdrop, dpr)] = declarationsOf(
+              renderCase(scheme, spanPx, backdrop, dpr, resolved),
+            );
+          }
         }
       }
     }

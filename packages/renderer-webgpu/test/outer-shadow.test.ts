@@ -349,9 +349,24 @@ describe("the outer shadow under the accessibility regime and the size law", () 
   });
 });
 
+/**
+ * The casting span every reach in this file is read at.
+ *
+ * `outerShadowReachPx` requires one since W30 G2's review closure (claims §5.158
+ * §8, finding 4), where the parameter's default of 0 was removed: a default read
+ * as "no span to give" and resolved as the thinnest caster there is, which is an
+ * under-bound the moment the σ slope is fitted and an invisible one while it is
+ * not. These cases are about the AMPLITUDE and compare reaches at one σ, so what
+ * they need is one span named once — 40 CSS px, the span the members in "pads the
+ * field rect" actually have. On the shipped macOS 26.5 material the σ law is
+ * span-invariant, so every number this file records is the one it recorded before
+ * the span argument existed.
+ */
+const REACH_SPAN_PX = 40;
+
 describe("the shadow's reach sizes the rect the GPU tier draws into", () => {
   it("stops where the shadow stops moving a code, measured in the space it writes", () => {
-    const reach = outerShadowReachPx(OUTER_SHADOW, OUTER_SHADOW.thinOcclusionMid);
+    const reach = outerShadowReachPx(OUTER_SHADOW, OUTER_SHADOW.thinOcclusionMid, REACH_SPAN_PX);
     // Far enough to draw the facet: the reference's own measured extent runs to
     // roughly 45 px below a 1x surface.
     expect(reach).toBeGreaterThan(35);
@@ -401,14 +416,14 @@ describe("the shadow's reach sizes the rect the GPU tier draws into", () => {
      * that has to hold is that the reach FOLLOWS the amplitude, for whatever the
      * cascade fits.
      */
-    const base = outerShadowReachPx(OUTER_SHADOW, OUTER_SHADOW.thinOcclusionMid);
+    const base = outerShadowReachPx(OUTER_SHADOW, OUTER_SHADOW.thinOcclusionMid, REACH_SPAN_PX);
 
     const gained = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
       outerShadow: { sizeGain: 1 },
     });
     const amplified = sizeOuterShadowOcclusionAt(OUTER_SHADOW.thinOcclusionMid, 1, gained);
     expect(amplified).toBe(1);
-    const amplifiedReach = outerShadowReachPx(OUTER_SHADOW, amplified);
+    const amplifiedReach = outerShadowReachPx(OUTER_SHADOW, amplified, REACH_SPAN_PX);
     expect(amplifiedReach).toBeGreaterThan(base);
     // The margin the base-amplitude pad would have sliced off.
     expect(amplifiedReach - base).toBeGreaterThan(4);
@@ -419,33 +434,33 @@ describe("the shadow's reach sizes the rect the GPU tier draws into", () => {
     // (W14 G1).
     const thickOcc = outerShadowOcclusionAt(OUTER_SHADOW, 0.5, 160, 1);
     expect(thickOcc).toBeCloseTo(OUTER_SHADOW.thickOcclusionAt160, 12);
-    expect(outerShadowReachPx(OUTER_SHADOW, thickOcc)).toBeGreaterThan(base);
+    expect(outerShadowReachPx(OUTER_SHADOW, thickOcc, REACH_SPAN_PX)).toBeGreaterThan(base);
 
     // Monotone in the amplitude, so a maximum over a group's members is a correct
     // upper bound however the gain is signed.
     let previous = 0;
     for (const occlusion of [0.05, 0.1, 0.2, 0.33, 0.5, 0.8, 1]) {
-      const reach = outerShadowReachPx(OUTER_SHADOW, occlusion);
+      const reach = outerShadowReachPx(OUTER_SHADOW, occlusion, REACH_SPAN_PX);
       expect(reach, `occlusion ${occlusion}`).toBeGreaterThanOrEqual(previous);
       previous = reach;
     }
   });
 
   it("is exactly zero when a profile declines the shadow, so nothing pays for it", () => {
-    expect(outerShadowReachPx(OUTER_SHADOW, 0)).toBe(0);
+    expect(outerShadowReachPx(OUTER_SHADOW, 0, REACH_SPAN_PX)).toBe(0);
     // And a shadow too faint to reach one code step anywhere is the same case.
-    expect(outerShadowReachPx(OUTER_SHADOW, 1 / 512)).toBe(0);
+    expect(outerShadowReachPx(OUTER_SHADOW, 1 / 512, REACH_SPAN_PX)).toBe(0);
   });
 
   it("grows with the blur, the offset and the spread", () => {
     const occ = OUTER_SHADOW.thinOcclusionMid;
-    const base = outerShadowReachPx(OUTER_SHADOW, occ);
-    expect(outerShadowReachPx({ ...OUTER_SHADOW, sigmaPx: 31.1 }, occ)).toBeGreaterThan(base);
+    const base = outerShadowReachPx(OUTER_SHADOW, occ, REACH_SPAN_PX);
+    expect(outerShadowReachPx({ ...OUTER_SHADOW, sigmaPx: 31.1 }, occ, REACH_SPAN_PX)).toBeGreaterThan(base);
     expect(
-      outerShadowReachPx({ ...OUTER_SHADOW, offsetPx: OUTER_SHADOW.offsetPx + 10 }, occ),
+      outerShadowReachPx({ ...OUTER_SHADOW, offsetPx: OUTER_SHADOW.offsetPx + 10 }, occ, REACH_SPAN_PX),
     ).toBeCloseTo(base + 10, 6);
     expect(
-      outerShadowReachPx({ ...OUTER_SHADOW, spreadPx: OUTER_SHADOW.spreadPx + 10 }, occ),
+      outerShadowReachPx({ ...OUTER_SHADOW, spreadPx: OUTER_SHADOW.spreadPx + 10 }, occ, REACH_SPAN_PX),
     ).toBeCloseTo(base + 10, 6);
   });
 
@@ -457,7 +472,7 @@ describe("the shadow's reach sizes the rect the GPU tier draws into", () => {
      * slice a 45 px shadow off at the contour.
      */
     const resolved = resolveSurfaces(group([surface()]), "rsupn");
-    const reach = outerShadowReachPx(OUTER_SHADOW, OUTER_SHADOW.thinOcclusionMid);
+    const reach = outerShadowReachPx(OUTER_SHADOW, OUTER_SHADOW.thinOcclusionMid, REACH_SPAN_PX);
 
     const bare = groupFieldRect(resolved, DEFAULT_GROUP_UNION, 2, 0);
     const shadowed = groupFieldRect(resolved, DEFAULT_GROUP_UNION, 2, reach);

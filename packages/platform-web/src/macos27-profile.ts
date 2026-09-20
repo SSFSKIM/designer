@@ -303,11 +303,18 @@ export const macos27CssTierMapping: Partial<CssTierMapping> = {
  * bed. So a document's own field is the reading it was sealed at, the record
  * beside it is what the pin resolves to now, and this module names what draws.
  * `packages/calibration/test/macos27-profile-export.test.ts` pins these against
- * the record and `tuned-profiles.test.ts` pins the record against the material.
+ * the record and `tuned-profiles.test.ts` recomputes the record from the
+ * materials themselves, so the chain ends at a material and not at the record.
+ *
+ * The two receded digests are taken over the COMPOSITION the page performs —
+ * the receded difference over the ACTIVE patch of the same scheme over the
+ * renderer's default — because that is the material a root hands the renderer
+ * when the window loses focus, and it is what `window-activation.spec.ts` reads
+ * back from the browser.
  */
 export const MACOS_27_RESOLVED_MATERIAL_SHA256 = {
   light: "8d06a41cb70ba52f",
   dark: "73a3fb119a81312b",
-  recededLight: "91a22b7ad3473d51",
-  recededDark: "1b40966487534d1c",
+  recededLight: "035f537d9c27e3ed",
+  recededDark: "4763b0d195fdb077",
 } as const;

@@ -2780,8 +2780,18 @@ describe("the outer shadow's paint order (X7)", () => {
 
     const shadow = sourceOuterShadow();
     const alpha = cssTierShadowAlpha(shadow, 0.5, 44, 0);
+    // The caster is the 44 px surface `surfaceAt(44)` declares and the alpha
+    // above is read at, so the σ law is read at 44 too. Stated rather than
+    // defaulted (claims §5.158 §8, finding 4): a span the caller does not mean
+    // is a bound taken on the wrong caster the moment the slope is fitted.
     const factorAt = (signedDistanceToShadowBoxPx: number, insideCaster = false): number =>
-      sampledOuterShadowFactor({ shadow, alpha, signedDistanceToShadowBoxPx, insideCaster });
+      sampledOuterShadowFactor({
+        shadow,
+        alpha,
+        signedDistanceToShadowBoxPx,
+        insideCaster,
+        casterSpanPx: 44,
+      });
 
     // Inside the casting host's own border box a `box-shadow` is not painted at
     // all, so the page is untouched there whatever the distance says.
@@ -2801,6 +2811,7 @@ describe("the outer shadow's paint order (X7)", () => {
         alpha: 0,
         signedDistanceToShadowBoxPx: 0,
         insideCaster: false,
+        casterSpanPx: 44,
       }),
     ).toBe(1);
   });

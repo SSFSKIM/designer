@@ -1224,9 +1224,19 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
          * edge density, which arrives by readback and is therefore resolved
          * here, like `bodyChainLod`. `adapt` is the filtered reading, so the
          * statistic the shader sees is the one the drivers have settled on
-         * rather than a raw frame's; where nothing has been observed it is 0,
-         * which is also the reference's default, so an unobserved source takes
-         * the operator's own zero.
+         * rather than a raw frame's.
+         *
+         * Where nothing has been observed the statistic is the material's own
+         * REFERENCE rather than 0 — the same gate `adaptStrength` takes two
+         * fields above, and for the same reason. The shader evaluates
+         * `gain · (statistic − reference)`, so a reference is the value at which
+         * the operator contributes nothing; passing 0 instead is that identity
+         * only while the reference happens to be 0, and the moment §5.159 fits
+         * one every unobserved frame would evaluate `gain · (0 − ref)` at full
+         * magnitude — a group whose backdrop readback has not landed yet would
+         * draw at the operator's full excursion and then step to its resting
+         * value. The reference says "no evidence", which is what an unobserved
+         * source has (W30 G2 review closure, claims §5.158 §8, finding 3).
          */
         outerShadowSigmaLaw: [
           shadow.sigmaSlopePerSpan,
@@ -1235,7 +1245,8 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         ],
         sizeScatterScaleGain: material.sizeScatterScaleGain,
         sizeScatterScaleRef: material.sizeScatterScaleRef,
-        backdropScaleStatistic: adapt?.edgeDensity ?? 0,
+        backdropScaleStatistic:
+          adapt?.observed === true ? adapt.edgeDensity : material.sizeScatterScaleRef,
         sizeHeavySecondShare: material.sizeHeavySecondShare,
         heavySecondEnabled: pyramid?.heavy2 !== undefined,
         ...(pyramid === undefined && input.unsampledMaterial !== undefined

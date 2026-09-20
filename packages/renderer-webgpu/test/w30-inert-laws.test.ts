@@ -86,7 +86,7 @@ describe("W30's σ law is the identity at the shipped leaves (claims §5.156 §2
     // optics pass slicing the facet off at the scissor. At the inert leaves the
     // span may not reach it.
     for (const occlusion of [0, 1 / 512, 0.05, 0.127, 0.33, 0.37, 0.448, 0.479, 1]) {
-      const base = outerShadowReachPx(SHADOW, occlusion);
+      const base = outerShadowReachPx(SHADOW, occlusion, 0);
       for (const spanPx of [0, 1, 32, 44, 96, 128, 130, 160, 320, 1000]) {
         expect(
           outerShadowReachPx(SHADOW, occlusion, spanPx),
@@ -117,6 +117,55 @@ describe("W30's σ law is the identity at the shipped leaves (claims §5.156 §2
     // And the reach follows it, which is what X8's two-sided recomputation is.
     expect(outerShadowReachPx(fitted, 0.293, 160)).toBeGreaterThan(
       outerShadowReachPx(fitted, 0.293, 44),
+    );
+  });
+
+  it("is non-decreasing in the span, which is what makes a group's reach a bound", () => {
+    /*
+     * The condition `outerShadowReachPx`'s doc comment states, asserted so that a
+     * fit inherits it as a test (W30 G2 review closure, claims §5.158 §8, finding
+     * 4).
+     *
+     * The optics pass's scissor pad and the CSS tier's group-shadow clip take the
+     * law at the LARGEST span among a group's members and call the result a bound
+     * on every member's. That is only true while σ is non-decreasing in the span
+     * — `sigmaSlopePerSpan ≥ 0`. At a negative slope the widest member would have
+     * the narrowest σ, the max over spans would be the wrong end of the law, and
+     * a thinner member's shadow would be sliced at the scissor while the CSS
+     * tier, which has no scissor, went on drawing it.
+     *
+     * Read at the shape §5.159 fits rather than at the inert leaves, because at
+     * the inert leaves every slope is 0 and the assertion is vacuous.
+     */
+    const fitted = {
+      ...SHADOW,
+      sigmaPx: 8.8,
+      sigmaSlopePerSpan: 0.133,
+      sigmaSpanRefPx: 96,
+      sigmaThinOffsetPx: -7,
+    };
+    expect(fitted.sigmaSlopePerSpan).toBeGreaterThanOrEqual(0);
+    const spans = [1, 8, 24, 32, 44, 64, 96, 128, 130, 160, 220, 320, 1000];
+    for (let index = 1; index < spans.length; index += 1) {
+      const wider = spans[index] ?? 0;
+      const thinner = spans[index - 1] ?? 0;
+      expect(
+        outerShadowSigmaPx(fitted, wider),
+        `σ fell between spans ${String(thinner)} and ${String(wider)}`,
+      ).toBeGreaterThanOrEqual(outerShadowSigmaPx(fitted, thinner));
+      // And the reach the pad is taken from follows σ, at the deepest amplitude
+      // the bed reaches, so the max over spans really is the max over reaches.
+      expect(
+        outerShadowReachPx(fitted, 0.479, wider),
+        `reach fell between spans ${String(thinner)} and ${String(wider)}`,
+      ).toBeGreaterThanOrEqual(outerShadowReachPx(fitted, 0.479, thinner));
+    }
+    // The fail-before half: a negative slope breaks the bound, so the condition
+    // is a condition and not a restatement of the law's form.
+    const inverted = { ...fitted, sigmaSlopePerSpan: -0.133, sigmaThinOffsetPx: -1e9 };
+    expect(outerShadowSigmaPx(inverted, 160)).toBeLessThan(outerShadowSigmaPx(inverted, 44));
+    expect(outerShadowReachPx(inverted, 0.479, 160)).toBeLessThan(
+      outerShadowReachPx(inverted, 0.479, 44),
     );
   });
 });
