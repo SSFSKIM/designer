@@ -3832,7 +3832,14 @@ fix that landed is a clamp on one argument; the generalisation is not there.
    test — sweep a material constant over the range a fit could reach and assert
    an invariant that does not depend on it. That case exists now for σ against
    coverage; the same shape is available for the lens depth, the scatter widths
-   and the tone response's knots.
+   and the tone response's knots. **Sweep the SCENE's axis too, not only the
+   material's** (added 2026-09-20, review closure; claims §5.159b §10, finding
+   11): what overflows here is a ratio of a caster's depth to its σ, so a sweep
+   that holds the geometry fixed covers half the exposure. The third case in
+   that file sweeps the depth at the macOS 26.5 σ and fails on the unfixed
+   renderer at a 340 px caster — a surface class the calibration bed does not
+   carry, and therefore one that no capture could ever have exposed. Every
+   guard of this kind wants both halves of whatever ratio it is guarding.
 3. A cheaper standing guard: `renderScene`'s readback already throws on a WebGPU
    validation error, and it could also refuse a raster whose alpha has a hole
    inside a declared silhouette. That is the signature a NaN leaves, and it is
@@ -3846,3 +3853,21 @@ cells are all span-44 casters and are exactly W20's 170 plus two. The shape of
 the explanation is a handful of exterior pixels whose falloff argument sat at the
 overflow boundary, and the way to settle it is (1) above: a range proof would say
 whether any pixel of that scene reaches it.
+
+*Split in two, 2026-09-20 (review closure; claims §5.159b §10, finding 2;
+`moved-cells.v2.txt`).* Per cell the four are not one population. Three are
+**texture** rows on the 2x-dark bed and move by at most 7.94·10⁻⁴
+(`shadow.falloffSigmaWeb`) and 8.86·10⁻⁴ (`shadow.centroidOffsetXWeb`); the
+paragraph above describes them, and (1) is still how they are settled. The
+fourth is `checkerboard__glass-over-glass__rest` on
+`apple-macos-27.0-1x-dark-standard-glass0.5`, **`dom` tier**, at **4.56·10⁻³** —
+five times the others, on a tier that has no shader and never evaluated the
+falloff for a pixel, so the overflow boundary cannot be its cause. **The
+candidate is this tracker's own standing class**, "The CSS tier's capture is not
+byte-reproducible across landings" above: a Playwright/compositor
+frame-rounding difference of one code, whose recorded instances include
+`checkerboard__glass-over-glass__rest` on a dark bed at W18's landing, which
+flips between landings and never within a day's runs — and G3's read and G3b's
+are two landings. Not settled: settling it wants that entry's own fix shape, the
+page settled for two animation frames before the CSS path's screenshot, and then
+a same-day control.

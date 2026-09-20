@@ -527,6 +527,18 @@ the CSS tier over pure black; inactive calibration cells above span 96 (a `scene
 evidence-visible); `samplingPaddingFor`'s advisory constant; the Reduced Transparency opacity policy
 and the impulse specular point (tracker); the slider's ends as evidence classes.
 
+**A third read of the holdout inside this wave would need a ruling** (added 2026-09-20, review
+closure; claims §5.159b §10, finding 13). Decision Log 5 (a) reads "once per frozen configuration",
+and the wave has spent two: G3 read the holdout at the sealed documents (124 rows) and G3b read it
+again at the same documents after the renderer fix, which is a second frozen configuration by the
+same rule that made G3's rows a generation of their own — the material did not move and the
+renderer did. That is two reads of one scene set inside one wave, each legitimate under the rule as
+written, and the rule does not by itself stop a third. G4's landing is not expected to want one:
+it fits nothing and reads nothing. If a later child does — a second renderer fix, a re-seal, a
+recapture — **the third read is the user's to rule on**, because "once per configuration" stops
+being a guard against fitting on the holdout the moment a gate can mint configurations. What a
+ruling would have to name is the smallest thing that makes a configuration new.
+
 ## Tracking Map
 
 | Child | Status | Claims section | Evidence |
@@ -536,6 +548,7 @@ and the impulse specular point (tracker); the slider's ends as evidence classes.
 | G2 | **CLOSED 2026-09-20.** The eight leaves landed at algebraic identities in one commit — `sigmaSlopePerSpan` / `sigmaSpanRefPx` / `sigmaThinOffsetPx` on `MaterialOuterShadow`, `sizeHeavySecondSigma` / `…2x` / `sizeHeavySecondShare` / `sizeScatterScaleGain` / `sizeScatterScaleRef` on `MaterialProfile`, every one 0 — with the merge lines, both allowlists, the CSS mirror of the σ law (and the five scatter leaves deliberately not mirrored), three new uniform vec4s, the shader evaluating both laws, and the second heavy texture as a third pyramid blur kind gated on its share. **No document was re-sealed**: the child measured that re-sealing the four macOS 27 documents drops 230 gated cells across six profiles and turns the chain red by 23 cases, which is this charter's own Surprise on the bed nobody checked, and the parent ruled Decision Log 4 — one record for all six documents, and a re-seal lands with its read from here on. Proofs: freeze intact at 1,818; goldens 34/34 byte-identical with no regen; the identity test green with the leaf list filled (`toStrictEqual`); the 1,107 gated-row pin; the CSS tier's 120 × 47 declarations character-identical to bytes recorded before a leaf existed; the inert laws swept over spans 1…1000 at both scales on both tiers; a `@gpu` case that opens the gate (widths-only Δ 0, share ∓1 Δ 41/32, sign Δ 73) — which **caught a real vec4 misalignment every inertness proof was green over**; `tier-coherence` green; chain green at 2,541 over 173; `window-activation` green at eight re-recorded hashes. **Reviewed and closed 2026-09-20 (§5.158 §8):** one blocking finding — the two RECEDED records' `currentSha256` were taken over the recede alone rather than over the composition a root draws, corrected beside to `035f537d9c27e3ed` / `4763b0d195fdb077` with `reseal.ts` now asserting its own construction and all six records recomputed independently — and six others: the σ and scatter vec4s each given an ON-path `@gpu` case (31 passed), the scale statistic's unobserved fallback moved from 0 to the material's reference, the reach's span made required with the bound's monotonicity condition asserted at the fitted shape, the declaration bed extended to both accessibility regimes against a pre-leaf fixture, a capture-path case for all eight leaves, the eight proof rows with no committed output rerun and committed, and the multiplied zero's finiteness clause. No document re-sealed, no frozen byte moved; chain 2,549 over 173 | §5.158 | `results/2026-09-20-w30-g2-leaves/`, `profiles/digest-supersessions.json` |
 | G3 | **CLOSED 2026-09-20 with one BLOCKING finding for the user.** The σ law fitted and held: `sigmaSpanRefPx` at 96, light `8.96 / 0.1314 / −6.8328` and dark `9.04 / 0.1340 / −6.9680`, the knee derived at span 44. **B1 MET jointly on both documents** at 4.318 % and 3.604 % of its 5 %, from four objectives `shadow-law.py` computes and names — an absolute least squares lands the light document OUTSIDE the joint window because a squared absolute residual weights a span-160 observation four times a span-96 one, and the adopted point maximises the smaller of B1's and B2's slacks with the slope held inside the range the served beds measure for themselves. **B2 MET** on every bed it names (1.155–1.419 of its 1.5, against 0.19.0's 5.97–7.34). The seven amplitude leaves solved from the departure over three rounds, the solve's linearity holding to 1.4 % at the last; **`thickOcclusionAt160` fitted for the first time in the project's history**, on the ladder's span-160 rungs. **B3's stop HELD at 0.00034 against 0.00035.** The scatter decided on five probe rounds: candidate (ii) adopted on the DARK document at −2 about 0.03 (1x dark 0.7474 → 0.9732 inside the window, 2x dark 0.6367 → 0.7665 toward it) and declined on the light one, candidate (i) declined on both, **both declines measurements** — a second tap wider than the first moves the gated cell by −0.0000 (§5.158 §6's trap, reproduced), and candidate (ii)'s statistic is scale-invariant BY CONSTRUCTION at 0.170 against 0.176, so it cannot act in opposite directions on two scales that need them. **B4 MISSED on three of four standard beds**, recorded. The four documents re-sealed with the seal asserting its own construction first, the four macOS 27 supersession records retired, 726 rows read and appended (332 gated, **270 ladder probe — the first macOS 27 probe row the matrix has ever held**, 124 holdout once), the split applied at §5.157 §8's invocation and the append-check 6/6 PASS. **The blocking finding (§5.159 §6, Decision Log 5 drafted):** at a thin caster the fitted σ exposes a latent renderer defect that leaves a strip of a 44 px surface undrawn — visible on the dark bed's capsule, **170 texture cells outside W20's adopted declaration conformance**, and reproducible on 0.19.0's own shipped document with `sigmaPx: 8` and no W30 leaf involved. The gate will not widen the bound nor re-fit σ around it | §5.159 | `results/2026-09-20-w30-g3-operators/` |
 | G3b | **CLOSED 2026-09-20.** §5.159 §6's blocking finding is **`tanh`**: the outer shadow's falloff is a tanh of a cubic in the distance to the shadow's silhouette in σ, and a backend that lowers `tanh` through `exp(2t)` — Metal's fast-math path — overflows f32 past `t = 44.3614`, which is **10.0610 σ inside the silhouette**, and the NaN reaches the composite's alpha through `shadowAlpha · (1 − coverage)` where a coverage of exactly 1 does not stop it. `nan-band.py` reproduces every row of §5.159 §6's bisect table to the row from that one expression with no free parameter, including the two that draw clean. **The fix is a ±20 clamp on the argument and is the identity** — tanh saturates to exactly 1.0 by |t| = 9.011 in f32 and 18.2 in f64 — so the **34 goldens are byte-identical** and `outerShadowReachPx`'s bisection does not move a digit; no material constant moves, no leaf, `DEFAULT_MATERIAL_PROFILE` untouched (X1). A **new `@gpu` case** at the fitted thin σ fails before at 652 of 4,780 capsule px undrawn (IoU 0.8636) and 132 of 4,308 toolbar px (0.9694) and passes after, with a σ sweep reading 0 / 0 / 784. **The fit does not move**: `shadow-law.py` re-runs byte-identical (B1, B2), **B3's whole block is byte-identical at 0.00034**, and B4's twelve gated readings are unchanged — predicted first on scratch, where `meanDepartureWeb` was bit-identical on all 49 light-standard texture cells because the NaN was only ever INSIDE the silhouette. The four documents carry a dated `$comment-w30-g3b` naming the fix, which moves the file hash and — asserted before and after — **not `resolvedMaterialSha256`**; `macos27-profile.ts` regenerates byte-identical. The bed re-read at those bytes: **726 rows** (332 gated, 270 ladder, 124 holdout once), `verdict.py` 0 native readings moved, the split applied and the append-check **6/6 PASS**, working file **1,833 rows / 66,075,976 B**. **Verdict: W20's declaration conformance 170 → 0 cells outside**, `PREDICATE_EXCLUDES` 83 → 68 with the fifteen span-44 cells all leaving, the **seven `MISSED_27_ROWS` unchanged and every one moving by +0.00000**, no floor adopted and no bound widened; 176 of 726 cells moved and 550 are bit-identical, 170 of the 176 being W20's own. **A second cost of the defect, found here**: the ladder's span-44 column read 5.3–10.2 where its neighbours read 0.5–1.5, so §5.159's `structure.txt` is a reading of the defect at that span and this gate's is the material's — the scatter's decisions stand, being stated on the span-96 gated cell. The **demo's build-time reduction** lands (Decision Log 5 (c)): main chunk **35,782.95 kB → 624.83 kB**, demo suite 34-and-a-dead-loader → **45 passed**, e2e **58 passed** with one case rewritten from a macOS 26.5 fact macOS 27 refutes. Chain green end to end: **2,555 unit tests, 0 failed** | §5.159b | `results/2026-09-20-w30-g3b-thin-strip/` |
+| G3 + G3b, review closure | **CLOSED 2026-09-20.** An independent read of both children found **no blocking finding**, twelve findings and one Deferred line; all thirteen are closed here, with every correction recorded BESIDE the text it corrects and no material constant, leaf, document, bound, floor or matrix row moved (X1; `freeze.py verify` 1,818 at open and close; no capture). **Three recorded numbers corrected**: `tanh`'s f64 saturation is |t| = **19.0615**, not the 18.2 this table's G3b row and two code comments carry — the ±20 clamp is still the identity above both and nothing about the fix moves; the dark document's reach pad is **12.76** at span 32 and **61.50** at span 220 (`reach-pad.txt`) against §5.159 §5's 12.94 / 58.36; G3's read was at **build 26A428**, as all three of its read logs say, against commit `f479ead4`'s 25A354. Two commit messages cannot be amended (`f479ead4`, `35ce02b1`) and the Revision Notes say so. **One tooling bug**: `moved-cells.py` compared an axis named `tierCoherence` that no cell carries, so the cross-tier axis was compared against nothing — **331 of 726 cells moved**, not 176, the 155 extra being `dom` cells whose only movement is on an axis that reads their paired texture cell; the 176 that move on an axis of their own, 170 of them W20's, stand. **The unexplained residual is two**: the largest of the four `glass-over-glass` movers is a **dom** row at 4.56·10⁻³, a tier the shader fix cannot reach (candidate cause: the tracker's standing one-code-between-landings class, whose named instance is that scene on a dark bed), against ≤ 8.9·10⁻⁴ on the three texture rows. **The exposure gains its second axis**: a third `@gpu` case sweeps DEPTH at the macOS 26.5 σ of 15.55 and fails on the unfixed renderer at **1,156 of 114,356 declared px undrawn** on a 340 px caster — so a `macos26MaterialProfileDocument` surface past about **307 CSS px** was drawing a strip of itself undrawn, which the changeset now states as the positive note it is. **The fit re-read two ways** (`shadow-law.v2.txt`): with the holdout leak closed the light document does not move and the dark reads 9.0405 / 0.13409 against 9.0393 / 0.13401, the same 9.04 / 0.1340 after the seal's rounding; at those rounded constants B1 is 4.3225 % and 3.5966 % against the fit's 4.3177 % and 3.6043 %. **`results/superseded/`**: `readUnderClaims` split into reader and mover, the README's table generated from the index with every digest and byte count asserted, `apply` now requiring `--read-claims`. Chain green: **2,556 unit tests, 0 failed**, 34 goldens with no regen, **34 `@gpu`**, demo build green, freeze intact | §5.159b §10 | `results/2026-09-20-w30-g3-operators/shadow-law.v2.txt`, `results/2026-09-20-w30-g3b-thin-strip/moved-cells.v2.txt` |
 | G4 | not dispatched | §5.160 | `results/2026-09-20-w30-g4-landing/` |
 
 ## Decision Log
@@ -768,6 +781,60 @@ stop it from merging. Ruled, on G3's draft (§5.159 §6):
   was found by taking the draft's own argument against a second field one step further.
 
 ## Revision Notes
+
+- 2026-09-20 (G3/G3b review closure): **an independent read of the two children
+  found no blocking finding, twelve findings and one Deferred line; all thirteen
+  are closed on this
+  branch** (claims §5.159b §10, which carries the per-finding table and the
+  chain). No material constant, leaf, document, bound, floor or matrix row moved
+  and no capture was taken; `freeze.py verify` reads 1,818 intact. What the
+  parent and G4 have to carry from it:
+  - **Three recorded numbers were wrong and are corrected BESIDE the text that
+    carries them**, never over it. `tanh` saturates in f64 at |t| = **19.0615**
+    and not 18.2 (the clamp is still the identity — 20 is above both — so
+    nothing about the fix or the goldens changes); the dark document's reach pad
+    is **12.76** at span 32 and **61.50** at span 220, which is what this wave's
+    own `reach-pad.txt` prints, against the 12.94 / 58.36 §5.159 §5 quotes; and
+    G3's read was taken on **build 26A428**, as all three of its read logs say
+    and as §5.159b §5 already recorded, where commit `f479ead4`'s message says
+    25A354. **Two commit messages cannot be amended and are noted instead**:
+    `f479ead4` for the build, `35ce02b1` for the 18.2.
+  - **A tooling bug that flattered a count.** `moved-cells.py` compared an axis
+    named `tierCoherence`, which no cell carries — the key is `coherence` — so
+    the cross-tier axis was compared against nothing. Corrected: **331 of 726
+    cells moved**, not 176; the 155 extra are `dom` cells whose only movement is
+    on an axis that reads their paired texture cell, so the 176 that move on an
+    axis of their own (170 of them W20's) still stands. The lesson generalises
+    past this script: **an axis list typed by hand against a schema is a silent
+    filter**, and the failure mode is a clean-looking negative.
+  - **The unexplained residual is two residuals, and one of them is not the
+    shader's.** Per cell the largest of the four `glass-over-glass` movers is a
+    **`dom`** row at 4.56·10⁻³, a tier the fix cannot reach; the three texture
+    rows are ≤ 8.9·10⁻⁴. The dom row's likelier home is the tracker's standing
+    "two CSS-tier cells differ by one code between landings" class, whose named
+    instance is that very scene on a dark bed. Recorded as a candidate, not
+    settled.
+  - **The exposure had one axis and the defect has two.** The `@gpu` case swept
+    σ at a fixed depth; a third case sweeps depth at a fixed σ and fails on the
+    unfixed renderer at the **macOS 26.5** σ of 15.55 — 1,156 of 114,356
+    declared pixels undrawn on a 340 px caster. So the fix is not about macOS
+    27's thin regime: a `macos26MaterialProfileDocument` surface past about 307
+    CSS px on its shorter side was drawing a strip of itself undrawn, and the
+    changeset now says so as the positive note it is.
+  - **The fit's population and the seal's rounding are both readings about the
+    fit.** `shadow-law.py` now takes `--fit-on non-holdout` (the fit sees what
+    its own table's label promises) and `--at-shipped` (B1 and B2 at the
+    constants the documents carry). Neither moves a shipped constant: the light
+    document does not move at all and the dark rounds to the same 9.04 / 0.1340.
+    Both defaults are unchanged, so `shadow-law.txt` is still what the bare
+    invocation produces and §5.159b §3's zero-line `diff` is still checkable.
+  - **`results/superseded/` had one field carrying two meanings**, and the README
+    that claimed to be generated from it was typed. `readUnderClaims` is now the
+    gate that READ the rows and `movedUnderClaims` the gate that moved them;
+    `split-generation.py apply` requires both and `readme` generates the table
+    from the index, refusing first if any recorded byte count or digest
+    disagrees with the file on disk. **G4's invocation gains `--read-claims`**;
+    the docstring carries it in full.
 
 - 2026-09-20 (G3b): **the strip was `tanh` overflowing f32, the fix is an
   identity, and the bed is re-read at the same material** (claims §5.159b;

@@ -26473,6 +26473,55 @@ contrast (1.4995 over 3), 1.341× on 1x dark (1.5446 over 6) and 1.360× on the
 confounded increased-contrast key, against the factor 1.5 either way. 0.19.0
 reads 5.97×, 7.34×, 7.12× and 7.22× on the same statistic.
 
+**Four readings recorded BESIDE this section, 2026-09-20 (W30 G3/G3b review
+closure; §5.159b §10, findings 5, 7 and 12).** Nothing above is rewritten and no
+constant moves; each is a number this section quotes at one precision or from one
+population, read again at the other. Evidence is `shadow-law.v2.txt` beside
+`shadow-law.txt`, from the same file at two new flags.
+
+- **B1 and B2 at the ROUNDED constants the seal wrote**, which is what the
+  material actually draws. The table above quotes the fit's own pair, four
+  significant figures further along:
+
+  | document | the fit, as adopted | the seal's rounded constants |
+  | --- | --- | --- |
+  | light | 8.96045 / 0.131392 — B1 **4.3177 %**, B2 1.4192 | 8.96 / 0.1314 — B1 **4.3225 %**, B2 1.4186 |
+  | dark | 9.03928 / 0.134013 — B1 **3.6043 %**, B2 1.3405 | 9.04 / 0.1340 — B1 **3.5966 %**, B2 1.3414 |
+
+  Both stay inside every pooled window at all three thick spans and the verdict
+  does not change; the rounding moves B1 by five parts in ten thousand of the
+  bound, in opposite directions on the two documents. `shadow-law.py --at-shipped`
+  reads the documents' own `patch.outerShadow` and prints the pair, so the clause
+  is held to the bytes rather than to the solve.
+- **The fit's slope range and grid read the POOLED medians, including holdout.**
+  `shadow-law.py`'s second table is labelled "non-holdout only (what the fit may
+  see)" and the adopted solve did not use it: `bed_slopes` and `joint_margin_fit`
+  were both passed `pooled`. B1's WINDOWS are declared on the pooled population
+  (§5.156 §5) and stay there, but the fit's own objective had no reason to. Re-run
+  with `--fit-on non-holdout`: **the light document does not move at all**
+  (8.9604 / 0.13139) and the dark moves to **9.0405 / 0.13409** against
+  9.0393 / 0.13401 — the same 9.04 / 0.1340 after the rounding the seal applies,
+  so no shipped constant is affected and nothing is re-sealed. Recorded because
+  the fit's population is a claim about the fit, not about the answer.
+- **The dark document's adopted slope sits at the TOP of its measured range.**
+  Its two beds measure 0.1297 (2x) and 0.1340 (1x), and the adopted 0.13401 is
+  the range's upper end: the constraint that keeps the slope inside the beds'
+  own range is ACTIVE on that document, so the joint-margin objective would have
+  taken a steeper slope had the bed admitted one. The light document's 0.13139
+  sits inside [0.1284, 0.1329] with room on both sides. What that says is where
+  the dark fit's freedom ran out — the two-bed range is narrow because there are
+  only two beds — and it is the reading a later wave would re-open first if the
+  dark thick regime needed more.
+- **The confounded increased-contrast key reads TWO B2 figures**, one per
+  document, and §1's list quotes only the dark document's. `1x
+  light-increased-contrast` is W29 Decision Log 5's confounded key, printed and
+  never fitted on, and it is printed under both schemes: **1.397× judged against
+  the light document's law** (2.1281 over a bed median of 1.5228) and **1.360×
+  judged against the dark document's** (2.0706 over the same median). Both are
+  inside the factor 1.5. The figure is a property of a (law, bed) pair, so a
+  reading of a bed that no document is fitted on has to name which law it is
+  read under.
+
 ### 2. The seven amplitude leaves, and the linearity that lets one round solve them
 
 The objective is the shadow axis's own `meanDeparture` — the mean of
@@ -26539,7 +26588,12 @@ the fold's compromise absorbs it. Recorded, not fitted.
 
 Three passes at the four sealed documents, each refused by `canonical-read.sh` at
 any other bytes, each with the machine read X6 asks for before and after — RT 0,
-IC 0, `NSGlassTintAmount` 0.5, one capture process, macOS 27.0:
+IC 0, `NSGlassTintAmount` 0.5, one capture process, macOS 27.0 — **build 26A428**,
+added here 2026-09-20 (review closure, §5.159b §10, finding 9) so that this read
+names its build as §5.159b §5 names the same one: all three of this gate's
+`canonical-read-*.txt` logs open `machine: 27.0/26A428`. Commit `f479ead4`'s
+message says `27.0/25A354`; that is a typo in a message, contradicted by the
+evidence it committed, and a commit message cannot be amended after the fact:
 
 | pass | rows | what it is |
 | --- | ---: | --- |
@@ -26674,7 +26728,13 @@ slope inverts the group reach's bound. On the light document, in CSS px:
 
 **The smallest pad the law produces is 13.39 CSS px at span 32 and the largest
 57.40 at span 220**, against one number — 31.88 — at every span before. The dark
-document reads 12.94 and 58.36 over the same range. The group bound is computed as
+document reads 12.94 and 58.36 over the same range. *(Corrected beside,
+2026-09-20, review closure, §5.159b §10, finding 3: `reach-pad.txt`, this gate's
+own evidence, reads the dark document at **12.76** at span 32 and **61.50** at
+span 220, against 17.10 and 32.56 before — −25.3 % and +88.9 %. The pair quoted
+in the sentence above is in neither column of that file at either span; the
+file's figures are the ones this gate measured and the ones a later child should
+carry.)* The group bound is computed as
 a bound and shown to be one: three members at 44, 96 and 160 reach 13.41, 23.74
 and 42.93, and `reach(max occlusion, max span)` is 42.93, which contains all
 three. The backdrop sampling pad does not move at all — `samplingPaddingFor` is
@@ -26707,7 +26767,16 @@ the macOS 27 light document **as 0.19.0 ships it** with one constant changed —
 at anything but its inert value: `shape.silhouetteAreaWeb` reads 4872 at σ 11 and
 2715 at σ 8 against a declared region of 4872. It is a latent defect that no
 shipped material had ever reached, because every σ the project has shipped is
-above 10 CSS px.
+above 10 CSS px. *(Scoped beside, 2026-09-20, review closure, §5.159b §10,
+finding 4: "no shipped material had ever reached" is true of **the bed**, whose
+deepest component is 160 CSS px, and not of every surface a shipped material can
+draw. The overflow is at 10.061 σ inside the shadow's silhouette, so at the macOS
+26.5 σ of 15.55 with the shipped spread of 3.1 it sits at a half-depth of 153.35
+CSS px: a surface past about **307 CSS px** on its shorter side reached it under
+0.18.0 and 0.19.0 at the macOS 26.5 material too. Measured on the fixed renderer's
+own case — 1,156 of 114,356 declared pixels undrawn at σ 15.55 with the clamp
+removed, §5.159b §10 finding 11 — and nothing in the bed is that deep, which is
+why no capture had ever shown it.)*
 
 **What it is a function of, measured over eight one-scene captures.** Not the
 shadow's AMPLITUDE: taking `thinOcclusionMid` to 0 — and with it the shadow's
@@ -27003,7 +27072,17 @@ by |t| = 9.011 and in f64 by |t| = 18.2, so every |t| above 20 already returned
 exactly ±1 wherever the unclamped form returned anything at all. ±20 is the
 smallest round bound above f64's own saturation point, which is what lets the
 same clamp stand in the JS mirrors without moving a digit of
-`outerShadowReachPx`'s bisection. No material constant moves, no leaf is added,
+`outerShadowReachPx`'s bisection. *(Corrected beside, 2026-09-20, review closure,
+§10, finding 6: **f64's saturation point is |t| = 19.0615**, not 18.2 — measured
+by bisection on the double grid, `tanh(19.061547465398494) = 1 − 1e−16` and
+`tanh(19.061547465398498) = 1.0` exactly; `tanh(18.7)` and `tanh(19.0)` are both
+under 1. f32's 9.011 is right (9.010913…). **The clamp and every consequence of
+it stand**: 20 is still above 19.0615, so the bound is still the identity in both
+precisions and the goldens' byte-identity is still what that predicts — the
+margin over f64 is 0.94 rather than 1.8. Corrected at the two code sites that
+quoted 18.2 (`src/wgsl/optics.ts`, `renderer-webgpu/src/material.ts`) and beside
+the charter's Tracking Map row. Commit `35ce02b1`'s message carries the same
+figure and cannot be amended; the charter's Revision Notes say so.)* No material constant moves, no leaf is added,
 `DEFAULT_MATERIAL_PROFILE` is untouched (X1).
 
 | proof | result |
@@ -27131,6 +27210,43 @@ did not move at all: their largest move is 8·10⁻⁴ CSS px on a fitted σ who
 residual is 10⁻², a handful of exterior pixels where the falloff's argument sat at
 the overflow boundary. Recorded, not chartered.
 
+**Two corrections to the paragraph above, beside it** (2026-09-20, review closure,
+§10, findings 1 and 2; `moved-cells.v2.txt`, read over the working file plus the
+two superseded files the split had by then separated, and reproducing the same
+726 paired cells):
+
+- **The comparison skipped the cross-tier axis.** `moved-cells.py`'s `AXES` named
+  `tierCoherence`, which no cell carries — the matrix keys that axis `coherence` —
+  so it was compared against nothing. Corrected, **331 of 726 cells moved and 395
+  are bit-identical**. The 155 extra are all `dom` cells whose ONLY moving axis is
+  `coherence`, and that is a reading of the CSS tier AGAINST its paired texture
+  cell: a dom cell moves there exactly when its texture twin moved, on a tier that
+  never ran the shader. So the two readings say different things and both stand —
+  **176 cells moved on an axis of their own** (of which 170 are W20's) and 155
+  more moved only in their relation to a cell that did. `moved-cells.txt`'s
+  parenthetical "a span-44 cell on the `dom` tier is expected NOT to move" is true
+  of that tier's own axes and the opposite of the truth for `coherence`, where 140
+  `capsule-button` and 12 `toolbar-group` dom cells move.
+- **"their largest move is 8·10⁻⁴" is the largest over three of the four.** Per
+  cell: `checkerboard__glass-over-glass__inactive` and `…__rest` on the 2x-dark
+  bed's texture tier move by at most **7.94·10⁻⁴** (`shadow.falloffSigmaWeb`)
+  and `photo__glass-over-glass__inactive`, same bed and tier, by **8.86·10⁻⁴**
+  (`shadow.centroidOffsetXWeb`) — but the fourth is
+  `checkerboard__glass-over-glass__rest` / `apple-macos-27.0-1x-dark-standard-glass0.5`
+  on the **`dom`** tier, at **4.56·10⁻³** on `shadow.centroidOffsetXWeb`, and that
+  tier has no shader for the fix to have reached. **The residual is therefore two
+  residuals.** The three texture cells are plausibly the boundary case the
+  paragraph names — a handful of exterior pixels whose falloff argument sat at the
+  overflow. The one dom cell is not, and its likelier home is the standing class
+  the tracker has held since W15: *two CSS-tier cells differ by one code between
+  landings*, a Playwright/compositor frame-rounding difference whose recorded
+  instances are `checkerboard__glass-over-glass__rest` on a dark bed and
+  `hc-text__capsule-button__rest` at 2x light, flipping between landings and never
+  within a day's runs. This cell is that scene on that scheme, its `shape` axis
+  unmoved, and it is a **dom** row in a comparison whose two sides are two
+  landings. Recorded as the candidate cause, not settled: settling it wants the
+  same-day control the tracker's entry already names as its fix shape.
+
 **`tier-coherence`'s twelve readings are unchanged** and its relation case still
 holds. The 27 adopted tables stay at the values W29 Decision Log 4 (a) and
 Decision Log 5 ruled; **no floor is adopted and no bound is widened**.
@@ -27213,3 +27329,67 @@ the DOM. The other 57 cases are unchanged.
 | `verdict.py` | **0 native readings moved** over 726 keys present in both generations |
 | `comment-generation.ts` | four documents commented, each asserting its own construction before and its digest's stillness after |
 | W20 declaration conformance | **0 cells outside** the adopted bound, against §5.159 §6's 170 |
+
+### 10. Review closure (2026-09-20)
+
+An independent read of W30 G3 (§5.159) and G3b (§5.159b) — the fit, the seal, the
+shader fix, the re-read and the split, read against the committed evidence and not
+against the prose — returned **no blocking finding**, twelve findings and one
+Deferred line. All thirteen are closed here, on the tree the two children left.
+**No byte under a macOS 26.5-keyed path moved and no material constant, leaf,
+document, bound, floor or matrix row moved** (X1); no capture was taken (X5);
+`freeze.py verify` reads 1,818 intact at this closure's open and close. Three
+recorded numbers were wrong: each correction is written **beside** the text that
+carries it, dated, and none is rewritten over.
+
+| # | what the review found | what the closure did | where |
+| ---: | --- | --- | --- |
+| 1 | `moved-cells.py`'s `AXES` named `tierCoherence`; the matrix keys that axis `coherence`, so the cross-tier axis was compared against nothing | Name fixed; the script gained `--also` so it runs after the split; re-run over the working file plus the two superseded files, reproducing the same 726 paired cells. **331 moved / 395 identical**, the 155 extra all `dom` cells whose only moving axis is `coherence`. `moved-cells.txt`'s parenthetical corrected beside | `moved-cells.v2.txt`; §6 |
+| 2 | "largest move 8·10⁻⁴" is the largest of three; the fourth is a **dom** cell at 4.56·10⁻³ | The residual split in two — three texture cells at ≤ 8.9·10⁻⁴ (the overflow boundary) and one dom cell the shader cannot reach, cross-referenced to the tracker's standing one-code-between-landings class as the candidate cause | §6; tracker |
+| 3 | §5.159 §5 quotes 12.94 / 58.36 for the dark reach; `reach-pad.txt` reads 12.76 / 61.50 | The evidence's figures recorded beside, citing the file | §5.159 §5 |
+| 4 | The changeset's "keeps exactly what 0.18.0 drew" is not strictly true after the clamp | Rewritten as the positive note it is: no constant moves, the bed is pixel-identical, and a macOS 26.5 surface deeper than about 307 CSS px now draws whole where it showed a strip. §5.159 §6's "no shipped material had ever reached" scoped to the bed, beside | `.changeset/w30-g3-span-graded-shadow.md`; §5.159 §6 |
+| 5 | `shadow-law.py` fits on pooled medians where its own table's label says non-holdout | `--fit-on non-holdout` added (default unchanged, so `shadow-law.txt` is still what the bare invocation produces): light unmoved, dark 9.0405 / 0.13409 against 9.0393 / 0.13401 — **the same 9.04 / 0.1340 after the seal's rounding**. The dark slope's position at the top of its measured range recorded beside | `shadow-law.v2.txt`; §5.159 §1 |
+| 6 | "tanh saturates in f64 by \|t\| = 18.2" is wrong | Measured: **f64 saturates at \|t\| = 19.0615**, f32's 9.011 is right. ±20 is above both, so the clamp is still the identity and nothing about the fix moves. Corrected at §2, in `wgsl/optics.ts` and in `renderer-webgpu/src/material.ts`, and beside the charter's row; commit `35ce02b1` cannot be amended and the Revision Notes say so | §2; two code comments; charter |
+| 7 | §5.159 §1 quotes B1 from the unrounded fit, not from the constants the seal wrote | `--at-shipped` prints both: **4.3225 % / 3.5966 %** at the documents' own leaves against the fit's 4.3177 % / 3.6043 %, still inside every window | `shadow-law.v2.txt`; §5.159 §1 |
+| 8 | `index.json`'s `readUnderClaims` held the mover where README's table held the reader | Field split — `readUnderClaims` (the gate that read) and `movedUnderClaims` (the gate that moved) — `apply` now requires `--read-claims`, and the README's table is **generated** by `split-generation.py readme`, which asserts every recorded byte count and digest against the file on disk before writing. Every digest and count unchanged | `results/superseded/`; `split-generation.py` |
+| 9 | Commit `f479ead4` says build 25A354; every log reads 26A428 | The build added to §5.159 §3 beside §5.159b §5's, with the message's typo named there and in the charter's Revision Notes | §5.159 §3; charter |
+| 10 | `PROJECTED` is not pinned to `figuresOf` | A case runs both over one synthetic cell carrying every metric any row in the file carries, and requires the figure lists to be equal — so a figure added to the page and not to the plugin fails here. Mutation-checked by dropping `ssimMean` from `PROJECTED`: the case fails | `apps/demo/test/matrix-reduction.test.ts` |
+| 11 | The `@gpu` case sweeps σ, not depth | A third case and a new scene: a **340 × 340** caster at the macOS 26.5 σ of 15.55, which clears 10.06 σ at a half-depth of 153.35 CSS px. It fails on the unfixed renderer at **1,156 of 114,356 declared px undrawn (IoU 0.9899)**, measured by unclamping the shader on this branch, and passes on the fixed one. The depth axis named in the tracker's fix shape | `w30-thin-sigma-coverage.spec.ts`; `e2e/fixtures/scenes.ts`; tracker |
+| 12 | §5.159 §1's B2 list quotes one of the confounded key's two figures | Both recorded beside, each naming the document it is judged against: **1.397×** under the light document, **1.360×** under the dark | §5.159 §1 |
+| 13 | The holdout was read twice on one scene set inside this wave | A Deferred line: both reads are legitimate under Decision Log 5 (a) as written — the renderer fix made a second frozen configuration — and a **third would need a ruling**, because "once per configuration" stops guarding the moment a gate can mint configurations | charter, Deferred |
+
+**The three corrected numbers, in one place**, so that a later child does not have
+to reconstruct which reading is current:
+
+| quantity | as recorded | as measured here |
+| --- | --- | --- |
+| `tanh`'s f64 saturation | \|t\| = 18.2 (§2, `35ce02b1`, two code comments, the charter's row) | **\|t\| = 19.061547465398498**, by bisection on the double grid; 18.7 and 19.0 both return 1 − 1e−16 |
+| the dark document's reach pad | 12.94 at span 32, 58.36 at span 220 (§5.159 §5) | **12.76** and **61.50** (`reach-pad.txt`, this wave's own evidence) |
+| G3's read, macOS build | 27.0/25A354 (`f479ead4`'s message) | **27.0/26A428** (all three `canonical-read-*.txt`, and §5.159b §5) |
+
+**What this closure does not claim.** No capture (X5). No fit re-opened: the two
+`shadow-law.py` flags are readings beside the adopted one and the adopted constants
+do not move, so nothing is re-sealed, no document's bytes change and the
+generation the working file holds is still G3b's. The dom cell of finding 2 is
+recorded with a candidate cause and is not settled; the range proof the tracker
+asks for would settle the three texture cells, and a same-day control would settle
+the fourth.
+
+### 11. Verification record, at the closure
+
+| step | result |
+| --- | --- |
+| `pnpm -r build` | exit 0 |
+| `pnpm -r lint` | exit 0 across all nine packages |
+| `pnpm -r test` | **2,556 passed, 0 failed** — policy 23, motion 164, geometry 170, renderer-webgpu 511, core 302, platform-web 631, react 163, calibration **546 of 546**, demo **46** (§9's 2,555 plus finding 10's case) |
+| `pnpm --filter @vitrea/renderer-webgpu test:golden` | **34 passed**, no regen; `git status` over `e2e/goldens` empty |
+| `test:gpu` | **34 passed** (§9's 33, plus finding 11's case) |
+| the same spec on the UNCLAMPED shader | **3 failed**, the new case at 1,156 of 114,356 declared px undrawn — the exposure is an exposure |
+| `pnpm --filter demo build` | exit 0 |
+| `python3 results/2026-09-16-w29-freeze/freeze.py verify` | **26.5 freeze intact: 1818 entries**, at open and close |
+| `git diff main` over `profiles/apple-macos-26.5*` and `apps/reference-apple/fixtures` | empty (X1, X5) |
+| `split-generation.py plan` | 1,833 rows, **1,833 retained, 0 moved** — the working file is still one generation per profile |
+| `classifier-selftest.py` | output `diff`s to zero lines against its committed witness |
+| `shadow-law.py` with no flags | output `diff`s to zero lines against `shadow-law.txt`, and `shadow-law.json` is unmodified |
+| `moved-cells.py --also …` | 726 paired cells, the same population the pre-split run read |
+| `results/superseded/` digests and byte counts | all six unchanged, asserted by `readme` before it writes |
