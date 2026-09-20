@@ -193,8 +193,9 @@ content exactly as the app wrote it.
 | interaction channels | `GLASS_CHANNEL_PROPERTIES` — write 0..1, the material reads |
 | findings | `root.diagnostics`, `consoleDiagnosticSink()`, `VitreaDiagnostic` |
 | capability answers | `root.capabilities(groupId)`, `root.accessibility`, `root.webgpu`, `root.colorScheme`, `root.windowActivation` |
-| how far apart two groups must sit | `samplingPaddingFor({ members, material })` |
-| colour scheme | `colorScheme: "light" \| "dark" \| "auto"`, `root.setColorScheme`, `darkMaterialProfile` |
+| how far apart two groups must sit | `samplingPaddingFor({ members, material, profile?, cssTierMapping? })` |
+| which measured material draws | `materialProfileDocument`, `macos27MaterialProfileDocument`, `macos26MaterialProfileDocument`, `root.material` |
+| colour scheme | `colorScheme: "light" \| "dark" \| "auto"`, `root.setColorScheme` |
 | window activation | `windowActivation: "auto" \| "active" \| "inactive"`, `root.setWindowActivation`, `setWindowActivation(root, value)`, `recededMaterialProfile` |
 | WebGPU | `renderer: "webgpu"`, `root.ready()`, `root.replaceDevice(device)` |
 
@@ -214,18 +215,21 @@ material rather than the light one dimmed. Ask for it at the root:
 const root = createGlassRoot({ colorScheme: "auto" }); // "light" | "dark" | "auto"
 ```
 
-`"light"` is the default, and it is the material the renderer's own constants
-are: nothing moves for an app that upgrades into this option. `"dark"` selects
-`darkMaterialProfile`, the patch recorded in vitrea's own calibration profile for
-Apple's dark-mode material, and `"auto"` follows `prefers-color-scheme` and
+`"light"` is the default. The scheme picks one endpoint out of the material
+document the root selected — under the default document that is the macOS 27
+light or dark patch, and under `macos26MaterialProfileDocument` it is the macOS
+26.5 pair, whose dark half is the exported `darkMaterialProfile` and whose light
+half is the renderer's own constants. `"auto"` follows `prefers-color-scheme` and
 re-derives both tiers when the system flips. `root.colorScheme` reports which of
 the two is actually drawing, and `root.setColorScheme(...)` changes it on a live
 root — a scheme change is a material change, not a reason to tear a root down.
 
-An app that resolves its own scheme somewhere vitrea cannot see can pass the
-patch directly (`materialProfile: darkMaterialProfile`), and an app that wants
-the dark material with a tuning of its own can do both: the scheme selects the
-base and `materialProfile` merges over it, leaf by leaf.
+An app that resolves its own scheme somewhere vitrea cannot see can name the
+endpoint directly (`materialProfile: macos27DarkMaterialProfile`), and an app
+that wants a scheme's material with a tuning of its own can do both: the scheme
+selects the base and `materialProfile` merges over it, leaf by leaf. Take the
+endpoint from the document the root is drawing — a macOS 26.5 patch over the
+macOS 27 base is neither measured material.
 
 ### Which macOS the material is measured against, and how to choose
 

@@ -159,13 +159,31 @@ describe("GlassRoot's material props", () => {
     const untuned = tintAlphaOf(mounted.root());
     const before = mounted.root();
 
+    expect(mounted.root().material.tuned).toBe(false);
+
     mounted.tune({ optics: { regular: { tintAlpha: 0.8 } } });
     mounted.frame();
     expect(tintAlphaOf(mounted.root())).not.toBeCloseTo(untuned, 6);
+    expect(mounted.root().material.tuned).toBe(true);
 
     mounted.tune(undefined);
     mounted.frame();
     expect(tintAlphaOf(mounted.root())).toBeCloseTo(untuned, 6);
+
+    /*
+     * And the READOUT goes back with the material (W29 G4 review closure).
+     *
+     * This binding withdraws a tuning by sending the empty patch rather than by
+     * skipping the call, so the root holds `{}` here and not `undefined` — and a
+     * `tuned` that asked whether it held anything at all answered "yes" to a page
+     * drawing the shipped material untouched. The endpoint's digest does not move
+     * across any of this; `tuned` is the field that says whether the digest is
+     * still a description of what drew, so over-reporting it is the one way this
+     * readout can lie while every number in it is right.
+     */
+    expect(mounted.root().material.tuned).toBe(false);
+    expect(mounted.root().material.resolvedMaterialSha256)
+      .toBe(macos27MaterialProfileDocument.active.light.resolvedMaterialSha256);
 
     // The same root throughout: a material change must not rebuild the runtime.
     expect(mounted.root()).toBe(before);

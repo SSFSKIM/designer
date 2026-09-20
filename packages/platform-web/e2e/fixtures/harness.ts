@@ -17,6 +17,8 @@ import {
   createBackdropProxyManager,
   createGlassLayerManager,
   createGlassRoot,
+  macos26MaterialProfileDocument,
+  macos27MaterialProfileDocument,
   MATERIAL_OPTICS,
   type BackdropProxyManager,
   type GlassHostHandle,
@@ -106,7 +108,22 @@ export interface RootSpec {
   /** W21 G3: which colour scheme's material the root draws. Default light. */
   readonly colorScheme?: "light" | "dark" | "auto";
   readonly windowActivation?: GlassWindowActivation;
+  /**
+   * W29 G4: which shipped material the root selects, by name.
+   *
+   * A token rather than the document itself, because a `RootSpec` crosses the
+   * driver seam as an argument to `page.evaluate` and the thing selected has to
+   * be the module's own object on the page's side — a structured clone of it
+   * would be an equal material that is not the shipped one, and identity is half
+   * of what the specs reading this seam assert.
+   */
+  readonly materialDocument?: "macos26" | "macos27";
 }
+
+const MATERIAL_DOCUMENTS = {
+  macos26: macos26MaterialProfileDocument,
+  macos27: macos27MaterialProfileDocument,
+} as const;
 
 export interface TextureGroupSpec {
   readonly groupId: string;
@@ -275,6 +292,9 @@ const api = {
       devMode: spec.devMode ?? true,
       autoStart: false,
       ...(spec.colorScheme === undefined ? {} : { colorScheme: spec.colorScheme }),
+      ...(spec.materialDocument === undefined
+        ? {}
+        : { materialProfileDocument: MATERIAL_DOCUMENTS[spec.materialDocument] }),
       ...(device === undefined || load === undefined
         ? {}
         : { webgpu: { device: device as unknown as GPUDevice, load } }),

@@ -3605,8 +3605,58 @@ What is weaker is the **discrimination**: the case's floor moved from 8 codes to
 1, so a future regression that flattened the band the rest of the way has 2 codes
 of margin to be caught in rather than 8.
 
+*Amended 2026-09-20 (W29 G4 review closure, claims §5.155): the margin as a
+number. The assertion is `> 1` and the material reads **2**, so the case stands
+**one code** above its own floor — a single code of drift turns it red, and there
+is no room at all between a real flattening and a false alarm. "2 codes of margin
+to be caught in" above is the width of the band that remains; the headroom the
+case has before it fails is 1.*
+
 **The fix shape**: read the band at a size where it is widest under this material
 rather than at the size W16 happened to choose — the ramp's reach is 80 CSS px at
 1x, so a surface a little over twice that separates the two depths by the most
 the law allows. That is a fixture change and a re-measurement, not a material
 one, and it should be done from the law rather than by trying sizes.
+
+---
+
+## `GlassToolbar` opens its split at the default document's blur, whatever document its root selected (W29 G4 review closure, 2026-09-20)
+
+*Found 2026-09-20 by the independent review of the W29 G4 landing (claims
+§5.155); the seam is `packages/react/src/controls/toolbar.tsx` around the
+`samplingPaddingFor` call and `packages/platform-web/src/optics.ts`'s
+`defaultSamplingProfile` / `defaultSamplingMapping`.*
+
+`samplingPaddingFor` gained two optional arguments at W29 G4, `profile` and
+`cssTierMapping`, so a caller drawing a material other than the default can ask
+that material's question. `GlassToolbar` is the caller the function was exported
+for, and it cannot pass either: the gap is derived inside the component from
+`useGlassAccessibility()` and the partitions' own props, and nothing in the React
+surface tells it which **material document** the root selected. So a React app on
+`macos26MaterialProfileDocument` opens its split at the macOS 27 blur.
+
+**The error is one-directional and it is the safe direction.** The default
+document's `blurSigmaScale` is 2.2 against the module's 1, and the padding is
+linear in the blur it is 3σ of, so the toolbar opens exactly 2.2× what the macOS
+26.5 material needs — over-padding, never under. Nothing overlaps, no diagnostic
+fires and no floor is missed; what the app gets is a wider gap than its material
+asks for, at the one size it is least likely to notice, and the mis-statement is
+in a layout rather than in a readout.
+
+**Not fixed in the 0.19.0 cut, deliberately.** The React surface has no accessor
+for the selected document — `root.material` is the resolved IDENTITY (name,
+platform, endpoint key, digest, `tuned`) and not the document's two halves — so
+closing it means adding public API to a prepared, versioned cut, which is a
+larger change than the defect. It is also invisible to a page on the default
+document, which is every page that does not opt out.
+
+**The fix shape**, in the order of increasing cost: carry the selected document
+on `GlassRootHandle` beside `root`, `ticker` and `profile`, where the toolbar
+already reads through `useGlassRootHandle()`, and pass its `active[scheme].patch`
+and `cssTierMapping` through; or give `GlassRoot` a `samplingPaddingFor`-shaped
+accessor so the composition lives in one place and no consumer has to hold two
+halves of a document. The first is additive and local; the second is the one to
+take if a second layout consumer ever appears, because it is the same argument
+that made a material a document rather than two options. Either way the case to
+write is a React toolbar on `macos26MaterialProfileDocument` whose gap equals the
+macOS 26.5 padding rather than 2.2× it.

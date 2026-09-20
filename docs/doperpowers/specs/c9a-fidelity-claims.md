@@ -24657,3 +24657,179 @@ Four new residuals are in the tracker beside them, all found by this landing: th
 overshoot over a pure black backdrop, the heavy-share band flattening from 8 codes to 2, the tone
 stage's three bodies not being ordered by span at the curve's first anchor, and core's advisory
 sampling padding crossing from "wider than needed" to "a warning an upgrading app will see".
+
+### 10. The review closure — nine items, no number rewritten
+
+**Closed 2026-09-20 on this gate's own branch**, against an independent read-only review that found
+the cut publishable after amendments. **No material constant, profile document, fixture, golden,
+matrix row, bound or floor moves here**, the version stays **0.19.0** and the cut stays unpublished,
+and the consumed changesets are not re-created — the one CHANGELOG addition below is written into
+`packages/platform-web/CHANGELOG.md` directly, because the changeset that produced that entry is
+spent. Every figure below was recomputed at the closure rather than carried across from the review,
+and where one corrects a figure already recorded it stands **beside** it.
+
+**1. The macOS 26.5 selection is pinned, in two places and from both sides.** Nothing checked that
+`materialProfileDocument: macos26MaterialProfileDocument` still resolves to the macOS 26.5 material.
+§3's table and `macos27-profile-export.test.ts` pin the default document; `tuned-profiles.test.ts`
+pins the two macOS 26.5 *profile documents* against the renderer; and no case stood between them on
+the seam the landing actually moved. A wiring change in `colorSchemeMaterialProfile` would have left
+every one of those green while a page asking for macOS 26.5 drew macOS 27.
+
+`packages/calibration/test/macos26-document-selection.test.ts` is the node half: it resolves what the
+document's active endpoints *select* over `DEFAULT_MATERIAL_PROFILE` and fingerprints it with
+`tuned-profiles.test.ts`'s own canonicalising digest, against **`b2b570e4adcea8fb`** (light) and
+**`874be66ea501621b`** (dark), and it holds the two hand-written digests in `material-document.ts` —
+the only hand-written digests in either shipped document — to those same two files. Five cases. It is
+named for what it pins rather than `macos26-profile-export.test.ts`: there is no generated macOS 26.5
+export module for it to be the sibling of, `dark-profile-export.test.ts` already owns the one macOS
+26.5 patch that is generated, and what this file reads is the selection.
+
+`platform-web/e2e/shared/window-activation.spec.ts` is the browser half: the loop now runs over both
+shipped documents, and the four macOS 26.5 literals are **restored from `fbf59ca6`**, the commit
+before the landing, rather than re-derived — so what the case asserts is that the material the
+renderer is handed under `macos26MaterialProfileDocument` is byte-identical to the material it was
+handed when that was the default. The eight digests, written to stdout identically on all three
+engines at this closure:
+
+| document | scheme | active | receded |
+| --- | --- | --- | --- |
+| macOS 26.5 | light | `b2b570e4adcea8fb…ac138306` | `6dcb32c422639d0d…55a2b689` |
+| macOS 26.5 | dark | `874be66ea501621b…62c0d4dc` | `70391dee6d9990c2…7a2b7326` |
+| macOS 27 | light | `e825cb034c9070e4…c52e155f` | `8dc63b265c1de038…9d2867ff` |
+| macOS 27 | dark | `8439eb808495f5bf…9de83c3c` | `3264b6cdde64bc8b…2aec5196` |
+
+The two macOS 26.5 **receded** digests are the ones this case exists for: those endpoints were fitted
+straight into `receded-profile.ts` at W27c and W28 G1, there is no profile document on disk to join
+them to, and this is the only pin they have anywhere in the repository.
+
+The gate was asked to run that spec on the `chromium-gpu` project and it cannot be: the file is in
+`e2e/shared` and `chromium-gpu`'s `testDir` is `e2e/gpu`, so that project matches no test in it
+(`No tests found`, recorded). Moving it there would take it *off* Gecko and WebKit for no gain — it
+drives the WebGPU seam through the harness's stub device and asserts a material rather than a pixel,
+so it needs no adapter — and the three-engine run is the stronger reading. The harness gained one
+option to make the loop expressible, `RootSpec.materialDocument`, a token rather than the document
+itself because a structured clone across the driver seam would be an equal material that is not the
+shipped object.
+
+**2. The `tuned` readout over-reported after a React withdrawal, and now does not.** `<GlassRoot>`
+takes a tuning back by calling `setMaterialProfile({})` rather than by skipping the call — a root
+that kept the last patch it was handed would go on drawing a material the app has stopped asking for
+— and `tuned` asked `hostProfile !== undefined`, so a page that had withdrawn its tuning went on
+being reported as tuned for the rest of the root's life. That field is what keeps the other four from
+being a decoration (§2), so over-reporting it is the one way this readout can lie while every number
+in it is right. `root.ts` gains `namesAValue`, a recursive emptiness test — `{ optics: {} }` merges
+to the identity exactly as `{}` does — and `tuned` is that predicate over the host patch and over
+`options.cssTierMapping`.
+
+**The digest does not move with it, and that is the point.** `resolvedMaterialSha256` is the
+*endpoint's*, quoted whether the app tuned or not; what `tuned` says is whether that digest is still
+a description of what drew. Pinned at the seam in `platform-web/test/color-scheme.test.ts` — false →
+true → false across `{}` and `{ optics: {} }`, with the digest asserted unchanged throughout — and
+through the binding in `react/test/material-document.test.tsx`'s withdrawal case, which now asserts
+`tuned` returns to **false** and the digest is still the macOS 27 light active endpoint's. The
+platform-web case was run against the old predicate and fails on it.
+
+**3. `samplingPaddingFor` moved by exactly the CSS tier's `blurSigmaScale`, and says so.** Clause 1
+of the acceptance already names it as one of the two things G4 changed about the macOS 26.5 material
+without touching macOS 26.5 evidence; what was missing was the number, in the place an adopter reads.
+Recomputed at this closure off the built package: the ratio is **exactly 2.2000** on every input
+tried — the padding is linear in the blur it is 3σ of — which at the floor every group starts from is
+**10.3125 → 22.6875 CSS px**, and on the `clear` variant **33.00 → 72.60**. One bullet in the 0.19.0
+`@vitreajs/vitrea-web` entry names the function, the cause, the two readings and the two new optional
+arguments; the `platform-web` README's capability table carries the new form and gains a row for the
+selection itself, and the React README's paragraph on the same function gains the sentence about the
+two arguments.
+
+**4. `GlassToolbar` cannot pass its root's document to that function, and the entry says so rather
+than the cut fixing it.** The gap is derived inside the component and nothing in the React surface
+tells it which document the root selected — `root.material` is the resolved *identity*, not the
+document's two halves — so a React app on `macos26MaterialProfileDocument` opens its split at the
+macOS 27 blur. The error is one-directional and it is the safe direction: exactly 2.2× what that
+material needs, over-padding and never under, with nothing overlapping and no floor missed. Closing
+it means adding public API to a prepared, versioned cut, which is larger than the defect and
+invisible to every page on the default document, so it is a tracker entry carrying both fix shapes
+and the case to write, and not a change here.
+
+**5. Two README statements were stale about their own release**, and are rewritten rather than
+annotated, because a README is not a record. `platform-web`'s colour-scheme section said `"light"` is
+"the material the renderer's own constants are" and that `"dark"` selects `darkMaterialProfile`:
+under the default document they are the macOS 27 light and dark patches, and `darkMaterialProfile` is
+what `macos26MaterialProfileDocument` selects. The same paragraph one package over said nothing moves
+for an app that upgrades, which 0.19.0's own upgrade note contradicts three sections below it. Both
+now say the scheme picks an endpoint out of the selected document, and the advice to pass a scheme's
+patch by hand now names the endpoint of the document the root draws — a macOS 26.5 patch over the
+macOS 27 base is neither measured material.
+
+**6. The wave's one-line result** in the charter's Outcomes carried the seven missed rows but not the
+recede's bound, which clause 4 records as holding on **one of twelve profile-tiers**. The headline
+now carries both, so it matches the clause it summarises.
+
+**7. `eye.md` gains the chromatic half of its own residual, and its one asserted sentence is replaced
+by a reading.** Both are in a new `results/2026-09-20-w29-g4-landing/eye-chroma.py` and its `.txt`,
+beside `eye-measures.py`.
+
+*The residual is partly colour, not only level and structure.* §7 (a) reads the interior in linear
+luminance, which cannot carry what the sheets plainly show — Apple's pane passes the backdrop's own
+hue through it and vitrea's reads desaturated. Over the same 200 × 100 interior box, in OKLab, mean
+chroma native against vitrea: **0.08697 → 0.02800** (0.32×) `2x-light` rest, **0.08789 → 0.03145**
+(0.36×) light inactive, **0.10287 → 0.01259** (**0.12×**) dark rest, **0.10292 → 0.01337** (0.13×)
+dark inactive. The **hue is right and the amount is not**: mean hue angle 328–330° on Apple's side
+against 332–334° on vitrea's, within four degrees on every cell. The opponent channels' spread across
+the box falls by those same ratios (0.33×/0.34× light, 0.13×/0.14× dark) as the luminance spread in
+(a) does (0.66× light, 0.30× dark), so the chroma deficit and the structure deficit are one
+attenuation read two ways rather than two findings. It is also why the 8× difference columns of the
+harness bands are coloured rather than grey: the interior's mean absolute difference is unequal
+across the three channels on every cell — R 22.74 / G 12.56 / B 19.63 codes on `2x-light` rest,
+R 34.95 / G 16.89 / B 28.98 on `2x-dark` rest. **The home is the chromatic-transmission child** (W29
+Decision Log 6 (c)), already chartered over this reading on the dark photo cell and already carrying
+the finding that no constant in either document can close it, the tone response's solve being
+achromatic by construction. These are that charter's light half, and the readings are pose-independent
+to within 0.004 (light) and 0.001 (dark), so the recede does not touch it.
+
+*The `Publish` chip.* §7's demo band said the tint recedes "at what reads as the same lightness",
+which was an assertion. Measured off the demo band of each sheet as the chip's modal fill over its
+54 × 28 block of sheet pixels, the chroma goes to **exactly zero** in all four readings and the
+lightness **moves with the ground**: over the light-ground row it reads distinctly *lighter* than the
+active orange on both sheets — OKLab L 0.7581 → 0.8483 on the light sheet, 0.7652 → 0.8545 on the
+dark, +0.090 — and over the dark-ground row it reads *darker*, 0.6702 → 0.6167 and 0.7652 → 0.3639.
+**This is a partial disagreement with the review**, which read the chip as lighter on both sheets:
+that holds for the light-ground row and inverts on the dark-ground one. What the pair says is that
+the composite moves rather than the tint — the receded material passes a different amount of the
+ground through, and the ground is what the chip is left with once the hue is gone. The chip being
+"among the brightest objects in the difference column" is the same fact at 8×, and it is a number
+now: rgb(255, 255, 255) over 74–77 % of its box on three of the four rows and rgb(255, 72, 255) on
+the fourth, brighter than **95.9 %** (light sheet) and **95.8 %** (dark sheet) of that column's
+pixels outside the animated texture region residual (d) already excludes.
+
+*One attribution, beside the numbers it re-reads.* §7 (c) and `eye.md` list the ring maxima as
+"60 / 72 / 105 / 115 codes" after naming the four cells in a different order. The four values are
+right and `eye-measures.txt` is right; read back against it they are **72** light active, **60**
+light inactive, **115** dark active and **105** dark inactive — the list is sorted rather than in the
+sentence's order, and the maximum is the one reading in (c) that does *not* follow the pose.
+Corrected in `eye.md` beside the list and recorded here; nothing is rewritten.
+
+**8. The heavy-mask band's margin is a number now.** The tracker's entry existed and said the floor
+moved from 8 codes to 1 on a material that reads 2. What it did not say is that this leaves the case
+standing exactly **one code** above its own floor, so a single code of drift turns it red and there
+is no room at all between a real flattening and a false alarm. Added beside the entry's own sentence,
+which describes the width of the band that remains rather than the headroom the case has.
+
+**9. The affected checks, re-run at the closure on this branch.** Reduce Transparency **0**, Increase
+Contrast **0** and `NSGlassTintAmount` **0.5** read before the browser runs, and `pgrep` clean of any
+capture or driver process first — one chain was running on the machine when this closure opened and
+was waited out rather than shared (X7).
+
+| step | result |
+| --- | --- |
+| `pnpm -r build` | exit 0 |
+| `pnpm --filter @vitrea/calibration test` | **530 passed** over 31 files — §6's 525 over 30, plus this closure's five cases in one new file |
+| `pnpm --filter @vitreajs/vitrea-web test` | **618 passed** — §6's 617 plus the `tuned` case |
+| `pnpm --filter @vitreajs/vitrea-react test` | **163 passed**, unchanged: the withdrawal case gained assertions rather than a sibling |
+| `@vitreajs/vitrea-web` Playwright, four projects | **410 passed** — §6's 404 plus the macOS 26.5 loop's two cases on each of the three shared engines |
+| `pnpm -r lint` and `npx eslint .` | exit 0 |
+| `freeze.py verify` | **intact at 1,818 entries** |
+
+The whole browser suite was run rather than the one spec, because the harness's `RootSpec` is shared
+by every spec in it. `DEFAULT_MATERIAL_PROFILE` is untouched, no golden was re-recorded,
+`results/matrix.json` gains no row, and the macOS 26.5 freeze verifies intact at this closure's close
+as it did at the gate's. The status line is unchanged: **0.19.0 PREPARED, UNPUBLISHED**.
