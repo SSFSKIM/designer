@@ -1,5 +1,17 @@
 /**
- * W30 G2 — the second heavy tap's ON path, proved to exist on a real adapter.
+ * W30 G2 — the three new uniform vec4s, each proved to exist on a real adapter.
+ *
+ * Three cases, one per vec4, because a vec4 nothing ever reads at a non-zero
+ * value is indistinguishable from a vec4 wired to the wrong lanes — which is not
+ * hypothetical here: the three were first packed at float offsets 117, 121 and
+ * 125, none of them a multiple of four, and the whole unit chain, the 34 goldens
+ * and every inertness proof were green over it because every word involved is 0
+ * on the landed material (claims §5.158 §6). Only opening a gate could see it,
+ * and on the merge only ONE of the three gates had a case (§5.158 §8, finding
+ * 2). `scatterHeavy2` is the first case below, `shadowSigma` (floats 120..123)
+ * the second and `scatterScale` (124..127) the third.
+ *
+ * ## The second heavy tap's ON path
  *
  * `sizeHeavySecondShare` is the single gate on the whole mechanism: the second
  * heavy texture is allocated, blurred and sampled only where it is non-zero, and
@@ -36,11 +48,13 @@ const WIDTHS = { sizeHeavySecondSigma: 40, sizeHeavySecondSigma2x: 40 } as const
 
 const render = (
   page: Page,
-  materialProfile: Record<string, number>,
+  materialProfile: Record<string, unknown>,
+  scene = "lens-size-depth",
 ): Promise<{ readonly width: number; readonly height: number; readonly pixels: string }> =>
   page.evaluate(
-    (patch) => window.vitrea.renderScene("lens-size-depth", undefined, patch),
-    materialProfile,
+    ([name, patch]) =>
+      window.vitrea.renderScene(name as string, undefined, patch as Record<string, unknown>),
+    [scene, materialProfile] as const,
   );
 
 /** Every byte the optics pass wrote. */
@@ -59,6 +73,32 @@ const maxDelta = (a: readonly number[], b: readonly number[]): number => {
   return worst;
 };
 
+/**
+ * The same reduction over one vertical band of the raster.
+ *
+ * A band rather than a mask, because what a per-caster law has to be shown to do
+ * is act differently on two casters in ONE capture — and the honest way to say
+ * "differently" is to reduce over each caster's own half and compare the two
+ * numbers, not to compare either against the whole.
+ */
+const maxDeltaInBand = (
+  a: readonly number[],
+  b: readonly number[],
+  width: number,
+  fromX: number,
+  toX: number,
+): number => {
+  let worst = 0;
+  for (let index = 0; index < a.length; index += 4) {
+    const x = (index / 4) % width;
+    if (x < fromX || x >= toX) continue;
+    for (let channel = 0; channel < 4; channel += 1) {
+      worst = Math.max(worst, Math.abs((a[index + channel] ?? 0) - (b[index + channel] ?? 0)));
+    }
+  }
+  return worst;
+};
+
 /** The brightest colour channel anywhere on the capture. */
 const peak = (raster: readonly number[]): number => {
   let brightest = 0;
@@ -68,7 +108,23 @@ const peak = (raster: readonly number[]): number => {
   return brightest;
 };
 
-test.describe("@gpu W30's second heavy tap (claims §5.156 §3, §5.158)", () => {
+/**
+ * The same, on the ALPHA channel.
+ *
+ * The shadow scene has no backdrop, so the pass writes premultiplied black
+ * outside the contour and opacity is the whole of what lands on the canvas —
+ * `e2e/gpu/shadow-extent.spec.ts`'s reasoning, which is why `peak` would read
+ * that scene as blank.
+ */
+const alphaPeak = (raster: readonly number[]): number => {
+  let brightest = 0;
+  for (let index = 3; index < raster.length; index += 4) {
+    brightest = Math.max(brightest, raster[index] ?? 0);
+  }
+  return brightest;
+};
+
+test.describe("@gpu W30's three operator vec4s (claims §5.156 §2 and §3, §5.158)", () => {
   test("draws nothing at the shipped share and something at a fitted one", async ({ page }) => {
     requireHardwareAdapter(await openHarness(page));
 
@@ -111,5 +167,119 @@ test.describe("@gpu W30's second heavy tap (claims §5.156 §3, §5.158)", () =>
       maxDelta(negative, positive),
       "the second heavy share's sign made no difference — the mix is not signed",
     ).toBeGreaterThan(1);
+  });
+
+  test("grades the shadow's σ by the CASTER's own span, not the group's", async ({ page }) => {
+    /*
+     * `shadowSigma`, floats 120..123, opened.
+     *
+     * The law is `σ(span) = sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan ·
+     * (span − sigmaSpanRefPx))`, evaluated in the shader from the casting
+     * surface's own span, which rides the field pass's aux target. At the fitted
+     * shape — slope 0.133 per CSS px about a reference of 96 (Decision Log 3 (c))
+     * — the two halves of `w30-shadow-span` land on opposite sides of that
+     * reference: the 44 px caster's arm is `max(0, 0.133 · −52)`, which is the
+     * floor's own zero, and the 160 px caster's is +8.5 CSS px of σ.
+     *
+     * So the assertion is that the two spans' shadows differ FROM EACH OTHER.
+     * "The patched render differs from the shipped one" would pass against a law
+     * read once per group and applied to every member, which is exactly the
+     * mistake this file exists to catch one facet along.
+     */
+    requireHardwareAdapter(await openHarness(page));
+
+    const SCENE = "w30-shadow-span";
+    const shipped = await render(page, {}, SCENE);
+    const width = shipped.width;
+    const off = bytes(shipped);
+    const graded = bytes(
+      await render(page, { outerShadow: { sigmaSlopePerSpan: 0.133, sigmaSpanRefPx: 96 } }, SCENE),
+    );
+    // The control: one width for both casters, moved by the same amount the law
+    // moves the thick one. A span-blind σ moves both halves.
+    const widened = bytes(await render(page, { outerShadow: { sigmaPx: 24.06 } }, SCENE));
+
+    // The raster is two casters side by side with 160 CSS px of clear air
+    // between them; the bands stop well short of each other's reach.
+    const THIN = [0, 280] as const;
+    const THICK = [300, width] as const;
+    const thinLaw = maxDeltaInBand(off, graded, width, THIN[0], THIN[1]);
+    const thickLaw = maxDeltaInBand(off, graded, width, THICK[0], THICK[1]);
+    const thinWidth = maxDeltaInBand(off, widened, width, THIN[0], THIN[1]);
+    const thickWidth = maxDeltaInBand(off, widened, width, THICK[0], THICK[1]);
+    process.stdout.write(
+      `shadow σ law: span 44 Δ ${String(thinLaw)}, span 160 Δ ${String(thickLaw)}; ` +
+        `one width for both: span 44 Δ ${String(thinWidth)}, span 160 Δ ${String(thickWidth)}\n`,
+    );
+
+    // The scene draws a shadow at all: the alpha the two groups write is what
+    // every comparison here is over.
+    expect(alphaPeak(off)).toBeGreaterThan(40);
+
+    // The thick caster's shadow widened, and the thin caster's did not move at
+    // all — the law's floor arm, read at the caster's own span.
+    expect(
+      thickLaw,
+      "a fitted σ slope moved nothing at span 160 — the law is not reaching the shader",
+    ).toBeGreaterThan(1);
+    expect(
+      thinLaw,
+      "a fitted σ slope moved the span-44 caster, whose arm is max(0, negative) — the span the " +
+        "shader reads is not the caster's",
+    ).toBe(0);
+
+    // And the thin half is not a dead region: one width for both casters moves
+    // it, by more than the noise the case above calls zero.
+    expect(thinWidth, "the span-44 half never moves, so its zero above says nothing").toBeGreaterThan(
+      1,
+    );
+    expect(thickWidth).toBeGreaterThan(1);
+  });
+
+  test("keys the scatter on the SOURCE's measured scale, at a real statistic", async ({ page }) => {
+    /*
+     * `scatterScale`, floats 124..127, opened.
+     *
+     * The shader adds `sizeScatterScaleGain · (statistic − sizeScatterScaleRef)`
+     * to `kScatter` and clamps. The statistic is the analysis pass's edge density
+     * for the source this group samples, which arrives by readback — so the scene
+     * has to run frames for it to exist at all, and `w30-scatter-scale` runs 40
+     * over a 32 px checker for that reason. A gain at a zero statistic would be
+     * an ON path that draws nothing, which is the same vacuity as the gate that
+     * never opens.
+     */
+    requireHardwareAdapter(await openHarness(page));
+
+    const SCENE = "w30-scatter-scale";
+    const off = bytes(await render(page, {}, SCENE));
+    const refOnly = bytes(await render(page, { sizeScatterScaleRef: 0.25 }, SCENE));
+    const negative = bytes(await render(page, { sizeScatterScaleGain: -2.5 }, SCENE));
+    const positive = bytes(await render(page, { sizeScatterScaleGain: 2.5 }, SCENE));
+
+    process.stdout.write(
+      `scatter scale: reference-only Δ ${String(maxDelta(off, refOnly))}; ` +
+        `gain −2.5 Δ ${String(maxDelta(off, negative))}; ` +
+        `gain +2.5 Δ ${String(maxDelta(off, positive))}; ` +
+        `sign Δ ${String(maxDelta(negative, positive))}\n`,
+    );
+
+    expect(peak(off)).toBeGreaterThan(40);
+
+    // The GAIN is the gate, exactly as the share is for the second heavy tap: a
+    // reference named beside a zero gain multiplies into nothing.
+    expect(
+      maxDelta(off, refOnly),
+      "a scatter scale REFERENCE moved the render while its gain was 0 — the gate is not the gain",
+    ).toBe(0);
+
+    // And the ON path exists, at a statistic the analysis pass actually measured.
+    expect(
+      maxDelta(off, negative),
+      "a non-zero scatter scale gain changed nothing — either the ON path is wired to nothing or " +
+        "the source's edge density never reached the shader",
+    ).toBeGreaterThan(1);
+    expect(maxDelta(off, positive)).toBeGreaterThan(1);
+    // Signed, so the two gains land on opposite sides of the shipped material.
+    expect(maxDelta(negative, positive)).toBeGreaterThan(1);
   });
 });

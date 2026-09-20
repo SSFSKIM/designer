@@ -455,11 +455,91 @@ export const SHADOW_TOP_EDGE_SCENE: Scene = shadowEdgeScene("shadow-top-edge", 3
 /** The same surface 100 px lower, where the field rect is not clipped at all. */
 export const SHADOW_MID_CANVAS_SCENE: Scene = shadowEdgeScene("shadow-mid-canvas", 130);
 
+/**
+ * Two spans, far enough apart that neither shadow reaches the other (W30 G2
+ * review closure; claims §5.158 §8, finding 2).
+ *
+ * The σ law is a function of the CASTING span, evaluated per pixel from the
+ * field pass's aux target, and the only way to see that it is read per caster
+ * rather than per group is a capture carrying two casters at different spans.
+ * 44 and 160 are the bed's own extremes and they sit on opposite sides of the
+ * reference span the fit holds at 96, so a law with a positive slope leaves the
+ * thin one exactly where it was — `max(0, slope · (44 − 96))` is the floor's own
+ * arm — and widens the thick one.
+ *
+ * The 160 px gap between them is sized from the reach: σ goes 15.55 → 24.1 CSS
+ * px at span 160 under the fitted slope, which carries the reach to roughly 70,
+ * so the two halves of the raster stay each other's business.
+ *
+ * No backdrop and no refraction: the shadow lands in the canvas's ALPHA, and a
+ * sampled backdrop would only add a second thing for a difference to be.
+ */
+export const W30_SHADOW_SPAN_SCENE: Scene = {
+  name: "w30-shadow-span",
+  widthCss: 620,
+  heightCss: 340,
+  devicePixelRatio: 1,
+  measureOnly: true,
+  backdrop: { kind: "none" },
+  groups: [
+    group("thin", [rect("t", [100, 150], [200, 44])], {
+      noBackdrop: true,
+      refraction: "none",
+      analysisExact: false,
+    }),
+    group("thick", [rect("k", [460, 150], [200, 160])], {
+      noBackdrop: true,
+      refraction: "none",
+      analysisExact: false,
+    }),
+  ],
+};
+
+/**
+ * One surface over a pitch the body still passes, run long enough that the
+ * source's own statistic has reached the shader (W30 G2 review closure; claims
+ * §5.158 §8, finding 2).
+ *
+ * `sizeScatterScaleGain` keys `kScatter` on the SOURCE's measured edge density,
+ * which arrives by readback — so a scene that draws one frame draws before any
+ * statistic exists and the operator's ON path is unreachable in it whatever the
+ * gain is. 40 warmup frames is what `tint-adaptation-*` uses for the same
+ * reason.
+ *
+ * A 32 px checker at dpr 1, on `lens-size-depth`'s own measurement: a pitch the
+ * first heavy width erases measures the operator as dead, because both taps then
+ * read the same flat mean.
+ */
+export const W30_SCATTER_SCALE_SCENE: Scene = {
+  name: "w30-scatter-scale",
+  widthCss: 260,
+  heightCss: 220,
+  devicePixelRatio: 1,
+  measureOnly: true,
+  backdrop: { kind: "checkerboard", cell: 32 },
+  warmupFrames: 40,
+  groups: [
+    group("g", [
+      rect("s", [130, 110], [200, 150], {
+        shape: {
+          center: [130, 110],
+          size: [200, 150],
+          radii: [30, 30, 30, 30],
+          smoothing: 0,
+          thickness: 10,
+        },
+      }),
+    ]),
+  ],
+};
+
 export const ALL_SCENES: readonly Scene[] = [
   ...SCENES,
   LENS_DEPTH_SCENE,
   SHADOW_TOP_EDGE_SCENE,
   SHADOW_MID_CANVAS_SCENE,
+  W30_SHADOW_SPAN_SCENE,
+  W30_SCATTER_SCALE_SCENE,
 ];
 
 export const SCENE_NAMES = SCENES.map((scene) => scene.name);
