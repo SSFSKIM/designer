@@ -44,12 +44,13 @@ private calibration package — so this is still one `@vitreajs/vitrea-web` mino
   radius halves, the downward reach falls to a quarter and the amplitude to about
   a third at a middling size. Reading it needed no new capture and moved no
   constant outside the two 27 documents' `outerShadow` blocks.
-- **A receded window's material is measured for macOS 27** and ships as two more
-  documents, one per colour scheme. The largest single difference from macOS 26.5
-  is that a receded surface now keeps its shadow, where on 26.5 it lost it
-  entirely. These are **not yet what the runtime uses**: a page still recedes by
-  the macOS 26.5 difference, and connecting the two is the same next release that
-  makes macOS 27 the default.
+- **A receded window's material is measured for macOS 27** and recorded as two more
+  profile documents, one per colour scheme, in the repository beside the active
+  pair — calibration evidence, not files this tarball carries. The largest
+  single difference from macOS 26.5 is that a receded surface now keeps its
+  shadow, where on 26.5 it lost it entirely. These are **not yet what the runtime
+  uses**: a page still recedes by the macOS 26.5 difference, and connecting the
+  two is the same next release that makes macOS 27 the default.
 
 One residual is named rather than fixed, because it needs a shape the material
 does not have: on macOS 27 the shadow's blur grows with the surface's size, and

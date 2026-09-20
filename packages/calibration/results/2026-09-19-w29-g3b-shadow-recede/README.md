@@ -11,7 +11,7 @@ its rows, its bounds and its floors — is byte-identical throughout.
 | --- | --- |
 | `bar-declaration.md` | the shadow axis's seventeen metrics and the bar they are read against, **committed before any 26.5 pair was opened** |
 | `noise-bar.json` | the 624-cell 27-against-27 bar, all forty-nine metrics |
-| `bar-reproduction.py` / `.txt` | the check that the instrument's extension changed none of G2's thirty-two metrics: 190,683 readings, zero disagreements |
+| `bar-reproduction.py` / `.txt` | the check that the instrument's extension changed none of G2's thirty-two metrics: 190,683 readings, zero disagreements (its last line says "thirty-one" — see the correction below) |
 | `native-delta.json`, `recede-delta.json`, `law-tables.txt`, `delta-run.txt` | the read, in the instrument's own shapes |
 | `shadow-delta.py` | the per-cell cut of it a refit needs: the 26.5 and 27 readings of one cell side by side |
 | `bound.json` | W27c G1b's three clauses carried to the 27 receded bed at their 26.5 values, **committed before the endpoints were fitted** |
@@ -61,7 +61,7 @@ npx tsx  $R/score-bound.ts | tee $R/verdict-recede.txt
 python3  $R/sheets.py
 ```
 
-## Four things to read before any number here
+## Five things to read before any number here
 
 1. **The bar is G2's, and it is 27-against-27.** The construction, the rule and the zero-spread
    fallback are `results/2026-09-19-w29-g2-native-delta/bar-declaration.md`'s, unchanged. So
@@ -76,11 +76,25 @@ python3  $R/sheets.py
    and carry no verdict. Every other 27 profile, including the DECOUPLED increased-contrast one, is
    barred normally.
 
-3. **The fit never read a holdout row**, and the drop is in `shadow-table.py` rather than in each
-   invocation's scene list. One round's scene list did name two holdout ids; the reader dropped
-   them, printed that it had, and no number off those captures reached a table or a constant.
+3. **The fit never read a holdout row**, and on the SHADOW half the drop is in `shadow-table.py`
+   rather than in each invocation's scene list. One round's scene list did name two holdout ids; the
+   reader dropped them, printed that it had, and no number off those captures reached a table or a
+   constant. **Scoped 2026-09-19 (review closure):** the RECEDE half was read through
+   `results/2026-09-19-w29-g3-refit/fit.py table`, which has no holdout filter — it prints every row
+   in the label's scratch matrices — so that half's guarantee is **procedural**: each invocation
+   passed `--set calibration` with an explicit `--scene` list naming no holdout id — the invocation
+   form `fitted-receded.json`'s `reproduce` line records. The statement above
+   stands for both halves; the *enforcement* is a refusing reader on one and the operator's scene
+   list on the other, and a reader-side drop shared by both is in `specs/tech-debt-tracker.md`.
 
-4. **Two weaknesses in the receded fit are recorded rather than removed**, both about the
+4. **`bar-reproduction.txt`'s verdict line says "thirty-one metrics" and the number is thirty-two**
+   (correction 2026-09-19, review closure). Its own header says `shared 32`, it compares 32
+   `bedMinimumNonZeroBar` entries, and claims §5.154 §1 says thirty-two. The generated line is left
+   exactly as the run wrote it — nothing under `results/` is edited after it is committed — and this
+   is the correction beside it. Nothing about the check changes: 32 shared metrics, 190,683 readings,
+   zero disagreements, zero rows present in one bar and absent in the other.
+
+5. **Two weaknesses in the receded fit are recorded rather than removed**, both about the
    response's dark anchor and both in `fitted-receded.json`: the light document's first ordinate is
    identified by no untinted calibration cell and was moved on two `impulse` VALIDATION cells, and
    the dark document's sits at the bottom of its range with a residual no value of it reaches. The

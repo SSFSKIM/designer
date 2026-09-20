@@ -3171,6 +3171,19 @@ scales, and linear in the casting span to within the reading's own noise
 (σ ≈ 0.131 · (span − 26)). The offset grades with it: 4.0 CSS px at span 44 against
 8.0 at 128.
 
+**Corrected beside, 2026-09-19 (review closure of W29 G3b; claims §5.154 §4).** The
+law is **σ_css ≈ 0.133 · (span − 30), over spans 96–160**, and it is not supported
+below that. Least squares over the 1x light cells gives 0.1334 · span − 4.013, zero
+at span 30.1; against the published intercept the span-44 cell reads 1.84 where the
+law gives 2.36 (−28 %). **Scale invariance also fails at the thin spans**: 1.84 at
+1x against 3.92 at 2x, a ratio of 2.13 — the device pixel ratio — where at 96–160
+the two scales agree to 1.3–6.8 %. The figures in the table above are single
+`checkerboard` cells; the bed-wide median at span 44 is 1.52 at 1x light. "About
+six times too wide" below is a **1x** figure — 11.0 against 1.84 is 5.97× and
+against the 2x span-44 reading of 3.92 it is 2.80×. Nothing this entry asks for
+changes: one `sigmaPx` still cannot be both ends of the thick range, and the
+thin-span behaviour is now open structure rather than a fitted law.
+
 `sigmaPx` is one constant and the shader reads it from a uniform, so no value of it
 is both 1.8 and 17.4. The 27 documents carry 11.0, which is the best the thick
 regime admits and is where every row the refit existed to clear sits; the thin
@@ -3288,3 +3301,126 @@ forever and makes "which generation is this" a directory rather than a regex ove
 as one `.json.gz`, which is the smallest change and the worst diff. The second is
 the parent's recommendation; all three are the user's to rule, and the axis they
 differ on is whether a superseded row should still be one `git show` away.
+
+---
+
+## The fit loop's holdout drop lives in one reader, and the other reader has none
+
+*Found 2026-09-19 by the independent review of W29 G3b (claims §5.154 §7).*
+
+X5 says the holdout is read once per frozen configuration and nothing is fitted
+after it, so a fit loop must not be able to put a holdout row in front of the
+person choosing constants. G3b's shadow half cannot: `shadow-table.py` drops every
+row whose set is `holdout` **in the reader** and prints how many it dropped, so a
+round whose scene list names a holdout id still yields no holdout number. Its
+recede half was read through `results/2026-09-19-w29-g3-refit/fit.py table`, which
+has no such filter — it prints every row in the label's scratch matrices — so that
+half's guarantee is the operator passing `--set calibration` or an explicit
+`--scene` list on every invocation. It held: no holdout number reached a receded
+constant. But it held by discipline rather than by construction, and the two
+halves of one gate enforced the same contract two different ways.
+
+**The fix shape**: the drop belongs to whatever reads a fit label's matrices, not
+to one wave's script. `fit.py`'s `readings()` is the single place both readers get
+their rows from; dropping there — with the count printed, as `shadow-table.py`
+prints it — makes every present and future table built on that function refuse by
+construction, and a `--with-holdout` flag can exist for the canonical read that is
+allowed to see them. Until then, a wave that writes a new reader inherits the
+weaker guarantee without being told.
+
+---
+
+## The macOS 27 recede's exterior is unfitted above span 96, and its contour draws no hairline
+
+*Found 2026-09-19 by the review closure of W29 G3b, measured off that gate's own
+sheets (claims §5.154 §9 (a) and (b)).*
+
+Two residuals of the fitted 27 receded endpoints, both outside the body and
+neither caught by the level fit that §5.154 §6 reports.
+
+**The exterior halo at the largest span.** On the `1x-light-standard` inactive
+sheets, strip `checkerboard__rrect-lg__inactive`, the far-exterior difference (every
+pixel more than 12 CSS px outside the component's box, ×8 amplification) means
+**17.42** on the WebGPU tier and **15.89** on the CSS tier, where no active strip on
+either 1x light sheet exceeds **5.92**; the 2x light sheets read the same two
+populations. The receded documents carry their active document's `outerShadow`
+block leaf for leaf, that block's thick anchor above span 128 is derived rather than
+fitted, and the cell that shows this is **holdout** — the bed declares no inactive
+calibration cell above span 96 at all, which is the same gap §5.154 §9 records for
+the receded body's diffusion.
+
+**The missing contour hairline.** On the same sheets, `light-solid__capsule-button__inactive`:
+the native drops one pixel to 186.4 from a backdrop of 242.4 before rising to the
+body's 233.4 — a 56-level dark stroke at the contour — and vitrea's WebGPU strip
+dips 1.0 while its CSS strip does not dip at all. On `photo__capsule-button__inactive`
+the native dips 34.1 below the backdrop and vitrea rises monotonically through the
+edge on both tiers. §5.154 §6's "where it is worst it is vitrea drawing MORE rim
+than the reference" is true of the rim band the metric reads; at the contour of the
+receded pose the sign is the other way and the amplitude is the whole stroke.
+
+**The fix shape**: both want inactive cells above span 96 that are not holdout,
+which is a scenes decision before it is a fit — the split is `scenes.json`'s and
+moving a cell between sets is evidence-visible. The hairline additionally wants the
+receded rim to be a fitted term rather than a subtraction: W27c's endpoint removes
+rim, and what the 27 native does at the contour is draw a stroke the recede keeps.
+
+---
+
+## The two tiers miss the backdrop's structure in opposite directions, and the bed only ever showed one of them
+
+*Found 2026-09-19 by the review closure of W29 G3b, measured off that gate's sheets
+(claims §5.154 §9 (c)).*
+
+Interior standard deviation of the body, native against vitrea, on
+`checkerboard__rrect-md__rest`: on `1x-dark-standard` the native reads **11.14**
+against WebGPU **6.16** (0.55×) and CSS **3.62** (0.32×) — both tiers pass too
+little of the checker through the body — while on `1x-light-standard` the same cell
+reads native **10.22** against WebGPU **18.04** (1.77×) and CSS **10.65** (1.04×),
+where WebGPU passes too much. The ledger's standing reading of this residual
+(§5.153 §6's scale-selective scatter, and §5.154 §9's second bullet) is the light
+bed's WebGPU sign, and the dark bed inverts it.
+
+So the diffusion residual is conditioned on the scheme as well as on the backdrop's
+spatial scale, and the CSS tier — whose single `backdrop-filter` cannot express a
+two-component kernel at all — is the more attenuated of the two on the dark bed by
+a factor of nearly two. Any operator wave that fits a scale-selective scatter on
+the light bed alone will land on the wrong side of the dark one.
+
+**The fix shape**: nothing here is fittable until the structure metric is read per
+scheme as well as per pitch — `interiorStdDevDelta` is already in the native delta
+and in the matrix, so the read is a cut of committed evidence rather than a
+capture. Do that cut before the operator is chartered, and carry the CSS tier's own
+attenuation into `tier-coherence.test.ts` as a measured residual rather than
+discovering it at the fit.
+
+---
+
+## Under Reduced Transparency the GPU tier is under-opaque, and the impulse specular point is WebGPU's alone
+
+*Found 2026-09-19 by the review closure of W29 G3b, measured off that gate's sheets
+(claims §5.154 §9 (d)).*
+
+**Reduced Transparency.** On `1x-light-reduced-transparency-glass0.5`, active,
+`checkerboard__rrect-md__rest`: the native body is flat opaque white — interior mean
+**253.25**, sd **0.43** — where the WebGPU tier reads mean 247.45 at sd **3.49**,
+eight times the native's structure, and the checker is plainly visible through a
+body the accessibility preference says should hide it. The CSS tier reads sd
+**1.03** on the same cell. Both tiers sit 6–7 levels below the native's level, so
+the level is a shared residual and the **structure is the GPU tier's own**. The
+preference's whole purpose is that a backdrop stops showing through, which makes
+this an accessibility miss rather than a fidelity one.
+
+**The impulse specular point.** On `1x-light-standard` inactive,
+`impulse__capsule-button__inactive`, the WebGPU difference carries a compact core at
+the body's centre — radial mean 58.7 at r 0, 63.7 at r 3, 28.1 by r 8 — and the CSS
+difference has no local maximum anywhere in the body (42.7 at the centre falling
+monotonically to about 22). The point §5.154 §9 names is therefore a WebGPU
+residual and not a material one, which narrows where it can come from: the optics
+pass's own lens or highlight term rather than the level or the shadow.
+
+**The fix shape**: the Reduced Transparency half is a policy question with a
+measurement attached — `flatOuterShadow` already flattens the shadow under that
+preference, and whether the body's opacity should be forced the same way is a
+material-policy decision the ledger can put to the user with these two numbers.
+The specular point is a renderer question and wants the WGSL passes read at that
+cell before anything is changed.
