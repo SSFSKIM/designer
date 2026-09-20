@@ -1693,15 +1693,28 @@ interface MissedRow {
 }
 
 const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.89538, bound: "≥ 0.9" },
-  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.88402, bound: "≥ 0.9" },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.89531, bound: "≥ 0.9" },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.88423, bound: "≥ 0.9" },
   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.20095, bound: "≤ 0.18" },
-  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": { measured: 0.82707, bound: "≥ 0.83" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": { measured: 0.82695, bound: "≥ 0.83" },
   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.19474, bound: "≤ 0.19" },
-  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21521, bound: "≤ 0.17" },
-  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21344, bound: "≤ 0.17" },
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21531, bound: "≤ 0.17" },
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21341, bound: "≤ 0.17" },
 };
 
+/*
+ * **The fifteen span-44 texture cells W30 G3 added are gone again, and that
+ * round trip is the point** (W30 G3b, claims §5.159b). They entered because the
+ * fitted σ law reached a width at which the optics pass's shadow falloff
+ * returned NaN inside a thin caster, leaving a strip of the surface undrawn:
+ * the predicate's own arms then refused those cells — a drawn silhouette in
+ * several pieces, with holes — and the gate lost 170 declaration-conformance
+ * rows to it. W30 G3b fixed the shader and re-read the bed at the same material,
+ * and the list is back to the 68 entries it held at 0.19.0, with every one of
+ * the fifteen returning to a gated shape row rather than being written off. The
+ * list is derived from the artifact by the case below on every run, so neither
+ * the going nor the coming was typed.
+ */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",

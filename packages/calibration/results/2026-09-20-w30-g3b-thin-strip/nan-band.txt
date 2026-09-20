@@ -1,0 +1,20 @@
+tanh's argument overflows f32 at t = 44.3614, which is x = 10.0610
+
+document                              σ(44)     predicted band   measured
+the fitted law                       2.1272      103.75…111.15   104…111
+the fitted law, offsetPx 0           2.1272       95.80…103.20   96…103
+the fitted law, spreadPx 0           2.1272      106.85…108.05   107…108
+sigmaPx 8, the law live              1.1672       94.09…120.81   95…121
+sigmaPx 4, the law live              0.0001       82.35…132.55   83…121
+0.19.0: sigmaPx 11, law inert       11.0000               none   none
+sigmaPx 8, law inert                 8.0000               none   none
+sigmaPx 2.13, law inert              2.1300      103.78…111.12   104…111
+
+The surface itself is rows 78…121, so a band running past 121 is clipped by it.
+
+The 'strip bottom sits 24 CSS px above the field rect's bottom' of §5.159 §6
+is 11.05·σ − 0.5, not a constant:
+  σ  2.1272 →  23.01 CSS px
+  σ  1.1672 →  12.40 CSS px
+  σ  8.9600 →  98.51 CSS px
+  σ 15.5500 → 171.33 CSS px

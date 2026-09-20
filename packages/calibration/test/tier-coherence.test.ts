@@ -2857,17 +2857,34 @@ describe("the CSS tier's structure attenuation, measured (W30 G0 (d))", () => {
    * disagree on that cell by an order of magnitude and in the residual's
    * direction, because they are different masks over different spaces.
    */
+  /*
+   * **Re-recorded at W30 G3's sealed read** (claims §5.159 §4), which is the
+   * event this table exists to surface. W30 G0 recorded it at 0.19.0's four
+   * macOS 27 documents; G3 refits the outer shadow's σ on both schemes and
+   * gives the dark document the scale gain, so the four standard beds' WebGPU
+   * readings move and the CSS ones do not (the scatter's five leaves are not
+   * mirrored onto that tier and the σ law does not reach the interior).
+   *
+   * What moved, and by how much. The dark document is where the operator
+   * landed: 1x dark **0.748901 → 0.973189** and 2x dark **0.637386 →
+   * 0.766452**, both toward 1.0 and neither past it. The light document
+   * declined the operator on a measurement (§5.159 §4), so 1x light and 2x
+   * light are unchanged to five decimals — 1.566985 → 1.567012 and 0.425183 →
+   * 0.425111 — which is the capture's own run-to-run floor and not a material
+   * move. The two accessibility beds inherit the light document's values and
+   * move by the same floor.
+   */
   const RECORDED: Record<string, { webgpu: number; css: number }> = {
-    "apple-macos-27.0-1x-light-standard-glass0.5": { webgpu: 1.566985, css: 0.968105 },
-    "apple-macos-27.0-2x-light-standard-glass0.5": { webgpu: 0.425183, css: 0.3838 },
-    "apple-macos-27.0-1x-dark-standard-glass0.5": { webgpu: 0.748901, css: 0.355154 },
-    "apple-macos-27.0-2x-dark-standard-glass0.5": { webgpu: 0.637386, css: 0.25366 },
+    "apple-macos-27.0-1x-light-standard-glass0.5": { webgpu: 1.567012, css: 0.968088 },
+    "apple-macos-27.0-2x-light-standard-glass0.5": { webgpu: 0.425111, css: 0.3838 },
+    "apple-macos-27.0-1x-dark-standard-glass0.5": { webgpu: 0.973189, css: 0.355154 },
+    "apple-macos-27.0-2x-dark-standard-glass0.5": { webgpu: 0.766453, css: 0.253627 },
     "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": {
-      webgpu: 0.817557,
+      webgpu: 0.817562,
       css: 0.197627,
     },
     "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": {
-      webgpu: 0.969039,
+      webgpu: 0.969059,
       css: 0.331926,
     },
   };

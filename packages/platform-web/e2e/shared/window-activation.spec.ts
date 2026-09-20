@@ -62,9 +62,9 @@ test("a visibility event or synthetic blur cannot invent document inactivity", a
 /*
  * **What these hashes are, and why there are eight of them.** Each is the sha256
  * of the material the renderer is handed, and its first sixteen hex digits are
- * the digest that document's pin RESOLVES to — `8d06a41cb70ba52f` and
- * `73a3fb119a81312b` for the two macOS 27 active endpoints,
- * `035f537d9c27e3ed` and `4763b0d195fdb077` for the two macOS 27 receded ones,
+ * the digest that document's pin RESOLVES to — `3a2513742936ceb1` and
+ * `f3008c3e9033ed4c` for the two macOS 27 active endpoints,
+ * `d8015c2587126d08` and `8c85774d161fcbaa` for the two macOS 27 receded ones,
  * `b340a4dee871633c` and `93ab090705c43f1f` for the two macOS 26.5 active ones.
  *
  * A receded endpoint's digest is over the COMPOSITION — the receded difference
@@ -110,16 +110,28 @@ test("a visibility event or synthetic blur cannot invent document inactivity", a
  * every bound stated over that document's bed. What the pins resolve to lives in
  * `packages/calibration/profiles/digest-supersessions.json`, and the first
  * sixteen digits above are that record's `currentSha256`.
+ *
+ * **The four macOS 27 rows moved again at W30 G3, and this time a material did**
+ * (claims §5.159; Decision Log 4 (b)). That child gives the eight leaves values —
+ * a span-graded outer shadow σ with the six occlusion anchors refitted beside it,
+ * and the scale gain on the dark document — re-seals the four macOS 27 documents
+ * and reads the whole bed at those bytes in the same commit, which is the rule
+ * Decision Log 4 (b) made after G2 measured what a re-seal without a read costs.
+ * So those four documents carry their current digests in their own fields again
+ * and their supersession records are retired; the two macOS 26.5 rows are
+ * unchanged, and their records are permanent because their bytes can never move.
+ * The four prior macOS 27 readings are `8d06a41cb70ba52f`, `73a3fb119a81312b`,
+ * `035f537d9c27e3ed` and `4763b0d195fdb077`, kept here rather than deleted.
  */
 const SEALED = {
   macos27: {
     light: {
-      active: "8d06a41cb70ba52f3a5d3870795ea24ec69ae1d89ccd87fdb6f698c13470a3c1",
-      inactive: "035f537d9c27e3ed891f7c448d94be0f18ae57ac92966e1e442924b49092edab",
+      active: "3a2513742936ceb1c17a3149d75d21b79a627a7db373b03a909dbfbd18484bcc",
+      inactive: "d8015c2587126d08f6db93315f8f249a2b2f0d19a84a0f525b966050eca7d00d",
     },
     dark: {
-      active: "73a3fb119a81312bd0aef1800b1d07485db9debfb0aae68206a5a6e684dcce67",
-      inactive: "4763b0d195fdb07755c632b3a62d770c53460bd17962e417726426b9ddd8d7d6",
+      active: "f3008c3e9033ed4cd3d55ec3a936af5ad3e91c0980f7af9a32f6b35bc843a76f",
+      inactive: "8c85774d161fcbaae973003902e8e35090c92ba5bb568d500d0d59442f701917",
     },
   },
   macos26: {

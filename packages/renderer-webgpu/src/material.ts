@@ -4850,7 +4850,19 @@ export const SRGB_ENCODING_EXPONENT = 2.4;
 
 export function outerShadowFalloff(signedDistancePx: number, sigmaPx: number): number {
   const x = -signedDistancePx / Math.max(sigmaPx, 1e-4);
-  return 0.5 * (1 + Math.tanh(0.7978845608028654 * (x + 0.044715 * x * x * x)));
+  /*
+   * The argument is clamped so that this and the shader stay one function
+   * (W30 G3b; claims §5.159b). `Math.tanh` is exact at every magnitude, so here
+   * the clamp does nothing an f64 reader can observe — `tanh` returns exactly
+   * 1.0 from |t| = 18.2 up — and it is written all the same, because the WGSL
+   * mirror needs it: a backend that lowers `tanh` through `exp(2t)` overflows
+   * f32 past |t| = 44.36 and returns NaN, and a guard that lived on one side of
+   * the mirror would be a difference between the tiers rather than a fix. ±20
+   * is the smallest round bound above f64's own saturation point, so the two
+   * implementations return the same bits at every argument.
+   */
+  const t = Math.min(20, Math.max(-20, 0.7978845608028654 * (x + 0.044715 * x * x * x)));
+  return 0.5 * (1 + Math.tanh(t));
 }
 
 /**

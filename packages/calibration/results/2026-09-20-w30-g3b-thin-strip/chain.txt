@@ -1,0 +1,46 @@
+W30 G3b — the chain, on the committed tree (claims §5.159b §9).
+
+$ pnpm -r build                                exit 0
+$ pnpm -r lint                                 exit 0 across all nine packages
+$ pnpm -r test                                 exit 0
+    policy              23 passed (2 files)
+    motion             164 passed (10 files)
+    geometry           170 passed (14 files)
+    renderer-webgpu    511 passed (30 files)
+    core               302 passed (16 files)
+    platform-web       631 passed (46 files)
+    react              163 passed (18 files)
+    calibration        546 passed (32 files)     — 545 of 546 at §5.159; the one
+                                                   failure was W20's declaration
+                                                   conformance, which is closed
+    demo                45 passed (6 files)      — 34 passed with one suite
+                                                   failing to LOAD at §5.159 §6b
+  2,555 passed, 0 failed over 174 files
+
+$ pnpm --filter @vitrea/renderer-webgpu test:golden      34 passed
+$ git status --short packages/renderer-webgpu/e2e/goldens
+  (empty — byte-identical across the fix)
+$ pnpm --filter @vitrea/renderer-webgpu test:gpu         33 passed
+    including e2e/gpu/w30-thin-sigma-coverage.spec.ts's two new cases, which fail
+    on the pre-fix renderer at 652 of 4,780 capsule px undrawn (IoU 0.8636) and
+    132 of 4,308 toolbar px (0.9694)
+
+$ pnpm --filter demo build                     exit 0; main chunk 624.83 kB
+                                               (35,782.95 kB before the reduction)
+$ pnpm --filter demo test:e2e                  58 passed
+
+$ python3 results/2026-09-16-w29-freeze/freeze.py verify
+  26.5 freeze intact: 1818 entries          (at this gate's open and close)
+$ git diff main -- packages/calibration/profiles/apple-macos-26.5*
+$ git diff main -- apps/reference-apple/fixtures
+  (both empty — no frozen byte and no fixture moved; X1, X5)
+  the gated macOS 26.5 row pin: 1,107, unmoved across the read and the split
+
+$ python3 results/2026-09-20-w30-g1-split/append-check.py --manifest …/before-manifest.json
+  rows accounted for / rows byte-identical / 26.5 untouched / order preserved /
+  counts add up / reconstruction — 6/6 PASS
+  before 2,559 rows / 93,002,116 B / 6f7af92b564f486f…
+  after  1,833 rows / 66,075,976 B  +  247 rows / 9,128,088 B  +  479 rows / 17,798,136 B
+
+machine, before and after every browser run (X6):
+  macOS 27.0 / 26A428, RT=0, IC=0, NSGlassTintAmount=0.5, one capture process

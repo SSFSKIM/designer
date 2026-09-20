@@ -1,0 +1,90 @@
+W30 G3 — the interior structure ratio, the committed matrix
+============================================================================================================
+  592 macOS 27 rows carry `interiorStdDev` on both sides
+
+webgpu tier — median W/N per pitch per bed, active, non-holdout
+------------------------------------------------------------------------------------------------------------
+  bed                            checkerboard-     hc-text-7 checkerboard-  checkerboard checkerboard-    hc-text-28 checkerboard- checkerboard-         photo    dark-solid       impulse   light-solid
+  1x-dark-standard                   0.928 (6)     0.906 (3)     1.207 (6)     0.912 (3)     1.155 (5)     0.659 (3)     0.752 (6)     0.517 (6)     0.441 (3)     0.749 (3)     0.896 (1)             —
+  1x-light-increased-contrast-coupled             —             —             —     0.969 (3)             —             —             —             —     0.662 (4)             —             —             —
+  1x-light-reduced-transparency              —             —             —     0.818 (2)             —             —             —             —     0.762 (4)             —             —             —
+  1x-light-standard                  0.797 (6)     0.847 (3)     1.173 (6)     1.395 (7)     1.269 (5)     1.315 (3)     1.297 (6)     0.882 (6)     0.639 (9)     0.787 (3)     0.921 (3)     0.407 (4)
+  2x-dark-standard                   1.029 (6)     0.836 (3)     0.903 (6)     0.613 (3)     1.023 (5)     0.623 (3)     0.717 (6)     0.550 (6)     0.373 (3)     0.529 (3)     0.794 (1)             —
+  2x-light-standard                  0.829 (6)     0.667 (3)     0.790 (6)     0.721 (7)     0.645 (5)     0.806 (3)     0.954 (6)     0.845 (6)     0.595 (9)     0.704 (3)     0.730 (3)     0.381 (4)
+
+css tier — median W/N per pitch per bed, active, non-holdout
+------------------------------------------------------------------------------------------------------------
+  bed                            checkerboard-     hc-text-7 checkerboard-  checkerboard checkerboard-    hc-text-28 checkerboard- checkerboard-         photo    dark-solid       impulse   light-solid
+  1x-dark-standard                   0.233 (6)     0.361 (3)     0.245 (6)     0.265 (3)     0.384 (5)     0.378 (3)     0.363 (6)     0.298 (6)     0.229 (3)     0.163 (3)     0.260 (1)             —
+  1x-light-increased-contrast-coupled             —             —             —     0.332 (3)             —             —             —             —     0.449 (4)             —             —             —
+  1x-light-reduced-transparency              —             —             —     0.307 (2)             —             —             —             —     0.345 (4)             —             —             —
+  1x-light-standard                  0.157 (6)     0.560 (3)     0.253 (6)     0.885 (7)     0.823 (5)     0.987 (3)     1.057 (6)     0.622 (6)     0.404 (9)     0.222 (3)     0.279 (3)     0.156 (4)
+  2x-dark-standard                           —             —             —     0.233 (3)             —             —             —             —     0.257 (3)     0.161 (3)     0.222 (1)             —
+  2x-light-standard                          —             —             —     0.518 (7)             —             —             —             —     0.385 (9)     0.290 (3)     0.315 (3)     0.130 (4)
+
+The gated cell B4's clause is stated on, per bed per tier
+------------------------------------------------------------------------------------------------------------
+  bed                                           tier         native       web      W/N
+  1x-dark-standard                              webgpu       0.0384    0.0373   0.9732
+  1x-dark-standard                              css          0.0384    0.0136   0.3552
+  1x-light-increased-contrast-coupled           webgpu       0.0396    0.0384   0.9691
+  1x-light-increased-contrast-coupled           css          0.0396    0.0131   0.3319
+  1x-light-reduced-transparency                 webgpu       0.0562    0.0459   0.8176
+  1x-light-reduced-transparency                 css          0.0562    0.0111   0.1976
+  1x-light-standard                             webgpu       0.0766    0.1201   1.5670
+  1x-light-standard                             css          0.0766    0.0742   0.9681
+  2x-dark-standard                              webgpu       0.0435    0.0333   0.7665
+  2x-dark-standard                              css          0.0435    0.0110   0.2536
+  2x-light-standard                             webgpu       0.0869    0.0369   0.4251
+  2x-light-standard                             css          0.0869    0.0333   0.3838
+
+The ladder per pitch per span — the scale-selectivity axis, WebGPU, standard beds
+------------------------------------------------------------------------------------------------------------
+  bed                       backdrop                  32        44        96       128       160
+  1x-dark-standard          checkerboard-4         0.541     0.928     0.765     1.022     1.173
+  1x-dark-standard          hc-text-7              0.692         —     0.906         —     1.313
+  1x-dark-standard          checkerboard-8         0.624     0.948     1.207     1.862     1.322
+  1x-dark-standard          checkerboard               —     0.912     0.973         —         —
+  1x-dark-standard          checkerboard-lc16      0.915     0.827     1.198     1.155     1.174
+  1x-dark-standard          hc-text-28             0.598         —     0.659         —     1.280
+  1x-dark-standard          checkerboard-32        0.552     0.859     0.703     0.752     0.809
+  1x-dark-standard          checkerboard-64        0.642     0.758     0.508     0.517     0.497
+  1x-dark-standard          photo                      —     0.543     0.411         —         —
+  1x-dark-standard          dark-solid                 —     0.749     0.881         —         —
+  1x-dark-standard          impulse                    —     0.896         —         —         —
+  1x-light-standard         checkerboard-4         0.490     0.817     0.635     0.801     0.797
+  1x-light-standard         hc-text-7              0.847         —     0.905         —     0.727
+  1x-light-standard         checkerboard-8         1.123     1.036     1.679     2.413     1.173
+  1x-light-standard         checkerboard           1.490     1.218     1.567     1.602         —
+  1x-light-standard         checkerboard-lc16      1.269     1.232     1.440     1.362     0.998
+  1x-light-standard         hc-text-28             1.461         —     1.315         —     0.976
+  1x-light-standard         checkerboard-32        1.335     1.297     1.369     1.178     1.161
+  1x-light-standard         checkerboard-64        0.183     0.910     0.982     0.882     0.813
+  1x-light-standard         photo                  0.585     0.656     0.679     0.604         —
+  1x-light-standard         dark-solid                 —     0.844     0.787         —         —
+  1x-light-standard         impulse                    —     0.921     0.944         —         —
+  1x-light-standard         light-solid                —     0.723     0.407     0.380         —
+  2x-dark-standard          checkerboard-4         0.412     0.607     1.029     1.179     1.135
+  2x-dark-standard          hc-text-7              0.450         —     0.836         —     1.288
+  2x-dark-standard          checkerboard-8         0.556     0.628     0.903     1.703     1.727
+  2x-dark-standard          checkerboard               —     0.613     0.766         —         —
+  2x-dark-standard          checkerboard-lc16      0.733     0.652     1.023     1.048     1.029
+  2x-dark-standard          hc-text-28             0.529         —     0.623         —     1.202
+  2x-dark-standard          checkerboard-32        0.504     0.571     0.717     0.885     0.883
+  2x-dark-standard          checkerboard-64        0.492     0.550     0.546     0.615     0.578
+  2x-dark-standard          photo                      —     0.396     0.373         —         —
+  2x-dark-standard          dark-solid                 —     0.529     0.652         —         —
+  2x-dark-standard          impulse                    —     0.794         —         —         —
+  2x-light-standard         checkerboard-4         0.592     0.607     0.916     0.949     0.829
+  2x-light-standard         hc-text-7              0.804         —     0.584         —     0.667
+  2x-light-standard         checkerboard-8         0.790     0.671     0.522     1.113     1.048
+  2x-light-standard         checkerboard           0.896     0.721     0.425     0.662         —
+  2x-light-standard         checkerboard-lc16      0.781     0.722     0.484     0.645     0.604
+  2x-light-standard         hc-text-28             0.924         —     0.646         —     0.806
+  2x-light-standard         checkerboard-32        1.022     0.954     0.817     0.937     0.985
+  2x-light-standard         checkerboard-64        0.354     0.849     0.864     0.836     0.845
+  2x-light-standard         photo                  0.501     0.574     0.642     0.597         —
+  2x-light-standard         dark-solid                 —     0.704     0.713         —         —
+  2x-light-standard         impulse                    —     0.764     0.730         —         —
+  2x-light-standard         light-solid                —     0.461     0.381     0.358         —
+

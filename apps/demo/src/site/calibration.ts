@@ -10,11 +10,23 @@
  *
  * C9a's tuning run extends the same file. Nothing here needs to change when it
  * lands: more cells means more scenes with figures and fewer empty slots.
+ *
+ * **What it reads is a build-time REDUCTION of that file, not the file** (W30
+ * G3b; charter Decision Log 5 (c), claims §5.159b). `matrix.json` is 66 MB and
+ * grows by rule — a refit appends a generation of rows rather than rewriting
+ * one, and W30's read appended the pitch ladder besides — and importing all of
+ * it to reach the few hundred rows that carry a figure crossed a hard limit in
+ * the test loader's JSON bridge (§5.159 §6b). `../../matrix-reduction.ts` does
+ * the projection in Node, where reading 66 MB is a `readFileSync`, and the rules
+ * it projects by are this module's own: the scenes the picker offers, the
+ * generation at the documents on disk, and the fields `figuresOf` prints.
+ * `test/matrix-reduction.test.ts` asserts every displayed figure against the
+ * whole-file read, so the reduction is a projection and not a second source of
+ * truth, and the page's figures no longer depend on the file's size.
  */
 
+import { CELLS, MATRIX_CELL_COUNT } from "virtual:vitrea-matrix-reduction";
 import { SHIPPED_DOCUMENT_HASHES } from "virtual:vitrea-shipped-documents";
-
-import matrix from "../../../../packages/calibration/results/matrix.json";
 
 export interface Figure {
   readonly label: string;
@@ -70,7 +82,7 @@ interface Cell {
   readonly material?: Record<string, Metric | string>;
 }
 
-const cells = (matrix as { readonly cells: readonly Cell[] }).cells;
+const cells: readonly Cell[] = CELLS;
 
 const metric = (axis: Record<string, Metric | string> | undefined, name: string): Metric | null => {
   const found = axis?.[name];
@@ -254,4 +266,16 @@ export const REPORTS_BY_SCENE: ReadonlyMap<string, readonly CellReport[]> = (() 
   return bySceneId;
 })();
 
-export const MEASURED_CELL_COUNT = cells.length;
+/**
+ * How many cells the result matrix holds — the FILE's count, not the
+ * reduction's.
+ *
+ * The sentence this appears in is about the matrix: what has been measured and
+ * kept, one generation per profile. The reduction below it is about what this
+ * page could ever print, which is a different and smaller thing, and conflating
+ * the two would make the page under-report the evidence it is built on.
+ */
+export const MEASURED_CELL_COUNT = MATRIX_CELL_COUNT;
+
+/** How many of those rows this page was built with. Printed beside the count above. */
+export const DISPLAYABLE_CELL_COUNT = cells.length;

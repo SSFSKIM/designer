@@ -209,6 +209,24 @@ const MATRIX_SHA256_LINEAGE = [
       + "and 96b36eedf1c4.json. No macOS 26.5 row moved or changed, so nothing this "
       + "reader reads moved; the whole-file digest did (Decision Log 1 (d), X7).",
   },
+  {
+    sha256: "73f589062e68f7a924773d1c90dc85f32a4ee5d3cb00358bf7abdbd925df7d5a",
+    recordedIn: ["results/2026-09-20-w30-g3-operators/before-manifest.json"],
+    note:
+      "W30 G3's read, before its split: 2,288 rows, 82,695,070 bytes. 726 macOS 27 "
+      + "rows appended at the four documents that child sealed — 332 gated, 270 "
+      + "pitch-ladder PROBE rows, which the macOS 27 generation had never carried, "
+      + "and 124 holdout read once (claims §5.159 §3).",
+  },
+  {
+    sha256: "5aa2949258fcc5e18fad2dbcca4f0f8d18dd383a4ce51db9840abaab31fba22f",
+    recordedIn: [],
+    note:
+      "After W30 G3's split, which is X7's second application: 1,833 rows, "
+      + "66,076,556 bytes. W29 G3b's 455 rows moved, byte for byte, to "
+      + "results/superseded/272d1b0c3e10.json and f42ddec1cf5a.json. No macOS 26.5 "
+      + "row moved or changed, so nothing this reader reads moved.",
+  },
 ] as const;
 
 /** Rec.709 luma, the weights every matrix in the corpus factors through. */

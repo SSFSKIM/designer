@@ -1,0 +1,26 @@
+rows accounted for   PASS
+rows byte-identical  PASS
+26.5 untouched       PASS
+order preserved      PASS
+counts add up        PASS
+reconstruction       PASS
+
+manifest: packages/calibration/results/2026-09-20-w30-g3-operators/before-manifest.json
+before: 2288 rows, 82695070 bytes, sha256 73f589062e68f7a924773d1c90dc85f32a4ee5d3cb00358bf7abdbd925df7d5a
+after:   1833 rows,  66076556 bytes, sha256 5aa2949258fcc5e18fad2dbcca4f0f8d18dd383a4ce51db9840abaab31fba22f  results/matrix.json
+after:    112 rows,   3986816 bytes, sha256 091ee5e6235db551cb7d6f814e1053a40823569057e53f79c56ddfc9738d1ecf  results/superseded/272d1b0c3e10.json
+after:    343 rows,  12631782 bytes, sha256 84e84f5fd84fbe2f051b831c7a0769540d8cffddf39a4284da48640a6f36988e  results/superseded/f42ddec1cf5a.json
+
+profile key                                                 before  working   moved
+apple-macos-26.5-1x-dark-standard                              219      219       0
+apple-macos-26.5-1x-light-increased-contrast                    55       55       0
+apple-macos-26.5-1x-light-reduced-transparency                  52       52       0
+apple-macos-26.5-1x-light-standard                             281      281       0
+apple-macos-26.5-2x-dark-standard                              218      218       0
+apple-macos-26.5-2x-light-standard                             282      282       0
+apple-macos-27.0-1x-dark-standard-glass0.5                     202      146      56
+apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5      71       36      35
+apple-macos-27.0-1x-light-reduced-transparency-glass0.5         64       32      32
+apple-macos-27.0-1x-light-standard-glass0.5                    366      228     138
+apple-macos-27.0-2x-dark-standard-glass0.5                     157      101      56
+apple-macos-27.0-2x-light-standard-glass0.5                    321      183     138

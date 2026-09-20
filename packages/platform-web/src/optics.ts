@@ -1675,11 +1675,15 @@ export function outerShadowAlpha(occlusion: number): number {
  * This tier does not evaluate it to paint: `box-shadow` owns its own blur. It is
  * mirrored so the two tiers can be held to one curve where it matters — the
  * shadow's reach, and the analytic zero over black — rather than only to one set
- * of constants.
+ * of constants. The argument's ±20 clamp is the renderer's (W30 G3b; claims
+ * §5.159b): it is the identity in f64 and what keeps the shader's f32 `tanh` off
+ * the overflow that returned NaN inside a thin caster, and the mirror carries it
+ * so that "one curve" stays literally true.
  */
 export function outerShadowFalloff(signedDistancePx: number, sigmaPx: number): number {
   const x = -signedDistancePx / Math.max(sigmaPx, 1e-4);
-  return 0.5 * (1 + Math.tanh(0.7978845608028654 * (x + 0.044715 * x * x * x)));
+  const t = Math.min(20, Math.max(-20, 0.7978845608028654 * (x + 0.044715 * x * x * x)));
+  return 0.5 * (1 + Math.tanh(t));
 }
 
 /**

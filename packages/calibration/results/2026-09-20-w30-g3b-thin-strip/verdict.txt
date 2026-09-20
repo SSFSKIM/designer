@@ -1,0 +1,77 @@
+W30 G3 — the verdict, before and after, from one read of results/matrix.json
+============================================================================================================
+  rows at the documents on disk (AFTER)      726
+  rows at the superseded documents (BEFORE)  726
+  keys present in both                       726
+
+(c) The three rows this wave CLAIMS
+------------------------------------------------------------------------------------------------------------
+  tier     set         scene                                   metric                bound     before      after          Δ
+  css      holdout     checkerboard__rrect-lg__rest            ssimMean              ≥ 0.9    0.88423    0.88423   +0.00000
+    apple-macos-27.0-1x-light-standard-glass0.5   lever: the shadow's σ, on the CSS tier — span 160
+  css      holdout     checkerboard__glass-over-glass__rest    ssimMean              ≥ 0.9    0.89531    0.89531   +0.00000
+    apple-macos-27.0-1x-light-standard-glass0.5   lever: the shadow's σ, on the CSS tier — span 130, by extrapolation
+  css      holdout     photo__rrect-lg__rest                   ssimOutside          ≥ 0.83    0.82695    0.82695   +0.00000
+    apple-macos-27.0-1x-light-reduced-transparency-glass0.5   lever: the shadow's σ, on the CSS tier — reachable if the law extrapolates
+
+(d) The four rows declared EXPECTED UNMOVED — a move is a warning, not a result
+------------------------------------------------------------------------------------------------------------
+  tier     set         scene                                   metric                bound     before      after          Δ
+  css      holdout     photo__rrect-lg__rest                   oklabDeltaEP95       ≤ 0.18    0.20095    0.20095   +0.00000
+    apple-macos-27.0-1x-dark-standard-glass0.5
+  css      holdout     photo__rrect-lg__rest                   oklabDeltaEP95       ≤ 0.19    0.19474    0.19474   +0.00000
+    apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu   holdout     photo__rrect-lg__rest                   oklabDeltaEP95       ≤ 0.17    0.21531    0.21531   +0.00000
+    apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu   holdout     photo__rrect-lg__rest                   oklabDeltaEP95       ≤ 0.17    0.21341    0.21341   +0.00000
+    apple-macos-27.0-2x-dark-standard-glass0.5
+
+(d) The reported-not-claimed residual — the matrix instrument (the sheets' is read by eye)
+------------------------------------------------------------------------------------------------------------
+  before  checkerboard__rrect-md__rest            native 0.0562  web 0.0459  ratio 0.8176   the reduced-transparency body-structure residual — reported, not claimed
+  after   checkerboard__rrect-md__rest            native 0.0562  web 0.0459  ratio 0.8176   the reduced-transparency body-structure residual — reported, not claimed
+
+Every row that moved most, by metric — so a change nobody declared is as visible
+------------------------------------------------------------------------------------------------------------
+  webgpu  validation  impulse__capsule-button__inactive       interiorMeanWeb          0.64460   0.05626  -0.58834  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  validation  impulse__capsule-button__inactive       interiorMeanWeb          0.52752   0.05504  -0.47248  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  validation  impulse__capsule-button__inactive       interiorStdDevWeb        0.47250   0.00528  -0.46722  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  validation  impulse__capsule-button__inactive       interiorStdDevWeb        0.45886   0.01012  -0.44874  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  probe       checkerboard-lc16__capsule-button__inactiveinteriorStdDevWeb        0.24340   0.02526  -0.21814  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  probe       checkerboard-lc16__capsule-button__inactiveinteriorStdDevWeb        0.23739   0.02599  -0.21140  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  probe       checkerboard-lc16__capsule-button__rest interiorStdDevWeb        0.23911   0.02869  -0.21042  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  probe       checkerboard-64__capsule-button__rest   interiorStdDevWeb        0.25418   0.04775  -0.20643  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  probe       checkerboard-64__capsule-button__rest   interiorStdDevWeb        0.24727   0.04650  -0.20077  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  calibration photo__capsule-button__inactive-tint-orangeinteriorStdDevWeb        0.21181   0.01201  -0.19979  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  probe       checkerboard-lc16__capsule-button__rest interiorStdDevWeb        0.23289   0.03406  -0.19883  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  calibration photo__capsule-button__inactive         interiorStdDevWeb        0.20541   0.00919  -0.19623  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  calibration photo__capsule-button__inactive-tint-orangeinteriorStdDevWeb        0.20712   0.01232  -0.19480  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  calibration photo__capsule-button__inactive         interiorStdDevWeb        0.20038   0.00985  -0.19053  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  calibration light-solid__capsule-button__inactive   interiorStdDevWeb        0.19643   0.00983  -0.18660  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  holdout     hc-text__capsule-button__rest-tint-orangeinteriorStdDevWeb        0.21634   0.03241  -0.18392  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  calibration light-solid__capsule-button__rest-tint-orangeinteriorStdDevWeb        0.19533   0.01176  -0.18357  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  calibration photo__capsule-button__rest             interiorStdDevWeb        0.20033   0.01679  -0.18354  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  holdout     hc-text__capsule-button__rest-tint-orangeinteriorStdDevWeb        0.20305   0.02098  -0.18207  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  probe       checkerboard-4__capsule-button__rest    interiorStdDevWeb        0.20306   0.02434  -0.17872  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  calibration light-solid__capsule-button__inactive   interiorStdDevWeb        0.19155   0.01415  -0.17741  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  validation  checkerboard__capsule-button__rest-tint-blueinteriorStdDevWeb        0.20160   0.02449  -0.17711  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  calibration light-solid__capsule-button__rest-tint-orangeinteriorStdDevWeb        0.18497   0.00834  -0.17663  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  calibration photo__capsule-button__rest             interiorStdDevWeb        0.19502   0.02034  -0.17468  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  validation  checkerboard__capsule-button__rest-tint-blueinteriorStdDevWeb        0.18916   0.01681  -0.17235  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  probe       checkerboard-4__capsule-button__rest    interiorStdDevWeb        0.19859   0.02898  -0.16961  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  probe       checkerboard-8__capsule-button__rest    interiorStdDevWeb        0.20575   0.03716  -0.16860  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  calibration photo__capsule-button__inactive-tint-orangeinteriorStdDevWeb        0.19411   0.02610  -0.16801  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  calibration photo__capsule-button__inactive-tint-blueinteriorStdDevWeb        0.19411   0.02610  -0.16801  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  calibration checkerboard__capsule-button__rest      interiorStdDevWeb        0.20678   0.04075  -0.16603  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  probe       checkerboard-64__capsule-button__rest-tint-orangeinteriorStdDevWeb        0.18139   0.01689  -0.16450  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  probe       checkerboard-32__capsule-button__rest   interiorStdDevWeb        0.20762   0.04402  -0.16359  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  calibration checkerboard__capsule-button__inactive  interiorStdDevWeb        0.21085   0.04764  -0.16320  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  probe       checkerboard-8__capsule-button__rest    interiorStdDevWeb        0.20071   0.03986  -0.16084  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  calibration checkerboard__capsule-button__inactive  interiorStdDevWeb        0.20468   0.04512  -0.15956  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  probe       checkerboard-32__capsule-button__rest   interiorStdDevWeb        0.20230   0.04659  -0.15571  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  calibration photo__capsule-button__inactive-tint-orangeinteriorStdDevWeb        0.18364   0.02828  -0.15537  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  calibration photo__capsule-button__inactive-tint-blueinteriorStdDevWeb        0.18364   0.02828  -0.15537  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  calibration checkerboard__capsule-button__rest      interiorStdDevWeb        0.20255   0.04778  -0.15477  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  probe       checkerboard-64__capsule-button__rest-tint-orangeinteriorStdDevWeb        0.20346   0.05021  -0.15325  apple-macos-27.0-1x-light-standard-glass0.5
+
+  0 native readings moved (any number here but 0 is a fault, not a result)

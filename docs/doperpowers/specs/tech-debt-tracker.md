@@ -3387,6 +3387,20 @@ whether the superseded directory itself should ever be pruned, compressed or mov
 out of the repository — is not decided, and the first reader who finds
 `results/superseded/` uncomfortably large should raise it rather than delete a file.
 
+**The consumer half closed 2026-09-20 by W30 G3b** (claims §5.159b; W30 Decision
+Log 5 (c)). The split kept the working file from growing without bound and left
+the demo importing all of it: at 66 MB the page's whole-file JSON import crossed
+a hard conversion limit in the test loader's Rust bridge and
+`apps/demo/test/calibration.test.ts` stopped LOADING, while `vite build` went on
+succeeding because the bundler's loader is not the test runner's. `apps/demo/matrix-reduction.ts`
+projects the matrix at build time onto the rows the picker's scenes carry at the
+documents on disk and the seven metrics the page prints, and the main chunk goes
+**35,782.95 kB → 624.83 kB** (gzip 2,771.25 → 64.21). `test/matrix-reduction.test.ts`
+asserts every displayed figure against the whole-file read, in Node, so the page's
+figures no longer depend on the file's size at all — which is the part of this
+entry's worry that the split alone could not answer. The superseded directory's
+own size question stays open and is now **59.9 MB over six files**.
+
 ---
 
 ## The fit loop's holdout drop lives in one reader, and the other reader has none
@@ -3781,3 +3795,54 @@ today would actually be — a scratch matrix, or one restored from a branch — 
 say that instead; and when a sweep reports a file "unchanged, checked", have it
 say what the file *claims* about the thing being changed, not only whether it
 reads it.
+
+---
+
+## Nothing checks that a WGSL transcendental's argument stays inside f32 (W30 G3b, 2026-09-20)
+
+*Found 2026-09-20 by W30 G3b diagnosing §5.159 §6's undrawn strip (claims
+§5.159b). The instance is fixed; the class is not.*
+
+The optics pass's `outer_shadow_falloff` computes `tanh(K · (x + C·x³))` where
+`x` is a distance in σ. Nothing bounded `x`, and a backend that lowers `tanh`
+through `exp(2t)` — Metal's fast-math path, which is what Dawn runs on the
+capture machine — overflows f32 at `t = 44.3614`, returning `Inf/Inf`. The NaN
+reached the composite's alpha and left a strip of a 44 px surface undrawn. **It
+had been reachable since the facet was built** and nothing found it for six
+waves, because reaching it needed a σ narrower than any material the project had
+shipped: it took macOS 27's span-graded blur to make a caster ten σ deep.
+
+Two properties made it invisible rather than one. The 34 goldens render at one σ
+and cannot sweep a law. And SSIM over a whole cell barely moved — 0.98217 →
+0.97826 — so every perceptual row stayed green; the bound that caught it was
+W20's declaration conformance, which reads the drawn COVERAGE.
+
+**What is still open is the class.** `src/wgsl/` evaluates `exp`, `pow`, `tanh`
+and several polynomials on quantities a profile document can scale, and no test
+asserts that any of their arguments stays inside f32's range over the span of
+inputs the bed carries — let alone over the span a future fit could produce. The
+fix that landed is a clamp on one argument; the generalisation is not there.
+
+**The fix shape**, in the order a later child would want it:
+
+1. A unit case over the WGSL sources that finds every call to a transcendental
+   and requires its argument to be clamped, or to be accompanied by a named
+   proof of its range. Cheap, mechanical, and it would have caught this one.
+2. A `@gpu` case in the shape of `w30-thin-sigma-coverage.spec.ts`'s second
+   test — sweep a material constant over the range a fit could reach and assert
+   an invariant that does not depend on it. That case exists now for σ against
+   coverage; the same shape is available for the lens depth, the scatter widths
+   and the tone response's knots.
+3. A cheaper standing guard: `renderScene`'s readback already throws on a WebGPU
+   validation error, and it could also refuse a raster whose alpha has a hole
+   inside a declared silhouette. That is the signature a NaN leaves, and it is
+   one pass over the bytes the harness already has in hand.
+
+**One residual this gate measured and did not explain.** Four `glass-over-glass`
+cells on the dark beds moved across the fix by up to 8·10⁻⁴ CSS px on a fitted
+shadow σ whose own residual is 10⁻², with their `shape` axis not moving at all
+(`results/2026-09-20-w30-g3b-thin-strip/moved-cells.txt`). The other 172 moved
+cells are all span-44 casters and are exactly W20's 170 plus two. The shape of
+the explanation is a handful of exterior pixels whose falloff argument sat at the
+overflow boundary, and the way to settle it is (1) above: a range proof would say
+whether any pixel of that scene reaches it.
