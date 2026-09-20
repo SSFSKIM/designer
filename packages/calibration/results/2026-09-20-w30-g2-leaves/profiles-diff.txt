@@ -1,0 +1,11 @@
+W30 G2 review closure — X1, read on the closure branch (claims 5.158 section 8).
+
+$ git diff --stat main -- packages/calibration/profiles/apple-macos-2*.json packages/calibration/results/matrix.json
+(empty: no profile document and no matrix row moved)
+
+$ git diff --stat main -- packages/calibration/profiles/
+ .../calibration/profiles/digest-supersessions.json   | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
+
+$ git diff --stat main -- apps/reference-apple/fixtures packages/renderer-webgpu/e2e/goldens
+(empty: no fixture and no golden moved)

@@ -26147,6 +26147,19 @@ incidental: `kScatter` is already clamped to [0, 1] before the term is added, so
 `clamp(k + 0, 0, 1)` returns the same double and the shader's line is bit-identical rather than
 close.
 
+**The multiplied-zero argument assumes the other operand is finite, and each one is** (added
+2026-09-20, review closure, §8 finding 7). `0 · x` is 0 for every finite `x` and is NaN at ±∞, so
+"exactly zero by arithmetic" is a statement about the operand as much as about the zero. There are
+three, and each is bounded where it is produced: the span the σ law multiplies is `shadowAux.z`, a
+surface's own `min(width, height)` written by the field pass from a measured layout rect; the
+statistic the scale gain multiplies is the analysis pass's edge density, a reduction over a
+bounded raster and — where nothing has been observed — the material's own reference (§2); and the
+CSS tier's extent is `surface.spanPx`, the same measured number one tier along. None of the three
+can be infinite without the geometry or the reduction that produced it already being so, at which
+point the surface does not draw for reasons that predate this wave. `w30-inert-laws.test.ts` sweeps
+the σ law to 1e6 and `Number.MAX_SAFE_INTEGER` rather than to ∞ for exactly that reason: the
+argument is about the operands the runtime produces, not about every double.
+
 ### 2. Where the laws are evaluated, and what changed shape to carry them
 
 **Per caster, on both tiers.** The WebGPU tier reads the casting surface's own span per pixel from
@@ -26276,7 +26289,13 @@ its bed, so a change that moves no pixel must move no document byte.*
 
 ### 5. The proofs
 
-Each ran on the merged tree and its output is committed under the evidence directory.
+Each ran on the merged tree. **Four of them had a committed output and eight did not** — the
+sentence above read "its output is committed under the evidence directory" of all twelve, which was
+true of `freeze-verify.txt`, `goldens.txt`, `gpu-heavy-second-tap.txt` and `reseal.txt` only. The
+review closure reran the eight and committed them (§8 finding 5): `profiles-diff.txt`,
+`unit-proofs.txt`, `window-activation.txt`, `chain.txt`, beside `freeze-verify.closure.txt` and
+`goldens.closure.txt`. Those are the CLOSURE branch's readings, and where the closure added cases
+they are higher than the merge's; the merge's readings below are not rewritten.
 
 | proof | command | result |
 | --- | --- | --- |
@@ -26336,8 +26355,9 @@ recorded above stands **beside** the recorded one rather than over it.
 | 2 | The `@gpu` case opened `scatterHeavy2` and nothing else, so `shadowSigma` (floats 120–123) and `scatterScale` (124–127) were never read at a non-zero value on a real adapter — the same vacuity the misalignment of §6 hid in | Two cases beside it, each with its own `measureOnly` scene outside `SCENES` so the 34 goldens do not move. **σ:** `w30-shadow-span` carries casters at 44 and 160 CSS px, either side of the reference the fit holds at 96; at `{sigmaSlopePerSpan: 0.133, sigmaSpanRefPx: 96}` the span-160 half moves **7** codes and the span-44 half **0** — the floor's own arm, read at the caster's own span — while one width for both moves the thin half **5**, so its zero is the law and not a dead region. **Scatter:** `w30-scatter-scale` runs 40 frames over a 32 px checker so the source's edge density reaches the shader; a reference at a zero gain moves **0**, gain ∓2.5 moves **6** each, sign Δ **12** — and the gain moving anything at a reference of 0 is itself the proof that the measured statistic arrived non-zero. Output: `results/2026-09-20-w30-g2-leaves/gpu-operator-vec4s.txt`, 31 passed |
 | 3 | `backdropScaleStatistic` passed `adapt?.edgeDensity ?? 0`, which is the identity only while `sizeScatterScaleRef` is 0: once §5.159 fits one, every frame drawn before its source's first readback would evaluate `gain · (0 − ref)` at full magnitude and then step to the resting value | The uniform takes the same gate `adaptStrength` already takes — `adapt?.observed === true ? adapt.edgeDensity : material.sizeScatterScaleRef` — so "no evidence" resolves to the value at which the operator contributes nothing. Two cases in `frame-composition.test.ts` read floats 124–127 back off the device through a new `uniformWrites` log on the fake GPU: at a reference of 0.42 the statistic lane is bit-identical to the reference lane, and at 0.11 it follows it |
 | 4 | `outerShadowReachPx`'s `spanPx` and `sampledOuterShadowFactor`'s `casterSpanPx` defaulted to 0 — the thinnest caster there is, and therefore an under-bound on the pad the moment the slope is fitted, invisible while it is not | Both required; the two `tier-coherence.test.ts` sites state 44 (the span their own alpha is read at), `outer-shadow.test.ts` names one span for the whole file, and `results/2026-09-20-w30-g0-cut/reach-table.ts` states the span it is tabulating (its `reach-table.txt` re-runs byte-identical, since the shipped slopes are 0). The reach's doc comment states the condition under which a group's `reach(max occlusion, max span)` bounds every member's — `sigmaSlopePerSpan ≥ 0` — and `w30-inert-laws.test.ts` asserts σ and the reach are non-decreasing in the span at the fitted shape (slope 0.133, reference 96, floor −7), with a negative slope as the fail-before half, so G3's fit inherits the constraint as a test |
-
+| 5 | §5 said every proof's output is committed; four of the twelve rows had one | The other eight rerun and committed: `profiles-diff.txt` (X1's three diffs), `unit-proofs.txt` (the identity test, the gated-row pin, both declaration beds, both inert-law sweeps, tier coherence, the three digest pins, the capture guard), `window-activation.txt`, `chain.txt`, and `freeze-verify.closure.txt` / `goldens.closure.txt` beside the merge's. §5's sentence is corrected in place to say which four had outputs |
 | 6 | The CSS declaration bed is taken at the nominal policy only — so a σ law that reached `opticsUnderPolicy`'s folded path and not the nominal one would have passed — and no case pinned that a document naming the eight leaves is admitted by the capture path | The bed gained `policySweep()` over the reduced-transparency and increased-contrast regimes, 240 cases against `w30-css-declarations-policies-pre-leaves.json`, recorded on the pre-leaf tree by checking `packages/platform-web/src` out at `01347a2c` and running the recorder there. The nominal fixture is untouched. The new rows are a real fold — each regime moves all 120 nominal rows — and the two reach the shadow differently: reduced transparency moves every `box-shadow` alpha, increased contrast moves none, both pinned. `capture-integrity.test.ts` admits one document naming all eight leaves and still refuses a ninth name inside the `outerShadow` block |
+| 7 | §1's "exactly zero by arithmetic" is an identity in the LEAF only: `0 · x` is 0 for finite `x` and NaN at ±∞ | One clause beside §1's tables naming the three operands — the caster's span from `shadowAux.z`, the analysis pass's edge density, the CSS tier's `spanPx` — and where each is bounded, with the note that `w30-inert-laws.test.ts` sweeps to 1e6 rather than to ∞ because the claim is about the operands the runtime produces |
 
 **The general lesson, which outlives this wave.** A digest is a statement about a construction as
 much as about values, and a repository can agree with itself about a construction that is wrong: the
@@ -26346,3 +26366,22 @@ draws, and the only reading that disagreed was the one taken from a browser. The
 readers but a **closed loop** — the digest's own inverse, asserted where the digest is produced.
 `reseal.ts`'s strip-the-leaves assertion is that loop, and it is the shape any later sealing script
 should take.
+
+The second lesson is the one findings 2, 3, 4 and 6 share, and it is about **where a value is
+allowed to be zero**. An operator landed at an algebraic identity is proved inert by every reading
+that can be taken at it — and that is exactly the configuration in which a lane assignment, an
+"unobserved" fallback, a defaulted argument and an unexercised policy path are all indistinguishable
+from correct. Each of the four is closed the same way: read it at a value the fit will actually
+produce. The wave's own §6 says this about a uniform offset; the closure says it about the three
+other places the wave left a zero standing in for a measurement.
+
+**The verification record.** All on the closure branch, after the seven closures.
+
+| reading | result |
+| --- | --- |
+| `python3 results/2026-09-16-w29-freeze/freeze.py verify` | **`26.5 freeze intact: 1818 entries`** (`freeze-verify.closure.txt`) |
+| `git diff --stat main -- packages/calibration/profiles/apple-macos-2*.json packages/calibration/results/matrix.json` | **empty**; over `profiles/` the one changed file is `digest-supersessions.json` (`profiles-diff.txt`) |
+| `pnpm --filter @vitrea/renderer-webgpu test:golden` | **34 passed**, no regen, `git status` over `e2e/goldens` empty (`goldens.closure.txt`) |
+| `pnpm --filter @vitrea/renderer-webgpu test:gpu` | **31 passed** — second heavy tap Δ 0 / 41 / 32 / 73; σ law span 44 Δ **0**, span 160 Δ **7**, one width for both Δ 5 / 7; scatter scale reference-only Δ **0**, gain ∓2.5 Δ **6**, sign Δ **12** (`gpu-operator-vec4s.txt`) |
+| `pnpm -r build && pnpm -r lint && pnpm -r test` | exit 0; **2,549 passed** over 173 files against the merge's 2,541 over 173 — renderer-webgpu **511** over 30, platform-web **630** over 46, calibration **546** over 32, every other package unmoved (`chain.txt`) |
+| `npx playwright test e2e/shared/window-activation.spec.ts --project=chromium` | **6 passed**; the browser prints the two macOS 27 inactive materials as `035f537d9c27e3ed…` and `4763b0d195fdb077…`, which is finding 1's recomputation read back from a running root (`window-activation.txt`) |

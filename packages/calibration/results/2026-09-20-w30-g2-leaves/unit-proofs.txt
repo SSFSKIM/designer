@@ -1,0 +1,288 @@
+W30 G2 review closure — the named unit proofs, rerun (claims 5.158 section 5 and 8).
+Counts are the closure branch's and are higher than the merge's where the
+closure added cases; the merge's readings stay in section 5.
+
+$ packages/calibration: vitest run test/w30-operator-identity.test.ts test/adopted-thresholds.test.ts test/tier-coherence.test.ts test/capture-integrity.test.ts test/tuned-profiles.test.ts test/macos27-profile-export.test.ts test/macos26-document-selection.test.ts
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-ab01ba754a5923df5/packages/calibration
+ ✓ test/macos27-profile-export.test.ts > the shipped macOS 27 material and the macOS 27 profile documents > the light active material is the same patch, leaf for leaf 1ms
+ ✓ test/macos27-profile-export.test.ts > the shipped macOS 27 material and the macOS 27 profile documents > the light active material names the same constants, in both directions 3ms
+ ✓ test/macos27-profile-export.test.ts > the shipped macOS 27 material and the macOS 27 profile documents > the light active material hashes to the document's own bytes 0ms
+ ✓ test/macos27-profile-export.test.ts > the shipped macOS 27 material and the macOS 27 profile documents > the dark active material is the same patch, leaf for leaf 0ms
+ ✓ test/macos27-profile-export.test.ts > the shipped macOS 27 material and the macOS 27 profile documents > the dark active material names the same constants, in both directions 1ms
+ ✓ test/macos27-profile-export.test.ts > the shipped macOS 27 material and the macOS 27 profile documents > the dark active material hashes to the document's own bytes 0ms
+ ✓ test/macos27-profile-export.test.ts > the shipped macOS 27 material and the macOS 27 profile documents > the light receded difference is the same patch, leaf for leaf 0ms
+ ✓ test/macos27-profile-export.test.ts > the shipped macOS 27 material and the macOS 27 profile documents > the light receded difference names the same constants, in both directions 1ms
+ ✓ test/macos27-profile-export.test.ts > the shipped macOS 27 material and the macOS 27 profile documents > the light receded difference hashes to the document's own bytes 0ms
+ ✓ test/macos27-profile-export.test.ts > the shipped macOS 27 material and the macOS 27 profile documents > the dark receded difference is the same patch, leaf for leaf 0ms
+ ✓ test/macos27-profile-export.test.ts > the shipped macOS 27 material and the macOS 27 profile documents > the dark receded difference names the same constants, in both directions 1ms
+ ✓ test/macos27-profile-export.test.ts > the shipped macOS 27 material and the macOS 27 profile documents > the dark receded difference hashes to the document's own bytes 0ms
+ ✓ test/macos27-profile-export.test.ts > the shipped macOS 27 material and the macOS 27 profile documents > carries the CSS crossing the light document records, with the dark document agreeing 0ms
+ ✓ test/macos27-profile-export.test.ts > the shipped macOS 27 material and the macOS 27 profile documents > is what a root draws when an app asks for nothing (W29 Decision Log 2) 0ms
+ ✓ test/macos27-profile-export.test.ts > the shipped macOS 27 material and the macOS 27 profile documents > names each endpoint's document and the digest its pin resolves to 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > reads the matrix at the schema the build writes, and pins both numbers 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > covers four profiles of the settled bed, and names the two it leaves 8ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-1x-light-standard cells against TEXTURE_TIER_LIGHT 3ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-standard cells against DOM_TIER_LIGHT 2ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT 2ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-2x-light-standard cells against DOM_TIER_2X_LIGHT 2ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-1x-light-reduced-transparency cells against TEXTURE_TIER_REDUCED_TRANSPARENCY 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-reduced-transparency cells against DOM_TIER_REDUCED_TRANSPARENCY 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-1x-light-increased-contrast cells against TEXTURE_TIER_INCREASED_CONTRAST 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-increased-contrast cells against DOM_TIER_INCREASED_CONTRAST 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-1x-dark-standard cells against TEXTURE_TIER_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-dark-standard cells against DOM_TIER_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-2x-dark-standard cells against DOM_TIER_2X_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-27.0-1x-light-standard-glass0.5 cells against TEXTURE_TIER_27_LIGHT 4ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-27.0-1x-light-standard-glass0.5 cells against DOM_TIER_27_LIGHT 2ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-27.0-2x-light-standard-glass0.5 cells against TEXTURE_TIER_27_2X_LIGHT 2ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-27.0-2x-light-standard-glass0.5 cells against DOM_TIER_27_2X_LIGHT 2ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-27.0-1x-dark-standard-glass0.5 cells against TEXTURE_TIER_27_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-27.0-1x-dark-standard-glass0.5 cells against DOM_TIER_27_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-27.0-2x-dark-standard-glass0.5 cells against TEXTURE_TIER_27_2X_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-27.0-2x-dark-standard-glass0.5 cells against DOM_TIER_27_2X_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-27.0-1x-light-reduced-transparency-glass0.5 cells against TEXTURE_TIER_27_REDUCED_TRANSPARENCY 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-27.0-1x-light-reduced-transparency-glass0.5 cells against DOM_TIER_27_REDUCED_TRANSPARENCY 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 cells against TEXTURE_TIER_27_INCREASED_CONTRAST_COUPLED 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 cells against DOM_TIER_27_INCREASED_CONTRAST_COUPLED 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > proves every regression floor stands on a genuinely unmet bound 3ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > enforces the coherence rows over apple-macos-26.5-1x-light-standard, from the matrix 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-1x-light-standard's recorded ratio against the two tiers' own levels 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > enforces the coherence rows over apple-macos-26.5-2x-light-standard, from the matrix 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-2x-light-standard's recorded ratio against the two tiers' own levels 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > enforces the coherence rows over apple-macos-26.5-1x-dark-standard, from the matrix 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-1x-dark-standard's recorded ratio against the two tiers' own levels 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > enforces the coherence rows over apple-macos-26.5-2x-dark-standard, from the matrix 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-2x-dark-standard's recorded ratio against the two tiers' own levels 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > measures coherence on every profile the rows do not gate 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > excludes the degenerate coherence cell by measurement, and gates its neighbours 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > carries a coherence axis on the dom tier and nowhere else 2ms
+ ✓ test/adopted-thresholds.test.ts > the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a)) > declares exactly the six profiles the user ruled, and not the confounded one 0ms
+ ✓ test/adopted-thresholds.test.ts > the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a)) > holds every 27 table at its 26.5 twin's values, row for row 0ms
+ ✓ test/adopted-thresholds.test.ts > the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a)) > adopts no regression floor on any 27 profile (acceptance clause 4) 0ms
+ ✓ test/adopted-thresholds.test.ts > the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a)) > names every 27 row the refit missed, and nothing it did not 2ms
+ ✓ test/adopted-thresholds.test.ts > the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a)) > gates every 27 row it finds, and refuses one it never declared 3ms
+ ✓ test/adopted-thresholds.test.ts > W20 — declaration conformance on the texture tier > carries the rows on every texture-tier cell with a shape axis 0ms
+ ✓ test/adopted-thresholds.test.ts > W20 — declaration conformance on the texture tier > holds every texture-tier cell to its declared geometry within the antialiased band 2ms
+ ✓ test/adopted-thresholds.test.ts > W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing > apple-macos-26.5-1x-light-standard: the light-solid capsule's shadow is within 20% of the reference's 0ms
+ ✓ test/adopted-thresholds.test.ts > W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing > apple-macos-26.5-1x-light-standard: the lift is painted on every thick checkerboard cell, within 20% 0ms
+ ✓ test/adopted-thresholds.test.ts > W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing > apple-macos-26.5-2x-light-standard: the light-solid capsule's shadow is within 20% of the reference's 0ms
+ ✓ test/adopted-thresholds.test.ts > W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing > apple-macos-26.5-2x-light-standard: the lift is painted on every thick checkerboard cell, within 20% 0ms
+ ✓ test/adopted-thresholds.test.ts > the probe set is captured, and gated by nothing (W25 Decision Log 3 (e)) > declares a probe set, so these assertions are about something 0ms
+ ✓ test/adopted-thresholds.test.ts > the probe set is captured, and gated by nothing (W25 Decision Log 3 (e)) > puts no probe row in the gated bed, at any profile or tier 0ms
+ ✓ test/adopted-thresholds.test.ts > the probe set is captured, and gated by nothing (W25 Decision Log 3 (e)) > drops the file's probe rows, the inactive pose and superseded generations, and nothing else 1ms
+ ✓ test/adopted-thresholds.test.ts > the probe set is captured, and gated by nothing (W25 Decision Log 3 (e)) > gates only rows captured at a profile document this repository still contains 3ms
+ ✓ test/adopted-thresholds.test.ts > the probe set is captured, and gated by nothing (W25 Decision Log 3 (e)) > names no probe scene in the conditioning predicate's exclusion list 1ms
+ ✓ test/adopted-thresholds.test.ts > the probe set is captured, and gated by nothing (W25 Decision Log 3 (e)) > floors no probe row 0ms
+ ✓ test/adopted-thresholds.test.ts > the inactive pose is published, and gated by nothing (W27 Decision Log 13) > declares an inactive pose, so these assertions are about something 0ms
+ ✓ test/adopted-thresholds.test.ts > the inactive pose is published, and gated by nothing (W27 Decision Log 13) > puts no inactive row in the gated bed, at any profile or tier 0ms
+ ✓ test/adopted-thresholds.test.ts > the inactive pose is published, and gated by nothing (W27 Decision Log 13) > catches a labelled row left stale by a later edit to the declaration 0ms
+ ✓ test/adopted-thresholds.test.ts > the inactive pose is published, and gated by nothing (W27 Decision Log 13) > names no inactive scene in the conditioning predicate's exclusion list 1ms
+ ✓ test/adopted-thresholds.test.ts > the inactive pose is published, and gated by nothing (W27 Decision Log 13) > floors no inactive row 0ms
+ ✓ test/adopted-thresholds.test.ts > the stack overlay bound (W27f G2, claims §5.135) > reads the three cells that have a native overlay, and only those 0ms
+ ✓ test/adopted-thresholds.test.ts > the stack overlay bound (W27f G2, claims §5.135) > holds clause A: the DOM-base overlay is inside the native stack envelope 0ms
+ ✓ test/adopted-thresholds.test.ts > the stack overlay bound (W27f G2, claims §5.135) > holds clause B: no overlay reading is worse than claims §5.131 §6 recorded 1ms
+ ✓ test/adopted-thresholds.test.ts > the stack overlay bound (W27f G2, claims §5.135) > records that the read reproduced the ledger exactly, rather than merely passing 0ms
+ ✓ test/adopted-thresholds.test.ts > the stack overlay bound (W27f G2, claims §5.135) > carries the two dark-checker regressions the ledger names, pinned and unclosed 0ms
+ ✓ test/adopted-thresholds.test.ts > the stack overlay bound (W27f G2, claims §5.135) > landed with none of the bound's own stops outstanding 0ms
+ ✓ test/adopted-thresholds.test.ts > the stack overlay bound (W27f G2, claims §5.135) > carries the instrument's stops apart, with S4 tripped and ruled on by the user 0ms
+ ✓ test/adopted-thresholds.test.ts > the frozen macOS 26.5 bed survives the document partition (W30 G0, X1) > keeps all 1,107 macOS 26.5 rows at documents whose bytes are on disk 1ms
+ ✓ test/adopted-thresholds.test.ts > the frozen macOS 26.5 bed survives the document partition (W30 G0, X1) > names the two frozen documents and nothing else 1ms
+ ✓ test/macos26-document-selection.test.ts > the macOS 26.5 document, as a root selects it > light: the selected patch resolves to the document's own recorded material 2ms
+ ✓ test/macos26-document-selection.test.ts > the macOS 26.5 document, as a root selects it > light: the endpoint's hand-written digest is the current one 0ms
+ ✓ test/macos26-document-selection.test.ts > the macOS 26.5 document, as a root selects it > dark: the selected patch resolves to the document's own recorded material 0ms
+ ✓ test/macos26-document-selection.test.ts > the macOS 26.5 document, as a root selects it > dark: the endpoint's hand-written digest is the current one 0ms
+ ✓ test/macos26-document-selection.test.ts > the macOS 26.5 document, as a root selects it > selects the renderer's own defaults for light, and something else for dark 0ms
+ ✓ test/w30-operator-identity.test.ts > W30's exemption is inert at the material level (acceptance clause 1, X1) > names only leaves the resolved material actually has 2ms
+ ✓ test/w30-operator-identity.test.ts > W30's exemption is inert at the material level (acceptance clause 1, X1) > resolves apple-macos-26.5-1x-light-standard to its pre-wave material outside the named leaves 2ms
+ ✓ test/w30-operator-identity.test.ts > W30's exemption is inert at the material level (acceptance clause 1, X1) > resolves apple-macos-26.5-1x-dark-standard to its pre-wave material outside the named leaves 1ms
+ ✓ test/w30-operator-identity.test.ts > W30's exemption is inert at the material level (acceptance clause 1, X1) > keeps the two pre-wave materials distinct, so the comparison discriminates 0ms
+ ✓ test/tuned-profiles.test.ts > tuned calibration profiles > carry the profile key they are named for, in the locked colour space 1ms
+ ✓ test/tuned-profiles.test.ts > tuned calibration profiles > pins the runtime default to the light-standard profile 1ms
+ ✓ test/tuned-profiles.test.ts > tuned calibration profiles > makes the light patch NAME every fitted constant, not just the ones that differ 2ms
+ ✓ test/tuned-profiles.test.ts > tuned calibration profiles > pins the RESOLVED material by fingerprint, so a default cannot move unrecorded 1ms
+ ✓ test/tuned-profiles.test.ts > tuned calibration profiles > pins the macOS 27 documents the same way, and keeps the identity singular 1ms
+ ✓ test/tuned-profiles.test.ts > tuned calibration profiles > recomputes all SIX records from the materials, each through its own construction 2ms
+ ✓ test/tuned-profiles.test.ts > tuned calibration profiles > records the measured light-scheme tint alpha, not the advisory one 0ms
+ ✓ test/tuned-profiles.test.ts > tuned calibration profiles > records the light rim's specular at the value its own contrasts chose 0ms
+ ✓ test/tuned-profiles.test.ts > tuned calibration profiles > leaves the backdrop tint crossover inert by default 0ms
+ ✓ test/tuned-profiles.test.ts > tuned calibration profiles > applies the dark patch as a real change, and only where it claims to 0ms
+ ✓ test/tuned-profiles.test.ts > tuned calibration profiles > states an improvement on the objective it was fitted against 0ms
+ ✓ test/tuned-profiles.test.ts > tuned calibration profiles > pins the CSS tier's shipped mapping to the light-standard profile too (K5) 0ms
+ ✓ test/tuned-profiles.test.ts > tuned calibration profiles > gives the 27 documents a CSS-tier half the 26.5 ones do not have 0ms
+ ✓ test/tuned-profiles.test.ts > tuned calibration profiles > gives every entry a status from the closed set the profiles use 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > mirrors every renderer optic the CSS tier's mapping reads, per variant 1ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > mirrors the two collapsed rims, which are the profile's and not a variant's 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > covers exactly the renderer's variants — a new one must not default silently 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > keeps the two tiers on one blur sigma, and core's padding at 3σ of it 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > derives the DOM body at the renderer's response anchors, before encoded conversion (W27f) 1ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > derives a different alpha from the same profile, in the direction the composites imply 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > lifts occlusion by the same relative derivation on both tiers 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > selects the same policy-specific occlusion lift on both tiers 1ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > decides the GPU tier's ink against the alpha the renderer composites, under a patched lift 1ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > publishes Apple's operator on both tiers, off each tier's own level 2ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > agrees on the pole everywhere on the regular material, and on clear outside one window 5ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > pins how far apart the two tiers' foreground levels run 1ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > thickens the frost by the same multiplier on both tiers, patch included 1ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > draws one strong border on both tiers, patch included 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > mirrors the renderer's press-glow constants, patch included 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > illuminates a held dark-scheme surface to the same level on both tiers 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > mirrors the size law's constants, patch included 1ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > carries the level above the knee into the same response target on both tiers 1ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > evaluates an additive fourth response knot identically on both tiers 1ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > mixes toward the heavy blur by the same depth ramp on both tiers 31ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > takes the 3σ padding floor over the σ the tier actually writes, at every device scale 1ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > draws the two-layer body at the renderer's own widths and share, over dpr {1, 1.5, 2, 3} 8ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > records the heavy component's tier gap, which W26 left open by decision 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > resolves one span to the same thickness, scatter and occlusion on both tiers 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > folds the size law under a preference identically on both tiers 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > keeps the 3σ padding floor over the σ a large surface will really use 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > follows a profile patch on both sides at once 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > mirrors the renderer's tint shade constants, patch included 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > paints the same shaded layer on both sides, at both ends and in between 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > reads the accessibility regime the same way on both sides 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > mirrors the renderer's backdrop-tone constants, patch included 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > evaluates the same adaptation curve on both sides, at every span and every level 1ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > folds the adaptation under a preference identically on both tiers 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > adapts one material onto one backdrop to the same COMPOSITE on both tiers 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > converges the interior on the backdrop's tone — the property the pair exists for 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > mirrors the renderer's outer-shadow constants, patch included 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > evaluates one falloff and one alpha conversion on both sides 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > folds the shadow under a preference identically on both tiers, patch included 1ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > resolves one span to the same shadow amplitude on both tiers 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > composites one backdrop to the same pixel on both tiers, and to black over black 0ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > resolves one backdrop, span and fold to the same shadow amplitude on both tiers 7ms
+ ✓ test/tier-coherence.test.ts > tier coherence (K5) > folds the lift the CSS tier cannot paint into the one alpha it can 6ms
+ ✓ test/tier-coherence.test.ts > the interior composite (X7) > mirrors the band's and the inner shadow's own constants, patch included 0ms
+ ✓ test/tier-coherence.test.ts > the interior composite (X7) > resolves one span and one backdrop to the same composite on both tiers 1ms
+ ✓ test/tier-coherence.test.ts > the interior composite (X7) > anchors the dark scheme's conversion on the renderer's composite, over structure 1ms
+ ✓ test/tier-coherence.test.ts > the interior composite (X7) > draws the renderer's composite through the table, at every level and scale 2ms
+ ✓ test/tier-coherence.test.ts > the interior composite (X7) > folds a preference into the same composite on both tiers 0ms
+ ✓ test/tier-coherence.test.ts > the interior composite (X7) > draws the renderer's tinted composite at every strength of the ladder (W19 X7) 10ms
+ ✓ test/tier-coherence.test.ts > the outer shadow's paint order (X7) > paints a lone surface's shadow after both of its own filters 0ms
+ ✓ test/tier-coherence.test.ts > the outer shadow's paint order (X7) > paints every member's shadow after every member's filters, in a group 0ms
+ ✓ test/tier-coherence.test.ts > the outer shadow's paint order (X7) > bounds what a clipping host still samples, by G0 §6's closed form 0ms
+ ✓ test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > reads the cell on every macOS 27 profile on both tiers 0ms
+ ✓ test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > records what each tier passes on apple-macos-27.0-1x-light-standard-glass0.5 0ms
+ ✓ test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > records what each tier passes on apple-macos-27.0-2x-light-standard-glass0.5 0ms
+ ✓ test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > records what each tier passes on apple-macos-27.0-1x-dark-standard-glass0.5 0ms
+ ✓ test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > records what each tier passes on apple-macos-27.0-2x-dark-standard-glass0.5 0ms
+ ✓ test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > records what each tier passes on apple-macos-27.0-1x-light-reduced-transparency-glass0.5 0ms
+ ✓ test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > records what each tier passes on apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 0ms
+ ✓ test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > keeps the two tiers' residuals apart, and on opposite sides in the light scheme 0ms
+ ✓ test/capture-integrity.test.ts > a capture's integrity before it may be measured > passes a page that reported the declared framing and no problems 2ms
+ ✓ test/capture-integrity.test.ts > a capture's integrity before it may be measured > refuses the viewport mismatch the page reports as a problem 0ms
+ ✓ test/capture-integrity.test.ts > a capture's integrity before it may be measured > refuses a canvas, a requested scale or a devicePixelRatio the cell did not declare 0ms
+ ✓ test/capture-integrity.test.ts > a capture's integrity before it may be measured > names every disagreement at once, so a run is corrected once 0ms
+ ✓ test/capture-integrity.test.ts > a capture's integrity before it may be measured > refuses a ready page that reported nothing, rather than reading it as clean 0ms
+ ✓ test/capture-integrity.test.ts > the material profile document's key admission > admits only a source or silhouette abscissa, without swallowing malformed variants 5ms
+ ✓ test/capture-integrity.test.ts > the material profile document's key admission > admits the inactive endpoint's two tint terms (W27c, claims §5.130) 1ms
+ ✓ test/capture-integrity.test.ts > the material profile document's key admission > admits the per-policy occlusion lift (W27c G1d, Decision Log 19) 0ms
+ ✓ test/capture-integrity.test.ts > the material profile document's key admission > admits a document naming all eight of W30's operator leaves 1ms
+ ✓ test/capture-integrity.test.ts > the material profile document's key admission > still refuses a key the renderer does not have, naming it 2ms
+ ✓ test/capture-integrity.test.ts > the material profile document's key admission > refuses a policy the per-policy lift does not have, naming it 1ms
+ ✓ test/capture-integrity.test.ts > the material profile document's key admission > refuses a per-policy lift that is not a map of policies to numbers 4ms
+ ✓ test/capture-integrity.test.ts > the material profile document's key admission > reads a bare patch, a CSS-only document, and refuses one that would change nothing 1ms
+ ✓ test/capture-integrity.test.ts > the G1c capture driver's accessibility preflight > treats a missing key as off but fails closed when defaults itself fails 953ms
+ ✓ test/capture-integrity.test.ts > the candidate receded document > takes a receded document, bare or wrapped in a profile document's sections 1ms
+ ✓ test/capture-integrity.test.ts > the candidate receded document > refuses one that carries a cssTierMapping, because the crossing is the active document's 0ms
+ ✓ test/capture-integrity.test.ts > the candidate receded document > refuses one that names nothing the renderer knows, as the material guard does 0ms
+ ✓ test/capture-integrity.test.ts > the candidate receded document > names the document and its hash in the cell's key 0ms
+ ✓ test/capture-integrity.test.ts > the candidate receded document > says nothing at all when no candidate was posed, so the shipped bed's keys do not move 0ms
+ Test Files  7 passed (7)
+      Tests  186 passed (186)
+   Start at  16:37:12
+   Duration  1.29s (transform 2.07s, setup 0ms, import 2.81s, tests 1.16s, environment 0ms)
+
+$ packages/platform-web: vitest run test/w30-css-declaration-identity.test.ts test/w30-inert-laws.test.ts
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-ab01ba754a5923df5/packages/platform-web
+ ✓ test/w30-inert-laws.test.ts > W30's σ law is the identity on the CSS tier too (claims §5.156 §2, §5.158) > mirrors the renderer's three leaves at 0 1ms
+ ✓ test/w30-inert-laws.test.ts > W30's σ law is the identity on the CSS tier too (claims §5.156 §2, §5.158) > returns exactly sigmaPx at every span from 1 to 1000 6ms
+ ✓ test/w30-inert-laws.test.ts > W30's σ law is the identity on the CSS tier too (claims §5.156 §2, §5.158) > returns exactly sigmaPx at a zero, a negative and an enormous span 0ms
+ ✓ test/w30-inert-laws.test.ts > W30's σ law is the identity on the CSS tier too (claims §5.156 §2, §5.158) > leaves the sampled-shadow bound where it was, at every caster span 0ms
+ ✓ test/w30-inert-laws.test.ts > W30's σ law is the identity on the CSS tier too (claims §5.156 §2, §5.158) > is not a deleted law: a fitted slope grades σ and the bound with the span 0ms
+ ✓ test/w30-css-declaration-identity.test.ts > W30's leaves move no CSS declaration (acceptance clause 1, X1) > covers the whole recorded bed, so a missing case cannot pass quietly 1ms
+ ✓ test/w30-css-declaration-identity.test.ts > W30's leaves move no CSS declaration (acceptance clause 1, X1) > writes a real shadow on most of the bed, so the comparison discriminates 1ms
+ ✓ test/w30-css-declaration-identity.test.ts > W30's leaves move no CSS declaration (acceptance clause 1, X1) > light: every declaration is character-identical to the pre-leaf recording 7ms
+ ✓ test/w30-css-declaration-identity.test.ts > W30's leaves move no CSS declaration (acceptance clause 1, X1) > dark: every declaration is character-identical to the pre-leaf recording 3ms
+ ✓ test/w30-css-declaration-identity.test.ts > W30's leaves move no CSS declaration (acceptance clause 1, X1) > covers the policy bed too, and the policy cases are not the nominal ones 3ms
+ ✓ test/w30-css-declaration-identity.test.ts > W30's leaves move no CSS declaration (acceptance clause 1, X1) > reduced-transparency: every declaration is character-identical to the pre-leaf recording 6ms
+ ✓ test/w30-css-declaration-identity.test.ts > W30's leaves move no CSS declaration (acceptance clause 1, X1) > increased-contrast: every declaration is character-identical to the pre-leaf recording 6ms
+ Test Files  2 passed (2)
+      Tests  12 passed (12)
+   Start at  16:37:14
+   Duration  540ms (transform 191ms, setup 0ms, import 262ms, tests 35ms, environment 596ms)
+
+$ packages/renderer-webgpu: vitest run test/w30-inert-laws.test.ts test/frame-composition.test.ts test/outer-shadow.test.ts
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-ab01ba754a5923df5/packages/renderer-webgpu
+ ✓ test/w30-inert-laws.test.ts > W30's σ law is the identity at the shipped leaves (claims §5.156 §2, §5.158) > ships all three leaves at 0 1ms
+ ✓ test/w30-inert-laws.test.ts > W30's σ law is the identity at the shipped leaves (claims §5.156 §2, §5.158) > returns exactly sigmaPx at every span from 1 to 1000 6ms
+ ✓ test/w30-inert-laws.test.ts > W30's σ law is the identity at the shipped leaves (claims §5.156 §2, §5.158) > returns exactly sigmaPx at a zero, a negative and an enormous span 0ms
+ ✓ test/w30-inert-laws.test.ts > W30's σ law is the identity at the shipped leaves (claims §5.156 §2, §5.158) > takes no device ratio, so both scales read one width 0ms
+ ✓ test/w30-inert-laws.test.ts > W30's σ law is the identity at the shipped leaves (claims §5.156 §2, §5.158) > leaves the reach exactly where it was, at every span and every amplitude 1ms
+ ✓ test/w30-inert-laws.test.ts > W30's σ law is the identity at the shipped leaves (claims §5.156 §2, §5.158) > is not a deleted law: a fitted slope grades σ and the reach with the span 0ms
+ ✓ test/w30-inert-laws.test.ts > W30's σ law is the identity at the shipped leaves (claims §5.156 §2, §5.158) > is non-decreasing in the span, which is what makes a group's reach a bound 0ms
+ ✓ test/w30-inert-laws.test.ts > W30's scatter leaves are inert at the shipped values (claims §5.156 §3, §5.158) > ships all five at 0 0ms
+ ✓ test/w30-inert-laws.test.ts > W30's scatter leaves are inert at the shipped values (claims §5.156 §3, §5.158) > asks for no second heavy width at any device ratio 0ms
+ ✓ test/w30-inert-laws.test.ts > W30's scatter leaves are inert at the shipped values (claims §5.156 §3, §5.158) > asks for none even where a profile names both widths, because the share gates it 1ms
+ ✓ test/w30-inert-laws.test.ts > W30's scatter leaves are inert at the shipped values (claims §5.156 §3, §5.158) > is not a deleted mechanism: a share opens the width at both anchors 0ms
+ ✓ test/w30-inert-laws.test.ts > W30's scatter leaves are inert at the shipped values (claims §5.156 §3, §5.158) > contributes exactly zero to kScatter at every statistic the analysis pass can read 1ms
+ ✓ test/outer-shadow.test.ts > the outer shadow's falloff is a blurred silhouette > is the Gaussian's integral: half on the edge, monotone outward, gone by three sigma 11ms
+ ✓ test/outer-shadow.test.ts > the outer shadow's falloff is a blurred silhouette > is a Gaussian and not a smoothstep, to within a thousandth of a code step 2ms
+ ✓ test/outer-shadow.test.ts > the outer shadow's falloff is a blurred silhouette > scales with sigma alone, so one profile length sets the whole edge 0ms
+ ✓ test/outer-shadow.test.ts > the outer shadow is a multiplicative occlusion > removes a fraction of the backdrop's own light, and none of nothing 0ms
+ ✓ test/outer-shadow.test.ts > the outer shadow is a multiplicative occlusion > converts the reference's linear occlusion into a compositing-space alpha 1ms
+ ✓ test/outer-shadow.test.ts > the outer shadow under the accessibility regime and the size law > goes flat under reduced transparency at the measured level, not to six scaled anchors 1ms
+ ✓ test/outer-shadow.test.ts > the outer shadow under the accessibility regime and the size law > goes out with the material under forced colours 0ms
+ ✓ test/outer-shadow.test.ts > the outer shadow under the accessibility regime and the size law > takes the preference's level from the profile that is drawing, not from the shipped one 0ms
+ ✓ test/outer-shadow.test.ts > the outer shadow under the accessibility regime and the size law > rides the size law's one curve on the amplitude, and ships inert 0ms
+ ✓ test/outer-shadow.test.ts > the outer shadow under the accessibility regime and the size law > refuses a patch that still names W8's retired single amplitude 1ms
+ ✓ test/outer-shadow.test.ts > the shadow's reach sizes the rect the GPU tier draws into > stops where the shadow stops moving a code, measured in the space it writes 1ms
+ ✓ test/outer-shadow.test.ts > the shadow's reach sizes the rect the GPU tier draws into > covers the deepest shadow the size law can amplify a member to 0ms
+ ✓ test/outer-shadow.test.ts > the shadow's reach sizes the rect the GPU tier draws into > is exactly zero when a profile declines the shadow, so nothing pays for it 0ms
+ ✓ test/outer-shadow.test.ts > the shadow's reach sizes the rect the GPU tier draws into > grows with the blur, the offset and the spread 0ms
+ ✓ test/outer-shadow.test.ts > the shadow's reach sizes the rect the GPU tier draws into > pads the field rect, because the optics pass scissors to it 1ms
+ ✓ test/outer-shadow.test.ts > the shader draws the shadow the CPU resolved > reads the offset silhouette from the field, not from the local gradient 0ms
+ ✓ test/outer-shadow.test.ts > the shader draws the shadow the CPU resolved > emits premultiplied BLACK, which is what makes the composite a multiply 0ms
+ ✓ test/outer-shadow.test.ts > the shader draws the shadow the CPU resolved > declares the uniform it reads, so the pass and the shader cannot drift 0ms
+ ✓ test/outer-shadow.test.ts > the outer shadow's amplitude adapts to the backdrop below the knee > holds each measured anchor exactly, at the luminance it was measured at 0ms
+ ✓ test/outer-shadow.test.ts > the outer shadow's amplitude adapts to the backdrop below the knee > is inert over black, and rises out of it by a smoothstep with a zero derivative 0ms
+ ✓ test/outer-shadow.test.ts > the outer shadow's amplitude adapts to the backdrop below the knee > falls LINEARLY from the mid plateau to the bright anchor, which is a declared choice 0ms
+ ✓ test/outer-shadow.test.ts > the outer shadow's amplitude adapts to the backdrop below the knee > reads the mid plateau where the host measured no backdrop at all 0ms
+ ✓ test/outer-shadow.test.ts > the outer shadow's amplitude adapts to the backdrop below the knee > rises once out of black and falls once into the light, and never doubles back 3ms
+ ✓ test/outer-shadow.test.ts > the outer shadow's amplitude above the knee is a span law > passes through the three measured anchors and is held outside them 0ms
+ ✓ test/outer-shadow.test.ts > the outer shadow's amplitude above the knee is a span law > is piecewise linear between them 0ms
+ ✓ test/outer-shadow.test.ts > the outer shadow's amplitude above the knee is a span law > blends out of the thin regime on the SAME knee the face's response uses 0ms
+ ✓ test/outer-shadow.test.ts > the outer shadow's amplitude above the knee is a span law > stays inert over black at every span, because both regimes end at zero there 0ms
+ ✓ test/outer-shadow.test.ts > the outer shadow's amplitude above the knee is a span law > folds the size gain last, on the remaining transparency 0ms
+ ✓ test/outer-shadow.test.ts > the lift is the backdrop's own light, above the knee > is zero at and below the knee and saturated at the reach 0ms
+ ✓ test/outer-shadow.test.ts > the lift is the backdrop's own light, above the knee > rises monotonically and saturates well before the bed's largest span 1ms
+ ✓ test/outer-shadow.test.ts > the lift is the backdrop's own light, above the knee > is nothing over black, by construction rather than by a branch 0ms
+ ✓ test/outer-shadow.test.ts > the lift is the backdrop's own light, above the knee > rides the SAME falloff as the black term, not a second geometry 0ms
+ ✓ test/outer-shadow.test.ts > the lift is the backdrop's own light, above the knee > samples the chain at the pixel's own position, at the CPU-resolved level 0ms
+ ✓ test/frame-composition.test.ts > a resize with a static backdrop > leaves the pyramid's textures alive for the frame that binds them 10ms
+ ✓ test/frame-composition.test.ts > a resize with a static backdrop > still replaces the group's field targets, which is what the epoch is for 1ms
+ ✓ test/frame-composition.test.ts > the pyramid's handles, checked against the pool > reports no resources once the pool no longer holds what was recorded 3ms
+ ✓ test/frame-composition.test.ts > the pyramid's handles, checked against the pool > rebuilds rather than reporting clean against a handle the pool dropped 2ms
+ ✓ test/frame-composition.test.ts > a device generation boundary > re-points a renderer-owned provider at the new device and re-imports 3ms
+ ✓ test/frame-composition.test.ts > a device generation boundary > refuses an app-owned texture rather than binding a foreign-device view 1ms
+ ✓ test/frame-composition.test.ts > a device generation boundary > leaves a provider registered under the current generation alone 2ms
+ ✓ test/frame-composition.test.ts > an encode that throws > still releases what the frame acquired 1ms
+ ✓ test/frame-composition.test.ts > rebuild claims the renderer could not spend > names a source no provider is registered under 0ms
+ ✓ test/frame-composition.test.ts > rebuild claims the renderer could not spend > names a source whose provider could not serve a frame 0ms
+ ✓ test/frame-composition.test.ts > rebuild claims the renderer could not spend > survives the frame's later planes, which carry no dirty set 0ms
+ ✓ test/frame-composition.test.ts > rebuild claims the renderer could not spend > is empty on an ordinary frame 1ms
+ ✓ test/frame-composition.test.ts > the governor's refraction resolution scale > allocates the field targets at the rect's own extent when it is 1 0ms
+ ✓ test/frame-composition.test.ts > the governor's refraction resolution scale > shrinks them by the knob, and says the read has to filter 0ms
+ ✓ test/frame-composition.test.ts > the governor's refraction resolution scale > is what ladder rung 2 turns, end to end 0ms
+ ✓ test/frame-composition.test.ts > the governor's refraction resolution scale > keeps the nominal rung at full device resolution 0ms
+ ✓ test/frame-composition.test.ts > a group parked at presence 0 > releases its pooled resources, and allocates cleanly when presence returns 1ms
+ ✓ test/frame-composition.test.ts > one group id drawn on two planes > gives each plane its own field targets rather than taking the other's 1ms
+ ✓ test/frame-composition.test.ts > one group id drawn on two planes > frees every plane the group allocated in when it goes away 0ms
+ ✓ test/frame-composition.test.ts > W30's scatter scale statistic, on a source nothing has been observed for > hands the shader the material's reference, so the operator contributes exactly zero 2ms
+ ✓ test/frame-composition.test.ts > W30's scatter scale statistic, on a source nothing has been observed for > follows the reference rather than holding a constant of its own 3ms
+ Test Files  3 passed (3)
+      Tests  66 passed (66)
+   Start at  16:37:14
+   Duration  332ms (transform 371ms, setup 33ms, import 435ms, tests 68ms, environment 0ms)
