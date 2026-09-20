@@ -28,6 +28,21 @@ the body toward what Apple's material passes. The light material declines it, an
 the ledger records the measurement behind the decline rather than the decline
 alone.
 
+Grading the blur reached a width no shipped material had, and found a latent
+defect in the shader that had been there since the facet was built. The outer
+shadow's falloff is a `tanh` of a cubic in the distance to the shadow's
+silhouette measured in σ, and a GPU backend that evaluates `tanh` through
+`exp(2t)` — Metal's fast-math path does — overflows 32-bit float about ten σ
+inside that silhouette and returns NaN, which travelled into the composite's
+alpha and left a **horizontal strip of the surface undrawn**. At every σ vitrea
+had ever shipped, ten σ was further out than any surface is deep, so nothing
+reached it; at the new thin-caster σ of 2.13 CSS px, a 44 px control's own centre
+line is past it. The argument is now clamped to a range where `tanh` has already
+saturated to exactly 1, which is the identity at every input the unclamped form
+evaluated at all — the renderer's 34 goldens are byte-identical across the fix —
+and a capture case at a thin σ asserts that a control and a toolbar draw their
+whole declared region.
+
 What moves for an app:
 
 - **Nothing in this package's own constants.** The renderer's defaults are

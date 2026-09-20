@@ -26911,3 +26911,305 @@ show it at a native-over-web departure ratio of about 0.17 on both schemes, whic
 is the "old halo" the charter's Grounding names and which the inherited block
 narrows but does not close. The demo, the toolbar seam, the tone stage and 0.20.0
 are the landing's and are untouched here.
+
+## 5.159b W30 G3b: the thin caster's strip was an f32 overflow inside `tanh`, fixed as an identity, and the whole bed re-read at the same material with the renderer named in the documents (2026-09-20)
+
+**Gate: W30 Decision Log 5 (a), (b), (c); acceptance clauses 4 and 5; contracts
+X1, X4, X5, X6, X7.** Evidence is
+`packages/calibration/results/2026-09-20-w30-g3b-thin-strip/`. No native pixel
+was captured (X5). `freeze.py verify` reads **26.5 freeze intact: 1818 entries**
+at this gate's open and close, `git diff main` over every macOS 26.5-keyed
+profile and over `apps/reference-apple/fixtures` is empty, and the gated macOS
+26.5 row pin holds at **1,107** (X1).
+
+**The one thing to read first, if only one.** §5.159 §6's blocking finding is
+**`tanh`**. The outer shadow's falloff is a `tanh` of a cubic in the distance to
+the shadow's silhouette measured in σ, and a backend that lowers `tanh` through
+`exp(2t)` — Metal's fast-math path, which is what Dawn runs on this machine —
+overflows f32 at `2t > 88.7228` and returns `Inf/Inf`. That threshold is crossed
+at **10.0610 σ inside the silhouette**, and the NaN reaches the composite's alpha
+through `shadowAlpha * (1 − coverage)`, where a coverage of exactly 1 does not
+stop it. At every σ the project had ever shipped, 10 σ was further out than any
+caster is deep; macOS 27's law draws σ = 2.13 at a span-44 caster, where 10 σ is
+21.43 CSS px and a 44 px capsule's own centre line is 25.1 inside its silhouette.
+The fix clamps the argument to ±20, which is the identity at every input the
+unclamped form evaluated at all. **The fit does not move**: B1, B2 and B3 all
+re-read to the digit, B4's twelve gated readings are byte-identical, the seven
+`MISSED_27_ROWS` move by +0.00000, and W20's declaration conformance goes
+**170 → 0** cells outside.
+
+### 1. The cause, to the row
+
+`packages/renderer-webgpu/src/wgsl/optics.ts`, `outer_shadow_falloff`, one line:
+
+```wgsl
+return 0.5 * (1.0 + tanh(0.7978845608028654 * (x + 0.044715 * x * x * x)));
+```
+
+`x` is the distance to the shadow's silhouette in σ, negated, so it is positive
+inside and grows as the caster deepens or σ narrows. The cubic makes the argument
+grow as the cube of it, and f32's `exp` overflows at `t = 44.3614`, which is
+`x = 10.0610` exactly. `nan-band.py` is that one expression and it reproduces
+**every row of §5.159 §6's bisect table, to the row, with no free parameter**:
+
+| document, on §5.159's sealed light document (capsule rows 78…121) | σ(44) | predicted | §5.159 §6 measured |
+| --- | ---: | --- | --- |
+| the fitted law | 2.1272 | 103.75…111.15 | **104…111** |
+| the fitted law, `offsetPx` 0 | 2.1272 | 95.80…103.20 | **96…103** |
+| the fitted law, `spreadPx` 0 | 2.1272 | 106.85…108.05 | **107…108** |
+| `sigmaPx` 8 | 1.1672 | 94.09…120.81 | **95…121** |
+| `sigmaPx` 4 (σ negative, taken to the shader's 1e-4 floor) | 0.0001 | 82.35…132.55, clipped by the surface | **83…121** |
+| 0.19.0, `sigmaPx` 11, law inert | 11.0 | none | **none** |
+
+It is a property of the CASTER's depth against its own σ, which is why the
+failures were exactly the span-44 texture cells: `capsule-button` and
+`toolbar-group` clear the threshold at 25.1 against 21.4, `rrect-sm` (span 32)
+misses it at 19.1 against 21.4, and every larger component's σ grows faster than
+its depth (`rrect-md` 51.1 against 90.1; `rrect-lg` 83.1 against 174.7).
+
+**Two readings of §5.159 §6 are corrected here rather than over there**, because
+a recorded number is never rewritten and a recorded *inference* is worth saying
+twice:
+
+- **"The strip's bottom edge sits 24 CSS px above the group field rect's own
+  bottom edge" is a coincidence of one σ.** The gap is `11.05·σ − 0.5`, which
+  reads 23.0 at σ = 2.13 — and all three rows that produced the "constant" were
+  at that σ. At σ = 1.1672 the same expression reads 12.4, and §5.159 §6's own
+  fourth row has the rect's bottom edge twelve rows below the strip's.
+- **The one-line reproduction does involve W30 leaves.** `--material-profile`
+  supplies a PATCH, and the leaves it does not name come from the runtime
+  material its `profileKey` selects — which on this branch is the document W30 G3
+  sealed. `sigmaPx: 8` over 0.19.0's document therefore composes with
+  `sigmaSlopePerSpan` 0.1314 and `sigmaThinOffsetPx` −6.8328 to **σ(44) =
+  1.1672**, not 8. Measured both ways, one scene each (`repro.txt`): with the
+  three law leaves written to 0 and `sigmaPx: 8`, a genuinely flat σ 8 draws
+  **4872 / 4872, IoU 1.0000** — clean. At a flat σ 2.13 it draws **4220 / 4872,
+  IoU 0.8662**. **The defect is a function of σ alone**, which is what the
+  finding needed to say and what makes the fix's scope decidable.
+
+### 2. The fix, and why it moves no golden
+
+The tanh argument is clamped to ±20, in the shader and in both JS mirrors
+(`renderer-webgpu/src/material.ts`, `platform-web/src/optics.ts`, which the CSS
+tier's reach bisection reads):
+
+```wgsl
+let t = clamp(0.7978845608028654 * (x + 0.044715 * x * x * x), -20.0, 20.0);
+return 0.5 * (1.0 + tanh(t));
+```
+
+**It is the identity, not an approximation.** `tanh` reaches exactly 1.0 in f32
+by |t| = 9.011 and in f64 by |t| = 18.2, so every |t| above 20 already returned
+exactly ±1 wherever the unclamped form returned anything at all. ±20 is the
+smallest round bound above f64's own saturation point, which is what lets the
+same clamp stand in the JS mirrors without moving a digit of
+`outerShadowReachPx`'s bisection. No material constant moves, no leaf is added,
+`DEFAULT_MATERIAL_PROFILE` is untouched (X1).
+
+| proof | result |
+| --- | --- |
+| the 34 renderer goldens | **34 passed**, `git status` over `e2e/goldens` empty. They render at the macOS 26.5 σ of 15.55, where `t` peaks near 2 — five times under the clamp and twenty under the overflow — so byte-identity is what the clamp being the identity predicts |
+| `e2e/gpu/w30-thin-sigma-coverage.spec.ts`, NEW, on the **pre-fix** renderer | **2 failed**: the capsule leaves **652 of 4,780** declared px undrawn (IoU 0.8636) and the toolbar **132 of 4,308** (IoU 0.9694); the σ sweep 15.55 / 8.96 / 2.1272 / the law reads **0 / 0 / 784 / 784** |
+| the same case, on the fixed renderer | **2 passed** |
+| `test:gpu` | **33 passed** (31 before this gate, plus the two) |
+| the calibration reproduction, fixed | 4872 / 4872, IoU **1.0000** |
+
+The new case is the reading the goldens structurally cannot be: a golden at a
+thin σ would have caught this and none exists, so the case names the macOS 27
+light document's own fitted law and asserts W20's clause on the bed's own two
+span-44 casters, plus the invariant behind it — **the shadow's blur does not
+decide what the surface covers**, swept over σ 15.55, 8.96 and 2.1272.
+
+### 3. The fit re-verified before the holdout, and it does not move
+
+Decision Log 5 (a) allows a re-fit only if the fix moves a reading. It moves
+none, and each is read the way §5.159 §2–§4 read it:
+
+- **B1 and B2 — re-run, byte-identical.** `shadow-law.py` is a closed-form solve
+  over the NATIVE cut and reads no web capture, so the fix cannot reach it; the
+  re-run's output `diff`s to zero lines against §5.159's committed
+  `shadow-law.txt`. Stated as a measurement rather than as an argument, and
+  nothing under G3's directory was written.
+- **B3 — the stop HELD at 0.00034**, and its whole block is byte-identical to
+  §5.159 §7's: WebGPU 0.00034 over n = 166, CSS 0.00126, both tiers 0.00080, the
+  probe-inclusive figures 0.00177 / 0.00209 over 346 / 602, and all eighteen
+  per-profile means the same. Predicted before the documents moved, too:
+  `precheck.txt` read the light standard bed on scratch at the fixed renderer and
+  found `meanDepartureWeb` **bit-identical on all 49 texture cells** — the NaN
+  was reached only INSIDE the silhouette and the departure is measured over the
+  exterior.
+- **B4 — the twelve gated readings are byte-identical**, so the scatter's
+  decisions stand exactly as §5.159 §4 recorded them: 1x dark 0.9732, 2x dark
+  0.7665, 1x light 1.5670, 2x light 0.4251 on the WebGPU tier; 0.3552 / 0.2536 /
+  0.9681 / 0.3838 on the CSS tier. `checkerboard__rrect-md__rest` is a span-96
+  caster and was never within reach of the defect.
+
+**But the ladder's span-44 column WAS, and that is this gate's own finding**
+(`ladder-span44.txt`). An undrawn strip inside the body raises
+`interiorStdDevWeb` enormously — the backdrop shows through where the material
+should be — so `structure.py`'s per-span table read **5.3 to 10.2** at span 44
+where its neighbours read 0.5 to 1.5. At the fixed renderer the same column
+reads 0.4 to 1.2, in line with them, and **every reading outside the span-44
+column is identical between the two runs**. The per-pitch medians move with it:
+on the 1x dark bed `photo` 4.230 → 0.441, `impulse` 6.877 → 0.896 and
+`checkerboard-8` 1.862 → 1.207; on 1x light `light-solid` 1.178 → 0.407. §5.159
+§4's decisions are unaffected because every one of them is stated on the gated
+span-96 cell, but **§5.159's committed `structure.txt` is a reading of the defect
+at span 44 and this gate's is the material's** — recorded beside it, not over it.
+
+### 4. The documents say which renderer drew the rows beside them
+
+Decision Log 5 (b). A generation is keyed by a document's file hash and a
+renderer fix moves none, so a re-read would key to the cells §5.159's read wrote
+and overwrite recorded numbers. Each of the four macOS 27 documents therefore
+carries a dated `$comment-w30-g3b` naming the defect, §5.159 §6 and the commit
+that fixed it. `comment-generation.ts` asserts the seal's own construction before
+it writes and the inverse of it after — that the material's fingerprint did NOT
+move and the file's hash DID:
+
+| document | `resolvedMaterialSha256` | file sha256, before → after |
+| --- | --- | --- |
+| `…-1x-light-standard-glass0.5` | `3a2513742936ceb1` **unchanged** | `d731b3838994` → **`d0c389d70456`** |
+| `…-1x-light-standard-glass0.5-receded` | `d8015c2587126d08` **unchanged** | `b4a5914c7b9c` → **`2334c7b4c5e2`** |
+| `…-1x-dark-standard-glass0.5` | `f3008c3e9033ed4c` **unchanged** | `ce1af58886ff` → **`880ab1e31450`** |
+| `…-1x-dark-standard-glass0.5-receded` | `8c85774d161fcbaa` **unchanged** | `d449ea0649f4` → **`5e71370ae6d5`** |
+
+`platform-web/src/macos27-profile.ts` regenerates **byte-identical**, which is
+the same statement one layer along: the module is generated from the four
+documents' VALUES and none moved. `SHIPPED_DOCUMENT_HASHES` moves by
+construction — it is derived from the files at every run — and
+`results/superseded/README.md`'s naming rule gains the case: *same material,
+renderer changed — the document carries a dated comment naming the fix, and the
+rows read before it are a generation of their own.*
+
+### 5. The read, once, at the fixed configuration
+
+Three passes at the four commented documents, each refused by this gate's own
+copy of `canonical-read.sh` at any other bytes, each with the machine read X6
+asks for before and after — RT 0, IC 0, `NSGlassTintAmount` 0.5, one capture
+process, macOS 27.0/26A428:
+
+| pass | rows | what it is |
+| --- | ---: | --- |
+| calibration + validation, six profiles × two tiers | **332** | the gated bed |
+| the pitch ladder as probe rows (Decision Log 2 (a)) | **270** | 45 scenes × WebGPU on four standard profiles + CSS on the two 1x standard |
+| holdout, once, six profiles × two tiers | **124** | read once, after B1–B4 were confirmed, and nothing fitted after it |
+
+726 rows appended — the same 332 / 270 / 124 §5.159 read, cell for cell — and
+`verdict.py` reads **0 native readings moved**. The file went 1,833 rows /
+66,076,556 B to **2,559 / 93,002,116 B**; G1's script at §5.157 §8's invocation
+then moved §5.159's 726 rows to `results/superseded/d731b3838994.json` (479) and
+`ce1af58886ff.json` (247), leaving **1,833 rows / 66,075,976 B** — one generation
+per profile, 580 bytes under what the same 1,833 rows measured before, because
+some numbers print shorter. The append-check is a reconstruction rather than a
+tally: **6/6 PASS**, with the pre-split file recomposed to its recorded digest
+`6f7af92b564f486f…`.
+
+### 6. The verdict, per clause
+
+**W20's declaration conformance is back to 0 cells outside**, which is the point
+of the whole child: 722 texture cells carry a conformance reading, 404 of them
+macOS 27, and every one holds contour ≤ 1 device px and IoU ≥ 0.99.
+
+**`PREDICATE_EXCLUDES` 83 → 68**, the fifteen span-44 texture cells §5.159 added
+all leaving, and the list is derived from the artifact by its own case rather
+than typed. Every per-profile coverage count moves with it and the gate is green
+on all 70 cases.
+
+**`MISSED_27_ROWS` is unchanged at seven, and all seven moved by exactly
++0.00000** — the three this wave claims and the four declared expected-unmoved.
+So §5.159 §7's refutation stands untouched: the lever moved (the CSS group clip
+at span 160, 33.05 → 45.79 CSS px) and a whole-cell SSIM does not read a shadow's
+width. The reported-not-claimed residual is 0.8176 before and after.
+
+**What the fix moved, exhaustively** (`moved-cells.txt`, read over the one file
+that held both generations): **176 of 726 cells moved and 550 are bit-identical.**
+170 of the 176 carry `shape.declaredIoUWeb` and `drawnAreaWeb`, which is exactly
+W20's 170. **Every span-44 texture cell moved and none failed to**, and four of
+the six remaining are `glass-over-glass` cells on the dark beds whose `shape` axis
+did not move at all: their largest move is 8·10⁻⁴ CSS px on a fitted σ whose own
+residual is 10⁻², a handful of exterior pixels where the falloff's argument sat at
+the overflow boundary. Recorded, not chartered.
+
+**`tier-coherence`'s twelve readings are unchanged** and its relation case still
+holds. The 27 adopted tables stay at the values W29 Decision Log 4 (a) and
+Decision Log 5 ruled; **no floor is adopted and no bound is widened**.
+
+### 7. By eye
+
+`sheets/` carries `checkerboard__capsule-button__rest` at the three profiles
+Decision Log 5 names — the dark bed at 1x, where the strip was visible, and the
+light bed at both scales — as **native | before (W30 G3's committed sheet) |
+after | before-vs-after ×8 | native-vs-after ×8**. The before column is recovered
+from §5.159's own sheets by matching each row's native column against the fixture
+rather than by counting rows, because `web-captures/` holds one generation and
+this gate's read overwrote G3's.
+
+- **The strip is gone and nothing else moved.** The before-vs-after column is
+  three white checker squares on black and is otherwise empty, on both schemes.
+- **The thin band is the native's.** At 1x dark the capsule's shadow now reads as
+  the tight dark band immediately under the surface that the native draws, with
+  the body whole above it; §5.159 §8's "the two now read as the same kind of
+  object" survives the fix, which is what it should do — the fix drew the body,
+  not the shadow.
+- **The light bed's interior still passes too much structure**, unchanged at
+  1.5670. That is the residual the next wave inherits and this gate does not
+  touch.
+
+### 8. The demo reads a reduction, not the file (Decision Log 5 (c))
+
+`apps/demo/test/calibration.test.ts` could not LOAD at §5.159 §6b — the page
+imported all 1,833 rows through one JSON import to reach the few hundred that
+carry a figure, and the import crossed a hard conversion limit in the test
+loader's Rust bridge. `apps/demo/matrix-reduction.ts` is a Vite plugin beside
+G1's closure's `shipped-documents.ts` and in its idiom: at build time it reads
+the matrix in Node, keeps the rows for the scenes `REFERENCE_SCENES` offers whose
+every document is on disk at the bytes the row records, projects them onto the
+seven metrics `figuresOf` prints, and serves them as
+`virtual:vitrea-matrix-reduction`.
+
+| reading | before | after |
+| --- | ---: | ---: |
+| the demo's main chunk | **35,782.95 kB** (gzip 2,771.25) | **624.83 kB** (gzip 64.21) |
+| `pnpm --filter demo test` | 34 passed, 1 suite failed to load | **45 passed**, 6 files |
+| `pnpm --filter demo test:e2e` | — | **58 passed** |
+
+The scene list is taken from `REFERENCE_SCENES` itself rather than restated, so
+the build's filter and the picker cannot disagree; that import is what made
+`src/site/scenes.ts`'s JSON import need `with { type: "json" }`, which Vite's
+native config loader requires and which the repo already uses elsewhere.
+`capturePath` is projected rather than resolved into a boolean, so the page goes
+on deciding for itself which generation a row is. `MEASURED_CELL_COUNT` is the
+FILE's row count and the page prints the reduction's beside it, because the
+sentence it appears in is about the matrix. **`test/matrix-reduction.test.ts`
+asserts every displayed figure against the whole-file read** — the same file, read
+in Node — so the projection is a projection and not a second source of truth.
+
+**One demo e2e case moved, and it is a macOS 26.5 fact that macOS 27 refutes.**
+`site.spec.ts`'s "every surface writes a real shadow" asserted `blur > 2 ·
+offset`, which was true of every surface at once while σ was span-invariant at
+15.55. The sweep's smallest plate is a 40 px caster and now writes 2σ = 4.25 px
+against an offset of 7.95; Apple's own σ at span 44 is 1.84 (§5.159 §1's B2
+statistic), so the page is right and the assertion was the old material written
+down as a law. It is replaced by the property the old one could not have had —
+**the 112 px plate's shadow is blurred wider than the 40 px plate's**, one page,
+one group, one authored thickness — which is the whole of the operator read off
+the DOM. The other 57 cases are unchanged.
+
+### 9. Verification record
+
+| step | result |
+| --- | --- |
+| `pnpm -r build` | exit 0 |
+| `pnpm -r lint` | exit 0 across all nine packages |
+| `pnpm -r test` | **2,555 passed, 0 failed** — policy 23, motion 164, geometry 170, renderer-webgpu **511**, core 302, platform-web **631**, react 163, calibration **546 of 546**, demo **45**. §5.159 §9's one failure (W20) and its one suite that would not load are both closed |
+| `test:golden` | **34 passed**, `git status` over `e2e/goldens` empty |
+| `test:gpu` | **33 passed** |
+| `pnpm --filter demo build` / `test` / `test:e2e` | exit 0 / 45 passed / **58 passed** |
+| `freeze.py verify` | **26.5 freeze intact: 1818 entries**, at open and close |
+| `git diff main` over `profiles/apple-macos-26.5*` and `apps/reference-apple/fixtures` | empty (X1, X5) |
+| the gated macOS 26.5 row pin | **1,107**, unmoved across the read and the split |
+| the append-check, after the split | **6/6 PASS**, pre-split file recomposed to `6f7af92b564f486f…` |
+| `verdict.py` | **0 native readings moved** over 726 keys present in both generations |
+| `comment-generation.ts` | four documents commented, each asserting its own construction before and its digest's stillness after |
+| W20 declaration conformance | **0 cells outside** the adopted bound, against §5.159 §6's 170 |
