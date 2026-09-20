@@ -3681,6 +3681,30 @@ bottom stop, dips to 0.2171 at 0.0040 and rises from there, so a continuity chec
 started at the bottom stop fails on this defect rather than on continuity.
 `site.spec.ts` starts its sweep above the band and says so.
 
+**Corrected beside, 2026-09-20 (W30 G4 review closure; claims §5.160 §9, finding
+9). Still open, and the defect is bigger than the two readings above state.**
+Recomputed off the same `tone-range.ladder.json`:
+
+- The alpha is **0.692–0.695** over the band, not a flat 0.695, and
+  **0.647–0.667** above it, not 0.648–0.656 — it rises with the ground for the
+  whole of the ordered range, with **35 of those 74 stops above 0.656**. So the
+  band is a step against a rising trend, which is a cleaner statement of the same
+  localisation: one plate, one break, at the bottom of the curve.
+- The dip quoted above belongs to the OLD control's coarse grid. On the ladder
+  the 40px plate's composited body reaches its minimum over the whole range at
+  **0.2057, position 7, a ground of 0.0030** — the first stop on the ordered side
+  of the break — and the discontinuity is the **0.2340 → 0.2057** step at the
+  alpha break, a drop of **0.0284**.
+
+**The fix shape, restated at that number.** The amplitude to explain is 0.0284
+against bodies of about 0.22 — **13 %**, not the 7 % this entry opens with, and
+**2.5× the dip it records** — and it is a STEP at one ground rather than a drift
+across several. That is what the calibration-bed read should be sized against:
+a residual of that size on `interiorLevel` at the darkest `dark-solid` cells is
+well inside what the committed rows can resolve, so the question "is this the CSS
+tier's composite or the material's" is answerable from rows already on disk
+rather than needing a capture.
+
 ---
 
 ## The CSS tier overshoots the curve's target over a pure black backdrop, and macOS 27 exposed it (W29 G4, 2026-09-20)

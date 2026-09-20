@@ -28,7 +28,8 @@
  * `platform-web`'s `e2e/shared/accessible-padding.spec.ts`.
  */
 
-import { fireEvent } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
+import { act, useState, type ReactNode } from "react";
 import { describe, expect, it } from "vitest";
 
 import {
@@ -38,6 +39,7 @@ import {
   type Rect,
 } from "@vitreajs/vitrea";
 import {
+  COLOR_SCHEME_MEDIA_QUERY,
   macos26MaterialProfileDocument,
   macos27MaterialProfileDocument,
   resolveProxyGeometry,
@@ -48,10 +50,13 @@ import {
 import {
   DEFAULT_CLEAR_DIMMING,
   GlassButton,
+  GlassRoot,
   GlassToolbar,
   GlassToolbarSpacer,
 } from "../src/index";
+import { useGlassRootHandle, type GlassRootHandle } from "../src/context";
 import { renderGlass, type Harness } from "./harness";
+import { setMediaQuery } from "./setup";
 
 const groupOf = (harness: Harness, nodeId: string): string | undefined =>
   harness.root().scene.glassNode(nodeId)?.descriptor.groupId;
@@ -524,6 +529,92 @@ describe("the gap is derived from the document the root selected (W30 Decision L
       samplingPaddingFor({ members: [], material, profile: undefined, cssTierMapping: {} }),
     ).toBeCloseTo(11.1, 6);
     expect(samplingPaddingFor({ members: [], material })).toBeCloseTo(22.6875, 6);
+  });
+
+  it("reports the document the ROOT selected, not the one the prop currently names", () => {
+    /*
+     * `GlassRootHandle.materialProfileDocument`'s own contract, which nothing
+     * asserted until the W30 G4 review closure (claims §5.160 §9).
+     *
+     * `createGlassRoot` reads the document ONCE, at construction, and a later
+     * prop change does not move the material the page draws. A handle that
+     * reported the prop would therefore name a material nothing on the page is
+     * made of, and the toolbar would open its split at that material's blur —
+     * the same class of defect as the one this block exists for, one layer up.
+     * The prop moves here and the handle, and the gap derived from it, do not.
+     */
+    let handle: GlassRootHandle | undefined;
+    let move: ((next: GlassMaterialProfileDocument) => void) | undefined;
+
+    function Capture(): ReactNode {
+      handle = useGlassRootHandle();
+      return null;
+    }
+
+    function Switcher(): ReactNode {
+      const [selected, setSelected] = useState<GlassMaterialProfileDocument>(
+        macos26MaterialProfileDocument,
+      );
+      move = setSelected;
+      return (
+        <GlassRoot autoStart={false} materialProfileDocument={selected}>
+          <Capture />
+          {clearSplit}
+        </GlassRoot>
+      );
+    }
+
+    render(<Switcher />);
+    const root = handle?.root;
+    expect(handle?.materialProfileDocument).toBe(macos26MaterialProfileDocument);
+    const before = gapOf(spacers()[0]);
+
+    act(() => move?.(macos27MaterialProfileDocument));
+
+    // The root is the same runtime — a document change must not rebuild it, or
+    // every registration in the tree would be dropped for a prop it ignores.
+    expect(handle?.root).toBe(root);
+    expect(handle?.materialProfileDocument).toBe(macos26MaterialProfileDocument);
+    expect(gapOf(spacers()[0])).toBe(before);
+  });
+
+  it("follows the system scheme under colorScheme='auto', with the prop standing still", () => {
+    /*
+     * The other half of the scheme axis, and the reason it is polled through the
+     * store rather than read off the prop (claims §5.160 §9, the review closure:
+     * the case above drives the scheme by prop, and `"auto"` is the mode where
+     * the prop cannot move).
+     *
+     * Under `"auto"` the runtime resolves the scheme against
+     * `prefers-color-scheme`, so the answer changes with the system while
+     * `GlassRoot`'s props are byte-identical from one render to the next. A gap
+     * held from the first frame would under-pad a dark root the moment the
+     * reader turned the system dark, which is the unsafe direction the seam's
+     * second axis is about.
+     */
+    const harness = renderGlass(clearSplit, { colorScheme: "auto" });
+    harness.run(1);
+
+    const material = harness.root().accessibility.material;
+    expect(harness.root().colorScheme).toBe("light");
+    expect(gapOf(spacers()[0])).toBeCloseTo(
+      wantedAt(macos27MaterialProfileDocument, "light", material),
+      6,
+    );
+
+    act(() => {
+      setMediaQuery(COLOR_SCHEME_MEDIA_QUERY, true);
+    });
+    harness.run(1);
+
+    expect(harness.root().colorScheme).toBe("dark");
+    const wantedDark = wantedAt(macos27MaterialProfileDocument, "dark", material);
+    expect(gapOf(spacers()[0])).toBeCloseTo(wantedDark, 6);
+    // ...and it is a different number, so the assertion above is about the move
+    // rather than about two beds that happen to agree at jsdom's span 0.
+    expect(wantedDark).toBeGreaterThan(
+      wantedAt(macos27MaterialProfileDocument, "light", material),
+    );
   });
 });
 

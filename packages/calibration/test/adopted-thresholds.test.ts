@@ -3435,7 +3435,32 @@ describe("W30 B1 — the shadow's σ law, adopted (claims §5.160)", () => {
     { scheme: "dark", file: "apple-macos-27.0-1x-dark-standard-glass0.5.json" },
   ] as const;
 
-  it("reads the cut at the statistic §5.156 §5 (b) declared, over a non-empty bed", () => {
+  /**
+   * How many of the beds a document serves carry a cell at each asserted span.
+   *
+   * Counted rather than merely required to be non-zero (corrected 2026-09-20,
+   * W30 G4 review closure; claims §5.160 §9). The per-bed case above `continue`s
+   * on an empty bed by design — the two accessibility beds carry no span-128
+   * cell — and the joint case intersects over whatever windows it finds, so a bed
+   * that stopped contributing would silently leave the clause to the beds that
+   * remain rather than fail. That is not hypothetical: the light document's
+   * ±0.685 % window at span 96 comes entirely from the 2x-light bed, and with
+   * that bed removed all four cases stay green over [8.3556, 9.0193], ±3.82 %.
+   * These counts are what turns an emptied bed into a red.
+   *
+   * The values are the cut's own population: on the light side the two standard
+   * beds carry all three spans and the reduced-transparency and coupled-contrast
+   * beds carry 96 and 160 only; on the dark side the two standard beds carry all
+   * three and there is no accessibility bed.
+   */
+  const CONTRIBUTING_BEDS: Readonly<
+    Record<"light" | "dark", Readonly<Record<number, number>>>
+  > = {
+    light: { 96: 4, 128: 2, 160: 4 },
+    dark: { 96: 2, 128: 2, 160: 2 },
+  };
+
+  it("reads the cut at the statistic §5.156 §5 (b) declared, over every bed that carries each span", () => {
     // The guard the rest of this block leans on. A cut that had moved, emptied or
     // been re-stated at another statistic would let every window below pass over
     // nothing, and no assertion about a maximum says "over something".
@@ -3443,10 +3468,13 @@ describe("W30 B1 — the shadow's σ law, adopted (claims §5.160)", () => {
     expect(CUT.cells.length).toBeGreaterThan(200);
     for (const { scheme } of DOCUMENTS) {
       for (const span of B1_SPANS) {
-        const observed = served(scheme).flatMap((profile) =>
-          CUT.cells.filter((cell) => cell.profile === profile && cell.span === span),
+        const contributing = served(scheme).filter((profile) =>
+          CUT.cells.some((cell) => cell.profile === profile && cell.span === span),
         );
-        expect(observed.length, `${scheme} at span ${span}`).toBeGreaterThan(0);
+        expect(
+          contributing.length,
+          `${scheme} at span ${span}: ${contributing.join(", ") || "no bed"}`,
+        ).toBe(CONTRIBUTING_BEDS[scheme][span]);
       }
     }
   });

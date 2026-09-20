@@ -27455,6 +27455,19 @@ A fourth case guards the population: the cut's own `statistic` string must still
 name the upper middle order statistic and every served bed must carry a cell at
 every asserted span, because no assertion about a maximum says "over something".
 
+> **Corrected beside, 2026-09-20 (review closure; §9 finding 1).** The sentence
+> above describes what the fourth case was *for*; what it asserted was that the
+> UNION over the served beds is non-empty per scheme per span, which is a weaker
+> thing, and the per-bed case `continue`s on an empty bed by design. The gap is
+> load-bearing: the light document's ±0.685 % intersection at span 96 comes
+> entirely from the 2x-light bed, and with that bed removed all four cases stay
+> green over **[8.3556, 9.0193], ±3.82 %**. The case now asserts a per-span
+> COUNT of contributing beds — light **4 / 2 / 4** at spans 96 / 128 / 160, dark
+> **2 / 2 / 2** (the two accessibility beds carry 96 and 160 and no span-128
+> cell) — so an emptied bed fails rather than widening the window.
+> Mutation-checked by dropping the 2x-light bed: the count case reds at 3
+> against 4 and the other three stay green, which is the defect exactly.
+
 **`MISSED_27_ROWS` is what G3b left it** — seven rows, the set unchanged, each
 moving by +0.00000 at the renderer fix (§5.159b §6) — and nothing in this gate
 re-read, re-fitted or re-pinned any of them. No floor was adopted, no bound was
@@ -27489,6 +27502,12 @@ six files carry W29 G3's two generations (moved by G1), W29 G3b's two (moved by
 G3, and these are the rows 0.19.0 shipped against) and W30 G3's two (moved by
 G3b). `index.json` maps eleven document hashes, active and receded, onto them.
 
+> **Corrected beside, 2026-09-20 (review closure; §9 finding 8).** It maps
+> **ten**: `byDocumentSha256` carries ten entries and the six files name ten
+> distinct document hashes between them. Eleven was a miscount and not a missing
+> record — no file, row or hash is absent, and `split-generation.py readme` still
+> regenerates `README.md` byte-identical from the same index.
+
 ### 3. The toolbar's seam, closed at the document the page draws (Decision Log 1 (f), contract X8)
 
 `samplingPaddingFor` gained `profile` and `cssTierMapping` at W29 G4 so that a
@@ -27512,6 +27531,18 @@ the active endpoint's `patch` and the document's `cssTierMapping` through.
 The case the tracker asked for is the first row and it is in
 `packages/react/test/toolbar-partition.test.tsx`; the second is beside it,
 because a fix that moved every page's layout would be a change rather than a fix.
+
+> **Reworded beside, 2026-09-20 (review closure; §9 finding, the §3 clause).**
+> That sentence sits above a table whose third row moves: a page on the default
+> document in the DARK scheme goes 73 → 79. The claim it is making is narrower
+> than it reads and is true as narrowed — *a page on the default document in the
+> light scheme, which is what the old code resolved for every page in every
+> scheme, is where it always was.* The dark row moves because the toolbar had
+> never asked the dark endpoint at all, which is the seam's second axis and the
+> unsafe direction; correcting an under-pad necessarily moves the layout it was
+> under-padding. So the row below the unchanged one is the fix, not a side
+> effect of it, and only a page that is both on the default document and in the
+> light scheme is bit-for-bit where it was.
 The cases run on the `clear` variant deliberately: on `regular` at jsdom's span 0
 both materials sit under core's advisory of 24 and `Math.max` hides the whole
 difference, so a case written there would have passed over the defect.
@@ -27576,6 +27607,28 @@ quantity:
 | 0.0802 | 0.4924 / 0.5029 / 0.5065 | 0.0140 | 2.8 % | yes |
 | 0.1590 | 0.6198 / 0.6314 / 0.6345 | 0.0148 | 2.4 % | yes |
 
+> **Corrected beside, 2026-09-20 (review closure; §9 finding 14).** The fourth
+> column mixes two divisors. Rows 1, 3 and 4 are the spread over the MEAN of the
+> three bodies; rows 2 and 5 are the spread over the MINIMUM. Under one rule —
+> spread over the mean, which is the rule the page, the e2e and this ledger now
+> read this stage by — the column is **7.1 / 10.4 / 6.1 / 2.8 / 2.3 %**. Nothing
+> about the finding moves: the separation is still widest low down and narrowest
+> at the bright end, and 10.4 % against 2.3 % is the same reversal 11.1 against
+> 2.4 was. The shipped prose (`Stage.tsx`, `Site.tsx`'s "about a tenth") and
+> `site.spec.ts` are corrected to the one rule; the readings themselves are
+> unmoved and `tone-range.json` is untouched.
+>
+> Two smaller readings in the same table and the one under it, recomputed:
+> **row 5's middle body is 0.6304 at the first stop that paints a ground of
+> 0.1590 and 0.6314 at the last** — the old control's 80 stops paint 71 distinct
+> grounds, so the top level has two stops — and the top stop's spread is
+> **0.014766** at full precision, which is the 0.0148 this row carries and not
+> the 0.0147 the four-decimal bodies subtract to. And the separating band
+> 0.004…0.034 holds **15** of the old control's stops when it is counted by the
+> ground each stop paints, which is how the ladder's 40 is counted; the **16**
+> in the table below counts the control's own settings. One rule, two counts:
+> **15 → 40**.
+
 So the axis is the other way round: the plates separate **most** over the dark
 half and least at the bright end, and what closes at the bottom is not the
 separation but the **order**. The ruling's instruction — resolution where the
@@ -27616,6 +27669,26 @@ plates' composite — over the band the 40 px plate publishes `--vitrea-occlusio
 **0.695** against 0.648–0.656 at every stop above it, while the other two hold
 their trend — and its composited body is therefore **not monotone** across the
 bottom, reading 0.2285 at the bottom stop and dipping to 0.2171 at 0.0040.
+
+> **Corrected beside, 2026-09-20 (review closure; §9 finding 9).** Both numbers
+> in that last clause are read off the OLD control's coarse grid and neither
+> survives the ladder that replaced it. Recomputed from `tone-range.ladder.json`:
+>
+> - The 40 px plate's alpha over the band is **0.692–0.695**, not a flat 0.695:
+>   it steps down once per pair of positions across 0…6.
+> - Above the band it is **0.647–0.667**, not 0.648–0.656 — it rises with the
+>   ground for the whole range, and **35 of those 74 stops read above 0.656**.
+>   So what the band contrasts with is a rising trend, not a second plateau.
+> - The composited body's real minimum over the whole control is **0.2057, at
+>   position 7 (a ground of 0.0030)** — the first ORDERED stop, on the far side
+>   of the break — and the discontinuity is the **0.2340 → 0.2057** step at the
+>   alpha break, a drop of 0.0284. That is **2.5×** the 0.0114 dip this paragraph
+>   records, and it is one stop from where the paragraph puts it.
+>
+> What the paragraph concludes is unchanged and if anything stronger: the defect
+> is one plate's alpha, it is a band rather than an anchor, and a sweep that
+> starts at the bottom stop fails on it rather than on continuity. What moves is
+> the shape — a step at the band's edge, with the plate's own minimum beyond it.
 
 **The section's prose stays true and moves only where the re-range moves it.**
 W29 G4 rewrote it and this gate corrects one sentence: "that separation is
@@ -27678,7 +27751,10 @@ Three further page changes, each closing a tracker entry or a charter clause:
   key the caption already prints and throws if it cannot. No literal release
   string is left in `Stage.tsx`.
 - **The `/laws/` page shows the σ law**, and the honest answer to "does the
-  playground have a shadow readout" was **no**: its five sections are tone, tint,
+  playground have a shadow readout" was **no** — *the page meant is `/laws/`;
+  `/playground/` is a different route and is not what this bullet is about
+  (corrected beside 2026-09-20, review closure; §9 finding 13)*: its five
+  sections are tone, tint,
   body, lens and nested, and the outer shadow appears in two sentences of prose
   and in no readout. Rather than add a sixth section, the law joins the one
   control the page already has for the quantity it is a function of — the body
@@ -27809,3 +27885,89 @@ B4 are **not** adopted, as §5.156 §5 declared before either operator existed. 
 seven `MISSED_27_ROWS` are unchanged. The core advisory padding constant is not
 retired (X8) and its entry stays open with this wave's numbers in it. The
 chromatic residual the sheets show is named and not claimed.
+
+### 9. Review closure (2026-09-20)
+
+*An independent read of this gate found **no blocking finding** and fourteen
+items; all fourteen are closed here, with every correction recorded **beside**
+the text it corrects and never over it. Nothing in this closure is a runtime
+behaviour change: it is comments, tests, guards, records and prose. No material
+constant, leaf, document, bound value, floor or matrix row moved, no byte under a
+macOS 26.5-keyed path changed, no capture was taken, and* **the version stays
+0.20.0 with no changeset added** *— 0.20.0 is still prepared and unpublished.*
+`freeze.py verify` *reads **1,818 intact**.*
+
+| # | the finding | what closed it |
+| --- | --- | --- |
+| 1 | **B1's population guard asserted less than §1 says it does.** §1 says "every served bed must carry a cell at every asserted span"; the case asserted the UNION per scheme per span is non-empty, and the per-bed case `continue`s on an empty bed by design. The ±0.685 % intersection at span 96 comes entirely from the 2x-light bed: remove it and all four cases stay green over **[8.3556, 9.0193], ±3.82 %** | §1 corrected beside. The case now asserts a per-span COUNT of contributing beds — light **4 / 2 / 4**, dark **2 / 2 / 2**, recomputed from the cut — so an emptied bed reds instead of widening the window. Mutation-checked by dropping the 2x-light bed: the count case reads 3 against 4 and the other three stay green |
+| 2 | **`toolbar.tsx` said "about 16 %"** where every other record says 7.6 % (dark 24.4200 / light 22.6875 = 1.0764) | The comment now reads **7.6 %** with both padding numbers beside it. `toolbar-partition.test.tsx` already carried 7.6 % |
+| 3 | **"The seven figures move by ≤ 0.0013" is the LIGHT bed's.** On the dark bed `demo-figures.txt` has `material.luminanceSlopeWeb` at +0.0138 / +0.0113 and `ssimMean` at +0.0035 / +0.0031 | The qualifier added beside in the charter's retrospective and in its Tracking Map G4 row, the two places that dropped it. §5 here already says "on the light bed" |
+| 4 | **Deferred at close omits the wave's own open debt** — the tracker's "Nothing checks that a WGSL transcendental's argument stays inside f32" (the generalisation of the `tanh` overflow: *the instance is fixed; the class is not*) and "A change's 'checked, unchanged' sweep read the imports and not the prose" | Both added to the charter's Deferred at close as items 12 and 13, each with its named work |
+| 5 | **Two of the c9d chain's nine steps had no committed output**: root `npx eslint .` and the demo Playwright, whose row reads "58 passed (run before the cut)" | Both run at this closure's head and committed as `chain-eslint-root.txt` and `chain-demo-e2e.txt`, with `chain.sh` beside them in W29 G4's shape writing `chain-status.v2.txt` — the machine's exit codes beside the hand-typed table, not over it. The c9d 0.20.0 row amended beside |
+| 6 | **"All seven MET" never records B4's miss inside a met clause** | A sentence beside clause 4's MET naming **B4 missed on three of four standard beds**, and where it is recorded: §5.159 §4, the Tracking Map's G3 row, and item 2 of Deferred at close |
+| 7 | **Clause 7 says "two findings it did not have"; §3 here and the Tracking Map say three** | Corrected beside to **three**, with all three named |
+| 8 | **§2 says `index.json` maps eleven document hashes** | It maps **ten** — `byDocumentSha256` has ten entries and the six files name ten distinct hashes. Corrected beside; nothing is missing from the index |
+| 9 | **The tone stage's alpha reading is mis-stated.** Over the band the 40 px plate's alpha is **0.692–0.695**, not a flat 0.695; above it **0.647–0.667**, not 0.648–0.656, with **35 of those 74 stops above 0.656**. The composited body's real minimum is **0.2057 at position 7** (ground 0.0030) and the discontinuity is the **0.2340 → 0.2057** step at the alpha break, **2.5×** the 0.0114 dip recorded | Corrected beside at §4 here, in the tracker's disorder entry, in the charter's Deferred item 11 and its Revision Note, and in `site.spec.ts`'s comment above the continuity sweep. The tracker's fix shape is restated at the larger number: 0.0284 against bodies of 0.22 is **13 %**, not 7 %, and it is a STEP at one ground rather than a drift |
+| 10 | **The `/laws/` σ readout was pinned by nothing**, and the page shipped 2.13 px / "sixteen times" as prose | Two assertions in `laws.spec.ts` read the σ at spans 32 and 288 off the plate's own `box-shadow` — `cssShadowBlurRadius` is 2σ — and require the readout to be that number, the way `body-single` is asserted against `--vitrea-blur`. The prose is now DERIVED: `law.ts` exports `shadowSigmaAt` and `Laws.tsx` evaluates both ends and their ratio, so a refit cannot leave the sentence behind. A third assertion pins the sentence to the readout |
+| 11 | **`GlassRootHandle`'s "what the ROOT selected, not what the prop currently says" was untested**, as was the store's scheme poll under `colorScheme="auto"` | Two cases in `toolbar-partition.test.tsx`: the document prop moves after mount and the handle, the root and the gap all stand still; and the system scheme moves under `"auto"` with the props byte-identical and the gap following it. Both mutation-checked — the first reds when the handle reports the prop, the second when the toolbar pins the light endpoint |
+| 12 | **The coverage matrix's §1.7 closure reads B2 as adopted** | Split beside: **B1 is the adopted bound**; B2's factor-1.5 reading at span 44 is a one-wave reading, as §5.156 §5 (b) declared, and the row's limit is closed by B1 alone |
+| 13 | **§5 calls the `/laws/` page "the playground"**, which is a different route | Corrected beside |
+| 14 | **The tone table's "% of their own level" column mixes divisors.** Rows 1, 3 and 4 are spread/mean; rows 2 and 5 are spread/min. And "16 of the old control's 80 stops" counts the control's settings where the ladder's "40" counts painted grounds | One rule adopted: **spread over the MEAN**. The column is **7.1 / 10.4 / 6.1 / 2.8 / 2.3 %**. The shipped prose (`Stage.tsx`, `Site.tsx`'s "about a tenth") and `site.spec.ts` are corrected to it; the records are corrected beside in this section, the charter's Revision Note and its Tracking Map row. The band 0.004…0.034 holds **15 → 40** stops counted the same way, and the top stop's spread is **0.014766** — the 0.0148 this ledger carries, not the 0.0147 the rounded bodies subtract to |
+
+**Three further readings, each recorded rather than fixed.**
+
+- **Three of this gate's scripts ran with no machine reading of their own.**
+  `tone-range.json` is stamped **13:20:31Z** and the first reading in
+  `browser-runs.txt` is **13:27:17Z**, so `tone-range.mjs` — and
+  `demo-shot.mjs` and `harness-captures.sh`, none of which calls
+  `record-machine.sh` — launched a browser outside the discipline §7 states. What
+  the reading would have said is not in doubt: the machine read **RT 0, IC 0,
+  `NSGlassTintAmount` 0.5** at every reading that brackets them, G3b's canonical
+  read logs before and `w30-g4-open` at 13:27:17Z after, and the ladder's own
+  read at 13:28:09Z is inside the bracket. **No fixture and no matrix row came
+  off any of the three** — they photograph the web side and read the page's own
+  declarations — so nothing recorded depends on it. The rule it breaks is the
+  one that makes that statement checkable rather than argued, and the shape of
+  the fix is the one `chain.sh` already has: a browser launch goes through
+  `browser_step`.
+- **§3's "a fix that moved every page's layout would be a change rather than a
+  fix" sits above a table whose third row moves.** Reworded beside there: the
+  claim is true as narrowed — a page on the default document **in the light
+  scheme** is where it was — and the dark row's 73 → 79 is the fix rather than a
+  side effect of it, because the toolbar had never asked the dark endpoint at
+  all and was under-padding it.
+- **Clause 7's four-column sheets were delivered at G3, not here.** The clause
+  asks for *native | WebGPU | CSS | difference … with the thin spans first*, and
+  that is `results/2026-09-20-w30-g3-operators/sheets.py` and the `sheets/`
+  beside it, whose docstring names both changes as that child's subject. §6
+  here is three-column and is the eye's second look at the landed material. The
+  pointer is added beside the clause.
+
+**Verification at this closure's head.** `freeze.py verify` **1,818 intact**;
+`pnpm -r build`, `pnpm -r lint` and root `npx eslint .` all **exit 0**
+(`chain-build.v2.txt`, `chain-lint.v2.txt`, `chain-eslint-root.txt` — empty, as
+at 0.18.0 and 0.19.0, because a clean eslint prints nothing and the exit code is
+the record); `pnpm -r test` **2,566 passed, 0 failed** against §7's 2,564, the
+two being the root handle's contract and the `"auto"` scheme poll
+(`chain-units.v2.txt`); the demo Playwright suite **59 passed, 0 failed** against
+§7's 58, the one being the σ readout's case (`chain-demo-e2e.txt`), preceded by a
+machine reading of **RT 0, IC 0, slider 0.5** at 14:56:28Z. `dry-run.sh` still
+reads three packages at **0.20.0** with `workspace:` rewritten to `^0.20.0` and
+every required file in each tarball — the react tarball moves 186,273 → 186,290 B,
+which is the one comment this closure edits in shipped source. No document,
+profile, matrix row or golden was touched.
+
+**The demo suite ran twice and the first run is disclosed rather than hidden.**
+`chain.sh`'s own header says a step that fails is a record and not a reason to
+re-run until it is green, so: the first run (machine reading 14:43:52Z) was
+**58 passed, 1 failed**, and the red was **this closure's own new case**, not the
+page. It read the plate's σ as 0.00 against the readout's 2.13 because a browser
+reserialises a `box-shadow` list with the colour FIRST and `inset` LAST, so a
+parser that recognised the rim by a leading `inset` took the rim for the outer
+shadow and read its zero blur. The assertion was rewritten against the computed,
+normalised form — four lengths per entry, the blur third — and mutation-checked by
+collapsing `shadowSigmaAt` to `sigmaPx`, where it reds at 8.96 against 2.13. The
+committed log is the second run; what the first found is a defect in the guard
+this closure was adding, which is what a re-run is for. *The general form, for
+anything asserting against what a browser holds: the serialisation a property is
+READ back in is not the one it was written in.*

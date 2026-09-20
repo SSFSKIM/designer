@@ -26,7 +26,7 @@ import { ChannelReadout } from "./ChannelReadout";
 // The size law's constants are the SELECTED document's since W29 G4, and
 // `law.ts` is where the page resolves which document it is drawing — so the
 // readouts take `LAW_SIZE` and not the renderer's own module constant.
-import { bodyLaw, fixed, LAW_SIZE, TONE_SPANS, toneLaw } from "./law";
+import { bodyLaw, fixed, LAW_SIZE, shadowSigmaAt, TONE_SPANS, toneLaw } from "./law";
 import { GROUPS_BY_MODE, LawsGlass, LawsGround, NEST, TINT_GROUNDS, type LawMode } from "./LawsStage";
 
 export interface LawsProps {
@@ -62,6 +62,21 @@ const TONE_GROUND = { min: 2, max: 1000, step: 2, initial: 300 } as const;
 
 /** The body control's stops: the size law's floor, past the scatter's ceiling. */
 const BODY_SPAN = { min: 32, max: 288, step: 4, initial: 112 } as const;
+
+/**
+ * The σ law read at the two ends of that control, for the prose that introduces
+ * the readout.
+ *
+ * Evaluated rather than written down (W30 G4 review closure, claims §5.160 §9).
+ * The sentence below the slider quotes both ends and their ratio, and a sentence
+ * of literals beside a readout of the same quantity is the one part of the page
+ * a refit can leave saying the opposite of what the numbers under it say. These
+ * come from `law.ts`, which is the same expression both tiers evaluate.
+ */
+const SHADOW_ENDS = {
+  thin: shadowSigmaAt(BODY_SPAN.min),
+  wide: shadowSigmaAt(BODY_SPAN.max),
+} as const;
 
 const RUNGS = [
   { value: "true", label: "true: the WebGPU tier over a texture, at nominal policy" },
@@ -376,9 +391,10 @@ export function Laws(props: LawsProps): ReactNode {
             what macOS 26.5 measured, span-invariant within half a pixel from 32
             to 160 &mdash; and on macOS 27 it is a line in the casting span above
             a knee at 44px. The readout below evaluates it beside the body&rsquo;s
-            two widths, from the same published constants: drag to 32 and the
-            shadow is a tight 2.13px band under the plate, drag to 288 and it is
-            sixteen times as wide.
+            two widths, from the same published constants: drag to {BODY_SPAN.min}{" "}
+            and the shadow is a tight {fixed(SHADOW_ENDS.thin, 2)}px band under the
+            plate, drag to {BODY_SPAN.max} and it is{" "}
+            {fixed(SHADOW_ENDS.wide / SHADOW_ENDS.thin, 0)} times as wide.
           </p>
           <dl className="readout" data-testid="body-law">
             <div className="readout__head">

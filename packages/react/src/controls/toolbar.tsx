@@ -522,7 +522,8 @@ export function GlassToolbar(props: GlassToolbarProps): ReactNode {
    *
    * The scheme is the RESOLVED one and it is subscribed rather than read once:
    * the two schemes of one document do not ask for the same room (the macOS 27
-   * dark endpoint wants about 16 % more than the light one), and
+   * dark endpoint wants about 7.6 % more than the light one — 24.42 CSS px
+   * against 22.69 at span 0), and
    * `colorScheme="auto"` moves under the system without the prop changing. The
    * pose is deliberately not an axis: a gap that changed when the window lost
    * focus would reflow the toolbar on blur, and the partition is structural

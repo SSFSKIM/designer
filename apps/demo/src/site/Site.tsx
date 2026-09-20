@@ -419,7 +419,7 @@ export function Site(props: SiteProps): ReactNode {
             backdrop as brighter than it is, so the thickness enters the
             curve&rsquo;s argument rather than its result. That separation is
             widest low down &mdash; the three bodies span 0.026 over a ground of
-            0.006, about a ninth of their own level, against 0.015 at the top stop
+            0.006, about a tenth of their own level, against 0.015 at the top stop
             &mdash; which is why the control&rsquo;s stops crowd the dark end. It
             survives all the way down but its ORDER does not: over the last few
             stops, under a ground of about 0.003, the three sit within 0.016 of
