@@ -165,6 +165,7 @@ import {
   linearTint,
   materialAtBackdrop,
   opticsUnderPolicy,
+  outerShadowSigmaPx,
   resolvedBackdropToneResponse,
   validateBackdropToneAbscissa,
   resolvedRimTintChroma,
@@ -3110,8 +3111,25 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // grown by and the offset it is displaced down. The clip's outer
           // rectangle only has to contain the shadows, so the sum is used rather
           // than a per-side derivation of it.
+          //
+          // The σ is the law's at the LARGEST span among the members (W30 G2;
+          // claims §5.156 §2). The container carries every member's shadow and
+          // the blur now grades with the caster, so one clip has to contain the
+          // widest one — which makes this reader a bound on the law rather than
+          // a reading of it, the same shape the GPU tier's scissor pad takes.
+          // Each member's own `box-shadow` is written at its own span by
+          // `cssTierDeclarations`; nothing here re-derives one.
           reachCssPx:
-            cssShadowBlurRadius(outerShadowConstants.sigmaPx) +
+            cssShadowBlurRadius(
+              outerShadowSigmaPx(
+                outerShadowConstants,
+                carriedCasts.reduce(
+                  (widest, cast) =>
+                    Math.max(widest, Math.min(cast.bounds.width, cast.bounds.height)),
+                  0,
+                ),
+              ),
+            ) +
             outerShadowConstants.spreadPx +
             Math.abs(outerShadowConstants.offsetPx),
         });

@@ -169,6 +169,10 @@ export const poolKey = {
   /** The heavy blur and its scratch (W26) — the body's pair, one width deeper. */
   backdropHeavy: (sourceId: string): string => `backdrop:${sourceId}:heavy`,
   backdropHeavyScratch: (sourceId: string): string => `backdrop:${sourceId}:heavy-scratch`,
+  /** The SECOND heavy blur and its scratch (W30 G2) — the same pair, one more
+   * width along, acquired only where `sizeHeavySecondShare` is non-zero. */
+  backdropHeavy2: (sourceId: string): string => `backdrop:${sourceId}:heavy2`,
+  backdropHeavy2Scratch: (sourceId: string): string => `backdrop:${sourceId}:heavy2-scratch`,
   backdropUpload: (sourceId: string): string => `backdrop:${sourceId}:upload`,
   /*
    * The four field targets. Their key is a group's RESOURCE identity — the id

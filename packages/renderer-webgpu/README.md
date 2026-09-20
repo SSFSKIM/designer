@@ -55,6 +55,57 @@ WebGPU also needs a secure context: `navigator.gpu` is undefined on `file://` an
 `data:` URLs, which reads exactly like "no WebGPU on this machine". The fixture
 server serves `http://localhost`.
 
+## The material's inert leaves (W30 G2)
+
+`DEFAULT_MATERIAL_PROFILE` carries eight leaves that **ship at values which make
+them do nothing**, and will go on doing nothing until claims §5.159 fits them in
+the macOS 27 profile documents. They are here ahead of their values because
+adding a leaf moves every profile document's `resolvedMaterialSha256` — the
+digest is taken over the fully resolved material — and the project spends that
+disturbance once rather than twice (W30 Decision Log 1 (a) and (b)).
+
+**The outer shadow's σ law**, on `MaterialOuterShadow`. macOS 27 blurs the outer
+shadow wider under a wider surface, so σ becomes a function of the casting span:
+
+```
+σ_css(span) = sigmaPx + max(sigmaThinOffsetPx,
+                            sigmaSlopePerSpan · (span − sigmaSpanRefPx))
+```
+
+`sigmaSlopePerSpan` is CSS px of σ per CSS px of span, `sigmaSpanRefPx` is the
+span at which σ equals `sigmaPx`, and `sigmaThinOffsetPx` is the signed floor the
+thin regime holds, as an offset from `sigmaPx`. All three ship at 0, where the
+whole law is `sigmaPx` at every span — a multiplied zero under a `max` whose
+other arm is an added zero. There is no device-ratio argument: the thin regime's
+device-px reading was tested and rejected. The law is evaluated **per caster** on
+both tiers — the WebGPU tier per pixel from the casting surface's span, the CSS
+tier per surface into one `box-shadow` blur radius — and the two group-level
+readers (the optics pass's scissor pad, the CSS tier's group-shadow clip) take it
+at the widest span among the members, which bounds every member's σ rather than
+naming any member's.
+
+**The scale-selective scatter's spanning set**, on `MaterialProfile`. The
+diffusion residual is non-monotone in the backdrop's pitch, which a positive mix
+of two Gaussians cannot be, and the evidence that would choose between the two
+mechanisms that can express it does not exist yet — so both are expressible and
+neither is active. `sizeHeavySecondSigma` and `sizeHeavySecondSigma2x` are a
+second heavy tap's width per scale; `sizeHeavySecondShare` is that sample's
+signed weight in the deep mix **and the single gate on the whole mechanism**, so
+at 0 no texture is allocated, no separable pass is encoded and no sample is
+taken. `sizeScatterScaleGain` and `sizeScatterScaleRef` condition `kScatter` on
+the source's own measured spatial scale — the analysis pass's per-source edge
+density — about a reference. All five ship at 0.
+
+A binding is the one thing that is not saved: a WGSL bind-group layout is one
+layout, so the second heavy texture's slot exists at every draw and takes the
+same placeholder view the first one already takes when a material declines it.
+What the share gates is every resource and every pass behind that slot.
+
+`packages/renderer-webgpu/test/w30-inert-laws.test.ts` states each identity over
+a span sweep and both scales, and `e2e/gpu/w30-heavy-second-tap.spec.ts` opens
+the gate on a test profile so the ON path is proved to exist and not only to be
+inert.
+
 ## Where the contracts live
 
 | contract | made true in |

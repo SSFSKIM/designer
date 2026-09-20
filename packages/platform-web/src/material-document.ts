@@ -140,15 +140,37 @@ export const macos27MaterialProfileDocument: GlassMaterialProfileDocument = {
 export const macos26MaterialProfileDocument: GlassMaterialProfileDocument = {
   name: "apple-macos-26.5",
   platform: "macOS 26.5",
+  /*
+   * **The two digests below are the CURRENT ones, not the documents' own** (W30
+   * G2; W30 Decision Log 1 (a), claims §5.158).
+   *
+   * `root.material` names what actually drew, so the digest this endpoint
+   * reports has to be the fingerprint of the material the renderer is handed
+   * today. W30's operator wave added eight leaves to
+   * `DEFAULT_MATERIAL_PROFILE` at values that are algebraic identities, which
+   * moved every document's resolved digest while moving no pixel — the one-time
+   * X1 exemption W29 Decision Log 7 (a) granted.
+   *
+   * The two frozen macOS 26.5 documents stay BYTE-IDENTICAL through that, so
+   * their own `resolvedMaterialSha256` still reads `b2b570e4adcea8fb` and
+   * `874be66ea501621b` — the readings they were sealed at, and still the
+   * readings. What the pin resolves to now is recorded beside them, once, in
+   * `packages/calibration/profiles/digest-supersessions.json`, and
+   * `macos26-document-selection.test.ts` asserts both halves: the document's
+   * field equals the record's `recordedSha256`, and the material a root selects
+   * fingerprints to the record's `currentSha256`, which is what these two
+   * literals are. A page pinned to macOS 26.5 draws exactly what 0.18.0 drew;
+   * only the name of that material's digest gained one indirection.
+   */
   active: {
     light: {
       profileKey: "apple-macos-26.5-1x-light-standard",
-      resolvedMaterialSha256: "b2b570e4adcea8fb",
+      resolvedMaterialSha256: "b340a4dee871633c",
     },
     dark: {
       profileKey: "apple-macos-26.5-1x-dark-standard",
       patch: darkMaterialProfile,
-      resolvedMaterialSha256: "874be66ea501621b",
+      resolvedMaterialSha256: "93ab090705c43f1f",
     },
   },
   receded: {

@@ -361,8 +361,88 @@ export interface MaterialRim {
 export interface MaterialOuterShadow {
   /** Downward translation of the shadow's silhouette, CSS px. */
   readonly offsetPx: number;
-  /** Gaussian σ the silhouette is blurred by, CSS px. A `box-shadow` blur is 2σ. */
+  /**
+   * Gaussian σ the silhouette is blurred by, CSS px. A `box-shadow` blur is 2σ.
+   *
+   * Since W30 G2 this is the σ at the reference span rather than the σ full
+   * stop: the three leaves below grade it with the casting span, and at their
+   * inert defaults the law returns exactly this number for every span. The
+   * header above records the macOS 26.5 material's own span-invariance as a
+   * positive measurement, which is why that material can go on expressing
+   * itself with three zeros.
+   */
   readonly sigmaPx: number;
+  /**
+   * The σ law's slope: CSS px of σ per CSS px of casting span, dimensionless.
+   *
+   * macOS 27 blurs the outer shadow wider under a wider surface. Over spans 96
+   * to 160 the measured σ is linear in the span on every bed of the macOS 27
+   * capture — slope 0.128 to 0.134, holding to 2 % on the median and scale-
+   * invariant in CSS px to 11 % at its worst cell (claims §5.156 §2) — while
+   * the shipped single σ draws 4.2 to 7.2 times too wide below span 96 and
+   * about a third too narrow at 128 and above. The whole law is
+   *
+   *     σ_css(span) = sigmaPx + max(sigmaThinOffsetPx,
+   *                                 sigmaSlopePerSpan · (span − sigmaSpanRefPx))
+   *
+   * evaluated PER CASTER: the GPU tier reads the casting surface's own span per
+   * pixel from the field pass's `shadowAux.z`, and the CSS tier writes one blur
+   * radius per surface from `surface.spanPx`. It takes no device ratio, because
+   * the cut rejected the device-px reading of the thin regime in both directions
+   * (§5.156 §2's two signatures) — one function of CSS span is one mirror fewer
+   * for the CSS tier to keep.
+   *
+   * **Ships at 0, which is a multiplied zero**: the whole span term is
+   * `0 · (span − sigmaSpanRefPx)`, so the `max` sees two zeros and σ is
+   * `sigmaPx` identically, at every span and every scale. Fitted in the macOS 27
+   * documents by claims §5.159; the frozen macOS 26.5 material keeps the zero,
+   * where it is the measurement.
+   */
+  readonly sigmaSlopePerSpan: number;
+  /**
+   * The casting span, CSS px, at which σ equals `sigmaPx` — the span the line
+   * pivots about.
+   *
+   * The law has one flat direction: shifting `sigmaPx`, `sigmaThinOffsetPx` and
+   * this constant together leaves σ unchanged at every span, so a fit has to
+   * hold one of the three. **The fit holds this one, at 96** (W30 Decision Log
+   * 3 (c)) — the span every bed carries sixteen cells at, and the span the
+   * amplitude's own anchor `thickOcclusionAt96` is keyed to — and fits the slope
+   * and the offset around it, refitting `sigmaPx` as the σ at span 96.
+   *
+   * **Ships at 0**, which is unreachable while the slope is 0 and which the
+   * identity does not depend on: a pivot multiplied by a zero slope contributes
+   * nothing whatever its value. 96 is the fit's value in claims §5.159, not the
+   * default's.
+   */
+  readonly sigmaSpanRefPx: number;
+  /**
+   * The width the thin regime holds, CSS px, SIGNED, stated as an offset from
+   * `sigmaPx` — the floor the line is clamped below at.
+   *
+   * A floor is structurally necessary rather than a fit of the thin cells: the
+   * measured line crosses zero at a span of 23.6 to 30.4 on every bed and the
+   * smallest declared span in the bed is 32, so without one the law emits
+   * 0.27 CSS px on a 32 px surface and a negative σ on a 24 px one
+   * (claims §5.156 §2).
+   *
+   * **Its unit is CSS px and its value is a declared reading rather than a fit**
+   * (W30 Decision Log 2 (b)). The thin cells are a position on the instrument's
+   * valley, not a measurement of Apple's blur: the reader's (amplitude, σ) pair
+   * trades at a nearly constant product there, and the thin σ bifurcates on the
+   * author's TINT — untinted cells read a 1x/2x ratio of 1.86–2.57 and their
+   * tinted siblings 0.51–0.56 on the same geometry, which the material's blur
+   * cannot depend on. So no order statistic over those cells is a measurement,
+   * and §5.159 sets this by declaration with the statistic it is checked
+   * against named.
+   *
+   * **Ships at 0**, an added zero under a `max` whose other arm is also zero.
+   * The knee — where the floor gives way to the line — is DERIVED from the three
+   * (`sigmaSpanRefPx + sigmaThinOffsetPx / sigmaSlopePerSpan`) rather than being
+   * a fourth leaf, because a knee stated beside a slope and a floor is a third
+   * name for a quantity two of them already fix.
+   */
+  readonly sigmaThinOffsetPx: number;
   /** Outward spread of the silhouette before the blur, CSS px. */
   readonly spreadPx: number;
   /**
@@ -1213,6 +1293,132 @@ export interface MaterialProfile {
    */
   readonly sizeHeavyTapSigma: number;
   readonly sizeHeavyTapSigma2x: number;
+
+  /*
+   * ## W30's spanning set: the diffusion, made selective in the backdrop's scale
+   *
+   * The five leaves below are the wave's second operator, landed at inert values
+   * before anything is fitted (W30 Decision Log 1 (b) and 2 (d); claims §5.156
+   * §3, §5.158). They exist because the residual the operator has to move is
+   * **non-monotone in the backdrop's pitch** — vitrea passes 1.21× the native
+   * structure over a 16 px checkerboard and 0.76–0.83× over 4 and 8 px ones and
+   * over a photograph, on the same material and the same span — and a positive
+   * mix of two Gaussians, which is monotone in frequency, cannot do that. Its
+   * sign also turns on the colour scheme and, on structured backdrops only, on
+   * the device ratio.
+   *
+   * Two mechanisms can express a notch and G0's cut could not choose between
+   * them, because the macOS 27 generation of the matrix carries **no probe row**
+   * and the pitch ladder is entirely probe — so the curve the operator fits is
+   * not in committed evidence and the one discriminator the bed does carry is
+   * confounded by the tone response (§5.156 §3). Rather than spend a second
+   * exemption mid-fit, the wave lands a set that SPANS both and turns on
+   * whichever the ladder, once read, supports:
+   *
+   *   (i)  a second heavy tap at its own width with a SIGNED weight
+   *        (`sizeHeavySecondSigma`, `…2x`, `sizeHeavySecondShare`), which makes
+   *        the kernel non-monotone in frequency — a negative weight subtracts a
+   *        wider Gaussian, which is the notch;
+   *   (ii) a mix conditioned on the SOURCE's own measured spatial scale
+   *        (`sizeScatterScaleGain`, `sizeScatterScaleRef`), keyed on the
+   *        analysis pass's per-source `stats` — `[encoded mean, linear variance,
+   *        edge density, sample count]` — of which edge density is a reciprocal
+   *        length and therefore the scale statistic, in the only place a
+   *        per-source quantity can be read.
+   *
+   * The two SIGNED amounts are the scheme-conditioned leaves, which on this
+   * project means two values of one leaf across the light and the dark document:
+   * the dark document is a patch and the renderer has no scheme input. The
+   * widths and the reference are not scheme-conditioned, because a spatial scale
+   * is a property of the source raster and that is the same raster in both
+   * schemes.
+   *
+   * `sizeToneLevelFar` is NOT part of this set and stays at 0: its sign is
+   * stable per scheme but the two light backdrops disagree by 5.5× on its
+   * magnitude, so it is declined rather than fitted (W30 Decision Log 2 (d)).
+   */
+  /**
+   * The second heavy tap's Gaussian width in CSS px, per scale — candidate (i)'s
+   * width, on `sizeHeavyTapSigma`'s own pattern and resolved by the same
+   * `rampAtScale`.
+   *
+   * It is a second `PyramidResources` texture and a second separable pair, not a
+   * uniform the optics pass evaluates, for `sizeHeavyTapSigma`'s measured
+   * reason: a grid of taps at the fragment costs +1.1 ms on the mobile bench row
+   * against 0.070 ms for two separable passes the chain already runs (W26
+   * Decision Log 2 (b)). So the width, like the first one, is one per SOURCE.
+   *
+   * **Ships at 0, and the width is not what makes it inert** —
+   * `sizeHeavySecondShare` is. At share 0 no texture is allocated, no pass is
+   * encoded and the optics pass never reads one, so this width is unread
+   * whatever it holds; 0 is chosen because it is the value at which
+   * `heavyTapPlan` would also decline. A profile that names a width and leaves
+   * the share at 0 gets nothing, deliberately: the share is the single gate, so
+   * that the off path has exactly one condition.
+   */
+  readonly sizeHeavySecondSigma: number;
+  readonly sizeHeavySecondSigma2x: number;
+  /**
+   * The second heavy sample's weight in the deep mix — a SIGNED fraction, and
+   * the scheme-conditioned leaf of candidate (i).
+   *
+   * The deep sample becomes `heavy + share · (heavy2 − heavy)`, so a positive
+   * share widens the deep component toward the second width and a NEGATIVE one
+   * subtracts it — an unsharp mask on the backdrop, which is a kernel that
+   * passes the middle pitch less than both ends and is the only shape on offer
+   * that can do what the residual asks. The sign is what the colour scheme
+   * flips: on the gated 16 px cell vitrea passes 1.57× the native structure in
+   * 1x light and 0.75× in 1x dark, so the light document wants structure removed
+   * at that pitch and the dark document wants it added (claims §5.156 §3, §6).
+   *
+   * **It is also the GATE.** The second heavy texture is built, bound and read
+   * only where this is non-zero, so at 0 the mechanism costs no allocation, no
+   * pass and no sample, and the deep mix is the expression W26 left — which is
+   * what the 34 renderer goldens prove, since they render an explicit patch over
+   * the default and every one of them is byte-identical across this commit.
+   *
+   * **Ships at 0, a multiplied zero**: the lerp's second term is
+   * `0 · (heavy2 − heavy)`, and the branch that would read `heavy2` at all is
+   * not taken.
+   */
+  readonly sizeHeavySecondShare: number;
+  /**
+   * The gain on `kScatter` per unit of the source's measured scale statistic
+   * about `sizeScatterScaleRef` — candidate (ii)'s scheme-conditioned leaf, a
+   * fraction per unit of statistic, signed.
+   *
+   * `kScatter` is the share of the deep component in the body's mix, and this
+   * adds `sizeScatterScaleGain · (stat − sizeScatterScaleRef)` to it before the
+   * clamp — so a backdrop whose structure sits at a finer scale than the
+   * reference takes a different share of the heavy component from one whose
+   * structure is coarser, which is a transmission that depends on the backdrop's
+   * scale rather than only on the surface's span. The statistic is the analysis
+   * pass's per-source EDGE DENSITY (mean luminance-gradient magnitude per texel,
+   * a reciprocal length), resolved on the CPU where the readback is and handed
+   * to the optics pass as one number per group.
+   *
+   * The sign is the scheme's, for `sizeHeavySecondShare`'s reason and read off
+   * the same cell.
+   *
+   * **Ships at 0, a multiplied zero**: the added term is
+   * `0 · (stat − sizeScatterScaleRef)` and `kScatter` is already clamped to
+   * [0, 1], so the clamp that follows is the identity on it.
+   */
+  readonly sizeScatterScaleGain: number;
+  /**
+   * The reference value of the per-source scale statistic the gain above is
+   * measured about — the backdrop scale at which the operator does nothing.
+   *
+   * Not scheme-conditioned: a spatial scale is a property of the source raster
+   * and the raster is the same in both schemes. Fitted in §5.159 as the edge
+   * density of the pitch the two sides of the residual straddle, once the ladder
+   * has a macOS 27 reading.
+   *
+   * **Ships at 0**, and the argument for its inertness is not a multiplied zero
+   * but a different one and sufficient on its own: the gain that multiplies the
+   * difference from it is 0, so no value of this constant can reach the mix.
+   */
+  readonly sizeScatterScaleRef: number;
 
   /**
    * The occlusion gain — "a larger size is more opaque. A smaller size is
@@ -2273,6 +2479,18 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   // chain's level-1 width, and the tracker carries the floor that would close it.
   sizeHeavyTapSigma: 9,
   sizeHeavyTapSigma2x: 9,
+  // W30 G2's spanning set for the scale-selective scatter, at the values that
+  // make every term of it exactly zero (claims §5.156 §3, §5.158). The share is
+  // the single gate: at 0 no second heavy texture is allocated, no pass is
+  // encoded and no sample is taken, so the two widths are unread and the
+  // reference is unreachable behind its own zero gain. The two signed amounts
+  // are the scheme-conditioned leaves §5.159 fits; the widths and the reference
+  // are one raster's property and are not.
+  sizeHeavySecondSigma: 0,
+  sizeHeavySecondSigma2x: 0,
+  sizeHeavySecondShare: 0,
+  sizeScatterScaleGain: 0,
+  sizeScatterScaleRef: 0,
   sizeOcclusionGain: 0.05,
   sizeShadowGainMax: 1,
 
@@ -2627,6 +2845,14 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   outerShadow: {
     offsetPx: 7.95,
     sigmaPx: 15.55,
+    // W30 G2's σ law, at the three zeros that make it the identity (claims
+    // §5.156 §2, §5.158): σ(span) = sigmaPx + max(0, 0 · (span − 0)) = sigmaPx,
+    // at every span and every scale. The macOS 26.5 material's σ genuinely is
+    // span-invariant — 15.4…15.9 CSS px across spans 32…160 — so these zeros are
+    // that measurement and not a placeholder for it.
+    sigmaSlopePerSpan: 0,
+    sigmaSpanRefPx: 0,
+    sigmaThinOffsetPx: 0,
     spreadPx: 3.1,
     thinOcclusionDark: 0,
     thinOcclusionMid: 0.33,
@@ -2740,6 +2966,11 @@ export interface MaterialProfilePatch {
   readonly sizeToneLevelFar?: number;
   readonly sizeHeavyTapSigma?: number;
   readonly sizeHeavyTapSigma2x?: number;
+  readonly sizeHeavySecondSigma?: number;
+  readonly sizeHeavySecondSigma2x?: number;
+  readonly sizeHeavySecondShare?: number;
+  readonly sizeScatterScaleGain?: number;
+  readonly sizeScatterScaleRef?: number;
   readonly sizeOcclusionGain?: number;
   readonly sizeShadowGainMax?: number;
   readonly lensRefractionGain?: number;
@@ -2970,6 +3201,14 @@ export function withMaterialOverrides(
     sizeToneLevelFar: patch.sizeToneLevelFar ?? base.sizeToneLevelFar,
     sizeHeavyTapSigma: patch.sizeHeavyTapSigma ?? base.sizeHeavyTapSigma,
     sizeHeavyTapSigma2x: patch.sizeHeavyTapSigma2x ?? base.sizeHeavyTapSigma2x,
+    // W30 G2's spanning set. One line each, because this merge is explicit per
+    // leaf and a leaf without its own line resolves silently to the base —
+    // which for a leaf a document is meant to fit is a fit that does nothing.
+    sizeHeavySecondSigma: patch.sizeHeavySecondSigma ?? base.sizeHeavySecondSigma,
+    sizeHeavySecondSigma2x: patch.sizeHeavySecondSigma2x ?? base.sizeHeavySecondSigma2x,
+    sizeHeavySecondShare: patch.sizeHeavySecondShare ?? base.sizeHeavySecondShare,
+    sizeScatterScaleGain: patch.sizeScatterScaleGain ?? base.sizeScatterScaleGain,
+    sizeScatterScaleRef: patch.sizeScatterScaleRef ?? base.sizeScatterScaleRef,
     sizeOcclusionGain: patch.sizeOcclusionGain ?? base.sizeOcclusionGain,
     sizeShadowGainMax: patch.sizeShadowGainMax ?? base.sizeShadowGainMax,
     lensRefractionGain: patch.lensRefractionGain ?? base.lensRefractionGain,
@@ -4029,6 +4268,37 @@ export function heavyTapSigmaAtScale(
 }
 
 /**
+ * **The SECOND heavy blur's Gaussian σ at a device scale, in CSS px** (W30 G2) —
+ * the width of `MaterialProfile.sizeHeavySecondSigma`, resolved per scale by
+ * `heavyTapSigmaAtScale`'s own `rampAtScale`, and **zero wherever the share that
+ * gates it is zero**.
+ *
+ * The gate is in here rather than at every caller so that the mechanism has
+ * exactly one off condition: the pyramid asks this function for a width, gets 0
+ * where the material declines the operator, and allocates nothing. A profile
+ * that names a width and leaves `sizeHeavySecondShare` at 0 therefore gets
+ * nothing, which is deliberate — a width is not a switch, and W26 Decision Log
+ * 6 (c) records what happens when a near-zero width is read as one.
+ *
+ * In CSS px rather than device px because the second tap is a difference from the
+ * first at a scale the fit chooses, and nothing yet says its two readings fail to
+ * halve into each other the way `sizeHeavyTapSigma`'s do; §5.159 records what the
+ * ladder says when it is fitted. The pyramid converts to source texels with the
+ * placed density, exactly as it does for the body and the first heavy tap.
+ */
+export function heavySecondTapSigmaAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  if (profile.sizeHeavySecondShare === 0) return 0;
+  return rampAtScale(
+    profile.sizeHeavySecondSigma,
+    profile.sizeHeavySecondSigma2x,
+    devicePixelRatio,
+  );
+}
+
+/**
  * **The level term above the thickness knee** (W25; claims §5.113, W25 Decision
  * Log 3 (b)) — the offset on the settled interior level a surface of this span
  * takes, in the tone response's own encoded units, resolved at a device scale.
@@ -4584,6 +4854,35 @@ export function outerShadowFalloff(signedDistancePx: number, sigmaPx: number): n
 }
 
 /**
+ * **The outer shadow's σ at a casting span**, CSS px (W30 G2; claims §5.156 §2):
+ *
+ *     σ(span) = sigmaPx + max(sigmaThinOffsetPx,
+ *                             sigmaSlopePerSpan · (span − sigmaSpanRefPx))
+ *
+ * One function of the CSS span with no device ratio in it, because the cut
+ * rejected the device-px reading of the thin regime in both directions — which
+ * is one mirror fewer for the CSS tier to keep and one reach for both scales.
+ *
+ * It is evaluated PER CASTER on both tiers and nowhere per group: the GPU tier
+ * reads the casting surface's own span per pixel from the field pass's aux
+ * target, and the CSS tier writes one `box-shadow` blur radius per surface. The
+ * two GROUP-level readers — the optics pass's scissor pad and the CSS tier's
+ * group-shadow clip — take the law at the widest span any member casts at, which
+ * is a bound on every member's own σ rather than any member's value.
+ *
+ * At the shipped defaults the three leaves are 0, so this returns `shadow.sigmaPx`
+ * identically: the span term is a multiplied zero and the offset an added zero
+ * under a `max` whose other arm is that same zero. The identity is algebraic and
+ * holds at every argument, including a negative or absent span.
+ */
+export function outerShadowSigmaPx(shadow: MaterialOuterShadow, spanPx: number): number {
+  return (
+    shadow.sigmaPx +
+    Math.max(shadow.sigmaThinOffsetPx, shadow.sigmaSlopePerSpan * (spanPx - shadow.sigmaSpanRefPx))
+  );
+}
+
+/**
  * The compositing-space alpha that reproduces a linear-light occlusion.
  *
  * Both tiers paint the shadow the same way — a pure BLACK layer at some alpha,
@@ -4641,15 +4940,30 @@ export function outerShadowAlpha(occlusion: number): number {
  * offset, spread silhouette — so `occlusion = 0`, and any amplitude too faint to
  * move a code anywhere, both fall out as a reach of zero rather than needing a
  * case of their own.
+ *
+ * `spanPx` is the CASTING span the σ law is read at (W30 G2; see
+ * `outerShadowSigmaPx`), and it is the second quantity a caller now owes for the
+ * amplitude's reason: since macOS 27 the blur is a function of the caster, so a
+ * reach taken at one span while the shader draws another is the same slice at
+ * the scissor that a reach taken from the base amplitude was. A group's caller
+ * passes the LARGEST span among its members, which makes the reach a bound on
+ * every member's own rather than any member's value. It defaults to 0 for the
+ * callers that have no span to give; at the shipped leaves the law is
+ * span-invariant and every argument returns what this function returned before
+ * the law existed.
  */
-export function outerShadowReachPx(shadow: MaterialOuterShadow, occlusion: number): number {
+export function outerShadowReachPx(
+  shadow: MaterialOuterShadow,
+  occlusion: number,
+  spanPx = 0,
+): number {
   const alpha = outerShadowAlpha(occlusion);
   if (!(alpha > 0)) return 0;
   const cutoff = 1 / 255 / alpha;
   // Even a pixel the silhouette covers outright cannot move a code.
   if (cutoff >= 1) return 0;
 
-  const sigma = Math.max(shadow.sigmaPx, 1e-4);
+  const sigma = Math.max(outerShadowSigmaPx(shadow, spanPx), 1e-4);
   // Bisected on the falloff itself, so the reach cannot disagree with what the
   // shader draws.
   let lo = -(8 * sigma + Math.abs(shadow.offsetPx) + Math.abs(shadow.spreadPx));

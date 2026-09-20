@@ -290,14 +290,24 @@ export const macos27CssTierMapping: Partial<CssTierMapping> = {
 };
 
 /**
- * Each document's `resolvedMaterialSha256` — the digest over the material it
- * resolves to, not over the patch. Reported by the root's material readout so a
- * capture, a test or the demo's capabilities panel can say which document drew,
- * and pinned document-side by `packages/calibration/test/tuned-profiles.test.ts`.
+ * Each endpoint's resolved-material digest — over the material it resolves to,
+ * not over the patch. Reported by the root's material readout so a capture, a
+ * test or the demo's capabilities panel can say which document drew.
+ *
+ * **These are the CURRENT digests, read from
+ * `packages/calibration/profiles/digest-supersessions.json`, not the documents'
+ * own `resolvedMaterialSha256` fields** (W30 Decision Log 1 (a) and 4 (a);
+ * claims §5.158). W30's eight inert leaves moved every document's resolved
+ * fingerprint without moving a pixel, and no document's bytes were edited
+ * because those bytes are an input to every bound stated over that document's
+ * bed. So a document's own field is the reading it was sealed at, the record
+ * beside it is what the pin resolves to now, and this module names what draws.
+ * `packages/calibration/test/macos27-profile-export.test.ts` pins these against
+ * the record and `tuned-profiles.test.ts` pins the record against the material.
  */
 export const MACOS_27_RESOLVED_MATERIAL_SHA256 = {
-  light: "e825cb034c9070e4",
-  dark: "8439eb808495f5bf",
-  recededLight: "8dc63b265c1de038",
-  recededDark: "3264b6cdde64bc8b",
+  light: "8d06a41cb70ba52f",
+  dark: "73a3fb119a81312b",
+  recededLight: "91a22b7ad3473d51",
+  recededDark: "1b40966487534d1c",
 } as const;

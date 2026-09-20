@@ -223,6 +223,28 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   toneExtra : vec4f,
   /// W28: whether the per-surface reference field is present (x).
   localTone : vec4f,
+  /// W30's span-graded shadow sigma (claims 5.156 section 2): the law's slope
+  /// in CSS px of sigma per CSS px of casting span (x), the reference span it
+  /// pivots about (y) and the signed floor it is clamped below at, as an offset
+  /// from 'shadow.y' (z). (w) free. At the shipped zeros this evaluates to
+  /// 'shadow.y' at every span, identically, which is why the 34 goldens do not
+  /// move. No device ratio: the cut rejected the device-px reading of the thin
+  /// regime, so the law is one function of CSS span on both tiers.
+  shadowSigma : vec4f,
+  /// W30's scale-selective scatter, candidate (ii) (claims 5.156 section 3): the
+  /// gain on 'kScatter' per unit of the source's measured scale statistic (x),
+  /// the reference that statistic is measured about (y), and the statistic
+  /// itself for THIS group's source (z) — the analysis pass's edge density,
+  /// resolved on the CPU because it arrives by readback. (w) free.
+  scatterScale : vec4f,
+  /// W30's scale-selective scatter, candidate (i) (claims 5.156 section 3): the
+  /// second heavy sample's SIGNED share in the deep mix (x), and whether this
+  /// group's source carries a second heavy texture at all (y) — 1 where the
+  /// pyramid built one, 0 where the share declined it. A vec4 of its own rather
+  /// than two lanes in the layout above, on 'heavyTap's precedent: a width's
+  /// switch living in another facet's spare lane is a layout nobody could read
+  /// back. (z) and (w) free.
+  scatterHeavy2 : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -246,6 +268,15 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
 /// channel, in the field pass's fourth target — see 'wgsl/field.ts'.
 @group(0) @binding(9) var presenceTexture : texture_2d<f32>;
 @group(0) @binding(10) var localToneTexture : texture_2d<f32>;
+
+/// The SECOND heavy blur (W30 G2) — the same construction one width along, and
+/// read only where 'scatterHeavy2.y' says the pyramid built one. A bind group's
+/// layout is one layout, so the slot exists at every draw and the placeholder
+/// view stands in it where the material declined the operator; what costs
+/// nothing at the inert share is the allocation and the two separable passes,
+/// which is where the price of this mechanism actually is (W26 Decision Log
+/// 2 (b)).
+@group(0) @binding(11) var backdropHeavy2 : texture_2d<f32>;
 
 /// One encoded sRGB channel from a linear one — the space the backdrop tone
 /// response's anchors live in (W9). Mirrors material.ts's 'linearToSrgbChannel'.
@@ -336,6 +367,22 @@ fn rim_weight(d : f32, width : f32) -> f32 {
 fn outer_shadow_falloff(signedDistance : f32, sigma : f32) -> f32 {
   let x = -signedDistance / max(sigma, 1e-4);
   return 0.5 * (1.0 + tanh(0.7978845608028654 * (x + 0.044715 * x * x * x)));
+}
+
+/// The outer shadow's sigma at a casting span, CSS px (W30 G2; claims 5.156
+/// section 2). Mirrors material.ts's 'outerShadowSigmaPx' term for term:
+///
+///   sigma(span) = shadow.y + max(shadowSigma.z, shadowSigma.x * (span - shadowSigma.y))
+///
+/// Read PER PIXEL from the CASTING surface's own span, which the field pass has
+/// already unioned into the aux target — the span this shader has been reading
+/// the thick regime's amplitude from since W14 G1, now read twice. At the
+/// shipped zeros both arms of the max are zero and this is 'ou.shadow.y'
+/// exactly, for every span, which makes the law's landing a no-op on every
+/// existing pixel by construction rather than by measurement.
+fn outer_shadow_sigma(spanCss : f32) -> f32 {
+  return ou.shadow.y
+    + max(ou.shadowSigma.z, ou.shadowSigma.x * (spanCss - ou.shadowSigma.y));
 }
 
 /// What one pixel's outer shadow is made of: the compositing-space alpha the
@@ -458,7 +505,10 @@ fn outer_shadow(uv : vec2f, upsampled : f32, fieldSize : vec2f) -> ShadowSample 
   // Times the casting surface's presence (W27d): a material that is not there
   // occludes nothing. At presence 1 this is the alpha the bed measures.
   out.alpha = (1.0 - pow(1.0 - occ, 1.0 / 2.4)) * castMat;
-  out.falloff = outer_shadow_falloff(shadowField.x + clampedOffCss - ou.shadow.z, ou.shadow.y);
+  out.falloff = outer_shadow_falloff(
+    shadowField.x + clampedOffCss - ou.shadow.z,
+    outer_shadow_sigma(shadowAux.z),
+  );
   out.castSpanCss = shadowAux.z;
   out.castMat = castMat;
   return out;
@@ -783,7 +833,24 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   let rampStart = ou.scatter.y + (ou.shadowSize.z - ou.scatter.y) * sizeThick
     + (ou.shadowThick.w - ou.shadowSize.z) * farS;
   let sharpShare = clamp(sDeep + max(rampStart - sDeep, 0.0) * rampT, 0.0, 1.0);
-  let kScatter = clamp(scatterFloor + ((1.0 - sharpShare) - scatterFloor) * fold, 0.0, 1.0);
+  let kScatterSpan = clamp(scatterFloor + ((1.0 - sharpShare) - scatterFloor) * fold, 0.0, 1.0);
+  /*
+   * W30's scale conditioning, candidate (ii) (claims 5.156 section 3): the deep
+   * component's share moves with the BACKDROP's own spatial scale and not only
+   * with the surface's span, which is what a residual that changes sign between
+   * a 4 px pitch and a 16 px one needs. The statistic is the analysis pass's
+   * per-source edge density, a reciprocal length; it arrives by readback, so the
+   * CPU puts it in 'scatterScale.z' and the law is evaluated here.
+   *
+   * At the shipped gain of 0 the added term is a multiplied zero and the clamp
+   * is the identity on a value already clamped to the same interval, so this is
+   * 'kScatterSpan' to the bit.
+   */
+  let kScatter = clamp(
+    kScatterSpan + ou.scatterScale.x * (ou.scatterScale.z - ou.scatterScale.y),
+    0.0,
+    1.0,
+  );
   // The inner shadow's depth and profile: W2's law, byte for byte — the
   // thickness times the size gain (folded through 'sizeK'), clamped to the
   // shorter half extent, and a square on it. The lens ran on this until W12 G2;
@@ -893,7 +960,25 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     // Premultiplied linear in, straight colour out: the material composites over
     // whatever is behind it, so a partially transparent backdrop must not darken
     // the glass.
-    let scatterColour = scatterSample.rgb / max(scatterSample.a, 1e-6);
+    var scatterColour = scatterSample.rgb / max(scatterSample.a, 1e-6);
+    /*
+     * W30's second heavy tap, candidate (i) (claims 5.156 section 3): a second
+     * texture at its own width, mixed into the deep sample by a SIGNED share.
+     * A positive share widens the deep component toward that width; a negative
+     * one subtracts it, which is an unsharp mask on the backdrop and the only
+     * shape on offer that passes the middle pitch LESS than both ends — a mix of
+     * two positive Gaussians is monotone in frequency and cannot.
+     *
+     * Gated on whether the pyramid built one, which it does only where
+     * 'sizeHeavySecondShare' is non-zero. At the inert share the branch is not
+     * taken, nothing is allocated and nothing is sampled, which is the state the
+     * 34 goldens render.
+     */
+    if (ou.scatterHeavy2.y > 0.5) {
+      let second = textureSampleLevel(backdropHeavy2, backdropSampler, refractedUv, 0.0);
+      let secondColour = second.rgb / max(second.a, 1e-6);
+      scatterColour = scatterColour + ou.scatterHeavy2.x * (secondColour - scatterColour);
+    }
     backdrop = mix(bodySample.rgb / max(bodySample.a, 1e-6), scatterColour, kScatter);
     /*
      * The body's own half of the presence (W27d): a material at half presence

@@ -80,6 +80,19 @@ export interface PyramidResources {
    * says the material can afford that.
    */
   readonly heavy: GPUTexture | undefined;
+  /**
+   * The **second** heavy blur (W30 G2; `MaterialProfile.sizeHeavySecondSigma`
+   * gated on `sizeHeavySecondShare`) — the same construction one width along,
+   * and `undefined` wherever the material leaves the share at 0, which is
+   * everywhere on the landed material.
+   *
+   * It is a second texture and a second separable pair rather than a second tap
+   * in the optics pass for the reason the first one is: the price of a width at
+   * the fragment is +1.1 ms on the mobile bench row against 0.070 ms here (W26
+   * Decision Log 2 (b)). The price of having it at all is therefore paid by the
+   * material that names it and by nothing else.
+   */
+  readonly heavy2: GPUTexture | undefined;
   readonly stats: GPUBuffer;
   /** Source size epoch this allocation was made for. */
   readonly sizeEpoch: number;
@@ -125,6 +138,11 @@ export interface PyramidResources {
    * texture from the same clean source.
    */
   readonly heavySigmaCss: number;
+  /**
+   * The SECOND heavy blur's σ in **CSS px** the build converted with (W30 G2),
+   * on `heavySigmaCss`'s own rule and for the same staleness reason.
+   */
+  readonly heavy2SigmaCss: number;
 }
 
 export interface PyramidInstrumentation {
@@ -162,6 +180,14 @@ export interface PyramidBuildRequest {
    * material that names no heavy width pays for none of this.
    */
   readonly heavySigmaCss: number;
+  /**
+   * The SECOND heavy blur's σ in **CSS px** (W30 G2), 0 where the material
+   * leaves `sizeHeavySecondShare` at 0 — at which point nothing is allocated
+   * and nothing is drawn, exactly as for the first one. The share is the gate
+   * and `heavySecondTapSigmaAtScale` applies it, so this arrives already 0
+   * rather than being re-decided here.
+   */
+  readonly heavy2SigmaCss: number;
   readonly viewportCss: readonly [number, number];
   /**
    * Where the source sits on the plane, in CSS px relative to the viewport, if
@@ -279,7 +305,11 @@ const sameBody = (existing: PyramidResources, request: PyramidBuildRequest): boo
   // The heavy blur rides the same key: it is built from the same chain at the
   // same density, so a σ that moved makes the texture on the source stale in
   // exactly the way a moved body σ does.
-  && sameHeavySigma(request.heavySigmaCss, existing.heavySigmaCss);
+  && sameHeavySigma(request.heavySigmaCss, existing.heavySigmaCss)
+  // And the second heavy blur on the identical rule (W30 G2): its ON/OFF state
+  // exactly, then the tolerance, because 0 and a tiny positive width differ in
+  // kind and not in degree.
+  && sameHeavySigma(request.heavy2SigmaCss, existing.heavy2SigmaCss);
 
 export function createPyramidStore(context: GpuContext): PyramidStore {
   const { device, pool, cache } = context;
@@ -377,6 +407,12 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     if (target.heavy !== undefined && pool.peek(poolKey.backdropHeavy(sourceId)) !== target.heavy) {
       return undefined;
     }
+    if (
+      target.heavy2 !== undefined &&
+      pool.peek(poolKey.backdropHeavy2(sourceId)) !== target.heavy2
+    ) {
+      return undefined;
+    }
     return target;
   };
 
@@ -394,6 +430,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     bodySigmaCss: number,
     heavyLevel: number | undefined,
     heavySigmaCss: number,
+    heavy2Level: number | undefined,
+    heavy2SigmaCss: number,
   ): PyramidResources {
     const existing = resources.get(sourceId);
     const levelSize = (level: number): { width: number; height: number } =>
@@ -444,6 +482,24 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       });
     }
 
+    /* The second heavy blur (W30 G2), on the identical rule and for the
+     * identical reason: acquired only where the material named a share, and
+     * RELEASED where it did not, so a material that sets the share back to 0
+     * does not strand two full-level allocations nothing will ever bind. */
+    let heavy2: GPUTexture | undefined;
+    if (heavy2Level === undefined) {
+      pool.release(poolKey.backdropHeavy2(sourceId));
+      pool.release(poolKey.backdropHeavy2Scratch(sourceId));
+    } else {
+      heavy2 = pool.acquire(poolKey.backdropHeavy2(sourceId), {
+        width: levelSize(heavy2Level).width,
+        height: levelSize(heavy2Level).height,
+        format: WORKING_TEXTURE_FORMAT,
+        usage: chainUsage(),
+        label: `vitrea:pyramid:${sourceId}:heavy2`,
+      });
+    }
+
     let stats = existing?.stats;
     if (stats === undefined) {
       stats = device.createBuffer({
@@ -457,7 +513,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       existing === undefined ||
       existing.chain !== chain ||
       existing.body !== body ||
-      existing.heavy !== heavy
+      existing.heavy !== heavy ||
+      existing.heavy2 !== heavy2
     ) {
       reallocations += 1;
     }
@@ -468,6 +525,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       chain,
       body,
       heavy,
+      heavy2,
       stats,
       sizeEpoch,
       builtEpoch,
@@ -477,6 +535,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       sourceHeight: density.sourceHeight,
       bodySigmaCss,
       heavySigmaCss,
+      heavy2SigmaCss,
     };
     resources.set(sourceId, next);
     return next;
@@ -594,7 +653,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
   function runSeparableBlur(
     encoder: GPUCommandEncoder,
     sourceId: string,
-    kind: "body" | "heavy",
+    kind: "body" | "heavy" | "heavy2",
     plan: PyramidPlan,
     chain: GPUTexture,
     target: GPUTexture,
@@ -604,7 +663,11 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     const pipeline = chainPipeline("fs_blur");
     const size = plan.levels[level] ?? (plan.levels[0] as { width: number; height: number });
     const scratchKey =
-      kind === "body" ? poolKey.backdropBodyScratch(sourceId) : poolKey.backdropHeavyScratch(sourceId);
+      kind === "body"
+        ? poolKey.backdropBodyScratch(sourceId)
+        : kind === "heavy"
+          ? poolKey.backdropHeavyScratch(sourceId)
+          : poolKey.backdropHeavy2Scratch(sourceId);
     const scratch = pool.acquire(scratchKey, {
       width: size.width,
       height: size.height,
@@ -780,6 +843,13 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
         request.heavySigmaCss > 0
           ? heavyTapPlan(request.heavySigmaCss * texelsPerCss * planScale, plan)
           : undefined;
+      // The second heavy blur (W30 G2), through the same conversion and the same
+      // plan. At σ 0 — the landed material, where the share that gates it is 0 —
+      // there is no plan, no texture and no pass.
+      const heavy2Plan =
+        request.heavy2SigmaCss > 0
+          ? heavyTapPlan(request.heavy2SigmaCss * texelsPerCss * planScale, plan)
+          : undefined;
       const target = allocate(
         request.sourceId,
         plan,
@@ -791,6 +861,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
         request.bodySigmaCss,
         heavyPlan?.level,
         request.heavySigmaCss,
+        heavy2Plan?.level,
+        request.heavy2SigmaCss,
       );
 
       runImport(encoder, request.sourceId, frame, target.chain);
@@ -815,6 +887,18 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
           target.heavy,
           heavyPlan.level,
           heavyPlan.residualSigmaTexels,
+        );
+      }
+      if (heavy2Plan !== undefined && target.heavy2 !== undefined) {
+        runSeparableBlur(
+          encoder,
+          request.sourceId,
+          "heavy2",
+          plan,
+          target.chain,
+          target.heavy2,
+          heavy2Plan.level,
+          heavy2Plan.residualSigmaTexels,
         );
       }
       runAnalysis(encoder, request.sourceId, plan, target.chain, target.stats);

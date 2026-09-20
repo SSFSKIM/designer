@@ -24,9 +24,11 @@
  *   - this file says WHAT moved, and requires it to be nothing but the named
  *     leaves — one deep equality over every other constant in the material.
  *
- * Green today with an empty leaf list, which is the point: the test is written
- * and passing before the commit it exists to judge, so G2 cannot be the commit
- * that also writes its own proof.
+ * It was written and green with an EMPTY leaf list, which is the point: the test
+ * passed before the commit it exists to judge, so G2 could not be the commit
+ * that also wrote its own proof. G2 filled the list in the commit that added the
+ * leaves (claims §5.158), and the two beds below now differ from the pre-wave
+ * files in exactly eight leaves and in nothing else.
  */
 
 import { readFileSync } from "node:fs";
@@ -43,21 +45,38 @@ import {
  * Every leaf W30's operators add to `MaterialProfile`, as a flat key path — the
  * only differences this wave may make to the resolved macOS 26.5 materials.
  *
- * **Empty today, and G2 fills it in the same commit that adds the leaves.** The
- * list is a declaration rather than a convenience: a leaf added without being
- * named here fails the identity below, and a name here that no leaf matches
- * fails the completeness case. G2 therefore cannot add a leaf silently and
- * cannot claim one it did not add.
+ * **Filled by G2, in the same commit that added the leaves** (claims §5.158;
+ * W30 Decision Log 2 (d) is the list this has to equal). The list is a
+ * declaration rather than a convenience: a leaf added without being named here
+ * fails the identity below, and a name here that no leaf matches fails the
+ * completeness case. G2 therefore could not add a leaf silently and could not
+ * claim one it did not add.
  *
  * A path names one leaf of the resolved material, dotted from the root — for
- * example `outerShadow.sigmaSlope`. Nested objects are walked; array leaves are
+ * example `outerShadow.sigmaSlopePerSpan`. Nested objects are walked; array leaves are
  * named by their containing key, because the material's arrays are ordinate
  * vectors read whole.
  *
  * Exported because G2 edits it and G3's fit reads it back to say which leaves it
  * is allowed to move; nothing else should grow off it.
  */
-export const W30_OPERATOR_LEAVES: readonly string[] = [];
+export const W30_OPERATOR_LEAVES: readonly string[] = [
+  // The shadow's σ law (claims §5.156 §2), three leaves on `MaterialOuterShadow`:
+  // σ(span) = sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan · (span − sigmaSpanRefPx)).
+  // Every one of them 0, where the law is `sigmaPx` at every span.
+  "outerShadow.sigmaSlopePerSpan",
+  "outerShadow.sigmaSpanRefPx",
+  "outerShadow.sigmaThinOffsetPx",
+  // The scatter's spanning set (claims §5.156 §3; W30 Decision Log 2 (d)), five
+  // leaves on `MaterialProfile`: a second heavy width per scale with a signed
+  // share, and a gain on `kScatter` keyed on the source's measured scale
+  // statistic about a reference. Every one of them 0.
+  "sizeHeavySecondSigma",
+  "sizeHeavySecondSigma2x",
+  "sizeHeavySecondShare",
+  "sizeScatterScaleGain",
+  "sizeScatterScaleRef",
+];
 
 const HERE = import.meta.dirname;
 const PROFILES = resolve(HERE, "..", "profiles");
@@ -132,7 +151,7 @@ describe("W30's exemption is inert at the material level (acceptance clause 1, X
         without(resolved, W30_OPERATOR_LEAVES),
         `${key}: the resolved material differs from the pre-wave evidence outside ` +
           `W30_OPERATOR_LEAVES — the exemption is for the digest, not for the material`,
-      ).toEqual(without(preWave, W30_OPERATOR_LEAVES));
+      ).toStrictEqual(without(preWave, W30_OPERATOR_LEAVES));
     });
   }
 

@@ -173,6 +173,7 @@ describe("the pyramid's handles, checked against the pool", () => {
         resolution: { scale: 1, maxDimension: 2048 },
         bodySigmaCss: 8,
         heavySigmaCss: 0,
+        heavy2SigmaCss: 0,
         viewportCss: [400, 300],
       },
       provider,
@@ -198,6 +199,7 @@ describe("the pyramid's handles, checked against the pool", () => {
       resolution: { scale: 1, maxDimension: 2048 },
       bodySigmaCss: 8,
       heavySigmaCss: 0,
+      heavy2SigmaCss: 0,
       viewportCss: [400, 300] as const,
     };
 

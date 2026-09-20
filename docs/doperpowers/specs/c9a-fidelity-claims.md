@@ -25703,3 +25703,214 @@ close and not only here. `--claims` labels the generation in the index.
 No material constant, profile document, fixture, golden, bound, floor or `PREDICATE_EXCLUDES` line
 was touched. The gated bed is the same bed: every row the gate read before the split it reads after
 it, and every row it did not, it still does not.
+
+## 5.158 W30 G2: the leaves — eight operator constants landed at algebraic identities, the exemption spent as one record beside six unedited documents, and no pixel and no frozen byte moved (2026-09-20)
+
+**Gate: W30 G2, acceptance clause 1; contracts X1, X2, X3; Decision Log 1 (a) and (b), 2 (d),
+3 (c), 4.** Evidence is `packages/calibration/results/2026-09-20-w30-g2-leaves/`. **This is the one
+exemption W29 Decision Log 7 (a) granted, spent.** No later wave adds a record to
+`profiles/digest-supersessions.json` without a new grant.
+
+What this gate does is add every leaf both of W30's operators need, at values chosen so that each
+term the leaf enters is **exactly zero by arithmetic** rather than small by measurement, and then
+prove that nothing drawn by either tier moved. It fits nothing. Every value here is superseded by
+§5.159, which is where the operators acquire numbers.
+
+### 1. The eight leaves, and why each inert value is an identity
+
+The shadow's σ law, on `MaterialOuterShadow` (the shape §5.156 §2 named, with no device-ratio
+argument per Decision Log 2 (b)):
+
+```
+σ_css(span) = sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan · (span − sigmaSpanRefPx))
+```
+
+| leaf | unit | inert value | why it is an identity |
+| --- | --- | ---: | --- |
+| `sigmaSlopePerSpan` | CSS px of σ per CSS px of span | **0** | a multiplied zero: the span term is `0 · (span − ref)` at every span |
+| `sigmaSpanRefPx` | CSS px | **0** | unreachable while the slope is 0 — a pivot multiplied by a zero slope contributes nothing whatever its value. **The fit holds this leaf at 96** (Decision Log 3 (c)); the default's 0 is not the fit's 96, and the identity depends on neither |
+| `sigmaThinOffsetPx` | CSS px, signed | **0** | an added zero under a `max` whose other arm is that same zero |
+
+The knee is **derived** (`sigmaSpanRefPx + sigmaThinOffsetPx / sigmaSlopePerSpan`) and is not a
+fourth leaf. `sigmaPx` keeps its place as the material's one width and gains a meaning — the σ at
+the reference span — which is what lets the frozen macOS 26.5 material, whose σ genuinely is
+span-invariant across spans 32…160, go on expressing itself with three zeros.
+
+The scatter's spanning set, on `MaterialProfile` (Decision Log 2 (d)'s list, verbatim; no leaf
+outside it):
+
+| leaf | unit | inert value | why it is an identity |
+| --- | --- | ---: | --- |
+| `sizeHeavySecondSigma`, `…2x` | CSS px, per scale | **0** | unread: `sizeHeavySecondShare` is the single gate, so at share 0 no texture exists for a width to describe. 0 is chosen because it is also the value at which `heavyTapPlan` declines |
+| `sizeHeavySecondShare` | fraction, signed | **0** | a multiplied zero in the deep mix — `heavy + 0 · (heavy2 − heavy)` — **and** the gate on the build, the binding and the sample, so the branch that would read `heavy2` is not taken |
+| `sizeScatterScaleGain` | fraction per unit statistic | **0** | a multiplied zero: the term added to `kScatter` is `0 · (stat − ref)` at every statistic |
+| `sizeScatterScaleRef` | the statistic's own unit | **0** | a different argument, and sufficient on its own: the gain that multiplies the difference from it is 0, so no value of this constant can reach the mix |
+
+`sizeHeavySecondShare` and `sizeScatterScaleGain` are the two **scheme-conditioned** leaves — two
+values of one leaf across the light and dark documents, since the dark document is a patch and the
+renderer has no scheme input. The widths and the reference are not scheme-conditioned: a spatial
+scale is a property of the source raster and that is the same raster in both schemes.
+`sizeToneLevelFar` is **not** in the set and stays at 0 (Decision Log 2 (d)).
+
+The clamp that follows the scale gain is the identity too, and that is load-bearing rather than
+incidental: `kScatter` is already clamped to [0, 1] before the term is added, so
+`clamp(k + 0, 0, 1)` returns the same double and the shader's line is bit-identical rather than
+close.
+
+### 2. Where the laws are evaluated, and what changed shape to carry them
+
+**Per caster, on both tiers.** The WebGPU tier reads the casting surface's own span per pixel from
+the field pass's aux target — the same `shadowAux.z` the thick regime's amplitude has been read
+from since W14 G1, now read twice — and the CSS tier evaluates the law once per surface inside
+`outerShadowDeclaration`, which is the one place a blur radius is written and now the one place a σ
+is resolved. `outerShadowSigmaPx` is the function, exported from the renderer and mirrored in
+`platform-web/src/optics.ts`; `cssShadowBlurRadius` is the convention it is written through.
+
+**The two group-level readers are bounds, and say so.** The optics pass's scissor pad
+(`renderer.ts`) now takes the max over the group's members of the occlusion **and, separately**, of
+the span, and passes both to `outerShadowReachPx(shadow, occlusion, spanPx)`. The CSS tier's
+group-shadow clip (`root.ts`) takes the law at the largest span among the carried casts. Neither is
+any member's value; both contain every member's. At a span-invariant σ the max over spans cannot
+reach either, which is what makes the change inert — and §5.159 is where the two-sided
+recomputation X8 asks for lands, since the reach goes 31.88 → 43.80 CSS px at span 160 and
+20.90 → 13.40 at span 32 (§5.156 §2).
+
+**The CSS tier mirrors the σ law in full and none of the scatter's five leaves**, by the tier rule
+(Decision Log 23 of 2026-09-05) and C9a §6.2's "a constant nothing on this tier reads is not
+carried". A `box-shadow` per surface draws the σ law exactly. A second pyramid texture and a
+per-source edge density are things this tier has no pyramid to build and no statistic to measure,
+so the five are absent rather than present and unused, on `sizeHeavyTapSigma`'s own precedent; the
+scalar projection and its residual are §5.159's.
+
+**The uniform layout gained three vec4s** (`shadowSigma`, `scatterScale`, `scatterHeavy2`), each a
+vec4 of its own rather than lanes borrowed from a neighbour's padding — `heavyTap`'s precedent,
+"a width's switch living in another facet's spare lane is a layout nobody could read back". The
+optics slot goes 120 → 132 floats. `scatterScale.z` carries the SOURCE's edge density, resolved on
+the CPU because it arrives by readback, as `bodyChainLod` is.
+
+**The second heavy texture is a third blur kind** in `pyramid.ts` (`"body" | "heavy" | "heavy2"`),
+with its own pool keys, its own staleness rule through `sameHeavySigma`, and release-on-decline so
+a material returning the share to 0 does not strand two full-level allocations.
+`heavySecondTapSigmaAtScale` applies the gate, so the mechanism has exactly one off condition.
+
+**"Binds nothing" is recorded as "costs nothing"** (Decision Log 4 (c)). A WGSL bind-group layout is
+one layout, so `@binding(11)` exists at every draw and takes the placeholder view `backdropHeavy`
+already takes when a material declines it. What the share gates is every resource and every pass
+behind that slot: no pool allocation, no scratch, no two separable passes, no sample.
+
+### 3. The exemption, spent: one record beside six unedited documents
+
+A digest over the fully resolved material moves when the material gains a key, whatever that key
+holds. So all six shipped documents' `resolvedMaterialSha256` move, and no macOS 26.5 or macOS 27
+pixel moves at all. Decision Log 1 (a) shaped that as a supersession recorded **beside** the two
+frozen documents; **Decision Log 4 (a) extends it to all six**, and §4 below is the measurement that
+forced the extension.
+
+`packages/calibration/profiles/digest-supersessions.json`, one record per shipped document:
+
+| document | `recordedSha256` (its own field, unmoved) | `currentSha256` (what the pin resolves to) |
+| --- | --- | --- |
+| `apple-macos-26.5-1x-light-standard` | `b2b570e4adcea8fb` | **`b340a4dee871633c`** |
+| `apple-macos-26.5-1x-dark-standard` | `874be66ea501621b` | **`93ab090705c43f1f`** |
+| `apple-macos-27.0-1x-light-standard-glass0.5` | `e825cb034c9070e4` | **`8d06a41cb70ba52f`** |
+| `apple-macos-27.0-1x-dark-standard-glass0.5` | `8439eb808495f5bf` | **`73a3fb119a81312b`** |
+| `apple-macos-27.0-1x-light-standard-glass0.5-receded` | `8dc63b265c1de038` | **`91a22b7ad3473d51`** |
+| `apple-macos-27.0-1x-dark-standard-glass0.5-receded` | `3264b6cdde64bc8b` | **`1b40966487534d1c`** |
+
+Each record also names the eight leaves as dotted paths, the Decision Log and the date.
+`results/2026-09-20-w30-g2-leaves/reseal.ts` writes it and **refuses** to write from a tree where
+any document's own field has already moved, so the record cannot be produced against a document that
+was edited first. `test/digest-supersessions.ts` is the shared reader; the pins assert **both**
+readings, so neither can move quietly.
+
+**Every digest site that moved, and why each moved:**
+
+| site | what it now names | why |
+| --- | --- | --- |
+| `profiles/digest-supersessions.json` | both readings, six documents | new file; the exemption itself |
+| `platform-web/src/material-document.ts`, the two hand-written macOS 26.5 endpoints | `currentSha256` | `root.material` names what actually drew |
+| `platform-web/src/macos27-profile.ts`, `MACOS_27_RESOLVED_MATERIAL_SHA256` | `currentSha256` ×4 | same; regenerated by `scripts/generate-macos27-profile.mjs`, which now reads the record |
+| `platform-web/e2e/shared/window-activation.spec.ts`, eight hashes | the sha256 of the material the renderer is handed | it IS that material, and the material gained eight keys |
+| `test/tuned-profiles.test.ts`, `macos26-document-selection.test.ts`, `macos27-profile-export.test.ts` | the record | the pin's meaning gains one indirection, recorded once |
+
+The eight `window-activation` hashes are re-recorded with the prior eight kept beside them in the
+spec's own comment. Nothing was deleted anywhere.
+
+**What did NOT move:** the two frozen macOS 26.5 documents, the seed, all four macOS 27 documents,
+every fixture, every golden, every row of `results/matrix.json`. `git diff main` over
+`packages/calibration/profiles/` returns the one new record and the one new README and nothing else.
+
+### 4. The measurement that changed the exemption's shape, recorded because it is the reason
+
+The brief and the charter's Grounding both had this child re-seal the four macOS 27 documents in
+place, on the ground that they are not frozen. It did, and then measured what that costs:
+
+| reading | before the re-seal | after |
+| --- | ---: | ---: |
+| `pnpm -r test`, `@vitrea/calibration` | 544 passed | **23 failed** — 15 in `adopted-thresholds.test.ts`, 8 in `tier-coherence.test.ts` |
+| gated cells at a shipped document, macOS 27 | 230 across six profiles | **0** |
+| gated cells at a shipped document, macOS 26.5 | 1,107 | 1,107 |
+
+The cause is the mechanism the charter already names for the frozen pair, read on the bed nobody had
+checked: `SHIPPED_DOCUMENT_HASHES` hashes **every** document's bytes and `atAShippedDocument` keeps
+only rows whose `capturePath` names a current hash, so the 455 committed macOS 27 rows leave every
+bound, floor, partition count and conditioning exclusion the moment those bytes move. The only way
+to make the chain green after a re-seal is to write the macOS 27 counts down to zero, which is
+exactly the move the charter's own Surprise names ("the instruction 'move every count test to what
+the machine says' is exactly how a child would have baked it in").
+
+So the child stopped and the parent ruled Decision Log 4: **no document is re-sealed in G2, the
+record covers all six, and from here a re-seal and its canonical read land in one merge** — which
+moves the canonical read's ownership from G4 to G3 and leaves G4 the landing. Recorded here rather
+than only in the Decision Log because it is a measurement, and because the general rule it
+establishes outlives this wave: *a profile document's bytes are an input to every bound stated over
+its bed, so a change that moves no pixel must move no document byte.*
+
+### 5. The proofs
+
+Each ran on the merged tree and its output is committed under the evidence directory.
+
+| proof | command | result |
+| --- | --- | --- |
+| the frozen bed, untouched | `python3 results/2026-09-16-w29-freeze/freeze.py verify` | **`26.5 freeze intact: 1818 entries`**, nothing exempted |
+| the frozen documents and the seed, byte-identical | `git diff main -- packages/calibration/profiles/apple-macos-26.5*` | **empty** |
+| the 34 renderer goldens | `pnpm --filter @vitrea/renderer-webgpu test:golden` | **34 passed**, no regen, `git status` over `packages/renderer-webgpu/e2e` empty |
+| the material itself, outside the named leaves | `test/w30-operator-identity.test.ts` with `W30_OPERATOR_LEAVES` filled (8 paths, `toStrictEqual`) | **4 passed** — each macOS 26.5 document's resolved material minus the eight leaves deep-equals G0's pre-wave JSON |
+| the gated macOS 26.5 rows | `test/adopted-thresholds.test.ts`'s foot | **1,107** in the file, 1,107 surviving the partition, at exactly two documents |
+| the CSS tier's declarations | `test/w30-css-declaration-identity.test.ts` | **4 passed** — 120 cases × 47 properties **character-identical** to bytes recorded on the pre-leaf tree; 34 distinct `box-shadow` values, every blur radius 31.1 CSS px = 2 · `sigmaPx` |
+| the inert laws, swept | `test/w30-inert-laws.test.ts`, both tiers | **16 passed** — σ exactly `sigmaPx` over spans 1…1000 and at 0, negative and 1e6; the reach unmoved at ten spans × nine amplitudes; the second width 0 at four ratios including when both widths are named; each with a fail-before case at fitted values |
+| the gated heavy path, switched ON | `e2e/gpu/w30-heavy-second-tap.spec.ts` (`@gpu`, real adapter) | **1 passed** — widths-only Δ **0**, share −1 Δ **41**, share +1 Δ **32**, sign Δ **73** codes |
+| the two tiers, pinned to each other | `test/tier-coherence.test.ts` | **green** (8 of its cases are G0's recorded attenuation readings, unmoved) |
+| the chain | `pnpm -r build && pnpm -r lint && pnpm -r test` | exit 0; **2,535 passed** over 172 files, 0 failed — renderer-webgpu **508 over 30** against 497 over 29, platform-web **627 over 46** against 618 over 44, calibration 544 over 32 unchanged |
+| the sealed endpoints, from the browser | `npx playwright test e2e/shared/window-activation.spec.ts --project=chromium` | **6 passed** at the eight re-recorded hashes |
+
+The CSS declaration case deserves its own sentence, because it is the only proof here that could not
+be written after the fact: `test/w30-css-declarations-pre-leaves.json` was recorded by
+`test/w30-record-declarations.mjs` on the tree **before** a leaf existed, committed in its own
+commit, and is never re-recorded. A recomputation would have been the new code judging itself.
+
+### 6. What the proofs caught
+
+The `@gpu` case caught a real defect, and it is the reason acceptance clause 1 asks for an ON-path
+proof at all. The three new uniform vec4s were first packed at float offsets **117, 121 and 125** —
+none of them a multiple of four — so the shader read three of `localTone`'s padding words as the σ
+law and each operator's words as its neighbour's. **Every word involved is 0 on the landed
+material**, so the 34 goldens, the identity test, the CSS declaration case and the whole unit chain
+were green over the bug, and the wave would have merged a σ law wired to the wrong lanes with eight
+proofs of inertness behind it. Only opening the gate could see it. Corrected to 120, 124 and 128.
+
+The same case also had to move scene: on `refraction-checkerboard` a share of ±1 at a second width
+of 40 CSS px moved **exactly one 8-bit code**, because a 10 px pitch is already erased by the FIRST
+heavy width and both taps read the same flat mean. It runs on `lens-size-depth` — a 32 px checker at
+dpr 1 under a 400 px surface, where the pitch survives the first width and `kScatter` has saturated.
+Recorded because it is a standing trap for §5.159: *a scatter operator measured on a pitch the body
+already erases measures as dead.*
+
+### 7. What is not claimed
+
+No fit, no capture, no browser run outside the two named specs (X2, X3, X5). No adopted bound, floor
+or `PREDICATE_EXCLUDES` line moved. `sizeToneLevelFar` stays declined at 0. The padding's two-sided
+recomputation is stated as a shape here and computed in §5.159. The CSS tier's scalar projection of
+the scatter, and its residual, are §5.159's. Every value in §1 is a placeholder for a measurement
+that does not exist yet, and the wave says so in the leaves' own doc comments rather than leaving a
+reader to infer it from a zero.

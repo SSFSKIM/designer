@@ -45,6 +45,36 @@ const read = (key) => {
   return document;
 };
 
+/**
+ * The digest each document's pin RESOLVES to today, read from the supersession
+ * record beside the documents rather than from the documents' own fields
+ * (W30 Decision Log 1 (a) and 4 (a); claims §5.158).
+ *
+ * A document's `resolvedMaterialSha256` is the digest it was SEALED at. W30's
+ * operator wave added eight leaves to the renderer's default at values that are
+ * algebraic identities, which moved every document's resolved fingerprint while
+ * moving no pixel — and no document's bytes were edited, because
+ * `adopted-thresholds.test.ts` hashes those bytes and an edit would empty that
+ * document's rows out of every bound (G2 measured it: 230 gated cells across six
+ * profiles, 23 red cases).
+ *
+ * The module below reports what actually DRAWS, because that is what
+ * `root.material` is for, so it takes the current digest. The document's own
+ * field stays the reading it was sealed at, and
+ * `packages/calibration/test/tuned-profiles.test.ts` pins both halves.
+ */
+const supersessions = JSON.parse(
+  readFileSync(join(profiles, "digest-supersessions.json"), "utf8"),
+).supersessions;
+
+const currentDigest = (key) => {
+  const record = supersessions.find((entry) => entry.profileKey === key);
+  if (record === undefined) {
+    throw new Error(`${key}: no digest supersession recorded beside the document`);
+  }
+  return record.currentSha256;
+};
+
 const light = read("apple-macos-27.0-1x-light-standard-glass0.5");
 const dark = read("apple-macos-27.0-1x-dark-standard-glass0.5");
 const recededLight = read("apple-macos-27.0-1x-light-standard-glass0.5-receded");
@@ -141,16 +171,26 @@ export const macos27RecededMaterialProfile: Readonly<
 export const macos27CssTierMapping: Partial<CssTierMapping> = ${print(mapping, "")};
 
 /**
- * Each document's \`resolvedMaterialSha256\` — the digest over the material it
- * resolves to, not over the patch. Reported by the root's material readout so a
- * capture, a test or the demo's capabilities panel can say which document drew,
- * and pinned document-side by \`packages/calibration/test/tuned-profiles.test.ts\`.
+ * Each endpoint's resolved-material digest — over the material it resolves to,
+ * not over the patch. Reported by the root's material readout so a capture, a
+ * test or the demo's capabilities panel can say which document drew.
+ *
+ * **These are the CURRENT digests, read from
+ * \`packages/calibration/profiles/digest-supersessions.json\`, not the documents'
+ * own \`resolvedMaterialSha256\` fields** (W30 Decision Log 1 (a) and 4 (a);
+ * claims §5.158). W30's eight inert leaves moved every document's resolved
+ * fingerprint without moving a pixel, and no document's bytes were edited
+ * because those bytes are an input to every bound stated over that document's
+ * bed. So a document's own field is the reading it was sealed at, the record
+ * beside it is what the pin resolves to now, and this module names what draws.
+ * \`packages/calibration/test/macos27-profile-export.test.ts\` pins these against
+ * the record and \`tuned-profiles.test.ts\` pins the record against the material.
  */
 export const MACOS_27_RESOLVED_MATERIAL_SHA256 = {
-  light: ${JSON.stringify(light.resolvedMaterialSha256)},
-  dark: ${JSON.stringify(dark.resolvedMaterialSha256)},
-  recededLight: ${JSON.stringify(recededLight.resolvedMaterialSha256)},
-  recededDark: ${JSON.stringify(recededDark.resolvedMaterialSha256)},
+  light: ${JSON.stringify(currentDigest(light.profileKey))},
+  dark: ${JSON.stringify(currentDigest(dark.profileKey))},
+  recededLight: ${JSON.stringify(currentDigest(recededLight.profileKey))},
+  recededDark: ${JSON.stringify(currentDigest(recededDark.profileKey))},
 } as const;
 `;
 

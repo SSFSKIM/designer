@@ -82,6 +82,20 @@ export const MATERIAL_PATCH_KEYS = new Set([
   // (W26 Decision Log 2 (a)), so a rung naming either would silently do nothing.
   "sizeHeavyTapSigma",
   "sizeHeavyTapSigma2x",
+  // W30's spanning set for the scale-selective scatter (claims §5.156 §3, §5.158;
+  // W30 Decision Log 2 (d)). Five leaves landed inert because the macOS 27 bed
+  // carries no probe row and the curve the operator fits is therefore not in
+  // committed evidence: a second heavy width per scale with a SIGNED share, and
+  // a gain on `kScatter` keyed on the source's own measured scale statistic
+  // about a reference. The two signed amounts are the scheme-conditioned ones —
+  // the sign of the residual turns on the colour scheme — and a document naming
+  // any of them before this line existed would have been refused here, which is
+  // this allowlist doing its job.
+  "sizeHeavySecondSigma",
+  "sizeHeavySecondSigma2x",
+  "sizeHeavySecondShare",
+  "sizeScatterScaleGain",
+  "sizeScatterScaleRef",
   // The lens (W12 G2): the gain on the reference's amount law, the height and
   // amount laws themselves, the thickness they are read at, the profile's
   // extent and exponent, and the direction's ovalization with its knee.
@@ -202,6 +216,14 @@ export const OCCLUSION_LIFT_BY_POLICY_KEYS = new Set([
 export const OUTER_SHADOW_KEYS = new Set([
   "offsetPx",
   "sigmaPx",
+  // W30's σ law (claims §5.156 §2, §5.158): the slope in CSS px of σ per CSS px
+  // of casting span, the reference span it pivots about — held at 96 by the fit,
+  // because the law has one flat direction and something has to hold it — and
+  // the signed floor the thin regime carries, as an offset from `sigmaPx`. All
+  // three inert at 0, where σ is `sigmaPx` at every span.
+  "sigmaSlopePerSpan",
+  "sigmaSpanRefPx",
+  "sigmaThinOffsetPx",
   "spreadPx",
   "thinOcclusionDark",
   "thinOcclusionMid",
