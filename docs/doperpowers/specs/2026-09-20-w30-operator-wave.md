@@ -1,8 +1,9 @@
 # W30 — the operator wave: the span-graded shadow and the scale-selective scatter, under one exemption
 
 **Status: CHARTERED 2026-09-20 (the parent, on the user's word "operator wave first, and rest on
-your judgement" after the 0.19.0 publish); not yet reviewed; no child dispatched.** Executes W29
-Decision Log 7 (a) and W29 Deferred item 1. Grounded on main at `4a4c941a` (0.19.0 published).
+your judgement" after the 0.19.0 publish); adversarially reviewed the same day and the review folded
+(Revision Notes); no child dispatched.** Executes W29 Decision Log 7 (a) and W29 Deferred item 1.
+Grounded on main at `4a4c941a` (0.19.0 published).
 
 ## Purpose
 
@@ -15,7 +16,8 @@ The first is the outer shadow's blur. On macOS 26.5 it was span-invariant — a 
 casting span above span 96 (σ_css ≈ 0.133 · (span − 30), holding to 0.1–0.5 % at 1x and 1.7–6.6 %
 at 2x; claims §5.154 §4 as corrected) and nearly constant in DEVICE px below it. 0.19.0 fits the
 thick regime and ships the thin cells' shadow **5.97× too wide at 1x and 2.80× at 2x**, carrying the
-right energy in the wrong shape, which is why the departure residual does not show it. The casting
+right energy in the wrong shape — the amplitude anchors fitted beside the one σ absorb the energy
+error (departure residual 0.0007), which is why the departure metric does not show it. The casting
 surface's span is already in the shader one argument away from the σ uniform, and the CSS tier
 already emits one `box-shadow` per surface with the span in scope.
 
@@ -27,13 +29,15 @@ changes sign with the colour scheme: on `checkerboard__rrect-md__rest` the WebGP
 **1.77×** the native structure in light and **0.55×** in dark, the CSS tier 1.04× and 0.32×
 (§5.154 §9 (c); the tracker's "two tiers miss the backdrop's structure in opposite directions"). A
 scatter fitted on the light bed alone lands on the wrong side of the dark one. Three of the seven
-rows 0.19.0 records as missed sit on this residual and on the shadow's reach at the largest spans.
+rows 0.19.0 records as missed sit on the shadow's reach at the largest spans and on this residual.
 
 Both operators add leaves to the renderer's `DEFAULT_MATERIAL_PROFILE`, and every shipped document's
 `resolvedMaterialSha256` is a digest over the FULLY RESOLVED material — so both move the frozen
 macOS 26.5 pair's digests even though no macOS 26.5 pixel moves. That is why the user ruled them one
 wave under a **single one-time X1 exemption** (W29 Decision Log 7 (a)), the class W29 Decision Log
-1 (i) reserved, and why chartering them apart would spend two.
+1 (i) reserved, and why chartering them apart would spend two. The review of this charter found the
+shape that spends the exemption without touching a frozen byte: the macOS 26.5 documents stay
+byte-identical and the digest their pin now resolves to is recorded BESIDE them, once (Design).
 
 This wave also does two things the re-read makes unavoidable. `results/matrix.json` is **72.1 MB**,
 one recapture from GitHub's 100 MB refusal, and this wave's read appends about 455 rows; the
@@ -51,53 +55,79 @@ profiles' rows between the two reads); it does not re-open the level law's absci
 
 ## Parent-Level Acceptance
 
-1. **The exemption is one commit, digest-only, and proven so.** Before any leaf lands, the fully
-   resolved macOS 26.5 light and dark materials are written to disk as JSON and committed as
-   evidence. The wave's new leaves land in ONE commit at inert defaults; that commit re-records the
-   two macOS 26.5 documents' `resolvedMaterialSha256` with the prior digest kept in each document's
-   `$comment-sha-history` (the project's own idiom, twelve entries deep), re-records the four
-   `window-activation.spec.ts` hashes and the two hand-written digests in `material-document.ts`,
-   and writes an **exemption record** beside the W29 freeze — `sha256.txt` itself is not edited —
-   that names the two entries, both hashes, and this Decision Log. `freeze.py verify` reports the
-   freeze intact with those two entries exempted by name, and a new test asserts that each macOS 26.5
-   document's resolved material **minus the new leaves** deep-equals the committed pre-wave JSON. The
-   34 renderer goldens are byte-identical and the 1,107 frozen macOS 26.5 matrix rows are unchanged.
-   Nothing else under a macOS 26.5-keyed path changes, in this wave or after it: the exemption is
-   spent once.
+1. **The exemption is one commit, touches no frozen byte, and is proven pixel-inert on both tiers.**
+   Before any leaf lands, the fully resolved macOS 26.5 light and dark materials are written to disk
+   as JSON and committed as evidence. The wave's new leaves land in ONE commit (child G2) at inert
+   defaults that are **algebraic identities** (a multiplied zero, an added zero, a σ law whose output
+   is `sigmaPx` at every span) and nothing else. That commit does not edit either macOS 26.5 document
+   or the seed: it writes `packages/calibration/profiles/digest-supersessions.json`, one record per
+   macOS 26.5 document naming the document's recorded `resolvedMaterialSha256`, the digest the pin
+   resolves to after the leaves, the leaves added, this Decision Log and the date; the pin tests read
+   the current digest from that record and still assert the document's own field is the recorded
+   one; `material-document.ts` and `window-activation.spec.ts` report the current digests because
+   they name what actually draws. Proofs, all before any fit exists: `freeze.py verify` intact at
+   **1,818 with nothing exempted**; the identity test (each macOS 26.5 document's resolved material
+   minus the named leaves deep-equals the committed pre-wave JSON); the 34 renderer goldens
+   byte-identical; a case that the CSS tier's declarations (`box-shadow` string, blur radius, every
+   emitted property) are character-identical across a span sweep at the macOS 26.5 documents before
+   and after; a unit case that each inert law returns exactly the pre-wave value over a sweep; and
+   the gated macOS 26.5 row count in `adopted-thresholds.test.ts` pinned at **1,107** across the
+   commit — `atAShippedDocument` hashes the documents' bytes, so an edited document would empty the
+   frozen bed out of every bound, which is the failure this shape exists to avoid. The exemption is
+   spent once; no later wave adds a record without a new grant.
 2. **The structure is measured before the operator exists.** From committed evidence only — the
    native delta's `shadowFalloffSigmaPx` per cell and the matrix's `interiorStdDev{Native,Web}` per
-   cell — G0 tables the shadow's σ per span per scale per scheme (with the reading's own spread) and
+   cell — G0 tables the shadow's σ per span per scale per scheme (the statistic named: which cells,
+   which order statistic, which non-converged fits excluded, at which scale, with the spread) and
    the body's structure ratio per pitch per scheme per tier, on the gated sets and on the probe
    ladder separately, and names from those tables the smallest operator shape each law needs. The
    CSS tier's own attenuation goes into `tier-coherence.test.ts` as a measured residual before any
-   fit, as the tracker's fix shape asks.
-3. **Bounds before reads; the targets named.** The 27 profiles' adopted tables stay at the values
-   W29 Decision Log 4 ruled; no floor is adopted (the bed is at the seven-run bar). G0 declares, per
-   operator, the wave's own acceptance — a tolerance on the fitted σ against the native σ per span
-   class at both scales, and a tolerance on the structure ratio per pitch per scheme on the WebGPU
-   tier with the CSS tier recorded — and names which of the seven `MISSED_27_ROWS` the wave claims:
-   the two 1x-light dom `ssimMean` rows at the largest spans and the reduced-transparency
-   `ssimOutside` row. The four dark `oklabDeltaEP95` rows are declared **expected unmoved**.
-4. **Both operators land on the fidelity target with the CSS tier derived in the same commit.** The
-   shadow's σ graded by the casting span on the WebGPU tier (`ou.shadow.y` becomes a law of
-   `shadowAux.z`) and one `box-shadow` blur radius per surface on the CSS tier; the scatter made
-   selective in the backdrop's spatial scale and conditioned by scheme on the WebGPU tier, with the
-   CSS tier's single `backdrop-filter` given the best scalar projection and its residual recorded;
-   `sizeToneLevelFar` fitted in the 27 documents if the read supports it (it is a leaf already, at
-   default 0, named by no document — a free lever that costs no exemption). The macOS 27 documents
-   re-sealed; `tier-coherence` green; the reach and both sampling pads recomputed from the new laws.
+   fit.
+3. **Bounds before reads; the targets named with their levers.** The 27 profiles' adopted tables stay
+   at the values W29 Decision Log 4 ruled; no floor is adopted. G0 declares, per operator, the wave's
+   own acceptance — a tolerance on the fitted σ against the native σ per span class at both scales
+   with the statistic it is read by, and a tolerance on the structure ratio per pitch per scheme on
+   the WebGPU tier with the CSS tier recorded — and says, per tolerance, whether it becomes an adopted
+   row at G4 or stays a one-wave reading. It declares the **departure residual** the joint shadow fit
+   must hold at or better than (0.0007 bed-wide) as a stop condition. It names which of the seven
+   `MISSED_27_ROWS` the wave claims and through which operator on which tier: the two 1x-light dom
+   `ssimMean` rows at spans 160 and 130 are the shadow's (the shadow mirrors fully onto the CSS tier;
+   the scatter reaches `dom` only as a scalar), and the reduced-transparency `ssimOutside` row is
+   "reachable if the law extrapolates", because its native σ is read on the holdout cell itself. The
+   four dark `oklabDeltaEP95` rows are declared **expected unmoved**, and the reduced-transparency
+   body-structure residual (native sd 0.43 against WebGPU 3.49) is declared **reported, not claimed**.
+4. **Both operators land on the fidelity target with the CSS tier derived in the same commit, and the
+   shadow is refitted jointly.** The shadow's σ graded by the casting span — the law is per caster:
+   the GPU tier reads the caster's span per pixel from `shadowAux.z`, the CSS tier emits one blur
+   radius per surface, and the group clip reach and the sampled shadow factor are the max over members
+   and are bounds, pinned as such — with the six occlusion anchors and `liftAmplitude` of the macOS 27
+   documents refitted **jointly** with it (they carry the compensation for the wrong σ today, and
+   `thickOcclusionAt160` is derived rather than fitted exactly where σ moves most), the receded
+   documents' inherited block moving with them. The scatter made selective in the backdrop's spatial
+   scale on the WebGPU tier, with "conditioned by scheme" meaning two values of one leaf in the light
+   and dark documents (the dark document is a patch; the renderer has no scheme input), the CSS
+   tier's single `backdrop-filter` given the best scalar projection and its residual recorded;
+   `sizeToneLevelFar` fitted in the 27 documents if the ladder gives it a stable sign (a leaf already,
+   default 0, named by no document, a free lever — and NOT added to `tuned-profiles.test.ts`'s
+   `FITTED_CONSTANTS`, which is asserted over the frozen macOS 26.5 light patch). The macOS 27
+   documents re-sealed; `tier-coherence` green; the reach and both sampling pads recomputed.
 5. **Read once per frozen configuration.** Scratch matrices during the fit with the holdout dropped
    in the reader by construction; then, with the documents sealed and their hashes in the ledger, the
    canonical run appended beside the 0.19.0 rows — six profiles, two tiers, calibration + validation,
    about 13 minutes — and the holdout read **once**. The verdict per profile per tier per clause with
-   every missed cell named; a miss is recorded, not widened, not re-fitted.
-6. **The evidence layout is ruled and executed before the read.** `results/matrix.json` holds one
-   generation per profile — the frozen macOS 26.5 rows and, per macOS 27 profile, the rows at the
-   shipped documents — and superseded generations move to `results/superseded/<document-sha>.json`
-   with a listing that names each by the document it was read at. The freeze's 1,107 row hashes stay
-   in the working file and verify. Every consumer that names the matrix (nine files: `compare`,
-   `diff`, `gates`, `report`, three tests, the demo's `calibration.ts`, `scripts/vibrancy.ts`) reads
-   the generation by name, and the demo's `capturedAt` tie-break is retired.
+   every missed cell named; a miss is recorded, not widened, not re-fitted; every passing tolerance
+   G0 marked for adoption is carried into `adopted-thresholds.test.ts`.
+6. **The evidence layout is ruled and holds at the wave's close.** `results/matrix.json` holds one
+   generation per profile — the frozen macOS 26.5 rows unchanged and in their order, and per macOS 27
+   profile the rows at the shipped documents — and superseded generations live in
+   `results/superseded/<document-sha>.json` with a listing that names each by the document it was
+   read at. G1 moves the generation superseded today; G4 moves the generation its own read supersedes,
+   after the append-check, so the invariant is true at close and not only at G1. The freeze's 1,107
+   row hashes verify against the working file throughout. Every reader of the matrix (`cli/compare.ts`,
+   `cli/diff.ts`, `test/adopted-thresholds.test.ts`'s `atAShippedDocument`, the demo's
+   `calibration.ts`, `scripts/vibrancy.ts`) reads the generation by name; the demo's `capturedAt`
+   tie-break is retired; `vibrancy.ts`'s recorded `matrixSha256` provenance gets the new digest
+   recorded beside the old with what moved it.
 7. **The landing.** The demo on the new operators with its tone stage re-ranged (Decision Log 1 (e));
    `GlassRootHandle` carries the selected document so `GlassToolbar` opens at its own material's
    blur, with the case the tracker names; the coverage matrix re-scored; `CLAUDE.md`, READMEs and
@@ -109,27 +139,43 @@ profiles' rows between the two reads); it does not re-open the level law's absci
 
 - **The fingerprint.** `fingerprint()` (`results/2026-09-19-w29-g3-refit/seal.ts`, duplicated in
   `test/tuned-profiles.test.ts` and `test/macos26-document-selection.test.ts`) is SHA-256 over
-  `withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch)` with keys sorted, first 16 hex. Six sites
-  move at any new default leaf: the two macOS 26.5 documents' `resolvedMaterialSha256`
-  (`b2b570e4adcea8fb`, `874be66ea501621b`); the four macOS 27 documents (re-sealed by the fit
-  anyway); `material-document.ts`'s two hand-written 26.5 digests; `macos27-profile.ts`'s four;
-  `window-activation.spec.ts`'s eight; and the W29 freeze's entries 652 and 653 (the two macOS 26.5
-  profile files' byte hashes). Tests that go red: `tuned-profiles`, `macos26-document-selection`,
-  `macos27-profile-export`'s digest case, the `window-activation` spec, and `seal.ts`'s X1 loop. The
-  goldens do NOT move — `isolation.spec.ts` renders an explicit patch and an inert leaf changes no
-  pixel — and the 1,107 frozen matrix rows do not move (G3b's append-check: 1107/1107, 0 changed).
+  `withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch)` with keys sorted, first 16 hex. Sites
+  that name a resolved digest: the two macOS 26.5 documents' `resolvedMaterialSha256`
+  (`b2b570e4adcea8fb`, `874be66ea501621b`) — frozen, entries 652 and 653 of the freeze, with the
+  seed at 654, none of which this wave edits; the four macOS 27 documents (re-sealed by the fit);
+  `material-document.ts`'s two hand-written 26.5 digests; `macos27-profile.ts`'s four;
+  `window-activation.spec.ts`'s eight (four macOS 26.5, four macOS 27). Tests that go red at a new
+  default leaf: `tuned-profiles`, `macos26-document-selection`, `macos27-profile-export`'s digest
+  case, the `window-activation` spec, and `seal.ts`'s X1 loop. The goldens do NOT move —
+  `isolation.spec.ts` renders an explicit patch and an inert leaf changes no pixel — and the 1,107
+  frozen matrix rows do not move (G3b's append-check: 1107/1107, 0 changed).
+- **Why the documents' bytes are load-bearing.** `adopted-thresholds.test.ts` builds
+  `SHIPPED_DOCUMENT_HASHES` from the bytes of every file in `profiles/` and `atAShippedDocument`
+  keeps only rows whose `capturePath` names a current hash; all 1,107 macOS 26.5 rows name
+  `6a9600720477` / `950ce1c3e917`, the frozen bytes. An edit to either document — a re-recorded
+  digest, a history comment — empties the macOS 26.5 half of every bound, floor and predicate, and
+  the file says so in its own comment. This is what rules the exemption's shape.
+- **The leaf plumbing a new leaf must pass.** `withMaterialOverrides` (`material.ts`) is an explicit
+  per-leaf merge, so a leaf without its own line resolves silently to base;
+  `scripts/material-profile-file.ts`'s `MATERIAL_PATCH_KEYS` and `OUTER_SHADOW_KEYS` are allowlists
+  that REFUSE an unknown key, so a document naming an unregistered leaf is refused by `compare` at
+  fit time; the CSS tier's mirror of the material slice lives in `platform-web/src/optics.ts` and is
+  pinned by `tier-coherence.test.ts`. All three are in the exemption commit's scope.
 - **The shadow operator.** `MaterialOuterShadow` (`material.ts:361–541`): `offsetPx`, `sigmaPx`,
-  `spreadPx`, three thin and three thick occlusion anchors, four lift constants, the reduced-
-  transparency flattening, `sizeGain`. In the shader `outer_shadow_thick(spanCss)` already
-  interpolates the AMPLITUDE through 96/128/160 and the caster's span is `shadowAux.z`; the falloff
-  is `outer_shadow_falloff(…, ou.shadow.y)` with `ou.shadow.y` the one σ uniform. `shadow`,
-  `shadowSize` and `shadowThick` are all four-components-full, so a σ law needs a new uniform.
-  `outerShadowReachPx(shadow, occlusion)` bisects on `shadow.sigmaPx` and must take a span;
-  `renderer.ts` maxes occlusion over surfaces and must max the REACH. CSS: `outerShadowDeclaration`
-  emits `box-shadow` with blur `2σ`, called per surface with `surface.spanPx` in scope; two further σ
-  readers want the max over members (the group-shadow clip reach in `root.ts`, and
-  `sampledOuterShadowFactor`). The instrument exists: `metrics/shadow.ts` fits `falloffSigmaPx` per
-  cell as a blurred edge against an exponential alternative and reports both residuals.
+  `spreadPx`, three thin and three thick occlusion anchors (`thickOcclusionAt160` derived, not
+  fitted), four lift constants, the reduced-transparency flattening, `sizeGain`. In the shader
+  `outer_shadow_thick(spanCss)` already interpolates the AMPLITUDE through 96/128/160 and the
+  caster's span is `shadowAux.z`, read per pixel; the falloff is `outer_shadow_falloff(…, ou.shadow.y)`
+  with `ou.shadow.y` the one σ uniform. `shadow`, `shadowSize` and `shadowThick` are all
+  four-components-full, so a σ law needs a new uniform. `outerShadowReachPx(shadow, occlusion)`
+  bisects on `shadow.sigmaPx` and must take a span; `renderer.ts` maxes occlusion over surfaces and
+  must max the REACH. CSS: `outerShadowDeclaration` emits `box-shadow` with blur `2σ` through `px()`
+  rounding, called per surface with `surface.spanPx` in scope; the group-shadow clip reach in
+  `root.ts` and `sampledOuterShadowFactor` read one σ per group today. The instrument exists:
+  `metrics/shadow.ts` fits one `falloffSigmaPx` per cell per direction as a blurred edge against an
+  exponential alternative and reports both residuals; on a mixed-span composite (`glass-over-glass`
+  at span 130, `toolbar-group`) it is no longer a single-parameter quantity, and G0 says what it
+  means there.
 - **The law as read** (§5.154 §4, bed-wide medians, CSS px; cell count in brackets):
 
   | bed | 32 | 44 | 96 | 128 | 130 | 160 |
@@ -141,51 +187,68 @@ profiles' rows between the two reads); it does not re-open the level law's absci
   | 1x reduced transparency | — | 1.50 (5) | 8.59 (2) | — | — | 16.97 (1) |
 
   Above 96 every scale and scheme agrees to a few percent; below 96 the per-cell spread is 1.11–4.08
-  at 1x light and 0.57–9.70 at 2x light, the span-32 column rests on three or four `rrect-sm` cells,
-  and the quoted span-44 cells read 1.84 at 1x against 3.92 at 2x — a ratio of 2.13, the device
-  pixel ratio. Whether the thin regime is Apple's material or the instrument's limit (two or three
-  rings above the body's own edge at σ ≈ 1.8) is not settled by this bed.
+  at 1x light and 0.57–9.70 at 2x light, the span-32 column rests on three or four `rrect-sm` cells
+  (one reads 157.7), two `checkerboard-64` cells read 74.3 where the fit finds no width, and the
+  quoted span-44 cells read 1.84 at 1x against 3.92 at 2x — a ratio of 2.13, the device pixel ratio.
+  Whether the thin regime is Apple's material or the instrument's limit (two or three rings above the
+  body's own edge at σ ≈ 1.8) is not settled by this bed, and a ratio acceptance against a median
+  whose cells disagree by 9× is unfalsifiable: the acceptance must name its statistic. The reduced-
+  transparency span-160 figure (16.97) is `photo__rrect-lg__rest`, the holdout cell itself and the
+  only span-160 cell that profile carries.
 - **The scatter operator.** Flattened into `MaterialProfile`: `sizeScatterGainMax`, `sizeScatterFloor`,
   `sizeScatterSpanMax`, the 2x trio, `sizeScatterGainFar2x`, six ramp starts and two reaches, the
   two declined thick-share lifts, `sizeHeavyTapSigma{,2x}`; all gated by
   `sizeThickness = smoothstep(32, 96, span)`. GPU mechanism (`wgsl/optics.ts:855–897`): one body
   sample, one chain sample at `scatterLod = clamp(bodyChainLod + log2(gain), 0, maxLod)` — replaced
-  by the dedicated `backdropHeavy` texture where `sizeHeavyTapSigma` is set — then
-  `mix(body, scatter, kScatter)`. The full chain, the body texture and the heavy texture are all bound
-  per pixel, so extra taps and uniform leaves land without a new pass; chain mips are 13-tap
-  platykurtic low-passes rather than exact Gaussians, and a second EXACT Gaussian at an out-of-chain
-  width is another separable build (0.070 ms, W26 Decision Log 2 (b)). The analysis pass already
-  computes mean, variance and edge density per SOURCE; the heavy width is per source, not per pixel,
-  which fits an operator conditioned on backdrop scale (a per-source quantity) rather than on span.
+  by the dedicated `backdropHeavy` texture behind `ou.heavyTap.x > 0.5` where `sizeHeavyTapSigma` is
+  set — then `mix(body, scatter, kScatter)`. The heavy texture is built per SOURCE before any group
+  draws, so a second heavy tap at its own width is a second separable build and a second binding,
+  not a uniform leaf (0.070 ms per build, W26 Decision Log 2 (b)); chain mips are 13-tap platykurtic
+  low-passes rather than exact Gaussians. The analysis pass already computes mean, variance and edge
+  density per source, which fits an operator conditioned on backdrop scale (a per-source quantity).
   CSS: `blurRadius = source.blurSigma · blurSigmaScale` (2.2 on macOS 27); the tier does not mirror
   `sizeHeavyTapSigma` and has no backdrop-frequency statistic, so a selective law can only be
-  projected onto a refitted scalar there.
-- **The bed.** Each macOS 27 standard profile carries 45 pitch-ladder fixtures (`checkerboard-4/8/
-  32/64`, `checkerboard-lc16`, `hc-text-7/28`) — **every one of them `probe`**, 0 in calibration, 0
-  in validation, 0 in holdout. The gated sets carry the 16 px checkerboard, `hc-text` (14 px rows),
-  `photo`, `impulse` and the solids: 37 calibration / 12 validation / 20 holdout distinct scenes,
-  8 recorded, 91 probe. So the operator is fitted on probe rows and judged on three distinct pitches,
-  and no native capture is needed.
-- **The seven missed rows** (`MISSED_27_ROWS`), all holdout. Unreachable by these operators: the four
-  dark `photo__rrect-lg__rest :: oklabDeltaEP95` rows (chromatic; the tone solve is achromatic by
-  construction). Reachable: `checkerboard__rrect-lg__rest :: ssimMean` 0.88402 and
-  `checkerboard__glass-over-glass__rest :: ssimMean` 0.89538 on 1x-light dom (bound ≥ 0.9), and
-  `photo__rrect-lg__rest :: ssimOutside` 0.82707 on reduced transparency dom (bound ≥ 0.83) — the
-  last scored OUTSIDE the silhouette, at span 160, on the one profile whose σ reads 16.97 against the
-  shipped 11.0, and the single row the G3b refit worsened (0.82736 → 0.82707). The shadow, not the
-  scatter, is its lever.
-- **The recede.** On macOS 27 the recede keeps the outer shadow (§5.154 §5), so a span-graded σ
-  moves receded exterior readings at the largest spans; the receded documents carry their active
-  document's `outerShadow` block leaf for leaf. No bound is gated on the inactive pose; the recede's
-  own declared bound holds on 1 of 12 profile-tiers and its worst cell is chromatic on every row.
-  The receded exterior above span 96 has no non-holdout inactive cell to fit on (tracker).
+  projected onto a refitted scalar there — and on the light bed the CSS tier already reads 1.04× the
+  native structure where WebGPU reads 1.77×, so a scalar refitted to carry a WebGPU operator can move
+  a `dom` row the wrong way.
+- **The bed.** Each of the four macOS 27 STANDARD profiles carries 45 pitch-ladder fixtures
+  (`checkerboard-4/8/32/64`, `checkerboard-lc16`, `hc-text-7/28`) — **every one of them `probe`**, 0
+  in calibration, 0 in validation, 0 in holdout; the two accessibility profiles carry **5** ladder
+  fixtures each, so scale-selectivity is not identifiable on them. The gated sets carry the 16 px
+  checkerboard, `hc-text` (14 px rows), `photo`, `impulse` and the solids: 37 calibration /
+  12 validation / 20 holdout distinct scenes, 8 recorded, 91 probe. The operator is fitted on probe
+  rows and judged on three distinct pitches; no native capture is needed.
+- **The seven missed rows** (`MISSED_27_ROWS`), all holdout, all `dom` but two. Unreachable by these
+  operators: the four dark `photo__rrect-lg__rest :: oklabDeltaEP95` rows (chromatic; the tone solve
+  is achromatic by construction). Reachable: `checkerboard__rrect-lg__rest :: ssimMean` 0.88402 and
+  `checkerboard__glass-over-glass__rest :: ssimMean` 0.89538 on 1x-light dom (bound ≥ 0.9) — spans
+  160 and 130, where the shadow's σ moves most and mirrors fully onto the CSS tier; and
+  `photo__rrect-lg__rest :: ssimOutside` 0.82707 on reduced transparency dom (bound ≥ 0.83), scored
+  OUTSIDE the silhouette at span 160, the single row the G3b refit worsened (0.82736 → 0.82707), and
+  the cell whose own native σ is the profile's only span-160 reading.
+- **The recede.** On macOS 27 the recede keeps the outer shadow (§5.154 §5), the receded documents
+  carry their active document's `outerShadow` block leaf for leaf, and the receded pose's far-exterior
+  difference at span 160 is 17.42 (WebGPU) / 15.89 (CSS) against ≤ 5.92 on any active strip — the old
+  halo, still there, on the pose whose shadow the σ law re-shapes at exactly that span (tracker: "The
+  macOS 27 recede's exterior is unfitted above span 96"). The law is expected to narrow it, since the
+  block is inherited; it is reported on the inactive holdout rows, not fitted, because no non-holdout
+  inactive cell above span 96 exists. No bound is gated on the inactive pose.
 - **The cost of a read.** G3b's like-for-like precedent: calibration + validation 9:17 wall clock
   (332 rows), holdout 3:50 (123 rows) — **about 13 minutes and 455 rows**, 0 changed, 0 missing,
-  the 26.5 half untouched. `canonical-read.sh` refuses at any bytes but the sealed documents and is
-  reusable as-is. The 12 h 49 m figure in W29 is the native sitting, which this wave does not repeat.
-- **The matrix.** 72,102,187 bytes; two macOS 27 generations; the demo's `reportsFor` breaks the
-  generation tie on `capturedAt` descending and says so in its own comment. Nine files name the
-  canonical path.
+  the 26.5 half untouched. `canonical-read.sh` hard-codes the four sealed document hashes and refuses
+  any other bytes, and nothing under `results/` is edited after commit — so G4 writes its own copy,
+  inheriting the refusal, the `pgrep` exclusivity check and the RT/IC/slider reads verbatim. The
+  12 h 49 m figure in W29 is the native sitting, which this wave does not repeat.
+- **The matrix.** 72,102,187 bytes over 2,017 rows: 1,107 macOS 26.5 (≈39 MB) and two macOS 27
+  generations of 455 (≈16.5 MB each). Removing the superseded generation leaves ≈55.7 MB; this
+  wave's read appends 455 more and makes the G3b generation superseded in turn, so the layout must
+  move again at G4 or the file is back at 72 MB at close. Readers: `cli/compare.ts`, `cli/diff.ts`,
+  `test/adopted-thresholds.test.ts` (`atAShippedDocument` lives there, not in `gates.ts`), the demo's
+  `calibration.ts` (`reportsFor` breaks the generation tie on `capturedAt` and says so), and
+  `scripts/vibrancy.ts`, which also records a whole-file `matrixSha256` in its committed provenance.
+  `gates.ts`, `report.ts` and two tests carry the path in strings and comments only. `freeze.py`
+  hashes each 26.5 row by canonical content but labels entries with a positional counter in file
+  order, so the rows' relative order must be preserved.
 - **The padding.** `samplingPaddingFor` gained `profile` and `cssTierMapping` at W29 G4; `GlassToolbar`
   cannot pass either and opens at the default document's blur (2.2× over-padding on a page selecting
   macOS 26.5 — safe direction, wrong number). The tracker's first fix shape: carry the selected
@@ -200,56 +263,76 @@ profiles' rows between the two reads); it does not re-open the level law's absci
 
 ## Design (advisory unless marked)
 
-**The exemption's shape (ruled, Decision Log 1 (a)).** Re-record in place with history, and record the
-exemption beside the freeze rather than in it. Of the four shapes weighed — re-record in place; a
-second digest field keyed by schema version; a fingerprint over only the leaves a schema version
-knows; a fingerprint-excluded section for the new leaves — only the first keeps the instrument whole.
-The second does not avoid the exemption (the file gains bytes, so entries 652 and 653 move anyway)
-and puts one number in two places. The third and fourth avoid the exemption by making the pin blind to
-exactly the class of change it exists to catch: `tuned-profiles.test.ts` is there so that a renderer
-default cannot change without the profile being re-recorded, which is the `sizeOcclusionGain` failure
-its comment was written after, and a version-scoped or excluded leaf is a default that can change
-silently forever. What "evidence never rewritten" protects is the READING: the old digest is kept in
-`$comment-sha-history` with what moved it, the freeze manifest is not edited, and the pre-wave resolved
-materials are committed so the identity claim is checkable by anyone, not only by whoever ran the
-commit.
+**The exemption's shape (ruled, Decision Log 1 (a)) — supersession beside the document.** The macOS
+26.5 documents and the seed stay byte-identical. `packages/calibration/profiles/digest-supersessions.json`
+records, per macOS 26.5 document: `profileKey`, `recordedSha256` (the document's own field, the
+reading it was sealed at), `currentSha256` (what the pin resolves to over the default that now carries
+the leaves), the leaves added, the Decision Log and the date. `tuned-profiles.test.ts` and
+`macos26-document-selection.test.ts` assert three things: the document's field equals the record's
+`recordedSha256`; the resolved fingerprint equals the record's `currentSha256`; and the resolved
+material minus the named leaves deep-equals the pre-wave JSON. `material-document.ts` reports
+`currentSha256` for the macOS 26.5 endpoints because `root.material` names what actually drew. Five
+shapes were weighed. Re-recording the digest in place with history — this charter's first draft —
+edits the frozen documents' bytes, which `atAShippedDocument` hashes, and so would empty the macOS
+26.5 bed out of every bound (Grounding); it is withdrawn. A second digest field in the document edits
+the same bytes. A fingerprint over only the leaves a schema version knows, and a fingerprint-excluded
+section, avoid the exemption by making the pin blind to the new leaves in the frozen documents, where
+they must stay inert forever — a default that can then change without any document being
+re-recorded, which is the `sizeOcclusionGain` failure `tuned-profiles.test.ts`'s comment was written
+after (the review notes the covered leaves would still be caught; the objection is to the uncovered
+ones). Supersession beside the document costs zero freeze entries, keeps every frozen byte, keeps
+the reading in the document as the reading, and puts the current digest where a person and a test
+can both find it. It is still the exemption the user granted — the pin's meaning gains one
+indirection, recorded once — and no later wave adds a record without a new grant.
 
-**The exemption's timing.** ONE commit, early in G2, containing the new leaves at inert defaults and
-nothing else: the inert values are the ones under which the macOS 26.5 material renders bit-identically
-(a σ law whose output equals `sigmaPx` at every span; a scatter term with zero weight), the goldens
-prove the default, and the identity test proves the documents. G2's fits then move only the macOS 27
-documents' values, which are not frozen. G0's cut must therefore settle the LEAF SHAPE before G2
-opens — the number and meaning of the leaves, not their values — because a second shape is a second
-exemption. Where G0 cannot settle a shape from the evidence, it says so and the parent rules.
+**The exemption's timing (ruled, Decision Log 1 (b)).** Its own child, G2, merged and reviewed before
+any fit opens: every new leaf of both operators at algebraically inert values, the supersession
+record, the digest sites, the plumbing (merge line, allowlists, CSS mirror), and the proofs of clause
+1 — all verifiable without a fit. G0's cut must settle the LEAF SHAPE before G2 opens — the number
+and meaning of the leaves, not their values. Where G0's tables cannot choose between the scatter's
+two candidates, G2 lands a leaf set that **spans both** at inert values (a second heavy width, its
+signed weight, and a scale-conditioning gain keyed on the analysis pass's per-source statistics), the
+idiom the project already uses for leaves inert by decision (`sizeGain`, `sizeToneLevelFar`, the two
+declined thick-share lifts), so that no second exemption is needed mid-fit. A second heavy tap is a
+second texture build and binding: it is gated on its weight leaf, so the off path costs nothing and is
+what the goldens prove, and the on path is proven by a `test:gpu` case at a nonzero weight and by the
+sealed read.
 
 **The shadow's σ law (advisory).** σ_css(span, dpr) as a clamped line: `sigmaSlope · (span − sigmaSpan0)`
 above a knee, held at a floor below it, with the floor expressed in device px if G0's cut confirms the
 thin regime is nearly constant there (the 2.13 ratio) and in CSS px if it does not. Inert defaults:
-slope 0, floor = `sigmaPx`, so the macOS 26.5 material is unchanged. The thin regime's reading has a
+slope 0, floor = `sigmaPx`, so σ(span) === `sigmaPx` identically. The law is **per caster**: the GPU
+tier evaluates it per pixel from the caster's span in `shadowAux.z`, the CSS tier per surface from
+`surface.spanPx`; the group clip reach and `sampledOuterShadowFactor` take the max over members and
+are bounds on it, and `tier-coherence` pins all three to one law. The thin regime's reading has a
 wide instrument error and the charter does not require the thin cells to be FITTED — it requires them
-to be no longer 2.8–7.2× too wide, and the acceptance tolerance G0 declares says how much. The reach
-takes the span; the renderer maxes the reach over surfaces; the CSS tier's blur radius is per surface
-and the two max-over-members readers follow.
+to be no longer 2.8–7.2× too wide by a statistic G0 names, on non-holdout cells, with the holdout
+cells' native σ reported beside as a check. The six occlusion anchors and `liftAmplitude` are
+refitted jointly with σ and the departure residual is the stop. The reach takes the span; the
+renderer maxes the reach over surfaces; the CSS tier's blur radius is per surface.
 
 **The scatter (advisory, the shape G0's cut names).** Two candidates and G0 chooses on the tables:
 (i) a second heavy tap at its own width with a signed weight, which makes the kernel non-monotone in
 frequency and is what a notch needs; (ii) a mix that is a function of the source's measured spatial
-scale (the analysis pass's variance and edge density) rather than of the span alone. Either is
-conditioned by scheme, because the dark bed inverts the light bed's sign. G0 also tables
-`sizeToneLevelFar`'s conditioning on the probe ladder in both schemes, since W25 declined it for a
-sign that flipped with the row set; if the macOS 27 ladder gives it a stable sign it is fitted in the
-27 documents with no exemption cost. The CSS tier gets the best scalar and its residual in the ledger,
-per the tier rule (Decision Log 23 of 2026-09-05, quoted in `CLAUDE.md`: a material change lands on
-the target and the CSS tier carries what its two layers can).
+scale (the analysis pass's variance and edge density) rather than of the span alone. Scheme
+conditioning is two values of one leaf in the light and dark documents. The accessibility profiles,
+with five ladder rungs, inherit the 1x-light standard document's scatter values rather than a fit of
+their own, and the reduced-transparency body-structure residual is reported. G0 also tables
+`sizeToneLevelFar`'s conditioning on the probe ladder in both schemes; if the macOS 27 ladder gives it
+a stable sign it is fitted in the 27 documents at no exemption cost. The CSS tier gets the best scalar
+and its residual in the ledger, per the tier rule (Decision Log 23 of 2026-09-05, quoted in
+`CLAUDE.md`: a material change lands on the target and the CSS tier carries what its two layers can);
+a signed lobe that no metric on the bed reads is looked for by eye on the sheets (ringing at a
+contour is what to look for) and named if seen.
 
 **The matrix's generation split (ruled, Decision Log 1 (d)).** Split by generation. The working file
-keeps one generation per profile — the frozen macOS 26.5 rows unchanged in place, and the macOS 27
-rows read at the SHIPPED documents — and every superseded generation goes to
+keeps one generation per profile — the frozen macOS 26.5 rows unchanged in place and in order, and
+the macOS 27 rows read at the SHIPPED documents — and every superseded generation goes to
 `results/superseded/<document-sha>.json`, pretty-printed as before, with `results/superseded/README.md`
 listing each file by profile, document hash, the claims section that read it, and the date. "Which
 generation is the shipped one" becomes a name; `atAShippedDocument` becomes a lookup; the demo's
 `capturedAt` tie-break is retired; a superseded row is still one `git show` away. Executed by G1
-before G3's read, so the file the read appends to is small and stays so.
+before G2, and again by G4 for the generation its own read supersedes.
 
 **The tone stage (ruled, Decision Log 1 (e)).** Re-range. The stage was built to make a size-gated
 separation visible, and on macOS 27 that separation exists over the bright half of the slider and
@@ -259,8 +342,8 @@ drag away and the prose G4 wrote stays true. Not retired, because the behaviour 
 still real; not re-subjected to the curve, because a demo of a curve is a chart and this is a
 material site.
 
-**Padding, deliberately.** G2 recomputes `outerShadowReachPx` from the σ law (max over surfaces) and
-the CSS sampling pad from the effective blur; G3 carries the selected document on `GlassRootHandle`
+**Padding, deliberately.** G3 recomputes `outerShadowReachPx` from the σ law (max over surfaces) and
+the CSS sampling pad from the effective blur; G4 carries the selected document on `GlassRootHandle`
 and passes it through `GlassToolbar` (the additive, local fix shape), with the case: a React toolbar on
 `macos26MaterialProfileDocument` whose gap equals the macOS 26.5 padding rather than 2.2× it. Whether
 `samplingPaddingFor`'s core advisory constant should be retired is NOT decided here; the tracker entry
@@ -273,134 +356,162 @@ printed and a `--with-holdout` flag, so every reader this wave and later waves b
 
 ### G0: The cut and the declarations — no material change
 
-*Opens on main after the charter's review is folded. Read-only on the material; writes evidence,
-tables, tests and declarations.*
+*Opens on main. Read-only on the material; writes evidence, tables, tests and declarations.*
 
 - (a) Write the fully resolved macOS 26.5 light and dark materials to
   `results/2026-09-20-w30-g0-cut/resolved-26.5-{light,dark}.json` (through the same
-  `withMaterialOverrides` path the fingerprint uses, keys sorted) and commit them before anything
-  else. Add the freeze's exemption reader: `freeze.py verify` accepts an `exemptions.json` beside
-  `sha256.txt` (path, recorded hash, exempted hash, Decision Log, date) and reports intact entries
-  and exempted entries separately; with no exemption file present its output is unchanged.
+  `withMaterialOverrides` path the fingerprint uses, keys sorted; prove each file's fingerprint
+  equals the pinned digest) and commit them before anything else. Add the identity test with an
+  empty `W30_OPERATOR_LEAVES` list and the gated-26.5-row-count pin (1,107).
 - (b) The shadow cut: from `results/2026-09-19-w29-g2-native-delta/native-delta.json` and the
-  G3b rows, σ per span per scale per scheme per backdrop class with the per-cell spread, on the gated
-  sets and on the probe ladder separately, at both scales; the thin regime's device-px hypothesis
-  tested on the cells that carry it; the reach the shipped constant implies against the reach the law
-  implies at spans 32/44/96/128/160. Name the σ law's leaf shape.
+  G3b rows, σ per span per scale per scheme per backdrop class with the per-cell spread and count,
+  on the gated sets and on the probe ladder separately, at both scales, with the statistic named
+  (which cells, which order statistic, which non-converged fits excluded); the instrument's meaning
+  on mixed-span composites stated; the thin regime's device-px hypothesis tested on the cells that
+  carry it; the reach the shipped constant implies against the reach the law implies at spans
+  32/44/96/128/160. Name the σ law's leaf shape and each leaf's inert identity.
 - (c) The structure cut: `interiorStdDev{Native,Web}` per pitch (4/8/16/32/64, lc16, hc-text 7/14/28,
   photo, solids) per scheme per tier per span, active and inactive, from the committed matrix — the
   tracker's precondition. Name the scatter's leaf shape from it, or say the tables cannot choose
-  between (i) and (ii) and put the choice to the parent. Table `sizeToneLevelFar`'s sign on the
-  macOS 27 ladder in both schemes.
+  between (i) and (ii), in which case G2 lands the spanning set. Table `sizeToneLevelFar`'s sign on
+  the macOS 27 ladder in both schemes.
 - (d) Carry the CSS tier's measured attenuation into `tier-coherence.test.ts` as a recorded residual
-  (the numbers from (c)), so the fit does not discover it.
-- (e) Declarations, committed before G2 opens: the wave's per-operator acceptance tolerances; the
-  three claimed rows and the four expected-unmoved rows; the 27 tables unchanged; no floor.
+  (the numbers from (c), recomputed), so the fit does not discover it.
+- (e) Declarations, committed before G2 opens (clause 3): the tolerances with their statistics and
+  their intended fate; the departure-residual stop; the claimed rows with lever and tier; the
+  expected-unmoved rows; the reported-not-claimed residual; the 27 tables unchanged (cited from
+  `adopted-thresholds.test.ts`, never transcribed); no floor.
 - (f) The holdout drop in `fit.py`'s `readings()`, count printed, `--with-holdout` for the canonical
   read; `shadow-table.py` reads through it.
 - Ledger: **§5.156**. Evidence: `results/2026-09-20-w30-g0-cut/`.
 
-### G1: The matrix's generation split — parallel with G0, merged before G3
+### G1: The matrix's generation split — parallel with G0, merged before G2
 
-- Execute Decision Log 1 (d): move the superseded macOS 27 generation(s) out of `results/matrix.json`
+- Execute Decision Log 1 (d): move the superseded macOS 27 generation out of `results/matrix.json`
   to `results/superseded/<document-sha>.json` with the README listing; the working file holds the
-  frozen macOS 26.5 rows unchanged (the freeze's 1,107 row hashes verify against it) and one macOS 27
-  generation per profile; every consumer names the generation rather than the timestamp (`compare`,
-  `diff`, `gates`' `atAShippedDocument`, `report`, `backdrop-mode`/`adopted-thresholds`/
-  `compare-gates` tests, the demo's `calibration.ts`, `scripts/vibrancy.ts`); the demo's tie-break
-  retired and its comment rewritten; an append-check that proves every moved row is byte-identical in
-  its new file and no row was lost. File sizes before and after in the ledger.
+  frozen macOS 26.5 rows unchanged and in their order (the freeze's 1,107 row hashes verify against
+  it) and one macOS 27 generation per profile; every reader names the generation rather than the
+  timestamp (`cli/compare.ts`, `cli/diff.ts`, `adopted-thresholds.test.ts`'s `atAShippedDocument`,
+  the demo's `calibration.ts`, `scripts/vibrancy.ts`), with the path strings in `gates.ts`,
+  `report.ts` and the two tests checked; the demo's tie-break retired and its comment rewritten;
+  `vibrancy.ts`'s committed `matrixSha256` provenance given the new digest beside the old; an
+  append-check that proves every moved row is byte-identical in its new file, no row was lost, and
+  the retained rows' order is unchanged. The split script reusable by G4. File sizes before and after
+  in the ledger.
 - Ledger: **§5.157**. Evidence: `results/2026-09-20-w30-g1-split/`.
 
-### G2: The operators — the shadow first, then the scatter; the exemption spent once
+### G2: The leaves — the exemption spent, its own gate
 
-*Opens after G0's declarations are committed and the parent has ruled any shape G0 could not.*
+*Opens after G0's declarations are committed and G1 is merged.*
 
-- (a) **The exemption commit**: every new leaf of both operators at inert defaults, in one commit,
-  with the six digest sites re-recorded, `$comment-sha-history` extended in both macOS 26.5 documents,
-  `exemptions.json` written, the identity test green against G0's resolved JSON, goldens 34/34
-  byte-identical, `freeze.py verify` intact with two exempted by name. Nothing else in the commit.
-- (b) The shadow: the σ law on the WebGPU tier (uniform, falloff, reach with span, renderer maxing
-  the reach) and the CSS tier per surface in the same commit; fitted on the calibration set per
-  profile on scratch matrices through the reader with the holdout dropped; checked on validation;
-  `tier-coherence` green; the 27 documents (active and receded, per scheme) re-sealed. The receded
-  documents inherit the law leaf for leaf as they inherit the block today.
-- (c) The scatter: the shape G0 named, conditioned by scheme, on the WebGPU tier; the CSS tier's
-  scalar projection with its residual measured; `sizeToneLevelFar` fitted or declined with the reason;
-  fitted on calibration + probe rows, checked on validation; the increased-contrast-coupled profile
-  fitted as W29 Decision Log 5 placed it.
-- (d) Padding: `outerShadowReachPx(shadow, occlusion, span)`, `samplingPaddingFor` and the CSS pad
-  recomputed; the diagnostics that read them green; the numbers recorded.
-- (e) `PREDICATE_EXCLUDES` and every count test moved to what the machine says; README paragraphs
-  for the new leaves; a changeset for the fixed group (a `@vitreajs/vitrea-web` minor at least).
-- Ledger: **§5.158**. Evidence: `results/2026-09-20-w30-g2-operators/`.
+- One commit of substance: every new leaf of both operators (or the spanning set) at algebraically
+  inert values, in `MaterialProfile`, `withMaterialOverrides`, the allowlists, the CSS mirror, the
+  uniform layout and the shader with the law evaluating to the pre-wave value; the supersession
+  record; the digest sites (`material-document.ts`, `macos27-profile.ts` regenerated,
+  `window-activation.spec.ts`, the four macOS 27 documents re-sealed with the prior digest in their
+  history); the identity test's leaf list filled; the CSS declaration-identity case; the inert-law
+  unit cases; a `test:gpu` case for the gated heavy path's on state. Proofs: `freeze.py verify` at
+  1,818 with nothing exempted; goldens 34/34 byte-identical; the 1,107 pin; the full chain green.
+  README paragraphs for the new leaves.
+- Ledger: **§5.158**. Evidence: `results/2026-09-20-w30-g2-leaves/`.
 
-### G3: The sealed read, the verdict, and the landing — 0.20.0 prepared
+### G3: The operators — the shadow first, then the scatter
+
+*Opens after G2 is merged and reviewed.*
+
+- (a) The shadow: the σ law's values, the six occlusion anchors and `liftAmplitude` fitted jointly
+  on the calibration set per profile on scratch matrices through the reader with the holdout dropped,
+  the departure residual held at or under the declared stop, checked on validation; the receded
+  documents inheriting the block; `tier-coherence` green; the 27 documents re-sealed.
+- (b) The scatter: the shape G0 named, two values per scheme-conditioned leaf across the light and
+  dark documents; the accessibility profiles inheriting; the CSS tier's scalar projection with its
+  residual measured; `sizeToneLevelFar` fitted or declined with the reason; fitted on calibration +
+  probe rows, checked on validation; the increased-contrast-coupled profile as W29 Decision Log 5
+  placed it.
+- (c) Padding: `outerShadowReachPx(shadow, occlusion, span)`, `samplingPaddingFor` and the CSS pad
+  recomputed; the diagnostics that read them green; the smallest pad the laws produce at each span
+  recorded.
+- (d) `PREDICATE_EXCLUDES` and every count test moved to what the machine says; a changeset for the
+  fixed group (a `@vitreajs/vitrea-web` minor at least); the sheets at the fit's read by eye, with
+  ringing at contours looked for and named.
+- Ledger: **§5.159**. Evidence: `results/2026-09-20-w30-g3-operators/`.
+
+### G4: The sealed read, the verdict, and the landing — 0.20.0 prepared
 
 - (a) RT and IC read 0, `NSGlassTintAmount` 0.5, one capture process, idle ≥ 60 s; the sealed
-  documents' hashes in the ledger before the read; `canonical-read.sh` over six profiles × two tiers,
-  calibration + validation appended beside the 0.19.0 rows; then holdout **once**. The append-check.
+  documents' hashes in the ledger before the read; G4's own copy of `canonical-read.sh` at those
+  hashes over six profiles × two tiers, calibration + validation appended beside the 0.19.0 rows;
+  then holdout **once**. The append-check; then G1's split script moves the generation this read
+  supersedes to `results/superseded/`, and the append-check again.
 - (b) The verdict per profile per tier per clause against the unchanged 27 tables and G0's
-  declared tolerances; the three claimed rows and the four expected-unmoved rows each named with
-  before and after; every miss recorded and a Decision Log entry drafted for the user where a
-  ruling is needed (a bound to adopt into `adopted-thresholds` from G0's tolerances; a miss to accept).
+  declared tolerances; the claimed, expected-unmoved and reported rows each named with before and
+  after; every passing tolerance G0 marked for adoption carried into `adopted-thresholds.test.ts`;
+  every miss recorded and a Decision Log entry drafted for the user where a ruling is needed.
 - (c) The landing: `GlassRootHandle` carries the selected document and `GlassToolbar` passes it, with
   the tracker's case; the tone stage re-ranged with its cases moved against the committed reading; the
   demo's figures on the new operators; `CLAUDE.md`, READMEs, CHANGELOG; the coverage matrix re-scored;
   sheets with the thin spans first; the fixed group versioned 0.20.0, dry runs green, unpublished.
-- Ledger: **§5.159**. Evidence: `results/2026-09-20-w30-g3-landing/`.
+- Ledger: **§5.160**. Evidence: `results/2026-09-20-w30-g4-landing/`.
 
 ## Cross-Child Contracts
 
-- **X1 — the freeze, with exactly one exemption.** Two entries of 1,818, digest-only, spent in G2 (a)
-  and never again; `freeze.py verify` at every merge reports intact plus two exempted by name; the
-  identity test and the 34 goldens are the pixel proof. No other macOS 26.5-keyed path, row, bound,
-  floor or document changes.
+- **X1 — the freeze, intact, with the one exemption spent as a supersession record.** No macOS
+  26.5-keyed path, row, bound, floor or document changes; `freeze.py verify` at every merge reports
+  1,818 intact with nothing exempted; the identity test, the 34 goldens, the CSS declaration case and
+  the 1,107 gated-row pin are the pixel proof; the supersession record is written once, in G2.
 - **X2 — the cut precedes the operator.** G0 names each leaf shape from committed evidence before G2
-  writes a leaf; G2 adds no leaf G0 did not name without the parent's ruling.
-- **X3 — the operators change nothing outside the two named structures** (the shadow's σ and the
-  diffusion's scale and scheme conditioning), plus the leaf that already exists (`sizeToneLevelFar`).
-  A fit that moves the four chromatic rows is reported as a warning, not claimed.
+  writes a leaf; G2 adds no leaf G0 did not name except the spanning set where G0 could not choose.
+- **X3 — the operators change nothing outside the two named structures and what they are fitted
+  jointly with**: the shadow's σ together with the macOS 27 documents' occlusion anchors and
+  `liftAmplitude`, whose values compensate for the σ they were fitted beside; the diffusion's scale
+  conditioning with two values per scheme; the leaf that already exists (`sizeToneLevelFar`). A fit
+  that moves the four chromatic rows is reported as a warning, not claimed.
 - **X4 — bounds before reads; holdout once; a miss is recorded** (as every wave). The reader drops
-  holdout by construction from G0 (f) on.
+  holdout by construction from G0 (f) on; the σ law is fitted on non-holdout cells and the holdout
+  cells' native σ is a reported check.
 - **X5 — no native capture; the granted bundle is never rebuilt and nothing is added under its
   identifier.** Every fixture the wave fits on is on disk from W29.
 - **X6 — RT and IC 0, the slider 0.5, one capture process, ≥ 60 s idle** before every browser run;
   every read recorded.
-- **X7 — the evidence layout changes once, in G1, before G3's read**; every superseded row stays
-  one `git show` away; the freeze's row hashes verify against the working file.
-- **X8 — padding is touched deliberately**: G2 recomputes it from the laws and records the numbers;
-  G3 closes the toolbar seam; the core advisory constant's retirement is not decided in this wave.
+- **X7 — the evidence layout changes by one rule, applied twice**: G1 moves the generation superseded
+  today, G4 moves the one its read supersedes; every superseded row stays one `git show` away; the
+  freeze's row hashes and the 26.5 rows' order verify against the working file at every merge.
+- **X8 — padding is touched deliberately**: G3 recomputes it from the laws and records the numbers;
+  G4 closes the toolbar seam; the core advisory constant's retirement is not decided in this wave.
 - **X9 — no GPT-rung agents**; children and reviews are opus `general-purpose` (read-only for
   reviews); ledger sections assigned above; merges `--no-ff` with the freeze verified at each; no
   attribution trailers.
 
 ## Ordering & Dependency Map
 
-Charter review → fold → **G0 ∥ G1** → (the parent rules any shape G0 could not name) → **G2** →
-merge G1 if not already → **G3** → the user's eye on the sheets → `pnpm release` (the user) → tag.
-After this wave, in the order W29 Deferred kept: the chromatic-transmission child; the identifying
-sitting on the 27 bed; the highlight directionality reader; the decoupled-contrast flag and its read;
-the motion-metrics harness.
+Charter review → fold (done) → **G0 ∥ G1** → G1 merged; G0 merged; the parent rules any shape G0
+could not name (or G2 lands the spanning set) → **G2** (merged, reviewed, proofs confirmed by the
+parent) → **G3** → **G4** → the user's eye on the sheets → `pnpm release` (the user) → tag. After
+this wave, in the order W29 Deferred kept: the chromatic-transmission child; the identifying sitting
+on the 27 bed; the highlight directionality reader; the decoupled-contrast flag and its read; the
+motion-metrics harness.
 
 ## Risks & Mitigations
 
-- **A second leaf shape mid-fit** would be a second exemption. G0's cut is the mitigation; where the
-  evidence cannot choose, the parent rules before G2 rather than G2 guessing.
-- **The thin shadow regime is the instrument's limit, not Apple's law.** The acceptance is stated as
-  "no longer 2.8–7.2× too wide within G0's tolerance", not as a fit to the thin medians; the
-  device-px hypothesis is tested on the cells that carry it before a leaf is shaped around it.
-- **A light-only scatter fit lands on the wrong side of dark** (§5.154 §9 (c)). The scheme
-  conditioning is in the leaf shape from G0, and the dark bed's structure tables are part of the
-  declaration.
+- **A second leaf shape mid-fit** would be a second exemption. G0's cut is the first mitigation and
+  the spanning set the second; a leaf inert by decision is a shape the project already documents.
+- **The thin shadow regime is the instrument's limit, not Apple's law.** The acceptance names its
+  statistic and excludes non-converged fits; the device-px hypothesis is tested on the cells that
+  carry it before a leaf is shaped around it.
+- **The joint refit loses the energy while fixing the shape.** The departure residual (0.0007 today)
+  is a declared stop; `thickOcclusionAt160` becomes fitted rather than derived.
+- **A light-only scatter fit lands on the wrong side of dark** (§5.154 §9 (c)). Two values per
+  scheme in the leaf shape from G0, and the dark bed's structure tables in the declaration.
 - **The probe ladder is fitted on and the gated sets carry three pitches**, so the verdict cannot
-  see a fit that only matches the ladder. The three claimed rows are on the gated pitches; the ladder's
-  own residuals are reported per pitch in the ledger so a fit that helps 16 px and hurts 4 px shows.
-- **The read appends to a 72 MB file.** G1 lands first (X7).
+  see a fit that only matches the ladder. The claimed rows are on the gated pitches; the ladder's
+  own residuals are reported per pitch so a fit that helps 16 px and hurts 4 px shows.
+- **The scatter's scalar projection moves a `dom` row the wrong way.** The two `ssimMean` rows are
+  declared the shadow's; the CSS tier's structure ratio is pinned before the fit (G0 (d)).
+- **The read appends to a 72 MB file and makes another generation superseded.** X7, twice.
 - **The recede's exterior moves with the σ law at spans it has no calibration cell for.** Reported on
   the inactive holdout rows as readings, not fitted; the tracker's scenes decision stays open.
-- **The padding shrinks at thin spans**, which is the direction that can expose a sampling floor. G2
-  runs the diagnostics that read the pad and records the smallest pad the laws produce at each span.
+- **The padding shrinks at thin spans**, the direction that can expose a sampling floor. G3 runs the
+  diagnostics that read the pad and records the smallest pad the laws produce at each span.
 
 ## Deferred / Out of Scope
 
@@ -416,41 +527,68 @@ and the impulse specular point (tracker); the slider's ends as evidence classes.
 | --- | --- | --- | --- |
 | G0 | not dispatched | §5.156 | `results/2026-09-20-w30-g0-cut/` |
 | G1 | not dispatched | §5.157 | `results/2026-09-20-w30-g1-split/` |
-| G2 | not dispatched | §5.158 | `results/2026-09-20-w30-g2-operators/` |
-| G3 | not dispatched | §5.159 | `results/2026-09-20-w30-g3-landing/` |
+| G2 | not dispatched | §5.158 | `results/2026-09-20-w30-g2-leaves/` |
+| G3 | not dispatched | §5.159 | `results/2026-09-20-w30-g3-operators/` |
+| G4 | not dispatched | §5.160 | `results/2026-09-20-w30-g4-landing/` |
 
 ## Decision Log
 
-### Decision Log 1 — the charter (2026-09-20; the parent, under the user's "operator wave first, and rest on your judgement")
+### Decision Log 1 — the charter (2026-09-20; the parent, under the user's "operator wave first, and rest on your judgement"; amended the same day by the review fold)
 
 Ruled by the user on 2026-09-19 (W29 Decision Log 7 (a)): both operators in one wave after 0.19.0
-under a single one-time X1 exemption. Ruled by the parent here, under the user's delegation, each
-overridable by the user before G2 opens:
+under a single one-time X1 exemption. Ruled by the parent here under the user's delegation — given
+after the parent named the matrix split and the tone stage as the two decisions the user had been
+holding and asked whether they were the parent's to make — each overridable by the user before G2
+opens:
 
-- (a) **The exemption's shape**: re-record in place with the prior digest kept in
-  `$comment-sha-history`; the freeze manifest not edited; an `exemptions.json` beside it naming the
-  two entries; the pre-wave resolved materials committed as evidence and an identity test over them.
-  Reasoning in Design.
-- (b) **The exemption's timing**: one commit at the start of G2 with every leaf at its inert value,
-  after G0 has named every leaf's shape. A second shape is a second exemption and needs the user.
-- (c) **The order inside G2**: the shadow first, because its law is read and its shape is nearly
-  certain; the scatter second, on G0's tables.
-- (d) **The matrix's layout**: split by generation, executed by G1 before the read. G4's
-  recommendation, seconded for its reason (a name where a timestamp stands) and for this wave's
-  reason (the read that would cross 100 MB).
+- (a) **The exemption's shape**: supersession beside the document. The macOS 26.5 documents and the
+  seed stay byte-identical; `profiles/digest-supersessions.json` records the recorded and current
+  digests once; the pin tests assert both and the identity over the pre-wave resolved materials.
+  The first draft's re-record-in-place is withdrawn: it edits bytes `atAShippedDocument` hashes and
+  would empty the macOS 26.5 bed out of every bound. Reasoning in Design.
+- (b) **The exemption's timing**: its own child, G2, merged and reviewed before any fit, with every
+  leaf at an algebraic identity and the proofs verifiable without a fit; the spanning set where G0
+  cannot choose the scatter's shape.
+- (c) **The order inside the fit**: the shadow first, jointly with its amplitudes; the scatter second,
+  on G0's tables.
+- (d) **The matrix's layout**: split by generation, applied by G1 and again by G4. The tracker filed
+  this as the user's to rule; the user delegated it in so many words, and the parent seconds G4's
+  recommendation for its reason (a name where a timestamp stands) and for this wave's (the read that
+  would cross 100 MB). Overridable before G1 merges.
 - (e) **The tone stage**: re-ranged, the near-black stop kept last. Reasoning in Design. The user may
-  prefer retirement; the geometry is untouched until G3 so the choice is still open at G3's dispatch.
+  prefer retirement; the geometry is untouched until G4 so the choice is still open at G4's dispatch.
 - (f) **Closed on the way**: the reader-side holdout drop (G0) and the `GlassToolbar` document seam
-  (G3), both because this wave touches the code they live in.
+  (G4), both because this wave touches the code they live in.
 - (g) **The version**: 0.20.0, three minors, prepared and unpublished.
 
 ## Surprises & Discoveries
 
-*(none yet)*
+- **The frozen documents' bytes are an input to every bound** (found by the charter's review):
+  `adopted-thresholds.test.ts` hashes the profile files on disk and keeps only rows captured at those
+  bytes, so the first draft's "re-record the digest in place" would have silently retired the macOS
+  26.5 half of the gated bed — and the instruction "move every count test to what the machine says"
+  is exactly how a child would have baked it in. The shape that costs nothing (supersession beside)
+  was found by taking the draft's own argument against a second field one step further.
 
 ## Revision Notes
 
+- 2026-09-20 (the parent): **adversarial review folded** (opus, read-only; two blocking, fourteen
+  should-fix, six minor). Folded: the exemption's shape withdrawn and replaced by supersession beside
+  the document (finding 1, 2); the exemption its own child with proofs on both tiers, algebraic inert
+  identities and the plumbing sites named (3, 4, 26); the spanning leaf set where G0 cannot choose
+  (5); "eight hashes, four macOS 26.5" and the seed's entry (6, 7); the joint refit of the amplitude
+  anchors and `liftAmplitude` with the departure-residual stop (8, 30); the law per caster with the
+  group readers as bounds (9); the acceptance statistic (10); the reduced-transparency row read on its
+  own holdout cell, restated (11); the instrument on composites (12); the accessibility profiles' five
+  rungs and the reduced-transparency structure residual declared (13); the second heavy tap's
+  resource gated on its leaf (14); the lever per claimed row, the `ssimMean` rows the shadow's (15);
+  scheme conditioning as two values in two documents (16); `sizeToneLevelFar` kept out of
+  `FITTED_CONSTANTS` (17); tolerances' fate declared and carried in at G4 (18); the layout rule
+  applied twice (21); the consumer list corrected and `vibrancy.ts`'s provenance digest (22); the
+  26.5 rows' order (23); G1 before G2 (24); `canonical-read.sh` copied, not reused (28); the recede's
+  exterior cited with an expectation (29). Dismissed with reason: (25) the matrix split put back to
+  the user — the user delegated it in so many words after the parent named it; recorded in Decision
+  Log 1 (d) and left overridable. Holds as reviewed: 19, 20, 27.
 - 2026-09-20: v1 of this charter, drafted by the parent from a read-only grounding of the fingerprint
   mechanics, both operators as they stand in the shader and the CSS tier, the bed's set membership
   per pitch, the seven missed rows' causes, the cost of a read, and the W29 Deferred list and tracker.
-  Not yet reviewed; no child dispatched.
