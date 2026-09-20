@@ -25461,3 +25461,55 @@ rows); no bound at span 130; no bound on the accessibility profiles' scatter, wh
 1x-light standard document's values because five ladder rungs identify a scalar and not a curve; no
 floor; and no claim on the chromatic axis, the highlight's directionality, the level law's abscissa
 or the decoupled-contrast read, all out of scope by the charter's own Deferred list.
+
+### 6. No freeze change, and why this gate has none
+
+The charter's v1 had this child add an exemption reader to `results/2026-09-16-w29-freeze/freeze.py`
+so a re-recorded digest could be exempted from the frozen list. **v2 withdrew it**, because Decision
+Log 1 (a) replaced re-recording in place with a supersession record beside the documents — and a
+record beside the documents costs the freeze **zero entries**, since the frozen documents' bytes do
+not move at all. So the right change to `freeze.py` turned out to be no change, and the right
+verification is that nothing under that directory has been touched: its newest commit is still W29
+G1 Part B's, and `freeze.py verify` reads **`26.5 freeze intact: 1818 entries`** at this gate's
+opening and at its close, unchanged, with nothing exempted (`freeze-verify-close.txt`).
+
+That is worth stating rather than passing over, because it is the shape of the whole exemption: the
+one thing W29 Decision Log 7 (a) granted is spent on a digest, and a digest is the only thing that
+moves. Not a byte of frozen evidence, not a freeze entry, not a matrix row, not a golden.
+
+### 7. Verification record
+
+| step | result |
+| --- | --- |
+| `pnpm -r build` | exit 0 |
+| `pnpm -r lint` | exit 0 across all nine packages |
+| `pnpm -r test` | **2,515 passed** over 169 files, 0 failed — `@vitrea/calibration` **544 over 32 files**, against 540 over 31 before this gate (the identity file's 4 cases, the gated-bed pin's 2, `tier-coherence`'s 8) |
+| `python3 results/2026-09-16-w29-freeze/freeze.py verify` | **26.5 freeze intact: 1818 entries**, at this gate's opening and at its close |
+| `resolve-pre-wave.ts` | both documents resolve to their recorded digests and to the charter's Grounding; the files are written and hashed |
+| `holdout-drop-check.py` | exit 0 — no reader yields a holdout number without the flag, and every reader yields one with it |
+| the freeze directory | untouched; its newest commit is still W29 G1 Part B's |
+
+`DEFAULT_MATERIAL_PROFILE` is untouched, **no leaf is added** (naming a shape is not adding it, X1),
+no profile document, native fixture, golden, bound, floor or row of `results/matrix.json` moves, and
+no capture of any kind was taken (X2, X5). The renderer goldens are not re-run at this gate because
+nothing it touches can reach them: the only non-test source change is in two Python evidence
+readers.
+
+### 8. What this gate hands the wave
+
+Four things a later child should read before it starts, three of which change what it can do:
+
+1. **The macOS 27 generation of `results/matrix.json` carries no probe row** (§3). The scatter's
+   shape is therefore not decidable from committed evidence, `sizeToneLevelFar` is not fittable, and
+   the per-pitch verdict G4 is meant to record has no bed to be recorded on. G2 lands the **spanning
+   set** per Decision Log 1 (b); the parent has a decision on whether G4's canonical read includes
+   the probe set, at about 180 rows per profile-tier.
+2. **The σ law's floor is CSS px and its value is declared unfitted** (§2). The Design's open
+   "device px if the cut confirms the thin regime is nearly constant there" resolves in the second
+   direction, for a measured reason, and the law then needs no dpr argument at all — one function of
+   CSS span, one mirror for the CSS tier, one law for `tier-coherence` to pin all three readers to.
+3. **The padding grows 37 % at span 160** (§2), because the shipped σ is a third too narrow above
+   span 128. X8's recomputation at G3 is two-sided, and the group clip takes the max over members.
+4. **The leaf shapes are named and their inert identities are algebraic** (§2, §3), so G2 can be
+   written without a fit existing: three shadow leaves at 0, and the scatter's spanning set with its
+   scheme-conditioned leaf identified under either candidate.
