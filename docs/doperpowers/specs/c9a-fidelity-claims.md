@@ -26271,7 +26271,7 @@ Each ran on the merged tree and its output is committed under the evidence direc
 | the inert laws, swept | `test/w30-inert-laws.test.ts`, both tiers | **16 passed** — σ exactly `sigmaPx` over spans 1…1000 and at 0, negative and 1e6; the reach unmoved at ten spans × nine amplitudes; the second width 0 at four ratios including when both widths are named; each with a fail-before case at fitted values |
 | the gated heavy path, switched ON | `e2e/gpu/w30-heavy-second-tap.spec.ts` (`@gpu`, real adapter) | **1 passed** — widths-only Δ **0**, share −1 Δ **41**, share +1 Δ **32**, sign Δ **73** codes |
 | the two tiers, pinned to each other | `test/tier-coherence.test.ts` | **green** (8 of its cases are G0's recorded attenuation readings, unmoved) |
-| the chain | `pnpm -r build && pnpm -r lint && pnpm -r test` | exit 0; **2,535 passed** over 172 files, 0 failed — renderer-webgpu **508 over 30** against 497 over 29, platform-web **627 over 46** against 618 over 44, calibration 544 over 32 unchanged |
+| the chain | `pnpm -r build && pnpm -r lint && pnpm -r test` | exit 0; **2,541 passed** over 173 files, 0 failed — renderer-webgpu **508 over 30** against 497 over 29 and platform-web **627 over 46** against 618 over 44, which is this child's twenty cases over three files; calibration 544 over 32 and demo 40 over 5 unchanged from main |
 | the sealed endpoints, from the browser | `npx playwright test e2e/shared/window-activation.spec.ts --project=chromium` | **6 passed** at the eight re-recorded hashes |
 
 The CSS declaration case deserves its own sentence, because it is the only proof here that could not
