@@ -1,0 +1,69 @@
+X1 ok  apple-macos-26.5-1x-light-standard records b2b570e4adcea8fb, resolves to b340a4dee871633c
+X1 ok  apple-macos-26.5-1x-dark-standard records 874be66ea501621b, resolves to 93ab090705c43f1f
+construction ok  apple-macos-27.0-1x-light-standard-glass0.5  over DEFAULT_MATERIAL_PROFILE  current 8d06a41cb70ba52f  minus the leaves e825cb034c9070e4
+construction ok  apple-macos-27.0-1x-light-standard-glass0.5-receded  over apple-macos-27.0-1x-light-standard-glass0.5.json  current 035f537d9c27e3ed  minus the leaves 8dc63b265c1de038
+construction ok  apple-macos-27.0-1x-dark-standard-glass0.5  over DEFAULT_MATERIAL_PROFILE  current 73a3fb119a81312b  minus the leaves 8439eb808495f5bf
+construction ok  apple-macos-27.0-1x-dark-standard-glass0.5-receded  over apple-macos-27.0-1x-dark-standard-glass0.5.json  current 4763b0d195fdb077  minus the leaves 3264b6cdde64bc8b
+
+sealed apple-macos-27.0-1x-light-standard-glass0.5
+  resolvedMaterialSha256 3a2513742936ceb1
+  material sha256 (full) 3a2513742936ceb1c17a3149d75d21b79a627a7db373b03a909dbfbd18484bcc
+  document sha256        d731b38389943e4e3cbec1fb787f40f265642a5ea18681270843eb5f97902bf5
+  capturePath sha256     d731b3838994
+  superseded             e825cb034c9070e4 (document) / 8d06a41cb70ba52f (record)
+  moved                  thinOcclusionMid 0.05 -> 0.068
+  moved                  thinOcclusionBright 0.041 -> 0.0683
+  moved                  thickOcclusionAt96 0.111 -> 0.1158
+  moved                  thickOcclusionAt128 0.202 -> 0.1827
+  moved                  thickOcclusionAt160 0.293 -> 0.26
+  moved                  sigmaPx 11 -> 8.96
+  moved                  sigmaSlopePerSpan undefined -> 0.1314
+  moved                  sigmaSpanRefPx undefined -> 96
+  moved                  sigmaThinOffsetPx undefined -> -6.8328
+  moved                  sizeHeavySecondSigma absent -> 0
+  moved                  sizeHeavySecondSigma2x absent -> 0
+  moved                  sizeHeavySecondShare absent -> 0
+  moved                  sizeScatterScaleGain absent -> 0
+  moved                  sizeScatterScaleRef absent -> 0.03
+sealed apple-macos-27.0-1x-light-standard-glass0.5-receded
+  resolvedMaterialSha256 d8015c2587126d08
+  material sha256 (full) d8015c2587126d08f6db93315f8f249a2b2f0d19a84a0f525b966050eca7d00d
+  document sha256        b4a5914c7b9c424bb82046a19515ba981b77053b7affca6f10523e0a034c119f
+  capturePath sha256     b4a5914c7b9c
+  superseded             8dc63b265c1de038 (document) / 035f537d9c27e3ed (record)
+  moved                  thinOcclusionMid 0.05 -> 0.068
+  moved                  thinOcclusionBright 0.041 -> 0.0683
+  moved                  thickOcclusionAt96 0.111 -> 0.1158
+  moved                  thickOcclusionAt128 0.202 -> 0.1827
+  moved                  thickOcclusionAt160 0.293 -> 0.26
+sealed apple-macos-27.0-1x-dark-standard-glass0.5
+  resolvedMaterialSha256 f3008c3e9033ed4c
+  material sha256 (full) f3008c3e9033ed4cd3d55ec3a936af5ad3e91c0980f7af9a32f6b35bc843a76f
+  document sha256        ce1af58886ff5fcff16084fc7332de446804f446acb2975a3a9f48fccda9c0e8
+  capturePath sha256     ce1af58886ff
+  superseded             8439eb808495f5bf (document) / 73a3fb119a81312b (record)
+  moved                  thinOcclusionMid 0.032 -> 0.0455
+  moved                  thinOcclusionBright 0.032 -> 0.0537
+  moved                  thickOcclusionAt96 0.126 -> 0.133
+  moved                  thickOcclusionAt128 0.229 -> 0.2263
+  moved                  thickOcclusionAt160 0.333 -> 0.3409
+  moved                  sigmaPx 11 -> 9.04
+  moved                  sigmaSlopePerSpan undefined -> 0.134
+  moved                  sigmaSpanRefPx undefined -> 96
+  moved                  sigmaThinOffsetPx undefined -> -6.968
+  moved                  sizeHeavySecondSigma absent -> 0
+  moved                  sizeHeavySecondSigma2x absent -> 0
+  moved                  sizeHeavySecondShare absent -> 0
+  moved                  sizeScatterScaleGain absent -> -2
+  moved                  sizeScatterScaleRef absent -> 0.03
+sealed apple-macos-27.0-1x-dark-standard-glass0.5-receded
+  resolvedMaterialSha256 8c85774d161fcbaa
+  material sha256 (full) 8c85774d161fcbaae973003902e8e35090c92ba5bb568d500d0d59442f701917
+  document sha256        d449ea0649f47e4b83c9a6f592df21561b11fd660070f6fa629f885fb654bc52
+  capturePath sha256     d449ea0649f4
+  superseded             3264b6cdde64bc8b (document) / 4763b0d195fdb077 (record)
+  moved                  thinOcclusionMid 0.032 -> 0.0455
+  moved                  thinOcclusionBright 0.032 -> 0.0537
+  moved                  thickOcclusionAt96 0.126 -> 0.133
+  moved                  thickOcclusionAt128 0.229 -> 0.2263
+  moved                  thickOcclusionAt160 0.333 -> 0.3409

@@ -1,0 +1,72 @@
+documents  /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a555fafb289fa2069/packages/calibration/profiles
+against    /tmp/w30g3scratch/docs-before
+
+apple-macos-27.0-1x-light-standard-glass0.5
+  σ law  sigmaPx 8.96  slope 0.1314  ref 96  thin offset -6.8328  (knee 44.00 CSS px)
+  offsetPx 7.95  spreadPx 3.1
+
+   span  occlusion  σ before    reach   σ after    reach        Δ      Δ %  css clip before    after
+     32     0.0680     11.00    20.90      2.13    13.39    -7.51    -35.9            33.05    15.30
+     44     0.0691     11.00    21.12      2.13    13.41    -7.71    -36.5            33.05    15.30
+     64     0.0919     11.00    24.31      4.76    17.16    -7.15    -29.4            33.05    20.56
+     96     0.1158     11.00    26.37      8.96    23.74    -2.63    -10.0            33.05    28.97
+    128     0.1827     11.00    29.86     13.16    32.89     3.03     10.2            33.05    37.38
+    130     0.1875     11.00    30.01     13.43    33.51     3.49     11.6            33.05    37.91
+    160     0.2600     11.00    31.88     17.37    42.93    11.05     34.7            33.05    45.79
+    220     0.2600     11.00    31.88     25.25    57.40    25.52     80.1            33.05    61.56
+
+  smallest pad the law produces over the bed's spans 13.39 CSS px (span 32), largest 57.40 (span 220)
+
+  apple-macos-27.0-1x-light-standard-glass0.5-receded, which inherits the σ law and carries its own anchors
+   span  occlusion        σ    reach
+     32     0.0680     2.13    13.39
+     44     0.0691     2.13    13.41
+     64     0.0919     4.76    17.16
+     96     0.1158     8.96    23.74
+    128     0.1827    13.16    32.89
+    130     0.1875    13.43    33.51
+    160     0.2600    17.37    42.93
+    220     0.2600    25.25    57.40
+
+  the group bound: members 44, 96, 160 reach 13.41, 23.74, 42.93; reach(max occlusion 0.2600, max span 160) = 42.93  BOUNDS every member
+
+apple-macos-27.0-1x-dark-standard-glass0.5
+  σ law  sigmaPx 9.04  slope 0.134  ref 96  thin offset -6.968  (knee 44.00 CSS px)
+  offsetPx 7.95  spreadPx 3.1
+
+   span  occlusion  σ before    reach   σ after    reach        Δ      Δ %  css clip before    after
+     32     0.0455     11.00    17.10      2.07    12.76    -4.33    -25.3            33.05    15.19
+     44     0.0476     11.00    17.73      2.07    12.83    -4.89    -27.6            33.05    15.19
+     64     0.0892     11.00    24.19      4.75    17.07    -7.11    -29.4            33.05    20.55
+     96     0.1330     11.00    27.14      9.04    24.54    -2.60     -9.6            33.05    29.13
+    128     0.2263     11.00    30.55     13.33    34.60     4.05     13.3            33.05    37.71
+    130     0.2335     11.00    30.70     13.60    35.28     4.58     14.9            33.05    38.24
+    160     0.3409     11.00    32.56     17.62    45.69    13.13     40.3            33.05    46.28
+    220     0.3409     11.00    32.56     25.66    61.50    28.94     88.9            33.05    62.36
+
+  smallest pad the law produces over the bed's spans 12.76 CSS px (span 32), largest 61.50 (span 220)
+
+  apple-macos-27.0-1x-dark-standard-glass0.5-receded, which inherits the σ law and carries its own anchors
+   span  occlusion        σ    reach
+     32     0.0455     2.07    12.76
+     44     0.0476     2.07    12.83
+     64     0.0892     4.75    17.07
+     96     0.1330     9.04    24.54
+    128     0.2263    13.33    34.60
+    130     0.2335    13.60    35.28
+    160     0.3409    17.62    45.69
+    220     0.3409    25.66    61.50
+
+  the group bound: members 44, 96, 160 reach 12.83, 24.54, 45.69; reach(max occlusion 0.3409, max span 160) = 45.69  BOUNDS every member
+
+The backdrop sampling pad, which the σ law does not reach
+  `samplingPaddingFor` is 3σ of the BACKDROP blur, not of the shadow, so a span-graded
+  shadow moves no part of it. Printed because X8 asks for the pads and a pad that did
+  not move is a reading too.
+
+  light-standard-glass0.5  members [[120,44]]     pad 23.05 CSS px
+  light-standard-glass0.5  members [[160,96]]     pad 31.27 CSS px
+  light-standard-glass0.5  members [[220,160]]    pad 44.93 CSS px
+  dark-standard-glass0.5   members [[120,44]]     pad 25.81 CSS px
+  dark-standard-glass0.5   members [[160,96]]     pad 35.44 CSS px
+  dark-standard-glass0.5   members [[220,160]]    pad 45.70 CSS px

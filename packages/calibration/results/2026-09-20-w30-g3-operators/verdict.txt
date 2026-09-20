@@ -1,0 +1,77 @@
+W30 G3 — the verdict, before and after, from one read of results/matrix.json
+============================================================================================================
+  rows at the documents on disk (AFTER)      726
+  rows at the superseded documents (BEFORE)  455
+  keys present in both                       455
+
+(c) The three rows this wave CLAIMS
+------------------------------------------------------------------------------------------------------------
+  tier     set         scene                                   metric                bound     before      after          Δ
+  css      holdout     checkerboard__rrect-lg__rest            ssimMean              ≥ 0.9    0.88402    0.88423   +0.00021
+    apple-macos-27.0-1x-light-standard-glass0.5   lever: the shadow's σ, on the CSS tier — span 160
+  css      holdout     checkerboard__glass-over-glass__rest    ssimMean              ≥ 0.9    0.89538    0.89531   -0.00007
+    apple-macos-27.0-1x-light-standard-glass0.5   lever: the shadow's σ, on the CSS tier — span 130, by extrapolation
+  css      holdout     photo__rrect-lg__rest                   ssimOutside          ≥ 0.83    0.82707    0.82695   -0.00012
+    apple-macos-27.0-1x-light-reduced-transparency-glass0.5   lever: the shadow's σ, on the CSS tier — reachable if the law extrapolates
+
+(d) The four rows declared EXPECTED UNMOVED — a move is a warning, not a result
+------------------------------------------------------------------------------------------------------------
+  tier     set         scene                                   metric                bound     before      after          Δ
+  css      holdout     photo__rrect-lg__rest                   oklabDeltaEP95       ≤ 0.18    0.20095    0.20095   +0.00000
+    apple-macos-27.0-1x-dark-standard-glass0.5
+  css      holdout     photo__rrect-lg__rest                   oklabDeltaEP95       ≤ 0.19    0.19474    0.19474   +0.00000
+    apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu   holdout     photo__rrect-lg__rest                   oklabDeltaEP95       ≤ 0.17    0.21521    0.21531   +0.00010
+    apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu   holdout     photo__rrect-lg__rest                   oklabDeltaEP95       ≤ 0.17    0.21344    0.21341   -0.00003
+    apple-macos-27.0-2x-dark-standard-glass0.5
+
+(d) The reported-not-claimed residual — the matrix instrument (the sheets' is read by eye)
+------------------------------------------------------------------------------------------------------------
+  before  checkerboard__rrect-md__rest            native 0.0562  web 0.0459  ratio 0.8176   the reduced-transparency body-structure residual — reported, not claimed
+  after   checkerboard__rrect-md__rest            native 0.0562  web 0.0459  ratio 0.8176   the reduced-transparency body-structure residual — reported, not claimed
+
+Every row that moved most, by metric — so a change nobody declared is as visible
+------------------------------------------------------------------------------------------------------------
+  css     calibration photo__capsule-button__inactive-tint-orangefalloffSigmaWeb         60.85642  30.55242 -30.30400  apple-macos-27.0-2x-dark-standard-glass0.5
+  css     calibration photo__capsule-button__inactive         falloffSigmaWeb         60.85642  30.55242 -30.30400  apple-macos-27.0-2x-dark-standard-glass0.5
+  css     holdout     mid-dark-solid__capsule-button__rest    falloffSigmaWeb         32.32226  17.89709 -14.42518  apple-macos-27.0-1x-light-standard-glass0.5
+  css     holdout     hc-text__capsule-button__rest           falloffSigmaWeb         30.43364  16.65163 -13.78201  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+  css     holdout     mid-dark-solid__capsule-button__rest    falloffSigmaWeb         47.49752  34.57307 -12.92445  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  holdout     checkerboard__rrect-lg__rest            falloffSigmaWeb         28.34108  40.62526 +12.28418  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  holdout     checkerboard__rrect-lg__inactive        falloffSigmaWeb         28.34108  40.62526 +12.28418  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__rest                   falloffSigmaWeb         28.29633  39.97378 +11.67745  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__inactive               falloffSigmaWeb         28.29633  39.97378 +11.67745  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__rest-tint-orange       falloffSigmaWeb         28.44253  39.79250 +11.34998  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__rest                   falloffSigmaWeb         28.44253  39.79250 +11.34998  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__inactive-tint-orange   falloffSigmaWeb         28.44253  39.79250 +11.34998  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__inactive               falloffSigmaWeb         28.44253  39.79250 +11.34998  apple-macos-27.0-2x-light-standard-glass0.5
+  css     calibration photo__capsule-button__inactive-tint-orangefalloffSigmaWeb         24.84756  14.28575 -10.56181  apple-macos-27.0-1x-dark-standard-glass0.5
+  css     calibration photo__capsule-button__inactive         falloffSigmaWeb         24.84756  14.28575 -10.56181  apple-macos-27.0-1x-dark-standard-glass0.5
+  css     validation  photo__rrect-sm__inactive               falloffSigmaWeb         32.36784  22.14993 -10.21791  apple-macos-27.0-2x-light-standard-glass0.5
+  css     calibration light-solid__capsule-button__inactive   falloffSigmaWeb         37.82004  27.71834 -10.10170  apple-macos-27.0-2x-dark-standard-glass0.5
+  css     holdout     photo__rrect-lg__inactive               falloffSigmaWeb         27.44112  36.79519  +9.35407  apple-macos-27.0-2x-dark-standard-glass0.5
+  css     holdout     checkerboard__rrect-lg__inactive        falloffSigmaWeb         27.60351  36.89256  +9.28905  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  calibration light-solid__capsule-button__rest-tint-orangefalloffSigmaWeb         33.39314  24.34614  -9.04700  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  calibration light-solid__capsule-button__rest       falloffSigmaWeb         33.39314  24.34614  -9.04700  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  calibration light-solid__capsule-button__inactive-tint-orangefalloffSigmaWeb         33.39314  24.34614  -9.04700  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  calibration light-solid__capsule-button__inactive   falloffSigmaWeb         33.39314  24.34614  -9.04700  apple-macos-27.0-2x-light-standard-glass0.5
+  css     holdout     photo__rrect-lg__rest                   falloffSigmaWeb         32.28039  41.10113  +8.82074  apple-macos-27.0-2x-light-standard-glass0.5
+  css     holdout     photo__rrect-lg__rest                   falloffSigmaWeb         35.55649  44.29573  +8.73924  apple-macos-27.0-2x-dark-standard-glass0.5
+  css     holdout     photo__rrect-lg__rest-tint-orange       falloffSigmaWeb         30.71052  39.38289  +8.67237  apple-macos-27.0-2x-light-standard-glass0.5
+  css     holdout     photo__rrect-lg__inactive-tint-orange   falloffSigmaWeb         27.47605  35.91787  +8.44183  apple-macos-27.0-2x-light-standard-glass0.5
+  css     holdout     photo__rrect-lg__inactive               falloffSigmaWeb         27.47605  35.91787  +8.44183  apple-macos-27.0-2x-light-standard-glass0.5
+  css     calibration light-solid__capsule-button__inactive   falloffSigmaWeb         21.29717  13.08356  -8.21361  apple-macos-27.0-1x-dark-standard-glass0.5
+  css     calibration checkerboard__toolbar-group__inactive   falloffSigmaWeb         29.19559  21.40544  -7.79015  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  calibration checkerboard__toolbar-group__rest       falloffSigmaWeb         29.64166  21.87389  -7.76777  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  calibration checkerboard__toolbar-group__inactive   falloffSigmaWeb         29.64166  21.87389  -7.76777  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  calibration checkerboard__rrect-sm__rest            falloffSigmaWeb         30.16564  22.47044  -7.69520  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  calibration checkerboard__rrect-sm__inactive        falloffSigmaWeb         30.16564  22.47044  -7.69520  apple-macos-27.0-2x-light-standard-glass0.5
+  css     calibration checkerboard__capsule-button__inactive-tint-orangefalloffSigmaWeb         37.81315  30.12416  -7.68899  apple-macos-27.0-2x-dark-standard-glass0.5
+  css     calibration checkerboard__capsule-button__inactive  falloffSigmaWeb         37.81315  30.12416  -7.68899  apple-macos-27.0-2x-dark-standard-glass0.5
+  css     calibration checkerboard__rrect-sm__inactive        falloffSigmaWeb         29.39560  22.01458  -7.38102  apple-macos-27.0-2x-light-standard-glass0.5
+  css     holdout     checkerboard__rrect-lg__rest            falloffSigmaWeb         26.29241  33.64999  +7.35758  apple-macos-27.0-2x-light-standard-glass0.5
+  css     calibration checkerboard__capsule-button__inactive-tint-orangefalloffSigmaWeb         21.29381  14.08937  -7.20444  apple-macos-27.0-1x-dark-standard-glass0.5
+  css     calibration checkerboard__capsule-button__inactive  falloffSigmaWeb         21.29381  14.08937  -7.20444  apple-macos-27.0-1x-dark-standard-glass0.5
+
+  0 native readings moved (any number here but 0 is a fault, not a result)

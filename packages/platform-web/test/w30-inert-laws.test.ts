@@ -17,6 +17,7 @@
 
 import { describe, expect, it } from "vitest";
 
+import { macos27DarkMaterialProfile, macos27LightMaterialProfile } from "../src/macos27-profile";
 import {
   MATERIAL_SOURCE_OUTER_SHADOW,
   outerShadowSigmaPx,
@@ -97,5 +98,49 @@ describe("W30's σ law is the identity on the CSS tier too (claims §5.156 §2, 
         casterSpanPx,
       });
     expect(at(160)).toBeLessThan(at(44));
+  });
+
+  it("holds the SHIPPED macOS 27 law to the condition that makes a group's reach a bound", () => {
+    /*
+     * The constraint asserted on the material a page actually draws, rather than
+     * on an illustrative shape (W30 G2 review closure, claims §5.158 §8, finding
+     * 4; fitted by W30 G3, claims §5.159).
+     *
+     * The optics pass's scissor pad and this tier's group-shadow clip take the
+     * law at the LARGEST span among a group's members and call the result a
+     * bound on every member's. That is true exactly while σ is non-decreasing in
+     * the span — `sigmaSlopePerSpan ≥ 0` — so a fit that produced a negative
+     * slope has to fail here rather than at a scissor, on the shipped numbers
+     * and not on a hypothetical.
+     *
+     * The knee is asserted to sit inside the range of casters a page declares,
+     * for a different reason: the fitted line crosses zero at a span of 23.6 to
+     * 30.4 CSS px (claims §5.156 §2) and the smallest declared span in the bed
+     * is 32, so a floor is structurally necessary and a knee below the line's
+     * own zero would be a floor that never binds.
+     */
+    for (const [name, profile] of [
+      ["light", macos27LightMaterialProfile],
+      ["dark", macos27DarkMaterialProfile],
+    ] as const) {
+      const shadow = { ...SHADOW, ...profile.outerShadow };
+      expect(shadow.sigmaSlopePerSpan, `${name}: a negative slope inverts the group bound`)
+        .toBeGreaterThanOrEqual(0);
+      expect(shadow.sigmaSpanRefPx, `${name}: the reference is held at 96`).toBe(96);
+      const knee = shadow.sigmaSpanRefPx + shadow.sigmaThinOffsetPx / shadow.sigmaSlopePerSpan;
+      expect(knee, `${name}: the knee`).toBeGreaterThan(24);
+      expect(knee, `${name}: the knee`).toBeLessThanOrEqual(96);
+      let previous = 0;
+      for (const span of [1, 8, 24, 32, 44, 64, 96, 128, 130, 160, 220, 320, 1000]) {
+        const sigma = outerShadowSigmaPx(shadow, span);
+        expect(sigma, `${name}: σ fell at span ${String(span)}`).toBeGreaterThanOrEqual(previous);
+        previous = sigma;
+      }
+      // And the law is not flat: a document that shipped the inert leaves would
+      // pass every assertion above, so the grading itself is asserted.
+      expect(outerShadowSigmaPx(shadow, 160)).toBeGreaterThan(
+        outerShadowSigmaPx(shadow, 44) * 2,
+      );
+    }
   });
 });

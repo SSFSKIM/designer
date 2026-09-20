@@ -46,41 +46,39 @@ const read = (key) => {
 };
 
 /**
- * The digest each document's pin RESOLVES to today, read from the supersession
- * record beside the documents rather than from the documents' own fields
- * (W30 Decision Log 1 (a) and 4 (a); claims §5.158).
+ * The digest each document's pin RESOLVES to today — the document's own
+ * `resolvedMaterialSha256`, read back from the file (W30 G3; claims §5.159).
  *
- * A document's `resolvedMaterialSha256` is the digest it was SEALED at. W30's
- * operator wave added eight leaves to the renderer's default at values that are
+ * It was the supersession record's `currentSha256` for exactly one wave. W30 G2
+ * added eight operator leaves to the renderer's default at values that are
  * algebraic identities, which moved every document's resolved fingerprint while
- * moving no pixel — and no document's bytes were edited, because
- * `adopted-thresholds.test.ts` hashes those bytes and an edit would empty that
- * document's rows out of every bound (G2 measured it: 230 gated cells across six
- * profiles, 23 red cases).
+ * moving no pixel; it could not re-seal these four, because
+ * `adopted-thresholds.test.ts` hashes the documents' bytes and moving them would
+ * have emptied the 455 committed macOS 27 rows out of every bound before a read
+ * existed to replace them. So Decision Log 4 (a) recorded the interval in
+ * `profiles/digest-supersessions.json` and 4 (b) ruled that a re-seal and its
+ * canonical read land in ONE merge from then on.
  *
- * The module below reports what actually DRAWS, because that is what
- * `root.material` is for, so it takes the current digest. The document's own
- * field stays the reading it was sealed at.
+ * W30 G3 is that merge: it gives the eight leaves values, re-seals these four
+ * documents and reads the whole bed at those bytes. Their own fields are their
+ * current digests again, the four records are retired, and the interval's
+ * readings live in each document's `$comment-sha-history`. The two frozen macOS
+ * 26.5 documents keep their records permanently, because their bytes can never
+ * move.
  *
- * `packages/calibration/test/tuned-profiles.test.ts` pins both halves of all six
- * records against the materials themselves, each through the construction its
- * own document was sealed under — the four patch documents over the renderer's
- * default, the two receded ones over the ACTIVE document of their scheme. That
- * independence is the point: `macos27-profile-export.test.ts` compares this
- * module to the record it was generated from, which on its own would pin a
- * generated constant to its own source (W30 G2 review closure, claims §5.158 §8,
+ * `packages/calibration/test/tuned-profiles.test.ts` recomputes every digest
+ * from the materials themselves, each through the construction its own document
+ * was sealed under — the two active documents over the renderer's default, the
+ * two receded ones over the ACTIVE document of their scheme — so the chain ends
+ * at a material and not at a field (W30 G2 review closure, claims §5.158 §8,
  * finding 1).
  */
-const supersessions = JSON.parse(
-  readFileSync(join(profiles, "digest-supersessions.json"), "utf8"),
-).supersessions;
-
-const currentDigest = (key) => {
-  const record = supersessions.find((entry) => entry.profileKey === key);
-  if (record === undefined) {
-    throw new Error(`${key}: no digest supersession recorded beside the document`);
+const currentDigest = (document) => {
+  const digest = document.resolvedMaterialSha256;
+  if (typeof digest !== "string") {
+    throw new Error(`${document.profileKey}: no resolvedMaterialSha256 in the document`);
   }
-  return record.currentSha256;
+  return digest;
 };
 
 const light = read("apple-macos-27.0-1x-light-standard-glass0.5");
@@ -202,10 +200,10 @@ export const macos27CssTierMapping: Partial<CssTierMapping> = ${print(mapping, "
  * back from the browser.
  */
 export const MACOS_27_RESOLVED_MATERIAL_SHA256 = {
-  light: ${JSON.stringify(currentDigest(light.profileKey))},
-  dark: ${JSON.stringify(currentDigest(dark.profileKey))},
-  recededLight: ${JSON.stringify(currentDigest(recededLight.profileKey))},
-  recededDark: ${JSON.stringify(currentDigest(recededDark.profileKey))},
+  light: ${JSON.stringify(currentDigest(light))},
+  dark: ${JSON.stringify(currentDigest(dark))},
+  recededLight: ${JSON.stringify(currentDigest(recededLight))},
+  recededDark: ${JSON.stringify(currentDigest(recededDark))},
 } as const;
 `;
 

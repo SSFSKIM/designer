@@ -16,7 +16,16 @@
     "first ordinate is identified by no UNTINTED calibration cell — the bed's only",
     "calibration cell at that abscissa is tinted — and it was moved on the two",
     "untinted `impulse` VALIDATION cells before that was noticed, so for that one",
-    "ordinate those two cells are not an independent check."
+    "ordinate those two cells are not an independent check.",
+    "",
+    "W30 G3 (claims §5.159) moves this block's seven amplitude leaves with the",
+    "active document's, leaf for leaf — on macOS 27 the recede KEEPS the outer",
+    "shadow rather than removing it (claims §5.154 §5), so the receded pose casts",
+    "the active document's shadow at the receded document's own amplitudes. The σ",
+    "law's three leaves are NOT named here: a receded document is a difference over",
+    "the active document of its own scheme and `withMaterialOverrides` merges the",
+    "`outerShadow` block leaf by leaf, so a leaf this document does not name is the",
+    "active document's own. One law, one copy."
   ],
   "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5-receded",
   "schemaVersion": 1,
@@ -59,11 +68,11 @@
     "rimCollapsedTinted": 0,
     "outerShadow": {
       "thinOcclusionDark": 0,
-      "thinOcclusionMid": 0.05,
-      "thinOcclusionBright": 0.041,
-      "thickOcclusionAt96": 0.111,
-      "thickOcclusionAt128": 0.202,
-      "thickOcclusionAt160": 0.293,
+      "thinOcclusionMid": 0.068,
+      "thinOcclusionBright": 0.0683,
+      "thickOcclusionAt96": 0.1158,
+      "thickOcclusionAt128": 0.1827,
+      "thickOcclusionAt160": 0.26,
       "liftAmplitude": 0.001,
       "reducedTransparencyOcclusion": 0.087
     },
@@ -159,6 +168,9 @@
       "method": "See `theRecedeNoLongerRemovesTheShadow` in fitted-receded.json. The block is this document's own active document's, leaf for leaf; the residual over the eight identified inactive cells is 0.00045 mean absolute at a signed mean of +0.00009."
     }
   },
-  "resolvedMaterialSha256": "8dc63b265c1de038",
-  "resolvedOverActiveDocument": "apple-macos-27.0-1x-light-standard-glass0.5.json"
+  "resolvedMaterialSha256": "d8015c2587126d08",
+  "resolvedOverActiveDocument": "apple-macos-27.0-1x-light-standard-glass0.5.json",
+  "$comment-sha-history": [
+    "8dc63b265c1de038 — sealed by W29 G3b (claims §5.154 §7). Between that seal and this one, W30 G2's eight inert operator leaves moved what this document's pin RESOLVES to without moving its bytes, and profiles/digest-supersessions.json recorded the interval's reading as 035f537d9c27e3ed (claims §5.158 §3). This document is re-sealed at d8015c2587126d08 by W30 G3, which gives those leaves values (claims §5.159); the macOS 27 records leave that file in the same commit and the two frozen macOS 26.5 records stay."
+  ]
 }

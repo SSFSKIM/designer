@@ -9,7 +9,16 @@
     "Fitted on the ten inactive CALIBRATION rows of",
     "apple-macos-27.0-1x-dark-standard-glass0.5 and checked on validation. Its dark",
     "anchor is at the bottom of the response's range and is a FLOOR rather than a",
-    "fit: see the entry below."
+    "fit: see the entry below.",
+    "",
+    "W30 G3 (claims §5.159) moves this block's seven amplitude leaves with the",
+    "active document's, leaf for leaf — on macOS 27 the recede KEEPS the outer",
+    "shadow rather than removing it (claims §5.154 §5), so the receded pose casts",
+    "the active document's shadow at the receded document's own amplitudes. The σ",
+    "law's three leaves are NOT named here: a receded document is a difference over",
+    "the active document of its own scheme and `withMaterialOverrides` merges the",
+    "`outerShadow` block leaf by leaf, so a leaf this document does not name is the",
+    "active document's own. One law, one copy."
   ],
   "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5-receded",
   "schemaVersion": 1,
@@ -53,11 +62,11 @@
     "rimCollapsedTinted": 0,
     "outerShadow": {
       "thinOcclusionDark": 0,
-      "thinOcclusionMid": 0.032,
-      "thinOcclusionBright": 0.032,
-      "thickOcclusionAt96": 0.126,
-      "thickOcclusionAt128": 0.229,
-      "thickOcclusionAt160": 0.333,
+      "thinOcclusionMid": 0.0455,
+      "thinOcclusionBright": 0.0537,
+      "thickOcclusionAt96": 0.133,
+      "thickOcclusionAt128": 0.2263,
+      "thickOcclusionAt160": 0.3409,
       "liftAmplitude": 0.0005,
       "reducedTransparencyOcclusion": 0.038
     },
@@ -143,6 +152,9 @@
       "method": "See `theRecedeNoLongerRemovesTheShadow` in fitted-receded.json. The block is this document's own active document's, leaf for leaf."
     }
   },
-  "resolvedMaterialSha256": "3264b6cdde64bc8b",
-  "resolvedOverActiveDocument": "apple-macos-27.0-1x-dark-standard-glass0.5.json"
+  "resolvedMaterialSha256": "8c85774d161fcbaa",
+  "resolvedOverActiveDocument": "apple-macos-27.0-1x-dark-standard-glass0.5.json",
+  "$comment-sha-history": [
+    "3264b6cdde64bc8b — sealed by W29 G3b (claims §5.154 §7). Between that seal and this one, W30 G2's eight inert operator leaves moved what this document's pin RESOLVES to without moving its bytes, and profiles/digest-supersessions.json recorded the interval's reading as 4763b0d195fdb077 (claims §5.158 §3). This document is re-sealed at 8c85774d161fcbaa by W30 G3, which gives those leaves values (claims §5.159); the macOS 27 records leave that file in the same commit and the two frozen macOS 26.5 records stay."
+  ]
 }

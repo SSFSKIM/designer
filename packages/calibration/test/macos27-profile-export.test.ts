@@ -149,16 +149,23 @@ describe("the shipped macOS 27 material and the macOS 27 profile documents", () 
      * — and a digest that did not come from the document it claims would make
      * that readout a decoration.
      *
-     * Since W30 G2 the digest an endpoint reports is the CURRENT one, read from
-     * `profiles/digest-supersessions.json`, and not the document's own field
-     * (W30 Decision Log 1 (a) and 4 (a); claims §5.158). The wave added eight
-     * leaves to the renderer's default at values that are algebraic identities,
-     * which moves a digest taken over the fully resolved material while moving
-     * no pixel — and no document's bytes were edited, because
-     * `adopted-thresholds.test.ts` hashes those bytes and an edit empties that
-     * document's rows out of every bound. So the document's field is the reading
-     * it was sealed at, the record beside it is what the pin resolves to now,
-     * and this readout names what draws. Both halves are asserted here.
+     * For exactly one wave the digest an endpoint reported was the CURRENT one,
+     * read from `profiles/digest-supersessions.json` rather than from the
+     * document's own field: W30 G2 added eight operator leaves to the renderer's
+     * default at values that are algebraic identities, which moves a digest
+     * taken over the fully resolved material while moving no pixel, and it could
+     * not re-seal these four because `adopted-thresholds.test.ts` hashes their
+     * bytes and moving them would have emptied their bed out of every bound
+     * before a read existed to replace them (claims §5.158 §4).
+     *
+     * **W30 G3 closed that interval** (Decision Log 4 (b); claims §5.159): it
+     * gave the eight leaves values, re-sealed these four documents and read the
+     * whole bed at those bytes in the same commit, so each document's own field
+     * is its current digest again and the four records are retired. The two
+     * frozen macOS 26.5 documents keep theirs, because their bytes cannot move.
+     * `tuned-profiles.test.ts` recomputes all six from the materials themselves,
+     * each through its own construction, so this case's equality ends at a
+     * material and not at a field.
      */
     const endpoints = [
       [macos27MaterialProfileDocument.active.light, LIGHT],
@@ -168,9 +175,10 @@ describe("the shipped macOS 27 material and the macOS 27 profile documents", () 
     ] as const;
     for (const [endpoint, document] of endpoints) {
       expect(endpoint.profileKey).toBe(document.profileKey);
-      const record = supersessionFor(document.profileKey);
-      expect(document.resolvedMaterialSha256).toBe(record.recordedSha256);
-      expect(endpoint.resolvedMaterialSha256).toBe(record.currentSha256);
+      expect(endpoint.resolvedMaterialSha256).toBe(document.resolvedMaterialSha256);
+      // And no macOS 27 document carries a supersession record any more: the
+      // exemption's indirection is the frozen pair's alone.
+      expect(() => supersessionFor(document.profileKey)).toThrow();
     }
   });
 });

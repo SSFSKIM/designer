@@ -1,0 +1,44 @@
+{
+  "$comment": [
+    "W30 G3 — the shadow fit's first candidate. The sigma law is the constrained",
+    "joint least squares of `shadow-law.py` (B1's windows as the constraint set,",
+    "sigmaSpanRefPx held at 96 per Decision Log 3 (c), sigmaPx refitted as the",
+    "sigma at span 96, the floor placed at the line's own value at span 44 so the",
+    "derived knee lands there). The seven amplitude leaves are the NATIVE falloff",
+    "amplitude per regime read off W30 G0's cut — the reader's amplitude is the",
+    "model's occlusion at the contour and is sigma-independent by construction, and",
+    "the shipped anchors and vitrea's read amplitudes agree to about 1 % on the",
+    "light bed, so the native amplitude is the anchor's target and not merely its",
+    "direction (claims §5.156 §2).",
+    "",
+    "It is a candidate, not a fit: the departure the rendered round measures is",
+    "what settles the anchors, and this round's job is to give the geometry factor",
+    "per regime at a known amplitude."
+  ],
+  "light": {
+    "sigmaPx": 8.9,
+    "sigmaSlopePerSpan": 0.1304,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.7808,
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.185,
+    "thinOcclusionBright": 0.099,
+    "thickOcclusionAt96": 0.106,
+    "thickOcclusionAt128": 0.181,
+    "thickOcclusionAt160": 0.258,
+    "liftAmplitude": 0.001
+  },
+  "dark": {
+    "sigmaPx": 9.11,
+    "sigmaSlopePerSpan": 0.1319,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8588,
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.163,
+    "thinOcclusionBright": 0.032,
+    "thickOcclusionAt96": 0.154,
+    "thickOcclusionAt128": 0.263,
+    "thickOcclusionAt160": 0.381,
+    "liftAmplitude": 0.0005
+  }
+}

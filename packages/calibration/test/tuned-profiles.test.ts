@@ -376,18 +376,28 @@ describe("tuned calibration profiles", () => {
     );
     /*
      * The exemption is spent ONCE (W29 Decision Log 7 (a)), and the record is
-     * exactly the six SHIPPED documents — no more and no fewer (W30 Decision Log
-     * 4 (a)). A seventh entry is a second exemption, which needs a new grant
-     * from the user and not a test that quietly accepts it; a missing entry is a
-     * document whose pin nothing resolves.
+     * exactly the two FROZEN documents — no more and no fewer. A third entry is
+     * a second exemption, which needs a new grant from the user and not a test
+     * that quietly accepts it; a missing entry is a document whose pin nothing
+     * resolves.
+     *
+     * It was six for one wave (W30 Decision Log 4 (a)). G2 could not re-seal the
+     * four macOS 27 documents, because `adopted-thresholds.test.ts` hashes the
+     * documents' bytes and moving them would have emptied the 455 committed
+     * macOS 27 rows out of every bound before a read existed to replace them
+     * (claims §5.158 §4). Decision Log 4 (b) therefore ruled that a re-seal and
+     * its canonical read land in ONE merge, and W30 G3 is that merge: the four
+     * were re-sealed at the fitted operators and read at those bytes in the same
+     * commit (claims §5.159), so their own fields are their current digests
+     * again and the four records are RETIRED. The interval's readings are kept
+     * in each document's own `$comment-sha-history`.
+     *
+     * The two below are permanent. A frozen document's bytes can never move, so
+     * its pin will always need the indirection this record is.
      */
     expect(DIGEST_SUPERSESSIONS.map((entry) => entry.profileKey).sort()).toEqual([
       "apple-macos-26.5-1x-dark-standard",
       "apple-macos-26.5-1x-light-standard",
-      "apple-macos-27.0-1x-dark-standard-glass0.5",
-      "apple-macos-27.0-1x-dark-standard-glass0.5-receded",
-      "apple-macos-27.0-1x-light-standard-glass0.5",
-      "apple-macos-27.0-1x-light-standard-glass0.5-receded",
     ]);
   });
 
@@ -405,49 +415,75 @@ describe("tuned calibration profiles", () => {
      * they were recorded while two new documents patch the same default (X1).
      */
     for (const profile of [LIGHT_27, DARK_27]) {
-      const record = supersessionFor(profile.profileKey);
       const resolved = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, profile.patch);
       expect(
         fingerprint(resolved),
-        `${profile.profileKey}: the resolved material no longer matches the recorded ` +
-          `fingerprint — re-run results/2026-09-20-w30-g2-leaves/reseal.ts and say in the ` +
-          `record what moved`,
-      ).toBe(record.currentSha256);
-      expect(profile.resolvedMaterialSha256).toBe(record.recordedSha256);
+        `${profile.profileKey}: the resolved material no longer matches the document's own ` +
+          `fingerprint — re-run results/2026-09-20-w30-g3-operators/seal.ts and say in the ` +
+          `document's $comment-sha-history what moved`,
+      ).toBe(profile.resolvedMaterialSha256);
       expect(profile.identityWithRuntimeDefault).toBeUndefined();
       expect(resolved).not.toEqual(DEFAULT_MATERIAL_PROFILE);
     }
-    // The four materials, compared at the digests the four documents actually
-    // resolve to. This is the load-bearing half: if a macOS 27 document ever
-    // resolved to a macOS 26.5 digest, the refit would have landed on nothing.
-    const digests = [LIGHT, DARK, LIGHT_27, DARK_27].map(
-      (profile) => supersessionFor(profile.profileKey).currentSha256,
-    );
+    /*
+     * The four materials, compared at the digests the four documents actually
+     * resolve to. This is the load-bearing half: if a macOS 27 document ever
+     * resolved to a macOS 26.5 digest, the refit would have landed on nothing.
+     *
+     * The two macOS 26.5 readings come from the record and the two macOS 27 ones
+     * from the documents' own fields, which is the asymmetry W30 G3 left behind
+     * and not an inconsistency: a frozen document cannot carry its current
+     * digest and an unfrozen one does.
+     */
+    const digests = [
+      supersessionFor(LIGHT.profileKey).currentSha256,
+      supersessionFor(DARK.profileKey).currentSha256,
+      LIGHT_27.resolvedMaterialSha256,
+      DARK_27.resolvedMaterialSha256,
+    ];
     expect(new Set(digests).size, "four documents, four materials").toBe(4);
   });
 
-  it("recomputes all SIX records from the materials, each through its own construction", () => {
+  it("recomputes all SIX shipped digests from the materials, each through its own construction", () => {
     /*
-     * The record's independence (W30 G2 review closure; claims §5.158 §8,
+     * The digests' independence (W30 G2 review closure; claims §5.158 §8,
      * finding 1).
      *
-     * The two cases above recompute four of the six. The receded pair were pinned
-     * only where the generated module was compared to the record it had been
-     * generated from, which is a constant pinned to its own source, and the record
-     * itself had been written by a script that took both receded digests over the
-     * recede alone. Nothing in the suite could see it: every reader agreed with
-     * every other, and all of them agreed with a material no root ever draws.
+     * The receded pair were once pinned only where the generated module was
+     * compared to the record it had been generated from, which is a constant
+     * pinned to its own source, and the record itself had been written by a
+     * script that took both receded digests over the recede alone. Nothing in
+     * the suite could see it: every reader agreed with every other, and all of
+     * them agreed with a material no root ever draws.
      *
      * So this case computes each of the six from the documents on disk, through
-     * the construction the document names, and asserts both readings. A receded
-     * document is a difference over the ACTIVE document of its own scheme — the
-     * page merges the active patch over the renderer's default and the receded
-     * patch over that, and the digest is over the result.
+     * the construction the document names, and asserts it against the digest
+     * that document's pin resolves to. A receded document is a difference over
+     * the ACTIVE document of its own scheme — the page merges the active patch
+     * over the renderer's default and the receded patch over that, and the
+     * digest is over the result.
+     *
+     * **Where that digest lives differs by document, since W30 G3.** The four
+     * macOS 27 documents were re-sealed at the fitted operators and read at
+     * those bytes in the same commit (Decision Log 4 (b); claims §5.159), so
+     * each carries its own current digest in its own field. The two frozen macOS
+     * 26.5 documents cannot: their bytes are an input to every bound stated over
+     * that bed, so their current digests stay in the record beside them,
+     * permanently.
      */
-    expect(DIGEST_SUPERSESSIONS.length).toBe(6);
-    for (const record of DIGEST_SUPERSESSIONS) {
-      const document = load(record.profileKey);
-      const over = record.resolvedOverActiveDocument;
+    const SHIPPED = [
+      "apple-macos-26.5-1x-light-standard",
+      "apple-macos-26.5-1x-dark-standard",
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "apple-macos-27.0-1x-light-standard-glass0.5-receded",
+      "apple-macos-27.0-1x-dark-standard-glass0.5-receded",
+    ] as const;
+    expect(DIGEST_SUPERSESSIONS.length).toBe(2);
+    const current: string[] = [];
+    for (const key of SHIPPED) {
+      const document = load(key);
+      const over = document.resolvedOverActiveDocument;
       const base =
         over === undefined
           ? DEFAULT_MATERIAL_PROFILE
@@ -455,43 +491,42 @@ describe("tuned calibration profiles", () => {
               DEFAULT_MATERIAL_PROFILE,
               load(over.replace(/\.json$/, "")).patch,
             );
-      const resolved = withMaterialOverrides(base, document.patch);
+      const resolved = fingerprint(withMaterialOverrides(base, document.patch));
+      const frozen = key.startsWith("apple-macos-26.5-");
+      const record = frozen ? supersessionFor(key) : undefined;
+      if (record !== undefined) {
+        expect(document.resolvedMaterialSha256, `${key}: a frozen document's digest moved`).toBe(
+          record.recordedSha256,
+        );
+      }
       expect(
-        document.resolvedMaterialSha256,
-        `${record.profileKey}: the document's own digest moved`,
-      ).toBe(record.recordedSha256);
-      expect(
-        fingerprint(resolved),
-        `${record.profileKey}: the material this document resolves to — composed over ` +
-          `${over ?? "DEFAULT_MATERIAL_PROFILE"} — does not fingerprint to the record's ` +
-          `currentSha256; re-run results/2026-09-20-w30-g2-leaves/reseal.ts`,
-      ).toBe(record.currentSha256);
-      // The record's own `resolvedOverActiveDocument` is the document's, not a
-      // second opinion about it.
-      expect(over).toBe(document.resolvedOverActiveDocument);
+        resolved,
+        `${key}: the material this document resolves to — composed over ` +
+          `${over ?? "DEFAULT_MATERIAL_PROFILE"} — does not fingerprint to the digest its pin ` +
+          `resolves to; re-run results/2026-09-20-w30-g3-operators/seal.ts`,
+      ).toBe(record === undefined ? document.resolvedMaterialSha256 : record.currentSha256);
+      current.push(resolved);
     }
 
     /*
      * And the construction is DISCRIMINATING, which is what makes the loop above
      * a check rather than a restatement: for a receded document the two
      * compositions give different digests, so taking the wrong one cannot pass.
-     * These are the two readings the first record carried.
      */
-    for (const record of DIGEST_SUPERSESSIONS) {
-      if (record.resolvedOverActiveDocument === undefined) continue;
-      const overDefaultAlone = fingerprint(
-        withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, load(record.profileKey).patch),
+    for (const key of SHIPPED) {
+      const document = load(key);
+      if (document.resolvedOverActiveDocument === undefined) continue;
+      expect(fingerprint(withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, document.patch))).not.toBe(
+        document.resolvedMaterialSha256,
       );
-      expect(overDefaultAlone).not.toBe(record.currentSha256);
     }
     expect(
-      DIGEST_SUPERSESSIONS.filter((record) => record.resolvedOverActiveDocument !== undefined)
-        .length,
+      SHIPPED.filter((key) => load(key).resolvedOverActiveDocument !== undefined).length,
       "two receded documents, each a difference over its scheme's active one",
     ).toBe(2);
     // Six documents, six materials: no two of them resolve to the same thing.
-    expect(new Set(DIGEST_SUPERSESSIONS.map((record) => record.currentSha256)).size).toBe(6);
-    expect(new Set(DIGEST_SUPERSESSIONS.map((record) => record.recordedSha256)).size).toBe(6);
+    expect(new Set(current).size).toBe(6);
+    expect(new Set(SHIPPED.map((key) => load(key).resolvedMaterialSha256)).size).toBe(6);
   });
 
   it("records the measured light-scheme tint alpha, not the advisory one", () => {

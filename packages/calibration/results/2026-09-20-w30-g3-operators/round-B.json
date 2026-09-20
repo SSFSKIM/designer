@@ -1,0 +1,53 @@
+{
+  "$comment": [
+    "W30 G3 — the shadow fit's second candidate. The sigma law is round A's and",
+    "does not move: it is the constrained joint least squares against B1's own",
+    "windows and it is a closed form, not a residual. What moves is the seven",
+    "amplitude leaves, each solved from round A's own departure per regime —",
+    "`anchor_wanted = anchor_rendered * (departure_native / departure_web)`, which",
+    "is exact while the departure is linear in the composited alpha at a fixed",
+    "geometry, and the geometry is fixed because the sigma law did not move.",
+    "",
+    "Round A's reading, for the record: on the light document the three thick",
+    "regimes came back at 1.109 / 1.011 / 1.011 and the two thin ones at 0.373 and",
+    "0.735 — the thick anchors were already within a percent of the energy the",
+    "native carries at the fitted sigma and the thin ones were carrying two to",
+    "three times too much, which is the shape the sigma change predicts: a narrow",
+    "shadow at a thin caster keeps its energy OUTSIDE the declared region where an",
+    "11 px one buried much of it under the surface. On the dark document all three",
+    "thick regimes came back together at 0.860 / 0.849 / 0.879, which is a uniform",
+    "scale and not a shape error.",
+    "",
+    "`thinOcclusionDark` stays exactly 0: over `dark-solid` and `impulse` the",
+    "native removes at most one or two of 255 codes and round A reads a native",
+    "departure of -0.00016, so a ratio of two numbers that are both zero is not a",
+    "solve. `liftAmplitude` does not move either — it is the thick anchors' trade",
+    "partner and the thick regimes need no shape change, only a scale."
+  ],
+  "light": {
+    "sigmaPx": 8.9,
+    "sigmaSlopePerSpan": 0.1304,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.7808,
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0691,
+    "thinOcclusionBright": 0.0728,
+    "thickOcclusionAt96": 0.1176,
+    "thickOcclusionAt128": 0.183,
+    "thickOcclusionAt160": 0.2608,
+    "liftAmplitude": 0.001
+  },
+  "dark": {
+    "sigmaPx": 9.11,
+    "sigmaSlopePerSpan": 0.1319,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8588,
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.047,
+    "thinOcclusionBright": 0.0577,
+    "thickOcclusionAt96": 0.1324,
+    "thickOcclusionAt128": 0.2232,
+    "thickOcclusionAt160": 0.3348,
+    "liftAmplitude": 0.0005
+  }
+}

@@ -19,7 +19,15 @@
     "nothing else. The shadow is the one law G2 never read and G3 was therefore",
     "forbidden to follow (§5.153 §5); it is read native-against-native in",
     "`results/2026-09-19-w29-g3b-shadow-recede/` and the constants are fitted on the",
-    "departure the shadow axis measures. Every other key below is G3's, unchanged."
+    "departure the shadow axis measures. Every other key below is G3's, unchanged.",
+    "",
+    "W30 G3 (claims §5.159; charter Decision Log 2 (b), 3 (c), 4 (b)) gives W30 G2's",
+    "eight inert operator leaves their values and refits the `outerShadow` block",
+    "jointly with them. The outer shadow's σ is now a function of the CASTING SPAN —",
+    "macOS 27 blurs it wider under a wider surface — and the six occlusion anchors",
+    "and `liftAmplitude` are refitted beside it, because their values carried the",
+    "compensation for the one σ this document shipped. Nothing outside the",
+    "`outerShadow` block and the scatter's five leaves moves."
   ],
   "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
   "schemaVersion": 1,
@@ -28,7 +36,7 @@
   "colorSpace": "srgb",
   "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
   "supersedes": "apple-macos-26.5-1x-light-standard",
-  "resolvedMaterialSha256": "e825cb034c9070e4",
+  "resolvedMaterialSha256": "3a2513742936ceb1",
   "measurement": {
     "fixtures": "apps/reference-apple/fixtures/apple-macos-27.0-1x-light-standard-glass0.5 and -2x-, the W29 G1 bed at seven runs per cell, slider 0.5",
     "cellsUsedForFitting": 64,
@@ -82,20 +90,23 @@
     "tintShadeStrength": 1,
     "outerShadow": {
       "thinOcclusionDark": 0,
-      "thinOcclusionMid": 0.05,
-      "thinOcclusionBright": 0.041,
-      "thickOcclusionAt96": 0.111,
-      "thickOcclusionAt128": 0.202,
-      "thickOcclusionAt160": 0.293,
+      "thinOcclusionMid": 0.068,
+      "thinOcclusionBright": 0.0683,
+      "thickOcclusionAt96": 0.1158,
+      "thickOcclusionAt128": 0.1827,
+      "thickOcclusionAt160": 0.26,
       "liftAmplitude": 0.001,
       "liftSpanMin": 64,
       "liftSpanFull": 118,
       "liftBlurSigmaCss": 40,
       "reducedTransparencyOcclusion": 0.087,
       "offsetPx": 7.95,
-      "sigmaPx": 11,
+      "sigmaPx": 8.96,
       "spreadPx": 3.1,
-      "sizeGain": 0
+      "sizeGain": 0,
+      "sigmaSlopePerSpan": 0.1314,
+      "sigmaSpanRefPx": 96,
+      "sigmaThinOffsetPx": -6.8328
     },
     "backdropToneLow": 0,
     "increasedOcclusionLift": 0.75,
@@ -157,7 +168,12 @@
       -0.7071
     ],
     "collapseTransmission": 0.017,
-    "collapseTransmission2x": 0.07
+    "collapseTransmission2x": 0.07,
+    "sizeHeavySecondSigma": 0,
+    "sizeHeavySecondSigma2x": 0,
+    "sizeHeavySecondShare": 0,
+    "sizeScatterScaleGain": 0,
+    "sizeScatterScaleRef": 0.03
   },
   "entries": {
     "backdropToneAdaptation": {
@@ -438,6 +454,128 @@
         "liftAmplitude": 0.01,
         "reducedTransparencyOcclusion": 0.197
       }
+    },
+    "outerShadowSpanGraded": {
+      "status": "measured",
+      "value": {
+        "sigmaPx": 8.96,
+        "sigmaSlopePerSpan": 0.1314,
+        "sigmaSpanRefPx": 96,
+        "sigmaThinOffsetPx": -6.8328,
+        "thinOcclusionMid": 0.068,
+        "thinOcclusionBright": 0.0683,
+        "thickOcclusionAt96": 0.1158,
+        "thickOcclusionAt128": 0.1827,
+        "thickOcclusionAt160": 0.26,
+        "liftAmplitude": 0.001
+      },
+      "previous": {
+        "sigmaPx": 11,
+        "thinOcclusionMid": 0.05,
+        "thinOcclusionBright": 0.041,
+        "thickOcclusionAt96": 0.111,
+        "thickOcclusionAt128": 0.202,
+        "thickOcclusionAt160": 0.293
+      },
+      "method": [
+        "W30 G3 (claims §5.159) fits the σ law W30 G2 landed inert and refits the six",
+        "occlusion anchors and liftAmplitude jointly with it.",
+        "",
+        "THE LAW. sigma_css(span) = sigmaPx + max(sigmaThinOffsetPx,",
+        "sigmaSlopePerSpan * (span - sigmaSpanRefPx)), evaluated per CASTER on both",
+        "tiers. sigmaSpanRefPx is HELD at 96 (Decision Log 3 (c)) because the law has a",
+        "flat direction — shifting sigmaPx, sigmaThinOffsetPx and sigmaSpanRefPx",
+        "together leaves sigma unchanged at every span — and sigmaPx is refitted as the",
+        "sigma at span 96, which is the span every bed carries sixteen cells at and the",
+        "span thickOcclusionAt96 is keyed to.",
+        "",
+        "THE OBJECTIVE, and why it is not the departure. B1 is stated on the law's",
+        "closed form against each bed's median NATIVE sigma, so the law is solved from",
+        "W30 G0's cut before a candidate is rendered. Four objectives were computed",
+        "(results/2026-09-20-w30-g3-operators/shadow-law.txt) and the adopted one is the",
+        "point that maximises the smaller of B1's and B2's normalised slacks with the",
+        "slope held inside the range the served beds measure for themselves. An absolute",
+        "least squares lands the light document OUTSIDE B1's joint window, because a",
+        "squared absolute residual weights a span-160 observation four times a span-96",
+        "one and B1 is a relative clause; the window-constrained fit lands exactly on",
+        "the window's boundary.",
+        "",
+        "THE FLOOR is a DECLARED reading and not a fit (Decision Log 2 (b)):",
+        "sigmaThinOffsetPx is sigmaSlopePerSpan * (44 - 96) exactly, which puts the",
+        "derived knee at span 44 and the floor at the thick line's own value there. The",
+        "thin cells are a position on the instrument's valley — the (amplitude, sigma)",
+        "pair trades at a constant product and the thin sigma bifurcates on the author's",
+        "TINT, which the material's blur cannot depend on.",
+        "",
+        "THE ANCHORS are solved from the shadow axis's meanDeparture per regime,",
+        "anchor * (departure_native / departure_web), which is exact while the departure",
+        "is linear in the composited alpha at a fixed geometry. Three rounds; the",
+        "linearity holds to 2 % in every regime of both documents. thinOcclusionDark",
+        "stays exactly 0 (the native removes at most one or two of 255 codes over",
+        "dark-solid and impulse) and liftAmplitude does not move (the thick regimes",
+        "needed a scale, not a shape). thickOcclusionAt160 is FITTED here for the first",
+        "time, on the pitch ladder's ten span-160 rungs per standard bed — it was the",
+        "linear extrapolation from two anchors on 26.5 and on 27 until now.",
+        "",
+        "WHAT DOES NOT MOVE, and what it costs. reducedTransparencyOcclusion is outside",
+        "contract X3 and stays at its W29 G3b value, so the reduced-transparency and",
+        "coupled-contrast beds' shadow moves through sigma alone. offsetPx stays at 7.95",
+        "and is the residual the thin regime's read sigma is now dominated by: the",
+        "native offset is span-graded like the sigma was — 3.0 to 4.5 CSS px at spans 32",
+        "and 44 against 7.5 to 8.0 at 96 and above — so at a thin caster vitrea's",
+        "exterior is dominated by a silhouette displaced about twice as far as Apple's.",
+        "That is the next span-graded length and §5.159 names it."
+      ]
+    },
+    "scatterScaleSelectivity": {
+      "status": "declined",
+      "value": {
+        "sizeHeavySecondSigma": 0,
+        "sizeHeavySecondSigma2x": 0,
+        "sizeHeavySecondShare": 0,
+        "sizeScatterScaleGain": 0,
+        "sizeScatterScaleRef": 0.03
+      },
+      "previous": {
+        "sizeHeavySecondSigma": 0,
+        "sizeHeavySecondSigma2x": 0,
+        "sizeHeavySecondShare": 0,
+        "sizeScatterScaleGain": 0,
+        "sizeScatterScaleRef": 0
+      },
+      "method": [
+        "W30's scale-selective scatter (claims §5.156 §3, §5.158 §1, §5.159 §4), read",
+        "on the pitch ladder at a macOS 27 document for the first time — the reading W30",
+        "G0 could not have, because the macOS 27 generation of results/matrix.json",
+        "carried no probe row at all.",
+        "",
+        "Five probe rounds. Candidate (i), the second heavy tap, is DECLINED on both",
+        "documents and candidate (ii), the scale gain about a reference, is adopted on",
+        "the dark document and declined on the light one. Both declines are",
+        "measurements:",
+        "",
+        "- Candidate (i) cannot reach a pitch the FIRST heavy tap has already erased. A",
+        "  second tap at 30 CSS px against the first's 14, at a share of 0.5, moves the",
+        "  gated 16 px cell on 1x light by -0.0000. That is claims §5.158 §6's own trap,",
+        "  reproduced on the bed it was predicted for.",
+        "- A second tap NARROWER than the first adds mid-band structure, which is the",
+        "  wrong direction on the one bed in the whole capture that passes MORE",
+        "  structure than Apple does: 1x light goes 1.5670 -> 1.8247 on that cell.",
+        "- Candidate (ii)'s statistic is SCALE-INVARIANT by construction. The analysis",
+        "  reduction reads a fixed 64x64 grid off a mid-chain level, so one scene's edge",
+        "  density is the same number at both scales — measured 0.170 at dpr 1 against",
+        "  0.176 at dpr 2 on the dark bed's 16 px checkerboard. A per-source statistic",
+        "  that cannot tell the scales apart cannot act in opposite directions on them,",
+        "  which is what the light document's two beds need (1.567 and 0.425 on one",
+        "  cell). At a gain of +2 the light document's 1x bed lands inside B4's window",
+        "  and its 2x bed moves away from 1.0 by more; its two-bed ladder aggregate goes",
+        "  0.5781 -> 0.6271.",
+        "",
+        "The dark document takes -2 about 0.03, which moves both its beds toward 1.0 and",
+        "neither past it: the gated cell reads 0.7474 -> 0.9732 at 1x and 0.6367 ->",
+        "0.7665 at 2x. The reference is what keeps 1x below 1.0 — at a reference of 0",
+        "the same gain overshoots to 1.0222."
+      ]
     }
   },
   "cssTierMapping": {
@@ -447,5 +585,8 @@
       "clear": 1.95
     },
     "blurSigmaScale": 2.2
-  }
+  },
+  "$comment-sha-history": [
+    "e825cb034c9070e4 — sealed by W29 G3b (claims §5.154 §7). Between that seal and this one, W30 G2's eight inert operator leaves moved what this document's pin RESOLVES to without moving its bytes, and profiles/digest-supersessions.json recorded the interval's reading as 8d06a41cb70ba52f (claims §5.158 §3). This document is re-sealed at 3a2513742936ceb1 by W30 G3, which gives those leaves values (claims §5.159); the macOS 27 records leave that file in the same commit and the two frozen macOS 26.5 records stay."
+  ]
 }
