@@ -58,12 +58,15 @@ export function shouldWriteMatrix(failureCount: number, writePartial: boolean): 
  * written under a different schema can be neither read nor merged into. The
  * reader refuses it, correctly; what this predicate fixes is *when*.
  * Deserialisation happens after the capture step, so without an up-front check a
- * mismatched target costs a whole browser capture run before failing — and the
- * default target is `results/matrix.json`, which wave Decision Log 15 ruling 3
- * deliberately freezes at the schema the inactive-bed gate was adopted against.
- * During that interregnum the documented default invocation is precisely the one
- * that cannot succeed, so it should say so before doing any work rather than
- * after.
+ * mismatched target costs a whole browser capture run before failing.
+ *
+ * The committed `results/matrix.json` is at the schema this build writes, so the
+ * default invocation is not the case this guards: what it guards is a run sent at
+ * a matrix written under an older instrument — a scratch file, a matrix restored
+ * from a branch, or a committed matrix a future bump leaves behind, as wave
+ * Decision Log 15 ruling 3 deliberately did until the post-W8 pass re-read the
+ * bed. (Corrected 2026-09-20, W30 G1 review closure, c9a §5.157 §10: this
+ * paragraph still described that interregnum as the present.)
  *
  * A predicate rather than an assertion, so the CLIs that need it phrase the
  * refusal in their own terms and this file stays free of I/O.

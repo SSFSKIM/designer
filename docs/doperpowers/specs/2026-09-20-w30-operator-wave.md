@@ -28,7 +28,11 @@ it, which a positive mix of two Gaussians — monotone in frequency — cannot d
 changes sign with the colour scheme: on `checkerboard__rrect-md__rest` the WebGPU tier passes
 **1.77×** the native structure in light and **0.55×** in dark, the CSS tier 1.04× and 0.32×
 (§5.154 §9 (c); the tracker's "two tiers miss the backdrop's structure in opposite directions"). A
-scatter fitted on the light bed alone lands on the wrong side of the dark one. Three of the seven
+scatter fitted on the light bed alone lands on the wrong side of the dark one. Those four figures
+are the **sheets'** instrument — 0–255 luminance over the component's box inset 12 CSS px — and the
+matrix metric reads the same four cells 1.567 / 0.749 / 0.968 / 0.355, crossing 1.0 on the light CSS
+reading where the sheet does not; claims §5.156 §3 tables the two beside each other and says which
+one a test can pin, and B4 and `tier-coherence.test.ts` are written on the matrix's. Three of the seven
 rows 0.19.0 records as missed sit on the shadow's reach at the largest spans and on this residual.
 
 Both operators add leaves to the renderer's `DEFAULT_MATERIAL_PROFILE`, and every shipped document's
@@ -486,7 +490,9 @@ printed and a `--with-holdout` flag, so every reader this wave and later waves b
 
 Charter review → fold (done) → **G0 ∥ G1** → G1 merged; G0 merged; the parent rules any shape G0
 could not name (or G2 lands the spanning set) → **G2** (merged, reviewed, proofs confirmed by the
-parent) → **G3** → **G4** → the user's eye on the sheets → `pnpm release` (the user) → tag. After
+parent) → **G3** → **G4** → the user's eye on the sheets → `pnpm release` (the user) → tag.
+*Amended by Decision Log 4 (b): G3 fits, seals and reads (calibration + validation, the ladder,
+holdout once); G4 lands.* After
 this wave, in the order W29 Deferred kept: the chromatic-transmission child; the identifying sitting
 on the 27 bed; the highlight directionality reader; the decoupled-contrast flag and its read; the
 motion-metrics harness.
@@ -622,7 +628,7 @@ declarations — the part the wave is judged against. Ruled, for the review clos
   with the reference held. The inert default of `sigmaSpanRefPx` stays 0 (the identity does not
   depend on it); 96 is the fit's value, not the default's. B1 is joint across the beds one document
   serves: the light document must meet ±5 % on 1x, 2x, reduced transparency and coupled contrast at
-  once (window at span 96 **[8.897, 9.020]**, ±0.68 % effective), the dark on 1x and 2x
+  once (window at span 96 **[8.897, 9.020]**, ±0.68 % effective) — recomputed by the review closure at four decimals as **[8.8966, 9.0193]**, ±0.685 %; the figure here is the review's rounding, kept as written, the dark on 1x and 2x
   (**[8.908, 9.318]**); a law fitted to the 1x-light median alone fails the 2x-light bed at −6 %.
 - (d) **Decision Log 2 (a)'s ladder read is the shadow's evidence as much as the scatter's**: all ten
   fittable span-160 cells per standard bed are ladder probe rows, so without it the wave would seal
@@ -636,6 +642,40 @@ declarations — the part the wave is judged against. Ruled, for the review clos
   qualified as metric-carrying; `fit.py render` refusing a holdout set or scene without
   `--with-holdout` so the drop is end to end; `toStrictEqual` in the identity test; the same-scale
   split between `hc-text-7` and `checkerboard-8` recorded as evidence for candidate (ii).
+
+### Decision Log 4 — the parent, on G2's stop (2026-09-20): no document is re-sealed in G2, the supersession record covers all six shipped documents; a re-seal and its canonical read land in one merge, so G3 owns the read and G4 is the landing
+
+G2 landed the eight leaves as algebraic identities and then measured that re-sealing the four
+macOS 27 documents — the step the brief asked for because they are not frozen — empties the macOS
+27 half of the gated bed: `SHIPPED_DOCUMENT_HASHES` hashes every document's bytes and
+`atAShippedDocument` keeps only rows read at a current hash, so the 455 committed macOS 27 rows
+(230 gated cells across six profiles) leave every bound and count the moment the bytes move, and
+`adopted-thresholds.test.ts` goes red by 15 cases with `tier-coherence` by 8. This is the charter's
+own Surprise on the bed nobody checked. Ruled:
+
+- (a) **G2 re-seals nothing.** `packages/calibration/profiles/digest-supersessions.json` carries one
+  record per shipped document — six, not two: the two macOS 26.5 and the four macOS 27 — each with
+  the document's own `recordedSha256` and the `currentSha256` the pin resolves to over the default
+  that now carries the leaves. No document byte moves; every one of the 1,562 rows stays at a
+  current hash; the exemption is spent once, as one record beside the documents.
+  `scripts/generate-macos27-profile.mjs` reads the current digests from the record so that
+  `MACOS_27_RESOLVED_MATERIAL_SHA256` and `root.material` name what actually draws, and
+  `macos27-profile-export.test.ts` and `tuned-profiles.test.ts` (its "exactly two records" case
+  becomes "exactly the six shipped documents") move with it. Decision Log 1 (a)'s argument, taken
+  one step further, as the supersession shape itself was.
+- (b) **A re-seal and its canonical read land in the same merge**, so the gated bed is never empty
+  on main and no count is ever written down to zero to make a merge green. G3 therefore seals the
+  macOS 27 documents when it genuinely moves their material AND runs the canonical read at those
+  bytes in the same child — calibration + validation, the ladder probe rows of Decision Log 2 (a),
+  and the holdout **once** — with the sealed hashes recorded in §5.159 before the read, exactly as
+  W29 G3 and G3b did. G4 is the landing: the split's second application, the verdict carried into
+  `adopted-thresholds` where G0's tolerances passed, the toolbar seam, the tone stage, the demo,
+  0.20.0 prepared. Clause 5's "read once per frozen configuration" is unchanged in substance; its
+  owner moves from G4 to G3, and the Ordering map reads G2 → G3 (fit, seal, read) → G4 (landing).
+- (c) **"Binds nothing" is recorded as "costs nothing"**: a WGSL bind-group layout is one layout, so
+  the second heavy texture's binding exists at every draw and takes the placeholder view the first
+  heavy texture already takes when absent (W26's precedent); at share 0 there is no pool
+  allocation, no scratch, no separable pass and no sample. §5.158 says so plainly.
 
 ## Surprises & Discoveries
 
@@ -688,6 +728,62 @@ declarations — the part the wave is judged against. Ruled, for the review clos
 
 ## Revision Notes
 
+- 2026-09-20 (G1 review closure): **the split's review folded — no blocking finding, twelve items
+  closed** (claims §5.157 §10, a new Review closure section; evidence
+  `results/2026-09-20-w30-g1-split/classifier-selftest.txt` and `append-check.v2.txt`). Nothing
+  recorded was rewritten: every correction is a dated paragraph beside the text it corrects, and the
+  re-run append-check is committed as a second reading beside the first rather than over it. The
+  three that change what a later child does. (i) **The tool now holds X1 and its own reruns**: a row
+  of a frozen macOS 26.5 profile selected to move is refused before a byte is written, `apply`
+  requires `--evidence` and `--claims` explicitly — with no defaults, G4's rerun cannot overwrite
+  G1's before-manifest or label a new generation with G1's section — and every destination, index
+  entry and manifest is checked over the whole plan first. G4's invocation is written out in §5.157
+  §8, in the script's docstring and in `results/superseded/README.md`. (ii) **The naming rule now
+  covers the generation it could not name**: where only the receded document moved and the active one
+  still ships, the file is the compound `<active>-<receded>.json` with both hashes in the index,
+  produced rather than refused; `classifier-selftest.py` exercises that and four other shapes the bed
+  does not contain, including a `capturePath` carrying a third document clause, which is now refused
+  rather than judged on the clauses that happen to parse. (iii) **The demo's generation is a term in
+  the order, not a timestamp**: retiring the `capturedAt` tie-break moved `reportsFor`'s head for 210
+  of 312 (scene, scheme) pairs and for 20 of the 32 scenes the picker offers in the dark scheme, inert
+  only because `Stage.tsx` renders a report where a native capture exists and the 12 displayed dark
+  scenes each carry the dark primary row. `primacy` now ranks a row at the documents on disk ahead of
+  one that is not — profile, then tier, then generation — with the shipped hashes derived from the
+  documents' bytes at build time, so the page stays right in the interval between a capture that
+  appends a generation and the split that retires the one it superseded. Two items are **G4's** and
+  logged rather than fixed: the pair's three "macOS 26.5" labels beside a macOS 27 caption, and
+  `CLAUDE.md`'s retired "`rm results/matrix.json` … or reduce to the newest row per key" — both
+  clause 7's. And one the review did not find, because the closure's chain ran a suite G1's did
+  not: `pnpm --filter demo test:e2e` was **red**. G1's own copy names
+  `packages/calibration/results/superseded/` in an inline `<code>` inside a list item, one
+  unbreakable 346 px token in a 232 px line, and the page scrolled 94 CSS px sideways at 320 px —
+  `DESIGN.md` §9's reflow floor, failing. Attributed to G1 by re-running with the closure's only
+  page-affecting file reverted, and fixed in `site.css` (inline `code` in prose takes
+  `overflow-wrap: anywhere`; a code BLOCK still scrolls inside itself). **A child that changes the
+  page's copy runs the page's suite** — G1's chain stopped at `pnpm -r test` and the demo build.
+- 2026-09-20 (G0 review closure): **Decision Log 3 executed** under claims §5.156 §9, which is the
+  new section listing each finding, the ruling it executes and what closed it. The review reproduced
+  every figure of both cuts and found nothing wrong with the measurements; all ten findings were in
+  the declarations. Every correction is recorded **beside** the text it corrects and dated, and the
+  three cut outputs gained sections without losing one. What a later child has to carry from it:
+  - **B3's stop is the WebGPU tier's 0.00035**, not 0.0007 bed-wide — twice as tight on the tier
+    that is fitted, with the both-tier 0.00079 recorded beside as the CSS tier's, and a committed
+    script (`departure-stat.py`) so G3 and G4 re-run the statistic instead of transcribing it.
+    §5.154 §3's 0.00074 is qualified beside as a fit-loop residual that this file does not
+    reproduce under any partition.
+  - **B1's effective tolerance on the light document is ±0.685 %, not ±5 %**, because one document
+    serves four beds and the windows intersect; `sigmaSpanRefPx` is held at 96 to remove the law's
+    flat direction, its inert default still 0. A 1x-only fit fails 2x light by −6.08 %.
+  - **B4 binds the four standard beds**; the two accessibility beds are reported, and the ladder
+    clause is read on the macOS 27 probe rows Decision Log 2 (a) grants.
+  - **The holdout drop is now end to end**: `fit.py render` refuses a holdout `--set` or `--scene`
+    without `--with-holdout`, because it writes `compare`'s stdout to a log a `cat` can read.
+  - Two readings of the record were qualified rather than corrected: §5.156 §1's file counts are
+    stale after G1's split and the 1,107 pin is unmoved, and §3's row counts are of the
+    metric-carrying subset where the generation's are 455 and 1,107.
+  Nothing under `results/2026-09-16-w29-freeze/` was touched and `freeze.py verify` reads 1,818
+  intact at this closure's open and close. No material constant, document, fixture, golden, bound,
+  floor or matrix row moved; no leaf was added; no capture was taken.
 - 2026-09-20 (G0): **G0 closed** under claims §5.156; six commits, each its own clause. Nothing
   under `results/2026-09-16-w29-freeze/` was touched — v1's exemption reader stays withdrawn and
   `freeze.py verify` reads 1,818 intact at this child's open and close. Four Surprises recorded

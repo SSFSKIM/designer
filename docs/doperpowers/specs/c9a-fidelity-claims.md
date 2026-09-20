@@ -23835,7 +23835,21 @@ whole exterior of the declared region, in linear light — rather than `falloffA
 a choice with a reason: the departure is an exact integral over a fixed population and is defined
 on every cell, while the amplitude is one parameter of a two-parameter fit to ring means, and where
 the 27 σ falls to 1.5 device px there are two or three rings above the body's own edge to fit it on.
-On the light standard bed it goes **0.00681 → 0.00074 mean absolute**, a ninefold improvement.
+On the light standard bed it goes **0.00681 → 0.00074 mean absolute**, a ninefold improvement. ★
+
+★ **Qualified beside, 2026-09-20 (W30 G0 review closure; W30 Decision Log 3 (a)).** *0.00074 is this
+fit's own residual on its scratch matrices at the moment the anchors were chosen, over one bed, and
+it is not reproducible from the committed matrix under any partition of that bed.* W30 G0 restated
+it unqualified as a stop condition (§5.156 §5, B3) and the review found the restatement already
+exceeded. Read off `results/matrix.json` today through `atAShippedDocument`, on the
+1x-light-standard bed, `|meanDepartureWeb − meanDepartureNative|` reads 0.00033 (WebGPU, n 49) /
+0.00097 (CSS, n 49) / 0.00065 (both, n 98) over the non-holdout rows, and eight partitions of that
+bed span 0.00022 to 0.00432 — none of them 0.00074
+(`results/2026-09-20-w30-g0-cut/departure-stat.txt`). The figure above is not withdrawn and is not
+rewritten: it is a true reading of the fit loop's own bed. What is withdrawn is its use as a
+bed-wide stop. W30's stop is **the WebGPU tier's mean absolute exterior departure over the
+non-holdout cells of all six macOS 27 profiles, 0.00035** (n 166), with the both-tier figure
+(0.00079, n 332) recorded beside it as the CSS tier's.
 
 | constant | light | dark | how |
 | --- | --- | --- | --- |
@@ -23970,7 +23984,15 @@ puts to the user.
 11.0 is the best the thick regime admits, and the thick regime is where every row this refit exists
 to clear sits; the thin cells keep a shadow about six times too wide, **carrying the right energy in
 the wrong shape** — which is why the departure residual is 0.0007 and this residual does not show in
-it. Decision Log 6 (a) ruled the shadow's CONSTANTS refit and contract X3 admits a new operator only
+it. ★★
+
+★★ **Qualified beside, 2026-09-20 (W30 G0 review closure; W30 Decision Log 3 (a)).** *The argument
+is right and the number is §3's fit-loop residual, quoted here as though it were the bed's.* The
+committed matrix reads this bed at 0.00033 on the WebGPU tier and 0.00097 on the CSS tier over its
+non-holdout rows, and **0.00079 over all six macOS 27 profiles on both tiers** — see ★ at §3. The
+point the sentence makes survives every one of those readings, because it is about the departure
+metric being blind to a shape error the amplitude anchors have absorbed, not about the residual's
+exact value. W30's stop is restated on the WebGPU tier at 0.00035 (§5.156 §5, §9). Decision Log 6 (a) ruled the shadow's CONSTANTS refit and contract X3 admits a new operator only
 where a named structure needs one, so the structure is named and put to the user as Decision Log 7
 rather than built. The operator it would need is small: the casting surface's span is already in the
 shader as `shadowAux.z` and `outer_shadow_thick` already grades the amplitude by it.
@@ -24893,6 +24915,16 @@ freeze's own count of macOS 26.5-keyed rows. Read today: 2,017 cells in the file
 document, **1,107 of them macOS 26.5 and all 1,107 gated**, at
 `apple-macos-26.5-1x-{light,dark}-standard.json` and nothing else.
 
+**Read again beside, 2026-09-20 (review closure): the file's first two figures moved at G1 and the
+pin did not.** G0 read the file before G1's generation split; §5.157 then moved W29 G3's superseded
+455 rows out into `results/superseded/`. The file now holds **1,562 cells, every one of them at a
+shipped document** — the 455 that were not are exactly the generation that left — of which **1,107
+are macOS 26.5 and all 1,107 are gated**, at the same two documents. So the sentence above reads
+2,017 / 1,562 / 1,107 and the file now reads 1,562 / 1,562 / 1,107. The quantity the pin asserts is
+the third and it has not moved by a row. Recorded here rather than over the original, because the
+original is what G0 measured and because a 455-row deletion leaving the pin exact is itself the
+evidence that the pin is over the right population.
+
 ### 2. The shadow cut: what Apple's σ does per span, and what the instrument can say about it
 
 `shadow-cut.py` reads `results/2026-09-19-w29-g3b-shadow-recede/native-delta.json` and nothing
@@ -25073,6 +25105,23 @@ argument: the identity is algebraic and not numerical, which is what acceptance 
 span — which is what lets the frozen macOS 26.5 material, whose σ genuinely is span-invariant, go on
 expressing itself with three zeros.
 
+**Added beside, 2026-09-20 (review closure), per charter Decision Log 3 (c): the law has a flat
+direction, and G3 holds `sigmaSpanRefPx` at 96 to remove it.** Above the knee the law is
+`sigmaPx + sigmaSlopePerSpan · (span − sigmaSpanRefPx)`, so moving `sigmaSpanRefPx` by δ and
+`sigmaPx` by `sigmaSlopePerSpan · δ` — with `sigmaThinOffsetPx` moved by the same amount, which is
+what keeps the knee where it was — leaves σ unchanged at every span. Four leaves on a three-degree
+surface: the fit is unidentified as stated, and two G3 runs could seal different constants drawing
+the same shadow, which is the failure the leaf table above does not show because it is a property of
+the law and not of any one leaf.
+
+**The reference is therefore HELD, not fitted: 96 in both macOS 27 documents.** G3 fits the slope
+and the thin offset and refits `sigmaPx` as **the σ at span 96** — the span every bed carries
+sixteen cells at, and the span `thickOcclusionAt96` is keyed to, so the shadow's two laws pivot on
+one abscissa. The **inert default stays 0**: the identity does not depend on the reference's value
+(`sigmaSlopePerSpan` is 0, so the whole product is), and 96 is the fit's number rather than the
+default's — which is why the leaf table's "unreachable while the slope is 0" stands exactly as
+written.
+
 **The floor's unit is CSS px**, because the cut rejects device-px constancy, and **its value is
 declared unfitted**: the thin cells are a position on the instrument's valley and no order statistic
 over them is a measurement of Apple's blur. G3 sets it by declaration — the natural choice is the
@@ -25167,7 +25216,24 @@ precondition for chartering the operator.
 The canonical read is calibration + validation, then holdout. **The pitch ladder is entirely
 `probe`, and probe has never been read at a macOS 27 document.** The macOS 27 generation of
 `results/matrix.json` is 260 calibration + 62 validation + 123 holdout rows and **zero probe rows**,
-against the macOS 26.5 generation's 662. §5.153 §6's per-pitch figures — the +0.044 at 16 px and the
+against the macOS 26.5 generation's 662. †
+
+† **Qualified beside, 2026-09-20 (review closure).** *Those are the rows carrying an
+interior-structure reading, which is what this cut is of; the generation's own counts are larger and
+the sentence does not say which it is quoting.* Both are now computed by `structure-cut.py` rather
+than written into its text, and printed side by side in `structure-cut.txt` §1b:
+
+| generation, at a shipped document | calibration | validation | holdout | probe | total |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| macOS 27 — rows | 268 | 64 | 123 | **0** | **455** |
+| macOS 27 — carrying the metric | 260 | 62 | 123 | 0 | 445 |
+| macOS 26.5 — rows | 264 | 64 | 59 | **720** | **1,107** |
+| macOS 26.5 — carrying the metric | 242 | 60 | 59 | **662** | 1,023 |
+
+A row carries no reading when `interiorStdDevNative` or `…Web` is absent or the native spread is
+zero, which is why the two lines differ. The finding is unchanged in every direction: the macOS 27
+generation carries **zero** probe rows of either kind, and the macOS 26.5 generation carries 720 of
+which 662 are readable. §5.153 §6's per-pitch figures — the +0.044 at 16 px and the
 −0.028 at 4 px and over the photograph that this whole operator exists for — were read off G3's
 **scratch** matrices, which were never committed.
 
@@ -25193,6 +25259,21 @@ macOS 26.5, 1x light, WebGPU, W/N by pitch:
 A hump peaking at 16 px with both ends below it — too much passed at the middle pitch, too little at
 4–8 px and over the photograph. That is §5.153 §6's sign pattern exactly, on a different material,
 which is what says the residual belongs to the kernel's shape and not to the macOS 27 fit.
+
+**Added beside, 2026-09-20 (review closure): in pitch order that row is a zig-zag, not a hump, and
+the split at one scale is the largest thing in the table.** `hc-text-7` (pitch 7) reads **1.098**
+where `checkerboard-8` (pitch 8) reads **0.756** — adjacent rungs, a **1.45×** split, and the two
+neighbours on either side of each are on the other side of it. The 16 px pair does the same in
+miniature: `checkerboard` 1.206 against `checkerboard-lc16` 1.351, the same pitch at different
+contrast, which is the discriminator below and reads **1.08–1.12×** across the three thick spans.
+So the sharpest disagreement between two backdrops at essentially the same spatial scale is not the
+contrast discriminator's — it is between two backdrop FAMILIES, and its departure from unity is
+about four times the discriminator's own. No linear
+kernel can pass 1.098 at 7 px and 0.756 at 8 px, so this is further evidence for candidate (ii), a
+mix keyed on a statistic of the source rather than on the pitch alone, and it is evidence the
+discriminator's own confound (the tone response's local slope, below) does not explain, because
+`hc-text-7` and `checkerboard-8` sit at encoded means 0.750 and 0.500 and the 4 px and 16 px
+checkerboards that bracket the 8 px one sit at 0.500 with it.
 
 **The residual's sign turns on the colour scheme** (the tracker's finding, recomputed rather than
 copied — §6 below).
@@ -25263,6 +25344,29 @@ already computes what (ii) needs: `stats` is `[encoded mean, linear variance, ed
 count]` **per source**, and edge density is a reciprocal-length, which is a spatial-scale statistic
 in the only place a per-source quantity can be read.
 
+**The spanning set as leaves, added beside 2026-09-20 (review closure), per charter Decision Log
+2 (d).** The σ law's shape above is named leaf by leaf with a unit and an inert default and the
+scatter's was named in prose, which is a thinner declaration of the larger change; the same table,
+for the five leaves on `MaterialProfile` G2 lands:
+
+| leaf | unit | meaning | inert default |
+| --- | --- | --- | --- |
+| `sizeHeavySecondSigma` | CSS px | the second heavy tap's width at dpr 1. A property of the source raster, so **not scheme-conditioned** | **0** — and unread while the share is 0 |
+| `sizeHeavySecondSigma2x` | CSS px | the same width at dpr 2, which the scatter's existing 2x trio already conditions separately. **Not scheme-conditioned** | **0** — and unread while the share is 0 |
+| `sizeHeavySecondShare` | fraction, signed | the second heavy sample's weight in the mix, and candidate (i)'s **scheme-conditioned** leaf: the sign is what flips between the documents | **0** — a multiplied zero, and the gate on the second texture's build and binding, so the off path allocates nothing and the 34 goldens prove it |
+| `sizeScatterScaleGain` | fraction per unit statistic | the gain on `kScatter` per unit of the source's own scale statistic, and candidate (ii)'s **scheme-conditioned** leaf | **0** — a multiplied zero |
+| `sizeScatterScaleRef` | the statistic's own unit | the reference value of the per-source scale statistic the gain is read about — edge density, `stats[2]` from the analysis pass. A property of the raster, so **not scheme-conditioned** | **0** — inert because the gain that multiplies the difference from it is 0 |
+
+The last row's argument is **not** the same as "a multiplied zero" and it is worth separating,
+because the two fail differently. `sizeScatterScaleGain` is inert at 0 whatever else is true: it
+multiplies its own term. `sizeScatterScaleRef` is inert only *because* that gain is 0 — at a
+non-zero gain a wrong reference is a wrong material — so its inertness is a consequence of a
+sibling's value rather than of its own. That is sufficient for the exemption, which asks only that
+the resolved material be unchanged at the defaults, and it is exactly why it has to be said out
+loud rather than left to read as the same argument twice. The identity test
+(`w30-operator-identity.test.ts`) holds it either way, because it compares the resolved material
+rather than reasoning about the leaves.
+
 **What would decide it**, and it is one thing: the pitch ladder read at a macOS 27 document, on both
 tiers at both scales. G3's fit produces exactly that on scratch matrices in the ordinary course. The
 consequence for the wave is that **G4's canonical read should include the probe set for the macOS 27
@@ -25285,6 +25389,29 @@ The *sign* is what the scheme flips, which is why the amount is the right leaf t
 than the width or the reference: on the gated 16 px cell vitrea passes **1.57×** the native structure
 in 1x light and **0.75×** in 1x dark (§6), so the light document wants the operator to remove
 structure at that pitch and the dark document wants it to add. One leaf, two signs, two documents.
+
+**Two instruments on the same cell, added beside 2026-09-20 (review closure).** The ratios just
+quoted and §5.154 §9 (c)'s are different numbers for the same four readings, and §3 above already
+names the instrument with the number for the reduced-transparency cell; the standard beds need the
+same treatment, because the light CSS reading **crosses 1.0 between the two instruments** and the
+direction of a residual is what a bound is written against.
+
+| `checkerboard__rrect-md__rest`, active | §5.154 §9 (c), the sheets | §5.156, the matrix |
+| --- | ---: | ---: |
+| 1x light, WebGPU | 1.77× (native 10.22, vitrea 18.04) | **1.567** (0.0766, 0.1201) |
+| 1x light, CSS | **1.04×** (10.65) | **0.968** (0.0742) |
+| 1x dark, WebGPU | 0.55× (native 11.14, vitrea 6.16) | **0.749** (0.0384, 0.0287) |
+| 1x dark, CSS | 0.32× (3.62) | **0.355** (0.0136) |
+
+The sheet's instrument is the **0–255 luminance standard deviation over the component's box inset
+12 CSS px**, read back off the committed PNG; the matrix's is `material.interiorStdDev{Native,Web}`,
+**linear light over the shared mask**. Different spaces and different masks — the sheet's inset box
+excludes the rim, the metric's shared mask does not — so they are not two readings of one quantity
+and neither is wrong. The three signs agree; the fourth, 1x light CSS, reads 1.04× on the sheet and
+0.968 on the matrix, which is "passes slightly more" against "passes slightly less" on the same
+cell. **Only the matrix's can be pinned by a test**, which is why B4 and `tier-coherence.test.ts`
+are written on it, and the charter's Purpose quotes the sheet's. Reconciling the two is tracker
+work and not this wave's, exactly as §3 records for the reduced-transparency cell.
 
 The widths (`sizeHeavySecondSigma`, `…2x`) and the reference statistic (`sizeScatterScaleRef`) are
 **not** scheme-conditioned: a spatial scale is a property of the source raster, which is the same
@@ -25319,25 +25446,43 @@ pin the matrix's, and that the declaration therefore names the instrument with t
 
 Read the way W25 G2's `fit-level.txt` reads it — `resid` is native − web in 8-bit codes over the
 body, the constant is exactly 0 at and below span 96, so the quantity is `resid(160) − resid(96)`
-per backdrop:
+per backdrop. **Linear luminance ×255**, and the 8-bit column beside it: ‡
 
-| bed | backdrop | resid(96) | resid(160) | Δ |
-| --- | --- | ---: | ---: | ---: |
-| 27 1x light | checkerboard | −0.30 | 1.03 | **+1.32** |
-| 27 1x light | photo | −3.48 | 3.77 | **+7.25** |
-| 27 2x light | checkerboard | −0.20 | 0.02 | **+0.22** |
-| 27 2x light | photo | −2.93 | 4.17 | **+7.10** |
-| 27 1x dark | photo | 6.38 | 4.54 | **−1.84** |
-| 27 2x dark | photo | 6.70 | 4.67 | **−2.03** |
-| 27 1x reduced transparency | photo | 19.22 | 17.98 | −1.24 |
-| 27 1x increased contrast, coupled | photo | −3.52 | −3.42 | +0.09 |
+| bed | backdrop | resid(96) | resid(160) | Δ | Δ, 8-bit codes |
+| --- | --- | ---: | ---: | ---: | ---: |
+| 27 1x light | checkerboard | −0.30 | 1.03 | **+1.32** | **+0.77** |
+| 27 1x light | photo | −3.48 | 3.77 | **+7.25** | **+4.46** |
+| 27 2x light | checkerboard | −0.20 | 0.02 | **+0.22** | **+0.13** |
+| 27 2x light | photo | −2.93 | 4.17 | **+7.10** | **+4.36** |
+| 27 1x dark | photo | 6.38 | 4.54 | **−1.84** | **−2.16** |
+| 27 2x dark | photo | 6.70 | 4.67 | **−2.03** | **−2.39** |
+| 27 1x reduced transparency | photo | 19.22 | 17.98 | −1.24 | −0.57 |
+| 27 1x increased contrast, coupled | photo | −3.52 | −3.42 | +0.09 | +0.04 |
+
+‡ **Corrected beside, 2026-09-20 (review closure): the first five columns are LINEAR LUMINANCE ×255
+and W25's `resid` is an sRGB CODE, so the table was in the wrong unit for the comparison it
+makes.** `material.interiorMean{Native,Web}` is linear-light relative luminance
+(`src/metrics/material.ts`), and `structure-cut.py` differenced it and multiplied by 255 — a linear
+figure on a 0–255 scale. W25 G2's `fit.py` encodes each side to sRGB **first** and differences the
+codes (`codes(a, b) = (encode(a) − encode(b)) · 255`), which is what makes its `resid`, `lever` and
+`gain` 8-bit codes and what makes `gain` a value of the constant. Comparing a linear Δ against
+W25's `lever` would be a unit error of up to a factor of three over this range. `structure-cut.py`
+§7 now prints both columns, the original one relabelled and untouched; the last column above is the
+recomputed 8-bit one.
+
+**The verdict survives the correction in both of its halves.** The sign is unchanged everywhere —
+positive on 4 of 4 light readings, negative on 2 of 2 dark — and the magnitude still disagrees
+within the light scheme, by **5.8×** at 1x (+0.77 on the checkerboard against +4.46 on the
+photograph) where the linear column read 5.5×, and by more than thirty times at 2x in either unit.
+So the decline stands on the reading it was made on.
 
 **The sign flips with the colour scheme, cleanly: positive on 4 of 4 light readings and negative on
 2 of 2 dark ones.** That is no longer the blocker it was in W25, because scheme conditioning is
 available now — `sizeToneLevelFar` is one leaf and the dark document is a patch that can carry its
 own value. What blocks it is the magnitude: **within the light scheme the two backdrops disagree by
 5.5×** (+1.32 on the checkerboard against +7.25 on the photograph at 1x, and +0.22 against +7.10 at
-2x), and the row set that would condition it is the ladder, which has no macOS 27 web row (§1b).
+2x; 5.8× in 8-bit codes, ‡), and the row set that would condition it is the ladder, which has no
+macOS 27 web row (§1b).
 Eight readings over two backdrops cannot separate a size offset from a backdrop-dependent level
 residual, and §5.153 §6 already records the level law's own conditioning as unidentified over
 exactly these backdrops.
@@ -25379,6 +25524,30 @@ non-holdout row actually printed, so the check cannot pass because the reader pr
 then that `--with-holdout` does admit the row, so the check is discriminating. `merge` is checked on
 its output file rather than on a table. `holdout-drop-check.txt` is the record; it takes no capture
 and touches nothing outside its temporary directory (X2, X5).
+
+**Corrected beside, 2026-09-20 (review closure), per charter Decision Log 3 (e): "no reader yields a
+holdout number without the flag" was true of every TABLE and not of the capture itself.** `cells()`
+guards the readers, but `render` writes `compare`'s own stdout to
+`$VITREA_G3_SCRATCH/fit-log/<label>/<profile>.<renderer>.log`, and `compare` prints a line per
+measured cell. So a round invoked with `--set holdout`, or with a holdout id in `--scene`, captured
+the holdout and put its numbers one `cat` away from the person choosing constants, while every table
+stayed clean. The drop lived one channel short of the guarantee it claims.
+
+`fit.py` now refuses that selection at the only place it can be refused — before the capture exists.
+`capture_refusal()` reads the invocation's `--set` and `--scene` lists and returns a refusal if
+either names the holdout, unless `--with-holdout` is typed; the holdout ids come from
+`apps/reference-apple/scenes.json`'s own `split.holdout` and are named nowhere in the file, which is
+the rule `cli/compare.ts` already follows. `render` consults it first, before `machine_ready()`, so
+the refusal costs nothing and precedes every side effect.
+
+`holdout-drop-check.py` exercises it **in isolation**: it imports `fit.py` as a module and calls
+`capture_refusal()` directly over seven invocations — `--set holdout`, `--set calibration,holdout`
+and a `--scene` naming a declared holdout id, each expected to refuse; `--set calibration` and a
+`--scene` naming the control cell, each expected to pass; and the first and third again with
+`--with-holdout`, expected to pass. No capture, no browser, no `compare` process (X2, X5). It also
+asserts that the control scene is not itself holdout, so the passing half cannot be vacuous. **So
+the corrected statement is: no reader yields a holdout number without the flag, and no fit-loop
+invocation CAPTURES one without it either.**
 
 ### 5. The declarations — what G4 judges this wave against
 
@@ -25426,6 +25595,54 @@ The σ law is fitted on **non-holdout** cells throughout, with the holdout cells
 beside as a check (X4). Span 130 has no fittable cell on any bed and the three accessibility beds
 have none above span 96, so both arrive by extrapolation and their holdout readings are the only
 check there is.
+
+#### Corrected beside, 2026-09-20 (review closure): three of the five declarations, restated
+
+The review reproduced every figure of §2 and §3 and found the defects in the table above — the part
+the wave is judged against. The parent ruled them in the charter's Decision Log 3. Nothing above is
+rewritten; `bounds-declaration.md` carries each restatement in full beside the clause it corrects,
+and these are the summaries.
+
+**B3 (Decision Log 3 (a)) — the stop is the WebGPU tier's, 0.00035.** As declared ("0.0007
+bed-wide, mean absolute, both tiers, non-holdout cells of every profile") it is **already exceeded
+today**: that statistic reads **0.00079** on the committed matrix. 0.0007 was §5.154 §3's
+light-standard-bed fit figure restated unqualified, and it was read during a fit on scratch
+matrices. The stop is now **the WebGPU tier's mean absolute exterior departure over the non-holdout
+cells of all six profiles — 0.00035 over 166 rows today, to be held at or better by G3's sealed
+fit** — with the both-tier reading (**0.00079**, n 332) recorded beside it as the CSS tier's and
+carrying no stop, per the tier rule. The two light standard beds pooled over both tiers read
+**0.00066** (n 196). `departure-stat.py` and `.txt` in this gate's evidence compute all of it, so
+G3 and G4 re-run the statistic rather than transcribe it, and the correction is recorded beside
+§5.154 §3 and §4 as well. The restatement makes the stop **twice as tight** on the tier that is
+fitted.
+
+**B4 (Decision Log 3 (b)) — "toward 1.0 and past it on none" binds the four standard beds.** The
+reduced-transparency and coupled-contrast rows are captured at the light standard document — their
+own `capturePath` names it on all 32 and all 35 rows — so they inherit its scatter values and carry
+no leaf to move, and they need the operator moved the **opposite** way from the bed that is fitted:
+1x light standard reads 1.567 and wants structure removed where reduced transparency reads 0.818 and
+coupled contrast 0.969 and both want it added. One leaf cannot do both, so the clause as written
+fails by arithmetic before the fit starts. The two accessibility beds are **reported**, which is
+what B4's last sentence already said of the CSS tier. The ladder clause is read on the **macOS 27
+ladder probe rows** Decision Log 2 (a) grants and on nothing else; the macOS 26.5 reading is dropped
+as vacuous, since that generation is frozen at a material this wave does not touch and its 662
+metric-carrying probe rows cannot move.
+
+**B1 (Decision Log 3 (c)) — joint across the beds one document serves, and `sigmaSpanRefPx` held at
+96.** The σ law has a flat direction (§2 as corrected), so G3 holds the reference at 96, refits
+`sigmaPx` as the σ at span 96 and fits the slope and the offset; the inert default stays 0. And B1
+is not seven clauses but two, because a document is selected per scheme: the light document must
+meet 1x light, 2x light, reduced transparency and coupled contrast at once, which intersects to
+**[8.8966, 9.0193]** at span 96 — **±0.685 % effective, not ±5 %** — and the dark document must meet
+its two beds, **[8.9084, 9.3180]**, ±2.247 %. Both non-empty, so B1 stands; a law fitted to the
+1x-light median alone would land **−6.08 %** against the 2x-light bed and fail. One more clause,
+because B1 reads against a median the fit may not see in full: **the pooled median (holdout
+included) and the non-holdout median agree to ≤ 0.354 % at every thick span on every bed that
+carries both**, twelve of fifteen exactly, so the bound is not stated against a number the fit is
+forbidden to reach. `shadow-cut.py` §9 and §10 compute all of it.
+
+**B2 and B5 stand as declared**, and the review reproduced both. B5's evidence is recorded in a
+corrected unit (§3 ‡) and its verdict is unchanged.
 
 **(c) The rows this wave claims, with the lever and the tier.** Three of the seven
 `MISSED_27_ROWS`, all the **shadow's**:
@@ -25513,6 +25730,47 @@ Four things a later child should read before it starts, three of which change wh
 4. **The leaf shapes are named and their inert identities are algebraic** (§2, §3), so G2 can be
    written without a fit existing: three shadow leaves at 0, and the scatter's spanning set with its
    scheme-conditioned leaf identified under either candidate.
+
+### 9. Review closure (2026-09-20)
+
+An independent read-only review of this gate reproduced **every figure of both cuts** and found no
+measurement wrong. What it found was in the **declarations** — the part the wave is judged against,
+and the part a reproduction of the numbers cannot check. The parent ruled the findings in the
+charter's Decision Log 3 and this section is the execution of (a) through (e). **Nothing recorded
+above is rewritten**: every correction is beside the text it corrects and dated, the cuts' outputs
+gained sections and lost none, and no material constant, profile document, fixture, golden, bound,
+floor or matrix row moved. No capture was taken (X2, X5) and the freeze verifies **intact at 1,818**
+at this closure's open and close.
+
+| # | what the review found | the ruling | what closed it |
+| --- | --- | --- | --- |
+| 1 | **B3's stop is already exceeded as declared.** "0.0007 bed-wide, both tiers, non-holdout of every profile" reads **0.00079** on the committed matrix; 0.0007 was §5.154 §3's light-standard fit figure restated unqualified | Decision Log 3 (a) | §5 and `bounds-declaration.md` restate the stop as the **WebGPU tier's 0.00035** (n 166), with the both-tier 0.00079 (n 332) and the pooled light-standard 0.00066 (n 196) beside. New evidence `departure-stat.py` / `.txt` / `.json` computes it, so G3 and G4 re-run rather than transcribe. Corrections recorded beside §5.154 §3 and §4 |
+| 2 | **B4 binds six beds and cannot pass on six.** Two of them are captured at the light standard document and need the operator moved the opposite way from the bed that is fitted; the ladder clause named no generation | Decision Log 3 (b) | §5 and the declaration scope "toward 1.0 and past it on none" to the **four standard beds**, report the two accessibility beds, and read the ladder clause on the **macOS 27 probe rows** Decision Log 2 (a) grants. The macOS 26.5 reading is dropped as vacuous. The document selection verified from the rows' own `capturePath` (32 and 35 rows, one document) |
+| 3 | **The σ law has a flat direction and B1 reads as seven independent clauses.** Four leaves on a three-degree surface; and one document serves four beds | Decision Log 3 (c) | §2 names the flat direction and records that G3 **holds `sigmaSpanRefPx` at 96** (inert default still 0); §5 and the declaration state B1 as **joint per document** with the recomputed windows — light **[8.8966, 9.0193]**, ±0.685 %; dark **[8.9084, 9.3180]** — the −6.08 % warning, and the pooled-vs-non-holdout agreement (**≤ 0.354 %**). `shadow-cut.py` gains §9 and §10 |
+| 4 | **`sizeToneLevelFar`'s table is in linear luminance ×255 where W25's `resid` is an sRGB code** | Decision Log 3 (e) | §3 ‡ relabels the columns and adds the recomputed 8-bit column; `structure-cut.py` §7 prints both. The verdict survives: sign stable per scheme, within-light disagreement **5.8×** in codes against 5.5× linear |
+| 5 | **The scatter's spanning set was named in prose where the σ law has a leaf table** | Decision Log 2 (d), 3 (e) | §3 gains the five-leaf table with unit, meaning and inert default, and separates `sizeScatterScaleRef`'s inertness argument — inert because a sibling's gain is 0, not because it is itself multiplied by zero — from "a multiplied zero", and says why that is sufficient |
+| 6 | **§5.154 §9 (c)'s ratios and §5.156's are two instruments on the same four readings, and the light CSS reading crosses 1.0 between them** | Decision Log 3 (e) | §3 tables both beside the scheme-conditioning leaf, names each instrument's mask and space, and says only the matrix's can be pinned by a test — the treatment §3 already gave the reduced-transparency cell. The charter's Purpose now quotes the sheet values and points at §5.156 §3 |
+| 7 | **Row counts stated without saying which population they are of**, and §1's file figures stale after G1's split | Decision Log 3 (e) | §3 † gives both populations as a table (macOS 27 **268 + 64 + 123 = 455** rows, 260 + 62 + 123 = 445 carrying the metric; macOS 26.5 **720** probe rows, **662** carrying it) and `structure-cut.py` computes them instead of printing literals. §1 records beside that the file now holds **1,562 cells, all at a shipped document**, the 1,107 pin unmoved |
+| 8 | **The holdout drop stops one channel short**: `fit.py render` writes `compare`'s stdout to the label's log, so `--set holdout` or a holdout `--scene` put a holdout number one `cat` away | Decision Log 3 (e) | `fit.py` gains `capture_refusal()`, consulted by `render` before any side effect, refusing a `--set` naming holdout or a `--scene` naming a declared holdout id unless `--with-holdout` is typed; ids from `scenes.json`'s own split. `holdout-drop-check.py` exercises the predicate **in isolation** over seven invocations, no capture. §4's claim corrected beside |
+| 9 | **`toEqual` in the identity test** treats an `undefined`-valued key as absent, so a leaf added at an undefined default and not named could pass | Decision Log 3 (e) | `w30-operator-identity.test.ts` uses `toStrictEqual`; everything else in the file is unchanged |
+| 10 | **In pitch order the per-pitch row is a zig-zag, not a hump** | Decision Log 3 (e) | §3 records `hc-text-7` **1.098** against `checkerboard-8` **0.756** — a **1.45×** split at essentially one scale across two backdrop families, against the lc16 discriminator's 1.08–1.12× — as further evidence for candidate (ii), and notes the three share an encoded mean pattern the tone-response confound does not explain |
+
+One thing was found by this closure rather than by the review, and it is recorded because it
+affects whether evidence reproduces at all: `structure-cut.py`'s scale comparison sorted a **set**
+of scene ids with a key that does not break ties, so its line order was Python's hash randomisation
+and two runs of the same cut differed in line order while every figure agreed. The scene id is now
+the last sort key. No number moved.
+
+**Verification of this closure.**
+
+| step | result |
+| --- | --- |
+| `python3 results/2026-09-16-w29-freeze/freeze.py verify` | **26.5 freeze intact: 1818 entries**, at the closure's open and close |
+| `pnpm --filter @vitrea/calibration test` | 544 passed over 32 files, 0 failed — unchanged against §7, the identity test now `toStrictEqual` |
+| `pnpm --filter @vitrea/calibration lint` | exit 0 |
+| `python3 results/2026-09-20-w30-g0-cut/holdout-drop-check.py` | exit 0 — three readers clean, and `render` refuses all three holdout selections and admits all four it should |
+| `shadow-cut.py`, `structure-cut.py` re-run | every figure the first run recorded reproduces; the outputs gain sections and lose none |
+| the freeze directory | still untouched; its newest commit is still W29 G1 Part B's |
 
 ---
 
@@ -25602,6 +25860,18 @@ supersession date, row count, bytes and whole-file digest. `results/superseded/R
 same table in prose. A reader that has a hash asks the index; a reader that has none reads the
 working file, which is the shipped generation by construction.
 
+**Added beside, 2026-09-20 (review closure): the one generation shape this rule could not name.**
+A refit can seal a new receded document over an active document that still ships — the unfocused
+endpoint refitted alone — and then a superseded row names a **current** active document. The active
+hash by itself would name that file after a generation that is still the shipped one, so the rule
+takes the whole of what the generation was read at: the file is the **compound**
+`<active>-<receded>.json`, and `index.json` maps *both* hashes to it. That costs nothing, because
+finding a row was already a lookup and the name is never parsed. The split script produces the
+compound name where it previously refused this shape, refuses a hash that would name two different
+superseded files (which would silently overwrite an index entry), and
+`results/2026-09-20-w30-g1-split/classifier-selftest.py` holds the case on a synthetic matrix —
+the bed contains one generation shape and prose about the others is not evidence that they work.
+
 The two files here are W29 G3's read (§5.153), superseded by G3b's re-seal (§5.154) and published
 at §5.155. Neither names a receded document: G3's read predates the receded documents, which G3b
 sealed. The shipped 455 rows were read at `f42ddec1cf5a` / `272d1b0c3e10` with `59d4b20a4596` /
@@ -25619,6 +25889,13 @@ measured at the material that ships, and this cell was not. The row is in `fa872
 holdout and inactive, and both the inactive-pose drop and the generation drop in
 `adopted-thresholds.test.ts` already excluded it from every bound, floor, predicate and count — so
 no gated number moves. Nothing was re-read and nothing should be.
+
+**Added beside, 2026-09-20 (review closure): the counterpart, without which the arithmetic above is
+half of one.** The shipped generation holds a cell the superseded one does not —
+`apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5`, `hc-text__capsule-button__rest`,
+dom tier, holdout — which is why both generations total 455 rows and why that profile reads 35 in
+each column of §2's table rather than 36 and 34. One cell left the working file and one cell was
+never in the superseded one; the two exchanges are what make the counts balance.
 
 ### 5. The append-check: a reconstruction, not a tally
 
@@ -25646,6 +25923,13 @@ re-serialising it with Python's printer produces 72,095,631 bytes against V8's 7
 6.5 kB of number-printing disagreement — so a round trip would have "moved" several thousand recorded
 numbers. The split walks the raw bytes of the `cells` array and slices each element out whole.
 
+*Corrected beside, 2026-09-20 (review closure): the like-for-like figure is **72,095,632** bytes.
+72,095,631 is the printer's output without the trailing newline the file itself carries; both files
+end in one, so the comparison against V8's 72,102,187 is 72,095,632, and the disagreement is 6,555
+bytes. Re-derived from the pre-split file reconstructed out of the parts, which hashes to
+`9f73a2f79…`. The reading is corrected, not replaced: nothing in the split, the counts or the
+digests turns on it.*
+
 ### 6. The freeze
 
 `python3 packages/calibration/results/2026-09-16-w29-freeze/freeze.py verify` → **26.5 freeze
@@ -25666,6 +25950,30 @@ all 1,107 row entries re-derive identically. `freeze.py` is not edited.
 | `scripts/vibrancy.ts` | `provenance.matrixSha256`, a whole-file digest | unchanged, plus `matrixSha256Lineage`: the four digests this reader has recorded, with what moved the file between them. The committed tables keep the value each was written at, byte for byte — the new digest is recorded **beside** the old, never over it |
 | `cli/compare.ts` | documented the append; said nothing about where a superseded generation goes | a header section stating the invariant readers may rely on: the working file holds one generation per profile, and the split script moves what a refit supersedes. Behaviour unchanged; `--out-matrix` and `VITREA_WEB_CAPTURES` scratch paths are outside all of it |
 | `cli/diff.ts`, `cli/gates.ts`, `src/report.ts`, `test/backdrop-mode.test.ts`, `test/compare-gates.test.ts` | carry the path in strings and comments only | unchanged, checked |
+
+**Corrected beside, 2026-09-20 (review closure): the generation is a term in `primacy`, not only a
+fact about the file.** Retiring the `capturedAt` tie-break left `primacy` — profile, then tier — and
+those two do not always name one row. Measured over the split file: the head of `reportsFor` moves
+for **210 of the 312** (scene, scheme) pairs it can be asked about against what the tie-break
+answered, and among the **32** scenes the picker offers, the dark head moves for **20** — every one
+of them from a macOS 27 row to a macOS 26.5 row. That is inert today, and only by a page-layout
+accident: `Stage.tsx` renders a report only where a native capture exists, the **12** displayed
+scenes with a dark capture each carry the dark primary row, and the head moves for **none** of them.
+An accident standing in for a rule is the same defect W21 G3 and W29 G4 each fixed once. So
+`primacy` now carries a third and least significant term: a row at a **shipped** profile document — one whose `capturePath` names documents that are on
+disk at the bytes it records — ranks ahead of one that is not. The precedence is profile, tier,
+generation, so a superseded reading of the right tier still outranks a current reading of another.
+The shipped hashes are derived from the documents' bytes at build time by
+`apps/demo/shipped-documents.ts`, the way `adopted-thresholds.test.ts` derives
+`SHIPPED_DOCUMENT_HASHES`, and never transcribed. It changes no head today, and that is the point:
+the split keeps the working file to one generation, and this keeps the page right during the
+interval a wave lives in — between the capture that appends a generation and the split that retires
+the one it superseded. Pinned by `apps/demo/test/calibration.test.ts` (the dark head over all 23
+scenes, and the precedence over synthetic rows) and by `site.spec.ts`'s primary-cell assertion, which
+now runs in the dark scheme as well as the light one. (The review that found this read 23 of 36
+displayed scenes and 13 dark ones; the three readings above are this closure's own, taken through
+`REFERENCE_SCENES` and `REPORTS_BY_SCENE`, and are recorded beside the review's rather than over
+them.)
 
 **Grepped for a reader the charter missed** — the whole repository including `.github/` — and there
 is none. Every other hit is prose in a spec, a historical claims entry, or `apps/demo/tsconfig.json`
@@ -25689,6 +25997,30 @@ X7 applies the rule twice: G1 moves the generation superseded today, and G4 runs
 no arguments after its own read has sealed new documents, so the invariant is true at the wave's
 close and not only here. `--claims` labels the generation in the index.
 
+**Corrected beside, 2026-09-20 (review closure): "with no arguments" is no longer the invocation, and
+the refusals are wider than the paragraph above says.** `apply` now requires `--evidence` and
+`--claims` explicitly — a second run that inherited G1's defaults would have overwritten G1's own
+before-manifest, the append-check's whole witness, and labelled a new generation with the old
+generation's claims section. G4's invocation in full, which is also in the script's docstring and in
+`results/superseded/README.md`:
+
+```bash
+python3 packages/calibration/results/2026-09-20-w30-g1-split/split-generation.py apply \
+    --evidence packages/calibration/results/2026-09-20-w30-g4-landing/ \
+    --claims "c9a §5.160"
+```
+
+`--current` stays optional and defaults as described; it is now repeatable *and* takes every hash
+that follows it, which is what its usage line always said and not what it parsed. The refusals, all
+of them evaluated over the whole plan before a byte is written, so a refusal leaves the tree as it
+stood: a row of a frozen macOS 26.5 profile selected to move (**X1 is the tool's contract to hold**,
+not the operator's — one mistyped `--current` selects those rows by the hundred, and the append-check
+catches it only after `apply` has written); a `capturePath` carrying more document hashes than the
+clause pattern parses, so a third kind of document cannot change a row's currency unseen; an existing
+destination, an existing before-manifest, or an index entry that would be repointed. The refusal that
+stood where the compound name now is (§3) is gone, and the one that remains — a superseded row naming
+a receded document and no active one — is exercised by the self-test rather than assumed.
+
 ### 9. The chain at this child's head
 
 | step | result |
@@ -25703,6 +26035,64 @@ close and not only here. `--claims` labels the generation in the index.
 No material constant, profile document, fixture, golden, bound, floor or `PREDICATE_EXCLUDES` line
 was touched. The gated bed is the same bed: every row the gate read before the split it reads after
 it, and every row it did not, it still does not.
+
+### 10. Review closure (2026-09-20)
+
+*An independent read-only review of this child found **no blocking finding** and twelve items. All
+twelve are closed here — nine by a change, two by a tracker entry that belongs to G4, one by a
+corrected figure. Nothing recorded was rewritten: every correction above is a dated paragraph
+**beside** the text it corrects, and the re-run append-check is committed as a second reading beside
+the first. No capture, no browser run, no material constant, bound, floor or predicate moved, and
+nothing under a macOS 26.5-keyed path was touched.*
+
+| # | the finding | what closed it |
+| --- | --- | --- |
+| 1 | `split-generation.py` would overwrite G1's committed witness when rerun: `--evidence` defaulted to this directory, `before-manifest.json` was written unguarded, and `--claims` defaulted to `null` | `apply` now **requires** `--evidence` and `--claims`; the before-manifest is refused if it exists; G4's invocation is written out in §8, in the script's docstring and in `results/superseded/README.md`. `append-check.py` now prints which manifest it read, because that flag still defaults here |
+| 2 | X1 was the operator's to hold, not the tool's, and `--current`'s usage line promised several hashes per flag while the parser read one | A row of a frozen macOS 26.5 profile selected to move is **refused before a byte is written**, whatever `--current` said; `--current` is repeatable *and* consumes every hash that follows it, and a token that is not twelve hex is refused. Both exercised — see the self-test's `X1 held by the tool` |
+| 3 | one generation shape the naming rule could not name: a superseded row whose **active** document is still current, which is the "only the receded document moved" case | §3 and `results/superseded/README.md` each name the case; the script **produces** the compound `<active>-<receded>.json` where it used to refuse, `index.json` maps both hashes to it, and a hash that would name two superseded files is refused in the pre-flight |
+| 4 | a third document clause would have been ignored silently: `DOCUMENT_CLAUSE` knows two kinds and currency was judged on what matched | per row, the count of `sha256:` occurrences in the `capturePath` must equal the clauses parsed, or the row is refused. Covered by the self-test's `third clause refused` |
+| 5 | retiring the `capturedAt` tie-break moved `reportsFor`'s head for 210 of 312 (scene, scheme) pairs, inert only by a page-layout accident | the generation is now a term in `primacy` — a row at a shipped document ranks ahead of one that is not, after profile and tier — with the shipped hashes derived from the documents' bytes at build time by `apps/demo/shipped-documents.ts`. Pinned by `apps/demo/test/calibration.test.ts` and by `site.spec.ts`'s primary-cell assertion, which now runs in dark as well as light. Recorded beside §7's row, with this closure's own readings |
+| 6 | a partial apply was recoverable only by hand | every destination, index entry and the before-manifest are checked **over the whole plan** before anything is written |
+| 7 | the "no active document" refusal looked unreachable | it is reachable for one shape — a row naming a receded document and no active one — which the self-test now exercises (`no active refused`); the comment says which shape reaches it instead of implying none does |
+| 8 | three append-check clauses read the manifest rather than the files | `26.5 untouched` and `order preserved` now take the rows **off the files on disk** — the working file's macOS 26.5 digests in its own order, and every file's digest sequence against the manifest's — and the superseded files are asked whether they hold a frozen row at all. Re-run and committed as `append-check.v2.txt` / `.v2.json` **beside** the first reading, not over it: same six clauses PASS, same reconstruction to `9f73a2f79…`, the text identical to the first but for the new `manifest:` line, the JSON carrying one added key (`frozenRowsOnDisk`). The new clauses were shown to fail on a perturbed tree before being trusted on this one |
+| 9 | §4's departing cell was half the arithmetic | §4 names the counterpart: the shipped generation holds `…increased-contrast-coupled…` / `hc-text__capsule-button__rest` / dom / holdout, which the superseded generation does not — which is why both generations total 455 and that profile reads 35 in both columns |
+| 10 | stale "schema 4" prose in `src/report.ts`, `cli/gates.ts` and `test/adopted-thresholds.test.ts`, the last asserting `toBe(5)` twice under a title saying the two differed | all three corrected to what is true, each with a dated line saying what it had described; the test case is now *"reads the matrix at the schema the build writes, and pins both numbers"*. A tracker entry records that G1's "checked, unchanged" sweep read what those files *do* and not what they *say*, and carries the one piece still open — `matrixSchemaRefusal`'s runtime message |
+| 11 | two items belonging to G4 | logged, not fixed: `Stage.tsx`'s three "macOS 26.5" labels beside a caption printing a macOS 27 profile, and `CLAUDE.md`'s "`rm results/matrix.json` … or reduce to the newest row per key". Both are charter clause 7's |
+| 12 | §5's Python round-trip figure omitted the trailing newline | corrected beside: **72,095,632** bytes against V8's 72,102,187, re-derived from the reconstructed pre-split file |
+
+**A thirteenth item, found by this closure's own chain rather than by the review.** G1's chain
+stopped at `pnpm -r test` and the demo build; `pnpm --filter demo test:e2e` was not run, and it
+fails — `site.spec.ts`'s reflow floor reads the document scrolling **94 CSS px sideways at a 320 px
+viewport**. The cause is G1's own copy: `Site.tsx` names
+`packages/calibration/results/superseded/` in an inline `<code>` inside a list item, one unbreakable
+token 346 px wide in a 232 px line, with `overflow-x: visible` the whole way up to `main`. It is
+G1's and not this closure's — reproduced with the closure's only page-affecting file reverted to
+G1's version. Fixed where it belongs: inline `code` in prose takes `overflow-wrap: anywhere` in
+`site.css`, and `.code code` is `white-space: pre` and untouched, so a code BLOCK still scrolls
+inside itself, which is the same test's second assertion. **The lesson is the chain, not the rule:**
+a child that changes the page's copy has to run the page's suite, and the three `pre.code` blocks
+that were already wider than the viewport show that the floor only ever held because everything wide
+had been inside something that scrolled.
+
+**New evidence in `results/2026-09-20-w30-g1-split/`.** `classifier-selftest.py` with its committed
+output `classifier-selftest.txt` — seven cases, all PASS, over synthetic matrices carrying the
+generation shapes the bed does not have; and `append-check.v2.txt` / `append-check.v2.json`, the
+second reading described above.
+
+**The chain at this closure's head.**
+
+| step | result |
+| --- | --- |
+| `freeze.py verify` | **26.5 freeze intact: 1,818 entries**, unchanged |
+| `classifier-selftest.py` | 7 cases **PASS** |
+| `append-check.py` (second reading) | 6 clauses **PASS**, reconstruction to `9f73a2f79…` |
+| `pnpm --filter @vitrea/calibration test` | **530 passed** over 31 files |
+| `pnpm --filter demo test` | **40 passed** over 5 files (34 over 4 before; the six new are `test/calibration.test.ts`) |
+| `pnpm --filter demo build` | exit 0; main chunk 30,273.39 kB |
+| `pnpm -r lint` | exit 0 |
+| `pnpm --filter demo test:e2e` | **58 passed**, 0 failed, both projects (chromium and chromium-gpu). The first run of it read 57 passed and 1 failed — the reflow floor above, which G1's copy had broken and no G1 step ran; the 58th case is this closure's dark primary-cell assertion |
+
+No profile document, fixture, golden, matrix row, bound, floor or `PREDICATE_EXCLUDES` line moved.
 
 ## 5.158 W30 G2: the leaves — eight operator constants landed at algebraic identities, the exemption spent as one record beside six unedited documents, and no pixel and no frozen byte moved (2026-09-20)
 

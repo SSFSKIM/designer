@@ -12,6 +12,8 @@
  * lands: more cells means more scenes with figures and fewer empty slots.
  */
 
+import { SHIPPED_DOCUMENT_HASHES } from "virtual:vitrea-shipped-documents";
+
 import matrix from "../../../../packages/calibration/results/matrix.json";
 
 export interface Figure {
@@ -33,6 +35,12 @@ export interface CellReport {
   readonly tier: string;
   readonly fixtureSet: string;
   readonly capturedAt: string;
+  /**
+   * Was this reading taken at the material profile documents that are on disk? See
+   * `atAShippedDocument`: it is which GENERATION of the cell this row is, and
+   * `reportsFor` ranks a shipped reading ahead of a superseded one.
+   */
+  readonly atShippedDocument: boolean;
   readonly figures: readonly Figure[];
 }
 
@@ -51,6 +59,7 @@ interface Cell {
       readonly renderer: string;
       readonly samplingBackend: string;
       readonly gpuAdapter: string;
+      readonly capturePath: string;
     };
   };
   readonly tier: string;
@@ -135,11 +144,45 @@ const PRIMARY_PROFILE_KEY_BY_SCHEME = {
 } as const;
 const PRIMARY_TIER = "texture";
 
-/** Lower sorts first; see `reportsFor` for what the order means. */
-function primacy(report: CellReport, scheme: "light" | "dark"): number {
+/**
+ * Which generation of a cell this row is: was it read at the material profile
+ * documents that are on disk?
+ *
+ * A cell's `capturePath` names every document the run was driven from — the active
+ * one and, where the run posed its inactive scenes, the receded one — with twelve hex
+ * characters of SHA-256 over the document's bytes. A refit moves those bytes, so the
+ * next canonical run appends a second generation of rows beside the first instead of
+ * rewriting it. A row is at the shipped material only when EVERY document it names is
+ * still on disk at the bytes it records: a reading posed with a receded document
+ * nobody ships is not a reading of the shipped material, whatever its active document
+ * says, which is the same rule `results/2026-09-20-w30-g1-split/split-generation.py`
+ * splits the file by and `adopted-thresholds.test.ts` gates on.
+ */
+const DOCUMENT_CLAUSE = /(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})/g;
+
+function atAShippedDocument(capturePath: string): boolean {
+  const named = [...capturePath.matchAll(DOCUMENT_CLAUSE)];
   return (
-    (report.profileKey === PRIMARY_PROFILE_KEY_BY_SCHEME[scheme] ? 0 : 2) +
-    (report.tier === PRIMARY_TIER ? 0 : 1)
+    named.length > 0 &&
+    named.every((clause) => SHIPPED_DOCUMENT_HASHES[clause[1] ?? ""] === clause[2])
+  );
+}
+
+/**
+ * Lower sorts first; see `reportsFor` for what the order means.
+ *
+ * Three terms, most significant first: the profile of the scheme the page is drawing,
+ * then the tier the page speaks for, then the generation. The weights encode that
+ * precedence — a reading of the right profile on the right tier that a refit has since
+ * superseded still outranks a current reading of another tier, because the tier half of
+ * the rule is about *what was measured* and the generation is about *which reading of
+ * it*.
+ */
+export function primacy(report: CellReport, scheme: "light" | "dark"): number {
+  return (
+    (report.profileKey === PRIMARY_PROFILE_KEY_BY_SCHEME[scheme] ? 0 : 4) +
+    (report.tier === PRIMARY_TIER ? 0 : 2) +
+    (report.atShippedDocument ? 0 : 1)
   );
 }
 
@@ -151,19 +194,24 @@ function primacy(report: CellReport, scheme: "light" | "dark"): number {
  * present a cell from the wrong scheme as this scheme's evidence — which is why
  * every report carries its own `profileKey` and the page prints it.
  *
- * **There is no generation tie-break, and that is a fact about the file rather
- * than a simplification here** (W30 G1). A cell's key carries the material
- * profile document's hash, so a refit appends a generation of rows beside the old
- * one and never rewrites it — which is the project's rule about recorded numbers,
- * and why the matrix grows at all. W29 G4 met that as two macOS 27 generations in
- * one file and broke the tie on `capturedAt`, newest first: a heuristic standing
- * where a name belonged, and the tracker's matrix-size entry said so. Since W30
- * G1 the superseded generation is moved out to
+ * **The generation is a term in the order, not a timestamp** (W30 G1, amended by
+ * its review closure). A cell's key carries the material profile documents' own
+ * hashes, so a refit appends a generation of rows beside the old one and never
+ * rewrites it — which is the project's rule about recorded numbers, and why the
+ * matrix grows at all. W29 G4 met that as two macOS 27 generations in one file and
+ * broke the tie on `capturedAt`, newest first: a heuristic standing where a name
+ * belonged, and the tracker's matrix-size entry said so.
+ *
+ * Two things replaced it and both are needed. Since W30 G1 the superseded
+ * generation is moved out to
  * `packages/calibration/results/superseded/<document-sha>.json` as soon as the
- * refit that superseded it lands, so the working file holds one generation per
- * profile and the rows this module imports ARE the shipped bed. One profile and
- * one tier name one cell again, and the page's figure is the material it draws
- * without asking a timestamp which reading that is.
+ * refit that superseded it lands, so the rows this module imports are normally the
+ * shipped bed already. And `primacy` ranks a row at the documents on disk ahead of
+ * one that is not, so the page is right about which reading it is showing in the
+ * interval a wave actually lives in — between the capture that appends a
+ * generation and the split that retires the one it superseded — rather than
+ * silently showing whichever of the two the file happened to list first. Which
+ * documents ship is read from their bytes at build time, never transcribed.
  *
  * `capturedAt` is still carried on every report, and the page still prints it —
  * it is when the reading was taken. It is simply no longer asked to decide which
@@ -196,6 +244,7 @@ export const REPORTS_BY_SCENE: ReadonlyMap<string, readonly CellReport[]> = (() 
       tier: cell.tier,
       fixtureSet: cell.fixtureSet,
       capturedAt: cell.capturedAt,
+      atShippedDocument: atAShippedDocument(cell.key.web.capturePath),
       figures: figuresOf(cell),
     };
     const existing = bySceneId.get(report.sceneId);

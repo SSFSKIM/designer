@@ -6,6 +6,8 @@ import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
 
+import { shippedDocuments } from "./shipped-documents.ts";
+
 /**
  * Aliased to **source**, not to each package's `dist`, for the same reason
  * platform-web's e2e server is: a site that silently runs a stale build is worse
@@ -93,7 +95,7 @@ export default defineConfig({
    * Absolute asset URLs would pick one of those and break the other two.
    */
   base: "./",
-  plugins: [react(), nativeFixtures()],
+  plugins: [react(), nativeFixtures(), shippedDocuments()],
   resolve: {
     alias: {
       "@vitreajs/vitrea": `${packages}core/src/index.ts`,

@@ -38,6 +38,15 @@ checkerboard's five. So:
     measured statistics — candidate (ii).
 
 §5 runs that comparison.
+
+**Two units, and §7 now prints both** (review closure, W30 Decision Log 3 (e)).
+`interiorMean` is linear-light RELATIVE LUMINANCE, and §7 differenced it and
+multiplied by 255 — which is a linear-luminance figure on a 0–255 scale, not the
+8-bit code difference W25 G2's `fit-level.txt` states `resid` in. W25 encodes
+each side to sRGB FIRST and differences the codes. Both columns are printed
+side by side: the linear one is what the original cut recorded and is left
+exactly as it read, the sRGB one is the quantity comparable to W25's `lever`
+and `gain`.
 """
 from __future__ import annotations
 
@@ -109,6 +118,17 @@ def median(values: list[float]) -> float:
     return sorted(values)[len(values) // 2]
 
 
+def encode(value: float) -> float:
+    """Linear-light relative luminance to an sRGB-encoded signal, W25's own curve.
+
+    `results/2026-09-09-w25-thick-span-composite/g2/fit.py` encodes each side and
+    then differences, which is what makes its `resid`, `lever` and `gain` 8-bit
+    CODES. §7 below prints that beside the linear figure it originally recorded.
+    """
+    value = min(1.0, max(0.0, value))
+    return value * 12.92 if value <= 0.0031308 else 1.055 * value ** (1 / 2.4) - 0.055
+
+
 def bed_of(key: str) -> str:
     if key.startswith("apple-macos-26.5-"):
         return "26.5 " + key.removeprefix("apple-macos-26.5-").replace("-standard", "")
@@ -122,10 +142,19 @@ def main() -> int:
     matrix = json.loads(MATRIX.read_text())
 
     rows = []
+    # Two counts, not one. `generation` is every row of a generation that is at a
+    # shipped document; `rows` is the subset that carries an interior-structure
+    # reading. The two differ — a cell whose native spread is absent or zero
+    # measures no structure — and §1b names which of them each figure is, because
+    # a row count stated without that qualification reads as the generation's
+    # (review closure, W30 Decision Log 3 (e)).
+    generation: dict[tuple[str, str | None], int] = defaultdict(int)
     for cellular in matrix["cells"]:
         clause = CAPTURE.search(cellular["key"]["web"]["capturePath"])
         if clause is None or hashes.get(clause.group(1)) != clause.group(2):
             continue
+        os_of = "26.5" if "26.5" in cellular["key"]["profileKey"] else "27"
+        generation[(os_of, cellular.get("fixtureSet"))] += 1
         material = cellular.get("material")
         native = value(material, "interiorStdDevNative")
         web = value(material, "interiorStdDevWeb")
@@ -212,12 +241,31 @@ def main() -> int:
 
     print("§1b. The pitch ladder has NO macOS 27 web row in the committed matrix")
     print("-" * 112)
+    SETS = ("calibration", "validation", "holdout", "probe")
+    metric = defaultdict(int)
+    for row in rows:
+        metric[(row["os"], row["set"])] += 1
+    print("  Every count here is COMPUTED from the file, and each is given twice: the")
+    print("  generation's own rows at a shipped document, and the subset of them that")
+    print("  carries an interior-structure reading (both interiorStdDev readings present,")
+    print("  native > 0). Every per-pitch figure below is read on the second.")
+    print()
+    print(f"    {'generation':<14}" + "".join(f"{s:>26}" for s in SETS) + f"{'total':>16}")
+    print(f"    {'':<14}" + "".join(f"{'rows':>13}{'w/ metric':>13}" for _ in SETS)
+          + f"{'rows':>8}{'metric':>8}")
+    for os_of in ("27", "26.5"):
+        line = f"    {('macOS ' + os_of):<14}"
+        for fixture_set in SETS:
+            line += f"{generation[(os_of, fixture_set)]:>13}{metric[(os_of, fixture_set)]:>13}"
+        line += (f"{sum(v for (o, _), v in generation.items() if o == os_of):>8}"
+                 f"{sum(v for (o, _), v in metric.items() if o == os_of):>8}")
+        print(line)
+    print()
     print("  The canonical read is calibration + validation, then holdout. The pitch ladder is")
     print("  entirely `probe`, and probe has never been read at a macOS 27 document — the")
-    print("  macOS 27 generation of `results/matrix.json` carries 260 calibration, 62")
-    print("  validation and 123 holdout rows and **zero probe rows**, against the macOS 26.5")
-    print("  generation's 662. §5.153 §6's per-pitch figures were read off G3's SCRATCH")
-    print("  matrices, which were never committed.")
+    print("  macOS 27 generation carries **zero probe rows**, against the macOS 26.5")
+    print("  generation's own probe rows above. §5.153 §6's per-pitch figures were read off")
+    print("  G3's SCRATCH matrices, which were never committed.")
     print()
     print("  So the macOS 27 per-pitch table does not exist in committed evidence and X2 says")
     print("  G0 does not capture one. What does exist is two halves that together say what the")
@@ -302,8 +350,13 @@ def main() -> int:
                    and r["tier"] == tier and r["pose"] == "active" and not r["tinted"]}
             two = {r["scene"]: r for r in rows if r["bed"] == f"27 2x-{scheme}"
                    and r["tier"] == tier and r["pose"] == "active" and not r["tinted"]}
+            # The scene id is the last key, so the order is a property of the data
+            # rather than of the set's iteration order — which is hash-randomised
+            # per process and made two runs of this cut differ in line order while
+            # every figure agreed (review closure, W30 Decision Log 3 (e)).
             shared = sorted(set(one) & set(two),
-                            key=lambda s: (PITCH.get(one[s]["backdrop"], 999), one[s]["span"] or 0))
+                            key=lambda s: (PITCH.get(one[s]["backdrop"], 999),
+                                           one[s]["span"] or 0, s))
             if not shared:
                 continue
             print(f"  {scheme} — {tier}, {len(shared)} scenes")
@@ -386,6 +439,14 @@ def main() -> int:
     print("  asks for a positive constant. W25 declined it because the per-row gains ran")
     print("  −1.13…+0.24 with the two grids disagreeing in sign.")
     print()
+    print("  TWO UNITS, both printed (review closure, W30 Decision Log 3 (e)). `interiorMean`")
+    print("  is linear-light relative luminance. The `linear x255` columns difference it and")
+    print("  scale by 255, which is what this cut first recorded and is left untouched; the")
+    print("  `sRGB code` columns encode each side to sRGB FIRST and difference the codes,")
+    print("  which is W25's own `resid` and the only unit comparable to W25's `lever` and")
+    print("  `gain`. The verdict is read on the sRGB columns and does not change: the sign is")
+    print("  stable per scheme and the magnitude is not.")
+    print()
     for bed in [b for b in beds if b.startswith("27 ")]:
         for tier in ("webgpu",):
             lines = []
@@ -397,21 +458,31 @@ def main() -> int:
                            and r["pose"] == "active" and not r["tinted"]
                            and r["interiorMeanNative"] is not None]
                     if sel:
-                        at[span] = median([(r["interiorMeanNative"] - r["interiorMeanWeb"]) * 255
-                                           for r in sel])
+                        at[span] = (
+                            median([(r["interiorMeanNative"] - r["interiorMeanWeb"]) * 255
+                                    for r in sel]),
+                            median([(encode(r["interiorMeanNative"])
+                                     - encode(r["interiorMeanWeb"])) * 255 for r in sel]),
+                        )
                 if 96 in at and 160 in at:
-                    lines.append((backdrop, at[96], at[160], at[160] - at[96]))
+                    lines.append((backdrop, at[96], at[160]))
             if not lines:
                 continue
+            linear_unit = "linear x255 (as first cut)"
+            srgb_unit = "sRGB code (W25's own unit)"
             print(f"  {bed} — {tier}")
-            print(f"    {'backdrop':<20}{'resid(96)':>11}{'resid(160)':>12}{'Δ':>10}")
-            for backdrop, a, b2, d in lines:
-                print(f"    {backdrop:<20}{a:>11.2f}{b2:>12.2f}{d:>+10.2f}")
-            deltas = [d for _, _, _, d in lines]
-            positive = sum(1 for d in deltas if d > 0)
-            print(f"    n={len(deltas)}  median Δ {median(deltas):+.2f}  "
-                  f"range {min(deltas):+.2f}…{max(deltas):+.2f}  "
-                  f"positive on {positive}/{len(deltas)}")
+            print(f"    {'':<20}{linear_unit:>35}{srgb_unit:>37}")
+            print(f"    {'backdrop':<20}{'resid(96)':>11}{'resid(160)':>12}{'Δ':>12}"
+                  f"{'resid(96)':>13}{'resid(160)':>12}{'Δ':>12}")
+            for backdrop, a, b2 in lines:
+                print(f"    {backdrop:<20}{a[0]:>11.2f}{b2[0]:>12.2f}{b2[0] - a[0]:>+12.2f}"
+                      f"{a[1]:>13.2f}{b2[1]:>12.2f}{b2[1] - a[1]:>+12.2f}")
+            for unit, index in ((linear_unit, 0), (srgb_unit, 1)):
+                deltas = [b2[index] - a[index] for _, a, b2 in lines]
+                positive = sum(1 for d in deltas if d > 0)
+                print(f"    {unit}: n={len(deltas)}  median Δ {median(deltas):+.2f}  "
+                      f"range {min(deltas):+.2f}…{max(deltas):+.2f}  "
+                      f"positive on {positive}/{len(deltas)}")
             print()
 
     (HERE / "structure-cut.json").write_text(json.dumps({

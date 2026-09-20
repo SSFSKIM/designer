@@ -25,9 +25,18 @@ What is asserted, per reader:
     printed nothing;
   - with `--with-holdout` the holdout scene reaches the table — so the check is
     discriminating rather than vacuously satisfied.
+
+And, since the review closure (W30 Decision Log 3 (e), claims §5.156 §9), one
+channel further: `fit.py render` writes `compare`'s own stdout to the label's
+log, so a round invoked with `--set holdout` or a holdout `--scene` put a
+holdout number one `cat` away while every table stayed clean. `render` now
+refuses that selection unless `--with-holdout` is typed, and the check exercises
+`capture_refusal()` DIRECTLY — the argument check in isolation, with no capture,
+no browser and no `compare` process (X2, X5).
 """
 from __future__ import annotations
 
+import importlib.util
 import json
 import os
 import subprocess
@@ -43,6 +52,14 @@ SHADOW_TABLE = RESULTS / "2026-09-19-w29-g3b-shadow-recede" / "shadow-table.py"
 HOLDOUT_SCENE = "checkerboard__rrect-lg__rest"
 KEPT_SCENE = "checkerboard__rrect-md__rest"
 PROFILE = "apple-macos-27.0-1x-light-standard-glass0.5"
+
+
+def load(path: Path):
+    """`fit.py` as a module, so its predicates can be exercised without its verbs."""
+    spec = importlib.util.spec_from_file_location("fit_under_check", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def cell(scene: str, fixture_set: str) -> dict:
@@ -143,6 +160,38 @@ def main() -> int:
             if HOLDOUT_SCENE not in "\n".join(table_lines(with_flag)):
                 failures.append(f"{name}: --with-holdout did not admit the row")
 
+        # `fit.py render`'s own argument check, exercised in isolation. The verb
+        # itself would capture, so what is run is the predicate `render` consults
+        # before it does anything — which is the whole of the guarantee, and the
+        # only part of it that can be exercised without a browser.
+        fit = load(FIT)
+        holdout_ids = sorted(fit.holdout_scenes())
+        a_holdout_scene = holdout_ids[0]
+        a_kept_scene = KEPT_SCENE
+        if a_kept_scene in fit.holdout_scenes():
+            failures.append("render: the control scene is itself holdout, so the check is vacuous")
+        cases = [
+            ("--set holdout", ["--set", "holdout"], False, True),
+            ("--set calibration,holdout", ["--set", "calibration,holdout"], False, True),
+            (f"--scene {a_holdout_scene}", ["--scene", a_holdout_scene], False, True),
+            ("--set calibration", ["--set", "calibration"], False, False),
+            (f"--scene {a_kept_scene}", ["--scene", a_kept_scene], False, False),
+            ("--set holdout --with-holdout", ["--set", "holdout"], True, False),
+            (f"--scene {a_holdout_scene} --with-holdout", ["--scene", a_holdout_scene], True, False),
+        ]
+        print("--- fit.py render (the argument check, in isolation)")
+        print(f"    {len(holdout_ids)} declared holdout ids, read from scenes.json's own split")
+        for label, argv, with_holdout, expected in cases:
+            refusal = fit.capture_refusal(argv, with_holdout)
+            got = refusal is not None
+            print(f"    {label:<66}{'REFUSED' if got else 'allowed'}"
+                  f"{'' if got == expected else '   <-- WRONG'}")
+            if got != expected:
+                failures.append(
+                    f"render: `{label}` was {'refused' if got else 'allowed'} and should not be"
+                )
+        print()
+
         # `merge` writes a file rather than a table, so it is checked on the file.
         merged = scratch / "merged.json"
         run([str(FIT), "merge", str(merged), "check"], scratch)
@@ -162,8 +211,8 @@ def main() -> int:
         for failure in failures:
             print(f"FAIL: {failure}")
         return 1
-    print("OK — no reader yields a holdout number without the flag, and every reader")
-    print("     yields one with it.")
+    print("OK — no reader yields a holdout number without the flag, every reader yields")
+    print("     one with it, and `render` refuses to CAPTURE a holdout selection without it.")
     return 0
 
 

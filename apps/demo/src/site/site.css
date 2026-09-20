@@ -52,6 +52,16 @@ a {
 code {
   font-family: var(--font-mono);
   font-size: 0.9em;
+  /*
+   * A path or a package name inside prose is one unbreakable token, and the
+   * narrowest layout DESIGN.md §9 claims gives a list item 232 CSS px to put it
+   * in. Without this the token pushes the document sideways instead of wrapping,
+   * which is the horizontal scrolling the reflow floor exists to forbid — W30 G1's
+   * copy naming `packages/calibration/results/superseded/` did exactly that.
+   * `.code code` is `white-space: pre` and therefore unaffected: a code BLOCK
+   * scrolls inside itself by design, and only the page may not.
+   */
+  overflow-wrap: anywhere;
 }
 
 .visually-hidden {

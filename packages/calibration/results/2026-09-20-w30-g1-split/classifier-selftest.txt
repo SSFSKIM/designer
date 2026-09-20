@@ -1,0 +1,16 @@
+current retained       PASS
+superseded named       PASS
+receded-only compound  PASS
+index lookup complete  PASS
+third clause refused   PASS
+no active refused      PASS
+X1 held by the tool    PASS
+
+what each case read:
+  current retained: retained ['current-scene']
+  superseded named: bbbbbbbbbbbb.json holds ['superseded-active-scene']
+  receded-only compound: aaaaaaaaaaaa-cccccccccccc.json holds ['receded-only-scene']
+  index lookup complete: {"aaaaaaaaaaaa": "aaaaaaaaaaaa-cccccccccccc.json", "bbbbbbbbbbbb": "bbbbbbbbbbbb.json", "cccccccccccc": "aaaaaaaaaaaa-cccccccccccc.json"}
+  third clause refused: capturePath carries 3 document hashes and 2 parse as clauses this script knows: web-captures/third-clause-scene.png materialProfile=packages/calibration/profiles/light.json sha256:aaaaaaaaaaaa recededProfile=packages/calibration/profiles/light-receded.json sha256:dddddddddddd crossingProfile=packages/calibration/profiles/css-crossing.json sha256:eeeeeeeeeeee
+  no active refused: row 0 is superseded but names no active document
+  X1 held by the tool: X1: 1 rows of the frozen macOS 26.5 bed are selected to move (apple-macos-26.5-1x-light-standard); check --current

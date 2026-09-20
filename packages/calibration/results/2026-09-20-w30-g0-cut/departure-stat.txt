@@ -1,0 +1,66 @@
+W30 G0 review closure — B3's departure statistic, as Decision Log 3 (a) restates it
+====================================================================================================
+
+  |meanDepartureWeb - meanDepartureNative|, arithmetic mean, over the macOS 27
+  generation of results/matrix.json at the shipped documents (atAShippedDocument),
+  455 rows in all. The stop is the WEBGPU line of the 'all six' block.
+
+All six declared profiles, NON-HOLDOUT — the stop condition
+----------------------------------------------------------------------------------------------------
+  row set          n    mean |Δ|     max |Δ|   worst cell
+  webgpu         166     0.00035     0.00463   light-solid__rrect-md__inactive (webgpu)
+  css            166     0.00124     0.01510   photo__rrect-md__rest (css)
+  both           332     0.00079     0.01510   photo__rrect-md__rest (css)
+
+All six declared profiles, holdout only — reported, never fitted
+----------------------------------------------------------------------------------------------------
+  row set          n    mean |Δ|     max |Δ|   worst cell
+  webgpu          62     0.00397     0.03252   checkerboard__rrect-lg__inactive (webgpu)
+  css             61     0.00668     0.07640   photo__rrect-lg__rest (css)
+  both           123     0.00532     0.07640   photo__rrect-lg__rest (css)
+
+Per profile, non-holdout
+----------------------------------------------------------------------------------------------------
+  profile                                                       tier        n    mean |Δ|
+  apple-macos-27.0-1x-dark-standard-glass0.5                    webgpu     21     0.00028
+  apple-macos-27.0-1x-dark-standard-glass0.5                    css        21     0.00069
+  apple-macos-27.0-1x-dark-standard-glass0.5                    both       42     0.00048
+  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 webgpu     14     0.00036
+  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 css        14     0.00426
+  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 both       28     0.00231
+  apple-macos-27.0-1x-light-reduced-transparency-glass0.5       webgpu     12     0.00037
+  apple-macos-27.0-1x-light-reduced-transparency-glass0.5       css        12     0.00205
+  apple-macos-27.0-1x-light-reduced-transparency-glass0.5       both       24     0.00121
+  apple-macos-27.0-1x-light-standard-glass0.5                   webgpu     49     0.00033
+  apple-macos-27.0-1x-light-standard-glass0.5                   css        49     0.00097
+  apple-macos-27.0-1x-light-standard-glass0.5                   both       98     0.00065
+  apple-macos-27.0-2x-dark-standard-glass0.5                    webgpu     21     0.00026
+  apple-macos-27.0-2x-dark-standard-glass0.5                    css        21     0.00071
+  apple-macos-27.0-2x-dark-standard-glass0.5                    both       42     0.00049
+  apple-macos-27.0-2x-light-standard-glass0.5                   webgpu     49     0.00042
+  apple-macos-27.0-2x-light-standard-glass0.5                   css        49     0.00090
+  apple-macos-27.0-2x-light-standard-glass0.5                   both       98     0.00066
+
+The two light standard beds pooled, non-holdout — the bed §5.154 §3 names
+----------------------------------------------------------------------------------------------------
+  webgpu         98     0.00038
+  css            98     0.00094
+  both          196     0.00066
+
+§5.154 §3's 0.00074 is not reproducible from the committed matrix
+----------------------------------------------------------------------------------------------------
+  Every partition of the 1x-light-standard bed this file can express, so that the
+  correction beside §5.154 §3 says what was checked rather than that it was checked:
+
+  partition                           webgpu                 css                both
+  all rows                    0.00125 (n 69)      0.00219 (n 69)     0.00172 (n 138)
+  non-holdout                 0.00033 (n 49)      0.00097 (n 49)      0.00065 (n 98)
+  calibration                 0.00037 (n 37)      0.00103 (n 37)      0.00070 (n 74)
+  validation                  0.00022 (n 12)      0.00080 (n 12)      0.00051 (n 24)
+  holdout                     0.00349 (n 20)      0.00515 (n 20)      0.00432 (n 40)
+  active only                 0.00061 (n 48)      0.00202 (n 48)      0.00131 (n 96)
+  non-holdout active          0.00032 (n 35)      0.00123 (n 35)      0.00077 (n 70)
+  calibration active          0.00032 (n 27)      0.00125 (n 27)      0.00079 (n 54)
+
+  None of them is 0.00074. That figure is the fit's own residual on G3's scratch
+  matrices at the moment it was chosen; the committed bed is a different read.

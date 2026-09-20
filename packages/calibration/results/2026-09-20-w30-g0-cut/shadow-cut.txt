@@ -420,3 +420,64 @@ Cells:  ACTIVE pose only. Every figure is `median [min–max] (n)`, median = sor
     span 160  2x light                            photo__rrect-lg__rest                           σ  17.29
     span 160  2x light                            photo__rrect-lg__rest-tint-orange               σ  17.34
 
+§9. B1 read as a JOINT clause: the window one document's σ at span 96 has to sit in
+------------------------------------------------------------------------------------------------------------
+  A macOS 27 document is selected per SCHEME, not per bed: the light document is
+  what the 1x, 2x, reduced-transparency and coupled-contrast beds all draw (their
+  rows' own capturePath names it), and the dark document is what the two dark beds
+  draw. So B1's ±5 % is not four independent clauses — one σ at span 96 has to meet
+  every bed its document serves at once, and the admissible window is the
+  INTERSECTION of the per-bed ones. The confounded increased-contrast key is not
+  among the six declared profiles and is printed but excluded from the intersection.
+
+  light document — served beds at span 96
+    bed                                      n   median σ      -5 %      +5 %
+    1x light                                16     8.7954    8.3556    9.2351
+    2x light                                16     9.3648    8.8966    9.8330
+    1x light-reduced-transparency            2     8.5898    8.1603    9.0193
+    1x light-increased-contrast-coupled      2     8.5898    8.1603    9.0193
+    joint window [8.8966, 9.0193]  centre 8.9579  ± 0.685 % effective  NON-EMPTY
+
+  dark document — served beds at span 96
+    bed                                      n   median σ      -5 %      +5 %
+    1x dark                                 10     8.8743    8.4306    9.3180
+    2x dark                                 10     9.3773    8.9084    9.8461
+    joint window [8.9084, 9.3180]  centre 9.1132  ± 2.247 % effective  NON-EMPTY
+
+  (1x light-increased-contrast, the confounded key: median 8.7968 over 2, excluded above.)
+
+  A law fitted to the 1x light median alone lands -6.1% against 2x light's.
+  A law fitted to the 1x dark median alone lands -5.4% against 2x dark's.
+
+§10. B1's median with the holdout in it, against the median the fit may see
+------------------------------------------------------------------------------------------------------------
+  B1 is read against 'that bed's median native σ' and the σ law is fitted on
+  non-holdout cells (X4). Those are two populations, so the bound could in
+  principle be stated against a number no fit is allowed to see. The difference is
+  printed rather than assumed away:
+
+  bed                                     span    pooled   n   non-holdout   n      Δ %
+  1x dark                                   96    8.8743  10        8.8743  10   +0.000
+  1x dark                                  128   13.1904   5       13.1904   5   +0.000
+  1x dark                                  160   17.4512  11       17.4560  10   -0.028
+  2x dark                                   96    9.3773  10        9.3773  10   +0.000
+  2x dark                                  128   13.4166   5       13.4166   5   +0.000
+  2x dark                                  160   17.6769  11       17.6774  10   -0.003
+  1x light                                  96    8.7954  16        8.7954  15   +0.000
+  1x light                                 128   13.1378   8       13.1378   8   +0.000
+  1x light                                 160   17.2991  13       17.3605  10   -0.354
+  2x light                                  96    9.3648  16        9.3648  15   +0.000
+  2x light                                 128   13.3050   8       13.3050   8   +0.000
+  2x light                                 160   17.5824  13       17.5917  10   -0.053
+  1x light-increased-contrast               96    8.7968   2        8.7968   2   +0.000
+  1x light-increased-contrast              160   16.9684   1             —   0      n/a
+  1x light-increased-contrast-coupled       96    8.5898   2        8.5898   2   +0.000
+  1x light-increased-contrast-coupled      160   16.9712   1             —   0      n/a
+  1x light-reduced-transparency             96    8.5898   2        8.5898   2   +0.000
+  1x light-reduced-transparency            160   16.9712   1             —   0      n/a
+
+  Largest disagreement at any thick span on any bed that carries both: 0.354 %.
+  The three accessibility beds carry NO non-holdout cell at span 160 — their only
+  span-160 reading is the holdout `photo__rrect-lg__rest` — which is the case B1
+  already declares an extrapolation and a check rather than a fit.
+

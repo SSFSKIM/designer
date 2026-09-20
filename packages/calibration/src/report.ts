@@ -1045,15 +1045,16 @@ export interface CellResult {
  * schema-5 figure is measured exactly as before, the new rows are optional in
  * the same "absent means not measured" sense the axes already use, and no
  * adopted bound reads them until W13 G2 adopts one from the bed. A bump would
- * also widen the deliberate gap between this constant and the committed
- * matrix's own version, which Decision Log 15 ruling 3 (below) pins for an
- * unrelated reason.
+ * also open a gap between this constant and the committed matrix's own version,
+ * which `test/adopted-thresholds.test.ts` pins on both sides.
  *
- * `results/matrix.json` is deliberately left at schema 4. Decision Log 15 ruling
- * 3 keeps the inactive-bed gate enforced, as the historically-labelled suite,
- * until the one honest post-W8 pass — so the committed matrix and the schema
- * this build writes are different versions on purpose, and
- * `test/adopted-thresholds.test.ts` pins both numbers to say so.
+ * **`results/matrix.json` is a schema-5 file and this build writes schema 5.**
+ * The gap Decision Log 15 ruling 3 held open — the committed matrix left at the
+ * schema the inactive-bed gate was adopted against, while the build moved on —
+ * closed when the post-W8 pass re-read the bed, and both numbers are pinned
+ * equal so that a future divergence is a decision again rather than drift.
+ * (Corrected 2026-09-20, W30 G1 review closure, c9a §5.157 §10: this paragraph
+ * had gone on describing the interregnum after it ended.)
  */
 export const RESULT_MATRIX_SCHEMA_VERSION = 5;
 
