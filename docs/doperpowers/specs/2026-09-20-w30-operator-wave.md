@@ -28,7 +28,11 @@ it, which a positive mix of two Gaussians — monotone in frequency — cannot d
 changes sign with the colour scheme: on `checkerboard__rrect-md__rest` the WebGPU tier passes
 **1.77×** the native structure in light and **0.55×** in dark, the CSS tier 1.04× and 0.32×
 (§5.154 §9 (c); the tracker's "two tiers miss the backdrop's structure in opposite directions"). A
-scatter fitted on the light bed alone lands on the wrong side of the dark one. Three of the seven
+scatter fitted on the light bed alone lands on the wrong side of the dark one. Those four figures
+are the **sheets'** instrument — 0–255 luminance over the component's box inset 12 CSS px — and the
+matrix metric reads the same four cells 1.567 / 0.749 / 0.968 / 0.355, crossing 1.0 on the light CSS
+reading where the sheet does not; claims §5.156 §3 tables the two beside each other and says which
+one a test can pin, and B4 and `tier-coherence.test.ts` are written on the matrix's. Three of the seven
 rows 0.19.0 records as missed sit on the shadow's reach at the largest spans and on this residual.
 
 Both operators add leaves to the renderer's `DEFAULT_MATERIAL_PROFILE`, and every shipped document's
@@ -688,6 +692,29 @@ declarations — the part the wave is judged against. Ruled, for the review clos
 
 ## Revision Notes
 
+- 2026-09-20 (G0 review closure): **Decision Log 3 executed** under claims §5.156 §9, which is the
+  new section listing each finding, the ruling it executes and what closed it. The review reproduced
+  every figure of both cuts and found nothing wrong with the measurements; all ten findings were in
+  the declarations. Every correction is recorded **beside** the text it corrects and dated, and the
+  three cut outputs gained sections without losing one. What a later child has to carry from it:
+  - **B3's stop is the WebGPU tier's 0.00035**, not 0.0007 bed-wide — twice as tight on the tier
+    that is fitted, with the both-tier 0.00079 recorded beside as the CSS tier's, and a committed
+    script (`departure-stat.py`) so G3 and G4 re-run the statistic instead of transcribing it.
+    §5.154 §3's 0.00074 is qualified beside as a fit-loop residual that this file does not
+    reproduce under any partition.
+  - **B1's effective tolerance on the light document is ±0.685 %, not ±5 %**, because one document
+    serves four beds and the windows intersect; `sigmaSpanRefPx` is held at 96 to remove the law's
+    flat direction, its inert default still 0. A 1x-only fit fails 2x light by −6.08 %.
+  - **B4 binds the four standard beds**; the two accessibility beds are reported, and the ladder
+    clause is read on the macOS 27 probe rows Decision Log 2 (a) grants.
+  - **The holdout drop is now end to end**: `fit.py render` refuses a holdout `--set` or `--scene`
+    without `--with-holdout`, because it writes `compare`'s stdout to a log a `cat` can read.
+  - Two readings of the record were qualified rather than corrected: §5.156 §1's file counts are
+    stale after G1's split and the 1,107 pin is unmoved, and §3's row counts are of the
+    metric-carrying subset where the generation's are 455 and 1,107.
+  Nothing under `results/2026-09-16-w29-freeze/` was touched and `freeze.py verify` reads 1,818
+  intact at this closure's open and close. No material constant, document, fixture, golden, bound,
+  floor or matrix row moved; no leaf was added; no capture was taken.
 - 2026-09-20 (G0): **G0 closed** under claims §5.156; six commits, each its own clause. Nothing
   under `results/2026-09-16-w29-freeze/` was touched — v1's exemption reader stays withdrawn and
   `freeze.py verify` reads 1,818 intact at this child's open and close. Four Surprises recorded
