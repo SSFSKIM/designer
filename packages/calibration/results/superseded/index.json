@@ -1,7 +1,33 @@
 {
   "what": "Every superseded generation of canonical rows, by the document each was read at. `byDocumentSha256` is the lookup: a twelve-hex document hash — active or receded — maps to the file holding the rows that name it.",
-  "rule": "A file is named by the ACTIVE document's twelve-hex SHA-256. A receded document never names a file; it is a difference over the active document of its own scheme and travels with it.",
+  "rule": "A file is named by the ACTIVE document's twelve-hex SHA-256. A receded document never names a file; it is a difference over the active document of its own scheme and travels with it. Where only the receded document moved and the active one still ships, the name is the compound `<active>-<receded>`, because the active hash alone would name this file after a generation that is current.",
   "files": {
+    "272d1b0c3e10.json": {
+      "activeDocumentSha256": "272d1b0c3e10",
+      "documents": [
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+          "sha256": "5c81bc72edad"
+        },
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+          "sha256": "272d1b0c3e10"
+        }
+      ],
+      "readUnderClaims": "c9a §5.159",
+      "capturedAt": {
+        "first": "2026-09-19T11:38:33.541Z",
+        "last": "2026-09-19T11:45:52.905Z"
+      },
+      "supersededOn": "2026-09-20",
+      "rowCount": 112,
+      "rowsByProfileKey": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5": 56,
+        "apple-macos-27.0-2x-dark-standard-glass0.5": 56
+      },
+      "bytes": 3986816,
+      "sha256": "091ee5e6235db551cb7d6f814e1053a40823569057e53f79c56ddfc9738d1ecf"
+    },
     "96b36eedf1c4.json": {
       "activeDocumentSha256": "96b36eedf1c4",
       "documents": [
@@ -23,6 +49,34 @@
       },
       "bytes": 3911642,
       "sha256": "490b395e4127713f24197d2fc5f0985dc0c46f367bf44d61520fc3bcb504a8e7"
+    },
+    "f42ddec1cf5a.json": {
+      "activeDocumentSha256": "f42ddec1cf5a",
+      "documents": [
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+          "sha256": "59d4b20a4596"
+        },
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+          "sha256": "f42ddec1cf5a"
+        }
+      ],
+      "readUnderClaims": "c9a §5.159",
+      "capturedAt": {
+        "first": "2026-09-19T11:33:46.053Z",
+        "last": "2026-09-19T11:46:23.884Z"
+      },
+      "supersededOn": "2026-09-20",
+      "rowCount": 343,
+      "rowsByProfileKey": {
+        "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 35,
+        "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": 32,
+        "apple-macos-27.0-1x-light-standard-glass0.5": 138,
+        "apple-macos-27.0-2x-light-standard-glass0.5": 138
+      },
+      "bytes": 12631782,
+      "sha256": "84e84f5fd84fbe2f051b831c7a0769540d8cffddf39a4284da48640a6f36988e"
     },
     "fa872c683f3e.json": {
       "activeDocumentSha256": "fa872c683f3e",
@@ -50,7 +104,11 @@
     }
   },
   "byDocumentSha256": {
+    "272d1b0c3e10": "272d1b0c3e10.json",
+    "59d4b20a4596": "f42ddec1cf5a.json",
+    "5c81bc72edad": "272d1b0c3e10.json",
     "96b36eedf1c4": "96b36eedf1c4.json",
+    "f42ddec1cf5a": "f42ddec1cf5a.json",
     "fa872c683f3e": "fa872c683f3e.json"
   }
 }
