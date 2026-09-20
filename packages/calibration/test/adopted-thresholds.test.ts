@@ -3310,3 +3310,213 @@ describe("the frozen macOS 26.5 bed survives the document partition (W30 G0, X1)
     ]);
   });
 });
+
+/**
+ * **B1, adopted — the outer shadow's σ law against the bed's own native σ**
+ * (W30 G4, claims §5.160; declared at §5.156 §5 (b) as the wave's one tolerance
+ * "adopted at G4 if it passes", restated by charter Decision Log 3 (c), fitted
+ * and met at §5.159 §1, re-read at the constants the seal wrote by §5.159b §10
+ * finding 7).
+ *
+ * **What it asserts.** On macOS 27 the outer shadow's blur is linear in the
+ * casting span above a knee, where on macOS 26.5 it was one constant at every
+ * size. 0.19.0 shipped that one constant and this wave replaced it with the law.
+ * B1 is the promise that the law's output stays inside ±5 % of the native
+ * material's own σ at the three thick spans the bed measures — 96, 128 and 160 —
+ * on every bed the document serves.
+ *
+ * **Joint, which is what makes it bite.** A material profile document is selected
+ * per colour scheme and not per scale or per accessibility state, so ONE document
+ * draws four beds on the light side (1x, 2x, reduced transparency, coupled
+ * contrast) and two on the dark. The admissible σ at a span is therefore the
+ * INTERSECTION of those beds' ±5 % windows, and on the light document that
+ * intersects to ±0.685 % at span 96 rather than ±5 %. A law fitted to the
+ * 1x-light median alone lands −6.08 % against the 2x-light bed and fails here;
+ * that is measured, not hypothetical (§5.156 §5, Decision Log 3 (c)).
+ *
+ * **Read from committed evidence, never transcribed.** The natives come from W30
+ * G0's cut — one σ per bed per span per cell, off W29 G2's native delta, with the
+ * statistic G0 named — and the law's output comes from the shipped documents'
+ * own leaves. Neither side is a literal in this file, for the reason no bound in
+ * this file is: a number retyped after a refit is a number that goes stale
+ * silently. What IS stated here is the tolerance and the spans, because those are
+ * the promise.
+ *
+ * **Why B1 and not B2 or B4.** §5.156 §5 declared the fate of each of the wave's
+ * five acceptances before the first leaf existed, and only B1's was adoption.
+ * B2 (the thin-span factor) stays a one-wave reading because the thin regime's
+ * (amplitude, σ) pair is not identified and bifurcates on the author's tint; B4
+ * (the structure ratio) stays one because it would be a standing promise about a
+ * curve read at one pitch. Both name what would make them adoptable and neither
+ * is asserted here.
+ */
+describe("W30 B1 — the shadow's σ law, adopted (claims §5.160)", () => {
+  /** G0's statistic, named at §5.156 §5 (b): the upper middle order statistic. */
+  const upperMiddle = (values: readonly number[]): number =>
+    [...values].sort((a, b) => a - b)[Math.floor(values.length / 2)] ?? Number.NaN;
+
+  const B1_TOLERANCE = 0.05;
+  const B1_SPANS = [96, 128, 160] as const;
+
+  interface CutCell {
+    readonly bed: string;
+    readonly profile: string;
+    readonly span: number;
+    readonly sigmaCss: number;
+  }
+
+  /**
+   * W30 G0's native cut: one σ per active cell, `sigma_css > span` already
+   * excluded by the rule the file records in its own `exclusionRule`.
+   */
+  const CUT = readJson<{
+    readonly statistic: string;
+    readonly cells: readonly CutCell[];
+  }>(resolve(PACKAGE_ROOT, "results", "2026-09-20-w30-g0-cut", "shadow-cut.json"));
+
+  /** A shipped document, read for its σ leaves. */
+  const documentOf = (
+    file: string,
+  ): {
+    readonly sigmaPx: number;
+    readonly sigmaSlopePerSpan: number;
+    readonly sigmaSpanRefPx: number;
+    readonly sigmaThinOffsetPx: number;
+  } => {
+    const patch = readJson<{
+      readonly patch: { readonly outerShadow: Record<string, number> };
+    }>(resolve(PACKAGE_ROOT, "profiles", file)).patch.outerShadow;
+    for (const leaf of [
+      "sigmaPx",
+      "sigmaSlopePerSpan",
+      "sigmaSpanRefPx",
+      "sigmaThinOffsetPx",
+    ] as const) {
+      expect(typeof patch[leaf], `${file} names ${leaf}`).toBe("number");
+    }
+    return patch as never;
+  };
+
+  /**
+   * The law itself, mirrored from `platform-web`'s `outerShadowSigmaPx` and the
+   * renderer's `outer_shadow_sigma`.
+   *
+   * Written out here rather than imported, for this file's standing reason: a
+   * gate that evaluated the runtime's own function would be asserting that the
+   * runtime agrees with itself. What binds the three copies to each other is
+   * `tier-coherence.test.ts` and `w30-inert-laws.test.ts`; what this file asserts
+   * is that the copy the DOCUMENTS carry lands inside the NATIVE bed's window.
+   */
+  const sigmaAt = (
+    leaves: ReturnType<typeof documentOf>,
+    span: number,
+  ): number =>
+    leaves.sigmaPx
+    + Math.max(
+      leaves.sigmaThinOffsetPx,
+      leaves.sigmaSlopePerSpan * (span - leaves.sigmaSpanRefPx),
+    );
+
+  /**
+   * Which beds a document serves: every declared 27 profile of its own scheme.
+   *
+   * Derived from `DECLARED_27_PROFILES` rather than listed again, which is what
+   * keeps the confounded `…-1x-light-increased-contrast-glass0.5` bed out of the
+   * bound — it is not a declared profile (W29 Decision Log 5), it is in the cut,
+   * and a hand-written list of beds would have let it in by looking plausible.
+   */
+  const served = (scheme: "light" | "dark"): readonly string[] =>
+    DECLARED_27_PROFILES.map((profile) => profile.profileKey).filter((key) =>
+      scheme === "dark" ? key.includes("-dark-") : key.includes("-light-"),
+    );
+
+  const DOCUMENTS = [
+    { scheme: "light", file: "apple-macos-27.0-1x-light-standard-glass0.5.json" },
+    { scheme: "dark", file: "apple-macos-27.0-1x-dark-standard-glass0.5.json" },
+  ] as const;
+
+  it("reads the cut at the statistic §5.156 §5 (b) declared, over a non-empty bed", () => {
+    // The guard the rest of this block leans on. A cut that had moved, emptied or
+    // been re-stated at another statistic would let every window below pass over
+    // nothing, and no assertion about a maximum says "over something".
+    expect(CUT.statistic).toContain("upper middle order statistic");
+    expect(CUT.cells.length).toBeGreaterThan(200);
+    for (const { scheme } of DOCUMENTS) {
+      for (const span of B1_SPANS) {
+        const observed = served(scheme).flatMap((profile) =>
+          CUT.cells.filter((cell) => cell.profile === profile && cell.span === span),
+        );
+        expect(observed.length, `${scheme} at span ${span}`).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  for (const { scheme, file } of DOCUMENTS) {
+    it(`${scheme}: the law's σ is within 5% of every served bed's native σ at spans 96, 128 and 160`, () => {
+      const leaves = documentOf(file);
+      // A negative slope would invert the group reach's bound, which is asserted
+      // as a bound in `w30-inert-laws.test.ts`; assert the precondition here too,
+      // because B1 passing at a negative slope would be B1 passing about nothing.
+      expect(leaves.sigmaSlopePerSpan).toBeGreaterThanOrEqual(0);
+
+      for (const span of B1_SPANS) {
+        const law = sigmaAt(leaves, span);
+        for (const profile of served(scheme)) {
+          const cells = CUT.cells.filter(
+            (cell) => cell.profile === profile && cell.span === span,
+          );
+          // A bed that carries no cell at this span is not evidence about it: the
+          // accessibility beds have no span-128 cell at all, and the law's value
+          // there is an extrapolation §5.156 §5 declares as one.
+          if (cells.length === 0) continue;
+          const native = upperMiddle(cells.map((cell) => cell.sigmaCss));
+          const error = (law - native) / native;
+          expect(
+            Math.abs(error),
+            `${profile} at span ${span}: law ${law.toFixed(4)} against native ${native.toFixed(4)} `
+              + `over ${cells.length} cells, ${(error * 100).toFixed(3)}%`,
+          ).toBeLessThanOrEqual(B1_TOLERANCE);
+        }
+      }
+    });
+  }
+
+  it("holds the joint window, which is tighter than the clause's own 5% on the light document", () => {
+    /*
+     * The clause restated as one intersection per span, which is what Decision
+     * Log 3 (c) ruled it is. Asserting it this way rather than bed by bed catches
+     * the case a per-bed loop cannot: a law that clears every bed by 4.9 % in
+     * OPPOSITE directions would satisfy the case above and still be outside the
+     * set of σ any single document can draw for all of them.
+     *
+     * The intersection is also the reading that made B1 worth adopting. On the
+     * light document it is ±0.685 % at span 96 — the four served beds' windows
+     * overlap that narrowly — so the adopted promise is seven times tighter than
+     * the number it is written with, and it is tighter by measurement rather than
+     * by choice.
+     */
+    for (const { scheme, file } of DOCUMENTS) {
+      const law = documentOf(file);
+      for (const span of B1_SPANS) {
+        const windows = served(scheme)
+          .map((profile) =>
+            CUT.cells.filter((cell) => cell.profile === profile && cell.span === span),
+          )
+          .filter((cells) => cells.length > 0)
+          .map((cells) => upperMiddle(cells.map((cell) => cell.sigmaCss)))
+          .map((native) => [native * (1 - B1_TOLERANCE), native * (1 + B1_TOLERANCE)] as const);
+        expect(windows.length, `${scheme} at span ${span}`).toBeGreaterThan(0);
+        const low = Math.max(...windows.map((window) => window[0]));
+        const high = Math.min(...windows.map((window) => window[1]));
+        expect(low, `${scheme} at span ${span}: the served beds' windows do not intersect`)
+          .toBeLessThanOrEqual(high);
+        const value = sigmaAt(law, span);
+        expect(
+          value,
+          `${scheme} at span ${span}: σ ${value.toFixed(4)} against [${low.toFixed(4)}, ${high.toFixed(4)}]`,
+        ).toBeGreaterThanOrEqual(low);
+        expect(value).toBeLessThanOrEqual(high);
+      }
+    }
+  });
+});
