@@ -4854,7 +4854,9 @@ export function outerShadowFalloff(signedDistancePx: number, sigmaPx: number): n
    * The argument is clamped so that this and the shader stay one function
    * (W30 G3b; claims §5.159b). `Math.tanh` is exact at every magnitude, so here
    * the clamp does nothing an f64 reader can observe — `tanh` returns exactly
-   * 1.0 from |t| = 18.2 up — and it is written all the same, because the WGSL
+   * 1.0 from |t| = 19.0615 up, measured, and not from 18.2, which this comment
+   * said until the review closure corrected it (§5.159b §10) — and it is
+   * written all the same, because the WGSL
    * mirror needs it: a backend that lowers `tanh` through `exp(2t)` overflows
    * f32 past |t| = 44.36 and returns NaN, and a guard that lived on one side of
    * the mirror would be a difference between the tiers rather than a fix. ±20

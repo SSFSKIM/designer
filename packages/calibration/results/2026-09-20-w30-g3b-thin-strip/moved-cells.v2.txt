@@ -1,8 +1,12 @@
 W30 G3b — the cells the renderer fix moved, over one read of results/matrix.json
 ====================================================================================================
-  726 cells present in both generations; 176 moved, 550 bit-identical
+  rows from packages/calibration/results/matrix.json
+  rows from packages/calibration/results/superseded/d731b3838994.json
+  rows from packages/calibration/results/superseded/ce1af58886ff.json
+  726 cells present in both generations; 331 moved, 395 bit-identical
+  of the 331: 176 move on an axis of their own and 155 only on `coherence`, which reads the paired texture cell
 
-THE CLAIM — a cell moves if and only if it casts at span 44
+THE CLAIM — a cell moves on an axis of its OWN if and only if it casts at span 44
 ----------------------------------------------------------------------------------------------------
   moved and NOT a span-44 caster:        4
     checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-dark-standard-glass0.5 / dom
@@ -11,8 +15,83 @@ THE CLAIM — a cell moves if and only if it casts at span 44
     photo__glass-over-glass__inactive / apple-macos-27.0-2x-dark-standard-glass0.5 / texture
   a span-44 texture cell that did NOT move: 0
 
-  (A span-44 cell on the `dom` tier is expected NOT to move: the CSS tier has no
-   shader and never evaluated the falloff for a pixel.)
+  (A span-44 cell on the `dom` tier does not move on an axis of its own: the CSS
+   tier has no shader and never evaluated the falloff for a pixel. It DOES move on
+   `coherence`, which is a reading of the CSS tier against the texture tier and so
+   moves whenever the paired texture cell does — the opposite expectation, on the
+   one axis that spans the two tiers. Corrected 2026-09-20, review closure.)
+
+EVERY MOVER THAT IS NOT A SPAN-44 CASTER, to the metric, with magnitudes
+----------------------------------------------------------------------------------------------------
+  The residual §5.159b §6 and the tracker record. A `dom` cell here cannot be the
+  shader's: that tier never ran it.
+  checkerboard__glass-over-glass__rest                dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      largest move 0.00455896 on shadow.centroidOffsetXWeb   (14 own-axis metrics, 1 coherence)
+        coherence.crossTierOklabDeltaEMean      0.014867347111838921       -> 0.014867300633017763       delta 4.64788e-08
+        perceptual.edgeWeightedMean             0.017979711693409606       -> 0.017979931037316765       delta 2.19344e-07
+        perceptual.oklabDeltaEMean              0.015419723150058873       -> 0.015419676671237715       delta 4.64788e-08
+        perceptual.ssimBand                     0.7982016401995852         -> 0.7982016427095163         delta 2.50993e-09
+        perceptual.ssimMean                     0.9086543500024071         -> 0.908654340810808          delta 9.1916e-09
+        perceptual.ssimOutside                  0.9678730951051432         -> 0.9678730621332395         delta 3.29719e-08
+        perceptual.unweightedMean               0.015015818285506587       -> 0.015015679273206708       delta 1.39012e-07
+        shadow.centroidOffsetXWeb               14.322437930061966         -> 14.326996890079727         delta 0.00455896
+        shadow.centroidOffsetYWeb               36.90111656723184          -> 36.90268270269743          delta 0.00156614
+        shadow.falloffAmplitudeWeb              0.4981138975520186         -> 0.49811979398361494        delta 5.89643e-06
+        shadow.falloffLengthWeb                 5.697029886130045          -> 5.696634817684031          delta 0.000395068
+        shadow.falloffResidualWeb               0.08676677713982547        -> 0.0867679488099419         delta 1.17167e-06
+        shadow.falloffSigmaResidualWeb          0.09715452084987279        -> 0.09715542966667891        delta 9.08817e-07
+        shadow.falloffSigmaWeb                  9.295534732404555          -> 9.29495276101089           delta 0.000581971
+        shadow.meanDepartureWeb                 0.023059746911105877       -> 0.023059023936415395       delta 7.22975e-07
+  checkerboard__glass-over-glass__inactive            dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      largest move 9.29628e-08 on coherence.crossTierOklabDeltaEMean   (0 own-axis metrics, 1 coherence)
+        coherence.crossTierOklabDeltaEMean      0.008520880114603993       -> 0.008520787151844027       delta 9.29628e-08
+  checkerboard__glass-over-glass__inactive            texture  apple-macos-27.0-2x-dark-standard-glass0.5
+      largest move 0.000793959 on shadow.falloffSigmaWeb   (11 own-axis metrics, 0 coherence)
+        perceptual.edgeWeightedMean             0.022423162773508032       -> 0.022422471625785544       delta 6.91148e-07
+        perceptual.oklabDeltaEMean              0.012195275322897988       -> 0.012195159119448034       delta 1.16203e-07
+        perceptual.ssimMean                     0.9647696108464481         -> 0.964769599358973          delta 1.14875e-08
+        perceptual.ssimOutside                  0.9835623421008751         -> 0.9835623433245028         delta 1.22363e-09
+        perceptual.unweightedMean               0.017215211335705465       -> 0.017214863761373978       delta 3.47574e-07
+        shadow.falloffAmplitudeWeb              0.25849453319311366        -> 0.25849677053748693        delta 2.23734e-06
+        shadow.falloffLengthWeb                 27.068101151232234         -> 27.067380703180653         delta 0.000720448
+        shadow.falloffResidualWeb               0.03390390388584468        -> 0.033909994783822395       delta 6.0909e-06
+        shadow.falloffSigmaResidualWeb          0.010516396233229825       -> 0.010520829811037436       delta 4.43358e-06
+        shadow.falloffSigmaWeb                  33.30800894194732          -> 33.30721498304094          delta 0.000793959
+        shadow.meanDepartureWeb                 0.01718926193624875        -> 0.017188642236081172       delta 6.197e-07
+  checkerboard__glass-over-glass__rest                dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      largest move 1.73472e-18 on coherence.crossTierOklabDeltaEMean   (0 own-axis metrics, 1 coherence)
+        coherence.crossTierOklabDeltaEMean      0.015333357305281767       -> 0.01533335730528177        delta 1.73472e-18
+  checkerboard__glass-over-glass__rest                texture  apple-macos-27.0-2x-dark-standard-glass0.5
+      largest move 0.000793959 on shadow.falloffSigmaWeb   (11 own-axis metrics, 0 coherence)
+        perceptual.edgeWeightedMean             0.011198552645131222       -> 0.011197852943798166       delta 6.99701e-07
+        perceptual.oklabDeltaEMean              0.010184652330916063       -> 0.010184536127466108       delta 1.16203e-07
+        perceptual.ssimMean                     0.9704260979923591         -> 0.9704260865049513         delta 1.14874e-08
+        perceptual.ssimOutside                  0.992425139358316          -> 0.9924251405819449         delta 1.22363e-09
+        perceptual.unweightedMean               0.01032833811097879        -> 0.010327990536647298       delta 3.47574e-07
+        shadow.falloffAmplitudeWeb              0.25849453319311366        -> 0.25849677053748693        delta 2.23734e-06
+        shadow.falloffLengthWeb                 27.068101151232234         -> 27.067380703180653         delta 0.000720448
+        shadow.falloffResidualWeb               0.034400702678907984       -> 0.034406882827692165       delta 6.18015e-06
+        shadow.falloffSigmaResidualWeb          0.010670494503848901       -> 0.010674993047511511       delta 4.49854e-06
+        shadow.falloffSigmaWeb                  33.30800894194732          -> 33.30721498304094          delta 0.000793959
+        shadow.meanDepartureWeb                 0.01717558800707651        -> 0.017174968306908935       delta 6.197e-07
+  photo__glass-over-glass__inactive                   dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      largest move 1.27427e-07 on coherence.crossTierOklabDeltaEMean   (0 own-axis metrics, 1 coherence)
+        coherence.crossTierOklabDeltaEMean      0.00692320482470787        -> 0.006923077398145023       delta 1.27427e-07
+  photo__glass-over-glass__inactive                   texture  apple-macos-27.0-2x-dark-standard-glass0.5
+      largest move 0.000885529 on shadow.centroidOffsetXWeb   (13 own-axis metrics, 0 coherence)
+        perceptual.edgeWeightedMean             0.014284880920678991       -> 0.01428474391591295        delta 1.37005e-07
+        perceptual.oklabDeltaEMean              0.05796628470816995        -> 0.05796614489295899        delta 1.39815e-07
+        perceptual.ssimMean                     0.9691675273741877         -> 0.9691675279378683         delta 5.63681e-10
+        perceptual.ssimOutside                  0.9608276414375694         -> 0.9608276411679311         delta 2.69638e-10
+        perceptual.unweightedMean               0.013858529989168629       -> 0.01385840060999028        delta 1.29379e-07
+        shadow.centroidOffsetXWeb               1.2146050263920642         -> 1.2137194976883734         delta 0.000885529
+        shadow.centroidOffsetYWeb               69.02251402851903          -> 69.0229581910304           delta 0.000444163
+        shadow.falloffAmplitudeWeb              0.2495364447281818         -> 0.24953742522011285        delta 9.80492e-07
+        shadow.falloffLengthWeb                 26.864652347850303         -> 26.86433318405612          delta 0.000319164
+        shadow.falloffResidualWeb               0.03685337972270045        -> 0.0368567401755907         delta 3.36045e-06
+        shadow.falloffSigmaResidualWeb          0.010706875982681432       -> 0.010709452387422559       delta 2.5764e-06
+        shadow.falloffSigmaWeb                  33.081116072387445         -> 33.080767595789496         delta 0.000348477
+        shadow.meanDepartureWeb                 0.007157779515506633       -> 0.007157548841687421       delta 2.30674e-07
 
 Per metric, how many cells moved
 ----------------------------------------------------------------------------------------------------
@@ -30,6 +109,8 @@ Per metric, how many cells moved
   material.tintDeltaBWeb                         166
   material.tintDeltaLWeb                         166
   material.tintHueShiftWeb                       166
+  coherence.crossTierOklabDeltaEMean             156
+  coherence.interiorLevelRatioGpuOverCss         146
   perceptual.edgeWeightedP95                     130
   material.luminanceOffsetWeb                    128
   material.luminanceR2Web                        128
@@ -60,200 +141,394 @@ Per metric, how many cells moved
 
 Every moved cell
 ----------------------------------------------------------------------------------------------------
+  checkerboard-32__capsule-button__rest               dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-32__capsule-button__rest               texture  apple-macos-27.0-1x-dark-standard-glass0.5
       26 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard-32__capsule-button__rest-tint-orange   dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-32__capsule-button__rest-tint-orange   texture  apple-macos-27.0-1x-dark-standard-glass0.5
       23 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard-4__capsule-button__rest                dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-4__capsule-button__rest                texture  apple-macos-27.0-1x-dark-standard-glass0.5
       24 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard-4__capsule-button__rest-tint-orange    dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-4__capsule-button__rest-tint-orange    texture  apple-macos-27.0-1x-dark-standard-glass0.5
       24 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard-64__capsule-button__rest               dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-64__capsule-button__rest               texture  apple-macos-27.0-1x-dark-standard-glass0.5
       26 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard-64__capsule-button__rest-tint-orange   dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-64__capsule-button__rest-tint-orange   texture  apple-macos-27.0-1x-dark-standard-glass0.5
       25 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard-8__capsule-button__rest                dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-8__capsule-button__rest                texture  apple-macos-27.0-1x-dark-standard-glass0.5
       25 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard-8__capsule-button__rest-tint-orange    dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-8__capsule-button__rest-tint-orange    texture  apple-macos-27.0-1x-dark-standard-glass0.5
       23 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard-lc16__capsule-button__inactive         dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-lc16__capsule-button__inactive         texture  apple-macos-27.0-1x-dark-standard-glass0.5
       23 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  checkerboard-lc16__capsule-button__rest             dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-lc16__capsule-button__rest             texture  apple-macos-27.0-1x-dark-standard-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  checkerboard__capsule-button__inactive              dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__inactive              texture  apple-macos-27.0-1x-dark-standard-glass0.5
       26 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard__capsule-button__inactive-tint-orange  dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__inactive-tint-orange  texture  apple-macos-27.0-1x-dark-standard-glass0.5
       25 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard__capsule-button__rest                  dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__rest                  texture  apple-macos-27.0-1x-dark-standard-glass0.5
       26 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard__capsule-button__rest-tint-orange      dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__rest-tint-orange      texture  apple-macos-27.0-1x-dark-standard-glass0.5
       23 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
   checkerboard__glass-over-glass__rest                dom      apple-macos-27.0-1x-dark-standard-glass0.5
-      14 metrics: perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimOutside, perceptual.unweightedMean, shadow.centroidOffsetXWeb, shadow.centroidOffsetYWeb, shadow.falloffAmplitudeWeb, shadow.falloffLengthWeb, shadow.falloffResidualWeb, shadow.falloffSigmaResidualWeb, shadow.falloffSigmaWeb, shadow.meanDepartureWeb
+      15 metrics: coherence.crossTierOklabDeltaEMean, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimOutside, perceptual.unweightedMean, shadow.centroidOffsetXWeb, shadow.centroidOffsetYWeb, shadow.falloffAmplitudeWeb, shadow.falloffLengthWeb, shadow.falloffResidualWeb, shadow.falloffSigmaResidualWeb, shadow.falloffSigmaWeb, shadow.meanDepartureWeb
+  dark-solid__capsule-button__inactive                dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      1 metrics: coherence.crossTierOklabDeltaEMean
   dark-solid__capsule-button__inactive                texture  apple-macos-27.0-1x-dark-standard-glass0.5
       6 metrics: perceptual.edgeWeightedMean, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean
+  dark-solid__capsule-button__inactive-tint-orange    dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__inactive-tint-orange    texture  apple-macos-27.0-1x-dark-standard-glass0.5
       15 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  dark-solid__capsule-button__rest                    dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__rest                    texture  apple-macos-27.0-1x-dark-standard-glass0.5
       17 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.rimFwhmWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  dark-solid__capsule-button__rest-tint-orange        dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__rest-tint-orange        texture  apple-macos-27.0-1x-dark-standard-glass0.5
       15 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  impulse__capsule-button__inactive                   dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   impulse__capsule-button__inactive                   texture  apple-macos-27.0-1x-dark-standard-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.ssimOutside, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  impulse__capsule-button__rest                       dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   impulse__capsule-button__rest                       texture  apple-macos-27.0-1x-dark-standard-glass0.5
       23 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.ssimOutside, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  light-solid__capsule-button__inactive               dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   light-solid__capsule-button__inactive               texture  apple-macos-27.0-1x-dark-standard-glass0.5
       18 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  mid-dark-solid__capsule-button__inactive            dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   mid-dark-solid__capsule-button__inactive            texture  apple-macos-27.0-1x-dark-standard-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  mid-dark-solid__capsule-button__rest                dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   mid-dark-solid__capsule-button__rest                texture  apple-macos-27.0-1x-dark-standard-glass0.5
       19 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__inactive                     dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__inactive                     texture  apple-macos-27.0-1x-dark-standard-glass0.5
       27 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.shadowDecayLengthWeb, material.shadowPeakDarkeningWeb, material.shadowPeakDistanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimOutside, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  photo__capsule-button__inactive-tint-orange         dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__inactive-tint-orange         texture  apple-macos-27.0-1x-dark-standard-glass0.5
       23 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__rest                         dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__rest                         texture  apple-macos-27.0-1x-dark-standard-glass0.5
       29 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.shadowDecayLengthWeb, material.shadowPeakDarkeningWeb, material.shadowPeakDistanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  photo__capsule-button__rest-tint-orange             dom      apple-macos-27.0-1x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__rest-tint-orange             texture  apple-macos-27.0-1x-dark-standard-glass0.5
       23 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  checkerboard__capsule-button__inactive              dom      apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__inactive              texture  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  checkerboard__capsule-button__inactive-tint-orange  dom      apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__inactive-tint-orange  texture  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard__capsule-button__rest                  dom      apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__rest                  texture  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteIoU
+  checkerboard__capsule-button__rest-tint-orange      dom      apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__rest-tint-orange      texture  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
       24 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  hc-text__capsule-button__inactive                   dom      apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   hc-text__capsule-button__inactive                   texture  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
       17 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  hc-text__capsule-button__rest                       dom      apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   hc-text__capsule-button__rest                       texture  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
       24 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  photo__capsule-button__inactive                     dom      apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__inactive                     texture  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__inactive-tint-orange         dom      apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__inactive-tint-orange         texture  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
       19 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__rest                         dom      apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__rest                         texture  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__rest-tint-orange             dom      apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__rest-tint-orange             texture  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__toolbar-group__inactive                      dom      apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__toolbar-group__inactive                      texture  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
       19 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__toolbar-group__rest                          dom      apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__toolbar-group__rest                          texture  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  checkerboard__capsule-button__inactive              dom      apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+      1 metrics: coherence.crossTierOklabDeltaEMean
   checkerboard__capsule-button__inactive              texture  apple-macos-27.0-1x-light-reduced-transparency-glass0.5
       12 metrics: material.shadowDecayLengthWeb, material.shadowPeakDarkeningWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard__capsule-button__rest                  dom      apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+      1 metrics: coherence.crossTierOklabDeltaEMean
   checkerboard__capsule-button__rest                  texture  apple-macos-27.0-1x-light-reduced-transparency-glass0.5
       13 metrics: material.shadowDecayLengthWeb, material.shadowPeakDarkeningWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimOutside, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteIoU
+  hc-text__capsule-button__inactive                   dom      apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+      1 metrics: coherence.crossTierOklabDeltaEMean
   hc-text__capsule-button__inactive                   texture  apple-macos-27.0-1x-light-reduced-transparency-glass0.5
       12 metrics: perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimOutside, perceptual.unweightedMean, shape.contourDistanceMean, shape.contourDistanceRms, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteIoU
+  hc-text__capsule-button__rest                       dom      apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+      1 metrics: coherence.crossTierOklabDeltaEMean
   hc-text__capsule-button__rest                       texture  apple-macos-27.0-1x-light-reduced-transparency-glass0.5
       13 metrics: material.shadowDecayLengthWeb, material.shadowPeakDarkeningWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimOutside, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  photo__capsule-button__inactive                     dom      apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__inactive                     texture  apple-macos-27.0-1x-light-reduced-transparency-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__inactive-tint-orange         dom      apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__inactive-tint-orange         texture  apple-macos-27.0-1x-light-reduced-transparency-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__rest                         dom      apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__rest                         texture  apple-macos-27.0-1x-light-reduced-transparency-glass0.5
       23 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__rest-tint-orange             dom      apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__rest-tint-orange             texture  apple-macos-27.0-1x-light-reduced-transparency-glass0.5
       23 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__toolbar-group__inactive                      dom      apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__toolbar-group__inactive                      texture  apple-macos-27.0-1x-light-reduced-transparency-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__toolbar-group__rest                          dom      apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__toolbar-group__rest                          texture  apple-macos-27.0-1x-light-reduced-transparency-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  checkerboard-32__capsule-button__rest               dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-32__capsule-button__rest               texture  apple-macos-27.0-1x-light-standard-glass0.5
       25 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard-32__capsule-button__rest-tint-orange   dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-32__capsule-button__rest-tint-orange   texture  apple-macos-27.0-1x-light-standard-glass0.5
       25 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard-4__capsule-button__rest                dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-4__capsule-button__rest                texture  apple-macos-27.0-1x-light-standard-glass0.5
       24 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard-4__capsule-button__rest-tint-orange    dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-4__capsule-button__rest-tint-orange    texture  apple-macos-27.0-1x-light-standard-glass0.5
       25 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard-64__capsule-button__rest               dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-64__capsule-button__rest               texture  apple-macos-27.0-1x-light-standard-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard-64__capsule-button__rest-tint-orange   dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-64__capsule-button__rest-tint-orange   texture  apple-macos-27.0-1x-light-standard-glass0.5
       25 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard-8__capsule-button__rest                dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-8__capsule-button__rest                texture  apple-macos-27.0-1x-light-standard-glass0.5
       24 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard-8__capsule-button__rest-tint-orange    dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-8__capsule-button__rest-tint-orange    texture  apple-macos-27.0-1x-light-standard-glass0.5
       25 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard-lc16__capsule-button__inactive         dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-lc16__capsule-button__inactive         texture  apple-macos-27.0-1x-light-standard-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  checkerboard-lc16__capsule-button__rest             dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard-lc16__capsule-button__rest             texture  apple-macos-27.0-1x-light-standard-glass0.5
       25 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard__capsule-button__inactive              dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__inactive              texture  apple-macos-27.0-1x-light-standard-glass0.5
       25 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard__capsule-button__inactive-tint-blue    dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__inactive-tint-blue    texture  apple-macos-27.0-1x-light-standard-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard__capsule-button__inactive-tint-orange  dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__inactive-tint-orange  texture  apple-macos-27.0-1x-light-standard-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard__capsule-button__rest                  dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__rest                  texture  apple-macos-27.0-1x-light-standard-glass0.5
       24 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard__capsule-button__rest-tint-blue        dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__rest-tint-blue        texture  apple-macos-27.0-1x-light-standard-glass0.5
       26 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard__capsule-button__rest-tint-orange      dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__rest-tint-orange      texture  apple-macos-27.0-1x-light-standard-glass0.5
       25 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard__toolbar-group__inactive               dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__toolbar-group__inactive               texture  apple-macos-27.0-1x-light-standard-glass0.5
       24 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard__toolbar-group__rest                   dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__toolbar-group__rest                   texture  apple-macos-27.0-1x-light-standard-glass0.5
       23 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  dark-solid__capsule-button__inactive                dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__inactive                texture  apple-macos-27.0-1x-light-standard-glass0.5
       18 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  dark-solid__capsule-button__inactive-tint-blue      dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__inactive-tint-blue      texture  apple-macos-27.0-1x-light-standard-glass0.5
       18 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  dark-solid__capsule-button__inactive-tint-orange    dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__inactive-tint-orange    texture  apple-macos-27.0-1x-light-standard-glass0.5
       18 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  dark-solid__capsule-button__rest                    dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__rest                    texture  apple-macos-27.0-1x-light-standard-glass0.5
       18 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  dark-solid__capsule-button__rest-tint-blue          dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__rest-tint-blue          texture  apple-macos-27.0-1x-light-standard-glass0.5
       19 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.rimFwhmWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  dark-solid__capsule-button__rest-tint-orange        dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__rest-tint-orange        texture  apple-macos-27.0-1x-light-standard-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  hc-text__capsule-button__inactive                   dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   hc-text__capsule-button__inactive                   texture  apple-macos-27.0-1x-light-standard-glass0.5
       25 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  hc-text__capsule-button__inactive-tint-orange       dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   hc-text__capsule-button__inactive-tint-orange       texture  apple-macos-27.0-1x-light-standard-glass0.5
       25 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  hc-text__capsule-button__rest                       dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   hc-text__capsule-button__rest                       texture  apple-macos-27.0-1x-light-standard-glass0.5
       25 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  hc-text__capsule-button__rest-tint-orange           dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   hc-text__capsule-button__rest-tint-orange           texture  apple-macos-27.0-1x-light-standard-glass0.5
       25 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  impulse__capsule-button__inactive                   dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   impulse__capsule-button__inactive                   texture  apple-macos-27.0-1x-light-standard-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  impulse__capsule-button__inactive-tint-orange       dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   impulse__capsule-button__inactive-tint-orange       texture  apple-macos-27.0-1x-light-standard-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  impulse__capsule-button__rest                       dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   impulse__capsule-button__rest                       texture  apple-macos-27.0-1x-light-standard-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  impulse__capsule-button__rest-tint-orange           dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   impulse__capsule-button__rest-tint-orange           texture  apple-macos-27.0-1x-light-standard-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  light-solid__capsule-button__inactive               dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   light-solid__capsule-button__inactive               texture  apple-macos-27.0-1x-light-standard-glass0.5
       18 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  light-solid__capsule-button__inactive-tint-orange   dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   light-solid__capsule-button__inactive-tint-orange   texture  apple-macos-27.0-1x-light-standard-glass0.5
       18 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  light-solid__capsule-button__rest                   dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   light-solid__capsule-button__rest                   texture  apple-macos-27.0-1x-light-standard-glass0.5
       17 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.rimPeakDistanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  light-solid__capsule-button__rest-tint-orange       dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   light-solid__capsule-button__rest-tint-orange       texture  apple-macos-27.0-1x-light-standard-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  mid-dark-solid__capsule-button__inactive            dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   mid-dark-solid__capsule-button__inactive            texture  apple-macos-27.0-1x-light-standard-glass0.5
       17 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  mid-dark-solid__capsule-button__rest                dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   mid-dark-solid__capsule-button__rest                texture  apple-macos-27.0-1x-light-standard-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__inactive                     dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__inactive                     texture  apple-macos-27.0-1x-light-standard-glass0.5
       24 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__inactive-tint-blue           dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__inactive-tint-blue           texture  apple-macos-27.0-1x-light-standard-glass0.5
       24 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__inactive-tint-orange         dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__inactive-tint-orange         texture  apple-macos-27.0-1x-light-standard-glass0.5
       24 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__inactive-tint-orange-half    dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__inactive-tint-orange-half    texture  apple-macos-27.0-1x-light-standard-glass0.5
       24 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__rest                         dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__rest                         texture  apple-macos-27.0-1x-light-standard-glass0.5
       24 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__rest-tint-blue               dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__rest-tint-blue               texture  apple-macos-27.0-1x-light-standard-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__rest-tint-orange             dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__rest-tint-orange             texture  apple-macos-27.0-1x-light-standard-glass0.5
       23 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__rest-tint-orange-half        dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__rest-tint-orange-half        texture  apple-macos-27.0-1x-light-standard-glass0.5
       24 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__toolbar-group__inactive                      dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__toolbar-group__inactive                      texture  apple-macos-27.0-1x-light-standard-glass0.5
       24 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__toolbar-group__rest                          dom      apple-macos-27.0-1x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__toolbar-group__rest                          texture  apple-macos-27.0-1x-light-standard-glass0.5
       24 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
   checkerboard-32__capsule-button__rest               texture  apple-macos-27.0-2x-dark-standard-glass0.5
@@ -276,44 +551,84 @@ Every moved cell
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
   checkerboard-lc16__capsule-button__rest             texture  apple-macos-27.0-2x-dark-standard-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  checkerboard__capsule-button__inactive              dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__inactive              texture  apple-macos-27.0-2x-dark-standard-glass0.5
       23 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard__capsule-button__inactive-tint-orange  dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__inactive-tint-orange  texture  apple-macos-27.0-2x-dark-standard-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard__capsule-button__rest                  dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__rest                  texture  apple-macos-27.0-2x-dark-standard-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard__capsule-button__rest-tint-orange      dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__rest-tint-orange      texture  apple-macos-27.0-2x-dark-standard-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard__glass-over-glass__inactive            dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      1 metrics: coherence.crossTierOklabDeltaEMean
   checkerboard__glass-over-glass__inactive            texture  apple-macos-27.0-2x-dark-standard-glass0.5
       11 metrics: perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimMean, perceptual.ssimOutside, perceptual.unweightedMean, shadow.falloffAmplitudeWeb, shadow.falloffLengthWeb, shadow.falloffResidualWeb, shadow.falloffSigmaResidualWeb, shadow.falloffSigmaWeb, shadow.meanDepartureWeb
+  checkerboard__glass-over-glass__rest                dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      1 metrics: coherence.crossTierOklabDeltaEMean
   checkerboard__glass-over-glass__rest                texture  apple-macos-27.0-2x-dark-standard-glass0.5
       11 metrics: perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimMean, perceptual.ssimOutside, perceptual.unweightedMean, shadow.falloffAmplitudeWeb, shadow.falloffLengthWeb, shadow.falloffResidualWeb, shadow.falloffSigmaResidualWeb, shadow.falloffSigmaWeb, shadow.meanDepartureWeb
+  dark-solid__capsule-button__inactive                dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      1 metrics: coherence.crossTierOklabDeltaEMean
   dark-solid__capsule-button__inactive                texture  apple-macos-27.0-2x-dark-standard-glass0.5
       6 metrics: perceptual.edgeWeightedMean, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean
+  dark-solid__capsule-button__inactive-tint-orange    dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__inactive-tint-orange    texture  apple-macos-27.0-2x-dark-standard-glass0.5
       15 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  dark-solid__capsule-button__rest                    dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__rest                    texture  apple-macos-27.0-2x-dark-standard-glass0.5
       15 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  dark-solid__capsule-button__rest-tint-orange        dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__rest-tint-orange        texture  apple-macos-27.0-2x-dark-standard-glass0.5
       15 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  impulse__capsule-button__inactive                   dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   impulse__capsule-button__inactive                   texture  apple-macos-27.0-2x-dark-standard-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.ssimOutside, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  impulse__capsule-button__rest                       dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   impulse__capsule-button__rest                       texture  apple-macos-27.0-2x-dark-standard-glass0.5
       23 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.ssimOutside, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  light-solid__capsule-button__inactive               dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   light-solid__capsule-button__inactive               texture  apple-macos-27.0-2x-dark-standard-glass0.5
       14 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  mid-dark-solid__capsule-button__inactive            dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   mid-dark-solid__capsule-button__inactive            texture  apple-macos-27.0-2x-dark-standard-glass0.5
       17 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  mid-dark-solid__capsule-button__rest                dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   mid-dark-solid__capsule-button__rest                texture  apple-macos-27.0-2x-dark-standard-glass0.5
       16 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__inactive                     dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__inactive                     texture  apple-macos-27.0-2x-dark-standard-glass0.5
       27 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.shadowDecayLengthWeb, material.shadowPeakDarkeningWeb, material.shadowPeakDistanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimOutside, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  photo__capsule-button__inactive-tint-orange         dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__inactive-tint-orange         texture  apple-macos-27.0-2x-dark-standard-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__rest                         dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__rest                         texture  apple-macos-27.0-2x-dark-standard-glass0.5
       28 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakLuminanceWeb, material.shadowDecayLengthWeb, material.shadowPeakDarkeningWeb, material.shadowPeakDistanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  photo__capsule-button__rest-tint-orange             dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__rest-tint-orange             texture  apple-macos-27.0-2x-dark-standard-glass0.5
       19 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__glass-over-glass__inactive                   dom      apple-macos-27.0-2x-dark-standard-glass0.5
+      1 metrics: coherence.crossTierOklabDeltaEMean
   photo__glass-over-glass__inactive                   texture  apple-macos-27.0-2x-dark-standard-glass0.5
       13 metrics: perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimMean, perceptual.ssimOutside, perceptual.unweightedMean, shadow.centroidOffsetXWeb, shadow.centroidOffsetYWeb, shadow.falloffAmplitudeWeb, shadow.falloffLengthWeb, shadow.falloffResidualWeb, shadow.falloffSigmaResidualWeb, shadow.falloffSigmaWeb, shadow.meanDepartureWeb
   checkerboard-32__capsule-button__rest               texture  apple-macos-27.0-2x-light-standard-glass0.5
@@ -336,102 +651,155 @@ Every moved cell
       19 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
   checkerboard-lc16__capsule-button__rest             texture  apple-macos-27.0-2x-light-standard-glass0.5
       23 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.rimFwhmWeb, material.rimPeakDistanceWeb, material.rimPeakLuminanceWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb
+  checkerboard__capsule-button__inactive              dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__inactive              texture  apple-macos-27.0-2x-light-standard-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard__capsule-button__inactive-tint-blue    dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__inactive-tint-blue    texture  apple-macos-27.0-2x-light-standard-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard__capsule-button__inactive-tint-orange  dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__inactive-tint-orange  texture  apple-macos-27.0-2x-light-standard-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard__capsule-button__rest                  dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__rest                  texture  apple-macos-27.0-2x-light-standard-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  checkerboard__capsule-button__rest-tint-blue        dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__rest-tint-blue        texture  apple-macos-27.0-2x-light-standard-glass0.5
       23 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard__capsule-button__rest-tint-orange      dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__capsule-button__rest-tint-orange      texture  apple-macos-27.0-2x-light-standard-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard__toolbar-group__inactive               dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__toolbar-group__inactive               texture  apple-macos-27.0-2x-light-standard-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  checkerboard__toolbar-group__rest                   dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   checkerboard__toolbar-group__rest                   texture  apple-macos-27.0-2x-light-standard-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  dark-solid__capsule-button__inactive                dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__inactive                texture  apple-macos-27.0-2x-light-standard-glass0.5
       15 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  dark-solid__capsule-button__inactive-tint-blue      dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__inactive-tint-blue      texture  apple-macos-27.0-2x-light-standard-glass0.5
       14 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  dark-solid__capsule-button__inactive-tint-orange    dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__inactive-tint-orange    texture  apple-macos-27.0-2x-light-standard-glass0.5
       14 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  dark-solid__capsule-button__rest                    dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__rest                    texture  apple-macos-27.0-2x-light-standard-glass0.5
       15 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  dark-solid__capsule-button__rest-tint-blue          dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__rest-tint-blue          texture  apple-macos-27.0-2x-light-standard-glass0.5
       17 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  dark-solid__capsule-button__rest-tint-orange        dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   dark-solid__capsule-button__rest-tint-orange        texture  apple-macos-27.0-2x-light-standard-glass0.5
       16 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  hc-text__capsule-button__inactive                   dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   hc-text__capsule-button__inactive                   texture  apple-macos-27.0-2x-light-standard-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  hc-text__capsule-button__inactive-tint-orange       dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   hc-text__capsule-button__inactive-tint-orange       texture  apple-macos-27.0-2x-light-standard-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  hc-text__capsule-button__rest                       dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   hc-text__capsule-button__rest                       texture  apple-macos-27.0-2x-light-standard-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  hc-text__capsule-button__rest-tint-orange           dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   hc-text__capsule-button__rest-tint-orange           texture  apple-macos-27.0-2x-light-standard-glass0.5
       22 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  impulse__capsule-button__inactive                   dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   impulse__capsule-button__inactive                   texture  apple-macos-27.0-2x-light-standard-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  impulse__capsule-button__inactive-tint-orange       dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   impulse__capsule-button__inactive-tint-orange       texture  apple-macos-27.0-2x-light-standard-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  impulse__capsule-button__rest                       dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   impulse__capsule-button__rest                       texture  apple-macos-27.0-2x-light-standard-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb, shape.silhouetteIoU
+  impulse__capsule-button__rest-tint-orange           dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   impulse__capsule-button__rest-tint-orange           texture  apple-macos-27.0-2x-light-standard-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb, shape.silhouetteAreaWeb, shape.silhouetteHolesWeb
+  light-solid__capsule-button__inactive               dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   light-solid__capsule-button__inactive               texture  apple-macos-27.0-2x-light-standard-glass0.5
       14 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  light-solid__capsule-button__inactive-tint-orange   dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   light-solid__capsule-button__inactive-tint-orange   texture  apple-macos-27.0-2x-light-standard-glass0.5
       14 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  light-solid__capsule-button__rest                   dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   light-solid__capsule-button__rest                   texture  apple-macos-27.0-2x-light-standard-glass0.5
       16 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  light-solid__capsule-button__rest-tint-orange       dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   light-solid__capsule-button__rest-tint-orange       texture  apple-macos-27.0-2x-light-standard-glass0.5
       17 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  mid-dark-solid__capsule-button__inactive            dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   mid-dark-solid__capsule-button__inactive            texture  apple-macos-27.0-2x-light-standard-glass0.5
       16 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  mid-dark-solid__capsule-button__rest                dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   mid-dark-solid__capsule-button__rest                texture  apple-macos-27.0-2x-light-standard-glass0.5
       17 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__inactive                     dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__inactive                     texture  apple-macos-27.0-2x-light-standard-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__inactive-tint-blue           dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__inactive-tint-blue           texture  apple-macos-27.0-2x-light-standard-glass0.5
       19 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__inactive-tint-orange         dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__inactive-tint-orange         texture  apple-macos-27.0-2x-light-standard-glass0.5
       19 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__inactive-tint-orange-half    dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__inactive-tint-orange-half    texture  apple-macos-27.0-2x-light-standard-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__rest                         dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__rest                         texture  apple-macos-27.0-2x-light-standard-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__rest-tint-blue               dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__rest-tint-blue               texture  apple-macos-27.0-2x-light-standard-glass0.5
       19 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__rest-tint-orange             dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__rest-tint-orange             texture  apple-macos-27.0-2x-light-standard-glass0.5
       20 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__capsule-button__rest-tint-orange-half        dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__capsule-button__rest-tint-orange-half        texture  apple-macos-27.0-2x-light-standard-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__toolbar-group__inactive                      dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__toolbar-group__inactive                      texture  apple-macos-27.0-2x-light-standard-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
+  photo__toolbar-group__rest                          dom      apple-macos-27.0-2x-light-standard-glass0.5
+      2 metrics: coherence.crossTierOklabDeltaEMean, coherence.interiorLevelRatioGpuOverCss
   photo__toolbar-group__rest                          texture  apple-macos-27.0-2x-light-standard-glass0.5
       21 metrics: material.interiorMeanWeb, material.interiorStdDevWeb, material.luminanceOffsetWeb, material.luminanceR2Web, material.luminanceSlopeWeb, material.tintChromaDeltaWeb, material.tintDeltaAWeb, material.tintDeltaBWeb, material.tintDeltaLWeb, material.tintHueShiftWeb, perceptual.edgeWeightedMean, perceptual.edgeWeightedP95, perceptual.oklabDeltaEMax, perceptual.oklabDeltaEMean, perceptual.oklabDeltaEP95, perceptual.ssimBand, perceptual.ssimMean, perceptual.ssimMin, perceptual.unweightedMean, shape.declaredIoUWeb, shape.drawnAreaWeb
-
-====================================================================================================
-CORRECTION, appended 2026-09-20 by the W30 G3/G3b review closure (claims §5.159b §10, findings 1, 2)
-----------------------------------------------------------------------------------------------------
-Everything above is the reading this file recorded and stays as it is. Two things in it are wrong,
-and the corrected reading is `moved-cells.v2.txt`, beside.
-
-1. The script's `AXES` named `tierCoherence`, which no cell carries — the matrix keys the cross-tier
-   axis `coherence` — so that axis was compared against nothing. Corrected: **331 of 726 cells moved
-   and 395 are bit-identical**, not 176 and 550. The 155 extra are all `dom` cells whose ONLY moving
-   axis is `coherence`, which is a reading of the CSS tier against its paired texture cell and so
-   moves exactly when that cell does. Cells that move on an axis of their own are still 176, and the
-   170 carrying `shape.declaredIoUWeb` are still W20's 170.
-
-2. The parenthetical above — "(A span-44 cell on the `dom` tier is expected NOT to move …)" — is
-   true of that tier's own axes and **false for `coherence`**, where the opposite holds: 140
-   `capsule-button` and 12 `toolbar-group` dom cells move there, because their texture twins did.
-
-3. "their largest move is 8·10⁻⁴ CSS px" (§5.159b §6, and the tracker) is the largest over the three
-   TEXTURE cells; per cell the largest of the four is `checkerboard__glass-over-glass__rest` /
-   `apple-macos-27.0-1x-dark-standard-glass0.5` on the **dom** tier at **4.559·10⁻³** on
-   `shadow.centroidOffsetXWeb` — a tier the shader fix cannot reach. `moved-cells.v2.txt` prints all
-   four to the metric with magnitudes.

@@ -58,9 +58,17 @@ What moves for an app:
   caster and rises about 35 % at a 160 px one, and keeps rising above that. Groups
   whose members differ in span take the law at the widest member, which bounds
   every member's rather than naming any one's.
-- **Selecting `macos26MaterialProfileDocument` keeps exactly what 0.18.0 drew.**
-  That material's own σ is span-invariant and its three new leaves are zero, where
-  they are the measurement.
+- **Selecting `macos26MaterialProfileDocument` moves no constant, and one class of
+  surface it draws gets better.** That material's own σ is span-invariant and its
+  three new leaves are zero, where they are the measurement, so every surface the
+  calibration bed carries is pixel-identical to 0.19.0 — the renderer's 34 goldens
+  render at that material's σ and are byte-identical across this release. The clamp
+  does reach it in one place, and in the direction of drawing more: at σ 15.55 the
+  overflow sat about 307 CSS px deep, so a macOS 26.5 surface whose shorter side
+  passed that — a full-height sidebar, a tall sheet — showed a horizontal strip of
+  itself undrawn and now draws whole. No surface in the bed is that deep, which is
+  why nothing measured moved and why the case that catches it is a capture case
+  rather than a golden.
 
 `@vitreajs/vitrea` and `@vitreajs/vitrea-react` carry no change of their own; they
 move because the three published packages are versioned as one fixed group.

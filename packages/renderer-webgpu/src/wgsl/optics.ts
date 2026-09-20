@@ -366,9 +366,14 @@ fn rim_weight(d : f32, width : f32) -> f32 {
 /// material.ts's 'outerShadowFalloff' term for term.
 ///
 /// THE ARGUMENT IS CLAMPED, AND THE CLAMP IS THE IDENTITY (W30 G3b; claims
-/// 5.159b). 'tanh' saturates to exactly 1.0 in f32 by |t| = 9.011 and in f64 by
-/// |t| = 18.2, so replacing every |t| > 20 with 20 returns the same bits in both
-/// precisions at every input the unclamped form evaluates finitely. What it
+/// 5.159b, corrected at 5.159b section 10). 'tanh' saturates to exactly 1.0 in
+/// f32 by |t| = 9.011 and in f64 by |t| = 19.061547465398498 — measured, not
+/// 18.2, which the first recording of this comment said and which is the last
+/// magnitude that still returns 1 - 1e-16. Either way 20 is above both, so
+/// replacing every |t| > 20 with 20 returns the same bits in both precisions at
+/// every input the unclamped form evaluates finitely; the bound has 0.94 of
+/// margin over f64 rather than 1.8, which is what the corrected reading
+/// changes. What it
 /// removes is a NaN: a backend that lowers 'tanh' to (exp(2t) - 1)/(exp(2t) + 1)
 /// — which Metal's fast-math path does — overflows f32's 'exp' at 2t > 88.72 and
 /// hands back Inf/Inf. The cubic makes that threshold reachable at a modest

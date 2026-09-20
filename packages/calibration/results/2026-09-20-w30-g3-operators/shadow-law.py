@@ -38,15 +38,47 @@ The thin regime is not fitted (Decision Log 2 (b)): `sigmaThinOffsetPx` is set
 by declaration to put the floor at the thick line evaluated at the thin spans,
 and B2's check statistic — the untinted, non-holdout, non-excluded, dpr-1
 span-44 median — is printed beside it.
+
+**Two flags, added 2026-09-20 by the W30 G3/G3b review closure (claims §5.159b
+§10, findings 5 and 7). Both default OFF, so the bare invocation above is still
+the one that produced the committed `shadow-law.txt`** — that file is evidence
+and §5.159b §3 reads it by a zero-line `diff`, so a default that moved would
+retire a proof rather than add one.
+
+    python3 shadow-law.py --fit-on non-holdout --at-shipped > shadow-law.v2.txt
+
+  * `--fit-on non-holdout` gives the adopted fit — the served beds' own slope
+    range and the joint-margin grid — the non-holdout table rather than the
+    pooled one, which is what the table's own label promises the fit may see.
+    B1's WINDOWS and the printed verdict stay on the pooled medians: that
+    population is the clause's, declared at §5.156 §5, and narrowing it would
+    change what B1 asserts rather than what the fit is allowed to read. The
+    answer does not move past the rounding the seal writes, which is the
+    reading §5.159b §10 records.
+  * `--at-shipped` prints B1 and B2 a second time at the ROUNDED constants the
+    four sealed documents carry, beside the fit's own unrounded pair. A fit is
+    adopted at four significant figures and read back at five, and the two
+    differ in the third decimal of B1's percentage; the seal's values are the
+    ones the material draws, so they are the ones a clause is held to.
+
+A run with either flag writes `shadow-law.v2.json` rather than the committed
+`shadow-law.json`, for the same reason.
 """
 from __future__ import annotations
 
 import json
 import math
+import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 CUT = HERE.parent / "2026-09-20-w30-g0-cut" / "shadow-cut.json"
+# The documents the seal writes, whose rounded leaves `--at-shipped` reads. The
+# receded documents inherit the σ law rather than restating it (`reach-pad.txt`).
+SEALED = {
+    "light": HERE.parent.parent / "profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+    "dark": HERE.parent.parent / "profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+}
 
 THICK = (96, 128, 160)
 REF = 96.0
@@ -365,7 +397,45 @@ def constrained_fit(medians: dict[tuple[str, int], tuple[float, int]], beds: lis
     return (best[1], best[2], True)
 
 
+def shipped_law(scheme: str) -> tuple[float, float]:
+    """The σ law as the seal rounded it, out of the document's own patch."""
+    patch = json.loads(SEALED[scheme].read_text())["patch"]["outerShadow"]
+    return (float(patch["sigmaPx"]), float(patch["sigmaSlopePerSpan"]))
+
+
+def clause_readings(medians: dict[tuple[str, int], tuple[float, int]], beds: list[str],
+                    thin: dict[str, float], intercept: float,
+                    slope: float) -> tuple[float, float]:
+    """B1's worst relative error and B2's worst ratio at one (σ96, slope).
+
+    The same two quantities `joint_margin_fit` optimises, read at a point
+    somebody else chose — which is what makes the fit's pair and the seal's pair
+    comparable in one currency.
+    """
+    points = observations(medians, beds)
+    b1 = max(abs(intercept + slope * x - y) / y for x, y in points)
+    at44 = intercept + slope * (44 - REF)
+    b2 = max(max(at44 / y, y / at44) for y in thin.values())
+    return (b1, b2)
+
+
 def main() -> int:
+    argv = sys.argv[1:]
+    fit_on = "pooled"
+    at_shipped = False
+    i = 0
+    while i < len(argv):
+        if argv[i] == "--fit-on" and i + 1 < len(argv) and argv[i + 1] in ("pooled", "non-holdout"):
+            fit_on = argv[i + 1]
+            i += 2
+            continue
+        if argv[i] == "--at-shipped":
+            at_shipped = True
+            i += 1
+            continue
+        print(f"unknown argument {argv[i]}; see the docstring", file=sys.stderr)
+        return 2
+
     cells = load()
     active_all = lambda c: True
     non_holdout = lambda c: c["set"] != "holdout"
@@ -374,6 +444,10 @@ def main() -> int:
     fittable = sigma_table(cells, non_holdout)
     amplitudes = amplitude_table(cells, non_holdout)
     amplitudes_pooled = amplitude_table(cells, active_all)
+    # What the ADOPTED fit may read. B1's windows and the verdict below stay on
+    # `pooled` whichever this is: the clause's population is declared and is not
+    # a flag's to narrow.
+    fit_medians = pooled if fit_on == "pooled" else fittable
 
     print("W30 G3 — the sigma law and the anchors, from W30 G0's native cut")
     print("=" * 100)
@@ -383,6 +457,13 @@ def main() -> int:
           "sigma_css > span excluded")
     print("  law        sigma(span) = sigmaPx + max(sigmaThinOffsetPx, "
           "sigmaSlopePerSpan * (span - 96))")
+    if fit_on != "pooled" or at_shipped:
+        print()
+        print(f"  --fit-on {fit_on:<12} the adopted fit's slope range and grid read the "
+              f"{'POOLED' if fit_on == 'pooled' else 'NON-HOLDOUT'} medians; B1's windows "
+              "and the verdict are on the pooled medians either way")
+        print(f"  --at-shipped {'on' if at_shipped else 'off':<8} "
+              "B1 and B2 re-read at the rounded constants the seal wrote")
     print()
 
     print("1. The native sigma per bed per span — pooled (B1's population) and "
@@ -433,12 +514,12 @@ def main() -> int:
             got = median(sel)
             if got is not None:
                 thin_stat[bed] = got
-        own = bed_slopes(pooled, beds)
+        own = bed_slopes(fit_medians, beds)
         span_of_slopes = (min(own.values()), max(own.values()))
         print("  each served bed's own least-squares slope: "
               + ", ".join(f"{bed} {value:.4f}" for bed, value in own.items()))
         joint96, joint_slope, joint_b1, joint_b2 = joint_margin_fit(
-            pooled, beds, thin_stat, span_of_slopes)
+            fit_medians, beds, thin_stat, span_of_slopes)
         print(f"  JOINT MARGIN over B1 and B2, slope inside "
               f"[{span_of_slopes[0]:.4f}, {span_of_slopes[1]:.4f}] — THE FIT THIS CHILD ADOPTS: "
               f"sigmaPx {joint96:.4f}, slope {joint_slope:.5f}; B1 worst "
@@ -448,6 +529,12 @@ def main() -> int:
               f"{sse(points, sigma96, slope):.6f} minimax, "
               f"{sse(points, joint96, joint_slope):.6f} joint-margin, over "
               f"{len(points)} bed-span observations")
+        if fit_on != "pooled":
+            # The fit read the non-holdout medians; the clause is read on the
+            # pooled ones, so the pair is printed in the verdict's own currency.
+            pooled_b1, pooled_b2 = clause_readings(pooled, beds, thin_stat, joint96, joint_slope)
+            print(f"  the same point against B1's POOLED population: B1 worst "
+                  f"{pooled_b1 * 100:.3f} % of 5 %, B2 worst {pooled_b2:.3f} of 1.5")
         sigma96, slope = joint96, joint_slope
         for span, bounds in windows.items():
             if bounds is None:
@@ -498,6 +585,27 @@ def main() -> int:
         knee = REF + offset / slope
         print(f"  the derived knee: {knee:.2f} CSS px "
               f"(sigmaSpanRefPx + sigmaThinOffsetPx / sigmaSlopePerSpan)")
+        if at_shipped:
+            # The clause at the bytes that draw. The fit is adopted at four
+            # significant figures, and the document carries the rounded pair —
+            # so B1 and B2 are read there too, on B1's own pooled population.
+            ship96, ship_slope = shipped_law(scheme)
+            fit_b1, fit_b2 = clause_readings(pooled, beds, thin_stat, sigma96, slope)
+            ship_b1, ship_b2 = clause_readings(pooled, beds, thin_stat, ship96, ship_slope)
+            ship44 = ship96 + ship_slope * (44 - REF)
+            print(f"  AT THE SEALED, ROUNDED CONSTANTS — {SEALED[scheme].name}")
+            print(f"    the fit      sigmaPx {sigma96:.5f}, slope {slope:.6f}: "
+                  f"B1 worst {fit_b1 * 100:.4f} % of 5 %, B2 worst {fit_b2:.4f} of 1.5")
+            print(f"    the document sigmaPx {ship96:.5f}, slope {ship_slope:.6f}: "
+                  f"B1 worst {ship_b1 * 100:.4f} % of 5 %, B2 worst {ship_b2:.4f} of 1.5")
+            print(f"    the document's own thin line at span 44 is {ship44:.4f} CSS px, "
+                  f"sigmaThinOffsetPx {ship44 - ship96:.4f}")
+            for span in THICK:
+                value = ship96 + ship_slope * (span - REF)
+                bounds = windows[span]
+                inside = bounds is not None and bounds[0] <= value <= bounds[1]
+                print(f"    span {span:<5}{value:>10.4f}   "
+                      f"{'INSIDE' if inside else 'MISSES'} its pooled window")
         print()
         solutions[scheme] = {
             "sigmaPx": sigma96,
@@ -547,8 +655,13 @@ def main() -> int:
                 print(f"  {bed:<38}{backdrop:<22}{'32/44':>6}{got:>12.4f}{len(sel):>5}")
     print()
 
-    (HERE / "shadow-law.json").write_text(json.dumps({
+    # A default run rewrites G3's committed artefact and must therefore write
+    # exactly what it wrote; a flagged run is a second reading and lands beside.
+    default_run = fit_on == "pooled" and not at_shipped
+    out = HERE / ("shadow-law.json" if default_run else "shadow-law.v2.json")
+    out.write_text(json.dumps({
         "source": str(CUT.relative_to(HERE.parent.parent)),
+        **({} if default_run else {"fitOn": fit_on, "atShipped": at_shipped}),
         "serves": SERVES,
         "solutions": solutions,
         "sigmaPooled": {f"{bed}|{span}": value for (bed, span), value in pooled.items()},

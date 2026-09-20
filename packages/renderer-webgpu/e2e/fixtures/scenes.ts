@@ -593,6 +593,50 @@ export const W30_THIN_SIGMA_COVERAGE_SCENE: Scene = {
   ],
 };
 
+/**
+ * The other half of the same exposure: one caster deep enough to reach the
+ * overflow at a σ nobody would call thin (W30 G3/G3b review closure; claims
+ * §5.159b §10, finding 11).
+ *
+ * The defect is the ratio of a caster's depth to its own σ, and the scene above
+ * reaches it by making σ small. A caster can reach it by being deep instead, and
+ * that half was untested: at the macOS 26.5 σ of 15.55 with the shipped spread
+ * of 3.1, the falloff's argument passes f32's `exp` overflow at a half-depth of
+ * 10.061 · 15.55 − 3.1 = 153.35 CSS px, so any surface whose shorter side is
+ * past **307 CSS px** — a full-height sidebar, a tall sheet — drew a strip of
+ * itself undrawn under 0.19.0 while every surface the calibration bed carries
+ * drew clean. Nothing in the bed is that deep, which is why no capture could
+ * have caught it and why the case is written from the arithmetic instead.
+ *
+ * 340 × 340 at a canvas of 420 × 440: 170 of half-depth against the 153.35 the
+ * overflow needs, with room for the shadow's own reach on every side.
+ */
+export const W30_DEEP_CASTER_COVERAGE_SCENE: Scene = {
+  name: "w30-deep-caster-coverage",
+  widthCss: 420,
+  heightCss: 440,
+  devicePixelRatio: 1,
+  measureOnly: true,
+  backdrop: { kind: "none" },
+  groups: [
+    group(
+      "deep",
+      [
+        rect("d", [210, 220], [340, 340], {
+          shape: {
+            center: [210, 220],
+            size: [340, 340],
+            radii: [36, 36, 36, 36],
+            smoothing: 0,
+            thickness: 6,
+          },
+        }),
+      ],
+      { noBackdrop: true, refraction: "none", analysisExact: false },
+    ),
+  ],
+};
+
 export const ALL_SCENES: readonly Scene[] = [
   ...SCENES,
   LENS_DEPTH_SCENE,
@@ -601,6 +645,7 @@ export const ALL_SCENES: readonly Scene[] = [
   W30_SHADOW_SPAN_SCENE,
   W30_SCATTER_SCALE_SCENE,
   W30_THIN_SIGMA_COVERAGE_SCENE,
+  W30_DEEP_CASTER_COVERAGE_SCENE,
 ];
 
 export const SCENE_NAMES = SCENES.map((scene) => scene.name);
