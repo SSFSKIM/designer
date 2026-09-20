@@ -16,6 +16,12 @@
  * as `--vitrea-tint` and `--vitrea-occlusion`, which is the same probe the tint
  * suite in `site.spec.ts` uses. What the GPU tier's own pixels do under the dark
  * profile is `packages/calibration`'s question and the wave's landing sheet's.
+ *
+ * The profile keys these cases name moved from macOS 26.5 to macOS 27 at W29 G4,
+ * with the runtime's default material and with the pair's own fixtures. They are
+ * not decoration: the assertion is that the page shows the bed its live surfaces
+ * are a reproduction of, so a key left behind would have gone on passing while
+ * describing a comparison the page had stopped making.
  */
 
 import { expect, test, type Page } from "@playwright/test";
@@ -171,16 +177,16 @@ test.describe("the reference section follows the resolved scheme", () => {
 
     // The capture itself, named on the figure rather than only in the cell row.
     await expect(page.getByTestId("native-profile")).toContainText(
-      "apple-macos-26.5-1x-dark-standard",
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
     );
     await expect(page.locator('.pair__cell[data-cell="native"] img')).toHaveAttribute(
       "src",
-      "fixtures/apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest.png",
+      "fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__rest.png",
     );
 
     // And the figures are that profile's, on the tier the page speaks for.
     const figures = page.locator(".readout--figures");
-    await expect(figures).toContainText("apple-macos-26.5-1x-dark-standard");
+    await expect(figures).toContainText("apple-macos-27.0-1x-dark-standard-glass0.5");
     await expect(figures).toContainText("texture tier");
     await expect(page.getByTestId("no-dark-capture")).toHaveCount(0);
   });
@@ -202,7 +208,7 @@ test.describe("the reference section follows the resolved scheme", () => {
     await select(page).selectOption("light");
     await expect(page.getByTestId("no-dark-capture")).toHaveCount(0);
     await expect(page.getByTestId("native-profile")).toContainText(
-      "apple-macos-26.5-1x-light-standard",
+      "apple-macos-27.0-1x-light-standard-glass0.5",
     );
   });
 });

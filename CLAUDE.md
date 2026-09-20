@@ -62,14 +62,20 @@ Calibration (the fidelity harness, `packages/calibration`):
 
 ```bash
 pnpm --filter @vitrea/calibration run compare -- --scene photo__rrect-md__rest
-pnpm --filter @vitrea/calibration run compare -- --profile apple-macos-26.5-1x-light-standard \
-  --material-profile profiles/apple-macos-26.5-1x-light-standard.json --renderer webgpu \
-  --set calibration,validation --write-partial
+pnpm --filter @vitrea/calibration run compare -- --profile apple-macos-27.0-1x-light-standard-glass0.5 \
+  --material-profile profiles/apple-macos-27.0-1x-light-standard-glass0.5.json \
+  --receded-profile profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json \
+  --renderer webgpu --set calibration,validation --write-partial
 pnpm --filter @vitrea/calibration run compare -- --set holdout    # once per frozen configuration
 ```
 
 `--renderer` is one tier per run; `--set` defaults to `calibration,validation` and holdout membership
-is read from `apps/reference-apple/scenes.json`, never named in code. `--out-matrix` and the
+is read from `apps/reference-apple/scenes.json`, never named in code. `--material-profile` also
+**selects the runtime material its patch is a difference from**, by the OS token in the document's
+own `profileKey`: the web page refuses a token the runtime ships no material for, because a macOS
+26.5 patch composed over the macOS 27 base is neither material. `--receded-profile` poses the run's
+`__inactive` scenes with a CANDIDATE document and pins the root active; omit it and the root poses
+itself and applies the receded endpoint of the document it selected. `--out-matrix` and the
 `VITREA_WEB_CAPTURES` env redirect output to scratch; the canonical `results/matrix.json` is
 committed evidence, and the canonical `web-captures/` beside it is gitignored — it lives on the
 capture machine and is what the sheets and the demo fixture are copied from. A cell's key includes the material profile document's hash,
@@ -111,16 +117,32 @@ wave, and a CSS-only residual is recorded in the ledger rather than chartered. A
 real backdrop level.
 
 **Calibration.** `apps/reference-apple` is the SwiftUI harness that captures Apple's own material
-(ScreenCaptureKit, macOS 26.5) into fixtures keyed `apple-macos-26.5-{1x,2x}-{light,dark}-…`;
+(ScreenCaptureKit) into fixtures keyed `apple-macos-<os>-{1x,2x}-{light,dark}-<a11y>` — the macOS
+26.5 keys are frozen evidence and the macOS 27 keys carry a trailing `-glass0.5`, the appearance
+slider's attested position (W29, X6);
 `scenes.json` there is the single source for scenes, components, radii and the
 calibration/validation/holdout split. `packages/calibration` captures the web side in real Chromium
 at the fixture's pixel size, diffs per cell (silhouette, contour, SSIM, OKLab ΔE, interior level,
 cross-tier coherence) and writes `results/matrix.json`. `profiles/*.json` are the material profile
-documents: the light patch names every fitted constant and carries `resolvedMaterialSha256` over
-the fully resolved material; the dark profile is a difference document. Adopted bounds,
+documents: a light patch names every fitted constant and carries `resolvedMaterialSha256` over
+the fully resolved material, the dark profile is a difference document over it, and a
+`-receded` document is the unfocused-window difference over the active document of its own scheme.
+Adopted bounds,
 regression floors and the conditioning predicate are enforced by
 `packages/calibration/test/adopted-thresholds.test.ts`; its `PREDICATE_EXCLUDES` must equal the
 machine's output, so a fidelity change usually moves that file too.
+
+**Which material a page draws, and how the runtime says so.** The renderer's `DEFAULT_MATERIAL_PROFILE`
+is the macOS 26.5 light material and does not move (W29 Decision Log 1 (i)) — every shipped material
+is a patch over it, which is what keeps the frozen macOS 26.5 documents' fingerprints green. Which
+patch a root resolves is a **selection**: `packages/platform-web/src/material-document.ts` holds one
+document per measured material (four patches — active and receded, per scheme — plus the CSS
+crossing), `macos27MaterialProfileDocument` is the default from 0.19.0, `macos26MaterialProfileDocument`
+is shipped beside it, and `createGlassRoot({ materialProfileDocument })` chooses. `src/macos27-profile.ts`
+is generated from the four macOS 27 documents by `scripts/generate-macos27-profile.mjs` and pinned to
+them by `packages/calibration/test/macos27-profile-export.test.ts`, as `src/dark-profile.ts` is by its
+own sibling pair. `root.material` and `GlassGroupState.materialDocument` report the endpoint that
+actually drew, its digest, and whether an app tuned it — the honesty core, one axis further.
 
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated

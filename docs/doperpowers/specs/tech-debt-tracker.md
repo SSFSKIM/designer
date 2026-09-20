@@ -2167,7 +2167,18 @@ when S1 wrote the padding rule); at the shipped profile the material asks 11.1 f
 11.3–12.7 for a button, a capsule and a 420 × 52 bar, 14.9 for a 420 × 72 bar, and 35.5 on the
 clear variant. So on regular the advisory dominates by about 2× and the spacer is wider than the
 material needs (never narrower; the 0.16.0 eye sheet read 24 px on the demo), and on clear the
-material dominates and the max does real work. Retiring the constant means core's overlap check
+material dominates and the max does real work.
+
+**Amended 2026-09-20 (W29 G4, claims §5.155): the advisory stopped dominating on the regular
+variant, and it is now the case that can be too NARROW.** The macOS 27 document carries
+`cssTierMapping.blurSigmaScale` 2.2 against the module default of 1 — the CSS tier's whole share of
+the 27 diffusion refit — and the proxy's σ, its 3σ floor and this derivation all read that same
+number, so the material's requirement multiplies by 2.2 while the constant does not. A group that
+takes core's advisory 24 now sits under a floor of roughly 24–28 on regular and is raised with a
+`sampling-padding-below-3-sigma` finding, where before 0.19.0 it sat comfortably over it. Nothing
+is wrong — the floor is enforced where it matters and the raise is reported rather than silent —
+but the constant has crossed from "wider than needed" to "a warning an upgrading app will see", and
+the fix shape below is unchanged and now has a second reason. Retiring the constant means core's overlap check
 taking the padding as an input from the platform that resolved it — core is pure and cannot import
 the derivation — with `DEFAULT_GROUP_SAMPLING` kept only as the value a host without a resolved
 policy is checked against. A W27b-scale change; not chartered.
@@ -3139,20 +3150,16 @@ canonical matrix:
 `packages/calibration/profiles/apple-macos-27.0-1x-{light,dark}-standard-glass0.5-receded.json`.
 The inactive body's level residual went 0.1174 to 0.01017.
 
-What is left is the selection. `packages/platform-web/src/receded-profile.ts` still
-exports the 26.5 endpoints as one constant per scheme, so a page running the 27
-active material still recedes by the 26.5 difference, and the two documents that
-say otherwise are calibration artefacts nothing at runtime reads. That is W29 G4's
-by Decision Log 2 and it is a shape question rather than a number question: the
-active material is selected by a `materialProfile` a caller passes, and the recede
-is selected by nothing — the root imports its own constant.
-
-**The fix shape**: give the receded difference the same seam the active document
-has, so a `materialProfile` and its recede travel together — either a
-`recededMaterialProfile` option on `createGlassRoot` defaulting to today's
-constant, or a field on the material profile document itself. Until then, shipping
-the 27 material means shipping a 26.5 recede with it, which the ledger records and
-the runtime does not.
+**CLOSED 2026-09-20 by W29 G4** (claims §5.155; Decision Logs 2 and 7 (b)), and by the
+second of the two shapes this entry named: the receded difference is now a field
+on the material profile document itself. `packages/platform-web/src/material-document.ts`
+holds one document per measured material with a `receded` endpoint per colour
+scheme, `macos27MaterialProfileDocument` is what a root resolves by default, and
+`posedProfile()` reads the recede off the same document the active patch came
+from — so a material and its recede cannot be selected apart. The macOS 26.5
+endpoints stay exported as `recededMaterialProfile` and stay selectable, as
+`macos26MaterialProfileDocument`'s receded half. The inactive body's level
+residual the fit bought (0.1174 → 0.01017) is what a page now draws.
 
 ---
 
@@ -3192,14 +3199,34 @@ wrong shape. The amplitudes fitted beside it absorb the energy error, which is w
 the departure residual is 0.0007 and the residual this entry names does not show in
 it.
 
-**The fix shape**: `cli/native-delta.ts` already is the bed-against-bed instrument
+~~**The fix shape**: `cli/native-delta.ts` already is the bed-against-bed instrument
 and `cli/measure.ts` already computes the shadow metrics (`meanDeparture`,
 `strengthPeak`, `falloffSigma`, the four extents); adding the shadow axis to the
 delta's metric vector is a small change to `cli/native-delta-metrics.ts`. Read the
 27 bed against the 26.5 bed on that axis, then refit the fifteen `outerShadow`
 constants in the 27 documents against it. **No new capture is needed** — both beds
 are on disk — which is what makes this the cheapest of the three causes Decision Log
-6 puts to the user.
+6 puts to the user.~~ **Done by W29 G3b** (claims §5.154), which is what left this
+entry holding only the span grading. The fix shape that remains is the paragraph
+below.
+
+**The fix shape**: a span grading on the length, profile-gated so the runtime
+default and the two 26.5 documents resolve bit-identically. It is smaller than it
+sounds — the casting surface's span is already in the shader as `shadowAux.z` and
+`outer_shadow_thick` already grades the AMPLITUDE by it, so the change is that
+interpolation applied to `ou.shadow.y`, new leaves under `outerShadow`, the CSS
+tier's mirror in `platform-web/src/optics.ts`, and `outerShadowReachPx` taking the
+maximum over spans for the pad. It is not taken in G3b because Decision Log 6 (a)
+ruled the shadow's CONSTANTS refit; it is put to the user as Decision Log 7, which
+**ruled it deferred to one operator wave after 0.19.0**, carried there with the
+scale-selective scatter under a single one-time X1 exemption — each adds leaves to
+the renderer default and so moves every document's fingerprint, the frozen macOS
+26.5 pair included, and chartering them apart would spend two exemptions.
+
+*Moved here 2026-09-20 (W29 G4): this paragraph was filed at the foot of the
+"A material profile document is two options" entry below, where it described a
+fix for a defect that entry does not name. Nothing in it is changed except the
+last sentence, which now records Decision Log 7's ruling.*
 
 ---
 
@@ -3223,27 +3250,18 @@ cannot select a 27 document at all today. That is a deliberate omission for
 `cssTierMapping` — its doc comment calls it calibration's seam rather than an
 application knob — and an unstated one for `materialProfile`.
 
-**The fix shape**: one option on `createGlassRoot` that takes a document
-(`materialDocument`, say) and reads both halves off it, with the two existing
-options kept for an app tuning one tier by hand and the document's own
-`resolvedMaterialSha256` available to the diagnostics that already record which
-material drew. The React binding then has one prop to surface instead of two, and
-the "deliberately not an application knob" line survives intact, because a
-document is a measured material rather than a knob. This belongs with W29 G4's
-runtime selection of the 27 default, not beside it: both are the same seam, and
-G4 chartered the selection. The README (`packages/platform-web/README.md`) states
-the two-option instruction in the meantime.
-
-**The fix shape**: a span grading on the length, profile-gated so the runtime
-default and the two 26.5 documents resolve bit-identically. It is smaller than it
-sounds — the casting surface's span is already in the shader as `shadowAux.z` and
-`outer_shadow_thick` already grades the AMPLITUDE by it, so the change is that
-interpolation applied to `ou.shadow.y`, new leaves under `outerShadow`, the CSS
-tier's mirror in `platform-web/src/optics.ts`, and `outerShadowReachPx` taking the
-maximum over spans for the pad. It is not taken in G3b because Decision Log 6 (a)
-ruled the shadow's CONSTANTS refit; it is put to the user as Decision Log 7.
-
----
+**CLOSED 2026-09-20 by W29 G4** (claims §5.155), in the shape this entry proposed and
+one field wider. `createGlassRoot({ materialProfileDocument })` takes a whole
+measured material and reads every half off it — the active patch per colour
+scheme, the receded difference per colour scheme (the entry above), and the CSS
+crossing — and the two older options stay, merging over whatever the document
+selected, for an app tuning one tier by hand. `<GlassRoot>` surfaces all three
+props; the "deliberately not an application knob" line survives intact for
+`cssTierMapping`, which is documented as being there so an app naming a whole
+material by hand can name both halves of it. The document's own
+`resolvedMaterialSha256` reaches the readouts: `root.material` and every resolved
+`GlassGroupState` name the endpoint that drew, its digest, and whether an app
+merged a patch over it. Both package READMEs state the one-option instruction.
 
 ## The highlight's angular directionality has no web-side reader, so it cannot be fitted
 
@@ -3301,6 +3319,21 @@ forever and makes "which generation is this" a directory rather than a regex ove
 as one `.json.gz`, which is the smallest change and the worst diff. The second is
 the parent's recommendation; all three are the user's to rule, and the axis they
 differ on is whether a superseded row should still be one `git show` away.
+
+**Left exactly as W29 G3b wrote it, with a recommendation added 2026-09-20 (W29 G4,
+claims §5.155).** G4 seconds the *split by generation* option, and for a reason G3b
+could not have had: the landing found a second consumer that needs to answer
+"which generation is this", and it had to answer by **timestamp**. The demo reads
+the matrix at build time and prints one cell's figures beside a live surface; with
+two macOS 27 generations in the file, one profile and one tier no longer name one
+cell, so `apps/demo/src/site/calibration.ts` now breaks the tie on `capturedAt`
+descending. That works and is honest, but it is a heuristic standing where a name
+belongs — a generation captured out of order, or a partial re-read, makes it wrong
+with nothing to catch it. Under the generation split the same question is a
+directory listing and `atAShippedDocument` is a file lookup, which makes the demo's
+tie-break a lookup too. The file measures **72.1 MB** at this landing's head
+(`stat`, 2026-09-20), which is the number the next reader should check against
+GitHub's 100 MB refusal: it is one recapture from it, not two or three.
 
 ---
 
@@ -3424,3 +3457,75 @@ preference, and whether the body's opacity should be forced the same way is a
 material-policy decision the ledger can put to the user with these two numbers.
 The specular point is a renderer question and wants the WGSL passes read at that
 cell before anything is changed.
+
+---
+
+## The site's tone stage was designed around a convergence macOS 27 does not have (W29 G4, 2026-09-20)
+
+*Found 2026-09-20 landing the macOS 27 selection (claims §5.155), when two of the
+section's three e2e cases failed for the right reason.*
+
+`apps/demo`'s "Taking the tone of the backdrop" section exists to show one thing:
+drag the ground down and the 40px plate takes the backdrop's own colour exactly,
+body and rim, while the 112px plate barely moves. That was true of macOS 26.5's
+material. On macOS 27 it is not true of any plate at any stop — Apple's body over
+a near-black backdrop measures 0.29 linear against the backdrop's 0.06 (§5.151 §4)
+and the adaptation band that took vitrea's the rest of the way measures inert
+(§5.153 §2 item 1) — so the three plates now sit within 0.016 of each other and
+about a hundred times above the ground at the bottom stop
+(`results/2026-09-20-w29-g4-landing/tone-probe.json`).
+
+**What G4 did** is make the page honest rather than redesign it: the prose now
+says what the curve does on macOS 27 and names the macOS 26.5 behaviour as what
+changed, the control and the three plates are untouched, and the two e2e cases
+were moved against the committed reading rather than against whatever passed.
+
+**What is left is a design question, and it is the user's.** The stage's
+*geometry* — three plates at 40, 68 and 112px, one ground slider running to
+near-black — was chosen to make a size-gated convergence visible. With the
+convergence gone, the control's dark half demonstrates much less than it did: the
+separation the sweep is about is plain over the bright half and closes to nothing
+at the dark end, which is the opposite of the range the slider is weighted
+towards. Three shapes, none of them mechanical: re-range the slider so its
+resolution sits where the plates actually separate; keep the range and make the
+section's subject the *curve* rather than its endpoint, which is what the new
+prose already half does; or retire the stage and spend the space on a behaviour
+macOS 27 made more visible rather than less. Not taken here because which of
+those is right is a decision about what the site is for.
+
+---
+
+## The tone stage's three bodies are not ordered by span at the curve's first anchor (W29 G4, 2026-09-20)
+
+*Found 2026-09-20 by the reading that moved the site's tone cases (claims §5.155);
+`results/2026-09-20-w29-g4-landing/tone-probe.json`.*
+
+On the demo's tone stage at its darkest stop — a ground of 0.00212 linear — the
+three plates' composite bodies read **0.2285 (40px), 0.2127 (68px), 0.2236
+(112px)**. The order is wrong in the middle: the 68px plate is the darkest of the
+three where the size law says it should sit between the other two.
+
+The response law itself is ordered correctly there. The macOS 27 light document's
+first anchor is at encoded 0.004 with a thin ordinate of 0.214 and a thick one of
+0.242, so a thicker surface is brighter, as it is at every other anchor. What the
+reading takes is the **CSS tier's composite** — `--vitrea-tint`'s colour and alpha
+over the ground — which also carries `sizeOcclusionGain`'s lift and the rim, and
+those do not vary monotonically with span at this level. The amplitude is 0.016
+against bodies of 0.22, so it is about 7 % and invisible; what makes it worth an
+entry is that the sweep's *claim* is an ordering, and an ordering that fails
+anywhere is a claim with an exception in it.
+
+Three things it is not: it is not the response law (checked above), it is not the
+macOS 26.5 material (which converged at this stop, so the question did not arise),
+and it is not the GPU tier (unmeasured here — the reading is CSS-tier, which is
+what the page's `?renderer=css` pin selects). The site's e2e case no longer
+asserts the ordering at the dark stop and says why, which is what keeps this from
+being silent.
+
+**The fix shape**: read the same three spans on both tiers off the calibration bed
+rather than off the demo — `interiorLevel` per cell at the darkest `dark-solid`
+scenes is already in `results/matrix.json` for every macOS 27 profile — and decide
+from that whether the non-monotonicity is the CSS tier's composite alone or the
+material's. If it is the tier's, it belongs beside the other cross-tier residuals
+in `tier-coherence.test.ts`; if it is the material's, it is a fit question for the
+operator wave.

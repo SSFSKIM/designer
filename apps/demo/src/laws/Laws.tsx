@@ -12,7 +12,6 @@
 
 import {
   accessibilityRefractionCap,
-  MATERIAL_SOURCE_SIZE,
   TINT_SHADE,
 } from "@vitreajs/vitrea-web";
 import {
@@ -24,7 +23,10 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 
 import { DiagnosticsReadout, GroupReadout } from "../site/Readout";
 import { ChannelReadout } from "./ChannelReadout";
-import { bodyLaw, fixed, TONE_SPANS, toneLaw } from "./law";
+// The size law's constants are the SELECTED document's since W29 G4, and
+// `law.ts` is where the page resolves which document it is drawing — so the
+// readouts take `LAW_SIZE` and not the renderer's own module constant.
+import { bodyLaw, fixed, LAW_SIZE, TONE_SPANS, toneLaw } from "./law";
 import { GROUPS_BY_MODE, LawsGlass, LawsGround, NEST, TINT_GROUNDS, type LawMode } from "./LawsStage";
 
 export interface LawsProps {
@@ -135,7 +137,7 @@ export function Laws(props: LawsProps): ReactNode {
   const tone = toneLaw(toneLevel);
   const tint = seedColour(seed, strength);
   const cap = policy === undefined ? "true" : accessibilityRefractionCap(policy.material);
-  const body = bodyLaw(bodySpan, MATERIAL_SOURCE_SIZE.refractionScale[cap], [
+  const body = bodyLaw(bodySpan, LAW_SIZE.refractionScale[cap], [
     BODY_PLATE_WIDTH_CSS_PX,
     bodySpan,
   ]);
@@ -356,7 +358,7 @@ export function Laws(props: LawsProps): ReactNode {
               <span className="field__hint" data-testid="body-span-readout">
                 {bodySpan}px. The mix is the depth ramp&rsquo;s average over the surface, and
                 never falls below the material&rsquo;s frost of{" "}
-                {fixed(MATERIAL_SOURCE_SIZE.sizeScatterFloor, 2)}.
+                {fixed(LAW_SIZE.sizeScatterFloor, 2)}.
               </span>
             </label>
           </Fields>

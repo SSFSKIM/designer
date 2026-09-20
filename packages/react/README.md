@@ -456,6 +456,36 @@ app offering "follow the system" reads `prefers-color-scheme` for its colours as
 well as passing `"auto"` here. `apps/demo`'s site switch is the worked example of
 both halves moving together.
 
+### Which macOS the material is measured against
+
+macOS 27 changed Apple's material under every app, and **from 0.19.0 a page draws
+the macOS 27 material by default**. The previous reference is shipped beside it
+and selectable, as one value:
+
+```tsx
+import { macos26MaterialProfileDocument } from "@vitreajs/vitrea-web";
+
+<GlassRoot materialProfileDocument={macos26MaterialProfileDocument}>…</GlassRoot>
+```
+
+A document carries the active patch and the receded difference for both colour
+schemes plus what the material costs on the CSS tier, so one prop moves every
+tier and both poses together. It is read at construction: a scheme and a window
+pose move *within* one material, where a different document is a different
+material.
+
+`materialProfile` (a tuning of the renderer's optical constants, applied live)
+and `cssTierMapping` (the CSS crossing) are surfaced beside it for an app naming
+a material by hand; both merge over whatever the document selected. Before
+0.19.0 this binding surfaced none of the three, so a React app could not select
+a reference material at all.
+
+**Upgrading changes what your page looks like** — surfaces over dark backdrops
+are no longer nearly invisible, the rim and the outer shadow differ, and
+CSS-tier visitors get a wider blur. The documents, the measurements behind them
+and how to read `root.material` back are in
+[`@vitreajs/vitrea-web`'s README](https://www.npmjs.com/package/@vitreajs/vitrea-web).
+
 ### Window activation
 
 Apple's glass recedes when its window loses focus. That is a fact about the
@@ -487,10 +517,11 @@ runtime through `useGlassRoot()` and calls `root.setWindowActivation(...)`; the
 binding does not re-assert its prop on every frame, so what you set by hand
 stays set until the prop itself changes.
 
-The material it selects is the endpoint vitrea measured from macOS 26.5: the
-outer shadow and the bright rim go, and an author's tint survives as an
-achromatic shade. It is a fitted appearance rather than a pixel-match guarantee,
-and the gaps are named in
+The material it selects is the receded endpoint of whichever document the root
+drew. On macOS 27's, which is the default, the body darkens and the surface
+**keeps** its outer shadow; on macOS 26.5's the shadow and the bright rim go
+entirely. In both, an author's tint survives as an achromatic shade. It is a
+fitted appearance rather than a pixel-match guarantee, and the gaps are named in
 [`@vitreajs/vitrea-web`'s README](https://www.npmjs.com/package/@vitreajs/vitrea-web).
 
 ---
@@ -735,11 +766,27 @@ leaves the label on the token path. Fixing that is additive, and it is tracked.
 ## Fidelity
 
 The material is tuned against real ScreenCaptureKit captures of Apple's
-`glassEffect` on macOS 26.5, not against recollection. The complete record —
-what was measured, what could not be, and every gap left open — is
+`glassEffect`, not against recollection. The complete record — what was
+measured, what could not be, and every gap left open — is
 [`docs/doperpowers/specs/c9a-fidelity-claims.md`](https://github.com/SSFSKIM/designer/blob/main/docs/doperpowers/specs/c9a-fidelity-claims.md).
 
-The claim, as that document words it:
+**The bed moved to macOS 27 in 0.19.0**, which is what the default material is
+fitted against: 624 cells captured on macOS 27.0 (build 26A428) at the
+appearance slider's shipped position, every one of them measured against its
+macOS 26.5 counterpart before a line of vitrea changed. Apple's material moved
+on all 619 comparable cells and its geometry did not. On the thirteen light
+standard scenes held out of all tuning, at 1×, the refitted WebGPU tier reaches
+silhouette IoU 0.9994 mean / 0.9951 worst, contour distance 0.015 px mean, SSIM
+0.9661 mean / 0.8843 worst and OKLab ΔE 0.0189 mean / 0.0760 worst; the CSS tier
+over the same cells reads ΔE 0.0180 mean / 0.0791 worst at SSIM 0.9523 mean. It
+is not pixel-identical to Apple's material and seven declared rows are recorded
+as missed rather than met — the ledger's §5.153 and §5.154 name each one and what
+would close it.
+
+The macOS 26.5 claim below is kept as recorded rather than restated. It is what
+this package drew through 0.18.0 and what
+`materialProfileDocument={macos26MaterialProfileDocument}` still selects, and its
+bed is frozen. As that document words it:
 
 > **Reference-calibrated against macOS 26.5 captures.** vitrea's WebGPU texture
 > tier — its own shader math over a GPU-owned backdrop — was calibrated against

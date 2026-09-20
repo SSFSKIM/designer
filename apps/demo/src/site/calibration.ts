@@ -121,13 +121,21 @@ function figuresOf(cell: Cell): readonly Figure[] {
  * resolved colour scheme, which is the same rule read one step further: the
  * default is unchanged, because the page's default scheme is light.
  */
+/*
+ * Moved to macOS 27 at W29 G4, with the runtime's default material and with the
+ * pair's fixtures. The figure beside a live surface has to be a reading of the
+ * material that surface is made of: the matrix now holds both generations of
+ * rows and picking the macOS 26.5 one would print a number measured against a
+ * material this page no longer draws, which is the same defect the comment
+ * above records being fixed at W21 G3, one axis along.
+ */
 const PRIMARY_PROFILE_KEY_BY_SCHEME = {
-  light: "apple-macos-26.5-1x-light-standard",
-  dark: "apple-macos-26.5-1x-dark-standard",
+  light: "apple-macos-27.0-1x-light-standard-glass0.5",
+  dark: "apple-macos-27.0-1x-dark-standard-glass0.5",
 } as const;
 const PRIMARY_TIER = "texture";
 
-/** Lower sorts first. Ties fall through to the matrix's own order, which is stable. */
+/** Lower sorts first. Ties fall to the newest reading — see `reportsFor`. */
 function primacy(report: CellReport, scheme: "light" | "dark"): number {
   return (
     (report.profileKey === PRIMARY_PROFILE_KEY_BY_SCHEME[scheme] ? 0 : 2) +
@@ -142,6 +150,18 @@ function primacy(report: CellReport, scheme: "light" | "dark"): number {
  * the head of the list and the head is the claim. What the caller must NOT do is
  * present a cell from the wrong scheme as this scheme's evidence — which is why
  * every report carries its own `profileKey` and the page prints it.
+ *
+ * **The tie-break is the capture time, newest first, and it became load-bearing
+ * at W29 G4.** A cell's key carries the material profile document's hash, so a
+ * refit appends a generation of rows beside the old one and never rewrites it
+ * (which is the project's rule about recorded numbers, and why the matrix grows
+ * at all). One profile and one tier therefore no longer name one cell: macOS
+ * 27's light texture rows exist twice over, once at W29 G3's documents and once
+ * at W29 G3b's re-sealed ones. The page draws the material the runtime ships,
+ * which is the latest, so the latest reading is the one that speaks for it —
+ * and "which generation is the shipped one" is a question the matrix answers
+ * only by timestamp today (`specs/tech-debt-tracker.md`, the matrix-size entry,
+ * whose generation-split option would make it answerable by name).
  */
 export function reportsFor(
   sceneId: string,
@@ -149,7 +169,10 @@ export function reportsFor(
 ): readonly CellReport[] {
   const found = REPORTS_BY_SCENE.get(sceneId);
   if (found === undefined) return [];
-  return [...found].sort((a, b) => primacy(a, scheme) - primacy(b, scheme));
+  return [...found].sort(
+    (a, b) =>
+      primacy(a, scheme) - primacy(b, scheme) || b.capturedAt.localeCompare(a.capturedAt),
+  );
 }
 
 /**
