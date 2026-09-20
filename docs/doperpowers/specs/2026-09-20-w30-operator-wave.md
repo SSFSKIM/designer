@@ -526,7 +526,7 @@ and the impulse specular point (tracker); the slider's ends as evidence classes.
 | Child | Status | Claims section | Evidence |
 | --- | --- | --- | --- |
 | G0 | not dispatched | §5.156 | `results/2026-09-20-w30-g0-cut/` |
-| G1 | not dispatched | §5.157 | `results/2026-09-20-w30-g1-split/` |
+| G1 | **CLOSED 2026-09-20** — the split executed: `results/matrix.json` 2,017 rows / 72,102,187 B → **1,562 rows / 55,768,930 B**, W29 G3's generation moved byte for byte to `results/superseded/fa872c683f3e.json` (343) and `96b36eedf1c4.json` (112), named by the ACTIVE document's hash with `index.json` the lookup; no macOS 26.5 row moved and their order holds; append-check 6/6 PASS including a full reconstruction to the pre-split digest; `freeze.py verify` intact at 1,818; the demo's `capturedAt` tie-break retired, `atAShippedDocument` kept as the edited-document guard, `vibrancy.ts` given a digest lineage beside the old; chain green and `pnpm --filter demo build` green (main chunk 39,062.53 → 30,272.52 kB) | §5.157 | `results/2026-09-20-w30-g1-split/`, `results/superseded/` |
 | G2 | not dispatched | §5.158 | `results/2026-09-20-w30-g2-leaves/` |
 | G3 | not dispatched | §5.159 | `results/2026-09-20-w30-g3-operators/` |
 | G4 | not dispatched | §5.160 | `results/2026-09-20-w30-g4-landing/` |
@@ -572,6 +572,25 @@ opens:
 
 ## Revision Notes
 
+- 2026-09-20 (G1): **the generation split executed** (claims §5.157; evidence
+  `results/2026-09-20-w30-g1-split/`, layout `results/superseded/`). The working file holds one
+  generation per profile — 1,107 macOS 26.5 rows unchanged and in their order, 455 macOS 27 rows at
+  the four shipped documents — and W29 G3's 455 superseded rows moved byte for byte into two files.
+  Three things the charter left to G1 to settle, settled: **the file name is the ACTIVE document's
+  twelve-hex hash and a receded document never names a file** (it is a difference over its scheme's
+  active document and cannot be read apart from it), so a light and a dark generation land in two
+  files; a row is current only when *every* document it names is current; and finding a superseded
+  row is a lookup in `results/superseded/index.json`, which maps every document hash — active and
+  receded — to the file holding it. Three findings worth the parent's eye. (i) The freeze needed no
+  exemption and no edit: it skips non-26.5 rows entirely and its positional counter runs over 26.5
+  rows only, so deleting macOS 27 elements leaves all 1,107 entries identical — verified intact at
+  1,818. (ii) **One cell leaves the working file**: the IC-coupled `hc-text__capsule-button__inactive`
+  dom holdout row, §5.155 §3's "one of 456", whose newest reading is G3's because G3b's read produced
+  none for it. It is holdout and inactive, so no gated number moves, and §5.157 §4 names it rather
+  than rounding it away. (iii) A JSON round trip of this file is **not** byte-exact (Python's printer
+  against V8's differs by ~6.5 kB), so rows move as raw text slices and the append-check proves it by
+  reconstructing the pre-split file and matching its digest. The demo's bundle is 8.8 MB smaller as a
+  side effect. G4 runs the same script with no arguments after its own read (X7).
 - 2026-09-20 (the parent): **adversarial review folded** (opus, read-only; two blocking, fourteen
   should-fix, six minor). Folded: the exemption's shape withdrawn and replaced by supersession beside
   the document (finding 1, 2); the exemption its own child with proofs on both tiers, algebraic inert

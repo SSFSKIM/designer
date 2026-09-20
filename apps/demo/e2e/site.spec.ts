@@ -956,10 +956,13 @@ test.describe("the reference pair is a comparison", () => {
    * one is not a fixture worth trusting.
    *
    * The key moved to macOS 27 at W29 G4, with the runtime's default material. A
-   * second form of the same drift arrived with it and is caught here: the matrix
-   * now holds two generations of macOS 27 rows — a document change re-keys every
-   * cell and no recorded row is ever rewritten — so "this profile, this tier" no
-   * longer names one cell, and `calibration.ts` breaks the tie by capture time.
+   * second form of the same drift arrived with it and is caught here: a document
+   * change re-keys every cell and no recorded row is ever rewritten, so the matrix
+   * held two generations of macOS 27 rows and "this profile, this tier" no longer
+   * named one cell. W29 G4 broke that tie by capture time; W30 G1 removed the tie
+   * instead, by moving the superseded generation to
+   * `packages/calibration/results/superseded/`, so the file the page reads holds
+   * one generation per profile and this assertion is again about one cell.
    */
   test("every scene's figures come from the primary cell", async ({ page }) => {
     await gotoSite(page);

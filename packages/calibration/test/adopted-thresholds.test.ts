@@ -1794,7 +1794,9 @@ interface Cell {
       /**
        * How the capture was taken, including the profile document and its hash
        * (W29 G3b reads it — `atAShippedDocument`). Part of the key, so a refit
-       * appends a generation beside the rows read at the old document.
+       * appends a generation beside the rows read at the old document; W30 G1
+       * moves the superseded generation to `results/superseded/` once the refit
+       * has landed, so the working file carries one generation per profile.
        */
       readonly capturePath: string;
     };
@@ -1909,22 +1911,28 @@ const SHIPPED_DOCUMENT_HASHES = new Map(
 /**
  * Was this row captured at a profile document that is committed and unchanged?
  *
- * **The third drop, and it is a generation rather than a set or an axis** (W29
- * G3b). A cell's key contains its `capturePath`, and the `capturePath` names the
- * material profile document and its content hash — so a refit that moves a
- * document does not overwrite the rows read at the old one, it APPENDS a second
- * generation beside them (the package's own README says so, and the wave rule is
- * that a recorded number is never rewritten). Both generations are evidence and
- * both stay in the file; only one of them is the bed that ships.
+ * **A guard, no longer a generation filter** (W29 G3b; narrowed by W30 G1). A
+ * cell's key contains its `capturePath`, and the `capturePath` names the material
+ * profile document and its content hash — so a refit that moves a document does
+ * not overwrite the rows read at the old one, it APPENDS a second generation
+ * beside them, because a recorded number is never rewritten.
  *
- * So the gate reads the generation whose document is the document on disk. That
- * is stronger than "the newest rows" and it is stronger than the old implicit
- * behaviour, which was simply that no second generation had ever existed: it
- * makes every counted, bounded and floored row carry a proof that it was
- * measured at the material this repository currently contains. A row naming a
- * hash no file has is a row from a superseded fit; a document edited without a
- * re-read empties its own profile out of the partition and fails loudly here
- * rather than gating a bound against a bed nobody captured.
+ * Until W30 G1 both generations lived in the working file and this predicate was
+ * what decided which of them shipped. They no longer do: the superseded
+ * generation is moved, byte for byte, to `results/superseded/<document-sha>.json`
+ * as soon as the refit that superseded it has landed (Decision Log 1 (d),
+ * contract X7, claims §5.157), so `results/matrix.json` holds one generation per
+ * profile and "which generation ships" is a name rather than a computation. Over
+ * the split file this predicate drops nothing, and that is the point: the rows it
+ * sifted are not here to sift.
+ *
+ * It stays, at full strength, because sifting was never its only job. It is the
+ * guard that a profile document edited WITHOUT a re-read empties its own profile
+ * out of every bound, floor and count — loudly, rather than gating a promise
+ * against a bed nobody captured. W30 leans on exactly that: the macOS 26.5
+ * documents' bytes are an input to all 1,107 frozen rows, so a re-recorded digest
+ * or a history comment in one of them would retire half the gated bed, and this
+ * is what makes that failure visible instead of silent.
  *
  * A row whose `capturePath` names no document at all — `materialProfile=renderer
  * defaults` — is not a bed row and never was; it would be a capture taken at the
@@ -2863,7 +2871,10 @@ describe("the probe set is captured, and gated by nothing (W25 Decision Log 3 (e
     // row of a declared inactive scene, or a row captured at a profile document
     // this repository no longer contains — and the two views must differ by
     // exactly those rows. The inactive arm is W28 G4's and the generation arm is
-    // W29 G3b's; each has its own guards below.
+    // W29 G3b's; each has its own guards below. Since W30 G1 the generation arm
+    // is expected to drop nothing — the superseded generation lives in
+    // `results/superseded/` rather than here — and it is asserted anyway, because
+    // what it guards is an edited document, not a second generation.
     const dropped = MATRIX_FILE.cells.filter((cell) => !MATRIX.cells.includes(cell));
     expect(
       dropped.every(
