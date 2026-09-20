@@ -1702,6 +1702,19 @@ const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
   "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21341, bound: "≤ 0.17" },
 };
 
+/*
+ * **The fifteen span-44 texture cells W30 G3 added are gone again, and that
+ * round trip is the point** (W30 G3b, claims §5.159b). They entered because the
+ * fitted σ law reached a width at which the optics pass's shadow falloff
+ * returned NaN inside a thin caster, leaving a strip of the surface undrawn:
+ * the predicate's own arms then refused those cells — a drawn silhouette in
+ * several pieces, with holes — and the gate lost 170 declaration-conformance
+ * rows to it. W30 G3b fixed the shader and re-read the bed at the same material,
+ * and the list is back to the 68 entries it held at 0.19.0, with every one of
+ * the fifteen returning to a gated shape row rather than being written off. The
+ * list is derived from the artifact by the case below on every run, so neither
+ * the going nor the coming was typed.
+ */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
@@ -1733,17 +1746,8 @@ const PREDICATE_EXCLUDES = [
   "dom / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
   "dom / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
-  "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
   "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
   "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
-  "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5",
-  "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
-  "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5",
-  "texture / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-27.0-1x-dark-standard-glass0.5",
-  "texture / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
-  "texture / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-27.0-1x-light-standard-glass0.5",
-  "texture / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.5",
-  "texture / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-27.0-2x-light-standard-glass0.5",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard",
@@ -1769,17 +1773,11 @@ const PREDICATE_EXCLUDES = [
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
-  "texture / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5",
-  "texture / holdout / hc-text__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5",
-  "texture / holdout / hc-text__capsule-button__rest-tint-orange / apple-macos-27.0-1x-light-standard-glass0.5",
-  "texture / holdout / hc-text__capsule-button__rest-tint-orange / apple-macos-27.0-2x-light-standard-glass0.5",
   "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
   "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
   "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
-  "texture / validation / checkerboard__capsule-button__rest-tint-blue / apple-macos-27.0-1x-light-standard-glass0.5",
-  "texture / validation / checkerboard__capsule-button__rest-tint-blue / apple-macos-27.0-2x-light-standard-glass0.5",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",

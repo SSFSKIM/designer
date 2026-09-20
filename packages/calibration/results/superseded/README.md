@@ -46,17 +46,50 @@ already a lookup and the name is never parsed. The split script produces the com
 name where it used to refuse the shape, and refuses instead where a hash would have to
 name two different files here.
 
+**A second shape, and it is the material NOT moving** (added 2026-09-20, W30 G3b,
+c9a §5.159b). A generation is keyed by the document's file hash, and a renderer fix
+moves no document — so a re-read after one would key to the same cells as the read it
+supersedes and overwrite recorded numbers instead of appending beside them. The rule is
+therefore stated on the document rather than on the tool: **same material, renderer
+changed — the document carries a dated comment naming the fix, and the rows read before
+it are a generation of their own.** The comment is a true statement about the conditions
+the rows beside it were read under, so it moves the file hash for the right reason;
+`resolvedMaterialSha256` does not move, and the gate that wrote the comment asserts
+that it did not. Nothing else about the split changes: the superseded file is still
+named after the active document the rows were read at, and the lookup is still
+`index.json`.
+
 ## The files
 
-| file | profiles | document read at | claims | captured | superseded | rows | bytes |
-| --- | --- | --- | --- | --- | --- | ---: | ---: |
-| `fa872c683f3e.json` | `apple-macos-27.0-1x-light-standard-glass0.5` (138), `-2x-light-standard-glass0.5` (138), `-1x-light-increased-contrast-coupled-glass0.5` (35), `-1x-light-reduced-transparency-glass0.5` (32) | `profiles/apple-macos-27.0-1x-light-standard-glass0.5.json` `sha256:fa872c683f3e` | c9a §5.153 (W29 G3) | 2026-09-19 | 2026-09-20 (W30 G1, c9a §5.157) | 343 | 12,421,699 |
-| `96b36eedf1c4.json` | `apple-macos-27.0-1x-dark-standard-glass0.5` (56), `-2x-dark-standard-glass0.5` (56) | `profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json` `sha256:96b36eedf1c4` | c9a §5.153 (W29 G3) | 2026-09-19 | 2026-09-20 (W30 G1, c9a §5.157) | 112 | 3,911,642 |
+Regenerated from `index.json` rather than typed; `readUnderClaims` is the claims section
+of the gate that MOVED the rows, which is not always the gate that read them — the two
+files at the top were read by W29 G3b and moved by W30 G3.
 
-Both files are W29 G3's refit read, superseded by W29 G3b's shadow re-seal (c9a §5.154)
+| file | profiles | active document read at | claims | captured | superseded | rows | bytes |
+| --- | --- | --- | --- | --- | --- | ---: | ---: |
+| `fa872c683f3e.json` | `-1x-light-standard` (138), `-2x-light-standard` (138), `-1x-light-increased-contrast-coupled` (35), `-1x-light-reduced-transparency` (32) | `apple-macos-27.0-1x-light-standard-glass0.5.json` `sha256:fa872c683f3e` | c9a §5.153 (W29 G3) | 2026-09-19 | 2026-09-20 (W30 G1, c9a §5.157) | 343 | 12,421,699 |
+| `96b36eedf1c4.json` | `-1x-dark-standard` (56), `-2x-dark-standard` (56) | `apple-macos-27.0-1x-dark-standard-glass0.5.json` `sha256:96b36eedf1c4` | c9a §5.153 (W29 G3) | 2026-09-19 | 2026-09-20 (W30 G1, c9a §5.157) | 112 | 3,911,642 |
+| `f42ddec1cf5a.json` | `-1x-light-standard` (138), `-2x-light-standard` (138), `-1x-light-increased-contrast-coupled` (35), `-1x-light-reduced-transparency` (32) | `…-1x-light-standard-glass0.5.json` `sha256:f42ddec1cf5a`, with `-receded` `sha256:59d4b20a4596` | read at c9a §5.154 (W29 G3b) | 2026-09-19 | 2026-09-20 (W30 G3, c9a §5.159) | 343 | 12,631,782 |
+| `272d1b0c3e10.json` | `-1x-dark-standard` (56), `-2x-dark-standard` (56) | `…-1x-dark-standard-glass0.5.json` `sha256:272d1b0c3e10`, with `-receded` `sha256:5c81bc72edad` | read at c9a §5.154 (W29 G3b) | 2026-09-19 | 2026-09-20 (W30 G3, c9a §5.159) | 112 | 3,986,816 |
+| `d731b3838994.json` | `-1x-light-standard` (228), `-2x-light-standard` (183), `-1x-light-increased-contrast-coupled` (36), `-1x-light-reduced-transparency` (32) | `…-1x-light-standard-glass0.5.json` `sha256:d731b3838994`, with `-receded` `sha256:b4a5914c7b9c` | c9a §5.159 (W30 G3) | 2026-09-20 | 2026-09-20 (W30 G3b, c9a §5.159b) | 479 | 17,798,136 |
+| `ce1af58886ff.json` | `-1x-dark-standard` (146), `-2x-dark-standard` (101) | `…-1x-dark-standard-glass0.5.json` `sha256:ce1af58886ff`, with `-receded` `sha256:d449ea0649f4` | c9a §5.159 (W30 G3) | 2026-09-20 | 2026-09-20 (W30 G3b, c9a §5.159b) | 247 | 9,128,088 |
+
+The first two are W29 G3's refit read, superseded by W29 G3b's shadow re-seal (c9a §5.154)
 and published at §5.155. Neither names a receded document: G3's read predates the receded
-documents, which G3b sealed. The shipped generation — the 455 rows the working file keeps
-— was read at `f42ddec1cf5a` / `272d1b0c3e10` with `59d4b20a4596` / `5c81bc72edad`.
+documents, which G3b sealed.
+
+The middle pair is **W29 G3b's read**, the 455 rows the working file held at 0.19.0,
+superseded by W30 G3's seal of the σ law and its refitted anchors (c9a §5.159).
+
+The last pair is **W30 G3's own read at those sealed documents** — 726 rows, the first
+macOS 27 probe rows the project ever committed among them — superseded by W30 G3b for a
+reason no earlier split has had: **the material did not move at all.** The renderer did.
+G3 fitted at a renderer whose shadow falloff returned NaN inside a thin caster (c9a
+§5.159 §6, diagnosed and fixed at §5.159b), and the four documents carry a dated
+`$comment-w30-g3b` naming the fix so that the re-read at the same material is a
+generation of its own rather than an overwrite. Those 726 rows are therefore the
+evidence of the fit AT THE DEFECTIVE RENDERER, and that is exactly what makes them worth
+keeping: 170 of them are the declaration-conformance failures the fix closed.
 
 ## One cell that only exists here
 

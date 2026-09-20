@@ -1,0 +1,50 @@
+W30 G3b — the fixed renderer against W30 G3's committed rows, apple-macos-27.0-1x-light-standard-glass0.5
+====================================================================================================
+  49 texture cells read on scratch; 114 committed for this profile
+
+THE SHADOW'S OWN AXIS — meanDepartureWeb, which B3's stop is the mean of
+----------------------------------------------------------------------------------------------------
+  bit-identical: 49    moved: 0    with no committed counterpart: 0
+
+  Not approximately: the same float. The NaN was reached only more than 10.06 σ
+  INSIDE the shadow's silhouette, and every pixel the departure is measured over
+  is outside the declared region, where the offset read lands at most 7.95 CSS px
+  deeper. So B3 cannot have moved, and the canonical read re-reads it anyway.
+
+THE DECLARATION'S AXIS — drawnAreaWeb and declaredIoUWeb, which W20 bounds
+----------------------------------------------------------------------------------------------------
+  30 cells move, and every one of them moves to IoU 1.0
+  scene                                                       drawn before  IoU before  drawn after  IoU after
+  checkerboard__capsule-button__inactive                              4220      0.8662         4872     1.0000
+  checkerboard__capsule-button__inactive-tint-blue                    4220      0.8662         4872     1.0000
+  checkerboard__capsule-button__inactive-tint-orange                  4220      0.8662         4872     1.0000
+  checkerboard__capsule-button__rest                                  4220      0.8662         4872     1.0000
+  checkerboard__capsule-button__rest-tint-blue                        4220      0.8662         4872     1.0000
+  checkerboard__capsule-button__rest-tint-orange                      4220      0.8662         4872     1.0000
+  checkerboard__toolbar-group__inactive                               4452      0.9712         4584     1.0000
+  checkerboard__toolbar-group__rest                                   4452      0.9712         4584     1.0000
+  dark-solid__capsule-button__inactive                                4220      0.8662         4872     1.0000
+  dark-solid__capsule-button__inactive-tint-orange                    4220      0.8662         4872     1.0000
+  dark-solid__capsule-button__rest                                    4220      0.8662         4872     1.0000
+  dark-solid__capsule-button__rest-tint-orange                        4220      0.8662         4872     1.0000
+  impulse__capsule-button__inactive                                   4220      0.8662         4872     1.0000
+  impulse__capsule-button__inactive-tint-orange                       4220      0.8662         4872     1.0000
+  impulse__capsule-button__rest                                       4220      0.8662         4872     1.0000
+  impulse__capsule-button__rest-tint-orange                           4220      0.8662         4872     1.0000
+  light-solid__capsule-button__inactive                               4220      0.8662         4872     1.0000
+  light-solid__capsule-button__inactive-tint-orange                   4220      0.8662         4872     1.0000
+  light-solid__capsule-button__rest                                   4220      0.8662         4872     1.0000
+  light-solid__capsule-button__rest-tint-orange                       4220      0.8662         4872     1.0000
+  photo__capsule-button__inactive                                     4220      0.8662         4872     1.0000
+  photo__capsule-button__inactive-tint-blue                           4220      0.8662         4872     1.0000
+  photo__capsule-button__inactive-tint-orange                         4220      0.8662         4872     1.0000
+  photo__capsule-button__inactive-tint-orange-half                    4220      0.8662         4872     1.0000
+  photo__capsule-button__rest                                         4220      0.8662         4872     1.0000
+  photo__capsule-button__rest-tint-blue                               4220      0.8662         4872     1.0000
+  photo__capsule-button__rest-tint-orange                             4220      0.8662         4872     1.0000
+  photo__capsule-button__rest-tint-orange-half                        4220      0.8662         4872     1.0000
+  photo__toolbar-group__inactive                                      4452      0.9712         4584     1.0000
+  photo__toolbar-group__rest                                          4452      0.9712         4584     1.0000
+
+  The capsule is 4220 -> 4872 of a declared 4872 and the toolbar 4452 -> 4584 of
+  4584. Both are span-44 casters; no rrect cell of this profile appears above.

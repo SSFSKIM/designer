@@ -74,7 +74,7 @@ free parameter:
 | `sigmaPx` 4 (σ negative, clamped to 1e-4) | 0.0001 | 82.5…132.5, clipped at the surface | **83…121** |
 | 0.19.0, `sigmaPx` 11 with the law inert | 11.0 | none | **none** |
 
-`bisect.py` in this directory is that expression and prints the table.
+`nan-band.py` in this directory is that expression and prints the table.
 
 **§5.159 §6's own reading of the table — "the strip's bottom edge sits 24 CSS px
 above the group field rect's bottom edge" — is a coincidence of one σ, recorded
