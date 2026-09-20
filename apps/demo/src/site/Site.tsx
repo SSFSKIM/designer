@@ -21,7 +21,7 @@ import {
 } from "@vitreajs/vitrea-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
-import { MEASURED_CELL_COUNT } from "./calibration";
+import { DISPLAYABLE_CELL_COUNT, MEASURED_CELL_COUNT } from "./calibration";
 import { DiagnosticsReadout, GroupReadout } from "./Readout";
 import { REFERENCE_SCENES, nativeProfileFor, type ReferenceScene } from "./scenes";
 import {
@@ -501,12 +501,15 @@ export function Site(props: SiteProps): ReactNode {
           <h3 className="h3">What these numbers are, and are not</h3>
           <ul className="list">
             <li>
-              {MEASURED_CELL_COUNT} cells in the result matrix this page reads, which
-              holds one generation per profile: the rows measured at the material
-              documents the runtime currently ships. Readings taken at a document a
-              later refit superseded are kept beside it, in
+              {MEASURED_CELL_COUNT} cells in the result matrix, which holds one
+              generation per profile: the rows measured at the material documents
+              the runtime currently ships. Readings taken at a document a later
+              refit superseded are kept beside it, in
               <code> packages/calibration/results/superseded/</code>, and are not
-              counted here.
+              counted here. This page is built with the{" "}
+              {DISPLAYABLE_CELL_COUNT} of them that belong to the scenes this
+              picker offers, projected to the figures below; the rest are in the
+              file and are the gate&rsquo;s business, not this page&rsquo;s.
             </li>
             <li>
               Every figure is keyed to its cell: native profile, engine and version,

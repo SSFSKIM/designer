@@ -16,7 +16,11 @@
  * group or a stack is filtered out rather than approximated.
  */
 
-import matrix from "../../../reference-apple/scenes.json";
+// The import attribute is not decoration: `../../matrix-reduction.ts` imports this
+// module from `vite.config.ts` so that the build's scene list IS the picker's, and
+// Vite's native config loader — Node's own — requires the attribute on a JSON
+// import it evaluates (W30 G3b, claims §5.159b).
+import matrix from "../../../reference-apple/scenes.json" with { type: "json" };
 
 export interface SceneBox {
   readonly left: number;

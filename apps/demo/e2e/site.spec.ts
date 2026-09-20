@@ -1255,6 +1255,9 @@ test.describe("the outer shadow is on screen", () => {
     await gotoSite(page, "?renderer=css");
     await showSection(page, "material");
 
+    // The sweep's smallest (span 40) and largest (span 112) plates, by their own
+    // test ids; `Stage.tsx`'s middle plate carries none.
+    const blurs = new Map<string, number>();
     for (const testId of ["untinted-plate", "tinted-plate"]) {
       /*
        * WHERE the shadow is painted moved in W18 G1 and what it is did not. The
@@ -1299,11 +1302,35 @@ test.describe("the outer shadow is on screen", () => {
       const [offsetX = 0, offsetY = 0, blur = 0, spread = 0] = lengths;
       expect(offsetX, `${testId} offset-x`).toBe(0);
       expect(offsetY, `${testId} offset-y`).toBeGreaterThan(0);
-      // The blur dominates the offset — the reference's shadow is a wide soft
-      // field a little below the surface, not a hard drop.
-      expect(blur, `${testId} blur`).toBeGreaterThan(2 * offsetY);
+      expect(blur, `${testId} blur`).toBeGreaterThan(0);
       expect(spread, `${testId} spread`).toBeGreaterThanOrEqual(0);
+      blurs.set(testId, blur);
     }
+
+    /*
+     * **The blur GRADES with the caster, and that replaced "the blur dominates
+     * the offset"** (W30 G3b, claims §5.159b; the law is §5.156 §2).
+     *
+     * Until macOS 27 the outer shadow's σ was span-invariant — 15.4 to 15.9 CSS
+     * px from a 32 px control to a 160 px panel, which is a positive measurement
+     * — so every surface on this page wrote a blur of about 31 px against an
+     * offset of 8, and "a wide soft field a little below the surface, not a hard
+     * drop" was true of all of them at once. macOS 27's σ is linear in the
+     * casting span above a knee and flat below it, and the sweep's smallest
+     * plate is a 40 px caster: it writes 2σ = 4.25 px against the same offset,
+     * which fails the old inequality BY MEASUREMENT rather than by regression.
+     * Apple's own shadow at that span is 1.84 CSS px of σ (claims §5.159 §1's
+     * B2 statistic), so the page is right and the assertion was the macOS 26.5
+     * material written down as a law.
+     *
+     * What replaces it is the property the old one could not have had, because
+     * on macOS 26.5 it was false: **the 112 px plate's shadow is blurred wider
+     * than the 40 px plate's**, on one page, in one group, at one authored
+     * thickness. That is the whole of the operator, read off the DOM.
+     */
+    const small = blurs.get("untinted-plate") ?? 0;
+    const large = blurs.get("tinted-plate") ?? 0;
+    expect(large, `span 112 blur ${large} against span 40's ${small}`).toBeGreaterThan(small);
   });
 
   test("it darkens a bright ground and has nothing to take from a dark one", async ({ page }) => {

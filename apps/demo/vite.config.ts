@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
 
+import { matrixReduction } from "./matrix-reduction.ts";
 import { shippedDocuments } from "./shipped-documents.ts";
 
 /**
@@ -95,7 +96,7 @@ export default defineConfig({
    * Absolute asset URLs would pick one of those and break the other two.
    */
   base: "./",
-  plugins: [react(), nativeFixtures(), shippedDocuments()],
+  plugins: [react(), nativeFixtures(), shippedDocuments(), matrixReduction()],
   resolve: {
     alias: {
       "@vitreajs/vitrea": `${packages}core/src/index.ts`,
