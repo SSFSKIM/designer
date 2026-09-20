@@ -80,6 +80,7 @@ export interface Cell {
   readonly shape?: Record<string, Metric | string>;
   readonly perceptual?: Record<string, Metric | string>;
   readonly material?: Record<string, Metric | string>;
+  readonly shadow?: Record<string, Metric | string>;
 }
 
 const cells: readonly Cell[] = CELLS;
@@ -127,6 +128,32 @@ export function figuresOf(cell: Cell): readonly Figure[] {
     "Not a transmission figure: this estimator is attenuated by the material's own blur, so it reads lower the busier the backdrop and the two sides are not comparable through it. C9a measured transmission by regressing interior level against backdrop level across scenes instead, and found the reference the MORE opaque of the two — the opposite of what a single slope reading implies.",
   );
   add("Luminance slope, web", metric(cell.material, "luminanceSlopeWeb"), 3);
+  /*
+   * The outer shadow's fitted falloff width, added at W30 G4 (claims §5.160).
+   *
+   * The wave that 0.20.0 carries graded this shadow's σ by the casting span —
+   * one number became a line — and not one of the seven figures above could see
+   * it: they read the silhouette, the interior and the transmission, and the
+   * shadow is outside all three. On this bed the operator moves `falloffSigmaWeb`
+   * from a flat 14 px to 20.3 px at a span of 160 and down to 11.0 px at 32,
+   * against natives of 17.3 and (the thin regime) under 2. A page that prints a
+   * cell's figures and omits the axis its own material just changed is printing
+   * the figures that happened to exist.
+   *
+   * The web reading at a thin span is NOT the material's σ and the note says so.
+   * The instrument fits one blurred edge to the whole exterior departure, and
+   * below the knee the lift — a 40 px blur by its own constant — is what most of
+   * that departure is, so the fit returns the lift's width rather than the
+   * shadow's. It is a reading of the composite, which is what the pair is for;
+   * the material's own law is `outerShadowSigmaPx`, and `/laws/` evaluates it.
+   */
+  add("Shadow falloff sigma, native", metric(cell.shadow, "falloffSigmaNative"), 2);
+  add(
+    "Shadow falloff sigma, web",
+    metric(cell.shadow, "falloffSigmaWeb"),
+    2,
+    "One blurred edge fitted to the whole exterior departure, not the material's own blur constant. Below the size law's knee the outer shadow is narrower than the lift that surrounds it, so this fit returns the lift's width and reads several times the native's; above the knee the two are the same quantity and comparable. The material's own law is evaluated on the /laws/ page.",
+  );
   return out;
 }
 

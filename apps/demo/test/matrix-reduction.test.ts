@@ -97,13 +97,17 @@ describe("the reduction against the whole file", () => {
     // Pinned functionally rather than by name: a synthetic cell carrying every
     // metric any row in the file carries, on both sides of the projection. If
     // the projection drops one the page reads, the two figure lists differ.
-    const maximal: Record<"shape" | "perceptual" | "material", Record<string, unknown>> = {
+    const maximal: Record<
+      "shape" | "perceptual" | "material" | "shadow",
+      Record<string, unknown>
+    > = {
       shape: {},
       perceptual: {},
       material: {},
+      shadow: {},
     };
     for (const cell of FILE.cells) {
-      for (const axis of ["shape", "perceptual", "material"] as const) {
+      for (const axis of ["shape", "perceptual", "material", "shadow"] as const) {
         for (const [name, value] of Object.entries(cell[axis] ?? {})) {
           if (typeof value === "object" && value !== null) maximal[axis][name] ??= value;
         }

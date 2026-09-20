@@ -48,7 +48,13 @@ import {
   StageBackdrop,
   type StageGroundPaint,
 } from "./StageBackdrop";
-import { CANVAS, nativeCaptureFor, nativeProfileFor, type ReferenceScene } from "./scenes";
+import {
+  CANVAS,
+  nativeCaptureFor,
+  nativePlatformFor,
+  nativeProfileFor,
+  type ReferenceScene,
+} from "./scenes";
 
 export type StageMode = "material" | "page" | "tone" | "reference" | "behavior" | "access";
 
@@ -148,26 +154,104 @@ const SIZE_SWEEP = [
  * a monotone curve through three measured anchors — near-black, mid and light
  * solids — whose ends move with the surface's size, and it is below about 0.16
  * linear that the three spans visibly come apart. The top stop is where they have
- * nearly rejoined; the bottom stop is where the smallest plate is its backdrop.
+ * nearly rejoined and is `STAGE_HINT`'s own level, so it is also what every other
+ * surface on this page is standing over; the bottom stop is where the macOS 26.5
+ * material used to put the smallest plate onto its backdrop.
  *
- * `initial` is inside that range on purpose. It is the one setting at which the
- * three plates are all visibly *different* from each other, so the stage opens on
- * the size gate rather than on either of its ends.
+ * **Re-ranged at W30 G4 (charter Decision Log 1 (e), claims §5.160), and the
+ * measurement moved the ruling's premise as well as the control.** The value is
+ * now a POSITION on a geometric ladder between those two ends rather than a count
+ * of thousandths: `level(p) = 0.002 · 80^(p/80)`, which is 81 stops of equal
+ * RATIO from 0.0020 to 0.1600. Equal ratio rather than equal difference because
+ * the response curve is a function of the backdrop's ENCODED level, so a fixed
+ * step of linear luminance is a step that shrinks as the ground brightens — which
+ * is why a linear ladder spent four fifths of its travel where the stage has
+ * least to show.
  *
- * They are counted in integer THOUSANDTHS, and that is not a formatting choice. A range
- * input validates its value against `min + n * step` in binary floating point, and
- * a 0.002 grid does not land on the decimals it is written with — `0.002 * 5` is
- * not `0.01` — so a fractional slider rejects most of its own positions the moment
- * anything sets one by value. The reader sees the quantity itself either way: the
- * field prints it, and `aria-valuetext` announces it.
+ * Where it has most to show is a reading, not an assumption, and it is the
+ * opposite way round from the one the charter and the tracker entry carried.
+ * `results/2026-09-20-w30-g4-landing/tone-range.json` reads all eighty stops of
+ * the old control on the material 0.20.0 ships: the three bodies separate by
+ * **0.026 (11 % of their own level) at a ground of 0.006** and by **0.0148
+ * (2.4 %) at 0.16**, so the separation is widest over the DARK half and narrows
+ * toward the bright end. What closes at the very bottom is not the separation but
+ * the ORDER — at 0.0021 the three read 0.2285 / 0.2127 / 0.2236 and the middle
+ * plate is the darkest, the tracker's "not ordered by span at the curve's first
+ * anchor". So the band worth resolving is about 0.004…0.034, which held 16 of the
+ * old control's 80 stops and holds **40 of the new one's 81**.
+ *
+ * **The finer control also found more of the disorder, which is a cost of the
+ * re-range worth stating as one** (`tone-range.ladder.json`, the same instrument
+ * over the landed ladder). The old grid had exactly one stop below 0.004 and it
+ * was disordered; the ladder has seven, and every one of them is — the order
+ * returns at position 7, a ground of 0.0030, and holds at all 74 stops above it.
+ * So the entry the tracker carries is a BAND under about 0.003 rather than a
+ * single anchor, and the page's own control is now what shows it.
+ *
+ * Its bottom three positions paint one ground between them, because near black
+ * the sRGB transfer is linear and a 5.6 % ratio step is a third of an 8-bit code:
+ * 81 positions paint **70 distinct grounds** where the old 80 painted 71. The
+ * ladder therefore costs no resolution overall and moves what there is.
+ *
+ * Both ends are kept, which is what the ruling asks for from the other
+ * direction: the near-black stop is still one `Home` away, so macOS 27's refusal
+ * to converge there stays one drag from the reader, and the top stop is still the
+ * level the rest of the page declares.
+ *
+ * The positions are INTEGERS, and that is not a formatting choice. A range input
+ * validates its value against `min + n * step` in binary floating point, and a
+ * fractional grid does not land on the decimals it is written with — `0.002 * 5`
+ * is not `0.01` — so a fractional slider rejects most of its own positions the
+ * moment anything sets one by value. An index sidesteps the question entirely.
+ * The reader sees the quantity itself either way: the field prints the level, and
+ * `aria-valuetext` announces it.
+ *
+ * `initial` is inside the separating band on purpose. It is a setting at which
+ * the three plates are all visibly different from each other AND ordered by span,
+ * so the stage opens on the size gate rather than on either of its ends.
  */
+const TONE_GROUND_MIN_LEVEL = 0.002;
+const TONE_GROUND_MAX_LEVEL = 0.16;
+const TONE_GROUND_STOPS = 80;
+
 export const TONE_GROUND = {
-  min: 2,
-  max: 160,
-  step: 2,
+  min: 0,
+  max: TONE_GROUND_STOPS,
+  step: 1,
+  /** Position 30 of 80 — a ground of 0.0103 linear, where the three bodies span 0.0247. */
   initial: 30,
-  /** Thousandths back to the linear luminance the material is a function of. */
-  level: (thousandths: number): number => thousandths / 1000,
+  /**
+   * A position on the ladder back to the linear luminance the material is a
+   * function of. Exact at both ends by construction: `level(0)` is the bottom
+   * stop and `level(80)` the top.
+   */
+  level: (position: number): number =>
+    TONE_GROUND_MIN_LEVEL
+    * (TONE_GROUND_MAX_LEVEL / TONE_GROUND_MIN_LEVEL) ** (position / TONE_GROUND_STOPS),
+  /**
+   * The nearest position to a linear level — the inverse, for a caller that has a
+   * ground in mind rather than a stop. Clamped to the ladder's own ends, because
+   * a level outside them is not a position at all.
+   */
+  positionOf: (level: number): number =>
+    Math.min(
+      TONE_GROUND_STOPS,
+      Math.max(
+        0,
+        Math.round(
+          (Math.log(Math.max(level, Number.MIN_VALUE) / TONE_GROUND_MIN_LEVEL)
+            / Math.log(TONE_GROUND_MAX_LEVEL / TONE_GROUND_MIN_LEVEL))
+            * TONE_GROUND_STOPS,
+        ),
+      ),
+    ),
+  /**
+   * Four decimals, not three. Adjacent stops at the dark end differ by 5.6 % of a
+   * level of 0.002, which three decimals round to the same string — and the
+   * readout is what a test waits on to know the control took, so two stops that
+   * print alike would make it a signal that cannot tell them apart.
+   */
+  label: (level: number): string => level.toFixed(4),
 } as const;
 
 /**
@@ -307,10 +391,10 @@ export function StageGround(props: StageProps): ReactNode {
                     src={nativeCapture}
                     width={CANVAS.width}
                     height={CANVAS.height}
-                    alt={`Screen capture of Apple's own Liquid Glass rendering the ${scene.component} scene on the ${scene.background} background, macOS 26.5, ${props.scheme} colour scheme.`}
+                    alt={`Screen capture of Apple's own Liquid Glass rendering the ${scene.component} scene on the ${scene.background} background, ${nativePlatformFor(props.scheme)}, ${props.scheme} colour scheme.`}
                   />
                   <figcaption className="pair__caption">
-                    <span className="pair__who">macOS 26.5, captured</span>
+                    <span className="pair__who">{nativePlatformFor(props.scheme)}, captured</span>
                     {/* The profile is named on the capture itself, not only in the
                         cell row below it: the pair is only a comparison while both
                         halves are the same colour scheme, and the reader should be
@@ -335,7 +419,7 @@ export function StageGround(props: StageProps): ReactNode {
                       checked={props.panel === value}
                       onChange={() => props.onPanelChange(value)}
                     />
-                    {value === "live" ? "vitrea, live" : "macOS 26.5"}
+                    {value === "live" ? "vitrea, live" : nativePlatformFor(props.scheme)}
                   </label>
                 ))}
               </fieldset>
