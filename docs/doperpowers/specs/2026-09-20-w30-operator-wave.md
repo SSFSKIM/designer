@@ -490,7 +490,9 @@ printed and a `--with-holdout` flag, so every reader this wave and later waves b
 
 Charter review → fold (done) → **G0 ∥ G1** → G1 merged; G0 merged; the parent rules any shape G0
 could not name (or G2 lands the spanning set) → **G2** (merged, reviewed, proofs confirmed by the
-parent) → **G3** → **G4** → the user's eye on the sheets → `pnpm release` (the user) → tag. After
+parent) → **G3** → **G4** → the user's eye on the sheets → `pnpm release` (the user) → tag.
+*Amended by Decision Log 4 (b): G3 fits, seals and reads (calibration + validation, the ladder,
+holdout once); G4 lands.* After
 this wave, in the order W29 Deferred kept: the chromatic-transmission child; the identifying sitting
 on the 27 bed; the highlight directionality reader; the decoupled-contrast flag and its read; the
 motion-metrics harness.
@@ -640,6 +642,40 @@ declarations — the part the wave is judged against. Ruled, for the review clos
   qualified as metric-carrying; `fit.py render` refusing a holdout set or scene without
   `--with-holdout` so the drop is end to end; `toStrictEqual` in the identity test; the same-scale
   split between `hc-text-7` and `checkerboard-8` recorded as evidence for candidate (ii).
+
+### Decision Log 4 — the parent, on G2's stop (2026-09-20): no document is re-sealed in G2, the supersession record covers all six shipped documents; a re-seal and its canonical read land in one merge, so G3 owns the read and G4 is the landing
+
+G2 landed the eight leaves as algebraic identities and then measured that re-sealing the four
+macOS 27 documents — the step the brief asked for because they are not frozen — empties the macOS
+27 half of the gated bed: `SHIPPED_DOCUMENT_HASHES` hashes every document's bytes and
+`atAShippedDocument` keeps only rows read at a current hash, so the 455 committed macOS 27 rows
+(230 gated cells across six profiles) leave every bound and count the moment the bytes move, and
+`adopted-thresholds.test.ts` goes red by 15 cases with `tier-coherence` by 8. This is the charter's
+own Surprise on the bed nobody checked. Ruled:
+
+- (a) **G2 re-seals nothing.** `packages/calibration/profiles/digest-supersessions.json` carries one
+  record per shipped document — six, not two: the two macOS 26.5 and the four macOS 27 — each with
+  the document's own `recordedSha256` and the `currentSha256` the pin resolves to over the default
+  that now carries the leaves. No document byte moves; every one of the 1,562 rows stays at a
+  current hash; the exemption is spent once, as one record beside the documents.
+  `scripts/generate-macos27-profile.mjs` reads the current digests from the record so that
+  `MACOS_27_RESOLVED_MATERIAL_SHA256` and `root.material` name what actually draws, and
+  `macos27-profile-export.test.ts` and `tuned-profiles.test.ts` (its "exactly two records" case
+  becomes "exactly the six shipped documents") move with it. Decision Log 1 (a)'s argument, taken
+  one step further, as the supersession shape itself was.
+- (b) **A re-seal and its canonical read land in the same merge**, so the gated bed is never empty
+  on main and no count is ever written down to zero to make a merge green. G3 therefore seals the
+  macOS 27 documents when it genuinely moves their material AND runs the canonical read at those
+  bytes in the same child — calibration + validation, the ladder probe rows of Decision Log 2 (a),
+  and the holdout **once** — with the sealed hashes recorded in §5.159 before the read, exactly as
+  W29 G3 and G3b did. G4 is the landing: the split's second application, the verdict carried into
+  `adopted-thresholds` where G0's tolerances passed, the toolbar seam, the tone stage, the demo,
+  0.20.0 prepared. Clause 5's "read once per frozen configuration" is unchanged in substance; its
+  owner moves from G4 to G3, and the Ordering map reads G2 → G3 (fit, seal, read) → G4 (landing).
+- (c) **"Binds nothing" is recorded as "costs nothing"**: a WGSL bind-group layout is one layout, so
+  the second heavy texture's binding exists at every draw and takes the placeholder view the first
+  heavy texture already takes when absent (W26's precedent); at share 0 there is no pool
+  allocation, no scratch, no separable pass and no sample. §5.158 says so plainly.
 
 ## Surprises & Discoveries
 
