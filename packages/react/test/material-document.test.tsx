@@ -25,7 +25,16 @@ import {
   type RendererMaterialProfile,
 } from "@vitreajs/vitrea-web";
 
-import { GlassGroup, GlassRoot, GlassSurface, useGlassRoot } from "../src/index";
+import type { GlassGroupState } from "@vitreajs/vitrea";
+
+import {
+  GlassGroup,
+  GlassRoot,
+  GlassSurface,
+  useGlassCapabilities,
+  useGlassRoot,
+  type GlassWindowActivation,
+} from "../src/index";
 
 /** The material this root resolved, off the frame's own render input. */
 const tintAlphaOf = (root: PlatformGlassRoot): number => {
@@ -38,6 +47,9 @@ interface Mounted {
   root(): PlatformGlassRoot;
   frame(): void;
   tune(patch: RendererMaterialProfile | undefined): void;
+  pose(value: GlassWindowActivation): void;
+  /** The group's state AS A SUBSCRIBER SEES IT, through the polling store. */
+  capabilities(): GlassGroupState | undefined;
 }
 
 /**
@@ -46,10 +58,13 @@ interface Mounted {
  */
 function mount(props: Parameters<typeof GlassRoot>[0]): Mounted {
   let held: PlatformGlassRoot | null = null;
+  let state: GlassGroupState | undefined;
   let change: ((patch: RendererMaterialProfile | undefined) => void) | undefined;
+  let repose: ((value: GlassWindowActivation) => void) | undefined;
 
   function Capture(): ReactNode {
     held = useGlassRoot();
+    state = useGlassCapabilities("g1");
     return null;
   }
 
@@ -57,15 +72,18 @@ function mount(props: Parameters<typeof GlassRoot>[0]): Mounted {
     const [patch, setPatch] = useState<RendererMaterialProfile | undefined>(
       props.materialProfile,
     );
+    const [pose, setPose] = useState<GlassWindowActivation | undefined>(props.windowActivation);
     change = setPatch;
+    repose = setPose;
     return (
       <GlassRoot
         autoStart={false}
         {...props}
         {...(patch === undefined ? {} : { materialProfile: patch })}
+        {...(pose === undefined ? {} : { windowActivation: pose })}
       >
-        <Capture />
         <GlassGroup id="g1">
+          <Capture />
           <GlassSurface>ok</GlassSurface>
         </GlassGroup>
       </GlassRoot>
@@ -79,11 +97,13 @@ function mount(props: Parameters<typeof GlassRoot>[0]): Mounted {
     return held;
   };
 
+  let clock = 0;
   return {
     root,
     frame: () => {
       act(() => {
-        root().runFrame(0);
+        root().runFrame(clock);
+        clock += 16;
       });
     },
     tune: (patch) => {
@@ -91,6 +111,12 @@ function mount(props: Parameters<typeof GlassRoot>[0]): Mounted {
         change?.(patch);
       });
     },
+    pose: (value) => {
+      act(() => {
+        repose?.(value);
+      });
+    },
+    capabilities: () => state,
   };
 }
 
@@ -143,6 +169,32 @@ describe("GlassRoot's material props", () => {
 
     // The same root throughout: a material change must not rebuild the runtime.
     expect(mounted.root()).toBe(before);
+  });
+
+  it("follows the window pose through the capabilities store, not only through the root", () => {
+    /*
+     * The store polls `capabilities(groupId)` once per frame and hands back the
+     * cached snapshot until it differs — so a field its equality did not compare
+     * could change and never reach a subscriber. That is exactly what happened
+     * to the material readout on the playground's activation pin, which is why
+     * this reads the GROUP's state rather than the root's: the root's getter
+     * was right all along.
+     */
+    /*
+     * `autoStart` on, because the path under test IS the polling one: the store
+     * is subscribed to the ticker and the ticker is advanced from the root's own
+     * frames, so a root nobody drives never polls and this case would pass on a
+     * snapshot that was simply never re-read. Frames are still stepped by hand.
+     */
+    const mounted = mount({ windowActivation: "active", autoStart: true });
+    mounted.frame();
+    expect(mounted.capabilities()?.materialDocument?.profileKey)
+      .toBe("apple-macos-27.0-1x-light-standard-glass0.5");
+
+    mounted.pose("inactive");
+    mounted.frame();
+    expect(mounted.capabilities()?.materialDocument?.profileKey)
+      .toBe("apple-macos-27.0-1x-light-standard-glass0.5-receded");
   });
 
   it("hands the CSS crossing over as well, for an app naming a whole material by hand", () => {

@@ -1,0 +1,43 @@
+{
+  "gate": "W29 G4 — a real focus loss, read without a driver, on the macOS 27 material",
+  "claims": "§5.155",
+  "why": "Playwright enables Chromium's focus emulation on every page it owns, so a driven page cannot report losing focus. This launches the same binary directly and speaks CDP over a bare WebSocket instead.",
+  "executable": "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+  "frontmostBefore": "\"Finder\" ASN:0x0-0x1a01a: (in front) \n    bundleID=[ NULL ] \n    bundle path=[ NULL ] \n    executable path=[ NULL ] \n !cgsConnection !signalled type=[ NULL ]  flavor=[ NULL ]  Version=[ NULL ]  Arch=!!none",
+  "frontmostRestored": "\"Finder\" ASN:0x0-0x1a01a: (in front) \n    bundleID=[ NULL ] \n    bundle path=[ NULL ] \n    executable path=[ NULL ] \n !cgsConnection !signalled type=[ NULL ]  flavor=[ NULL ]  Version=[ NULL ]  Arch=!!none",
+  "scratch": "/tmp/w29-g4-focus",
+  "readings": {
+    "cdpVersion": {
+      "Browser": "Chrome/151.0.7922.34",
+      "Protocol-Version": "1.3",
+      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "V8-Version": "15.1.206.8",
+      "WebKit-Version": "537.36 (@782af9cb30a53f54487e5d2e44738645a8ec457c)",
+      "webSocketDebuggerUrl": "ws://localhost:9333/devtools/browser/c0691a99-aac2-4b35-b8ba-062c4c8d3203"
+    },
+    "frontmostWithBrowser": "\"Google Chrome for Testing\" ASN:0x0-0x870870: (in front) \n    bundleID=[ NULL ] \n    bundle path=[ NULL ] \n    executable path=[ NULL ] \n !cgsConnection !signalled type=[ NULL ]  flavor=[ NULL ]  Version=[ NULL ]  Arch=!!none",
+    "focused": {
+      "hasFocus": true,
+      "activation": "active",
+      "pin": "auto",
+      "visibility": "visible"
+    },
+    "focusedSha256": "5505314a1cc4f591ab88c6637e131b9170e7835a5519779a0412280fb4079ddf",
+    "frontmostAfterSwitch": "\"Finder\" ASN:0x0-0x1a01a: (in front) \n    bundleID=[ NULL ] \n    bundle path=[ NULL ] \n    executable path=[ NULL ] \n !cgsConnection !signalled type=[ NULL ]  flavor=[ NULL ]  Version=[ NULL ]  Arch=!!none",
+    "backgrounded": {
+      "hasFocus": false,
+      "activation": "inactive",
+      "pin": "auto",
+      "visibility": "visible"
+    },
+    "backgroundedSha256": "3e704441ec209bca127ff54412bc48f9824e399f6a2c0e041c39196c52398eac",
+    "frontmostAfterReturn": "\"Google Chrome for Testing\" ASN:0x0-0x870870: (in front) \n    bundleID=[ NULL ] \n    bundle path=[ NULL ] \n    executable path=[ NULL ] \n !cgsConnection !signalled type=[ NULL ]  flavor=[ NULL ]  Version=[ NULL ]  Arch=!!none",
+    "returned": {
+      "hasFocus": true,
+      "activation": "active",
+      "pin": "auto",
+      "visibility": "visible"
+    },
+    "returnedSha256": "f9dba3ab0e61ccb085a228e30bf203d7ece00a88de13bff1addbf732f5ad86e8"
+  }
+}

@@ -33,7 +33,23 @@ export interface GlassRootStore {
   poll(): void;
 }
 
-/** Structural equality over the flat state objects both snapshots are. */
+/**
+ * Structural equality over the state, field by field.
+ *
+ * Field by field rather than by identity because `capabilities(groupId)` builds
+ * a fresh object on every call, so identity always differs and every frame
+ * would notify.
+ *
+ * **Every field is compared, and that is a fix rather than a tidy.** This used
+ * to list the seven core axes and stop, which meant the four the PLATFORM folds
+ * on — the CSS tier's three forms and, from W29 G4, the material document that
+ * drew — could change without a subscriber ever being told. The material
+ * document made it visible: pinning the playground's `windowActivation` moves a
+ * root from its active endpoint to its receded one, the readout is supposed to
+ * say so, and it went on naming the active document because nothing here saw
+ * the change. A readout that cannot report the axis it exists to report is worse
+ * than no readout.
+ */
 const sameState = (a: GlassGroupState | undefined, b: GlassGroupState | undefined): boolean => {
   if (a === undefined || b === undefined) return a === b;
   return (
@@ -43,7 +59,26 @@ const sameState = (a: GlassGroupState | undefined, b: GlassGroupState | undefine
     a.refraction === b.refraction &&
     a.analysis === b.analysis &&
     a.health === b.health &&
-    a.demotionReason === b.demotionReason
+    a.demotionReason === b.demotionReason &&
+    a.cssBody === b.cssBody &&
+    a.cssTint === b.cssTint &&
+    a.cssShadow === b.cssShadow &&
+    sameMaterialDocument(a.materialDocument, b.materialDocument)
+  );
+};
+
+/** The material readout, by value: it is a record and it is rebuilt every call. */
+const sameMaterialDocument = (
+  a: GlassGroupState["materialDocument"],
+  b: GlassGroupState["materialDocument"],
+): boolean => {
+  if (a === undefined || b === undefined) return a === b;
+  return (
+    a.name === b.name &&
+    a.platform === b.platform &&
+    a.profileKey === b.profileKey &&
+    a.resolvedMaterialSha256 === b.resolvedMaterialSha256 &&
+    a.tuned === b.tuned
   );
 };
 

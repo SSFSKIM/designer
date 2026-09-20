@@ -1,0 +1,16 @@
+interior: 200x100 device px at centre, linear luminance
+ring: within 12 CSS px outside the component box; exterior: beyond it
+values are max-channel differences in encoded codes for ring/exterior
+
+apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-md__rest
+  interior  native 0.5442 / sd 0.0467   vitrea 0.5482 / sd 0.0307   sd ratio 0.66   mean +0.0040
+  ring      mean 1.58  max 72        exterior  mean 0.12  max 3
+apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-md__inactive
+  interior  native 0.4898 / sd 0.0385   vitrea 0.4764 / sd 0.0329   sd ratio 0.85   mean -0.0134
+  ring      mean 3.01  max 60        exterior  mean 0.14  max 4
+apple-macos-27.0-2x-dark-standard-glass0.5 photo__rrect-md__rest
+  interior  native 0.1783 / sd 0.0218   vitrea 0.1587 / sd 0.0066   sd ratio 0.30   mean -0.0196
+  ring      mean 1.68  max 115        exterior  mean 0.12  max 3
+apple-macos-27.0-2x-dark-standard-glass0.5 photo__rrect-md__inactive
+  interior  native 0.1593 / sd 0.0205   vitrea 0.1595 / sd 0.0067   sd ratio 0.33   mean +0.0002
+  ring      mean 3.76  max 105        exterior  mean 0.16  max 4
