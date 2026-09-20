@@ -534,7 +534,7 @@ and the impulse specular point (tracker); the slider's ends as evidence classes.
 | G0 | **CLOSED 2026-09-20.** The pre-wave resolved macOS 26.5 materials on disk before a leaf exists, at the pinned `b2b570e4adcea8fb` / `874be66ea501621b`, with the identity test (empty `W30_OPERATOR_LEAVES`, green) and the 1,107 gated-row pin. Nothing under the freeze touched; `freeze.py verify` intact at 1,818 at open and close. **The shadow cut**: the thick regime's line and its CSS-px scale invariance confirmed (ratio 1.021 light / 1.017 dark over 66 cell pairs), the thin regime's device-px reading **refuted** — neither 1.00 nor 0.50, the (amplitude, σ) pair trades at constant product, and the thin σ bifurcates on the author's TINT — so the floor is CSS px with its value **declared unfitted**. The σ law named: `σ = sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan · (span − sigmaSpanRefPx))`, three leaves, every inert default 0, the knee derived. **The structure cut**: the tables cannot choose between (i) and (ii) and G2 lands the spanning set; the scheme-conditioned leaf named under both; `sizeToneLevelFar` declined. The CSS tier's attenuation carried into `tier-coherence.test.ts` as twelve recorded readings plus the relation they encode. The holdout drop moved into `fit.py`'s `cells()`, exercised by a check that builds a matrix containing a holdout row. Declarations committed before G2 opens | §5.156 | `results/2026-09-20-w30-g0-cut/` |
 | G1 | **CLOSED 2026-09-20** — the split executed: `results/matrix.json` 2,017 rows / 72,102,187 B → **1,562 rows / 55,768,930 B**, W29 G3's generation moved byte for byte to `results/superseded/fa872c683f3e.json` (343) and `96b36eedf1c4.json` (112), named by the ACTIVE document's hash with `index.json` the lookup; no macOS 26.5 row moved and their order holds; append-check 6/6 PASS including a full reconstruction to the pre-split digest; `freeze.py verify` intact at 1,818; the demo's `capturedAt` tie-break retired, `atAShippedDocument` kept as the edited-document guard, `vibrancy.ts` given a digest lineage beside the old; chain green and `pnpm --filter demo build` green (main chunk 39,062.53 → 30,272.52 kB) | §5.157 | `results/2026-09-20-w30-g1-split/`, `results/superseded/` |
 | G2 | **CLOSED 2026-09-20.** The eight leaves landed at algebraic identities in one commit — `sigmaSlopePerSpan` / `sigmaSpanRefPx` / `sigmaThinOffsetPx` on `MaterialOuterShadow`, `sizeHeavySecondSigma` / `…2x` / `sizeHeavySecondShare` / `sizeScatterScaleGain` / `sizeScatterScaleRef` on `MaterialProfile`, every one 0 — with the merge lines, both allowlists, the CSS mirror of the σ law (and the five scatter leaves deliberately not mirrored), three new uniform vec4s, the shader evaluating both laws, and the second heavy texture as a third pyramid blur kind gated on its share. **No document was re-sealed**: the child measured that re-sealing the four macOS 27 documents drops 230 gated cells across six profiles and turns the chain red by 23 cases, which is this charter's own Surprise on the bed nobody checked, and the parent ruled Decision Log 4 — one record for all six documents, and a re-seal lands with its read from here on. Proofs: freeze intact at 1,818; goldens 34/34 byte-identical with no regen; the identity test green with the leaf list filled (`toStrictEqual`); the 1,107 gated-row pin; the CSS tier's 120 × 47 declarations character-identical to bytes recorded before a leaf existed; the inert laws swept over spans 1…1000 at both scales on both tiers; a `@gpu` case that opens the gate (widths-only Δ 0, share ∓1 Δ 41/32, sign Δ 73) — which **caught a real vec4 misalignment every inertness proof was green over**; `tier-coherence` green; chain green at 2,541 over 173; `window-activation` green at eight re-recorded hashes. **Reviewed and closed 2026-09-20 (§5.158 §8):** one blocking finding — the two RECEDED records' `currentSha256` were taken over the recede alone rather than over the composition a root draws, corrected beside to `035f537d9c27e3ed` / `4763b0d195fdb077` with `reseal.ts` now asserting its own construction and all six records recomputed independently — and six others: the σ and scatter vec4s each given an ON-path `@gpu` case (31 passed), the scale statistic's unobserved fallback moved from 0 to the material's reference, the reach's span made required with the bound's monotonicity condition asserted at the fitted shape, the declaration bed extended to both accessibility regimes against a pre-leaf fixture, a capture-path case for all eight leaves, the eight proof rows with no committed output rerun and committed, and the multiplied zero's finiteness clause. No document re-sealed, no frozen byte moved; chain 2,549 over 173 | §5.158 | `results/2026-09-20-w30-g2-leaves/`, `profiles/digest-supersessions.json` |
-| G3 | not dispatched | §5.159 | `results/2026-09-20-w30-g3-operators/` |
+| G3 | **CLOSED 2026-09-20 with one BLOCKING finding for the user.** The σ law fitted and held: `sigmaSpanRefPx` at 96, light `8.96 / 0.1314 / −6.8328` and dark `9.04 / 0.1340 / −6.9680`, the knee derived at span 44. **B1 MET jointly on both documents** at 4.318 % and 3.604 % of its 5 %, from four objectives `shadow-law.py` computes and names — an absolute least squares lands the light document OUTSIDE the joint window because a squared absolute residual weights a span-160 observation four times a span-96 one, and the adopted point maximises the smaller of B1's and B2's slacks with the slope held inside the range the served beds measure for themselves. **B2 MET** on every bed it names (1.155–1.419 of its 1.5, against 0.19.0's 5.97–7.34). The seven amplitude leaves solved from the departure over three rounds, the solve's linearity holding to 1.4 % at the last; **`thickOcclusionAt160` fitted for the first time in the project's history**, on the ladder's span-160 rungs. **B3's stop HELD at 0.00034 against 0.00035.** The scatter decided on five probe rounds: candidate (ii) adopted on the DARK document at −2 about 0.03 (1x dark 0.7474 → 0.9732 inside the window, 2x dark 0.6367 → 0.7665 toward it) and declined on the light one, candidate (i) declined on both, **both declines measurements** — a second tap wider than the first moves the gated cell by −0.0000 (§5.158 §6's trap, reproduced), and candidate (ii)'s statistic is scale-invariant BY CONSTRUCTION at 0.170 against 0.176, so it cannot act in opposite directions on two scales that need them. **B4 MISSED on three of four standard beds**, recorded. The four documents re-sealed with the seal asserting its own construction first, the four macOS 27 supersession records retired, 726 rows read and appended (332 gated, **270 ladder probe — the first macOS 27 probe row the matrix has ever held**, 124 holdout once), the split applied at §5.157 §8's invocation and the append-check 6/6 PASS. **The blocking finding (§5.159 §6, Decision Log 5 drafted):** at a thin caster the fitted σ exposes a latent renderer defect that leaves a strip of a 44 px surface undrawn — visible on the dark bed's capsule, **170 texture cells outside W20's adopted declaration conformance**, and reproducible on 0.19.0's own shipped document with `sigmaPx: 8` and no W30 leaf involved. The gate will not widen the bound nor re-fit σ around it | §5.159 | `results/2026-09-20-w30-g3-operators/` |
 | G4 | not dispatched | §5.160 | `results/2026-09-20-w30-g4-landing/` |
 
 ## Decision Log
@@ -728,6 +728,54 @@ own Surprise on the bed nobody checked. Ruled:
 
 ## Revision Notes
 
+- 2026-09-20 (G3): **the operators fitted, sealed and read — and one finding that
+  stops the wave at the user's desk** (claims §5.159; evidence
+  `results/2026-09-20-w30-g3-operators/`). Contract X1 holds with nothing to
+  report and `freeze.py verify` reads 1,818 intact at the child's open and close.
+  What a later child, and the parent, have to carry from it:
+  - **The blocking one. The fitted σ at a thin caster exposes a latent renderer
+    defect that leaves a strip of the surface undrawn**, and the strip is visible
+    — a row of page showing through the dark bed's 44 px capsule
+    (`thin-sigma-band.png`). It is **not this wave's**: it reproduces on the
+    macOS 27 light document as 0.19.0 ships it with `sigmaPx` set to 8, a leaf
+    that has existed since W14, and no W30 leaf set above its inert value. It is
+    the shadow's GEOMETRY and not its amplitude — zeroing the occlusion leaves the
+    strip byte for byte, zeroing `offsetPx` moves it eight rows, zeroing
+    `spreadPx` shortens it from eight rows to two, and its bottom edge sits 24 CSS
+    px above the group field rect's own. It costs **170 texture cells outside
+    W20's declaration conformance** where there were none. **Decision Log 5 is
+    drafted in §5.159 §6 with three options and a recommendation** (a renderer
+    child first, the shadow above the knee only, or re-pinning W20); the gate
+    refuses all three of widening the bound, re-fitting σ around the defect, and
+    merging with 170 gated cells outside an adopted bound.
+  - **The second thing that stops it is a loader, not a material.** The demo reads
+    `results/matrix.json` through one whole-file JSON import, and at the
+    66,076,556 bytes this child's read leaves after its own split that import
+    crosses a hard conversion limit in the test runner's Rust bridge where
+    55,768,930 bytes passed. The page still builds; the suite that reads it does
+    not load. About 10 MB of the growth is the 270 ladder probe rows Decision Log
+    2 (a) granted, which are the evidence the scatter's shape was decided on, so
+    the ruling is not the thing to reconsider; the fix is the build-time reduction
+    clause 6's "every reader of the matrix reads the generation by name" already
+    points at, and it is G4's (claims §5.159 §6b).
+  - **The two `ssimMean` rows this wave claimed are refuted rather than unmet.**
+    The lever was right — the σ law mirrors fully onto the CSS tier and the group
+    clip at span 160 goes 33.05 → 45.79 CSS px — and the rows move by 0.0002 where
+    they need 0.016, because SSIM over a whole cell does not see a shadow's width.
+    A row claimed through a lever needs the lever AND an instrument that reads it;
+    §5.156 §7 (c) had the first and not the second.
+  - **The scale axis §5.156 §3 found is not expressible by the spanning set, and
+    the reason is structural rather than a matter of values.** The analysis pass's
+    per-source statistic is read off a fixed 64 × 64 grid, which is what makes it
+    independent of the resolution policy and therefore the same number at both
+    scales — measured 0.170 against 0.176 on one scene. Closing it is a change to
+    the analysis pass, which is a second operator and the user's to charter.
+  - **A clause can be met by a crutch.** W20's declaration conformance read 1.0 on
+    every span-44 capsule while the shadow was six times too wide, because the
+    shadow's own coverage filled what the material's did not. Narrowing the shadow
+    to the reference's width is what made the reading fall. The general form:
+    *a bound that passes while a neighbouring constant is wrong may be passing
+    BECAUSE it is wrong.*
 - 2026-09-20 (G1 review closure): **the split's review folded — no blocking finding, twelve items
   closed** (claims §5.157 §10, a new Review closure section; evidence
   `results/2026-09-20-w30-g1-split/classifier-selftest.txt` and `append-check.v2.txt`). Nothing

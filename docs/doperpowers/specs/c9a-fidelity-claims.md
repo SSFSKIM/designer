@@ -26385,3 +26385,526 @@ other places the wave left a zero standing in for a measurement.
 | `pnpm --filter @vitrea/renderer-webgpu test:gpu` | **31 passed** — second heavy tap Δ 0 / 41 / 32 / 73; σ law span 44 Δ **0**, span 160 Δ **7**, one width for both Δ 5 / 7; scatter scale reference-only Δ **0**, gain ∓2.5 Δ **6**, sign Δ **12** (`gpu-operator-vec4s.txt`) |
 | `pnpm -r build && pnpm -r lint && pnpm -r test` | exit 0; **2,549 passed** over 173 files against the merge's 2,541 over 173 — renderer-webgpu **511** over 30, platform-web **630** over 46, calibration **546** over 32, every other package unmoved (`chain.txt`) |
 | `npx playwright test e2e/shared/window-activation.spec.ts --project=chromium` | **6 passed**; the browser prints the two macOS 27 inactive materials as `035f537d9c27e3ed…` and `4763b0d195fdb077…`, which is finding 1's recomputation read back from a running root (`window-activation.txt`) |
+
+---
+
+## 5.159 W30 G3: the operators — the shadow's σ graded by the casting span and its amplitudes refitted beside it, the scatter fitted on one document and declined on the other with the reason measured, the four macOS 27 documents re-sealed and the whole bed read at those bytes (2026-09-20)
+
+**Gate: W30 G3, acceptance clauses 4 and 5; contracts X1, X3, X4, X5, X6, X7, X8;
+Decision Log 1 (c), 2 (a)–(d), 3 (a)–(d), 4 (b).** Evidence is
+`packages/calibration/results/2026-09-20-w30-g3-operators/`. No native pixel was
+captured (X5); every fixture the fit reads is on disk from W29. `freeze.py verify`
+reads **26.5 freeze intact: 1818 entries** at this gate's open and close and no
+macOS 26.5-keyed path, row, bound, floor or document moved (X1).
+
+**The one thing to read first, if only one.** The fit lands: B1 is met on both
+documents with margin, B3's stop is held and a little better, `thickOcclusionAt160`
+is fitted for the first time in the project's history, and the scatter's shape is
+decided on evidence that did not exist before this child. And the wave **cannot be
+landed as it stands**, because the fitted σ at a thin caster exposes a latent
+renderer defect that leaves a strip of a 44 px surface undrawn — visible to the
+eye, 170 texture cells outside W20's adopted declaration conformance, reproducible
+on 0.19.0's own shipped document with `sigmaPx: 8` and no W30 leaf involved. §6
+records it in full and drafts the Decision Log entry it needs.
+
+### 1. The σ law, and the four objectives one clause admits
+
+The law W30 G2 landed inert is `σ_css(span) = sigmaPx + max(sigmaThinOffsetPx,
+sigmaSlopePerSpan · (span − sigmaSpanRefPx))`, evaluated per caster on both tiers.
+`sigmaSpanRefPx` is **held at 96** (Decision Log 3 (c)) and `sigmaPx` refitted as
+the σ at that span, which removes the law's flat direction.
+
+B1 is stated on the law's **closed form** against each bed's median native σ, so
+the law is solved from W30 G0's cut before a candidate is rendered rather than
+from a residual. `shadow-law.py` computes four objectives over the beds each
+document serves and prints all four, because the choice between them is the whole
+of what "fitted jointly" means here:
+
+| objective | light | dark |
+| --- | --- | --- |
+| least squares, absolute CSS px | 8.8751 / 0.13080 — **outside B1's joint window**, worst 5.229 % | 9.1120 / 0.13185 |
+| the same, restricted to the window | 8.8966 / 0.13043 — **on the window's lower boundary** | 9.1120 / 0.13185 |
+| minimax relative — B1's own currency | 8.9613 / 0.12930, worst 4.324 %; **B2 at 1.492 of 1.5** | 9.1199 / 0.13170, worst 2.768 % |
+| **adopted**: the larger of B1's and B2's slacks, slope inside the beds' own range | **8.96 / 0.1314**, B1 4.318 %, B2 1.419 | **9.04 / 0.1340**, B1 3.604 %, B2 1.341 |
+
+The absolute least squares misses the clause it is judged by, and the reason is
+arithmetic rather than bad luck: a squared ABSOLUTE residual weights a span-160
+observation four times a span-96 one, and B1 is a RELATIVE clause. The
+window-constrained fit sits exactly on the boundary, one reading's rounding from
+failing. The minimax is the right currency and leaves B2 at 1.492 of its 1.5,
+because the two clauses are on the same two numbers — `σ(44)` is
+`sigmaPx − 52 · slope` and the floor can only raise it, never lower it.
+
+**So the adopted point maximises the smaller of the two clauses' normalised
+slacks, with the slope held inside the range the served beds measure for
+themselves** — 0.1284–0.1329 on the light document's four beds, 0.1297–0.1340 on
+the dark document's two, each bed's own least squares over its own thick medians.
+That constraint is what keeps the choice a fit of the bed: σ(96) is pinned to
+within 0.7 percentage points by the beds' own ±4.3 % disagreement whatever
+objective is used, so the only real freedom is the slope, and a slope outside the
+measured range would be a fit of the bound. The cost is 0.853 of sum of squares
+against the free fit's 0.742 over ten bed-span observations.
+
+`sigmaThinOffsetPx` is `sigmaSlopePerSpan · (44 − 96)` exactly, which puts the
+derived knee at span 44 and the floor at the thick line's own value there — the
+declaration Decision Log 2 (b) rules. It is a **declared reading and not a fit**:
+the thin cells are a position on the instrument's valley.
+
+| | sigmaPx | slope | ref | thin offset | knee | σ(32) | σ(44) | σ(96) | σ(128) | σ(160) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| light | 8.96 | 0.1314 | 96 | −6.8328 | 44.0 | 2.13 | 2.13 | 8.96 | 13.16 | 17.37 |
+| dark | 9.04 | 0.1340 | 96 | −6.9680 | 44.0 | 2.07 | 2.07 | 9.04 | 13.33 | 17.62 |
+
+**B1, joint per document, MET on both** (the windows are the intersection of the
+±5 % windows of every bed the document serves, recomputed by `shadow-law.py` and
+not transcribed):
+
+| document | span 96 | span 128 | span 160 | worst |
+| --- | --- | --- | --- | ---: |
+| light, window | [8.8966, 9.0193] | [12.6397, 13.7947] | [16.7033, 17.8198] | |
+| light, law | 8.9604 INSIDE | 13.1650 INSIDE | 17.3695 INSIDE | **4.318 %** of 5 % |
+| dark, window | [8.9084, 9.3180] | [12.7458, 13.8499] | [16.7931, 18.3237] | |
+| dark, law | 9.0393 INSIDE | 13.3277 INSIDE | 17.6161 INSIDE | **3.604 %** of 5 % |
+
+**B2, a one-wave reading, MET on every bed it names**: the fitted σ at span 44
+against the untinted, non-holdout, non-excluded, dpr-1 span-44 median is 1.155×
+on 1x light (1.8430 over 8 cells), 1.419× on reduced transparency and on coupled
+contrast (1.4995 over 3), 1.341× on 1x dark (1.5446 over 6) and 1.360× on the
+confounded increased-contrast key, against the factor 1.5 either way. 0.19.0
+reads 5.97×, 7.34×, 7.12× and 7.22× on the same statistic.
+
+### 2. The seven amplitude leaves, and the linearity that lets one round solve them
+
+The objective is the shadow axis's own `meanDeparture` — the mean of
+`backdrop − rendered` over the whole exterior of the declared region, in linear
+light, which is what W29 G3b fitted the anchors against and what B3's stop is read
+on. At a fixed geometry the departure is very nearly linear in the composited
+alpha, so a round at a known anchor gives the geometry factor per regime and the
+anchor the native departure wants follows in closed form. Three rounds on six
+profiles each (`anchor-solve.txt`), and the round after the first is the
+linearity's own check:
+
+| regime, light document | round A | round B | round C | final |
+| --- | ---: | ---: | ---: | ---: |
+| thin, mid plateau | 0.373 | 0.984 | 1.053 | 1.053 |
+| thin, bright | 0.735 | 0.938 | 0.986 | 0.986 |
+| thick at 96 | 1.109 | 0.984 | 0.994 | 0.994 |
+| thick at 128 | 1.011 | 0.998 | 0.996 | 0.996 |
+| thick at 160 | 1.011 | 0.997 | 0.998 | 0.998 |
+
+(the ratio is native over web, so 1.000 is a match; the dark document's five read
+0.990 / 0.975 / 1.006 / 1.000 / 0.995 at the final round). Round A carried the
+NATIVE falloff amplitudes, on the ground that the reader's amplitude is the
+model's occlusion at the contour and is σ-independent by construction; the round
+measured that the thin regime at those anchors carries 2.7 times the native
+energy, because a narrow shadow at a thin caster keeps its energy OUTSIDE the
+declared region where an 11 px one buried much of it under the surface. One solve
+closed it.
+
+| leaf | light 0.19.0 → G3 | dark 0.19.0 → G3 |
+| --- | --- | --- |
+| `thinOcclusionDark` | 0 → **0** | 0 → **0** |
+| `thinOcclusionMid` | 0.05 → **0.068** | 0.032 → **0.0455** |
+| `thinOcclusionBright` | 0.041 → **0.0683** | 0.032 → **0.0537** |
+| `thickOcclusionAt96` | 0.111 → **0.1158** | 0.126 → **0.133** |
+| `thickOcclusionAt128` | 0.202 → **0.1827** | 0.229 → **0.2263** |
+| `thickOcclusionAt160` | 0.293 → **0.26** | 0.333 → **0.3409** |
+| `liftAmplitude` | 0.001 → **0.001** | 0.0005 → **0.0005** |
+
+**`thickOcclusionAt160` is fitted here for the first time.** On macOS 26.5 and on
+macOS 27 alike it was the linear extrapolation from two anchors, because every
+span above 128 in the gated bed is holdout; the pitch ladder's ten span-160 rungs
+per standard bed are what this child fits it on, and they exist as committed
+evidence from this gate's own read (Decision Log 2 (a)). Its direction — down by
+11 % on the light document, up by 2 % on the dark — is the one §5.156 §2
+predicted in sign on the light bed.
+
+**`liftAmplitude` does not move on either document**, which is a result and not an
+omission: §5.156 §2 declared it the thick anchors' trade partner, and the three
+thick regimes needed a scale rather than a shape, so the pair did not have to
+trade. **`thinOcclusionDark` stays exactly 0**: over `dark-solid` and `impulse`
+the native departure reads −0.00014, which is zero at this instrument's
+resolution.
+
+**`reducedTransparencyOcclusion` is NOT refitted**, because contract X3 admits the
+σ law, the six occlusion anchors and `liftAmplitude` and that fold's single
+amplitude is a seventh. What it costs is measured rather than assumed: under the
+reduced-transparency fold the six anchors are all overwritten by it, so those two
+beds' shadow moves through σ alone, and their thick-96 cells read a native-over-web
+departure of 1.594 and 1.638 where the standard beds read 0.99–1.01. Their pooled
+departure is nonetheless 0.00036 and 0.00044 against 0.00037 and 0.00036 before —
+the fold's compromise absorbs it. Recorded, not fitted.
+
+### 3. The read, and what it appended
+
+Three passes at the four sealed documents, each refused by `canonical-read.sh` at
+any other bytes, each with the machine read X6 asks for before and after — RT 0,
+IC 0, `NSGlassTintAmount` 0.5, one capture process, macOS 27.0:
+
+| pass | rows | what it is |
+| --- | ---: | --- |
+| calibration + validation, six profiles × two tiers | **332** | the gated bed |
+| the pitch ladder as probe rows (Decision Log 2 (a)) | **270** | 45 scenes × WebGPU on four standard profiles + CSS on the two 1x standard ones |
+| holdout, once, six profiles × two tiers | **124** | read once, and nothing fitted after it |
+
+726 rows appended, **0 changed, 0 missing**; `verdict.py` reads **0 native
+readings moved**, which is the check that the fixture side is intact. The file
+went 1,562 rows / 55,768,930 B to **2,288 / 82,695,070 B** — past the 72 MB the
+charter named as one recapture from GitHub's refusal, which is why the split is
+applied in this child. G1's script at §5.157 §8's invocation moved W29 G3b's 455
+rows to `results/superseded/272d1b0c3e10.json` (112) and `f42ddec1cf5a.json`
+(343), leaving **1,833 rows / 66,076,556 B**. The append-check reads the files
+rather than the plan and is a reconstruction rather than a tally: **6/6 PASS**,
+with the pre-split file recomposed to its recorded digest `73f589062e68f7a9…`.
+
+**This is the first macOS 27 probe row the matrix has ever carried.** §5.156 §3
+found the generation carried none at all, which is what made the scatter's shape
+undecidable from committed evidence, what left `thickOcclusionAt160` unfittable,
+and what made `sizeToneLevelFar` unfittable. Two of the three are closed here.
+
+### 4. The scatter: one candidate, one document, and two declines that are measurements
+
+Five probe rounds on the ladder at a macOS 27 document (`scatter-solve.txt`), the
+reading W30 G0 could not have. The quantity is B4's:
+`interiorStdDevWeb / interiorStdDevNative`, linear light over the shared mask.
+
+**Candidate (i), the second heavy tap, is declined on both documents**, and the
+declines are two separate measurements:
+
+- **A second tap WIDER than the first cannot reach a pitch the first has already
+  erased.** At 30 CSS px against `sizeHeavyTapSigma`'s 14, at a share of 0.5, it
+  moves the gated 16 px cell on 1x light by **−0.0000**. That is §5.158 §6's own
+  trap — *a scatter operator measured on a pitch the body already erases measures
+  as dead* — reproduced on the bed it was predicted for, and it is why the one
+  scale-conditioned pair of leaves in the spanning set cannot carry a
+  scale-conditioned correction at the pitch that needs one.
+- **A second tap NARROWER than the first moves the wrong bed the wrong way.** At
+  4 / 6 CSS px and a share of 0.5 it takes 1x light's gated cell from **1.5670 to
+  1.8247** — further from 1.0 on the one bed in the whole capture that passes MORE
+  structure than Apple does — while taking 2x light from 0.4251 to 0.6136 and 1x
+  dark from 0.7474 to 0.8320. It improves the document-wide ladder aggregate on
+  both documents and it is declined anyway, because B4's clause is stated on the
+  gated cell and a wave may not trade the clause's own cell for an aggregate.
+
+**Candidate (ii), the scale gain about a reference, is adopted on the DARK
+document at −2 about 0.03 and declined on the light one.** The decline is the
+wave's largest single finding about the scatter and it is structural:
+
+> **The analysis pass's per-source statistic is scale-invariant by construction.**
+> The reduction reads a fixed 64 × 64 grid of bilinear samples off a mid-chain
+> level "whatever that level's real size is", which is what makes the result
+> independent of the resolution policy — and therefore the same number at dpr 1
+> and dpr 2 for one scene. Measured, from a pair of probes at one gain and two
+> references, which separates the statistic from the ratio's response per unit of
+> `kScatter`: **0.170 at dpr 1 against 0.176 at dpr 2** on the dark bed's 16 px
+> checkerboard. A per-source statistic that cannot tell the scales apart cannot
+> act in opposite directions on them, and opposite directions is exactly what the
+> light document's two beds need — 1.567 at dpr 1 and 0.425 at dpr 2 on one cell.
+
+At a gain of +2 about 0.12 the light document's 1x bed lands INSIDE B4's window
+(1.5670 → 1.2286) and its 2x bed moves away from 1.0 by more (0.4251 → 0.2213);
+the document's own two-bed ladder aggregate goes 0.5781 → 0.6271. There is no
+setting of the spanning set that improves both of its beds, so the light document
+declines the operator and the decline is recorded as a value.
+
+**What the dark document's gain does**, at the sealed read:
+
+| bed, gated 16 px cell | 0.19.0 | the shadow alone | **sealed** | B4's window |
+| --- | ---: | ---: | ---: | --- |
+| 1x dark | 0.7489 | 0.7474 | **0.9732** | inside 0.8–1.25, not past 1.0 ✓ |
+| 2x dark | 0.6374 | 0.6367 | **0.7665** | toward 1.0, outside 0.8 ✗ |
+| 1x light | 1.5670 | 1.5670 | **1.5670** | unmoved ✗ |
+| 2x light | 0.4252 | 0.4251 | **0.4251** | unmoved ✗ |
+
+The reference is what keeps 1x dark below 1.0: at a reference of 0 the same gain
+overshoots to 1.0222, and no (gain, reference) pair puts 2x dark inside 0.8 while
+keeping 1x dark under 1.0, because the two beds' statistics agree to 3 %.
+
+**B4's verdict: MISSED on three of the four standard beds**, met on 1x dark,
+toward 1.0 and not past it on 2x dark, and unmoved on both light beds. It is a
+one-wave reading and not an adopted row, so the miss is recorded and nothing is
+widened.
+
+**The ladder clause has no "today" to be read against.** "No pitch inside
+0.8–1.25 today leaves it" is read on the macOS 27 probe rows Decision Log 2 (a)
+grants, and this read is the first time those rows have existed — so this gate
+records the baseline rather than a movement. Against the scratch round at the
+same shadow with the scatter inert, the dark document's ladder moves
+`checkerboard-8` 0.917 → 1.322 (out of the window, from inside it), `hc-text`
+1.313 → 1.475 and `checkerboard` 0.747 → 0.973, and nothing else by more than
+0.10; the light document's ladder does not move at all, which is what a declined
+operator means.
+
+**The CSS tier's scalar projection: not moved, and the reason is a committed
+measurement.** The scatter's five leaves are not mirrored onto that tier (§5.158
+§2) and the one scalar that could carry them is `cssTierMapping.blurSigmaScale`.
+It stays at 2.2 because §5.153 §2 measured what moving it costs: 1.6 takes
+`checkerboard__rrect-ml__rest` on 1x-light `dom` to 0.88808 where 2.2 takes it to
+0.90692 against an adopted 0.90 — a gated row the macOS 26.5 tier misses and
+holds by floor. The residual it leaves is recorded rather than bounded, per B4 as
+scoped: on the gated cell the CSS tier reads 0.9681 / 0.3552 / 0.3838 / 0.2536 on
+the four standard beds against the WebGPU tier's 1.5670 / 0.9732 / 0.4251 /
+0.7665, and the per-pitch CSS residual on the two 1x standard profiles is in
+`structure.txt`. **`sizeToneLevelFar` stays declined at 0** (B5), unfitted and out
+of `FITTED_CONSTANTS`; the ladder now exists at a macOS 27 document and settling
+it is the next wave's, because a clause declared as a decline is not re-opened by
+the read that follows it.
+
+**A signed lobe was looked for by eye and not seen.** Ringing at a contour is what
+a negative share would produce and the sealed material carries none; the sheets
+show no ring, on either document, at any span.
+
+### 5. The padding, two-sided (X8, Decision Log 2 (c))
+
+`reach-pad.ts` reads the sealed documents and computes every number through the
+renderer's and the web tier's own functions, against a snapshot of the 0.19.0
+documents; it asserts `sigmaSlopePerSpan ≥ 0` before it prints, because a negative
+slope inverts the group reach's bound. On the light document, in CSS px:
+
+| span | reach 0.19.0 | reach sealed | Δ | Δ % | CSS group clip 0.19.0 → sealed |
+| ---: | ---: | ---: | ---: | ---: | --- |
+| 32 | 20.90 | **13.39** | −7.51 | −35.9 % | 33.05 → 15.30 |
+| 44 | 21.12 | **13.41** | −7.71 | −36.5 % | 33.05 → 15.30 |
+| 64 | 24.31 | 17.16 | −7.15 | −29.4 % | 33.05 → 20.56 |
+| 96 | 26.37 | 23.74 | −2.63 | −10.0 % | 33.05 → 28.97 |
+| 128 | 29.86 | 32.89 | +3.03 | +10.2 % | 33.05 → 37.38 |
+| 130 | 30.01 | 33.51 | +3.49 | +11.6 % | 33.05 → 37.91 |
+| 160 | 31.88 | **42.93** | +11.05 | +34.7 % | 33.05 → 45.79 |
+| 220 | 31.88 | **57.40** | +25.52 | +80.1 % | 33.05 → 61.56 |
+
+**The smallest pad the law produces is 13.39 CSS px at span 32 and the largest
+57.40 at span 220**, against one number — 31.88 — at every span before. The dark
+document reads 12.94 and 58.36 over the same range. The group bound is computed as
+a bound and shown to be one: three members at 44, 96 and 160 reach 13.41, 23.74
+and 42.93, and `reach(max occlusion, max span)` is 42.93, which contains all
+three. The backdrop sampling pad does not move at all — `samplingPaddingFor` is
+3σ of the BACKDROP blur and the σ law does not reach it — and that is printed
+rather than passed over, because X8 asks for the pads and a pad that did not move
+is a reading too.
+
+Two things the table says that the charter's Risks list did not have. The growth
+does not stop at the bed's largest span: above 160 the law keeps going and a
+220 px caster pads 80 % wider than 0.19.0's constant, which is a cost on a facet
+already at 3.2× the frame's GPU time. And the CSS tier's group clip now varies
+by a factor of four across the bed where it was one number, which is the first
+time that reader has had anything to read.
+
+### 6. The strip a thin σ leaves undrawn — this gate's blocking finding
+
+**Full record: `results/2026-09-20-w30-g3-operators/thin-sigma-band.md`, with the
+picture beside it and a one-line reproduction.**
+
+At a casting span of 44 CSS px the fitted law draws σ = 2.13 where 0.19.0 draws
+11.0, and at that width the optics pass leaves a horizontal strip INSIDE the
+surface undrawn: the composite shows the page through it. On the dark bed's
+`checkerboard__capsule-button__rest` it reads as a row of white checker squares
+punched through the frosted body — `sheets/1x-dark-standard-glass0.5__active.png`,
+first row, and `thin-sigma-band.png` beside the native at four times.
+
+**It is not this wave's operator, and it is not the material.** It reproduces on
+the macOS 27 light document **as 0.19.0 ships it** with one constant changed —
+`sigmaPx: 8`, a leaf that has existed since W14 — and no leaf this wave added set
+at anything but its inert value: `shape.silhouetteAreaWeb` reads 4872 at σ 11 and
+2715 at σ 8 against a declared region of 4872. It is a latent defect that no
+shipped material had ever reached, because every σ the project has shipped is
+above 10 CSS px.
+
+**What it is a function of, measured over eight one-scene captures.** Not the
+shadow's AMPLITUDE: taking `thinOcclusionMid` to 0 — and with it the shadow's
+whole occlusion over a mid backdrop — leaves the strip byte for byte where it was.
+It is the shadow's GEOMETRY through the group field rect: `offsetPx` and
+`spreadPx` enter `outerShadowReachPx` and nothing the body reads, and zeroing the
+offset moves the strip up by exactly eight rows while zeroing the spread shortens
+it from eight rows to two. Across all three the strip's bottom edge sits **24 CSS
+px above the group field rect's own bottom edge**. It appears on `capsule-button`
+and `toolbar-group` and on no `rrect` at any span, which is why the failures are
+exactly the span-44 texture cells of all six profiles.
+
+**What it costs.** W20's declaration conformance goes from **0 to 170** texture
+cells outside contour ≤ 1 px and IoU ≥ 0.99; the conditioning predicate's
+exclusions go 68 → 83, every one of the fifteen a span-44 texture cell. The
+perceptual rows barely move — `checkerboard__capsule-button__rest` on 1x light
+reads `ssimMean` 0.98217 → 0.97826 — and that is worth stating rather than taking
+as comfort: SSIM over a whole cell is dominated by the interior and the backdrop,
+and the bound that catches a strip of undrawn surface is the one that reads the
+drawn COVERAGE, which is what W20 is for.
+
+#### Decision Log 5, drafted for the user
+
+*W30 G3 fitted the σ law, sealed it and read the bed at it; the fit meets B1 and
+holds B3, and at the thin casters it reaches a σ the renderer draws wrong. The
+gate will not widen W20's bound, will not re-fit σ to keep the crutch, and cannot
+merge with 170 gated cells outside an adopted bound. Three shapes, and the
+recommendation is (a):*
+
+- **(a) A renderer child before this wave lands.** The defect is diagnosed to the
+  group field rect and reproducible in one capture; the σ law, the anchors, the
+  documents and the read stand as they are and the bed is re-read once the strip
+  is gone. It is the only shape under which macOS 27's thin-caster shadow is drawn
+  at all, which is the whole of what this wave exists for.
+- **(b) Land the shadow above the knee only** — keep the slope and raise
+  `sigmaThinOffsetPx` so the floor never takes σ under about 10 CSS px. The thick
+  regime's whole gain is kept and B1 still passes; B2 fails by construction
+  (σ(44) would sit at 5–7× the bed's thin statistic, which is where 0.19.0 already
+  is) and the wave's thin half is abandoned. A fit chosen to avoid a renderer bug,
+  recorded as such.
+- **(c) Land as it stands and re-pin W20 for the macOS 27 bed.** Not recommended
+  and stated so that the option is on the record: the row would be re-pinned over
+  a defect rather than a measurement, and W20's bound is what makes "the tier
+  draws what it declared" a claim rather than a hope.
+
+### 6b. The second thing that stops the wave: the demo cannot import a 66 MB matrix
+
+`apps/demo/test/calibration.test.ts` fails to load at all, before a case runs:
+
+```
+FAIL test/calibration.test.ts
+Error: Failed to convert rust `String` into napi `string`
+  ❯ src/site/calibration.ts:17  import matrix from "…/results/matrix.json"
+```
+
+The demo's page reads the matrix through one whole-file JSON import, and the
+import crosses a hard conversion limit in the test loader's Rust bridge somewhere
+between **55,768,930 bytes**, which W30 G1 left and which passed every chain
+since, and **66,076,556 bytes**, which this child's read leaves after its own
+split. `pnpm --filter demo build` still succeeds — the bundler's loader is not
+the test runner's — so the page ships and only the suite that reads it is red.
+
+**It is the cost of a granted ruling, and the ruling is not the thing to
+reconsider.** Decision Log 2 (a) granted the 270 ladder probe rows and asked for
+their cost in bytes to be recorded; they are about 10 MB of the 10.3 MB the file
+grew by, and they are the only macOS 27 probe rows the project has, the evidence
+the scatter's shape was decided on and the only macOS 27 web reading at span 160
+outside three holdout cells. Dropping them to fit a loader would be deciding a
+material question on a bundler's limit.
+
+**The fix shape, and whose it is.** The demo needs the rows that carry a figure
+and imports all 1,833 to get them; a build-time reduction — the generation's own
+rows for the scenes the picker offers — is the consumer change W30 G1's split
+already pointed at when it retired the `capturedAt` tie-break and derived the
+shipped hashes at build time. It belongs with clause 6's "every reader of the
+matrix reads the generation by name" and is G4's, not this gate's: it touches no
+constant, no bound and no row.
+
+### 7. The verdict, per profile per tier per clause
+
+**B3, the stop — HELD.** Read by this gate's own copy of W30 G0's statistic
+(`departure-stat.py`, which imports G0's partition and quantity rather than
+restating them), on the population the stop was declared over. The canonical read
+adds probe rows, which are also non-holdout, so the clause's own row set would
+otherwise change under it; the stop is read on calibration + validation and the
+probe-inclusive figure is printed beside it.
+
+| reading, non-holdout cells of all six profiles | n | 0.19.0 | **sealed** |
+| --- | ---: | ---: | ---: |
+| **the WebGPU tier — THE STOP** | 166 | 0.00035 | **0.00034** |
+| the CSS tier, recorded beside | 166 | 0.00124 | 0.00126 |
+| both tiers pooled | 332 | 0.00079 | 0.00080 |
+| every non-holdout row, probe included | 346 / 602 | — | 0.00177 / 0.00209 |
+
+The CSS tier is 2 % worse and is recorded rather than refused, per the tier rule.
+
+**The 27 adopted tables are unchanged**, at the values W29 Decision Log 4 (a) and
+Decision Log 5 ruled; no floor is adopted; `RULED_EQUAL_TO_26_5` and the roster
+are untouched.
+
+**The three rows this wave CLAIMS — all three MISSED**, and the declaration's
+hypothesis about them is refuted by the read rather than merely unmet:
+
+| row | bound | before | after | Δ |
+| --- | --- | ---: | ---: | ---: |
+| `dom / holdout / checkerboard__rrect-lg__rest / …1x-light-standard… :: ssimMean` | ≥ 0.9 | 0.88402 | **0.88423** | +0.00021 |
+| `dom / holdout / checkerboard__glass-over-glass__rest / …1x-light-standard… :: ssimMean` | ≥ 0.9 | 0.89538 | **0.89531** | −0.00007 |
+| `dom / holdout / photo__rrect-lg__rest / …1x-light-reduced-transparency… :: ssimOutside` | ≥ 0.83 | 0.82707 | **0.82695** | −0.00012 |
+
+All three were declared the shadow's, on the CSS tier, at spans 160 and 130, on
+the argument that the σ law mirrors fully onto that tier. **It does** — the CSS
+group clip at span 160 goes 33.05 → 45.79 CSS px and the per-surface blur radius
+with it — and the rows do not move: the largest of the three moves by 0.0002 where
+it needs 0.016. The reading that explains it is in the same file: the biggest
+movers of the whole read are `falloffSigmaWeb`, by up to 30 CSS px, and SSIM over
+a whole cell does not see a shadow's width. **The lever was right and the row was
+the wrong instrument for it**; §5.156 §7 (c)'s "the shadow mirrors fully onto the
+CSS tier" is confirmed and its consequence for `ssimMean` is refuted.
+
+**The four rows declared EXPECTED UNMOVED — unmoved**, to five decimals on two of
+four and to 0.0001 on the other two (`texture … 1x-dark` 0.21521 → 0.21531,
+`texture … 2x-dark` 0.21344 → 0.21341). The scatter did not reach the chromatic
+axis, which is what X3 asked to be checked.
+
+**The reported-not-claimed residual, on both instruments as the declaration asks.**
+The reduced-transparency body-structure residual on
+`checkerboard__rrect-md__rest`: the matrix metric reads native 0.0562 against
+WebGPU 0.0459, **ratio 0.8176 before and 0.8176 after** — unmoved, because that
+bed is captured at the light standard document and the light document declined the
+operator. The sheets' instrument is §5.154 §9 (d)'s and is unchanged with it.
+
+**Every missed cell, named.** `MISSED_27_ROWS` is derived from the artifact and
+compared in both directions, and **the SET is unchanged at seven**: no row joined
+it and none left it. Five of the seven moved in the fifth decimal and the
+recorded readings move with them. The new misses are not in that list because they
+are a different clause: **170 texture cells on W20's declaration conformance**
+(§6) and nothing else.
+
+**`PREDICATE_EXCLUDES` and every count moved to what the machine says**: 68 → 83,
+the fifteen new ones all span-44 texture cells of the macOS 27 profiles, all a
+consequence of §6. Nothing was removed. `tier-coherence.test.ts`'s twelve recorded
+readings are re-recorded with this section named, and its relation case still
+holds — 1x light still passes more than Apple on the WebGPU tier, 1x dark still
+less, and the CSS tier still less than half the WebGPU tier's on the dark bed.
+
+### 8. By eye
+
+Sheets under this gate's evidence, native | WebGPU | CSS | difference ×8, per
+standard profile at both scales and per accessibility profile, active and
+inactive, **thin spans first** — which is where the σ law moves most and is the
+change from W29 G3b's ordering.
+
+- **The thin regime is the wave's visible win.** At span 32 and 44 the native's
+  shadow is a tight dark band immediately under the surface; 0.19.0 drew a broad
+  low haze reaching two to three times as far. The sealed material draws the band.
+  On `checkerboard__rrect-sm__rest` and `checkerboard__capsule-button__rest` at 1x
+  light the two now read as the same kind of object.
+- **The light document's interior still passes too much structure**, and the sheet
+  shows it plainly at 16 px: the checker survives vitrea's body sharper than
+  Apple's on `rrect-md`, `rrect-ml` and `rrect-lg`. That is the 1.567 the scatter
+  declined to move, and it is the residual the next wave inherits.
+- **`light-solid__capsule-button__rest`** is the worst cell the eye finds on the
+  light bed and it is not this wave's: vitrea draws a brighter, flatter body with a
+  harder edge than the native's.
+- **`photo__rrect-lg__rest`** differences as a full-spectrum rainbow on both
+  schemes — the chromatic transmission W29 Decision Log 6 (c) defers, untouched.
+- **No ringing at any contour, on either document.** A signed lobe is what a
+  negative share would have produced; none was fitted and none is visible.
+- **The strip of §6** is visible on the dark bed's capsule and is what stops the
+  wave.
+
+### 9. Verification record
+
+| step | result |
+| --- | --- |
+| `pnpm -r build` | exit 0 |
+| `pnpm -r lint` | exit 0 across all nine packages |
+| `pnpm -r test` | **2,510 passed, 1 failed** over 168 files — policy 23, motion 164, geometry 170, renderer-webgpu **511**, core 302, platform-web **631**, react 163, calibration **545 of 546**. The one failure is W20's declaration conformance (§6); every other case of every package is green, including the eight the gate's machine-derived lists moved |
+| `pnpm --filter demo test` | **34 passed, 1 suite failed to load** — §6b, the whole-file JSON import |
+| `pnpm --filter demo build` | exit 0; the page still ships |
+| `python3 results/2026-09-16-w29-freeze/freeze.py verify` | **26.5 freeze intact: 1818 entries**, at this gate's open and close |
+| `git diff main -- packages/calibration/profiles/apple-macos-26.5*` | empty; no frozen byte moved (X1) |
+| the append-check, after the split | **6/6 PASS**, the pre-split file recomposed to `73f589062e68f7a9…` |
+| `verdict.py` | **0 native readings moved** over 455 keys present in both generations |
+| `seal.ts` | four documents sealed, each asserting its own construction first |
+| `retire-27-records.ts` | the two frozen records recomputed from the documents and kept, the four macOS 27 records retired |
+| W20 declaration conformance | **170 cells outside the adopted bound** — §6, blocking |
+
+### 10. What this gate does not claim
+
+No native capture (X5). No macOS 26.5-keyed path, row, bound, floor or document
+moved (X1). No leaf was added (X2/X3): the eight are W30 G2's and the block
+`reducedTransparencyOcclusion` lives in is untouched. No adopted bound was widened
+and no floor was adopted. `sizeToneLevelFar` stays at 0 and out of
+`FITTED_CONSTANTS`. The receded documents' exterior at span 160 is reported and
+not fitted, as the declaration says: the inactive probe rows this read committed
+show it at a native-over-web departure ratio of about 0.17 on both schemes, which
+is the "old halo" the charter's Grounding names and which the inherited block
+narrows but does not close. The demo, the toolbar seam, the tone stage and 0.20.0
+are the landing's and are untouched here.
