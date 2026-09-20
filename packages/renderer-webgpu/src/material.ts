@@ -4945,17 +4945,29 @@ export function outerShadowAlpha(occlusion: number): number {
  * `outerShadowSigmaPx`), and it is the second quantity a caller now owes for the
  * amplitude's reason: since macOS 27 the blur is a function of the caster, so a
  * reach taken at one span while the shader draws another is the same slice at
- * the scissor that a reach taken from the base amplitude was. A group's caller
- * passes the LARGEST span among its members, which makes the reach a bound on
- * every member's own rather than any member's value. It defaults to 0 for the
- * callers that have no span to give; at the shipped leaves the law is
- * span-invariant and every argument returns what this function returned before
- * the law existed.
+ * the scissor that a reach taken from the base amplitude was.
+ *
+ * It is **required**, with no default. A default of 0 would read as "no span to
+ * give" and resolve as the thinnest caster there is, which is an UNDER-bound the
+ * moment the slope is non-zero — and it would be a silent one, because at the
+ * inert leaves it is exactly right (W30 G2 review closure, claims §5.158 §8,
+ * finding 4). A caller with no span states the span it means.
+ *
+ * **A group's caller passes the largest occlusion and the largest span among its
+ * members, and `reach(max occlusion, max span)` bounds every member's own reach
+ * exactly while `sigmaSlopePerSpan ≥ 0`** — σ non-decreasing in span. The reach
+ * is monotone in σ (a wider Gaussian moves a code further out) and monotone in
+ * the amplitude, and the two maxima are taken independently, so the pair
+ * dominates every member's pair. A NEGATIVE slope would make the widest member's
+ * σ the smallest, and the bound would have to be taken at the thinnest span
+ * instead; the law's shape is a blur that grows with the caster, and
+ * `w30-inert-laws.test.ts` asserts the monotonicity at the shape §5.159 fits so
+ * that a fit inheriting a negative slope fails there rather than at a scissor.
  */
 export function outerShadowReachPx(
   shadow: MaterialOuterShadow,
   occlusion: number,
-  spanPx = 0,
+  spanPx: number,
 ): number {
   const alpha = outerShadowAlpha(occlusion);
   if (!(alpha > 0)) return 0;

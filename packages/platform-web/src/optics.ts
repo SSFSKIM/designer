@@ -1808,11 +1808,13 @@ export function sampledOuterShadowFactor(input: {
    * a whole group evaluates this per member and multiplies, which is what the
    * form above says.
    *
-   * Omitted resolves the law at span 0. At the shipped leaves the law is
-   * span-invariant, so an omitting caller reads exactly what it read before the
-   * law existed.
+   * Required, on the renderer's own `outerShadowReachPx`'s reasoning (W30 G2
+   * review closure, claims §5.158 §8, finding 4): an omitted span resolved as 0,
+   * which is the thinnest caster there is and therefore the wrong end of the law
+   * for a bound — invisibly so, since at the inert leaves every span reads the
+   * same. A caller with no span states the span it means.
    */
-  readonly casterSpanPx?: number;
+  readonly casterSpanPx: number;
 }): number {
   if (input.insideCaster) return 1;
   return (
@@ -1820,7 +1822,7 @@ export function sampledOuterShadowFactor(input: {
     clamp01(input.alpha) *
       outerShadowFalloff(
         input.signedDistanceToShadowBoxPx,
-        outerShadowSigmaPx(input.shadow, input.casterSpanPx ?? 0),
+        outerShadowSigmaPx(input.shadow, input.casterSpanPx),
       )
   );
 }

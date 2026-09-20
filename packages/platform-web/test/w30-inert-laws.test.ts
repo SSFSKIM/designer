@@ -50,14 +50,15 @@ describe("W30's σ law is the identity on the CSS tier too (claims §5.156 §2, 
   it("leaves the sampled-shadow bound where it was, at every caster span", () => {
     // The bound on what a `backdrop-filter` still samples of a neighbour's
     // shadow (W18 G0 §6) reads the same σ, now at the caster's own span. At the
-    // inert leaves the argument may not reach it — including when it is omitted,
-    // which is what every caller written before the law did.
+    // inert leaves the argument may not reach it — over a sweep that covers
+    // every span a document can declare and three decades either side of it.
     for (const signedDistanceToShadowBoxPx of [-40, -5, 0, 5, 20, 60, 200]) {
       const base = sampledOuterShadowFactor({
         shadow: SHADOW,
         alpha: 0.2,
         signedDistanceToShadowBoxPx,
         insideCaster: false,
+        casterSpanPx: 0,
       });
       for (const casterSpanPx of [0, 1, 32, 44, 96, 128, 160, 320, 1000]) {
         expect(

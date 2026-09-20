@@ -67,7 +67,12 @@ function reachAt(shadow: MaterialOuterShadow, sigmaPx: number, span: number): nu
   // anchor blended into the thick law by the surface's own size thickness,
   // which is what `renderer.ts` resolves before it asks for a reach.
   const occlusion = outerShadowOcclusionAt(shadow, 0.5, span, sizeThickness(span));
-  return outerShadowReachPx({ ...shadow, sigmaPx }, occlusion);
+  // The span is stated rather than defaulted, because `outerShadowReachPx` now
+  // requires one (claims §5.158 §8, finding 4). The table's own numbers do not
+  // move: this file varies `sigmaPx` directly, and the two shipped documents
+  // carry `sigmaSlopePerSpan` 0, so the law returns that `sigmaPx` at every span
+  // and `reach-table.txt` is byte-identical to the run G0 recorded.
+  return outerShadowReachPx({ ...shadow, sigmaPx }, occlusion, span);
 }
 
 for (const key of [
