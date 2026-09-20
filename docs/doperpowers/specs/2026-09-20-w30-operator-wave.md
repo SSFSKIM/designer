@@ -561,6 +561,41 @@ opens:
   (G4), both because this wave touches the code they live in.
 - (g) **The version**: 0.20.0, three minors, prepared and unpublished.
 
+### Decision Log 2 — the parent, on G0's cut (2026-09-20): the pitch ladder joins the macOS 27 canonical bed as probe rows; the σ floor is CSS px; the padding recomputation is two-sided
+
+G0 found that the committed macOS 27 generation carries **no probe row** (§5.156 §3): the pitch
+ladder — the only evidence that can identify a scale-selective scatter — was read onto scratch
+matrices in W29 and never committed, so the wave would otherwise fit the operator on a ladder and
+record its verdict on a bed with no rung of it. The macOS 26.5 bed carries 662 committed probe rows,
+so probe rows in the canonical matrix are the precedent, not a departure. Ruled:
+
+- (a) **G4's canonical read includes the pitch ladder as probe rows** for the macOS 27 generation:
+  the 45 ladder scenes (`checkerboard-4/8/32/64`, `checkerboard-lc16`, `hc-text-7/28`) on the
+  **WebGPU tier for the four standard profiles**, and on the **CSS tier for the two 1x standard
+  profiles** so the CSS residual B4 records is committed evidence too — about 270 rows, written with
+  `fixtureSet: "probe"` so the gate drops them as it drops every probe row. Not the whole probe set
+  (about 180 rows per profile-tier, which would put the working file within reach of GitHub's
+  refusal for no gated benefit) and not the accessibility profiles (five rungs identify nothing). The
+  cost in bytes is recorded in §5.160 beside the split's second application. G3's fit reads the same
+  ladder onto scratch first; G4's rows are the sealed reading of it.
+- (b) **The σ law's floor is in CSS px and its value is a declared unfitted reading** (§5.156 §2):
+  the thin regime is the instrument's — the 1x/2x ratio is neither 1.00 nor 0.50, the (amplitude, σ)
+  pair trades at a constant product at span 44, and the thin σ bifurcates on the author's tint — so
+  the law takes no dpr argument, and `sigmaThinOffsetPx` is set by G3 to where the fitted line meets
+  the thin statistic B2 names, with B2 a one-wave reading rather than an adopted row. The Design's
+  "device px if the cut confirms it" is resolved the other way, for the measured reason.
+- (c) **X8's padding recomputation is two-sided**: the shipped σ is a third too narrow above span
+  128 (reach 31.88 → 43.80 CSS px at span 160, +37 %), not only too wide below 96, so G3 records
+  the largest pad the laws produce as well as the smallest, and the group clip takes the max over
+  members.
+- (d) **The spanning set is what G2 lands**: `sigmaSlopePerSpan`, `sigmaSpanRefPx`,
+  `sigmaThinOffsetPx` on `MaterialOuterShadow`; `sizeHeavySecondSigma`, `sizeHeavySecondSigma2x`,
+  `sizeHeavySecondShare`, `sizeScatterScaleGain`, `sizeScatterScaleRef` on `MaterialProfile` — with
+  the two signed amounts (`sizeHeavySecondShare`, `sizeScatterScaleGain`) the scheme-conditioned
+  leaves at inert 0, the widths and the reference not scheme-conditioned, and the second heavy
+  texture gated on `sizeHeavySecondShare` so the off path allocates nothing. `sizeToneLevelFar` stays
+  declined (sign stable per scheme, magnitude 5.5× apart within the light scheme).
+
 ## Surprises & Discoveries
 
 - **The macOS 27 generation of `results/matrix.json` carries no probe row at all** (G0, claims
