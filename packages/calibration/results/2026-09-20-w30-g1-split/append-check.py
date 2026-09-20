@@ -15,12 +15,19 @@ The clauses, each reported on its own line:
                        file its `destination` names
   rows byte-identical  each row's canonical JSON (sorted keys, no whitespace — the
                        construction `freeze.py` hashes a row by) is the recorded digest
-  26.5 untouched       no `apple-macos-26.5-*` row moved, and their relative order in
-                       the working file is the order they had
-  order preserved      the retained rows are a subsequence of the before order, in the
-                       before order; the moved rows likewise within their own file
+  26.5 untouched       the working file ON DISK holds, in its own order, exactly the
+                       macOS 26.5 rows the manifest recorded, at their recorded bytes,
+                       and no superseded file on disk holds one
+  order preserved      the digests each file ON DISK carries, in file order, are the
+                       digests the manifest sends it, in the before order
   counts add up        per profile key, retained + moved == before
   reconstruction       the recomposed original hashes to the recorded digest
+
+**Four of the six clauses read the files, not the plan** (W30 G1 review closure,
+2026-09-20). A clause computed from the manifest alone proves that the split *intended*
+the right thing; the question is whether the tree *holds* it, and the two clauses that
+name the invariants most worth holding — the frozen bed and the order the freeze reads
+positionally — now take the rows off disk and compare them to the recorded digests.
 
     python3 append-check.py [--manifest before-manifest.json] [--json out.json]
 """
@@ -76,6 +83,15 @@ def main() -> int:
     failures = []
     report = {"manifest": str(manifest_path.relative_to(ROOT)), "clauses": {}, "files": {}}
 
+    # Each file's rows as they stand on disk: the profile key the row itself carries and
+    # its canonical digest, in the file's own order. Every clause below that says
+    # something about the tree reads this rather than the manifest.
+    for rel, holder in files.items():
+        holder["onDisk"] = [
+            (parsed["key"]["profileKey"], hashlib.sha256(canon(parsed)).hexdigest())
+            for parsed in (json.loads(blob) for blob in holder["rows"])
+        ]
+
     # --- rows accounted for, and byte-identical -----------------------------------
     placed = [None] * len(before)
     for rel, holder in files.items():
@@ -98,26 +114,46 @@ def main() -> int:
         failures.append(f"{len(missing)} rows of the before-manifest were not found")
 
     # --- 26.5 untouched -------------------------------------------------------------
-    frozen = [r for r in before if r["profileKey"].startswith("apple-macos-26.5-")]
-    moved_frozen = [r for r in frozen if r["destination"] != "results/matrix.json"]
-    working = [r for r in before if r["destination"] == "results/matrix.json"]
-    frozen_order_before = [r["index"] for r in frozen]
-    frozen_order_after = [r["index"] for r in working if r["profileKey"].startswith("apple-macos-26.5-")]
-    ok_frozen = not moved_frozen and frozen_order_after == sorted(frozen_order_before)
+    # Read off the files. The manifest says which rows the split meant to leave alone;
+    # this asks the working file what it actually holds, and the superseded files
+    # whether they hold a frozen row they should never have been given.
+    FROZEN = "apple-macos-26.5-"
+    frozen = [r for r in before if r["profileKey"].startswith(FROZEN)]
+    frozen_recorded = [r["rowSha256"] for r in frozen]
+    frozen_on_disk = [
+        digest for key, digest in files["results/matrix.json"]["onDisk"] if key.startswith(FROZEN)
+    ]
+    stowed = {
+        rel: sum(1 for key, _ in holder["onDisk"] if key.startswith(FROZEN))
+        for rel, holder in files.items() if rel != "results/matrix.json"
+    }
+    misplaced = {rel: n for rel, n in stowed.items() if n}
+    ok_frozen = frozen_on_disk == frozen_recorded and not misplaced
     report["clauses"]["26.5 untouched"] = ok_frozen
     report["frozenRowCount"] = len(frozen)
-    if moved_frozen:
-        failures.append(f"{len(moved_frozen)} macOS 26.5 rows were moved out of the working file")
-    if frozen_order_after != sorted(frozen_order_before):
-        failures.append("the macOS 26.5 rows' relative order changed")
+    report["frozenRowsOnDisk"] = len(frozen_on_disk)
+    if misplaced:
+        failures.append(f"macOS 26.5 rows are in a superseded file: {misplaced}")
+    if frozen_on_disk != frozen_recorded:
+        failures.append(
+            f"the working file holds {len(frozen_on_disk)} macOS 26.5 rows against the "
+            f"manifest's {len(frozen_recorded)}, or holds them in a different order or at "
+            f"different bytes")
 
     # --- order preserved ------------------------------------------------------------
+    # Also off the files: the digest sequence each one carries against the digest
+    # sequence the manifest sends it, which is content and order in one comparison.
     ok_order = True
     for rel in wanted:
-        want = [r["index"] for r in before if r["destination"] == rel]
-        if want != sorted(want):
+        want = [r["rowSha256"] for r in before if r["destination"] == rel]
+        got = [digest for _, digest in files[rel]["onDisk"]]
+        if got != want:
             ok_order = False
-            failures.append(f"{rel}: rows are not in the before order")
+            first = next((i for i, (a, b) in enumerate(zip(got, want)) if a != b),
+                         min(len(got), len(want)))
+            failures.append(
+                f"{rel}: the rows on disk are not the manifest's rows in the before order "
+                f"(first difference at position {first})")
     report["clauses"]["order preserved"] = ok_order
 
     # --- counts add up --------------------------------------------------------------
@@ -163,6 +199,10 @@ def main() -> int:
     for clause, ok in report["clauses"].items():
         print(f"{clause.ljust(width)}  {'PASS' if ok else 'FAIL'}")
     print()
+    # Named in the output, because `--manifest` defaults to this directory's own
+    # witness: a later split's operator who forgets the flag would otherwise read a
+    # PASS for the split that already happened and take it for their own.
+    print(f"manifest: {manifest_path.relative_to(ROOT)}")
     print(f"before: {manifest['rowCount']} rows, {manifest['matrixBytes']} bytes, "
           f"sha256 {manifest['matrixSha256']}")
     for rel in wanted:

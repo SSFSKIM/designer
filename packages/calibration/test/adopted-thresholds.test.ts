@@ -2050,19 +2050,18 @@ const predicateExcludedCount = (profileKey: string, tier: string): number =>
 // ---------------------------------------------------------------------------
 
 describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)", () => {
-  it("reads the schema it was written against, which is no longer the one the build writes", () => {
-    // The field names below were verified against schema 4, and this matrix is
-    // still a schema-4 file. That is deliberate, not drift: wave Decision Log 15
-    // ruling 3 keeps the inactive-bed gate enforced as the historically
-    // labelled suite until the one honest post-W8 pass, so `results/matrix.json`
-    // is not regenerated — while the build has moved to schema 5, whose shape
-    // and material figures are measured under a *bounded* silhouette and are
-    // therefore not the same quantities as the ones gated here.
+  it("reads the matrix at the schema the build writes, and pins both numbers", () => {
+    // Corrected 2026-09-20 (W30 G1 review closure, c9a §5.157 §10): this case's
+    // title and comment still described the interregnum wave Decision Log 15
+    // ruling 3 opened — the committed matrix held at schema 4, the build moved on
+    // to schema 5, whose shape and material figures are measured under a
+    // *bounded* silhouette and are therefore not the same quantities. The post-W8
+    // pass re-read the bed and closed it; the two assertions below have both read
+    // 5 since, under a title that said they differed.
     //
-    // Both numbers are pinned so the divergence stays a decision. When the
-    // post-W8 matrix replaces this one, these two become equal again and the
-    // tables above must be re-verified against the new instrument, not assumed
-    // to have survived it.
+    // Both numbers stay pinned, which is what the case is for: equal today, and a
+    // future bump that opens the gap again has to move this file and re-verify the
+    // tables above against the new instrument rather than assume they survived it.
     expect(MATRIX.schemaVersion).toBe(5);
     expect(RESULT_MATRIX_SCHEMA_VERSION).toBe(5);
   });

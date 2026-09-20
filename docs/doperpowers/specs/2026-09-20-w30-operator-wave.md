@@ -572,6 +572,39 @@ opens:
 
 ## Revision Notes
 
+- 2026-09-20 (G1 review closure): **the split's review folded — no blocking finding, twelve items
+  closed** (claims §5.157 §10, a new Review closure section; evidence
+  `results/2026-09-20-w30-g1-split/classifier-selftest.txt` and `append-check.v2.txt`). Nothing
+  recorded was rewritten: every correction is a dated paragraph beside the text it corrects, and the
+  re-run append-check is committed as a second reading beside the first rather than over it. The
+  three that change what a later child does. (i) **The tool now holds X1 and its own reruns**: a row
+  of a frozen macOS 26.5 profile selected to move is refused before a byte is written, `apply`
+  requires `--evidence` and `--claims` explicitly — with no defaults, G4's rerun cannot overwrite
+  G1's before-manifest or label a new generation with G1's section — and every destination, index
+  entry and manifest is checked over the whole plan first. G4's invocation is written out in §5.157
+  §8, in the script's docstring and in `results/superseded/README.md`. (ii) **The naming rule now
+  covers the generation it could not name**: where only the receded document moved and the active one
+  still ships, the file is the compound `<active>-<receded>.json` with both hashes in the index,
+  produced rather than refused; `classifier-selftest.py` exercises that and four other shapes the bed
+  does not contain, including a `capturePath` carrying a third document clause, which is now refused
+  rather than judged on the clauses that happen to parse. (iii) **The demo's generation is a term in
+  the order, not a timestamp**: retiring the `capturedAt` tie-break moved `reportsFor`'s head for 210
+  of 312 (scene, scheme) pairs and for 20 of the 32 scenes the picker offers in the dark scheme, inert
+  only because `Stage.tsx` renders a report where a native capture exists and the 12 displayed dark
+  scenes each carry the dark primary row. `primacy` now ranks a row at the documents on disk ahead of
+  one that is not — profile, then tier, then generation — with the shipped hashes derived from the
+  documents' bytes at build time, so the page stays right in the interval between a capture that
+  appends a generation and the split that retires the one it superseded. Two items are **G4's** and
+  logged rather than fixed: the pair's three "macOS 26.5" labels beside a macOS 27 caption, and
+  `CLAUDE.md`'s retired "`rm results/matrix.json` … or reduce to the newest row per key" — both
+  clause 7's. And one the review did not find, because the closure's chain ran a suite G1's did
+  not: `pnpm --filter demo test:e2e` was **red**. G1's own copy names
+  `packages/calibration/results/superseded/` in an inline `<code>` inside a list item, one
+  unbreakable 346 px token in a 232 px line, and the page scrolled 94 CSS px sideways at 320 px —
+  `DESIGN.md` §9's reflow floor, failing. Attributed to G1 by re-running with the closure's only
+  page-affecting file reverted, and fixed in `site.css` (inline `code` in prose takes
+  `overflow-wrap: anywhere`; a code BLOCK still scrolls inside itself). **A child that changes the
+  page's copy runs the page's suite** — G1's chain stopped at `pnpm -r test` and the demo build.
 - 2026-09-20 (G1): **the generation split executed** (claims §5.157; evidence
   `results/2026-09-20-w30-g1-split/`, layout `results/superseded/`). The working file holds one
   generation per profile — 1,107 macOS 26.5 rows unchanged and in their order, 455 macOS 27 rows at

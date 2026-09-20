@@ -32,11 +32,31 @@ and receded alike — to the file that holds those rows. A reader that has a has
 index; a reader that has none reads the working file, which is the shipped generation by
 construction.
 
-`--current` takes the hashes that are current and everything else moves. It defaults to
-the twelve-hex SHA-256 of every file in `packages/calibration/profiles/`, which is
-exactly what `test/adopted-thresholds.test.ts`'s `SHIPPED_DOCUMENT_HASHES` derives, so
-the default run and the gate cannot disagree about which generation ships. G4 runs this
-again, with no arguments, once its own read has sealed new documents.
+**When only the difference document moved.** A refit can seal a new receded document over
+an active document that still ships — the unfocused endpoint alone is refitted — and then
+a superseded row names a CURRENT active document. The active hash alone would misdescribe
+that file, so the generation is named by the whole of what it was read at: a COMPOUND
+`<active>-<receded>.json`, with `index.json` mapping both hashes to it. The lookup is
+what finds it; the name is never parsed. A hash that would name two different superseded
+files is refused rather than silently overwritten in the index.
+
+`--current` takes the hashes that are current and everything else moves; it is repeatable
+and takes any number of hashes after each use. It defaults to the twelve-hex SHA-256 of
+every file in `packages/calibration/profiles/`, which is exactly what
+`test/adopted-thresholds.test.ts`'s `SHIPPED_DOCUMENT_HASHES` derives, so the default run
+and the gate cannot disagree about which generation ships.
+
+**What the tool refuses, before it writes a byte.** A row of a frozen macOS 26.5 profile
+selected to move (contract X1 is the tool's to hold, not the operator's); a row whose
+`capturePath` carries more document hashes than the clause pattern parses, so a third kind
+of document would change a row's currency without this script seeing it; a destination
+that already exists, a before-manifest that already exists, or an index entry that would
+be overwritten. Every check runs over the whole plan first, so a refusal leaves the tree
+as it was rather than half split.
+
+`apply` names its own evidence directory and its own claims section — no defaults, because
+a second run that inherited G1's would overwrite G1's committed witness and label a new
+generation with the old generation's section.
 
 Rows are moved as RAW TEXT slices of the working file rather than re-serialised: a
 JSON round-trip through any other printer is not byte-exact (Python's and V8's number
@@ -45,8 +65,19 @@ change. The retained rows keep their relative order for the same reason the free
 needs them to: `results/2026-09-16-w29-freeze/freeze.py` labels each 26.5 row with a
 positional counter in file order and compares the whole list ordered.
 
-    python3 split-generation.py plan
-    python3 split-generation.py apply [--current <12hex> ...] [--evidence <dir>]
+    python3 split-generation.py plan [--current <12hex> ...]
+    python3 split-generation.py apply --evidence <dir> --claims <section> [--current <12hex> ...]
+
+`classifier-selftest.py` beside this file exercises `classify` and `destinations` on a
+synthetic matrix — a current row, a superseded-active row, a receded-only superseded row
+and a row carrying a third document clause — because the shapes the naming rule has to
+name are not all in the bed, and a rule nothing exercises is a rule nobody has read.
+
+W30 G4's invocation, the second application of contract X7, in full:
+
+    python3 packages/calibration/results/2026-09-20-w30-g1-split/split-generation.py apply \\
+        --evidence packages/calibration/results/2026-09-20-w30-g4-landing/ \\
+        --claims "c9a §5.160"
 """
 import datetime
 import hashlib
@@ -56,7 +87,6 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[4]
-HERE = pathlib.Path(__file__).resolve().parent
 RESULTS = ROOT / "packages/calibration/results"
 MATRIX = RESULTS / "matrix.json"
 SUPERSEDED = RESULTS / "superseded"
@@ -68,6 +98,11 @@ TODAY = datetime.date.today().isoformat()
 # it with the same shape.
 DOCUMENT_CLAUSE = re.compile(r"(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})")
 ACTIVE_CLAUSE = re.compile(r"materialProfile=(\S+) sha256:([0-9a-f]{12})")
+HASH_TOKEN = re.compile(r"^[0-9a-f]{12}$")
+
+# The profiles whose rows are frozen evidence (`results/2026-09-16-w29-freeze/`), and
+# which contract X1 keeps in the working file whatever a generation split is asked to do.
+FROZEN_PREFIX = "apple-macos-26.5-"
 
 
 def sha12(data: bytes) -> str:
@@ -138,10 +173,20 @@ def classify(raw: bytes, span, current: dict):
     bytes the row records. One superseded document in the set supersedes the row: a
     reading posed with a receded document nobody ships is not a reading of the shipped
     material, whatever its active document says.
+
+    **Every document hash in the path is parsed, or the row is refused.** The clause
+    pattern knows two kinds of document; a run that named a third would write a third
+    clause, and a currency judgement that silently ignored it would call a row current
+    on the strength of the documents it happens to recognise. So the count of `sha256:`
+    occurrences in the path must equal the number of clauses parsed out of it.
     """
     row = json.loads(raw[span[0]:span[1]])
     path = row["key"]["web"]["capturePath"]
     named = DOCUMENT_CLAUSE.findall(path)
+    if path.count("sha256:") != len(named):
+        raise ValueError(
+            f"capturePath carries {path.count('sha256:')} document hashes and "
+            f"{len(named)} parse as clauses this script knows: {path}")
     active = ACTIVE_CLAUSE.search(path)
     is_current = bool(named) and all(current.get(doc) == h for doc, h in named)
     return {
@@ -174,17 +219,86 @@ def compose(prefix: bytes, sep: bytes, suffix: bytes, slices) -> bytes:
     return prefix + sep.join(slices) + suffix
 
 
+def destinations(rows, current: dict):
+    """Which rows stay in the working file, and which file each of the others lands in.
+
+    Returns `(keep_idx, dest)`, `dest` mapping a superseded file's stem — its name
+    without `.json` — to the indices of the rows it holds, in file order. Raises
+    `ValueError` for every shape the naming rule cannot name, over the whole plan and
+    before the caller has written anything.
+    """
+    keep_idx = [i for i, r in enumerate(rows) if r["current"] or not r["documents"]]
+    retained = set(keep_idx)
+    move_idx = [i for i in range(len(rows)) if i not in retained]
+
+    # Contract X1: the frozen macOS 26.5 bed does not move, and the tool holds that
+    # rather than the operator. One mistyped `--current` selects those rows by the
+    # hundred, and the append-check that would catch it only reads after `apply` has
+    # written the files.
+    frozen = [i for i in move_idx if rows[i]["profileKey"].startswith(FROZEN_PREFIX)]
+    if frozen:
+        keys = sorted({rows[i]["profileKey"] for i in frozen})
+        raise ValueError(
+            f"X1: {len(frozen)} rows of the frozen macOS 26.5 bed are selected to move "
+            f"({', '.join(keys)}); check --current")
+
+    dest = {}
+    for i in move_idx:
+        h = rows[i]["activeSha256"]
+        if h is None:
+            # A row naming a receded document and no active one. `capture-web` does not
+            # write that shape — and a row naming no document at all is retained above,
+            # not moved — but the file name IS the index, so it is refused rather than
+            # guessed at. `classifier-selftest.py` holds this case.
+            raise ValueError(f"row {i} is superseded but names no active document")
+        stale = [d["sha256"] for d in rows[i]["documents"]
+                 if current.get(d["path"]) != d["sha256"]]
+        # The compound name, for the generation where only a difference document moved:
+        # the active document still ships, so its hash alone would name this file after
+        # a generation that is current. See the docstring.
+        stem = h if h not in current.values() else "-".join([h] + stale)
+        dest.setdefault(stem, []).append(i)
+    return keep_idx, dest
+
+
 def main() -> int:
     mode = sys.argv[1] if len(sys.argv) > 1 else "plan"
     argv = sys.argv[2:]
-    override = [argv[i + 1] for i, a in enumerate(argv) if a == "--current"]
-    evidence = HERE
+    # `--current` is repeatable AND takes every hash that follows it, which is what its
+    # usage line says; a flag whose parsing and whose documentation disagree is how a
+    # `--current a b c` run comes to move rows nobody asked it to.
+    override = []
+    evidence = None
     claims = None
-    for i, a in enumerate(argv):
-        if a == "--evidence":
-            evidence = pathlib.Path(argv[i + 1]).resolve()
-        if a == "--claims":
-            claims = argv[i + 1]
+    i = 0
+    while i < len(argv):
+        a = argv[i]
+        if a == "--current":
+            i += 1
+            while i < len(argv) and not argv[i].startswith("--"):
+                override.append(argv[i])
+                i += 1
+            continue
+        if a in ("--evidence", "--claims"):
+            if i + 1 >= len(argv):
+                print(f"{a} takes a value")
+                return 2
+            if a == "--evidence":
+                evidence = pathlib.Path(argv[i + 1]).resolve()
+            else:
+                claims = argv[i + 1]
+            i += 2
+            continue
+        print(f"unknown argument {a}")
+        return 2
+    malformed = [h for h in override if not HASH_TOKEN.match(h)]
+    if malformed:
+        print(f"--current takes twelve-hex document hashes; got {malformed}")
+        return 2
+    if mode == "apply" and (evidence is None or claims is None):
+        print("apply requires --evidence <dir> and --claims <section>; see the docstring "
+              "for G4's invocation")
+        return 2
 
     on_disk = current_hashes()
     if override:
@@ -198,35 +312,30 @@ def main() -> int:
         current = on_disk
 
     raw, spans, prefix, sep, suffix = read()
-    rows = [classify(raw, s, current) for s in spans]
-
-    keep_idx = [i for i, r in enumerate(rows) if r["current"] or not r["documents"]]
-    move_idx = [i for i in range(len(rows)) if i not in set(keep_idx)]
-
-    # The destination, by the rule in the docstring: the row's active document's hash.
-    dest = {}
-    for i in move_idx:
-        h = rows[i]["activeSha256"]
-        if h is None:
-            print(f"row {i} is superseded but names no active document; refusing")
+    rows = []
+    for i, s in enumerate(spans):
+        try:
+            rows.append(classify(raw, s, current))
+        except ValueError as refusal:
+            print(f"row {i}: {refusal}; refusing")
             return 1
-        if h in current.values():
-            # Would name a superseded file after a document that still ships. Nothing
-            # in the bed produces this today (a generation's documents move together);
-            # it is refused rather than guessed at, because the file name is the index.
-            print(f"row {i}: active document {h} is current but the row is superseded; refusing")
-            return 1
-        dest.setdefault(h, []).append(i)
+
+    try:
+        keep_idx, dest = destinations(rows, current)
+    except ValueError as refusal:
+        print(f"{refusal}; refusing")
+        return 1
+    move_idx = [i for group in dest.values() for i in group]
 
     print(f"current documents ({len(current)}):")
     for path, h in sorted(current.items()):
         print(f"  {h}  {path}")
     print(f"rows: {len(rows)} total, {len(keep_idx)} retained, {len(move_idx)} moved")
-    for h in sorted(dest):
+    for stem in sorted(dest):
         by_profile = {}
-        for i in dest[h]:
+        for i in dest[stem]:
             by_profile[rows[i]["profileKey"]] = by_profile.get(rows[i]["profileKey"], 0) + 1
-        print(f"  superseded/{h}.json  {len(dest[h])} rows")
+        print(f"  superseded/{stem}.json  {len(dest[stem])} rows")
         for pk in sorted(by_profile):
             print(f"      {by_profile[pk]:5d}  {pk}")
     if mode == "plan":
@@ -234,6 +343,39 @@ def main() -> int:
     if mode != "apply":
         print(f"usage: {pathlib.Path(__file__).name} plan|apply")
         return 2
+
+    stem_of = {i: stem for stem, group in dest.items() for i in group}
+    prior = {}
+    if (SUPERSEDED / "index.json").exists():
+        prior = json.loads((SUPERSEDED / "index.json").read_text())
+    prior_lookup = dict(prior.get("byDocumentSha256", {}))
+
+    # Every destination is checked before a byte is written, so a refusal leaves the
+    # tree as it stood rather than half split. Three ways a run would overwrite a
+    # record: a superseded file of that name already there, an index entry that would
+    # start pointing somewhere else, and — the one a rerun hits — the before-manifest
+    # of the run that already happened, which is the append-check's whole witness.
+    manifest_path = evidence / "before-manifest.json"
+    blocked = []
+    if manifest_path.exists():
+        blocked.append(
+            f"{manifest_path} already exists; it witnesses a split that has already run")
+    for stem in sorted(dest):
+        out = SUPERSEDED / f"{stem}.json"
+        if out.exists():
+            blocked.append(f"{out} already exists; a recorded generation is never overwritten")
+        for i in dest[stem]:
+            for d in rows[i]["documents"]:
+                held = prior_lookup.get(d["sha256"])
+                if held is not None and held != f"{stem}.json":
+                    blocked.append(
+                        f"index.json maps document {d['sha256']} to {held}; this run would "
+                        f"point it at {stem}.json")
+    if blocked:
+        for line in sorted(set(blocked)):
+            print(line)
+        print("refusing; nothing written")
+        return 1
 
     # The before-manifest is written from the file as it stands, before a byte of it
     # moves, so the append-check has a witness that does not depend on the split.
@@ -254,8 +396,8 @@ def main() -> int:
                 "fixtureSet": r["fixtureSet"],
                 "documents": r["documents"],
                 "destination": (
-                    "results/matrix.json" if i in set(keep_idx)
-                    else f"results/superseded/{r['activeSha256']}.json"
+                    "results/matrix.json" if i not in stem_of
+                    else f"results/superseded/{stem_of[i]}.json"
                 ),
             }
             for i, r in enumerate(rows)
@@ -264,9 +406,6 @@ def main() -> int:
     (evidence / "before-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
 
     SUPERSEDED.mkdir(parents=True, exist_ok=True)
-    prior = {}
-    if (SUPERSEDED / "index.json").exists():
-        prior = json.loads((SUPERSEDED / "index.json").read_text())
     index = {
         "what": (
             "Every superseded generation of canonical rows, by the document each was "
@@ -276,7 +415,10 @@ def main() -> int:
         "rule": (
             "A file is named by the ACTIVE document's twelve-hex SHA-256. A receded "
             "document never names a file; it is a difference over the active document "
-            "of its own scheme and travels with it."
+            "of its own scheme and travels with it. Where only the receded document "
+            "moved and the active one still ships, the name is the compound "
+            "`<active>-<receded>`, because the active hash alone would name this file "
+            "after a generation that is current."
         ),
         "files": dict(prior.get("files", {})),
         "byDocumentSha256": dict(prior.get("byDocumentSha256", {})),
@@ -284,32 +426,29 @@ def main() -> int:
     files = index["files"]
     lookup = index["byDocumentSha256"]
 
-    for h in sorted(dest):
-        slices = [raw[spans[i][0]:spans[i][1]] for i in dest[h]]
-        out = SUPERSEDED / f"{h}.json"
-        if out.exists():
-            print(f"{out} already exists; refusing to overwrite a recorded generation")
-            return 1
+    for stem in sorted(dest):
+        slices = [raw[spans[i][0]:spans[i][1]] for i in dest[stem]]
+        out = SUPERSEDED / f"{stem}.json"
         out.write_bytes(compose(prefix, sep, suffix, slices))
         by_profile = {}
-        for i in dest[h]:
+        for i in dest[stem]:
             by_profile[rows[i]["profileKey"]] = by_profile.get(rows[i]["profileKey"], 0) + 1
-        named = sorted({(d["path"], d["sha256"]) for i in dest[h] for d in rows[i]["documents"]})
-        captured = sorted(rows[i]["capturedAt"] for i in dest[h])
-        files[f"{h}.json"] = {
-            "activeDocumentSha256": h,
+        named = sorted({(d["path"], d["sha256"]) for i in dest[stem] for d in rows[i]["documents"]})
+        captured = sorted(rows[i]["capturedAt"] for i in dest[stem])
+        files[f"{stem}.json"] = {
+            "activeDocumentSha256": rows[dest[stem][0]]["activeSha256"],
             "documents": [{"path": p, "sha256": s} for p, s in named],
             "readUnderClaims": claims,
             "capturedAt": {"first": captured[0], "last": captured[-1]},
             "supersededOn": TODAY,
-            "rowCount": len(dest[h]),
+            "rowCount": len(dest[stem]),
             "rowsByProfileKey": dict(sorted(by_profile.items())),
             "bytes": out.stat().st_size,
             "sha256": hashlib.sha256(out.read_bytes()).hexdigest(),
         }
         for _, s in named:
-            lookup[s] = f"{h}.json"
-        print(f"wrote {out.relative_to(ROOT)}  {len(dest[h])} rows  {out.stat().st_size} bytes")
+            lookup[s] = f"{stem}.json"
+        print(f"wrote {out.relative_to(ROOT)}  {len(dest[stem])} rows  {out.stat().st_size} bytes")
 
     index["files"] = dict(sorted(files.items()))
     index["byDocumentSha256"] = dict(sorted(lookup.items()))

@@ -997,6 +997,50 @@ test.describe("the reference pair is a comparison", () => {
     // `scenes.json` without being measured.
     await expect(page.locator(".note--slot")).toHaveCount(0);
   });
+
+  /*
+   * The same assertion in the dark scheme (W30 G1 review closure).
+   *
+   * The light path is where the drift was found and it is not where the next one
+   * will be: the dark bed is the smaller one, the matrix holds macOS 26.5 dark rows
+   * beside the macOS 27 ones for most of the scenes it covers, and until this ran
+   * nothing outside `color-scheme.spec.ts`'s single scene asserted whose cell the
+   * page speaks with once the reader has switched. Scenes the dark bed does not
+   * carry withdraw the pair instead of showing a figure — that branch is
+   * `color-scheme.spec.ts`'s subject and is skipped rather than re-asserted here.
+   */
+  test("every scene's figures come from the primary cell in the dark scheme too", async ({
+    page,
+  }) => {
+    await gotoSite(page);
+    await page.getByTestId("color-scheme-select").selectOption("dark");
+    await expect(page.locator("html")).toHaveAttribute("data-color-scheme", "dark");
+    await showSection(page, "reference");
+
+    const picker = page.getByLabel("Scene");
+    const scenes = await picker.locator("option").evaluateAll((options) =>
+      options.map((option) => (option as HTMLOptionElement).value),
+    );
+
+    let measured = 0;
+    for (const scene of scenes) {
+      await picker.selectOption(scene);
+      // Either branch is a settled state; waiting for whichever arrives keeps the
+      // read off the frame between them.
+      await expect(
+        page.locator('[data-testid="no-dark-capture"], .readout--figures').first(),
+        scene,
+      ).toBeVisible();
+      if ((await page.getByTestId("no-dark-capture").count()) > 0) continue;
+      const figures = page.locator(".readout--figures");
+      await expect(figures, scene).toContainText("apple-macos-27.0-1x-dark-standard-glass0.5");
+      await expect(figures, scene).toContainText("texture tier");
+      measured += 1;
+    }
+    // The fixture: a run where the dark bed covered nothing would pass the loop
+    // without having read a figure.
+    expect(measured).toBeGreaterThan(0);
+  });
 });
 
 test.describe("the accessibility floor", () => {
