@@ -42,6 +42,21 @@ export interface FakePass {
   readonly bindGroups: FakeBindGroup[];
 }
 
+/**
+ * One `queue.writeBuffer`, kept as floats.
+ *
+ * Every uniform in this package is a `Float32Array` written whole through
+ * `createUniformSlot`, so a copy of the words is the whole of what a pass told
+ * the shader — and a uniform lane is a place a value can be wrong in a way no
+ * resource identity and no golden can see, because the words are all zero on the
+ * shipped material (claims §5.158 §6 is exactly that failure, caught on a real
+ * adapter). The label is the slot's, so a test names the pass it is reading.
+ */
+export interface FakeUniformWrite {
+  readonly label: string;
+  readonly data: Float32Array;
+}
+
 export interface FakeGpu {
   readonly device: GPUDevice;
   /** Every texture ever created, in creation order. */
@@ -49,6 +64,8 @@ export interface FakeGpu {
   readonly buffers: FakeBuffer[];
   /** Passes encoded since the last `reset()`. */
   readonly passes: FakePass[];
+  /** Uniform writes since the last `reset()`, in the order they were issued. */
+  readonly uniformWrites: FakeUniformWrite[];
   readonly submits: number;
   /** Resolve the device's `lost` promise, the way a real loss does. */
   lose(reason?: GPUDeviceLostReason): void;
@@ -64,6 +81,7 @@ export function createFakeGpu(): FakeGpu {
   const textures: FakeTexture[] = [];
   const buffers: FakeBuffer[] = [];
   const passes: FakePass[] = [];
+  const uniformWrites: FakeUniformWrite[] = [];
   const backing = new WeakMap<object, FakeTexture>();
   let submits = 0;
   let failFinish: string | undefined;
@@ -144,7 +162,18 @@ export function createFakeGpu(): FakeGpu {
       submit: () => {
         submits += 1;
       },
-      writeBuffer: () => undefined,
+      writeBuffer: (
+        buffer: { readonly label?: string },
+        _offset: number,
+        source: ArrayBuffer,
+        byteOffset = 0,
+        byteLength = source.byteLength,
+      ) => {
+        uniformWrites.push({
+          label: buffer.label ?? "",
+          data: new Float32Array(source.slice(byteOffset, byteOffset + byteLength)),
+        });
+      },
       writeTexture: () => undefined,
       copyExternalImageToTexture: () => undefined,
       onSubmittedWorkDone: async () => undefined,
@@ -191,6 +220,7 @@ export function createFakeGpu(): FakeGpu {
     textures,
     buffers,
     passes,
+    uniformWrites,
     get submits() {
       return submits;
     },
@@ -202,6 +232,7 @@ export function createFakeGpu(): FakeGpu {
     },
     reset() {
       passes.length = 0;
+      uniformWrites.length = 0;
     },
     info(texture) {
       return backing.get(texture as unknown as object);

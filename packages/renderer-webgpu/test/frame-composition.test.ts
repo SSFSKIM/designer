@@ -596,3 +596,66 @@ describe("one group id drawn on two planes", () => {
     }
   });
 });
+
+describe("W30's scatter scale statistic, on a source nothing has been observed for", () => {
+  /**
+   * The lane the optics uniform carries the SOURCE's measured edge density in
+   * (`passes.ts`, `d[126]`), read back off the device rather than off the code
+   * that computed it.
+   */
+  const scatterScaleVec4 = (gpu: FakeGpu): Float32Array => {
+    const write = gpu.uniformWrites.find((entry) =>
+      entry.label.startsWith("vitrea:uniform:optics:"),
+    );
+    if (write === undefined) throw new Error("the optics pass wrote no uniform this frame");
+    // `scatterScale` is floats 124..127: gain, reference, the source's statistic,
+    // and one padding word.
+    return write.data.slice(124, 128);
+  };
+
+  const drawAt = (reference: number): FakeGpu => {
+    const gpu = createFakeGpu();
+    const renderer = createWebGPURenderer({
+      viewport: VIEWPORT,
+      materialProfile: { sizeScatterScaleGain: 0.3, sizeScatterScaleRef: reference },
+    });
+    renderer.attachDevice(gpu.device, "vitrea");
+    renderer.registerBackdrop(gradientOn(gpu, 1));
+    renderer.setGroup(GROUP);
+    // One frame, and nothing has called `collectAdaptation` — which is the state
+    // every group's first frames are in, since the statistic arrives by readback.
+    renderer.drawFrame(frameArgs(1));
+    return gpu;
+  };
+
+  /*
+   * The shader adds `gain · (statistic − reference)` to `kScatter`, so the value
+   * that contributes nothing is the material's own REFERENCE and not 0. The two
+   * coincide only while the reference is 0, which is where §5.158's inert leaves
+   * leave it and where §5.159's fit will not: a group drawing before its first
+   * readback would take the operator's full excursion and then step to its
+   * resting value.
+   *
+   * Read at a reference the operator could actually be fitted to (W30 G2 review
+   * closure, claims §5.158 §8, finding 3). At 0 the case cannot tell the two
+   * readings apart, which is exactly why nothing caught this.
+   */
+  it("hands the shader the material's reference, so the operator contributes exactly zero", () => {
+    const [gain, reference, statistic] = scatterScaleVec4(drawAt(0.42));
+    // Asserted as the shader sees it — one f32 against the other, so the claim is
+    // about the difference being exactly zero and not about either word's decimal
+    // rounding through `Float32Array`.
+    expect(statistic).toBe(reference);
+    expect((gain ?? 0) * ((statistic ?? 0) - (reference ?? 0))).toBe(0);
+    expect(gain).toBe(Math.fround(0.3));
+    expect(reference).toBe(Math.fround(0.42));
+  });
+
+  it("follows the reference rather than holding a constant of its own", () => {
+    // The discriminating half: the lane is the material's number, so a second
+    // reference has to move it. A hard-coded 0 passes the case above at a
+    // reference of 0 and fails here.
+    expect(scatterScaleVec4(drawAt(0.11))[2]).toBe(Math.fround(0.11));
+    expect(scatterScaleVec4(drawAt(0))[2]).toBe(0);
+  });
+});

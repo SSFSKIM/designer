@@ -26176,7 +26176,10 @@ scalar projection and its residual are §5.159's.
 vec4 of its own rather than lanes borrowed from a neighbour's padding — `heavyTap`'s precedent,
 "a width's switch living in another facet's spare lane is a layout nobody could read back". The
 optics slot goes 120 → 132 floats. `scatterScale.z` carries the SOURCE's edge density, resolved on
-the CPU because it arrives by readback, as `bodyChainLod` is.
+the CPU because it arrives by readback, as `bodyChainLod` is — and where nothing has been observed
+it carries the material's own `sizeScatterScaleRef`, not 0, so `gain · (stat − ref)` is exactly zero
+at every reference rather than only at a reference of 0 (corrected 2026-09-20, review closure, §8
+finding 3; the merge passed `adapt?.edgeDensity ?? 0`).
 
 **The second heavy texture is a third blur kind** in `pyramid.ts` (`"body" | "heavy" | "heavy2"`),
 with its own pool keys, its own staleness rule through `sameHeavySigma`, and release-on-decline so
@@ -26330,6 +26333,7 @@ recorded above stands **beside** the recorded one rather than over it.
 | # | finding | what closed it |
 | --- | --- | --- |
 | 1 | **Blocking.** The two receded records' `currentSha256` were computed as `fingerprint(withMaterialOverrides(DEFAULT, patch))` — a base merge nothing draws. A receded document is a difference over the ACTIVE document of its own scheme | Recomputed through the composition: light `035f537d9c27e3ed`, dark `4763b0d195fdb077` (§3's table, struck beside). `reseal.ts` now branches on `resolvedOverActiveDocument` and **asserts** its construction — the resolved material minus the eight leaves must fingerprint to the document's own field — so a record cannot be written from a construction the document was not sealed under (`reseal.v2.txt`). `macos27-profile.ts` regenerated; `window-activation.spec.ts`'s prose corrected to what its own `SEALED` table already held; `tuned-profiles.test.ts` recomputes all six records from the documents, each through its own construction, and asserts the two compositions differ for a receded document |
+| 3 | `backdropScaleStatistic` passed `adapt?.edgeDensity ?? 0`, which is the identity only while `sizeScatterScaleRef` is 0: once §5.159 fits one, every frame drawn before its source's first readback would evaluate `gain · (0 − ref)` at full magnitude and then step to the resting value | The uniform takes the same gate `adaptStrength` already takes — `adapt?.observed === true ? adapt.edgeDensity : material.sizeScatterScaleRef` — so "no evidence" resolves to the value at which the operator contributes nothing. Two cases in `frame-composition.test.ts` read floats 124–127 back off the device through a new `uniformWrites` log on the fake GPU: at a reference of 0.42 the statistic lane is bit-identical to the reference lane, and at 0.11 it follows it |
 
 **The general lesson, which outlives this wave.** A digest is a statement about a construction as
 much as about values, and a repository can agree with itself about a construction that is wrong: the
