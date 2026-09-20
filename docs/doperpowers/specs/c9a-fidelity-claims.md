@@ -24833,3 +24833,62 @@ The whole browser suite was run rather than the one spec, because the harness's 
 by every spec in it. `DEFAULT_MATERIAL_PROFILE` is untouched, no golden was re-recorded,
 `results/matrix.json` gains no row, and the macOS 26.5 freeze verifies intact at this closure's close
 as it did at the gate's. The status line is unchanged: **0.19.0 PREPARED, UNPUBLISHED**.
+
+## 5.156 W30 G0: the cut and the declarations — the pre-wave materials on disk before a leaf exists, the shadow's σ read per span and the body's structure per pitch, and what the two operators will be judged against (2026-09-20)
+
+**Gate: W30 G0, acceptance clauses 1, 2 and 3; contracts X1, X2, X4; Decision Log 1 (a), (b), (f).**
+Evidence is `packages/calibration/results/2026-09-20-w30-g0-cut/`. **No material constant, profile
+document, native fixture, golden, bound, floor or row of `results/matrix.json` moves at this gate,
+and no capture of any kind was taken** (X2, X5): every number below is a cut of evidence that was
+already committed. `DEFAULT_MATERIAL_PROFILE` is untouched and no leaf is added — naming a shape is
+not adding it (X1). The macOS 26.5 freeze verifies **intact at 1,818 entries** at this gate's
+opening and at its close, and nothing under `results/2026-09-16-w29-freeze/` is edited: the
+charter's v1 had this child add an exemption reader to `freeze.py` and **v2 withdrew it**, because
+the supersession record Decision Log 1 (a) rules costs the freeze nothing at all.
+
+### 1. The pre-wave resolved materials, written before anything else
+
+W30's two operators add leaves to the renderer's default, and every document's
+`resolvedMaterialSha256` is a digest over the **fully resolved** material — so both move the two
+frozen macOS 26.5 documents' digests while moving no macOS 26.5 pixel. That is the one-time X1
+exemption. A moved digest is exactly as loud as a moved material, which makes it a good pin and no
+proof at all of inertness, so the proof has to be the material itself, on disk, from before the
+first leaf.
+
+`resolve-pre-wave.ts` writes it, through the fingerprint's own path —
+`withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch)` resolved through the renderer, then
+canonicalised with keys sorted at every depth, which is `seal.ts`'s `canonical` and the same value
+`test/tuned-profiles.test.ts` hashes. It refuses to write a file whose fingerprint is not the
+document's own recorded digest, so the two readings below are one reading taken twice.
+
+| document | file | resolved fingerprint (= the document's `resolvedMaterialSha256`) | SHA-256 of the file's bytes |
+| --- | --- | --- | --- |
+| `apple-macos-26.5-1x-light-standard` | `resolved-26.5-light.json` | **`b2b570e4adcea8fb`** | `2d8ed272fd57afbb319a0df80d13a73e8f57fe3b083770f23e28fd6e514f249b` |
+| `apple-macos-26.5-1x-dark-standard` | `resolved-26.5-dark.json` | **`874be66ea501621b`** | `79c263a3bdd13fe87257492372946df4d137d6af3a4ba98c8f1c846b968e8a58` |
+
+Both fingerprints equal the digests the charter's Grounding records and the documents' own fields
+carry, checked by the script rather than by transcription. Each file is 113 leaves of resolved
+material.
+
+**The identity test** (`test/w30-operator-identity.test.ts`) is the proof the digest cannot give.
+It resolves each macOS 26.5 document today, removes the leaf paths named in the exported
+`W30_OPERATOR_LEAVES` from both sides, and deep-equals the rest to the committed pre-wave JSON.
+The list is **empty today**, which is the point: the test is written, committed and green *before*
+the commit it exists to judge, so G2 cannot be the commit that also writes its own proof. G2 fills
+the list in the same commit that adds the leaves, and the file carries a completeness case so that a
+leaf added without being named fails the identity and a name matching no leaf fails on its own.
+Removal is by path rather than substitution by a sentinel, so a leaf named but absent shows as a
+key-set difference instead of passing silently.
+
+**The gated-bed pin** (`test/adopted-thresholds.test.ts`, at the foot) is the second proof and it
+guards a failure that does not look like one. `atAShippedDocument` keeps only rows whose
+`capturePath` names a profile document whose **bytes** are the bytes on disk. Re-recording a digest
+inside either frozen macOS 26.5 document — the charter's withdrawn first draft — changes those
+bytes, `SHIPPED_DOCUMENT_HASHES` stops holding the hashes the macOS 26.5 rows name, and every bound,
+floor, partition count and conditioning exclusion stated over that bed passes **vacuously**. The pin
+is `1,107` macOS 26.5-keyed rows in the matrix file, all 1,107 surviving the partition, captured at
+exactly two documents and no others. It is read over the matrix FILE rather than over the gate's
+filtered `MATRIX`, because the probe and inactive drops are a different question; 1,107 is the
+freeze's own count of macOS 26.5-keyed rows. Read today: 2,017 cells in the file, 1,562 at a shipped
+document, **1,107 of them macOS 26.5 and all 1,107 gated**, at
+`apple-macos-26.5-1x-{light,dark}-standard.json` and nothing else.
