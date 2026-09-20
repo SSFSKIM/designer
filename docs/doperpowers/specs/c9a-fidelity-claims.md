@@ -25483,7 +25483,7 @@ moves. Not a byte of frozen evidence, not a freeze entry, not a matrix row, not 
 | --- | --- |
 | `pnpm -r build` | exit 0 |
 | `pnpm -r lint` | exit 0 across all nine packages |
-| `pnpm -r test` | **2,515 passed** over 169 files, 0 failed — `@vitrea/calibration` **544 over 32 files**, against 540 over 31 before this gate (the identity file's 4 cases, the gated-bed pin's 2, `tier-coherence`'s 8) |
+| `pnpm -r test` | **2,515 passed** over 169 files, 0 failed — `@vitrea/calibration` **544 over 32 files**, against §5.155's 530 over 31 — the identity file's 4 cases, the gated-bed pin's 2 and `tier-coherence`'s 8 |
 | `python3 results/2026-09-16-w29-freeze/freeze.py verify` | **26.5 freeze intact: 1818 entries**, at this gate's opening and at its close |
 | `resolve-pre-wave.ts` | both documents resolve to their recorded digests and to the charter's Grounding; the files are written and hashed |
 | `holdout-drop-check.py` | exit 0 — no reader yields a holdout number without the flag, and every reader yields one with it |
