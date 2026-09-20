@@ -21,6 +21,7 @@ intact** at this gate's open and at its close.
 | `structure-cut.py` / `.txt` / `.json` | the structure cut: `interiorStdDev` per pitch per scheme per tier per span, active and inactive, macOS 26.5 and macOS 27, plus the scale comparison, the contrast discriminator and `sizeToneLevelFar`'s sign |
 | `holdout-drop-check.py` / `.txt` | the proof that no reader built on `fit.py`'s `cells()` yields a holdout number without `--with-holdout`, exercised on a scratch matrix that contains one |
 | `bounds-declaration.md` | the declarations, committed before G2 opens: the 27 tables unchanged and no floor, the five per-operator acceptances with their statistics and their fates, the claimed rows with lever and tier, the expected-unmoved and reported-not-claimed rows |
+| `departure-stat.py` / `.txt` / `.json` | **added by the review closure** (Decision Log 3 (a), claims §5.156 §9): B3's stop condition computed from the committed matrix rather than quoted — the mean absolute exterior departure per tier, per profile and pooled, with the partition sweep that shows §5.154 §3's 0.00074 is not reproducible from this file |
 
 ## The tests this gate adds
 
@@ -42,9 +43,18 @@ npx tsx results/2026-09-20-w30-g0-cut/resolve-pre-wave.ts
 python3 results/2026-09-20-w30-g0-cut/shadow-cut.py     > results/2026-09-20-w30-g0-cut/shadow-cut.txt
 npx tsx results/2026-09-20-w30-g0-cut/reach-table.ts    > results/2026-09-20-w30-g0-cut/reach-table.txt
 python3 results/2026-09-20-w30-g0-cut/structure-cut.py  > results/2026-09-20-w30-g0-cut/structure-cut.txt
+python3 results/2026-09-20-w30-g0-cut/departure-stat.py > results/2026-09-20-w30-g0-cut/departure-stat.txt
 python3 results/2026-09-20-w30-g0-cut/holdout-drop-check.py
 python3 results/2026-09-16-w29-freeze/freeze.py verify
 ```
+
+The review closure (2026-09-20) re-ran `shadow-cut.py`, `structure-cut.py` and
+`holdout-drop-check.py`: every figure the first run recorded reproduces unchanged, and the three
+outputs gain sections rather than losing any (`shadow-cut.txt` §9 and §10, `structure-cut.txt`'s
+computed row counts and its sRGB-code column, `holdout-drop-check.txt`'s `render` block).
+`structure-cut.py`'s scale comparison also gained the scene id as its last sort key, because the set
+iteration it relied on is hash-randomised per process and made two runs differ in line order while
+every figure agreed.
 
 ## The four things a later child should read first
 

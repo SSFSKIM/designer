@@ -145,12 +145,21 @@ Ratio:  interiorStdDevWeb / interiorStdDevNative. >1 vitrea passes MORE of the
 
 §1b. The pitch ladder has NO macOS 27 web row in the committed matrix
 ----------------------------------------------------------------------------------------------------------------
+  Every count here is COMPUTED from the file, and each is given twice: the
+  generation's own rows at a shipped document, and the subset of them that
+  carries an interior-structure reading (both interiorStdDev readings present,
+  native > 0). Every per-pitch figure below is read on the second.
+
+    generation                   calibration                validation                   holdout                     probe           total
+                           rows    w/ metric         rows    w/ metric         rows    w/ metric         rows    w/ metric    rows  metric
+    macOS 27                268          260           64           62          123          123            0            0     455     445
+    macOS 26.5              264          242           64           60           59           59          720          662    1107    1023
+
   The canonical read is calibration + validation, then holdout. The pitch ladder is
   entirely `probe`, and probe has never been read at a macOS 27 document — the
-  macOS 27 generation of `results/matrix.json` carries 260 calibration, 62
-  validation and 123 holdout rows and **zero probe rows**, against the macOS 26.5
-  generation's 662. §5.153 §6's per-pitch figures were read off G3's SCRATCH
-  matrices, which were never committed.
+  macOS 27 generation carries **zero probe rows**, against the macOS 26.5
+  generation's own probe rows above. §5.153 §6's per-pitch figures were read off
+  G3's SCRATCH matrices, which were never committed.
 
   So the macOS 27 per-pitch table does not exist in committed evidence and X2 says
   G0 does not capture one. What does exist is two halves that together say what the
@@ -764,17 +773,17 @@ Ratio:  interiorStdDevWeb / interiorStdDevNative. >1 vitrea passes MORE of the
     checkerboard__rrect-lg__rest                    16     2.027     0.651    0.321
     photo__rrect-sm__rest                                  0.583     0.500    0.858
     dark-solid__capsule-button__rest                       0.691     0.624    0.903
-    mid-dark-solid__capsule-button__rest                   0.597     0.483    0.810
-    light-solid__capsule-button__rest                      0.309     0.308    0.997
-    photo__toolbar-group__rest                             0.753     0.729    0.969
-    photo__capsule-button__rest                            0.675     0.619    0.917
     impulse__capsule-button__rest                          0.862     0.679    0.788
-    impulse__rrect-md__rest                                0.944     0.730    0.773
-    photo__rrect-md__rest                                  0.624     0.595    0.953
+    light-solid__capsule-button__rest                      0.309     0.308    0.997
+    mid-dark-solid__capsule-button__rest                   0.597     0.483    0.810
+    photo__capsule-button__rest                            0.675     0.619    0.917
+    photo__toolbar-group__rest                             0.753     0.729    0.969
     dark-solid__rrect-md__rest                             0.787     0.714    0.907
+    impulse__rrect-md__rest                                0.944     0.730    0.773
     light-solid__rrect-md__rest                            0.403     0.378    0.939
-    photo__rrect-ml__rest                                  0.604     0.597    0.987
+    photo__rrect-md__rest                                  0.624     0.595    0.953
     light-solid__rrect-ml__rest                            0.393     0.371    0.944
+    photo__rrect-ml__rest                                  0.604     0.597    0.987
     photo__glass-over-glass__rest                          0.931     0.937    1.007
     photo__rrect-lg__rest                                  0.561     0.567    1.010
     2x/1x over 24 scenes: median 0.858, min 0.271, max 1.010
@@ -792,17 +801,17 @@ Ratio:  interiorStdDevWeb / interiorStdDevNative. >1 vitrea passes MORE of the
     checkerboard__rrect-lg__rest                    16     1.197     0.460    0.384
     photo__rrect-sm__rest                                  0.404     0.386    0.955
     dark-solid__capsule-button__rest                       0.222     0.290    1.308
-    mid-dark-solid__capsule-button__rest                   0.219     0.322    1.470
-    light-solid__capsule-button__rest                      0.046     0.095    2.070
-    photo__toolbar-group__rest                             0.653     0.683    1.046
-    photo__capsule-button__rest                            0.611     0.632    1.035
     impulse__capsule-button__rest                          0.297     0.315    1.060
-    impulse__rrect-md__rest                                0.279     0.349    1.252
-    photo__rrect-md__rest                                  0.522     0.597    1.143
+    light-solid__capsule-button__rest                      0.046     0.095    2.070
+    mid-dark-solid__capsule-button__rest                   0.219     0.322    1.470
+    photo__capsule-button__rest                            0.611     0.632    1.035
+    photo__toolbar-group__rest                             0.653     0.683    1.046
     dark-solid__rrect-md__rest                             0.221     0.330    1.492
+    impulse__rrect-md__rest                                0.279     0.349    1.252
     light-solid__rrect-md__rest                            0.057     0.130    2.286
-    photo__rrect-ml__rest                                  0.479     0.537    1.121
+    photo__rrect-md__rest                                  0.522     0.597    1.143
     light-solid__rrect-ml__rest                            0.156     0.106    0.678
+    photo__rrect-ml__rest                                  0.479     0.537    1.121
     photo__glass-over-glass__rest                          0.955     0.975    1.022
     photo__rrect-lg__rest                                  0.440     0.513    1.166
     2x/1x over 24 scenes: median 1.046, min 0.384, max 2.286
@@ -813,11 +822,11 @@ Ratio:  interiorStdDevWeb / interiorStdDevNative. >1 vitrea passes MORE of the
     checkerboard__rrect-md__rest                    16     0.749     0.637    0.851
     checkerboard__glass-over-glass__rest            16     0.762     0.787    1.034
     dark-solid__capsule-button__rest                       0.718     0.521    0.726
-    photo__capsule-button__rest                            0.443     0.354    0.799
     impulse__capsule-button__rest                          0.904     0.801    0.887
     mid-dark-solid__capsule-button__rest                   0.684     0.489    0.714
-    photo__rrect-md__rest                                  0.412     0.373    0.905
+    photo__capsule-button__rest                            0.443     0.354    0.799
     dark-solid__rrect-md__rest                             0.881     0.651    0.739
+    photo__rrect-md__rest                                  0.412     0.373    0.905
     photo__rrect-lg__rest                                  0.340     0.323    0.951
     2x/1x over 10 scenes: median 0.851, min 0.714, max 1.034
 
@@ -827,11 +836,11 @@ Ratio:  interiorStdDevWeb / interiorStdDevNative. >1 vitrea passes MORE of the
     checkerboard__rrect-md__rest                    16     0.355     0.254    0.714
     checkerboard__glass-over-glass__rest            16     0.403     0.390    0.966
     dark-solid__capsule-button__rest                       0.157     0.161    1.026
-    photo__capsule-button__rest                            0.206     0.264    1.278
     impulse__capsule-button__rest                          0.260     0.222    0.852
     mid-dark-solid__capsule-button__rest                   0.214     0.198    0.926
-    photo__rrect-md__rest                                  0.229     0.257    1.120
+    photo__capsule-button__rest                            0.206     0.264    1.278
     dark-solid__rrect-md__rest                             0.163     0.161    0.987
+    photo__rrect-md__rest                                  0.229     0.257    1.120
     photo__rrect-lg__rest                                  0.219     0.247    1.127
     2x/1x over 10 scenes: median 0.987, min 0.714, max 1.278
 
@@ -903,35 +912,55 @@ Ratio:  interiorStdDevWeb / interiorStdDevNative. >1 vitrea passes MORE of the
   asks for a positive constant. W25 declined it because the per-row gains ran
   −1.13…+0.24 with the two grids disagreeing in sign.
 
+  TWO UNITS, both printed (review closure, W30 Decision Log 3 (e)). `interiorMean`
+  is linear-light relative luminance. The `linear x255` columns difference it and
+  scale by 255, which is what this cut first recorded and is left untouched; the
+  `sRGB code` columns encode each side to sRGB FIRST and difference the codes,
+  which is W25's own `resid` and the only unit comparable to W25's `lever` and
+  `gain`. The verdict is read on the sRGB columns and does not change: the sign is
+  stable per scheme and the magnitude is not.
+
   27 1x-dark — webgpu
-    backdrop              resid(96)  resid(160)         Δ
-    photo                      6.38        4.54     -1.84
-    n=1  median Δ -1.84  range -1.84…-1.84  positive on 0/1
+                                 linear x255 (as first cut)           sRGB code (W25's own unit)
+    backdrop              resid(96)  resid(160)           Δ    resid(96)  resid(160)           Δ
+    photo                      6.38        4.54       -1.84         7.72        5.56       -2.16
+    linear x255 (as first cut): n=1  median Δ -1.84  range -1.84…-1.84  positive on 0/1
+    sRGB code (W25's own unit): n=1  median Δ -2.16  range -2.16…-2.16  positive on 0/1
 
   27 1x-light — webgpu
-    backdrop              resid(96)  resid(160)         Δ
-    checkerboard              -0.30        1.03     +1.32
-    photo                     -3.48        3.77     +7.25
-    n=2  median Δ +7.25  range +1.32…+7.25  positive on 2/2
+                                 linear x255 (as first cut)           sRGB code (W25's own unit)
+    backdrop              resid(96)  resid(160)           Δ    resid(96)  resid(160)           Δ
+    checkerboard              -0.30        1.03       +1.32        -0.17        0.60       +0.77
+    photo                     -3.48        3.77       +7.25        -2.16        2.30       +4.46
+    linear x255 (as first cut): n=2  median Δ +7.25  range +1.32…+7.25  positive on 2/2
+    sRGB code (W25's own unit): n=2  median Δ +4.46  range +0.77…+4.46  positive on 2/2
 
   27 1x-light-increased-contrast-coupled — webgpu
-    backdrop              resid(96)  resid(160)         Δ
-    photo                     -3.52       -3.42     +0.09
-    n=1  median Δ +0.09  range +0.09…+0.09  positive on 1/1
+                                 linear x255 (as first cut)           sRGB code (W25's own unit)
+    backdrop              resid(96)  resid(160)           Δ    resid(96)  resid(160)           Δ
+    photo                     -3.52       -3.42       +0.09        -1.65       -1.61       +0.04
+    linear x255 (as first cut): n=1  median Δ +0.09  range +0.09…+0.09  positive on 1/1
+    sRGB code (W25's own unit): n=1  median Δ +0.04  range +0.04…+0.04  positive on 1/1
 
   27 1x-light-reduced-transparency — webgpu
-    backdrop              resid(96)  resid(160)         Δ
-    photo                     19.22       17.98     -1.24
-    n=1  median Δ -1.24  range -1.24…-1.24  positive on 0/1
+                                 linear x255 (as first cut)           sRGB code (W25's own unit)
+    backdrop              resid(96)  resid(160)           Δ    resid(96)  resid(160)           Δ
+    photo                     19.22       17.98       -1.24         8.81        8.25       -0.57
+    linear x255 (as first cut): n=1  median Δ -1.24  range -1.24…-1.24  positive on 0/1
+    sRGB code (W25's own unit): n=1  median Δ -0.57  range -0.57…-0.57  positive on 0/1
 
   27 2x-dark — webgpu
-    backdrop              resid(96)  resid(160)         Δ
-    photo                      6.70        4.67     -2.03
-    n=1  median Δ -2.03  range -2.03…-2.03  positive on 0/1
+                                 linear x255 (as first cut)           sRGB code (W25's own unit)
+    backdrop              resid(96)  resid(160)           Δ    resid(96)  resid(160)           Δ
+    photo                      6.70        4.67       -2.03         8.13        5.73       -2.39
+    linear x255 (as first cut): n=1  median Δ -2.03  range -2.03…-2.03  positive on 0/1
+    sRGB code (W25's own unit): n=1  median Δ -2.39  range -2.39…-2.39  positive on 0/1
 
   27 2x-light — webgpu
-    backdrop              resid(96)  resid(160)         Δ
-    checkerboard              -0.20        0.02     +0.22
-    photo                     -2.93        4.17     +7.10
-    n=2  median Δ +7.10  range +0.22…+7.10  positive on 2/2
+                                 linear x255 (as first cut)           sRGB code (W25's own unit)
+    backdrop              resid(96)  resid(160)           Δ    resid(96)  resid(160)           Δ
+    checkerboard              -0.20        0.02       +0.22        -0.12        0.01       +0.13
+    photo                     -2.93        4.17       +7.10        -1.82        2.54       +4.36
+    linear x255 (as first cut): n=2  median Δ +7.10  range +0.22…+7.10  positive on 2/2
+    sRGB code (W25's own unit): n=2  median Δ +4.36  range +0.13…+4.36  positive on 2/2
 
