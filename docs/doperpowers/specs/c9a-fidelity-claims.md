@@ -25379,3 +25379,85 @@ non-holdout row actually printed, so the check cannot pass because the reader pr
 then that `--with-holdout` does admit the row, so the check is discriminating. `merge` is checked on
 its output file rather than on a table. `holdout-drop-check.txt` is the record; it takes no capture
 and touches nothing outside its temporary directory (X2, X5).
+
+### 5. The declarations — what G4 judges this wave against
+
+`bounds-declaration.md` in this gate's evidence directory is the full copy and is committed **before
+G2 opens**, which is before the first leaf of either operator exists and therefore before any value
+of either is fitted (acceptance clause 3, X4). This is its summary.
+
+**(a) The 27 adopted tables stay at W29 Decision Log 4 (a)'s and Decision Log 5's values, and no
+floor is adopted, on any profile, on either tier.** The values are not transcribed here or anywhere
+else: `test/adopted-thresholds.test.ts` is the only copy the rule allows, its 27 tables are
+**aliases** of the macOS 26.5 constants rather than literals, and three cases in that file hold the
+ruling — the roster (`DECLARED_27_PROFILES`, six profiles, the confounded key excluded),
+`RULED_EQUAL_TO_26_5` (twelve entries, row for row), and the no-floor case over
+`REGRESSION_FLOORS`. The no-floor rule is W29's and its reason is unchanged: the macOS 27 bed is
+published at the seven-run probe bar and a floor needs the seventeen-run freeze bar. A miss at G4's
+read is recorded, not widened and not floored.
+
+**(b) The wave's own acceptance, per operator, each with the statistic it is read by and its fate.**
+
+| # | acceptance | statistic | fate |
+| --- | --- | --- | --- |
+| B1 | the fitted σ_css at spans 96/128/160 within **±5 %** of that bed's median native σ, on all four standard beds and on the accessibility beds at the spans they carry | upper middle order statistic over the bed's active cells at that span that survive `σ_css > span`; fitted σ is the law's closed form, not a re-read | **adopted at G4 if it passes** |
+| B2 | the fitted σ_css at span 44 within a factor **1.5 either way** of the bed's thin-span median — "no longer 2.8–7.2× too wide" with a number | the same order statistic over the **untinted, non-holdout, non-excluded, dpr-1** span-44 active cells: **1.84 (8 cells, 1.42–2.05)** on 1x light, **1.54 (6, 1.42–1.70)** on 1x dark, 1.50/1.52/1.50 over 3 on the three accessibility beds | **a one-wave reading** |
+| B3 | the **departure residual** held at or better than **0.0007** bed-wide, mean absolute | the shadow axis's own mean exterior departure, on non-holdout cells of every profile | **a stop condition** on whether G3's fit may be sealed |
+| B4 | the WebGPU structure ratio moves toward 1.0 on all six profiles and past it on none, landing within **0.8–1.25** on the four standard beds; no ladder pitch inside 0.8–1.25 today leaves it | `interiorStdDevWeb / interiorStdDevNative` from the matrix, exactly as `tier-coherence.test.ts` now reads it | **a one-wave reading**; the CSS tier **recorded, not bounded** |
+| B5 | `sizeToneLevelFar` stays at 0, unfitted, and out of `FITTED_CONSTANTS` | §3's `resid(160) − resid(96)` per backdrop | **declined; the decline is the declaration** |
+
+The two thresholds are justified from the bed's own spread rather than chosen. **±5 %** on the thick
+regime is wider than the line's own max residual on the medians (0.1–0.7 %) and narrower than the
+instrument's cross-scale disagreement (1.3–6.8 %), so it can fail and cannot fail for a reason the
+bed already contains. **1.5** on the thin regime is the full-range spread of the statistic's own
+cells — 1.42–2.05 is a factor of 1.44 on 1x light and 1.42–1.70 is 1.20 on dark — rounded up, so the
+clause asserts "no wider than the widest cell and no narrower than the narrowest" and nothing more;
+against today's 5.97× and 7.14× it has room to fail in.
+
+B2 and B4 stay one-wave readings for reasons that are measurements, not caution. **B2**, because
+§2 has just shown the thin-span (amplitude, σ) pair is not identified and bifurcates on the author's
+tint; a bound adopted into `adopted-thresholds.test.ts` is a standing promise about the material and
+this is a statement about a reading. **B4**, because §3 has just shown the macOS 27 generation
+carries no probe row, so a ratio adopted on one pitch would be a standing promise about a curve read
+at one point. Both name what would make them adoptable: a thin-span cell whose amplitude lets the
+pair separate, and the ladder read at a macOS 27 document.
+
+The σ law is fitted on **non-holdout** cells throughout, with the holdout cells' native σ reported
+beside as a check (X4). Span 130 has no fittable cell on any bed and the three accessibility beds
+have none above span 96, so both arrive by extrapolation and their holdout readings are the only
+check there is.
+
+**(c) The rows this wave claims, with the lever and the tier.** Three of the seven
+`MISSED_27_ROWS`, all the **shadow's**:
+
+- `checkerboard__rrect-lg__rest :: ssimMean` on 1x-light `dom`, 0.88402 against ≥ 0.9 — span **160**,
+  where the shipped σ is 0.64× the native and the reach is 12 CSS px short.
+- `checkerboard__glass-over-glass__rest :: ssimMean` on 1x-light `dom`, 0.89538 against ≥ 0.9 —
+  span **130**, the same lever, and the span with no fittable cell anywhere.
+- `photo__rrect-lg__rest :: ssimOutside` on reduced-transparency `dom`, 0.82707 against ≥ 0.83 —
+  **"reachable if the law extrapolates"**, scored outside the silhouette at span 160, and that
+  profile's only span-160 native σ (16.97) is read on this holdout cell itself.
+
+Both `ssimMean` rows are the shadow's and **not the scatter's**, and that is a decision with a
+measurement behind it: the shadow mirrors fully onto the CSS tier (one `box-shadow` blur radius per
+surface) while the scatter reaches `dom` only as a scalar, and on 1x light the CSS tier already
+passes 0.968 of the native structure where the WebGPU tier passes 1.567 — so a scalar refitted to
+carry a WebGPU scatter operator moves exactly these rows the wrong way. `tier-coherence.test.ts`
+pins both readings before the fit so that if it happens it is seen.
+
+**(d) Expected unmoved, and reported but not claimed.** The four dark
+`photo__rrect-lg__rest :: oklabDeltaEP95` rows (0.20095 and 0.19474 on `dom`, 0.21521 and 0.21344 on
+`texture`) are **expected unmoved**: they are chromatic, the tone solve is achromatic by
+construction, and a fit that appears to move them is recorded as a warning that the scatter reached
+the chromatic axis rather than claimed as a result (X3). The reduced-transparency body-structure
+residual is **reported, not claimed**, and the declaration names the instrument with the number
+because the two instruments disagree in the residual's direction: the sheets read native sd 0.43
+against WebGPU 3.49 (**8.1×**), the matrix metric reads 0.0562 against 0.0459 (**0.818×**), and G4
+reports both.
+
+**What is deliberately not declared:** no bound on the inactive pose on either operator (no inactive
+calibration cell above span 96 exists; the receded exterior is reported on the inactive holdout
+rows); no bound at span 130; no bound on the accessibility profiles' scatter, which inherit the
+1x-light standard document's values because five ladder rungs identify a scalar and not a curve; no
+floor; and no claim on the chromatic axis, the highlight's directionality, the level law's abscissa
+or the decoupled-contrast read, all out of scope by the charter's own Deferred list.
