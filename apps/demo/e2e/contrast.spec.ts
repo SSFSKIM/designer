@@ -14,6 +14,24 @@ import { expect, test, type Page } from "@playwright/test";
 
 import { BODY_FLOOR, LARGE_FLOOR, worstNow, worstRatio } from "./glass-contrast";
 
+/*
+ * Three times the default timeout for every case in this file, which is the
+ * one-line fix `specs/tech-debt-tracker.md` has been holding since 2026-09-11
+ * and said to take with the next demo e2e change. This is that change.
+ *
+ * The budget here is structural rather than incidental: the phase-sampled cases
+ * sleep through `SAMPLE_DELAYS` — 13 s of fixed waiting — and screenshot every
+ * `.plate strong` at each phase, and the ground sweep below walks twenty slider
+ * stops with a settle at each. The tracker measured one of them at 24.1 s
+ * against a 30 s default on an idle machine, and at W29 G4 the sweep crossed it
+ * outright: the macOS 27 material blurs the CSS tier at 2.2 times the sigma the
+ * macOS 26.5 one did, which is more work per frame at every one of those stops.
+ *
+ * It buys time and nothing else. No sample, no floor and no assertion moves, and
+ * a case that fails on a floor still fails on it.
+ */
+test.slow();
+
 async function showSection(page: Page, id: string): Promise<void> {
   await page.goto("/?renderer=css");
   await page.waitForSelector("[data-vitrea-root]", { state: "attached" });

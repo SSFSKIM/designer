@@ -2129,6 +2129,16 @@ moved: every demo test has passed on `108b40d`, just not all in one run. The fix
 contrast tests — and it was left out of the stopping-point commit so that commit changes no test
 configuration; take it with the next demo e2e change and re-run the suite once, serially.
 
+**CLOSED 2026-09-20 by W29 G4** (claims §5.155 §6), in the shape this entry names and at the moment
+it predicted. `test.slow()` at the top of `apps/demo/e2e/contrast.spec.ts` gives every case in the
+file three times the default, and nothing else moves: no sample, no floor and no assertion. What
+tipped it over was the material — the macOS 27 document blurs the CSS tier at 2.2 times the sigma
+the macOS 26.5 one did, which is more work per frame at each of the ground sweep's twenty stops, and
+"the plates' labels hold the large-text floor at every ground level" timed out **serially on an idle
+machine** where this entry had it at 24.1 s of 30. It is worth recording that the failure arrived as
+a timeout rather than as a contrast miss: the floors all held, and a budget written against one
+material is not a property of the page.
+
 ## Three W27a features have a prop and a README paragraph and no live instance (0.16.0 eye sheet, 2026-09-11)
 
 `GlassButton tint` / `foreground`, `GlassGroup tint` and the four named ink levels
