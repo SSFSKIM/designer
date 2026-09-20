@@ -128,11 +128,15 @@ describe("W30's exemption is inert at the material level (acceptance clause 1, X
       // frozen bytes (W30 Decision Log 1 (a)).
       expect(document.resolvedMaterialSha256).toBe(pinned);
 
+      // `toStrictEqual` rather than `toEqual`, because `toEqual` treats a key
+      // holding `undefined` as absent — so a leaf added at an undefined default,
+      // and not named in `W30_OPERATOR_LEAVES`, would pass the identity it exists
+      // to fail (W30 Decision Log 3 (e), claims §5.156 §9).
       expect(
         without(resolved, W30_OPERATOR_LEAVES),
         `${key}: the resolved material differs from the pre-wave evidence outside ` +
           `W30_OPERATOR_LEAVES — the exemption is for the digest, not for the material`,
-      ).toEqual(without(preWave, W30_OPERATOR_LEAVES));
+      ).toStrictEqual(without(preWave, W30_OPERATOR_LEAVES));
     });
   }
 
