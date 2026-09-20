@@ -501,9 +501,12 @@ export function Site(props: SiteProps): ReactNode {
           <h3 className="h3">What these numbers are, and are not</h3>
           <ul className="list">
             <li>
-              {MEASURED_CELL_COUNT} cell measured so far, against constants that are
-              still the seeded advisory defaults. Fidelity tuning is a separate task
-              in flight; it writes into the same result matrix this page reads.
+              {MEASURED_CELL_COUNT} cells in the result matrix this page reads, which
+              holds one generation per profile: the rows measured at the material
+              documents the runtime currently ships. Readings taken at a document a
+              later refit superseded are kept beside it, in
+              <code> packages/calibration/results/superseded/</code>, and are not
+              counted here.
             </li>
             <li>
               Every figure is keyed to its cell: native profile, engine and version,

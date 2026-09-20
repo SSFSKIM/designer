@@ -70,6 +70,23 @@
  * would have had the 2x run overwrite the 1x one and both accessibility profiles
  * overwrite light-standard — silently, and with plausible numbers, which is the
  * exact failure the scheme keying was introduced to prevent.
+ *
+ * ## What a run appends, and where the generation it supersedes goes (W30 G1)
+ *
+ * A cell's key carries the `capturePath`, and the `capturePath` names the material
+ * profile document and that document's twelve-hex content hash. So a run driven
+ * from a re-sealed document does not overwrite the rows read at the old bytes —
+ * their keys differ, and the upsert APPENDS a generation beside them. That is the
+ * rule that a recorded number is never rewritten, and it is why this file grows.
+ *
+ * It is not where a superseded generation lives. Once the refit has landed,
+ * `results/2026-09-20-w30-g1-split/split-generation.py` moves every row whose
+ * documents are no longer on disk to `results/superseded/<document-sha>.json`,
+ * byte for byte, with `results/superseded/README.md` naming each file by the
+ * document, the claims section and the read. The invariant every reader may rely
+ * on is then plain: **`results/matrix.json` holds one generation per profile**,
+ * so "which generation ships" is a name rather than a timestamp or a computation.
+ * `--out-matrix` and `VITREA_WEB_CAPTURES` scratch paths are outside all of this.
  */
 
 import { spawnSync } from "node:child_process";

@@ -24833,3 +24833,193 @@ The whole browser suite was run rather than the one spec, because the harness's 
 by every spec in it. `DEFAULT_MATERIAL_PROFILE` is untouched, no golden was re-recorded,
 `results/matrix.json` gains no row, and the macOS 26.5 freeze verifies intact at this closure's close
 as it did at the gate's. The status line is unchanged: **0.19.0 PREPARED, UNPUBLISHED**.
+
+---
+
+## 5.157 W30 G1: the matrix's generation split — one generation per profile in the working file, the superseded one moved byte for byte and findable by name, 16.3 MB off the file and 8.8 MB off the demo bundle (2026-09-20)
+
+*Executes W30 Decision Log 1 (d) and contract X7, acceptance clause 6. No capture, no browser run,
+no material change, no constant, bound, floor or predicate touched. Charter:
+`specs/2026-09-20-w30-operator-wave.md`. Evidence:
+`packages/calibration/results/2026-09-20-w30-g1-split/` and `results/superseded/`.*
+
+### 1. What the file held, and what it holds now
+
+A cell's key carries its `capturePath`, and the `capturePath` names the material profile document
+and that document's twelve-hex content hash. A refit moves the document's bytes, so the next
+canonical run does not overwrite the rows read at the old bytes — their keys differ and the upsert
+**appends a generation beside them**. That is the rule that a recorded number is never rewritten,
+and it is the whole reason the file grows.
+
+At the 0.19.0 head `results/matrix.json` held **2,017 rows, 72,102,187 bytes**: 1,107 macOS 26.5
+rows and **two** macOS 27 generations of 455 rows each — W29 G3's refit read (§5.153) and W29 G3b's
+re-sealed read (§5.154), the one 0.19.0 published (§5.155). GitHub warns above 50 MB and refuses
+above 100, and W30's own read appends about 455 more. The tracker entry
+("`results/matrix.json` is 52.9 MB, past GitHub's recommended file size") named three shapes and
+recommended the second; the user delegated the ruling and the parent took it as Decision Log 1 (d).
+
+After the split:
+
+| file | rows | bytes | sha256 |
+| --- | ---: | ---: | --- |
+| `results/matrix.json` **before** | 2,017 | 72,102,187 | `9f73a2f7911c526fbf6f8c403e0b215419297236db93f07a8136be816b370c49` |
+| `results/matrix.json` **after** | 1,562 | 55,768,930 | `68cdd64c2a6877db9577a61917338151c96abdf72e76e3ecaae174a22f8ebb10` |
+| `results/superseded/fa872c683f3e.json` | 343 | 12,421,699 | `c79d99264770ccdc97317a948564eefdaa1c43aa2c1f3c63d527a1096cd7f615` |
+| `results/superseded/96b36eedf1c4.json` | 112 | 3,911,642 | `490b395e4127713f24197d2fc5f0985dc0c46f367bf44d61520fc3bcb504a8e7` |
+
+The working file loses **16,333,257 bytes**. The three files together are **84 bytes larger** than
+the one was, and the 84 is derived rather than shrugged at: each file repeats the 48-byte envelope
+(`{"schemaVersion": 5, "cells": [ … ]}` pretty-printed), so two new files add 96 bytes, and two
+element separators of 6 bytes each disappear with them — 96 − 12 = 84. Nothing else changed size,
+because nothing else changed.
+
+A second reading, not asked for and worth recording: the demo imports the matrix at build time, so
+the split takes **8,790.01 kB off the site's main chunk** — `dist/assets/index-*.js` measured at
+**39,062.53 kB (gzip 2,883.22)** with the pre-split file and **30,272.52 kB (gzip 2,297.67)** with
+the split one, same tree, same command.
+
+### 2. Rows per profile, per generation
+
+| profile key | before | working file | moved |
+| --- | ---: | ---: | ---: |
+| `apple-macos-26.5-1x-dark-standard` | 219 | 219 | 0 |
+| `apple-macos-26.5-1x-light-increased-contrast` | 55 | 55 | 0 |
+| `apple-macos-26.5-1x-light-reduced-transparency` | 52 | 52 | 0 |
+| `apple-macos-26.5-1x-light-standard` | 281 | 281 | 0 |
+| `apple-macos-26.5-2x-dark-standard` | 218 | 218 | 0 |
+| `apple-macos-26.5-2x-light-standard` | 282 | 282 | 0 |
+| `apple-macos-27.0-1x-dark-standard-glass0.5` | 112 | 56 | 56 |
+| `apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5` | 70 | 35 | 35 |
+| `apple-macos-27.0-1x-light-reduced-transparency-glass0.5` | 64 | 32 | 32 |
+| `apple-macos-27.0-1x-light-standard-glass0.5` | 276 | 138 | 138 |
+| `apple-macos-27.0-2x-dark-standard-glass0.5` | 112 | 56 | 56 |
+| `apple-macos-27.0-2x-light-standard-glass0.5` | 276 | 138 | 138 |
+| **total** | **2,017** | **1,562** | **455** |
+
+**Not one macOS 26.5 row moved** (X1), and the 1,107 of them keep their relative order in the file.
+
+### 3. The rule for `<document-sha>`, when a generation is several documents
+
+A canonical run names up to two documents per row: the **active** document (`--material-profile`,
+which also selects the runtime material the patch is a difference from) and, on a run that poses its
+inactive scenes, the **receded** document (`--receded-profile`), which is by construction a
+difference over the active document of its own scheme. A generation is therefore a *set* — a light
+active and its receded, a dark active and its receded — and a set has no single hash.
+
+**The rule: a superseded file is named by the ACTIVE document's twelve-hex SHA-256, and a receded
+document never names a file.** It travels with the active document it is a difference from, because
+a difference document cannot be read apart from the document it differs from. A light generation and
+a dark generation land in two files, which is right: they are two materials, refitted together but
+read apart, and the light file is the one somebody looking for "the light bed before the refit"
+wants. A row is **current** only when *every* document it names is on disk at the bytes it records —
+one superseded receded document supersedes the row, because a reading posed with a receded document
+nobody ships is not a reading of the shipped material whatever its active document says.
+
+**And it is a lookup, not a regex.** `results/superseded/index.json` carries `byDocumentSha256`,
+which maps every document hash a superseded row names — active and receded alike — to the file
+holding it, and `files`, which carries each file's documents, claims section, capture window,
+supersession date, row count, bytes and whole-file digest. `results/superseded/README.md` states the
+same table in prose. A reader that has a hash asks the index; a reader that has none reads the
+working file, which is the shipped generation by construction.
+
+The two files here are W29 G3's read (§5.153), superseded by G3b's re-seal (§5.154) and published
+at §5.155. Neither names a receded document: G3's read predates the receded documents, which G3b
+sealed. The shipped 455 rows were read at `f42ddec1cf5a` / `272d1b0c3e10` with `59d4b20a4596` /
+`5c81bc72edad`, which are the four files `canonical-read.sh` was sealed at.
+
+### 4. One cell exists only in the superseded file, and it is named rather than rounded away
+
+`apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5`, `hc-text__capsule-button__inactive`,
+dom tier, holdout. §5.154 records why: at G3b's read the CSS tier's extracted contour there is
+0.00 px and `contourCurvature` refuses rather than reporting, so that read produced **no row** for
+the cell and G3's row stayed newest — the one of §5.155 §3's 456 that does not name a shipped
+document. Moving the superseded generation therefore takes this cell out of the working file rather
+than leaving a stale twin behind, which is the honest outcome: the working file states what was
+measured at the material that ships, and this cell was not. The row is in `fa872c683f3e.json`, it is
+holdout and inactive, and both the inactive-pose drop and the generation drop in
+`adopted-thresholds.test.ts` already excluded it from every bound, floor, predicate and count — so
+no gated number moves. Nothing was re-read and nothing should be.
+
+### 5. The append-check: a reconstruction, not a tally
+
+`results/2026-09-20-w30-g1-split/append-check.py`, output committed at `append-check.txt` and
+`append-check.json`. Six clauses, all **PASS**:
+
+| clause | what it proves |
+| --- | --- |
+| rows accounted for | every one of the 2,017 before-rows appears exactly once, in the file its recorded destination names |
+| rows byte-identical | each row's canonical JSON (sorted keys, no whitespace — `freeze.py`'s own construction) hashes to the digest taken before the split |
+| 26.5 untouched | no `apple-macos-26.5-*` row moved, and their relative order in the working file is the order they had |
+| order preserved | within every file the rows are in the before order |
+| counts add up | per profile key, working + moved == before (the table in §2) |
+| **reconstruction** | the pre-split file, recomposed from the parts in the recorded order, hashes to `9f73a2f79…` — the digest taken before a byte moved |
+
+The last clause is the one that makes the other five a formality rather than the other way round: a
+reconstruction that hashes to the recorded digest cannot have lost a row, changed a row or reordered
+one. The per-clause assertions exist to say *which* property failed when it does. The before-witness
+is `before-manifest.json`, written by the split script from the file as it stood, before it wrote
+anything; `plan-before.txt` records the file and the plan at the same moment, and git is the backstop
+behind both.
+
+**Rows move as raw text slices, never through a JSON round trip.** Parsing this file and
+re-serialising it with Python's printer produces 72,095,631 bytes against V8's 72,102,187 — about
+6.5 kB of number-printing disagreement — so a round trip would have "moved" several thousand recorded
+numbers. The split walks the raw bytes of the `cells` array and slices each element out whole.
+
+### 6. The freeze
+
+`python3 packages/calibration/results/2026-09-16-w29-freeze/freeze.py verify` → **26.5 freeze
+intact: 1,818 entries**, unchanged, with nothing exempted, at this child's head. The freeze's row
+hashing was checked against this change before it was made rather than after: it skips every non-26.5
+row, hashes each 26.5 row by canonical content, labels it `matrix-row:<profileKey>:<sceneId>:<n>`
+with `n` a positional counter over 26.5 rows **in file order**, and compares the whole list
+**ordered**. Deleting macOS 27 elements changes neither the 26.5 rows' content nor their sequence, so
+all 1,107 row entries re-derive identically. `freeze.py` is not edited.
+
+### 7. The consumers, each reading the generation by name
+
+| consumer | before | now |
+| --- | --- | --- |
+| `test/adopted-thresholds.test.ts` — `atAShippedDocument` | the generation filter: kept only rows whose `capturePath` named a current document hash, which is how "which generation ships" was decided | byte-hash check **unchanged**, comment rewritten. Over the split file it drops nothing, and that is the point. It stays at full strength as the **guard** that a profile document edited without a re-read empties its own profile out of every bound — which is what W30's exemption shape leans on, since the macOS 26.5 documents' bytes are an input to all 1,107 frozen rows |
+| `apps/demo/src/site/calibration.ts` — `reportsFor` | sorted on `primacy` then `b.capturedAt.localeCompare(a.capturedAt)` to pick the newest generation | the tie-break is **retired**; the sort is `primacy` alone, stable, so ties keep the matrix's own order. `capturedAt` is still carried and still printed — it is when the reading was taken, no longer which reading counts. The comment is rewritten to say so |
+| `apps/demo/src/site/Site.tsx` | "{N} cell measured so far", N = 2,017 — a number that double-counted the same cells at two document generations | N = 1,562, with the copy saying what the number is: the cells in the file the page reads, one generation per profile, with superseded readings kept beside it and not counted |
+| `scripts/vibrancy.ts` | `provenance.matrixSha256`, a whole-file digest | unchanged, plus `matrixSha256Lineage`: the four digests this reader has recorded, with what moved the file between them. The committed tables keep the value each was written at, byte for byte — the new digest is recorded **beside** the old, never over it |
+| `cli/compare.ts` | documented the append; said nothing about where a superseded generation goes | a header section stating the invariant readers may rely on: the working file holds one generation per profile, and the split script moves what a refit supersedes. Behaviour unchanged; `--out-matrix` and `VITREA_WEB_CAPTURES` scratch paths are outside all of it |
+| `cli/diff.ts`, `cli/gates.ts`, `src/report.ts`, `test/backdrop-mode.test.ts`, `test/compare-gates.test.ts` | carry the path in strings and comments only | unchanged, checked |
+
+**Grepped for a reader the charter missed** — the whole repository including `.github/` — and there
+is none. Every other hit is prose in a spec, a historical claims entry, or `apps/demo/tsconfig.json`
+and `README.md`/`DESIGN.md` naming the path so the build can resolve it. No workflow reads the
+matrix. `vibrancy.ts` reads only `apple-macos-26.5-1x-light-standard` rows, none of which moved.
+
+### 8. The script, and why G4 runs it again
+
+`results/2026-09-20-w30-g1-split/split-generation.py` takes **the document hashes that are current**
+and moves everything else. `--current <12hex>` names them explicitly; with no flag it derives them
+from the bytes of every file in `packages/calibration/profiles/`, which is exactly what
+`SHIPPED_DOCUMENT_HASHES` derives, so the split and the gate cannot disagree about which generation
+ships. `plan` prints what would move without moving it; `apply` writes the before-manifest first,
+then the superseded files, then the working file, and it **refuses to overwrite** a superseded file
+that already exists. It also refuses a superseded row whose active document is current, rather than
+writing a file whose name would misdescribe it — that shape does not occur today, because a
+generation's documents move together, and it is refused rather than guessed at because the file name
+*is* the index.
+
+X7 applies the rule twice: G1 moves the generation superseded today, and G4 runs the same script with
+no arguments after its own read has sealed new documents, so the invariant is true at the wave's
+close and not only here. `--claims` labels the generation in the index.
+
+### 9. The chain at this child's head
+
+| step | result |
+| --- | --- |
+| `pnpm -r build` | exit 0 |
+| `pnpm -r lint` | exit 0 |
+| `pnpm -r test` | **2,501 passed** over 168 files, 0 failed (core 302, platform-web 618, react 163, renderer-webgpu 497, calibration 530, geometry 170, motion 164, policy 23, demo 34) |
+| `pnpm --filter demo build` | exit 0; main chunk 30,272.52 kB against 39,062.53 kB pre-split |
+| `freeze.py verify` | **intact at 1,818 entries** |
+| `append-check.py` | 6 clauses **PASS**, reconstruction to `9f73a2f79…` |
+
+No material constant, profile document, fixture, golden, bound, floor or `PREDICATE_EXCLUDES` line
+was touched. The gated bed is the same bed: every row the gate read before the split it reads after
+it, and every row it did not, it still does not.

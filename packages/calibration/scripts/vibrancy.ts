@@ -161,6 +161,56 @@ const SPEC_FILES = [
  */
 const PROFILE_KEY = "apple-macos-26.5-1x-light-standard";
 
+/**
+ * Every whole-file digest this reader has recorded for the canonical matrix, and
+ * what moved the file between them — newest last, appended to, never rewritten.
+ *
+ * `provenance.matrixSha256` is a digest over the WHOLE of `results/matrix.json`,
+ * so it moves whenever any row anywhere in the file does, including rows this
+ * reader never looks at: the corpus above reads macOS 26.5 rows alone, and the
+ * digest recorded beside a committed table has been superseded by every macOS 27
+ * read since. That is a property of a whole-file digest and not a defect, but it
+ * makes the recorded value unusable on its own — a person checking a committed
+ * table's provenance against today's file finds a mismatch and no account of it.
+ *
+ * So the account lives here, in the code that records the digest, and travels
+ * into every future table beside the live reading. The committed tables keep the
+ * value each was written at, byte for byte: a recorded number is never rewritten,
+ * and the new digest is recorded BESIDE the old.
+ */
+const MATRIX_SHA256_LINEAGE = [
+  {
+    sha256: "a1b20a10d6af4dcad311ed557638e588b9764cf2f666abd008dd1a088e3edf49",
+    recordedIn: [
+      "results/2026-09-11-w27e-g0-vibrancy/table.json",
+      "results/2026-09-11-w27e-probe/table.json",
+    ],
+    note: "The file as W27e G0 read it (claims §5.133), 2026-09-11.",
+  },
+  {
+    sha256: "6d68658d396e5344f09ccc6d5d064e47107e8a1d168e1b059e5c1dadd7a179b5",
+    recordedIn: ["results/2026-09-13-w27e-probe-1x-reading/table.json"],
+    note: "The 1x probe reading, 2026-09-13; W27f G2's canonical stack correction had landed.",
+  },
+  {
+    sha256: "9f73a2f7911c526fbf6f8c403e0b215419297236db93f07a8136be816b370c49",
+    recordedIn: [],
+    note:
+      "The 0.19.0 head: 2,017 rows, 72,102,187 bytes, W29 G3's and G3b's macOS 27 "
+      + "generations both in the file. Not recorded in any table; taken by W30 G1 "
+      + "before the split so the two sides of it are both attested (claims §5.157).",
+  },
+  {
+    sha256: "68cdd64c2a6877db9577a61917338151c96abdf72e76e3ecaae174a22f8ebb10",
+    recordedIn: [],
+    note:
+      "After W30 G1's generation split: 1,562 rows, 55,768,930 bytes. The 455 rows "
+      + "W29 G3 read moved, byte for byte, to results/superseded/fa872c683f3e.json "
+      + "and 96b36eedf1c4.json. No macOS 26.5 row moved or changed, so nothing this "
+      + "reader reads moved; the whole-file digest did (Decision Log 1 (d), X7).",
+  },
+] as const;
+
 /** Rec.709 luma, the weights every matrix in the corpus factors through. */
 export const LUMA_REC709 = [0.2126, 0.7152, 0.0722] as const;
 
@@ -1019,6 +1069,7 @@ function main(argv: readonly string[]): void {
       profile: DEFAULT_MATERIAL_PROFILE.backdropToneLow === 0.02 ? "shipped" : "patched",
       matrixProfileKey: corpus.matrixProfileKey,
       matrixSha256: sha("packages/calibration/results/matrix.json"),
+      matrixSha256Lineage: MATRIX_SHA256_LINEAGE,
       dumpDirectories: corpus.dirs,
       dumpsRead: reading.dumps.length,
       occurrences: reading.rows.length,

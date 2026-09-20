@@ -3356,6 +3356,37 @@ tie-break a lookup too. The file measures **72.1 MB** at this landing's head
 (`stat`, 2026-09-20), which is the number the next reader should check against
 GitHub's 100 MB refusal: it is one recapture from it, not two or three.
 
+**EXECUTED 2026-09-20 by W30 G1** (claims §5.157; ruled by the user's delegation as
+W30 Decision Log 1 (d), which took the *split by generation* option this entry
+recommends). Everything above is left as G3b and G4 wrote it; this is the outcome
+recorded beside it.
+
+`results/matrix.json` went from **2,017 rows / 72,102,187 bytes** to **1,562 rows /
+55,768,930 bytes** — every macOS 26.5 row unchanged and in its order, and per macOS
+27 profile only the rows read at the four shipped documents. W29 G3's superseded
+generation moved byte for byte to `results/superseded/fa872c683f3e.json` (343 rows,
+12,421,699 B) and `96b36eedf1c4.json` (112 rows, 3,911,642 B), with a README and an
+`index.json` lookup beside them. The naming rule the entry left open: a file is
+named by the **active** document's twelve-hex hash, and a receded document never
+names a file because it is a difference over its own scheme's active document; the
+index maps every hash, active and receded, to its file. The split and the check are
+scripts under `results/2026-09-20-w30-g1-split/`, and W30 G4 runs the split again
+for the generation its own read supersedes (contract X7).
+
+The three consumers the entry worried about: `atAShippedDocument` keeps its
+byte-hash check but is now purely the guard that an edited document empties its own
+bed, since over the split file it drops nothing; the demo's `capturedAt` tie-break
+is **retired**, the heuristic replaced by the name the entry said belonged there;
+`vibrancy.ts`'s `matrixSha256` provenance gained a lineage recording the new digest
+beside the old. Two unbudgeted readings: the demo's main bundle fell 39,062.53 kB →
+30,272.52 kB, because the site imports the matrix at build time; and the file's
+growth rate is unchanged, so the *rate* question this entry raises is answered only
+in the sense that the working file now sheds a generation each time it gains one.
+**What stays open**: nothing here, but the sibling question the entry did not ask —
+whether the superseded directory itself should ever be pruned, compressed or moved
+out of the repository — is not decided, and the first reader who finds
+`results/superseded/` uncomfortably large should raise it rather than delete a file.
+
 ---
 
 ## The fit loop's holdout drop lives in one reader, and the other reader has none

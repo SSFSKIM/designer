@@ -1,0 +1,56 @@
+{
+  "what": "Every superseded generation of canonical rows, by the document each was read at. `byDocumentSha256` is the lookup: a twelve-hex document hash — active or receded — maps to the file holding the rows that name it.",
+  "rule": "A file is named by the ACTIVE document's twelve-hex SHA-256. A receded document never names a file; it is a difference over the active document of its own scheme and travels with it.",
+  "files": {
+    "96b36eedf1c4.json": {
+      "activeDocumentSha256": "96b36eedf1c4",
+      "documents": [
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+          "sha256": "96b36eedf1c4"
+        }
+      ],
+      "readUnderClaims": "c9a §5.153 (W29 G3)",
+      "capturedAt": {
+        "first": "2026-09-19T09:40:46.176Z",
+        "last": "2026-09-19T09:47:38.227Z"
+      },
+      "supersededOn": "2026-09-20",
+      "rowCount": 112,
+      "rowsByProfileKey": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5": 56,
+        "apple-macos-27.0-2x-dark-standard-glass0.5": 56
+      },
+      "bytes": 3911642,
+      "sha256": "490b395e4127713f24197d2fc5f0985dc0c46f367bf44d61520fc3bcb504a8e7"
+    },
+    "fa872c683f3e.json": {
+      "activeDocumentSha256": "fa872c683f3e",
+      "documents": [
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+          "sha256": "fa872c683f3e"
+        }
+      ],
+      "readUnderClaims": "c9a §5.153 (W29 G3)",
+      "capturedAt": {
+        "first": "2026-09-19T09:35:49.850Z",
+        "last": "2026-09-19T09:48:10.997Z"
+      },
+      "supersededOn": "2026-09-20",
+      "rowCount": 343,
+      "rowsByProfileKey": {
+        "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 35,
+        "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": 32,
+        "apple-macos-27.0-1x-light-standard-glass0.5": 138,
+        "apple-macos-27.0-2x-light-standard-glass0.5": 138
+      },
+      "bytes": 12421699,
+      "sha256": "c79d99264770ccdc97317a948564eefdaa1c43aa2c1f3c63d527a1096cd7f615"
+    }
+  },
+  "byDocumentSha256": {
+    "96b36eedf1c4": "96b36eedf1c4.json",
+    "fa872c683f3e": "fa872c683f3e.json"
+  }
+}

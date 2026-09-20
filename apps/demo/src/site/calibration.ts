@@ -124,10 +124,10 @@ function figuresOf(cell: Cell): readonly Figure[] {
 /*
  * Moved to macOS 27 at W29 G4, with the runtime's default material and with the
  * pair's fixtures. The figure beside a live surface has to be a reading of the
- * material that surface is made of: the matrix now holds both generations of
- * rows and picking the macOS 26.5 one would print a number measured against a
- * material this page no longer draws, which is the same defect the comment
- * above records being fixed at W21 G3, one axis along.
+ * material that surface is made of: the matrix holds macOS 26.5 rows beside the
+ * macOS 27 ones and picking a macOS 26.5 one would print a number measured
+ * against a material this page no longer draws, which is the same defect the
+ * comment above records being fixed at W21 G3, one axis along.
  */
 const PRIMARY_PROFILE_KEY_BY_SCHEME = {
   light: "apple-macos-27.0-1x-light-standard-glass0.5",
@@ -135,7 +135,7 @@ const PRIMARY_PROFILE_KEY_BY_SCHEME = {
 } as const;
 const PRIMARY_TIER = "texture";
 
-/** Lower sorts first. Ties fall to the newest reading — see `reportsFor`. */
+/** Lower sorts first; see `reportsFor` for what the order means. */
 function primacy(report: CellReport, scheme: "light" | "dark"): number {
   return (
     (report.profileKey === PRIMARY_PROFILE_KEY_BY_SCHEME[scheme] ? 0 : 2) +
@@ -151,17 +151,23 @@ function primacy(report: CellReport, scheme: "light" | "dark"): number {
  * present a cell from the wrong scheme as this scheme's evidence — which is why
  * every report carries its own `profileKey` and the page prints it.
  *
- * **The tie-break is the capture time, newest first, and it became load-bearing
- * at W29 G4.** A cell's key carries the material profile document's hash, so a
- * refit appends a generation of rows beside the old one and never rewrites it
- * (which is the project's rule about recorded numbers, and why the matrix grows
- * at all). One profile and one tier therefore no longer name one cell: macOS
- * 27's light texture rows exist twice over, once at W29 G3's documents and once
- * at W29 G3b's re-sealed ones. The page draws the material the runtime ships,
- * which is the latest, so the latest reading is the one that speaks for it —
- * and "which generation is the shipped one" is a question the matrix answers
- * only by timestamp today (`specs/tech-debt-tracker.md`, the matrix-size entry,
- * whose generation-split option would make it answerable by name).
+ * **There is no generation tie-break, and that is a fact about the file rather
+ * than a simplification here** (W30 G1). A cell's key carries the material
+ * profile document's hash, so a refit appends a generation of rows beside the old
+ * one and never rewrites it — which is the project's rule about recorded numbers,
+ * and why the matrix grows at all. W29 G4 met that as two macOS 27 generations in
+ * one file and broke the tie on `capturedAt`, newest first: a heuristic standing
+ * where a name belonged, and the tracker's matrix-size entry said so. Since W30
+ * G1 the superseded generation is moved out to
+ * `packages/calibration/results/superseded/<document-sha>.json` as soon as the
+ * refit that superseded it lands, so the working file holds one generation per
+ * profile and the rows this module imports ARE the shipped bed. One profile and
+ * one tier name one cell again, and the page's figure is the material it draws
+ * without asking a timestamp which reading that is.
+ *
+ * `capturedAt` is still carried on every report, and the page still prints it —
+ * it is when the reading was taken. It is simply no longer asked to decide which
+ * reading counts.
  */
 export function reportsFor(
   sceneId: string,
@@ -169,10 +175,7 @@ export function reportsFor(
 ): readonly CellReport[] {
   const found = REPORTS_BY_SCENE.get(sceneId);
   if (found === undefined) return [];
-  return [...found].sort(
-    (a, b) =>
-      primacy(a, scheme) - primacy(b, scheme) || b.capturedAt.localeCompare(a.capturedAt),
-  );
+  return [...found].sort((a, b) => primacy(a, scheme) - primacy(b, scheme));
 }
 
 /**
