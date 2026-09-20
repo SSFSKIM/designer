@@ -1,0 +1,16 @@
+
+Running 6 tests using 5 workers
+
+  ✓  2 [chromium] › e2e/shared/window-activation.spec.ts:52:1 › a visibility event or synthetic blur cannot invent document inactivity (794ms)
+macos27 light: active 3a2513742936ceb1c17a3149d75d21b79a627a7db373b03a909dbfbd18484bcc; inactive d8015c2587126d08f6db93315f8f249a2b2f0d19a84a0f525b966050eca7d00d
+macos27 dark: active f3008c3e9033ed4cd3d55ec3a936af5ad3e91c0980f7af9a32f6b35bc843a76f; inactive 8c85774d161fcbaae973003902e8e35090c92ba5bb568d500d0d59442f701917
+  ✓  5 [chromium] › e2e/shared/window-activation.spec.ts:153:5 › macos27 dark: the renderer receives the sealed endpoint and restores the active document (883ms)
+  ✓  1 [chromium] › e2e/shared/window-activation.spec.ts:153:5 › macos27 light: the renderer receives the sealed endpoint and restores the active document (901ms)
+chromium: synthetic hasFocus feed + window focus/blur honoured
+macos26 light: active b340a4dee871633c89ee06e657a5cb55066724dc7cf1d3fcfd3b136e5c486d91; inactive 07cf4a8b830cc14a8c6f27f639835df65efe9cd680186a3755d168b64d3025ce
+  ✓  3 [chromium] › e2e/shared/window-activation.spec.ts:31:1 › auto follows the focus/blur feed; either explicit endpoint wins and auto re-follows (979ms)
+  ✓  4 [chromium] › e2e/shared/window-activation.spec.ts:153:5 › macos26 light: the renderer receives the sealed endpoint and restores the active document (999ms)
+macos26 dark: active 93ab090705c43f1fd1b09a6899e55dbfb33d46598dc839714a73c911ce7c5b4a; inactive a52a5e2af4d5f7660a688249db8aa8bce9b6628ef3805f8da1cdddc3c5892097
+  ✓  6 [chromium] › e2e/shared/window-activation.spec.ts:153:5 › macos26 dark: the renderer receives the sealed endpoint and restores the active document (371ms)
+
+  6 passed (3.3s)

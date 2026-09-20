@@ -26888,8 +26888,11 @@ change from W29 G3b's ordering.
 | `pnpm -r test` | **2,510 passed, 1 failed** over 168 files — policy 23, motion 164, geometry 170, renderer-webgpu **511**, core 302, platform-web **631**, react 163, calibration **545 of 546**. The one failure is W20's declaration conformance (§6); every other case of every package is green, including the eight the gate's machine-derived lists moved |
 | `pnpm --filter demo test` | **34 passed, 1 suite failed to load** — §6b, the whole-file JSON import |
 | `pnpm --filter demo build` | exit 0; the page still ships |
+| `pnpm --filter @vitrea/renderer-webgpu test:golden` | **34 passed**, no regen; `git status` over `packages/renderer-webgpu/e2e` empty (`goldens.txt`) |
+| `npx playwright test e2e/shared/window-activation.spec.ts --project=chromium` | **6 passed** at the four re-recorded macOS 27 hashes; the browser prints `3a2513742936ceb1…` / `f3008c3e9033ed4c…` active and `d8015c2587126d08…` / `8c85774d161fcbaa…` receded, which is the seal's own arithmetic read back from a running root (`window-activation.txt`) |
 | `python3 results/2026-09-16-w29-freeze/freeze.py verify` | **26.5 freeze intact: 1818 entries**, at this gate's open and close |
-| `git diff main -- packages/calibration/profiles/apple-macos-26.5*` | empty; no frozen byte moved (X1) |
+| `git diff main -- packages/calibration/profiles/apple-macos-26.5*` and over `apps/reference-apple/fixtures` | empty; no frozen byte and no fixture moved (X1, X5) |
+| the gated macOS 26.5 row pin | **1,107**, unmoved across the read and the split |
 | the append-check, after the split | **6/6 PASS**, the pre-split file recomposed to `73f589062e68f7a9…` |
 | `verdict.py` | **0 native readings moved** over 455 keys present in both generations |
 | `seal.ts` | four documents sealed, each asserting its own construction first |
