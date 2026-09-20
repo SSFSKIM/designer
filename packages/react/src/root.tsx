@@ -38,6 +38,7 @@ import { DEFAULT_MOTION_PROFILE, withReducedMotion, type MotionProfile } from "@
 import {
   consoleDiagnosticSink,
   createGlassRoot,
+  DEFAULT_MATERIAL_PROFILE_DOCUMENT,
   type CssTierMapping,
   type GlassColorScheme,
   type GlassMaterialProfileDocument,
@@ -215,6 +216,22 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
   const [root, setRoot] = useState<PlatformGlassRoot | null>(null);
   const rootRef = useRef<PlatformGlassRoot | null>(null);
 
+  /*
+   * The document the runtime SELECTED, which is not always the one the prop
+   * names (W30 Decision Log 1 (f)).
+   *
+   * `createGlassRoot` reads `materialProfileDocument` once, at construction, and
+   * a later change to the prop does not move the material the page draws — so a
+   * handle that reported the prop would name a material nothing is drawing, and
+   * `GlassToolbar` would open its split at it. Seeded from the prop so the
+   * first render, before the mount effect, already derives its layout from the
+   * right material; re-stated inside the effect so a rebuild (a `renderer`
+   * change, say) carries whatever that construction actually read.
+   */
+  const [selectedDocument, setSelectedDocument] = useState<GlassMaterialProfileDocument>(
+    () => materialProfileDocument ?? DEFAULT_MATERIAL_PROFILE_DOCUMENT,
+  );
+
   const diagnosticStore = useMemo(createDiagnosticStore, []);
   const store: GlassRootStore = useMemo(
     () => createGlassRootStore(() => rootRef.current),
@@ -292,6 +309,7 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
 
     rootRef.current = created;
     setRoot(created);
+    setSelectedDocument(documentRef.current ?? DEFAULT_MATERIAL_PROFILE_DOCUMENT);
 
     return () => {
       created.destroy();
@@ -401,13 +419,14 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
   const handle: GlassRootHandle = useMemo(
     () => ({
       root,
+      materialProfileDocument: selectedDocument,
       ticker,
       profile: motionProfile,
       devMode,
       diagnostics,
       subscribeDiagnostics: (listener) => diagnosticStore.subscribe(listener),
     }),
-    [devMode, diagnostics, diagnosticStore, motionProfile, root, ticker],
+    [devMode, diagnostics, diagnosticStore, motionProfile, root, selectedDocument, ticker],
   );
 
   return (

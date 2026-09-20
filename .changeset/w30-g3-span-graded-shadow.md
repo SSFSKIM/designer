@@ -70,5 +70,8 @@ What moves for an app:
   why nothing measured moved and why the case that catches it is a capture case
   rather than a golden.
 
-`@vitreajs/vitrea` and `@vitreajs/vitrea-react` carry no change of their own; they
-move because the three published packages are versioned as one fixed group.
+`@vitreajs/vitrea` carries no change of its own and moves because the three
+published packages are versioned as one fixed group. `@vitreajs/vitrea-react` has
+a change of its own in this release, described in its own entry: the root now
+tells the tree which material document it selected, so a toolbar's split opens at
+that material's blur.

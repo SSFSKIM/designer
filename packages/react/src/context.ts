@@ -8,7 +8,11 @@
  */
 
 import type { GlassPlane } from "@vitreajs/vitrea";
-import type { GlassRoot, VitreaDiagnostic } from "@vitreajs/vitrea-web";
+import type {
+  GlassMaterialProfileDocument,
+  GlassRoot,
+  VitreaDiagnostic,
+} from "@vitreajs/vitrea-web";
 import type { MotionProfile } from "@vitrea/motion";
 import { createContext, useContext } from "react";
 
@@ -20,6 +24,24 @@ export type RecordedDiagnostic = VitreaDiagnostic & { readonly seq: number };
 export interface GlassRootHandle {
   /** `null` until the mount effect has built the runtime. */
   readonly root: GlassRoot | null;
+  /**
+   * Which measured material this root selected — the whole document, both
+   * schemes and both poses, and its CSS crossing.
+   *
+   * Beside `root` rather than on it, because a consumer needs it before the
+   * mount effect has run: `GlassToolbar` derives a layout number from the
+   * material's blur on its first render, and a root that is still `null` would
+   * leave it deriving that number from a material nothing on the page draws
+   * (W30 Decision Log 1 (f); the tracker's `GlassToolbar` seam). `root.material`
+   * is the resolved IDENTITY of the endpoint that drew — a name, a key and a
+   * digest — and cannot be composed into anything; this is the document itself.
+   *
+   * It is what the ROOT selected, not what the prop currently says. The runtime
+   * reads the document once at construction and a later prop change does not
+   * move it, so reporting the prop would name a material the page is not
+   * drawing.
+   */
+  readonly materialProfileDocument: GlassMaterialProfileDocument;
   readonly ticker: GlassTicker;
   /** Motion constants, already through the Reduced Motion transform when it applies. */
   readonly profile: MotionProfile;
