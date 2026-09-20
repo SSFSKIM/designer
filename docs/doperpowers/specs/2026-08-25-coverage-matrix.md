@@ -1005,3 +1005,47 @@ target or prices the cost of tracking it". Seven claims sections now do both: §
 price, paid, with the hours and the machine-unavailability recorded in the wave's Grounding
 Baseline and its `sitting.md`. The half that stays alive is the disclaimer itself — nothing in the
 project yet says what happens at macOS 28.
+
+### Re-scored 2026-09-20 after W30, beside the same day's W29 reading
+
+W30 (`2026-09-20-w30-operator-wave.md`) replaced two constants of the material with operators: the
+outer shadow's blur became a line in the CASTING SPAN, and the diffusion gained a term keyed on the
+backdrop's measured spatial scale. **No row moves, and that is the finding rather than an omission.**
+The four tables above are left as written and no row's earlier record is rewritten.
+
+**Why nothing moves.** Both operators land inside behaviours the matrix already scores
+`replicated+measured`. §3.2's *larger surfaces refract, shadow, and scatter more* was moved there on
+2026-09-10 (`2026-09-10-coverage-rescore.md`) on the argument that all three mechanisms draw and the
+outer shadow is fitted; W30 makes the shadow's half of that claim a function of size where it had
+been a size-gated amplitude over one width, and makes the scatter's half a function of what is
+behind the surface. That is the same claim measured better, which is W29's own reason for §3 not
+moving, applied to a wave that refit rather than recaptured. A matrix that moved a row for a better
+fit of a replicated behaviour would be scoring accuracy where it scores coverage.
+
+**What does change is a limit recorded inside a row**, and it is recorded here rather than rewritten
+there.
+
+| row | matrix | the limit as recorded 2026-09-20 (W29) | 2026-09-20 (W30) |
+| --- | --- | --- | --- |
+| The material itself moved with no API change | §1.7 | "the shadow's blur is span-invariant in vitrea and is not on macOS 27, where one constant cannot hold 1.8 and 17.4 CSS px" | **Closed.** σ is `sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan · (span − sigmaSpanRefPx))` in both tiers' material, fitted jointly across every bed each document serves and adopted as a bound — within ±5 % of the native median at spans 96, 128 and 160 on all six profiles, and within a factor 1.5 of the native thin-span statistic at span 44 against 0.19.0's 5.97–7.34× (claims §5.159 §1, §5.160). The row's other three named limits stand: seven declared rows are still recorded as missed, the highlight's directionality is still unfitted, and the by-eye residuals of §5.153–§5.155 are unchanged |
+
+**Three rows this re-score checked and did not move**, each for a reason worth naming.
+
+- §3.2's *larger surfaces refract, shadow, and scatter more* keeps `replicated+measured`, as above.
+  Worth stating beside it: the wave measured that Apple's own blur is span-invariant on macOS 26.5
+  — σ within 15.4–15.9 CSS px from a 32 px control to a 160 px panel — so the size term this row is
+  about did not exist in the reference until macOS 27. vitrea's matching it on the older bed was
+  correct, and matching it on the newer one required a shape the row's mechanism did not have.
+- §1.6's *toolbar-group glass management* keeps `replicated, unmeasured`. W30 G4 closed the seam
+  that had `GlassToolbar` deriving its gap from the package's default material rather than from the
+  document its own root selected, and the gap now follows the resolved colour scheme as well. The
+  row's recorded reason for `unmeasured` is unchanged and is about the bed: `scenes.json` carries
+  `toolbar-group__rest` and `toolbar-group__inactive` and no split scene, so the comparison is still
+  vitrea against vitrea.
+- §3.2's *large surfaces pick up ambient colour spill* keeps `absent, undecided`. The scatter's new
+  term reads the backdrop's spatial SCALE — how coarse the structure behind the surface is — and not
+  its colour, so it is not a step toward this row in any direction, and the wave's own charter
+  refuses the chromatic axis by name (W29 Decision Log 6 (c)).
+
+The tallies are therefore unchanged from the W29 reading above: **45 → 46 → 46** replicated and
+measured of 156 scoreable rows, 29.5 %.

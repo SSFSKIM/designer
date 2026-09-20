@@ -1,0 +1,43 @@
+$ playwright test --grep @gpu
+
+Running 34 tests using 1 worker
+
+  ✓   1 [chromium-gpu] › e2e/gpu/cross-check.spec.ts:46:3 › @gpu the f32 cross-check (Decision Log #20) › both families agree with f64 to a rounding error on this adapter (512ms)
+  ✓   2 [chromium-gpu] › e2e/gpu/cross-check.spec.ts:132:3 › @gpu the f32 cross-check (Decision Log #20) › the shader computes the same function as the TypeScript, not merely a close one (230ms)
+  ✓   3 [chromium-gpu] › e2e/gpu/materialization.spec.ts:149:3 › @gpu W27d presence reaches the shader › a surface at 0.35 draws a different material from the same surface at 1 (237ms)
+  ✓   4 [chromium-gpu] › e2e/gpu/materialization.spec.ts:169:3 › @gpu W27d presence reaches the shader › the channel is monotone: 0 moves at least as far as 0.35 (284ms)
+  ✓   5 [chromium-gpu] › e2e/gpu/materialization.spec.ts:187:3 › @gpu W27d presence reaches the shader › driving the channel to 1 renders the bytes of a scene nobody drove (272ms)
+  ✓   6 [chromium-gpu] › e2e/gpu/materialization.spec.ts:206:3 › @gpu W27d the identity endpoint › at 0 the surface is not there at all (279ms)
+  ✓   7 [chromium-gpu] › e2e/gpu/materialization.spec.ts:249:3 › @gpu W27d one absent member of a connected group › leaves its present neighbour the group it would have had alone (275ms)
+  ✓   8 [chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu light DOM material matches its scalar law at 0.1104 (411ms)
+  ✓   9 [chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu light DOM material matches its scalar law at 0.2706 (395ms)
+  ✓  10 [chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu light DOM material matches its scalar law at 0.9505 (393ms)
+  ✓  11 [chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu dark DOM material matches its scalar law at 0.1104 (392ms)
+  ✓  12 [chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu dark DOM material matches its scalar law at 0.2706 (390ms)
+  ✓  13 [chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu dark DOM material matches its scalar law at 0.9505 (396ms)
+  ✓  14 [chromium-gpu] › e2e/gpu/runtime.spec.ts:21:3 › @gpu the dirty-epoch invariant on a device › rebuilds an always-dirty source once per frame, never twice (221ms)
+  ✓  15 [chromium-gpu] › e2e/gpu/runtime.spec.ts:42:3 › @gpu device-loss recovery › an app-owned device reports the loss and waits for a replacement (278ms)
+  ✓  16 [chromium-gpu] › e2e/gpu/runtime.spec.ts:63:3 › @gpu device-loss recovery › a vitrea-owned device recovers and draws again (282ms)
+  ✓  17 [chromium-gpu] › e2e/gpu/runtime.spec.ts:82:3 › @gpu the shipped shaders compile › every pass builds a pipeline without a validation error (259ms)
+  ✓  18 [chromium-gpu] › e2e/gpu/runtime.spec.ts:99:3 › @gpu the governor's field families agree › family C renders the same silhouette as family D (261ms)
+  ✓  19 [chromium-gpu] › e2e/gpu/runtime.spec.ts:144:3 › @gpu the governor's resolution rungs › rungs 2 and 3 render the same material through a coarser field (283ms)
+  ✓  20 [chromium-gpu] › e2e/gpu/shadow-extent.spec.ts:48:3 › @gpu the outer shadow's field extent › falls off the same way above a top-adjacent surface as above a free one (239ms)
+  ✓  21 [chromium-gpu] › e2e/gpu/shadow-extent.spec.ts:91:3 › @gpu the outer shadow's field extent › keeps the shadow's own reach, and stops there (249ms)
+  ✓  22 [chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:30:3 › @gpu W28 silhouette abscissa › clips the reduction extent before counting even a huge offscreen rectangle (245ms)
+  ✓  23 [chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:42:3 › @gpu W28 silhouette abscissa › encodes raw texels before averaging, separately for both hosts (330ms)
+  ✓  24 [chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:62:3 › @gpu W28 silhouette abscissa › all solve consumers use the local reference and the union keeps both hosts (496ms)
+  ✓  25 [chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:74:3 › @gpu W28 silhouette abscissa › transparent texels carry no colour and an empty mask reports its valid fallback (504ms)
+  ✓  26 [chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:94:3 › @gpu W28 silhouette abscissa › an empty mask with no source reference still omits the abscissa (426ms)
+  ✓  27 [chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:103:3 › @gpu W28 silhouette abscissa › an author hint bypasses the reduction on every host (425ms)
+  ✓  28 [chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:116:3 › @gpu W28 silhouette abscissa › absent and explicit source preserve the same drawing (413ms)
+second heavy tap: widths-only Δ 0; share −1 Δ 41; share +1 Δ 32; sign Δ 73
+  ✓  29 [chromium-gpu] › e2e/gpu/w30-heavy-second-tap.spec.ts:128:3 › @gpu W30's three operator vec4s (claims §5.156 §2 and §3, §5.158) › draws nothing at the shipped share and something at a fitted one (487ms)
+shadow σ law: span 44 Δ 0, span 160 Δ 7; one width for both: span 44 Δ 5, span 160 Δ 7
+  ✓  30 [chromium-gpu] › e2e/gpu/w30-heavy-second-tap.spec.ts:172:3 › @gpu W30's three operator vec4s (claims §5.156 §2 and §3, §5.158) › grades the shadow's σ by the CASTER's own span, not the group's (374ms)
+scatter scale: reference-only Δ 0; gain −2.5 Δ 6; gain +2.5 Δ 6; sign Δ 12
+  ✓  31 [chromium-gpu] › e2e/gpu/w30-heavy-second-tap.spec.ts:239:3 › @gpu W30's three operator vec4s (claims §5.156 §2 and §3, §5.158) › keys the scatter on the SOURCE's measured scale, at a real statistic (356ms)
+  ✓  32 [chromium-gpu] › e2e/gpu/w30-thin-sigma-coverage.spec.ts:196:3 › @gpu the surface draws everywhere it declared, at a thin σ › a 44 px capsule and a 44 px toolbar are drawn whole under macOS 27's σ law (238ms)
+  ✓  33 [chromium-gpu] › e2e/gpu/w30-thin-sigma-coverage.spec.ts:236:3 › @gpu the surface draws everywhere it declared, at a thin σ › the drawn silhouette is the same at every σ (282ms)
+  ✓  34 [chromium-gpu] › e2e/gpu/w30-thin-sigma-coverage.spec.ts:273:3 › @gpu the surface draws everywhere it declared, at a thin σ › a 340 px caster is drawn whole at the macOS 26.5 σ (276ms)
+
+  34 passed (12.9s)

@@ -1,9 +1,11 @@
 # W30 — the operator wave: the span-graded shadow and the scale-selective scatter, under one exemption
 
-**Status: CHARTERED 2026-09-20 (the parent, on the user's word "operator wave first, and rest on
-your judgement" after the 0.19.0 publish); adversarially reviewed the same day and the review folded
-(Revision Notes); no child dispatched.** Executes W29 Decision Log 7 (a) and W29 Deferred item 1.
-Grounded on main at `4a4c941a` (0.19.0 published).
+**Status: CLOSED 2026-09-20 by G4's landing, against all seven Parent-Level Acceptance clauses
+(Outcomes & Retrospective); 0.20.0 PREPARED, UNPUBLISHED — `pnpm release` is the user's hand and
+the tag follows it.** Chartered 2026-09-20 (the parent, on the user's word "operator wave first,
+and rest on your judgement" after the 0.19.0 publish); adversarially reviewed the same day and the
+review folded (Revision Notes). Executes W29 Decision Log 7 (a) and W29 Deferred item 1. Grounded
+on main at `4a4c941a` (0.19.0 published).
 
 ## Purpose
 
@@ -539,6 +541,80 @@ recapture — **the third read is the user's to rule on**, because "once per con
 being a guard against fitting on the holdout the moment a gate can mint configurations. What a
 ruling would have to name is the smallest thing that makes a configuration new.
 
+### At close, 2026-09-20 — what this wave measured and did not do
+
+Each is a named piece of work whose evidence is already on disk, in the order the parent would
+charter it. None is a loose end: the wave established the existence and the size of every one.
+
+1. **A metric that reads the exterior's width.** The three rows this wave claimed are recorded
+   **refuted rather than unmet** (Decision Log 5 (d)): the lever moved — the CSS group clip at span
+   160 goes 33.05 → 45.79 CSS px and the per-surface blur radius with it — and the rows moved by
+   0.0002 where they need 0.016, because SSIM over a whole cell is dominated by the interior and the
+   backdrop. The biggest movers of the whole read are `falloffSigmaWeb`, by up to 30 CSS px, on an
+   axis no gated bound is stated over. *The work*: an adopted clause on the exterior's fitted width
+   or on the departure profile's shape, which would make the two `ssimMean` rows reachable by a lever
+   that already exists. Evidence: `verdict.txt`, `moved-cells.v2.txt`.
+2. **B4's miss on three of four standard beds, and a scale-invariant statistic that cannot fix it.**
+   The structure ratio moves toward 1.0 on the dark document and is declined on the light one, and
+   the reason is structural rather than a matter of values: the analysis pass's per-source statistic
+   is read off a fixed 64 × 64 grid, which makes it the same number at both scales — measured 0.170
+   against 0.176 on one scene — so it cannot act in opposite directions on two scales that need them.
+   *The work*: a change to the analysis pass, which is a second operator and the user's to charter
+   (§5.159 §4).
+3. **The light bed's 16 px structure.** The light interior passes **1.5670** of the native's
+   structure at the 16 px checkerboard, unmoved by this wave and visible on the sheet: the checker
+   survives vitrea's body sharper than Apple's on `rrect-md`, `rrect-ml` and `rrect-lg`. It is the
+   residual the scatter declined to move and the one the next diffusion child inherits.
+4. **The thin regime's instrument.** B2 stays a one-wave reading rather than an adopted row because
+   the thin-span (amplitude, σ) pair is not identified — it trades at a constant product at span 44 —
+   and the thin σ **bifurcates on the author's tint**, untinted cells reading a 1x/2x ratio of
+   1.86–2.57 and their tinted siblings 0.51–0.56 on the same geometry. *What would make it
+   adoptable*: a thin-span cell whose amplitude lets the pair separate (§5.156 §5).
+5. **The holdout's two reads, and what makes a configuration new.** This wave spent two reads of one
+   scene set, each legitimate under Decision Log 5 (a) as written, because a renderer fix is a new
+   frozen configuration by the same rule that makes a moved document one. **A third would need a
+   ruling**, and what a ruling has to name is the smallest thing that makes a configuration new —
+   because "once per configuration" stops guarding against fitting on the holdout the moment a gate
+   can mint configurations (§5.159b §10, finding 13).
+6. **`samplingPaddingFor`'s core advisory constant.** Not decided here by X8, and this wave added
+   its numbers to the tracker entry rather than a ruling. The reading that matters is a negative one:
+   the backdrop sampling pad **did not move at all**, because it is 3σ of the backdrop blur and the σ
+   law reaches the shadow. What did move is the shadow's reach, 20.90 → 13.39 CSS px at span 32 and
+   31.88 → 42.93 at 160 on the light document, 57.40 at 220, and 12.76 / 61.50 on the dark. So the
+   constant a retirement would replace is no longer a constant on one of the two pads it stands
+   beside, which is a second argument for the fix shape that entry names.
+7. **The chromatic child.** W29 Decision Log 6 (c), untouched by contract (X3) and confirmed
+   untouched by the read: the four dark `photo__rrect-lg__rest :: oklabDeltaEP95` rows were declared
+   expected-unmoved and are unmoved to five decimals on two of four. It is the **largest residual on
+   this wave's own sheets by a wide margin**, and in the dark scheme it is visible without
+   amplification: Apple's dark body carries a photograph's green and magenta through it where
+   vitrea's reads as a flat warm grey.
+8. **The recede's exterior above span 96.** The inherited block narrows the old halo and does not
+   close it: the inactive probe rows this wave committed read a native-over-web departure ratio of
+   about 0.17 on both schemes. No non-holdout inactive cell above span 96 exists, which is a
+   `scenes.json` decision and is evidence-visible rather than blocked.
+9. **The exterior's SHAPE at the largest span.** New here, from the eye rather than from a metric:
+   below a span-160 panel the ×8 difference carries visible level contours rather than a featureless
+   haze. The width moved and the energy moved, and what is left is a difference in the falloff's
+   profile that no bound on the bed reads (§5.160 §6).
+10. **A shadow section for `/laws/`.** The page has five sections and no shadow readout at all; the
+    σ law joined the body section's span control because that is the one axis the page already
+    drives. A section of its own — a stage that shows a caster's shadow narrowing and widening as the
+    span moves — is the shape that would make the operator legible rather than numeric.
+11. **What the tracker gained this wave**, each with its own entry: the tone stage's disorder as a
+    **band** under a ground of 0.003 rather than an anchor, localised to the 40 px plate's published
+    alpha (0.695 against 0.648–0.656 everywhere above it), with its composited body non-monotone
+    across the bottom of the control; the standing one-code-between-landings class gaining a fourth
+    recorded instance — a `dom` cell at 4.56·10⁻³ that the shader fix cannot have reached; and the
+    React driver-timing class gaining the reading that **both of its cases have now failed on both
+    engines**, which retires the last reading of it as an engine's property rather than the driver
+    round trip's.
+
+*As chartered and unchanged:* the highlight's angular reader; the decoupled increased-contrast read
+and `compare`'s flag; the identifying sitting on the 27 bed; the motion-metrics harness; the CSS
+tier over pure black; inactive calibration cells above span 96; the Reduced Transparency opacity
+policy and the impulse specular point; the slider's ends as evidence classes.
+
 ## Tracking Map
 
 | Child | Status | Claims section | Evidence |
@@ -549,7 +625,7 @@ ruling would have to name is the smallest thing that makes a configuration new.
 | G3 | **CLOSED 2026-09-20 with one BLOCKING finding for the user.** The σ law fitted and held: `sigmaSpanRefPx` at 96, light `8.96 / 0.1314 / −6.8328` and dark `9.04 / 0.1340 / −6.9680`, the knee derived at span 44. **B1 MET jointly on both documents** at 4.318 % and 3.604 % of its 5 %, from four objectives `shadow-law.py` computes and names — an absolute least squares lands the light document OUTSIDE the joint window because a squared absolute residual weights a span-160 observation four times a span-96 one, and the adopted point maximises the smaller of B1's and B2's slacks with the slope held inside the range the served beds measure for themselves. **B2 MET** on every bed it names (1.155–1.419 of its 1.5, against 0.19.0's 5.97–7.34). The seven amplitude leaves solved from the departure over three rounds, the solve's linearity holding to 1.4 % at the last; **`thickOcclusionAt160` fitted for the first time in the project's history**, on the ladder's span-160 rungs. **B3's stop HELD at 0.00034 against 0.00035.** The scatter decided on five probe rounds: candidate (ii) adopted on the DARK document at −2 about 0.03 (1x dark 0.7474 → 0.9732 inside the window, 2x dark 0.6367 → 0.7665 toward it) and declined on the light one, candidate (i) declined on both, **both declines measurements** — a second tap wider than the first moves the gated cell by −0.0000 (§5.158 §6's trap, reproduced), and candidate (ii)'s statistic is scale-invariant BY CONSTRUCTION at 0.170 against 0.176, so it cannot act in opposite directions on two scales that need them. **B4 MISSED on three of four standard beds**, recorded. The four documents re-sealed with the seal asserting its own construction first, the four macOS 27 supersession records retired, 726 rows read and appended (332 gated, **270 ladder probe — the first macOS 27 probe row the matrix has ever held**, 124 holdout once), the split applied at §5.157 §8's invocation and the append-check 6/6 PASS. **The blocking finding (§5.159 §6, Decision Log 5 drafted):** at a thin caster the fitted σ exposes a latent renderer defect that leaves a strip of a 44 px surface undrawn — visible on the dark bed's capsule, **170 texture cells outside W20's adopted declaration conformance**, and reproducible on 0.19.0's own shipped document with `sigmaPx: 8` and no W30 leaf involved. The gate will not widen the bound nor re-fit σ around it | §5.159 | `results/2026-09-20-w30-g3-operators/` |
 | G3b | **CLOSED 2026-09-20.** §5.159 §6's blocking finding is **`tanh`**: the outer shadow's falloff is a tanh of a cubic in the distance to the shadow's silhouette in σ, and a backend that lowers `tanh` through `exp(2t)` — Metal's fast-math path — overflows f32 past `t = 44.3614`, which is **10.0610 σ inside the silhouette**, and the NaN reaches the composite's alpha through `shadowAlpha · (1 − coverage)` where a coverage of exactly 1 does not stop it. `nan-band.py` reproduces every row of §5.159 §6's bisect table to the row from that one expression with no free parameter, including the two that draw clean. **The fix is a ±20 clamp on the argument and is the identity** — tanh saturates to exactly 1.0 by |t| = 9.011 in f32 and 18.2 in f64 — so the **34 goldens are byte-identical** and `outerShadowReachPx`'s bisection does not move a digit; no material constant moves, no leaf, `DEFAULT_MATERIAL_PROFILE` untouched (X1). A **new `@gpu` case** at the fitted thin σ fails before at 652 of 4,780 capsule px undrawn (IoU 0.8636) and 132 of 4,308 toolbar px (0.9694) and passes after, with a σ sweep reading 0 / 0 / 784. **The fit does not move**: `shadow-law.py` re-runs byte-identical (B1, B2), **B3's whole block is byte-identical at 0.00034**, and B4's twelve gated readings are unchanged — predicted first on scratch, where `meanDepartureWeb` was bit-identical on all 49 light-standard texture cells because the NaN was only ever INSIDE the silhouette. The four documents carry a dated `$comment-w30-g3b` naming the fix, which moves the file hash and — asserted before and after — **not `resolvedMaterialSha256`**; `macos27-profile.ts` regenerates byte-identical. The bed re-read at those bytes: **726 rows** (332 gated, 270 ladder, 124 holdout once), `verdict.py` 0 native readings moved, the split applied and the append-check **6/6 PASS**, working file **1,833 rows / 66,075,976 B**. **Verdict: W20's declaration conformance 170 → 0 cells outside**, `PREDICATE_EXCLUDES` 83 → 68 with the fifteen span-44 cells all leaving, the **seven `MISSED_27_ROWS` unchanged and every one moving by +0.00000**, no floor adopted and no bound widened; 176 of 726 cells moved and 550 are bit-identical, 170 of the 176 being W20's own. **A second cost of the defect, found here**: the ladder's span-44 column read 5.3–10.2 where its neighbours read 0.5–1.5, so §5.159's `structure.txt` is a reading of the defect at that span and this gate's is the material's — the scatter's decisions stand, being stated on the span-96 gated cell. The **demo's build-time reduction** lands (Decision Log 5 (c)): main chunk **35,782.95 kB → 624.83 kB**, demo suite 34-and-a-dead-loader → **45 passed**, e2e **58 passed** with one case rewritten from a macOS 26.5 fact macOS 27 refutes. Chain green end to end: **2,555 unit tests, 0 failed** | §5.159b | `results/2026-09-20-w30-g3b-thin-strip/` |
 | G3 + G3b, review closure | **CLOSED 2026-09-20.** An independent read of both children found **no blocking finding**, twelve findings and one Deferred line; all thirteen are closed here, with every correction recorded BESIDE the text it corrects and no material constant, leaf, document, bound, floor or matrix row moved (X1; `freeze.py verify` 1,818 at open and close; no capture). **Three recorded numbers corrected**: `tanh`'s f64 saturation is |t| = **19.0615**, not the 18.2 this table's G3b row and two code comments carry — the ±20 clamp is still the identity above both and nothing about the fix moves; the dark document's reach pad is **12.76** at span 32 and **61.50** at span 220 (`reach-pad.txt`) against §5.159 §5's 12.94 / 58.36; G3's read was at **build 26A428**, as all three of its read logs say, against commit `f479ead4`'s 25A354. Two commit messages cannot be amended (`f479ead4`, `35ce02b1`) and the Revision Notes say so. **One tooling bug**: `moved-cells.py` compared an axis named `tierCoherence` that no cell carries, so the cross-tier axis was compared against nothing — **331 of 726 cells moved**, not 176, the 155 extra being `dom` cells whose only movement is on an axis that reads their paired texture cell; the 176 that move on an axis of their own, 170 of them W20's, stand. **The unexplained residual is two**: the largest of the four `glass-over-glass` movers is a **dom** row at 4.56·10⁻³, a tier the shader fix cannot reach (candidate cause: the tracker's standing one-code-between-landings class, whose named instance is that scene on a dark bed), against ≤ 8.9·10⁻⁴ on the three texture rows. **The exposure gains its second axis**: a third `@gpu` case sweeps DEPTH at the macOS 26.5 σ of 15.55 and fails on the unfixed renderer at **1,156 of 114,356 declared px undrawn** on a 340 px caster — so a `macos26MaterialProfileDocument` surface past about **307 CSS px** was drawing a strip of itself undrawn, which the changeset now states as the positive note it is. **The fit re-read two ways** (`shadow-law.v2.txt`): with the holdout leak closed the light document does not move and the dark reads 9.0405 / 0.13409 against 9.0393 / 0.13401, the same 9.04 / 0.1340 after the seal's rounding; at those rounded constants B1 is 4.3225 % and 3.5966 % against the fit's 4.3177 % and 3.6043 %. **`results/superseded/`**: `readUnderClaims` split into reader and mover, the README's table generated from the index with every digest and byte count asserted, `apply` now requiring `--read-claims`. Chain green: **2,556 unit tests, 0 failed**, 34 goldens with no regen, **34 `@gpu`**, demo build green, freeze intact | §5.159b §10 | `results/2026-09-20-w30-g3-operators/shadow-law.v2.txt`, `results/2026-09-20-w30-g3b-thin-strip/moved-cells.v2.txt` |
-| G4 | not dispatched | §5.160 | `results/2026-09-20-w30-g4-landing/` |
+| G4 | **CLOSED 2026-09-20.** The wave's one tolerance declared for adoption is **adopted**: B1, in the joint form Decision Log 3 (c) ruled it, four cases reading the natives back out of G0's cut and the law out of the shipped documents rather than transcribing either — mutation-checked at a 0.1 % tolerance, where three of the four fail and print `+1.872 %` and `+1.867 %` at span 96, which is `shadow-law.v2.txt`'s reading to the digit. **B2 and B4 are not adopted**, as §5.156 §5 declared before either operator existed; no floor, no widened bound, `MISSED_27_ROWS` unchanged at seven. **The layout holds at close** (X7's third application): `plan` reports **1,833 retained, 0 moved**, the working file is 1,833 rows / 66,075,976 B one generation per profile, `results/superseded/` holds **6 files, 1,636 rows, 59,878,163 B** with `readme` regenerating byte-identical, and `freeze.py verify` reads 1,818 intact at open and close. **The toolbar seam is closed** by the tracker's first shape — `GlassRootHandle` carries the selected document, a `clear` toolbar on `macos26MaterialProfileDocument` opens 36 CSS px where it opened 73, the default document is unchanged — and it turned up three things the entry did not have: `samplingPaddingFor` could not express an endpoint with no patch (the key's presence now does), the recorded 2.2× is 2.04 on the light endpoint, and the seam's second axis was an **under**-pad on a dark root. **The tone stage is re-ranged and the reading reverses the ruling's premise**: the plates separate widest over the DARK half (0.026, 11 % of their own level, at a ground of 0.006 against 0.0148 at 0.16), and what closes at the bottom is the ORDER. 81 stops of equal ratio between the same two ends, 40 of them in the separating band against 16 before; the finer control found the disorder is a **band** under 0.003 rather than an anchor, and localised it to one plate's alpha. **The demo shows the operator it ships**: the seven figures the page printed move by ≤ 0.0013 across this wave while `falloffSigmaWeb` moves by up to 6.2 CSS px, so the shadow's fitted falloff joins `figuresOf` and the reduction; the pair's three stale labels are derived; `/laws/` gains the σ law on its span control, having had no shadow readout at all. `CLAUDE.md` loses the `rm results/matrix.json` heuristic and gains the split; both READMEs and both changesets say what moved; the coverage matrix is re-scored with **no row moving** and one recorded limit closing. Chain: **2,564 unit tests 0 failed**, 34 goldens with no regen, 34 `@gpu`, 410 platform-web, 58 demo, and **2 React reds recorded not rerun** — the tracker's driver-timing class, which has now failed on both engines on both cases. **0.20.0** versioned, three minors, dry runs clean with `workspace:` rewritten to `^0.20.0` | §5.160 | `results/2026-09-20-w30-g4-landing/` |
 
 ## Decision Log
 
@@ -780,7 +856,196 @@ stop it from merging. Ruled, on G3's draft (§5.159 §6):
   is exactly how a child would have baked it in. The shape that costs nothing (supersession beside)
   was found by taking the draft's own argument against a second field one step further.
 
+## Outcomes & Retrospective
+
+**CLOSED 2026-09-20 by G4's landing**, against the seven Parent-Level Acceptance clauses, on this
+wave's branch at the 0.20.0 version head. The cut is prepared and unpublished: `pnpm release` is
+the user's hand and the tag follows it. The React driver-timing class is red at this cut and
+disclosed (clause 7 below); accepting it is the user's, as it was at 0.17.0, 0.18.0 and 0.19.0.
+
+The one-line result of the wave: **two constants of Apple's material became operators — the outer
+shadow's blur is a line in the casting span and the dark material's diffusion is conditioned on the
+backdrop's spatial scale — the one-time X1 exemption was spent on a single record beside six
+unedited documents with no frozen byte and no pixel moving, a latent `tanh` overflow that had been
+in the renderer since the facet was built was found by reaching a σ no shipped material had reached
+and fixed as an identity, and the wave's one tolerance declared for adoption is adopted.**
+
+### The acceptance, as verified
+
+1. **The exemption is one commit, touches no frozen byte, and is proven pixel-inert on both tiers —
+   MET, and in a shape the charter did not predict.** The pre-wave resolved macOS 26.5 materials
+   were written to disk and committed before a leaf existed, at the pinned `b2b570e4adcea8fb` /
+   `874be66ea501621b`; the eight leaves landed in one commit at algebraic identities; the proofs all
+   held — `freeze.py verify` 1,818 with nothing exempted, 34 goldens byte-identical with no regen,
+   the identity test `toStrictEqual` over the pre-wave JSON, the CSS tier's 120 × 47 declarations
+   character-identical to bytes recorded before a leaf existed, both inert laws swept over spans
+   1…1000 at both scales on both tiers, and the 1,107 gated macOS 26.5 row pin. What the charter did
+   not predict is **Decision Log 4**: G2 measured that re-sealing the four macOS 27 documents empties
+   the macOS 27 half of the gated bed, because `atAShippedDocument` keeps only rows read at a current
+   hash, so the supersession record covers **six** shipped documents rather than two and a re-seal
+   lands with its own read from here on. The exemption is spent once.
+2. **The structure is measured before the operator exists — MET.** G0's two cuts came off committed
+   evidence only and both changed what the wave could do. The shadow cut confirmed the thick
+   regime's line and its CSS-px scale invariance (ratio 1.021 light / 1.017 dark over 66 cell pairs)
+   and **refuted** the thin regime's device-px reading, so the floor is CSS px with its value
+   declared unfitted (Decision Log 2 (b)). The structure cut could not choose between the scatter's
+   two candidate shapes, so G2 landed the spanning set (Decision Log 2 (d)). The CSS tier's measured
+   attenuation went into `tier-coherence.test.ts` as twelve recorded readings before any fit.
+3. **Bounds before reads; the targets named with their levers — MET, with three of the five
+   declarations corrected by G0's own review before G2 opened.** B3's stop was restated on the tier
+   it is read on (0.00035, twice as tight as declared), B4 scoped to the four standard beds it can
+   bind, and B1 restated as two joint clauses with `sigmaSpanRefPx` held at 96 (Decision Log 3). The
+   27 tables stayed at W29 Decision Log 4's values throughout and no floor was adopted. The three
+   claimed rows were named with their lever and their tier before the read.
+4. **Both operators land on the fidelity target with the CSS tier derived in the same commit, and
+   the shadow is refitted jointly — MET.** The σ law fitted jointly with the six occlusion anchors
+   and `liftAmplitude` over three rounds, with `thickOcclusionAt160` **fitted for the first time in
+   the project's history**; B3 held at 0.00034 against its 0.00035 stop; the CSS tier's mirror is one
+   function of CSS span with no dpr argument, and `tier-coherence` pins all three readers to it. The
+   scatter was adopted on the dark document and **declined on the light one**, with both declines
+   measurements rather than omissions — a second tap wider than the first moves the gated cell by
+   −0.0000, and candidate (ii)'s statistic is scale-invariant by construction at 0.170 against
+   0.176, so it cannot act in opposite directions on two scales that need them.
+5. **Read once per frozen configuration — MET, and spent twice for a reason the rule allows.** G3
+   read the bed at the sealed documents (726 rows: 332 gated, 270 ladder probe — the first macOS 27
+   probe rows the matrix has ever held — and the holdout once). G3b's renderer fix made a new frozen
+   configuration by the same rule that makes a moved document one, and re-read the same 726. Both
+   are legitimate under Decision Log 5 (a) as written; a **third would need a ruling**, which is the
+   Deferred line the review closure added. The verdict is recorded per profile per tier per clause
+   with every missed cell named, and the three rows this wave claimed are recorded **refuted rather
+   than unmet**: the lever moved (the CSS group clip at span 160, 33.05 → 45.79 CSS px) and the rows
+   did not, because a whole-cell SSIM does not read a shadow's width.
+6. **The evidence layout is ruled and holds at the wave's close — MET, applied three times.** G1
+   moved the generation superseded on the day (2,017 rows / 72.1 MB → 1,562 / 55.8 MB), G3b moved
+   the one G3's read superseded, and G4 ran `plan` again to find **1,833 retained and 0 moved**. The
+   working file is 1,833 rows / 66,075,976 B, one generation per profile, 9.2 % below where the wave
+   opened while carrying 271 more rows than the charter priced. `results/superseded/` holds six
+   files, 1,636 rows, 59,878,163 B, each named by its active document, each listed in `index.json`
+   with the gate that read it and the gate that moved it. Every reader names the generation; the
+   demo's `capturedAt` tie-break is retired and the page now reads a build-time projection.
+7. **The landing — MET.** B1 adopted; the toolbar seam closed at the document the page draws, with
+   the case the tracker named and two findings it did not have; the tone stage re-ranged against a
+   reading that reverses the ruling's own premise, with both ends kept and the two cases moved
+   against the committed reading; the demo's figures given the axis the wave fitted, its three stale
+   labels derived, and `/laws/` given the σ law; `CLAUDE.md`, both READMEs and both changesets
+   saying what moved; the coverage matrix re-scored with no row moving and one recorded limit
+   closing; sheets at 2x in both schemes with the eye's residuals named; the fixed group versioned
+   **0.20.0**, dry runs clean with `workspace:` rewritten to `^0.20.0`, unpublished. **The React
+   browser suite is red at this cut** — `presence.spec.ts`'s elapsed window on chromium at 485.0 ms
+   against 406.7 allowed and `morph-materialize.spec.ts`'s release timing on firefox — both of the
+   tracker's standing driver-timing class, neither in code this wave touched, recorded and not
+   rerun.
+
+### What the wave cost, and what it found
+
+It cost four children, one of them unplanned, and no machine time at all: **not one native pixel was
+captured** (X5). Every fixture the wave fitted on was on disk from W29, and the two canonical reads
+cost about twenty-six minutes of browser time between them.
+
+What it found, beyond the two operators:
+
+- **A clause can be met by a crutch.** W20's declaration conformance read 1.0 on every span-44
+  capsule while the shadow was six times too wide, because the shadow's own coverage filled what the
+  material's did not. Narrowing the shadow is what made the reading fall — to 170 cells outside an
+  adopted bound. The general form is worth the doctrine: *a bound that passes while a neighbouring
+  constant is wrong may be passing BECAUSE it is wrong.*
+- **A defect that had been shipping since the facet was built, found by reaching a number.** The
+  outer shadow's falloff is a `tanh` of a cubic in the distance to the silhouette in σ, and a
+  backend lowering `tanh` through `exp(2t)` overflows f32 at 10.061 σ inside it. At every σ the
+  project had ever shipped that was deeper than any surface in the bed; at the fitted thin σ of 2.13
+  a 44 px control's own centre line is past it. The fix is a ±20 clamp and is the identity — the 34
+  goldens are byte-identical — and the case that catches it found a second axis the first never
+  swept: at the macOS 26.5 σ of 15.55 a surface past about **307 CSS px** on its shorter side was
+  drawing a strip of itself undrawn under 0.18.0 and 0.19.0 too.
+- **An operator landed at an identity makes a lane assignment, a fallback, a default and an
+  unexercised path all indistinguishable from correct.** The three new uniform vec4s were packed at
+  float offsets 117 / 121 / 125, none a multiple of four, and every inertness proof was green over
+  it because every word involved was zero. Only opening the gate could see it.
+- **An axis list typed by hand against a schema is a silent filter**, and the failure mode is a
+  clean-looking negative: `moved-cells.py` compared an axis no cell carries, so the cross-tier axis
+  was compared against nothing and a count read 176 where it is 331.
+- **The ruling's premise about the tone stage was backwards**, and the reading the ruling asked for
+  is what found it. The plates separate widest over the dark half, not the bright one; what closes at
+  the bottom is the ordering, and the finer control the re-range installed shows it is a band rather
+  than an anchor and localises it to one plate's alpha.
+- **A demo can print seven figures and see none of the wave.** `figuresOf`'s metrics moved by at most
+  0.0013 while the axis the wave fitted moved by 6.2 CSS px on the same cells.
+
+### What is written down that was not before
+
+The wave's instruments are committed and re-runnable: `shadow-cut.py` and `structure-cut.py` with
+the statistics named in them, `shadow-law.py` with the four objectives one clause admits and two
+flags that read the fit's population and the seal's rounding back, `departure-stat.py` so the stop
+is re-run rather than transcribed, `anchor-solve.py`, `scatter-solve.py`, `reach-pad.ts`,
+`nan-band.py` — which reproduces every row of the strip's bisect table from one expression with no
+free parameter — `moved-cells.py`, `verdict.py`, `split-generation.py` with its self-test and its
+generated README, `demo-figures.py`, `tone-range.mjs` and `sheet.py`.
+
+`packages/calibration/profiles/digest-supersessions.json` is new and is the exemption itself: six
+records, each naming a document's own sealed digest and the digest its pin resolves to over a
+default that now carries eight more leaves, with the leaves listed and the ruling dated. It costs
+the freeze zero entries because not a frozen byte moved.
+
+And the ledger gained six sections — §5.156 through §5.160, with §5.159b §10 as the review closure —
+in which the three corrected numbers are tabled in one place so a later child does not have to
+reconstruct which reading is current.
+
 ## Revision Notes
+
+- 2026-09-20 (G4): **the landing — one tolerance adopted, two seams closed,
+  the tone stage re-ranged against a reading that reverses this charter's own
+  premise, and 0.20.0 prepared and unpublished** (claims §5.160; evidence
+  `results/2026-09-20-w30-g4-landing/`). Contract X1 holds with nothing to report
+  and `freeze.py verify` reads 1,818 intact at the gate's open and close; no
+  capture was taken, no row of the matrix moved, no leaf was added and no material
+  constant moved. What the parent and the next wave have to carry from it:
+  - **Decision Log 1 (e)'s premise is refuted by the reading it asked for, and
+    the ruling is executed anyway because its instruction survives.** The charter
+    says the tone stage's separation "exists over the bright half of the slider
+    and closes at the dark end". `tone-range.json` walks all eighty stops on the
+    shipped material: the three plates separate by **0.026, 11 % of their own
+    level, over a ground of 0.006** and by **0.0148, 2.4 %, at 0.16**. Widest over
+    the dark half, narrowest at the bright end. What closes at the bottom is the
+    **order**, not the separation. The instruction — resolution where the plates
+    separate — is followed against the measurement, and the premise is corrected
+    beside the tracker entry that carried it rather than over it. *The general
+    form, for a later charter: a ruling that states a reason AND an instruction
+    can survive its reason being wrong, and the reading that executes it is where
+    that is found out.*
+  - **The finer control found more of the defect, which is a cost of the change
+    and is stated as one.** The old grid had one stop under a ground of 0.004 and
+    it was the disordered one; the re-ranged ladder has seven and every one is
+    disordered, with the order returning at 0.0030 and holding for 74 stops. So
+    the tracker's "not ordered by span at the curve's first anchor" is a **band**,
+    and it is **one plate's alpha** rather than three plates' composite — the
+    40 px plate publishes 0.695 over the band against 0.648–0.656 at every stop
+    above it, and its composited body is therefore not monotone across the bottom
+    of the control. A sweep that starts at the bottom stop fails on this rather
+    than on continuity.
+  - **A demo can print seven figures and see none of the wave.** `figuresOf`'s
+    metrics move by at most 0.0013 across this wave on the light bed, while
+    `falloffSigmaWeb` on the same cells moves by up to 6.2 CSS px. The page's
+    readout now carries the shadow's fitted falloff, with a note saying what the
+    web reading is below the size law's knee (the lift's width, not the
+    shadow's). *A page that prints a cell's figures and omits the axis its own
+    material just changed is printing the figures that happened to exist.*
+  - **A padding function could not name one of its own shipped endpoints.**
+    `samplingPaddingFor`'s `input.profile ?? defaultSamplingProfile()` collapsed
+    "this endpoint has no patch" — which the macOS 26.5 light active material IS —
+    into "use the default document's", so the one case the tracker asked for would
+    have measured the wrong material. The key's PRESENCE now carries it. And the
+    seam had a second axis on which the error ran the UNSAFE way: the macOS 27
+    dark endpoint wants about 7.6 % more room than the light one and the toolbar
+    took the light one's number under both.
+  - **The coverage matrix does not move, and that is the finding.** Both operators
+    land inside behaviours already scored `replicated+measured`. What changes is a
+    LIMIT recorded inside §1.7's row — "the shadow's blur is span-invariant in
+    vitrea and is not on macOS 27" — which this wave closes and the re-score
+    records beside rather than over.
+  - **The React browser suite is red at the cut and is disclosed rather than
+    rerun**, as at 0.17.0, 0.18.0 and 0.19.0. Two cases of the tracker's standing
+    driver-timing class, neither in code this wave touched. The entry gains the
+    reading that **both cases have now failed on both engines**.
 
 - 2026-09-20 (G3/G3b review closure): **an independent read of the two children
   found no blocking finding, twelve findings and one Deferred line; all thirteen

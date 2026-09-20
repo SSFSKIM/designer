@@ -151,6 +151,21 @@ taken across a frame boundary. The 0.19.0 publish accepts it as disclosed, as 0.
 *2026-09-20 (the parent):* 0.19.0 was published by the user on `26250e97` (registry 04:40Z) with
 this class as disclosed above and nothing rerun; tag `v0.19.0`. The entry stays open.
 
+*2026-09-20 (W30 G4, the 0.20.0 landing; claims §5.160):* the gate's single full three-engine run
+read **two red, 172 passed, 3 skipped** — `presence.spec.ts`'s elapsed window on **chromium** at
+**485.0 ms against 406.7** allowed after that run's longest-frame allowance, and
+`morph-materialize.spec.ts`'s "the end that is absent is inert, and is released when it has gone"
+on **firefox**, where the destination end was still in the document 5 s after `Escape`. Neither was
+rerun and the log is committed as
+`packages/calibration/results/2026-09-20-w30-g4-landing/chain-react-e2e.txt`. Both are this class
+and neither is in code the wave touched: the gate's own React change is `GlassRootHandle`'s
+material document and the toolbar's gap, which no presence or morph case reads. Worth adding to the
+record for its cross-product: the release-timing case has now fired on chromium (W28 G4) and on
+firefox (here), and the elapsed window on firefox (W28 G3) and on chromium (W28 G4, here) — so
+**both cases have now failed on both engines**, which retires the last reading of this as an
+engine's property rather than the driver round trip's. The 0.20.0 cut is prepared with it disclosed,
+as 0.17.0, 0.18.0 and 0.19.0 were.
+
 *Found 2026-08-30, running the suites for the tint API (W3).*
 
 Two to four cases in `packages/react/e2e/press.spec.ts` and `morph.spec.ts` fail
@@ -2204,6 +2219,33 @@ taking the padding as an input from the platform that resolved it — core is pu
 the derivation — with `DEFAULT_GROUP_SAMPLING` kept only as the value a host without a resolved
 policy is checked against. A W27b-scale change; not chartered.
 
+**W30's numbers, added 2026-09-20 (claims §5.160; contract X8 leaves the
+retirement undecided, so this entry stays open).** The operator wave graded the
+outer shadow's σ by the casting span, which moves two pads in opposite
+directions and leaves the one this entry is about exactly where it was.
+
+- **The backdrop sampling pad — this entry's own quantity — did not move at
+  all**, and that is a reading rather than an omission (§5.159 §5). It is 3σ of
+  the BACKDROP blur and the σ law reaches the shadow, not the body. So the
+  advisory's relationship to it is unchanged: 24 against the material's 11.10 on
+  the macOS 26.5 endpoints and 22.69 on the macOS 27 light one at span 0, and
+  23.66 / 27.35 on a 420 × 52 bar in the two schemes — still a warning an
+  upgrading app will see on a taller bar, still never an under-pad.
+- **The outer shadow's REACH did move, both ways, and by a lot.** On the light
+  document it goes 20.90 → **13.39** CSS px at span 32 (−35.9 %) and 31.88 →
+  **42.93** at span 160 (+34.7 %), and it keeps growing above the bed: a 220 px
+  caster pads **57.40** against the old 31.88 (+80.1 %). The dark document reads
+  **12.76** at span 32 and **61.50** at span 220 (`reach-pad.txt`, the corrected
+  figures of §5.159b §10 finding 3). So the constant that used to be one number
+  at every span is now a line with a four-fold range across the bed, which is the
+  shape a retired advisory would have to be replaced by rather than a number.
+- **What that says about the fix shape.** Core's overlap check takes a scalar
+  because the padding was a scalar. It no longer is on the shadow's side, and the
+  platform already resolves both pads per group — so "core takes the padding as
+  an input from the platform that resolved it" is now the only shape that can
+  state either of them, and the two-number answer is a second reason for it
+  beyond the one this entry opened with.
+
 ## `interiorMeanBackdrop` is not a backdrop level on a sparse high-contrast backdrop (W27e G0, 2026-09-11)
 
 The canonical matrix's `material.interiorMeanBackdrop` is the backdrop's mean over the **extracted
@@ -3559,6 +3601,25 @@ prose already half does; or retire the stage and spend the space on a behaviour
 macOS 27 made more visible rather than less. Not taken here because which of
 those is right is a decision about what the site is for.
 
+**RULED and CLOSED 2026-09-20: the first shape, re-ranged by W30 G4** (charter
+Decision Log 1 (e), claims §5.160). The control's value is now a POSITION on a
+geometric ladder between the same two ends — 81 stops of equal ratio from 0.0020
+to 0.1600 — so the band where the plates separate holds 40 of its stops against
+16 of the old 80, and both ends survive: the near-black stop is still one `Home`
+away and the top stop is still `STAGE_HINT`'s own level.
+
+**The paragraph above has its axis backwards, and the reading that executed the
+ruling is what found it.** `packages/calibration/results/2026-09-20-w30-g4-landing/tone-range.json`
+walks all eighty stops of the old control on the shipped material: the three
+bodies separate by **0.026, about 11 % of their own level, over a ground of
+0.006** and by **0.0148, 2.4 %, at 0.16**. So the separation is widest over the
+DARK half and narrowest at the bright end — the opposite of "plain over the
+bright half and closes to nothing at the dark end". What does close at the bottom
+is the ORDER, which is the entry below, and the two were being read as one
+quantity. Recorded beside rather than over, because the ruling it produced stands
+either way: resolution belongs where the plates separate, and that is where it
+now is.
+
 ---
 
 ## The tone stage's three bodies are not ordered by span at the curve's first anchor (W29 G4, 2026-09-20)
@@ -3595,6 +3656,30 @@ from that whether the non-monotonicity is the CSS tier's composite alone or the
 material's. If it is the tier's, it belongs beside the other cross-tier residuals
 in `tier-coherence.test.ts`; if it is the material's, it is a fit question for the
 operator wave.
+
+**Sharpened 2026-09-20 by W30 G4's re-range (claims §5.160); still open.** Two
+readings, both from `tone-range.ladder.json`, the same instrument over the
+re-ranged control.
+
+- **It is a BAND, not an anchor.** The old control had exactly one stop under a
+  ground of 0.004 and it was the disordered one; the ladder has seven, and all
+  seven are disordered. The order returns at position 7 — a ground of **0.0030** —
+  and holds at all 74 stops above it. So "the curve's first anchor" understates
+  it: what fails is every ground below about 0.003, and the page's own control
+  now shows that rather than hiding it behind a coarse grid.
+- **It is one plate's ALPHA, not three plates' composite.** Over the disordered
+  band the 40px plate publishes `--vitrea-occlusion` **0.695** against
+  0.648–0.656 at every stop above it, while the other two hold their trend. So
+  the non-monotonicity is a step in the thin plate's own alpha at the bottom of
+  the curve, not a drift in how three alphas compose — which narrows the fix
+  shape above to one question about one surface, and makes it checkable without
+  the demo at all.
+
+A consequence for anything that walks this control: the 40px plate's composited
+body is NOT monotone across the bottom of the range. It reads 0.2285 at the
+bottom stop, dips to 0.2171 at 0.0040 and rises from there, so a continuity check
+started at the bottom stop fails on this defect rather than on continuity.
+`site.spec.ts` starts its sweep above the band and says so.
 
 ---
 
@@ -3717,6 +3802,42 @@ that made a material a document rather than two options. Either way the case to
 write is a React toolbar on `macos26MaterialProfileDocument` whose gap equals the
 macOS 26.5 padding rather than 2.2× it.
 
+**CLOSED 2026-09-20 by W30 G4 (charter Decision Log 1 (f), claims §5.160), by
+the first fix shape.** `GlassRootHandle` carries `materialProfileDocument` — the
+document the ROOT selected, seeded from the prop and re-stated at construction,
+because `createGlassRoot` reads it once and a later prop change does not move the
+material the page draws — and `GlassToolbar` passes that document's active
+endpoint and `cssTierMapping` through `samplingPaddingFor`. Four cases in
+`packages/react/test/toolbar-partition.test.tsx`, on the `clear` variant because
+on `regular` at jsdom's span 0 both materials sit under core's advisory of 24 and
+the max hides the whole difference.
+
+Three things the fix turned up that the entry did not have.
+
+- **`samplingPaddingFor` could not express the endpoint the case needed.** The
+  macOS 26.5 light active endpoint carries no `patch` at all — it IS the
+  renderer's constants, which is why `GlassMaterialEndpoint.patch` is optional —
+  and the function's `input.profile ?? defaultSamplingProfile()` collapsed "this
+  endpoint has no patch" into "use the default document's". So the one case the
+  entry names would have measured the macOS 27 material through the macOS 26.5
+  mapping. The key's PRESENCE now carries the distinction, documented at the
+  signature.
+- **The ratio is 2.04 on the light endpoint, not 2.2.** 2.2 is
+  `cssTierMapping.blurSigmaScale`, and the padding is linear in the blur only
+  when the renderer profile is held: at span 0 the macOS 27 light endpoint asks
+  **22.69** CSS px against the macOS 26.5 endpoint's **11.10**, and on the dark
+  pair it is 24.42 against 11.10, which is 2.20. The entry's "exactly 2.2×" was
+  the mapping's number standing in for the measurement.
+- **The seam had a second axis, and on that one the error was UNSAFE.** One
+  document's two schemes do not ask for the same room — the macOS 27 dark
+  endpoint wants about 7.6 % more than the light one — and the toolbar took the
+  light endpoint's number under both, which is an under-pad on a dark root. The
+  resolved scheme is now an input, polled through the store beside the pose
+  (`colorScheme="auto"` resolves inside the runtime, so the prop standing still
+  does not mean the answer did). The pose is deliberately NOT an axis: a gap that
+  changed when the window lost focus would reflow the toolbar on blur, and the
+  partition is structural.
+
 ---
 
 ## The reference pair labels its native panel "macOS 26.5" beside a caption naming a macOS 27 profile (W30 G1 review closure, 2026-09-20)
@@ -3744,6 +3865,12 @@ from (`nativeProfileFor(props.scheme)`, or a short display name beside it) so a
 future move of the bed cannot leave one of them behind. W30's charter puts it in
 G4, with the rest of the landing's page work.
 
+**CLOSED 2026-09-20 by W30 G4 (claims §5.160).** `scenes.ts` gained
+`nativePlatformFor(scheme)`, which parses the release out of the profile key the
+caption already prints and throws if it cannot — so the three labels are derived
+from the same string the assertion reads, and a bed that moves again carries all
+three with it or fails loudly. No literal release string is left in `Stage.tsx`.
+
 ---
 
 ## `CLAUDE.md` still documents the row-reduction heuristic the generation split retired (W30 G1 review closure, 2026-09-20)
@@ -3765,6 +3892,15 @@ most.
 moves it, and the invocation — when G4 runs the script for the second time and
 can state the instruction from a second application rather than from one. W30's
 charter clause 7 carries it.
+
+**CLOSED 2026-09-20 by W30 G4 (claims §5.160).** `CLAUDE.md`'s Calibration
+paragraph now states the split: a read appends, `split-generation.py` moves the
+generation it superseded to `results/superseded/<active-document-sha>.json`, and
+`index.json` is the lookup. The destructive sentence is gone rather than
+softened. The instruction is written from the THIRD application of the rule, not
+the second — G1 moved W29 G3's generation, G3b moved W30 G3's, and this gate
+confirmed the layout holds with nothing left to move (`plan` reporting 1,833
+retained and 0 moved), which is the state the paragraph describes.
 
 ---
 
