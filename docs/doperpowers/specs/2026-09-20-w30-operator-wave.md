@@ -677,6 +677,46 @@ own Surprise on the bed nobody checked. Ruled:
   heavy texture already takes when absent (W26's precedent); at share 0 there is no pool
   allocation, no scratch, no separable pass and no sample. §5.158 says so plainly.
 
+### Decision Log 5 — the parent, on G3's stop (2026-09-20): a renderer child before the wave lands (option (a)); the demo's build-time reduction pulled forward; the re-read a new generation by a recorded comment
+
+G3 (claims §5.159, on its branch, unmerged) fitted the σ law jointly with its anchors and met B1
+on every bed a document serves and B2 on every bed it names, held B3 (0.00035 → 0.00034), sealed
+the four documents, read the bed once with the ladder and the holdout, and found two things that
+stop it from merging. Ruled, on G3's draft (§5.159 §6):
+
+- (a) **Option (a): a renderer child, G3b, on top of G3's branch, before anything merges.** At a
+  casting span of 44 CSS px the fitted σ (2.13) reaches a width no shipped material ever had, and
+  the optics pass leaves a horizontal strip of the surface undrawn — reproducible on the macOS 27
+  light document as 0.19.0 ships it with `sigmaPx` 8 and no W30 leaf above its inert value, a
+  function of the shadow's geometry through the group field rect (its bottom edge 24 CSS px above
+  the rect's), and it costs W20's declaration conformance 0 → 170 texture cells. The wave will not
+  widen W20's bound (option (c)) and will not choose a fit to avoid a renderer bug (option (b)):
+  the thin regime is the half of the wave the user chartered. G3b diagnoses and fixes the field
+  rect, proves the fix with the goldens byte-identical (they render at σ 15.5) and a new `@gpu`
+  case at a thin σ that asserts the surface's drawn coverage equals its declared region, re-verifies
+  the sealed fit on scratch (B1–B3; a re-fit is allowed only if the fix moves a reading, and then
+  before the holdout), and re-reads the bed at the fixed renderer: calibration + validation, the
+  ladder, the holdout **once** for this configuration (a renderer fix is a new frozen configuration
+  under X4, as W29's children each were).
+- (b) **The re-read is a new generation by the existing rule.** A document's file hash is what keys
+  a generation and a renderer fix does not move it, so G3b records the fix in each of the four
+  macOS 27 documents as a dated `$comment` naming §5.159 §6 and the commit that fixed it — a true
+  statement about the conditions the rows beside it were read under, which moves the file hash and
+  not `resolvedMaterialSha256` (the material did not change; the seal script asserts it). G3's
+  first read then moves to `results/superseded/` by G1's script as the generation it is — evidence
+  of the fit at the defective renderer, findable by name — and the working file holds one
+  generation per profile at close. The naming rule gains the case in its README.
+- (c) **The demo's build-time reduction is pulled forward from G4 into G3b**, because the chain
+  cannot go green without it: the demo imports the whole matrix and the test loader's bridge
+  refuses the file between 55.8 and 66.1 MB. The demo reads, at build time, only the current
+  generation's rows for the scenes it offers with the fields it prints — a Vite plugin beside the
+  shipped-hashes one G1's closure added — so the page's figures do not depend on the file's size
+  again. The 270 ladder rows stay (Decision Log 2 (a)); their cost is recorded.
+- (d) The three claimed rows are recorded **refuted rather than unmet**: the lever moved (the CSS
+  clip at span 160 33.05 → 45.79 CSS px) and the SSIM rows did not, so a whole-cell SSIM does not
+  read a shadow's width; the seven rows stay seven, and the wave's Deferred carries "a metric that
+  reads the exterior's width" as the shape of work that would close them.
+
 ## Surprises & Discoveries
 
 - **The macOS 27 generation of `results/matrix.json` carries no probe row at all** (G0, claims
