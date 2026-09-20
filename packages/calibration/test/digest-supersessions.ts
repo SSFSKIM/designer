@@ -34,6 +34,18 @@
  * So each entry states both readings, and a pin asserts both: the document's own
  * field must still be `recordedSha256`, and the material it resolves to today
  * must fingerprint to `currentSha256`. Neither can move quietly.
+ *
+ * ## Which material "resolves to" means
+ *
+ * Not one construction for all six. Four of the documents are patches over the
+ * renderer's `DEFAULT_MATERIAL_PROFILE`. The two `-receded` ones are differences
+ * over the ACTIVE document of their own scheme, which they name in their own
+ * `resolvedOverActiveDocument` field and the record repeats — so their digests
+ * are taken over `withMaterialOverrides(withMaterialOverrides(DEFAULT, active),
+ * receded)`, the composition a root performs when the window loses focus. A
+ * digest over the recede alone is a digest of a material nothing draws, which is
+ * how the first record carried two readings the browser disagreed with (W30 G2
+ * review closure, claims §5.158 §8, finding 1).
  */
 
 import { readFileSync } from "node:fs";
@@ -46,6 +58,12 @@ export interface DigestSupersession {
   readonly recordedSha256: string;
   /** What that pin resolves to over a default carrying W30's eight leaves. */
   readonly currentSha256: string;
+  /**
+   * For a RECEDED document, the active document of its own scheme — the patch
+   * the difference is composed over before either digest is taken. Absent on the
+   * four documents that are patches over the renderer's default.
+   */
+  readonly resolvedOverActiveDocument?: string;
   /** The leaves the difference is, by dotted path into the resolved material. */
   readonly leaves: readonly string[];
   readonly decisionLog: string;

@@ -26204,14 +26204,29 @@ forced the extension.
 | `apple-macos-26.5-1x-dark-standard` | `874be66ea501621b` | **`93ab090705c43f1f`** |
 | `apple-macos-27.0-1x-light-standard-glass0.5` | `e825cb034c9070e4` | **`8d06a41cb70ba52f`** |
 | `apple-macos-27.0-1x-dark-standard-glass0.5` | `8439eb808495f5bf` | **`73a3fb119a81312b`** |
-| `apple-macos-27.0-1x-light-standard-glass0.5-receded` | `8dc63b265c1de038` | **`91a22b7ad3473d51`** |
-| `apple-macos-27.0-1x-dark-standard-glass0.5-receded` | `3264b6cdde64bc8b` | **`1b40966487534d1c`** |
+| `apple-macos-27.0-1x-light-standard-glass0.5-receded` | `8dc63b265c1de038` | ~~`91a22b7ad3473d51`~~ → **`035f537d9c27e3ed`** |
+| `apple-macos-27.0-1x-dark-standard-glass0.5-receded` | `3264b6cdde64bc8b` | ~~`1b40966487534d1c`~~ → **`4763b0d195fdb077`** |
 
-Each record also names the eight leaves as dotted paths, the Decision Log and the date.
+**The two receded rows' `currentSha256` were wrong as this section first recorded them, and the
+correct readings stand beside the struck ones** (2026-09-20, review closure; §8 finding 1). A
+receded document is a difference over the ACTIVE document of its own scheme, so its digest is over
+`withMaterialOverrides(withMaterialOverrides(DEFAULT, active), receded)` — the composition a root
+performs when the window loses focus, and the one W29 G3b sealed the pair under. `reseal.ts` took
+both over the recede alone, which is a digest of a material nothing draws. The struck values are
+kept because they were recorded, and because they are what
+`platform-web/e2e/shared/window-activation.spec.ts`'s prose claimed while its own `SEALED` table
+already held the composed ones — the disagreement that was available to be seen on the merge.
+
+Each record also names the eight leaves as dotted paths, the Decision Log and the date; the two
+receded records additionally name the active document they are composed over.
 `results/2026-09-20-w30-g2-leaves/reseal.ts` writes it and **refuses** to write from a tree where
 any document's own field has already moved, so the record cannot be produced against a document that
-was edited first. `test/digest-supersessions.ts` is the shared reader; the pins assert **both**
-readings, so neither can move quietly.
+was edited first. Since the review closure it also refuses to write a record its own construction
+cannot account for: the resolved material **minus the eight leaves by name** must fingerprint to the
+document's own `resolvedMaterialSha256`, which only the construction the document was sealed under
+reproduces. `reseal.v2.txt` is that run. `test/digest-supersessions.ts` is the shared reader; the
+pins assert **both** readings, and `tuned-profiles.test.ts` recomputes all six from the documents on
+disk through each document's own construction, so no pin ends at the record it came from.
 
 **Every digest site that moved, and why each moved:**
 
@@ -26304,3 +26319,22 @@ recomputation is stated as a shape here and computed in §5.159. The CSS tier's 
 the scatter, and its residual, are §5.159's. Every value in §1 is a placeholder for a measurement
 that does not exist yet, and the wave says so in the leaves' own doc comments rather than leaving a
 reader to infer it from a zero.
+
+### 8. Review closure (2026-09-20)
+
+An independent read-only review of the merged child returned one blocking finding and six others.
+All seven are closed here. No document was re-sealed and no macOS 26.5-keyed byte moved (X1,
+Decision Log 4 (a)); the eight leaves keep their inert values; every correction to a number already
+recorded above stands **beside** the recorded one rather than over it.
+
+| # | finding | what closed it |
+| --- | --- | --- |
+| 1 | **Blocking.** The two receded records' `currentSha256` were computed as `fingerprint(withMaterialOverrides(DEFAULT, patch))` — a base merge nothing draws. A receded document is a difference over the ACTIVE document of its own scheme | Recomputed through the composition: light `035f537d9c27e3ed`, dark `4763b0d195fdb077` (§3's table, struck beside). `reseal.ts` now branches on `resolvedOverActiveDocument` and **asserts** its construction — the resolved material minus the eight leaves must fingerprint to the document's own field — so a record cannot be written from a construction the document was not sealed under (`reseal.v2.txt`). `macos27-profile.ts` regenerated; `window-activation.spec.ts`'s prose corrected to what its own `SEALED` table already held; `tuned-profiles.test.ts` recomputes all six records from the documents, each through its own construction, and asserts the two compositions differ for a receded document |
+
+**The general lesson, which outlives this wave.** A digest is a statement about a construction as
+much as about values, and a repository can agree with itself about a construction that is wrong: the
+generated module matched the record, the record matched the script, the script matched nothing that
+draws, and the only reading that disagreed was the one taken from a browser. The guard is not more
+readers but a **closed loop** — the digest's own inverse, asserted where the digest is produced.
+`reseal.ts`'s strip-the-leaves assertion is that loop, and it is the shape any later sealing script
+should take.

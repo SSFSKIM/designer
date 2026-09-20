@@ -44,6 +44,12 @@ interface TunedProfile {
   readonly identityWithRuntimeDefault?: boolean;
   /** Digest over the RESOLVED material — see the profile's `$comment-provenance`. */
   readonly resolvedMaterialSha256: string;
+  /**
+   * The active document this one is a difference OVER, on a receded endpoint —
+   * the patch the page merges first, and therefore part of the material the
+   * digest above is taken over. Absent on a patch over the renderer's default.
+   */
+  readonly resolvedOverActiveDocument?: string;
   readonly measurement: {
     readonly objectiveBefore: number;
     readonly objectiveAfter: number;
@@ -418,6 +424,74 @@ describe("tuned calibration profiles", () => {
       (profile) => supersessionFor(profile.profileKey).currentSha256,
     );
     expect(new Set(digests).size, "four documents, four materials").toBe(4);
+  });
+
+  it("recomputes all SIX records from the materials, each through its own construction", () => {
+    /*
+     * The record's independence (W30 G2 review closure; claims §5.158 §8,
+     * finding 1).
+     *
+     * The two cases above recompute four of the six. The receded pair were pinned
+     * only where the generated module was compared to the record it had been
+     * generated from, which is a constant pinned to its own source, and the record
+     * itself had been written by a script that took both receded digests over the
+     * recede alone. Nothing in the suite could see it: every reader agreed with
+     * every other, and all of them agreed with a material no root ever draws.
+     *
+     * So this case computes each of the six from the documents on disk, through
+     * the construction the document names, and asserts both readings. A receded
+     * document is a difference over the ACTIVE document of its own scheme — the
+     * page merges the active patch over the renderer's default and the receded
+     * patch over that, and the digest is over the result.
+     */
+    expect(DIGEST_SUPERSESSIONS.length).toBe(6);
+    for (const record of DIGEST_SUPERSESSIONS) {
+      const document = load(record.profileKey);
+      const over = record.resolvedOverActiveDocument;
+      const base =
+        over === undefined
+          ? DEFAULT_MATERIAL_PROFILE
+          : withMaterialOverrides(
+              DEFAULT_MATERIAL_PROFILE,
+              load(over.replace(/\.json$/, "")).patch,
+            );
+      const resolved = withMaterialOverrides(base, document.patch);
+      expect(
+        document.resolvedMaterialSha256,
+        `${record.profileKey}: the document's own digest moved`,
+      ).toBe(record.recordedSha256);
+      expect(
+        fingerprint(resolved),
+        `${record.profileKey}: the material this document resolves to — composed over ` +
+          `${over ?? "DEFAULT_MATERIAL_PROFILE"} — does not fingerprint to the record's ` +
+          `currentSha256; re-run results/2026-09-20-w30-g2-leaves/reseal.ts`,
+      ).toBe(record.currentSha256);
+      // The record's own `resolvedOverActiveDocument` is the document's, not a
+      // second opinion about it.
+      expect(over).toBe(document.resolvedOverActiveDocument);
+    }
+
+    /*
+     * And the construction is DISCRIMINATING, which is what makes the loop above
+     * a check rather than a restatement: for a receded document the two
+     * compositions give different digests, so taking the wrong one cannot pass.
+     * These are the two readings the first record carried.
+     */
+    for (const record of DIGEST_SUPERSESSIONS) {
+      if (record.resolvedOverActiveDocument === undefined) continue;
+      const overDefaultAlone = fingerprint(
+        withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, load(record.profileKey).patch),
+      );
+      expect(overDefaultAlone).not.toBe(record.currentSha256);
+    }
+    expect(
+      DIGEST_SUPERSESSIONS.filter((record) => record.resolvedOverActiveDocument !== undefined)
+        .length,
+      "two receded documents, each a difference over its scheme's active one",
+    ).toBe(2);
+    // Six documents, six materials: no two of them resolve to the same thing.
+    expect(new Set(DIGEST_SUPERSESSIONS.map((record) => record.currentSha256)).size).toBe(6);
+    expect(new Set(DIGEST_SUPERSESSIONS.map((record) => record.recordedSha256)).size).toBe(6);
   });
 
   it("records the measured light-scheme tint alpha, not the advisory one", () => {

@@ -64,8 +64,18 @@ test("a visibility event or synthetic blur cannot invent document inactivity", a
  * of the material the renderer is handed, and its first sixteen hex digits are
  * the digest that document's pin RESOLVES to — `8d06a41cb70ba52f` and
  * `73a3fb119a81312b` for the two macOS 27 active endpoints,
- * `91a22b7ad3473d51` and `1b40966487534d1c` for the two macOS 27 receded ones,
+ * `035f537d9c27e3ed` and `4763b0d195fdb077` for the two macOS 27 receded ones,
  * `b340a4dee871633c` and `93ab090705c43f1f` for the two macOS 26.5 active ones.
+ *
+ * A receded endpoint's digest is over the COMPOSITION — the receded difference
+ * over the active patch of the same scheme over the renderer's default — because
+ * that is the material a root hands the renderer when the window loses focus,
+ * and this file is where that material is read back from a browser rather than
+ * assembled by a script. (Corrected 2026-09-20, G2 review closure: the two
+ * receded lines above read `91a22b7ad3473d51` and `1b40966487534d1c` on the
+ * merge, digests over the recede alone, which the table below already
+ * disagreed with; claims §5.158 §8, finding 1.)
+ *
  * So a case here is not only "the pose reaches the renderer":
  * it is "the renderer is handed exactly the material the sealed document
  * records, and exactly the one the calibration bed was read at". Those literals

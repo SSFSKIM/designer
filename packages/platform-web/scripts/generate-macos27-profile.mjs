@@ -60,8 +60,16 @@ const read = (key) => {
  *
  * The module below reports what actually DRAWS, because that is what
  * `root.material` is for, so it takes the current digest. The document's own
- * field stays the reading it was sealed at, and
- * `packages/calibration/test/tuned-profiles.test.ts` pins both halves.
+ * field stays the reading it was sealed at.
+ *
+ * `packages/calibration/test/tuned-profiles.test.ts` pins both halves of all six
+ * records against the materials themselves, each through the construction its
+ * own document was sealed under — the four patch documents over the renderer's
+ * default, the two receded ones over the ACTIVE document of their scheme. That
+ * independence is the point: `macos27-profile-export.test.ts` compares this
+ * module to the record it was generated from, which on its own would pin a
+ * generated constant to its own source (W30 G2 review closure, claims §5.158 §8,
+ * finding 1).
  */
 const supersessions = JSON.parse(
   readFileSync(join(profiles, "digest-supersessions.json"), "utf8"),
@@ -184,7 +192,14 @@ export const macos27CssTierMapping: Partial<CssTierMapping> = ${print(mapping, "
  * bed. So a document's own field is the reading it was sealed at, the record
  * beside it is what the pin resolves to now, and this module names what draws.
  * \`packages/calibration/test/macos27-profile-export.test.ts\` pins these against
- * the record and \`tuned-profiles.test.ts\` pins the record against the material.
+ * the record and \`tuned-profiles.test.ts\` recomputes the record from the
+ * materials themselves, so the chain ends at a material and not at the record.
+ *
+ * The two receded digests are taken over the COMPOSITION the page performs —
+ * the receded difference over the ACTIVE patch of the same scheme over the
+ * renderer's default — because that is the material a root hands the renderer
+ * when the window loses focus, and it is what \`window-activation.spec.ts\` reads
+ * back from the browser.
  */
 export const MACOS_27_RESOLVED_MATERIAL_SHA256 = {
   light: ${JSON.stringify(currentDigest(light.profileKey))},
