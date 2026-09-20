@@ -3702,3 +3702,82 @@ take if a second layout consumer ever appears, because it is the same argument
 that made a material a document rather than two options. Either way the case to
 write is a React toolbar on `macos26MaterialProfileDocument` whose gap equals the
 macOS 26.5 padding rather than 2.2× it.
+
+---
+
+## The reference pair labels its native panel "macOS 26.5" beside a caption naming a macOS 27 profile (W30 G1 review closure, 2026-09-20)
+
+*Found 2026-09-20 by the independent review of the W30 G1 generation split
+(claims §5.157); stale since W29 G4 moved the pair to macOS 27. The seam is
+`apps/demo/src/site/Stage.tsx` — the capture's alt text (:310), the panel's
+`pair__who` line (:313) and the collapsed layout's panel switch (:338).*
+
+The pair's native half now serves the macOS 27 fixtures and prints the resolved
+profile key under the image (`data-testid="native-profile"`, which
+`color-scheme.spec.ts` asserts is `apple-macos-27.0-…`). Three strings around it
+still say "macOS 26.5": the screen-reader description of the capture, the
+caption's *who*, and the radio label a reader uses at narrow widths. So the page
+states two different provenances for one image, and the one a screen reader gets
+is the wrong one.
+
+Nothing measured moves — the fixtures, the cell and the key are all macOS 27 —
+which is why this is prose debt rather than a defect in the comparison. It is
+also why no test caught it: the assertions read the profile caption, which is
+derived, and not the labels, which are literals.
+
+**The fix shape**: derive all three from the same source the caption is derived
+from (`nativeProfileFor(props.scheme)`, or a short display name beside it) so a
+future move of the bed cannot leave one of them behind. W30's charter puts it in
+G4, with the rest of the landing's page work.
+
+---
+
+## `CLAUDE.md` still documents the row-reduction heuristic the generation split retired (W30 G1 review closure, 2026-09-20)
+
+*Found 2026-09-20 by the independent review of the W30 G1 generation split
+(claims §5.157). The seam is `CLAUDE.md`'s calibration section, the sentence
+ending "`rm results/matrix.json` before a full rebuild, or reduce to the newest
+row per key".*
+
+Since W30 G1 the working matrix holds one generation per profile and the
+superseded one is moved, byte for byte, to `results/superseded/<document-sha>.json`
+by `results/2026-09-20-w30-g1-split/split-generation.py` (contract X7). "Reduce
+to the newest row per key" is the timestamp heuristic that split replaced, and
+`rm results/matrix.json` would delete 1,107 rows of frozen macOS 26.5 evidence —
+the instruction most likely to be followed literally is the one that destroys the
+most.
+
+**The fix shape**: replace the sentence with the split — what appends, what
+moves it, and the invocation — when G4 runs the script for the second time and
+can state the instruction from a second application rather than from one. W30's
+charter clause 7 carries it.
+
+---
+
+## A change's "checked, unchanged" sweep read the imports and not the prose (W30 G1 review closure, 2026-09-20)
+
+*Found 2026-09-20 by the independent review of the W30 G1 generation split
+(claims §5.157 §7). The instance: `src/report.ts`, `cli/gates.ts` and
+`test/adopted-thresholds.test.ts` each described `results/matrix.json` as a
+schema-4 file held there by wave Decision Log 15 ruling 3, long after the post-W8
+pass closed that gap — the test asserting `toBe(5)` twice under a title saying
+the two numbers differed. Corrected in the closure itself.*
+
+The sweep that produced §5.157 §7's consumer table listed those three files as
+"carry the path in strings and comments only — unchanged, checked", which was
+true of what they *do* and false of what they *say*. A file that only mentions an
+artefact is exactly the file whose mention goes stale, because nothing executes
+it and no test reads it.
+
+What is still open is the same error one layer out: `matrixSchemaRefusal`'s
+**runtime message** still offers the operator "If that is the frozen inactive-bed
+matrix, it is meant to stay frozen (wave Decision Log 15 ruling 3)", which
+describes a state that ended. It is conditional and therefore harmless, and it is
+user-facing copy, so it was left rather than rewritten in a closure whose subject
+is the split.
+
+**The fix shape**: re-read the refusal's wording against what a run that trips it
+today would actually be — a scratch matrix, or one restored from a branch — and
+say that instead; and when a sweep reports a file "unchanged, checked", have it
+say what the file *claims* about the thing being changed, not only whether it
+reads it.

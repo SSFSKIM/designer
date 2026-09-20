@@ -35,6 +35,17 @@ Finding a superseded row is a **lookup, never a pattern match on a file name**.
 active and receded alike — to the file that holds it. `files` carries each file's
 documents, claims section, capture window, row count, bytes and whole-file digest.
 
+**One shape the plain rule cannot name, and what it is named instead** (added
+2026-09-20, W30 G1 review closure, c9a §5.157 §3). A refit can seal a new receded
+document over an active document that still ships — the unfocused endpoint refitted
+alone — and the rows it supersedes then name a *current* active document. Naming that
+file after the active hash would describe it as a generation that is in fact the
+shipped one, so the file takes the **compound** name `<active>-<receded>.json` and
+`index.json` maps both hashes to it. Nothing about reading changes, because reading was
+already a lookup and the name is never parsed. The split script produces the compound
+name where it used to refuse the shape, and refuses instead where a hash would have to
+name two different files here.
+
 ## The files
 
 | file | profiles | document read at | claims | captured | superseded | rows | bytes |
@@ -65,7 +76,27 @@ excluded it from every bound, floor and count.
 `append-check.py` beside it proves it. The split takes the hashes that are **current**
 (by default every file in `packages/calibration/profiles/`, which is exactly what
 `adopted-thresholds.test.ts`'s `SHIPPED_DOCUMENT_HASHES` derives) and moves everything
-else. Rows move as raw text slices, never through a JSON round trip, and it refuses to
-overwrite a file that already exists. The append-check reconstructs the pre-split file
-from the parts and compares its SHA-256 to the digest recorded before a byte moved, which
-is a proof that no row was lost, changed or reordered.
+else. Rows move as raw text slices, never through a JSON round trip. The append-check
+reconstructs the pre-split file from the parts and compares its SHA-256 to the digest
+recorded before a byte moved, which is a proof that no row was lost, changed or
+reordered; four of its six clauses read the rows off the files rather than out of the
+plan.
+
+`apply` names its own evidence directory and its own claims section — there are no
+defaults, because a second run that inherited the first's would overwrite the
+before-manifest the append-check reconstructs from. The next application of contract X7,
+in full:
+
+```bash
+python3 packages/calibration/results/2026-09-20-w30-g1-split/split-generation.py apply \
+    --evidence packages/calibration/results/2026-09-20-w30-g4-landing/ \
+    --claims "c9a §5.160"
+```
+
+Everything it refuses is decided over the whole plan before a byte is written, so a
+refusal leaves this directory as it was: a row of a frozen macOS 26.5 profile selected to
+move (contract X1, which the tool holds rather than the operator), a `capturePath`
+carrying a document hash its clause pattern does not parse, a destination or a
+before-manifest that already exists, and an index entry that would be repointed.
+`classifier-selftest.py` exercises the classifier on a synthetic matrix carrying the
+generation shapes the bed does not have; its output is committed beside it.

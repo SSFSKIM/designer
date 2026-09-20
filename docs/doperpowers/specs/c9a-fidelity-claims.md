@@ -25860,6 +25860,18 @@ supersession date, row count, bytes and whole-file digest. `results/superseded/R
 same table in prose. A reader that has a hash asks the index; a reader that has none reads the
 working file, which is the shipped generation by construction.
 
+**Added beside, 2026-09-20 (review closure): the one generation shape this rule could not name.**
+A refit can seal a new receded document over an active document that still ships — the unfocused
+endpoint refitted alone — and then a superseded row names a **current** active document. The active
+hash by itself would name that file after a generation that is still the shipped one, so the rule
+takes the whole of what the generation was read at: the file is the **compound**
+`<active>-<receded>.json`, and `index.json` maps *both* hashes to it. That costs nothing, because
+finding a row was already a lookup and the name is never parsed. The split script produces the
+compound name where it previously refused this shape, refuses a hash that would name two different
+superseded files (which would silently overwrite an index entry), and
+`results/2026-09-20-w30-g1-split/classifier-selftest.py` holds the case on a synthetic matrix —
+the bed contains one generation shape and prose about the others is not evidence that they work.
+
 The two files here are W29 G3's read (§5.153), superseded by G3b's re-seal (§5.154) and published
 at §5.155. Neither names a receded document: G3's read predates the receded documents, which G3b
 sealed. The shipped 455 rows were read at `f42ddec1cf5a` / `272d1b0c3e10` with `59d4b20a4596` /
@@ -25877,6 +25889,13 @@ measured at the material that ships, and this cell was not. The row is in `fa872
 holdout and inactive, and both the inactive-pose drop and the generation drop in
 `adopted-thresholds.test.ts` already excluded it from every bound, floor, predicate and count — so
 no gated number moves. Nothing was re-read and nothing should be.
+
+**Added beside, 2026-09-20 (review closure): the counterpart, without which the arithmetic above is
+half of one.** The shipped generation holds a cell the superseded one does not —
+`apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5`, `hc-text__capsule-button__rest`,
+dom tier, holdout — which is why both generations total 455 rows and why that profile reads 35 in
+each column of §2's table rather than 36 and 34. One cell left the working file and one cell was
+never in the superseded one; the two exchanges are what make the counts balance.
 
 ### 5. The append-check: a reconstruction, not a tally
 
@@ -25904,6 +25923,13 @@ re-serialising it with Python's printer produces 72,095,631 bytes against V8's 7
 6.5 kB of number-printing disagreement — so a round trip would have "moved" several thousand recorded
 numbers. The split walks the raw bytes of the `cells` array and slices each element out whole.
 
+*Corrected beside, 2026-09-20 (review closure): the like-for-like figure is **72,095,632** bytes.
+72,095,631 is the printer's output without the trailing newline the file itself carries; both files
+end in one, so the comparison against V8's 72,102,187 is 72,095,632, and the disagreement is 6,555
+bytes. Re-derived from the pre-split file reconstructed out of the parts, which hashes to
+`9f73a2f79…`. The reading is corrected, not replaced: nothing in the split, the counts or the
+digests turns on it.*
+
 ### 6. The freeze
 
 `python3 packages/calibration/results/2026-09-16-w29-freeze/freeze.py verify` → **26.5 freeze
@@ -25924,6 +25950,30 @@ all 1,107 row entries re-derive identically. `freeze.py` is not edited.
 | `scripts/vibrancy.ts` | `provenance.matrixSha256`, a whole-file digest | unchanged, plus `matrixSha256Lineage`: the four digests this reader has recorded, with what moved the file between them. The committed tables keep the value each was written at, byte for byte — the new digest is recorded **beside** the old, never over it |
 | `cli/compare.ts` | documented the append; said nothing about where a superseded generation goes | a header section stating the invariant readers may rely on: the working file holds one generation per profile, and the split script moves what a refit supersedes. Behaviour unchanged; `--out-matrix` and `VITREA_WEB_CAPTURES` scratch paths are outside all of it |
 | `cli/diff.ts`, `cli/gates.ts`, `src/report.ts`, `test/backdrop-mode.test.ts`, `test/compare-gates.test.ts` | carry the path in strings and comments only | unchanged, checked |
+
+**Corrected beside, 2026-09-20 (review closure): the generation is a term in `primacy`, not only a
+fact about the file.** Retiring the `capturedAt` tie-break left `primacy` — profile, then tier — and
+those two do not always name one row. Measured over the split file: the head of `reportsFor` moves
+for **210 of the 312** (scene, scheme) pairs it can be asked about against what the tie-break
+answered, and among the **32** scenes the picker offers, the dark head moves for **20** — every one
+of them from a macOS 27 row to a macOS 26.5 row. That is inert today, and only by a page-layout
+accident: `Stage.tsx` renders a report only where a native capture exists, the **12** displayed
+scenes with a dark capture each carry the dark primary row, and the head moves for **none** of them.
+An accident standing in for a rule is the same defect W21 G3 and W29 G4 each fixed once. So
+`primacy` now carries a third and least significant term: a row at a **shipped** profile document — one whose `capturePath` names documents that are on
+disk at the bytes it records — ranks ahead of one that is not. The precedence is profile, tier,
+generation, so a superseded reading of the right tier still outranks a current reading of another.
+The shipped hashes are derived from the documents' bytes at build time by
+`apps/demo/shipped-documents.ts`, the way `adopted-thresholds.test.ts` derives
+`SHIPPED_DOCUMENT_HASHES`, and never transcribed. It changes no head today, and that is the point:
+the split keeps the working file to one generation, and this keeps the page right during the
+interval a wave lives in — between the capture that appends a generation and the split that retires
+the one it superseded. Pinned by `apps/demo/test/calibration.test.ts` (the dark head over all 23
+scenes, and the precedence over synthetic rows) and by `site.spec.ts`'s primary-cell assertion, which
+now runs in the dark scheme as well as the light one. (The review that found this read 23 of 36
+displayed scenes and 13 dark ones; the three readings above are this closure's own, taken through
+`REFERENCE_SCENES` and `REPORTS_BY_SCENE`, and are recorded beside the review's rather than over
+them.)
 
 **Grepped for a reader the charter missed** — the whole repository including `.github/` — and there
 is none. Every other hit is prose in a spec, a historical claims entry, or `apps/demo/tsconfig.json`
@@ -25947,6 +25997,30 @@ X7 applies the rule twice: G1 moves the generation superseded today, and G4 runs
 no arguments after its own read has sealed new documents, so the invariant is true at the wave's
 close and not only here. `--claims` labels the generation in the index.
 
+**Corrected beside, 2026-09-20 (review closure): "with no arguments" is no longer the invocation, and
+the refusals are wider than the paragraph above says.** `apply` now requires `--evidence` and
+`--claims` explicitly — a second run that inherited G1's defaults would have overwritten G1's own
+before-manifest, the append-check's whole witness, and labelled a new generation with the old
+generation's claims section. G4's invocation in full, which is also in the script's docstring and in
+`results/superseded/README.md`:
+
+```bash
+python3 packages/calibration/results/2026-09-20-w30-g1-split/split-generation.py apply \
+    --evidence packages/calibration/results/2026-09-20-w30-g4-landing/ \
+    --claims "c9a §5.160"
+```
+
+`--current` stays optional and defaults as described; it is now repeatable *and* takes every hash
+that follows it, which is what its usage line always said and not what it parsed. The refusals, all
+of them evaluated over the whole plan before a byte is written, so a refusal leaves the tree as it
+stood: a row of a frozen macOS 26.5 profile selected to move (**X1 is the tool's contract to hold**,
+not the operator's — one mistyped `--current` selects those rows by the hundred, and the append-check
+catches it only after `apply` has written); a `capturePath` carrying more document hashes than the
+clause pattern parses, so a third kind of document cannot change a row's currency unseen; an existing
+destination, an existing before-manifest, or an index entry that would be repointed. The refusal that
+stood where the compound name now is (§3) is gone, and the one that remains — a superseded row naming
+a receded document and no active one — is exercised by the self-test rather than assumed.
+
 ### 9. The chain at this child's head
 
 | step | result |
@@ -25961,3 +26035,61 @@ close and not only here. `--claims` labels the generation in the index.
 No material constant, profile document, fixture, golden, bound, floor or `PREDICATE_EXCLUDES` line
 was touched. The gated bed is the same bed: every row the gate read before the split it reads after
 it, and every row it did not, it still does not.
+
+### 10. Review closure (2026-09-20)
+
+*An independent read-only review of this child found **no blocking finding** and twelve items. All
+twelve are closed here — nine by a change, two by a tracker entry that belongs to G4, one by a
+corrected figure. Nothing recorded was rewritten: every correction above is a dated paragraph
+**beside** the text it corrects, and the re-run append-check is committed as a second reading beside
+the first. No capture, no browser run, no material constant, bound, floor or predicate moved, and
+nothing under a macOS 26.5-keyed path was touched.*
+
+| # | the finding | what closed it |
+| --- | --- | --- |
+| 1 | `split-generation.py` would overwrite G1's committed witness when rerun: `--evidence` defaulted to this directory, `before-manifest.json` was written unguarded, and `--claims` defaulted to `null` | `apply` now **requires** `--evidence` and `--claims`; the before-manifest is refused if it exists; G4's invocation is written out in §8, in the script's docstring and in `results/superseded/README.md`. `append-check.py` now prints which manifest it read, because that flag still defaults here |
+| 2 | X1 was the operator's to hold, not the tool's, and `--current`'s usage line promised several hashes per flag while the parser read one | A row of a frozen macOS 26.5 profile selected to move is **refused before a byte is written**, whatever `--current` said; `--current` is repeatable *and* consumes every hash that follows it, and a token that is not twelve hex is refused. Both exercised — see the self-test's `X1 held by the tool` |
+| 3 | one generation shape the naming rule could not name: a superseded row whose **active** document is still current, which is the "only the receded document moved" case | §3 and `results/superseded/README.md` each name the case; the script **produces** the compound `<active>-<receded>.json` where it used to refuse, `index.json` maps both hashes to it, and a hash that would name two superseded files is refused in the pre-flight |
+| 4 | a third document clause would have been ignored silently: `DOCUMENT_CLAUSE` knows two kinds and currency was judged on what matched | per row, the count of `sha256:` occurrences in the `capturePath` must equal the clauses parsed, or the row is refused. Covered by the self-test's `third clause refused` |
+| 5 | retiring the `capturedAt` tie-break moved `reportsFor`'s head for 210 of 312 (scene, scheme) pairs, inert only by a page-layout accident | the generation is now a term in `primacy` — a row at a shipped document ranks ahead of one that is not, after profile and tier — with the shipped hashes derived from the documents' bytes at build time by `apps/demo/shipped-documents.ts`. Pinned by `apps/demo/test/calibration.test.ts` and by `site.spec.ts`'s primary-cell assertion, which now runs in dark as well as light. Recorded beside §7's row, with this closure's own readings |
+| 6 | a partial apply was recoverable only by hand | every destination, index entry and the before-manifest are checked **over the whole plan** before anything is written |
+| 7 | the "no active document" refusal looked unreachable | it is reachable for one shape — a row naming a receded document and no active one — which the self-test now exercises (`no active refused`); the comment says which shape reaches it instead of implying none does |
+| 8 | three append-check clauses read the manifest rather than the files | `26.5 untouched` and `order preserved` now take the rows **off the files on disk** — the working file's macOS 26.5 digests in its own order, and every file's digest sequence against the manifest's — and the superseded files are asked whether they hold a frozen row at all. Re-run and committed as `append-check.v2.txt` / `.v2.json` **beside** the first reading, not over it: same six clauses PASS, same reconstruction to `9f73a2f79…`, the text identical to the first but for the new `manifest:` line, the JSON carrying one added key (`frozenRowsOnDisk`). The new clauses were shown to fail on a perturbed tree before being trusted on this one |
+| 9 | §4's departing cell was half the arithmetic | §4 names the counterpart: the shipped generation holds `…increased-contrast-coupled…` / `hc-text__capsule-button__rest` / dom / holdout, which the superseded generation does not — which is why both generations total 455 and that profile reads 35 in both columns |
+| 10 | stale "schema 4" prose in `src/report.ts`, `cli/gates.ts` and `test/adopted-thresholds.test.ts`, the last asserting `toBe(5)` twice under a title saying the two differed | all three corrected to what is true, each with a dated line saying what it had described; the test case is now *"reads the matrix at the schema the build writes, and pins both numbers"*. A tracker entry records that G1's "checked, unchanged" sweep read what those files *do* and not what they *say*, and carries the one piece still open — `matrixSchemaRefusal`'s runtime message |
+| 11 | two items belonging to G4 | logged, not fixed: `Stage.tsx`'s three "macOS 26.5" labels beside a caption printing a macOS 27 profile, and `CLAUDE.md`'s "`rm results/matrix.json` … or reduce to the newest row per key". Both are charter clause 7's |
+| 12 | §5's Python round-trip figure omitted the trailing newline | corrected beside: **72,095,632** bytes against V8's 72,102,187, re-derived from the reconstructed pre-split file |
+
+**A thirteenth item, found by this closure's own chain rather than by the review.** G1's chain
+stopped at `pnpm -r test` and the demo build; `pnpm --filter demo test:e2e` was not run, and it
+fails — `site.spec.ts`'s reflow floor reads the document scrolling **94 CSS px sideways at a 320 px
+viewport**. The cause is G1's own copy: `Site.tsx` names
+`packages/calibration/results/superseded/` in an inline `<code>` inside a list item, one unbreakable
+token 346 px wide in a 232 px line, with `overflow-x: visible` the whole way up to `main`. It is
+G1's and not this closure's — reproduced with the closure's only page-affecting file reverted to
+G1's version. Fixed where it belongs: inline `code` in prose takes `overflow-wrap: anywhere` in
+`site.css`, and `.code code` is `white-space: pre` and untouched, so a code BLOCK still scrolls
+inside itself, which is the same test's second assertion. **The lesson is the chain, not the rule:**
+a child that changes the page's copy has to run the page's suite, and the three `pre.code` blocks
+that were already wider than the viewport show that the floor only ever held because everything wide
+had been inside something that scrolled.
+
+**New evidence in `results/2026-09-20-w30-g1-split/`.** `classifier-selftest.py` with its committed
+output `classifier-selftest.txt` — seven cases, all PASS, over synthetic matrices carrying the
+generation shapes the bed does not have; and `append-check.v2.txt` / `append-check.v2.json`, the
+second reading described above.
+
+**The chain at this closure's head.**
+
+| step | result |
+| --- | --- |
+| `freeze.py verify` | **26.5 freeze intact: 1,818 entries**, unchanged |
+| `classifier-selftest.py` | 7 cases **PASS** |
+| `append-check.py` (second reading) | 6 clauses **PASS**, reconstruction to `9f73a2f79…` |
+| `pnpm --filter @vitrea/calibration test` | **530 passed** over 31 files |
+| `pnpm --filter demo test` | **40 passed** over 5 files (34 over 4 before; the six new are `test/calibration.test.ts`) |
+| `pnpm --filter demo build` | exit 0; main chunk 30,273.39 kB |
+| `pnpm -r lint` | exit 0 |
+| `pnpm --filter demo test:e2e` | **58 passed**, 0 failed, both projects (chromium and chromium-gpu). The first run of it read 57 passed and 1 failed — the reflow floor above, which G1's copy had broken and no G1 step ran; the 58th case is this closure's dark primary-cell assertion |
+
+No profile document, fixture, golden, matrix row, bound, floor or `PREDICATE_EXCLUDES` line moved.

@@ -8,6 +8,11 @@
     // `matrix.json` (the calibration results) directly, so that no number and no
     // rectangle on the page is a second hand-kept copy of one.
     "resolveJsonModule": true,
+    // `vite.config.ts` and `vitest.config.ts` both import the plugin that derives the
+    // shipped profile documents' hashes, and Vite's config loader wants that import to
+    // carry its real extension. Nothing here emits, so naming the `.ts` file is exact
+    // rather than a guess about what a build would have produced.
+    "allowImportingTsExtensions": true,
     // Mirrors `vite.config.ts`'s aliases, so the typecheck reads the same source
     // the dev server bundles. Resolving to `dist` instead would typecheck the
     // playground against a build that may not exist yet.
@@ -19,5 +24,5 @@
       "@vitreajs/vitrea-react": ["../../packages/react/src/index.ts"],
     }
   },
-  "include": ["src", "test", "vite.config.ts", "vitest.config.ts", "../reference-apple/scenes.json", "../../packages/calibration/results/matrix.json"]
+  "include": ["src", "test", "shipped-documents.ts", "vite.config.ts", "vitest.config.ts", "../reference-apple/scenes.json", "../../packages/calibration/results/matrix.json"]
 }
