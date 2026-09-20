@@ -1,5 +1,24 @@
 # @vitreajs/vitrea
 
+## 0.19.0
+
+### Minor Changes
+
+- A resolved group state can say which measured material drew it.
+  
+  `GlassGroupState` gains an optional `materialDocument`, and `ResolvedMaterialDocument`
+  is exported beside it. Both are additive, so nothing an existing consumer reads
+  changes; it is a minor because the public surface grew.
+  
+  It is here rather than in the platform layer for the reason `cssBody`, `cssTint`
+  and `cssShadow` are: the honesty core says a capture cell, a readout and a test
+  must read what actually drew, and from 0.19.0 the material is a **selection**
+  rather than a constant of the build — a page draws macOS 27's by default and can
+  pin macOS 26.5's — so "what is this surface made of" became exactly as much a
+  resolved fact as "what is drawing it". The field is filled in by the platform,
+  which is the layer that resolves a root's document, colour scheme and window
+  pose; core's per-group resolver cannot see any of the three.
+
 ## 0.18.0
 
 ### Minor Changes

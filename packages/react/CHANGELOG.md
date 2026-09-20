@@ -1,5 +1,50 @@
 # @vitreajs/vitrea-react
 
+## 0.19.0
+
+### Minor Changes
+
+- `<GlassRoot>` can select a material.
+  
+  Three props arrive together, and until now the binding surfaced none of them —
+  so a React app could not choose which macOS reference its glass was made of, at
+  all:
+  
+  ```tsx
+  import { macos26MaterialProfileDocument } from "@vitreajs/vitrea-web";
+  
+  <GlassRoot materialProfileDocument={macos26MaterialProfileDocument}>…</GlassRoot>
+  ```
+  
+  - **`materialProfileDocument`** selects a whole measured material — the active
+    patch and the receded difference for both colour schemes, plus what that
+    material costs on the CSS tier. The default is macOS 27's, which is what a Mac
+    draws today; macOS 26.5's is shipped beside it. Read at construction, because a
+    scheme and a window pose move *within* one material where a different document
+    is a different material.
+  - **`materialProfile`** is a tuning of the renderer's optical constants over
+    whatever the document selected, applied to the live root — a material change is
+    not a reason to tear a root down. Hold the object still between renders; an
+    inline literal re-derives both tiers every render.
+  - **`cssTierMapping`** is the CSS crossing. It stays calibration's seam rather
+    than an application knob, and it is surfaced only so that an app naming a whole
+    material by hand can name both halves of it.
+  
+  `useGlassCapabilities()` reports which material drew, beside the tier and the
+  health, and it reports it *live*: the capability store compared snapshots on the
+  seven core axes and none of the fields the platform folds on, so a readout could
+  go on naming the material a root had stopped drawing. It now compares every
+  field, which also makes the CSS tier's three form fields (`cssBody`, `cssTint`,
+  `cssShadow`) reach a subscriber when they change.
+
+### Patch Changes
+
+- Updated dependencies [28c2c20]
+- Updated dependencies
+- Updated dependencies
+  - @vitreajs/vitrea-web@0.19.0
+  - @vitreajs/vitrea@0.19.0
+
 ## 0.18.0
 
 ### Minor Changes
