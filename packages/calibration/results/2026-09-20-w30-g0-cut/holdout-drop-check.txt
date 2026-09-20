@@ -19,9 +19,19 @@ fixtureSet `holdout` — the row the drop exists for. Every reader built on
     a kept row IS printed:  yes
     with --with-holdout:    holdout scene reaches the table
 
+--- fit.py render (the argument check, in isolation)
+    20 declared holdout ids, read from scenes.json's own split
+    --set holdout                                                     REFUSED
+    --set calibration,holdout                                         REFUSED
+    --scene checkerboard__glass-over-glass__inactive                  REFUSED
+    --set calibration                                                 allowed
+    --scene checkerboard__rrect-md__rest                              allowed
+    --set holdout --with-holdout                                      allowed
+    --scene checkerboard__glass-over-glass__inactive --with-holdout   allowed
+
 --- fit.py merge
     default:          ['checkerboard__rrect-md__rest', 'photo__rrect-md__rest']
     --with-holdout:   ['checkerboard__rrect-lg__rest', 'checkerboard__rrect-md__rest', 'photo__rrect-md__rest']
 
-OK — no reader yields a holdout number without the flag, and every reader
-     yields one with it.
+OK — no reader yields a holdout number without the flag, every reader yields
+     one with it, and `render` refuses to CAPTURE a holdout selection without it.

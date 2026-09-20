@@ -387,6 +387,95 @@ def main() -> int:
         print(f"    span {r['span']:>3}  {r['bed']:<36}{r['scene']:<48}σ {r['sigmaCss']:6.2f}")
     print()
 
+    # -----------------------------------------------------------------------
+    # Added by the review closure (W30 Decision Log 3 (c), claims §5.156 §9).
+    # Everything above is unchanged; this section derives two things the
+    # declarations turned out to need and states them where they can be re-run.
+    # -----------------------------------------------------------------------
+    print("§9. B1 read as a JOINT clause: the window one document's σ at span 96 has to sit in")
+    print("-" * 108)
+    print("  A macOS 27 document is selected per SCHEME, not per bed: the light document is")
+    print("  what the 1x, 2x, reduced-transparency and coupled-contrast beds all draw (their")
+    print("  rows' own capturePath names it), and the dark document is what the two dark beds")
+    print("  draw. So B1's ±5 % is not four independent clauses — one σ at span 96 has to meet")
+    print("  every bed its document serves at once, and the admissible window is the")
+    print("  INTERSECTION of the per-bed ones. The confounded increased-contrast key is not")
+    print("  among the six declared profiles and is printed but excluded from the intersection.")
+    print()
+    DOCUMENTS = (
+        ("light document", ["1x light", "2x light",
+                            "1x light-reduced-transparency",
+                            "1x light-increased-contrast-coupled"]),
+        ("dark document", ["1x dark", "2x dark"]),
+    )
+    for name, served in DOCUMENTS:
+        print(f"  {name} — served beds at span 96")
+        print(f"    {'bed':<38}{'n':>4}{'median σ':>11}{'-5 %':>10}{'+5 %':>10}")
+        windows = []
+        for bed in served:
+            values = [r["sigmaCss"] for r in rows if r["bed"] == bed and r["span"] == 96]
+            if not values:
+                print(f"    {bed:<38}{'—':>4}")
+                continue
+            centre = median(values)
+            windows.append((centre * 0.95, centre * 1.05))
+            print(f"    {bed:<38}{len(values):>4}{centre:>11.4f}"
+                  f"{centre * 0.95:>10.4f}{centre * 1.05:>10.4f}")
+        if windows:
+            low = max(w[0] for w in windows)
+            high = min(w[1] for w in windows)
+            centre = (low + high) / 2
+            verdict = "NON-EMPTY" if high > low else "EMPTY — B1 cannot be met jointly"
+            print(f"    joint window [{low:.4f}, {high:.4f}]  centre {centre:.4f}  "
+                  f"± {(high - low) / 2 / centre * 100:.3f} % effective  {verdict}")
+        print()
+    excluded_bed = [r["sigmaCss"] for r in rows
+                    if r["bed"] == "1x light-increased-contrast" and r["span"] == 96]
+    if excluded_bed:
+        print(f"  (1x light-increased-contrast, the confounded key: median "
+              f"{median(excluded_bed):.4f} over {len(excluded_bed)}, excluded above.)")
+        print()
+    for scheme, alone, against in (("light", "1x light", "2x light"),
+                                   ("dark", "1x dark", "2x dark")):
+        one = [r["sigmaCss"] for r in rows if r["bed"] == alone and r["span"] == 96]
+        two = [r["sigmaCss"] for r in rows if r["bed"] == against and r["span"] == 96]
+        if one and two:
+            print(f"  A law fitted to the {alone} median alone lands "
+                  f"{median(one) / median(two) - 1:+.1%} against {against}'s.")
+    print()
+
+    print("§10. B1's median with the holdout in it, against the median the fit may see")
+    print("-" * 108)
+    print("  B1 is read against 'that bed's median native σ' and the σ law is fitted on")
+    print("  non-holdout cells (X4). Those are two populations, so the bound could in")
+    print("  principle be stated against a number no fit is allowed to see. The difference is")
+    print("  printed rather than assumed away:")
+    print()
+    print(f"  {'bed':<38}{'span':>6}{'pooled':>10}{'n':>4}{'non-holdout':>14}{'n':>4}{'Δ %':>9}")
+    worst = 0.0
+    for bed in beds:
+        for span in (96, 128, 160):
+            pooled = [r["sigmaCss"] for r in rows if r["bed"] == bed and r["span"] == span]
+            fittable = [r["sigmaCss"] for r in rows
+                        if r["bed"] == bed and r["span"] == span and r["set"] != "holdout"]
+            if not pooled:
+                continue
+            if not fittable:
+                print(f"  {bed:<38}{span:>6}{median(pooled):>10.4f}{len(pooled):>4}"
+                      f"{'—':>14}{0:>4}{'n/a':>9}")
+                continue
+            drift = median(pooled) / median(fittable) - 1
+            worst = max(worst, abs(drift))
+            print(f"  {bed:<38}{span:>6}{median(pooled):>10.4f}{len(pooled):>4}"
+                  f"{median(fittable):>14.4f}{len(fittable):>4}{drift * 100:>+9.3f}")
+    print()
+    print(f"  Largest disagreement at any thick span on any bed that carries both: "
+          f"{worst * 100:.3f} %.")
+    print("  The three accessibility beds carry NO non-holdout cell at span 160 — their only")
+    print("  span-160 reading is the holdout `photo__rrect-lg__rest` — which is the case B1")
+    print("  already declares an extrapolation and a check rather than a fit.")
+    print()
+
     out = {
         "source": "results/2026-09-19-w29-g3b-shadow-recede/native-delta.json",
         "statistic": "upper middle order statistic of sigma_css = shadowFalloffSigmaPx[1] / scale",

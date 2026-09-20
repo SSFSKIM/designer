@@ -66,6 +66,49 @@ extrapolation of the line, and the six holdout readings (13.25–13.74) are the 
 The three accessibility beds carry **no fittable cell above span 96**; their span-160 σ is the
 holdout `photo__rrect-lg__rest` at 16.97 and is a reported check, never a fit input.
 
+#### B1 read as a joint clause, 2026-09-20 (review closure), per charter Decision Log 3 (c)
+
+*B1 above reads as seven independent clauses; it is two, because a document is selected per SCHEME
+and not per bed.* Nothing above is rewritten. `shadow-cut.py` §9 and §10 compute everything below.
+
+**The law's held parameter.** The σ law has one flat direction: shifting `sigmaPx`,
+`sigmaThinOffsetPx` and `sigmaSpanRefPx` together leaves σ unchanged at every span, so a fit that
+frees all four leaves is unidentified and two fits with different constants can draw the same
+shadow. **G3 holds `sigmaSpanRefPx` at 96** in the macOS 27 documents and refits `sigmaPx` as the σ
+at span 96, fitting the slope and the offset around it. 96 is the span every bed carries sixteen
+cells at and the span the amplitude's own anchor (`thickOcclusionAt96`) is keyed to, so the two
+laws pivot on the same abscissa. **The inert default of `sigmaSpanRefPx` stays 0** — the identity
+`σ = sigmaPx + max(0, 0)` does not depend on its value, and 96 is the fit's number, not the
+default's.
+
+**The clause is joint across the beds one document serves.** The light document is what the 1x,
+2x, reduced-transparency and coupled-contrast beds all draw; the dark document is what the two dark
+beds draw. One σ at span 96 therefore has to meet every one of its own document's beds at ±5 % at
+once, and the admissible window is the intersection:
+
+| document | beds served (median native σ at span 96) | joint window at span 96 | effective |
+| --- | --- | --- | ---: |
+| light | 1x light **8.7954**, 2x light **9.3648**, reduced transparency **8.5898**, coupled contrast **8.5898** | **[8.8966, 9.0193]** | **±0.685 %** |
+| dark | 1x dark **8.8743**, 2x dark **9.3773** | **[8.9084, 9.3180]** | ±2.247 % |
+
+Both are non-empty, so B1 remains meetable — but the light document's effective tolerance is
+**±0.685 %, not ±5 %**, which is seven times tighter than the clause reads and tighter than the
+line's own max residual at the worst bed. That is the clause G3 fits against and G4 judges.
+(The confounded `1x-light-increased-contrast` key reads 8.7968 over 2 cells and is excluded, because
+it is not one of the six declared profiles.)
+
+**The warning the window carries.** A law fitted to the 1x-light median alone lands **−6.08 %**
+against the 2x-light bed and fails B1 there; on the dark document the same mistake is −5.4 %. The
+fit is therefore a joint one from the start, not a 1x fit checked at 2x afterwards.
+
+**B1's median and the fit's own population are the same number to 0.4 %.** B1 is read against the
+bed's median native σ, which is taken over every active cell that resolves a σ, while the σ law is
+fitted on non-holdout cells only — two populations, and a bound stated against a number no fit may
+see would be unreachable by construction. It is not: at every thick span on every bed that carries
+a non-holdout cell, the pooled median and the non-holdout median agree to **≤ 0.354 %** (the worst
+is 1x light at span 160; twelve of the fifteen comparisons are exact). The three accessibility beds
+carry no non-holdout cell at span 160 at all, which is the extrapolation B1 already declares.
+
 ### B2 — the shadow, thin regime (spans 32–44): **a one-wave reading, not adopted**
 
 **The clause.** "No longer 2.8–7.2× too wide", with a numeric bound: the fitted σ_css at span 44 is
@@ -120,6 +163,44 @@ anchors fall with `thickOcclusionAt160` falling most, `thinOcclusionDark` stays 
 `liftAmplitude` moves only as the thick anchors' trade partner — and a refit that moves them the
 other way is a warning, not a result.
 
+#### B3 restated beside, 2026-09-20 (review closure), per charter Decision Log 3 (a)
+
+*The clause above declares a stop the wave is already past, because it names one tier's number over
+both tiers' cells.* Nothing above is rewritten; this is the stop G3 and G4 are judged by.
+
+The quantity is unchanged — `|meanDepartureWeb − meanDepartureNative|`, the shadow axis's own mean
+exterior departure, arithmetic mean over rows — and it is now computed rather than quoted:
+`departure-stat.py` in this directory reads it off the committed matrix through
+`atAShippedDocument`'s partition and `departure-stat.txt` is its output, so G3 and G4 re-run it
+instead of transcribing it.
+
+| reading, over the non-holdout cells of all six declared profiles | n | today |
+| --- | ---: | ---: |
+| **the WebGPU tier — THE STOP** | 166 | **0.00035** |
+| the CSS tier, recorded beside | 166 | 0.00124 |
+| both tiers pooled, which is what the clause above literally declares | 332 | **0.00079** |
+| the two light standard beds pooled, both tiers | 196 | 0.00066 |
+
+**The stop is: the WebGPU tier's mean absolute exterior departure over the non-holdout cells of all
+six macOS 27 profiles, 0.00035 today, held at or better by G3's sealed fit.** The both-tier figure
+is recorded beside it as the CSS tier's reading and is not a stop: the shadow is fitted on the
+WebGPU tier and the CSS tier derives one `box-shadow` blur radius per surface from the same
+profile, so a CSS-tier worsening is a recorded residual and not a refusal (the tier rule, Decision
+Log 23 of 2026-09-05). A CSS figure that improves is reported; one that worsens is recorded with
+what moved it.
+
+**Where 0.0007 came from, and why it is not this bed's number.** It is §5.154 §3's
+"0.00681 → 0.00074 mean absolute on the light standard bed", restated here unqualified. That figure
+was read during G3b's fit on its own scratch matrices at the moment the anchors were chosen; the
+committed matrix does not reproduce it under any partition of the 1x-light-standard bed —
+`departure-stat.txt`'s last block prints all eight (0.00022 to 0.00349 on the WebGPU tier, 0.00051
+to 0.00432 pooled). The correction is recorded beside §5.154 §3 and §4 as well, and neither figure
+there is rewritten.
+
+**What this changes about the wave's difficulty, said plainly.** 0.00035 is tighter than 0.0007 by a
+factor of two on the tier that is fitted, so the restatement makes the stop harder, not easier. That
+is the point of it: a stop a fit passes by standing still is not a stop.
+
 ### B4 — the scatter's structure ratio: **a one-wave reading, not adopted**
 
 **The tolerance.** On the **WebGPU tier**, the interior structure ratio
@@ -147,6 +228,37 @@ is fitted on — has no committed macOS 27 web reading. A ratio adopted into
 `adopted-thresholds.test.ts` on one pitch would be a standing promise about a curve read at one
 point. It becomes adoptable when the ladder is read at a macOS 27 document, which is the decision
 §5.156 §3 puts to the parent for G4's canonical read.
+
+#### B4 scoped beside, 2026-09-20 (review closure), per charter Decision Log 3 (b)
+
+*"Toward 1.0 on every one of the six profiles, and past it on none" cannot be met as written, for a
+reason this gate's own tables already carry.* Nothing above is rewritten.
+
+**The binding clause is the four standard beds.** The reduced-transparency and coupled-contrast beds
+are **captured at the light standard document** — every one of their rows' `capturePath` names
+`profiles/apple-macos-27.0-1x-light-standard-glass0.5.json`, 32 rows and 35 rows respectively, and
+no other document appears on either — so they inherit its scatter values by construction and carry
+no leaf of their own to move. And they need the operator moved the other way from the bed that is
+fitted: the light standard bed reads **1.567** and needs structure removed, while reduced
+transparency reads **0.818** and coupled contrast **0.969** and both need it added. One value of one
+leaf cannot do both, so a clause binding all six is a clause the wave fails by arithmetic before it
+starts.
+
+So: **B4's "toward 1.0 and past it on none" binds the four standard beds whose documents are
+fitted** (1x/2x × light/dark). The two accessibility beds are **reported** — their ratio before and
+after, with the direction it moved and by how much — which is what B4's own last sentence already
+said of the CSS tier and what §5.156 §3 established for these two profiles when it showed five
+ladder rungs identify a scalar and not a curve.
+
+**The ladder clause is read on the macOS 27 ladder probe rows, and on nothing else.** "No pitch
+inside 0.8–1.25 today leaves it" is read on the rows charter Decision Log 2 (a) grants — the 45
+ladder scenes on the WebGPU tier for the four standard profiles and on the CSS tier for the two 1x
+standard ones, written `fixtureSet: "probe"` into the macOS 27 generation at G4. Reading it on the
+macOS 26.5 ladder instead would be vacuous: that generation is frozen evidence at a material this
+wave does not touch, so every one of its 662 metric-carrying probe rows is unmoved by construction
+and the clause could not fail. The macOS 26.5 reading is what §5.156 §3 uses to establish the
+residual's SHAPE; it is not a bed this wave's operator can be judged on, and that reading is
+dropped here.
 
 ### B5 — `sizeToneLevelFar`: **declined, and the decline is the declaration**
 

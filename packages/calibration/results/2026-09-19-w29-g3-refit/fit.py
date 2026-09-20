@@ -34,6 +34,16 @@ tracker's "the fit loop's holdout drop lives in one reader" records.
 allowed to see them. It has to be typed, per invocation, on a reader whose
 default refuses — which is the opposite of the old arrangement in the one way
 that matters.
+
+**The drop reaches `render` too (W30 Decision Log 3 (e), claims §5.156 §9).**
+`cells()` guards every TABLE, but `render` writes `compare`'s own stdout to
+`<label>/<profile>.<renderer>.log`, and `compare` prints a line per measured
+cell — so a round invoked with `--set holdout` or with a holdout `--scene` put a
+holdout number one `cat` away from the operator while every table stayed clean.
+`capture_refusal()` closes that: `render` refuses a `--set` naming holdout and a
+`--scene` naming a declared holdout id unless `--with-holdout` is typed. The ids
+come from `apps/reference-apple/scenes.json`'s own `split.holdout` and are named
+nowhere in this file, which is the same rule `cli/compare.ts` follows.
 """
 from __future__ import annotations
 
@@ -45,6 +55,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 PACKAGE = HERE.parent.parent
+ROOT = PACKAGE.parent.parent
+SCENES = ROOT / "apps/reference-apple/scenes.json"
 SCRATCH = Path(os.environ.get("VITREA_G3_SCRATCH", "/tmp/g3scratch"))
 
 BACKDROP_ENCODED_MEAN = {
@@ -123,7 +135,52 @@ def make_doc(out: Path, base: Path, overrides: dict) -> Path:
     return out
 
 
-def render(label: str, profile: str, renderer: str, document: Path, argv: list[str]) -> Path:
+HOLDOUT = "holdout"
+
+
+def holdout_scenes() -> frozenset[str]:
+    """The declared holdout ids, read from `scenes.json` and named nowhere here."""
+    return frozenset(json.loads(SCENES.read_text())["split"][HOLDOUT])
+
+
+def flag_list(argv: list[str], name: str) -> list[str]:
+    """A repeated `--name a,b` option's values, in `compare`'s own comma form."""
+    out: list[str] = []
+    for index, token in enumerate(argv):
+        if token == f"--{name}" and index + 1 < len(argv):
+            out += [part.strip() for part in argv[index + 1].split(",") if part.strip()]
+    return out
+
+
+def capture_refusal(argv: list[str], with_holdout: bool) -> str | None:
+    """Why this `render` invocation must not run, or None.
+
+    The table readers drop holdout rows, but `render` writes `compare`'s stdout
+    to the label's log and `compare` prints a line per measured cell — so a
+    selection that names the holdout puts a holdout number in front of the
+    person choosing constants by `cat` rather than by table, which is the same
+    failure one channel over (W30 Decision Log 3 (e)). The check is on the
+    SELECTION rather than on the output, because that is the only place it can
+    be made before the capture exists.
+    """
+    if with_holdout:
+        return None
+    if HOLDOUT in flag_list(argv, "set"):
+        return ("fit: --set names the holdout and this is a fit loop (X5). "
+                "Type --with-holdout if this is the canonical read.")
+    named = sorted(set(flag_list(argv, "scene")) & holdout_scenes())
+    if named:
+        return (f"fit: --scene names {len(named)} declared holdout scene(s) — "
+                f"{', '.join(named)} — and this is a fit loop (X5). "
+                "Type --with-holdout if this is the canonical read.")
+    return None
+
+
+def render(label: str, profile: str, renderer: str, document: Path, argv: list[str],
+           with_holdout: bool = False) -> Path:
+    refusal = capture_refusal(argv, with_holdout)
+    if refusal is not None:
+        raise SystemExit(refusal)
     machine_ready()
     run = SCRATCH / "fit-log" / label
     run.mkdir(parents=True, exist_ok=True)
@@ -149,9 +206,6 @@ def render(label: str, profile: str, renderer: str, document: Path, argv: list[s
     if not matrix.exists():
         raise SystemExit(f"fit: {matrix} was not written; see {run}")
     return matrix
-
-
-HOLDOUT = "holdout"
 
 
 def cells(matrix: Path, with_holdout: bool = False) -> list[dict]:
@@ -256,7 +310,7 @@ def main() -> int:
         print(make_doc(out, base, json.loads(overrides.read_text())))
     elif verb == "render":
         label, profile, renderer, document = argv[1:5]
-        print(render(label, profile, renderer, Path(document), argv[5:]))
+        print(render(label, profile, renderer, Path(document), argv[5:], with_holdout))
     elif verb == "table":
         table(argv[1], argv[2] if len(argv) > 2 else "interiorMean", with_holdout)
     elif verb == "merge":
