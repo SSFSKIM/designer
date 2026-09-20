@@ -166,6 +166,14 @@ firefox (here), and the elapsed window on firefox (W28 G3) and on chromium (W28 
 engine's property rather than the driver round trip's. The 0.20.0 cut is prepared with it disclosed,
 as 0.17.0, 0.18.0 and 0.19.0 were.
 
+*2026-09-20 (the parent, the final chain at the 0.20.0 head `ec9e136f`):* the three-engine run read
+**two red** again — `presence.spec.ts` "authored presence is monotone in place" on **chromium**
+(elapsed 528.2 ms against 425.1 allowed) and `morph.spec.ts` "a reversal mid-flight redirects
+instead of restarting" on **firefox** (frame 6 of 50 stepped 31.4 ms against a 29.3 budget) — a
+third distinct case of the class, the second on chromium in one day. Not rerun. The log is
+`results/2026-09-20-w30-g4-landing/chain-parent-final-react-e2e.txt` beside G4's. The entry stays
+open; the 0.20.0 cut carries it disclosed.
+
 *Found 2026-08-30, running the suites for the tint API (W3).*
 
 Two to four cases in `packages/react/e2e/press.spec.ts` and `morph.spec.ts` fail

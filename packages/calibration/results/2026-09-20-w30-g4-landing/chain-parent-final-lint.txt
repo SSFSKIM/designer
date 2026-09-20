@@ -1,0 +1,19 @@
+Scope: 9 of 10 workspace projects
+packages/geometry lint$ eslint . && tsc --noEmit
+packages/policy lint$ eslint . && tsc --noEmit
+packages/motion lint$ eslint . && tsc --noEmit
+packages/policy lint: Done
+packages/motion lint: Done
+packages/geometry lint: Done
+packages/renderer-webgpu lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+packages/renderer-webgpu lint: Done
+packages/core lint$ eslint . && tsc --noEmit
+packages/core lint: Done
+packages/platform-web lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+packages/platform-web lint: Done
+packages/calibration lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json
+packages/react lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+packages/react lint: Done
+packages/calibration lint: Done
+apps/demo lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+apps/demo lint: Done

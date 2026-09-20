@@ -1042,6 +1042,19 @@ reconstruct which reading is current.
 
 ## Revision Notes
 
+- 2026-09-20 (the parent): **G4 merged (`fadd9792`), its review closure merged (`ec9e136f`), and
+  the parent's final chain run on the merged tree at the 0.20.0 head** — machine 27.0/26A428, RT 0,
+  IC 0, slider 0.5, recorded: build, lint and root eslint exit 0; unit **2,566** (policy 23, motion
+  164, geometry 170, renderer-webgpu 511, core 302, platform-web 631, react 169, calibration 550,
+  demo 46); goldens 34 byte-identical; gpu 34; platform-web 410 across four projects; demo 59; React
+  **172 passed, 3 skipped, 2 failed** in the driver-timing class (`presence.spec.ts` on chromium,
+  528.2 ms against 425.1; `morph.spec.ts` "a reversal mid-flight" on firefox, a 31.4 ms frame against
+  29.3) — recorded in the tracker beside G4's two and not rerun; freeze intact at 1,818. Logs
+  `results/2026-09-20-w30-g4-landing/chain-parent-final-*.txt`. The status stands: **CLOSED, 0.20.0
+  PREPARED, UNPUBLISHED**; `pnpm release` is the user's hand and the tag follows it. Two things for
+  the user's eye before the cut: the tone stage's re-range executed under a Decision Log 1 (e) whose
+  stated reason the reading refuted (§5.160 §4 says what retirement would remove), and the two React
+  reds disclosed as at 0.17.0–0.19.0.
 - 2026-09-20 (G4 review closure): **an independent read of the landing found no
   blocking finding and fourteen items; all fourteen are closed on this branch**
   (claims §5.160 §9, which carries the per-finding table, the three further
