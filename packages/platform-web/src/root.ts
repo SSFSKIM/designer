@@ -837,6 +837,29 @@ const withPlatformFolds = (
  * The response rows and abscissa discriminator are checked before the lazy
  * per-host solve can see them. Other constants resolve eagerly on application.
  */
+/**
+ * Does this patch name any value at all? — the `tuned` readout's predicate.
+ *
+ * `undefined` is not the only way an app says "nothing of mine": `{}` is the
+ * other, and it is the one a React binding sends. `<GlassRoot>` withdraws the
+ * `materialProfile` prop by calling `setMaterialProfile({})` rather than by
+ * skipping the call, because a root that kept the last patch it was handed would
+ * go on drawing a material the app has stopped asking for — so an empty patch is
+ * precisely the *absence* of a tuning, and reading it as one would leave the
+ * readout saying an app had tuned a material it had just taken its hands off.
+ *
+ * Recursive because an empty branch is empty too: `{ optics: {} }` merges to the
+ * identity exactly as `{}` does, and this answers about leaves for that reason.
+ * An array is a leaf here for the reason `mergeMaterialProfiles` states — a
+ * colour is one leaf and not three.
+ */
+const namesAValue = (patch: object): boolean =>
+  Object.values(patch).some((value) =>
+    value !== null && typeof value === "object" && !Array.isArray(value)
+      ? namesAValue(value as object)
+      : true,
+  );
+
 const rejectUndrawableProfile = (
   profile: RendererMaterialProfile | undefined,
   document: GlassMaterialProfileDocument,
@@ -1237,7 +1260,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       ...(endpoint.resolvedMaterialSha256 === undefined
         ? {}
         : { resolvedMaterialSha256: endpoint.resolvedMaterialSha256 }),
-      tuned: hostProfile !== undefined || options.cssTierMapping !== undefined,
+      // An empty patch is a withdrawal and not a tuning — see `namesAValue`. The
+      // digest above does not move with this field: it is the ENDPOINT's, and
+      // what `tuned` says is whether the material that drew is still what that
+      // digest is a digest of.
+      tuned:
+        (hostProfile !== undefined && namesAValue(hostProfile)) ||
+        (options.cssTierMapping !== undefined && namesAValue(options.cssTierMapping)),
     };
   };
   let cssOptics = cssTierOptics(initialProfile, cssMapping);

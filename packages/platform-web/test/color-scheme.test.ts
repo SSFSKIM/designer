@@ -354,6 +354,45 @@ describe("a root's resolved scheme", () => {
     expect(tintOf(tuned)).not.toEqual(tintOf(rootWithHost({ matcher })));
   });
 
+  it("reports `tuned` for a patch that names something, and not for one that names nothing", () => {
+    /*
+     * The withdrawal, at the seam it happens on (W29 G4 review closure).
+     *
+     * `@vitreajs/vitrea-react` takes a tuning back by calling
+     * `setMaterialProfile({})` rather than by skipping the call — a root that
+     * kept the last patch it was handed would go on drawing a material the app
+     * has stopped asking for — so `{}` reaches this getter and means the absence
+     * of a tuning. It is checked here as well as in the React package because
+     * the predicate is this package's: any other binding withdrawing the same
+     * way gets the same answer.
+     *
+     * The digest is invariant across all of it. It is the ENDPOINT's, and what
+     * `tuned` says is whether that digest is still a description of what drew —
+     * which is the one way this readout can lie while every number in it is
+     * right.
+     */
+    const { matcher } = fakeMatcher();
+    const fixture = rootWithHost({ matcher });
+    const digest = fixture.root.material.resolvedMaterialSha256;
+    expect(fixture.root.material.tuned).toBe(false);
+
+    fixture.root.setMaterialProfile({ optics: { regular: { tintAlpha: 0.3 } } });
+    fixture.frame();
+    expect(fixture.root.material.tuned).toBe(true);
+
+    fixture.root.setMaterialProfile({});
+    fixture.frame();
+    expect(fixture.root.material.tuned).toBe(false);
+    expect(fixture.root.material.resolvedMaterialSha256).toBe(digest);
+
+    // An empty BRANCH is empty too: `{ optics: {} }` merges to the identity
+    // exactly as `{}` does, so a readout that counted keys one level down would
+    // answer "tuned" to a patch naming no value at all.
+    fixture.root.setMaterialProfile({ optics: {} });
+    fixture.frame();
+    expect(fixture.root.material.tuned).toBe(false);
+  });
+
   it("follows prefers-color-scheme under auto, and re-derives when it flips", () => {
     const { matcher, set } = fakeMatcher();
     const auto = rootWithHost({ matcher, colorScheme: "auto" });

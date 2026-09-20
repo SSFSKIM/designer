@@ -1,0 +1,61 @@
+## 1. The harness bands — is the residual chromatic?
+interior: the same 200x100 device px box at the pane's centre, in OKLab
+C is chroma sqrt(a^2+b^2); spread is the sd of a and b ACROSS the box
+
+apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-md__rest
+  Apple  C 0.08697   hue  328.1 deg   spread a 0.07229  b 0.04672
+  vitrea C 0.02800   hue  331.9 deg   spread a 0.02405  b 0.01574
+  ratios      C 0.32x   spread a 0.33x  b 0.34x
+  interior |delta| per channel, codes:  R 22.74  G 12.56  B 19.63
+
+apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-md__inactive
+  Apple  C 0.08789   hue  329.0 deg   spread a 0.07375  b 0.04759
+  vitrea C 0.03145   hue  333.1 deg   spread a 0.02729  b 0.01766
+  ratios      C 0.36x   spread a 0.37x  b 0.37x
+  interior |delta| per channel, codes:  R 23.64  G 10.14  B 21.23
+
+apple-macos-27.0-2x-dark-standard-glass0.5 photo__rrect-md__rest
+  Apple  C 0.10287   hue  330.2 deg   spread a 0.08375  b 0.05502
+  vitrea C 0.01259   hue  333.9 deg   spread a 0.01108  b 0.00729
+  ratios      C 0.12x   spread a 0.13x  b 0.13x
+  interior |delta| per channel, codes:  R 34.95  G 16.89  B 28.98
+
+apple-macos-27.0-2x-dark-standard-glass0.5 photo__rrect-md__inactive
+  Apple  C 0.10292   hue  330.2 deg   spread a 0.08354  b 0.05504
+  vitrea C 0.01337   hue  333.1 deg   spread a 0.01166  b 0.00757
+  ratios      C 0.13x   spread a 0.14x  b 0.14x
+  interior |delta| per channel, codes:  R 32.16  G 19.04  B 24.97
+
+## 2. The demo band — the `Publish` chip through the pose
+sheet pixels; the playground at 2x scaled 0.375 by sheet.py
+the animated texture region (residual (d)) is excluded from the ranking:
+it saturates the difference at 8x and is motion rather than material
+
+demo-and-harness-light.png, band 1
+  light ground row
+    active   fill rgb(252, 147, 0)    (39% of the box)  OKLab L 0.7581  C 0.1737
+    inactive fill rgb(205, 205, 205)  (60% of the box)  OKLab L 0.8483  C 0.0000
+    the pose moves L by +0.0902 and C by -0.1737
+    in the 8x difference column the chip reads rgb(255, 255, 255) over 74% of its box,
+    brighter than 95.94% of that column's pixels outside the texture region
+  dark ground row
+    active   fill rgb(214, 124, 0)    (34% of the box)  OKLab L 0.6702  C 0.1536
+    inactive fill rgb(133, 133, 133)  (60% of the box)  OKLab L 0.6167  C 0.0000
+    the pose moves L by -0.0535 and C by -0.1536
+    in the 8x difference column the chip reads rgb(255, 72, 255) over 47% of its box,
+    brighter than 95.94% of that column's pixels outside the texture region
+
+demo-and-harness-dark.png, band 1
+  light ground row
+    active   fill rgb(255, 149, 0)    (49% of the box)  OKLab L 0.7652  C 0.1752
+    inactive fill rgb(207, 207, 207)  (60% of the box)  OKLab L 0.8545  C 0.0000
+    the pose moves L by +0.0893 and C by -0.1752
+    in the 8x difference column the chip reads rgb(255, 255, 255) over 74% of its box,
+    brighter than 95.78% of that column's pixels outside the texture region
+  dark ground row
+    active   fill rgb(255, 149, 0)    (51% of the box)  OKLab L 0.7652  C 0.1752
+    inactive fill rgb(62, 62, 62)     (62% of the box)  OKLab L 0.3639  C 0.0000
+    the pose moves L by -0.4014 and C by -0.1752
+    in the 8x difference column the chip reads rgb(255, 255, 255) over 77% of its box,
+    brighter than 95.78% of that column's pixels outside the texture region
+

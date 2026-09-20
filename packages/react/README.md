@@ -316,7 +316,9 @@ in two groups and leaving one padding between them.
 `samplingPaddingFor({ members, material })` from `@vitreajs/vitrea-web` is the
 material's half of the number this spacer opens; the other half is
 `DEFAULT_GROUP_SAMPLING.samplingPadding` (or your group's own
-`samplingPadding`, when you declare one).
+`samplingPadding`, when you declare one). It answers for the material a default
+root draws; a root that selected another document passes that document's `patch`
+and `cssTierMapping` as the optional `profile` and `cssTierMapping` arguments.
 
 ### Where a surface belongs: the controls layer
 
@@ -439,11 +441,14 @@ material rather than the light one dimmed:
 <GlassRoot colorScheme="auto">{/* "light" | "dark" | "auto" */}</GlassRoot>
 ```
 
-`"light"` is the default and is the material the runtime's own constants are, so
-nothing moves for an app that upgrades. `"dark"` draws the numbers vitrea
-recorded from Apple's dark-mode material, and `"auto"` follows
-`prefers-color-scheme` and re-derives both tiers when the system flips — without
-rebuilding the root, so a theme toggle costs no registrations.
+`"light"` is the default. The scheme picks one endpoint out of the material
+document the root selected — under the default that is the macOS 27 light or dark
+patch, and under `materialProfileDocument={macos26MaterialProfileDocument}` it is
+the macOS 26.5 pair — and `"auto"` follows `prefers-color-scheme` and re-derives
+both tiers when the system flips, without rebuilding the root, so a theme toggle
+costs no registrations. Which material a scheme resolves to is the section
+below; that it is a measurement of Apple's own rather than the light one dimmed
+is this one.
 
 **A backdrop hint and the colour scheme are different things.** A group's
 `hint={{ tone, luminance }}` states the tone of what is BEHIND the surface, which

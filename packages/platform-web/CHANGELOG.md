@@ -88,6 +88,18 @@
     advisory 24 may now be raised to the 3σ floor with a
     `sampling-padding-below-3-sigma` diagnostic. Raising it yourself silences the
     finding and changes nothing else.
+  - **`samplingPaddingFor` answers about the material a root draws, and returns a
+    bigger number for it.** It derived from the renderer's own constants, which
+    were what a root drew until this release and are now the macOS 26.5 light
+    material by decision; it derives from the default document instead. The
+    padding is linear in the blur it is 3σ of, so every answer moves by exactly
+    the CSS tier's `blurSigmaScale`, 1 → 2.2: at the floor every group starts
+    from, 10.31 → 22.69 CSS px, and on the `clear` variant 33.00 → 72.60. A
+    layout that opens gaps from it opens wider ones and stays correct — this is
+    the number that keeps two groups' proxies apart, and the blur really did get
+    wider. Two optional arguments are new, `profile` and `cssTierMapping`: a root
+    that selected another document passes that document's two halves to get that
+    material's answer.
   - **A window that loses focus recedes differently**: on macOS 27 a receded surface
     keeps its outer shadow, where on macOS 26.5 it lost it entirely.
   
