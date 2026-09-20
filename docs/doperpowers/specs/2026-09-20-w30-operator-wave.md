@@ -596,6 +596,47 @@ so probe rows in the canonical matrix are the precedent, not a departure. Ruled:
   texture gated on `sizeHeavySecondShare` so the off path allocates nothing. `sizeToneLevelFar` stays
   declined (sign stable per scheme, magnitude 5.5× apart within the light scheme).
 
+### Decision Log 3 — the parent, on G0's review (2026-09-20): B3 restated on the tier it is read on; B4 scoped to the fitted beds; the σ law's held parameter; the ladder read is the shadow's too
+
+G0's independent review reproduced every figure of the cut and found the defects in the
+declarations — the part the wave is judged against. Ruled, for the review closure to execute:
+
+- (a) **B3, the stop condition, is restated on the tier and partition it is read on.** As declared
+  ("0.0007 bed-wide, mean absolute, both tiers, non-holdout cells of every profile") it is already
+  exceeded today: the committed matrix reads **0.00079** on that statistic, and the 0.0007 was
+  §5.154 §3's light-standard-bed fit figure restated unqualified. The stop is now **the WebGPU
+  tier's mean absolute exterior departure over the non-holdout cells of all six profiles, 0.00035
+  today, held at or better by G3's sealed fit**, with the both-tier figure (0.00079) recorded beside
+  as the CSS tier's reading. The correction is recorded beside §5.154 §3 and §4, not over them.
+- (b) **B4 binds the four standard beds only.** "Toward 1.0 on every one of the six profiles" cannot
+  pass: the reduced-transparency and coupled-contrast beds are captured at the light standard
+  document and inherit its scatter values, and the light bed needs structure removed (1.567) where
+  those two need it added (0.818, 0.969). B4's "toward 1.0 and past it on none" is scoped to the
+  four standard beds whose documents are fitted; the accessibility beds are **reported**, as B4's
+  own last sentence already said. The ladder clause is read on the ladder probe rows Decision Log
+  2 (a) grants, on the macOS 27 generation, and is conditioned on nothing else.
+- (c) **The σ law holds `sigmaSpanRefPx` at 96 in the macOS 27 documents.** The law has one flat
+  direction (shifting `sigmaPx`, `sigmaThinOffsetPx` and `sigmaSpanRefPx` together leaves σ
+  unchanged), so G3 fits the slope and the offset and refits `sigmaPx` as **the σ at span 96** —
+  the span every bed carries sixteen cells at and the span the amplitude's own anchor is keyed to —
+  with the reference held. The inert default of `sigmaSpanRefPx` stays 0 (the identity does not
+  depend on it); 96 is the fit's value, not the default's. B1 is joint across the beds one document
+  serves: the light document must meet ±5 % on 1x, 2x, reduced transparency and coupled contrast at
+  once (window at span 96 **[8.897, 9.020]**, ±0.68 % effective), the dark on 1x and 2x
+  (**[8.908, 9.318]**); a law fitted to the 1x-light median alone fails the 2x-light bed at −6 %.
+- (d) **Decision Log 2 (a)'s ladder read is the shadow's evidence as much as the scatter's**: all ten
+  fittable span-160 cells per standard bed are ladder probe rows, so without it the wave would seal
+  a span-160 σ and a fitted `thickOcclusionAt160` with no macOS 27 web reading at that span outside
+  three holdout cells. The ruling stands as granted and is now cited by both operators.
+- (e) The rest of the review's findings are executed as amendments beside the record:
+  `sizeToneLevelFar`'s table relabelled as linear luminance ×255 with the 8-bit column beside (the
+  verdict survives); the spanning set given the same leaf table the σ law has (Decision Log 2 (d) is
+  its list); §5.154 §9 (c)'s sheet-instrument ratios and the matrix-instrument ratios named as two
+  instruments on the same cells, with the charter's Purpose pointed at both; the row counts
+  qualified as metric-carrying; `fit.py render` refusing a holdout set or scene without
+  `--with-holdout` so the drop is end to end; `toStrictEqual` in the identity test; the same-scale
+  split between `hc-text-7` and `checkerboard-8` recorded as evidence for candidate (ii).
+
 ## Surprises & Discoveries
 
 - **The macOS 27 generation of `results/matrix.json` carries no probe row at all** (G0, claims
