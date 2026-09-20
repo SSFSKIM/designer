@@ -134,6 +134,49 @@ describe("the material profile document's key admission", () => {
     });
   });
 
+  it("admits a document naming all eight of W30's operator leaves", () => {
+    /*
+     * The same gap one wave further on (W30 G2 review closure, claims §5.158 §8,
+     * finding 6). The leaves were added to `MATERIAL_PATCH_KEYS` and to
+     * `OUTER_SHADOW_KEYS` in the commit that added them to the renderer, and
+     * nothing read that back: the path that would have found an omission is a
+     * capture run, which G2 was forbidden from making (X5) and G3's fit is the
+     * first to attempt. A leaf missing from either set does not fail — it makes
+     * the driver REFUSE the document the fit is trying to measure, which is
+     * precisely how W27c and W27d G1d each lost a run.
+     *
+     * Named in one document rather than eight, because a document naming the
+     * whole spanning set is what a fitting rung actually hands in, and the
+     * nested `outerShadow` block is checked by a second guard the flat keys do
+     * not reach.
+     */
+    for (const key of [
+      "sizeHeavySecondSigma",
+      "sizeHeavySecondSigma2x",
+      "sizeHeavySecondShare",
+      "sizeScatterScaleGain",
+      "sizeScatterScaleRef",
+    ]) {
+      expect(MATERIAL_PATCH_KEYS.has(key), key).toBe(true);
+    }
+    const patch = {
+      outerShadow: { sigmaSlopePerSpan: 0.133, sigmaSpanRefPx: 96, sigmaThinOffsetPx: -7 },
+      sizeHeavySecondSigma: 18,
+      sizeHeavySecondSigma2x: 24,
+      sizeHeavySecondShare: -0.25,
+      sizeScatterScaleGain: 0.31,
+      sizeScatterScaleRef: 0.42,
+    };
+    expect(readMaterialProfileFile(write({ patch })).patch).toEqual(patch);
+    // And the nested guard is live on that block rather than waved through with
+    // it: a ninth name inside `outerShadow` is still refused.
+    expect(() =>
+      readMaterialProfileFile(
+        write({ patch: { outerShadow: { sigmaSlopePerSpan: 0.133, sigmaKneePx: 30 } } }),
+      ),
+    ).toThrow(/MaterialOuterShadow does not have: sigmaKneePx\b/);
+  });
+
   it("still refuses a key the renderer does not have, naming it", () => {
     const path = write({ patch: { tintChromaScale: 0, tintChroma: 0.4 } });
     expect(() => readMaterialProfileFile(path)).toThrow(/does not have: tintChroma\b/);
