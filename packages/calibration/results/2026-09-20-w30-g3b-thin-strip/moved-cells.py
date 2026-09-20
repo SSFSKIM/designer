@@ -15,7 +15,32 @@ other component in the bed is either shallower than 10.06 σ — `rrect-sm` at s
 32, where the σ law's floor puts 10.06 σ at 21.4 CSS px against a half-depth of
 16 — or wide enough that its own σ grows faster than its depth.
 
-`--per-metric` prints the per-metric tally instead of the per-cell one.
+**Two corrections, 2026-09-20, W30 G3/G3b review closure (claims §5.159b §10,
+findings 1 and 2).** The committed `moved-cells.txt` is the output of this file
+before them and stays as it is; `moved-cells.v2.txt` is the output after.
+
+  * `AXES` named `tierCoherence`, which no cell carries: the matrix's cross-tier
+    axis is keyed **`coherence`**, so that axis was compared against nothing and
+    every cell whose only movement is there counted as bit-identical. The name
+    is fixed, and the count moves with it — 331 cells move rather than 176, the
+    155 extra being `dom` cells whose sole moving axis is `coherence`. That is
+    not a second population of movers: the cross-tier axis reads the CSS tier
+    AGAINST its paired texture cell, so a dom cell moves there exactly when its
+    texture twin moved. A cell that moves on an axis of its own is still one of
+    176, which is why the two readings are both reported and neither replaces
+    the other.
+  * The old parenthetical — "a span-44 cell on the `dom` tier is expected NOT to
+    move" — is true of the tier's OWN axes and false of `coherence`, for the
+    reason above. Stated in both directions now.
+
+`--also <matrix.json>` reads a further file of rows into the same comparison,
+which is what makes this runnable after the split has already separated the two
+generations: the working file holds the newer one and
+`results/superseded/<active-document-sha>.json` holds the older. The v2 reading
+was taken that way, over the working file plus `d731b3838994.json` and
+`ce1af58886ff.json`, and reproduces the 726 paired cells the pre-split run saw.
+
+`--per-metric` prints the per-metric tally beside the per-cell one.
 """
 from __future__ import annotations
 
@@ -29,7 +54,12 @@ PACKAGE = HERE.parent.parent
 MATRIX = PACKAGE / "results/matrix.json"
 PROFILES = PACKAGE / "profiles"
 CLAUSE = re.compile(r"(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})")
-AXES = ("shape", "perceptual", "material", "shadow", "tierCoherence", "motion")
+# Every axis a cell carries, by the key the matrix writes. `coherence` is the
+# cross-tier one and was named `tierCoherence` here until the review closure;
+# `OWN_AXES` is the rest, which is what "this cell moved" means for a tier that
+# has no shader of its own.
+AXES = ("shape", "perceptual", "material", "shadow", "coherence")
+OWN_AXES = tuple(axis for axis in AXES if axis != "coherence")
 
 # The bed's components, by the span each casts. `apps/reference-apple/scenes.json`
 # is the source; the two deep-enough ones are named so the claim can fail.
@@ -69,24 +99,42 @@ def numbers(cell: dict) -> dict[str, float]:
 
 
 def main(argv: list[str]) -> int:
+    sources = [MATRIX]
+    index = 0
+    while index < len(argv):
+        if argv[index] == "--also":
+            if index + 1 >= len(argv):
+                print("--also takes a path to a file of rows", file=sys.stderr)
+                return 2
+            sources.append(Path(argv[index + 1]).resolve())
+            index += 2
+            continue
+        index += 1
+
     hashes = current()
     before: dict[tuple, dict] = {}
     after: dict[tuple, dict] = {}
-    for cell in json.loads(MATRIX.read_text())["cells"]:
-        if not cell["key"]["profileKey"].startswith("apple-macos-27.0-"):
-            continue
-        side = generation(cell, hashes)
-        key = (cell["key"]["profileKey"], cell["key"]["sceneId"], cell["tier"])
-        (after if side == "after" else before)[key] = cell
+    for source in sources:
+        for cell in json.loads(source.read_text())["cells"]:
+            if not cell["key"]["profileKey"].startswith("apple-macos-27.0-"):
+                continue
+            side = generation(cell, hashes)
+            key = (cell["key"]["profileKey"], cell["key"]["sceneId"], cell["tier"])
+            (after if side == "after" else before)[key] = cell
 
     paired = sorted(set(before) & set(after))
     moved_cells, still_cells = [], []
+    own_moved, coherence_only = [], []
     per_metric: dict[str, int] = {}
     for key in paired:
         a, b = numbers(before[key]), numbers(after[key])
         moved = [name for name in sorted(set(a) & set(b)) if a[name] != b[name]]
         if moved:
             moved_cells.append((key, moved))
+            if any(not name.startswith("coherence.") for name in moved):
+                own_moved.append((key, moved))
+            else:
+                coherence_only.append((key, moved))
             for name in moved:
                 per_metric[name] = per_metric.get(name, 0) + 1
         else:
@@ -94,16 +142,25 @@ def main(argv: list[str]) -> int:
 
     print("W30 G3b — the cells the renderer fix moved, over one read of results/matrix.json")
     print("=" * 100)
+    for source in sources:
+        shown = source
+        try:
+            shown = source.relative_to(PACKAGE.parent.parent)
+        except ValueError:
+            pass
+        print(f"  rows from {shown}")
     print(f"  {len(paired)} cells present in both generations; "
           f"{len(moved_cells)} moved, {len(still_cells)} bit-identical")
+    print(f"  of the {len(moved_cells)}: {len(own_moved)} move on an axis of their own and "
+          f"{len(coherence_only)} only on `coherence`, which reads the paired texture cell")
     print()
 
     def component(scene: str) -> str:
         return scene.split("__")[1] if "__" in scene else scene
 
-    wrong_moved = [k for k, _ in moved_cells if component(k[1]) not in SPAN_44]
+    wrong_moved = [k for k, _ in own_moved if component(k[1]) not in SPAN_44]
     wrong_still = [k for k in still_cells if component(k[1]) in SPAN_44 and k[2] == "texture"]
-    print("THE CLAIM — a cell moves if and only if it casts at span 44")
+    print("THE CLAIM — a cell moves on an axis of its OWN if and only if it casts at span 44")
     print("-" * 100)
     print(f"  moved and NOT a span-44 caster:        {len(wrong_moved)}")
     for key in wrong_moved[:20]:
@@ -112,8 +169,29 @@ def main(argv: list[str]) -> int:
     for key in wrong_still[:20]:
         print(f"    {key[1]} / {key[0]} / {key[2]}")
     print()
-    print("  (A span-44 cell on the `dom` tier is expected NOT to move: the CSS tier has no")
-    print("   shader and never evaluated the falloff for a pixel.)")
+    print("  (A span-44 cell on the `dom` tier does not move on an axis of its own: the CSS")
+    print("   tier has no shader and never evaluated the falloff for a pixel. It DOES move on")
+    print("   `coherence`, which is a reading of the CSS tier against the texture tier and so")
+    print("   moves whenever the paired texture cell does — the opposite expectation, on the")
+    print("   one axis that spans the two tiers. Corrected 2026-09-20, review closure.)")
+    print()
+
+    print("EVERY MOVER THAT IS NOT A SPAN-44 CASTER, to the metric, with magnitudes")
+    print("-" * 100)
+    print("  The residual §5.159b §6 and the tracker record. A `dom` cell here cannot be the")
+    print("  shader's: that tier never ran it.")
+    for key, moved in moved_cells:
+        if component(key[1]) in SPAN_44:
+            continue
+        a, b = numbers(before[key]), numbers(after[key])
+        own = [name for name in moved if not name.startswith("coherence.")]
+        largest = max(((abs(b[name] - a[name]), name) for name in moved), default=(0.0, "—"))
+        print(f"  {key[1]:52s}{key[2]:9s}{key[0]}")
+        print(f"      largest move {largest[0]:.6g} on {largest[1]}"
+              f"   ({len(own)} own-axis metrics, {len(moved) - len(own)} coherence)")
+        for name in moved:
+            print(f"        {name:40s}{a[name]!r:26s} -> {b[name]!r:26s} "
+                  f"delta {abs(b[name] - a[name]):.6g}")
     print()
 
     if "--per-metric" in argv:
