@@ -25151,3 +25151,199 @@ the departure residual is 0.0007 and shows none of it. So:
 
 The reach's own direction says the same from the other side: the wave narrows the shadow where it is
 dim and widens it where it is bright.
+
+### 3. The structure cut: the diffusion residual's sign turns on three axes, and one of them is new
+
+`structure-cut.py` reads `results/matrix.json` through `adopted-thresholds.test.ts`'s own document
+partition, plus `native-delta.json` for the reference's own side; `structure-cut.txt` is its output.
+The quantity is `material.interiorStdDev{Native,Web}` — the body's spread in **linear light** over
+the shared mask — and the ratio W/N is what the operator has to move: above 1 vitrea passes more of
+the backdrop's structure through the body than Apple does, below 1 it passes less. This is the read
+the tracker's "the two tiers miss the backdrop's structure in opposite directions" names as the
+precondition for chartering the operator.
+
+#### The finding that changes what this gate can deliver: the macOS 27 bed carries no ladder row
+
+The canonical read is calibration + validation, then holdout. **The pitch ladder is entirely
+`probe`, and probe has never been read at a macOS 27 document.** The macOS 27 generation of
+`results/matrix.json` is 260 calibration + 62 validation + 123 holdout rows and **zero probe rows**,
+against the macOS 26.5 generation's 662. §5.153 §6's per-pitch figures — the +0.044 at 16 px and the
+−0.028 at 4 px and over the photograph that this whole operator exists for — were read off G3's
+**scratch** matrices, which were never committed.
+
+The charter's Grounding says "each of the four macOS 27 standard profiles carries 45 pitch-ladder
+fixtures — every one of them probe", which is true of the fixture bundle and is what made the
+operator look fittable. It is not true of the matrix. So the macOS 27 per-pitch curve does not exist
+in committed evidence, X2 forbids this gate from capturing one, and the cut runs on the two halves
+that do exist: vitrea's own transmission across the whole ladder at the **macOS 26.5** material
+(§1c), and Apple's own structure across the whole ladder on **both** materials from
+`native-delta.json` (§1d), which is native-only and therefore complete. Recorded under the charter's
+Surprises, with its consequence for G4 (below).
+
+#### What the ladder does say
+
+**The residual is non-monotone in pitch, and §5.153 §6's shape reproduces on the frozen bed.** On
+macOS 26.5, 1x light, WebGPU, W/N by pitch:
+
+| span | 4 px | 7 px | 8 px | 14 px | 16 px | 16 px lc | 28 px | 32 px | 64 px | photo |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 96 | 0.715 | 0.953 | 0.735 | 0.975 | 0.970 | 1.046 | 0.884 | 0.915 | 0.963 | 0.894 |
+| 160 | 0.825 | 1.098 | 0.756 | 1.117 | **1.206** | **1.351** | 1.041 | 1.053 | 1.117 | 0.863 |
+
+A hump peaking at 16 px with both ends below it — too much passed at the middle pitch, too little at
+4–8 px and over the photograph. That is §5.153 §6's sign pattern exactly, on a different material,
+which is what says the residual belongs to the kernel's shape and not to the macOS 27 fit.
+
+**The residual's sign turns on the colour scheme** (the tracker's finding, recomputed rather than
+copied — §6 below).
+
+**And it turns on the SCALE, on the structured backdrops only. That axis is new.** On macOS 27,
+1x against 2x, light, WebGPU, per scene, the 2x ratio over the 1x one:
+
+| scene | pitch | ratio 1x | ratio 2x | 2x / 1x |
+| --- | ---: | ---: | ---: | ---: |
+| `checkerboard__rrect-md__rest` | 16 | 1.567 | 0.425 | **0.271** |
+| `checkerboard__rrect-lg__rest` | 16 | 2.027 | 0.651 | **0.321** |
+| `checkerboard__rrect-ml__rest` | 16 | 1.602 | 0.661 | 0.413 |
+| `hc-text__rrect-md__rest` | 14 | 1.311 | 0.559 | 0.426 |
+| `checkerboard__capsule-button__rest` | 16 | 1.384 | 0.763 | 0.552 |
+| `photo__rrect-md__rest` | — | 0.624 | 0.595 | 0.953 |
+| `photo__rrect-lg__rest` | — | 0.561 | 0.567 | 1.010 |
+| `light-solid__capsule-button__rest` | — | 0.309 | 0.308 | 0.997 |
+
+On the 16 px checkerboard and on `hc-text` the residual **crosses 1 between the two scales** — vitrea
+passes 1.3–2.0× the native structure at dpr 1 and 0.4–0.8× at dpr 2 — while over a photograph or a
+solid the two scales agree to within 5 %. So the scale dependence is itself conditioned on the
+backdrop's structure, and it is worst at the thick spans where `sizeThickness` has saturated and the
+2x trio takes over (`sizeScatterFloor2x` is 1, so `kDeep` is already 1 at every span and, as
+`sizeScatterHeavyShareThick2x`'s own doc comment says, the clamp absorbs any lift). A scatter fitted
+on the 1x light bed alone lands on the wrong side of **two** axes, not one.
+
+#### The discriminator, run — and why it does not decide
+
+A positive or signed mix of Gaussians is a LINEAR operator, so its transfer at one spatial frequency
+is one number and cannot depend on the backdrop's contrast. The bed carries `checkerboard` and
+`checkerboard-lc16` at the same 16 px pitch and different contrast, so candidate (i) predicts the
+same W/N on the two and candidate (ii) — a mix keyed on the source's own measured variance or edge
+density — does not. It can only be run on macOS 26.5, because lc16 is a probe fixture (§1b). On
+1x light, WebGPU:
+
+| span | checkerboard W/N | lc16 W/N | lc16 / ckbd | Apple's own 27/26.5, ckbd | lc16 |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 96 | 0.970 | 1.046 | 1.079 | 0.678 | 0.795 |
+| 128 | 1.114 | 1.227 | 1.101 | 0.690 | 0.888 |
+| 160 | 1.206 | 1.351 | 1.121 | 0.578 | 0.992 |
+
+The ratio is 1.08–1.12 on vitrea's side and **1.17–1.72 on Apple's own** — the reference's change
+between the two operating systems is markedly larger over the low-contrast source at the same pitch,
+which is the direction (ii) predicts. **But the comparison is confounded and this gate will not
+claim it**: `interiorStdDev` is read after the tone response, the two backdrops sit at encoded means
+0.500 and 0.700, and the response's local slope is not the same there — so a contrast-dependent
+reading is what a scale-only kernel behind a non-linear response also produces. Separating them
+wants the kernel's transmission free of the response's slope, and the slope the matrix carries
+(`luminanceSlope*`) is a regression on co-located pixels that already absorbs the blur, so it is not
+the divisor that would do it.
+
+#### The scatter's shape: the tables cannot choose, and G2 should land the spanning set
+
+Three reasons, each nameable, and they are not the same reason three times:
+
+1. **The curve the operator has to fit is not in committed evidence.** The macOS 27 bed carries one
+   checkerboard pitch, one `hc-text` pitch, a photograph and the solids. A notch is a statement
+   about at least three pitches and the bed has one.
+2. **The one discriminator the bed carries is confounded by the tone response**, above.
+3. **A third conditioning axis exists that neither candidate as stated addresses** — the scale, on
+   structured backdrops only — and a shape named before that axis is understood would be named
+   against two of the three.
+
+So, per Decision Log 1 (b): **G2 lands the spanning set** — a second heavy width with a signed
+weight, and a scale-conditioning gain keyed on the analysis pass's per-source statistics — at inert
+values, and G3 turns on whichever the macOS 27 ladder, once read, supports. The analysis pass
+already computes what (ii) needs: `stats` is `[encoded mean, linear variance, edge density, sample
+count]` **per source**, and edge density is a reciprocal-length, which is a spatial-scale statistic
+in the only place a per-source quantity can be read.
+
+**What would decide it**, and it is one thing: the pitch ladder read at a macOS 27 document, on both
+tiers at both scales. G3's fit produces exactly that on scratch matrices in the ordinary course. The
+consequence for the wave is that **G4's canonical read should include the probe set for the macOS 27
+generation**, or the wave closes with the operator fitted on a ladder and recorded on a bed that
+carries no rung of it — the same hole this gate just found. That is a cost (about 180 rows per
+profile-tier beyond the 455) and a decision for the parent.
+
+#### The scheme conditioning, as a concrete leaf
+
+"Conditioned by scheme" is two values of one leaf across the light and the dark document — the dark
+document is a patch and the renderer has no scheme input. The leaf is **the operator's own signed
+amount**, and under either shape it is one leaf:
+
+| shape | the scheme-conditioned leaf | unit | inert default |
+| --- | --- | --- | --- |
+| (i) second heavy tap | `sizeHeavySecondShare` — the signed weight of the second heavy sample in the mix | fraction, signed | **0** — a multiplied zero, and the gate on the second texture build, so the off path costs nothing and the 34 goldens are what prove it |
+| (ii) scale-selective mix | `sizeScatterScaleGain` — the gain on `kScatter` per unit of the source's measured scale statistic, about `sizeScatterScaleRef` | fraction per unit statistic | **0** — a multiplied zero |
+
+The *sign* is what the scheme flips, which is why the amount is the right leaf to condition rather
+than the width or the reference: on the gated 16 px cell vitrea passes **1.57×** the native structure
+in 1x light and **0.75×** in 1x dark (§6), so the light document wants the operator to remove
+structure at that pitch and the dark document wants it to add. One leaf, two signs, two documents.
+
+The widths (`sizeHeavySecondSigma`, `…2x`) and the reference statistic (`sizeScatterScaleRef`) are
+**not** scheme-conditioned: a spatial scale is a property of the source raster, which is the same
+raster in both schemes.
+
+#### The accessibility profiles: what five rungs can and cannot identify
+
+The two accessibility profiles carry 5 ladder fixtures each against the four standard profiles' 45,
+and in the committed matrix they carry, active, on the WebGPU tier: **three backdrop classes** —
+one checkerboard pitch (16), one `hc-text` pitch (14) and a photograph — over spans 44, 96 and 160,
+eight rows in all. They can identify **a level and one overall transmission scalar**; they cannot
+identify a pitch dependence, because a curve through one checkerboard pitch is a point. So the
+charter's rule — they inherit the 1x-light standard document's scatter values — is the only
+defensible one, and what they can still do is *report* the residual the inherited values leave.
+
+**And the residual they are declared to report is instrument-dependent, which the declaration has to
+name.** On `1x-light-reduced-transparency-glass0.5`, active, `checkerboard__rrect-md__rest`:
+
+| instrument | native | vitrea (WebGPU) | ratio |
+| --- | ---: | ---: | ---: |
+| the sheets (§5.154 §9 (d), 0–255 luminance over the box inset 12 CSS px) | sd **0.43** | sd **3.49** | **8.1×** |
+| `results/matrix.json` (`interiorStdDev`, linear light, over the shared mask) | **0.0562** | **0.0459** | **0.818×** |
+
+The two disagree in magnitude by an order of magnitude and **in the direction of the residual**. The
+sheet says vitrea passes eight times the native structure under Reduced Transparency; the matrix
+metric says it passes four fifths. They are different masks over different spaces — the sheet's box
+inset excludes the rim, the metric's shared mask does not — and this gate does not decide which is
+right. It records that the tracker's and the charter's figure is the sheet's, that a test can only
+pin the matrix's, and that the declaration therefore names the instrument with the number.
+
+#### `sizeToneLevelFar`: the sign is not stable, and it stays declined
+
+Read the way W25 G2's `fit-level.txt` reads it — `resid` is native − web in 8-bit codes over the
+body, the constant is exactly 0 at and below span 96, so the quantity is `resid(160) − resid(96)`
+per backdrop:
+
+| bed | backdrop | resid(96) | resid(160) | Δ |
+| --- | --- | ---: | ---: | ---: |
+| 27 1x light | checkerboard | −0.30 | 1.03 | **+1.32** |
+| 27 1x light | photo | −3.48 | 3.77 | **+7.25** |
+| 27 2x light | checkerboard | −0.20 | 0.02 | **+0.22** |
+| 27 2x light | photo | −2.93 | 4.17 | **+7.10** |
+| 27 1x dark | photo | 6.38 | 4.54 | **−1.84** |
+| 27 2x dark | photo | 6.70 | 4.67 | **−2.03** |
+| 27 1x reduced transparency | photo | 19.22 | 17.98 | −1.24 |
+| 27 1x increased contrast, coupled | photo | −3.52 | −3.42 | +0.09 |
+
+**The sign flips with the colour scheme, cleanly: positive on 4 of 4 light readings and negative on
+2 of 2 dark ones.** That is no longer the blocker it was in W25, because scheme conditioning is
+available now — `sizeToneLevelFar` is one leaf and the dark document is a patch that can carry its
+own value. What blocks it is the magnitude: **within the light scheme the two backdrops disagree by
+5.5×** (+1.32 on the checkerboard against +7.25 on the photograph at 1x, and +0.22 against +7.10 at
+2x), and the row set that would condition it is the ladder, which has no macOS 27 web row (§1b).
+Eight readings over two backdrops cannot separate a size offset from a backdrop-dependent level
+residual, and §5.153 §6 already records the level law's own conditioning as unidentified over
+exactly these backdrops.
+
+**Verdict: the sign is stable per scheme and the magnitude is not; `sizeToneLevelFar` stays at 0 and
+is not fitted in this wave.** What would settle it is the same missing read — the ladder at a macOS
+27 document — which would give it 9 backdrops per scheme instead of 2. Recorded rather than fitted,
+and it costs the wave nothing: the leaf already exists, it is named by no document, and X1 is
+untouched either way.
