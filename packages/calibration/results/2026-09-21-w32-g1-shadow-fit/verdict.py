@@ -86,6 +86,15 @@ def main() -> int:
             a = ((after["c1-forms"] or {}).get("forms", {}).get("ii", {})
                  .get("readings", {}).get(key) or {})
             bv, av = b.get("value"), a.get("value")
+            # `n`, `min` and `max` come from form (i)'s block, which carries them:
+            # form (ii) IS form (i)'s value read against a per-span bound, over the
+            # same cells, so the population figures are one block's (claims §5.166
+            # §5). And the `bound` inside either block is `c1-forms.py` re-deriving
+            # the CHARTER'S RULE on the generation in front of it — not C1's
+            # adopted 0.0042, which is Decision Log 1 (c)'s and is the constant at
+            # the head of this file.
+            a = {**((after["c1-forms"] or {}).get("forms", {}).get("i", {})
+                    .get("readings", {}).get(key) or {}), **a, "value": av}
             verdict = "—"
             if av is not None:
                 verdict = "PASS" if av <= C1_BOUND else f"FAIL by {av / C1_BOUND - 1:+.0%}"
@@ -156,10 +165,8 @@ def main() -> int:
     print("§4. The thin regime, per cell — no inner band's |Δa| worse than today's by more than")
     print(f"    the bar {THIN_BAR}; the order statistic per bed no worse than today's.")
     print("-" * 128)
-    b_cells = {(r["profile"], r["scene"]): r
-               for r in ((before["stops"] or {}).get("thinRegime", {}).get("cells") or [])}
-    a_cells = {(r["profile"], r["scene"]): r
-               for r in ((after["stops"] or {}).get("thinRegime", {}).get("cells") or [])}
+    b_cells = (before["stops"] or {}).get("thinRegime", {}).get("perCell") or {}
+    a_cells = (after["stops"] or {}).get("thinRegime", {}).get("perCell") or {}
     rows = []
     for key, a in a_cells.items():
         b = b_cells.get(key)
@@ -169,47 +176,79 @@ def main() -> int:
             bv, av = b.get(band), a.get(band)
             if bv is None or av is None:
                 continue
-            rows.append((abs(av) - abs(bv), abs(bv), abs(av), band, key))
+            rows.append((abs(av) - abs(bv), abs(bv), abs(av), band, a.get("bed"), key))
     rows.sort(reverse=True)
     broken = [r for r in rows if r[0] > THIN_BAR]
     print(f"  {len(rows)} (cell, band) readings compared; {len(broken)} worse than the bar.")
-    print(f"  {'Δ|Δa|':>10}{'before':>10}{'after':>10}  {'band':<7}{'profile':<48}{'scene'}")
-    for delta, bv, av, band, key in rows[:12]:
-        print(f"  {delta:>+10.5f}{bv:>10.5f}{av:>10.5f}  {band:<7}{key[0]:<48}{key[1]}")
+    print(f"  {'Δ|Δa|':>11}{'before':>10}{'after':>10}  {'band':<7}{'bed':<12}cell")
+    for delta, bv, av, band, bed, key in rows[:10]:
+        print(f"  {delta:>+11.5f}{bv:>10.5f}{av:>10.5f}  {band:<7}{str(bed):<12}{key}")
+    if broken:
+        print("  BROKEN, every one:")
+        for delta, bv, av, band, bed, key in broken:
+            print(f"  {delta:>+11.5f}{bv:>10.5f}{av:>10.5f}  {band:<7}{str(bed):<12}{key}")
     print("  ... worst first; the whole table is in the two `stops.txt` §3 beside this file.")
     print()
+    print("  the order statistic per bed, before → after (median and max of |Δa|, both bands):")
+    b_bed = (before["stops"] or {}).get("thinRegime", {}).get("perBed") or {}
+    a_bed = (after["stops"] or {}).get("thinRegime", {}).get("perBed") or {}
+    worse = []
+    for key in sorted(set(b_bed) | set(a_bed)):
+        line = f"    {key:<44}"
+        for band in ("3-6", "6-12"):
+            b = (b_bed.get(key) or {}).get(band) or {}
+            a = (a_bed.get(key) or {}).get(band) or {}
+            line += (f"  {band} med {fmt(b.get('median'))} → {fmt(a.get('median'))}"
+                     f"  max {fmt(b.get('max'))} → {fmt(a.get('max'))}")
+            if (b.get("median") is not None and a.get("median") is not None
+                    and a["median"] > b["median"]):
+                worse.append(f"{key} {band}")
+        print(line)
+    print(f"  order statistics that got WORSE: {len(worse)}"
+          + ("" if not worse else " — " + ", ".join(worse)))
+    print()
     print("  the worst cell of the whole population, before and after:")
-    for side, cells in ((args.label_before, b_cells), (args.label_after, a_cells)):
-        worst = max(((abs(r.get(band) or 0), band, k) for k, r in cells.items()
-                     for band in ("3-6", "6-12")), default=(None, None, None))
-        print(f"    {side:<34}{fmt(worst[0])}  {worst[1]}  "
-              f"{worst[2][0] if worst[2] else ''} {worst[2][1] if worst[2] else ''}")
+    for side, payload in ((args.label_before, before), (args.label_after, after)):
+        worst = (payload["stops"] or {}).get("thinRegime", {}).get("worstCell")
+        scenes = (payload["stops"] or {}).get("thinRegime", {}).get("worstCellScenes")
+        print(f"    {side:<34}{worst}   {scenes}")
     print()
 
     # ----------------------------------------------------- M1 / M2 and the unmoved
     print("§5. The rows expected UNMOVED — a fit that moves one of these is a warning (X3)")
     print("-" * 128)
-    for name in ("m1", "m2"):
+    print("  M1 and M2 as `stops.py` reads them, which is out of W31 G4's COMMITTED cut — one")
+    print("  number that does not move with a round. `chroma-recheck.py` beside this file")
+    print("  re-derives both from each matrix over the same population, which is the reading")
+    print("  that has a before and an after; `adopted-thresholds.test.ts` is the authority.")
+    for name, fields in (("m1", ("median", "min", "max", "outsideCell")),
+                         ("m2", ("median", "max"))):
         print(f"  {name.upper()}:")
-        for bed in STANDARD_BEDS:
-            b = (before["stops"] or {}).get(name, {}).get(bed) or {}
-            a = (after["stops"] or {}).get(name, {}).get(bed) or {}
-            keys = sorted(set(b) | set(a))
-            line = f"    {bed:<12}"
-            for k in keys:
-                if isinstance(b.get(k), (int, float)) or isinstance(a.get(k), (int, float)):
-                    line += f"  {k} {fmt(b.get(k))} → {fmt(a.get(k))}"
+        for profile in sorted((after["stops"] or {}).get(name, {})):
+            b = (before["stops"] or {}).get(name, {}).get(profile) or {}
+            a = (after["stops"] or {}).get(name, {}).get(profile) or {}
+            line = f"    {profile:<52}"
+            for field in fields:
+                line += f"  {field} {fmt(b.get(field))} → {fmt(a.get(field))}"
             print(line)
-    print("  the structure, tint and rim readings:")
+    print()
+    print("  the structure, tint and rim readings, per bed — the values a shadow fit must leave:")
+    moved = 0
     for bed in STANDARD_BEDS:
         b = (before["stops"] or {}).get("unmoved", {}).get(bed) or {}
         a = (after["stops"] or {}).get("unmoved", {}).get(bed) or {}
         for field in sorted(set(b) | set(a)):
-            bv, av = b.get(field), a.get(field)
-            if not isinstance(bv, (int, float)) and not isinstance(av, (int, float)):
+            bv = (b.get(field) or {}).get("median")
+            av = (a.get(field) or {}).get("median")
+            if bv is None and av is None:
                 continue
-            moved = "" if (bv is None or av is None or abs(av - bv) < 1e-9) else "  MOVED"
-            print(f"    {bed:<12}{field:<24}{fmt(bv)} → {fmt(av)}{moved}")
+            delta = None if (bv is None or av is None) else av - bv
+            flag = "" if (delta is not None and abs(delta) < 1e-9) else "   MOVED"
+            if flag:
+                moved += 1
+            print(f"    {bed:<12}{field:<26}{fmt(bv)} → {fmt(av)}"
+                  f"{'' if delta is None else f'  ({delta:+.5f})'}{flag}")
+    print(f"  readings that moved: {moved}")
     print()
 
     # ------------------------------------------------------------------ the recede
