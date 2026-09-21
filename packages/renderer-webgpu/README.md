@@ -149,8 +149,8 @@ Over a photograph Apple's macOS 27 material carries the backdrop's hues through
 the body and vitrea's rendered a flat grey of the right level. No constant could
 close that: the body is a neutral plate composited over the blurred backdrop, so
 what a photograph's hues survive at is `1 − sizedAlpha` — 0.513 light, 0.095 dark
-— against a reference that reads 0.90–0.97 of its own backdrop's chroma on the
-same cells. It is a mechanism the material lacked, and **`bodyChromaRetention`**
+— against a reference that reads 0.709–0.833 of its own backdrop's chroma on the
+light cells and 0.903–0.973 on the dark ones. It is a mechanism the material lacked, and **`bodyChromaRetention`**
 is it (claims §5.161 §5, fitted in §5.164).
 
 The colour is mixed toward `backdrop · (Y / Y_backdrop)` — the backdrop's
@@ -161,14 +161,40 @@ renormalisation is an f32 rounding guard. Gamut is taken by scaling chroma towar
 the neutral at fixed luma, never clipped per channel, because a per-channel clamp
 moves the level. It is applied immediately after the composite and before the
 tint composition, so the tint's shade law — which reads the untinted material's
-LUMINANCE — is bit-identical whatever the retention holds. The CSS tier mirrors
-it as a gain on the one `saturate()` it already carries, at the alpha that tier
-actually draws.
+LUMINANCE — is bit-identical whatever the retention holds.
+
+**The CSS tier carries none of it, and that is a measurement.** The mirror was
+written — a gain on the one `saturate()` that tier already has, at the alpha it
+actually solves — rendered on the declared bed, and taken back out (claims
+§5.164 §5). On the DARK scheme it bought **nothing**: ratio (ii) over the active
+cells reads 0.2024 before and after, and still 0.2024 at a retention of 1,
+because the converted alpha there leaves no backdrop for a saturation to act on.
+On the LIGHT scheme it bought 0.76–1.04 of the gap and broke both stops doing it
+— the level-growth stop on 10 of 26 cells and the structure stop on 13 — because
+`saturate()` is a matrix on sRGB-ENCODED channels and stops preserving luminance
+the moment one clips. So `BODY_CHROMA_RETENTION` in `@vitreajs/vitrea-web` is
+**0**, mirroring this package's default rather than the documents, and the
+residual is recorded beside it. A page on the CSS tier draws the body it drew
+before.
+
+**Under Reduce Transparency or Increase Contrast the retention stands down**
+(W31 Decision Log 3 (d); claims §5.164 §13). Those preferences lift the
+material's occlusion — the plate covers `α + lift·(1 − α)` of the backdrop
+instead of `α` — so restoring the nominal fraction of the backdrop's
+chromaticity there gives back exactly what the preference asked to have covered
+up. Applied unconditionally it took the chroma-to-structure ratio on those beds
+to three times the reference's; under an accessibility occlusion policy the
+operator is now the identity, and those pages draw what 0.20.0 drew, to the byte.
 
 **The leaf landed without moving a single document's digest, and that is the
-second half of the wave.** `resolvedMaterialSha256` is taken over the fully
-resolved material, so before W31 a material that gained a key moved every
-document's digest whatever that key held — which is why the paragraph above this
+second half of the wave** — true of the LEAF commit, which is the claim being
+made; the fit that followed moved all four macOS 27 documents to
+`3dc24a74f17fd87e`, `8a43f54162606db4`, `ab3ed65aa02869b1` and
+`e1f42c5656ef392f`, as a fit must (claims §5.164 §13, findings F6 and N11).
+
+`resolvedMaterialSha256` is taken over the fully resolved material, so before
+W31 a material that gained a key moved every document's digest whatever that key
+held — which is why the paragraph above this
 one says W30 "spends that disturbance". W31 Decision Log 1 (a) ruled the rule
 that ends it:
 

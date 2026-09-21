@@ -567,11 +567,17 @@ if" through the chroma on G0's decomposition);
 **Added at G3's close (claims §5.164 §8), each measured rather than anticipated:**
 **a retention conditioned on the SURFACE** rather than one constant per document
 — a single value closes the median and widens the per-cell spread (light active
-1.28 → 1.44 between the extremes) and overshoots the largest span, R 1.24 / 1.36
+**1.2824 → 1.6216** between the extremes, corrected 2026-09-21 by G3c's review
+closure from 1.28 → 1.44, which dropped the bed's own lowest two cells; claims
+§5.164 §13, finding F4) and overshoots the largest span, R 1.24 / 1.36
 on the holdout cell, because `1 − sizedAlpha` falls as the span rises; **the two
 accessibility documents' own retentions**, which inherit the light value under
 Decision Log 2 (a) and read 3.04 / 2.95 active and 1.99 / 0.14 inactive against a
-reference of 1, on beds that carry no bound; **a chroma operator the CSS tier can
+reference of 1 — on beds that DO carry bounds, sixteen gated cells and eighteen,
+none of which the chroma statistic is one of, and behind W31 G3c's stand-down,
+which returns all four to 0.20.0's readings and makes the deferral a question
+about a value rather than about a regression (Decision Log 3 (c) and (d); claims
+§5.164 §13, finding F2); **a chroma operator the CSS tier can
 actually carry**, on the `rgba()` layer rather than on the backdrop beneath it,
 since a gain on `saturate()` is inert where the converted alpha covers the
 backdrop and clips the level where it does not; and **`mid-chroma-solid`'s hue
@@ -731,7 +737,12 @@ per-cell spread widened. **G3 recommends adoption with G0's two conditions and a
 third — the per-cell clause two-sided rather than a floor alone.** The ceiling
 itself is the parent's number: the worst cell on the declared bed is **1.5155**,
 so 1.55 is green today and says almost nothing while 1.40 declares that cell and
-its 2x sibling missed. The choice is between a clause that passes and a clause
+its 2x sibling missed.
+<!-- 2026-09-21, G3c review closure (claims §5.164 §13, finding F5): THREE cells
+     of the declared bed exceed 1.40, not two — `photo__rrect-sm__inactive` at 1x
+     light (1.5155) and 2x light (1.4469), and `photo__rrect-sm__rest` at 2x light
+     (1.4417). The ruling above already carries the corrected count; this draft's
+     "that cell and its 2x sibling" is corrected beside rather than over. --> The choice is between a clause that passes and a clause
 that is worth having, and it has to be made against the spread the fit leaves
 rather than against the median it hits.
 
@@ -750,6 +761,16 @@ and 1.99 / 0.14 inactive at the canonical bytes, on beds that carry no bound.
 An inherited constant that reads three times the reference on one bed and a
 seventh of it on another is a value nobody measured, and it will stay unmeasured
 until somebody charters it.
+
+> **"On beds that carry no bound" is false, and the ruling above turns on it**
+> (2026-09-21, G3c review closure; claims §5.164 §13, finding F2). Both profiles
+> are gated in `test/adopted-thresholds.test.ts` —
+> `TEXTURE_TIER_27_REDUCED_TRANSPARENCY` and its `dom` twin over 16 cells, the
+> increased-contrast-coupled pair over 18 — and every one of those tables held
+> while the body's chroma went to three times the reference's. What carries no
+> bound is the chroma statistic `R` itself. A bound that exists and does not
+> reach the thing that moved is what let a regression through; "no bound at all"
+> would have been the milder fact.
 
 ## Surprises & Discoveries
 

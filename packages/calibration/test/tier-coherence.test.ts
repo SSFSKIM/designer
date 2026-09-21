@@ -124,6 +124,8 @@ import {
   type CssTierLayer,
   tintShadeLayer as cssTierTintShadeLayer,
   tintToneAdaptation as cssTierTintToneAdaptation,
+  validateBackdropToneAbscissa,
+  macos27MaterialProfileDocument,
 } from "@vitreajs/vitrea-web";
 import {
   DEFAULT_MATERIAL_PROFILE,
@@ -173,6 +175,7 @@ import {
   tintShadeLayer as rendererTintShadeLayer,
   tintToneAdaptation as rendererTintToneAdaptation,
   withMaterialOverrides,
+  type MaterialProfile,
 } from "@vitrea/renderer-webgpu";
 import { createHash } from "node:crypto";
 import { readFileSync, readdirSync } from "node:fs";
@@ -2992,7 +2995,12 @@ const W31_BODY_CHROMA_CSS_COUNTERPART =
   "solves. Rendered on the declared bed it bought NOTHING on the dark scheme (ratio (ii) " +
   "0.2024 before and after, and still 0.2024 at a retention of 1) and 0.76-1.04 of the gap " +
   "on the light one while breaking the level-growth stop on 10 of 26 cells and the " +
-  "structure stop on 11, because `saturate()` stops preserving luminance the moment an " +
+  // 2026-09-21, W31 G3c (review closure; claims §5.164 §13, finding N8): this read
+  // ELEVEN and the machine's own output is THIRTEEN. `css-derivation.txt` flags
+  // `STRUCTURE>2%` on 13 rows — six at 1x light and seven at 2x — and its own
+  // footer totals 23 stop failures, which is 10 growth plus 13 structure. The
+  // decline is unchanged; the count of what it declined over was one short.
+  "structure stop on 13, because `saturate()` stops preserving luminance the moment an " +
   "sRGB channel clips. The tier records the residual and carries nothing; " +
   "`BODY_CHROMA_RETENTION` mirrors the renderer's default and the paragraph beside it " +
   "carries the measurement.";
@@ -3025,7 +3033,22 @@ const W31_BODY_CHROMA_CSS_COUNTERPART =
  *    A recorded absence is the honest half of a mirror, and the reason is what a
  *    later wave reads before assuming the tier could follow.
  */
-const CSS_COUNTERPART: Readonly<Record<string, string>> = {
+/*
+ * **Keyed by `keyof MaterialProfile` and not by `string`** (W31 G3c review
+ * closure; claims §5.164 §13, second addendum 1).
+ *
+ * The exhaustiveness case below walks `Object.keys(withMaterialOverrides(...))`,
+ * which is the keys the DEFAULT actually carries — so the four OPTIONAL keys of
+ * `MaterialProfile` were invisible to it. `increasedOcclusionLiftByPolicy`,
+ * `tintChromaScale`, `tintShadeCollapseRetention` and `backdropToneAbscissa` are
+ * absent from `DEFAULT_MATERIAL_PROFILE` and present on every SHIPPED document
+ * that names them, and the case that exists to say "a leaf added to the renderer
+ * has a line here" passed all four by not seeing them. The type is the fix, and
+ * it is a better one than another runtime walk: an optional key added to
+ * `MaterialProfile` now fails to COMPILE until it has a line, which is a check
+ * that cannot be skipped by a bed that does not carry the key.
+ */
+const CSS_COUNTERPART: Readonly<Record<keyof MaterialProfile, string>> = {
   // The size law, name for name (W2, W11c, W15, W25, W26, W30).
   refractionScale: "MATERIAL_SOURCE_SIZE",
   sizeSpanMin: "MATERIAL_SOURCE_SIZE",
@@ -3126,6 +3149,16 @@ const CSS_COUNTERPART: Readonly<Record<string, string>> = {
   sweepBandRadians: "none: the resting sweep is a highlight-pass animation; this tier has none.",
   sweepGain: "none: as `sweepBandRadians`.",
   bodyChromaRetention: W31_BODY_CHROMA_CSS_COUNTERPART,
+
+  /*
+   * The four OPTIONAL keys, which no bed above reaches because the default does
+   * not carry them (W31 G3c; claims §5.164 §13, second addendum 1). Each has a
+   * real reader on this tier and each is cited to it.
+   */
+  increasedOcclusionLiftByPolicy: "cssOcclusionLiftForPolicy",
+  tintChromaScale: "resolvedTintShade",
+  tintShadeCollapseRetention: "resolvedTintShade",
+  backdropToneAbscissa: "validateBackdropToneAbscissa",
 };
 
 describe("the mirror is EXHAUSTIVE over MaterialProfile (claims §5.164)", () => {
@@ -3151,12 +3184,30 @@ describe("the mirror is EXHAUSTIVE over MaterialProfile (claims §5.164)", () =>
           `is a mirror (W31 charter Design, "The CSS projection")`,
       ).toContain(key);
     }
+    // The four OPTIONAL keys are classified here and absent from the DEFAULT's
+    // runtime keys, which is the whole reason the type above was tightened:
+    // they are `MaterialProfile` keys that no bed carries (W31 G3c; claims
+    // §5.164 §13, second addendum 1). They are named rather than skipped, so a
+    // FIFTH optional key cannot join them silently.
+    const OPTIONAL_ON_THE_PROFILE = new Set([
+      "increasedOcclusionLiftByPolicy",
+      "tintChromaScale",
+      "tintShadeCollapseRetention",
+      "backdropToneAbscissa",
+    ]);
     for (const key of classified) {
+      if (OPTIONAL_ON_THE_PROFILE.has(key)) {
+        expect(
+          material,
+          `${key}: listed as optional-on-the-profile and the DEFAULT now carries it — move it`,
+        ).not.toContain(key);
+        continue;
+      }
       expect(material, `${key}: classified here, absent from MaterialProfile`).toContain(key);
     }
     // The count is printed rather than asserted as a literal: a later wave adds
     // leaves and the equality above is the guarantee, not the number.
-    expect(classified.size).toBe(material.size);
+    expect(classified.size).toBe(material.size + OPTIONAL_ON_THE_PROFILE.size);
   });
 
   it("compares the same-named leaves by VALUE, not by citation", () => {
@@ -3210,6 +3261,37 @@ describe("the mirror is EXHAUSTIVE over MaterialProfile (claims §5.164)", () =>
     // and the decline is re-read rather than inherited.
     expect(CSS_COUNTERPART["bodyChromaRetention"]).toBe(W31_BODY_CHROMA_CSS_COUNTERPART);
     expect(BODY_CHROMA_RETENTION).toBe(DEFAULT_MATERIAL_PROFILE.bodyChromaRetention);
+    /*
+     * **And pinned against the DOCUMENTS, not only against the default** (W31
+     * G3c review closure; claims §5.164 §13, the watch item).
+     *
+     * The line above compares two numbers that are both 0 and both stay 0: the
+     * renderer's default is post-seal and cannot move (W29 Decision Log 1 (i)),
+     * so it could never re-open the decline. What the decline is a decline OF is
+     * the four SHIPPED endpoints' retentions, and those can move on any refit.
+     * Recorded as the gap they are, endpoint by endpoint, so a document that
+     * doubles its retention widens a recorded number and this case says so.
+     */
+    const shipped = macos27MaterialProfileDocument;
+    const gap = {
+      "active light": shipped.active.light.patch.bodyChromaRetention,
+      "active dark": shipped.active.dark.patch.bodyChromaRetention,
+      "receded light": shipped.receded?.light.patch.bodyChromaRetention,
+      "receded dark": shipped.receded?.dark.patch.bodyChromaRetention,
+    };
+    expect(gap).toStrictEqual({
+      "active light": 0.282,
+      "active dark": 0.336,
+      "receded light": 0.349,
+      "receded dark": 0.142,
+    });
+    for (const [endpoint, retention] of Object.entries(gap)) {
+      expect(
+        retention,
+        `${endpoint}: the shipped document's retention is the CSS tier's mirror, so there is no ` +
+          `residual left to decline and claims §5.164 §5 needs re-reading`,
+      ).not.toBe(BODY_CHROMA_RETENTION);
+    }
     // And the tier's authored saturation is where X3 froze it, on both
     // variants: the declined derivation moved neither.
     expect(CSS_TIER_MAPPING.saturation.regular).toBe(1.8);

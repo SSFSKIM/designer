@@ -1,7 +1,7 @@
 {
-  "what": "Every superseded generation of canonical rows, by the document each was read at. `byDocumentSha256` is the lookup: a twelve-hex document hash — active or receded — maps to the file holding the rows that name it.",
+  "what": "Every superseded generation of canonical rows, by the document each was read at. `byDocumentSha256` is the lookup: a twelve-hex document hash \u2014 active or receded \u2014 maps to the file holding the rows that name it.",
   "rule": "A file is named by the ACTIVE document's twelve-hex SHA-256. A receded document never names a file; it is a difference over the active document of its own scheme and travels with it. Where only the receded document moved and the active one still ships, the name is the compound `<active>-<receded>`, because the active hash alone would name this file after a generation that is current.",
-  "claimsFields": "`readUnderClaims` is the claims section of the gate whose read produced these rows; `movedUnderClaims` is the section of the gate that superseded them and moved them here. They are never the same gate. Split in two on 2026-09-20 (c9a §5.159b §10, finding 8), when one field named `readUnderClaims` was being written with the mover's section by some gates and the reader's by others, and README.md's table disagreed with it.",
+  "claimsFields": "`readUnderClaims` is the claims section of the gate whose read produced these rows; `movedUnderClaims` is the section of the gate that superseded them and moved them here. They are never the same gate. Split in two on 2026-09-20 (c9a \u00a75.159b \u00a710, finding 8), when one field named `readUnderClaims` was being written with the mover's section by some gates and the reader's by others, and README.md's table disagreed with it.",
   "files": {
     "272d1b0c3e10.json": {
       "activeDocumentSha256": "272d1b0c3e10",
@@ -15,8 +15,8 @@
           "sha256": "272d1b0c3e10"
         }
       ],
-      "readUnderClaims": "c9a §5.154 (W29 G3b)",
-      "movedUnderClaims": "c9a §5.159 (W30 G3)",
+      "readUnderClaims": "c9a \u00a75.154 (W29 G3b)",
+      "movedUnderClaims": "c9a \u00a75.159 (W30 G3)",
       "capturedAt": {
         "first": "2026-09-19T11:38:33.541Z",
         "last": "2026-09-19T11:45:52.905Z"
@@ -42,8 +42,8 @@
           "sha256": "880ab1e31450"
         }
       ],
-      "readUnderClaims": "c9a §5.164",
-      "movedUnderClaims": "c9a §5.164",
+      "readUnderClaims": "c9a \u00a75.164",
+      "movedUnderClaims": "c9a \u00a75.164",
       "capturedAt": {
         "first": "2026-09-20T11:30:55.461Z",
         "last": "2026-09-20T11:46:07.194Z"
@@ -65,8 +65,8 @@
           "sha256": "96b36eedf1c4"
         }
       ],
-      "readUnderClaims": "c9a §5.153 (W29 G3)",
-      "movedUnderClaims": "c9a §5.157 (W30 G1)",
+      "readUnderClaims": "c9a \u00a75.153 (W29 G3)",
+      "movedUnderClaims": "c9a \u00a75.157 (W30 G1)",
       "capturedAt": {
         "first": "2026-09-19T09:40:46.176Z",
         "last": "2026-09-19T09:47:38.227Z"
@@ -92,8 +92,8 @@
           "sha256": "ce1af58886ff"
         }
       ],
-      "readUnderClaims": "c9a §5.159 (W30 G3)",
-      "movedUnderClaims": "c9a §5.159b (W30 G3b)",
+      "readUnderClaims": "c9a \u00a75.159 (W30 G3)",
+      "movedUnderClaims": "c9a \u00a75.159b (W30 G3b)",
       "capturedAt": {
         "first": "2026-09-20T09:32:36.988Z",
         "last": "2026-09-20T09:47:10.835Z"
@@ -119,8 +119,8 @@
           "sha256": "d0c389d70456"
         }
       ],
-      "readUnderClaims": "c9a §5.164",
-      "movedUnderClaims": "c9a §5.164",
+      "readUnderClaims": "c9a \u00a75.164",
+      "movedUnderClaims": "c9a \u00a75.164",
       "capturedAt": {
         "first": "2026-09-20T11:26:05.645Z",
         "last": "2026-09-20T11:46:39.349Z"
@@ -148,8 +148,8 @@
           "sha256": "d731b3838994"
         }
       ],
-      "readUnderClaims": "c9a §5.159 (W30 G3)",
-      "movedUnderClaims": "c9a §5.159b (W30 G3b)",
+      "readUnderClaims": "c9a \u00a75.159 (W30 G3)",
+      "movedUnderClaims": "c9a \u00a75.159b (W30 G3b)",
       "capturedAt": {
         "first": "2026-09-20T09:27:47.354Z",
         "last": "2026-09-20T09:47:43.121Z"
@@ -165,6 +165,36 @@
       "bytes": 17798136,
       "sha256": "b81a029238a13add43bc7a2f49af24ef0151d18eebffbc0a9427194daf86ab18"
     },
+    "e2fa07589d99.json": {
+      "activeDocumentSha256": "e2fa07589d99",
+      "documents": [
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+          "sha256": "25863dccef9d"
+        },
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+          "sha256": "e2fa07589d99"
+        }
+      ],
+      "readUnderClaims": "c9a \u00a75.164",
+      "movedUnderClaims": "c9a \u00a75.164 \u00a713",
+      "capturedAt": {
+        "first": "2026-09-21T04:11:20.780Z",
+        "last": "2026-09-21T04:33:06.599Z"
+      },
+      "supersededOn": "2026-09-21",
+      "rowCount": 479,
+      "rowsByProfileKey": {
+        "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 36,
+        "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": 32,
+        "apple-macos-27.0-1x-light-standard-glass0.5": 228,
+        "apple-macos-27.0-2x-light-standard-glass0.5": 183
+      },
+      "bytes": 18896698,
+      "sha256": "df22d34d6f8692c4671e8368ab5384fdcb909d8d3540df58f5783bdafe26e776",
+      "$comment-w31-g3c": "readUnderClaims is c9a \u00a75.164 and not \u00a75.164 \u00a713: these rows were READ by W31 G3, and W31 G3c superseded them. `split-generation.py apply` was invoked with --read-claims equal to --claims, which this index's own claimsFields note forbids (\"They are never the same gate\"); the field is written correct here rather than left as the invocation wrote it. The script does not enforce the rule it documents \u2014 recorded in c9a \u00a75.164 \u00a713, together with the two entries above that carry the same slip and are committed evidence."
+    },
     "f42ddec1cf5a.json": {
       "activeDocumentSha256": "f42ddec1cf5a",
       "documents": [
@@ -177,8 +207,8 @@
           "sha256": "f42ddec1cf5a"
         }
       ],
-      "readUnderClaims": "c9a §5.154 (W29 G3b)",
-      "movedUnderClaims": "c9a §5.159 (W30 G3)",
+      "readUnderClaims": "c9a \u00a75.154 (W29 G3b)",
+      "movedUnderClaims": "c9a \u00a75.159 (W30 G3)",
       "capturedAt": {
         "first": "2026-09-19T11:33:46.053Z",
         "last": "2026-09-19T11:46:23.884Z"
@@ -202,8 +232,8 @@
           "sha256": "fa872c683f3e"
         }
       ],
-      "readUnderClaims": "c9a §5.153 (W29 G3)",
-      "movedUnderClaims": "c9a §5.157 (W30 G1)",
+      "readUnderClaims": "c9a \u00a75.153 (W29 G3)",
+      "movedUnderClaims": "c9a \u00a75.157 (W30 G1)",
       "capturedAt": {
         "first": "2026-09-19T09:35:49.850Z",
         "last": "2026-09-19T09:48:10.997Z"
@@ -222,6 +252,7 @@
   },
   "byDocumentSha256": {
     "2334c7b4c5e2": "d0c389d70456.json",
+    "25863dccef9d": "e2fa07589d99.json",
     "272d1b0c3e10": "272d1b0c3e10.json",
     "59d4b20a4596": "f42ddec1cf5a.json",
     "5c81bc72edad": "272d1b0c3e10.json",
@@ -233,6 +264,7 @@
     "d0c389d70456": "d0c389d70456.json",
     "d449ea0649f4": "ce1af58886ff.json",
     "d731b3838994": "d731b3838994.json",
+    "e2fa07589d99": "e2fa07589d99.json",
     "f42ddec1cf5a": "f42ddec1cf5a.json",
     "fa872c683f3e": "fa872c683f3e.json"
   }
