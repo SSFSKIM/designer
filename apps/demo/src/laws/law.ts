@@ -29,8 +29,18 @@ import {
   DEFAULT_MATERIAL_PROFILE_DOCUMENT,
   type GlassMaterialProfileDocument,
   type RendererMaterialProfile,
-  type ResolvedMaterialPolicy,
 } from "@vitreajs/vitrea-web";
+
+/**
+ * The material half of the resolved accessibility policy, derived from the
+ * function that consumes it rather than imported.
+ *
+ * `ResolvedMaterialPolicy` is core's type and neither `@vitreajs/vitrea-web` nor
+ * `@vitreajs/vitrea-react` re-exports it, so a page that needs to name it has to
+ * take it from a signature. This is the one both tiers' shadow fold reads, so it
+ * cannot drift from what the runtime actually applies.
+ */
+type MaterialPolicy = Parameters<typeof outerShadowUnderPolicy>[1];
 
 /**
  * The material this page is drawing, resolved rather than read off a module
@@ -272,7 +282,7 @@ export function shadowLaw(input: {
   readonly patch: RendererMaterialProfile | undefined;
   readonly spanPx: number;
   readonly backdropLuminance: number;
-  readonly policy: ResolvedMaterialPolicy | undefined;
+  readonly policy: MaterialPolicy | undefined;
 }): ShadowLaw {
   const source = sourceOuterShadow(input.patch);
   const shadow =
