@@ -17,6 +17,9 @@ and nothing else (X11).
 | `model-fit.txt` / `.json` | the renderer's falloff model on both sides: Apple's outset, the model's own error, the one-sided read, the conditioning |
 | `c1-forms.txt` / `.json` | the three forms of C1, their bounds by the charter's rule, `CONTRIBUTING_CELLS`, and G0's recommendation |
 | `stops.txt` / `.json` | every stop read today: candidate (i), B3 and the window-restricted departure, the thin regime per cell, M1/M2, the unmoved rows, the recede, `MISSED_27_ROWS` |
+| `recede-26.5.txt` / `.json` | *(review closure, N16 and B1)* the recede's census on BOTH generations — 235 of 235 frozen macOS 26.5 rows flat, and the macOS 27 population counted at 121 non-holdout and 153 with the holdout |
+| `recede-cross-section.txt` / `.json` | *(review closure, N16)* the receded exterior read off the fixture PNGs: how far out the capture differs from its background at all, and what the one differing pixel is |
+| `extents-by-backdrop.txt` / `.json` | *(review closure, N17)* Apple's ACTIVE native reach per direction, per backdrop, per span, macOS 27 against 26.5 — the table that separates the backdrop from the span |
 
 ## The scripts, and what each is a copy of
 
@@ -30,6 +33,9 @@ and nothing else (X11).
 | `model-fit.py` | new; pure standard library, about ten minutes on the committed matrix |
 | `c1-forms.py` | new; reads `exterior-cut.json` only |
 | `stops.py` | new; reads `exterior-cut.json`, `departure-stat.json`, `matrix.json` and W31 G4's `chroma-cut.json` |
+| `recede-26.5.py` | new at the review closure; imports `exterior-cut.py` and overrides its generation prefix, so the census is the same statistic on a different bed rather than a second implementation |
+| `recede-cross-section.py` | new at the review closure; decodes the committed fixture PNGs with the standard library (`zlib`) and walks outward from the component's own rectangle |
+| `extents-by-backdrop.py` | new at the review closure; imports `exterior-cut.py` the same way, reads `extent*Native` on both generations |
 
 ## To reproduce
 
@@ -44,6 +50,9 @@ python3 c1-forms.py > c1-forms.txt
 python3 departure-stat.py > departure-stat.txt
 python3 shadow-law.py --fit-on non-holdout --at-shipped > shadow-law-at-shipped.txt
 python3 stops.py > stops.txt
+python3 recede-26.5.py > recede-26.5.txt                 # review closure
+python3 recede-cross-section.py > recede-cross-section.txt
+python3 extents-by-backdrop.py > extents-by-backdrop.txt
 ```
 
 `c1-forms.py` and `stops.py` read `exterior-cut.json`, so the reader runs first.
