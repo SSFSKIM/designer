@@ -17,7 +17,9 @@ import {
 import {
   PlanePortal,
   useGlassAccessibility,
+  useGlassCapabilities,
   type AccessibilityOverride,
+  type GlassWindowActivation,
 } from "@vitreajs/vitrea-react";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 
@@ -26,14 +28,42 @@ import { ChannelReadout } from "./ChannelReadout";
 // The size law's constants are the SELECTED document's since W29 G4, and
 // `law.ts` is where the page resolves which document it is drawing — so the
 // readouts take `LAW_SIZE` and not the renderer's own module constant.
-import { bodyLaw, fixed, LAW_SIZE, shadowSigmaAt, TONE_SPANS, toneLaw } from "./law";
-import { GROUPS_BY_MODE, LawsGlass, LawsGround, NEST, TINT_GROUNDS, type LawMode } from "./LawsStage";
+import {
+  bodyLaw,
+  endpointByDigest,
+  fixed,
+  shadowLaw,
+  shadowSigmaAt,
+  LAW_SIZE,
+  LAWS_DOCUMENT,
+  SHADOW_DEPTHS_CSS_PX,
+  TONE_SPANS,
+  toneLaw,
+} from "./law";
+import {
+  GROUPS_BY_MODE,
+  LawsGlass,
+  LawsGround,
+  NEST,
+  SHADOW_HINT,
+  TINT_GROUNDS,
+  type LawMode,
+} from "./LawsStage";
 
 export interface LawsProps {
   readonly requestedRenderer: "css" | "webgpu";
   /** Owned above, because it is a `GlassRoot` construction prop. */
   readonly reducedTransparency: AccessibilityOverride;
   readonly onReducedTransparencyChange: (next: AccessibilityOverride) => void;
+  /**
+   * The window pose, owned above for the same reason: it is a property of the
+   * ROOT and not of a surface, so pinning it from the shadow section would be
+   * one section reaching into another's material. `"auto"` until the reader
+   * touches the control, which is what keeps the rest of the page behaving
+   * exactly as it did before this section existed.
+   */
+  readonly windowActivation: GlassWindowActivation;
+  readonly onWindowActivationChange: (next: GlassWindowActivation) => void;
 }
 
 interface SectionSpec {
@@ -46,6 +76,7 @@ const SECTIONS: readonly SectionSpec[] = [
   { id: "tone", title: "Taking the tone of the backdrop, on a curve", mode: "tone" },
   { id: "tint", title: "A tint is a shade of its seed", mode: "tint" },
   { id: "body", title: "Two components in the body", mode: "body" },
+  { id: "shadow", title: "The shadow outside the glass", mode: "shadow" },
   { id: "lens", title: "The lens reads the body", mode: "lens" },
   { id: "nested", title: "Glass over glass", mode: "nested" },
 ];
@@ -62,6 +93,18 @@ const TONE_GROUND = { min: 2, max: 1000, step: 2, initial: 300 } as const;
 
 /** The body control's stops: the size law's floor, past the scatter's ceiling. */
 const BODY_SPAN = { min: 32, max: 288, step: 4, initial: 112 } as const;
+
+/**
+ * The shadow control's stops, and why they are not the body control's.
+ *
+ * The body slider runs to 288 because the scatter's ceiling is up there and the
+ * law it shows keeps meaning something past the bed. The exterior's does not:
+ * 32 to 160 is exactly the span range Apple's own material was captured over,
+ * the amplitude's three thick anchors are fitted AT 96, 128 and 160, and past
+ * 160 every number beside this control would be an extrapolation of a law nobody
+ * measured there. The control stops where the measurement does.
+ */
+const SHADOW_SPAN = { min: 32, max: 160, step: 4, initial: 96 } as const;
 
 /**
  * The σ law read at the two ends of that control, for the prose that introduces
@@ -142,6 +185,7 @@ export function Laws(props: LawsProps): ReactNode {
   const [seed, setSeed] = useState<string>("#ff9500");
   const [strength, setStrength] = useState<number>(100);
   const [bodySpan, setBodySpan] = useState<number>(BODY_SPAN.initial);
+  const [shadowSpan, setShadowSpan] = useState<number>(SHADOW_SPAN.initial);
 
   const mode = useMemo<LawMode>(
     () => SECTIONS.find((section) => section.id === active)?.mode ?? "tone",
@@ -163,11 +207,36 @@ export function Laws(props: LawsProps): ReactNode {
         ? "approximate"
         : "true";
 
+  /*
+   * The shadow section's numbers, resolved through the runtime rather than
+   * through page state. The root reports which document it selected and the
+   * GROUP reports the digest of the material that actually drew it, so the
+   * endpoint the law is evaluated at is found by matching that digest against
+   * the document's four — not by the page deciding which pose it thinks is on.
+   * Before the first frame, and on a material an app has tuned, there is no
+   * endpoint to name and the readout says so rather than quoting one.
+   */
+  const shadowGroup = useGlassCapabilities("laws-shadow");
+  const shadowEndpoint = endpointByDigest(
+    LAWS_DOCUMENT,
+    shadowGroup?.materialDocument?.resolvedMaterialSha256,
+  );
+  const shadow =
+    shadowEndpoint === undefined
+      ? undefined
+      : shadowLaw({
+          patch: shadowEndpoint.patch,
+          spanPx: shadowSpan,
+          backdropLuminance: SHADOW_HINT.luminance,
+          policy: policy?.material,
+        });
+
   const stageProps = {
     mode,
     toneLevel,
     tint,
     bodySpan,
+    shadowSpan,
     animate: policy?.reducedMotion !== true,
   } as const;
 
@@ -430,6 +499,139 @@ export function Laws(props: LawsProps): ReactNode {
 
         <Section spec={SECTIONS[3]} active={active}>
           <p className="body">
+            The glass sits above what is behind it, and the reference draws the gap
+            as a shadow OUTSIDE the surface: light removed from the ground, graded
+            with distance, displaced downward, and starting a little outside the
+            surface&rsquo;s own edge rather than at it. Three lengths say where it
+            is &mdash; the blur&rsquo;s &sigma;, the outset the shadow&rsquo;s
+            silhouette is grown by, and the offset it is displaced down by &mdash;
+            and one amplitude says how much light it takes. All four were fitted
+            against captures of Apple&rsquo;s renderer, and the &sigma; is a
+            function of the casting span rather than a constant.
+          </p>
+          <Fields legend="Caster">
+            <label className="field">
+              <span className="field__label">Casting span</span>
+              <input
+                className="field__range"
+                type="range"
+                min={SHADOW_SPAN.min}
+                max={SHADOW_SPAN.max}
+                step={SHADOW_SPAN.step}
+                value={shadowSpan}
+                onChange={(event) => setShadowSpan(Number(event.target.value))}
+                aria-valuetext={`${shadowSpan} pixels`}
+                data-testid="shadow-span"
+              />
+              <span className="field__hint" data-testid="shadow-span-readout">
+                {shadowSpan}px. The control stops at {SHADOW_SPAN.max} because that is the
+                widest caster the reference was captured over.
+              </span>
+            </label>
+            <label className="field">
+              <span className="field__label">Window</span>
+              <select
+                value={shadowEndpoint?.pose ?? "active"}
+                onChange={(event) =>
+                  props.onWindowActivationChange(
+                    event.target.value === "receded" ? "inactive" : "active",
+                  )
+                }
+                data-testid="shadow-pose"
+              >
+                <option value="active">focused &mdash; the active material</option>
+                <option value="receded">receded &mdash; the unfocused-window material</option>
+              </select>
+              <span className="field__hint">
+                A pose is a property of the window, not of a surface, so this moves the
+                whole page&rsquo;s material. Until it is touched the page follows the real
+                window; the value shown is the pose the group reports, never the one asked
+                for.
+              </span>
+            </label>
+          </Fields>
+          <p className="body">
+            Drag the span. The band under the plate widens with it, because the
+            &sigma; the shadow is blurred by is a line in the casting span above a
+            knee &mdash; the same law the body section&rsquo;s readout evaluates
+            from the same constants. The outset and the offset do not move with the
+            span: they are lengths of the material and not of the caster.
+          </p>
+          <p className="note">
+            Then switch the window to receded. The shadow does not soften &mdash; it
+            stops. Apple&rsquo;s unfocused window removes no light at all from 3 CSS
+            px outward: on every one of the 121 inactive rows the calibration bed
+            carries, the native transmission reads exactly 1.000000 in every band,
+            and at the pixel level the capture is byte-identical to the ground. So
+            the receded material carries an amplitude of zero, which is a
+            measurement written down rather than a value fitted, and the readout
+            below shows it as the zero it is. What Apple&rsquo;s receded window does
+            have is one device pixel of dark stroke at the contour, which is a rim
+            term and is not drawn here.
+          </p>
+          <dl className="readout" data-testid="shadow-law">
+            <div className="readout__head">
+              <dt>The exterior</dt>
+              <dd>read from the material the group says it drew</dd>
+            </div>
+            <div className="readout__row">
+              <dt>Endpoint drawing</dt>
+              <dd data-testid="shadow-endpoint">
+                {shadowEndpoint?.profileKey ?? "none — the material is not a shipped endpoint"}
+              </dd>
+            </div>
+            <div className="readout__row">
+              <dt>&sigma; at this span</dt>
+              <dd data-testid="shadow-sigma">
+                {shadow === undefined ? "none" : `${fixed(shadow.sigmaPx, 2)} px`}
+              </dd>
+            </div>
+            <div className="readout__row">
+              <dt>Outset</dt>
+              <dd data-testid="shadow-outset">
+                {shadow === undefined ? "none" : `${fixed(shadow.outsetPx, 2)} px`}
+              </dd>
+            </div>
+            <div className="readout__row">
+              <dt>Offset, downward</dt>
+              <dd data-testid="shadow-offset">
+                {shadow === undefined ? "none" : `${fixed(shadow.offsetPx, 2)} px`}
+              </dd>
+            </div>
+            {SHADOW_DEPTHS_CSS_PX.map((distance, index) => (
+              <div className="readout__row" key={distance}>
+                <dt>Light removed {distance}px below the edge</dt>
+                <dd data-testid={`shadow-depth-${distance}`}>
+                  {shadow === undefined
+                    ? "none"
+                    : `${fixed((shadow.depth[index] ?? 0) * 100, 2)} %`}
+                </dd>
+              </div>
+            ))}
+            <div className="readout__row">
+              <dt>CSS tier, blur radius</dt>
+              <dd data-testid="shadow-css-blur">
+                {shadow === undefined ? "none" : `${fixed(shadow.cssBlurPx, 2)} px`}
+              </dd>
+            </div>
+          </dl>
+          {GROUPS_BY_MODE.shadow.map((group) => (
+            <GroupReadout key={group.id} id={group.id} label={group.label} />
+          ))}
+          <p className="note">
+            The depths are the light the shadow removes directly below the contour,
+            where the offset carries it. They are read from the same falloff the
+            WebGPU tier evaluates per pixel; the CSS tier hands one blur radius to a{" "}
+            <code>box-shadow</code>, which is twice the &sigma; by CSS
+            Backgrounds&nbsp;3&rsquo;s convention and is printed above so the two can
+            be held to one law. Reduce transparency replaces all six of the
+            material&rsquo;s amplitude anchors with one, which is the preference
+            asking for a flatter surface rather than a different shadow.
+          </p>
+        </Section>
+
+        <Section spec={SECTIONS[4]} active={active}>
+          <p className="body">
             The rim refracts. The reference&rsquo;s own layer tree hands its lens two
             numbers, both clamped linear functions of the surface&rsquo;s shorter span:
             an inner refraction amount, 0.8 of the span up to 60px, and an inner
@@ -521,7 +723,7 @@ export function Laws(props: LawsProps): ReactNode {
           </p>
         </Section>
 
-        <Section spec={SECTIONS[4]} active={active}>
+        <Section spec={SECTIONS[5]} active={active}>
           <p className="body">
             A pane over glass composites over the glass beneath it. The
             reference&rsquo;s upper pane in this arrangement reads at about 0.89 of

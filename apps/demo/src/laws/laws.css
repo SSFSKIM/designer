@@ -43,6 +43,19 @@
   padding: var(--space-1) var(--space-4);
 }
 
+/*
+ * The shadow law's caster: the body plate's box, for the body plate's reasons —
+ * the height is the span so the plate's size IS what is being shown, and the
+ * width stays past the largest span the control reaches so the short side is
+ * always the height. The control stops at 160 rather than 288 because 160 is the
+ * widest caster the calibration bed carries, and the numbers beside it are read
+ * at spans the exterior was actually fitted on.
+ */
+.plate--laws-shadow {
+  width: min(20rem, 100%);
+  padding: var(--space-1) var(--space-4);
+}
+
 .plate--laws-lens {
   width: 18rem;
   height: 112px;

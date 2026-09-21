@@ -10,16 +10,26 @@
 import {
   backdropToneResponseLevel,
   colorSchemeMaterialProfile,
+  cssShadowBlurRadius,
   cssTierOptics,
+  cssTierShadowAlpha,
+  mergeMaterialProfiles,
+  outerShadowFalloff,
+  outerShadowOcclusionAt,
   outerShadowSigmaPx,
+  outerShadowUnderPolicy,
   resolvedBackdropToneResponse,
   scatterThickness,
   sizeScatterSigmaAt,
   sizeThickness,
+  sizeThicknessUnderPolicy,
   sourceOuterShadow,
   sourceSize,
   CSS_TIER_MAPPING,
   DEFAULT_MATERIAL_PROFILE_DOCUMENT,
+  type GlassMaterialProfileDocument,
+  type RendererMaterialProfile,
+  type ResolvedMaterialPolicy,
 } from "@vitreajs/vitrea-web";
 
 /**
@@ -38,7 +48,18 @@ import {
  * root with no `colorScheme` and the default is light. A scheme pin here would
  * have to move these three with it.
  */
-const LAW_PROFILE = colorSchemeMaterialProfile("light", DEFAULT_MATERIAL_PROFILE_DOCUMENT);
+/**
+ * The document this page's root draws, named once.
+ *
+ * `laws/main.tsx` builds its root with no `materialProfileDocument`, so the root
+ * resolves the package default — and that is the page's own construction rather
+ * than a guess about the runtime. What is NOT assumed is which ENDPOINT of it
+ * drew: `endpointByDigest` below takes that from the group's own reported digest
+ * and refuses to name one when the digest matches none of the four.
+ */
+export const LAWS_DOCUMENT = DEFAULT_MATERIAL_PROFILE_DOCUMENT;
+
+const LAW_PROFILE = colorSchemeMaterialProfile("light", LAWS_DOCUMENT);
 export const LAW_OPTICS = cssTierOptics(LAW_PROFILE, {
   ...CSS_TIER_MAPPING,
   ...DEFAULT_MATERIAL_PROFILE_DOCUMENT.cssTierMapping,
@@ -157,3 +178,130 @@ export const shadowSigmaAt = (spanPx: number): number =>
 
 /** Three decimals, tabular, for the readouts. */
 export const fixed = (value: number, places = 3): string => value.toFixed(places);
+
+/* ── The outer shadow, at the endpoint the runtime says drew ───────────────── */
+
+/**
+ * The material an endpoint of a document resolves to, found by the DIGEST the
+ * runtime reported for the group rather than by the page's own idea of which
+ * pose is on.
+ *
+ * Every other readout on this page evaluates the light ACTIVE endpoint, because
+ * every other law it shows is a property of the active material and the page
+ * builds its root with no scheme. The shadow section cannot do that: its whole
+ * second control is the window pose, and the two poses draw two different
+ * documents. Rather than track the pose in page state and hope the root agrees,
+ * the section asks the group what it drew — `GlassGroupState.materialDocument`
+ * carries `resolvedMaterialSha256`, the digest over the fully resolved material
+ * — and looks that digest up among the selected document's four endpoints. A
+ * digest that matches none of them is an app that tuned the material, and the
+ * readout says so instead of printing numbers from an endpoint nothing drew.
+ *
+ * A receded endpoint's patch is a DIFFERENCE over the active endpoint of its own
+ * scheme (`material-document.ts`), never a whole material, so it is composed the
+ * way the root composes it and never read alone.
+ */
+export interface ResolvedEndpoint {
+  readonly profileKey: string | undefined;
+  readonly pose: "active" | "receded";
+  readonly scheme: "light" | "dark";
+  readonly patch: RendererMaterialProfile | undefined;
+}
+
+export function endpointByDigest(
+  document: GlassMaterialProfileDocument,
+  digest: string | undefined,
+): ResolvedEndpoint | undefined {
+  if (digest === undefined) return undefined;
+  for (const scheme of ["light", "dark"] as const) {
+    const active = document.active[scheme];
+    if (active.resolvedMaterialSha256 === digest) {
+      return { profileKey: active.profileKey, pose: "active", scheme, patch: active.patch };
+    }
+    const receded = document.receded[scheme];
+    if (receded.resolvedMaterialSha256 === digest) {
+      return {
+        profileKey: receded.profileKey,
+        pose: "receded",
+        scheme,
+        patch: mergeMaterialProfiles(active.patch, receded.patch),
+      };
+    }
+  }
+  return undefined;
+}
+
+/** Where the depth is read, in CSS px below the caster's own contour. */
+export const SHADOW_DEPTHS_CSS_PX = [3, 12, 24] as const;
+
+export interface ShadowLaw {
+  /** `σ(span)`, CSS px — the law, evaluated at the endpoint that drew. */
+  readonly sigmaPx: number;
+  /** The blur radius the CSS tier writes for that σ: `2σ`, Backgrounds 3's convention. */
+  readonly cssBlurPx: number;
+  /** `spreadPx` — how far the shadow's silhouette is grown past the caster's. */
+  readonly outsetPx: number;
+  /** `offsetPx` — how far down it is displaced. */
+  readonly offsetPx: number;
+  /** The peak occlusion at this span and backdrop: the light the shadow removes at most. */
+  readonly peakOcclusion: number;
+  /** The compositing alpha the CSS tier writes, rounded as `outerShadowDeclaration` rounds it. */
+  readonly cssAlpha: number;
+  /** The occlusion at each of `SHADOW_DEPTHS_CSS_PX`, directly below the contour. */
+  readonly depth: readonly number[];
+}
+
+/**
+ * The exterior's own numbers at one span, from one endpoint's material.
+ *
+ * Every term is the runtime's own function evaluated on the runtime's own
+ * constants — `outerShadowSigmaPx` is the law both tiers read, `outerShadowUnderPolicy`
+ * is the accessibility fold the tier applies before it draws, `outerShadowOcclusionAt`
+ * is the amplitude, `outerShadowFalloff` is the curve, and `cssTierShadowAlpha`
+ * is exactly what becomes the `box-shadow`'s alpha. Nothing here is a second
+ * opinion, which is why the page's e2e pin can assert the readout against the
+ * shadow the tier actually drew.
+ *
+ * **The depth is read BELOW the caster, and the offset is why.** The shader
+ * evaluates the falloff on the field's signed distance at the position shifted by
+ * `offsetPx`, so a point `d` CSS px below the contour sits `d − offsetPx − spreadPx`
+ * outside the shadow's own silhouette. Reading the three depths anywhere else
+ * would need a different expression per side, and below is where the shadow is.
+ */
+export function shadowLaw(input: {
+  readonly patch: RendererMaterialProfile | undefined;
+  readonly spanPx: number;
+  readonly backdropLuminance: number;
+  readonly policy: ResolvedMaterialPolicy | undefined;
+}): ShadowLaw {
+  const source = sourceOuterShadow(input.patch);
+  const shadow =
+    input.policy === undefined ? source : outerShadowUnderPolicy(source, input.policy);
+  const thickness =
+    input.policy === undefined
+      ? sizeThickness(input.spanPx, LAW_SIZE)
+      : sizeThicknessUnderPolicy(input.spanPx, input.policy, LAW_SIZE);
+  const sigmaPx = outerShadowSigmaPx(shadow, input.spanPx);
+  const peakOcclusion = outerShadowOcclusionAt(
+    shadow,
+    input.backdropLuminance,
+    input.spanPx,
+    thickness,
+  );
+  return {
+    sigmaPx,
+    cssBlurPx: cssShadowBlurRadius(sigmaPx),
+    outsetPx: shadow.spreadPx,
+    offsetPx: shadow.offsetPx,
+    peakOcclusion,
+    cssAlpha:
+      Math.round(
+        cssTierShadowAlpha(shadow, input.backdropLuminance, input.spanPx, thickness) * 1000,
+      ) / 1000,
+    depth: SHADOW_DEPTHS_CSS_PX.map(
+      (distance) =>
+        peakOcclusion
+        * outerShadowFalloff(distance - shadow.offsetPx - shadow.spreadPx, sigmaPx),
+    ),
+  };
+}

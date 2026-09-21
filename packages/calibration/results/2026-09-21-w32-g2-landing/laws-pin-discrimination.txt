@@ -1,0 +1,32 @@
+W32 G2 — the `/laws/` shadow pin discriminates (claims §5.169 §4)
+==============================================================================================
+
+  Two seeded defects in `apps/demo/src/laws/law.ts`, each reverted before the next, against
+  `apps/demo/e2e/laws.spec.ts` on the CSS tier. A readout pinned to what the tier drew is only
+  worth the pin if a readout that stops agreeing with the tier goes red, and a new case has
+  never been red. Run at the same head as the suite beside it; `law.ts` is byte-identical after.
+
+── baseline
+   10 passed
+
+── seed 1: `cssBlurPx: sigmaPx` — the CSS Backgrounds 3 factor of two dropped from the blur row
+   ✘ the exterior's readout is the shadow the tier drew, at both ends of the span
+     expect(locator).toHaveText(expected) failed
+   1 failed | 9 passed
+
+   The σ row still agreed, because σ is read as `blur / 2` from the tier and the page's σ did not
+   move. What caught it is the blur row beside it, which is there for exactly this: one number
+   under two conventions, and getting the factor wrong halves or doubles the shadow silently.
+
+── seed 2: a floor of 0.0004 added under every depth — the recede drawn as faint instead of absent
+   ✘ the exterior's readout is the shadow the tier drew, at both ends of the span
+   ✘ the receded window casts no exterior at all, and the readout shows the zero
+   2 failed | 8 passed
+
+   Both halves fire. The first because the thin caster's 24 px depth is no longer the zero the
+   reach says it is; the second because the receded readout is no longer 0.00 %. A page that
+   showed the recede as a fainter shadow rather than as no shadow is the single most likely way
+   this stage could come to say something Decision Log 2 measured to be false, and it is red.
+
+── restored
+   10 passed
