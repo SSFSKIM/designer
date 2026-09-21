@@ -174,6 +174,9 @@ third distinct case of the class, the second on chromium in one day. Not rerun. 
 `results/2026-09-20-w30-g4-landing/chain-parent-final-react-e2e.txt` beside G4's. The entry stays
 open; the 0.20.0 cut carries it disclosed.
 
+*2026-09-21 (the parent, the 0.20.0 publish):* 0.20.0 published by the user on `484ec8a4` with
+the two reds above disclosed, the fourth cut in a row carrying this class. The entry stays open.
+
 *Found 2026-08-30, running the suites for the tint API (W3).*
 
 Two to four cases in `packages/react/e2e/press.spec.ts` and `morph.spec.ts` fail

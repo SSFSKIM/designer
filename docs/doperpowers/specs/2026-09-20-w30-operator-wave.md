@@ -7,6 +7,12 @@ and rest on your judgement" after the 0.19.0 publish); adversarially reviewed th
 review folded (Revision Notes). Executes W29 Decision Log 7 (a) and W29 Deferred item 1. Grounded
 on main at `4a4c941a` (0.19.0 published).
 
+**0.20.0 PUBLISHED 2026-09-21, by the user's `pnpm release` on `484ec8a4` (the parent's final
+chain record, the head at publish); tag `v0.20.0` annotated on that commit and pushed by the
+parent the same day.** Registry: web 00:11:11.292Z, react 00:11:12.250Z, core 00:11:30.688Z — the
+record beside the "PREPARED, UNPUBLISHED" status above, as the 0.19.0 record sits in W29; the
+verification is in §Outcomes & Retrospective.
+
 ## Purpose
 
 macOS 27 changed two things in Apple's material that the operators vitrea has cannot express, and
@@ -889,6 +895,27 @@ wave's branch at the 0.20.0 version head. The cut is prepared and unpublished: `
 the user's hand and the tag follows it. The React driver-timing class is red at this cut and
 disclosed (clause 7 below); accepting it is the user's, as it was at 0.17.0, 0.18.0 and 0.19.0.
 
+**0.20.0 PUBLISHED 2026-09-21, by the user's `pnpm release` on `484ec8a4` (the head after the
+parent's final chain record; the version bump itself landed on G4's branch); tag `v0.20.0`
+(annotated, on that commit) pushed by the parent on 2026-09-21.** Registry: web 00:11:11.292Z,
+react 00:11:12.250Z, core 00:11:30.688Z — **core last**: the web package and the React binding,
+both of which require `@vitreajs/vitrea@^0.20.0`, were listed 19 s and 18 s before core was, so
+the release-chain window recurred for 19 s (span 19.4 s); no install attempted inside it. Verified
+by a cold install outside the workspace after all three were listed (`npm install --prefer-online`
+of the three at `0.20.0` plus React): all three at 0.20.0, ranges `^0.20.0`, all three entry points
+import (core 44 exports, web 257, react 37 — web's one new export is `outerShadowSigmaPx`, the
+σ law's CSS-side evaluation, §5.158), `GlassRootHandle.materialProfileDocument` in the React declarations, both
+material documents exported, no private package installed; installed 1 942 / 1 930 / 658 kB
+against 1 848 / 1 880 / 644 at 0.19.0 (the web package carries the four re-sealed macOS 27
+documents and the span law's readout; core carries nothing new of size, its growth is the
+changelog). One reading moved by design and is recorded here so nobody reads it as drift: the
+shipped `macos26MaterialProfileDocument` now reports the light active digest `b340a4dee871633c`
+where 0.19.0 reported `b2b570e4adcea8fb` — `currentSha256` from `digest-supersessions.json`, the
+resolved material with the eight inert leaves present (§5.158; `recordedSha256` kept beside it in
+the record, the document's own field unchanged), which is what `root.material` has to say since
+that is what actually draws. The publish accepts the two React driver-timing reds disclosed at
+the head, as at 0.17.0–0.19.0.
+
 The one-line result of the wave: **two constants of Apple's material became operators — the outer
 shadow's blur is a line in the casting span and the dark material's diffusion is conditioned on the
 backdrop's spatial scale — the one-time X1 exemption was spent on a single record beside six
@@ -1042,6 +1069,16 @@ reconstruct which reading is current.
 
 ## Revision Notes
 
+- 2026-09-21 (the parent): **0.20.0 PUBLISHED**, by the user's `pnpm release` on `484ec8a4`
+  (registry web 00:11:11Z, react 00:11:12Z, core 00:11:30Z — core listed last, 19 s after web, so
+  a 19 s release-chain window recurred, the tenth; span 19.4 s); tag `v0.20.0` annotated on
+  `484ec8a4` and pushed; cold install verified (core 44 / web 257 / react 37 exports; both material
+  documents exported; `GlassRootHandle.materialProfileDocument` declared; the shipped 26.5 light
+  digest reads `currentSha256` `b340a4dee871633c` by §5.158's design, `recordedSha256` beside it in
+  the supersession record; 1 942 / 1 930 / 658 kB). The publish accepts the React driver-timing
+  reds as disclosed. Status and §Outcomes carry the record beside the "PREPARED, UNPUBLISHED"
+  text. The tone stage's fate (Decision Log 1 (e); §5.160 §4) is still the user's call and stays
+  as shipped, re-ranged, until ruled.
 - 2026-09-20 (the parent): **G4 merged (`fadd9792`), its review closure merged (`ec9e136f`), and
   the parent's final chain run on the merged tree at the 0.20.0 head** — machine 27.0/26A428, RT 0,
   IC 0, slider 0.5, recorded: build, lint and root eslint exit 0; unit **2,566** (policy 23, motion
