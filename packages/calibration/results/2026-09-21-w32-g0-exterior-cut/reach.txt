@@ -1,0 +1,30 @@
+W32 G0 — the shipped reach per span, from the runtime's own functions
+========================================================================================================================
+
+documents  /Users/new/Developer/GitHub/designer/.claude/worktrees/w32-g0-exterior-cut/packages/calibration/profiles
+`reach` is `outerShadowReachPx` at that caster's own occlusion — the scissor pad the optics
+pass sizes itself from, and the runtime's own statement of where the shadow ends.
+`css clip` is the CSS tier's group clip: blur radius + spread + |offset|.
+
+apple-macos-27.0-1x-light-standard-glass0.5
+  σ law  sigmaPx 8.96  slope 0.1314  ref 96  thin offset -6.8328   offsetPx 7.95  spreadPx 3.1
+
+   span  occlusion        σ    reach  css clip  receded occ  receded reach
+     32     0.0680     2.13    13.39     15.30       0.0680          13.39
+     44     0.0691     2.13    13.41     15.30       0.0691          13.41
+     96     0.1158     8.96    23.74     28.97       0.1158          23.74
+    128     0.1827    13.16    32.89     37.38       0.1827          32.89
+    130     0.1875    13.43    33.51     37.91       0.1875          33.51
+    160     0.2600    17.37    42.93     45.79       0.2600          42.93
+
+apple-macos-27.0-1x-dark-standard-glass0.5
+  σ law  sigmaPx 9.04  slope 0.134  ref 96  thin offset -6.968   offsetPx 7.95  spreadPx 3.1
+
+   span  occlusion        σ    reach  css clip  receded occ  receded reach
+     32     0.0455     2.07    12.76     15.19       0.0455          12.76
+     44     0.0476     2.07    12.83     15.19       0.0476          12.83
+     96     0.1330     9.04    24.54     29.13       0.1330          24.54
+    128     0.2263    13.33    34.60     37.71       0.2263          34.60
+    130     0.2335    13.60    35.28     38.24       0.2335          35.28
+    160     0.3409    17.62    45.69     46.28       0.3409          45.69
+
