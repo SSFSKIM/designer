@@ -1,8 +1,22 @@
 #!/bin/sh
-# The c9d chain at the 0.21.0 cut (claims §5.165 §5; `c9d-release-checklist.md`).
+# The c9d chain at the 0.22.0 cut (claims §5.169 §7; `c9d-release-checklist.md`).
+#
+# W31 G4's `chain.sh`, copied on `results/`'s own convention with three changes:
+# the evidence paths are this gate's, `check-capture-tree` joins the chain as a
+# step, and the gated-count reader is this directory's copy. Everything else is
+# that file's, including the review closure's `--fail-if-no-match` on every
+# `pnpm --filter`.
+#
+# **The capture-tree checker becomes a step of the chain here**, which is where
+# W32 G0b's own record said it would (claims §5.167 §3): the parent runs it at
+# every merge that lands a read, and the chain is the place a landing proves the
+# canonical tree and the committed matrix name the same generation. It needs the
+# tree, which is gitignored and lives on the capture machine, so it is pointed at
+# it by `VITREA_WEB_CAPTURES` — an absent tree is one line and exit 0, which would
+# make the step vacuous rather than red.
 #
 # W30 G4's `chain.sh` in shape, run at the version bump's head rather than after
-# it: the nine steps the checklist's "full chain" names, in its order, serially,
+# it: the steps the checklist's "full chain" names, in its order, serially,
 # one browser at a time, each browser step preceded by a machine-settings reading
 # that REFUSES the run if either accessibility policy is on.
 #
@@ -16,7 +30,7 @@
 # 1,818 entries) and `gated-count.py` (the macOS 27 bed, 230 gated cells / 726
 # rows, which contract X10 pins at every merge).
 #
-# **2026-09-21, W31 G4 review closure (claims §5.165 §9, finding N10).** Every
+# **2026-09-21, W31 G4 review closure (claims §5.165 §9, finding N10), kept.** Every
 # `pnpm --filter` step below now passes `--fail-if-no-match`, which `CLAUDE.md`
 # mandates and which this script did not have: a filter that matches nothing exits
 # 0 and runs nothing, so a renamed package would have written an empty log, a
@@ -50,6 +64,8 @@ browser_step() {
 
 cd "$package"
 step freeze-open python3 results/2026-09-16-w29-freeze/freeze.py verify
+step capture-tree env VITREA_WEB_CAPTURES="${VITREA_WEB_CAPTURES:-$package/web-captures}" \
+  npx tsx scripts/check-capture-tree.ts
 
 cd "$repo"
 step build pnpm -r build
@@ -64,7 +80,7 @@ browser_step react-e2e pnpm --filter @vitreajs/vitrea-react --fail-if-no-match t
 browser_step demo-e2e pnpm --filter demo --fail-if-no-match test:e2e
 
 cd "$package"
-step gated-count python3 results/2026-09-21-w31-g4-landing/gated-count.py
+step gated-count python3 results/2026-09-21-w32-g2-landing/gated-count.py
 step freeze-close python3 results/2026-09-16-w29-freeze/freeze.py verify
 
 cat "$here/chain-status.v2.txt"
