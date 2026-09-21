@@ -1,0 +1,193 @@
+W32 G0 review closure — the receded exterior read off the fixture pixels
+================================================================================================================================================================
+
+Fixtures: apps/reference-apple/fixtures
+Read:     committed PNGs only. No capture, no browser, nothing written under a
+          macOS 26.5-keyed path (W32 X1, X2, X5).
+
+§1. How far out does the receded capture differ from its backdrop at all?
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  The first offset from the body's LAST pixel at which the capture is byte-identical
+  to the background across that whole side and stays so, in device px and in CSS px.
+  Offset 1 is the first exterior pixel, so `2` means exactly one exterior pixel of
+  that side carries anything at all. The corners are left out of each side's line.
+
+     os  scale  scene                                                  above                 below                  left                 right
+   26.5      1  checkerboard__rrect-lg__inactive               1 dev = 1 CSS         1 dev = 1 CSS         1 dev = 1 CSS         1 dev = 1 CSS
+   26.5      1  checkerboard__rrect-md__inactive               1 dev = 1 CSS         1 dev = 1 CSS         1 dev = 1 CSS         1 dev = 1 CSS
+   26.5      2  checkerboard__rrect-lg__inactive             1 dev = 0.5 CSS       1 dev = 0.5 CSS       1 dev = 0.5 CSS       1 dev = 0.5 CSS
+   26.5      2  checkerboard__rrect-md__inactive             1 dev = 0.5 CSS       1 dev = 0.5 CSS       1 dev = 0.5 CSS       1 dev = 0.5 CSS
+     27      1  checkerboard__rrect-lg__inactive               2 dev = 2 CSS         2 dev = 2 CSS         2 dev = 2 CSS         2 dev = 2 CSS
+     27      1  checkerboard__rrect-md__inactive               2 dev = 2 CSS         2 dev = 2 CSS         2 dev = 2 CSS         2 dev = 2 CSS
+     27      2  checkerboard__rrect-lg__inactive               2 dev = 1 CSS         2 dev = 1 CSS         2 dev = 1 CSS         2 dev = 1 CSS
+     27      2  checkerboard__rrect-md__inactive               2 dev = 1 CSS         2 dev = 1 CSS         2 dev = 1 CSS         2 dev = 1 CSS
+
+§2. What the one differing pixel is: two columns of the bottom edge
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  `offset 0` is the body's last row, `1` the first exterior row. Read on two columns
+  of the same edge — one over a light backdrop square and one over a dark one — which
+  says what KIND of term the one differing pixel is rather than only how wide it is.
+  On macOS 27 it reads 141–156 over a backdrop of 255 and 0–6 over a backdrop of 0:
+  DARKER than both the backdrop and the body over the light square, and LIGHTER than
+  the backdrop over the dark one. A shadow is a transmission and cannot lift a black
+  square, so this is a semi-transparent dark stroke composited over the backdrop —
+  a contour term. And it is ONE pixel wide, with the next pixel the backdrop byte for
+  byte: a falloff at the σ ≈ 17 px this bed measures on the ACTIVE pose cannot be one
+  pixel wide. On macOS 26.5 even that pixel is absent.
+
+  macOS 26.5  1x  checkerboard__rrect-lg__inactive
+    over the dark square, column x = 89
+      offset  0   capture (212, 212, 212)   backdrop (0, 0, 0)         
+      offset  1   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  2   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  3   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  4   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  5   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  6   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+    over the light square, column x = 96
+      offset  0   capture (208, 208, 208)   backdrop (255, 255, 255)   
+      offset  1   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  2   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  3   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  4   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  5   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  6   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+
+  macOS 26.5  1x  checkerboard__rrect-md__inactive
+    over the dark square, column x = 119
+      offset  0   capture (221, 221, 220)   backdrop (0, 0, 0)         
+      offset  1   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  2   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  3   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  4   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  5   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  6   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+    over the light square, column x = 128
+      offset  0   capture (206, 206, 206)   backdrop (255, 255, 255)   
+      offset  1   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  2   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  3   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  4   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  5   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  6   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+
+  macOS 26.5  2x  checkerboard__rrect-lg__inactive
+    over the dark square, column x = 179
+      offset  0   capture (213, 212, 212)   backdrop (0, 0, 0)         
+      offset  1   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  2   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  3   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  4   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  5   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  6   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+    over the light square, column x = 192
+      offset  0   capture (209, 209, 209)   backdrop (255, 255, 255)   
+      offset  1   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  2   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  3   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  4   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  5   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  6   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+
+  macOS 26.5  2x  checkerboard__rrect-md__inactive
+    over the dark square, column x = 239
+      offset  0   capture (219, 219, 219)   backdrop (0, 0, 0)         
+      offset  1   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  2   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  3   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  4   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  5   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  6   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+    over the light square, column x = 256
+      offset  0   capture (209, 209, 209)   backdrop (255, 255, 255)   
+      offset  1   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  2   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  3   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  4   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  5   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  6   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+
+  macOS 27  1x  checkerboard__rrect-lg__inactive
+    over the dark square, column x = 89
+      offset  0   capture (190, 190, 190)   backdrop (0, 0, 0)         
+      offset  1   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  2   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  3   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  4   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  5   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  6   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+    over the light square, column x = 96
+      offset  0   capture (188, 188, 188)   backdrop (255, 255, 255)   
+      offset  1   capture (156, 156, 156)   backdrop (255, 255, 255)   
+      offset  2   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  3   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  4   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  5   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  6   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+
+  macOS 27  1x  checkerboard__rrect-md__inactive
+    over the dark square, column x = 119
+      offset  0   capture (187, 187, 187)   backdrop (0, 0, 0)         
+      offset  1   capture (6, 6, 6)         backdrop (0, 0, 0)         
+      offset  2   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  3   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  4   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  5   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  6   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+    over the light square, column x = 128
+      offset  0   capture (189, 189, 189)   backdrop (255, 255, 255)   
+      offset  1   capture (145, 145, 145)   backdrop (255, 255, 255)   
+      offset  2   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  3   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  4   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  5   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  6   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+
+  macOS 27  2x  checkerboard__rrect-lg__inactive
+    over the dark square, column x = 179
+      offset  0   capture (190, 190, 190)   backdrop (0, 0, 0)         
+      offset  1   capture (6, 6, 6)         backdrop (0, 0, 0)         
+      offset  2   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  3   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  4   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  5   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  6   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+    over the light square, column x = 192
+      offset  0   capture (188, 188, 188)   backdrop (255, 255, 255)   
+      offset  1   capture (141, 141, 141)   backdrop (255, 255, 255)   
+      offset  2   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  3   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  4   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  5   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  6   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+
+  macOS 27  2x  checkerboard__rrect-md__inactive
+    over the dark square, column x = 239
+      offset  0   capture (187, 187, 187)   backdrop (0, 0, 0)         
+      offset  1   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  2   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  3   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  4   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  5   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+      offset  6   capture (0, 0, 0)         backdrop (0, 0, 0)            = backdrop
+    over the light square, column x = 256
+      offset  0   capture (189, 189, 188)   backdrop (255, 255, 255)   
+      offset  1   capture (145, 145, 145)   backdrop (255, 255, 255)   
+      offset  2   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  3   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  4   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  5   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+      offset  6   capture (255, 255, 255)   backdrop (255, 255, 255)      = backdrop
+
+§3. What this settles
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  The receded exterior is ONE device pixel wide on macOS 27 and ZERO pixels wide on
+  macOS 26.5 — on 26.5 the capture equals its backdrop from the very first exterior
+  pixel, on all four sides, at both scales, on both components. Neither is a shadow
+  at any alpha, so the recede's anchor solve (W32 clause 4) has no falloff to lower
+  on either generation, and §5.166 §7's finding is about Apple's material rather
+  than about macOS 27's version of it. What the `0-3` band reads on macOS 27 is that
+  single stroke pixel averaged over a three-px-wide ring, which is why the departure
+  there is small, why it is larger on the beds whose backdrop is brighter, and why
+  this wave's Deferred list is right to call it a rim term rather than a shadow one.
+

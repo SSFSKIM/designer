@@ -4925,3 +4925,81 @@ an exhaustive switch on the occlusion axis, so a second condition is cheap), or
 keep it and document that a declared tone is a colour claim and not only a level
 claim. Whichever is chosen, the clamp wants a reading beside it: at the shipped
 retention it binds, so the fitted fraction is not what that path draws.
+
+## Two `MISSED_27_ROWS` entries cannot be decided at all, because the perceptual axis carries no region-restricted ΔE (W32 G0, 2026-09-21)
+
+`MISSED_27_ROWS` holds five shadow-era rows today, and two of them are
+`photo__rrect-lg__rest :: oklabDeltaEP95` on the CSS tier, 1x dark (0.20095
+against ≤ 0.18) and 2x dark (0.19474 against ≤ 0.19). W32 G0 decomposed all five
+for what the outer shadow could reach and could decide three of them: two of the
+SSIM rows because the axis carries `ssimOutside` and `ssimOutsideWindows`, so the
+share of the metric the exterior owns is a number
+(`results/2026-09-21-w32-g0-exterior-cut/stops.txt` §7, claims §5.166 §6), and
+the reduced-transparency row because `ssimOutside` IS the exterior. **The two ΔE
+rows it could not decide, and the reason is structural rather than a shortfall of
+effort: `oklabDeltaEP95` is a percentile over the WHOLE cell and the axis reports
+no ΔE restricted to any region.** Whether the cell's top five per cent of colour
+error lives in the exterior, in the rim or in the body is not in any committed
+field, so "reachable through the shadow" has no derivation and the honest verdict
+is *undecidable from the committed fields*.
+
+What makes it worth an entry rather than a shrug: the same two rows are the ones
+a shadow wave is most likely to want to claim, because their WebGPU-tier siblings
+on the same scene cleared at W31 G3 and these two are the CSS tier's decline
+rather than the material's (claims §5.164 §5; the comment above them in
+`test/adopted-thresholds.test.ts`). A wave that claimed them through the exterior
+would be claiming something nothing on this bed can check, and a wave that
+declined to claim them cannot say whether it was right to.
+
+**The fix shape**, and it is small: the perceptual axis already computes its SSIM
+three ways over the silhouette, the band and the outside
+(`ssimInterior` / `ssimBand` / `ssimOutside`, with window counts). The same
+partition applied to the OKLab difference gives
+`oklabDeltaEP95{Interior,Band,Outside}` and their pixel counts, which is one pass
+over a mask the axis already has. It is a schema addition, so it costs a bump and
+a re-read of the bed to populate, which is why W32 does not take it: X7 forbids a
+schema change in this wave and the wave's own read is already committed to the
+current one. The right moment is the next wave that re-reads the whole bed for a
+different reason.
+
+Until then: no wave claims either row through the shadow, and `MISSED_27_ROWS`
+carries them as missed with the reason recorded here.
+
+## Apple's active reach on macOS 27 depends on the backdrop, and nothing separates the material from the instrument (W32 G0 review closure, 2026-09-21)
+
+*Found as an incidental by W32 G0's independent review and measured by its closure
+(claims §5.166 §4 and §10, finding N17). Evidence:
+`packages/calibration/results/2026-09-21-w32-g0-exterior-cut/extents-by-backdrop.py`
+and its committed output — a read of `results/matrix.json`, no capture, no fit.*
+
+`extentBelowNative` — the axis's walk outward from the silhouette to where Apple's
+render rejoins its backdrop — varies with the BACKDROP on macOS 27 at every span,
+not only at the thin ones where a luminance keying is already expected. Over
+twelve backdrops on the four standard beds it reads **16.0–18.5 CSS px at span 96**
+and **25.0–28.8 at span 128**, a range of 14 % of the span's own median at both,
+with `light-solid` shortest and `checkerboard-lc16` longest at each — the same two
+backdrops in the same order, which is what makes it a reading rather than a
+scatter. Inside the thin regime the same figure is 12 % at span 44 and 41 % at 32.
+
+What is undecided is **which of two mechanisms it is**, and the two are observationally
+identical on this statistic:
+
+- **Apple's material conditions the shadow on the backdrop**, beyond the thin
+  regime's keying. Then a single falloff triple cannot describe the bed and the
+  material is missing a term.
+- **The estimator is conditioned on the backdrop's contrast.** An extent is a
+  threshold crossing and a backdrop with less light to remove crosses sooner, so
+  a shorter reach over `light-solid` would be the instrument and not the material.
+
+Both predict the table. Separating them needs the TRANSMISSION PROFILE rather than
+the extent — the per-band `a` against distance, which does not depend on a
+threshold — and that is a fit, which G0 does not do.
+
+**The fix shape**: at G1's first round, read the fitted residual per backdrop at
+each span rather than pooled, on the profile and not on the extent. If the residual
+is flat across backdrops the dependence was the estimator and this entry closes on
+that measurement; if it tracks the backdrop's own luminance or contrast statistic —
+which the analysis pass already computes per source — then the material is missing
+a term and the entry becomes a charter item rather than debt. Either way the
+reading is cheap once a fit exists, and G1's verdict carries the per-backdrop
+residual regardless (claims §5.166 §4).
