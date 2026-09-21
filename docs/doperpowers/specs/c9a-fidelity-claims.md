@@ -32354,7 +32354,11 @@ goldens.
   asserts `Δa` AND `Δc` on each of the four bands in each of the five
   directions, which is **40 numbers per cell** and 80 over the two — the count
   the test's own doc comment carries,*
-  and the `0-3` band does NOT, by 0.0002–0.0008: W31 G1 read the 0.20.0
+  and the `0-3` band does NOT, by 0.0002–0.0008 *(corrected beside, 2026-09-21,
+  review closure; §10, finding N8: the ten `0-3` moves run **0.00002 to
+  0.00092** — 0.00002 on `left` of the 2x light cell and 0.00092 on its `above`,
+  with `above` the largest on both cells. The case's own bound, `< 0.002`, is
+  unchanged and is not near either end)*: W31 G1 read the 0.20.0
   generation (`d0c389d70456` / `880ab1e31450`) and the working file now carries
   0.21.0's, W31 G3 having sealed `bodyChromaRetention` in between (§5.164), and
   `0-3` is the band that holds the body's own over-fill. The case asserts the

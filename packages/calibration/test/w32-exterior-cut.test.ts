@@ -26,7 +26,11 @@
  *
  * **And one thing case 1 records rather than asserts.** The four SHAPE bands
  * reproduce W31 G1's printed numbers exactly; the `0-3` band does NOT, and the
- * difference is 0.0002–0.0008 in `Δa`. That is not a discrepancy to reconcile:
+ * difference is 0.0002–0.0008 in `Δa`. *(Corrected beside, 2026-09-21, review
+ * closure; claims §5.166 §10, finding N8: the ten moves run 0.00002 to 0.00092
+ * — 0.00002 on `left` of the 2x light cell and 0.00092 on its `above`, which is
+ * the largest on both cells. The `< 0.002` bound below is unchanged and is not
+ * near either end.)* That is not a discrepancy to reconcile:
  * W31 G1 read the 0.20.0 generation (documents `d0c389d70456` / `880ab1e31450`)
  * and the working file now carries 0.21.0's (`49490eb9ff7a` / `b5714a866288`),
  * W31 G3 having sealed `bodyChromaRetention` into all four macOS 27 documents
