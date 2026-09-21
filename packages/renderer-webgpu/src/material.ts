@@ -2019,6 +2019,63 @@ export function occlusionLiftForPolicy(
     : levels?.reduceTransparency ?? profile.increasedOcclusionLift;
 }
 
+/**
+ * **The retention acts on the plate's UN-LIFTED share** — W31 Decision Log 3 (d),
+ * the fix for the regression claims §5.164 §8 (b) recorded and §5.164 §13
+ * measures.
+ *
+ * `bodyChromaRetention` restores a fraction of the backdrop's chromaticity into
+ * a body that lost it to a neutral plate, and the amount the plate took is
+ * `α`. Under an accessibility occlusion lift the plate takes more —
+ * `occlusionAlphaUnderPolicy` sends `α` to `α + lift·(1 − α)`, so what is left
+ * of the backdrop is `1 − α_eff = (1 − α)·(1 − lift)` — and a retention applied
+ * at its nominal value there restores a fraction of a chromaticity the
+ * preference asked to have covered up. Measured, it did exactly that: the two
+ * light accessibility beds read `R` 3.04 and 2.95 against a reference of 1
+ * where 0.20.0 read 0.91 and 0.81.
+ *
+ * So the retention is scaled by the same `(1 − lift)` the plate's remaining
+ * share is scaled by. Three properties, and each of them is why this is the
+ * rule rather than a tuning:
+ *
+ *  - **It is an EXACT identity where no preference is set.** `lift` is 0 under
+ *    `occlusion: "nominal"`, and `r · (1 − 0)` is `r` to the bit in IEEE-754.
+ *    Every standard row, every golden and every document digest is unmoved.
+ *  - **It is 0 where the plate is opaque.** `occlusion: "opaque"` is
+ *    `α_eff = 1`, which is a lift of exactly 1: no backdrop survives the plate,
+ *    so there is no chromaticity to restore and the operator stands down. That
+ *    state arrives only with `glass: "none"` (core's `forcedColors` row), so it
+ *    draws nothing either way — but the switch is exhaustive rather than an
+ *    `else 0`, because the branch that is unreachable today is the one a later
+ *    policy row makes reachable silently.
+ *  - **It carries the document's OWN lift**, per policy: the receded light
+ *    document splits `increasedOcclusionLiftByPolicy` into 0.88 for Reduce
+ *    Transparency and 0.98 for Increase Contrast, so the two preferences get
+ *    two retentions out of one fitted constant without either document naming
+ *    one. Decision Log 3 (c) defers giving them their own values behind this.
+ *
+ * It is folded HERE, on the CPU at the uniform's pack site, and not in the
+ * shader: the optics pass's uniform carries no lift at all — `opticsUnderPolicy`
+ * has already folded it into `tintAlpha` — so the shader could learn it only
+ * from a new lane, and W30's rule forbids packing an operator into a
+ * neighbour's padding. A whole vec4 for a factor of two numbers the CPU holds
+ * is a layout change for nothing.
+ */
+export function bodyChromaRetentionUnderPolicy(
+  retention: number,
+  policy: MaterialPolicyView,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  switch (policy.occlusion) {
+    case "nominal":
+      return retention;
+    case "increased":
+      return retention * (1 - occlusionLiftForPolicy(policy, profile));
+    case "opaque":
+      return 0;
+  }
+}
+
 export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   optics: {
     // σ = 8 for the regular variant, which keeps this package's blur and

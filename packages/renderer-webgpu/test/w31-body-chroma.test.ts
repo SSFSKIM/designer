@@ -32,7 +32,13 @@
 
 import { describe, expect, it } from "vitest";
 
-import { DEFAULT_MATERIAL_PROFILE } from "../src/material";
+import {
+  bodyChromaRetentionUnderPolicy,
+  DEFAULT_MATERIAL_PROFILE,
+  NOMINAL_MATERIAL_POLICY,
+  withMaterialOverrides,
+  type MaterialPolicyView,
+} from "../src/material";
 import { WGSL_OPTICS_PASS } from "../src/wgsl";
 
 const W: readonly [number, number, number] = [0.2126, 0.7152, 0.0722];
@@ -217,5 +223,149 @@ describe("W31's body chroma retention (claims §5.161 §5, §5.164)", () => {
     const material = body.indexOf("var materialColour = colour;");
     expect(call).toBeGreaterThan(0);
     expect(material).toBeGreaterThan(call);
+  });
+});
+
+/**
+ * W31 G3c — the retention under the accessibility fold (Decision Log 3 (d);
+ * claims §5.164 §8 (b) and §13).
+ *
+ * The leaf as G3 shipped it was applied unconditionally, and Reduce
+ * Transparency and Increase Contrast are the light document plus an OCCLUSION
+ * LIFT: the plate covers `α + lift·(1 − α)` of the backdrop there instead of
+ * `α`, so the nominal retention restores a fraction of a chromaticity the
+ * preference asked to have covered up. Measured on the untinted `photo` beds it
+ * took `R` from 0.9096 to 3.0374 (reduced transparency, active) and from 0.8147
+ * to 2.9489 (increased contrast, active), inside bounds too loose to trip.
+ *
+ * The rule is `r_eff = r · (1 − lift)` — the retention acting on the plate's
+ * un-lifted share, which is the same `(1 − lift)` the backdrop's own survival
+ * is scaled by. What these cases hold is the identity half and the fold half
+ * separately, because they are different claims: the identity is what lets the
+ * 34 goldens, every document digest and every standard matrix row be unmoved,
+ * and the fold is the fix.
+ */
+describe("W31 G3c's accessibility fold on the retention (claims §5.164 §13)", () => {
+  // core's `ACCESSIBILITY_BEHAVIOR_TABLE` rows, as this package's slice of them
+  // (`packages/core/src/accessibility.ts`). Reduce Transparency is the occlusion
+  // lift; Increase Contrast reduces the ambient tint, which is the axis
+  // `occlusionLiftForPolicy` reads to tell the two preferences' lifts apart;
+  // the calibration bed's `increased-contrast-coupled` profile is both at once,
+  // which is the only state macOS 26.5 could produce and the state the fixture
+  // was captured in.
+  const REDUCE_TRANSPARENCY: MaterialPolicyView = {
+    ...NOMINAL_MATERIAL_POLICY,
+    frost: "increased",
+    refraction: "reduced",
+    occlusion: "increased",
+  };
+  const INCREASED_CONTRAST_COUPLED: MaterialPolicyView = {
+    ...REDUCE_TRANSPARENCY,
+    border: "strong",
+    foreground: "near-monochrome",
+    ambientTint: "reduced",
+  };
+  const FORCED_COLORS: MaterialPolicyView = {
+    ...NOMINAL_MATERIAL_POLICY,
+    glass: "none",
+    frost: "none",
+    refraction: "none",
+    occlusion: "opaque",
+    border: "strong",
+    ambientTint: "none",
+    foreground: "near-monochrome",
+  };
+
+  /**
+   * The two macOS 27 LIGHT documents' own numbers
+   * (`packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5{,-receded}.json`),
+   * restated as a patch so the fold is exercised at the values that actually
+   * ship rather than at the runtime default's 0 — at which every case below
+   * would pass by arithmetic.
+   */
+  const ACTIVE = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+    increasedOcclusionLift: 0.75,
+    bodyChromaRetention: 0.282,
+  });
+  const RECEDED = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+    increasedOcclusionLift: 0.96,
+    increasedOcclusionLiftByPolicy: { reduceTransparency: 0.88, increaseContrast: 0.98 },
+    bodyChromaRetention: 0.349,
+  });
+
+  it("is the document's own retention, to the bit, at every policy carrying no lift", () => {
+    // The identity half. `occlusionLiftForPolicy` returns a NON-ZERO number for
+    // a nominal policy — it answers "what lift would this material use", not
+    // "what lift applies" — so a fold that multiplied by `1 − that` on every
+    // path would have scaled every standard row by 0.25 and passed a test
+    // written against the function instead of against the policy.
+    for (const profile of [ACTIVE, RECEDED, DEFAULT_MATERIAL_PROFILE]) {
+      expect(
+        bodyChromaRetentionUnderPolicy(profile.bodyChromaRetention, NOMINAL_MATERIAL_POLICY, profile),
+      ).toBe(profile.bodyChromaRetention);
+      // And it is an identity for any value, not only for the one this profile
+      // carries — the shipped default is 0 and would satisfy the line above by
+      // being 0.
+      for (const retention of RETENTIONS) {
+        expect(bodyChromaRetentionUnderPolicy(retention, NOMINAL_MATERIAL_POLICY, profile)).toBe(
+          retention,
+        );
+      }
+    }
+  });
+
+  it("is `r · (1 − lift)` under an increased occlusion, at the document's own lift", () => {
+    // The fold half, at the four numbers the four light beds draw at.
+    expect(bodyChromaRetentionUnderPolicy(0.282, REDUCE_TRANSPARENCY, ACTIVE)).toBeCloseTo(
+      0.282 * 0.25,
+      15,
+    );
+    expect(bodyChromaRetentionUnderPolicy(0.282, INCREASED_CONTRAST_COUPLED, ACTIVE)).toBeCloseTo(
+      0.282 * 0.25,
+      15,
+    );
+    // The receded document splits the lift by preference, so one fitted
+    // retention produces two: 0.88 for reduced transparency and 0.98 for
+    // increased contrast (Decision Log 3 (c) defers giving those beds their own
+    // retentions behind exactly this).
+    expect(bodyChromaRetentionUnderPolicy(0.349, REDUCE_TRANSPARENCY, RECEDED)).toBeCloseTo(
+      0.349 * 0.12,
+      15,
+    );
+    expect(bodyChromaRetentionUnderPolicy(0.349, INCREASED_CONTRAST_COUPLED, RECEDED)).toBeCloseTo(
+      0.349 * 0.02,
+      15,
+    );
+    // And the two preferences really do differ on the document that splits them,
+    // so the `ambientTint` branch above is exercised rather than merely present.
+    expect(bodyChromaRetentionUnderPolicy(0.349, REDUCE_TRANSPARENCY, RECEDED)).toBeGreaterThan(
+      bodyChromaRetentionUnderPolicy(0.349, INCREASED_CONTRAST_COUPLED, RECEDED),
+    );
+  });
+
+  it("stands down entirely where the plate is opaque", () => {
+    // `occlusion: "opaque"` is `α_eff = 1`, a lift of exactly 1: no backdrop
+    // survives the plate and there is no chromaticity to restore. It arrives
+    // only with `glass: "none"`, so it draws nothing either way — the branch is
+    // written because the unreachable case is the one a later policy row makes
+    // reachable without anyone noticing.
+    for (const profile of [ACTIVE, RECEDED]) {
+      expect(bodyChromaRetentionUnderPolicy(profile.bodyChromaRetention, FORCED_COLORS, profile)).toBe(0);
+    }
+  });
+
+  it("never restores more than the un-lifted policy would", () => {
+    // The property the two cases above are instances of, over the whole bed:
+    // a lift can only take the retention DOWN, because a lift can only take the
+    // backdrop's surviving share down.
+    for (const profile of [ACTIVE, RECEDED]) {
+      for (const retention of RETENTIONS) {
+        for (const policy of [REDUCE_TRANSPARENCY, INCREASED_CONTRAST_COUPLED, FORCED_COLORS]) {
+          const folded = bodyChromaRetentionUnderPolicy(retention, policy, profile);
+          expect(folded).toBeGreaterThanOrEqual(0);
+          expect(folded).toBeLessThanOrEqual(retention);
+        }
+      }
+    }
   });
 });
