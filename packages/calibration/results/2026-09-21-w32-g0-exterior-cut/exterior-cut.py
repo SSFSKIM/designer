@@ -1220,15 +1220,15 @@ def main() -> int:
                         print(line)
             print()
 
-    def direction_block(pose: str, keep) -> None:
-        print(f"  pose {pose}")
+    def direction_block(tier: str, pose: str, keep) -> None:
+        print(f"  tier {tier}, pose {pose}")
         print(f"    {'bed':<38}{'span':>5}{'direction':>10}{'admitted':>24}"
               f"{'n':>5}{'T_dir':>11}{'min':>11}{'max':>11}   bands-used")
         for bed in bed_order(rows):
             for span in SPANS:
                 for direction in DIRECTIONS:
                     picked = [r for r in rows
-                              if r["bed"] == bed and r["span"] == span and r["tier"] == "webgpu"
+                              if r["bed"] == bed and r["span"] == span and r["tier"] == tier
                               and r["set"] != HOLDOUT and keep(r)
                               and r["Tdir"][direction] is not None
                               and full_set(r, direction)]
@@ -1250,8 +1250,18 @@ def main() -> int:
     print("  two in opposite directions where a WIDENING moves them together, which is what makes")
     print("  the direction resolution the thing that identifies the offset (W32 Design).")
     print()
-    direction_block("active", lambda r: r["state"] != "inactive")
-    direction_block("inactive", lambda r: r["state"] == "inactive")
+    is_active = lambda r: r["state"] != "inactive"
+    is_inactive = lambda r: r["state"] == "inactive"
+    direction_block("webgpu", "active", is_active)
+    direction_block("webgpu", "inactive", is_inactive)
+    print("  The CSS tier is RECORDED and not bounded (the tier rule, Decision Log 23 of")
+    print("  2026-09-05): it derives one `box-shadow` blur radius per surface from the same")
+    print("  profile rather than drawing the material, so its exterior is a consequence of the")
+    print("  leaves and not a second fit. Every row's per-band per-direction `Δa` and `Δc` are in")
+    print("  `exterior-cut.json` on both tiers whatever the tables below print.")
+    print()
+    direction_block("css", "active", is_active)
+    direction_block("css", "inactive", is_inactive)
 
     print("§9b. The per-band `Δa` median per direction — the profile the summary is a mean of")
     print("-" * 160)
@@ -1259,14 +1269,14 @@ def main() -> int:
     print("  `(x)` around its figure rather than omitted, so the reading the frame ate is visible")
     print("  and is not in any statistic. `0-3` is the body's own edge and is never in `T`.")
     print()
-    for bed in bed_order(rows):
+    for pose, keep in (("active", is_active), ("inactive", is_inactive)):
+      for bed in bed_order(rows):
         for span in SPANS:
             here = [r for r in rows if r["bed"] == bed and r["span"] == span
-                    and r["tier"] == "webgpu" and r["set"] != HOLDOUT
-                    and r["state"] != "inactive"]
+                    and r["tier"] == "webgpu" and r["set"] != HOLDOUT and keep(r)]
             if not here:
                 continue
-            print(f"  {bed}, span {span} — {len(here)} cells, admitted "
+            print(f"  {bed}, span {span}, {pose} — {len(here)} cells, admitted "
                   f"{band_set_label(here[0]['admittedDir']['all'])}")
             print(f"    {'band':<8}" + "".join(f"{d:>16}" for d in DIRECTIONS))
             for field, label in (("deltaA", "Δa (web−nat)"), ("deltaC", "Δc (web−nat)")):
@@ -1295,13 +1305,16 @@ def main() -> int:
     print("  An extent is ABSENT where the walk reached the canvas edge, which the axis withholds")
     print("  rather than reporting the size of the window. The absence is the reading: a span at")
     print("  which the web side carries no extent is a span at which the bed cannot see vitrea's")
-    print("  own reach at all. WebGPU tier, active, non-holdout.")
+    print("  own reach at all. Read per tier and per pose; the CSS tier is recorded.")
     print()
-    print(f"  {'span':>5}{'field':>10}{'n both':>8}{'nat absent':>12}{'web absent':>12}"
-          f"{'native':>11}{'web':>11}{'web − native':>14}")
-    for span in SPANS:
-        here = [r for r in rows if r["span"] == span and r["tier"] == "webgpu"
-                and r["set"] != HOLDOUT and r["state"] != "inactive"]
+    for tier, pose, keep in (("webgpu", "active", is_active), ("webgpu", "inactive", is_inactive),
+                             ("css", "active", is_active), ("css", "inactive", is_inactive)):
+      print(f"  tier {tier}, pose {pose}, non-holdout")
+      print(f"  {'span':>5}{'field':>10}{'n both':>8}{'nat absent':>12}{'web absent':>12}"
+            f"{'native':>11}{'web':>11}{'web − native':>14}")
+      for span in SPANS:
+        here = [r for r in rows if r["span"] == span and r["tier"] == tier
+                and r["set"] != HOLDOUT and keep(r)]
         if not here:
             continue
         for field in SHADOW_SIDES + ["offsetX", "offsetY"]:
