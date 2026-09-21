@@ -177,14 +177,31 @@ the moment one clips. So `BODY_CHROMA_RETENTION` in `@vitreajs/vitrea-web` is
 residual is recorded beside it. A page on the CSS tier draws the body it drew
 before.
 
-**Under Reduce Transparency or Increase Contrast the retention stands down**
-(W31 Decision Log 3 (d); claims §5.164 §13). Those preferences lift the
-material's occlusion — the plate covers `α + lift·(1 − α)` of the backdrop
-instead of `α` — so restoring the nominal fraction of the backdrop's
-chromaticity there gives back exactly what the preference asked to have covered
-up. Applied unconditionally it took the chroma-to-structure ratio on those beds
-to three times the reference's; under an accessibility occlusion policy the
-operator is now the identity, and those pages draw what 0.20.0 drew, to the byte.
+**Under an accessibility OCCLUSION LIFT the retention stands down**
+(W31 Decision Log 3 (d); claims §5.164 §13). A lift sends the plate's alpha to
+`α + lift·(1 − α)`, so the plate covers more of the backdrop than nominal and
+restoring the nominal fraction of its chromaticity gives back exactly what the
+preference asked to have covered up. Applied unconditionally it took the
+chroma-to-structure ratio on those beds to three times the reference's;
+`bodyChromaRetentionUnderPolicy` is an exhaustive switch on the occlusion axis
+and returns 0 on `increased` and `opaque`, so those pages draw what 0.20.0 drew,
+to the byte.
+
+Which preferences that is, said exactly, because the axis and the preference are
+not the same thing (2026-09-21, W31 G3c review, folded at G4; claims §5.165).
+**Reduce Transparency** raises occlusion and stands the retention down.
+**`forced-colors`** takes `glass` to `"none"` and draws no body either way.
+**Increase Contrast alone does NOT**: §Accessibility gives it `border`,
+`foreground` and `ambientTint` and no occlusion key, `prefers-contrast: more`
+and `prefers-reduced-transparency: reduce` are matched independently, and macOS
+27 decoupled the two switches where macOS 26.5 coupled them
+(`apps/reference-apple/scenes.json`, the `-increased-contrast-` entry). So a
+0.21.0 page under Increase Contrast alone draws the retention at its full value.
+That is not a regression against 0.20.0 — which had no operator — and it is not
+measured either: the wave's increased-contrast bed is the COUPLED one, whose
+occlusion is lifted. It is recorded as an open gap, with the design question
+named beside it: `ambientTint: "reduced"` is documented as the material's colour
+cast picked up from its backdrop, which is literally this leaf.
 
 **The leaf landed without moving a single document's digest, and that is the
 second half of the wave** — true of the LEAF commit, which is the claim being

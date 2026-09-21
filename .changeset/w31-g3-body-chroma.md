@@ -52,13 +52,21 @@ What moves for an app:
   the dark scheme that endpoint is also the one the fit moved least.
 - **A surface over a neutral backdrop is unchanged**, to the bit: a retention
   toward the backdrop's chromaticity is the identity where the backdrop has none.
-- **Under Reduce Transparency or Increase Contrast, nothing changes at all.**
-  Those preferences lift the material's occlusion, so the plate covers more of
-  the backdrop and there is less of its chroma to restore; restoring the nominal
-  fraction anyway gives back what the preference asked to have covered up, and
-  measured on the accessibility beds it took the body's chroma to three times
-  the reference's. Under an accessibility occlusion policy the retention is the
-  identity, and those pages draw what 0.20.0 drew, to the byte.
+- **Under Reduce Transparency — and under Increase Contrast on a platform that
+  couples the two — nothing changes at all.** What the retention stands down on
+  is the material's OCCLUSION LIFT: those preferences send the plate's alpha to
+  `α + lift·(1 − α)`, so the plate covers more of the backdrop and there is less
+  of its chroma to restore, and restoring the nominal fraction anyway gives back
+  exactly what the preference asked to have covered up — measured on the
+  accessibility beds, three times the reference's chroma-to-structure. Under a
+  lifted occlusion policy the retention is the identity and those pages draw what
+  0.20.0 drew, to the byte. **Under Increase Contrast ALONE it draws at its full
+  value**, because `prefers-contrast: more` raises no occlusion of its own — it
+  is a border, foreground and ambient-tint preference — and macOS 27 decouples
+  the two switches where macOS 26.5 coupled them. That is not a regression
+  against 0.20.0, which had no operator to stand down; it is a combination the
+  wave's bed does not measure, and it is recorded as an open gap rather than
+  claimed either way.
 - **`root.material`'s digests read differently**, because the fingerprint's
   definition changed and not because a page draws something else. A leaf whose
   value is its declared inert identity is now dropped from the digest, so the
