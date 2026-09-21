@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """W31 G3 — the READ's append-check: the canonical read appended and rewrote nothing.
 
-    python3 read-append-check.py snapshot           # before the read
+    python3 read-append-check.py snapshot [<matrix.json>]   # before the read
     python3 read-append-check.py verify  [--json out.json]
 
 `append-check.py` beside this file is the SPLIT's check — it proves that moving
@@ -61,9 +61,9 @@ _spec.loader.exec_module(_split)
 canon, elements = _split.canon, _split.elements
 
 
-def rows() -> list[tuple[str, str, str]]:
+def rows(source: pathlib.Path | None = None) -> list[tuple[str, str, str]]:
     """(digest, profileKey, capturePath) per row, in file order."""
-    raw = MATRIX.read_bytes()
+    raw = (source or MATRIX).read_bytes()
     _, spans, _ = elements(raw)
     out = []
     for a, b in spans:
@@ -78,26 +78,41 @@ def rows() -> list[tuple[str, str, str]]:
     return out
 
 
-def snapshot() -> int:
+def snapshot(source: pathlib.Path | None = None) -> int:
+    """W32 G1's ONE change to this copy (claims §5.168): the snapshot may be taken
+    of a NAMED matrix rather than of the live one.
+
+    W31 G3 took it of the live file before its read. This gate ran the read
+    first, so the "before" it needs is not on disk any more — it is the blob the
+    SEAL commit carries, which is the same bytes and is signed for by git rather
+    than by a reader's memory. `git show <seal>:packages/calibration/results/matrix.json`
+    reproduces it, and naming it here is honest where re-running the read would
+    not be: the check's whole job is to referee the append, and taking its
+    "before" from the commit immediately before the append is what "before"
+    means. With no argument this is W31 G3's function exactly.
+    """
     if SNAPSHOT.exists():
         raise SystemExit(f"{SNAPSHOT.name} already exists; it witnesses a read that has run")
-    current = rows()
+    current = rows(source)
     SNAPSHOT.write_text(
         json.dumps(
             {
                 "$comment": [
-                    "results/matrix.json as it stood BEFORE W31 G3's canonical read",
-                    "(claims §5.164 §7). Written once, never rewritten.",
+                    "results/matrix.json as it stood BEFORE W32 G1's canonical read",
+                    "(claims §5.168). Written once, never rewritten.",
+                    "Taken from the SEAL commit's blob rather than from the live file,",
+                    "because the read had already run; same bytes, signed for by git.",
                 ],
-                "matrixSha256": hashlib.sha256(MATRIX.read_bytes()).hexdigest(),
-                "matrixBytes": MATRIX.stat().st_size,
+                "matrixSha256": hashlib.sha256((source or MATRIX).read_bytes()).hexdigest(),
+                "matrixBytes": (source or MATRIX).stat().st_size,
                 "rows": [{"sha256": d, "profileKey": p} for d, p, _ in current],
             },
             indent=2,
         )
         + "\n"
     )
-    print(f"snapshot: {len(current)} rows, {MATRIX.stat().st_size} bytes -> {SNAPSHOT.name}")
+    print(f"snapshot: {len(current)} rows, {(source or MATRIX).stat().st_size} bytes "
+          f"of {(source or MATRIX)} -> {SNAPSHOT.name}")
     return 0
 
 
@@ -208,7 +223,8 @@ def main() -> int:
     argv = sys.argv[1:]
     verb = argv[0] if argv else "verify"
     if verb == "snapshot":
-        return snapshot()
+        named = [a for a in argv[1:] if not a.startswith("--")]
+        return snapshot(pathlib.Path(named[0]) if named else None)
     if verb == "verify":
         out = pathlib.Path(argv[argv.index("--json") + 1]) if "--json" in argv else None
         return verify(out)

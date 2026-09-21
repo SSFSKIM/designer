@@ -1,0 +1,93 @@
+{
+  "manifest": "packages/calibration/results/2026-09-21-w32-g1-shadow-fit/before-manifest.json",
+  "clauses": {
+    "rows accounted for": true,
+    "rows byte-identical": true,
+    "26.5 untouched": true,
+    "order preserved": true,
+    "counts add up": true,
+    "reconstruction": true
+  },
+  "files": {
+    "results/matrix.json": {
+      "rows": 1893,
+      "bytes": 69574391,
+      "sha256": "374f5f706f74851fa811640265304e4548bc279df07fe3d47eaf033e2d2360fc"
+    },
+    "results/superseded/49490eb9ff7a.json": {
+      "rows": 479,
+      "bytes": 18896857,
+      "sha256": "bc84f3e5420f00e9904a4ead1a0b40383866a1652781efefc466dc36039c0114"
+    },
+    "results/superseded/b5714a866288.json": {
+      "rows": 247,
+      "bytes": 9676070,
+      "sha256": "61e4be511b05a0153a17c656658d51c32486615d8711be2a8c5f9ce0acb1285c"
+    }
+  },
+  "frozenRowCount": 1107,
+  "frozenRowsOnDisk": 1107,
+  "rowsByProfileKey": {
+    "apple-macos-26.5-1x-dark-standard": {
+      "before": 219,
+      "results/matrix.json": 219
+    },
+    "apple-macos-26.5-1x-light-increased-contrast": {
+      "before": 55,
+      "results/matrix.json": 55
+    },
+    "apple-macos-26.5-1x-light-reduced-transparency": {
+      "before": 52,
+      "results/matrix.json": 52
+    },
+    "apple-macos-26.5-1x-light-standard": {
+      "before": 281,
+      "results/matrix.json": 281
+    },
+    "apple-macos-26.5-2x-dark-standard": {
+      "before": 218,
+      "results/matrix.json": 218
+    },
+    "apple-macos-26.5-2x-light-standard": {
+      "before": 282,
+      "results/matrix.json": 282
+    },
+    "apple-macos-27.0-1x-dark-standard-glass0.5": {
+      "before": 312,
+      "results/matrix.json": 166,
+      "results/superseded/b5714a866288.json": 146
+    },
+    "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": {
+      "before": 72,
+      "results/superseded/49490eb9ff7a.json": 36,
+      "results/matrix.json": 36
+    },
+    "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": {
+      "before": 64,
+      "results/superseded/49490eb9ff7a.json": 32,
+      "results/matrix.json": 32
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5": {
+      "before": 476,
+      "results/superseded/49490eb9ff7a.json": 228,
+      "results/matrix.json": 248
+    },
+    "apple-macos-27.0-2x-dark-standard-glass0.5": {
+      "before": 212,
+      "results/matrix.json": 111,
+      "results/superseded/b5714a866288.json": 101
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5": {
+      "before": 376,
+      "results/superseded/49490eb9ff7a.json": 183,
+      "results/matrix.json": 193
+    }
+  },
+  "reconstruction": {
+    "sha256": "72d6060a470500f53fd7a3ccbacfc8214dfa49306a8969fcf2c811c6946f0abd",
+    "recorded": "72d6060a470500f53fd7a3ccbacfc8214dfa49306a8969fcf2c811c6946f0abd",
+    "bytes": 98147234,
+    "recordedBytes": 98147234
+  },
+  "failures": []
+}

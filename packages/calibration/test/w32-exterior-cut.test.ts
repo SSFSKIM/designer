@@ -60,6 +60,30 @@ const READER = resolve(
 );
 const WORKING_MATRIX = resolve(PACKAGE_ROOT, "results", "matrix.json");
 
+/**
+ * The generation W31 G1 read, by name (2026-09-21, W32 G1; claims §5.168).
+ *
+ * The case below reproduces W31 G1's committed §4 printout, which is a statement
+ * about the READER and not about the material: two implementations of one
+ * statistic on one bed must agree to the digit. W32 G1 re-read the whole macOS 27
+ * bed at fitted shadow documents, so the rows that printout was taken on are no
+ * longer in the working file — `split-generation.py` moved them, byte for byte,
+ * to the file the light documents' content hash names — and pointing the case at
+ * the working file would have it compare two different materials and call the
+ * difference a reader bug.
+ *
+ * So the case reads the SUPERSEDED file, which is where a recorded number's own
+ * rows live, with `--at-documents any` because a superseded generation's
+ * documents are by definition not the shipped ones. That is
+ * `exterior-cut.py`'s own flag for exactly this and its docstring says so.
+ * The `0-3` assertion below, which is about a generation having MOVED, keeps
+ * reading the working file and now reads one generation further along.
+ */
+const W31_G1_GENERATION = [
+  resolve(PACKAGE_ROOT, "results", "superseded", "49490eb9ff7a.json"),
+  resolve(PACKAGE_ROOT, "results", "superseded", "b5714a866288.json"),
+] as const;
+
 function run(args: readonly string[], matrix = WORKING_MATRIX): {
   status: number | null;
   output: string;
@@ -236,8 +260,16 @@ const weighted = (widths: readonly number[], deltas: readonly number[]): number 
 
 describe("W32 G0 — the direction-resolved exterior cut (claims §5.166)", () => {
   it("reproduces W31 G1's §4 shape bands on every direction, and shows `0-3` moved", () => {
-    const { status, output } = run([]);
-    expect(status, output).toBe(0);
+    // Two files, because a superseded generation is named by its ACTIVE document
+    // and the §4 printout below carries one light bed and one dark one. The two
+    // outputs are read together; each heading occurs in exactly one of them,
+    // because a file holds only its own scheme's beds.
+    let output = "";
+    for (const generation of W31_G1_GENERATION) {
+      const result = run(["--at-documents", "any"], generation);
+      expect(result.status, result.output).toBe(0);
+      output += result.output;
+    }
 
     for (const [label, expected] of Object.entries(W31_G1_SECTION_4)) {
       const [scene, ...bedParts] = label.split(" ");

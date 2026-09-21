@@ -2879,18 +2879,42 @@ describe("the CSS tier's structure attenuation, measured (W30 G0 (d))", () => {
    * move. The two accessibility beds inherit the light document's values and
    * move by the same floor.
    */
+  /*
+   * **Re-recorded at W32 G1's sealed read** (claims §5.168), and the section
+   * that moved it is the shadow's exterior — which is the point of the message
+   * this table fails with.
+   *
+   * W32 G1 fits `spreadPx` per colour scheme (3.10 → 0.50 light, → 1.80 dark),
+   * re-solves the six occlusion anchors against the 3–48 CSS px window, moves
+   * the dark document's σ slope inside B1, and stands the two receded documents'
+   * amplitude down to 0. None of that is an interior constant, and the cell here
+   * is ACTIVE, so the recede reaches it not at all — what reaches it is the
+   * silhouette extractor: `interiorStdDev*` is read over the EXTRACTED
+   * silhouette, and a narrower shadow moves which edge pixels clear the
+   * extractor's threshold against the background.
+   *
+   * The moves are in the fourth to fifth decimal on the light and accessibility
+   * beds — 1x light 1.567012 → **1.567275**, 2x light 0.425111 → **0.425790**,
+   * 1x light-RT 0.817562 → **0.817721**, 1x light-IC 0.969059 → **0.969039** —
+   * and in the third on the dark beds, which are where `spreadPx` moved least
+   * (1.80 rather than 0.50) and where the σ slope moved as well: 1x dark
+   * 0.973189 → **0.976648** and 2x dark 0.766453 → **0.769618**. Every CSS
+   * reading moves by the same order and in the same direction, which is the
+   * mirror carrying the same three lengths. All twelve move TOWARD 1.0 except
+   * 1x light, which was already above it.
+   */
   const RECORDED: Record<string, { webgpu: number; css: number }> = {
-    "apple-macos-27.0-1x-light-standard-glass0.5": { webgpu: 1.567012, css: 0.968088 },
-    "apple-macos-27.0-2x-light-standard-glass0.5": { webgpu: 0.425111, css: 0.3838 },
-    "apple-macos-27.0-1x-dark-standard-glass0.5": { webgpu: 0.973189, css: 0.355154 },
-    "apple-macos-27.0-2x-dark-standard-glass0.5": { webgpu: 0.766453, css: 0.253627 },
+    "apple-macos-27.0-1x-light-standard-glass0.5": { webgpu: 1.567275, css: 0.968141 },
+    "apple-macos-27.0-2x-light-standard-glass0.5": { webgpu: 0.42579, css: 0.383834 },
+    "apple-macos-27.0-1x-dark-standard-glass0.5": { webgpu: 0.976648, css: 0.355507 },
+    "apple-macos-27.0-2x-dark-standard-glass0.5": { webgpu: 0.769618, css: 0.253689 },
     "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": {
-      webgpu: 0.817562,
-      css: 0.197627,
+      webgpu: 0.817721,
+      css: 0.197722,
     },
     "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": {
-      webgpu: 0.969059,
-      css: 0.331926,
+      webgpu: 0.969039,
+      css: 0.33196,
     },
   };
 
