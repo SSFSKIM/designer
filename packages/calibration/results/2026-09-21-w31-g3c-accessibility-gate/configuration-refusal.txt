@@ -1,0 +1,26 @@
+W31 G3c — the configuration rule's REFUSAL, captured in an artifact (claims §5.164 §13, finding N17).
+
+§5.164 §6 states that a second `record` at document hashes already in the log is refused
+unless the SOURCE hash has moved AND a non-fit reason is named, and reports that the second
+invocation printed the refusal — but no artifact held it. This is that invocation, run
+immediately after this gate's own `record` at the same documents and the same sources.
+
+$ python3 results/2026-09-21-w31-g3-chroma-fit/configuration.py record --claims "c9a §5.164 §13 (refusal probe)"
+
+-- a holdout read already exists at these document hashes --
+   2026-09-21T05:38:40Z  head 33ed2672  claims c9a §5.164 §13
+
+REFUSED: identical document bytes AND identical sources. This is the same
+frozen configuration the holdout was already read at (Decision Log 1 (b)).
+
+exit status: 1   (a refusal is a non-zero exit, so a script that runs this cannot walk
+                    past it)
+
+And the log is unchanged by it — a refusal writes nothing:
+  reads recorded: 2
+    2026-09-21T04:09:52Z bca47c4c c9a §5.164
+    2026-09-21T05:38:40Z 33ed2672 c9a §5.164 §13
+
+The log itself lives in W31 G3's evidence directory and is APPEND-ONLY by its own
+$comment: this gate appended to it and rewrote nothing. That a cross-gate ledger sits
+inside one gate's directory is recorded as a wart in claims §5.164 §13.

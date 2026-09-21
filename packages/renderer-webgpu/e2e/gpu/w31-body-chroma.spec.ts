@@ -32,12 +32,40 @@ const SCENE = "w31-body-chroma";
 
 type Capture = { readonly width: number; readonly height: number; readonly pixels: string };
 
-const render = (page: Page, materialProfile: Record<string, unknown>): Promise<Capture> =>
+const render = (
+  page: Page,
+  materialProfile: Record<string, unknown>,
+  options?: Record<string, unknown>,
+): Promise<Capture> =>
   page.evaluate(
-    ([name, patch]) =>
-      window.vitrea.renderScene(name as string, undefined, patch as Record<string, unknown>),
-    [SCENE, materialProfile] as const,
+    ([name, patch, opts]) =>
+      window.vitrea.renderScene(
+        name as string,
+        undefined,
+        patch as Record<string, unknown>,
+        opts as Record<string, unknown> | undefined,
+      ),
+    [SCENE, materialProfile, options] as const,
   );
+
+/**
+ * A resolved material policy that lifts the occlusion and does nothing else.
+ *
+ * core's reduced-transparency row also increases the frost and caps the
+ * refraction, and both of those move the raster on their own. This is the
+ * occlusion axis alone, because the claim under test is about the lift and a
+ * policy that moved three things at once could not say which one the bytes
+ * came from.
+ */
+const OCCLUSION_LIFTED = {
+  glass: "material",
+  frost: "nominal",
+  refraction: "nominal",
+  occlusion: "increased",
+  border: "nominal",
+  ambientTint: "nominal",
+  foreground: "adaptive",
+} as const;
 
 const bytes = (capture: Capture): number[] => [...decodeCapture(capture).data];
 
@@ -169,5 +197,65 @@ test.describe("@gpu W31's body chroma retention (claims §5.161 §5, §5.164)", 
     const shipped = bytes(await render(page, {}));
     const explicitZero = bytes(await render(page, { bodyChromaRetention: 0 }));
     expect(maxDelta(shipped, explicitZero)).toBe(0);
+  });
+  test("it stands down entirely under an occlusion lift", async ({ page }) => {
+    /*
+     * W31 G3c — Decision Log 3 (d), on a hardware adapter (claims §5.164 §13).
+     *
+     * The leaf as G3 shipped it was applied unconditionally, so under Reduce
+     * Transparency or Increase Contrast — the light document plus an occlusion
+     * lift — it restored the nominal fraction of a chromaticity the preference
+     * had just asked to have covered up, and the two light accessibility beds
+     * read `R` 3.05 and 3.17 against a reference of 1. The rule is the hard
+     * gate: under any lifted occlusion the operator is the identity. The
+     * smaller rule the ruling named first, `r · (1 − lift)`, was measured and
+     * left those beds at 1.79 and 1.83 (claims §5.164 §13).
+     *
+     * Three readings, and they are three different claims. The unit cases hold
+     * the arithmetic; none of them says the gate reaches the uniform, which is
+     * what a lane packed on the CPU needs a raster to say.
+     */
+    requireHardwareAdapter(await openHarness(page));
+
+    const lifted = (
+      bodyChromaRetention: number,
+      patch: Record<string, unknown> = {},
+    ): Promise<Capture> =>
+      render(page, { bodyChromaRetention, ...patch }, { accessibility: OCCLUSION_LIFTED });
+
+    // 1. Under the lift, a retention that moves the bytes everywhere else moves
+    //    NOTHING — byte-identical to the same policy's retention-off render.
+    //    Exactly 0 and not "small": the claim is that 0.20.0's rendering is
+    //    restored, and the retention is the only thing this wave moved there.
+    const liftedOff = bytes(await lifted(0));
+    for (const retention of [0.282, 0.5, 1]) {
+      const at = bytes(await lifted(retention));
+      expect(
+        maxDelta(liftedOff, at),
+        `retention ${String(retention)} still draws under an occlusion lift`,
+      ).toBe(0);
+    }
+
+    // 2. The fail-before half, on this scene rather than by reference: the same
+    //    retention under the NOMINAL policy moves the bytes a long way, so the
+    //    identity above is a gate and not a scene with nothing to restore.
+    const nominalOff = bytes(await render(page, { bodyChromaRetention: 0 }));
+    const nominalOn = bytes(await render(page, { bodyChromaRetention: 0.5 }));
+    expect(maxDelta(nominalOff, nominalOn)).toBeGreaterThan(1);
+
+    // 3. And the gate is on the POLICY, not on the lift's magnitude. At a lift
+    //    of 0 the occlusion fold is the identity on the optics as well — `α +
+    //    0·(1 − α)` is `α` — so an increased-occlusion policy there draws the
+    //    NOMINAL policy's retention-off bytes exactly: the plate is the plate
+    //    and the retention is gone.
+    const unlifted = bytes(await lifted(0.5, { increasedOcclusionLift: 0 }));
+    process.stdout.write(
+      `the gate under a lift of 0: Δbytes from the nominal OFF render ` +
+        `${String(maxDelta(nominalOff, unlifted))}\n`,
+    );
+    expect(
+      maxDelta(nominalOff, unlifted),
+      "a lifted policy at a lift of 0 must draw the nominal policy's un-retained body",
+    ).toBe(0);
   });
 });

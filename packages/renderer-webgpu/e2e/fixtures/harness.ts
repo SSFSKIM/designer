@@ -25,6 +25,7 @@ import {
   supportsTimestamps,
   type BackdropProvider,
   type GlassRenderer,
+  type MaterialPolicyView,
   type MaterialProfilePatch,
 } from "../../src/index";
 import { CROSS_CHECK_WORKGROUP, crossCheckKernelModule } from "../../src/wgsl";
@@ -351,6 +352,17 @@ export interface RenderOptions {
    * and there is no way to state it without being able to produce one.
    */
   readonly omitNodes?: readonly string[];
+  /**
+   * Draw the scene under a resolved accessibility material policy (W31 G3c).
+   *
+   * The renderer folds core's policy onto its own numbers — the occlusion lift,
+   * the frost, the refraction cap, the border — and `setAccessibility` is the
+   * seam it takes one through without a core. Nothing here re-decides the
+   * policy; a spec hands the row it wants and reads what the fold draws, which
+   * is the only way a `@gpu` case can say what a PREFERENCE renders rather than
+   * what the nominal material does.
+   */
+  readonly accessibility?: MaterialPolicyView;
 }
 
 async function setUpScene(
@@ -369,6 +381,8 @@ async function setUpScene(
     heightCss: scene.heightCss,
     devicePixelRatio: scene.devicePixelRatio,
   });
+
+  if (options?.accessibility !== undefined) renderer.setAccessibility(options.accessibility);
 
   const provider = providerFor(scene.backdrop, gpu);
   if (provider !== undefined) renderer.registerBackdrop(provider);

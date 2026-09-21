@@ -1,0 +1,25 @@
+rows preserved       PASS
+byte-identical       PASS
+order unchanged      PASS
+26.5 first, intact   PASS
+counts add up        PASS
+no 26.5 row appended PASS
+dark 27 untouched    PASS
+
+before: 1833 rows
+after:  2312 rows (479 appended)
+appended at positions 1253..2310, interleaved among the rows they supersede
+
+profile key                                                     before  appended   after
+apple-macos-26.5-1x-dark-standard                                  219         0     219
+apple-macos-26.5-1x-light-increased-contrast                        55         0      55
+apple-macos-26.5-1x-light-reduced-transparency                      52         0      52
+apple-macos-26.5-1x-light-standard                                 281         0     281
+apple-macos-26.5-2x-dark-standard                                  218         0     218
+apple-macos-26.5-2x-light-standard                                 282         0     282
+apple-macos-27.0-1x-dark-standard-glass0.5                         146         0     146
+apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5       36        36      72
+apple-macos-27.0-1x-light-reduced-transparency-glass0.5             32        32      64
+apple-macos-27.0-1x-light-standard-glass0.5                        228       228     456
+apple-macos-27.0-2x-dark-standard-glass0.5                         101         0     101
+apple-macos-27.0-2x-light-standard-glass0.5                        183       183     366

@@ -1,0 +1,22 @@
+W31 G3c — the gate is an EXACT identity on every standard row (Decision Log 3 (d); claims §5.164 §13)
+
+Two scratch captures of the same four cells, the same documents, the same machine,
+minutes apart, with ONE difference: the renderer.
+  /tmp/w31-g3c-captures/pre-rule — packages/renderer-webgpu/src/{material,renderer}.ts
+                                   at c3e6815a, the retention applied unconditionally
+  /tmp/w31-g3c-captures/at-gate  — the same two files at this branch, under the gate
+
+The bed: one active and one inactive cell per scheme, WebGPU tier, at the two shipped
+standard profiles. These cells draw at the documents' own retentions — 0.282 active and
+0.349 receded on light, 0.336 and 0.142 on dark — so a gate that leaked would move them.
+
+  identical  photo__rrect-md__inactive/photo__rrect-md__inactive__webgpu__alpha.png light-standard-glass0.5
+  identical  photo__rrect-md__inactive/photo__rrect-md__inactive__webgpu.png light-standard-glass0.5
+  identical  photo__rrect-md__rest/photo__rrect-md__rest__webgpu__alpha.png light-standard-glass0.5
+  identical  photo__rrect-md__rest/photo__rrect-md__rest__webgpu.png      light-standard-glass0.5
+  identical  photo__rrect-md__inactive/photo__rrect-md__inactive__webgpu__alpha.png dark-standard-glass0.5
+  identical  photo__rrect-md__inactive/photo__rrect-md__inactive__webgpu.png dark-standard-glass0.5
+  identical  photo__rrect-md__rest/photo__rrect-md__rest__webgpu__alpha.png dark-standard-glass0.5
+  identical  photo__rrect-md__rest/photo__rrect-md__rest__webgpu.png      dark-standard-glass0.5
+
+identical: 8    differing: 0

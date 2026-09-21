@@ -1708,11 +1708,17 @@ interface MissedRow {
 const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.89531, bound: "≥ 0.9" },
   "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.88423, bound: "≥ 0.9" },
+  // The two DARK `dom` rows below are unmoved to the fifth decimal by W31's
+  // chroma operator, and that is the CSS tier's decline rather than the operator
+  // failing: this tier carries nothing of it (claims §5.164 §5). Their siblings
+  // on the WebGPU tier cleared — 0.21531 → 0.14655 and 0.21341 → 0.14505 at the
+  // same material — which is what left these two here.
+  //
+  // 2026-09-21, W31 G3c (review closure; claims §5.164 §13, finding N18): this
+  // comment sat one entry LOWER, above the reduced-transparency `ssimOutside`
+  // row, which it says nothing about. It is moved to the rows it describes and
+  // names both of them.
   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.20095, bound: "≤ 0.18" },
-  // Unmoved to the fifth decimal by W31's chroma operator, and that is the
-  // CSS tier's decline rather than the operator failing: this tier carries
-  // nothing of it (claims §5.164 §5). Its sibling on the WebGPU tier cleared
-  // 0.21531 → 0.14655 at the same material.
   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": { measured: 0.82695, bound: "≥ 0.83" },
   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.19474, bound: "≤ 0.19" },
 };
@@ -1729,6 +1735,14 @@ const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
  * the fifteen returning to a gated shape row rather than being written off. The
  * list is derived from the artifact by the case below on every run, so neither
  * the going nor the coming was typed.
+ *
+ * 2026-09-21, W31 G3c (review closure; claims §5.164 §13, addendum H): the
+ * version this names and the one claims §5.164 §7 names are BOTH right and read
+ * as a disagreement. 68 is the count at 0.19.0, the count 0.20.0 shipped — W30
+ * G3's 83 lived and died inside W30, so it never reached a release — and the
+ * count here. The excursion was 68 → 83 → 68 within one wave; the releases on
+ * either side of it are both 68. Whichever version a later reader reaches for,
+ * the number is the same, and it is the same 68 CELLS and not merely 68 of them.
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",

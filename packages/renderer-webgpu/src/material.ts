@@ -2019,6 +2019,74 @@ export function occlusionLiftForPolicy(
     : levels?.reduceTransparency ?? profile.increasedOcclusionLift;
 }
 
+/**
+ * **The retention stands down under an occlusion lift** — W31 Decision Log 3 (d),
+ * the fix for the regression claims §5.164 §8 (b) recorded and §5.164 §13
+ * measures.
+ *
+ * `bodyChromaRetention` restores a fraction of the backdrop's chromaticity into
+ * a body that lost it to a neutral plate, and the amount the plate took is `α`.
+ * Under an accessibility occlusion lift the plate takes more —
+ * `occlusionAlphaUnderPolicy` sends `α` to `α + lift·(1 − α)`, so what is left
+ * of the backdrop is `1 − α_eff = (1 − α)·(1 − lift)` — and the leaf as W31 G3
+ * shipped it was applied at its nominal value there, restoring a fraction of a
+ * chromaticity the preference had just asked to have covered up. Measured on
+ * the untinted `photo` beds of the two light accessibility profiles, `R` went
+ * 0.9096 → 3.0514 (reduced transparency, active), 0.8294 → 2.1195 (reduced
+ * transparency, inactive) and 0.8147 → 3.1700 (increased contrast, active),
+ * three beds that sat inside the wave's own 0.80–1.20 band before the leaf.
+ *
+ * **The rule here is the HARD GATE, and that is a measurement rather than a
+ * preference** (claims §5.164 §13). Decision Log 3 (d) ruled the smaller rule
+ * first — the retention acting on the plate's un-lifted share,
+ * `r_eff = r · (1 − lift)` — and ruled the hard gate as its fallback if the
+ * measured `R` did not come back inside the band. It did not: under the lift
+ * rule the same three beds read **1.7897**, **1.1507** and **1.8324**, two of
+ * them still nearly twice the reference. `1 − α` is so small under a lift of
+ * 0.75–0.98 that even a retention scaled by `(1 − lift)` is a large relative
+ * gain on what little chroma the plate leaves, which is the same reading
+ * Decision Log 3 (b) records as the operator's structural defect: the retention
+ * restores a constant fraction of the FULL backdrop chromaticity regardless of
+ * what the plate transmits.
+ *
+ * So under any lifted occlusion the operator is the identity — which restores
+ * 0.20.0's rendering on those beds EXACTLY, not approximately, because the
+ * retention is the only thing this wave moved there. Decision Log 3 (c) defers
+ * giving the two accessibility documents retentions of their own; until a wave
+ * measures them, an inherited constant is not applied to a plate it was not
+ * fitted against.
+ *
+ * Two properties, and each of them is why this is a rule rather than a tuning:
+ *
+ *  - **It is an EXACT identity where no preference is set**, which is what lets
+ *    every standard row, every golden and every document digest be unmoved
+ *    across the fold.
+ *  - **It is written as an exhaustive switch on the occlusion axis**, not an
+ *    `if (increased)`. `occlusion: "opaque"` is `α_eff = 1` and arrives only
+ *    with `glass: "none"`, so it draws nothing either way today — but the branch
+ *    that is unreachable now is the one a later policy row makes reachable
+ *    silently, and a new axis value should surface here as a missing branch.
+ *
+ * It is folded HERE, on the CPU at the uniform's pack site, and not in the
+ * shader: the optics pass's uniform carries no policy at all — `opticsUnderPolicy`
+ * has already folded the lift into `tintAlpha` — so the shader could learn it
+ * only from a new lane, and W30's rule forbids packing an operator into a
+ * neighbour's padding. A whole vec4 for a factor the CPU already holds is a
+ * layout change for nothing.
+ */
+export function bodyChromaRetentionUnderPolicy(
+  retention: number,
+  policy: MaterialPolicyView,
+): number {
+  switch (policy.occlusion) {
+    case "nominal":
+      return retention;
+    case "increased":
+    case "opaque":
+      return 0;
+  }
+}
+
 export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   optics: {
     // σ = 8 for the regular variant, which keeps this package's blur and

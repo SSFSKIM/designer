@@ -32,7 +32,14 @@
 
 import { describe, expect, it } from "vitest";
 
-import { DEFAULT_MATERIAL_PROFILE } from "../src/material";
+import {
+  bodyChromaRetentionUnderPolicy,
+  DEFAULT_MATERIAL_PROFILE,
+  NOMINAL_MATERIAL_POLICY,
+  occlusionLiftForPolicy,
+  withMaterialOverrides,
+  type MaterialPolicyView,
+} from "../src/material";
 import { WGSL_OPTICS_PASS } from "../src/wgsl";
 
 const W: readonly [number, number, number] = [0.2126, 0.7152, 0.0722];
@@ -217,5 +224,128 @@ describe("W31's body chroma retention (claims §5.161 §5, §5.164)", () => {
     const material = body.indexOf("var materialColour = colour;");
     expect(call).toBeGreaterThan(0);
     expect(material).toBeGreaterThan(call);
+  });
+});
+
+/**
+ * W31 G3c — the retention under the accessibility fold (Decision Log 3 (d);
+ * claims §5.164 §8 (b) and §13).
+ *
+ * The leaf as G3 shipped it was applied unconditionally, and Reduce
+ * Transparency and Increase Contrast are the light document plus an OCCLUSION
+ * LIFT: the plate covers `α + lift·(1 − α)` of the backdrop there instead of
+ * `α`, so the nominal retention restored a fraction of a chromaticity the
+ * preference had just asked to have covered up. Measured on the untinted
+ * `photo` beds it took `R` from 0.9096 to 3.0514 (reduced transparency,
+ * active), from 0.8294 to 2.1195 (reduced transparency, inactive) and from
+ * 0.8147 to 3.1700 (increased contrast, active) — three beds that sat inside
+ * the wave's own 0.80–1.20 band before the leaf.
+ *
+ * The rule is the HARD GATE: under any lifted occlusion the operator is the
+ * identity. Decision Log 3 (d) ruled the smaller rule first — the retention on
+ * the plate's un-lifted share, `r · (1 − lift)` — with the hard gate as its
+ * fallback if the measured `R` did not come back inside the band, and it did
+ * not: 1.7897, 1.1507 and 1.8324 under that rule (claims §5.164 §13). The
+ * choice is a measurement.
+ *
+ * What these cases hold is the identity half and the stand-down half
+ * separately, because they are different claims: the identity is what lets the
+ * 34 goldens, every document digest and every standard matrix row be unmoved,
+ * and the stand-down is the fix.
+ */
+describe("W31 G3c's accessibility fold on the retention (claims §5.164 §13)", () => {
+  // core's `ACCESSIBILITY_BEHAVIOR_TABLE` rows, as this package's slice of them
+  // (`packages/core/src/accessibility.ts`). Reduce Transparency is the occlusion
+  // lift; Increase Contrast reduces the ambient tint, and the calibration bed's
+  // `increased-contrast-coupled` profile is both at once, which is the only
+  // state macOS 26.5 could produce and the state its fixture was captured in.
+  const REDUCE_TRANSPARENCY: MaterialPolicyView = {
+    ...NOMINAL_MATERIAL_POLICY,
+    frost: "increased",
+    refraction: "reduced",
+    occlusion: "increased",
+  };
+  const INCREASED_CONTRAST_COUPLED: MaterialPolicyView = {
+    ...REDUCE_TRANSPARENCY,
+    border: "strong",
+    foreground: "near-monochrome",
+    ambientTint: "reduced",
+  };
+  const FORCED_COLORS: MaterialPolicyView = {
+    ...NOMINAL_MATERIAL_POLICY,
+    glass: "none",
+    frost: "none",
+    refraction: "none",
+    occlusion: "opaque",
+    border: "strong",
+    ambientTint: "none",
+    foreground: "near-monochrome",
+  };
+
+  /**
+   * The two macOS 27 LIGHT documents' own numbers
+   * (`packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5{,-receded}.json`),
+   * restated as a patch so the fold is exercised at the values that actually
+   * ship rather than at the runtime default's 0 — at which every case below
+   * would pass by arithmetic.
+   */
+  const ACTIVE = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+    increasedOcclusionLift: 0.75,
+    bodyChromaRetention: 0.282,
+  });
+  const RECEDED = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+    increasedOcclusionLift: 0.96,
+    increasedOcclusionLiftByPolicy: { reduceTransparency: 0.88, increaseContrast: 0.98 },
+    bodyChromaRetention: 0.349,
+  });
+
+  it("is the document's own retention, to the bit, where no preference lifts the occlusion", () => {
+    // The identity half, and it is a claim about the POLICY and not about the
+    // value: the shipped default is 0 and would satisfy a single assertion by
+    // being 0, so the whole retention sweep is run through it.
+    for (const profile of [ACTIVE, RECEDED, DEFAULT_MATERIAL_PROFILE]) {
+      expect(
+        bodyChromaRetentionUnderPolicy(profile.bodyChromaRetention, NOMINAL_MATERIAL_POLICY),
+      ).toBe(profile.bodyChromaRetention);
+      for (const retention of RETENTIONS) {
+        expect(bodyChromaRetentionUnderPolicy(retention, NOMINAL_MATERIAL_POLICY)).toBe(retention);
+      }
+    }
+  });
+
+  it("stands down under every lifted occlusion, at every retention", () => {
+    // The fix. Both accessibility rows and the opaque one, over the whole
+    // sweep — `0` and not "small", because the claim is that 0.20.0's rendering
+    // is restored EXACTLY on those beds and the retention is the only thing
+    // this wave moved there.
+    for (const policy of [REDUCE_TRANSPARENCY, INCREASED_CONTRAST_COUPLED, FORCED_COLORS]) {
+      for (const retention of [...RETENTIONS, 0.282, 0.349]) {
+        expect(bodyChromaRetentionUnderPolicy(retention, policy)).toBe(0);
+      }
+    }
+  });
+
+  it("the lift rule it was measured against would not have been the identity there", () => {
+    // The fail-before half of the choice, stated as arithmetic so the ledger's
+    // reason survives without a browser: `r · (1 − lift)` is NOT 0 on any of
+    // the four beds, which is why it left `R` at 1.79 and 1.83 rather than back
+    // at 0.91 and 0.81. If a later wave re-opens Decision Log 3 (d), this is
+    // the quantity it would be re-measuring.
+    expect(0.282 * (1 - occlusionLiftForPolicy(REDUCE_TRANSPARENCY, ACTIVE))).toBeCloseTo(
+      0.0705,
+      12,
+    );
+    expect(0.349 * (1 - occlusionLiftForPolicy(REDUCE_TRANSPARENCY, RECEDED))).toBeCloseTo(
+      0.04188,
+      12,
+    );
+    expect(0.349 * (1 - occlusionLiftForPolicy(INCREASED_CONTRAST_COUPLED, RECEDED))).toBeCloseTo(
+      0.00698,
+      12,
+    );
+    // And the two preferences really do resolve different lifts on the document
+    // that splits them, so `ambientTint` is the axis that tells them apart.
+    expect(occlusionLiftForPolicy(REDUCE_TRANSPARENCY, RECEDED)).toBe(0.88);
+    expect(occlusionLiftForPolicy(INCREASED_CONTRAST_COUPLED, RECEDED)).toBe(0.98);
   });
 });

@@ -1,0 +1,23 @@
+W31 G3c — the gate's identity proofs (Decision Log 3 (d); claims §5.164 §13)
+
+== test:golden, over the commits that add the fold ==
+
+  34 passed (10.8s)
+git status over e2e/goldens (empty == byte-identical, no regen):
+
+== the unit cases ==
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+
+== the @gpu cases, on a hardware adapter ==
+Running 3 tests using 1 worker
+body chroma retention: OFF luma 0.622078 chroma 0.101914; r=0.25 luma 0.622068 chroma 0.194690 Δbytes 24; r=0.5 luma 0.622064 chroma 0.283414 Δbytes 31; r=0.8 luma 0.622089 chroma 0.347306 Δbytes 35; r=1 luma 0.622068 chroma 0.366609 Δbytes 37
+  ✓  1 [chromium-gpu] › e2e/gpu/w31-body-chroma.spec.ts:127:3 › @gpu W31's body chroma retention (claims §5.161 §5, §5.164) › ON draws differently from OFF, and holds the luma while it does (486ms)
+  ✓  2 [chromium-gpu] › e2e/gpu/w31-body-chroma.spec.ts:191:3 › @gpu W31's body chroma retention (claims §5.161 §5, §5.164) › is bit-identical at the shipped identity, named explicitly (299ms)
+the gate under a lift of 0: Δbytes from the nominal OFF render 0
+  ✓  3 [chromium-gpu] › e2e/gpu/w31-body-chroma.spec.ts:201:3 › @gpu W31's body chroma retention (claims §5.161 §5, §5.164) › it stands down entirely under an occlusion lift (437ms)
+  3 passed (2.5s)
+
+== and on the calibration harness, cell by cell ==
+  standard-row-identity.txt        8 PNGs identical, 0 differing
+  accessibility-bit-identity.txt  48 PNGs identical, 0 differing

@@ -1,0 +1,32 @@
+W31 G3c — the "counts add up" clause, shown FAILING (claims §5.164 §13, finding N17)
+
+The review found that clause computed from the MANIFEST alone: `before` and each
+`destination` are incremented in one loop over the same rows and then asserted to sum, which
+is n == n on every possible input. It read PASS in W31 G3s append-check.txt, and it would
+have read PASS over a tree where the split had written nothing at all.
+
+The probe: ONE rows `destination` flipped, in discrimination-manifest.json beside this file,
+from the superseded file to the working file. The tree on disk is untouched and correct;
+only the plan is one row off, which is exactly the disagreement the clause claims to catch.
+
+== W31 G3's checker, the clause as it was ==
+rows accounted for   FAIL
+rows byte-identical  FAIL
+26.5 untouched       PASS
+order preserved      FAIL
+counts add up        PASS
+reconstruction       FAIL
+
+== this gate's checker, the clause off the files ==
+rows accounted for   FAIL
+rows byte-identical  FAIL
+26.5 untouched       PASS
+order preserved      FAIL
+counts add up        FAIL
+reconstruction       FAIL
+
+-- the line the COUNTS clause itself prints, which is the one that is new --
+FAILURE: apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5: the manifest sends {'results/matrix.json': 37, 'results/superseded/e2fa07589d99.json': 35} and the files hold {'results/matrix.json': 36, 'results/superseded/e2fa07589d99.json': 36}
+
+The other four clauses catch this perturbation too, and that is not the point: what matters
+is that the sixth is no longer the one clause that reads PASS whatever it is handed.

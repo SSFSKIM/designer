@@ -1,0 +1,30 @@
+X1 ok  apple-macos-26.5-1x-light-standard records and resolves to b2b570e4adcea8fb
+X1 ok  apple-macos-26.5-1x-dark-standard records and resolves to 874be66ea501621b
+construction ok  apple-macos-27.0-1x-light-standard-glass0.5  pin 3dc24a74f17fd87e = material 3dc24a74f17fd87e
+construction ok  apple-macos-27.0-1x-light-standard-glass0.5-receded  pin ab3ed65aa02869b1 = material ab3ed65aa02869b1
+construction ok  apple-macos-27.0-1x-dark-standard-glass0.5  pin 8a43f54162606db4 = material 8a43f54162606db4
+construction ok  apple-macos-27.0-1x-dark-standard-glass0.5-receded  pin e1f42c5656ef392f = material e1f42c5656ef392f
+
+== the two documents this gate moves ==
+apple-macos-27.0-1x-light-standard-glass0.5
+  resolvedMaterialSha256  3dc24a74f17fd87e -> 3dc24a74f17fd87e   UNCHANGED (rule 2)
+  resolved material       3dc24a74f17fd87e -> 3dc24a74f17fd87e   UNCHANGED
+  document sha256         e2fa07589d9984366f36aafb6b8897f4ef978fe592b66d478f3c702ac6a10e50
+                       -> 49490eb9ff7acf823430c41c1d0cf6d55cea23cc0e1a36bff3246f66e3fbfbde
+  capturePath sha256      e2fa07589d99 -> 49490eb9ff7a   MOVED
+apple-macos-27.0-1x-light-standard-glass0.5-receded
+  resolvedMaterialSha256  ab3ed65aa02869b1 -> ab3ed65aa02869b1   UNCHANGED (rule 2)
+  resolved material       ab3ed65aa02869b1 -> ab3ed65aa02869b1   UNCHANGED
+  document sha256         25863dccef9d62651da4e62cd2c150e021f1cf2859fd2f1769c1dcce018ea1dc
+                       -> 14c6bacf2eda44c1971c09ee45c59cbbc5e7c8f8b407b7abb17e7afd321bdcdc
+  capturePath sha256      25863dccef9d -> 14c6bacf2eda   MOVED
+
+== the two this gate only watches (X10: not re-read, so not moved) ==
+apple-macos-27.0-1x-dark-standard-glass0.5
+  resolvedMaterialSha256  8a43f54162606db4   UNCHANGED
+  document sha256         b5714a8662880ff7a70fbfa51a2fa14e3098f11889fcec30edfac6450322bf06   UNCHANGED
+  capturePath sha256      b5714a866288   UNCHANGED
+apple-macos-27.0-1x-dark-standard-glass0.5-receded
+  resolvedMaterialSha256  e1f42c5656ef392f   UNCHANGED
+  document sha256         cc4ed1038996c0b1b0b51eb0bdf07fae637c004cc671aa5069336fbfdf27013e   UNCHANGED
+  capturePath sha256      cc4ed1038996   UNCHANGED

@@ -71,3 +71,17 @@ that.
 | `…1x-dark…__photo__rrect-md__rest.png` | the hue through the WebGPU body; the CSS body flat |
 | `…1x-light…__photo__rrect-lg__rest.png` | the same at the holdout span |
 | `…1x-dark…__photo__rrect-lg__rest.png` | the wave's own cell: hue restored on WebGPU, ΔE structured rather than saturated |
+
+---
+
+## Correction beside, 2026-09-21 (W31 G3c review closure; claims §5.164 §13, addendum G)
+
+Nothing above is rewritten. One number is attributed to the wrong thing.
+
+**"That cell's `R` is 1.0486 and it looks it"** (§2). 1.0486 is the light ACTIVE
+bed's MEDIAN `R` over its ten cells (`round-B.txt`), not the reading of
+`photo__rrect-md__rest` at 1x light. That cell's own `R` is **1.0387** — which
+claims §5.164 §9 states correctly, so the ledger and this file disagreed. The
+sentence's point survives at either number and the sheet is unchanged; what is
+corrected is that a per-cell claim was carrying a per-bed figure, which is the
+kind of substitution that is invisible when the two happen to be close.

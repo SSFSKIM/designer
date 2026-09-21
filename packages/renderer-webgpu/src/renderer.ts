@@ -77,6 +77,7 @@ import {
   adaptationStrength,
   backdropToneSizeBiasUnderPolicy,
   backdropToneUnderPolicy,
+  bodyChromaRetentionUnderPolicy,
   collapsedRimUnderPolicy,
   collapseTransmissionAtScale,
   DEFAULT_MATERIAL_PROFILE,
@@ -1252,7 +1253,15 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // W31's body chroma retention (claims §5.164): a material constant, per
         // group, with no source-side half — the chromaticity it restores toward
         // is the blurred backdrop the optics pass already sampled per pixel.
-        bodyChromaRetention: material.bodyChromaRetention,
+        //
+        // Under the accessibility fold it stands down (W31 Decision Log 3 (d);
+        // claims §5.164 §8 (b) and §13): an occlusion lift covers more of the
+        // backdrop, so restoring the nominal fraction of its chromaticity gives
+        // back what the preference asked to have covered — measured at `R` 3.05
+        // and 3.17 against a reference of 1. `bodyChromaRetentionUnderPolicy` is
+        // exactly `material.bodyChromaRetention` where no preference is set,
+        // which is why every standard row is bit-identical across this fold.
+        bodyChromaRetention: bodyChromaRetentionUnderPolicy(material.bodyChromaRetention, policy),
         ...(pyramid === undefined && input.unsampledMaterial !== undefined
           ? { domMaterial: {
               ...input.unsampledMaterial,

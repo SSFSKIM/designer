@@ -1,0 +1,64 @@
+W31 G3 — B3's departure statistic, on matrix.json
+====================================================================================================
+
+  The quantity, the partition and the tier map are W30 G0's
+  (results/2026-09-20-w30-g0-cut/departure-stat.py), imported and not restated.
+  726 macOS 27 rows carry the axis
+
+THE STOP — calibration + validation, the population B3's 0.00035 was read over
+----------------------------------------------------------------------------------------------------
+  row set          n    mean |d|     max |d|   worst cell
+  webgpu         166     0.00034     0.00418   light-solid__rrect-md__inactive (webgpu)
+  css            166     0.00126     0.01518   photo__rrect-md__rest (css)
+  both           332     0.00080     0.01518   photo__rrect-md__rest (css)
+
+Calibration alone — the partition a fit round renders, so a round is comparable to the committed bed
+----------------------------------------------------------------------------------------------------
+  row set          n    mean |d|     max |d|   worst cell
+  webgpu         134     0.00038     0.00418   light-solid__rrect-md__inactive (webgpu)
+  css            134     0.00127     0.01518   photo__rrect-md__rest (css)
+  both           268     0.00082     0.01518   photo__rrect-md__rest (css)
+
+Every non-holdout row, probe included — the same clause on this child's bed
+----------------------------------------------------------------------------------------------------
+  row set          n    mean |d|     max |d|   worst cell
+  webgpu         346     0.00177     0.04899   checkerboard-8__rrect-lg__inactive (webgpu)
+  css            256     0.00251     0.03698   checkerboard-8__rrect-lg__inactive (css)
+  both           602     0.00209     0.04899   checkerboard-8__rrect-lg__inactive (webgpu)
+
+Probe (the pitch ladder) alone — no committed macOS 27 row existed before this child
+----------------------------------------------------------------------------------------------------
+  row set          n    mean |d|     max |d|   worst cell
+  webgpu         180     0.00310     0.04899   checkerboard-8__rrect-lg__inactive (webgpu)
+  css             90     0.00482     0.03698   checkerboard-8__rrect-lg__inactive (css)
+  both           270     0.00367     0.04899   checkerboard-8__rrect-lg__inactive (webgpu)
+
+Holdout only — reported, never fitted
+----------------------------------------------------------------------------------------------------
+  row set          n    mean |d|     max |d|   worst cell
+  webgpu          62     0.00421     0.03436   checkerboard__rrect-lg__inactive (webgpu)
+  css             62     0.00674     0.07579   photo__rrect-lg__rest (css)
+  both           124     0.00547     0.07579   photo__rrect-lg__rest (css)
+
+Per profile, calibration + validation
+----------------------------------------------------------------------------------------------------
+  profile                                                       tier        n    mean |d|
+  apple-macos-27.0-1x-dark-standard-glass0.5                    webgpu     21     0.00027
+  apple-macos-27.0-1x-dark-standard-glass0.5                    css        21     0.00065
+  apple-macos-27.0-1x-dark-standard-glass0.5                    both       42     0.00046
+  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 webgpu     14     0.00044
+  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 css        14     0.00444
+  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 both       28     0.00244
+  apple-macos-27.0-1x-light-reduced-transparency-glass0.5       webgpu     12     0.00036
+  apple-macos-27.0-1x-light-reduced-transparency-glass0.5       css        12     0.00221
+  apple-macos-27.0-1x-light-reduced-transparency-glass0.5       both       24     0.00128
+  apple-macos-27.0-1x-light-standard-glass0.5                   webgpu     49     0.00035
+  apple-macos-27.0-1x-light-standard-glass0.5                   css        49     0.00098
+  apple-macos-27.0-1x-light-standard-glass0.5                   both       98     0.00066
+  apple-macos-27.0-2x-dark-standard-glass0.5                    webgpu     21     0.00023
+  apple-macos-27.0-2x-dark-standard-glass0.5                    css        21     0.00068
+  apple-macos-27.0-2x-dark-standard-glass0.5                    both       42     0.00046
+  apple-macos-27.0-2x-light-standard-glass0.5                   webgpu     49     0.00038
+  apple-macos-27.0-2x-light-standard-glass0.5                   css        49     0.00091
+  apple-macos-27.0-2x-light-standard-glass0.5                   both       98     0.00064
+
