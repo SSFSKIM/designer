@@ -121,6 +121,26 @@ is W31's chroma decline on that tier (§5.164 §5, the two `dom` rows in
 which is the body over-filling its declared contour by 3.5–4 CSS px against
 Apple's ≤ 1 (§5.62) — the term that stopped cancelling B3 and has its own entry.
 
+## 4b. The level contours, named because the clause asks for them present or absent
+
+**ABSENT, on all thirty-one.** The artefact the clause means is what a level law
+evaluated in too few steps leaves behind: stepped iso-level bands across the
+interior, hard-edged, following the level rather than the content. There are none
+on any panel of any bed at eight times gain. What the interiors DO carry is three
+things, and none of them is a contour: broad smooth regions that follow the
+backdrop's own large-scale structure (the scatter and structure residual, largest
+on the dark beds); on the `checkerboard-8` and `checkerboard` beds, the ground's
+own pattern read through the body (the same residual at the pitch the ground
+supplies it); and on the tinted and `photo` cells a smooth chromatic field with
+no steps in it. **The only hard edge anywhere on any panel is the ring at the
+contour**, which is the body's over-fill of its declared silhouette (§5.62) and
+is a silhouette term rather than a level one — it appears at the same radius on
+every span and every scheme, including the two accessibility beds where the body
+is an occluded plate with no structure at all behind the ring.
+
+Recorded as an absence rather than left unmentioned, because an absent artefact
+and an unlooked-for one are the same thing in a record.
+
 ## 5. The demo beside the harness
 
 `demo-beside-harness-96.png` and `-160.png` put four panels in one row: the
