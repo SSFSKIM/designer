@@ -31772,3 +31772,379 @@ closed twice on its own bounds, arriving in the chain instead.
 | `test/adopted-thresholds.test.ts` | comments only; no assertion, bound, literal or excluded row moves |
 | the version | **0.21.0**, still prepared and unpublished |
 
+
+## 5.166 W32 G0: the direction-resolved exterior cut — the offset is right and the width is wrong, Apple's own outset measured at half a pixel, and a receded window that casts no shadow at all (2026-09-21)
+
+**Gate: W32 G0, acceptance clauses 1 and 2; contracts X1, X2, X4, X5, X7, X11.**
+Evidence is `packages/calibration/results/2026-09-21-w32-g0-exterior-cut/`. **No
+material constant, profile document, native fixture, golden, bound, floor, leaf
+or row of `results/matrix.json` moves at this gate, no fit is landed and no
+capture of any kind was taken.** Every figure is a cut of committed evidence: the
+working file's current generation at the shipped documents
+(`49490eb9ff7a` light, `b5714a866288` dark), the four shipped macOS 27 documents
+read for their leaves, W29 G3b's native-pair noise bar and W31 G4's committed
+chroma cut. `scenes.json` gains **one** `$comment-w32-g0` field beside
+`rrect-ml` and nothing else (X11). The macOS 26.5 freeze verifies **intact at
+1,818 entries** at this gate's opening and at its close.
+
+### 1. The reader, and the admitted-band rule
+
+`exterior-cut.py` is W31 G1's `exterior-instrument.py` (§5.162) copied into this
+gate's own directory — nothing under `results/` is edited after commit — and
+extended by five things its docstring names: the admitted-band rule; direction
+resolution bed-wide; the per-direction extents and offsets with their absence
+counted; the window-restricted departure; and the inactive pose tabled as its
+own population.
+
+**The rule.** A band is read on a cell in a direction only where its OUTER edge
+in CSS px lies inside that cell's own clearance in that direction —
+`clearance{Above,Below,Left,Right}` divided by the row's scale, and for `all` the
+minimum of the four. The clearance is on every row (X7). The axis says the same
+thing in its own words at `truncatedSides` — *"rings past a truncated side's
+clearance are averaged over an incomplete annulus … measured on this bed at
+roughly 8% low for a σ ≈ 17 px shadow read through a 20 px margin"* — and that
+comment is about σ; this is the same qualification applied to the transmission
+profile, where it can be ENFORCED per band instead of caveated per cell. An
+order statistic is taken only over cells whose identified band set equals their
+span's admitted set; the short-set cells are counted apart (0 at span 32, 76 of
+276 at 44, 32 of 166 at 96, 4 of 42 at 128, 0 at 160, over every row of the
+generation).
+
+**The sets, and two corrections to the charter.** The rule is geometric, so the
+set is a property of the component and the scale:
+
+| span | clearance CSS px (a/b, l/r) | shipped reach light / dark | admitted (all) | eaten |
+| ---: | --- | ---: | --- | --- |
+| 32 | 83.50 / 127.50 | 13.39 / 12.76 | `3-6 / 6-12 / 12-24 / 24-48` | none |
+| 44 | 77.50 / 99.50 | 13.41 / 12.83 | `3-6 / 6-12 / 12-24 / 24-48` | none |
+| 96 | 51.50 / 79.50 | 23.74 / 24.54 | `3-6 / 6-12 / 12-24 / 24-48` | none |
+| 128 | 35.50 / 47.50 | 32.89 / 34.60 | `3-6 / 6-12 / 12-24` | `24-48` |
+| 160 | 19.50 / 19.50 | 42.93 / 45.69 | `3-6 / 6-12` | `12-24`, `24-48` |
+
+The charter expected `3-6 / 6-12 / 12-24` at span 160 and the rows say
+`3-6 / 6-12`: the `12-24` band's outer edge is 24 CSS px against 19.50 of
+clearance on every side. And at span 128 the `24-48` band is outside the frame on
+the LEFT AND RIGHT too — 47.50 against 48.00, by half a pixel — not only above
+and below.
+
+**What the rule moves, and what it does not** (`exterior-cut.txt` §3c). Against
+W31 G1's own per-cell renormalisation the two are the same number to five
+decimals at spans 32, 44 and 96 on every bed. At span 128 the admitted-band `T`
+is **worse** by +0.00251 to +0.00357, and at 160 it moves by −0.00289 to
++0.00064. The `24-48` band the frame ate carried 24 of the 45 px of weight and
+was where the two exteriors agreed most, so removing it makes the bed look worse
+rather than better. **Nothing §5.162 recorded is withdrawn**; both readings are
+printed side by side.
+
+### 2. The clearance against the reach, and `rrect-ml`'s declaration
+
+`reach.ts` evaluates `outerShadowReachPx`, `outerShadowSigmaPx`,
+`outerShadowOcclusionAt` and `cssShadowBlurRadius` at the four shipped documents
+through the runtime's own functions (W30 G3's `reach-pad.ts` shape, for its
+reason), and `clearance.py` holds that against the bed's own clearance. Every
+span is read through a frame narrower than the reach the runtime declares — which
+at spans 32 to 96 costs nothing, because the shadow is invisible long before the
+frame ends — and the two that matter are **span 128, where the clearance holds
+the declared reach by +2.61 (light) and +0.90 (dark) CSS px**, and **span 160,
+where it misses by −23.43 and −26.19**.
+
+**`rrect-ml`'s "must not be used to fit a shadow constant" is UPHELD, narrowed,
+and its own two predictions are measured** — one confirmed in substance, one
+falsified in mechanism. Confirmed: the cell IS marginal, and the admitted-band
+rule says in what — the `24-48` band is outside the frame in every direction and
+carries 53 % of `T`'s weight, and dropping it moves the span-128 reading from
+0.00487–0.00532 to 0.00738–0.00889. Falsified: the declaration predicts *"the
+truncation guard to withdraw the downward extent here"* and it did not.
+`extentBelowNative` is present on **42 of 42** span-128 rows and `extentBelowWeb`
+on 39 of 42; the median native downward extent is **27.00 CSS px inside a 35.50
+px clearance**; and the native blurred-edge residual there is **0.0043 against
+span 96's 0.0069**, a tighter fit than at the span the declaration offers as the
+safe one. The sentence stands as written — W32 fits spans 32, 44, 96 and 128
+jointly with the `24-48` band not admitted at 128, which is one span of four in a
+joint objective and is not what the sentence forbids — and a `$comment-w32-g0`
+records this BESIDE it in `scenes.json`, never over it.
+
+**Span 160, with numbers beside the charter's Surprises entry.** The frame ends
+at 43 % of the declared reach. The `24-48` band survives on a median of **3,878**
+pixels against span 128's **39,518** — a tenth, all of it in the capture's four
+corners. Every extent the axis would have reported is withheld on **all 28**
+active non-holdout WebGPU rows, on BOTH sides, in all four directions, and both
+offsets with them; over all 60 span-160 rows the native extents survive on 18 and
+the web extents on none. What the bed CAN still see there is the transmission
+over 3–12 CSS px on a whole annulus — `3-6` and `6-12` carry 6,374 and 13,194
+pixels, more than either carries at span 96 — which is about 0.7 σ of a σ ≈ 17 px
+shadow. §5.162's span-160 `T` and B1's span-160 native σ of 17.317 are both read
+through that frame; nothing recorded is wrong and what was missing is this
+qualification beside it.
+
+### 3. The direction tables, and what they say
+
+`exterior-cut.txt` §9 (`T_dir` per bed, span, direction, tier and pose), §9b (the
+per-band `Δa` and `Δc` medians per direction, with a band outside the clearance
+printed in parentheses) and §10 (the reach); `directions.md` is the paragraph.
+
+**The offset is right and the width is wrong.** At spans 96 and 128 — where all
+four directions carry a shadow on both sides and the frame still holds the reach
+— the extent excess is **+5.00 CSS px in every direction**, above, below, left
+and right alike, while the fitted displacement `offsetY` (web − native) reads
+**0.00 at span 96 and −0.25 at span 128**. Vitrea's exterior sits where Apple's
+sits and is uniformly five px too far out, which is what an outset is and is not
+what an offset is.
+
+Below span 96 the instrument cannot say so. **`above` reads exactly 0.00000 on
+every band on both `Δa` and `Δc`, on every standard and accessibility bed, at
+spans 32 AND 44** — the charter states it at 44 only — and not because the two
+renders agree there but because **neither draws anything**: both transmissions
+are exactly 1.000000 from 3 CSS px outward and both extents are 0. `offsetY` is
+therefore **degenerate** at the thin spans rather than merely uncertain: it is
+`(below − above) / 2` with `above` zero on both sides, so its apparent +2.25 to
++2.50 px excess is half the downward width excess and carries no displacement
+information at all.
+
+`above` begins to carry shadow at **span 96** (0.00183–0.00215 on the four
+standard beds), overtakes `below` at **128** (0.00843–0.00975 against
+0.00813–0.01022) and is 2.7× it at **160** on the light beds. Left and right agree
+with each other to 0.0005 at every span, and `offsetX` web − native is 0.00
+everywhere, so the two materials are symmetric about the vertical axis as both
+are by construction. The per-band shapes differ where the summaries do not: at
+96–160 `above` is **front-loaded** (−0.0123 at `3-6` falling to −0.0000 at
+`12-24` on 1x light span 96) where `below` is **back-loaded** (−0.0039 rising to
+−0.0128 over the same bands) — a within-cell reading no pooled ring mean
+expresses.
+
+**The thin regime's inner-band `Δa` is a width error weighted by where the
+amplitude is, not a displacement error.** At span 44 on 1x light it reads −0.0385
+below against −0.0201 left and −0.0083 right, an asymmetry of 2–5× in the ERROR,
+over extents of +4.50, +4.00 and +4.50 CSS px — an asymmetry of 1.1× in the
+WIDTH. And the decay is present at span 96 and gone by 160: `Δa` in direction
+`all` runs −0.0107 / −0.0115 / −0.0066 / −0.0000 at span 96, so the two exteriors
+become the same object by 48 CSS px, and −0.0077 / −0.0078 at span 160 with the
+two eaten bands reading (−0.0100) and (−0.0069) — flat inside the clearance and
+growing outside it.
+
+### 4. The model on both sides: Apple's own outset, and the instrument's own error
+
+`model-fit.py` fits the renderer's own exterior — the shader's `outer_shadow`
+written as a transmission, `a(p) = 1 − α · Ψ((d(p_x, p_y − offset) − spread)/σ)`,
+with the same tanh CDF, the same analytic distance field `component-region.ts`
+builds and the same `directionOf` sectors — to BOTH sides' per-band
+per-direction `a` over the admitted bands, four free parameters against sixteen
+observations at spans 32/44/96, twelve at 128 and eight at 160. `α` is solved in
+closed form at every step; the search is a three-dimensional simplex; the
+geometry is integrated on a rank-stratified subsample whose agreement with every
+pixel of the band is printed (§1 of `model-fit.txt`). Pure standard library, as
+every reader under `results/` is.
+
+**Apple's own outset — §5.162 §9's finding N-10, answered.** The native side's
+fitted spread, with the one-sigma interval from the profile likelihood (the
+spread held, σ, the offset and the amplitude re-fitted):
+
+| bed | span | Apple's spread | 1σ interval | vitrea's 3.10 | Apple's offset |
+| --- | ---: | ---: | --- | --- | ---: |
+| 1x light | 44 | −0.013 | [0.00, 1.00] | excluded | 8.213 |
+| 1x light | 96 | 0.552 | [0.75, 1.00] | excluded | 7.753 |
+| 1x light | 128 | 0.717 | [0.25, 2.00] | excluded | 8.054 |
+| 2x light | 96 | 0.419 | [0.00, 1.00] | excluded | 7.946 |
+| 2x light | 128 | 2.816 | [3.00, 3.10] | **INSIDE** | 7.668 |
+| 1x dark | 96 | 0.582 | [0.25, 1.00] | excluded | 7.740 |
+| 1x dark | 128 | 0.487 | [0.00, 1.00] | excluded | 8.181 |
+| 2x dark | 96 | −0.149 | [0.00, 1.00] | excluded | 7.930 |
+
+**At spans 32, 44 and 96 Apple's outset reads 0.0–1.0 CSS px on every standard
+bed and vitrea's 3.10 is outside the one-sigma interval on all of them.** At span
+128 the beds disagree — three exclude 3.10 and 2x light does not — and at 160 the
+interval spans 0.0–5.0 and excludes nothing. **Apple's offset reads 7.65–8.22 at
+every span**, which is vitrea's 7.95 to within a quarter of a pixel. So §2's
++2.66…+3.77 CSS px of fitted-σ gap, §3's +5.00 px of isotropic extent excess and
+its agreeing displacement are one finding with one cause, and the cause is the
+OUTSET. What §5.162 §2 could only call suggestive is now measured with an
+interval: Apple's outset is not zero, it is about half a pixel, and vitrea's is
+six times it.
+
+**The conditioning, and what counts as separation.** Not the native-pair bar: the
+bar is the noise on ONE band's `a` (6e-6 to 1.3e-4 on these cells) and the
+residual is an RMS over eight to sixteen bands at 5e-4 to 2e-3 — a hundred times
+the bar — so the model's own misfit dominates the capture's noise and "flat
+within the bar" would say nothing about identifiability. The interval above is
+the ordinary one-sigma contour, `sqrt(1 + 1/(n − p)) − 1` of the minimum
+residual. On that criterion σ and the spread DO separate at spans 32, 44 and 96
+and do not at 160.
+
+**The instrument's model against the shader, calibrated before any native-side
+prior is trusted.** The same fit on vitrea's own render must return the shipped
+triple, and what it returns instead is this instrument's bias: spread 3.15–3.41
+and offset 7.63–7.88 at span 32, 3.10–3.41 and 7.97–8.02 at 44, 2.82–3.41 and
+7.72–7.98 at 96 — and at 128 and 160 it does not recover them at all, landing
+anywhere from −3.26 to +8.62 in the spread. **G1 may trust a native-side prior at
+spans 32, 44 and 96 and may not at 128 and 160**, which is the same boundary the
+admitted-band rule draws for a different reason. The ENCODED form —
+`(1 − A·Ψ)^2.4`, the shape the shader actually composites, since its alpha lives
+in the canvas's compositing space while the affine pair is fitted in linear light
+— moves the residual by less than 3 × 10⁻⁶ and is recorded as a negative result:
+the linear form is adequate on this bed.
+
+**One-sidedness, stated as a condition on a fit.** With σ and the spread held at
+each cell's two-sided values and only the offset and the amplitude re-fitted per
+direction, `below`'s offset reads 7.75–8.25 at every span while `above`'s runs to
+8.5–15.0 with an amplitude that trades off to 0.95–1.00 at span 96. **`below` is
+the direction that identifies the offset at EVERY span, not only at the thin
+ones.** The fit still separates a shift from a widening on `below`'s own three
+bands — a shift moves the whole profile outward where a widening flattens it —
+but the CHECK on that separation, the opposite side moving the other way, is
+unavailable below span 96 and unreliable above it.
+
+### 5. The three forms of C1, their bounds by the declared rule, and the recommendation
+
+`c1-forms.py`. The bound rule is the charter's (clause 2) and this gate cannot
+choose the number: *the bound at every span is the worst standard bed's span-96
+order statistic of that form on the current generation, rounded up to two
+significant figures.*
+
+| bed | (i) 96 / 128 / 160, bound 0.0045 | (ii) same values, bound **0.0042** | (iii) σ-normalised, bound 0.0085 |
+| --- | --- | --- | --- |
+| 1x light | 0.00408 P / 0.00843 F / 0.00796 F | P / F / F | 0.00844 P / 0.00853 F / **unreadable** |
+| 2x light | 0.00413 P / 0.00889 F / 0.00797 F | P / F / F | 0.00793 P / 0.00893 F / **unreadable** |
+| 1x dark | 0.00399 P / 0.00782 F / 0.00659 F | P / F / F | 0.00808 P / 0.00768 P / **unreadable** |
+| 2x dark | 0.00385 P / 0.00738 F / 0.00627 F | P / F / F | 0.00732 P / 0.00728 P / **unreadable** |
+
+**Form (iii) is WITHDRAWN on measurement**, as the v1 charter's depth-normalised
+form was. It cannot be stated at span 160 on any bed — the admitted bands reach
+12 CSS px there and the first σ-band ends at 0.7 σ = 12.1 — and span 160 is the
+span C1 exists for. It reads nothing at span 44 on any bed either, so the thin
+regime this wave admits to the fit would carry no shape clause. And the choice of
+multiples is not the cause: **the clearance measured in the bed's own native σ is
+5.5–5.9 at span 96, 2.7 at 128 and 1.1 at 160**, so "the same number of falloff
+lengths at every span" is not purchasable on a 320 × 200 canvas at any multiples.
+The form becomes available when the canvas does.
+
+**G0 recommends form (ii), the per-span bound, at 0.0042.** It changes nothing
+about what is measured — it is form (i)'s own value read against a bound stated
+per span, the minimum change that makes "no worse at any span than at span 96
+today" true — and it keeps the statistic, the exclusions, the population and the
+order statistic exactly as §5.162 §3 declared them. Form (i) is span-confounded
+(§5.162 §9, N-9) and the admitted-band rule sharpens that rather than softening
+it, because the band SET now differs per span: four bands at 96, three at 128,
+two at 160, so one bound is a promise about three different statistics. What
+adopting (ii) costs is stated: span 96 passes with 1.7 % of headroom on 2x light
+where form (i) leaves 8 %, and that thinness is the clause's own statement that
+span 96 is not free either. **The parent rules (Decision Log 1 (c)); this gate
+adopts nothing.**
+
+### 6. The declarations, and every stop with today's reading
+
+`bounds-declaration.md`, committed before G1 renders a round (X2, X4). It carries
+C1 in all three forms; the candidate row in `adopted-thresholds.test.ts`'s idiom
+with the §5.162 §9 B-1 guards (`CUT.atDocuments === "shipped"`,
+`CUT.withHoldout === false`, the cut re-run into the adopting gate's OWN
+directory) **and a third this wave adds** — the case asserts the admitted BAND
+SET per span, because a cut whose band rule had moved would satisfy every other
+guard and would not be the statistic C1 is stated over, and because the canvas
+change this wave defers moves those sets; `CONTRIBUTING_CELLS` counted from the
+bed per bed per span (§5.162 §9's N-6 composition re-counted under the
+admitted-band rule); and the stops.
+
+| stop | today | bound | |
+| --- | ---: | ---: | --- |
+| B1, light document | 8.9600 / 13.1648 / 17.3696 | [8.8966, 9.0193] / [12.6397, 13.7947] / [16.7033, 17.8198] | INSIDE |
+| B1, dark document | 9.0400 / 13.3280 / 17.6160 | [8.9084, 9.3180] / [12.7458, 13.8499] / [16.7931, 18.3237] | INSIDE |
+| candidate (i), span 96 | 0.317–0.414 | inside ±5 % of the native σ | **OUTSIDE on all four** |
+| candidate (i), span 128 | 0.224–0.249 | the same | **OUTSIDE on all four** |
+| B3, WebGPU, cal + val | 0.00034 | ≤ 0.00035 | MET by 3 % |
+| the thin regime, per cell | tabled at spans 32 and 44 | no worse by 0.002044 | the before |
+| M1 / M2 | median `R` 0.92339–1.07526; `M2` max 0.01317 | [0.80, 1.20]; ≤ 2 % | MET |
+
+**The window-restricted departure beside B3** is the change of objective W32
+clause 3 makes, and it is not small: over the admitted bands the web-minus-native
+difference is **3.3 to 6.4 times** the whole-exterior one and it reverses the
+sign structure — over the whole exterior vitrea's departure is BELOW Apple's at
+every thick span on 1x light, and over the window it is ABOVE. An anchor solve on
+one is not an anchor solve on the other, which is why G1 measures the difference
+at its first round rather than assuming it.
+
+**`MISSED_27_ROWS` is not §5.162 §4's seven.** Two of those seven —
+`photo__rrect-lg__rest :: oklabDeltaEP95` on the WebGPU tier, 1x and 2x dark —
+**cleared at W31 G3** (0.21531 → 0.14655 and 0.21341 → 0.14505) and M1's three
+chroma rows joined at W31 G4, so the list is **five + three** today, as the
+charter's Grounding says. Decomposed by the share of each cell's SSIM windows
+that lie outside the silhouette: `checkerboard__rrect-lg__rest :: ssimMean` is
+**NOT reachable through the shadow** — a perfect exterior moves it 0.01518
+against a 0.01577 gap — while the reduced-transparency `ssimOutside` row is
+scored entirely outside the silhouette, carries the largest `T` of the list
+(0.05669, five times the next) and needs 2 % of its own residual;
+`checkerboard__glass-over-glass__rest :: ssimMean` is reachable if the exterior
+closes 35 % of its residual. The two ΔE rows **cannot be decided from the
+committed fields at all** — the axis carries no exterior-restricted ΔE — and M1's
+three are not through the shadow, `R` being the body's chroma over its structure.
+Nothing is claimed.
+
+### 7. The recede, which on this bed is not an outer shadow at all
+
+The largest thing this gate found, and no wave had written it down. **On 100 of
+100 non-holdout inactive WebGPU rows — every span, both schemes, the
+accessibility beds included — Apple's receded window removes no light at all from
+3 CSS px outward.** The native render equals its backdrop to the axis's six
+written decimals in every admitted band; where the affine pair is identified
+there it reads `a` = 1.000000 with `c` = 0; the native window-restricted
+departure is exactly **0.000000** on every one of them; and `falloffSigmaNative`
+resolves on **none** of them, because fewer than three rings past the edge ring
+clear the occlusion threshold. Apple's whole receded exterior lives in the `0-3`
+band, where the native departure reads 0.024–0.128 — a contour hairline, which
+this wave's Deferred list already names as a rim term and not a shadow one.
+
+Vitrea draws a full receded shadow out to 48 CSS px on every one of those cells,
+with `a` running 0.887 → 0.980 across the bands, because **the receded documents
+carry their active document's anchors leaf for leaf** and `outerShadowReachPx`
+therefore returns exactly the active reach at every span (`reach.txt`: 13.39,
+13.41, 23.74, 32.89, 42.93 CSS px on the light pair, identical active and
+receded). The inactive `T_dir` over the admitted bands reads 0.00424 at span 44,
+0.00968 at 96 and **0.09785** at 160 on 1x light, and 0.13717 at 160 on 1x dark —
+against §5.162 §1's 0.04531–0.06412 under the old band rule, which is the same
+finding read inside the clearance.
+
+**What this makes of W32 clause 4, declared:** the recede's anchor solve is
+judged on the inactive departure ratio per regime, and on this bed the
+denominator is zero at every span on every bed. So it is a solve toward zero
+amplitude in the 3–48 px window rather than toward a lower alpha on the same
+falloff, and if the solve returns an amplitude the shipped material cannot
+express, the finding is recorded rather than forced.
+
+### 8. What this gate does not claim
+
+No bound is adopted, no floor is set, no constant is fitted and no row is claimed.
+C1's form is the parent's ruling and its number is the charter's rule. Candidate
+(i) remains a one-wave reading, as §5.162 §5 left it. Apple's outset is a
+MEASUREMENT with an interval, taken on an instrument whose own error is
+calibrated in §4 and is large at spans 128 and 160; it is not a value to be
+transcribed into a document. The gate says nothing about the CSS tier beyond
+recording it, nothing about span 130, nothing about `L`, and nothing about the
+chromatic, structural or highlight axes. It does not touch
+`test/adopted-thresholds.test.ts`, any profile document, the matrix or the
+goldens.
+
+### 9. Verification record
+
+- `python3 results/2026-09-16-w29-freeze/freeze.py verify` →
+  **`26.5 freeze intact: 1818 entries`** at this gate's opening and at its close
+  (`freeze-verify-open.txt`, `freeze-verify-close.txt`).
+- `pnpm -r build` and `pnpm -r lint` **exit 0**; `pnpm -r test` **2,666 passed, 0
+  failed** against the charter's Grounding count of 2,662, the four being this
+  gate's own cases and no other suite's count moving — `@vitrea/calibration`
+  600 over 38 files against §5.165 §9's 596 over 37, and policy 23, motion 164,
+  geometry 170, renderer-webgpu 561, core 302, platform-web 631, react 169, demo
+  46 all unmoved (`chain.txt`).
+- `test/w32-exterior-cut.test.ts` — four cases. The direction-resolved statistic
+  reproduces W31 G1's committed `exterior-instrument.txt` §4 **exactly on the
+  four shape bands in all five directions on both cells** (32 numbers per cell),
+  and the `0-3` band does NOT, by 0.0002–0.0008: W31 G1 read the 0.20.0
+  generation (`d0c389d70456` / `880ab1e31450`) and the working file now carries
+  0.21.0's, W31 G3 having sealed `bodyChromaRetention` in between (§5.164), and
+  `0-3` is the band that holds the body's own over-fill. The case asserts the
+  shape bands EQUAL and the `0-3` band MOVED, which is a sharper statement than
+  either half and is corroboration that §5.164's leaf touched no exterior pixel a
+  shadow statistic reads. The other three: the admitted-band rule drops a band
+  past a fabricated clearance (mutation-checked — the case goes red with the rule
+  removed), and the holdout-drop and shipped-documents refusals.
+- `results/matrix.json`, `results/superseded/`, `profiles/`, the goldens, the
+  native fixtures and `test/adopted-thresholds.test.ts` are **untouched**;
+  `apps/reference-apple/scenes.json` gains one field and no existing byte of it
+  moves.

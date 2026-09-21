@@ -4768,3 +4768,42 @@ an exhaustive switch on the occlusion axis, so a second condition is cheap), or
 keep it and document that a declared tone is a colour claim and not only a level
 claim. Whichever is chosen, the clamp wants a reading beside it: at the shipped
 retention it binds, so the fitted fraction is not what that path draws.
+
+## Two `MISSED_27_ROWS` entries cannot be decided at all, because the perceptual axis carries no region-restricted ΔE (W32 G0, 2026-09-21)
+
+`MISSED_27_ROWS` holds five shadow-era rows today, and two of them are
+`photo__rrect-lg__rest :: oklabDeltaEP95` on the CSS tier, 1x dark (0.20095
+against ≤ 0.18) and 2x dark (0.19474 against ≤ 0.19). W32 G0 decomposed all five
+for what the outer shadow could reach and could decide three of them: two of the
+SSIM rows because the axis carries `ssimOutside` and `ssimOutsideWindows`, so the
+share of the metric the exterior owns is a number
+(`results/2026-09-21-w32-g0-exterior-cut/stops.txt` §7, claims §5.166 §6), and
+the reduced-transparency row because `ssimOutside` IS the exterior. **The two ΔE
+rows it could not decide, and the reason is structural rather than a shortfall of
+effort: `oklabDeltaEP95` is a percentile over the WHOLE cell and the axis reports
+no ΔE restricted to any region.** Whether the cell's top five per cent of colour
+error lives in the exterior, in the rim or in the body is not in any committed
+field, so "reachable through the shadow" has no derivation and the honest verdict
+is *undecidable from the committed fields*.
+
+What makes it worth an entry rather than a shrug: the same two rows are the ones
+a shadow wave is most likely to want to claim, because their WebGPU-tier siblings
+on the same scene cleared at W31 G3 and these two are the CSS tier's decline
+rather than the material's (claims §5.164 §5; the comment above them in
+`test/adopted-thresholds.test.ts`). A wave that claimed them through the exterior
+would be claiming something nothing on this bed can check, and a wave that
+declined to claim them cannot say whether it was right to.
+
+**The fix shape**, and it is small: the perceptual axis already computes its SSIM
+three ways over the silhouette, the band and the outside
+(`ssimInterior` / `ssimBand` / `ssimOutside`, with window counts). The same
+partition applied to the OKLab difference gives
+`oklabDeltaEP95{Interior,Band,Outside}` and their pixel counts, which is one pass
+over a mask the axis already has. It is a schema addition, so it costs a bump and
+a re-read of the bed to populate, which is why W32 does not take it: X7 forbids a
+schema change in this wave and the wave's own read is already committed to the
+current one. The right moment is the next wave that re-reads the whole bed for a
+different reason.
+
+Until then: no wave claims either row through the shadow, and `MISSED_27_ROWS`
+carries them as missed with the reason recorded here.

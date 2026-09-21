@@ -1,0 +1,27 @@
+W32 G0 — the verification chain, on this gate's branch at its close
+==================================================================
+
+  pnpm -r build                 exit 0
+  pnpm -r lint                  exit 0
+  pnpm -r test                  2,666 passed, 0 failed, over 9 workspace projects
+
+  per suite, against the charter's Grounding (units 2,662):
+
+    packages/policy              2 files     23 tests   unmoved
+    packages/motion             10 files    164 tests   unmoved
+    packages/geometry           14 files    170 tests   unmoved
+    packages/renderer-webgpu    34 files    561 tests   unmoved
+    packages/core               16 files    302 tests   unmoved
+    packages/platform-web       46 files    631 tests   unmoved
+    packages/react              18 files    169 tests   unmoved
+    packages/calibration        38 files    600 tests   +4, +1 file — this gate's own
+    apps/demo                    6 files     46 tests   unmoved
+
+  The four are `test/w32-exterior-cut.test.ts`. `@vitrea/calibration` read 596
+  over 37 files at W31 G4's review closure (claims §5.165 §9).
+
+  python3 results/2026-09-16-w29-freeze/freeze.py verify
+    26.5 freeze intact: 1818 entries     at this gate's opening and at its close
+
+  No browser suite was run: this gate takes no capture and renders nothing
+  (W32 X2, X5, X6).

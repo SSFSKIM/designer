@@ -501,7 +501,7 @@ hairline (a rim term and not a shadow one); `standard-row-identity-matrix.txt`'s
 
 | child | status |
 | --- | --- |
-| G0 | OPEN — dispatched at charter v2 |
+| G0 | **MERGED-READY 2026-09-21** — the cut, the clearance table, the direction tables, the model read, the three forms and the declarations; claims §5.166; six commits on `w32-g0-exterior-cut`; no capture, no material change |
 | G0b | OPEN — dispatched at charter v2 |
 | G1 | not opened |
 | G2 | not opened |
@@ -540,6 +540,41 @@ may strike it without touching the material.
 
 ## Surprises & Discoveries
 
+- **Apple's receded window casts no outer shadow at all beyond 3 CSS px, and vitrea draws the
+  ACTIVE shadow there leaf for leaf** (W32 G0, claims §5.166 §7). On 100 of 100 non-holdout
+  inactive WebGPU rows — every span, both schemes, the accessibility beds included — the native
+  render equals its backdrop to the axis's six written decimals in every admitted band, the
+  identified pairs read `a` = 1.000000 with `c` = 0, the native window-restricted departure is
+  exactly 0.000000, and `falloffSigmaNative` resolves on none of them. Apple's whole receded
+  exterior lives in the `0-3` band at a departure of 0.024–0.128 — the contour hairline this
+  wave's Deferred list already names as a rim term. Vitrea's receded documents carry their active
+  document's anchors leaf for leaf, so `outerShadowReachPx` returns the active reach at every span.
+  Clause 4's "the receded documents' anchors are solved on the inactive cells" is therefore a solve
+  whose target is ZERO amplitude in the 3–48 px window, not a lower alpha on the same falloff, and
+  the departure ratio it is judged on has a zero denominator at every span on every bed.
+- **The admitted band set at span 160 is `3-6 / 6-12`, not `3-6 / 6-12 / 12-24`** (W32 G0, claims
+  §5.166 §1). The `12-24` band's outer edge is 24 CSS px against 19.50 of clearance on every side.
+  The charter's Design paragraph "Which spans fit and which are read" names three bands; the rule
+  the same charter states admits two. And at span 128 the `24-48` band is outside the frame on the
+  LEFT AND RIGHT too — 47.50 against 48.00, by half a pixel — not only above and below. Dropping
+  it makes the span-128 reading WORSE, 0.00487–0.00532 → 0.00738–0.00889, because that band carried
+  53 % of the weight and was where the two exteriors agreed most.
+- **Apple's own outset is not zero: it is about half a pixel** (W32 G0, claims §5.166 §4;
+  §5.162 §9's finding N-10 answered). The native-side fit of the renderer's own falloff model reads
+  a spread of 0.0–1.0 CSS px at spans 32, 44 and 96 with vitrea's 3.10 outside the one-sigma
+  interval on every standard bed, and an offset of 7.65–8.22 against vitrea's 7.95 at every span.
+  The same fit on vitrea's own render recovers the shipped triple at those spans and does NOT at
+  128 and 160, which is the instrument's own error and the boundary a native-side prior may be
+  trusted inside.
+- **`MISSED_27_ROWS` is five + three and §5.162 §4's seven is stale** (W32 G0, claims §5.166 §6).
+  Two of that section's seven cleared at W31 G3 (0.21531 → 0.14655, 0.21341 → 0.14505) and M1's
+  three joined at W31 G4. Decomposed, `checkerboard__rrect-lg__rest :: ssimMean` is NOT reachable
+  through the shadow at all — a perfect exterior moves it 0.01518 against a 0.01577 gap.
+- **The window-restricted departure is a different objective, not a tidier one** (W32 G0, claims
+  §5.166 §6). Over the admitted bands the web-minus-native difference is 3.3 to 6.4 times the
+  whole-exterior one and it reverses the sign structure: over the whole exterior vitrea's departure
+  is BELOW Apple's at every thick span on 1x light and over the window it is ABOVE. Clause 3's
+  "the difference between the two solves is measured at the first round" is load-bearing.
 - **The bed cannot see a span-160 exterior, and three waves read one there without saying so**
   (found by this charter's adversarial review, 2026-09-21, from `matrix.json` and `scenes.json`).
   `rrect-lg` is 280 × 160 on a 320 × 200 canvas: 19.5 CSS px of clearance on every side; the
@@ -573,6 +608,18 @@ may strike it without touching the material.
 
 ## Revision Notes
 
+- 2026-09-21 (G0): **the cut and the declarations landed; five entries added to Surprises.** Two
+  correct the charter itself — the admitted band set at span 160 is two bands and not three, and
+  the `24-48` band at span 128 is outside the frame on all four sides — and neither changes a
+  clause: span 160 is still read inside its clearance and never fitted on, and span 128 is still
+  fitted. Three are findings the charter could not have had: Apple's outset measured at about half
+  a pixel against vitrea's 3.10; the recede's native exterior being empty beyond 3 CSS px, which
+  makes clause 4 a solve toward zero rather than toward a lower alpha; and the window-restricted
+  departure being a different objective from the whole-exterior one rather than a restriction of
+  it. G0 recommends **form (ii)** of C1, the per-span bound at **0.0042** by the charter's own
+  rule, and withdraws form (iii) on measurement — the clearance in the bed's own native σ is
+  5.5–5.9 at span 96, 2.7 at 128 and 1.1 at 160, so no choice of multiples buys the same number of
+  falloff lengths at every span on this canvas. Decision Log 1 (c) is the parent's to rule.
 - 2026-09-21 (the parent): **v2 — the adversarial review folded.** Five blocking findings and
   seven non-blocking, every number reproduced by the parent from `matrix.json` before folding:
   (1) span 160's 19.5 px clearance — the fit's bed becomes 32 / 44 / 96 / 128, span 160 read
