@@ -1,0 +1,26 @@
+W32 G0b — split-generation.py's docstring made true, and the two entries annotated beside
+(claims §5.167; W31 Deferred item 14; tracker, "Two superseded-index entries name the
+ reading gate as the moving one")
+
+The script's BEHAVIOUR is unchanged. Only its docstring moved, and two $comment fields
+were added beside recorded fields that were not touched.
+
+== the index diff, in full ==
+ packages/calibration/results/superseded/index.json | 2 ++
+ 1 file changed, 2 insertions(+)
+
+Two insertions, nothing else. No hash, no path, no claims section, no count and no
+timestamp moved; the file round-trips through json.dumps(indent=2) byte-identically,
+which is how the annotation was inserted without re-encoding the rest (the committed
+index is ASCII-escaped while the script now writes ensure_ascii=False, so a re-emit
+would have shown every line as touched — the byte-churn note on the same tracker entry).
+
+== split-generation.py readme, after the annotation ==
+wrote packages/calibration/results/superseded/README.md  9 files, every byte count and digest checked against the file on disk
+README.md diff:
+  (empty — the table is generated from the index's recorded fields and reads no
+   $comment, so the regeneration is a no-op and the README is not rewritten.)
+
+== split-generation.py plan, unchanged behaviour ==
+  6da7ff4d21f4  packages/calibration/profiles/digest-supersessions.json
+rows: 1833 total, 1833 retained, 0 moved
