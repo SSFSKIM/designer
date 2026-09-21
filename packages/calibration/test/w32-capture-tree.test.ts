@@ -236,6 +236,24 @@ describe("the capture tree against the working matrix (claims §5.167)", () => {
 
     const live = { ...current, documents: [[`${LIGHT}.json`, UNRECORDED]] as const };
     expect(check(scratch([frozenRow, current], [frozenStale, live])).exitCode).toBe(1);
+
+    // Review closure NB5 (claims §5.167 §8). The exit-2 class is a GENERATION difference
+    // under a frozen key and nothing else. `live` was computed over the whole failing set,
+    // so an UNREADABLE capture whose only company was a frozen key exited 2 — reporting a
+    // fault anybody may clear (the tree is gitignored; delete the file and copy it again)
+    // as one contract X1 forbids anyone to touch, which is how it stays in the tree.
+    const frozenUnreadable = { ...frozenRow, sceneId: "photo__rrect-lg__rest" };
+    const unreadable = check(scratch([frozenRow], [frozenUnreadable]));
+    expect(unreadable.findings.map((f) => f.verdict)).toEqual(["unreadable"]);
+    expect(unreadable.exitCode).toBe(1);
+
+    // And a frozen generation mismatch standing beside it does not pull it back down to 2.
+    const both = check(scratch(
+      [frozenRow, { ...frozenRow, scene: "photo__rrect-sm__rest" }],
+      [frozenUnreadable, { ...frozenStale, scene: "photo__rrect-sm__rest" }],
+    ));
+    expect(both.findings.map((f) => f.verdict).sort()).toEqual(["mismatch", "unreadable"]);
+    expect(both.exitCode).toBe(1);
   });
 
   it("refuses a capture with no provenance and one whose directory disagrees with it", () => {

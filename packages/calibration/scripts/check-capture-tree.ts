@@ -330,18 +330,25 @@ export function checkCaptureTree(options: {
       || finding.verdict === "unreadable"
       || (finding.verdict === "superseded" && !options.supersededOk),
   );
-  // A misfiled copy exits 1 under a frozen key as well as a live one: contract X1 forbids
-  // re-READING a macOS 26.5 row, and the tree is gitignored, so deleting a capture from
-  // the directory it does not belong in is a fault anybody may clear.
-  const live = failing.some(
-    (finding) => finding.verdict === "misfiled" || !FROZEN.test(finding.profile));
+  // Exit 2 is a GENERATION difference under a frozen key and nothing else. Those rows may
+  // not be re-read under contract X1, so the difference is a fact about the tree on this
+  // machine rather than a fault a gate can clear — which is the entire argument for a
+  // second exit code. An unreadable capture, or one misfiled into a directory it does not
+  // belong in, is a fault in how the tree was ASSEMBLED: the tree is gitignored and anybody
+  // may delete or re-copy a file in it, and X1 has nothing to say about doing so. Computing
+  // this over the whole failing set let a frozen key downgrade those to exit 2, which
+  // reported a clearable fault as unclearable and left it in the tree (review closure NB5;
+  // claims §5.167 §8).
+  const unclearable = (finding: Finding): boolean =>
+    (finding.verdict === "mismatch" || finding.verdict === "superseded")
+    && FROZEN.test(finding.profile);
   return {
     treePresent: true,
     tree: options.tree,
     findings,
     rowsWithoutCapture,
     matrixGenerations: generations,
-    exitCode: failing.length === 0 ? 0 : live ? 1 : 2,
+    exitCode: failing.length === 0 ? 0 : failing.every(unclearable) ? 2 : 1,
   };
 }
 
