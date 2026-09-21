@@ -1,0 +1,44 @@
+== the same statistic under two masks: the native silhouette, and the declared region ==
+
+  cell                                              tier     mask        area  holes   (i) N   (i) W   w/n     (ii) N  (ii) W
+  27.0-1x-dark-standard-glass0.5 photo__capsule-button__rest webgpu  silhouette    4586    17   2.398   0.706   0.294   0.973   0.106
+  27.0-1x-dark-standard-glass0.5 photo__capsule-button__rest webgpu  region        4872     0   2.416   0.726   0.300   0.977   0.107
+  27.0-1x-dark-standard-glass0.5 photo__capsule-button__rest css     silhouette    4586    17   2.398   2.546   1.062   0.973   0.188
+  27.0-1x-dark-standard-glass0.5 photo__capsule-button__rest css     region        4872     0   2.416   2.585   1.070   0.977   0.191
+
+  27.0-1x-dark-standard-glass0.5 photo__rrect-md__rest webgpu  silhouette   13187    15   3.595   1.131   0.315   0.918   0.109
+  27.0-1x-dark-standard-glass0.5 photo__rrect-md__rest webgpu  region       15024     0   3.632   1.140   0.314   0.925   0.110
+  27.0-1x-dark-standard-glass0.5 photo__rrect-md__rest css     silhouette   13187    15   3.595   3.423   0.952   0.918   0.192
+  27.0-1x-dark-standard-glass0.5 photo__rrect-md__rest css     region       15024     0   3.632   3.461   0.953   0.925   0.192
+
+  27.0-1x-dark-standard-glass0.5 photo__rrect-lg__rest webgpu  silhouette   39392    68   3.760   1.479   0.393   0.900   0.115
+  27.0-1x-dark-standard-glass0.5 photo__rrect-lg__rest webgpu  region       43816     0   3.767   1.483   0.394   0.908   0.115
+  27.0-1x-dark-standard-glass0.5 photo__rrect-lg__rest css     silhouette   39392    68   3.760   3.699   0.984   0.900   0.189
+  27.0-1x-dark-standard-glass0.5 photo__rrect-lg__rest css     region       43816     0   3.767   3.718   0.987   0.908   0.189
+
+  27.0-1x-dark-standard-glass0.5 photo__rrect-md__inactive webgpu  silhouette   13340    18   3.933   2.014   0.512   0.903   0.118
+  27.0-1x-dark-standard-glass0.5 photo__rrect-md__inactive webgpu  region       15024     0   3.996   2.027   0.507   0.911   0.118
+  27.0-1x-dark-standard-glass0.5 photo__rrect-md__inactive css     silhouette   13340    18   3.933   3.949   1.004   0.903   0.197
+  27.0-1x-dark-standard-glass0.5 photo__rrect-md__inactive css     region       15024     0   3.996   3.992   0.999   0.911   0.197
+
+  27.0-2x-dark-standard-glass0.5 photo__rrect-md__rest webgpu  silhouette   52166    35   3.550   1.283   0.361   0.917   0.114
+  27.0-2x-dark-standard-glass0.5 photo__rrect-md__rest webgpu  region       60064     0   3.589   1.307   0.364   0.925   0.114
+  27.0-2x-dark-standard-glass0.5 photo__rrect-md__rest css     silhouette   52166    35   3.550   3.394   0.956   0.917   0.212
+  27.0-2x-dark-standard-glass0.5 photo__rrect-md__rest css     region       60064     0   3.589   3.426   0.954   0.925   0.212
+
+  27.0-2x-dark-standard-glass0.5 photo__rrect-lg__rest webgpu  silhouette  156813   131   3.743   1.609   0.430   0.899   0.119
+  27.0-2x-dark-standard-glass0.5 photo__rrect-lg__rest webgpu  region      175240     0   3.756   1.617   0.430   0.908   0.119
+  27.0-2x-dark-standard-glass0.5 photo__rrect-lg__rest css     silhouette  156813   131   3.743   3.609   0.964   0.899   0.209
+  27.0-2x-dark-standard-glass0.5 photo__rrect-lg__rest css     region      175240     0   3.756   3.626   0.965   0.908   0.209
+
+  27.0-1x-light-standard-glass0.5 photo__rrect-md__rest webgpu  silhouette   15020     0   1.512   0.823   0.544   0.789   0.257
+  27.0-1x-light-standard-glass0.5 photo__rrect-md__rest webgpu  region       15024     0   1.510   0.823   0.545   0.789   0.258
+  27.0-1x-light-standard-glass0.5 photo__rrect-md__rest css     silhouette   15020     0   1.512   1.691   1.118   0.789   0.443
+  27.0-1x-light-standard-glass0.5 photo__rrect-md__rest css     region       15024     0   1.510   1.691   1.120   0.789   0.443
+
+  27.0-1x-light-standard-glass0.5 photo__rrect-lg__rest webgpu  silhouette   43804     0   1.414   0.869   0.614   0.802   0.269
+  27.0-1x-light-standard-glass0.5 photo__rrect-lg__rest webgpu  region       43816     0   1.411   0.867   0.614   0.802   0.269
+  27.0-1x-light-standard-glass0.5 photo__rrect-lg__rest css     silhouette   43804     0   1.414   1.810   1.280   0.802   0.438
+  27.0-1x-light-standard-glass0.5 photo__rrect-lg__rest css     region       43816     0   1.411   1.810   1.282   0.802   0.438
+
+wrote mask-adequacy.json
