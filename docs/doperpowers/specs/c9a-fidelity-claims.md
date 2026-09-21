@@ -32129,7 +32129,7 @@ goldens.
 - `pnpm -r build` and `pnpm -r lint` **exit 0**; `pnpm -r test` **2,666 passed, 0
   failed** against the charter's Grounding count of 2,662, the four being this
   gate's own cases and no other suite's count moving — `@vitrea/calibration`
-  600 over 38 files against §5.165 §9's 596 over 37, and policy 23, motion 164,
+  **600** over 38 files against §5.165 §9's **596**, and policy 23, motion 164,
   geometry 170, renderer-webgpu 561, core 302, platform-web 631, react 169, demo
   46 all unmoved (`chain.txt`).
 - `test/w32-exterior-cut.test.ts` — four cases. The direction-resolved statistic
