@@ -129,6 +129,38 @@ export function figuresOf(cell: Cell): readonly Figure[] {
   );
   add("Luminance slope, web", metric(cell.material, "luminanceSlopeWeb"), 3);
   /*
+   * The body's chroma-to-structure ratio, added at W31 G4 (claims §5.165 §4).
+   *
+   * 0.21.0's operator is the one this page had no figure for: the body's
+   * CHROMATICITY restored toward the blurred backdrop's at a held linear luma.
+   * None of the figures above can see it. The silhouette and contour rows are
+   * geometry; SSIM is computed on luma; ΔE mean is a whole-capture distance in
+   * which a body's hue is a fraction of a rim's and an exterior's; the
+   * luminance slope is a level. A body that went from a flat warm grey to a
+   * coloured one would move none of them enough to notice, which is the same
+   * hole W30 G4 found on the shadow axis one wave earlier.
+   *
+   * The pair is printed rather than the ratio, on this page's own idiom — the
+   * shadow σ and the luminance slope are both native/web pairs, and a reader who
+   * wants the wave's statistic divides one by the other. The ratio of each side
+   * is the interior's per-pixel OKLab chroma spread over its own luma spread, so
+   * a body that blurs more but keeps its hues reads the same as one that blurs
+   * less: it is scale-free in the deviations, which is what makes the two sides
+   * comparable across a blur vitrea and the reference do not share.
+   *
+   * What the pair does NOT say, and the note says so: it is scale-free in both
+   * directions, so a body that lost its chroma and its structure together reads
+   * the same as one that kept both. The gate that closes that is
+   * `adopted-thresholds.test.ts`'s M2, on the structure this page does not show.
+   */
+  add("Body chroma-to-structure, native", metric(cell.material, "chromaStructureRatioNative"), 3);
+  add(
+    "Body chroma-to-structure, web",
+    metric(cell.material, "chromaStructureRatioWeb"),
+    3,
+    "The interior's per-pixel OKLab chroma spread over its own luma spread, so the blur the two sides do not share cancels. Web against native is the statistic 0.21.0's body-chroma retention was fitted on; it is scale-free in the deviations, so it is also blind to a body that loses chroma and structure together, and the gate pairs it with a bound on the structure. A macOS 26.5 row carries neither figure: the instrument entered the schema at W31.",
+  );
+  /*
    * The outer shadow's fitted falloff width, added at W30 G4 (claims §5.160).
    *
    * The wave that 0.20.0 carries graded this shadow's σ by the casting span —

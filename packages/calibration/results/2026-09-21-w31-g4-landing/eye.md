@@ -43,9 +43,10 @@ Two readings beside the verdict, neither of them this wave's doing:
 The objective half, taken beside the eye and not instead of it: the two accessibility profiles'
 **68 rows carry 6,855 numeric readings across every axis and not one of them differs from the
 0.20.0 generation** in `results/superseded/d0c389d70456.json`. The only fields that differ at all
-are the 24 optional chroma fields this wave's instrument added, which are additions and not
-movements. That is `standard-row-identity.txt`'s claim re-derived from the committed matrix by a
-different route.
+are the **20** optional schema-5 readings this wave's instrument added on those rows, which are
+additions and not movements. That is `standard-row-identity.txt`'s claim re-derived from the
+committed matrix by a different route, with the generator committed beside it
+(`accessibility-identity.py`).
 
 ## 2. The dark scheme: the body carries the hue, and the third panel is the one that does not
 
@@ -159,3 +160,44 @@ X1 allows this gate no calibration capture of its own. So:
 | light standard, six sheets | the first two panels are hard to tell apart up to span 96; at span 160 they are close but the reference's greens are stronger |
 | overshoot, four sheets | the three missed cells and the one that passes are indistinguishable from each other and from their references; the ceiling is a statistic |
 | `mid-chroma-solid` | not captured; G0's hue-rotation finding stands open |
+
+---
+
+## 8. The demo beside the harness, and what the site cannot show
+
+`sheet.py`, two sheets — one per scheme, 2x — each carrying `photo__rrect-md__rest` (span 96) and
+`photo__rrect-lg__rest` (span 160) as native | vitrea WebGPU | ×8, with the demo's own material
+stage photographed at 2x underneath (`demo-shot.mjs`, `#material`, the site's renderer pinned to
+WebGPU).
+
+**The harness bands read as the standard sheets do**: on both schemes vitrea's plate carries the
+backdrop's hues in the same places as the reference's, softer on the dark scheme and close on the
+light one.
+
+**The demo band is the finding, and it is a gap rather than a result.** On the site's own material
+stage the operator is very nearly invisible in both schemes, for two different reasons that are
+both design decisions nobody made with this operator in mind:
+
+- **Dark: the stage has no chroma to restore, by construction.** `StageBackdrop.tsx`'s
+  `DARK_GROUND` carries **`field: 0`** — the lobes are composited with `multiply`, which is how
+  colour is put into a LIGHT ground, and multiplying a light lobe onto near-black is very nearly
+  nothing, so the dark stage is a near-black paper with a white graticule and no hues at all. A
+  chroma retention toward the backdrop's chromaticity is the exact identity over an achromatic
+  backdrop. **So the site's dark stage cannot show the endpoint this wave moved most** — ratio (i)
+  0.3332 → 0.9994, the largest movement in the wave — and the sheet's lower half is a picture of
+  that.
+- **Light: the plates sit over the palest corner of the bloom.** The lobes are a green-teal wash
+  centred right of the stage and the three plates are stacked at the left, where the ground is
+  nearly the base `#dde6eb`. The 112 px plate picks up a faint warm-green cast at its right edge
+  and the 40 px plate picks up almost nothing.
+
+Neither is a defect in the operator and neither is this gate's to change: the dark field is 0 for a
+measured accessibility reason (`e2e/contrast.spec.ts` guards the ink over that ground), and moving
+plates or lobes is a taste decision about the site. It is recorded as what it is — **0.21.0's
+headline operator has no stage on the site that demonstrates it** — with the shape of the work:
+a chromatic ground the dark scheme can carry, or a stage whose surfaces sit over the bloom's
+centre. Tracker, and the charter's Deferred-at-close.
+
+What the site DOES now say about it is a number rather than a picture: the calibration readout
+prints `Body chroma-to-structure, native` and `…, web` on every cell it shows (§5.165 §4), which is
+the pair the wave was fitted on.

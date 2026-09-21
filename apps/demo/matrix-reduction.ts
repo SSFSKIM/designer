@@ -70,11 +70,27 @@ const MATRIX = fileURLToPath(
   new URL("../../packages/calibration/results/matrix.json", import.meta.url),
 );
 
-/** The metrics `figuresOf` reads, per axis. Nothing else is projected. */
+/**
+ * The metrics `figuresOf` reads, per axis. Nothing else is projected.
+ *
+ * The two `chromaStructureRatio*` entries are W31 G4's (claims §5.165 §4), on
+ * exactly the rule W30 G4 added the shadow pair under: a page that prints a
+ * cell's figures and omits the axis its own material just changed is printing
+ * the figures that happened to exist. They are optional schema-5 fields that
+ * entered with W31 G0's instrument, so a macOS 26.5 row carries neither and
+ * `axis()` drops what is not there — which is the right behaviour and not a
+ * degradation, because those rows are frozen evidence read before the
+ * instrument existed.
+ */
 const PROJECTED = {
   shape: ["silhouetteIoU", "contourDistanceMean", "contourDistanceP95"],
   perceptual: ["ssimMean", "oklabDeltaEMean"],
-  material: ["luminanceSlopeNative", "luminanceSlopeWeb"],
+  material: [
+    "luminanceSlopeNative",
+    "luminanceSlopeWeb",
+    "chromaStructureRatioNative",
+    "chromaStructureRatioWeb",
+  ],
   shadow: ["falloffSigmaNative", "falloffSigmaWeb"],
 } as const;
 
