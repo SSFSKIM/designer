@@ -1,71 +1,45 @@
 /**
- * W32 G1 — the fit's sheets, from THIS GATE'S read tree (claims §5.168).
+ * W32 G2 — the landing's sheets, from the CANONICAL capture tree (claims §5.169 §5).
  *
- *   VITREA_WEB_CAPTURES=<the tree this gate's canonical read wrote> \
- *     npx tsx results/2026-09-21-w32-g1-shadow-fit/sheets.ts
+ *   npx tsx results/2026-09-21-w32-g2-landing/sheets.ts
  *
- * W31 G4's `sheets.ts` copied on that directory's own convention — nothing under
- * `results/` is edited after commit — with its BED changed and nothing else. The
- * per-cell document-bytes assertion, the panel layout, the ΔE × 8 difference
- * panel and the refusal are that file's, byte for byte, and they are the reason
- * it was the one copied: a sheet that photographed a cell drawn at documents
- * other than the shipped ones would look right and be of a material nobody
- * shipped.
+ * W31 G4's `sheets.ts` by way of W32 G1's, copied on `results/`'s own convention
+ * — nothing under it is edited after commit — with its BED changed and one panel
+ * of arithmetic added. The per-cell document-bytes assertion, the layout, the
+ * ΔE × 8 difference panel and the refusal are W31 G4's, byte for byte, and they
+ * are the reason that file was the one copied: a sheet that photographed a cell
+ * drawn at documents other than the shipped ones would look right and would be
+ * of a material nobody shipped.
  *
- * **The bed is the exterior's**, which is what this wave moved: `capsule-button`
- * (span 44), `rrect-ml` (128) and `rrect-lg` (160) in BOTH poses on all four
- * standard profiles, so both schemes at both scales and active beside inactive —
- * because the inactive pose is where Decision Log 2's stand-down has to be
- * looked at rather than counted. `checkerboard__rrect-lg__inactive` is the
- * tracker's far-halo cell and is a HOLDOUT scene, so it is here from the holdout
- * read and from nowhere else.
+ * **The tree is the canonical `packages/calibration/web-captures/`** and not a
+ * scratch one. G1's read wrote its tree, the parent copied it to the canonical
+ * path at G1's merge — which is what `CLAUDE.md` says a merge that lands a read
+ * has to do — so these panels are the pixels the committed rows beside them were
+ * measured off. `VITREA_WEB_CAPTURES` still overrides, for a reader on another
+ * machine.
  *
- * The CSS tier is on a sheet only where the canonical read captured it: both
- * tiers on the calibration and holdout scenes of every standard profile, and on
- * the two 1x standard profiles for the ladder's probe scenes, which is the read's
- * own shape and not a choice made here. Where it is absent the sheet is
- * native | WebGPU | ΔE × 8 and says so.
+ * **The bed is the landing's**: `capsule-button` (span 44), `rrect-ml` (128) and
+ * `rrect-lg` (160), in BOTH poses, on all four macOS 27 standard profiles — both
+ * schemes at both scales, sixteen of the twenty-four cells on `photo` and the
+ * rest on the ladder's `checkerboard-8` where a profile does not declare the
+ * `photo` cell. Which backdrop a cell gets is read off the tree in a stated
+ * preference order and NAMED, because a bed that silently substituted one
+ * backdrop for another would make two profiles' sheets look comparable when they
+ * are not (W32 G1's review closure, on `eye.md`'s own version of this).
  *
- * *(what follows is W31 G4's own header, kept because the mechanism it describes
- * is the mechanism this file still uses)*
- *
- * W31 G3's `sheets.ts` (`results/2026-09-21-w31-g3-chroma-fit/sheets.ts`), copied
- * rather than reused on that directory's own convention, with three changes.
- *
- * **The tree.** G3's web panels came from the tree its own read wrote, inside its
- * worktree. That tree is now the canonical `packages/calibration/web-captures/`
- * on the capture machine — the parent copied it at G3c's merge, which is the
- * first time since W29 that the canonical tree and the committed rows have been
- * the same generation (charter Surprises; tracker at this gate). So the panels
- * here are the pixels the committed rows beside them were measured off, read from
- * the tree `CLAUDE.md` says they are read from, and **the claim is checked rather
- * than assumed**: every cell's `cell__webgpu.json` has to name the SHIPPED
- * document bytes, and a cell whose capture names anything else is refused loudly
- * instead of photographed quietly.
- *
- * **The bed.** Three untinted `photo` components — `capsule-button` (span 44),
- * `rrect-md` (span 96) and `rrect-lg` (span 160) — on all four macOS 27 standard
- * profiles, so both schemes at both scales, which is what the acceptance clause
- * asks for and what makes the span story visible: the retention is one constant
- * per document and the span is the axis it does not condition on.
- *
- * **The accessibility band.** Four sheets of `photo__rrect-md` in both poses on
- * the two accessibility profiles, three panels instead of four (native | WebGPU |
- * ΔE × 8) because the question there is not a tier comparison. W31 Decision Log
- * 3 (c) rules that the regression the review found is FIXED by G3c's hard gate
- * and the numbers say so at the digit and at the byte; these sheets are the other
- * half of that, because a stand-down that restores 0.20.0's rendering exactly
- * should look like 0.20.0 and the metrics are not the whole verdict.
- *
- * **What is NOT here, named rather than left to be noticed.** `mid-chroma-solid`
- * is a PROBE scene. The canonical read is calibration + validation + the pitch
- * ladder (claims §5.164 §7), so the canonical tree carries no macOS 27
- * `mid-chroma-solid` capture at all, and X1 allows this gate no calibration
- * capture. G0's pre-fit sheets of it are committed at
- * `results/2026-09-21-w31-g0-chroma-cut/sheet__*__mid-chroma-solid__*.png` and
- * G0's hue-ROTATION finding on them stands open exactly as claims §5.164 §9
- * leaves it. `eye.md` carries the consequence.
+ * **The one-byte check beside every difference panel** (§5.168 §10, finding B-4).
+ * A ΔE × 8 OKLab panel renders the distance from sRGB byte 0 to byte 1 as a
+ * mid-grey, because OKLab takes a cube root of linear light and its derivative
+ * diverges at zero — so the panel cannot distinguish "vitrea is one byte above
+ * Apple's black" from a real residual, and W32 G1's `eye.md` read the wrong
+ * verdict off exactly that. Every sheet therefore prints, over the EXTERIOR (the
+ * canvas minus the component's declared rect, the construction `b4-black-floor.py`
+ * uses), how many pixels Apple renders as exactly (0,0,0), how many of those
+ * vitrea renders as exactly (1,1,1), how many above one byte, and the worst
+ * channel difference among them. A sheet whose grey is the floor says so in
+ * numbers under the picture.
  */
+
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { resolve } from "node:path";
@@ -90,22 +64,55 @@ const STANDARD_PROFILES = [
 ] as const;
 
 /**
- * The exterior's bed, per component and pose, with the tier set the canonical
- * read actually captured for it. `photo` where the scene set has it; the pitch
- * ladder's `checkerboard-8` at `rrect-lg`, whose `rest` and `inactive` are both
- * probe rows; and the holdout `checkerboard__rrect-lg__inactive`, which is the
- * far-halo cell the tracker measured at 17.42 and the one cell of this wave that
- * exists only because the holdout was read.
+ * The landing's bed: three components, both poses, four standard profiles.
+ *
+ * `photo` first everywhere, because it is the backdrop every profile declares
+ * most of and the one the eye reads a body over; the ladder's `checkerboard-8`
+ * where a profile declares no `photo` cell for that component and pose, which is
+ * a fact about `scenes.json`'s per-profile declarations and not a choice made
+ * here. The chosen backdrop is printed beside every sheet.
  */
-const STANDARD_SCENES = [
-  "photo__capsule-button__rest",
-  "photo__capsule-button__inactive",
-  "checkerboard-8__rrect-ml__rest",
-  "photo__rrect-ml__inactive",
-  "checkerboard-8__rrect-lg__rest",
-  "checkerboard-8__rrect-lg__inactive",
-  "checkerboard__rrect-lg__inactive",
+const BED = [
+  { component: "capsule-button", span: 44, pose: "rest",
+    scenes: ["photo__capsule-button__rest", "checkerboard-8__capsule-button__rest"] },
+  { component: "capsule-button", span: 44, pose: "inactive",
+    scenes: ["photo__capsule-button__inactive", "checkerboard__capsule-button__inactive"] },
+  { component: "rrect-ml", span: 128, pose: "rest",
+    scenes: ["photo__rrect-ml__rest", "checkerboard-8__rrect-ml__rest"] },
+  { component: "rrect-ml", span: 128, pose: "inactive",
+    scenes: ["photo__rrect-ml__inactive", "checkerboard__rrect-ml__inactive"] },
+  { component: "rrect-lg", span: 160, pose: "rest",
+    scenes: ["photo__rrect-lg__rest", "checkerboard-8__rrect-lg__rest"] },
+  { component: "rrect-lg", span: 160, pose: "inactive",
+    scenes: ["photo__rrect-lg__inactive", "checkerboard-8__rrect-lg__inactive"] },
 ] as const;
+
+/** `scenes.json`'s canvas and component sizes — the exterior's own construction. */
+const SCENES = JSON.parse(
+  readFileSync(resolve(PACKAGE, "..", "..", "apps", "reference-apple", "scenes.json"), "utf8"),
+) as {
+  canvas: { width: number; height: number };
+  components: Record<string, { size: readonly number[] }>;
+};
+
+/**
+ * The black floor's own bed, on the profile it was measured on (§5.168 §10, B-4).
+ *
+ * `photo` has no native-black exterior pixel anywhere — every sheet above says so
+ * in as many words — so the floor is invisible on the bed the rest of this file
+ * photographs, and the cell that made it a finding is a `checkerboard-8` rung.
+ * These three are B-4's own spans on 1x light: 160 and 128, where it measured
+ * 3,334 of 9,440 and 2,188 of 17,532 pixels lifted, and **44, which is below
+ * `liftSpanMin` 64 and read 0 of 29,330** — the control that makes the reading a
+ * statement about `liftAmplitude` rather than about the renderer's black.
+ */
+const BLACK_FLOOR_BED = [
+  { component: "capsule-button", scene: "checkerboard-8__capsule-button__rest" },
+  { component: "rrect-ml", scene: "checkerboard-8__rrect-ml__rest" },
+  { component: "rrect-lg", scene: "checkerboard-8__rrect-lg__rest" },
+] as const;
+
+const BLACK_FLOOR_PROFILE = "apple-macos-27.0-1x-light-standard-glass0.5";
 
 const ACCESSIBILITY = [
   "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
@@ -194,7 +201,56 @@ function strip(panels: readonly CalibrationImage[]): CalibrationImage {
   return createImage(width, height, data);
 }
 
-function sheet(profileKey: string, scene: string, tiers: "both" | "webgpu"): string {
+/**
+ * The one-byte check the difference panel cannot make (§5.168 §10, finding B-4).
+ *
+ * Over the EXTERIOR — the canvas minus the component's declared rect, scaled by
+ * the capture's own pixel size, which is `b4-black-floor.py`'s construction —
+ * count the pixels Apple renders as exactly (0, 0, 0), and split what vitrea
+ * renders there into "exactly one byte up", "more than one byte up" and the
+ * worst channel difference. A ΔE × 8 OKLab panel draws one byte at black as a
+ * mid-grey, so a panel that looks like a residual over black squares may be
+ * this; the numbers under the picture are what tells the two apart.
+ */
+function blackFloor(
+  component: string,
+  native: CalibrationImage,
+  web: CalibrationImage,
+): string {
+  const size = SCENES.components[component]?.size ?? [0, 0];
+  const scale = native.width / SCENES.canvas.width;
+  const x0 = ((SCENES.canvas.width - (size[0] ?? 0)) / 2) * scale;
+  const y0 = ((SCENES.canvas.height - (size[1] ?? 0)) / 2) * scale;
+  const x1 = x0 + (size[0] ?? 0) * scale;
+  const y1 = y0 + (size[1] ?? 0) * scale;
+  let black = 0;
+  let one = 0;
+  let above = 0;
+  let worst = 0;
+  for (let y = 0; y < native.height; y += 1) {
+    for (let x = 0; x < native.width; x += 1) {
+      if (y >= y0 && y < y1 && x >= x0 && x < x1) continue;
+      const i = (y * native.width + x) * 4;
+      if ((native.data[i] ?? 0) !== 0 || (native.data[i + 1] ?? 0) !== 0
+          || (native.data[i + 2] ?? 0) !== 0) continue;
+      black += 1;
+      const top = Math.max(web.data[i] ?? 0, web.data[i + 1] ?? 0, web.data[i + 2] ?? 0);
+      if (top === 1) one += 1;
+      else if (top > 1) above += 1;
+      worst = Math.max(worst, top);
+    }
+  }
+  return black === 0
+    ? "no native-black exterior pixel on this bed"
+    : `black exterior ${black}: web at exactly 1 on ${one}, above 1 on ${above}, worst byte ${worst}`;
+}
+
+function sheet(
+  profileKey: string,
+  component: string,
+  scene: string,
+  tiers: "both" | "webgpu",
+): string {
   const nativePath = resolve(FIXTURES, profileKey, `${scene}.png`);
   const cellDir = resolve(CAPTURES, profileKey, scene);
   const documents = documentsOf(cellDir, "webgpu");
@@ -210,7 +266,8 @@ function sheet(profileKey: string, scene: string, tiers: "both" | "webgpu"): str
   writeFileSync(out, encodePng(image));
   const layout = tiers === "both" ? "native | WebGPU | CSS | dE x8" : "native | WebGPU | dE x8";
   console.log(
-    `${profileKey} / ${scene}\n  ${layout}  ${image.width}x${image.height}\n  at ${documents.join(" + ")}`,
+    `${profileKey} / ${scene}\n  ${layout}  ${image.width}x${image.height}\n`
+      + `  at ${documents.join(" + ")}\n  ${blackFloor(component, native, gpu)}`,
   );
   return out;
 }
@@ -232,19 +289,46 @@ console.log(`captures: ${CAPTURES}\n`);
 const has = (profileKey: string, scene: string, tier: "webgpu" | "css"): boolean =>
   existsSync(resolve(CAPTURES, profileKey, scene, `cell__${tier}.json`));
 
-console.log("== the exterior's bed: three spans, both poses, both schemes, both scales ==\n");
+console.log("== the landing's bed: three spans, both poses, both schemes, both scales ==\n");
 for (const profileKey of STANDARD_PROFILES) {
-  for (const scene of STANDARD_SCENES) {
-    if (!has(profileKey, scene, "webgpu")) {
-      console.log(`${profileKey} / ${scene}\n  not this profile's bed — no capture in the read`);
+  for (const entry of BED) {
+    const scene = entry.scenes.find((candidate) => has(profileKey, candidate, "webgpu"));
+    if (scene === undefined) {
+      console.log(
+        `${profileKey} / ${entry.component} ${entry.pose}\n`
+          + `  no capture in the read for any of ${entry.scenes.join(", ")}`,
+      );
       continue;
     }
-    written.push(sheet(profileKey, scene, has(profileKey, scene, "css") ? "both" : "webgpu"));
+    if (scene !== entry.scenes[0]) {
+      console.log(`  (${profileKey} declares no ${entry.scenes[0]}; the ladder's rung is used)`);
+    }
+    written.push(
+      sheet(profileKey, entry.component, scene, has(profileKey, scene, "css") ? "both" : "webgpu"),
+    );
   }
 }
-console.log("\n== the accessibility band: the thin caster, where the stop's worst cell lives ==\n");
+console.log("\n== the black floor's own bed: B-4's three spans on the profile it was read on ==\n");
+for (const entry of BLACK_FLOOR_BED) {
+  if (!has(BLACK_FLOOR_PROFILE, entry.scene, "webgpu")) {
+    console.log(`${BLACK_FLOOR_PROFILE} / ${entry.scene}\n  no capture in the read`);
+    continue;
+  }
+  written.push(
+    sheet(
+      BLACK_FLOOR_PROFILE,
+      entry.component,
+      entry.scene,
+      has(BLACK_FLOOR_PROFILE, entry.scene, "css") ? "both" : "webgpu",
+    ),
+  );
+}
+
+console.log("\n== the accessibility band: the thin caster, where the thin stop's worst cell lives ==\n");
 for (const profileKey of ACCESSIBILITY) {
-  for (const scene of ACCESSIBILITY_SCENES) written.push(sheet(profileKey, scene, "webgpu"));
+  for (const scene of ACCESSIBILITY_SCENES) {
+    written.push(sheet(profileKey, "capsule-button", scene, "webgpu"));
+  }
 }
 console.log(
   `\n${written.length} sheet(s).`
