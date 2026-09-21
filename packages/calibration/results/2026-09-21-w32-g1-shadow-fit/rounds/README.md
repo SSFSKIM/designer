@@ -31,6 +31,7 @@ document's own value is read on its own beds.
 | pre-fit | — (the shipped documents) | 0.00480 | 0.00381 | 0.00034 | the before |
 | R | the receded documents' amplitude → 0 (Decision Log 2); the active material unmoved | 0.00480 | 0.00381 | **0.00054** | — |
 | A | `spreadPx` 3.10 → **0.50** (light) and → **1.80** (dark) | **0.00176** | **0.00225** | 0.00063 | — |
+| B | A's window anchor solve applied at A's geometry | **0.00092** | **0.00156** | 0.00072 | — |
 
 ### pre-fit — the before
 
@@ -123,3 +124,75 @@ The **window-restricted** departure, the quantity the anchors are solved on, mov
 every thick span: 1x light 96 0.00176 → **0.00062**, 128 0.00433 → **0.00059**, 160 0.00463 →
 **0.00172**. So the two statistics disagree in SIGN about this round, which is §5.166 §6's finding
 arriving as a consequence rather than as a caution.
+
+### B — the anchors, solved in closed form, and the linearity they were solved under
+
+Round A's window-restricted anchor solve applied leaf for leaf at A's geometry; `spreadPx`,
+`offsetPx` and the σ law unmoved from A. Light: `thinOcclusionMid` 0.0680 → 0.0251,
+`thinOcclusionBright` 0.0683 → 0.0239, `thickOcclusionAt96` 0.1158 → 0.0920, `thickOcclusionAt128`
+0.1827 → 0.1801, `thickOcclusionAt160` 0.2600 → 0.2742. Dark: `thinOcclusionMid` 0.0455 → 0.0189,
+`thickOcclusionAt96` 0.1330 → 0.1031, `thickOcclusionAt128` 0.2263 → 0.2181, `thickOcclusionAt160`
+0.3409 → 0.3462.
+
+**`thinOcclusionBright` on the DARK document is derived and unread, and says so.** The dark beds
+carry no `light-solid` cell at span 32 or 44 — the anchor solve's `thinBright` regime is empty
+there — so the leaf is carried at the shipped document's own ratio to `thinOcclusionMid` (1.1802),
+0.0455 / 0.0537 → 0.0189 / 0.0223. Leaving it at 0.0537 beside a mid anchor of 0.0189 would put the
+dark material's bright-backdrop thin anchor at 2.8× its mid one, which is a material no measurement
+records; carrying the ratio keeps the relation the bed DID measure at W29. It is recorded as
+derived, not fitted, and the bed that would read it is a `scenes.json` decision.
+
+**The linearity holds, and this is the check the charter asks for.** A round rendered at the anchor
+the previous round WANTED should return a window ratio of 1.000; it returns **0.951 to 1.044** on
+every regime of both schemes, from ratios that ran 0.350 to 1.055 at round A:
+
+| scheme | regime | ratio at A | ratio at B |
+| --- | --- | ---: | ---: |
+| light | thinMid | 0.3698 | **0.9723** |
+| light | thinBright | 0.3504 | **0.9514** |
+| light | thick96 | 0.7941 | **1.0443** |
+| light | thick128 | 0.9858 | **0.9980** |
+| light | thick160 | 1.0546 | **0.9908** |
+| dark | thinMid | 0.4155 | **1.0432** |
+| dark | thick96 | 0.7754 | **1.0194** |
+| dark | thick128 | 0.9638 | **1.0016** |
+| dark | thick160 | 1.0154 | **0.9989** |
+
+A 2.7× move in the thin anchors returns a ratio within 5 % of unity, so the closed form W30 §5.159
+§2 states — `anchor_wanted = anchor_rendered · (departure_native / departure_web)` — holds at this
+geometry and over this window as well as it held over the whole exterior.
+
+**The objective converges.** Light 0.00176 → **0.00092**, dark 0.00225 → **0.00156**, both moves
+below the bar 0.002044. Per bed per span, `T` against C1's ruled 0.0042:
+
+| bed | 32 | 44 | 96 | 128 | 160 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1x light | 0.00004 | 0.00009 | 0.00103 | 0.00237 | 0.00170 |
+| 2x light | 0.00005 | 0.00006 | 0.00100 | 0.00255 | 0.00078 |
+| 1x dark | 0.00011 | 0.00022 | 0.00122 | 0.00410 | 0.00269 |
+| 2x dark | 0.00013 | 0.00022 | 0.00125 | **0.00464** | 0.00241 |
+
+**Eleven of twelve rows pass**; the one miss is `2x dark` at span 128 by 10.5 %, with `1x dark` at
+the same span 2 % inside. The thin spans, which the charter's Purpose opened on as the regime one
+statistic had called "right" by dilution, read **0.00004 to 0.00022** against 0.00168–0.00339 at the
+shipped documents — a factor of 15 to 70.
+
+**And B3's two pixel sets now disagree by a factor of twelve** (`../b3-window.py`; the same 166
+cells, the same aggregation, nothing adopted and nothing re-stated):
+
+| round | whole exterior — B3 as declared | over the admitted bands |
+| --- | ---: | ---: |
+| pre-fit | 0.00034 | 0.00122 |
+| R | 0.00054 | 0.00053 |
+| A | 0.00063 | 0.00020 |
+| B | **0.00072** | **0.00006** |
+
+Over the pixels C1 is stated on, the departure residual falls by a factor of **twenty**; over the
+whole exterior it doubles. On the ACTIVE pose alone the same pair reads 0.00029 → 0.00064 and
+0.00104 → **0.00011**. Every one of B3's remaining residual lives in the `0-3` band, which is
+Apple's rim on the inactive pose and vitrea's own body over-fill (§5.62) on the active one — and
+both are outside what X3 lets this wave touch.
+
+Candidate (i) at B: `σ_web − σ_nat` **+1.52 to +2.76 CSS px** against G0's +2.66 to +3.77, and
+(i) itself 0.274 / 0.168 / 0.103 on 1x light at spans 96 / 128 / 160 against 0.414 / 0.249 / 0.176.
+OUTSIDE B1's ±5 % window on all twelve, as the reading it is.

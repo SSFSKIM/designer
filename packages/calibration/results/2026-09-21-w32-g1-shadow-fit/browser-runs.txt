@@ -14,3 +14,9 @@ foreign browser automation processes at start: 0
 2026-09-21T12:57:36Z  w32-g1-A                     reduceTransparency=0 increaseContrast=0 NSGlassTintAmount=0.5  27.0/26A428 head=fe87c9a7
 2026-09-21T13:08:28Z  w32-g1-A-close               reduceTransparency=0 increaseContrast=0 NSGlassTintAmount=0.5  27.0/26A428 head=fe87c9a7
 == round B — A's window anchor solve applied at A's geometry (the linearity check) ==
+foreign browser automation processes at start: 0
+2026-09-21T13:12:01Z  w32-g1-B                     reduceTransparency=0 increaseContrast=0 NSGlassTintAmount=0.5  27.0/26A428 head=3f2a4447
+2026-09-21T13:22:57Z  w32-g1-B-close               reduceTransparency=0 increaseContrast=0 NSGlassTintAmount=0.5  27.0/26A428 head=3f2a4447
+== round C — light: B's residual anchor solve at spread 0.50 (the convergence round); dark: spread 1.80 → 0.50 at B's anchors (the shape probe at span 128) ==
+foreign browser automation processes at start: 0
+2026-09-21T13:27:51Z  w32-g1-C                     reduceTransparency=0 increaseContrast=0 NSGlassTintAmount=0.5  27.0/26A428 head=3f2a4447
