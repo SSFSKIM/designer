@@ -66,6 +66,12 @@ to 0.0005 at every span, which is the bed saying the two renders are symmetric a
 axis — as both materials are by construction, and as `offsetX` confirms at web − native 0.00 at
 every span.
 
+**Corrected beside, 2026-09-21 (review closure; claims §5.166 §10, finding N9).** 0.0005 is the 1x
+light reading, where the largest disagreement is 0.00085 at span 44 — already past it. Over the four
+standard beds the largest is **0.00083**, at span 128 on 1x dark: `left` 0.01042 against `right`
+0.00959, with the next largest 0.00047. The symmetry reading is unchanged — 0.00083 is under 9 % of
+the `T_dir` it sits on, and `offsetX` is 0.00 on every bed at every span.
+
 The extents are the sharper reading, because they are a length rather than a transmission
 (`exterior-cut.txt` §10, WebGPU, active, non-holdout, CSS px, median):
 

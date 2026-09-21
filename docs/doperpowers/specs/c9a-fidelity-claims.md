@@ -31925,7 +31925,12 @@ information at all.
 `above` begins to carry shadow at **span 96** (0.00183–0.00215 on the four
 standard beds), overtakes `below` at **128** (0.00843–0.00975 against
 0.00813–0.01022) and is 2.7× it at **160** on the light beds. Left and right agree
-with each other to 0.0005 at every span, and `offsetX` web − native is 0.00
+with each other to 0.0005 at every span, *(Corrected beside,
+2026-09-21, review closure; §10, finding N9: 0.0005 is the 1x light reading. Over
+the four standard beds the largest `left` − `right` disagreement is **0.00083**,
+at span 128 on 1x dark — 0.01042 against 0.00959 — and the next is 0.00047. The
+symmetry reading stands: 0.00083 against `T_dir`s of 0.008–0.011 is under 9 % of
+the figure, and `offsetX` is 0.00 on every bed and span.)* And `offsetX` web − native is 0.00
 everywhere, so the two materials are symmetric about the vertical axis as both
 are by construction. The per-band shapes differ where the summaries do not: at
 96–160 `above` is **front-loaded** (−0.0123 at `3-6` falling to −0.0000 at
