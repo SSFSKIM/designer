@@ -32126,6 +32126,20 @@ admitted-band rule); and the stops.
 | the thin regime, per cell | tabled at spans 32 and 44 | no worse by 0.002044 | the before |
 | M1 / M2 | median `R` 0.92339–1.07526; `M2` max 0.01317 | [0.80, 1.20]; ≤ 2 % | MET |
 
+**Corrected beside, 2026-09-21 (review closure; §10, finding N1).** The thin
+regime's stop is declared over *every* active non-holdout WebGPU cell at spans 32
+and 44, and `stops.txt` §3 and the declaration tabulated only the four standard
+beds. **Nine span-44 cells on the two accessibility beds are inside that
+population and had no "today"**, and they hold its worst reading:
+`1x light-increased-contrast-coupled` at span 44 reads median `3-6` 0.03179 with
+a max of **0.04012** over 5 cells, and `1x light-reduced-transparency` 0.04012
+and 0.04012 over 4. **Over the whole population — 103 cells on six beds — the
+worst `|Δa|` is 0.04012** at the `3-6` band, on `photo__capsule-button__rest`
+and its `-tint-orange` sibling on both accessibility beds; that is 19.6 times
+the bar, against 0.03449 on the standard beds. `stops.py` now reads every bed
+the cut carries and was re-run into `stops.txt` and `stops.json`; the eight
+standard-bed rows are unchanged, because the table is per bed.
+
 **The window-restricted departure beside B3** is the change of objective W32
 clause 3 makes, and it is not small: over the admitted bands the web-minus-native
 difference is **3.3 to 6.4 times** the whole-exterior one and it reverses the

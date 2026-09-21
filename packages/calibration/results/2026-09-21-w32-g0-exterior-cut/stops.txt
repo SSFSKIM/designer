@@ -72,119 +72,145 @@ Documents:  packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glas
   either band worse than today's by more than the bar, and the order statistic per bed
   no worse than today's.
 
-  bed          spanset         scene                                           |Δa| 3-6   |Δa| 6-12
-  1x light       32probe       checkerboard-32__rrect-sm__rest                  0.01754     0.01229
-  1x light       32probe       checkerboard-4__rrect-sm__rest                   0.01754     0.01229
-  1x light       32probe       checkerboard-64__rrect-sm__rest                  0.01940     0.01995
-  1x light       32probe       checkerboard-8__rrect-sm__rest                   0.01754     0.01229
-  1x light       32probe       checkerboard-lc16__rrect-sm__rest                0.01373     0.01038
-  1x light       32calibration checkerboard__rrect-sm__rest                     0.01754     0.01229
-  1x light       32probe       hc-text-28__rrect-sm__rest                       0.01227     0.00163
-  1x light       32probe       hc-text-7__rrect-sm__rest                        0.02024     0.00999
-  1x light       32validation  photo__rrect-sm__rest                            0.03433     0.00493
+  EVERY bed, which since the review closure includes the accessibility beds (claims
+  §5.166 §10, finding N1). They were outside this table and inside the stop, and they
+  carry the population's worst reading; the standard beds' own rows are unchanged.
 
-  1x light       44probe       checkerboard-32__capsule-button__rest            0.01865     0.01494
-  1x light       44probe       checkerboard-32__capsule-button__rest-tint-orange     0.01865     0.01494
-  1x light       44probe       checkerboard-4__capsule-button__rest             0.01865     0.01494
-  1x light       44probe       checkerboard-4__capsule-button__rest-tint-orange     0.01865     0.01494
-  1x light       44probe       checkerboard-64__capsule-button__rest            0.01885     0.02554
-  1x light       44probe       checkerboard-64__capsule-button__rest-tint-orange     0.01885     0.02554
-  1x light       44probe       checkerboard-8__capsule-button__rest             0.01865     0.01494
-  1x light       44probe       checkerboard-8__capsule-button__rest-tint-orange     0.01865     0.01494
-  1x light       44probe       checkerboard-lc16__capsule-button__rest          0.01401     0.01248
-  1x light       44calibration checkerboard__capsule-button__rest               0.01865     0.01494
-  1x light       44validation  checkerboard__capsule-button__rest-tint-blue     0.01865     0.01494
-  1x light       44calibration checkerboard__capsule-button__rest-tint-orange     0.01865     0.01494
-  1x light       44calibration checkerboard__toolbar-group__rest                0.01883     0.01298
-  1x light       44calibration photo__capsule-button__rest                      0.02931     0.01103
-  1x light       44calibration photo__capsule-button__rest-tint-blue            0.02931     0.01103
-  1x light       44calibration photo__capsule-button__rest-tint-orange          0.02931     0.01103
-  1x light       44calibration photo__capsule-button__rest-tint-orange-half     0.02931     0.01103
-  1x light       44validation  photo__toolbar-group__rest                       0.02413     0.00698
+  bed                                    spanset         scene                                           |Δa| 3-6   |Δa| 6-12
+  1x light                                 32probe       checkerboard-32__rrect-sm__rest                  0.01754     0.01229
+  1x light                                 32probe       checkerboard-4__rrect-sm__rest                   0.01754     0.01229
+  1x light                                 32probe       checkerboard-64__rrect-sm__rest                  0.01940     0.01995
+  1x light                                 32probe       checkerboard-8__rrect-sm__rest                   0.01754     0.01229
+  1x light                                 32probe       checkerboard-lc16__rrect-sm__rest                0.01373     0.01038
+  1x light                                 32calibration checkerboard__rrect-sm__rest                     0.01754     0.01229
+  1x light                                 32probe       hc-text-28__rrect-sm__rest                       0.01227     0.00163
+  1x light                                 32probe       hc-text-7__rrect-sm__rest                        0.02024     0.00999
+  1x light                                 32validation  photo__rrect-sm__rest                            0.03433     0.00493
 
-  2x light       32probe       checkerboard-32__rrect-sm__rest                  0.01726     0.01217
-  2x light       32probe       checkerboard-4__rrect-sm__rest                   0.01726     0.01217
-  2x light       32probe       checkerboard-64__rrect-sm__rest                  0.01891     0.01953
-  2x light       32probe       checkerboard-8__rrect-sm__rest                   0.01726     0.01217
-  2x light       32probe       checkerboard-lc16__rrect-sm__rest                0.01377     0.01020
-  2x light       32calibration checkerboard__rrect-sm__rest                     0.01726     0.01217
-  2x light       32probe       hc-text-28__rrect-sm__rest                       0.01239     0.00170
-  2x light       32probe       hc-text-7__rrect-sm__rest                        0.01977     0.00988
-  2x light       32validation  photo__rrect-sm__rest                            0.03449     0.00552
+  1x light                                 44probe       checkerboard-32__capsule-button__rest            0.01865     0.01494
+  1x light                                 44probe       checkerboard-32__capsule-button__rest-tint-orange     0.01865     0.01494
+  1x light                                 44probe       checkerboard-4__capsule-button__rest             0.01865     0.01494
+  1x light                                 44probe       checkerboard-4__capsule-button__rest-tint-orange     0.01865     0.01494
+  1x light                                 44probe       checkerboard-64__capsule-button__rest            0.01885     0.02554
+  1x light                                 44probe       checkerboard-64__capsule-button__rest-tint-orange     0.01885     0.02554
+  1x light                                 44probe       checkerboard-8__capsule-button__rest             0.01865     0.01494
+  1x light                                 44probe       checkerboard-8__capsule-button__rest-tint-orange     0.01865     0.01494
+  1x light                                 44probe       checkerboard-lc16__capsule-button__rest          0.01401     0.01248
+  1x light                                 44calibration checkerboard__capsule-button__rest               0.01865     0.01494
+  1x light                                 44validation  checkerboard__capsule-button__rest-tint-blue     0.01865     0.01494
+  1x light                                 44calibration checkerboard__capsule-button__rest-tint-orange     0.01865     0.01494
+  1x light                                 44calibration checkerboard__toolbar-group__rest                0.01883     0.01298
+  1x light                                 44calibration photo__capsule-button__rest                      0.02931     0.01103
+  1x light                                 44calibration photo__capsule-button__rest-tint-blue            0.02931     0.01103
+  1x light                                 44calibration photo__capsule-button__rest-tint-orange          0.02931     0.01103
+  1x light                                 44calibration photo__capsule-button__rest-tint-orange-half     0.02931     0.01103
+  1x light                                 44validation  photo__toolbar-group__rest                       0.02413     0.00698
 
-  2x light       44probe       checkerboard-32__capsule-button__rest            0.01873     0.01490
-  2x light       44probe       checkerboard-32__capsule-button__rest-tint-orange     0.01873     0.01490
-  2x light       44probe       checkerboard-4__capsule-button__rest             0.01873     0.01490
-  2x light       44probe       checkerboard-4__capsule-button__rest-tint-orange     0.01873     0.01490
-  2x light       44probe       checkerboard-64__capsule-button__rest            0.01892     0.02558
-  2x light       44probe       checkerboard-64__capsule-button__rest-tint-orange     0.01892     0.02558
-  2x light       44probe       checkerboard-8__capsule-button__rest             0.01873     0.01490
-  2x light       44probe       checkerboard-8__capsule-button__rest-tint-orange     0.01873     0.01490
-  2x light       44probe       checkerboard-lc16__capsule-button__rest          0.01467     0.01277
-  2x light       44calibration checkerboard__capsule-button__rest               0.01873     0.01490
-  2x light       44validation  checkerboard__capsule-button__rest-tint-blue     0.01873     0.01490
-  2x light       44calibration checkerboard__capsule-button__rest-tint-orange     0.01873     0.01490
-  2x light       44calibration checkerboard__toolbar-group__rest                0.01881     0.01297
-  2x light       44calibration photo__capsule-button__rest                      0.02873     0.01087
-  2x light       44calibration photo__capsule-button__rest-tint-blue            0.02873     0.01087
-  2x light       44calibration photo__capsule-button__rest-tint-orange          0.02873     0.01087
-  2x light       44calibration photo__capsule-button__rest-tint-orange-half     0.02873     0.01087
-  2x light       44validation  photo__toolbar-group__rest                       0.02407     0.00702
+  2x light                                 32probe       checkerboard-32__rrect-sm__rest                  0.01726     0.01217
+  2x light                                 32probe       checkerboard-4__rrect-sm__rest                   0.01726     0.01217
+  2x light                                 32probe       checkerboard-64__rrect-sm__rest                  0.01891     0.01953
+  2x light                                 32probe       checkerboard-8__rrect-sm__rest                   0.01726     0.01217
+  2x light                                 32probe       checkerboard-lc16__rrect-sm__rest                0.01377     0.01020
+  2x light                                 32calibration checkerboard__rrect-sm__rest                     0.01726     0.01217
+  2x light                                 32probe       hc-text-28__rrect-sm__rest                       0.01239     0.00170
+  2x light                                 32probe       hc-text-7__rrect-sm__rest                        0.01977     0.00988
+  2x light                                 32validation  photo__rrect-sm__rest                            0.03449     0.00552
 
-  1x dark        32probe       checkerboard-32__rrect-sm__rest                  0.01016     0.00739
-  1x dark        32probe       checkerboard-4__rrect-sm__rest                   0.01016     0.00739
-  1x dark        32probe       checkerboard-64__rrect-sm__rest                  0.01071     0.01182
-  1x dark        32probe       checkerboard-8__rrect-sm__rest                   0.01016     0.00739
-  1x dark        32probe       checkerboard-lc16__rrect-sm__rest                0.00560     0.00663
-  1x dark        32probe       hc-text-28__rrect-sm__rest                       0.00711     0.00106
-  1x dark        32probe       hc-text-7__rrect-sm__rest                        0.01147     0.00619
+  2x light                                 44probe       checkerboard-32__capsule-button__rest            0.01873     0.01490
+  2x light                                 44probe       checkerboard-32__capsule-button__rest-tint-orange     0.01873     0.01490
+  2x light                                 44probe       checkerboard-4__capsule-button__rest             0.01873     0.01490
+  2x light                                 44probe       checkerboard-4__capsule-button__rest-tint-orange     0.01873     0.01490
+  2x light                                 44probe       checkerboard-64__capsule-button__rest            0.01892     0.02558
+  2x light                                 44probe       checkerboard-64__capsule-button__rest-tint-orange     0.01892     0.02558
+  2x light                                 44probe       checkerboard-8__capsule-button__rest             0.01873     0.01490
+  2x light                                 44probe       checkerboard-8__capsule-button__rest-tint-orange     0.01873     0.01490
+  2x light                                 44probe       checkerboard-lc16__capsule-button__rest          0.01467     0.01277
+  2x light                                 44calibration checkerboard__capsule-button__rest               0.01873     0.01490
+  2x light                                 44validation  checkerboard__capsule-button__rest-tint-blue     0.01873     0.01490
+  2x light                                 44calibration checkerboard__capsule-button__rest-tint-orange     0.01873     0.01490
+  2x light                                 44calibration checkerboard__toolbar-group__rest                0.01881     0.01297
+  2x light                                 44calibration photo__capsule-button__rest                      0.02873     0.01087
+  2x light                                 44calibration photo__capsule-button__rest-tint-blue            0.02873     0.01087
+  2x light                                 44calibration photo__capsule-button__rest-tint-orange          0.02873     0.01087
+  2x light                                 44calibration photo__capsule-button__rest-tint-orange-half     0.02873     0.01087
+  2x light                                 44validation  photo__toolbar-group__rest                       0.02407     0.00702
 
-  1x dark        44probe       checkerboard-32__capsule-button__rest            0.01061     0.00936
-  1x dark        44probe       checkerboard-32__capsule-button__rest-tint-orange     0.01061     0.00936
-  1x dark        44probe       checkerboard-4__capsule-button__rest             0.01061     0.00936
-  1x dark        44probe       checkerboard-4__capsule-button__rest-tint-orange     0.01061     0.00936
-  1x dark        44probe       checkerboard-64__capsule-button__rest            0.01020     0.01562
-  1x dark        44probe       checkerboard-64__capsule-button__rest-tint-orange     0.01020     0.01562
-  1x dark        44probe       checkerboard-8__capsule-button__rest             0.01061     0.00936
-  1x dark        44probe       checkerboard-8__capsule-button__rest-tint-orange     0.01061     0.00936
-  1x dark        44probe       checkerboard-lc16__capsule-button__rest          0.00518     0.00770
-  1x dark        44calibration checkerboard__capsule-button__rest               0.01061     0.00936
-  1x dark        44calibration checkerboard__capsule-button__rest-tint-orange     0.01061     0.00936
-  1x dark        44calibration photo__capsule-button__rest                      0.01647     0.00698
-  1x dark        44calibration photo__capsule-button__rest-tint-orange          0.01647     0.00698
+  1x dark                                  32probe       checkerboard-32__rrect-sm__rest                  0.01016     0.00739
+  1x dark                                  32probe       checkerboard-4__rrect-sm__rest                   0.01016     0.00739
+  1x dark                                  32probe       checkerboard-64__rrect-sm__rest                  0.01071     0.01182
+  1x dark                                  32probe       checkerboard-8__rrect-sm__rest                   0.01016     0.00739
+  1x dark                                  32probe       checkerboard-lc16__rrect-sm__rest                0.00560     0.00663
+  1x dark                                  32probe       hc-text-28__rrect-sm__rest                       0.00711     0.00106
+  1x dark                                  32probe       hc-text-7__rrect-sm__rest                        0.01147     0.00619
 
-  2x dark        32probe       checkerboard-32__rrect-sm__rest                  0.00970     0.00744
-  2x dark        32probe       checkerboard-4__rrect-sm__rest                   0.00970     0.00744
-  2x dark        32probe       checkerboard-64__rrect-sm__rest                  0.01024     0.01200
-  2x dark        32probe       checkerboard-8__rrect-sm__rest                   0.00970     0.00744
-  2x dark        32probe       checkerboard-lc16__rrect-sm__rest                0.00556     0.00654
-  2x dark        32probe       hc-text-28__rrect-sm__rest                       0.00704     0.00094
-  2x dark        32probe       hc-text-7__rrect-sm__rest                        0.01096     0.00628
+  1x dark                                  44probe       checkerboard-32__capsule-button__rest            0.01061     0.00936
+  1x dark                                  44probe       checkerboard-32__capsule-button__rest-tint-orange     0.01061     0.00936
+  1x dark                                  44probe       checkerboard-4__capsule-button__rest             0.01061     0.00936
+  1x dark                                  44probe       checkerboard-4__capsule-button__rest-tint-orange     0.01061     0.00936
+  1x dark                                  44probe       checkerboard-64__capsule-button__rest            0.01020     0.01562
+  1x dark                                  44probe       checkerboard-64__capsule-button__rest-tint-orange     0.01020     0.01562
+  1x dark                                  44probe       checkerboard-8__capsule-button__rest             0.01061     0.00936
+  1x dark                                  44probe       checkerboard-8__capsule-button__rest-tint-orange     0.01061     0.00936
+  1x dark                                  44probe       checkerboard-lc16__capsule-button__rest          0.00518     0.00770
+  1x dark                                  44calibration checkerboard__capsule-button__rest               0.01061     0.00936
+  1x dark                                  44calibration checkerboard__capsule-button__rest-tint-orange     0.01061     0.00936
+  1x dark                                  44calibration photo__capsule-button__rest                      0.01647     0.00698
+  1x dark                                  44calibration photo__capsule-button__rest-tint-orange          0.01647     0.00698
 
-  2x dark        44probe       checkerboard-32__capsule-button__rest            0.01037     0.00929
-  2x dark        44probe       checkerboard-32__capsule-button__rest-tint-orange     0.01037     0.00929
-  2x dark        44probe       checkerboard-4__capsule-button__rest             0.01037     0.00929
-  2x dark        44probe       checkerboard-4__capsule-button__rest-tint-orange     0.01037     0.00929
-  2x dark        44probe       checkerboard-64__capsule-button__rest            0.00956     0.01561
-  2x dark        44probe       checkerboard-64__capsule-button__rest-tint-orange     0.00956     0.01561
-  2x dark        44probe       checkerboard-8__capsule-button__rest             0.01037     0.00929
-  2x dark        44probe       checkerboard-8__capsule-button__rest-tint-orange     0.01037     0.00929
-  2x dark        44probe       checkerboard-lc16__capsule-button__rest          0.00531     0.00787
-  2x dark        44calibration checkerboard__capsule-button__rest               0.01037     0.00929
-  2x dark        44calibration checkerboard__capsule-button__rest-tint-orange     0.01037     0.00929
-  2x dark        44calibration photo__capsule-button__rest                      0.01648     0.00678
-  2x dark        44calibration photo__capsule-button__rest-tint-orange          0.01648     0.00678
+  2x dark                                  32probe       checkerboard-32__rrect-sm__rest                  0.00970     0.00744
+  2x dark                                  32probe       checkerboard-4__rrect-sm__rest                   0.00970     0.00744
+  2x dark                                  32probe       checkerboard-64__rrect-sm__rest                  0.01024     0.01200
+  2x dark                                  32probe       checkerboard-8__rrect-sm__rest                   0.00970     0.00744
+  2x dark                                  32probe       checkerboard-lc16__rrect-sm__rest                0.00556     0.00654
+  2x dark                                  32probe       hc-text-28__rrect-sm__rest                       0.00704     0.00094
+  2x dark                                  32probe       hc-text-7__rrect-sm__rest                        0.01096     0.00628
+
+  2x dark                                  44probe       checkerboard-32__capsule-button__rest            0.01037     0.00929
+  2x dark                                  44probe       checkerboard-32__capsule-button__rest-tint-orange     0.01037     0.00929
+  2x dark                                  44probe       checkerboard-4__capsule-button__rest             0.01037     0.00929
+  2x dark                                  44probe       checkerboard-4__capsule-button__rest-tint-orange     0.01037     0.00929
+  2x dark                                  44probe       checkerboard-64__capsule-button__rest            0.00956     0.01561
+  2x dark                                  44probe       checkerboard-64__capsule-button__rest-tint-orange     0.00956     0.01561
+  2x dark                                  44probe       checkerboard-8__capsule-button__rest             0.01037     0.00929
+  2x dark                                  44probe       checkerboard-8__capsule-button__rest-tint-orange     0.01037     0.00929
+  2x dark                                  44probe       checkerboard-lc16__capsule-button__rest          0.00531     0.00787
+  2x dark                                  44calibration checkerboard__capsule-button__rest               0.01037     0.00929
+  2x dark                                  44calibration checkerboard__capsule-button__rest-tint-orange     0.01037     0.00929
+  2x dark                                  44calibration photo__capsule-button__rest                      0.01648     0.00678
+  2x dark                                  44calibration photo__capsule-button__rest-tint-orange          0.01648     0.00678
+
+  1x light-increased-contrast-coupled      44calibration checkerboard__capsule-button__rest               0.02625     0.01922
+  1x light-increased-contrast-coupled      44calibration checkerboard__capsule-button__rest-tint-orange     0.02625     0.01922
+  1x light-increased-contrast-coupled      44calibration photo__capsule-button__rest                      0.04012     0.01423
+  1x light-increased-contrast-coupled      44calibration photo__capsule-button__rest-tint-orange          0.04012     0.01423
+  1x light-increased-contrast-coupled      44validation  photo__toolbar-group__rest                       0.03179     0.00911
+
+  1x light-reduced-transparency            44calibration checkerboard__capsule-button__rest               0.02625     0.01922
+  1x light-reduced-transparency            44calibration photo__capsule-button__rest                      0.04012     0.01423
+  1x light-reduced-transparency            44calibration photo__capsule-button__rest-tint-orange          0.04012     0.01423
+  1x light-reduced-transparency            44validation  photo__toolbar-group__rest                       0.03179     0.00911
 
   The order statistic per bed and span, which is the second half of the stop:
-  bed          span   n      median 3-6       max 3-6     median 6-12      max 6-12
-  1x light       32   9         0.01754       0.03433         0.01229       0.01995
-  1x light       44  18         0.01865       0.02931         0.01494       0.02554
-  2x light       32   9         0.01726       0.03449         0.01217       0.01953
-  2x light       44  18         0.01873       0.02873         0.01490       0.02558
-  1x dark        32   7         0.01016       0.01147         0.00739       0.01182
-  1x dark        44  13         0.01061       0.01647         0.00936       0.01562
-  2x dark        32   7         0.00970       0.01096         0.00744       0.01200
-  2x dark        44  13         0.01037       0.01648         0.00929       0.01561
+  bed                                    span   n      median 3-6       max 3-6     median 6-12      max 6-12
+  1x light                                 32   9         0.01754       0.03433         0.01229       0.01995
+  1x light                                 44  18         0.01865       0.02931         0.01494       0.02554
+  2x light                                 32   9         0.01726       0.03449         0.01217       0.01953
+  2x light                                 44  18         0.01873       0.02873         0.01490       0.02558
+  1x dark                                  32   7         0.01016       0.01147         0.00739       0.01182
+  1x dark                                  44  13         0.01061       0.01647         0.00936       0.01562
+  2x dark                                  32   7         0.00970       0.01096         0.00744       0.01200
+  2x dark                                  44  13         0.01037       0.01648         0.00929       0.01561
+  1x light-increased-contrast-coupled      44   5         0.03179       0.04012         0.01423       0.01922
+  1x light-reduced-transparency            44   4         0.04012       0.04012         0.01423       0.01922
+
+  The worst cell over the WHOLE population, which is the figure a round is read
+  against first and which no per-bed row carries:
+    population 103 cells over 6 beds
+    worst |Δa| 0.04012 at band 3-6, read on 4 cells:
+      1x light-increased-contrast-coupled span 44  photo__capsule-button__rest
+      1x light-increased-contrast-coupled span 44  photo__capsule-button__rest-tint-orange
+      1x light-reduced-transparency span 44  photo__capsule-button__rest
+      1x light-reduced-transparency span 44  photo__capsule-button__rest-tint-orange
 
 §4. M1 and M2 today, from the cut they were adopted on
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------

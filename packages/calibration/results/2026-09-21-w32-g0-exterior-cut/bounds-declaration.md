@@ -361,6 +361,26 @@ order statistic:
 The per-cell medians are 4.7 to 9.2 times the bar and the maxima 5.4 to 17 times it, so a cell that moves by the bar has moved by 7–20 %
 of its own reading: the stop is a real constraint and not a noise allowance.
 
+**Corrected beside, 2026-09-21 (review closure; claims §5.166 §10, finding N1). The table was the
+four standard beds; the stop is every bed.** Nine span-44 cells on the accessibility beds are
+active, non-holdout, WebGPU, calibration or validation — inside the stop's own population — and had
+no "today" here to compare a round against. They hold the population's WORST reading. `stops.py` was
+extended to read every bed the cut carries and re-run into `stops.txt` / `stops.json`; the eight rows
+above are unchanged, because the table is per bed.
+
+| bed | span | n | median `3-6` | max `3-6` | median `6-12` | max `6-12` |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1x light-increased-contrast-coupled | 44 | 5 | 0.03179 | **0.04012** | 0.01423 | 0.01922 |
+| 1x light-reduced-transparency | 44 | 4 | 0.04012 | **0.04012** | 0.01423 | 0.01922 |
+
+**Over the whole population — 103 cells on six beds — the worst `|Δa|` is 0.04012**, at the `3-6`
+band, read on four cells: `photo__capsule-button__rest` and `photo__capsule-button__rest-tint-orange`
+on 1x light-increased-contrast-coupled and on 1x light-reduced-transparency. That is **19.6 times the
+bar**, against the standard beds' worst of 0.03449 (2x light span 32). The stop is unchanged in
+kind — per cell against the bar, and the order statistic per bed — and now has a row for every cell
+it names.
+
+
 ### M1 and M2, and the rows expected unmoved
 
 From W31 G4's committed `chroma-cut.json`, the cut `adopted-thresholds.test.ts` points at and

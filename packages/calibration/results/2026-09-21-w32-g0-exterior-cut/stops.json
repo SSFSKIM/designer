@@ -900,6 +900,60 @@
     "span": 44,
     "3-6": 0.016480999999999968,
     "6-12": 0.006780999999999926
+   },
+   "webgpu / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": {
+    "bed": "1x light-increased-contrast-coupled",
+    "span": 44,
+    "3-6": 0.026249999999999996,
+    "6-12": 0.01921600000000001
+   },
+   "webgpu / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": {
+    "bed": "1x light-increased-contrast-coupled",
+    "span": 44,
+    "3-6": 0.026249999999999996,
+    "6-12": 0.01921600000000001
+   },
+   "webgpu / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": {
+    "bed": "1x light-increased-contrast-coupled",
+    "span": 44,
+    "3-6": 0.04011699999999996,
+    "6-12": 0.014226000000000072
+   },
+   "webgpu / calibration / photo__capsule-button__rest-tint-orange / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": {
+    "bed": "1x light-increased-contrast-coupled",
+    "span": 44,
+    "3-6": 0.04011699999999996,
+    "6-12": 0.014226000000000072
+   },
+   "webgpu / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": {
+    "bed": "1x light-increased-contrast-coupled",
+    "span": 44,
+    "3-6": 0.03178700000000001,
+    "6-12": 0.009108999999999923
+   },
+   "webgpu / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5": {
+    "bed": "1x light-reduced-transparency",
+    "span": 44,
+    "3-6": 0.026249999999999996,
+    "6-12": 0.01921600000000001
+   },
+   "webgpu / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5": {
+    "bed": "1x light-reduced-transparency",
+    "span": 44,
+    "3-6": 0.04011699999999996,
+    "6-12": 0.014226000000000072
+   },
+   "webgpu / calibration / photo__capsule-button__rest-tint-orange / apple-macos-27.0-1x-light-reduced-transparency-glass0.5": {
+    "bed": "1x light-reduced-transparency",
+    "span": 44,
+    "3-6": 0.04011699999999996,
+    "6-12": 0.014226000000000072
+   },
+   "webgpu / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5": {
+    "bed": "1x light-reduced-transparency",
+    "span": 44,
+    "3-6": 0.03178700000000001,
+    "6-12": 0.009108999999999923
    }
   },
   "perBed": {
@@ -998,8 +1052,55 @@
      "max": 0.015606000000000009,
      "n": 13
     }
+   },
+   "1x light-increased-contrast-coupled span 44": {
+    "3-6": {
+     "median": 0.03178700000000001,
+     "max": 0.04011699999999996,
+     "n": 5
+    },
+    "6-12": {
+     "median": 0.014226000000000072,
+     "max": 0.01921600000000001,
+     "n": 5
+    }
+   },
+   "1x light-reduced-transparency span 44": {
+    "3-6": {
+     "median": 0.04011699999999996,
+     "max": 0.04011699999999996,
+     "n": 4
+    },
+    "6-12": {
+     "median": 0.014226000000000072,
+     "max": 0.01921600000000001,
+     "n": 4
+    }
    }
-  }
+  },
+  "population": 103,
+  "beds": [
+   "1x light",
+   "2x light",
+   "1x dark",
+   "2x dark",
+   "1x light-increased-contrast-coupled",
+   "1x light-reduced-transparency"
+  ],
+  "worstCell": {
+   "value": 0.04011699999999996,
+   "bed": "1x light-increased-contrast-coupled",
+   "span": 44,
+   "band": "3-6",
+   "scene": "photo__capsule-button__rest-tint-orange",
+   "set": "calibration"
+  },
+  "worstCellScenes": [
+   "1x light-increased-contrast-coupled span 44  photo__capsule-button__rest",
+   "1x light-increased-contrast-coupled span 44  photo__capsule-button__rest-tint-orange",
+   "1x light-reduced-transparency span 44  photo__capsule-button__rest",
+   "1x light-reduced-transparency span 44  photo__capsule-button__rest-tint-orange"
+  ]
  },
  "m2": {
   "apple-macos-27.0-1x-dark-standard-glass0.5": {

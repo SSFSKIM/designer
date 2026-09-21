@@ -23,7 +23,12 @@ The stops, in the charter's order (clause 2):
   * **the thin regime, per cell**: on every active non-holdout WebGPU cell at
     spans 32 and 44, the inner bands' `|Δa|` against the native pair's MAX bar
     0.002044 over 432 cells (`results/2026-09-19-w29-g3b-shadow-recede/
-    noise-bar.json`).
+    noise-bar.json`). **Every** such cell, which since the W32 G0 review closure
+    means the accessibility beds too (claims §5.166 §10, finding N1): the stop
+    names them and §3 tabulated only the four standard beds, so nine span-44
+    cells the stop binds had no "today" to compare a round against — and they
+    hold the population's worst `|Δa|` at the `3-6` band. The four standard beds'
+    own figures are unchanged beside them, because the table is per bed.
   * **M1 and M2**, from W31 G4's committed `chroma-cut.json` — the cut they were
     adopted on and the one `adopted-thresholds.test.ts` points `CHROMA_CUT` at,
     which that test re-derives from `results/matrix.json` cell by cell. A second
@@ -53,6 +58,14 @@ NOISE_BAR = PACKAGE / "results/2026-09-19-w29-g3b-shadow-recede/noise-bar.json"
 CHROMA_CUT = PACKAGE / "results/2026-09-21-w31-g4-landing/chroma-cut.json"
 
 STANDARD_BEDS = ["1x light", "2x light", "1x dark", "2x dark"]
+# The thin stop is declared over EVERY active non-holdout WebGPU cell at spans 32
+# and 44, so its own table is read over every bed the cut carries rather than over
+# the four standard ones. Computed from the cut instead of listed, so a bed that
+# joins the fixture set joins the stop (review closure, finding N1).
+def thin_beds(rows: list[dict]) -> list[str]:
+    extra = sorted({r["bed"] for r in rows if r["bed"] not in STANDARD_BEDS})
+    return STANDARD_BEDS + extra
+
 THIN_SPANS = [32, 44]
 THIN_BANDS = ["3-6", "6-12"]
 THIN_BAR = 0.002044          # the MAX over 432 cells, the charter's named bar
@@ -207,10 +220,14 @@ def main() -> int:
     print("  either band worse than today's by more than the bar, and the order statistic per bed")
     print("  no worse than today's.")
     print()
-    print(f"  {'bed':<12}{'span':>5}{'set':<12}{'scene':<44}"
+    print("  EVERY bed, which since the review closure includes the accessibility beds (claims")
+    print("  §5.166 §10, finding N1). They were outside this table and inside the stop, and they")
+    print("  carry the population's worst reading; the standard beds' own rows are unchanged.")
+    print()
+    print(f"  {'bed':<38}{'span':>5}{'set':<12}{'scene':<44}"
           + "".join(f"{('|Δa| ' + b):>12}" for b in THIN_BANDS))
     thin = {}
-    for bed in STANDARD_BEDS:
+    for bed in thin_beds(rows):
         for span in THIN_SPANS:
             here = sorted([r for r in rows
                            if r["bed"] == bed and r["span"] == span and r["tier"] == "webgpu"
@@ -229,21 +246,21 @@ def main() -> int:
                     "bed": bed, "span": span,
                     **{band: value for band, value in zip(THIN_BANDS, values)},
                 }
-                print(f"  {bed:<12}{span:>5}{row['set']:<12}{row['scene']:<44}"
+                print(f"  {bed:<38}{span:>5}{row['set']:<12}{row['scene']:<44}"
                       + "".join(f"{'—':>12}" if v is None else f"{v:>12.5f}" for v in values))
             print()
     print("  The order statistic per bed and span, which is the second half of the stop:")
-    print(f"  {'bed':<12}{'span':>5}{'n':>4}"
+    print(f"  {'bed':<38}{'span':>5}{'n':>4}"
           + "".join(f"{('median ' + b):>16}{('max ' + b):>14}" for b in THIN_BANDS))
     thin_statistic = {}
-    for bed in STANDARD_BEDS:
+    for bed in thin_beds(rows):
         for span in THIN_SPANS:
             here = [r for r in rows
                     if r["bed"] == bed and r["span"] == span and r["tier"] == "webgpu"
                     and r["state"] != "inactive" and r["set"] != "holdout" and r["T"] is not None]
             if not here:
                 continue
-            line = f"  {bed:<12}{span:>5}{len(here):>4}"
+            line = f"  {bed:<38}{span:>5}{len(here):>4}"
             record = {}
             for band in THIN_BANDS:
                 values = [abs(r["perBand"]["all"][band]["deltaA"]) for r in here
@@ -257,7 +274,38 @@ def main() -> int:
                 line += f"{upper_middle(values):>16.5f}{max(values):>14.5f}"
             thin_statistic[f"{bed} span {span}"] = record
             print(line)
-    payload["thinRegime"] = {"bar": THIN_BAR, "perCell": thin, "perBed": thin_statistic}
+    print()
+    print("  The worst cell over the WHOLE population, which is the figure a round is read")
+    print("  against first and which no per-bed row carries:")
+    worst = None
+    population = [r for r in rows
+                  if r["span"] in THIN_SPANS and r["tier"] == "webgpu"
+                  and r["state"] != "inactive" and r["set"] != "holdout"
+                  and r["T"] is not None]
+    for row in population:
+        for band in THIN_BANDS:
+            entry = row["perBand"]["all"].get(band)
+            if entry is None or entry["deltaA"] is None:
+                continue
+            value = abs(entry["deltaA"])
+            if worst is None or value > worst["value"]:
+                worst = {"value": value, "bed": row["bed"], "span": row["span"],
+                         "band": band, "scene": row["scene"], "set": row["set"]}
+    # Every cell that reads the worst value, on any bed: the figure is a tie across
+    # two accessibility beds and naming one of them would under-report the stop.
+    ties = [f"{r['bed']} span {r['span']}  {r['scene']}" for r in population
+            if worst is not None
+            and (r["perBand"]["all"].get(worst["band"]) or {}).get("deltaA") is not None
+            and abs(r["perBand"]["all"][worst["band"]]["deltaA"]) == worst["value"]]
+    print(f"    population {len(population)} cells over {len(thin_beds(rows))} beds")
+    if worst is not None:
+        print(f"    worst |Δa| {worst['value']:.5f} at band {worst['band']}, "
+              f"read on {len(set(ties))} cells:")
+        for scene in sorted(set(ties)):
+            print(f"      {scene}")
+    payload["thinRegime"] = {"bar": THIN_BAR, "perCell": thin, "perBed": thin_statistic,
+                             "population": len(population), "beds": thin_beds(rows),
+                             "worstCell": worst, "worstCellScenes": sorted(set(ties))}
     print()
 
     # ------------------------------------------------------------------
