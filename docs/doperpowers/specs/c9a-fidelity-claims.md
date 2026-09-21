@@ -30956,7 +30956,7 @@ forbids packing an operator into a neighbour's padding.
 | proof | result |
 | --- | --- |
 | `test:golden` | **34 passed**, `e2e/goldens` clean — byte-identical, no regen |
-| the unit cases | 4, over the whole retention sweep: the identity at every lift-free policy, the stand-down at every lifted one, and the lift rule's own `r · (1 − lift)` restated so the ledger's reason survives without a browser |
+| the unit cases | 3, over the whole retention sweep: the identity at every lift-free policy, the stand-down at every lifted one, and the lift rule's own `r · (1 − lift)` restated so the ledger's reason survives without a browser (`w31-body-chroma.test.ts`, 9 cases in the file) |
 | `@gpu w31-body-chroma.spec.ts` | 3 on a hardware adapter — the third reads the stand-down, and reads it at a lift of **0** as well, where the occlusion fold is the identity on the optics too and the bytes must be the NOMINAL policy's |
 | `standard-row-identity.txt` | two calibration captures of the same four standard cells, minutes apart, differing only in the renderer at `c3e6815a` against this branch: **8 PNGs identical, 0 differing** |
 | the canonical read | every standard light row and every CSS row **+0.0000** in `verdict-closure.txt` |
