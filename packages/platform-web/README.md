@@ -261,7 +261,7 @@ window poses, and the parts have to travel together.
 | what a document holds | why it is in there |
 | --- | --- |
 | the active patch, per colour scheme | the material is measured per scheme, and only one scheme's numbers can be the renderer's defaults |
-| the receded difference, per colour scheme | an unfocused window's material is its own measurement; on macOS 27 a receded surface *keeps* its outer shadow, where on macOS 26.5 it loses it entirely |
+| the receded difference, per colour scheme | an unfocused window's material is its own measurement — its rim collapses, its tint keeps its shade and loses its chroma, and its body carries its own backdrop tone response. On **neither** generation does a receded surface cast an exterior shadow: from 0.22.0 the macOS 27 endpoints' six occlusion anchors, `liftAmplitude` and `reducedTransparencyOcclusion` are 0, as the macOS 26.5 endpoints' always were (claims §5.168 §4) |
 | `cssTierMapping` | what that same material costs as one `backdrop-filter` plus an `rgba()` overlay — macOS 27 sets `blurSigmaScale` to 2.2 against the module default of 1, which is the CSS tier's whole share of the 27 diffusion refit |
 
 The two shipped documents and the calibration documents they are generated from:

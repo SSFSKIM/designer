@@ -4273,9 +4273,16 @@ Two facts, and the second is the sharper one:
 
 **What closed the immediate problem.** W31 acceptance clause 6 makes copying the
 read's tree to the canonical path part of the merge, and the parent did it at
-W31 G3c's merge: the tree now holds all six macOS 27 profiles at the shipped
+W31 G3c's merge: the tree held all six macOS 27 profiles at the shipped
 document hashes (`49490eb9ff7a` / `14c6bacf2eda`, `b5714a866288` /
-`cc4ed1038996`). W31 G4's `sheets.ts` is the first sheet script that reads the
+`cc4ed1038996`). *(Corrected beside, 2026-09-21, W32 G1 review closure; claims
+§5.168 §10: those are 0.21.0's hashes and "now" has moved on. W32 G1 sealed four
+new macOS 27 documents, and the tree its read wrote — 786 captures, checked
+786 / 786 match — names `d5bdd6eac432` / `45acb6d916b9` and `431cabd391c4` /
+`4e68f81869f6`. Copying that tree to the canonical path is the parent's step at
+the merge, which is the clause itself. A hash written as "now" in a tracker
+entry ages at the next seal; what does not age is the clause.)* W31 G4's `sheets.ts`
+is the first sheet script that reads the
 canonical tree AND asserts, per cell, that the capture names the shipped
 document bytes — receded document included — refusing rather than photographing
 a stale one.

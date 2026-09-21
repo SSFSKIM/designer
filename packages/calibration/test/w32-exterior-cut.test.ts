@@ -32,9 +32,14 @@
  * the largest on both cells. The `< 0.002` bound below is unchanged and is not
  * near either end.)* That is not a discrepancy to reconcile:
  * W31 G1 read the 0.20.0 generation (documents `d0c389d70456` / `880ab1e31450`)
- * and the working file now carries 0.21.0's (`49490eb9ff7a` / `b5714a866288`),
- * W31 G3 having sealed `bodyChromaRetention` into all four macOS 27 documents
- * in between (§5.164). `0-3` is the band that holds the body's own over-fill
+ * and the file that printout was taken against carried 0.21.0's
+ * (`49490eb9ff7a` / `b5714a866288`), W31 G3 having sealed `bodyChromaRetention`
+ * into all four macOS 27 documents in between (§5.164). *(2026-09-21, W32 G1
+ * review closure, claims §5.168: "the working file now carries 0.21.0's" was
+ * true when it was written and stopped being true in this same branch — the
+ * exterior fit re-read the bed, so the working file carries W32 G1's
+ * `d5bdd6eac432` / `431cabd391c4` and 0.21.0's rows are in the two superseded
+ * files the constant below names.)* `0-3` is the band that holds the body's own over-fill
  * (§5.62), so a leaf that acts inside the body composite reaches it and reaches
  * nothing further out. The case therefore asserts the shape bands EQUAL and the
  * `0-3` band MOVED — which is a sharper statement than either half alone, and
