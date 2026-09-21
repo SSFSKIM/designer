@@ -1,0 +1,82 @@
+{
+  "$comment": [
+    "The inert-identity table W31 Decision Log 1 (a) rules the fingerprint over,",
+    "as G0 proves it and G3 executes it. EVIDENCE, not a live constant: G3 commits",
+    "the tested, append-only copy beside `DEFAULT_MATERIAL_PROFILE`. This file is",
+    "what the proof in `digest-rule-proof.ts` reads, so the proof and the table",
+    "cannot disagree about what the rule drops.",
+    "",
+    "THE RULE. The fingerprint is taken over the fully resolved material with",
+    "every entry below removed whose gate leaves all hold their declared identity",
+    "values. An entry with no gated leaves is an ordinary value drop: the leaf",
+    "goes when it holds its identity. An entry WITH gated leaves is a gate-group",
+    "and goes as one unit; a gated leaf's own value is never dropped on its own,",
+    "because a gated leaf has no identity of its own to be at.",
+    "",
+    "WHY A GATE-GROUP IS THE PART THAT NEEDS THE UNIT CASE. A pure value drop is",
+    "injective for free: every resolved material carries every key, so two",
+    "materials with the same post-drop object agree on the dropped leaves too",
+    "(both hold the identity) and therefore agree everywhere. A gate-group drop is",
+    "NOT free — it merges every material that shares a gate at its identity",
+    "whatever the gated leaves hold — and it is sound only because the gated",
+    "leaves provably cannot reach the pixels while the gate is at its identity.",
+    "That is what `inertLawCase` names, per entry, and why the table is",
+    "append-only: a post-seal leaf's default IS its identity, forever.",
+    "",
+    "WHERE THIS DIFFERS FROM THE CHARTER'S GROUPING, AND WHY. The charter's",
+    "Grounding groups `sigmaThinOffsetPx` with `sigmaSpanRefPx` as gated by the",
+    "slope. It is not: the law is",
+    "`σ = sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan·(span − sigmaSpanRefPx))`,",
+    "so at slope 0 a NON-ZERO `sigmaThinOffsetPx` moves σ at every span — the",
+    "slope does not gate it. It is also not proved inert on its own at a non-zero",
+    "slope, where it is a floor on the line and a real operator. What",
+    "`w30-inert-laws.test.ts` actually proves is the pair TOGETHER: all three",
+    "leaves shipped at 0 return exactly `sigmaPx` at every span. So the σ law's",
+    "entry declares a two-leaf gate, which is stricter than the charter's shape,",
+    "reproduces the same digests, and is exactly the statement the committed unit",
+    "case makes."
+  ],
+  "rule": {
+    "version": "w31-identity-1",
+    "decisionLog": "W31 Decision Log 1 (a), ruled 2026-09-21",
+    "provedBy": "results/2026-09-21-w31-g0-chroma-cut/digest-rule-proof.ts"
+  },
+  "entries": [
+    {
+      "wave": "W30",
+      "gate": { "outerShadow.sigmaSlopePerSpan": 0, "outerShadow.sigmaThinOffsetPx": 0 },
+      "gated": ["outerShadow.sigmaSpanRefPx"],
+      "law": "σ(span) = sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan·(span − sigmaSpanRefPx))",
+      "inertLawCase": "packages/renderer-webgpu/test/w30-inert-laws.test.ts — \"ships all three leaves at 0\", \"returns exactly sigmaPx at every span from 1 to 1000\", \"returns exactly sigmaPx at a zero, a negative and an enormous span\", \"takes no device ratio, so both scales read one width\", \"leaves the reach exactly where it was, at every span and every amplitude\"",
+      "whyGated": "The pivot is multiplied by the slope, so at slope 0 no value of it can reach σ; the material's own words, `sigmaSpanRefPx`'s doc comment. The offset is NOT gated by the slope and is in the gate for that reason.",
+      "claims": "c9a §5.156 §2, §5.158"
+    },
+    {
+      "wave": "W30",
+      "gate": { "sizeHeavySecondShare": 0 },
+      "gated": ["sizeHeavySecondSigma", "sizeHeavySecondSigma2x"],
+      "law": "deep = heavy + sizeHeavySecondShare·(heavy2 − heavy), heavy2 at sizeHeavySecondSigma{,2x}",
+      "inertLawCase": "packages/renderer-webgpu/test/w30-inert-laws.test.ts — \"ships all five at 0\", \"asks for no second heavy width at any device ratio\", \"asks for none even where a profile names both widths, because the share gates it\"",
+      "whyGated": "At share 0 the second heavy texture is not allocated, no pass is encoded and the optics pass never samples one, so the widths are unread whatever they hold — `heavyTapPlan` returns 0 on the share alone.",
+      "claims": "c9a §5.156 §3, §5.158"
+    },
+    {
+      "wave": "W30",
+      "gate": { "sizeScatterScaleGain": 0 },
+      "gated": ["sizeScatterScaleRef"],
+      "law": "kScatter += sizeScatterScaleGain·(stat − sizeScatterScaleRef)",
+      "inertLawCase": "packages/renderer-webgpu/test/w30-inert-laws.test.ts — \"ships all five at 0\", \"contributes exactly zero to kScatter at every statistic the analysis pass can read\"",
+      "whyGated": "The reference is only ever read as a difference the gain multiplies, so at gain 0 no value of it can reach the mix. This is the entry the macOS 27 LIGHT document exercises: it declines the scatter with the gain at 0 and ships the reference at 0.03, provably inert and off any would-be standalone identity.",
+      "claims": "c9a §5.156 §3, §5.158"
+    },
+    {
+      "wave": "W31",
+      "gate": { "bodyChromaRetention": 0 },
+      "gated": [],
+      "law": "colour = renormaliseToLinearLuma(mix(colour, chromaticityOf(backdrop) at colour's luma, bodyChromaRetention))",
+      "inertLawCase": "TO BE COMMITTED BY W31 G3 — the leaf does not exist yet. G0 names the shape and its identity (W31 X2); the case that proves the composite is bit-identical at 0, and the `test:gpu` case that the on state draws differently from off, land with the leaf.",
+      "whyGated": "Not gated. At retention 0 the mix's second term is multiplied by zero and `colour` leaves the composite exactly as `mix(backdrop, adapted, presentAlpha)` produced it, which is a multiplied zero in the same sense as `sigmaSlopePerSpan`.",
+      "claims": "c9a §5.161 §5"
+    }
+  ]
+}

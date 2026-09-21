@@ -1,0 +1,45 @@
+== the CSS tier's chroma ceiling, ratio (ii) ≤ (1 − α)·s ==
+
+saturate() regular = 1.8, clear = 1.4 (CSS-only, frozen by W31 X3)
+
+macos-27 / light
+  renderer tintAlpha            0.4600
+  cssTintAlpha at the mapping's anchor  0.6650
+  ceiling at that alpha         0.6031
+  at macOS 27 light 1x (backdrop 0.22120): α′ 0.5642  →  ceiling 0.7844
+
+macos-27 / dark
+  renderer tintAlpha            0.9000
+  cssTintAlpha at the mapping's anchor  0.9198
+  ceiling at that alpha         0.1444
+  at macOS 27 dark 1x (backdrop 0.23307): α′ 0.8456  →  ceiling 0.2779
+  at macOS 27 dark 1x (rrect-lg) (backdrop 0.23307): α′ 0.8456  →  ceiling 0.2779
+
+macos-26.5 / light
+  renderer tintAlpha            0.4600
+  cssTintAlpha at the mapping's anchor  0.6650
+  ceiling at that alpha         0.6031
+  at macOS 27 light 1x (backdrop 0.22120): α′ 0.5642  →  ceiling 0.7844
+
+macos-26.5 / dark
+  renderer tintAlpha            0.9000
+  cssTintAlpha at the mapping's anchor  0.9198
+  ceiling at that alpha         0.1444
+  at macOS 27 dark 1x (backdrop 0.23307): α′ 0.8456  →  ceiling 0.2779
+  at macOS 27 dark 1x (rrect-lg) (backdrop 0.23307): α′ 0.8456  →  ceiling 0.2779
+
+
+== how to read it ==
+
+  Ratio (ii) is the interior's mean per-pixel chroma over the RAW backdrop's, so
+  a ceiling of C says: whatever the material does, this tier's body cannot show
+  more than C of the backdrop's chroma. A WebGPU tier fitted to a native ratio
+  above C is a fit the CSS tier cannot follow, and the difference is a DECLARED
+  RESIDUAL rather than a bug — which is the question G3 decides: derive a term
+  from the leaf, or record that this tier carries nothing of the operator.
+
+  The ceiling is not the current reading. The tier draws well BELOW it today,
+  because the retention does not exist and the only chroma the body carries is
+  what `saturate()` left under the plate. The gap between the reading and the
+  ceiling is the room a derived term has.
+

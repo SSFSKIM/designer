@@ -574,7 +574,7 @@ tier's `saturate()` constants as fitted rather than authored values.
 
 | Child | Status | Claims section | Evidence |
 | --- | --- | --- | --- |
-| G0 | OPEN | §5.161 | `results/2026-09-21-w31-g0-chroma-cut/` |
+| G0 | **CLOSED 2026-09-21.** The per-pixel instrument landed as 23 optional schema-5 fields with the unit cases, and one of them records that **the charter's own Design paragraph is wrong**: a luma-only darkening scales ratio (i) by exactly `c^(−2/3)`, not by 1, because OKLab's `L`, `a` and `b` all scale by `c^(1/3)` while the declared denominator is LINEAR luma. `interiorOklabLSdDev*` is exported beside it as the exactly-invariant twin. The chroma bed re-captured as scratch at the shipped documents (616 cells, nothing appended, RT/IC/slider recorded) and **all 552 macOS 27 cells reproduce their committed rows to \|Δ\| exactly 0**; two macOS 26.5 cells do not, and the diagnosis is that the canonical `web-captures/` tree is already a different generation from the rows beside it (Surprises). **The residual**, ratio (i) web/native on the WebGPU tier: **0.333 dark active, 0.551 light active** — the light scheme carries it. Ratio (ii) web 0.106–0.119 on the dark cells against `1 − sizedAlpha` = 0.0950, so the chroma is lost in the plate's alpha and nowhere else. **Apple moved it**: ratio (ii) rises +0.22…+0.38 on every untinted photo and `mid-chroma-solid` cell of both schemes between macOS 26.5 and 27 while the tinted cells move −0.03…+0.00, and the mean-OKLab instrument reads the same change as a fifteenth of that. Ratio (iii) says the DARK reference is not a blur (1.20–1.80× what a matching Gaussian leaves) and the LIGHT one nearly is (0.75–1.00). **All four claimed rows CLAIMED** — 90–93 % of ΔE² at the P95 pixels is chromatic and the chroma lever's reachable floor is 0.062–0.066 against bounds of 0.17–0.19. **The mechanism**: `bodyChromaRetention ∈ [0,1]`, identity 0, after the composite, luma-preserving in linear RGB BY CONSTRUCTION (both mix endpoints carry the same luma, so the renormalisation is an f32 guard), gamut by scaling chroma toward the neutral at fixed luma, **no `toneAdapt` gate because `toneAdapt` is identically 0 on the macOS 27 material** at every backdrop and span. **The digest rule proved**: `b2b570e4adcea8fb` / `874be66ea501621b` reproduce, the four macOS 27 digests printed under the rule, a moved default shown to move them — and the gate-group refined, because `sigmaThinOffsetPx` is NOT gated by the slope. Tolerance, level stop, structure stop and the identifiability argument declared; the CSS ceiling 0.784 light / 0.278 dark as a declared residual | §5.161 | `results/2026-09-21-w31-g0-chroma-cut/` |
 | G1 | **MERGED** — the clause C1 declared on the departure profile's SHAPE; candidate (i) recorded as the diagnostic that points at `spreadPx`/`offsetPx`; nothing adopted, nothing fitted, no capture. **Amended beside 2026-09-21 (review closure; claims §5.162 §9), no number in this row or in §5.162 rewritten:** an independent read reproduced every figure of both statistics and found no measurement wrong; its fourteen findings, two blocking, were **all in the record**, and **no statistic, bound, count, exclusion or verdict moved**. The two blocking: the drafted C1 row read a **frozen snapshot** of the matrix, so a dated condition now requires the adopting gate to re-run `exterior-instrument.py` into its own evidence directory and point `CUT` there, and the draft gains the two provenance assertions it lacked (`atDocuments` shipped, `withHoldout` false); and the backdrop-support rule's reach is **32 `impulse` rows, fourteen carrying a non-zero `T` up to 0.004287**, not eighty rows of zeros — the 48 `dark-solid` rows identify no affine band at all — with the rule **kept** because it is the axis's own constant and admitting all 32 moves no WebGPU-tier order statistic (it moves twelve counts and two unprinted CSS-tier span-44 medians). One reason **withdrawn**: "its own lever reverses" applies to candidate (ii) too, and the choice stands on the other two and on the per-band structure. Corrections beside: the span-96 per-cell maxima are 0.00508–0.00561 and all above 0.0045; the CSS tier is NOT worse everywhere (1x dark span 160, 0.00789 against 0.00921); §6's improvement ranges are 20–54 % and 8.5–32 %; **all 726** macOS 27 rows carry a shadow axis and 602 is the non-holdout count; span 128 on the light beds is **two** gated cells; the +2.66…+3.77 gap is the **WebGPU tier's** (CSS runs −4.74…+5.36); the `spreadPx` reading assumes Apple's outset ≈ 0 and is softened, with the unfitted half verified across three documents; the bilateral σ rule is inert on today's bed; and `T` is declared **span-confounded**, with a per-span bound or a σ-normalised window named as what adoption must consider. New evidence `support-rule-check.py` / `.txt`; `test/adopted-thresholds.test.ts` untouched; freeze 1,818 at open and close | §5.162, §5.162 §9 | `results/2026-09-21-w31-g1-exterior-instrument/`, `support-rule-check.txt` |
 | G2 | **MERGED** — 11 call sites: 8 clamped, 3 proven, 0 stopped; 5 sweeps + 3 guard cases green; goldens 34/34 byte-identical; one NEW reachable NaN found and floored as an identity (`angle_delta`); both tracker entries closed; the W30 G3b residual's candidate REFUTED and the residual re-opened | §5.163 | `results/2026-09-21-w31-g2-range-class/` |
 | G3 | not dispatched — Decision Log 1 ruled; waits on G0–G2 merged | §5.164 | `results/2026-09-21-w31-g3-chroma-fit/` |
@@ -645,6 +645,39 @@ band recorded, unless the user's taste says the reversal makes the section say t
   since W29. Consequence here: the chroma cut re-captures its bed as scratch with a reproduction
   check (clause 1); from G3 on, the parent copies the read's tree to the canonical path at merge
   (clause 6). Tracker entry at G4.
+- **The canonical `web-captures/` tree is not merely stale, it is a DIFFERENT GENERATION from the
+  rows beside it** (2026-09-21, G0). The charter's Surprise above says the current generation's
+  captures exist nowhere; the sharper fact is that the tree which does exist disagrees with the
+  matrix. Re-measuring the six frozen macOS 26.5 trees with `--skip-capture` — no browser, today's
+  metric on both sides — reproduces 282 of 284 cells exactly and misses two:
+  `photo__glass-over-glass__rest` on the two light profiles, `texture` tier, `interiorMeanWeb`
+  2.840e-03 and 2.527e-03 out. The `dom` tier of the same cells reproduces to the last bit, which
+  leaves only the raster: the tree's files are dated 2026-09-10 and the rows were measured
+  2026-09-11. Consequence: the macOS 26.5 columns for that one scene are read off pixels the
+  committed row was not read off, and they carry the sentence. Tracker at G4, beside the entry the
+  first Surprise already asks for.
+- **`mid-chroma-solid` is level-broken on both schemes and cannot carry the wave's statistic**
+  (2026-09-21, G0). The charter grants it as the probe anchor. Its 1x dark inactive cell reads
+  `interiorMeanWeb` **0.0761 against a native 0.2856** over a backdrop of 0.2141 — the reference's
+  receded body is BRIGHTER than what is behind it and vitrea's is a quarter of it — and its 1x
+  light rest cell reads 0.6134 against 0.3957. Ratio (i) scales as `(level)^(−2/3)` exactly, so
+  those bias the statistic by 2.29× and 0.75×. The anchor is granted to G3 for the chromaticity
+  DIRECTION and must not carry the tolerance until its level agrees. Its `__rest` poses also exist
+  on the LIGHT macOS 27 profile only; the dark bed's four `mid-chroma-solid` fixtures are all
+  `__inactive`, which is why G0's dark sheet is the inactive pose.
+- **The dark bed's conditioning is worse than Grounding states, and it does not matter**
+  (2026-09-21, G0). Grounding names three dark `photo` cells in `PREDICATE_EXCLUDES` and says the
+  dark calibration bed keeps "one well-conditioned untinted photo cell (`rrect-ml`)". In fact
+  **every** untinted `photo` cell of both dark macOS 27 profiles is refused, in both poses at both
+  scales on both tiers — and the dark bed has no ACTIVE `rrect-ml` fixture at all. G0 answers the
+  mask question directly instead: the statistic computed under the hole-free declared region agrees
+  with the silhouette's to 0.006 on ratio (i) and 0.001 on ratio (ii), across masks differing by up
+  to 18,000 px and 131 holes. The refusal is the shape axis's and does not reach this one.
+- **On the RECEDED TINTED cells vitrea's body has no chroma at all** (2026-09-21, G0). Ratio (ii)
+  reads 0.001–0.006 against the reference's 0.54–0.65, while the ACTIVE tinted cells match almost
+  exactly (1.433 against 1.435). That is W27c's seed collapse driving the paint to neutral where
+  Apple's receded material keeps it — a tint-path defect, not a body-chroma one, frozen by X3 and
+  sent to the tracker.
 - **The CSS tier already saturates.** `optics.ts`'s `backdrop-filter` carries `saturate()` at
   1.8 / 1.4, CSS-only, with no renderer counterpart and no pin; a chroma operator on the fidelity
   target now has an authored constant beside it on the derived tier that the charter's v1 called
@@ -656,6 +689,23 @@ band recorded, unless the user's taste says the reversal makes the section say t
 
 ## Revision Notes
 
+- 2026-09-21 (G0): **the charter is wrong in two places and the corrections are in the evidence,
+  not in the prose above.** (1) Design's instrument paragraph asserts that "a luma-only darkening
+  leaves the chroma-to-structure ratio unchanged". It does not: OKLab's `L`, `a` and `b` are all
+  linear in the cube roots of the LMS responses, so multiplying linear RGB by `c` multiplies all
+  three by exactly `c^(1/3)` while ratio (i)'s declared denominator is LINEAR luma and scales by
+  `c` — the ratio scales by exactly `c^(−2/3)`, pinned to 0.35 % on an 8-bit field by
+  `test/chroma.test.ts`. The declared form is kept, because the exactly-invariant form (over
+  `sd(L_oklab)`) also very nearly cancels the plate composite and would make the instrument blind
+  to what it measures; the invariant twin is exported beside it and the consequence is carried as
+  the level stop. (2) Grounding's gate-group shape puts `sigmaThinOffsetPx` under the slope's gate.
+  The law is `σ = sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan·(span − sigmaSpanRefPx))`, so
+  at slope 0 a non-zero offset moves σ at every span and the slope does not gate it; at a non-zero
+  slope it is a real floor and is not inert on its own either. The identity table declares a
+  TWO-LEAF gate `{slope 0, offset 0}` gating `sigmaSpanRefPx`, which is what
+  `w30-inert-laws.test.ts` actually proves and which reproduces the same digests. Both are recorded
+  in claims §5.161 §§1 and 6 rather than edited into the text above, on the rule that a charter is
+  a record of what was declared.
 - 2026-09-21 (G1 review closure): **fourteen findings closed, none of them in a number** (claims
   §5.162 §9, the new section listing each finding, how it was verified and what closed it). The
   review reproduced every figure of both statistics and found no measurement wrong; everything it

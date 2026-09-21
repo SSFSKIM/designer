@@ -1,0 +1,47 @@
+== W31 G0 chain, at the close ==
+2026-09-21T02:02:17Z
+
+-- machine (X6) --
+2026-09-21T02:02:17Z  w31-g0-close                 reduceTransparency=0 increaseContrast=0 NSGlassTintAmount=0.5  27.0/26A428 head=19202101
+
+-- freeze --
+26.5 freeze intact: 1818 entries
+
+-- pnpm -r build --
+apps/demo build: - Using dynamic import() to code-split the application
+apps/demo build: - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+apps/demo build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+apps/demo build: Done
+
+-- pnpm -r lint --
+packages/react lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+packages/calibration lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json
+packages/react lint: Done
+packages/calibration lint: Done
+apps/demo lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+apps/demo lint: Done
+
+-- pnpm -r test --
+packages/policy test:  Test Files  2 passed (2)
+packages/policy test:       Tests  23 passed (23)
+packages/motion test:  Test Files  10 passed (10)
+packages/motion test:       Tests  164 passed (164)
+packages/geometry test:  Test Files  14 passed (14)
+packages/geometry test:       Tests  170 passed (170)
+packages/renderer-webgpu test:  Test Files  30 passed (30)
+packages/renderer-webgpu test:       Tests  511 passed (511)
+packages/core test:  Test Files  16 passed (16)
+packages/core test:       Tests  302 passed (302)
+packages/platform-web test:  Test Files  46 passed (46)
+packages/platform-web test:       Tests  631 passed (631)
+packages/react test:  Test Files  18 passed (18)
+packages/react test:       Tests  169 passed (169)
+packages/calibration test:  Test Files  33 passed (33)
+packages/calibration test:       Tests  560 passed (560)
+apps/demo test:  Test Files  6 passed (6)
+apps/demo test:       Tests  46 passed (46)
+
+  nine packages, 175 test files, **2,576 tests, 0 failed**
+
+-- digest-rule-proof --
+PROOF OK — exit 0

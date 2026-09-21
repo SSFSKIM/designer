@@ -27972,6 +27972,479 @@ this closure was adding, which is what a re-run is for. *The general form, for
 anything asserting against what a browser holds: the serialisation a property is
 READ back in is not the one it was written in.*
 
+## 5.161 W31 G0: the chromatic cut — a per-pixel instrument in which the blur cancels, the residual measured at a third of the reference and Apple's own move measured beside it, the mechanism named with one leaf, and the digest rule proved against the frozen digests (2026-09-21)
+
+**Gate: W31 G0, acceptance clauses 1, 2 and 3; contracts X1, X2, X6, X7, X11; Decision Log 1 (a),
+(b).** Evidence is `packages/calibration/results/2026-09-21-w31-g0-chroma-cut/`. **No material
+constant, profile document, native fixture, golden, bound, floor or row of `results/matrix.json`
+moves at this gate.** `DEFAULT_MATERIAL_PROFILE` is untouched and no leaf is added — naming a shape
+is not adding it (X1). The macOS 26.5 freeze verifies **intact at 1,818 entries** at this gate's
+opening and at its close. The matrix schema stays at **5** and the instrument's rows are OPTIONAL
+additions on `drawnAreaWeb`'s precedent, so `deserializeResultMatrix` still reads every committed
+matrix and the 1,818 frozen rows are unreachable from here (X7). `cli/gates.ts` and
+`test/compare-gates.test.ts` are G2's and are untouched (X11).
+
+### 1. The instrument, and the exponent the charter got wrong
+
+`metrics/material.ts`'s `tintResponse` averages the interior's linear light and converts the one
+mean to OKLab, which is the right definition of "the colour of this region" and the wrong
+instrument for this residual: over a balanced photograph a body that passes every hue through and a
+body that renders a flat grey of the same level read almost the same number. `metrics/chroma.ts`
+converts EVERY masked pixel to OKLab and reads the population — the mean per-pixel chroma, sd(a),
+sd(b), sd(L_oklab) — with three ratios per cell:
+
+- **(i) the chroma-to-structure ratio** `sqrt(sd(a)² + sd(b)²) / interiorStdDev`, per SIDE, read
+  **web against native on the same cell** and never against 1. A linear blur attenuates chromatic
+  and luminous deviations by the same factor to first order, so it divides out; the unit case
+  measures the residual of that cancellation at **1.9 %** over a blur that removed more than half
+  the structure, against ratio (ii)'s **> 40 %** on the same operation.
+- **(ii) the raw ratio**, the side's mean per-pixel chroma over the RAW backdrop's. The confounded
+  one, kept and tabled so a fit that moves only it is visible.
+- **(iii) the blurred-reference ratio**, against a backdrop blurred to the side's OWN measured
+  structure. A body that only blurred reads 1.
+
+**The reference radius for (iii) is fitted from the pixels and not read off the document, and that
+is a finding rather than a shortcut.** No single number in a profile document is "the material's
+blur radius": the body samples a two-component pyramid — `optics.blurSigma`'s light tap and a
+`sizeHeavyTapSigma` heavy tap — mixed by a `kScatter` that eight leaves grade by span and by
+backing scale, and on the macOS 27 dark document by an adopted `sizeScatterScaleGain` keyed to a
+per-source statistic the CPU reads at run time. The recovered radius is reported beside the ratio
+so the row says what it was taken against, and the search is bounded at 64 device px — a fifth of
+the crop's width, past which a "blur" is an average. **An absent (iii) is itself a reading**: on
+the dark cells vitrea's web side is FLATTER than a 64 px Gaussian of its own backdrop leaves, so no
+reference in that range matches it.
+
+**The charter's Design paragraph is wrong in one clause and `test/chroma.test.ts` records it.** It
+asserts that a luma-only darkening leaves ratio (i) unchanged. It does not. Multiplying linear RGB
+by `c` multiplies OKLab's `L`, `a` and `b` by **exactly** `c^(1/3)` — all three are linear in the
+cube roots of the LMS responses — while ratio (i)'s denominator is LINEAR luma and scales by `c`.
+The ratio therefore scales by **exactly `c^(−2/3)`**, pinned to 0.35 % relative on an 8-bit field.
+`interiorOklabLSdDev*` is exported beside the declared reading for that reason: the same numerator
+over `sd(L_oklab)` IS exactly invariant, so a movement can be split into its level part and its
+chroma part. The declared form stays the declared form — under the OKLab-L denominator the plate
+composite very nearly cancels, and an instrument that cancels the mechanism it is measuring is not
+an instrument — and the consequence is carried as the level stop in §7.
+
+Twenty-three optional fields on the `material` axis, no version bump (X7):
+`interiorChromaMean{Native,Web,Backdrop}`, `interiorChromaSd{A,B}{Native,Web,Backdrop}`,
+`chromaStructureRatio{Native,Web,Backdrop}`, `interiorOklabLSdDev{Native,Web,Backdrop}`,
+`rawChromaRatio{Native,Web}`, `blurredChromaRatio{Native,Web}`,
+`blurredReferenceSigma{Native,Web}`, and the mean-OKLab chromas `tintResponse` has always computed
+and never exported (`tintInteriorChroma{Native,Web}`, `tintBackdropChroma`). Ratio (iii) is behind
+`--blurred-chroma-reference` because recovering its radius bisects over blurs of the whole
+backdrop.
+
+### 2. The re-capture, and the reproduction check
+
+No current-generation capture tree exists on this machine (charter Surprises), so the chroma bed's
+web side was re-captured at the shipped documents — 50 scenes, six macOS 27 profiles, both tiers,
+active and inactive — into `/tmp/w31-g0-captures` with `--out-matrix` into the evidence directory.
+**Nothing was appended to `results/matrix.json` and the canonical `web-captures/` was never opened
+for writing**: the macOS 26.5 half ran `--skip-capture` over a COPY of the frozen trees. 616 cells:
+332 fresh macOS 27, 284 re-measured macOS 26.5. RT 0, IC 0, `NSGlassTintAmount` 0.5, read before
+and after every browser run and recorded in `browser-runs.txt` (X6).
+
+**The holdout cells were re-captured and it is disclosed rather than assumed.** Decision Log 1 (b)
+reads the holdout once per frozen configuration; this is the SAME configuration the committed rows
+were read at — identical document bytes, identical renderer sources, no fitted constant moved — so
+it is not a second holdout verdict. The committed 0.20.0 rows remain the reading. The scratch rows
+exist to carry a statistic that did not exist when they were written and to decompose four rows
+(§4), neither of which the committed rows can be asked for.
+
+**The bar was declared at 5e-4 absolute before the check ran.** `repeatNoise` is 0 on 1,830 of the
+committed matrix's 1,833 rows, so the row's own field gives no usable tolerance for a re-capture
+taken on a different day; the three rows that do carry one read 3.5e-05, 1.05e-04 and 1.96e-04, and
+the bar is that largest value rounded up.
+
+| half | cells | worst \|Δ\| `interiorMeanWeb` | worst \|Δ\| `ssimMean` | verdict |
+| --- | ---: | ---: | ---: | --- |
+| macOS 27, fresh capture | 552 | **0.000e+00** | **0.000e+00** | reproduces exactly |
+| macOS 26.5, re-measured | — | 2.840e-03 | 5.825e-04 | two cells miss |
+
+**Every macOS 27 cell reproduces its committed row bit for bit on both statistics.** That is the
+half the wave's statistic is taken from, and it also settles a disclosed condition: an unrelated
+`playwright-cli` daemon from another session held a headless Chrome throughout the run. W29's and
+W30's scripts folded a bare `playwright` into their exclusivity refusal, which on a shared machine
+also matches a foreign browser no capture of this bed will ever touch; refusing on it makes another
+session's idle process a hard stop on evidence, and ignoring it silently would hide a real
+contender. `scratch-capture.sh` refuses only another CALIBRATION capture, records the foreign count
+in `browser-runs.txt`, and leaves the reproduction check to referee it cell by cell. It did: |Δ| 0
+on 552 cells.
+
+**Two macOS 26.5 cells do not reproduce, and the cause is diagnosed.**
+`photo__glass-over-glass__rest` on the two light profiles, `texture` tier only, |Δ| 2.840e-03 and
+2.527e-03 on `interiorMeanWeb`. Both were RE-MEASURED from the canonical tree with no browser
+involved, and the `dom` tier of the same two cells reproduces to the last bit — which is only
+possible if `interiorLevel`, the native silhouette it is masked by and the background it is
+differenced against are all unchanged. That leaves one thing that can differ: **the `__webgpu.png`
+on disk is not the raster the committed row was read from.** The canonical tree's files are dated
+2026-09-10 and the rows were measured 2026-09-11.
+
+This is the charter's Surprise with a number attached. `CLAUDE.md` says the canonical
+`web-captures/` "is what the sheets and the demo fixture are copied from"; on these two cells it is
+already a DIFFERENT generation from the rows beside it, and nothing in the repository would have
+said so. The consequence here is narrow and named: the macOS 26.5 columns of `cut.md` for that one
+scene on those two profiles' texture tier are read off pixels the committed row was not read off.
+No macOS 27 cell is affected, no bound is declared on a macOS 26.5 row, and the freeze is untouched
+— a capture tree is gitignored scratch, not committed evidence. Tracker at G4.
+
+### 3. The cut: the residual, and whether Apple moved it
+
+Ratio (i) web against native, on the WebGPU (`texture`) tier, over the untinted `photo` cells of
+the four macOS 27 standard profiles. 1.000 would be vitrea reading the reference's own
+chroma-to-structure.
+
+| scheme | pose | cells | median | range | ratio (ii) native | ratio (ii) web |
+| --- | --- | ---: | ---: | --- | ---: | --- |
+| light | active | 10 | **0.551** | 0.509–0.653 | 0.72–0.83 | 0.25–0.32 |
+| light | inactive | 8 | **0.514** | 0.489–0.652 | 0.71–0.86 | 0.25–0.33 |
+| dark | active | 4 | **0.333** | 0.294–0.361 | 0.92–0.97 | 0.106–0.119 |
+| dark | inactive | 4 | **0.584** | 0.495–0.658 | 0.90–0.92 | 0.11–0.13 |
+
+**The light scheme carries the residual.** At about half the reference against the dark scheme's
+third — milder, and the same defect, which is what `1 − sizedAlpha` predicts (0.5130 light against
+0.0950 dark).
+
+**Ratio (ii) on the dark cells is `1 − sizedAlpha` to within the lens and the scatter** — 0.106 to
+0.119 against 0.0950 — which is the measurement behind §5's claim that the chroma is lost in the
+plate's alpha and nowhere else.
+
+**Ratio (iii) says the reference is not a blur, and says it only of the DARK scheme.** The dark
+native body keeps **1.20–1.80×** the chroma a Gaussian matching its own luma structure would leave;
+the LIGHT native body reads **0.75–1.00** and very nearly IS such a blur. So the two documents'
+fitted retentions should differ by much more than their plate alphas alone suggest, and G3 has that
+before it fits.
+
+**Apple moved it, and the per-pixel instrument is why we can say so.** `native-chroma-delta.ts`
+reads the statistic on the macOS 26.5 and macOS 27 fixture pairs alone, under the macOS 27 mask,
+with no web side in the comparison at all and no capture taken (X5):
+
+| cell | ratio (ii) 26.5 → 27 | mean-OKLab `chromaDelta` 26.5 → 27 |
+| --- | --- | --- |
+| 1x dark `photo__rrect-lg__rest` | 0.606 → **0.906** (+0.300) | −0.00094 → −0.02490 |
+| 1x dark `photo__rrect-md__rest` | 0.607 → **0.918** (+0.311) | −0.00150 → +0.02744 |
+| 1x light `photo__rrect-md__rest` | 0.519 → **0.794** (+0.275) | −0.01266 → +0.00030 |
+| 1x light `photo__capsule-button__rest` | 0.449 → **0.795** (+0.347) | −0.00893 → +0.00624 |
+| 1x dark `mid-chroma-solid__rrect-md__inactive` | 0.751 → **1.029** (+0.278) | −0.07598 → +0.00911 |
+| 1x light `photo__capsule-button__rest-tint-orange` | 1.397 → 1.400 (**+0.003**) | +0.13376 → +0.14078 |
+| 1x dark `photo__capsule-button__rest-tint-orange` | 1.489 → 1.462 (**−0.027**) | +0.14971 → +0.14755 |
+
+Every untinted `photo` and `mid-chroma-solid` cell of both schemes rises by **+0.22 to +0.38**; the
+TINTED cells move by −0.03 to +0.00. The change is on the UNTINTED body, which is exactly where §5
+puts the mechanism. And the mean-OKLab instrument the matrix already had reads the same change as
+0.01–0.02 — a fifteenth the size, and on three of the rows with the wrong sign — which is the
+ledger's answer to why a per-pixel instrument was needed rather than a re-reading of the one on
+disk. Two cautions on the table, recorded rather than smoothed: the two sides' silhouettes differ
+in area (the macOS 27 mask is used for both), and where the macOS 26.5 mask is the smaller the
+extra pixels sit nearer the backdrop and INFLATE the macOS 26.5 reading, so the measured rise is
+conservative.
+
+**The mask question, answered with evidence rather than inherited.** Every untinted `photo` cell of
+both dark macOS 27 profiles fails the conditioning predicate — not the three the charter's
+Grounding names, **all of them**, in both poses at both scales on both tiers. The refusal is an
+area-and-bodies refusal of the SHAPE axis: over a dark body the luminance-delta rule loses the
+pixels where the material's own level meets the backdrop's. `mask-adequacy.ts` computes the
+statistic twice per cell, under the native silhouette and under the hole-free declared region:
+
+| cell | R under the silhouette | R under the declared region | mask area | holes |
+| --- | ---: | ---: | ---: | ---: |
+| 1x dark `photo__capsule-button__rest` | 0.294 | 0.300 | 4,586 / 4,872 | 17 |
+| 1x dark `photo__rrect-md__rest` | 0.315 | 0.314 | 13,187 / 15,024 | 15 |
+| 1x dark `photo__rrect-lg__rest` | 0.393 | 0.394 | 39,392 / 43,816 | 68 |
+| 1x dark `photo__rrect-md__inactive` | 0.512 | 0.507 | 13,340 / 15,024 | 18 |
+| 2x dark `photo__rrect-md__rest` | 0.361 | 0.364 | 52,166 / 60,064 | 35 |
+| 2x dark `photo__rrect-lg__rest` | 0.430 | 0.430 | 156,813 / 175,240 | 131 |
+
+**0.006 at worst on ratio (i) and 0.001 on ratio (ii), across masks differing by up to 18,000 px
+and 131 holes.** The pixels the rule drops are not a chromatically biased sample of the interior,
+so the shape axis's refusal does not reach the chroma axis, and the tolerance in §7 reads the
+native silhouette as every other material row does.
+
+**Two findings beside the cut, neither this wave's to fix.** (a) On the RECEDED TINTED photo cells
+vitrea's body has essentially no chroma left — ratio (ii) **0.001–0.006** against the reference's
+0.54–0.65 — while the ACTIVE tinted cells match almost exactly (1.433 against 1.435). That is
+W27c's seed collapse driving the paint to neutral where Apple's receded material keeps it; X3
+freezes the tint's chroma law here, so it goes to the tracker. (b) The probe anchor
+`mid-chroma-solid` has a LEVEL error large enough to disqualify it from carrying this statistic:
+1x dark inactive reads `interiorMeanWeb` **0.0761 against a native 0.2856** (and a backdrop of
+0.2141 — the reference's receded body is BRIGHTER than what is behind it), and 1x light rest reads
+0.6134 against 0.3957. Since ratio (i) scales as `(level)^(−2/3)` exactly, those bias the statistic
+by 2.29× and 0.75×. **The anchor is granted to G3 for the chromaticity direction and must not carry
+the tolerance until its level agrees.**
+
+### 4. The four claimed rows, decomposed — all four CLAIMED
+
+`ΔE² = ΔL² + Δc²`. A luma-preserving chroma operator moves `Δc` and cannot move `ΔL`, so the best a
+chroma lever alone can do is drive `Δc` to zero at every pixel, leaving `ΔE = |ΔL|`; the P95 of
+`|ΔL|` over the same population is the row's **reachable floor**, and it is a number rather than a
+hope.
+
+| row (all `photo__rrect-lg__rest`, holdout) | bound | committed | scratch | chroma share of ΔE² at the P95 pixels | **reachable floor** | verdict |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| `texture` / `27.0-1x-dark` | ≤ 0.17 | 0.21531 | 0.21530 | 91.4 % | **0.06309** | **CLAIMED** |
+| `texture` / `27.0-2x-dark` | ≤ 0.17 | 0.21341 | 0.21341 | 92.7 % | **0.06201** | **CLAIMED** |
+| `dom` / `27.0-1x-dark` | ≤ 0.18 | 0.20095 | 0.20095 | 90.8 % | **0.06631** | **CLAIMED** |
+| `dom` / `27.0-2x-dark` | ≤ 0.19 | 0.19474 | 0.19474 | 91.1 % | **0.06424** | **CLAIMED** |
+
+The floor sits at **a third of the tightest bound**, so none of the four needs a perfect retention:
+closing the tightest one needs `Δc` at the P95 taken from 0.208 to about 0.158, roughly a quarter
+of the chromatic residual and well inside what the tolerance in §7 asks for.
+
+By region, with the reference silhouette's holes filled before the contour is traced (claims
+§5.15's correction applied to the region split — this cell carries 68 holes and an unfilled mask
+puts a band around every one, leaving `rim` holding two thirds of the interior and saying nothing):
+`interior` 43,148 px reads ΔE P95 **0.220**, `rim` 14,017 px reads **0.213**, `exterior` 6,835 px
+reads **0.0037**. The residual is interior-wide rather than edge-bound, and the chroma share is
+HIGHEST in the rim band (96.5 %) — the one place a shape or shadow defect would have shown as luma,
+and it does not.
+
+The two `dom` rows carry one condition the WebGPU rows do not: their floors are as reachable, but
+only if the CSS tier carries part of the operator, whose dark ceiling is 0.278 against a reference
+ratio (ii) of 0.906 (§6). They are **CLAIMED conditionally on G3 deriving a term for that tier**,
+and revert to "reachable if the CSS tier carries a chroma term" if G3 declines.
+
+**What the fit is judged on BEFORE the holdout is read.** All four are holdout rows, so the fit is
+judged on the gated `photo` cells of `calibration` + `validation` — the tolerance's bed in §7, the
+level stop and the structure stop — and the four are read once, at G3's canonical read, as a result
+and not as an objective.
+
+### 5. The mechanism, from the shader, and the one leaf
+
+`mechanism.ts` evaluates the material's own exported functions at the photo cells' measured
+backdrops and spans, so what follows is arithmetic on shipped constants.
+
+**Where the chroma is lost: the plate's alpha, and nowhere else.** The composite is
+`colour = mix(backdrop, adapted, presentAlpha)` in linear light with `adapted` a neutral, so the
+backdrop's chromaticity survives scaled by `1 − sizedAlpha` — 0.0950 on the dark document at span
+≥ 96 and 0.5130 on the light one, against measured ratio (ii) of 0.106–0.119 and 0.25–0.32. The W9
+solve is achromatic by its own words and the tone response owns the interior MEAN, so nothing
+upstream of the composite moves a hue.
+
+**The two collapses, told apart.** The backdrop tone collapse (`toneAdapt`, `adapted` toward
+`toneTarget`) acts on every body. W27c's chroma collapse (`tintChromaScale` through `ou.rim.z`)
+lives inside `if (tintK > 0.0)` and acts on the tint SEED, so an untinted body — including every
+untinted receded body, the recede's worst cell's population — **has no chroma law at all today**.
+
+**The `toneAdapt` gate: NONE, and the reason is a measurement.** Both macOS 27 documents set
+`backdropToneLow` 0 and `backdropToneHigh` 0.0001 against a `backdropToneSizeBias` of 0.05, so the
+smoothstep argument saturates at every backdrop and every span and **`toneAdapt` is identically 0
+on the macOS 27 material** — evaluated at ten backdrop levels from 0 to 0.9 and reading
+0.00000000 at every one. `1 − toneAdapt` is the constant 1 over the entire macOS 27 bed, so a gate
+on it is a multiplier by one that no cell of the bed could move. On the frozen macOS 26.5 documents
+the collapse does fire (its band is [0.02, 0.055]) and there the retention sits at its identity 0,
+so the gate would never be exercised there either. **Recorded as a condition rather than
+dismissed:** a future document that re-opens `backdropToneHigh` must re-examine whether the
+retention needs standing down where the collapse owns the pixel. Tracker at G4.
+
+**The leaf.** `bodyChromaRetention ∈ [0, 1]`, inert identity **0**, applied immediately after
+`colour = mix(backdrop, adapted, presentAlpha)` and before `var materialColour = colour`:
+
+    let Y  = dot(colour, W);                      // the luma the W9 solve produced
+    let Yb = dot(backdrop, W);
+    let target = backdrop * (Y / max(Yb, 1e-6));  // the backdrop's chromaticity AT Y
+    var restored = mix(colour, target, bodyChromaRetention);
+    restored = restored * (Y / max(dot(restored, W), 1e-6));   // an f32 rounding guard
+    colour = gamut_at_luma(restored, Y);
+
+**Luma preservation is by construction, not by correction, and that is why the formulation is in
+linear RGB.** Both endpoints of the mix have linear luma exactly `Y` — `colour` by definition and
+`target` because it is the backdrop scaled to `Y` — and linear luma is a linear functional, so the
+mix has luma `Y` in exact arithmetic and the renormalisation is a rounding guard. The charter's
+warning does not arise: holding OKLab `L` while moving toward a saturated chromaticity changes `Y`
+by −22 % at sRGB blue, −14 % at red and +10 % at green, and `L` is never held here.
+
+**Gamut, with the luma held and never clipped per channel.** `gamut_at_luma(c, Y)` is
+`mix(vec3f(Y), c, t)` with `t` the largest value in [0, 1] keeping every channel in [0, 1] —
+`t ≤ (1 − Y)/(cᵢ − Y)` where a channel overshoots and `t ≤ Y/(Y − cᵢ)` where one undershoots. Both
+endpoints again have luma `Y`, so the clamp scales chroma down and holds the level exactly.
+
+**The receded documents carry their own value**, read on the inactive photo cells
+(`photo__capsule-button__inactive` and `photo__rrect-md__inactive` on calibration, both scales,
+both schemes). They need one: the dark inactive bed reads 0.495–0.658 against the dark active bed's
+0.294–0.361, so the two poses are not one number.
+
+**The tint path under it: unmoved by construction at full strength.** The tint's shade law reads
+`u`, the untinted material's LUMINANCE, which the retention preserves exactly, so `shade`, `layer`
+and `rimTintColour` are bit-identical. The composition `mix(encodedMaterial, encodedLayer, s)`
+moves by `(1 − s)·Δ(encodedMaterial)`: exactly zero at `s = 1` and half the body's change at
+`tint-orange-half`. The rim's amplitude law reads `materialColour`'s luminance and is likewise
+unmoved. That is stronger than "expected unmoved by fit" and it is checkable before the fit.
+
+**One place the operator cannot act, named now rather than discovered later.** On the unsampled
+layer path (`flags.x <= 0.5` and not `domMaterial`) the shader overwrites `colour` with `adapted`
+and writes a layer for the browser to composite over a DOM proxy; there is no backdrop in hand and
+no chromaticity to restore toward. The retention is silently the identity there, which is correct
+and is a declared residual: an unsampled group on the WebGPU tier carries none of this operator.
+
+**No other mechanism was preferred by the tables.** The two alternatives the charter offers — a
+lower plate alpha with a darker neutral, and a multiplicative darkening — are refused by one
+reading each. A lower alpha with a darker neutral reaches ratio (ii) and cannot reach ratio (iii):
+it would pass MORE of the backdrop's structure, and the dark cells' `interiorStdDevWeb/Native`
+already runs 0.353–0.441 against a reference the wave declines to chase (X3), so that lever buys
+chroma by moving a row the charter declares unmoved. A multiplicative darkening is the
+`c`-scaling of §1 and scales ratio (i) by `c^(−2/3)` with the chromaticity untouched — it moves the
+statistic without restoring a single hue, which is precisely the failure the instrument was built
+to make visible.
+
+### 6. The CSS projection: the ceiling per scheme, as a declared residual
+
+`saturate()` acts on the backdrop inside the one `backdrop-filter` and the `rgba()` plate covers
+the result, so the reachable interior chroma is bounded by `(1 − α′)·s` — with `s` 1.8 on the
+regular variant, CSS-only and frozen by X3, and `α′` the CONVERTED alpha `cssTintAlpha` solves at
+the surface's own measured backdrop rather than the renderer's `tintAlpha`:
+
+| scheme | renderer `tintAlpha` | α′ at the photo backdrop | **ceiling on ratio (ii)** | reference's ratio (ii) | today's CSS tier |
+| --- | ---: | ---: | ---: | --- | --- |
+| light | 0.4600 | 0.5642 | **0.784** | 0.72–0.86 | 0.40–0.63 |
+| dark | 0.9000 | 0.8456 | **0.278** | 0.90–0.92 | 0.18–0.24 |
+
+The light tier's ceiling sits essentially AT the reference's own reading with no headroom to spare;
+the dark tier can carry at most **31 %** of the reference's body chroma however a term is derived,
+leaving a residual of about **0.63 in ratio (ii)** that is unclosable on that tier without moving
+`saturate()`, which X3 forbids and which would be a CSS-only constant fitted to a renderer operator
+in any case. The bound is an upper one and loose in one direction, stated so: `saturate()` is
+defined on sRGB-encoded values while the renderer saturates in linear light.
+
+**G0's recommendation to G3, which G3 may decline with a measurement:** derive the term on the
+light scheme, record the dark scheme's ceiling as the residual, and do not spend `saturate()`.
+Either way `tier-coherence.test.ts` gains the exhaustiveness case so that green says something
+about a new leaf.
+
+**One reading that complicates it, recorded rather than smoothed.** On `mid-chroma-solid` the CSS
+tier is already CLOSER to the reference than the WebGPU tier is, by eye and by ratio (ii) — 0.484
+against 0.352 at 1x light `capsule-button__rest`, reference 0.802. The fidelity target is behind
+its own derived tier on that cell, which is what a CSS-only `saturate()` with no renderer
+counterpart produces.
+
+### 7. The declarations, before any leaf exists
+
+`bounds-declaration.md` is the full text; this is the ledger's copy of what binds.
+
+**(a) The macOS 27 adopted tables do not move** — cited from `test/adopted-thresholds.test.ts`,
+never transcribed — and `MISSED_27_ROWS`'s seven entries stay as recorded. **No regression floor is
+pinned.** A floor is the instrument for a row a fix cannot reach, and §4 shows these four reachable
+by three times over.
+
+**(b) The chroma tolerance.** Statistic `R = chromaStructureRatioWeb / chromaStructureRatioNative`,
+web against native, never against 1. Bed: the untinted `photo` cells of the four macOS 27 standard
+profiles, both scales, `calibration` + `validation`, on the **WebGPU tier**, the two poses bounded
+separately because they draw two different documents. Holdout excluded by construction. Order
+statistic: the **median per scheme and pose, with a per-cell floor**.
+
+| | bound on the median | per-cell floor | today |
+| --- | --- | --- | --- |
+| light active (10 cells) | `0.80 ≤ median R ≤ 1.20` | every cell `R ≥ 0.60` | **0.551** |
+| light inactive (8) | `0.80 ≤ median R ≤ 1.20` | every cell `R ≥ 0.60` | **0.514** |
+| dark active (4) | `0.80 ≤ median R ≤ 1.20` | every cell `R ≥ 0.60` | **0.333** |
+| dark inactive (4) | `0.80 ≤ median R ≤ 1.20` | every cell `R ≥ 0.60` | **0.584** |
+
+Two-sided, because an over-fitted retention adds chroma the reference does not have. **The noise
+bar it is justified from** is the instrument's own reproducibility, measured as the 1x-against-2x
+spread of `R` on the bed's own cells — the same material, scene and document read at two rasters,
+the only repeat this frozen bed offers: light median **4.49 %** / worst 7.66 %, dark median
+**9.09 %** / worst **19.41 %**. ±0.20 is a little over the dark bed's worst single cell and about
+four times its median, while the residual it must detect is 0.45 and 0.67 away from 1.0 — between
+2.2 and 3.3 times the bound's own half-width. The dark bed's 19.41 % is not capture noise: it is on
+`capsule-button__rest`, the cell with the largest level miss in the bed (0.0493), whose level alone
+biases `R` by 1.178 through the `−2/3` exponent, and the level stop is what removes it.
+
+**Two stops without which the tolerance is gameable, declared with it.**
+
+> **The structure stop, this child's addition.** `interiorStdDevWeb` moves by no more than **2 % of
+> its pre-fit value** on any cell of the bed. Ratio (i) is scale-free in the deviations, which is
+> what makes the blur cancel — and it is therefore equally blind to a body that loses chroma and
+> structure *together*. The CSS tier is the proof that this is not hypothetical: on the dark photo
+> cells it reads `R` 0.83–1.08, essentially the reference's value, while ratio (ii) reads 0.18–0.24
+> against the reference's 0.90 and the sheets show a body with no hues in it at all. Without this
+> stop `R` is not a sufficient statistic.
+
+**(c) The level stop, as a number.** There is no adopted interior-level row to cite —
+`interiorLevelRatioGpuOverCss` is a cross-tier ratio, blind to both tiers moving together — so:
+per cell of the bed, on both tiers, **`|interiorMeanWeb − interiorMeanNative| ≤ 0.055`** in linear
+relative luminance, **and that quantity grows by no more than 0.005 from its pre-fit value**.
+Clause two is the operative one: the retention is luma-preserving by construction, so the expected
+movement is zero to rounding and 0.005 is a hundredfold margin. Today's worst on the bed is 0.0493
+(1x dark `photo__capsule-button__rest`, native 0.2254 against 0.1790) and the medians are 0.0053
+light and 0.0360 dark, so clause one is met today by every cell and breaks only on a fit that makes
+the level worse than the wave found it. Read before and after on scratch by G3.
+
+**(d) The four rows: all four CLAIMED** (§4), the two `dom` rows conditionally on the CSS
+projection; the pre-holdout judgement named in §4.
+
+**(e) The recede's worst cell (W29 §5.154 §8), reported and not claimed.**
+`photo__rrect-lg__rest`'s inactive pose, WebGPU tier, macOS 27 dark: `R` **0.537** (1x) and
+**0.514** (2x); ratio (ii) native 0.923 / 0.920 against web 0.127 / 0.132; `interiorMean` native
+0.1708 / 0.1705 against web 0.1606 / 0.1608. It is a holdout scene and is outside the tolerance's
+bed. Its population is the one W27c's chroma collapse does not reach (§5), so the receded
+documents' own `bodyChromaRetention` is the first chroma law this cell will ever have had.
+
+**(f) The stops and the expected-unmoved rows.** B3 as W30 Decision Log 3 (a) restated it: the
+WebGPU tier's mean absolute exterior departure over the non-holdout cells of all six profiles,
+**0.00035**, held at or better, with the both-tier figure recorded beside. The retention acts
+inside the body composite and reaches no exterior pixel, so any movement there is a warning and not
+a result. The shadow's rows, the scatter's and the structure rows: unmoved, to the structure stop.
+The tinted cells: unmoved by construction at `s = 1`, read before and after at `s = 0.5`. The rim:
+unmoved, because its amplitude law reads a luminance the retention preserves. **The light
+document's value may be declined and a decline is a measurement** — though the light bed's 0.551
+makes it unlikely — recorded as W30 recorded the light scatter, and an explicit identity reads as
+absent in the digest under Decision Log 1 (a).
+
+**(g) The tolerance's fate: the identifiability argument CAN be made, with two conditions.** A
+chroma row adopted at G4 would be the first adopted row on the material axis, whose absence
+`adopted-thresholds.test.ts`'s header argues for on two grounds, and this row is neither:
+
+1. **Not below quantisation.** The numerator is an OKLab chroma spread of 0.02–0.11 on this bed
+   against an 8-bit capture's OKLab quantisation of about 0.002 — one to two orders down. And the
+   re-capture makes it concrete rather than analytic: all 552 macOS 27 cells reproduce to |Δ|
+   **exactly 0**, so this bed carries no capture noise at all and the only spread in the statistic
+   is the 4.5 % / 9.1 % across rasters that the bound is five times wider than.
+2. **Not unidentifiable.** The native side separates by geometry over 1.47× (light) and 1.69×
+   (dark) and the web side tracks it cell for cell; the ratio reads 0.55 and 0.33 against a
+   reference 1.0. The quantity a fit would move is three times the bound's half-width and seven
+   times the instrument's own reproducibility.
+
+**The two conditions.** (i) Adopted **with the structure stop as a second gated row**, because `R`
+alone is insufficient by the CSS tier's own reading. (ii) Adopted on the **WebGPU tier only** — the
+CSS tier's `R` is near 1.0 today with no chroma operator anywhere in the renderer, so gating it
+would certify the gap, which is Decision Log 11's refusal one axis over. Absent those two the
+honest disposition is a one-wave reading; G0 recommends adoption with them, and the parent decides
+at G4.
+
+### 8. By eye, before any fit exists
+
+`eye.md`, written before the leaf, on six sheets of native | WebGPU | CSS | ΔE × 8 at 1x in both
+schemes from the scratch captures (disclosed). The reference's dark body over the photograph is a
+photograph seen through glass, with its hues in place; vitrea's is a flat warm grey at almost the
+same level, and the difference panel is saturated white across the whole interior. Three things the
+metrics do not carry:
+
+1. **A hue ROTATION, not only an attenuation.** Over the magenta solid the reference's body is a
+   clean lighter PINK and the WebGPU body is a LAVENDER — desaturated *and* rotated toward blue.
+   `tintHueShift*` is already on the row and has never been read on these cells.
+2. **The flatness reads as the wrong MATERIAL, not as a wrong colour.** The reference reads as a
+   transparent slab and vitrea's as a painted panel on top of the image. Level agreement is what
+   makes it so visible — the eye has nothing else to explain the flatness with.
+3. **The CSS tier is not uniformly behind the fidelity target**, as §6 records.
+
+`mid-chroma-solid__capsule-button__rest` exists on the LIGHT macOS 27 profile only; the dark bed's
+four `mid-chroma-solid` fixtures are all `__inactive`, so the dark sheet is the inactive pose and
+`sheets.ts` names the substitution.
+
+### 9. What this gate does not claim
+
+It does not fit anything, does not add a leaf, does not touch a document, and takes no native
+capture. Its scratch rows are not evidence of a material and are not appended anywhere; the
+committed 0.20.0 generation is still the reading for this configuration, holdout included. The
+tolerance in §7 is DECLARED and not adopted — the parent decides at G4 on §7 (g)'s argument — and
+the four rows in §4 are CLAIMED on a reachability floor, which is a statement about what the lever
+can reach and not a prediction of what a fit will achieve.
+
+### 10. Verification record, at the closure
+
+`freeze.py verify` — **26.5 freeze intact: 1818 entries** — `pnpm -r build`, `pnpm -r lint` and
+`pnpm -r test` green; `digest-rule-proof.ts` exits 0 with `PROOF OK — no failures`. Chain in
+`chain.txt`.
+
 ## 5.162 W31 G1: the exterior-width instrument — the shadow's SHAPE is the statistic and its width is not, the clause the next shadow wave is judged on, and a green B1 sitting beside a rendered σ three CSS px too wide (2026-09-21)
 
 **Gate: W31 G1, acceptance clause 4; contracts X1, X7, X11. Executes W30's

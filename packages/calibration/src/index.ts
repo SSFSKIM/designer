@@ -15,7 +15,7 @@
  * - `component-region` — the scene matrix's declared geometry, placed and
  *   rasterised: the search region that bounds extraction and the exact contour
  *   distance the shadow axis profiles by.
- * - `metrics/shape`, `metrics/material`, `metrics/perceptual`, `metrics/motion`,
+ * - `metrics/shape`, `metrics/material`, `metrics/chroma`, `metrics/perceptual`, `metrics/motion`,
  *   `metrics/shadow` — the axes, reported separately so a win on one can never
  *   mask a loss on another.
  * - `plurality` / `run-provenance` — materialising one reference bed out of
@@ -51,6 +51,7 @@ export * from "./run-provenance";
 
 export * from "./metrics/shape";
 export * from "./metrics/material";
+export * from "./metrics/chroma";
 export * from "./metrics/shadow";
 export * from "./metrics/perceptual";
 export * from "./metrics/motion";

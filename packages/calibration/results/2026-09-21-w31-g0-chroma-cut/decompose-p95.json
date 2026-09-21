@@ -1,0 +1,201 @@
+{
+  "rimBandCssPx": 8,
+  "rows": [
+    {
+      "row": "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scale": 1,
+      "scene": "photo__rrect-lg__rest",
+      "backdrop": "photo",
+      "renderer": "webgpu",
+      "tier": "texture",
+      "bound": 0.17,
+      "committed": 0.21531,
+      "whole": {
+        "region": "whole capture",
+        "pixels": 64000,
+        "deltaEP95": 0.21530472893898558,
+        "deltaLP95": 0.06309053731527947,
+        "deltaChromaP95": 0.20807978456366075,
+        "reachableP95": 0.06309053731527947,
+        "chromaShareAtP95": 0.9136770441164355
+      },
+      "byRegion": [
+        {
+          "region": "interior",
+          "pixels": 43148,
+          "deltaEP95": 0.22012654326383654,
+          "deltaLP95": 0.06447901467918771,
+          "deltaChromaP95": 0.21227490453575415,
+          "reachableP95": 0.06447901467918771,
+          "chromaShareAtP95": 0.8999219589170635
+        },
+        {
+          "region": "rim",
+          "pixels": 14017,
+          "deltaEP95": 0.2125297932662689,
+          "deltaLP95": 0.0417054755868394,
+          "deltaChromaP95": 0.21055144774169463,
+          "reachableP95": 0.0417054755868394,
+          "chromaShareAtP95": 0.9647673605712478
+        },
+        {
+          "region": "exterior",
+          "pixels": 6835,
+          "deltaEP95": 0.003662624044834887,
+          "deltaLP95": 0.0035735193095797757,
+          "deltaChromaP95": 0.001987143157669248,
+          "reachableP95": 0.0035735193095797757,
+          "chromaShareAtP95": null
+        }
+      ]
+    },
+    {
+      "row": "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95",
+      "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scale": 2,
+      "scene": "photo__rrect-lg__rest",
+      "backdrop": "photo",
+      "renderer": "webgpu",
+      "tier": "texture",
+      "bound": 0.17,
+      "committed": 0.21341,
+      "whole": {
+        "region": "whole capture",
+        "pixels": 256000,
+        "deltaEP95": 0.21341404229864938,
+        "deltaLP95": 0.06200620731278983,
+        "deltaChromaP95": 0.20665452715472957,
+        "reachableP95": 0.06200620731278983,
+        "chromaShareAtP95": 0.9266597518826613
+      },
+      "byRegion": [
+        {
+          "region": "interior",
+          "pixels": 173492,
+          "deltaEP95": 0.21838569997980214,
+          "deltaLP95": 0.06440103669146102,
+          "deltaChromaP95": 0.21134098537991677,
+          "reachableP95": 0.06440103669146102,
+          "chromaShareAtP95": 0.9191194455781215
+        },
+        {
+          "region": "rim",
+          "pixels": 55428,
+          "deltaEP95": 0.20699341958234116,
+          "deltaLP95": 0.03927041193615627,
+          "deltaChromaP95": 0.20540869788601623,
+          "reachableP95": 0.03927041193615627,
+          "chromaShareAtP95": 0.9564448365310891
+        },
+        {
+          "region": "exterior",
+          "pixels": 27080,
+          "deltaEP95": 0.003665989717489536,
+          "deltaLP95": 0.0035852743289863653,
+          "deltaChromaP95": 0.0019831726259871944,
+          "reachableP95": 0.0035852743289863653,
+          "chromaShareAtP95": null
+        }
+      ]
+    },
+    {
+      "row": "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scale": 1,
+      "scene": "photo__rrect-lg__rest",
+      "backdrop": "photo",
+      "renderer": "css",
+      "tier": "dom",
+      "bound": 0.18,
+      "committed": 0.20095,
+      "whole": {
+        "region": "whole capture",
+        "pixels": 64000,
+        "deltaEP95": 0.2009476724435219,
+        "deltaLP95": 0.06631363762228548,
+        "deltaChromaP95": 0.19337842291165375,
+        "reachableP95": 0.06631363762228548,
+        "chromaShareAtP95": 0.9080049304945523
+      },
+      "byRegion": [
+        {
+          "region": "interior",
+          "pixels": 43148,
+          "deltaEP95": 0.20524445373394423,
+          "deltaLP95": 0.0677462234603079,
+          "deltaChromaP95": 0.19771547011398055,
+          "reachableP95": 0.0677462234603079,
+          "chromaShareAtP95": 0.9048575034661547
+        },
+        {
+          "region": "rim",
+          "pixels": 14017,
+          "deltaEP95": 0.19873163558365123,
+          "deltaLP95": 0.040865676794923034,
+          "deltaChromaP95": 0.19236185091343166,
+          "reachableP95": 0.040865676794923034,
+          "chromaShareAtP95": 0.9199717594960811
+        },
+        {
+          "region": "exterior",
+          "pixels": 6835,
+          "deltaEP95": 0.004155730438447944,
+          "deltaLP95": 0.003790341679675957,
+          "deltaChromaP95": 0.0020244534640404934,
+          "reachableP95": 0.003790341679675957,
+          "chromaShareAtP95": null
+        }
+      ]
+    },
+    {
+      "row": "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95",
+      "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scale": 2,
+      "scene": "photo__rrect-lg__rest",
+      "backdrop": "photo",
+      "renderer": "css",
+      "tier": "dom",
+      "bound": 0.19,
+      "committed": 0.19474,
+      "whole": {
+        "region": "whole capture",
+        "pixels": 256000,
+        "deltaEP95": 0.19474485798500807,
+        "deltaLP95": 0.06423670171356,
+        "deltaChromaP95": 0.18700262614645094,
+        "reachableP95": 0.06423670171356,
+        "chromaShareAtP95": 0.9109959524643726
+      },
+      "byRegion": [
+        {
+          "region": "interior",
+          "pixels": 173492,
+          "deltaEP95": 0.1994081892839846,
+          "deltaLP95": 0.06625997137285988,
+          "deltaChromaP95": 0.1913026403435071,
+          "reachableP95": 0.06625997137285988,
+          "chromaShareAtP95": 0.9087192278850963
+        },
+        {
+          "region": "rim",
+          "pixels": 55428,
+          "deltaEP95": 0.1913508647306498,
+          "deltaLP95": 0.03847609931808749,
+          "deltaChromaP95": 0.1843520501378925,
+          "reachableP95": 0.03847609931808749,
+          "chromaShareAtP95": 0.9199226027940385
+        },
+        {
+          "region": "exterior",
+          "pixels": 27080,
+          "deltaEP95": 0.003933333330116177,
+          "deltaLP95": 0.0036413981518648164,
+          "deltaChromaP95": 0.0019759594124594813,
+          "reachableP95": 0.0036413981518648164,
+          "chromaShareAtP95": null
+        }
+      ]
+    }
+  ]
+}

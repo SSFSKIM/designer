@@ -1,0 +1,62 @@
+== the composite's two factors at the photo cells, macOS 27 ==
+
+light active  
+  span  44  photo__capsule-button__rest    sizeK 0.0923  tintAlpha 0.4600  sizedAlpha 0.4625  1−sizedAlpha 0.5375  toneAdapt 0.000000
+  span  96  photo__rrect-md__rest          sizeK 1.0000  tintAlpha 0.4600  sizedAlpha 0.4870  1−sizedAlpha 0.5130  toneAdapt 0.000000
+  span 128  photo__rrect-ml__rest          sizeK 1.0000  tintAlpha 0.4600  sizedAlpha 0.4870  1−sizedAlpha 0.5130  toneAdapt 0.000000
+  span 160  photo__rrect-lg__rest          sizeK 1.0000  tintAlpha 0.4600  sizedAlpha 0.4870  1−sizedAlpha 0.5130  toneAdapt 0.000000
+
+light receded 
+  span  44  photo__capsule-button__rest    sizeK 0.0923  tintAlpha 0.4600  sizedAlpha 0.4625  1−sizedAlpha 0.5375  toneAdapt 0.000000
+  span  96  photo__rrect-md__rest          sizeK 1.0000  tintAlpha 0.4600  sizedAlpha 0.4870  1−sizedAlpha 0.5130  toneAdapt 0.000000
+  span 128  photo__rrect-ml__rest          sizeK 1.0000  tintAlpha 0.4600  sizedAlpha 0.4870  1−sizedAlpha 0.5130  toneAdapt 0.000000
+  span 160  photo__rrect-lg__rest          sizeK 1.0000  tintAlpha 0.4600  sizedAlpha 0.4870  1−sizedAlpha 0.5130  toneAdapt 0.000000
+
+dark  active  
+  span  44  photo__capsule-button__rest    sizeK 0.0923  tintAlpha 0.9000  sizedAlpha 0.9005  1−sizedAlpha 0.0995  toneAdapt 0.000000
+  span  96  photo__rrect-md__rest          sizeK 1.0000  tintAlpha 0.9000  sizedAlpha 0.9050  1−sizedAlpha 0.0950  toneAdapt 0.000000
+  span 128  photo__rrect-ml__rest          sizeK 1.0000  tintAlpha 0.9000  sizedAlpha 0.9050  1−sizedAlpha 0.0950  toneAdapt 0.000000
+  span 160  photo__rrect-lg__rest          sizeK 1.0000  tintAlpha 0.9000  sizedAlpha 0.9050  1−sizedAlpha 0.0950  toneAdapt 0.000000
+
+dark  receded 
+  span  44  photo__capsule-button__rest    sizeK 0.0923  tintAlpha 0.8900  sizedAlpha 0.8905  1−sizedAlpha 0.1095  toneAdapt 0.000000
+  span  96  photo__rrect-md__rest          sizeK 1.0000  tintAlpha 0.8900  sizedAlpha 0.8955  1−sizedAlpha 0.1045  toneAdapt 0.000000
+  span 128  photo__rrect-ml__rest          sizeK 1.0000  tintAlpha 0.8900  sizedAlpha 0.8955  1−sizedAlpha 0.1045  toneAdapt 0.000000
+  span 160  photo__rrect-lg__rest          sizeK 1.0000  tintAlpha 0.8900  sizedAlpha 0.8955  1−sizedAlpha 0.1045  toneAdapt 0.000000
+
+== the gate question ==
+
+  backdropToneLow / backdropToneHigh / backdropToneMax, per document:
+    macOS 27 light   low 0  high 0.0001  max 1  sizeBias 0.05
+    macOS 27 dark    low 0  high 0.0001  max 1  sizeBias 0.05
+    macOS 26.5 light  low 0.02  high 0.055  max 1  sizeBias 0.05
+    macOS 26.5 dark   low 0.02  high 0.055  max 1  sizeBias 0.05
+
+  The macOS 27 documents set the collapse's band to [0, 0.0001]. The smoothstep
+  argument is (level + sizeBias·sizeK − low) / (high − low), so ANY backdrop at
+  or above 0.0001 of linear light saturates it at 1 and 'toneAdapt' is exactly
+  0. The photo backdrop sits at 0.221 / 0.233. The collapse is therefore OFF at
+  every photo cell of both macOS 27 documents — not small, zero — and it is off
+  at every cell of the macOS 27 bed whose backdrop is not essentially black.
+
+  toneAdapt over the whole backdrop range, macOS 27 dark, span 96:
+    level 0        toneAdapt 0.00000000
+    level 0.00005  toneAdapt 0.00000000
+    level 0.0001   toneAdapt 0.00000000
+    level 0.001    toneAdapt 0.00000000
+    level 0.01     toneAdapt 0.00000000
+    level 0.05     toneAdapt 0.00000000
+    level 0.1223   toneAdapt 0.00000000
+    level 0.2331   toneAdapt 0.00000000
+    level 0.5      toneAdapt 0.00000000
+    level 0.9      toneAdapt 0.00000000
+
+  The same curve on the FROZEN macOS 26.5 dark document, for contrast — that
+  material does adapt, over [0.02, 0.055]:
+    level 0        toneAdapt 0.05539359
+    level 0.01     toneAdapt 0.00000000
+    level 0.02     toneAdapt 0.00000000
+    level 0.0375   toneAdapt 0.00000000
+    level 0.055    toneAdapt 0.00000000
+    level 0.1223   toneAdapt 0.00000000
+    level 0.2331   toneAdapt 0.00000000

@@ -1,0 +1,11 @@
+# The two scratch matrices this child wrote (23 MB and 6 MB).
+#
+# Not committed, and the distinction is the one `CLAUDE.md` already draws:
+# `results/matrix.json` is committed evidence and a scratch matrix is not. These
+# two are reproducible from the committed scripts beside them — `scratch-capture.sh`
+# and `blurred-reference.sh` — against the frozen fixtures and the shipped
+# documents, and everything read off them is distilled into `cut.json`,
+# `cut.md`, `reproduction-check.md` and the three `.txt` run logs, all of which
+# ARE committed. Nothing in the repository points at them.
+scratch-matrix.json
+scratch-matrix-blurred.json

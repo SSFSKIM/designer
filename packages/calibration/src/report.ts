@@ -21,6 +21,7 @@
  */
 
 import { CalibrationError } from "./errors";
+import type { ChromaStructureReport } from "./metrics/chroma";
 import type { ContourDistanceReport, CornerCurvatureReport } from "./metrics/shape";
 import type {
   EdgeSpreadReport,
@@ -450,6 +451,82 @@ export interface MaterialAxisReport {
   readonly shadowPeakDistanceWeb: MetricValue;
   readonly shadowDecayLengthNative: MetricValue;
   readonly shadowDecayLengthWeb: MetricValue;
+
+  /*
+   * The per-pixel chroma rows (W31 G0, claims §5.161).
+   *
+   * A schema ADDITION on `drawnAreaWeb`'s precedent: optional at schema 5, no
+   * version bump, nothing above changes meaning, and a matrix written before
+   * this wave reads with the fields absent. They cannot reach the 1,818 frozen
+   * macOS 26.5 rows, which is why the 26.5 readings of this statistic live in
+   * `results/2026-09-21-w31-g0-chroma-cut/` and never in this file.
+   *
+   * The rows above read the interior's MEAN colour: `tintChromaDelta*` is the
+   * difference of two mean-OKLab chromas, so over a balanced photograph a body
+   * that passes every hue through and a body that renders a flat grey of the
+   * same level read almost the same number. These read the POPULATION —
+   * `metrics/chroma.ts` converts every masked pixel to OKLab — which is the
+   * form in which the residual this wave exists to close is visible.
+   *
+   * Absent means not measured, never zero. The whole block is absent on a cell
+   * with no material axis, and `chromaStructureRatio*` is absent on its own
+   * wherever the masked region carries no structure to divide by (every
+   * solid-colour backdrop), because "this scene does not measure structure" is
+   * the honest reading and a ratio over rounding is not.
+   */
+  /** Mean over the mask of each pixel's own OKLab chroma. */
+  readonly interiorChromaMeanNative?: MetricValue;
+  readonly interiorChromaMeanWeb?: MetricValue;
+  readonly interiorChromaMeanBackdrop?: MetricValue;
+  /** Population sd of the OKLab opponent axes over the same mask. */
+  readonly interiorChromaSdANative?: MetricValue;
+  readonly interiorChromaSdAWeb?: MetricValue;
+  readonly interiorChromaSdABackdrop?: MetricValue;
+  readonly interiorChromaSdBNative?: MetricValue;
+  readonly interiorChromaSdBWeb?: MetricValue;
+  readonly interiorChromaSdBBackdrop?: MetricValue;
+  /**
+   * Ratio (i), the reading this wave's tolerance is declared on:
+   * `sqrt(sd(a)² + sd(b)²) / interiorStdDev`, per side, read web against
+   * NATIVE on the same cell and never against 1. A linear blur divides out of
+   * it to first order, so the structure deficit W31 does not touch (X3) cannot
+   * be absorbed into a chroma fit.
+   */
+  readonly chromaStructureRatioNative?: MetricValue;
+  readonly chromaStructureRatioWeb?: MetricValue;
+  readonly chromaStructureRatioBackdrop?: MetricValue;
+  /**
+   * The population sd of OKLab `L` over the same mask — ratio (i)'s
+   * denominator in the form that IS exactly invariant to a luma-only
+   * darkening, where the linear-luma form scales by `c^(−2/3)`. Carried beside
+   * the declared reading so a movement can be split into its level part and
+   * its chroma part; see `metrics/chroma.ts` for the exponent's derivation.
+   */
+  readonly interiorOklabLSdDevNative?: MetricValue;
+  readonly interiorOklabLSdDevWeb?: MetricValue;
+  readonly interiorOklabLSdDevBackdrop?: MetricValue;
+  /** Ratio (ii): the side's mean per-pixel chroma over the RAW backdrop's. Confounded by design. */
+  readonly rawChromaRatioNative?: MetricValue;
+  readonly rawChromaRatioWeb?: MetricValue;
+  /**
+   * Ratio (iii): the same quantity against a backdrop blurred to the side's own
+   * measured structure. A body that only blurred reads 1. The radius is fitted
+   * from the pixels and reported beside the ratio, because no single number in
+   * a material profile document is "the material's blur radius".
+   */
+  readonly blurredChromaRatioNative?: MetricValue;
+  readonly blurredChromaRatioWeb?: MetricValue;
+  readonly blurredReferenceSigmaNative?: MetricValue;
+  readonly blurredReferenceSigmaWeb?: MetricValue;
+  /**
+   * The MEAN-OKLab chromas `tintResponse` has always computed and never
+   * exported. `tintChromaDelta*` is their difference; carrying the two absolute
+   * readings is what lets a table say whether a delta near zero is two neutrals
+   * or two chromatic colours that happen to match.
+   */
+  readonly tintInteriorChromaNative?: MetricValue;
+  readonly tintInteriorChromaWeb?: MetricValue;
+  readonly tintBackdropChroma?: MetricValue;
 }
 
 /** One side's single-image material measurements. */
@@ -467,8 +544,22 @@ export function materialAxisReport(input: {
   readonly backdropInterior: InteriorLevelReport;
   /** Absent on a solid-colour backdrop, where no transfer slope is identifiable. */
   readonly luminance?: LuminanceTransferReport;
+  /** The per-pixel chroma reading (W31 G0). Absent leaves every row above it absent. */
+  readonly chroma?: ChromaStructureReport;
 }): MaterialAxisReport {
-  const { native, web, luminance } = input;
+  const { native, web, luminance, chroma } = input;
+  /*
+   * One optional row. A non-finite reading is written as ABSENT rather than as
+   * a NaN the serialiser would carry into the matrix: every one of these is a
+   * ratio, and the cases where its denominator vanishes are real cells of the
+   * bed rather than faults.
+   */
+  const opt = (
+    name: string,
+    value: number | undefined,
+    units: MetricUnits,
+  ): Record<string, MetricValue> =>
+    value === undefined || !Number.isFinite(value) ? {} : { [name]: metricValue(value, units) };
   return {
     axis: "material",
     ...(native.blur === undefined
@@ -521,6 +612,35 @@ export function materialAxisReport(input: {
     shadowPeakDistanceWeb: metricValue(web.shadow.peakDistancePx, "px"),
     shadowDecayLengthNative: metricValue(native.shadow.decayLengthPx, "px"),
     shadowDecayLengthWeb: metricValue(web.shadow.decayLengthPx, "px"),
+    // The mean-OKLab chromas the tint rows above are the difference of.
+    ...opt("tintInteriorChromaNative", native.tint.interiorChroma, "oklab"),
+    ...opt("tintInteriorChromaWeb", web.tint.interiorChroma, "oklab"),
+    ...opt("tintBackdropChroma", native.tint.backdropChroma, "oklab"),
+    ...(chroma === undefined
+      ? {}
+      : {
+          ...opt("interiorChromaMeanNative", chroma.native.meanChroma, "oklab"),
+          ...opt("interiorChromaMeanWeb", chroma.web.meanChroma, "oklab"),
+          ...opt("interiorChromaMeanBackdrop", chroma.backdrop.meanChroma, "oklab"),
+          ...opt("interiorChromaSdANative", chroma.native.sdA, "oklab"),
+          ...opt("interiorChromaSdAWeb", chroma.web.sdA, "oklab"),
+          ...opt("interiorChromaSdABackdrop", chroma.backdrop.sdA, "oklab"),
+          ...opt("interiorChromaSdBNative", chroma.native.sdB, "oklab"),
+          ...opt("interiorChromaSdBWeb", chroma.web.sdB, "oklab"),
+          ...opt("interiorChromaSdBBackdrop", chroma.backdrop.sdB, "oklab"),
+          ...opt("chromaStructureRatioNative", chroma.native.chromaToStructure, "ratio"),
+          ...opt("chromaStructureRatioWeb", chroma.web.chromaToStructure, "ratio"),
+          ...opt("chromaStructureRatioBackdrop", chroma.backdrop.chromaToStructure, "ratio"),
+          ...opt("interiorOklabLSdDevNative", chroma.native.oklabLStdDev, "oklab"),
+          ...opt("interiorOklabLSdDevWeb", chroma.web.oklabLStdDev, "oklab"),
+          ...opt("interiorOklabLSdDevBackdrop", chroma.backdrop.oklabLStdDev, "oklab"),
+          ...opt("rawChromaRatioNative", chroma.rawRatioNative, "ratio"),
+          ...opt("rawChromaRatioWeb", chroma.rawRatioWeb, "ratio"),
+          ...opt("blurredChromaRatioNative", chroma.blurredNative?.ratio, "ratio"),
+          ...opt("blurredChromaRatioWeb", chroma.blurredWeb?.ratio, "ratio"),
+          ...opt("blurredReferenceSigmaNative", chroma.blurredNative?.sigmaPx, "px"),
+          ...opt("blurredReferenceSigmaWeb", chroma.blurredWeb?.sigmaPx, "px"),
+        }),
   };
 }
 
