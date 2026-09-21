@@ -48,6 +48,16 @@ python3 stops.py > stops.txt
 
 `c1-forms.py` and `stops.py` read `exterior-cut.json`, so the reader runs first.
 
+**`model-fit.json` is not byte-reproducible, and `model-fit.txt` is** (added 2026-09-21, review
+closure; claims §5.166 §10, finding N14). Re-run on the same matrix, the printed text is
+**byte-identical** and the JSON differs at **31 leaves**, all of them `threshold` or `residual`
+inside the `conditioning` block: the profile likelihood sums a subsample in an order the simplex's
+own path decides, and float addition is not associative. The differences are at most **6.1 × 10⁻¹⁵
+relative** — up to 45 ULPs on the smallest thresholds, which are 7.6e−07. **No decision field
+moves**: `bestSpread`, `interval`, `shippedSpreadInside`, `flatWithinBar`, `n` and `bar` are
+identical on all forty entries, and no figure this gate records comes from the differing leaves.
+So a diff on that file is expected to be non-empty and a diff on the text is not; check the text.
+
 ## The four things a reader of §5.166 should take away
 
 1. **The admitted band set is `3-6 / 6-12` at span 160 and `3-6 / 6-12 / 12-24` at span 128**, not
