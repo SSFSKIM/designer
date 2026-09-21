@@ -134,6 +134,41 @@ describe("the holdout configuration artifact (W31 Decision Log 1 (b); claims §5
     expect(reads[1]?.sourceSha256).not.toBe(reads[0]?.sourceSha256);
   });
 
+  it("refuses a third read at sources that moved away and back, reason or not", () => {
+    // W32 G0b review closure, NB1 (claims §5.167 §8). A configuration is a set of bytes,
+    // not a position in a list. Comparing only against the LAST record at these documents
+    // admitted A → B → A: the third read is at the sources the first read was taken at,
+    // and the read in between does not make it a new configuration. That is the exact
+    // thing Decision Log 1 (b) forbids, arrived at by a route the refusal did not watch —
+    // a renderer fix and its revert, or a rebase that lands on an earlier tree.
+    const { root, log } = synthetic();
+    const source = join(root, ...SOURCES[2].split("/"));
+    const original = readFileSync(source);
+
+    expect(run(root, ["record", "--claims", "c9a §5.NNN"]).status).toBe(0);
+
+    writeFileSync(source, "// renderer.ts, after a fix\n");
+    const moved = run(root, [
+      "record", "--claims", "c9a §5.NNN", "--source-moved-because", "a renderer fix"]);
+    expect(moved.status, moved.output).toBe(0);
+    expect(ledger(log).reads).toHaveLength(2);
+
+    writeFileSync(source, original);
+    const returned = run(root, [
+      "record", "--claims", "c9a §5.NNN", "--source-moved-because", "the fix was reverted"]);
+    expect(returned.status, returned.output).toBe(1);
+    expect(returned.output).toContain("REFUSED: identical document bytes AND identical sources");
+    // The reason is answered rather than ignored: a reader who supplied one is told why
+    // it does not help, or the next attempt is a longer reason.
+    expect(returned.output).toContain("It cannot re-open a");
+    expect(ledger(log).reads).toHaveLength(2);
+    // And the read it names is the FIRST one at those sources — the read this would have
+    // been a second of — rather than the most recent entry in the log, which is the one
+    // the defect looked at.
+    const first = ledger(log).reads[0];
+    expect(returned.output).toContain(`${first?.at}, head ${first?.head}, claims ${first?.claims}.`);
+  });
+
   it("takes a read at moved document bytes without a reason — it is a new configuration", () => {
     const { root, log } = synthetic();
     expect(run(root, ["record", "--claims", "c9a §5.NNN"]).status).toBe(0);

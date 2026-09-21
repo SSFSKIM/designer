@@ -31797,6 +31797,22 @@ in its log unless the source hash moved **and** `--source-moved-because` names a
 reason, and it reads the log rather than the world, which is what lets the refusal
 survive a worktree, a rebase or a machine.
 
+*Beside that sentence (2026-09-21, the review closure, NB1; §8 below). As written it
+was true of the script and the script was wrong: the comparison took the LAST record
+at those document hashes, so* **A → B → A was admitted** *— a read at documents D and
+sources A, a second at D and B with a named reason, and a third back at D and A with a
+reason, which is a second read of the configuration the first read was taken at. A
+configuration is a set of bytes, not a position in a list. The refusal now compares
+against* **every** *record at those documents and* **a named reason cannot re-open a
+configuration already read**; `--source-moved-because` *admits sources this log has
+never carried at these documents and nothing else. The defect was inherited verbatim
+from W31 G3's copy, whose `record()` differs from this one by the single
+`sourceListSha256` line; that copy is its gate's witness and* **stays byte-identical
+where it is** *— nothing under* `results/2026-09-21-w31-g3-chroma-fit/` *changes. No
+recorded read is affected: the log's two entries are at different source hashes, and
+the two reads §5.164 §6 and §5.164 §13 record were each refused-or-admitted correctly
+under both rules.*
+
 The defect was where the log lived. W31 G3 wrote the script into its own evidence
 directory and W31 G3c ran that copy in place, which worked and was not a rule: every
 script under `results/` is copied per gate by convention, and **a copy starts with an
