@@ -736,6 +736,19 @@ declarations — the part the wave is judged against. Ruled, for the review clos
   tier's mean absolute exterior departure over the non-holdout cells of all six profiles, 0.00035
   today, held at or better by G3's sealed fit**, with the both-tier figure (0.00079) recorded beside
   as the CSS tier's reading. The correction is recorded beside §5.154 §3 and §4, not over them.
+
+  > **Re-stated again 2026-09-22, beside this, by W32 Decision Log 3 (a) as RULED by the user;
+  > executed at W32 G2 (claims §5.169 §2).** The statistic above reads the WHOLE exterior, which
+  > includes the `0-3` band, where vitrea's body over-fills its declared contour on the active
+  > pose and Apple's receded exterior is a one-device-pixel rim stroke on the inactive one. Those
+  > two errors had been CANCELLING the exterior's own, so W32's fit of the exterior broke the stop
+  > by removing one side of a cancellation — 0.00034 → **0.00072** — while the same functional
+  > over the admitted bands went **0.00122 → 0.00006** (claims §5.168 §7). B3 is now the same
+  > arithmetic mean over the same 166 cells restricted to the **admitted bands** (3–48 CSS px,
+  > W32 G0's per-cell per-direction clearance rule), both poses, WebGPU tier, bounded at
+  > **0.000056** by W32 clause 2's rule from the bed at W32 G1's read. The 0.00035 above is the
+  > superseded statement's bound and 0.00072 its last reading; both are kept, neither is
+  > rewritten, and W32 G2's `b3-stop.py` is the reader.
 - (b) **B4 binds the four standard beds only.** "Toward 1.0 on every one of the six profiles" cannot
   pass: the reduced-transparency and coupled-contrast beds are captured at the light standard
   document and inherit its scatter values, and the light bed needs structure removed (1.567) where

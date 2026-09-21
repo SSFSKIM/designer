@@ -5133,6 +5133,27 @@ Log; W32 G1 records the numbers and re-states nothing (X4). Until it is ruled,
 a later wave reading B3 at 0.00072 should read `b3-window.py` beside it or it
 will conclude the exterior got worse.
 
+**RULED (a) by the user 2026-09-22 and executed at W32 G2 — this entry is
+CLOSED** (W32 Decision Log 3; claims §5.169 §2). B3 is re-stated over the
+**admitted bands** (3–48 CSS px, per cell per direction by W32 G0's clearance
+rule), **both poses**, WebGPU tier, calibration + validation over all six macOS
+27 profiles — the same 166 cells, 85 active and 81 inactive, and the same
+arithmetic mean — and it stays a **STOP** in W30's sense rather than becoming an
+adopted row. Its bound is W32 clause 2's rule applied to the bed at W32 G1's
+read: the form reads **0.0000559626** there and rounds up to two significant
+figures at **0.000056**, which is 0.07 % of headroom and is a rule's output
+rather than a choice. The reader is
+`packages/calibration/results/2026-09-21-w32-g2-landing/b3-stop.py`, which prints
+the statistic, the bound and PASS/FAIL and exits nonzero on a fail;
+`departure-stat.py` runs beside it at the same generation so the superseded
+whole-exterior form keeps its last reading (**0.00072**) rather than
+disappearing. Two things this closure does NOT do: it does not touch the `0-3`
+band's over-fill (§5.62, its own entry) or the receded contour hairline (a rim
+term, W32's Deferred list), which are the two quantities the old statement was
+reading; and it does not make the bound spacious — 0.07 % of headroom means the
+next fit gate that moves the exterior at all will have to read this number
+deliberately, which is the same thing C1's 1.7 % at span 96 says one row over.
+
 ---
 
 ## M2's reference generation is frozen at W31's pre-fit while its subject keeps moving (W32 G1 review closure, 2026-09-21)
@@ -5177,6 +5198,31 @@ propose. Nothing is decided here.
 bed: that one asks whether 2 % is a bound about the material or about the
 raster, and this one asks what it is measured from. Both have to be answered
 before M2's next miss means anything.*
+
+**RULED at W32 Decision Log 4 by the user 2026-09-22 and executed at W32 G2 —
+this entry is CLOSED, in form 1 with form 2's claim moved to the ledger** (claims
+§5.169 §3). The reference is re-baselined at **each gate that adopts a material
+change**: `chroma-cut.py` in that gate's directory names the generation the gate
+read (here `superseded/49490eb9ff7a.json` light and `b5714a866288.json` dark,
+resolved through the index), the field is `interiorStdDevWebReference` and the
+guard that proved the old reference PRE-dated the chroma instrument is inverted
+rather than dropped — the new reference is a generation read AT the leaf, so a
+baseline row that carries no chroma field is refused. The **2 % does not move**,
+and W32 G1's miss closes by re-baseline: the cell reads **−1.477 %** per wave
+against **−2.775 %** cumulative, and its `MISSED_27_ROWS` entry is retired with
+its reading kept in the comment where the entry stood.
+
+What the ruling gives up is form 1's own cost, stated where it can be seen: eight
+waves of 1.9 % would pass while the structure moved 16 %. What replaces it is
+**not a bound but a record** — the ledger's per-wave table, first written at
+§5.169 §3 from `m2-rebaseline.py`, which prints all 26 cells at three generations
+with the per-wave and cumulative columns side by side. **One number in that table
+is worth a later wave's attention**: 1x dark `photo__capsule-button__inactive`
+reads **+1.966 % cumulative** — 0.034 of a percentage point from 2 % — and it got
+there in the same two waves, so the drift the ruling stopped bounding is real and
+is already at the old bound on a second cell. A wave that wants the cumulative
+claim back adds the second reference per cell that the third form named; nothing
+here does.
 
 ---
 
