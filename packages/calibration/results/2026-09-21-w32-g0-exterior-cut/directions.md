@@ -81,6 +81,13 @@ The extents are the sharper reading, because they are a length rather than a tra
 displacement agreeing to a quarter of a pixel. At the thin spans `above` is 0 on both sides and the
 excess is +3.00 to +4.50 in the three directions that carry a shadow at all.
 
+**Corrected beside, 2026-09-21 (review closure; claims §5.166 §10, finding N2).** The +5.00 in all
+four directions is **span 96 only** (44 cells). At span 128 `below` reads **+4.00**, 27.00 → 30.50,
+on the 25 of 26 rows carrying an extent on both sides; above, left and right read +5.00 there. §10's
+table already prints it; the paragraph and the table above rounded it up. The "outset, not offset"
+conclusion is unchanged — the anisotropy is about one pixel against five of excess, with `offsetY`
+at −0.25.
+
 ### Does the per-band `Δa` decay?
 
 1x light, direction `all`, bands `3-6` / `6-12` / `12-24` / `24-48`, with a band outside the

@@ -55,6 +55,10 @@ python3 stops.py > stops.txt
    right too, by half a pixel.
 2. **The offset is right and the width is wrong.** +5.00 CSS px of extent excess in every direction
    at spans 96 and 128, with `offsetY` web − native at 0.00 and −0.25.
+   *Corrected beside, 2026-09-21 (review closure; claims §5.166 §10, finding N2):* +5.00 in all four
+   directions is **span 96** only; at 128 `below` is **+4.00** (25 of 26 rows) against +5.00 above,
+   left and right. The "outset, not offset" reading stands — one pixel of anisotropy against five
+   of excess.
 3. **Apple's own outset reads 0.0–1.0 CSS px** at spans 32, 44 and 96, with vitrea's 3.10 outside
    the one-sigma interval on every standard bed there — §5.162 §9's finding N-10, answered.
 4. **Apple's receded window removes no light at all from 3 CSS px outward**, on 100 of 100 inactive

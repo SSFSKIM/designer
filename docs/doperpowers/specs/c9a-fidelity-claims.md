@@ -31891,6 +31891,14 @@ and right alike, while the fitted displacement `offsetY` (web − native) reads
 sits and is uniformly five px too far out, which is what an outset is and is not
 what an offset is.
 
+**Corrected beside, 2026-09-21 (review closure; §10, finding N2).** "+5.00 CSS px
+in every direction" holds at **span 96 only** — above, below, left and right all
+read exactly +5.00 there, over 44 cells. At span 128 `below` reads **+4.00**
+(27.00 → 30.50, on the 25 of 26 rows carrying an extent on both sides) against
++5.00 above, left and right. The conclusion is unchanged and is if anything
+sharper: the anisotropy is about one pixel where the excess is five, and
+`offsetY` reads −0.25 — an outset, not an offset.
+
 Below span 96 the instrument cannot say so. **`above` reads exactly 0.00000 on
 every band on both `Δa` and `Δc`, on every standard and accessibility bed, at
 spans 32 AND 44** — the charter states it at 44 only — and not because the two
