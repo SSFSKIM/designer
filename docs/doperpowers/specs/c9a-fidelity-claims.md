@@ -28044,6 +28044,33 @@ on every band, because there is no light for a transmission to be wrong about;
 left in, they would have made the bed look better than it is by eighty rows of
 the backdrop's own floor.
 
+**Corrected beside, 2026-09-21 (review closure; §9 below, finding B-2), measured
+in `support-rule-check.py` / `.txt` in the same evidence directory. The last two
+sentences are wrong and no figure in this section moves.** The 48 `dark-solid`
+rows identify **no affine band at all** in 3–48 CSS px, so they carry no `T` with
+this rule or without it — they are already out under the exclusion named one
+clause earlier and this rule never reaches them. Its real reach is the **32
+`impulse` rows**. And those 32 do not all read zero: **14 carry a non-zero `T`,
+from 0.000295 to 0.004287**, the largest being `impulse__rrect-md__rest` on the
+1x light CSS tier, whose Δa reads −0.005190, −0.012409 and 0.000000 across the
+`6-12`, `12-24` and `24-48` bands — a reading that would have made the bed look
+WORSE, not better, at a value just under C1's own bound. So the sentence is wrong
+in count for all eighty and wrong in direction for fourteen. **The rule is kept**,
+for the reason it was taken rather than the one written down: it is the shadow
+axis's own condition on reporting a normalised figure
+(`DEFAULT_MIN_BACKDROP_SUPPORT`, `src/metrics/shadow.ts`), not this gate's
+invention, and **admitting all 32 moves no upper middle order statistic on the
+WebGPU tier** — the only tier C1 is stated over. It moves twelve per-span counts
+(light span 96 10 → 11, light span 44 18 → 20, dark span 44 13 → 14, and the CSS
+tier's equivalents) and **two CSS-tier span-44 medians**, 1x light 0.00518 →
+0.00512 and 2x dark 0.00356 → 0.00290; neither is a figure this section, §3 or
+the declaration prints, and the CSS tier is recorded rather than bounded. One
+code inconsistency is recorded with it and deliberately not fixed: `shape_error()`
+withholds `L` on these rows as well as `T`, against its own justification that a
+LIFT is measured cleanly over black. The withheld lift is **0.000000–0.000004** on
+all 32, so nothing of magnitude is lost; `support-rule-check.txt` §2 records every
+row and the committed reader output is left exactly as it was.
+
 **The bed, on the WebGPU tier, active pose, non-holdout, per span** — the upper
 middle order statistic, `law-tables.txt`'s convention and therefore B1's:
 
@@ -28061,7 +28088,17 @@ span 32 to 160 on light and 5.4× on dark — which is the residual the eye name
 no number on the bed had. The CSS tier is recorded beside it and is worse
 everywhere it is read (0.00547–0.00830 at span 96 against the WebGPU tier's
 0.00385–0.00413), and its one coupled-contrast bed carries the largest single
-reading anywhere: **0.0199–0.0411** at span 44. The inactive pose is a receded
+reading anywhere: **0.0199–0.0411** at span 44. *Corrected beside, 2026-09-21
+(review closure; §9, finding N-2): "worse everywhere it is read" has **one
+exception**, and it is at the span the clause exists for — **1x dark, span 160:
+the CSS tier reads 0.00789 against the WebGPU tier's 0.00921**. Every other
+bed-and-span pair the two tiers share does read the CSS tier worse. The exception
+is not a CSS-tier win to claim: it sits beside a WebGPU reading that is the worst
+on the whole active bed, so what it says is that the dark material's span-160
+shape residual is the WebGPU tier's own, which is where §5's Deferred item points
+anyway. Both figures are the committed reader's and neither moves.*
+
+The inactive pose is a receded
 document's difference over the active one and is never pooled in; it reads
 **0.04531–0.06412** at span 160, six to nine times the active pose, which is W30's
 Deferred item 8 seen on a second instrument.
@@ -28079,8 +28116,25 @@ at 2x on the WebGPU tier:
 | `photo__rrect-lg__rest` 2x dark | 160 | **wrong** | **0.134** | **0.01151** |
 
 **Candidate (ii) agrees with the eye and candidate (i) anti-correlates with it by
-a factor of forty.** The per-band table says why, and it is the clearest reading
-this gate produced. On the span-44 cell the web-minus-native transmission
+a factor of forty.**
+
+*Caveated beside, 2026-09-21 (review closure; §9, finding N-8): "agrees with the
+eye" is a weaker test than the sentence sounds. The four cells above are **two
+scenes at two scales**, so the eye supplied **two verdicts**, not four, and the
+two differ in SPAN (44 against 160) as well as in verdict — which means any
+statistic that increases with span would have "agreed" just as well, candidate
+(i) failing only because it happens to run the other way. The four-cell table is
+therefore a consistency check, not a discrimination. **What distinguishes a SHAPE
+statistic is the per-band collapse, and that is a within-cell reading no
+span-monotone number reproduces**: at span 44 Δa goes −0.029, −0.011, −0.0003,
+0.000 and is inside the cell's own native-pair bar from 24 CSS px outward, so the
+two exteriors become the same object; at span 160 it is negative at every band in
+every direction and GROWS outward, with no agreement radius inside 48 CSS px. The
+weight of the choice sits there and on §4's reading of the refuted row, not on the
+four-cell table.*
+
+The per-band table says why, and it is the clearest reading this gate
+produced. On the span-44 cell the web-minus-native transmission
 collapses to zero with distance — −0.029, −0.011, −0.0003, **0.000** across the
 four bands — so the two exteriors become the same object by 24 CSS px out, which
 is a featureless haze agreeing with a featureless haze. On the span-160 cell it is
@@ -28103,6 +28157,17 @@ is ±0.685 %. **The rendered σ is OUTSIDE the same window on twenty-four of the
 twenty-five**, the exception being the CSS tier at 1x light span 160. And the
 rendered σ is wider than the native on **123 of 150** rows that resolve both:
 
+*Qualified beside, 2026-09-21 (review closure; §9, finding N-12): the twenty-five
+rows are **this gate's reconstruction of B1's windows**, not B1's own cut. They
+are `matrix.json`'s rows under candidate (i)'s filter — active, holdout dropped,
+both σ resolving, W30 G0's exclusion applied — split by TIER, which B1's cut is
+not: `shadow-cut.json` carries one native σ per cell with the tiers pooled, so its
+populations are larger (1x light span 160: 13 cells against the 7 here). The
+median native σ agrees between the two routes to **≤ 0.02 CSS px** at every bed
+and span, worst at 1x light span 160 (17.2991 against 17.317), so the comparison
+holds and B1's own verdict is untouched by it. What is not claimed is that this
+table re-runs B1.*
+
 | bed | tier | span | native σ | law σ | law err (B1) | rendered σ | σ_web − σ_nat |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | 1x light | webgpu | 96 | 8.796 | 8.960 | +1.86 % PASS | 12.570 | **+3.77** |
@@ -28123,8 +28188,17 @@ of Apple's shadow" and candidate (i) says "a fit of vitrea's shadow does not" �
 and both are true. **The law is right; the law is not the whole of what vitrea
 draws.** The bed says which of the charter's two readings it is with a number
 rather than by elimination: the gap is **additive and nearly constant, +2.66 to
-+3.77 CSS px at every thick span on every standard bed**, where a proportional
-error would shrink as σ grows. `material.ts` names what a constant additive width
++3.77 CSS px at every thick span on every standard bed, on the WebGPU tier**,
+where a proportional error would shrink as σ grows. *Qualified beside, 2026-09-21
+(review closure; §9, finding N-11): the tier belongs in that sentence. All eight
+rows tabled above are WebGPU and the constancy is the WebGPU tier's alone; on the
+CSS tier the same difference over the four standard beds runs **−4.74 to +5.36**
+CSS px and changes sign (1x dark −4.74 at span 128 and −2.73 at 160; 2x light
++5.36 at span 96), reaching **+16.40** on the coupled-contrast bed. That is the
+tier deriving one `box-shadow` blur radius per surface from the same profile
+rather than drawing the material, which is the tier rule's own consequence
+(Decision Log 23 of 2026-09-05) and why the inference below is stated on the
+WebGPU tier.* `material.ts` names what a constant additive width
 is — the shadow is "the component's OWN rounded silhouette, outset by `spreadPx`,
 translated down by `offsetPx`, blurred by a Gaussian of standard deviation
 `sigmaPx`" — and the shipped `spreadPx` is **3.10 CSS px**. A blurred-edge fit
@@ -28133,7 +28207,23 @@ and the sign the bed shows.
 
 **`spreadPx` has never been fitted on the macOS 27 bed.** It is inherited from the
 macOS 26.5 default, and B1 — which reads the blur leaf alone — is structurally
-incapable of seeing it. Below the knee the same arithmetic runs away: at span 44
+incapable of seeing it.
+
+*Softened beside, 2026-09-21 (review closure; §9, finding N-10): reading the
++2.66…+3.77 gap as the shipped `spreadPx` of 3.10 assumes **Apple's own outset is
+≈ 0**, which nothing on this bed measures. The gap is the difference of the TWO
+renders' effective outsets as a blurred-edge fit pinned at the declared contour
+reads them — vitrea's is 3.10 and Apple's is unknown — so the agreement in size is
+suggestive and not an identification, and a joint fit could land `spreadPx`
+anywhere the pair allows. The half that does not depend on the assumption is
+verified and stands: `spreadPx` **3.1** and `offsetPx` **7.95** are byte-identical
+in the macOS 26.5 default, the macOS 26.5 light document and the macOS 27 light
+document, and **neither dark document carries either leaf**, so both are inherited
+on every macOS 27 bed and no wave has fitted either. That is what carries the
+Deferred item at §5; the coincidence in size is what makes it worth doing
+first.*
+
+Below the knee the same arithmetic runs away: at span 44
 the law asks for σ 2.13 and the instrument reads 12.15–15.63 off the render,
 because `offsetPx` 7.95 and `spreadPx` 3.10 are then several times the blur and an
 isotropic ring-mean profile pooled over four directions is mostly reading the
@@ -28165,7 +28255,16 @@ order §5.156 §5 set and X4 requires. This is its summary.
 is the span-96 column rounded up past its own maximum — the four standard beds read
 0.00385, 0.00399, 0.00408 and 0.00413 there — so the clause says in one number that
 *the exterior's shape under a 160 px panel is no worse than it is under a 96 px one
-today*. It **fails today** at span 128 on all four beds (0.00487–0.00532, 8–18 %
+today*. *Corrected beside, 2026-09-21 (review closure; §9, finding N-1): "its own
+maximum" names those four figures, which are the span-96 **order statistics**. The
+per-cell maxima at span 96 are **0.00508, 0.00517, 0.00561 and 0.00550** and every
+one is ABOVE 0.0045. The clause is stated over the order statistic, is met there
+today, and none of its verdicts moves; the justification should read "rounded up
+past the span-96 order statistics", and the per-cell maxima are the reason the
+clause reports min, max and count beside the number rather than the number
+alone.*
+
+It **fails today** at span 128 on all four beds (0.00487–0.00532, 8–18 %
 over) and at span 160 on all four (0.00733–0.00921, 63–105 % over), which is the
 position B1 was in at its own declaration; it **passes at span 96** with 9–17 %
 headroom, so it is a statement about the shape's dependence on span rather than a
@@ -28190,6 +28289,16 @@ reason W30 G4's review gave `CONTRIBUTING_BEDS` (§5.160 §9): a bed that stoppe
 contributing would otherwise leave the clause to the beds that remain instead of
 failing.
 
+*Corrected beside, 2026-09-21 (review closure; §9, finding N-6): the declaration's
+composition column reads "one calibration cell on the light beds" at span 128 and
+it is **two** — `checkerboard__rrect-ml__rest` and `photo__rrect-ml__rest`, with
+the other five probe; the dark beds' five are all probe. Counted the same way:
+span 96 light = 2 calibration + 1 validation + 7 probe, dark = 2 calibration + 7
+probe; span 160 = 7 probe on all four. Every COUNT above is unmoved and correct.
+This matters because the adopting wave writes its guard from that table, and a
+guard written believing span 128 rests on one gated cell would not notice the
+second one leaving.*
+
 **Fate: a ONE-WAVE READING. Nothing is adopted at this gate.** C1 is the candidate
 adopted row for the wave that next moves the shadow; that wave fits against it,
 reads it on the bed above, and the parent decides adoption at its landing on the
@@ -28203,10 +28312,49 @@ adopts it (B1's own case was written at W30 G4, after it passed). There is no
 `it.skip` anywhere under `test/`, so writing one would have been this gate
 inventing a convention rather than following one.
 
+**A CONDITION on moving that block, added 2026-09-21 (review closure; §9, finding
+B-1), without which it is not adoptable.** The drafted case reads its cut from
+`results/2026-09-21-w31-g1-exterior-instrument/exterior-instrument.json` — a cut
+of the matrix **as it stood at this gate**. Adopted verbatim it would assert
+≤ 0.0045 against W31 G1's numbers for ever: the shadow could move, the material
+could move, the matrix could move, and the case would keep reading the same frozen
+file and keep passing. That is the failure B1's own doc comment names — *"a number
+retyped after a refit is a number that goes stale silently"* — arriving one level
+up, in a path instead of a literal, and B1 avoids it by reading W30 G0's
+`shadow-cut.json` from G0's own directory rather than a predecessor's. **The wave
+that adopts C1 therefore re-runs `exterior-instrument.py` into ITS OWN evidence
+directory, against the matrix it read its own bed at, and points `CUT` there**;
+the reader takes `--out`, so it costs one command. Two assertions are added to the
+drafted block for the same reason and are part of the row shape —
+`expect(CUT.atDocuments).toBe("shipped")` and
+`expect(CUT.withHoldout).toBe(false)`, both fields the reader already writes and
+neither of which the draft checked: a cut re-run with `--with-holdout`, or at
+`--at-documents any` over a superseded generation, satisfies every other guard in
+the case and is not the bed C1 is stated on. `bounds-declaration.md` §3 carries
+the same condition beside the block itself.
+
 **What C1 deliberately does not say.** No bound on the inactive pose. No bound at
 span 130, where every cell is holdout. No bound on the CSS tier, which is
 recorded. No bound on `L`, recorded at 0.00000–0.00131 across the active
 non-holdout WebGPU bed and carrying no residual worth a clause. No floor.
+
+**And one thing it does not say that it should have declared, added 2026-09-21
+(review closure; §9, finding N-9): `T` is SPAN-CONFOUNDED as one bound across 96,
+128 and 160.** The window is fixed at 3–48 CSS px outside the contour whatever the
+caster is, so at a large span more of the shadow lies inside the window than at a
+small one, and the `24-48` band carries 24 of the 45 px of weight — **53 %** of
+the statistic. Part of the rise from 0.0029 at span 32 to 0.0092 at span 160 is
+therefore the window filling up rather than the falloff's shape diverging, and the
+same arithmetic runs the other way through §3's "reachable in kind" reading: the
+0.00168–0.00339 at spans 32 and 44 is partly dilution by bands the shadow barely
+reaches. The residual the eye named is real and the per-band collapse is what
+shows it; what is not established is that one number is comparable across three
+spans. **What adoption should consider, named now rather than discovered after a
+fit:** a per-span bound — three numbers rather than one — or a **σ-normalised
+window**, bands scaled by the row's own native σ so every span is read at the same
+number of falloff lengths. Either leaves the statistic and the exclusions exactly
+as declared and changes only what the reading is compared against. Nothing is
+decided here; this gate adopts nothing.
 
 ### 4. The seven rows `MISSED_27_ROWS` holds, under both statistics
 
@@ -28253,6 +28401,20 @@ the eye by a factor of forty (§1); it reads 0.000 on the row the clause exists 
 improvement moves in both directions at once cannot judge a later wave until the
 quantity it reads is separated.
 
+***The third reason is WITHDRAWN, 2026-09-21 (review closure; §9, finding N-7);
+the verdict stands on the first two and on the per-band structure.*** It does not
+discriminate, because **candidate (ii) reverses under the same lever**: §6's own
+table has `T` improving at spans 32, 44 and 96 (0.00655 → 0.00299, 0.00482 →
+0.00339, 0.00524 → 0.00413) and worsening at 128, 130 and 160 (0.00451 → 0.00522,
+0.00401 → 0.00519, 0.00775 → 0.00916) — which §6 states in its own words two
+paragraphs on ("at the largest spans it moves them in opposite directions") and
+this section then used against candidate (i) alone. Reversal under a lever is a
+property the two candidates share. What is NOT shared, and is what reason 3 was
+reaching for, is that (ii)'s reversal has a reading — the width closed and the
+shape opened, §5.160 §6's sentence with numbers under it — where (i)'s has none.
+A reason that applies to both is withdrawn rather than restated, and nothing else
+in this section moves.
+
 It is kept because it is the only statistic on this bed that points at
 **`spreadPx` and `offsetPx`** — two of the shadow's three lengths, both inherited
 from the macOS 26.5 default and neither ever fitted on the macOS 27 bed — and it
@@ -28284,7 +28446,15 @@ under §5.154, at a span-invariant σ of 11.0 CSS px) — the σ law's own lever
 **The lever moves both statistics, and at the largest spans it moves them in
 opposite directions** — which is §5.160 §6's sentence with numbers under it. Below
 span 128 the wave improved everything it touched, by 30–54 % on candidate (ii) and
-9–30 % on candidate (i). At 128 and 130 both got worse. At 160 the WIDTH improved
+9–30 % on candidate (i). *Corrected beside, 2026-09-21 (review closure; §9,
+finding N-4): both ranges are wrong against this table's own rows, and neither
+figure in the table moves. Candidate (ii)'s four improvements are **54.4 %, 29.7
+%, 20.2 % and 21.2 %** — a range of **20–54 %**, not 30–54 %; candidate (i)'s are
+**29.6 %, 8.5 %, 32.3 % and 30.7 %** — **8.5–32 %**, not 9–30 %. The correction
+does not touch the verdict and it does sharpen it: (i)'s best improvement below
+span 128 is on the HOLDOUT rows at span 44 (32.3 %) and its worst is on the
+calibration and validation rows at the same span (8.5 %), a spread the "9–30 %"
+band had concealed.* At 128 and 130 both got worse. At 160 the WIDTH improved
 by 16 % and the SHAPE got 18 % worse: "the width moved and the energy moved, and
 what is left is a difference in the falloff's profile that no bound on the bed
 reads". A bound on the fitted width alone would have called the span-160 half of
@@ -28315,7 +28485,15 @@ material.
   `atAShippedDocument` mode refusing a fabricated document hash. No capture, no
   browser, nothing written outside the temporary directory.
 - The 726 macOS 27 rows at the shipped documents are unchanged; 602 of them carry
-  a shadow axis and are what this gate read.
+  a shadow axis and are what this gate read. *Corrected beside, 2026-09-21 (review
+  closure; §9, finding N-5): **all 726 carry a shadow axis.** 602 is the count
+  after the holdout is dropped — 726 minus the **124** holdout rows — which is
+  what this gate read and what §1's populations are of, and 726 is the count X10
+  pins. The distinction matters at exactly one place: the holdout run
+  (`exterior-instrument-with-holdout.txt`) reads all 726, so a reader taking "602
+  carry a shadow axis" literally would think the flag had added rows that had no
+  axis. Both numbers are right; the sentence attached the wrong reason to the
+  smaller one. No population, statistic or count in this section moves.*
 
 ### 8. What this gate does not claim
 
@@ -28328,3 +28506,57 @@ the chromatic, structural or highlight axes. It does not touch `cli/gates.ts` or
 `cli/measure.ts` nor `src/report.ts` (G0's) — the two statistics needed no field
 the rows did not already carry, which is why X11's "say so if you add one" has
 nothing to report.
+
+### 9. Review closure (2026-09-21)
+
+An independent read-only review of this gate **reproduced every figure of both
+statistics** and found no measurement wrong. What it found was fourteen things in
+the RECORD — two of them blocking — and not one of them in a number: no statistic,
+no bound, no count, no exclusion and no verdict of §1 through §8 moves at this
+closure. Every correction is recorded **beside** the text it corrects and dated,
+the reader's committed outputs are byte-unchanged apart from the worktree path
+their header prints, and one new evidence file is added beside them rather than
+replacing one. No material constant, profile document, native fixture, golden,
+bound, floor, leaf or row of `results/matrix.json` moves; no capture was taken
+(X1, X5); `test/adopted-thresholds.test.ts` is untouched, as X11 requires.
+
+| # | what the review found | verified how | what closed it |
+| --- | --- | --- | --- |
+| **B-1** | **The drafted C1 row reads a frozen snapshot.** `bounds-declaration.md` §3's `adopted-thresholds`-idiom block hard-codes this gate's own `exterior-instrument.json`. Adopted as drafted, the case would assert ≤ 0.0045 against W31 G1's numbers for ever and could never fail — B1's own *"a number retyped after a refit is a number that goes stale silently"*, arriving in a path instead of a literal | read against B1's case, which reads W30 G0's `shadow-cut.json` from G0's own directory; the reader's `--out` confirmed to make the re-run one command | §3 above and `bounds-declaration.md` §3 carry a dated CONDITION beside the block: **the adopting gate re-runs `exterior-instrument.py` into its own evidence directory and points `CUT` there**. The block gains `expect(CUT.atDocuments).toBe("shipped")` and `expect(CUT.withHoldout).toBe(false)` — both fields the reader already writes, neither asserted before, and without them a cut taken with `--with-holdout` or at `--at-documents any` satisfies every other guard in the case |
+| **B-2** | **"Those 80 read `T` exactly 0.000000 on every band" is contradicted by the matrix**, in §1, `bounds-declaration.md` §2 and the reader's module docstring; and so is "left in, they would have made the bed look better" | **`support-rule-check.py` / `.txt`**, new evidence beside the reader, which imports it rather than copying it and recomputes the whole bed with the rule off | The 48 `dark-solid` rows identify **no affine band at all**, so the rule never reaches them: its real reach is the **32 `impulse` rows**, of which **14 read a non-zero `T`, 0.000295–0.004287** — the largest `impulse__rrect-md__rest` 1x light CSS, Δa −0.005190 / −0.012409 / 0.000000 over `6-12` / `12-24` / `24-48`, which would have made the bed look WORSE. The rule is **kept** because it is the axis's own constant (`DEFAULT_MIN_BACKDROP_SUPPORT` 0.1, `src/metrics/shadow.ts`) and admitting all 32 **moves no upper middle order statistic on the WebGPU tier**, C1's only tier. It moves twelve per-span counts and two CSS-tier span-44 medians (1x light 0.00518 → 0.00512, 2x dark 0.00356 → 0.00290), neither a figure this ledger or the declaration prints. Corrected beside in all three places; the reader's output is unchanged |
+| N-1 | **"Rounded up past its own maximum"** names the span-96 order statistics, not the per-cell maxima | recomputed per cell from the committed cut | The per-cell maxima are **0.00508 / 0.00517 / 0.00561 / 0.00550** and all four are ABOVE 0.0045. Corrected beside in §3 and in the declaration's §3: the clause is stated over the order statistic, is met there, and reports min, max and count beside the number for this reason |
+| N-2 | **"The CSS tier is worse everywhere it is read" is false** | the committed reader's own §7 table, read bed by bed | One exception, at the span the clause exists for: **1x dark span 160, CSS 0.00789 against WebGPU 0.00921**. Corrected beside in §1, with what it means — the dark material's span-160 shape residual is the WebGPU tier's own — and not as a CSS-tier win |
+| N-3 | **The bilateral `σ > span` rule excludes exactly what the native-only rule does** — the four `checkerboard-64` cells cited for it are already out on the native side | both rules run over the bed: ten rows each, the same ten, zero excluded by the web side alone | Recorded beside in the declaration's §2: right in principle, **inert on today's bed**, kept because the runaway is one-sided only by accident of which fit diverged first |
+| N-4 | **§6's two improvement ranges are wrong** against §6's own table | recomputed from the table's rows | (ii) is **20–54 %** (54.4 / 29.7 / 20.2 / 21.2), not 30–54; (i) is **8.5–32 %** (29.6 / 8.5 / 32.3 / 30.7), not 9–30. Corrected beside in §6, where it sharpens the reading: (i)'s best improvement below span 128 is on the HOLDOUT rows and its worst on the gated ones at the same span |
+| N-5 | **"602 carry a shadow axis"** — all 726 do | counted off `matrix.json`: 726 macOS 27 rows at the shipped documents, 726 with a shadow axis, **124** holdout | 602 is the non-holdout count, which is what this gate read; 726 is X10's pin. Corrected beside in §7, with the one place the distinction bites: the holdout run reads all 726 |
+| N-6 | **Span 128 on the light beds is two gated cells, not one** | composition recounted per bed and span | **2 calibration** (`checkerboard__rrect-ml__rest`, `photo__rrect-ml__rest`) **+ 5 probe**; span 96 light = 2 cal + 1 val + 7 probe, dark = 2 cal + 7 probe; span 160 = 7 probe throughout. Every count in the table is unmoved. Corrected beside in §3 and in the declaration's §3 table, because the adopting wave writes its guard from it |
+| N-7 | **The "lever reverses" reason against candidate (i) applies to candidate (ii) too** | §6's own table, read in the other column | `T` reverses at exactly the same spans (0.00524 → 0.00413 at 96; 0.00451 → 0.00522 at 128; 0.00775 → 0.00916 at 160). **Reason 3 is withdrawn** beside, in §5 and in the declaration's §5; the choice stands on reasons 1 and 2 and on the per-band structure — (ii)'s reversal has a reading, (i)'s has none |
+| N-8 | **"The eye agrees with (ii)" is one span contrast** — two scenes at two scales is two verdicts, not four per cell, and any span-increasing statistic would have agreed | the four cells' spans and the §5.160 §6 sheet list | Caveated beside in §1, and the weight moved to where it belongs: the **per-band collapse** (Δa → 0 by 24 CSS px at span 44, against −0.006…−0.013 non-decaying at 160) is a within-cell reading no span-monotone number reproduces |
+| N-9 | **`T` is span-confounded as one bound across 96 / 128 / 160**: the fixed 3–48 px window carries more shadow at a large span, the `24-48` band is 53 % of the weight, and the "reachable in kind" reading at spans 32–44 is partly dilution | the band weights (24 of 45 px) and the statistic's definition | A dated paragraph in §3 and in the declaration's §3 names what adoption should consider: a **per-span bound** (three numbers, not one) or a **σ-normalised window**. Either leaves the statistic and the exclusions as declared. Nothing is decided; this gate adopts nothing |
+| N-10 | **The `spreadPx` inference assumes Apple's own outset ≈ 0**, which nothing on this bed measures | the three documents read for their leaves | Softened beside in §2 and in the declaration's §4: the gap is the difference of the TWO renders' effective outsets, so the size agreement is suggestive and not an identification. The unfitted half is **verified**: `spreadPx` **3.1** / `offsetPx` **7.95** byte-identical in the macOS 26.5 default, the 26.5 light and the 27 light documents, and **neither dark document carries either leaf** |
+| N-11 | **The +2.66…+3.77 gap is WebGPU-only** | the same rows split by tier | On the CSS tier the four standard beds run **−4.74 to +5.36** CSS px and change sign, reaching **+16.40** on the coupled-contrast bed. "On the WebGPU tier" added beside in §2 and in the declaration's §4, with the tier rule as the reason |
+| N-12 | **The twenty-five rows are a reconstruction of B1's windows**, not B1's own cut | both routes run: `shadow-cut.json` pools the tiers and carries one native σ per cell (1x light span 160: 13 cells against 7) | The median native σ agrees between the routes to **≤ 0.02 CSS px** at every bed and span, worst 17.2991 against 17.317. Qualified beside in §2 and in the declaration's §4; B1's verdict is untouched |
+
+**Two things this closure found rather than the review, both recorded because a
+later wave would otherwise rediscover them.** First, admitting the support rule's
+32 rows moves **two CSS-tier span-44 order statistics** (1x light 0.00518 →
+0.00512, 2x dark 0.00356 → 0.00290) — the review's reading that no statistic moves
+is exact on the WebGPU tier and not on the CSS one, and since neither figure is
+printed anywhere the correction is a strengthening of B-2's closure rather than a
+qualification of it. Second, `shape_error()` withholds **`L`** on the
+support-dropped rows along with `T`, against its own justification that a lift is
+measured cleanly over black; `L` is recorded and not bounded, so the withheld
+values are recorded in `support-rule-check.txt` §2 (**0.000000–0.000004** on all
+32, so nothing of magnitude is lost) and the reader's output is deliberately left
+as it was committed.
+
+**Verification of this closure.**
+
+| step | result |
+| --- | --- |
+| `python3 results/2026-09-16-w29-freeze/freeze.py verify` | **26.5 freeze intact: 1818 entries**, at this closure's open and close |
+| `pnpm -r lint` | exit 0 |
+| `pnpm --filter @vitrea/calibration test` | 554 passed over 33 files, 0 failed — unchanged against §7's count for this package |
+| `python3 support-rule-check.py` | exit 0; the new evidence, reproducible from `matrix.json` alone |
+| `exterior-instrument.py` re-run to a scratch `--out` | text and JSON **byte-identical** to the committed pair apart from the absolute matrix path in the header, so the docstring's new note changed no reading |
+| `results/matrix.json`, `profiles/`, the goldens, `test/adopted-thresholds.test.ts` | untouched |
