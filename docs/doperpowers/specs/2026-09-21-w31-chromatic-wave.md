@@ -680,6 +680,39 @@ the commit that carries the read. (g) **Adoption is decided at G4** on G0's iden
 argument and the fit's own reproducibility, with the structure stop as a second gated row and the
 WebGPU tier only if adopted.
 
+### Decision Log 3 — DRAFTED 2026-09-21 by G3 for the parent at G4: what to do with the tolerance, and what the fit left open
+
+Three questions, each with the measurement behind it in claims §5.164 and none
+of them answerable from inside this gate.
+
+**(a) The chroma tolerance: adopt, and with what per-cell clause?** Decision Log
+2 (g) leaves this to G4 on G0's identifiability argument and the fit's own
+reproducibility. Both are now measured (§5.164 §12): the instrument is no
+noisier after the fit than before (4.36 % / 9.93 % against 4.49 % / 9.09 %), and
+G0's two conditions — the structure stop as a second gated row, the WebGPU tier
+only — both survive. What the fit adds is a reason to change the per-cell
+clause: the bound is on the MEDIAN, the median is what the fit moved, and the
+per-cell spread widened. **G3 recommends adoption with G0's two conditions and a
+third — the per-cell clause two-sided rather than a floor alone.** A ceiling has
+to be chosen against the spread the fit leaves (worst cell 1.52) and not against
+the median it hits, which is why the number is put here rather than assumed.
+
+**(b) Is the retention's next form a function of the SURFACE?** §5.164 §8 (a)
+measures that one constant per document closes the median and widens the spread,
+that the same components are the outliers before and after, and that the holdout
+cell overshoots at R 1.24 / 1.36 because `1 − sizedAlpha` falls as the span
+rises. That is the same shape W30 found for the outer shadow's σ. The parent's
+call is whether the next chromatic wave fits a law rather than a constant, and
+on what bed — the dark half has four cells at one span each, which is not enough
+to fit a slope on.
+
+**(c) Do the two accessibility documents get their own retentions?** They
+inherit the light value under Decision Log 2 (a) and read R 3.04 / 2.95 active
+and 1.99 / 0.14 inactive at the canonical bytes, on beds that carry no bound.
+An inherited constant that reads three times the reference on one bed and a
+seventh of it on another is a value nobody measured, and it will stay unmeasured
+until somebody charters it.
+
 ## Surprises & Discoveries
 
 - **The current generation's web captures exist nowhere on disk** (2026-09-21, the parent, on the

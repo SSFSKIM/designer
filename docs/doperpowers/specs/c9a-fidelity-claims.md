@@ -30607,3 +30607,58 @@ re-open the analysis pass, the tint's chroma law, or the recede's seed collapse
 The read's capture tree is left in the worktree at
 **`packages/calibration/web-captures/`** for the parent to copy to the canonical
 tree at merge (charter Surprises; acceptance clause 6).
+
+### 12. The adoption question, put to the parent
+
+Decision Log 2 (g) leaves adoption to G4, on §5.161 §7 (g)'s identifiability
+argument **and the fit's own reproducibility**. This is that second half,
+measured at the fitted material rather than at the pre-fit one.
+
+**The fit's reproducibility**, as the same 1x-against-2x spread §7 (b) justified
+the bound from, read again on `R` AFTER the fit:
+
+| scheme | pairs | median spread | worst |
+| --- | ---: | ---: | ---: |
+| light | 9 | **4.36 %** | 6.16 % |
+| dark | 4 | **9.93 %** | **25.10 %** |
+
+Both are within a tenth of a point of the pre-fit figures the bound was
+justified from (4.49 % / 9.09 %), so the operator did not make the instrument
+noisier. The dark bed's worst pair is **25.10 %**, worse than the pre-fit
+19.41 %, and it is the same cell for the same reason: `photo__capsule-button__rest`,
+whose level miss is 0.0457 at 1x and 0.0493 at 2x and whose `R` is biased by that
+through the exact `(level)^(−2/3)`. The level stop does not remove that bias, it
+only stops the fit from making it worse — which it did not, by a factor of
+eighty.
+
+**What G0's argument is, and what this gate adds to it.** §7 (g) argued the row
+is identifiable on two grounds — the numerator is one to two orders above the
+capture's quantisation, and the native side separates by geometry over 1.47×
+(light) and 1.69× (dark) with the web side tracking it cell for cell — and it
+proposed two conditions: adopt **with the structure stop as a second gated row**,
+and **on the WebGPU tier only**. Both conditions survive this gate and the second
+is now stronger than it was: the CSS tier's `R` at the canonical read reads
+0.96–1.12 on the standard profiles while its ratio (ii) is 0.19–0.24 against a
+reference 0.90 — a tier with no chroma operator anywhere in the renderer reading
+near the reference on the statistic — which is §7 (g) (ii)'s own refusal,
+measured one generation later.
+
+**What this gate adds against adoption**, and it is new: §8 (a). The bound is on
+the median and the median is what the fit moved; the per-cell spread widened, and
+the holdout cell — outside the bed by construction — overshoots at `R` 1.24 and
+1.36. A bound of 0.80–1.20 on the median would be green today and would stay
+green through a refit that pushed more cells past 1.20, because nothing gates a
+cell from above. **If the row is adopted, the per-cell clause should be
+two-sided** — a ceiling as well as the 0.60 floor — or the bound should be
+stated on a spread rather than on a median.
+
+**The parent's call, with what each choice costs.** Adopting gates the first
+material-axis row the project has, on a bed of 10 / 8 / 4 / 4 cells whose dark
+half is four cells at one span each. Declining leaves the wave's whole result as
+a one-wave reading, recorded here and in no test, and the next material change
+can move it without anything going red. G3 recommends **adoption with G0's two
+conditions and a third**: the per-cell clause two-sided at `0.60 ≤ R ≤ 1.40`,
+which every cell of the declared bed meets today with the worst at 1.52 on
+`photo__rrect-sm__inactive` — so **1.40 would not be green**, and that is the
+point of naming it here rather than at G4: the ceiling has to be chosen against
+the spread the fit actually leaves, not against the median it hits.
