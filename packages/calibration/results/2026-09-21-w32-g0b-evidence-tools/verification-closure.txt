@@ -1,0 +1,61 @@
+W32 G0b review closure — the verification record (claims §5.167 §8)
+
+Beside verification.txt and not replacing it. Seven non-blocking findings closed, no
+blocking finding; five tool changes and two records; no material change, no capture, no
+number, no browser.
+
+freeze.py verify   26.5 freeze intact: 1818 entries   (at this closure's OPEN, before the
+                                                       first commit, and at its CLOSE)
+
+pnpm -r lint    exit 0   (eslint + tsc --noEmit in every package; calibration also runs
+                          tsconfig.cli.json, web/tsconfig.json and scripts/tsconfig.json,
+                          which is where check-capture-tree.ts typechecks)
+pnpm -r test    exit 0
+
+  package                         files    tests     against §6
+  ----------------------------    -----    -----     ----------
+  @vitreajs/vitrea (core)            16      302      unchanged
+  @vitreajs/vitrea-web               46      631      unchanged
+  @vitreajs/vitrea-react             18      169      unchanged
+  @vitrea/calibration                39      614      609 + 5
+  @vitrea/renderer-webgpu            34      561      unchanged
+  @vitrea/geometry                   14      170      unchanged
+  @vitrea/motion                     10      164      unchanged
+  @vitrea/policy                      2       23      unchanged
+  demo                                6       46      unchanged
+  ----------------------------    -----    -----     ----------
+  TOTAL                             185     2680      2675 + 5
+
+  0 failed. The five are one in w32-holdout-configuration.test.ts (6 from 5: the three-read
+  A -> B -> A case) and four in w32-capture-tree.test.ts (12 from 8: the cross-profile
+  miscopy, a misfiled capture under a frozen key, a poseless row, and the tree-is-a-file /
+  dangling-symlink pair). NB4's and NB5's assertions land inside existing cases and add no
+  file, which is why the file count does not move. No existing assertion moves.
+
+Each fix mutation-checked, and each mutation reds only its own cases:
+
+  NB1  restore `same_documents[-1:]`             1 of 6 reds
+  NB2  disable the pose comparison               3 of 12 red
+  NB5  restore `live` over the whole failing set  2 of 12 red
+
+check-capture-tree on the canonical tree   exit 0, totals unchanged — check-capture-tree-closure.txt
+  1840 captures  1833 match  0 mismatch  0 MISFILED  0 superseded  0 unreadable  7 no-row
+  The per-profile, per-renderer rows are identical to check-capture-tree.txt's line for
+  line once the new `misfiled 0` column is removed, which is the reading the closure had to
+  produce: a pose compare that moved a total would mean the clauses disagree somewhere in a
+  tree the gate read as current.
+
+configuration.py show                      identical apart from `head` — configuration-show-closure.txt
+  The four shipped documents at 49490eb9ff7a / b5714a866288 / 14c6bacf2eda / cc4ed1038996,
+  14 source files, SOURCE SHA-256 51e3c7be5395…, source LIST SHA-256 c16d6294a00c…. NB1
+  changed the REFUSAL and nothing `show` reads.
+
+Untouched, and checked rather than assumed:
+  configuration-log.json (no read taken here), results/matrix.json, results/superseded/,
+  profiles/, the 34 goldens, the native fixtures, web-captures/ (the main checkout's tree
+  was pointed at read-only and its working copy is clean), .changeset/,
+  test/adopted-thresholds.test.ts (X11), every macOS 26.5-keyed path (X1), and
+  results/2026-09-21-w31-g3-chroma-fit/ — W31 G3's configuration.py carries NB1's defect and
+  stays byte-identical, because it is that gate's witness.
+
+The version is 0.21.0, published, unmoved.
