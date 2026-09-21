@@ -1,20 +1,18 @@
 #!/usr/bin/env python3
-"""W30 G3b — B3's stop condition, re-read at the FIXED renderer.
+"""W31 G3 — B3's stop condition, re-read at the FITTED material.
 
-W30 G3's `results/2026-09-20-w30-g3-operators/departure-stat.py`, copied rather
-than reused because that file writes its reading into its own directory and
-nothing under `results/` is edited after commit. Everything below is that file's,
-which is W30 G0's one step further back: the partition, the quantity and the tier
-map are imported from G0 and restated nowhere.
+W30 G3b's `results/2026-09-20-w30-g3b-thin-strip/departure-stat.py`, copied
+rather than reused because that file wrote its reading into its own directory
+and nothing under `results/` is edited after commit. Everything below is that
+file's, which is W30 G0's one step further back: the partition, the quantity and
+the tier map are imported from G0 and restated nowhere.
 
-Why it is run again at all, when the σ law and the documents' values did not
-move: the stop is read on WEB captures, and this gate changed the renderer that
-took them. `precheck.txt` beside this file measured, before a document byte
-moved, that `meanDepartureWeb` is bit-identical on all 49 texture cells of the
-light standard bed — the NaN the fix removes was reached only more than 10.06 σ
-INSIDE the shadow's silhouette, and the departure is measured over the exterior.
-This is that prediction read over all six profiles and both tiers.
-
+Why it is run at all, when this wave moves no shadow constant: B3 is a **stop**
+(§5.161 §7 (f)), and the chroma retention acts inside the body composite and
+reaches no exterior pixel, so any movement in the exterior departure is a
+WARNING and not a result. The prediction is that the statistic does not move at
+all; this is that prediction read over all six profiles and both tiers, at the
+material the canonical read was taken at.
 
     python3 departure-stat.py [<matrix.json> ...] > departure-stat.txt
 
@@ -124,7 +122,7 @@ def main(argv: list[str]) -> int:
         honour = True
     rows = rows_of(paths, honour)
 
-    print("W30 G3b — B3's departure statistic, on " + ", ".join(p.name for p in paths))
+    print("W31 G3 — B3's departure statistic, on " + ", ".join(p.name for p in paths))
     print("=" * 100)
     print()
     print("  The quantity, the partition and the tier map are W30 G0's")

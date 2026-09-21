@@ -1656,8 +1656,21 @@ const NO_SHAPE_AXIS_SCENES: Readonly<
  * the sharpest is `2x-light-standard` texture `checkerboard__rrect-lg__rest ::
  * ssimOutside`, **0.77243 → 0.95599**.
  *
- * The seven that remain are **all holdout cells** and they are two causes, both
- * of which Decision Log 6 accepted as residual rather than chartered to G3b:
+ * The seven that remained were **all holdout cells** and they were two causes,
+ * both of which Decision Log 6 accepted as residual rather than chartered to
+ * G3b. **Two of the seven cleared at W31 G3** (claims §5.164 §7) and five
+ * remain; the paragraph below is kept as the record of the seven and corrected
+ * beside rather than rewritten.
+ *
+ * > **2026-09-21, W31 G3.** Cause (a) below said "no constant in either
+ * > document can close it", and that was right: what closed it was a MECHANISM.
+ * > `bodyChromaRetention` restores the body's chromaticity toward the blurred
+ * > backdrop's at a held linear luma, and the two **`texture`** rows went
+ * > 0.21531 → **0.14655** and 0.21341 → **0.14505** against ≤ 0.17. The two
+ * > `dom` rows are unmoved to the fifth decimal, because the CSS tier carries
+ * > nothing of the operator — a derivation was written, rendered and declined
+ * > on the measurement (§5.164 §5) — so they stay here with cause (a) intact
+ * > and the lever named. Cause (b)'s three rows are untouched by this wave (X3).
  *
  * **(a) The dark bed's diffusion at a large span over a photograph** — the four
  * `photo__rrect-lg__rest :: oklabDeltaEP95` rows, unchanged to the fourth decimal
@@ -1696,10 +1709,12 @@ const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.89531, bound: "≥ 0.9" },
   "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.88423, bound: "≥ 0.9" },
   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.20095, bound: "≤ 0.18" },
+  // Unmoved to the fifth decimal by W31's chroma operator, and that is the
+  // CSS tier's decline rather than the operator failing: this tier carries
+  // nothing of it (claims §5.164 §5). Its sibling on the WebGPU tier cleared
+  // 0.21531 → 0.14655 at the same material.
   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": { measured: 0.82695, bound: "≥ 0.83" },
   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.19474, bound: "≤ 0.19" },
-  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21531, bound: "≤ 0.17" },
-  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.21341, bound: "≤ 0.17" },
 };
 
 /*

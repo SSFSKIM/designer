@@ -1,0 +1,24 @@
+current documents (8):
+  950ce1c3e917  packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json
+  6a9600720477  packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json
+  737642e13942  packages/calibration/profiles/apple-macos-26.5.seed.json
+  cc4ed1038996  packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json
+  b5714a866288  packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json
+  25863dccef9d  packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json
+  e2fa07589d99  packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json
+  6da7ff4d21f4  packages/calibration/profiles/digest-supersessions.json
+rows: 2559 total, 1833 retained, 726 moved
+  superseded/880ab1e31450.json  247 rows
+        146  apple-macos-27.0-1x-dark-standard-glass0.5
+        101  apple-macos-27.0-2x-dark-standard-glass0.5
+  superseded/d0c389d70456.json  479 rows
+         36  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+         32  apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+        228  apple-macos-27.0-1x-light-standard-glass0.5
+        183  apple-macos-27.0-2x-light-standard-glass0.5
+wrote packages/calibration/results/superseded/880ab1e31450.json  247 rows  9128015 bytes
+wrote packages/calibration/results/superseded/d0c389d70456.json  479 rows  17797629 bytes
+wrote packages/calibration/results/matrix.json  1833 rows  67723100 bytes
+matrix sha256 before 7cb6dbf09dba14a353da48126390b5a8b654b3ce34f1013cec7746d9562b1345
+matrix sha256 after  1c8750b5d99a7fe764360a72c0ae0ffe63bd64cce7f75ad501280526529631f8
+wrote packages/calibration/results/superseded/README.md  8 files, every byte count and digest checked against the file on disk

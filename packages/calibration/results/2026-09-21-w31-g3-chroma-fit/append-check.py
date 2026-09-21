@@ -42,7 +42,13 @@ HERE = pathlib.Path(__file__).resolve().parent
 PACKAGE = ROOT / "packages/calibration"
 
 # The split's own reader, so the two scripts cannot disagree about what a row is.
-_spec = importlib.util.spec_from_file_location("split_generation", HERE / "split-generation.py")
+# The split's own reader lives in W30 G1's directory and is not copied here: a
+# copy of a file whose whole job is to define what a row IS would be a second
+# opinion about it. W30 G3 and G3b copied this checker beside their own split
+# script; this gate ran W30 G1's in place, so the import points there.
+_spec = importlib.util.spec_from_file_location(
+    "split_generation", PACKAGE / "results/2026-09-20-w30-g1-split/split-generation.py"
+)
 _split = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_split)
 canon, elements = _split.canon, _split.elements

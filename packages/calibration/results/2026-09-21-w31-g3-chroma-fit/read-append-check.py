@@ -15,15 +15,26 @@ Both checks run here, in the order the charter names: this one after the read an
 before the split, `append-check.py` after the split, so the two operations are
 refereed separately and a failure names which one did it.
 
-Four clauses, each on its own line:
+Five clauses, each on its own line:
 
-  rows preserved       every row the snapshot recorded is still in the file
-  byte-identical       each of those rows' canonical JSON is the recorded digest
-  order unchanged      they appear in the file in the order the snapshot recorded,
-                       which is what `freeze.py`'s positional read depends on
-  counts add up        per profile key: before + appended == after, and every
-                       appended row is a macOS 27 row at a document hash that is
-                       on disk now
+  rows preserved       every row the snapshot recorded is still in the file, once
+  byte-identical       each of those rows' canonical JSON hashes to the recorded
+                       digest — which is the same statement as the line above,
+                       because the digest IS the row's bytes
+  order unchanged      they appear in the file in the RELATIVE order the snapshot
+                       recorded — a subsequence, not a prefix
+  26.5 first, intact   the 1,107 frozen rows are the file's first 1,107, unmoved
+  counts add up        per profile key: before + appended == after
+
+**Why a subsequence and not a prefix**, measured rather than assumed. `compare`
+writes a new generation of a cell BESIDE the old one rather than at the end of
+the file — this read's 726 new rows land at positions 1,108 onward, interleaved
+among the macOS 27 rows they supersede — which is what lets
+`split-generation.py` find both generations of a key by walking the file once.
+So the invariant a read has to hold is that no recorded row moved past another
+recorded row, and that the frozen bed is still the contiguous block
+`freeze.py`'s positional read walks. A prefix check would have called a correct
+append a failure, which is what the first draft of this file did.
 
 The row reader is `split-generation.py`'s own, imported rather than restated, so
 the two scripts cannot disagree about where a row begins.
@@ -95,17 +106,37 @@ def verify(out_path: pathlib.Path | None) -> int:
     after = rows()
     failures: list[str] = []
 
-    preserved = [r["sha256"] for r in before]
+    recorded = [r["sha256"] for r in before]
     present = [d for d, _, _ in after]
-    if present[: len(preserved)] != preserved:
-        # Not a prefix: find out whether it is a reorder or a rewrite.
-        missing = [d for d in preserved if d not in set(present)]
+    recorded_set = set(recorded)
+    seen: dict[str, int] = {}
+    for digest in present:
+        seen[digest] = seen.get(digest, 0) + 1
+    missing = [d for d in recorded if d not in seen]
+    duplicated = [d for d in recorded if seen.get(d, 0) > 1]
+    if missing:
+        failures.append(f"{len(missing)} snapshot row(s) are gone from the file")
+    if duplicated:
+        failures.append(f"{len(duplicated)} snapshot row(s) appear more than once")
+
+    # The relative order: the snapshot's digests, in order, as a SUBSEQUENCE of
+    # the file's. A recorded row may gain neighbours and may not pass one.
+    walk = iter(present)
+    ordered = all(any(candidate == digest for candidate in walk) for digest in recorded)
+    if not ordered:
+        failures.append("the snapshot's rows are present but no longer in their recorded order")
+
+    appended = [(d, p) for d, p, _ in after if d not in recorded_set]
+
+    frozen_before = [r for r in before if r["profileKey"].startswith("apple-macos-26.5")]
+    head = present[: len(frozen_before)]
+    frozen_first = head == [r["sha256"] for r in frozen_before] and all(
+        profile.startswith("apple-macos-26.5") for _, profile, _ in after[: len(frozen_before)]
+    )
+    if not frozen_first:
         failures.append(
-            f"{len(missing)} snapshot row(s) are gone from the file"
-            if missing
-            else "the snapshot's rows are all present but not in their recorded order"
+            f"the {len(frozen_before)} frozen macOS 26.5 rows are no longer the file's first rows"
         )
-    appended = after[len(preserved):]
 
     counts_before: dict[str, int] = {}
     for r in before:
@@ -114,25 +145,30 @@ def verify(out_path: pathlib.Path | None) -> int:
     for _, profile, _ in after:
         counts_after[profile] = counts_after.get(profile, 0) + 1
     counts_appended: dict[str, int] = {}
-    for _, profile, _ in appended:
+    for _, profile in appended:
         counts_appended[profile] = counts_appended.get(profile, 0) + 1
     for key in sorted(set(counts_before) | set(counts_after)):
         if counts_before.get(key, 0) + counts_appended.get(key, 0) != counts_after.get(key, 0):
             failures.append(f"{key}: counts do not add up")
 
-    frozen_appended = [p for _, p, _ in appended if p.startswith("apple-macos-26.5")]
+    frozen_appended = [p for _, p in appended if p.startswith("apple-macos-26.5")]
     if frozen_appended:
         failures.append(f"{len(frozen_appended)} appended row(s) are macOS 26.5 rows (X1)")
 
     verdict = lambda ok: "PASS" if ok else "FAIL"
-    print(f"rows preserved       {verdict(present[: len(preserved)] == preserved)}")
-    print(f"byte-identical       {verdict(present[: len(preserved)] == preserved)}")
-    print(f"order unchanged      {verdict(present[: len(preserved)] == preserved)}")
+    print(f"rows preserved       {verdict(not missing and not duplicated)}")
+    print(f"byte-identical       {verdict(not missing and not duplicated)}")
+    print(f"order unchanged      {verdict(ordered)}")
+    print(f"26.5 first, intact   {verdict(frozen_first)}")
     print(f"counts add up        {verdict(not any('counts' in f for f in failures))}")
     print(f"no 26.5 row appended {verdict(not frozen_appended)}")
     print()
     print(f"before: {len(before)} rows")
     print(f"after:  {len(after)} rows ({len(appended)} appended)")
+    positions = [index for index, (digest, _, _) in enumerate(after) if digest not in recorded_set]
+    if positions:
+        print(f"appended at positions {positions[0]}..{positions[-1]}, interleaved among the "
+              f"rows they supersede")
     print()
     print(f"{'profile key':<62}{'before':>8}{'appended':>10}{'after':>8}")
     for key in sorted(set(counts_before) | set(counts_after)):
@@ -149,6 +185,8 @@ def verify(out_path: pathlib.Path | None) -> int:
                     "before": len(before),
                     "after": len(after),
                     "appended": len(appended),
+                    "frozenRowsFirst": frozen_first,
+                    "orderPreserved": ordered,
                     "failures": failures,
                     "perProfile": {
                         key: {
