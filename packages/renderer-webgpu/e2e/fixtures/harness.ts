@@ -28,7 +28,7 @@ import {
   type MaterialProfilePatch,
 } from "../../src/index";
 import { CROSS_CHECK_WORKGROUP, crossCheckKernelModule } from "../../src/wgsl";
-import { alphaHoleRefusal } from "./alpha-holes";
+import { alphaHoleRefusal, type DeclaredRegion } from "./alpha-holes";
 import { sceneByName, SCENE_NAMES, type BackdropSpec, type Scene } from "./scenes";
 
 interface AdapterReport {
@@ -236,12 +236,53 @@ async function readback(
 let seededHole: { readonly x: number; readonly y: number; readonly w: number; readonly h: number } | undefined;
 
 /**
+ * The scene's declared surfaces, in device px — what the guard reads each
+ * silhouette's own wall from (claims §5.163 §8, finding N1).
+ *
+ * Two families are left out deliberately, and leaving them out is conservative
+ * in the direction that matters: a region the guard does not read is a region it
+ * cannot raise a false positive on. `fieldReferenceOnly` surfaces are declared
+ * so a concentric child can be a level set of them and are not drawn at all; a
+ * `concentricOf` child draws its PARENT's field plus an inset, so its own
+ * `shape` is not its contour — and it sits inside the parent, whose region is
+ * read.
+ */
+const declaredRegionsOf = (scene: Scene): DeclaredRegion[] => {
+  const dpr = scene.devicePixelRatio;
+  const out: DeclaredRegion[] = [];
+  for (const group of scene.groups) {
+    for (const surface of group.surfaces) {
+      if (surface.fieldReferenceOnly === true || surface.concentricOf !== undefined) continue;
+      const { center, size, radii } = surface.shape;
+      const w = size[0] * dpr;
+      const h = size[1] * dpr;
+      out.push({
+        cx: center[0] * dpr,
+        cy: center[1] * dpr,
+        w,
+        h,
+        // The widest corner, so the mask is the smaller of the shapes the four
+        // radii could describe — the same direction as everything above.
+        r: Math.min(Math.max(...radii) * dpr, Math.min(w, h) / 2),
+      });
+    }
+  }
+  return out;
+};
+
+/**
  * Refuse a raster whose alpha has an enclosed hole, after applying any seed.
  *
  * Beside the `gpuErrors` refusal and for the same reason: a render that says
  * nothing and draws a hole is the failure mode worth spending a pass on.
  */
-function guardReadback(bytes: Uint8Array, width: number, height: number, label: string): void {
+function guardReadback(
+  bytes: Uint8Array,
+  width: number,
+  height: number,
+  label: string,
+  declared: readonly DeclaredRegion[],
+): void {
   const seed = seededHole;
   seededHole = undefined;
   if (seed !== undefined) {
@@ -252,7 +293,7 @@ function guardReadback(bytes: Uint8Array, width: number, height: number, label: 
       }
     }
   }
-  const refusal = alphaHoleRefusal({ width, height, data: bytes }, label);
+  const refusal = alphaHoleRefusal({ width, height, data: bytes }, label, declared);
   if (refusal !== undefined) throw new Error(refusal);
 }
 
@@ -470,7 +511,13 @@ const api = {
       if (gpuErrors.length > 0) {
         throw new Error(`WebGPU reported ${gpuErrors.length} error(s): ${gpuErrors.join(" | ")}`);
       }
-      guardReadback(bytes, run.width, run.height, `renderScene(${scene.name})`);
+      guardReadback(
+        bytes,
+        run.width,
+        run.height,
+        `renderScene(${scene.name})`,
+        declaredRegionsOf(scene),
+      );
       return { width: run.width, height: run.height, pixels: toBase64(bytes) };
     } finally {
       run.dispose();
@@ -503,7 +550,13 @@ const api = {
       if (gpuErrors.length > 0) {
         throw new Error(`WebGPU reported ${gpuErrors.length} error(s): ${gpuErrors.join(" | ")}`);
       }
-      guardReadback(bytes, run.width, run.height, `renderAtGovernorLevel(${scene.name}, ${level})`);
+      guardReadback(
+        bytes,
+        run.width,
+        run.height,
+        `renderAtGovernorLevel(${scene.name}, ${level})`,
+        declaredRegionsOf(scene),
+      );
       return { width: run.width, height: run.height, pixels: toBase64(bytes) };
     } finally {
       run.dispose();

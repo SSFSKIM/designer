@@ -6,9 +6,14 @@
  * transcendental call sites the package has today are decided that way, because
  * the shader already clamps or the arithmetic already bounds them. The three
  * here are not, and each one is not for the same kind of reason: the bound is a
- * property of a MATERIAL LEAF a document writes, or of a SCENE QUANTITY another
- * pass has already normalised, or of the surrounding control flow. No textual
- * evaluator can see any of those, so they are written down.
+ * property of a MATERIAL LEAF a document writes, of a SCENE QUANTITY another
+ * pass has already normalised, or of the CALLERS of the function the call sits
+ * in. No textual evaluator can see any of those, so they are written down.
+ *
+ * (That third reason read "or of the surrounding control flow" until 2026-09-21,
+ * when `prelude.ts`'s entry lost its control-flow half to a clamp in the shader
+ * — review closure; claims §5.163 §8, finding N8. The entry survives on its
+ * caller-bound half, so the split is still eight and three.)
  *
  * ## What an entry has to say, and what makes it stay true
  *
@@ -46,34 +51,48 @@ export interface RangeProof {
 export const RANGE_PROOFS: readonly RangeProof[] = [
   {
     file: "prelude.ts",
-    call: "pow((c + vec3f(0.055)) / 1.055, vec3f(2.4))",
-    argument: 0,
-    bound: "either inside [0, 1.2e6], or discarded before it is read",
-    dependsOn: [
-      "the `select` two lines below, which is the whole of the sign half",
-      "the four callers of `srgb_to_linear` in this package, for the magnitude half",
-    ],
+    call: "pow(max((c + vec3f(0.055)) / 1.055, vec3f(0.0)), vec3f(2.4))",
+    argument: 1,
+    bound:
+      "the exponent is the literal 2.4; what the entry bounds is the BASE's ceiling, " +
+      "at most 1.2 and never near f32max^(1/2.4) = 1.1259e16",
+    dependsOn: ["the four callers of `srgb_to_linear` in this package"],
     why:
-      "Two independent halves, because the two ways this call could leave f32 are " +
-      "independent. THE SIGN. `pow` is undefined in WGSL for a base below zero, and " +
-      "this base is below zero exactly where `c < -0.055`. The function returns " +
-      "`select(hi, lo, c <= vec3f(0.04045))` componentwise, and `-0.055 < 0.04045`, so " +
-      "every component whose base is negative is a component the select discards: the " +
-      "undefined value is computed and never read. `select` is a choice between two " +
-      "operands and not arithmetic on them, so it propagates no NaN from the branch it " +
-      "does not take. This half holds at every input whatsoever and depends on no " +
-      "material constant. THE MAGNITUDE. `pow(b, 2.4)` overflows f32 at " +
-      "b > f32max^(1/2.4) = 1.16e16, so the bound needed is b < 1.16e16, i.e. " +
-      "c < 1.2e16. `c` is an ENCODED sRGB colour at all four call sites and the widest " +
-      "any of them can be is bounded by construction: `backdrop.ts`'s is " +
-      "`clamp(colour, 0, 1)`; `silhouette-tone.ts`'s is a coverage-weighted mean of " +
-      "`linear_to_srgb` values over unorm samples; `optics.ts`'s tint composition is a " +
-      "`mix` of two encoded colours; and the widest, `optics.ts`'s un-premultiply, is a " +
-      "colour over `max(bodyAlpha, 1e-6)`, which amplifies a unorm sample by at most " +
-      "1e6. Ten orders of magnitude of headroom, and no material leaf enters any of " +
-      "those expressions as a multiplier, so no fit moves the bound at all — a fit " +
-      "moves what colour arrives, not by how much a division guard can scale it.",
+      "This entry is the MAGNITUDE half of what used to be a two-half proof; the sign " +
+      "half is now in the shader (see the history below). `pow(b, 2.4)` overflows f32 " +
+      "at b > f32max^(1/2.4) = 1.1259e16, so the bound needed is b < 1.1259e16, i.e. " +
+      "c < 1.2e16 — and the scanner names the EXPONENT as the unbounded argument " +
+      "because the exponent is what decides that a ceiling is needed at all: at an " +
+      "exponent under 1 the same base would be harmless, which is why " +
+      "`linear_to_srgb`'s own `pow` needs no ceiling and this one does. `c` is an " +
+      "ENCODED sRGB colour at all four call sites and the widest any of them can be is " +
+      "bounded by construction: `backdrop.ts`'s is `clamp(colour, 0, 1)`; " +
+      "`silhouette-tone.ts`'s is a coverage-weighted mean of `linear_to_srgb` values " +
+      "over unorm samples; `optics.ts`'s tint composition is a `mix` of two encoded " +
+      "colours; and the widest, `optics.ts`'s un-premultiply, is a colour over " +
+      "`max(bodyAlpha, 1e-6)`, which amplifies a unorm sample by at most 1e6. Ten " +
+      "orders of magnitude of headroom, and no material leaf enters any of those " +
+      "expressions as a multiplier, so no fit moves the bound at all — a fit moves " +
+      "what colour arrives, not by how much a division guard can scale it. " +
+      "A ceiling in the source would retire this entry, and it is declined: the " +
+      "literal it would take is 1.1259e16, which says nothing to a reader of a colour " +
+      "transfer function, while the paragraph above is a fact about the four callers " +
+      "that is worth keeping written down. " +
+      "HISTORY, 2026-09-21 (review closure; claims §5.163 §8, finding N8). Until this " +
+      "date the entry also carried the SIGN half, and it read: \"`pow` is undefined in " +
+      "WGSL for a base below zero, and this base is below zero exactly where " +
+      "`c < -0.055`. The function returns `select(hi, lo, c <= vec3f(0.04045))` " +
+      "componentwise, and `-0.055 < 0.04045`, so every component whose base is " +
+      "negative is a component the select discards: the undefined value is computed " +
+      "and never read. `select` is a choice between two operands and not arithmetic on " +
+      "them, so it propagates no NaN from the branch it does not take.\" That argument " +
+      "was and is sound. It is no longer load-bearing, because the shader now floors " +
+      "the base at zero — the identity at every component the select keeps — and the " +
+      "gate's own failure message prefers a clamp to a proof wherever the clamp is an " +
+      "identity. The goldens are byte-identical across the change, which is what an " +
+      "identity predicts.",
     witness: [
+      "let hi = pow(max((c + vec3f(0.055)) / 1.055, vec3f(0.0)), vec3f(2.4));",
       "return select(hi, lo, c <= vec3f(0.04045));",
       "let lo = c / 12.92;",
     ],

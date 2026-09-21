@@ -15,6 +15,11 @@
  *     with a strip undrawn.
  *
  * Run: node --experimental-strip-types scan-report.mjs
+ *
+ * A committed reading is never rewritten, so a re-run that is a NEW reading
+ * writes beside the old one: `--suffix -closure` produces
+ * `call-sites-closure.txt` and `.json` (W31 G2 review closure, 2026-09-21;
+ * claims §5.163 §8). No suffix reproduces the gate's own file names.
  */
 
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -145,9 +150,12 @@ for (const row of mutationRows) {
 }
 lines.push("");
 
-writeFileSync(join(HERE, "call-sites.txt"), lines.join("\n"));
+const suffixFlag = process.argv.indexOf("--suffix");
+const suffix = suffixFlag === -1 ? "" : (process.argv[suffixFlag + 1] ?? "");
+
+writeFileSync(join(HERE, `call-sites${suffix}.txt`), lines.join("\n"));
 writeFileSync(
-  join(HERE, "call-sites.json"),
+  join(HERE, `call-sites${suffix}.json`),
   `${JSON.stringify({ rows, mutations: mutationRows, counts: { clamped, proven, stopped } }, null, 2)}\n`,
 );
 process.stdout.write(lines.join("\n"));

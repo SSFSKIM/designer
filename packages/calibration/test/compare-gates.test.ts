@@ -111,9 +111,34 @@ describe("matrixSchemaRefusal", () => {
     expect(older).toContain("results/superseded/");
     expect(older).toContain("never");
     expect(older).toContain("an older");
+  });
 
+  /**
+   * The two directions are different diagnoses (review closure 2026-09-21; c9a
+   * §5.163 §8, finding N4).
+   *
+   * The message enumerated the same three files for both, and all three are
+   * OLDER-schema artefacts: a scratch matrix an earlier `--out-matrix` wrote,
+   * one restored from a branch, a superseded generation. A newer-schema file is
+   * none of those and cannot be — nothing in this tree has written one — so the
+   * enumeration belongs to the older branch alone, and the case for the newer
+   * branch has to read more than the two words "a newer" or it would have
+   * passed on the wrong sentence, which is how it passed before.
+   */
+  it("gives the newer-schema branch its own true sentence, not the older one's list", () => {
     const newer = matrixSchemaRefusal(6, 5, "results/next.json") ?? "";
-    expect(newer).toContain("a newer");
+    expect(newer).toContain("results/next.json");
+    expect(newer).toContain("schema-6");
+    expect(newer).toContain("a newer schema");
+    expect(newer).toContain("a build this checkout does not have");
+    expect(newer).toContain("RESULT_MATRIX_SCHEMA_VERSION");
+    expect(newer).toContain("--out-matrix");
+
+    // The older branch's enumeration must not appear here: none of those three
+    // files is at a newer schema.
+    expect(newer).not.toContain("results/superseded/");
+    expect(newer).not.toContain("restored from a branch");
+    expect(newer).not.toContain("an earlier instrument");
   });
 });
 

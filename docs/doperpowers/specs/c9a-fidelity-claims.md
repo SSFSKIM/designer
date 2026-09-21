@@ -29082,6 +29082,19 @@ eight clamped by the source, three bounded by a written proof, none STOPPED**
 | `prelude.ts:21` | `pow((c + 0.055)/1.055, 2.4)` | **0** | [−3.2e38, 3.2e38] | **proven** — negative exactly where the `select` two lines below discards it, and bounded above by the four callers of `srgb_to_linear` |
 | `prelude.ts:27` | `pow(max(c, 0.0), 1.0/2.4)` | 0 | [0, f32max] | **clamped** — an exponent under 1 makes f32max's own power 1.13e16, so the ceiling is harmless |
 
+> **Corrected 2026-09-21 (review closure; §8, finding N8).** `prelude.ts`'s row
+> above reads at a different line and with a different argument since that
+> closure floored the base: the call is now
+> `pow(max((c + vec3f(0.055)) / 1.055, vec3f(0.0)), vec3f(2.4))` at
+> `prelude.ts:27`, arg **0** resolves to **[0, 3.2e38]**, and the proof that
+> remains is on arg **1** — the base's CEILING, which a floor cannot reach and
+> which only matters because the exponent is above 1. **The split does not move**:
+> eleven sites, eight clamped, three proven, none STOPPED
+> (`call-sites-closure.txt`). What changed is that the sign half of that entry is
+> now in the shader instead of in the table, which is the gate's own stated
+> preference, and the entry keeps its caller-bound half with the sign half's
+> text as dated history.
+
 **The three proofs are in `test/wgsl-range/proofs.ts`, each with a WITNESS.** A
 proof keyed only by its own call's text would survive an edit to the `select`
 around it or to the field pass's normalisation two files away — the very edit
@@ -29114,6 +29127,21 @@ every divisor a material leaf can reach already written `max(x, 1e-4)` or
 catches the alpha-hole signature of a NaN however produced, which is the coverage
 a thousand-row proof table would buy at a fraction of its cost. `inverseSqrt` IS
 scanned and the package has no call of it, so the rule is there for the first one.
+
+> **Corrected 2026-09-21 (review closure; §8, finding N5). Both counts in the
+> paragraph above are wrong.** The recount is `division-count.py` / `.txt` in
+> the evidence directory, taking `scan.ts`'s own comment stripper and then the
+> TypeScript string literals, which in these files are import paths and not
+> arithmetic. There are **99 divisions**, not over a thousand — the raw slash
+> count is 117 and `index.ts` alone contributes 15 of them with no arithmetic at
+> all, being nothing but imports. And **three**, not one, have a uniform as
+> their immediate divisor: `in.position.xy / ou.screen.xy` (`optics.ts`) and
+> `p / u.viewport.xy` (`silhouette-tone.ts`), both the viewport's own size in
+> device px, and `i / u32(au.grid.x)` (`analysis.ts`), the reduction's fixed
+> 64×64 grid. **The argument is unaffected and is now what was measured**: none
+> of the three is a material leaf, and the fourteen uniform divisors that a
+> material leaf CAN reach are all floored by the shader's own `max(x, 1e-4)` /
+> `max(x, 1e-6)` idiom, listed in the script's output.
 
 **The instrument can go red, and two mutations prove it** (`call-sites.txt`'s
 tail). `outer_shadow_falloff` without W30 G3b's ±20 resolves to
@@ -29165,6 +29193,37 @@ and a wall at alpha ≥ half the raster's own peak (floored at one code); a
 candidate is enclosed when it cannot reach the raster's border through non-wall
 pixels; the guard fires on any enclosed candidate component.*
 
+> **Corrected 2026-09-21 (review closure; §8, findings N1 and N7).** Two things
+> in this section, one of them a defect in the predicate.
+>
+> **The wall is read per DECLARED REGION, not off the raster.** The rule above
+> made a surface's sensitivity depend on what else was in the frame: with a
+> bright surface at alpha 255 elsewhere the cutoff is 128, a dim surface at alpha
+> 100 is not a wall at all, and a hole punched clean through the dim one read as
+> **0 holes** where the same surface alone read **1**. `glass-over-glass`, the
+> scene §6's own residual sits on, is a two-surface scene. The rule now reads:
+> *a pixel is a candidate at alpha exactly zero; a pixel is a wall at alpha ≥
+> half the peak alpha INSIDE the declared region being read, floored at one
+> code; a candidate is enclosed when it cannot reach the raster's border through
+> non-wall pixels; the guard fires on an enclosed candidate component with at
+> least one pixel inside a declared region.* The harness derives the regions from
+> the scene it is rendering. That is the charter's own "inside a declared
+> silhouette" taken literally rather than approximated by the raster, and the
+> shadow-tail stand-down below now holds because the rounding pixel is outside
+> every declared surface rather than because it is unwalled. The presence-0
+> stand-down gets sharper for the same reason: a declared region whose own peak
+> is zero **drew nothing**, so there is no silhouette there for anything to be a
+> hole in and the region is not read at all — which no longer depends on the
+> transparent page around the surface reaching the border, as stand-down 2 below
+> says it does. Both halves of the review's pair read 1. Silent on the 34
+> goldens and all 43 `@gpu` cases.
+>
+> **It is a TEST-TIME watch**, and "the standing watch" two paragraphs down
+> should be read that way: `renderScene` here is `window.vitrea.renderScene` in
+> `e2e/fixtures/harness.ts`, and nothing under `src/` runs the guard. "Every
+> scene" means every scene an e2e spec renders — which is still the thing a
+> sweep cannot do, and still not a runtime property of the renderer.
+
 **The silhouette clause is not decoration — the first form did not have it and
 fired on two of forty-two `@gpu` cases** (`guard-first-form.txt`). Both were
 `page-material.spec.ts`'s scalar scene, at exactly one pixel, 170 CSS px out from
@@ -29214,6 +29273,25 @@ the swept value — **no constant of the material decides what the surface
 covers** — read as W20's declaration conformance through `declared-coverage.ts`.
 Every reading is in `sweeps.txt`; **every one is 0 undrawn at IoU 1.0000**, and
 the readback guard is silent on all of them.
+
+> **Corrected 2026-09-21 (review closure; §8, findings N2 and N9).** The column
+> called "IoU" here and in `sweeps.txt` is **containment** —
+> `intersection / declared`, the drawn fraction of the declared mask, identically
+> `1 − undrawn/declared`. It is not an intersection over union: the union would
+> add the drawn pixels outside the declaration, which are deliberately not
+> counted because the exterior there is the shadow. Two consequences worth
+> stating: the `≥ 0.99` clause is implied by the `undrawn === 0` clause beside
+> it and is there to say what the reading means, and **over-draw is invisible to
+> this number by construction**. The recorded values below are unchanged and
+> stay as recorded; the field in the code is now called `containment`.
+>
+> And the table below sweeps each axis with the other held at the shipped
+> values, which cannot see a defect that is a COMBINATION — which §5.159b's was.
+> **Twenty-eight cross readings** are recorded beside it in `sweeps-cross.txt`:
+> each material ladder's two endpoints at spans 32 and 340 (ten pairings, twenty
+> readings), plus the lens profile's and the rim's exponents at their own
+> extremes at both spans. Every one 0 undrawn at containment 1.0000, guard
+> silent.
 
 **The material bracket is 550×, and it is a measurement** (`leaf-moves.py`): the
 widest ratio the project has ever moved a leaf between two material generations,
@@ -29270,6 +29348,19 @@ old copy: the ruling must not be cited, and the three files that DO reach the
 predicate must be. The same stale claim lived in `cli/compare.ts`'s and
 `cli/diff.ts`'s own comments — both described the interregnum as the present —
 and both are corrected beside, dated, with the old reading named.
+
+> **Corrected 2026-09-21 (review closure; §8, finding N4): the three files are
+> all OLDER-schema artefacts, and the message offered them in both directions.**
+> A scratch matrix, one restored from a branch and a superseded generation were
+> every one of them written by a build of this repository that has since been
+> superseded. A file at a NEWER schema is none of those and cannot be — nothing
+> in this tree has written one — so it came from a build this checkout does not
+> have: a branch ahead of this one, or a working tree that bumped
+> `RESULT_MATRIX_SCHEMA_VERSION`. The enumeration is now in the older branch
+> alone and the newer branch has its own sentence saying that. The pinned case
+> for the newer branch asserted the two words "a newer" and would have passed on
+> the wrong sentence; it now asserts five substrings of its own **and** that the
+> older branch's list does not appear in it.
 
 **Where the sweep rule is recorded, and why there.** The rule is: *when a
 change's sweep reports a file "unchanged, checked", say what that file CLAIMS
@@ -29357,6 +29448,19 @@ react's 169 against its 167 is a difference this gate did not make — it touche
 react file, and the three commits between §5.160's record and this branch's base
 are the W31 charter.
 
+> **Corrected 2026-09-21 (review closure; §8, finding N6): the totals above are a
+> PRE-MERGE branch reading.** They were taken on this child's own branch off the
+> charter, where calibration read 557 over 33 files and the workspace 2,599. On
+> the merged tree they are larger, and by exactly two known files: G1's
+> `w31-exterior-instrument.test.ts` took it to **2,603 / calibration 561** at
+> this gate's merge commit `38c07ba7`, and G0's `chroma.test.ts` — ten cases, one
+> file — to **2,613 / calibration 571** at main `37f2ed62`, which is the head
+> this closure works from. The G1 review closure touched no test file. **At this
+> closure the workspace reads 2,617**, calibration 572 and renderer-webgpu 540;
+> the +4 is N1's three predicate cases and N4's one. The `test:gpu` count is
+> **43** at this closure, §7's 42 plus N9's cross term. Every figure is in
+> `verification-closure.txt`.
+
 **The two tracker entries.** The WGSL range class is **CLOSED** on fix shapes 1,
 2 and 3, with its residual paragraph amended beside rather than over: the
 candidate is refuted and the residual is re-opened with what would settle it. The
@@ -29364,3 +29468,66 @@ consumer-table entry is **CLOSED** on both halves — the refusal's wording and 
 rule's home. A narrower entry is opened beside them: the sweep phase reaches a
 uniform unwrapped, and the shader floor this gate added makes it safe without
 making it meaningful.
+
+> **Corrected 2026-09-21 (review closure; §8, finding N3): it was not opened
+> beside them.** It was a paragraph inside the CLOSED range-class entry, where a
+> reader looking for open work does not go. It is now its own `##` entry, *"The
+> sweep phase reaches the uniform unwrapped (W31 G2, 2026-09-21)"*, with the fix
+> shape — wrap the phase in `readHostChannels` beside the clamp `materialization`
+> already has, `platform-web`, one line — and the closed entry points at it.
+
+### 8. Review closure (2026-09-21)
+
+An independent read-only review of this gate **reproduced every figure** and
+found **no blocking finding** and nine non-blocking ones. **No material
+constant, leaf, profile document, native fixture, bound, floor, adopted row,
+row of `results/matrix.json` or golden moves at this closure** — the 34 renderer
+goldens are byte-identical with `git status` over `e2e/goldens` empty and no
+regen, `freeze.py verify` reads **26.5 freeze intact: 1818 entries**, and no
+capture was taken (X1, X3, X5). `packages/calibration/src/metrics/`,
+`cli/measure.ts` and `src/report.ts` are untouched, as X11 requires. Every
+correction is recorded **beside** the text it corrects and dated; the gate's own
+committed outputs are byte-unchanged and the closure's readings are written
+beside them under `-closure` names.
+
+One shader line moves and it is an identity (N8); one test-only predicate is
+re-derived (N1). Both are proved by the goldens.
+
+| # | what the review found | verified how | what closed it |
+| --- | --- | --- | --- |
+| **N1** | **The guard's wall was the RASTER's peak, so a hole inside a dim surface escaped.** With a bright surface at alpha 255 elsewhere the cutoff is 128, a dim surface at alpha 100 is then not a wall at all, and a 4×4 zero block punched through it reads **0 holes**; the same dim surface alone reads **1**. `glass-over-glass`, the scene the shadow residual of §6 sits on, is a two-surface scene | the first form re-implemented and run on the review's pair: **0 against 1**, at raster peak 255 / cutoff 127.5 and peak 100 / cutoff 50 | **Closed by code.** The wall is now read **per declared region** — half the peak alpha inside the region being read, floored at one code — and candidates are bounded to the declared regions, which is the charter's own "inside a declared silhouette" taken literally instead of approximated by the raster. The harness derives the regions from the scene it is rendering (`declaredRegionsOf`, device px, `fieldReferenceOnly` and `concentricOf` members left out as the conservative direction). Both halves of the review's pair now read 1, as two new cases. The two stand-downs survive and one of them gets sharper: presence 0 is now **a region whose own peak is zero drew nothing**, which no longer depends on the transparent page reaching the border; and the shadow-tail rounding pixel is outside every declared silhouette rather than merely unwalled. Proved silent on the **34 goldens** and all **43 `@gpu`** cases |
+| **N2** | **`iou` is containment, not IoU.** `declared-coverage.ts` returns `intersection / declared.length` — recall over the declared mask, identically `1 − undrawn/declared` — so the sweeps' `≥ 0.99` clause is implied by their own `toBe(0)`, and over-draw is invisible | read off the function; `undrawn === 0 ⟺ containment === 1` by construction | Renamed **`containment`** in the shared module and in both specs that carry the reading, with the reason and the two consequences in the module note. `sweeps.txt` and §4's table keep their recorded numbers under a dated note saying the column is containment, as do §5.159b's 0.8636 / 0.9694 / 0.9899 in `w30-thin-sigma-coverage.spec.ts`'s own copy. **The reader still goes red on the signature it exists for**: the punched strip reads undrawn 1,216 of 8,628, containment 0.859, and the `toBe(0)` clause is what fails on it |
+| **N3** | **No narrower tracker entry was opened.** The sweep phase's fix shape was a paragraph inside a CLOSED entry, where nothing looks for it | read the tracker | Lifted into its own `##` entry, *"The sweep phase reaches the uniform unwrapped"*, with the fix shape (wrap the phase in `readHostChannels` beside the clamp `materialization` already has, `platform-web`, one line) and the closed entry pointing at it |
+| **N4** | **The refusal's "newer" branch enumerated older-schema artefacts.** A scratch matrix, one restored from a branch and a superseded generation are all files an older build of this repository wrote; a newer-schema file is one a build this checkout does not have wrote | read the two branches against what can produce each file | The enumeration is now in the older branch alone and the newer branch has its own true sentence — a build ahead of this checkout, or a working tree that bumped `RESULT_MATRIX_SCHEMA_VERSION`. `compare-gates.test.ts` gains a case for the newer branch that asserts its own five substrings **and that the older branch's list does not appear in it**; the previous case matched the two words "a newer" and would have passed on the wrong sentence |
+| **N5** | **"Over a thousand divisions in `src/wgsl/`" is wrong**, and so is "exactly one has a uniform as its immediate divisor". The review counted 116 | recounted, committed as `division-count.py` / `.txt`: `scan.ts`'s own comment stripper, then the TypeScript string literals, which are import paths and not arithmetic | **99 divisions.** The 117 → 99 gap is entirely import paths — `index.ts` is nothing but imports and contributed 15 slashes and no arithmetic, which is where the review's 116 sits too. And **three**, not one, have a uniform as their immediate divisor: `in.position.xy / ou.screen.xy` and `p / u.viewport.xy`, the viewport's own size in device px, and `i / u32(au.grid.x)`, the analysis reduction's fixed 64×64 grid. **None is a material leaf**, which is the claim the paragraph rested on, and the script lists the **fourteen** uniform divisors that ARE floored by the shader's `max(x, 1e-4)` / `max(x, 1e-6)` idiom. Corrected beside in `scan.ts`'s module note, in §1 and in the tracker's closure |
+| **N6** | **§7's test totals are a pre-merge branch reading** (calibration 557 over 33 files, total 2,599) | `pnpm -r test` run at this closure's head and at its base | At **main 37f2ed62** the base is **2,613**, calibration **571** over 35 files; after this closure **2,617** and **572**. The child's number was what it was because it was read on a branch off the charter: G1's `w31-exterior-instrument.test.ts` took it to 2,603 / 561 at G2's merge commit `38c07ba7`, and G0's `chroma.test.ts` — ten cases, one file — to 2,613 / 571. The G1 review closure touched no test file. Corrected beside in §7 with both readings named |
+| **N7** | **The readback guard is test-time.** `renderScene` is `window.vitrea.renderScene` in the e2e harness; nothing under `src/` runs it, so "the standing watch sees every scene" could be read as a runtime property | grepped `src/` for the guard: no caller | The clause **"in the e2e harness, at test time"** is beside it in §3, in `alpha-holes.ts`'s own module note and in the tracker entry. "Every scene" means every scene an e2e spec renders, and that is still the thing the sweeps cannot do |
+| **N8** | **`prelude.ts:21` can be a clamp instead of a proof**, by the gate's own preference — its failure message asks for a clamp wherever the clamp is an identity, and takes a proof only where it is not | the clamp written and the goldens re-run | The shader now reads `pow(max((c + vec3f(0.055)) / 1.055, vec3f(0.0)), vec3f(2.4))` — the identity at every component the `select` keeps, since it keeps `hi` only where `c > 0.04045` and the base is already above 0.0905 there. **The 34 goldens are byte-identical**, which is what an identity predicts. **The site does not move from proven to clamped, and that is the honest outcome**: the scanner's remaining objection is the base's CEILING, which a floor cannot reach, so it now names the EXPONENT as the unbounded argument and the entry survives on its caller-bound half (the four callers of `srgb_to_linear`, ten orders of magnitude of headroom). The sign half's text is kept as dated history inside the entry. A ceiling in the source would retire it and is **declined**: the literal is 1.1259e16 and says nothing to a reader of a colour transfer function, while the caller argument is worth keeping written down. **The split is unchanged at eleven sites, eight clamped, three proven, none STOPPED** (`call-sites-closure.txt`) |
+| **N9** | **The cross term was never rendered.** The material ladders all run at span 96 / radius 24 and the scene axis at the shipped material, and §5.159b's defect was a COMBINATION | twenty-eight readings added and run | Each material ladder's two endpoints at spans **32** and **340**, radius 12 — ten pairings, twenty readings — plus the two leaves whose extreme obviously interacts with span (the lens profile's exponent, whose base is a depth over a span-scaled extent, and the rim's, which shapes a lit edge around a contour the scene decides) at 0.01 / 64 and 0 / 64, for **twenty-eight**. Every one **0 undrawn at containment 1.0000**, guard silent. Recorded beside `sweeps.txt` as **`sweeps-cross.txt`** |
+
+**One thing this closure found rather than the review, and it is the reason a
+predicate gets written twice.** The per-region wall merges the masks of regions
+that share a cutoff, and the first form merged them with `push(...mask)` — an
+apply, and a 340 px caster's mask is 115,432 arguments. It took
+`w30-heavy-second-tap.spec.ts` down with a stack overflow on the first `@gpu`
+run, in the guard itself. This is the SECOND form of that failure mode the module
+has had to avoid; the first is the iterative flood fill, which is iterative for
+exactly this reason and was written that way from the start. Fixed, and pinned by
+a case on two 449×700 declared regions so the unit suite catches it without an
+adapter. A guard that crashes on a large surface is worse than one that is
+silent, and the surface it crashed on is the class §5.159b's third case exists
+for.
+
+**Verification of this closure.**
+
+| step | result |
+| --- | --- |
+| `pnpm --filter @vitrea/renderer-webgpu test:golden` | **34 passed**, no regen; `git status` over `e2e/goldens` empty |
+| `test:gpu` | **43 passed** — §5.163 §7's 42 plus N9's cross term |
+| `pnpm -r build` | exit 0 |
+| `pnpm -r lint` | exit 0 across all nine packages |
+| `pnpm -r test` | **2,617 passed, 0 failed** — +3 renderer-webgpu (N1's three cases), +1 calibration (N4's), against the 2,613 this closure's head reads |
+| `python3 results/2026-09-16-w29-freeze/freeze.py verify` | **26.5 freeze intact: 1818 entries** |
+| the range scan, re-read | **11 call sites, 8 clamped, 3 proven, 0 STOPPED** — unchanged (`call-sites-closure.txt`) |
+| X6 machine read | **27.0/26A428, RT 0, IC 0, `NSGlassTintAmount` 0.5**, before and after each of the closure's browser runs (`machine.txt`, four more lines) |
+| `src/metrics/`, `cli/measure.ts`, `src/report.ts`, `results/matrix.json`, `profiles/`, `adopted-thresholds.test.ts` | untouched (X11) |

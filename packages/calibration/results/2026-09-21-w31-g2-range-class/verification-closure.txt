@@ -1,0 +1,65 @@
+W31 G2 review closure, 2026-09-21 — the verification record (claims c9a §5.163 §8).
+Written beside the gate's own outputs, never over them.
+
+  pnpm --filter @vitrea/renderer-webgpu test:golden   34 passed, no regen
+  git status over e2e/goldens                          empty
+  pnpm --filter @vitrea/renderer-webgpu test:gpu       43 passed (42 + the cross term)
+  pnpm -r build                                        exit 0
+  pnpm -r lint                                         exit 0, nine packages
+  pnpm -r test                                         2,617 passed, 0 failed
+  freeze.py verify                                     26.5 freeze intact: 1818 entries
+
+pnpm -r test, per package, with the base at this closure's head (main 37f2ed62,
+which carries G0, G1, G1's review closure and G2):
+
+  package             base 37f2ed62      this closure     delta
+  policy                         23                23         —
+  motion                        164               164         —
+  geometry                      170               170         —
+  renderer-webgpu               537               540        +3
+  core                          302               302         —
+  platform-web                  631               631         —
+  react                         169               169         —
+  calibration                   571               572        +1
+  demo                           46                46         —
+  TOTAL                       2,613             2,617        +4
+
+The +3 in renderer-webgpu is `test/alpha-holes.test.ts`: the per-region wall's
+own case (finding N1's measured pair), the overlapping-regions case, and the
+large-mask case that pins the stack overflow the merge of two masks had. The +1
+in calibration is `test/compare-gates.test.ts`'s newer-schema branch, split off
+the older one's case (finding N4).
+
+Against §5.163 §7's 2,599 / calibration 557: that was a PRE-MERGE reading on the
+child's own branch (finding N6). G1's `w31-exterior-instrument.test.ts` took it
+to 2,603 / 561 at G2's merge commit 38c07ba7, and G0's `chroma.test.ts` — ten
+cases, one file — took it to 2,613 / 571 at 37f2ed62. The G1 review closure
+touched no test file.
+
+--- test:golden ---
+  ✓  34 [chromium-gpu] › e2e/golden/scenes.spec.ts:246:3 › @golden claims §5.47 — a backdrop is sampled where it sits › the placed render is the golden, and the cover-fit render is what it replaced (276ms)
+
+  34 passed (11.6s)
+--- test:gpu ---
+  ✓  43 [chromium-gpu] › e2e/gpu/w31-readback-guard.spec.ts:75:3 › @gpu the readback guard refuses an enclosed zero-alpha region › it is silent on every scene this package renders, and on both stand-downs (698ms)
+
+  43 passed (19.9s)
+--- pnpm -r test ---
+packages/policy test:       Tests  23 passed (23)
+packages/motion test:       Tests  164 passed (164)
+packages/geometry test:       Tests  170 passed (170)
+packages/renderer-webgpu test:       Tests  540 passed (540)
+packages/core test:       Tests  302 passed (302)
+packages/platform-web test:       Tests  631 passed (631)
+packages/react test:       Tests  169 passed (169)
+packages/calibration test:       Tests  572 passed (572)
+apps/demo test:       Tests  46 passed (46)
+--- git status e2e/goldens ---
+(empty)
+
+--- re-run after the last record edit, bracketed in machine.txt ---
+closure-verify-golden-before / -after   34 passed, e2e/goldens clean
+closure-verify-gpu-before / -after      43 passed
+pnpm -r build, pnpm -r lint             exit 0
+pnpm -r test                            2,617 passed
+freeze.py verify                        26.5 freeze intact: 1818 entries

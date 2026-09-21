@@ -1,0 +1,263 @@
+{
+  "rows": [
+    {
+      "file": "backdrop.ts",
+      "line": 164,
+      "fn": "exp",
+      "call": "exp(ft * ft * inv)",
+      "arguments": [
+        {
+          "index": 0,
+          "text": "ft * ft * inv",
+          "range": "[-f32max, 0.00000]"
+        }
+      ],
+      "classification": "clamped — bounded by the source",
+      "why": "argument [-f32max, 0.00000] is at or under ln(f32max) = 88.72284",
+      "proofs": []
+    },
+    {
+      "file": "highlight.ts",
+      "line": 153,
+      "fn": "exp",
+      "call": "exp(-pow(angle_delta(theta, centre) / width, 2.0))",
+      "arguments": [
+        {
+          "index": 0,
+          "text": "-pow(angle_delta(theta, centre) / width, 2.0)",
+          "range": "[-3.94784e+9, 0.00000]"
+        }
+      ],
+      "classification": "clamped — bounded by the source",
+      "why": "argument [-3.94784e+9, 0.00000] is at or under ln(f32max) = 88.72284",
+      "proofs": []
+    },
+    {
+      "file": "highlight.ts",
+      "line": 153,
+      "fn": "pow",
+      "call": "pow(angle_delta(theta, centre) / width, 2.0)",
+      "arguments": [
+        {
+          "index": 0,
+          "text": "angle_delta(theta, centre) / width",
+          "range": "[0.00000, 62831.9]"
+        },
+        {
+          "index": 1,
+          "text": "2.0",
+          "range": "[2.00000, 2.00000]"
+        }
+      ],
+      "classification": "clamped — bounded by the source",
+      "why": "base [0.00000, 62831.9] to exponent [2.00000, 2.00000] is [0.00000, 3.94784e+9]",
+      "proofs": []
+    },
+    {
+      "file": "optics.ts",
+      "line": 285,
+      "fn": "pow",
+      "call": "pow(x, 1.0 / 2.4)",
+      "arguments": [
+        {
+          "index": 0,
+          "text": "x",
+          "range": "[0.00000, 1.00000]"
+        },
+        {
+          "index": 1,
+          "text": "1.0 / 2.4",
+          "range": "[0.416667, 0.416667]"
+        }
+      ],
+      "classification": "clamped — bounded by the source",
+      "why": "base [0.00000, 1.00000] to exponent [0.416667, 0.416667] is [0.00000, 1.00000]",
+      "proofs": []
+    },
+    {
+      "file": "optics.ts",
+      "line": 391,
+      "fn": "tanh",
+      "call": "tanh(t)",
+      "arguments": [
+        {
+          "index": 0,
+          "text": "t",
+          "range": "[-20.0000, 20.0000]"
+        }
+      ],
+      "classification": "clamped — bounded by the source",
+      "why": "argument [-20.0000, 20.0000] is within ±ln(f32max)/2 = 44.36142, where the exp(2t) lowering stays finite (claims §5.159b)",
+      "proofs": []
+    },
+    {
+      "file": "optics.ts",
+      "line": 529,
+      "fn": "pow",
+      "call": "pow(1.0 - occ, 1.0 / 2.4)",
+      "arguments": [
+        {
+          "index": 0,
+          "text": "1.0 - occ",
+          "range": "[0.00000, 1.00000]"
+        },
+        {
+          "index": 1,
+          "text": "1.0 / 2.4",
+          "range": "[0.416667, 0.416667]"
+        }
+      ],
+      "classification": "clamped — bounded by the source",
+      "why": "base [0.00000, 1.00000] to exponent [0.416667, 0.416667] is [0.00000, 1.00000]",
+      "proofs": []
+    },
+    {
+      "file": "optics.ts",
+      "line": 900,
+      "fn": "pow",
+      "call": "pow(lensT, ou.lensShape.y)",
+      "arguments": [
+        {
+          "index": 0,
+          "text": "lensT",
+          "range": "[0.00000, 1.00000]"
+        },
+        {
+          "index": 1,
+          "text": "ou.lensShape.y",
+          "range": "[-f32max, f32max]"
+        }
+      ],
+      "classification": "proven — bounded by a committed range proof",
+      "why": "base [0.00000, 1.00000] reaches zero while the exponent [-f32max, f32max] reaches zero or below: pow(0, e) is exp2(e · log2(0)), which is 0 only for e > 0",
+      "proofs": [
+        {
+          "argument": 1,
+          "bound": "lensProfileExponent, strictly greater than 0 and at most 64",
+          "dependsOn": [
+            "material leaf `lensProfileExponent` (`ou.lensShape.y`)",
+            "scene: the pixel's depth inside the surface, through `lensT`"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "optics.ts",
+      "line": 947,
+      "fn": "log2",
+      "call": "log2(max(gainEff, 1e-4))",
+      "arguments": [
+        {
+          "index": 0,
+          "text": "max(gainEff, 1e-4)",
+          "range": "[0.000100000, f32max]"
+        }
+      ],
+      "classification": "clamped — bounded by the source",
+      "why": "argument [0.000100000, f32max] is strictly positive",
+      "proofs": []
+    },
+    {
+      "file": "optics.ts",
+      "line": 1483,
+      "fn": "pow",
+      "call": "pow(max(abs(dot(normal, ou.rimLit.xy)) * 1.4142135, 1e-6), ou.rimLit.z)",
+      "arguments": [
+        {
+          "index": 0,
+          "text": "max(abs(dot(normal, ou.rimLit.xy)) * 1.4142135, 1e-6)",
+          "range": "[0.00000100000, f32max]"
+        },
+        {
+          "index": 1,
+          "text": "ou.rimLit.z",
+          "range": "[-f32max, f32max]"
+        }
+      ],
+      "classification": "proven — bounded by a committed range proof",
+      "why": "base [0.00000100000, f32max] to exponent [-f32max, f32max] is not bounded inside f32",
+      "proofs": [
+        {
+          "argument": 0,
+          "bound": "[1e-6, 2.83] — the floor is the shader's own `max`, the ceiling is 1.4142135 · |rimLitAxis| with |rimLitAxis| at most 2",
+          "dependsOn": [
+            "material leaf `rimLitAxis` (`ou.rimLit.xy`)",
+            "material leaf `rimLitExponent` (`ou.rimLit.z`), for what the ceiling has to be enough for",
+            "scene: the field pass's surface normal, `field.yz`"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "prelude.ts",
+      "line": 27,
+      "fn": "pow",
+      "call": "pow(max((c + vec3f(0.055)) / 1.055, vec3f(0.0)), vec3f(2.4))",
+      "arguments": [
+        {
+          "index": 0,
+          "text": "max((c + vec3f(0.055)) / 1.055, vec3f(0.0))",
+          "range": "[0.00000, 3.22543e+38]"
+        },
+        {
+          "index": 1,
+          "text": "vec3f(2.4)",
+          "range": "[2.40000, 2.40000]"
+        }
+      ],
+      "classification": "proven — bounded by a committed range proof",
+      "why": "base [0.00000, 3.22543e+38] to exponent [2.40000, 2.40000] is not bounded inside f32",
+      "proofs": [
+        {
+          "argument": 1,
+          "bound": "the exponent is the literal 2.4; what the entry bounds is the BASE's ceiling, at most 1.2 and never near f32max^(1/2.4) = 1.1259e16",
+          "dependsOn": [
+            "the four callers of `srgb_to_linear` in this package"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "prelude.ts",
+      "line": 33,
+      "fn": "pow",
+      "call": "pow(max(c, vec3f(0.0)), vec3f(1.0 / 2.4))",
+      "arguments": [
+        {
+          "index": 0,
+          "text": "max(c, vec3f(0.0))",
+          "range": "[0.00000, f32max]"
+        },
+        {
+          "index": 1,
+          "text": "vec3f(1.0 / 2.4)",
+          "range": "[0.416667, 0.416667]"
+        }
+      ],
+      "classification": "clamped — bounded by the source",
+      "why": "base [0.00000, f32max] to exponent [0.416667, 0.416667] is [0.00000, 1.13484e+16]",
+      "proofs": []
+    }
+  ],
+  "mutations": [
+    {
+      "label": "angle_delta without W31 G2's floor (highlight.ts)",
+      "call": "pow(angle_delta(theta, centre) / width, 2.0)",
+      "range": "[-f32max, 62831.9]",
+      "verdict": "UNBOUNDED",
+      "why": "base [-f32max, 62831.9] reaches below zero, where WGSL leaves pow undefined"
+    },
+    {
+      "label": "outer_shadow_falloff without W30 G3b's ±20 (optics.ts)",
+      "call": "tanh(t)",
+      "range": "[-2.71506e+38, 2.71506e+38]",
+      "verdict": "UNBOUNDED",
+      "why": "argument [-2.71506e+38, 2.71506e+38] leaves ±44.36142, where a backend that lowers tanh through exp(2t) returns Inf/Inf (claims §5.159b)"
+    }
+  ],
+  "counts": {
+    "clamped": 8,
+    "proven": 3,
+    "stopped": 0
+  }
+}

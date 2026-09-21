@@ -19,7 +19,10 @@
  *
  * What it asserts is W20's clause on one raster: the drawn silhouette — alpha
  * at or above half of what the material composites at — must CONTAIN the
- * declared region and agree with it to an IoU of 0.99. That is the bound the
+ * declared region and agree with it to 0.99. (That clause said "IoU" until
+ * 2026-09-21; the number is CONTAINMENT, and the helper's note below says what
+ * the difference is and which recorded figures are unaffected — review closure,
+ * claims §5.163 §8, finding N2.) That is the bound the
  * calibration harness reads per cell (`declared-conformance.test.ts`, the alpha
  * extractor at threshold 0.5), read here on a scene the renderer package owns,
  * so the renderer's own suite fails on a defect that used to be visible only
@@ -174,13 +177,22 @@ const flatSigma = (sigmaPx: number): Record<string, unknown> => ({
  * The declaration's own clause, read the way the calibration harness reads it:
  * BOUNDED to the declared component region. Outside it nothing is recovered —
  * the exterior there is the shadow, which is a facet and not a silhouette — so
- * the union is the declaration and the IoU is the fraction of it that carries
- * material.
+ * what is measured is the fraction of the DECLARATION that carries material.
+ *
+ * **The field was called `iou` until 2026-09-21** (review closure; claims
+ * §5.163 §8, finding N2). `intersection / declared.length` is containment —
+ * recall over the declared mask, identically `1 − undrawn/declared` — and not an
+ * intersection over union: the union would add the drawn pixels outside the
+ * declaration, which are deliberately not counted. The numbers §5.159b recorded
+ * off this case, and the module note above with them (0.8636 and 0.9694 for the
+ * capsule and the toolbar, 0.9899 for the deep caster), are unchanged and stay
+ * as recorded; only what the column is CALLED is corrected. Over-draw remains
+ * invisible to this number, by construction and as it always was.
  */
 const conformance = (
   raster: Raster,
   regions: readonly Region[],
-): { readonly undrawn: number; readonly declared: number; readonly iou: number } => {
+): { readonly undrawn: number; readonly declared: number; readonly containment: number } => {
   const declared = declaredPixels(regions, raster.width);
   const { set } = drawnPixels(raster);
   let intersection = 0;
@@ -188,7 +200,7 @@ const conformance = (
   return {
     undrawn: declared.length - intersection,
     declared: declared.length,
-    iou: intersection / declared.length,
+    containment: intersection / declared.length,
   };
 };
 
@@ -209,16 +221,18 @@ test.describe("@gpu the surface draws everywhere it declared, at a thin σ", () 
     const capsule = conformance(raster, [CAPSULE]);
     expect(
       capsule.undrawn,
-      `capsule: ${capsule.undrawn} of ${capsule.declared} declared px undrawn, IoU ${capsule.iou.toFixed(4)}`,
+      `capsule: ${capsule.undrawn} of ${capsule.declared} declared px undrawn, ` +
+        `containment ${capsule.containment.toFixed(4)}`,
     ).toBe(0);
-    expect(capsule.iou, "capsule declaration conformance").toBeGreaterThanOrEqual(0.99);
+    expect(capsule.containment, "capsule declaration conformance").toBeGreaterThanOrEqual(0.99);
 
     const toolbar = conformance(raster, TOOLBAR);
     expect(
       toolbar.undrawn,
-      `toolbar: ${toolbar.undrawn} of ${toolbar.declared} declared px undrawn, IoU ${toolbar.iou.toFixed(4)}`,
+      `toolbar: ${toolbar.undrawn} of ${toolbar.declared} declared px undrawn, ` +
+        `containment ${toolbar.containment.toFixed(4)}`,
     ).toBe(0);
-    expect(toolbar.iou, "toolbar declaration conformance").toBeGreaterThanOrEqual(0.99);
+    expect(toolbar.containment, "toolbar declaration conformance").toBeGreaterThanOrEqual(0.99);
   });
 
   /**
@@ -284,8 +298,8 @@ test.describe("@gpu the surface draws everywhere it declared, at a thin σ", () 
     expect(
       deep.undrawn,
       `deep caster: ${deep.undrawn} of ${deep.declared} declared px undrawn, ` +
-        `IoU ${deep.iou.toFixed(4)} at σ ${MACOS_26_5_SIGMA}`,
+        `containment ${deep.containment.toFixed(4)} at σ ${MACOS_26_5_SIGMA}`,
     ).toBe(0);
-    expect(deep.iou, "deep caster declaration conformance").toBeGreaterThanOrEqual(0.99);
+    expect(deep.containment, "deep caster declaration conformance").toBeGreaterThanOrEqual(0.99);
   });
 });
