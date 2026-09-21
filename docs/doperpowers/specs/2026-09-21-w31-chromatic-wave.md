@@ -590,6 +590,125 @@ slider's ends as evidence classes; a shadow section for `/laws/` (W30 Deferred 1
 regime's instrument (W30 Deferred 4); the light bed's 16 px structure (W30 Deferred 3); the CSS
 tier's `saturate()` constants as fitted rather than authored values.
 
+### At close, 2026-09-21 — what this wave measured and did not do
+
+Each is a named piece of work whose evidence is already on disk, in the order the parent would
+charter it. None is a loose end: the wave established the existence and the size of every one.
+
+1. **A retention conditioned on the SURFACE rather than one constant per document.** One constant
+   closes the median and scales the spread: the light active bed's per-cell range goes from
+   0.5095–0.6533 to 0.8891–1.4417, a factor of **1.2824 → 1.6216** like for like, with the same
+   components the outliers on both sides. The holdout cell overshoots at `R` **1.2391** / **1.3596**
+   and three span-32 cells overshoot the other way at 1.5155 / 1.4469 / 1.4417, now recorded MISSED
+   under M1. The cause is one thing: `1 − sizedAlpha` falls as the span rises, so a constant fraction
+   of the FULL backdrop chromaticity is a larger relative gain the less the plate transmits
+   (correlation −0.39 between transmitted chroma and gain over 56 cells). *The work*: make the
+   retention a function of the plate's own alpha, as W30 made σ a function of the casting span — and
+   **widen the dark bed's spans first**, a `scenes.json` decision, because the dark half is four
+   cells at one span each. Evidence: §5.164 §8 (a), §13; `round-B.txt`; tracker.
+2. **The two accessibility documents' own retentions.** They inherit the light value under Decision
+   Log 2 (a) and stand it down entirely under Decision Log 3 (d), so 0.21.0 draws exactly what 0.20.0
+   drew there — proven at the raster (48 of 48 PNGs) and at 6,855 numeric readings — and the value
+   they SHOULD carry is now an open question on a material that carries none. Two readings say the
+   answer is not obviously zero: the increased-contrast inactive bed has read `R` **0.1552** against
+   a reference of 1 with and without this wave, and under the declined lift rule the perceptual rows
+   were better on three of four beds. *The work*: fit on their own beds (16 and 18 gated cells), or
+   evaluate item 1's law at the lifted alpha, which is the likelier answer. Evidence: §5.164 §8 (b),
+   §13; tracker.
+3. **A chroma operator the CSS tier can actually carry.** The derived term was written, rendered and
+   declined: 0.000 of the gap on the dark scheme at **every** retention up to 1, because that tier's
+   converted alpha leaves no backdrop for `saturate()` to act on, and both stops broken on the light
+   one because `saturate()` stops preserving luminance the moment an sRGB channel clips. The cost is
+   two `dom` rows in `MISSED_27_ROWS`, unmoved to the fifth decimal while their `texture` siblings
+   cleared. *The work*: a chroma term on the `rgba()` layer rather than on the backdrop beneath it,
+   or a plate this tier does not solve to full coverage. Evidence: §5.164 §5, §8 (c); tracker.
+4. **The next shadow wave, carrying C1 and the `spreadPx` joint fit.** C1 is declared on the
+   departure profile's shape at ≤ 0.0045 per standard bed per thick span — a bound today's material
+   misses at spans 128 and 160 on all four beds and meets at 96 — as a one-wave reading, and the
+   adopting wave must **re-run `exterior-instrument.py` into its own evidence directory** rather than
+   read this gate's cut, and must consider a per-span bound or a σ-normalised window because `T` is
+   span-confounded. Beside it: B1's two sides are not the same quantity, and the gap is additive and
+   nearly constant at **+2.66 to +3.77 CSS px** — the size of the shipped `spreadPx`, which the macOS
+   27 material inherited and no wave has fitted, and which neither dark document carries at all. *The
+   work*: a joint fit of the shadow's three lengths — `sigmaPx`, `spreadPx`, `offsetPx` — against the
+   exterior it draws rather than the blur alone. Evidence: §5.162 §2, §5, §9.
+5. **The analysis pass.** W30's B4 missed on three of four standard beds because the per-source
+   statistic is read off a fixed 64 × 64 grid and is therefore the same number at both scales, so it
+   cannot act in opposite directions on two scales that need them. W31 declined to touch the
+   structure (X3) and the structure deficit is what the dark sheets' remaining ΔE is: vitrea's body
+   is smoother than the reference's. *The work*: a second operator, and the user's to charter.
+   Evidence: W30 §5.159 §4.
+6. **The sweep phase reaches the uniform unwrapped.** G2 floored `highlight.ts`'s `angle_delta` as an
+   identity, which closes the NaN; the phase itself still arrives from a CSS custom property nothing
+   wraps, so the argument grows without bound over a long-lived page. *The work*: wrap at the source.
+   Evidence: §5.163; tracker.
+7. **`prelude.ts`'s `pow` base has a floor and no ceiling.** The base is floored in the shader and the
+   site stays PROVEN, because at an exponent above 1 it is the base's CEILING that decides finiteness
+   and a floor cannot reach it. The proof carries a written range argument with a witness rather than
+   a clamp. *The work*: a source-side ceiling, or the proof recorded as permanent. Evidence: §5.163
+   §1, §8.
+8. **The receded TINTED cells' body has no chroma at all.** Ratio (ii) reads **0.001–0.006** against
+   the reference's 0.54–0.65 while the ACTIVE tinted cells match almost exactly (1.433 against
+   1.435). That is W27c's seed collapse driving the paint to neutral where Apple's receded material
+   keeps it — a tint-path defect this wave neither caused nor could close (X3), and one its own
+   instrument can now judge. *The work*: re-read the seed collapse against the macOS 27 receded
+   fixtures, which are a different bed from the one it was fitted on. Evidence: §5.161 §3 (b);
+   tracker.
+9. **`mid-chroma-solid`'s hue ROTATION.** G0 recorded the reference's body as a clean lighter pink
+   and vitrea's as a lavender — desaturated AND rotated toward blue — with `tintHueShift*` never read
+   on those cells. It is a probe scene, so neither canonical read carried it and neither G3 nor G4
+   could capture one (X1). On the `photo` cells the restored hues sit where the reference's do, which
+   is consistent with a rotation that was the plate's; nobody claims it. *The work*: a `--set probe`
+   run at the shipped documents and a sheet beside G0's. Evidence: §5.161 §8, §5.164 §9, §5.165 §2;
+   tracker.
+10. **The retention under Increase Contrast ALONE.** The stand-down is on the OCCLUSION axis and only
+    Reduce Transparency raises one, so a 0.21.0 page under Increase Contrast by itself draws the
+    retention at full value. Not a regression against 0.20.0, which had no operator — and not
+    measured either, because macOS 27 decoupled the two switches and this wave's increased-contrast
+    bed is the COUPLED profile whose occlusion IS lifted. Under it is a design question: Increase
+    Contrast's own consequence is `ambientTint: "reduced"`, documented as the material's colour cast
+    picked up from its backdrop, which is literally this leaf. *The work*: read the decoupled bed
+    (which needs `compare`'s flag fixed first), then decide whether the retention should read
+    `ambientTint` as well as `occlusion`. Evidence: §5.165 §5; tracker.
+11. **The level stop, declared as a number and gated by nothing.** `R` scales as `(level)^(−2/3)`
+    exactly, so a level miss biases both adopted rows; M1's band was widened to absorb it and M2
+    bounds the structure instead. The bed's worst is 0.04933 against the declared 0.055, on the same
+    cell whose reproducibility pair is the dark bed's worst at 19.41 %, and the eye sees the chroma
+    miss and the level miss there as one defect. *The work*: adopt the level clause as a third
+    material-axis row — the cut already carries `interiorMean{Native,Web}` per cell, so it is a clause
+    and not a capture — choosing a bound that declares its outliers rather than one that passes.
+    Evidence: §5.161 §7 (c), §5.165 §2 (c); tracker.
+12. **Nothing checks the canonical capture tree against the matrix.** The tree held no macOS 27
+    generation at all until this wave's clause 6, and the macOS 26.5 tree that did survive is a
+    DIFFERENT generation from the rows beside it — two cells of `photo__glass-over-glass__rest`
+    disagree by 2.8e-03 and 2.5e-03 on `interiorMeanWeb`. The copy is now a step in a charter and not
+    a rule anything enforces. *The work*: a checker that walks the tree's `cell__*.json`, reads each
+    capture's document hashes and asserts the generation matches the matrix's rows for that profile —
+    a file walk and a string compare, skipping cleanly where the tree is absent. Evidence: charter
+    Surprises, §5.161 §2; tracker.
+13. **0.21.0's headline operator has no stage on the demo that shows it.** The site's dark stage is
+    achromatic by construction (`DARK_GROUND.field` is 0, because the lobes multiply and multiplying
+    a light lobe onto near-black is nothing), and the dark scheme is the endpoint the wave moved most
+    — ratio (i) 0.3332 → 0.9994. On the light stage the plates sit over the palest corner of the
+    bloom. *The work*: a chromatic ground the dark scheme can carry at a chroma the contrast case
+    still passes, or surfaces over the bloom's centre, or a stage of the operator's own. A design
+    decision before an implementation. Evidence: §5.165 §4; `eye.md` §8; tracker.
+14. **The evidence-hygiene items three gates named and none could fix in place**: the two dark macOS
+    27 documents' wrong `$comment-sha-history` parenthetical, which cannot be corrected without a
+    canonical read of two profiles (X10); `split-generation.py` documenting a rule it does not
+    enforce, with two committed entries carrying the slip; the holdout configuration log living
+    inside one gate's evidence directory where a copying convention can fork it;
+    `interiorStdDevWeb` moving 5.69 % on a standard light cell off M2's declared bed; and
+    `standard-row-identity-matrix.txt` having no generator committed beside it. Each is a tracker
+    entry with its fix shape. Evidence: §5.164 §13, §5.165 §6.
+15. **Carried unchanged from W30's list, untouched by this wave**: the identifying sitting on the 27
+    bed; the highlight's angular reader; the decoupled increased-contrast read and `compare`'s flag
+    (item 10 now needs it); the motion-metrics harness; the CSS tier over pure black; inactive
+    calibration cells above span 96; `samplingPaddingFor`'s advisory constant; the Reduced
+    Transparency opacity policy and the impulse specular point; the slider's ends as evidence
+    classes; a shadow section for `/laws/`; the thin regime's instrument (B2); the light bed's 16 px
+    structure; and the CSS tier's `saturate()` constants as fitted rather than authored values.
+
 ## Tracking Map
 
 | Child | Status | Claims section | Evidence |
@@ -600,7 +719,7 @@ tier's `saturate()` constants as fitted rather than authored values.
 | G2 | **MERGED** — 11 call sites: 8 clamped, 3 proven, 0 stopped; 5 sweeps + 3 guard cases green; goldens 34/34 byte-identical; one NEW reachable NaN found and floored as an identity (`angle_delta`); both tracker entries closed; the W30 G3b residual's candidate REFUTED and the residual re-opened. **Amended beside 2026-09-21 (review closure; claims §5.163 §8), no number in this row or in §5.163 rewritten:** an independent read reproduced every figure and found **no blocking finding** and nine non-blocking ones; no material constant, leaf, document, bound, floor, row or golden moves. Two are code. **The guard's wall was the raster's peak**, so a hole inside a dim surface escaped whenever a brighter one was in frame — the review's pair read 0 against 1, and `glass-over-glass` is a two-surface scene; the wall is now read **per declared region** with candidates bounded to the declared silhouettes, which is the charter's own (c) taken literally, and the presence-0 stand-down becomes exact rather than incidental. **The cross term was never rendered**: twenty-eight readings now pair each material ladder's endpoints with spans 32 and 340, every one 0 undrawn at containment 1.0000 (`sweeps-cross.txt`). Beside them: `iou` was **containment** and is renamed in the shared module and both specs, recorded values unchanged; the refusal's **newer**-schema branch enumerated older-schema artefacts and now has its own sentence and a case that reads more than two words; `prelude.ts`'s `pow` base is **floored as an identity** (goldens byte-identical) and the site stays PROVEN because the base's ceiling is what the scanner still objects to — the split is unchanged at 8/3/0; the division count was **99**, not "over a thousand", with **three** uniform divisors and none of them a material leaf (`division-count.py`); §7's totals were a pre-merge branch reading, **2,613** at this closure's head and **2,617** after it, `test:gpu` **43**; the guard is **test-time**, in the e2e harness; and the sweep-phase residual is now its own tracker entry instead of a paragraph inside a closed one. One defect the closure found itself: merging two declared masks with a spread `push` overflowed the stack on a 340 px caster and took `w30-heavy-second-tap` down — fixed and pinned by a case. Goldens 34/34, `e2e/goldens` clean, freeze **1,818** | §5.163, §5.163 §8 | `results/2026-09-21-w31-g2-range-class/`, `sweeps-cross.txt`, `division-count.py`, `call-sites-closure.txt` |
 | G3 | **CLOSED 2026-09-21.** The leaf, the rule, the fit, the seal and the read in one branch (X10). **`bodyChromaRetention`** landed at inert identity 0 with luma held by construction — the composite bit-identical at 0, linear luma held to under two ULP of a double at every retention, and a `@gpu` case on a hardware adapter over a chromatic backdrop where ON moves 37 codes while the interior's mean luminance moves 2.5e-05. **The digest rule executed**: `MATERIAL_IDENTITY_TABLE` beside `DEFAULT_MATERIAL_PROFILE`, append-only and pinned to G0's declaration; the two frozen macOS 26.5 documents' own fields are the live pin again WITHOUT being edited; `digest-supersessions.json` became history with a test that reproduces both halves of every record; and the four macOS 27 documents re-sealed under rule 2 **reproduced the four digests G0 PREDICTED** (`62e68474…`, `c61194f8…`, `183c8949…`, `1a64247d…`) with the leaf added — the drop count moving 5/3/5/3 → 6/4/6/4 and nothing else. Two of the eight browser-read hashes came home to pre-W30 readings this file already carried. **The fit**: 0.282 light active, 0.349 light receded, 0.336 dark active, 0.142 dark receded, in two rounds, with R 0.5506→1.0486 / 0.5137→1.0205 / 0.3332→0.9994 / 0.5841→1.0170 — all four inside 0.80–1.20, every cell above the 0.60 floor, and no round C because the residuals are inside the instrument's own reproducibility. **Both stops held**: level worst |Δ| 0.04932 against 0.055 and worst GROWTH +0.00006 against 0.005; structure worst 1.317 % against 2 %, and that residual is the capture's 8-bit quantisation (it scales inversely with the cell's spread). **The CSS tier's term was derived, rendered and DECLINED on the measurement**: on the dark bed it bought 0.000 of the gap — and still 0.000 at a retention of **1** — because the tier's converted alpha leaves no backdrop for `saturate()` to act on, so §5.161 §6's dark ceiling is unreachable rather than an upper bound; on the light bed it bought 0.76–1.04 and broke the level-growth stop on 10 of 26 cells and the structure stop on 11, because `saturate()` stops preserving luminance when an sRGB channel clips. **The read**: 726 rows appended at the sealed bytes, holdout once after `configuration.py record` (which refuses a second read and was verified doing so), both append-checks green, the split moved 726 rows to two new superseded files, freeze **1,818** intact, the 27 bed back at **230 gated cells / 726 rows** with `PREDICATE_EXCLUDES` unmoved. **The verdict: the two `texture` claimed rows CLEARED** — 0.21531 → **0.14655** and 0.21341 → **0.14505** against ≤ 0.17, so `MISSED_27_ROWS` is five — and the two `dom` rows are unmoved to the fifth decimal, which is the CSS decline and is recorded as a miss. The recede's worst cell went R 0.537 → **0.9811** (1x) and 0.514 → **0.9431** (2x) with the level unmoved. Every expected-unmoved row held, the tinted rows exactly at s = 1, B3 at **0.00034**, and no native reading moved. Three residuals measured and named: a single retention SCALES the per-cell spread rather than closing it (the holdout cell overshoots at R 1.24 / 1.36 and the next form is a retention conditioned on the surface); the two accessibility documents inherit the light value and read 2.95–3.04 and 0.138; and the CSS tier carries none of the operator | §5.164 | `results/2026-09-21-w31-g3-chroma-fit/` |
 | G3c | **CLOSED 2026-09-21.** The fix, its read and every record finding, on one branch (X10). **The regression is fixed by the HARD GATE and the choice is a measurement**: Decision Log 3 (d)'s ruled lift rule `r · (1 − lift)` was implemented, scratch-captured on both tiers and both poses, and left the accessibility beds at **R 1.7897 / 1.1507 / 1.8324** against the 0.9096 / 0.8294 / 0.8147 they held at 0.20.0 — `1 − α` is so small under a lift of 0.75–0.98 that even a scaled retention is a large relative gain on what the plate leaves, which is Decision Log 3 (b)'s structural reading one policy level down. Under the gate all four beds return to **0.20.0's readings exactly**, and the proof is at the byte: **48 of 48 PNG rasters identical** to G3's pre-fit tree. On the standard rows the fold is an identity — 34 goldens byte-identical with no regen, **8 of 8 PNGs identical** across two calibration captures differing only in the renderer, and every standard light row and every CSS row **+0.0000** at the canonical read. `bodyChromaRetentionUnderPolicy` is an exhaustive switch on the occlusion axis folded at the uniform's pack site, because the optics uniform carries no policy and W30's rule forbids a lane for a factor the CPU holds. **The generation and the read**: a dated `$comment-w31-g3c` on the two LIGHT documents (digests unmoved and asserted unmoved; file hashes `e2fa07589d99 → 49490eb9ff7a` and `25863dccef9d → 14c6bacf2eda`), the dark pair untouched and asserted untouched, **479 rows appended** row for row, the split to `superseded/e2fa07589d99.json`, freeze **1,818**, the 27 bed back at **230 gated cells / 726 rows** with `PREDICATE_EXCLUDES` and `MISSED_27_ROWS` unmoved, B3 at **0.00033889**. **Every record finding closed beside**: the changeset and README rewritten to the CSS DECLINE and given the four SHIPPED digests (`3dc24a74…` / `8a43f541…` / `ab3ed65a…` / `e1f42c56…`, which appeared nowhere); §8 (b)'s before-readings and its false "beds that carry no bound"; §7's "every one of them DOWN" (rank 39 is +0.02004 UP, and it is the regression); §8 (a)'s spread (1.2824 → **1.6216**, not 1.28 → 1.44); §12's reproducibility, where **the two sides were normalised differently** and the dark half is worse after the fit under either; the CSS structure-stop count (**13**, not 11); the tinted rows (**147 of 148** exactly zero); and eight further corrections. Four checkers and two scripts fixed by CODE: the split's "counts add up" clause read the manifest and could not fail (now off the files, with a probe that shows it failing); `verdict.py` printed the three declared SHADOW rows as em-dashes, named a cell the bed does not carry, and could not run after the split; `tier-coherence`'s exhaustiveness case was blind to the four OPTIONAL profile keys (now a compile error) and pinned the CSS mirror against a default that is 0 forever (now against the shipped documents); and the identity table's append-only proof rested on an unpinned JSON. **Found by the closure itself**: N7 is the identity in EFFECT on mode 1 and the residual is about the TARGET on mode 2 (measured, 0 bytes and 0.066 → 0.334); §8 (b)'s before and after were over different beds | §5.164 §13 | `results/2026-09-21-w31-g3c-accessibility-gate/` |
-| G4 | not dispatched — G3c is closed and G4 is next | §5.165 | `results/2026-09-21-w31-g4-landing/` |
+| G4 | **CLOSED 2026-09-21.** The adoption, the sheets, the records, the demo and 0.21.0 prepared and unpublished. **The material axis has two adopted rows for the first time** (Decision Log 3 (a)): `M1` bounds `R` — the body's chroma-to-structure ratio, web against native — with the median per bed in [0.80, 1.20] (**1.0486 / 1.0205 / 0.9994 / 1.0170**) and every cell in [0.60, 1.40]; `M2` bounds `interiorStdDevWeb` to within 2 % of the PRE-FIT generation (worst **1.317 %**), because `R` is scale-free in the deviations and is therefore blind to a body that loses chroma and structure together. **Three cells are recorded MISSED on the day the row lands** — `photo__rrect-sm__inactive` 1x light **1.5155** and 2x **1.4469**, `photo__rrect-sm__rest` 2x **1.4417**, all span 32 — with the surface-conditioned retention named as the lever, and the fourth sibling passing at 1.3567 is what a ceiling at 1.40 buys over one at 1.55. The cut is regenerated here AND **re-derived inside the test** from `results/matrix.json` and the two superseded files it names, which closes the snapshot hole §5.162 §9 found in B1's shape; `cut-discrimination.txt` shows each of four clauses going red on a perturbation and the cut coming back byte for byte. `MISSED_27_ROWS`'s owner walks the chroma cut too, so the list stays machine-derived in both directions. **The eye did not stop the cut**: twenty sheets from the CANONICAL capture tree (the first landing since W29 whose sheets are the pixels the rows were measured off), and on the four accessibility sheets vitrea's body is the flat occluded plate 0.20.0 drew, with `accessibility-identity.txt` reading **6,855 numeric readings across every axis, 0 moved** against the 0.20.0 generation. Three findings of the gate's own: **§5.164 §9's rim inversion is a reading up to about span 96**, not of the light scheme flat — at span 160 the ΔE panel is interior-dominated, and 160 is where the claimed cells live; **the overshoot the ceiling names is invisible** — the three missed cells and the passing sibling are indistinguishable from each other and from their references, because span 32 transmits so little that a 52 % relative excess is almost nothing, which argues FOR the clause since it is the same defect that reads 1.24 / 1.36 at span 160; and **the level stop biases both adopted rows and is gated by nothing**. **Records**: fourteen tracker entries; Decision Log 1 (c) executed — the "designed around a convergence" entry closed and removed, W29 Deferred item 8 closed with it, the 40 px plate's band kept open as the ruling's own words require; the coverage matrix re-scored with **one row moving where W30's two operators moved none** (§3.4's "takes colour from behind", `partial` with both halves of its reason now wrong), tally unchanged at 46 of 156; `CLAUDE.md` given the digest rule, the two adopted rows, the chroma operator and the corrected capture-tree rule; both READMEs given 0.21.0 and the stale `root.material` digest corrected to the shipped `e1f42c5656ef392f`. **The demo** gains the chroma pair on the calibration readout (main chunk 663.11 → **691.84 kB**, gzip 69.40 → 72.96), and `demo-figures.txt` reads the `checkerboard` control **bit-exact** — every projected figure +0.000000 and the web chroma pair exactly 0.000000 — while ΔE mean falls 0.0235 / 0.0259 on the two `rrect-lg` cells. `/laws/` is unchanged and the reason is recorded. **A gap the demo shots found**: `DARK_GROUND.field` is 0, so the site's dark stage is achromatic and cannot show the endpoint this wave moved most. **Folded from G3c's review before the cut**: the changeset and the renderer README said the retention stands down "under Reduce Transparency or Increase Contrast" — false, since only Reduce Transparency raises an occlusion and macOS 27 decoupled the switches, so IC alone draws the operator at full value; both corrected and the gap recorded with its design question. **The chain** is green end to end at the 0.21.0 head: build / lint / root eslint **exit 0**, **2,662 unit tests over 183 files, 0 failed**, goldens **34** byte-identical, `test:gpu` **48**, platform-web Playwright **410** over four projects, React e2e **174 passed / 3 skipped / 0 failed** on three engines — **green, where the last four cuts each disclosed the standing driver-timing class** — and demo e2e **59**. `dry-run.txt` is clean at 0.21.0 with `workspace:` rewritten to `^0.21.0` in both dependents. `freeze.py verify` **1,818** at open and close; the 27 bed **230 gated cells / 726 rows**; `PREDICATE_EXCLUDES` unmoved | §5.165 | `results/2026-09-21-w31-g4-landing/` |
 
 ## Decision Log
 
@@ -877,9 +996,208 @@ until somebody charters it.
 
 ## Outcomes & Retrospective
 
-*(at close)*
+**CLOSED 2026-09-21 by G4's landing**, against the seven Parent-Level Acceptance clauses, on this
+wave's branch at the 0.21.0 version head. The cut is prepared and unpublished: `pnpm release` is the
+user's hand and the tag follows it.
+
+The one-line result of the wave: **the body stopped being a neutral plate — it carries the
+backdrop's chromaticity now, at a held linear luma, fitted per colour scheme and per window pose —
+two of the seven rows `MISSED_27_ROWS` had carried since W29 cleared on a MECHANISM where the list's
+own comment said no constant could reach them, the digest rule ended the class of exemption every
+inert-leaf addition had needed, and the wave's tolerance is adopted as the first two rows the
+material axis has ever had, with three cells recorded missed on the day they land.**
+
+And the wave's sharpest single finding is one it did not set out to make: a review found the leaf
+applied unconditionally under an accessibility occlusion lift, taking the body's chroma to three
+times the reference's on beds that were INSIDE the wave's own band before it. The fix was ruled with
+a fallback, the ruled rule was measured and declined, the fallback shipped in ten minutes of
+capture, and 0.20.0's rendering came back 48 of 48 rasters identical. Naming the fallback in advance
+cost one sentence.
+
+### The acceptance, as verified
+
+1. **The chroma is measured before the operator exists, by an instrument in which the blur cancels —
+   MET, and the instrument's own declared form was wrong in a way that had to be kept.** G0 added 24
+   optional schema-5 fields with unit cases, and one of them records that **the charter's Design
+   paragraph is wrong**: a luma-only darkening scales ratio (i) by exactly `c^(−2/3)`, not by 1,
+   because OKLab's `L`, `a` and `b` all scale by `c^(1/3)` while the declared denominator is LINEAR
+   luma. The declared form was KEPT anyway — the exactly-invariant twin also very nearly cancels the
+   plate composite and would make the instrument blind to what it measures — with the twin exported
+   beside it and read at every step of the fit, and the consequence carried as the level stop. The
+   web side was re-captured as scratch (616 cells, nothing appended, X6 recorded) and **all 552 macOS
+   27 cells reproduced their committed rows to |Δ| exactly 0**. The residual: **0.333 dark active,
+   0.551 light active**, web against native, so the light scheme carries it too. **Apple moved it**:
+   ratio (ii) rises +0.22…+0.38 on every untinted `photo` and `mid-chroma-solid` cell of both schemes
+   between macOS 26.5 and 27, while the mean-OKLab instrument the matrix already had reads the same
+   change as a fifteenth of that — which is the clause's own question answered with a number.
+2. **The mechanism is named from the shader, and the leaf shape from the tables — MET.** Chroma is
+   lost in the plate's alpha and nowhere else: ratio (ii) reads 0.106–0.119 on the dark cells against
+   `1 − sizedAlpha` = 0.0950, and the level-corrected plate predictor
+   `(1 − sizedAlpha)·(Y_web/Y_backdrop)^(−2/3)` accounts for 0.897–0.996 of the measured ratio on all
+   34 single-body photo cells with no fitted parameter. The two collapses were told apart, the leaf
+   named with its identity, its luma-preservation in linear luma, its gamut behaviour, its place in
+   the order and the receded documents' own value — and **no `toneAdapt` gate**, on a reason the
+   review closure substituted for G0's: a retention toward the backdrop's CHROMATICITY is the
+   identity wherever the backdrop is achromatic, which is the only region the band can fire in. The
+   CSS ceiling was declared as a residual before the fit, corrected once by the closure and then
+   found unreachable by the pixels (clause 5).
+3. **Bounds before reads; the stop is a number; the rulings are already made — MET, and the
+   identifiability argument was made and accepted.** The tolerance, the level stop as a number per
+   cell, the structure stop, B3 and the expected-unmoved rows were declared in
+   `bounds-declaration.md` before a leaf existed, and the four claimed rows were decomposed on the
+   committed captures first: **90–93 % of ΔE² at the P95 pixels is chromatic** and the chroma lever's
+   reachable floor is 0.062–0.066 against bounds of 0.17–0.19, so all four were CLAIMED rather than
+   hoped for. G0's two conditions — the structure stop as a second gated row, the WebGPU tier only —
+   both survived the read and the parent adopted on them (Decision Log 3 (a)).
+4. **Three instruments land without a material change — MET.** G1 declared C1 on the departure
+   profile's SHAPE and found that candidate (i), the fitted σ's width, **anti-correlates with the eye
+   by a factor of forty**; it also found that the gap between B1's two sides is additive and nearly
+   constant at +2.66 to +3.77 CSS px — the size of the shipped `spreadPx`, a leaf no wave has fitted
+   — which is new named work. G2 classified all eleven transcendental call sites (8 clamped, 3
+   proven, 0 stopped), found **one more reachable NaN than anyone had** (`highlight.ts`'s
+   `angle_delta` past one revolution, reachable from a CSS custom property nothing clamps), and its
+   own review closure found the readback guard reading its wall off the whole frame rather than per
+   declared region. Goldens 34/34 byte-identical through both; freeze 1,818.
+5. **The operator lands on the fidelity target with the CSS tier derived in the same commit, the
+   level held, and the re-seal and the read in ONE merge — MET, and the CSS half is a decline.**
+   `bodyChromaRetention` landed at inert identity 0 with linear luma held **by construction rather
+   than by correction** — worst movement 4.35e-16 over 224 composites, and 2.5e-05 on a hardware
+   adapter while the chroma rises 3.6× — and the digest rule executed with the four macOS 27 digests
+   reproducing **the numbers G0 PREDICTED before the leaf existed**, the drop count moving 5/3/5/3 →
+   6/4/6/4 and nothing else. The fit: 0.282 / 0.349 / 0.336 / 0.142, two rounds, with both hard stops
+   held (level worst |Δ| 0.04932 against 0.055, growth +0.00006 against 0.005, structure 1.317 %
+   against 2 %). **The CSS tier's term was derived, rendered and DECLINED on the measurement**: 0.000
+   of the gap on the dark bed at every retention up to 1, and both stops broken on the light one.
+   `tier-coherence`'s list is exhaustive over `MaterialProfile`'s keys now, so "green" says something
+   about a leaf nobody thought about.
+6. **Read once per frozen configuration, under the ruled definition as enforced by artifact — MET,
+   and spent twice under the rule's own non-fit clause.** `configuration.py` recorded the four
+   document hashes plus a hash over the enumerated source list before each read and **was verified
+   refusing a second read at identical bytes**. G3 read 726 rows at the sealed documents with the
+   holdout once; G3c re-read 479 under the non-fit clause with its reason on the command line, after
+   a renderer fix that moved no constant. Both append-checks green, both splits applied, `freeze.py
+   verify` **1,818** at every gate's open and close, and the macOS 27 bed back at **230 gated cells /
+   726 rows** with `PREDICATE_EXCLUDES` unmoved — so this material changed no cell's shape.
+7. **The landing — MET.** The tolerance adopted as `M1` and `M2`, from a cut regenerated at the
+   adopting gate and re-derived inside the test, with three cells recorded MISSED at adoption and the
+   lever named; twenty sheets from the canonical capture tree, looked at, with the accessibility band
+   reading no regression by eye as well as at 6,855 numeric readings; the demo given the axis its own
+   material just changed and a gap the demo shots found recorded rather than papered over; the
+   coverage matrix re-scored with one row's reason rewritten; `CLAUDE.md`, both READMEs and the
+   changeset saying what moved, with the changeset's accessibility claim CORRECTED before it was
+   consumed; the tone stage's ruling executed and W29's Deferred item 8 closed with it; the fixed
+   group versioned **0.21.0**, dry run clean with `workspace:` rewritten, unpublished.
+
+### What the wave cost, and what it found
+
+It cost six children — G0, G1, G2, G3, G3c and G4 — **five independent reviews** (one per instrument
+child, one of G3 that found the shipped regression and produced Decision Log 3, and one of G3c that
+ran beside G4 and folded into this landing), and **not one native pixel** (X5): every fixture it
+fitted on was on disk from W29. Two canonical reads and one scratch re-capture were the whole of the
+machine time.
+
+What it found, beyond the operator:
+
+- **A defect can be structural and show up first as a policy bug.** The retention restores a constant
+  fraction of the FULL backdrop chromaticity regardless of what the plate transmits. At a span that
+  is an overshoot on the largest surface; under an accessibility occlusion lift, where `1 − α` is a
+  tenth to a fiftieth of nominal, it is a body at three times the reference's chroma. The ruled
+  smaller fix — scaling the retention by the plate's remaining share — **inherits the same wrong
+  shape** and failed for exactly that reason. They are one defect at two axes, and the deferred
+  surface-conditioned form is what closes both.
+- **A fix ruled with a fallback is a fix that was measured.** Decision Log 3 (d) named the lift rule
+  and named the hard gate as what to use if the measurement did not come back. It did not, and the
+  gate shipped in ten minutes of capture rather than in a second round trip.
+- **A digest rule is only as good as the prediction it survives.** G0 printed the four rule-2 digests
+  on a material that did not yet have the wave's leaf; the seal computed them on one that does, and
+  they reproduced to the digit. What moved was the drop COUNT. That is the whole claim of a
+  digest-neutral operator, checked rather than asserted — and it is worth doing in the gate BEFORE
+  the one that adds the leaf.
+- **An analytic ceiling computed from a solve is a statement about the solve.** The CSS projection's
+  headroom was put on the light scheme by the charter, corrected onto the dark one by a review that
+  found `css-ceiling.ts` evaluating an alpha the runtime does not draw, and then found by the pixels
+  to be **nowhere**: on the dark bed the derived term buys 0.000 at every retention up to 1. Two
+  reversals, the second to nothing, and only the tier could say.
+- **A comparison can be arithmetic nobody got wrong and still not be a movement.** §12's
+  reproducibility normalised the two sides differently and §8 (b)'s before and after ran over beds of
+  different sizes. Every number was right; the sentences built on them were not, and in one case the
+  true reading is the opposite on half the bed. **A before and an after have to name the bed and the
+  normalisation.**
+- **A clause that cannot fail reads PASS forever.** The split's "counts add up" was `n == n` on every
+  input and had read PASS in every gate since W30 G1. It was found by reading the code. G4 adopted
+  its two rows only after showing each of four clauses going red on a perturbation and the cut coming
+  back byte for byte.
+- **A bound that exists and does not reach the thing that moved is what lets a regression through.**
+  The two accessibility profiles carry 16 and 18 gated cells and every table held while the body's
+  chroma tripled. "No bound at all" would have been the milder fact.
+- **A predicate that reads a threshold off the whole frame is a predicate about the frame.** G2's
+  readback guard read its wall off the raster's peak, so a hole inside a dim surface escaped whenever
+  a brighter one was in shot. Both of that guard's defects — this one and the false positive the gate
+  found itself — were fixed by making the predicate name which DECLARED thing it is talking about.
+- **A guard fixed on the machine where it fired is a guard tested only in the state it was fixed
+  for.** A review closure's `pgrep` fix killed the capture script silently on any machine with no
+  foreign browser running; the gate that found it could not have been the gate that wrote it.
+- **A sheet can hold the residual the metrics frame as two numbers.** On `photo__capsule-button__rest`
+  the body is greyer AND darker than the reference and the eye sees one defect; the chroma statistic
+  and the level stop see two, and only one of them is adopted.
+
+### What is written down that was not before
+
+The wave's instruments are committed and re-runnable: the per-pixel chroma instrument in
+`packages/calibration/src/metrics/` with its unit cases and its exactly-invariant twin;
+`chroma-fit.py`, whose `cells()` drops every holdout row in the one function every reader is built
+on; `configuration.py`, which refuses a second holdout read at identical document bytes and was
+verified doing so; `exterior-instrument.py` and `support-rule-check.py`; `digest-rule-proof.ts`,
+`identity-table.json` and the two tests that pin the live table to it by SHA-256 and by literal;
+`accessibility-read.py`, `comment-generation.ts`, `append-check.py` with a discrimination probe that
+shows its corrected clause failing; and G4's `chroma-cut.py`, `cut-discrimination.py`,
+`accessibility-identity.py`, `sheets.ts`, `demo-figures.py` and `sheet.py`.
+
+`MATERIAL_IDENTITY_TABLE` is new and is the thing that ends a class rather than an instance: an
+append-only constant beside `DEFAULT_MATERIAL_PROFILE` under which a leaf at its declared inert
+identity moves no document's digest, so **no wave spends an exemption for an inert leaf again** and
+`digest-supersessions.json` becomes history with a test that keeps it true.
+
+And the ledger gained five sections — §5.161 through §5.165, with §5.161 §11, §5.162 §9, §5.163 §8
+and §5.164 §13 as the four review closures — in which every corrected number is recorded BESIDE the
+text it corrects and not one recorded number is rewritten.
 
 ## Revision Notes
+
+- 2026-09-21 (G4): **the wave's tolerance is adopted, the eye did not stop the cut, and the clause
+  the parent chose is a statistic rather than a picture** (claims §5.165). Five things worth
+  carrying past this gate.
+  - **A cut regenerated at the adopting gate is half of what W31 G1's closure found.** Decision Log
+    3 (a) ruled the cut regenerated here rather than read from an earlier gate's evidence, which is
+    the fix §5.162 §9 named for B1's shape. The other half is that a cut committed at THIS gate is a
+    snapshot for the next one, so the gate re-derives every figure in it from `results/matrix.json`
+    and from the superseded files it names, in both directions. A read that moves a row moves the
+    rows whether or not anybody re-runs the script. The discipline generalises past cuts: **an
+    artefact a bound reads should be checkable against the thing it was derived from, in the same
+    case that reads it.**
+  - **A newly adopted row has never been red, and that is the one thing to check before adopting
+    it.** `cut-discrimination.txt` perturbs the committed cut four ways and records which clause
+    each turns red, restoring between perturbations so nothing accumulates. It cost one script. The
+    class it guards is the one the split's `n == n` belonged to, and the only way that class is ever
+    found is by making a green thing fail on purpose.
+  - **A ceiling can be worth having and invisible at the same time.** The three cells M1 records
+    MISSED at 1.52, 1.45 and 1.44 are indistinguishable by eye from the sibling that passes at 1.36
+    and from their own references, because span 32 transmits so little that a 52 % relative excess
+    is almost nothing. That is not an argument against the clause: it is the SAME defect that reads
+    1.24 and 1.36 at span 160, carried there by the axis one constant per document does not condition
+    on, and a clause that fired only where the eye already complains would add nothing. But it has to
+    be recorded as what it is, because "three cells look wrong" is a different claim and is false.
+  - **A wave can measure an operator into existence and leave the product with no way to show it.**
+    The demo's dark stage is achromatic by construction — `field: 0`, for a reason its own contrast
+    case guards — and the dark scheme is the endpoint this wave moved most. The sheets found it;
+    nothing in the test suite could have, because nothing asserts that the site demonstrates what the
+    runtime does.
+  - **A sentence about a policy is a sentence about an AXIS, and the two are not the same.** The
+    changeset and the renderer README said the retention stands down "under Reduce Transparency or
+    Increase Contrast". The stand-down is on the occlusion axis; Increase Contrast raises no
+    occlusion, and macOS 27 decoupled the two switches. The claim was true of the calibration bed —
+    whose increased-contrast profile is the COUPLED one — and false of the runtime, which is exactly
+    the shape a bed-shaped sentence takes when it escapes into a release note.
 
 - 2026-09-21 (the parent): **G3c merged** (`c72f90b7`): the hard gate adopted on measurement (the lift
   rule left two accessibility beds at R 1.79 / 1.83), 0.20.0's accessibility rasters restored 48 of 48,
