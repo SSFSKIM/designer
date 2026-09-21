@@ -89,7 +89,18 @@ headroom and fails at 128 by 76–112 % and at 160 by 49–90 %.
 At span 160 the admitted bands reach 12 CSS px and the FIRST σ-band ends at 0.7 σ = 12.1, so the
 form reads nothing on any of the four beds — at the span whose residual is largest and where every
 non-ladder cell is holdout. It reads nothing at span 44 on any bed either, so the thin regime this
-wave admits to the fit would carry no shape clause at all. **And the choice of multiples is not the
+wave admits to the fit would carry no shape clause at all.
+
+**Corrected beside, 2026-09-21 (review closure; claims §5.166 §10, finding N12).** "Reads nothing at span 44 on
+any bed" is true on **three beds of four**: `2x dark` admits one σ-band at span 44 — `[3.9, 7.8)`,
+its native σ there being 2.784 — and reads **0.00987** over 13 cells (`c1-forms.txt` §3). At span 32
+two beds read: 1x light **0.01559** over 9 and 2x dark **0.00853** over 7. So the thin regime would
+carry a shape clause on some beds and not others, which is a different objection from carrying none
+— and a worse one for a bound stated over the worst standard bed, since three of the four would be
+absent from it. **The withdrawal stands on its span-160 ground**, which is unqualified: the first
+σ-band ends at 0.7 σ = 12.1 CSS px against admitted bands reaching 12, so the form reads nothing at
+span 160 on any bed, and span 160 is the span C1 exists for.
+ **And the choice of multiples is not the
 cause**: the clearance measured in the bed's own native σ is 5.5–5.9 at span 96, 2.7 at 128 and 1.1
 at 160, so "the same number of falloff lengths at every span" is not purchasable on a 320 × 200
 canvas at any multiples. The form becomes available when the canvas does, which is this wave's first
