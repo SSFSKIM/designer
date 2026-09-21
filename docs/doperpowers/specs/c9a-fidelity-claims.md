@@ -32253,6 +32253,29 @@ every thick span on 1x light, and over the window it is ABOVE. An anchor solve o
 one is not an anchor solve on the other, which is why G1 measures the difference
 at its first round rather than assuming it.
 
+**Corrected beside, 2026-09-21 (review closure; §10, finding N11).** 3.3 to 6.4
+is the **1x light** range (3.27 at span 160 to 6.35 at 32), which is the bed the
+declaration's table is printed on. Over the four standard beds the ratio of the
+two `|Δ|` medians runs **1.69 to 50.66**:
+
+| bed | 32 | 44 | 96 | 128 | 160 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1x light | 6.35 | 5.52 | 3.98 | 5.70 | 3.27 |
+| 2x light | 9.87 | 6.65 | 4.20 | 4.82 | 2.05 |
+| 1x dark | 2.96 | 7.18 | 3.98 | 9.14 | 3.37 |
+| 2x dark | **50.66** | 6.15 | 4.64 | 4.07 | **1.69** |
+
+The 50.66 is a ratio of two small numbers — 2x dark's whole-exterior `|Δ|` at
+span 32 is 0.000011, the smallest figure on the bed — and is not a reading of
+anything except how nearly the two whole-exterior departures coincide there. The
+point the sentence makes survives everywhere: the restricted difference is
+larger than the whole-exterior one on **every bed at every span**, by at least
+1.69×. **The sign reversal is 1x light's alone**: on 2x light the whole-exterior
+ratio is above 1 at every span (1.28 / 1.42 / 1.15 / 1.08 / 1.05), so there is
+no sign to reverse, and the beds are not alike on this axis either. The clause-3
+conclusion — measure the difference at the first round rather than assume it —
+is strengthened rather than weakened.
+
 **`MISSED_27_ROWS` is not §5.162 §4's seven.** Two of those seven —
 `photo__rrect-lg__rest :: oklabDeltaEP95` on the WebGPU tier, 1x and 2x dark —
 **cleared at W31 G3** (0.21531 → 0.14655 and 0.21341 → 0.14505) and M1's three

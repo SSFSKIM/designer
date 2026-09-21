@@ -591,6 +591,11 @@ may strike it without touching the material.
   whole-exterior one and it reverses the sign structure: over the whole exterior vitrea's departure
   is BELOW Apple's at every thick span on 1x light and over the window it is ABOVE. Clause 3's
   "the difference between the two solves is measured at the first round" is load-bearing.
+  **Corrected beside, 2026-09-21 (review closure; claims §5.166 §10, finding N11):** 3.3 to 6.4 is
+  the 1x light range; over the four standard beds the ratio runs **1.69 to 50.66**, the 50.66 a
+  ratio of two tiny numbers at 2x dark span 32. The restricted difference is the larger on every
+  bed at every span, by at least 1.69×, and the SIGN reversal is 1x light's alone — on 2x light the
+  whole-exterior ratio is above 1 at every span, so there is no sign there to reverse.
 - **The bed cannot see a span-160 exterior, and three waves read one there without saying so**
   (found by this charter's adversarial review, 2026-09-21, from `matrix.json` and `scenes.json`).
   `rrect-lg` is 280 × 160 on a 320 × 200 canvas: 19.5 CSS px of clearance on every side; the

@@ -339,6 +339,24 @@ thick span on 1x light, and over the window it is ABOVE. An anchor solve on one 
 solve on the other, which is why the charter has G1 measure the difference at its first round rather
 than assume it.
 
+**Corrected beside, 2026-09-21 (review closure; claims §5.166 §10, finding N11).** 3.3 to 6.4 is
+the **1x light** range — this table's own bed. Over the four standard beds the ratio of the two
+`|Δ|` medians runs **1.69 to 50.66**:
+
+| bed | 32 | 44 | 96 | 128 | 160 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1x light | 6.35 | 5.52 | 3.98 | 5.70 | 3.27 |
+| 2x light | 9.87 | 6.65 | 4.20 | 4.82 | 2.05 |
+| 1x dark | 2.96 | 7.18 | 3.98 | 9.14 | 3.37 |
+| 2x dark | **50.66** | 6.15 | 4.64 | 4.07 | **1.69** |
+
+The 50.66 is a ratio of two tiny numbers (2x dark's whole-exterior `|Δ|` at span 32 is 0.000011) and
+reads how nearly the two whole-exterior departures coincide there rather than anything about the
+window. What survives on every bed at every span is the point: the restricted difference is the
+larger, by at least 1.69×. **The sign reversal is 1x light's alone** — on 2x light the
+whole-exterior ratio is above 1 at every span (1.28 / 1.42 / 1.15 / 1.08 / 1.05), so there is no
+sign there to reverse.
+
 ### The thin regime, per cell — the table G1 compares against
 
 The bar is **0.002044**, the MAX of `shadowAffineSlopeDeltaMax` over the 432 cells of
