@@ -4294,6 +4294,33 @@ it is minutes of CPU rather than a file walk, so it belongs at a gate's read
 rather than in `pnpm -r test` — and it is the only thing that can assert the tree
 and the rows are the same CAPTURE and not merely the same generation.
 
+**Also still open: the "automatic" half of this entry's own fix shape** (W32 G0b
+review closure, NB3; claims §5.167 §3 beside and §8). This entry asked for a check
+that "can run in `pnpm -r test` as a case that skips cleanly where the tree is
+absent", and what landed is a script the PARENT runs — at every merge, and inside
+G1's read by the charter's clause 5. It is in no committed `chain.sh` yet; G2's,
+copied from W31 G4's, is where it becomes a recorded step of the chain. Wiring it
+into the unit suite was declined for cause rather than overlooked: the canonical
+tree lives on the capture machine, a gate mid-read leaves it at a generation the
+split has not recorded yet, and `--superseded-ok` demotes only generations already
+recorded, so the suite would be red on the one machine that holds the tree for the
+duration of every read, with no flag saying why — and a test somebody switches off
+during a read is this entry's own failure mode one level up. **What would close it**
+is a signal a mid-read tree can carry that the suite can read: a marker the capture
+driver writes into the tree naming the generation being read and the gate reading
+it, so a case can pass on "this tree is mid-read at these documents" and fail on
+anything else. That is a change to the capture driver, not to the checker.
+
+**Two blind spots of the landed checker closed at the same closure**, recorded here
+because this entry is what a reader comes to for what the instrument sees: a
+cross-profile miscopy (a 1x capture in the 2x directory, a standard capture in the
+reduced-transparency one) named the row's documents and read as a MATCH, since a
+document is shared across profiles by design — the `deviceScaleFactor`,
+`colorScheme` and `accessibility` clauses are now compared beside the documents as
+a `misfiled` class; and exit 2 was reached by an unreadable capture whose only
+company was a frozen key, which reported a fault anybody may clear as one contract
+X1 forbids anyone to touch (NB2, NB5).
+
 ---
 
 ## A retention conditioned on the SURFACE is the operator's next form, and the same defect already shipped once as a policy bug (W31 G4, 2026-09-21)

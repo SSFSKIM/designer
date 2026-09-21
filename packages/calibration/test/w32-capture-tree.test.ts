@@ -1,4 +1,4 @@
-import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -24,20 +24,58 @@ const PRIOR_RECEDED = "dddddddddddd";
 const UNRECORDED = "eeeeeeeeeeee";
 
 const LIGHT = "apple-macos-27.0-1x-light-standard-glass0.5";
+/** Read at the 1x document, as every 2x profile is — which is what makes NB2's case real. */
+const LIGHT_2X = "apple-macos-27.0-2x-light-standard-glass0.5";
 const FROZEN = "apple-macos-26.5-1x-light-standard";
+const FROZEN_RT = "apple-macos-26.5-1x-light-reduced-transparency";
 
-const capturePath = (documents: readonly (readonly [string, string])[]): string =>
-  `playwright element screenshot of #stage, viewport=320x200, ${documents
+/**
+ * The pose clauses the real capture driver writes, derived from the profile key the way the
+ * driver derives them. They are on the same string as the documents and are compared beside
+ * them (review closure NB2; claims §5.167 §8), so a fabricated `capturePath` that omitted
+ * them would be a string no capture ever has — and the cases below turn on which of the two
+ * halves disagrees.
+ */
+interface Pose {
+  readonly deviceScaleFactor: string;
+  readonly colorScheme: string;
+  readonly accessibility: string;
+}
+
+const poseFor = (profile: string): Pose => ({
+  deviceScaleFactor: profile.includes("-2x-") ? "2" : "1",
+  colorScheme: profile.includes("-dark-") ? "dark" : "light",
+  accessibility: profile.includes("reduced-transparency")
+    ? "reducedTransparency (others explicitly off)"
+    : "browser-preferences",
+});
+
+const documentClauses = (cell: Cell): string =>
+  cell.documents
     .map(([clause, hash], index) =>
       `${index === 0 ? "materialProfile" : "recededProfile"}=packages/calibration/profiles/${clause} `
       + `sha256:${hash}`)
-    .join(", ")}`;
+    .join(", ");
+
+const capturePath = (cell: Cell): string => {
+  const head = "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium"
+    + " --enable-features=Vulkan,WebGPU, viewport=320x200";
+  if (cell.poseless === true) return `${head}, ${documentClauses(cell)}`;
+  const pose = cell.pose ?? poseFor(cell.profile);
+  return `${head} deviceScaleFactor=${pose.deviceScaleFactor},`
+    + ` colorScheme=${pose.colorScheme}, animations=disabled, frames=8,`
+    + ` accessibility=${pose.accessibility}, ${documentClauses(cell)}`;
+};
 
 interface Cell {
   readonly profile: string;
   readonly scene: string;
   readonly renderer: string;
   readonly documents: readonly (readonly [string, string])[];
+  /** Overridden only where a case fabricates a capture posed differently from its row. */
+  readonly pose?: Pose;
+  /** A string carrying no pose clause at all — the capture format moving underneath. */
+  readonly poseless?: boolean;
 }
 
 function scratch(matrixCells: readonly Cell[], treeCells: readonly (Cell & { sceneId?: string })[]): {
@@ -55,7 +93,7 @@ function scratch(matrixCells: readonly Cell[], treeCells: readonly (Cell & { sce
       JSON.stringify({
         renderer: cell.renderer,
         sceneId: cell.sceneId ?? cell.scene,
-        capturePath: capturePath(cell.documents),
+        capturePath: capturePath(cell),
       }),
     );
   }
@@ -66,7 +104,7 @@ function scratch(matrixCells: readonly Cell[], treeCells: readonly (Cell & { sce
       key: {
         profileKey: cell.profile,
         sceneId: cell.scene,
-        web: { renderer: cell.renderer, capturePath: capturePath(cell.documents) },
+        web: { renderer: cell.renderer, capturePath: capturePath(cell) },
       },
     })),
   }));
@@ -158,6 +196,18 @@ describe("the capture tree against the working matrix (claims §5.167)", () => {
     expect(lenient.findings.map((f) => f.verdict)).toEqual(["superseded"]);
     expect(lenient.exitCode).toBe(0);
 
+    // Review closure NB4 (claims §5.167 §8). Exit 0 with a demotion behind it is not "the
+    // same generation everywhere they meet" — the flag's whole subject is a tree that is
+    // deliberately at another one — and a verdict line that hid it is the sentence somebody
+    // quotes later as proof the tree was current.
+    const verdict = formatReport(lenient, true);
+    expect(verdict).toContain("1 capture stands at a superseded generation the split has RECORDED");
+    expect(verdict).toContain("--superseded-ok");
+    expect(verdict).not.toContain("the same generation everywhere they meet");
+    // And the line is unchanged where the flag is on with nothing to demote.
+    expect(formatReport(check(scratch([current], [current]), true), true))
+      .toContain("the same generation everywhere they meet");
+
     // Half-recorded is not recorded: a generation whose active hash the index knows and
     // whose receded hash it does not was never split, so nobody chose it.
     const half = {
@@ -186,6 +236,24 @@ describe("the capture tree against the working matrix (claims §5.167)", () => {
 
     const live = { ...current, documents: [[`${LIGHT}.json`, UNRECORDED]] as const };
     expect(check(scratch([frozenRow, current], [frozenStale, live])).exitCode).toBe(1);
+
+    // Review closure NB5 (claims §5.167 §8). The exit-2 class is a GENERATION difference
+    // under a frozen key and nothing else. `live` was computed over the whole failing set,
+    // so an UNREADABLE capture whose only company was a frozen key exited 2 — reporting a
+    // fault anybody may clear (the tree is gitignored; delete the file and copy it again)
+    // as one contract X1 forbids anyone to touch, which is how it stays in the tree.
+    const frozenUnreadable = { ...frozenRow, sceneId: "photo__rrect-lg__rest" };
+    const unreadable = check(scratch([frozenRow], [frozenUnreadable]));
+    expect(unreadable.findings.map((f) => f.verdict)).toEqual(["unreadable"]);
+    expect(unreadable.exitCode).toBe(1);
+
+    // And a frozen generation mismatch standing beside it does not pull it back down to 2.
+    const both = check(scratch(
+      [frozenRow, { ...frozenRow, scene: "photo__rrect-sm__rest" }],
+      [frozenUnreadable, { ...frozenStale, scene: "photo__rrect-sm__rest" }],
+    ));
+    expect(both.findings.map((f) => f.verdict).sort()).toEqual(["mismatch", "unreadable"]);
+    expect(both.exitCode).toBe(1);
   });
 
   it("refuses a capture with no provenance and one whose directory disagrees with it", () => {
@@ -202,6 +270,56 @@ describe("the capture tree against the working matrix (claims §5.167)", () => {
     expect(report.exitCode).toBe(1);
   });
 
+  it("calls a cross-profile miscopy MISFILED, where the documents agree and the pose does not", () => {
+    // Review closure NB2 (claims §5.167 §8). Every 2x profile is read at the 1x document
+    // and every macOS 26.5 profile at the one light document, so a capture copied from one
+    // profile's directory into another's names exactly the documents the row names. The
+    // generation compare reads it as a MATCH and the cell is then measured against pixels
+    // drawn at a different scale — the one shape of stale tree that passed.
+    const row: Cell = {
+      profile: LIGHT_2X, scene: "photo__rrect-md__rest", renderer: "webgpu",
+      documents: [[`${LIGHT}.json`, SHIPPED]],
+    };
+    const copiedFrom1x: Cell = { ...row, pose: poseFor(LIGHT) };
+    const report = check(scratch([row], [copiedFrom1x]));
+
+    expect(report.findings.map((f) => f.verdict)).toEqual(["misfiled"]);
+    expect(report.exitCode).toBe(1);
+    // The documents are identical on both sides, which is the whole point: without the
+    // pose clauses this capture is indistinguishable from the one the row was read off.
+    expect(report.findings[0]?.capture).toEqual(report.findings[0]?.row);
+    expect(report.findings[0]?.note).toContain("deviceScaleFactor=1 against the row's deviceScaleFactor=2");
+    const text = formatReport(report, false);
+    expect(text).toContain("MISFILED");
+    expect(text).toContain("misfiled 1");
+  });
+
+  it("exits 1 on a misfiled capture under a FROZEN key, where a generation mismatch exits 2", () => {
+    // The exit-2 class is a GENERATION difference nobody may clear: contract X1 forbids
+    // re-reading a macOS 26.5 row. A capture sitting in a directory it does not belong in
+    // is a fault in the copy and the tree is gitignored, so anybody may clear it — and a
+    // gate that reported it as unclearable would leave it there.
+    const row: Cell = {
+      profile: FROZEN_RT, scene: "photo__rrect-md__rest", renderer: "webgpu",
+      documents: [[`${FROZEN}.json`, SHIPPED]],
+    };
+    const copiedFromStandard: Cell = { ...row, pose: poseFor(FROZEN) };
+    const report = check(scratch([row], [copiedFromStandard]));
+    expect(report.findings.map((f) => f.verdict)).toEqual(["misfiled"]);
+    expect(report.exitCode).toBe(1);
+    expect(report.findings[0]?.note).toContain("accessibility=browser-preferences");
+  });
+
+  it("reports a row whose own string carries no pose clause rather than passing it", () => {
+    // Two strings that both say nothing about the scale agree on nothing. If the capture
+    // format ever drops a clause, the checker says so instead of reading silence as a match.
+    const row: Cell = { ...current, poseless: true };
+    const report = check(scratch([row], [current]));
+    expect(report.findings.map((f) => f.verdict)).toEqual(["misfiled"]);
+    expect(report.findings[0]?.note).toContain("(absent)");
+    expect(report.exitCode).toBe(1);
+  });
+
   it("reports a capture with no row and a row with no capture without failing either", () => {
     // The bed is ragged on purpose: probe cells are read at some profiles and not others,
     // and instrument refusals dropped rows whose captures remain. Neither direction is a
@@ -212,6 +330,28 @@ describe("the capture tree against the working matrix (claims §5.167)", () => {
     expect(report.findings.filter((f) => f.verdict === "no-row").map((f) => f.scene))
       .toEqual(["checkerboard-64__rrect-sm__rest"]);
     expect([...report.rowsWithoutCapture.values()].flat()).toEqual(["photo__rrect-md__inactive"]);
+  });
+
+  it("reports a tree path that is a file, and a dangling symlink inside one, with the path", () => {
+    // Review closure NB8 (claims §5.167 §8). Both threw out of the fs call and took the run
+    // with them. A tree assembled by copying is exactly where a dangling link comes from,
+    // and `VITREA_WEB_CAPTURES` at a file is a typo somebody wants told back to them — so
+    // each is reported as unreadable WITH its path, and neither is skipped like an absent
+    // tree: somebody who named a path meant to check a tree.
+    const paths = scratch([current], [current]);
+    const asFile = checkCaptureTree({ ...paths, tree: paths.matrixPath, supersededOk: false });
+    expect(asFile.treePresent).toBe(true);
+    expect(asFile.findings.map((f) => f.verdict)).toEqual(["unreadable"]);
+    expect(asFile.findings[0]?.note).toContain(paths.matrixPath);
+    expect(asFile.findings[0]?.note).toContain("is not a directory");
+    expect(asFile.exitCode).toBe(1);
+
+    symlinkSync(join(paths.tree, "nowhere"), join(paths.tree, "apple-macos-27.0-1x-dangling"));
+    const dangling = check(paths);
+    expect(dangling.findings.map((f) => f.verdict).sort()).toEqual(["match", "unreadable"]);
+    expect(dangling.findings.find((f) => f.verdict === "unreadable")?.note)
+      .toContain("apple-macos-27.0-1x-dangling");
+    expect(dangling.exitCode).toBe(1);
   });
 
   it("parses the committed matrix and superseded index, as the merge gate will", () => {

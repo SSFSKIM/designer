@@ -87,9 +87,19 @@ ruling) is a tracker entry.
 ## What it refuses, and what it cannot see
 
 **Refused**: a second `record` at document hashes already in the log, unless the
-SOURCE hash has moved *and* `--source-moved-because` names a reason. Both halves
-are required: a reason without a moved source is a fit being called a fix, and a
-moved source without a reason is a change nobody wrote down.
+SOURCE hash is one *no* record at those documents carries *and*
+`--source-moved-because` names a reason. Both halves are required: a reason
+without a moved source is a fit being called a fix, and a moved source without a
+reason is a change nobody wrote down.
+
+**The comparison is against EVERY record at those documents, not the last one**
+(W32 G0b review closure, finding NB1; claims §5.167 §8). A configuration is a set
+of bytes, not a position in a list: sources that move away and then back land on a
+configuration the holdout has already been read at, and reading it a second time
+is the thing Decision Log 1 (b) forbids however many reads sit in between. So a
+named reason cannot re-open a configuration already read — `--source-moved-because`
+admits a read at sources this log has never seen at these documents, and nothing
+else. The refusal says so when a reason was given.
 
 **Not seen, and named rather than left implicit**: a fit that moves a value out
 of a document and into a shader default is a document change AND a source change,
@@ -207,12 +217,23 @@ def record(claims: str, reason: str | None) -> int:
     previous = load_log()
     same_documents = [e for e in previous if e["documents"] == state["documents"]]
     if same_documents:
-        prior = same_documents[-1]
         print("\n-- a holdout read already exists at these document hashes --")
-        print(f"   {prior['at']}  head {prior['head']}  claims {prior['claims']}")
-        if prior["sourceSha256"] == state["sourceSha256"]:
+        for entry in same_documents:
+            print(f"   {entry['at']}  head {entry['head']}  claims {entry['claims']}"
+                  f"  sources {entry['sourceSha256'][:12]}…")
+        # Against EVERY record at these documents rather than the newest: sources that move
+        # away and back land on a configuration already read, and the reads in between do
+        # not make it a new one (W32 G0b review closure, NB1; claims §5.167 §8).
+        already = [e for e in same_documents if e["sourceSha256"] == state["sourceSha256"]]
+        if already:
+            first = already[0]
             print("\nREFUSED: identical document bytes AND identical sources. This is the same")
-            print("frozen configuration the holdout was already read at (Decision Log 1 (b)).")
+            print("frozen configuration the holdout was already read at (Decision Log 1 (b)) —")
+            print(f"{first['at']}, head {first['head']}, claims {first['claims']}.")
+            if reason:
+                print("\n--source-moved-because names a reason the SOURCES moved. It cannot re-open a")
+                print("configuration already read: the sources are back at bytes this log already")
+                print("carries a read at, so there is no move for a reason to explain.")
             return 1
         if not reason:
             print("\nREFUSED: the sources moved and no reason is named. A second read of the same")
