@@ -1,0 +1,119 @@
+W32 G0b — the capture-tree checker on the canonical tree (claims §5.167)
+
+  head          765e85f2
+  matrix        packages/calibration/results/matrix.json  sha256:48fcd7abd82e
+  tree          the MAIN checkout's canonical packages/calibration/web-captures/, read-only
+                (gitignored; this gate ran in a worktree and copied nothing, which is the
+                 very habit the checker exists to catch — so the tree was pointed at, not
+                 reproduced, and no byte of it was written)
+  invocation    VITREA_WEB_CAPTURES=<that tree> pnpm --filter @vitrea/calibration run check-capture-tree
+
+== the canonical capture tree against the working matrix (W32 G0b; claims §5.167) ==
+  tree              /Users/new/Developer/GitHub/designer/packages/calibration/web-captures
+  --superseded-ok   off
+
+  apple-macos-26.5-1x-dark-standard   [FROZEN — macOS 26.5, contract X1]
+    css     captures  110  match  110  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-dark-standard.json 950ce1c3e917
+    webgpu  captures  110  match  109  mismatch   0  superseded   0  unreadable   0  no-row   1  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-dark-standard.json 950ce1c3e917
+            no row for this capture: dark-solid__rrect-48__rest
+  apple-macos-26.5-1x-light-increased-contrast   [FROZEN — macOS 26.5, contract X1]
+    css     captures   28  match   27  mismatch   0  superseded   0  unreadable   0  no-row   1  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-light-standard.json 6a9600720477
+            no row for this capture: hc-text__capsule-button__rest
+    webgpu  captures   28  match   28  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-light-standard.json 6a9600720477
+  apple-macos-26.5-1x-light-reduced-transparency   [FROZEN — macOS 26.5, contract X1]
+    css     captures   26  match   26  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-light-standard.json 6a9600720477
+    webgpu  captures   26  match   26  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-light-standard.json 6a9600720477
+  apple-macos-26.5-1x-light-standard   [FROZEN — macOS 26.5, contract X1]
+    css     captures  142  match  141  mismatch   0  superseded   0  unreadable   0  no-row   1  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-light-standard.json 6a9600720477
+            no row for this capture: checkerboard-64__rrect-sm__rest
+    webgpu  captures  142  match  140  mismatch   0  superseded   0  unreadable   0  no-row   2  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-light-standard.json 6a9600720477
+            no row for this capture: checkerboard-64__rrect-sm__rest
+            no row for this capture: dark-solid__rrect-48__rest
+  apple-macos-26.5-2x-dark-standard   [FROZEN — macOS 26.5, contract X1]
+    css     captures  109  match  109  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-dark-standard.json 950ce1c3e917
+    webgpu  captures  109  match  109  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-dark-standard.json 950ce1c3e917
+  apple-macos-26.5-2x-light-standard   [FROZEN — macOS 26.5, contract X1]
+    css     captures  142  match  141  mismatch   0  superseded   0  unreadable   0  no-row   1  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-light-standard.json 6a9600720477
+            no row for this capture: checkerboard-64__rrect-sm__rest
+    webgpu  captures  142  match  141  mismatch   0  superseded   0  unreadable   0  no-row   1  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-light-standard.json 6a9600720477
+            no row for this capture: checkerboard-64__rrect-sm__rest
+  apple-macos-27.0-1x-dark-standard-glass0.5
+    css     captures   73  match   73  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-dark-standard-glass0.5-receded.json cc4ed1038996 + apple-macos-27.0-1x-dark-standard-glass0.5.json b5714a866288
+    webgpu  captures   73  match   73  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-dark-standard-glass0.5-receded.json cc4ed1038996 + apple-macos-27.0-1x-dark-standard-glass0.5.json b5714a866288
+  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+    css     captures   18  match   18  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 14c6bacf2eda + apple-macos-27.0-1x-light-standard-glass0.5.json 49490eb9ff7a
+    webgpu  captures   18  match   18  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 14c6bacf2eda + apple-macos-27.0-1x-light-standard-glass0.5.json 49490eb9ff7a
+  apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+    css     captures   16  match   16  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 14c6bacf2eda + apple-macos-27.0-1x-light-standard-glass0.5.json 49490eb9ff7a
+    webgpu  captures   16  match   16  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 14c6bacf2eda + apple-macos-27.0-1x-light-standard-glass0.5.json 49490eb9ff7a
+  apple-macos-27.0-1x-light-standard-glass0.5
+    css     captures  114  match  114  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 14c6bacf2eda + apple-macos-27.0-1x-light-standard-glass0.5.json 49490eb9ff7a
+    webgpu  captures  114  match  114  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 14c6bacf2eda + apple-macos-27.0-1x-light-standard-glass0.5.json 49490eb9ff7a
+  apple-macos-27.0-2x-dark-standard-glass0.5
+    css     captures   28  match   28  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-dark-standard-glass0.5-receded.json cc4ed1038996 + apple-macos-27.0-1x-dark-standard-glass0.5.json b5714a866288
+    webgpu  captures   73  match   73  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-dark-standard-glass0.5-receded.json cc4ed1038996 + apple-macos-27.0-1x-dark-standard-glass0.5.json b5714a866288
+  apple-macos-27.0-2x-light-standard-glass0.5
+    css     captures   69  match   69  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 14c6bacf2eda + apple-macos-27.0-1x-light-standard-glass0.5.json 49490eb9ff7a
+    webgpu  captures  114  match  114  mismatch   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 14c6bacf2eda + apple-macos-27.0-1x-light-standard-glass0.5.json 49490eb9ff7a
+
+  totals   captures 1840  match 1833  mismatch 0  superseded 0  unreadable 0  no-row 7
+  VERDICT  the tree and the working matrix name the same generation everywhere they meet.
+exit code: 0
+
+  absent tree, the case that has to stay cheap:
+    $ VITREA_WEB_CAPTURES=/tmp/no-such-capture-tree pnpm … run check-capture-tree
+    no capture tree at /tmp/no-such-capture-tree; skipped
+    exit code: 0
+
+  --superseded-ok on the same tree: exit code 0, nothing demoted (there is nothing to
+  demote — no capture here names a generation the split has recorded as superseded).
+
+== What the macOS 26.5 tree reads, and why it is recorded rather than failed ==
+
+Every macOS 26.5 capture MATCHES. That is not a contradiction of W31's finding, it is the
+shape of it. The frozen documents have not moved since W29's freeze, so the divergence W31
+G0 measured — `photo__glass-over-glass__rest` on the two light profiles, `texture` tier,
+`interiorMeanWeb` 2.840e-03 and 2.527e-03 out, the tree's files dated 2026-09-10 and the
+rows measured 2026-09-11 — is a re-capture at UNMOVED document bytes. There is no hash for
+a string compare to disagree on. A document-hash checker cannot see it, and saying so is
+better than a checker that appears to cover it.
+
+So this run closes the generation half of the tracker entry and leaves the other half open
+and named: the only instrument that sees a re-capture at unmoved bytes is a
+`compare --skip-capture` re-derivation of the metrics off the tree's own PNGs, which is how
+W31 G0 found those two cells in the first place. That is minutes of CPU rather than a file
+walk, it is a different tool, and it is now the narrowed tracker entry.
+
+== The seven captures with no row ==
+
+`dark-solid__rrect-48__rest`, `checkerboard-64__rrect-sm__rest` (probe scenes) and
+`hc-text__capsule-button__rest` (holdout) carry captures at profiles where the working
+matrix holds no row for that renderer. All seven are on macOS 26.5 keys. The bed is ragged
+on purpose — a probe scene is read at some profiles and not others, and the contour
+instrument's refusals dropped rows whose captures remain — so a capture without a row is
+evidence of a read that happened rather than of a generation that drifted, and it is
+reported without failing. 1,833 captures match 1,833 rows: every row the tree covers.

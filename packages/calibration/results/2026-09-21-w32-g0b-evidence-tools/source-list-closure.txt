@@ -1,0 +1,71 @@
+W32 G0b — the holdout configuration's source list against the render's import closure
+(claims §5.167; the decision is NOT to widen — see configuration.py's docstring)
+
+Method: the LOCAL import graph (a `from "./…"` or `from "../…"` specifier, resolved to
+<spec>.ts or <spec>/index.ts) followed transitively from the five TypeScript entry points the
+configuration list names. No browser, no build, no type information: a reachability read over
+the sources as committed at this head. It is a LOWER bound on what can move a capture's
+pixels — a package-boundary import (@vitreajs/vitrea, @vitrea/geometry, @vitrea/motion,
+@vitrea/policy) is not followed, so core's policy and tier resolution are outside this count
+as well as outside the list.
+
+Entry points (on the list):
+  packages/renderer-webgpu/src/renderer.ts
+  packages/renderer-webgpu/src/material.ts
+  packages/renderer-webgpu/src/passes.ts
+  packages/platform-web/src/optics.ts
+  packages/platform-web/src/css-tier.ts
+
+The wgsl/ directory is on the list in its entirety and is elided below.
+
+Reachable and NOT on the list: 50 files
+  packages/platform-web/src/backdrop-proxy.ts
+  packages/platform-web/src/backdrop-stack.ts
+  packages/platform-web/src/backdrop-tone.ts
+  packages/platform-web/src/channels.ts
+  packages/platform-web/src/color-scheme.ts
+  packages/platform-web/src/css-tier-layers.ts
+  packages/platform-web/src/css-tier-shadow.ts
+  packages/platform-web/src/dark-profile.ts
+  packages/platform-web/src/diagnostics.ts
+  packages/platform-web/src/geometry-sync.ts
+  packages/platform-web/src/group-state.ts
+  packages/platform-web/src/host.ts
+  packages/platform-web/src/ink-stylesheet.ts
+  packages/platform-web/src/layer-model.ts
+  packages/platform-web/src/macos27-profile.ts
+  packages/platform-web/src/material-document.ts
+  packages/platform-web/src/measure.ts
+  packages/platform-web/src/media-policy.ts
+  packages/platform-web/src/planes.ts
+  packages/platform-web/src/probe/backdrop-root.ts
+  packages/platform-web/src/probe/conformance-table.ts
+  packages/platform-web/src/probe/engine-defects.ts
+  packages/platform-web/src/probe/index.ts
+  packages/platform-web/src/probe/support-gate.ts
+  packages/platform-web/src/proxy-geometry.ts
+  packages/platform-web/src/receded-profile.ts
+  packages/platform-web/src/refraction.ts
+  packages/platform-web/src/renderer-bridge.ts
+  packages/platform-web/src/root.ts
+  packages/platform-web/src/tint.ts
+  packages/platform-web/src/vibrancy.ts
+  packages/platform-web/src/webgpu.ts
+  packages/platform-web/src/window-activation.ts
+  packages/renderer-webgpu/src/analysis.ts
+  packages/renderer-webgpu/src/backdrop-fit.ts
+  packages/renderer-webgpu/src/backdrop.ts
+  packages/renderer-webgpu/src/color.ts
+  packages/renderer-webgpu/src/device.ts
+  packages/renderer-webgpu/src/errors.ts
+  packages/renderer-webgpu/src/governor.ts
+  packages/renderer-webgpu/src/gpu-context.ts
+  packages/renderer-webgpu/src/instances.ts
+  packages/renderer-webgpu/src/pipeline-cache.ts
+  packages/renderer-webgpu/src/pyramid-plan.ts
+  packages/renderer-webgpu/src/pyramid.ts
+  packages/renderer-webgpu/src/rebuild-ledger.ts
+  packages/renderer-webgpu/src/render-model.ts
+  packages/renderer-webgpu/src/silhouette-tone.ts
+  packages/renderer-webgpu/src/texture-pool.ts
+  packages/renderer-webgpu/src/timing.ts

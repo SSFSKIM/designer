@@ -1,0 +1,51 @@
+W32 G0b — the verification record (claims §5.167 §6)
+
+  head at close   20cfbcf0 (+ the records commit)
+
+freeze.py verify AT CLOSE, in the worktree:
+26.5 freeze intact: 1818 entries
+  (at open, on the clean main checkout at 7ea00b2f: 26.5 freeze intact: 1818 entries —
+   freeze-verify-open.txt. The worktree's results/matrix.json is byte-identical to it.)
+
+pnpm -r build   exit 0
+pnpm -r lint    exit 0   (eslint + tsc --noEmit in every package; calibration also runs
+                          tsconfig.cli.json, web/tsconfig.json and scripts/tsconfig.json,
+                          which is where check-capture-tree.ts typechecks)
+pnpm -r test    exit 0
+
+  package                         files    tests
+  ----------------------------    -----    -----
+  @vitreajs/vitrea (core)            16      302
+  @vitreajs/vitrea-web               46      631
+  @vitreajs/vitrea-react             18      169
+  @vitrea/calibration                39      609
+  @vitrea/renderer-webgpu            34      561
+  @vitrea/geometry                   14      170
+  @vitrea/motion                     10      164
+  @vitrea/policy                      2       23
+  demo                                6       46
+  ----------------------------    -----    -----
+  TOTAL                             185     2675
+
+  0 failed. W31 G4's chain closed at 2,662 over 183 files; this gate adds exactly the
+  thirteen cases it wrote, over two files — five in w32-holdout-configuration.test.ts
+  and eight in w32-capture-tree.test.ts. No existing assertion moves.
+
+Untouched, and checked rather than assumed:
+ M docs/doperpowers/specs/c9a-fidelity-claims.md
+?? packages/calibration/results/2026-09-21-w32-g0b-evidence-tools/verification.txt
+  (working tree clean apart from the records commit staged beside this file)
+
+== Re-run AT THE FINAL HEAD, beside the reading above and not replacing it ==
+
+The reading above was taken at 20cfbcf0, before 97d478d8 rewrote the checker's composite
+key from three raw NUL bytes to the `\0` escape (same separator, same behaviour, a file
+git no longer classes as binary). The whole chain was re-run at the head that carries it:
+
+  freeze.py verify   26.5 freeze intact: 1818 entries
+  pnpm -r build      exit 0
+  pnpm -r lint       exit 0
+  pnpm -r test       exit 0 — 185 files, 2675 tests, 0 failed, across all nine packages
+
+Identical to the reading above, package for package. The checker's run on the canonical
+tree also reproduces check-capture-tree.txt line for line at exit 0.
