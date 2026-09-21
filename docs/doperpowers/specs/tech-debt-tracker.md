@@ -4356,8 +4356,6 @@ a `misfiled` class; and exit 2 was reached by an unreadable capture whose only
 company was a frozen key, which reported a fault anybody may clear as one contract
 X1 forbids anyone to touch (NB2, NB5).
 
----
-
 **Merge record 2026-09-22 (W32 G1's merge, `9c4b3bce`).** The copy was made as the merge that
 landed the read: the worktree's tree (786 captures, 3,930 files, 71 MB) copied byte for byte to
 the canonical `packages/calibration/web-captures/`, and the checker run on the canonical tree
@@ -4369,6 +4367,8 @@ on the capture machine to `packages/calibration/web-captures-superseded/<active-
 named the way `results/superseded/<sha>.json` is, gitignored beside the canonical tree. Nothing
 reads that sidecar yet; a sheet of a superseded generation would point `VITREA_WEB_CAPTURES` at
 it and the checker would class every cell `superseded` there, which is the reading it is for.
+
+---
 
 ## A retention conditioned on the SURFACE is the operator's next form, and the same defect already shipped once as a policy bug (W31 G4, 2026-09-21)
 
