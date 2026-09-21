@@ -502,7 +502,7 @@ hairline (a rim term and not a shadow one); `standard-row-identity-matrix.txt`'s
 | child | status |
 | --- | --- |
 | G0 | **MERGED-READY 2026-09-21** — the cut, the clearance table, the direction tables, the model read, the three forms and the declarations; claims §5.166; six commits on `w32-g0-exterior-cut`; no capture, no material change |
-| G0b | OPEN — dispatched at charter v2 |
+| G0b | **CLOSED 2026-09-21.** Three tools, no material, no capture, no number. **The holdout configuration ledger** moved to `results/holdout-configuration/`, the one location every canonical read records to, with its log **seeded byte for byte** from W31 G3's (G3's copies left byte-identical where they are) and the seed asserted field by field against them. The enumerated source list was CHECKED and deliberately **not widened**: the local import graph out of its five entry points reaches **50 further files**, around twenty of which move pixels at unmoved document bytes, and `renderer-bridge.ts` — asked about by name — holds no material constant but does decide which material reaches the renderer, so it is one of the fifty rather than a special case; widening would make every logged `sourceSha256` incomparable and fire "the sources moved" at every later read forever, so `sourceListSha256` is recorded instead and the ruling is a tracker entry. **The capture-tree checker** (`scripts/check-capture-tree.ts`, `pnpm --filter @vitrea/calibration run check-capture-tree`) compares every capture's document hashes — receded included — against the row beside it: on today's canonical tree **1,840 captures, 1,833 match, 0 mismatch, 0 superseded, 0 unreadable, 7 with no row, 0 rows with no capture, exit 0**, and one line and exit 0 where the tree is absent. **The macOS 26.5 tree reads as MATCHING**, which is the shape of W31's finding rather than a contradiction of it: the frozen documents have not moved, so that divergence is a re-capture at UNMOVED bytes and no string compare can see it — the generation half closes and the `--skip-capture` re-derivation is the narrowed tracker entry. A frozen mismatch exits **2** and a live one **1**, and `--superseded-ok` demotes only a generation the split has RECORDED. **`split-generation.py`'s docstring** made true about what it enforces (both flags required; the two being different is not checked), with the two committed entries annotated by `$comment` beside — two insertions, nothing recorded rewritten, `readme` a no-op and `plan` 1,833/1,833/0. Thirteen vitest cases; `freeze.py verify` **1,818** at open and close; **2,675 unit tests over 185 files, 0 failed**. Ledger **§5.167**; evidence `packages/calibration/results/2026-09-21-w32-g0b-evidence-tools/`. **Review closure merged 2026-09-21** (§5.167 §8): no blocking finding, seven non-blocking, all seven closed — five by a tool change, two by a record. The holdout refusal now compares against **every** record at those document hashes rather than the last, so A → B → A is refused and a named reason cannot re-open a configuration already read (the defect was inherited verbatim from W31 G3's copy, which stays byte-identical). The checker gains a **`misfiled`** class over the `deviceScaleFactor` / `colorScheme` / `accessibility` clauses, because a document is shared across profiles and a 1x capture in the 2x directory read as a MATCH; **exit 2 narrows** to a generation difference under a frozen key alone, so an unreadable or misfiled capture exits 1 whatever key it sits under; the `--superseded-ok` verdict line names its demotion; and a tree path that is a file or a dangling symlink inside one is reported with its path rather than thrown. The checker is **not** wired into `pnpm -r test` and that is a decision recorded beside §3 — the parent runs it at every merge, G2's `chain.sh` is where it becomes a step of the chain, and the tracker entry stays open on the "automatic" half. `index.json`'s two `$comment` annotations say "above" of a field below them and are noted-not-fixed (committed evidence); `CLAUDE.md`'s stale sentence is **G2's**, and what the replacement must keep is that a generation check is not a capture check. Five new cases, **2,680 over 185 files, 0 failed**; the canonical tree re-run **unchanged at 1,840 / 1,833 / 0 / 0 / 0 / 7 / 0, exit 0** with misfiled **0**; `freeze.py verify` **1,818** at open and close |
 | G1 | not opened |
 | G2 | not opened |
 
@@ -608,6 +608,44 @@ may strike it without touching the material.
 
 ## Revision Notes
 
+- 2026-09-21 (G0b closure): **G0b's review closure merged.** No blocking finding, seven
+  non-blocking, all seven closed (§5.167 §8): five tool changes and two records. **Two of them
+  change what a later child can rely on.** First, the holdout refusal was comparing against the
+  LAST record at a set of document hashes, so a source hash that moved and came back was admitted
+  — a second read of a configuration already read, arrived at by a route nothing watched. It now
+  compares against every record, and a named reason admits sources the log has never carried at
+  those documents rather than re-opening a configuration: G1's clause 5 `record` is refused unless
+  its sources are new at its documents, which at new document bytes it is either way. Second, the
+  capture-tree checker was blind to a cross-profile miscopy, because a document is shared across
+  profiles by design — a 1x capture in the 2x directory named the row's documents and passed. The
+  pose clauses are compared beside the documents now, as `misfiled`, exit 1 under a frozen key as
+  well as a live one; exit 2 narrows to a generation difference under a frozen key alone. **And
+  the checker is not automatic**: it is not in `pnpm -r test` and that is a decision, not an
+  oversight — a mid-read tree on the capture machine would redden every test run on that machine
+  and `--superseded-ok` covers only recorded generations. The parent runs it at every merge, G2's
+  `chain.sh` is where it becomes a step of the chain, and the tracker entry stays open on the
+  "automatic" half with the shape that would close it. `CLAUDE.md`'s stale sentence remains G2's
+  under X11, and what its replacement must keep is that a generation check is not a capture check.
+  W31 G3's `configuration.py` carries the old defect and stays byte-identical where it is, because
+  it is that gate's witness. Five new cases (2,680 over 185 files); the canonical tree re-run
+  unchanged; `freeze.py verify` 1,818 at open and close.
+
+- 2026-09-21 (G0b): **G0b closed** — `results/holdout-configuration/` (seeded, README, five
+  unit cases), `scripts/check-capture-tree.ts` (eight unit cases, the npm script, the run on the
+  canonical tree) and `split-generation.py`'s corrected docstring with two `$comment` annotations
+  beside the entries carrying the slip. §5.167 written; FOUR tracker entries amended beside (the fourth being W27f G2's
+  "Nothing checks the canonical matrix against a fresh capture", whose shape (2) this half-
+  builds) and one new one written, on the source list against the render's import closure.
+  **Two things a later child should know.** First, the checker reads the macOS 26.5 tree as
+  MATCHING and W31's finding still stands: that divergence is a re-capture at unmoved frozen
+  document bytes, so a document-hash compare is structurally blind to it and the remaining
+  instrument is a `compare --skip-capture` re-derivation off the tree's own PNGs. G1's clause 5
+  gets the generation check it was promised and not a metric check. Second, the configuration's
+  enumerated source list was found narrower than the render by 50 files and was NOT widened, for
+  a reason that binds anyone tempted later: a `sourceSha256` taken over a different enumeration
+  is incomparable rather than different, so widening retires the refusal it is meant to sharpen.
+  That is a ruling, it is a tracker entry, and it is not G1's to take mid-fit.
+
 - 2026-09-21 (G0): **the cut and the declarations landed; five entries added to Surprises.** Two
   correct the charter itself — the admitted band set at span 160 is two bands and not three, and
   the `24-48` band at span 128 is outside the frame on all four sides — and neither changes a
@@ -620,6 +658,7 @@ may strike it without touching the material.
   rule, and withdraws form (iii) on measurement — the clearance in the bed's own native σ is
   5.5–5.9 at span 96, 2.7 at 128 and 1.1 at 160, so no choice of multiples buys the same number of
   falloff lengths at every span on this canvas. Decision Log 1 (c) is the parent's to rule.
+
 - 2026-09-21 (the parent): **v2 — the adversarial review folded.** Five blocking findings and
   seven non-blocking, every number reproduced by the parent from `matrix.json` before folding:
   (1) span 160's 19.5 px clearance — the fit's bed becomes 32 / 44 / 96 / 128, span 160 read

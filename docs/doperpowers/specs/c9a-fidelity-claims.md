@@ -32148,3 +32148,335 @@ goldens.
   native fixtures and `test/adopted-thresholds.test.ts` are **untouched**;
   `apps/reference-apple/scenes.json` gains one field and no existing byte of it
   moves.
+
+
+## 5.167 W32 G0b: the evidence hygiene this wave's read depends on — three tools, and the one of them that reads the frozen tree as MATCHING for the reason the finding had all along (2026-09-21)
+
+**Gate: W32 G0b; contracts X1, X7, X9, X11.** Evidence is
+`packages/calibration/results/2026-09-21-w32-g0b-evidence-tools/`. Ledger section
+§5.167.
+
+**Nothing here is a material change, a capture or a number.** No profile document,
+no leaf, no constant, no fixture, no golden, no matrix row and no macOS 26.5-keyed
+path moves (X1). No browser runs. The superseded layout is annotated and not
+reorganised, and no schema is bumped (X7). Three of W31's Deferred items 12 and 14
+land as tools, each of them a thing three gates named and none could fix in place
+because fixing it needed a gate that was not also mid-fit.
+
+### 1. The holdout configuration ledger, at a location no copying convention can fork
+
+W31 Decision Log 1 (b) is enforced by artifact rather than by a reviewer's memory,
+because the thing it guards against leaves no trace in any number: a second holdout
+read at the same material turns the anti-overfitting split's third set into a second
+validation set, and every figure it produces looks exactly like a figure produced
+honestly. `configuration.py record` refuses a second read at document hashes already
+in its log unless the source hash moved **and** `--source-moved-because` names a
+reason, and it reads the log rather than the world, which is what lets the refusal
+survive a worktree, a rebase or a machine.
+
+*Beside that sentence (2026-09-21, the review closure, NB1; §8 below). As written it
+was true of the script and the script was wrong: the comparison took the LAST record
+at those document hashes, so* **A → B → A was admitted** *— a read at documents D and
+sources A, a second at D and B with a named reason, and a third back at D and A with a
+reason, which is a second read of the configuration the first read was taken at. A
+configuration is a set of bytes, not a position in a list. The refusal now compares
+against* **every** *record at those documents and* **a named reason cannot re-open a
+configuration already read**; `--source-moved-because` *admits sources this log has
+never carried at these documents and nothing else. The defect was inherited verbatim
+from W31 G3's copy, whose `record()` differs from this one by the single
+`sourceListSha256` line; that copy is its gate's witness and* **stays byte-identical
+where it is** *— nothing under* `results/2026-09-21-w31-g3-chroma-fit/` *changes. No
+recorded read is affected: the log's two entries are at different source hashes, and
+the two reads §5.164 §6 and §5.164 §13 record were each refused-or-admitted correctly
+under both rules.*
+
+The defect was where the log lived. W31 G3 wrote the script into its own evidence
+directory and W31 G3c ran that copy in place, which worked and was not a rule: every
+script under `results/` is copied per gate by convention, and **a copy starts with an
+empty log**. The next gate had the same choice with nothing telling it which to make,
+and the two options are not equivalent — one keeps the rule and one silently retires
+it.
+
+`packages/calibration/results/holdout-configuration/` is now the one location every
+canonical holdout read records to, named for what it holds rather than for the gate
+that first needed it, with a README saying so. Its log is **seeded byte for byte**
+from W31 G3's, so the two reads that exist — W31 G3's at `bca47c4c` under §5.164 and
+W31 G3c's at `33ed2672` under §5.164 §13 — carry across the move unchanged.
+`test/w32-holdout-configuration.test.ts` asserts the seed field by field against the
+G3 file rather than against a transcription of it. **W31 G3's `configuration.py` and
+`configuration-log.json` are byte-identical to what that gate committed and stay
+where they are**: they are its witness, and a committed witness is never edited.
+
+`show` at this head is `configuration-show.txt`: the four shipped documents at
+`49490eb9ff7a` / `b5714a866288` / `14c6bacf2eda` / `cc4ed1038996`, 14 source files,
+SOURCE SHA-256 `51e3c7be5395…`. That last figure **has moved since G3c's logged
+`4dc62ce36fd4…`** at unmoved document bytes, which is the artifact working rather
+than a finding: a `record` taken today would be refused without a named reason. W32
+G1 reads at new document bytes and is a new configuration either way.
+
+Five vitest cases exercise the script **as committed**, over a synthetic repository
+carrying the six source paths and the four documents at the depth the script resolves
+them from — so the bytes under test are the bytes a gate will run, and a source byte
+and a document byte can each be moved without touching the real ones. First read
+recorded; second refused at identical documents and sources; a moved source refused
+unexplained and admitted with its reason recorded beside the moved hash; moved
+document bytes taken without a reason because they are a new configuration. A refused
+read appends nothing, which is asserted, because a log that grew a record of a read
+nobody took would be worse than no log.
+
+### 2. The source list: checked, found narrow, and deliberately not widened
+
+The enumerated list is W31's charter verbatim (acceptance clause 6) —
+`packages/renderer-webgpu/src/wgsl/` entire, `src/material.ts`, `src/renderer.ts`,
+`src/passes.ts`, and `packages/platform-web/src/{optics,css-tier}.ts`, 14 files. The
+brief's question is whether it still names every material-affecting source. **It does
+not, and it never did.** `source-list-closure.txt` follows the local import graph out
+of those five TypeScript entry points and reaches **50 further files**, of which
+around twenty can move a capture's pixels at unmoved document bytes: `analysis.ts`,
+`silhouette-tone.ts`, `instances.ts`, `backdrop-fit.ts`, `color.ts`, `pyramid.ts`,
+`pyramid-plan.ts` and `render-model.ts` on the renderer side, and
+`css-tier-layers.ts`, `css-tier-shadow.ts`, `backdrop-tone.ts`, `refraction.ts`,
+`tint.ts`, `vibrancy.ts`, `material-document.ts`, `macos27-profile.ts`,
+`dark-profile.ts`, `receded-profile.ts`, `window-activation.ts` and `media-policy.ts`
+on the web side. The count is a **lower** bound: a package-boundary import is not
+followed, so core's policy and tier resolution are outside it as well as outside the
+list.
+
+`renderer-bridge.ts`, asked about by name, holds no material constant and no material
+arithmetic — its one conversion, `linearTint`, is `optics.ts`'s and is on the list —
+but it decides WHICH material reaches the renderer: the `setMaterialProfile`
+forwarding, the `unsampledMaterial` assembly and the accessibility hand-off. So it is
+material-affecting in the routing sense, and it is one of the fifty rather than a
+special case. W31 G3's own change, the retention's policy fold, is in `renderer.ts`
+and `material.ts` and was on the list.
+
+**The list is unchanged, and that is a decision.** Widening it changes what a
+configuration IS, which is Decision Log 1 (b)'s subject and a ruling to take rather
+than a copy to make. It would also break the artifact it is meant to sharpen: the
+refusal's second half compares today's `sourceSha256` against a LOGGED one, and a
+hash taken over a different enumeration is not a different hash but an incomparable
+one — so a widened list would report "the sources moved" at every later read forever
+and retire the rule more thoroughly than the fork this move prevents. And the honest
+widening is not a handful of names: it is the module closure, which is the "hash over
+everything" the artifact rejects for cause, since it would move on a comment in
+`diagnostics.ts` and say nothing about the material.
+
+What this gate adds instead is **`sourceListSha256`** — a digest of the DEFINITION,
+recorded beside the digest of the sources and printed by `show`
+(`c16d6294a00c…`) — so that a later widening is a field that moved rather than a
+comparison that quietly stopped meaning anything. The fix shape, a declared list
+checked against the closure or a closure hash with a declared ignore list, is a
+ruling and is a tracker entry.
+
+### 3. The capture-tree checker, and what a document-hash compare can and cannot see
+
+`CLAUDE.md` has said since W29 that the canonical `packages/calibration/web-captures/`
+"lives on the capture machine and is what the sheets and the demo fixture are copied
+from". That was false from W29 to W31 and nobody noticed, because nothing reads the
+tree except a person making a sheet (§5.161 §2; W31 charter Surprises). W31 made the
+copy a step in a charter. A step in a charter is not a rule.
+
+`packages/calibration/scripts/check-capture-tree.ts`, run as `pnpm --filter
+@vitrea/calibration run check-capture-tree`, walks the tree (or `VITREA_WEB_CAPTURES`),
+reads every `cell__<renderer>.json`, and compares the material profile documents the
+capture names — **the receded document included** — against those named by the row the
+working matrix holds for that profile, renderer and scene. That set of (document, hash)
+pairs is what the split names a generation by, so the check is a file walk and a string
+compare: no browser, no capture, no metric, which is what makes it runnable at every
+merge. The idiom is W31 G4's `sheets.ts` generalised — that script asserted per cell
+that a capture named the SHIPPED bytes before photographing it; this asserts per cell
+that a capture names the bytes the ROW beside it was read at, over the whole tree, and
+without assuming the two agree.
+
+**The run on today's canonical tree** (`check-capture-tree.txt`; the main checkout's
+tree, pointed at read-only and not copied, because this gate ran in a worktree and
+copying nothing is the very habit the checker exists to catch):
+
+| | |
+| --- | --- |
+| captures found | **1,840** |
+| match | **1,833** — every row the tree covers |
+| mismatch | **0** |
+| superseded | **0** |
+| unreadable | **0** |
+| captures with no row | **7** |
+| rows with no capture | **0** |
+| exit code | **0**, and **0** again with `--superseded-ok` |
+
+All twelve profiles carry exactly one generation in the working matrix, which the
+report prints per profile and per renderer and which the unit suite asserts over the
+committed file — a second generation there would make every comparison ambiguous
+without saying so. The seven captures with no row are `dark-solid__rrect-48__rest`,
+`checkerboard-64__rrect-sm__rest` (probe scenes) and `hc-text__capsule-button__rest`
+(holdout), all on macOS 26.5 keys, at profiles whose row the working matrix does not
+hold. The bed is ragged on purpose — a probe scene is read at some profiles and not
+others, and the contour instrument's refusals dropped rows whose captures remain — so
+a capture without a row is evidence of a read that happened rather than of a
+generation that drifted, and it is reported without failing.
+
+*Beside §3 (2026-09-21, the review closure, NB3; §8 below).* **The checker is not
+wired into** `pnpm -r test`, *and "runnable at every merge" above is a statement
+about its cost, not about anything that runs it.* **It is run by the parent** *— at
+every merge, and as the charter's G1 clause 5 names it inside the read — and it is
+not yet a step of any committed* `chain.sh`; *G2's, copied from W31 G4's, is where it
+becomes one. Wiring it into the unit suite was considered and* **declined**: *the
+canonical tree lives on the capture machine, a gate mid-read leaves it at a
+generation the split has not recorded yet, and* `--superseded-ok` *demotes only
+generations already RECORDED — so the suite would go red on the one machine that
+holds the tree, for the duration of every read, with no flag that says why. A test
+somebody switches off during a read is this tool's own failure mode one level up.
+The tracker entry stays* **open on the "automatic" half**, *and carries what closing
+it would take.*
+
+### 4. What the macOS 26.5 tree reads, and why that is recorded rather than failed
+
+**Every macOS 26.5 capture MATCHES.** That is not a contradiction of W31's finding; it
+is the shape of the finding, seen for the first time from the instrument's side.
+
+The divergence W31 G0 measured is real and is unchanged: `photo__glass-over-glass__rest`
+on the two light profiles, `texture` tier, `interiorMeanWeb` **2.840e-03** and
+**2.527e-03** out, the tree's files dated 2026-09-10 and the rows measured 2026-09-11
+(§5.161 §2). But the frozen documents have not moved since W29's freeze, so that
+divergence is a **re-capture at UNMOVED document bytes**, and there is no hash for a
+string compare to disagree on. A document-hash checker cannot tell a re-capture at
+unmoved bytes from the capture the row was read off. The checker says so in its header
+rather than appearing to cover it, and the run is recorded as it reads.
+
+So the generation half of the class closes and the other half is named and narrowed:
+the only instrument that sees a re-capture at unmoved bytes is a `compare
+--skip-capture` re-derivation of the metrics off the tree's own PNGs, which is how W31
+G0 found those two cells in the first place. That is minutes of CPU rather than a file
+walk and it is a different tool. It is now the tracker entry.
+
+**The verdicts are deliberately not all one colour**, and each shape is a unit case.
+An **absent tree** exits 0 with one line, because the tree is gitignored and lives on
+the capture machine, and a checker that fails on every other machine is one somebody
+disables — after which the rule is gone again. A capture whose every hash is in
+`results/superseded/index.json` is stale **by choice** and nameable (a gate mid-read,
+or a sheet of a superseded generation made on purpose), and `--superseded-ok` demotes
+it to a warning; half-recorded is not recorded, so a generation whose active hash the
+index knows and whose receded hash it does not is a plain mismatch even under the flag.
+A generation nothing recorded is stale **by accident** and is never anything but a
+failure — that difference is the whole reason the flag exists rather than a blanket
+tolerance. A mismatch under a macOS 26.5 key exits **2** rather than 1: those rows may
+not be re-read under X1, so it is a fact about the tree on this machine and not a fault
+a gate can clear, and giving it the live exit code would make a merge gate un-passable
+for a reason nobody is allowed to fix. A **live** mismatch exits 1 and outranks it.
+A capture with no provenance at all, or one whose `sceneId` or `renderer` disagrees with
+the directory it sits in, is refused rather than compared — a tree is assembled by
+copying, and the directory name is what everything downstream keys on.
+
+Eight vitest cases over scratch trees carry all of it (`test/w32-capture-tree.test.ts`),
+including the charter's three shapes in one tree — one matching, one mismatching, one
+row whose capture is absent — and the committed matrix and index parsed through the
+real code path, so the checker's first contact with schema 5 is not a merge.
+
+### 5. `split-generation.py`'s docstring made true, and the two entries annotated beside
+
+The docstring and `index.json`'s `claimsFields` note both said of `readUnderClaims` and
+`movedUnderClaims` that "they are never the same gate", as though something checked it.
+Nothing does. `apply` enforces that **both are given** — it refuses without either
+flag, so neither can be defaulted or inherited from a previous run — and nothing more.
+Stating a rule beside a tool is not the same as the tool holding it, and the difference
+showed: three entries were written with the two equal, one (`e2fa07589d99.json`)
+corrected by hand as it was written and two committed as evidence.
+
+The docstring now says what the script enforces and says plainly what it does not,
+names the two entries, and records that the refusal (absolute, since the rule says a
+gate that reads and supersedes in one run does not happen) is a **behaviour change**
+belonging to a gate that runs a split — this gate runs none, and a refusal first
+exercised on a real split is a refusal nobody has run. It also names where the same
+sentence survives: the script's own `claimsFields` literal, which `apply` writes into
+`index.json` verbatim on every run, so whoever adds the refusal moves the literal and
+the committed index together or the next split puts the claim back.
+
+`880ab1e31450.json` and `d0c389d70456.json` each gain a `$comment` beside their
+recorded fields: the rows were READ by W30 G3b under §5.159b — the capture timestamps
+beside them, 2026-09-20T11:26 and 11:30Z, are that gate's — and moved here by W31 G3
+under §5.164. **Nothing recorded is rewritten**; the diff is exactly two insertions.
+The index round-trips through `json.dumps(indent=2)` byte-identically, which is how the
+annotation went in without re-encoding the rest: the committed index is ASCII-escaped
+while the script now writes `ensure_ascii=False`, so a re-emit would have shown every
+line as touched, which is the byte-churn note on the same tracker entry.
+
+`split-generation.py readme` was run after the annotation and is a **no-op**: the table
+is generated from the index's recorded fields and reads no `$comment`, so README.md is
+not rewritten and the diff is empty. `plan` reports **1,833 total, 1,833 retained, 0
+moved** — the tool's behaviour is unchanged.
+
+### 6. Verification
+
+| step | result |
+| --- | --- |
+| `python3 results/2026-09-16-w29-freeze/freeze.py verify` | **26.5 freeze intact: 1,818 entries**, at this gate's open (on the clean main checkout at `7ea00b2f`, whose `results/matrix.json` is byte-identical to the worktree's, sha256 `48fcd7abd82e…`) and at its close |
+| `pnpm -r build` | exit 0 |
+| `pnpm -r lint` | exit 0 |
+| `pnpm -r test` | **2,675 unit tests over 185 files, 0 failed** — W31 G4's chain closed at 2,662 over 183, and this gate adds exactly the thirteen cases it wrote over two files (five in `w32-holdout-configuration.test.ts`, eight in `w32-capture-tree.test.ts`). No existing assertion moves. `verification.txt` carries the per-package table |
+| `pnpm --filter @vitrea/calibration run check-capture-tree` (canonical tree) | exit **0**; 1,840 captures, 1,833 match, 0 mismatch, 0 superseded, 0 unreadable |
+| the same, `VITREA_WEB_CAPTURES` at a path that does not exist | exit **0**, `no capture tree at …; skipped` |
+| `python3 results/holdout-configuration/configuration.py show` | exit 0; the four shipped documents, 14 source files, SOURCE SHA-256 `51e3c7be5395…` |
+| `python3 results/2026-09-20-w30-g1-split/split-generation.py plan` | 1,833 total, 1,833 retained, **0 moved** |
+| `python3 … split-generation.py readme` | exit 0; README.md diff **empty** |
+| `results/matrix.json`, `results/superseded/*.json` (the row files), `profiles/`, the goldens, the native fixtures, `web-captures/`, `.changeset/` | **untouched** |
+| `test/adopted-thresholds.test.ts` | **untouched** (X11) |
+| the version | **0.21.0**, published, unmoved |
+
+### 7. Three sentences elsewhere that this gate makes stale, and does not own
+
+Named rather than left to be noticed, on the rule that a file which merely mentions
+an artefact is the one whose mention goes stale, because nothing executes a comment
+(§5.163 §5).
+
+1. **`CLAUDE.md`'s Calibration paragraph**: *"Nothing yet checks the tree against the
+   matrix automatically; that is a tracker entry."* False from this merge. The
+   checker is `pnpm --filter @vitrea/calibration run check-capture-tree`, it does
+   check exactly that, and what remains is the re-capture-at-unmoved-bytes half. The
+   charter gives `CLAUDE.md`'s Calibration paragraph to **G2** (X11 gives this gate
+   the checker and not the file), so it is G2's sentence to move, with the
+   distinction intact — a generation check is not a capture check.
+2. **W31 G3c's `canonical-read.sh` and `scratch-capture.sh`** name
+   `configuration.py` by bare filename in their comments, with no path. A G1 copy
+   inherits a correct instruction pointing at nothing in particular. **G1's clause 5
+   records to `results/holdout-configuration/configuration.py`**, which the charter
+   already says; the copied comments should say which one.
+3. **`split-generation.py`'s `claimsFields` literal** still carries "they are never
+   the same gate" and `apply` writes it into `index.json` verbatim on every run.
+   §5 says so and the tracker entry carries it; the gate that adds the refusal moves
+   the literal and the committed index together.
+
+### 8. Review closure (2026-09-21)
+
+*An independent read-only review of the merged branch found **no blocking finding**
+and seven non-blocking ones, each reproduced by the reviewer with a fabricated case.
+All seven are closed here: five by a change to a tool, two by a record. **Nothing in
+this closure is a material change, a capture or a number.** No profile document,
+leaf, constant, fixture, golden or matrix row moves, no byte under a macOS 26.5-keyed
+path changes (X1),* `adopted-thresholds.test.ts` *is untouched (X11), no browser runs,
+and the version stays* **0.21.0**. `freeze.py verify` *reads* **1,818 intact** *at this
+closure's open and close. Corrections to the sections above are written beside them,
+dated, and never over them.*
+
+| # | the finding | verified how | what closed it |
+| --- | --- | --- | --- |
+| NB1 | **The holdout refusal compared against the LAST record at those document hashes, not every record.** `record()` took `prior = same_documents[-1]` and compared its `sourceSha256`, so a read at documents D and sources A, a second at D and B with a named reason, and a third back at D and A with a reason was **admitted** — and the third is a second read of the configuration the first was taken at, which is what Decision Log 1 (b) forbids however many reads sit in between | The reviewer's three-read case, run against the committed script over the synthetic repository, admitted the third read at status 0. Re-run after the fix it is refused; mutation-checked by restoring the `[-1:]` comparison, where that case reds alone | The refusal fires when **any** record at the same documents carries today's source hash, with or without a reason, and names the **first** such read. A `--source-moved-because` on that attempt is answered rather than ignored: it admits sources this log has never carried at these documents and cannot re-open a configuration already read. Docstring and §1 corrected beside. **Inherited verbatim from W31 G3's copy**, whose `record()` differs from this one by the single `sourceListSha256` line — that copy is its gate's witness and stays byte-identical, nothing under `results/2026-09-21-w31-g3-chroma-fit/` changes. No recorded read is affected: the log's two entries are at different source hashes |
+| NB2 | **A cross-profile miscopy read as MATCH.** Only the document clauses of a `capturePath` were compared; `deviceScaleFactor=`, `colorScheme=` and `accessibility=` are on the same string and were not. A document is shared across profiles by design — all six macOS 26.5 profiles are keyed to the one light or dark document, every macOS 27 accessibility profile to the standard pair — so a 1x capture copied into the 2x directory names exactly the documents the row names and passed | The reviewer's fabricated 1x-into-2x copy, with the documents identical on both sides, was read as `match`. It is now `misfiled`, and the case asserts the two document sets are equal so the fabrication cannot drift into a plain mismatch. Mutation-checked by disabling the comparison, where the three new cases red alone | The three clauses are parsed from both strings and compared **before** the documents, as a distinct **`misfiled`** verdict carrying the disagreeing clause and the row's. Each value runs to the next `, <name>=` clause rather than to the next comma, since `accessibility=` carries spaces and parentheses. A clause the **row's** own string lacks is reported rather than passed — two strings that both say nothing about the scale agree on nothing. `misfiled` exits **1** under a frozen key as well as a live one. On the canonical tree, **misfiled 0** and every other total unchanged |
+| NB3 | **The checker is not wired into `pnpm -r test`, and §3 read as though the rule were automatic** ("runnable at every merge"; this entry's own tracker fix shape asked for a unit case) | Read against `packages/calibration/package.json` and the four committed `chain.sh` copies: the script is a `scripts` entry and appears in no suite and no chain | **Not wired in, by decision.** The canonical tree lives on the capture machine, a gate mid-read leaves it at a generation the split has not recorded yet, and `--superseded-ok` demotes only RECORDED generations — so the suite would be red on the one machine that holds the tree, for the duration of every read, with no flag saying why, and a test somebody switches off during a read is this tool's failure mode one level up. It is the **parent's** step: at every merge, and inside G1's read by clause 5; G2's `chain.sh` is where it becomes a step of the chain. Recorded beside §3 and in the tracker entry, which **stays open on the "automatic" half** with the shape that would close it (a mid-read marker the capture driver writes, which a unit case can pass on) |
+| NB4 | **The `--superseded-ok` verdict line was untrue when a demotion happened.** With `superseded ≥ 1` under the flag the run exits 0 and the closing line read "the tree and the working matrix name the same generation everywhere they meet" | The reviewer's superseded case under the flag printed that line with one demotion behind it. The case now asserts the demotion is named and that sentence is absent, and asserts the sentence is still printed with the flag on and nothing to demote | Exit 0 with demotions behind it says how many captures stand at a generation the split has RECORDED and that the flag demoted them. The exit-2 and exit-1 lines are reworded to match the classes as NB5 leaves them |
+| NB5 | **An `unreadable` capture under a frozen key exited 2.** `live` was computed over the whole failing set, so a fault anybody may clear was reported as one contract X1 forbids anyone to touch — which is how it stays in the tree | The reviewer's case: a frozen profile whose only finding is an unreadable capture, exit 2. Two assertions now cover it alone and beside a frozen generation mismatch; mutation-checked by restoring the whole-set test, where both red | The exit-2 class is exactly a `mismatch` or `superseded` finding under a macOS 26.5 key, and a run exits 2 only when **every** failing finding is one. `unreadable`, `misfiled` and `no-row` are exit 1 whatever key they sit under: X1 forbids re-READING a frozen row and says nothing about deleting a file from a gitignored tree and copying it again |
+| NB6 | **The two `$comment` annotations in `results/superseded/index.json` say "`readUnderClaims` above" and sit above it** — `$comment` is the first key of each file object, `readUnderClaims` follows it | Read at lines 34 and 112 of the committed index: in both, `$comment` precedes `readUnderClaims` | **Noted, not fixed.** The index is committed evidence and the annotation is part of it; editing it to say "below" would rewrite a record to what it should have said, which is the rule those two annotations exist to keep. The direction word is wrong and the reference is unambiguous — each object holds exactly one `readUnderClaims`. A gate that rewrites the index for a reason of its own may correct the word in the same commit |
+| NB7 | **`CLAUDE.md`'s "Nothing yet checks the tree against the matrix automatically; that is a tracker entry" is false from the merge** | Read in the Calibration paragraph of the root `CLAUDE.md` at this head; §7 item 1 above already names it | **G2 owns the sentence** — X11 gives this gate the checker and not the file, and the charter gives `CLAUDE.md`'s Calibration paragraph to G2. What the replacement must keep: **a generation check is not a capture check.** The checker compares document hashes and pose clauses, so it sees a stale GENERATION and a cross-profile miscopy; it cannot see a re-capture at unmoved document bytes, which is the macOS 26.5 defect and the open half of the tracker entry. And per NB3 it is the parent's step at every merge, not something the test suite runs |
+| NB8 | Two robustness nits: **`VITREA_WEB_CAPTURES` pointing at a file** threw an uncaught ENOTDIR out of `readdirSync`, and **a dangling symlink inside the tree** threw out of `statSync` and took the run with it | Both reproduced by the reviewer; both are now assertions in a new case | Each is an `unreadable` finding carrying the **path**, and each fails rather than skipping: an absent tree is skipped because the tree lives on the capture machine, but somebody who named a path meant to check a tree there. `walk` returns the cells beside the paths it could not read, so one bad link does not hide the rest of the tree |
+
+**Verification at this closure.**
+
+| step | result |
+| --- | --- |
+| `python3 results/2026-09-16-w29-freeze/freeze.py verify` | **26.5 freeze intact: 1818 entries**, at this closure's open and close |
+| `pnpm -r lint` | exit 0 |
+| `pnpm -r test` | **2,680 unit tests over 185 files, 0 failed** — §6's 2,675 plus exactly the five cases this closure wrote, one in `w32-holdout-configuration.test.ts` (6 from 5) and four in `w32-capture-tree.test.ts` (12 from 8). NB4's and NB5's assertions land inside existing cases and add no file. No existing assertion moves |
+| `pnpm --filter @vitrea/calibration run check-capture-tree` (the main checkout's canonical tree, read-only) | exit **0**; **1,840** captures, **1,833** match, **0** mismatch, **0 misfiled**, **0** superseded, **0** unreadable, **7** with no row, **0** rows with no capture — §3's table unchanged with the new class at zero. `check-capture-tree-closure.txt` |
+| `python3 results/holdout-configuration/configuration.py show` | exit 0; the four shipped documents at `49490eb9ff7a` / `b5714a866288` / `14c6bacf2eda` / `cc4ed1038996`, 14 source files, SOURCE SHA-256 `51e3c7be5395…`, source LIST SHA-256 `c16d6294a00c…` — every figure §1 and §2 record, unmoved. `configuration-show-closure.txt` |
+| `configuration-log.json`, `results/matrix.json`, `results/superseded/`, `profiles/`, the goldens, the native fixtures, `web-captures/`, `.changeset/` | **untouched** |
+| `test/adopted-thresholds.test.ts` | **untouched** (X11) |
+| `results/2026-09-21-w31-g3-chroma-fit/` | **untouched** — W31 G3's `configuration.py` carries NB1's defect and stays byte-identical, because it is that gate's witness |
+| the version | **0.21.0**, published, unmoved |

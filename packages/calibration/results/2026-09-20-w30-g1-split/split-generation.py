@@ -60,14 +60,38 @@ generation with the old generation's section.
 
 **Two claims sections, not one** (added 2026-09-20, W30 G3/G3b review closure; claims
 §5.159b §10, finding 8). A superseded generation has two gates: the one that READ its rows
-and the one that MOVED them here, and they are never the same gate. `--claims` is the
-mover's and is written as `movedUnderClaims`; `--read-claims` is the reader's and is
-written as `readUnderClaims` beside it. Until the closure one field carried both meanings
-and the index and the README disagreed about which — the index held the mover for four
-files and the reader for two, while the README's table held the reader throughout. The
-tool cannot derive either, so `apply` requires both and the README's table is now
-GENERATED from `index.json` by `split-generation.py readme`, between the markers in the
-file, so that the two cannot drift again.
+and the one that MOVED them here. `--claims` is the mover's and is written as
+`movedUnderClaims`; `--read-claims` is the reader's and is written as `readUnderClaims`
+beside it. Until the closure one field carried both meanings and the index and the README
+disagreed about which — the index held the mover for four files and the reader for two,
+while the README's table held the reader throughout. The tool cannot derive either, so
+`apply` requires both and the README's table is now GENERATED from `index.json` by
+`split-generation.py readme`, between the markers in the file, so that the two cannot drift
+again.
+
+**What this tool enforces about those two sections, and what it does not** (corrected
+2026-09-21, W32 G0b; claims §5.167; tracker, "Two superseded-index entries name the reading
+gate as the moving one"). It enforces that BOTH are given: `apply` refuses without
+`--claims` and without `--read-claims`, so neither field can be defaulted or inherited from
+a previous run. It does **not** check that the two differ, and until W32 G0b this docstring
+and `index.json`'s own `claimsFields` note both said "they are never the same gate" as
+though something did. Stating a rule beside a tool is not the same as the tool holding it,
+and the difference showed: three entries were written with the two equal. One,
+`e2fa07589d99.json`, was corrected by hand as it was written. Two are committed evidence
+and are not edited — `880ab1e31450.json` and `d0c389d70456.json` both read
+`c9a §5.164` where the rows were READ by W30 G3b under §5.159b — and each now carries a
+`$comment` beside its recorded fields saying so, because a recorded field is annotated and
+never rewritten.
+
+The cost is small and real: a reader tracing where a generation came from gets the mover's
+section for both halves, so the provenance chain has a gap exactly where the split exists to
+record one. The fix shape — `apply` refusing `--read-claims` equal to `--claims`, the one
+legitimate exception being a gate that reads and supersedes in a single run, which the rule
+says does not happen, so the refusal can be absolute — is a behaviour change and belongs to
+a gate that runs a split. It stays a tracker entry. **The same sentence also lives in this
+file's `claimsFields` literal, which `apply` writes into `index.json` verbatim on every
+run**, so whoever adds the refusal moves the literal and the committed index together or
+the next split puts the claim back.
 
 Rows are moved as RAW TEXT slices of the working file rather than re-serialised: a
 JSON round-trip through any other printer is not byte-exact (Python's and V8's number
