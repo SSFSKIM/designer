@@ -1,4 +1,4 @@
-import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -330,6 +330,28 @@ describe("the capture tree against the working matrix (claims §5.167)", () => {
     expect(report.findings.filter((f) => f.verdict === "no-row").map((f) => f.scene))
       .toEqual(["checkerboard-64__rrect-sm__rest"]);
     expect([...report.rowsWithoutCapture.values()].flat()).toEqual(["photo__rrect-md__inactive"]);
+  });
+
+  it("reports a tree path that is a file, and a dangling symlink inside one, with the path", () => {
+    // Review closure NB8 (claims §5.167 §8). Both threw out of the fs call and took the run
+    // with them. A tree assembled by copying is exactly where a dangling link comes from,
+    // and `VITREA_WEB_CAPTURES` at a file is a typo somebody wants told back to them — so
+    // each is reported as unreadable WITH its path, and neither is skipped like an absent
+    // tree: somebody who named a path meant to check a tree.
+    const paths = scratch([current], [current]);
+    const asFile = checkCaptureTree({ ...paths, tree: paths.matrixPath, supersededOk: false });
+    expect(asFile.treePresent).toBe(true);
+    expect(asFile.findings.map((f) => f.verdict)).toEqual(["unreadable"]);
+    expect(asFile.findings[0]?.note).toContain(paths.matrixPath);
+    expect(asFile.findings[0]?.note).toContain("is not a directory");
+    expect(asFile.exitCode).toBe(1);
+
+    symlinkSync(join(paths.tree, "nowhere"), join(paths.tree, "apple-macos-27.0-1x-dangling"));
+    const dangling = check(paths);
+    expect(dangling.findings.map((f) => f.verdict).sort()).toEqual(["match", "unreadable"]);
+    expect(dangling.findings.find((f) => f.verdict === "unreadable")?.note)
+      .toContain("apple-macos-27.0-1x-dangling");
+    expect(dangling.exitCode).toBe(1);
   });
 
   it("parses the committed matrix and superseded index, as the merge gate will", () => {

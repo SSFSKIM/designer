@@ -87,7 +87,7 @@
  *   tree does not: a partial tree is the normal state of a machine that has run one gate.
  */
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
-import { resolve } from "node:path";
+import { resolve, sep } from "node:path";
 
 const PACKAGE = resolve(import.meta.dirname, "..");
 const MATRIX = resolve(PACKAGE, "results", "matrix.json");
@@ -156,21 +156,45 @@ interface CaptureMeta {
 const cellKey = (profile: string, renderer: string, scene: string): string =>
   `${profile}\0${renderer}\0${scene}`;
 
-/** Every `<profile>/<scene>/cell__<renderer>.json` in a tree, in a stable order. */
-function walk(tree: string): { profile: string; scene: string; renderer: string; path: string }[] {
-  const found: { profile: string; scene: string; renderer: string; path: string }[] = [];
-  const dirs = (at: string): string[] =>
-    readdirSync(at).filter((name) => statSync(resolve(at, name)).isDirectory()).sort();
+interface TreeEntry {
+  readonly profile: string;
+  readonly scene: string;
+  readonly renderer: string;
+  readonly path: string;
+}
+
+/**
+ * Every `<profile>/<scene>/cell__<renderer>.json` in a tree, in a stable order, beside the
+ * paths the walk could not read at all. A dangling symlink — a tree assembled by copying
+ * one gate's captures over another's, or a `cp -s` that outlived its source — threw out of
+ * `statSync` and took the whole run with it. It is a fault in how the tree was assembled,
+ * which is this checker's subject, so it is reported with its path like any other
+ * unreadable capture rather than as a stack trace (review closure NB8; claims §5.167 §8).
+ */
+function walk(tree: string): { cells: TreeEntry[]; unreadable: { path: string; note: string }[] } {
+  const cells: TreeEntry[] = [];
+  const unreadable: { path: string; note: string }[] = [];
+  const dirs = (at: string): string[] => {
+    const out: string[] = [];
+    for (const name of readdirSync(at).sort()) {
+      try {
+        if (statSync(resolve(at, name)).isDirectory()) out.push(name);
+      } catch (error) {
+        unreadable.push({ path: resolve(at, name), note: `cannot be read: ${String(error)}` });
+      }
+    }
+    return out;
+  };
   for (const profile of dirs(tree)) {
     for (const scene of dirs(resolve(tree, profile))) {
       const sceneDir = resolve(tree, profile, scene);
       for (const file of readdirSync(sceneDir).sort()) {
         const renderer = /^cell__(.+)\.json$/.exec(file)?.[1];
-        if (renderer !== undefined) found.push({ profile, scene, renderer, path: resolve(sceneDir, file) });
+        if (renderer !== undefined) cells.push({ profile, scene, renderer, path: resolve(sceneDir, file) });
       }
     }
   }
-  return found;
+  return { cells, unreadable };
 }
 
 type Verdict = "match" | "superseded" | "mismatch" | "misfiled" | "no-row" | "unreadable";
@@ -210,6 +234,21 @@ export function checkCaptureTree(options: {
     };
   }
 
+  // A `VITREA_WEB_CAPTURES` pointing at a FILE exists and cannot be walked: `readdirSync`
+  // threw ENOTDIR out of the run. The path is what the reader needs, so it is reported as
+  // unreadable and fails, rather than skipped like an absent tree — somebody who named a
+  // path meant to check a tree (review closure NB8; claims §5.167 §8).
+  if (!statSync(options.tree).isDirectory()) {
+    return {
+      treePresent: true, tree: options.tree, rowsWithoutCapture: empty,
+      matrixGenerations: empty, exitCode: 1,
+      findings: [{
+        profile: "(the tree)", scene: "", renderer: "-", verdict: "unreadable",
+        capture: [], row: [], note: `${options.tree} is not a directory`,
+      }],
+    };
+  }
+
   const matrix = JSON.parse(readFileSync(options.matrixPath, "utf8")) as { cells: MatrixCell[] };
   const rows = new Map<string, Row>();
   const generations = new Map<string, string[][]>();
@@ -236,7 +275,15 @@ export function checkCaptureTree(options: {
 
   const findings: Finding[] = [];
   const seen = new Set<string>();
-  for (const capture of walk(options.tree)) {
+  const tree = walk(options.tree);
+  for (const entry of tree.unreadable) {
+    const [profile = "(the tree)", ...rest] = entry.path.slice(options.tree.length + 1).split(sep);
+    findings.push({
+      profile, scene: rest.join("/"), renderer: "-", verdict: "unreadable",
+      capture: [], row: [], note: `${entry.path} ${entry.note}`,
+    });
+  }
+  for (const capture of tree.cells) {
     const key = cellKey(capture.profile, capture.renderer, capture.scene);
     seen.add(key);
     let meta: CaptureMeta;
