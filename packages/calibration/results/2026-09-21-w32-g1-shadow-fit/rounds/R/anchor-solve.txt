@@ -1,0 +1,120 @@
+W32 G1 — round `R`: the objective, the anchors and the linearity
+========================================================================================================================
+  cut          results/2026-09-21-w32-g1-shadow-fit/rounds/R/exterior-cut.json
+  documents    /tmp/w32-g1-fit/R/documents/apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:00267fa5901c, /tmp/w32-g1-fit/R/documents/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:81f0f58b20b5
+  rows         386 macOS 27 rows carry the shadow axis
+  bar          0.002044 (the native-pair `shadowAffineSlopeDeltaMax` MAX over 432 cells)
+
+§1. The fit objective — per span the upper middle `T`, equal weight per span
+------------------------------------------------------------------------------------------------------------------------
+  scheme         obj            span 32         span 44         span 96        span 128   span 160 (read)
+  light      0.00480       0.00288 (18)    0.00339 (36)    0.00408 (20)    0.00885 (14)      0.00797 (14)
+  dark       0.00381       0.00168 (14)    0.00201 (26)    0.00399 (18)    0.00755 (10)      0.00659 (14)
+
+§2. `T` per bed per span — every bed the round carries, the objective's and the rest
+------------------------------------------------------------------------------------------------------------------------
+  bed                                               32            44            96           128           160
+  1x dark                                   0.00171(7)   0.00201(13)    0.00399(9)    0.00782(5)    0.00659(7)
+  1x light                                  0.00294(9)   0.00339(18)   0.00408(10)    0.00843(7)    0.00796(7)
+  1x light-increased-contrast-coupled             —(0)    0.00448(5)    0.00337(2)          —(0)          —(0)
+  1x light-reduced-transparency                   —(0)    0.00468(4)    0.00337(2)          —(0)          —(0)
+  2x dark                                   0.00168(7)   0.00199(13)    0.00385(9)    0.00738(5)    0.00627(7)
+  2x light                                  0.00288(9)   0.00337(18)   0.00413(10)    0.00889(7)    0.00797(7)
+
+§3a. The light document's anchors — the WINDOW solve (3–48 CSS px) beside the WHOLE-exterior one
+------------------------------------------------------------------------------------------------------------------------
+  regime         n      win N      win W      N/W  anchor now  wanted (win)    whole N    whole W      N/W  wanted (whole)
+  thinDark       8    0.00000    0.00000        —      0.0000             —   -0.00021   -0.00002    9.853          0.0000
+  thinMid       54    0.00030    0.00134    0.226      0.0680        0.0154    0.00068    0.00064    1.071          0.0728
+  thinBright     4    0.00066    0.00317    0.208      0.0683        0.0142    0.00167    0.00162    1.027          0.0701
+  thick96       26    0.00201    0.00351    0.573      0.1158        0.0663    0.00275    0.00277    0.992          0.1149
+  thick128      16    0.01681    0.02092    0.804      0.1827        0.1469    0.01226    0.01230    0.996          0.1820
+  thick160      14    0.05067    0.05510    0.920      0.2600        0.2391    0.04497    0.04512    0.997          0.2591
+
+§3b. The dark document's anchors — the WINDOW solve (3–48 CSS px) beside the WHOLE-exterior one
+------------------------------------------------------------------------------------------------------------------------
+  regime         n      win N      win W      N/W  anchor now  wanted (win)    whole N    whole W      N/W  wanted (whole)
+  thinDark       6    0.00000    0.00000        —      0.0000             —   -0.00001   -0.00002    0.551          0.0000
+  thinMid       40    0.00033    0.00098    0.339      0.0455        0.0154    0.00046    0.00047    0.986          0.0449
+  thick96       20    0.00303    0.00461    0.657      0.1330        0.0873    0.00370    0.00368    1.006          0.1338
+  thick128      10    0.02424    0.02793    0.868      0.2263        0.1964    0.01652    0.01653    1.000          0.2262
+  thick160      14    0.07486    0.07863    0.952      0.3409        0.3246    0.06413    0.06460    0.993          0.3384
+
+§5. The inactive pose — Decision Log 2's stand-down, read not solved
+------------------------------------------------------------------------------------------------------------------------
+  The native window departure is exactly 0.000000 on this bed (claims §5.166 §7), so
+  the ratio has a zero denominator and there is no anchor to solve. What is printed is
+  what vitrea still draws in the window, which is what the stand-down is confirmed by.
+
+  bed                                     span   n      win N      win W    whole N    whole W         T
+  1x dark                                   44   9   0.000000   0.000000   0.000919   0.000040   0.00000
+  1x dark                                   96   9   0.000000   0.000000   0.003458   0.000080   0.00000
+  1x dark                                  128   4   0.000000   0.000000   0.005520   0.000139   0.00000
+  1x dark                                  160   9   0.000000   0.000000   0.011006   0.000230   0.00000
+  1x light                                  32   2   0.000000   0.000000   0.000435   0.000001   0.00000
+  1x light                                  44  16   0.000000   0.000000   0.000839  -0.000000   0.00000
+  1x light                                  96  12   0.000000   0.000000   0.002257   0.000017   0.00000
+  1x light                                 128   4   0.000000   0.000000   0.003131  -0.000004   0.00000
+  1x light                                 160   9   0.000000   0.000000   0.005988  -0.000006   0.00000
+  1x light-increased-contrast-coupled       44   5   0.000000   0.000000   0.001057   0.000174   0.00000
+  1x light-increased-contrast-coupled       96   2   0.000000   0.000000   0.001923   0.000096   0.00000
+  1x light-reduced-transparency             44   4   0.000000   0.000000   0.000809  -0.000122   0.00000
+  1x light-reduced-transparency             96   2   0.000000   0.000000   0.001915  -0.000040   0.00000
+  2x dark                                   44   9   0.000000   0.000000   0.000436   0.000022   0.00000
+  2x dark                                   96   9   0.000000   0.000000   0.001664   0.000054   0.00000
+  2x dark                                  128   4   0.000000   0.000000   0.002528   0.000044   0.00000
+  2x dark                                  160   9   0.000000   0.000000   0.005055   0.000102   0.00000
+  2x light                                  32   2   0.000000   0.000000   0.000238   0.000001   0.00000
+  2x light                                  44  16   0.000000   0.000000   0.000419  -0.000001   0.00000
+  2x light                                  96  12   0.000000   0.000000   0.001019   0.000012   0.00000
+  2x light                                 128   4   0.000000   0.000000   0.001314  -0.000001   0.00000
+  2x light                                 160   9   0.000000   0.000000   0.002933   0.000001   0.00000
+
+§6. The per-backdrop residual — `T_dir` and the extent excess per backdrop
+------------------------------------------------------------------------------------------------------------------------
+  §5.166 §10's finding N17: Apple's ACTIVE reach on macOS 27 depends on the backdrop
+  outside the thin regime (16.0–18.5 CSS px at span 96 over twelve backdrops, 25.0–28.8
+  at 128), so a fit of one triple against a bed pooled over backdrops leaves a
+  per-backdrop residual at every span. It is REPORTED, never fitted.
+
+   span  backdrop                 n         T    ext N    ext W    W − N
+     32  checkerboard             2   0.00294     8.00    13.00     5.00
+     32  checkerboard-32          4   0.00288     8.00    13.00     5.00
+     32  checkerboard-4           4   0.00288     8.00    13.00     5.00
+     32  checkerboard-64          4   0.00433     8.00    13.00     5.00
+     32  checkerboard-8           4   0.00288     8.00    13.00     5.00
+     32  checkerboard-lc16        4   0.00239     9.00    13.00     4.00
+     32  hc-text-28               4   0.00104     6.00     9.00     3.00
+     32  hc-text-7                4   0.00279     7.00    13.00     6.00
+     32  photo                    2   0.00307     8.50    13.00     4.50
+     44  checkerboard            15   0.00337     8.00    13.00     5.00
+     44  checkerboard-32          8   0.00337     8.00    13.00     5.00
+     44  checkerboard-4           8   0.00337     8.00    13.00     5.00
+     44  checkerboard-64          8   0.00492     8.00    13.00     5.00
+     44  checkerboard-8           8   0.00337     8.00    13.00     5.00
+     44  checkerboard-lc16        4   0.00276     9.00    13.50     4.50
+     44  photo                   20   0.00344     9.00    13.00     4.00
+     96  checkerboard             6   0.00399    17.00    22.00     5.00
+     96  checkerboard-32          4   0.00398    18.00    22.50     4.50
+     96  checkerboard-4           4   0.00408    18.00    22.50     4.50
+     96  checkerboard-64          4   0.00355    18.00    22.50     4.50
+     96  checkerboard-8           4   0.00408    18.00    22.50     4.50
+     96  checkerboard-lc16        4   0.00320    19.00    25.00     6.00
+     96  hc-text-28               4   0.00423    18.00    22.50     4.50
+     96  hc-text-7                4   0.00387    17.00    22.50     5.50
+     96  photo                    8   0.00517    17.00    22.00     5.00
+    128  checkerboard             2   0.00929    26.00    30.50     4.50
+    128  checkerboard-32          4   0.00843    28.00    32.00     4.00
+    128  checkerboard-4           4   0.00885    28.00    32.00     4.00
+    128  checkerboard-64          4   0.00645    28.00    32.00     4.00
+    128  checkerboard-8           4   0.00885    28.00    32.00     4.00
+    128  checkerboard-lc16        4   0.00713    29.50    33.00     3.50
+    128  photo                    2   0.00862    27.00    30.50     3.50
+    160  checkerboard-32          4   0.00936        —        —        —
+    160  checkerboard-4           4   0.01005        —        —        —
+    160  checkerboard-64          4   0.00639        —        —        —
+    160  checkerboard-8           4   0.01005        —        —        —
+    160  checkerboard-lc16        4   0.00796        —        —        —
+    160  hc-text-28               4   0.00643        —        —        —
+    160  hc-text-7                4   0.00573        —        —        —
+
