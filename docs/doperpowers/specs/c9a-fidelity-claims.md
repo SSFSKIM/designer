@@ -32104,6 +32104,32 @@ The `0-3` native departure's per-bed medians run **0.01633–0.12821**, not
 0.024–0.128; the low end is 2x dark at span 44 and the high end 1x dark at 160.
 No verdict of this section moves.
 
+**And the recede has NEVER been an outer shadow on this bed** (added
+2026-09-21, review closure; §10, finding N16). The same census over the FROZEN
+macOS 26.5 rows — read at `--at-documents any`, because a frozen row names a
+document this generation does not ship — reads **235 of 235** non-holdout
+inactive WebGPU rows flat, the native window-restricted departure exactly
+0.000000 on every one, `falloffSigmaNative` on none, and not one admitted band
+whose native `a` is anything but exactly 1.000000 (`recede-26.5.txt` §2, §3). So
+§7's finding is about Apple's material rather than about macOS 27's version of
+it, and clause 4's zero denominator is not something the shipped documents
+caused.
+
+**What the `0-3` residue IS, read off the fixture pixels** (`recede-cross-section.txt`).
+Walking outward from the component's own rectangle on each of the four sides,
+the macOS 27 inactive capture is byte-identical to its background from **2
+device px** outward and the macOS 26.5 one from **1** — on all four sides, at
+both scales, on `rrect-md` and `rrect-lg` alike. Apple's whole receded exterior
+on macOS 27 is therefore **one device pixel**, and on macOS 26.5 it is none at
+all. That one pixel is a semi-transparent DARK STROKE and not a shadow: on the
+bottom edge of `checkerboard__rrect-lg__inactive` at 1x it reads **156 over a
+backdrop of 255** and **0–6 over a backdrop of 0**, so it is darker than both
+the backdrop and the body (188) over the light square and LIGHTER than the
+backdrop over the dark one — which a transmission cannot be. A falloff at the
+σ ≈ 17 px this bed measures on the active pose cannot be one pixel wide, and the
+`0-3` departure is that stroke averaged over a three-px ring, which is why it is
+larger on the beds whose backdrop is brighter.
+
 Vitrea draws a full receded shadow out to 48 CSS px on every one of those cells,
 with `a` running 0.887 → 0.980 across the bands, because **the receded documents
 carry their active document's anchors leaf for leaf** and `outerShadowReachPx`

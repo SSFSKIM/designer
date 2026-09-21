@@ -555,6 +555,16 @@ may strike it without touching the material.
   only three admitted bands on either count whose native `a` is not exactly 1.000000 being holdout
   `6-12` bands at span 160 reading 1.000001 with `c` = 0. The `0-3` departure's per-bed medians run
   **0.01633–0.12821**, not 0.024–0.128. No verdict moves.
+  **And it has never been a shadow** (added 2026-09-21, review closure; claims §5.166 §10, finding
+  N16): the same census over the FROZEN macOS 26.5 rows reads **235 of 235** flat, native window
+  departure 0.000000 on every one, `falloffSigmaNative` on none, and no admitted band whose native
+  `a` is anything but exactly 1.000000. Read off the fixture pixels, the macOS 27 inactive capture
+  is byte-identical to its background from **2 device px** outward and the 26.5 one from **1**, on
+  all four sides at both scales — so Apple's whole receded exterior on macOS 27 is **one device
+  pixel**, and it is a semi-transparent dark STROKE rather than a transmission: 156 over a backdrop
+  of 255 and 0–6 over a backdrop of 0, darker than both backdrop and body over the light square and
+  lighter than the backdrop over the dark one. Clause 4's zero denominator is not a property of
+  this generation's documents.
   Clause 4's "the receded documents' anchors are solved on the inactive cells" is therefore a solve
   whose target is ZERO amplitude in the 3–48 px window, not a lower alpha on the same falloff, and
   the departure ratio it is judged on has a zero denominator at every span on every bed.
